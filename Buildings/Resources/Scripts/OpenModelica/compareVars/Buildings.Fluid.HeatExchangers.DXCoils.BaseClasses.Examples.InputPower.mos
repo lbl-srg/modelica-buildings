@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "SHR.y",
+    "EIR.y",
+    "pwr.P",
+    "pwr.QSen_flow",
+    "Q_flow.y"
+  };

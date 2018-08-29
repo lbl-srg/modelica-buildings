@@ -1,0 +1,5 @@
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.TransmittedRadiation", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="TransmittedRadiation");
+createPlot(id=1, position={7, 7, 1513, 999}, y={"winTra.HDif", "winTra.HDir"}, range={0.0, 880000.0, -100.0, 700.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={7, 7, 1513, 247}, y={"winTra.QTraDif_flow[1]", "winTra.QTraDir_flow[1]"}, range={0.0, 880000.0, -50.0, 300.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={7, 7, 1513, 246}, y={"winTra.QTraDifUns_flow[1]", "winTra.QTraDirUns_flow[1]"}, range={0.0, 880000.0, -50.0, 250.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={7, 7, 1513, 247}, y={"winTra.QTraDifSha_flow[1]", "winTra.QTraDirSha_flow[1]"}, range={0.0, 880000.0, -10.0, 60.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});

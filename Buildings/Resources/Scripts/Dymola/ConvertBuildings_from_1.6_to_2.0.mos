@@ -1,0 +1,155 @@
+// Conversion script for Buildings library
+//  from: Version 1.6
+//  to:   Version 2.0
+clear
+
+convertClear();
+
+// Buildings.Airflow.Multizone.ZonalFlow_ACS
+// Buildings.Airflow.Multizone.ZonalFlow_m_flow
+// Removed parameter forceErrorControlOnFlow as it was not used.
+convertModifiers("Buildings.Airflow.Multizone.ZonalFlow_ACS",
+                 {"forceErrorControlOnFlow"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.ZonalFlow_m_flow",
+                 {"forceErrorControlOnFlow"}, fill("",0), true);
+
+// Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
+// Removed parameters dl and energyDynamics as they are no longer needed.
+convertModifiers("Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance",
+                 {"dl", "energyDynamics"}, fill("",0), true);
+
+// Buildings.Fluid.HeatExchangers.DryCoilDiscretized
+// Buildings.Fluid.HeatExchangers.WetCoilDiscretized
+// Removed parameter dl as this is no longer needed.
+convertModifiers("Buildings.Fluid.HeatExchangers.DryCoilDiscretized",
+                 {"dl"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.WetCoilDiscretized",
+                 {"dl"}, fill("",0), true);
+
+// Buildings.Fluid.HeatExchangers.DryCoilDiscretized
+// Buildings.Fluid.HeatExchangers.WetCoilDiscretized
+// Removed energyDynamics1 energyDynamics2, and ductConnectionDynamics,
+// used instead the value
+// of the parameter energyDynamics
+convertElement({"Buildings.Fluid.HeatExchangers.DryCoilDiscretized",
+                "Buildings.Fluid.HeatExchangers.WetCoilDiscretized"},
+                "energyDynamics1", "energyDynamics");
+convertModifiers("Buildings.Fluid.HeatExchangers.DryCoilDiscretized",
+                {"energyDynamics2"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.WetCoilDiscretized",
+                {"energyDynamics2"}, fill("",0), true);
+
+
+// Buildings.Fluid.HeatExchangers.DryCoilCounterFlow
+// Buildings.Fluid.HeatExchangers.WetCoilCounterFlow
+// Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister
+// Removed energyDynamics1 and energyDynamics2, used instead
+// the value of energyDynamics
+convertElement({"Buildings.Fluid.HeatExchangers.DryCoilCounterFlow",
+                "Buildings.Fluid.HeatExchangers.WetCoilCounterFlow",
+                "Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister"},
+                "energyDynamics1", "energyDynamics");
+convertModifiers("Buildings.Fluid.HeatExchangers.DryCoilCounterFlow",
+                {"energyDynamics2"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.WetCoilCounterFlow",
+                {"energyDynamics2"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister",
+                {"energyDynamics2"}, fill("",0), true);
+
+
+// Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister
+// Removed parameters steadyState_1 and steadyState_2.
+// These are not needed as the parameter energyDynamics
+// already declares whether the energy balance is steady-state
+// or dynamic.
+convertModifiers("Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister",
+                {"steadyState_1", "steadyState_2"}, fill("",0), true);
+
+
+// Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
+// Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab
+// Change
+// sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor
+// to
+// sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor
+convertClass("Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor",
+             "Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor");
+
+
+// Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+// Changed the following signals:
+// weaBus.sol.zen -> weaBus.solZen
+// weaBus.sol.dec -> weaBus.solDec
+// weaBus.sol.alt -> weaBus.solAlt
+// weaBus.sol.solHouAng -> weaBus.solHouAng
+convertElement("Buildings.BoundaryConditions.WeatherData.ReaderTMY3",
+               "weaBus.sol.zen", "weaBus.solZen");
+convertElement("Buildings.BoundaryConditions.WeatherData.ReaderTMY3",
+               "weaBus.sol.dec", "weaBus.solDec");
+convertElement("Buildings.BoundaryConditions.WeatherData.ReaderTMY3",
+               "weaBus.sol.alt", "weaBus.solAlt");
+convertElement("Buildings.BoundaryConditions.WeatherData.ReaderTMY3",
+               "weaBus.sol.solHouAng", "weaBus.solHouAng");
+
+// Renamed Buildings/Fluid/HeatExchangers/{HeaterCoolerPrescribed.mo to HeaterCooler_u.mo}
+// Renamed Buildings/Fluid/MassExchangers/{HumidifierPrescribed.mo to Humidifier_u.mo}
+convertClass("Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed",
+             "Buildings.Fluid.HeatExchangers.HeaterCooler_u");
+convertClass("Buildings.Fluid.MassExchangers.HumidifierPrescribed",
+             "Buildings.Fluid.MassExchangers.Humidifier_u");
+
+
+// Rename the pump and fan models as the new implementation requires a record.
+// See also the release notes for how to change models for the new movers.
+convertClass("Buildings.Fluid.Movers.FlowMachine_dp",
+             "Buildings.Obsolete.Fluid.Movers.FlowMachine_dp");
+convertClass("Buildings.Fluid.Movers.FlowMachine_m_flow",
+             "Buildings.Obsolete.Fluid.Movers.FlowMachine_m_flow");
+convertClass("Buildings.Fluid.Movers.FlowMachine_Nrpm",
+             "Buildings.Obsolete.Fluid.Movers.FlowMachine_Nrpm");
+convertClass("Buildings.Fluid.Movers.FlowMachine_y",
+             "Buildings.Obsolete.Fluid.Movers.FlowMachine_y");
+
+
+// Buildings.Fluid.FixedResistances.Pipe and
+// Buildings.Fluid.FixedResistances.BaseClasses.Pipe
+// Renamed res to preDro
+convertElement({"Buildings.Fluid.FixedResistances.Pipe",
+                "Buildings.Fluid.FixedResistances.BaseClasses.Pipe"},
+                "res", "preDro");
+
+// Media conversion.
+convertClass("Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated",
+             "Buildings.Media.Air");
+convertClass("Buildings.Media.ConstantPropertyLiquidWater",
+             "Buildings.Media.Water");
+
+convertClass("Buildings.Media.PerfectGases.MoistAir",
+             "Buildings.Obsolete.Media.PerfectGases.MoistAir");
+convertClass("Buildings.Media.GasesConstantDensity.MoistAirUnsaturated",
+             "Buildings.Obsolete.Media.GasesConstantDensity.MoistAirUnsaturated");
+convertClass("Buildings.Media.GasesConstantDensity.MoistAir",
+             "Buildings.Obsolete.Media.GasesConstantDensity.MoistAir");
+convertClass("Buildings.Media.GasesConstantDensity.SimpleAir",
+             "Buildings.Obsolete.Media.GasesConstantDensity.SimpleAir");
+convertClass("Buildings.Media.IdealGases.SimpleAir",
+             "Buildings.Obsolete.Media.IdealGases.SimpleAir");
+convertClass("Buildings.Media.GasesPTDecoupled.MoistAir",
+             "Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir");
+convertClass("Buildings.Media.GasesPTDecoupled.SimpleAir",
+             "Buildings.Obsolete.Media.GasesPTDecoupled.SimpleAir");
+
+// Change of material constructions
+convertModifiers("Buildings.HeatTransfer.Data.GlazingSystems.Generic",
+                 {"nLay"}, fill("",0), true);
+
+// SimulationTime
+convertClass("Buildings.Utilities.SimulationTime",
+             "Buildings.Utilities.Time.ModelTime");
+
+
+// Types for heat transfer, room model and boundary conditions
+convertClass("Buildings.HeatTransfer.Types.Azimuth",
+             "Buildings.Types.Azimuth");
+convertClass("Buildings.HeatTransfer.Types.Tilt",
+             "Buildings.Types.Tilt");

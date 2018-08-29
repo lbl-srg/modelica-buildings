@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "y",
+    "xInv",
+    "y",
+    "dy_dt",
+    "d2y_dt2"
+  };

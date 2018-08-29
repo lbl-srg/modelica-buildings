@@ -1,0 +1,9 @@
+simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Examples.DerivateCubicSpline", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="DerivateCubicSpline");
+removePlots();
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+Advanced.DefaultAutoErase = true;
+Advanced.Legend.Horizontal = true;
+createPlot(id=1, position={0, 0, 1537, 738}, y={"cubSpl.y"}, range={0.0, 1.0, -0.05, 1.05}, grid=true, filename="DerivateCubicSpline.mat", colors={{28,108,200}});

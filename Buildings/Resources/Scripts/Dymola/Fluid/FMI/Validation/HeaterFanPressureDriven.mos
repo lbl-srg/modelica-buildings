@@ -1,0 +1,11 @@
+simulateModel("Buildings.Fluid.FMI.Validation.HeaterFanPressureDriven", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="HeaterFanPressureDriven");
+createPlot(id=1, position={15, 10, 702, 652},
+ y={"hea.com.vol.T", "sou.T_in", "sin.T_in"},
+range={0.0, 1.0, 18.0, 32.0}, grid=true, filename="HeaterFanPressureDriven.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+createPlot(id=1, position={15, 10, 702, 323},
+ y={"floMac.inlet.p", "floMac.outlet.p", "hea.inlet.p", "hea.outlet.p", "sou.outlet.p", "sin.inlet.p"},
+range={0.0, 1.0, 0.975, 1.005}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}}, markers={MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None,
+MarkerStyle.None, MarkerStyle.Cross});
+createPlot(id=2, position={17, 698, 482, 336},
+y={"floMac.inlet.m_flow"},
+range={0.0, 1.0, 0.08499999999999999, 0.11499999999999999}, grid=true, filename="HeaterFanPressureDriven.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});

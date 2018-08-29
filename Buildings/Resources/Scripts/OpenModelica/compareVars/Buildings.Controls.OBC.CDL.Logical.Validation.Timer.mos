@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "booPul.y",
+    "resetTimer.y",
+    "accuTimer.y"
+  };

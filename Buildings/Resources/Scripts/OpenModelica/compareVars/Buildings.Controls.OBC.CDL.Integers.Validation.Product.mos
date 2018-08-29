@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "product.u1",
+    "product.u2",
+    "product.y"
+  };

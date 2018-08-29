@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "limPID.u_s",
+    "limPID.u_m",
+    "limPID.y",
+    "conVolFlo.y",
+    "conMasVolFra.V"
+  };

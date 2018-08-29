@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "sin1.y",
+    "TFreSet",
+    "freProTMix.yFreProInv",
+    "freProTMix.yFrePro"
+  };

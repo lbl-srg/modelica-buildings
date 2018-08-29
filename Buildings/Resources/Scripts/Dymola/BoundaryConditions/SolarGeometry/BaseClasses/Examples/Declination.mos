@@ -1,0 +1,2 @@
+simulateModel("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples.Declination", tolerance=1e-6, stopTime=3.1536e+007, method="dassl", resultFile="Declination");
+createPlot(id=1, position={7, 7, 1232, 730}, y={"decAng.decAng", "solDecNOAA.y"}, range={0.0, 370.0, -26.0, 26.0}, grid=true, filename="Declination.mat", colors={{28,108,200}, {238,46,47}});

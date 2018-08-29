@@ -1,0 +1,30 @@
+// Conversion script for Buildings library
+//  from: Version 4.0
+//  to:   Version 5.0
+clear
+
+convertClear();
+
+convertClass("Buildings.Fluid.Interfaces.PrescribedOutletState",
+             "Buildings.Fluid.Interfaces.PrescribedOutlet");
+
+
+convertClass("Buildings.Fluid.HeatExchangers.HeaterCooler_T",
+             "Buildings.Fluid.HeatExchangers.PrescribedOutlet");
+
+convertModifiers("Buildings.Fluid.HeatExchangers.HeaterCooler_T",
+                 {"m_flow_start"}, fill("", 0), true);
+convertElement("Buildings.Fluid.HeatExchangers.HeaterCooler_T",
+               "Q_flow_maxCool", "QMin_flow");
+convertElement("Buildings.Fluid.HeatExchangers.HeaterCooler_T",
+               "Q_flow_maxHeat", "QMax_flow");
+
+
+convertClass("IBPSA.Fluid.MassExchangers.Humidifier_u",
+             "IBPSA.Fluid.Humidifiers.Humidifier_u");
+
+
+convertModifiers("Buildings.Fluid.MassExchangers.Humidifier_u",
+                 {"use_T_in"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.MassExchangers.Humidifier_u",
+                 {"T"}, fill("",0), true);

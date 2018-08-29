@@ -1,0 +1,23 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="WetCoilCounterFlowMassFlow");
+createPlot(id=1,
+  position={0, 0, 1614, 872},
+  y={"hex.Q2_flow", "hex.QLat2_flow"},
+  range={0.0, 3600.0, -3000.0, 1000.0},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  erase=false,
+  grid=true,
+  filename="WetCoilCounterFlowMassFlow.mat",
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=1,
+  position={0, 0, 1614, 434},
+  y={"hex.port_a2.m_flow", "hex.port_b2.m_flow"},
+  range={0.0, 3600.0, -0.16, 0.16},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  erase=false,
+  grid=true,
+  subPlot=2,
+  colors={{28,108,200}, {238,46,47}});

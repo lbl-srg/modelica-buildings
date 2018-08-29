@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "conAir.m_flow",
+    "conAir.T",
+    "conAir.X_w",
+    "conAir.C[1]",
+    "souRev.outlet.backward.T",
+    "souRev.outlet.backward.X_w",
+    "souRev.outlet.backward.C[1]"
+  };

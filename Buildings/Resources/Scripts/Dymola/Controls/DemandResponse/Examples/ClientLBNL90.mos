@@ -1,0 +1,9 @@
+simulateModel("Buildings.Controls.DemandResponse.Examples.ClientLBNL90", tolerance=1e-6, stopTime=1.728e+06, method="Euler", fixedstepsize=900, numberOfIntervals=1920, resultFile="ClientLBNL90");
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+createPlot(id=1, position={55, 50, 755, 691},
+y={"ene.u", "clientAverage.PPre", "clientWeather.PPre"},
+range={0.0, 1800000.0, -50000.0, 300000.0}, autoscale=true, autoerase=true, autoreplot=true, description=false, grid=true, color=true, online=false, filename="ClientLBNL90.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+createPlot(id=1, position={55, 50, 755, 342},
+y={"relErrAverage.y", "relErrWeather.y"},
+range={0.0, 1800000.0, -1.0, 1.0}, autoscale=false, autoerase=true, autoreplot=true, description=false, grid=true, color=true, online=false, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});

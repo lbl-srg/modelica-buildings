@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.SolarCollectors.Validation.FlatPlateNPanels", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="ValidationFlatPlateNPanels");
+createPlot(id=1, position={210, 54, 1727, 864}, y={"solCol.vol[30].T", "solCol1.vol[30].T"}, range={0.0, 90000.0, 0.0, 100.0}, grid=true, colors={{0,0,255}, {255,0,0}});
+createPlot(id=1, position={210, 54, 1727, 213}, y={"solCol.heaGai[30].Q_flow", "solCol1.heaGai[30].Q_flow"}, range={0.0, 90000.0, -1000.0, 1000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={210, 54, 1727, 212}, y={"solCol.heaLos.QLos[30]", "solCol1.heaLos.QLos[30]"}, range={0.0, 90000.0, -200.0, 200.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={210, 54, 1727, 212}, y={"difHeaGai.y", "difHeaLos.y"}, range={0.0, 90000.0, -2.0000000000000003E-13, 2.0000000000000003E-13}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});

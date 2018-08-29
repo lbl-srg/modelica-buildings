@@ -1,0 +1,58 @@
+#######################################################
+# MAC OS X OPERATING SYSTEMS
+#######################################################
+SHELL = /bin/sh
+ARCH = $(shell getconf LONG_BIT)
+# Makefile to compile Python interface
+# Michael Wetter (MWetter@lbl.gov) February 9, 2016
+
+
+# Directory where executable will be copied to
+BINDIR = ../../Library/darwin$(ARCH)
+
+
+# Get python version, see
+# http://stackoverflow.com/questions/4933285/how-to-detemine-python-version-in-makefile
+python_version_full := $(wordlist 2,4,$(subst ., ,$(shell python --version 2>&1)))
+python_version_major := $(word 1,${python_version_full})
+python_version_minor := $(word 2,${python_version_full})
+python_version_patch := $(word 3,${python_version_full})
+
+my_cmd.python.2 := python2 some_script.py2
+my_cmd.python.3 := python3 some_script.py3
+my_cmd := ${my_cmd.python.${python_version_major}}
+
+#######################################################
+## Compilation flags
+CC = cc
+
+CC_FLAGS_64 = -Wall -m64
+
+
+SRCS = pythonInterpreter.c
+OBJS = pythonInterpreter.o
+LIB  = libModelicaBuildingsPython${python_version_major}.${python_version_minor}.dylib
+
+# Note that -fPIC is recommended on Linux according to the Modelica specification
+
+all: clean
+	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
+	$(CC) -shared -fPIC -Wl $(OBJS) -lpython -lc -o $(LIB)
+	mkdir -p $(BINDIR)
+	mv $(LIB) $(BINDIR)
+	@echo "==== library generated in $(BINDIR)"
+
+python-version:
+	@echo ${python_version_full}
+	@echo ${python_version_major}
+	@echo ${python_version_minor}
+	@echo ${python_version_patch}
+	@echo ${my_cmd}
+
+
+prg: clean
+	$(CC) -g testProgram.c $(SRCS) -lpython -o testProgram  $(CC_FLAGS_$(ARCH))
+	@rm -rf testProgram.dSYM
+
+clean:
+	rm -f $(OBJS) $(LIB) main.o main

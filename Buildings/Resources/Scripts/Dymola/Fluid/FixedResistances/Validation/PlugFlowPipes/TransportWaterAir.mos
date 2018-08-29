@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.TransportWaterAir", stopTime=1000, method="dassl", tolerance=1e-06, resultFile="TransportWaterAir");
+createPlot(id=1, position={15, 10, 802, 881}, y={"Tin.y", "senTemOutW.T", "senTemOutA.T"}, range={0.0, 1000.0, 15.0, 35.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={15, 10, 802, 291}, y={"duc.ports_b[1].Xi_outflow[1]", "XiIn[1].y"}, range={0.0, 1000.0, 0.005, 0.025}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 802, 291}, y={"duc.ports_b[1].C_outflow[1]", "CIn[1].y"}, range={0.0, 1000.0, -0.005, 0.015}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={851, 18, 592, 427}, y={"pip.v_nominal", "pip.cor.res.v", "duc.cor.res.v_nominal", "duc.cor.res.v"}, range={0.0, 0.012, 1.3, 1.7000000000000002}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

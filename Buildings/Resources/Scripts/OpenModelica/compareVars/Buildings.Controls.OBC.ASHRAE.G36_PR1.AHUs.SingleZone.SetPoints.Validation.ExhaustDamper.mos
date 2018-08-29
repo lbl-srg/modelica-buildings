@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "outDamPos.y",
+    "exhDamPos.yExhDam"
+  };

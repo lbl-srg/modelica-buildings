@@ -1,0 +1,14 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.CheckWindDirection", startTime=0, tolerance=1e-6, stopTime=8640000, method="dassl", resultFile="CheckWindDirection");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"cheWinDir.nIn","cheWinDir.nOut"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "CheckWindDirection.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

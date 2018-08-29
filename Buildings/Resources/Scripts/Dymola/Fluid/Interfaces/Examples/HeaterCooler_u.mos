@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.Interfaces.Examples.HeaterCooler_u", method="dassl", tolerance=1e-6, stopTime=3600, resultFile="InterfacesHeaterCooler_u");
+createPlot(id=1, position={15, 10, 413, 444}, y={"senTem1a.T", "senTem1b.T", "senTem2a.T", "senTem2b.T"}, range={0.0, 4000.0, 17.0, 23.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={15, 10, 413, 220}, y={"senTem3a.T", "senTem3b.T", "senTem4a.T", "senTem4b.T", "mix1.T"}, range={0.0, 4000.0, 17.0, 23.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=3, position={435, 8, 400, 447}, y={"hea1.m_flow", "hea2.m_flow"}, range={0.0, 4000.0, -0.6000000000000001, 0.6000000000000001}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={435, 8, 400, 221}, y={"hea3.m_flow", "hea4.m_flow"}, range={0.0, 4000.0, -0.6000000000000001, 0.6000000000000001}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=10, position={15, 10, 413, 444}, y={"senTem4a.T", "senTem5b.T", "senTem5a.T", "senTem6b.T"}, range={0.0, 4000.0, 17.0, 23.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=10, position={15, 10, 413, 220}, y={"senTem7a.T", "senTem7b.T", "senTem8a.T", "senTem8b.T", "mix2.T"}, range={0.0, 4000.0, 17.0, 23.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=13, position={435, 8, 400, 447}, y={"hea5.m_flow", "hea6.m_flow"}, range={0.0, 4000.0, -0.6000000000000001, 0.6000000000000001}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=13, position={435, 8, 400, 221}, y={"hea7.m_flow", "hea8.m_flow"}, range={0.0, 4000.0, -0.6000000000000001, 0.6000000000000001}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=14, position={21, 479, 592, 427}, y={"che1.y", "che2.y", "che9.y", "che10.y", "che3.y", "che4.y", "che5.y", "che6.y", "che7.y", "che8.y"}, range={0.0, 3600.0, -1.0, 1.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33},
+{244,125,35}, {102,44,145}, {28,108,200}, {238,46,47}}, patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid,
+LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid,
+LinePattern.Dash, LinePattern.Dash});

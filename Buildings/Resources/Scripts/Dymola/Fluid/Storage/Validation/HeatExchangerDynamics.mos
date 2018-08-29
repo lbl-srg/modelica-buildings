@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.Storage.Validation.HeatExchangerDynamics", tolerance=1e-6, stopTime=14400, method="dassl", resultFile="HeatExchangerDynamics");
+createPlot(id=1, position={15, 10, 763, 942}, y={"senTanDyn.port_a.m_flow"}, range={0.0, 15000.0, -0.02, 0.14}, grid=true, filename="HeatExchangerDynamics.mat", colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 763, 310}, y={"senTanDyn.T", "senTanSte.T"}, range={0.0, 15000.0, 15.0, 60.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 763, 310}, y={"tanDyn.QHex_flow", "tanSte.QHex_flow"}, range={0.0, 15000.0, -500.0, 4500.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={790, 15, 803, 938}, y={"tanDyn.vol[1].T", "tanDyn.vol[5].T", "tanDyn.vol[7].T", "tanSte.vol[1].T", "tanSte.vol[5].T", "tanSte.vol[7].T"}, range={0.0, 4.0, 19.0, 39.0}, grid=true, filename="HeatExchangerDynamics.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}, {0,0,0}, {162,29,33}});

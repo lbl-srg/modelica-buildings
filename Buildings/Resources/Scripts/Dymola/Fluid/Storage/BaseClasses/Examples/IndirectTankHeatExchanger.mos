@@ -1,0 +1,17 @@
+removePlots();
+simulateModel("Buildings.Fluid.Storage.BaseClasses.Examples.IndirectTankHeatExchanger", stopTime=15, method="dassl", tolerance=1e-6, resultFile="IndirectTankHeatExchanger");
+createPlot(id = 1,
+ position = {0, 0, 800, 400},
+ y = {"indTanHex.vol[1].T", "indTanHex.vol[2].T", "indTanHex.vol[3].T"},
+ range = {0.0, 15.5, 18.0, 50.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "IndirectTankHeatExchanger.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}});

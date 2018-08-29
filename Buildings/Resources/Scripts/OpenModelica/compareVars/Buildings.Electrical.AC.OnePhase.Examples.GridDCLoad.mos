@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "grid.P.real",
+    "grid.P.apparent",
+    "resistor.S[1]",
+    "resistor.S[2]"
+  };

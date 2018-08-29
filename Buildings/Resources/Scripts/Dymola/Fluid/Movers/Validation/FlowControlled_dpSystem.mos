@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem", stopTime=1, method="dassl", tolerance=1e-06, resultFile="FlowControlled_dpSystem");
+createPlot(id=1, position={0, 0, 965, 756}, y={"floConDp.dp_actual", "floConDpSystem.dp_actual"}, range={0.0, 1.0, -20.0, 200.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 965, 376}, y={"floConDp.m_flow", "floConDpSystem.m_flow"}, range={0.0, 1.0, -0.02, 0.14}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

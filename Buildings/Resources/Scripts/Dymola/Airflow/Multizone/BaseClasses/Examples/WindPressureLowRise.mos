@@ -1,0 +1,17 @@
+simulateModel("Buildings.Airflow.Multizone.BaseClasses.Examples.WindPressureLowRise", startTime=-2, tolerance=1e-6, stopTime=2, method="dassl", resultFile="WindPressureLowRise");
+createPlot(id = 1,
+ position = {15, 10, 694, 477},
+ x = "incAng",
+ y = {"Cp"},
+ range = {-14.0, 14.0, 1.2, -0.8},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "WindPressureLowRise.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0, 0, 255}});

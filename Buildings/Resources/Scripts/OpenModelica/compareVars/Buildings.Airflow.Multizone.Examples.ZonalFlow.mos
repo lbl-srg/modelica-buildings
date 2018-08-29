@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "rooA.T",
+    "rooB.T",
+    "rooA.Xi[1]",
+    "rooB.Xi[1]",
+    "zonFlo.port_a1.m_flow",
+    "zonFlo.port_a2.m_flow",
+    "floExc.port_a1.m_flow",
+    "floExc.port_a2.m_flow"
+  };

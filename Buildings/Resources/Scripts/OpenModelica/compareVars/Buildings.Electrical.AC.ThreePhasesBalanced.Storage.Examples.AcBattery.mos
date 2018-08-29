@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "bat_loss_acdc.SOC",
+    "bat_ideal.SOC",
+    "bat.SOC"
+  };

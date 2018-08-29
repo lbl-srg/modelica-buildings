@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "con.T[1]",
+    "con.T[2]",
+    "con.T[3]",
+    "con.T[4]",
+    "con.T[5]",
+    "con.T[6]",
+    "con.T[7]",
+    "con.T[8]"
+  };

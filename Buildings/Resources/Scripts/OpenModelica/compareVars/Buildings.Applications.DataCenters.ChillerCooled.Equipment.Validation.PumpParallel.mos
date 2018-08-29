@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "pumPar1.m_flow",
+    "pumPar2.m_flow",
+    "pumPar1.val[1].y",
+    "pumPar1.val[1].y_actual",
+    "pumPar2.val[1].y",
+    "pumPar2.val[1].y_actual"
+  };

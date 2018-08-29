@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3. Work-Arounds &#8212; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. Pre- and Post-Processing" href="prePostProcessing.html" />
+    <link rel="prev" title="2. Best Practice" href="bestPractice.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="index.html">User Guide</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.2. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bestPractice.html">2. Best Practice</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#organization-of-packages">2.1. Organization of packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#building-large-system-models">2.2. Building large system models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#thermo-fluid-systems">2.4. Thermo-fluid systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#avoiding-events">2.6. Avoiding events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.7. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#numerical-solvers">2.9. Numerical solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Work-Arounds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#avoiding-step-changes">3.1. Avoiding step changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">5. Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing">5.1. Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.2. Adding a new class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">8. Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">9. Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">10. Copyright and License</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">3. Work-Arounds</a><ul>
+<li><a class="reference internal" href="#avoiding-step-changes">3.1. Avoiding step changes</a></li>
+<li><a class="reference internal" href="#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
+<li><a class="reference internal" href="#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
+<li><a class="reference internal" href="#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
+<li><a class="reference internal" href="#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="bestPractice.html" title="Previous Chapter: 2. Best Practice"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 2. Best Practice</span>
+    </a>
+  </li>
+  <li>
+    <a href="prePostProcessing.html" title="Next Chapter: 4. Pre- and Post-Processing"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">4. Pre- and P... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+<!--
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+-->
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="work-arounds">
+<h1>3. Work-Arounds<a class="headerlink" href="#work-arounds" title="Permalink to this headline">¶</a></h1>
+<p>This section describes work-arounds that often help if there are problems during the model translation, initialization or simulation.</p>
+<div class="section" id="avoiding-step-changes">
+<h2>3.1. Avoiding step changes<a class="headerlink" href="#avoiding-step-changes" title="Permalink to this headline">¶</a></h2>
+<p>All flow machines (fans and pumps) have a boolean parameter
+<code class="docutils literal"><span class="pre">filteredSpeed</span></code>, and all actuators have a boolean parameter
+<code class="docutils literal"><span class="pre">filteredOpening</span></code>.
+If set to <code class="docutils literal"><span class="pre">true</span></code>, which is the default setting, then the control input signal is sent to
+a <a class="reference internal" href="glossary.html#term-2nd-order-low-pass-filter"><span class="xref std std-term">2nd order low pass filter</span></a> that changes a step signal to a smooth signal.
+This typically improves the robustness of the simulation.</p>
+<p>To see the effect of the filter, consider the model below
+in which <code class="docutils literal"><span class="pre">fanS</span></code> is configured with
+<code class="docutils literal"><span class="pre">filteredSpeed=false</span></code>, and <code class="docutils literal"><span class="pre">fanC</span></code> is configured with
+<code class="docutils literal"><span class="pre">filteredSpeed=true</span></code>.
+Both fans are connected to a step input signal.
+The configuration of <code class="docutils literal"><span class="pre">fanS</span></code> causes the fan speed to instantly change from 0 to 1. In large system models, this can lead to high computing time or to convergence problems. The <code class="docutils literal"><span class="pre">fanC</span></code> avoids this problem because the speed of the fan varies continuously, thereby making it easier for the solver to compute a solution. In this model, we set the parameter
+<code class="docutils literal"><span class="pre">raiseTime=30</span></code> seconds.</p>
+<div class="figure" id="id2">
+<span id="figurefilteredresponse"></span><img alt="_images/fanStepSchematics.png" src="_images/fanStepSchematics.png" />
+<p class="caption"><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Schematic diagram of fans that are configured with <code class="docutils literal"><span class="pre">filteredSpeed=false</span></code> (<code class="docutils literal"><span class="pre">fanS</span></code>) and <code class="docutils literal"><span class="pre">filteredSpeed=true</span></code> (<code class="docutils literal"><span class="pre">fanC</span></code>).</span></p>
+</div>
+<div class="figure" id="id3">
+<img alt="_images/fanStepResponse.png" src="_images/fanStepResponse.png" />
+<p class="caption"><span class="caption-number">Fig. 3.2 </span><span class="caption-text">Mass flow rate of the two fans for a step input signal at 0 seconds.</span></p>
+</div>
+<p>For fans and pumps, the dynamics introduced by the filter can be thought of as approximating
+the rotational inertia of the fan rotor and the inertia of the fluid in the duct or piping network.
+The default value is <code class="docutils literal"><span class="pre">raiseTime=30</span></code> seconds.</p>
+<p>For actuators, the raise time approximates the travel time of the valve lift.
+The default value is <code class="docutils literal"><span class="pre">raiseTime=120</span></code> seconds.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When changing <code class="docutils literal"><span class="pre">filteredSpeed</span></code> (or <code class="docutils literal"><span class="pre">filteredOpening</span></code>),
+or when changing the value of <code class="docutils literal"><span class="pre">raiseTime</span></code>, the dynamic
+response of the closed loop control changes. Therefore,
+control gains may need to be retuned to ensure satisfactory
+closed loop control performance.</p>
+</div>
+<p>For further information, see the
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers_UsersGuide.html">User&#8217;s Guide of the flow machine package</a>, and the
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html">User&#8217;s Guide of the actuator package</a>.</p>
+</div>
+<div class="section" id="breaking-algebraic-loops">
+<h2>3.2. Breaking algebraic loops<a class="headerlink" href="#breaking-algebraic-loops" title="Permalink to this headline">¶</a></h2>
+<p>In fluid flow systems, flow junctions where mass flow rates separate and mix can couple non-linear systems of equations. This leads to larger systems of coupled equations that need to be solved, which often causes larger computing time and can sometimes cause convergence problems.
+To decouple these systems of equations, in the model of a flow splitter or mixer (model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">Buildings.Fluid.FixedResistances.PressureDrop</a>), or in models for fans or pumps (such as the model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y">Buildings.Fluid.Movers.SpeedControlled_y</a>), the parameter <code class="docutils literal"><span class="pre">dynamicBalance</span></code> can be set to <code class="docutils literal"><span class="pre">true</span></code>. This adds a control volume at the fluid junction that can decouple the system of equations.</p>
+</div>
+<div class="section" id="reducing-nonlinear-equations-of-serially-connected-flow-resistances">
+<h2>3.3. Reducing nonlinear equations of serially connected flow resistances<a class="headerlink" href="#reducing-nonlinear-equations-of-serially-connected-flow-resistances" title="Permalink to this headline">¶</a></h2>
+<p>In fluid flow systems, if multiple components are connected in series,
+then computing the pressure drop due to flow friction in the
+individual components can lead to coupled nonlinear systems of equations.
+While this is no problem for small models, the iterative solution can lead to higher computing time, particularly in large models where other equations may
+be part of the residual function.</p>
+<p>For illustration, consider the simple system shown below in which the flow resistances <code class="docutils literal"><span class="pre">res1</span></code> and <code class="docutils literal"><span class="pre">res2</span></code> compute the mass flow rate as
+<span class="math">\(\dot m = k \, \sqrt{\Delta p}\)</span> if the parameter <code class="docutils literal"><span class="pre">from_dp</span></code> is set to <code class="docutils literal"><span class="pre">true</span></code>, or otherwise compute the pressure drop between their inlet and outlet as <span class="math">\(\Delta p = (\dot m / k)^2\)</span>. (Both formulations are implemented using <a class="reference internal" href="glossary.html#term-regularization"><span class="xref std std-term">regularization</span></a> near zero.)</p>
+<div class="figure" id="id4">
+<img alt="_images/resistancesSeries.png" src="_images/resistancesSeries.png" />
+<p class="caption"><span class="caption-number">Fig. 3.3 </span><span class="caption-text">Schematic diagram of two flow resistances in series that connect a source and a volume.</span></p>
+</div>
+<p>Depending on the configuration of the individual component models, simulating this system model may require the iterative solution of a nonlinear equation to compute the mass flow rate or the pressure drop.
+To avoid a nonlinear equation, use any of the measures below.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Set the parameter <code class="docutils literal"><span class="pre">res2(dp_nominal=0)</span></code>, and add the pressure drop to the parameter <code class="docutils literal"><span class="pre">dp_nominal</span></code> of the model <code class="docutils literal"><span class="pre">res1</span></code>. This will eliminate the equation that computes the flow friction in <code class="docutils literal"><span class="pre">res2</span></code>, thereby avoiding a nonlinear equation. The same applies if there are multiple components in series, such as a pre-heat coil, a heating coil and a cooling coil.</li>
+<li>Set <code class="docutils literal"><span class="pre">from_dp=false</span></code> in all components, which is the default setting. This will cause Modelica to use a function that computes the pressure drop as a function of the mass flow rate. Therefore, a code translator is likely to generate an equation that solves for the mass flow rate, and it then uses the mass flow rate to compute the pressure drop of the components that are connected in series.</li>
+</ul>
+</div></blockquote>
+<p>Control valves also allow lumping the pressure drop into the model of the valve. Consider the situation where a fixed flow resistance is in series with a control valve as shown below.</p>
+<div class="figure" id="id5">
+<img alt="_images/resistanceValveSeries.png" src="_images/resistanceValveSeries.png" />
+<p class="caption"><span class="caption-number">Fig. 3.4 </span><span class="caption-text">Schematic diagram of a fixed flow resistance and a valve in series  that connect a source and a volume.</span></p>
+</div>
+<p>Suppose the parameters are</p>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">FixedResistances</span><span class="o">.</span><span class="n">PressureDrop</span> <span class="n">res</span><span class="p">(</span>
+  <span class="kr">redeclare</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+  <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+  <span class="n">dp_nominal</span><span class="o">=</span><span class="mi">10000</span><span class="p">);</span>
+
+<span class="n">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Actuators</span><span class="o">.</span><span class="n">Valves</span><span class="o">.</span><span class="n">TwoWayLinear</span> <span class="n">val</span><span class="p">(</span>
+  <span class="kr">redeclare</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+  <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+  <span class="n">dpValve_nominal</span><span class="o">=</span><span class="mi">5000</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To avoid a nonlinear equation, the flow resistance could be deleted as shown below.</p>
+<div class="figure" id="id6">
+<img alt="_images/valveNoResistance.png" src="_images/valveNoResistance.png" />
+<p class="caption"><span class="caption-number">Fig. 3.5 </span><span class="caption-text">Schematic diagram of a valve that connects a source and a volume.</span></p>
+</div>
+<p>If the valve is configured as</p>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Actuators</span><span class="o">.</span><span class="n">Valves</span><span class="o">.</span><span class="n">TwoWayLinear</span> <span class="n">val</span><span class="p">(</span>
+  <span class="kr">redeclare</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+  <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+  <span class="n">dpValve_nominal</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+  <span class="n">dpFixed_nominal</span><span class="o">=</span><span class="mi">10000</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>then the valve will compute the composite flow coefficient
+<span class="math">\(\bar k\)</span> as</p>
+<div class="math">
+\[\bar k = \frac{1}{\sqrt{1/k_v(y) + 1/k_f}}\]</div>
+<p>where <span class="math">\(k_v(y) = \dot m(y)/\sqrt{\Delta p}\)</span> is the flow coefficient of the valve at the lift <span class="math">\(y\)</span>, and
+<span class="math">\(k_f\)</span> is equal to the ratio <code class="docutils literal"><span class="pre">m_flow_nominal/sqrt(dpFixed_nominal)</span></code>.
+The valve model then computes the pressure drop using <span class="math">\(\bar k\)</span> and the same equations as described above for the fixed resistances.
+Thus, the composite model has the same <a class="reference internal" href="glossary.html#term-valve-authority"><span class="xref std std-term">valve authority</span></a> and mass flow rate, but a nonlinear equation can be avoided.</p>
+<p>For more details, see the
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html">User&#8217;s Guide of the actuator package</a>.</p>
+</div>
+<div class="section" id="prescribed-mass-flow-rate">
+<h2>3.4. Prescribed mass flow rate<a class="headerlink" href="#prescribed-mass-flow-rate" title="Permalink to this headline">¶</a></h2>
+<p>For some system models, the mass flow rate can be prescribed by using an idealized pump or fan (model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow">Buildings.Fluid.Movers.FlowControlled_m_flow</a>) or a source element that outputs the required mass flow rate (such as the model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T">Buildings.Fluid.Sources.MassFlowSource_T</a>). Using these models avoids having to compute the intersection of the fan curve and the flow resistance. In some situations, this can lead to faster and more robust simulation.</p>
+</div>
+<div class="section" id="avoiding-overspecified-initialization-problems">
+<h2>3.5. Avoiding overspecified initialization problems<a class="headerlink" href="#avoiding-overspecified-initialization-problems" title="Permalink to this headline">¶</a></h2>
+<p>If in thermofluid flow systems, Dymola fails to translate a model with the error message:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">The</span> <span class="n">initialization</span> <span class="n">problem</span> <span class="ow">is</span> <span class="n">overspecified</span> <span class="k">for</span> <span class="n">variables</span>
+<span class="n">of</span> <span class="n">element</span> <span class="nb">type</span> <span class="n">Real</span>
+<span class="n">The</span> <span class="n">initial</span> <span class="n">equation</span>
+<span class="o">...</span>
+<span class="n">refers</span> <span class="n">to</span> <span class="n">variables</span><span class="p">,</span> <span class="n">which</span> <span class="n">are</span> <span class="nb">all</span> <span class="n">knowns</span><span class="o">.</span>
+<span class="n">To</span> <span class="n">correct</span> <span class="n">it</span> <span class="n">you</span> <span class="n">can</span> <span class="n">remove</span> <span class="n">this</span> <span class="n">equation</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>then the initialization problem is overspecified. To avoid this, set</p>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">energyDynamics</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Types</span><span class="o">.</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">DynamicsFreeInitial</span><span class="p">;</span>
+<span class="n">massDynamics</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Types</span><span class="o">.</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">DynamicsFreeInitial</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>in the instances of the components that contain fluid volumes.
+See also the section <a class="reference internal" href="bestPractice.html#referencepressureincompressiblefluids"><span class="std std-ref">Reference pressure for incompressible fluids such as water</span></a>.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

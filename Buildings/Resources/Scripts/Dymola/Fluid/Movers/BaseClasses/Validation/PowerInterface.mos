@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.Movers.BaseClasses.Validation.PowerInterface", tolerance=1e-6, stopTime=1, method="dassl", resultFile="PowerInterface");
+createPlot(id=1, position={55, 50, 592, 421}, y={"powCoo.Q_flow", "powCoo.WHyd", "powNonCoo.Q_flow", "powNonCoo.WHyd"}, range={0.0, 1.0, -500.0, 3500.0}, grid=true, filename="PowerInterface.mat", colors={{238,46,47}, {0,140,72}, {0,0,0}, {162,29,33}});

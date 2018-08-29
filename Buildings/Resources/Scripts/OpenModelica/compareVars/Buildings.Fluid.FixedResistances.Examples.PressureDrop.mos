@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "res.m_flow_nominal",
+    "res.m_flow"
+  };

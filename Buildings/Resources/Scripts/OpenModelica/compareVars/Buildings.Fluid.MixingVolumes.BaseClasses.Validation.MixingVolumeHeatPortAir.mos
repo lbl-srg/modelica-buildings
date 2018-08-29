@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "vol[1].p",
+    "vol[2].p",
+    "vol[3].p",
+    "vol[1].T",
+    "vol[2].T",
+    "vol[3].T"
+  };

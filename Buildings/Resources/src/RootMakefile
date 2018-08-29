@@ -1,0 +1,66 @@
+ME = `pwd`
+
+all:
+	@if [ "x$(DIRS)" != "x" ]; then \
+		set $(DIRS); \
+		for x do \
+		    if [ -w $$x ] ; then \
+			( cd $$x ; \
+			echo making all in $(ME)/$$x ; \
+			$(MAKE) $(MFLAGS) $(MAKEVARS) all ;\
+			) \
+		    fi ; \
+		done ; \
+	fi
+
+doc:
+	@if [ "x$(DIRS)" != "x" ]; then \
+		set $(DIRS); \
+		for x do \
+		    if [ -w $$x ] ; then \
+			( cd $$x ; \
+			echo making doc in $(ME)/$$x ; \
+			$(MAKE) $(MFLAGS) $(MAKEVARS) doc ;\
+			) \
+		    fi ; \
+		done ; \
+	fi
+
+cleandoc:
+	@if [ "x$(DIRS)" != "x" ]; then \
+		set $(DIRS); \
+		for x do \
+		    if [ -w $$x ] ; then \
+			( cd $$x ; \
+			echo making cleandoc in $(ME)/$$x ; \
+			$(MAKE) $(MFLAGS) $(MAKEVARS) cleandoc ;\
+			) \
+		    fi ; \
+		done ; \
+	fi
+clean:
+	@if [ "x$(DIRS)" != "x" ]; then \
+		set $(DIRS); \
+		for x do \
+		    if [ -w $$x ] ; then \
+			( cd $$x ; \
+			echo making all in $(ME)/$$x ; \
+			$(MAKE) $(MFLAGS) $(MAKEVARS) clean ;\
+			) \
+		    fi ; \
+		done ; \
+	fi
+
+diagnostics:
+	@echo ------ Current directory is $(ME)
+	@if [ "x$(DIRS)" != "x" ]; then \
+		set $(DIRS); \
+		for x do \
+		    if [ -w $$x ] ; then \
+			( cd $$x ; \
+			echo making diagnostics in $(ME)/$$x ; \
+			$(MAKE) $(MFLAGS) $(MAKEVARS) diagnostics ;\
+			) \
+		    fi ; \
+		done ; \
+	fi

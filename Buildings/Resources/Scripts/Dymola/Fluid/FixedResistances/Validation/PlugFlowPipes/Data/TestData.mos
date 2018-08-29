@@ -1,0 +1,14 @@
+translateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.TestData");
+simulateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.TestData", stopTime=603900, tolerance=1e-6, method="dassl", resultFile="TestData");
+createPlot(id = 1,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"combiTimeTable.y[1]"},
+ range = {0, 600, 1, 0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ color = true,
+ subPlot=1,
+ leftTitleType = 1,
+ bottomTitleType = 1);

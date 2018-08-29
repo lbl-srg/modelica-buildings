@@ -1,0 +1,11 @@
+simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.Validation.NumberOfBeams", tolerance=1e-6, stopTime=5000, method="dassl", resultFile="NumberOfBeams");
+removePlots();
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+Advanced.DefaultAutoErase = true;
+Advanced.Legend.Horizontal = true;
+createPlot(id=1, position={0, 0, 1676, 880}, y={"beaCooHea10.heaToRoo.Q_flow", "beaCooHea.heaToRoo.Q_flow"}, range={0.0, 5000.0, -15000.0, 30000.0}, grid=true, filename="NumberOfBeams.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1676, 290}, y={"pumHotWat10.dp", "pumHotWat.dp", "pumChiWat.dp", "pumChiWat10.dp"}, range={0.0, 5000.0, -12000.0, 2000.0}, grid=true, subPlot=2, colors={{238,46,47}, {28,108,200}, {0,140,72}, {180,56,148}});
+createPlot(id=1, position={0, 0, 1676, 290}, y={"pumChiWat10.m_flow", "pumChiWat.m_flow", "pumHotWat10.m_flow", "pumHotWat.m_flow"}, range={0.0, 5000.0, -0.2, 1.0000000000000002}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});

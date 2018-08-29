@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "powCoo.Q_flow",
+    "powCoo.WHyd",
+    "powNonCoo.Q_flow",
+    "powNonCoo.WHyd"
+  };

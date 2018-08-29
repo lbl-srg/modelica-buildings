@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "beaCooHea.watCoo_a.m_flow",
+    "beaCooHea.watHea_a.m_flow",
+    "beaCooHea.air_a.m_flow",
+    "beaCooHea.staWatCoo_b.T",
+    "beaCooHea.staAir_b.T",
+    "beaCooHea.staHea_b.T",
+    "beaCooHea10.staWatCoo_b.T",
+    "beaCooHea10.staAir_b.T",
+    "beaCooHea10.staHea_b.T",
+    "beaCooHea10.heaPor.T",
+    "beaCooHea10.heaPor.Q_flow",
+    "beaCooHea.heaPor.Q_flow"
+  };

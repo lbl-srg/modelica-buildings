@@ -1,0 +1,4 @@
+simulateModel("Buildings.ThermalZones.Detailed.Examples.ElectroChromicWindow", stopTime=604800, method="Cvode", tolerance=1e-6, resultFile="ExampleElectroChromicWindow");
+createPlot(id=1, position={17, 8, 592, 474}, y={"conWin.T", "weaBus.TDryBul"}, range={0.0, 650000.0, 0.0, 60.0}, grid=true, filename="ExampleElectroChromicWindow.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={17, 8, 592, 154}, y={"conWin.H"}, range={0.0, 650000.0, -200.0, 600.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={17, 8, 592, 154}, y={"conWin.y"}, range={0.0, 650000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});

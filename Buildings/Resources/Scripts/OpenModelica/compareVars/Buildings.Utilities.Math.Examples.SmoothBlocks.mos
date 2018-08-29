@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "smoMax.u1",
+    "smoMax.u2",
+    "smoMax.y",
+    "max.y",
+    "smoMax.y",
+    "max.y",
+    "smoMin.y",
+    "Min.y"
+  };

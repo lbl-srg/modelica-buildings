@@ -1,0 +1,14 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness", startTime=100000, tolerance=1e-6, stopTime=3000000, method="dassl", resultFile="SkyClearness");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"skyCle.skyCle"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "SkyClearness.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

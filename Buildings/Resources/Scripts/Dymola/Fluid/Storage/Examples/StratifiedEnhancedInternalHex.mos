@@ -1,0 +1,11 @@
+simulateModel("Buildings.Fluid.Storage.Examples.StratifiedEnhancedInternalHex", tolerance=1e-6, stopTime=1200, method="dassl", resultFile="StratifiedEnhancedInternalHex");
+createPlot(id=4, position={0, 0, 1248, 810},
+y={"tanSte.vol[1].T", "tanSte.vol[2].T", "tanSte.vol[3].T", "tanSte.vol[4].T", "tanDyn.vol[1].T", "tanDyn.vol[2].T", "tanDyn.vol[3].T", "tanDyn.vol[4].T", "tanDynSol.vol[1].T", "tanDynSol.vol[2].T", "tanDynSol.vol[3].T", "tanDynSol.vol[4].T"},
+range={0.0, 1200.0, 15.0, 80.0}, grid=true, filename="StratifiedEnhancedInternalHex.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}, {0,0,0}, {162,29,33},
+{244,125,35}, {102,44,145}, {28,108,200}, {238,46,47}, {0,140,72},
+{180,56,148}}, patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid,
+LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid,
+LinePattern.Dash, LinePattern.Dash, LinePattern.Dash, LinePattern.Dash});
+createPlot(id=4, position={0, 0, 1248, 402},
+y={"senTemSte.T", "senTemDyn.T", "senTemDynSol.T"},
+ range={0.0, 1200.0, 10.0, 90.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});

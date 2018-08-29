@@ -1,0 +1,5 @@
+simulateModel("Buildings.Examples.ScalableBenchmarks.BuildingVAV.ThermalZones.Validation.ThermalZone", stopTime=604800, method="Radau", tolerance=1e-06, resultFile="ThermalZone1");
+createPlot(id=1, position={15, 10, 590, 700}, subPlot=1, y={"thermalZone.weaBus.TDryBul"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 590, 700}, subPlot=2, y={"thermalZone.weaBus.HDirNor"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={620, 10, 590, 700}, subPlot=1, y={"thermalZone.roo.heaPorAir.T"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={620, 10, 590, 700}, subPlot=2, y={"thermalZone.roo.air.QCon_flow","thermalZone.roo.air.QLat_flow"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{28,108,200}});

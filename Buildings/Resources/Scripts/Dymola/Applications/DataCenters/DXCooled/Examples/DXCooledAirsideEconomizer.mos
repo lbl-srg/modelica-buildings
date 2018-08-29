@@ -1,0 +1,45 @@
+simulateModel("Buildings.Applications.DataCenters.DXCooled.Examples.DXCooledAirsideEconomizer", startTime=1.188e+07, stopTime=1.26e+07, tolerance=1e-06, method="cvode", resultFile="DXCooledAirsideEconomizer");
+removePlots(false);
+createPlot(id=1,
+ position={-15, 5, 592, 427},
+ y={"ecoCon.y"},
+ range={0.0, 9000.0, -1.0, 2.0},
+ grid=true,
+ filename="DXCooledAirsideEconomizer.mat",
+ colors={{28,108,200}});
+createPlot(id=1,
+ position={-15, 5, 592, 139},
+ y={"ecoCon.cooMod"},
+ range={0.0, 9000.0, -2.0, 4.0},
+ grid=true,
+ subPlot=2,
+ colors={{28,108,200}});
+createPlot(id=1,
+ position={-15, 5, 592, 140},
+ y={"dam1.y_actual", "dam2.y"},
+ range={0.0, 9000.0, -1.0, 2.0},
+ grid=true,
+ subPlot=3,
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=3,
+ position={210, 3, 623, 427},
+ y={"senTemSupAir.T", "roo.TRooAir", "weaBus.TDryBul", "weaBus.TDewPoi"},
+ range={0.0, 9000.0, -30.0, 35.0},
+ grid=true,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=4,
+ position={134, 2, 592, 427},
+ y={"varSpeDX.QSen_flow", "varSpeDX.QLat_flow"},
+ range={0.0, 9000.0, -2000.0, 1000.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4,
+ position={134, 2, 592, 139},
+ y={"varSpeDX.P"},
+ range={0.0, 9000.0, -500.0, 1000.0},
+ grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=4,
+ position={134, 2, 592, 140},
+ y={"varSpeDX.dxCoo.EIR"},
+ range={0.0, 9000.0, -0.2, 0.4},
+ grid=true,
+ subPlot=3,
+ colors={{28,108,200}});

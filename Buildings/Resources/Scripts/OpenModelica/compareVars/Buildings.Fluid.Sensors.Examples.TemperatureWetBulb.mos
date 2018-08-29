@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "senWetBul.T",
+    "sou.T_in",
+    "sou.Xi_in[1]"
+  };

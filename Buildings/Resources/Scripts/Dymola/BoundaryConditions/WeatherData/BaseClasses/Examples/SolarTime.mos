@@ -1,0 +1,26 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.SolarTime", tolerance=1e-6, stopTime=864000, numberOfIntervals=5000, method="dassl", resultFile="SolarTime");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"solTim.solTim"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "SolarTime.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 1,
+ position = {7, 7, 746, 256},
+ y = {"solTim.locTim"},
+ range = {0, 90000.0, 0.3, -0.3},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);

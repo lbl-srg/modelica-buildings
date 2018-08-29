@@ -1,0 +1,200 @@
+// Conversion script for Buildings library
+//  from: Version 3.0
+//  to:   Version 4.0
+clear
+
+convertClear();
+
+// Renaming of filteredSpeed and filteredOpening
+convertElement("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
+               "filteredSpeed", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.ThreeWayLinear",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayLinear",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayTable",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Dampers.Exponential",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Dampers.MixingBox",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Dampers.VAVBoxExponential",
+               "filteredOpening", "use_inputFilter")
+
+// Refactoring of damper
+
+convertModifiers("Buildings.Fluid.Actuators.Dampers.Exponential",
+                 {"A"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",
+                 {"A"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
+                 {"A"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.VAVBoxExponential",
+                 {"A"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential",
+                 {"A"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.Exponential",
+                 {"use_v_nominal"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",
+                 {"use_v_nominal"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
+                 {"use_v_nominal"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.VAVBoxExponential",
+                 {"use_v_nominal"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential",
+                 {"use_v_nominal"}, fill("",0), true);
+
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
+                 {"AOutMin"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",
+                 {"AOut", "AExh", "ARec"}, fill("",0), true);
+
+// Refactoring of DX coil class hierarchy
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.DoubleSpeed");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.PerformanceCurve");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Examples.MultiStage",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.MultiStage");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_I",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_I");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_II",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_II");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_III",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_III");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Examples.SingleSpeed",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.SingleSpeed");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.SpaceCooling");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Examples.VariableSpeed",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.VariableSpeed");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Validation.SingleSpeedEnergyPlus",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Validation.SingleSpeedEnergyPlus");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Validation.SingleSpeedPLREnergyPlus",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Validation.SingleSpeedPLREnergyPlus");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed");
+
+
+// Heat pumps and chillers based on Carnot efficiency
+convertModifiers({"Buildings.Fluid.Chillers.BaseClasses.Carnot"},
+                  {"effInpEva"},
+                  fill("", 0),
+                  true);
+
+convertModifiers({"Buildings.Fluid.Chillers.BaseClasses.Carnot"},
+                  {"effInpCon"},
+                  fill("", 0),
+                  true);
+
+// Pressure drop
+convertModifiers({"Buildings.Fluid.FixedResistances.FixedResistanceDpM"},
+                  {"dh"},
+                  fill("", 0),
+                  true);
+
+convertModifiers({"Buildings.Fluid.FixedResistances.FixedResistanceDpM"},
+                  {"ReC"},
+                  fill("", 0),
+                  true);
+
+convertModifiers({"Buildings.Fluid.FixedResistances.FixedResistanceDpM"},
+                  {"use_dh"},
+                  fill("", 0),
+                  true);
+
+convertClass("Buildings.Fluid.FixedResistances.FixedResistanceDpM",
+             "Buildings.Fluid.FixedResistances.PressureDrop");
+
+// Flow junction
+convertModifiers({"Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"},
+                  {"dh"},
+                  fill("", 0),
+                  true);
+
+convertModifiers({"Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"},
+                  {"ReC"},
+                  fill("", 0),
+                  true);
+
+convertModifiers({"Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"},
+                  {"use_dh"},
+                  fill("", 0),
+                  true);
+
+convertClass("Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM",
+             "Buildings.Fluid.FixedResistances.Junction");
+
+// CFD
+convertModifiers({"Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange"},
+                  {"uStart"},
+                  fill("", 0),
+                  true);
+
+convertClass("Buildings.Fluid.HeatExchangers.Boreholes",
+             "Buildings.Fluid.HeatExchangers.Ground.Boreholes")
+
+convertClass("Buildings.Rooms",
+             "Buildings.ThermalZones.Detailed");
+
+convertModifiers({"Buildings.Controls.Continuous.LimPID"},
+                  {"limitsAtInit"},
+                  fill("", 0),
+                  true);
+convertModifiers({"Buildings.Controls.Continuous.PIDHysteresis"},
+                  {"limitsAtInit"},
+                  fill("", 0),
+                  true);
+convertModifiers({"Buildings.Controls.Continuous.PIDHysteresisTimer"},
+                  {"limitsAtInit"},
+                  fill("", 0),
+                  true);
+
+convertClass("Buildings.Fluid.FMI.InletAdaptor",
+             "Buildings.Fluid.FMI.Adaptors.Inlet");
+convertClass("Buildings.Fluid.FMI.OutletAdaptor",
+             "Buildings.Fluid.FMI.Adaptors.Outlet");
+
+convertClass("Buildings.Fluid.FMI.TwoPort",
+             "Buildings.Fluid.FMI.ExportContainers.PartialTwoPort");
+convertClass("Buildings.Fluid.FMI.TwoPortComponent",
+             "Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort");
+
+convertElement("Buildings.Controls.SetPoints.Table",
+               "nCol",
+               "nRow");
+
+convertElement("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency",
+               "eta",
+               "r_P");
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency",
+             "Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower");
+
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters",
+             "Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan");

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "max1.u1",
+    "max1.u2",
+    "max1.y"
+  };

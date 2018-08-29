@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.AirHeater_T", stopTime=172800, method="Radau", tolerance=1e-08, numberOfIntervals=1000, resultFile="AirHeater_T");
+createPlot(id=1, position={17, 9, 946, 677},
+ y={"TSet.y", "TOut.y", "TVol.T", "THeaOut.T", "hea.TSet"},
+range={0.0, 50.0, 5.0, 35.0}, grid=true, filename="AirHeater_T.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}});
+createPlot(id=1, position={17, 9, 946, 335},
+ y={"hea.Q_flow"},
+range={0.0, 180000.0, -500.0, 2500.0}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});

@@ -1,0 +1,17 @@
+simulateModel("Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulPhi", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="TWetBul_TDryBulPhi");
+createPlot(id = 1,
+ position = {102, 64, 757, 517},
+ x = "wetBulPhi.phi",
+ y = {"wetBulPhi.TWetBul", "wetBulPhiApp.TWetBul"},
+ range = {0.0, 1.0, -1.0, 11.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "TWetBul_TDryBulPhi.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}});

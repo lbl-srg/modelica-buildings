@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "dvdp",
+    "dvdp_num",
+    "dvdT",
+    "dvdT_num"
+  };

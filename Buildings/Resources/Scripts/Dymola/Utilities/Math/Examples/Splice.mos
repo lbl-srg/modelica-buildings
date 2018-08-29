@@ -1,0 +1,17 @@
+simulateModel("Buildings.Utilities.Math.Examples.Splice",tolerance=1e-6, stopTime=2, method="dassl", resultFile="Splice");
+removePlots();
+createPlot(id = 1,
+ position = {15, 10, 481, 313},
+ y = {"splice.x", "splice.y"},
+ range = {0.0, 2.0, 1.5, -1.5},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "Splice.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}});

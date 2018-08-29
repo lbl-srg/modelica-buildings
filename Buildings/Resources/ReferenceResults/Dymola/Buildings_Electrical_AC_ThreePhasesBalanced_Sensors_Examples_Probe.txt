@@ -1,0 +1,10 @@
+last-generated=2015-05-08
+statistics-initialization={'numerical Jacobians': '0', 'nonlinear': '2, 2'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+probe_source.V=[1., 1.]
+probe_loadRL.V=[0.9956353306770324707, 0.9956353306770324707]
+probe_loadRC.V=[0.9956353306770324707, 0.9956353306770324707]
+time=[0., 1.]
+probe_loadRC.theta=[-0.0032694842666387558, -0.0032694842666387558]
+probe_source.theta=[0., 0.]
+probe_loadRL.theta=[0.0032694842666387558, 0.0032694842666387558]

@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Examples.Convector", tolerance=1e-6, stopTime=10, method="dassl", resultFile="Convector");
+createPlot(id=1, position={15, 10, 962, 768}, y={"con.TRoo"}, range={0.0, 10.0, 22.0, 28.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 962, 254}, y={"con.port_a.m_flow", "con.mAir_flow"}, range={0.0, 10.0, -0.02, 0.1}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 962, 253}, y={"con.Q_flow"}, range={0.0, 10.0, -200.0, 1200.0}, grid=true, subPlot=3, colors={{28,108,200}});

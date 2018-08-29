@@ -1,0 +1,162 @@
+// Conversion script for Buildings library
+//  from: Version 2.1
+//  to:   Version 3.0
+clear
+
+convertClear();
+
+// Changes for new window materials which are now a vector
+// to allow for electrochromic glass.
+convertModifiers("Buildings.HeatTransfer.Data.Glasses",
+                 {"tauSol=0.6"}, {"tauSol={%tauSol%}"});
+convertModifiers("Buildings.HeatTransfer.Data.Glasses",
+                 {"rhoSol_a=0.6"}, {"rhoSol_a={%rhoSol_a%}"});
+convertModifiers("Buildings.HeatTransfer.Data.Glasses",
+                 {"rhoSol_b=0.6"}, {"rhoSol_b={%rhoSol_b%}"});
+
+
+// Refactoring of base class
+convertModifiers("Buildings.Fluid.Interfaces.FourPort",
+                 {"h_outflow_a1_start",
+                  "h_outflow_b1_start",
+                  "h_outflow_a2_start",
+                  "h_outflow_b2_start"}, fill("", 0), true);
+convertClass("Buildings.Fluid.Interfaces.FourPort",
+             "Buildings.Fluid.Interfaces.PartialFourPort");
+
+convertModifiers("Buildings.Fluid.Interfaces.PartialTwoPort",
+               {"port_a_exposesState=true",
+                "port_b_exposesState=true",
+                "showDesignFlowDirection=true",
+                "port_a_exposesState=false",
+                "port_b_exposesState=false",
+                "showDesignFlowDirection=false"},
+                fill("",0));
+
+// Rename of infrared radiation
+convertElement("Buildings.BoundaryConditions.SkyTemperature.BlackBody",
+               "radHorIR",
+               "HHorIR");
+convertElement("Buildings.BoundaryConditions.WeatherData.Bus",
+               "radHorIR",
+               "HHorIR");
+
+// Refactor of conservation equation for
+// https://github.com/iea-annex60/modelica-annex60/issues/372
+convertModifiers("Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation",
+  {"sensibleOnly = true"}, fill("", 0), true);
+convertModifiers("Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation",
+  {"sensibleOnly = false"}, {"use_mWat_flow = true"}, true);
+
+
+// Refactor of Carnot chiller
+convertElement("Buildings.Fluid.Chillers.Carnot",
+               "use_eta_Carnot",
+               "use_eta_Carnot_nominal");
+
+convertElement("Buildings.Fluid.Chillers.Carnot",
+               "etaCar",
+               "etaCarnot_nominal");
+
+convertClass("Buildings.Fluid.Chillers.Carnot",
+             "Buildings.Fluid.Chillers.Carnot_y");
+
+
+// Remove dynamicBalance from Movers
+convertModifiers("Buildings.Fluid.Movers.SpeedControlled_y",
+                 {"dynamicBalance=false"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState"},
+                 true);
+convertModifiers("Buildings.Fluid.Movers.SpeedControlled_y",
+                 {"dynamicBalance=true"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial"},
+                 true);
+
+convertModifiers("Buildings.Fluid.Movers.SpeedControlled_Nrpm",
+                 {"dynamicBalance=false"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState"},
+                 true);
+convertModifiers("Buildings.Fluid.Movers.SpeedControlled_Nrpm",
+                 {"dynamicBalance=true"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial"},
+                 true);
+
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_m_flow",
+                 {"dynamicBalance=false"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState"},
+                 true);
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_m_flow",
+                 {"dynamicBalance=true"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial"},
+                 true);
+
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_dp",
+                 {"dynamicBalance=false"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState"},
+                 true);
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_dp",
+                 {"dynamicBalance=true"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial"},
+                 true);
+
+// Remove dynamicBalance from Valves and from SplitterFixedResistanceDpM
+convertModifiers({"Buildings.Fluid.BaseClasses.PartialThreeWayResistance"},
+                 {"dynamicBalance=false"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState"},
+                 true);
+convertModifiers({"Buildings.Fluid.BaseClasses.PartialThreeWayResistance"},
+                 {"dynamicBalance=true"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial"},
+                 true);
+
+// Remove r_N.start which is no longer a public variable in .Movers
+convertModifiers({"Buildings.Fluid.Movers.SpeedControlled_y",
+                  "Buildings.Fluid.Movers.SpeedControlled_Nrpm",
+                  "Buildings.Fluid.Movers.FlowControlled_m_flow",
+                  "Buildings.Fluid.Movers.FlowControlled_dp"},
+                  {"r_N.start"},
+                  fill("", 0),
+                  true);
+convertModifiers({"Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"},
+                  {"addPowerToMedium"},
+                  fill("", 0),
+                  true);
+
+
+// We remove the parameter setting below because this parameter is
+// already assigned in the performance record per.
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_dp",
+               {"use_powerCharacteristic"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_m_flow",
+               {"use_powerCharacteristic"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.SpeedControlled_Nrpm",
+               {"use_powerCharacteristic"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.SpeedControlled_y",
+               {"use_powerCharacteristic"},
+               fill("",0));
+
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_dp",
+               {"motorCooledByFluid"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_m_flow",
+               {"motorCooledByFluid"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.SpeedControlled_Nrpm",
+               {"motorCooledByFluid"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.SpeedControlled_y",
+               {"motorCooledByFluid"},
+               fill("",0));
+
+// Update data records for movers
+convertModifiers("Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm",
+                 {"N_nominal=1500"}, {"speed_rpm_nominal=%N_nominal%"});
+convertClass("Buildings.Fluid.Movers.Data.FlowControlled",
+             "Buildings.Fluid.Movers.Data.Generic");
+convertClass("Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm",
+             "Buildings.Fluid.Movers.Data.Generic");
+convertClass("Buildings.Fluid.Movers.Data.SpeedControlled_y",
+             "Buildings.Fluid.Movers.Data.Generic");

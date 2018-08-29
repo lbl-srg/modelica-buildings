@@ -1,0 +1,18 @@
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.EpsilonNTUZ", method="Euler", fixedstepsize=0.001, tolerance=1e-6, stopTime=1.0, resultFile="EpsilonNTUZ");
+createPlot(id = 1,
+ position = {31, 30, 400, 280},
+ x = "eps[1]",
+ y = {"ntu[1]", "ntu[2]", "ntu[3]", "ntu[4]", "ntu[5]", "ntu[6]"},
+ range = {0.0, 0.6, 1.6, -0.2},
+ erase = false,
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "EpsilonNTUZ.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0, 0, 255}, {255, 0, 0}, {0, 128, 0}, {255, 0, 255}, {0, 0, 0}, {0, 255, 255}});

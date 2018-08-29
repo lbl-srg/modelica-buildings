@@ -1,0 +1,14 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.InverseXRegularized", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="InverseXRegularized");
+createPlot(id=1, position={10, 7, 644, 642},
+x="x",
+y={"y", "xInv"},
+range={-1.0, 1.0, -12.0, 12.0}, grid=true, filename="InverseXRegularized.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={673, 10, 592, 639},
+y={"y"},
+range={0.0, 1.0, -3.0, 3.0}, grid=true, filename="InverseXRegularized.mat", colors={{28,108,200}});
+createPlot(id=2, position={673, 10, 592, 209},
+y={"dy_dt"},
+range={0.0, 1.0, -10.0, 20.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={673, 10, 592, 209},
+y={"d2y_dt2"},
+range={0.0, 1.0, -600.0, 600.0}, grid=true, subPlot=3, colors={{28,108,200}});

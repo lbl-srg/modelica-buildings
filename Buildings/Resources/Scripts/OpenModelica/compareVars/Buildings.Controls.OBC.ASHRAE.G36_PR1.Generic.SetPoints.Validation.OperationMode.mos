@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "opeModSel.yOpeMod",
+    "opeModSel.TUnoHeaSet",
+    "opeModSel.TUnoCooSet",
+    "opeModSel.THeaSet",
+    "opeModSel.TCooSet",
+    "opeModSel.TZon[1]"
+  };

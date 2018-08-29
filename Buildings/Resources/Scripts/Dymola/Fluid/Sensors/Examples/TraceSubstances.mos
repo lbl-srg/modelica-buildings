@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.Sensors.Examples.TraceSubstances", tolerance=1e-6, stopTime=7200, method="dassl", resultFile="TraceSubstances");
+createPlot(id=2, position={15, 29, 894, 322}, y={"masFraSou.V"}, range={0.0, 7500.0, 0.58, 0.74}, grid=true, filename="TraceSubstances.mat", colors={{0,0,255}});
+createPlot(id=4, position={83, 394, 1031, 567}, y={"vol.C[1]", "senTraSub.C", "senTraSubNoFlorRev.C"}, range={0.0, 7500.0, -0.0005, 0.0015}, grid=true, filename="TraceSubstances.mat", colors={{0,0,255}, {255,0,0}, {0,155,0}});
+createPlot(id=5, position={1127, 67, 660, 725}, y={"senPPM.ppm"}, range={0.0, 7500.0, -100.0, 900.0}, grid=true, filename="TraceSubstances.mat", colors={{28,108,200}});
+createPlot(id=5, position={1127, 67, 660, 359}, y={"masFraVol.V"}, range={0.0, 7500.0, -0.0002, 0.001}, grid=true, subPlot=2, colors={{0,0,255}});

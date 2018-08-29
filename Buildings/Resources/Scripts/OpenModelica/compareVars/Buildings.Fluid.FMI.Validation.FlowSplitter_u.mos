@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "floSpl.outlet[1].m_flow"
+  };

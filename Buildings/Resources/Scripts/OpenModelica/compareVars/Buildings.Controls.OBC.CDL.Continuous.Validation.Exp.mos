@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "Exp1.u",
+    "Exp1.y"
+  };

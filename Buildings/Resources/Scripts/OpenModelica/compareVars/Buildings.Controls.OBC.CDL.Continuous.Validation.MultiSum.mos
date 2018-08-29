@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "mulSum_1.u[1]",
+    "mulSum_1.y",
+    "mulSum_2.u[1]",
+    "mulSum_2.u[2]",
+    "mulSum_2.y",
+    "mulSum_5.u[1]",
+    "mulSum_5.u[2]",
+    "mulSum_5.u[3]",
+    "mulSum_5.u[4]",
+    "mulSum_5.u[5]",
+    "mulSum_5.y"
+  };

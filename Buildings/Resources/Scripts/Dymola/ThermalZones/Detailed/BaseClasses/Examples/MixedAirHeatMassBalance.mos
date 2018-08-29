@@ -1,0 +1,7 @@
+simulateModel("Buildings.ThermalZones.Detailed.BaseClasses.Examples.MixedAirHeatMassBalance", tolerance=1e-6, stopTime=3600, method="Cvode", resultFile="MixedAirHeatMassBalance");
+createPlot(id=1, position={55, 50, 482, 336},
+  y={"air.vol.T"},
+range={0.0, 4000.0, 16.0, 24.0}, grid=true, filename="MixedAirHeatMassBalance.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={55, 50, 482, 165},
+  y={"air.vol.Xi[1]"},
+range={0.0, 4000.0, 0.008, 0.012}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});

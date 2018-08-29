@@ -1,0 +1,10 @@
+simulateModel("Buildings.Utilities.Psychrometrics.Functions.Examples.phi_pTX", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="phi_pTX");
+createPlot(id=1, position={15, 10, 536, 478},
+ y={"T"},
+range={0.0, 1.0, 18.0, 26.0}, grid=true, filename="phi_pTX.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={15, 10, 536, 156},
+ y={"X_w"},
+range={0.0, 1.0, -0.005, 0.015}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={15, 10, 536, 155},
+ y={"phi"},
+range={0.0, 1.0, -0.5, 1.0}, grid=true, subPlot=3, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});

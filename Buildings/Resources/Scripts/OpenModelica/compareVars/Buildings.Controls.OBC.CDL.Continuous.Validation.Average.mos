@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "avg1.u1",
+    "avg1.u2",
+    "avg1.y"
+  };

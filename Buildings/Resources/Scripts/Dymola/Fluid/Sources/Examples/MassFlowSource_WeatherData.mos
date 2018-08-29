@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.Sources.Examples.MassFlowSource_WeatherData", tolerance=1e-6, stopTime=3.1536e+07, method="dassl", resultFile="MassFlowSource_WeatherData");
+createPlot(id = 1, position = {15, 10, 700, 650}, y = {"senTem.T"}, range = {0, 32000000.0, 40.0, -40.0}, autoscale = true, autoerase = true, autoreplot = true, grid = true, color = true, subPlot = 1, leftTitleType = 1, bottomTitleType = 1);
+createPlot(id = 1, position = {15, 10, 700, 650}, y = {"senRelHum.phi"}, range = {0, 32000000.0, 1.5, 0}, autoscale = true, autoerase = true, autoreplot = true, grid = true, color = true, subPlot = 2, leftTitleType = 1, bottomTitleType = 1);
+createPlot(id = 1, position = {15, 10, 700, 650}, y = {"senMasFra.X"}, range = {0, 32000000.0, 0.02, -0.01}, autoscale = true, autoerase = true, autoreplot = true, grid = true, color = true, subPlot = 3, leftTitleType = 1, bottomTitleType = 1);
+createPlot(id = 1, position = {15, 10, 700, 650}, y = {"sin_with_h.medium.h"}, range = {0, 32000000.0, 1.5, 0}, autoscale = true, autoerase = true, autoreplot = true, grid = true, color = true, subPlot = 4, leftTitleType = 1, bottomTitleType = 1);

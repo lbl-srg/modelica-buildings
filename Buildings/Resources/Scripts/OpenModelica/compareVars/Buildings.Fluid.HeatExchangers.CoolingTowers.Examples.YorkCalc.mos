@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "tow.sta_a.T",
+    "tow.sta_b.T",
+    "tow.TAir",
+    "tow.FRAir",
+    "tow.FRWat",
+    "tow.TApp_nominal",
+    "tow.TAppAct",
+    "tow.TRan",
+    "conFan.u_s",
+    "conFan.u_m",
+    "onOffController.u",
+    "onOffController.reference"
+  };

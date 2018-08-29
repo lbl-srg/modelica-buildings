@@ -1,0 +1,17 @@
+simulateModel("Buildings.Fluid.Interfaces.Examples.Humidifier_u", method="dassl", stopTime=3600, tolerance=1e-6, resultFile="InterfacesHumidifier_u");
+createPlot(id=1, position={15, 10, 413, 444}, y={"hea1.sta_a.T", "hea1.sta_b.T", "hea2.sta_a.T", "hea2.sta_b.T"}, range={0.0, 4000.0, 15.0, 21.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={15, 10, 413, 220}, y={"hea3.sta_a.T", "hea3.sta_b.T", "hea4.sta_a.T", "hea4.sta_b.T", "mix1.T"}, range={0.0, 4000.0, 15.0, 21.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=3, position={435, 8, 400, 447}, y={"hea1.m_flow", "hea2.m_flow"}, range={0.0, 4000.0, -0.6000000000000001, 0.8}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={435, 8, 400, 221}, y={"hea3.m_flow", "hea4.m_flow"}, range={0.0, 4000.0, -1.0, 1.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=10, position={15, 10, 413, 444}, y={"hea4.sta_a.T", "hea5.sta_b.T", "hea5.sta_a.T", "hea6.sta_b.T"}, range={0.0, 4000.0, 15.0, 21.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=10, position={15, 10, 413, 220}, y={"hea7.sta_a.T", "hea7.sta_b.T", "hea8.sta_a.T", "hea8.sta_b.T", "mix2.T"}, range={0.0, 4000.0, 15.0, 21.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=13, position={435, 8, 400, 447}, y={"hea5.m_flow", "hea6.m_flow"}, range={0.0, 4000.0, -0.6000000000000001, 0.8}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=13, position={435, 8, 400, 221}, y={"hea7.m_flow", "hea8.m_flow"}, range={0.0, 4000.0, -1.0, 1.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=14, position={15, 491, 592, 427}, y={"che1.y", "che2.y", "che3.y", "che4.y", "che5.y", "che6.y", "che7.y", "che8.y", "che9.y", "che10.y", "che11.y", "che12.y", "che13.y", "che14.y", "che15.y", "che16.y", "che17.y", "che18.y", "che19.y", "che20.y"}, range={0.0, 3600.0, -0.05, 0.05}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33},
+{244,125,35}, {102,44,145}, {28,108,200}, {238,46,47}, {0,140,72},
+{217,67,180}, {0,0,0}, {162,29,33}, {244,125,35}, {102,44,145}, {28,108,200},
+{238,46,47}, {0,140,72}, {217,67,180}}, patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid,
+LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid,
+LinePattern.Dash, LinePattern.Dash, LinePattern.Dash, LinePattern.Dash,
+LinePattern.Dash, LinePattern.Dash, LinePattern.Dash, LinePattern.Dash,
+LinePattern.Dot, LinePattern.Dot, LinePattern.Dot, LinePattern.Dot});

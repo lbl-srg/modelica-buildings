@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "evaSho.m",
+    "evaNor.m",
+    "evaSho.mEva_flow",
+    "evaNor.mEva_flow",
+    "intSho.y",
+    "intNor.y"
+  };

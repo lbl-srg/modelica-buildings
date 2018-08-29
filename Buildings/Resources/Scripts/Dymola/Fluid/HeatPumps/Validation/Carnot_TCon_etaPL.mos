@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_etaPL", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="HeatPump_Carnot_TCon_etaPL");
+createPlot(id=2, position={75, 70, 1210, 980}, y={"heaPum.sta_a1.T", "heaPum.sta_b1.T", "heaPum.sta_a2.T", "heaPum.sta_b2.T", "heaPum.TSet"}, range={0.0, 3600.0, 0.0, 40.0}, grid=true, filename="HeatPump_Carnot_TCon_etaPL.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}, {0,0,0}});
+createPlot(id=2, position={75, 70, 1210, 191}, y={"heaPum.QEva_flow", "heaPum.QCon_flow", "heaPum.P"}, range={0.0, 3600.0, -150000.0, 150000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={75, 70, 1210, 192}, y={"heaPum.dp1", "heaPum.dp2"}, range={0.0, 3600.0, 1000.0, 7000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={75, 70, 1210, 191}, y={"heaPum.COP_nominal", "heaPum.COP"}, range={0.0, 3600.0, 2.0, 10.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={75, 70, 1210, 191}, y={"heaPum.etaPL"}, range={0.0, 3600.0, 0.8500000000000001, 1.05}, grid=true, subPlot=5, colors={{28,108,200}});

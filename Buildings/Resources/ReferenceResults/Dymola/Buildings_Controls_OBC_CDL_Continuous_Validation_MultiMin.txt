@@ -1,0 +1,14 @@
+last-generated=2017-09-14
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+con[3].y=[3e+00, 3e+00]
+con[5].y=[5e+00, 5e+00]
+con[1].y=[1e+00, 1e+00]
+con[4].y=[4e+00, 4e+00]
+time=[0e+00, 1e+00]
+con[2].y=[2e+00, 2e+00]
+minVal.yMin=[1e+00, 1e+00]

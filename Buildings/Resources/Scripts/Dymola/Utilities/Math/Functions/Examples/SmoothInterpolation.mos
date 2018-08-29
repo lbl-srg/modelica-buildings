@@ -1,0 +1,2 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.SmoothInterpolation", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="SmoothInterpolation");
+createPlot(id=1, position={35, 30, 631, 456}, x="x", y={"y", "yMonotone", "y2", "y2Monotone", "y1", "y1Monotone"}, range={-1.5, 7.0, -2.0, 18.0}, grid=true, filename="SmoothInterpolation.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}, {0,0,0}, {162,29,33}});

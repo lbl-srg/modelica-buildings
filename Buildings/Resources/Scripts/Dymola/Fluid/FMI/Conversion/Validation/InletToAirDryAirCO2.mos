@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.FMI.Conversion.Validation.InletToAirDryAirCO2", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="InletToAirDryAirCO2");
+createPlot(id=1, position={15, 10, 592, 504}, y={"conAir.m_flow"}, range={0.0, 1.0, 0.15000000000000002, 0.25}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 592, 121}, y={"conAir.T"}, range={0.0, 1.0, 15.0, 25.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 592, 121}, y={"conAir.C[1]"}, range={0.0, 1.0, 0.008, 0.012}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={21, 578, 588, 413}, y={"souRev.outlet.backward.T"}, range={0.0, 1.0, 8.0, 12.0}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={21, 578, 588, 134}, y={"souRev.outlet.backward.C[1]"}, range={0.0, 1.0, 0.7000000000000001, 0.9000000000000001}, grid=true, subPlot=2, colors={{28,108,200}});

@@ -1,0 +1,16 @@
+simulateModel("Buildings.Fluid.Sensors.Examples.Velocity", tolerance=1e-6, stopTime=60, method="dassl", resultFile="Velocity");
+createPlot(id = 1,
+ position = {15, 10, 414, 292},
+ y = {"senDyn.port_a.m_flow", "senDyn.v", "senSteSta.v"},
+ range = {0.0, 65.0, -15.0, 15.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "Velocity.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}});

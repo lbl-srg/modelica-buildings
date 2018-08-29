@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "conPCM.T[1]",
+    "conPCM.T[2]",
+    "conPCM.T[3]",
+    "conPCM.T[4]",
+    "con1.T[1]",
+    "con1.T[2]",
+    "con2.T[1]",
+    "con2.T[2]",
+    "conPCM2.T[1]",
+    "conPCM2.T[2]",
+    "conPCM2.T[3]",
+    "conPCM2.T[4]",
+    "cheEqu.y"
+  };

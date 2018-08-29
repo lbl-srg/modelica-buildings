@@ -1,0 +1,4 @@
+simulateModel("Buildings.ThermalZones.Detailed.Validation.LBNL_71T.RoomB.ElectroChromicWindow", stopTime=604800, method="Cvode", tolerance=1e-6, resultFile="ElectroChromicWindow");
+createPlot(id=1, position={15, 10, 592, 378},
+y={"roo.conExtWin[1].QAbsUns_flow[1]", "roo.conExtWin[1].QAbsUns_flow[2]"},
+range={0.0, 650000.0, -500.0, 5500.0}, grid=true, filename="ElectroChromicWindow.mat", colors={{28,108,200}, {238,46,47}});

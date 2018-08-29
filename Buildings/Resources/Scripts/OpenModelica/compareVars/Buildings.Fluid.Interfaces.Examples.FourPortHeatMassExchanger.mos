@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "fouPor.Q1_flow",
+    "fouPor.Q2_flow",
+    "fouPor.vol1.T",
+    "fouPor.vol2.T",
+    "sou2.T",
+    "sou1.T_in",
+    "sin.T"
+  };

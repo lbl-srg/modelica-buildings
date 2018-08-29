@@ -1,0 +1,20 @@
+simulateModel("Buildings.HeatTransfer.Examples.ConductorInitialization", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="ConductorInitialization");
+createPlot(id=1,
+  position={15, 10, 436, 473},
+  y={"conS1.T[1]", "conS1.T[2]", "conS1.T[3]"},
+  range={0.0, 90000.0, 11.0, 25.0},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  filename="ConductorInitialization.mat",
+  colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2,
+  position={482, 23, 721, 441},
+  y={"conS1.Q_flow[1]", "conS1.Q_flow[2]", "conS1.Q_flow[3]", "conS1.Q_flow[4]", "conS1.Q_flow[5]", "conS1.Q_flow[6]"},
+  range={0.0, 90000.0, -30.0, 110.0},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});

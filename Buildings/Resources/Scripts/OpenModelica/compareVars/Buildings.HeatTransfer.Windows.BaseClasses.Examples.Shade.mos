@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "extShaCon.TSha",
+    "TRadOut.T",
+    "TRadRoo.T",
+    "extShaCon.air.Q_flow",
+    "extShaCon.glass.Q_flow",
+    "extNonShaCon.air.Q_flow",
+    "extNonShaCon.glass.Q_flow"
+  };

@@ -1,0 +1,14 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarHourAngle", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="SolarHourAngle");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"solHouAng.solHouAng"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "SolarHourAngle.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

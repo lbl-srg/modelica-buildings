@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "fin.fraSun",
+    "fin.HDirTilUns",
+    "fin.HDirTil"
+  };

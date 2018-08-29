@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.Actuators.Valves.Examples.TwoWayValvesMotor", startTime=0, tolerance=1e-6, stopTime=600, method="dassl", resultFile="TwoWayValvesMotor");
+createPlot(id = 3,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"valLin.phi", "valQui.phi", "valEqu.phi",  "valInd.phi"},
+ range = {0, 600, 1, 0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "TwoWayValvesMotor.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

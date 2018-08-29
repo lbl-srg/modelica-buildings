@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_TemperatureProtection", stopTime=1000, method="dassl", tolerance=1e-06, resultFile="ScrollWaterToWater_TemperatureProtection");
+createPlot(id=1, position={0, 0, 1481, 924}, y={"heaPum.errNegTemDif", "heaPum.errHigPre", "heaPum.errLowPre", "heaPum.com.isOn"}, range={0.0, 1000.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1481, 306}, y={"heaPum.TEvaMin", "heaPum.eva.vol.T", "heaPum.con.T", "heaPum.TConMax"}, range={0.0, 1000.0, 270.0, 350.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={0, 0, 1481, 305}, y={"heaPum.QCon_flow"}, range={0.0, 1000.0, -5000.0, 35000.0}, grid=true, subPlot=3, colors={{28,108,200}});

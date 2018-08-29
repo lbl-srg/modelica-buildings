@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "TAirOut.T",
+    "TAirRoo.T",
+    "sha.glass[1].port_a.T",
+    "sha.glass[1].port_b.T",
+    "sha.glass[2].port_a.T",
+    "sha.glass[2].port_b.T",
+    "TAirOut.T",
+    "TAirRoo.T",
+    "nonSha.glass[1].port_a.T",
+    "nonSha.glass[1].port_b.T",
+    "nonSha.glass[2].port_a.T",
+    "nonSha.glass[2].port_b.T"
+  };

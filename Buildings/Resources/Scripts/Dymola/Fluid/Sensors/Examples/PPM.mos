@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.Sensors.Examples.PPM", tolerance=1e-6, stopTime=3, method="dassl", resultFile="PPM");
+createPlot(id=1,
+position={0, 0, 1005, 610},
+y={"senPPMTwoPort.ppm", "senPPMNoRev.ppm", "senPPMVol.ppm", "senPPMRev.ppm", "senPPMSta.ppm", "senPPMIn.ppm", "senPPMVol2.ppm"},
+range={0.0, 3.0, -500.0, 7000.0},
+grid=true,
+colors={{28,108,200}, {0,140,72}, {238,46,47}, {180,56,148}, {0,0,0}, {162,29,33}, {244,125,35}});

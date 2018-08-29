@@ -1,0 +1,6 @@
+simulateModel("Buildings.Experimental.DistrictHeatingCooling.Examples.IdealSystem3Clusters", stopTime=86400, method="radau",  tolerance=1E-06, resultFile="IdealSystem3Clusters");
+createPlot(id=1, position={55, 50, 1186, 817}, y={"pla.sta_a.T", "pla.sta_b.T"}, range={0.0, 90000.0, 0.0, 30.0}, grid=true, filename="IdealSystem3Clusters.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={55, 50, 1186, 158}, y={"pla.QCoo_flow", "pla.QHea_flow"}, range={0.0, 90000.0, -100000.0, 200000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={55, 50, 1186, 159}, y={"hea1.Q_flow", "hea2.Q_flow", "coo1.Q_flow", "coo2.Q_flow"}, range={0.0, 90000.0, -200000.0, 400000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=1, position={55, 50, 1186, 158}, y={"pla.m_flow"}, range={0.0, 90000.0, -10.0, 20.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={55, 50, 1186, 159}, y={"hea1.m_flow", "hea2.m_flow", "coo1.m_flow", "coo2.m_flow"}, range={0.0, 90000.0, 0.0, 15.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});

@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.Examples.ResistanceVolumeFlowReversal", tolerance=1e-6, stopTime=10000, method="dassl", resultFile="ResistanceVolumeFlowReversal");
+createPlot(id=1, position={15, 10, 592, 421},
+y={"res[1].m_flow", "res[2].m_flow"},
+range={0.0, 10000.0, -0.005, 0.015}, grid=true, filename="ResistanceVolumeFlowReversal.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 592, 207},
+y={"vol[1].T", "vol[2].T"},
+range={0.0, 10000.0, 19.0, 24.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

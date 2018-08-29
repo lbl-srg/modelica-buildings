@@ -1,0 +1,24 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.SmoothExponentialDerivativeCheck", startTime=-1, stopTime=1, tolerance=1E-8, method="dassl", resultFile="SmoothExponentialDerivativeCheck");
+removePlots();
+createPlot(id = 5,
+ position = {45, 33, 639, 463},
+ y = {"y_comp", "y", "ex"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "SmoothExponentialDerivativeCheck.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 5,
+ position = {45, 33, 639, 226},
+ y = {"der(y_comp)", "der(y)"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);

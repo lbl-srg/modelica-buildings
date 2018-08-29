@@ -1,0 +1,5 @@
+simulateModel("Buildings.ThermalZones.Detailed.Examples.MixedAirCO2", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="MixedAirCO2");
+createPlot(id=1, position={40, 49, 738, 756}, y={"nPer.y"}, range={0.0, 90000.0, -5.0, 15.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={40, 49, 738, 186}, y={"senCO2.ppm", "CO2Set.y"}, range={0.0, 90000.0, -200.0, 800.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={40, 49, 738, 186}, y={"conPI.y"}, range={0.0, 90000.0, -0.5, 1.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={40, 49, 738, 186}, y={"bou.ports[1].m_flow"}, range={0.0, 90000.0, 0.04, 0.1}, grid=true, subPlot=4, colors={{28,108,200}});

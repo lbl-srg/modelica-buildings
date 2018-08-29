@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "volLinSys.heatPort.Q_flow",
+    "volNonLinSys.heatPort.Q_flow",
+    "volQflow.heatPort.Q_flow",
+    "volT.heatPort.Q_flow"
+  };

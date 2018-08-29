@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User Guide &#8212; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Getting Started" href="gettingStarted.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="_static/lbl-logo.png">
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="#">User Guide</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.2. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bestPractice.html">2. Best Practice</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#organization-of-packages">2.1. Organization of packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#building-large-system-models">2.2. Building large system models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#thermo-fluid-systems">2.4. Thermo-fluid systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#avoiding-events">2.6. Avoiding events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.7. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#numerical-solvers">2.9. Numerical solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workArounds.html">3. Work-Arounds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-step-changes">3.1. Avoiding step changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">5. Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing">5.1. Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.2. Adding a new class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">8. Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">9. Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">10. Copyright and License</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">User Guide</a><ul>
+<li><a class="reference internal" href="#contents">Contents</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="gettingStarted.html" title="Next Chapter: 1. Getting Started"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">1. Getting St... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+<!--
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+-->
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="user-guide">
+<h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
+<p>This user guide provides instructions for how to use the free open-source Modelica <a class="reference external" href="http://simulationresearch.lbl.gov/modelica">Buildings</a> library.
+The user guide covers how to</p>
+<ul class="simple">
+<li>get started,</li>
+<li>follow best practices when createing models and running simulations,</li>
+<li>fix common problems in translating or simulating models,</li>
+<li>automate pre- and post-processing of model inputs and outputs,</li>
+<li>develop and contribute new models to the library, and</li>
+<li>get help.</li>
+</ul>
+<p>The following information can be found in the Modelica files rather than in this documentation:</p>
+<ul class="simple">
+<li>The physical assumptions and the equations that the models are based on.</li>
+<li>Advice as to which models may be used if multiple models may be available for similar equipment or physical phenomena.</li>
+</ul>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.2. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bestPractice.html">2. Best Practice</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#organization-of-packages">2.1. Organization of packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#building-large-system-models">2.2. Building large system models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#thermo-fluid-systems">2.4. Thermo-fluid systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bestPractice.html#overdetermined-initialization-problem-and-inconsistent-equations">2.4.1. Overdetermined initialization problem and inconsistent equations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bestPractice.html#modeling-of-fluid-junctions">2.4.2. Modeling of fluid junctions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bestPractice.html#use-of-sensors-in-fluid-flow-systems">2.4.3. Use of sensors in fluid flow systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bestPractice.html#reference-pressure-for-incompressible-fluids-such-as-water">2.4.4. Reference pressure for incompressible fluids such as water</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bestPractice.html#nominal-values">2.4.5. Nominal Values</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#avoiding-events">2.6. Avoiding events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.7. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bestPractice.html#state-events">2.8.1. State events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bestPractice.html#state-variables-that-dominate-the-error-control">2.8.2. State variables that dominate the error control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#numerical-solvers">2.9. Numerical solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workArounds.html">3. Work-Arounds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-step-changes">3.1. Avoiding step changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">5. Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing">5.1. Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.2. Adding a new class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#thermofluid-flow-device">5.2.1. Thermofluid flow device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#pressure-drop">5.2.2. Pressure drop</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">8. Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">9. Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">10. Copyright and License</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

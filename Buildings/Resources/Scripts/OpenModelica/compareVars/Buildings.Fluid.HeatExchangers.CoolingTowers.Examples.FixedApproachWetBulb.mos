@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "tow.TAir",
+    "tow.Q_flow",
+    "tow.m_flow",
+    "onOffController.u",
+    "onOffController.reference"
+  };

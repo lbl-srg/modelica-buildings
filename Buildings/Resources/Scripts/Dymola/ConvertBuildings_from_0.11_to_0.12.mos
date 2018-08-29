@@ -1,0 +1,21 @@
+// Conversion script for Buildings library
+//  from: Version 0.11.0
+//  to:   Version 0.12.0
+clear
+
+convertClear();
+
+convertClass("Buildings.HeatTransfer.ConductorMultiLayer",
+             "Buildings.HeatTransfer.Conduction.MultiLayer");
+convertClass("Buildings.HeatTransfer.ConductorSingleLayer",
+             "Buildings.HeatTransfer.Conduction.SingleLayer");
+convertClass("Buildings.Rooms.Types",
+             "Buildings.HeatTransfer.Types");
+convertClass("Buildings.HeatTransfer.InteriorConvection",
+             "Buildings.HeatTransfer.Convection.Interior");
+convertClass("Buildings.HeatTransfer.ExteriorConvection",
+             "Buildings.HeatTransfer.Convection.Exterior");
+convertClass("Buildings.HeatTransfer.ConductorSingleLayer",
+             "Buildings.HeatTransfer.Conduction.SingleLayer");
+convertClass("Buildings.HeatTransfer.ConductorMultiLayer",
+             "Buildings.HeatTransfer.Conduction.MultiLayer");

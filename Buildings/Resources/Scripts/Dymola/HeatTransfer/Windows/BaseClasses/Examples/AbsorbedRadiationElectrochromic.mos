@@ -1,0 +1,4 @@
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.AbsorbedRadiationElectrochromic", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="AbsorbedRadiationElectrochromic");
+createPlot(id=1, position={49, 90, 764, 459},
+y={"winAbs.QAbsGlaUns_flow[1, 1]", "winAbs.QAbsGlaUns_flow[1, 2]", "winAbs.QAbsGlaUns_flow[2, 1]", "winAbs.QAbsGlaUns_flow[2, 2]"},
+range={0.0, 900000.0, -50.0, 550.0}, grid=true, filename="AbsorbedRadiationElectrochromic.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});

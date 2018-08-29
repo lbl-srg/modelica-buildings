@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "chi.TSet",
+    "chi.TEvaEnt",
+    "chi.TEvaLvg",
+    "chi.TConEnt",
+    "chi.TConLvg",
+    "chi.PLR1",
+    "chi.PLR2",
+    "chi.CR",
+    "chi.COP"
+  };

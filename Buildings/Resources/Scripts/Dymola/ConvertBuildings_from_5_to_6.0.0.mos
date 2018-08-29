@@ -1,0 +1,27 @@
+Buildings// Conversion script for Buildings library
+//  from: Version 5
+//  to:   Version 6.0.0
+clear
+
+convertClear();
+
+convertModifiers("Buildings.Airflow.Multizone.MediumColumnDynamic", {"allowFlowReversal"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.MediumColumn", {"allowFlowReversal"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.EffectiveAirLeakageArea", {"allowFlowReversal"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.Orifice", {"allowFlowReversal"}, fill("",0), true);
+
+// For https://github.com/ibpsa/modelica-ibpsa/pull/954
+convertModifiers("Buildings.Airflow.Multizone.EffectiveAirLeakageArea",
+                 {"A", "CD", "lWet"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.Orifice", {"lWet"}, fill("",0), true);
+
+
+convertClass("Buildings.Utilities.Reports.Printer",
+             "Buildings.Utilities.IO.Files.Printer");
+convertClass("Buildings.Utilities.Reports.printRealArray",
+             "Buildings.Utilities.IO.Files.BaseClasses.printRealArray");
+convertClass("Buildings.Utilities.Reports.Examples.Printer",
+             "Buildings.Utilities.IO.Files.Examples.Printer");
+
+convertClass("Buildings.Controls.OBC.CDL.ExtractSignal",
+             "Buildings.Controls.OBC.CDL.RealExtractSignal");

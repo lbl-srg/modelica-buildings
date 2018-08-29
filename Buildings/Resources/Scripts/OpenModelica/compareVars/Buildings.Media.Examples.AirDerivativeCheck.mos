@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "der(hLiqSym)",
+    "der(hLiqCod)",
+    "der(hSteSym)",
+    "der(hSteCod)",
+    "der(cpSym)",
+    "der(cpCod)",
+    "der(cvSym)",
+    "der(cvCod)"
+  };

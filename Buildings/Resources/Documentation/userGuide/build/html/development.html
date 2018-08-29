@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5. Development &#8212; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="6. Help" href="help.html" />
+    <link rel="prev" title="4. Pre- and Post-Processing" href="prePostProcessing.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="index.html">User Guide</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.2. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bestPractice.html">2. Best Practice</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#organization-of-packages">2.1. Organization of packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#building-large-system-models">2.2. Building large system models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#thermo-fluid-systems">2.4. Thermo-fluid systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#avoiding-events">2.6. Avoiding events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.7. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#numerical-solvers">2.9. Numerical solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workArounds.html">3. Work-Arounds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-step-changes">3.1. Avoiding step changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#contributing">5.1. Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-new-class">5.2. Adding a new class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">8. Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">9. Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">10. Copyright and License</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">5. Development</a><ul>
+<li><a class="reference internal" href="#contributing">5.1. Contributing</a></li>
+<li><a class="reference internal" href="#adding-a-new-class">5.2. Adding a new class</a><ul>
+<li><a class="reference internal" href="#thermofluid-flow-device">5.2.1. Thermofluid flow device</a></li>
+<li><a class="reference internal" href="#pressure-drop">5.2.2. Pressure drop</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="prePostProcessing.html" title="Previous Chapter: 4. Pre- and Post-Processing"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 4. Pre- and P...</span>
+    </a>
+  </li>
+  <li>
+    <a href="help.html" title="Next Chapter: 6. Help"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">6. Help &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+<!--
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+-->
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="development">
+<span id="id1"></span><h1>5. Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<p>This section describes the development of the <cite>Buildings</cite> library.</p>
+<div class="section" id="contributing">
+<h2>5.1. Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>Contributions of new models and suggestions for how to improve the library are
+welcome.
+Models that are contributed need to adhere to the following guidelines, as this is needed to integrate them in the library, make them accessible to users and further maintain them:</p>
+<blockquote>
+<div><ul class="simple">
+<li>They should be of general interest to other users and well documented and tested.</li>
+<li>They need to follow the coding conventions described in</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions">Buildings library user guide</a>,</li>
+<li>the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions">Modelica Standard Library user guide</a>, and</li>
+<li>the <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide">Buildings library style guide</a>.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>They need to be made available under the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License">Modelica license</a>.</li>
+<li>For models of fluid flow components, they need to be based on the base classes in <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html">Buildings.Fluid.Interfaces</a>, which are described in the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide">user guide</a> of this package. Otherwise, it becomes difficult to ensure that the implementation is numerically robust.</li>
+</ul>
+</div></blockquote>
+<p>The website for the development of the library is <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings">https://github.com/lbl-srg/modelica-buildings</a></p>
+</div>
+<div class="section" id="adding-a-new-class">
+<h2>5.2. Adding a new class<a class="headerlink" href="#adding-a-new-class" title="Permalink to this headline">¶</a></h2>
+<p>Adding a new class, such as a model or a function, is usually easiest by extending, or copying and modifying, an existing class. In many cases, the similar component already exists. In this situation, it is recommended to copy and modify a similar component. If both components share a significant amount of similar code, then a base class should be introduced that implements the common code. See for example <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor">Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</a> which is shared by all sensors with one fluid port in the package <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a>.</p>
+<p>The next sections give guidance that is specific to the implementation of thermofluid flow devices and to pressure drop models.</p>
+<div class="section" id="thermofluid-flow-device">
+<h3>5.2.1. Thermofluid flow device<a class="headerlink" href="#thermofluid-flow-device" title="Permalink to this headline">¶</a></h3>
+<p>To add a component of a thermofluid flow device, the package
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html">Buildings.Fluid.Interface</a>  contains basic classes that can be extended.
+See <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide">Buildings.Fluid.Interface.UsersGuide</a> for a description of these classes.
+Alternatively, simple models such as the models below may be used as a starting point for implementing new models for thermofluid flow devices:</p>
+<dl class="docutils">
+<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_u">Buildings.Fluid.HeatExchangers.HeaterCooler_u</a></dt>
+<dd>For a device that adds heat to a fluid stream.</dd>
+<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Humidifiers.html#Buildings.Fluid.Humidifiers.Humidifier_u">Buildings.Fluid.Humidifiers.Humidifier_u</a></dt>
+<dd>For a device that adds humidity to a fluid stream.</dd>
+<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot_y">Buildings.Fluid.Chillers.Carnot_y</a></dt>
+<dd>For a device that exchanges heat between two fluid streams.</dd>
+<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness">Buildings.Fluid.MassExchangers.ConstantEffectiveness</a></dt>
+<dd>For a device that exchanges heat and humidity between two fluid streams.</dd>
+</dl>
+</div>
+<div class="section" id="pressure-drop">
+<h3>5.2.2. Pressure drop<a class="headerlink" href="#pressure-drop" title="Permalink to this headline">¶</a></h3>
+<p>When implementing equations for pressure drop, it is recommended
+to expand the base class
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance">Buildings.Fluid.BaseClasses.PartialResistance</a>.
+Models should allow computing the flow resistance as a quadratic function
+with regularization near zero as implemented in
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a> and in
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
+The governing equation is</p>
+<div class="math">
+\[k = \frac{\dot m}{\sqrt{\Delta p}}\]</div>
+<p>with regularization near zero to avoid that the limit
+<span class="math">\({d \dot m}/{d \Delta p}\)</span> tends to infinity as <span class="math">\(\dot m \to 0\)</span>,
+as this can cause Newton-based solvers to stall.
+For fixed flow resistances, <span class="math">\(k\)</span> is typically computed based on nominal
+conditions such as <span class="math">\(k = \dot m_0/\sqrt{\Delta p_0}\)</span>,
+where <span class="math">\(\dot m_0\)</span> is equal to the parameter <code class="docutils literal"><span class="pre">m_flow_nominal</span></code> and
+<span class="math">\(\Delta p_0\)</span> is equal to the parameter <code class="docutils literal"><span class="pre">dp_nominal.</span></code></p>
+<p>All pressure drop models should also provide a parameter that allows replacing
+the equation by a linear model of the form</p>
+<div class="math">
+\[\dot m \, \dot m_0 = \bar k^2 \, \Delta p\]</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Equations for pressure drop are implemented as a function of mass flow rate
+and not volume flow rate. For some models, this allows decoupling
+the mass flow balance from the energy balance.
+Otherwise, computing the mass flow distribution would require knowledge
+of the density, which may depend on temperature, and temperature is only
+known after solving the energy balance.</p>
+</div>
+<p>When implementing the pressure drop model, also provide means to</p>
+<ol class="arabic simple">
+<li>use homotopy, which should be used by default, and</li>
+<li>disable the pressure-drop model.</li>
+</ol>
+<p>Disabling the pressure-drop model allows, for example, a user to
+set in a series connection of a heating coil and a cooling coil
+the pressure drop of the heating coil to zero, and
+to lump the pressure drop of the heating coil into the pressure drop model
+of the cooling coil.
+This often reduces the size of the system of nonlinear equations.</p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,7 @@
+translateModelFMU(
+  modelToOpen="Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.HVACThermalZoneAir2",
+  storeResult=false,
+  modelName="",
+  fmiVersion="2",
+  fmiType="me",
+  includeSource=false);

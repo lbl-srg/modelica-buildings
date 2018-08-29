@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "heaCon.yVal",
+    "heaCon.yValSwi",
+    "heaCon.dT",
+    "heaCon.y"
+  };

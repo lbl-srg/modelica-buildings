@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "conS1.T[1]",
+    "conS1.T[2]",
+    "conS1.T[3]",
+    "conS1.Q_flow[1]",
+    "conS1.Q_flow[2]",
+    "conS1.Q_flow[3]",
+    "conS1.Q_flow[4]",
+    "conS1.Q_flow[5]",
+    "conS1.Q_flow[6]"
+  };

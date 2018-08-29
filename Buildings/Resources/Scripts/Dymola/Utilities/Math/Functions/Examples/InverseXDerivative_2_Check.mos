@@ -1,0 +1,10 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.InverseXDerivative_2_Check", startTime=-1.5, stopTime=1.5, method="dassl", tolerance=1e-08, resultFile="InverseXDerivative_2_Check");
+createPlot(id=5, position={35, 30, 592, 594},
+y={"y", "y_comp"},
+range={-1.0, 1.0, -2.0, 2.0}, grid=true, filename="InverseXDerivative_2_Check.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=5, position={35, 30, 592, 294},
+y={"der_y", "der_y_comp"},
+range={-1.0, 1.0, -10.0, 15.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=6, position={638, 30, 426, 424},
+y={"der_err", "err"},
+range={-1.0, 1.0, -1.2000000000000004E-06, 1.2000000000000004E-06}, grid=true, filename="InverseXDerivative_2_Check.mat", colors={{28,108,200}, {238,46,47}});

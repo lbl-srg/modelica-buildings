@@ -1,0 +1,6 @@
+simulateModel("Buildings.Examples.VAVReheat.ASHRAE2006", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="ASHRAE2006");
+createPlot(id=1, position={689, 16, 808, 886}, y={"flo.sou.air.vol.T", "flo.eas.air.vol.T", "flo.nor.air.vol.T", "flo.wes.air.vol.T", "flo.cor.air.vol.T"}, range={0.0, 52.0, 17.5, 21.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=1, position={689, 16, 808, 292}, y={"TSupSou.T", "TSupEas.T", "TSupNor.T", "TSupWes.T", "TSupCor.T"}, range={0.0, 52.0, 5.0, 35.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=1, position={689, 16, 808, 291}, y={"sou.vav.m_flow", "eas.vav.m_flow", "nor.vav.m_flow", "wes.vav.m_flow","cor.vav.m_flow_turbulent"}, range={0.0, 52.0, -0.5, 2.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=2, position={73, 495, 588, 415}, y={"conEco.yOA"}, range={0.0, 55.0, -0.1, 1.1}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={65, 17, 588, 422}, y={"dpRetDuc.m_flow", "dpRetDuc.m_flow_nominal", "fanSup.m_flow", "fanSup.m_flow_nominal"}, range={0.0, 55.0, -2.0, 22.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

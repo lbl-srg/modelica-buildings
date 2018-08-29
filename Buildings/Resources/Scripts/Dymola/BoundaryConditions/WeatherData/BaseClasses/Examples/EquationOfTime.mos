@@ -1,0 +1,26 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.EquationOfTime", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="EquationOfTime");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"eqnTim.nDay"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "EquationOfTime.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 1,
+ position = {7, 7, 746, 256},
+ y = {"eqnTim.eqnTim"},
+ range = {0, 90000.0, 0.3, -0.3},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);

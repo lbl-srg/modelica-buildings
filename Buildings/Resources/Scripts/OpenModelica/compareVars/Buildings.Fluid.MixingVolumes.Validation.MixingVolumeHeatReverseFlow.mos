@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "volDyn.ports[1].m_flow",
+    "gain.y",
+    "volDyn.T",
+    "volSte.T"
+  };

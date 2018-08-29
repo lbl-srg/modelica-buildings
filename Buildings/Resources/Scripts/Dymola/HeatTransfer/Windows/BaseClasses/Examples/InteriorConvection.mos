@@ -1,0 +1,10 @@
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.InteriorConvection", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="InteriorConvection");
+createPlot(id=1, position={75, 12, 482, 499},
+y={"TGla.T", "TRoo.T"},
+range={0.0, 1.0, 17.0, 21.0}, grid=true, filename="InteriorConvection.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
+createPlot(id=1, position={75, 12, 482, 163},
+y={"con.u"},
+range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={75, 12, 482, 162},
+y={"heaFloSen.Q_flow"},
+range={0.0, 1.0, -4.0, 2.0}, grid=true, subPlot=3, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});

@@ -1,0 +1,18 @@
+simulateModel("Buildings.Controls.Predictors.BaseClasses.Examples.SampleStart", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="SampleStart");
+createPlot(id=1,
+ position={15, 10, 482, 336},
+y={"samSta[1]", "samSta[2]", "samSta[3]", "samSta[4]", "samSta[5]", "samSta[6]", "samSta[7]", "samSta[8]", "samSta[9]", "samSta[10]", "samSta[11]", "samSta[12]", "samSta[13]", "samSta[14]", "samSta[15]", "samSta[16]", "samSta[17]", "samSta[18]", "samSta[19]", "samSta[20]", "samSta[21]"},
+ range={0.0, 1.0, -15.0, 15.0},
+ grid=true,
+ filename="SampleStart.mat",
+ leftTitleType=1,
+ bottomTitleType=1,
+ colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}, {255,0,0},
+{0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}, {255,0,0}, {0,128,0}, {255,0,255},
+ {0,0,0}, {0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}},
+ markers={MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None,
+MarkerStyle.None, MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Cross,
+MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Circle, MarkerStyle.Circle,
+MarkerStyle.Circle, MarkerStyle.Circle, MarkerStyle.Circle, MarkerStyle.Square,
+ MarkerStyle.Square, MarkerStyle.Square, MarkerStyle.Square, MarkerStyle.Square,
+ MarkerStyle.FilledCircle});

@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "hexFixIni.sta_b1.T",
+    "hexFixIni.sta_b2.T",
+    "hexSteStaIni.sta_b1.T",
+    "hexSteStaIni.sta_b2.T",
+    "hexSteSta.sta_b1.T",
+    "hexSteSta.sta_b2.T"
+  };

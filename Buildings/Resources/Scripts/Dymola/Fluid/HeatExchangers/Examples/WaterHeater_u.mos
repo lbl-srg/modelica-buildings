@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WaterHeater_u", stopTime=172800, method="Radau", tolerance=1e-6, resultFile="WaterHeater_u");
+createPlot(id=1, position={10, 14, 946, 629},
+ y={"TSet.y", "TOut.y", "TVol.T", "THeaOut.T"}, range={0.0, 180000.0, 10.0, 26.0},
+grid=true, filename="WaterHeater_u.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}});
+createPlot(id=1, position={10, 14, 946, 311},
+ y={"hea.Q_flow"},
+range={0.0, 180000.0, -200.0, 1200.0}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});

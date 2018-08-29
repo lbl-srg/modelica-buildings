@@ -1,0 +1,1053 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg3908"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="Overhang.svg"
+   inkscape:export-filename="/Users/mwetter/Downloads/reshadingblockupdate/WindowOverhangDimensions.png"
+   inkscape:export-xdpi="41.400002"
+   inkscape:export-ydpi="41.400002">
+  <defs
+     id="defs3">
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path4461"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path4482"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path4464"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-2"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-4"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-5"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-8"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-8"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-2"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-4"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-5"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-3"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-8"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-6"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-9"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-1"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-1"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-52"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-22"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-16"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-8"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-57"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-18"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-9"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-2"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-79"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-11"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-87"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-4"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-31"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-98"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-65"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-0"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-13"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-89"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4866"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4868"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4870"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4872"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4874"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4876"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4878"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4880"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4882"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4884"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4886"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4888"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4890"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4892"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-7"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-986"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-06"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     inkscape:document-units="mm"
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.3334031"
+     inkscape:cx="384.91797"
+     inkscape:cy="740.54485"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1633"
+     inkscape:window-height="1006"
+     inkscape:window-x="47"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:snap-global="true"
+     inkscape:snap-to-guides="false"
+     inkscape:snap-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3914" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata4">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#e5e5e5;fill-opacity:1;stroke:#000000;stroke-width:2.47305202;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4424-1"
+       width="350"
+       height="20.877193"
+       x="50"
+       y="79.993759"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <rect
+       style="fill:#aaeeff;fill-opacity:1;stroke:#000000;stroke-width:2.47634602;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4428-7"
+       width="248.88007"
+       height="358.77365"
+       x="101.13177"
+       y="142.35036"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2.1884644;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4424-1-0"
+       width="182.72134"
+       height="20.877193"
+       x="537.2569"
+       y="79.993759"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 476.34979,38.239376 20.30237,0 10.15118,-20.877193 0,41.754386 10.15119,-20.877193 20.30237,0 0,104.385964 -60.90711,0 z"
+       id="path3923"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 476.34979,121.74815 60.90711,0"
+       id="path3929"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 476.34979,100.87096 60.90711,0"
+       id="path3931"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 476.34979,79.993763 60.90711,0"
+       id="path3933"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 476.34979,59.116569 60.90711,0"
+       id="path3935"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 514.92429,121.74815 0,20.87719"
+       id="path3937"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 496.65216,100.87096 0,20.87719"
+       id="path3939"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 516.95453,100.87096 0,-20.877197"
+       id="path3941"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 496.65216,59.116569 0,20.877194"
+       id="path3943"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.87939823px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 476.34979,588.96453 20.30237,0 10.15118,17.39765 0,-34.79531 10.15119,17.39766 20.30237,0 0,-86.98831 -60.90711,0 z"
+       id="path3923-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 476.34979,522.85341 60.90711,0"
+       id="path3929-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 476.34979,543.7306 60.90711,0"
+       id="path3931-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 476.34979,564.6078 60.90711,0"
+       id="path3933-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 514.92429,522.85341 0,-20.87719"
+       id="path3937-5"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 496.65216,543.7306 0,-20.87719"
+       id="path3939-5"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.05877757px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 516.95453,543.7306 0,20.8772"
+       id="path3941-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#e5e5e5;fill-opacity:1;stroke:#000000;stroke-width:0.78159440000000002;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 538.5437,90.357715 0,-8.947368 89.91049,0 89.91051,0 0,8.947368 0,8.947368 -89.91051,0 -89.91049,0 0,-8.947368 z"
+       id="path4007"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 477.63659,90.357715 0,-8.947368 18.85219,0 18.85222,0 0,8.947368 0,8.947368 -18.85222,0 -18.85219,0 0,-8.947368 z"
+       id="path4009"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 497.93896,111.23491 0,-8.94737 18.85219,0 18.85222,0 0,8.94737 0,8.94737 -18.85222,0 -18.85219,0 0,-8.94737 z"
+       id="path4011"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 477.63659,111.23491 0,-8.94737 8.70101,0 8.70103,0 0,8.94737 0,8.94737 -8.70103,0 -8.70101,0 0,-8.94737 z"
+       id="path4013"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 477.63659,132.1121 0,-8.94737 18.12712,0 18.12711,0 0,8.94737 0,8.94737 -18.12711,0 -18.12712,0 0,-8.94737 z"
+       id="path4015"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 516.06608,132.1121 0,-8.94737 9.78864,0 9.78865,0 0,8.94737 0,8.94737 -9.78865,0 -9.78864,0 0,-8.94737 z"
+       id="path4017"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 477.63659,69.480522 0,-8.947368 8.70101,0 8.70103,0 0,8.947368 0,8.947368 -8.70103,0 -8.70101,0 0,-8.947368 z"
+       id="path4019"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 507.18379,78.616235 c 5.28406,-0.127392 13.93069,-0.127392 19.21475,0 5.28404,0.127393 0.96073,0.231629 -9.60739,0.231629 -10.56809,0 -14.89142,-0.10424 -9.60736,-0.231629 z"
+       id="path4021"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 497.93896,69.294118 0,-8.760964 18.85219,0 18.85222,0 0,8.760964 0,8.760965 -18.85222,0 -18.85219,0 0,-8.760965 z"
+       id="path4023"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 518.24133,90.357715 0,-8.947368 8.70101,0 8.70103,0 0,8.947368 0,8.947368 -8.70103,0 -8.70101,0 0,-8.947368 z"
+       id="path4025"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 477.63659,48.603328 0,-8.947367 9.98617,0 9.98619,0 3.74812,-7.642546 3.74814,-7.642543 0.0422,16.589913 0.0422,16.589911 -13.77662,0 -13.7766,0 0,-8.947368 z"
+       id="path4027"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 509.54031,57.186108 c 0,-0.200526 1.8696,-4.226841 4.15465,-8.947368 l 4.15464,-8.582779 8.89688,0 8.89689,0 0,8.947367 0,8.947368 -13.05152,0 c -7.17835,0 -13.05154,-0.164073 -13.05154,-0.364588 z"
+       id="path4029"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 477.63659,512.34018 0,-8.94736 18.12712,0 18.12711,0 0,8.94736 0,8.94736 -18.12711,0 -18.12712,0 0,-8.94736 z"
+       id="path4045"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 516.06608,512.34018 0,-8.94736 9.78864,0 9.78865,0 0,8.94736 0,8.94736 -9.78865,0 -9.78864,0 0,-8.94736 z"
+       id="path4047"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 477.63659,533.21737 0,-8.94736 8.70101,0 8.70103,0 0,8.94736 0,8.94736 -8.70103,0 -8.70101,0 0,-8.94736 z"
+       id="path4049"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 497.93896,533.21737 0,-8.94736 18.85219,0 18.85222,0 0,8.94736 0,8.94736 -18.85222,0 -18.85219,0 0,-8.94736 z"
+       id="path4051"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 477.63659,554.09456 0,-8.94736 18.85219,0 18.85222,0 0,8.94736 0,8.94736 -18.85222,0 -18.85219,0 0,-8.94736 z"
+       id="path4053"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 518.24133,554.09456 0,-8.94736 8.70101,0 8.70103,0 0,8.94736 0,8.94736 -8.70103,0 -8.70101,0 0,-8.94736 z"
+       id="path4055"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:0.7815944;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 501.20184,594.04683 -3.62542,-6.37247 -9.96992,-0.0146 -9.96991,-0.0146 0,-10.8114 0,-10.8114 29.00338,0 29.0034,0 0,10.8114 0,10.8114 -8.97424,0 -8.97422,0 -4.20098,-7.26973 c -2.31055,-3.99836 -5.04262,-8.61184 -6.07128,-10.2522 l -1.8703,-2.98246 -0.36254,16.63825 -0.36254,16.63824 -3.62543,-6.37247 z"
+       id="path4057"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 445.89623,142.62378 0,359.42746"
+       id="path5640-2-61"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <text
+       xml:space="preserve"
+       style="font-size:72.296875px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-374.19049"
+       y="411.21912"
+       id="text6204-4"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-0.96140377,1.0401457,0,0,0)"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2"
+         x="-374.19049"
+         y="411.21912"
+         style="font-size:57.83750153px"><tspan
+           style="font-size:37.59490585px;baseline-shift:sub"
+           id="tspan6411-3">hWin</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 99.64799,57.116569 -50.110419,0"
+       id="path5640-2-61-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 349.46102,570.6078 -248.92204,0"
+       id="path5640-2-61-6-5"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <text
+       xml:space="preserve"
+       style="font-size:72.296875px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="183.77171"
+       y="513.96124"
+       id="text6204-4-4"
+       sodipodi:linespacing="125%"
+       transform="scale(0.93493293,1.0695954)"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2-3"
+         x="183.77171"
+         y="513.96124"
+         style="font-size:57.83750153px"><tspan
+           style="font-size:37.59490585px;baseline-shift:sub"
+           id="tspan6411-3-1">wWin</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:72.296875px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="110.72883"
+       y="36.746475"
+       id="text6204-4-2"
+       sodipodi:linespacing="125%"
+       transform="scale(0.93493296,1.0695954)"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2-33"
+         x="110.72883"
+         y="36.746475"
+         style="font-size:57.83750153px"><tspan
+           style="font-size:37.59490585px;baseline-shift:sub"
+           id="tspan6411-3-4">wL</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 720,58.743765 -182.76489,0"
+       id="path5640-2-61-6-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <text
+       xml:space="preserve"
+       style="font-size:72.296875px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="628.93585"
+       y="35.751251"
+       id="text6204-4-2-7"
+       sodipodi:linespacing="125%"
+       transform="scale(0.93493293,1.0695954)"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2-33-7"
+         x="628.93585"
+         y="35.751251"
+         style="font-size:57.83750153px"><tspan
+           style="font-size:37.59490585px;baseline-shift:sub"
+           id="tspan6411-3-4-9">dep</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart-7);marker-end:url(#Arrow1Lend)"
+       d="m 445.89623,102.79658 0,40.17604"
+       id="path5640-2-61-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <text
+       xml:space="preserve"
+       style="font-size:72.296875px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-230.44966"
+       y="403.39908"
+       id="text6204-4-8"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-0.96140377,1.0401457,0,0,0)"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2-6"
+         x="-230.44966"
+         y="403.39908"
+         style="font-size:57.83750153px"><tspan
+           style="font-size:37.59490585px;baseline-shift:sub"
+           id="tspan6411-3-0">gap</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 395.1403,100.87096 81.20949,0"
+       id="path4737"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 350.28218,142.62534 126.03543,0"
+       id="path4737-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 350.3525,501.97622 125.95729,0"
+       id="path4737-2-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 401.1403,27.80078 0,52.192983"
+       id="path4737-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 50,27.800778 0,52.192985"
+       id="path4737-8-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1,0.5;stroke-dashoffset:0"
+       d="m 719.97824,27.80078 0,52.192976"
+       id="path4737-8-5"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 350,502.36218 0,83.07017"
+       id="path4737-8-0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 100,502.36218 0,83.07017"
+       id="path4737-8-0-0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002" />
+    <path
+       style="fill:#aaeeff;fill-opacity:1;stroke:#000000;stroke-width:2.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 530,322.36218 0,-179.02035 3.62694,0 3.62693,0 0,179.02035 0,179.02033 -3.62693,0 -3.62694,0 0,-179.02033 z"
+       id="path4850"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99291205px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 477.15039,142.93579 c 0,359.69391 0,358.93346 0,358.93346"
+       id="path4043"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png" />
+    <text
+       xml:space="preserve"
+       style="font-size:72.296875px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="306.80502"
+       y="37.38763"
+       id="text6204-4-2-9"
+       sodipodi:linespacing="125%"
+       transform="scale(0.93493296,1.0695954)"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2-33-73"
+         x="306.80502"
+         y="37.38763"
+         style="font-size:57.83750153px"><tspan
+           style="font-size:37.59490585px;baseline-shift:sub"
+           id="tspan6411-3-4-0">wR</tspan></tspan></text>
+    <path
+       inkscape:export-ydpi="41.400002"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:connector-curvature="0"
+       id="path3184"
+       d="m 394.84983,57.116569 -44.51744,0"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)" />
+    <path
+       inkscape:export-ydpi="41.400002"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:connector-curvature="0"
+       id="path3186"
+       d="M 100,27.829562 100,142.0209"
+       style="fill:none;stroke:#000000;stroke-width:0.65314698;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       inkscape:export-ydpi="41.400002"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:connector-curvature="0"
+       id="path3186-0"
+       d="M 350,27.829564 350,142.0209"
+       style="fill:none;stroke:#000000;stroke-width:0.65314698;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       style="fill:#aaeeff;fill-opacity:1;stroke:#000000;stroke-width:2.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 500,322.36218 0,-179.02035 3.62694,0 3.62693,0 0,179.02035 0,179.02033 -3.62693,0 -3.62694,0 0,-179.02033 z"
+       id="path4850-3"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png" />
+  </g>
+</svg>

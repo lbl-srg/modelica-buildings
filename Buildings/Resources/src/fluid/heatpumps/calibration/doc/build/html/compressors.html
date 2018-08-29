@@ -1,0 +1,702 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Compressor models &#8212; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Thermodynamic properties of heat carrier fluids" href="fluids.html" />
+    <link rel="prev" title="Calibrate heat pump models" href="calibrate.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="index.html">Heat Pump Calibration User Guide</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="calibrate.html">Calibrate heat pump models</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Compressor models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluids.html">Thermodynamic properties of heat carrier fluids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heatexchangers.html">Evaporator and condenser models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heatpumps.html">Heat pump models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refrigerants.html">Refrigerant thermodynamic properties</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dummy_performance_data.html">Generate performance data from heat pump model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_calibration.html">Calibrate heat pump model from performance data</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Compressor models</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="calibrate.html" title="Previous Chapter: Calibrate heat pump models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Calibrate hea...</span>
+    </a>
+  </li>
+  <li>
+    <a href="fluids.html" title="Next Chapter: Thermodynamic properties of heat carrier fluids"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Thermodynamic... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+<!--
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+-->
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="module-PythonModel.compressors">
+<span id="compressor-models"></span><h1>Compressor models<a class="headerlink" href="#module-PythonModel.compressors" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="PythonModel.compressors.ReciprocatingCompressor">
+<em class="property">class </em><code class="descclassname">PythonModel.compressors.</code><code class="descname">ReciprocatingCompressor</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Object for reciprocating compressor model based on Jin (2002):
+H. Jin. Parameter estimation based models of water source heat pumps.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pisDis</strong> &#8211; Piston displacement (m3/s).</li>
+<li><strong>cleFac</strong> &#8211; Clearance factor (-).</li>
+<li><strong>etaEle</strong> &#8211; Electro-mechanical efficiency (-).</li>
+<li><strong>PLos</strong> &#8211; Constant part of the power losses (W).</li>
+<li><strong>pDro</strong> &#8211; Pressure drop at compressor suction and discharge (Pa).</li>
+<li><strong>dTSup</strong> &#8211; Degree of superheating (K).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="PythonModel.compressors.ReciprocatingCompressor.get_DischargePressure">
+<code class="descname">get_DischargePressure</code><span class="sig-paren">(</span><em>pCon</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_DischargePressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the discharge pressure (Pa).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pCon</strong> &#8211; Condensing pressure (Pa).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Discharge pressure (Pa).</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_DischargePressure</span><span class="p">(</span><span class="mf">1.879e6</span><span class="p">)</span>
+<span class="go">&#39;1978290.0&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ReciprocatingCompressor.get_Power">
+<code class="descname">get_Power</code><span class="sig-paren">(</span><em>vSuc</em>, <em>ref</em>, <em>pDis</em>, <em>pSuc</em>, <em>TSuc</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_Power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the power input to the compressor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>vSuv</strong> &#8211; Suction specific volume (m3/kg).</li>
+<li><strong>ref</strong> &#8211; Refrigerant model.</li>
+<li><strong>pDis</strong> &#8211; Discharge pressure (Pa).</li>
+<li><strong>pSuc</strong> &#8211; Suction pressure (Pa).</li>
+<li><strong>TSuc</strong> &#8211; Suction temperature (K).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Power input to the compressor (W).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">0.0288</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1978290.0</span><span class="p">,</span> <span class="mf">983710.0</span><span class="p">,</span> <span class="mf">292.97</span><span class="p">)</span>
+<span class="go">&#39;1765.63&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ReciprocatingCompressor.get_RefrigerantMassFlowRate">
+<code class="descname">get_RefrigerantMassFlowRate</code><span class="sig-paren">(</span><em>vSuc</em>, <em>ref</em>, <em>pDis</em>, <em>pSuc</em>, <em>TSuc</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_RefrigerantMassFlowRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the refrigerant mass flow rate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>vSuv</strong> &#8211; Suction specific volume (m3/kg).</li>
+<li><strong>ref</strong> &#8211; Refrigerant model.</li>
+<li><strong>pDis</strong> &#8211; Discharge pressure (Pa).</li>
+<li><strong>pSuc</strong> &#8211; Suction pressure (Pa).</li>
+<li><strong>TSuc</strong> &#8211; Suction temperature (K).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Refrigerant mass flow rate (kg/s).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.8f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_RefrigerantMassFlowRate</span><span class="p">(</span><span class="mf">0.0288</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1978290.0</span><span class="p">,</span> <span class="mf">983710.0</span><span class="p">,</span> <span class="mf">292.97</span><span class="p">)</span>
+<span class="go">&#39;0.05358166&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ReciprocatingCompressor.get_SuctionPressure">
+<code class="descname">get_SuctionPressure</code><span class="sig-paren">(</span><em>pEva</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_SuctionPressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the suction pressure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pEva</strong> &#8211; Evaporating pressure (Pa).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Suction pressure (Pa).</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionPressure</span><span class="p">(</span><span class="mf">1.083e6</span><span class="p">)</span>
+<span class="go">&#39;983710.0&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ReciprocatingCompressor.get_SuctionTemperature">
+<code class="descname">get_SuctionTemperature</code><span class="sig-paren">(</span><em>TEva</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_SuctionTemperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the suction temperature.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>TEva</strong> &#8211; Evaporating temperature (K).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Suction temperature (K).</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionTemperature</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
+<span class="go">&#39;292.97&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ReciprocatingCompressor.initialGuessParameters">
+<code class="descname">initialGuessParameters</code><span class="sig-paren">(</span><em>Q_nominal</em>, <em>P_nominal</em>, <em>TSou_nominal</em>, <em>TLoa_nominal</em>, <em>ref</em>, <em>CoolingMode</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize guess parameters for calibration of the heat pump model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>Q_nominal</strong> &#8211; Nominal heat pump capacity (W).</li>
+<li><strong>P_nominal</strong> &#8211; Nominal power input (W).</li>
+<li><strong>TSou_nominal</strong> &#8211; Source-side water temperature at
+nominal conditions (K).</li>
+<li><strong>TLoa_nominal</strong> &#8211; Load-side water temperature at
+nominal conditions (K).</li>
+<li><strong>ref</strong> &#8211; Refrigerant model.</li>
+<li><strong>CoolingMode</strong> &#8211; Boolean, True if heat pump is in cooling mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of parameters to the compressor model, a list of tuples
+of the bounds of the parameters (min, max) for the calibration
+routine.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ReciprocatingCompressor.modelicaModelPath">
+<code class="descname">modelicaModelPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns the full path to the compressor model in the Buildings</dt>
+<dd>library.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Full path to the compressor model in the Buildings library.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
+<span class="go">&#39;Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ReciprocatingCompressor.printParameters">
+<code class="descname">printParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.printParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the value of the model parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ReciprocatingCompressor.reinitializeParameters">
+<code class="descname">reinitializeParameters</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reinitializes the compressor using new parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pisDis</strong> &#8211; Piston displacement (m3/s).</li>
+<li><strong>cleFac</strong> &#8211; Clearance factor (-).</li>
+<li><strong>etaEle</strong> &#8211; Electro-mechanical efficiency (-).</li>
+<li><strong>PLos</strong> &#8211; Constant part of the power losses (W).</li>
+<li><strong>pDro</strong> &#8211; Pressure drop at compressor suction and discharge (Pa).</li>
+<li><strong>dTSup</strong> &#8211; Degree of superheating (K).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PythonModel.compressors.ScrollCompressor">
+<em class="property">class </em><code class="descclassname">PythonModel.compressors.</code><code class="descname">ScrollCompressor</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Object for scroll compressor model based on Jin (2002):
+H. Jin. Parameter estimation based models of water source heat pumps.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>volRat</strong> &#8211; Volume ratio (-).</li>
+<li><strong>v_flow</strong> &#8211; Nominal Volume flow rate (m3/s).</li>
+<li><strong>leaCoe</strong> &#8211; LEakage coefficient (kg/s).</li>
+<li><strong>etaEle</strong> &#8211; Electro-mechanical efficiency (-).</li>
+<li><strong>PLos</strong> &#8211; Constant part of the power losses (W).</li>
+<li><strong>dTSup</strong> &#8211; Degree of superheating (K).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="PythonModel.compressors.ScrollCompressor.get_DischargePressure">
+<code class="descname">get_DischargePressure</code><span class="sig-paren">(</span><em>pCon</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_DischargePressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the discharge pressure (Pa).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pCon</strong> &#8211; Condensing pressure (Pa).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Discharge pressure (Pa).</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_DischargePressure</span><span class="p">(</span><span class="mf">1.879e6</span><span class="p">)</span>
+<span class="go">&#39;1879000.0&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ScrollCompressor.get_Power">
+<code class="descname">get_Power</code><span class="sig-paren">(</span><em>vSuc</em>, <em>ref</em>, <em>pDis</em>, <em>pSuc</em>, <em>TSuc</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_Power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the power input to the compressor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>vSuv</strong> &#8211; Suction specific volume (m3/kg).</li>
+<li><strong>ref</strong> &#8211; Refrigerant model.</li>
+<li><strong>pDis</strong> &#8211; Discharge pressure (Pa).</li>
+<li><strong>pSuc</strong> &#8211; Suction pressure (Pa).</li>
+<li><strong>TSuc</strong> &#8211; Suction temperature (K).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Power input to the compressor (W).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1.879e6</span><span class="p">,</span> <span class="mf">1.083e6</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
+<span class="go">&#39;2940.26&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ScrollCompressor.get_RefrigerantMassFlowRate">
+<code class="descname">get_RefrigerantMassFlowRate</code><span class="sig-paren">(</span><em>vSuc</em>, <em>pDis</em>, <em>pSuc</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_RefrigerantMassFlowRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the refrigerant mass flow rate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>vSuv</strong> &#8211; Suction specific volume (m3/kg).</li>
+<li><strong>pDis</strong> &#8211; Discharge pressure (Pa).</li>
+<li><strong>pSuc</strong> &#8211; Suction pressure (Pa).</li>
+<li><strong>TSuc</strong> &#8211; Suction temperature (K).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Refrigerant mass flow rate (kg/s).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_RefrigerantMassFlowRate</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">1.879e6</span><span class="p">,</span> <span class="mf">1.083e6</span><span class="p">)</span>
+<span class="go">&#39;0.107687&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ScrollCompressor.get_SuctionPressure">
+<code class="descname">get_SuctionPressure</code><span class="sig-paren">(</span><em>pEva</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_SuctionPressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the suction pressure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pEva</strong> &#8211; Evaporating pressure (Pa).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Suction pressure (Pa).</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionPressure</span><span class="p">(</span><span class="mf">1.083e6</span><span class="p">)</span>
+<span class="go">&#39;1083000.0&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ScrollCompressor.get_SuctionTemperature">
+<code class="descname">get_SuctionTemperature</code><span class="sig-paren">(</span><em>TEva</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_SuctionTemperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the suction temperature.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>TEva</strong> &#8211; Evaporating temperature (K).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Suction temperature (K).</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionTemperature</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
+<span class="go">&#39;289.64&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ScrollCompressor.initialGuessParameters">
+<code class="descname">initialGuessParameters</code><span class="sig-paren">(</span><em>Q_nominal</em>, <em>P_nominal</em>, <em>TSou_nominal</em>, <em>TLoa_nominal</em>, <em>ref</em>, <em>CoolingMode</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize guess parameters for calibration of the heat pump model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>Q_nominal</strong> &#8211; Nominal heat pump capacity (W).</li>
+<li><strong>P_nominal</strong> &#8211; Nominal power input (W).</li>
+<li><strong>TSou_nominal</strong> &#8211; Source-side water temperature at
+nominal conditions (K).</li>
+<li><strong>TLoa_nominal</strong> &#8211; Load-side water temperature at
+nominal conditions (K).</li>
+<li><strong>ref</strong> &#8211; Refrigerant model.</li>
+<li><strong>CoolingMode</strong> &#8211; Boolean, True if heat pump is in cooling mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of parameters to the compressor model, a list of tuples
+of the bounds of the parameters (min, max) for the calibration
+routine.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ScrollCompressor.modelicaModelPath">
+<code class="descname">modelicaModelPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns the full path to the compressor model in the Buildings</dt>
+<dd>library.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Full path to the compressor model in the Buildings library.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
+<span class="go">&#39;Buildings.Fluid.HeatPumps.Compressors.ScrollCompressor&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ScrollCompressor.printParameters">
+<code class="descname">printParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.printParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the value of the model parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ScrollCompressor.reinitializeParameters">
+<code class="descname">reinitializeParameters</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reinitializes the compressor using new parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>volRat</strong> &#8211; Volume ratio (-).</li>
+<li><strong>v_flow</strong> &#8211; Nominal Volume flow rate (m3/s).</li>
+<li><strong>leaCoe</strong> &#8211; LEakage coefficient (kg/s).</li>
+<li><strong>etaEle</strong> &#8211; Electro-mechanical efficiency (-).</li>
+<li><strong>PLos</strong> &#8211; Constant part of the power losses (W).</li>
+<li><strong>dTSup</strong> &#8211; Degree of superheating (K).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.compressors.ScrollCompressor.set_ModelicaParameters">
+<code class="descname">set_ModelicaParameters</code><span class="sig-paren">(</span><em>simulator</em>, <em>suffix=''</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.set_ModelicaParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set parameter values for simulation in dymola.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>simulator</strong> &#8211; Simulator object (BuildinsPy)</li>
+<li><strong>suffix</strong> &#8211; String to add at the end of parameter names.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Simulator object (BuildingsPy)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

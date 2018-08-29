@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "mulStaDX.vol.T",
+    "mulStaDX.sta_a.T",
+    "mulStaDX.dxCoo.mWat_flow",
+    "mulStaDX.port_b.h_outflow",
+    "mulStaDX.vol.X_w",
+    "mulStaDX.sta_a.X[1]",
+    "mulStaDX.dxCoo.Q_flow",
+    "mulStaDX.P",
+    "mulStaDX.stage"
+  };

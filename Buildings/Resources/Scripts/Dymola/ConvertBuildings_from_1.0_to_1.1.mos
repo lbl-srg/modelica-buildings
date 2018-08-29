@@ -1,0 +1,20 @@
+// Conversion script for Buildings library
+//  from: Version 1.0
+//  to:   Version 1.1
+clear
+
+convertClear();
+
+convertClass("Buildings.Airflow.Multizone.Examples.OpenDoors",
+              "Buildings.Airflow.Multizone.Examples.ClosedDoors");
+convertElement({"Buildings.HeatTransfer.Radiosity.OutdoorRadiosity",
+                "Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"},
+                "F_sky", "vieFacSky");
+convertElement({"Buildings.Controls.SetPoints.Occupancy"},
+                "endTime", "period");
+
+convertElement({"Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage",
+                "Buildings.Fluid.Actuators.Valves.TwoWayLinear",
+                "Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening",
+                "Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear",
+                "Buildings.Fluid.Actuators.Valves.ThreeWayLinear"}, "dp_nominal", "dpValve_nominal");

@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="871"
+   height="513"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="EconomizerTemperatureControl-bad.svg">
+  <metadata
+     id="metadata238">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs236" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1013"
+     inkscape:window-height="554"
+     id="namedview234"
+     showgrid="false"
+     inkscape:zoom="0.78573894"
+     inkscape:cx="435.5"
+     inkscape:cy="256.5"
+     inkscape:window-x="180"
+     inkscape:window-y="3"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <rect
+     fill="rgb(255,255,255)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     x="630.2"
+     y="236.8"
+     width="58.4"
+     height="58.4"
+     id="rect4" />
+  <text
+     x="659.4"
+     y="228.04"
+     fill="rgb(0,0,255)"
+     dominant-baseline="central"
+     font-size="12"
+     font-family="helvetica"
+     text-anchor="middle"
+     id="text6">con</text>
+  <polyline
+     fill="none"
+     stroke="rgb(192,192,192)"
+     stroke-opacity="1"
+     points="636.040000,243.224000 636.040000,292.280000"
+     id="polyline8" />
+  <polygon
+     fill="rgb(192,192,192)"
+     stroke="rgb(192,192,192)"
+     stroke-opacity="1"
+     points="636.040000,239.720000 633.704000,246.144000 638.376000,246.144000 636.040000,239.720000"
+     id="polygon10" />
+  <polyline
+     fill="none"
+     stroke="rgb(192,192,192)"
+     stroke-opacity="1"
+     points="633.120000,289.360000 683.344000,289.360000"
+     id="polyline12" />
+  <polygon
+     fill="rgb(192,192,192)"
+     stroke="rgb(192,192,192)"
+     stroke-opacity="1"
+     points="685.680000,289.360000 679.256000,287.024000 679.256000,291.696000 685.680000,289.360000"
+     id="polygon14" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="636.040000,289.360000 636.040000,271.840000 668.160000,248.480000 682.760000,248.480000"
+     id="polyline16" />
+  <text
+     x="668.16"
+     y="277.68"
+     fill="rgb(192,192,192)"
+     dominant-baseline="central"
+     font-size="12"
+     font-family="helvetica"
+     text-anchor="middle"
+     id="text18">PI</text>
+  <polyline
+     fill="none"
+     stroke="rgb(255,0,0)"
+     stroke-opacity="1"
+     points="668.160000,248.480000 683.052000,248.480000"
+     id="polyline20" />
+  <rect
+     fill="rgb(255,255,255)"
+     stroke="rgb(255,255,255)"
+     stroke-opacity="1"
+     x="657.648"
+     y="271.84"
+     width="21.024"
+     height="13.432"
+     id="rect22" />
+  <text
+     x="665.824"
+     y="278.264"
+     fill="rgb(0,0,0)"
+     dominant-baseline="central"
+     font-size="12"
+     font-family="helvetica"
+     text-anchor="middle"
+     id="text24">PI</text>
+  <rect
+     fill="rgb(210,210,210)"
+     stroke="rgb(0,0,0)"
+     stroke-opacity="1"
+     x="279.8"
+     y="61.6"
+     width="58.4"
+     height="58.4"
+     id="rect26" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="278.981"
+     y="60.7813"
+     width="0.818667"
+     height="59.2187"
+     id="rect28" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="278.981"
+     y="120"
+     width="59.2187"
+     height="0.818667"
+     id="rect30" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="338.2"
+     y="61.6"
+     width="0.818667"
+     height="59.2187"
+     id="rect32" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="279.8"
+     y="60.7813"
+     width="59.2187"
+     height="0.818667"
+     id="rect34" />
+  <rect
+     fill="rgb(255,255,255)"
+     stroke="none"
+     x="279.8"
+     y="61.6"
+     width="1.228"
+     height="58.4"
+     id="rect36" />
+  <rect
+     fill="rgb(255,255,255)"
+     stroke="none"
+     x="279.8"
+     y="61.6"
+     width="58.4"
+     height="1.228"
+     id="rect38" />
+  <rect
+     fill="rgb(113,111,100)"
+     stroke="none"
+     x="337.381"
+     y="61.6"
+     width="0.818667"
+     height="58.4"
+     id="rect40" />
+  <rect
+     fill="rgb(113,111,100)"
+     stroke="none"
+     x="279.8"
+     y="119.181"
+     width="58.4"
+     height="0.818667"
+     id="rect42" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="336.563"
+     y="62.4187"
+     width="0.818667"
+     height="56.7627"
+     id="rect44" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="280.619"
+     y="118.363"
+     width="56.7627"
+     height="0.818667"
+     id="rect46" />
+  <ellipse
+     fill="rgb(235,235,235)"
+     stroke="rgb(235,235,235)"
+     stroke-opacity="1"
+     cx="332.36"
+     cy="90.8"
+     rx="2.044"
+     ry="2.044"
+     id="ellipse48" />
+  <ellipse
+     fill="transparent"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     cx="321.264"
+     cy="90.8"
+     rx="2.92"
+     ry="2.92"
+     id="ellipse50" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="279.800000,114.160000 321.264000,114.160000 321.264000,90.800000"
+     id="polyline52" />
+  <ellipse
+     fill="transparent"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     cx="321.264"
+     cy="90.8"
+     rx="2.92"
+     ry="2.92"
+     id="ellipse54" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="279.800000,114.160000 321.264000,114.160000 321.264000,90.800000"
+     id="polyline56" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,0)"
+     stroke-width="2"
+     stroke-opacity="1"
+     points="293.232000,84.376000 306.664000,90.216000 293.232000,96.056000"
+     id="polyline58" />
+  <rect
+     fill="rgb(210,210,210)"
+     stroke="rgb(0,0,0)"
+     stroke-opacity="1"
+     x="455"
+     y="236.8"
+     width="58.4"
+     height="58.4"
+     id="rect60" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="454.181"
+     y="235.981"
+     width="0.818667"
+     height="59.2187"
+     id="rect62" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="454.181"
+     y="295.2"
+     width="59.2187"
+     height="0.818667"
+     id="rect64" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="513.4"
+     y="236.8"
+     width="0.818667"
+     height="59.2187"
+     id="rect66" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="455"
+     y="235.981"
+     width="59.2187"
+     height="0.818667"
+     id="rect68" />
+  <rect
+     fill="rgb(255,255,255)"
+     stroke="none"
+     x="455"
+     y="236.8"
+     width="1.228"
+     height="58.4"
+     id="rect70" />
+  <rect
+     fill="rgb(255,255,255)"
+     stroke="none"
+     x="455"
+     y="236.8"
+     width="58.4"
+     height="1.228"
+     id="rect72" />
+  <rect
+     fill="rgb(113,111,100)"
+     stroke="none"
+     x="512.581"
+     y="236.8"
+     width="0.818667"
+     height="58.4"
+     id="rect74" />
+  <rect
+     fill="rgb(113,111,100)"
+     stroke="none"
+     x="455"
+     y="294.381"
+     width="58.4"
+     height="0.818667"
+     id="rect76" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="511.763"
+     y="237.619"
+     width="0.818667"
+     height="56.7627"
+     id="rect78" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="455.819"
+     y="293.563"
+     width="56.7627"
+     height="0.818667"
+     id="rect80" />
+  <text
+     x="484.2"
+     y="228.04"
+     fill="rgb(0,0,255)"
+     dominant-baseline="central"
+     font-size="12"
+     font-family="helvetica"
+     text-anchor="middle"
+     id="text82">swi1</text>
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="487.704000,266.000000 513.400000,266.000000"
+     id="polyline84" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,0,255)"
+     stroke-opacity="1"
+     points="455.000000,266.000000 472.520000,266.000000"
+     id="polyline86" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="455.000000,289.360000 472.520000,289.360000 472.520000,289.360000"
+     id="polyline88" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,0,255)"
+     stroke-opacity="1"
+     points="472.520000,262.496000 472.520000,269.504000"
+     id="polyline90" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="455.000000,242.640000 473.104000,242.640000"
+     id="polyline92" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-width="4"
+     stroke-opacity="1"
+     points="473.104000,242.640000 485.952000,265.416000"
+     id="polyline94" />
+  <ellipse
+     fill="none"
+     stroke="none"
+     stroke-opacity="1"
+     cx="487.12"
+     cy="266"
+     rx="2.336"
+     ry="2.336"
+     id="ellipse96" />
+  <rect
+     fill="rgb(210,210,210)"
+     stroke="rgb(0,0,0)"
+     stroke-opacity="1"
+     x="455"
+     y="353.6"
+     width="58.4"
+     height="58.4"
+     id="rect98" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="454.181"
+     y="352.781"
+     width="0.818667"
+     height="59.2187"
+     id="rect100" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="454.181"
+     y="412"
+     width="59.2187"
+     height="0.818667"
+     id="rect102" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="513.4"
+     y="353.6"
+     width="0.818667"
+     height="59.2187"
+     id="rect104" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="455"
+     y="352.781"
+     width="59.2187"
+     height="0.818667"
+     id="rect106" />
+  <rect
+     fill="rgb(255,255,255)"
+     stroke="none"
+     x="455"
+     y="353.6"
+     width="1.228"
+     height="58.4"
+     id="rect108" />
+  <rect
+     fill="rgb(255,255,255)"
+     stroke="none"
+     x="455"
+     y="353.6"
+     width="58.4"
+     height="1.228"
+     id="rect110" />
+  <rect
+     fill="rgb(113,111,100)"
+     stroke="none"
+     x="512.581"
+     y="353.6"
+     width="0.818667"
+     height="58.4"
+     id="rect112" />
+  <rect
+     fill="rgb(113,111,100)"
+     stroke="none"
+     x="455"
+     y="411.181"
+     width="58.4"
+     height="0.818667"
+     id="rect114" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="511.763"
+     y="354.419"
+     width="0.818667"
+     height="56.7627"
+     id="rect116" />
+  <rect
+     fill="rgb(172,168,153)"
+     stroke="none"
+     x="455.819"
+     y="410.363"
+     width="56.7627"
+     height="0.818667"
+     id="rect118" />
+  <text
+     x="484.2"
+     y="344.84"
+     fill="rgb(0,0,255)"
+     dominant-baseline="central"
+     font-size="12"
+     font-family="helvetica"
+     text-anchor="middle"
+     id="text120">swi2</text>
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="487.704000,382.800000 513.400000,382.800000"
+     id="polyline122" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,0,255)"
+     stroke-opacity="1"
+     points="455.000000,382.800000 472.520000,382.800000"
+     id="polyline124" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="455.000000,406.160000 472.520000,406.160000 472.520000,406.160000"
+     id="polyline126" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,0,255)"
+     stroke-opacity="1"
+     points="472.520000,379.296000 472.520000,386.304000"
+     id="polyline128" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="455.000000,359.440000 473.104000,359.440000"
+     id="polyline130" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-width="4"
+     stroke-opacity="1"
+     points="473.104000,359.440000 485.952000,382.216000"
+     id="polyline132" />
+  <ellipse
+     fill="none"
+     stroke="none"
+     stroke-opacity="1"
+     cx="487.12"
+     cy="382.8"
+     rx="2.336"
+     ry="2.336"
+     id="ellipse134" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="341.120000,90.800000 419.960000,90.800000 419.960000,266.000000 449.160000,266.000000"
+     id="polyline136" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,0,255)"
+     stroke-opacity="1"
+     points="341.120000,90.800000 419.960000,90.800000 419.960000,266.000000 449.160000,266.000000"
+     id="polyline138" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="516.320000,266.000000 542.600000,266.000000 571.800000,266.000000 571.800000,266.000000 624.360000,266.000000"
+     id="polyline140" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="516.320000,266.000000 542.600000,266.000000 571.800000,266.000000 571.800000,266.000000 624.360000,266.000000"
+     id="polyline142" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="516.320000,382.800000 659.400000,382.800000 659.400000,301.040000"
+     id="polyline144" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="516.320000,382.800000 659.400000,382.800000 659.400000,301.040000"
+     id="polyline146" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="341.120000,90.800000 419.960000,90.800000 419.960000,382.800000 449.160000,382.800000"
+     id="polyline148" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,0,255)"
+     stroke-opacity="1"
+     points="341.120000,90.800000 419.960000,90.800000 419.960000,382.800000 449.160000,382.800000"
+     id="polyline150" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="691.520000,266.000000 719.260000,266.000000 719.260000,266.000000 776.200000,266.000000"
+     id="polyline152" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="691.520000,266.000000 719.260000,266.000000 719.260000,266.000000 776.200000,266.000000"
+     id="polyline154" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="273.960000,90.800000 104.600000,90.800000"
+     id="polyline156" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="273.960000,90.800000 104.600000,90.800000"
+     id="polyline158" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="273.960000,114.160000 221.400000,114.160000 221.400000,207.600000 104.600000,207.600000"
+     id="polyline160" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="273.960000,114.160000 221.400000,114.160000 221.400000,207.600000 104.600000,207.600000"
+     id="polyline162" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="449.160000,242.640000 221.400000,242.640000 221.400000,324.400000 104.600000,324.400000"
+     id="polyline164" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="449.160000,242.640000 221.400000,242.640000 221.400000,324.400000 104.600000,324.400000"
+     id="polyline166" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="449.160000,406.160000 221.400000,406.160000 221.400000,324.400000 104.600000,324.400000"
+     id="polyline168" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="449.160000,406.160000 221.400000,406.160000 221.400000,324.400000 104.600000,324.400000"
+     id="polyline170" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="449.160000,289.360000 279.800000,289.360000 279.800000,441.200000 104.600000,441.200000"
+     id="polyline172" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="449.160000,289.360000 279.800000,289.360000 279.800000,441.200000 104.600000,441.200000"
+     id="polyline174" />
+  <polyline
+     fill="none"
+     stroke="rgb(255,255,255)"
+     stroke-width="5"
+     stroke-opacity="1"
+     points="449.160000,359.440000 279.800000,359.440000 279.800000,441.200000 104.600000,441.200000"
+     id="polyline176" />
+  <polyline
+     fill="none"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="449.160000,359.440000 279.800000,359.440000 279.800000,441.200000 104.600000,441.200000"
+     id="polyline178" />
+  <ellipse
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     cx="279.8"
+     cy="359.44"
+     rx="3.5"
+     ry="3.5"
+     id="ellipse180" />
+  <ellipse
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     cx="221.4"
+     cy="324.4"
+     rx="3.5"
+     ry="3.5"
+     id="ellipse182" />
+  <ellipse
+     fill="rgb(255,0,255)"
+     stroke="rgb(255,0,255)"
+     cx="419.96"
+     cy="266"
+     rx="3.5"
+     ry="3.5"
+     id="ellipse184" />
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="618.520000,260.160000 630.200000,266.000000 618.520000,271.840000 618.520000,260.160000"
+     id="polygon186" />
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="665.240000,306.880000 659.400000,295.200000 653.560000,306.880000 665.240000,306.880000"
+     id="polygon188" />
+  <polygon
+     fill="rgb(255,255,255)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="688.600000,263.080000 694.440000,266.000000 688.600000,268.920000 688.600000,263.080000"
+     id="polygon190" />
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="268.120000,84.960000 279.800000,90.800000 268.120000,96.640000 268.120000,84.960000"
+     id="polygon192" />
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="268.120000,108.320000 279.800000,114.160000 268.120000,120.000000 268.120000,108.320000"
+     id="polygon194" />
+  <polygon
+     fill="rgb(255,255,255)"
+     stroke="rgb(255,0,255)"
+     stroke-opacity="1"
+     points="338.200000,87.880000 344.040000,90.800000 338.200000,93.720000 338.200000,87.880000"
+     id="polygon196" />
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="443.320000,236.800000 455.000000,242.640000 443.320000,248.480000 443.320000,236.800000"
+     id="polygon198" />
+  <polygon
+     fill="rgb(255,0,255)"
+     stroke="rgb(255,0,255)"
+     stroke-opacity="1"
+     points="443.320000,260.160000 455.000000,266.000000 443.320000,271.840000 443.320000,260.160000"
+     id="polygon200" />
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="443.320000,283.520000 455.000000,289.360000 443.320000,295.200000 443.320000,283.520000"
+     id="polygon202" />
+  <polygon
+     fill="rgb(255,255,255)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="513.400000,263.080000 519.240000,266.000000 513.400000,268.920000 513.400000,263.080000"
+     id="polygon204" />
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="443.320000,353.600000 455.000000,359.440000 443.320000,365.280000 443.320000,353.600000"
+     id="polygon206" />
+  <polygon
+     fill="rgb(255,0,255)"
+     stroke="rgb(255,0,255)"
+     stroke-opacity="1"
+     points="443.320000,376.960000 455.000000,382.800000 443.320000,388.640000 443.320000,376.960000"
+     id="polygon208" />
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="443.320000,400.320000 455.000000,406.160000 443.320000,412.000000 443.320000,400.320000"
+     id="polygon210" />
+  <polygon
+     fill="rgb(255,255,255)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="513.400000,379.880000 519.240000,382.800000 513.400000,385.720000 513.400000,379.880000"
+     id="polygon212" />
+  <polygon
+     fill="rgb(255,255,255)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="747.000000,251.400000 776.200000,266.000000 747.000000,280.600000 747.000000,251.400000"
+     id="polygon214" />
+  <text
+     x="784.96"
+     y="241.18"
+     fill="rgb(0,0,127)"
+     dominant-baseline="central"
+     font-size="15"
+     font-family="helvetica"
+     text-anchor="middle"
+     id="text216">yOA</text>
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="104.600000,61.600000 163.000000,90.800000 104.600000,120.000000 104.600000,61.600000"
+     id="polygon218" />
+  <text
+     x="98.76"
+     y="48.46"
+     fill="rgb(0,0,127)"
+     dominant-baseline="central"
+     font-size="15"
+     font-family="helvetica"
+     text-anchor="middle"
+     id="text220">TRet</text>
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="104.600000,178.400000 163.000000,207.600000 104.600000,236.800000 104.600000,178.400000"
+     id="polygon222" />
+  <text
+     x="98.76"
+     y="165.26"
+     fill="rgb(0,0,127)"
+     dominant-baseline="central"
+     font-size="15"
+     font-family="helvetica"
+     text-anchor="middle"
+     id="text224">TOut</text>
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="104.600000,295.200000 163.000000,324.400000 104.600000,353.600000 104.600000,295.200000"
+     id="polygon226" />
+  <text
+     x="98.76"
+     y="282.06"
+     fill="rgb(0,0,127)"
+     dominant-baseline="central"
+     font-size="15"
+     font-family="helvetica"
+     text-anchor="middle"
+     id="text228">TMix</text>
+  <polygon
+     fill="rgb(0,0,127)"
+     stroke="rgb(0,0,127)"
+     stroke-opacity="1"
+     points="104.600000,412.000000 163.000000,441.200000 104.600000,470.400000 104.600000,412.000000"
+     id="polygon230" />
+  <text
+     x="98.76"
+     y="398.86"
+     fill="rgb(0,0,127)"
+     dominant-baseline="central"
+     font-size="15"
+     font-family="helvetica"
+     text-anchor="middle"
+     id="text232">TMixSet</text>
+</svg>

@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.BaseClasses.FlowModels.Validation.BasicFlowFunction_m_flow_DerivativeCheck2", method="dassl", startTime=-2, stopTime=2, tolerance=1e-8, resultFile="BasicFlowFunction_m_flow_DerivativeCheck2");
+createPlot(id=1, position={35, 30, 592, 421},
+y={"dp", "dp_comp"},
+range={-2.0, 2.0, -1.0, 1.0}, grid=true, filename="BasicFlowFunction_m_flow_DerivativeCheck2.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 592, 207},
+y={"der(dp)", "der(dp_comp)"},
+range={-2.0, 2.0, 0.0, 1.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={649, 34, 592, 421},
+y={"err_dp"},
+range={-2.0, 2.0, -2.0000000000000004E-07, 5E-08}, grid=true, filename="BasicFlowFunction_m_flow_DerivativeCheck2.mat", colors={{28,108,200}});
+createPlot(id=2, position={649, 34, 592, 207},
+y={"err_der_dp"},
+range={-2.0, 2.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});

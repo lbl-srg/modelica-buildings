@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.Chillers.Examples.Carnot_y", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Chiller_Carnot_y");
+createPlot(id=2, position={75, 70, 1210, 980}, y={"chi.sta_a1.T", "chi.sta_b1.T", "chi.sta_a2.T", "chi.sta_b2.T"}, range={0.0, 3600.0, 5.0, 40.0}, grid=true, filename="Chiller_Carnot_y.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=2, position={75, 70, 1210, 240}, y={"chi.QEva_flow", "chi.QCon_flow", "chi.P"}, range={0.0, 3600.0, -200000.0, 300000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={75, 70, 1210, 241}, y={"chi.dp1", "chi.dp2"}, range={0.0, 3600.0, 0.0, 14000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={75, 70, 1210, 240}, y={"chi.COP_nominal", "chi.COP"}, range={0.0, 3600.0, 3.0, 10.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});

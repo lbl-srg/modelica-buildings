@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>7. Glossary &#8212; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="8. Acknowledgments" href="acknowledgments.html" />
+    <link rel="prev" title="6. Help" href="help.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="index.html">User Guide</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.2. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bestPractice.html">2. Best Practice</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#organization-of-packages">2.1. Organization of packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#building-large-system-models">2.2. Building large system models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#thermo-fluid-systems">2.4. Thermo-fluid systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#avoiding-events">2.6. Avoiding events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.7. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#numerical-solvers">2.9. Numerical solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workArounds.html">3. Work-Arounds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-step-changes">3.1. Avoiding step changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">5. Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing">5.1. Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.2. Adding a new class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">8. Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">9. Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">10. Copyright and License</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">7. Glossary</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="help.html" title="Previous Chapter: 6. Help"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 6. Help</span>
+    </a>
+  </li>
+  <li>
+    <a href="acknowledgments.html" title="Next Chapter: 8. Acknowledgments"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">8. Acknowledg... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+<!--
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+-->
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="glossary">
+<h1>7. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
+<dl class="glossary docutils">
+<dt id="term-2nd-order-low-pass-filter">2nd order low pass filter</dt>
+<dd><p class="first">A second order low pass filter is an input-output block that computes</p>
+<div class="math">
+\[\begin{split}\dot x(t) = \begin{pmatrix} r &amp; 0 \\ -r &amp; r \end{pmatrix} \, x(t) + \begin{pmatrix} -r \\ 0 \end{pmatrix} \, u(t)\end{split}\]</div>
+<p>and</p>
+<div class="math">
+\[y(t) = (0, \, 1) \, x(t),\]</div>
+<p class="last">where <span class="math">\(r\)</span> is a positive real number.
+This causes the input signal <span class="math">\(u(\cdot)\)</span> to be converted to
+an output signal <span class="math">\(y(\cdot)\)</span> that is differentiable in time.
+See the <a class="reference internal" href="workArounds.html#figurefilteredresponse"><span class="std std-ref">plot of a filtered step response</span></a>.</p>
+</dd>
+<dt id="term-compressible-flow">compressible flow</dt>
+<dd>The opposite of <a class="reference internal" href="#term-incompressible-flow"><span class="xref std std-term">incompressible flow</span></a>.</dd>
+<dt id="term-incompressible-flow">incompressible flow</dt>
+<dd>In fluid mechanics, incompressible flow refers to flow where the mass
+density is constant within a fluid volume that moves with the fluid.</dd>
+<dt id="term-iterative-solver">iterative solver</dt>
+<dd>An iterative solver is a numerical solver that iterates until
+the approximate solution satisfies a convergence test.
+Examples include Newton solvers for nonlinear systems of equations,
+and ordinary differential equation solvers with adaptive time step
+length.</dd>
+<dt id="term-numerical-noise">numerical noise</dt>
+<dd>In numerical solutions, numerical noise refers to fast but small
+changes in variables whose magnitude is typically smaller than
+the solver tolerance.</dd>
+<dt id="term-regularization">regularization</dt>
+<dd>By regularization, we mean approximating a non-differentiable function by another function that is differentiable and has continuous and bounded derivatives, i.e., a function that is continuously differentiable. Continuous differentiability is a necessary condition for Newton-based solvers to solve nonlinear equations.</dd>
+<dt id="term-state-variables">state variables</dt>
+<dd>State variables are variables whose time rate of change is defined by a differential equation.</dd>
+<dt id="term-thermo-fluid-system">thermo-fluid system</dt>
+<dd>Thermo-fluid systems are systems that compute combined mass and energy flow, such as a heat exchanger in which heat is added to the medium that flows through it.</dd>
+<dt id="term-valve-authority">valve authority</dt>
+<dd><p class="first">For a control valve, the valve authority <span class="math">\(N\)</span> is defined as</p>
+<div class="math">
+\[N = \frac{\Delta p_v(1)}{\Delta p_v(1) + \Delta p_0},\]</div>
+<p class="last">where <span class="math">\(\Delta p_v(1)\)</span> is the pressure drop across the fully open valve, and <span class="math">\(\Delta p_v(1) + \Delta p_0\)</span> is the pressure drop across the whole flow leg whose mass flow rate is controlled by the valve. Valves should be designed such that <span class="math">\(N\)</span> is around 0.5, but not higher.</p>
+</dd>
+</dl>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

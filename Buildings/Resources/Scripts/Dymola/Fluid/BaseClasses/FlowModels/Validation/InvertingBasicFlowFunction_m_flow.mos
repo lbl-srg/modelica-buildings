@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.BaseClasses.FlowModels.Validation.InvertingBasicFlowFunction_m_flow", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="InvertingBasicFlowFunction_m_flow");
+createPlot(id=1, position={55, 50, 592, 616},
+y={"m_flow", "m_flow_nominal"},
+range={0.0, 1.0, -0.8, 0.8}, grid=true, filename="InvertingBasicFlowFunction_m_flow.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={55, 50, 592, 305},
+y={"dp"},
+ range={0.0, 1.0, -3.0, 3.0}, grid=true, subPlot=2, colors={{28,108,200}});

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "chi_b.SGen_flow",
+    "chi_b.chi.sta_a1.T",
+    "chi_b.chi.sta_a2.T",
+    "chi_b.chi.sta_b1.T",
+    "chi_b.chi.sta_b2.T"
+  };

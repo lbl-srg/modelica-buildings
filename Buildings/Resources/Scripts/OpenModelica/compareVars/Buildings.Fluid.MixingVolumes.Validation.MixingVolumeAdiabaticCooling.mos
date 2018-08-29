@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "volSim.T",
+    "volExa.T",
+    "relErr.y"
+  };

@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HexElementLatentLoop", method="dassl", stopTime = 50, tolerance=1e-06, resultFile="HexElementLatentLoop");
+createPlot(id=1, position={55, 50, 592, 427}, y={"hex.sta_a1.T", "hex.sta_b1.T", "hex.sta_a2.T", "hex.sta_b2.T", "TSur.y"}, range={0.0, 50.0, 4.0, 22.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
+createPlot(id=2, position={670, 45, 592, 427}, y={"hex.sta_b2.X[1]", "humRatPre.X_w"}, range={0.0, 50.0, 0.005, 0.015}, grid=true, colors={{28,108,200}, {238,46,47}});

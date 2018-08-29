@@ -1,0 +1,59 @@
+last-generated=2016-12-22
+statistics-fmu-dependencies=
+{
+  "Outputs": {
+    "outlet.m_flow": [
+      "inlet.m_flow"
+    ], 
+    "inlet.backward.T": [
+      "inlet.m_flow", 
+      "outlet.backward.T", 
+      "outlet.backward.X_w", 
+      "u"
+    ], 
+    "inlet.backward.X_w": [
+      "outlet.backward.X_w"
+    ], 
+    "outlet.forward.T": [
+      "inlet.m_flow", 
+      "inlet.forward.T", 
+      "inlet.forward.X_w", 
+      "u"
+    ], 
+    "outlet.forward.X_w": [
+      "inlet.forward.X_w"
+    ], 
+    "outlet.p": [
+      "inlet.p"
+    ]
+  }, 
+  "InitialUnknowns": {
+    "outlet.m_flow": [
+      "inlet.m_flow"
+    ], 
+    "inlet.backward.T": [
+      "inlet.m_flow", 
+      "outlet.backward.T", 
+      "outlet.backward.X_w", 
+      "Q_flow_nominal", 
+      "u"
+    ], 
+    "inlet.backward.X_w": [
+      "outlet.backward.X_w"
+    ], 
+    "outlet.forward.T": [
+      "inlet.m_flow", 
+      "inlet.forward.T", 
+      "inlet.forward.X_w", 
+      "Q_flow_nominal", 
+      "u"
+    ], 
+    "outlet.forward.X_w": [
+      "inlet.forward.X_w"
+    ], 
+    "outlet.p": [
+      "inlet.p"
+    ]
+  }, 
+  "Derivatives": {}
+}

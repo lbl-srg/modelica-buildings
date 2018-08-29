@@ -1,0 +1,14 @@
+storeProtected=Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables:=true;
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.AbsorbedRadiation", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="AbsorbedRadiation");
+removePlots();
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"winAbs.QAbsIntSha_flow[1]", "winAbs.QAbsGlaUns_flow[1, 1]", "winAbs.QAbsGlaUns_flow[2, 1]", "winAbs.QAbsGlaSha_flow[1, 1]", "winAbs.QAbsGlaSha_flow[2, 1]"},
+ filename = "AbsorbedRadiation.mat",
+ autoscale = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);

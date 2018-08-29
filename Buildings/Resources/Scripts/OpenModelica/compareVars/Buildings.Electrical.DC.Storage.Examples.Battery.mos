@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "bat.terminal.i[1]",
+    "loa.i[1]",
+    "bat.SOC",
+    "sou.S[1]",
+    "bat.P",
+    "loa.S[1]"
+  };

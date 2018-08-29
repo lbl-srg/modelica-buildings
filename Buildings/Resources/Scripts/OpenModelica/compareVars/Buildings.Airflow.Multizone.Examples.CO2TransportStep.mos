@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "CO2SenWes.C",
+    "CO2SenEas.C",
+    "CO2SenTop.C"
+  };

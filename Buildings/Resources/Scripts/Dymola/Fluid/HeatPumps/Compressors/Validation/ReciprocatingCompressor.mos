@@ -1,0 +1,23 @@
+simulateModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor", method="dassl", tolerance=1e-6, stopTime=100, resultFile="ReciprocatingCompressor");
+createPlot(id = 1,
+   position = {60, 10, 640, 480},
+   y = {"com.pDis", "com.pSuc"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   filename = "ReciprocatingCompressor.mat",
+   leftTitleType = 1,
+   bottomTitleType = 1);
+createPlot(id = 2,
+   position = {120, 30, 640, 480},
+   y = {"com.P", "heaFloEva.Q_flow", "heaFloCon.Q_flow"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   filename = "ReciprocatingCompressor.mat",
+   leftTitleType = 1,
+   bottomTitleType = 1);

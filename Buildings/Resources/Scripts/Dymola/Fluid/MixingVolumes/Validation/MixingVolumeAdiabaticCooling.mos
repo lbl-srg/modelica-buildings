@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.MixingVolumeAdiabaticCooling", tolerance=1e-6, stopTime=10, method="dassl", resultFile="MixingVolumeAdiabaticCooling");
+createPlot(id=1, position={95, 90, 1172, 947}, y={"volSim.T", "volExa.T"}, range={0.0, 10.0, -2.0, 22.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={95, 90, 1172, 471}, y={"relErr.y"}, range={0.0, 10.0, 0.99995, 1.00035}, grid=true, subPlot=2, colors={{28,108,200}});

@@ -1,0 +1,16 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Validation.PrescribedOutlet", method="dassl", tolerance=1e-6, stopTime=1200, resultFile="Validation_PrescribedOutlet");
+createPlot(id=1, position={23, 17, 932, 551},
+y={"m_flow.y"},
+range={0.0, 1200.0, -0.2, 0.2}, grid=true, filename="Validation_PrescribedOutlet.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={23, 17, 932, 134},
+ y={"heaHigPowIn.T", "heaHigPowOut.T", "heaHigPow.TSet"},
+range={0.0, 1200.0, 0.0, 80.0}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+createPlot(id=1, position={23, 17, 932, 133},
+ y={"cooLimPowIn.T", "cooLimPowOut.T", "cooLimPow.TSet"},
+range={0.0, 1200.0, 5.0, 25.0}, grid=true, subPlot=3, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+createPlot(id=1, position={23, 17, 932, 133},
+ y={"heaCooUnlIn.T", "heaCooUnlOut.T", "heaCooUnl.TSet"},
+range={0.0, 1200.0, 10.0, 40.0}, grid=true, subPlot=4, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+createPlot(id=2, position={105, 309, 784, 374},
+ y={"heaHigPow.QMax_flow", "heaHigPow.Q_flow", "cooLimPow.QMin_flow", "cooLimPow.Q_flow", "heaCooUnl.Q_flow"},
+range={0.0, 1200.0, -6000.0, 12000.0}, grid=true, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}});

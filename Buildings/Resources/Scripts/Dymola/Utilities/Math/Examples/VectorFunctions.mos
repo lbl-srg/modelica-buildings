@@ -1,0 +1,14 @@
+simulateModel("Buildings.Utilities.Math.Examples.VectorFunctions", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="VectorFunctions");
+removePlots();
+createPlot(id = 5,
+ position = {60, 90, 674, 527},
+ y = {"sine.y", "sine1.y", "sine2.y", "minVec.y", "maxVec.y", "aveVec.y"},
+ range = {0, 1, 1.6, (-1.6)},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "VectorFunctions.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

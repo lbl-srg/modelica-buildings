@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier", tolerance=1e-6, stopTime=1, method="dassl", resultFile="ReverseFlowHumidifier");
+createPlot(id=1, position={241, 38, 1069, 1051}, y={"senEnt1.h_out", "senEnt2.h_out"}, range={0.0, 1.0, 45200.0, 46100.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={241, 38, 1069, 260}, y={"senTem1.T", "senTem2.T"}, range={0.0, 1.0, 19.8, 20.8}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={241, 38, 1069, 259}, y={"senMas1.X", "senMas2.X"}, range={0.0, 1.0, 0.009990000000000002, 0.010040000000000002}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={241, 38, 1069, 260}, y={"cheTem.y", "cheEnt.y", "cheMas.y"}, range={0.0, 1.0, -1.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});

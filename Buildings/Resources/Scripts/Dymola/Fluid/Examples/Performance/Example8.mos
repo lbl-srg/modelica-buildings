@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.Examples.Performance.Example8", tolerance=1e-6, stopTime=50, method="dassl", resultFile="Example8");
+createPlot(id=1,
+position={15, 10, 592, 421},
+y={"a", "b"},
+range={0.0, 100.0, -1.2000000000000002, 1.4},
+grid=true,
+colors={{28,108,200}, {238,46,47}});

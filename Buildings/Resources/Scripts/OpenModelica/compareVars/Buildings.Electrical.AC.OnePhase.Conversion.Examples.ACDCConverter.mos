@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "load.S[1]",
+    "res.S[1]",
+    "sou.S[1]"
+  };

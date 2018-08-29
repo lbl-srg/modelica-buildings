@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "adp.bypass",
+    "m_flow.y",
+    "adp.hADP",
+    "hEvaIn.y",
+    "adp.XADP",
+    "XEvaIn.y"
+  };

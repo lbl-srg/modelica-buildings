@@ -1,0 +1,14 @@
+removePlots();
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins", tolerance=1e-6, stopTime=86400, numberOfIntervals=500, method="dassl", resultFile="BaseClassesSideFins");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"fin.fraSun"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "BaseClassesSideFins.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

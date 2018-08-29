@@ -1,0 +1,4 @@
+simulateModel("Buildings.HeatTransfer.Examples.ConductorStepResponse", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="ConductorStepResponse");
+createPlot(id=1, position={34, 34, 400, 270}, y={"con.port_a.Q_flow", "con1.port_a.Q_flow"}, range={0.0, 90000.0, -20.0, 100.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=5, position={459, 32, 400, 280}, y={"con.T[1]"}, range={0.0, 90000.0, 19.0, 26.0}, grid=true, colors={{28,108,200}});
+createPlot(id=6, position={36, 355, 413, 361}, y={"cheEqu.y"}, range={0.0, 90000.0, -5.000000000000001E-13, 5.000000000000001E-13}, grid=true, colors={{28,108,200}});

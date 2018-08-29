@@ -1,0 +1,15 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.WeatherData.Validation.ReaderTMY3HDirNor", stopTime=86400, method="dassl", tolerance=1e-06, resultFile="ReaderTMY3HDirNor");
+createPlot(id=1,
+  position={0, 0, 744, 490},
+  y={"weaDatInpCon.HGloHor_in", "weaDatInpCon.weaBus.HDifHor"},
+  range={0.0, 90000.0, -20.0, 120.0},
+  grid=true,
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=1,
+  position={0, 0, 744, 243},
+  y={"weaDatInpCon.weaBus.HDirNor"},
+  range={0.0, 90000.0, -500.0, 1500.0},
+  grid=true,
+  subPlot=2,
+  colors={{28,108,200}});

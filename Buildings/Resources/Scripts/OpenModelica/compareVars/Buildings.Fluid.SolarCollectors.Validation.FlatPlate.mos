@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "solCol.vol[30].T",
+    "datRea.y[2]"
+  };

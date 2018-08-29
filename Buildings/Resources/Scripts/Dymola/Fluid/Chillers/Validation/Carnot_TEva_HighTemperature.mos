@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.Chillers.Validation.Carnot_TEva_HighTemperature", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Carnot_TEva_HighTemperature");
+createPlot(id=2, position={7, -33, 1210, 980}, y={"chi.sta_a2.T", "chi.sta_b2.T", "chi.TSet"}, range={0.0, 3600.0, 260.0, 340.0}, grid=true, filename="Carnot_TEva_HighTemperature.mat", colors={{0,140,72}, {180,56,148}, {0,0,0}});
+createPlot(id=2, position={7, -33, 1210, 193}, y={"chi.QEva_flow", "chi.QCon_flow", "chi.P"}, range={0.0, 3600.0, -300000.0, 300000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={7, -33, 1210, 192}, y={"chi.dp1", "chi.dp2"}, range={0.0, 3600.0, -5000.0, 20000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={7, -33, 1210, 193}, y={"chi.COP_nominal", "chi.COP"}, range={0.0, 3600.0, 0.0, 100.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={7, -33, 1210, 193}, y={"chi.port_a1.m_flow", "chi.port_b1.m_flow"}, range={0.0, 3600.0, -10.0, 10.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}});

@@ -1,0 +1,14 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.SpliceFunction", startTime=-1, method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="SpliceFunction");
+removePlots();
+createPlot(id = 2,
+ position = {35, 30, 609, 469},
+ y = {"y"},
+ range = {(-1.0), 1, 1.05, 0.55},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "SpliceFunction.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

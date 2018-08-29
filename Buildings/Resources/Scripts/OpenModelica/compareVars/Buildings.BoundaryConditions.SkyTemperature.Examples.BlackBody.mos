@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "TBlaSky.TBlaSky",
+    "TBlaSkyIrr.TBlaSky"
+  };

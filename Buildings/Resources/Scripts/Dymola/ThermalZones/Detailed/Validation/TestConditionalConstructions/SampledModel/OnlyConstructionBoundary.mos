@@ -1,0 +1,13 @@
+simulateModel("Buildings.ThermalZones.Detailed.Validation.TestConditionalConstructions.SampledModel.OnlyConstructionBoundary", stopTime=86400, method="radau", tolerance=1e-06, resultFile="SampledModelOnlyConstructionBoundary");
+removePlots();
+createPlot(id = 1,
+ position = {15, 10, 400, 280},
+ y = {"roo.weaBus.TDryBul", "roo.air.vol.T"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "SampledModelOnlyConstructionBoundary.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

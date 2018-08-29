@@ -1,0 +1,12 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Examples.Factorial", stopTime=1, method="Radau", tolerance=1e-6, resultFile="Factorial");
+createPlot(id = 1,
+ position = {15, 10, 847, 743},
+ y = {"y[1]", "y[2]", "y[3]", "y[4]", "y[5]"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "Factorial.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

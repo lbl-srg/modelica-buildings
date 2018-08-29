@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "act1.y",
+    "act2.y",
+    "act3.y",
+    "triAndRes[1].y",
+    "triAndRes[2].y",
+    "triAndRes[3].y"
+  };

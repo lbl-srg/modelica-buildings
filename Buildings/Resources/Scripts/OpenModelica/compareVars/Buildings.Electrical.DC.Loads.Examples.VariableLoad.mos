@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "loa1.i[1]",
+    "loa2.i[1]",
+    "loa3.i[1]"
+  };

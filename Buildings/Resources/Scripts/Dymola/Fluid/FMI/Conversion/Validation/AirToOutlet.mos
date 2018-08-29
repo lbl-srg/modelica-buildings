@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.FMI.Conversion.Validation.AirToOutlet", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="AirToOutlet");
+createPlot(id=2, position={31, 24, 930, 825}, y={"conAirNoC.outlet.m_flow", "conAirWithC.outlet.m_flow", "conDryAirNoC.outlet.m_flow", "conDryAirWithC.outlet.m_flow"}, range={0.0, 1.0, 0.17, 0.23}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={31, 24, 930, 202}, y={"conAirNoC.outlet.forward.T", "conAirWithC.outlet.forward.T", "conDryAirNoC.outlet.forward.T", "conDryAirWithC.outlet.forward.T"}, range={0.0, 1.0, 260.0, 340.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={31, 24, 930, 201}, y={"conAirNoC.outlet.forward.X_w", "conAirWithC.outlet.forward.X_w"}, range={0.0, 1.0, 0.008, 0.012}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={31, 24, 930, 202}, y={"conAirWithC.outlet.forward.C[1]", "conDryAirWithC.outlet.forward.C[1]"}, range={0.0, 1.0, 8E-06, 1.2E-05}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});

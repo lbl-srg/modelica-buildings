@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.Movers.BaseClasses.Validation.FlowMachineInterface", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="FlowMachineInterface");
+createPlot(id=1, position={15, 10, 990, 887}, y={"eff.m_flow", "eff.V_flow"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, filename="FlowMachineInterface.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 990, 172}, y={"eff.dp"}, range={0.0, 1.0, -500.0, 1500.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 990, 173}, y={"eff.y_in"}, range={0.0, 1.0, 0.8, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 990, 172}, y={"eff.WFlo", "eff.PEle"}, range={0.0, 1.0, -200.0, 600.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 990, 173}, y={"eff.eta", "eff.etaHyd", "eff.etaMot"}, range={0.0, 1.0, 0.4, 0.8}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}});

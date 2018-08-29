@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "boi1.sta_a.T",
+    "boi1.sta_b.T",
+    "boi1.T",
+    "boi2.sta_a.T",
+    "boi2.sta_b.T",
+    "boi2.T",
+    "y.y"
+  };

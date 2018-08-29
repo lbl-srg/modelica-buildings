@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "Rgb",
+    "RCondGro",
+    "x",
+    "Rgg"
+  };

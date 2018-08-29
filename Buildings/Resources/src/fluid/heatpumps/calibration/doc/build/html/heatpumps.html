@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Heat pump models &#8212; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Refrigerant thermodynamic properties" href="refrigerants.html" />
+    <link rel="prev" title="Evaporator and condenser models" href="heatexchangers.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="index.html">Heat Pump Calibration User Guide</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="calibrate.html">Calibrate heat pump models</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="compressors.html">Compressor models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluids.html">Thermodynamic properties of heat carrier fluids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heatexchangers.html">Evaporator and condenser models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Heat pump models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refrigerants.html">Refrigerant thermodynamic properties</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dummy_performance_data.html">Generate performance data from heat pump model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_calibration.html">Calibrate heat pump model from performance data</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Heat pump models</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="heatexchangers.html" title="Previous Chapter: Evaporator and condenser models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Evaporator an...</span>
+    </a>
+  </li>
+  <li>
+    <a href="refrigerants.html" title="Next Chapter: Refrigerant thermodynamic properties"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Refrigerant t... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+<!--
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+-->
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="module-PythonModel.heatpumps">
+<span id="heat-pump-models"></span><h1>Heat pump models<a class="headerlink" href="#module-PythonModel.heatpumps" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump">
+<em class="property">class </em><code class="descclassname">PythonModel.heatpumps.</code><code class="descname">SingleStageHeatPump</code><span class="sig-paren">(</span><em>com</em>, <em>con</em>, <em>eva</em>, <em>ref</em>, <em>fluCon</em>, <em>fluEva</em>, <em>Q_nominal</em>, <em>P_nominal</em>, <em>CoolingMode=False</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="docutils">
+<dt>Object for heat pump model based on Jin (2002):</dt>
+<dd>H. Jin. Parameter estimation based models of water source heat pumps.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>eva</strong> &#8211; Evaporator model.</li>
+<li><strong>con</strong> &#8211; Condenser model.</li>
+<li><strong>ref</strong> &#8211; Refrigerant model.</li>
+<li><strong>fluCon</strong> &#8211; Fluid model for fluid on the condenser side.</li>
+<li><strong>fluEva</strong> &#8211; Fluid model for fluid on the evaporator side.</li>
+<li><strong>Q_nominal</strong> &#8211; Nominal heat pump capacity (W).</li>
+<li><strong>P_nominal</strong> &#8211; Nominal heat pump power input (W).</li>
+<li><strong>CoolingMode</strong> &#8211; Boolean, True if heat pump is in cooling mode.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.get_Capacity">
+<code class="descname">get_Capacity</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return heat pump capacity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
+<li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Heat pump capacity (W).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span> <span class="o">=</span> <span class="n">SingleStageHeatPump</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">eva</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="mf">19300.0</span><span class="p">,</span> <span class="mf">4289.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_Capacity</span><span class="p">(</span><span class="mf">298.8</span><span class="p">,</span> <span class="mf">311.0</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">)</span>
+<span class="go">&#39;24124.81&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.get_CondenserHeatTransferRate">
+<code class="descname">get_CondenserHeatTransferRate</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_CondenserHeatTransferRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate condenser heat transfer rate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
+<li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">condenser heat transfer rate (W).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span> <span class="o">=</span> <span class="n">SingleStageHeatPump</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">eva</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="mf">19300.0</span><span class="p">,</span> <span class="mf">4289.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_CondenserHeatTransferRate</span><span class="p">(</span><span class="mf">298.8</span><span class="p">,</span> <span class="mf">311.0</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">)</span>
+<span class="go">&#39;24124.81&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.get_EvaporatorHeatTransferRate">
+<code class="descname">get_EvaporatorHeatTransferRate</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_EvaporatorHeatTransferRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate evaporator heat transfer rate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
+<li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Evaporator heat transfer rate (W).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span> <span class="o">=</span> <span class="n">SingleStageHeatPump</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">eva</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="mf">19300.0</span><span class="p">,</span> <span class="mf">4289.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_EvaporatorHeatTransferRate</span><span class="p">(</span><span class="mf">298.8</span><span class="p">,</span> <span class="mf">311.0</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">)</span>
+<span class="go">&#39;-19413.08&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.get_Power">
+<code class="descname">get_Power</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Power" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate heat pump power input.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
+<li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Heat pump power input (W).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span> <span class="o">=</span> <span class="n">SingleStageHeatPump</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">eva</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="mf">19300.0</span><span class="p">,</span> <span class="mf">4289.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">298.8</span><span class="p">,</span> <span class="mf">311.0</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">)</span>
+<span class="go">&#39;4711.73&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.get_SourceSideTransferRate">
+<code class="descname">get_SourceSideTransferRate</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_SourceSideTransferRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return heat pump source side heat transfer rate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
+<li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Heat pump source side heat transfer rate (W).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span> <span class="o">=</span> <span class="n">SingleStageHeatPump</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">eva</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="mf">19300.0</span><span class="p">,</span> <span class="mf">4289.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_SourceSideTransferRate</span><span class="p">(</span><span class="mf">298.8</span><span class="p">,</span> <span class="mf">311.0</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">)</span>
+<span class="go">&#39;19413.08&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.initialGuessParameters">
+<code class="descname">initialGuessParameters</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize guess parameters for calibration of the heat pump model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> &#8211; Heat pump performance data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of parameters to the compressor model, a list of tuples
+of the bounds of the parameters (min, max) for the calibration
+routine.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.modelicaCalibrationModelPath">
+<code class="descname">modelicaCalibrationModelPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaCalibrationModelPath" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns the full path to the heat pump model for calibration in the</dt>
+<dd>Buildings library.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Full path to the compressor model in the Buildings library.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span> <span class="o">=</span> <span class="n">SingleStageHeatPump</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">eva</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="mf">19300.0</span><span class="p">,</span> <span class="mf">4289.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span><span class="o">.</span><span class="n">modelicaCalibrationModelPath</span><span class="p">()</span>
+<span class="go">&#39;Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.modelicaModelName">
+<code class="descname">modelicaModelName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaModelName" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns the name of the heat pump model for calibration in the</dt>
+<dd>Buildings library.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Full path to the compressor model in the Buildings library.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span> <span class="o">=</span> <span class="n">SingleStageHeatPump</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">eva</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="mf">19300.0</span><span class="p">,</span> <span class="mf">4289.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span><span class="o">.</span><span class="n">modelicaModelName</span><span class="p">()</span>
+<span class="go">&#39;ScrollWaterToWater&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.modelicaModelPath">
+<code class="descname">modelicaModelPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the full path to the heat pump model in the Buildings
+library.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Full path to the compressor model in the Buildings library.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span> <span class="o">=</span> <span class="n">SingleStageHeatPump</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">eva</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="mf">19300.0</span><span class="p">,</span> <span class="mf">4289.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">heaPum</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
+<span class="go">&#39;Buildings.Fluid.HeatPumps.ScrollWaterToWater&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.printParameters">
+<code class="descname">printParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.printParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the value of the model parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.reinitializeParameters">
+<code class="descname">reinitializeParameters</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reinitializes the heat pump using new parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameters</strong> &#8211; Heat pump parameters.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.set_ModelicaParameters">
+<code class="descname">set_ModelicaParameters</code><span class="sig-paren">(</span><em>simulator</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.set_ModelicaParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set parameter values for simulation in dymola.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>simulator</strong> &#8211; Simulator object (BuildingsPy)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Simulator object (BuildingsPy)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatpumps.SingleStageHeatPump.set_State">
+<code class="descname">set_State</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em>, <em>tol=1e-06</em>, <em>relax=0.7</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.set_State" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the current state of the heat pump.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
+<li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+<li><strong>tol</strong> &#8211; Relative tolerance on the evaluation of the capacity and
+heat pump power input (-).</li>
+<li><strong>relax</strong> &#8211; Relaxation factor for the iteration procedure (-).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

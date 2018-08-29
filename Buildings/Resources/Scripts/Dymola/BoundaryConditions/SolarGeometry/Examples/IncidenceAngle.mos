@@ -1,0 +1,6 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="IncidenceAngle");
+createPlot(id=1, position={7, 7, 746, 517},
+y={"incAngHor.y", "incAngNor.y", "incAngWes.y", "incAngSou.y", "incAngEas.y"},
+range={0.0, 90000.0, 20.0, 180.0}, grid=true,
+filename="IncidenceAngle.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}});

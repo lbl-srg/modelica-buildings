@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.MixingVolumeTraceSubstance", tolerance=1e-6, stopTime=10, method="dassl", resultFile="MixingVolumeTraceSubstance");
+createPlot(id=1, position={75, 70, 833, 749}, y={"volDyn.ports[1].m_flow"}, range={0.0, 10.0, -3.0, 3.0}, grid=true, filename="MixingVolumeTraceSubstance.mat", colors={{28,108,200}});
+createPlot(id=1, position={75, 70, 833, 246}, y={"C_flow.y"}, range={0.0, 10.0, -0.003, 0.003}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={75, 70, 833, 245}, y={"volDyn.C[1]", "volSte.C[1]"}, range={0.0, 10.0, -0.0015, 0.0015}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});

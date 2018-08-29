@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "masExc.TSur",
+    "masExc.mWat_flow",
+    "masExc.Gc",
+    "masExc.XInf",
+    "masExc.humRatPre.X_w"
+  };

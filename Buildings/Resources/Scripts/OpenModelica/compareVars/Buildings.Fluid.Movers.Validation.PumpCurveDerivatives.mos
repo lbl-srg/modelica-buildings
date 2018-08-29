@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "ddp_dNrpm.y",
+    "ddp_dm_flow.y",
+    "dm_flow_dNrpm.y"
+  };

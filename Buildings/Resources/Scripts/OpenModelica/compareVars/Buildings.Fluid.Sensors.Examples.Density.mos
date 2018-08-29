@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "masFloRat.ports[1].m_flow",
+    "senDenVol.d",
+    "senDenFlo.d"
+  };

@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "TSetZon.THeaSet",
+    "TSetZon.TCooSet",
+    "TSetZon.occCooSet",
+    "TSetZon.occHeaSet",
+    "TSetZon.uWinSta",
+    "TSetZon.uOccSen",
+    "TSetZon.uOpeMod",
+    "TSetZon.setAdj",
+    "TSetZon.heaSetAdj"
+  };

@@ -1,0 +1,4 @@
+simulateModel("Buildings.Media.Examples.AirDerivativeCheck", startTime=0, stopTime=1, tolerance=1E-8, method="dassl", resultFile="AirDerivativeCheck");
+createPlot(id = 1,
+ y = {"der(hLiqSym)", "der(hLiqCod)", "der(hSteSym)", "der(hSteCod)", "der(cpSym)", "der(cpCod)", "der(cvSym)", "der(cvCod)"},
+ grid = true);

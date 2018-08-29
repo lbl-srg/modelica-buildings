@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1. Getting Started &#8212; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Best Practice" href="bestPractice.html" />
+    <link rel="prev" title="User Guide" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="index.html">User Guide</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#literature-for-users">1.1. Literature for Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#literature-for-developers">1.2. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#software-requirements">1.3. Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">1.5. References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bestPractice.html">2. Best Practice</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#organization-of-packages">2.1. Organization of packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#building-large-system-models">2.2. Building large system models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#thermo-fluid-systems">2.4. Thermo-fluid systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#avoiding-events">2.6. Avoiding events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#controls">2.7. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bestPractice.html#numerical-solvers">2.9. Numerical solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workArounds.html">3. Work-Arounds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-step-changes">3.1. Avoiding step changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">5. Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing">5.1. Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.2. Adding a new class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">8. Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">9. Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">10. Copyright and License</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">1. Getting Started</a><ul>
+<li><a class="reference internal" href="#literature-for-users">1.1. Literature for Users</a></li>
+<li><a class="reference internal" href="#literature-for-developers">1.2. Literature for Developers</a></li>
+<li><a class="reference internal" href="#software-requirements">1.3. Software Requirements</a></li>
+<li><a class="reference internal" href="#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li><a class="reference internal" href="#references">1.5. References</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: User Guide"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; User Guide</span>
+    </a>
+  </li>
+  <li>
+    <a href="bestPractice.html" title="Next Chapter: 2. Best Practice"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">2. Best Practice &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+<!--
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+-->
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="getting-started">
+<span id="gettingstarted"></span><h1>1. Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="literature-for-users">
+<h2>1.1. Literature for Users<a class="headerlink" href="#literature-for-users" title="Permalink to this headline">¶</a></h2>
+<p>The following books are useful for new users to get started:</p>
+<ul class="simple">
+<li>The online book with interactive examples of Michael Tiller at <a class="reference external" href="http://book.xogeny.com/">http://book.xogeny.com/</a>.</li>
+<li>The books by Michael Tiller <a class="reference internal" href="#til2001" id="id1">[Til2001]</a> and Peter Fritzson (<a class="reference internal" href="#fri2011" id="id2">[Fri2011]</a> and <a class="reference internal" href="#fri2004" id="id3">[Fri2004]</a>).</li>
+<li>The tutorials that are listed at <a class="reference external" href="https://www.modelica.org/publications">https://www.modelica.org/publications</a>.</li>
+</ul>
+<p>Although the <a class="reference external" href="https://www.modelica.org/documents/ModelicaTutorial14.pdf">Modelica Language Tutorial</a> is for an older version (Modelica 1.4), it is still instructive and relevant to understand the concepts of the language.</p>
+<p>Links to papers that describe or used the <cite>Buildings</cite> library are available at <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/publications.html">http://simulationresearch.lbl.gov/modelica/publications.html</a>.
+The model documentation from the download page contains user guides that describe the individual packages of the <cite>Buildings</cite> library.</p>
+<p>The <a class="reference external" href="http://www.iea-annex60.org/final-report.html">IEA EBC Annex 60</a> final report
+summarizes the development of Modelica models, approaches and tools
+for co-simulation based on the Functional Mockup Interface standard,
+Building Information Modeling technologies based on the Industry Foundation Classes,
+as well as tools for workflow automation.
+It also contains numerous examples that apply these technologies to the
+design and operation of building and community energy systems.</p>
+<p>An interactive web-based tour of Modelica is available at
+<a class="reference external" href="http://modelica.university/res/lesson/training.json">http://modelica.university/res/lesson/training.json</a>.</p>
+<p>Spoken tutorials for beginners are available at <a class="reference external" href="http://spoken-tutorial.org/tutorial-search/?search_foss=OpenModelica&amp;search_language=English">http://spoken-tutorial.org/tutorial-search/?search_foss=OpenModelica&amp;search_language=English</a>.</p>
+</div>
+<div class="section" id="literature-for-developers">
+<h2>1.2. Literature for Developers<a class="headerlink" href="#literature-for-developers" title="Permalink to this headline">¶</a></h2>
+<p>It is essential that users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at <a class="reference external" href="https://www.modelica.org/documents">https://www.modelica.org/documents</a>, and in the paper Franke et al. <a class="reference internal" href="#fra2009a" id="id4">[Fra2009a]</a>.
+The <cite>Buildings</cite> library uses similar modeling principles, and the same base classes, as the <cite>Modelica.Fluid</cite> library. Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid <a class="reference internal" href="#fra2009b" id="id5">[Fra2009b]</a>.</p>
+<p>Xogeny&#8217;s <a class="reference external" href="http://modref.xogeny.com/">Modelica Web Reference</a> gives a concise overview, explanation and further links about the Modelica language.</p>
+</div>
+<div class="section" id="software-requirements">
+<h2>1.3. Software Requirements<a class="headerlink" href="#software-requirements" title="Permalink to this headline">¶</a></h2>
+<p>Check the software requirements for the different versions of the Buildings library at <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/download.html">http://simulationresearch.lbl.gov/modelica/download.html</a></p>
+</div>
+<div class="section" id="running-the-first-simulations">
+<h2>1.4. Running the First Simulations<a class="headerlink" href="#running-the-first-simulations" title="Permalink to this headline">¶</a></h2>
+<p>To start using Modelica, run the example models of the <cite>Buildings</cite> library. Make variations in these examples by changing values of model parameters or by replacing existing component models by new ones. The example models can be found in the packages <cite>Examples</cite>, and detailed tutorials with step-by-step instructions for how to build system models can be found in the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_Tutorial.html">Tutorial package</a>.</p>
+<p>Note that heat transfer models, which can be found in <cite>Buildings.HeatTransfer.*.Examples</cite> are easier to understand than fluid flow models because;</p>
+<ul class="simple">
+<li>handling fluid flow adds more complexity due to flow reversal (i.e., if the mass flow rate changes its direction),</li>
+<li>fluid flow models may need to handle multiple species such as air and water vapor, as well as trace substances such as CO2, and</li>
+<li>fluid flow models use packages that define medium models, such as dry air, moist air, water or other fluids.</li>
+</ul>
+</div>
+<div class="section" id="references">
+<h2>1.5. References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<table class="docutils citation" frame="void" id="fri2004" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[Fri2004]</a></td><td>Peter Fritzson. <em>Principles of Object-Oriented Modeling and Simulation with Modelica 2.1.</em> John Wiley &amp; Sons, 2004.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="fri2011" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[Fri2011]</a></td><td>Peter Fritzson. <em>Introduction to Modeling and Simulation of Technical and Physical Systems with Modelica.</em> Wiley-IEEE Press, ISBN 978-1-1180-1068-6, 2011.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="fra2009a" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[Fra2009a]</a></td><td><ol class="first last upperalpha simple" start="18">
+<li>Franke, F. Casella, M. Otter, M. Sielemann, H. Elmqvist, S. E. Mattsson, and H. Olsson. <a class="reference external" href="https://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0078/0078.pdf">Stream connectors – an extension of modelica for device-oriented modeling of convective transport phenomena</a>. In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.</li>
+</ol>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="fra2009b" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[Fra2009b]</a></td><td><ol class="first last upperalpha simple" start="18">
+<li>Franke, F. Casella, M. Otter, K. Proelss, M. Sielemann, and M. Wetter. <a class="reference external" href="https://www.modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0077/0077.pdf">Standardization of thermo-fluid modeling in Modelica.Fluid</a>.     In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.</li>
+</ol>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="til2001" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[Til2001]</a></td><td>Michael M. Tiller. <em>Introduction to Physical Modeling with Modelica.</em> Kluwer Academic Publisher, 2001.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,3 @@
+simulateModel("Buildings.Air.Systems.SingleZone.VAV.Examples.ChillerDXHeatingEconomizer", stopTime=504800, numberOfIntervals=0, outputInterval=3600, method="Radau", tolerance=1e-06, resultFile="ChillerDXHeatingEconomizer");
+createPlot(id=1, position={35, 30, 732, 645}, y={"con.TRoo", "con.TSetRooHea", "con.TSetRooCoo"}, range={0.0, 550000.0, 14.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 30, 732, 320}, y={"EFan.y", "EHea.y", "ECoo.y", "EHVAC.y", "EPum.y"}, range={0.0, 550000.0, -200000000.0, 1400000000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});

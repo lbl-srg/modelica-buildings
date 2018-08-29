@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "mixBox.damOAMin.m_flow",
+    "mixBox.damOA.m_flow",
+    "mixBox.damExh.m_flow",
+    "mixBox.damRec.m_flow"
+  };

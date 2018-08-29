@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "locTim.locTim",
+    "locTim.cloTim"
+  };

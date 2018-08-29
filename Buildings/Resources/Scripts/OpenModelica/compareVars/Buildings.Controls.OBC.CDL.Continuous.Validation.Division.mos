@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "div1.u1",
+    "div1.u2",
+    "div1.y"
+  };

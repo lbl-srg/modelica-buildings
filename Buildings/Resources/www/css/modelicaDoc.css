@@ -1,0 +1,13 @@
+/* Adding padding helps readability of subscripts */
+sub, sup {
+    padding: 2px;
+}
+
+.modelica, .modelica *{
+    background-color: #F3F5F7;
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+}
+
+td{
+    padding: 2px;
+}

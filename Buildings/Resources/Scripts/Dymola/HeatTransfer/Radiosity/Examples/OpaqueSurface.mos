@@ -1,0 +1,26 @@
+simulateModel("Buildings.HeatTransfer.Radiosity.Examples.OpaqueSurface", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="OpaqueSurface");
+removePlots();
+createPlot(id = 1,
+ position = {15, 10, 400, 406},
+ y = {"bod1.heatPort.T", "bod2.heatPort.T"},
+ range = {0, 1, 35.0, 15.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "OpaqueSurface.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 1,
+ position = {15, 10, 400, 200},
+ y = {"bod1.heatPort.Q_flow"},
+ range = {0, 1, 10.0, -10.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);

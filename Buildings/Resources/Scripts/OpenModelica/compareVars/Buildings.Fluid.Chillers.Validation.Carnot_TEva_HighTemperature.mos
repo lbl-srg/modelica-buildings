@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "chi.sta_a2.T",
+    "chi.sta_b2.T",
+    "chi.TSet",
+    "chi.QEva_flow",
+    "chi.QCon_flow",
+    "chi.P",
+    "chi.dp1",
+    "chi.dp2",
+    "chi.COP_nominal",
+    "chi.COP",
+    "chi.port_a1.m_flow",
+    "chi.port_b1.m_flow"
+  };

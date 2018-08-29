@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "VOutMinSet_flow.y",
+    "VOut_flow.y",
+    "damLim.yOutDamPosMin",
+    "damLim.yOutDamPosMax",
+    "damLim.yRetDamPosMin",
+    "damLim.yRetDamPosMax",
+    "damLim.damLimCon.y"
+  };

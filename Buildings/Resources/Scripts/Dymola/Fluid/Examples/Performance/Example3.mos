@@ -1,0 +1,8 @@
+simulateModel("Buildings.Fluid.Examples.Performance.Example3", tolerance=1e-6, stopTime=20, method="dassl", resultFile="Example3");
+createPlot(id=1,
+position={15, 10, 592, 421},
+y={"pump.m_flow"},
+range={0.0, 20.0, 0.0, 0.30000000000000004},
+autoscale=false,
+grid=true,
+colors={{28,108,200}});

@@ -1,0 +1,16 @@
+simulateModel("Buildings.Fluid.Actuators.Valves.Examples.TwoWayValvesTable", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="TwoWayValvesTable");
+createPlot(id=1,
+position={35, 30, 407, 281},
+x="y.y",
+y={"valTab.m_flow", "valLin.m_flow"},
+range={0.0, 1.0, -0.5, 2.5},
+autoscale=true,
+autoerase=true,
+autoreplot=true,
+description=false,
+grid=true,
+color=true,
+online=false,
+filename="TwoWayValveTable.mat",
+leftTitleType=1,
+bottomTitleType=1);

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "valInd.m_flow",
+    "valIndDpFix.m_flow",
+    "valIndFromMflow.m_flow"
+  };

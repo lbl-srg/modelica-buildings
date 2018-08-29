@@ -1,0 +1,6 @@
+// Plot commands
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.TraceSubstanceConservationDynamicBalance",
+ stopTime=1, tolerance=1e-08,
+   resultFile="TraceSubstanceConservationDynamicBalance");
+createPlot(id=1, position={15, 10, 774, 629}, y={"senTraSubIn.C", "senTraSubOut.C"}, range={0.0, 1.0, -0.0002, 0.0012}, grid=true, colors={{0,0,255}, {255,0,0}});
+createPlot(id=1, position={15, 10, 774, 312}, y={"cheConMas.y"}, range={0.0, 1.0, -6E-17, 2.0000000000000005E-17}, grid=true, subPlot=2, colors={{28,108,200}});

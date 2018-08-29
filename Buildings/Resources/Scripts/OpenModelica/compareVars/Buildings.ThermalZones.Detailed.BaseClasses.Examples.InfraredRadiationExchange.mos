@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "irRadExc.conExt[1].T",
+    "irRadExc.conExtWin[1].T",
+    "irRadExc.conExtWinFra[1].T",
+    "irRadExc.conPar_a[1].T",
+    "irRadExc.conPar_b[1].T",
+    "irRadExc.conBou[1].T",
+    "irRadExc.conSurBou[1].T"
+  };

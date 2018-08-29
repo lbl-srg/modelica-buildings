@@ -1,0 +1,28 @@
+translateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowULg");
+simulateModel("Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowULg", stopTime=875, tolerance=1e-6, method="dassl", resultFile="PlugFlowULg");
+createPlot(id = 1,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"DataReader.y[5]","senTem_in.T"},
+ range = {0, 600, 1, 0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot=1,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+ createPlot(id = 1,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"DataReader.y[3]","senTem_out.T"},
+ range = {0, 600, 1, 0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot=2,
+ leftTitleType = 1,
+ bottomTitleType = 1);

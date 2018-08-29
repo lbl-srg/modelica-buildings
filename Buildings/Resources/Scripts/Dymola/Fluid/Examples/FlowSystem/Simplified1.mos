@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.Examples.FlowSystem.Simplified1", tolerance=1e-9, stopTime=50, method="Lsodar", resultFile="Simplified1");
+createPlot(id=1, position={15, 10, 592, 427}, y={"pmpNorth.m_flow", "pmpSouth.m_flow"}, range={0.0, 10000.0, -1.0, 8.0}, grid=true, colors={{28,108,200}, {238,46,47}});

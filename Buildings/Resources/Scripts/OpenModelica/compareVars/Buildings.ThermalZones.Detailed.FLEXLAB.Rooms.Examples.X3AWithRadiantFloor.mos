@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "X3A.air.vol.T",
+    "weaDat.weaBus.TDryBul",
+    "clo.air.vol.T",
+    "ele.air.vol.T",
+    "X3A.surf_surBou[1].T",
+    "X3A.surf_surBou[2].T",
+    "X3A.surf_surBou[3].T",
+    "X3A.surf_surBou[4].T"
+  };

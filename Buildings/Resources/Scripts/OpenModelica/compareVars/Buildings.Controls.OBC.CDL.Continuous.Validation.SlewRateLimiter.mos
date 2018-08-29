@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "sleRatLim.u",
+    "sleRatLim.y"
+  };

@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "extCon.air.T",
+    "extCon.glaUns.T",
+    "extCon.conWinUns.solid.T",
+    "extCon.conWinUns.fluid.T",
+    "extCon.frame.T",
+    "extCon.radOut.TRad",
+    "extCon.shaRad.TSha",
+    "extCon.glaSha.T"
+  };

@@ -1,0 +1,9 @@
+last-generated=2015-05-08
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+nomCon.per.TEvaIn_nominal=[292.54998779296875, 292.54998779296875]
+nomCon.TOut_nominal=[281.482086181640625, 281.482086181640625]
+time=[0., 60.]
+nomCon.hOut_nominal=[23009.13671875, 23009.13671875]
+nomCon.hEvaIn_nominal=[37009.13671875, 37009.13671875]
+nomCon.XEvaIn_nominal=[0.00694822892546653748, 0.00694822892546653748]
+nomCon.XEvaOut_nominal=[0.00584460608661174774, 0.00584460608661174774]

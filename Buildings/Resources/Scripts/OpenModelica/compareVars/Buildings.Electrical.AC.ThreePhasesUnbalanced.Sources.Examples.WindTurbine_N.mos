@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "sen.V[1]",
+    "sen.V[2]",
+    "sen.V[3]",
+    "sen.S[1, 1]",
+    "sen.S[1, 2]",
+    "sen.S[2, 1]",
+    "sen.S[2, 2]",
+    "sen.S[3, 1]",
+    "sen.S[3, 2]"
+  };

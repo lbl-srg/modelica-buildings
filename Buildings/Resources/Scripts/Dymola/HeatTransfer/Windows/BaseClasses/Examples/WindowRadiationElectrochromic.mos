@@ -1,0 +1,7 @@
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.WindowRadiationElectrochromic", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="WindowRadiationElectrochromic");
+createPlot(id=1, position={55, 50, 592, 421},
+y={"uSta.y"},
+range={0.0, 900000.0, -0.2, 1.2000000000000002}, grid=true, filename="WindowRadiationElectrochromic.mat", colors={{28,108,200}});
+createPlot(id=1, position={55, 50, 592, 207},
+y={"winRad.QAbsGlaUns_flow[1]", "winRad.QAbsGlaUns_flow[2]"},
+range={0.0, 900000.0, -50.0, 150.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

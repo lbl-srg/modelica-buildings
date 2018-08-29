@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "dayTypSat.y[1]",
+    "isWorDay.y",
+    "isNonWorDay.y",
+    "isHoliday.y"
+  };

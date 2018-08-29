@@ -1,0 +1,13 @@
+simulateModel("Buildings.Airflow.Multizone.Examples.CO2TransportStep", stopTime=86400, method="radau", tolerance=1e-6, resultFile="CO2TransportStep");
+createPlot(id = 1,
+ position = {15, 10, 701, 192},
+ y = {"CO2SenWes.C", "CO2SenEas.C", "CO2SenTop.C"},
+ range = {0, 90000.0, 0.006, -0.002},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);

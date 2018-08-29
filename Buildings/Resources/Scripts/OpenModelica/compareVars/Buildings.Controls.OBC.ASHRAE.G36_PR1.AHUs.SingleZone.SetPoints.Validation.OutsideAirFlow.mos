@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "numOfOcc.y",
+    "outAirSet_SinZon.VOutMinSet_flow",
+    "outAirSet_SinZon.uOpeMod",
+    "outAirSet_SinZon.uSupFan"
+  };

@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "roo.T",
+    "bou0.T",
+    "oriChiTop.m_flow",
+    "oriBot.m_flow",
+    "oriChiBot.m_flow",
+    "con.u_s",
+    "con.u_m",
+    "con.y"
+  };

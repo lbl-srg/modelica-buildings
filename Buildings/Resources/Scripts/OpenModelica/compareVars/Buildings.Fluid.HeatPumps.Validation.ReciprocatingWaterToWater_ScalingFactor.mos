@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "heaPum.QCon_flow",
+    "heaPum1.QCon_flow",
+    "capErr.y"
+  };

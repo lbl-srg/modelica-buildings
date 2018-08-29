@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "floMac1.y",
+    "floMac1.dp",
+    "floMac2.dp",
+    "floMac1.m_flow",
+    "floMac2.m_flow"
+  };

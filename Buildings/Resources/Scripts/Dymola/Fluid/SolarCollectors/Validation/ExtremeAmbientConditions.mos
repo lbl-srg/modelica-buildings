@@ -1,0 +1,11 @@
+simulateModel("Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions", stopTime=86400, numberOfIntervals=50000, method="dassl", tolerance=1e-06, resultFile="ExtremeAmbientConditions");
+createPlot(id=1, position={81, 14, 592, 445},
+y={"solAsh.vol[1].T", "solAsh.vol[2].T", "solAsh.vol[3].T", "solEn.vol[1].T", "solEn.vol[2].T", "solEn.vol[3].T", "weaBus.TDryBul"},
+range={0.0, 90000.0, -100.0, 150.0}, grid=true, filename="ExtremeAmbientConditions.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}, {0,0,0}, {162,29,33},
+{244,125,35}});
+createPlot(id=1, position={81, 14, 592, 219},
+y={"solAsh.QLos[1].Q_flow", "solAsh.QLos[2].Q_flow", "solAsh.QLos[3].Q_flow", "solEn.QLos[1].Q_flow", "solEn.QLos[2].Q_flow", "solEn.QLos[3].Q_flow"},
+range={0.0, 90000.0, -600.0, 200.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}, {0,0,0}, {162,29,33}});
+createPlot(id=2, position={82, 498, 592, 228},
+y={"weaBus.HDifHor"},
+range={0.0, 90000.0, -200.0, 1200.0}, grid=true, filename="ExtremeAmbientConditions.mat", colors={{28,108,200}});

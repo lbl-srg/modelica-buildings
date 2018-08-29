@@ -1,0 +1,7 @@
+last-generated=2015-05-08
+statistics-initialization={'numerical Jacobians': '0', 'nonlinear': '2, 2'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+probe_source.V=[1., 1.]
+probe_loadRL.V=[0.92318457365036010742, 0.92318457365036010742]
+probe_loadRC.V=[0.92318457365036010742, 0.92318457365036010742]
+time=[0., 1.]

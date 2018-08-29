@@ -1,0 +1,24 @@
+// Setting 64-bit compilation is due to
+// https://github.com/lbl-srg/modelica-buildings/issues/559
+Advanced_CompileWith64_ori=Advanced.CompileWith64;
+Advanced.CompileWith64 = 2;
+simulateModel("Buildings.Utilities.IO.Python27.Examples.KalmanFilter", method="dassl", resultFile="KalmanFilter", tolerance=1e-6, stopTime=1);
+createPlot(id = 1,
+ position = {15, 10, 592, 414},
+ y = {"kalFil.uR[1]", "kalFil.yR[1]", "sine.y"},
+ range = {0.0, 1.0, -2.0, 2.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "KalmanFilter.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}},
+ patterns = {LinePattern.None, LinePattern.Solid, LinePattern.Solid},
+ markers = {MarkerStyle.Dot, MarkerStyle.None, MarkerStyle.None},
+ thicknesses = {0.25, 1.0, 0.5});
+Advanced.CompileWith64 = Advanced_CompileWith64_ori;

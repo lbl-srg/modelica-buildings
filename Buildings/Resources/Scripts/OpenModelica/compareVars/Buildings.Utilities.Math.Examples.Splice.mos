@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "splice.x",
+    "splice.y"
+  };

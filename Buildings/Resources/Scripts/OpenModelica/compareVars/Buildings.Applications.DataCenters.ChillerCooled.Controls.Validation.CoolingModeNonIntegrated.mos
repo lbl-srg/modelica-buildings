@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "TCHWSup.y",
+    "TCHWSupSet.y",
+    "TWetBub.y",
+    "chiNumOn.y",
+    "cooModCon.y"
+  };

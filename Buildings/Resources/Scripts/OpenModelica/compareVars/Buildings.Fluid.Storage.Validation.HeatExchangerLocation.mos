@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "tan_aTop.vol[1].T",
+    "tan_bTop.vol[1].T",
+    "tan_aTop.vol[9].T",
+    "tan_aTop.vol[10].T",
+    "tan_aTop.vol[11].T",
+    "tan_aTop.vol[12].T",
+    "tan_bTop.vol[9].T",
+    "tan_bTop.vol[10].T",
+    "tan_bTop.vol[11].T",
+    "tan_bTop.vol[12].T"
+  };

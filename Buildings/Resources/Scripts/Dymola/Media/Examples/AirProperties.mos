@@ -1,0 +1,133 @@
+simulateModel("Buildings.Media.Examples.AirProperties", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="AirProperties");
+createPlot(
+  id   = 1,
+  x    = "T_degC",
+  y    = {"p"},
+  grid = true
+)
+createPlot(
+  id   = 2,
+  x    = "T_degC",
+  y    = {"X[1]"},
+  grid = true
+)
+createPlot(
+  id   = 3,
+  x    = "T_degC",
+  y    = {"d"},
+  grid = true
+)
+createPlot(
+  id   = 4,
+  x    = "T_degC",
+  y    = {"eta"},
+  grid = true
+)
+createPlot(
+  id   = 5,
+  x    = "T_degC",
+  y    = {"h"},
+  grid = true
+)
+createPlot(
+  id   = 6,
+  x    = "T_degC",
+  y    = {"hLiq"},
+  grid = true
+)
+createPlot(
+  id   = 7,
+  x    = "T_degC",
+  y    = {"u"},
+  grid = true
+)
+createPlot(
+  id   = 8,
+  x    = "T_degC",
+  y    = {"s"},
+  grid = true
+)
+createPlot(
+  id   = 9,
+  x    = "T_degC",
+  y    = {"g"},
+  grid = true
+)
+createPlot(
+  id   = 10,
+  x    = "T_degC",
+  y    = {"f"},
+  grid = true
+)
+createPlot(
+  id   = 11,
+  x    = "T_degC",
+  y    = {"hIse"},
+  grid = true
+)
+createPlot(
+  id   = 12,
+  x    = "T_degC",
+  y    = {"beta"},
+  grid = true
+)
+createPlot(
+  id   = 13,
+  x    = "T_degC",
+  y    = {"kappa"},
+  grid = true
+)
+createPlot(
+  id   = 14,
+  x    = "T_degC",
+  y    = {"ddpT"},
+  grid = true
+)
+createPlot(
+  id   = 15,
+  x    = "T_degC",
+  y    = {"ddTp"},
+  grid = true
+)
+createPlot(
+  id   = 16,
+  x    = "T_degC",
+  y    = {"dddX[1]"},
+  grid = true
+)
+createPlot(
+  id   = 17,
+  x    = "T_degC",
+  y    = {"cp"},
+  grid = true
+)
+createPlot(
+  id   = 18,
+  x    = "T_degC",
+  y    = {"cv"},
+  grid = true
+)
+createPlot(
+  id   = 19,
+  x    = "T_degC",
+  y    = {"lambda"},
+  grid = true
+)
+createPlot(
+  id   = 20,
+  x    = "T_degC",
+  y    = {"pMed"},
+  grid = true
+)
+createPlot(
+  id   = 21,
+  x    = "T_degC",
+  y    = {"TMed"},
+  grid = true
+)
+createPlot(
+  id   = 22,
+  x    = "T_degC",
+  y    = {"MM"},
+  grid = true
+)

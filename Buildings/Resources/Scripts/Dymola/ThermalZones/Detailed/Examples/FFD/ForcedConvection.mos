@@ -1,0 +1,18 @@
+simulateModel("Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection", stopTime=120, method="Cvode", tolerance=1e-06, resultFile="ForcedConvection");
+removePlots();
+Advanced.FullPlotTooltip = true;
+createPlot(id = 1,
+ position = {0, 0, 2019, 1080},
+ y = {"roo.yCFD[2]"},
+ range = {0.0, 1000.0, 240.0, 310.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "ForcedConvection.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}});

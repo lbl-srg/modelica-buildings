@@ -1,0 +1,17 @@
+simulateModel("Buildings.Fluid.FixedResistances.Examples.Pipe", method="dassl", tolerance=1e-6, stopTime=120, resultFile="Pipe");
+
+createPlot(id = 1,
+ position = {15, 10, 800, 444},
+ y = {"pip.vol[1].T", "pip.vol[5].T", "pip.vol[10].T"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true
+);
+
+createPlot(id = 1,
+ position = {15, 10, 800, 217},
+ y = ({"pip.conPipWal[1].Q_flow", "pip.conPipWal[5].Q_flow", "pip.conPipWal[10].Q_flow"}),
+ grid = true,
+ subPlot = 2);

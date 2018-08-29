@@ -1,0 +1,28 @@
+simulateModel("Buildings.HeatTransfer.Examples.ConductorSingleLayer", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="ConductorSingleLayer");
+createPlot(id=1,
+ position={15, 10, 400, 280},
+ y={"con.T[1]", "con.T[2]"},
+ range={0.0, 90000.0, 19.5, 23.5},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ filename="ConductorSingleLayer.mat",
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=2,
+ position={130, 38, 400, 280},
+ y={"con.port_a.T", "con.port_b.T", "con1.port_a.T", "con1.port_b.T", "con2.port_a.T", "con2.port_b.T"},
+ range={0.0, 90000.0, 19.5, 23.5},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});
+createPlot(id=3,
+ position={40, 30, 592, 427},
+ y={"cheEqu.y"},
+ range={0.0, 90000.0, -1.2000000000000002, 1.4},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ colors={{28,108,200}});

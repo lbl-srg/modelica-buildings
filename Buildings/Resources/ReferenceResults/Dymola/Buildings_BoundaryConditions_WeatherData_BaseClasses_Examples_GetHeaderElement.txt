@@ -1,0 +1,6 @@
+last-generated=2015-05-08
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+latitude=[0.73268920183181762695, 0.73268920183181762695]
+longitude=[-1.53449344635009765625, -1.53449344635009765625]
+time=[0., 1.]
+timeZone=[-21600., -21600.]

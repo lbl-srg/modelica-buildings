@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "weaDat.weaBus.TDryBul",
+    "weaDat.weaBus.HDirNor",
+    "weaDat.weaBus.HGloHor",
+    "buiZon.theZon[1, 1].roo.heaPorAir.T",
+    "buiZon.theZon[1, 1].heaCooPow"
+  };

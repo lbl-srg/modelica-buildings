@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.Sensors.Examples.MoistAirEnthalpyFlowRate", method="dassl", tolerance=1e-6, stopTime=60, resultFile="MoistAirEnthalpyFlowRate");
+createPlot(id=5, position={15, 13, 1175, 1116}, y={"senM_flow.m_flow"}, range={0.0, 62.0, -1.5, 1.5}, grid=true, colors={{28,108,200}});
+createPlot(id=5, position={15, 13, 1175, 276}, y={"senH.h_out"}, range={0.0, 62.0, 40000.0, 100000.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=5, position={15, 13, 1175, 276}, y={"senH_flow.H_flow", "senHSen_flow.H_flow", "senHLat_flow.H_flow"}, range={0.0, 62.0, -100000.0, 60000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=5, position={15, 13, 1175, 276}, y={"senH_flow.H_flow", "pro.y", "add.y"}, range={0.0, 62.0, -100000.0, 60000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});

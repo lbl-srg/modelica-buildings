@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "pump_Nrpm.m_flow",
+    "pump_dp.m_flow",
+    "pump_m_flow.m_flow",
+    "pump_y.m_flow"
+  };

@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "beaCooHea10.heaToRoo.Q_flow",
+    "beaCooHea.heaToRoo.Q_flow",
+    "pumHotWat10.dp",
+    "pumHotWat.dp",
+    "pumChiWat.dp",
+    "pumChiWat10.dp",
+    "pumChiWat10.m_flow",
+    "pumChiWat.m_flow",
+    "pumHotWat10.m_flow",
+    "pumHotWat.m_flow"
+  };

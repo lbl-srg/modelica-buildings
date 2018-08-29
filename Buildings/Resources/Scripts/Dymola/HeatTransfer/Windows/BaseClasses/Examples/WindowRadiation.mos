@@ -1,0 +1,6 @@
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.WindowRadiation", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="WindowRadiation");
+createPlot(id=1, position={35, 30, 979, 1090}, y={"winRad.HDif", "winRad.HDir"}, range={0.0, 900000.0, -200.0, 800.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 979, 215}, y={"winRad.QTraDif_flow", "winRad.QTraDir_flow"}, range={0.0, 900000.0, -50.0, 300.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 979, 214}, y={"winRad.QAbsExtSha_flow", "winRad.QAbsIntSha_flow"}, range={0.0, 900000.0, -50.0, 150.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 979, 215}, y={"winRad.QAbsGlaUns_flow[1]", "winRad.QAbsGlaUns_flow[2]"}, range={0.0, 900000.0, -10.0, 40.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 979, 215}, y={"winRad.QAbsGlaSha_flow[1]", "winRad.QAbsGlaSha_flow[2]"}, range={0.0, 900000.0, -10.0, 50.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}});

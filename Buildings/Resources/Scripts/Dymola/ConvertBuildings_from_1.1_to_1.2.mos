@@ -1,0 +1,9 @@
+// Conversion script for Buildings library
+//  from: Version 1.1
+//  to:   Version 1.2
+clear
+
+convertClear();
+
+convertClass("Buildings.HeatTransfer.Data.BoreholeFilling",
+             "Buildings.HeatTransfer.Data.BoreholeFillings");

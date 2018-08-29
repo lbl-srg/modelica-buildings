@@ -1,0 +1,14 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.PowerLinearized", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="PowerLinearized");
+createPlot(id = 1,
+ position = {10, 7, 644, 426},
+ x = "T4",
+ y = {"T", "TExact"},
+ range = {-15000000000.0, 65000000000.0, 250.0, -300.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "PowerLinearized.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

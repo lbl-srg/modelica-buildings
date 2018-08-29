@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "TBouSte.port.T",
+    "TBouCon.port.T",
+    "TBouPul.port.T"
+  };

@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "ahu.port_a1.m_flow",
+    "ahu.port_a2.m_flow",
+    "temSenWat1.T",
+    "temSenWat2.T",
+    "temSenAir2.T",
+    "TSet.y",
+    "x_pTphi.T",
+    "PID.u_s",
+    "PID.u_m",
+    "PID.y",
+    "ahu.PHea",
+    "masFraSet.y",
+    "masFra.X"
+  };

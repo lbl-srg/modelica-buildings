@@ -1,0 +1,5 @@
+simulateModel("Buildings.BoundaryConditions.SolarGeometry.Examples.ProjectedShadowLength", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="ProjectedShadowLength");
+createPlot(id=1, position={15, 10, 592, 917}, y={"proShaLenEas.y"}, range={0.0, 86400.0, -10.0, 10.0}, autoscale=false, grid=true, filename="ProjectedShadowLength.mat", colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 592, 225}, y={"proShaLenSou.y"}, range={0.0, 86400.0, -10.0, 10.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 592, 224}, y={"proShaLenWes.y"}, range={0.0, 86400.0, -10.0, 10.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 592, 225}, y={"proShaLenNor.y"}, range={0.0, 86400.0, -10.0, 10.0}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}});

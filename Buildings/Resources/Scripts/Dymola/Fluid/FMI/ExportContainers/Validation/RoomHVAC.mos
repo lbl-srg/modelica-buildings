@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC", startTime=1.5552e+07, stopTime=1.56384e+07, tolerance=1e-7, method="dassl", resultFile="RoomHVAC");
+createPlot(id=1, position={55, 50, 1029, 822}, y={"baseCase.vol.T", "rooCon.vol.T", "rooCon2.vol1.T", "rooCon2.vol2.T"}, range={15550000.0, 15640000.0, 15.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={55, 50, 1029, 409}, y={"baseCase.vol.Xi[1]", "rooCon.vol.Xi[1]", "rooCon2.vol1.Xi[1]","rooCon2.vol2.Xi[1]"}, range={15550000.0, 15640000.0, 0.007, 0.015}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

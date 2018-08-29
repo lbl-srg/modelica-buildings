@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "TApp_Wat",
+    "TApp_Air"
+  };

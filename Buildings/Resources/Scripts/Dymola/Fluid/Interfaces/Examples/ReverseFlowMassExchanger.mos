@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.Interfaces.Examples.ReverseFlowMassExchanger", tolerance=1e-6, stopTime=1, method="dassl", resultFile="ReverseFlowMassExchanger");
+createPlot(id=1, position={299, 95, 979, 925}, y={"senEnt1.h_out", "senEnt2.h_out"}, range={0.0, 1.0, 46000.0, 60000.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={299, 95, 979, 229}, y={"senTem1.T", "senTem2.T"}, range={0.0, 1.0, 24.0, 32.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={299, 95, 979, 228}, y={"senMas1.X", "senMas2.X"}, range={0.0, 1.0, 0.0085, 0.0115}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={299, 95, 979, 228}, y={"cheTem.y", "cheEnt.y", "cheMas.y", "cheTem1.y", "cheEnt1.y", "cheMas1.y"}, range={0.0, 1.0, -1.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});

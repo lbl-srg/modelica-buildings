@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "varSpeDX.eva.vol.T",
+    "varSpeDX.sta_a1.T",
+    "varSpeDX.sta_a2.T",
+    "varSpeDX.sta_b2.T",
+    "varSpeDX.sta_a1.X[1]",
+    "varSpeDX.eva.vol.X_w",
+    "varSpeDX.eva.dxCoo.mWat_flow",
+    "varSpeDX.speRat",
+    "varSpeDX.P",
+    "varSpeDX.eva.dxCoo.Q_flow",
+    "varSpeDX.watCooCon.Q_flow"
+  };

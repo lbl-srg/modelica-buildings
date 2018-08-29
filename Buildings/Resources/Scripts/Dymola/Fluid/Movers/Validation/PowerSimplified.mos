@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.Movers.Validation.PowerSimplified", tolerance=1e-6, stopTime=200, method="dassl", resultFile="PowerSimplified");
+createPlot(id=1, position={137, 58, 814, 653}, y={"pump_Nrpm.P", "pump_dp.P", "pump_m_flow.P"}, range={0.0, 200.0, 60.0, 200.0}, grid=true, filename="PowerSimplified.mat", colors={{0,0,255}, {255,0,0}, {0,128,0}}, patterns={LinePattern.Solid, LinePattern.Dash, LinePattern.DashDot});
+createPlot(id=1, position={137, 58, 814, 323}, y={"pump_Nrpm.per.speed_rpm_nominal", "pump_Nrpm.Nrpm"}, range={0.0, 200.0, 2200.0, 3600.0}, grid=true, subPlot=2, colors={{0,0,255}, {255,0,0}});

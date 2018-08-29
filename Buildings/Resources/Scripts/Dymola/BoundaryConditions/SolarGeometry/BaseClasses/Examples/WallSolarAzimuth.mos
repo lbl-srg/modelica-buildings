@@ -1,0 +1,14 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples.WallSolarAzimuth", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="WallSolarAzimuth");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"walSolAzi.verAzi"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "WallSolarAzimuth.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

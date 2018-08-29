@@ -1,0 +1,14 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.RelativeAirMass", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="RelativeAirMass");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"relAirMas.relAirMas"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "RelativeAirMass.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

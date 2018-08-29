@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="177.98413mm"
+   height="123.6506mm"
+   viewBox="0 0 630.65243 438.13203"
+   id="svg8256"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="ExhaustDamperControlChart_SingleZone.svg"
+   inkscape:export-filename="ExhaustDamperControlChart_SingleZone.png"
+   inkscape:export-xdpi="108.33118"
+   inkscape:export-ydpi="108.33118">
+  <defs
+     id="defs8258">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker10012"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path10014"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path4298"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4295"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker10012-0"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path10014-0"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.7729263"
+     inkscape:cx="170.65336"
+     inkscape:cy="214.33785"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-global="false"
+     inkscape:window-width="3840"
+     inkscape:window-height="2082"
+     inkscape:window-x="0"
+     inkscape:window-y="41"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid8804"
+       originx="-52.886154"
+       originy="-333.53967" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata8261">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-52.886153,-280.6905)">
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow2Lstart);marker-end:url(#Arrow2Lend)"
+       d="m 80,282.3622 0,400 520,0"
+       id="path8806"
+       inkscape:connector-curvature="0" />
+    <path
+       style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 556,682.3622 0,-334.34947"
+       id="path8810"
+       inkscape:connector-curvature="0" />
+    <circle
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path8812-3"
+       cx="152.55516"
+       cy="550.13892"
+       r="2.5" />
+    <circle
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path8812-6"
+       cx="556.93048"
+       cy="348.42032"
+       r="2.5" />
+    <circle
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path8860-7"
+       cx="394.25528"
+       cy="428.85663"
+       r="2.5" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="254.05801"
+       y="717.50293"
+       id="text8994"
+       transform="scale(1.0050378,0.99498745)"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         id="tspan7518"
+         x="254.05801"
+         y="717.50293"
+         style="font-size:15.57757854px;line-height:100%;text-anchor:start;text-align:start;writing-mode:lr">outdoor damper position</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-568.33014"
+       y="65.918159"
+       id="text9292"
+       transform="matrix(0,-0.96370847,1.0376582,0,0,0)"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         id="tspan1100"
+         x="-568.33014"
+         y="65.918159"
+         style="text-anchor:start;text-align:start;writing-mode:lr;line-height:100%">exhaust damper position</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.39962482px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="118.09946"
+       y="697.24323"
+       id="text8994-5"
+       sodipodi:linespacing="0%"><tspan
+         sodipodi:role="line"
+         id="tspan200"
+         x="118.09946"
+         y="697.24323">minOutPosMin</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="500.37677"
+       y="695.83832"
+       id="text8994-5-3"><tspan
+         sodipodi:role="line"
+         id="tspan7536"
+         x="500.37677"
+         y="695.83832"
+         style="font-size:12.39959621px;line-height:1.25">outDamPhyPosMax</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="361.72684"
+       y="695.72156"
+       id="text8994-5-3-2"
+       sodipodi:linespacing="0%"><tspan
+         sodipodi:role="line"
+         id="tspan7522"
+         x="361.72684"
+         y="695.72156"
+         style="font-size:12.39959621px;line-height:1.25">uOutDam</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.39962482px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="123.68836"
+       y="567.73969"
+       id="text8994-5-33"
+       sodipodi:linespacing="0%"><tspan
+         sodipodi:role="line"
+         id="tspan1098"
+         x="123.68836"
+         y="567.73969">minExhDamPos</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="383.42487"
+       y="445.31659"
+       id="text8994-5-33-2"
+       sodipodi:linespacing="0%"><tspan
+         sodipodi:role="line"
+         id="tspan1050"
+         x="383.42487"
+         y="445.31659">yExhDam</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.39962482px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="562.34094"
+       y="344.16705"
+       id="text8994-5-33-2-4-9"
+       sodipodi:linespacing="0%"><tspan
+         sodipodi:role="line"
+         id="tspan1064"
+         x="562.34094"
+         y="344.16705">maxExhDamPos</tspan></text>
+    <path
+       style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.31197557;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 152.57071,682.33222 0,-130.16726"
+       id="path8810-1"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 152.41073,549.71412 556.26283,348.35211"
+       id="path7434"
+       inkscape:connector-curvature="0" />
+    <path
+       style="opacity:0.5;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.43269521;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 394.31456,679.81744 0,-250.3945"
+       id="path8810-4"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.21350002px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23033686px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="385.09683"
+       y="459.78436"
+       id="text173"><tspan
+         sodipodi:role="line"
+         id="tspan179"
+         x="385.09683"
+         y="459.78436">Exhaust damper position when </tspan><tspan
+         sodipodi:role="line"
+         id="tspan181"
+         x="385.09683"
+         y="471.30124">economizer damper in</tspan><tspan
+         sodipodi:role="line"
+         id="tspan183"
+         x="385.09683"
+         y="482.81812">current position</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.21350002px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23033686px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="539.50922"
+       y="364.0209"
+       id="text173-9"><tspan
+         sodipodi:role="line"
+         id="tspan1052"
+         x="539.50922"
+         y="364.0209">Exhaust damper position that</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1054"
+         x="539.50922"
+         y="375.53778">maintains a building pressure </tspan><tspan
+         sodipodi:role="line"
+         id="tspan1056"
+         x="539.50922"
+         y="387.05466">of 0.05 inchWC (12.44 Pa) </tspan><tspan
+         sodipodi:role="line"
+         id="tspan1058"
+         x="539.50922"
+         y="398.57153">while the economizer damper</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1060"
+         x="539.50922"
+         y="410.08841">is fully open and the fan speed</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1062"
+         x="539.50922"
+         y="421.60529">is at cooling maximum.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.21350002px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23033686px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="122.82524"
+       y="581.35229"
+       id="text173-91"><tspan
+         sodipodi:role="line"
+         id="tspan1090"
+         x="122.82524"
+         y="581.35229">Exhaust damper position that maintains a building pressure of 0.05</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1092"
+         x="122.82524"
+         y="592.86914">inchWC (12.44 Pa) while the system is at MinPosMin (i.e., the</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1094"
+         x="122.82524"
+         y="604.38605">economizer damper is positioned to provide MinOA while the</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1096"
+         x="122.82524"
+         y="615.90289">supply fan is at minimum speed).</tspan></text>
+  </g>
+</svg>

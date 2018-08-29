@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "bod1.heatPort.T",
+    "bod2.heatPort.T",
+    "bod1.heatPort.Q_flow"
+  };

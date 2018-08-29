@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "m_flow",
+    "m_flow_nominal",
+    "dp",
+    "dpCalc",
+    "deltaDp"
+  };

@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "sinInpNoDel.y",
+    "movingMean_1.y",
+    "movingMean_2.y",
+    "movingMean_3.y",
+    "movingMean_4.y",
+    "sinInp50sDel.y",
+    "movingMean_6.y",
+    "movingMean_7.y",
+    "sinInp100sDel.y",
+    "movingMean_8.y",
+    "movingMean_9.y"
+  };

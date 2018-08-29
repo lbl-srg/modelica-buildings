@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "booRep.u",
+    "booRep.y[1]",
+    "booRep.y[2]",
+    "booRep.y[3]"
+  };

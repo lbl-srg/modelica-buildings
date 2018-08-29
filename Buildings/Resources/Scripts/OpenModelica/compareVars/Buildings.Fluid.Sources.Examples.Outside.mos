@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "senTem.T",
+    "senMasFra.X",
+    "senRelHum.phi"
+  };

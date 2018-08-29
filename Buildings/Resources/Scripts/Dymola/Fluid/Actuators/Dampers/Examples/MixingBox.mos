@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.MixingBox", tolerance=1e-6, stopTime=240, method="dassl", resultFile="MixingBox");
+createPlot(id = 5,
+ position = {15, 10, 879, 525},
+ y = {"mixBox.damOA.m_flow", "mixBox.damExh.m_flow", "mixBox.damRec.m_flow"},
+ range = {0, 240.0, 1.4, 0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "MixingBox.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

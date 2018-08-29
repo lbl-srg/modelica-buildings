@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "ecoCon.y",
+    "ecoCon.cooMod",
+    "dam1.y_actual",
+    "dam2.y",
+    "senTemSupAir.T",
+    "roo.TRooAir",
+    "weaBus.TDryBul",
+    "weaBus.TDewPoi",
+    "varSpeDX.QSen_flow",
+    "varSpeDX.QLat_flow",
+    "varSpeDX.P",
+    "varSpeDX.dxCoo.EIR"
+  };

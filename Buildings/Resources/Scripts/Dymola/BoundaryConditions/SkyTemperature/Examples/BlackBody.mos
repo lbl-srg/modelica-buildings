@@ -1,0 +1,13 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody", startTime=0, tolerance=1e-6, stopTime=86400, method="dassl", resultFile="BlackBody");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"TBlaSky.TBlaSky", "TBlaSkyIrr.TBlaSky"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ colors = {{28,108,200}, {238,46,47}},
+ leftTitleType = 1,
+ bottomTitleType = 1);

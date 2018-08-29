@@ -1,0 +1,23 @@
+last-generated=2017-12-04
+statistics-initialization=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "0, 0"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+sin.T_in=[3.031499938964844e+02, 3.031499938964844e+02]
+sou.T_in=[2.931499938964844e+02, 2.931499938964844e+02]
+hea.com.vol.T=[2.95121337890625e+02, 2.95121337890625e+02]
+time=[0e+00, 1e+00]
+hea.outlet.p=[9.8e+04, 9.8e+04]
+sou.outlet.p=[1e+05, 1e+05]
+hea.inlet.p=[1e+05, 1e+05]
+sin.inlet.p=[1e+05, 1e+05]
+floMac.outlet.p=[1e+05, 1e+05]
+floMac.inlet.p=[9.8e+04, 9.8e+04]
+floMac.inlet.m_flow=[1.000000014901161e-01, 1.000000014901161e-01]

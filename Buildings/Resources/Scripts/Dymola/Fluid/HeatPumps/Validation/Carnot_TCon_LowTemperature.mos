@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LowTemperature", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Carnot_TCon_LowTemperature");
+createPlot(id=2, position={0, 0, 1616, 921}, y={"heaPum.sta_a1.T", "heaPum.sta_b1.T", "heaPum.TSet"}, range={0.0, 3600.0, 270.0, 310.0}, erase=false, grid=true, filename="Carnot_TCon_LowTemperature.mat", colors={{28,108,200}, {238,46,47}, {0,0,0}});
+createPlot(id=2, position={0, 0, 1616, 181}, y={"heaPum.QEva_flow", "heaPum.QCon_flow", "heaPum.P"}, range={0.0, 3600.0, -200000.0, 200000.0}, erase=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={0, 0, 1616, 181}, y={"heaPum.dp1", "heaPum.dp2"}, range={0.0, 3600.0, -5000.0, 15000.0}, erase=false, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1616, 181}, y={"heaPum.COP_nominal", "heaPum.COP"}, range={0.0, 3600.0, 0.0, 100.0}, erase=false, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1616, 181}, y={"heaPum.port_a2.m_flow", "heaPum.port_b2.m_flow"}, range={0.0, 3600.0, -10.0, 10.0}, erase=false, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}});

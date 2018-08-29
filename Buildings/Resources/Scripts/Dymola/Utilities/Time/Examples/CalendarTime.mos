@@ -1,0 +1,6 @@
+simulateModel("Buildings.Utilities.Time.Examples.CalendarTime", tolerance=1e-6, stopTime=1e+08, numberOfIntervals=0, outputInterval=1001, method="dassl", resultFile="CalendarTime");
+createPlot(id=1, position={0, 0, 2254, 1062}, y={"calendarTime2016.year"}, range={0.0, 100000000.0, 2012.0, 2020.0}, grid=true, filename="CalendarTime.mat", colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 2254, 209}, y={"calendarTime2016.month"}, range={0.0, 100000000.0, 0.0, 15.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 2254, 210}, y={"calendarTime2016.day"}, range={0.0, 100000000.0, 0.0, 40.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 2254, 209}, y={"calendarTime2016.hour"}, range={0.0, 100000000.0, -5.0, 25.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 2254, 209}, y={"calendarTime2016.minute"}, range={0.0, 100000000.0, -20.0, 80.0}, grid=true, subPlot=5, colors={{28,108,200}});

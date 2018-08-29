@@ -1,0 +1,9 @@
+last-generated=2015-08-11
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+res.m_flow=[3.16227769851684570312, 3.16227769851684570312]
+time=[0., 20.]

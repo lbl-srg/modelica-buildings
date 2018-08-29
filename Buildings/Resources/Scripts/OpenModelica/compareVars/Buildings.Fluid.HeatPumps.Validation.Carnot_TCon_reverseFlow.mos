@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "heaPum.sta_a1.T",
+    "heaPum.sta_b1.T",
+    "heaPum.sta_a2.T",
+    "heaPum.sta_b2.T",
+    "heaPum.TSet",
+    "heaPum.QCon_flow",
+    "heaPum.QEva_flow",
+    "heaPum.P",
+    "heaPum.dp1",
+    "heaPum.dp2",
+    "heaPum.COP_nominal",
+    "heaPum.COP"
+  };

@@ -1,0 +1,5 @@
+simulateModel("Buildings.HeatTransfer.Windows.Examples.BeamDepthInRoom", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="BeamDepthInRoom");
+createPlot(id=1, position={15, 10, 592, 917}, y={"winEas.y"}, range={0.0, 86400.0, -1.0, 10.0}, autoscale=false, grid=true, filename="BeamDepthInRoom.mat", colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 592, 225}, y={"winSou.y"}, range={0.0, 86400.0, -1.0, 10.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 592, 224}, y={"winWes.y"}, range={0.0, 86400.0, -1.0, 10.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 592, 225}, y={"winNor.y"}, range={0.0, 86400.0, -1.0, 10.0}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}});

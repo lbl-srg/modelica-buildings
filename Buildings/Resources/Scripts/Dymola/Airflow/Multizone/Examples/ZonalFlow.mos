@@ -1,0 +1,4 @@
+simulateModel("Buildings.Airflow.Multizone.Examples.ZonalFlow", method="radau", tolerance=1e-06, stopTime=3600, resultFile="ZonalFlow");
+createPlot(id=4, position={55, 50, 981, 799}, y={"rooA.T", "rooB.T"}, range={0.0, 4000.0, 15.0, 35.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=4, position={55, 50, 981, 263}, y={"rooA.Xi[1]", "rooB.Xi[1]"}, range={0.0, 4000.0, -0.01, 0.019999999999999997}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={55, 50, 981, 263}, y={"zonFlo.port_a1.m_flow", "zonFlo.port_a2.m_flow", "floExc.port_a1.m_flow", "floExc.port_a2.m_flow"}, range={0.0, 4000.0, -0.02, 0.039999999999999994}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

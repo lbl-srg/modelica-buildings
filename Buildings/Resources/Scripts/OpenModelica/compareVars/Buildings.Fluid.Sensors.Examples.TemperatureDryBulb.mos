@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "masFloRat.T",
+    "temSteSta.T",
+    "temDyn.T",
+    "temDynLoss.T",
+    "masFloRat.ports[1].m_flow",
+    "senRelTem.T_rel"
+  };

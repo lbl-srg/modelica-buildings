@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "RL.i[1]",
+    "RL.i[2]",
+    "RL.S[1]",
+    "RL.S[2]",
+    "generator.S[1]",
+    "generator.S[2]",
+    "grid.sou.S[1]",
+    "grid.sou.S[2]"
+  };

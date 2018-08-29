@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilDiscretizedInitialization", stopTime=360, method="dassl", tolerance=1e-6, resultFile="WetCoilDiscretizedInitialization");
+removePlots();
+createPlot(id=1,
+position={15, 10, 1034, 588},
+y={"hexFixIni.sta_b1.T", "hexFixIni.sta_b2.T", "hexSteStaIni.sta_b1.T", "hexSteStaIni.sta_b2.T", "hexSteSta.sta_b1.T", "hexSteSta.sta_b2.T"},
+range={0.0, 360.0, 6.0, 32.0},
+grid=true,
+filename="WetCoilDiscretizedInitialization.mat",
+leftTitleType=1,
+bottomTitleType=1,
+colors={{255,0,0}, {0,0,255}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}},
+markers={MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None,
+MarkerStyle.None, MarkerStyle.Cross});

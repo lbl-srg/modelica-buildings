@@ -1,0 +1,168 @@
+last-generated=2018-06-24
+statistics-fmu-dependencies=
+{
+  "Derivatives": {
+    "der(vol.dynBal.U)": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.T",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.T",
+      "vol.dynBal.U",
+      "vol.dynBal.m"
+    ],
+    "der(vol.dynBal.m)": [
+      "fluPor[1].m_flow",
+      "fluPor[2].m_flow"
+    ],
+    "der(vol.dynBal.mC[1])": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.C[1]",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.C[1]",
+      "vol.dynBal.m",
+      "vol.dynBal.mC[1]"
+    ],
+    "der(vol.dynBal.mC[2])": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.C[2]",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.C[2]",
+      "vol.dynBal.m",
+      "vol.dynBal.mC[2]"
+    ],
+    "der(vol.dynBal.mC[3])": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.C[3]",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.C[3]",
+      "vol.dynBal.m",
+      "vol.dynBal.mC[3]"
+    ]
+  },
+  "InitialUnknowns": {
+    "TOut": [
+      "TOutSou.k"
+    ],
+    "der(vol.dynBal.U)": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.T",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.T",
+      "theCon.G",
+      "preHea.T_ref",
+      "preHea.alpha",
+      "vol.p_start",
+      "vol.T_start",
+      "TOutSou.k"
+    ],
+    "der(vol.dynBal.m)": [
+      "fluPor[1].m_flow",
+      "fluPor[2].m_flow"
+    ],
+    "der(vol.dynBal.mC[1])": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.C[1]",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.C[1]",
+      "vol.C_start[1]"
+    ],
+    "der(vol.dynBal.mC[2])": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.C[2]",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.C[2]",
+      "vol.C_start[2]"
+    ],
+    "der(vol.dynBal.mC[3])": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.C[3]",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.C[3]",
+      "vol.C_start[3]"
+    ],
+    "fluPor[1].backward.C[1]": [
+      "vol.C_start[1]"
+    ],
+    "fluPor[1].backward.C[2]": [
+      "vol.C_start[2]"
+    ],
+    "fluPor[1].backward.C[3]": [
+      "vol.C_start[3]"
+    ],
+    "fluPor[1].backward.T": [
+      "vol.p_start",
+      "vol.T_start"
+    ],
+    "fluPor[2].backward.C[1]": [
+      "vol.C_start[1]"
+    ],
+    "fluPor[2].backward.C[2]": [
+      "vol.C_start[2]"
+    ],
+    "fluPor[2].backward.C[3]": [
+      "vol.C_start[3]"
+    ],
+    "fluPor[2].backward.T": [
+      "vol.p_start",
+      "vol.T_start"
+    ],
+    "vol.dynBal.U": [
+      "vol.p_start",
+      "vol.T_start"
+    ],
+    "vol.dynBal.m": [
+      "vol.p_start",
+      "vol.T_start"
+    ],
+    "vol.dynBal.mC[1]": [
+      "vol.p_start",
+      "vol.T_start",
+      "vol.C_start[1]"
+    ],
+    "vol.dynBal.mC[2]": [
+      "vol.p_start",
+      "vol.T_start",
+      "vol.C_start[2]"
+    ],
+    "vol.dynBal.mC[3]": [
+      "vol.p_start",
+      "vol.T_start",
+      "vol.C_start[3]"
+    ]
+  },
+  "Outputs": {
+    "TOut": [],
+    "fluPor[1].backward.C[1]": [
+      "vol.dynBal.m",
+      "vol.dynBal.mC[1]"
+    ],
+    "fluPor[1].backward.C[2]": [
+      "vol.dynBal.m",
+      "vol.dynBal.mC[2]"
+    ],
+    "fluPor[1].backward.C[3]": [
+      "vol.dynBal.m",
+      "vol.dynBal.mC[3]"
+    ],
+    "fluPor[1].backward.T": [
+      "vol.dynBal.U",
+      "vol.dynBal.m"
+    ],
+    "fluPor[2].backward.C[1]": [
+      "vol.dynBal.m",
+      "vol.dynBal.mC[1]"
+    ],
+    "fluPor[2].backward.C[2]": [
+      "vol.dynBal.m",
+      "vol.dynBal.mC[2]"
+    ],
+    "fluPor[2].backward.C[3]": [
+      "vol.dynBal.m",
+      "vol.dynBal.mC[3]"
+    ],
+    "fluPor[2].backward.T": [
+      "vol.dynBal.U",
+      "vol.dynBal.m"
+    ]
+  }
+}

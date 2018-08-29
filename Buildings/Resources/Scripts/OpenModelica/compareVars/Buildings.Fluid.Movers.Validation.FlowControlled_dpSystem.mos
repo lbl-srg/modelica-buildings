@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "floConDp.dp_actual",
+    "floConDpSystem.dp_actual",
+    "floConDp.m_flow",
+    "floConDpSystem.m_flow"
+  };

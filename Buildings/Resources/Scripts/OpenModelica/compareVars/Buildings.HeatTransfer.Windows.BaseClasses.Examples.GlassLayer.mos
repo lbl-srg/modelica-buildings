@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "TAirOut.T",
+    "TRadOut.T",
+    "nonSha.port_a.T",
+    "nonSha.port_b.T",
+    "sha.port_a.T",
+    "sha.port_b.T",
+    "TAirRoo.T"
+  };

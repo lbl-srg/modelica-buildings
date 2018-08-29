@@ -1,0 +1,10 @@
+simulateModel("Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.BatteryControl", stopTime=604800, method="Radau", tolerance=1e-6, resultFile="BatteryControl");
+createPlot(id=1, position={95, 13, 482, 529},
+y={"con.SOC"},
+range={0.0, 650000.0, -0.5, 1.5}, grid=true, filename="BatteryControl.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={95, 13, 482, 173},
+y={"con.y"},
+range={0.0, 650000.0, -1000000.0, 500000.0}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={95, 13, 482, 172},
+y={"con.isDay.y"},
+range={0.0, 650000.0, -0.5, 1.5}, grid=true, subPlot=3, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});

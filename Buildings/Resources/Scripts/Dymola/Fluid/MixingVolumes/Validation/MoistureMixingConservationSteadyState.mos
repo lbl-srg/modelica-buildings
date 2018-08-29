@@ -1,0 +1,7 @@
+// Plot commands
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.MoistureMixingConservationSteadyState",
+   tolerance=1e-6, stopTime=1,
+   resultFile="MoistureMixingConservationSteadyState");
+createPlot(id=1, position={15, 10, 927, 720}, y={"senMasFlo.m_flow"}, range={0.0, 1.0, 2.6, 3.4000000000000004}, grid=true, colors={{0,0,255}});
+createPlot(id=1, position={15, 10, 927, 238}, y={"senSpeEnt.H_flow"}, range={0.0, 1.0, 120000.0, 160000.0}, grid=true, subPlot=2, colors={{0,0,255}});
+createPlot(id=1, position={15, 10, 927, 237}, y={"cheMasFra.y", "cheMasFlo.y", "cheSpeEnt.y"}, range={0.0, 1.0, -2.0000000000000002E-21, 5.0000000000000005E-22}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});

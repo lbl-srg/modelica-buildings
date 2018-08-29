@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "heaCapGla.portUns.T",
+    "heaCapGla.portSha.T",
+    "heaCapGla01.TUns",
+    "heaCapGla01.TSha",
+    "heaCapGlaNoSha.TUns"
+  };

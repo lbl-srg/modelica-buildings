@@ -1,0 +1,29 @@
+simulateModel("Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos", stopTime=1000, method="Radau", tolerance=1e-08, resultFile="Pump_Nrpm_stratos");
+removePlots();
+createPlot(id=1,
+filename = "Pump_Nrpm_stratos.mat",
+position={0, 0, 1010, 701},
+y={"pump1.m_flow", "pump2.m_flow", "pump3.m_flow", "pump4.m_flow", "pump5.m_flow"},
+range={0.0, 1000.0, -2.0, 16.0},
+autoscale=false,
+grid=true,
+leftTitleType=1,
+bottomTitleType=1);
+createPlot(id=2,
+position={0, 0, 1010, 347},
+y={"forcedPump1.dp", "forcedPump2.dp", "forcedPump3.dp", "forcedPump4.dp", "forcedPump5.dp"},
+range={0.0, 1000.0, 0.0, 140000.0},
+autoscale=false,
+grid=true,
+subPlot=2,
+leftTitleType=1,
+bottomTitleType=1);
+createPlot(id=3,
+position={0, 0, 1010, 347},
+y={"pump1.P", "pump2.P", "pump3.P", "pump4.P", "pump5.P"},
+range={0.0, 1000.0, 0.0, 1600.0},
+autoscale=false,
+grid=true,
+subPlot=2,
+leftTitleType=1,
+bottomTitleType=1);

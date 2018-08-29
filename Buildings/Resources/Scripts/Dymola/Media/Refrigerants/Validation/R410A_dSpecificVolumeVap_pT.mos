@@ -1,0 +1,25 @@
+simulateModel("Buildings.Media.Refrigerants.Validation.R410A_dSpecificVolumeVap_pT", method="dassl", tolerance=1e-6, stopTime=100, resultFile="dSpecificVolumeVap_pT");
+
+createPlot(id = 1,
+   position = {60, 10, 640, 480},
+   y = {"dvdp", "dvdp_num"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   filename = "dSpecificVolumeVap_pT.mat",
+   leftTitleType = 1,
+   bottomTitleType = 1);
+
+createPlot(id = 2,
+   position = {120, 30, 640, 480},
+   y = {"dvdT", "dvdT_num"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   filename = "dSpecificVolumeVap_pT.mat",
+   leftTitleType = 1,
+   bottomTitleType = 1);

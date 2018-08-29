@@ -1,0 +1,5 @@
+simulateModel("Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulXi", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="TWetBul_TDryBulXi");
+createPlot(id = 1,
+ x = "wetBul.Xi[1]",
+ y = {"wetBul.TWetBul", "wetBulApp.TWetBul"},
+ grid = true);

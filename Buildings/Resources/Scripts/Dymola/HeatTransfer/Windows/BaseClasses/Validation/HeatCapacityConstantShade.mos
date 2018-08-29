@@ -1,0 +1,4 @@
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Validation.HeatCapacityConstantShade", tolerance=1e-6, stopTime=600, method="dassl", resultFile="HeatCapacityConstantShade");
+createPlot(id=1, position={15, 10, 1037, 1116}, y={"heaCapGla.portUns.T", "heaCapGla.portSha.T"}, range={0.0, 600.0, 18.900000000000002, 20.1}, grid=true, colors={{238,46,47}, {28,108,200}});
+createPlot(id=1, position={15, 10, 1037, 370}, y={"heaCapGla01.TUns", "heaCapGla01.TSha"}, range={0.0, 600.0, 16.5, 20.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 1037, 369}, y={"heaCapGlaNoSha.TUns"}, range={0.0, 600.0, 18.900000000000002, 20.1}, grid=true, subPlot=3, colors={{28,108,200}});

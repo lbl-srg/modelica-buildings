@@ -1,0 +1,18 @@
+removePlots();
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HANaturalCylinder", tolerance=1e-6, stopTime=250, method="dassl", resultFile="HANaturalCylinder");
+createPlot(id = 8,
+ position = {0, 0, 800, 600},
+ y = {"hANatCyl.hA"},
+ range = {0.0, 51.0, 0.0, 900.0},
+ erase = false,
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "HANaturalCylinder.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}});

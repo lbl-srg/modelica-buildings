@@ -1,0 +1,26 @@
+simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Controls.Validation.Reheat", stopTime=1200, method="Cvode",tolerance=1e-06, resultFile="Reheat");
+createPlot(id=3,
+ position={75, 14, 905, 574},
+ y={"heaCon.yVal", "heaCon.yValSwi"},
+ range={0.0, 100.0, -0.4, 0.6},
+ grid=true,
+ filename="Reheat.mat",
+ colors={{28,108,200}, {238,46,47}});
+ plotExpression(apply(Reheat.heaCon.yValSwi+Reheat.heaCon.yValDeaBan), false, "yValSwiHig", 3);
+ plotExpression(apply(Reheat.heaCon.yValSwi-Reheat.heaCon.yValDeaBan), false, "yValSwiLow", 3);
+createPlot(id=3,
+ position={75, 14, 905, 188},
+ y={"heaCon.dT"},
+ range={0.0, 100.0, -6.0, 4.0},
+ grid=true,
+ subPlot=2,
+ colors={{28,108,200}});
+ plotExpression(apply(Reheat.heaCon.dTSwi+Reheat.heaCon.dTDeaBan), false, "dTSwiHig", 3);
+ plotExpression(apply(Reheat.heaCon.dTSwi-Reheat.heaCon.dTDeaBan), false, "dTSwiLow", 3);
+createPlot(id=3,
+ position={75, 14, 905, 189},
+ y={"heaCon.y"},
+ range={0.0, 100.0, -2.0, 2.0},
+ grid=true,
+ subPlot=3,
+ colors={{28,108,200}});

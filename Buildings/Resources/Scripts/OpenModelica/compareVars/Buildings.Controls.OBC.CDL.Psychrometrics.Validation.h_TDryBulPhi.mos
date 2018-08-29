@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "hBulPhi.h",
+    "phi.y"
+  };

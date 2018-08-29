@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "masFra1.phi",
+    "masFra1.X[1]",
+    "masFra2.X[1]",
+    "masFra1.T"
+  };

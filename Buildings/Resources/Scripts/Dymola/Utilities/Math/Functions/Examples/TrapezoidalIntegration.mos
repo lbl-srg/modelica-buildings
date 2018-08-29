@@ -1,0 +1,12 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.TrapezoidalIntegration", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="TrapezoidalIntegration");
+removePlots();
+createPlot(id = 5,
+ y = {"y"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "TrapezoidalIntegration.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

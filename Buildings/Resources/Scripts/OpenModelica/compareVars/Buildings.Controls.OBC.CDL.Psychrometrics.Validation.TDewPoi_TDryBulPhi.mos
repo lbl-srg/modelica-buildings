@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "dewBulPhi.TDewPoi",
+    "TDewPoi.T",
+    "dewBulPhi1.TDewPoi",
+    "TDewPoi1.T",
+    "add.y",
+    "add1.y"
+  };

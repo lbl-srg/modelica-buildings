@@ -1,0 +1,14 @@
+simulateModel("Buildings.Airflow.Multizone.BaseClasses.Examples.PowerLawFixedM", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="PowerLawFixedM");
+createPlot(id = 1,
+ position = {15, 10, 628, 421},
+ x = "dp",
+ y = {"V_flow"},
+ range = {-10.0, 10.0, 0.7, -0.6},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "PowerLawFixedM.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

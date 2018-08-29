@@ -1,0 +1,19 @@
+simulateModel("Buildings.Airflow.Multizone.Examples.OneEffectiveAirLeakageArea", stopTime=7200,
+    method="radau", tolerance=1e-08, resultFile="OneEffectiveAirLeakageArea");
+createPlot(id = 1,
+ position = {73, 34, 537, 565},
+ y = {"cra.v"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "OneEffectiveAirLeakageArea.mat");
+createPlot(id = 2,
+ y = {"cra.m_flow"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "OneEffectiveAirLeakageArea.mat");

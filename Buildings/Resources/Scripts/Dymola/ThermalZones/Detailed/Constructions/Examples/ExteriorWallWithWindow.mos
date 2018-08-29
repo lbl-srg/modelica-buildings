@@ -1,0 +1,5 @@
+simulateModel("Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallWithWindow", tolerance=1e-6, stopTime=1209600, method="Cvode", resultFile="ExteriorWallWithWindow");
+createPlot(
+ y = {"conExt[1].opa.T[1]", "conExt[1].opa.T[2]", "conExt[1].opa.T[3]", "conExt[1].opa.T[4]", "conExt[1].opa.T[5]", "conExt[1].win.glaUns.glass_a.T", "conExt[1].win.glaUns.glass_b.T", "bouConExt.weaBus.TDryBul"},
+ grid = true
+)

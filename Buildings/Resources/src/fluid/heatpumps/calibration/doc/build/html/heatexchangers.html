@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Evaporator and condenser models &#8212; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Heat pump models" href="heatpumps.html" />
+    <link rel="prev" title="Thermodynamic properties of heat carrier fluids" href="fluids.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="index.html">Heat Pump Calibration User Guide</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="calibrate.html">Calibrate heat pump models</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="compressors.html">Compressor models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluids.html">Thermodynamic properties of heat carrier fluids</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Evaporator and condenser models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heatpumps.html">Heat pump models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refrigerants.html">Refrigerant thermodynamic properties</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dummy_performance_data.html">Generate performance data from heat pump model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_calibration.html">Calibrate heat pump model from performance data</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Evaporator and condenser models</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="fluids.html" title="Previous Chapter: Thermodynamic properties of heat carrier fluids"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Thermodynamic...</span>
+    </a>
+  </li>
+  <li>
+    <a href="heatpumps.html" title="Next Chapter: Heat pump models"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Heat pump models &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+<!--
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+-->
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="module-PythonModel.heatexchangers">
+<span id="evaporator-and-condenser-models"></span><h1>Evaporator and condenser models<a class="headerlink" href="#module-PythonModel.heatexchangers" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="PythonModel.heatexchangers.EvaporatorCondenser">
+<em class="property">class </em><code class="descclassname">PythonModel.heatexchangers.</code><code class="descname">EvaporatorCondenser</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Object for heat exchanger based on epsilon-NTU method for a heat
+transfer fluid exchanging heat with refrigerant experiencing constant
+temperature phase change.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>UA</strong> &#8211; Heat transfer coefficient of the evaporator or
+condenser (W/K).</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="PythonModel.heatexchangers.EvaporatorCondenser.get_RefrigerantTemperature">
+<code class="descname">get_RefrigerantTemperature</code><span class="sig-paren">(</span><em>Q_flow</em>, <em>m_flow</em>, <em>flu</em>, <em>T_in</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.get_RefrigerantTemperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the refrigerant temperature.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>Q_flow</strong> &#8211; Heat transfer rate to the fluid stream (W).</li>
+<li><strong>m_flow</strong> &#8211; Fluid mass flow rate (kg/s).</li>
+<li><strong>flu</strong> &#8211; Fluid model.</li>
+<li><strong>T_in</strong> &#8211; Inlet fluid temperature (K).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Refrigerant temperature (K).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">eva</span><span class="o">.</span><span class="n">get_RefrigerantTemperature</span><span class="p">(</span><span class="mi">19300</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="mf">298.75</span><span class="p">)</span>
+<span class="go">&#39;305.25&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatexchangers.EvaporatorCondenser.initialGuessParameters">
+<code class="descname">initialGuessParameters</code><span class="sig-paren">(</span><em>Q_nominal</em>, <em>P_nominal</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize guess parameters for calibration of the heat pump model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>Q_nominal</strong> &#8211; Nominal heat pump capacity (W).</li>
+<li><strong>P_nominal</strong> &#8211; Nominal power input (W).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of parameters to the compressor model, a list of tuples
+of the bounds of the parameters (min, max) for the calibration
+routine.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatexchangers.EvaporatorCondenser.modelicaModelPath">
+<code class="descname">modelicaModelPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns the full path to the EvaporatorCondenser model in the</dt>
+<dd>Buildings library.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Full path to the compressor model in the Buildings library.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
+<span class="go">&#39;Buildings.Fluid.HeatExchangers.EvaporatorCondenser&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatexchangers.EvaporatorCondenser.printParameters">
+<code class="descname">printParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.printParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the value of the model parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatexchangers.EvaporatorCondenser.reinitializeParameters">
+<code class="descname">reinitializeParameters</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reinitializes the evaporator or condenser using new parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>UA</strong> &#8211; Heat transfer coefficient (W/K).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.heatexchangers.EvaporatorCondenser.set_ModelicaParameters">
+<code class="descname">set_ModelicaParameters</code><span class="sig-paren">(</span><em>simulator</em>, <em>suffix=''</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.set_ModelicaParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set parameter values for simulation in dymola.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>simulator</strong> &#8211; Simulator object (BuildinsPy)</li>
+<li><strong>suffix</strong> &#8211; String to add at the end of parameter names.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Simulator object (BuildinsPy)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

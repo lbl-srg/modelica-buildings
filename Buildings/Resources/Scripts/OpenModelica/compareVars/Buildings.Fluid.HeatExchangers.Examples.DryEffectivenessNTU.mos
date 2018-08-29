@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "hexCou.Q1_flow",
+    "hexCou.Q2_flow",
+    "hexCou.m1_flow",
+    "hexCou.m2_flow",
+    "hexPar.Q1_flow",
+    "hexCou.Q1_flow",
+    "hexCroC1Mix.Q1_flow",
+    "hexCroC1Unm.Q1_flow",
+    "hexCroUnm.Q1_flow"
+  };

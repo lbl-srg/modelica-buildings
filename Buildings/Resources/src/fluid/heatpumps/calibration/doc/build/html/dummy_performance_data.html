@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Generate performance data from heat pump model &#8212; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Calibrate heat pump model from performance data" href="example_calibration.html" />
+    <link rel="prev" title="Refrigerant thermodynamic properties" href="refrigerants.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="index.html">Heat Pump Calibration User Guide</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="calibrate.html">Calibrate heat pump models</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compressors.html">Compressor models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluids.html">Thermodynamic properties of heat carrier fluids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heatexchangers.html">Evaporator and condenser models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heatpumps.html">Heat pump models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refrigerants.html">Refrigerant thermodynamic properties</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Generate performance data from heat pump model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_calibration.html">Calibrate heat pump model from performance data</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Generate performance data from heat pump model</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="refrigerants.html" title="Previous Chapter: Refrigerant thermodynamic properties"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Refrigerant t...</span>
+    </a>
+  </li>
+  <li>
+    <a href="example_calibration.html" title="Next Chapter: Calibrate heat pump model from performance data"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Calibrate hea... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+<!--
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+-->
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="generate-performance-data-from-heat-pump-model">
+<h1>Generate performance data from heat pump model<a class="headerlink" href="#generate-performance-data-from-heat-pump-model" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrates the use of the <a class="reference internal" href="heatpumps.html"><span class="doc">heat pump</span></a> module
+to calculate the heat pump heating capacity and power input. For a given set
+of parameters, the heating capacity and power input is calculated for various
+combinations of inlet water temperatures and mass flow rates at the evaporator
+and condenser inlets.</p>
+<p>Results from the heat pump model are saved into the file
+<cite>Buildings/Resources/src/fluid/heatpumps/calibration/Examples/somePerformanceData.txt</cite>.</p>
+<p>The following script can be found in
+<cite>Buildings/Resources/src/fluid/heatpumps/calibration/Examples/example_calibration.py</cite>:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot; Example use of the heat pump model to generate performance data.</span>
+
+<span class="sd">This script demonstrates the use of the heat pump model to generate performance</span>
+<span class="sd">data. Data is generated for a heat pump with a scroll compressor and some</span>
+<span class="sd">combinations of inlet water temperatures and mass flow rates on the source</span>
+<span class="sd">and load sides. The resulting performance data is written to a text file.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Add parent directory to system path</span>
+    <span class="n">parent_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">parent_dir</span><span class="p">)</span>
+    <span class="c1"># Import Heat pump and calibration module</span>
+    <span class="kn">import</span> <span class="nn">PythonModel</span> <span class="kn">as</span> <span class="nn">hp</span>
+    <span class="c1"># Change working directory to current directory</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
+    <span class="c1"># Set to True if calibrating for cooling mode</span>
+    <span class="n">CoolingMode</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="c1"># File name for performance data</span>
+    <span class="n">tableFileName</span> <span class="o">=</span> <span class="s1">&#39;somePerformanceData.txt&#39;</span>
+
+    <span class="c1"># Initialize the heat pump model</span>
+    <span class="n">P_nominal</span> <span class="o">=</span> <span class="mf">17.5e3</span>         <span class="c1"># Nominal heat pump power input (W).</span>
+    <span class="n">COP_nominal</span> <span class="o">=</span> <span class="mf">4.0</span>          <span class="c1"># Nominal COP of the heat pump (-)</span>
+    <span class="n">Q_nominal</span> <span class="o">=</span> <span class="n">P_nominal</span><span class="o">*</span><span class="n">COP_nominal</span>  <span class="c1"># Nominal heat pump capacity (W).</span>
+
+    <span class="c1"># Model parameters</span>
+    <span class="n">volRat</span> <span class="o">=</span> <span class="mf">2.365</span>             <span class="c1"># Volume ratio (-).</span>
+    <span class="n">V_flow_nominal</span> <span class="o">=</span> <span class="mf">0.00288</span>   <span class="c1"># Nominal refrigerant volume flow rate (kg/s).</span>
+    <span class="n">leaCoe</span> <span class="o">=</span> <span class="mf">0.0041</span>            <span class="c1"># Leakage coefficient (kg/s)</span>
+    <span class="n">etaEle</span> <span class="o">=</span> <span class="mf">0.924</span>             <span class="c1"># Elctro-mechanical efficiency (-).</span>
+    <span class="n">PLos</span> <span class="o">=</span> <span class="mf">396.1</span>               <span class="c1"># Constant part of the power losses (W).</span>
+    <span class="n">dTSup</span> <span class="o">=</span> <span class="mf">6.84</span>               <span class="c1"># Degree of superheating (K).</span>
+    <span class="n">UACon</span> <span class="o">=</span> <span class="mf">7007.7</span>             <span class="c1"># Condenser heat transfer coefficient (W/K).</span>
+    <span class="n">UAEva</span> <span class="o">=</span> <span class="mf">29990.9</span>            <span class="c1"># Evaporator heat transfer coefficient (W/K).</span>
+
+    <span class="c1"># Boundary conditions</span>
+    <span class="c1"># Source-side water mass flow rates (L/s)</span>
+    <span class="n">mSou_flow</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">]</span>
+    <span class="c1"># Load-side water mass flow rates (L/s)</span>
+    <span class="n">mLoa_flow</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">]</span>
+    <span class="c1"># Source-side entering water temperatures (K)</span>
+    <span class="n">TSou</span> <span class="o">=</span> <span class="p">[</span><span class="mf">273.15</span><span class="p">,</span> <span class="mf">278.15</span><span class="p">,</span> <span class="mf">283.15</span><span class="p">,</span> <span class="mf">288.15</span><span class="p">,</span> <span class="mf">293.15</span><span class="p">,</span> <span class="mf">298.15</span><span class="p">]</span>
+    <span class="c1"># Load-side entering water temperatures (K)</span>
+    <span class="n">TLoa</span> <span class="o">=</span> <span class="p">[</span><span class="mf">288.15</span><span class="p">,</span> <span class="mf">298.15</span><span class="p">,</span> <span class="mf">308.15</span><span class="p">,</span> <span class="mf">318.15</span><span class="p">]</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># Initialize all models using given parameters values.</span>
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># Compressor model (Scroll)</span>
+    <span class="n">com</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="n">volRat</span><span class="p">,</span>
+                                           <span class="n">V_flow_nominal</span><span class="p">,</span>
+                                           <span class="n">leaCoe</span><span class="p">,</span>
+                                           <span class="n">etaEle</span><span class="p">,</span>
+                                           <span class="n">PLos</span><span class="p">,</span>
+                                           <span class="n">dTSup</span><span class="p">])</span>
+    <span class="c1"># Condenser model</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="n">UACon</span><span class="p">])</span>
+    <span class="c1"># Evaporator model</span>
+    <span class="n">eva</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="n">UAEva</span><span class="p">])</span>
+    <span class="c1"># Refrigerant model</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+    <span class="c1"># Fluid model on condenser side</span>
+    <span class="n">fluCon</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+    <span class="c1"># Fluid model on evaporator side</span>
+    <span class="n">fluEva</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+    <span class="c1"># Heat pump model</span>
+    <span class="n">heaPum</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">heatpumps</span><span class="o">.</span><span class="n">SingleStageHeatPump</span><span class="p">(</span>
+        <span class="n">com</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">eva</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">fluCon</span><span class="p">,</span> <span class="n">fluEva</span><span class="p">,</span> <span class="n">Q_nominal</span><span class="p">,</span> <span class="n">P_nominal</span><span class="p">,</span> <span class="n">CoolingMode</span><span class="p">)</span>
+
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># Evaluate heat pump peformance at all combinations of boundary conditions.</span>
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tableFileName</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">TS</span> <span class="ow">in</span> <span class="n">TSou</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">mS</span> <span class="ow">in</span> <span class="n">mSou_flow</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">TL</span> <span class="ow">in</span> <span class="n">TLoa</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">mL</span> <span class="ow">in</span> <span class="n">mLoa_flow</span><span class="p">:</span>
+                        <span class="c1"># Evaluate capacity, source-side heat transfer rate and</span>
+                        <span class="c1"># power input.</span>
+                        <span class="n">Cap</span> <span class="o">=</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_Capacity</span><span class="p">(</span><span class="n">TS</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">mS</span><span class="p">,</span> <span class="n">mL</span><span class="p">)</span><span class="o">/</span><span class="mf">1e3</span>
+                        <span class="n">HR</span> <span class="o">=</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_SourceSideTransferRate</span><span class="p">(</span><span class="n">TS</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">mS</span><span class="p">,</span> <span class="n">mL</span><span class="p">)</span><span class="o">/</span><span class="mf">1e3</span>
+                        <span class="n">Power</span> <span class="o">=</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="n">TS</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">mS</span><span class="p">,</span> <span class="n">mL</span><span class="p">)</span><span class="o">/</span><span class="mf">1e3</span>
+                        <span class="c1"># Write to text file.</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                <span class="n">TS</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">mS</span><span class="p">,</span> <span class="n">mL</span><span class="p">,</span> <span class="n">Cap</span><span class="p">,</span> <span class="n">HR</span><span class="p">,</span> <span class="n">Power</span><span class="p">))</span>
+    <span class="k">return</span>
+
+<span class="c1"># Main function</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

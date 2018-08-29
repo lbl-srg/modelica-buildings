@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "trimRespondLogic.uDevSta",
+    "trimRespondLogic.numOfReq",
+    "trimRespondLogic.y",
+    "trimRespondLogic1.uDevSta",
+    "trimRespondLogic1.numOfReq",
+    "trimRespondLogic1.y"
+  };

@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "hea.com.vol.T",
+    "sou.T_in",
+    "sin.T_in",
+    "floMac.inlet.p",
+    "floMac.outlet.p",
+    "hea.inlet.p",
+    "hea.outlet.p",
+    "sou.outlet.p",
+    "sin.inlet.p"
+  };

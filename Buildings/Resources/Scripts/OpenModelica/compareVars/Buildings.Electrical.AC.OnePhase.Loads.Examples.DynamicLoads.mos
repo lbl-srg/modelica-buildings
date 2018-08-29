@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "dynRC.i[1]",
+    "dynRC.i[2]",
+    "dynRL.i[1]",
+    "dynRL.i[2]",
+    "dynRC.v[1]",
+    "dynRC.v[2]"
+  };

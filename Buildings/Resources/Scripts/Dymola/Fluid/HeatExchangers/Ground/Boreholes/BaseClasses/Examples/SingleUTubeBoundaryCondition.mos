@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Examples.SingleUTubeBoundaryCondition", tolerance=1e-6, stopTime=1.5768e+08, method="dassl", resultFile="SingleUTubeBoundaryCondition");
+createPlot(id = 1,
+ position = {24, 22, 889, 407},
+ filename = "SingleUTubeBoundaryCondition.mat",
+ y = {"TBouSte.port.T", "TBouCon.port.T", "TBouPul.port.T"},
+ range = {0.0, 160000000.0, 28.0, 19.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);

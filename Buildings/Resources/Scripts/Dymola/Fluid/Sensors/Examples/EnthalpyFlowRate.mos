@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.Sensors.Examples.EnthalpyFlowRate", method="dassl", tolerance=1e-6, stopTime=60, resultFile="EnthalpyFlowRate");
+createPlot(id=5, position={15, 13, 1032, 1035}, y={"senM_flow.m_flow"}, range={0.0, 62.0, -1.5, 1.5}, grid=true, colors={{28,108,200}});
+createPlot(id=5, position={15, 13, 1032, 256}, y={"senH.h_out"}, range={0.0, 62.0, 40000.0, 70000.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=5, position={15, 13, 1032, 255}, y={"senH_flow.H_flow"}, range={0.0, 62.0, -80000.0, 60000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=5, position={15, 13, 1032, 256}, y={"cheEqu.y"}, range={0.0, 62.0, -1.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});

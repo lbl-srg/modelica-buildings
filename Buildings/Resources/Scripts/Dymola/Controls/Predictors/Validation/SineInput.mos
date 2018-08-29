@@ -1,0 +1,18 @@
+simulateModel("Buildings.Controls.Predictors.Validation.SineInput", tolerance=1e-6, stopTime=5270400, method="dassl", resultFile="Predictors_SineInput");
+createPlot(id=2, position={160, 65, 753, 593},
+y={"PCon.y", "baseLoad.PPre[1]"},
+range={0.0, 5270400.0, -0.5, 1.5}, grid=true, filename="Predictors_SineInput.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
+createPlot(id=2, position={160, 65, 753, 193},
+y={"baseLoad.typeOfDay[1]", "baseLoad.storeHistory"},
+range={0.0, 5270400.0, -1.0, 3.0}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
+createPlot(id=2, position={160, 65, 753, 194},
+y={"baseLoad.adj"},
+range={0.0, 5270400.0, 0.6000000000000001, 1.4000000000000001}, grid=true, subPlot=3, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={161, 698, 754, 340},
+y={"baseLoad.PPre[1]", "baseLoad.PPre[2]", "baseLoad.PPre[3]", "baseLoad.PPre[4]", "baseLoad.PPre[5]", "baseLoad.PPre[6]", "baseLoad.PPre[7]", "baseLoad.PPre[8]", "baseLoad.PPre[9]", "baseLoad.PPre[10]", "baseLoad.PPre[11]", "baseLoad.PPre[12]"},
+range={0.0, 1500.0, -0.2, 1.2000000000000002}, grid=true,
+filename="Predictors_SineInput.mat",
+leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}, {255,0,0},
+{0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}, {255,0,0}}, markers={MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None,
+MarkerStyle.None, MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Cross,
+MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Circle, MarkerStyle.Circle});

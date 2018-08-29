@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.Chillers.Validation.Carnot_y_etaPL", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Chiller_Carnot_y_etaPL");
+createPlot(id=2, position={75, 70, 1210, 980}, y={"chi.sta_a1.T", "chi.sta_b1.T", "chi.sta_a2.T", "chi.sta_b2.T"}, range={0.0, 3600.0, 0.0, 40.0}, grid=true, filename="Carnot_TEva_etaPL.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=2, position={75, 70, 1210, 191}, y={"chi.QEva_flow", "chi.QCon_flow", "chi.P"}, range={0.0, 3600.0, -150000.0, 150000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={75, 70, 1210, 192}, y={"chi.dp1", "chi.dp2"}, range={0.0, 3600.0, 1000.0, 7000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={75, 70, 1210, 191}, y={"chi.COP_nominal", "chi.COP"}, range={0.0, 3600.0, 2.0, 10.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={75, 70, 1210, 191}, y={"chi.etaPL"}, range={0.0, 3600.0, 0.8500000000000001, 1.05}, grid=true, subPlot=5, colors={{28,108,200}});

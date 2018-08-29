@@ -1,0 +1,11 @@
+last-generated=2015-05-08
+statistics-initialization={'linear': '7'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+irRadExc.conPar_a[1].T=[293.147613525390625, 293.147613525390625]
+irRadExc.conBou[1].T=[293.147613525390625, 293.147613525390625]
+irRadExc.conExtWin[1].T=[293.148773193359375, 293.148773193359375]
+time=[0., 1.]
+irRadExc.conSurBou[1].T=[293.14776611328125, 293.14776611328125]
+irRadExc.conExt[1].T=[293.147613525390625, 293.147613525390625]
+irRadExc.conPar_b[1].T=[293.147613525390625, 293.147613525390625]
+irRadExc.conExtWinFra[1].T=[293.14990234375, 293.14990234375]

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "dam.m_flow",
+    "vav.m_flow",
+    "dam.dp",
+    "vav.dp",
+    "res.dp"
+  };

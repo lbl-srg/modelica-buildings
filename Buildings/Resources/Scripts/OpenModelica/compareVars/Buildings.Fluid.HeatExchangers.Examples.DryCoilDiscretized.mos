@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "hex.sta_a1.T",
+    "hex.sta_b1.T",
+    "hex.sta_a2.T",
+    "hex.sta_b2.T",
+    "hex.hexReg[1].ele[1, 1].vol1.T",
+    "hex.hexReg[1].ele[1, 1].vol2.T",
+    "hex.hexReg[1].ele[1, 2].vol1.T",
+    "hex.hexReg[1].ele[1, 2].vol2.T",
+    "hex.hexReg[1].ele[1, 1].Gc_1",
+    "hex.hexReg[1].ele[1, 1].Gc_2",
+    "hex.Q1_flow",
+    "hex.Q2_flow",
+    "hex.m1_flow",
+    "hex.m2_flow"
+  };

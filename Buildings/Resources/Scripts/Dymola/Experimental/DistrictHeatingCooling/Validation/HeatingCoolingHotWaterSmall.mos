@@ -1,0 +1,4 @@
+simulateModel("Buildings.Experimental.DistrictHeatingCooling.Validation.HeatingCoolingHotWaterSmall", stopTime=31536000, tolerance=1e-06, resultFile="HeatingCoolingHotWaterSmall");
+createPlot(id=6, position={33, 18, 1274, 787}, y={"weaDat.weaBus.TDryBul"}, range={0.0, 32000000.0, 0.0, 30.0}, grid=true, filename="HeatingCoolingHotWaterSmall.mat", colors={{28,108,200}});
+createPlot(id=6, position={33, 18, 1274, 259}, y={"m_flow_nominal", "pla.m_flow"}, range={0.0, 32000000.0, -30.0, 40.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=6, position={33, 18, 1274, 258}, y={"pla.sta_a.T", "pla.sta_b.T", "watTem.y[1]"}, range={0.0, 32000000.0, 10.0, 22.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});

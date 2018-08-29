@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "wetCoi.Q_flow",
+    "TEvaIn.y",
+    "wetCoi.TADP",
+    "wetCoi.mWat_flow",
+    "wetCoi.SHR",
+    "wetCoi.EIR"
+  };

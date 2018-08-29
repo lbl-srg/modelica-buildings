@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "vol.medium.T",
+    "vol1.T",
+    "vol2.T",
+    "res1.m_flow",
+    "res2.m_flow",
+    "cheEqu1.y",
+    "cheEqu2.y"
+  };

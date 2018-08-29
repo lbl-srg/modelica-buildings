@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.Actuators.Valves.Validation.ThreeWayValveParameterization", method="dassl", tolerance=1e-06, resultFile="ThreeWayValveParameterization");
+createPlot(id=1, position={37, 30, 958, 513}, y={"senM_flowOpPoi.m_flow", "senM_flowKv.m_flow", "senM_flowCv.m_flow", "senM_flowAv.m_flow"}, range={0.0, 1.0, 0.18, 0.44}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

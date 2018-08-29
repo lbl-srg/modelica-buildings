@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "probe_source.V",
+    "probe_loadRC.V",
+    "probe_loadRL.V"
+  };

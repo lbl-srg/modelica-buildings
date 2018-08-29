@@ -1,0 +1,26 @@
+simulateModel("Buildings.Fluid.Actuators.BaseClasses.Examples.EqualPercentageDerivativeCheck", startTime=0, method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="EqualPercentageDerivativeCheck");
+removePlots();
+createPlot(id = 5,
+ position = {45, 33, 639, 463},
+ y = {"x", "y"},
+ range = {(-1.0), 1, 2.5, 0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "EqualPercentageDerivativeCheck.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 5,
+ position = {45, 33, 639, 226},
+ y = {"der(x)", "der(y)"},
+ range = {(-1.0), 1, 2, (-2.0)},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);

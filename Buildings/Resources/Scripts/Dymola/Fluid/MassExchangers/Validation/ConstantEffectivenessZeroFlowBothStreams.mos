@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.MassExchangers.Validation.ConstantEffectivenessZeroFlowBothStreams", stopTime=1, method="dassl", tolerance=1e-6, resultFile="ConstantEffectivenessZeroFlowBothStreams");
+createPlot(id=1, position={15, 10, 1045, 783}, y={"hex.QLat_flow", "hex.mWat1_flow", "hex.mWat2_flow", "hex.Q1_flow", "hex.Q2_flow", "hex.mWat_flow"}, range={0.0, 0.00028000000000000003, -1.2000000000000002, 1.4}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});

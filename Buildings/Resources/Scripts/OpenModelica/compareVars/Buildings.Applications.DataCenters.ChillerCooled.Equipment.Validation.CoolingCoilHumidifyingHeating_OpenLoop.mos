@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "ahu.port_a1.m_flow",
+    "ahu.port_a2.m_flow",
+    "ahu.cooCoi.Q1_flow",
+    "ahu.cooCoi.Q2_flow",
+    "ahu.cooCoi.QSen2_flow",
+    "ahu.cooCoi.QLat2_flow",
+    "temSou_2.y",
+    "temSenWat1.T",
+    "temSenWat2.T",
+    "temSenAir2.T"
+  };

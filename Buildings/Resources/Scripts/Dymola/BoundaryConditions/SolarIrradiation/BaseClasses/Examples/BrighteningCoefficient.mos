@@ -1,0 +1,26 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.BrighteningCoefficient", tolerance=1e-6, stopTime=8640000, method="dassl", resultFile="BrighteningCoefficient");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"briCoe.F1"},
+ range = {0, 8640000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "BrighteningCoefficient.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 1,
+ position = {7, 7, 746, 256},
+ y = {"briCoe.F2"},
+ range = {0, 8640000.0, 0.3, -0.3},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);

@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "wetBul.TWetBul",
+    "wetBulApp.TWetBul"
+  };

@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.Interfaces.Examples.FourPortHeatMassExchanger", tolerance=1e-6, stopTime=5, method="dassl", resultFile="FourPortHeatMassExchanger");
+createPlot(id=1, position={0, 0, 1314, 667}, y={"fouPor.Q1_flow", "fouPor.Q2_flow"}, range={0.0, 5.0, -1.5, 1.5}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1314, 331}, y={"fouPor.vol1.T", "fouPor.vol2.T", "sou2.T", "sou1.T_in", "sin.T"}, range={0.0, 5.0, 270.0, 295.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});

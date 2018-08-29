@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.Examples.Performance.PressureDrop.ParallelFlowOptimised", stopTime=1, method="dassl", tolerance=1e-06, resultFile="ParallelFlowOptimised");
+createPlot(id=1, position={0, 0, 1241, 774}, y={"sin.ports[1].m_flow"}, range={0.0, 1.0, -1.0, 8.0}, grid=true, colors={{28,108,200}});

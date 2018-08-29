@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "TSet.y",
+    "plaWitRes.temSen.T",
+    "plaNoRes.temSen.T",
+    "conWitRes.conPID.trigger",
+    "conWitRes.conPID.controlError",
+    "conNoRes.conPID.controlError"
+  };

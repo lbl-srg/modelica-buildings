@@ -1,0 +1,48 @@
+// Conversion script for Buildings library
+//  from: Version 1.5
+//  to:   Version 1.6
+clear
+
+convertClear();
+
+convertElement({"Buildings.Fluid.MixingVolumes.MixingVolume"},
+                "heaInp", "QSen_flow");
+convertElement({"Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"},
+                "heaInp", "Q_flow");
+convertElement({"Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"},
+                "HWat_flow", "QLat_flow.y");
+
+convertElement({"Buildings.Fluid.Storage.ExpansionVessel"},
+                "VTot", "V_start");
+convertModifiers({"Buildings.Fluid.Storage.ExpansionVessel"},
+                 {"VGas0", "pMax", "energyDynamics", "massDynamics"},
+                 fill("",0), true);
+
+convertClass("Buildings.Fluid.Movers.FlowMachinePolynomial",
+             "Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial");
+convertClass("Buildings.Fluid.Movers.Examples.FlowMachine",
+             "Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine");
+
+
+// Add conversion of mover data such as pressure to be part of the record,
+// and explain in release notes what needs to be changed.
+convertElement({"Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure"},
+                "data", "per");
+convertElement({"Buildings.Fluid.Movers.BaseClasses.Characteristics.power"},
+                "data", "per");
+convertElement({"Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency"},
+                "data", "per");
+
+
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
+                "hexTopHeight", "hHex_a");
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
+                "hexBotHeight", "hHex_b");
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
+                "topHexSeg", "segHex_a");
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
+                "botHexSeg", "segHex_b");
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
+                "port_a1", "portHex_a");
+convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
+                "port_b1", "portHex_b");

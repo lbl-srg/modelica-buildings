@@ -1,0 +1,19 @@
+simulateModel("Buildings.Airflow.Multizone.Examples.OneOpenDoor", stopTime=7200, method="Radau", tolerance=1e-06, resultFile="OneOpenDoor");
+removePlots();
+createPlot(id = 4,
+ position = {73, 34, 537, 565},
+ y = {"dooOpe.vAB", "dooOpe.vBA", "dooOpeClo.vAB", "dooOpeClo.vBA"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "OneOpenDoor.mat");
+createPlot(id = 5,
+ y = {"dooOpe.mAB_flow", "dooOpe.mBA_flow", "dooOpeClo.mAB_flow", "dooOpeClo.mBA_flow"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "OneOpenDoor.mat");

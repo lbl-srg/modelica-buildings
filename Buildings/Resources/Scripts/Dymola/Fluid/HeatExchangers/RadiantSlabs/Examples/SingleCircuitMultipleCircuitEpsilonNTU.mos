@@ -1,0 +1,18 @@
+simulateModel("Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU", stopTime=86400, method="Radau", tolerance=1e-6, resultFile="SingleCircuitMultipleCircuitEpsilonNTU");
+createPlot(id = 1,
+ position = {15, 10, 654, 465},
+ y = {"senTem1.T", "senTem2.T", "senTem3.T", "sla1.surf_a.T", "sla2.surf_a.T", "sla3.surf_a.T"},
+ range = {0.0, 90000.0, 40.0, 18.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "SingleCircuitMultipleCircuitEpsilonNTU.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}},
+ markers = {MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None,
+MarkerStyle.None, MarkerStyle.Cross});

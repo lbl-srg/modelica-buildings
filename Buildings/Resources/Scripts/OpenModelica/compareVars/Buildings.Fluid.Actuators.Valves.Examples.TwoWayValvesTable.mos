@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "valTab.m_flow",
+    "valLin.m_flow"
+  };

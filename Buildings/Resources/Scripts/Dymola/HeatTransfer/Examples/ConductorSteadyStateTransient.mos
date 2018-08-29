@@ -1,0 +1,5 @@
+simulateModel("Buildings.HeatTransfer.Examples.ConductorSteadyStateTransient", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="ConductorSteadyStateTransient");
+createPlot(id=1, position={32, 306, 400, 230}, y={"con.port_a.Q_flow", "con1.port_a.Q_flow"}, range={0.0, 90000.0, -200.0, 800.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={35, 30, 400, 280}, y={"con1.T[1]", "con1.T[2]", "con1.T[3]", "con2.T[1]", "con2.T[2]", "conMul.T[1]", "conMul.T[2]", "conMul.T[3]", "conMul.T[4]", "conMul.T[5]"}, range={0.0, 90000.0, 18.0, 28.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}, {244,125,35}, {102,44,145}, {28,108,200}, {28,108,200}});
+createPlot(id=5, position={459, 32, 400, 280}, y={"con.T[1]", "con.T[2]"}, range={0.0, 90000.0, 18.0, 28.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=6, position={460, 344, 430, 275}, y={"cheEqu.y"}, range={0.0, 90000.0, -2.0000000000000003E-13, 1.4000000000000003E-12}, grid=true, colors={{28,108,200}});

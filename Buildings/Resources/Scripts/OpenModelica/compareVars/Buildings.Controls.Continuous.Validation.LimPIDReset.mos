@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "setPoi.y",
+    "mea.y",
+    "trigger.y",
+    "limPIDDef.y",
+    "limPIDDef.controlError",
+    "limPIDPar.y",
+    "limPIDPar.y_reset",
+    "limPIDInp.y",
+    "limPIDInp.y_reset_in"
+  };

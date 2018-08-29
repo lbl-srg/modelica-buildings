@@ -1,0 +1,4 @@
+simulateModel("Buildings.Utilities.Psychrometrics.Examples.TotalAirDryAir", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="TotalAirDryAir");
+createPlot(id = 1,
+ y = {"toTotalAir.XiTotalAir", "toTotalAir.XiDry", "toTotalAir.XNonVapor", "toDryAir.XiTotalAir", "toDryAir.XiDry"},
+ grid = true);

@@ -1,0 +1,14 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface", startTime=1.82304e+07, tolerance=1e-6, stopTime=1.83168e+07, resultFile="DirectTiltedSurface");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"HDirRoo.H", "HDirWal.H", "HDirFlo.H"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "DirectTiltedSurface.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

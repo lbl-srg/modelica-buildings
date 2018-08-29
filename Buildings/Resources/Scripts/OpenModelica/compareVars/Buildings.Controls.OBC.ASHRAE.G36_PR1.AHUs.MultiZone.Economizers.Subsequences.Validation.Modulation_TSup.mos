@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "mod.uMin",
+    "mod.uMax",
+    "mod.uTSup",
+    "mod.yOutDamPos",
+    "mod.yRetDamPos",
+    "modFre.uMin",
+    "modFre.uMax",
+    "modFre.uTSup",
+    "modFre.yOutDamPos",
+    "modFre.yRetDamPos"
+  };

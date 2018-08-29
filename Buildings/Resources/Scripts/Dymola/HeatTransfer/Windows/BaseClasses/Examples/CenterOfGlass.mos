@@ -1,0 +1,23 @@
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.CenterOfGlass", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="CenterOfGlass");
+createPlot(id = 1,
+ position = {75, 70, 400, 280},
+ y = {"TAirOut.T", "TAirRoo.T", "sha.glass[1].port_a.T", "sha.glass[1].port_b.T", "sha.glass[2].port_a.T", "sha.glass[2].port_b.T"},
+ range = {0, 1, 25.0, -5.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 2,
+ position = {495, 70, 400, 280},
+ y = {"TAirOut.T", "TAirRoo.T", "nonSha.glass[1].port_a.T", "nonSha.glass[1].port_b.T", "nonSha.glass[2].port_a.T", "nonSha.glass[2].port_b.T"},
+ range = {0, 1, -5.2E-06, -6.8E-06},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);

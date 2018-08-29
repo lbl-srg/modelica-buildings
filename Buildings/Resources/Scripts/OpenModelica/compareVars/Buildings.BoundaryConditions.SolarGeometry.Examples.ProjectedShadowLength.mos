@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "proShaLenEas.y",
+    "proShaLenSou.y",
+    "proShaLenWes.y",
+    "proShaLenNor.y"
+  };

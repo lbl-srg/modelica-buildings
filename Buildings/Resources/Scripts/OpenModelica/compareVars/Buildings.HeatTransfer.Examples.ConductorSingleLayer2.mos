@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "con.T[1]",
+    "con.T[2]",
+    "con.port_a.T",
+    "con.port_b.T",
+    "con1.port_a.T",
+    "con1.port_b.T",
+    "con2.port_a.T",
+    "con2.port_b.T",
+    "cheEqu.y"
+  };

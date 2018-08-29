@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "latitude",
+    "longitude",
+    "timeZone"
+  };

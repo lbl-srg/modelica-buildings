@@ -1,0 +1,9 @@
+simulateModel("Buildings.Fluid.Actuators.Valves.Examples.TwoWayValvePressureIndependent", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="TwoWayValvePressureIndependent");
+removePlots();
+createPlot(id=1,
+y={"valInd.m_flow", "valIndDpFix.m_flow", "valIndFromMflow.m_flow"},
+grid=true,
+leftTitleType=1,
+bottomTitleType=1,
+filename = "TwoWayValvePressureIndependent.mat",
+colors={{0,0,255}, {255,0,0}, {0,128,0}});

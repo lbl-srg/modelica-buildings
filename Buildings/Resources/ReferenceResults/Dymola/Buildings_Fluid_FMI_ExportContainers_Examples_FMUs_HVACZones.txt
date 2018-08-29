@@ -1,0 +1,374 @@
+last-generated=2018-06-24
+statistics-fmu-dependencies=
+{
+  "Derivatives": {
+    "der(fan.filter.x[1])": [
+      "fan.filter.x[1]"
+    ],
+    "der(fan.filter.x[2])": [
+      "fan.filter.x[1]",
+      "fan.filter.x[2]"
+    ],
+    "der(fan2.filter.x[1])": [
+      "fan2.filter.x[1]"
+    ],
+    "der(fan2.filter.x[2])": [
+      "fan2.filter.x[1]",
+      "fan2.filter.x[2]"
+    ],
+    "der(senTemHXOut.T)": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.filter.x[2]",
+      "senTemHXOut.T",
+      "fan2.filter.x[2]"
+    ],
+    "der(senTemSupAir.T)": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.filter.x[2]",
+      "senTemSupAir.T",
+      "fan2.filter.x[2]"
+    ]
+  },
+  "InitialUnknowns": {
+    "QGaiLat_flow[1]": [
+      "zer[1].k"
+    ],
+    "QGaiLat_flow[2]": [
+      "zer[2].k"
+    ],
+    "QGaiRad_flow[1]": [
+      "zer[1].k"
+    ],
+    "QGaiRad_flow[2]": [
+      "zer[2].k"
+    ],
+    "QGaiSenCon_flow[1]": [
+      "zer[1].k"
+    ],
+    "QGaiSenCon_flow[2]": [
+      "zer[2].k"
+    ],
+    "TOut": [
+      "weaDat.pAtm"
+    ],
+    "der(fan.filter.x[1])": [],
+    "der(fan.filter.x[2])": [
+      "fan.riseTime",
+      "fan.m_flow_start"
+    ],
+    "der(fan2.filter.x[1])": [],
+    "der(fan2.filter.x[2])": [
+      "fan2.riseTime",
+      "fan2.m_flow_start"
+    ],
+    "der(senTemHXOut.T)": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.m_flow_start",
+      "senTemHXOut.T_start",
+      "weaDat.pAtm",
+      "fan2.m_flow_start"
+    ],
+    "der(senTemSupAir.T)": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.m_flow_start",
+      "cooCoi.eps",
+      "senTemSupAir.T_start",
+      "con.bandwidth",
+      "con.pre_y_start",
+      "mWat_flow.realTrue",
+      "weaDat.pAtm",
+      "fan2.m_flow_start"
+    ],
+    "fan.filter.x[1]": [
+      "fan.riseTime"
+    ],
+    "fan.filter.x[2]": [
+      "fan.m_flow_start"
+    ],
+    "fan2.filter.x[1]": [
+      "fan2.riseTime"
+    ],
+    "fan2.filter.x[2]": [
+      "fan2.m_flow_start"
+    ],
+    "fluPor[1,1].forward.T": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.per.hydraulicEfficiency.V_flow[1]",
+      "fan.per.hydraulicEfficiency.eta[1]",
+      "fan.per.motorEfficiency.V_flow[1]",
+      "fan.per.motorEfficiency.eta[1]",
+      "fan.per.motorCooledByFluid",
+      "fan.m_flow_start",
+      "cooCoi.eps",
+      "con.bandwidth",
+      "con.pre_y_start",
+      "mWat_flow.realTrue",
+      "weaDat.pAtm",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[1,1].forward.X_w": [
+      "fluPor[2,1].backward.X_w",
+      "fan.m_flow_start",
+      "weaDat.pAtm"
+    ],
+    "fluPor[1,1].m_flow": [
+      "fan.m_flow_start"
+    ],
+    "fluPor[1,2].forward.T": [
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[1,2].forward.X_w": [
+      "fluPor[2,1].backward.X_w",
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[1,2].m_flow": [
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[1,3].forward.T": [
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[1,3].forward.X_w": [
+      "fluPor[2,1].backward.X_w",
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[1,3].m_flow": [
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[2,1].forward.T": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.per.hydraulicEfficiency.V_flow[1]",
+      "fan.per.hydraulicEfficiency.eta[1]",
+      "fan.per.motorEfficiency.V_flow[1]",
+      "fan.per.motorEfficiency.eta[1]",
+      "fan.per.motorCooledByFluid",
+      "fan.m_flow_start",
+      "cooCoi.eps",
+      "con.bandwidth",
+      "con.pre_y_start",
+      "mWat_flow.realTrue",
+      "weaDat.pAtm",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[2,1].forward.X_w": [
+      "fluPor[1,1].backward.X_w",
+      "fan.m_flow_start",
+      "weaDat.pAtm"
+    ],
+    "fluPor[2,1].m_flow": [
+      "fan.m_flow_start"
+    ],
+    "fluPor[2,2].forward.T": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[2,2].forward.X_w": [
+      "fluPor[1,1].backward.X_w",
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[2,2].m_flow": [
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[2,3].forward.T": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[2,3].forward.X_w": [
+      "fluPor[1,1].backward.X_w",
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "fluPor[2,3].m_flow": [
+      "fan.m_flow_start",
+      "fan2.m_flow_start"
+    ],
+    "senTemHXOut.T": [
+      "senTemHXOut.T_start"
+    ],
+    "senTemSupAir.T": [
+      "senTemSupAir.T_start"
+    ],
+    "weaBus.HDifHor": [],
+    "weaBus.HDirNor": [],
+    "weaBus.HGloHor": [],
+    "weaBus.HHorIR": [],
+    "weaBus.TBlaSky": [
+      "weaDat.pAtm"
+    ],
+    "weaBus.TDewPoi": [],
+    "weaBus.TDryBul": [
+      "weaDat.pAtm"
+    ],
+    "weaBus.celHei": [],
+    "weaBus.cloTim": [],
+    "weaBus.lat": [],
+    "weaBus.lon": [],
+    "weaBus.nOpa": [],
+    "weaBus.nTot": [],
+    "weaBus.pAtm": [
+      "weaDat.pAtm"
+    ],
+    "weaBus.relHum": [],
+    "weaBus.solAlt": [],
+    "weaBus.solDec": [],
+    "weaBus.solHouAng": [],
+    "weaBus.solTim": [],
+    "weaBus.solZen": [],
+    "weaBus.winDir": [],
+    "weaBus.winSpe": []
+  },
+  "Outputs": {
+    "QGaiLat_flow[1]": [],
+    "QGaiLat_flow[2]": [],
+    "QGaiRad_flow[1]": [],
+    "QGaiRad_flow[2]": [],
+    "QGaiSenCon_flow[1]": [],
+    "QGaiSenCon_flow[2]": [],
+    "TOut": [],
+    "fluPor[1,1].forward.T": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[1,1].forward.X_w": [
+      "fluPor[2,1].backward.X_w",
+      "fan.filter.x[2]"
+    ],
+    "fluPor[1,1].m_flow": [
+      "fan.filter.x[2]"
+    ],
+    "fluPor[1,2].forward.T": [
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[1,2].forward.X_w": [
+      "fluPor[2,1].backward.X_w",
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[1,2].m_flow": [
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[1,3].forward.T": [
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[1,3].forward.X_w": [
+      "fluPor[2,1].backward.X_w",
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[1,3].m_flow": [
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[2,1].forward.T": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fluPor[2,1].backward.T",
+      "fluPor[2,1].backward.X_w",
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[2,1].forward.X_w": [
+      "fluPor[1,1].backward.X_w",
+      "fan.filter.x[2]"
+    ],
+    "fluPor[2,1].m_flow": [
+      "fan.filter.x[2]"
+    ],
+    "fluPor[2,2].forward.T": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[2,2].forward.X_w": [
+      "fluPor[1,1].backward.X_w",
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[2,2].m_flow": [
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[2,3].forward.T": [
+      "fluPor[1,1].backward.T",
+      "fluPor[1,1].backward.X_w",
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[2,3].forward.X_w": [
+      "fluPor[1,1].backward.X_w",
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "fluPor[2,3].m_flow": [
+      "fan.filter.x[2]",
+      "fan2.filter.x[2]"
+    ],
+    "weaBus.HDifHor": [],
+    "weaBus.HDirNor": [],
+    "weaBus.HGloHor": [],
+    "weaBus.HHorIR": [],
+    "weaBus.TBlaSky": [],
+    "weaBus.TDewPoi": [],
+    "weaBus.TDryBul": [],
+    "weaBus.celHei": [],
+    "weaBus.cloTim": [],
+    "weaBus.lat": [],
+    "weaBus.lon": [],
+    "weaBus.nOpa": [],
+    "weaBus.nTot": [],
+    "weaBus.pAtm": [],
+    "weaBus.relHum": [],
+    "weaBus.solAlt": [],
+    "weaBus.solDec": [],
+    "weaBus.solHouAng": [],
+    "weaBus.solTim": [],
+    "weaBus.solZen": [],
+    "weaBus.winDir": [],
+    "weaBus.winSpe": []
+  }
+}

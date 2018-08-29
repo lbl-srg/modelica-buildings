@@ -1,0 +1,14 @@
+last-generated=2015-05-08
+statistics-initialization={'linear': '2, 2, 2, 2, 2'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+Z1.i[1]=[0., 0.]
+Z1.i[2]=[-120., -120.]
+time=[0., 1.]
+Z2.i[2]=[120., 120.]
+Z2.i[1]=[0., 0.]
+Z3.i[1]=[120., 120.]
+Z3.i[2]=[0., 0.]
+Z4.i[1]=[60., 60.]
+Z4.i[2]=[-60., -60.]
+Z5.i[2]=[60., 60.]
+Z5.i[1]=[60., 60.]

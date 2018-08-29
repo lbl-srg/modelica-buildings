@@ -1,0 +1,3 @@
+simulateModel("Buildings.Examples.DualFanDualDuct.Controls.Examples.PreHeatCoil", tolerance=1e-6, stopTime=10800, method="dassl", resultFile="PreHeatCoil");
+createPlot(id=1, position={196, 44, 1124, 829}, y={"preHeatCoil.TAirSup", "preHeatCoil.TSupSetHea", "preHeatCoil.TMix"}, range={0.0, 11000.0, 4.0, 22.0}, grid=true, filename="PreHeatCoil.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={196, 44, 1124, 411}, y={"preHeatCoil.yPum", "preHeatCoil.yVal"}, range={0.0, 11000.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

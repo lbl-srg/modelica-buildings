@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "winTra.HDif",
+    "winTra.HDir",
+    "winTra.QTraDif_flow[1]",
+    "winTra.QTraDir_flow[1]",
+    "winTra.QTraDifUns_flow[1]",
+    "winTra.QTraDirUns_flow[1]",
+    "winTra.QTraDifSha_flow[1]",
+    "winTra.QTraDirSha_flow[1]"
+  };

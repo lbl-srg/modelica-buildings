@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.Validation.NumberOfBeamsDynamics", tolerance=1e-6, stopTime=500, method="dassl", resultFile="NumberOfBeamsDynamics");
+createPlot(id=1, position={55, 50, 1084, 757}, y={"beaCooHea.watCoo_a.m_flow", "beaCooHea.watHea_a.m_flow", "beaCooHea.air_a.m_flow"}, range={0.0, 500.0, -0.05, 0.10000000000000002}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={55, 50, 1084, 185}, y={"beaCooHea.staWatCoo_b.T", "beaCooHea.staAir_b.T", "beaCooHea.staHea_b.T","beaCooHea10.staWatCoo_b.T", "beaCooHea10.staAir_b.T", "beaCooHea10.staHea_b.T"}, range={0.0, 500.0, 0.0, 50.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});
+createPlot(id=1, position={55, 50, 1084, 184}, y={"beaCooHea10.heaPor.T"}, range={0.0, 500.0, 22.0, 28.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={55, 50, 1084, 185}, y={"beaCooHea10.heaPor.Q_flow", "beaCooHea.heaPor.Q_flow"}, range={0.0, 500.0, -30000.0, 20000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});

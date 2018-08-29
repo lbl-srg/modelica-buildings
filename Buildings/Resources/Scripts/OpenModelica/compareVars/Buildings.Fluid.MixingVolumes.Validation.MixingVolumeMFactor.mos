@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "volMFactor.T",
+    "vol1.T",
+    "vol1.Xi[1]",
+    "volMFactor.Xi[1]",
+    "vol.T"
+  };

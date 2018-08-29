@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HADryCoil", stopTime=80, tolerance=1E-6, method="dassl", resultFile="HADryCoil");
+createPlot(id=1, position={15, 10, 430, 786}, y={"TWat.y", "TAir.y"}, range={0.0, 0.001, 270.0, 340.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 430, 260}, y={"mWat_flow.y"}, range={0.0, 0.001, -0.02, 0.12000000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 430, 259}, y={"mAir_flow.y"}, range={0.0, 0.001, -0.5, 3.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={462, 14, 363, 777}, y={"hADryCoi.hA_1", "hADryCoi.hA_2"}, range={0.0, 0.001, 0.0, 44000.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={842, 16, 361, 773}, y={"hADryCoiAir.hA_1", "hADryCoiAir.hA_2"}, range={0.0, 0.001, 0.0, 32000.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={1222, 16, 383, 768}, y={"hADryCoiWat.hA_1", "hADryCoiWat.hA_2"}, range={0.0, 0.001, 0.0, 44000.0}, grid=true, colors={{28,108,200}, {238,46,47}});

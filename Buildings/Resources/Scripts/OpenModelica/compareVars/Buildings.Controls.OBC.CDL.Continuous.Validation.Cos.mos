@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "cos1.u",
+    "cos1.y"
+  };

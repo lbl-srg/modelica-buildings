@@ -1,0 +1,14 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.LocalCivilTime", startTime=0, tolerance=1e-6, stopTime=172800, method="dassl", resultFile="LocalCivilTime");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"locTim.locTim","locTim.cloTim"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "LocalCivilTime.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

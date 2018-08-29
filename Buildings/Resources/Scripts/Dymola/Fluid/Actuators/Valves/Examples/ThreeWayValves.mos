@@ -1,0 +1,15 @@
+simulateModel("Buildings.Fluid.Actuators.Valves.Examples.ThreeWayValves", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="ThreeWayValves");
+removePlots();
+createPlot(id = 4,
+ position = {13, 7, 582, 368},
+ x = "y.y",
+ y = {"valLin.res1.phi", "valLin.res3.phi", "valEquPerLin.res1.phi", "valEquPerLin.res3.phi"},
+ range = {0, 1, 1.3, 0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "ThreeWayValves.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

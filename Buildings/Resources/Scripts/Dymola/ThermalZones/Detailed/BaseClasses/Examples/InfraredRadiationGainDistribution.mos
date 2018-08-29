@@ -1,0 +1,4 @@
+simulateModel("Buildings.ThermalZones.Detailed.BaseClasses.Examples.InfraredRadiationGainDistribution", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="InfraredRadiationGainDistribution");
+createPlot(id = 1,
+ y = {"irRadGai.conExt[1].Q_flow", "irRadGai.conExtWin[1].Q_flow", "irRadGai.conExtWinFra[1].Q_flow", "irRadGai.conPar_a[1].Q_flow", "irRadGai.conPar_b[1].Q_flow", "irRadGai.conBou[1].Q_flow", "irRadGai.conSurBou[1].Q_flow", "irRadGai.JOutConExtWin[1]"},
+ grid = true);

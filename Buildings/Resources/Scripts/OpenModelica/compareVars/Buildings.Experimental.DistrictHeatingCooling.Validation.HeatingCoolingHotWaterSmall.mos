@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "weaDat.weaBus.TDryBul",
+    "m_flow_nominal",
+    "pla.m_flow",
+    "pla.sta_a.T",
+    "pla.sta_b.T",
+    "watTem.y[1]"
+  };

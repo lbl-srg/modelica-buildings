@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "conAirNoC.outlet.m_flow",
+    "conAirWithC.outlet.m_flow",
+    "conDryAirNoC.outlet.m_flow",
+    "conDryAirWithC.outlet.m_flow",
+    "conAirNoC.outlet.forward.T",
+    "conAirWithC.outlet.forward.T",
+    "conDryAirNoC.outlet.forward.T",
+    "conDryAirWithC.outlet.forward.T",
+    "conAirNoC.outlet.forward.X_w",
+    "conAirWithC.outlet.forward.X_w",
+    "conAirWithC.outlet.forward.C[1]",
+    "conDryAirWithC.outlet.forward.C[1]"
+  };

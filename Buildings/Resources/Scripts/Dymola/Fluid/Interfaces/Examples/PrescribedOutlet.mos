@@ -1,0 +1,18 @@
+simulateModel("Buildings.Fluid.Interfaces.Examples.PrescribedOutlet", tolerance=1e-6, stopTime=1200, method="dassl", resultFile="PrescribedOutlet");
+
+createPlot(id=1, position={9, 13, 499, 1007}, y={"heaHigPow.sta_a.T", "heaHigPow.sta_b.T"}, range={0.0, 1500.0, 0.0, 100.0}, grid=true, colors={{238,46,47}, {0,140,72}});
+createPlot(id=1, position={9, 13, 499, 248}, y={"cooLimPow.sta_a.T", "cooLimPow.sta_b.T"}, range={0.0, 1500.0, 0.0, 100.0}, grid=true, subPlot=2, colors={{238,46,47}, {0,140,72}});
+createPlot(id=1, position={9, 13, 499, 248}, y={"heaCooUnl.sta_a.T", "heaCooUnl.sta_b.T", "heaCooUnl.TSet"}, range={0.0, 1200.0, 0.0, 40.0}, autoscale=false, grid=true, subPlot=3, colors={{238,46,47}, {0,140,72}, {28,108,200}});
+createPlot(id=1, position={9, 13, 499, 248}, y={"steSta.sta_b.T"}, range={0.0, 1500.0, 10.0, 25.0}, grid=true, subPlot=4, colors={{238,46,47}});
+createPlot(id=2, position={531, 9, 367, 1012}, y={"heaHigPow.Q_flow"}, range={0.0, 1500.0, -5000.0, 10000.0}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={531, 9, 367, 250}, y={"cooLimPow.Q_flow"}, range={0.0, 1500.0, -5000.0, 10000.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={531, 9, 367, 249}, y={"heaCooUnl.Q_flow"}, range={0.0, 1500.0, -2000.0, 1000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={531, 9, 367, 249}, y={"steSta.Q_flow"}, range={0.0, 1500.0, -2000.0, 1000.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=3, position={925, 12, 454, 1010}, y={"setHeaHigPow.y[2]", "heaHigPow.port_b.Xi_outflow[1]"}, range={0.0, 1200.0, 0.0, 0.03}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={925, 12, 454, 249}, y={"setCooLimPow.y[2]", "cooLimPow.port_b.Xi_outflow[1]"}, range={0.0, 1200.0, 0.0, 0.02}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={925, 12, 454, 248}, y={"setHeaCooUnl.y[2]", "heaCooUnl.port_b.Xi_outflow[1]"}, range={0.0, 1200.0, 0.0, 0.02}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={925, 12, 454, 249}, y={"setHeaCooUnl.y[2]", "steSta.port_b.Xi_outflow[1]", "heaCooUnl.X_wSet","heaCooUnl.sta_b.X[1]"}, range={0.0, 1200.0, 0.0, 0.02}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=4, position={1402, 11, 508, 996}, y={"heaHigPow.mWat_flow"}, range={0.0, 1200.0, -0.001, 0.002}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={1402, 11, 508, 246}, y={"cooLimPow.mWat_flow"}, range={0.0, 1200.0, -0.001, 0.001}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=4, position={1402, 11, 508, 245}, y={"heaCooUnl.mWat_flow"}, range={0.0, 1200.0, -0.001, 0.0005}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=4, position={1402, 11, 508, 245}, y={"steSta.mWat_flow"}, range={0.0, 1200.0, -0.001, 0.0005}, grid=true, subPlot=4, colors={{28,108,200}});

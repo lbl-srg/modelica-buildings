@@ -1,0 +1,29 @@
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.MixingVolumeMFactor", tolerance=1E-6, method="dassl", stopTime=100, resultFile="MixingVolumeMFactor");
+removePlots();
+createPlot(id=1,
+position={15, 10, 482, 336},
+y={"volMFactor.T", "vol1.T"},
+range={0.0, 100.0, 290.0, 305.0},
+grid=true,
+filename="MixingVolumeMFactor.mat",
+leftTitleType=1,
+bottomTitleType=1,
+colors={{255,0,0}, {0,0,255}});
+createPlot(id=1,
+position={15, 10, 482, 165},
+y={"vol1.Xi[1]", "volMFactor.Xi[1]"},
+range={0.0, 100.0, 0.005, 0.025},
+subPlot=2,
+grid=true,
+leftTitleType=1,
+bottomTitleType=1,
+colors={{0,0,255}, {255,0,0}});
+createPlot(id=1,
+position={19, -31, 482, 108},
+y={"vol.T"},
+range={0.0, 100.0, 250.0, 350.0},
+grid=true,
+subPlot=3,
+leftTitleType=1,
+bottomTitleType=1,
+colors={{0,0,255}});

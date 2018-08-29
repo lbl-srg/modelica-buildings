@@ -1,0 +1,10 @@
+simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.Examples.HeatingOnly", tolerance=1e-6, stopTime=172800, method="dassl", resultFile="HeatingOnly");
+removePlots();
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+Advanced.DefaultAutoErase = true;
+Advanced.Legend.Horizontal = true;
+createPlot(id=1, position={0, 0, 1676, 907}, y={"vol.T"}, range={0.0, 175000.0, 19.0, 29.0}, grid=true, filename="HeatingOnly.mat", colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1676, 451}, y={"beaCooHea.heaToRoo.Q_flow"}, range={0.0, 175000.0, -200.0, 2800.0}, grid=true, subPlot=2, colors={{28,108,200}});

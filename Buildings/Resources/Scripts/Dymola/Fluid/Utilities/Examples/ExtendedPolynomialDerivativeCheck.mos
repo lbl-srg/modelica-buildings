@@ -1,0 +1,24 @@
+simulateModel("Buildings.Fluid.Utilities.Examples.ExtendedPolynomialDerivativeCheck", startTime=0, tolerance=1e-6, stopTime=4, method="dassl", resultFile="ExtendedPolynomialDerivativeCheck");
+removePlots();
+createPlot(id = 5,
+ position = {45, 33, 639, 463},
+ y = {"x", "y"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "ExtendedPolynomialDerivativeCheck.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 5,
+ position = {45, 33, 639, 226},
+ y = {"der(x)", "der(y)"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);

@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "multiZone.theZon[1, 1].weaBus.TDryBul",
+    "multiZone.theZon[1, 1].weaBus.HDirNor",
+    "multiZone.theZon[1, 1].roo.heaPorAir.T",
+    "multiZone.theZon[2, 1].roo.heaPorAir.T",
+    "multiZone.theZon[1, 1].roo.air.QCon_flow",
+    "multiZone.theZon[1, 1].roo.air.QLat_flow",
+    "multiZone.theZon[2, 1].roo.air.QCon_flow",
+    "multiZone.theZon[2, 1].roo.air.QLat_flow"
+  };

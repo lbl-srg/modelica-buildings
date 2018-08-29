@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "solCol.vol[30].T",
+    "solCol1.vol[30].T",
+    "solCol.heaGai[30].Q_flow",
+    "solCol1.heaGai[30].Q_flow",
+    "solCol.heaLos.QLos[30]",
+    "solCol1.heaLos.QLos[30]",
+    "difHeaGai.y",
+    "difHeaLos.y"
+  };

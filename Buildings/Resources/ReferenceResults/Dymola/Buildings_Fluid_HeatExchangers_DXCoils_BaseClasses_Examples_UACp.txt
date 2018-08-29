@@ -1,0 +1,6 @@
+last-generated=2015-05-08
+statistics-initialization={'numerical Jacobians': '0', 'nonlinear': '1'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+uacp.UAcp=[2.39501523971557617188, 2.39501523971557617188]
+time=[0., 60.]
+uacp.bypass_nominal=[0.20256857573986053467, 0.20256857573986053467]

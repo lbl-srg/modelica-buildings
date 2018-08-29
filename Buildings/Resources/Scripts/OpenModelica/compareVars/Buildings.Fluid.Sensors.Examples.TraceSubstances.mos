@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "masFraSou.V",
+    "vol.C[1]",
+    "senTraSub.C",
+    "senTraSubNoFlorRev.C",
+    "senPPM.ppm",
+    "masFraVol.V"
+  };

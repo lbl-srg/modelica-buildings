@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "mWat.mWat_flow",
+    "Q_flow.y",
+    "shr.y"
+  };

@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "onWSE.y",
+    "onChi.y",
+    "TEva_in.k",
+    "TCon_in.y",
+    "TSet.k",
+    "TSup.T",
+    "intWSEPriSec.perChi[1].TEvaLvgMin",
+    "intWSEPriSec.perChi[1].TEvaLvgMax",
+    "intWSEPriSec.chiPar.port_a2.m_flow",
+    "intWSEPriSec.wse.port_a2.m_flow"
+  };

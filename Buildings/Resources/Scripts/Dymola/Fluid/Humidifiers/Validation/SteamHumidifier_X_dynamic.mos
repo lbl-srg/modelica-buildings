@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.Humidifiers.Validation.SteamHumidifier_X_dynamic", method="dassl", tolerance=1e-6, stopTime=1080, resultFile="SteamHumidifier_X_dynamic");
+createPlot(id=1, position={55, 50, 582, 845}, y={"XSet.y[1]", "senHum.X"}, range={0.0, 1100.0, 0.003, 0.016}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={55, 50, 582, 420}, y={"hum.sta_a.T", "hum.sta_b.T"}, range={0.0, 1100.0, 8.0, 22.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={669, 51, 592, 840}, y={"hum.mWat_flow"}, range={0.0, 1100.0, -2E-05, 0.00042}, grid=true, colors={{28,108,200}});

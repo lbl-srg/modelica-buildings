@@ -1,0 +1,10 @@
+simulateModel("Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityTestImplementation", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="MediaExamplesWaterTemperatureDependentDensityTestImplementation");
+createPlot(id = 1,
+ position = {15, 10, 400, 337},
+ y = {"volume.medium.T"},
+ grid = true);
+createPlot(id = 1,
+ position = {15, 10, 400, 165},
+ y = {"volume.medium.X[1]"},
+ grid = true,
+ subPlot = 2);

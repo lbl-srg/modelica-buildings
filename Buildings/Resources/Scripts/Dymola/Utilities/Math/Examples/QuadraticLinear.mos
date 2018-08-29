@@ -1,0 +1,4 @@
+simulateModel("Buildings.Utilities.Math.Examples.QuadraticLinear", method="euler", tolerance=1e-6, stopTime=1.0, resultFile="QuadraticLinear");
+createPlot(id = 1,
+ y = {"quadraticLinear.y"},
+ grid = true);

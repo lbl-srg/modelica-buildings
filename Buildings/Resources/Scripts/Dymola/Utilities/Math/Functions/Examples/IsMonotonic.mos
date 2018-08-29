@@ -1,0 +1,18 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.IsMonotonic", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="IsMonotonic");
+createPlot(id=1,
+position={15, 10, 407, 281},
+y={"x_incStrict[1]", "x_incStrict[2]", "x_incStrict[3]", "x_notMon[1]", "x_notMon[2]", "x_notMon[3]", "x_incWeak[1]", "x_incWeak[2]", "x_incWeak[3]", "x_incWeak[4]", "x_notWeak[1]", "x_notWeak[2]", "x_notWeak[3]", "x_notWeak[4]",  "x_decStrict[1]", "x_decStrict[2]", "x_decStrict[3]", "x_decWeak[1]", "x_decWeak[2]", "x_decWeak[3]", "x_decWeak[4]"},
+range={0.0, 1.0, -0.5, 3.5},
+autoscale=true,
+autoerase=true,
+autoreplot=true,
+description=false,
+grid=true, color=true, online=false,
+filename="IsMonotonic.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}, {255,0,0},
+{0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}, {255,0,0}, {0,128,0}, {255,0,255},
+ {0,0,0}, {0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}}, markers={MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None,
+MarkerStyle.None, MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Cross,
+MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Circle, MarkerStyle.Circle,
+MarkerStyle.Circle, MarkerStyle.Circle, MarkerStyle.Circle, MarkerStyle.Square,
+ MarkerStyle.Square, MarkerStyle.Square, MarkerStyle.Square, MarkerStyle.Square,
+ MarkerStyle.FilledCircle});

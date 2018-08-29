@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "hysteresis1.u",
+    "hysteresis1.y"
+  };

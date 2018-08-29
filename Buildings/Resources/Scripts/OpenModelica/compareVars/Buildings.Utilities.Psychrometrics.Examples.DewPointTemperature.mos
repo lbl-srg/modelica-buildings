@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "humRat.p",
+    "humRat.p_w",
+    "humRat.X_w",
+    "TDewPoi.T"
+  };

@@ -1,0 +1,25 @@
+last-generated=2017-12-04
+statistics-initialization=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "0, 0, 0, 0, 0, 0, 0, 0"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+senEnt1.h_out=[5.3417265625e+04, 5.3417265625e+04]
+senEnt2.h_out=[5.3417265625e+04, 5.3417265625e+04]
+time=[0e+00, 1e+00]
+senTem2.T=[3.011499938964844e+02, 3.011499938964844e+02]
+senTem1.T=[3.011499938964844e+02, 3.011499938964844e+02]
+senMas1.X=[9.999999776482582e-03, 9.999999776482582e-03]
+senMas2.X=[9.999999776482582e-03, 9.999999776482582e-03]
+cheMas.y=[0e+00, 0e+00]
+cheEnt.y=[0e+00, 0e+00]
+cheTem1.y=[0e+00, 0e+00]
+cheTem.y=[0e+00, 0e+00]
+cheMas1.y=[0e+00, 0e+00]
+cheEnt1.y=[0e+00, 0e+00]

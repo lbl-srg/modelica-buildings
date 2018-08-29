@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.Chillers.Validation.Carnot_TEva_2ndLaw", method="Euler", tolerance=1e-06, stopTime=1.0, resultFile="Carnot_TEva_2ndLaw");
+createPlot(id=1, position={55, 50, 899, 949}, y={"chi_b.SGen_flow"}, range={0.0, 1.0, -10.0, 90.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={55, 50, 899, 313}, y={"chi_b.chi.sta_a1.T", "chi_b.chi.sta_a2.T", "chi_b.chi.sta_b1.T", "chi_b.chi.sta_b2.T"}, range={0.0, 1.0, 15.0, 50.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

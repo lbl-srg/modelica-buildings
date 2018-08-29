@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.Movers.Examples.MoverStages", stopTime=1, method="Dassl", tolerance=1e-06, resultFile="MoverStages");
+createPlot(id=1,
+position={15, 10, 586, 422},
+y={"pump_Nrpm.m_flow", "pump_dp.m_flow", "pump_m_flow.m_flow", "pump_y.m_flow"},
+range={0.0, 1.0, -0.2, 2.2},
+grid=true,
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});

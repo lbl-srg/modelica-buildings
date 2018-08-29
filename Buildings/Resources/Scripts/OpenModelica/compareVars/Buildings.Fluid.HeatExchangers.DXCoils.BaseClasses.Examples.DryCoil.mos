@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "dryCoi.m_flow",
+    "onOff.y",
+    "TEvaIn.y",
+    "dryCoi.Q_flow"
+  };

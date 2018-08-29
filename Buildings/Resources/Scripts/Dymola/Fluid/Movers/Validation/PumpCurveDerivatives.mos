@@ -1,0 +1,21 @@
+simulateModel("Buildings.Fluid.Movers.Validation.PumpCurveDerivatives", numberOfIntervals=500, method="Dassl", tolerance=1e-6, stopTime=1.0, resultFile="PumpCurveDerivatives");
+createPlot(id=1,
+position={0, 0, 1532, 801},
+y={"ddp_dNrpm.y"},
+range={0.0, 1.0, -50.0, 250.0},
+grid=true,
+colors={{28,108,200}});
+createPlot(id=1,
+position={0, 0, 1532, 263},
+y={"ddp_dm_flow.y"},
+range={0.0, 1.0, -10000.0, 70000.0},
+grid=true,
+subPlot=2,
+colors={{28,108,200}});
+createPlot(id=1,
+position={0, 0, 1532, 263},
+y={"dm_flow_dNrpm.y"},
+range={0.0, 1.0, -0.05, 0.25000000000000006},
+grid=true,
+subPlot=3,
+colors={{28,108,200}});
