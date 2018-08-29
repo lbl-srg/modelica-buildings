@@ -14,7 +14,7 @@ block To_cfm "Block that converts volume flow from cubic feet per minute to cubi
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Real k = 1./0.000471947 "Multiplier";
+  constant Real k = 1./0.000471947 "Multiplier";
 
   Buildings.Controls.OBC.CDL.Continuous.Gain conv(
     final k = k) "Unit converter"

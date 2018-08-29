@@ -39,6 +39,9 @@ class UnitConversionsModeler(object):
 		- comment out any converters in the dictionaries of conversion
 		parameters that do not need to be generated.
 
+	script_name : str
+	    Name of this file
+
 	Usage
 	-----
 	From the modelica-buildings folder run:
@@ -455,8 +458,8 @@ class UnitConversionsModeler(object):
 			"protected\n")
 			if int(eval(x['adder'])) != 0:
 				file.write(\
-			"  parameter Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
-			"  parameter Real p = " + x['adder'] + " \"Adder\";\n"
+			"  constant Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
+			"  constant Real p = " + x['adder'] + " \"Adder\";\n"
 			"\n"\
 			"  Buildings.Controls.OBC.CDL.Continuous.AddParameter conv(\n"\
 			"    final p = p,\n"\
@@ -465,7 +468,7 @@ class UnitConversionsModeler(object):
 			"\n")
 			else:
 				file.write(\
-			"  parameter Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
+			"  constant Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
 			"\n"\
 			"  Buildings.Controls.OBC.CDL.Continuous.Gain conv(\n"\
 			"    final k = k) \"Unit converter\"\n"\

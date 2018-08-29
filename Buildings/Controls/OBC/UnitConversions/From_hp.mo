@@ -14,7 +14,7 @@ block From_hp "Block that converts power from horsepowers to watt"
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Real k = 0.7457 "Multiplier";
+  constant Real k = 0.7457 "Multiplier";
 
   Buildings.Controls.OBC.CDL.Continuous.Gain conv(
     final k = k) "Unit converter"

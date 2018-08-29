@@ -14,7 +14,7 @@ block From_Btu "Block that converts work from British thermal units to joule"
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Real k = 1055.056 "Multiplier";
+  constant Real k = 1055.056 "Multiplier";
 
   Buildings.Controls.OBC.CDL.Continuous.Gain conv(
     final k = k) "Unit converter"

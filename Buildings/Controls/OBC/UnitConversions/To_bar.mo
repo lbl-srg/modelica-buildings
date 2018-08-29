@@ -15,7 +15,7 @@ block To_bar "Block that converts pressure from bar to pascal"
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Real k = 1./100000. "Multiplier";
+  constant Real k = 1./100000. "Multiplier";
 
   Buildings.Controls.OBC.CDL.Continuous.Gain conv(
     final k = k) "Unit converter"

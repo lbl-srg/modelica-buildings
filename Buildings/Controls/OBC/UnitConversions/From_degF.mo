@@ -15,8 +15,8 @@ block From_degF "Block that converts temperature from degree Fahrenheit to kelvi
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Real k = 5./9. "Multiplier";
-  parameter Real p = -32. * (5./9.) + 273.15 "Adder";
+  constant Real k = 5./9. "Multiplier";
+  constant Real p = -32. * (5./9.) + 273.15 "Adder";
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter conv(
     final p = p,
