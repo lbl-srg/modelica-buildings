@@ -6,18 +6,18 @@ block OperationMode "Block that outputs the operation mode"
     "Maximum cool-down/warm-up time";
   parameter Modelica.SIunits.TemperatureDifference bouLim(min=0.5) = 1.1
     "Value limit to indicate the end of setback/setup mode";
-  parameter Modelica.SIunits.Temperature freProThrVal = 277.55
+  parameter Modelica.SIunits.Temperature TZonFreProOn = 277.55
     "Threshold zone temperature value to activate freeze protection mode";
-  parameter Modelica.SIunits.Temperature freProEndVal = 280.35
+  parameter Modelica.SIunits.Temperature TZonFreProOff = 280.35
     "Threshold zone temperature value to finish the freeze protection mode";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetOcc(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Occupied heating setpoint temperature"
     annotation (Placement(transformation(extent={{-300,70},{-260,110}}),
       iconTransformation(extent={{-120,-32},{-100,-12}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSetOcc(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Occupied cooling setpoint temperature"
@@ -29,13 +29,13 @@ block OperationMode "Block that outputs the operation mode"
     "Temperature of each zone"
     annotation (Placement(transformation(extent={{-300,-30},{-260,10}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TUnoCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSetUno(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-300,-290},{-260,-250}}),
       iconTransformation(extent={{-120,-100},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TUnoHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSetUno(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Unoccupied heating setpoint temperature"
@@ -113,7 +113,7 @@ block OperationMode "Block that outputs the operation mode"
     by bouLim, then the setback mode should be off."
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
-    "If all zone temperature are higher than freProEndVal, then freeze
+    "If all zone temperature are higher than TZonFreProOff, then freeze
     protection setback mode should be off."
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sum2(final nin=numZon)
@@ -237,11 +237,11 @@ block OperationMode "Block that outputs the operation mode"
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1)
-    "Whether or not any zone temperature is lower than freProThrVal, with
+    "Whether or not any zone temperature is lower than TZonFreProOn, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=freProThrVal,
+    p=TZonFreProOn,
     final k=-1)
     "Calculate differential between minimum zone temperature and freeze
     protection threshold temperature"
@@ -250,12 +250,12 @@ block OperationMode "Block that outputs the operation mode"
     pre_y_start=false,
     uLow=-0.1,
     uHigh=0.1)
-    "Whether or not all zone temperature are higher than freProEndVal, with
+    "Whether or not all zone temperature are higher than TZonFreProOff, with
     deadband of 0.2 degC"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final k=1,
-    p=(-1)*freProEndVal)
+    p=(-1)*TZonFreProOff)
     "Calculate differential between maximum zone temperature and the freeze
     protection ending threshold value"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
@@ -587,10 +587,10 @@ equation
   connect(add2.y, hys.u)
     annotation (Line(points={{101,-70},{108,-70},{108,-50},{138,-50}},
       color={0,0,127}));
-  connect(TUnoHeaSet, add2.u1)
+  connect(TZonHeaSetUno, add2.u1)
     annotation (Line(points={{-280,-50},{-36,-50},{-36,-64},{78,-64}},
       color={0,0,127}));
-  connect(TUnoCooSet, add1.u2)
+  connect(TZonCooSetUno, add1.u2)
     annotation (Line(points={{-280,-270},{-40,-270},{-40,-276},{78,-276}},
       color={0,0,127}));
   connect(add1.y, hys1.u)
@@ -625,12 +625,12 @@ equation
     annotation (Line(points={{121,150},{198,150}}, color={255,0,255}));
   connect(add7.y, hys6.u)
     annotation (Line(points={{-59,90},{-59,90},{-42,90}}, color={0,0,127}));
-  connect(THeaSet, add7.u1)
+  connect(TZonHeaSetOcc, add7.u1)
     annotation (Line(points={{-280,90},{-100,90},{-100,96},{-82,96}},
       color={0,0,127}));
   connect(add8.y, hys7.u)
     annotation (Line(points={{-59,60},{-54,60},{-42,60}}, color={0,0,127}));
-  connect(TCooSet, add8.u1)
+  connect(TZonCooSetOcc, add8.u1)
     annotation (Line(points={{-280,60},{-94,60},{-94,66},{-82,66}},
       color={0,0,127}));
   connect(addPar.y, hys9.u)
@@ -661,7 +661,7 @@ equation
   connect(maxWarCooTime.y, corWarUpTim.u3)
     annotation (Line(points={{-119,160},{-66,160},{-12,160},{-12,148},{-2,148}},
       color={0,0,127}));
-  connect(TUnoHeaSet, reaRep.u)
+  connect(TZonHeaSetUno, reaRep.u)
     annotation (Line(points={{-280,-50},{-220,-50},{-220,-70},{-202,-70}},
       color={0,0,127}));
   connect(reaRep.y, swi1.u1)
@@ -670,7 +670,7 @@ equation
   connect(reaRep.y, add9.u2)
     annotation (Line(points={{-179,-70},{-160,-70},{-160,-40},{-160,-40},{-160,-16},
       {-142,-16}}, color={0,0,127}));
-  connect(TUnoCooSet, reaRep1.u)
+  connect(TZonCooSetUno, reaRep1.u)
     annotation (Line(points={{-280,-270},{-240,-270},{-240,-250},{-202,-250}},
       color={0,0,127}));
   connect(reaRep1.y, add10.u2)
@@ -869,12 +869,12 @@ annotation (
           extent={{-96,-50},{-28,-86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="unoHeaSetTem"),
+          textString="TZonHeaSetUnoTem"),
         Text(
           extent={{-96,-74},{-28,-106}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="unoCooSetTem"),
+          textString="TZonCooSetUnoTem"),
         Text(
           extent={{56,12},{94,-10}},
           lineColor={255,127,0},
@@ -884,12 +884,12 @@ annotation (
           extent={{-96,-2},{-28,-38}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="occHeaSetTem"),
+          textString="TZonHeaSetOccTem"),
         Text(
           extent={{-96,-28},{-28,-64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="occCooSetTem"),
+          textString="TZonCooSetOccTem"),
         Text(
           extent={{-120,144},{100,106}},
           lineColor={0,0,255},
@@ -957,7 +957,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/
 <p>
 During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5)
 in the zone group fall below their unoccupied heating setpoints
-<code>TUnoHeaSet</code>, the zone group shall enter <i>setback mode</i> until
+<code>TZonHeaSetUno</code>, the zone group shall enter <i>setback mode</i> until
 all spaces in the zone group are <i>1.1</i> &deg;C (<i>2</i> &deg;F) above their
 unoccupied setpoints.
 </p>
@@ -975,7 +975,7 @@ are above <i>7.2</i> &deg;C (<i>45</i> &deg;F), and a Level 3 alarm
 <h4>Setup Mode</h4>
 <p>
 During <i>unoccupied mode</i>, if any 5 zones (or all zones, if fewer than 5)
-in the zone rise above their unoccupied cooling setpoints <code>TUnoCooSet</code>,
+in the zone rise above their unoccupied cooling setpoints <code>TZonCooSetUno</code>,
 the zone group shall enter <i>setup mode</i> until all spaces in the zone group
 are <i>1.1</i> &deg;C (<i>2</i> &deg;F) below their unoccupied setpoints. Zones
 where the window switch indicates that a window is open shall be ignored.
