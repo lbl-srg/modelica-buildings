@@ -1,7 +1,7 @@
 compareVars :=
   {
     "sysReq_RehBox.TZonCooSet",
-    "sysReq_RehBox.TRoo",
+    "sysReq_RehBox.TZon",
     "sysReq_RehBox.uCoo",
     "sysReq_RehBox.yZonTemResReq",
     "sysReq_RehBox.VDisSet_flow",

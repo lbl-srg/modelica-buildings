@@ -123,7 +123,7 @@ block DamperValves
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-360,-100},{-320,-60}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Measured zone temperature"
@@ -395,7 +395,7 @@ equation
   connect(VActHeaMin_flow, lin3.f1)
     annotation (Line(points={{-340,-300},{-120,-300},{-120,-316},{-82,-316}},
       color={0,0,127}));
-  connect(TRoo, addPar1.u)
+  connect(TZon, addPar1.u)
     annotation (Line(points={{-340,-270},{-262,-270}}, color={0,0,127}));
   connect(lin3.y, swi2.u1)
     annotation (Line(points={{-59,-320},{40,-320},{40,-262},{78,-262}},
@@ -439,7 +439,7 @@ equation
   connect(TSup, add2.u1)
     annotation (Line(points={{-340,-50},{-300,-50},{-300,160},{-176,160},
       {-176,186},{-162,186}}, color={0,0,127}));
-  connect(TRoo, add2.u2)
+  connect(TZon, add2.u2)
     annotation (Line(points={{-340,-270},{-296,-270},{-296,156},{-172,156},
       {-172,174},{-162,174}}, color={0,0,127}));
   connect(add2.y, hys6.u)
@@ -697,7 +697,7 @@ in heating state")}),
           extent={{-100,-88},{-80,-94}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TRoo"),
+          textString="TZon"),
         Text(
           extent={{-11.5,4.5},{11.5,-4.5}},
           lineColor={0,0,127},
@@ -785,7 +785,7 @@ setpoint (10 &deg;C).</p>
 </li>
 <li>
 <p>If supply air temperature <code>TSup</code> from the AHU is greater than
-room temperature <code>TRoo</code>, cooling supply airflow setpoint shall be
+room temperature <code>TZon</code>, cooling supply airflow setpoint shall be
 no higher than the minimum.
 </p>
 </li>

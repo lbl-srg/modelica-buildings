@@ -12,7 +12,7 @@ model SystemRequests
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay TZonCooSet(samplePeriod=1800)
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TRoo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     freqHz=1/7200,
     amplitude=2,
     offset=299.15) "Zone temperature"
@@ -64,7 +64,7 @@ equation
     annotation (Line(points={{-39,90},{-22,90}}, color={0,0,127}));
   connect(TZonCooSet.y, sysReq_RehBox.TZonCooSet) annotation (Line(points={{1,90},
           {46,90},{46,79},{59,79}}, color={0,0,127}));
-  connect(TRoo.y, sysReq_RehBox.TRoo)
+  connect(TZon.y, sysReq_RehBox.TZon)
     annotation (Line(points={{-39,60},{16,60},{16,77},{59,77}},
       color={0,0,127}));
   connect(uCoo.y, sysReq_RehBox.uCoo)

@@ -79,7 +79,7 @@ equation
     annotation (Line(points={{-59,-40},{4,-40},{4,45},{59,45}}, color={0,0,127}));
   connect(TSup.y, damVal.TSup)
     annotation (Line(points={{-19,-60},{6,-60},{6,43},{59,43}}, color={0,0,127}));
-  connect(TZon.y, damVal.TRoo)
+  connect(TZon.y, damVal.TZon)
     annotation (Line(points={{-59,-80},{8,-80},{8,41},{59,41}}, color={0,0,127}));
 
   connect(occSig.y, damVal.uOpeMod) annotation (Line(points={{41,20},{50,20},{

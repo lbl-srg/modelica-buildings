@@ -33,7 +33,7 @@ block SystemRequests
     annotation(Dialog(group="Duration times"));
 
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Zone temperature"
@@ -626,9 +626,9 @@ equation
         color={0,0,127}));
   connect(hys7.u, VDisSet_flow)
     annotation (Line(points={{-62,30},{-200,30}}, color={0,0,127}));
-  connect(add2.u2, TRoo) annotation (Line(points={{-102,194},{-150,194},{-150,170},
+  connect(add2.u2, TZon) annotation (Line(points={{-102,194},{-150,194},{-150,170},
           {-200,170}}, color={0,0,127}));
-  connect(add3.u2, TRoo) annotation (Line(points={{-102,134},{-150,134},{-150,170},
+  connect(add3.u2, TZon) annotation (Line(points={{-102,134},{-150,134},{-150,170},
           {-200,170}}, color={0,0,127}));
   connect(greEqu.u1, gai1.y)
     annotation (Line(points={{-62,-40},{-79,-40}}, color={0,0,127}));
@@ -721,7 +721,7 @@ annotation (
           extent={{-100,74},{-72,64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TRoo"),
+          textString="TZon"),
         Text(
           extent={{-100,54},{-72,44}},
           lineColor={0,0,127},
@@ -813,13 +813,13 @@ Guideline 36 (G36), PART5.E.9, in the steps shown below.
 <h4>a. Cooling SAT reset requests <code>yZonTemResReq</code></h4>
 <ol>
 <li>
-If the zone temperature <code>TRoo</code> exceeds the zone cooling setpoint
+If the zone temperature <code>TZon</code> exceeds the zone cooling setpoint
 <code>TZonCooSet</code> by 2.8 &deg;C (5 &deg;F)) for 2 minutes and after suppression
 period due to setpoint change per G36 Part 5.A.20, send 3 requests
 (<code>yZonTemResReq=3</code>).
 </li>
 <li>
-Else if the zone temperature <code>TRoo</code> exceeds the zone cooling setpoint
+Else if the zone temperature <code>TZon</code> exceeds the zone cooling setpoint
 <code>TZonCooSet</code> by 1.7 &deg;C (3 &deg;F) for 2 minutes and after suppression
 period due to setpoint change per G36 Part 5.A.20, send 2 requests
 (<code>yZonTemResReq=3</code>).

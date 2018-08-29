@@ -194,7 +194,7 @@ block Controller "Controller for room VAV box"
     "Setpoint temperature for room for cooling"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
@@ -339,7 +339,7 @@ equation
   connect(sysReq.TZonCooSet, TZonCooSet)
     annotation (Line(points={{79,-81},{-120,-81},{-120,120},{-160,120}},
       color={0,0,127}));
-  connect(sysReq.TRoo, TRoo)
+  connect(sysReq.TZon, TZon)
     annotation (Line(points={{79,-83},{0,-83},{0,-20},{-160,-20}},
       color={0,0,127}));
   connect(sysReq.VDisSet_flow, damVal.VDisSet_flow)
@@ -371,7 +371,7 @@ equation
   connect(damVal.yHeaVal, sysReq.uHeaVal)
     annotation (Line(points={{41,-14},{40,-14},{40,-99},{79,-99}},
                                                              color={0,0,127}));
-  connect(TRoo, damVal.TRoo) annotation (Line(points={{-160,-20},{-40,-20},{-40,
+  connect(TZon, damVal.TZon) annotation (Line(points={{-160,-20},{-40,-20},{-40,
           -19},{19,-19}},
                    color={0,0,127}));
   connect(damVal.TSup, TSupAHU) annotation (Line(points={{19,-17},{-80,-17},{
@@ -427,10 +427,10 @@ equation
     annotation (Line(points={{-160,160},{-112,160}}, color={0,0,127}));
   connect(TZonCooSet, conCooLoo.u_s)
     annotation (Line(points={{-160,120},{-112,120}}, color={0,0,127}));
-  connect(TRoo, conHeaLoo.u_m)
+  connect(TZon, conHeaLoo.u_m)
     annotation (Line(points={{-160,-20},{-122,-20},{-122,140},{-100,140},{-100,148}},
                    color={0,0,127}));
-  connect(TRoo, conCooLoo.u_m)
+  connect(TZon, conCooLoo.u_m)
     annotation (Line(points={{-160,-20},{-122,-20},{-122,100},{-100,100},
       {-100,108}}, color={0,0,127}));
   connect(conCooLoo.y, damVal.uCoo)
@@ -493,7 +493,7 @@ annotation (Icon(graphics={Rectangle(
         Text(
           extent={{-96,-4},{-74,-18}},
           lineColor={0,0,127},
-          textString="TRoo"),
+          textString="TZon"),
         Text(
           extent={{-96,34},{-42,24}},
           lineColor={0,0,127},
@@ -535,7 +535,7 @@ reset request <code>yZonPreResReq</code>.
 <h4>a. Heating and cooling control loop</h4>
 <p>
 The subsequence is implementd according to Part 5.B.5. The measured zone
-temperature <code>TRoo</code>, zone setpoints temperatures <code>TZonHeaSet</code> and
+temperature <code>TZon</code>, zone setpoints temperatures <code>TZonHeaSet</code> and
 <code>TZonCooSet</code> are inputs to the block <code>conHeaLoo</code> and 
 <code>conCooLoo</code> to generate the control loop signal. 
 </p>

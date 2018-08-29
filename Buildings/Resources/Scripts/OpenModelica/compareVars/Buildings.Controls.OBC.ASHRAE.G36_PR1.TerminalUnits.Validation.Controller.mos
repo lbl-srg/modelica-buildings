@@ -2,7 +2,7 @@ compareVars :=
   {
     "con.TZonHeaSet",
     "con.TZonCooSet",
-    "con.TRoo",
+    "con.TZon",
     "con.conHeaLoo.y",
     "con.conCooLoo.y",
     "con.damVal.VDisSet_flow",
@@ -15,7 +15,7 @@ compareVars :=
     "con.yZonPreResReq",
     "con1.TZonHeaSet",
     "con1.TZonCooSet",
-    "con1.TRoo",
+    "con1.TZon",
     "con1.conHeaLoo.y",
     "con1.conCooLoo.y",
     "con1.damVal.VDisSet_flow",

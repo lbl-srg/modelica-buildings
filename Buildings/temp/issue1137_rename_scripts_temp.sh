@@ -1,4 +1,4 @@
-for ff in `find . \( -path '*G36_PR1*MultiZone*Controller*.mo' -or -path '*G36_PR1*MultiZone*Controller*.mos' -or -path '*G36_PR1*MultiZone*Controller*.py' -or -path '*G36_PR1*MultiZone*Controller*.txt' -or -path '*G36_PR1*MultiZone*Controller*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*MultiZone*Controller*.mo' -or -path '*G36_PR1*MultiZone*Controller*.mos' -or -path '*G36_PR1*MultiZone*Controller*.py' -or -path '*G36_PR1*MultiZone*Controller*.txt' -or -path '*G36_PR1*MultiZone*Controller*.svg'  -or -path '*Guideline36*.mo*' \)`; do
     list=(\
     TSupMin TSupSetMin \
     TSupMax TSupSetMax \
@@ -218,7 +218,7 @@ for ff in `find . \( -path '*G36_PR1*OperationMode*.mo' -or -path '*G36_PR1*Oper
 done
 
 
-for ff in `find . \( -path '*G36_PR1*TerminalUnits*Controller*.mo' -or -path '*G36_PR1*TerminalUnits*Controller*.mos' -or -path '*G36_PR1*TerminalUnits*Controller*.py' -or -path '*G36_PR1*TerminalUnits*Controller*.txt' -or -path '*G36_PR1*TerminalUnits*Controller*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*TerminalUnits*Controller*.mo' -or -path '*G36_PR1*TerminalUnits*Controller*.mos' -or -path '*G36_PR1*TerminalUnits*Controller*.py' -or -path '*G36_PR1*TerminalUnits*Controller*.txt' -or -path '*G36_PR1*TerminalUnits*Controller*.svg' -or -path '*Guideline36*.mo*'  \)`; do
     list=(\
      VDis VDis_flow \
      VDis_flowSet VDisSet_flow \
@@ -282,7 +282,7 @@ for ff in `find . \( -path '*G36_PR1*VAV*SupplyFan*.mo' -or -path '*G36_PR1*VAV*
 done
 
 # the last 4 rename rows in this group are due to the issue with the *.mos script (it does not perform element renames for folders # above)
-for ff in `find . \( -path '*G36_PR1*.mo' -or -path '*G36_PR1*.mos' -or -path '*G36_PR1*.py' -or -path '*G36_PR1*.txt' -or -path '*G36_PR1*.svg'  \)`; do
+for ff in `find . \( -path '*G36_PR1*.mo' -or -path '*G36_PR1*.mos' -or -path '*G36_PR1*.py' -or -path '*G36_PR1*.txt' -or -path '*G36_PR1*.svg' -or -path '*Guideline36*.mo*' \)`; do
     list=(\
      TSetSup TSupSet \
      _flow_flow _flow \
@@ -306,6 +306,7 @@ for ff in `find . \( -path '*G36_PR1*.mo' -or -path '*G36_PR1*.mos' -or -path '*
      VDis_flowConMin_flow VDisConMin_flow \
      TZoo TZon \
      TRoo TZon \
+     TZonAir TRooAir \
           )
 
     for ((i=0; i<${#list[@]}; i+=2)); do

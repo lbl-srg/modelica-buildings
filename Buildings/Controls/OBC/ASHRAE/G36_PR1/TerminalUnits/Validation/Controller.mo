@@ -74,7 +74,7 @@ equation
   connect(disAirFlo.y, con.VDis_flow)
     annotation (Line(points={{-59,40},{-50,40},{-50,56},{12,56},{12,70.5},
       {59,70.5}}, color={0,0,127}));
-  connect(TZon.y, con.TRoo)
+  connect(TZon.y, con.TZon)
     annotation (Line(points={{-19,40},{18,40},{18,67.5},{59,67.5}},
       color={0,0,127}));
   connect(TDis.y, con.TDis)
@@ -106,7 +106,7 @@ equation
   connect(disAirFlo.y, con1.VDis_flow)
     annotation (Line(points={{-59,40},{-50,40},{-50,56},{12,56},{12,10.5},
       {59,10.5}}, color={0,0,127}));
-  connect(TZon.y, con1.TRoo)
+  connect(TZon.y, con1.TZon)
     annotation (Line(points={{-19,40},{18,40},{18,7.5},{59,7.5}},
       color={0,0,127}));
   connect(TDis.y, con1.TDis)
