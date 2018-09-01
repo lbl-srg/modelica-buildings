@@ -3,4 +3,9 @@ package Lighting "Package with models to simulate lighting behaviors in office b
   extends Modelica.Icons.Package;
 
 
+    annotation (preferredView="info", Documentation(info="<html>
+<p>
+This package contains models to simulate lighting behaviors in office buildings.
+</p>
+</html>"));
 end Lighting;

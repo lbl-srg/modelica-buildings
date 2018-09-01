@@ -12,13 +12,15 @@ algorithm
   y := Occupancy.Utilities.BinaryVariableGeneration(p);
 annotation (Documentation(info="<html>
 <p>
-This function generates a random binary variable with two inputs x1 and x2 from a 2-dimension
-logistic relation.
+This function generates a random binary variable with two inputs <code>x1</code> 
+and <code>x2</code> from a 2-dimension logistic relation.
 </p>
 <p>
-The probability of being 1 is calculated from the inputs x1 and x2 from a 2D logistic relation with
-three predefined parameters A (mutiplier for x1), B (mutiplier for x2) and C (intercept). Then a
-random generator generates the output, which should be a binary variable.
+The probability of being 1 is calculated from the inputs <code>x1</code> and 
+<code>x2</code> from a 2D logistic relation with three predefined parameters 
+<code>A</code> (mutiplier for <code>x1</code>), <code>B</code> (mutiplier for 
+<code>x2</code>) and <code>C</code> (intercept). Then a random generator 
+generates the output, which should be a binary variable.
 </p>
 </html>", revisions="<html>
 <ul>

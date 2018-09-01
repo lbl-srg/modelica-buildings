@@ -2,17 +2,17 @@ within Buildings.Occupants.Office.Blinds;
 model Newsham1994BlindsSI
   "A model to predict occupants' blinds behavior with Solar Intensity"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  parameter Real SI_threshold = 233 "Threshold for turning on/off the blinds";
+  parameter Real H_threshold = 233 "Threshold for turning on/off the blinds";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
-  Modelica.Blocks.Interfaces.RealInput SI(
-    unit="W/m2") "Solar Intensity" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Modelica.Blocks.Interfaces.RealInput H(unit="W/m2") "Solar Intensity at the room-side of the window"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput BlindState
-    "The State of Blinds, 1 for 100% on, 0 for 100% off"
+  Modelica.Blocks.Interfaces.RealOutput blindState(min=0, max=1, unit="1")
+    "State of Blinds, 1 being blinds deployed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -26,13 +26,13 @@ equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
     if occ then
-      if SI < SI_threshold then
-        BlindState = 1;
+      if H < H_threshold then
+        blindState = 1;
       else
-        BlindState = 0;
+        blindState = 0;
       end if;
     else
-      BlindState = 1;
+      blindState = 1;
     end if;
   end when;
 
@@ -52,7 +52,7 @@ and occupancy.
 </p>
 <h4>Inputs</h4>
 <p>
-SI: solar intensity at the window, should be input with the unit of W/m2.
+H: solar intensity at the room-side of the window, should be input with the unit of W/m2.
 </p>
 <p>
 Occupancy: a boolean variable, true indicates the space is occupied, 
@@ -82,7 +82,10 @@ revisions="<html>
 <ul>
 <li>
 July 24, 2018, by Zhe Wang:<br/>
-First implementation.
+First implementation.</li>
+<li>
+August 31, 2018, by Zhe Wang:<br/>
+First Revision.
 </li>
 </ul>
 </html>"));

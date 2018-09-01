@@ -1,12 +1,12 @@
 within Buildings.Occupants.Office.Blinds.Validation;
 model TestNewsham1994BlindsSI
-  "Validation model for Newsham1994BlindsSI"
+  "Validation model for the blind behavior"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)
                                           "True for occupied"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Modelica.Blocks.Sources.Sine SI(
+  Modelica.Blocks.Sources.Sine H(
     amplitude=250,
     offset=300,
     freqHz=0.001,
@@ -17,7 +17,7 @@ model TestNewsham1994BlindsSI
 equation
   connect(occ.y, bli.occ) annotation (Line(points={{-59,20},{-34,20},{-34,6},{-12,
           6}}, color={255,0,255}));
-  connect(SI.y, bli.SI) annotation (Line(points={{-59,-20},{-36,-20},{-36,-6},{-12,
+  connect(H.y, bli.H) annotation (Line(points={{-59,-20},{-36,-20},{-36,-6},{-12,
           -6}}, color={0,0,127}));
 
 annotation (

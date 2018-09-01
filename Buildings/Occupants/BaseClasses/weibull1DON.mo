@@ -13,14 +13,15 @@ algorithm
     y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p,globalSeed=globalSeed);
   annotation (Documentation(info="<html>
 <p>
-This function generates a random binary variable with a continuous inputs x from a Weibull 
-Distribution relation.
+This function generates a random binary variable with a continuous inputs 
+<code>x</code> from a Weibull Distribution relation.
 </p>
 <p>
-The probability of being 1 is calculated from the input x from a Weibull Distribution relation with 
-three predefined parameters u (threshold, the output would be 0 if x is less than u), 
-L (normalization faction) and k (shape factor). Then a random generator generates the output, 
-which should be a binary variable.
+The probability of being 1 is calculated from the input <code>x</code> from a 
+Weibull Distribution relation with three predefined parameters <code>u</code> 
+(threshold, the output would be 0 if <code>x</code> is less than <code>u</code>), 
+<code>L</code> (normalization faction) and <code>k</code> (shape factor). Then 
+a random generator generates the output, which should be a binary variable.
 </p>
 </html>", revisions="<html>
 <ul>

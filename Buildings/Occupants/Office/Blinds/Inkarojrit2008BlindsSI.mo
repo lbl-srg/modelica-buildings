@@ -5,19 +5,19 @@ model Inkarojrit2008BlindsSI
   parameter Real A1 = 3.22 "Slope of Solar Intensity at Window";
   parameter Real A2 = 1.22 "Slope of Occupants' brightness sensitivity";
   parameter Real B = -8.94 "Intercept";
-  parameter Real LSen  = 4 "Self-reported sensitivity to brightness,
+  parameter Real LSen =  4 "Self-reported sensitivity to brightness,
   seven-point scale, 1 for least sensitive, 7 for most sensitive" annotation(Dialog(enable = true,
                      tab = "Advanced"));
   parameter Integer seed = 10 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
-  Modelica.Blocks.Interfaces.RealInput SI(
-    unit="W/m2") "Solar Intensity" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Modelica.Blocks.Interfaces.RealInput H(unit="W/m2") "Solar Intensity"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput BlindState
+  Modelica.Blocks.Interfaces.RealOutput blindState
     "The State of Blinds, 1 for 100% on, 0 for 100% off"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -36,7 +36,8 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    p = 1-Modelica.Math.exp(A1*Modelica.Math.log10(SI)+A2*LSen +B)/(Modelica.Math.exp(A1*Modelica.Math.log10(SI)+A2*LSen +B)+1);
+    p =1 - Modelica.Math.exp(A1*Modelica.Math.log10(H) + A2*LSen + B)/(
+      Modelica.Math.exp(A1*Modelica.Math.log10(H) + A2*LSen + B) + 1);
     if occ then
       if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=seed) then
         BlindState = 1;
