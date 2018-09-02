@@ -6,5 +6,10 @@ package Windows "Package with models to simulate window behaviors in office buil
 <p>
 This package contains models to simulate window behaviors in office buildings.
 </p>
-</html>"));
+</html>"),
+  Icon(graphics={Text(
+        extent={{-98,98},{94,-96}},
+        lineColor={28,108,200},
+        textString="Office
+Window")}));
 end Windows;

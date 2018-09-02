@@ -1,6 +1,6 @@
 within Buildings.Occupants.Office.Blinds.Validation;
 model TestZhang2012BlindsSAltitude
-  "Validation model for Zhang2012BlindsSAltitude"
+  "Validating the model for blind behaviors"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)

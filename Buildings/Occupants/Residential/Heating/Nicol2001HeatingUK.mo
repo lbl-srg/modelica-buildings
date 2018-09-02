@@ -56,10 +56,10 @@ and occupancy.
 </p>
 <h4>Inputs</h4>
 <p>
-Outdoor temperature: should be input with the unit of K.
+outdoor temperature: should be input with the unit of K.
 </p>
 <p>
-Occupancy: a boolean variable, true indicates the space is occupied, 
+occupancy: a boolean variable, true indicates the space is occupied, 
 false indicates the space is unoccupied.
 </p>
 <h4>Outputs</h4>
@@ -91,5 +91,10 @@ July 20, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(
+          extent={{-98,98},{94,-96}},
+          lineColor={28,108,200},
+          textString="ob.resident
+Heating")}));
 end Nicol2001HeatingUK;

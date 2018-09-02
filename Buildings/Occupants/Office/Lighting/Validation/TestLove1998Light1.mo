@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Lighting.Validation;
-model TestLove1998Light1 "Validation model for Love1998Light1"
+model TestLove1998Light1 "Validating the model for light behaviors"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.Sine Illu(

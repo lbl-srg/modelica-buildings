@@ -9,13 +9,13 @@ model Zhang2012BlindsSAltitude
   parameter Integer seed = 10 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
-  Modelica.Blocks.Interfaces.RealInput SA(
+  Modelica.Blocks.Interfaces.RealInput solarAltitude(
     unit="deg") "Solar Altitude" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput BlindState
+  Modelica.Blocks.Interfaces.RealOutput blindState
     "The State of Blinds, 1 for 100% on, 0 for 100% off"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -34,29 +34,29 @@ protected
 
 initial equation
   t0 = time;
-  BlindState = 1 "Initial state of blinds is 100% on";
+  blindState = 1 "Initial state of blinds is 100% on";
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    pup = Modelica.Math.exp(Aup*SA+Bup)/(Modelica.Math.exp(Aup*SA+Bup)+1);
-    pdown = Modelica.Math.exp(Adown*SA+Bdown)/(Modelica.Math.exp(Adown*SA+Bdown)+1);
+    pup = Modelica.Math.exp(Aup*solarAltitude+Bup)/(Modelica.Math.exp(Aup*solarAltitude+Bup)+1);
+    pdown = Modelica.Math.exp(Adown*solarAltitude+Bdown)/(Modelica.Math.exp(Adown*solarAltitude+Bdown)+1);
     if occ then
-      if pre(BlindState) == 1 then
+      if pre(blindState) == 1 then
         if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown,globalSeed=seed) then
-          BlindState = 0;
+          blindState = 0;
         else
-          BlindState = 1;
+          blindState = 1;
         end if;
       else
         if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pup,globalSeed=seed) then
-          BlindState = 1;
+          blindState = 1;
         else
-          BlindState = 0;
+          blindState = 0;
         end if;
       end if;
     else
-      BlindState = 1;
+      blindState = 1;
     end if;
   end when;
 
@@ -76,10 +76,10 @@ and occupancy.
 </p>
 <h4>Inputs</h4>
 <p>
-SA: solar altitude, should be input with the unit of degree.
+solarAltitude: solar altitude, should be input with the unit of degree.
 </p>
 <p>
-Occupancy: a boolean variable, true indicates the space is occupied, 
+occupancy: a boolean variable, true indicates the space is occupied, 
 false indicates the space is unoccupied.
 </p>
 <h4>Outputs</h4>
@@ -89,7 +89,7 @@ is 100% on, 0 indicates the blind is 100% off.
 <h4>Dynamics</h4>
 <p>
 When the space is unoccupied, the blinds is always on. When the 
-space is occupied, the lower the SA is, the higher 
+space is occupied, the lower the solar altitude is, the higher 
 the chance that the blind state will be changed, either being turned on or turned off.
 </p>
 <h4>References</h4>
@@ -109,6 +109,15 @@ revisions="<html>
 July 24, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
+<li>
+August 31, 2018, by Zhe Wang:<br/>
+First revision.
+</li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(
+          extent={{-98,98},{94,-96}},
+          lineColor={28,108,200},
+          textString="ob.office
+Blind")}));
 end Zhang2012BlindsSAltitude;

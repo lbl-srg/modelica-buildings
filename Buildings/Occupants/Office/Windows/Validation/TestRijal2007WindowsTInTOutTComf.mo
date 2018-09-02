@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Windows.Validation;
-model TestRijal2007WindowsTInTOutTComf "Validation model for Rijal2007WindowsTInTOutTComf"
+model TestRijal2007WindowsTInTOutTComf "Validating the model for window behaviors"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=900)

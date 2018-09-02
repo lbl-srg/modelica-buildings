@@ -1,5 +1,5 @@
 within Buildings.Occupants.Residential.Heating.Validation;
-model TestNicol2001HeatingUK "Validation model for TestNicol2001HeatingUK"
+model TestNicol2001HeatingUK "Validating the model for heating behaviors"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)

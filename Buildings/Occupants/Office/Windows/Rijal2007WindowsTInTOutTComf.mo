@@ -25,7 +25,7 @@ model Rijal2007WindowsTInTOutTComf "A model to predict occupants' window behavio
   Modelica.Blocks.Interfaces.BooleanInput occ
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.BooleanOutput on "State of window"
+  Modelica.Blocks.Interfaces.BooleanOutput on "State of window, true for open"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Real p(
@@ -85,7 +85,7 @@ and occupancy.
 Indoor temperature: should be input with the unit of K.
 </p>
 <p>
-Outdoor temperature: should be input with the unit of K.
+outdoor temperature: should be input with the unit of K.
 </p>
 <p>
 Comfort temperature: should be input with the unit of K.
@@ -142,5 +142,10 @@ July 25, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(
+          extent={{-98,98},{94,-96}},
+          lineColor={28,108,200},
+          textString="ob.office
+Window")}));
 end Rijal2007WindowsTInTOutTComf;

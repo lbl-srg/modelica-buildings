@@ -14,8 +14,8 @@ model Haldi2008BlindsTOut
   Modelica.Blocks.Interfaces.BooleanInput occ
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput BlindState
-    "The State of Blinds, 1 for 100% on, 0 for 100% off"
+  Modelica.Blocks.Interfaces.RealOutput blindState
+    "The State of Blinds, 1 being blinds deployed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Real pdown(
@@ -36,12 +36,12 @@ equation
     pdown = 1-Modelica.Math.exp(A*(TOut-273.15)+B)/(Modelica.Math.exp(A*(TOut-273.15)+B)+1);
     if occ then
       if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown, globalSeed=seed) then
-        BlindState = 0;
+        blindState = 0;
       else
-        BlindState = 1;
+        blindState = 1;
       end if;
     else
-      BlindState = 1;
+      blindState = 1;
     end if;
   end when;
 
@@ -63,7 +63,7 @@ Model predicting the state of the blinds with the outdoor temperature.
 TOut: outdoor air temperature, should be input with the unit of K.
 </p>
 <p>
-Occupancy: a boolean variable, true indicates the space is occupied, 
+occupancy: a boolean variable, true indicates the space is occupied, 
 false indicates the space is unoccupied.
 </p>
 <h4>Outputs</h4>
@@ -93,6 +93,15 @@ revisions="<html>
 July 24, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
+<li>
+August 31, 2018, by Zhe Wang:<br/>
+First revision.
+</li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(
+          extent={{-98,98},{94,-96}},
+          lineColor={28,108,200},
+          textString="ob.office
+Blind")}));
 end Haldi2008BlindsTOut;

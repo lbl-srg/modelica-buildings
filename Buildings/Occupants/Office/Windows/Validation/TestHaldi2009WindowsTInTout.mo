@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Windows.Validation;
-model TestHaldi2009WindowsTInTout "Validation model for Haldi2009Windows"
+model TestHaldi2009WindowsTInTout "Validating the model for window behaviors"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=900)
@@ -25,10 +25,10 @@ equation
   connect(win.occ, occ.y) annotation (Line(points={{-12,6},{-36,6},{-36,60},{
           -59,60}},
                 color={255,0,255}));
-  connect(win.TOut, TOut.y) annotation (Line(points={{-12,-4},{-36,-4},{-36,-20},
+  connect(win.TOut, TOut.y) annotation (Line(points={{-12,-6},{-36,-6},{-36,-20},
           {-59,-20}}, color={0,0,127}));
-  connect(win.TIn, TIn.y) annotation (Line(points={{-12,0},{-42,0},{-42,10},{
-          -59,10}},   color={0,0,127}));
+  connect(win.TIn, TIn.y) annotation (Line(points={{-12,-3},{-42,-3},{-42,10},{-59,
+          10}},       color={0,0,127}));
 
 annotation (
 experiment(Tolerance=1e-6, StopTime=3600.0),

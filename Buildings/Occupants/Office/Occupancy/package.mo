@@ -6,5 +6,10 @@ package Occupancy "Package with models to simulate occupancy in office buildings
 <p>
 This package contains models to simulate occupancy in office buildings.
 </p>
-</html>"));
+</html>"),
+  Icon(graphics={Text(
+        extent={{-98,98},{94,-96}},
+        lineColor={28,108,200},
+        textString="Office
+Occupancy")}));
 end Occupancy;
