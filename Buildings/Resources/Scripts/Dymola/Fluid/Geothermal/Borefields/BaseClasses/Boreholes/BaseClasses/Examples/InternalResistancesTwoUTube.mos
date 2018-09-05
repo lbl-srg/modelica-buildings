@@ -1,0 +1,8 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Examples.InternalResistancesTwoUTube", stopTime=3600, method="dassl", tolerance=1E-6, resultFile="InternalResistancesTwoUTube");
+removePlots();
+createPlot(
+  id=1,
+  position={0, 0, 870, 731},
+  y={"TWal.T", "TPip1.T", "TPip2.T", "TPip3.T", "TPip4.T", "intRes2UTub.capFil1.T", "intRes2UTub.capFil2.T", "intRes2UTub.capFil3.T", "intRes2UTub.capFil4.T"},
+  grid=true,
+  filename="InternalResistancesTwoUTube.mat");

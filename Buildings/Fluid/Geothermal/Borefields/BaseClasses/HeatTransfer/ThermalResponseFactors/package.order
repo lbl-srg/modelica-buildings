@@ -1,0 +1,10 @@
+cylindricalHeatSource
+cylindricalHeatSource_Integrand
+finiteLineSource
+finiteLineSource_Erfint
+finiteLineSource_Integrand
+gFunction
+infiniteLineSource
+shaGFunction
+timeGeometric
+Examples

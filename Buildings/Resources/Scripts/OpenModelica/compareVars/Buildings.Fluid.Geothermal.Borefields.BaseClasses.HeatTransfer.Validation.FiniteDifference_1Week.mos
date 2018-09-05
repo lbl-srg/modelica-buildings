@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "soi.port_a.T",
+    "soi.port_b.T",
+    "TSoiAna.y",
+    "groTem.y",
+    "deltaT.y"
+  };
