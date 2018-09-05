@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix", tolerance=1e-6, stopTime=3.1536e+7, resultFile="TemperatureResponseMatrix");
+removePlots();
+createPlot(id = 1,
+ position = {50, 50, 700, 500},
+ x = "time",
+ y = {"TStep"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename="TemperatureResponseMatrix.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

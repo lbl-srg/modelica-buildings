@@ -25,3 +25,6 @@ convertClass("Buildings.Utilities.Reports.Examples.Printer",
 
 convertClass("Buildings.Controls.OBC.CDL.ExtractSignal",
              "Buildings.Controls.OBC.CDL.RealExtractSignal");
+
+convertClass("Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier",
+             "Buildings.Fluid.BaseClasses.MassFlowRateMultiplier");
