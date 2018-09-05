@@ -261,7 +261,14 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
-
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial
+        </td>
+        <td valign=\"top\">Renamed function to
+                           <code>Buildings.Utilities.Math.Functions.factorial</code>
+                           because it is also used by the new Geothermal package.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
         </td>
     </tr>

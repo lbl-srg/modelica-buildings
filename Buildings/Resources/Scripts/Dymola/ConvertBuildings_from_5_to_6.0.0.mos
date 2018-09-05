@@ -28,3 +28,9 @@ convertClass("Buildings.Controls.OBC.CDL.ExtractSignal",
 
 convertClass("Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier",
              "Buildings.Fluid.BaseClasses.MassFlowRateMultiplier");
+
+
+convertElement("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial",
+               "j", "n");
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial",
+             "Buildings.Utilities.Math.Functions.factorial");

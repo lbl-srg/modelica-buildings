@@ -4,7 +4,6 @@ HexInternalElement
 SingleUTubeBoundaryCondition
 convectionResistance
 exchangeValues
-factorial
 powerSeries
 singleUTubeResistances
 temperatureDrop
