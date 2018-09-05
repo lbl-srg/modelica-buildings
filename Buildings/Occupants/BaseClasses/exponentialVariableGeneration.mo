@@ -9,6 +9,7 @@ protected
     Real r "Generated random numberin the range 0 < random ≤ 1";
 algorithm
     state := Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed);
+    Modelica.Utilities.Streams.print("state = " + String(state[1]));
     (r, state) := Modelica.Math.Random.Generators.Xorshift1024star.random(state);
     y := -mu*Modelica.Math.log(1 - r);
   annotation (Documentation(info="<html>

@@ -105,7 +105,7 @@ be switched off only when the space is unoccupied.
 <h4>References</h4>
 <p>
 The model is documented in the paper &quot;Reinhart, C.F. and Voss, K., 2003. Monitoring 
-manual control of electric lighting and blinds. Lighting research & technology, 35(3), 
+manual control of electric lighting and blinds. Lighting research &amp; technology, 35(3), 
 pp.243-258.&quot;.
 </p>
 <p>

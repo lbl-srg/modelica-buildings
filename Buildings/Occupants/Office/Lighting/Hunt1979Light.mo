@@ -88,7 +88,7 @@ on their working plane.
 <h4>References</h4>
 <p>
 The model is documented in the paper &quot;Hunt, D.R.G., 1980. Predicting artificial 
-lighting use-a method based upon observed patterns of behaviour. Lighting Research & Technology, 
+lighting use-a method based upon observed patterns of behaviour. Lighting Research &amp; Technology, 
 12(1), pp.7-14.&quot;.
 </p>
 <p>
