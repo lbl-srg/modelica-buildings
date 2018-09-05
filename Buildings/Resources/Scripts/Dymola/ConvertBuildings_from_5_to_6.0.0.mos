@@ -29,8 +29,29 @@ convertClass("Buildings.Controls.OBC.CDL.ExtractSignal",
 convertClass("Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier",
              "Buildings.Fluid.BaseClasses.MassFlowRateMultiplier");
 
-
 convertElement("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial",
                "j", "n");
 convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial",
              "Buildings.Utilities.Math.Functions.factorial");
+
+// Rename of Fluid.HeatExchangers.Ground.Boreholes to Fluid.Geothermal.Boreholes
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.BoreholeSegment",
+             "Buildings.Fluid.Geothermal.Boreholes.BaseClasses.BoreholeSegment");
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.ExtendableArray",
+             "Buildings.Fluid.Geothermal.Boreholes.BaseClasses.ExtendableArray");
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.HexInternalElement",
+             "Buildings.Fluid.Geothermal.Boreholes.BaseClasses.HexInternalElement");
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.SingleUTubeBoundaryCondition",
+             "Buildings.Fluid.Geothermal.Boreholes.BaseClasses.SingleUTubeBoundaryCondition");
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.convectionResistance",
+             "Buildings.Fluid.Geothermal.Boreholes.BaseClasses.convectionResistance");
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.exchangeValues",
+             "Buildings.Fluid.Geothermal.Boreholes.BaseClasses.exchangeValues");
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.powerSeries",
+             "Buildings.Fluid.Geothermal.Boreholes.BaseClasses.powerSeries");
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.singleUTubeResistances",
+             "Buildings.Fluid.Geothermal.Boreholes.BaseClasses.singleUTubeResistances");
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.temperatureDrop",
+             "Buildings.Fluid.Geothermal.Boreholes.BaseClasses.temperatureDrop");
+convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube",
+             "Buildings.Fluid.Geothermal.Boreholes.UTube");
