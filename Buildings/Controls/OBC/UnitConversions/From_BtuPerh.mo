@@ -26,7 +26,7 @@ equation
   connect(conv.y, y)
     annotation (Line(points={{11,0},{50,0}}, color={0,0,127}));
   annotation (
-      defaultComponentName = "From_BtuPerh",
+      defaultComponentName = "from_BtuPerh",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -54,7 +54,7 @@ Converts power given in British thermal units per hour [Btu/h] to watt [W].
 <ul>
 <li>
 July 05, 2018, by Milica Grahovac:<br/>
-Generated with Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
+Generated with <code>Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py</code>.<br/>
 First implementation.
 </li>
 </ul>

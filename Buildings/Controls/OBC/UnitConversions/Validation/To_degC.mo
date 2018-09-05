@@ -76,7 +76,7 @@ revisions="<html>
 <ul>
 <li>
 July 05, Milica Grahovac<br/>
-Generated with Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
+Generated with <code>Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py</code>.<br/>
 First implementation.
 </li>
 </ul>

@@ -481,7 +481,7 @@ class UnitConversionsModeler(object):
 			"  connect(conv.y, y)\n"\
 			"    annotation (Line(points={{11,0},{50,0}}, color={0,0,127}));\n"\
 			"  annotation (\n"\
-			"      defaultComponentName = \"" + model_name + "\",\n"\
+			"      defaultComponentName = \"" + model_name[0].lower() + model_name[1:]  + "\",\n"\
 			"    Icon(graphics={\n"\
 			"        Rectangle(\n"\
 			"          extent={{-100,-100},{100,100}},\n"\
@@ -509,7 +509,7 @@ class UnitConversionsModeler(object):
 			"<ul>\n"\
 			"<li>\n"\
 			"July 05, 2018, by Milica Grahovac:<br/>\n"\
-			"Generated with "+ self.fullpath_to_this_script +"\n" \
+			"Generated with <code>"+ self.fullpath_to_this_script +"</code>.<br/>\n" \
 			"First implementation.\n"\
 			"</li>\n"\
 			"</ul>\n"\
@@ -546,7 +546,7 @@ class UnitConversionsModeler(object):
 			<ul>
 			<li>
 			August 1, 2018, by Milica Grahovac:<br/>
-			Generated with """+self.fullpath_to_this_script+"""
+			Generated with <code>"""+ self.fullpath_to_this_script +""""</code>.<br/>
 			First implementation.
 			</li>
 			</ul>
@@ -674,7 +674,7 @@ class UnitConversionsModeler(object):
 			"<ul>\n"\
 			"<li>\n"\
 			"July 05, Milica Grahovac<br/>\n"\
-			"Generated with "+self.fullpath_to_this_script+"\n" \
+			"Generated with <code>"+ self.fullpath_to_this_script +"</code>.<br/>\n" \
 			"First implementation.\n"\
 			"</li>\n"\
 			"</ul>\n"\

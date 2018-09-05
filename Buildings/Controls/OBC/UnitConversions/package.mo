@@ -12,7 +12,7 @@ within Buildings.Controls.OBC;
 			<ul>
 			<li>
 			August 1, 2018, by Milica Grahovac:<br/>
-			Generated with Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
+			Generated with <code>Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py"</code>.<br/>
 			First implementation.
 			</li>
 			</ul>

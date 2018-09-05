@@ -27,7 +27,7 @@ equation
   connect(conv.y, y)
     annotation (Line(points={{11,0},{50,0}}, color={0,0,127}));
   annotation (
-      defaultComponentName = "From_bar",
+      defaultComponentName = "from_bar",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -55,7 +55,7 @@ Converts pressure given in bar [bar] to pascal [Pa].
 <ul>
 <li>
 July 05, 2018, by Milica Grahovac:<br/>
-Generated with Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
+Generated with <code>Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py</code>.<br/>
 First implementation.
 </li>
 </ul>
