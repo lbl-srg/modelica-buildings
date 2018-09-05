@@ -1,0 +1,15 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.FallingFactorial", tolerance=1e-6, startTime=0.0, stopTime=13.9, method="dassl", resultFile="FallingFactorial");
+createPlot(id = 1,
+ position = {35, 30, 631, 456},
+ x = "time",
+ y = {"falFac[1]", "falFac[2]", "falFac[3]", "falFac[4]", "falFac[5]", "falFac[6]", "falFac[7]", "falFac[8]", "falFac[9]", "falFac[10]"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "FallingFactorial.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

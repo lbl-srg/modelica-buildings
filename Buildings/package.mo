@@ -144,9 +144,23 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Package with shade controllers.
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal
+        </td>
+        <td valign=\"top\">Package with models for geothermal heat exchangers.
+                           This package has models for borefields with vertical boreholes,
+                           and for a single vertical borehole with a U-tube heat exchanger.
+                           The borefield models can have any geometrical configuration,
+                           and either one or two U-tube heat exchangers.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Utilities.IO.Files
         </td>
         <td valign=\"top\">Package with blocks to write CSV files or combi time table files.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Cryptographics
+        </td>
+        <td valign=\"top\">Package with a function to compute a SHA1 encrypted string.
         </td>
         </tr>
     </table>
@@ -167,6 +181,11 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
         </td>
         <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Math
+        </td>
+        <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
         </td>
         </tr>
     </table>
@@ -231,6 +250,42 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial
+        </td>
+        <td valign=\"top\">Renamed function to
+                           <code>Buildings.Utilities.Math.Functions.factorial</code>
+                           because it is also used by the new Geothermal package.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes
+        </td>
+        <td valign=\"top\">Renamed package to
+                           <code>Buildings.Fluid.Geothermal.Boreholes</code>
+                           due to the introduction of the new Geothermal package.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier
+        </td>
+        <td valign=\"top\">Renamed model to
+                           <code>Buildings.Fluid.BaseClasses.MassFlowRateMultiplier</code>
+                           because it is also used by the new Geothermal package.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Media</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
+        </td>
+        <td valign=\"top\">Removed the function <code>pressureSatLiq_T</code> as it was not used.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/995\">IBPSA, #995</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Utilities.Reports</b>
         </td>
     </tr>
@@ -252,12 +307,18 @@ its class name ends with the string <code>Beta</code>.
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">The RC element of the roof <code>roofRC</code>
+                           was flipped to have its <code>port_b</code> on the outside.
+                           The resistances <code>RRem</code> and <code>R</code>
+                           of the roof and floor have been switched
+                           in the documentation.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/997\">IBPSA, #997</a>.
         </td>
     </tr>
     </table>
@@ -1507,7 +1568,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes
        </td>
        <td valign=\"top\">Moved the package <code>Buildings.Fluid.HeatExchangers.Boreholes</code> to
-                          <code>Buildings.Fluid.HeatExchangers.Ground.Boreholes</code>.
+                          <code>Buildings.Fluid.Geothermal.Boreholes</code>.
                           This is for compatibility with an ongoing model development that will include
                           a borefield model.<br/>
                           For Dymola, the conversion script will update models that use any model of the package
@@ -1914,7 +1975,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
     </td>
     </tr>
 
-    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.UTube
        </td>
        <td valign=\"top\">Updated code for 64 bit on Linux and Windows.
                           This closes
@@ -3150,7 +3211,7 @@ that can lead to wrong simulation results):
                        of PEX pipes.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.singleUTubeResistances
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.BaseClasses.singleUTubeResistances
     </td>
     <td valign=\"top\">Corrected error in function that used <code>beta</code>
                        before it was assigned a value.
@@ -3433,7 +3494,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.UTube
     </td>
     <td valign=\"top\">Reimplemented the resistor network inside the borehole
                        as the old implementation led to too slow a transient
@@ -3453,7 +3514,7 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.HexInternalElement
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.BaseClasses.HexInternalElement
     </td>
     <td valign=\"top\">Corrected error in documentation which stated a wrong default value
                        for the pipe spacing.
@@ -3830,8 +3891,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.FixedResistances.BaseClasses.Pipe<br/>
                        Buildings.Fluid.FixedResistances.FixedResistanceDpM<br/>
                        Buildings.Fluid.FixedResistances.LosslessPipe<br/>
-                       Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.BoreholeSegment<br/>
-                       Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube<br/>
+                       Buildings.Fluid.Geothermal.Boreholes.BaseClasses.BoreholeSegment<br/>
+                       Buildings.Fluid.Geothermal.Boreholes.UTube<br/>
                        Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab<br/>
                        Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
                        Buildings.Fluid.Interfaces.PartialFourPortInterface<br/>
@@ -5455,7 +5516,7 @@ The following
 have been fixed:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Ground.Boreholes</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Boreholes</b>
     </td>
 </tr>
 <tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/45\">&#35;45</a>
@@ -5500,7 +5561,7 @@ in converting old models to this version of the library.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes</td>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes</td>
     <td valign=\"top\">
     This is a library with a model for a borehole heat exchanger.
     </td></tr>

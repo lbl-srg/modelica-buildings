@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "T2UTubParIn.T",
+    "T2UTubParOut.T",
+    "T2UTubSerOut.T",
+    "TUTubOut.T",
+    "borFie2UTubPar.borHol.intHex[10].vol1.heatPort.T",
+    "borFie2UTubPar.borHol.intHex[10].vol2.heatPort.T",
+    "borFie2UTubPar.borHol.intHex[10].vol3.heatPort.T",
+    "borFie2UTubPar.borHol.intHex[10].vol4.heatPort.T",
+    "borFie2UTubSer.borHol.intHex[10].vol1.heatPort.T",
+    "borFie2UTubSer.borHol.intHex[10].vol2.heatPort.T",
+    "borFie2UTubSer.borHol.intHex[10].vol3.heatPort.T",
+    "borFie2UTubSer.borHol.intHex[10].vol4.heatPort.T",
+    "borFieUTub.borHol.intHex[10].vol1.heatPort.T",
+    "borFieUTub.borHol.intHex[10].vol2.heatPort.T"
+  };

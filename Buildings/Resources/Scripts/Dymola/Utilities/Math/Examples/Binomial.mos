@@ -1,0 +1,15 @@
+simulateModel("Buildings.Utilities.Math.Examples.Binomial", tolerance=1e-6, startTime=0.0, stopTime=11.0, method="dassl", resultFile="BinomialBlock");
+createPlot(id = 1,
+ position = {35, 30, 631, 456},
+ x = "time",
+ y = {"bin.y"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "BinomialBlock.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
