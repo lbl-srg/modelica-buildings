@@ -1,5 +1,5 @@
 within Buildings.Occupants.Residential.AirConditioning.Validation;
-model TestRen2014ACBedroom "Validation model for Ren2014ACBedroom"
+model TestRen2014ACBedroom "Validating the model for AC behaviors"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=600)

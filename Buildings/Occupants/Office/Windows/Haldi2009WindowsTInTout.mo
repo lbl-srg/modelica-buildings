@@ -22,7 +22,7 @@ model Haldi2009WindowsTInTout "A model to predict occupants' window behavior wit
   Modelica.Blocks.Interfaces.BooleanInput occ
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.BooleanOutput on "State of window"
+  Modelica.Blocks.Interfaces.BooleanOutput on "State of window, true for open"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Real pOpen(
@@ -72,13 +72,13 @@ and occupancy.
 </p>
 <h4>Inputs</h4>
 <p>
-Indoor temperature: should be input with the unit of K.
+indoor temperature: should be input with the unit of K.
 </p>
 <p>
-Outdoor temperature: should be input with the unit of K.
+outdoor temperature: should be input with the unit of K.
 </p>
 <p>
-Occupancy: a boolean variable, true indicates the space is occupied, 
+occupancy: a boolean variable, true indicates the space is occupied, 
 false indicates the space is unoccupied.
 </p>
 <h4>Outputs</h4>
@@ -112,5 +112,10 @@ July 25, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(
+          extent={{-98,98},{94,-96}},
+          lineColor={28,108,200},
+          textString="ob.office
+Window")}));
 end Haldi2009WindowsTInTout;

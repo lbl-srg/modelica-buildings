@@ -1,8 +1,8 @@
 ﻿within Buildings.Occupants.BaseClasses;
 function weibullVariableGeneration "Random variable generator from the Weibull distribution"
-    input Real lambda;
-    input Real k;
-    output Real y;
+    input Real lambda "Parameter defining the Weibull Distribution: scale factor";
+    input Real k "Parameter defining the Weibull Distribution: shape factor";
+    output Real y "Random variable generated from Weibull Distribution";
 protected
     Integer globalSeed = Modelica.Math.Random.Utilities.automaticGlobalSeed();
     Integer localSeed;
@@ -14,15 +14,17 @@ algorithm
     y := lambda*(Modelica.Math.log((1 - r)^(-1)))^(1/k);
   annotation (Documentation(info="<html>
 <p>
-This function generates a random variable, from a Weibull distribution with the inputs of lambda 
-and k. The random variable might be the duration of a specific event, for instance the time to 
-keep the HVAC on.
+This function generates a random variable, from a Weibull distribution with the 
+inputs of <code>lambda</code> and <code>k</code>. The random variable might be 
+the duration of a specific event, for instance the time to keep the HVAC on.
 </p>
 <p>
-The inputs lambda and k defines the probability density function. Lambda is similar to the mean 
-value of exponential distribution, and k defines the shape. A value of k = 1 means the Weibull 
-distribution reduces to an exponential distribution. Genrally speaking, higher lambda 
-and higher k indicate a higher chance to generate a higher output.
+The inputs <code>lambda</code> and <code>k</code> defines the probability density 
+function. <code>lambda</code> is similar to the mean value of exponential 
+distribution, and <code>k</code> defines the shape. A value of <code>k</code> = 1 
+means the Weibull distribution reduces to an exponential distribution. Genrally 
+speaking, higher <code>lambda</code> and higher <code>k</code> indicate a higher 
+chance to generate a higher output.
 </p>
 </html>", revisions="<html>
 <ul>

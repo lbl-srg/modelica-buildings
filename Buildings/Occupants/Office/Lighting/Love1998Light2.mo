@@ -59,7 +59,7 @@ and occupancy.
 illuminance: Daylight illuminance level on the desk, should be input with the unit of lux.
 </p>
 <p>
-Occupancy: a boolean variable, true indicates the space is occupied, 
+occupancy: a boolean variable, true indicates the space is occupied, 
 false indicates the space is unoccupied.
 </p>
 <h4>Outputs</h4>
@@ -95,5 +95,10 @@ July 27, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(
+          extent={{-98,98},{94,-96}},
+          lineColor={28,108,200},
+          textString="ob.office
+Light")}));
 end Love1998Light2;

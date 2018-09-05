@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Windows.Validation;
-model TestZhang2012WindowsSouth "Validation model for Zhang2012WindowsSouth"
+model TestZhang2012WindowsSouth "Validating the model for window behaviors"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)

@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Occupancy.Validation;
-model TestWang2005Occupancy "Validation model for Wang2005Occupancy"
+model TestWang2005Occupancy "Validating the model for occupancy"
   extends Modelica.Icons.Example;
 
 Wang2005Occupancy occ "Tested Occupancy model"

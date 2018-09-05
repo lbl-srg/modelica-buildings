@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Windows.Validation;
-model TestHerkel2008WindowsSmall "Validation model for Herkel2008WindowsSmall.mo"
+model TestHerkel2008WindowsSmall "Validating the model for window behaviors"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)

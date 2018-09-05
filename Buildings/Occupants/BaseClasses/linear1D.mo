@@ -11,11 +11,12 @@ algorithm
   y := Occupancy.Utilities.BinaryVariableGeneration(p);
 annotation (Documentation(info="<html>
 <p>
-This function generates a random binary variable with the input of a continuous variable x from a 
+This function generates a random binary variable with the input of a continuous variable <code>x</code> from a 
 linear relation.
 </p>
 <p>
-The probability of being 1 is calculated from the input x with the slope A and the intercept B. 
+The probability of being 1 is calculated from the input <code>x</code> with the 
+slope <code>A</code> and the intercept <code>B</code>. 
 Then a random generator generates the output, which should be a binary variable.
 </p>
 </html>", revisions="<html>

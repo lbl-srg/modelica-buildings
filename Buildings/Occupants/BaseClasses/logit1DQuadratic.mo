@@ -12,13 +12,14 @@ algorithm
   y := Occupancy.Utilities.BinaryVariableGeneration(p);
 annotation (Documentation(info="<html>
 <p>
-This function generates a random binary variable with the input of a continuous variable x from a 
-quadratic logistic relation.
+This function generates a random binary variable with the input of a continuous 
+variable <code>x</code> from a quadratic logistic relation.
 </p>
 <p>
-The probability of being 1 is calculated from the input x from a quadratic logistic relation with 
-four predefined parameters A, B, C and D. Then a random generator generates the output, which 
-should be a binary variable.
+The probability of being 1 is calculated from the input <code>x</code> from a 
+quadratic logistic relation with four predefined parameters <code>A</code>, 
+<code>B</code>, <code>C</code> and <code>D</code>. Then a random generator 
+generates the output, which should be a binary variable.
 </p>
 </html>", revisions="<html>
 <ul>

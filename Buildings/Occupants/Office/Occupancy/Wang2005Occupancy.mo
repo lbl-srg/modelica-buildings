@@ -70,5 +70,10 @@ August 1, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(
+          extent={{-98,98},{94,-96}},
+          lineColor={28,108,200},
+          textString="ob.office
+Occupancy")}));
 end Wang2005Occupancy;

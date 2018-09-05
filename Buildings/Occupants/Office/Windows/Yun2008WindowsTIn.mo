@@ -15,7 +15,7 @@ model Yun2008WindowsTIn "A model to predict occupants' window behavior with indo
   Modelica.Blocks.Interfaces.BooleanInput occ
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.BooleanOutput on "State of window"
+  Modelica.Blocks.Interfaces.BooleanOutput on "State of window, true for open"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Real pOpen(
@@ -67,10 +67,10 @@ and occupancy through Markov approach.
 </p>
 <h4>Inputs</h4>
 <p>
-Indoor temperature: should be input with the unit of K.
+indoor temperature: should be input with the unit of K.
 </p>
 <p>
-Occupancy: a boolean variable, true indicates the space is occupied, 
+occupancy: a boolean variable, true indicates the space is occupied, 
 false indicates the space is unoccupied.
 </p>
 <h4>Outputs</h4>
@@ -102,5 +102,10 @@ July 26, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(
+          extent={{-98,98},{94,-96}},
+          lineColor={28,108,200},
+          textString="ob.office
+Window")}));
 end Yun2008WindowsTIn;

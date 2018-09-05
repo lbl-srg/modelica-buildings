@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Windows.Validation;
-model TestYun2008WindowsTIn "Validation model for Yun2008WindowsTIn"
+model TestYun2008WindowsTIn "Validating the model for window behaviors"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)
