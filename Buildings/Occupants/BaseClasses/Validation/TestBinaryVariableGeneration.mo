@@ -2,11 +2,17 @@ within Buildings.Occupants.BaseClasses.Validation;
 model TestBinaryVariableGeneration "Test model for binary variable generation function"
   extends Modelica.Icons.Example;
 
-  parameter Integer seed = 10 "Seed for the random number generator";
-  output Boolean y "Output";
+  parameter Integer seed = 5 "Seed for the random number generator";
+  Real p "Time-varying real number as input";
+  output Real y "Output";
 
 equation
-  y = Buildings.Occupants.BaseClasses.binaryVariableGeneration(time, globalSeed=seed);
+  p = time;
+  if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=seed) then
+    y = 1;
+  else
+    y = 0;
+  end if;
 
   annotation ( experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Average.mos"
