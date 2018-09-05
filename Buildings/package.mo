@@ -144,6 +144,16 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Package with shade controllers.
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.UnitConversions
+        </td>
+        <td valign=\"top\">Package with blocks for unit conversion.
+                           Blocks in this package are meant to use when reading
+                           data from a building automation system,
+                           or writing data to a building automation system,
+                           that uses units that are different
+                           from the units used by Modelica.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Geothermal
         </td>
         <td valign=\"top\">Package with models for geothermal heat exchangers.
