@@ -17,7 +17,7 @@ model TestZhang2012BlindsSAltitude
 equation
   connect(occ.y, bli.occ) annotation (Line(points={{-59,20},{-34,20},{-34,6},{-12,
           6}}, color={255,0,255}));
-  connect(SA.y, bli.SA) annotation (Line(points={{-59,-20},{-36,-20},{-36,-6},{-12,
+  connect(SA.y, bli.solarAltitude) annotation (Line(points={{-59,-20},{-36,-20},{-36,-6},{-12,
           -6}}, color={0,0,127}));
 
 annotation (
