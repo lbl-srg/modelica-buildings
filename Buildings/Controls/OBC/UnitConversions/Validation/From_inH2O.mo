@@ -75,7 +75,7 @@ This model validates pressure unit conversion from inch of water gauge (at 60 de
 revisions="<html>
 <ul>
 <li>
-July 05, Milica Grahovac<br/>
+July 05, 2018, Milica Grahovac<br/>
 Generated with <code>Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py</code>.<br/>
 First implementation.
 </li>

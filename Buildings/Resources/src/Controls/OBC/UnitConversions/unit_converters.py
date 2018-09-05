@@ -533,35 +533,35 @@ class UnitConversionsModeler(object):
 			file = open(os.path.join(self.package_path, 'package.mo'), 'w')
 			file.write(\
 			"""within Buildings.Controls.OBC;
-			package """+self.package_name+""" "Package with blocks for unit conversion"
+package """+self.package_name+""" "Package with blocks for unit conversion"
 
-			annotation (
-			Documentation(
-			info="<html>
-			<p>
-			Package with blocks for unit conversions.
-			</p>
-			</html>",
-			revisions="<html>
-			<ul>
-			<li>
-			August 1, 2018, by Milica Grahovac:<br/>
-			Generated with <code>"""+ self.fullpath_to_this_script +""""</code>.<br/>
-			First implementation.
-			</li>
-			</ul>
-			</html>"), Icon(graphics={
-			        Rectangle(
-			          lineColor={200,200,200},
-			          fillColor={248,248,248},
-			          fillPattern=FillPattern.HorizontalCylinder,
-			          extent={{-100.0,-100.0},{100.0,100.0}},
-			          radius=25.0),
-			        Rectangle(
-			          lineColor={128,128,128},
-			          extent={{-100.0,-100.0},{100.0,100.0}},
-			          radius=25.0)}));
-			end """+self.package_name+""";""")
+annotation (
+Documentation(
+info="<html>
+<p>
+Package with blocks for unit conversions.
+</p>
+</html>",
+revisions="<html>
+<ul>
+li>
+August 1, 2018, by Milica Grahovac:<br/>
+Generated with <code>""" + self.fullpath_to_this_script + """</code>.<br/>
+First implementation.
+</li>
+</ul>
+</html>"), Icon(graphics={
+  Rectangle(
+    lineColor={200,200,200},
+    fillColor={248,248,248},
+    fillPattern=FillPattern.HorizontalCylinder,
+    extent={{-100.0,-100.0},{100.0,100.0}},
+    radius=25.0),
+  Rectangle(
+    lineColor={128,128,128},
+    extent={{-100.0,-100.0},{100.0,100.0}},
+    radius=25.0)}));
+end """+self.package_name+""";""")
 
 		else:
 			msg = 'Make sure to update the package.order.'
@@ -673,7 +673,7 @@ class UnitConversionsModeler(object):
 			"revisions=\"<html>\n"\
 			"<ul>\n"\
 			"<li>\n"\
-			"July 05, Milica Grahovac<br/>\n"\
+			"July 05, 2018, Milica Grahovac<br/>\n"\
 			"Generated with <code>"+ self.fullpath_to_this_script +"</code>.<br/>\n" \
 			"First implementation.\n"\
 			"</li>\n"\
