@@ -3,8 +3,7 @@ package MultiZone "Sequences for multi zone AHU control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences from ASHRAE Guideline 36, Part 5.N for
-multi zone VAV air handling unit control.
+This package contains control sequences from ASHRAE Guideline 36 for multi zone air handling units.
 </p>
 </html>"),
   Icon(graphics={
