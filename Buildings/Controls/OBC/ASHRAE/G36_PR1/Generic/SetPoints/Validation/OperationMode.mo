@@ -14,16 +14,16 @@ model OperationMode "Validate block OperationModeSelector"
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
       p=22.5, k=12.5)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoHeaSet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetUno(
       k=12) "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoCooSet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetUno(
       k=30) "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occHeaSet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetOcc(
       k=20) "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occCooSet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(
       k=24) "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warUpTim(k=
@@ -44,18 +44,14 @@ equation
     annotation (Line(points={{-31,0},{-2,0}}, color={0,0,127}));
   connect(addPar.y, opeModSel.TZon[1])
     annotation (Line(points={{21,0},{71,0}}, color={0,0,127}));
-  connect(occHeaSet.y, opeModSel.THeaSet)
-    annotation (Line(points={{-39,-30},{-20,-30},{-20,-12},{34,-12},{34,-2.2},{71,
-          -2.2}}, color={0,0,127}));
-  connect(occCooSet.y, opeModSel.TCooSet)
-    annotation (Line(points={{21,-30},{36,-30},{36,-4.6},{71,-4.6}},
-      color={0,0,127}));
-  connect(unoHeaSet.y, opeModSel.TUnoHeaSet)
-    annotation (Line(points={{-39,-70},{-20,-70},{-20,-48},{38,-48},{38,-6.8},{71,
-          -6.8}}, color={0,0,127}));
-  connect(unoCooSet.y, opeModSel.TUnoCooSet)
-    annotation (Line(points={{21,-70},{40,-70},{40,-9},{71,-9}},
-      color={0,0,127}));
+  connect(TZonHeaSetOcc.y, opeModSel.TZonHeaSetOcc) annotation (Line(points={{-39,-30},
+          {-20,-30},{-20,-12},{34,-12},{34,-2.2},{71,-2.2}}, color={0,0,127}));
+  connect(TZonCooSetOcc.y, opeModSel.TZonCooSetOcc) annotation (Line(points={{21,-30},
+          {36,-30},{36,-4.6},{71,-4.6}}, color={0,0,127}));
+  connect(TZonHeaSetUno.y, opeModSel.TZonHeaSetUno) annotation (Line(points={{-39,-70},
+          {-20,-70},{-20,-48},{38,-48},{38,-6.8},{71,-6.8}}, color={0,0,127}));
+  connect(TZonCooSetUno.y, opeModSel.TZonCooSetUno) annotation (Line(points={{21,-70},
+          {40,-70},{40,-9},{71,-9}}, color={0,0,127}));
   connect(warUpTim.y, opeModSel.warUpTim[1])
     annotation (Line(points={{-39,40},{-20,40},{-20,20},{34,20},{34,2},{46,2},{46,
           2.2},{71,2.2}}, color={0,0,127}));

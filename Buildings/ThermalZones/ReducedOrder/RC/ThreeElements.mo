@@ -182,6 +182,12 @@ equation
     Documentation(revisions="<html>
   <ul>
   <li>
+  August 31, 2018 by Moritz Lauster:<br/>
+  Updated schema in documentation to fix
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/997\">
+  issue 997</a>.
+  </li>
+  <li>
   July 15, 2015 by Moritz Lauster:<br/>
   First Implementation.
   </li>

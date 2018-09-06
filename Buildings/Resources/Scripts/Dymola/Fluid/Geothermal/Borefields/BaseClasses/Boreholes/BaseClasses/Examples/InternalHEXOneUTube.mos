@@ -1,0 +1,8 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Examples.InternalHEXOneUTube", stopTime=100000, method="dassl", tolerance=1E-6, resultFile="InternalHEXOneUTube");
+removePlots();
+createPlot(
+  id=1,
+  position={0, 0, 870, 731},
+  y={"realExpression.y", "Rb_ref.y"},
+  grid=true,
+  filename="InternalHEXOneUTube.mat");

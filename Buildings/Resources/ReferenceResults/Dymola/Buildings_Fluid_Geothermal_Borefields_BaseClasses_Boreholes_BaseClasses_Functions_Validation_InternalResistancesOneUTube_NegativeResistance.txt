@@ -1,0 +1,12 @@
+last-generated=2018-07-20
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+Rgb=[8.426439762115479e-02, 8.426439762115479e-02]
+Rgg=[-4.200018346309662e-01, -4.200018346309662e-01]
+RCondGro=[4.192161560058594e-02, 4.192161560058594e-02]
+x=[0e+00, 0e+00]
