@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic;
-package SetPoints "Output control setpoints"
+package SetPoints "Package with sequences that output control setpoints"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
