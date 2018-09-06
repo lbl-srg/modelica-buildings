@@ -1,0 +1,85 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples.FiniteLineSource", startTime=0, stopTime=20.0, tolerance=1E-6, method="dassl", resultFile="FiniteLineSource");
+
+createPlot(
+  id   = 1,
+  position = {35, 30, 631, 456},
+  x    = "t",
+  y    = {"hRea[1, 1]", "hRea[1, 2]", "hRea[1, 3]", "hRea[1, 4]", "hRea[1, 5]", "hRea[1, 6]", "hRea[1, 7]"}, 
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true, 
+  grid=true,
+  color=true,
+  filename="FiniteLineSource.mat", 
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id   = 2,
+  position = {35, 30, 631, 456},
+  x    = "t",
+  y    = {"hRea[2, 1]", "hRea[2, 2]", "hRea[2, 3]", "hRea[2, 4]", "hRea[2, 5]", "hRea[2, 6]", "hRea[2, 7]"}, 
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true, 
+  grid=true,
+  color=true,
+  filename="FiniteLineSource.mat", 
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id   = 3,
+  position = {35, 30, 631, 456},
+  x    = "t",
+  y    = {"hMir[1, 1]", "hMir[1, 2]", "hMir[1, 3]", "hMir[1, 4]", "hMir[1, 5]", "hMir[1, 6]", "hMir[1, 7]"}, 
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true, 
+  grid=true,
+  color=true,
+  filename="FiniteLineSource.mat", 
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id   = 4,
+  position = {35, 30, 631, 456},
+  x    = "t",
+  y    = {"hMir[2, 1]", "hMir[2, 2]", "hMir[2, 3]", "hMir[2, 4]", "hMir[2, 5]", "hMir[2, 6]", "hMir[2, 7]"}, 
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true, 
+  grid=true,
+  color=true,
+  filename="FiniteLineSource.mat", 
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id   = 5,
+  position = {35, 30, 631, 456},
+  x    = "t",
+  y    = {"h[1, 1]", "h[1, 2]", "h[1, 3]", "h[1, 4]", "h[1, 5]", "h[1, 6]", "h[1, 7]"}, 
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true, 
+  grid=true,
+  color=true,
+  filename="FiniteLineSource.mat", 
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id   = 6,
+  position = {35, 30, 631, 456},
+  x    = "t",
+  y    = {"h[2, 1]", "h[2, 2]", "h[2, 3]", "h[2, 4]", "h[2, 5]", "h[2, 6]", "h[2, 7]"}, 
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true, 
+  grid=true,
+  color=true,
+  filename="FiniteLineSource.mat", 
+  leftTitleType = 1,
+  bottomTitleType = 1);

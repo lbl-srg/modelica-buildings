@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "bin[1]",
+    "bin[2]",
+    "bin[3]",
+    "bin[4]",
+    "bin[5]",
+    "bin[6]",
+    "bin[7]",
+    "bin[8]",
+    "bin[9]",
+    "bin[10]"
+  };

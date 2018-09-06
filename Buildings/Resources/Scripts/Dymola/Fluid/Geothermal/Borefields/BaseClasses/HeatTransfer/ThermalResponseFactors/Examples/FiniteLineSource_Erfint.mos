@@ -1,0 +1,29 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Examples.FiniteLineSource_Erfint", startTime=0.0, stopTime=15.0, tolerance=1E-6, method="dassl", resultFile="FiniteLineSource_Erfint");
+
+createPlot(
+  id   = 1,
+  position = {35, 30, 631, 456},
+  x    = "time",
+  y    = {"erfint", "erfint_num"}, 
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true, 
+  grid=true,
+  color=true,
+  filename="FiniteLineSource_Erfint.mat", 
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id   = 2,
+  position = {35, 30, 631, 456},
+  x    = "time",
+  y    = {"err"}, 
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true, 
+  grid=true,
+  color=true,
+  filename="FiniteLineSource_Erfint.mat", 
+  leftTitleType = 1,
+  bottomTitleType = 1);

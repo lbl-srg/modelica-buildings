@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "TBorFieIn.T",
+    "TBorFieOut.T",
+    "sandBoxMea.y[1]",
+    "sandBoxMea.y[2]"
+  };

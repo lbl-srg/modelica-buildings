@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "ram_m_flow.y",
+    "massFlowRateMultiplier.port_a.m_flow",
+    "massFlowRateMultiplier.port_b.m_flow"
+  };

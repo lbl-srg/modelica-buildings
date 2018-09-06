@@ -1,0 +1,16 @@
+simulateModel("Buildings.Utilities.Math.Examples.ExponentialIntegralE1", tolerance=1e-6, startTime=0.01, stopTime=3.0, method="dassl", resultFile="ExponentialIntegralE1Block");
+createPlot(id = 1,
+ position = {35, 30, 631, 456},
+ x = "time",
+ y = {"E1.y"},
+ range = {0.0, 3.0, 0.0, 3.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "ExponentialIntegralE1Block.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "TWal.T",
+    "TPip1.T",
+    "TPip2.T",
+    "intRes1UTub.capFil1.T",
+    "intRes1UTub.capFil2.T"
+  };

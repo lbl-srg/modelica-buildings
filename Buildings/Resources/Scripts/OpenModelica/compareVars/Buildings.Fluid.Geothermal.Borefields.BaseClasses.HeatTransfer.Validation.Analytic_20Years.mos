@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "timTabT.y[1]",
+    "TBorWal.y",
+    "add.y"
+  };
