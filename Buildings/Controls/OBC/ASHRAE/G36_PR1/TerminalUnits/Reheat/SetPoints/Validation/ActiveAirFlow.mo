@@ -3,10 +3,10 @@ model ActiveAirFlow
   "Validate the model for calculating active airflow setpoint for VAV terminal unit with reheat"
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet_RehBox(
-    VCooMax=0.075,
-    VMin=0.017,
-    VHeaMax=0.05,
-    VMinCon=0.01,
+    VDisCooSetMax_flow=0.075,
+    VDisSetMin_flow=0.017,
+    VDisHeaSetMax_flow=0.05,
+    VDisConMin_flow=0.01,
     AFlo=40,
     have_occSen=true,
     have_winSen=true,
@@ -15,10 +15,10 @@ model ActiveAirFlow
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet_RehBox1(
-    VCooMax=0.075,
-    VMin=0.017,
-    VHeaMax=0.05,
-    VMinCon=0.01,
+    VDisCooSetMax_flow=0.075,
+    VDisSetMin_flow=0.017,
+    VDisHeaSetMax_flow=0.05,
+    VDisConMin_flow=0.01,
     AFlo=40,
     have_occSen=true,
     have_winSen=true,
