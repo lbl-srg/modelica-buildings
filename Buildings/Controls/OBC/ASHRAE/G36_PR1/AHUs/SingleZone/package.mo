@@ -16,5 +16,8 @@ This package contains control sequences from ASHRAE Guideline 36 for single zone
         Rectangle(
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0)}));
+          radius=25.0),      Rectangle(
+            extent={{-66,70},{70,-72}},
+            lineColor={0,0,127},
+            lineThickness=0.5)}));
 end SingleZone;

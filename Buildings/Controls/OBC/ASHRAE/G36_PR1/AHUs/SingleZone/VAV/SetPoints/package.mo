@@ -16,5 +16,9 @@ This package contains sequences generating setpoints for single zone VAV AHU con
         Rectangle(
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0)}));
+          radius=25.0),
+      Text(
+        extent={{-100,100},{100,-100}},
+        lineColor={0,0,0},
+        textString="S")}));
 end SetPoints;
