@@ -29,11 +29,11 @@ This package contains control sequences from ASHRAE Guideline 36 for multi zone 
         color={0,0,0},
         thickness=0.5),
       Line(
-        points={{26,44},{26,78}},
+        points={{20,44},{20,78}},
         color={0,0,0},
         thickness=0.5),
       Line(
-        points={{28,-76},{28,-42}},
+        points={{22,-76},{22,-42}},
         color={0,0,0},
         thickness=0.5),
       Line(
@@ -55,8 +55,5 @@ This package contains control sequences from ASHRAE Guideline 36 for multi zone 
       Line(
         points={{40,24},{74,24}},
         color={0,0,0},
-        thickness=0.5),      Rectangle(
-            extent={{18,-76},{170,-230}},
-            lineColor={0,0,0},
-            lineThickness=0.5)}));
+        thickness=0.5)}));
 end MultiZone;
