@@ -251,6 +251,19 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">IBPSA, #877</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone<br/>
+                         Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone
+        </td>
+        <td valign=\"top\">Renamed packages to
+                           <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV</code>
+                           and <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV</code>,
+                           and renamed various signals and parameters for consistency.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+        </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
