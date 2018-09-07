@@ -124,15 +124,16 @@ protected
   equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
-      p =1 - Modelica.Math.exp(A1*Modelica.Math.log10(H) + A2*LSen + B)/(
-        Modelica.Math.exp(A1*Modelica.Math.log10(H) + A2*LSen + B) + 1);
       if occ then
+        p = 1 - Modelica.Math.exp(A1*Modelica.Math.log10(H) + A2*LSen + B)/(
+          Modelica.Math.exp(A1*Modelica.Math.log10(H) + A2*LSen + B) + 1);
         if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=integer(seed*1E6*time)) then
           blindState = 1;
         else
           blindState = 0;
         end if;
       else
+        p = 0;
         blindState = 1;
       end if;
     end when;
@@ -227,16 +228,20 @@ protected
   equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
-      pup = Modelica.Math.exp(Aup*H+Bup)/(Modelica.Math.exp(Aup*H+Bup)+1);
-      pdown = Modelica.Math.exp(Adown*H+Bdown)/(Modelica.Math.exp(Adown*H+Bdown)+1);
+
+
       if occ then
         if pre(blindState) == 1 then
+          pup = 0;
+          pdown = Modelica.Math.exp(Adown*H+Bdown)/(Modelica.Math.exp(Adown*H+Bdown)+1);
           if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown,globalSeed=integer(seed*1E6*time)) then
             blindState = 0;
           else
             blindState = 1;
           end if;
         else
+          pup = Modelica.Math.exp(Aup*H+Bup)/(Modelica.Math.exp(Aup*H+Bup)+1);
+          pdown = 0;
           if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pup,globalSeed=integer(seed*1E6*time)) then
             blindState = 1;
           else
@@ -244,6 +249,8 @@ protected
           end if;
         end if;
       else
+        pup = 0;
+        pdown = 0;
         blindState = 1;
       end if;
     end when;

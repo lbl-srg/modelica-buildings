@@ -31,10 +31,11 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    p = Modelica.Math.exp(A*(TIn - 273.15)+B)/(Modelica.Math.exp(A*(TIn - 273.15)+B) + 1);
     if occ then
+      p = Modelica.Math.exp(A*(TIn - 273.15)+B)/(Modelica.Math.exp(A*(TIn - 273.15)+B) + 1);
       on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
     else
+      p = 0;
       on = false;
     end if;
   end when;

@@ -43,15 +43,17 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    pOpen = Modelica.Math.exp(AOpenIn*(TIn - 273.15)+AOpenOut*(TOut - 273.15)+BOpen)/(Modelica.Math.exp(AOpenIn*(TIn - 273.15)+AOpenOut*(TOut - 273.15)+BOpen) + 1);
-    pClose = Modelica.Math.exp(ACloseIn*(TIn - 273.15)+ACloseOut*(TOut - 273.15)+BClose)/(Modelica.Math.exp(ACloseIn*(TIn - 273.15)+ACloseOut*(TOut - 273.15)+BClose) + 1);
     if occ then
+      pOpen = Modelica.Math.exp(AOpenIn*(TIn - 273.15)+AOpenOut*(TOut - 273.15)+BOpen)/(Modelica.Math.exp(AOpenIn*(TIn - 273.15)+AOpenOut*(TOut - 273.15)+BOpen) + 1);
+      pClose = Modelica.Math.exp(ACloseIn*(TIn - 273.15)+ACloseOut*(TOut - 273.15)+BClose)/(Modelica.Math.exp(ACloseIn*(TIn - 273.15)+ACloseOut*(TOut - 273.15)+BClose) + 1);
       if pre(on) then
         on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=integer(seed*1E6*time));
       else
         on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=integer(seed*1E6*time));
       end if;
     else
+      pOpen = 0;
+      pClose = 0;
       on = false;
     end if;
   end when;
