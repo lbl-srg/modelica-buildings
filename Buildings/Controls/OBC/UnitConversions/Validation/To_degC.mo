@@ -1,5 +1,4 @@
 model To_degC "Test temperature unit conversion from kelvin to degree Celsius"
-  import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

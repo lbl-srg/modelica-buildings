@@ -1,5 +1,4 @@
 model From_Btu "Test work unit conversion from British thermal units to joule"
-  import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

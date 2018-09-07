@@ -1,5 +1,4 @@
 model From_psi "Test pressure unit conversion from pound-force per square inch to pascal"
-  import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

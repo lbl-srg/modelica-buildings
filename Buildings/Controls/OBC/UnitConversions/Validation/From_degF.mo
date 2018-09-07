@@ -1,5 +1,4 @@
 model From_degF "Test temperature unit conversion from degree Fahrenheit to kelvin"
-  import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

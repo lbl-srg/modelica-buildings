@@ -1,5 +1,4 @@
 model To_cfm "Test volume flow unit conversion from cubic meters per second to cubic feet per minute"
-  import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

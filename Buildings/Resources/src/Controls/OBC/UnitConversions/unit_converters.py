@@ -599,7 +599,6 @@ end """+self.package_name+""";""")
             # write
             file.write(\
             "model "+model_name+" \"Test "+x['quantity']+" unit conversion from "+from_unit+" to "+to_unit+"\"\n"\
-            "  import Buildings.Controls.OBC."+self.package_name+";\n"\
             "  extends Modelica.Icons.Example;\n"\
             "\n"\
             "  Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)\n"\

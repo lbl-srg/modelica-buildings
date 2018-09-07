@@ -1,5 +1,4 @@
 model To_hp "Test power unit conversion from watt to horsepower"
-  import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

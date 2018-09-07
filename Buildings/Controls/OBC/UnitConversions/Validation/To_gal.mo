@@ -1,5 +1,4 @@
 model To_gal "Test volume unit conversion from cubic meter to gallon"
-  import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

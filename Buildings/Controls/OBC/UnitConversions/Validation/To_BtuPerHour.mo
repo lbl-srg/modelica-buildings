@@ -1,5 +1,4 @@
 model To_BtuPerHour "Test power unit conversion from watt to British thermal units per hour"
-  import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

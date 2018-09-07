@@ -1,5 +1,4 @@
 model From_inH2O "Test pressure unit conversion from inch of water gauge (at 60 degF) to pascal"
-  import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
