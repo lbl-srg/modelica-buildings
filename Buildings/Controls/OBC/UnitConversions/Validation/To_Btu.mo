@@ -1,4 +1,4 @@
-model To_Btu "Test work unit conversion from British thermal units to joule"
+model To_Btu "Test work unit conversion from joule to British thermal units"
   import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
@@ -16,10 +16,10 @@ protected
   parameter Real kout1 = 2. "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.To_Btu To_Btu
-  "Unit converter from British thermal units to joule "
+  "Unit converter from joule to British thermal units "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.UnitConversions.To_Btu To_Btu1
-  "Unit converter from British thermal units to joule "
+  "Unit converter from joule to British thermal units "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates work unit conversion from British thermal units to joule.
+This model validates work unit conversion from joule to British thermal units.
 </p>
 </html>",
 revisions="<html>

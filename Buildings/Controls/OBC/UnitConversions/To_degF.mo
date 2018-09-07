@@ -1,16 +1,16 @@
-block To_degF "Block that converts temperature from degree Fahrenheit to kelvin"
+block To_degF "Block that converts temperature from kelvin to degree Fahrenheit"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
-    final unit = "degF",
+    final unit = "K",
     final quantity = "ThermodynamicTemperature")
-    "Temperature in degree Fahrenheit"
+    "Temperature in kelvin"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final unit = "K",
+    final unit = "degF",
     final quantity = "ThermodynamicTemperature")
-    "Temperature in kelvin"
+    "Temperature in degree Fahrenheit"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -44,14 +44,14 @@ equation
         Text(
           extent={{-80,40},{0,0}},
           lineColor={0,0,127},
-          textString="degF"),
+          textString="K"),
         Text(
           extent={{0,-40},{80,0}},
           lineColor={0,0,127},
-          textString="K")}),
+          textString="degF")}),
         Documentation(info="<html>
 <p>
-Converts temperature given in degree Fahrenheit [degF] to kelvin [K].
+Converts temperature given in kelvin [K] to degree Fahrenheit [degF].
 </p>
 </html>", revisions="<html>
 <ul>

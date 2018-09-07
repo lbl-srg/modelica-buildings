@@ -1,4 +1,4 @@
-model To_inH2O "Test pressure unit conversion from inch of water gauge (at 60 degF) to pascal"
+model To_inH2O "Test pressure unit conversion from pascal to inch of water gauge (at 60 degF)"
   import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
@@ -16,10 +16,10 @@ protected
   parameter Real kout1 = 100000./248.84 "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.To_inH2O To_inH2O
-  "Unit converter from inch of water gauge (at 60 degF) to pascal "
+  "Unit converter from pascal to inch of water gauge (at 60 degF) "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.UnitConversions.To_inH2O To_inH2O1
-  "Unit converter from inch of water gauge (at 60 degF) to pascal "
+  "Unit converter from pascal to inch of water gauge (at 60 degF) "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates pressure unit conversion from inch of water gauge (at 60 degF) to pascal.
+This model validates pressure unit conversion from pascal to inch of water gauge (at 60 degF).
 </p>
 </html>",
 revisions="<html>

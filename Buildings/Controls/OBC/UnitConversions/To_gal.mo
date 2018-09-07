@@ -1,15 +1,15 @@
-block To_gal "Block that converts volume from gallon to cubic meter"
+block To_gal "Block that converts volume from cubic meter to gallon"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
+    final unit = "m3",
     final quantity = "Volume")
-    "Volume in gallon"
+    "Volume in cubic meter"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final unit = "m3",
     final quantity = "Volume")
-    "Volume in cubic meter"
+    "Volume in gallon"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -41,14 +41,14 @@ equation
         Text(
           extent={{-80,40},{0,0}},
           lineColor={0,0,127},
-          textString="gal"),
+          textString="m3"),
         Text(
           extent={{0,-40},{80,0}},
           lineColor={0,0,127},
-          textString="m3")}),
+          textString="gal")}),
         Documentation(info="<html>
 <p>
-Converts volume given in gallon [gal] to cubic meter [m3].
+Converts volume given in cubic meter [m3] to gallon [gal].
 </p>
 </html>", revisions="<html>
 <ul>

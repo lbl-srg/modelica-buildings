@@ -1,15 +1,15 @@
-block To_psi "Block that converts pressure from pound-force per square inch to pascal"
+block To_psi "Block that converts pressure from pascal to pound-force per square inch"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
+    final unit = "Pa",
     final quantity = "Pressure")
-    "Pressure in pound-force per square inch"
+    "Pressure in pascal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final unit = "Pa",
     final quantity = "Pressure")
-    "Pressure in pascal"
+    "Pressure in pound-force per square inch"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -41,14 +41,14 @@ equation
         Text(
           extent={{-80,40},{0,0}},
           lineColor={0,0,127},
-          textString="psi"),
+          textString="Pa"),
         Text(
           extent={{0,-40},{80,0}},
           lineColor={0,0,127},
-          textString="Pa")}),
+          textString="psi")}),
         Documentation(info="<html>
 <p>
-Converts pressure given in pound-force per square inch [psi] to pascal [Pa].
+Converts pressure given in pascal [Pa] to pound-force per square inch [psi].
 </p>
 </html>", revisions="<html>
 <ul>

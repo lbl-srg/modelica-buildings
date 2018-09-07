@@ -1,4 +1,4 @@
-model To_gal "Test volume unit conversion from gallon to cubic meter"
+model To_gal "Test volume unit conversion from cubic meter to gallon"
   import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
@@ -16,10 +16,10 @@ protected
   parameter Real kout1 = 100. "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.To_gal To_gal
-  "Unit converter from gallon to cubic meter "
+  "Unit converter from cubic meter to gallon "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.UnitConversions.To_gal To_gal1
-  "Unit converter from gallon to cubic meter "
+  "Unit converter from cubic meter to gallon "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates volume unit conversion from gallon to cubic meter.
+This model validates volume unit conversion from cubic meter to gallon.
 </p>
 </html>",
 revisions="<html>

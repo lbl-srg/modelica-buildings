@@ -1,4 +1,4 @@
-model To_degF "Test temperature unit conversion from degree Fahrenheit to kelvin"
+model To_degF "Test temperature unit conversion from kelvin to degree Fahrenheit"
   import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
@@ -16,10 +16,10 @@ protected
   parameter Real kout1 = 100. * (9./5.) + 32. "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.To_degF To_degF
-  "Unit converter from degree Fahrenheit to kelvin "
+  "Unit converter from kelvin to degree Fahrenheit "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.UnitConversions.To_degF To_degF1
-  "Unit converter from degree Fahrenheit to kelvin "
+  "Unit converter from kelvin to degree Fahrenheit "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates temperature unit conversion from degree Fahrenheit to kelvin.
+This model validates temperature unit conversion from kelvin to degree Fahrenheit.
 </p>
 </html>",
 revisions="<html>

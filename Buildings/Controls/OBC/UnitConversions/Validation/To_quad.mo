@@ -1,4 +1,4 @@
-model To_quad "Test work unit conversion from quads to joule"
+model To_quad "Test work unit conversion from joule to quads"
   import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
@@ -16,10 +16,10 @@ protected
   parameter Real kout1 = 2. "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.To_quad To_quad
-  "Unit converter from quads to joule "
+  "Unit converter from joule to quads "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.UnitConversions.To_quad To_quad1
-  "Unit converter from quads to joule "
+  "Unit converter from joule to quads "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates work unit conversion from quads to joule.
+This model validates work unit conversion from joule to quads.
 </p>
 </html>",
 revisions="<html>

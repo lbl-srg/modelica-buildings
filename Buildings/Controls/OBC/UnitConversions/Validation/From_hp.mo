@@ -1,4 +1,4 @@
-model From_hp "Test power unit conversion from horsepowers to watt"
+model From_hp "Test power unit conversion from horsepower to watt"
   import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
@@ -16,10 +16,10 @@ protected
   parameter Real kout1 = 45.*0.7457 "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.From_hp From_hp
-  "Unit converter from horsepowers to watt "
+  "Unit converter from horsepower to watt "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.UnitConversions.From_hp From_hp1
-  "Unit converter from horsepowers to watt "
+  "Unit converter from horsepower to watt "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates power unit conversion from horsepowers to watt.
+This model validates power unit conversion from horsepower to watt.
 </p>
 </html>",
 revisions="<html>

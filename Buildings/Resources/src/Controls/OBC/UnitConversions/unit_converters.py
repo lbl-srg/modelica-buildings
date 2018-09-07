@@ -329,7 +329,7 @@ class UnitConversionsModeler(object):
 			{
 			'quantity' : 'power',
 			'modelica_quantity' : 'Power',
-			'unit' : 'horsepowers',
+			'unit' : 'horsepower',
 			'unit_symbol' : 'hp',
 			'direction' : 'From',
 			'adder' : '0.',
@@ -339,7 +339,7 @@ class UnitConversionsModeler(object):
 			{
 			'quantity' : 'power',
 			'modelica_quantity' : 'Power',
-			'unit' : 'horsepowers',
+			'unit' : 'horsepower',
 			'unit_symbol' : 'hp',
 			'direction' : 'To',
 			'adder' : '0.',
@@ -395,11 +395,11 @@ class UnitConversionsModeler(object):
 			from_unit = x['unit']
 			model_name = x['direction'] + '_' + from_unit_symbol
 		elif x['direction'] == 'To':
-			from_unit_symbol = x['unit_symbol']
-			from_unit = x['unit']
-			to_unit_symbol = self.si[x['quantity']]['unit_symbol']
-			to_unit = self.si[x['quantity']]['unit']
-			model_name = x['direction'] + '_' + from_unit_symbol
+			to_unit_symbol = x['unit_symbol']
+			to_unit = x['unit']
+			from_unit_symbol = self.si[x['quantity']]['unit_symbol']
+			from_unit = self.si[x['quantity']]['unit']
+			model_name = x['direction'] + '_' + to_unit_symbol
 		else:
 			msg = 'A valid conversion direction did not get provided.'
 			log.info(msg)

@@ -1,8 +1,8 @@
-block From_hp "Block that converts power from horsepowers to watt"
+block From_hp "Block that converts power from horsepower to watt"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
     final quantity = "Power")
-    "Power in horsepowers"
+    "Power in horsepower"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -48,7 +48,7 @@ equation
           textString="W")}),
         Documentation(info="<html>
 <p>
-Converts power given in horsepowers [hp] to watt [W].
+Converts power given in horsepower [hp] to watt [W].
 </p>
 </html>", revisions="<html>
 <ul>
