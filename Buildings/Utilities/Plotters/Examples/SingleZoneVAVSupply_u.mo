@@ -34,11 +34,11 @@ the cooling loop signal (from 0 to +1).")
     "Scatter plot for fan speed"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply setPoiVAV(
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply setPoiVAV(
     yHeaMax=0.7,
     yMin=0.3,
-    TMax=303.15,
-    TMin=289.15)
+    TSupSetMax=303.15,
+    TSupSetMin=289.15)
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
@@ -75,8 +75,6 @@ equation
           -2},{-2,-2}}, color={0,0,127}));
   connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-59,20},{-50,20},{-50,
           -6},{-2,-6}}, color={0,0,127}));
-  connect(TSetZon.y, setPoiVAV.TSetZon) annotation (Line(points={{-59,-10},{-2,-10}},
-                             color={0,0,127}));
 
   connect(uHea.y, heaCooConSig.u1) annotation (Line(points={{-59,56},{-34,56}},
                           color={0,0,127}));
@@ -84,11 +82,6 @@ equation
           44},{-34,44}},  color={0,0,127}));
   connect(scaTem.x, heaCooConSig.y) annotation (Line(points={{98,-8},{90,-8},{90,
           50},{-11,50}},      color={0,0,127}));
-  connect(setPoiVAV.THeaEco, THea_degC.u)
-    annotation (Line(points={{21,-4},{30,-4},{30,20},{38,20}},
-                                                             color={0,0,127}));
-  connect(setPoiVAV.TCoo, TCoo_degC.u)
-    annotation (Line(points={{21,-10},{38,-10}}, color={0,0,127}));
   connect(THea_degC.y, scaTem.y[1]) annotation (Line(points={{61,20},{70,20},{70,
           1},{98,1}},   color={0,0,127}));
   connect(TCoo_degC.y, scaTem.y[2]) annotation (Line(points={{61,-10},{70,-10},{
@@ -100,6 +93,12 @@ equation
           90,-58},{98,-58}},    color={0,0,127}));
   connect(setPoiVAV.TZon, TZon.y) annotation (Line(points={{-2,-14},{-50,-14},{-50,
           -40},{-59,-40}}, color={0,0,127}));
+  connect(setPoiVAV.TSupHeaEco, THea_degC.u) annotation (Line(points={{21,-4},{30,
+          -4},{30,20},{38,20}}, color={0,0,127}));
+  connect(setPoiVAV.TSupCoo, TCoo_degC.u)
+    annotation (Line(points={{21,-10},{38,-10}}, color={0,0,127}));
+  connect(TSetZon.y, setPoiVAV.TZonSet)
+    annotation (Line(points={{-59,-10},{-2,-10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{140,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(Tolerance=1e-6, StopTime=1.0),
@@ -113,8 +112,8 @@ for a single zone VAV control logic
 the heating and cooling set point temperatures, and the fan speed,
 all as a function of the heating and cooling control signal.
 The sequence that will be used to plot the sequence diagram is
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply</a>
 and shown below.
 The plot will be generated in the file <code>plots.html</code>.
 </p>

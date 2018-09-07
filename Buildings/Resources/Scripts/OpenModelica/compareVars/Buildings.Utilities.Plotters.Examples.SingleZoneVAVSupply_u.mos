@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "setPoiVAV.THeaEco",
-    "setPoiVAV.TCoo",
+    "setPoiVAV.TSupHeaEco",
+    "setPoiVAV.TSupCoo",
     "setPoiVAV.y"
   };
