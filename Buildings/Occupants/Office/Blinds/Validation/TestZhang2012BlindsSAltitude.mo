@@ -4,7 +4,7 @@ model TestZhang2012BlindsSAltitude
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)
-                                          "True for occupied"
+    "True for occupied"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Sine SA(
     amplitude=30,
@@ -30,10 +30,10 @@ This example validates
 <a href=\"modelica://Buildings.Occupants.Office.Blinds.Zhang2012BlindsSAltitude\">
 Buildings.Occupants.Office.Blinds.Zhang2012BlindsSAltitude</a>
 by examing how the blinds state corresponds
-to the Solar Altitude.
+to the solar altitude.
 </p>
 <p>
-An Solar Altitude variation was simulated by a sine function. The output is how the blind state
+A solar altitude variation was simulated by a sine function. The output is how the blind state
 changes with the Altitude variation.
 </p>
 </html>",

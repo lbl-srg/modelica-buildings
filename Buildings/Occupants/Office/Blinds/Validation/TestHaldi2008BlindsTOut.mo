@@ -4,7 +4,7 @@ model TestHaldi2008BlindsTOut
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)
-                                          "True for occupied"
+    "True for occupied"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Sine TOut(
     amplitude=15,

@@ -106,7 +106,7 @@ Blind")}));
       "Indoor occupancy, true for occupied"
       annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
     Modelica.Blocks.Interfaces.RealOutput blindState
-      "The State of Blinds, 1 being blinds deployed"
+      "State of blinds, 1 being blinds deployed"
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
     Real p(
@@ -205,7 +205,7 @@ Blind")}));
       "Indoor occupancy, true for occupied"
       annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
     Modelica.Blocks.Interfaces.RealOutput blindState
-      "The State of Blinds, 1 being blinds deployed"
+      "State of blinds, 1 being blinds deployed"
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
     Real pup(

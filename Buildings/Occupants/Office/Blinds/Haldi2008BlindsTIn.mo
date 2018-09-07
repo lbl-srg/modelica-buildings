@@ -15,7 +15,7 @@ model Haldi2008BlindsTIn
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealOutput blindState
-    "The State of Blinds, 1 being blinds deployed"
+    "State of blinds, 1 being blinds deployed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Real pdown(
@@ -64,23 +64,23 @@ Model predicting the state of the blinds with the indoor temperature.
 TIn: indoor air temperature, should be input with the unit of K.
 </p>
 <p>
-occupancy: a boolean variable, true indicates the space is occupied, 
+occupancy: a boolean variable, true indicates the space is occupied,
 false indicates the space is unoccupied.
 </p>
 <h4>Outputs</h4>
-<p>The state of blinds: a real variable, 1 indicates the blind 
+<p>The state of blinds: a real variable, 1 indicates the blind
 is 100% on, 0 indicates the blind is 100% off.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the blinds is always on. When the 
-space is occupied, the lower the TIn is, the higher 
+When the space is unoccupied, the blinds is always on. When the
+space is occupied, the lower the TIn is, the higher
 the chance that the blind is on.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Haldi, F. and Robinson, D., 2008. 
-On the behaviour and adaptation of office occupants. Building and environment, 
+The model is documented in the paper &quot;Haldi, F. and Robinson, D., 2008.
+On the behaviour and adaptation of office occupants. Building and environment,
 43(12), pp.2163-2177.&quot;.
 </p>
 <p>
