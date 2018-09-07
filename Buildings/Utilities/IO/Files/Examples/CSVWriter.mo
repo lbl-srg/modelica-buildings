@@ -1,6 +1,5 @@
 within Buildings.Utilities.IO.Files.Examples;
 model CSVWriter "Example of csv writer use"
-  import Buildings;
   extends Buildings.Utilities.IO.Files.Examples.BaseClasses.PartialCSV;
   CombiTimeTableWriter combiTimeTableWriter(
     nin=2,
@@ -27,7 +26,8 @@ equation
   annotation (experiment(
       StartTime=-1.21,
       StopTime=10,
-      Tolerance=1e-06),                Documentation(revisions="<html>
+      Tolerance=1e-06),
+  Documentation(revisions="<html>
 <ul>
 <li>
 May 10, 2018 by Filip Jorissen:<br/>

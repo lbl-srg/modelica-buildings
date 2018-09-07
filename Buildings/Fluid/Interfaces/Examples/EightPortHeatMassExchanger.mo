@@ -1,7 +1,6 @@
 within Buildings.Fluid.Interfaces.Examples;
 model EightPortHeatMassExchanger
   "EightPortHeatMassExchanger example model"
-  import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1

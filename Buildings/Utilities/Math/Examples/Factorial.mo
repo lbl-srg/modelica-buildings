@@ -1,6 +1,5 @@
 within Buildings.Utilities.Math.Examples;
 model Factorial "Test model for factorial function "
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x(
     startTime=0.5,
