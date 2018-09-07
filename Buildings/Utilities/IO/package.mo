@@ -1,6 +1,6 @@
 within Buildings.Utilities;
-package IO "Input and output"
-  extends Modelica.Icons.Package;
+package IO "Package with I/O functions"
+  extends Modelica.Icons.VariantsPackage;
 
   annotation (Icon(graphics={Text(
           extent={{-92,72},{84,-66}},
