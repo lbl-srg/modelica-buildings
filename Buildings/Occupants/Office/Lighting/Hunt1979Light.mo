@@ -46,7 +46,7 @@ equation
        on = false;
      end if;
    else
-     on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pArriv, globalSeed=seed);
+     on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(pArriv, globalSeed=integer(seed*1E6*time));
    end if;
  end when;
  annotation (graphics={

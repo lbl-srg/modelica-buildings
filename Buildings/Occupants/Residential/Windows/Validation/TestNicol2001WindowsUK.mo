@@ -21,13 +21,13 @@ equation
           {-59,-20}}, color={0,0,127}));
 annotation (
 experiment(Tolerance=1e-6, StopTime=3600.0),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Windows/Validation/TestNicol2001WindowsUK.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Residential/Windows/Validation/TestNicol2001WindowsUK.mos"
                       "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Occupants.Office.Windows.TestNicol2001WindowsUK\">
-Buildings.Occupants.Office.Windows.TestNicol2001WindowsUK</a>
+<a href=\"modelica://Buildings.Occupants.Office.Windows.Nicol2001WindowsUK\">
+Buildings.Occupants.Office.Windows.Nicol2001WindowsUK</a>
 by examing how the window state corresponds
 to the outdoor temperature.
 </p>

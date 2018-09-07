@@ -22,13 +22,13 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model tests the implementation of
-<a href=\"modelica://Buildings.Utilities.Math.Average\">
-Buildings.Utilities.Math.Average</a>.
+<a href=\"modelica://Buildings.Occupants.Baseclasses.binaryVariableGeneration\">
+Buildings.Occupants.Baseclasses.binaryVariableGeneration</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-November 28, 2013 by Marcus Fuchs:<br/>
+September 5, 2018 by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>

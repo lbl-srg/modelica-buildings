@@ -1,0 +1,32 @@
+within Buildings.Occupants.BaseClasses.Validation;
+model TestExponentialVariableGeneration "Test model for exponential variable generation function"
+  extends Modelica.Icons.Example;
+
+  parameter Integer seed = 5 "Seed for the random number generator";
+  Real mu "Time-varying real number as input";
+  output Real y "Output";
+initial equation
+  y = 0;
+equation
+  mu = 10*time;
+  when sample(0, 0.1) then
+    y = Buildings.Occupants.BaseClasses.exponentialVariableGeneration(mu, globalSeed=integer(seed*1E6*time));
+  end when;
+
+  annotation ( experiment(Tolerance=1e-6, StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/BaseClasses/Validation/TestExponentialVariableGeneration.mos"
+        "Simulate and plot"), Documentation(info="<html>
+<p>
+This model tests the implementation of
+<a href=\"modelica://Buildings.Occupants.BaseClasses.exponentialVariableGeneration\">
+Buildings.Occupants.BaseClasses.exponentialVariableGeneration</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 5, 2018 by Zhe Wang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end TestExponentialVariableGeneration;

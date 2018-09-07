@@ -5,11 +5,12 @@ function logit1DQuadratic "Mapping a continuous input to a binary output through
   input Real B=1.0 "Parameter defining the quadratic logistic relation";
   input Real C=1.0 "Parameter defining the quadratic logistic relation";
   input Real D=1.0 "Parameter defining the quadratic logistic relation";
+  input Integer globalSeed "Seed for the random number generator";
   output Boolean y "Binary variable";
 protected
   Real p =  A + C/(1+ Modelica.Math.exp(-B*(Modelica.Math.log10(x)-D)));
 algorithm
-  y := Occupancy.Utilities.BinaryVariableGeneration(p);
+  y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed);
 annotation (Documentation(info="<html>
 <p>
 This function generates a random binary variable with the input of a continuous 

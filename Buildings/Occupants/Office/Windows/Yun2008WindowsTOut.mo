@@ -40,9 +40,9 @@ equation
     pClose = Modelica.Math.exp(AClose*(TOut - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TOut - 273.15)+BClose) + 1);
     if occ then
       if pre(on) then
-        on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=seed);
+        on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=integer(seed*1E6*time));
       elseif pre(on) == false and TOut > 288.15 then
-        on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=seed);
+        on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=integer(seed*1E6*time));
       else
         on = pre(on);
       end if;

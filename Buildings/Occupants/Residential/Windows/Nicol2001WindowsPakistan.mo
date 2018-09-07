@@ -3,7 +3,7 @@ model Nicol2001WindowsPakistan "A model to predict occupants' window behavior wi
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A = 0.118 "Slope of the logistic relation";
   parameter Real B = -3.73 "Intercept of the logistic relation";
-  parameter Integer seed = 30 "Seed for the random number generator";
+  parameter Integer seed = 5 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
@@ -27,13 +27,13 @@ protected
 initial equation
   t0 = time;
   p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
+  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=integer(seed*1E6*time));
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
     p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
     if occ then
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=integer(seed*1E6*time));
     else
       on = false;
     end if;

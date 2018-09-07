@@ -40,7 +40,7 @@ equation
     if sampleTrigger then
       if occ then
         if not pre(on) then
-          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pInter, globalSeed=seed);
+          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pInter, globalSeed=integer(seed*1E6*time));
         else
           on = true;
         end if;
@@ -48,7 +48,7 @@ equation
         on = false;
       end if;
     else
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pArriv, globalSeed=seed);
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pArriv, globalSeed=integer(seed*1E6*time));
     end if;
   end when;
 
