@@ -1,16 +1,16 @@
-block To_degC "Block that converts temperature from degree Celsius to kelvin"
+block To_degC "Block that converts temperature from kelvin to degree Celsius"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
-    final unit = "degC",
+    final unit = "K",
     final quantity = "ThermodynamicTemperature")
-    "Temperature in degree Celsius"
+    "Temperature in kelvin"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final unit = "K",
+    final unit = "degC",
     final quantity = "ThermodynamicTemperature")
-    "Temperature in kelvin"
+    "Temperature in degree Celsius"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -44,14 +44,14 @@ equation
         Text(
           extent={{-80,40},{0,0}},
           lineColor={0,0,127},
-          textString="degC"),
+          textString="K"),
         Text(
           extent={{0,-40},{80,0}},
           lineColor={0,0,127},
-          textString="K")}),
+          textString="degC")}),
         Documentation(info="<html>
 <p>
-Converts temperature given in degree Celsius [degC] to kelvin [K].
+Converts temperature given in kelvin [K] to degree Celsius [degC].
 </p>
 </html>", revisions="<html>
 <ul>

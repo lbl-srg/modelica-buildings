@@ -1,4 +1,4 @@
-model To_cfm "Test volume flow unit conversion from cubic feet per minute to cubic meters per second"
+model To_cfm "Test volume flow unit conversion from cubic meters per second to cubic feet per minute"
   import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
@@ -16,10 +16,10 @@ protected
   parameter Real kout1 = 2000. "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.To_cfm To_cfm
-  "Unit converter from cubic feet per minute to cubic meters per second "
+  "Unit converter from cubic meters per second to cubic feet per minute "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.UnitConversions.To_cfm To_cfm1
-  "Unit converter from cubic feet per minute to cubic meters per second "
+  "Unit converter from cubic meters per second to cubic feet per minute "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates volume flow unit conversion from cubic feet per minute to cubic meters per second.
+This model validates volume flow unit conversion from cubic meters per second to cubic feet per minute.
 </p>
 </html>",
 revisions="<html>

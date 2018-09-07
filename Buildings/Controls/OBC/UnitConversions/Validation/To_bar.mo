@@ -1,4 +1,4 @@
-model To_bar "Test pressure unit conversion from bar to pascal"
+model To_bar "Test pressure unit conversion from pascal to bar"
   import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
@@ -16,10 +16,10 @@ protected
   parameter Real kout1 = .00025 "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.To_bar To_bar
-  "Unit converter from bar to pascal "
+  "Unit converter from pascal to bar "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.UnitConversions.To_bar To_bar1
-  "Unit converter from bar to pascal "
+  "Unit converter from pascal to bar "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates pressure unit conversion from bar to pascal.
+This model validates pressure unit conversion from pascal to bar.
 </p>
 </html>",
 revisions="<html>

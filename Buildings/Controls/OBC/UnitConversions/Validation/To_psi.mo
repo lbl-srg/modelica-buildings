@@ -1,4 +1,4 @@
-model To_psi "Test pressure unit conversion from pound-force per square inch to pascal"
+model To_psi "Test pressure unit conversion from pascal to pound-force per square inch"
   import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
@@ -16,10 +16,10 @@ protected
   parameter Real kout1 = 1. "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.To_psi To_psi
-  "Unit converter from pound-force per square inch to pascal "
+  "Unit converter from pascal to pound-force per square inch "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.UnitConversions.To_psi To_psi1
-  "Unit converter from pound-force per square inch to pascal "
+  "Unit converter from pascal to pound-force per square inch "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates pressure unit conversion from pound-force per square inch to pascal.
+This model validates pressure unit conversion from pascal to pound-force per square inch.
 </p>
 </html>",
 revisions="<html>

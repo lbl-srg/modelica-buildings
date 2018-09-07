@@ -1,15 +1,15 @@
-block To_BtuPerh "Block that converts power from British thermal units per hour to watt"
+block To_BtuPerh "Block that converts power from watt to British thermal units per hour"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
+    final unit = "W",
     final quantity = "Power")
-    "Power in British thermal units per hour"
+    "Power in watt"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final unit = "W",
     final quantity = "Power")
-    "Power in watt"
+    "Power in British thermal units per hour"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -41,14 +41,14 @@ equation
         Text(
           extent={{-80,40},{0,0}},
           lineColor={0,0,127},
-          textString="Btu/h"),
+          textString="W"),
         Text(
           extent={{0,-40},{80,0}},
           lineColor={0,0,127},
-          textString="W")}),
+          textString="Btu/h")}),
         Documentation(info="<html>
 <p>
-Converts power given in British thermal units per hour [Btu/h] to watt [W].
+Converts power given in watt [W] to British thermal units per hour [Btu/h].
 </p>
 </html>", revisions="<html>
 <ul>

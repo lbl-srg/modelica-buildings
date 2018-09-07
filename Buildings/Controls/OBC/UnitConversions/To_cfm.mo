@@ -1,15 +1,15 @@
-block To_cfm "Block that converts volume flow from cubic feet per minute to cubic meters per second"
+block To_cfm "Block that converts volume flow from cubic meters per second to cubic feet per minute"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
+    final unit = "m3/s",
     final quantity = "VolumeFlowRate")
-    "Volume flow in cubic feet per minute"
+    "Volume flow in cubic meters per second"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final unit = "m3/s",
     final quantity = "VolumeFlowRate")
-    "Volume flow in cubic meters per second"
+    "Volume flow in cubic feet per minute"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -41,14 +41,14 @@ equation
         Text(
           extent={{-80,40},{0,0}},
           lineColor={0,0,127},
-          textString="cfm"),
+          textString="m3/s"),
         Text(
           extent={{0,-40},{80,0}},
           lineColor={0,0,127},
-          textString="m3/s")}),
+          textString="cfm")}),
         Documentation(info="<html>
 <p>
-Converts volume flow given in cubic feet per minute [cfm] to cubic meters per second [m3/s].
+Converts volume flow given in cubic meters per second [m3/s] to cubic feet per minute [cfm].
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,4 +1,4 @@
-model To_BtuPerh "Test power unit conversion from British thermal units per hour to watt"
+model To_BtuPerh "Test power unit conversion from watt to British thermal units per hour"
   import Buildings.Controls.OBC.UnitConversions;
   extends Modelica.Icons.Example;
 
@@ -16,10 +16,10 @@ protected
   parameter Real kout1 = 1000./0.2930711 "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.To_BtuPerh To_BtuPerh
-  "Unit converter from British thermal units per hour to watt "
+  "Unit converter from watt to British thermal units per hour "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.UnitConversions.To_BtuPerh To_BtuPerh1
-  "Unit converter from British thermal units per hour to watt "
+  "Unit converter from watt to British thermal units per hour "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
@@ -69,7 +69,7 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates power unit conversion from British thermal units per hour to watt.
+This model validates power unit conversion from watt to British thermal units per hour.
 </p>
 </html>",
 revisions="<html>
