@@ -1,4 +1,4 @@
-model From_bar "Test pressure unit conversion from bar to pascal"
+model From_bar "Validation model for unit conversion from bar to pascal"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

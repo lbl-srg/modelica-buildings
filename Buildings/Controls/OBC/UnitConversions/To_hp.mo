@@ -39,13 +39,19 @@ equation
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
-          extent={{-80,40},{0,0}},
+          extent={{-80,50},{0,10}},
           lineColor={0,0,127},
           textString="W"),
         Text(
-          extent={{0,-40},{80,0}},
+          extent={{10,-70},{90,-30}},
           lineColor={0,0,127},
-          textString="hp")}),
+          textString="hp"),
+        Polygon(
+        points={{90,0},{30,20},{30,-20},{90,0}},
+        lineColor={191,0,0},
+        fillColor={191,0,0},
+        fillPattern=FillPattern.Solid),
+        Line(points={{-90,0},{30,0}}, color={191,0,0})}),
         Documentation(info="<html>
 <p>
 Converts power given in watt [W] to horsepower [hp].

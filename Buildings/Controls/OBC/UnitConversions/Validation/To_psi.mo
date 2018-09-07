@@ -1,4 +1,4 @@
-model To_psi "Test pressure unit conversion from pascal to pound-force per square inch"
+model To_psi "Validation model for unit conversion from pascal to pound-force per square inch"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

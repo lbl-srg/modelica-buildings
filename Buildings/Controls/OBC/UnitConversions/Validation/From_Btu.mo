@@ -1,4 +1,4 @@
-model From_Btu "Test work unit conversion from British thermal units to joule"
+model From_Btu "Validation model for unit conversion from British thermal units to joule"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

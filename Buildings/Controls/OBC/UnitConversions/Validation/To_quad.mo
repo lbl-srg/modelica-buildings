@@ -1,4 +1,4 @@
-model To_quad "Test work unit conversion from joule to quads"
+model To_quad "Validation model for unit conversion from joule to quads"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

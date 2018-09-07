@@ -1,4 +1,4 @@
-model From_hp "Test power unit conversion from horsepower to watt"
+model From_hp "Validation model for unit conversion from horsepower to watt"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

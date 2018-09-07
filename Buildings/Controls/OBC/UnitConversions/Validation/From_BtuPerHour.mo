@@ -1,4 +1,4 @@
-model From_BtuPerHour "Test power unit conversion from British thermal units per hour to watt"
+model From_BtuPerHour "Validation model for unit conversion from British thermal units per hour to watt"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

@@ -1,4 +1,4 @@
-model To_degF "Test temperature unit conversion from kelvin to degree Fahrenheit"
+model To_degF "Validation model for unit conversion from kelvin to degree Fahrenheit"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

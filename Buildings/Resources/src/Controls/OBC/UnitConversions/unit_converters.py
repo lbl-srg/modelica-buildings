@@ -496,13 +496,19 @@ class UnitConversionsModeler(object):
             "          extent={{-150,110},{150,150}},\n"\
             "          textString=\"%name\"),\n"\
             "        Text(\n"\
-            "          extent={{-80,40},{0,0}},\n"\
+            "          extent={{-80,50},{0,10}},\n"\
             "          lineColor={0,0,127},\n"\
             "          textString=\"" + from_unit_symbol + "\"),\n"\
             "        Text(\n"\
-            "          extent={{0,-40},{80,0}},\n"\
+            "          extent={{10,-70},{90,-30}},\n"\
             "          lineColor={0,0,127},\n"\
-            "          textString=\"" + to_unit_symbol + "\")}),\n"\
+            "          textString=\"" + to_unit_symbol + "\"),\n"\
+            "        Polygon(\n"\
+            "        points={{90,0},{30,20},{30,-20},{90,0}},\n"\
+            "        lineColor={191,0,0},\n"\
+            "        fillColor={191,0,0},\n"\
+            "        fillPattern=FillPattern.Solid),\n"\
+            "        Line(points={{-90,0},{30,0}}, color={191,0,0})}),\n"\
             "        Documentation(info=\"<html>\n"\
             "<p>\n"\
             "Converts "+x['quantity']+" given in " + from_unit + " [" + from_unit_symbol + "] to " + to_unit + " [" + to_unit_symbol + "].\n"\
@@ -598,7 +604,7 @@ end """+self.package_name+""";""")
             file = open(os.path.join(self.val_pack_path, model_filename), 'w')
             # write
             file.write(\
-            "model "+model_name+" \"Test "+x['quantity']+" unit conversion from "+from_unit+" to "+to_unit+"\"\n"\
+            "model "+model_name+" \"Validation model for unit conversion from "+from_unit+" to "+to_unit+"\"\n"\
             "  extends Modelica.Icons.Example;\n"\
             "\n"\
             "  Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)\n"\

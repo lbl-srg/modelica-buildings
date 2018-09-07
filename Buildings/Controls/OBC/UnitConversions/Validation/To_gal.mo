@@ -1,4 +1,4 @@
-model To_gal "Test volume unit conversion from cubic meter to gallon"
+model To_gal "Validation model for unit conversion from cubic meter to gallon"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

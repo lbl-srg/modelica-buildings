@@ -1,4 +1,4 @@
-model From_degC "Test temperature unit conversion from degree Celsius to kelvin"
+model From_degC "Validation model for unit conversion from degree Celsius to kelvin"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

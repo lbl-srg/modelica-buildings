@@ -1,4 +1,4 @@
-model To_inH2O "Test pressure unit conversion from pascal to inch of water gauge (at 60 degF)"
+model To_inH2O "Validation model for unit conversion from pascal to inch of water gauge (at 60 degF)"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)

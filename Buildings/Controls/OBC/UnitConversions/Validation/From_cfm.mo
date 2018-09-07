@@ -1,4 +1,4 @@
-model From_cfm "Test volume flow unit conversion from cubic feet per minute to cubic meters per second"
+model From_cfm "Validation model for unit conversion from cubic feet per minute to cubic meters per second"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
