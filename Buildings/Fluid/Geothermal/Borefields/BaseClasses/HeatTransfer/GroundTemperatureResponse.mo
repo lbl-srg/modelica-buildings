@@ -68,8 +68,8 @@ protected
     "Previous time step's temperature difference current borehole wall temperature minus initial borehole temperature";
   discrete Real derDelTBor0(unit="K/s")
     "Derivative of wall temperature change from previous time steps";
-  final parameter Real dhdt(fixed=false)
-    "Time derivative of g/(2*pi*H*ks) within most recent cell";
+  final parameter Real dTStepdt(fixed=false)
+    "Time derivative of g/(2*pi*H*Nb*ks) within most recent cell";
 
   Modelica.SIunits.Heat U "Accumulated heat flow from all boreholes";
   discrete Modelica.SIunits.Heat U_old "Accumulated heat flow from all boreholes at last aggregation step";
@@ -99,7 +99,7 @@ initial equation
     TStep=timSer,
     nu=nu);
 
-  dhdt = kappa[1]/tLoaAgg;
+  dTStepdt = kappa[1]/tLoaAgg;
 
   timSer =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temperatureResponseMatrix(
@@ -119,7 +119,7 @@ initial equation
       forceGFunCalc=forceGFunCalc);
 
 equation
-  der(delTBor) = dhdt*QBor_flow + derDelTBor0;
+  der(delTBor) = dTStepdt*QBor_flow + derDelTBor0;
   der(U) = QBor_flow;
 
   when sample(t_start, tLoaAgg) then
@@ -261,8 +261,7 @@ This is done according to
 <p>
 where <i>T<sub>b</sub></i> is the borehole wall temperature,
 <i>T<sub>g</sub></i>
-is the undisturbed ground temperature equal to the soil temperature
-<code>TSoi</code>, which is an input of this model,
+is the undisturbed ground temperature,
 <i>Q</i> is the ground thermal load per borehole length and <i>h = g/(2 &pi; k<sub>s</sub>)</i>
 is a temperature response factor based on the g-function. <i>t<sub>k</sub></i>
 is the last discrete aggregation time step, meaning that the current time <i>t</i>
@@ -290,11 +289,11 @@ The second term <i>&Delta;T<sub>b,q</sub>(t)</i> concerns the ongoing aggregatio
 To obtain the time derivative of this term, the thermal response factor <i>h</i> is assumed
 to vary linearly over the course of an aggregation time step. Therefore, because
 the ongoing aggregation time step always concerns the first aggregation cell, its derivative (denoted
-by the parameter <code>dhdt</code> in this model) can be calculated as
+by the parameter <code>dTStepdt</code> in this model) can be calculated as
 <code>kappa[1]</code>, the first value in the <code>kappa</code> vector,
 divided by the aggregation time step <i>&Delta;t</i>.
 The derivative of the temperature change at the borehole wall is then expressed
-as the multiplication of <code>dhdt</code> (which only needs to be
+as the multiplication of <code>dTStepdt</code> (which only needs to be
 calculated once at the start of the simulation) and the heat flow <i>Q</i> at
 the borehole wall.
 </p>

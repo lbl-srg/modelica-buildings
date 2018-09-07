@@ -1,6 +1,5 @@
 within Buildings.Utilities.Math.Examples;
 model Binomial "Test model for binomial function "
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp k(
     startTime=0.5,

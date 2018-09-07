@@ -145,7 +145,7 @@ The conductivity, capacitance and density of the grout and pipe material are con
 There is no heat extraction or injection prior to the simulation start.
 </li>
 <li>
-The undisturbed ground temperature <code>TSoi</code> is the same all along the length of the boreholes.
+The undisturbed ground temperature is the same all along the length of the boreholes.
 </li>
 <li>
 All of the boreholes in the borefield have uniform dimensions (including the pipe dimensions).
@@ -173,7 +173,7 @@ The figure below shows an example for a borehole section within a single U-tube 
 The second main part of the borefield models is the ground heat transfer, which shares a thermal boundary
 condition at the uniform borehole wall with all of the borehole segments. The heat transfer in the ground
 is modeled analytically as a convolution integral between the heat flux at the borehole wall
-and the borefield's thermal response factor <code>h</code>.
+and the borefield's thermal response factor.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/Borefields/LoadAggregation_12.png\" />

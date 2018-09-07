@@ -1,6 +1,5 @@
 within Buildings.Utilities.Math.Examples;
 model FallingFactorial "Test model for falling factorial function "
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp k(
     startTime=0.5,
