@@ -1,4 +1,4 @@
-block To_BtuPerh "Block that converts power from watt to British thermal units per hour"
+block To_BtuPerHour "Block that converts power from watt to British thermal units per hour"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
     final unit = "W",
@@ -59,4 +59,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end To_BtuPerh;
+end To_BtuPerHour;
