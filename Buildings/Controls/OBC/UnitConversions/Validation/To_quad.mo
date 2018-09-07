@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions.Validation;
 model To_quad "Validation model for unit conversion from joule to quads"
   extends Modelica.Icons.Example;
 

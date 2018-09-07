@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions.Validation;
 model To_Btu "Validation model for unit conversion from joule to British thermal units"
   extends Modelica.Icons.Example;
 

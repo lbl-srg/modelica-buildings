@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block To_psi "Block that converts pressure from pascal to pound-force per square inch"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

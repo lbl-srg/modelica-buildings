@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions.Validation;
 model From_hp "Validation model for unit conversion from horsepower to watt"
   extends Modelica.Icons.Example;
 

@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block From_degF "Block that converts temperature from degree Fahrenheit to kelvin"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

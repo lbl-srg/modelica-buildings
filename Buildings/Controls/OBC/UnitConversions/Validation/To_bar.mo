@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions.Validation;
 model To_bar "Validation model for unit conversion from pascal to bar"
   extends Modelica.Icons.Example;
 

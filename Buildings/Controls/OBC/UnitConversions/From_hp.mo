@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block From_hp "Block that converts power from horsepower to watt"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

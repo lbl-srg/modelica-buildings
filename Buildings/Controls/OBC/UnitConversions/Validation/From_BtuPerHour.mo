@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions.Validation;
 model From_BtuPerHour "Validation model for unit conversion from British thermal units per hour to watt"
   extends Modelica.Icons.Example;
 

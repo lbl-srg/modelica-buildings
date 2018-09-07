@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block From_bar "Block that converts pressure from bar to pascal"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

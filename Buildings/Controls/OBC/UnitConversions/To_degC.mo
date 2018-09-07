@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block To_degC "Block that converts temperature from kelvin to degree Celsius"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

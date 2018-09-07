@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block From_cfm "Block that converts volume flow from cubic feet per minute to cubic meters per second"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

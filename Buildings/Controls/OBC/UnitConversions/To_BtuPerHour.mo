@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block To_BtuPerHour "Block that converts power from watt to British thermal units per hour"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

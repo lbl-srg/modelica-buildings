@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block From_inH2O "Block that converts pressure from inch of water gauge (at 60 degF) to pascal"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

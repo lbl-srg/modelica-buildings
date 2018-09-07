@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block To_quad "Block that converts work from joule to quads"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

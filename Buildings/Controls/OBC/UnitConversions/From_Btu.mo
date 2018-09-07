@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block From_Btu "Block that converts work from British thermal units to joule"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

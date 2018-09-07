@@ -435,6 +435,7 @@ class UnitConversionsModeler(object):
                 self.package_path, model_filename), 'w')
             # write
             file.write(\
+            "within Buildings.Controls.OBC.UnitConversions;\n"\
             "block " + model_name + " \"Block that converts "+x['quantity']+" from "+from_unit+" to "+to_unit+"\"\n" \
             "\n"\
             "  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(\n")
@@ -568,8 +569,20 @@ First implementation.
   Rectangle(
     lineColor={128,128,128},
     extent={{-100.0,-100.0},{100.0,100.0}},
-    radius=25.0)}));
-end """+self.package_name+""";""")
+    radius=25.0),
+        Polygon(
+        points={{92,-42},{32,-22},{32,-62},{92,-42}},
+        lineColor={191,0,0},
+        fillColor={191,0,0},
+        fillPattern=FillPattern.Solid),
+        Line(points={{-88,-42},{32,-42}},
+            color={191,0,0}),
+        Text(
+          extent={{-72,78},{72,6}},
+          lineColor={0,0,0},
+        textString="SI")}));
+end """+self.package_name+""";
+""")
 
         else:
             msg = 'Make sure to update the package.order.'
@@ -606,6 +619,7 @@ end """+self.package_name+""";""")
             file = open(os.path.join(self.val_pack_path, model_filename), 'w')
             # write
             file.write(\
+            "within Buildings.Controls.OBC.UnitConversions.Validation;\n"\
             "model "+model_name+" \"Validation model for unit conversion from "+from_unit+" to "+to_unit+"\"\n"\
             "  extends Modelica.Icons.Example;\n"\
             "\n"\

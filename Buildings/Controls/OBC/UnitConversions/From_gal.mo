@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions;
 block From_gal "Block that converts volume from gallon to cubic meter"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(

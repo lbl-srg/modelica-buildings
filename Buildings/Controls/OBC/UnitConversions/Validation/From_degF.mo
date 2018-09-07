@@ -1,3 +1,4 @@
+within Buildings.Controls.OBC.UnitConversions.Validation;
 model From_degF "Validation model for unit conversion from degree Fahrenheit to kelvin"
   extends Modelica.Icons.Example;
 
