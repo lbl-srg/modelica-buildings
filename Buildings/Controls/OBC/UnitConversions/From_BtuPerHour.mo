@@ -26,7 +26,7 @@ equation
   connect(conv.y, y)
     annotation (Line(points={{11,0},{50,0}}, color={0,0,127}));
   annotation (
-      defaultComponentName = "from_BtuPerh",
+      defaultComponentName = "from_BtuPerHour",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

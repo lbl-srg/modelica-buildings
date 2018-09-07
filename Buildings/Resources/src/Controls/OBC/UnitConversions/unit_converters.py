@@ -78,7 +78,7 @@ class UnitConversionsModeler(object):
         write_package_and_package_order = True,
         script_name = r'unit_converters.py'):
 
-        self.par, self.si = self.set_parameters()r
+        self.par, self.si = self.set_parameters()
 
         self.package_name = package_name
         self.val_pack_name = 'Validation'
@@ -406,6 +406,8 @@ class UnitConversionsModeler(object):
 
         if '/' in model_name:
             model_name = re.sub('/', 'Per', model_name)
+            # Use PerHour rather than Perh
+            model_name = re.sub('Perh', 'PerHour', model_name)
 
         return model_name, to_unit_symbol, to_unit, from_unit_symbol, from_unit
 
