@@ -3,11 +3,12 @@ function logit1D "Mapping a continuous input to a binary output through a logist
   input Real x "Continuous variable";
   input Real A=1.0 "Parameter defining the logistic relation: Slope";
   input Real B=1.0 "Parameter defining the logistic relation: Intercept";
+  input Integer globalSeed "Seed for the random number generator";
   output Boolean y "Binary variable";
 protected
   Real p =  Modelica.Math.exp(A*x+B)/(Modelica.Math.exp(A*x+B)+1);
 algorithm
-  y := Occupancy.Utilities.BinaryVariableGeneration(p);
+  y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed);
 annotation (Documentation(info="<html>
 <p>
 This function generates a random binary variable with the input of a continuous variable <code>x</code> from a 

@@ -33,14 +33,15 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    pdown = 1-Modelica.Math.exp(A*(TIn-273.15)+B)/(Modelica.Math.exp(A*(TIn-273.15)+B)+1);
     if occ then
-      if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown, globalSeed=seed) then
+      pdown = 1-Modelica.Math.exp(A*(TIn-273.15)+B)/(Modelica.Math.exp(A*(TIn-273.15)+B)+1);
+      if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown, globalSeed=integer(seed*1E6*time)) then
         blindState = 0;
       else
         blindState = 1;
       end if;
     else
+      pdown = 0;
       blindState = 1;
     end if;
   end when;

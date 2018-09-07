@@ -1,2 +1,9 @@
 TestBinaryVariableGeneration
-TestbVGRealRandom
+TestExponentialVariableGeneration
+TestLinear1D
+TestLogit2D
+TestLogit1D
+TestLogit1DQuadratic
+TestWeibull1DOFF
+TestWeibull1DON
+TestWeibullVariableGeneration

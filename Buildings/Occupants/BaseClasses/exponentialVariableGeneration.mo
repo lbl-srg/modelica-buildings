@@ -1,15 +1,14 @@
 ﻿within Buildings.Occupants.BaseClasses;
 function exponentialVariableGeneration "Random variable generator from the exponential distribution"
     input Real mu  "mean of exponential distribution";
+    input Integer globalSeed "Seed for the random number generator";
     output Real y "duration of event";
 protected
-    Integer globalSeed = Modelica.Math.Random.Utilities.automaticGlobalSeed();
     Integer localSeed;
     Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState];
     Real r "Generated random numberin the range 0 < random ≤ 1";
 algorithm
     state := Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed);
-    Modelica.Utilities.Streams.print("state = " + String(state[1]));
     (r, state) := Modelica.Math.Random.Generators.Xorshift1024star.random(state);
     y := -mu*Modelica.Math.log(1 - r);
   annotation (Documentation(info="<html>

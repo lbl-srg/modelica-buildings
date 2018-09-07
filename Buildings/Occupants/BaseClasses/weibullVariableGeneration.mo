@@ -2,9 +2,9 @@
 function weibullVariableGeneration "Random variable generator from the Weibull distribution"
     input Real lambda "Parameter defining the Weibull Distribution: scale factor";
     input Real k "Parameter defining the Weibull Distribution: shape factor";
+    input Integer globalSeed "Seed for the random number generator";
     output Real y "Random variable generated from Weibull Distribution";
 protected
-    Integer globalSeed = Modelica.Math.Random.Utilities.automaticGlobalSeed();
     Integer localSeed;
     Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState];
     Real r "Generated random numberin the range 0 < random ≤ 1";

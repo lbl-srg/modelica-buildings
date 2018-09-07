@@ -39,26 +39,33 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    pup = Modelica.Math.exp(Aup*solarAltitude+Bup)/(Modelica.Math.exp(Aup*solarAltitude+Bup)+1);
-    pdown = Modelica.Math.exp(Adown*solarAltitude+Bdown)/(Modelica.Math.exp(Adown*solarAltitude+Bdown)+1);
+
+
     if occ then
       if pre(blindState) == 1 then
-        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown,globalSeed=seed) then
+        pup = 0;
+        pdown = Modelica.Math.exp(Adown*solarAltitude+Bdown)/(Modelica.Math.exp(Adown*solarAltitude+Bdown)+1);
+        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown,globalSeed=integer(seed*1E6*time)) then
           blindState = 0;
         else
           blindState = 1;
         end if;
       else
-        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pup,globalSeed=seed) then
+        pup = Modelica.Math.exp(Aup*solarAltitude+Bup)/(Modelica.Math.exp(Aup*solarAltitude+Bup)+1);
+        pdown = 0;
+        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pup,globalSeed=integer(seed*1E6*time)) then
           blindState = 1;
         else
           blindState = 0;
         end if;
       end if;
     else
+      pup = 0;
+      pdown = 0;
       blindState = 1;
     end if;
   end when;
+
 
   annotation (graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(

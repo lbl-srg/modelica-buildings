@@ -25,13 +25,13 @@ package Validation "Package with examples to validate models in Blinds package"
 
   annotation (
   experiment(Tolerance=1e-6, StopTime=3600.0),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/TestNewsham1994BlindsSI.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/TestNewsham1994BlindsSIntensity.mos"
                         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Occupants.Office.Blinds.Newsham1994BlindsSI\">
-Buildings.Occupants.Office.Blinds.Newsham1994BlindsSI</a>
+<a href=\"modelica://Buildings.Occupants.Office.Blinds.Newsham1994BlindsSIntensity\">
+Buildings.Occupants.Office.Blinds.Newsham1994BlindsSIntensity</a>
 by examing how the blinds state corresponds
 to the Solar Intensity.
 </p>
@@ -73,13 +73,13 @@ First implementation.
 
   annotation (
   experiment(Tolerance=1e-6, StopTime=3600.0),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/TestInkarojrit2008BlindsSI.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/TestInkarojrit2008BlindsSIntensity.mos"
                         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Occupants.Office.Blinds.Inkarojrit2008BlindsSI\">
-Buildings.Occupants.Office.Blinds.Inkarojrit2008BlindsSI</a>
+<a href=\"modelica://Buildings.Occupants.Office.Blinds.Inkarojrit2008BlindsSIntensity\">
+Buildings.Occupants.Office.Blinds.Inkarojrit2008BlindsSIntensity</a>
 by examing how the blinds state corresponds
 to the Solar Intensity.
 </p>
@@ -120,13 +120,13 @@ First implementation.
 
   annotation (
   experiment(Tolerance=1e-6, StopTime=3600.0),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/TestZhang2012BlindsSI.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/TestZhang2012BlindsSIntensity.mos"
                         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Occupants.Office.Blinds.Zhang2012BlindsSI\">
-Buildings.Occupants.Office.Blinds.Zhang2012BlindsSI</a>
+<a href=\"modelica://Buildings.Occupants.Office.Blinds.Zhang2012BlindsSIntensity\">
+Buildings.Occupants.Office.Blinds.Zhang2012BlindsSIntensity</a>
 by examing how the blinds state corresponds
 to the Solar Intensity.
 </p>

@@ -40,21 +40,21 @@ protected
 initial equation
   t0 = time;
   p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
-  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
+  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
     if occ then
+      p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
       if TIn > TComf+2 then
         if not pre(on) then
-          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
+          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
         else
           on = true;
         end if;
       elseif TIn < TComf-2 then
         if pre(on) then
-          on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
+          on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
         else
           on = false;
         end if;
@@ -62,6 +62,7 @@ equation
         on = pre(on);
       end if;
     else
+      p = 0;
       on = false;
     end if;
   end when;

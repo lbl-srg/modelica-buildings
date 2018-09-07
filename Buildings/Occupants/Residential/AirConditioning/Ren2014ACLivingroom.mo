@@ -46,9 +46,9 @@ equation
     pon = if TIn>=u2 then 1 - Modelica.Math.exp(-((TIn-u2)/L2)^k2*samplePeriod) else 0;
     if occ then
       if pre(on) then
-        on = not Buildings.Occupants.BaseClasses.weibull1DOFF(x=TIn,u=u1,L=L1,k=k1,dt=samplePeriod,globalSeed=seed);
+        on = not Buildings.Occupants.BaseClasses.weibull1DOFF(x=TIn,u=u1,L=L1,k=k1,dt=samplePeriod,globalSeed=integer(seed*1E6*time));
       else
-        on = Buildings.Occupants.BaseClasses.weibull1DON(x=TIn,u=u2,L=L2,k=k2,dt=samplePeriod,globalSeed=seed);
+        on = Buildings.Occupants.BaseClasses.weibull1DON(x=TIn,u=u2,L=L2,k=k2,dt=samplePeriod,globalSeed=integer(seed*1E6*time));
       end if;
     else
       on = false;

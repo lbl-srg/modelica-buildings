@@ -28,14 +28,15 @@ protected
 initial equation
   t0 = time;
   p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
+  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*( TOut - 273.15)+B) + 1);
     if occ then
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
+      p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*( TOut - 273.15)+B) + 1);
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
     else
+      p = 0;
       on = false;
     end if;
   end when;

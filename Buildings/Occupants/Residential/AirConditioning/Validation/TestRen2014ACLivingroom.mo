@@ -28,8 +28,8 @@ experiment(Tolerance=1e-6, StopTime=3600.0),
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Occupants.Residential.AirConditioning.TestRen2014ACLivingroom\">
-Buildings.Occupants.Residential.AirConditioning.TestRen2014ACLivingroom</a>
+<a href=\"modelica://Buildings.Occupants.Residential.AirConditioning.Ren2014ACLivingroom\">
+Buildings.Occupants.Residential.AirConditioning.Ren2014ACLivingroom</a>
 by examing how the AC state corresponds
 to the indoor temperature.
 </p>

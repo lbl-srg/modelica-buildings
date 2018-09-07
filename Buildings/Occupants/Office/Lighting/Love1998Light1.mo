@@ -37,7 +37,7 @@ equation
         on = false;
       end if;
     else
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=seed);
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
     end if;
   end when;
   annotation (graphics={
