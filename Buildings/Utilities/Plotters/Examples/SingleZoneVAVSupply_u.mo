@@ -18,10 +18,10 @@ model SingleZoneVAVSupply_u
 the cooling loop signal (from 0 to +1).")
     "Scatter plot for temperature setpoints"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Math.UnitConversions.To_degC THea_degC
+  Buildings.Controls.OBC.UnitConversions.To_degC THea_degC
     "Control signal for heating"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Modelica.Blocks.Math.UnitConversions.To_degC TCoo_degC
+  Buildings.Controls.OBC.UnitConversions.To_degC TCoo_degC
     "Control signal for cooling"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Utilities.Plotters.Scatter scaYFan(

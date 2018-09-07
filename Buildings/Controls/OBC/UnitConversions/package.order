@@ -1,5 +1,5 @@
 From_Btu
-From_BtuPerh
+From_BtuPerHour
 From_bar
 From_cfm
 From_degC
@@ -10,7 +10,7 @@ From_inH2O
 From_psi
 From_quad
 To_Btu
-To_BtuPerh
+To_BtuPerHour
 To_bar
 To_cfm
 To_degC

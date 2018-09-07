@@ -1,5 +1,5 @@
-model From_psi "Test pressure unit conversion from pound-force per square inch to pascal"
-  import Buildings.Controls.OBC.UnitConversions;
+within Buildings.Controls.OBC.UnitConversions.Validation;
+model From_psi "Validation model for unit conversion from pound-force per square inch to pascal"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
@@ -15,10 +15,10 @@ protected
   parameter Real kout = .0036*6895. "Validation output";
   parameter Real kout1 = 1.*6895. "Validation output 1";
 
-  Buildings.Controls.OBC.UnitConversions.From_psi From_psi
+  Buildings.Controls.OBC.UnitConversions.From_psi from_psi
   "Unit converter from pound-force per square inch to pascal "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.Controls.OBC.UnitConversions.From_psi From_psi1
+  Buildings.Controls.OBC.UnitConversions.From_psi from_psi1
   "Unit converter from pound-force per square inch to pascal "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
@@ -44,13 +44,13 @@ equation
     annotation (Line(points={{1,20},{10,20},{10,44},{18,44}}, color={0,0,127}));
   connect(result1.y, add1.u2)
     annotation (Line(points={{1,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));
-  connect(value1.y,From_psi1.u)
+  connect(value1.y,from_psi1.u)
     annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
-  connect(From_psi1.y, add1.u1)
+  connect(from_psi1.y, add1.u1)
     annotation (Line(points={{1,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));
-  connect(From_psi.y, add.u1)
+  connect(from_psi.y, add.u1)
     annotation (Line(points={{1,50},{10,50},{10,56},{18,56}}, color={0,0,127}));
-  connect(value.y,From_psi.u)
+  connect(value.y,from_psi.u)
     annotation (Line(points={{-39,50}, {-22,50}}, color={0,0,127}));
   annotation (Icon(graphics={
         Ellipse(lineColor = {75,138,73},

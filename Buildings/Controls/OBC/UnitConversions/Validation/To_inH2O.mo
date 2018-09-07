@@ -1,5 +1,5 @@
-model To_inH2O "Test pressure unit conversion from pascal to inch of water gauge (at 60 degF)"
-  import Buildings.Controls.OBC.UnitConversions;
+within Buildings.Controls.OBC.UnitConversions.Validation;
+model To_inH2O "Validation model for unit conversion from pascal to inch of water gauge (at 60 degF)"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
@@ -15,10 +15,10 @@ protected
   parameter Real kout = 25./248.84 "Validation output";
   parameter Real kout1 = 100000./248.84 "Validation output 1";
 
-  Buildings.Controls.OBC.UnitConversions.To_inH2O To_inH2O
+  Buildings.Controls.OBC.UnitConversions.To_inH2O to_inH2O
   "Unit converter from pascal to inch of water gauge (at 60 degF) "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.Controls.OBC.UnitConversions.To_inH2O To_inH2O1
+  Buildings.Controls.OBC.UnitConversions.To_inH2O to_inH2O1
   "Unit converter from pascal to inch of water gauge (at 60 degF) "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
@@ -44,13 +44,13 @@ equation
     annotation (Line(points={{1,20},{10,20},{10,44},{18,44}}, color={0,0,127}));
   connect(result1.y, add1.u2)
     annotation (Line(points={{1,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));
-  connect(value1.y,To_inH2O1.u)
+  connect(value1.y,to_inH2O1.u)
     annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
-  connect(To_inH2O1.y, add1.u1)
+  connect(to_inH2O1.y, add1.u1)
     annotation (Line(points={{1,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));
-  connect(To_inH2O.y, add.u1)
+  connect(to_inH2O.y, add.u1)
     annotation (Line(points={{1,50},{10,50},{10,56},{18,56}}, color={0,0,127}));
-  connect(value.y,To_inH2O.u)
+  connect(value.y,to_inH2O.u)
     annotation (Line(points={{-39,50}, {-22,50}}, color={0,0,127}));
   annotation (Icon(graphics={
         Ellipse(lineColor = {75,138,73},

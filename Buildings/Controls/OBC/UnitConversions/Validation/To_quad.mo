@@ -1,5 +1,5 @@
-model To_quad "Test work unit conversion from joule to quads"
-  import Buildings.Controls.OBC.UnitConversions;
+within Buildings.Controls.OBC.UnitConversions.Validation;
+model To_quad "Validation model for unit conversion from joule to quads"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
@@ -15,10 +15,10 @@ protected
   parameter Real kout = 1. "Validation output";
   parameter Real kout1 = 2. "Validation output 1";
 
-  Buildings.Controls.OBC.UnitConversions.To_quad To_quad
+  Buildings.Controls.OBC.UnitConversions.To_quad to_quad
   "Unit converter from joule to quads "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.Controls.OBC.UnitConversions.To_quad To_quad1
+  Buildings.Controls.OBC.UnitConversions.To_quad to_quad1
   "Unit converter from joule to quads "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
@@ -44,13 +44,13 @@ equation
     annotation (Line(points={{1,20},{10,20},{10,44},{18,44}}, color={0,0,127}));
   connect(result1.y, add1.u2)
     annotation (Line(points={{1,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));
-  connect(value1.y,To_quad1.u)
+  connect(value1.y,to_quad1.u)
     annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
-  connect(To_quad1.y, add1.u1)
+  connect(to_quad1.y, add1.u1)
     annotation (Line(points={{1,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));
-  connect(To_quad.y, add.u1)
+  connect(to_quad.y, add.u1)
     annotation (Line(points={{1,50},{10,50},{10,56},{18,56}}, color={0,0,127}));
-  connect(value.y,To_quad.u)
+  connect(value.y,to_quad.u)
     annotation (Line(points={{-39,50}, {-22,50}}, color={0,0,127}));
   annotation (Icon(graphics={
         Ellipse(lineColor = {75,138,73},
