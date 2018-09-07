@@ -14,10 +14,10 @@ protected
   parameter Real kout = 100. "Validation output";
   parameter Real kout1 = 2000. "Validation output 1";
 
-  Buildings.Controls.OBC.UnitConversions.To_cfm To_cfm
+  Buildings.Controls.OBC.UnitConversions.To_cfm to_cfm
   "Unit converter from cubic meters per second to cubic feet per minute "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.Controls.OBC.UnitConversions.To_cfm To_cfm1
+  Buildings.Controls.OBC.UnitConversions.To_cfm to_cfm1
   "Unit converter from cubic meters per second to cubic feet per minute "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
@@ -43,13 +43,13 @@ equation
     annotation (Line(points={{1,20},{10,20},{10,44},{18,44}}, color={0,0,127}));
   connect(result1.y, add1.u2)
     annotation (Line(points={{1,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));
-  connect(value1.y,To_cfm1.u)
+  connect(value1.y,to_cfm1.u)
     annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
-  connect(To_cfm1.y, add1.u1)
+  connect(to_cfm1.y, add1.u1)
     annotation (Line(points={{1,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));
-  connect(To_cfm.y, add.u1)
+  connect(to_cfm.y, add.u1)
     annotation (Line(points={{1,50},{10,50},{10,56},{18,56}}, color={0,0,127}));
-  connect(value.y,To_cfm.u)
+  connect(value.y,to_cfm.u)
     annotation (Line(points={{-39,50}, {-22,50}}, color={0,0,127}));
   annotation (Icon(graphics={
         Ellipse(lineColor = {75,138,73},

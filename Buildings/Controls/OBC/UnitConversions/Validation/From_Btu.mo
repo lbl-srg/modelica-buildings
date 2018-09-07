@@ -14,10 +14,10 @@ protected
   parameter Real kout = 1.*1055.056 "Validation output";
   parameter Real kout1 = 2.*1055.056 "Validation output 1";
 
-  Buildings.Controls.OBC.UnitConversions.From_Btu From_Btu
+  Buildings.Controls.OBC.UnitConversions.From_Btu from_Btu
   "Unit converter from British thermal units to joule "
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.Controls.OBC.UnitConversions.From_Btu From_Btu1
+  Buildings.Controls.OBC.UnitConversions.From_Btu from_Btu1
   "Unit converter from British thermal units to joule "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
@@ -43,13 +43,13 @@ equation
     annotation (Line(points={{1,20},{10,20},{10,44},{18,44}}, color={0,0,127}));
   connect(result1.y, add1.u2)
     annotation (Line(points={{1,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));
-  connect(value1.y,From_Btu1.u)
+  connect(value1.y,from_Btu1.u)
     annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
-  connect(From_Btu1.y, add1.u1)
+  connect(from_Btu1.y, add1.u1)
     annotation (Line(points={{1,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));
-  connect(From_Btu.y, add.u1)
+  connect(from_Btu.y, add.u1)
     annotation (Line(points={{1,50},{10,50},{10,56},{18,56}}, color={0,0,127}));
-  connect(value.y,From_Btu.u)
+  connect(value.y,from_Btu.u)
     annotation (Line(points={{-39,50}, {-22,50}}, color={0,0,127}));
   annotation (Icon(graphics={
         Ellipse(lineColor = {75,138,73},

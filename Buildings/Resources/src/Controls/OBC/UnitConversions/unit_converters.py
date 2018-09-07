@@ -584,6 +584,8 @@ end """+self.package_name+""";""")
         Tests validate two data points for each conversion
         """
 
+        to_lower = lambda s: s[:1].lower() + s[1:] if s else ''
+
         validation_foldername = 'Validation'
         if not os.path.exists(self.val_pack_path):
             os.makedirs(self.val_pack_path)
@@ -620,10 +622,10 @@ end """+self.package_name+""";""")
             "  parameter Real kout = "+x['validation_output'][0]+" \"Validation output\";\n"\
             "  parameter Real kout1 = "+x['validation_output'][1]+" \"Validation output 1\";\n"\
             "\n"\
-            "  Buildings.Controls.OBC."+self.package_name+"."+model_name+" "+model_name+"\n"\
+            "  Buildings.Controls.OBC."+self.package_name+"."+model_name+" "+to_lower(model_name)+"\n"\
             "  \"Unit converter from "+from_unit+" to "+to_unit+" \"\n"\
             "    annotation (Placement(transformation(extent={{-20,40},{0,60}})));\n"\
-            "  Buildings.Controls.OBC."+self.package_name+"."+model_name+" "+model_name+"1\n"\
+            "  Buildings.Controls.OBC."+self.package_name+"."+model_name+" "+to_lower(model_name)+"1\n"\
             "  \"Unit converter from "+from_unit+" to "+to_unit+" \"\n"\
             "    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));\n"\
             "\n"\
@@ -649,13 +651,13 @@ end """+self.package_name+""";""")
             "    annotation (Line(points={{1,20},{10,20},{10,44},{18,44}}, color={0,0,127}));\n"\
             "  connect(result1.y, add1.u2)\n"\
             "    annotation (Line(points={{1,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));\n"\
-            "  connect(value1.y,"+model_name+"1.u)\n"\
+            "  connect(value1.y,"+to_lower(model_name)+"1.u)\n"\
             "    annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));\n"\
-            "  connect("+model_name+"1.y, add1.u1)\n"\
+            "  connect("+to_lower(model_name)+"1.y, add1.u1)\n"\
             "    annotation (Line(points={{1,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));\n"\
-            "  connect("+model_name+".y, add.u1)\n"\
+            "  connect("+to_lower(model_name)+".y, add.u1)\n"\
             "    annotation (Line(points={{1,50},{10,50},{10,56},{18,56}}, color={0,0,127}));\n"\
-            "  connect(value.y,"+model_name+".u)\n"\
+            "  connect(value.y,"+to_lower(model_name)+".u)\n"\
             "    annotation (Line(points={{-39,50}, {-22,50}}, color={0,0,127}));\n"\
             "  annotation (Icon(graphics={\n"\
             "        Ellipse(lineColor = {75,138,73},\n"\
