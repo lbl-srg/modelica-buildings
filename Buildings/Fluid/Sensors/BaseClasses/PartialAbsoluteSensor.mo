@@ -28,14 +28,14 @@ Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 </html>",
 revisions="<html>
 <ul>
-<lil>
+<li>
 September 7, 2019, by Michael Wetter:<br/>
 Changed
 <code>port(redeclare package Medium=Medium, m_flow(min=0, max=0))</code>
 to
 <code>port(redeclare package Medium=Medium, m_flow(min=0))</code>
 to avoid in Dymola 2019FD01 beta1 the message
-<quote>port.m_flow has the range [0,0] - which is suspicious since the max-value should be above the min-value</quote>
+\"port.m_flow has the range [0,0] - which is suspicious since the max-value should be above the min-value\"
 which causes an error in pedantic mode.
 Note that the MSL also uses only a <code>min</code> value.
 </li>
