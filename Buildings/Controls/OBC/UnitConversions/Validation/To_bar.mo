@@ -11,9 +11,9 @@ model To_bar "Validation model for unit conversion from pascal to bar"
 
 protected
   parameter Real kin = 1.*100000. "Validation input";
-  parameter Real kin1 = .00025*100000. "Validation input 1";
+  parameter Real kin1 = 0.00025*100000. "Validation input 1";
   parameter Real kout = 1. "Validation output";
-  parameter Real kout1 = .00025 "Validation output 1";
+  parameter Real kout1 = 0.00025 "Validation output 1";
 
   Buildings.Controls.OBC.UnitConversions.To_bar to_bar
   "Unit converter from pascal to bar "

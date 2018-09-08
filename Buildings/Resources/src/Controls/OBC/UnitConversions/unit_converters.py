@@ -191,8 +191,8 @@ class UnitConversionsModeler(object):
             'direction' : 'From',
             'adder' : '0.',
             'multiplier' : '6895.',
-            'validation_input' : ['.0036', '1.'],
-            'validation_output' : ['.0036*6895.', '1.*6895.']},
+            'validation_input' : ['0.0036', '1.'],
+            'validation_output' : ['0.0036*6895.', '1.*6895.']},
             {
             'quantity' : 'pressure',
             'modelica_quantity' : 'Pressure',
@@ -201,8 +201,8 @@ class UnitConversionsModeler(object):
             'direction' : 'To',
             'adder' : '0.',
             'multiplier' : '1./6895.',
-            'validation_input' : ['.0036*6895.', '1.*6895.'],
-            'validation_output' : ['.0036', '1.']},
+            'validation_input' : ['0.0036*6895.', '1.*6895.'],
+            'validation_output' : ['0.0036', '1.']},
             {
             'quantity' : 'pressure',
             'modelica_quantity' : 'Pressure',
@@ -211,8 +211,8 @@ class UnitConversionsModeler(object):
             'direction' : 'From',
             'adder' : '0',
             'multiplier' : '100000.',
-            'validation_input' : ['1.', '.00025'],
-            'validation_output' : ['1.*100000.', '.00025*100000.']},
+            'validation_input' : ['1.', '0.00025'],
+            'validation_output' : ['1.*100000.', '0.00025*100000.']},
             {
             'quantity' : 'pressure',
             'modelica_quantity' : 'Pressure',
@@ -221,8 +221,8 @@ class UnitConversionsModeler(object):
             'direction' : 'To',
             'adder' : '0',
             'multiplier' : '1./100000.',
-            'validation_input' : ['1.*100000.', '.00025*100000.'],
-            'validation_output' : ['1.', '.00025']},
+            'validation_input' : ['1.*100000.', '0.00025*100000.'],
+            'validation_output' : ['1.', '0.00025']},
             {
             'quantity' : 'pressure',
             'modelica_quantity' : 'Pressure',
