@@ -13,6 +13,7 @@ model WaterHeater_T
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
+    T_start=289.15,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     QMax_flow=Q_flow_nominal) "Heater"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
@@ -28,11 +29,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(tab.y, hea.TSet) annotation (Line(
-      points={{-9,30},{-6,30},{-6,-20},{-32,-20},{-32,-34},{-22,-34}},
+      points={{-9,30},{-6,30},{-6,-20},{-32,-20},{-32,-32},{-22,-32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mov.port_b, hea.port_a) annotation (Line(points={{-50,-40},{-35,-40},
-          {-20,-40}}, color={0,127,255}));
+  connect(mov.port_b, hea.port_a) annotation (Line(points={{-50,-40},{-20,-40}},
+                      color={0,127,255}));
   annotation ( Documentation(info="<html>
 <p>
 This example illustrates how to use the heater model that takes as an

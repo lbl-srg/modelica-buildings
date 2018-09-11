@@ -6,7 +6,8 @@ record Template
     "Thermal conductivity of the soil material";
   parameter Modelica.SIunits.SpecificHeatCapacity cSoi
     "Specific heat capacity of the soil material";
-  parameter Modelica.SIunits.Density dSoi "Density of the soil material";
+  parameter Modelica.SIunits.Density dSoi(displayUnit="kg/m3")
+    "Density of the soil material";
   parameter Boolean steadyState = (cSoi < Modelica.Constants.eps or dSoi < Modelica.Constants.eps)
     "Flag, if true, then material is computed using steady-state heat conduction"
     annotation(Evaluate=true);

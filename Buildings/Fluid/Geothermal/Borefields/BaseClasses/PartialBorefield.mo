@@ -69,13 +69,11 @@ partial model PartialBorefield
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
     final k=borFieDat.conDat.nBor) "Division of flow rate"
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
     final k=borFieDat.conDat.nBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 

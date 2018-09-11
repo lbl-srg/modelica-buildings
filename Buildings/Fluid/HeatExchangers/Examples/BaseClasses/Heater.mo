@@ -13,6 +13,7 @@ partial model Heater "Base class for example model for the heater and cooler"
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
+    T_start=289.15,
     V=V,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal,
@@ -34,14 +35,17 @@ partial model Heater "Base class for example model for the heater and cooler"
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Fan or pump"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
-  Modelica.Blocks.Sources.RealExpression TOut(y=273.15 + 16 - 5*cos(time/86400*
-        2*Modelica.Constants.pi)) "Outdoor temperature"
+  Modelica.Blocks.Sources.RealExpression TOut(
+    y(final unit="K", displayUnit="degC")=
+      273.15 + 16 - 5*cos(time/86400*2*Modelica.Constants.pi))
+    "Outdoor temperature"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Pulse TSet(
     amplitude=4,
     period=86400,
     offset=273.15 + 16,
-    startTime=7*3600) "Setpoint for room temperature"
+    startTime=7*3600,
+    y(final unit="K", displayUnit="degC")) "Setpoint for room temperature"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
   Controls.Continuous.LimPID conPI(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -60,7 +64,8 @@ partial model Heater "Base class for example model for the heater and cooler"
     annotation (Placement(transformation(extent={{110,-30},{90,-10}})));
   Sensors.TemperatureTwoPort THeaOut(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal) "Outlet temperature of the heater"
+    m_flow_nominal=m_flow_nominal,
+    T_start=289.15) "Outlet temperature of the heater"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
@@ -88,7 +93,7 @@ equation
       points={{-69,30},{-62,30}},
       color={0,0,127}));
   connect(mFan_flow.y,mov. m_flow_in) annotation (Line(
-      points={{-69,-10},{-60.2,-10},{-60.2,-28}},
+      points={{-69,-10},{-60,-10},{-60,-28}},
       color={0,0,127}));
   connect(THeaOut.port_b, vol.ports[1]) annotation (Line(
       points={{40,-40},{48,-40},{48,-10},{47.3333,-10}},
