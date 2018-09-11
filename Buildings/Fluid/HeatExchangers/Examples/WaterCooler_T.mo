@@ -14,6 +14,7 @@ model WaterCooler_T
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
+    T_start=289.15,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     QMin_flow=-Q_flow_nominal) "Cooler"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
@@ -33,7 +34,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(tab.y,coo. TSet) annotation (Line(
-      points={{-9,30},{-6,30},{-6,-20},{-32,-20},{-32,-34},{-22,-34}},
+      points={{-9,30},{-6,30},{-6,-20},{-32,-20},{-32,-32},{-22,-32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mov.port_b,coo. port_a) annotation (Line(points={{-50,-40},{-35,-40},

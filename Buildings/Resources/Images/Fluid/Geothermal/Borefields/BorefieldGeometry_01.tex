@@ -1,0 +1,84 @@
+\documentclass{article}
+
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{nopageno}
+\usepackage[active,tightpage]{preview}  %generates a tightly fitting border around the work
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{2mm}
+
+\begin{document}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows}
+
+\definecolor{ground}{RGB}{210,175,130}
+\definecolor{grout}{RGB}{255,195,120}
+
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position #1 with {\arrow{>}}},postaction={decorate}}}
+
+\begin{tikzpicture}[scale=0.7,>=angle 60]
+
+% Background
+	\path[fill=ground] (-1,0) -- (10,0) -- (10,-6) -- (-1,-6) -- cycle;
+
+% Ground surface
+	\path[draw,line width=2pt] (-1,0) -- (10,0) node[fill=white,above left] {\bf Ground Surface};
+
+% Pipes (Top)
+	% Alimentation
+	\draw[blue,->,line width=1.5pt] (0.5,0.5) -- (0.5,2);
+	\path[draw,blue,line width=1.5pt] (0.5,2) -- (0.5,3.6) -- (6.25,3.6);
+	% Return
+	\path[draw,red,line width=1.5pt,dashed] (6.75,3.8) -- (2.25,3.8);
+	\draw[red,->,line width=1.5pt,dashed] (6.75,3.8) -- (6.75,4.5);
+	\path[draw,red,line width=1.5pt,dashed] (6.75,4.5) -- (6.75,5.5);
+% Pipes (Side)
+	% Alimentation
+	\draw[blue,->,line width=1.5pt] (0.5,-0.6) -- (1.5,-0.6);
+	\path[draw,blue,line width=1.5pt] (1.5,-0.6) -- (6.25,-0.6);
+	% Return
+	\draw[red,->,line width=1.5pt,dashed]  (2.25,-0.3) -- (7.5,-0.3);
+	\path[draw,red,line width=1.5pt,dashed] (7.5,-0.3) -- (8,-0.3);
+
+\foreach \x/\y/\D/\H/\n in {2/4.5/1/4/1,4/2/1/4/2,6.5/2.5/1/4/3}
+{
+% Boreholes (Top)
+	\draw[line width=2pt] (\x,\y) circle (0.5);
+% U-tubes
+	\draw[line width=1pt] (\x-.25,\y) circle (0.1);
+	\draw[line width=1pt] (\x+.25,\y) circle (0.1);
+
+% Pipes (Top)
+	% Alimentation
+	\path[draw,blue,line width=1.5pt] (\x-.25,\y) -- (\x-.25,3.6);
+	% Return
+	\path[draw,red,line width=1.5pt,dashed] (\x+.25,\y) -- (\x+.25,3.8);
+
+% Boreholes (Side)
+	\path[fill=grout] (\x-0.5,-\D) -- (\x-0.5,-\D-\H) -- (\x+0.5,-\D-\H) -- (\x+0.5,-\D) -- cycle;
+	\path[draw,line width=2pt] (\x-0.5,-\D) -- (\x-0.5,-\D-\H) -- (\x+0.5,-\D-\H) -- (\x+0.5,-\D);
+
+% Pipes (Side)
+	% Alimentation
+	\draw[blue,->,line width=1.5pt] (\x-0.25,-0.6) -- (\x-0.25,-1-\D);
+	\path[draw,blue,line width=1.5pt] (\x-0.25,-1-\D) -- (\x-0.25,-\D-\H+0.5);
+	\draw[blue,line width=1.5pt] (\x-0.25,-\D-\H+0.5) to [out=270, in=180] (\x,-\D-\H+0.25);
+	% Return
+	\draw[red,line width=1.5pt,dashed] (\x,-\D-\H+0.25) to [out=0, in=270] (\x+0.25,-\D-\H+0.5);
+	\draw[red,->,line width=1.5pt,dashed]  (\x+0.25,-\D-\H+0.5) -- (\x+0.25,-1-\D);
+	\path[draw,red,line width=1.5pt,dashed] (\x+0.25,-1-\D) -- (\x+0.25,-0.3);
+
+% Cotations
+	\draw (\x+0.35,\y+0.35)  node[above right] {$\n$};
+}
+
+% Cotations
+	\draw[<->|,line width=1.5pt] (8,0) -- (8,-1) node[pos=.5,right] {\tt dBor};
+	\draw[<->|,line width=1.5pt] (8,-1) -- (8,-5) node[pos=.5,right] {\tt hBor};
+	\draw[|<->|,line width=1.5pt] (1.5,-5.35) node[left] {\tt 2*rBor} -- (2.5,-5.35) ;
+
+\end{tikzpicture}
+
+\end{document}

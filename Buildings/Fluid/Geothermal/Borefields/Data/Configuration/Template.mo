@@ -9,14 +9,15 @@ record Template
   parameter Boolean use_Rb = false
     "true if the value borehole thermal resistance Rb should be given and used";
   parameter Real Rb(unit="(m.K)/W") = 0.0
-    "Borehole thermal resistance Rb. Only to fill in if known";
+    "Borehole thermal resistance Rb. Only to fill in if known"
+    annotation(Dialog(enable=use_Rb));
   parameter Modelica.SIunits.MassFlowRate mBor_flow_nominal
     "Nominal mass flow rate per borehole"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate mBorFie_flow_nominal = mBor_flow_nominal*nBor
     "Nominal mass flow of borefield"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp_nominal
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
     "Pressure losses for the entire borefield"
     annotation (Dialog(group="Nominal condition"));
 

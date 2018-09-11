@@ -29,7 +29,7 @@ Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 revisions="<html>
 <ul>
 <li>
-September 7, 2019, by Michael Wetter:<br/>
+September 7, 2018, by Michael Wetter:<br/>
 Changed
 <code>port(redeclare package Medium=Medium, m_flow(min=0, max=0))</code>
 to

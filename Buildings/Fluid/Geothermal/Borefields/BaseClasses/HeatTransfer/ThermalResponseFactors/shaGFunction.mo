@@ -17,46 +17,53 @@ function shaGFunction
   "SHA1 encryption of the g-function arguments";
 
 protected
-  String shaStr;
-  String formatStr =  "1.3e";
-
+  String formatStrGen =  "1.3e" "String format for general parameters";
+  String formatStrCoo =  ".2f" "String format for coordinate";
 algorithm
-  shaStr := String(nBor, format=formatStr);
+  sha := Buildings.Utilities.Cryptographics.sha(String(nBor, format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(sha + String(hBor, format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(sha + String(dBor, format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(sha + String(rBor, format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(sha + String(aSoi, format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(sha + String(nSeg, format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(sha + String(nTimSho, format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(sha + String(nTimLon, format=formatStrGen));
+  sha := Buildings.Utilities.Cryptographics.sha(sha + String(ttsMax, format=formatStrGen));
   for i in 1:nBor loop
-   shaStr := shaStr
-     + String(cooBor[i, 1], format=formatStr)
-     + String(cooBor[i, 2], format=formatStr);
+    sha := Buildings.Utilities.Cryptographics.sha(sha + String(cooBor[i, 1], format=formatStrCoo));
+    sha := Buildings.Utilities.Cryptographics.sha(sha + String(cooBor[i, 2], format=formatStrCoo));
   end for;
-  shaStr := shaStr
-    + String(hBor, format=formatStr)
-    + String(dBor, format=formatStr)
-    + String(rBor, format=formatStr)
-    + String(aSoi, format=formatStr)
-    + String(nSeg, format=formatStr)
-    + String(nTimSho, format=formatStr)
-    + String(nTimLon, format=formatStr)
-    + String(ttsMax, format=formatStr);
-
-  sha := Buildings.Utilities.Cryptographics.sha(shaStr);
 
 annotation (
+Inline=false,
 Documentation(info="<html>
 <p>
-This function concatenates the various arguments required to generate the borefield's
-thermal response into a single input string. Each argument is formatted in exponential notation
+This function returns the SHA1 encryption of its arguments.
+</p>
+<h4>Implementation</h4>
+<p>
+Each argument is formatted in exponential notation
 with four significant digits, for example <code>1.234e+001</code>, with no spaces or
-other separating characters between each argument value. Because a borefield has a variable
-number of boreholes, and because the (x,y) coordinates of each borehole are taken into
-account, the total length of this input string is variable.
+other separating characters between each argument value.
+To prevent too long strings that can cause buffer overflows,
+the sha encoding of each argument is computed and added to the next string that
+is parsed.
 </p>
 <p>
-Once the input string has been put together, the SHA1 encryption of this string
-is computed using
-<a href=\"modelica://Buildings.Utilities.Cryptographics.sha\">Buildings.Utilities.Cryptographics.sha</a>
-and returned by this function.
+The SHA1 encryption is computed using
+<a href=\"modelica://Buildings.Utilities.Cryptographics.sha\">Buildings.Utilities.Cryptographics.sha</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2018, by Michael Wetter:<br/>
+Refactored implementation to avoid buffer overflow.
+</li>
+<li>
+September 11, 2018 by Damien Picard:<br/>
+Split long strings into small strings to avoid buffer overflow.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1018\">#1018</a>.
+</li>
 <li>
 June 22, 2018 by Alex Laferri&egrave;re:<br/>
 First implementation.

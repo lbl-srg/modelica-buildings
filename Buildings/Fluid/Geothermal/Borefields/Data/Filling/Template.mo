@@ -6,7 +6,7 @@ record Template
     "Thermal conductivity of the borehole filling material";
   parameter Modelica.SIunits.SpecificHeatCapacity cFil
     "Specific heat capacity of the borehole filling material";
-  parameter Modelica.SIunits.Density dFil
+  parameter Modelica.SIunits.Density dFil(displayUnit="kg/m3")
     "Density of the borehole filling material";
   parameter Boolean steadyState = (cFil < Modelica.Constants.eps or dFil < Modelica.Constants.eps)
     "Flag, if true, then material is computed using steady-state heat conduction"
