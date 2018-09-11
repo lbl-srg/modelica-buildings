@@ -7,6 +7,7 @@
 
 #include "FMUEnergyPlusStructure.h"
 #include <stdlib.h>
+#include <string.h>
 
 void* getAdr(FMU *fmu, const char* functionName){
   void* fp;
