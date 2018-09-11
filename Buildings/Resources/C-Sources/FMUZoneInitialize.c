@@ -199,12 +199,9 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
   }
 
    /* Need to pass the start value at initialization */
-   double tStart = 0.0;
-   int index;
-
   if (zone->ptrBui->_firstCall){
     /* This function can only be called once per building FMU */
-    result = zone->ptrBui->fmu->setupExperiment(tStart, 1, NULL);
+    result = zone->ptrBui->fmu->setupExperiment(t0, 1, NULL);
     if(result<0){
       ModelicaFormatError("Failed to get setup experiment for building FMU with name %s.\n",
       zone->ptrBui->name);
@@ -228,7 +225,6 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
     sprintf(tmp, "%s%s%s", zone->name, ",", parNames[i]);
     for (j=0; j<totNumOut; j++){
       if (strstr(outputNames[j], tmp)!=NULL){
-        index = j;
         parValues[i] = outputs[j];
         break;
       }
