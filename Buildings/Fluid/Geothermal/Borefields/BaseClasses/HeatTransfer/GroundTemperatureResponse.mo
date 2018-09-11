@@ -19,7 +19,9 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
 protected
-  constant Integer nSeg = 12 "Number of line source segments per borehole";
+  constant Integer nSegMax = 1500 "Max total number of segments in g-function calculation";
+  final parameter Integer nSeg = integer(if 12*borFieDat.conDat.nBor<nSegMax then 12 else floor(nSegMax/borFieDat.conDat.nBor))
+    "Number of segments per borehole for g-function calculation";
   constant Integer nTimSho = 26 "Number of time steps in short time region";
   constant Integer nTimLon = 50 "Number of time steps in long time region";
   constant Real ttsMax = exp(5) "Maximum non-dimensional time for g-function calculation";

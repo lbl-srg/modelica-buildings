@@ -60,22 +60,25 @@ model RectangularBorefield "Example model of a rectangular borefield"
     redeclare package Medium = Medium,
     borFieDat=borFieDat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    TExt0_start=280.65)  "Geothermal borefield"
+    TExt0_start=280.65,
+    allowFlowReversal=false)
+      "Geothermal borefield"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium, nPorts=1)
-              "Pressure boundary condition"
+    "Pressure boundary condition"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
-  Movers.SpeedControlled_y pum(
+  Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     inputType=Buildings.Fluid.Types.InputType.Constant,
-    per(pressure(V_flow={0,2*m_flow_nominal/1000}, dp={2*dp_nominal,0})))
+    m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
+    allowFlowReversal=false)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   HeatExchangers.Heater_T hea(
     redeclare package Medium = Medium,
@@ -83,7 +86,8 @@ model RectangularBorefield "Example model of a rectangular borefield"
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     m_flow(start=borFieDat.conDat.mBorFie_flow_nominal),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    dp_nominal=dpHex_nominal) "Heater"
+    dp_nominal=dpHex_nominal,
+    allowFlowReversal=false)  "Heater"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Sources.Constant TSou(k=293.15)
     "Temperature of water that goes into the borefield"

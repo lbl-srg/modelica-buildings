@@ -17,27 +17,47 @@ function shaGFunction
   "SHA1 encryption of the g-function arguments";
 
 protected
-  String shaStr;
-  String formatStr =  "1.3e";
-
+  String strGen "String containing the general parameters";
+  String formatStrGen =  "1.3e" "String format for general parameters";
+  String strCoo[10] "Array of strings for coordinates";
+  String formatStrCoo =  ".2f" "String format for coordinate";
+  Integer maxStrLen = 500 "Maxium string length";
+  Integer i_strCoo;
+  String tmpSha;
 algorithm
-  shaStr := String(nBor, format=formatStr);
-  for i in 1:nBor loop
-   shaStr := shaStr
-     + String(cooBor[i, 1], format=formatStr)
-     + String(cooBor[i, 2], format=formatStr);
-  end for;
-  shaStr := shaStr
-    + String(hBor, format=formatStr)
-    + String(dBor, format=formatStr)
-    + String(rBor, format=formatStr)
-    + String(aSoi, format=formatStr)
-    + String(nSeg, format=formatStr)
-    + String(nTimSho, format=formatStr)
-    + String(nTimLon, format=formatStr)
-    + String(ttsMax, format=formatStr);
+  strGen := String(nBor, format=formatStrGen);
+  strGen := strGen
+    + String(hBor, format=formatStrGen)
+    + String(dBor, format=formatStrGen)
+    + String(rBor, format=formatStrGen)
+    + String(aSoi, format=formatStrGen)
+    + String(nSeg, format=formatStrGen)
+    + String(nTimSho, format=formatStrGen)
+    + String(nTimLon, format=formatStrGen)
+    + String(ttsMax, format=formatStrGen);
 
-  sha := Buildings.Utilities.Cryptographics.sha(shaStr);
+  i_strCoo := 1;
+  strCoo[1] :="";
+  for i in 1:nBor loop
+    // Splits long string into smaller strings
+    if Modelica.Utilities.Strings.length(strCoo[i_strCoo]) > maxStrLen then
+       i_strCoo :=i_strCoo + 1;
+       strCoo[i_strCoo]:="";
+    end if;
+    strCoo[i_strCoo] := strCoo[i_strCoo]
+     + String(cooBor[i, 1], format=formatStrCoo)
+     + String(cooBor[i, 2], format=formatStrCoo);
+  end for;
+
+  // Create a sha for each string and concatenate them
+  tmpSha := Buildings.Utilities.Cryptographics.sha(strGen);
+  for i in 1:i_strCoo loop
+    tmpSha :=tmpSha + Buildings.Utilities.Cryptographics.sha(strCoo[i]);
+  end for;
+
+  // Create a sha from tmpSha
+  sha := Buildings.Utilities.Cryptographics.sha(tmpSha);
+
 
 annotation (
 Documentation(info="<html>
@@ -57,6 +77,11 @@ and returned by this function.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2018 by Damien Picard<br/>
+Split long strings into small strings to avoid buffer overflow.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1018\">#1018</a>.
+</li>
 <li>
 June 22, 2018 by Alex Laferri&egrave;re:<br/>
 First implementation.
