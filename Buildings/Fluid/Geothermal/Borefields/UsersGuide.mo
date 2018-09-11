@@ -23,7 +23,10 @@ including single U-tube, double U-tube in parallel and double U-tube in series c
 </li>
 <li> The resistances <i>R<sub>b</sub></i> and <i>R<sub>a</sub></i> are
 either automatically calculated using the multipole method,
-or they can be directly provided by the user.
+or the resistance <i>R<sub>b</sub></i> can be directly provided by the user.
+In this case, the resistances <i>R<sub>b</sub></i> and <i>R<sub>a</sub></i> are
+still evaluated internally, but their values are weighted so that the borehole
+resistance matches the specified value.
 </li>
 <li>
 User-defined vertical discretization of boreholes. However, the borehole wall temperature
@@ -44,6 +47,17 @@ having to recalculate it for future simulations with the same borefield configur
 Pressure losses can be calculated if the <code>dp_nominal</code> parameter is set to a non-zero value.
 </li>
 </ul>
+
+<p>
+The model is limited to the simulation of borefields with boreholes connected in
+parallel, as shown on the figure below for a single U-tube configuration. All
+boreholes have the same length <code>hBor</code>, the same radius
+<code>rBor</code>, and are buried at the same depth <code>dBor</code> below the
+ground surface (also known as the inactive borehole length).
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/Borefields/BorefieldGeometry_01.png\" width=\"610\"/>
+</p>
 
 <h4>How to use the borefield models</h4>
 <h5>Borefield data record</h5>

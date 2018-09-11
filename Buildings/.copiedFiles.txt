@@ -626,6 +626,7 @@ Buildings/Fluid/Geothermal/Borefields/Data/Soil/package.order
 Buildings/Fluid/Geothermal/Borefields/Data/package.mo
 Buildings/Fluid/Geothermal/Borefields/Data/package.order
 Buildings/Fluid/Geothermal/Borefields/Examples/Borefields.mo
+Buildings/Fluid/Geothermal/Borefields/Examples/RectangularBorefield.mo
 Buildings/Fluid/Geothermal/Borefields/Examples/package.mo
 Buildings/Fluid/Geothermal/Borefields/Examples/package.order
 Buildings/Fluid/Geothermal/Borefields/OneUTube.mo
@@ -1267,6 +1268,8 @@ Buildings/Resources/Images/Fluid/FixedResistances/Junction.svg
 Buildings/Resources/Images/Fluid/FixedResistances/PressureDrop.png
 Buildings/Resources/Images/Fluid/FixedResistances/Validation/PlugFlowPipes/AITTestBench.png
 Buildings/Resources/Images/Fluid/FixedResistances/Validation/PlugFlowPipes/ULgTestBench.png
+Buildings/Resources/Images/Fluid/Geothermal/Borefields/BorefieldGeometry_01.png
+Buildings/Resources/Images/Fluid/Geothermal/Borefields/BorefieldGeometry_01.tex
 Buildings/Resources/Images/Fluid/Geothermal/Borefields/BoreholeResistances_01.png
 Buildings/Resources/Images/Fluid/Geothermal/Borefields/BoreholeResistances_01.tex
 Buildings/Resources/Images/Fluid/Geothermal/Borefields/CylindricalHeatSource_01.png
@@ -1574,6 +1577,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatT
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/FiniteDifference_1Week.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/Measured_SmallScale.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/Borefields.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/RectangularBorefield.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Validation/Sandbox.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/BaseClasses/Examples/Convector.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/BaseClasses/Examples/DerivateCubicSpline.mos

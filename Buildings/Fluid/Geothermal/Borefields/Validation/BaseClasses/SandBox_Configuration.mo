@@ -6,7 +6,6 @@ record SandBox_Configuration
       borCon = Types.BoreholeConfiguration.SingleUTube,
       use_Rb=true,
       Rb=0.165,
-      nBor=1,
       cooBor={{0,0}},
       mBor_flow_nominal=0.197/998*1000,
       dp_nominal=5e4,
