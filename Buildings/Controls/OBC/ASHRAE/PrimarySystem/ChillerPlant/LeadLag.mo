@@ -7,12 +7,11 @@ block LeadLag "Defines lead-lag equipment rotation"
   parameter Real overlap(unit = "s") = 15
     "Staging runtime hysteresis detla";
 
-  parameter Real stagingRuntime(unit = "s") = 240 * 60
+  parameter Real stagingRuntime(unit = "s") = 240 * 60 * 60
     "Staging runtime";
 
   parameter Boolean initRoles[num] = {true, false}
-    "At time 0 a device assigned to index 1 is a lead";
-                                                   //edit value if num <> 2
+    "Sets initial roles: true = lead, false = lag. There should be only one lead device";
 
   CDL.Interfaces.BooleanInput uDevSta[num]
     "Current devices operation status"
@@ -44,9 +43,10 @@ block LeadLag "Defines lead-lag equipment rotation"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   CDL.Interfaces.BooleanOutput DevRol[num] "Device role (1 - lead, 0 - lag)"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-        iconTransformation(extent={{100,60},{120,80}})));
+        iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Logical.Pre pre[num](pre_u_start=initRoles)
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
+
 equation
   connect(uDevSta, tim.u) annotation (Line(points={{-200,0},{-160,0},{-160,30},{
           -122,30}}, color={255,0,255}));
@@ -76,11 +76,47 @@ equation
           {10,-110},{10,-50},{18,-50}}, color={255,0,255}));
   connect(pre.y, logSwi.u3) annotation (Line(points={{161,-90},{170,-90},{170,-110},
           {88,-110},{88,-58},{98,-58}}, color={255,0,255}));
-  annotation (Icon(graphics={
+  annotation (    defaultComponentName="leaLag",
+    Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},{180,140}})));
+        fillPattern=FillPattern.Solid),
+                              Text(
+          extent={{-90,40},{90,-40}},
+          lineColor={0,0,0},
+          textString="equRot"),
+        Ellipse(
+          extent={{71,7},{85,-7}},
+          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-75,-6},{-89,8}},
+          lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-120,146},{100,108}},
+          lineColor={0,0,255},
+          textString="%name")}),
+  Documentation(info="<html>
+<p>
+fixme
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+
+</html>"),
+    Diagram(coordinateSystem(extent={{-180,-120},{180,120}})));
 end LeadLag;
