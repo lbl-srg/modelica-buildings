@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "makUpWat.watLevMax",
+    "makUpWat.watLevMin",
+    "makUpWat.watLev",
+    "makUpWat.yMakUp"
+  };

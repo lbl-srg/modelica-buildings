@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "chiWatPum.dpChiWatPumSet",
+    "chiWatPum.dpChiWatPum",
+    "chiWatPum.yChiWatPumSpe[1]",
+    "chiWatPum.VEva_flow",
+    "chiWatPum.VEva_nominal",
+    "chiWatPum.chiWatFloRat.y",
+    "chiWatPum.hysChiWatFloRat.y",
+    "chiWatPum.yChiWatPumSpe[2]"
+  };
