@@ -7,10 +7,15 @@ block LeadLag "Defines lead-lag equipment rotation"
   parameter Real overlap(unit = "s") = 15
     "Staging runtime hysteresis detla";
 
-  parameter Real stagingRuntime(unit = "h") = 240
+  parameter Real stagingRuntime(unit = "s") = 240 * 60
     "Staging runtime";
 
-  CDL.Interfaces.BooleanInput uDevSta[num] "Current devices operation status"
+  parameter Boolean initRoles[num] = {true, false}
+    "At time 0 a device assigned to index 1 is a lead";
+                                                   //edit value if num <> 2
+
+  CDL.Interfaces.BooleanInput uDevSta[num]
+    "Current devices operation status"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -28,16 +33,20 @@ block LeadLag "Defines lead-lag equipment rotation"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   CDL.Logical.And and2[num]
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  CDL.Interfaces.BooleanInput uDevRol[num]
-    "Current devices operation role (lead = 1, lag = 0)" annotation (Placement(
-        transformation(extent={{-220,-100},{-180,-60}}), iconTransformation(
-          extent={{-140,-20},{-100,20}})));
   CDL.Logical.MultiOr mulOr(nu=2)
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   CDL.Logical.Not not1[num]
+    "Fixme: For more than 2 devices this should be replaced by an implementation which moves the lead chiller to the first higher index"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   CDL.Logical.LogicalSwitch logSwi[num]
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+  CDL.Routing.BooleanReplicator booRep(nout=num)
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+  CDL.Interfaces.BooleanOutput DevRol[num] "Device role (1 - lead, 0 - lag)"
+    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
+        iconTransformation(extent={{100,60},{120,80}})));
+  CDL.Logical.Pre pre[num](pre_u_start=initRoles)
+    annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
 equation
   connect(uDevSta, tim.u) annotation (Line(points={{-200,0},{-160,0},{-160,30},{
           -122,30}}, color={255,0,255}));
@@ -51,16 +60,22 @@ equation
           0}}, color={255,0,255}));
   connect(cha.y, and2.u2) annotation (Line(points={{-99,-30},{-30,-30},{-30,-8},
           {-22,-8}}, color={255,0,255}));
-  connect(mulOr.y, logSwi.u2) annotation (Line(points={{61.7,0},{80,0},{80,-50},
-          {98,-50}}, color={255,0,255}));
-  connect(uDevRol, not1.u) annotation (Line(points={{-200,-80},{-92,-80},{-92,-50},
-          {18,-50}}, color={255,0,255}));
   connect(logSwi.u1, not1.y) annotation (Line(points={{98,-42},{70,-42},{70,-50},
           {41,-50}}, color={255,0,255}));
-  connect(uDevRol, logSwi.u3) annotation (Line(points={{-200,-80},{80,-80},{80,-58},
-          {98,-58}}, color={255,0,255}));
   connect(mulOr.u[1:2], and2.y)
-    annotation (Line(points={{38,-3.5},{38,0},{1,0}}, color={255,0,255}));
+    annotation (Line(points={{18,-3.5},{18,0},{1,0}}, color={255,0,255}));
+  connect(mulOr.y, booRep.u) annotation (Line(points={{41.7,0},{52,0},{52,-20},{
+          58,-20}}, color={255,0,255}));
+  connect(logSwi.u2, booRep.y) annotation (Line(points={{98,-50},{90,-50},{90,-20},
+          {81,-20}}, color={255,0,255}));
+  connect(logSwi.y, DevRol) annotation (Line(points={{121,-50},{160,-50},{160,0},
+          {190,0}}, color={255,0,255}));
+  connect(logSwi.y, pre.u) annotation (Line(points={{121,-50},{130,-50},{130,-90},
+          {138,-90}}, color={255,0,255}));
+  connect(pre.y, not1.u) annotation (Line(points={{161,-90},{170,-90},{170,-110},
+          {10,-110},{10,-50},{18,-50}}, color={255,0,255}));
+  connect(pre.y, logSwi.u3) annotation (Line(points={{161,-90},{170,-90},{170,-110},
+          {88,-110},{88,-58},{98,-58}}, color={255,0,255}));
   annotation (Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
