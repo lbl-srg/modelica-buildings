@@ -4,8 +4,8 @@ block LeadLag "Defines lead-lag equipment rotation"
   parameter Integer num = 2
     "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
 
-  parameter Real overlap(unit = "s") = 15
-    "Staging runtime hysteresis detla";
+  parameter Real small(unit = "s") = 1
+    "Hysteresis detla";
 
   parameter Real stagingRuntime(unit = "s") = 240 * 60 * 60
     "Staging runtime";
@@ -13,23 +13,25 @@ block LeadLag "Defines lead-lag equipment rotation"
   parameter Boolean initRoles[num] = {true, false}
     "Sets initial roles: true = lead, false = lag. There should be only one lead device";
 
+  parameter Real overlap(unit = "s") = 5 * 60
+    "Time period during which the previous lead stays on";
+
   CDL.Interfaces.BooleanInput uDevSta[num]
     "Current devices operation status"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  CDL.Logical.Timer tim[num]
+  CDL.Logical.Timer tim[num](reset=false)
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
   CDL.Continuous.Hysteresis hys[num](
-    uLow=stagingRuntime,
-    uHigh=stagingRuntime + overlap)
+    uLow=stagingRuntime, uHigh=stagingRuntime + small)
     "Stagin runtime hysteresis"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   CDL.Logical.Change cha[num]
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.And and2[num]
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   CDL.Logical.MultiOr mulOr(nu=2)
@@ -41,24 +43,30 @@ block LeadLag "Defines lead-lag equipment rotation"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   CDL.Routing.BooleanReplicator booRep(nout=num)
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  CDL.Interfaces.BooleanOutput DevRol[num] "Device role (1 - lead, 0 - lag)"
+  CDL.Interfaces.BooleanOutput yDevRol[num] "Device role (1 - lead, 0 - lag)"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Logical.Pre pre[num](pre_u_start=initRoles)
-    annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
+    annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
 
+  CDL.Logical.Pre pre1
+                     [num](pre_u_start=initRoles)
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+  CDL.Logical.Change cha1
+                        [num]
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  CDL.Logical.TrueHoldWithReset truHol[num](duration=overlap)
+    annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
 equation
   connect(uDevSta, tim.u) annotation (Line(points={{-200,0},{-160,0},{-160,30},{
           -122,30}}, color={255,0,255}));
   connect(tim.y, hys.u)
     annotation (Line(points={{-99,30},{-82,30}}, color={0,0,127}));
-  connect(hys.y, tim.u0) annotation (Line(points={{-59,30},{-50,30},{-50,10},{-130,
-          10},{-130,22},{-122,22}}, color={255,0,255}));
-  connect(uDevSta, cha.u) annotation (Line(points={{-200,0},{-160,0},{-160,-30},
-          {-122,-30}}, color={255,0,255}));
+  connect(uDevSta, cha.u) annotation (Line(points={{-200,0},{-160,0},{-160,-10},
+          {-122,-10}}, color={255,0,255}));
   connect(hys.y, and2.u1) annotation (Line(points={{-59,30},{-30,30},{-30,0},{-22,
           0}}, color={255,0,255}));
-  connect(cha.y, and2.u2) annotation (Line(points={{-99,-30},{-30,-30},{-30,-8},
+  connect(cha.y, and2.u2) annotation (Line(points={{-99,-10},{-30,-10},{-30,-8},
           {-22,-8}}, color={255,0,255}));
   connect(logSwi.u1, not1.y) annotation (Line(points={{98,-42},{70,-42},{70,-50},
           {41,-50}}, color={255,0,255}));
@@ -68,14 +76,22 @@ equation
           58,-20}}, color={255,0,255}));
   connect(logSwi.u2, booRep.y) annotation (Line(points={{98,-50},{90,-50},{90,-20},
           {81,-20}}, color={255,0,255}));
-  connect(logSwi.y, DevRol) annotation (Line(points={{121,-50},{160,-50},{160,0},
-          {190,0}}, color={255,0,255}));
-  connect(logSwi.y, pre.u) annotation (Line(points={{121,-50},{130,-50},{130,-90},
-          {138,-90}}, color={255,0,255}));
-  connect(pre.y, not1.u) annotation (Line(points={{161,-90},{170,-90},{170,-110},
-          {10,-110},{10,-50},{18,-50}}, color={255,0,255}));
-  connect(pre.y, logSwi.u3) annotation (Line(points={{161,-90},{170,-90},{170,-110},
-          {88,-110},{88,-58},{98,-58}}, color={255,0,255}));
+  connect(logSwi.y, pre.u) annotation (Line(points={{121,-50},{130,-50},{130,-70},
+          {138,-70}}, color={255,0,255}));
+  connect(pre.y, not1.u) annotation (Line(points={{161,-70},{170,-70},{170,-90},
+          {10,-90},{10,-50},{18,-50}},  color={255,0,255}));
+  connect(pre.y, logSwi.u3) annotation (Line(points={{161,-70},{170,-70},{170,-90},
+          {90,-90},{90,-58},{98,-58}},  color={255,0,255}));
+  connect(pre1.y, tim.u0) annotation (Line(points={{101,50},{120,50},{120,70},{-140,
+          70},{-140,22},{-122,22}}, color={255,0,255}));
+  connect(cha1.y, pre1.u)
+    annotation (Line(points={{61,50},{78,50}}, color={255,0,255}));
+  connect(logSwi.y, cha1.u) annotation (Line(points={{121,-50},{130,-50},{130,30},
+          {20,30},{20,50},{38,50}}, color={255,0,255}));
+  connect(logSwi.y, truHol.u) annotation (Line(points={{121,-50},{132,-50},{132,
+          -20},{139,-20}}, color={255,0,255}));
+  connect(yDevRol, truHol.y) annotation (Line(points={{190,0},{176,0},{176,-20},
+          {161,-20}}, color={255,0,255}));
   annotation (    defaultComponentName="leaLag",
     Icon(graphics={
         Rectangle(

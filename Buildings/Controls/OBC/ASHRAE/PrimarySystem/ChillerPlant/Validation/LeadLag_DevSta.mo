@@ -7,7 +7,7 @@ model LeadLag_DevSta "Validate lead/lag switching"
   parameter Boolean initRoles[num] = {true, false}
     "Sets initial roles: true = lead, false = lag. There should be only one lead device";
 
-  LeadLag leaLag(num=num)
+  LeadLag leaLag(num=num, stagingRuntime=5*60*60)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   CDL.Logical.Sources.Pulse booPul[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
@@ -31,7 +31,7 @@ equation
 // experiment(StopTime=3600.0, Tolerance=1e-06),
 //  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Validation/fixme.mos"
 //    "Simulate and plot"),
-  connect(leaLag.DevRol, pre.u)
+  connect(leaLag.yDevRol, pre.u)
     annotation (Line(points={{41,0},{58,0}}, color={255,0,255}));
   connect(pre.y, logSwi.u2) annotation (Line(points={{81,0},{90,0},{90,-30},{
           -30,-30},{-30,0},{-22,0}}, color={255,0,255}));
