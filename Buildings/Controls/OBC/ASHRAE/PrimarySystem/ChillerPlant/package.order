@@ -7,7 +7,7 @@ ChillerStagingUpProcess
 ChillerdTRef
 DisableLatest
 EnableNext
-LeadLag
+EquipmentRotation
 LeadStandby
 TowerFan
 TowerWaterLevel

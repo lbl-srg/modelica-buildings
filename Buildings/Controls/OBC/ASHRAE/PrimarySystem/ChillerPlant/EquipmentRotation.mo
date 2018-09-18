@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
-block LeadLag "Defines lead-lag equipment rotation"
+block EquipmentRotation
+  "Defines lead-lag or lead-standby equipment rotation"
 
   parameter Integer num = 2
     "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
@@ -36,7 +37,7 @@ block LeadLag "Defines lead-lag equipment rotation"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   CDL.Logical.MultiOr mulOr(nu=2)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  CDL.Logical.Not not1[num]
+  CDL.Logical.Not fixme_for_n[num]
     "Fixme: For more than 2 devices this should be replaced by an implementation which moves the lead chiller to the first higher index"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   CDL.Logical.LogicalSwitch logSwi[num]
@@ -49,11 +50,9 @@ block LeadLag "Defines lead-lag equipment rotation"
   CDL.Logical.Pre pre[num](pre_u_start=initRoles)
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
 
-  CDL.Logical.Pre pre1
-                     [num](pre_u_start=initRoles)
+  CDL.Logical.Pre pre1[num](pre_u_start=initRoles)
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
-  CDL.Logical.Change cha1
-                        [num]
+  CDL.Logical.Change cha1[num]
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   CDL.Logical.TrueHoldWithReset truHol[num](duration=overlap)
     annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
@@ -68,8 +67,8 @@ equation
           0}}, color={255,0,255}));
   connect(cha.y, and2.u2) annotation (Line(points={{-99,-10},{-30,-10},{-30,-8},
           {-22,-8}}, color={255,0,255}));
-  connect(logSwi.u1, not1.y) annotation (Line(points={{98,-42},{70,-42},{70,-50},
-          {41,-50}}, color={255,0,255}));
+  connect(logSwi.u1, fixme_for_n.y) annotation (Line(points={{98,-42},{70,-42},{
+          70,-50},{41,-50}}, color={255,0,255}));
   connect(mulOr.u[1:2], and2.y)
     annotation (Line(points={{18,-3.5},{18,0},{1,0}}, color={255,0,255}));
   connect(mulOr.y, booRep.u) annotation (Line(points={{41.7,0},{52,0},{52,-20},{
@@ -78,8 +77,8 @@ equation
           {81,-20}}, color={255,0,255}));
   connect(logSwi.y, pre.u) annotation (Line(points={{121,-50},{130,-50},{130,-70},
           {138,-70}}, color={255,0,255}));
-  connect(pre.y, not1.u) annotation (Line(points={{161,-70},{170,-70},{170,-90},
-          {10,-90},{10,-50},{18,-50}},  color={255,0,255}));
+  connect(pre.y, fixme_for_n.u) annotation (Line(points={{161,-70},{170,-70},{170,
+          -90},{10,-90},{10,-50},{18,-50}}, color={255,0,255}));
   connect(pre.y, logSwi.u3) annotation (Line(points={{161,-70},{170,-70},{170,-90},
           {90,-90},{90,-58},{98,-58}},  color={255,0,255}));
   connect(pre1.y, tim.u0) annotation (Line(points={{101,50},{120,50},{120,70},{-140,
@@ -92,7 +91,8 @@ equation
           -20},{139,-20}}, color={255,0,255}));
   connect(yDevRol, truHol.y) annotation (Line(points={{190,0},{176,0},{176,-20},
           {161,-20}}, color={255,0,255}));
-  annotation (    defaultComponentName="leaLag",
+  annotation (Diagram(coordinateSystem(extent={{-180,-120},{180,120}})),
+      defaultComponentName="equRot",
     Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -133,6 +133,5 @@ First implementation.
 </li>
 </ul>
 
-</html>"),
-    Diagram(coordinateSystem(extent={{-180,-120},{180,120}})));
-end LeadLag;
+</html>"));
+end EquipmentRotation;
