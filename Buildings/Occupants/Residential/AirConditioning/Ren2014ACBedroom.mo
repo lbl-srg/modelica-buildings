@@ -69,18 +69,6 @@ Documentation(info="<html>
 Model predicting the state of the AC with the indoor temperature 
 and occupancy.
 </p>
-<h4>Inputs</h4>
-<p>
-indoor temperature: should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of AC: a boolean variable, true indicates the AC 
-is on, false indicates the AC is off.
-</p>
 <h4>Dynamics</h4>
 <p>
 When the space is unoccupied, the AC is always off. When the 

@@ -67,18 +67,6 @@ Documentation(info="<html>
 Model predicting the state of the window with the indoor air temperature 
 and occupancy through Markov approach.
 </p>
-<h4>Inputs</h4>
-<p>
-indoor temperature: should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of window: a boolean variable, true indicates the window 
-is open, false indicates the window is closed.
-</p>
 <h4>Dynamics</h4>
 <p>
 When the space is unoccupied, the window is always closed. When the 

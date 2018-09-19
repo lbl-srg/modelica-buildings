@@ -59,18 +59,6 @@ Documentation(info="<html>
 <p>
 Model predicting the state of the blinds with the outdoor temperature.
 </p>
-<h4>Inputs</h4>
-<p>
-TOut: outdoor air temperature, should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of blinds: a real variable, 1 indicates the blind 
-is 100% on, 0 indicates the blind is 100% off.
-</p>
 <h4>Dynamics</h4>
 <p>
 When the space is unoccupied, the blinds is always on. When the 

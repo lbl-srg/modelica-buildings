@@ -55,18 +55,6 @@ Documentation(info="<html>
 Model predicting the state of the heater with the outdoor temperature 
 and occupancy.
 </p>
-<h4>Inputs</h4>
-<p>
-outdoor temperature: should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of heater: a boolean variable, true indicates the heating 
-is on, false indicates the heating is off.
-</p>
 <h4>Dynamics</h4>
 <p>
 When the space is unoccupied, the heater is always off. When the 

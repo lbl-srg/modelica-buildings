@@ -55,18 +55,6 @@ Model predicting the state of the small window with the outdoor air temperature
 and occupancy. The definition of small windows was not clearly presented in the 
 original paper.
 </p>
-<h4>Inputs</h4>
-<p>
-outdoor temperature: should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of window: a boolean variable, true indicates the window 
-is open, false indicates the window is closed.
-</p>
 <h4>Dynamics</h4>
 <p>
 When the space is unoccupied, the window is always closed. When the 

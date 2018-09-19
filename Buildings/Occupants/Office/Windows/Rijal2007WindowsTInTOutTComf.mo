@@ -4,7 +4,7 @@ model Rijal2007WindowsTInTOutTComf "A model to predict occupants' window behavio
   parameter Real AIn = 0.171 "Slope of the indoor temperature in the logistic relation";
   parameter Real AOut = 0.166 "Slope of the outdoor temperature in the logistic relation";
   parameter Real B = -6.4 "Intercept of the logistic relation";
-  parameter Integer seed = 30 "Seed for the random number generator";
+  parameter Integer seed = 3 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
@@ -40,25 +40,29 @@ protected
 initial equation
   t0 = time;
   p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
-  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
+  on = false;
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
     if occ then
-      p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
       if TIn > TComf+2 then
         if not pre(on) then
-          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
+          p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
+          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
         else
+          p = -0.3;
           on = true;
         end if;
       elseif TIn < TComf-2 then
         if pre(on) then
-          on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
+          p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
+          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
         else
+          p = -0.5;
           on = false;
         end if;
       else
+        p = -0.1;
         on = pre(on);
       end if;
     else
@@ -81,24 +85,6 @@ Documentation(info="<html>
 Model predicting the state of the window with the indoor, outdoor and comfort temperature 
 and occupancy.
 </p>
-<h4>Inputs</h4>
-<p>
-Indoor temperature: should be input with the unit of K.
-</p>
-<p>
-outdoor temperature: should be input with the unit of K.
-</p>
-<p>
-Comfort temperature: should be input with the unit of K.
-</p>
-<p>
-Occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of window: a boolean variable, true indicates the window 
-is open, false indicates the window is closed.
-</p>
 <h4>Dynamics</h4>
 <p>
 When the space is unoccupied, the window is always closed. When the 
@@ -112,13 +98,13 @@ When the indoor temperature is within the comfort temperature plus and minus
 <p>
 When the indoor temperature is above the comfort temperature plus 2 degC, 
 if the window is open, it would be kept open; if the window is closed, it might
-be opened, the probability to open the window is determiend by the indoor and 
+be opened, the probability to open the window is determined by the indoor and 
 outdoor temperature.
 </p>
 <p>
 When the indoor temperature is below the comfort temperature minus 2 degC, 
 if the window is closed, it would be kept closed; if the window is open, it might
-be closed, the probability to open the window is determiend by the indoor and 
+be closed, the probability to close the window is determined by the indoor and 
 outdoor temperature.
 </p>
 <h4>References</h4>

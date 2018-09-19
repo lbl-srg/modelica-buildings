@@ -54,18 +54,6 @@ Documentation(info="<html>
 Model predicting the state of the lighting with the daylight illuminance level on the desk
 and occupancy.
 </p>
-<h4>Inputs</h4>
-<p>
-illuminance: Daylight illuminance level on the desk, should be input with the unit of lux.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of lighting: a boolean variable, true indicates the light 
-is on, false indicates the light is off.
-</p>
 <h4>Dynamics</h4>
 <p>
 In this model, the switching on action only happens upon arrival.
