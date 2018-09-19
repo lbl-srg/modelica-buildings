@@ -8,7 +8,9 @@ model EquipmentRotation_DevSta
   parameter Boolean initRoles[num] = {true, false}
     "Sets initial roles: true = lead, false = lag. There should be only one lead device";
 
-  EquipmentRotation leaLag(stagingRuntime=5*60*60, num=num)
+  EquipmentRotation leaLag(stagingRuntime=5*60*60, num=num,
+    small=0,
+    overlap=1)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   CDL.Logical.Sources.Pulse leadLoad[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
@@ -17,9 +19,9 @@ model EquipmentRotation_DevSta
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   CDL.Logical.LogicalSwitch logSwi[num]
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  CDL.Logical.Pre pre[num](pre_u_start=initRoles)
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  EquipmentRotation leaSta(stagingRuntime=5*60*60, num=num)
+  EquipmentRotation leaSta(stagingRuntime=5*60*60, num=num,
+    small=0,
+    overlap=1)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   CDL.Logical.Sources.Pulse leadLoad1[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
@@ -29,6 +31,8 @@ model EquipmentRotation_DevSta
   CDL.Logical.LogicalSwitch logSwi1
                                   [num]
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+  CDL.Logical.Pre pre[num](pre_u_start=initRoles)
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
   CDL.Logical.Pre pre1
                      [num](pre_u_start=initRoles)
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
@@ -40,20 +44,20 @@ equation
           42},{-22,42}}, color={255,0,255}));
   connect(logSwi.y, leaLag.uDevSta)
     annotation (Line(points={{1,50},{18,50}}, color={255,0,255}));
-  connect(leaLag.yDevRol, pre.u)
-    annotation (Line(points={{41,50},{58,50}}, color={255,0,255}));
-  connect(pre.y, logSwi.u2) annotation (Line(points={{81,50},{90,50},{90,20},{-30,
-          20},{-30,50},{-22,50}}, color={255,0,255}));
   connect(leadLoad1.y, logSwi1.u1) annotation (Line(points={{-59,-20},{-40,-20},
           {-40,-42},{-22,-42}}, color={255,0,255}));
   connect(standby.y, logSwi1.u3) annotation (Line(points={{-59,-80},{-40,-80},{-40,
           -58},{-22,-58}}, color={255,0,255}));
   connect(logSwi1.y, leaSta.uDevSta)
     annotation (Line(points={{1,-50},{18,-50}}, color={255,0,255}));
+  connect(leaLag.yDevRol, pre.u)
+    annotation (Line(points={{41,50},{58,50}}, color={255,0,255}));
+  connect(pre.y, logSwi.u2) annotation (Line(points={{81,50},{90,50},{90,28},{
+          -30,28},{-30,50},{-22,50}}, color={255,0,255}));
   connect(leaSta.yDevRol, pre1.u)
     annotation (Line(points={{41,-50},{58,-50}}, color={255,0,255}));
-  connect(pre1.y, logSwi1.u2) annotation (Line(points={{81,-50},{90,-50},{90,-80},
-          {-30,-80},{-30,-50},{-22,-50}}, color={255,0,255}));
+  connect(pre1.y, logSwi1.u2) annotation (Line(points={{81,-50},{88,-50},{88,
+          -72},{-32,-72},{-32,-50},{-22,-50}}, color={255,0,255}));
           annotation (
    experiment(StopTime=10000.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Validation/EquipmentRotation_DevSta.mos"
