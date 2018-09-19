@@ -35,7 +35,7 @@ equation
   when sampleTrigger then
     if occ then
       pdown = 1-Modelica.Math.exp(A*(TOut-273.15)+B)/(Modelica.Math.exp(A*(TOut-273.15)+B)+1);
-      if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown, globalSeed=integer(seed*1E6*time)) then
+      if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown, globalSeed=integer(seed*time)) then
         blindState = 0;
       else
         blindState = 1;

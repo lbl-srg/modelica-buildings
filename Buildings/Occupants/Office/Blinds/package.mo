@@ -127,7 +127,7 @@ protected
       if occ then
         p = 1 - Modelica.Math.exp(A1*Modelica.Math.log10(H) + A2*LSen + B)/(
           Modelica.Math.exp(A1*Modelica.Math.log10(H) + A2*LSen + B) + 1);
-        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=integer(seed*1E6*time)) then
+        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=integer(seed*time)) then
           blindState = 1;
         else
           blindState = 0;
@@ -234,7 +234,7 @@ protected
         if pre(blindState) == 1 then
           pup = 0;
           pdown = Modelica.Math.exp(Adown*H+Bdown)/(Modelica.Math.exp(Adown*H+Bdown)+1);
-          if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown,globalSeed=integer(seed*1E6*time)) then
+          if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown,globalSeed=integer(seed*time)) then
             blindState = 0;
           else
             blindState = 1;
@@ -242,7 +242,7 @@ protected
         else
           pup = Modelica.Math.exp(Aup*H+Bup)/(Modelica.Math.exp(Aup*H+Bup)+1);
           pdown = 0;
-          if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pup,globalSeed=integer(seed*1E6*time)) then
+          if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pup,globalSeed=integer(seed*time)) then
             blindState = 1;
           else
             blindState = 0;
