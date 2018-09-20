@@ -2,17 +2,17 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 block EquipmentRotation_n
   "Defines lead-lag or lead-standby equipment rotation for any number of devices"
 
-  parameter Integer num = 2
+  parameter Integer num = 3
     "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
 
   parameter Real stagingRuntime(unit = "s") = 240 * 60 * 60
     "Staging runtime";
 
-  parameter Boolean initRoles[num] = initialization[1:num]
-    "Sets initial roles: true = lead, false = lag";
-
   parameter Boolean initialization[10] = {true, false, false, false, false, false, false, false, false, false}
     "Initiates device mapped to the first index with the lead role and all other to lag";
+
+  parameter Boolean initRoles[num] = initialization[1:num]
+    "Sets initial roles: true = lead, false = lag";
 
   CDL.Interfaces.BooleanInput uDevSta[num]
     "Current devices operation status (true - on, false - off)"

@@ -5,7 +5,7 @@ model EquipmentRotation_n_DevSta
   parameter Integer num = 3
     "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
 
-  parameter Boolean initialization[7] = {true, false, false, false, false, false, false, false, false, false}
+  parameter Boolean initialization[10] = {true, false, false, false, false, false, false, false, false, false}
     "Initiates device mapped to the first index with the lead role and all other to lag";
 
   parameter Boolean initRoles[num] = initialization[1:num]

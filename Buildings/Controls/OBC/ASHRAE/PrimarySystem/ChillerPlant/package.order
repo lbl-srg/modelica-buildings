@@ -8,9 +8,9 @@ ChillerdTRef
 DisableLatest
 EnableNext
 EquipmentRotation
+EquipmentRotation_n
 LeadStandby
 TowerFan
 TowerWaterLevel
 Validation
 testIteration
-EquipmentRotation_n
