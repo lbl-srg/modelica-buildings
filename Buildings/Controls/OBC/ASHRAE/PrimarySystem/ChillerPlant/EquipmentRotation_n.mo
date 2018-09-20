@@ -35,7 +35,7 @@ block EquipmentRotation_n
   CDL.Logical.And3 and3
                       [num]
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  CDL.Logical.MultiOr mulOr(nu=2)
+  CDL.Logical.MultiOr mulOr(nu=num)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   CDL.Routing.BooleanReplicator booRep(nout=num)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

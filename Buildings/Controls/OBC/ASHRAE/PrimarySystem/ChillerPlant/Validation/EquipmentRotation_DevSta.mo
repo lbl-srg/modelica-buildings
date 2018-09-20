@@ -8,8 +8,7 @@ model EquipmentRotation_DevSta
   parameter Boolean initRoles[num] = {true, false}
     "Sets initial roles: true = lead, false = lag. There should be only one lead device";
 
-  EquipmentRotation_n
-                    leaLag(stagingRuntime=5*60*60, num=num,
+  EquipmentRotation leaLag(stagingRuntime=5*60*60, num=num,
     small=0,
     overlap=1)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
@@ -20,8 +19,7 @@ model EquipmentRotation_DevSta
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   CDL.Logical.LogicalSwitch logSwi[num]
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  EquipmentRotation_n
-                    leaSta(stagingRuntime=5*60*60, num=num,
+  EquipmentRotation leaSta(stagingRuntime=5*60*60, num=num,
     small=0,
     overlap=1)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));

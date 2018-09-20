@@ -35,7 +35,7 @@ block EquipmentRotation
   CDL.Logical.And3 and3
                       [num]
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  CDL.Logical.MultiOr mulOr(nu=2)
+  CDL.Logical.MultiOr mulOr(nu=num)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   CDL.Logical.Not fixme_for_n[num]
     "Fixme: For more than 2 devices this should be replaced by an implementation which moves the lead chiller to the first higher index"
@@ -66,7 +66,7 @@ equation
   connect(logSwi.u1, fixme_for_n.y) annotation (Line(points={{98,-22},{70,-22},
           {70,-50},{41,-50}},color={255,0,255}));
   connect(mulOr.u[1:2],and3. y)
-    annotation (Line(points={{18,-3.5},{18,0},{1,0}}, color={255,0,255}));
+    annotation (Line(points={{18,0},{18,0},{1,0}},    color={255,0,255}));
   connect(mulOr.y, booRep.u) annotation (Line(points={{41.7,0},{58,0}},
                     color={255,0,255}));
   connect(logSwi.u2, booRep.y) annotation (Line(points={{98,-30},{90,-30},{90,0},

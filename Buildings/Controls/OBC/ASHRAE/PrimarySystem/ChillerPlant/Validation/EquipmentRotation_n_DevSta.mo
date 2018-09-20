@@ -12,7 +12,7 @@ model EquipmentRotation_n_DevSta
                     leaLag(stagingRuntime=5*60*60, num=num,
     small=0,
     overlap=1,
-    initRoles={true,false,false})
+    initRoles=initRoles)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   CDL.Logical.Sources.Pulse leadLoad[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
@@ -25,7 +25,7 @@ model EquipmentRotation_n_DevSta
                     leaSta(stagingRuntime=5*60*60, num=num,
     small=0,
     overlap=1,
-    initRoles={true,false,false})
+    initRoles=initRoles)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   CDL.Logical.Sources.Pulse leadLoad1[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
@@ -64,7 +64,7 @@ equation
           {-32,-70},{-32,-50},{-22,-50}},      color={255,0,255}));
           annotation (
    experiment(StopTime=10000.0, Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Validation/EquipmentRotation_DevSta.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Validation/EquipmentRotation_n_DevSta.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
