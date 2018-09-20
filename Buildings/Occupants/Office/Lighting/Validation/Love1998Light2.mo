@@ -8,11 +8,11 @@ model Love1998Light2 "Validating the model for light behaviors"
       freqHz=0.001,
       y) "Daylight illuminance level on the desk, unit:lux"
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-    Love1998Light2 lig "Tested Lighting model"
+    Buildings.Occupants.Office.Lighting.Love1998Light2 lig "Tested Lighting model"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Sources.BooleanPulse occ(period=400)
       annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  equation
+equation
     connect(lig.Illu, Illu.y) annotation (Line(points={{-12,-6},{-36,-6},{-36,-20},
             {-59,-20}}, color={0,0,127}));
     connect(occ.y, lig.occ) annotation (Line(points={{-59,20},{-36,20},{-36,6},{-12,

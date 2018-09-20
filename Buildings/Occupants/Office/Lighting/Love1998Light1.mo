@@ -27,7 +27,7 @@ initial equation
   t0 = time;
   on = false;
 equation
-  p = Modelica.Math.exp(B+M*Modelica.Math.log10(Illu))/(1 - Modelica.Math.exp(B+M*Modelica.Math.log10(Illu)));
+  p = Modelica.Math.exp(B+M*Modelica.Math.log10(Illu))/(1 - Modelica.Math.exp(B+M*Modelica.Math.log10(Illu)))*100;
   sampleTrigger = sample(t0, samplePeriod);
   when {occ,sampleTrigger} then
     if sampleTrigger then

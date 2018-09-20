@@ -12,7 +12,7 @@ model Nicol2001WindowsPakistan "Validating the model for window behaviors"
     y(unit="K",
       displayUnit="degC")) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Nicol2001WindowsPakistan win "Tested Windows model"
+  Buildings.Occupants.Residential.Windows.Nicol2001WindowsPakistan win "Tested Windows model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(win.occ, occ.y) annotation (Line(points={{-12,6},{-36,6},{-36,20},{-59,

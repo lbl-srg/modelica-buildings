@@ -12,7 +12,7 @@ model Yun2008WindowsTIn "Validating the model for window behaviors"
     y(unit="K",
       displayUnit="degC")) "Indoor air temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Yun2008WindowsTIn win
+  Buildings.Occupants.Office.Windows.Yun2008WindowsTIn win
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(occ.y, win.occ) annotation (Line(points={{-59,20},{-36,20},{-36,6},{

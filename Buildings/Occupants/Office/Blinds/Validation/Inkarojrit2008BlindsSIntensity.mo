@@ -12,10 +12,10 @@ model Inkarojrit2008BlindsSIntensity
       freqHz=0.001,
       y(unit="W/m2")) "Solar intensity at the window"
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-    Inkarojrit2008BlindsSIntensity bli(LSen= 1)
+    Buildings.Occupants.Office.Blinds.Inkarojrit2008BlindsSIntensity bli(LSen= 1)
                                "Tested blinds model"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  equation
+equation
     connect(occ.y, bli.occ) annotation (Line(points={{-59,20},{-34,20},{-34,6},{-12,
             6}}, color={255,0,255}));
     connect(H.y, bli.H) annotation (Line(points={{-59,-20},{-36,-20},{-36,-6},{-12,

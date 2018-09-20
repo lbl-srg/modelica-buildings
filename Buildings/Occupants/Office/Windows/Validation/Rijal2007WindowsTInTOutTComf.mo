@@ -26,7 +26,7 @@ model Rijal2007WindowsTInTOutTComf "Validating the model for window behaviors"
     y(unit="K",
       displayUnit="degC")) "Comfort air temperature"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Rijal2007WindowsTInTOutTComf win "Tested Windows model"
+  Buildings.Occupants.Office.Windows.Rijal2007WindowsTInTOutTComf win "Tested Windows model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(win.occ, occ.y) annotation (Line(points={{-12,6},{-36,6},{-36,40},{

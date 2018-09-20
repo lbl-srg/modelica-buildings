@@ -12,7 +12,7 @@ model Zhang2012BlindsSAltitude
     freqHz=0.001,
     y(unit="deg")) "Solar altitude"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Zhang2012BlindsSAltitude bli "Tested blinds model"
+  Buildings.Occupants.Office.Blinds.Zhang2012BlindsSAltitude bli "Tested blinds model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(occ.y, bli.occ) annotation (Line(points={{-59,20},{-34,20},{-34,6},{-12,

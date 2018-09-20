@@ -8,7 +8,7 @@ model Reinhart2003Light "Validating the model for light behaviors"
     freqHz=0.001,
     y) "Minimum illuminance at working plane"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Reinhart2003Light lig "Tested Lighting model"
+  Buildings.Occupants.Office.Lighting.Reinhart2003Light lig "Tested Lighting model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(period=400)
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));

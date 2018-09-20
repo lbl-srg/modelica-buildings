@@ -12,7 +12,7 @@ model Ren2014ACLivingroom "Validating the model for AC behaviors"
     y(unit="K",
       displayUnit="degC")) "Indoor air temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Ren2014ACLivingroom ac "Tested AC model"
+  Buildings.Occupants.Residential.AirConditioning.Ren2014ACLivingroom ac "Tested AC model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

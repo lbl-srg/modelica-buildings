@@ -2,7 +2,7 @@ within Buildings.Occupants.Office.Occupancy.Validation;
 model Wang2005Occupancy "Validating the model for occupancy"
   extends Modelica.Icons.Example;
 
-Wang2005Occupancy occ "Tested Occupancy model"
+Buildings.Occupants.Office.Occupancy.Wang2005Occupancy occ "Tested Occupancy model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 

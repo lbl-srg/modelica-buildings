@@ -13,7 +13,7 @@ model Haldi2008BlindsTOut
     y(unit="K",
     displayUnit="degC")) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Haldi2008BlindsTOut bli    "Tested blinds model"
+  Buildings.Occupants.Office.Blinds.Haldi2008BlindsTOut bli    "Tested blinds model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(occ.y, bli.occ) annotation (Line(points={{-59,20},{-34,20},{-34,6},{-12,

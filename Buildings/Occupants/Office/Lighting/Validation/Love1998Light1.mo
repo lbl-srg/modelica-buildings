@@ -9,7 +9,7 @@ model Love1998Light1 "Validating the model for light behaviors"
     amplitude=200)
        "Daylight illuminance level on the desk, unit:lux"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Love1998Light1 lig "Tested Lighting model"
+  Buildings.Occupants.Office.Lighting.Love1998Light1 lig "Tested Lighting model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.BooleanPulse occ(period=400)
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));

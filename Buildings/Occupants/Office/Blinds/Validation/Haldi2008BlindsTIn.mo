@@ -13,7 +13,7 @@ model Haldi2008BlindsTIn
     y(unit="K",
     displayUnit="degC")) "Indoor temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Haldi2008BlindsTIn bli     "Tested blinds model"
+  Buildings.Occupants.Office.Blinds.Haldi2008BlindsTIn bli     "Tested blinds model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(occ.y, bli.occ) annotation (Line(points={{-59,20},{-34,20},{-34,6},{-12,
