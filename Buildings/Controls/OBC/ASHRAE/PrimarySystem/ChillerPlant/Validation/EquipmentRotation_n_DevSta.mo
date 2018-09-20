@@ -1,17 +1,18 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Validation;
-model EquipmentRotation_DevSta
+model EquipmentRotation_n_DevSta
   "Validate lead/lag and lead/standby switching"
 
-  parameter Integer num = 2
+  parameter Integer num = 3
     "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
 
-  parameter Boolean initRoles[num] = {true, false}
+  parameter Boolean initRoles[num] = {true, false, false}
     "Sets initial roles: true = lead, false = lag. There should be only one lead device";
 
   EquipmentRotation_n
                     leaLag(stagingRuntime=5*60*60, num=num,
     small=0,
-    overlap=1)
+    overlap=1,
+    initRoles={true,false,false})
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   CDL.Logical.Sources.Pulse leadLoad[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
@@ -23,7 +24,8 @@ model EquipmentRotation_DevSta
   EquipmentRotation_n
                     leaSta(stagingRuntime=5*60*60, num=num,
     small=0,
-    overlap=1)
+    overlap=1,
+    initRoles={true,false,false})
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   CDL.Logical.Sources.Pulse leadLoad1[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
@@ -54,12 +56,12 @@ equation
     annotation (Line(points={{1,-50},{18,-50}}, color={255,0,255}));
   connect(leaLag.yDevRol, pre.u)
     annotation (Line(points={{41,50},{58,50}}, color={255,0,255}));
-  connect(pre.y, logSwi.u2) annotation (Line(points={{81,50},{90,50},{90,28},{
-          -30,28},{-30,50},{-22,50}}, color={255,0,255}));
+  connect(pre.y, logSwi.u2) annotation (Line(points={{81,50},{90,50},{90,30},{-30,
+          30},{-30,50},{-22,50}},     color={255,0,255}));
   connect(leaSta.yDevRol, pre1.u)
     annotation (Line(points={{41,-50},{58,-50}}, color={255,0,255}));
-  connect(pre1.y, logSwi1.u2) annotation (Line(points={{81,-50},{88,-50},{88,
-          -72},{-32,-72},{-32,-50},{-22,-50}}, color={255,0,255}));
+  connect(pre1.y, logSwi1.u2) annotation (Line(points={{81,-50},{88,-50},{88,-70},
+          {-32,-70},{-32,-50},{-22,-50}},      color={255,0,255}));
           annotation (
    experiment(StopTime=10000.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Validation/EquipmentRotation_DevSta.mos"
@@ -89,4 +91,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end EquipmentRotation_DevSta;
+end EquipmentRotation_n_DevSta;
