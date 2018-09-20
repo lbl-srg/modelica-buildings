@@ -17,7 +17,7 @@ model EquipmentRotation_n_DevSta
   CDL.Logical.Sources.Pulse leadLoad[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  CDL.Logical.Sources.Pulse lagLoad[num](width=0.2, period=1*60*60)
+  CDL.Logical.Sources.Pulse lagLoad[num](width=0.2, period=2*60*60)
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   CDL.Logical.LogicalSwitch logSwi[num]
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
