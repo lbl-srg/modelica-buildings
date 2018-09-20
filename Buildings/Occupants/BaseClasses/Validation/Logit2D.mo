@@ -9,9 +9,9 @@ model Logit2D "Test model for 2D binary variable generation function"
     Real x1 "Time-varying real number as input";
     Real x2 "Time-varying real number as input";
     output Real y "Output";
-  initial equation
+initial equation
     y = 0;
-  equation
+equation
     x1 = time;
     x2 = 0.7*time;
     when sample(0, 0.1) then
@@ -23,7 +23,7 @@ model Logit2D "Test model for 2D binary variable generation function"
     end when;
 
     annotation ( experiment(Tolerance=1e-6, StopTime=1.0),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/BaseClasses/Validation/TestLogit2D.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/BaseClasses/Validation/Logit2D.mos"
           "Simulate and plot"), Documentation(info="<html>
 <p>
 This model tests the implementation of

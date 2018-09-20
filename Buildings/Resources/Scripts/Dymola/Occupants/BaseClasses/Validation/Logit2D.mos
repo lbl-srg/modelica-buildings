@@ -1,0 +1,2 @@
+simulateModel("Buildings.Occupants.BaseClasses.Validation.Logit2D", stopTime=1.0, method="dassl", tolerance=1e-06, resultFile="Logit2D");
+createPlot(id=1, position={35, 30, 1134, 687}, y={"y"}, range={0.0, 1.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}});  

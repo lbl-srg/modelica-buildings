@@ -22,7 +22,7 @@ equation
 
   annotation (
   experiment(Tolerance=1e-6, StopTime=3600.0),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/TestZhang2012BlindsSIntensity.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/Zhang2012BlindsSIntensity.mos"
                         "Simulate and plot"),
   Documentation(info="<html>
 <p>

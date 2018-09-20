@@ -19,7 +19,7 @@ equation
             6}}, color={255,0,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=3600.0),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Lighting/Validation/TestLove1998Light2.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Lighting/Validation/Love1998Light2.mos"
                         "Simulate and plot"),
   Documentation(info="<html>
 <p>
