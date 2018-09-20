@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Validation;
 model EquipmentRotation_n_DevSta
   "Validate lead/lag and lead/standby switching"
 
-  parameter Integer num = 3
+  parameter Integer num = 4
     "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
 
-  parameter Boolean initRoles[num] = {true, false, false}
+  parameter Boolean initRoles[num] = {true, false, false, false}
     "Sets initial roles: true = lead, false = lag. There should be only one lead device";
 
   EquipmentRotation_n
