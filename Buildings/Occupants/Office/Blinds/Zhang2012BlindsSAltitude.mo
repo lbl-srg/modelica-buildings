@@ -1,4 +1,4 @@
-﻿within Buildings.Occupants.Office.Blinds;
+within Buildings.Occupants.Office.Blinds;
 model Zhang2012BlindsSAltitude
   "A model to predict occupants' blinds behavior with Solar Altitude"
   extends Modelica.Blocks.Icons.DiscreteBlock;
