@@ -8,9 +8,7 @@ model EquipmentRotation_DevSta
   parameter Boolean initRoles[num] = {true, false}
     "Sets initial roles: true = lead, false = lag. There should be only one lead device";
 
-  EquipmentRotation leaLag(stagingRuntime=5*60*60, num=num,
-    small=0,
-    overlap=1)
+  EquipmentRotation leaLag(stagingRuntime=5*60*60, num=num)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   CDL.Logical.Sources.Pulse leadLoad[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
@@ -19,17 +17,14 @@ model EquipmentRotation_DevSta
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   CDL.Logical.LogicalSwitch logSwi[num]
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  EquipmentRotation leaSta(stagingRuntime=5*60*60, num=num,
-    small=0,
-    overlap=1)
+  EquipmentRotation leaSta(stagingRuntime=5*60*60, num=num)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   CDL.Logical.Sources.Pulse leadLoad1[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   CDL.Logical.Sources.Constant standby[num](k=false)
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  CDL.Logical.LogicalSwitch logSwi1
-                                  [num]
+  CDL.Logical.LogicalSwitch logSwi1[num]
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   CDL.Logical.Pre pre[num](pre_u_start=initRoles)
     annotation (Placement(transformation(extent={{60,40},{80,60}})));

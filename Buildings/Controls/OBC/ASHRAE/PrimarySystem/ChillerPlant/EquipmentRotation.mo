@@ -1,66 +1,67 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 block EquipmentRotation
-  "Defines lead-lag or lead-standby equipment rotation"
+  "Defines lead-lag or lead-standby equipment rotation for two devices or groups of devices"
 
   parameter Integer num = 2
     "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
 
-  parameter Real small(unit = "s") = 1
-    "Hysteresis detla";
-
   parameter Real stagingRuntime(unit = "s") = 240 * 60 * 60
     "Staging runtime";
 
-  parameter Boolean initRoles[num] = {true, false}
-    "Sets initial roles: true = lead, false = lag. There should be only one lead device";
+  parameter Boolean initRoles[num] = initialization[1:num]
+    "Sets initial roles: true = lead, false = lag";
 
-  parameter Real overlap(unit = "s") = 5 * 60
-    "Time period during which the previous lead stays on";
+  parameter Boolean initialization[10] = {true, false, false, false, false, false, false, false, false, false}
+    "Initiates device mapped to the first index with the lead role and all other to lag";
 
   CDL.Interfaces.BooleanInput uDevSta[num]
-    "Current devices operation status"
+    "Current devices operation status (true - on, false - off)"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
+
+  CDL.Interfaces.BooleanOutput yDevRol[num]
+    "Device role (true - lead, false - lag)"
+    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
   CDL.Logical.Timer tim[num](reset=false)
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
-  CDL.Continuous.GreaterEqualThreshold
-                            greEquThr
-                               [num](threshold=stagingRuntime)
+  CDL.Continuous.GreaterEqualThreshold greEquThr[num](
+    final threshold=stagingRuntime)
     "Stagin runtime hysteresis"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  CDL.Logical.And3 and3
-                      [num]
+  CDL.Logical.And3 and3[num]
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  CDL.Logical.MultiOr mulOr(nu=num)
+
+  CDL.Logical.MultiOr mulOr(final nu=num)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
   CDL.Logical.Not fixme_for_n[num]
     "Fixme: For more than 2 devices this should be replaced by an implementation which moves the lead chiller to the first higher index"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+
   CDL.Logical.LogicalSwitch logSwi[num]
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+
   CDL.Routing.BooleanReplicator booRep(nout=num)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  CDL.Interfaces.BooleanOutput yDevRol[num]
-    "Device role (true - lead, false - lag)"
-    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+
   CDL.Logical.Pre pre[num](pre_u_start=initRoles)
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
-  CDL.Logical.FallingEdge
-                     falEdg1
-                         [num]
+  CDL.Logical.FallingEdge falEdg1[num]
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
+
   CDL.Logical.Not not1[num]
     "Fixme: For more than 2 devices this should be replaced by an implementation which moves the lead chiller to the first higher index"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+
 equation
-  connect(uDevSta, tim.u) annotation (Line(points={{-200,0},{-160,0},{-160,30},{
-          -122,30}}, color={255,0,255}));
+  connect(uDevSta, tim.u) annotation (Line(points={{-200,0},{-160,0},{-160,30},
+          {-122,30}},color={255,0,255}));
   connect(greEquThr.y, and3.u1) annotation (Line(points={{-59,30},{-30,30},{-30,
           8},{-22,8}}, color={255,0,255}));
   connect(logSwi.u1, fixme_for_n.y) annotation (Line(points={{98,-22},{70,-22},
@@ -127,15 +128,21 @@ equation
           textString="%name")}),
   Documentation(info="<html>
 <p>
-fixme
+This block rotates equipment, such as chillers, pumps or valves, in order 
+to ensure equal wear and tear. It can be used for lead/lag and lead/standby 
+operation. The input vector <code>uDevSta<\code> indicates the on off status
+the lead and the lag/standby device. Default initial lead role is assigned to the device associated
+with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
+for each piece of equipment and switches the lead role with the lag/standby
+as the <code>stagingRuntime<\code> expires. This block can only be applied to 
+two devices or two groups of devices, one lead and the other lag or standby.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-, by Milica Grahovac:<br/>
+September 18, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
 end EquipmentRotation;

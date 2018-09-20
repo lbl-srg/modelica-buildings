@@ -2,50 +2,57 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Validation;
 model EquipmentRotation_n_DevSta
   "Validate lead/lag and lead/standby switching"
 
-  parameter Integer num = 4
+  parameter Integer num = 3
     "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
 
-  parameter Boolean initRoles[num] = {true, false, false, false}
-    "Sets initial roles: true = lead, false = lag. There should be only one lead device";
+  parameter Boolean initialization[7] = {true, false, false, false, false, false, false, false, false, false}
+    "Initiates device mapped to the first index with the lead role and all other to lag";
 
-  EquipmentRotation_n
-                    leaLag(stagingRuntime=5*60*60, num=num,
-    small=0,
-    overlap=1,
+  parameter Boolean initRoles[num] = initialization[1:num]
+    "Sets initial roles: true = lead, false = lag";
+
+  EquipmentRotation_n leaLag(stagingRuntime=5*60*60,
+    num=num,
     initRoles=initRoles)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
+
   CDL.Logical.Sources.Pulse leadLoad[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+
   CDL.Logical.Sources.Pulse lagLoad[num](width=0.2, period=2*60*60)
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+
   CDL.Logical.LogicalSwitch logSwi[num]
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  EquipmentRotation_n
-                    leaSta(stagingRuntime=5*60*60, num=num,
-    small=0,
-    overlap=1,
+
+  EquipmentRotation_n leaSta(
+    stagingRuntime=5*60*60,
+    num=num,
     initRoles=initRoles)
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+
   CDL.Logical.Sources.Pulse leadLoad1[num](width=0.8, period=2*60*60)
     "Lead device on/off status"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+
   CDL.Logical.Sources.Constant standby[num](k=false)
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  CDL.Logical.LogicalSwitch logSwi1
-                                  [num]
+
+  CDL.Logical.LogicalSwitch logSwi1[num]
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+
   CDL.Logical.Pre pre[num](pre_u_start=initRoles)
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  CDL.Logical.Pre pre1
-                     [num](pre_u_start=initRoles)
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-equation
 
-  connect(leadLoad.y, logSwi.u1) annotation (Line(points={{-59,80},{-40,80},{-40,
-          58},{-22,58}}, color={255,0,255}));
-  connect(lagLoad.y, logSwi.u3) annotation (Line(points={{-59,20},{-40,20},{-40,
-          42},{-22,42}}, color={255,0,255}));
+  CDL.Logical.Pre pre1[num](pre_u_start=initRoles)
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+
+equation
+  connect(leadLoad.y, logSwi.u1)
+    annotation (Line(points={{-59,80},{-40,80},{-40,58},{-22,58}}, color={255,0,255}));
+  connect(lagLoad.y, logSwi.u3)
+    annotation (Line(points={{-59,20},{-40,20},{-40,42},{-22,42}}, color={255,0,255}));
   connect(logSwi.y, leaLag.uDevSta)
     annotation (Line(points={{1,50},{18,50}}, color={255,0,255}));
   connect(leadLoad1.y, logSwi1.u1) annotation (Line(points={{-59,-20},{-40,-20},
