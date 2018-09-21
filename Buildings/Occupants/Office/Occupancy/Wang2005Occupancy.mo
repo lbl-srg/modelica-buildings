@@ -2,8 +2,8 @@ within Buildings.Occupants.Office.Occupancy;
 model Wang2005Occupancy
   "A model to predict Occupancy of a single person office"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  parameter Real one_mu = 72.8 "mean of occupancy duration (min)";
-  parameter Real zero_mu = 42.6 "mean of vacancy duration (min)";
+  parameter Modelica.SIunits.Time one_mu(displayUnit="min") = 4368 "Mean occupancy duration";
+  parameter Modelica.SIunits.Time zero_mu(displayUnit="min") = 2556 "Mean vacancy duration";
   parameter Integer seed = 10 "Seed for the random number generator";
 
   Modelica.Blocks.Interfaces.BooleanOutput occ
@@ -12,24 +12,24 @@ model Wang2005Occupancy
 
 protected
   discrete Real mu;
-  discrete Real NextSampling(start=0);
+  discrete Real tNext(start=0);
   discrete Real hold_time(start = 0);
   Real r(min=0, max=1) "Generated random number";
   Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState];
 
 initial equation
-  NextSampling = 0;
+  tNext = 0;
   hold_time = 0;
   occ = true;
   state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(seed, seed);
 
 equation
-  when time > pre(NextSampling) then
+  when time > pre(tNext) then
     (r, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
     occ = not pre(occ);
     mu = if occ then one_mu else zero_mu;
-    hold_time = -mu*Modelica.Math.log(1 - r)*60;
-    NextSampling = time + hold_time;
+    hold_time = -mu*Modelica.Math.log(1 - r);
+    tNext = time + hold_time;
   end when;
 
   annotation (graphics={
@@ -47,12 +47,12 @@ Model predicting the occupancy of a single person office.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Wang, D., Federspiel, C.C. and 
-Rubinstein, F., 2005. Modeling occupancy in single person offices. Energy 
+The model is documented in the paper &quot;Wang, D., Federspiel, C.C. and
+Rubinstein, F., 2005. Modeling occupancy in single person offices. Energy
 and buildings, 37(2), pp.121-126.&quot;
 </p>
 <p>
-The model parameters are regressed from a field study in California with 35 
+The model parameters are regressed from a field study in California with 35
 single person offices at a large office building from 12/29/1998 to 12/20/1999.
 </p>
 </html>",

@@ -1,6 +1,6 @@
 ﻿within Buildings.Occupants.BaseClasses;
 function exponentialVariableGeneration "Random variable generator from the exponential distribution"
-    input Real mu  "mean of exponential distribution";
+    input Real mu  "Mean exponential distribution";
     input Integer globalSeed "Seed for the random number generator";
     output Real y "duration of event";
 protected
