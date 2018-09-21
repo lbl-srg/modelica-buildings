@@ -28,13 +28,13 @@ protected
 initial equation
   t0 = time;
   p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
+  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
     if occ then
       p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
     else
       p = 0;
       on = false;
@@ -54,18 +54,6 @@ Documentation(info="<html>
 <p>
 Model predicting the state of the heater with the outdoor temperature 
 and occupancy.
-</p>
-<h4>Inputs</h4>
-<p>
-outdoor temperature: should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of heater: a boolean variable, true indicates the heating 
-is on, false indicates the heating is off.
 </p>
 <h4>Dynamics</h4>
 <p>

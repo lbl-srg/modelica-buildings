@@ -44,7 +44,7 @@ equation
     if sampleTrigger then
       if occ then
         if not pre(on) then
-          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pInter, globalSeed=integer(seed*1E6*time));
+          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pInter, globalSeed=integer(seed*time));
         else
           on = true;
         end if;
@@ -52,7 +52,7 @@ equation
         on = false;
       end if;
     else
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pArriv, globalSeed=integer(seed*1E6*time));
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pArriv, globalSeed=integer(seed*time));
     end if;
   end when;
 
@@ -70,18 +70,6 @@ Documentation(info="<html>
 <p>
 Model predicting the state of the lighting with the illuminance on the working plane
 and occupancy.
-</p>
-<h4>Inputs</h4>
-<p>
-illuminance: the illuminance on the working plane, should be input with the unit of lux.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of lighting: a boolean variable, true indicates the light 
-is on, false indicates the light is off.
 </p>
 <h4>Dynamics</h4>
 <p>

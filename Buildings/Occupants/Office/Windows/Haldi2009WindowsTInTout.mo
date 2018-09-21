@@ -1,4 +1,4 @@
-﻿within Buildings.Occupants.Office.Windows;
+within Buildings.Occupants.Office.Windows;
 model Haldi2009WindowsTInTout "A model to predict occupants' window behavior with indoor and outdoor temperature"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real AOpenIn = 0.263 "Slope of indoor temp of the logistic relation for the opening probability";
@@ -47,9 +47,9 @@ equation
       pOpen = Modelica.Math.exp(AOpenIn*(TIn - 273.15)+AOpenOut*(TOut - 273.15)+BOpen)/(Modelica.Math.exp(AOpenIn*(TIn - 273.15)+AOpenOut*(TOut - 273.15)+BOpen) + 1);
       pClose = Modelica.Math.exp(ACloseIn*(TIn - 273.15)+ACloseOut*(TOut - 273.15)+BClose)/(Modelica.Math.exp(ACloseIn*(TIn - 273.15)+ACloseOut*(TOut - 273.15)+BClose) + 1);
       if pre(on) then
-        on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=integer(seed*1E6*time));
+        on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=integer(seed*time));
       else
-        on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=integer(seed*1E6*time));
+        on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=integer(seed*time));
       end if;
     else
       pOpen = 0;
@@ -71,21 +71,6 @@ Documentation(info="<html>
 <p>
 Model predicting the state of the window with the indoor, outdoor air temperature 
 and occupancy.
-</p>
-<h4>Inputs</h4>
-<p>
-indoor temperature: should be input with the unit of K.
-</p>
-<p>
-outdoor temperature: should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of window: a boolean variable, true indicates the window 
-is open, false indicates the window is closed.
 </p>
 <h4>Dynamics</h4>
 <p>

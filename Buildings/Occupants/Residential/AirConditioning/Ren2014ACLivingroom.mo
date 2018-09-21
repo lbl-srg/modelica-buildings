@@ -46,9 +46,9 @@ equation
     pon = if TIn>=u2 then 1 - Modelica.Math.exp(-((TIn-u2)/L2)^k2*samplePeriod) else 0;
     if occ then
       if pre(on) then
-        on = not Buildings.Occupants.BaseClasses.weibull1DOFF(x=TIn,u=u1,L=L1,k=k1,dt=samplePeriod,globalSeed=integer(seed*1E6*time));
+        on = not Buildings.Occupants.BaseClasses.weibull1DOFF(x=TIn,u=u1,L=L1,k=k1,dt=samplePeriod,globalSeed=integer(seed*time));
       else
-        on = Buildings.Occupants.BaseClasses.weibull1DON(x=TIn,u=u2,L=L2,k=k2,dt=samplePeriod,globalSeed=integer(seed*1E6*time));
+        on = Buildings.Occupants.BaseClasses.weibull1DON(x=TIn,u=u2,L=L2,k=k2,dt=samplePeriod,globalSeed=integer(seed*time));
       end if;
     else
       on = false;
@@ -68,18 +68,6 @@ Documentation(info="<html>
 <p>
 Model predicting the state of the AC with the indoor temperature 
 and occupancy.
-</p>
-<h4>Inputs</h4>
-<p>
-indoor temperature: should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of AC: a boolean variable, true indicates the AC 
-is on, false indicates the AC is off.
 </p>
 <h4>Dynamics</h4>
 <p>

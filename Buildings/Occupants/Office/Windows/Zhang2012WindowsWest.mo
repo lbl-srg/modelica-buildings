@@ -1,4 +1,4 @@
-﻿within Buildings.Occupants.Office.Windows;
+within Buildings.Occupants.Office.Windows;
 model Zhang2012WindowsWest "A model to predict occupants' window behavior with outdoor temperature for West-oriented windows"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A = 0.12 "Slope of the logistic relation";
@@ -27,13 +27,13 @@ protected
 initial equation
   t0 = time;
   p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
+  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
     if occ then
       p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
     else
       p = 0;
       on = false;
@@ -53,18 +53,6 @@ Documentation(info="<html>
 <p>
 Model predicting the state of the West-oriented window with the outdoor air temperature 
 and occupancy.
-</p>
-<h4>Inputs</h4>
-<p>
-outdoor temperature: should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of West-oriented window: a boolean variable, true indicates the window 
-is open, false indicates the window is closed.
 </p>
 <h4>Dynamics</h4>
 <p>
