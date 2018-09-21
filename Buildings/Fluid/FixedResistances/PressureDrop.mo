@@ -4,7 +4,7 @@ model PressureDrop
   extends Buildings.Fluid.BaseClasses.PartialResistance(
     final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
 
-  parameter Real deltaM(min=0.01) = 0.3
+  parameter Real deltaM(min=1E-6) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
                   Dialog(group = "Transition to laminar",
@@ -176,6 +176,11 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 21, 2018, by Michael Wetter:<br/>
+Decrease value of <code>deltaM(min=...)</code> attribute.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1026\">#1026</a>.
+</li>
 <li>
 February 3, 2018, by Filip Jorissen:<br/>
 Revised implementation of pressure drop equation

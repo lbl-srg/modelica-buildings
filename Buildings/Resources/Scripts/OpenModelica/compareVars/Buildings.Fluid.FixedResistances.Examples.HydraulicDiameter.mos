@@ -2,6 +2,12 @@ compareVars :=
   {
     "res.m_flow_nominal",
     "res.m_flow",
+    "res.m_flow_turbulent",
+    "resLarPip.m_flow_nominal",
+    "resLarPip.m_flow",
+    "resLarPip.m_flow_turbulent",
     "res.v",
-    "res.dh"
+    "resLarPip.v",
+    "res.dh",
+    "resLarPip.dh"
   };
