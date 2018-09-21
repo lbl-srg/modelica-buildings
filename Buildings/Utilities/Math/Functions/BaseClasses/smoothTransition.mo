@@ -67,7 +67,7 @@ Buildings.Utilities.Math.Functions.BaseClasses.der_2__smoothTransition</a>.
 <ul>
 <li>
 September 12, 2018, by David Blum:<br/>
-Change if-statement to if-expression.
+Change if-statement to if-expression.  
 For issue <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1019\">#1019</a>.
 </li>
 <li>

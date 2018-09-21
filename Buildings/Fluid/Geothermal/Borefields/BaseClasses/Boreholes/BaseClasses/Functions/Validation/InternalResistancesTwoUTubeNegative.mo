@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.Validation;
-model InternalResistancesTwoUTube_NegativeResistance
+model InternalResistancesTwoUTubeNegative
   "Validation of the thermal resistances using the method of Bauer et al. (2011) for a double U-tube borehole"
   extends Modelica.Icons.Example;
 
@@ -62,7 +62,7 @@ initial equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTube_NegativeResistance.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTubeNegative.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=1.0),
     Documentation(info="<html>
@@ -86,4 +86,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end InternalResistancesTwoUTube_NegativeResistance;
+end InternalResistancesTwoUTubeNegative;
