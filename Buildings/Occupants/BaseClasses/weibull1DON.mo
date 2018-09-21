@@ -6,7 +6,7 @@ function weibull1DON "Mapping a continuous input to a binary output through a We
     input Real k=1.0 "Parameter defining the Weibull Distribution: shape factor";
     input Real dt=60 "Time step length";
     input Integer globalSeed "Seed for the random number generator";
-    output Boolean y "Binary variable: true for on, false for off";
+    output Boolean y "Binary variable 0/1";
 protected
     Real p =  if x>=u then 1- Modelica.Math.exp(-((x-u)/L)^k*dt) else 0;
 algorithm

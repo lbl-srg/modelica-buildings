@@ -35,7 +35,7 @@ equation
   when sampleTrigger then
     if occ then
       pdown = 1-Modelica.Math.exp(A*(TIn-273.15)+B)/(Modelica.Math.exp(A*(TIn-273.15)+B)+1);
-      if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown, globalSeed=integer(seed*1E6*time)) then
+      if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown, globalSeed=integer(seed*time)) then
         blindState = 0;
       else
         blindState = 1;
@@ -58,18 +58,6 @@ defaultComponentName="bli",
 Documentation(info="<html>
 <p>
 Model predicting the state of the blinds with the indoor temperature.
-</p>
-<h4>Inputs</h4>
-<p>
-TIn: indoor air temperature, should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied,
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of blinds: a real variable, 1 indicates the blind
-is 100% on, 0 indicates the blind is 100% off.
 </p>
 <h4>Dynamics</h4>
 <p>

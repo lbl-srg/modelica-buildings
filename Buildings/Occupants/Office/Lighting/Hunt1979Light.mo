@@ -8,7 +8,7 @@ model Hunt1979Light "A model to predict occupants' lighting behavior with illumi
  parameter Integer seed = 30 "Seed for the random number generator";
  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
- Modelica.Blocks.Interfaces.RealInput Illu "Minimum illuminance on the working plane, unit:lux" annotation (
+ Modelica.Blocks.Interfaces.RealInput Illu "Illuminance on the working plane, unit:lux" annotation (
       Placement(transformation(extent={{-140,-80},{-100,-40}}),
      iconTransformation(extent={{-140,-80},{-100,-40}})));
  Modelica.Blocks.Interfaces.BooleanInput occ
@@ -46,7 +46,7 @@ equation
        on = false;
      end if;
    else
-     on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(pArriv, globalSeed=integer(seed*1E6*time));
+     on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(pArriv, globalSeed=integer(seed*time));
    end if;
  end when;
  annotation (graphics={
@@ -63,18 +63,6 @@ equation
 <p>
 Model predicting the state of the lighting with the minimum illuminance on the working plane
 and occupancy.
-</p>
-<h4>Inputs</h4>
-<p>
-illuminance: the minimum illuminance on the working plane, should be input with the unit of lux.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of lighting: a boolean variable, true indicates the light 
-is on, false indicates the light is off.
 </p>
 <h4>Dynamics</h4>
 <p>

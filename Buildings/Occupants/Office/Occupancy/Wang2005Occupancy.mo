@@ -45,13 +45,6 @@ Documentation(info="<html>
 <p>
 Model predicting the occupancy of a single person office.
 </p>
-<h4>Inputs</h4>
-<p>
-No inputs for this model
-</p>
-<h4>Outputs</h4>
-<p>The state of occupancy: a boolean variable, true for occupied.
-</p>
 <h4>References</h4>
 <p>
 The model is documented in the paper &quot;Wang, D., Federspiel, C.C. and 

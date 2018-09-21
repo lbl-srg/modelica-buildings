@@ -40,9 +40,9 @@ equation
       pOpen = Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen)/(Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen) + 1);
       pClose = Modelica.Math.exp(AClose*(TIn - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TIn - 273.15)+BClose) + 1);
       if pre(on) == true and TIn < 303.15 then
-        on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=integer(seed*1E6*time));
+        on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=integer(seed*time));
       elseif pre(on) == false and TIn > 293.15 then
-        on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=integer(seed*1E6*time));
+        on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=integer(seed*time));
       else
         on = pre(on);
       end if;
@@ -66,18 +66,6 @@ Documentation(info="<html>
 <p>
 Model predicting the state of the window with the indoor air temperature 
 and occupancy through Markov approach.
-</p>
-<h4>Inputs</h4>
-<p>
-indoor temperature: should be input with the unit of K.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of window: a boolean variable, true indicates the window 
-is open, false indicates the window is closed.
 </p>
 <h4>Dynamics</h4>
 <p>

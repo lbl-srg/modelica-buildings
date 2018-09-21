@@ -27,7 +27,7 @@ initial equation
   t0 = time;
   on = false;
 equation
-  p = Modelica.Math.exp(B+M*Modelica.Math.log10(Illu))/(1 - Modelica.Math.exp(B+M*Modelica.Math.log10(Illu)));
+  p = Modelica.Math.exp(B+M*Modelica.Math.log10(Illu))/(1 - Modelica.Math.exp(B+M*Modelica.Math.log10(Illu)))*100;
   sampleTrigger = sample(t0, samplePeriod);
   when {occ,sampleTrigger} then
     if sampleTrigger then
@@ -37,7 +37,7 @@ equation
         on = false;
       end if;
     else
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*1E6*time));
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
     end if;
   end when;
   annotation (graphics={
@@ -53,18 +53,6 @@ Documentation(info="<html>
 <p>
 Model predicting the state of the lighting with the daylight illuminance level on the desk
 and occupancy.
-</p>
-<h4>Inputs</h4>
-<p>
-illuminance: Daylight illuminance level on the desk, should be input with the unit of lux.
-</p>
-<p>
-occupancy: a boolean variable, true indicates the space is occupied, 
-false indicates the space is unoccupied.
-</p>
-<h4>Outputs</h4>
-<p>The state of lighting: a boolean variable, true indicates the light 
-is on, false indicates the light is off.
 </p>
 <h4>Dynamics</h4>
 <p>
