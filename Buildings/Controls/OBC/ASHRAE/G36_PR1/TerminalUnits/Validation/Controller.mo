@@ -65,16 +65,16 @@ model Controller "Validate model for controlling VAV terminal box with reheat"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 equation
-  connect(TSetRooHea.y, con.TRooHeaSet)
+  connect(TSetRooHea.y,con.TZonHeaSet)
     annotation (Line(points={{-59,80},{-50,80},{-50,60},{6,60},{6,76.5},
       {59,76.5}}, color={0,0,127}));
-  connect(TSetRooCoo.y, con.TRooCooSet)
+  connect(TSetRooCoo.y, con.TZonCooSet)
     annotation (Line(points={{-19,80},{-8,80},{-8,73.5},{59,73.5}},
       color={0,0,127}));
-  connect(disAirFlo.y, con.VDis)
+  connect(disAirFlo.y, con.VDis_flow)
     annotation (Line(points={{-59,40},{-50,40},{-50,56},{12,56},{12,70.5},
       {59,70.5}}, color={0,0,127}));
-  connect(TZon.y, con.TRoo)
+  connect(TZon.y, con.TZon)
     annotation (Line(points={{-19,40},{18,40},{18,67.5},{59,67.5}},
       color={0,0,127}));
   connect(TDis.y, con.TDis)
@@ -97,16 +97,16 @@ equation
   connect(winSta.y, con1.uWin)
     annotation (Line(points={{71,-80},{80,-80},{80,-60},{44,-60},{44,-4.5},
       {59,-4.5}}, color={255,0,255}));
-  connect(TSetRooHea.y, con1.TRooHeaSet)
+  connect(TSetRooHea.y,con1.TZonHeaSet)
     annotation (Line(points={{-59,80},{-50,80},{-50,60},{6,60},{6,16.5},
       {59,16.5}}, color={0,0,127}));
-  connect(TSetRooCoo.y, con1.TRooCooSet)
+  connect(TSetRooCoo.y, con1.TZonCooSet)
     annotation (Line(points={{-19,80},{-8,80},{-8,13.5},{59,13.5}},
       color={0,0,127}));
-  connect(disAirFlo.y, con1.VDis)
+  connect(disAirFlo.y, con1.VDis_flow)
     annotation (Line(points={{-59,40},{-50,40},{-50,56},{12,56},{12,10.5},
       {59,10.5}}, color={0,0,127}));
-  connect(TZon.y, con1.TRoo)
+  connect(TZon.y, con1.TZon)
     annotation (Line(points={{-19,40},{18,40},{18,7.5},{59,7.5}},
       color={0,0,127}));
   connect(TDis.y, con1.TDis)

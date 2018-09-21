@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.Examples.RectangularBorefield", stopTime=2678400, method="Cvode", tolerance=1e-06, resultFile="RectangularBorefield");
+createPlot(id=1, position={15, 10, 592, 689}, y={"hea.sta_a.T"}, range={0.0, 3000000.0, 5.0, 20.0}, grid=true, colors={{28,108,200}}, displayUnits={"degC"});
+createPlot(id=1, position={15, 10, 592, 342}, y={"borFie.groTemRes.delTBor"}, range={0.0, 3000000.0, -5.0, 10.0}, grid=true, subPlot=2, colors={{28,108,200}});
+

@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "falFac[1]",
+    "falFac[2]",
+    "falFac[3]",
+    "falFac[4]",
+    "falFac[5]",
+    "falFac[6]",
+    "falFac[7]",
+    "falFac[8]",
+    "falFac[9]",
+    "falFac[10]"
+  };

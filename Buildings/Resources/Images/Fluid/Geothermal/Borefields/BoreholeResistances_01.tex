@@ -1,0 +1,75 @@
+\documentclass{article}
+
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{nopageno}
+\usepackage[active,tightpage]{preview}  %generates a tightly fitting border around the work
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{2mm}
+
+\begin{document}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows}
+
+\begin{tikzpicture}[scale=0.6,>=angle 60]
+% Outline of borehole and pipes
+\draw[line width=1pt] (0,2) circle(4);
+\draw[line width=1pt] (-2.5,2) circle(0.7);
+\draw[line width=1pt] (2.5,2) circle(0.7);
+% Fluid and borehole wall nodes
+\fill[red] (-0.1,-1.9) -- (-0.1,-2.1) -- (0.1,-2.1) -- (0.1,-1.9) -- cycle;
+\fill[red] (-2.6,1.9) -- (-2.6,2.1) -- (-2.4,2.1) -- (-2.4,1.9) -- cycle;
+\fill[red] (2.6,1.9) -- (2.6,2.1) -- (2.4,2.1) -- (2.4,1.9) -- cycle;
+% Inner delta circuit of thermal resistances
+\draw[line width=1pt,red] (-1.25,0) -- (-0.5,0) -- (-0.4,0.2) -- (-0.2,-0.2) -- (0,0.2) -- (0.2,-0.2) -- (0.4,0.2) -- (0.5,0) -- (1.25,0);
+\draw[line width=1pt,red,cm={cos(58) ,-sin(58) ,sin(58) ,cos(58) ,(-0.625,-1)}] (-1.25,0) -- (-0.5,0) -- (-0.4,0.2) -- (-0.2,-0.2) -- (0,0.2) -- (0.2,-0.2) -- (0.4,0.2) -- (0.5,0) -- (1.25,0);
+\draw[line width=1pt,red,cm={cos(58) ,sin(58) ,sin(58) ,-cos(58) ,(0.625,-1)}] (-1.25,0) -- (-0.5,0) -- (-0.4,0.2) -- (-0.2,-0.2) -- (0,0.2) -- (0.2,-0.2) -- (0.4,0.2) -- (0.5,0) -- (1.25,0);
+% Fluid to grout thermal resistances
+\draw[line width=1pt,red,cm={cos(58) ,-sin(58) ,sin(58) ,cos(58) ,(-1.85,1)}] (-1.25,0) -- (-0.5,0) -- (-0.4,0.2) -- (-0.2,-0.2) -- (0,0.2) -- (0.2,-0.2) -- (0.4,0.2) -- (0.5,0) -- (1.25,0);
+\draw[line width=1pt,red,cm={cos(58) ,sin(58) ,sin(58) ,-cos(58) ,(1.85,1)}] (-1.25,0) -- (-0.5,0) -- (-0.4,0.2) -- (-0.2,-0.2) -- (0,0.2) -- (0.2,-0.2) -- (0.4,0.2) -- (0.5,0) -- (1.25,0);
+% Grout node capacitance (left)
+\draw[line width=1pt,red] (-1.25,0) -- (-1.85,-0.4);
+\draw[line width=1pt,red] (-2.05,-0.1) -- (-1.65,-0.7);
+\draw[line width=1pt,red] (-2.15,-0.18) -- (-1.75,-0.78);
+% Grout node capacitance (right)
+\draw[line width=1pt,red] (1.25,0) -- (1.85,-0.4);
+\draw[line width=1pt,red] (2.05,-0.1) -- (1.65,-0.7);
+\draw[line width=1pt,red] (2.15,-0.18) -- (1.75,-0.78);
+% Borehole wall node annotation
+\node[below] at (0,-2.1) {\large $T_b$};
+
+% Arrow to lower figure
+\draw[line width=2pt,->] (2.4,0) to [out=-50,in=65] (0.7,-4.7);
+
+% Thermal resistances in series
+\draw[line width=1pt,red,cm={1,0,0,1 ,(0.85,-6.5)}] (-1.25,0) -- (-0.5,0) -- (-0.4,0.2) -- (-0.2,-0.2) -- (0,0.2) -- (0.2,-0.2) -- (0.4,0.2) -- (0.5,0) -- (1.25,0);
+\draw[line width=1pt,red,cm={1,0,0,1 ,(-1.65,-6.5)}] (-1.25,0) -- (-0.5,0) -- (-0.4,0.2) -- (-0.2,-0.2) -- (0,0.2) -- (0.2,-0.2) -- (0.4,0.2) -- (0.5,0) -- (1.25,0);
+\draw[line width=1pt,red,cm={1,0,0,1 ,(-4,-6.5)}] (-1.25,0) -- (-0.5,0) -- (-0.4,0.2) -- (-0.2,-0.2) -- (0,0.2) -- (0.2,-0.2) -- (0.4,0.2) -- (0.5,0) -- (1.25,0);
+\draw[line width=1pt,red,cm={1,0,0,1 ,(3.2,-6.5)}] (-1.25,0) -- (-0.5,0) -- (-0.4,0.2) -- (-0.2,-0.2) -- (0,0.2) -- (0.2,-0.2) -- (0.4,0.2) -- (0.5,0) -- (1.25,0);
+% Fluid and borehole wall nodes
+\draw[line width=1pt,red,-o] (4,-6.5) -- (4.8,-6.5);
+\draw[line width=1pt,red] (-5.4,-6.5) circle(0.15);
+% Pipe section
+\draw[line width=1pt] (0.1,-5) arc (150:210:3);
+\draw[line width=1pt] (2.5,-5) arc (150:210:3);
+\draw[line width=1pt] (0.1,-5) -- (2.5,-5);
+\draw[line width=1pt] (0.1,-8) -- (2.5,-8);
+% Grout section
+\draw[line width=1pt] (-1.0,-5) -- (-4.7,-5) -- (-4.7,-8) -- (-1,-8) -- cycle;
+% Grout node capacitance (lower)
+\draw[line width=1pt,red] (-2.75,-6.5) -- (-2.75,-7);
+\draw[line width=1pt,red] (-3.1,-7) -- (-2.4,-7);
+\draw[line width=1pt,red] (-3.1,-7.2) -- (-2.4,-7.2);
+\draw[line width=1pt,red] (-2.75,-7.2) -- (-2.75,-7.6);
+\draw[line width=1pt,red] (-2.95,-7.6) -- (-2.55,-7.6);
+\draw[line width=1pt,red] (-2.85,-7.7) -- (-2.65,-7.7);
+\draw[line width=1pt,red] (-2.8,-7.8) -- (-2.7,-7.8);
+% Text annotations
+\node[right] at (4.8,-6.8) {\large Fluid};
+\node[left] at (-5.4,-6.8) {\large $T_b$};
+\node[above] at (1,-6.35) {\large Pipe};
+\node[above] at (-2.75,-6.2) {\large Grout};
+\node[above] at (4.1,-6.2) {\large Convection};
+\end{tikzpicture}
+
+\end{document}

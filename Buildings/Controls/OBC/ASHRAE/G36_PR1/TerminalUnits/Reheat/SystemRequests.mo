@@ -9,16 +9,16 @@ block SystemRequests
     "Flag, true if there is a hot water coil";
   parameter Boolean have_heaPla "Flag, true if there is a boiler plant";
 
-  parameter Modelica.SIunits.TemperatureDifference cooSetDif_1=2.8
+  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_1=2.8
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 3 cooling SAT reset requests";
-  parameter Modelica.SIunits.TemperatureDifference cooSetDif_2=1.7
+  parameter Modelica.SIunits.TemperatureDifference errTZonCoo_2=1.7
     "Limit value of difference between zone temperature and cooling setpoint
     for generating 2 cooling SAT reset requests";
-  parameter Modelica.SIunits.TemperatureDifference disAirSetDif_1=17
+  parameter Modelica.SIunits.TemperatureDifference errTDis_1=17
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 3 hot water reset requests";
-  parameter Modelica.SIunits.TemperatureDifference disAirSetDif_2=8.3
+  parameter Modelica.SIunits.TemperatureDifference errTDis_2=8.3
     "Limit value of difference between discharge air temperature and its setpoint
     for generating 2 hot water reset requests";
 
@@ -33,13 +33,13 @@ block SystemRequests
     annotation(Dialog(group="Duration times"));
 
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Zone cooling setpoint temperature"
@@ -52,13 +52,13 @@ block SystemRequests
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-220,70},{-180,110}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
       iconTransformation(extent={{-10,-10},{10,10}},origin={-110,0})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisSet_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
@@ -71,7 +71,7 @@ block SystemRequests
     final unit="1") "Damper position"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
       iconTransformation(extent={{-10,-10},{10,10}},origin={-110,-20})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisHeaSet(
     final unit="K",
     quantity="ThermodynamicTemperature") if have_heaWatCoi
     "Discharge airflow setpoint temperature for heating"
@@ -106,14 +106,14 @@ block SystemRequests
     annotation (Placement(transformation(extent={{180,-440},{200,-420}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=cooSetDif_1 - 0.1,
-    final uHigh=cooSetDif_1 + 0.1)
-    "Check if zone temperature is greater than cooling setpoint by cooSetDif_1"
+    final uLow=errTZonCoo_1 - 0.1,
+    final uHigh=errTZonCoo_1 + 0.1)
+    "Check if zone temperature is greater than cooling setpoint by errTZonCoo_1"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
-    final uLow=cooSetDif_2 - 0.1,
-    final uHigh=cooSetDif_2 + 0.1)
-    "Check if zone temperature is greater than cooling setpoint by cooSetDif_2"
+    final uLow=errTZonCoo_2 - 0.1,
+    final uHigh=errTZonCoo_2 + 0.1)
+    "Check if zone temperature is greater than cooling setpoint by errTZonCoo_2"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
     final uLow=0.85,
@@ -133,12 +133,12 @@ block SystemRequests
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys8(
     final uLow=-0.1,
     final uHigh=0.1) if have_heaWatCoi
-    "Check if discharge air temperature is disAirSetDif_1 less than setpoint"
+    "Check if discharge air temperature is errTDis_1 less than setpoint"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
     final uLow=-0.1,
     final uHigh=0.1) if have_heaWatCoi
-    "Check if discharge air temperature is disAirSetDif_2 less than setpoint"
+    "Check if discharge air temperature is errTDis_2 less than setpoint"
     annotation (Placement(transformation(extent={{-40,-310},{-20,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys10(
     final uLow=0.85,
@@ -153,7 +153,7 @@ block SystemRequests
     annotation (Placement(transformation(extent={{-140,-440},{-120,-420}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Discrete.Sampler samTCooSet(
+  Buildings.Controls.OBC.CDL.Discrete.Sampler samTZonCooSet(
     final samplePeriod=samplePeriod)
     "Sample current cooling setpoint"
     annotation (Placement(transformation(extent={{-160,430},{-140,450}})));
@@ -205,20 +205,20 @@ protected
     "Calculate difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add6(final k2=-1) if have_heaWatCoi
-    "Calculate difference of discharge temperature (plus disAirSetDif_1) and its setpoint"
+    "Calculate difference of discharge temperature (plus errTDis_1) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add7(final k2=-1) if have_heaWatCoi
-    "Calculate difference of discharge temperature (plus disAirSetDif_2) and its setpoint"
+    "Calculate difference of discharge temperature (plus errTDis_2) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final k=1,
-    final p=disAirSetDif_1) if have_heaWatCoi
-    "Discharge temperature plus disAirSetDif_1"
+    final p=errTDis_1) if have_heaWatCoi
+    "Discharge temperature plus errTDis_1"
     annotation (Placement(transformation(extent={{-140,-272},{-120,-252}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final k=1,
-    final p=disAirSetDif_2) if have_heaWatCoi
-    "Discharge temperature plus disAirSetDif_2"
+    final p=errTDis_2) if have_heaWatCoi
+    "Discharge temperature plus errTDis_2"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Convert real to integer value"
     annotation (Placement(transformation(extent={{140,190},{160,210}})));
@@ -373,9 +373,9 @@ protected
 equation
   connect(add2.y, hys.u)
     annotation (Line(points={{-79,200},{-62,200}},   color={0,0,127}));
-  connect(TCooSet, samTCooSet.u)
+  connect(TZonCooSet, samTZonCooSet.u)
     annotation (Line(points={{-200,440},{-162,440}}, color={0,0,127}));
-  connect(samTCooSet.y, uniDel.u)
+  connect(samTZonCooSet.y, uniDel.u)
     annotation (Line(points={{-139,440},{-100,440},{-100,460},{-82,460}},
       color={0,0,127}));
   connect(triSam.y, gai.u)
@@ -403,7 +403,7 @@ equation
   connect(uniDel.y, add1.u1)
     annotation (Line(points={{-59,460},{-40,460},{-40,446},{-22,446}},
       color={0,0,127}));
-  connect(samTCooSet.y, add1.u2)
+  connect(samTZonCooSet.y, add1.u2)
     annotation (Line(points={{-139,440},{-40,440},{-40,434},{-22,434}},
       color={0,0,127}));
   connect(gre1.y, swi.u2)
@@ -487,7 +487,7 @@ equation
   connect(addPar.y, add6.u2)
     annotation (Line(points={{-119,-262},{-108,-262},{-108,-246},{-82,-246}},
       color={0,0,127}));
-  connect(TDisSet, add6.u1)
+  connect(TDisHeaSet, add6.u1)
     annotation (Line(points={{-200,-210},{-100,-210},{-100,-234},{-82,-234}},
       color={0,0,127}));
   connect(add6.y, hys8.u)
@@ -511,7 +511,7 @@ equation
   connect(TDis, addPar1.u)
     annotation (Line(points={{-200,-290},{-160,-290},{-160,-320},{-142,-320}},
       color={0,0,127}));
-  connect(TDisSet, add7.u1)
+  connect(TDisHeaSet, add7.u1)
     annotation (Line(points={{-200,-210},{-100,-210},{-100,-294},{-82,-294}},
       color={0,0,127}));
   connect(uHeaVal, hys10.u)
@@ -602,14 +602,14 @@ equation
     annotation (Line(points={{1,200},{10,200},{10,192},{38,192}},
       color={255,0,255}));
 
-  connect(sampler.u, VDisSet)
+  connect(sampler.u, VDisSet_flow)
     annotation (Line(points={{-162,-40},{-170,-40},{-170,30},{-200,30}},
                                                    color={0,0,127}));
   connect(sampler.y, gai1.u) annotation (Line(points={{-139,-40},{-102,-40}},
                             color={0,0,127}));
   connect(sampler.y, gai2.u) annotation (Line(points={{-139,-40},{-128,-40},{-128,
           -88},{-102,-88}},   color={0,0,127}));
-  connect(sampler1.u, VDis)
+  connect(sampler1.u, VDis_flow)
     annotation (Line(points={{-162,-70},{-200,-70}}, color={0,0,127}));
   connect(uDam, sampler2.u)
     annotation (Line(points={{-200,-150},{-162,-150}}, color={0,0,127}));
@@ -619,16 +619,16 @@ equation
     annotation (Line(points={{-200,90},{-162,90}}, color={0,0,127}));
   connect(sampler4.y, hys5.u)
     annotation (Line(points={{-139,90},{-62,90}}, color={0,0,127}));
-  connect(samTCooSet.y, add2.u1) annotation (Line(points={{-139,440},{-128,440},
+  connect(samTZonCooSet.y, add2.u1) annotation (Line(points={{-139,440},{-128,440},
           {-128,426},{-150,426},{-150,206},{-102,206}}, color={0,0,127}));
-  connect(samTCooSet.y, add3.u1) annotation (Line(points={{-139,440},{-128,440},
+  connect(samTZonCooSet.y, add3.u1) annotation (Line(points={{-139,440},{-128,440},
           {-128,426},{-150,426},{-150,206},{-112,206},{-112,146},{-102,146}},
         color={0,0,127}));
-  connect(hys7.u, VDisSet)
+  connect(hys7.u, VDisSet_flow)
     annotation (Line(points={{-62,30},{-200,30}}, color={0,0,127}));
-  connect(add2.u2, TRoo) annotation (Line(points={{-102,194},{-150,194},{-150,170},
+  connect(add2.u2, TZon) annotation (Line(points={{-102,194},{-150,194},{-150,170},
           {-200,170}}, color={0,0,127}));
-  connect(add3.u2, TRoo) annotation (Line(points={{-102,134},{-150,134},{-150,170},
+  connect(add3.u2, TZon) annotation (Line(points={{-102,134},{-150,134},{-150,170},
           {-200,170}}, color={0,0,127}));
   connect(greEqu.u1, gai1.y)
     annotation (Line(points={{-62,-40},{-79,-40}}, color={0,0,127}));
@@ -716,12 +716,12 @@ annotation (
           extent={{-98,96},{-62,82}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TCooSet"),
+          textString="TZonCooSet"),
         Text(
           extent={{-100,74},{-72,64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TRoo"),
+          textString="TZon"),
         Text(
           extent={{-100,54},{-72,44}},
           lineColor={0,0,127},
@@ -731,12 +731,12 @@ annotation (
           extent={{-98,28},{-52,12}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDisSet"),
+          textString="VDisSet_flow"),
         Text(
           extent={{-98,4},{-64,-6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDis"),
+          textString="VDis_flow"),
         Text(
           extent={{-98,-16},{-70,-26}},
           lineColor={0,0,127},
@@ -747,7 +747,7 @@ annotation (
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           visible = (have_heaWatCoi or have_heaPla),
-          textString="TDisSet"),
+          textString="TDisHeaSet"),
         Text(
           extent={{-98,-66},{-64,-76}},
           lineColor={0,0,127},
@@ -813,14 +813,14 @@ Guideline 36 (G36), PART5.E.9, in the steps shown below.
 <h4>a. Cooling SAT reset requests <code>yZonTemResReq</code></h4>
 <ol>
 <li>
-If the zone temperature <code>TRoo</code> exceeds the zone cooling setpoint
-<code>TCooSet</code> by 2.8 &deg;C (5 &deg;F)) for 2 minutes and after suppression
+If the zone temperature <code>TZon</code> exceeds the zone cooling setpoint
+<code>TZonCooSet</code> by 2.8 &deg;C (5 &deg;F)) for 2 minutes and after suppression
 period due to setpoint change per G36 Part 5.A.20, send 3 requests
 (<code>yZonTemResReq=3</code>).
 </li>
 <li>
-Else if the zone temperature <code>TRoo</code> exceeds the zone cooling setpoint
-<code>TCooSet</code> by 1.7 &deg;C (3 &deg;F) for 2 minutes and after suppression
+Else if the zone temperature <code>TZon</code> exceeds the zone cooling setpoint
+<code>TZonCooSet</code> by 1.7 &deg;C (3 &deg;F) for 2 minutes and after suppression
 period due to setpoint change per G36 Part 5.A.20, send 2 requests
 (<code>yZonTemResReq=3</code>).
 </li>
@@ -835,13 +835,13 @@ Else if <code>uCoo</code> is less than 95%, send 0 request (<code>yZonTemResReq=
 <h4>b. Static pressure reset requests <code>yZonPreResReq</code></h4>
 <ol>
 <li>
-If the measured airflow <code>VDis</code> is less than 50% of setpoint
-<code>VDisSet</code> while it is greater than zero for 1 minute, send 3 requests
+If the measured airflow <code>VDis_flow</code> is less than 50% of setpoint
+<code>VDisSet_flow</code> while it is greater than zero for 1 minute, send 3 requests
 (<code>yZonPreResReq=3</code>).
 </li>
 <li>
-Else if the measured airflow <code>VDis</code> is less than 70% of setpoint
-<code>VDisSet</code> while it is greater than zero for 1 minute, send 2 requests
+Else if the measured airflow <code>VDis_flow</code> is less than 70% of setpoint
+<code>VDisSet_flow</code> while it is greater than zero for 1 minute, send 2 requests
 (<code>yZonPreResReq=2</code>).
 </li>
 <li>
@@ -857,12 +857,12 @@ hot water reset requests <code>yHeaValResReq</code></h4>
 <ol>
 <li>
 If the discharge air temperature <code>TDis</code> is 17 &deg;C (30 &deg;F)
-less than the setpoint <code>TDisSet</code> for 5 minutes, send 3 requests
+less than the setpoint <code>TDisHeaSet</code> for 5 minutes, send 3 requests
 (<code>yHeaValResReq=3</code>).
 </li>
 <li>
 Else if the discharge air temperature <code>TDis</code> is 8.3 &deg;C (15 &deg;F)
-less than the setpoint <code>TDisSet</code> for 5 minutes, send 2 requests
+less than the setpoint <code>TDisHeaSet</code> for 5 minutes, send 2 requests
 (<code>yHeaValResReq=2</code>).
 </li>
 <li>

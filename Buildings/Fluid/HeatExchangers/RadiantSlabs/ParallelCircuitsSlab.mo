@@ -125,12 +125,12 @@ protected
   parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
 
-  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier masFloMul_a(
+  Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul_a(
       redeclare final package Medium = Medium,
       final k=nCir)
     "Mass flow multiplier, used to avoid having to instanciate multiple slab models"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
-  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier masFloMul_b(
+  Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul_b(
       redeclare final package Medium = Medium,
       final k=nCir)
     "Mass flow multiplier, used to avoid having to instanciate multiple slab models"

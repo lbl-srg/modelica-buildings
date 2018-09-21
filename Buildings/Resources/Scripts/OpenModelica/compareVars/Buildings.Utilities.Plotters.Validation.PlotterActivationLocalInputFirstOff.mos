@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "plotConfiguration.active",
+    "sca.active",
+    "scaDel.active"
+  };

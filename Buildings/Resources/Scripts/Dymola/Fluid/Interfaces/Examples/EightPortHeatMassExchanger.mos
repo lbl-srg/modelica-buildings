@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.Interfaces.Examples.EightPortHeatMassExchanger", tolerance=1e-6, stopTime=5, method="dassl", resultFile="EightPortHeatMassExchanger");
+createPlot(
+  id=1,
+  position={0, 0, 1314, 667},
+  y={"eigPor.Q1_flow", "eigPor.Q2_flow", "eigPor.Q3_flow", "eigPor.Q4_flow"},
+  range={0.0, 5.0, -1.5, 1.5},
+  grid=true);
+
+createPlot(
+  id=1, position={0, 0, 1314, 331},
+  y={"eigPor.vol1.T", "eigPor.vol2.T", "eigPor.vol3.T", "eigPor.vol4.T", "sou1.T", "sou2.T_in", "sou3.T", "sou4.T_in", "sin.T"},
+  range={0.0, 5.0, 270.0, 295.0},
+  grid=true,
+  subPlot=2);

@@ -1,0 +1,9 @@
+last-generated=2018-07-15
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+cmpAll=[1e+00, 1e+00]
+time=[0e+00, 1e+00]

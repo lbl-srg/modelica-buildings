@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "kappa[4]",
+    "kappa[5]",
+    "kappa[6]",
+    "kappa[7]"
+  };

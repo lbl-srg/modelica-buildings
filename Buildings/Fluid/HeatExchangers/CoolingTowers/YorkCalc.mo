@@ -15,22 +15,15 @@ model YorkCalc
     "Design range temperature (water in - water out)"
       annotation (Dialog(group="Nominal condition"));
   parameter Real fraPFan_nominal(unit="W/(kg/s)") = 275/0.15
-    "Fan power divived by water mass flow rate at design condition";
+    "Fan power divided by water mass flow rate at design condition";
   parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
     "Fan power";
-
-//  parameter cha.efficiencyParameters fanRelPow(
-//       r_V = {0, 0.1,   0.3,   0.6,   1},
-//       eta = {0, 0.1^3, 0.3^3, 0.6^3, 1})
-//    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
-//    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   parameter cha.fan fanRelPow(
        r_V = {0, 0.1,   0.3,   0.6,   1},
        r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
 
   parameter Real yMin(min=0.01, max=1) = 0.3
     "Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)";
