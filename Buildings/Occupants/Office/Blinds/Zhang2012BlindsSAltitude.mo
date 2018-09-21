@@ -1,4 +1,4 @@
-within Buildings.Occupants.Office.Blinds;
+﻿within Buildings.Occupants.Office.Blinds;
 model Zhang2012BlindsSAltitude
   "A model to predict occupants' blinds behavior with solar altitude"
   extends Modelica.Blocks.Icons.DiscreteBlock;
@@ -39,8 +39,6 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-
-
     if occ then
       if pre(blindState) == 1 then
         pup = 0;

@@ -7,10 +7,10 @@ model Zhang2012BlindsSAltitude
     "True for occupied"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Sine SA(
-    amplitude=30,
-    offset=35,
+    amplitude=30*3.14159/180,
+    offset=35*3.14159/180,
     freqHz=0.001,
-    y(unit="deg")) "Solar altitude"
+    y(unit="1")) "Solar altitude"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Occupants.Office.Blinds.Zhang2012BlindsSAltitude bli "Tested blinds model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
