@@ -69,7 +69,7 @@ the chance that the blind is on.
 <p>
 The model is documented in the paper &quot;Haldi, F. and Robinson, D., 2008.
 On the behaviour and adaptation of office occupants. Building and environment,
-43(12), pp.2163-2177.&quot;.
+43(12), pp.2163-2177.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in eight Swiss office

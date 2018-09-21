@@ -1,8 +1,8 @@
 within Buildings.Occupants.Office.Blinds;
 model Inkarojrit2008BlindsSIntensity
-    "A model to predict occupants' blinds behavior with Solar Intensity (and self-reported brightness sensitivity)"
+    "A model to predict occupants' blinds behavior with solar intensity (and self-reported brightness sensitivity)"
     extends Modelica.Blocks.Icons.DiscreteBlock;
-    parameter Real A1 = 3.22 "Slope of Solar Intensity at Window";
+    parameter Real A1 = 3.22 "Slope of solar intensity at Window";
     parameter Real A2 = 1.22 "Slope of Occupants' brightness sensitivity";
     parameter Real B = -8.94 "Intercept";
     parameter Real LSen =  4 "Self-reported sensitivity to brightness,
@@ -11,7 +11,7 @@ model Inkarojrit2008BlindsSIntensity
     parameter Integer seed = 10 "Seed for the random number generator";
     parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
-    Modelica.Blocks.Interfaces.RealInput H(unit="W/m2") "Solar Intensity"
+    Modelica.Blocks.Interfaces.RealInput H(unit="W/m2") "Solar intensity"
       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
           iconTransformation(extent={{-140,-80},{-100,-40}})));
     Modelica.Blocks.Interfaces.BooleanInput occ
@@ -30,10 +30,10 @@ protected
     parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
 
-  initial equation
+initial equation
     t0 = time;
 
-  equation
+equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
       if occ then
@@ -74,7 +74,7 @@ the chance that the blind is on.
 <p>
 The model is documented in the paper &quot;Inkarojrit, V., 2008. Monitoring and
 modelling of manually-controlled Venetian blinds in private offices: a pilot
-study. Journal of Building Performance Simulation, 1(2), pp.75-89.&quot;.
+study. Journal of Building Performance Simulation, 1(2), pp.75-89.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in California in 2008

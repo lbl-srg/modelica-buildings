@@ -77,7 +77,7 @@ depends on the outdoor air temperature.
 <p>
 The model is documented in the paper &quot;Yun, G.Y. and Steemers, K., 
 2008. Time-dependent occupant behaviour models of window control in 
-summer. Building and Environment, 43(9), pp.1471-1482.&quot;.
+summer. Building and Environment, 43(9), pp.1471-1482.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in offices without

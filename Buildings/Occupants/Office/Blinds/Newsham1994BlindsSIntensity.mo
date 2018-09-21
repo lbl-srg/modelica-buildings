@@ -1,11 +1,11 @@
 within Buildings.Occupants.Office.Blinds;
 model Newsham1994BlindsSIntensity
-    "A model to predict occupants' blinds behavior with Solar Intensity"
+    "A model to predict occupants' blinds behavior with solar intensity"
     extends Modelica.Blocks.Icons.DiscreteBlock;
     parameter Real H_threshold = 233 "Threshold for turning on/off the blinds";
     parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
-    Modelica.Blocks.Interfaces.RealInput H(unit="W/m2") "Solar Intensity at the room-side of the window"
+    Modelica.Blocks.Interfaces.RealInput H(unit="W/m2") "Solar intensity at the room-side of the window"
       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
           iconTransformation(extent={{-140,-80},{-100,-40}})));
     Modelica.Blocks.Interfaces.BooleanInput occ
@@ -19,10 +19,10 @@ protected
     parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
 
-  initial equation
+initial equation
     t0 = time;
 
-  equation
+equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
       if occ then
@@ -58,10 +58,10 @@ space is occupied, if the Solar intensity is above the threshold, the blinds wou
 <h4>References</h4>
 <p>
 The model is documented in the paper &quot;Newsham, G.R., 1994. Manual control of window blinds 
-and electric lighting: implications for comfort and energy consumption. Indoor Environment, 3, pp.135-144.&quot;.
+and electric lighting: implications for comfort and energy consumption. Indoor Environment, 3, pp.135-144.&quot;
 </p>
 <p>
-The Solar Intensity threshold was first identified by a field study in 
+The solar intensity threshold was first identified by a field study in 
 an office building in Japan, and was utilized by Newsham for a simulation
 study in an office building in Toronto.
 </p>

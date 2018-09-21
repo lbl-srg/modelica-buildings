@@ -1,4 +1,4 @@
-within Buildings.Occupants.Office.Windows;
+﻿within Buildings.Occupants.Office.Windows;
 model Haldi2009WindowsTInTout "A model to predict occupants' window behavior with indoor and outdoor temperature"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real AOpenIn = 0.263 "Slope of indoor temp of the logistic relation for the opening probability";
@@ -83,7 +83,7 @@ depends on both the indoor and outdoor temperature.
 <p>
 The model is documented in the paper &quot;Haldi, F. and Robinson, D., 
 2009. Interactions with window openings by office occupants. Building 
-and Environment, 44(12), pp.2378-2395.&quot;.
+and Environment, 44(12), pp.2378-2395.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in the Solar 

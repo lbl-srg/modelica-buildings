@@ -30,10 +30,10 @@ This example validates
 <a href=\"modelica://Buildings.Occupants.Office.Blinds.Zhang2012BlindsSIntensity\">
 Buildings.Occupants.Office.Blinds.Zhang2012BlindsSIntensity</a>
 by examing how the blinds state corresponds
-to the Solar Intensity.
+to the solar intensity.
 </p>
 <p>
-An Solar Intensity variation was simulated by a sine function. The output is how the blind state
+A solar intensity variation was simulated by a sine function. The output is how the blind state
 changes with the Intensity variation.
 </p>
 </html>", revisions="<html>

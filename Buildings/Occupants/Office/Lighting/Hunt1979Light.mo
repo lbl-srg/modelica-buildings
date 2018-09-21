@@ -77,7 +77,7 @@ on their working plane.
 <p>
 The model is documented in the paper &quot;Hunt, D.R.G., 1980. Predicting artificial 
 lighting use-a method based upon observed patterns of behaviour. Lighting Research &amp; Technology, 
-12(1), pp.7-14.&quot;.
+12(1), pp.7-14.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in 10 offices in Germany from

@@ -24,8 +24,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model tests the implementation of
-<a href=\"modelica://Buildings.Occupants.Baseclasses.logit1D\">
-Buildings.Occupants.Baseclasses.logit1D</a>.
+<a href=\"modelica://Buildings.Occupants.BaseClasses.logit1D\">
+Buildings.Occupants.BaseClasses.logit1D</a>.
 </p>
 </html>", revisions="<html>
 <ul>

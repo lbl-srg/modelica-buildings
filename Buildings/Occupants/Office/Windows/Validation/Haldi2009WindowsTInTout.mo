@@ -21,7 +21,7 @@ model Haldi2009WindowsTInTout "Validating the model for window behaviors"
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
     Buildings.Occupants.Office.Windows.Haldi2009WindowsTInTout win "Tested Windows model"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  equation
+equation
     connect(win.occ, occ.y) annotation (Line(points={{-12,6},{-36,6},{-36,60},{
             -59,60}},
                   color={255,0,255}));

@@ -65,7 +65,7 @@ level on the desk.
 <h4>References</h4>
 <p>
 The model is documented in the paper &quot;Love, J.A., 1998. Manual switching patterns in 
-private offices. International journal of lighting research and technology, 30(1), pp.45-50.&quot;.
+private offices. International journal of lighting research and technology, 30(1), pp.45-50.&quot;
 </p>
 <p>
 The model parameters are regressed from observing the behavior of a 30 years old female without

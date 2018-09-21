@@ -16,7 +16,7 @@ model Zhang2012BlindsSAltitude
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealOutput blindState
-    "State of blinds, 1 for 100% on, 0 for 100% off"
+    "State of blinds, 1 being deployed, 0 being no blind"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Real pup(
@@ -34,7 +34,7 @@ protected
 
 initial equation
   t0 = time;
-  blindState = 1 "Initial state of blinds is 100% on";
+  blindState = 1 "Initial state of blinds is deployed";
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
@@ -89,7 +89,7 @@ the chance that the blind state will be changed, either being turned on or turne
 <p>
 The model is documented in the paper &quot;Zhang, Y. and Barrett, P., 2012.
 Factors influencing occupants’ blind-control behaviour in a naturally
-ventilated office building. Building and Environment, 54, pp.137-147.&quot;.
+ventilated office building. Building and Environment, 54, pp.137-147.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in an office building

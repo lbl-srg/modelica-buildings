@@ -112,7 +112,7 @@ outdoor temperature.
 The model is documented in the paper &quot;Rijal, H.B., Tuohy, P., Humphreys, 
 M.A., Nicol, J.F., Samuel, A. and Clarke, J., 2007. Using results from field 
 surveys to predict the effect of open windows on thermal comfort and energy 
-use in buildings. Energy and buildings, 39(7), pp.823-836.&quot;.
+use in buildings. Energy and buildings, 39(7), pp.823-836.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study conducted in 15 office 

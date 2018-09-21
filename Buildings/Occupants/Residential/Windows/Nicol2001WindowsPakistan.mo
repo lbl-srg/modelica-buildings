@@ -66,7 +66,7 @@ The model is documented in the paper &quot;Nicol, J.F., 2001, August.
 Characterising occupant behaviour in buildings: towards a stochastic 
 model of occupant use of windows, lights, blinds, heaters and fans. 
 In Proceedings of the seventh international IBPSA conference, Rio 
-(Vol. 2, pp. 1073-1078).&quot;.
+(Vol. 2, pp. 1073-1078).&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in 7000 naturally 

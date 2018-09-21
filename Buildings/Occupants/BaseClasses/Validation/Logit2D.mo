@@ -27,8 +27,8 @@ equation
           "Simulate and plot"), Documentation(info="<html>
 <p>
 This model tests the implementation of
-<a href=\"modelica://Buildings.Occupants.Baseclasses.logit2D\">
-Buildings.Occupants.Baseclasses.logit2D</a>.
+<a href=\"modelica://Buildings.Occupants.BaseClasses.logit2D\">
+Buildings.Occupants.BaseClasses.logit2D</a>.
 </p>
 </html>",   revisions="<html>
 <ul>

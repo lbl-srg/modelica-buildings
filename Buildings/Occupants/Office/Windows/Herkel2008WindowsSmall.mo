@@ -1,4 +1,4 @@
-within Buildings.Occupants.Office.Windows;
+﻿within Buildings.Occupants.Office.Windows;
 model Herkel2008WindowsSmall "A model to predict occupants' window behavior with outdoor temperature for small windows"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A = 0.16 "Slope of the logistic relation";
@@ -65,7 +65,7 @@ the chance to open the window.
 <p>
 The model is documented in the paper &quot;Herkel, S., Knapp, U. and Pfafferott, J., 
 2008. Towards a model of user behaviour regarding the manual control of windows in 
-office buildings. Building and environment, 43(4), pp.588-600.&quot;.
+office buildings. Building and environment, 43(4), pp.588-600.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in 21 individual offices within

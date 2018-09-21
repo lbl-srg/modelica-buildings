@@ -65,7 +65,7 @@ the chance to turn on the heater.
 The model is documented in the paper &quot;Nichol, J., 2001. 
 Characterizing occupant behavior in buildings: towards a stochastic 
 model of occupant use of windows, lights, blinds heaters and fans. In 
-Proceedings of building simulation 01, an IBPSA Conference.&quot;.
+Proceedings of building simulation 01, an IBPSA Conference.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in the EU in 

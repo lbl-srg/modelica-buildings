@@ -1,4 +1,4 @@
-within Buildings.Occupants.Office.Windows;
+﻿within Buildings.Occupants.Office.Windows;
 model Zhang2012WindowsWest "A model to predict occupants' window behavior with outdoor temperature for West-oriented windows"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A = 0.12 "Slope of the logistic relation";
@@ -64,7 +64,7 @@ the chance to open the window.
 <p>
 The model is documented in the paper &quot;Zhang, Y. and Barrett, P., 2012. 
 Factors influencing the occupants’ window opening behaviour in a naturally 
-ventilated office building. Building and Environment, 50, pp.125-134.&quot;.
+ventilated office building. Building and Environment, 50, pp.125-134.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in a naturally 

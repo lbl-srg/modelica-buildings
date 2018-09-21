@@ -22,8 +22,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model tests the implementation of
-<a href=\"modelica://Buildings.Occupants.Baseclasses.binaryVariableGeneration\">
-Buildings.Occupants.Baseclasses.binaryVariableGeneration</a>.
+<a href=\"modelica://Buildings.Occupants.BaseClasses.binaryVariableGeneration\">
+Buildings.Occupants.BaseClasses.binaryVariableGeneration</a>.
 </p>
 </html>", revisions="<html>
 <ul>

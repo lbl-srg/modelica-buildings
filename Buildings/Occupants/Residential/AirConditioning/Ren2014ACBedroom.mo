@@ -79,7 +79,7 @@ the chance to turn on the AC and higher the chance to turn off the AC.
 <p>
 The model is documented in the paper &quot;Ren, X., Yan, D. and Wang, C., 
 2014. Air-conditioning usage conditional probability model for residential 
-buildings. Building and Environment, 81, pp.172-182.&quot;.
+buildings. Building and Environment, 81, pp.172-182.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in China in 2014.

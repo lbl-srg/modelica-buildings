@@ -1,16 +1,16 @@
-within Buildings.Occupants.Office.Blinds;
+﻿within Buildings.Occupants.Office.Blinds;
 model Zhang2012BlindsSIntensity
-    "A model to predict occupants' blinds behavior with Solar Intensity"
+    "A model to predict occupants' blinds behavior with solar intensity"
     extends Modelica.Blocks.Icons.DiscreteBlock;
-    parameter Real Aup = 0.003 "Slope of Solar Intensity for blinds up";
-    parameter Real Adown = 0.002 "Slope of Solar Intensity for blinds down";
+    parameter Real Aup = 0.003 "Slope of solar intensity for blinds up";
+    parameter Real Adown = 0.002 "Slope of solar intensity for blinds down";
     parameter Real Bup = -3.33 "Intercept for blinds up";
     parameter Real Bdown = -3.17 "Intercept for blinds down";
     parameter Integer seed = 10 "Seed for the random number generator";
     parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
     Modelica.Blocks.Interfaces.RealInput H(
-      unit="W/m2") "Solar Intensity" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+      unit="W/m2") "Solar intensity" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
     Modelica.Blocks.Interfaces.BooleanInput occ
       "Indoor occupancy, true for occupied"
@@ -32,11 +32,11 @@ protected
     parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
 
-  initial equation
+initial equation
     t0 = time;
-    blindState = 1 "Initial state of blinds is 100% on";
+    blindState = 1 "Initial state of blinds is deployed";
 
-  equation
+equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
 
@@ -77,20 +77,20 @@ protected
   defaultComponentName="bli",
   Documentation(info="<html>
 <p>
-Model predicting the state of the blinds with the solar intensity at the window 
+Model predicting the state of the blinds with the solar intensity at the window
 and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the blinds is always on. When the 
-space is occupied, the lower the Solar Intensity is, the higher 
+When the space is unoccupied, the blinds is always on. When the
+space is occupied, the lower the solar intensity is, the higher
 the chance that the blind is on.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Zhang, Y. and Barrett, P., 2012. 
-Factors influencing occupants’ blind-control behaviour in a naturally 
-ventilated office building. Building and Environment, 54, pp.137-147.&quot;.
+The model is documented in the paper &quot;Zhang, Y. and Barrett, P., 2012.
+Factors influencing occupants’ blind-control behaviour in a naturally
+ventilated office building. Building and Environment, 54, pp.137-147.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in an office building

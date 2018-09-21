@@ -49,7 +49,7 @@ Model predicting the occupancy of a single person office.
 <p>
 The model is documented in the paper &quot;Wang, D., Federspiel, C.C. and 
 Rubinstein, F., 2005. Modeling occupancy in single person offices. Energy 
-and buildings, 37(2), pp.121-126.&quot;.
+and buildings, 37(2), pp.121-126.&quot;
 </p>
 <p>
 The model parameters are regressed from a field study in California with 35 

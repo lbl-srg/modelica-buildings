@@ -90,7 +90,7 @@ be switched off only when the space is unoccupied.
 <p>
 The model is documented in the paper &quot;Gunay, H.B., O'Brien, W. and Beausoleil-Morrison, I., 
 2016. Implementation and comparison of existing occupant behaviour models in EnergyPlus. 
-Journal of Building Performance Simulation, 9(6), pp.567-588.&quot;.
+Journal of Building Performance Simulation, 9(6), pp.567-588.&quot;
 </p>
 <p>
 The model parameters are utilized as inputs for the lighting behavior models developped by
