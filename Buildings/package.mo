@@ -163,6 +163,14 @@ its class name ends with the string <code>Beta</code>.
                            and either one or two U-tube heat exchangers.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Occupants
+       </td>
+       <td valign=\"top\">Package with occupant behavior models and functions to
+                          simulate the occupancy and the interaction of occupants
+                          with air-conditioning and heating systems, windows,
+                          blinds, and lighting in residential and office buildings.
+       </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Cryptographics
         </td>
         <td valign=\"top\">Package with a function to compute a SHA1 encrypted string.
@@ -181,14 +189,6 @@ its class name ends with the string <code>Beta</code>.
                           The plots can be deactivated based on an input signal and a time
                           delay, for example, to plot data only while the HVAC system
                           operates for at least <i>30</i> minutes.
-       </td>
-       </tr>
-    <tr><td valign=\"top\">Buildings.Occupants
-       </td>
-       <td valign=\"top\">Package with occupant behavior models and functions to 
-                          simulate the occupancy and the interaction between human and 
-                          building systems such as air-conditioning, heating, windows, 
-                          blinds, and lighting in residential and office buildings.
        </td>
     </tr>
     </table>
