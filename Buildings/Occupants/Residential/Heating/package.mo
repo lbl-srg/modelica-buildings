@@ -1,6 +1,6 @@
 within Buildings.Occupants.Residential;
 package Heating "Package with models to simulate heating behaviors in resident buildings"
-    extends Modelica.Icons.Package;
+    extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

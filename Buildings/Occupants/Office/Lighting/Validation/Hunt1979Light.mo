@@ -5,10 +5,9 @@ model Hunt1979Light "Validating the model for light behaviors"
   Modelica.Blocks.Sources.Sine ill(
     amplitude=200,
     offset=250,
-    freqHz=0.001,
-    y) "Minimum illuminance at working plane"
+    freqHz=0.001) "Minimum illuminance at working plane"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Occupants.Office.Lighting.Hunt1979Light lig "Tested Lighting model"
+  Buildings.Occupants.Office.Lighting.Hunt1979Light lig "Tested lighting model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.BooleanPulse occ(period=400)
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));

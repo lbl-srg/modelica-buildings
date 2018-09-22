@@ -19,7 +19,7 @@ model Haldi2009WindowsTInTout "Validating the model for window behaviors"
       offset=298,
       amplitude=12)          "Outdoor air temperature"
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-    Buildings.Occupants.Office.Windows.Haldi2009WindowsTInTout win "Tested Windows model"
+    Buildings.Occupants.Office.Windows.Haldi2009WindowsTInTout win "Tested windows model"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
     connect(win.occ, occ.y) annotation (Line(points={{-12,6},{-36,6},{-36,60},{

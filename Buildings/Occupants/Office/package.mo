@@ -9,37 +9,37 @@ This package contains models to simulate occupant behaviors in office buildings.
 </html>"),
   Icon(graphics={
       Rectangle(
-        extent={{-60,84},{50,-72}},
+        extent={{-64,86},{60,-76}},
         lineColor={150,150,150},
         fillPattern=FillPattern.Solid,
         fillColor={150,150,150}),
       Rectangle(
-        extent={{-42,-8},{-14,20}},
+        extent={{-38,-8},{-10,20}},
         lineColor={255,255,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
       Rectangle(
-        extent={{6,-8},{34,20}},
+        extent={{10,-8},{38,20}},
         lineColor={255,255,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
       Rectangle(
-        extent={{6,-58},{34,-30}},
+        extent={{10,-58},{38,-30}},
         lineColor={255,255,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
       Rectangle(
-        extent={{-42,-58},{-14,-30}},
+        extent={{-38,-58},{-10,-30}},
         lineColor={255,255,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
       Rectangle(
-        extent={{-42,42},{-14,70}},
+        extent={{-38,42},{-10,70}},
         lineColor={255,255,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
       Rectangle(
-        extent={{6,42},{34,70}},
+        extent={{10,42},{38,70}},
         lineColor={255,255,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid)}));

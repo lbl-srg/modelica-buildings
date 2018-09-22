@@ -1,6 +1,6 @@
 within Buildings.Occupants.Office;
 package Blinds "Package with models to simulate blinds behaviors in office buildings"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
