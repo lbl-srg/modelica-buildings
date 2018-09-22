@@ -19,7 +19,7 @@ model Zhang2012BlindsSIntensity
     final min=0,
     final max=1,
     final unit="1")
-      "The State of Blinds, 1 being blinds deployed"
+      "State of blinds, 1 being blinds down"
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
     Real pUp(
@@ -44,8 +44,6 @@ initial equation
 equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
-
-
       if occ then
         if pre(blindState) == 1 then
           pUp = 0;

@@ -21,7 +21,7 @@ model Inkarojrit2008BlindsSIntensity
     final min=0,
     final max=1,
     final unit="1")
-      "The State of Blinds, 1 being blinds deployed"
+      "State of blinds, 1 being blinds down"
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
     Real p(

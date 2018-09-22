@@ -2,7 +2,7 @@ within Buildings.Occupants.Office.Blinds;
 model Newsham1994BlindsSIntensity
     "A model to predict occupants' blinds behavior with solar intensity"
     extends Modelica.Blocks.Icons.DiscreteBlock;
-    parameter Real H_threshold = 233 "Threshold for turning on/off the blinds";
+    parameter Real HSet = 233 "Threshold for moving blinds up or down";
     parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
     Modelica.Blocks.Interfaces.RealInput H(unit="W/m2") "Solar intensity at the room-side of the window"
@@ -15,7 +15,7 @@ model Newsham1994BlindsSIntensity
     final min=0,
     final max=1,
     final unit="1")
-    "State of Blinds, 1 being blinds deployed"
+    "State of blinds, 1 being blinds down"
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -30,7 +30,7 @@ equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
       if occ then
-        if H < H_threshold then
+        if H < HSet then
           blindState = 1;
         else
           blindState = 0;
@@ -57,7 +57,7 @@ and occupancy.
 <h4>Dynamics</h4>
 <p>
 When the space is unoccupied, the blinds are always down. When the
-space is occupied, if the Solar intensity is above the threshold, the blinds would be turned off.
+space is occupied, if the solar intensity is above the threshold, the blinds are up.
 </p>
 <h4>References</h4>
 <p>
