@@ -33,6 +33,9 @@ protected
 initial equation
   t0 = time;
   on = false;
+  pOpen = Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen)/(Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen) + 1);
+  pClose = Modelica.Math.exp(AClose*(TIn - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TIn - 273.15)+BClose) + 1);
+
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then

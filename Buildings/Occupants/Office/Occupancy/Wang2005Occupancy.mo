@@ -22,6 +22,8 @@ initial equation
   hold_time = 0;
   occ = true;
   state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(seed, seed);
+  r = 0;
+  mu = 0;
 
 equation
   when time > pre(tNext) then

@@ -29,6 +29,8 @@ protected
 
 initial equation
   t0 = time;
+  blindState = 0;
+  pdown = 0;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);

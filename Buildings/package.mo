@@ -182,6 +182,14 @@ its class name ends with the string <code>Beta</code>.
                           delay, for example, to plot data only while the HVAC system
                           operates for at least <i>30</i> minutes.
        </td>
+       </tr>
+    <tr><td valign=\"top\">Buildings.Occupants
+       </td>
+       <td valign=\"top\">Package with occupant behavior models and functions to 
+                          simulate the occupancy and the interaction between human and 
+                          building systems such as air-conditioning, heating, windows, 
+                          blinds, and lighting in residential and office buildings.
+       </td>
     </tr>
     </table>
     <!-- New components for existing libraries -->
