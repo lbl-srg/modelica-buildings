@@ -7,7 +7,7 @@ model Haldi2008WindowsTIn "A model to predict occupants' window behavior with in
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
-    unit="K",
+    final unit="K",
     displayUnit="degC") "Indoor air temperature" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
@@ -22,7 +22,7 @@ model Haldi2008WindowsTIn "A model to predict occupants' window behavior with in
     max=1) "Probability of window opened";
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
+  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
 initial equation
   t0 = time;

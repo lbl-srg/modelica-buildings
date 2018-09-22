@@ -2,6 +2,6 @@ compareVars :=
   {
     "bli.TIn",
     "bli.occ",
-    "bli.pdown",
+    "bli.pDown",
     "bli.blindState"
   };

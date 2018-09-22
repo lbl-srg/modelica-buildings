@@ -6,30 +6,33 @@ model Love1998Light2 "A model to predict occupants' lighting behavior with illum
   parameter Integer seed = 30 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
-  Modelica.Blocks.Interfaces.RealInput Illu "Daylight illuminance level on the desk, unit:lux" annotation (
+  Modelica.Blocks.Interfaces.RealInput ill "Daylight illuminance level on the desk, unit:lux" annotation (
        Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.BooleanOutput on "State of Lighting"
+  Modelica.Blocks.Interfaces.BooleanOutput on "State of lighting"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Real p(
-    unit="1",
-    min=0,
-    max=1) "Probability of switch on the lighting";
+    final unit="1",
+    final min=0,
+    final max=1) "Probability of switch on the lighting";
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
+  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
+
 initial equation
   t0 = time;
   on = false;
+
 equation
-  p = Modelica.Math.exp(B+M*Modelica.Math.log10(Illu))/(1 - Modelica.Math.exp(B+M*Modelica.Math.log10(Illu)))*100;
+  p = Modelica.Math.exp(B+M*Modelica.Math.log10(ill))
+    /(1 - Modelica.Math.exp(B+M*Modelica.Math.log10(ill)))*100;
   sampleTrigger = sample(t0, samplePeriod);
-  when {occ,sampleTrigger} then
+  when {occ, sampleTrigger} then
     if sampleTrigger then
       if occ then
         on = pre(on);
@@ -37,7 +40,9 @@ equation
         on = false;
       end if;
     else
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(
+        p=p,
+        globalSeed=integer(seed*time));
     end if;
   end when;
   annotation (graphics={
@@ -59,12 +64,12 @@ and occupancy.
 In this model, the switching on action only happens upon arrival.
 </p>
 <p>
-The Probability to switch on the lights upon arrival would depend on the daylight illuminance 
+The probability to switch on the lights upon arrival would depend on the daylight illuminance
 level on the desk.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Love, J.A., 1998. Manual switching patterns in 
+The model is documented in the paper &quot;Love, J.A., 1998. Manual switching patterns in
 private offices. International journal of lighting research and technology, 30(1), pp.45-50.&quot;
 </p>
 <p>

@@ -3,9 +3,9 @@ model Weibull1DON "Test model for 1D binary variable generation function"
     extends Modelica.Icons.Example;
 
   parameter Integer seed = 5 "Seed for the random number generator";
-  parameter Real u=0.2 "Parameter defining the Weibull Distribution: threshold";
-  parameter Real L=0.1 "Parameter defining the Weibull Distribution: normalization factor";
-  parameter Real k=1.0 "Parameter defining the Weibull Distribution: shape factor";
+  parameter Real u=0.2 "Parameter defining the Weibull distribution threshold";
+  parameter Real L=0.1 "Parameter defining the Weibull distribution normalization factor";
+  parameter Real k=1.0 "Parameter defining the Weibull distribution shape factor";
   parameter Real dt=0.2 "Time step length";
 
   Real x "Time-varying real number as input";

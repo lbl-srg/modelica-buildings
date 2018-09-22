@@ -2,7 +2,7 @@ within Buildings.Occupants.Office.Lighting.Validation;
 model Hunt1979Light "Validating the model for light behaviors"
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.Sine Illu(
+  Modelica.Blocks.Sources.Sine ill(
     amplitude=200,
     offset=250,
     freqHz=0.001,
@@ -13,7 +13,7 @@ model Hunt1979Light "Validating the model for light behaviors"
   Modelica.Blocks.Sources.BooleanPulse occ(period=400)
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
-  connect(lig.Illu, Illu.y) annotation (Line(points={{-12,-6},{-36,-6},{-36,-20},
+  connect(lig.ill, ill.y) annotation (Line(points={{-12,-6},{-36,-6},{-36,-20},
           {-59,-20}}, color={0,0,127}));
   connect(occ.y, lig.occ) annotation (Line(points={{-59,20},{-36,20},{-36,6},{-12,
           6}}, color={255,0,255}));

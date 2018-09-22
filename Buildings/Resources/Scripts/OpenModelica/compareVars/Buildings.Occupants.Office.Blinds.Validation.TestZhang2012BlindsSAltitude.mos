@@ -2,6 +2,6 @@ compareVars :=
   {
     "bli.solarAltitude",
     "bli.occ",
-    "bli.pup",
+    "bli.pUp",
     "bli.blindState"
   };

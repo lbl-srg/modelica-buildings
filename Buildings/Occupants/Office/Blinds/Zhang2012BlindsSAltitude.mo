@@ -2,10 +2,10 @@
 model Zhang2012BlindsSAltitude
   "A model to predict occupants' blinds behavior with solar altitude"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  parameter Real Aup = 1.089 "Slope of Solar Altitude for blinds up";
-  parameter Real Adown = 1.031 "Slope of Solar Altitude for blinds down";
-  parameter Real Bup = -3.446 "Intercept for blinds up";
-  parameter Real Bdown = -3.424 "Intercept for blinds down";
+  parameter Real AUp = 1.089 "Slope of solar altitude for blinds up";
+  parameter Real ADown = 1.031 "Slope of solar altitude for blinds down";
+  parameter Real BUp = -3.446 "Intercept for blinds up";
+  parameter Real BDown = -3.424 "Intercept for blinds down";
   parameter Integer seed = 10 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
@@ -15,53 +15,56 @@ model Zhang2012BlindsSAltitude
   Modelica.Blocks.Interfaces.BooleanInput occ
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput blindState
-    "State of blinds, 1 being deployed, 0 being no blind"
+  Modelica.Blocks.Interfaces.RealOutput blindState(
+    final min=0,
+    final max=1,
+    final unit="1")
+    "State of blinds, 1 being up, 0 being down"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Real pup(
-    unit="1",
-    min=0,
-    max=1) "The probability of blinds up";
-  Real pdown(
-    unit="1",
-    min=0,
-    max=1) "The probability of blinds down";
+  Real pUp(
+    final unit="1",
+    final min=0,
+    final max=1) "The probability of blinds up";
+  Real pDown(
+    final unit="1",
+    final min=0,
+    final max=1) "The probability of blinds down";
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
+  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
 
 initial equation
   t0 = time;
   blindState = 1 "Initial state of blinds is deployed";
-  pup = 0;
-  pdown = 0;
+  pUp = 0;
+  pDown = 0;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
     if occ then
       if pre(blindState) == 1 then
-        pup = 0;
-        pdown = Modelica.Math.exp(Adown*solarAltitude+Bdown)/(Modelica.Math.exp(Adown*solarAltitude+Bdown)+1);
-        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown,globalSeed=integer(seed*time)) then
+        pUp = 0;
+        pDown = Modelica.Math.exp(ADown*solarAltitude+BDown)/(Modelica.Math.exp(ADown*solarAltitude+BDown)+1);
+        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown,globalSeed=integer(seed*time)) then
           blindState = 0;
         else
           blindState = 1;
         end if;
       else
-        pup = Modelica.Math.exp(Aup*solarAltitude+Bup)/(Modelica.Math.exp(Aup*solarAltitude+Bup)+1);
-        pdown = 0;
-        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pup,globalSeed=integer(seed*time)) then
+        pUp = Modelica.Math.exp(AUp*solarAltitude+BUp)/(Modelica.Math.exp(AUp*solarAltitude+BUp)+1);
+        pDown = 0;
+        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pUp,globalSeed=integer(seed*time)) then
           blindState = 1;
         else
           blindState = 0;
         end if;
       end if;
     else
-      pup = 0;
-      pdown = 0;
+      pUp = 0;
+      pDown = 0;
       blindState = 1;
     end if;
   end when;
@@ -83,7 +86,7 @@ and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the blinds is always on. When the
+When the space is unoccupied, the blinds are always down. When the
 space is occupied, the lower the solar altitude is, the higher
 the chance that the blind state will be changed, either being turned on or turned off.
 </p>

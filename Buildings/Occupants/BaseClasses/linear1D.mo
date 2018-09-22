@@ -5,19 +5,19 @@ function linear1D "Mapping a continuous input to a binary output through a linea
   input Real B=0 "Intercept of the linear function";
   input Integer globalSeed "Seed for the random number generator";
   output Boolean y "Binary variable";
-protected
-  Real p =  min(1,A*x+B) "p shoud be less than 1";
+
 algorithm
-  p := if 0 < p then p else 0 "p shoud be no less than 0";
-  y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed);
-annotation (Documentation(info="<html>
+  y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(max(0, min(1, A*x+B)), globalSeed);
+annotation (
+Inline=true,
+Documentation(info="<html>
 <p>
-This function generates a random binary variable with the input of a continuous variable <code>x</code> from a 
+This function generates a random binary variable with the input of a continuous variable <code>x</code> from a
 linear relation.
 </p>
 <p>
-The probability of being 1 is calculated from the input <code>x</code> with the 
-slope <code>A</code> and the intercept <code>B</code>. 
+The probability of being 1 is calculated from the input <code>x</code> with the
+slope <code>A</code> and the intercept <code>B</code>.
 Then a random generator generates the output, which should be a binary variable.
 </p>
 </html>", revisions="<html>

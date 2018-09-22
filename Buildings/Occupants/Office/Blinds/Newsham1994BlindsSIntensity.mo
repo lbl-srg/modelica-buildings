@@ -11,18 +11,20 @@ model Newsham1994BlindsSIntensity
     Modelica.Blocks.Interfaces.BooleanInput occ
       "Indoor occupancy, true for occupied"
       annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-    Modelica.Blocks.Interfaces.RealOutput blindState(min=0, max=1, unit="1")
-      "State of Blinds, 1 being blinds deployed"
+    Modelica.Blocks.Interfaces.RealOutput blindState(
+    final min=0,
+    final max=1,
+    final unit="1")
+    "State of Blinds, 1 being blinds deployed"
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-    parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
+    parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
 
 initial equation
     t0 = time;
     blindState = 0;
-
 
 equation
     sampleTrigger = sample(t0,samplePeriod);
@@ -49,21 +51,21 @@ equation
   defaultComponentName="bli",
   Documentation(info="<html>
 <p>
-Model predicting the state of the blinds with the solar intensity at the window 
+Model predicting the state of the blinds with the solar intensity at the window
 and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the blinds is always on. When the 
+When the space is unoccupied, the blinds are always down. When the
 space is occupied, if the Solar intensity is above the threshold, the blinds would be turned off.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Newsham, G.R., 1994. Manual control of window blinds 
+The model is documented in the paper &quot;Newsham, G.R., 1994. Manual control of window blinds
 and electric lighting: implications for comfort and energy consumption. Indoor Environment, 3, pp.135-144.&quot;
 </p>
 <p>
-The solar intensity threshold was first identified by a field study in 
+The solar intensity threshold was first identified by a field study in
 an office building in Japan, and was utilized by Newsham for a simulation
 study in an office building in Toronto.
 </p>

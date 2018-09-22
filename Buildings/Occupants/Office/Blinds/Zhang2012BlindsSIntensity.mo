@@ -2,10 +2,10 @@
 model Zhang2012BlindsSIntensity
     "A model to predict occupants' blinds behavior with solar intensity"
     extends Modelica.Blocks.Icons.DiscreteBlock;
-    parameter Real Aup = 0.003 "Slope of solar intensity for blinds up";
-    parameter Real Adown = 0.002 "Slope of solar intensity for blinds down";
-    parameter Real Bup = -3.33 "Intercept for blinds up";
-    parameter Real Bdown = -3.17 "Intercept for blinds down";
+    parameter Real AUp = 0.003 "Slope of solar intensity for blinds up";
+    parameter Real ADown = 0.002 "Slope of solar intensity for blinds down";
+    parameter Real BUp = -3.33 "Intercept for blinds up";
+    parameter Real BDown = -3.17 "Intercept for blinds down";
     parameter Integer seed = 10 "Seed for the random number generator";
     parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
@@ -15,28 +15,31 @@ model Zhang2012BlindsSIntensity
     Modelica.Blocks.Interfaces.BooleanInput occ
       "Indoor occupancy, true for occupied"
       annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-    Modelica.Blocks.Interfaces.RealOutput blindState
+    Modelica.Blocks.Interfaces.RealOutput blindState(
+    final min=0,
+    final max=1,
+    final unit="1")
       "The State of Blinds, 1 being blinds deployed"
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-    Real pup(
-      unit="1",
-      min=0,
-      max=1) "The probability of blinds up";
-    Real pdown(
-      unit="1",
-      min=0,
-      max=1) "The probability of blinds down";
+    Real pUp(
+      final unit="1",
+      final min=0,
+      final max=1) "The probability of blinds up";
+    Real pDown(
+      final unit="1",
+      final min=0,
+      final max=1) "The probability of blinds down";
 
 protected
-    parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
+    parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
 
 initial equation
     t0 = time;
     blindState = 1 "Initial state of blinds is deployed";
-    pup = 0;
-    pdown = 0;
+    pUp = 0;
+    pDown = 0;
 
 equation
     sampleTrigger = sample(t0,samplePeriod);
@@ -45,25 +48,25 @@ equation
 
       if occ then
         if pre(blindState) == 1 then
-          pup = 0;
-          pdown = Modelica.Math.exp(Adown*H+Bdown)/(Modelica.Math.exp(Adown*H+Bdown)+1);
-          if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown,globalSeed=integer(seed*time)) then
+          pUp = 0;
+          pDown = Modelica.Math.exp(ADown*H+BDown)/(Modelica.Math.exp(ADown*H+BDown)+1);
+          if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown,globalSeed=integer(seed*time)) then
             blindState = 0;
           else
             blindState = 1;
           end if;
         else
-          pup = Modelica.Math.exp(Aup*H+Bup)/(Modelica.Math.exp(Aup*H+Bup)+1);
-          pdown = 0;
-          if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pup,globalSeed=integer(seed*time)) then
+          pUp = Modelica.Math.exp(AUp*H+BUp)/(Modelica.Math.exp(AUp*H+BUp)+1);
+          pDown = 0;
+          if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pUp,globalSeed=integer(seed*time)) then
             blindState = 1;
           else
             blindState = 0;
           end if;
         end if;
       else
-        pup = 0;
-        pdown = 0;
+        pUp = 0;
+        pDown = 0;
         blindState = 1;
       end if;
     end when;
@@ -84,9 +87,9 @@ and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the blinds is always on. When the
-space is occupied, the lower the solar intensity is, the higher
-the chance that the blind is on.
+When the space is unoccupied, the blinds are always down. When the
+space is occupied, the lower the solar intensity, the higher
+the chance that the blind is up.
 </p>
 <h4>References</h4>
 <p>
@@ -102,12 +105,12 @@ in Sheffield, England.
   revisions="<html>
 <ul>
 <li>
-July 23, 2018, by Zhe Wang:<br/>
-First implementation.
-</li>
-<li>
 August 31, 2018, by Zhe Wang:<br/>
 First revision.
+</li>
+<li>
+July 23, 2018, by Zhe Wang:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),

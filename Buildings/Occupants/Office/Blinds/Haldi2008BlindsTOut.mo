@@ -2,48 +2,51 @@ within Buildings.Occupants.Office.Blinds;
 model Haldi2008BlindsTOut
   "A model to predict occupants' blinds behavior with outdoor temperature"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  parameter Real A = 0.139 "Slope of outdoor temperature";
-  parameter Real B = -3.54 "Intercept";
+  parameter Real A(final unit="1/K") = 0.139 "Slope of outdoor temperature";
+  parameter Real B(final unit="1") = -3.54 "Intercept";
   parameter Integer seed = 20 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
-    unit="K",
+    final unit="K",
     displayUnit="degC") "Outdoor air temperature" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
     "Indoor occupancy, true for occupied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput blindState
+  Modelica.Blocks.Interfaces.RealOutput blindState(
+    final min=0,
+    final max=1,
+    final unit="1")
     "State of blinds, 1 being blinds deployed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Real pdown(
-    unit="1",
-    min=0,
-    max=1) "The probability of lowering the blinds";
+  Real pDown(
+    final unit="1",
+    final min=0,
+    final max=1) "The probability of lowering the blinds";
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
+  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
 
 initial equation
   t0 = time;
   blindState = 0;
-  pdown = 0;
+  pDown = 0;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
     if occ then
-      pdown = 1-Modelica.Math.exp(A*(TOut-273.15)+B)/(Modelica.Math.exp(A*(TOut-273.15)+B)+1);
-      if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pdown, globalSeed=integer(seed*time)) then
+      pDown = 1-Modelica.Math.exp(A*(TOut-273.15)+B)/(Modelica.Math.exp(A*(TOut-273.15)+B)+1);
+      if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown, globalSeed=integer(seed*time)) then
         blindState = 0;
       else
         blindState = 1;
       end if;
     else
-      pdown = 0;
+      pDown = 0;
       blindState = 1;
     end if;
   end when;
@@ -63,14 +66,14 @@ Model predicting the state of the blinds with the outdoor temperature.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the blinds is always on. When the 
-space is occupied, the lower the TOut is, the higher 
-the chance that the blind is on.
+When the space is unoccupied, the blinds are always down. When the
+space is occupied, the lower <code>TOut</code>, the higher
+the chance that the blind is up.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Haldi, F. and Robinson, D., 2008. 
-On the behaviour and adaptation of office occupants. Building and environment, 
+The model is documented in the paper &quot;Haldi, F. and Robinson, D., 2008.
+On the behaviour and adaptation of office occupants. Building and environment,
 43(12), pp.2163-2177.&quot;
 </p>
 <p>

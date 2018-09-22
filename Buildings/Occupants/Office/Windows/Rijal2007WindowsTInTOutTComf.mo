@@ -8,17 +8,17 @@ model Rijal2007WindowsTInTOutTComf "A model to predict occupants' window behavio
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
-    unit="K",
+    final unit="K",
     displayUnit="degC") "Indoor air temperature" annotation (Placement(transformation(extent={{-140,
             -20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput TOut(
-    unit="K",
+    final unit="K",
     displayUnit="degC") "Outdoor air temperature" annotation (Placement(transformation(extent={{-140,
             -60},{-100,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput TComf(
-    unit="K",
+    final unit="K",
     displayUnit="degC") "Comfort temperature" annotation (Placement(transformation(extent={{-140,
             -104},{-100,-64}}),
       iconTransformation(extent={{-140,-104},{-100,-64}})));
@@ -34,13 +34,14 @@ model Rijal2007WindowsTInTOutTComf "A model to predict occupants' window behavio
     max=1) "Probability of window opened";
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
+  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
 
 initial equation
   t0 = time;
   p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
   on = false;
+
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then

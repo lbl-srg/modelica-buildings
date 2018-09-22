@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "lig.Illu",
+    "lig.ill",
     "lig.occ",
     "lig.p",
     "lig.on"

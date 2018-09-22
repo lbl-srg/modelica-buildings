@@ -11,12 +11,12 @@ model Haldi2009WindowsTInTout "A model to predict occupants' window behavior wit
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
-    unit="K",
+    final unit="K",
     displayUnit="degC") "Indoor air temperature" annotation (Placement(transformation(extent={{-140,
             -40},{-100,0}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealInput TOut(
-    unit="K",
+    final unit="K",
     displayUnit="degC") "Outdoor air temperature" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
@@ -35,14 +35,14 @@ model Haldi2009WindowsTInTout "A model to predict occupants' window behavior wit
     max=1) "Probability of closing windows";
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
+  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
+
 initial equation
   t0 = time;
   on = false;
   pOpen = Modelica.Math.exp(AOpenIn*(TIn - 273.15)+AOpenOut*(TOut - 273.15)+BOpen)/(Modelica.Math.exp(AOpenIn*(TIn - 273.15)+AOpenOut*(TOut - 273.15)+BOpen) + 1);
   pClose = Modelica.Math.exp(ACloseIn*(TIn - 273.15)+ACloseOut*(TOut - 273.15)+BClose)/(Modelica.Math.exp(ACloseIn*(TIn - 273.15)+ACloseOut*(TOut - 273.15)+BClose) + 1);
-
 
 equation
   sampleTrigger = sample(t0,samplePeriod);

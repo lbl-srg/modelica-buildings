@@ -2,6 +2,7 @@ within Buildings.Occupants.Office.Occupancy;
 model Wang2005Occupancy
   "A model to predict Occupancy of a single person office"
   extends Modelica.Blocks.Icons.DiscreteBlock;
+
   parameter Modelica.SIunits.Time one_mu(displayUnit="min") = 4368 "Mean occupancy duration";
   parameter Modelica.SIunits.Time zero_mu(displayUnit="min") = 2556 "Mean vacancy duration";
   parameter Integer seed = 10 "Seed for the random number generator";
@@ -30,7 +31,7 @@ equation
     (r, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
     occ = not pre(occ);
     mu = if occ then one_mu else zero_mu;
-    hold_time = -mu*Modelica.Math.log(1 - r);
+    hold_time = -mu * Modelica.Math.log(1 - r);
     tNext = time + hold_time;
   end when;
 

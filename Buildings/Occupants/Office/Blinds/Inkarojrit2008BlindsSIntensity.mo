@@ -2,12 +2,12 @@ within Buildings.Occupants.Office.Blinds;
 model Inkarojrit2008BlindsSIntensity
     "A model to predict occupants' blinds behavior with solar intensity (and self-reported brightness sensitivity)"
     extends Modelica.Blocks.Icons.DiscreteBlock;
-    parameter Real A1 = 3.22 "Slope of solar intensity at Window";
+    parameter Real A1 = 3.22 "Slope of solar intensity at window";
     parameter Real A2 = 1.22 "Slope of Occupants' brightness sensitivity";
     parameter Real B = -8.94 "Intercept";
     parameter Real LSen =  4 "Self-reported sensitivity to brightness,
-  seven-point scale, 1 for least sensitive, 7 for most sensitive"   annotation(Dialog(enable = true,
-                       tab = "Advanced"));
+  seven-point scale, 1 for least sensitive, 7 for most sensitive"
+  annotation(Dialog(tab = "Advanced"));
     parameter Integer seed = 10 "Seed for the random number generator";
     parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
@@ -17,17 +17,20 @@ model Inkarojrit2008BlindsSIntensity
     Modelica.Blocks.Interfaces.BooleanInput occ
       "Indoor occupancy, true for occupied"
       annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-    Modelica.Blocks.Interfaces.RealOutput blindState
+    Modelica.Blocks.Interfaces.RealOutput blindState(
+    final min=0,
+    final max=1,
+    final unit="1")
       "The State of Blinds, 1 being blinds deployed"
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
     Real p(
-      unit="1",
-      min=0,
-      max=1) "The probability of keeping the blinds on";
+      final unit="1",
+      final min=0,
+      final max=1) "The probability of keeping the blinds on";
 
 protected
-    parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
+    parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
 
 initial equation
@@ -68,9 +71,9 @@ and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the blinds is always on. When the
-space is occupied, the lower the solar intensity is, the higher
-the chance that the blind is on.
+When the space is unoccupied, the blinds are always down. When the
+space is occupied, the lower the solar intensity, the higher
+the chance that the blind is up.
 </p>
 <h4>References</h4>
 <p>

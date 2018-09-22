@@ -1,13 +1,13 @@
 within Buildings.Occupants.Residential.Windows;
 model Nicol2001WindowsPakistan "A model to predict occupants' window behavior with outdoor temperature"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  parameter Real A = 0.118 "Slope of the logistic relation";
-  parameter Real B = -3.73 "Intercept of the logistic relation";
+  parameter Real A(final unit="1/K") = 0.118 "Slope of the logistic relation";
+  parameter Real B(final unit="1") = -3.73 "Intercept of the logistic relation";
   parameter Integer seed = 5 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
-    unit="K",
+    final unit="K",
     displayUnit="degC") "Outdoor air temperature" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
@@ -22,7 +22,7 @@ model Nicol2001WindowsPakistan "A model to predict occupants' window behavior wi
     max=1) "Probability of window opened";
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed = false) "First sample time instant";
+  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
 initial equation
   t0 = time;
@@ -51,25 +51,25 @@ equation
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
-Model predicting the state of the window with the outdoor air temperature 
+Model predicting the state of the window with the outdoor air temperature
 and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the window is always closed. When the 
-space is occupied, the lower the outdoor temperature is, the lower 
+When the space is unoccupied, the window is always closed. When the
+space is occupied, the lower the outdoor temperature is, the lower
 the chance to open the window.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Nicol, J.F., 2001, August. 
-Characterising occupant behaviour in buildings: towards a stochastic 
-model of occupant use of windows, lights, blinds, heaters and fans. 
-In Proceedings of the seventh international IBPSA conference, Rio 
+The model is documented in the paper &quot;Nicol, J.F., 2001, August.
+Characterising occupant behaviour in buildings: towards a stochastic
+model of occupant use of windows, lights, blinds, heaters and fans.
+In Proceedings of the seventh international IBPSA conference, Rio
 (Vol. 2, pp. 1073-1078).&quot;
 </p>
 <p>
-The model parameters are regressed from the field study in 7000 naturally 
+The model parameters are regressed from the field study in 7000 naturally
 ventilated buildings in Pakistan.
 </p>
 </html>",
