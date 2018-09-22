@@ -38,6 +38,8 @@ protected
 initial equation
   t0 = time;
   on = false "The initial state of AC is off";
+  pon = 0;
+  poff = 0;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);

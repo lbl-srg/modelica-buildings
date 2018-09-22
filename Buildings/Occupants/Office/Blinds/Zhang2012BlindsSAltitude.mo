@@ -35,6 +35,8 @@ protected
 initial equation
   t0 = time;
   blindState = 1 "Initial state of blinds is deployed";
+  pup = 0;
+  pdown = 0;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
