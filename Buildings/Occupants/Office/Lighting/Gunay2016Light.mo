@@ -9,7 +9,7 @@ model Gunay2016Light "A model to predict occupants' lighting behavior with illum
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput ill
-    "Illuminance on the working plane, unit: fixme: unit is missing" annotation (
+    "Illuminance on the working plane, unit: lux" annotation (
        Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
