@@ -512,9 +512,9 @@ Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/package.order
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/ConvectionResistanceCircularPipe.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesOneUTube.mo
-Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesOneUTube_NegativeResistance.mo
+Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesOneUTubeNegative.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTube.mo
-Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTube_NegativeResistance.mo
+Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTubeNegative.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/MultipoleThermalResistances_OneUTube.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/MultipoleThermalResistances_TwoUTube.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/package.mo
@@ -1548,9 +1548,9 @@ Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreh
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalResistancesTwoUTube.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/ConvectionResistanceCircularPipe.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesOneUTube.mos
-Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesOneUTube_NegativeResistance.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesOneUTubeNegative.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTube.mos
-Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTube_NegativeResistance.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/InternalResistancesTwoUTubeNegative.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/MultipoleThermalResistances_OneUTube.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/MultipoleThermalResistances_TwoUTube.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/Examples/BoreholeDynamics.mos
