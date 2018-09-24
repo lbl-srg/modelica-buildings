@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Blinds.Validation;
-model Zhang2012BlindsSAltitude
+model Zhang2012BlindsSolarAltitude
   "Validating the model for blind behaviors"
   extends Modelica.Icons.Example;
 
@@ -12,7 +12,7 @@ model Zhang2012BlindsSAltitude
     freqHz=0.001,
     y(unit="1")) "Solar altitude"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Occupants.Office.Blinds.Zhang2012BlindsSAltitude bli "Tested blinds model"
+  Buildings.Occupants.Office.Blinds.Zhang2012BlindsSolarAltitude bli "Tested blinds model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(occ.y, bli.occ) annotation (Line(points={{-59,20},{-34,20},{-34,6},{-12,
@@ -22,13 +22,13 @@ equation
 
 annotation (
 experiment(Tolerance=1e-6, StopTime=3600.0),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/Zhang2012BlindsSAltitude.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/Zhang2012BlindsSolarAltitude.mos"
                       "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Occupants.Office.Blinds.Zhang2012BlindsSAltitude\">
-Buildings.Occupants.Office.Blinds.Zhang2012BlindsSAltitude</a>
+<a href=\"modelica://Buildings.Occupants.Office.Blinds.Zhang2012BlindsSolarAltitude\">
+Buildings.Occupants.Office.Blinds.Zhang2012BlindsSolarAltitude</a>
 by examing how the blinds state corresponds
 to the solar altitude.
 </p>
@@ -45,4 +45,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Zhang2012BlindsSAltitude;
+end Zhang2012BlindsSolarAltitude;

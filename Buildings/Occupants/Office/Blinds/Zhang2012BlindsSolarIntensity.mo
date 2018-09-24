@@ -1,5 +1,5 @@
-﻿within Buildings.Occupants.Office.Blinds;
-model Zhang2012BlindsSIntensity
+within Buildings.Occupants.Office.Blinds;
+model Zhang2012BlindsSolarIntensity
     "A model to predict occupants' blinds behavior with solar intensity"
     extends Modelica.Blocks.Icons.DiscreteBlock;
     parameter Real AUp = 0.003 "Slope of solar intensity for blinds up";
@@ -117,4 +117,4 @@ First implementation.
           lineColor={28,108,200},
           textString="ob.office
 Blind")}));
-end Zhang2012BlindsSIntensity;
+end Zhang2012BlindsSolarIntensity;

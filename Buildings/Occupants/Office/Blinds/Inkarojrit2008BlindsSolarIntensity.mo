@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Blinds;
-model Inkarojrit2008BlindsSIntensity
+model Inkarojrit2008BlindsSolarIntensity
     "A model to predict occupants' blinds behavior with solar intensity (and self-reported brightness sensitivity)"
     extends Modelica.Blocks.Icons.DiscreteBlock;
     parameter Real A1 = 3.22 "Slope of solar intensity at window";
@@ -103,4 +103,4 @@ First revision.
             lineColor={28,108,200},
             textString="ob.office
 Blind")}));
-end Inkarojrit2008BlindsSIntensity;
+end Inkarojrit2008BlindsSolarIntensity;

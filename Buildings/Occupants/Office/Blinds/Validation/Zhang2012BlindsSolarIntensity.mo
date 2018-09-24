@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Blinds.Validation;
-model Newsham1994BlindsSIntensity
+model Zhang2012BlindsSolarIntensity
     "Validating the model for blind behaviors"
     extends Modelica.Icons.Example;
 
@@ -12,7 +12,7 @@ model Newsham1994BlindsSIntensity
       freqHz=0.001,
       y(unit="W/m2")) "Solar intensity at the window"
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-    Buildings.Occupants.Office.Blinds.Newsham1994BlindsSIntensity bli "Tested blinds model"
+    Buildings.Occupants.Office.Blinds.Zhang2012BlindsSolarIntensity bli "Tested blinds model"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
     connect(occ.y, bli.occ) annotation (Line(points={{-59,20},{-34,20},{-34,6},{-12,
@@ -22,13 +22,13 @@ equation
 
   annotation (
   experiment(Tolerance=1e-6, StopTime=3600.0),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/Newsham1994BlindsSIntensity.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Office/Blinds/Validation/Zhang2012BlindsSolarIntensity.mos"
                         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Occupants.Office.Blinds.Newsham1994BlindsSIntensity\">
-Buildings.Occupants.Office.Blinds.Newsham1994BlindsSIntensity</a>
+<a href=\"modelica://Buildings.Occupants.Office.Blinds.Zhang2012BlindsSolarIntensity\">
+Buildings.Occupants.Office.Blinds.Zhang2012BlindsSolarIntensity</a>
 by examing how the blinds state corresponds
 to the solar intensity.
 </p>
@@ -44,4 +44,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Newsham1994BlindsSIntensity;
+end Zhang2012BlindsSolarIntensity;

@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Blinds;
-model Newsham1994BlindsSIntensity
+model Newsham1994BlindsSolarIntensity
     "A model to predict occupants' blinds behavior with solar intensity"
     extends Modelica.Blocks.Icons.DiscreteBlock;
     parameter Real HSet = 233 "Threshold for moving blinds up or down";
@@ -86,4 +86,4 @@ First Revision.
             lineColor={28,108,200},
             textString="ob.office
 Blind")}));
-end Newsham1994BlindsSIntensity;
+end Newsham1994BlindsSolarIntensity;

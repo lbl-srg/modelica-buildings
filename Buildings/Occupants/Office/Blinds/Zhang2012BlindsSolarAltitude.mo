@@ -1,5 +1,5 @@
-﻿within Buildings.Occupants.Office.Blinds;
-model Zhang2012BlindsSAltitude
+within Buildings.Occupants.Office.Blinds;
+model Zhang2012BlindsSolarAltitude
   "A model to predict occupants' blinds behavior with solar altitude"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real AUp = 1.089 "Slope of solar altitude for blinds up";
@@ -118,4 +118,4 @@ First revision.
           lineColor={28,108,200},
           textString="ob.office
 Blind")}));
-end Zhang2012BlindsSAltitude;
+end Zhang2012BlindsSolarAltitude;
