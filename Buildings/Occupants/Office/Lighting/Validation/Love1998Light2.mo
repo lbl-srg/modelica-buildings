@@ -5,7 +5,7 @@ model Love1998Light2 "Validating the model for light behaviors"
     Modelica.Blocks.Sources.Sine ill(
       amplitude=200,
       offset=250,
-      freqHz=0.001) "Daylight illuminance level on the desk, unit:lux"
+      freqHz=0.001) "Daylight illuminance level on the deskin units of lux"
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
     Buildings.Occupants.Office.Lighting.Love1998Light2 lig "Tested lighting model"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

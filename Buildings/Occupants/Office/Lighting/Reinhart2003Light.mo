@@ -12,7 +12,7 @@ model Reinhart2003Light "A model to predict occupants' lighting behavior with il
   parameter Integer seed = 30 "Seed for the random number generator";
   parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
 
-  Modelica.Blocks.Interfaces.RealInput ill "Illuminance on the working plane, unit: lux" annotation (
+  Modelica.Blocks.Interfaces.RealInput ill "Illuminance on the working planein units of lux" annotation (
        Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput occ
