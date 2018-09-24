@@ -5,7 +5,7 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains borefield models. These models can simulate any arbitrary 
+This package contains borefield models. These models can simulate any arbitrary
 configuration of vertical boreholes with equal lengths with both short and
 long-term accuracy with an aggregation method to speed up the calculations of the ground heat transfer. Examples
 of how to use the borefield models and validation cases can be found in
@@ -30,14 +30,14 @@ still evaluated internally, but their values are weighted so that the borehole
 resistance matches the specified value.
 </li>
 <li>
-User-defined vertical discretization of boreholes are supported. 
+User-defined vertical discretization of boreholes are supported.
 However, the borehole wall temperature
 is identical for each borehole and along the
 depth, as the ground temperature response model only computes the average borehole wall temperature
 for all boreholes combined.
 </li>
 <li>
-Borefields can consist of one or many boreholes. Each borehole can be positioned 
+Borefields can consist of one or many boreholes. Each borehole can be positioned
 at an arbitrary position in the field using cartesian coordinates.
 </li>
 <li>
