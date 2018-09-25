@@ -3,7 +3,7 @@ model Nicol2001WindowsEU "Validating the model for window behaviors"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.BooleanStep occ(startTime=1800)
-                                          "True for occupied"
+    "True for occupied"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Sine TOut(
     amplitude=15,
@@ -20,7 +20,7 @@ equation
   connect(win.TOut, TOut.y) annotation (Line(points={{-12,-6},{-36,-6},{-36,-20},
           {-59,-20}}, color={0,0,127}));
 annotation (
-experiment(Tolerance=1e-6, StopTime=7200.0),
+experiment(Tolerance=1e-6, StopTime=3600.0),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Occupants/Residential/Windows/Validation/Nicol2001WindowsEU.mos"
                       "Simulate and plot"),
 Documentation(info="<html>
