@@ -79,12 +79,11 @@ model PlateHeatExchangerEffectivenessNTUPControl
     show_T=true,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
-    Q_flow_nominal=m1_flow_nominal*4184*(T_a1_nominal-T_b1_nominal),
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    T_a1_nominal=T_a1_nominal,
-    T_a2_nominal=T_a2_nominal,
     dp1_nominal(displayUnit="Pa") = 0,
-    dp2_nominal(displayUnit="Pa") = 3000)
+    dp2_nominal(displayUnit="Pa") = 3000,
+    use_Q_flow_nominal=false,
+    eps_nominal=0.5)
     "Heat exchanger"
      annotation (Placement(transformation(extent={{60,16},{80,36}})));
 
