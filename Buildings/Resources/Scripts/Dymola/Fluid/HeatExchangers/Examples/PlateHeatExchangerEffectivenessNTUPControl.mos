@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Examples.DryCoilEffectivenessNTUPControl", stopTime=3600, method="dassl", tolerance=1e-6, resultFile="DryCoilEffectivenessNTUPControl");
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.PlateHeatExchangerEffectivenessNTUPControl", stopTime=3600, method="dassl", tolerance=1e-6, resultFile="PlateHeatExchangerEffectivenessNTUPControl");
 createPlot(id = 4,
  position = {550, 0, 400, 342},
  y = {"P.u_s", "P.u_m"},
@@ -8,7 +8,7 @@ createPlot(id = 4,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "DryCoilEffectivenessNTUPControl.mat",
+ filename = "PlateHeatExchangerEffectivenessNTUPControl.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 6,

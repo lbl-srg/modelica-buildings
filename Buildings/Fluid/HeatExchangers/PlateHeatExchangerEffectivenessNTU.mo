@@ -1,30 +1,30 @@
 within Buildings.Fluid.HeatExchangers;
-model DryCoilEffectivenessNTU
-  "Heat exchanger with effectiveness - NTU relation and no moisture condensation"
+model PlateHeatExchangerEffectivenessNTU
+  "Plate heat exchanger with effectiveness - NTU relation and no moisture condensation"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU(
-    UA = 1/(1/hA.hA_1 + 1/hA.hA_2));
+    UA = 1/(1/hA1 + 1/hA2));
 
-  parameter Real r_nominal(
-    min=0,
-    max=1) = 2/3
-    "Ratio between air-side and water-side convective heat transfer (hA-value) at nominal condition";
+protected
+  parameter Modelica.SIunits.ThermalConductance hA1_nominal(min=0)=2*UA_nominal
+    "Nominal convective heat transfer coefficient for medium 1";
+  parameter Modelica.SIunits.ThermalConductance hA2_nominal(min=0)=2*UA_nominal
+    "Nominal convective heat transfer coefficient for medium 2";
 
-  Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
-    final r_nominal=r_nominal,
-    final UA_nominal=UA_nominal,
-    final m_flow_nominal_w=m1_flow_nominal,
-    final m_flow_nominal_a=m2_flow_nominal,
-    waterSideTemperatureDependent=false,
-    airSideTemperatureDependent=false)
-    "Model for convective heat transfer coefficient";
+  parameter Real n1(min=0, max=1)=0.85
+    "Exponent for convective heat transfer coefficient, h1~m1_flow^n1";
+  parameter Real n2(min=0, max=1)=0.85
+   "Exponent for convective heat transfer coefficient, h2~m2_flow^n2";
 
 equation
-  // Convective heat transfer coefficient
-  hA.m1_flow = m1_flow;
-  hA.m2_flow = m2_flow;
-  hA.T_1 = T_in1;
-  hA.T_2 = T_in2;
-
+  // Convective heat transfer coefficients
+ hA1 = hA1_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(
+   x = m1_flow/m1_flow_nominal,
+   n = n1,
+   delta = 0.1);
+ hA2 = hA2_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(
+   x = m2_flow/m2_flow_nominal,
+   n = n2,
+   delta = 0.1);
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(
@@ -37,7 +37,7 @@ equation
 defaultComponentName="hex",
     Documentation(info="<html>
 <p>
-Model of a coil without humidity condensation.
+Model of a plate heat exchanger without humidity condensation.
 This model transfers heat in the amount of
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -75,10 +75,8 @@ Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>.
 <ul>
 <li>
 September 25, 2018, by Michael Wetter:<br/>
-Refactored model to use a common base class with
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</a>.
+First implementation.
 </li>
 </ul>
 </html>"));
-end DryCoilEffectivenessNTU;
+end PlateHeatExchangerEffectivenessNTU;

@@ -5,6 +5,7 @@ DryCoilEffectivenessNTU
 EvaporatorCondenser
 HeaterCooler_u
 Heater_T
+PlateHeatExchangerEffectivenessNTU
 PrescribedOutlet
 SensibleCooler_T
 WetCoilCounterFlow
