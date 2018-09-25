@@ -45,13 +45,15 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     borFieUTubDat "Borefield parameters with UTube borehole configuration"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TBorIn(m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
-      redeclare package Medium = Medium,
-    tau=0)                               "Inlet borehole temperature"
+    redeclare package Medium = Medium,
+    tau=0)
+    "Inlet borehole temperature"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TBor1UTubDyn(m_flow_nominal=
-        borFieUTubDat.conDat.mBor_flow_nominal, redeclare package Medium =
-        Medium,
-    tau=0)      "Outlet borehole temperature"
+  Buildings.Fluid.Sensors.TemperatureTwoPort TBor1UTubDyn(
+    m_flow_nominal=borFieUTubDat.conDat.mBor_flow_nominal,
+    redeclare package Medium = Medium,
+    tau=0)
+    "Outlet borehole temperature"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector therCol1(m=nSeg)
    "Thermal collector" annotation (Placement(
@@ -74,7 +76,7 @@ model BoreholeDynamics "Example model for different borehole models and dynamics
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     TGro_start = {T_start for i in 1:nSeg},
     TFlu_start={Medium.T_default for i in 1:nSeg})
-    "Borehole with U-Tub configuration and steady states grout"
+    "Borehole with U-Tub configuration and steady state grout"
     annotation (Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=0,

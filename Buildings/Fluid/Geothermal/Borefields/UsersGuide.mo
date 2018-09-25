@@ -5,7 +5,8 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains borefield models. These models are able to simulate any arbitrary configuration of boreholes with both short and
+This package contains borefield models. These models can simulate any arbitrary
+configuration of vertical boreholes with equal lengths with both short and
 long-term accuracy with an aggregation method to speed up the calculations of the ground heat transfer. Examples
 of how to use the borefield models and validation cases can be found in
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.Examples\">
@@ -29,22 +30,25 @@ still evaluated internally, but their values are weighted so that the borehole
 resistance matches the specified value.
 </li>
 <li>
-User-defined vertical discretization of boreholes. However, the borehole wall temperature
+User-defined vertical discretization of boreholes are supported.
+However, the borehole wall temperature
 is identical for each borehole and along the
-depth, as the ground temperature response model only computes the average borehole wall temperature.
+depth, as the ground temperature response model only computes the average borehole wall temperature
+for all boreholes combined.
 </li>
 <li>
-Borefields can have one or many boreholes. Each borehole can be positioned arbitrarily in the field.
+Borefields can consist of one or many boreholes. Each borehole can be positioned
+at an arbitrary position in the field using cartesian coordinates.
 </li>
 <li>
 The resolution and precision of the load aggregation method for the ground heat transfer can be adapted.
 </li>
 <li>
-The thermal response of the ground heat transfer can be stored locally to avoid
+The thermal response of the ground heat transfer is stored locally to avoid
 having to recalculate it for future simulations with the same borefield configuration.
 </li>
 <li>
-Pressure losses can be calculated if the <code>dp_nominal</code> parameter is set to a non-zero value.
+Pressure losses are calculated if the <code>dp_nominal</code> parameter is set to a non-zero value.
 </li>
 </ul>
 
@@ -98,7 +102,7 @@ the borefield models have other parameters which can be modified by the user.
 The <code>tLoaAgg</code> parameter is the time resolution of the load aggregation
 for the calculation of the ground heat transfer. It represents the
 frequency at which the load aggregation procedure is performed in the simulation.
-Therefore, lower values of <code>tLoaAgg</code>  will improve
+Therefore, smaller values of <code>tLoaAgg</code>  will improve
 the accuracy of the model, at the cost of increased simulation times
 due to a higher number of events occuring in the simulation. While a default value
 is provided for this parameter, it is advisable to ensure that it is lower
