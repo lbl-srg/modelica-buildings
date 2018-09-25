@@ -12,6 +12,10 @@ model PartialEffectivenessNTU
   import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Nominal heat transfer" annotation (Dialog(group="Nominal condition"));
+  parameter Boolean use_Q_flow_nominal = true
+    "Set to true to specify Q_flow_nominal and temperatures, or to false to specify effectiveness"
+    annotation(Evaluate=true);
+
   parameter Modelica.SIunits.Temperature T_a1_nominal
     "Nominal temperature at port a1"
     annotation (Dialog(group="Nominal condition"));

@@ -15,6 +15,11 @@ protected
   parameter Real n2(min=0, max=1)=0.85
    "Exponent for convective heat transfer coefficient, h2~m2_flow^n2";
 
+  Modelica.SIunits.ThermalConductance hA1
+    "Convective heat transfer coefficient for medium 1";
+  Modelica.SIunits.ThermalConductance hA2
+    "Convective heat transfer coefficient for medium 2";
+
 equation
   // Convective heat transfer coefficients
  hA1 = hA1_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(
@@ -27,12 +32,56 @@ equation
    delta = 0.1);
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Rectangle(
-          extent={{-70,78},{70,-82}},
-          lineColor={0,0,255},
+            100}}), graphics={
+        Rectangle(
+          extent={{-62,60},{-50,-58}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-50,60},{-34,-58}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid)}),
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-22,60},{-6,-58}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-34,60},{-22,-58}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{6,60},{22,-58}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-6,60},{6,-58}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{34,60},{50,-58}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{22,60},{34,-58}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{50,60},{62,-58}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None)}),
     preferredView="info",
 defaultComponentName="hex",
     Documentation(info="<html>
