@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatExchangers.Examples;
-model DryEffectivenessNTU
+within Buildings.Fluid.HeatExchangers.Validation;
+model DryCoilEffectivenessNTU
   "Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation"
   extends Modelica.Icons.Example;
 
@@ -66,7 +66,7 @@ model DryEffectivenessNTU
     nPorts=5)
     "Boundary condition" annotation (Placement(transformation(extent={{-62,40},
             {-42,60}})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexPar(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexPar(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     dp1_nominal=500,
@@ -81,7 +81,7 @@ model DryEffectivenessNTU
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCou(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCou(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     dp1_nominal=500,
@@ -95,7 +95,7 @@ model DryEffectivenessNTU
     T_a2_nominal=293.15)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroC1Mix(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCroC1Mix(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     dp1_nominal=500,
@@ -109,7 +109,7 @@ model DryEffectivenessNTU
     T_a2_nominal=293.15)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-28},{10,-8}})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroC1Unm(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCroC1Unm(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     dp1_nominal=500,
@@ -123,7 +123,7 @@ model DryEffectivenessNTU
     T_a2_nominal=293.15)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-58},{10,-38}})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroUnm(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCroUnm(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     dp1_nominal=500,
@@ -247,13 +247,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTU.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/DryCoilEffectivenessNTU.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This model tests
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</a>
 for different inlet conditions.
 </p>
 </html>", revisions="<html>
@@ -270,4 +270,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DryEffectivenessNTU;
+end DryCoilEffectivenessNTU;

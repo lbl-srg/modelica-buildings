@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Examples;
-model DryEffectivenessNTUPControl
+model DryCoilEffectivenessNTUPControl
   "Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation with feedback control"
   extends Modelica.Icons.Example;
 
@@ -68,7 +68,7 @@ model DryEffectivenessNTUPControl
     period=3600,
     offset=273.15 + 22) "Setpoint temperature"
     annotation (Placement(transformation(extent={{-70,80},{-50,100}})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hex(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     show_T=true,
@@ -121,13 +121,13 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTUPControl.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/DryCoilEffectivenessNTUPControl.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This model demonstrates the use of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</a>.
 The valve on the water-side is regulated to track a setpoint temperature
 for the air outlet.
 </p>
@@ -152,4 +152,4 @@ this parameter no longer has a default value.
 </li>
 </ul>
 </html>"));
-end DryEffectivenessNTUPControl;
+end DryCoilEffectivenessNTUPControl;

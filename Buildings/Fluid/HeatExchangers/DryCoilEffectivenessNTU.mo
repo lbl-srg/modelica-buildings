@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers;
-model DryEffectivenessNTU
+model DryCoilEffectivenessNTU
   "Heat exchanger with effectiveness - NTU relation and no moisture condensation"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
       sensibleOnly1=true, sensibleOnly2=true,
@@ -238,4 +238,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DryEffectivenessNTU;
+end DryCoilEffectivenessNTU;

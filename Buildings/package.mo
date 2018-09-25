@@ -286,6 +286,14 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+        </td>
+        <td valign=\"top\">Renamed model to
+                           <code>Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</code>
+                           because the convective heat transfer coefficients are for air.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial
         </td>
         <td valign=\"top\">Renamed function to
