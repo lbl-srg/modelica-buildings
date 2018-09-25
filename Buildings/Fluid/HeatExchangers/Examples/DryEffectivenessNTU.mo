@@ -19,23 +19,26 @@ model DryEffectivenessNTU
  parameter Modelica.SIunits.MassFlowRate m2_flow = m1_flow*cp1/
       cp2 "Nominal mass flow rate medium 2";
 
-  Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium2,
+  Buildings.Fluid.Sources.Boundary_pT sin_2(
+    redeclare package Medium = Medium2,
     use_p_in=true,
     nPorts=5,
-    T=273.15 + 10)        annotation (Placement(transformation(extent={{-64,10},
+    T=273.15 + 10) "Boundary condition"
+    annotation (Placement(transformation(extent={{-64,10},
             {-44,30}})));
     Modelica.Blocks.Sources.Ramp PIn(
     height=200,
     duration=60,
     offset=101325,
-    startTime=100)
+    startTime=100) "Pressure boundary condition"
                  annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
-  Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium2, T=273.15 + 5,
+  Buildings.Fluid.Sources.Boundary_pT sou_2(
+    redeclare package Medium = Medium2,
+    T=273.15 + 5,
     use_p_in=true,
     use_T_in=true,
-    nPorts=5)             annotation (Placement(transformation(extent={{10,-10},
+    nPorts=5) "Boundary condition"
+    annotation (Placement(transformation(extent={{10,-10},
             {-10,10}}, origin={72,-10})));
     Modelica.Blocks.Sources.Ramp TWat(
     height=10,
@@ -47,19 +50,21 @@ model DryEffectivenessNTU
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
     Modelica.Blocks.Sources.Constant POut(k=101325)
       annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
-      package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
+    redeclare package Medium = Medium1,
     use_p_in=true,
     nPorts=5,
     p=300000,
-    T=273.15 + 25)        annotation (Placement(transformation(extent={{80,40},
+    T=273.15 + 25)
+    "Boundary condition" annotation (Placement(transformation(extent={{80,40},
             {60,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 5000,
     T=273.15 + 50,
     use_T_in=true,
-    nPorts=5)             annotation (Placement(transformation(extent={{-62,40},
+    nPorts=5)
+    "Boundary condition" annotation (Placement(transformation(extent={{-62,40},
             {-42,60}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexPar(
     redeclare package Medium1 = Medium1,
@@ -73,6 +78,7 @@ model DryEffectivenessNTU
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCou(
@@ -87,6 +93,7 @@ model DryEffectivenessNTU
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroC1Mix(
     redeclare package Medium1 = Medium1,
@@ -100,6 +107,7 @@ model DryEffectivenessNTU
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-28},{10,-8}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroC1Unm(
     redeclare package Medium1 = Medium1,
@@ -113,6 +121,7 @@ model DryEffectivenessNTU
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-58},{10,-38}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroUnm(
     redeclare package Medium1 = Medium1,
@@ -126,6 +135,7 @@ model DryEffectivenessNTU
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-86},{10,-66}})));
   Modelica.Blocks.Sources.Trapezoid trapezoid(
     amplitude=5000,
@@ -134,6 +144,7 @@ model DryEffectivenessNTU
     falling=10,
     period=3600,
     offset=300000)
+    "Pressure boundary condition"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
