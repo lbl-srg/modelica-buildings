@@ -1,0 +1,15 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.BesselJ1", tolerance=1e-6, startTime=0.0, stopTime=30.0, method="dassl", resultFile="BesselJ1");
+createPlot(id = 1,
+ position = {35, 30, 631, 456},
+ x = "time",
+ y = {"J1"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "BesselJ1.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

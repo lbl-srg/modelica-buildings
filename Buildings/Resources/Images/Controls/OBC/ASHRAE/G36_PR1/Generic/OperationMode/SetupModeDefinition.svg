@@ -290,7 +290,7 @@
          id="tspan6497"
          x="-21.809879"
          y="296.56564"
-         style="stroke-width:0.77572626px">TUnoCooSet</tspan></text>
+         style="stroke-width:0.77572626px">TZonCooSetUno</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -449,7 +449,7 @@
          x="255.27031"
          y="308.5686"
          style="stroke-width:0.20474268px"
-         id="tspan6511">       TUnoCooSet?</tspan></text>
+         id="tspan6511">       TZonCooSetUno?</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.16112554px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.20402686px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
@@ -461,6 +461,6 @@
          sodipodi:role="line"
          id="tspan6523">       &lt;</tspan><tspan
          sodipodi:role="line"
-         id="tspan6525">TUnoCooSet - 1.1 C?</tspan></text>
+         id="tspan6525">TZonCooSetUno - 1.1 C?</tspan></text>
   </g>
 </svg>

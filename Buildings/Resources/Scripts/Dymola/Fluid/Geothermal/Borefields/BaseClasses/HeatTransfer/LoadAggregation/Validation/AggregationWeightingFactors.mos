@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.AggregationWeightingFactors", tolerance=1e-6, stopTime=1.0, resultFile="AggregationWeightingFactors");
+removePlots();
+createPlot(id = 1,
+ position = {50, 50, 700, 500},
+ x = "time",
+ y = {"kappa[4]","kappa[5]","kappa[6]","kappa[7]"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename="AggregationWeightingFactors.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

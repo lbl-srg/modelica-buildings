@@ -2,13 +2,16 @@ within Buildings.Utilities.IO.Files.BaseClasses;
 model FileWriter "Partial model for writing results to a .csv file"
   extends Modelica.Blocks.Icons.DiscreteBlock;
 
-  parameter Integer nin "Number of inputs"
+  parameter Integer nin
+    "Number of inputs"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter String fileName = getInstanceName() + ".csv" "File name, including extension";
-  parameter Modelica.SIunits.Time samplePeriod "Sample period";
-  parameter String delimiter = "\t" "Delimiter for csv file"
+  parameter String fileName = getInstanceName() + ".csv"
+    "File name, including extension";
+  parameter Modelica.SIunits.Time samplePeriod
+    "Sample period: equidistant interval for which the inputs are saved";
+  parameter String delimiter = "\t"
+    "Delimiter for csv file"
     annotation(Dialog(tab="Advanced"));
-
   parameter Boolean writeHeader = true
     "=true, to write header with variable names, otherwise no header will be written"
     annotation(Dialog(tab="Advanced"));
@@ -84,6 +87,11 @@ algorithm
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 6, 2018 by Filip Jorissen:<br/>
+Improved comment of <code>samplePeriod</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1010\">#1010</a>.
+</li>
 <li>
 May 10, 2018 by Filip Jorissen:<br/>
 First implementation.

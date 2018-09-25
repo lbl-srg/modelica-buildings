@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "sca.y[1]",
+    "sca1.y[1]",
+    "sca1.y[2]"
+  };
