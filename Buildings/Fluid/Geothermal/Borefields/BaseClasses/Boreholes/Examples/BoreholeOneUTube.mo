@@ -20,7 +20,7 @@ This example illustrates the use of the
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube\">
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTubes</a>
 model. It simulates the behavior of a borehole with a prescribed
-borehole wall boundary condition.
+borehole wall temperature boundary condition.
 </p>
 </html>", revisions="<html>
 <ul>
