@@ -13,6 +13,7 @@ MassExchange
 PartialDuctManifold
 PartialDuctPipeManifold
 PartialEffectiveness
+PartialEffectivenessNTU
 PartialHexElement
 PartialPipeManifold
 PartialPrescribedOutlet

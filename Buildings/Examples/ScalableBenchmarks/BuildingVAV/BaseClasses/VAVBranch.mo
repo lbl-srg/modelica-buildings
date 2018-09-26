@@ -57,7 +57,7 @@ model VAVBranch "Supply branch of a VAV system"
     dp_nominal(displayUnit="Pa") = 20)  "VAV box for room"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90, origin={50,104})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU terHea(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU terHea(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,

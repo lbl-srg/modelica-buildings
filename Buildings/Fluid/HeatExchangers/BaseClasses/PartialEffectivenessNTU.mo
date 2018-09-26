@@ -1,37 +1,44 @@
-within Buildings.Fluid.HeatExchangers;
-model DryEffectivenessNTU
-  "Heat exchanger with effectiveness - NTU relation and no moisture condensation"
+within Buildings.Fluid.HeatExchangers.BaseClasses;
+model PartialEffectivenessNTU
+  "Partial model for heat exchanger with effectiveness - NTU relation and no moisture condensation"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
-      sensibleOnly1=true, sensibleOnly2=true,
+      sensibleOnly1=true,
+      sensibleOnly2=true,
       Q1_flow = eps*QMax_flow,
       Q2_flow = -Q1_flow,
       mWat1_flow = 0,
       mWat2_flow = 0);
   import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
   import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
-    "Nominal heat transfer" annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a1_nominal
-    "Nominal temperature at port a1"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a2_nominal
-    "Nominal temperature at port a2"
-    annotation (Dialog(group="Nominal condition"));
+
   parameter con configuration "Heat exchanger configuration"
     annotation (Evaluate=true);
-  parameter Real r_nominal(
-    min=0,
-    max=1) = 2/3
-    "Ratio between air-side and water-side convective heat transfer (hA-value) at nominal condition";
-  Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
-    final r_nominal=r_nominal,
-    final UA_nominal=UA_nominal,
-    final m_flow_nominal_w=m1_flow_nominal,
-    final m_flow_nominal_a=m2_flow_nominal,
-    waterSideTemperatureDependent=false,
-    airSideTemperatureDependent=false)
-    "Model for convective heat transfer coefficient";
-  Modelica.SIunits.ThermalConductance UA "UA value";
+
+  parameter Boolean use_Q_flow_nominal = true
+    "Set to true to specify Q_flow_nominal and temperatures, or to false to specify effectiveness"
+    annotation (Evaluate=true,
+                Dialog(group="Nominal thermal performance"));
+
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(fixed=use_Q_flow_nominal)
+    "Nominal heat transfer"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=use_Q_flow_nominal));
+  parameter Modelica.SIunits.Temperature T_a1_nominal(fixed=use_Q_flow_nominal)
+    "Nominal temperature at port a1"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=use_Q_flow_nominal));
+  parameter Modelica.SIunits.Temperature T_a2_nominal(fixed=use_Q_flow_nominal)
+    "Nominal temperature at port a2"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=use_Q_flow_nominal));
+
+  parameter Real eps_nominal(fixed=not use_Q_flow_nominal)
+    "Nominal heat transfer effectiveness"
+    annotation (Dialog(group="Nominal thermal performance",
+                       enable=not use_Q_flow_nominal));
+
+  input Modelica.SIunits.ThermalConductance UA "UA value";
+
   Real eps(min=0, max=1) "Heat exchanger effectiveness";
   Real Z(min=0) "Ratio of capacity flow rate (CMin/CMax)";
 
@@ -42,15 +49,14 @@ model DryEffectivenessNTU
     "Nominal UA value";
   final parameter Real NTU_nominal(min=0, fixed=false)
     "Nominal number of transfer units";
-  final parameter Real eps_nominal(fixed=false)
-    "Nominal heat transfer effectiveness";
+
 protected
   final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
-     T=T_a1_nominal,
+     T=Medium1.T_default,
      p=Medium1.p_default,
      X=Medium1.X_default[1:Medium1.nXi]) "Default state for medium 1";
   final parameter Medium2.ThermodynamicState sta2_default = Medium2.setState_pTX(
-     T=T_a2_nominal,
+     T=Medium1.T_default,
      p=Medium2.p_default,
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
@@ -90,15 +96,22 @@ initial equation
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
 
   // Heat transferred from fluid 1 to 2 at nominal condition
-  Q_flow_nominal = m1_flow_nominal*cp1_nominal*(T_a1_nominal - T_b1_nominal);
-  Q_flow_nominal = -m2_flow_nominal*cp2_nominal*(T_a2_nominal - T_b2_nominal);
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
   C2_flow_nominal = m2_flow_nominal*cp2_nominal;
   CMin_flow_nominal = min(C1_flow_nominal, C2_flow_nominal);
   CMax_flow_nominal = max(C1_flow_nominal, C2_flow_nominal);
   Z_nominal = CMin_flow_nominal/CMax_flow_nominal;
-  eps_nominal = abs(Q_flow_nominal/((T_a1_nominal - T_a2_nominal)*
-    CMin_flow_nominal));
+  Q_flow_nominal = m1_flow_nominal*cp1_nominal*(T_a1_nominal - T_b1_nominal);
+  if use_Q_flow_nominal then
+    Q_flow_nominal = -m2_flow_nominal*cp2_nominal*(T_a2_nominal - T_b2_nominal);
+    eps_nominal = abs(Q_flow_nominal/((T_a1_nominal - T_a2_nominal)*
+      CMin_flow_nominal));
+  else
+    T_a1_nominal = Medium1.T_default;
+    T_a2_nominal = Medium2.T_default;
+    T_b1_nominal = Medium1.T_default;
+    T_b2_nominal = Medium2.T_default;
+  end if;
   assert(eps_nominal > 0 and eps_nominal < 1,
     "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
     "\n  To achieve the required heat transfer rate at epsilon=0.8, set |T_a1_nominal-T_a2_nominal| = "
@@ -150,13 +163,8 @@ equation
     flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinUnmixedCMaxMixed
        else flo.CrossFlowCMinMixedCMaxUnmixed;
   end if;
-  // Convective heat transfer coefficient
-  hA.m1_flow = m1_flow;
-  hA.m2_flow = m2_flow;
-  hA.T_1 = T_in1;
-  hA.T_2 = T_in2;
-  UA = 1/(1/hA.hA_1 + 1/hA.hA_2);
-  // effectiveness
+
+  // Effectiveness
   (eps, Z) = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
     UA=UA,
     C1_flow=C1_flow,
@@ -174,11 +182,10 @@ equation
           pattern=LinePattern.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid)}),
-    preferredView="info",
 defaultComponentName="hex",
     Documentation(info="<html>
 <p>
-Model of a heat exchanger without humidity condensation.
+Partial model of a heat exchanger without humidity condensation.
 This model transfers heat in the amount of
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -203,10 +210,8 @@ Buildings.Fluid.Types.HeatExchangerConfiguration</a>
 are supported.
 </p>
 <p>
-For a heat and moisture exchanger, use
-<a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
-Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
-instead of this model.
+Models that extend from this partial model need to provide an assignment
+for <code>UA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -238,4 +243,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DryEffectivenessNTU;
+end PartialEffectivenessNTU;

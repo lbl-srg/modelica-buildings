@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Examples;
-model DryEffectivenessNTUMassFlow
+model DryCoilEffectivenessNTUMassFlow
   "Model of epsilon-NTU dry coil that tests variable mass flow rates"
   extends Modelica.Icons.Example;
   extends
@@ -9,7 +9,7 @@ model DryEffectivenessNTUMassFlow
     sou_2(nPorts=1),
     sin_2(nPorts=1));
 
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hex(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=m1_flow_nominal,
@@ -26,8 +26,8 @@ model DryEffectivenessNTUMassFlow
             {102,40}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
-                                                     redeclare package Medium
-      = Medium2, m_flow_nominal=m2_flow_nominal,
+                                                     redeclare package Medium =
+        Medium2, m_flow_nominal=m2_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{60,14},{40,34}})));
 equation
@@ -54,13 +54,13 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTUMassFlow.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilEffectivenessNTUMassFlow.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This model tests
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</a>
 for different mass flow rates.
 </p>
 </html>", revisions="<html>
@@ -71,4 +71,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DryEffectivenessNTUMassFlow;
+end DryCoilEffectivenessNTUMassFlow;
