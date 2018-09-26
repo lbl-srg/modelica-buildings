@@ -41,12 +41,12 @@ Model of a coil without humidity condensation.
 This model transfers heat in the amount of
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Q = Q<sub>max</sub>  &epsilon;<br/>
+  Q&#775; = Q&#775;<sub>max</sub>  &epsilon;<br/>
   &epsilon; = f(NTU, Z, flowRegime),
 </p>
 <p>
 where
-<i>Q<sub>max</sub></i> is the maximum heat that can be transferred,
+<i>Q&#775;<sub>max</sub></i> is the maximum heat that can be transferred,
 <i>&epsilon;</i> is the heat transfer effectiveness,
 <i>NTU</i> is the Number of Transfer Units,
 <i>Z</i> is the ratio of minimum to maximum capacity flow rate and
@@ -60,6 +60,13 @@ defined in
 <a href=\"modelica://Buildings.Fluid.Types.HeatExchangerConfiguration\">
 Buildings.Fluid.Types.HeatExchangerConfiguration</a>
 are supported.
+</p>
+<p>
+The convective heat transfer coefficients scale proportional to
+<i>(m&#775;/m&#775;<sub>0</sub>)<sup>n</sup></i>, where
+<i>m&#775;</i> is the mass flow rate,
+<i>m&#775;<sub>0</sub></i> is the nominal mass flow rate, and
+<i>n=0.8</i> on the air-side and <i>n=0.85</i> on the water side.
 </p>
 <p>
 For a plate exchanger, use

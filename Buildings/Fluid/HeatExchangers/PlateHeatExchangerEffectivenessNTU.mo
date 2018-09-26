@@ -10,9 +10,9 @@ protected
   parameter Modelica.SIunits.ThermalConductance hA2_nominal(min=0)=2*UA_nominal
     "Nominal convective heat transfer coefficient for medium 2";
 
-  parameter Real n1(min=0, max=1)=0.85
+  parameter Real n1(min=0, max=1)=0.8
     "Exponent for convective heat transfer coefficient, h1~m1_flow^n1";
-  parameter Real n2(min=0, max=1)=0.85
+  parameter Real n2(min=0, max=1)=0.8
    "Exponent for convective heat transfer coefficient, h2~m2_flow^n2";
 
   Modelica.SIunits.ThermalConductance hA1
@@ -90,12 +90,12 @@ Model of a plate heat exchanger without humidity condensation.
 This model transfers heat in the amount of
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Q = Q<sub>max</sub>  &epsilon;<br/>
+  Q&#775; = Q&#775;<sub>max</sub>  &epsilon;<br/>
   &epsilon; = f(NTU, Z, flowRegime),
 </p>
 <p>
 where
-<i>Q<sub>max</sub></i> is the maximum heat that can be transferred,
+<i>Q&#775;<sub>max</sub></i> is the maximum heat that can be transferred,
 <i>&epsilon;</i> is the heat transfer effectiveness,
 <i>NTU</i> is the Number of Transfer Units,
 <i>Z</i> is the ratio of minimum to maximum capacity flow rate and
@@ -109,6 +109,13 @@ defined in
 <a href=\"modelica://Buildings.Fluid.Types.HeatExchangerConfiguration\">
 Buildings.Fluid.Types.HeatExchangerConfiguration</a>
 are supported.
+</p>
+<p>
+The convective heat transfer coefficients scale proportional to
+<i>(m&#775;/m&#775;<sub>0</sub>)<sup>n</sup></i>, where
+<i>m&#775;</i> is the mass flow rate,
+<i>m&#775;<sub>0</sub></i> is the nominal mass flow rate, and
+<i>n=0.8</i> for both streams.
 </p>
 <p>
 For a plate exchanger, use
