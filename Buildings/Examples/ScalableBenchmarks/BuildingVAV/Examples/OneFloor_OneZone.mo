@@ -42,7 +42,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each nominalValuesDefineDefaultPressureCurve=true)
       "Supply air fan"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hex[nFlo](
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex[nFlo](
     redeclare each package Medium1 = MediumA,
     redeclare each package Medium2 = MediumW,
     each m1_flow_nominal=m_flow_nominal,

@@ -211,6 +211,13 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers
+        </td>
+        <td valign=\"top\">Added <code>Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</code>
+                           which computes the effectiveness of a plate heat exchanger
+                           based on design conditions and current mass flow rates.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Math
         </td>
         <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
@@ -292,6 +299,14 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+        </td>
+        <td valign=\"top\">Renamed model to
+                           <code>Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</code>
+                           because the convective heat transfer coefficients are for air.<br/>
+                           For Dymola, a conversion script makes this change.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial
