@@ -1,0 +1,10 @@
+BoreholeSegment
+ExtendableArray
+HexInternalElement
+SingleUTubeBoundaryCondition
+convectionResistance
+exchangeValues
+powerSeries
+singleUTubeResistances
+temperatureDrop
+Examples

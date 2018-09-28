@@ -9,10 +9,10 @@ model SystemRequests
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(freqHz=1/7200, offset=296.15)
     "Generate data for setpoint"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TCooSet(samplePeriod=1800)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TZonCooSet(samplePeriod=1800)
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TRoo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     freqHz=1/7200,
     amplitude=2,
     offset=299.15) "Zone temperature"
@@ -42,7 +42,7 @@ model SystemRequests
     offset=305.15)
     "Generate data for setpoint"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TDisSet(
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TDisHeaSet(
     samplePeriod=1800)
     "Discharge air setpoint temperature"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
@@ -60,29 +60,26 @@ model SystemRequests
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
 equation
-  connect(sine.y, TCooSet.u)
+  connect(sine.y, TZonCooSet.u)
     annotation (Line(points={{-39,90},{-22,90}}, color={0,0,127}));
-  connect(TCooSet.y, sysReq_RehBox.TCooSet)
-    annotation (Line(points={{1,90},{46,90},{46,79},{59,79}},
-      color={0,0,127}));
-  connect(TRoo.y, sysReq_RehBox.TRoo)
+  connect(TZonCooSet.y, sysReq_RehBox.TZonCooSet) annotation (Line(points={{1,90},
+          {46,90},{46,79},{59,79}}, color={0,0,127}));
+  connect(TZon.y, sysReq_RehBox.TZon)
     annotation (Line(points={{-39,60},{16,60},{16,77},{59,77}},
       color={0,0,127}));
   connect(uCoo.y, sysReq_RehBox.uCoo)
     annotation (Line(points={{1,40},{18,40},{18,75},{59,75}},
       color={0,0,127}));
-  connect(disAirSet.y, sysReq_RehBox.VDisSet)
-    annotation (Line(points={{-39,20},{20,20},{20,72},{59,72}},
-      color={0,0,127}));
-  connect(disAirRate.y, sysReq_RehBox.VDis)
-    annotation (Line(points={{1,0},{22,0},{22,70},{59,70}},
-      color={0,0,127}));
+  connect(disAirSet.y, sysReq_RehBox.VDisSet_flow) annotation (Line(points={{-39,
+          20},{20,20},{20,72},{59,72}}, color={0,0,127}));
+  connect(disAirRate.y, sysReq_RehBox.VDis_flow)
+    annotation (Line(points={{1,0},{22,0},{22,70},{59,70}}, color={0,0,127}));
   connect(damPos.y, sysReq_RehBox.uDam)
     annotation (Line(points={{-39,-20},{24,-20},{24,68},{59,68}},
       color={0,0,127}));
-  connect(sine1.y, TDisSet.u)
+  connect(sine1.y, TDisHeaSet.u)
     annotation (Line(points={{-69,-40},{-22,-40}}, color={0,0,127}));
-  connect(TDisSet.y, sysReq_RehBox.TDisSet)
+  connect(TDisHeaSet.y, sysReq_RehBox.TDisHeaSet)
     annotation (Line(points={{1,-40},{26,-40},{26,65},{59,65}},
       color={0,0,127}));
   connect(TDis.y, sysReq_RehBox.TDis)

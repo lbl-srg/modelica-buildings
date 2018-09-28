@@ -1,6 +1,7 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialThreeWayValve "Partial three way valve"
   extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
+    m_flow_small = m_flow_nominal*1e-4,
     final mDyn_flow_nominal = m_flow_nominal,
       redeclare replaceable
       Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res1

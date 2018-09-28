@@ -29,22 +29,22 @@ model DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSup(k=273.15 + 13)
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActMin(k=0.01)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActMin_flow(k=0.01)
     "Active minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActHeaMin(k=0.015)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActHeaMin_flow(k=0.015)
     "Active heating minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActHeaMax(k=0.05)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActHeaMax_flow(k=0.05)
     "Active heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMin(k=0.015)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMin_flow(k=0.015)
     "Active cooling minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMax(k=0.075)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMax_flow(k=0.075)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VDis(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VDis_flow(
     offset=0.015,
     amplitude=0.002,
     freqHz=1/86400) "Discharge airflow rate"
@@ -57,19 +57,19 @@ model DamperValves
     "Occupied signal"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 equation
-  connect(VDis.y, damVal.VDis)
+  connect(VDis_flow.y, damVal.VDis_flow)
     annotation (Line(points={{41,-60},{74,-60},{74,37}}, color={0,0,127}));
   connect(TDis.y, damVal.TDis)
     annotation (Line(points={{41,-20},{66,-20},{66,37}}, color={0,0,127}));
-  connect(VActCooMax.y, damVal.VActCooMax)
-    annotation (Line(points={{41,80},{50,80},{50,59},{59,59}}, color={0,0,127}));
-  connect(VActCooMin.y, damVal.VActCooMin)
+  connect(VActCooMax_flow.y, damVal.VActCooMax_flow) annotation (Line(points={{41,80},
+          {50,80},{50,59},{59,59}}, color={0,0,127}));
+  connect(VActCooMin_flow.y, damVal.VActCooMin_flow)
     annotation (Line(points={{-59,80},{-2,80},{-2,57},{59,57}}, color={0,0,127}));
-  connect(VActHeaMax.y, damVal.VActHeaMax)
+  connect(VActHeaMax_flow.y, damVal.VActHeaMax_flow)
     annotation (Line(points={{-19,60},{-4,60},{-4,55},{59,55}}, color={0,0,127}));
-  connect(VActHeaMin.y, damVal.VActHeaMin)
+  connect(VActHeaMin_flow.y, damVal.VActHeaMin_flow)
     annotation (Line(points={{-59,40},{-4,40},{-4,53},{59,53}}, color={0,0,127}));
-  connect(VActMin.y, damVal.VActMin)
+  connect(VActMin_flow.y, damVal.VActMin_flow)
     annotation (Line(points={{-19,20},{-2,20},{-2,51},{59,51}}, color={0,0,127}));
   connect(uCoo.y, damVal.uCoo)
     annotation (Line(points={{-59,0},{0,0},{0,49},{59,49}}, color={0,0,127}));
@@ -79,7 +79,7 @@ equation
     annotation (Line(points={{-59,-40},{4,-40},{4,45},{59,45}}, color={0,0,127}));
   connect(TSup.y, damVal.TSup)
     annotation (Line(points={{-19,-60},{6,-60},{6,43},{59,43}}, color={0,0,127}));
-  connect(TZon.y, damVal.TRoo)
+  connect(TZon.y, damVal.TZon)
     annotation (Line(points={{-59,-80},{8,-80},{8,41},{59,41}}, color={0,0,127}));
 
   connect(occSig.y, damVal.uOpeMod) annotation (Line(points={{41,20},{50,20},{

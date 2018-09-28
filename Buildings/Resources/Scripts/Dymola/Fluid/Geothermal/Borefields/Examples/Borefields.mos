@@ -1,0 +1,39 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.Examples.Borefields", startTime=0, method="Cvode", tolerance=1e-6, stopTime=36000, resultFile="Borefields");
+createPlot(
+  id=1,
+  position={0, 0, 1268, 736},
+  y={"T2UTubParIn.T", "T2UTubParOut.T", "T2UTubSerOut.T", "TUTubOut.T"},
+  range={0.0, 36000.0, 5.0, 35.0},
+  grid=true,
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}},
+  filename = "Borefields.mat");
+
+createPlot(
+  id=1,
+  position={0, 0, 1268, 181},
+  y={"borFie2UTubPar.borHol.intHex[10].vol1.heatPort.T", "borFie2UTubPar.borHol.intHex[10].vol2.heatPort.T", "borFie2UTubPar.borHol.intHex[10].vol3.heatPort.T", "borFie2UTubPar.borHol.intHex[10].vol4.heatPort.T"},
+  range={0.0, 36000.0, 5.0, 30.0},
+  grid=true,
+  subPlot=2,
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}},
+  filename = "Borefields.mat");
+
+createPlot(
+  id=1,
+  position={0, 0, 1268, 180},
+  y={"borFie2UTubSer.borHol.intHex[10].vol1.heatPort.T", "borFie2UTubSer.borHol.intHex[10].vol2.heatPort.T", "borFie2UTubSer.borHol.intHex[10].vol3.heatPort.T", "borFie2UTubSer.borHol.intHex[10].vol4.heatPort.T"},
+  range={0.0, 36000.0, 5.0, 30.0},
+  grid=true,
+  subPlot=3,
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}},
+  filename = "Borefields.mat");
+
+createPlot(
+  id=1,
+  position={0, 0, 1268, 180},
+  y={"borFieUTub.borHol.intHex[10].vol1.heatPort.T", "borFieUTub.borHol.intHex[10].vol2.heatPort.T"},
+  range={0.0, 36000.0, 5.0, 30.0},
+  grid=true,
+  subPlot=4,
+  colors={{28,108,200}, {238,46,47}},
+  filename = "Borefields.mat");

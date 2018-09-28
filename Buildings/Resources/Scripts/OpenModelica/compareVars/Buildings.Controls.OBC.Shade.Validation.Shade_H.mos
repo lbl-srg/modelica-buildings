@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "shaH.H",
+    "shaH.HHigh",
+    "shaH.HLow",
+    "shaH.y"
+  };

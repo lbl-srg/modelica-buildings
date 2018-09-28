@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "TBor1UTubDyn.T",
+    "TBor1UTubSteSta.T",
+    "TBor2UTubDyn.T",
+    "TBor2UTubSteSta.T"
+  };

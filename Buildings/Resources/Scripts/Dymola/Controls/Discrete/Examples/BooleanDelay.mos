@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.Discrete.Examples.BooleanDelay", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="BooleanDelay");
+simulateModel("Buildings.Controls.Discrete.Examples.BooleanDelay", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="BooleanDelay");
 createPlot(id = 5,
  position = {40, 26, 554, 366},
  y = {"del.u", "del.y"},

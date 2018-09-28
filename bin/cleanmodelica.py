@@ -15,10 +15,11 @@ if __name__ == "__main__":
                  'dsmodel*', 'dymosim', 'dymosim.lib', 'dymosim.exp', 
                  'dymosim.dll', 'dymola.log', 'dymosim.exe', '*.mat', '*.mof', 
                  '*.bak-mo', 'request.', 'status.', 'status', 'failure', 
-                 'success.','*.log',
+                 'success.', '*.log',
                  'stop', 'stop.',
                  'fmiModelIdentifier.h', 'modelDescription.xml',
-                 'fmiFunctions.o']
+                 'fmiFunctions.o',
+                 'CSVWriter.csvWriter.csv', 'test.csv']
     # Directories to be deleted. This will be non-recursive
     DELETEDIRS=['binaries']
 

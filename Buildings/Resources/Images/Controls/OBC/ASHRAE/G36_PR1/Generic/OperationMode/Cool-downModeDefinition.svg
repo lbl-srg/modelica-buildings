@@ -507,7 +507,7 @@
          id="tspan7155"
          x="-75.834595"
          y="377.65668"
-         style="font-size:9.25500298px;line-height:1.25">TCooSet</tspan></text>
+         style="font-size:9.25500298px;line-height:1.25">TZonCooSetOcc</tspan></text>
     <rect
        style="opacity:0.5;fill:none;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect4445"
@@ -556,7 +556,7 @@
          id="tspan7171"
          x="108.73109"
          y="385.01819"
-         style="font-size:8.14960957px;line-height:1.25">       TCooSet?</tspan></text>
+         style="font-size:8.14960957px;line-height:1.25">       TZonCooSetOcc?</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 175,372.3622 310,0"

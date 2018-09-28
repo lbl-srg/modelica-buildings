@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "eigPor.Q1_flow",
+    "eigPor.Q2_flow",
+    "eigPor.Q3_flow",
+    "eigPor.Q4_flow",
+    "eigPor.vol1.T",
+    "eigPor.vol2.T",
+    "eigPor.vol3.T",
+    "eigPor.vol4.T",
+    "sou1.T",
+    "sou2.T_in",
+    "sou3.T",
+    "sou4.T_in",
+    "sin.T"
+  };

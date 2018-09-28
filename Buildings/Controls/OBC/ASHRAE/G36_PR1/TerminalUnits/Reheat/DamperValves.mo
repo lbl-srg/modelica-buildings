@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat;
 block DamperValves
   "Output signals for controlling VAV reheat box damper and valve position"
 
-  parameter Modelica.SIunits.TemperatureDifference dTDisMax=11
+  parameter Modelica.SIunits.TemperatureDifference dTDisZonSetMax=11
     "Zone maximum discharge air temperature above heating setpoint";
   parameter Modelica.SIunits.Temperature TDisMin=283.15
     "Lowest discharge air temperature";
@@ -69,42 +69,42 @@ block DamperValves
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-360,240},{-320,280}}),
       iconTransformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMax_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active cooling maximum airflow rate"
     annotation (Placement(transformation(extent={{-360,160},{-320,200}}),
       iconTransformation(extent={{-120,80},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMin_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active cooling minimum airflow rate"
     annotation (Placement(transformation(extent={{-360,200},{-320,240}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActMin_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active minimum airflow rate"
     annotation (Placement(transformation(extent={{-360,30},{-320,70}}),
       iconTransformation(extent={{-120,0},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActHeaMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActHeaMin_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active heating minimum airflow rate"
     annotation (Placement(transformation(extent={{-360,-320},{-320,-280}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActHeaMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActHeaMax_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active heating maximum airflow rate"
     annotation (Placement(transformation(extent={{-360,-350},{-320,-310}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
@@ -123,7 +123,7 @@ block DamperValves
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-360,-100},{-320,-60}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Measured zone temperature"
@@ -147,13 +147,13 @@ block DamperValves
     "Reheater valve position"
     annotation (Placement(transformation(extent={{320,-50},{340,-30}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDisSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDisSet_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Discharge airflow setpoint"
     annotation (Placement(transformation(extent={{320,200},{340,220}}),
       iconTransformation(extent={{100,70},{120,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisHeaSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Discharge airflow setpoint temperature for heating"
@@ -174,7 +174,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Line lin
     "Active airflow setpoint for cooling"
     annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line conTDisSet
+  Buildings.Controls.OBC.CDL.Continuous.Line conTDisHeaSet
     "Discharge air temperature for heating"
     annotation (Placement(transformation(extent={{-120,-102},{-100,-82}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin3
@@ -246,14 +246,14 @@ protected
     final k=0.5) "Constant real value"
     annotation (Placement(transformation(extent={{-260,-360},{-240,-340}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=dTDisMax,
+    final p=dTDisZonSetMax,
     final k=1)
     "Maximum heating discharge temperature"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final k=1,
     final p=2.8)
-    "Zone temperature pluTSetZons 2.8 degC"
+    "Zone temperature pluTZonSets 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
     final uHigh=0.05,
@@ -308,10 +308,10 @@ protected
   CDL.Logical.Not not5 "Negation of input signal"
     annotation (Placement(transformation(extent={{202,-282},{222,-262}})));
 
-  CDL.Continuous.Gain VDisSetNor(final k=1/V_flow_nominal)
+  CDL.Continuous.Gain VDisSet_flowNor(final k=1/V_flow_nominal)
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,160},{260,180}})));
-  CDL.Continuous.Gain VDisNor(final k=1/V_flow_nominal)
+  CDL.Continuous.Gain VDis_flowNor(final k=1/V_flow_nominal)
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,122},{260,142}})));
   CDL.Continuous.Sources.Constant lowDisAirTem(final k=TDisMin)
@@ -337,13 +337,13 @@ equation
   connect(conZer.y, lin.x1)
     annotation (Line(points={{-259,290},{-240,290},{-240,268},{-162,268}},
       color={0,0,127}));
-  connect(VActCooMin, lin.f1)
+  connect(VActCooMin_flow, lin.f1)
     annotation (Line(points={{-340,220},{-300,220},{-300,264},{-162,264}},
       color={0,0,127}));
   connect(conOne.y, lin.x2)
     annotation (Line(points={{-199,290},{-180,290},{-180,256},{-162,256}},
       color={0,0,127}));
-  connect(VActCooMax, lin.f2)
+  connect(VActCooMax_flow, lin.f2)
     annotation (Line(points={{-340,180},{-180,180},{-180,252},{-162,252}},
       color={0,0,127}));
   connect(uCoo, hys2.u)
@@ -352,7 +352,7 @@ equation
   connect(conZer1.y, swi.u3)
     annotation (Line(points={{121,230},{130,230},{130,242},{138,242}},
       color={0,0,127}));
-  connect(VActMin, swi1.u1)
+  connect(VActMin_flow, swi1.u1)
     annotation (Line(points={{-340,50},{30,50},{30,38},{130,38}},
       color={0,0,127}));
   connect(and2.y, swi1.u2)
@@ -363,19 +363,19 @@ equation
   connect(uHea, hys3.u)
     annotation (Line(points={{-340,-160},{-280,-160},{-280,-230},{-262,-230}},
       color={0,0,127}));
-  connect(conZer3.y, conTDisSet.x1)
+  connect(conZer3.y, conTDisHeaSet.x1)
     annotation (Line(points={{-239,-120},{-220,-120},{-220,-84},{-122,-84}},
       color={0,0,127}));
-  connect(TSup, conTDisSet.f1)
+  connect(TSup, conTDisHeaSet.f1)
     annotation (Line(points={{-340,-50},{-160,-50},{-160,-88},{-122,-88}},
       color={0,0,127}));
-  connect(uHea, conTDisSet.u)
+  connect(uHea, conTDisHeaSet.u)
     annotation (Line(points={{-340,-160},{-140,-160},{-140,-92},{-122,-92}},
       color={0,0,127}));
-  connect(conHal.y, conTDisSet.x2)
+  connect(conHal.y, conTDisHeaSet.x2)
     annotation (Line(points={{-179,-120},{-160,-120},{-160,-96},{-122,-96}},
       color={0,0,127}));
-  connect(addPar.y, conTDisSet.f2)
+  connect(addPar.y, conTDisHeaSet.f2)
     annotation (Line(points={{-239,-80},{-136,-80},{-136,-100},{-122,-100}},
       color={0,0,127}));
   connect(THeaSet, addPar.u)
@@ -389,18 +389,18 @@ equation
   connect(conOne2.y, lin3.x2)
     annotation (Line(points={{-159,-350},{-140,-350},{-140,-324},{-82,-324}},
       color={0,0,127}));
-  connect(VActHeaMax, lin3.f2)
+  connect(VActHeaMax_flow, lin3.f2)
     annotation (Line(points={{-340,-330},{-120,-330},{-120,-328},{-82,-328}},
       color={0,0,127}));
-  connect(VActHeaMin, lin3.f1)
+  connect(VActHeaMin_flow, lin3.f1)
     annotation (Line(points={{-340,-300},{-120,-300},{-120,-316},{-82,-316}},
       color={0,0,127}));
-  connect(TRoo, addPar1.u)
+  connect(TZon, addPar1.u)
     annotation (Line(points={{-340,-270},{-262,-270}}, color={0,0,127}));
   connect(lin3.y, swi2.u1)
     annotation (Line(points={{-59,-320},{40,-320},{40,-262},{78,-262}},
       color={0,0,127}));
-  connect(VActHeaMin, swi2.u3)
+  connect(VActHeaMin_flow, swi2.u3)
     annotation (Line(points={{-340,-300},{60,-300},{60,-278},{78,-278}},
       color={0,0,127}));
   connect(TDis, hys4.u)
@@ -422,7 +422,7 @@ equation
   connect(swi4.y, mulSum.u[3])
     annotation (Line(points={{161,-270},{172,-270},{172,205.333},{198,205.333}},
       color={0,0,127}));
-  connect(VActMin, swi5.u1)
+  connect(VActMin_flow, swi5.u1)
     annotation (Line(points={{-340,50},{30,50},{30,198},{58,198}},
       color={0,0,127}));
   connect(and4.y, swi5.u2)
@@ -439,7 +439,7 @@ equation
   connect(TSup, add2.u1)
     annotation (Line(points={{-340,-50},{-300,-50},{-300,160},{-176,160},
       {-176,186},{-162,186}}, color={0,0,127}));
-  connect(TRoo, add2.u2)
+  connect(TZon, add2.u2)
     annotation (Line(points={{-340,-270},{-296,-270},{-296,156},{-172,156},
       {-172,174},{-162,174}}, color={0,0,127}));
   connect(add2.y, hys6.u)
@@ -447,7 +447,7 @@ equation
   connect(hys6.y, and4.u2)
     annotation (Line(points={{-99,180},{-80,180},{-80,182},{-62,182}},
       color={255,0,255}));
-  connect(conTDisSet.y, add1.u1)
+  connect(conTDisHeaSet.y, add1.u1)
     annotation (Line(points={{-99,-92},{-80,-92},{-80,-240},{-140,-240},{-140,
           -264},{-122,-264}},   color={0,0,127}));
   connect(addPar1.y, add1.u2)
@@ -456,9 +456,9 @@ equation
   connect(add1.y, hys7.u)
     annotation (Line(points={{-99,-270},{-90,-270},{-90,-270},{-82,-270}},
       color={0,0,127}));
-  connect(mulSum.y, VDisSet)
+  connect(mulSum.y, VDisSet_flow)
     annotation (Line(points={{221.7,210},{330,210}}, color={0,0,127}));
-  connect(conTDisSet.y, TDisSet)
+  connect(conTDisHeaSet.y, TDisHeaSet)
     annotation (Line(points={{-99,-92},{-80,-92},{-80,-160},{330,-160}},
       color={0,0,127}));
   connect(hys3.y, truHol2.u)
@@ -516,13 +516,13 @@ equation
                                        color={255,0,255}));
   connect(not5.y, conDam.trigger) annotation (Line(points={{223,-272},{232,-272},
           {232,150},{282,150},{282,158}}, color={255,0,255}));
-  connect(mulSum.y, VDisSetNor.u) annotation (Line(points={{221.7,210},{230,210},
+  connect(mulSum.y, VDisSet_flowNor.u) annotation (Line(points={{221.7,210},{230,210},
           {230,170},{238,170}}, color={0,0,127}));
-  connect(VDisSetNor.y, conDam.u_s)
+  connect(VDisSet_flowNor.y, conDam.u_s)
     annotation (Line(points={{261,170},{278,170}}, color={0,0,127}));
-  connect(VDis, VDisNor.u) annotation (Line(points={{-340,320},{224,320},{224,132},
+  connect(VDis_flow, VDis_flowNor.u) annotation (Line(points={{-340,320},{224,320},{224,132},
           {238,132}}, color={0,0,127}));
-  connect(VDisNor.y, conDam.u_m)
+  connect(VDis_flowNor.y, conDam.u_m)
     annotation (Line(points={{261,132},{290,132},{290,158}}, color={0,0,127}));
   connect(truHol2.y, or2.u2) annotation (Line(points={{-201,-230},{-88,-230},{
           -88,-82},{-70,-82}}, color={255,0,255}));
@@ -532,7 +532,7 @@ equation
           {-70,-74}}, color={255,0,255}));
   connect(or2.y, swi6.u2) annotation (Line(points={{-47,-74},{-40,-74},{-40,
           -100},{-32,-100}}, color={255,0,255}));
-  connect(conTDisSet.y, swi6.u1)
+  connect(conTDisHeaSet.y, swi6.u1)
     annotation (Line(points={{-99,-92},{-32,-92}}, color={0,0,127}));
   connect(swi6.u3, lowDisAirTem.y) annotation (Line(points={{-32,-108},{-40,
           -108},{-40,-118},{-47,-118}}, color={0,0,127}));
@@ -645,27 +645,27 @@ in heating state")}),
           extent={{-98,96},{-62,82}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActCooMax"),
+          textString="VActCooMax_flow"),
         Text(
           extent={{-98,78},{-62,64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActCooMin"),
+          textString="VActCooMin_flow"),
         Text(
           extent={{-98,58},{-60,44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActHeaMax"),
+          textString="VActHeaMax_flow"),
         Text(
           extent={{-98,36},{-62,24}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActHeaMin"),
+          textString="VActHeaMin_flow"),
         Text(
           extent={{-100,12},{-72,6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActMin"),
+          textString="VActMin_flow"),
         Text(
           extent={{-100,-8},{-80,-14}},
           lineColor={0,0,127},
@@ -697,14 +697,14 @@ in heating state")}),
           extent={{-100,-88},{-80,-94}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TRoo"),
+          textString="TZon"),
         Text(
           extent={{-11.5,4.5},{11.5,-4.5}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           origin={39.5,-99.5},
           rotation=90,
-          textString="VDis"),
+          textString="VDis_flow"),
         Text(
           extent={{72,44},{98,34}},
           lineColor={0,0,127},
@@ -755,13 +755,13 @@ in heating state")}),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="VDisSet"),
+          textString="VDisSet_flow"),
         Text(
           extent={{60,-74},{98,-86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="TDisSet"),
+          textString="TDisHeaSet"),
         Text(
           extent={{-98,-106},{-78,-112}},
           lineColor={0,0,127},
@@ -778,21 +778,21 @@ calculation is done following the steps below.
 <p>
 When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop output
 <code>uCoo</code> shall be mapped to the airflow
-setpoint from the cooling minimum <code>VActCooMin</code> to the cooling maximum
-<code>VActCooMax</code> airflow setpoints. The hot water valve is closed (<code>yHeaVal=0</code>)
+setpoint from the cooling minimum <code>VActCooMin_flow</code> to the cooling maximum
+<code>VActCooMax_flow</code> airflow setpoints. The hot water valve is closed (<code>yHeaVal=0</code>)
 unless the discharge air temperature <code>TDis</code> is below the minimum
 setpoint (10 &deg;C).</p>
 </li>
 <li>
 <p>If supply air temperature <code>TSup</code> from the AHU is greater than
-room temperature <code>TRoo</code>, cooling supply airflow setpoint shall be
+room temperature <code>TZon</code>, cooling supply airflow setpoint shall be
 no higher than the minimum.
 </p>
 </li>
 <li>
 <p>
 When the zone state is Deadband (<code>uCoo=0</code> and <code>uHea=0</code>), then
-the active airflow setpoint shall be the minimum airflow setpoint <code>VActMin</code>.
+the active airflow setpoint shall be the minimum airflow setpoint <code>VActMin_flow</code>.
 Hot water valve is closed unless the discharge air temperature is below the minimum
 setpoint (10 &deg;C).
 </p>
@@ -805,13 +805,13 @@ as follows:</p>
 <ul>
 <li>From 0-50%, the heating loop output <code>uHea</code> shall reset the
 discharge temperature setpoint from current AHU SAT setpoint <code>TSup</code>
-to a maximum of <code>dTDisMax</code> above space temperature setpoint. The airflow
-setpoint shall be the heating minimum <code>VActHeaMin</code>.</li>
+to a maximum of <code>dTDisZonSetMax</code> above space temperature setpoint. The airflow
+setpoint shall be the heating minimum <code>VActHeaMin_flow</code>.</li>
 <li>From 50-100%, if the discharge air temperature <code>TDis</code> is
 greater than room temperature plus 2.8 Kelvin, the heating loop output <code>uHea</code>
 shall reset the airflow setpoint from the heating minimum airflow setpoint
-<code>VActHeaMin</code> to the heating maximum airflow setpoint
-<code>VActHeaMax</code>.</li>
+<code>VActHeaMin_flow</code> to the heating maximum airflow setpoint
+<code>VActHeaMax_flow</code>.</li>
 </ul>
 </li>
 <li>

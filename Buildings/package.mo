@@ -126,16 +126,303 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+    class Version_6_0_0 "Version 6.0.0"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
+    <div class=\"release-summary\">
+    <p>
+    Version 6.0.0 is ... xxx
+    </p>
+    </div>
+    <!-- New libraries -->
+    <p>
+    The following <b style=\"color:blue\">new libraries</b> have been added:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.Shade
+        </td>
+        <td valign=\"top\">Package with shade controllers.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.UnitConversions
+        </td>
+        <td valign=\"top\">Package with blocks for unit conversion.
+                           Blocks in this package are meant to use when reading
+                           data from a building automation system,
+                           or writing data to a building automation system,
+                           that uses units that are different
+                           from the units used by Modelica.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal
+        </td>
+        <td valign=\"top\">Package with models for geothermal heat exchangers.
+                           This package has models for borefields with vertical boreholes,
+                           and for a single vertical borehole with a U-tube heat exchanger.
+                           The borefield models can have any geometrical configuration,
+                           and either one or two U-tube heat exchangers.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Cryptographics
+        </td>
+        <td valign=\"top\">Package with a function to compute a SHA1 encrypted string.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Files
+    </td>
+    <td valign=\"top\">Package with blocks to write CSV files or combi time table files.
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Plotters
+       </td>
+       <td valign=\"top\">Package with blocks that allow generating
+                          time series and scatter plots, and writing these plots to
+                          one or several html files.
+                          The plots can be deactivated based on an input signal and a time
+                          delay, for example, to plot data only while the HVAC system
+                          operates for at least <i>30</i> minutes.
+       </td>
+    </tr>
+    </table>
+    <!-- New components for existing libraries -->
+    <p>
+    The following <b style=\"color:blue\">new components</b> have been added
+    to <b style=\"color:blue\">existing</b> libraries:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
+        </td>
+        <td valign=\"top\">Extract scalar signal out of signal vector dependent on Integer-valued input.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
+        </td>
+        <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers
+        </td>
+        <td valign=\"top\">Added <code>Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</code>
+                           which computes the effectiveness of a plate heat exchanger
+                           based on design conditions and current mass flow rates.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Math
+        </td>
+        <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
+        </td>
+        </tr>
+    </table>
+    <!-- Backward compatible changes -->
+    <p>
+    The following <b style=\"color:blue\">existing components</b>
+    have been <b style=\"color:blue\">improved</b> in a
+    <b style=\"color:blue\">backward compatible</b> way:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
+        </td>
+        <td valign=\"top\">Update implementation to output accumulated time when input is <code>true</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Non-backward compatible changes to existing components -->
+    <p>
+    The following <b style=\"color:blue\">existing components</b>
+    have been <b style=\"color:blue\">improved</b> in a
+    <b style=\"color:blue\">non-backward compatible</b> way:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+     <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.EffectiveAirLeakageArea
+        </td>
+        <td valign=\"top\">Removed parameters <code>A</code>, <code>CD</code> and <code>lWet</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.Orifice
+        </td>
+        <td valign=\"top\">Removed parameter <code>lWet</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumnDynamic<br/>
+                           Buildings.Airflow.Multizone.MediumColumn<br/>
+                           Buildings.Airflow.Multizone.EffectiveAirLeakageArea<br/>
+                           Buildings.Airflow.Multizone.Orifice
+        </td>
+        <td valign=\"top\">Removed parameter <code>allowFlowReversal</code> as this is not meaningful
+                           for these models.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">IBPSA, #877</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone<br/>
+                         Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone
+        </td>
+        <td valign=\"top\">Renamed packages to
+                           <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV</code>
+                           and <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV</code>,
+                           and renamed various signals and parameters for consistency.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+        </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.RealExtractSignal
+        </td>
+        <td valign=\"top\">Changed block name from <code>ExtractSignal</code>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+        </td>
+        <td valign=\"top\">Renamed model to
+                           <code>Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</code>
+                           because the convective heat transfer coefficients are for air.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial
+        </td>
+        <td valign=\"top\">Renamed function to
+                           <code>Buildings.Utilities.Math.Functions.factorial</code>
+                           because it is also used by the new Geothermal package.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes
+        </td>
+        <td valign=\"top\">Renamed package to
+                           <code>Buildings.Fluid.Geothermal.Boreholes</code>
+                           due to the introduction of the new Geothermal package.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier
+        </td>
+        <td valign=\"top\">Renamed model to
+                           <code>Buildings.Fluid.BaseClasses.MassFlowRateMultiplier</code>
+                           because it is also used by the new Geothermal package.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Media</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
+        </td>
+        <td valign=\"top\">Removed the function <code>pressureSatLiq_T</code> as it was not used.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/995\">IBPSA, #995</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities.Reports</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br/>
+                           Buildings.Utilities.Reports.printRealArray
+        </td>
+        <td valign=\"top\">Moved <code>Buildings.Utilities.Reports.Printer</code> to
+                           <code>Buildings.Utilities.IO.Files.Printer</code> and moved
+                           <code>Buildings.Utilities.Reports.printRealArray</code> to
+                           <code>Buildings.Utilities.IO.Files.BaseClasses.printRealArray</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is due to the newly introduced package <code>Buildings.Utilities.IO.Files</code>.
+        </td>
+    </tr>
+    </table>
+    <!-- Errors that have been fixed -->
+    <p>
+    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+    that can lead to wrong simulation results):
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Heater_T<br/>
+                           Buildings.Fluid.HeatExchangers.SensibleCooler_T
+        </td>
+        <td valign=\"top\">Corrected missing propagation of initial conditions.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1016\">IBPSA, #1016</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements
+        </td>
+        <td valign=\"top\">The RC element of the roof <code>roofRC</code>
+                           was flipped to have its <code>port_b</code> on the outside.
+                           The resistances <code>RRem</code> and <code>R</code>
+                           of the roof and floor have been switched
+                           in the documentation.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/997\">IBPSA, #997</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Uncritical errors -->
+    <p>
+    The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+    that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+    units are wrong or errors in documentation):
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxx
+        </td>
+        <td valign=\"top\">xxx.
+        </td>
+    </tr>
+    </table>
+    <p>
+    Note:
+    </p>
+    <ul>
+    <li>
+    xxx
+    </li>
+    </ul>
+    </html>"));
+    end Version_6_0_0;
 
-   class Version_5_0_2 "Version 5.0.2"
+   class Version_5_1_0 "Version 5.1.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 5.0.2 is ... xxx
+   Version 5.1.0 adds new libraries, new components and improves various existing components.
+   Version 5.1.0 updates the license to a 3-clause BSD license.
+   It is backward compatible with versions 5.0.0 and 5.0.1.
    </p>
    <p>
-   This version updates the license to a 3-clause BSD license.
+   This release adds
+   a model for propylene glycol - water mixtures, a model for long pipes
+   suited for district heating and cooling simulations, a new valve model whose
+   opening characteristics can be fit to measured data, and idealized models
+   that allow to prescribe the temperature and humidity in any part of a fluid flow
+   system.
    </p>
    </div>
    <!-- New libraries -->
@@ -217,7 +504,7 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.SetPoints.VAVSupply
+   <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply
    </td>
        <td valign=\"top\">Revised implementation of fan speed control signal calculation
                           to remove the hysteresis blocks.<br/>
@@ -307,21 +594,6 @@ its class name ends with the string <code>Beta</code>.
    </tr>
    </table>
    <!-- Non-backward compatible changes to existing components -->
-   <p>
-   The following <b style=\"color:blue\">existing components</b>
-   have been <b style=\"color:blue\">improved</b> in a
-   <b style=\"color:blue\">non-backward compatible</b> way:
-   </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-   </table>
    <!-- Errors that have been fixed -->
    <p>
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
@@ -340,31 +612,8 @@ its class name ends with the string <code>Beta</code>.
    </tr>
    </table>
    <!-- Uncritical errors -->
-   <p>
-   The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-   that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-   units are wrong or errors in documentation):
-   </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-   </table>
-   <p>
-   Note:
-   </p>
-   <ul>
-   <li>
-   xxx
-   </li>
-   </ul>
    </html>"));
-   end Version_5_0_2;
+   end Version_5_1_0;
 
    class Version_5_0_1 "Version 5.0.1"
      extends Modelica.Icons.ReleaseNotes;
@@ -1377,7 +1626,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes
        </td>
        <td valign=\"top\">Moved the package <code>Buildings.Fluid.HeatExchangers.Boreholes</code> to
-                          <code>Buildings.Fluid.HeatExchangers.Ground.Boreholes</code>.
+                          <code>Buildings.Fluid.Geothermal.Boreholes</code>.
                           This is for compatibility with an ongoing model development that will include
                           a borefield model.<br/>
                           For Dymola, the conversion script will update models that use any model of the package
@@ -1784,7 +2033,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
     </td>
     </tr>
 
-    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.UTube
        </td>
        <td valign=\"top\">Updated code for 64 bit on Linux and Windows.
                           This closes
@@ -3020,7 +3269,7 @@ that can lead to wrong simulation results):
                        of PEX pipes.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.singleUTubeResistances
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.BaseClasses.singleUTubeResistances
     </td>
     <td valign=\"top\">Corrected error in function that used <code>beta</code>
                        before it was assigned a value.
@@ -3303,7 +3552,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.UTube
     </td>
     <td valign=\"top\">Reimplemented the resistor network inside the borehole
                        as the old implementation led to too slow a transient
@@ -3323,7 +3572,7 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.HexInternalElement
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.BaseClasses.HexInternalElement
     </td>
     <td valign=\"top\">Corrected error in documentation which stated a wrong default value
                        for the pipe spacing.
@@ -3700,8 +3949,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.FixedResistances.BaseClasses.Pipe<br/>
                        Buildings.Fluid.FixedResistances.FixedResistanceDpM<br/>
                        Buildings.Fluid.FixedResistances.LosslessPipe<br/>
-                       Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.BoreholeSegment<br/>
-                       Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube<br/>
+                       Buildings.Fluid.Geothermal.Boreholes.BaseClasses.BoreholeSegment<br/>
+                       Buildings.Fluid.Geothermal.Boreholes.UTube<br/>
                        Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab<br/>
                        Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
                        Buildings.Fluid.Interfaces.PartialFourPortInterface<br/>
@@ -5325,7 +5574,7 @@ The following
 have been fixed:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Ground.Boreholes</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Boreholes</b>
     </td>
 </tr>
 <tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/45\">&#35;45</a>
@@ -5370,7 +5619,7 @@ in converting old models to this version of the library.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes</td>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes</td>
     <td valign=\"top\">
     This is a library with a model for a borehole heat exchanger.
     </td></tr>
@@ -5654,8 +5903,8 @@ near zero flow if the components have exactly two fluid ports connected.</td>
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Reports</b></td></tr>
-<tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br/>
-                     Buildings.Utilities.Reports.printRealArray</td>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Files.Printer<br/>
+                     Buildings.Utilities.IO.Files.BaseClasses.printRealArray</td>
     <td valign=\"top\">Changed parameter <code>precision</code> to <code>significantDigits</code> and
                      <code>minimumWidth</code> to <code>minimumLength</code>
                      to use the same terminology as the Modelica Standard Library.</td>
@@ -6655,7 +6904,10 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_1\">Version 5.0.2</a> (xxx)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (xxx)
+</li>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_1_0\">Version 5.1.0</a> (June 14, 2018)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_1\">Version 5.0.1</a> (November 22, 2017)
@@ -7053,7 +7305,14 @@ particular package.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
-</tr></table><br/>
+</tr>
+
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.Plotters.UsersGuide\">Utilities.Plotters</a>
+   </td>
+   <td valign=\"top\">Package that allow writing time series and scatter plots to an html output file.</td>
+</tr>
+
+</table><br/>
 </li>
 <li>
 There is also a tutorial available at
@@ -7068,13 +7327,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="5.0.2",
-versionDate="2017-11-17",
-dateModified="2017-11-22",
+version="6.0.0",
+versionDate="2018-06-14",
+dateModified="2018-06-14",
 uses(Modelica(version="3.2.2")),
 conversion(
- from(version={"4.0.0", "5.0.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_4.0_to_5.0.mos")),
+  from(version={"5.0.0", "5.0.1", "5.1.0"},
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_5_to_6.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>

@@ -175,8 +175,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=21600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Example for tank model that has three outlets, each with a valve.

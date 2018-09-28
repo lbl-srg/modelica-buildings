@@ -1,21 +1,22 @@
 within Buildings.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
-  extends Buildings.Airflow.Multizone.Orifice(
+  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(
     m=0.65,
-    final A=L * CDRat/CD * dpRat^(0.5-m));
+    final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
 
-  parameter Modelica.SIunits.PressureDifference dpRat(min=0,
-                                                      displayUnit="Pa") = 4
-    "|Rating conditions|Pressure drop at rating condition";
-  parameter Real CDRat(min=0, max=1)=1
-    "|Rating conditions|Discharge coefficient";
+  parameter Modelica.SIunits.PressureDifference dpRat(
+    min=0,
+    displayUnit="Pa") = 4 "Pressure drop"
+    annotation (Dialog(group="Rating conditions"));
+  parameter Real CDRat(
+    min=0,
+    max=1) = 1 "Discharge coefficient"
+    annotation (Dialog(group="Rating conditions"));
 
   parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
 
-initial equation
-  assert(CD > 0.649 and CD < 0.651,
-    "The parameter CD does not affect the model " + getInstanceName() + " and will be removed in future releases.",
-    level=AssertionLevel.warning);
+equation
+   v = V_flow/L;
   annotation (Icon(graphics={
         Rectangle(
           extent={{-50,48},{50,-42}},
@@ -90,7 +91,7 @@ k = L C<sub>D,Rat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-m)</sup> (2/&rho;<sub>0<
 </p>
 <p>
 where
-<i>L</i> is the effective leakage area,
+<i>L</i> is the effective air leakage area,
 <i>C<sub>D,Rat</sub></i> is the discharge coefficient at the reference condition,
 <i>&Delta;p<sub>Rat</sub></i> is the pressure drop at the rating condition, and
 <i>&rho;<sub>0</sub></i> is the mass density at the medium default pressure, temperature and humidity.
@@ -105,10 +106,6 @@ A similar model is also used in the CONTAM software (Dols and Walton, 2002).
 Dols and Walton (2002) recommend to use for the flow exponent
 <i>m=0.6</i> to <i>m=0.7</i> if the flow exponent is not
 reported with the test results.
-</p>
-<p>
-Note: The parameter <code>CD</code> does not affect this model, and it will
-be removed in future releases.
 </p>
 <h4>References</h4>
 <ul>
@@ -131,6 +128,17 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 24, 2018, by Michael Wetter:<br/>
+Removed parameter <code>lWet</code> as it is only used to compute
+the Reynolds number, and the Reynolds number is not used by this model.
+Also removed the variable <code>Re</code> for the Reynolds number.<br/>
+Changed base class to remove the parameters <code>A</code> and <code>CD</code>
+which are not used by this model.<br/>
+This change is non-backward compatible.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">Buildings, #932</a>.
+</li>
 <li>
 May 30, 2018, by Michael Wetter:<br/>
 Improved documentation for
