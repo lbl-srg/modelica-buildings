@@ -5,7 +5,7 @@
 #ifndef IBPSA_FILEWRITERStructure_h /* Not needed since it is only a typedef; added for safety */
 #define IBPSA_FILEWRITERStructure_h
 
-static const char** FileWriterNames; /* Array with pointers to all file names */
+static char** FileWriterNames; /* Array with pointers to all file names */
 static unsigned int FileWriterNames_n = 0;     /* Number of files */
 
 typedef struct FileWriter {
