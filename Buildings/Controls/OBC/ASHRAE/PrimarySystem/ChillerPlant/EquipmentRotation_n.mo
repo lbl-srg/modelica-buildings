@@ -184,8 +184,9 @@ equation
   Documentation(info="<html>
 <p>
 This block rotates equipment, such as chillers, pumps or valves, in order 
-to ensure equal wear and tear. It can be used for lead/lag and lead/standby 
-operation. The input vector <code>uDevSta<\code> indicates the on off status
+to ensure equal wear and tear. It can be used for lead/lag and 
+lead/standby operation, as specified in &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
+Chapter 7, App B, 1.01, A.4.  The input vector <code>uDevSta<\code> indicates the on off status
 for all the devices. Default initial lead role is assigned to the device associated
 with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
 for each piece of equipment and switches the lead role to the next higher index

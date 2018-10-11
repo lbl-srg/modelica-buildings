@@ -12,7 +12,7 @@ block EquipmentRotation
     "Sets initial roles: true = lead, false = lag";
 
   parameter Boolean initialization[10] = {true, false, false, false, false, false, false, false, false, false}
-    "Initiates device mapped to the first index with the lead role and all other to lag";
+    "fixme - there may be a better way. Initiates device mapped to the first index with the lead role and all other to lag";
 
   CDL.Interfaces.BooleanInput uDevSta[num]
     "Current devices operation status (true - on, false - off)"
@@ -69,32 +69,31 @@ equation
   connect(mulOr.u[1:2],and3. y)
     annotation (Line(points={{18,0},{18,0},{1,0}},    color={255,0,255}));
   connect(mulOr.y, booRep.u) annotation (Line(points={{41.7,0},{58,0}},
-                    color={255,0,255}));
+    color={255,0,255}));
   connect(logSwi.u2, booRep.y) annotation (Line(points={{98,-30},{90,-30},{90,0},
-          {81,0}},   color={255,0,255}));
+          {81,0}}, color={255,0,255}));
   connect(logSwi.y, pre.u) annotation (Line(points={{121,-30},{130,-30},{130,
-          -50},{138,-50}},
-                      color={255,0,255}));
+          -50},{138,-50}}, color={255,0,255}));
   connect(pre.y, fixme_for_n.u) annotation (Line(points={{161,-50},{170,-50},{
-          170,-70},{10,-70},{10,-50},{18,-50}},
-                                            color={255,0,255}));
+          170,-70},{10,-70},{10,-50},{18,-50}},color={255,0,255}));
   connect(pre.y, logSwi.u3) annotation (Line(points={{161,-50},{170,-50},{170,
-          -70},{90,-70},{90,-38},{98,-38}},
-                                        color={255,0,255}));
+          -70},{90,-70},{90,-38},{98,-38}}, color={255,0,255}));
   connect(uDevSta, not1.u) annotation (Line(points={{-200,0},{-160,0},{-160,-10},
-          {-122,-10}},color={255,0,255}));
+    {-122,-10}},color={255,0,255}));
   connect(not1.y,and3. u2)
     annotation (Line(points={{-99,-10},{-60,-10},{-60,0},{-22,0}},
-                                                 color={255,0,255}));
+    color={255,0,255}));
   connect(tim.u0, falEdg1.y) annotation (Line(points={{-122,22},{-140,22},{-140,
           60},{40,60},{40,40},{21,40}}, color={255,0,255}));
   connect(pre.y, and3.u3) annotation (Line(points={{161,-50},{170,-50},{170,-70},
           {-30,-70},{-30,-8},{-22,-8}},        color={255,0,255}));
   connect(tim.y, greEquThr.u)
     annotation (Line(points={{-99,30},{-82,30}}, color={0,0,127}));
-  connect(pre.y, falEdg1.u) annotation (Line(points={{161,-50},{170,-50},{170,
+  connect(pre.y, falEdg1.u)
+    annotation (Line(points={{161,-50},{170,-50},{170,
           20},{-20,20},{-20,40},{-2,40}}, color={255,0,255}));
-  connect(logSwi.y, yDevRol) annotation (Line(points={{121,-30},{150,-30},{150,
+  connect(logSwi.y, yDevRol)
+    annotation (Line(points={{121,-30},{150,-30},{150,
           0},{190,0}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-180,-120},{180,120}})),
       defaultComponentName="equRot",
@@ -128,9 +127,11 @@ equation
           textString="%name")}),
   Documentation(info="<html>
 <p>
-This block rotates equipment, such as chillers, pumps or valves, in order 
-to ensure equal wear and tear. It can be used for lead/lag and lead/standby 
-operation. The input vector <code>uDevSta<\code> indicates the on off status
+This block rotates equipment, such as chillers, pumps or valves 
+in order to ensure equal wear and tear. It can be used for lead/lag and 
+lead/standby operation, as specified in  
+&quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
+Chapter 7, App B, 1.01, A.4. The input vector <code>uDevSta<\code> indicates the on off status
 the lead and the lag/standby device. Default initial lead role is assigned to the device associated
 with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
 for each piece of equipment and switches the lead role with the lag/standby
