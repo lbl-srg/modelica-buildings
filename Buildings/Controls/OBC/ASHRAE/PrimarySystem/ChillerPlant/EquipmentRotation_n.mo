@@ -14,7 +14,7 @@ block EquipmentRotation_n
   parameter Boolean initRoles[num] = initialization[1:num]
     "Sets initial roles: true = lead, false = lag";
 
-  CDL.Interfaces.BooleanInput uDevSta[num]
+  CDL.Interfaces.BooleanInput uDevRol[num]
     "Current devices operation status (true - on, false - off)"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -101,14 +101,14 @@ block EquipmentRotation_n
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
 
 equation
-  connect(uDevSta, tim.u) annotation (Line(points={{-240,0},{-180,0},{-180,60},{
+  connect(uDevRol, tim.u) annotation (Line(points={{-240,0},{-180,0},{-180,60},{
           -142,60}}, color={255,0,255}));
   connect(greEquThr.y, and3.u1) annotation (Line(points={{-79,60},{-50,60},{-50,
           38},{-42,38}},
                        color={255,0,255}));
   connect(mulOr.y, booRep.u) annotation (Line(points={{21.7,30},{38,30}},
                     color={255,0,255}));
-  connect(uDevSta, not1.u) annotation (Line(points={{-240,0},{-180,0},{-180,20},
+  connect(uDevRol, not1.u) annotation (Line(points={{-240,0},{-180,0},{-180,20},
           {-142,20}}, color={255,0,255}));
   connect(not1.y,and3. u2)
     annotation (Line(points={{-119,20},{-80,20},{-80,30},{-42,30}},
@@ -186,7 +186,7 @@ equation
 This block rotates equipment, such as chillers, pumps or valves, in order 
 to ensure equal wear and tear. It can be used for lead/lag and 
 lead/standby operation, as specified in &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
-Chapter 7, App B, 1.01, A.4.  The input vector <code>uDevSta<\code> indicates the on off status
+Chapter 7, App B, 1.01, A.4.  The input vector <code>uDevRol<\code> indicates the on off status
 for all the devices. Default initial lead role is assigned to the device associated
 with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
 for each piece of equipment and switches the lead role to the next higher index

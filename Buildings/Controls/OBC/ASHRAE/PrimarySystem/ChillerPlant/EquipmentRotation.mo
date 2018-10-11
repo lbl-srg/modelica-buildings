@@ -14,7 +14,7 @@ block EquipmentRotation
   parameter Boolean initialization[10] = {true, false, false, false, false, false, false, false, false, false}
     "fixme - there may be a better way. Initiates device mapped to the first index with the lead role and all other to lag";
 
-  CDL.Interfaces.BooleanInput uDevSta[num]
+  CDL.Interfaces.BooleanInput uDevRol[num]
     "Current devices operation status (true - on, false - off)"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -60,7 +60,7 @@ block EquipmentRotation
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
 equation
-  connect(uDevSta, tim.u) annotation (Line(points={{-200,0},{-160,0},{-160,30},
+  connect(uDevRol, tim.u) annotation (Line(points={{-200,0},{-160,0},{-160,30},
           {-122,30}},color={255,0,255}));
   connect(greEquThr.y, and3.u1) annotation (Line(points={{-59,30},{-30,30},{-30,
           8},{-22,8}}, color={255,0,255}));
@@ -78,7 +78,7 @@ equation
           170,-70},{10,-70},{10,-50},{18,-50}},color={255,0,255}));
   connect(pre.y, logSwi.u3) annotation (Line(points={{161,-50},{170,-50},{170,
           -70},{90,-70},{90,-38},{98,-38}}, color={255,0,255}));
-  connect(uDevSta, not1.u) annotation (Line(points={{-200,0},{-160,0},{-160,-10},
+  connect(uDevRol, not1.u) annotation (Line(points={{-200,0},{-160,0},{-160,-10},
     {-122,-10}},color={255,0,255}));
   connect(not1.y,and3. u2)
     annotation (Line(points={{-99,-10},{-60,-10},{-60,0},{-22,0}},
@@ -131,7 +131,7 @@ This block rotates equipment, such as chillers, pumps or valves
 in order to ensure equal wear and tear. It can be used for lead/lag and 
 lead/standby operation, as specified in  
 &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
-Chapter 7, App B, 1.01, A.4. The input vector <code>uDevSta<\code> indicates the on off status
+Chapter 7, App B, 1.01, A.4. The input vector <code>uDevRol<\code> indicates the on off status
 the lead and the lag/standby device. Default initial lead role is assigned to the device associated
 with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
 for each piece of equipment and switches the lead role with the lag/standby
