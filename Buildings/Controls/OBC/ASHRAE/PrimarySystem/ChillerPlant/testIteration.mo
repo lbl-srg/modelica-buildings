@@ -61,8 +61,8 @@ equation
           {-59,10}}, color={0,0,127}));
   connect(con2.y, mod.u2) annotation (Line(points={{21,-70},{28,-70},{28,-56},{
           38,-56}}, color={0,0,127}));
-  connect(mod.y, lesThr.u) annotation (Line(points={{61,-49.8},{69.5,-49.8},{
-          69.5,-50},{78,-50}}, color={0,0,127}));
+  connect(mod.y, lesThr.u) annotation (Line(points={{61,-50},{69.5,-50},{69.5,
+          -50},{78,-50}},      color={0,0,127}));
   connect(add2.y, add1.u1) annotation (Line(points={{-9,-10},{-6,-10},{-6,-28},
           {-4,-28}}, color={0,0,127}));
   connect(add1.u2, con3.y) annotation (Line(points={{-4,-40},{-10,-40},{-10,-60},

@@ -556,8 +556,8 @@ equation
   connect(and4.y, staDowHol.u)
     annotation (Line(points={{101,30},{139,30}}, color={255,0,255}));
   connect(staOneChe.y, and4.u2)
-    annotation (Line(points={{101,-30},{120,-30},{120,16},{68,16},{68,22},
-      {78,22}}, color={255,0,255}));
+    annotation (Line(points={{101,-30},{120,-30},{120,16},{70,16},{70,22},{78,
+          22}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="chiStaCon",

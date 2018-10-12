@@ -272,8 +272,8 @@ equation
     annotation (Line(points={{-159,90},{-150,90},{-150,84},{-142,84}},
       color={0,0,127}));
   connect(mod.y, lesEquThr.u)
-    annotation (Line(points={{-119,90.2},{-114.5,90.2},{-114.5,90},
-      {-102,90}}, color={0,0,127}));
+    annotation (Line(points={{-119,90},{-114.5,90},{-114.5,90},{-102,90}},
+                  color={0,0,127}));
   connect(timLeaPum.y, greEquThr.u)
     annotation (Line(points={{-159,120},{-102,120}}, color={0,0,127}));
   connect(lesEquThr.y, and2.u2)
