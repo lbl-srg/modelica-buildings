@@ -23,7 +23,7 @@ block CapacityRequirement
   CDL.Interfaces.RealInput VChiWat_flow(final quantity="VolumeFlowRate", final
       unit="m3/s") "Measured chilled water flow rate" annotation (Placement(
         transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
-          extent={{-120,24},{-100,44}})));
+          extent={{-120,50},{-100,70}})));
   CDL.Continuous.Add add2(k1=-1)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   CDL.Continuous.Product pro

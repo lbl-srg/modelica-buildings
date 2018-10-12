@@ -61,7 +61,7 @@ protected
 protected
   CDL.Continuous.Sources.Constant chiSta3(final k=0)
     "Nominal capacity of the 0th chiller stage"
-    annotation (Placement(transformation(extent={{-8,102},{12,122}})));
+    annotation (Placement(transformation(extent={{0,100},{20,120}})));
 protected
   CDL.Continuous.Sources.Constant minPlrSta1(final k=min_plr1)
     "Minimum part load ratio of the first stage"
@@ -91,8 +91,8 @@ equation
           78}}, color={0,0,127}));
   connect(intEqu2.y, swi2.u2) annotation (Line(points={{-59,-90},{40,-90},{40,70},
           {46,70}}, color={255,0,255}));
-  connect(swi2.u3, chiSta3.y) annotation (Line(points={{46,62},{24,62},{24,112},
-          {13,112}}, color={0,0,127}));
+  connect(swi2.u3, chiSta3.y) annotation (Line(points={{46,62},{24,62},{24,110},
+          {21,110}}, color={0,0,127}));
   connect(swi2.y, greThr.u) annotation (Line(points={{69,70},{80,70},{80,110},{88,
           110}}, color={0,0,127}));
   connect(greThr.y, assMes.u)

@@ -5,7 +5,7 @@ block Status
   parameter Integer numSta = 2
   "Number of stages";
 
-  Capacities capacities(nomCapSta1=1090224.38, nomCapSta2=1090224.38)
+  Capacities capacities(nomCapSta1=1090224.38, nomCapSta2=2*1090224.38)
     annotation (Placement(transformation(extent={{-60,20},{-28,48}})));
   CapacityRequirement capacityRequirement
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
