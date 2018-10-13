@@ -5,8 +5,6 @@ block Status
   parameter Integer numSta = 2
   "Number of stages";
 
-  CapacityRequirement capacityRequirement
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   CDL.Interfaces.IntegerInput                        uChiSta
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
@@ -36,13 +34,9 @@ block Status
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   StageChangePositiveDisplacement chiChaPosDis
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  CapacityRequirement chiCapReq
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
-  connect(VChiWat_flow, capacityRequirement.VChiWat_flow) annotation (Line(
-        points={{-120,-80},{-70,-80},{-70,-24},{-21,-24}}, color={0,0,127}));
-  connect(TChiWatRet, capacityRequirement.TChiWatRet) annotation (Line(points={{-120,
-          -40},{-60,-40},{-60,-27},{-21,-27}},       color={0,0,127}));
-  connect(TChiWatSupSet, capacityRequirement.TChiWatSupSet) annotation (Line(
-        points={{-120,0},{-40,0},{-40,-30},{-21,-30}}, color={0,0,127}));
   connect(uChiSta, addInt.u2) annotation (Line(points={{-120,60},{-80,60},{-80,
           10},{-12,10},{-12,-6},{58,-6}}, color={255,127,0}));
   connect(addInt.y, yChiSta)
@@ -56,9 +50,15 @@ equation
   connect(staCap.yCapNomSta, chiChaPosDis.uCapNomSta) annotation (Line(points={
           {-39,34},{-10,34},{-10,53},{19,53}}, color={0,0,127}));
   connect(staCap.yCapNomLowSta, chiChaPosDis.uCapNomLowSta) annotation (Line(
-        points={{-39,26},{-10,26},{-10,49},{19,49}}, color={0,0,127}));
-  connect(capacityRequirement.yCapReq, chiChaPosDis.uCapReq) annotation (Line(
-        points={{1,-30},{10,-30},{10,45},{19,45}}, color={0,0,127}));
+        points={{-39,26},{-4,26},{-4,49},{19,49}}, color={0,0,127}));
+  connect(TChiWatSupSet, chiCapReq.TChiWatSupSet) annotation (Line(points={{
+          -120,0},{-80,0},{-80,-25},{-41,-25}}, color={0,0,127}));
+  connect(TChiWatRet, chiCapReq.TChiWatRet) annotation (Line(points={{-120,-40},
+          {-80,-40},{-80,-30},{-41,-30}}, color={0,0,127}));
+  connect(VChiWat_flow, chiCapReq.VChiWat_flow) annotation (Line(points={{-120,
+          -80},{-74,-80},{-74,-35},{-41,-35}}, color={0,0,127}));
+  connect(chiCapReq.yCapReq, chiChaPosDis.uCapReq) annotation (Line(points={{
+          -19,-30},{0,-30},{0,45},{19,45}}, color={0,0,127}));
   annotation (defaultComponentName = "chiSta",
         Icon(graphics={
         Rectangle(

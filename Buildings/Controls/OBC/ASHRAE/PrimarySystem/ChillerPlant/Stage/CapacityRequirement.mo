@@ -14,16 +14,16 @@ block CapacityRequirement
   CDL.Interfaces.RealInput TChiWatSupSet(final unit="K", final quantity="ThermodynamicTemperature")
     "Chilled water supply setpoint temperature" annotation (Placement(
         transformation(extent={{-140,60},{-100,100}}), iconTransformation(
-          extent={{-120,-10},{-100,10}})));
+          extent={{-120,40},{-100,60}})));
   CDL.Interfaces.RealInput                        TChiWatRet(final unit="K",
       final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-      iconTransformation(extent={{-120,20},{-100,40}})));
+      iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Interfaces.RealInput VChiWat_flow(final quantity="VolumeFlowRate", final
       unit="m3/s") "Measured chilled water flow rate" annotation (Placement(
-        transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
-          extent={{-120,50},{-100,70}})));
+        transformation(extent={{-140,-70},{-100,-30}}), iconTransformation(
+          extent={{-120,-60},{-100,-40}})));
   CDL.Continuous.Add add2(k1=-1)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   CDL.Continuous.Product pro
@@ -40,8 +40,9 @@ equation
           80},{-120,80}}, color={0,0,127}));
   connect(add2.y, pro.u1) annotation (Line(points={{-19,30},{-10,30},{-10,6},{-2,
           6}}, color={0,0,127}));
-  connect(VChiWat_flow, pro.u2) annotation (Line(points={{-120,-60},{-60,-60},{-60,
-          -6},{-2,-6}}, color={0,0,127}));
+  connect(VChiWat_flow, pro.u2) annotation (Line(points={{-120,-50},{-60,-50},{
+          -60,-6},{-2,-6}},
+                        color={0,0,127}));
   connect(pro.y, movMea.u)
     annotation (Line(points={{21,0},{38,0}}, color={0,0,127}));
   connect(yCapReq, movMea.y)
@@ -52,7 +53,11 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),                        Diagram(
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-120,146},{100,108}},
+          lineColor={0,0,255},
+          textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
