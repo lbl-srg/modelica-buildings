@@ -22,73 +22,99 @@ block Status "Water side economizer enable/disable status"
   "Desing heat exchanger water flow rate";
 
   CDL.Interfaces.RealInput TOutWet "Outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-200,120},{-160,160}})));
+    annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
+        iconTransformation(extent={{-140,22},{-100,62}})));
 
-  PredictedOutletTemperature predictedOutletTemperature(
-    heaExcAppDes=heaExcAppDes,
-    cooTowAppDes=cooTowAppDes,
-    TOutWetDes=TOutWetDes,
-    VHeaExcDes_flow=VHeaExcDes_flow)
-    annotation (Placement(transformation(extent={{-20,60},{12,96}})));
-  Tuning tuning
-    annotation (Placement(transformation(extent={{-80,-40},{-44,0}})));
   CDL.Interfaces.BooleanInput uEcoSta
     "Water side economizer enable disable status"
-    annotation (Placement(transformation(extent={{-200,40},{-160,80}})));
+    annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
+        iconTransformation(extent={{-140,62},{-100,102}})));
   CDL.Interfaces.RealInput uTowFanSpe "Water side economizer tower fan speed"
-    annotation (Placement(transformation(extent={{-200,-80},{-160,-40}})));
+    annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   CDL.Interfaces.RealInput VChiWat_flow(final quantity="VolumeFlowRate", final
       unit="m3/s")
     "Measured chilled water flow rate"
-    annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
-    iconTransformation(extent={{-200,20},{-160,60}})));
+    annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
+    iconTransformation(extent={{-140,-60},{-100,-20}})));
   CDL.Interfaces.RealInput TChiWatRet
     "Chiller water return temperature upstream of the water side economizer"
-    annotation (Placement(transformation(extent={{-200,80},{-160,120}})));
+    annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   CDL.Continuous.Sources.Constant addTOffset(k=TOffset)
     "Additional temperature offset"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   CDL.Continuous.Add add2
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
   CDL.Continuous.Greater gre
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
   CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
+    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   CDL.Logical.TrueDelay truDel(delayTime=minDisableTime)
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   CDL.Interfaces.BooleanOutput yEcoSta
     "Water side economizer enable disable status"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+    annotation (Placement(transformation(extent={{160,-50},{180,-30}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Tuning wseTun
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  PredictedOutletTemperature wseTOut
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
-  connect(tuning.yTunPar, predictedOutletTemperature.uTunPar) annotation (Line(
-        points={{-43,-18},{-40,-18},{-40,64},{-22,64}},color={0,0,127}));
-  connect(uEcoSta, tuning.uEcoSta) annotation (Line(points={{-180,60},{-100,60},
-          {-100,-18},{-82,-18}}, color={255,0,255}));
-  connect(uTowFanSpe, tuning.uTowFanSpe) annotation (Line(points={{-180,-60},{
-          -100,-60},{-100,-33},{-82,-33}},
-                                      color={0,0,127}));
-  connect(TOutWet, predictedOutletTemperature.TOutWet) annotation (Line(points={{-180,
-          140},{-92,140},{-92,92},{-22,92}},      color={0,0,127}));
-  connect(VChiWat_flow, predictedOutletTemperature.VChiWat_flow) annotation (
-      Line(points={{-180,0},{-94,0},{-94,82},{-22,82}},color={0,0,127}));
-  connect(predictedOutletTemperature.TEcoOut_pred, add2.u1) annotation (Line(
-        points={{14,78},{28,78},{28,56},{38,56}}, color={0,0,127}));
-  connect(addTOffset.y, add2.u2) annotation (Line(points={{21,30},{28,30},{28,44},
-          {38,44}}, color={0,0,127}));
-  connect(add2.y, gre.u2) annotation (Line(points={{61,50},{70,50},{70,82},{78,82}},
+  connect(addTOffset.y, add2.u2) annotation (Line(points={{21,-10},{28,-10},{28,
+          4},{38,4}},
+                    color={0,0,127}));
+  connect(add2.y, gre.u2) annotation (Line(points={{61,10},{70,10},{70,42},{78,42}},
         color={0,0,127}));
-  connect(TChiWatRet, gre.u1) annotation (Line(points={{-180,100},{-64,100},{-64,
-          126},{64,126},{64,90},{78,90}}, color={0,0,127}));
-  connect(gre.y, and2.u1) annotation (Line(points={{101,90},{110,90},{110,30},{118,
-          30}}, color={255,0,255}));
-  connect(uEcoSta, truDel.u) annotation (Line(points={{-180,60},{-62,60},{-62,
-          10},{58,10}}, color={255,0,255}));
-  connect(and2.u2, truDel.y) annotation (Line(points={{118,22},{100,22},{100,10},
-          {81,10}}, color={255,0,255}));
-  connect(and2.y, yEcoSta) annotation (Line(points={{141,30},{152,30},{152,0},{
-          170,0}}, color={255,0,255}));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-160,-180},{160,180}})), Diagram(
-        coordinateSystem(preserveAspectRatio=false,
-        extent={{-160,-180},{160,180}})));
+  connect(TChiWatRet, gre.u1) annotation (Line(points={{-180,60},{-60,60},{-60,88},
+          {70,88},{70,50},{78,50}},       color={0,0,127}));
+  connect(gre.y, and2.u1) annotation (Line(points={{101,50},{110,50},{110,-10},{
+          118,-10}},
+                color={255,0,255}));
+  connect(uEcoSta, truDel.u) annotation (Line(points={{-180,20},{-50,20},{-50,-30},
+          {58,-30}},color={255,0,255}));
+  connect(and2.u2, truDel.y) annotation (Line(points={{118,-18},{100,-18},{100,-30},
+          {81,-30}},color={255,0,255}));
+  connect(and2.y, yEcoSta) annotation (Line(points={{141,-10},{152,-10},{152,-40},
+          {170,-40}},
+               color={255,0,255}));
+  connect(uEcoSta, wseTun.uEcoSta) annotation (Line(points={{-180,20},{-132,20},
+          {-132,-45},{-82,-45}}, color={255,0,255}));
+  connect(uTowFanSpe, wseTun.uTowFanSpe) annotation (Line(points={{-180,-100},{
+          -132,-100},{-132,-55},{-82,-55}},
+                                       color={0,0,127}));
+  connect(wseTun.yTunPar, wseTOut.uTunPar) annotation (Line(points={{-59,-50},{-40,
+          -50},{-40,42},{-22,42}}, color={0,0,127}));
+  connect(TOutWet, wseTOut.TOutWet) annotation (Line(points={{-180,100},{-40,100},
+          {-40,58},{-22,58}}, color={0,0,127}));
+  connect(wseTOut.VChiWat_flow, TChiWatRet) annotation (Line(points={{-22,50},{-80,
+          50},{-80,60},{-180,60}}, color={0,0,127}));
+  connect(wseTOut.TEcoOut_pred, add2.u1) annotation (Line(points={{2,50},{20,50},
+          {20,16},{38,16}}, color={0,0,127}));
+  annotation (defaultComponentName = "wseSta",
+        Icon(graphics={
+        Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-120,146},{100,108}},
+          lineColor={0,0,255},
+          textString="%name")}),
+        Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-160,-120},{160,120}})),
+Documentation(info="<html>
+<p>
+Fixme
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+October 13, 2018, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Status;

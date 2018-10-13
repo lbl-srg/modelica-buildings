@@ -46,6 +46,25 @@ equation
     annotation (Line(points={{21,0},{38,0}}, color={0,0,127}));
   connect(yCapReq, movMea.y)
     annotation (Line(points={{110,0},{61,0}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (defaultComponentName = "chiCapReq",
+        Icon(graphics={
+        Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid)}),                        Diagram(
+        coordinateSystem(preserveAspectRatio=false)),
+Documentation(info="<html>
+<p>
+Fixme
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+October 13, 2018, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CapacityRequirement;

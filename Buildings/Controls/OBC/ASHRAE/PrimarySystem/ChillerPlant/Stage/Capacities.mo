@@ -18,7 +18,8 @@ block Capacities
     "Nominal capacity of the second chiller stage"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
-    annotation (Placement(transformation(extent={{-200,-20},{-160,20}})));
+    annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   CDL.Integers.Equal intEqu
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   CDL.Integers.Sources.Constant   stage1(k=1) "Stage 1"
@@ -31,10 +32,12 @@ block Capacities
   CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   CDL.Interfaces.RealOutput yCapNomSta "Nominal capacity of the current stage"
-    annotation (Placement(transformation(extent={{160,30},{180,50}})));
+    annotation (Placement(transformation(extent={{160,30},{180,50}}),
+        iconTransformation(extent={{100,30},{120,50}})));
   CDL.Interfaces.RealOutput yCapNomLowSta
     "Nominal capacity of the first lower stage"
-    annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
+    annotation (Placement(transformation(extent={{160,-50},{180,-30}}),
+        iconTransformation(extent={{100,-50},{120,-30}})));
   CDL.Integers.Equal intEqu1
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   CDL.Integers.Equal intEqu2
@@ -120,7 +123,26 @@ equation
           {68,-34}}, color={0,0,127}));
   connect(swiLowSta1.u1, pro.y) annotation (Line(points={{98,-42},{94,-42},{94,
           -40},{91,-40}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
-            {160,140}})), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-160,-140},{160,140}})));
+  annotation (defaultComponentName = "staCap",
+        Icon(graphics={
+        Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid)}),
+                          Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-160,-140},{160,140}})),
+Documentation(info="<html>
+<p>
+Fixme
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+October 13, 2018, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Capacities;

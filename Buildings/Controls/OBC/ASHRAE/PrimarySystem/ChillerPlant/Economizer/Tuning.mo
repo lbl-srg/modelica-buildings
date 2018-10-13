@@ -17,7 +17,8 @@ block Tuning
 
   CDL.Interfaces.BooleanInput uEcoSta
     "Water side economizer enable disable status"
-    annotation (Placement(transformation(extent={{-220,-20},{-180,20}})));
+    annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
+        iconTransformation(extent={{-140,30},{-100,70}})));
   CDL.Logical.Timer tim
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
   CDL.Logical.FallingEdge
@@ -37,7 +38,8 @@ block Tuning
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
   CDL.Interfaces.RealOutput yTunPar
     "Tuning parameter for the waterside economizer outlet temperature prediction "
-    annotation (Placement(transformation(extent={{180,-10},{200,10}})));
+    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Continuous.Add add2(k1=-1)
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   CDL.Logical.Pre pre
@@ -59,7 +61,8 @@ block Tuning
   CDL.Logical.Pre pre1
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   CDL.Interfaces.RealInput uTowFanSpe "Water side economizer tower fan speed"
-    annotation (Placement(transformation(extent={{-220,-170},{-180,-130}})));
+    annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
   CDL.Continuous.LessEqual    lesEqu1
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   CDL.Continuous.Sources.Constant MaxTowFanSpe(k=1) "Maximal tower fan speed"
@@ -74,10 +77,11 @@ block Tuning
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 equation
   connect(uEcoSta, tim.u)
-    annotation (Line(points={{-200,0},{-160,0},{-160,90},{-122,90}},
+    annotation (Line(points={{-200,60},{-160,60},{-160,90},{-122,90}},
                                                      color={255,0,255}));
-  connect(uEcoSta, falEdg.u) annotation (Line(points={{-200,0},{-160,0},{-160,20},
-          {-122,20}}, color={255,0,255}));
+  connect(uEcoSta, falEdg.u) annotation (Line(points={{-200,60},{-160,60},{-160,
+          20},{-122,20}},
+                      color={255,0,255}));
   connect(greEqu.u2, ecoOnTim.y) annotation (Line(points={{-82,82},{-90,82},{-90,
           60},{-99,60}}, color={0,0,127}));
   connect(tim.y, greEqu.u1)
@@ -97,10 +101,11 @@ equation
     annotation (Line(points={{-59,90},{-52,90}}, color={255,0,255}));
   connect(and2.u1, pre.y)
     annotation (Line(points={{-2,90},{-29,90}}, color={255,0,255}));
-  connect(uEcoSta, tim1.u) annotation (Line(points={{-200,0},{-160,0},{-160,-40},
+  connect(uEcoSta, tim1.u) annotation (Line(points={{-200,60},{-160,60},{-160,-40},
           {-122,-40}}, color={255,0,255}));
-  connect(uEcoSta, falEdg1.u) annotation (Line(points={{-200,0},{-160,0},{-160,-110},
-          {-122,-110}}, color={255,0,255}));
+  connect(uEcoSta, falEdg1.u) annotation (Line(points={{-200,60},{-160,60},{-160,
+          -110},{-122,-110}},
+                        color={255,0,255}));
   connect(lesEqu.u2, ecoOnTim1.y) annotation (Line(points={{-82,-48},{-90,-48},{
           -90,-70},{-99,-70}}, color={0,0,127}));
   connect(tim1.y, lesEqu.u1)
@@ -135,7 +140,26 @@ equation
           -72},{10,-72},{10,-48},{18,-48}}, color={255,0,255}));
   connect(triSam1.y, add2.u2) annotation (Line(points={{71,-20},{90,-20},{90,-6},
           {98,-6}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-220},
-            {180,180}})), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-180,-220},{180,180}})));
+  annotation (defaultComponentName = "wseTun",
+        Icon(graphics={
+        Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid)}),
+        Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-180,-220},{180,180}})),
+Documentation(info="<html>
+<p>
+Fixme
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+October 13, 2018, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Tuning;
