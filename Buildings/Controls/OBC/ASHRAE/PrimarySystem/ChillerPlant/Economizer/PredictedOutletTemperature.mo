@@ -16,11 +16,6 @@ block PredictedOutletTemperature
     final unit="m3/s")=0.1
   "Desing heat exchanger water flow rate";
 
-  CDL.Interfaces.RealOutput TEcoOut_pred
-    "Predicted water side economizer outlet temperature"
-    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
-
   CDL.Interfaces.RealInput uTunPar "Tuning parameter"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -35,30 +30,47 @@ block PredictedOutletTemperature
     "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
+
+  CDL.Interfaces.RealOutput TEcoOut_pred
+    "Predicted water side economizer outlet temperature"
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
   CDL.Continuous.Division heaExcPlr "Heat exchanger flow part load ratio"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  CDL.Continuous.Sources.Constant des_flow(k=VHeaExcDes_flow)
+
+  CDL.Continuous.Sources.Constant des_flow(
+    final k=VHeaExcDes_flow)
     "Heat exchanger design flow"
     annotation (Placement(transformation(extent={{-112,40},{-92,60}})));
-  CDL.Continuous.Sources.Constant heaAppDes(k=heaExcAppDes)
+
+  CDL.Continuous.Sources.Constant heaAppDes(final k=heaExcAppDes)
     "Heat exchanger design approach"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  CDL.Continuous.Product pro
+
+  CDL.Continuous.Product pro "Product"
     annotation (Placement(transformation(extent={{-20,44},{0,64}})));
-  CDL.Continuous.Add add1(k1=-1)
+
+  CDL.Continuous.Add add1(final k1=-1) "Adder"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  CDL.Continuous.Sources.Constant TWetDes(k=TOutWetDes)
+
+  CDL.Continuous.Sources.Constant TWetDes(final k=TOutWetDes)
     "Design outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  CDL.Continuous.Product pro1
+
+  CDL.Continuous.Product pro1 "Product"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+
   CDL.Continuous.Sources.Constant towAppDes1(k=cooTowAppDes)
     "Cooling tower design approach"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  CDL.Continuous.MultiSum mulSum(nin=4)
+
+  CDL.Continuous.MultiSum mulSum(final nin=4) "Sum of multiple inputs"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  CDL.Continuous.Limiter lim(uMax=1, uMin=0)
+
+  CDL.Continuous.Limiter lim(final uMax=1, final uMin=0) "Limiter"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
+
 equation
   connect(heaExcPlr.u2, des_flow.y) annotation (Line(points={{-82,64},{-88,64},{
           -88,50},{-91,50}}, color={0,0,127}));
@@ -94,8 +106,11 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),
-                                      Diagram(
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-120,146},{100,108}},
+          lineColor={0,0,255},
+          textString="%name")}),      Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-160,-180},{160,180}})),
 Documentation(info="<html>

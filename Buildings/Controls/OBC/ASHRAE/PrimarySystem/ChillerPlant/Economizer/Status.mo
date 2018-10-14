@@ -18,10 +18,13 @@ block Status "Water side economizer enable/disable status"
 
   parameter Real VHeaExcDes_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s")=0.1
+    final unit="m3/s")=0.015
   "Desing heat exchanger water flow rate";
 
-  CDL.Interfaces.RealInput TOutWet "Outdoor air wet bulb temperature"
+  CDL.Interfaces.RealInput TOutWet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
+    "Outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
         iconTransformation(extent={{-140,22},{-100,62}})));
 
@@ -80,9 +83,8 @@ equation
                color={255,0,255}));
   connect(uEcoSta, wseTun.uEcoSta) annotation (Line(points={{-180,20},{-132,20},
           {-132,-45},{-82,-45}}, color={255,0,255}));
-  connect(uTowFanSpe, wseTun.uTowFanSpe) annotation (Line(points={{-180,-100},{
-          -132,-100},{-132,-55},{-82,-55}},
-                                       color={0,0,127}));
+  connect(uTowFanSpe, wseTun.uTowFanSpe) annotation (Line(points={{-180,-100},{-132,
+          -100},{-132,-55},{-82,-55}}, color={0,0,127}));
   connect(wseTun.yTunPar, wseTOut.uTunPar) annotation (Line(points={{-59,-50},{-40,
           -50},{-40,42},{-22,42}}, color={0,0,127}));
   connect(TOutWet, wseTOut.TOutWet) annotation (Line(points={{-180,100},{-40,100},

@@ -44,22 +44,29 @@ model Capacities_uChiSta
   CDL.Continuous.Sources.Constant sta0(k=0)
     "Nominal and minimal capacity at stage 0"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
+
   CDL.Continuous.Sources.Constant sta1min(k=minPlrSta0*capSta1)
     "Min capacity at stage 1"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
+
   CDL.Continuous.Sources.Constant sta1(k=capSta1) "Nominal capacity at stage 1"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+
   CDL.Continuous.Sources.Constant sta2(k=capSta2) "Nominal capacity at stage 2"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+
   CDL.Continuous.Feedback absErrorSta0[2]
     "Delta between the expected and the calculated value"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
+
   CDL.Continuous.Feedback absErrorSta2[2]
     "Delta between the expected and the calculated value"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+
   CDL.Continuous.Feedback absErrorSta1[2]
     "Delta between the expected and the calculated value"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+
 equation
 
   connect(stage0.y, staCap0.uChiSta)

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage;
-block StageChangePositiveDisplacement
+block ChangePositiveDisplacement
   "Stage change conditions for positive displacement chillers"
 
   parameter Integer numSta = 2
@@ -11,77 +11,101 @@ block StageChangePositiveDisplacement
   parameter Real staDowPlr(min = 0, max = 1, unit="1") = 0.8
   "Minimum operating part load ratio of the next lower stage before staging down";
 
-  CDL.Interfaces.RealInput uCapReq(final unit="K", final quantity="ThermodynamicTemperature")
+  CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
+    annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
+        iconTransformation(extent={{-120,70},{-100,90}})));
+
+  CDL.Interfaces.RealInput uCapReq(
+    final unit="W",
+    final quantity="Power")
     "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
     iconTransformation(extent={{-120,-60},{-100,-40}})));
 
-  CDL.Interfaces.RealInput uCapNomSta(final unit="K",
-      final quantity="ThermodynamicTemperature")
+  CDL.Interfaces.RealInput uCapNomSta(
+    final unit="W",
+    final quantity="Power")
     "Nominal capacity of the current stage"
     annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
 
-  CDL.Interfaces.RealInput uCapNomLowSta(final quantity="VolumeFlowRate",
-      final unit="m3/s") "Nominal capacity of the first lower stage"
+  CDL.Interfaces.RealInput uCapNomLowSta(
+    final unit="W",
+    final quantity="Power") "Nominal capacity of the first lower stage"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
         iconTransformation(extent={{-120,-20},{-100,0}})));
 
-  CDL.Interfaces.IntegerOutput yChiStaCha(final max=1, final min=-1)
-    "Chiller stage change" annotation (Placement(transformation(extent={{180,-10},
+  CDL.Interfaces.IntegerOutput yChiStaCha(
+    final max=1,
+    final min=-1)
+    "Chiller stage change"
+    annotation (Placement(transformation(extent={{180,-10},
             {200,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
-    annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
   CDL.Continuous.Division opePlrSta
     "Operating part load ratio at the current stage"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+
   CDL.Continuous.Division opePlrLowSta
     "Operating part load ratio at the first lower stage"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  CDL.Logical.Switch swiDown "Checks if the stage should go down"
+  CDL.Logical.Switch swiDown
+    "Checks if the stage should go down"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
+
   CDL.Logical.Switch swiUp "Checks if the stage should go up"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
+
   CDL.Integers.Equal intEqu
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   CDL.Integers.Equal intEqu1
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  CDL.Integers.Sources.Constant   stage1(k=1) "Stage 1"
+
+  CDL.Integers.Sources.Constant stage1(k=1) "Stage 1"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+
   CDL.Integers.Sources.Constant stageMax(k=numSta) "Last stage"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+
   CDL.Continuous.GreaterEqual greEqu
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
+
   CDL.Continuous.LessEqual lesEqu
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+
   CDL.Conversions.BooleanToInteger booToInt
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
+
   CDL.Conversions.BooleanToInteger booToInt1
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
+
   CDL.Integers.Add addInt(k2=-1)
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
+
   CDL.Integers.Max maxInt
   "Fixme: maybe implement integer limiter instead of max and min blocks"
     annotation (Placement(transformation(extent={{150,-10},{170,10}})));
+
   CDL.Integers.Min minInt
     annotation (Placement(transformation(extent={{120,30},{140,50}})));
+
   CDL.Integers.Sources.Constant stageMin(k=0) "Oth stage"
     annotation (Placement(transformation(extent={{110,-40},{130,-20}})));
-protected
+
   CDL.Continuous.Sources.Constant staUpOpePlr(final k=staUpPlr)
     "Maximum operating part load ratio of the current stage"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-protected
+
   CDL.Continuous.Sources.Constant staDowOpePlr(final k=staDowPlr)
     "Minimum operating part load ratio of the first lower stage"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-protected
+
   CDL.Continuous.Sources.Constant firstAndLast(final k=1)
     "Operating part load ratio limit for lower and upper extremes"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+
 equation
   connect(uCapNomSta, opePlrSta.u1) annotation (Line(points={{-160,20},{-60,20},
           {-60,46},{-42,46}}, color={0,0,127}));
@@ -131,14 +155,14 @@ equation
           6},{108,6}},     color={255,127,0}));
   connect(booToInt1.y, addInt.u2) annotation (Line(points={{91,-30},{100,-30},{100,
           -6},{108,-6}},      color={255,127,0}));
-  connect(stageMax.y, minInt.u1) annotation (Line(points={{-99,70},{-94,70},{
-          -94,130},{110,130},{110,46},{118,46}}, color={255,127,0}));
+  connect(stageMax.y, minInt.u1) annotation (Line(points={{-99,70},{-94,70},{-94,
+          130},{110,130},{110,46},{118,46}}, color={255,127,0}));
   connect(addInt.y, minInt.u2) annotation (Line(points={{131,0},{140,0},{140,20},
           {110,20},{110,34},{118,34}}, color={255,127,0}));
-  connect(maxInt.u2, stageMin.y) annotation (Line(points={{148,-6},{140,-6},{
-          140,-30},{131,-30}}, color={255,127,0}));
-  connect(minInt.y, maxInt.u1) annotation (Line(points={{141,40},{144,40},{144,
-          6},{148,6}}, color={255,127,0}));
+  connect(maxInt.u2, stageMin.y) annotation (Line(points={{148,-6},{140,-6},{140,
+          -30},{131,-30}}, color={255,127,0}));
+  connect(minInt.y, maxInt.u1) annotation (Line(points={{141,40},{144,40},{144,6},
+          {148,6}}, color={255,127,0}));
   connect(yChiStaCha, maxInt.y)
     annotation (Line(points={{190,0},{171,0}}, color={255,127,0}));
   annotation (defaultComponentName = "staChaPosDis",
@@ -167,4 +191,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end StageChangePositiveDisplacement;
+end ChangePositiveDisplacement;

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Validation;
-model StageChangePositiveDisplacement
-  "Validates stage change for positive displacement chillers (screw, scroll)"
+model Status
+  "Validates stage status for positive displacement chillers (screw, scroll)"
 
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
   "Chilled water supply set temperature";
@@ -26,12 +26,15 @@ model StageChangePositiveDisplacement
     offset=aveVChiWat_flow,
     amplitude=0.01)         "Chilled water flow"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.ChangePositiveDisplacement
-    staChaPosDis
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.ChangePositiveDisplacement
-    staChaPosDis1
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Status chiSta
+    "Determines chiller stage based on the current load and stage"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Status chiSta1
+    "Determines chiller stage based on the current load and stage"
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Status chiSta2
+    "Determines chiller stage based on the current load and stage"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 equation
 
 annotation (
@@ -63,4 +66,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end StageChangePositiveDisplacement;
+end Status;
