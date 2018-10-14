@@ -63,7 +63,7 @@ block Tuning
   CDL.Interfaces.RealInput uTowFanSpe "Water side economizer tower fan speed"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
-  CDL.Continuous.LessEqual    lesEqu1
+  CDL.Continuous.Less         lesEqu1
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   CDL.Continuous.Sources.Constant MaxTowFanSpe(k=1) "Maximal tower fan speed"
     annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
@@ -129,10 +129,9 @@ equation
   connect(lesEqu.y, swi.u2) annotation (Line(points={{-59,-40},{-54,-40},{-54,-80},
           {-86,-80},{-86,-190},{-76,-190}},
                                   color={255,0,255}));
-  connect(MaxTowFanSpe.y, swi.u1) annotation (Line(points={{-139,-180},{-98,-180},
-          {-98,-182},{-76,-182}}, color={0,0,127}));
-  connect(Zero.y, swi.u3) annotation (Line(points={{-99,-200},{-78,-200},{-78,-198},
-          {-76,-198}}, color={0,0,127}));
+  connect(MaxTowFanSpe.y, swi.u1) annotation (Line(points={{-139,-180},{-88,
+          -180},{-88,-182},{-76,-182}},
+                                  color={0,0,127}));
   connect(swi.y, triSam2.u) annotation (Line(points={{-53,-190},{-50,-190},{-50,
           -130},{-42,-130}}, color={0,0,127}));
   connect(triSam2.y, greEquThr.u)
@@ -141,6 +140,8 @@ equation
           -72},{10,-72},{10,-48},{18,-48}}, color={255,0,255}));
   connect(triSam1.y, add2.u2) annotation (Line(points={{71,-20},{90,-20},{90,-6},
           {98,-6}}, color={0,0,127}));
+  connect(Zero.y, swi.u3) annotation (Line(points={{-99,-200},{-88,-200},{-88,
+          -198},{-76,-198}}, color={0,0,127}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(
