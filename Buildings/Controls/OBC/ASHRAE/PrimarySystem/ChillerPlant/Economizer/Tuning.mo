@@ -112,8 +112,9 @@ equation
     annotation (Line(points={{-99,-40},{-82,-40}}, color={0,0,127}));
   connect(and1.y, triSam1.trigger) annotation (Line(points={{41,-40},{60,-40},{60,
           -31.8}}, color={255,0,255}));
-  connect(falEdg1.y, and1.u2) annotation (Line(points={{-99,-110},{-14,-110},{-14,
-          -40},{18,-40}}, color={255,0,255}));
+  connect(falEdg1.y, and1.u2) annotation (Line(points={{-99,-110},{-10,-110},{
+          -10,-40},{18,-40}},
+                          color={255,0,255}));
   connect(lesEqu.y, pre1.u)
     annotation (Line(points={{-59,-40},{-52,-40}}, color={255,0,255}));
   connect(and1.u1, pre1.y) annotation (Line(points={{18,-32},{-20,-32},{-20,-40},

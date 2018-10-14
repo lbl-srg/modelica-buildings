@@ -87,8 +87,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(coordinateSystem(extent={{-140,-120},{140,140}}),
-     graphics={
+Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
