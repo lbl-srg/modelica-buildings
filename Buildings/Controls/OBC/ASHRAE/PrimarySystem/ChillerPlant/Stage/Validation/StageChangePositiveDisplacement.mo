@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Validation;
-model CapacityRequirement
-  "Validates the cooling capacity requirement calculation"
+model StageChangePositiveDisplacement
+  "Validates stage change for positive displacement chillers (screw, scroll)"
 
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
   "Chilled water supply set temperature";
@@ -13,8 +13,6 @@ model CapacityRequirement
     final unit="m3/s") = 0.05
     "Average measured chilled water flow rate";
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.CapacityRequirement
-    capReq annotation (Placement(transformation(extent={{20,0},{40,20}})));
   CDL.Continuous.Sources.Constant TCWSupSet(k=TChiWatSupSet)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
@@ -28,14 +26,14 @@ model CapacityRequirement
     offset=aveVChiWat_flow,
     amplitude=0.01)         "Chilled water flow"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.StageChangePositiveDisplacement
+    staChaPosDis
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.StageChangePositiveDisplacement
+    staChaPosDis1
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
 
-  connect(TCWSupSet.y, capReq.TChiWatSupSet) annotation (Line(points={{-59,60},{
-          -20,60},{-20,15},{19,15}}, color={0,0,127}));
-  connect(TChiWatRet.y, capReq.TChiWatRet) annotation (Line(points={{-59,20},{-30,
-          20},{-30,10},{19,10}}, color={0,0,127}));
-  connect(chiWatFlow.y, capReq.VChiWat_flow) annotation (Line(points={{-59,-30},
-          {-20,-30},{-20,5},{19,5}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Stage/Validation/CapacityRequirement.mos"
@@ -65,4 +63,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end CapacityRequirement;
+end StageChangePositiveDisplacement;
