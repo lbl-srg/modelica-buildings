@@ -40,14 +40,13 @@ equation
           80},{-120,80}}, color={0,0,127}));
   connect(add2.y, pro.u1) annotation (Line(points={{-19,30},{-10,30},{-10,6},{-2,
           6}}, color={0,0,127}));
-  connect(VChiWat_flow, pro.u2) annotation (Line(points={{-120,-50},{-60,-50},{
-          -60,-6},{-2,-6}},
-                        color={0,0,127}));
+  connect(VChiWat_flow, pro.u2) annotation (Line(points={{-120,-50},{-60,-50},{-60,
+          -6},{-2,-6}}, color={0,0,127}));
   connect(pro.y, movMea.u)
     annotation (Line(points={{21,0},{38,0}}, color={0,0,127}));
   connect(yCapReq, movMea.y)
     annotation (Line(points={{110,0},{61,0}}, color={0,0,127}));
-  annotation (defaultComponentName = "chiCapReq",
+  annotation (defaultComponentName = "capReq",
         Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

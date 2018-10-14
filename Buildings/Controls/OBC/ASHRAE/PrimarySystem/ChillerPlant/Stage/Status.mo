@@ -31,34 +31,34 @@ block Status
         transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
           extent={{-120,40},{-100,60}})));
   Capacities staCap
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  StageChangePositiveDisplacement chiChaPosDis
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  StageChangePositiveDisplacement staChaPosDis
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  CapacityRequirement chiCapReq
+  CapacityRequirement capReq
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
   connect(uChiSta, addInt.u2) annotation (Line(points={{-120,60},{-80,60},{-80,
-          10},{-12,10},{-12,-6},{58,-6}}, color={255,127,0}));
+          10},{-10,10},{-10,-6},{58,-6}}, color={255,127,0}));
   connect(addInt.y, yChiSta)
     annotation (Line(points={{81,0},{110,0}}, color={255,127,0}));
-  connect(uChiSta, staCap.uChiSta) annotation (Line(points={{-120,60},{-74,60},
-          {-74,30},{-62,30}}, color={255,127,0}));
-  connect(chiChaPosDis.yChiStaCha, addInt.u1) annotation (Line(points={{41,50},
+  connect(uChiSta, staCap.uChiSta) annotation (Line(points={{-120,60},{-60,60},
+          {-60,30},{-42,30}}, color={255,127,0}));
+  connect(staChaPosDis.yChiStaCha, addInt.u1) annotation (Line(points={{41,50},
           {50,50},{50,6},{58,6}}, color={255,127,0}));
-  connect(uChiSta, chiChaPosDis.uChiSta) annotation (Line(points={{-120,60},{
-          -50,60},{-50,58},{19,58}}, color={255,127,0}));
-  connect(staCap.yCapNomSta, chiChaPosDis.uCapNomSta) annotation (Line(points={
-          {-39,34},{-10,34},{-10,53},{19,53}}, color={0,0,127}));
-  connect(staCap.yCapNomLowSta, chiChaPosDis.uCapNomLowSta) annotation (Line(
-        points={{-39,26},{-4,26},{-4,49},{19,49}}, color={0,0,127}));
-  connect(TChiWatSupSet, chiCapReq.TChiWatSupSet) annotation (Line(points={{
-          -120,0},{-80,0},{-80,-25},{-41,-25}}, color={0,0,127}));
-  connect(TChiWatRet, chiCapReq.TChiWatRet) annotation (Line(points={{-120,-40},
-          {-80,-40},{-80,-30},{-41,-30}}, color={0,0,127}));
-  connect(VChiWat_flow, chiCapReq.VChiWat_flow) annotation (Line(points={{-120,
-          -80},{-74,-80},{-74,-35},{-41,-35}}, color={0,0,127}));
-  connect(chiCapReq.yCapReq, chiChaPosDis.uCapReq) annotation (Line(points={{
-          -19,-30},{0,-30},{0,45},{19,45}}, color={0,0,127}));
+  connect(uChiSta, staChaPosDis.uChiSta) annotation (Line(points={{-120,60},{
+          -20,60},{-20,58},{19,58}}, color={255,127,0}));
+  connect(staCap.yCapNomSta, staChaPosDis.uCapNomSta) annotation (Line(points={
+          {-19,34},{-10,34},{-10,53},{19,53}}, color={0,0,127}));
+  connect(staCap.yCapNomLowSta, staChaPosDis.uCapNomLowSta) annotation (Line(
+        points={{-19,26},{-4,26},{-4,49},{19,49}}, color={0,0,127}));
+  connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-120,0},
+          {-80,0},{-80,-25},{-41,-25}}, color={0,0,127}));
+  connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-120,-40},{
+          -80,-40},{-80,-30},{-41,-30}}, color={0,0,127}));
+  connect(VChiWat_flow, capReq.VChiWat_flow) annotation (Line(points={{-120,-80},
+          {-70,-80},{-70,-35},{-41,-35}}, color={0,0,127}));
+  connect(capReq.yCapReq, staChaPosDis.uCapReq) annotation (Line(points={{-19,
+          -30},{0,-30},{0,45},{19,45}}, color={0,0,127}));
   annotation (defaultComponentName = "chiSta",
         Icon(graphics={
         Rectangle(
