@@ -76,23 +76,13 @@ block ChangePositiveDisplacement
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
   CDL.Conversions.BooleanToInteger booToInt
-    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
 
   CDL.Conversions.BooleanToInteger booToInt1
-    annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
   CDL.Integers.Add addInt(k2=-1)
-    annotation (Placement(transformation(extent={{110,-10},{130,10}})));
-
-  CDL.Integers.Max maxInt
-  "Fixme: maybe implement integer limiter instead of max and min blocks"
-    annotation (Placement(transformation(extent={{150,-10},{170,10}})));
-
-  CDL.Integers.Min minInt
-    annotation (Placement(transformation(extent={{120,30},{140,50}})));
-
-  CDL.Integers.Sources.Constant stageMin(k=0) "Oth stage"
-    annotation (Placement(transformation(extent={{110,-40},{130,-20}})));
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 
   CDL.Continuous.Sources.Constant staUpOpePlr(final k=staUpPlr)
     "Maximum operating part load ratio of the current stage"
@@ -107,15 +97,6 @@ block ChangePositiveDisplacement
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
-  connect(uCapNomSta, opePlrSta.u1) annotation (Line(points={{-160,20},{-60,20},
-          {-60,46},{-42,46}}, color={0,0,127}));
-  connect(uCapReq, opePlrSta.u2) annotation (Line(points={{-160,-90},{-50,-90},{
-          -50,34},{-42,34}},
-                           color={0,0,127}));
-  connect(uCapNomLowSta, opePlrLowSta.u1) annotation (Line(points={{-160,-20},{-60,
-          -20},{-60,-44},{-42,-44}}, color={0,0,127}));
-  connect(uCapReq, opePlrLowSta.u2) annotation (Line(points={{-160,-90},{-50,-90},
-          {-50,-56},{-42,-56}}, color={0,0,127}));
   connect(uChiSta, intEqu.u1) annotation (Line(points={{-160,100},{-130,100},{-130,
           -70},{-82,-70}},      color={255,127,0}));
   connect(intEqu.u2, stage1.y) annotation (Line(points={{-82,-78},{-90,-78},{-90,
@@ -147,24 +128,24 @@ equation
   connect(opePlrSta.y, greEqu.u1)
     annotation (Line(points={{-19,40},{38,40}},
                                               color={0,0,127}));
-  connect(greEqu.y, booToInt.u) annotation (Line(points={{61,40},{68,40}},
-                    color={255,0,255}));
-  connect(lesEqu.y, booToInt1.u) annotation (Line(points={{61,-30},{68,-30}},
+  connect(lesEqu.y, booToInt1.u) annotation (Line(points={{61,-30},{78,-30}},
                                color={255,0,255}));
-  connect(booToInt.y, addInt.u1) annotation (Line(points={{91,40},{100,40},{100,
-          6},{108,6}},     color={255,127,0}));
-  connect(booToInt1.y, addInt.u2) annotation (Line(points={{91,-30},{100,-30},{100,
-          -6},{108,-6}},      color={255,127,0}));
-  connect(stageMax.y, minInt.u1) annotation (Line(points={{-99,70},{-94,70},{-94,
-          130},{110,130},{110,46},{118,46}}, color={255,127,0}));
-  connect(addInt.y, minInt.u2) annotation (Line(points={{131,0},{140,0},{140,20},
-          {110,20},{110,34},{118,34}}, color={255,127,0}));
-  connect(maxInt.u2, stageMin.y) annotation (Line(points={{148,-6},{140,-6},{140,
-          -30},{131,-30}}, color={255,127,0}));
-  connect(minInt.y, maxInt.u1) annotation (Line(points={{141,40},{144,40},{144,6},
-          {148,6}}, color={255,127,0}));
-  connect(yChiStaCha, maxInt.y)
-    annotation (Line(points={{190,0},{171,0}}, color={255,127,0}));
+  connect(booToInt.y, addInt.u1) annotation (Line(points={{101,40},{124,40},{
+          124,6},{138,6}}, color={255,127,0}));
+  connect(booToInt1.y, addInt.u2) annotation (Line(points={{101,-30},{124,-30},
+          {124,-6},{138,-6}}, color={255,127,0}));
+  connect(uCapReq, opePlrLowSta.u1) annotation (Line(points={{-160,-90},{-100,
+          -90},{-100,-44},{-42,-44}}, color={0,0,127}));
+  connect(uCapNomLowSta, opePlrLowSta.u2) annotation (Line(points={{-160,-20},{
+          -50,-20},{-50,-56},{-42,-56}}, color={0,0,127}));
+  connect(uCapNomSta, opePlrSta.u2) annotation (Line(points={{-160,20},{-50,20},
+          {-50,34},{-42,34}}, color={0,0,127}));
+  connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-160,-90},{-100,-90},
+          {-100,46},{-42,46}}, color={0,0,127}));
+  connect(addInt.y, yChiStaCha)
+    annotation (Line(points={{161,0},{190,0}}, color={255,127,0}));
+  connect(greEqu.y, booToInt.u)
+    annotation (Line(points={{61,40},{78,40}}, color={255,0,255}));
   annotation (defaultComponentName = "staChaPosDis",
         Icon(graphics={
         Rectangle(

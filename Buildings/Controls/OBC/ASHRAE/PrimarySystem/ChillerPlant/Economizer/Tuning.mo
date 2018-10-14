@@ -126,8 +126,9 @@ equation
           -180},{-130,-158},{-122,-158}}, color={0,0,127}));
   connect(lesEqu1.y, triSam2.trigger) annotation (Line(points={{-99,-150},{-90,-150},
           {-90,-170},{-30,-170},{-30,-141.8}}, color={255,0,255}));
-  connect(lesEqu.y, swi.u2) annotation (Line(points={{-59,-40},{-59,-116},{-86,-116},
-          {-86,-190},{-76,-190}}, color={255,0,255}));
+  connect(lesEqu.y, swi.u2) annotation (Line(points={{-59,-40},{-54,-40},{-54,
+          -80},{-86,-80},{-86,-190},{-76,-190}},
+                                  color={255,0,255}));
   connect(MaxTowFanSpe.y, swi.u1) annotation (Line(points={{-139,-180},{-98,-180},
           {-98,-182},{-76,-182}}, color={0,0,127}));
   connect(Zero.y, swi.u3) annotation (Line(points={{-99,-200},{-78,-200},{-78,-198},

@@ -11,6 +11,9 @@ block Capacities
   parameter Real min_plr1(final unit="1") = 0.1
   "Minimum part load ratio for the first stage";
 
+  parameter Real small = 0.00000001
+  "Small number to avoid division with zero";
+
   CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -80,7 +83,7 @@ block Capacities
   CDL.Logical.Switch swi0
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
-  CDL.Continuous.Sources.Constant chiSta0(final k=0)
+  CDL.Continuous.Sources.Constant chiSta0(final k=small)
     "Nominal capacity of the 0th chiller stage"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 

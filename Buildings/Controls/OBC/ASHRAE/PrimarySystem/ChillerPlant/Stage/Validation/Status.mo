@@ -17,26 +17,30 @@ model Status
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   CDL.Continuous.Sources.Sine TChiWatRet(
-    amplitude=2,
     freqHz=1/300,
-    offset=aveTChiWatRet) "Chiller water return temeprature"
+    amplitude=4,
+    offset=aveTChiWatRet + 2)
+                          "Chiller water return temeprature"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   CDL.Continuous.Sources.Sine chiWatFlow(
-    freqHz=1/600,
-    offset=aveVChiWat_flow,
-    amplitude=0.01)         "Chilled water flow"
+    offset=aveVChiWat_flow/2,
+    amplitude=0.03,
+    freqHz=1/1200)          "Chilled water flow"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Status chiSta
-    "Determines chiller stage based on the current load and stage"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Status chiSta1
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Status chiSta(
+      minPlrSta1=10/310)
     "Determines chiller stage based on the current load and stage"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Status chiSta2
-    "Determines chiller stage based on the current load and stage"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 equation
 
+  connect(TCWSupSet.y, chiSta.TChiWatSupSet) annotation (Line(points={{-59,60},
+          {0,60},{0,15},{39,15}}, color={0,0,127}));
+  connect(TChiWatRet.y, chiSta.TChiWatRet) annotation (Line(points={{-59,20},{
+          -10,20},{-10,11},{39,11}}, color={0,0,127}));
+  connect(chiWatFlow.y, chiSta.VChiWat_flow) annotation (Line(points={{-59,-30},
+          {0,-30},{0,3},{39,3}}, color={0,0,127}));
+  connect(chiSta.yChiSta, chiSta.uChiSta) annotation (Line(points={{61,10},{70,
+          10},{70,30},{30,30},{30,19},{39,19}}, color={255,127,0}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Stage/Validation/CapacityRequirement.mos"
