@@ -98,16 +98,15 @@ block Status
   CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
 equation
-  connect(uChiSta, addInt.u2) annotation (Line(points={{-160,60},{-120,60},{
-          -120,10},{-50,10},{-50,-6},{8,-6}},
-                                          color={255,127,0}));
+  connect(uChiSta, addInt.u2) annotation (Line(points={{-160,60},{-120,60},{-120,
+          10},{-50,10},{-50,-6},{8,-6}},  color={255,127,0}));
   connect(uChiSta, staCap.uChiSta) annotation (Line(points={{-160,60},{-110,60},
           {-110,30},{-102,30}},
                              color={255,127,0}));
-  connect(staChaPosDis.yChiStaCha, addInt.u1) annotation (Line(points={{-9,50},
-          {0,50},{0,6},{8,6}},   color={255,127,0}));
-  connect(uChiSta, staChaPosDis.uChiSta) annotation (Line(points={{-160,60},{
-          -100,60},{-100,58},{-31,58}},
+  connect(staChaPosDis.yChiStaCha, addInt.u1) annotation (Line(points={{-9,50},{
+          0,50},{0,6},{8,6}},    color={255,127,0}));
+  connect(uChiSta, staChaPosDis.uChiSta) annotation (Line(points={{-160,60},{-100,
+          60},{-100,58},{-31,58}},
                                  color={255,127,0}));
   connect(staCap.yCapNomSta, staChaPosDis.uCapNomSta) annotation (Line(points={{-79,34},
           {-70,34},{-70,53},{-31,53}},        color={0,0,127}));
@@ -117,16 +116,16 @@ equation
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-160,0},
           {-120,0},{-120,-25},{-101,-25}},
                                         color={0,0,127}));
-  connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-160,-40},{
-          -120,-40},{-120,-30},{-101,-30}},
+  connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-160,-40},{-120,
+          -40},{-120,-30},{-101,-30}},
                                      color={0,0,127}));
   connect(VChiWat_flow, capReq.VChiWat_flow) annotation (Line(points={{-160,-80},
           {-110,-80},{-110,-35},{-101,-35}},
                                           color={0,0,127}));
   connect(minInt1.u1, conInt.y) annotation (Line(points={{58,36},{50,36},{50,40},
           {41,40}}, color={255,127,0}));
-  connect(addInt.y, minInt1.u2) annotation (Line(points={{31,0},{44,0},{44,24},
-          {58,24}},color={255,127,0}));
+  connect(addInt.y, minInt1.u2) annotation (Line(points={{31,0},{44,0},{44,24},{
+          58,24}}, color={255,127,0}));
   connect(minInt1.y, maxInt.u1) annotation (Line(points={{81,30},{92,30},{92,16},
           {34,16},{34,-24},{38,-24}},   color={255,127,0}));
   connect(minStage.y, maxInt.u2) annotation (Line(points={{61,-90},{70,-90},{70,
@@ -136,8 +135,8 @@ equation
                                   color={0,0,127}));
   connect(maxInt.y, intToRea.u)
     annotation (Line(points={{61,-30},{68,-30}}, color={255,127,0}));
-  connect(intToRea.y, uniDel.u) annotation (Line(points={{91,-30},{100,-30},{
-          100,0},{78,0}}, color={0,0,127}));
+  connect(intToRea.y, uniDel.u) annotation (Line(points={{91,-30},{100,-30},{100,
+          0},{78,0}}, color={0,0,127}));
   connect(uniDel.y, reaToInt.u)
     annotation (Line(points={{101,0},{108,0}}, color={0,0,127}));
   connect(yChiSta, reaToInt.y)
@@ -156,7 +155,8 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
 Documentation(info="<html>
 <p>
-Fixme
+Fixme: This needs chattering protection (status hold for a predefined time period)
+Not sure if this is the correct place for it.
 </p>
 </html>",
 revisions="<html>

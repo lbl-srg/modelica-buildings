@@ -13,10 +13,10 @@ block PredictedOutletTemperature
 
   parameter Real VHeaExcDes_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s")=0.1
+    final unit="m3/s")=0.01
   "Desing heat exchanger water flow rate";
 
-  CDL.Interfaces.RealInput uTunPar "Tuning parameter"
+  CDL.Interfaces.RealInput uTunPar(min=-0.2, max=0.5) "Tuning parameter"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
@@ -31,7 +31,9 @@ block PredictedOutletTemperature
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  CDL.Interfaces.RealOutput TEcoOut_pred
+  CDL.Interfaces.RealOutput TEcoOut_pred(
+    final quantity="ThermodynamicTemperature",
+    final unit="K")
     "Predicted water side economizer outlet temperature"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));

@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer;
 block Tuning
   "Defines a value used to tune the economizer outlet temperature prediction"
 
-  parameter Real step(min=-0.02, max=0.05)=0.02
+  parameter Real step=0.02
   "Tuning step";
 
   final parameter Real tunPar_init = 0
@@ -36,7 +36,7 @@ block Tuning
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
   CDL.Discrete.TriggeredSampler triSam(y_start=0)
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
-  CDL.Interfaces.RealOutput yTunPar
+  CDL.Interfaces.RealOutput yTunPar(min=-0.2, max=0.5)
     "Tuning parameter for the waterside economizer outlet temperature prediction "
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
@@ -126,8 +126,8 @@ equation
           -180},{-130,-158},{-122,-158}}, color={0,0,127}));
   connect(lesEqu1.y, triSam2.trigger) annotation (Line(points={{-99,-150},{-90,-150},
           {-90,-170},{-30,-170},{-30,-141.8}}, color={255,0,255}));
-  connect(lesEqu.y, swi.u2) annotation (Line(points={{-59,-40},{-54,-40},{-54,
-          -80},{-86,-80},{-86,-190},{-76,-190}},
+  connect(lesEqu.y, swi.u2) annotation (Line(points={{-59,-40},{-54,-40},{-54,-80},
+          {-86,-80},{-86,-190},{-76,-190}},
                                   color={255,0,255}));
   connect(MaxTowFanSpe.y, swi.u1) annotation (Line(points={{-139,-180},{-98,-180},
           {-98,-182},{-76,-182}}, color={0,0,127}));
