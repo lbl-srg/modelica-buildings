@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "wseTun.uTowFanSpe",
+    "wseTun1.uTowFanSpe",
+    "wseTun2.uTowFanSpe",
+    "wseTun.uEcoSta",
+    "wseTun1.uEcoSta",
+    "wseTun2.uEcoSta",
+    "wseTun.yTunPar",
+    "wseTun1.yTunPar",
+    "wseTun2.yTunPar"
+  };

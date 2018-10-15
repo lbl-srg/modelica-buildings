@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "wseTOut.uTunPar",
+    "wseTOut.VChiWat_flow",
+    "wseTOut.TOutWet",
+    "wseTOut.TEcoOut_pred",
+    "wseTOut.TOutWetDes"
+  };
