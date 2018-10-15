@@ -90,7 +90,7 @@ partial model PartialOpenLoop
 //    "Heating coil"
 //    annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
 
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,

@@ -4,9 +4,9 @@ DryCoilCounterFlowMassFlow
 DryCoilCounterFlowPControl
 DryCoilDiscretized
 DryCoilDiscretizedPControl
-DryEffectivenessNTU
-DryEffectivenessNTUMassFlow
-DryEffectivenessNTUPControl
+DryCoilEffectivenessNTUMassFlow
+DryCoilEffectivenessNTUPControl
+PlateHeatExchangerEffectivenessNTUPControl
 WaterCooler_T
 WaterHeater_T
 WaterHeater_u

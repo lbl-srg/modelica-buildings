@@ -9,6 +9,7 @@ From_hp
 From_inH2O
 From_psi
 From_quad
+From_ton
 To_Btu
 To_BtuPerHour
 To_bar
@@ -20,4 +21,5 @@ To_hp
 To_inH2O
 To_psi
 To_quad
+To_ton
 Validation

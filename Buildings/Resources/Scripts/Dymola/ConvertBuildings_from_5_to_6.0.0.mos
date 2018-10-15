@@ -325,3 +325,7 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.Operatio
 	       "TUnoCooSet","TZonCooSetUno");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode",
 	       "TUnoHeaSet","TZonHeaSetUno");
+
+// Heat exchanger
+convertClass("Buildings.Fluid.HeatExchangers.DryEffectivenessNTU",
+             "Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU");

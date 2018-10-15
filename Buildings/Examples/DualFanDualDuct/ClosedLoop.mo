@@ -66,7 +66,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Filter"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU preHeaCoi(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU preHeaCoi(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumW,
     allowFlowReversal2=false,
@@ -380,7 +380,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Demultiplex for room air temperature"
     annotation (Placement(transformation(extent={{498,120},{518,140}})));
 
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU          heaCoi(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU          heaCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=mWatHot_flow_nominal,
