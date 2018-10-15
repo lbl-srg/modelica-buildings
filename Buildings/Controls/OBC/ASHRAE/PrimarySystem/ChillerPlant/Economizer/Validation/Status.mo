@@ -27,69 +27,69 @@ protected
   parameter Real VChiWat_flow(quantity="VolumeFlowRate", unit="m3/s") = 0.01
   "Measured chilled water return temperature";
 
-  CDL.Continuous.Sources.Constant chiWatFlow(final k=VChiWat_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow(final k=VChiWat_flow)
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
-  CDL.Continuous.Sources.Pulse TOutWetSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TOutWetSig(
     final amplitude=5,
     final period=2*15*60,
     final offset=TOutWetBul) "Measured outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
-  CDL.Continuous.Sources.Constant constTowFanSig(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig(final k=1)
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 
-  CDL.Continuous.Sources.Constant TChiWatRetSig(final k=TChiWatRet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig(final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
 
-  CDL.Continuous.Sources.Constant TChiWatRetDow(final k=TWseOut)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetDow(final k=TWseOut)
     "Chilled water return temperature downstream of WSE"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
 
-  CDL.Continuous.Sources.Constant chiWatFlow1(final k=VChiWat_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow1(final k=VChiWat_flow)
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 
-  CDL.Continuous.Sources.Constant TOutWetSig1(final k=TOutWetBul)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutWetSig1(final k=TOutWetBul)
     "Measured outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
 
-  CDL.Continuous.Sources.Constant constTowFanSig1(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig1(final k=1)
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
 
-  CDL.Continuous.Sources.Constant TChiWatRetSig1(final k=TChiWatRet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig1(final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
 
-  CDL.Continuous.Sources.Pulse TChiWatRetDow1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TChiWatRetDow1(
     final period=2*15*60,
     final offset=TWseOut,
     final amplitude=2.5)
     "Chilled water return temperature downstream of WSE"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
 
-  CDL.Continuous.Sources.Constant chiWatFlow2(final k=VChiWat_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow2(final k=VChiWat_flow)
     "Chilled water flow"
     annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
 
-  CDL.Continuous.Sources.Pulse TOutWetSig2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TOutWetSig2(
     final amplitude=5,
     final period=2*15*60,
     final offset=TOutWetBul) "Measured outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{90,60},{110,80}})));
 
-  CDL.Continuous.Sources.Constant constTowFanSig2(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig2(final k=1)
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{90,-80},{110,-60}})));
 
-  CDL.Continuous.Sources.Constant TChiWatRetSig2(final k=TChiWatRet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig2(final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
-  CDL.Continuous.Sources.Pulse    TChiWatRetDow2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse    TChiWatRetDow2(
     final period=2*15*60,
     final offset=TWseOut,
     final amplitude=2.5)

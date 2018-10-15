@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer;
 block PredictedOutletTemperature
-  "Water side economizer predicted outlet temperature"
+  "waterside economizer predicted outlet temperature"
 
   parameter Modelica.SIunits.TemperatureDifference heaExcAppDes=2
   "Design heat exchanger approach";
@@ -16,61 +16,61 @@ block PredictedOutletTemperature
     final unit="m3/s")=0.01
   "Desing heat exchanger water flow rate";
 
-  CDL.Interfaces.RealInput uTunPar(min=-0.2, max=0.5) "Tuning parameter"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar(min=-0.2, max=0.5) "Tuning parameter"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  CDL.Interfaces.RealInput TOutWet "Outdoor air wet bulb temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet "Outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
 
-  CDL.Interfaces.RealInput VChiWat_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  CDL.Interfaces.RealOutput TEcoOut_pred(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TEcoOut_pred(
     final quantity="ThermodynamicTemperature",
     final unit="K")
-    "Predicted water side economizer outlet temperature"
+    "Predicted waterside economizer outlet temperature"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  CDL.Continuous.Division heaExcPlr "Heat exchanger flow part load ratio"
+  Buildings.Controls.OBC.CDL.Continuous.Division heaExcPlr "Heat exchanger flow part load ratio"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  CDL.Continuous.Sources.Constant des_flow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant des_flow(
     final k=VHeaExcDes_flow)
     "Heat exchanger design flow"
     annotation (Placement(transformation(extent={{-112,40},{-92,60}})));
 
-  CDL.Continuous.Sources.Constant heaAppDes(final k=heaExcAppDes)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaAppDes(final k=heaExcAppDes)
     "Heat exchanger design approach"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  CDL.Continuous.Product pro "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
     annotation (Placement(transformation(extent={{-20,44},{0,64}})));
 
-  CDL.Continuous.Add add1(final k1=-1) "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k1=-1) "Adder"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-  CDL.Continuous.Sources.Constant TWetDes(final k=TOutWetDes)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWetDes(final k=TOutWetDes)
     "Design outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  CDL.Continuous.Product pro1 "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
-  CDL.Continuous.Sources.Constant towAppDes1(k=cooTowAppDes)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towAppDes1(k=cooTowAppDes)
     "Cooling tower design approach"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
-  CDL.Continuous.MultiSum mulSum(final nin=4) "Sum of multiple inputs"
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(final nin=4) "Sum of multiple inputs"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
-  CDL.Continuous.Limiter lim(final uMax=1, final uMin=0) "Limiter"
+  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(final uMax=1, final uMin=0) "Limiter"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
 
 equation

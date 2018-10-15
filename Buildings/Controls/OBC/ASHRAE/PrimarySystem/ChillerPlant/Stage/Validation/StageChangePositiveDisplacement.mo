@@ -33,38 +33,38 @@ model StageChangePositiveDisplacement
     "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
-  CDL.Integers.Sources.Constant stageMax(k=2) "Last stage"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stageMax(k=2) "Last stage"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
-  CDL.Integers.Sources.Constant stage0(k=0) "0th stage"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(k=0) "0th stage"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
-  CDL.Integers.Sources.Constant stage1(k=1) "0th stage"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(k=1) "0th stage"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 
-  CDL.Continuous.Sources.Constant capReq0(k=0.05*500000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant capReq0(k=0.05*500000)
     "Capacity requirement below first stage "
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  CDL.Continuous.Sources.Constant capReq1(k=300000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant capReq1(k=300000)
     "Capacity requirement for stage 1"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  CDL.Continuous.Sources.Constant NomStaCap2(k=1000000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant NomStaCap2(k=1000000)
     "Nominal stage 2 capacity "
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  CDL.Continuous.Sources.Constant capReq2(k=700000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant capReq2(k=700000)
     "Capacity requirement for stage 2"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Continuous.Sources.Constant capReq3(k=1200000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant capReq3(k=1200000)
     "Capacity requirement above maximal available stage"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
-  CDL.Continuous.Sources.Constant NomSta1LowCap(k=0.1*500000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant NomSta1LowCap(k=0.1*500000)
     "Minimal capacity at stage 1"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  CDL.Continuous.Sources.Constant NomSta1Cap(k=500000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant NomSta1Cap(k=500000)
     "Nominal stage 1 capacity "
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  CDL.Continuous.Sources.Constant sta0Cap(k=0.000001)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sta0Cap(k=0.000001)
                                                "Nominal stage 0 capacity "
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
 equation

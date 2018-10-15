@@ -26,7 +26,7 @@ block Status
     final unit="1") = 0.8
     "Minimum operating part load ratio of the next lower stage before staging down";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta(
+  Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta(
     final min = 0,
     final max = numSta,
     final start = 0)
@@ -36,28 +36,28 @@ block Status
         rotation=0,
         origin={-110,90})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
+  Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
     iconTransformation(extent={{-120,-80},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
+  Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
       iconTransformation(extent={{-120,0},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
+  Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply setpoint temperature"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
     iconTransformation(extent={{-120,40},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiSta(
+  Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiSta(
     final min=0,
     final max=numSta)
     "Chiller stage"
@@ -80,22 +80,22 @@ block Status
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.CapacityRequirement capReq
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  CDL.Integers.Add addInt(k2=+1)
+  Buildings.Controls.OBC.CDL.Integers.Add addInt(k2=+1)
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
-  CDL.Integers.Min minInt1
+  Buildings.Controls.OBC.CDL.Integers.Min minInt1
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  CDL.Integers.Max maxInt
+  Buildings.Controls.OBC.CDL.Integers.Max maxInt
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  CDL.Integers.Sources.Constant conInt(k=numSta)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=numSta)
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  CDL.Integers.Sources.Constant minStage(k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant minStage(k=0)
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  CDL.Conversions.IntegerToReal intToRea
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
-  CDL.Discrete.UnitDelay uniDel(samplePeriod=1)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=1)
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  CDL.Conversions.RealToInteger reaToInt
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
 equation
   connect(uChiSta, addInt.u2) annotation (Line(points={{-160,60},{-120,60},{-120,

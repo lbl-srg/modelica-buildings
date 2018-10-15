@@ -20,13 +20,13 @@ model Capacities_uChiSta
     nomCapSta2=capSta2)
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  CDL.Integers.Sources.Constant stage0(k=0) "Stage 0"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(k=0) "Stage 0"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  CDL.Integers.Sources.Constant stage1(k=1) "Stage 0"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(k=1) "Stage 0"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  CDL.Integers.Sources.Constant stage2(k=2) "Stage 0"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage2(k=2) "Stage 0"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Capacities staCap1(
@@ -41,29 +41,29 @@ model Capacities_uChiSta
     nomCapSta2=2*3.517*1000*310)
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
-  CDL.Continuous.Sources.Constant sta0(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sta0(k=0)
     "Nominal and minimal capacity at stage 0"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
-  CDL.Continuous.Sources.Constant sta1min(k=minPlrSta0*capSta1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sta1min(k=minPlrSta0*capSta1)
     "Min capacity at stage 1"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  CDL.Continuous.Sources.Constant sta1(k=capSta1) "Nominal capacity at stage 1"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sta1(k=capSta1) "Nominal capacity at stage 1"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
-  CDL.Continuous.Sources.Constant sta2(k=capSta2) "Nominal capacity at stage 2"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sta2(k=capSta2) "Nominal capacity at stage 2"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
-  CDL.Continuous.Feedback absErrorSta0[2]
+  Buildings.Controls.OBC.CDL.Continuous.Feedback absErrorSta0[2]
     "Delta between the expected and the calculated value"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
-  CDL.Continuous.Feedback absErrorSta2[2]
+  Buildings.Controls.OBC.CDL.Continuous.Feedback absErrorSta2[2]
     "Delta between the expected and the calculated value"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
-  CDL.Continuous.Feedback absErrorSta1[2]
+  Buildings.Controls.OBC.CDL.Continuous.Feedback absErrorSta1[2]
     "Delta between the expected and the calculated value"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 

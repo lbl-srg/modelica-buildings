@@ -12,61 +12,61 @@ block CapacityRequirement
   parameter Modelica.SIunits.Time avePer = 5*60
   "Period for the rolling average";
 
-  CDL.Interfaces.RealInput TChiWatSupSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply setpoint temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
     iconTransformation(extent={{-120,40},{-100,60}})));
 
-  CDL.Interfaces.RealInput TChiWatRet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  CDL.Interfaces.RealInput VChiWat_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
 
-  CDL.Interfaces.RealOutput yCapReq(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapReq(
     final quantity="Power",
     final unit="W")
     "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  CDL.Continuous.Add add2(k1=-1) "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(k1=-1) "Adder"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  CDL.Continuous.MovingMean movMea(final delta=avePer)
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(final delta=avePer)
     "Moving average"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  CDL.Continuous.Sources.Constant density(k=water_density)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant density(k=water_density)
     "Water density"
     annotation (Placement(transformation(extent={{-80,-32},{-60,-12}})));
 
-  CDL.Continuous.Sources.Constant speHeaCap(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speHeaCap(
     final k=water_cp)
     "Specific heat capacity of water"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  CDL.Continuous.Product pro "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
-  CDL.Continuous.Product pro1 "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
-  CDL.Continuous.Product pro2 "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Product pro2 "Product"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
-  CDL.Continuous.Max max "Maximum of two inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum of two inputs"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
-  CDL.Continuous.Sources.Constant minLim(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLim(k=0)
     "Minimum capacity requirement limit"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 

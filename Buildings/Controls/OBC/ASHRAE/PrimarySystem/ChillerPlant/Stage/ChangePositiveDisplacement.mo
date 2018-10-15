@@ -11,88 +11,88 @@ block ChangePositiveDisplacement
   parameter Real staDowPlr(min = 0, max = 1, unit="1") = 0.8
   "Minimum operating part load ratio of the next lower stage before staging down";
 
-  CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
 
-  CDL.Interfaces.RealInput uCapReq(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapReq(
     final unit="W",
     final quantity="Power")
     "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
     iconTransformation(extent={{-120,-60},{-100,-40}})));
 
-  CDL.Interfaces.RealInput uCapNomSta(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapNomSta(
     final unit="W",
     final quantity="Power")
     "Nominal capacity of the current stage"
     annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
 
-  CDL.Interfaces.RealInput uCapNomLowSta(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapNomLowSta(
     final unit="W",
     final quantity="Power") "Nominal capacity of the first lower stage"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
         iconTransformation(extent={{-120,-20},{-100,0}})));
 
-  CDL.Interfaces.IntegerOutput yChiStaCha(
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiStaCha(
     final max=1,
     final min=-1)
     "Chiller stage change"
     annotation (Placement(transformation(extent={{180,-10},
             {200,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  CDL.Continuous.Division opePlrSta
+  Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
     "Operating part load ratio at the current stage"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-  CDL.Continuous.Division opePlrLowSta
+  Buildings.Controls.OBC.CDL.Continuous.Division opePlrLowSta
     "Operating part load ratio at the first lower stage"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  CDL.Logical.Switch swiDown
+  Buildings.Controls.OBC.CDL.Logical.Switch swiDown
     "Checks if the stage should go down"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 
-  CDL.Logical.Switch swiUp "Checks if the stage should go up"
+  Buildings.Controls.OBC.CDL.Logical.Switch swiUp "Checks if the stage should go up"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
 
-  CDL.Integers.Equal intEqu
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  CDL.Integers.Equal intEqu1
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
-  CDL.Integers.Sources.Constant stage1(k=1) "Stage 1"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(k=1) "Stage 1"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
 
-  CDL.Integers.Sources.Constant stageMax(k=numSta) "Last stage"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stageMax(k=numSta) "Last stage"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
-  CDL.Continuous.GreaterEqual greEqu
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
-  CDL.Continuous.LessEqual lesEqu
+  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEqu
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
-  CDL.Conversions.BooleanToInteger booToInt
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
 
-  CDL.Conversions.BooleanToInteger booToInt1
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
-  CDL.Integers.Add addInt(k2=-1)
+  Buildings.Controls.OBC.CDL.Integers.Add addInt(k2=-1)
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 
-  CDL.Continuous.Sources.Constant staUpOpePlr(final k=staUpPlr)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staUpOpePlr(final k=staUpPlr)
     "Maximum operating part load ratio of the current stage"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  CDL.Continuous.Sources.Constant staDowOpePlr(final k=staDowPlr)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staDowOpePlr(final k=staDowPlr)
     "Minimum operating part load ratio of the first lower stage"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
 
-  CDL.Continuous.Sources.Constant firstAndLast(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant firstAndLast(final k=1)
     "Operating part load ratio limit for lower and upper extremes"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 

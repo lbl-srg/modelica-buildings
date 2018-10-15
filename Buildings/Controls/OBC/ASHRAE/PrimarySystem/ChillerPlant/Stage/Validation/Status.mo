@@ -13,16 +13,16 @@ model Status
     final unit="m3/s") = 0.05
     "Average measured chilled water flow rate";
 
-  CDL.Continuous.Sources.Constant TCWSupSet(k=TChiWatSupSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(k=TChiWatSupSet)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  CDL.Continuous.Sources.Sine TChiWatRet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
     freqHz=1/300,
     amplitude=4,
     offset=aveTChiWatRet + 2)
                           "Chiller water return temeprature"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  CDL.Continuous.Sources.Sine chiWatFlow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
     offset=aveVChiWat_flow/2,
     amplitude=0.03,
     freqHz=1/1200)          "Chilled water flow"

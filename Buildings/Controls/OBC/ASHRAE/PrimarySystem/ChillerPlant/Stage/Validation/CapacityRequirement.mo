@@ -15,15 +15,15 @@ model CapacityRequirement
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.CapacityRequirement
     capReq annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Continuous.Sources.Constant TCWSupSet(k=TChiWatSupSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(k=TChiWatSupSet)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  CDL.Continuous.Sources.Sine TChiWatRet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
     amplitude=2,
     freqHz=1/300,
     offset=aveTChiWatRet) "Chiller water return temeprature"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  CDL.Continuous.Sources.Sine chiWatFlow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
     freqHz=1/600,
     offset=aveVChiWat_flow,
     amplitude=0.01)         "Chilled water flow"

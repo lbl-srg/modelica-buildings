@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer;
-block Status "Water side economizer enable/disable status"
+block Status "waterside economizer enable/disable status"
 
   parameter Modelica.SIunits.Time holdPeriod=20*60
-  "Water side economizer (WSE) minimum on or off time";
+  "waterside economizer (WSE) minimum on or off time";
 
   parameter Modelica.SIunits.TemperatureDifference TOffsetEna=2
   "Temperature offset between the chilled water return upstream of WSE and the predicted WSE output";
@@ -31,11 +31,11 @@ block Status "Water side economizer enable/disable status"
   parameter Real step=0.02 "Tuning step"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Tuning"));
 
-  parameter Modelica.SIunits.Time ecoOnTimDec = 60*60
+  parameter Modelica.SIunits.Time wseOnTimDec = 60*60
   "Economizer enable time needed to allow decrease of the tuning parameter"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Tuning"));
 
-  parameter Modelica.SIunits.Time ecoOnTimInc = 30*60
+  parameter Modelica.SIunits.Time wseOnTimInc = 30*60
   "Economizer enable time needed to allow increase of the tuning parameter"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Tuning"));
 
@@ -49,17 +49,17 @@ block Status "Water side economizer enable/disable status"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chiller water return temperature upstream of the water side economizer"
+    "Chiller water return temperature upstream of the waterside economizer"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatWseDow
-    "Chiller water return temperature downstream of the water side economizer"
+    "Chiller water return temperature downstream of the waterside economizer"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe
-    "Water side economizer tower fan speed"
+    "waterside economizer tower fan speed"
     annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
@@ -71,14 +71,14 @@ block Status "Water side economizer enable/disable status"
     iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEcoSta
-    "Water side economizer enable disable status"
+    "waterside economizer enable disable status"
     annotation (Placement(transformation(extent={{160,-10},{180,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Tuning wseTun(
     final step=step,
-    final ecoOnTimDec=ecoOnTimDec,
-    final ecoOnTimInc=ecoOnTimInc)
+    final wseOnTimDec=wseOnTimDec,
+    final wseOnTimInc=wseOnTimInc)
     "Tuning parameter for the WSE outlet temperature calculation"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 

@@ -14,80 +14,80 @@ block Capacities
   parameter Real small = 0.00000001
   "Small number to avoid division with zero";
 
-  CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  CDL.Interfaces.RealOutput yCapNomSta(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapNomSta(
     final unit="W",
     final quantity="Power") "Nominal capacity of the current stage"
     annotation (Placement(transformation(extent={{160,30},{180,50}}),
         iconTransformation(extent={{100,30},{120,50}})));
 
-  CDL.Interfaces.RealOutput yCapNomLowSta(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapNomLowSta(
     final unit="W",
     final quantity="Power") "Nominal capacity of the first lower stage"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
-  CDL.Continuous.Sources.Constant chiSta1(k=nomCapSta1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiSta1(k=nomCapSta1)
     "Nominal capacity of the first chiller stage"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
-  CDL.Continuous.Sources.Constant chiSta2(k=nomCapSta2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiSta2(k=nomCapSta2)
     "Nominal capacity of the second chiller stage"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
-  CDL.Integers.Equal intEqu
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
-  CDL.Integers.Sources.Constant   stage1(k=1) "Stage 1"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant   stage1(k=1) "Stage 1"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 
-  CDL.Integers.Sources.Constant   stage2(k=2) "Stage 2"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant   stage2(k=2) "Stage 2"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
-  CDL.Integers.Sources.Constant   stage0(k=0) "Stage 0"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant   stage0(k=0) "Stage 0"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
-  CDL.Integers.Equal intEqu1
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
-  CDL.Integers.Equal intEqu2
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
-  CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  CDL.Utilities.Assert staExc(
+  Buildings.Controls.OBC.CDL.Utilities.Assert staExc(
     message="The provided chiller stage is higher than the number of stages available")
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
 
-  CDL.Continuous.GreaterThreshold greThr(threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=0.5)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
-  CDL.Integers.LessEqual intLesEqu
+  Buildings.Controls.OBC.CDL.Integers.LessEqual intLesEqu
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 
-  CDL.Logical.Switch swiLowSta1
+  Buildings.Controls.OBC.CDL.Logical.Switch swiLowSta1
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
-  CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Product pro
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
-  CDL.Logical.Switch swiLowSta0
+  Buildings.Controls.OBC.CDL.Logical.Switch swiLowSta0
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
 
-  CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
-  CDL.Logical.Switch swi0
+  Buildings.Controls.OBC.CDL.Logical.Switch swi0
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
-  CDL.Continuous.Sources.Constant chiSta0(final k=small)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiSta0(final k=small)
     "Nominal capacity of the 0th chiller stage"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 
-  CDL.Continuous.Sources.Constant minPlrSta1(final k=min_plr1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPlrSta1(final k=min_plr1)
     "Minimum part load ratio of the first stage"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 

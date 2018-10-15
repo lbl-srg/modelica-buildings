@@ -5,74 +5,76 @@ block Tuning
   parameter Real step=0.02
   "Tuning step";
 
-  parameter Modelica.SIunits.Time ecoOnTimDec = 60*60
+  parameter Modelica.SIunits.Time wseOnTimDec = 60*60
   "Economizer enable time needed to allow decrease of the tuning parameter";
 
-  parameter Modelica.SIunits.Time ecoOnTimInc = 30*60
+  parameter Modelica.SIunits.Time wseOnTimInc = 30*60
   "Economizer enable time needed to allow increase of the tuning parameter";
 
   final parameter Real initTunPar = 0
   "Initial value of the tuning parameter";
 
-  CDL.Interfaces.BooleanInput uEcoSta
-    "Water side economizer enable disable status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEcoSta
+    "waterside economizer enable disable status"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-  CDL.Logical.Timer tim
+
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-  CDL.Logical.FallingEdge
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge
                      falEdg
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
 
-  CDL.Continuous.GreaterEqual greEqu
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.Sources.Constant ecoOnTim(k=ecoOnTimDec)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant wseOnTim(k=wseOnTimDec)
     "Check if econ was on for the defined time period"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  CDL.Continuous.Sources.Constant tunStep(k=step) "Tuning step"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tunStep(k=step) "Tuning step"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
-  CDL.Discrete.TriggeredSampler triSam(y_start=0)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam(y_start=0)
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
-  CDL.Interfaces.RealOutput yTunPar(min=-0.2, max=0.5)
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTunPar(min=-0.2, max=0.5)
     "Tuning parameter for the waterside economizer outlet temperature prediction "
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  CDL.Continuous.Add add2(k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(k1=-1)
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  CDL.Logical.Pre pre
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
     annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
-  CDL.Logical.Timer tim1
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  CDL.Logical.FallingEdge
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge
                      falEdg1
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  CDL.Logical.And3 and1
+  Buildings.Controls.OBC.CDL.Logical.And3 and1
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  CDL.Continuous.LessEqual    lesEqu
+  Buildings.Controls.OBC.CDL.Continuous.LessEqual    lesEqu
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  CDL.Continuous.Sources.Constant ecoOnTim1(k=ecoOnTimInc)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant wseOnTim1(k=wseOnTimInc)
     "Check if econ was on for the defined time period"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  CDL.Discrete.TriggeredSampler triSam1(y_start=initTunPar)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1(y_start=initTunPar)
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
-  CDL.Logical.Pre pre1
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-  CDL.Interfaces.RealInput uTowFanSpe "Water side economizer tower fan speed"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe "waterside economizer tower fan speed"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
-  CDL.Continuous.Less         lesEqu1
+  Buildings.Controls.OBC.CDL.Continuous.Less         lesEqu1
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  CDL.Continuous.Sources.Constant MaxTowFanSpe(k=1) "Maximal tower fan speed"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant MaxTowFanSpe(k=1) "Maximal tower fan speed"
     annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
-  CDL.Discrete.TriggeredSampler triSam2(y_start=0)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam2(y_start=0)
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  CDL.Continuous.Sources.Constant Zero(k=0) "Maximal tower fan speed"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Zero(k=0) "Maximal tower fan speed"
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
-  CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{-74,-200},{-54,-180}})));
-  CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=0.5)
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 equation
   connect(uEcoSta, tim.u)
@@ -81,7 +83,7 @@ equation
   connect(uEcoSta, falEdg.u) annotation (Line(points={{-200,60},{-160,60},{-160,
           20},{-122,20}},
                       color={255,0,255}));
-  connect(greEqu.u2, ecoOnTim.y) annotation (Line(points={{-82,82},{-90,82},{-90,
+  connect(greEqu.u2, wseOnTim.y) annotation (Line(points={{-82,82},{-90,82},{-90,
           60},{-99,60}}, color={0,0,127}));
   connect(tim.y, greEqu.u1)
     annotation (Line(points={{-99,90},{-82,90}},   color={0,0,127}));
@@ -105,7 +107,7 @@ equation
   connect(uEcoSta, falEdg1.u) annotation (Line(points={{-200,60},{-160,60},{-160,
           -110},{-122,-110}},
                         color={255,0,255}));
-  connect(lesEqu.u2, ecoOnTim1.y) annotation (Line(points={{-82,-48},{-90,-48},{
+  connect(lesEqu.u2, wseOnTim1.y) annotation (Line(points={{-82,-48},{-90,-48},{
           -90,-70},{-99,-70}}, color={0,0,127}));
   connect(tim1.y, lesEqu.u1)
     annotation (Line(points={{-99,-40},{-82,-40}}, color={0,0,127}));
