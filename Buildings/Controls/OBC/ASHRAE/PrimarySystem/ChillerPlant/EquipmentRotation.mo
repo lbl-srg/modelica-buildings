@@ -11,51 +11,54 @@ block EquipmentRotation
   parameter Boolean initRoles[num] = initialization[1:num]
     "Sets initial roles: true = lead, false = lag";
 
-  parameter Boolean initialization[10] = {true, false, false, false, false, false, false, false, false, false}
-    "fixme - there may be a better way. Initiates device mapped to the first index with the lead role and all other to lag";
-
-  CDL.Interfaces.BooleanInput uDevRol[num]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevRol[num]
     "Current devices operation status (true - on, false - off)"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  CDL.Interfaces.BooleanOutput yDevRol[num]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[num]
     "Device role (true - lead, false - lag)"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-  CDL.Logical.Timer tim[num](reset=false)
-    "Measures time spent loaded at the current role (lead or lag)"
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-
-  CDL.Continuous.GreaterEqualThreshold greEquThr[num](
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[num](
     final threshold=stagingRuntime)
     "Staging runtime hysteresis"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  CDL.Logical.And3 and3[num]
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[num](reset=false)
+    "Measures time spent loaded at the current role (lead or lag)"
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+
+protected
+  final parameter Boolean initialization[num] = {true, false}
+    "fixme - there may be a better way. Initiates device mapped to the first index with the lead role and all other to lag";
+
+  Buildings.Controls.OBC.CDL.Logical.And3 and3[num]
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  CDL.Logical.MultiOr mulOr(final nu=num)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=num)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  CDL.Logical.Not fixme_for_n[num]
+  Buildings.Controls.OBC.CDL.Logical.Not fixme_for_n[num]
     "Fixme: For more than 2 devices this should be replaced by an implementation which moves the lead chiller to the first higher index"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
-  CDL.Logical.LogicalSwitch logSwi[num]
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[num]
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
-  CDL.Routing.BooleanReplicator booRep(nout=num)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=num)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  CDL.Logical.Pre pre[num](pre_u_start=initRoles)
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[num](
+    final pre_u_start=initRoles)
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
-  CDL.Logical.FallingEdge falEdg1[num]
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1[num]
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  CDL.Logical.Not not1[num]
+  Buildings.Controls.OBC.CDL.Logical.Not not1[num]
     "Fixme: For more than 2 devices this should be replaced by an implementation which moves the lead chiller to the first higher index"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 

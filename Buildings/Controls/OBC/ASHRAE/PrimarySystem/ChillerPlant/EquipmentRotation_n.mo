@@ -8,95 +8,96 @@ block EquipmentRotation_n
   parameter Real stagingRuntime(unit = "s") = 240 * 60 * 60
     "Staging runtime";
 
-  parameter Boolean initialization[10] = {true, false, false, false, false, false, false, false, false, false}
-    "Initiates device mapped to the first index with the lead role and all other to lag";
-
   parameter Boolean initRoles[num] = initialization[1:num]
     "Sets initial roles: true = lead, false = lag";
 
-  CDL.Interfaces.BooleanInput uDevRol[num]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevRol[num]
     "Current devices operation status (true - on, false - off)"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  CDL.Interfaces.BooleanOutput yDevRol[num]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[num]
     "Device role (true - lead, false - lag)"
     annotation (Placement(transformation(extent={{240,-10},{260,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-  CDL.Logical.Timer tim[num](
-    final reset=false)
-    "Measures time spent loaded at the current role (lead or lag)"
-    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-
-  CDL.Continuous.GreaterEqualThreshold greEquThr[num](
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[num](
     final threshold=stagingRuntime)
     "Stagin runtime hysteresis"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
-  CDL.Logical.And3 and3[num] "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[num](
+    final reset=false)
+    "Measures time spent loaded at the current role (lead or lag)"
+    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
+
+protected
+  final parameter Boolean initialization[10] = {true, false, false, false, false, false, false, false, false, false}
+    "Initiates device mapped to the first index with the lead role and all other to lag";
+
+  Buildings.Controls.OBC.CDL.Logical.And3 and3[num] "Logical and"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  CDL.Logical.MultiOr mulOr(final nu=num) "Logical or with an array input"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=num) "Logical or with an array input"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  CDL.Routing.BooleanReplicator booRep(final nout=num)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=num)
     "Converts scalar input into an array output"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-  CDL.Logical.Pre pre[num](final pre_u_start=initRoles)
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[num](final pre_u_start=initRoles)
     "Returns previous timestep value to avoid algebraic loops"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
 
-  CDL.Logical.FallingEdge falEdg1[num] "Falling edge"
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1[num] "Falling edge"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
-  CDL.Logical.Not not1[num]
+  Buildings.Controls.OBC.CDL.Logical.Not not1[num]
     "Logical not"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
-  CDL.Continuous.Add add2[num](
+  Buildings.Controls.OBC.CDL.Continuous.Add add2[num](
     final k1=fill(1, num),
     final k2=fill(1, num))
     "Adder"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  CDL.Logical.Edge edg[num]
+  Buildings.Controls.OBC.CDL.Logical.Edge edg[num]
     "Logical edge"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 
-  CDL.Discrete.TriggeredSampler triSam[num]
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[num]
     "Sample trigger"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
-  CDL.Discrete.ZeroOrderHold zerOrdHol[num](
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[num](
     final samplePeriod=fill(1,num)) "Zero order hold"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
-  CDL.Continuous.Sources.Constant con1[num](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[num](
     final k=fill(1, num)) "Constant"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  CDL.Continuous.Modulo mod[num]
+  Buildings.Controls.OBC.CDL.Continuous.Modulo mod[num]
     "Modulo"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
-  CDL.Continuous.Sources.Constant con2[num](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[num](
     final k=fill(num, num)) "Constant"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
 
-  CDL.Continuous.LessThreshold lesThr[num](
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[num](
     final threshold=fill(0.5, num))
     "Identifies zero outputs of the modulo operation"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
 
-  CDL.Continuous.Add add1[num](
+  Buildings.Controls.OBC.CDL.Continuous.Add add1[num](
     final k1=fill(1, num),
     final k2=fill(1, num))
     "Logical and"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
-  CDL.Continuous.Sources.Constant con3[num](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3[num](
     final k=linspace(num - 1, 0, num)) "Constant"
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
 
@@ -190,8 +191,7 @@ Chapter 7, App B, 1.01, A.4.  The input vector <code>uDevRol<\code> indicates th
 for all the devices. Default initial lead role is assigned to the device associated
 with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
 for each piece of equipment and switches the lead role to the next higher index
-as the <code>stagingRuntime<\code> expires. It can be used for any number of devices
-by defining the <code>num<\code> parameter.
+as the <code>stagingRuntime<\code> expires. It can be used for any number of devices <code>num<\code>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -10,28 +10,52 @@ package Validation "Collection of validation models"
     parameter Boolean initRoles[num] = {true, false}
       "Sets initial roles: true = lead, false = lag. There should be only one lead device";
 
-    EquipmentRotation leaLag(stagingRuntime=5*60*60, num=num)
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.EquipmentRotation
+      leaLag(
+      final stagingRuntime=5*60*60,
+      final num=num)
       annotation (Placement(transformation(extent={{20,40},{40,60}})));
-    CDL.Logical.Sources.Pulse leadLoad[num](width=0.8, period=2*60*60)
+
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.EquipmentRotation
+      leaSta(
+      final stagingRuntime=5*60*60,
+      final num=num)
+      annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+
+protected
+    Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad[num](
+      final width=0.8,
+      final period=2*60*60)
       "Lead device on/off status"
       annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-    CDL.Logical.Sources.Pulse lagLoad[num](width=0.2, period=1*60*60)
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad[num](
+      final width=0.2,
+      final period=1*60*60)
       annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-    CDL.Logical.LogicalSwitch logSwi[num]
+
+    Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[num]
       annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-    EquipmentRotation leaSta(stagingRuntime=5*60*60, num=num)
-      annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-    CDL.Logical.Sources.Pulse leadLoad1[num](width=0.8, period=2*60*60)
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad1[num](
+      final width=0.8,
+      final period=2*60*60)
       "Lead device on/off status"
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-    CDL.Logical.Sources.Constant standby[num](k=false)
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant standby[num](
+      final k=false)
       annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-    CDL.Logical.LogicalSwitch logSwi1[num]
+
+    Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[num]
       annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-    CDL.Logical.Pre pre[num](pre_u_start=initRoles)
+
+    Buildings.Controls.OBC.CDL.Logical.Pre pre[num](
+      final pre_u_start=initRoles)
       annotation (Placement(transformation(extent={{60,40},{80,60}})));
-    CDL.Logical.Pre pre1
-                       [num](pre_u_start=initRoles)
+
+    Buildings.Controls.OBC.CDL.Logical.Pre pre1[num](
+    final pre_u_start=initRoles)
       annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   equation
 
@@ -98,41 +122,51 @@ First implementation.
     parameter Boolean initRoles[num] = initialization[1:num]
       "Sets initial roles: true = lead, false = lag";
 
-    EquipmentRotation_n leaLag(stagingRuntime=5*60*60,
-      num=num,
-      initRoles=initRoles)
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.EquipmentRotation_n leaLag(
+      final stagingRuntime=5*60*60,
+      final num=num,
+      final initRoles=initRoles)
       annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
-    CDL.Logical.Sources.Pulse leadLoad[num](width=0.8, period=2*60*60)
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.EquipmentRotation_n leaSta(
+      final stagingRuntime=5*60*60,
+      final num=num,
+      final initRoles=initRoles)
+      annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+
+protected
+    Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad[num](
+      final width=0.8,
+      final period=2*60*60)
       "Lead device on/off status"
       annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-    CDL.Logical.Sources.Pulse lagLoad[num](width=0.2, period=2*60*60)
+    Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad[num](
+      final width=0.2,
+      final period=2*60*60)
       annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-    CDL.Logical.LogicalSwitch logSwi[num]
+    Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[num]
       annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-    EquipmentRotation_n leaSta(
-      stagingRuntime=5*60*60,
-      num=num,
-      initRoles=initRoles)
-      annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-
-    CDL.Logical.Sources.Pulse leadLoad1[num](width=0.8, period=2*60*60)
+    Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad1[num](
+      final width=0.8,
+      final period=2*60*60)
       "Lead device on/off status"
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-    CDL.Logical.Sources.Constant standby[num](k=false)
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant standby[num](final k=false)
       annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-    CDL.Logical.LogicalSwitch logSwi1[num]
+    Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[num]
       annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
-    CDL.Logical.Pre pre[num](pre_u_start=initRoles)
+    Buildings.Controls.OBC.CDL.Logical.Pre pre[num](
+      final pre_u_start=initRoles)
       annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
-    CDL.Logical.Pre pre1[num](pre_u_start=initRoles)
+    Buildings.Controls.OBC.CDL.Logical.Pre pre1[num](
+      final pre_u_start=initRoles)
       annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
   equation

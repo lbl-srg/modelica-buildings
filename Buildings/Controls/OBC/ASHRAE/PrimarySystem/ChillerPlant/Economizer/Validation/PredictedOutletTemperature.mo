@@ -23,7 +23,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
     final freqHz=1/600,
     final offset=aveVChiWat_flow,
-    final amplitude=0.002)        "Chilled water flow"
+    final amplitude=0.002) "Chilled water flow"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
   Buildings.Controls.OBC.CDL.Discrete.Sampler sam1(
