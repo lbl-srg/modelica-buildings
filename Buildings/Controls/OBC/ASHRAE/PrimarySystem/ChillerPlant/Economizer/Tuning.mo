@@ -5,15 +5,14 @@ block Tuning
   parameter Real step=0.02
   "Tuning step";
 
-  final parameter Real tunPar_init = 0
-  "Initial value of the tuning parameter";
-
   parameter Modelica.SIunits.Time ecoOnTimDec = 60*60
   "Economizer enable time needed to allow decrease of the tuning parameter";
 
   parameter Modelica.SIunits.Time ecoOnTimInc = 30*60
   "Economizer enable time needed to allow increase of the tuning parameter";
 
+  final parameter Real initTunPar = 0
+  "Initial value of the tuning parameter";
 
   CDL.Interfaces.BooleanInput uEcoSta
     "Water side economizer enable disable status"
@@ -56,7 +55,7 @@ block Tuning
   CDL.Continuous.Sources.Constant ecoOnTim1(k=ecoOnTimInc)
     "Check if econ was on for the defined time period"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  CDL.Discrete.TriggeredSampler triSam1(y_start=tunPar_init)
+  CDL.Discrete.TriggeredSampler triSam1(y_start=initTunPar)
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
   CDL.Logical.Pre pre1
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
