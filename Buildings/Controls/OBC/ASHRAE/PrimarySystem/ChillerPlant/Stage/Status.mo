@@ -26,7 +26,7 @@ block Status
     final unit="1") = 0.8
     "Minimum operating part load ratio of the next lower stage before staging down";
 
-  Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta(
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta(
     final min = 0,
     final max = numSta,
     final start = 0)
@@ -36,28 +36,28 @@ block Status
         rotation=0,
         origin={-110,90})));
 
-  Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
     iconTransformation(extent={{-120,-80},{-100,-60}})));
 
-  Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
       iconTransformation(extent={{-120,0},{-100,20}})));
 
-  Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply setpoint temperature"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
     iconTransformation(extent={{-120,40},{-100,60}})));
 
-  Buildings.Controls.OBC.Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiSta(
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiSta(
     final min=0,
     final max=numSta)
     "Chiller stage"
