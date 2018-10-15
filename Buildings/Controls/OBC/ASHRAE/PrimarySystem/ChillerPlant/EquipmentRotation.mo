@@ -30,7 +30,7 @@ block EquipmentRotation
 
   CDL.Continuous.GreaterEqualThreshold greEquThr[num](
     final threshold=stagingRuntime)
-    "Stagin runtime hysteresis"
+    "Staging runtime hysteresis"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   CDL.Logical.And3 and3[num]

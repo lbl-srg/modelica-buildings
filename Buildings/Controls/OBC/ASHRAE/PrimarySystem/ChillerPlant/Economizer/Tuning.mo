@@ -11,78 +11,107 @@ block Tuning
   parameter Modelica.SIunits.Time wseOnTimInc = 30*60
   "Economizer enable time needed to allow increase of the tuning parameter";
 
-  final parameter Real initTunPar = 0
-  "Initial value of the tuning parameter";
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEcoSta
     "waterside economizer enable disable status"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe "waterside economizer tower fan speed"
+    annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
-    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge
-                     falEdg
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant wseOnTim(k=wseOnTimDec)
-    "Check if econ was on for the defined time period"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tunStep(k=step) "Tuning step"
-    annotation (Placement(transformation(extent={{0,120},{20,140}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam(y_start=0)
-    annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTunPar(min=-0.2, max=0.5)
     "Tuning parameter for the waterside economizer outlet temperature prediction "
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(k1=-1)
+
+protected
+  final parameter Real initTunPar = 0
+  "Initial value of the tuning parameter";
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim "Timer"
+    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
+
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg "Falling edge"
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and2 "And"
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu "Greater or equal than"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant wseOnTim(
+    final k=wseOnTimDec)
+    "Check if econ was on for the defined time period"
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tunStep(
+    final k=step) "Tuning step"
+    annotation (Placement(transformation(extent={{0,120},{20,140}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam(y_start=0)
+    annotation (Placement(transformation(extent={{60,100},{80,120}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=-1) "Add"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre"
     annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1 "Timer"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge
-                     falEdg1
+
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1 "Falling edge"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and1
+
+  Buildings.Controls.OBC.CDL.Logical.And3 and1 "And"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessEqual    lesEqu
+
+  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEqu "Less equal than"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant wseOnTim1(k=wseOnTimInc)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant wseOnTim1(
+    final k=wseOnTimInc)
     "Check if econ was on for the defined time period"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1(y_start=initTunPar)
+
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1(
+    final y_start=initTunPar) "Sampler"
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Pre"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe "waterside economizer tower fan speed"
-    annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less         lesEqu1
+
+  Buildings.Controls.OBC.CDL.Continuous.Less lesEqu1 "Less equal"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant MaxTowFanSpe(k=1) "Maximal tower fan speed"
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant MaxTowFanSpe(
+    final k=1)
+    "Maximal tower fan speed"
     annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam2(y_start=0)
+
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam2(
+    final y_start=0) "Sampler"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Zero(k=0) "Maximal tower fan speed"
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Zero(
+    final k=0)
+    "Minimal tower fan speed"
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+
+  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-74,-200},{-54,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=0.5)
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+    final threshold=0.5)
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
+
 equation
   connect(uEcoSta, tim.u)
     annotation (Line(points={{-200,60},{-160,60},{-160,90},{-122,90}},
                                                      color={255,0,255}));
   connect(uEcoSta, falEdg.u) annotation (Line(points={{-200,60},{-160,60},{-160,
-          20},{-122,20}},
-                      color={255,0,255}));
+          20},{-122,20}},color={255,0,255}));
   connect(greEqu.u2, wseOnTim.y) annotation (Line(points={{-82,82},{-90,82},{-90,
           60},{-99,60}}, color={0,0,127}));
   connect(tim.y, greEqu.u1)
@@ -159,7 +188,11 @@ equation
           extent={{-180,-220},{180,180}})),
 Documentation(info="<html>
 <p>
-Fixme
+Waterside economizer outlet temperature prediction tuning parameter subsequence 
+per OBC Chilled Water Plant Sequence of Operation, section 3.2.3.3. The parameter
+is increased or decreased in a <code>step</code> depending on how long the
+the economizer remained enabled and the value of the cooling tower fan speed signal 
+<code>uTowFanSpe</code>.
 </p>
 </html>",
 revisions="<html>

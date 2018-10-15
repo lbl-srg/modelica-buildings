@@ -38,7 +38,9 @@ block PredictedOutletTemperature
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division heaExcPlr "Heat exchanger flow part load ratio"
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Division heaExcPlr
+    "Heat exchanger flow part load ratio"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant des_flow(
@@ -46,7 +48,8 @@ block PredictedOutletTemperature
     "Heat exchanger design flow"
     annotation (Placement(transformation(extent={{-112,40},{-92,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaAppDes(final k=heaExcAppDes)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaAppDes(
+    final k=heaExcAppDes)
     "Heat exchanger design approach"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
@@ -56,21 +59,26 @@ block PredictedOutletTemperature
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k1=-1) "Adder"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWetDes(final k=TOutWetDes)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWetDes(
+    final k=TOutWetDes)
     "Design outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towAppDes1(k=cooTowAppDes)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towAppDes1(
+    final k=cooTowAppDes)
     "Cooling tower design approach"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(final nin=4) "Sum of multiple inputs"
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(final nin=4)
+    "Sum of multiple inputs"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(final uMax=1, final uMin=0) "Limiter"
+  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
+    final uMax=1,
+    final uMin=0) "Limiter"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
 
 equation

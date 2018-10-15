@@ -9,27 +9,34 @@ model PredictedOutletTemperature
   "Average measured chilled water return temperature";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.PredictedOutletTemperature
-    wseTOut annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  CDL.Continuous.Sources.Sine TOutWetSig(
-    amplitude=2,
-    freqHz=1/600,
-    offset=aveTWetBul)
-                   "Measured outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  CDL.Continuous.Sources.Sine chiWatFlow(
-    freqHz=1/600,
-    offset=aveVChiWat_flow,
-    amplitude=0.002)        "Chilled water flow"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Discrete.Sampler       sam1(     samplePeriod=60)
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  CDL.Continuous.Sources.Ramp ram(
-    offset=-0.2,
-    height=0.7,
-    duration=2100)
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-equation
+    wseTOut "Waterside economizer outlet temperature prediction"
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOutWetSig(
+    final amplitude=2,
+    final freqHz=1/600,
+    final offset=aveTWetBul)
+    "Measured outdoor air wet bulb temperature"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
+    final freqHz=1/600,
+    final offset=aveVChiWat_flow,
+    final amplitude=0.002)        "Chilled water flow"
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sam1(
+    final samplePeriod=60)
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+    final offset=-0.2,
+    final height=0.7,
+    final duration=2100)
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
+equation
   connect(ram.y, sam1.u)
     annotation (Line(points={{-59,-70},{-42,-70}}, color={0,0,127}));
   connect(sam1.y, wseTOut.uTunPar) annotation (Line(points={{-19,-70},{0,-70},{0,
