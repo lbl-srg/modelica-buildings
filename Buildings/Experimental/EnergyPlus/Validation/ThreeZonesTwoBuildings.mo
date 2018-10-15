@@ -8,8 +8,10 @@ model ThreeZonesTwoBuildings
   parameter String idfName1=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
+  // fixme: Change RefBldgSmallOfficeNew2004_Chicago.idf to RefBldgSmallOfficeNew2004_Chicago2.idf to enable two buildings.
+  // See
   parameter String idfName2=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago2.idf")
+    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
@@ -34,7 +36,7 @@ model ThreeZonesTwoBuildings
     weaName=weaName,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Perimeter_ZN_1") "Thermal zone"
+    zoneName="Perimeter_ZN_3") "Thermal zone"
     annotation (Placement(transformation(extent={{20,-84},{60,-44}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
