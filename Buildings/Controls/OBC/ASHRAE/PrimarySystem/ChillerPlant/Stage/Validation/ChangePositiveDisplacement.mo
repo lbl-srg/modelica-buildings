@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Validation;
-model StageChangePositiveDisplacement
+model ChangePositiveDisplacement
   "Validates stage change for positive displacement chillers (screw, scroll)"
 
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
@@ -21,16 +21,16 @@ model StageChangePositiveDisplacement
     staChaPosDis1 "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
-  ChangePositiveDisplacement staChaPosDis2
-    "Determines if the stage should go up, down or stay constant"
+  .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.ChangePositiveDisplacement
+    staChaPosDis2 "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
-  ChangePositiveDisplacement staChaPosDis3
-    "Determines if the stage should go up, down or stay constant"
+  .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.ChangePositiveDisplacement
+    staChaPosDis3 "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
-  ChangePositiveDisplacement staChaPosDis4
-    "Determines if the stage should go up, down or stay constant"
+  .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.ChangePositiveDisplacement
+    staChaPosDis4 "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stageMax(k=2) "Last stage"
@@ -138,4 +138,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));
-end StageChangePositiveDisplacement;
+end ChangePositiveDisplacement;
