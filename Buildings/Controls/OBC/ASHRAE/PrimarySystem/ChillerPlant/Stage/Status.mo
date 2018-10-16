@@ -135,8 +135,9 @@ equation
                                   color={0,0,127}));
   connect(maxInt.y, intToRea.u)
     annotation (Line(points={{61,-30},{68,-30}}, color={255,127,0}));
-  connect(intToRea.y, uniDel.u) annotation (Line(points={{91,-30},{100,-30},{100,
-          0},{78,0}}, color={0,0,127}));
+  connect(intToRea.y, uniDel.u) annotation (Line(points={{91,-30},{96,-30},{96,
+          -14},{102,-14},{102,0},{78,0}},
+                      color={0,0,127}));
   connect(uniDel.y, reaToInt.u)
     annotation (Line(points={{101,0},{108,0}}, color={0,0,127}));
   connect(yChiSta, reaToInt.y)

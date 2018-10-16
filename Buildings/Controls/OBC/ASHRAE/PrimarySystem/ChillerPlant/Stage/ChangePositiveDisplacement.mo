@@ -11,6 +11,9 @@ block ChangePositiveDisplacement
   parameter Real staDowPlr(min = 0, max = 1, unit="1") = 0.8
   "Minimum operating part load ratio of the next lower stage before staging down";
 
+  parameter Modelica.SIunits.Time delayStaCha = 15*60
+  "Minimum chiller load time below or above current stage before a change is enabled";
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
@@ -19,20 +22,20 @@ block ChangePositiveDisplacement
     final unit="W",
     final quantity="Power")
     "Chilled water cooling capacity requirement"
-    annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
+    annotation (Placement(transformation(extent={{-180,-30},{-140,10}}),
     iconTransformation(extent={{-120,-60},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapNomSta(
     final unit="W",
     final quantity="Power")
     "Nominal capacity of the current stage"
-    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
+    annotation (Placement(transformation(extent={{-180,30},{-140,70}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapNomLowSta(
     final unit="W",
     final quantity="Power") "Nominal capacity of the first lower stage"
-    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
+    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
         iconTransformation(extent={{-120,-20},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiStaCha(
@@ -76,10 +79,10 @@ block ChangePositiveDisplacement
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
-    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
-    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt(k2=-1)
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
@@ -96,6 +99,10 @@ block ChangePositiveDisplacement
     "Operating part load ratio limit for lower and upper extremes"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
+  CDL.Logical.TrueDelay truDel(delayTime=delayStaCha)
+    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+  CDL.Logical.TrueDelay truDel1(delayTime=delayStaCha)
+    annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
 equation
   connect(uChiSta, intEqu.u1) annotation (Line(points={{-160,100},{-130,100},{-130,
           -70},{-82,-70}},      color={255,127,0}));
@@ -128,24 +135,30 @@ equation
   connect(opePlrSta.y, greEqu.u1)
     annotation (Line(points={{-19,40},{38,40}},
                                               color={0,0,127}));
-  connect(lesEqu.y, booToInt1.u) annotation (Line(points={{61,-30},{78,-30}},
-                               color={255,0,255}));
-  connect(booToInt.y, addInt.u1) annotation (Line(points={{101,40},{124,40},{124,
+  connect(booToInt.y, addInt.u1) annotation (Line(points={{121,40},{124,40},{124,
           6},{138,6}},     color={255,127,0}));
-  connect(booToInt1.y, addInt.u2) annotation (Line(points={{101,-30},{124,-30},{
+  connect(booToInt1.y, addInt.u2) annotation (Line(points={{121,-30},{124,-30},{
           124,-6},{138,-6}},  color={255,127,0}));
-  connect(uCapReq, opePlrLowSta.u1) annotation (Line(points={{-160,-90},{-100,-90},
-          {-100,-44},{-42,-44}}, color={0,0,127}));
-  connect(uCapNomLowSta, opePlrLowSta.u2) annotation (Line(points={{-160,-20},{-50,
-          -20},{-50,-56},{-42,-56}}, color={0,0,127}));
-  connect(uCapNomSta, opePlrSta.u2) annotation (Line(points={{-160,20},{-50,20},
+  connect(uCapReq, opePlrLowSta.u1) annotation (Line(points={{-160,-10},{-100,
+          -10},{-100,-44},{-42,-44}},
+                                 color={0,0,127}));
+  connect(uCapNomLowSta, opePlrLowSta.u2) annotation (Line(points={{-160,20},{
+          -50,20},{-50,-56},{-42,-56}},
+                                     color={0,0,127}));
+  connect(uCapNomSta, opePlrSta.u2) annotation (Line(points={{-160,50},{-50,50},
           {-50,34},{-42,34}}, color={0,0,127}));
-  connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-160,-90},{-100,-90},
+  connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-160,-10},{-100,-10},
           {-100,46},{-42,46}}, color={0,0,127}));
   connect(addInt.y, yChiStaCha)
     annotation (Line(points={{161,0},{190,0}}, color={255,127,0}));
-  connect(greEqu.y, booToInt.u)
-    annotation (Line(points={{61,40},{78,40}}, color={255,0,255}));
+  connect(greEqu.y, truDel.u)
+    annotation (Line(points={{61,40},{68,40}}, color={255,0,255}));
+  connect(booToInt.u, truDel.y)
+    annotation (Line(points={{98,40},{91,40}}, color={255,0,255}));
+  connect(lesEqu.y, truDel1.u)
+    annotation (Line(points={{61,-30},{68,-30}}, color={255,0,255}));
+  connect(booToInt1.u, truDel1.y)
+    annotation (Line(points={{98,-30},{91,-30}}, color={255,0,255}));
   annotation (defaultComponentName = "staChaPosDis",
         Icon(graphics={
         Rectangle(
