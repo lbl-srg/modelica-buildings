@@ -20,7 +20,7 @@ block Tuning
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTunPar(min=-0.2, max=0.5)
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(min=-0.2, max=0.5)
     "Tuning parameter for the waterside economizer outlet temperature prediction "
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
@@ -121,7 +121,7 @@ equation
   connect(triSam.y, add2.u1) annotation (Line(points={{81,110},{90,110},{90,6},{
           98,6}},
                 color={0,0,127}));
-  connect(add2.y, yTunPar)
+  connect(add2.y, y)
     annotation (Line(points={{121,0},{190,0}}, color={0,0,127}));
   connect(and2.y, triSam.trigger)
     annotation (Line(points={{21,90},{70,90},{70,98.2}}, color={255,0,255}));

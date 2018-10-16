@@ -70,10 +70,10 @@ block Status "waterside economizer enable/disable status"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
     iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEcoSta
-    "waterside economizer enable disable status"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Waterside economizer enable disable status" annotation (Placement(
+        transformation(extent={{160,-10},{180,10}}), iconTransformation(extent=
+            {{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Tuning wseTun(
     final step=step,
@@ -139,8 +139,8 @@ equation
   connect(uTowFanSpe, wseTun.uTowFanSpe)
     annotation (Line(points={{-180,-100},{-132,-100},{-132,-105},{-122,-105}},
     color={0,0,127}));
-  connect(wseTun.yTunPar, wseTOut.uTunPar)
-    annotation (Line(points={{-99,-100},{-90,-100},{-90,42},{-82,42}},color={0,0,127}));
+  connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-99,-100},{-90,-100},
+          {-90,42},{-82,42}}, color={0,0,127}));
   connect(TOutWet, wseTOut.TOutWet)
     annotation (Line(points={{-180,100},{-100,100},{-100,58},{-82,58}},color={0,0,127}));
   connect(wseTOut.TEcoOut_pred, add2.u1)
@@ -166,9 +166,8 @@ equation
   connect(truFalHol.y, pre.u)
     annotation (Line(points={{121,20},{140,20},{140,-30},
           {108,-30},{108,-50},{118,-50}}, color={255,0,255}));
-  connect(truFalHol.y, yEcoSta)
-    annotation (Line(points={{121,20},{140,20},{140,
-          0},{170,0}}, color={255,0,255}));
+  connect(truFalHol.y, y) annotation (Line(points={{121,20},{140,20},{140,0},{
+          170,0}}, color={255,0,255}));
   connect(greDis.y, not1.u)
     annotation (Line(points={{41,-10},{44,-10},{44,10},{
           48,10}}, color={255,0,255}));
