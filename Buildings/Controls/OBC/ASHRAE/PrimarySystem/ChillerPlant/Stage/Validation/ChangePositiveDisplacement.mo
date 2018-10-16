@@ -67,57 +67,75 @@ model ChangePositiveDisplacement
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sta0Cap(k=0.000001)
                                                "Nominal stage 0 capacity "
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
+  CDL.Continuous.Sources.Constant                        sta0Cap1(k=0.000001)
+                                               "Nominal stage 0 capacity "
+    annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
+  CDL.Continuous.Sources.Constant                        sta0Cap2(k=0.000001)
+                                               "Nominal stage 0 capacity "
+    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
+  CDL.Continuous.Sources.Constant                        sta0Cap3(k=0.000001)
+                                               "Nominal stage 0 capacity "
+    annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
+  CDL.Continuous.Sources.Constant                        sta0Cap4(k=0.000001)
+                                               "Nominal stage 0 capacity "
+    annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
+  CDL.Continuous.Sources.Constant                        sta0Cap5(k=0.000001)
+                                               "Nominal stage 0 capacity "
+    annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
+  CDL.Continuous.Sources.Constant                        sta0Cap6(k=0.000001)
+                                               "Nominal stage 0 capacity "
+    annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
 equation
 
   connect(stage0.y, staChaPosDis.uChiSta) annotation (Line(points={{41,110},{50,
-          110},{50,130},{90,130},{90,118},{99,118}}, color={255,127,0}));
+          110},{50,130},{90,130},{90,120},{99,120}}, color={255,127,0}));
   connect(capReq1.y, staChaPosDis.uCapReq) annotation (Line(points={{41,70},{90,
-          70},{90,105},{99,105}}, color={0,0,127}));
+          70},{90,106},{99,106}}, color={0,0,127}));
   connect(stage1.y, staChaPosDis1.uChiSta) annotation (Line(points={{-99,110},{-90,
-          110},{-90,128},{-30,128},{-30,118},{-21,118}}, color={255,127,0}));
+          110},{-90,128},{-30,128},{-30,120},{-21,120}}, color={255,127,0}));
   connect(capReq2.y, staChaPosDis1.uCapReq) annotation (Line(points={{-59,50},{-30,
-          50},{-30,105},{-21,105}}, color={0,0,127}));
-  connect(NomSta1LowCap.y, staChaPosDis1.uCapNomLowSta) annotation (Line(points=
-         {{-59,80},{-40,80},{-40,109},{-21,109}}, color={0,0,127}));
-  connect(NomSta1Cap.y, staChaPosDis1.uCapNomSta) annotation (Line(points={{-59,
-          110},{-40,110},{-40,113},{-21,113}}, color={0,0,127}));
+          50},{-30,106},{-21,106}}, color={0,0,127}));
+  connect(NomSta1LowCap.y, staChaPosDis1.uCapNomLowSta) annotation (Line(points={{-59,80},
+          {-40,80},{-40,108},{-21,108}},          color={0,0,127}));
+  connect(NomSta1Cap.y, staChaPosDis1.uCapNomSta) annotation (Line(points={{-59,110},
+          {-40,110},{-40,110},{-21,110}},      color={0,0,127}));
   connect(sta0Cap.y, staChaPosDis.uCapNomSta) annotation (Line(points={{81,110},
-          {90,110},{90,113},{99,113}}, color={0,0,127}));
+          {90,110},{90,110},{99,110}}, color={0,0,127}));
   connect(sta0Cap.y, staChaPosDis.uCapNomLowSta) annotation (Line(points={{81,110},
-          {90,110},{90,109},{99,109}}, color={0,0,127}));
+          {90,110},{90,108},{99,108}}, color={0,0,127}));
   connect(stageMax.y, staChaPosDis2.uChiSta) annotation (Line(points={{-99,-10},
-          {-80,-10},{-80,-2},{-21,-2}}, color={255,127,0}));
-  connect(NomStaCap2.y, staChaPosDis2.uCapNomSta) annotation (Line(points={{-59,
-          -30},{-40,-30},{-40,-7},{-21,-7}}, color={0,0,127}));
-  connect(NomSta1Cap.y, staChaPosDis2.uCapNomLowSta) annotation (Line(points={{-59,
-          110},{-42,110},{-42,-11},{-21,-11}}, color={0,0,127}));
+          {-80,-10},{-80,0},{-21,0}},   color={255,127,0}));
+  connect(NomStaCap2.y, staChaPosDis2.uCapNomSta) annotation (Line(points={{-59,-30},
+          {-40,-30},{-40,-10},{-21,-10}},    color={0,0,127}));
+  connect(NomSta1Cap.y, staChaPosDis2.uCapNomLowSta) annotation (Line(points={{-59,110},
+          {-42,110},{-42,-12},{-21,-12}},      color={0,0,127}));
   connect(capReq1.y, staChaPosDis2.uCapReq) annotation (Line(points={{41,70},{60,
-          70},{60,30},{-32,30},{-32,-15},{-21,-15}}, color={0,0,127}));
+          70},{60,30},{-32,30},{-32,-14},{-21,-14}}, color={0,0,127}));
   connect(stageMax.y, staChaPosDis4.uChiSta) annotation (Line(points={{-99,-10},
-          {-90,-10},{-90,-62},{-21,-62}}, color={255,127,0}));
+          {-90,-10},{-90,-60},{-21,-60}}, color={255,127,0}));
   connect(capReq3.y, staChaPosDis4.uCapReq) annotation (Line(points={{-59,-90},{
-          -40,-90},{-40,-75},{-21,-75}}, color={0,0,127}));
-  connect(NomStaCap2.y, staChaPosDis4.uCapNomSta) annotation (Line(points={{-59,
-          -30},{-40,-30},{-40,-67},{-21,-67}}, color={0,0,127}));
-  connect(NomSta1Cap.y, staChaPosDis4.uCapNomLowSta) annotation (Line(points={{-59,
-          110},{-40,110},{-40,-71},{-21,-71}}, color={0,0,127}));
+          -40,-90},{-40,-74},{-21,-74}}, color={0,0,127}));
+  connect(NomStaCap2.y, staChaPosDis4.uCapNomSta) annotation (Line(points={{-59,-30},
+          {-40,-30},{-40,-70},{-21,-70}},      color={0,0,127}));
+  connect(NomSta1Cap.y, staChaPosDis4.uCapNomLowSta) annotation (Line(points={{-59,110},
+          {-40,110},{-40,-72},{-21,-72}},      color={0,0,127}));
   connect(stageMax.y, staChaPosDis3.uChiSta) annotation (Line(points={{-99,-10},
-          {-90,-10},{-90,12},{80,12},{80,-2},{99,-2}}, color={255,127,0}));
-  connect(staChaPosDis3.uCapReq, capReq0.y) annotation (Line(points={{99,-15},{80.5,
-          -15},{80.5,-50},{61,-50}}, color={0,0,127}));
-  connect(NomStaCap2.y, staChaPosDis3.uCapNomSta) annotation (Line(points={{-59,
-          -30},{20,-30},{20,-7},{99,-7}}, color={0,0,127}));
-  connect(NomSta1Cap.y, staChaPosDis3.uCapNomLowSta) annotation (Line(points={{-59,
-          110},{-44,110},{-44,-28},{22,-28},{22,-11},{99,-11}}, color={0,0,127}));
+          {-90,-10},{-90,12},{80,12},{80,0},{99,0}},   color={255,127,0}));
+  connect(staChaPosDis3.uCapReq, capReq0.y) annotation (Line(points={{99,-14},{80.5,
+          -14},{80.5,-50},{61,-50}}, color={0,0,127}));
+  connect(NomStaCap2.y, staChaPosDis3.uCapNomSta) annotation (Line(points={{-59,-30},
+          {20,-30},{20,-10},{99,-10}},    color={0,0,127}));
+  connect(NomSta1Cap.y, staChaPosDis3.uCapNomLowSta) annotation (Line(points={{-59,110},
+          {-44,110},{-44,-28},{22,-28},{22,-12},{99,-12}},      color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Stage/Validation/fixme.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Stage/Validation/ChangePositiveDisplacement.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.TowerWaterLevel\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.TowerWaterLevel</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.ChangePositiveDisplacement\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.ChangePositiveDisplacement</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -137,5 +155,5 @@ Icon(graphics={
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},{140,140}})));
 end ChangePositiveDisplacement;

@@ -25,27 +25,27 @@ block ChangePositiveDisplacement
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-220,120},{-180,160}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
+        iconTransformation(extent={{-120,90},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapReq(
     final unit="W",
     final quantity="Power")
     "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
-    iconTransformation(extent={{-120,-60},{-100,-40}})));
+    iconTransformation(extent={{-120,-50},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapNomSta(
     final unit="W",
     final quantity="Power")
     "Nominal capacity of the current stage"
     annotation (Placement(transformation(extent={{-220,70},{-180,110}}),
-      iconTransformation(extent={{-120,20},{-100,40}})));
+      iconTransformation(extent={{-120,-10},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapNomLowSta(
     final unit="W",
     final quantity="Power") "Nominal capacity of the first lower stage"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
-        iconTransformation(extent={{-120,-20},{-100,0}})));
+        iconTransformation(extent={{-120,-30},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiStaCha(
     final max=1,
@@ -118,16 +118,16 @@ block ChangePositiveDisplacement
       final quantity="ThermodynamicTemperature")
     "Chilled water return temperature downstream of WSE"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
-      iconTransformation(extent={{-120,0},{-100,20}})));
+      iconTransformation(extent={{-120,20},{-100,40}})));
   CDL.Interfaces.RealInput TChiWatSup(final unit="K", final quantity="ThermodynamicTemperature")
     "Chilled water return temperature" annotation (Placement(transformation(
-          extent={{-220,-150},{-180,-110}}), iconTransformation(extent={{-120,0},
-            {-100,20}})));
+          extent={{-220,-150},{-180,-110}}), iconTransformation(extent={{-120,40},
+            {-100,60}})));
   CDL.Interfaces.RealInput                        TChiWatSupSet(final unit="K",
       final quantity="ThermodynamicTemperature")
     "Chilled water supply setpoint temperature"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
-    iconTransformation(extent={{-120,40},{-100,60}})));
+    iconTransformation(extent={{-120,60},{-100,80}})));
   CDL.Logical.And andStaDow "And for staging down"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   CDL.Logical.And3 andStaUp
@@ -146,18 +146,19 @@ block ChangePositiveDisplacement
       final quantity="PressureDifference")
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-120,-80},{-100,-60}})));
 
   CDL.Interfaces.RealInput chiWatPumSpe(final unit="Pa", final quantity="PressureDifference")
     "Chilled water pump speed"
     annotation (Placement(transformation(extent={{-220,
-            -280},{-180,-240}}), iconTransformation(extent={{-140,-100},{-100,-60}})));
+            -280},{-180,-240}}), iconTransformation(extent={{-120,-100},{-100,
+            -80}})));
 
   CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa", final quantity="PressureDifference")
     "Chilled water pump differential static pressure"
     annotation (Placement(
         transformation(extent={{-220,-250},{-180,-210}}), iconTransformation(
-          extent={{-140,-100},{-100,-60}})));
+          extent={{-120,-120},{-100,-100}})));
 
   CDL.Continuous.GreaterThreshold greThr(threshold=chiWatPumSpeThr)
     annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
