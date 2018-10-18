@@ -128,9 +128,9 @@ block ChangePositiveDisplacement
     "Chilled water supply setpoint temperature"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
     iconTransformation(extent={{-120,60},{-100,80}})));
-  CDL.Logical.And andStaDow "And for staging down"
+  CDL.Logical.Or  andStaDow "And for staging down"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  CDL.Logical.And3 andStaUp
+  CDL.Logical.Or3  andStaUp
                            "And for staging up"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
   CDL.Continuous.Greater gre

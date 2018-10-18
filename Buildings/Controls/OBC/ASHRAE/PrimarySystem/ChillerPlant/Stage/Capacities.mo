@@ -91,8 +91,15 @@ block Capacities
     "Minimum part load ratio of the first stage"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
+<<<<<<< HEAD
   CDL.Routing.RealExtractor extIndSig(outOfRangeValue=-1)
     annotation (Placement(transformation(extent={{-208,-72},{-188,-52}})));
+=======
+  CDL.Routing.RealExtractSignal extSig
+    annotation (Placement(transformation(extent={{-174,50},{-154,70}})));
+  CDL.Routing.RealExtractor extIndSig
+    annotation (Placement(transformation(extent={{-210,-62},{-190,-42}})));
+>>>>>>> a446fdb5a3611046f69a50045823e855a5ed32c1
 equation
   connect(uChiSta, intEqu.u1)
     annotation (Line(points={{-180,0},{-90,0},{-90,-90},{-82,-90}},
