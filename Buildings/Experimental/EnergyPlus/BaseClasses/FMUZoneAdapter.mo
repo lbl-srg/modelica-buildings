@@ -79,7 +79,7 @@ protected
 
   parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";
 
-  discrete Modelica.SIunits.Time tLast "Last time of data exchange";
+  discrete Modelica.SIunits.Time tLast(fixed=true, start=t0) "Last time of data exchange";
   discrete Modelica.SIunits.Time dtLast "Time step since the last synchronization";
   Modelica.SIunits.Mass mInlInt
     "Time integrated positive mass flow rate into the room since the last sampling";
@@ -87,13 +87,19 @@ protected
   Real mTInt(unit="K.kg")
     "Time integrated product of positive mass flow rates times inlet temperature since last sampling";
 
-  discrete Modelica.SIunits.MassFlowRate mInlet_flow "Time averaged inlet mass flow rate";
-  discrete Modelica.SIunits.Temperature TAveInlet "Time averaged inlet temperature";
+  discrete Modelica.SIunits.MassFlowRate mInlet_flow
+     "Time averaged inlet mass flow rate";
+  discrete Modelica.SIunits.Temperature TAveInlet
+    "Time averaged inlet temperature";
 
-  Modelica.SIunits.Temperature T0 "Room air temperature at last sampling";
-  Modelica.SIunits.HeatFlowRate QCon0_flow
-    "Convective sensible heat to be added to zone air if T = T0";
-  Real dQCon_flow(unit="W/K")
+  discrete Modelica.SIunits.Temperature TRooLast
+     "Room air temperature at last sampling";
+  discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
+    fixed=false,
+    start=0)
+    "Convective sensible heat to be added to zone air if T = TRooLast";
+  discrete Real dQCon_flow(
+    final unit="W/K")
     "Derivative dQCon_flow / dT";
 
   function round
@@ -107,21 +113,19 @@ protected
 
 initial equation
   t0 = time;
-  tLast = time;
-  dtLast = 0;
-  mInlInt = 0;
-  mTInt = 0;
   (AFlo, V, mSenFac) = Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
     adapter = adapter,
-    t0 = t0);
-  T0 = T;
+    t0 = time);
+  //TRooLast = T;
+
+  // Initialization of output variables.
 
 equation
   der(mInlInt) = sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
   der(mTInt) = sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor);
 
   when {initial(), time >= pre(tNext)} then
-    T0 = T;
+    TRooLast = T;
     dtLast = time-pre(tLast);
     //Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
     if (dtLast > 1E-6) then
@@ -131,7 +135,7 @@ equation
       mInlet_flow = 0;
       TAveInlet = 293.15;
     end if;
-    (TRad, QCon0_flow, dQCon_flow, QLat_flow, QPeo_flow, tNextEP) =
+    (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNextEP) =
       Buildings.Experimental.EnergyPlus.BaseClasses.exchange(
       adapter,
       T,
@@ -161,7 +165,7 @@ equation
     //Modelica.Utilities.Streams.print("Time = " + String(time) + "\t tNextEP = " + String(tNextEP) + "\t tNext = " + String(tNext));
     tLast = time;
   end when;
-  QCon_flow = QCon0_flow + (T-T0) * dQCon_flow;
+  QCon_flow = QConLast_flow + (T-TRooLast) * dQCon_flow;
   annotation (Icon(graphics={Bitmap(extent={{-90,-86},{84,88}}, fileName=
             "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png")}),
       Documentation(info="<html>
