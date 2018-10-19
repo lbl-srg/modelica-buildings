@@ -125,7 +125,6 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
   const char* consInputNames[]={"T"};
   const char* consOutputNames[]={"QConSen_flow", "V", "AFlo", "mSenFac"};
 
-  ModelicaFormatMessage("Start time is set to %f.\n", t0);
   fmu = (FMU*)malloc(sizeof(FMU));
   FMUZone** tmpZon;
   tmpZon=(FMUZone**)malloc(nZon*sizeof(FMUZone*));

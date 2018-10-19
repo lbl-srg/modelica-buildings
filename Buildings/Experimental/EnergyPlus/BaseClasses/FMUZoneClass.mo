@@ -36,8 +36,12 @@ First implementation.
   function destructor "Release storage"
     input FMUZoneClass adapter;
     external "C" FMUZoneFree(adapter)
-    annotation(Include=" #include <FMUZoneFree.c>",
-    IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+    annotation (
+      Include="#include <FMUZoneFree.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      Library="dl");
+    // dl provides dlclose to close EnergyPlus dll
+
   annotation(Documentation(info="<html>
 <p>
 Destructor that frees the memory of the object

@@ -97,7 +97,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
      for the zone with zoneName can be obtained */
   unsigned int i;
 
-  ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName);
+  /* ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName); */
 
   /* ********************************************************************** */
   /* Initialize the zone */
