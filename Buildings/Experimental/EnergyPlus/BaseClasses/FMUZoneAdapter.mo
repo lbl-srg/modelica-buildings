@@ -144,8 +144,10 @@ equation
       TAveInlet,
       QGaiRad_flow,
       round(time, 1E-3));
-    // fixme reinit(mInlInt, 0);
-    // fixme  reinit(mTInt, 0);
+
+    reinit(mInlInt, 0);
+    reinit(mTInt, 0);
+
     // Guard against division by zero in first call
     //dtMax = min(tNextEP-time, round(dTMax * V * 1.2 *1006/max(1, abs(QCon_flow))/60)*60);
     //    if dT_dt > dT_dtMax then
@@ -178,7 +180,7 @@ of its class <code>adapter</code>, of EnergyPlus.
 <ul>
 <li>
 April 04, 2018, by Thierry S. Nouidui:<br/>
-Added additional parameters for parametrizing 
+Added additional parameters for parametrizing
 the EnergyPlus model.
 </li>
 <li>
