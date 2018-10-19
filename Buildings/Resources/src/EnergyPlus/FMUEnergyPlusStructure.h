@@ -61,14 +61,14 @@ typedef unsigned int (*fTerminate)(fmi2String log);
 
 
 typedef struct FMU{
-	HANDLE dllHandle;
-	fInstantiate instantiate;
-	fSetupExperiment setupExperiment;
-	fSetTime setTime;
-	fSetVariables setVariables;
-	fGetVariables getVariables;
-	fGetNextEventTime getNextEventTime;
-	fTerminate terminate;
+  HANDLE dllHandle;
+  fInstantiate instantiate;
+  fSetupExperiment setupExperiment;
+  fSetTime setTime;
+  fSetVariables setVariables;
+  fGetVariables getVariables;
+  fGetNextEventTime getNextEventTime;
+  fTerminate terminate;
 } FMU;
 
 typedef struct FMUBuilding

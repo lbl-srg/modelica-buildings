@@ -17,7 +17,7 @@
 #endif
 
 #ifndef max
-	#define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
+  #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
 #endif
 
 void* getAdr(FMU *fmu, const char* functionName){
@@ -167,10 +167,10 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   const int nInp = scaInp*nZon;
   const int nOut = scaOut*nZon;
 
-	const char** inputNames[nInp];
+  const char** inputNames[nInp];
   const char** outputNames[nOut];
 
-	fmi2ValueReference inputValueReferences[nInp];
+  fmi2ValueReference inputValueReferences[nInp];
   fmi2ValueReference outputValueReferences[nOut];
 
 /*
@@ -181,11 +181,11 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   fmi2ValueReference* outputValueReferences;
 
   inputValueReferences = malloc(nInp * sizeof(inputValueReferences));
-	if (inputValueReferences == NULL)
+  if (inputValueReferences == NULL)
     ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for inputValueReferences.");
 
-	outputValueReferences = malloc(nOut * sizeof(outputValueReferences));
-	if (outputValueReferences == NULL)
+  outputValueReferences = malloc(nOut * sizeof(outputValueReferences));
+  if (outputValueReferences == NULL)
     ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for outputValueReferences.");
 */
 
@@ -200,8 +200,8 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   if (inputNames == NULL)
     ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for inputNames.");
 
-	outputNames = (const char **) malloc(nOut * sizeof(char*));
-	if (outputNames == NULL)
+  outputNames = (const char **) malloc(nOut * sizeof(char*));
+  if (outputNames == NULL)
     ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for outputNames.");
 */
 
