@@ -8,8 +8,20 @@
 #include "FMUEnergyPlusStructure.h"
 #include <stdlib.h>
 
+void FMUBuildingFree(FMUBuilding* ptrBui){
+  if ( ptrBui != NULL ){
+    free(ptrBui->name);
+    free(ptrBui->weather);
+    free(ptrBui->idd);
+    free(ptrBui->epLib);
+    free(ptrBui->zoneNames);
+    free(ptrBui->zones);
+    dlclose(ptrBui->fmu->dllHandle);
+    free(ptrBui);
+  }
+}
+
 void FMUZoneFree(void* object){
-  int i;
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure
@@ -22,13 +34,7 @@ void FMUZoneFree(void* object){
     /* Check if the building FMU can be freed. */
     if (zone->ptrBui->nZon == 0){
       /* There is no more zone that uses this building FMU. */
-      free(zone->ptrBui->name);
-      free(zone->ptrBui->weather);
-      free(zone->ptrBui->idd);
-      free(zone->ptrBui->epLib);
-      free(zone->ptrBui->zoneNames);
-      free(zone->ptrBui->zones);
-      free(zone->ptrBui);
+      FMUBuildingFree(zone->ptrBui);
       Buildings_nFMU--;
       /* Check if there are any Buildings FMUs left. */
       if (Buildings_nFMU == 0){
