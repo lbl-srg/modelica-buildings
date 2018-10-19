@@ -8,8 +8,18 @@
 #include "FMUEnergyPlusStructure.h"
 #include <stdlib.h>
 
+void FMUBuildingFree(void* object){
+  if ( object != NULL ){
+    FMUBuilding* bld = (FMUBuilding*) object;
+    dlclose(bld->fmu->dllHandle);
+    free(bld);
+  }
+}
+
 void FMUZoneFree(void* object){
   int i;
+  ModelicaMessage("Enter FMUZoneFree.\n");
+
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure
@@ -29,6 +39,9 @@ void FMUZoneFree(void* object){
       free(zone->ptrBui->zoneNames);
       free(zone->ptrBui->zones);
       free(zone->ptrBui);
+      ModelicaMessage("Calling FMUBuildingFree.\n");
+      FMUBuildingFree(zone->ptrBui);
+      ModelicaMessage("Returned from FMUBuildingFree.\n");
       Buildings_nFMU--;
       /* Check if there are any Buildings FMUs left. */
       if (Buildings_nFMU == 0){
@@ -37,4 +50,5 @@ void FMUZoneFree(void* object){
     }
     free(zone);
   }
+  ModelicaMessage("Leaving FMUZoneFree.\n");
 }
