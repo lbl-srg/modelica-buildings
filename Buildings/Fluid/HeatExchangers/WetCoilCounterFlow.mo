@@ -4,8 +4,8 @@ model WetCoilCounterFlow
   extends Buildings.Fluid.HeatExchangers.DryCoilCounterFlow(
     redeclare replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialCondensingGases,
-    redeclare final
-      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent ele[nEle]);
+    redeclare final model HexElement =
+      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent);
 
   Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";

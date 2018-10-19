@@ -115,8 +115,8 @@ protected
     "Gain medium-side 2 to take discretization into account" annotation (
       Placement(transformation(extent={{-18,62},{-6,74}})));
 
-  replaceable BaseClasses.HexElementSensible ele[nEle]
-  constrainedby BaseClasses.PartialHexElement(
+  replaceable model HexElement = BaseClasses.HexElementSensible constrainedby BaseClasses.PartialHexElement;
+  HexElement ele[nEle](
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
     each allowFlowReversal1=allowFlowReversal1,
