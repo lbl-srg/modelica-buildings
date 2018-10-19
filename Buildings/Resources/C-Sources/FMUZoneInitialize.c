@@ -96,6 +96,58 @@ int loadLib(const char* libPath, FMU *fmu) {
 
 }
 
+void getParametersFromEnergyPlus(
+  FMU* fmu,
+  const char* buildingName,
+  const char* zoneName,
+  fmi2String* outputNames[],
+  const fmi2ValueReference outputValueReferences[],
+  size_t totNumOut,
+  double* AFlo,
+  double* V,
+  double* mSenFac){
+
+  int i;
+  int j;
+  int result;
+  double outputs[totNumOut];
+  const char* parNames[] = {"V","AFlo","mSenFac"};
+  double parValues[3];
+  char* outNamEP;
+
+  /* Get initial output variables */
+  result = fmu->getVariables(outputValueReferences, outputs, totNumOut, NULL);
+  if(result <0 ){
+    ModelicaFormatError("Failed to get initial outputs for building %s, zone %s.\n",
+    buildingName, zoneName);
+  }
+
+  /* Map the output values to correct parameters */
+  /* Compute longest output name */
+  size_t lenOut = 0;
+  for (i=0; i<3; i++){
+    lenOut = max(lenOut, strlen(zoneName) + 1 + strlen(parNames[i]));
+  }
+  outNamEP = (char*) malloc((lenOut+1) * sizeof(char));
+  if ( outNamEP == NULL )
+    ModelicaFormatError("Failed to allocate memory for EnergyPlus output variable name in FMUZoneInitialize.c.");
+  for (i=0; i<3; i++){
+    sprintf(outNamEP, "%s%s%s", zoneName, ",", parNames[i]);
+    for (j=0; j<totNumOut; j++){
+      if (strstr(outputNames[j], outNamEP)!=NULL){
+        parValues[i] = outputs[j];
+        break;
+      }
+    }
+  }
+
+  /* Obtain the floor area and the volume of the zone */
+  *V = parValues[0];
+  *AFlo = parValues[1];
+  *mSenFac = parValues[2];
+  return;
+}
+
 void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double* mSenFac){
   FMUZone* zone = (FMUZone*) object;
   /* Prevent this to be called multiple times */
@@ -231,41 +283,14 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
     }
   }
 
-  double outputs[totNumOut] ;
-  /* Get initial output variables */
-  result = zone->ptrBui->fmu->getVariables(outputValueReferences, outputs, totNumOut, NULL);
-  if(result<0){
-    ModelicaFormatError("Failed to get initial outputs for building FMU with name %s.\n",
-    zone->ptrBui->name);
-  }
-
-  const char* parNames[] = {"V","AFlo","mSenFac"};
-  double parValues[3];
-  char* outNamEP;
-
-  /* Map the output values to correct parameters */
-  /* Compute longest output name */
-  size_t lenOut = 0;
-  for (i=0; i<3; i++){
-    lenOut = max(lenOut, strlen(zone->name) + 1 + strlen(parNames[i]));
-  }
-  outNamEP = (char*) malloc((lenOut+1) * sizeof(char));
-  if ( outNamEP == NULL )
-    ModelicaFormatError("Failed to allocate memory for EnergyPlus output variable name in FMUZoneInitialize.c.");
-  for (i=0; i<3; i++){
-    sprintf(outNamEP, "%s%s%s", zone->name, ",", parNames[i]);
-    for (j=0; j<totNumOut; j++){
-      if (strstr(outputNames[j], outNamEP)!=NULL){
-        parValues[i] = outputs[j];
-        break;
-      }
-    }
-  }
-
-  /* Obtain the floor area and the volume of the zone */
-  *V = parValues[0];
-  *AFlo = parValues[1];
-  *mSenFac = parValues[2];
+  getParametersFromEnergyPlus(
+    zone->ptrBui->fmu,
+    zone->ptrBui->name,
+    zone->name,
+    outputNames,
+    outputValueReferences,
+    totNumOut,
+    AFlo, V, mSenFac);
 
   return;
 }
