@@ -6,6 +6,8 @@
  */
 
 #include "FMUEnergyPlusStructure.h"
+#include <ModelicaUtilities.h>
+
 #include <stdlib.h>
 
 void FMUBuildingFree(FMUBuilding* ptrBui){
@@ -16,7 +18,15 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     free(ptrBui->epLib);
     free(ptrBui->zoneNames);
     free(ptrBui->zones);
-    dlclose(ptrBui->fmu->dllHandle);
+#ifdef _MSC_VER
+    if (!FreeLibrary(ptrBui->fmu->dllHandle)){
+      ModelicaMessage("Warning: Failed to free EnergyPlus library.\n");
+    }
+#else
+    if (0 != dlclose(ptrBui->fmu->dllHandle)){
+      ModelicaMessage("Warning: Failed to free EnergyPlus library.\n");
+    }
+#endif
     free(ptrBui);
   }
 }
