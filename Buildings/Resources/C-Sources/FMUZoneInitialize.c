@@ -15,6 +15,10 @@
 #include <dlfcn.h> /* Provides dlsym */
 #endif
 
+#ifndef max
+	#define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
+#endif
+
 void* getAdr(FMU *fmu, const char* functionName){
   void* fp;
 #ifdef _MSC_VER
@@ -93,7 +97,6 @@ int loadLib(const char* libPath, FMU *fmu) {
 }
 
 void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double* mSenFac){
-  fmi2Byte msg[200];
   FMUZone* zone = (FMUZone*) object;
   /* Prevent this to be called multiple times */
   FMU* fmu;
@@ -126,11 +129,18 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
   const char* consOutputNames[]={"QConSen_flow", "V", "AFlo", "mSenFac"};
 
   fmu = (FMU*)malloc(sizeof(FMU));
+  if ( fmu == NULL )
+    ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for fmu.");
   FMUZone** tmpZon;
   tmpZon=(FMUZone**)malloc(nZon*sizeof(FMUZone*));
+  if ( tmpZon == NULL )
+    ModelicaError("Not enough memory in FMUZoneIntialize.c to allocate memory for zone name array in fmu.");
+
 
   for(i=0; i<nZon; i++){
     tmpZon[i] = (FMUZone*)malloc(sizeof(FMUZone));
+    if ( tmpZon[i] == NULL )
+      ModelicaError("Not enough memory in FMUZoneIntialize.c to allocate memory for zone name in fmu.");
     char* name = ((FMUZone*)(zone->ptrBui->zones[i]))->name;
     tmpZon[i]->name=name;
     zone->ptrBui->zones[i] = tmpZon[i];
@@ -158,6 +168,8 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
     for (k=0; k<scaInp; k++){
       for (j=0; j<nZon; j++) {
         inputNames[cntr]=(char*)malloc((strlen(tmpZon[j]->name)+strlen(consInputNames[k]) + 2)*sizeof(char));
+        if ( inputNames[cntr] == NULL )
+          ModelicaError("Not enough memory in FMUZoneIntialize.c to allocate memory for inputNames.");
         sprintf(inputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consInputNames[k]);
         strcpy(tmpZon[j]->inputVariableNames[k], inputNames[cntr]);
         tmpZon[j]->inputValueReferences[k]=inputValueReferences[cntr];
@@ -172,6 +184,8 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
     for (k=0; k<scaOut; k++){
       for (j=0; j<nZon; j++){
         outputNames[cntr]=(char*)malloc((strlen(tmpZon[j]->name)+strlen(consOutputNames[k]) + 2)*sizeof(char));
+        if ( outputNames[cntr] == NULL )
+          ModelicaError("Not enough memory in FMUZoneIntialize.c to allocate memory for outputNames.");
         sprintf(outputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consOutputNames[k]);
         strcpy(tmpZon[j]->outputVariableNames[k], outputNames[cntr]);
         tmpZon[j]->outputValueReferences[k]=outputValueReferences[cntr];
@@ -225,34 +239,33 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
     zone->ptrBui->name);
   }
 
-  char tmp[100];
   const char* parNames[] = {"V","AFlo","mSenFac"};
   double parValues[3];
+  char* outNamEP;
 
   /* Map the output values to correct parameters */
+  /* Compute longest output name */
+  size_t lenOut = 0;
   for (i=0; i<3; i++){
-    sprintf(tmp, "%s%s%s", zone->name, ",", parNames[i]);
+    lenOut = max(lenOut, strlen(zone->name) + 1 + strlen(parNames[i]));
+  }
+  outNamEP = (char*) malloc((lenOut+1) * sizeof(char));
+  if ( outNamEP == NULL )
+    ModelicaFormatError("Failed to allocate memory for EnergyPlus output variable name in FMUZoneInitialize.c.");
+  for (i=0; i<3; i++){
+    sprintf(outNamEP, "%s%s%s", zone->name, ",", parNames[i]);
     for (j=0; j<totNumOut; j++){
-      if (strstr(outputNames[j], tmp)!=NULL){
+      if (strstr(outputNames[j], outNamEP)!=NULL){
         parValues[i] = outputs[j];
         break;
       }
     }
   }
 
+  /* Obtain the floor area and the volume of the zone */
   *V = parValues[0];
   *AFlo = parValues[1];
   *mSenFac = parValues[2];
-/* Obtain the floor area and the volume of the zone */
-
-/*  snprintf(msg, 200,
-    "*** In exchange for bldg: %s; zone: %s, n = %d, pointer to fmu %p.\n",
-    zone->ptrBui->name,
-    zone->name,
-    zone->nValueReference,
-    zone->ptrBui);
-  ModelicaMessage(msg);
-*/
 
   return;
 }

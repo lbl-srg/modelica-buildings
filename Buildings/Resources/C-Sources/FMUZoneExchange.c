@@ -60,6 +60,8 @@ void FMUZoneExchange(
   double QConSenPer_flow;
 
   FMUZone* tmpZon = malloc(sizeof(FMUZone));
+  if ( tmpZon == NULL )
+    ModelicaError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.\n");
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */

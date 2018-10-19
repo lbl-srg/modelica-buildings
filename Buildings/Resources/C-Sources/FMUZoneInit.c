@@ -16,14 +16,12 @@ FMUBuilding* instantiateEnergyPlusFMU(const char* idfName, const char* weaName,
   const char* iddName, const char* epLibName, const char* zoneName, FMUZone* zone )
 {
   /* Allocate memory */
-  if (Buildings_nFMU == 0){
+  if (Buildings_nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
-    if ( Buildings_FMUS == NULL )
-      ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMU.");
-  }
-  else{
+  else
     Buildings_FMUS = realloc(Buildings_FMUS, (Buildings_nFMU+1) * sizeof(struct FMUBuilding*));
-  }
+  if ( Buildings_FMUS == NULL )
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMU.");
 
   Buildings_FMUS[Buildings_nFMU] = malloc(sizeof(FMUBuilding));
   if ( Buildings_FMUS[Buildings_nFMU] == NULL )
@@ -148,9 +146,9 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
           }
           /* Add storage for new zone name, and copy the zone name */
           bld->zoneNames[bld->nZon] = malloc((strlen(zoneName)+1) * sizeof(char));
-          bld->zones[bld->nZon] = zone;
           if ( bld->zoneNames[bld->nZon] == NULL )
             ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
+          bld->zones[bld->nZon] = zone;
           strcpy(bld->zoneNames[bld->nZon], zoneName);
           /* Increment the count of zones to this building. */
           bld->nZon++;
