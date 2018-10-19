@@ -10,6 +10,8 @@ function initialize "Initialization"
   external "C" FMUZoneInitialize(adapter, t0, AFlo, V, mSenFac)
   annotation (Include="#include <FMUZoneInitialize.c>",
                    IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+                   // dl provides dlsym to load EnergyPlus dll ,
+                  // Library="dl"
   annotation (Documentation(info="<html>
 <p>
 External function to obtain parameters from the EnergyPlus FMU.

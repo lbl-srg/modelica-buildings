@@ -198,11 +198,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 
   Modelica.Blocks.Sources.RealExpression TAirIn[nPorts](
-    y=Medium.temperature(
-        state=Medium.setState_phX(
-        p=senMasFlo[:].port_b.p,
-        h=senMasFlo[:].port_b.h_outflow,
-        X=senMasFlo[:].port_b.Xi_outflow))) if nPorts > 0
+    each y=293.15) if nPorts > 0
     "Temperature that the air has if it were flowing into the room"
     annotation (Placement(transformation(extent={{20,102},{40,122}})));
 initial equation

@@ -127,7 +127,7 @@ equation
   when {initial(), time >= pre(tNext)} then
     TRooLast = T;
     dtLast = time-pre(tLast);
-    //Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
+  //  Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
     if (dtLast > 1E-6) then
       mInlet_flow = mInlInt / dtLast;
       TAveInlet = mTInt / dtLast/ max(1E-10, mInlet_flow);
@@ -158,9 +158,8 @@ equation
 
     //tNext = roundToMinute(min(tNextEP, time+dtMax));
     //tNext = roundToMinute(min(tNextEP, time+60));
-    if time > t0 then
-      assert(abs(tNextEP-pre(tNext)) > 59, "EnergyPlus requested a time step that is smaller than one minute which is beyond its capability. Contact support.");
-    end if;
+   //fixme assert(abs(tNextEP-pre(tNext)) > 59 or time < t0+1, "EnergyPlus requested a time step that is smaller than one minute which is beyond its capability. Contact support.");
+
     tNext = round(tNextEP, 60);
     //Modelica.Utilities.Streams.print("Time = " + String(time) + "\t tNextEP = " + String(tNextEP) + "\t tNext = " + String(tNext));
     tLast = time;

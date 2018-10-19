@@ -6,8 +6,14 @@
  */
 
 #include "FMUEnergyPlusStructure.h"
+#include <ModelicaUtilities.h>
+
 #include <stdlib.h>
 #include <string.h>
+
+#ifndef _MSC_VER
+#include <dlfcn.h> /* Provides dlsym */
+#endif
 
 void* getAdr(FMU *fmu, const char* functionName){
   void* fp;
@@ -105,8 +111,11 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
   int nInp = scaInp*nZon;
   int nOut = scaOut*nZon;
 
-  const char** inputNames=(char**)malloc(nInp*sizeof(char*));
-  const char** outputNames=(char**)malloc(nOut*sizeof(char*));
+  char * inputNames[nInp];
+  char * outputNames[nOut];
+//  inputNames =(char**)malloc(nInp*sizeof(char*));
+//  outputNames=(char**)malloc(nOut*sizeof(char*));
+
   fmi2ValueReference inputValueReferences [nInp];
   fmi2ValueReference outputValueReferences [nOut];
 
@@ -186,10 +195,10 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
                        NULL,  /* parameterNames */
                        NULL, /* parameterValueReferences[] */
                        0, /* nPar */
-                       inputNames, /* inputNames */
+                       (fmi2String *)inputNames, /* inputNames */
                        inputValueReferences, /* inputValueReferences[] */
                        totNumInp, /* nInp */
-                       outputNames, /* outputNames */
+                       (fmi2String *)outputNames, /* outputNames */
                        outputValueReferences, /* outputValueReferences[] */
                        totNumOut, /* nOut */
                        NULL); /*log); */
