@@ -11,9 +11,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-
-
-
 void setGetVariables(
   FMUZone* fmuZon,
   fmi2ValueReference inputValueReferences[],
