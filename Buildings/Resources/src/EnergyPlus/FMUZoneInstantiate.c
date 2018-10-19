@@ -101,7 +101,7 @@ void getParametersFromEnergyPlus(
   FMU* fmu,
   const char* buildingName,
   const char* zoneName,
-  fmi2String* outputNames[],
+  char** outputNames,
   const fmi2ValueReference outputValueReferences[],
   size_t totNumOut,
   double* AFlo,
@@ -112,11 +112,13 @@ void getParametersFromEnergyPlus(
   int j;
   int result;
   size_t lenOut = 0;
-  double outputs[totNumOut];
+  double* outputs;
   const char* parNames[] = {"V","AFlo","mSenFac"};
   double parValues[3];
   char* outNamEP;
 
+  /* Allocate memory */
+  outputs = (double*)malloc(totNumOut * sizeof(double));
   /* Get initial output variables */
   result = fmu->getVariables(outputValueReferences, outputs, totNumOut, NULL);
   if(result <0 ){
@@ -167,15 +169,8 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   const int nInp = scaInp*nZon;
   const int nOut = scaOut*nZon;
 
-  const char** inputNames[nInp];
-  const char** outputNames[nOut];
-
-  fmi2ValueReference inputValueReferences[nInp];
-  fmi2ValueReference outputValueReferences[nOut];
-
-/*
-  const char** inputNames;
-  const char** outputNames;
+  char** inputNames;
+  char** outputNames;
 
   fmi2ValueReference* inputValueReferences;
   fmi2ValueReference* outputValueReferences;
@@ -187,7 +182,6 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   outputValueReferences = malloc(nOut * sizeof(outputValueReferences));
   if (outputValueReferences == NULL)
     ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for outputValueReferences.");
-*/
 
   /* const char* consInputNames[]={"T", "X", "mInlets_flow", "TInlet", "QGaiRad_flow"}; */
   /* const char* consOutputNames[]={"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"}; */
@@ -195,15 +189,13 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   const char* consInputNames[]={"T"};
   const char* consOutputNames[]={"QConSen_flow", "V", "AFlo", "mSenFac"};
 
-/*
-  inputNames = (const char **) malloc(nInp * sizeof(char*));
+  inputNames = (char**) malloc(nInp * sizeof(char*));
   if (inputNames == NULL)
     ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for inputNames.");
 
-  outputNames = (const char **) malloc(nOut * sizeof(char*));
+  outputNames = (char**) malloc(nOut * sizeof(char*));
   if (outputNames == NULL)
     ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for outputNames.");
-*/
 
   fmu = (FMU*)malloc(sizeof(FMU));
   if ( fmu == NULL )
@@ -285,10 +277,10 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
                        NULL,  /* parameterNames */
                        NULL, /* parameterValueReferences[] */
                        0, /* nPar */
-                       (fmi2String *)inputNames, /* inputNames */
+                       (const char**)inputNames, /* inputNames */
                        inputValueReferences, /* inputValueReferences[] */
                        totNumInp, /* nInp */
-                       (fmi2String *)outputNames, /* outputNames */
+                       (const char**)outputNames, /* outputNames */
                        outputValueReferences, /* outputValueReferences[] */
                        totNumOut, /* nOut */
                        NULL); /*log); */
@@ -301,7 +293,9 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
    /* Need to pass the start value at initialization */
   if (zone->ptrBui->_firstCall){
     /* This function can only be called once per building FMU */
+    ModelicaMessage("*** Calling setupExperiment.\n");
     result = zone->ptrBui->fmu->setupExperiment(t0, 1, NULL);
+    ModelicaMessage("*** Returned from setupExperiment.\n");    
     if(result<0){
       ModelicaFormatError("Failed to get setup experiment for building FMU with name %s.\n",
       zone->ptrBui->name);

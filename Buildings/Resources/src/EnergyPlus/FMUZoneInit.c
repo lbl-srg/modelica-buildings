@@ -11,10 +11,13 @@
 #include <string.h>
 #include <stdio.h>
 
+
 /* Create the structure and return a pointer to its address. */
 FMUBuilding* instantiateEnergyPlusFMU(const char* idfName, const char* weaName,
   const char* iddName, const char* epLibName, const char* zoneName, FMUZone* zone )
 {
+  ModelicaMessage("*** Entered instantiateEnergyPlusFMU.\n");
+
   /* Allocate memory */
   if (Buildings_nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
@@ -70,6 +73,8 @@ FMUBuilding* instantiateEnergyPlusFMU(const char* idfName, const char* weaName,
   Buildings_FMUS[Buildings_nFMU]->zones[0] = zone;
 
   Buildings_nFMU++;
+  ModelicaMessage("*** Leaving instantiateEnergyPlusFMU.\n");
+
   /* Return the pointer to the FMU for this EnergyPlus instance */
   return Buildings_FMUS[Buildings_nFMU-1];
 };
@@ -94,6 +99,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   unsigned int i;
+  ModelicaMessage("*** Entered FMUZoneInit.\n");
 
   /* ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName); */
 
@@ -164,6 +170,8 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   }
   /*Set the fmu to null to control execution*/
   zone->ptrBui->fmu=NULL;
+  ModelicaMessage("*** Leaving FMUZoneInit.\n");
+
   /* Return a pointer to this zone */
   return (void*) zone;
 };

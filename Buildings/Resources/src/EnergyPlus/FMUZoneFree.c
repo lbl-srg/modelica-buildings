@@ -32,6 +32,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 }
 
 void FMUZoneFree(void* object){
+  ModelicaMessage("*** Entered FMUZoneFree.");
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure

@@ -14,8 +14,8 @@ BINDIR = ../../Library/linux$(ARCH)
 ## Compilation flags
 CC = gcc
 
-CC_FLAGS_32 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -lm -m32
-CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -lm -m64
+CC_FLAGS_32 = -Wall -std=c89 -msse2 -mfpmath=sse -lm -m32
+CC_FLAGS_64 = -Wall -std=c89 -msse2 -mfpmath=sse -lm -m64
 
 SRCS = $(foreach fil,*.c, $(fil))
 OBJS = FMUZoneExchange.o FMUZoneFree.o FMUZoneInit.o FMUZoneInstantiate.o

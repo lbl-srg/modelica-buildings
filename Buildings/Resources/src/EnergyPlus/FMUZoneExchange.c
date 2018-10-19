@@ -59,6 +59,8 @@ void FMUZoneExchange(
   const double dT = 0.01; /* Increment for derivative approximation */
   double QConSenPer_flow;
 
+  ModelicaMessage("*** Entered FMUZoneExchange.");
+
   FMUZone* tmpZon = malloc(sizeof(FMUZone));
   if ( tmpZon == NULL )
     ModelicaError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.\n");
@@ -100,14 +102,14 @@ void FMUZoneExchange(
     ModelicaFormatError("Failed to set time for building FMU with name %s\n",
     zone->ptrBui->name);
   }
-/*
+
   ModelicaFormatMessage("*** In exchange for bldg: %s; zone: %s, time = %f, tNext = %f, pointer to fmu %p.\n",
    zone->ptrBui->name,
    zone->name,
    time,
    *tNext,
    zone->ptrBui);
-*/
+
   *TRad = 293.15;
   *QLat_flow = 0;
   *QPeo_flow = 0;
