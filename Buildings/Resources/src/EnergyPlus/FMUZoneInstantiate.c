@@ -131,7 +131,7 @@ void getParametersFromEnergyPlus(
   }
   outNamEP = (char*) malloc((lenOut+1) * sizeof(char));
   if ( outNamEP == NULL )
-    ModelicaFormatError("Failed to allocate memory for EnergyPlus output variable name in FMUZoneInitialize.c.");
+    ModelicaFormatError("Failed to allocate memory for EnergyPlus output variable name in FMUZoneInstantiate.c.");
   for (i=0; i<3; i++){
     sprintf(outNamEP, "%s%s%s", zoneName, ",", parNames[i]);
     for (j=0; j<totNumOut; j++){
@@ -149,7 +149,7 @@ void getParametersFromEnergyPlus(
   return;
 }
 
-void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double* mSenFac){
+void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac){
   FMUZone* zone = (FMUZone*) object;
   /* Prevent this to be called multiple times */
   FMU* fmu;
