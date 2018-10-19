@@ -144,8 +144,8 @@ equation
       TAveInlet,
       QGaiRad_flow,
       round(time, 1E-3));
-      reinit(mInlInt, 0);
-      reinit(mTInt, 0);
+    // fixme reinit(mInlInt, 0);
+    // fixme  reinit(mTInt, 0);
     // Guard against division by zero in first call
     //dtMax = min(tNextEP-time, round(dTMax * V * 1.2 *1006/max(1, abs(QCon_flow))/60)*60);
     //    if dT_dt > dT_dtMax then

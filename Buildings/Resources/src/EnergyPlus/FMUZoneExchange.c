@@ -6,7 +6,7 @@
  */
 
 #include "FMUEnergyPlusStructure.h"
-#include <ModelicaUtilities.h>
+#include "ModelicaUtilities.h"
 
 #include <stdlib.h>
 #include <math.h>

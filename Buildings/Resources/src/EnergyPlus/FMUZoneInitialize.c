@@ -6,10 +6,11 @@
  */
 
 #include "FMUEnergyPlusStructure.h"
-#include <ModelicaUtilities.h>
+#include "ModelicaUtilities.h"
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #ifndef _MSC_VER
 #include <dlfcn.h> /* Provides dlsym */
@@ -158,27 +159,51 @@ void FMUZoneInitialize(void* object, double t0, double* AFlo, double* V, double*
   size_t totNumInp;
   size_t totNumOut;
 
-  int nZon=zone->ptrBui->nZon;
+  const int nZon=zone->ptrBui->nZon;
   /* fmi2ValueReference* inputValueReferences=(fmi2ValueReference* )valgrin(nInp*sizeof(fmi2ValueReference)); */
   /* fmi2ValueReference* outputValueReferences=(fmi2ValueReference* )malloc(nOut*sizeof(fmi2ValueReference)); */
-  int scaInp=1;
-  int scaOut=4;
-  int nInp = scaInp*nZon;
-  int nOut = scaOut*nZon;
+  const int scaInp=1;
+  const int scaOut=4;
+  const int nInp = scaInp*nZon;
+  const int nOut = scaOut*nZon;
 
-  char * inputNames[nInp];
-  char * outputNames[nOut];
-//  inputNames =(char**)malloc(nInp*sizeof(char*));
-//  outputNames=(char**)malloc(nOut*sizeof(char*));
+	const char** inputNames[nInp];
+  const char** outputNames[nOut];
 
-  fmi2ValueReference inputValueReferences [nInp];
-  fmi2ValueReference outputValueReferences [nOut];
+	fmi2ValueReference inputValueReferences[nInp];
+  fmi2ValueReference outputValueReferences[nOut];
+
+/*
+  const char** inputNames;
+  const char** outputNames;
+
+  fmi2ValueReference* inputValueReferences;
+  fmi2ValueReference* outputValueReferences;
+
+  inputValueReferences = malloc(nInp * sizeof(inputValueReferences));
+	if (inputValueReferences == NULL)
+    ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for inputValueReferences.");
+
+	outputValueReferences = malloc(nOut * sizeof(outputValueReferences));
+	if (outputValueReferences == NULL)
+    ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for outputValueReferences.");
+*/
 
   /* const char* consInputNames[]={"T", "X", "mInlets_flow", "TInlet", "QGaiRad_flow"}; */
   /* const char* consOutputNames[]={"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"}; */
 
   const char* consInputNames[]={"T"};
   const char* consOutputNames[]={"QConSen_flow", "V", "AFlo", "mSenFac"};
+
+/*
+  inputNames = (const char **) malloc(nInp * sizeof(char*));
+  if (inputNames == NULL)
+    ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for inputNames.");
+
+	outputNames = (const char **) malloc(nOut * sizeof(char*));
+	if (outputNames == NULL)
+    ModelicaError("Not enough memory in FMUZoneIntialize.c. to allocate memory for outputNames.");
+*/
 
   fmu = (FMU*)malloc(sizeof(FMU));
   if ( fmu == NULL )

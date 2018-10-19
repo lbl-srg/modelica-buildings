@@ -1,0 +1,39 @@
+#######################################################
+# LINUX OPERATING SYSTEMS
+#######################################################
+SHELL = /bin/sh
+ARCH = $(shell getconf LONG_BIT)
+# Makefile to compile Python interface
+# Michael Wetter (MWetter@lbl.gov) October 19, 2018
+
+
+# Directory where executable will be copied to
+BINDIR = ../../Library/linux$(ARCH)
+
+#######################################################
+## Compilation flags
+CC = gcc
+
+CC_FLAGS_32 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -lm -m32
+CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -lm -m64
+
+SRCS = $(foreach fil,*.c, $(fil))
+OBJS = FMUZoneExchange.o FMUZoneFree.o FMUZoneInit.o FMUZoneInitialize.o
+LIB  = libModelicaBuildingsEnergyPlus.so
+
+# Note that -fPIC is recommended on Linux according to the Modelica specification
+
+test:
+	@echo $(SRCS)
+	@echo $(OBJS)
+
+compile: clean
+	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
+
+all: compile
+	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) -lc
+	mv $(LIB) $(BINDIR)
+	@echo "==== library generated in $(BINDIR)"
+
+clean:
+	rm -f $(OBJS) $(LIB)

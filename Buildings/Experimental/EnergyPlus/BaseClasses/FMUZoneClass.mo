@@ -14,8 +14,9 @@ extends ExternalObject;
            weaName,
            iddName,
            epLibName,
-           zoneName) annotation (Include="#include <FMUZoneInit.c>",
-           IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+           zoneName)
+    annotation (Library="ModelicaBuildingsEnergyPlus");
+
     annotation (Documentation(info="<html>
 <p>
 The function <code>constructor</code> is a C function that is called by a Modelica simulator
@@ -36,11 +37,7 @@ First implementation.
   function destructor "Release storage"
     input FMUZoneClass adapter;
     external "C" FMUZoneFree(adapter)
-    annotation (
-      Include="#include <FMUZoneFree.c>",
-      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Library="dl");
-    // dl provides dlclose to close EnergyPlus dll
+    annotation (Library="ModelicaBuildingsEnergyPlus");
 
   annotation(Documentation(info="<html>
 <p>

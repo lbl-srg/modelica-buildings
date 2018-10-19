@@ -6,9 +6,9 @@
 #define Buildings_FMUEnergyPlusStructure_h
 
 #include <stddef.h>  /* stddef defines size_t */
-#include<fmi2FunctionTypes.h>
+#include "fmi2FunctionTypes.h"
 
-// Use windows.h only for Windows
+/* Use windows.h only for Windows */
 #ifdef _WIN32
 #include <windows.h>
 #define WINDOWS 1
@@ -16,7 +16,7 @@
 #define WINDOWS 0
 #define HANDLE void *
 /* See http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html */
-#include <sys/stat.h> // for creating dirs on Linux
+#include <sys/stat.h> /* for creating dirs on Linux */
 #include <sys/types.h>
 #include<sys/sysinfo.h>
 #include <dlfcn.h>
