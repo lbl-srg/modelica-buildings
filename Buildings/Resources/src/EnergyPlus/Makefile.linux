@@ -33,6 +33,7 @@ compile: clean
 all: compile
 	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) -lc
 	mv $(LIB) $(BINDIR)
+	rm -f $(OBJS)
 	@echo "==== library generated in $(BINDIR)"
 
 clean:
