@@ -70,7 +70,7 @@ model RectangularBorefield "Example model of a rectangular borefield"
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
-  Movers.FlowControlled_m_flow pum(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     addPowerToMedium=false,
     use_inputFilter=false,
@@ -80,7 +80,7 @@ model RectangularBorefield "Example model of a rectangular borefield"
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  HeatExchangers.Heater_T hea(
+  Buildings.Fluid.HeatExchangers.Heater_T hea(
     redeclare package Medium = Medium,
     show_T=true,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,

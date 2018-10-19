@@ -95,7 +95,7 @@ class UnitConversionsModeler(object):
 
         # list of units Modelica cannot recognize
         self.custom_units = ['Btu', 'Btu/h', 'hp', 'cfm', 'gal', 'inH2O', \
-            'psi', 'quad', ]
+            'psi', 'quad', 'ton']
 
         # write package.mo and package.order
         self.write_package_and_package_order = write_package_and_package_order
@@ -346,6 +346,26 @@ class UnitConversionsModeler(object):
             'multiplier' : '1./0.7457',
             'validation_input' : ['10.*0.7457', '45.*0.7457'],
             'validation_output' : ['10.', '45.']},
+            {
+            'quantity' : 'power',
+            'modelica_quantity' : 'Power',
+            'unit' : 'ton of refrigeration',
+            'unit_symbol' : 'ton',
+            'direction' : 'From',
+            'adder' : '0.',
+            'multiplier' : '3517.',
+            'validation_input' : ['1.', '100.'],
+            'validation_output' : ['3517.', '351700.']},
+            {
+            'quantity' : 'power',
+            'modelica_quantity' : 'Power',
+            'unit' : 'ton of refrigeration',
+            'unit_symbol' : 'ton',
+            'direction' : 'To',
+            'adder' : '0.',
+            'multiplier' : '1./3517.',
+            'validation_input' : ['3517.', '351700.'],
+            'validation_output' : ['1.', '100.']},
             ]
 
         base_unit = {

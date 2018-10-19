@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "wseCHWST.y",
-    "wseCHWRT.y",
-    "CHWSTSet.y",
-    "TWetBub.y",
-    "TTowApp.y",
-    "cooModCon.cooMod"
-  };

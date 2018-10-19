@@ -18,6 +18,7 @@ A million repetitions of "a"
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 /* for uint32_t */
 #include <stdint.h>
@@ -293,7 +294,7 @@ void SHA1(
     hash_out[20] = '\0';
 }
 
-const char* cryptographicsHash(char* str)
+const char* cryptographicsHash(const char* str)
 {
     char result[21];
 	char* hexresult = malloc(41*sizeof(char));

@@ -14,12 +14,12 @@ model MassFlowRateMultiplier "Example use of MassFlowRateMultiplier"
     duration=10,
     offset=0) "Mass flow rate ramp"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
-  Sources.MassFlowSource_T sou(
+  Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) "Mass flow source"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Sources.Boundary_pT sin(
+  Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=1)
     "Mass flow sink"
