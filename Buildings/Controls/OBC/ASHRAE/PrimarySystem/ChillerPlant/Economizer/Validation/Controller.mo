@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Validation;
-model Status
-  "Validates the waterside economizer enable/disable sequence"
+model Controller
+  "Validates the waterside economizer enable/disable controller"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Status
+  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Economizer.Controller
     wseSta "waterside economizer enable status sequence"
     annotation (Placement(transformation(extent={{-68,0},{-48,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Status
+  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Economizer.Controller
     wseSta1 "waterside economizer enable status sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Status
+  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Economizer.Controller
     wseSta2 "waterside economizer enable status sequence"
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
 
@@ -138,13 +138,13 @@ equation
                                                color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Validation/Status.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Validation/Controller.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Status\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Status</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.ChillerPlant.Economizer.Status\">
+Buildings.Controls.OBC.ASHRAE.ChillerPlant.Economizer.Status</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -183,4 +183,4 @@ temperature downstream of WSE"),
           lineColor={0,0,127},
           textString="Tests dcombined enable 
 and disable conditions")}));
-end Status;
+end Controller;

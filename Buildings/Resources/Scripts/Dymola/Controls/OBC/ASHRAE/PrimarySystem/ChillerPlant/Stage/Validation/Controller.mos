@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Validation.Controller", method="Cvode", stopTime=1800, tolerance=1e-06, resultFile="Controller");
+
+
+
+

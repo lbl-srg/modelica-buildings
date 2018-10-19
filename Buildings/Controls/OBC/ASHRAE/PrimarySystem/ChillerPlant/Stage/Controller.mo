@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage;
-block Status
+block Controller
   "Determines chiller stage based on the previous stage and the current capacity requirement. fixme: stagin up and down process (delays, etc) is in separate sequences."
 
   parameter Integer numSta = 2
@@ -8,11 +8,11 @@ block Status
   parameter Real minPlrSta1 = 0.1
   "Minimal part load ratio of the first stage";
 
-  parameter Real capSta1 = 3.517*1000*310
-  "Capacity of stage 1";
+  parameter Real small = 0.00000001
+  "Small number to avoid division with zero";
 
-  parameter Real capSta2 = 2*capSta1
-  "Capacity of stage 2";
+  parameter Modelica.SIunits.Power staNomCap[numSta + 1] = {small, 3.517*1000*310, 2*3.517*1000*310}
+  "Array of nominal stage capacities starting at stage 0";
 
   parameter Real staUpPlr(
     final min = 0,
@@ -25,16 +25,6 @@ block Status
     final max = 1,
     final unit="1") = 0.8
     "Minimum operating part load ratio of the next lower stage before staging down";
-
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta(
-    final min = 0,
-    final max = numSta,
-    final start = 0)
-    "Current chiller stage"
-    annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
-      iconTransformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,90})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
@@ -57,27 +47,23 @@ block Status
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
     iconTransformation(extent={{-120,40},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiSta(
-    final min=0,
-    final max=numSta)
-    "Chiller stage"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
-    iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(final min=0, final max=
+        numSta) "Chiller stage" annotation (Placement(transformation(extent={{
+            140,-10},{160,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Capacities staCap(
+  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Stage.Capacities staCap(
     final min_plr1=minPlrSta1,
-    final nomCapSta1=capSta1,
-    final nomCapSta2=capSta2)
+    final staNomCap=staNomCap)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.ChangePositiveDisplacement
+  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Stage.ChangePositiveDisplacement
     staChaPosDis(
     final staUpPlr=staUpPlr,
     final staDowPlr=staDowPlr,
     numSta=numSta)
     annotation (Placement(transformation(extent={{-50,100},{-30,120}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.CapacityRequirement capReq
+  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Stage.CapacityRequirement capReq
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt(k2=+1)
@@ -115,21 +101,12 @@ block Status
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
                                  iconTransformation(extent={{-140,-100},{-100,-60}})));
 equation
-  connect(uChiSta, addInt.u2) annotation (Line(points={{-160,120},{-120,120},{-120,
-          70},{-50,70},{-50,54},{-22,54}},color={255,127,0}));
-  connect(uChiSta, staCap.uChiSta) annotation (Line(points={{-160,120},{-110,120},
-          {-110,90},{-102,90}},
-                             color={255,127,0}));
-  connect(staChaPosDis.yChiStaCha, addInt.u1) annotation (Line(points={{-29,110},
-          {-26,110},{-26,66},{-22,66}},
-                                 color={255,127,0}));
-  connect(uChiSta, staChaPosDis.uChiSta) annotation (Line(points={{-160,120},{-51,
-          120}},                 color={255,127,0}));
-  connect(staCap.yCapNomSta, staChaPosDis.uCapNomSta) annotation (Line(points={{-79,94},
-          {-76,94},{-76,110},{-51,110}},      color={0,0,127}));
-  connect(staCap.yCapNomLowSta, staChaPosDis.uCapNomLowSta) annotation (Line(
-        points={{-79,86},{-74,86},{-74,108},{-51,108}},
-                                                   color={0,0,127}));
+  connect(staChaPosDis.y, addInt.u1) annotation (Line(points={{-29,110},{-26,
+          110},{-26,66},{-22,66}}, color={255,127,0}));
+  connect(staCap.ySta, staChaPosDis.uCapNomSta) annotation (Line(points={{-79,
+          94},{-76,94},{-76,110},{-51,110}}, color={0,0,127}));
+  connect(staCap.yLowSta, staChaPosDis.uCapNomLowSta) annotation (Line(points={
+          {-79,86},{-74,86},{-74,108},{-51,108}}, color={0,0,127}));
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-160,60},
           {-120,60},{-120,35},{-101,35}},
                                         color={0,0,127}));
@@ -144,10 +121,9 @@ equation
   connect(minInt1.y, maxInt.u1) annotation (Line(points={{41,90},{50,90},{50,70},
           {14,70},{14,16},{18,16}},     color={255,127,0}));
   connect(minStage.y, maxInt.u2) annotation (Line(points={{41,-30},{50,-30},{50,
-          -10},{16,-10},{16,4},{18,4}},     color={255,127,0}));
-  connect(capReq.yCapReq, staChaPosDis.uCapReq) annotation (Line(points={{-79,30},
-          {-72,30},{-72,106},{-51,106}},
-                                  color={0,0,127}));
+          -10},{14,-10},{14,4},{18,4}},     color={255,127,0}));
+  connect(capReq.y, staChaPosDis.uCapReq) annotation (Line(points={{-79,30},{-72,
+          30},{-72,106},{-51,106}}, color={0,0,127}));
   connect(maxInt.y, intToRea.u)
     annotation (Line(points={{41,10},{48,10}},   color={255,127,0}));
   connect(intToRea.y, uniDel.u) annotation (Line(points={{71,10},{80,10},{80,30},
@@ -155,9 +131,8 @@ equation
                       color={0,0,127}));
   connect(uniDel.y, reaToInt.u)
     annotation (Line(points={{81,50},{88,50}}, color={0,0,127}));
-  connect(yChiSta, reaToInt.y)
-    annotation (Line(points={{150,0},{120,0},{120,50},{111,50}},
-                                               color={255,127,0}));
+  connect(y, reaToInt.y) annotation (Line(points={{150,0},{130,0},{130,50},{111,
+          50}}, color={255,127,0}));
   connect(dpChiWatPumSet, staChaPosDis.dpChiWatPumSet) annotation (Line(points={
           {-160,-90},{-68,-90},{-68,103},{-51,103}}, color={0,0,127}));
   connect(chiWatPumSpe, staChaPosDis.chiWatPumSpe) annotation (Line(points={{-160,
@@ -170,6 +145,12 @@ equation
           {-132,30},{-132,115},{-51,115}}, color={0,0,127}));
   connect(TChiWatRet, staChaPosDis.TChiWatRet) annotation (Line(points={{-160,-10},
           {-130,-10},{-130,113},{-51,113}}, color={0,0,127}));
+  connect(reaToInt.y, staChaPosDis.uChiSta) annotation (Line(points={{111,50},{120,
+          50},{120,130},{-68,130},{-68,120},{-51,120}}, color={255,127,0}));
+  connect(reaToInt.y, staCap.uSta) annotation (Line(points={{111,50},{120,50},{120,
+          130},{-110,130},{-110,90},{-102,90}}, color={255,127,0}));
+  connect(reaToInt.y, addInt.u2) annotation (Line(points={{111,50},{120,50},{
+          120,-50},{-26,-50},{-26,54},{-22,54}}, color={255,127,0}));
   annotation (defaultComponentName = "chiSta",
         Icon(graphics={
         Rectangle(
@@ -196,4 +177,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Status;
+end Controller;

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer;
-block Status "waterside economizer enable/disable status"
+block Controller "Water side economizer enable/disable status"
 
   parameter Modelica.SIunits.Time holdPeriod=20*60
   "waterside economizer (WSE) minimum on or off time";
@@ -70,19 +70,19 @@ block Status "waterside economizer enable/disable status"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
     iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEcoSta
-    "waterside economizer enable disable status"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Water side economizer enable disable status" annotation (Placement(
+        transformation(extent={{160,-10},{180,10}}), iconTransformation(extent=
+            {{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Tuning wseTun(
+  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Economizer.Tuning wseTun(
     final step=step,
     final wseOnTimDec=wseOnTimDec,
     final wseOnTimInc=wseOnTimInc)
     "Tuning parameter for the WSE outlet temperature calculation"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.PredictedOutletTemperature wseTOut(
+  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Economizer.PredictedOutletTemperature wseTOut(
     final heaExcAppDes=heaExcAppDes,
     final cooTowAppDes=cooTowAppDes,
     final TOutWetDes=TOutWetDes,
@@ -139,16 +139,16 @@ equation
   connect(uTowFanSpe, wseTun.uTowFanSpe)
     annotation (Line(points={{-180,-100},{-132,-100},{-132,-105},{-122,-105}},
     color={0,0,127}));
-  connect(wseTun.yTunPar, wseTOut.uTunPar)
-    annotation (Line(points={{-99,-100},{-90,-100},{-90,42},{-82,42}},color={0,0,127}));
+  connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-99,-100},{-90,-100},
+          {-90,42},{-82,42}}, color={0,0,127}));
   connect(TOutWet, wseTOut.TOutWet)
     annotation (Line(points={{-180,100},{-100,100},{-100,58},{-82,58}},color={0,0,127}));
-  connect(wseTOut.TEcoOut_pred, add2.u1)
-    annotation (Line(points={{-58,50},{-40,50},{-40,36},{-22,36}},color={0,0,127}));
+  connect(wseTOut.y, add2.u1) annotation (Line(points={{-58,50},{-40,50},{-40,
+          36},{-22,36}}, color={0,0,127}));
   connect(VChiWat_flow, wseTOut.VChiWat_flow)
     annotation (Line(points={{-180,-40},
           {-100,-40},{-100,50},{-82,50}}, color={0,0,127}));
-  connect(pre.y, wseTun.uEcoSta)
+  connect(pre.y,wseTun.uWseSta)
     annotation (Line(points={{141,-50},{150,-50},{150,
           -80},{-132,-80},{-132,-95},{-122,-95}},     color={255,0,255}));
   connect(TChiWatRet, add1.u1)
@@ -166,9 +166,8 @@ equation
   connect(truFalHol.y, pre.u)
     annotation (Line(points={{121,20},{140,20},{140,-30},
           {108,-30},{108,-50},{118,-50}}, color={255,0,255}));
-  connect(truFalHol.y, yEcoSta)
-    annotation (Line(points={{121,20},{140,20},{140,
-          0},{170,0}}, color={255,0,255}));
+  connect(truFalHol.y, y) annotation (Line(points={{121,20},{140,20},{140,0},{
+          170,0}}, color={255,0,255}));
   connect(greDis.y, not1.u)
     annotation (Line(points={{41,-10},{44,-10},{44,10},{
           48,10}}, color={255,0,255}));
@@ -208,4 +207,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Status;
+end Controller;
