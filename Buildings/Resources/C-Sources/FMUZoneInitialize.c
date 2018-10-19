@@ -110,6 +110,7 @@ void getParametersFromEnergyPlus(
   int i;
   int j;
   int result;
+  size_t lenOut = 0;
   double outputs[totNumOut];
   const char* parNames[] = {"V","AFlo","mSenFac"};
   double parValues[3];
@@ -124,7 +125,6 @@ void getParametersFromEnergyPlus(
 
   /* Map the output values to correct parameters */
   /* Compute longest output name */
-  size_t lenOut = 0;
   for (i=0; i<3; i++){
     lenOut = max(lenOut, strlen(zoneName) + 1 + strlen(parNames[i]));
   }
