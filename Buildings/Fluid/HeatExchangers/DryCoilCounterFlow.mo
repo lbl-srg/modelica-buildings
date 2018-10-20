@@ -115,7 +115,9 @@ protected
     "Gain medium-side 2 to take discretization into account" annotation (
       Placement(transformation(extent={{-18,62},{-6,74}})));
 
-  replaceable model HexElement = BaseClasses.HexElementSensible constrainedby BaseClasses.PartialHexElement;
+  replaceable model HexElement = BaseClasses.HexElementSensible constrainedby
+    BaseClasses.PartialHexElement "Model for a heat exchanger element";
+
   HexElement ele[nEle](
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
@@ -314,6 +316,11 @@ rather may be considered as approximated by these heat conductors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2018, by Kino:<br/>
+Changed model to use a replaceable model as this allows translation in OpenModelica.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1258\">#1258</a>.
+</li>
 <li>
 November 12, 2017, by Michael wetter:<br/>
 Changed time constant to more reasonable values, which also makes

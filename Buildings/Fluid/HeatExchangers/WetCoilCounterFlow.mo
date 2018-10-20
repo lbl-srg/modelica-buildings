@@ -74,6 +74,11 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
+October 19, 2018, by Kino:<br/>
+Changed model to use a replaceable model as this allows translation in OpenModelica.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1258\">#1258</a>.
+</li>
+<li>
 April 14, 2017, by David Blum:<br/>
 Added heat of condensation to coil surface heat balance
 and removed it from the air stream.
