@@ -115,8 +115,7 @@ protected
     "Gain medium-side 2 to take discretization into account" annotation (
       Placement(transformation(extent={{-18,62},{-6,74}})));
 
-  replaceable model HexElement = BaseClasses.HexElementSensible constrainedby
-    BaseClasses.PartialHexElement "Model for a heat exchanger element";
+  replaceable model HexElement = BaseClasses.HexElementSensible "Model for a heat exchanger element";
 
   HexElement ele[nEle](
     redeclare each package Medium1 = Medium1,
