@@ -47,10 +47,6 @@ void FMUZoneFree(void* object){
       /* There is no more zone that uses this building FMU. */
       FMUBuildingFree(zone->ptrBui);
       decrementBuildings_nFMU();
-      /* Check if there are any Buildings FMUs left. */
-      if (getBuildings_nFMU() == 0){
-        free(Buildings_FMUS);
-      }
     }
     free(zone);
   }

@@ -5,7 +5,9 @@
 #ifndef Buildings_FMUEnergyPlusStructure_h /* Not needed since it is only a typedef; added for safety */
 #define Buildings_FMUEnergyPlusStructure_h
 
+#include <stdlib.h>
 #include <stddef.h>  /* stddef defines size_t */
+#include <string.h>
 #include "fmi2FunctionTypes.h"
 #include "ModelicaUtilities.h"
 
@@ -101,5 +103,11 @@ void incrementBuildings_nFMU();
 void decrementBuildings_nFMU();
 unsigned int getBuildings_nFMU();
 
-static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
+FMUBuilding* instantiateZone(
+  const char* idfName, const char* weaName,
+  const char* iddName, const char* epLibName,
+  const char* zoneName, FMUZone* zone);
+
+FMUBuilding* getBuildingsFMU(size_t iFMU);
+
 #endif

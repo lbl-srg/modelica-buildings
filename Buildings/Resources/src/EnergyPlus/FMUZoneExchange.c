@@ -103,12 +103,14 @@ void FMUZoneExchange(
     zone->ptrBui->name);
   }
 
+/*
   ModelicaFormatMessage("*** In exchange for bldg: %s; zone: %s, time = %f, tNext = %f, pointer to fmu %p.\n",
    zone->ptrBui->name,
    zone->name,
    time,
    *tNext,
    zone->ptrBui);
+*/
 
   *TRad = 293.15;
   *QLat_flow = 0;
