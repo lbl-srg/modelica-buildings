@@ -3,7 +3,7 @@
 #######################################################
 SHELL = /bin/sh
 ARCH = $(shell getconf LONG_BIT)
-# Makefile to compile Python interface
+# Makefile to compile the EnergyPlus interface
 # Michael Wetter (MWetter@lbl.gov) October 19, 2018
 
 
