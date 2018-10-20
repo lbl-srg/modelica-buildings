@@ -19,64 +19,65 @@ FMUBuilding* instantiateEnergyPlusFMU(const char* idfName, const char* weaName,
   ModelicaMessage("*** Entered instantiateEnergyPlusFMU.\n");
 
   /* Allocate memory */
-  if (Buildings_nFMU == 0)
+  const size_t nFMU = getBuildings_nFMU();
+  if (nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
   else
-    Buildings_FMUS = realloc(Buildings_FMUS, (Buildings_nFMU+1) * sizeof(struct FMUBuilding*));
+    Buildings_FMUS = realloc(Buildings_FMUS, (nFMU+1) * sizeof(struct FMUBuilding*));
   if ( Buildings_FMUS == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMU.");
 
-  Buildings_FMUS[Buildings_nFMU] = malloc(sizeof(FMUBuilding));
-  if ( Buildings_FMUS[Buildings_nFMU] == NULL )
+  Buildings_FMUS[nFMU] = malloc(sizeof(FMUBuilding));
+  if ( Buildings_FMUS[nFMU] == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMU[0].");
-  Buildings_FMUS[Buildings_nFMU]->zoneNames = malloc(sizeof(char*));
-  if ( Buildings_FMUS[Buildings_nFMU]->zoneNames == NULL )
+  Buildings_FMUS[nFMU]->zoneNames = malloc(sizeof(char*));
+  if ( Buildings_FMUS[nFMU]->zoneNames == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMUS[0]->zoneNames.");
 
   /* Assign the fmu name */
-  Buildings_FMUS[Buildings_nFMU]->name = (char*) malloc((strlen(idfName)+1) * sizeof(char));
-  if ( Buildings_FMUS[Buildings_nFMU]->name == NULL )
+  Buildings_FMUS[nFMU]->name = (char*) malloc((strlen(idfName)+1) * sizeof(char));
+  if ( Buildings_FMUS[nFMU]->name == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate fmu name.");
-  strcpy(Buildings_FMUS[Buildings_nFMU]->name, idfName);
+  strcpy(Buildings_FMUS[nFMU]->name, idfName);
 
   /* Assign the weather name */
-  Buildings_FMUS[Buildings_nFMU]->weather = (char*) malloc((strlen(weaName)+1) * sizeof(char));
-  if ( Buildings_FMUS[Buildings_nFMU]->weather == NULL )
+  Buildings_FMUS[nFMU]->weather = (char*) malloc((strlen(weaName)+1) * sizeof(char));
+  if ( Buildings_FMUS[nFMU]->weather == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate weather name.");
-  strcpy(Buildings_FMUS[Buildings_nFMU]->weather, weaName);
+  strcpy(Buildings_FMUS[nFMU]->weather, weaName);
 
   /* Assign the idd name */
-  Buildings_FMUS[Buildings_nFMU]->idd = (char*) malloc((strlen(iddName)+1) * sizeof(char));
-  if ( Buildings_FMUS[Buildings_nFMU]->idd == NULL )
+  Buildings_FMUS[nFMU]->idd = (char*) malloc((strlen(iddName)+1) * sizeof(char));
+  if ( Buildings_FMUS[nFMU]->idd == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate IDD name.");
-  strcpy(Buildings_FMUS[Buildings_nFMU]->idd, iddName);
+  strcpy(Buildings_FMUS[nFMU]->idd, iddName);
 
   /* Assign the Energyplus library name */
-  Buildings_FMUS[Buildings_nFMU]->epLib = (char*) malloc((strlen(epLibName)+1) * sizeof(char));
-  if ( Buildings_FMUS[Buildings_nFMU]->epLib == NULL )
+  Buildings_FMUS[nFMU]->epLib = (char*) malloc((strlen(epLibName)+1) * sizeof(char));
+  if ( Buildings_FMUS[nFMU]->epLib == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate IDD name.");
-  strcpy(Buildings_FMUS[Buildings_nFMU]->epLib, epLibName);
+  strcpy(Buildings_FMUS[nFMU]->epLib, epLibName);
 
   /* Assign the zone name */
-  Buildings_FMUS[Buildings_nFMU]->zoneNames[0] = malloc((strlen(zoneName)+1) * sizeof(char));
-  if ( Buildings_FMUS[Buildings_nFMU]->zoneNames[0] == NULL )
+  Buildings_FMUS[nFMU]->zoneNames[0] = malloc((strlen(zoneName)+1) * sizeof(char));
+  if ( Buildings_FMUS[nFMU]->zoneNames[0] == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
-  strcpy(Buildings_FMUS[Buildings_nFMU]->zoneNames[0], zoneName);
+  strcpy(Buildings_FMUS[nFMU]->zoneNames[0], zoneName);
 
-  Buildings_FMUS[Buildings_nFMU]->nZon = 1;
+  Buildings_FMUS[nFMU]->nZon = 1;
 
-  Buildings_FMUS[Buildings_nFMU]->zones=malloc(sizeof(FMUZone *));
-  if ( Buildings_FMUS[Buildings_nFMU]->zones== NULL )
+  Buildings_FMUS[nFMU]->zones=malloc(sizeof(FMUZone *));
+  if ( Buildings_FMUS[nFMU]->zones== NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zones.");
 
   /* Assign the zone */
-  Buildings_FMUS[Buildings_nFMU]->zones[0] = zone;
+  Buildings_FMUS[nFMU]->zones[0] = zone;
 
-  Buildings_nFMU++;
+  incrementBuildings_nFMU();
   ModelicaMessage("*** Leaving instantiateEnergyPlusFMU.\n");
 
   /* Return the pointer to the FMU for this EnergyPlus instance */
-  return Buildings_FMUS[Buildings_nFMU-1];
+  return Buildings_FMUS[nFMU];
 };
 
 int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
@@ -93,12 +94,11 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 
 /* Create the structure and return a pointer to its address. */
 void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName, const char* epLibName, const char* zoneName)
-/*void* FMUZoneInit(const char* idfName, const char* zoneName, int nFluPor,
-  const char** varNamSen, size_t nVarSen, const char** varNamRec, size_t nVarRec, int* valRefVarRec, size_t nValRefVarRec)*/
 {
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   unsigned int i;
+  const size_t nFMU = getBuildings_nFMU();
   ModelicaMessage("*** Entered FMUZoneInit.\n");
 
   /* ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName); */
@@ -124,7 +124,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   /* ********************************************************************** */
   /* Initialize the pointer for the FMU to which this zone belongs */
   /* Check if there are any zones */
-  if (Buildings_nFMU == 0){
+  if (nFMU == 0){
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
     zone->ptrBui = instantiateEnergyPlusFMU(idfName, weaName, iddName, epLibName, zoneName, zone);
@@ -133,7 +133,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
     /* There is already a Buildings FMU allocated.
        Check if the current zone is for this FMU. */
       zone->ptrBui = NULL;
-      for(i = 0; i < Buildings_nFMU; i++){
+      for(i = 0; i < nFMU; i++){
 
         if (strcmp(idfName, Buildings_FMUS[i]->name) == 0){
           /* This is the same FMU as before. */

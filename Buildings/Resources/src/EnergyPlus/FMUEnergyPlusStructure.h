@@ -7,6 +7,7 @@
 
 #include <stddef.h>  /* stddef defines size_t */
 #include "fmi2FunctionTypes.h"
+#include "ModelicaUtilities.h"
 
 /* Use windows.h only for Windows */
 #ifdef _WIN32
@@ -16,9 +17,6 @@
 #define WINDOWS 0
 #define HANDLE void *
 /* See http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html */
-#include <sys/stat.h> /* for creating dirs on Linux */
-#include <sys/types.h>
-#include<sys/sysinfo.h>
 #include <dlfcn.h>
 #endif
 
@@ -99,6 +97,9 @@ typedef struct FMUZone
   fmi2ValueReference outputValueReferences[7]; /* Value references of output variables*/
 } FMUZone;
 
+void incrementBuildings_nFMU();
+void decrementBuildings_nFMU();
+unsigned int getBuildings_nFMU();
+
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
-static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 #endif
