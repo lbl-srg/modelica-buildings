@@ -75,7 +75,7 @@ equation
   connect(min.y, wseTun.uTowFanSpe) annotation (Line(points={{-59,50},{-50,50},{
           -50,65},{-42,65}},
                            color={0,0,127}));
-  connect(ecoSta.y, wseTun.uEcoSta) annotation (Line(points={{-99,110},{-70,110},
+  connect(ecoSta.y,wseTun.uWseSta)  annotation (Line(points={{-99,110},{-70,110},
           {-70,75},{-42,75}},
                             color={255,0,255}));
   connect(maxTowFanSig1.y, min1.u1) annotation (Line(points={{41,68},{50,68},{50,
@@ -84,9 +84,9 @@ equation
           44},{58,44}}, color={0,0,127}));
   connect(min1.y, wseTun1.uTowFanSpe) annotation (Line(points={{81,50},{90,50},{
           90,65},{98,65}}, color={0,0,127}));
-  connect(ecoSta1.y, wseTun1.uEcoSta) annotation (Line(points={{41,110},{70,110},
+  connect(ecoSta1.y,wseTun1.uWseSta)  annotation (Line(points={{41,110},{70,110},
           {70,75},{98,75}}, color={255,0,255}));
-  connect(ecoSta2.y, wseTun2.uEcoSta) annotation (Line(points={{-99,-30},{-70,-30},
+  connect(ecoSta2.y,wseTun2.uWseSta)  annotation (Line(points={{-99,-30},{-70,-30},
           {-70,-65},{-42,-65}}, color={255,0,255}));
   connect(constTowFanSig.y, wseTun2.uTowFanSpe) annotation (Line(points={{-99,-90},
           {-72,-90},{-72,-75},{-42,-75}}, color={0,0,127}));

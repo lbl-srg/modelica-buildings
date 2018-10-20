@@ -79,25 +79,25 @@ equation
     annotation (Line(points={{21,80},{58,80}}, color={0,0,127}));
   connect(sta0.y, absErrorSta0[2].u1)
     annotation (Line(points={{21,80},{58,80}}, color={0,0,127}));
-  connect(staCap0.yCapNomSta, absErrorSta0[1].u2)
+  connect(staCap0.ySta, absErrorSta0[1].u2)
     annotation (Line(points={{-19,64},{70,64},{70,68}}, color={0,0,127}));
-  connect(staCap0.yCapNomLowSta, absErrorSta0[2].u2)
+  connect(staCap0.yLowSta, absErrorSta0[2].u2)
     annotation (Line(points={{-19,56},{70,56},{70,68}}, color={0,0,127}));
   connect(sta1min.y, absErrorSta1[1].u1) annotation (Line(points={{21,40},{50,40},
           {50,-10},{58,-10}}, color={0,0,127}));
   connect(sta1.y, absErrorSta1[2].u1) annotation (Line(points={{21,10},{50,10},{
           50,-10},{58,-10}}, color={0,0,127}));
-  connect(staCap1.yCapNomLowSta, absErrorSta1[1].u2) annotation (Line(points={{-19,
-          -4},{-10,-4},{-10,-30},{70,-30},{70,-22}}, color={0,0,127}));
-  connect(staCap1.yCapNomSta, absErrorSta1[2].u2) annotation (Line(points={{-19,
-          4},{-8,4},{-8,-30},{70,-30},{70,-22}}, color={0,0,127}));
+  connect(staCap1.yLowSta, absErrorSta1[1].u2) annotation (Line(points={{-19,-4},
+          {-10,-4},{-10,-30},{70,-30},{70,-22}}, color={0,0,127}));
+  connect(staCap1.ySta, absErrorSta1[2].u2) annotation (Line(points={{-19,4},{-8,
+          4},{-8,-30},{70,-30},{70,-22}}, color={0,0,127}));
   connect(sta1.y, absErrorSta2[1].u1) annotation (Line(points={{21,10},{50,10},{
           50,-50},{58,-50}}, color={0,0,127}));
   connect(sta2.y, absErrorSta2[2].u1)
     annotation (Line(points={{21,-50},{58,-50}}, color={0,0,127}));
-  connect(staCap2.yCapNomLowSta, absErrorSta2[1].u2)
+  connect(staCap2.yLowSta, absErrorSta2[1].u2)
     annotation (Line(points={{-19,-74},{70,-74},{70,-62}}, color={0,0,127}));
-  connect(staCap2.yCapNomSta, absErrorSta2[2].u2)
+  connect(staCap2.ySta, absErrorSta2[2].u2)
     annotation (Line(points={{-19,-66},{70,-66},{70,-62}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),

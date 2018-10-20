@@ -32,10 +32,8 @@ block CapacityRequirement
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapReq(
-    final quantity="Power",
-    final unit="W")
-    "Chilled water cooling capacity requirement"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final quantity="Power",
+      final unit="W") "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(k1=-1) "Adder"
@@ -93,7 +91,7 @@ equation
           60}}, color={0,0,127}));
   connect(movMea.y, max.u2) annotation (Line(points={{81,0},{82,0},{82,30},{50,30},
           {50,44},{58,44}}, color={0,0,127}));
-  connect(max.y, yCapReq) annotation (Line(points={{81,50},{90,50},{90,0},{110,0}},
+  connect(max.y, y) annotation (Line(points={{81,50},{90,50},{90,0},{110,0}},
         color={0,0,127}));
   annotation (defaultComponentName = "capReq",
         Icon(graphics={

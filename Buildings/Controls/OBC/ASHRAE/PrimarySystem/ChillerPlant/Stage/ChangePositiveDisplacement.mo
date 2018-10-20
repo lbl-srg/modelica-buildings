@@ -47,12 +47,9 @@ block ChangePositiveDisplacement
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiStaCha(
-    final max=1,
-    final min=-1)
-    "Chiller stage change"
-    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-                        iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(final max=1, final min=
+        -1) "Chiller stage change" annotation (Placement(transformation(extent=
+            {{180,-10},{200,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
     "Operating part load ratio at the current stage"
@@ -216,7 +213,7 @@ equation
           {-110,94},{-82,94}},color={0,0,127}));
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-200,30},{-160,30},{-160,
           106},{-82,106}},     color={0,0,127}));
-  connect(addInt.y, yChiStaCha)
+  connect(addInt.y, y)
     annotation (Line(points={{171,0},{190,0}}, color={255,127,0}));
   connect(greEquStaUpCap.y, truDel.u)
     annotation (Line(points={{31,100},{38,100}}, color={255,0,255}));

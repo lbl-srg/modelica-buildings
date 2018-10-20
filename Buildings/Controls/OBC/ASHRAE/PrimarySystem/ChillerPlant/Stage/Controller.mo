@@ -51,19 +51,19 @@ block Controller
         numSta) "Chiller stage" annotation (Placement(transformation(extent={{
             140,-10},{160,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Stage.Capacities staCap(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.Capacities staCap(
     final min_plr1=minPlrSta1,
     final staNomCap=staNomCap)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Stage.ChangePositiveDisplacement
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.ChangePositiveDisplacement
     staChaPosDis(
     final staUpPlr=staUpPlr,
     final staDowPlr=staDowPlr,
     numSta=numSta)
     annotation (Placement(transformation(extent={{-50,100},{-30,120}})));
 
-  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Stage.CapacityRequirement capReq
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Stage.CapacityRequirement capReq
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt(k2=+1)

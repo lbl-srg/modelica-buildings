@@ -31,12 +31,11 @@ block PredictedOutletTemperature
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TEcoOut_pred(
-    final quantity="ThermodynamicTemperature",
-    final unit="K")
-    "Predicted waterside economizer outlet temperature"
-    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final quantity=
+        "ThermodynamicTemperature", final unit="K")
+    "Predicted waterside economizer outlet temperature" annotation (Placement(
+        transformation(extent={{160,-20},{200,20}}), iconTransformation(extent=
+            {{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Division heaExcPlr
@@ -104,7 +103,7 @@ equation
           {78,-1.75}}, color={0,0,127}));
   connect(towAppDes1.y, mulSum.u[4]) annotation (Line(points={{41,-90},{48,-90},
           {48,-5.25},{78,-5.25}}, color={0,0,127}));
-  connect(mulSum.y, TEcoOut_pred)
+  connect(mulSum.y, y)
     annotation (Line(points={{101.7,0},{180,0}}, color={0,0,127}));
   connect(heaExcPlr.y, lim.u)
     annotation (Line(points={{-59,70},{-52,70}}, color={0,0,127}));

@@ -11,7 +11,7 @@ block Tuning
   parameter Modelica.SIunits.Time wseOnTimInc = 30*60
   "Economizer enable time needed to allow increase of the tuning parameter";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEcoSta
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta
     "waterside economizer enable disable status"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
@@ -20,7 +20,7 @@ block Tuning
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTunPar(min=-0.2, max=0.5)
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(min=-0.2, max=0.5)
     "Tuning parameter for the waterside economizer outlet temperature prediction "
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
@@ -107,10 +107,10 @@ protected
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
 equation
-  connect(uEcoSta, tim.u)
+  connect(uWseSta, tim.u)
     annotation (Line(points={{-200,60},{-160,60},{-160,90},{-122,90}},
                                                      color={255,0,255}));
-  connect(uEcoSta, falEdg.u) annotation (Line(points={{-200,60},{-160,60},{-160,
+  connect(uWseSta, falEdg.u) annotation (Line(points={{-200,60},{-160,60},{-160,
           20},{-122,20}},color={255,0,255}));
   connect(greEqu.u2, wseOnTim.y) annotation (Line(points={{-82,82},{-90,82},{-90,
           60},{-99,60}}, color={0,0,127}));
@@ -121,7 +121,7 @@ equation
   connect(triSam.y, add2.u1) annotation (Line(points={{81,110},{90,110},{90,6},{
           98,6}},
                 color={0,0,127}));
-  connect(add2.y, yTunPar)
+  connect(add2.y, y)
     annotation (Line(points={{121,0},{190,0}}, color={0,0,127}));
   connect(and2.y, triSam.trigger)
     annotation (Line(points={{21,90},{70,90},{70,98.2}}, color={255,0,255}));
@@ -131,9 +131,9 @@ equation
     annotation (Line(points={{-59,90},{-52,90}}, color={255,0,255}));
   connect(and2.u1, pre.y)
     annotation (Line(points={{-2,90},{-29,90}}, color={255,0,255}));
-  connect(uEcoSta, tim1.u) annotation (Line(points={{-200,60},{-160,60},{-160,-40},
+  connect(uWseSta, tim1.u) annotation (Line(points={{-200,60},{-160,60},{-160,-40},
           {-122,-40}}, color={255,0,255}));
-  connect(uEcoSta, falEdg1.u) annotation (Line(points={{-200,60},{-160,60},{-160,
+  connect(uWseSta, falEdg1.u) annotation (Line(points={{-200,60},{-160,60},{-160,
           -110},{-122,-110}},
                         color={255,0,255}));
   connect(lesEqu.u2, wseOnTim1.y) annotation (Line(points={{-82,-48},{-90,-48},{

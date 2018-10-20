@@ -17,15 +17,13 @@ block Capacities "Returns nominal capacities at current and one lower stage"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapNomSta(
-    final unit="W",
-    final quantity="Power") "Nominal capacity of the current stage"
-    annotation (Placement(transformation(extent={{160,30},{180,50}}),
-        iconTransformation(extent={{100,30},{120,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySta(final unit="W", final
+      quantity="Power") "Nominal capacity of the current stage" annotation (
+      Placement(transformation(extent={{160,30},{180,50}}), iconTransformation(
+          extent={{100,30},{120,50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapNomLowSta(
-    final unit="W",
-    final quantity="Power") "Nominal capacity of the first lower stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLowSta(final unit="W",
+      final quantity="Power") "Nominal capacity of the first lower stage"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
@@ -97,9 +95,8 @@ equation
                             color={255,127,0}));
   connect(minInt.y, extStaLowCap.index) annotation (Line(points={{-39,-50},{-10,
           -50},{-10,-22}},                     color={255,127,0}));
-  connect(extStaCap.y, yCapNomSta) annotation (Line(points={{-39,50},{-30,50},{
-          -30,28},{160,28},{160,40},{170,40}},
-                                           color={0,0,127}));
+  connect(extStaCap.y, ySta) annotation (Line(points={{-39,50},{-30,50},{-30,30},
+          {120,30},{120,40},{170,40}}, color={0,0,127}));
   connect(pro.u2, minPlrSta1.y) annotation (Line(points={{58,-76},{36,-76},{36,
           -110},{21,-110}},
                      color={0,0,127}));
@@ -113,9 +110,8 @@ equation
                      color={0,0,127}));
   connect(extStaLowCap.y, swi.u3) annotation (Line(points={{1,-10},{80,-10},{80,
           -38},{100,-38}},    color={0,0,127}));
-  connect(swi.y, yCapNomLowSta) annotation (Line(points={{123,-30},{140,-30},{
-          140,-40},{170,-40}},
-                           color={0,0,127}));
+  connect(swi.y, yLowSta) annotation (Line(points={{123,-30},{140,-30},{140,-40},
+          {170,-40}}, color={0,0,127}));
   annotation (defaultComponentName = "staCap",
         Icon(graphics={
         Rectangle(

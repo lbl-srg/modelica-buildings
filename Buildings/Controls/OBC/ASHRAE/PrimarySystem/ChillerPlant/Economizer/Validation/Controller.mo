@@ -2,15 +2,15 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Valid
 model Controller
   "Validates the waterside economizer enable/disable controller"
 
-  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Economizer.Controller
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Controller
     wseSta "waterside economizer enable status sequence"
     annotation (Placement(transformation(extent={{-68,0},{-48,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Economizer.Controller
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Controller
     wseSta1 "waterside economizer enable status sequence"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Economizer.Controller
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Controller
     wseSta2 "waterside economizer enable status sequence"
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
 
