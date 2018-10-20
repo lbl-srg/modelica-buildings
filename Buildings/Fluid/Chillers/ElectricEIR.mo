@@ -40,9 +40,9 @@ equation
     // we constrain its return value to be non-negative. This prevents the solver to pick the
     // unrealistic solution.
     capFunT = Buildings.Utilities.Math.Functions.smoothMax(
-       x1=  1E-6,
-       x2=  Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConEnt_degC),
-       deltaX=  1E-7);
+       x1 = 1E-6,
+       x2 = Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConEnt_degC),
+       deltaX = 1E-7);
 /*    assert(capFunT > 0.1, "Error: Received capFunT = " + String(capFunT)  + ".\n"
            + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
            + "Temperatures are TConEnt_degC = " + String(TConEnt_degC) + " degC\n"

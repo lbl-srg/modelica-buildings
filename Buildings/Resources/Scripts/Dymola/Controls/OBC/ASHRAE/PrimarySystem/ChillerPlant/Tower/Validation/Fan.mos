@@ -1,0 +1,8 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Validation.Fan", method="dassl", stopTime=3600, tolerance=1e-06, resultFile="Fan");
+createPlot(id=1, position={10, 10, 450, 700}, y={"towFan.TConWatRet","towFan.TChiWatSup","towFan.CWRT_Set.y"}, range={0.0, 3600, 275, 305}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=1, position={10, 10, 450, 700}, y={"towFan.dTRef"}, range={0.0, 3600, -2, 14}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={470, 10, 450, 700}, y={"towFan.conPID.u_s","towFan.conPID.u_m"}, range={0.0, 3600, 14, 28}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={470, 10, 450, 700}, y={"towFan.conPID.y"}, range={0.0, 3600, -1, 1.2}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=3, position={940, 10, 450, 700}, y={"towFan.logSwi.u2","towFan.logSwi.u3","towFan.logSwi.y"}, range={0.0, 3600, 275, 305}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72},{238,46,47}});
+
+

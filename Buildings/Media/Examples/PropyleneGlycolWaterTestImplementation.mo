@@ -3,7 +3,8 @@ model PropyleneGlycolWaterTestImplementation
   "Model that tests the medium implementation"
   extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
-     redeclare package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
+     redeclare package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater
+        (
       X_a=0.60,
       property_T=293.15));
 

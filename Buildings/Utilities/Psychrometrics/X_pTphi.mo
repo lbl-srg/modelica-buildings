@@ -17,7 +17,7 @@ block X_pTphi
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
-  parameter Integer i_w =
+  parameter Integer i_w=
    sum({(
      if Modelica.Utilities.Strings.isEqual(
        string1=Medium.substanceNames[i],

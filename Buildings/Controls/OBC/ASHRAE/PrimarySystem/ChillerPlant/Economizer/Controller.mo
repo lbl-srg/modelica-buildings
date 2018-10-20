@@ -75,14 +75,14 @@ block Controller "Water side economizer enable/disable status"
         transformation(extent={{160,-10},{180,10}}), iconTransformation(extent=
             {{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Tuning wseTun(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning wseTun(
     final step=step,
     final wseOnTimDec=wseOnTimDec,
     final wseOnTimInc=wseOnTimInc)
     "Tuning parameter for the WSE outlet temperature calculation"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.PredictedOutletTemperature wseTOut(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature wseTOut(
     final heaExcAppDes=heaExcAppDes,
     final cooTowAppDes=cooTowAppDes,
     final TOutWetDes=TOutWetDes,

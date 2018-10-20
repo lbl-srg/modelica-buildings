@@ -1,0 +1,13 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Centrifugal", method="dassl", stopTime=36000, tolerance=1e-06, resultFile="Centrifugal");
+createPlot(id=1, position={10, 10, 480, 750}, y={"upZerToOne.yChiSta"}, range={0.0, 36000, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200}});
+createPlot(id=1, position={10, 10, 480, 750}, y={"upZerToOne.TLocChi", "upZerToOne.TOut"}, range={0.0, 36000, 0, 0.5}, grid=true, subPlot=2, colors={{28,108,200}, {0,140,72}});
+createPlot(id=1, position={10, 10, 480, 750}, y={"upZerToOne.TChiWatSupResReq"}, range={0.0, 36000, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={10, 10, 480, 750}, y={"upZerToOne.timTabCon.y[1]"}, range={0.0, 36000, 0, 0.5}, grid=true, subPlot=4, colors={{28,108,200}});
+
+createPlot(id=2, position={500, 10, 480, 750}, y={"upOneToTwo.yChiSta"}, range={0.0, 36000, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200}});
+createPlot(id=2, position={500, 10, 480, 750}, y={"upOneToTwo.uPLR", "upOneToTwo.staPLR.y"}, range={0.0, 36000, -1, 1}, grid=true, subPlot=2, colors={{28,108,200}, {0,140,72}});
+createPlot(id=2, position={500, 10, 480, 750}, y={"upOneToTwo.uChiWatPlaRes"}, range={0.0, 36000, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200}});
+
+createPlot(id=3, position={990, 10, 480, 750}, y={"upOneToTwo1.yChiSta"}, range={0.0, 36000, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200}});
+createPlot(id=3, position={990, 10, 480, 750}, y={"upOneToTwo1.uChiWatPlaRes", "upOneToTwo1.uPLR"}, range={0.0, 36000, -1, 1}, grid=true, subPlot=2, colors={{28,108,200}, {0,140,72}});
+createPlot(id=3, position={990, 10, 480, 750}, y={"upOneToTwo1.uPLR", "upOneToTwo1.staPLR.y"}, range={0.0, 36000, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200}, {0,140,72}});

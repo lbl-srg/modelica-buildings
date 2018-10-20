@@ -16,7 +16,7 @@ record FP_ThermaLiteHS20 =
     final C2=0,
     final G_nominal = 1000,
     final dT_nominal = 10) "FP - Therma-Lite, HS-20"
-    annotation(
+    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info = "<html>
