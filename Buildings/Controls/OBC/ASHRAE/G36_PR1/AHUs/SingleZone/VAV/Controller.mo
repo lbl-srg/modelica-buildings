@@ -162,16 +162,16 @@ equation
           textString="TODO: remove numZon(min=2)",
           textStyle={TextStyle.Bold}),
         Text(
-          extent={{-24,188},{40,158}},
-          lineColor={238,46,47},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.None,
-          textStyle={TextStyle.Bold},
-          textString="TODO: add supply fan status output"),
-        Text(
           extent={{-18,78},{46,48}},
           lineColor={238,46,47},
           fillColor={28,108,200},
           fillPattern=FillPattern.None,
-          textString="Future: Consider if havOccSen and havWinSen")}));
+          textString="Future: Consider if havOccSen and havWinSen"),
+        Text(
+          extent={{32,106},{76,80}},
+          lineColor={238,46,47},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.None,
+          textString="To Do: Add if hOut",
+          textStyle={TextStyle.Bold})}));
 end Controller;
