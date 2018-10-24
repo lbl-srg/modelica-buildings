@@ -18,7 +18,8 @@ CC_FLAGS_32 = -Wall -std=c89 -msse2 -mfpmath=sse -lm -m32
 CC_FLAGS_64 = -Wall -std=c89 -msse2 -mfpmath=sse -lm -m64
 
 SRCS = $(foreach fil,*.c, $(fil))
-OBJS = FMUEnergyPlusStructure.o FMUZoneExchange.o FMUZoneFree.o FMUZoneInit.o FMUZoneInstantiate.o
+OBJS:=$(SRCS:%.c=%.o)
+
 LIB  = libModelicaBuildingsEnergyPlus.so
 
 # Note that -fPIC is recommended on Linux according to the Modelica specification
