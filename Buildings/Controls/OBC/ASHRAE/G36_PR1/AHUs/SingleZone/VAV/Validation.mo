@@ -217,7 +217,8 @@ Zone 2")}),
             -50,4},{-2,4}}, color={0,0,127}));
     connect(uCoo.y, zonSta.uCoo) annotation (Line(points={{-79,-30},{-50,-30},{
             -50,-4},{-2,-4}}, color={0,0,127}));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    annotation (
+      Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                      Ellipse(
             lineColor={75,138,73},
             fillColor={255,255,255},
@@ -227,8 +228,12 @@ Zone 2")}),
             fillColor={75,138,73},
             pattern=LinePattern.None,
             fillPattern=FillPattern.Solid,
-            points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-          coordinateSystem(preserveAspectRatio=false)));
+            points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
+      Diagram(coordinateSystem(preserveAspectRatio=false)),
+      experiment(
+        StopTime=3,
+        Tolerance=1e-06,
+        __Dymola_Algorithm="Cvode"));
   end ZoneState;
   annotation (Icon(graphics={
         Rectangle(
