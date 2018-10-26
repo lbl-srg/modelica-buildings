@@ -5,10 +5,10 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   parameter String idfName "Name of the IDF file that contains this zone";
   parameter String weaName "Name of the Energyplus weather file";
   final parameter String iddName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Energy+.idd")
+    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/EnergyPlus-9-0-0/Energy+.idd")
     "Name of the Energyplus IDD file";
   final parameter String epLibName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/libepfmi.so")
+    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/EnergyPlus-9-0-0/lib/libepfmi.so")
     "Name of the EnergyPlus FMI library";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
