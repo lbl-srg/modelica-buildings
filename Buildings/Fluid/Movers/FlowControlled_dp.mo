@@ -11,16 +11,7 @@ model FlowControlled_dp
       final y_start=dp_start,
       u_nominal=abs(dp_nominal),
       u(final unit="Pa"),
-      y(final unit="Pa")),
-    eff(
-      per(
-        final pressure = if per.havePressureCurve then
-          per.pressure
-        else
-          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-            dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)));
+      y(final unit="Pa")));
 
   parameter Modelica.SIunits.PressureDifference dp_start(
     min=0,

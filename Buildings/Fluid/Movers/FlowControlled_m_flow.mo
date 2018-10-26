@@ -11,15 +11,6 @@ model FlowControlled_m_flow
       u_nominal=m_flow_nominal,
       u(final unit="kg/s"),
       y(final unit="kg/s")),
-    eff(
-      per(
-        final pressure = if per.havePressureCurve then
-          per.pressure
-        else
-          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-            dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)),
     preSou(m_flow_start=m_flow_start));
 
   // For air, we set dp_nominal = 600 as default, for water we set 10000

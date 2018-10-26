@@ -13,9 +13,25 @@ model SpeedControlled_Nrpm
       u_nominal=1,
       u(final unit="1"),
       y(final unit="1")),
-    eff(
-      per(final pressure = per.pressure,
-          final use_powerCharacteristic = per.use_powerCharacteristic)),
+    redeclare model EfficiencyModel =
+        Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface (
+      per(
+        final pressure = per.pressure,
+        final use_powerCharacteristic = per.use_powerCharacteristic,
+        final hydraulicEfficiency = per.hydraulicEfficiency,
+        final motorEfficiency =     per.motorEfficiency,
+        final motorCooledByFluid =  per.motorCooledByFluid,
+        final speed_nominal =       0,
+        final constantSpeed =       0,
+        final speeds =              {0},
+        final power =               per.power),
+      final nOri = nOri,
+      final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
+      final haveVMax=haveVMax,
+      final V_flow_max=V_flow_max,
+      r_N(start=y_start),
+      r_V(start=m_flow_nominal/rho_default),
+      final preVar=preVar),
     gaiSpe(u(final unit="1/min"),
            final k=1/per.speed_rpm_nominal));
 
@@ -30,6 +46,10 @@ model SpeedControlled_Nrpm
         rotation=-90,
         origin={0,120})));
 
+  Modelica.Blocks.Interfaces.RealOutput y_actual(final unit="1")
+    "Actual normalised pump speed that is used for computations"
+    annotation (Placement(transformation(extent={{100,60},{120,80}}),
+        iconTransformation(extent={{100,60},{120,80}})));
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1) "Pressure gain"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -57,6 +77,9 @@ equation
             26},{-26,26},{-26,-46}},
                                    color={0,0,127}));
   end if;
+  connect(eff.y_out,y_actual)  annotation (Line(points={{-11,-48},{92,-48},{92,
+          70},{110,70}},
+                     color={0,0,127}));
   annotation (defaultComponentName="pump",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={

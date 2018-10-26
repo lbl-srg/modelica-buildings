@@ -71,12 +71,6 @@ partial model PartialFlowMachine
         rotation=270,
         origin={0,120})));
 
-  Modelica.Blocks.Interfaces.RealOutput y_actual(
-    final unit="1")
-    "Actual normalised pump speed that is used for computations"
-    annotation (Placement(transformation(extent={{100,60},{120,80}}),
-        iconTransformation(extent={{100,60},{120,80}})));
-
   Modelica.Blocks.Interfaces.RealOutput P(
     quantity="Power",
     final unit="W") "Electrical power consumed"
@@ -241,23 +235,11 @@ protected
 
   // Because the speed data are not used by FlowMachineInterface, we set them
   // to zero.
-  FlowMachineInterface eff(
-    per(
-      final hydraulicEfficiency = per.hydraulicEfficiency,
-      final motorEfficiency =     per.motorEfficiency,
-      final motorCooledByFluid =  per.motorCooledByFluid,
-      final speed_nominal =       0,
-      final constantSpeed =       0,
-      final speeds =              {0},
-      final power =               per.power),
-    final nOri = nOri,
-    final rho_default=rho_default,
-    final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
-    final haveVMax=haveVMax,
-    final V_flow_max=V_flow_max,
-    r_N(start=y_start),
-    r_V(start=m_flow_nominal/rho_default),
-    final preVar=preVar) "Flow machine"
+  replaceable model EfficiencyModel =
+      Buildings.Fluid.Movers.BaseClasses.FlowControlledPerformance
+    constrainedby Buildings.Fluid.Movers.BaseClasses.FlowControlledPerformance(
+      final rho_default=rho_default) "Flow machine";
+  EfficiencyModel eff "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
 
 protected
@@ -438,9 +420,6 @@ equation
 
   connect(senRelPre.p_rel, eff.dp_in) annotation (Line(points={{50.5,-26.35},{50.5,
           -38},{-18,-38},{-18,-46}},               color={0,0,127}));
-  connect(eff.y_out, y_actual) annotation (Line(points={{-11,-48},{92,-48},{92,
-          70},{110,70}},
-                     color={0,0,127}));
   connect(port_a, vol.ports[1])
     annotation (Line(points={{-100,0},{-78,0},{-78,0}}, color={0,127,255}));
   connect(vol.ports[2], senMasFlo.port_a)
