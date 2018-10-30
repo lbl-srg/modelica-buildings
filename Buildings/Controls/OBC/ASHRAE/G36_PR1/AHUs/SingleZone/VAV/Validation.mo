@@ -2,7 +2,68 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV;
 package Validation "Collection of validation models"
 
   model Controller "Validation controller model"
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    import Buildings;
+    Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
+      controller
+      annotation (Placement(transformation(extent={{20,12},{60,60}})));
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
+      amplitude=5,
+      offset=18 + 273.15,
+      freqHz=1/3600) "Outdoor air temperature"
+      annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
+      each height=6,
+      each offset=273.15 + 17,
+      each duration=3600) "Measured zone temperature"
+      annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+    Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
+      "Occupancy schedule"
+      annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+    Buildings.Controls.OBC.CDL.Continuous.Add add2
+      annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant delRet(k=1)
+      "Temperature rise for return air"
+      annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TMix(
+      each duration=3600,
+      each height=4,
+      each offset=273.15 + 15) "Measured mixed air temperature"
+      annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
+      each height=4,
+      each duration=3600,
+      each offset=273.15 + 14) "AHU supply air temperature"
+      annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+    Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=3600)
+      annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc(height=2,
+        duration=3600) "Occupant number in zone"
+      annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+  equation
+    connect(TOut.y, controller.TOut) annotation (Line(points={{-99,110},{0,110},
+            {0,60},{18,60}}, color={0,0,127}));
+    connect(TZon.y, controller.TZon) annotation (Line(points={{-99,50},{-30,50},
+            {-30,52},{18,52}}, color={0,0,127}));
+    connect(occSch.occupied, controller.uOcc) annotation (Line(points={{-99,74},
+            {-74,74},{-74,48},{18,48}}, color={255,0,255}));
+    connect(occSch.tNexOcc, controller.tNexOcc) annotation (Line(points={{-99,
+            86},{-30,86},{-30,56},{18,56}}, color={0,0,127}));
+    connect(TZon.y, add2.u1) annotation (Line(points={{-99,50},{-60,50},{-60,50},
+            {-52,50},{-52,16},{-42,16}}, color={0,0,127}));
+    connect(add2.y, controller.TRet) annotation (Line(points={{-19,10},{-8,10},
+            {-8,44},{18,44}}, color={0,0,127}));
+    connect(delRet.y, add2.u2) annotation (Line(points={{-99,20},{-60,20},{-60,
+            4},{-42,4}}, color={0,0,127}));
+    connect(controller.TMix, TMix.y) annotation (Line(points={{18,36},{4,36},{4,
+            -40},{-99,-40}}, color={0,0,127}));
+    connect(TSup.y, controller.TSup) annotation (Line(points={{-99,-10},{0,-10},
+            {0,40},{18,40}}, color={0,0,127}));
+    connect(booPul.y, controller.uWin) annotation (Line(points={{-99,-110},{10,
+            -110},{10,28},{18,28}}, color={255,0,255}));
+    connect(numOfOcc.y, controller.nOcc) annotation (Line(points={{-99,-70},{8,
+            -70},{8,32},{18,32}}, color={0,0,127}));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+              -120},{120,120}}),                                  graphics={
           Ellipse(lineColor = {75,138,73},
                   fillColor={255,255,255},
                   fillPattern = FillPattern.Solid,
@@ -12,7 +73,8 @@ package Validation "Collection of validation models"
                   pattern = LinePattern.None,
                   fillPattern = FillPattern.Solid,
                   points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-          coordinateSystem(preserveAspectRatio=false)),
+          coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
+              120}})),
   Documentation(info="<html>
 <p>
 This example validates
