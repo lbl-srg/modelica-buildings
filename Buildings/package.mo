@@ -232,6 +232,18 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Media</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Media.Air<br/>
+                           Buildings.Media.Water<br/>
+                           Buildings.Media.Antifreeze.PropyleneGlycolWater<br/>
+                           Buildings.Media.Specialized.Air.PerfectGas<br/>
+        </td>
+        <td valign=\"top\">Improved error message when temperature or mass fraction is outside the allowed range.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">IBPSA, issue 1045</a>.
+        </td>
+    </tr>
     </table>
     <!-- Non-backward compatible changes to existing components -->
     <p>
