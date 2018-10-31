@@ -4,17 +4,25 @@ package Validation "Collection of validation models"
   model Controller "Validation controller model"
     import Buildings;
     Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
-      controller
+      controller(
+      yHeaMax=0.7,
+      yMin=0.3,
+      AFlo=50,
+      controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+      controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+      TSupSetMax=303.15,
+      TSupSetMin=289.15,
+      have_occSen=true) "Single zone VAV sequence from Guideline 36"
       annotation (Placement(transformation(extent={{20,12},{60,60}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
-      amplitude=5,
       offset=18 + 273.15,
-      freqHz=1/3600) "Outdoor air temperature"
+      freqHz=1/86400,
+      amplitude=-5)  "Outdoor air temperature"
       annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
       each height=6,
       each offset=273.15 + 17,
-      each duration=3600) "Measured zone temperature"
+      each duration=86400) "Measured zone temperature"
       annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
     Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
       "Occupancy schedule"
@@ -25,19 +33,20 @@ package Validation "Collection of validation models"
       "Temperature rise for return air"
       annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TMix(
-      each duration=3600,
       each height=4,
-      each offset=273.15 + 15) "Measured mixed air temperature"
+      each offset=273.15 + 15,
+      each duration=86400) "Measured mixed air temperature"
       annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
       each height=4,
-      each duration=3600,
-      each offset=273.15 + 14) "AHU supply air temperature"
+      each offset=273.15 + 14,
+      each duration=86400)     "AHU supply air temperature"
       annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-    Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=3600)
+    Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booWin(period=86400/2,
+        width=0.5)
       annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc(height=2,
-        duration=3600) "Occupant number in zone"
+        duration=86400) "Occupant number in zone"
       annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
   equation
     connect(TOut.y, controller.TOut) annotation (Line(points={{-99,110},{0,110},
@@ -58,10 +67,10 @@ package Validation "Collection of validation models"
             -40},{-99,-40}}, color={0,0,127}));
     connect(TSup.y, controller.TSup) annotation (Line(points={{-99,-10},{0,-10},
             {0,40},{18,40}}, color={0,0,127}));
-    connect(booPul.y, controller.uWin) annotation (Line(points={{-99,-110},{10,
+    connect(booWin.y, controller.uWin) annotation (Line(points={{-99,-110},{10,
             -110},{10,28},{18,28}}, color={255,0,255}));
-    connect(numOfOcc.y, controller.nOcc) annotation (Line(points={{-99,-70},{8,
-            -70},{8,32},{18,32}}, color={0,0,127}));
+    connect(controller.nOcc, numOfOcc.y) annotation (Line(points={{18,32},{6,32},
+            {6,-70},{-99,-70}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
               -120},{120,120}}),                                  graphics={
           Ellipse(lineColor = {75,138,73},
@@ -88,7 +97,8 @@ October 24, 2018, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+      experiment(StopTime=86400, Interval=300));
   end Controller;
 
   model ModeAndSetPoints
