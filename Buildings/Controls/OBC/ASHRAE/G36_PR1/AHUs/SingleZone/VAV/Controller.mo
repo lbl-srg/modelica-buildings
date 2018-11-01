@@ -122,14 +122,14 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real uMin(
     final min=0,
     final max=1,
-    final unit="1") = 0
+    final unit="1") = 0.1
     "Lower limit of controller output uTSup at which the dampers are at their limits"
     annotation(Dialog(tab="Economizer", group="General"));
 
   parameter Real uMax(
     final min=0,
     final max=1,
-    final unit="1") = 1
+    final unit="1") = 0.9
     "Upper limit of controller output uTSup at which the dampers are at their limits"
     annotation(Dialog(tab="Economizer", group="General"));
 
@@ -318,10 +318,10 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     annotation (Placement(transformation(extent={{200,150},{220,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos
     "Return air damper position"
-    annotation (Placement(transformation(extent={{200,110},{220,130}})));
+    annotation (Placement(transformation(extent={{200,70},{220,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos
     "Outdoor air damper position"
-    annotation (Placement(transformation(extent={{200,70},{220,90}})));
+    annotation (Placement(transformation(extent={{200,30},{220,50}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow
     outAirSetPoi(AFlo=AFlo, have_occSen=have_occSen,
     VOutPerAre_flow=VOutPerAre_flow,
@@ -353,6 +353,8 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}})));
   CDL.Interfaces.RealInput hRet if use_enthalpy "Return air enthalpy"
     annotation (Placement(transformation(extent={{-240,-180},{-200,-140}})));
+  CDL.Interfaces.RealOutput yHeaCoi "Heating coil control signal"
+    annotation (Placement(transformation(extent={{200,110},{220,130}})));
 equation
   connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-161,198},{-190,
           198},{-190,200},{-220,200}},      color={0,0,127}));
@@ -382,10 +384,10 @@ equation
           {166,200},{210,200}},      color={0,0,127}));
   connect(setPoiVAV.y, yFan) annotation (Line(points={{61,184},{166,184},{166,160},
           {210,160}},      color={0,0,127}));
-  connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{141,112},{
-          180,112},{180,120},{210,120}}, color={0,0,127}));
-  connect(conEco.yOutDamPos, yOutDamPos) annotation (Line(points={{141,108},{
-          180,108},{180,80},{210,80}}, color={0,0,127}));
+  connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{141,110},{180,
+          110},{180,80},{210,80}},       color={0,0,127}));
+  connect(conEco.yOutDamPos, yOutDamPos) annotation (Line(points={{141,106},{160,
+          106},{160,40},{210,40}},     color={0,0,127}));
   connect(outAirSetPoi.TDis, TSup) annotation (Line(points={{39,80},{-4,80},{-4,
           40},{-220,40}},      color={0,0,127}));
   connect(outAirSetPoi.uOpeMod, conEco.uOpeMod) annotation (Line(points={{39,72},
@@ -447,6 +449,8 @@ equation
           {-220,-120}}, color={0,0,127}));
   connect(conEco.hOutCut, hRet) annotation (Line(points={{119,116},{104,116},{104,
           -160},{-220,-160}}, color={0,0,127}));
+  connect(conEco.yHeaCoi, yHeaCoi) annotation (Line(points={{141,114},{180,114},
+          {180,120},{210,120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -240},{200,240}}), graphics={
                            Rectangle(

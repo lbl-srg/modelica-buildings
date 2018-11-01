@@ -20,9 +20,10 @@ package Validation "Collection of validation models"
       amplitude=-5)  "Outdoor air temperature"
       annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
-      each height=6,
-      each offset=273.15 + 17,
-      each duration=86400) "Measured zone temperature"
+      each duration=86400,
+      each height=15,
+      each offset=273.15 + 15)
+                           "Measured zone temperature"
       annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
     Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
       "Occupancy schedule"
@@ -76,7 +77,7 @@ package Validation "Collection of validation models"
           Ellipse(lineColor = {75,138,73},
                   fillColor={255,255,255},
                   fillPattern = FillPattern.Solid,
-                  extent = {{-100,-100},{100,100}}),
+                  extent={{-120,-120},{120,120}}),
           Polygon(lineColor = {0,0,255},
                   fillColor = {75,138,73},
                   pattern = LinePattern.None,
