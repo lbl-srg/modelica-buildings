@@ -216,14 +216,14 @@ model Controller "Single zone VAV AHU economizer control sequence"
     final unit="1")
     "Return air damper position"
     annotation (Placement(transformation(extent={{160,30},{180,50}}),
-    iconTransformation(extent={{100,10}, {120,30}})));
+    iconTransformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1")
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}}),
-    iconTransformation(extent={{100,-30}, {120,-10}})));
+    iconTransformation(extent={{100,-50},{120,-30}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable enaDis(
     final retDamPhyPosMax=retDamPhyPosMax,
@@ -285,7 +285,8 @@ protected
 
 public
   CDL.Interfaces.RealOutput yHeaCoi "Heating coil control signal"
-    annotation (Placement(transformation(extent={{160,110},{180,130}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}}),
+        iconTransformation(extent={{100,30},{120,50}})));
 equation
   connect(uSupFan, enaDis.uSupFan)
     annotation (Line(points={{-130,-40},{-80,-40},{-80,-32},{-1,-32}}, color={255,0,255}));
@@ -354,8 +355,8 @@ equation
     annotation (Line(points={{-130,-40},{-80,-40},{-80,-10},{20,-10},{20,0},{39,0}},
       color={255,0,255}));
 
-  connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{61,14},{66,14},{66,120},
-          {170,120}}, color={0,0,127}));
+  connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{61,14},{66,14},{66,40},
+          {110,40}},  color={0,0,127}));
 annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
