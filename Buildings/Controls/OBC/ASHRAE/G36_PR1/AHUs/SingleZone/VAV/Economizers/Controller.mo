@@ -165,8 +165,7 @@ model Controller "Single zone VAV AHU economizer control sequence"
       iconTransformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
-    final quantity="SpecificEnergy") if use_enthalpy
-    "Outdoor air enthalpy"
+    final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOutCut(
@@ -284,6 +283,9 @@ protected
     "Freeze protection status is 0. Used if G36 freeze protection is not implemented"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
+public
+  CDL.Interfaces.RealOutput yHeaCoi "Heating coil control signal"
+    annotation (Placement(transformation(extent={{160,110},{180,130}})));
 equation
   connect(uSupFan, enaDis.uSupFan)
     annotation (Line(points={{-130,-40},{-80,-40},{-80,-32},{-1,-32}}, color={255,0,255}));
@@ -334,9 +336,9 @@ equation
   connect(outDamMaxFre.y, yOutDamPos)
     annotation (Line(points={{141,-50},{150,-50},{150,-40},{170,-40}}, color={0,0,127}));
   connect(mod.yRetDamPos, retDamMinFre.u2)
-    annotation (Line(points={{61,12},{110,12},{110,44},{118,44}}, color={0,0,127}));
+    annotation (Line(points={{61,10},{110,10},{110,44},{118,44}}, color={0,0,127}));
   connect(mod.yOutDamPos, outDamMaxFre.u1)
-    annotation (Line(points={{61,8},{110,8},{110,-44},{118,-44}},color={0,0,127}));
+    annotation (Line(points={{61,6},{110,6},{110,-44},{118,-44}},color={0,0,127}));
   connect(freProTMix.yFrePro, retDamMinFre.u1)
     annotation (Line(points={{101,-4},{106,-4},{106,56},{118,56}}, color={0,0,127}));
   connect(freProTMix.yFreProInv, outDamMaxFre.u2)
@@ -352,6 +354,8 @@ equation
     annotation (Line(points={{-130,-40},{-80,-40},{-80,-10},{20,-10},{20,0},{39,0}},
       color={255,0,255}));
 
+  connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{61,14},{66,14},{66,120},
+          {170,120}}, color={0,0,127}));
 annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
@@ -422,6 +426,10 @@ for a description.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2018, by David Blum:<br/>
+Added heating coil output.  See issue#1272.
+</li>
 <li>
 June 28, 2017, by Milica Grahovac:<br/>
 First implementation.

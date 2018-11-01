@@ -19,10 +19,10 @@ block Modulation "Outdoor and return air damper position modulation sequence for
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real uMin=0
+  parameter Real uMin=0.1
     "Lower limit of controller output uTSup at which the dampers are at their limits"
     annotation(Evaluate=true);
-  parameter Real uMax=1
+  parameter Real uMax=0.9
     "Upper limit of controller output uTSup at which the dampers are at their limits"
     annotation(Evaluate=true);
 
@@ -76,79 +76,113 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final min=0,
     final max=1,
     final unit="1") "Economizer damper position"
-    annotation (Placement(transformation(extent={{120,-30},{140,-10}}),
-      iconTransformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{120,-50},{140,-30}}),
+      iconTransformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1") "Return air damper position"
-    annotation (Placement(transformation(extent={{120,10},{140,30}}),
-      iconTransformation(extent={{100,10},{120,30}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID uTSup(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
-    final yMax=uMax,
-    final yMin=uMin,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    final yMax=1,
+    final yMin=0)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
       final k=uMin) "Minimal control loop signal for the outdoor air damper"
-    annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
+    annotation (Placement(transformation(extent={{-20,-96},{0,-76}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
       final k=uMax) "Maximal control loop signal for the return air damper"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    annotation (Placement(transformation(extent={{-20,-42},{0,-22}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Line retDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
-    annotation (Placement(transformation(extent={{58,10},{78,30}})));
+    annotation (Placement(transformation(extent={{58,-10},{78,10}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Line HeaCoi(final limitBelow=true,
+      final limitAbove=true)
+    "Heating coil signal is linearly proportional to the control signal between signal limits"
+    annotation (Placement(transformation(extent={{58,30},{78,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMaxLimSig(final k=1)
+    "Maximal control loop signal for the heating coil"
+    annotation (Placement(transformation(extent={{-20,48},{0,68}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMinLimSig(final k=0)
+    "Minimum control loop signal for the heating coil"
+    annotation (Placement(transformation(extent={{-20,4},{0,24}})));
+public
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
+    final min=0,
+    final max=1,
+    final unit="1") "Heating coil control signal" annotation (Placement(
+        transformation(extent={{120,30},{140,50}}), iconTransformation(extent={{
+            100,30},{120,50}})));
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMinHeaCoi(final k=0)
+    "Minimal control loop signal for the heating coil"
+    annotation (Placement(transformation(extent={{-20,86},{0,106}})));
 equation
   connect(TSup, uTSup.u_m)
     annotation (Line(points={{-140,110},{-108,110},{-108,58},{-70,58},{-70,68}},
                                                              color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
-    annotation (Line(points={{81,-20},{100,-20},{120,-20},{130,-20}},          color={0,0,127}));
+    annotation (Line(points={{81,-40},{94,-40},{94,-40},{106,-40},{106,-40},{130,
+          -40}},                                                               color={0,0,127}));
   connect(retDamPos.y, yRetDamPos)
-    annotation (Line(points={{79,20},{100,20},{130,20}},           color={0,0,127}));
+    annotation (Line(points={{79,0},{92,0},{92,0},{104,0},{104,0},{130,0}},
+                                                                   color={0,0,127}));
   connect(retDamMaxLimSig.y,retDamPos. x2)
-    annotation (Line(points={{1,30},{30,30},{30,16},{56,16}},                       color={0,0,127}));
-  connect(uTSup.y, retDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,20},
-          {56,20}},     color={0,0,127}));
-  connect(uTSup.y, outDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,-20},
-          {58,-20}}, color={0,0,127}));
+    annotation (Line(points={{1,-32},{24,-32},{24,-4},{56,-4}},                     color={0,0,127}));
+  connect(uTSup.y, retDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,0},
+          {56,0}},      color={0,0,127}));
+  connect(uTSup.y, outDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,-40},
+          {58,-40}}, color={0,0,127}));
   connect(uRetDamPosMax,retDamPos. f1)
-    annotation (Line(points={{-140,40},{-112,40},{-112,48},{48,48},{48,24},{56,
-          24}},                                                    color={0,0,127}));
+    annotation (Line(points={{-140,40},{36,40},{36,4},{56,4}},     color={0,0,127}));
   connect(uOutDamPosMin, outDamPos.f1)
-    annotation (Line(points={{-140,-70},{28,-70},{28,-16},{58,-16}},               color={0,0,127}));
+    annotation (Line(points={{-140,-70},{32,-70},{32,-36},{58,-36}},               color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1)
-    annotation (Line(points={{1,-12},{1,-12},{28,-12},{58,-12}},           color={0,0,127}));
+    annotation (Line(points={{1,-86},{28,-86},{28,-32},{58,-32}},          color={0,0,127}));
   connect(THeaSupSet, uTSup.u_s)
     annotation (Line(points={{-140,80},{-82,80}},           color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
-    annotation (Line(points={{-140,0},{-112,0},{-112,-10},{-38,-10},{-38,12},{
-          56,12}},                                                 color={0,0,127}));
-  connect(uOutDamPosMax, outDamPos.f2) annotation (Line(points={{-140,-40},{40,
-          -40},{40,-28},{58,-28}},     color={0,0,127}));
+    annotation (Line(points={{-140,0},{-112,0},{-112,-8},{56,-8}}, color={0,0,127}));
+  connect(uOutDamPosMax, outDamPos.f2) annotation (Line(points={{-140,-40},{-42,
+          -40},{-42,-48},{58,-48}},    color={0,0,127}));
   connect(retDamMaxLimSig.y, outDamPos.x2)
-    annotation (Line(points={{1,30},{30,30},{30,-24},{58,-24}}, color={0,0,127}));
+    annotation (Line(points={{1,-32},{24,-32},{24,-44},{58,-44}},
+                                                                color={0,0,127}));
   connect(outDamMinLimSig.y, retDamPos.x1)
-    annotation (Line(points={{1,-12},{24,-12},{24,28},{56,28}}, color={0,0,127}));
+    annotation (Line(points={{1,-86},{28,-86},{28,8},{56,8}},   color={0,0,127}));
   connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-78,-110},
           {-78,68}},       color={255,0,255}));
+  connect(HeaCoi.y, yHeaCoi) annotation (Line(points={{79,40},{92,40},{92,40},{104,
+          40},{104,40},{130,40}}, color={0,0,127}));
+  connect(HeaCoi.u, retDamPos.u)
+    annotation (Line(points={{56,40},{40,40},{40,0},{56,0}}, color={0,0,127}));
+  connect(uMinHeaCoi.y, HeaCoi.x1) annotation (Line(points={{1,96},{44,96},{44,48},
+          {56,48}}, color={0,0,127}));
+  connect(heaCoiMaxLimSig.y, HeaCoi.f1) annotation (Line(points={{1,58},{42,58},
+          {42,44},{56,44}}, color={0,0,127}));
+  connect(heaCoiMinLimSig.y, HeaCoi.f2) annotation (Line(points={{1,14},{24,14},
+          {24,32},{56,32}}, color={0,0,127}));
+  connect(outDamMinLimSig.y, HeaCoi.x2) annotation (Line(points={{1,-86},{28,-86},
+          {28,36},{56,36}}, color={0,0,127}));
   annotation (
     defaultComponentName = "mod",
     Icon(graphics={
@@ -170,7 +204,11 @@ equation
         Text(
           extent={{-108,138},{102,110}},
           lineColor={0,0,127},
-          textString="%name")}),
+          textString="%name"),
+        Line(
+          points={{-50,-84},{-94,80}},
+          color={0,0,127},
+          thickness=0.5)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}}), graphics={
         Rectangle(
@@ -191,12 +229,12 @@ equation
           textString="Damper position
 supply air temperature
 control loop"),                    Text(
-          extent={{82,128},{126,88}},
+          extent={{56,128},{100,88}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
-assignments")}),
+assignments and heating coil signal")}),
     Documentation(info="<html>
 <p>
 This is a single zone VAV AHU economizer modulation block. It calculates
@@ -238,6 +276,10 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Eco
 
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2018, by David Blum:<br/>
+Added heating coil output.  Addresses issue #1272.
+</li>
 <li>
 October 19, 2017, by Jianjun Hu:<br/>
 Changed name of controller output limit from yMin/yMax to uMin/uMax.

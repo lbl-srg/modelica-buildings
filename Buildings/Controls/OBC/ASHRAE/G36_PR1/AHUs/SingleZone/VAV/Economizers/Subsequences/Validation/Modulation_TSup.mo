@@ -73,6 +73,10 @@ control signals.
 </html>", revisions="<html>
 <ul>
 <li>
+October 31, 2018, by David Blum:<br/>
+Added heating coil output.  See issue#1272.
+</li>
+<li>
 July 07, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
