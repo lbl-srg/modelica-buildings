@@ -150,16 +150,6 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
 
-  parameter Real yFanMin(
-    final min=0,
-    final max=1,
-    final unit="1") = 0.1 "Minimum supply fan operation speed"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real yFanMax(
-    final min=0,
-    final max=1,
-    final unit="1") = 0.9 "Maximum supply fan operation speed"
-    annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
   parameter Modelica.SIunits.VolumeFlowRate VOutMin_flow=1.0
     "Calculated minimum outdoor airflow rate"
     annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
@@ -270,8 +260,6 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     TiFre=TiFre,
     TdFre=TdFre,
     TFreSet=TFreSet,
-    yFanMin=yFanMin,
-    yFanMax=yFanMax,
     VOutMin_flow=VOutMin_flow,
     VOutDes_flow=VOutDes_flow,
     minVOutMinFansSpePos=minVOutMinFansSpePos,
@@ -282,7 +270,9 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     outDamPhyPosMin=outDamPhyPosMin,
     retDamPhyPosMax=retDamPhyPosMax,
     retDamPhyPosMin=retDamPhyPosMin,
-    use_enthalpy=use_enthalpy)
+    use_enthalpy=use_enthalpy,
+    yFanMin=0,
+    yFanMax=1)
            annotation (Placement(transformation(extent={{120,100},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet
     "Measured return air temperature"

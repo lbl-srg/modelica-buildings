@@ -10,9 +10,10 @@ package Validation "Collection of validation models"
       AFlo=50,
       controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
       controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+      have_occSen=true,
       TSupSetMax=303.15,
       TSupSetMin=289.15,
-      have_occSen=true) "Single zone VAV sequence from Guideline 36"
+      use_TMix=false)   "Single zone VAV sequence from Guideline 36"
       annotation (Placement(transformation(extent={{20,12},{60,60}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
       offset=18 + 273.15,
@@ -28,16 +29,6 @@ package Validation "Collection of validation models"
     Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
       "Occupancy schedule"
       annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-    Buildings.Controls.OBC.CDL.Continuous.Add add2
-      annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant delRet(k=1)
-      "Temperature rise for return air"
-      annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TMix(
-      each height=4,
-      each offset=273.15 + 15,
-      each duration=86400) "Measured mixed air temperature"
-      annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
       each height=4,
       each offset=273.15 + 14,
@@ -58,20 +49,14 @@ package Validation "Collection of validation models"
             {-74,74},{-74,48},{18,48}}, color={255,0,255}));
     connect(occSch.tNexOcc, controller.tNexOcc) annotation (Line(points={{-99,
             86},{-30,86},{-30,56},{18,56}}, color={0,0,127}));
-    connect(TZon.y, add2.u1) annotation (Line(points={{-99,50},{-60,50},{-60,50},
-            {-52,50},{-52,16},{-42,16}}, color={0,0,127}));
-    connect(add2.y, controller.TRet) annotation (Line(points={{-19,10},{-8,10},
-            {-8,44},{18,44}}, color={0,0,127}));
-    connect(delRet.y, add2.u2) annotation (Line(points={{-99,20},{-60,20},{-60,
-            4},{-42,4}}, color={0,0,127}));
-    connect(controller.TMix, TMix.y) annotation (Line(points={{18,36},{4,36},{4,
-            -40},{-99,-40}}, color={0,0,127}));
     connect(TSup.y, controller.TSup) annotation (Line(points={{-99,-10},{0,-10},
             {0,40},{18,40}}, color={0,0,127}));
     connect(booWin.y, controller.uWin) annotation (Line(points={{-99,-110},{10,
             -110},{10,28},{18,28}}, color={255,0,255}));
     connect(controller.nOcc, numOfOcc.y) annotation (Line(points={{18,32},{6,32},
             {6,-70},{-99,-70}}, color={0,0,127}));
+    connect(TZon.y, controller.TRet) annotation (Line(points={{-99,50},{-30,50},
+            {-30,44},{18,44}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
               -120},{120,120}}),                                  graphics={
           Ellipse(lineColor = {75,138,73},
