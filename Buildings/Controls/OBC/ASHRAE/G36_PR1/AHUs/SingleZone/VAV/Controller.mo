@@ -78,16 +78,6 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real zonDisEffCoo(final unit="1") = 1.0
     "Zone air distribution effectiveness during cooling"
     annotation(Dialog(tab="Outside Air Flow", group="Occupancy"));
-  parameter Real uLow(final unit="K",
-    quantity="ThermodynamicTemperature") = -0.5
-    "If zone space temperature minus supply air temperature is less than uLow,
-     then it should use heating supply air distribution effectiveness"
-    annotation(Dialog(tab="Outside Air Flow", group="Advanced"));
-  parameter Real uHig(final unit="K",
-    quantity="ThermodynamicTemperature") = 0.5
-    "If zone space temperature minus supply air temperature is more than uHig,
-     then it should use cooling supply air distribution effectiveness"
-    annotation(Dialog(tab="Outside Air Flow", group="Advanced"));
   parameter Boolean use_enthalpy = false
     "Set to true if enthalpy measurement is used in addition to temperature measurement"
     annotation(Dialog(tab="Economizer", group="General"));
@@ -300,8 +290,8 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,20},{-200,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix
-    "Measured mixed air temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix if use_TMix
+    "Measured mixed air temperature, used for freeze protection if use_TMix is true"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc "Number of occupants"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}})));
@@ -328,9 +318,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     VOutPerPer_flow=VOutPerPer_flow,
     occDen=occDen,
     zonDisEffHea=zonDisEffHea,
-    zonDisEffCoo=zonDisEffCoo,
-    uLow=uLow,
-    uHig=uHig)
+    zonDisEffCoo=zonDisEffCoo)
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut
     "Outside air temperature"
