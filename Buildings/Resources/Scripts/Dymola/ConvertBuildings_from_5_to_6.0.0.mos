@@ -57,7 +57,7 @@ convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube",
              "Buildings.Fluid.Geothermal.Boreholes.UTube");
 
 
-// Conversions for naming consistency withing the Buildings.Controls.OBC.ASHRAE.G36_PR1 package
+// Conversions for variable naming consistency withing the Buildings.Controls.OBC.ASHRAE.G36_PR1 package
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
