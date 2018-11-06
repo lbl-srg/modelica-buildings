@@ -63,13 +63,13 @@ void FMUZoneExchange(
 
   FMUZone* tmpZon = malloc(sizeof(FMUZone));
   if ( tmpZon == NULL )
-    ModelicaError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.\n");
+    ModelicaError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.");
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
   result=zone->ptrBui->fmu->setTime(time, NULL);
   if(result<0){
-    ModelicaFormatError("Failed to set time in building FMU with name %s\n",
+    ModelicaFormatError("Failed to set time in building FMU with name %s.",
     zone->ptrBui->name);
   }
 
@@ -85,11 +85,11 @@ void FMUZoneExchange(
   /* Get next event time */
   result = zone->ptrBui->fmu->getNextEventTime(&eventInfo, NULL);
   if(result<0){
-    ModelicaFormatError("Failed to get next event time for building FMU with name %s\n",
+    ModelicaFormatError("Failed to get next event time for building FMU with name %s.",
     zone->ptrBui->name);
   }
   if(eventInfo.terminateSimulation == fmi2True){
-    ModelicaFormatError("EnergyPlus requested to terminate the simulation for building = %s, zone = %s, time = %f",
+    ModelicaFormatError("EnergyPlus requested to terminate the simulation for building = %s, zone = %s, time = %f.",
     zone->ptrBui->name, zone->name, time);
   }
   if(eventInfo.nextEventTimeDefined == fmi2False){
@@ -99,7 +99,7 @@ void FMUZoneExchange(
   *tNext = eventInfo.nextEventTime;
   /* result = zone->ptrBui->fmu->setTime(*tNext, NULL); */
   if(result<0){
-    ModelicaFormatError("Failed to set time for building FMU with name %s\n",
+    ModelicaFormatError("Failed to set time for building FMU with name %s.",
     zone->ptrBui->name);
   }
 

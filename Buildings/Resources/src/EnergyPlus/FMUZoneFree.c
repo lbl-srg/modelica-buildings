@@ -20,11 +20,11 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     free(ptrBui->zones);
 #ifdef _MSC_VER
     if (!FreeLibrary(ptrBui->fmu->dllHandle)){
-      ModelicaMessage("Warning: Failed to free EnergyPlus library.\n");
+      ModelicaMessage("Warning: Failed to free EnergyPlus library.");
     }
 #else
     if (0 != dlclose(ptrBui->fmu->dllHandle)){
-      ModelicaMessage("Warning: Failed to free EnergyPlus library.\n");
+      ModelicaMessage("Warning: Failed to free EnergyPlus library.");
     }
 #endif
     free(ptrBui);
