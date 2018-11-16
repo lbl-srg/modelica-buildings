@@ -5,6 +5,7 @@
 
 #ifndef BUILDINGS_EXTERNALOBJECTSTRUCTURE_H /* Not needed since it is only a typedef; added for safety */
 #define BUILDINGS_EXTERNALOBJECTSTRUCTURE_H
+#include <stdlib.h>
 
 typedef struct ExternalObjectStructure
 {
