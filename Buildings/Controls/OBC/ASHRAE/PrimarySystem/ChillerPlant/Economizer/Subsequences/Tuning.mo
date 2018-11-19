@@ -12,11 +12,12 @@ block Tuning
   "Economizer enable time needed to allow increase of the tuning parameter";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta
-    "waterside economizer enable disable status"
+    "Waterside economizer enable disable status"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe "waterside economizer tower fan speed"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe
+    "Waterside economizer tower fan speed"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
 

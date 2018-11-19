@@ -27,7 +27,7 @@ model ControllerPositiveDisplacement
     amplitude=0.03,
     freqHz=1/1200) "Chilled water flow"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.ASHRAE.ChillerPlant.Stage.Controller
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.ControllerPositiveDisplacement
     chiSta(minPlrSta1=10/310)
     "Determines chiller stage based on the current load and stage"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));

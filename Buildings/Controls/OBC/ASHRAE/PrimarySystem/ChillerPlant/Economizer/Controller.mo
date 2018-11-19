@@ -59,7 +59,7 @@ block Controller "Water side economizer enable/disable status"
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe
-    "waterside economizer tower fan speed"
+    "Waterside economizer tower fan speed"
     annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
