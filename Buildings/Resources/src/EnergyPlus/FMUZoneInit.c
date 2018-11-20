@@ -5,7 +5,7 @@
  */
 
 #include "FMUEnergyPlusStructure.h"
-#include "ModelicaUtilities.h"
+//#include "ModelicaUtilities.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -16,7 +16,7 @@
 FMUBuilding* instantiateEnergyPlusFMU(const char* idfName, const char* weaName,
   const char* iddName, const char* epLibName, const char* zoneName, FMUZone* zone)
 {
-  ModelicaMessage("*** Entered instantiateEnergyPlusFMU.");
+  //ModelicaMessage("*** Entered instantiateEnergyPlusFMU.");
   return instantiateZone(idfName, weaName, iddName, epLibName, zoneName, zone);
 };
 
@@ -39,7 +39,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
      for the zone with zoneName can be obtained */
   unsigned int i;
   const size_t nFMU = getBuildings_nFMU();
-  ModelicaMessage("*** Entered FMUZoneInit.");
+  //ModelicaMessage("*** Entered FMUZoneInit.");
 
   /* ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName); */
 
@@ -47,7 +47,8 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   /* Initialize the zone */
   FMUZone* zone = (FMUZone*) malloc(sizeof(FMUZone));
   if ( zone == NULL )
-    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone.");
+    //ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone.");
+    printf("Not enough memory in FMUZoneInit.c. to allocate zone.\n");
 
   /* Assign the value reference. This should be done by using the values from modelDescription.xml */
   /*for(i = 0; i < nFluPor; i++){
@@ -58,7 +59,9 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   /* Assign the zone name */
   zone->name = malloc((strlen(zoneName)+1) * sizeof(char));
   if ( zone->name == NULL )
-    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
+    //ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
+    printf("Not enough memory in FMUZoneInit.c. to allocate zone name.");
+
   strcpy(zone->name, zoneName);
 
   /* ********************************************************************** */
@@ -78,7 +81,9 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
         if (strcmp(idfName, fmu->name) == 0){
           /* This is the same FMU as before. */
           if (! zoneIsUnique(fmu, zoneName)){
-            ModelicaFormatError("Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
+            //ModelicaFormatError("Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
+            //zoneName, fmu->name);
+            printf("Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
             zoneName, fmu->name);
           }
 
@@ -86,13 +91,13 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
           /* Increment size of vector that contains the zone names. */
           fmu->zoneNames = realloc(fmu->zoneNames, (fmu->nZon + 1) * sizeof(char*));
           fmu->zones = realloc(fmu->zones, (fmu->nZon + 1) * sizeof(FMUZone*));
-          if (fmu->zoneNames == NULL){
-            ModelicaError("Not enough memory in FMUZoneInit.c. to allocate memory for bld->zoneNames.");
-          }
+          //if (fmu->zoneNames == NULL){
+          //  ModelicaError("Not enough memory in FMUZoneInit.c. to allocate memory for bld->zoneNames.");
+          //}
           /* Add storage for new zone name, and copy the zone name */
           fmu->zoneNames[fmu->nZon] = malloc((strlen(zoneName)+1) * sizeof(char));
-          if ( fmu->zoneNames[fmu->nZon] == NULL )
-            ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
+          //if ( fmu->zoneNames[fmu->nZon] == NULL )
+          //  ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
           fmu->zones[fmu->nZon] = zone;
           strcpy(fmu->zoneNames[fmu->nZon], zoneName);
           /* Increment the count of zones to this building. */
@@ -109,7 +114,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   }
   /*Set the fmu to null to control execution*/
   zone->ptrBui->fmu=NULL;
-  ModelicaMessage("*** Leaving FMUZoneInit.");
+  //ModelicaMessage("*** Leaving FMUZoneInit.");
 
   /* Return a pointer to this zone */
   return (void*) zone;

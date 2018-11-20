@@ -6,7 +6,7 @@
  */
 
 #include "FMUEnergyPlusStructure.h"
-#include "ModelicaUtilities.h"
+//#include "ModelicaUtilities.h"
 
 #include <stdlib.h>
 
@@ -19,20 +19,20 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     free(ptrBui->zoneNames);
     free(ptrBui->zones);
 #ifdef _MSC_VER
-    if (!FreeLibrary(ptrBui->fmu->dllHandle)){
-      ModelicaMessage("Warning: Failed to free EnergyPlus library.");
-    }
+    //if (!FreeLibrary(ptrBui->fmu->dllHandle)){
+    //  ModelicaMessage("Warning: Failed to free EnergyPlus library.");
+    //}
 #else
-    if (0 != dlclose(ptrBui->fmu->dllHandle)){
-      ModelicaMessage("Warning: Failed to free EnergyPlus library.");
-    }
+    //if (0 != dlclose(ptrBui->fmu->dllHandle)){
+    //  ModelicaMessage("Warning: Failed to free EnergyPlus library.");
+    //}
 #endif
     free(ptrBui);
   }
 }
 
 void FMUZoneFree(void* object){
-  ModelicaMessage("*** Entered FMUZoneFree.");
+  //ModelicaMessage("*** Entered FMUZoneFree.");
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure

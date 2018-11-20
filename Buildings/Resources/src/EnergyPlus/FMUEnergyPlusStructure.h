@@ -9,7 +9,7 @@
 #include <stddef.h>  /* stddef defines size_t */
 #include <string.h>
 #include "fmi2FunctionTypes.h"
-#include "ModelicaUtilities.h"
+//#include "ModelicaUtilities.h"
 
 /* Use windows.h only for Windows */
 #ifdef _WIN32
