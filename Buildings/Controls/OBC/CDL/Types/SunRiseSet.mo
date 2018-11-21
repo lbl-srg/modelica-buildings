@@ -19,15 +19,16 @@ block SunRiseSet "Sunrise or sunset time"
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput SunRiseSet(
     final quantity="Time",
-    final unit="h",
+    final unit="s",
     displayUnit="h") "Sunrise or sunset time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Constant";
   constant Real k2 = 2*Modelica.Constants.pi/365.25 "Constant";
-  final parameter Modelica.SIunits.Time diff = -timZon+lon*43200/Modelica.Constants.pi
-    "Difference between local and clock time";
+  final parameter Modelica.SIunits.Time
+        diff = -timZon+lon*43200/Modelica.Constants.pi
+        "Difference between local and civil time";
   Real Bt "Intermediate variable used to calculate equation of time";
 
 equation
@@ -61,7 +62,7 @@ equation
   elsewhen altAng<=0 then
       SunRiseSet = mod(time/3600,24);
   end when
-  "When solar altitude is bigger than 0, then the sun is above the horizon."
+  "When solar altitude is bigger than 0, it means the sun is above the horizon."
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     uses(Modelica(version="3.2.2")));
