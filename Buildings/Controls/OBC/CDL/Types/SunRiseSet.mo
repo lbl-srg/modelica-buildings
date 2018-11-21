@@ -7,11 +7,11 @@ block SunRiseSet "Sunrise or sunset time"
 
   Real eqnTim "Equation of time";
   Real decAng "Declination angle";
-  Real solHouAng "Solar hour angle";
+  Real houAng "Solar hour angle";
   Real locTim "Local time";
   Real solTim "Solar time";
-  Real zen "Zenith angle";
-  Real alt "Altitude angle";
+  Real zenAng "Zenith angle";
+  Real altAng "Altitude angle";
 
   Modelica.Blocks.Interfaces.RealInput nDay(quantity="Time", unit="s")
     "Day number with units of seconds"
@@ -24,11 +24,11 @@ block SunRiseSet "Sunrise or sunset time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Real Bt "Intermediate variable used to calculate equation of time";
   constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Constant";
   constant Real k2 = 2*Modelica.Constants.pi/365.25 "Constant";
   final parameter Modelica.SIunits.Time diff = -timZon+lon*43200/Modelica.Constants.pi
     "Difference between local and clock time";
+  Real Bt "Intermediate variable used to calculate equation of time";
 
 equation
   Bt = Modelica.Constants.pi*((nDay + 86400)/86400 - 81)/182
@@ -42,23 +42,23 @@ equation
 
   solTim = locTim + eqnTim "Solar time";
 
-  solHouAng = (solTim/3600 - 12)*2*Modelica.Constants.pi/24
+  houAng = (solTim/3600 - 12)*2*Modelica.Constants.pi/24
   "Solar hour angle";
 
   decAng = Modelica.Math.asin(-k1 * Modelica.Math.cos((nDay/86400 + 10)*k2))
   "Solar declination angle";
 
-  zen =  Modelica.Math.acos(Modelica.Math.cos(lat)*Modelica.Math.cos(decAng)*
-    Modelica.Math.cos(solHouAng) + Modelica.Math.sin(lat)*Modelica.Math.sin(
+  zenAng =  Modelica.Math.acos(Modelica.Math.cos(lat)*Modelica.Math.cos(decAng)*
+    Modelica.Math.cos(houAng) + Modelica.Math.sin(lat)*Modelica.Math.sin(
     decAng))
   "Solar zenith angle";
 
-  alt = (Modelica.Constants.pi/2) - zen
+  altAng = (Modelica.Constants.pi/2) - zenAng
   "Solar altitude or elevation angle";
 
-  when alt>=0 then
+  when altAng>=0 then
       SunRiseSet = mod(time/3600,24);
-  elsewhen alt<=0 then
+  elsewhen altAng<=0 then
       SunRiseSet = mod(time/3600,24);
   end when
   "When solar altitude is bigger than 0, then the sun is above the horizon."
