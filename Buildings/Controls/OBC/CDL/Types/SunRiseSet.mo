@@ -58,9 +58,9 @@ equation
   "Solar altitude or elevation angle";
 
   when altAng>=0 then
-      SunRiseSet = mod(time/3600,24);
+      SunRiseSet = mod(time,24);
   elsewhen altAng<=0 then
-      SunRiseSet = mod(time/3600,24);
+      SunRiseSet = mod(time,24);
   end when
   "When solar altitude is bigger than 0, it means the sun is above the horizon."
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
