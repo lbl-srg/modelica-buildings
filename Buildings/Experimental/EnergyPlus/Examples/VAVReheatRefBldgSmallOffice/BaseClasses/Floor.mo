@@ -1,4 +1,4 @@
-within Buildings.Experimental.EnergyPlus.Examples.BaseClasses;
+within Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses;
 model Floor "Model of a floor of the building"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
