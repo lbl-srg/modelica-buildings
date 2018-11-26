@@ -279,9 +279,11 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
 
   printf("FMUZoneInstantiate 11\n");
   /* Compute the total number of input variables of the building model */
-  totNumInp=sizeof(inputValueReferences)/sizeof(inputValueReferences[0]);
+  //totNumInp=sizeof(inputValueReferences)/sizeof(inputValueReferences[0]);
+  totNumInp = 1;
   /* Compute the total number of output variables of the building model */
-  totNumOut=sizeof(outputValueReferences)/sizeof(outputValueReferences[0]);
+  //totNumOut=sizeof(outputValueReferences)/sizeof(outputValueReferences[0]);
+  totNumOut = 4;
   result = loadLib(zone->ptrBui->epLib, zone->ptrBui->fmu);
 
   printf("FMUZoneInstantiate 12\n");

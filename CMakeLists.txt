@@ -82,6 +82,7 @@ target_link_libraries(modelica-buildings
   ModelicaMatIO
   ModelicaStandardTables
   zlib
+  dl
 )
 
 target_include_directories(modelica-buildings 

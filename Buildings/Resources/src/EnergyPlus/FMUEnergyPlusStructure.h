@@ -92,10 +92,10 @@ typedef struct FMUZone
   fmi2ValueReference* valueReference; /* Value references for this zone */
   size_t nValueReference;
   size_t nInputValueReferences;/* Number of input value references*/
-  fmi2Byte inputVariableNames[5][100]; /* Names of input variables*/
+  fmi2Byte inputVariableNames[1][100]; /* Names of input variables*/
   fmi2ValueReference inputValueReferences[5]; /* Value reference of input variables*/
   size_t nOutputValueReferences;/* Number of output value references*/
-  fmi2Byte outputVariableNames[7][100]; /* Names of output variables*/
+  fmi2Byte outputVariableNames[4][100]; /* Names of output variables*/
   fmi2ValueReference outputValueReferences[7]; /* Value references of output variables*/
 } FMUZone;
 
