@@ -100,7 +100,7 @@ void getParametersFromEnergyPlus(
   const char* zoneName,
   char** outputNames,
   const fmi2ValueReference outputValueReferences[],
-  size_t totNumOut,
+  size_t nOut,
   double* AFlo,
   double* V,
   double* mSenFac){
@@ -115,9 +115,9 @@ void getParametersFromEnergyPlus(
   char* outNamEP;
 
   /* Allocate memory */
-  outputs = (double*)malloc(totNumOut * sizeof(double));
+  outputs = (double*)malloc(nOut * sizeof(double));
   /* Get initial output variables */
-  result = fmu->getVariables(outputValueReferences, outputs, totNumOut, NULL);
+  result = fmu->getVariables(outputValueReferences, outputs, nOut, NULL);
   if (result <0 ){
     ModelicaFormatError("Failed to get initial outputs for building %s, zone %s.",
     buildingName, zoneName);
@@ -133,7 +133,7 @@ void getParametersFromEnergyPlus(
     ModelicaFormatError("Failed to allocate memory for EnergyPlus output variable name in FMUZoneInstantiate.c.");
   for (i=0; i<3; i++){
     sprintf(outNamEP, "%s%s%s", zoneName, ",", parNames[i]);
-    for (j=0; j<totNumOut; j++){
+    for (j=0; j<nOut; j++){
       if (strstr(outputNames[j], outNamEP)!=NULL){
         parValues[i] = outputs[j];
         break;
@@ -154,17 +154,17 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   FMU* fmu;
   int cntr=0;
   int result;
-  int i, j, k ;
-  size_t totNumInp;
-  size_t totNumOut;
+  int i, j, k;
 
   const int nZon=zone->ptrBui->nZon;
   /* fmi2ValueReference* inputValueReferences=(fmi2ValueReference* )valgrin(nInp*sizeof(fmi2ValueReference)); */
   /* fmi2ValueReference* outputValueReferences=(fmi2ValueReference* )malloc(nOut*sizeof(fmi2ValueReference)); */
-  const int scaInp=1;
-  const int scaOut=4;
-  const int nInp = scaInp*nZon;
-  const int nOut = scaOut*nZon;
+  zone->nInputValueReferences = 1;
+  zone->nOutputValueReferences = 4;
+  const size_t scaInp=zone->nInputValueReferences;
+  const size_t scaOut=zone->nOutputValueReferences;
+  const size_t nInp = scaInp*nZon;
+  const size_t nOut = scaOut*nZon;
 
   char** inputNames;
   char** outputNames;
@@ -230,40 +230,32 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   }
 
   /* Save input value references at zone and building level */
-  while (cntr<nInp){
-    for (k=0; k<scaInp; k++){
-      for (j=0; j<nZon; j++) {
-        inputNames[cntr]=(char*)malloc((strlen(tmpZon[j]->name)+strlen(consInputNames[k]) + 2)*sizeof(char));
-        if ( inputNames[cntr] == NULL )
-          ModelicaError("Not enough memory in FMUZoneInstantiate.c to allocate memory for inputNames.");
-        sprintf(inputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consInputNames[k]);
-        strcpy(tmpZon[j]->inputVariableNames[k], inputNames[cntr]);
-        tmpZon[j]->inputValueReferences[k]=inputValueReferences[cntr];
-        cntr++;
-      }
+  for (k=0; k<scaInp; k++){
+    for (j=0; j<nZon; j++) {
+      inputNames[cntr]=(char*)malloc((strlen(tmpZon[j]->name)+strlen(consInputNames[k]) + 2)*sizeof(char));
+      if ( inputNames[cntr] == NULL )
+        ModelicaError("Not enough memory in FMUZoneInstantiate.c to allocate memory for inputNames.");
+      sprintf(inputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consInputNames[k]);
+      strcpy(tmpZon[j]->inputVariableNames[k], inputNames[cntr]);
+      tmpZon[j]->inputValueReferences[k]=inputValueReferences[cntr];
+      cntr++;
     }
   }
 
   /* Save output value references at zone and building level */
   cntr=0;
-  while (cntr<nInp){
-    for (k=0; k<scaOut; k++){
-      for (j=0; j<nZon; j++){
-        outputNames[cntr]=(char*)malloc((strlen(tmpZon[j]->name)+strlen(consOutputNames[k]) + 2)*sizeof(char));
-        if ( outputNames[cntr] == NULL )
-          ModelicaError("Not enough memory in FMUZoneInstantiate.c to allocate memory for outputNames.");
-        sprintf(outputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consOutputNames[k]);
-        strcpy(tmpZon[j]->outputVariableNames[k], outputNames[cntr]);
-        tmpZon[j]->outputValueReferences[k]=outputValueReferences[cntr];
-        cntr++;
-      }
+  for (k=0; k<scaOut; k++){
+    for (j=0; j<nZon; j++){
+      outputNames[cntr]=(char*)malloc((strlen(tmpZon[j]->name)+strlen(consOutputNames[k]) + 2)*sizeof(char));
+      if ( outputNames[cntr] == NULL )
+        ModelicaError("Not enough memory in FMUZoneInstantiate.c to allocate memory for outputNames.");
+      sprintf(outputNames[cntr], "%s%s%s", tmpZon[j]->name, ",", consOutputNames[k]);
+      strcpy(tmpZon[j]->outputVariableNames[k], outputNames[cntr]);
+      tmpZon[j]->outputValueReferences[k]=outputValueReferences[cntr];
+      cntr++;
     }
   }
 
-  /* Compute the total number of input variables of the building model */
-  totNumInp=sizeof(inputValueReferences)/sizeof(inputValueReferences[0]);
-  /* Compute the total number of output variables of the building model */
-  totNumOut=sizeof(outputValueReferences)/sizeof(outputValueReferences[0]);
   result = loadLib(zone->ptrBui->epLib, zone->ptrBui->fmu);
 
   /* Instantiate the building FMU*/
@@ -276,10 +268,10 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
                        0, /* nPar */
                        (const char**)inputNames, /* inputNames */
                        inputValueReferences, /* inputValueReferences[] */
-                       totNumInp, /* nInp */
+                       nInp, /* nInp */
                        (const char**)outputNames, /* outputNames */
                        outputValueReferences, /* outputValueReferences[] */
-                       totNumOut, /* nOut */
+                       nOut, /* nOut */
                        NULL); /*log); */
 
   if(result<0){
@@ -305,7 +297,7 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
     zone->name,
     outputNames,
     outputValueReferences,
-    totNumOut,
+    nOut,
     AFlo, V, mSenFac);
 
   return;

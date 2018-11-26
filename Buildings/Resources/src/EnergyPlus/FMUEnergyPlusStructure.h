@@ -89,14 +89,12 @@ typedef struct FMUZone
   int index;
   fmi2Byte* name;      /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
-  fmi2ValueReference* valueReference; /* Value references for this zone */
-  size_t nValueReference;
-  size_t nInputValueReferences;/* Number of input value references*/
-  fmi2Byte inputVariableNames[5][100]; /* Names of input variables*/
-  fmi2ValueReference inputValueReferences[5]; /* Value reference of input variables*/
-  size_t nOutputValueReferences;/* Number of output value references*/
-  fmi2Byte outputVariableNames[7][100]; /* Names of output variables*/
-  fmi2ValueReference outputValueReferences[7]; /* Value references of output variables*/
+  size_t nInputValueReferences;/* Number of input value references per zone*/
+  fmi2Byte inputVariableNames[1][100]; /* Names of input variables*/
+  fmi2ValueReference inputValueReferences[1]; /* Value reference of input variables*/
+  size_t nOutputValueReferences;/* Number of output value references per zone*/
+  fmi2Byte outputVariableNames[4][100]; /* Names of output variables*/
+  fmi2ValueReference outputValueReferences[4]; /* Value references of output variables*/
 } FMUZone;
 
 void incrementBuildings_nFMU();

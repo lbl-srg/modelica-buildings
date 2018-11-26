@@ -49,12 +49,6 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   if ( zone == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone.");
 
-  /* Assign the value reference. This should be done by using the values from modelDescription.xml */
-  /*for(i = 0; i < nFluPor; i++){
-    zone->valueReference[i] = i;
-  }
-  */
-
   /* Assign the zone name */
   zone->name = malloc((strlen(zoneName)+1) * sizeof(char));
   if ( zone->name == NULL )
