@@ -103,7 +103,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   }
   /*Set the fmu to null to control execution*/
   zone->ptrBui->fmu=NULL;
-  ModelicaMessage("*** Leaving FMUZoneInit.");
+  /* ModelicaMessage("*** Leaving FMUZoneInit."); */
 
   /* Return a pointer to this zone */
   return (void*) zone;
