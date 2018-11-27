@@ -12,6 +12,7 @@
 
 void FMUBuildingFree(FMUBuilding* ptrBui){
   if ( ptrBui != NULL ){
+    ptrBui->fmu->terminate(NULL);
     free(ptrBui->name);
     free(ptrBui->weather);
     free(ptrBui->idd);
@@ -34,7 +35,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 }
 
 void FMUZoneFree(void* object){
-  ModelicaMessage("*** Entered FMUZoneFree.");
+  /* ModelicaMessage("*** Entered FMUZoneFree."); */
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure
@@ -51,6 +52,6 @@ void FMUZoneFree(void* object){
       decrementBuildings_nFMU();
     }
     free(zone);
-    ModelicaMessage("Freed zone.\n");
+    /* ModelicaMessage("*** Freed zone.\n"); */
   }
 }

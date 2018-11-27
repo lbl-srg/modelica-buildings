@@ -282,9 +282,9 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
    /* Need to pass the start value at initialization */
   if (zone->ptrBui->_firstCall){
     /* This function can only be called once per building FMU */
-    ModelicaMessage("*** Calling setupExperiment.");
+    /* ModelicaMessage("*** Calling setupExperiment."); */
     result = zone->ptrBui->fmu->setupExperiment(t0, 1, NULL);
-    ModelicaMessage("*** Returned from setupExperiment.");
+    /* ModelicaMessage("*** Returned from setupExperiment."); */
     if(result<0){
       ModelicaFormatError("Failed to setup experiment for building FMU with name %s.",
       zone->ptrBui->name);

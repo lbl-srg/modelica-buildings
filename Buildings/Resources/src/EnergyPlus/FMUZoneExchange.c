@@ -59,8 +59,7 @@ void FMUZoneExchange(
   const double dT = 0.01; /* Increment for derivative approximation */
   double QConSenPer_flow;
 
-  ModelicaFormatMessage("*** Entered FMUZoneExchange at t = %f  ",
-    time);
+  /* ModelicaFormatMessage("*** Entered FMUZoneExchange at t = %f  ", time); */
 
 
   FMUZone* tmpZon = malloc(sizeof(FMUZone));
@@ -117,7 +116,7 @@ void FMUZoneExchange(
   *TRad = 293.15;
   *QLat_flow = 0;
   *QPeo_flow = 0;
-  ModelicaMessage("*** Leaving FMUZoneExchange.\n");
+  /* ModelicaMessage("*** Leaving FMUZoneExchange.\n"); */
 
   return;
 }

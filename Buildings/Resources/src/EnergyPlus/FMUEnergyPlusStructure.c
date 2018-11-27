@@ -72,7 +72,7 @@ FMUBuilding* instantiateZone(const char* idfName, const char* weaName,
   Buildings_FMUS[nFMU]->zones[0] = zone;
 
   incrementBuildings_nFMU();
-  ModelicaMessage("*** Leaving instantiateEnergyPlusFMU.");
+  /* ModelicaMessage("*** Leaving instantiateEnergyPlusFMU."); */
 
   /* Return the pointer to the FMU for this EnergyPlus instance */
   return Buildings_FMUS[nFMU];
@@ -84,7 +84,7 @@ FMUBuilding* getBuildingsFMU(size_t iFMU){
 
 void incrementBuildings_nFMU(){
   Buildings_nFMU++;
-  ModelicaFormatMessage("*** Increased Buildings_nFMU to %zu.", Buildings_nFMU);
+  /* ModelicaFormatMessage("*** Increased Buildings_nFMU to %zu.", Buildings_nFMU); */
   return;
 }
 
@@ -93,7 +93,7 @@ void decrementBuildings_nFMU(){
   if (Buildings_nFMU == 0){
      free(Buildings_FMUS);
    }
-  ModelicaFormatMessage("*** Decreased Buildings_nFMU to %zu.", Buildings_nFMU);
+  /* ModelicaFormatMessage("*** Decreased Buildings_nFMU to %zu.", Buildings_nFMU); */
   return;
 }
 

@@ -16,7 +16,7 @@
 FMUBuilding* instantiateEnergyPlusFMU(const char* idfName, const char* weaName,
   const char* iddName, const char* epLibName, const char* zoneName, FMUZone* zone)
 {
-  ModelicaMessage("*** Entered instantiateEnergyPlusFMU.");
+/*  ModelicaMessage("*** Entered instantiateEnergyPlusFMU."); */
   return instantiateZone(idfName, weaName, iddName, epLibName, zoneName, zone);
 };
 
@@ -39,7 +39,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
      for the zone with zoneName can be obtained */
   unsigned int i;
   const size_t nFMU = getBuildings_nFMU();
-  ModelicaMessage("*** Entered FMUZoneInit.");
+  /* ModelicaMessage("*** Entered FMUZoneInit."); */
 
   /* ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName); */
 
