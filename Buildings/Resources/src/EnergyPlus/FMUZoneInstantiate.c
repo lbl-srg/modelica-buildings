@@ -94,15 +94,15 @@ int loadLib(const char* libPath, FMU *fmu) {
 
 }
 
-char* getEnergyPlusTemporaryDirectory(const char* idfName){
+void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   /* Return the name of the temporary directory to be used for EnergyPlus */
   /* Get file name without path */
-
-  char * nam = strrchr(idfName, '/');
-  if ( nam == NULL )
+  /* return "tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"; */
+  char * namWitSla = strrchr(idfName, '/');
+  if ( namWitSla == NULL )
     ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with forward slash '/'?", idfName);
   /* Remove the first slash */
-  nam++;
+  char * nam = namWitSla + 1;
   /* Get the extension */
   char * ext = strrchr(nam, '.');
   if ( ext == NULL )
@@ -119,18 +119,17 @@ char* getEnergyPlusTemporaryDirectory(const char* idfName){
   strncpy(namOnl, nam, lenNam);
 
   /* Prefix for temporary directory */
-  const char* pre = "tmp-eplus-";
+  const char* pre = "tmp-eplus-\0";
   size_t lenPre = strlen(pre);
-  char * des;
-  des = malloc((lenPre+lenNam+1) * sizeof(char));
 
-  if ( des == NULL )
+  *dirNam = (char*)malloc((lenPre+lenNam+1) * sizeof(char));
+  if ( *dirNam == NULL )
     ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
 
-  strncpy(des, pre, lenPre);
-  strncat(des, namOnl, lenNam);
+  strncpy(*dirNam, pre, lenPre);
+  strcat(*dirNam, namOnl);
 
-  return des;
+  return;
 }
 
 void getParametersFromEnergyPlus(
@@ -212,6 +211,7 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   fmi2ValueReference* outputValueReferences;
 
   char* tmpDir;
+  tmpDir = NULL;
 
   inputValueReferences = malloc(nInp * sizeof(inputValueReferences));
   if (inputValueReferences == NULL)
@@ -300,8 +300,7 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   result = loadLib(zone->ptrBui->epLib, zone->ptrBui->fmu);
 
   /* Instantiate the building FMU*/
-  tmpDir = getEnergyPlusTemporaryDirectory(zone->ptrBui->name);
-
+  getEnergyPlusTemporaryDirectory(zone->ptrBui->name, &tmpDir);
 
   result = zone->ptrBui->fmu->instantiate(zone->ptrBui->name, /* input */
                        zone->ptrBui->weather,  /* weather */
@@ -321,7 +320,7 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
     ModelicaFormatError("Failed to instantiate building FMU with name %s.",
     zone->ptrBui->name);
   }
-  free(tmpDir);
+  /* free(tmpDir); */
 
    /* Need to pass the start value at initialization */
   if (zone->ptrBui->_firstCall){
