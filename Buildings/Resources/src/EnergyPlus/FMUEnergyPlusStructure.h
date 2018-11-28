@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stddef.h>  /* stddef defines size_t */
 #include <string.h>
+#include <stdio.h>
 #include "fmi2FunctionTypes.h"
 #include "ModelicaUtilities.h"
 
@@ -94,11 +95,11 @@ typedef struct FMUZone
   fmi2Byte* name;      /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
   size_t nInputValueReferences;/* Number of input value references per zone*/
-  fmi2Byte inputVariableNames[1][100]; /* Names of input variables*/
-  fmi2ValueReference inputValueReferences[1]; /* Value reference of input variables*/
+  fmi2Byte** inputVariableNames; /* Names of input variables*/
+  fmi2ValueReference* inputValueReferences; /* Value reference of input variables*/
   size_t nOutputValueReferences;/* Number of output value references per zone*/
-  fmi2Byte outputVariableNames[4][100]; /* Names of output variables*/
-  fmi2ValueReference outputValueReferences[4]; /* Value references of output variables*/
+  fmi2Byte** outputVariableNames; /* Names of output variables*/
+  fmi2ValueReference* outputValueReferences; /* Value references of output variables*/
 } FMUZone;
 
 void incrementBuildings_nFMU();

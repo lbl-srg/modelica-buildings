@@ -34,7 +34,7 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 /* Create the structure and return a pointer to its address. */
 void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName, const char* epLibName, const char* zoneName)
 {
-  writeLog(1, "Log: Initializing zone.");
+  writeLog(1, "Initializing zone.");
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   unsigned int i;
@@ -54,6 +54,12 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   if ( zone->name == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
   strcpy(zone->name, zoneName);
+  /* Set the number of inputs and outputs to zero. This will be used to check if
+     the data structures for the inputs and outputs
+     have already been set in a call in the 'initial equation' section
+  */
+  zone->nInputValueReferences = 0;
+  zone->nOutputValueReferences = 0;
 
   /* ********************************************************************** */
   /* Initialize the pointer for the FMU to which this zone belongs */
@@ -103,7 +109,6 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   }
   /*Set the fmu to null to control execution*/
   zone->ptrBui->fmu=NULL;
-  /* ModelicaMessage("*** Leaving FMUZoneInit."); */
 
   /* Return a pointer to this zone */
   return (void*) zone;

@@ -20,8 +20,8 @@ void writeLog(unsigned int level, const char* msg)
         ModelicaError("Failed to allocate string array in writeLog.\n");
       strcpy(m, prefix);
       strcat(m, msg);
-      strcat(m, "\n");
-      ModelicaMessage(m);
+      fprintf(stdout, "%s\n", m);
+      fflush(stdout);
     }
 }
 
