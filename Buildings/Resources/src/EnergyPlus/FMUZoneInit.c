@@ -16,7 +16,6 @@
 FMUBuilding* instantiateEnergyPlusFMU(const char* idfName, const char* weaName,
   const char* iddName, const char* epLibName, const char* zoneName, FMUZone* zone)
 {
-/*  ModelicaMessage("*** Entered instantiateEnergyPlusFMU."); */
   return instantiateZone(idfName, weaName, iddName, epLibName, zoneName, zone);
 };
 
@@ -35,6 +34,7 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 /* Create the structure and return a pointer to its address. */
 void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName, const char* epLibName, const char* zoneName)
 {
+  writeLog(1, "Log: Initializing zone.");
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   unsigned int i;

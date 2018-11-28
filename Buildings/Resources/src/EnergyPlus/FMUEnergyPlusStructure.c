@@ -10,6 +10,20 @@
 #include <stdlib.h>
 #include <string.h>
 
+void writeLog(unsigned int level, const char* msg)
+{
+    if (level <= FMU_EP_VERBOSITY){
+      const char* prefix = "*** Log: ";
+      char* m;
+      m = (char*)malloc( (strlen(msg)+strlen(prefix)+1) * sizeof(char));
+      if (m == NULL)
+        ModelicaError("Failed to allocate string array in writeLog.\n");
+      strcpy(m, prefix);
+      strcat(m, msg);
+      strcat(m, "\n");
+      ModelicaMessage(m);
+    }
+}
 
 static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */

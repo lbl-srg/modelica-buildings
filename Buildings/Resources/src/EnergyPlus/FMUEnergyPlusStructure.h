@@ -22,6 +22,10 @@
 #include <dlfcn.h>
 #endif
 
+#define FMU_EP_VERBOSITY 3 /* Verbosity flag, 0: quiet, 3: all output */
+
+void writeLog(unsigned int level, const char* msg);
+
 typedef unsigned int (*fInstantiate)(fmi2String input,
                          fmi2String weather,
                          fmi2String idd,

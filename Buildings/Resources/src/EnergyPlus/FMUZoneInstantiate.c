@@ -35,6 +35,8 @@ void* getAdr(FMU *fmu, const char* functionName){
 }
 
 int loadLib(const char* libPath, FMU *fmu) {
+  writeLog(0, "Opening EnergyPlus library.");
+
 #ifdef _MSC_VER
   HINSTANCE h;
 #else
@@ -151,7 +153,7 @@ void getParametersFromEnergyPlus(
   const char* parNames[] = {"V", "AFlo", "mSenFac"};
   double parValues[3];
   char* outNamEP;
-
+  writeLog(1, "Getting parameters from EnergyPlus.");
   /* Allocate memory */
   outputs = (double*)malloc(nOut * sizeof(double));
   /* Get initial output variables */
@@ -197,6 +199,9 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
   const int nZon=zone->ptrBui->nZon;
   /* fmi2ValueReference* inputValueReferences=(fmi2ValueReference* )valgrin(nInp*sizeof(fmi2ValueReference)); */
   /* fmi2ValueReference* outputValueReferences=(fmi2ValueReference* )malloc(nOut*sizeof(fmi2ValueReference)); */
+
+  writeLog(1, "Instantiating zone.");
+
   zone->nInputValueReferences = 1;
   zone->nOutputValueReferences = 4;
   const size_t scaInp=zone->nInputValueReferences;
