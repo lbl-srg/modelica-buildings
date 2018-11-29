@@ -25,12 +25,57 @@ void writeLog(unsigned int level, const char* msg)
     }
 }
 
+void printBacktrace(){
+  void* callstack[128];
+  int i, frames = backtrace(callstack, 128);
+  char** strs = backtrace_symbols(callstack, frames);
+  for (i = 0; i < frames; ++i) {
+    printf("%s\n", strs[i]);
+  }
+  free(strs);
+}
+
 static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
 
-FMUBuilding* instantiateZone(const char* idfName, const char* weaName,
+void buildVariableNames(
+  const char* zoneName,
+  const char** variableNames,
+  const size_t nVar,
+  char** *fullNames,
+  size_t* len){
+  /* Map the output values to correct parameters */
+  /* Compute longest output name */
+  size_t i;
+  *len = 0;
+  for (i=0; i<nVar; i++)
+    *len = max(*len, strlen(zoneName) + 2 + strlen(variableNames[i]));
+
+  *fullNames = (char**)malloc(nVar * sizeof(char*));
+
+  if (*fullNames == NULL)
+    ModelicaError("Failed to allocate memory for fullNames in FMUZoneInstantiate.c.");
+
+  for (i=0; i<nVar; i++){
+    (*fullNames)[i] = (char*)malloc(( (*len) + 2 ) * sizeof(char));
+    if ( (*fullNames)[i] == NULL)
+      ModelicaError("Failed to allocate memory for fullNames[i] in FMUZoneInstantiate.c.");
+  }
+  /* Copy the string */
+  for (i=0; i<nVar; i++){
+    strcpy((*fullNames)[i], zoneName);
+    strcat((*fullNames)[i], ",");
+    strcat((*fullNames)[i], variableNames[i]);
+
+  }
+  return;
+}
+
+FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
   const char* iddName, const char* epLibName, const char* zoneName, FMUZone* zone){
   /* Allocate memory */
+  writeLog(1, "Allocating data structure for building.");
+
   const size_t nFMU = getBuildings_nFMU();
   if (nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));

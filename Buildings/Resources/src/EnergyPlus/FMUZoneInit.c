@@ -12,13 +12,6 @@
 #include <stdio.h>
 
 
-/* Create the structure and return a pointer to its address. */
-FMUBuilding* instantiateEnergyPlusFMU(const char* idfName, const char* weaName,
-  const char* iddName, const char* epLibName, const char* zoneName, FMUZone* zone)
-{
-  return instantiateZone(idfName, weaName, iddName, epLibName, zoneName, zone);
-};
-
 int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
   int iZ;
   int isUnique = 1;
@@ -38,6 +31,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   unsigned int i;
+  size_t len;
   const size_t nFMU = getBuildings_nFMU();
   /* ModelicaMessage("*** Entered FMUZoneInit."); */
 
@@ -58,8 +52,43 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
      the data structures for the inputs and outputs
      have already been set in a call in the 'initial equation' section
   */
-  zone->nInputValueReferences = 0;
-  zone->nOutputValueReferences = 0;
+  zone->nInputValueReferences = 1;
+  zone->nOutputValueReferences = 4;
+
+  char** fullInpNames = NULL;
+  char** fullOutNames = NULL;
+
+  const char* consInputNames[]={"T"};
+  const char* consOutputNames[]={"QConSen_flow", "V", "AFlo", "mSenFac"};
+
+  /* Set the input and output names. The value references will be set when all zones are assembled */
+  /* buildVariableNames calls malloc on fullInpNames */
+  buildVariableNames(zone->name, consInputNames, zone->nInputValueReferences, &fullInpNames, &len);
+  /* Copy the string arrays */
+
+  zone->inputVariableNames = (char**)malloc(zone->nInputValueReferences * sizeof(char*));
+  if ( zone->inputVariableNames == NULL)
+    ModelicaFormatError("Failed to allocate memory for inputVariableNames.");
+
+  for(i = 0; i < zone->nInputValueReferences; i++){
+    zone->inputVariableNames[i] = (char*)malloc(len * sizeof(char));
+    if ( zone->inputVariableNames[i] == NULL)
+      ModelicaFormatError("Failed to allocate memory for inputVariableNames[i].");
+  }
+
+  for(i = 0; i < zone->nInputValueReferences; i++){
+    memcpy(zone->inputVariableNames[i], fullInpNames[i], len);
+  }
+
+  for(i = 0; i < zone->nInputValueReferences; i++)
+    free(fullInpNames[i]);
+  free(fullInpNames);
+
+  zone->inputValueReferences = NULL;
+
+  buildVariableNames(zone->name, consOutputNames, zone->nOutputValueReferences, &fullOutNames, &len);
+  zone->outputVariableNames = fullOutNames;
+  zone->outputValueReferences = NULL;
 
   /* ********************************************************************** */
   /* Initialize the pointer for the FMU to which this zone belongs */
@@ -67,7 +96,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   if (nFMU == 0){
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
-    zone->ptrBui = instantiateEnergyPlusFMU(idfName, weaName, iddName, epLibName, zoneName, zone);
+    zone->ptrBui = FMUZoneAllocateBuildingDataStructure(idfName, weaName, iddName, epLibName, zoneName, zone);
     zone->index = 1;
   } else {
     /* There is already a Buildings FMU allocated.
@@ -104,7 +133,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
       /* Check if we found an FMU */
       if (zone->ptrBui == NULL){
         /* Did not find an FMU. */
-        zone->ptrBui = instantiateEnergyPlusFMU(idfName, weaName, iddName, epLibName, zoneName, zone);;
+        zone->ptrBui = FMUZoneAllocateBuildingDataStructure(idfName, weaName, iddName, epLibName, zoneName, zone);
       }
   }
   /*Set the fmu to null to control execution*/

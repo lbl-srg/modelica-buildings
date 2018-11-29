@@ -9,6 +9,7 @@
 #include <stddef.h>  /* stddef defines size_t */
 #include <string.h>
 #include <stdio.h>
+#include <execinfo.h>
 #include "fmi2FunctionTypes.h"
 #include "ModelicaUtilities.h"
 
@@ -24,6 +25,10 @@
 #endif
 
 #define FMU_EP_VERBOSITY 3 /* Verbosity flag, 0: quiet, 3: all output */
+
+#ifndef max
+  #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
+#endif
 
 void writeLog(unsigned int level, const char* msg);
 
@@ -106,7 +111,14 @@ void incrementBuildings_nFMU();
 void decrementBuildings_nFMU();
 unsigned int getBuildings_nFMU();
 
-FMUBuilding* instantiateZone(
+void buildVariableNames(
+  const char* zoneName,
+  const char** variableNames,
+  const size_t nVar,
+  char** *fullNames,
+  size_t* len);
+
+FMUBuilding* FMUZoneAllocateBuildingDataStructure(
   const char* idfName, const char* weaName,
   const char* iddName, const char* epLibName,
   const char* zoneName, FMUZone* zone);
