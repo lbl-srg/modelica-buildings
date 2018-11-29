@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet", method="dassl", tolerance=1e-06, stopTime=3.1536e+007, numberOfIntervals=5000, resultFile="SunRiseSet");
+createPlot(id=1, position={15, 10, 590, 600}, subPlot=1, y={"sunRiseSet_arctic.sunRise", "sunRiseSet_arctic.sunSet"}, range={0.0, 370, -2, 24}, grid=true, colors={{0,140,72}, {238,46,47}});
+createPlot(id=1, position={15, 10, 590, 600}, subPlot=2, y={"sunRiseSet_sf.sunRise", "sunRiseSet_sf.sunSet"}, range={0.0, 370, -2, 24}, grid=true, colors={{0,140,72}, {238,46,47}});
+createPlot(id=1, position={15, 10, 590, 600}, subPlot=3, y={"sunRiseSet_antarctic.sunRise", "sunRiseSet_antarctic.sunSet"}, range={0.0, 370, -2, 24}, grid=true, colors={{0,140,72}, {238,46,47}});
