@@ -32,6 +32,17 @@
 
 void writeLog(unsigned int level, const char* msg);
 
+void logStringArray(unsigned int level,
+                    const char* msg,
+                    const char** array,
+                    size_t n);
+
+void logValueReferenceArray(unsigned int level,
+                            const char* msg,
+                            const fmi2ValueReference* array,
+                            size_t n);
+
+
 typedef unsigned int (*fInstantiate)(fmi2String input,
                          fmi2String weather,
                          fmi2String idd,
@@ -83,7 +94,6 @@ typedef struct FMU{
 
 typedef struct FMUBuilding
 {
-  int _firstCall;
   fmi2Byte* name;
   fmi2Byte* weather;
   fmi2Byte* idd;
@@ -99,6 +109,9 @@ typedef struct FMUZone
   int index;
   fmi2Byte* name;      /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
+  size_t nParameterValueReferences;/* Number of parameter value references per zone*/
+  fmi2Byte** parameterVariableNames; /* Names of parameter variables*/
+  fmi2ValueReference* parameterValueReferences; /* Value reference of parameter variables*/
   size_t nInputValueReferences;/* Number of input value references per zone*/
   fmi2Byte** inputVariableNames; /* Names of input variables*/
   fmi2ValueReference* inputValueReferences; /* Value reference of input variables*/

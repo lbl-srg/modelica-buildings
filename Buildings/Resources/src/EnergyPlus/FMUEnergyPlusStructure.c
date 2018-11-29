@@ -25,6 +25,36 @@ void writeLog(unsigned int level, const char* msg)
     }
 }
 
+void logStringArray(unsigned int level,
+                    const char* msg,
+                    const char** array,
+                    size_t n){
+  int i;
+  if (level <= FMU_EP_VERBOSITY){
+    writeLog(level, msg);
+    for(i = 0; i < n; i++)
+      writeLog(level, array[i]);
+    writeLog(level, "End of array.");
+  }
+}
+
+void logValueReferenceArray(unsigned int level,
+                            const char* msg,
+                            const fmi2ValueReference* array,
+                            size_t n){
+  int i;
+  if (level <= FMU_EP_VERBOSITY){
+    char res[100];
+    writeLog(level, msg);
+    for(i = 0; i < n; i++){
+      sprintf(res, "%d", array[i]);
+      writeLog(level, res);
+    }
+    writeLog(level, "End of array.");
+  }
+}
+
+
 void printBacktrace(){
   void* callstack[128];
   int i, frames = backtrace(callstack, 128);

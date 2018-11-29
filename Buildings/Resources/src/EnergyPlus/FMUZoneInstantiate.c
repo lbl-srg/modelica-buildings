@@ -166,17 +166,17 @@ void getParametersFromEnergyPlus(
   writeLog(1, "Getting parameters from EnergyPlus.");
   char** fullNames = NULL;
 
-  fmi2ValueReference* outputValueReferences;
-  outputValueReferences = (fmi2ValueReference*)malloc(nOut * sizeof(fmi2ValueReference));
-  if ( outputValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for outputValueReferences in FMUZoneInstantiate.c.");
+  fmi2ValueReference* parameterValueReferences;
+  parameterValueReferences = (fmi2ValueReference*)malloc(nOut * sizeof(fmi2ValueReference));
+  if ( parameterValueReferences == NULL)
+    ModelicaFormatError("Failed to allocate memory for parameterValueReferences in FMUZoneInstantiate.c.");
 
   buildVariableNames(zone->name, parNames, nOut, &fullNames, &len);
   getValueReferences(fullNames, nOut,
-    zone->outputVariableNames, zone->outputValueReferences, zone->nOutputValueReferences,
-    outputValueReferences);
-  /* Get initial output variables */
-  result = fmu->getVariables(outputValueReferences, outputs, nOut, NULL);
+    zone->parameterVariableNames, zone->parameterValueReferences, zone->nParameterValueReferences,
+    parameterValueReferences);
+  /* Get initial parameter variables */
+  result = fmu->getVariables(parameterValueReferences, outputs, nOut, NULL);
   if (result <0 ){
     ModelicaFormatError("Failed to get initial outputs for building %s, zone %s.",
     zone->ptrBui->name, zone->name);
@@ -184,30 +184,53 @@ void getParametersFromEnergyPlus(
   for (i = 0; i < nOut; i++)
     free(fullNames[i]);
   free(fullNames);
-  free(outputValueReferences);
+  free(parameterValueReferences);
 
   return;
 }
 
-void FMUZoneAllocateZoneDataStructure(FMUZone* zone, double t0){
+void FMUZoneSetValueReferences(
+  FMUZone* *zone,
+  size_t nVal,
+  fmi2ValueReference* *valRef,
+  fmi2ValueReference* cntr)
+{
+  int k;
+  *valRef = (fmi2ValueReference*)malloc(nVal * sizeof(fmi2ValueReference));
+  if (*valRef == NULL)
+    ModelicaFormatError("Failed to allocate memory for valRef.");
+  for(k=0; k < nVal; k++){
+    (*valRef)[k]=*cntr;
+    (*cntr)++;
+  }
+}
+
+
+void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   fmi2ValueReference cntr=0;
   int result;
-  int i, j, k;
-  FMUBuilding* bui = zone->ptrBui;
+  int i;
+  int j;
+  FMUZone** zones = NULL;
+  zones = (FMUZone**)bui->zones;
+
+/*  FMUBuilding* bui = zone->ptrBui; */
   const int nZon=bui->nZon;
 
-  const size_t scaInp=zone->nInputValueReferences;
-  const size_t scaOut=zone->nOutputValueReferences;
+  const size_t scaPar=(*zones)[0].nParameterValueReferences;
+  const size_t scaInp=(*zones)[0].nInputValueReferences;
+  const size_t scaOut=(*zones)[0].nOutputValueReferences;
+  const size_t nPar = scaPar*nZon;
   const size_t nInp = scaInp*nZon;
   const size_t nOut = scaOut*nZon;
   size_t len;
   writeLog(1, "Allocating data structure for all zones in the building.");
-  FMUZone** zones = NULL;
-  zones = (FMUZone**)bui->zones;
 
   char* tmpDir;
   tmpDir = NULL;
 
+  fmi2ValueReference* parameterValueReferences;
+  fmi2Byte** parameterNames;
   fmi2ValueReference* inputValueReferences;
   fmi2Byte** inputNames;
   fmi2ValueReference* outputValueReferences;
@@ -215,48 +238,63 @@ void FMUZoneAllocateZoneDataStructure(FMUZone* zone, double t0){
   /* Define value references */
   /* Save input value references at zone and building level */
   cntr=0;
+
   for(j=0; j<nZon; j++){
-    zones[j]->inputValueReferences = (fmi2ValueReference*)malloc(zones[j]->nInputValueReferences * sizeof(fmi2ValueReference));
-    if (zones[j]->inputValueReferences == NULL)
-      ModelicaFormatError("Failed to allocate memory for zones[j]->inputValueReferences");
-    for(k=0; k < zones[j]->nInputValueReferences; k++){
-      zones[j]->inputValueReferences[k]=cntr;
-      cntr++;
-    }
+    FMUZoneSetValueReferences(&(zones[j]), zones[j]->nParameterValueReferences, &(zones[j]->parameterValueReferences), &cntr);
+  }
+  for(j=0; j<nZon; j++){
+    FMUZoneSetValueReferences(&(zones[j]), zones[j]->nInputValueReferences, &(zones[j]->inputValueReferences), &cntr);
   }
   /* Save output value references at zone and building level */
   for(j=0; j<nZon; j++){
-    zones[j]->outputValueReferences = (fmi2ValueReference*)malloc(zones[j]->nOutputValueReferences * sizeof(fmi2ValueReference));
-    if (zones[j]->outputValueReferences == NULL)
-      ModelicaFormatError("Failed to allocate memory for zones[j]->inputValueReferences");
-    for(k=0; k < zones[j]->nOutputValueReferences; k++){
-      zones[j]->outputValueReferences[k]=cntr;
-      cntr++;
-    }
+    FMUZoneSetValueReferences(&(zones[j]), zones[j]->nOutputValueReferences, &(zones[j]->outputValueReferences), &cntr);
   }
 
-  /* This is the first call for this idf file.
-     Allocate memory and load the library.
-  */
-  bui->fmu = (FMU*)malloc(sizeof(FMU));
-  if ( bui->fmu == NULL )
-    ModelicaError("Not enough memory in FMUZoneInstantiate.c to allocate memory for fmu.");
-
-  loadLib(bui->epLib, bui->fmu);
-  bui->_firstCall = 1;
-
-  /* Instantiate the building FMU*/
-  getEnergyPlusTemporaryDirectory(bui->name, &tmpDir);
 
   /* Build data structure to be sent to EnergyPlus */
   /* Allocate memory */
 
+  /* Get 1-D array of value references */
+  parameterValueReferences = (fmi2ValueReference*)malloc(nPar * sizeof(fmi2ValueReference));
+  if ( parameterValueReferences == NULL)
+    ModelicaFormatError("Failed to allocate memory for parameterValueReferences.");
+
   inputValueReferences = (fmi2ValueReference*)malloc(nInp * sizeof(fmi2ValueReference));
   if ( inputValueReferences == NULL)
     ModelicaFormatError("Failed to allocate memory for inputValueReferences.");
+
   outputValueReferences = (fmi2ValueReference*)malloc(nOut * sizeof(fmi2ValueReference));
   if ( outputValueReferences == NULL)
     ModelicaFormatError("Failed to allocate memory for outputValueReferences.");
+
+  /* Get 1-D array of names */
+  /* Parameters */
+  parameterNames = (char**)malloc(nPar * sizeof(char*));
+  if ( parameterNames == NULL)
+    ModelicaFormatError("Failed to allocate memory for parameterNames.");
+
+  len = 0;
+  for(i = 0; i < nZon; i++){
+    for(j = 0; j < scaPar; j++){
+      len = max(len, strlen(zones[i]->parameterVariableNames[j]));
+    }
+  }
+
+  for(i = 0; i < nPar; i++){
+    parameterNames[i] = (char*)malloc(len * sizeof(char));
+    if ( parameterNames[i] == NULL)
+      ModelicaFormatError("Failed to allocate memory for parameterNames[i].");
+  }
+  cntr = 0;
+  for(i = 0; i < nZon; i++){
+    for(j = 0; j < scaPar; j++){
+      parameterValueReferences[cntr] = zones[i]->parameterValueReferences[j];
+      strcpy(parameterNames[cntr], zones[i]->parameterVariableNames[j]);
+      cntr++;
+    }
+  }
+
+  /* Inputs */
   inputNames = (char**)malloc(nInp * sizeof(char*));
   if ( inputNames == NULL)
     ModelicaFormatError("Failed to allocate memory for inputNames.");
@@ -273,6 +311,16 @@ void FMUZoneAllocateZoneDataStructure(FMUZone* zone, double t0){
     if ( inputNames[i] == NULL)
       ModelicaFormatError("Failed to allocate memory for inputNames[i].");
   }
+  cntr = 0;
+  for(i = 0; i < nZon; i++){
+    for(j = 0; j < scaInp; j++){
+      inputValueReferences[cntr] = zones[i]->inputValueReferences[j];
+      strcpy(inputNames[cntr], zones[i]->inputVariableNames[j]);
+      cntr++;
+    }
+  }
+
+  /* Outputs */
   outputNames = (char**)malloc(nOut * sizeof(char*));
   if ( outputNames == NULL)
     ModelicaFormatError("Failed to allocate memory for outputNames.");
@@ -288,15 +336,6 @@ void FMUZoneAllocateZoneDataStructure(FMUZone* zone, double t0){
       ModelicaFormatError("Failed to allocate memory for outputNames[i].");
   }
 
-  /* Set values */
-  cntr = 0;
-  for(i = 0; i < nZon; i++){
-    for(j = 0; j < scaInp; j++){
-      inputValueReferences[cntr] = zones[i]->inputValueReferences[j];
-      strcpy(inputNames[cntr], zones[i]->inputVariableNames[j]);
-      cntr++;
-    }
-  }
   cntr = 0;
   for(i = 0; i < nZon; i++){
     for(j = 0; j < scaOut; j++){
@@ -306,14 +345,33 @@ void FMUZoneAllocateZoneDataStructure(FMUZone* zone, double t0){
     }
   }
 
+  /* This is the first call for this idf file.
+     Allocate memory and load the library.
+  */
+  bui->fmu = (FMU*)malloc(sizeof(FMU));
+  if ( bui->fmu == NULL )
+    ModelicaError("Not enough memory in FMUZoneInstantiate.c to allocate memory for fmu.");
+
+  loadLib(bui->epLib, bui->fmu);
+
+  /* Instantiate the building FMU*/
+  getEnergyPlusTemporaryDirectory(bui->name, &tmpDir);
+
+
   writeLog(0, "Instantiating fmu.");
+  logStringArray(3, "Parameter names", (const char**)parameterNames, nPar);
+  logValueReferenceArray(3, "Parameter value references", parameterValueReferences, nPar);
+  logStringArray(3, "Input names", (const char**)inputNames, nInp);
+  logValueReferenceArray(3, "Input value references", inputValueReferences, nInp);
+  logStringArray(3, "Output names", (const char**)outputNames, nOut);
+  logValueReferenceArray(3, "Output value references", outputValueReferences, nOut);
   result = bui->fmu->instantiate(bui->name, /* input */
                        bui->weather,  /* weather */
                        bui->idd,  /* idd */
                        tmpDir,  /* instanceName */
-                       NULL,  /* parameterNames */
-                       NULL, /* parameterValueReferences[] */
-                       0, /* nPar */
+                       (const char**)parameterNames,  /* parameterNames */
+                       parameterValueReferences, /* parameterValueReferences[] */
+                       nPar, /* nPar */
                        (const char**)inputNames, /* inputNames */
                        inputValueReferences, /* inputValueReferences[] */
                        nInp, /* nInp */
@@ -326,24 +384,23 @@ void FMUZoneAllocateZoneDataStructure(FMUZone* zone, double t0){
     ModelicaFormatError("Failed to instantiate building FMU with name %s.",
     bui->name);
   }
+
   free(tmpDir);
+
+  free(parameterValueReferences);
+  for(i = 0; i < nPar; i++)
+    free(parameterNames[i]);
+  free(parameterNames);
+
   free(inputValueReferences);
   for(i = 0; i < nInp; i++)
     free(inputNames[i]);
   free(inputNames);
+
   free(outputValueReferences);
   for(i = 0; i < nOut; i++)
     free(outputNames[i]);
   free(outputNames);
-   /* Need to pass the start value at initialization */
-   /* This function can only be called once per building FMU */
-  writeLog(0, "Setting up experiment.");
-  result = bui->fmu->setupExperiment(t0, 1, NULL);
-  writeLog(0, "Returned from setting up experiment.");
-  if(result<0){
-    ModelicaFormatError("Failed to setup experiment for building FMU with name %s.",
-      bui->name);
-  }
 
   return;
 }
@@ -351,18 +408,26 @@ void FMUZoneAllocateZoneDataStructure(FMUZone* zone, double t0){
 /* This function is called for each zone in the 'initial equation section'
 */
 void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac){
+  int result = 0;
   FMUZone* zone = (FMUZone*) object;
   const size_t nOut = 3;
   const char* parNames[] = {"V", "AFlo", "mSenFac"};
 
   double* outputs;
 
-
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
        This section is only executed once if the 'initial equation' section is called multiple times.
     */
-    FMUZoneAllocateZoneDataStructure(zone, t0);
+    FMUZoneAllocateAndInstantiateBuilding(zone->ptrBui);
+    /* This function can only be called once per building FMU */
+    writeLog(0, "Setting up experiment.");
+    result = zone->ptrBui->fmu->setupExperiment(t0, 1, NULL);
+    writeLog(0, "Returned from setting up experiment.");
+    if(result<0){
+      ModelicaFormatError("Failed to setup experiment for building FMU with name %s.",  zone->ptrBui->name);
+  }
+
   }
   /* Allocate memory */
   outputs = (double*)malloc(nOut * sizeof(double));
