@@ -1,4 +1,4 @@
-within Buildings.Occupants.Office.Blinds;
+﻿within Buildings.Occupants.Office.Blinds;
 model Zhang2012BlindsSolarIntensity
     "A model to predict occupants' blinds behavior with solar intensity"
     extends Modelica.Blocks.Icons.DiscreteBlock;
@@ -34,10 +34,14 @@ model Zhang2012BlindsSolarIntensity
 protected
     parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
+    Boolean isOpen "Blind state as a boolean";
 
 initial equation
     t0 = time;
-    blindState = 1 "Initial state of blinds is deployed";
+
+    isOpen = false "Initial state of blinds is deployed";
+    blindState = if isOpen then 0.0 else 1.0;
+
     pUp = 0;
     pDown = 0;
 
@@ -45,38 +49,24 @@ equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
       if occ then
-        if pre(blindState) == 1 then
+        if pre(isOpen) == false then
           pUp = 0;
           pDown = Modelica.Math.exp(ADown*H+BDown)/(Modelica.Math.exp(ADown*H+BDown)+1);
-          if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown,globalSeed=integer(seed*time)) then
-            blindState = 0;
-          else
-            blindState = 1;
-          end if;
+          isOpen = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown,globalSeed=integer(seed*time));
         else
           pUp = Modelica.Math.exp(AUp*H+BUp)/(Modelica.Math.exp(AUp*H+BUp)+1);
           pDown = 0;
-          if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pUp,globalSeed=integer(seed*time)) then
-            blindState = 1;
-          else
-            blindState = 0;
-          end if;
+          isOpen = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pUp,globalSeed=integer(seed*time));
         end if;
       else
         pUp = 0;
         pDown = 0;
-        blindState = 1;
+        isOpen = false;
       end if;
+      blindState = if isOpen then 0.0 else 1.0;
     end when;
 
-    annotation (graphics={
-              Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
-              extent={{-40,20},{40,-20}},
-              lineColor={28,108,200},
-              fillColor={0,0,255},
-              fillPattern=FillPattern.Solid,
-              textStyle={TextStyle.Bold},
-              textString="Blinds_SI")},
+    annotation (
   defaultComponentName="bli",
   Documentation(info="<html>
 <p>
@@ -102,6 +92,12 @@ in Sheffield, England.
 </html>",
   revisions="<html>
 <ul>
+<li>
+November 30, 2018, by Michael Wetter:<br/>
+Removed equality test on <code>Real</code> which is not allowed
+in Modelica.
+Removed wrong annotation.
+</li>
 <li>
 August 31, 2018, by Zhe Wang:<br/>
 First revision.
