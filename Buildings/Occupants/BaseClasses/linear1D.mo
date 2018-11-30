@@ -9,7 +9,6 @@ function linear1D "Mapping a continuous input to a binary output through a linea
 algorithm
   y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(max(0, min(1, A*x+B)), globalSeed);
 annotation (
-Inline=true,
 Documentation(info="<html>
 <p>
 This function generates a random binary variable with the input of a continuous variable <code>x</code> from a

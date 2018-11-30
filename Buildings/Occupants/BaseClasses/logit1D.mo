@@ -11,7 +11,6 @@ algorithm
     Modelica.Math.exp(A*x+B)/(Modelica.Math.exp(A*x+B)+1),
     globalSeed);
 annotation (
-Inline=true,
 Documentation(info="<html>
 <p>
 This function generates a random binary variable with the input of a continuous variable <code>x</code> from a

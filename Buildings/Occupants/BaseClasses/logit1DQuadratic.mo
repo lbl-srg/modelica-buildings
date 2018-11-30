@@ -13,7 +13,6 @@ algorithm
    A + C/(1+ Modelica.Math.exp(-B*(Modelica.Math.log10(x)-D))),
    globalSeed);
 annotation (
-Inline=true,
 Documentation(info="<html>
 <p>
 This function generates a random binary variable with the input of a continuous

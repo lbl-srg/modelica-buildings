@@ -13,7 +13,6 @@ algorithm
      p = if x <= u then 1 - Modelica.Math.exp(-((u-x)/L)^k*dt) else 0,
      globalSeed = globalSeed);
 annotation (
-Inline=true,
 Documentation(info="<html>
 <p>
 This function generates a random binary variable with a continuous inputs

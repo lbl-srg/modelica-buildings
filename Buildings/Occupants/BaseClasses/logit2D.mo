@@ -13,7 +13,6 @@ algorithm
     Modelica.Math.exp(A*x1+B*x2+C)/(Modelica.Math.exp(A*x1+B*x2+C)+1),
     globalSeed);
 annotation (
-Inline=true,
 Documentation(info="<html>
 <p>
 This function generates a random binary variable with two inputs <code>x1</code>
