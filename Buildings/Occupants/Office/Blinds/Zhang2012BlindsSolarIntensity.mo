@@ -35,10 +35,10 @@ protected
     parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
     Boolean isOpen "Blind state as a boolean";
-    Real newSeed "Seed for this sampling";
+    Real curSeed "Current value for seed as a real-valued variable";
 initial equation
     t0 = time;
-    newSeed = t0*seed;
+    curSeed = t0*seed;
 
     isOpen = false "Initial state of blinds is deployed";
     blindState = if isOpen then 0.0 else 1.0;
@@ -49,16 +49,16 @@ initial equation
 equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
-      newSeed = seed*time;
+      curSeed = seed*time;
       if occ then
         if pre(isOpen) == false then
           pUp = 0;
           pDown = Modelica.Math.exp(ADown*H+BDown)/(Modelica.Math.exp(ADown*H+BDown)+1);
-          isOpen = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown,globalSeed=integer(newSeed));
+          isOpen = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown,globalSeed=integer(curSeed));
         else
           pUp = Modelica.Math.exp(AUp*H+BUp)/(Modelica.Math.exp(AUp*H+BUp)+1);
           pDown = 0;
-          isOpen = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pUp,globalSeed=integer(newSeed));
+          isOpen = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pUp,globalSeed=integer(curSeed));
         end if;
       else
         pUp = 0;
