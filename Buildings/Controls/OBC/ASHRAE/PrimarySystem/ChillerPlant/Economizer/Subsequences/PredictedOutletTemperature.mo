@@ -124,7 +124,11 @@ equation
         extent={{-160,-180},{160,180}})),
 Documentation(info="<html>
 <p>
-Fixme
+This algorithm predicts the achievable WSE output temperature based on current plant load conditions
+and ambient wet bulb temperature relative to design conditions, as described in
+OBC Chilled Water Plant Sequence of Operation, section 3.2.3.1. The tuning parameter 
+<code>uTunPar</code> is an output from the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning</a> sequence.
 </p>
 </html>",
 revisions="<html>
