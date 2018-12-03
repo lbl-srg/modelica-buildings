@@ -385,6 +385,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
     bui->name);
   }
 
+  /* EnergyPlus relies on these memories
   free(tmpDir);
 
   free(parameterValueReferences);
@@ -401,7 +402,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   for(i = 0; i < nOut; i++)
     free(outputNames[i]);
   free(outputNames);
-
+  */
   return;
 }
 
