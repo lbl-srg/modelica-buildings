@@ -32,19 +32,22 @@ model Inkarojrit2008BlindsSolarIntensity
 protected
     parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
+    Real curSeed "Current value for seed as a real-valued variable";
 
 initial equation
     t0 = time;
+    curSeed = t0*seed;
     blindState = 0;
     p = 0;
 
 equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
+      curSeed = seed*time;
       if occ then
         p = 1 - Modelica.Math.exp(A1*Modelica.Math.log10(H) + A2*LSen + B)/(
           Modelica.Math.exp(A1*Modelica.Math.log10(H) + A2*LSen + B) + 1);
-        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=integer(seed*time)) then
+        if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=integer(curSeed)) then
           blindState = 1;
         else
           blindState = 0;
@@ -55,14 +58,14 @@ equation
       end if;
     end when;
 
-    annotation (graphics={
+    annotation (Icon(graphics={
               Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
               extent={{-40,20},{40,-20}},
               lineColor={28,108,200},
               fillColor={0,0,255},
               fillPattern=FillPattern.Solid,
               textStyle={TextStyle.Bold},
-              textString="Blinds_SI")},
+              textString="Blinds_SI")}),
   defaultComponentName="bli",
   Documentation(info="<html>
 <p>
@@ -97,10 +100,5 @@ August 31, 2018, by Zhe Wang:<br/>
 First revision.
 </li>
 </ul>
-</html>"),
-      Icon(graphics={Text(
-            extent={{-98,98},{94,-96}},
-            lineColor={28,108,200},
-            textString="ob.office
-Blind")}));
+</html>"));
 end Inkarojrit2008BlindsSolarIntensity;

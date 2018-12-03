@@ -36,20 +36,23 @@ model Rijal2007WindowsTInTOutTComf "A model to predict occupants' window behavio
 protected
   parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
+  Real curSeed "Current value for seed as a real-valued variable";
 
 initial equation
   t0 = time;
+  curSeed = t0*seed;
   p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
   on = false;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
+    curSeed = seed*time;
     if occ then
       if TIn > TComf+2 then
         if not pre(on) then
           p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
-          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
+          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
         else
           p = -0.3;
           on = true;
@@ -57,7 +60,7 @@ equation
       elseif TIn < TComf-2 then
         if pre(on) then
           p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
-          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
+          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
         else
           p = -0.5;
           on = false;
@@ -72,14 +75,14 @@ equation
     end if;
   end when;
 
-  annotation (graphics={
+  annotation (Icon(graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
             lineColor={28,108,200},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},
-            textString="WindowAll_TInToutTComf")},
+            textString="WindowAll_TInToutTComf")}),
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
@@ -130,10 +133,5 @@ July 25, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Text(
-          extent={{-98,98},{94,-96}},
-          lineColor={28,108,200},
-          textString="ob.office
-Window")}));
+</html>"));
 end Rijal2007WindowsTInTOutTComf;

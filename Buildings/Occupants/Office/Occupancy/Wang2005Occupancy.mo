@@ -35,14 +35,14 @@ equation
     tNext = time + hold_time;
   end when;
 
-  annotation (graphics={
+  annotation (Icon(graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
             lineColor={28,108,200},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},
-            textString="Blinds_SI")},
+            textString="Occupancy")}),
 defaultComponentName="occ",
 Documentation(info="<html>
 <p>
@@ -66,10 +66,5 @@ August 1, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Text(
-          extent={{-98,98},{94,-96}},
-          lineColor={28,108,200},
-          textString="ob.office
-Occupancy")}));
+</html>"));
 end Wang2005Occupancy;
