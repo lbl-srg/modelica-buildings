@@ -2,6 +2,8 @@ within Buildings.Fluid.Chillers.BaseClasses;
 partial model PartialCarnot_y
   "Partial chiller model with performance curve adjusted based on Carnot efficiency"
   extends Carnot(
+    final norEvaPin = y,
+    final norConPin = y,
     final QCon_flow_nominal= P_nominal - QEva_flow_nominal,
     final QEva_flow_nominal = if COP_is_for_cooling
                               then -P_nominal * COP_nominal
@@ -38,9 +40,13 @@ partial model PartialCarnot_y
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
 
 protected
-  Modelica.SIunits.HeatFlowRate QCon_flow_internal(start=QCon_flow_nominal)=
+  Modelica.SIunits.HeatFlowRate QCon_flow_internal(
+    start=QCon_flow_nominal,
+    nominal=QCon_flow_nominal)=
     P - QEva_flow_internal "Condenser heat input";
-  Modelica.SIunits.HeatFlowRate QEva_flow_internal(start=QEva_flow_nominal)=
+  Modelica.SIunits.HeatFlowRate QEva_flow_internal(
+    start=QEva_flow_nominal,
+    nominal=QEva_flow_nominal)=
     if COP_is_for_cooling then -COP * P else (1-COP)*P "Evaporator heat input";
 
   Modelica.Blocks.Sources.RealExpression yEva_flow_in(

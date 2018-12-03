@@ -137,12 +137,16 @@ partial model Carnot
     deltaX=0.25) "Carnot efficiency";
 
   Modelica.SIunits.Temperature TConAct(start=TCon_nominal + TAppCon_nominal)=
-    Medium1.temperature(staB1) + QCon_flow/QCon_flow_nominal*TAppCon_nominal
+    Medium1.temperature(staB1) + norConPin*TAppCon_nominal
     "Condenser temperature used to compute efficiency, taking into account pinch temperature between fluid and refrigerant";
 
+
   Modelica.SIunits.Temperature TEvaAct(start=TEva_nominal - TAppEva_nominal)=
-    Medium2.temperature(staB2) - QEva_flow/QEva_flow_nominal*TAppEva_nominal
+    Medium2.temperature(staB2)- norEvaPin*TAppEva_nominal
     "Evaporator temperature used to compute efficiency, taking into account pinch temperature between fluid and refrigerant";
+
+  input Real norEvaPin(min=0, unit="1") "Normalized pinch temperature on evaporator side";
+  input Real norConPin(min=0, unit="1") "Normalized pinch temperature on condenser side";
 
 protected
   constant Boolean COP_is_for_cooling
