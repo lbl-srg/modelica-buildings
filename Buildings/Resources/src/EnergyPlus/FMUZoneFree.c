@@ -12,24 +12,32 @@
 
 void FMUBuildingFree(FMUBuilding* ptrBui){
   if ( ptrBui != NULL ){
-    ModelicaFormatMessage("Closing EnergyPlus library.\n", ptrBui->name);
+    ModelicaFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name);
+    writeLog(1, "Calling terminate on EnergyPlus library.");
     ptrBui->fmu->terminate(NULL);
+    writeLog(1, "Returned from terminate on EnergyPlus library.");
     free(ptrBui->name);
     free(ptrBui->weather);
     free(ptrBui->idd);
     free(ptrBui->epLib);
     free(ptrBui->zoneNames);
     free(ptrBui->zones);
+    writeLog(1, "Freed pointers.");
+
 #ifdef _MSC_VER
     if (!FreeLibrary(ptrBui->fmu->dllHandle)){
       ModelicaMessage("Warning: Failed to free EnergyPlus library.");
     }
 #else
+    writeLog(1, "Calling dlclose.");
     if (0 != dlclose(ptrBui->fmu->dllHandle)){
       ModelicaMessage("Warning: Failed to free EnergyPlus library.");
     }
 #endif
+    writeLog(1, "Closed EnergyPlus library.");
     free(ptrBui);
+    writeLog(1, "Closed EnergyPlus library.");
+
   }
 }
 
