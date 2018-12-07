@@ -14,7 +14,7 @@ block PredictedOutletTemperature
   parameter Real VHeaExcDes_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.01
-  "Desing heat exchanger water flow rate";
+  "Desing heat exchanger chilled water flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar(min=-0.2, max=0.5) "Tuning parameter"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences;
 block Tuning
-  "Defines a value used to tune the economizer outlet temperature prediction"
+  "Defines a tuning parameter for the temperature prediction downstream of WSE"
 
   parameter Real step=0.02
   "Tuning step";
@@ -12,12 +12,12 @@ block Tuning
   "Economizer enable time needed to allow increase of the tuning parameter";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta
-    "Waterside economizer enable disable status"
+    "WSE enable disable status"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe
-    "Waterside economizer tower fan speed"
+    "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
 
@@ -26,7 +26,7 @@ block Tuning
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-protected
+//protected
   final parameter Real initTunPar = 0
   "Initial value of the tuning parameter";
 
@@ -78,22 +78,22 @@ protected
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1(
     final y_start=initTunPar) "Sampler"
-    annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Pre"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Less lesEqu1 "Less equal"
+  CDL.Continuous.GreaterEqualThreshold       greEquThr1(threshold=1)
+                                                     "Less equal"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant MaxTowFanSpe(
-    final k=1)
-    "Maximal tower fan speed"
+    final k=1) "Maximal tower fan speed"
     annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam2(
     final y_start=0) "Sampler"
-    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
+    annotation (Placement(transformation(extent={{-30,-140},{-10,-120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Zero(
     final k=0)
@@ -101,12 +101,16 @@ protected
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{-74,-200},{-54,-180}})));
+    annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
     final threshold=0.5)
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
+  CDL.Discrete.TriggeredSampler triSam3
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
+  CDL.Continuous.Sources.Constant test(final k=1)
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 equation
   connect(uWseSta, tim.u)
     annotation (Line(points={{-200,60},{-160,60},{-160,90},{-122,90}},
@@ -141,8 +145,9 @@ equation
           -90,-70},{-99,-70}}, color={0,0,127}));
   connect(tim1.y, lesEqu.u1)
     annotation (Line(points={{-99,-40},{-82,-40}}, color={0,0,127}));
-  connect(and1.y, triSam1.trigger) annotation (Line(points={{41,-40},{60,-40},{60,
-          -31.8}}, color={255,0,255}));
+  connect(and1.y, triSam1.trigger) annotation (Line(points={{41,-40},{70,-40},{
+          70,-31.8}},
+                   color={255,0,255}));
   connect(falEdg1.y, and1.u2) annotation (Line(points={{-99,-110},{-10,-110},{
           -10,-40},{18,-40}},
                           color={255,0,255}));
@@ -150,30 +155,33 @@ equation
     annotation (Line(points={{-59,-40},{-52,-40}}, color={255,0,255}));
   connect(and1.u1, pre1.y) annotation (Line(points={{18,-32},{-20,-32},{-20,-40},
           {-29,-40}}, color={255,0,255}));
-  connect(tunStep.y, triSam1.u) annotation (Line(points={{21,130},{40,130},{40,-20},
-          {48,-20}}, color={0,0,127}));
-  connect(uTowFanSpe, lesEqu1.u1)
-    annotation (Line(points={{-200,-150},{-122,-150}}, color={0,0,127}));
-  connect(MaxTowFanSpe.y, lesEqu1.u2) annotation (Line(points={{-139,-180},{-130,
-          -180},{-130,-158},{-122,-158}}, color={0,0,127}));
-  connect(lesEqu1.y, triSam2.trigger) annotation (Line(points={{-99,-150},{-90,-150},
-          {-90,-170},{-30,-170},{-30,-141.8}}, color={255,0,255}));
-  connect(lesEqu.y, swi.u2) annotation (Line(points={{-59,-40},{-54,-40},{-54,-80},
-          {-86,-80},{-86,-190},{-76,-190}},
+  connect(tunStep.y, triSam1.u) annotation (Line(points={{21,130},{40,130},{40,
+          -20},{58,-20}},
+                     color={0,0,127}));
+  connect(lesEqu.y, swi.u2) annotation (Line(points={{-59,-40},{-56,-40},{-56,
+          -80},{-90,-80},{-90,-190},{-82,-190}},
                                   color={255,0,255}));
   connect(MaxTowFanSpe.y, swi.u1) annotation (Line(points={{-139,-180},{-88,
-          -180},{-88,-182},{-76,-182}},
+          -180},{-88,-182},{-82,-182}},
                                   color={0,0,127}));
-  connect(swi.y, triSam2.u) annotation (Line(points={{-53,-190},{-50,-190},{-50,
-          -130},{-42,-130}}, color={0,0,127}));
+  connect(swi.y, triSam2.u) annotation (Line(points={{-59,-190},{-40,-190},{-40,
+          -130},{-32,-130}}, color={0,0,127}));
   connect(triSam2.y, greEquThr.u)
-    annotation (Line(points={{-19,-130},{-2,-130}}, color={0,0,127}));
+    annotation (Line(points={{-9,-130},{-2,-130}},  color={0,0,127}));
   connect(greEquThr.y, and1.u3) annotation (Line(points={{21,-130},{30,-130},{30,
           -72},{10,-72},{10,-48},{18,-48}}, color={255,0,255}));
-  connect(triSam1.y, add2.u2) annotation (Line(points={{71,-20},{90,-20},{90,-6},
+  connect(triSam1.y, add2.u2) annotation (Line(points={{81,-20},{90,-20},{90,-6},
           {98,-6}}, color={0,0,127}));
-  connect(Zero.y, swi.u3) annotation (Line(points={{-99,-200},{-88,-200},{-88,
-          -198},{-76,-198}}, color={0,0,127}));
+  connect(Zero.y, swi.u3) annotation (Line(points={{-99,-200},{-90,-200},{-90,
+          -198},{-82,-198}}, color={0,0,127}));
+  connect(uTowFanSpe, greEquThr1.u)
+    annotation (Line(points={{-200,-150},{-122,-150}}, color={0,0,127}));
+  connect(greEquThr1.y, triSam2.trigger) annotation (Line(points={{-99,-150},{
+          -20,-150},{-20,-141.8}}, color={255,0,255}));
+  connect(falEdg1.y, triSam3.trigger) annotation (Line(points={{-99,-110},{-70,
+          -110},{-70,-94},{90,-94},{90,-81.8}}, color={255,0,255}));
+  connect(triSam3.u, test.y)
+    annotation (Line(points={{78,-70},{61,-70}}, color={0,0,127}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(
@@ -192,8 +200,8 @@ Documentation(info="<html>
 Waterside economizer outlet temperature prediction tuning parameter subsequence 
 per OBC Chilled Water Plant Sequence of Operation, section 3.2.3.3. The parameter
 is increased or decreased in a <code>step</code> depending on how long the
-the economizer remained enabled and the value of the cooling tower fan speed signal 
-<code>uTowFanSpe</code>.
+the economizer remained enabled and the values of the cooling tower fan speed signal 
+<code>uTowFanSpe</code> during that period.
 </p>
 </html>",
 revisions="<html>

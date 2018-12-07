@@ -6,7 +6,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   annotation(Dialog(group="Enable parameters"));
 
   parameter Modelica.SIunits.Time dTperiod=2*60
-  "Time period for the temeprature downstream and upstream WSE disable condition"
+  "Time period for a disable condition based on temepratures downstream and upstream WSE"
   annotation(Dialog(group="Enable parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference TOffsetEna=2
@@ -14,7 +14,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   annotation(Dialog(group="Enable parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference TOffsetDis=1
-  "Temperature offset between the chilled water return upstream and downstream of WSE"
+  "Temperature offset between the chilled water return upstream and downstream WSE"
   annotation(Dialog(group="Enable parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference heaExcAppDes=2
@@ -32,7 +32,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   parameter Real VHeaExcDes_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.015
-    "Desing heat exchanger water volume flow rate"
+    "Desing heat exchanger chilled water volume flow rate"
     annotation(Dialog(group="Design parameters"));
 
   parameter Real step=0.02 "Tuning step"
@@ -66,7 +66,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe
-    "WSE tower fan speed"
+    "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
@@ -135,6 +135,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=TOffsetDis,
     final uHigh=TOffsetDis + 1)
+    "Hysteresis comparing CHW temperatures upstream and downstream WSE"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer timer
@@ -210,12 +211,12 @@ Documentation(info="<html>
 Waterside economizer (WSE) sequence per OBC Chilled Water Plant Sequence of Operation
 document, section 3.2.3. It consists of enable/disable conditions as provided in sections 3.2.3.1. and 3.2.3.2, and:
 <li>
-- a subsequence predicting the WSE outlet temperature at given conditions:
+- A subsequence to predict the WSE outlet temperature at given conditions:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature</a>
 </li>
 <li>
-- a subsequence defining the temperature prediction
+- A subsequence to define the temperature prediction
 tuning parameter:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning</a>

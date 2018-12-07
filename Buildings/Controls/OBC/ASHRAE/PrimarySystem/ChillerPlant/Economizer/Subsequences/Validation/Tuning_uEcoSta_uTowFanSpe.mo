@@ -7,7 +7,7 @@ model Tuning_uEcoSta_uTowFanSpe
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
   Tuning wseTun1
-    "Tests tuning parameter constant inspite of a dip in tower fan speed due to the prolonged WSE on status"
+    "Tests tuning parameter remains constant inspite of a dip in tower fan speed due to the prolonged WSE on status"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
   Tuning wseTun2
@@ -28,7 +28,7 @@ protected
     final phase=3.1415926535898) "Cooling tower fan speed status signal"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Min min "Minimum"
+  CDL.Continuous.Max                        max "Minimum"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTowFanSig(
@@ -68,11 +68,11 @@ protected
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 
 equation
-  connect(maxTowFanSig.y, min.u1) annotation (Line(points={{-99,68},{-90,68},{-90,
+  connect(maxTowFanSig.y,max. u1) annotation (Line(points={{-99,68},{-90,68},{-90,
           56},{-82,56}},       color={0,0,127}));
-  connect(cooTowFanSta.y, min.u2) annotation (Line(points={{-99,30},{-92,30},{-92,
+  connect(cooTowFanSta.y,max. u2) annotation (Line(points={{-99,30},{-92,30},{-92,
           44},{-82,44}}, color={0,0,127}));
-  connect(min.y, wseTun.uTowFanSpe) annotation (Line(points={{-59,50},{-50,50},{
+  connect(max.y, wseTun.uTowFanSpe) annotation (Line(points={{-59,50},{-50,50},{
           -50,65},{-42,65}},
                            color={0,0,127}));
   connect(ecoSta.y,wseTun.uWseSta)  annotation (Line(points={{-99,110},{-70,110},
