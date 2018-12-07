@@ -68,7 +68,14 @@ equation
       blindState = if isOpen then 0.0 else 1.0;
     end when;
 
-    annotation (
+    annotation (Icon(graphics={
+              Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
+              extent={{-40,20},{40,-20}},
+              lineColor={28,108,200},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid,
+              textStyle={TextStyle.Bold},
+              textString="Blinds_SI")}),
   defaultComponentName="bli",
   Documentation(info="<html>
 <p>
@@ -109,10 +116,5 @@ July 23, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Text(
-          extent={{-98,98},{94,-96}},
-          lineColor={28,108,200},
-          textString="ob.office
-Blind")}));
+</html>"));
 end Zhang2012BlindsSolarIntensity;

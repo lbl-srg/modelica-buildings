@@ -30,9 +30,11 @@ model Yun2008WindowsTIn "A model to predict occupants' window behavior with indo
 protected
   parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
+  Real curSeed "Current value for seed as a real-valued variable";
 
 initial equation
   t0 = time;
+  curSeed = t0*seed;
   on = false;
   pOpen = Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen)/(Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen) + 1);
   pClose = Modelica.Math.exp(AClose*(TIn - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TIn - 273.15)+BClose) + 1);
@@ -40,13 +42,14 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
+    curSeed = seed*time;
     if occ then
       pOpen = Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen)/(Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen) + 1);
       pClose = Modelica.Math.exp(AClose*(TIn - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TIn - 273.15)+BClose) + 1);
       if pre(on) == true and TIn < 303.15 then
-        on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=integer(seed*time));
+        on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=integer(curSeed));
       elseif pre(on) == false and TIn > 293.15 then
-        on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=integer(seed*time));
+        on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=integer(curSeed));
       else
         on = pre(on);
       end if;
@@ -57,14 +60,14 @@ equation
     end if;
   end when;
 
-  annotation (graphics={
+  annotation (Icon(graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
             lineColor={28,108,200},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},
-            textString="WindowAll_TIn")},
+            textString="WindowAll_TIn")}),
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
@@ -96,10 +99,5 @@ July 26, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Text(
-          extent={{-98,98},{94,-96}},
-          lineColor={28,108,200},
-          textString="ob.office
-Window")}));
+</html>"));
 end Yun2008WindowsTIn;

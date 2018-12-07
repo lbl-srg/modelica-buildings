@@ -1,4 +1,4 @@
-within Buildings.Occupants.Office.Windows;
+﻿within Buildings.Occupants.Office.Windows;
 model Zhang2012WindowsNorth "A model to predict occupants' window behavior with outdoor temperature for North-oriented windows"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A = 0.12 "Slope of the logistic relation";
@@ -24,30 +24,33 @@ model Zhang2012WindowsNorth "A model to predict occupants' window behavior with 
 protected
   parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
+  Real curSeed "Current value for seed as a real-valued variable";
 initial equation
   t0 = time;
+  curSeed = t0*seed;
   p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
+  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
+    curSeed = seed*time;
     if occ then
       p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
     else
       p = 0;
       on = false;
     end if;
   end when;
 
-  annotation (graphics={
+  annotation (Icon(graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
             lineColor={28,108,200},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},
-            textString="WindowNorth_Tout")},
+            textString="WindowNorth_Tout")}),
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
@@ -79,10 +82,5 @@ July 25, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Text(
-          extent={{-98,98},{94,-96}},
-          lineColor={28,108,200},
-          textString="ob.office
-Window")}));
+</html>"));
 end Zhang2012WindowsNorth;

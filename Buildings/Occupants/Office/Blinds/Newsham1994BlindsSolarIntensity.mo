@@ -40,14 +40,14 @@ equation
       end if;
     end when;
 
-    annotation (graphics={
+    annotation (Icon(graphics={
               Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
               extent={{-40,20},{40,-20}},
               lineColor={28,108,200},
               fillColor={0,0,255},
               fillPattern=FillPattern.Solid,
               textStyle={TextStyle.Bold},
-              textString="Blinds_SI")},
+              textString="Blinds_SI")}),
   defaultComponentName="bli",
   Documentation(info="<html>
 <p>
@@ -80,10 +80,5 @@ August 31, 2018, by Zhe Wang:<br/>
 First Revision.
 </li>
 </ul>
-</html>"),
-      Icon(graphics={Text(
-            extent={{-98,98},{94,-96}},
-            lineColor={28,108,200},
-            textString="ob.office
-Blind")}));
+</html>"));
 end Newsham1994BlindsSolarIntensity;

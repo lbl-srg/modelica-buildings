@@ -23,15 +23,18 @@ model Love1998Light1 "A model to predict occupants' lighting behavior with illum
 protected
   parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
+  Real curSeed "Current value for seed as a real-valued variable";
 
 initial equation
   t0 = time;
+  curSeed = t0*seed;
   on = false;
 
 equation
   p = Modelica.Math.exp(B+M*Modelica.Math.log10(ill))/(1 - Modelica.Math.exp(B+M*Modelica.Math.log10(ill)))*100;
   sampleTrigger = sample(t0, samplePeriod);
   when {occ, sampleTrigger} then
+    curSeed = seed*time;
     if sampleTrigger then
       if occ then
         on = pre(on);
@@ -39,17 +42,17 @@ equation
         on = false;
       end if;
     else
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(seed*time));
+      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
     end if;
   end when;
-  annotation (graphics={
+  annotation (Icon(graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
             lineColor={28,108,200},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},
-            textString="Light_Illu")},
+            textString="Light_Illu")}),
 defaultComponentName="lig",
 Documentation(info="<html>
 <p>
@@ -85,10 +88,5 @@ July 27, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Text(
-          extent={{-98,98},{94,-96}},
-          lineColor={28,108,200},
-          textString="ob.office
-Light")}));
+</html>"));
 end Love1998Light1;

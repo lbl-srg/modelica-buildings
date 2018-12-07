@@ -35,9 +35,11 @@ model Ren2014ACBedroom
 protected
   parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
+  Real curSeed "Current value for seed as a real-valued variable";
 
 initial equation
   t0 = time;
+  curSeed = t0*seed;
   on = false "The initial state of AC is off";
   pOn = 0;
   pOff = 0;
@@ -45,6 +47,7 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
+    curSeed = seed*time;
     pOff = if TIn <= u1 then 1 - Modelica.Math.exp(-((u1-TIn)/L1)^k1*samplePeriod) else 0;
     pOn = if TIn >= u2 then 1 - Modelica.Math.exp(-((TIn-u2)/L2)^k2*samplePeriod) else 0;
     if occ then
@@ -55,7 +58,7 @@ equation
           L=L1,
           k=k1,
           dt=samplePeriod,
-          globalSeed=integer(seed*time));
+          globalSeed=integer(curSeed));
       else
         on = Buildings.Occupants.BaseClasses.weibull1DON(
           x=TIn,
@@ -63,21 +66,21 @@ equation
           L=L2,
           k=k2,
           dt=samplePeriod,
-          globalSeed=integer(seed*time));
+          globalSeed=integer(curSeed));
       end if;
     else
       on = false;
     end if;
   end when;
 
-  annotation (graphics={
+  annotation (Icon(graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
             lineColor={28,108,200},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},
-            textString="AC_Tin")},
+            textString="AC_Tin")}),
 defaultComponentName="ac",
 Documentation(info="<html>
 <p>
@@ -107,10 +110,5 @@ July 23, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Text(
-          extent={{-98,98},{94,-96}},
-          lineColor={28,108,200},
-          textString="ob.resident
-AC")}));
+</html>"));
 end Ren2014ACBedroom;

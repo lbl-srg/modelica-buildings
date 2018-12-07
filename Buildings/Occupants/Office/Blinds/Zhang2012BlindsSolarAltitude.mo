@@ -35,9 +35,11 @@ protected
   parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Boolean isOpen "Blind state as a boolean";
+  Real curSeed "Current value for seed as a real-valued variable";
 
 initial equation
   t0 = time;
+  curSeed = t0*seed;
 
   isOpen = false "Initial state of blinds is deployed";
   blindState = if isOpen then 0.0 else 1.0;
@@ -48,15 +50,16 @@ initial equation
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
+    curSeed = seed*time;
     if occ then
       if not pre(isOpen) then // blindState is either 0 or 1.
         pUp = 0;
         pDown = Modelica.Math.exp(ADown*solarAltitude+BDown)/(Modelica.Math.exp(ADown*solarAltitude+BDown)+1);
-        isOpen = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown,globalSeed=integer(seed*time));
+        isOpen = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown,globalSeed=integer(curSeed));
       else
         pUp = Modelica.Math.exp(AUp*solarAltitude+BUp)/(Modelica.Math.exp(AUp*solarAltitude+BUp)+1);
         pDown = 0;
-        isOpen = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pUp,globalSeed=integer(seed*time));
+        isOpen = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pUp,globalSeed=integer(curSeed));
       end if;
     else
       pUp = 0;
@@ -67,7 +70,14 @@ equation
 
   end when;
 
-  annotation (
+  annotation (Icon(graphics={
+              Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
+              extent={{-40,20},{40,-20}},
+              lineColor={28,108,200},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid,
+              textStyle={TextStyle.Bold},
+              textString="Blinds_SA")}),
 defaultComponentName="bli",
 Documentation(info="<html>
 <p>
@@ -108,10 +118,5 @@ August 31, 2018, by Zhe Wang:<br/>
 First revision.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Text(
-          extent={{-98,98},{94,-96}},
-          lineColor={28,108,200},
-          textString="ob.office
-Blind")}));
+</html>"));
 end Zhang2012BlindsSolarAltitude;
