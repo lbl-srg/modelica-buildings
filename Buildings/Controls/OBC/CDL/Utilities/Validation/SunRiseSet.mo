@@ -4,32 +4,39 @@ model SunRiseSet "Test model for the block SunRiseSet"
 
   Buildings.Utilities.Time.ModelTime modTim
     "Model time as the required input number of day"
-    annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
-  Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSet_arctic(
-    lon=-1.2566370614359,
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetArctic(
     lat=1.2566370614359,
+    lon=-1.2566370614359,
     timZon=-18000) "Arctic circle case"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSet_sf(
-    lon=-2.1293016874331,
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+  Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetSf(
     lat=0.6457718232379,
+    lon=-2.1293016874331,
     timZon=-28800)
-    "Sunrise and sunset hours in San Francisco as a normal test example"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSet_antarctic(
-    lon=0.99483767363677,
+    "using San Francisco as a test example in the northen hemisphere"
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+  Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetAntarctic(
     lat=-1.3089969389957,
+    lon=0.99483767363677,
     timZon=14400) "Antarctic circle case"
-    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+  Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetSyd(
+    lat=-0.59341194567807,
+    lon=2.6354471705114,
+    timZon=36000) "using Sydney as a test example in the southern hemisphere"
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 equation
 
-  connect(modTim.y, sunRiseSet_arctic.nDay)
-    annotation (Line(points={{-25,0},{8,0},{8,40},{38,40}}, color={0,0,127}));
-  connect(modTim.y, sunRiseSet_sf.nDay)
-    annotation (Line(points={{-25,0},{38,0}}, color={0,0,127}));
-  connect(modTim.y, sunRiseSet_antarctic.nDay)
-    annotation (Line(points={{-25,0},{8,0},{8,-40},{38,-40}}, color={0,0,127}));
+  connect(modTim.y, sunRiseSetArctic.nDay)
+    annotation (Line(points={{-39,0},{0,0},{0,60},{38,60}}, color={0,0,127}));
+  connect(modTim.y, sunRiseSetSf.nDay) annotation (Line(points={{-39,0},{0,0},{
+          0,-20},{38,-20}}, color={0,0,127}));
+  connect(modTim.y, sunRiseSetAntarctic.nDay)
+    annotation (Line(points={{-39,0},{0,0},{0,20},{38,20}}, color={0,0,127}));
 
+  connect(modTim.y, sunRiseSetSyd.nDay) annotation (Line(points={{-39,0},{0,0},
+          {0,-60},{38,-60}}, color={0,0,127}));
 annotation (
   experiment(StopTime=31536000, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Utilities/Validation/SunRiseSet.mos"

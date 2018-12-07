@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.CDL.Utilities;
 block SunRiseSet "Sunrise or sunset time"
-  //extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
+
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
   parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
 
   Modelica.SIunits.Time eqnTim "Equation of time";
@@ -13,18 +13,18 @@ block SunRiseSet "Sunrise or sunset time"
   Modelica.SIunits.Angle zenAng "Zenith angle";
   Modelica.SIunits.Angle altAng "Altitude angle";
 
-  Modelica.Blocks.Interfaces.RealInput nDay(quantity="Time", unit="s")
+  Modelica.Blocks.Interfaces.RealInput nDay(quantity="Time", final unit="s")
     "Day number with units of seconds"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput sunRise(
     final quantity="Time",
-    final unit="h",
+    final unit="s",
     displayUnit="h") "Sunrise time"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput sunSet(
     final quantity="Time",
-    final unit="h",
+    final unit="s",
     displayUnit="h") "Sunset time"
     annotation (Placement(transformation(extent={{100,-52},{120,-32}})));
 
@@ -61,11 +61,11 @@ equation
   altAng = (Modelica.Constants.pi/2) - zenAng;
 
   when altAng>=0 then
-      sunRise = mod(time/3600,24);
+      sunRise = mod(time/3600,24)*3600;
   end when;
 
   when altAng<=0 then
-      sunSet = mod(time/3600,24);
+      sunSet = mod(time/3600,24)*3600;
   end when;
 
 annotation (
@@ -130,4 +130,4 @@ annotation (
             origin={-50,30},
             rotation=90),
           Line(points={{-70,-6},{-94,-6}}, color={238,46,47})}));
-  end SunRiseSet;
+end SunRiseSet;
