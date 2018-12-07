@@ -5,12 +5,20 @@ model ExponentialVariableGeneration "Test model for exponential variable generat
   parameter Integer seed = 5 "Seed for the random number generator";
   Real mu "Time-varying real number as input";
   output Real y "Output";
+protected
+  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  Real curSeed "Current value for seed as a real-valued variable";
+
 initial equation
   y = 0;
+  t0 = time;
+  curSeed = t0*seed;
+
 equation
   mu = 10*time;
   when sample(0, 0.1) then
-    y = Buildings.Occupants.BaseClasses.exponentialVariableGeneration(mu, globalSeed=integer(seed*1E6*time));
+    curSeed = seed*1E6*time;
+    y = Buildings.Occupants.BaseClasses.exponentialVariableGeneration(mu, globalSeed=integer(curSeed));
   end when;
 
   annotation ( experiment(Tolerance=1e-6, StopTime=1.0),

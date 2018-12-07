@@ -5,16 +5,24 @@ model BinaryVariableGeneration "Test model for binary variable generation functi
   parameter Integer seed = 5 "Seed for the random number generator";
   Real p "Time-varying real number as input";
   output Real y "Output";
+protected
+  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  Real curSeed "Current value for seed as a real-valued variable";
+
 initial equation
   y = 0;
+  t0 = time;
+  curSeed = t0*seed;
+
 equation
   p = time;
   when sample(0, 0.1) then
-  if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=integer(seed*1E6*time)) then
-    y = 1;
-  else
-    y = 0;
-  end if;
+    curSeed = seed*1E6*time;
+    if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p, globalSeed=integer(curSeed)) then
+      y = 1;
+    else
+      y = 0;
+    end if;
   end when;
 
   annotation ( experiment(Tolerance=1e-6, StopTime=1.0),
