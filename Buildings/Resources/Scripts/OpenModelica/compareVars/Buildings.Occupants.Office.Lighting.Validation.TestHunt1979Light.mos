@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "lig.ill",
-    "lig.occ",
-    "lig.pArriv",
-    "lig.on"
-  };

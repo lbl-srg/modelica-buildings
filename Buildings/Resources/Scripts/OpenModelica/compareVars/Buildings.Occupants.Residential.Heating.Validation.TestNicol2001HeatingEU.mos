@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "hea.TOut",
-    "hea.occ",
-    "hea.on"
-  };

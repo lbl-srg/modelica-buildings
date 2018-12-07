@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "ac.TIn",
-    "ac.occ",
-    "ac.on"
-  };
