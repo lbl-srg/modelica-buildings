@@ -7,10 +7,5 @@ annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models to simulate air conditioning behaviors in residential buildings.
 </p>
-</html>"),
-  Icon(graphics={Text(
-        extent={{-98,98},{94,-96}},
-        lineColor={28,108,200},
-        textString="Residential
-AC")}));
+</html>"));
 end AirConditioning;
