@@ -340,7 +340,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow[numZon](
     each final unit="m3/s",
     each quantity="VolumeFlowRate",
-    min=0)
+    each min=0)
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-220,130},{-200,150}}),
       iconTransformation(extent={{-220,-80},{-200,-60}})));
