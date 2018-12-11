@@ -12,8 +12,8 @@ function internalResistancesOneUTube
   output Modelica.SIunits.ThermalResistance RCondGro
     "Thermal resistance between: pipe wall to capacity in grout";
 protected
-  Real[2,2] RDelta(unit="(m.K)/W") "Delta-circuit thermal resistances";
-  Real[2,2] R(unit="(m.K)/W") "Internal thermal resistances";
+  Real[2,2] RDelta(each unit="(m.K)/W") "Delta-circuit thermal resistances";
+  Real[2,2] R(each unit="(m.K)/W") "Internal thermal resistances";
   Modelica.SIunits.Position[2] xPip = {-sha, sha} "x-Coordinates of pipes";
   Modelica.SIunits.Position[2] yPip = {0., 0.} "y-Coordinates of pipes";
   Modelica.SIunits.Radius[2] rPip = {rTub, rTub} "Outer radius of pipes";
