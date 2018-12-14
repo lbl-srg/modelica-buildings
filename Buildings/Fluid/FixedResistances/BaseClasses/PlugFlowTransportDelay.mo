@@ -40,8 +40,13 @@ model PlugFlowTransportDelay "Delay time for given normalized velocity"
   Modelica.Blocks.Interfaces.RealOutput tauRev "Time delay for reverse flow"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
+protected
+  parameter Modelica.SIunits.Time t0(fixed = false) "Start time of the simulation";
+
 initial equation
   x = 0;
+  t0 = time;
+
 equation
   u = m_flow/(rho*(dh^2)/4*Modelica.Constants.pi)/length;
 
@@ -51,8 +56,8 @@ equation
     time,
     x,
     u >= 0,
-    {0.0,1.0},
-    {time + t_in_start,time + t_out_start});
+    initialPoints = {0.0, 1.0},
+    initialValues = {t0 + t_in_start, t0 + t_out_start});
 
   tau = time - time_out_des;
   tauRev = time - time_out_rev;
@@ -128,19 +133,29 @@ During reverse, the opposite is true and only the reverse output is used.
 </html>", revisions="<html>
 <ul>
 <li>
+December 14, 2018, by Michael Wetter:<br/>
+Corrected argument of <code>spatialDistribution</code> operator to be a parameter
+expression.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1055\">#1055</a>.
+<li>
 September 9, 2016 by Bram van der Heijde:<br/>
-Rename from PDETime_massFlowMod to PlugFlowTransportDelayMod</li>
+Rename from PDETime_massFlowMod to PlugFlowTransportDelayMod
+</li>
 <li>
 December 2015 by Carles Ribas Tugores:<br/>
-Modification in delay calculation to fix issues.</li>
+Modification in delay calculation to fix issues.
+</li>
 <li>
 November 6, 2015 by Bram van der Heijde:<br/>
 Adapted flow parameter to mass flow rate instead of velocity.
-This change should also fix the reverse and zero flow issues.</li>
+This change should also fix the reverse and zero flow issues.
+</li>
 <li>
 October 13, 2015 by Marcus Fuchs:<br/>
 Use <code>abs()</code> of normalized velocity input in order to avoid negative
-delay times. </li>
+delay times.
+</li>
 <li>
 July 2015 by Arnout Aertgeerts:<br/>
 First implementation.
