@@ -2,6 +2,8 @@ within Buildings.Fluid.Actuators.BaseClasses;
 model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
 
+  parameter Boolean conFilterBool = true
+    "= if true then input y is used, else protected input y_internal is used instead";
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
@@ -30,6 +32,8 @@ model ActuatorSignal
 
   // Classes used to implement the filtered opening
 protected
+  Modelica.Blocks.Interfaces.RealInput y_internal
+    "Internal input to be connected from with the model if not conFilterBool";
   Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter
     "Filtered valve position in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
@@ -48,18 +52,21 @@ protected
     annotation (Placement(transformation(extent={{6,81},{20,95}})));
 
 equation
- connect(filter.y, y_filtered) annotation (Line(
+  connect(filter.y, y_filtered) annotation (Line(
       points={{20.7,88},{50,88}},
       color={0,0,127}));
+  if conFilterBool then
+    connect(y, y_internal);
+  end if;
   if use_inputFilter then
-  connect(y, filter.u) annotation (Line(
-      points={{1.11022e-15,120},{1.11022e-15,88},{4.6,88}},
-      color={0,0,127}));
-  connect(filter.y, y_actual) annotation (Line(
-      points={{20.7,88},{30,88},{30,70},{50,70}},
-      color={0,0,127}));
+    connect(y_internal, filter.u) annotation (Line(
+        points={{1.11022e-15,120},{1.11022e-15,88},{4.6,88}},
+        color={0,0,127}));
+    connect(filter.y, y_actual) annotation (Line(
+        points={{20.7,88},{30,88},{30,70},{50,70}},
+        color={0,0,127}));
   else
-    connect(y, y_actual) annotation (Line(
+    connect(y_internal, y_actual) annotation (Line(
       points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
       color={0,0,127}));
   end if;
