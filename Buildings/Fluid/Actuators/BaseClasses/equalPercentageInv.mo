@@ -8,7 +8,7 @@ function equalPercentageInv
   input Real R "Rangeability, R=50...100 typically";
   input Real l(min=0, max=1) "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   input Real delta "Range of significant deviation from equal percentage law";
-  output Real y(min=0, max=1, unit="") "Valve opening signal, y=1 is fully open";
+  output Real y(max=1, unit="") "Valve opening signal, y=1 is fully open";
 protected
    Real roots[3,2] = fill(0, 3, 2);
    Real a "Polynomial coefficient";
