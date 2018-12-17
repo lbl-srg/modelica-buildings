@@ -9,7 +9,7 @@ function characteristicFitHX
     "Fitting function first coefficient";
   input Real b2(min=-10, max=10)
     "Fitting function second coefficient (exponential law only)";
-  output Real y(min=0, unit="") "Secondary heat flow rate fraction";
+  output Real y(unit="") "Secondary heat flow rate fraction";
 
 algorithm
   if fitMod == "Exponential" then
