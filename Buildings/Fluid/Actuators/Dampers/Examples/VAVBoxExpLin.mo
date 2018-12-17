@@ -89,6 +89,6 @@ equation
             140}})),
     experiment(Tolerance=1e-6, StopTime=1.0),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExpLin.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExpLin.mos"
         "Simulate and plot"));
 end VAVBoxExpLin;

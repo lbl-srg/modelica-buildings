@@ -189,6 +189,6 @@ equation
           extent={{-140,-180},{120,100}})),
     experiment(Tolerance=1e-6, StopTime=1.0),
     __Dymola_Commands(file=
-        "Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayEqualLin.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayEqualLin.mos"
         "Simulate and plot"));
 end TwoWayEqualLin;
