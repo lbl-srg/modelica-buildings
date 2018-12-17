@@ -1,6 +1,6 @@
 removePlots();
 simulateModel("Buildings.Fluid.Actuators.Valves.Examples.TwoWayEqualLin", 
-method="Cvode", tolerance=1e-6, stopTime=1, resultFile="TwoWayEqualLin");
+method="Cvode", tolerance=1e-6, stopTime=30, resultFile="TwoWayEqualLin");
 createPlot(id = 11,
  position = {15, 10, 924, 583},
  x = "uVal.y",
@@ -12,3 +12,24 @@ createPlot(id = 11,
  color = true,
  leftTitleType = 1,
  bottomTitleType = 1);
+ createPlot(id = 12,
+ position = {15, 10, 924, 583},
+ y = {"cooCoiLin.sta_b2.T", "cooCoiEqu.sta_b2.T"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+ createPlot(id = 13,
+ position = {15, 10, 924, 583},
+ y = {"cooCoiLin.m1_flow", "cooCoiEqu.m1_flow"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+
