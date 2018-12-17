@@ -2,8 +2,6 @@ within Buildings.Fluid.Actuators.BaseClasses;
 model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
 
-  parameter Boolean conFilterBool = true
-    "= if true then input y is used, else protected input y_internal is used instead";
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
@@ -32,6 +30,8 @@ model ActuatorSignal
 
   // Classes used to implement the filtered opening
 protected
+  parameter Boolean conFilterBool = true
+    "= if true then input y is used, else protected input y_internal is used instead";
   Modelica.Blocks.Interfaces.RealInput y_internal
     "Internal input to be connected from with the model if not conFilterBool";
   Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter
