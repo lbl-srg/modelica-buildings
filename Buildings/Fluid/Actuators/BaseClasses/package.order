@@ -1,10 +1,15 @@
 ActuatorSignal
+LinearizeVAVBoxExponential
+LinearizeValveEqual
 PartialDamperExponential
 PartialThreeWayValve
 PartialTwoWayValve
 PartialTwoWayValveKv
 ValveParameters
+characteristicFitHX
 der_equalPercentage
 equalPercentage
+equalPercentageInv
 exponentialDamper
+exponentialDamperInv
 Examples
