@@ -43,20 +43,23 @@ annotation (
         "Simulate and plot"),
   Documentation(info="<html>
   <p>
-  This example includes 3 tests for the SunRiseSet component: a normal case,
-  an arctic and antarctic case.
+  This example includes four instances of the
+  <a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.SunRiseSet\">
+  Buildings.Controls.OBC.CDL.Utilities.SunRiseSet</a> model:
+  One in the northern and southern hemisphere outside of the arctic area, and
+  one in the arctic and antarctic area.
   </p>
   <p>
   The normal case is represented by San Francisco,
   where there is sunrise and sunset every day.
   </p>
   <p>
-  In the arctic circle (in the north hemisphere),
-  there is no sunset in summer and no sunrise in winter for consecutive days.
+  In the arctic area (in the northern hemisphere),
+  there is no sunset and sunrise around June for consecutive days.
   </p>
   <p>
-  In the antarctic circle (in the south hemisphere), there is no sunrise in summer
-  and no sunset in winter for consecutive days.</p>
+  In the antarctic area (in the southern hemisphere),
+  there is no sunset and sunrise around December for consecutive days.</p>
   </html>",
   revisions="<html>
   <ul>

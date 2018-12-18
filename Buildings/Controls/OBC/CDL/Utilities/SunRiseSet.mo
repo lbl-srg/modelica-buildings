@@ -1,17 +1,9 @@
 within Buildings.Controls.OBC.CDL.Utilities;
-block SunRiseSet "Sunrise or sunset time"
+block SunRiseSet "Sunrise and sunset time"
 
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
   parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
-
-  Modelica.SIunits.Time eqnTim "Equation of time";
-  Modelica.SIunits.Time locTim "Local time";
-  Modelica.SIunits.Time solTim "Solar time";
-  Modelica.SIunits.Angle houAng "Solar hour angle";
-  Modelica.SIunits.Angle decAng "Declination angle";
-  Modelica.SIunits.Angle zenAng "Zenith angle";
-  Modelica.SIunits.Angle altAng "Altitude angle";
 
   Modelica.Blocks.Interfaces.RealInput nDay(quantity="Time", final unit="s")
     "Day number with units of seconds"
@@ -20,21 +12,29 @@ block SunRiseSet "Sunrise or sunset time"
   Modelica.Blocks.Interfaces.RealOutput sunRise(
     final quantity="Time",
     final unit="s",
-    displayUnit="h") "Sunrise time"
+    displayUnit="h") "Time of next sunrise"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput sunSet(
     final quantity="Time",
     final unit="s",
-    displayUnit="h") "Sunset time"
+    displayUnit="h") "Time of next sunset"
     annotation (Placement(transformation(extent={{100,-52},{120,-32}})));
 
 protected
   constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Intermediate constant";
-  constant Real k2 = 2*Modelica.Constants.pi/365.25 "Intermediae constant";
+  constant Real k2 = 2*Modelica.Constants.pi/365.25 "Intermediate constant";
   final parameter Modelica.SIunits.Time
     diff = -timZon+lon*43200/Modelica.Constants.pi
     "Difference between local and civil time";
   Real Bt "Intermediate variable used to calculate equation of time";
+
+  Modelica.SIunits.Time eqnTim "Equation of time";
+  Modelica.SIunits.Time locTim "Local time";
+  Modelica.SIunits.Time solTim "Solar time";
+  Modelica.SIunits.Angle houAng "Solar hour angle";
+  Modelica.SIunits.Angle decAng "Declination angle";
+  Modelica.SIunits.Angle zenAng "Zenith angle";
+  Modelica.SIunits.Angle altAng "Altitude angle";
 
 initial equation
   sunRise = 0;
@@ -69,14 +69,14 @@ equation
   end when;
 
 annotation (
+  defaultComponentName="sunRiseSet",
   Documentation(info="<html>
   <p>
-  This component calculates the sunrise and sunset time separately as two outputs.
-  The hours are output like step functions.
+  This model outputs the sunrise and sunset time.
   </p>
   <p>
-  During each day, the component outputs one sunrise time which keeps constant
-  until the next sunrise; sunset output works in the same fashion.
+  At each sunrise, the output for the sunrise is updated with the next sunrise.
+  At each sunset, the output for the sunset is updated with the next sunset.  
   </p>
   <h4>
   Validation
@@ -97,24 +97,18 @@ annotation (
   </li>
   </ul>
   </html>"),
-  Icon(graphics={
+  Icon(graphics={Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
           Text(
             extent={{-100,160},{100,106}},
             lineColor={0,0,255},
             textString="%name"),
-          Rectangle(
-            lineColor={200,200,200},
-            fillColor={248,248,248},
-            fillPattern=FillPattern.HorizontalCylinder,
-            extent={{-100,-100},{100,100}},
-            radius=25.0),
-          Rectangle(
-            lineColor={128,128,128},
-            extent={{-100.0,-100.0},{100.0,100.0}},
-            radius=25.0),
           Ellipse(
             extent={{70,-100},{-70,20}},
-            lineColor={28,108,200},
+            lineColor={238,46,47},
             startAngle=0,
             endAngle=180),
           Line(
