@@ -407,9 +407,8 @@ equation
   connect(sysPriAirRate.y, outAirFra.u2)
     annotation (Line(points={{21.7,-142},{30,-142},{30,-148},{38,-148}},
       color={0,0,127}));
-  connect(maxPriOutAirFra.yMax, sysVenEff.u2)
-    annotation (Line(points={{61,-222},{80,-222},{80,-202},{60,-202},{60,-186},
-      {78,-186}}, color={0,0,127}));
+  connect(maxPriOutAirFra.y, sysVenEff.u2) annotation (Line(points={{61,-222},{
+          80,-222},{80,-202},{60,-202},{60,-186},{78,-186}}, color={0,0,127}));
   connect(sumDesZonPop.y, occDivFra.u2)
     annotation (Line(points={{-118.3,230},{-112,230},{-112,248},{-106,248},
       {-106,248},{-100,248},{-100,248}}, color={0,0,127}));

@@ -5,11 +5,11 @@ block MultiMax "Output the maximum element of the input vector"
     annotation (Dialog(connectorSizing=true), HideResult=true);
   Interfaces.RealInput u[nin]
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
-  Interfaces.RealOutput yMax
+  Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 equation
-  yMax = max(u);
+  y = max(u);
 
 annotation (Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -23,7 +23,7 @@ annotation (Icon(coordinateSystem(
         Text(
           extent={{-12,20},{100,-20}},
           lineColor={0,0,0},
-          textString="yMax"),
+          textString="y"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
