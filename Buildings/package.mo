@@ -211,6 +211,25 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
         </td>
         </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.VAVBoxExpLin
+        </td>
+        <td valign=\"top\">Similar to <code>Dampers.VAVBoxExponential<Lcode>
+            with an optional linearization of the relationship between the input control signal and the mass flow rate.<br/>
+            This is for <a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayEqualLin
+        </td>
+        <td valign=\"top\">Similar to <code>Valves.TwoWayEqualPercentage<Lcode>
+            with an optional linearization of the relationship between the input control signal 
+            and the mass flow rate (or ultimetaly the secondary heat flow rate of a heat exchanger where the primary mass flow 
+            rate is adjusted by actuating the valve opening).<br/>
+            This is for <a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers
         </td>
         <td valign=\"top\">Added <code>Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</code>
@@ -218,6 +237,9 @@ its class name ends with the string <code>Beta</code>.
                            based on design conditions and current mass flow rates.
         </td>
         </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Math
         </td>
         <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
@@ -238,6 +260,16 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Update implementation to output accumulated time when input is <code>true</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br/>
+                           Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv<br/>
+        </td>
+        <td valign=\"top\">Updated to allow linearization of flow characteritic.<br/>
+                           This is for <a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
