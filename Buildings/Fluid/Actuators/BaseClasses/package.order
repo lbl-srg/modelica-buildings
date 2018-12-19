@@ -4,6 +4,7 @@ PartialThreeWayValve
 PartialTwoWayValve
 PartialTwoWayValveKv
 ValveParameters
+characteristicFitHX
 der_equalPercentage
 equalPercentage
 exponentialDamper
