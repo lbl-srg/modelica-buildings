@@ -11,7 +11,7 @@ function multipoleThermalResistances
   input Modelica.SIunits.Radius rPip[nPip] "Outter radius of pipes";
   input Modelica.SIunits.ThermalConductivity kFil "Thermal conductivity of grouting material";
   input Modelica.SIunits.ThermalConductivity kSoi "Thermal conductivity of soil material";
-  input Real RFluPip[nPip](unit="(m.K)/W") "Fluid to pipe wall thermal resistances";
+  input Real RFluPip[nPip](each unit="(m.K)/W") "Fluid to pipe wall thermal resistances";
   input Modelica.SIunits.Temperature TBor=0 "Average borehole wall temperature";
 
   output Real RDelta[nPip,nPip](each unit="(m.K)/W") "Delta-circuit thermal resistances";
