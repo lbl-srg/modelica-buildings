@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "valLin.m_flow",
+    "valLinInvFlo.m_flow",
+    "valNoLin.m_flow",
+    "valEqu.m_flow",
+    "coiLin.sta_b2.T",
+    "coiEqu.sta_b2.T",
+    "coiLin.m1_flow",
+    "coiEqu.m1_flow"
+  };
