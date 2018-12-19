@@ -5,7 +5,6 @@ partial model PartialDamperExponential
       m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
       eta_default*ReC*sqrt(A)*facRouDuc);
    extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
-
  parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
  parameter Real deltaM = 0.3
@@ -14,7 +13,6 @@ partial model PartialDamperExponential
  parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
  final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area";
-
  parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"
    annotation(Dialog(enable=not use_deltaM));
@@ -45,18 +43,28 @@ partial model PartialDamperExponential
  Real k(unit="")
     "Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
- parameter Medium.Density rho_default=Medium.density(sta_default)
+  parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
- parameter Real[3] cL=
+  parameter Real[3] cL=
     {(Modelica.Math.log(k0) - b - a)/yL^2,
       (-b*yL - 2*Modelica.Math.log(k0) + 2*b + 2*a)/yL,
       Modelica.Math.log(k0)} "Polynomial coefficients for curve fit for y < yl";
- parameter Real[3] cU=
+  parameter Real[3] cU=
     {(Modelica.Math.log(k1) - a)/(yU^2 - 2*yU + 1),
     (-b*yU^2 - 2*Modelica.Math.log(k1)*yU - (-2*b - 2*a)*yU - b)/(yU^2 - 2*yU + 1),
     (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)}
     "Polynomial coefficients for curve fit for y > yu";
- parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
+  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
+  // Additional parameters for characteristic linearization
+  parameter Boolean complete_linear = false
+  "If complete_linear then both the characteristic and the mass flow rate to
+  pressure drop relationship are linearized.";
+  Real kDam_min "Minimum value of valve flow coefficient metric unit (kg.m)^(1/2)";
+  Real kDam_max "Maximum value of valve flow coefficient metric unit(kg.m)^(1/2)";
+  Real k_min "Minimum value of total (valve + fixed resistance) flow coefficient
+    metric unit (kg.m)^(1/2)";
+  Real k_max "Maximum value of total (valve + fixed resistance) flow coefficient
+    metric unit (kg.m)^(1/2)";
 initial equation
   assert(k0 > k1, "k0 must be between k1 and 1e6.");
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
@@ -69,18 +77,27 @@ equation
         else
           Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // flow coefficient, k=m_flow/sqrt(dp)
-  kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=y_actual,
-    a=a,
-    b=b,
-    cL=cL,
-    cU=cU,
-    yL=yL,
-    yU=yU);
-  k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
+  kDam_min = sqrt(2*rho) *A / Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+      y=0, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+  kDam_max = sqrt(2*rho) *A / Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+      y=1, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+  k_min = if (kFixed > Modelica.Constants.eps) then
+    sqrt(1/(1/kFixed^2 + 1/kDam_min^2)) else kDam_min;
+  k_max = if (kFixed > Modelica.Constants.eps) then
+    sqrt(1/(1/kFixed^2 + 1/kDam_max^2)) else kDam_max;
+  // Optional characteristic linearization
+  if complete_linear then
+    k = sqrt(y_actual) * (k_max - k_min) + k_min;
+    kDam = if (kFixed > Modelica.Constants.eps) then 
+      sqrt(1 / (1 / k^2 - 1 / kFixed^2)) else kDam;
+  else 
+    kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+      y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+    k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
+  end if;
   // Pressure drop calculation
   if linearized then
-    m_flow*m_flow_nominal_pos = k^2*dp;
+    m_flow*m_flow_nominal_pos = k^2 * dp;
   else
     if homotopyInitialization then
       if from_dp then
@@ -123,6 +140,12 @@ Buildings.Fluid.Actuators.Dampers.Exponential</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 18, 2018, by Antoine Gautier:<br/>
+Added the option for characteristic linearization.<br/>
+This is for
+<a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+</li>
 <li>
 March 22, 2017, by Michael Wetter:<br/>
 Added back <code>v_nominal</code>, but set the assignment of <code>A</code>
