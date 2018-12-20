@@ -437,9 +437,8 @@ equation
   connect(unCorOutAirInk.y, desOutAirInt.u1)
     annotation (Line(points={{41,220.5},{180,220.5},{180,128},{120,128},
       {120,116},{138,116}},color={0,0,127}));
-  connect(desSysVenEff.yMin, desOutAirInt.u2)
-    annotation (Line(points={{161,150},{168,150},{168,134},{114,134},{114,104},
-      {138,104}}, color={0,0,127}));
+  connect(desSysVenEff.y, desOutAirInt.u2) annotation (Line(points={{161,150},{
+          168,150},{168,134},{114,134},{114,104},{138,104}}, color={0,0,127}));
   connect(min1.y, effMinOutAirInt.u1)
     annotation (Line(points={{161,-82},{168,-82},{168,-112},{132,-112},
       {132,-134},{140,-134}}, color={0,0,127}));

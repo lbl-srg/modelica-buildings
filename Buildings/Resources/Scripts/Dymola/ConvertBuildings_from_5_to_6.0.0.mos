@@ -27,6 +27,7 @@ convertClass("Buildings.Controls.OBC.CDL.ExtractSignal",
              "Buildings.Controls.OBC.CDL.RealExtractSignal");
 
 convertElement("Buildings.Controls.OBC.CDL.Continuous.MultiMax", "yMax", "y");
+convertElement("Buildings.Controls.OBC.CDL.Continuous.MultiMin", "yMin", "y");
 
 convertClass("Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier",
              "Buildings.Fluid.BaseClasses.MassFlowRateMultiplier");

@@ -21,13 +21,14 @@ annotation (Icon(coordinateSystem(
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
         Text(
-          extent={{-12,20},{100,-20}},
-          lineColor={0,0,0},
-          textString="y"),
-        Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),Documentation(info="<html>
+          lineColor={0,0,255}),
+          Text(
+            extent={{-90,36},{90,-36}},
+            lineColor={160,160,164},
+            textString="max()")}),
+                                 Documentation(info="<html>
 <p>
 Outputs the maximum element of the input vector.
 </p>

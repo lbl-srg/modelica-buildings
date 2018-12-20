@@ -717,13 +717,13 @@ equation
   connect(TZon,minZonTem.u)
     annotation (Line(points={{-280,-10},{-240,-10},{-240,-120},{-142,-120}},
       color={0,0,127}));
-  connect(minZonTem.yMin, add7.u2)
+  connect(minZonTem.y, add7.u2)
     annotation (Line(points={{-119,-120},{-98,-120},{-98,84},{-82,84}},
       color={0,0,127}));
-  connect(minZonTem.yMin, add2.u2)
+  connect(minZonTem.y, add2.u2)
     annotation (Line(points={{-119,-120},{-98,-120},{-98,-76},{78,-76}},
       color={0,0,127}));
-  connect(minZonTem.yMin, addPar1.u)
+  connect(minZonTem.y, addPar1.u)
     annotation (Line(points={{-119,-120},{-98,-120},{-98,-150},{-2,-150}},
       color={0,0,127}));
   connect(pro.y, maxCooTim.u)

@@ -292,7 +292,7 @@ its class name ends with the string <code>Beta</code>.
                            and renamed various signals and parameters for consistency.<br/>
                            For Dymola, a conversion script makes this change.
         </td>
-        </tr>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
@@ -300,6 +300,20 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Changed block name from <code>ExtractSignal</code>.<br/>
                            For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiMax
+        </td>
+        <td valign=\"top\">Changed output variable name from <code>yMax</code> to <code>y</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/\">issue 1252</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiMin
+        </td>
+        <td valign=\"top\">Changed output variable name from <code>yMin</code> to <code>y</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/\">issue 1252</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
