@@ -407,9 +407,8 @@ equation
   connect(sysPriAirRate.y, outAirFra.u2)
     annotation (Line(points={{21.7,-142},{30,-142},{30,-148},{38,-148}},
       color={0,0,127}));
-  connect(maxPriOutAirFra.yMax, sysVenEff.u2)
-    annotation (Line(points={{61,-222},{80,-222},{80,-202},{60,-202},{60,-186},
-      {78,-186}}, color={0,0,127}));
+  connect(maxPriOutAirFra.y, sysVenEff.u2) annotation (Line(points={{61,-222},{
+          80,-222},{80,-202},{60,-202},{60,-186},{78,-186}}, color={0,0,127}));
   connect(sumDesZonPop.y, occDivFra.u2)
     annotation (Line(points={{-118.3,230},{-112,230},{-112,248},{-106,248},
       {-106,248},{-100,248},{-100,248}}, color={0,0,127}));
@@ -438,9 +437,8 @@ equation
   connect(unCorOutAirInk.y, desOutAirInt.u1)
     annotation (Line(points={{41,220.5},{180,220.5},{180,128},{120,128},
       {120,116},{138,116}},color={0,0,127}));
-  connect(desSysVenEff.yMin, desOutAirInt.u2)
-    annotation (Line(points={{161,150},{168,150},{168,134},{114,134},{114,104},
-      {138,104}}, color={0,0,127}));
+  connect(desSysVenEff.y, desOutAirInt.u2) annotation (Line(points={{161,150},{
+          168,150},{168,134},{114,134},{114,104},{138,104}}, color={0,0,127}));
   connect(min1.y, effMinOutAirInt.u1)
     annotation (Line(points={{161,-82},{168,-82},{168,-112},{132,-112},
       {132,-134},{140,-134}}, color={0,0,127}));
