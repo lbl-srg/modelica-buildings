@@ -68,7 +68,7 @@ partial model PartialDataCenter
     dp1_wse_nominal=dp1_wse_nominal,
     dp2_chi_nominal=dp2_chi_nominal,
     dp2_wse_nominal=dp2_wse_nominal,
-    redeclare
+    redeclare each
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi,
     use_inputFilter=false,
