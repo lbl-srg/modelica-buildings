@@ -3,8 +3,15 @@ partial block HVACZone
   "Partial block to export an HVAC system that has no radiative component and that serves multiple zones as an FMU"
 
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
 
   // Set allowFlowReversal = true to get access to the states of the zone.
   Interfaces.Outlet fluPor[size(hvacAda.fluPor, 1)](

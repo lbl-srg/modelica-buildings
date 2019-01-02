@@ -9,8 +9,16 @@ partial model TwoWayFlowElement "Flow resistance that uses the power law"
     final m2_flow_nominal=m1_flow_nominal);
   extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Modelica.SIunits.Velocity vZer=0.001
     "Minimum velocity to prevent zero flow. Recommended: 0.001";

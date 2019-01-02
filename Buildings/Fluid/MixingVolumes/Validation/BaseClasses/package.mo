@@ -1,5 +1,5 @@
 within Buildings.Fluid.MixingVolumes.Validation;
-package BaseClasses "BaseClasses package"
+package BaseClasses "Baseclasses package"
 extends Modelica.Icons.BasesPackage;
 
 annotation (Documentation(info="<html>

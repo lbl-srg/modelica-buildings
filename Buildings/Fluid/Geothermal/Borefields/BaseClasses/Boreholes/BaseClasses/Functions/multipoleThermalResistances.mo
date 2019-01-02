@@ -11,16 +11,16 @@ function multipoleThermalResistances
   input Modelica.SIunits.Radius rPip[nPip] "Outter radius of pipes";
   input Modelica.SIunits.ThermalConductivity kFil "Thermal conductivity of grouting material";
   input Modelica.SIunits.ThermalConductivity kSoi "Thermal conductivity of soil material";
-  input Real RFluPip[nPip](unit="(m.K)/W") "Fluid to pipe wall thermal resistances";
+  input Real RFluPip[nPip](each unit="(m.K)/W") "Fluid to pipe wall thermal resistances";
   input Modelica.SIunits.Temperature TBor=0 "Average borehole wall temperature";
 
-  output Real RDelta[nPip,nPip](unit="(m.K)/W") "Delta-circuit thermal resistances";
-  output Real R[nPip,nPip](unit="(m.K)/W") "Internal thermal resistances";
+  output Real RDelta[nPip,nPip](each unit="(m.K)/W") "Delta-circuit thermal resistances";
+  output Real R[nPip,nPip](each unit="(m.K)/W") "Internal thermal resistances";
 
 protected
-  Real QPip_flow[nPip](unit="W/m") "Pipe heat transfer rates";
+  Real QPip_flow[nPip](each unit="W/m") "Pipe heat transfer rates";
   Modelica.SIunits.Temperature TFlu[nPip] "Fluid temperatures";
-  Real K[nPip,nPip](unit="W/(m.K)") "Internal thermal conductances";
+  Real K[nPip,nPip](each unit="W/(m.K)") "Internal thermal conductances";
 
 algorithm
   for m in 1:nPip loop
