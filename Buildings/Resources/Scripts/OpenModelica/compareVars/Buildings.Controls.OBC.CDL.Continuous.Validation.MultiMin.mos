@@ -5,5 +5,5 @@ compareVars :=
     "con[3].y",
     "con[4].y",
     "con[5].y",
-    "minVal.yMin"
+    "minVal.y"
   };
