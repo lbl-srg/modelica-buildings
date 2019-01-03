@@ -1,24 +1,24 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block EquipmentRotationTwo
-  "Defines lead-lag or lead-standby equipment rotation for two devices or groups of devices"
+  "Defines lead-lag or lead-standby equipment rotation for two devices or two groups of devices"
 
   parameter Integer num = 2
-    "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
+    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
   parameter Real stagingRuntime(unit = "s") = 240 * 60 * 60
     "Staging runtime";
 
   parameter Boolean initRoles[num] = initialization[1:num]
-    "Sets initial roles: true = lead, false = lag";
+    "Sets initial roles: true = lead, false = lag or standby";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevRol[num]
-    "Current devices operation status (true - on, false - off)"
-    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
+    "Current devices operation status: true = lead, false = lag or standby"
+    annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[num]
-    "Device role (true - lead, false - lag)"
-    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
+    "Device role: true = lead, false = lag or standby"
+    annotation (Placement(transformation(extent={{240,-10},{260,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[num](
@@ -63,8 +63,8 @@ protected
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
 equation
-  connect(uDevRol, tim.u) annotation (Line(points={{-200,0},{-160,0},{-160,30},
-          {-122,30}},color={255,0,255}));
+  connect(uDevRol, tim.u) annotation (Line(points={{-240,0},{-160,0},{-160,30},{
+          -122,30}}, color={255,0,255}));
   connect(greEquThr.y, and3.u1) annotation (Line(points={{-59,30},{-30,30},{-30,
           8},{-22,8}}, color={255,0,255}));
   connect(logSwi.u1, fixme_for_n.y) annotation (Line(points={{98,-22},{70,-22},
@@ -81,8 +81,9 @@ equation
           170,-70},{10,-70},{10,-50},{18,-50}},color={255,0,255}));
   connect(pre.y, logSwi.u3) annotation (Line(points={{161,-50},{170,-50},{170,
           -70},{90,-70},{90,-38},{98,-38}}, color={255,0,255}));
-  connect(uDevRol, not1.u) annotation (Line(points={{-200,0},{-160,0},{-160,-10},
-    {-122,-10}},color={255,0,255}));
+  connect(uDevRol, not1.u) annotation (Line(points={{-240,0},{-160,0},{-160,-10},
+          {-122,-10}},
+                color={255,0,255}));
   connect(not1.y,and3. u2)
     annotation (Line(points={{-99,-10},{-60,-10},{-60,0},{-22,0}},
     color={255,0,255}));
@@ -96,8 +97,8 @@ equation
     annotation (Line(points={{161,-50},{170,-50},{170,
           20},{-20,20},{-20,40},{-2,40}}, color={255,0,255}));
   connect(logSwi.y, yDevRol)
-    annotation (Line(points={{121,-30},{150,-30},{150,
-          0},{190,0}}, color={255,0,255}));
+    annotation (Line(points={{121,-30},{150,-30},{150,0},{250,0}},
+                       color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-180,-120},{180,120}})),
       defaultComponentName="equRot",
     Icon(graphics={
@@ -130,16 +131,17 @@ equation
           textString="%name")}),
   Documentation(info="<html>
 <p>
-This block rotates equipment, such as chillers, pumps or valves 
-in order to ensure equal wear and tear. It can be used for lead/lag and 
-lead/standby operation, as specified in  
-&quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
-Chapter 7, App B, 1.01, A.4. The input vector <code>uDevRol<\code> indicates the on off status
-the lead and the lag/standby device. Default initial lead role is assigned to the device associated
+This block rotates equipment, such as chillers, pumps or valves, in order 
+to ensure equal wear and tear. It can be used for lead/lag and 
+lead/standby operation, as specified in &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
+Chapter 7, App B, 1.01, A.4.  The input vector <code>uDevRol<\code> indicates the lead/lag (or lead/standby) status
+of the devices. Default initial lead role is assigned to the device associated
 with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
-for each piece of equipment and switches the lead role with the lag/standby
-as the <code>stagingRuntime<\code> expires. This block can only be applied to 
-two devices or two groups of devices, one lead and the other lag or standby.
+for each device and switches the lead role to the next higher index
+as its <code>stagingRuntime<\code> expires. This block can be used for 2 devices. 
+If using more than 2 devices, see 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult</a>.
 </p>
 </html>", revisions="<html>
 <ul>

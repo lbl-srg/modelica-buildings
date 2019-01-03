@@ -16,8 +16,7 @@ model Tuning_uEcoSta_uTowFanSpe
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ecoSta(
-    final width=0.5,
-    final period=2*20*60)
+    final width=0.5, final period=5*20*60)
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 

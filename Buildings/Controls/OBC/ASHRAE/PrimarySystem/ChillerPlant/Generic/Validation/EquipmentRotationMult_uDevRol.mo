@@ -3,13 +3,13 @@ model EquipmentRotationMult_uDevRol
   "Validate lead/lag and lead/standby switching"
 
   parameter Integer num = 3
-    "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
+    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
-  parameter Boolean initialization[10] = {true, false, false, false, false, false, false, false, false, false}
+  parameter Boolean initialization[num] = {true, false, false}
     "Initiates device mapped to the first index with the lead role and all other to lag";
 
   parameter Boolean initRoles[num] = initialization[1:num]
-    "Sets initial roles: true = lead, false = lag";
+    "Sets initial roles: true = lead, false = lag or standby";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult leaLag(
     final stagingRuntime=5*60*60,
@@ -86,13 +86,13 @@ equation
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationTwo\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationTwo</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-fixme<br/>
+September 20, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

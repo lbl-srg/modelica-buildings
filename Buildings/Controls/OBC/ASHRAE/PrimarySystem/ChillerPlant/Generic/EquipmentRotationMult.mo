@@ -1,23 +1,23 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block EquipmentRotationMult
-  "Defines lead-lag or lead-standby equipment rotation for any number of devices"
+  "Defines lead-lag or lead-standby equipment rotation for any number of devices or groups of devices"
 
   parameter Integer num = 3
-    "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
+    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
   parameter Real stagingRuntime(unit = "s") = 240 * 60 * 60
     "Staging runtime";
 
   parameter Boolean initRoles[num] = initialization[1:num]
-    "Sets initial roles: true = lead, false = lag";
+    "Sets initial roles: true = lead, false = lag or standby";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevRol[num]
-    "Current devices operation status (true - on, false - off)"
+    "Current devices operation status: true = lead, false = lag or standby"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[num]
-    "Device role (true - lead, false - lag)"
+    "Device role: true = lead, false = lag or standby"
     annotation (Placement(transformation(extent={{240,-10},{260,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -187,11 +187,11 @@ equation
 This block rotates equipment, such as chillers, pumps or valves, in order 
 to ensure equal wear and tear. It can be used for lead/lag and 
 lead/standby operation, as specified in &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
-Chapter 7, App B, 1.01, A.4.  The input vector <code>uDevRol<\code> indicates the on off status
-for all the devices. Default initial lead role is assigned to the device associated
+Chapter 7, App B, 1.01, A.4.  The input vector <code>uDevRol<\code> indicates the lead/lag (or lead/standby) status
+of the devices. Default initial lead role is assigned to the device associated
 with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
-for each piece of equipment and switches the lead role to the next higher index
-as the <code>stagingRuntime<\code> expires. It can be used for any number of devices <code>num<\code>.
+for each device and switches the lead role to the next higher index
+as its <code>stagingRuntime<\code> expires. It can be used for any number of devices <code>num<\code>.
 </p>
 </html>", revisions="<html>
 <ul>

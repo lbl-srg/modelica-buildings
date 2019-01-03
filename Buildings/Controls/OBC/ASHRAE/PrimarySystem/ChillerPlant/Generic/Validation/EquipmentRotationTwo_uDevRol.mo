@@ -3,10 +3,10 @@ model EquipmentRotationTwo_uDevRol
   "Validate lead/lag and lead/standby switching"
 
   parameter Integer num = 2
-    "Total number of chillers, the same number applied to isolation valves, CW pumps, CHW pumps";
+    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
   parameter Boolean initRoles[num] = {true, false}
-    "Sets initial roles: true = lead, false = lag. There should be only one lead device";
+    "Sets initial roles: true = lead, false = lag or standby";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationTwo
     leaLag(
@@ -90,7 +90,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotati
 </html>", revisions="<html>
 <ul>
 <li>
-fixme<br/>
+September 20, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
