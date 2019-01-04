@@ -73,11 +73,13 @@ block OutsideAirFlow
       iconTransformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](
     each final unit="K",
+    displayUnit="degC",
     each quantity="ThermodynamicTemperature") "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis[numZon](
     each final unit="K",
+    displayUnit="degC",
     each quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
@@ -544,7 +546,7 @@ annotation (
   Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          fillColor={210,210,210},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{-92,82},{84,-68}},
           lineColor={0,0,0},
