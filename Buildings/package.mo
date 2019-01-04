@@ -389,6 +389,16 @@ its class name ends with the string <code>Beta</code>.
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.Data.Soil.SandStone
+        </td>
+        <td valign=\"top\">Corrected wrong thermal properties.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1062\">IBPSA, #1062</a>.
+        </td>
+    </tr>
+
     <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
         </td>
     </tr>
