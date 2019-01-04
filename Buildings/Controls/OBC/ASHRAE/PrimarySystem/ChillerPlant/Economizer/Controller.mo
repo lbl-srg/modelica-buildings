@@ -127,7 +127,7 @@ protected
     final trueHoldDuration=holdPeriod,
     final falseHoldDuration=holdPeriod)
     "Keeps a signal constant for a given time period"
-    annotation (Placement(transformation(extent={{140,10},{160,30}})));
+    annotation (Placement(transformation(extent={{140,20},{160,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2 "And"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
@@ -172,14 +172,15 @@ equation
     annotation (Line(points={{-200,60},{-140,60},{-140,-4},{-62,-4}},
           color={0,0,127}));
   connect(truFalHol.y, pre.u)
-    annotation (Line(points={{161,20},{170,20},{170,-30},{140,-30},{140,-50},{148,
-          -50}},color={255,0,255}));
-  connect(truFalHol.y, y) annotation (Line(points={{161,20},{170,20},{170,0},{190,
-          0}},     color={255,0,255}));
+    annotation (Line(points={{161,30},{170,30},{170,-30},{140,-30},{140,-50},{
+          148,-50}},
+                color={255,0,255}));
+  connect(truFalHol.y, y) annotation (Line(points={{161,30},{170,30},{170,0},{
+          190,0}}, color={255,0,255}));
   connect(enaTWet.y, and2.u1)
     annotation (Line(points={{21,50},{98,50}}, color={255,0,255}));
   connect(truFalHol.u, and2.y)
-    annotation (Line(points={{139,20},{130,20},{130,50},{121,50}},
+    annotation (Line(points={{139,30},{130,30},{130,50},{121,50}},
     color={255,0,255}));
   connect(timer.y, enaTChiWatRet.u)
     annotation (Line(points={{51,-10},{58,-10}}, color={0,0,127}));

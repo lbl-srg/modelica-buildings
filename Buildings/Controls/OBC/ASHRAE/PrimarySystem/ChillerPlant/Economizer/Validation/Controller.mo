@@ -101,13 +101,13 @@ protected
     final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse    TChiWatRetDow2(
-    final period=2*15*60,
+
+  CDL.Continuous.Sources.Sine TChiWatRetDow3(
     final offset=TWseOut,
-    final amplitude=2.5)
+    final freqHz=1/1800,
+    final amplitude=4)
     "Chilled water return temperature downstream of WSE"
     annotation (Placement(transformation(extent={{90,0},{110,20}})));
-
 equation
 
   connect(constTowFanSig.y, wseSta.uTowFanSpe) annotation (Line(points={{-119,-70},
@@ -138,8 +138,8 @@ equation
           {130,40},{130,14},{158,14}},color={0,0,127}));
   connect(chiWatFlow2.y,wseSta2. VChiWat_flow) annotation (Line(points={{111,-30},
           {140,-30},{140,6},{158,6}}, color={0,0,127}));
-  connect(TChiWatRetDow2.y,wseSta2.TChiWatRetDow)
-    annotation (Line(points={{111,10},{158,10}},color={0,0,127}));
+  connect(wseSta2.TChiWatRetDow, TChiWatRetDow3.y)
+    annotation (Line(points={{158,10},{111,10}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Validation/Controller.mos"
@@ -185,6 +185,6 @@ temperature downstream of WSE"),
         Text(
           extent={{72,-82},{132,-104}},
           lineColor={0,0,127},
-          textString="Tests dcombined enable 
-and disable conditions")}));
+          textString="Combines conditions from 
+the first two tests")}));
 end Controller;

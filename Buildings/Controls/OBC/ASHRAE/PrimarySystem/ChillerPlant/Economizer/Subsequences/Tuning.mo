@@ -87,29 +87,17 @@ block Tuning
   Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Pre"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  CDL.Continuous.GreaterEqualThreshold       greEquThr1(threshold=1)
+  CDL.Continuous.LessThreshold               lesThr(    threshold=1)
                                                      "Less equal"
-    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant MaxTowFanSpe(
-    final k=1) "Maximal tower fan speed"
-    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
+    annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam2(
     final y_start=0) "Sampler"
-    annotation (Placement(transformation(extent={{-30,-140},{-10,-120}})));
+    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Zero(
-    final k=0)
-    "Minimal tower fan speed"
-    annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+  CDL.Continuous.LessEqualThreshold                           lesEquThr(
     final threshold=0.5)
-    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
+    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
 
   CDL.Discrete.ZeroOrderHold zerOrdHol(samplePeriod=1)
     annotation (Placement(transformation(extent={{100,98},{120,118}})));
@@ -119,11 +107,11 @@ block Tuning
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
   CDL.Continuous.Add                        add3 "Tuning parameter aggregator"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Logical.Or                          or2  "And"
-    annotation (Placement(transformation(extent={{76,-130},{96,-110}})));
-  CDL.Logical.Sources.Constant                           tunStep1(final k=true)
-                  "Tuning step"
-    annotation (Placement(transformation(extent={{30,-108},{50,-88}})));
+  CDL.Logical.And                        and3 "And"
+    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+  CDL.Continuous.Sources.Constant const1(final k=1)
+    "Prevents tuning parameter decrease"
+    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
 equation
   connect(uWseSta, tim.u)
     annotation (Line(points={{-200,60},{-160,60},{-160,90},{-142,90}},
@@ -167,22 +155,8 @@ equation
     annotation (Line(points={{-79,-40},{-62,-40}}, color={255,0,255}));
   connect(and1.u1, pre1.y) annotation (Line(points={{18,-32},{-12,-32},{-12,-40},
           {-39,-40}}, color={255,0,255}));
-  connect(lesEqu.y, swi.u2) annotation (Line(points={{-79,-40},{-70,-40},{-70,
-          -80},{-90,-80},{-90,-190},{-82,-190}},
-                                  color={255,0,255}));
-  connect(MaxTowFanSpe.y, swi.u1) annotation (Line(points={{-139,-180},{-88,
-          -180},{-88,-182},{-82,-182}},
-                                  color={0,0,127}));
-  connect(swi.y, triSam2.u) annotation (Line(points={{-59,-190},{-40,-190},{-40,
-          -130},{-32,-130}}, color={0,0,127}));
-  connect(triSam2.y, greEquThr.u)
-    annotation (Line(points={{-9,-130},{-2,-130}},  color={0,0,127}));
-  connect(Zero.y, swi.u3) annotation (Line(points={{-99,-200},{-90,-200},{-90,
-          -198},{-82,-198}}, color={0,0,127}));
-  connect(uTowFanSpe, greEquThr1.u)
-    annotation (Line(points={{-200,-150},{-122,-150}}, color={0,0,127}));
-  connect(greEquThr1.y, triSam2.trigger) annotation (Line(points={{-99,-150},{
-          -20,-150},{-20,-141.8}}, color={255,0,255}));
+  connect(uTowFanSpe, lesThr.u)
+    annotation (Line(points={{-200,-150},{-142,-150}}, color={0,0,127}));
   connect(triSam.y, zerOrdHol.u)
     annotation (Line(points={{81,108},{98,108}}, color={0,0,127}));
   connect(add1.y, triSam.u) annotation (Line(points={{41,130},{50,130},{50,108},
@@ -203,12 +177,18 @@ equation
     annotation (Line(points={{-9,130},{0,130},{0,4},{18,4}}, color={0,0,127}));
   connect(add3.y, triSam1.u) annotation (Line(points={{41,10},{50,10},{50,-20},
           {58,-20}}, color={0,0,127}));
-  connect(greEquThr.y, or2.u2) annotation (Line(points={{21,-130},{48,-130},{48,
-          -128},{74,-128}}, color={255,0,255}));
-  connect(and1.u3, or2.y) annotation (Line(points={{18,-48},{10,-48},{10,-80},{
-          110,-80},{110,-120},{97,-120}}, color={255,0,255}));
-  connect(tunStep1.y, or2.u1) annotation (Line(points={{51,-98},{62,-98},{62,
-          -120},{74,-120}}, color={255,0,255}));
+  connect(lesEqu.y, and3.u1) annotation (Line(points={{-79,-40},{-70,-40},{-70,
+          -94},{-110,-94},{-110,-150},{-102,-150}}, color={255,0,255}));
+  connect(lesThr.y, and3.u2) annotation (Line(points={{-119,-150},{-110,-150},{
+          -110,-158},{-102,-158}}, color={255,0,255}));
+  connect(and3.y, triSam2.trigger) annotation (Line(points={{-79,-150},{-50,
+          -150},{-50,-141.8}}, color={255,0,255}));
+  connect(const1.y, triSam2.u) annotation (Line(points={{-79,-180},{-70,-180},{
+          -70,-130},{-62,-130}}, color={0,0,127}));
+  connect(triSam2.y, lesEquThr.u)
+    annotation (Line(points={{-39,-130},{-22,-130}}, color={0,0,127}));
+  connect(lesEquThr.y, and1.u3) annotation (Line(points={{1,-130},{10,-130},{10,
+          -48},{18,-48}}, color={255,0,255}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(

@@ -14,6 +14,9 @@ model Tuning_uEcoSta_uTowFanSpe
     "Tests tuning parameter decrease due to WSE being on for a long time before disable"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
+  Tuning wseTun3
+    "Tests tuning parameter remains constant inspite of a dip in tower fan speed due to the prolonged WSE on status"
+    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ecoSta(
     final width=0.5, final period=2*55*60)
@@ -26,7 +29,7 @@ protected
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ecoSta1(
-    final width=0.5, final period=2*40*60)
+    final width=0.5, final period=2*15*60)
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
@@ -56,6 +59,13 @@ protected
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 
+  CDL.Logical.Sources.Pulse                        ecoSta3(final width=0.5,
+      final period=2*15*60)
+    "Water side economizer enable/disable status"
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  CDL.Continuous.Sources.Constant                        maxTowFanSig2(final k=1)
+    "Cooling tower fan full load signal"
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 equation
   connect(ecoSta.y,wseTun.uWseSta)  annotation (Line(points={{-99,110},{-70,110},
           {-70,75},{-42,75}},
@@ -74,6 +84,11 @@ equation
           {-70,-50},{-70,-35},{-42,-35}}, color={0,0,127}));
   connect(maxTowFanSig.y, wseTun.uTowFanSpe) annotation (Line(points={{-99,50},{
           -70,50},{-70,65},{-42,65}}, color={0,0,127}));
+  connect(ecoSta3.y,wseTun3.uWseSta)  annotation (Line(points={{41,-10},{70,-10},
+          {70,-45},{98,-45}},
+                            color={255,0,255}));
+  connect(wseTun3.uTowFanSpe, maxTowFanSig2.y) annotation (Line(points={{98,-55},
+          {70,-55},{70,-60},{41,-60}}, color={0,0,127}));
 annotation (
  experiment(StopTime=14400.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Subsequences/Validation/Tuning_uEcoSta_uTowFanSpe.mos"
@@ -109,5 +124,12 @@ Icon(graphics={
           lineColor={0,0,127},
           textString="Tests tuning parameter decrease 
 based on WSE enable duration
-prior to disable")}));
+prior to disable"),
+        Text(
+          extent={{38,-78},{98,-100}},
+          lineColor={0,0,127},
+          textString="Tests tuning parameter increase 
+based on WSE enable duration
+prior to disable and cooling tower
+fan speed during WSE enable.")}));
 end Tuning_uEcoSta_uTowFanSpe;
