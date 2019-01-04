@@ -163,6 +163,14 @@ its class name ends with the string <code>Beta</code>.
                            and either one or two U-tube heat exchangers.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Occupants
+       </td>
+       <td valign=\"top\">Package with occupant behavior models and functions to
+                          simulate the occupancy and the interaction of occupants
+                          with air-conditioning and heating systems, windows,
+                          blinds, and lighting in residential and office buildings.
+       </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Cryptographics
         </td>
         <td valign=\"top\">Package with a function to compute a SHA1 encrypted string.
@@ -234,6 +242,18 @@ its class name ends with the string <code>Beta</code>.
                            and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Media</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Media.Air<br/>
+                           Buildings.Media.Water<br/>
+                           Buildings.Media.Antifreeze.PropyleneGlycolWater<br/>
+                           Buildings.Media.Specialized.Air.PerfectGas<br/>
+        </td>
+        <td valign=\"top\">Improved error message when temperature or mass fraction is outside the allowed range.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">IBPSA, issue 1045</a>.
+        </td>
+    </tr>
     </table>
     <!-- Non-backward compatible changes to existing components -->
     <p>
@@ -282,7 +302,7 @@ its class name ends with the string <code>Beta</code>.
                            and renamed various signals and parameters for consistency.<br/>
                            For Dymola, a conversion script makes this change.
         </td>
-        </tr>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
@@ -290,6 +310,20 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Changed block name from <code>ExtractSignal</code>.<br/>
                            For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiMax
+        </td>
+        <td valign=\"top\">Changed output variable name from <code>yMax</code> to <code>y</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/\">issue 1252</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiMin
+        </td>
+        <td valign=\"top\">Changed output variable name from <code>yMin</code> to <code>y</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/\">issue 1252</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>

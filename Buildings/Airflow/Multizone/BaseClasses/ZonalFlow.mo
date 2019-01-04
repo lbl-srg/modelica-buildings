@@ -9,7 +9,14 @@ partial model ZonalFlow "Flow across zonal boundaries of a room"
      final m2_flow_nominal = m1_flow_nominal);
 
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    annotation (choicesAllMatching = true);
+    annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
 
 equation
   // Energy balance (no storage, no heat loss/gain)

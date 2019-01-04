@@ -3,8 +3,15 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
 
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-    annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
   import Modelica.Constants;
 
   parameter Boolean allowFlowReversal = true

@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "win.TIn",
+    "win.occ",
+    "win.p",
+    "win.on"
+  };

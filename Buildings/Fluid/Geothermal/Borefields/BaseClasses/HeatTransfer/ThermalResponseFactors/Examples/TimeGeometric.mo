@@ -7,7 +7,7 @@ model TimeGeometric
   parameter Modelica.SIunits.Time t_max = 20.0 "Maximum value of time";
   parameter Integer nTim = 5 "Number of time values";
 
-  final parameter Modelica.SIunits.Time[nTim] t(fixed=false) "Time vector";
+  final parameter Modelica.SIunits.Time[nTim] t(each fixed=false) "Time vector";
 
 initial equation
   t = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.timeGeometric(
