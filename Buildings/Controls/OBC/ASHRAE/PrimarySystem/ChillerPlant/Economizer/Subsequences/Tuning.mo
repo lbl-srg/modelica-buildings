@@ -102,7 +102,7 @@ block Tuning
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
   CDL.Continuous.Add                        add3 "Tuning parameter aggregator"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Continuous.LessEqualThreshold                  lesEquThr(threshold=0.5)
+  CDL.Continuous.GreaterThreshold                    greThr(   threshold=0.5)
                                                             "Greater or equal than"
     annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
   CDL.Conversions.BooleanToReal booToRea
@@ -111,8 +111,6 @@ block Tuning
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   CDL.Logical.FallingEdge                        falEdg2 "Falling edge"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  CDL.Logical.Pre                        pre2 "Pre"
-    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   CDL.Logical.Or                          and4 "And"
     annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
 equation
@@ -166,8 +164,8 @@ equation
     annotation (Line(points={{-9,130},{0,130},{0,4},{18,4}}, color={0,0,127}));
   connect(add3.y, triSam1.u) annotation (Line(points={{41,10},{50,10},{50,-20},
           {58,-20}}, color={0,0,127}));
-  connect(triSam2.y,lesEquThr. u) annotation (Line(points={{-59,-150},{-42,-150}},
-                               color={0,0,127}));
+  connect(triSam2.y, greThr.u)
+    annotation (Line(points={{-59,-150},{-42,-150}}, color={0,0,127}));
   connect(booToRea.y, triSam2.u) annotation (Line(points={{-99,-150},{-82,-150}},
                                 color={0,0,127}));
   connect(uWseSta, falEdg.u) annotation (Line(points={{-200,60},{-160,60},{-160,
@@ -188,16 +186,14 @@ equation
     annotation (Line(points={{1,-50},{38,-50}}, color={255,0,255}));
   connect(hys.y, falEdg2.u) annotation (Line(points={{-139,-150},{-132,-150},{
           -132,-180},{-122,-180}}, color={255,0,255}));
-  connect(lesEquThr.y, pre2.u) annotation (Line(points={{-19,-150},{-10,-150},{
-          -10,-90},{-2,-90}}, color={255,0,255}));
-  connect(and3.u2, pre2.y) annotation (Line(points={{38,-58},{30,-58},{30,-90},
-          {21,-90}}, color={255,0,255}));
   connect(falEdg1.y, and4.u1) annotation (Line(points={{-39,-90},{-30,-90},{-30,
-          -122},{-86,-122},{-86,-190},{-82,-190}}, color={255,0,255}));
+          -120},{-90,-120},{-90,-190},{-82,-190}}, color={255,0,255}));
   connect(falEdg2.y, and4.u2) annotation (Line(points={{-99,-180},{-90,-180},{
           -90,-198},{-82,-198}}, color={255,0,255}));
   connect(and4.y, triSam2.trigger) annotation (Line(points={{-59,-190},{-50,
           -190},{-50,-170},{-70,-170},{-70,-161.8}}, color={255,0,255}));
+  connect(greThr.y, and3.u2) annotation (Line(points={{-19,-150},{12,-150},{12,
+          -58},{38,-58}}, color={255,0,255}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(
