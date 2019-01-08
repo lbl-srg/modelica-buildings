@@ -6,16 +6,17 @@ extends ExternalObject;
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
     input String iddName "Name of the IDD file";
-    input String epLibName "Name of the Energyplus FMI library";
+    //    input String epLibName "Name of the Energyplus FMI library";
     input String zoneName "Name of the thermal zone";
     output FMUZoneClass adapter;
      external"C" adapter = FMUZoneInit(
            idfName,
            weaName,
            iddName,
-           epLibName,
-           zoneName) annotation (Include="#include <FMUZoneInit.c>",
-           IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+           zoneName)
+    annotation (Library={"ModelicaBuildingsEnergyPlus", "epfmi-9.0.1"});
+    //           epLibName,
+
     annotation (Documentation(info="<html>
 <p>
 The function <code>constructor</code> is a C function that is called by a Modelica simulator
@@ -36,11 +37,7 @@ First implementation.
   function destructor "Release storage"
     input FMUZoneClass adapter;
     external "C" FMUZoneFree(adapter)
-    annotation (
-      Include="#include <FMUZoneFree.c>",
-      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Library="dl");
-    // dl provides dlclose to close EnergyPlus dll
+    annotation (Library="ModelicaBuildingsEnergyPlus");
 
   annotation(Documentation(info="<html>
 <p>

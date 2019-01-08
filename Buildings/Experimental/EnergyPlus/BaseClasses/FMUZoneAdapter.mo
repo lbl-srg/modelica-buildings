@@ -5,11 +5,11 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   parameter String idfName "Name of the IDF file that contains this zone";
   parameter String weaName "Name of the Energyplus weather file";
   final parameter String iddName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Energy+.idd")
+    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/EnergyPlus-9-0-1/Energy+.idd")
     "Name of the Energyplus IDD file";
-  final parameter String epLibName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/libepfmi.so")
-    "Name of the EnergyPlus FMI library";
+//  final parameter String epLibName=Modelica.Utilities.Files.loadResource(
+//    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/EnergyPlus-9-0-1/lib/libepfmi.so")
+//    "Name of the EnergyPlus FMI library";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Integer nFluPor
@@ -73,19 +73,14 @@ protected
       idfName=idfName,
       weaName=weaName,
       iddName=iddName,
-      epLibName=epLibName,
       zoneName=zoneName)
     "Class to communicate with EnergyPlus";
+//      epLibName=epLibName,
 
   parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";
 
   discrete Modelica.SIunits.Time tLast(fixed=true, start=t0) "Last time of data exchange";
   discrete Modelica.SIunits.Time dtLast "Time step since the last synchronization";
-  Modelica.SIunits.Mass mInlInt
-    "Time integrated positive mass flow rate into the room since the last sampling";
-
-  Real mTInt(unit="K.kg")
-    "Time integrated product of positive mass flow rates times inlet temperature since last sampling";
 
   discrete Modelica.SIunits.MassFlowRate mInlet_flow
      "Time averaged inlet mass flow rate";
@@ -121,20 +116,12 @@ initial equation
   // Initialization of output variables.
 
 equation
-  der(mInlInt) = sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
-  der(mTInt) = sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor);
-
   when {initial(), time >= pre(tNext)} then
     TRooLast = T;
     dtLast = time-pre(tLast);
   //  Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
-    if (dtLast > 1E-6) then
-      mInlet_flow = mInlInt / dtLast;
-      TAveInlet = mTInt / dtLast/ max(1E-10, mInlet_flow);
-    else
-      mInlet_flow = 0;
-      TAveInlet = 293.15;
-    end if;
+    mInlet_flow =  sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
+    TAveInlet = sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor)/max(1E-10, mInlet_flow);
     (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNextEP) =
       Buildings.Experimental.EnergyPlus.BaseClasses.exchange(
       adapter,
@@ -144,8 +131,7 @@ equation
       TAveInlet,
       QGaiRad_flow,
       round(time, 1E-3));
-      reinit(mInlInt, 0);
-      reinit(mTInt, 0);
+
     // Guard against division by zero in first call
     //dtMax = min(tNextEP-time, round(dTMax * V * 1.2 *1006/max(1, abs(QCon_flow))/60)*60);
     //    if dT_dt > dT_dtMax then
@@ -178,7 +164,7 @@ of its class <code>adapter</code>, of EnergyPlus.
 <ul>
 <li>
 April 04, 2018, by Thierry S. Nouidui:<br/>
-Added additional parameters for parametrizing 
+Added additional parameters for parametrizing
 the EnergyPlus model.
 </li>
 <li>
