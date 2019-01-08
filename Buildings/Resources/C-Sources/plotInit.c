@@ -8,6 +8,7 @@
 #include "plotObjectStructure.h"
 #include <ModelicaUtilities.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void plotWriteHeader(const char* fileName){
   FILE *f = fopen(fileName, "w");

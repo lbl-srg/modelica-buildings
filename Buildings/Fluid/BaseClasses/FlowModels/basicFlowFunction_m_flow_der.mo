@@ -23,7 +23,7 @@ algorithm
            then sign(m_flow)*2*m_flow/k^2
            else (0.375  + (2.25 - 0.625*m_flowNormSq)*m_flowNormSq)*dp_turbulent/m_flow_turbulent)*m_flow_der;
 
- annotation (LateInline=true,
+ annotation (Inline=false,
              smoothOrder=1,
              derivative(order=2, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
              Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2,
@@ -37,6 +37,11 @@ with respect to the mass flow rate.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 4, 2019, by Michael Wetter:<br/>
+Set `Inline=false`.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1070\">#1070</a>.
+</li>
 <li>
 May 1, 2017, by Filip Jorissen:<br/>
 Revised implementation such that
