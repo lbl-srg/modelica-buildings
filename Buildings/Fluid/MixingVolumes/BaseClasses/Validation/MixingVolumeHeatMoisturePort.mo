@@ -19,7 +19,7 @@ and not overdetermined.
 <ul>
 <li>
 January 3, 2019 by Michael Wetter:<br/>
-Removed errorneous <code>each</code>.<br/>
+Removed erroneous <code>each</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1068\">Buildings, issue 1068</a>.
 </li>
