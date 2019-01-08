@@ -6,16 +6,16 @@ extends ExternalObject;
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
     input String iddName "Name of the IDD file";
-    input String epLibName "Name of the Energyplus FMI library";
+    //    input String epLibName "Name of the Energyplus FMI library";
     input String zoneName "Name of the thermal zone";
     output FMUZoneClass adapter;
      external"C" adapter = FMUZoneInit(
            idfName,
            weaName,
            iddName,
-           epLibName,
            zoneName)
-    annotation (Library="ModelicaBuildingsEnergyPlus");
+    annotation (Library={"ModelicaBuildingsEnergyPlus", "epfmi-9.0.1"});
+    //           epLibName,
 
     annotation (Documentation(info="<html>
 <p>

@@ -25,8 +25,10 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 }
 
 /* Create the structure and return a pointer to its address. */
-void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName, const char* epLibName, const char* zoneName)
+void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName, const char* zoneName)
 {
+  const char* epLibName = "libepfmi-9.0.1.so";
+
   writeLog(1, "Initializing zone.");
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
