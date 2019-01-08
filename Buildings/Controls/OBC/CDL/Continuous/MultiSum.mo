@@ -6,9 +6,9 @@ block MultiSum
     annotation (Dialog(connectorSizing=true), HideResult=true);
   parameter Real k[nin]=fill(1, nin) "Input gains";
   Interfaces.RealInput u[nin] "Connector of Real input signals"
-    annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,17},{134,-17}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   if size(u, 1) > 0 then
     y = k*u;

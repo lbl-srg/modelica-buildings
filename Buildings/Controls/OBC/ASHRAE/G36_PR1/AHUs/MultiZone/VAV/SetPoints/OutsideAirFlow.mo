@@ -65,7 +65,7 @@ block OutsideAirFlow
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow[numZon](
-    min=0,
+    each min=0,
     each final unit="m3/s",
     each quantity="VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
@@ -73,11 +73,13 @@ block OutsideAirFlow
       iconTransformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](
     each final unit="K",
+    displayUnit="degC",
     each quantity="ThermodynamicTemperature") "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis[numZon](
     each final unit="K",
+    displayUnit="degC",
     each quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
@@ -407,9 +409,8 @@ equation
   connect(sysPriAirRate.y, outAirFra.u2)
     annotation (Line(points={{21.7,-142},{30,-142},{30,-148},{38,-148}},
       color={0,0,127}));
-  connect(maxPriOutAirFra.yMax, sysVenEff.u2)
-    annotation (Line(points={{61,-222},{80,-222},{80,-202},{60,-202},{60,-186},
-      {78,-186}}, color={0,0,127}));
+  connect(maxPriOutAirFra.y, sysVenEff.u2) annotation (Line(points={{61,-222},{
+          80,-222},{80,-202},{60,-202},{60,-186},{78,-186}}, color={0,0,127}));
   connect(sumDesZonPop.y, occDivFra.u2)
     annotation (Line(points={{-118.3,230},{-112,230},{-112,248},{-106,248},
       {-106,248},{-100,248},{-100,248}}, color={0,0,127}));
@@ -438,9 +439,8 @@ equation
   connect(unCorOutAirInk.y, desOutAirInt.u1)
     annotation (Line(points={{41,220.5},{180,220.5},{180,128},{120,128},
       {120,116},{138,116}},color={0,0,127}));
-  connect(desSysVenEff.yMin, desOutAirInt.u2)
-    annotation (Line(points={{161,150},{168,150},{168,134},{114,134},{114,104},
-      {138,104}}, color={0,0,127}));
+  connect(desSysVenEff.y, desOutAirInt.u2) annotation (Line(points={{161,150},{
+          168,150},{168,134},{114,134},{114,104},{138,104}}, color={0,0,127}));
   connect(min1.y, effMinOutAirInt.u1)
     annotation (Line(points={{161,-82},{168,-82},{168,-112},{132,-112},
       {132,-134},{140,-134}}, color={0,0,127}));
@@ -546,7 +546,7 @@ annotation (
   Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          fillColor={210,210,210},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{-92,82},{84,-68}},
           lineColor={0,0,0},

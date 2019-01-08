@@ -19,10 +19,10 @@ model GFunction_SmallScaleValidation
   parameter Real ttsMax = exp(5) "Maximum non-dimensional time for g-function calculation";
 
   final parameter Integer nTimTot=nTimSho+nTimLon;
-  final parameter Real[nTimTot] gFun(fixed=false);
-  final parameter Real[nTimTot] lntts(fixed=false);
-  final parameter Modelica.SIunits.Time[nTimTot] tGFun(fixed=false);
-  final parameter Real[nTimTot] dspline(fixed=false);
+  final parameter Real[nTimTot] gFun(each fixed=false);
+  final parameter Real[nTimTot] lntts(each fixed=false);
+  final parameter Modelica.SIunits.Time[nTimTot] tGFun(each fixed=false);
+  final parameter Real[nTimTot] dspline(each fixed=false);
 
   Real gFun_int "Interpolated value of g-function";
   Real lntts_int "Non-dimensional logarithmic time for interpolation";

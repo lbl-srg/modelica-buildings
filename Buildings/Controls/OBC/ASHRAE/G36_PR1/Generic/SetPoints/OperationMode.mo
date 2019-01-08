@@ -422,9 +422,8 @@ equation
   connect(unoPerInd.y, swi.u3)
     annotation (Line(points={{221,230},{240,230},{240,242},{258,242}},
       color={0,0,127}, pattern=LinePattern.Dash));
-  connect(maxCooTim.yMax, corCooDowTim.u1)
-    annotation (Line(points={{-119,194},{-12,194},{-12,188},{-2,188}},
-      color={0,0,127}));
+  connect(maxCooTim.y, corCooDowTim.u1) annotation (Line(points={{-119,194},{-12,
+          194},{-12,188},{-2,188}}, color={0,0,127}));
   connect(booToRea2.y, sum1.u)
     annotation (Line(points={{-19,-10},{-19,-10},{-2,-10}},
       color={0,0,127}));
@@ -642,22 +641,19 @@ equation
   connect(hys10.y, lat1.u0)
     annotation (Line(points={{61,-150},{80,-150},{80,-116},{139,-116}},
       color={255,0,255}));
-  connect(maxWarTim.yMax, addPar3.u)
-    annotation (Line(points={{-119,110},{-100,110},{-100,140},{-82,140}},
-      color={0,0,127}));
+  connect(maxWarTim.y, addPar3.u) annotation (Line(points={{-119,110},{-100,110},
+          {-100,140},{-82,140}}, color={0,0,127}));
   connect(addPar2.y, hys2.u)
     annotation (Line(points={{-59,180},{-42,180}}, color={0,0,127}));
   connect(addPar3.y, hys3.u)
     annotation (Line(points={{-59,140},{-42,140}}, color={0,0,127}));
-  connect(maxCooTim.yMax, addPar2.u)
-    annotation (Line(points={{-119,194},{-110,194},{-100,194},{-100,180},{-82,180}},
-      color={0,0,127}));
+  connect(maxCooTim.y, addPar2.u) annotation (Line(points={{-119,194},{-110,194},
+          {-100,194},{-100,180},{-82,180}}, color={0,0,127}));
   connect(maxWarCooTime.y, corCooDowTim.u3)
     annotation (Line(points={{-119,160},{-66,160},{-12,160},{-12,172},{-2,172}},
       color={0,0,127}));
-  connect(maxWarTim.yMax, corWarUpTim.u1)
-    annotation (Line(points={{-119,110},{-12,110},{-12,132},{-2,132}},
-      color={0,0,127}));
+  connect(maxWarTim.y, corWarUpTim.u1) annotation (Line(points={{-119,110},{-12,
+          110},{-12,132},{-2,132}}, color={0,0,127}));
   connect(maxWarCooTime.y, corWarUpTim.u3)
     annotation (Line(points={{-119,160},{-66,160},{-12,160},{-12,148},{-2,148}},
       color={0,0,127}));
@@ -709,28 +705,25 @@ equation
   connect(booToInt3.y, sumInt.u[7])
     annotation (Line(points={{321,-330},{404,-330},{404,-66},{418,-66}},
       color={255,127,0}));
-  connect(maxZonTem.yMax, add8.u2)
-    annotation (Line(points={{-119,-90},{-92,-90},{-92,54},{-82,54}},
-      color={0,0,127}));
-  connect(maxZonTem.yMax, addPar.u)
-    annotation (Line(points={{-119,-90},{-40,-90},{-40,-110},{-2,-110}},
-      color={0,0,127}));
-  connect(maxZonTem.yMax, add1.u1)
-    annotation (Line(points={{-119,-90},{-40,-90},{-40,-264},{78,-264}},
-      color={0,0,127}));
+  connect(maxZonTem.y, add8.u2) annotation (Line(points={{-119,-90},{-92,-90},{
+          -92,54},{-82,54}}, color={0,0,127}));
+  connect(maxZonTem.y, addPar.u) annotation (Line(points={{-119,-90},{-40,-90},
+          {-40,-110},{-2,-110}}, color={0,0,127}));
+  connect(maxZonTem.y, add1.u1) annotation (Line(points={{-119,-90},{-40,-90},{
+          -40,-264},{78,-264}}, color={0,0,127}));
   connect(TZon, maxZonTem.u)
     annotation (Line(points={{-280,-10},{-240,-10},{-240,-90},{-142,-90}},
       color={0,0,127}));
   connect(TZon,minZonTem.u)
     annotation (Line(points={{-280,-10},{-240,-10},{-240,-120},{-142,-120}},
       color={0,0,127}));
-  connect(minZonTem.yMin, add7.u2)
+  connect(minZonTem.y, add7.u2)
     annotation (Line(points={{-119,-120},{-98,-120},{-98,84},{-82,84}},
       color={0,0,127}));
-  connect(minZonTem.yMin, add2.u2)
+  connect(minZonTem.y, add2.u2)
     annotation (Line(points={{-119,-120},{-98,-120},{-98,-76},{78,-76}},
       color={0,0,127}));
-  connect(minZonTem.yMin, addPar1.u)
+  connect(minZonTem.y, addPar1.u)
     annotation (Line(points={{-119,-120},{-98,-120},{-98,-150},{-2,-150}},
       color={0,0,127}));
   connect(pro.y, maxCooTim.u)

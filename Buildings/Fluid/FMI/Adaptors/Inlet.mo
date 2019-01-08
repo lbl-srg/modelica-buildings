@@ -2,8 +2,15 @@ within Buildings.Fluid.FMI.Adaptors;
 model Inlet "Adaptor for connecting a fluid inlet to the FMI interface"
 
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
-     annotation (choicesAllMatching=true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"

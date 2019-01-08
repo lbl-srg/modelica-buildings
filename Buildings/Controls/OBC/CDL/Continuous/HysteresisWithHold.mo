@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block HysteresisWithHold
   "Hysteresis block that optionally allows to specify a hold time"
 
-  parameter Real uLow "if y=true and u<=uLow, switch to y=false";
-  parameter Real uHigh "if y=false and u>=uHigh, switch to y=true";
+  parameter Real uLow "if y=true and u<uLow, switch to y=false";
+  parameter Real uHigh "if y=false and u>uHigh, switch to y=true";
 
   parameter Modelica.SIunits.Time trueHoldDuration
     "true hold duration";

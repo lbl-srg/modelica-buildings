@@ -2,8 +2,16 @@ within Buildings.Fluid.FMI.ExportContainers;
 partial block ThermalZones
   "Partial block to export a model of multiple thermal zones as an FMU"
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium model" annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Integer nZon(min=1)
     "Number of thermal zones in this container";

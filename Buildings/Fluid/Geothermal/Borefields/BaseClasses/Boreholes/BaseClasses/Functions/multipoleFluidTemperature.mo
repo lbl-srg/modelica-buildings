@@ -6,13 +6,13 @@ function multipoleFluidTemperature "Fluid temperatures from multipole solution"
   input Integer J "Number of multipoles";
   input Modelica.SIunits.Position xPip[nPip] "x-Coordinates of pipes";
   input Modelica.SIunits.Position yPip[nPip] "y-Coordinates of pipes";
-  input Real QPip_flow[nPip](unit="W/m") "Heat flow in pipes";
+  input Real QPip_flow[nPip](each unit="W/m") "Heat flow in pipes";
   input Modelica.SIunits.Temperature TBor "Average borehole wall temperature";
   input Modelica.SIunits.Radius rBor "Borehole radius";
   input Modelica.SIunits.Radius rPip[nPip] "Outter radius of pipes";
   input Modelica.SIunits.ThermalConductivity kFil "Thermal conductivity of grouting material";
   input Modelica.SIunits.ThermalConductivity kSoi "Thermal conductivity of soil material";
-  input Real RFluPip[nPip](unit="(m.K)/W") "Fluid to pipe wall thermal resistances";
+  input Real RFluPip[nPip](each unit="(m.K)/W") "Fluid to pipe wall thermal resistances";
   input Real eps=1.0e-5 "Iteration relative accuracy";
   input Integer it_max=100 "Maximum number of iterations";
 
@@ -33,7 +33,7 @@ protected
   Complex F_mk "Coefficient F of order k of pipe m";
   Real FRea[nPip,J] "Real part of matrix F_mk";
   Real FIma[nPip,J] "Imaginary part of matrix F_mk";
-  Real R0[nPip,nPip](unit="(m.K)/W") "Line source approximation of thermal resistances";
+  Real R0[nPip,nPip](each unit="(m.K)/W") "Line source approximation of thermal resistances";
   Complex deltaTFlu "Fluid temperature difference with line source approximation";
   Real rbm "Intermediate coefficient";
   Modelica.SIunits.Distance dz "Pipe to pipe distance";

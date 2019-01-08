@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Hysteresis "Transform Real to Boolean signal with Hysteresis"
 
-  parameter Real uLow "if y=true and u<=uLow, switch to y=false";
+  parameter Real uLow "if y=true and u<uLow, switch to y=false";
 
-  parameter Real uHigh "if y=false and u>=uHigh, switch to y=true";
+  parameter Real uHigh "if y=false and u>uHigh, switch to y=true";
 
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 

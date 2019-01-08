@@ -4,7 +4,7 @@ function multipoleFmk "Complex matrix F_mk from Claesson and Hellstrom (2011)"
 
   input Integer nPip "Number of pipes";
   input Integer J "Number of multipoles";
-  input Real QPip_flow[nPip](unit="W/m") "Heat flow in pipes";
+  input Real QPip_flow[nPip](each unit="W/m") "Heat flow in pipes";
   input Real PRea[nPip,J] "Multipoles (Real part)";
   input Real PIma[nPip,J] "Multipoles (Imaginary part)";
   input Modelica.SIunits.Radius rBor "Borehole radius";

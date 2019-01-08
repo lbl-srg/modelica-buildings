@@ -1,4 +1,4 @@
-Buildings// Conversion script for Buildings library
+//  Conversion script for Buildings library
 //  from: Version 5
 //  to:   Version 6.0.0
 clear
@@ -25,6 +25,9 @@ convertClass("Buildings.Utilities.Reports.Examples.Printer",
 
 convertClass("Buildings.Controls.OBC.CDL.ExtractSignal",
              "Buildings.Controls.OBC.CDL.RealExtractSignal");
+
+convertElement("Buildings.Controls.OBC.CDL.Continuous.MultiMax", "yMax", "y");
+convertElement("Buildings.Controls.OBC.CDL.Continuous.MultiMin", "yMin", "y");
 
 convertClass("Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier",
              "Buildings.Fluid.BaseClasses.MassFlowRateMultiplier");
@@ -57,7 +60,7 @@ convertClass("Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube",
              "Buildings.Fluid.Geothermal.Boreholes.UTube");
 
 
-// Conversions for
+// Conversions for variable naming consistency withing the Buildings.Controls.OBC.ASHRAE.G36_PR1 package
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.Controller",
@@ -145,6 +148,8 @@ convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Limits",
+               "minVOutMinFansSpePos", "yDam_VOutMin_minSpe")
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Subsequences.Modulation",
 	     "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Modulation");
