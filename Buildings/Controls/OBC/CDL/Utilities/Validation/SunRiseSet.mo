@@ -30,21 +30,10 @@ annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Utilities/Validation/SunRiseSet.mos"
         "Simulate and plot"),
   Documentation(info="<html>
-<p>
-This example includes 3 tests for the SunRiseSet component: a normal case,
-an arctic and antarctic case.
-</p>
-<p>
-The normal case is represented by San Francisco,
-where there is sunrise and sunset every day.
-</p>
-<p>
-In the arctic circle (in the north hemisphere),
-there is no sunset in summer and no sunrise in winter for consecutive days.
-</p>
-<p>
-In the antarctic circle (in the south hemisphere), there is no sunrise in summer
-and no sunset in winter for consecutive days.</p>
+<p>This example includes 4 tests for the SunRiseSet component: 2 normal cases, an arctic and antarctic case. </p>
+<p>The normal cases are represented by San Francisco and Sydney, where there are sunrise and sunset every day. </p>
+<p>Above the arctic circle (in the north hemisphere), there is no sunset in summer and no sunrise in winter for consecutive days. </p>
+<p>Below the antarctic circle (in the south hemisphere), there is no sunrise in summer and no sunset in winter for consecutive days.</p>
 </html>",
 revisions="<html>
 <ul>
