@@ -163,6 +163,14 @@ its class name ends with the string <code>Beta</code>.
                            and either one or two U-tube heat exchangers.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Occupants
+       </td>
+       <td valign=\"top\">Package with occupant behavior models and functions to
+                          simulate the occupancy and the interaction of occupants
+                          with air-conditioning and heating systems, windows,
+                          blinds, and lighting in residential and office buildings.
+       </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Cryptographics
         </td>
         <td valign=\"top\">Package with a function to compute a SHA1 encrypted string.
@@ -203,6 +211,9 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
         </td>
         </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers
         </td>
         <td valign=\"top\">Added <code>Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</code>
@@ -210,6 +221,9 @@ its class name ends with the string <code>Beta</code>.
                            based on design conditions and current mass flow rates.
         </td>
         </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Math
         </td>
         <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
@@ -230,6 +244,16 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Update implementation to output accumulated time when input is <code>true</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1/AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow
+        </td>
+        <td valign=\"top\">Made input connector for occupancy conditionally removable to avoid having to set the
+                           number of occupants as an input if there is no occupancy sensor.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1270\">issue 1270</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
@@ -292,7 +316,7 @@ its class name ends with the string <code>Beta</code>.
                            and renamed various signals and parameters for consistency.<br/>
                            For Dymola, a conversion script makes this change.
         </td>
-        </tr>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
@@ -300,6 +324,20 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Changed block name from <code>ExtractSignal</code>.<br/>
                            For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiMax
+        </td>
+        <td valign=\"top\">Changed output variable name from <code>yMax</code> to <code>y</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/\">issue 1252</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiMin
+        </td>
+        <td valign=\"top\">Changed output variable name from <code>yMin</code> to <code>y</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/\">issue 1252</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
@@ -367,6 +405,16 @@ its class name ends with the string <code>Beta</code>.
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.Data.Soil.SandStone
+        </td>
+        <td valign=\"top\">Corrected wrong thermal properties.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1062\">IBPSA, #1062</a>.
+        </td>
+    </tr>
+
     <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
         </td>
     </tr>

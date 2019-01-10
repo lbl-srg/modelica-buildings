@@ -5,11 +5,11 @@ block MultiMin "Output the minimum element of the input vector"
     annotation (Dialog(connectorSizing=true), HideResult=true);
   Interfaces.RealInput u[nin]
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
-  Interfaces.RealOutput yMin
+  Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 equation
-  yMin = min(u);
+  y = min(u);
   annotation (Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}),
@@ -20,13 +20,14 @@ equation
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
         Text(
-          extent={{-10,20},{100,-20}},
-          lineColor={0,0,0},
-          textString="yMin"),
-        Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),Documentation(info="<html>
+          lineColor={0,0,255}),
+          Text(
+            extent={{-90,36},{90,-36}},
+            lineColor={160,160,164},
+            textString="min()")}),
+                                 Documentation(info="<html>
 <p>
 Outputs the minimum element of the input vector.
 </p>

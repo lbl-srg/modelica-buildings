@@ -47,7 +47,7 @@ model IntegratedPrimaryLoadSide
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
   Modelica.Blocks.Interfaces.RealInput yPum[numPum](
-    final unit = "1",
+    each final unit = "1",
     each min=0,
     each max=1)
     "Constant normalized rotational speed"

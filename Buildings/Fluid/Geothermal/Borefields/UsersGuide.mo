@@ -220,8 +220,9 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFa
 <p>
 D. Picard, L. Helsen.
 <i>Advanced Hybrid Model for Borefield Heat
-Exchanger Performance Evaluation, an Implementation in Modelica</i>
+Exchanger Performance Evaluation; an Implementation in Modelica</i>
 Proc. of the 10th Intertional ModelicaConference, p. 857-866. Lund, Sweden. March 2014.
+<a href=\"https://www.doi.org/10.3384/ecp14096857\">doi:10.3384/ecp14096857</a>.
 </p>
 </html>"));
 

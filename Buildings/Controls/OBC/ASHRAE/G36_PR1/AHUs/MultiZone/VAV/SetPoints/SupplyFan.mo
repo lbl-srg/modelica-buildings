@@ -73,8 +73,8 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow[numZon](
-    final unit="m3/s",
-    quantity="VolumeFlowRate") if not (have_duaDucBox or have_airFloMeaSta)
+    each final unit="m3/s",
+    each quantity="VolumeFlowRate") if not (have_duaDucBox or have_airFloMeaSta)
     "VAV box airflow rate"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
       iconTransformation(extent={{-140,10},{-100,50}})));

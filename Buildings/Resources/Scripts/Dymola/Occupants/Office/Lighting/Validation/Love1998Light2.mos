@@ -1,0 +1,3 @@
+simulateModel("Buildings.Occupants.Office.Lighting.Validation.Love1998Light2", stopTime=3600, method="Cvode", tolerance=1E-6, resultFile="Love1998Light2");
+createPlot(id=1, position={33, 24, 1372, 721}, y={"lig.ill","lig.occ"}, range={0.0, 4000.0, 270.0, 310.0}, grid=true, subPlot=2, colors={{28,108,200}, {108,28,8}});
+createPlot(id=1, position={33, 24, 1372, 358}, y={"lig.p", "lig.on"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {108,28,8}});
