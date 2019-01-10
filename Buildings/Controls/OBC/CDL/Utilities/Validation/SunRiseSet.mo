@@ -11,7 +11,7 @@ model SunRiseSet "Test model for the block SunRiseSet"
     lat=0.6457718232379,
     lon=-2.1293016874331,
     timZon=-28800)
-    "using San Francisco as a test example in the northen hemisphere"
+    "San Francisco as a test example in the northen hemisphere"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetAntarctic(
     lat=-1.3089969389957,
@@ -21,7 +21,7 @@ model SunRiseSet "Test model for the block SunRiseSet"
   Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetSyd(
     lat=-0.59341194567807,
     lon=2.6354471705114,
-    timZon=36000) "using Sydney as a test example in the southern hemisphere"
+    timZon=36000) "Sydney as a test example in the southern hemisphere"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
 
@@ -33,16 +33,20 @@ annotation (
   Documentation(info="<html>
 <p>
 This example includes 4 tests for the SunRiseSet component:
-2 normal cases, an arctic and antarctic case. </p>
+2 normal cases, an arctic and antarctic case.
+</p>
 <p>
 The normal cases are represented by San Francisco and Sydney,
-where there are sunrise and sunset every day. </p>
+where there is a sunrise and sunset every day.
+</p>
 <p>
 Above the arctic circle (in the north hemisphere),
-there is no sunset in summer and no sunrise in winter for consecutive days. </p>
+there is no sunset in summer and no sunrise in winter for consecutive days.
+</p>
 <p>
 Below the antarctic circle (in the south hemisphere), 
-there is no sunrise in summer and no sunset in winter for consecutive days.</p>
+there is no sunrise in summer and no sunset in winter for consecutive days.
+</p>
 </html>",
 revisions="<html>
 <ul>
