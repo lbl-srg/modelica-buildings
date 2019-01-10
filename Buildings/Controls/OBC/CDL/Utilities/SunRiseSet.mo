@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Utilities;
-block SunRiseSet "Sunrise or sunset time"
+block SunRiseSet "Sunrise and sunset time"
 
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
@@ -14,12 +14,12 @@ block SunRiseSet "Sunrise or sunset time"
   Modelica.Blocks.Interfaces.RealOutput sunRise(
     final quantity="Time",
     final unit="s",
-    displayUnit="h") "Sunrise time"
+    displayUnit="h") "Time of next sunrise"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput sunSet(
     final quantity="Time",
     final unit="s",
-    displayUnit="h") "Sunset time"
+    displayUnit="h") "Time of next sunset"
     annotation (Placement(transformation(extent={{100,-52},{120,-32}})));
 
 protected
@@ -96,19 +96,9 @@ Icon(graphics={
             extent={{-100,160},{100,106}},
             lineColor={0,0,255},
             textString="%name"),
-          Rectangle(
-            lineColor={200,200,200},
-            fillColor={248,248,248},
-            fillPattern=FillPattern.HorizontalCylinder,
-            extent={{-100,-100},{100,100}},
-            radius=25.0),
-          Rectangle(
-            lineColor={128,128,128},
-            extent={{-100.0,-100.0},{100.0,100.0}},
-            radius=25.0),
           Ellipse(
             extent={{70,-100},{-70,20}},
-            lineColor={28,108,200},
+            lineColor={238,46,47},
             startAngle=0,
             endAngle=180),
           Line(
