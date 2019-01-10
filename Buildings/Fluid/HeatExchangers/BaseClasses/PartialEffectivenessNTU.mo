@@ -165,7 +165,7 @@ equation
   end if;
 
   // Effectiveness
-  (eps, Z) = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
+  (eps,,  Z) = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
     UA=UA,
     C1_flow=C1_flow,
     C2_flow=C2_flow,
@@ -215,6 +215,12 @@ for <code>UA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 10, 2018 by Filip Jorissen:<br/>
+Corrected an error where the value of NTU was assigned to Z.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1328\">issue 1328</a>.
+</li>
 <li>
 February 27, 2016 by Michael Wetter:<br/>
 Introduced <code>sta1_default</code> and <code>sta2_default</code>
