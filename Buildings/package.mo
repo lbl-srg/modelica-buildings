@@ -203,6 +203,11 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Utilities.SunRiseSet
+        </td>
+        <td valign=\"top\">Block that outputs sunrise and sunset time for each day.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers
         </td>
         <td valign=\"top\">Added <code>Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</code>
