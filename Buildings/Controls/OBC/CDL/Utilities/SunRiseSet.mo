@@ -61,13 +61,25 @@ equation
         iconTransformation(extent={{-140,-20},{-100,20}})),
   defaultComponentName="SunRiseSet",
   Documentation(info="<html>
-<p>This component calculates the sunrise and sunset time separately as two outputs. The hours are output like step functions. </p>
-<p>During each day, the component outputs one sunrise time which keeps constant until the next sunrise; sunset output works in the same fashion. </p>
-<p>When the sunrise and sunset time are identical, it shows that there is no sunset on that day; </p>
-<p>when the sunrise and sunset time are zero, it shows that there is no sunrise.</p>
-<p>Note that daylight savings time is not considered in this component.</p>
+<p>
+This component calculates the sunrise and sunset time separately as two outputs.
+The hours are output like step functions. </p>
+<p>
+During each day, the component outputs one sunrise time which keeps constant
+until the next sunrise; sunset output works in the same fashion. </p>
+<p>
+When the sunrise and sunset time are identical,
+it shows that there is no sunset on that day; </p>
+<p>
+when the sunrise and sunset time are zero,
+it shows that there is no sunrise.</p>
+<p>
+Note that daylight savings time is not considered in this component.</p>
 <h4>Validation </h4>
-<p>A validation can be found at <a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet\">Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>. </p>
+<p>
+A validation can be found at
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet\">
+Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>. </p>
 </html>",
 revisions="<html>
 <ul>
