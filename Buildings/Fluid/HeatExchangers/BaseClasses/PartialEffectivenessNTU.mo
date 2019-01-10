@@ -165,7 +165,7 @@ equation
   end if;
 
   // Effectiveness
-  (eps,,  Z) = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
+  (eps,, Z) = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
     UA=UA,
     C1_flow=C1_flow,
     C2_flow=C2_flow,
