@@ -5,6 +5,9 @@ block SunRiseSet "Sunrise and sunset time"
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
   parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
 
+  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+    "Sample period of component";
+
   Modelica.SIunits.Time eqnTim "Equation of time";
   Modelica.SIunits.Time timDif "Time difference between local and civil time";
   Modelica.SIunits.Time timCor "Time correction factor";
@@ -26,8 +29,29 @@ protected
   constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Intermediate constant";
   constant Real k2 = 2*Modelica.Constants.pi/365.25 "Intermediate constant";
   Real Bt "Intermediate variable used to calculate equation of time";
-  Real cosHou "cosine of hour angle";
+  Real cosHou "Cosine of hour angle";
 
+protected
+  function nextSunRise "Output the next sunrise"
+    input Modelica.SIunit.Time t "Model time";
+    input Modelica.SIunits.Time samplePeriod(min=1E-3)
+      "Sample period of component";
+    output Modelica.SIunit.Time tNext "Model time when sun rises the next time";
+  protected
+    Integer iDay;
+    Boolean compute "Flag, set to false when the next sunrise is computed";
+  algorithm
+    iDay :=1;
+    computed :=false;
+    while compute loop
+      tNext :=time + iDay*86400; // Round up to next multiple of samplePeriod
+      computed :=tNext < 123;
+    end while;
+  end nextSunRise;
+
+initial equation
+  sunRise = nextSunRise(time);
+  sunSet = nextSunSet(time);
 equation
 
   Bt = Modelica.Constants.pi*((time + 86400)/86400 - 81)/182;
@@ -42,7 +66,13 @@ equation
   decAng = Modelica.Math.asin(-k1*Modelica.Math.cos((time/86400 + 10)*k2));
 
   cosHou = -Modelica.Math.tan(lat)*Modelica.Math.tan(decAng);
-
+  when time >= pre(sunRise) then
+    sunRise = nextSunRise(time);
+  end when;
+  when time >= pre(sunSet) then
+    sunSet = nextSunSet(time);
+  end when;
+/*
   if noEvent(abs(cosHou) < 1) then
     houAng = Modelica.Math.acos(cosHou);
     sunRise = (12 - houAng*24/(2*Modelica.Constants.pi) - timCor/3600)*3600;
@@ -56,30 +86,36 @@ equation
     sunRise = (12 - houAng*24/(2*Modelica.Constants.pi) - timCor/3600)*3600;
     sunSet = (12 + houAng*24/(2*Modelica.Constants.pi) - timCor/3600)*3600;
   end if;
-
+*/
   annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})),
-  defaultComponentName="SunRiseSet",
+  defaultComponentName="sunRiseSet",
   Documentation(info="<html>
 <p>
-This component calculates the sunrise and sunset time separately as two outputs.
-The hours are output like step functions. </p>
+This block outputs the sunrise and sunset time.
+The hours are output like step functions.
+</p>
 <p>
 During each day, the component outputs one sunrise time which keeps constant
-until the next sunrise; sunset output works in the same fashion. </p>
+until the next sunrise; sunset output works in the same fashion.
+</p>
 <p>
 When the sunrise and sunset time are identical,
-it shows that there is no sunset on that day; </p>
+it shows that there is no sunset on that day;
+</p>
 <p>
 when the sunrise and sunset time are zero,
-it shows that there is no sunrise.</p>
+it shows that there is no sunrise.
+</p>
 <p>
-Note that daylight savings time is not considered in this component.</p>
+Note that daylight savings time is not considered in this component.
+</p>
 <h4>Validation </h4>
 <p>
 A validation can be found at
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet\">
-Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>. </p>
+Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
@@ -91,7 +127,11 @@ issue <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/376\">829</a>.
 </li>
 </ul>
 </html>"),
-Icon(graphics={
+Icon(graphics={  Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
           Text(
             extent={{-100,160},{100,106}},
             lineColor={0,0,255},
