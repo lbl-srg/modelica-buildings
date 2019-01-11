@@ -4,6 +4,7 @@ partial model PartialFlowMachine
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    m_flow_nominal(final min=Modelica.Constants.small),
     show_T=false,
     port_a(
       h_outflow(start=h_outflow_start)),
@@ -341,6 +342,10 @@ protected
   end Extractor;
 
 initial equation
+  // Check incorrect value of m_flow_nominal
+  assert(m_flow_nominal >= Modelica.Constants.small, "In "+ getInstanceName()+
+  ": The value of parameter m_flow_nominal should be greater or equal than " +
+  String(Modelica.Constants.small) + " but it equals " + String(m_flow_nominal));
   // The control signal is dp or m_flow but the user did not provide a pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // Therefore, scaling the power using the speed is inaccurate.
@@ -518,6 +523,12 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 8, 2019, by Filip Jorissen:<br/>
+Added assert for value of <code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/908\">#908</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
