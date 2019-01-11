@@ -7,8 +7,6 @@ partial model DoorDiscretized
 
   parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0) = 0.01
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01";
-  parameter Real CD=0.65 "Discharge coefficient"
-    annotation (Dialog(group="Orifice characteristics"));
 
   Modelica.SIunits.PressureDifference dpAB[nCom](each nominal=1)
     "Pressure difference between compartments";
@@ -112,6 +110,17 @@ using the model for a door that can be open or closed.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 8, 2019, by Michael Wetter:<br/>
+Moved parameter <code>CD</code> from
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized\">
+Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</a>
+to
+<a href=\"modelica://Buildings.Airflow.Multizone.DoorDiscretizedOpen\">
+Buildings.Airflow.Multizone.DoorDiscretizedOpen</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/971\">#971</a>.
+</li>
 <li>
 June 27, 2018, by Michael Wetter:<br/>
 Corrected old parameter annotation.
