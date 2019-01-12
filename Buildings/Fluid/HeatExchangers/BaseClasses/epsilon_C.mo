@@ -14,8 +14,7 @@ function epsilon_C
     "Maximum enthalpy flow rate at nominal condition";
   input Real delta = 1E-3 "Small value used for smoothing";
   output Real eps(min=0, max=1) "Heat exchanger effectiveness";
-  output Real NTU "Number of transfer units";
-  output Real Z(min=0, max=1) "Ratio of capacity flow rate (CMin/CMax)";
+
 protected
   Modelica.SIunits.ThermalConductance deltaCMin
     "Small number for capacity flow rate";
@@ -27,8 +26,13 @@ protected
     "Minimum capacity flow rate, bounded away from zero";
   Modelica.SIunits.ThermalConductance CMaxNZ_flow
     "Maximum capacity flow rate, bounded away from zero";
-  Real gai(min=0, max=1)
+  Real gaiEps(min=0, max=1)
     "Gain used to force UA to zero for very small flow rates";
+  Real gaiNTU(min=1E-10, max=1)
+    "Gain used to force NTU to a number slightly above zero for very small flow rates. Because NTU is used in NTU^-(0.22), it must not be zero.";
+  Real NTU "Number of transfer units";
+  Real Z(min=0, max=1) "Ratio of capacity flow rate (CMin/CMax)";
+
 algorithm
   deltaCMin := delta*CMin_flow_nominal;
   deltaCMax := delta*CMax_flow_nominal;
@@ -50,28 +54,30 @@ algorithm
     CMax_flow,
     deltaCMax,
     deltaCMax/4);
-  Z := CMin_flow/CMaxNZ_flow;
+  Z := CMin_flow/CMaxNZ_flow+1E-10*deltaCMin;
   // Gain that goes to zero as CMin_flow gets below deltaCMin
   // This is needed to allow zero flow
-  gai := Buildings.Utilities.Math.Functions.spliceFunction(
+  gaiEps := Buildings.Utilities.Math.Functions.spliceFunction(
            pos=1,
            neg=0,
            x=CMin_flow-deltaCMin,
            deltax=deltaCMin/2);
-  if (gai == 0) then
-    NTU := 0;
-    eps := 1; // around zero flow, eps=Q/(CMin*dT) should be one
-  else
-    NTU :=gai*UA/CMinNZ_flow;
-    eps := gai*Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+  gaiNTU := Buildings.Utilities.Math.Functions.spliceFunction(
+           pos=1,
+           neg=delta,
+           x=CMin_flow-deltaCMin,
+           deltax=deltaCMin/2);
+
+  NTU := gaiNTU*UA/CMinNZ_flow;
+  eps := gaiEps*Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
                   NTU=NTU,
                   Z=Z,
                   flowRegime=flowRegime);
-  end if;
 
-  annotation(preferredView="info",
-           smoothOrder=1,
-           Documentation(info="<html>
+  annotation (
+  Inline=false,
+  smoothOrder=1,
+  Documentation(info="<html>
 <p>
 This function computes the heat exchanger effectiveness,
 the Number of Transfer Units, and the capacity flow ratio
@@ -90,6 +96,11 @@ Buildings.Fluid.Types.HeatExchangerFlowRegime</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 10, 2018, by Michael Wetter:<br/>
+Removed outputs <code>Z</code> and <code>NTU</code> as they are not used by other models.
+Removed <code>if</code> statement that can cause a discontinuous derivative.
+</li>
 <li>
 July 7, 2014, by Michael Wetter:<br/>
 Changed the type of the input <code>flowRegime</code> from
