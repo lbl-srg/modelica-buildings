@@ -13,7 +13,7 @@ model PumpParallel "Example that tests the model pump parallels"
     num=numPum,
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
-    redeclare each Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     threshold=thr1,
@@ -64,7 +64,7 @@ model PumpParallel "Example that tests the model pump parallels"
     num=numPum,
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
-    redeclare each Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     threshold=thr2,
@@ -121,6 +121,10 @@ At steady-state, all flow models have the same mass flow rate and pressure diffe
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed <code>each</code>.
+</li>
 <li>
 July 22, 2017, by Yangyang Fu:<br/>
 First implementation.

@@ -284,7 +284,7 @@ partial model PartialDataCenter
   Modelica.Blocks.Sources.Constant phiAirRetSet(k=0.5)
     "Return air relative humidity setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
-  Modelica.Blocks.Math.Gain gai1(each k=1/dpSetPoi) "Gain effect"
+  Modelica.Blocks.Math.Gain gai1(k=1/dpSetPoi) "Gain effect"
     annotation (Placement(transformation(extent={{-200,-70},{-220,-50}})));
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
@@ -538,8 +538,12 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </html>", revisions="<html>
 <ul>
 <li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong <code>each</code>.
+</li>
+<li>
 December 1, 2017, by Yangyang Fu:<br/>
-Used scaled differential pressure to control the speed of pumps. This can avoid retuning gains 
+Used scaled differential pressure to control the speed of pumps. This can avoid retuning gains
 in PID when changing the differential pressure setpoint.
 </li>
 <li>
