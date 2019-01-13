@@ -170,11 +170,11 @@ model Basic "Example implementation of flow system"
   Modelica.Blocks.Sources.Constant Thot(k=273.15 + 50) "Hot water temperature"
     annotation (Placement(transformation(extent={{-96,-98},{-84,-86}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea(
-    each dpFixed_nominal=0,
-    each CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    dpFixed_nominal=0,
+    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     redeclare package Medium = Medium,
-    each m_flow_nominal=10,
-    each dpValve_nominal=1e4)
+    m_flow_nominal=10,
+    dpValve_nominal=1e4)
     "Valve for allowing water to be drawn from hot water circuit"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -184,11 +184,11 @@ model Basic "Example implementation of flow system"
     "Set point for valves"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valCoo(
-    each dpFixed_nominal=0,
-    each CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    dpFixed_nominal=0,
+    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     redeclare package Medium = Medium,
-    each m_flow_nominal=10,
-    each dpValve_nominal=1e4)
+    m_flow_nominal=10,
+    dpValve_nominal=1e4)
     "Valve for allowing water to be drawn from cold water circuit"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -202,7 +202,7 @@ model Basic "Example implementation of flow system"
     dp_nominal={1000,10,10},
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                                       "Splitter"
+    "Splitter"
     annotation (Placement(transformation(extent={{40,-110},{20,-90}})));
   Buildings.Fluid.FixedResistances.Junction spl3(
     m_flow_nominal={10,10,10},
@@ -213,9 +213,7 @@ model Basic "Example implementation of flow system"
     annotation (Placement(transformation(extent={{20,-120},{40,-140}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumpCoo(
     m_flow_nominal=10,
-    redeclare
-      Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2
-      per,
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per,
     redeclare package Medium = Medium,
     inputType=Buildings.Fluid.Types.InputType.Stages,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -515,6 +513,12 @@ The control model consists of dummy inputs.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 11, 2019 by Michael Wetter:<br/>
+Removed <code>each</code> statements.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1079\">#1079</a>.
+</li>
 <li>
 May 8, 2017, by Michael Wetter:<br/>
 Updated heater model.<br/>

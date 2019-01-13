@@ -79,7 +79,7 @@ model MixingVolumeMoistAir "Test model for mixing volume with moist air input"
           extent={{-20,-60},{0,-40}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res1(
-    redeclare each package Medium = Medium,
+    redeclare package Medium = Medium,
     from_dp=true,
     dp_nominal=2.5,
     m_flow_nominal=m_flow_nominal)
@@ -175,6 +175,12 @@ stabilizes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 11, 2019 by Michael Wetter:<br/>
+Removed <code>each</code> statement.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1079\">#1079</a>.
+</li>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
 Renamed variable used in result processing.<br/>
