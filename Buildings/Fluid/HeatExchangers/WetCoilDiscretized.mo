@@ -59,7 +59,7 @@ Modelica.Media.Air.MoistAir</a>.
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Corrected wrong use of <code>each</code>.
-</lil>
+</li>
 <li>
 April 14, 2017, by David Blum:<br/>
 Added heat of condensation to coil surface heat balance
