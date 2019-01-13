@@ -25,7 +25,7 @@ model RoomOnlySurfaceBoundary
             Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate})),
         nSurBou=6);
 
-  Buildings.HeatTransfer.Sources.FixedTemperature TWesWal(each T=283.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TWesWal(T=283.15)
     "Boundary condition for the west wall" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={110,-30})));
