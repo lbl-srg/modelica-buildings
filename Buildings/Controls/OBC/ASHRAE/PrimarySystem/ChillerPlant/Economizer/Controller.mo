@@ -6,7 +6,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   annotation(Dialog(group="Enable parameters"));
 
   parameter Modelica.SIunits.Time dTperiod=2*60
-  "Time period for a disable condition based on temepratures downstream and upstream WSE"
+  "Postpone disable time period"
   annotation(Dialog(group="Enable parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference TOffsetEna=2
@@ -102,11 +102,11 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     "Enable condition based on chilled water return temperature upstream and downstream WSE"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
-  CDL.Continuous.Add adder(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Greater enaTWet
     "Enable condition based on the outdoor wet bulb temperature"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant addTOffsetEna(
     final k=TOffsetEna)
     "Temperature offset for enable conditions"
@@ -132,28 +132,26 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2 "And"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(final uLow=TOffsetDis,
-      final uHigh=TOffsetDis + 1)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=TOffsetDis,
+    final uHigh=TOffsetDis + 1)
     "Hysteresis comparing CHW temperatures upstream and downstream WSE"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer timer
-    "Measures the time during which the disable condition gets satisfied"
+    "Measures the disable condition satisfied time "
     annotation (Placement(transformation(extent={{30,-20},{50,0}})));
 
   CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
-  CDL.Continuous.Hysteresis hysTWet(final uHigh=0, final uLow=-1)
-    "Hysteresis comparing CHW temperatures upstream and downstream WSE"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 equation
   connect(addTOffsetEna.y, add2.u2)
     annotation (Line(points={{-79,20},{-60,20},{-60,34},{-42,34}},color={0,0,127}));
-  connect(add2.y, adder.u2) annotation (Line(points={{-19,40},{-10,40},{-10,44},
-          {-2,44}}, color={0,0,127}));
-  connect(TChiWatRet, adder.u1) annotation (Line(points={{-200,60},{-140,60},{
-          -140,80},{-10,80},{-10,56},{-2,56}}, color={0,0,127}));
+  connect(add2.y, enaTWet.u2) annotation (Line(points={{-19,40},{-10,40},{-10,42},
+          {-2,42}}, color={0,0,127}));
+  connect(TChiWatRet, enaTWet.u1) annotation (Line(points={{-200,60},{-140,60},{
+          -140,80},{-10,80},{-10,50},{-2,50}}, color={0,0,127}));
   connect(uTowFanSpe, wseTun.uTowFanSpe)
     annotation (Line(points={{-200,-100},{-150,-100},{-150,-105},{-142,-105}},
     color={0,0,127}));
@@ -179,6 +177,8 @@ equation
                 color={255,0,255}));
   connect(truFalHol.y, y) annotation (Line(points={{161,30},{170,30},{170,0},{
           190,0}}, color={255,0,255}));
+  connect(enaTWet.y, and2.u1)
+    annotation (Line(points={{21,50},{98,50}}, color={255,0,255}));
   connect(truFalHol.u, and2.y)
     annotation (Line(points={{139,30},{130,30},{130,50},{121,50}},
     color={255,0,255}));
@@ -186,18 +186,14 @@ equation
     annotation (Line(points={{51,-10},{58,-10}}, color={0,0,127}));
   connect(TChiWatRetDow, add1.u2) annotation (Line(points={{-200,20},{-160,20},{
           -160,-16},{-62,-16}}, color={0,0,127}));
-  connect(add1.y, hys1.u)
-    annotation (Line(points={{-39,-10},{-32,-10}}, color={0,0,127}));
-  connect(hys1.y, not1.u)
-    annotation (Line(points={{-9,-10},{-2,-10}}, color={255,0,255}));
+  connect(add1.y, hys.u)
+    annotation (Line(points={{-39,-10},{-32,-10}},color={0,0,127}));
+  connect(hys.y, not1.u)
+    annotation (Line(points={{-9,-10},{-2,-10}},   color={255,0,255}));
   connect(not1.y, timer.u)
     annotation (Line(points={{21,-10},{28,-10}},   color={255,0,255}));
   connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{81,-10},{90,-10},{
           90,42},{98,42}}, color={255,0,255}));
-  connect(adder.y, hysTWet.u)
-    annotation (Line(points={{21,50},{38,50}}, color={0,0,127}));
-  connect(hysTWet.y, and2.u1)
-    annotation (Line(points={{61,50},{98,50},{98,50}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(graphics={
         Rectangle(
@@ -226,6 +222,19 @@ tuning parameter:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning</a>
 </li>
+<li>
+<p>
+The sequence controls the WSE status as follows:
+<li>
+- Enable if WSE has been disabled for at least <code>holdPeriod<\code> of time and chilled water return 
+temperature (CHWRT) upstream of WSE is greater than the predicted heat 
+exchanger leaving water temperature (PHXLWT) plus <code>TOffsetEna<\code>
+</li>
+<li>
+- Disable if WSE has been enabled for at least <code>holdPeriod<\code> of time and CHWRT downstream of 
+WSE is greater than CHWRT upstream of WSE less <code>TOffsetDis<\code> for 2 minutes
+</li>
+<p>
 </p>
 </html>",
 revisions="<html>
