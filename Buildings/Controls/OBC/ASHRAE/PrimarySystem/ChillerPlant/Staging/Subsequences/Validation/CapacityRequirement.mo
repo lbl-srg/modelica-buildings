@@ -2,6 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 model CapacityRequirement
   "Validates the cooling capacity requirement calculation"
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement
+    capReq annotation (Placement(transformation(extent={{20,0},{40,20}})));
+
+//protected
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
   "Chilled water supply set temperature";
 
@@ -13,21 +17,23 @@ model CapacityRequirement
     final unit="m3/s") = 0.05
     "Average measured chilled water flow rate";
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement
-    capReq annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(k=TChiWatSupSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(
+    final k=TChiWatSupSet)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
-    amplitude=2,
-    freqHz=1/300,
-    offset=aveTChiWatRet) "Chiller water return temeprature"
+    final amplitude=2,
+    final freqHz=1/300,
+    final offset=aveTChiWatRet) "Chiller water return temeprature"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
-    freqHz=1/600,
-    offset=aveVChiWat_flow,
-    amplitude=0.01)         "Chilled water flow"
+    final freqHz=1/600,
+    final offset=aveVChiWat_flow,
+    final amplitude=0.01) "Chilled water flow"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
 equation
 
   connect(TCWSupSet.y, capReq.TChiWatSupSet) annotation (Line(points={{-59,60},{
@@ -43,8 +49,8 @@ annotation (
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.WaterLevel\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.WaterLevel</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement</a>.
 </p>
 </html>", revisions="<html>
 <ul>

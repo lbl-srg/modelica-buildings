@@ -1,13 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block CapacityRequirement
-  "Required cooling capacity at given flow, chilled water return and supply setpoint temperatures"
+  "Cooling capacity requirement"
 
-  parameter Real water_density(
-    final quantity="Density",
-    final unit="kg/m3") = 1000 "Water density";
+  parameter Modelica.SIunits.Density water_density = 1000 "Water density";
 
-  parameter Real water_cp = 4184
-  "Specific heat capacity of water Fixme: unit and quantity";
+  parameter Modelica.SIunits.SpecificHeatCapacity water_spec_heat = 4184
+  "Specific heat capacity of water";
 
   parameter Modelica.SIunits.Time avePer = 5*60
   "Period for the rolling average";
@@ -15,7 +13,7 @@ block CapacityRequirement
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "Chilled water supply setpoint temperature"
+    "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
     iconTransformation(extent={{-120,40},{-100,60}})));
 
@@ -32,25 +30,34 @@ block CapacityRequirement
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final quantity="Power",
-      final unit="W") "Chilled water cooling capacity requirement"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
+    final quantity="Power",
+    final unit="W") "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(k1=-1) "Adder"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(final delta=avePer)
-    "Moving average"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant density(k=water_density)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant density(
+    final k=water_density)
     "Water density"
     annotation (Placement(transformation(extent={{-80,-32},{-60,-12}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speHeaCap(
-    final k=water_cp)
+    final k=water_spec_heat)
     "Specific heat capacity of water"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLim(
+    final k=0)
+    "Minimum capacity requirement limit"
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+    final k1=-1) "Adder"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
+    final delta=avePer)
+    "Moving average"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
@@ -63,10 +70,6 @@ block CapacityRequirement
 
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum of two inputs"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLim(k=0)
-    "Minimum capacity requirement limit"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
 equation
   connect(TChiWatRet, add2.u2) annotation (Line(points={{-120,20},{-60,20},{-60,
@@ -103,11 +106,16 @@ equation
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),                                 Diagram(
+          textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-Fixme
+Calculates cooling capacity requirement based on the measured chilled water return temperature
+(CHWRT), <code>TChiWatRet<\code>, calculated chilled water supply temperature setpoint (CHWST setpoint),
+<code>TChiWatSupSet<\code>, and the measured chilled water flow, <code>VChiWat_flow<\code>.
+<li>
+The calculation is according to OBC Chilled Water Plant Sequence of Operation document, section 3.2.4.3. 
+</li>
 </p>
 </html>",
 revisions="<html>
