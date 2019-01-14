@@ -23,35 +23,11 @@ elseif( LINUX )
   endif()
 endif()
 
-set( MODELICA_HOME CACHE PATH "Modelica Home" )
-find_library( ModelicaExternalC_LIB ModelicaExternalC HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( ModelicaIO_LIB ModelicaIO HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( ModelicaMatIO_LIB ModelicaMatIO HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( ModelicaStandardTables_LIB ModelicaStandardTables HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( Blas_LIB blas HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( Fmi1_cs_LIB fmi1_cs HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( Fmi1_me_LIB fmi1_me HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( Fmi2_LIB fmi2 HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( Jmi_LIB jmi HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( Jmi_block_solver_LIB jmi_block_solver HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( Jmi_get_set_default_LIB jmi_get_set_default HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( Lapack_LIB lapack HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
-find_library( Zlib_LIB zlib HINTS "${MODELICA_HOME}/lib/RuntimeLibrary/" )
+include( cmake/FindOrImportJModelica.cmake )
 
-list( APPEND MODELICA_LIBS
-  ${ModelicaExternalC_LIB}
-  ${ModelicaIO_LIB}
-  ${ModelicaMatIO_LIB}
-  ${ModelicaStandardTables_LIB}
-  ${Blas_LIB}
-  ${Fmi1_cs_LIB}
-  ${Fmi1_me_LIB}
-  ${Fmi2_LIB}
-  ${Jmi_LIB}
-  ${Jmi_block_solver_LIB}
-  ${Jmi_get_set_default_LIB}
-  ${Lapack_LIB}
-  ${Zlib_LIB}
+install( DIRECTORY Buildings/
+  DESTINATION ${BUILDINGS_INSTALL_PREFIX}
+  PATTERN CMakeLists.txt EXCLUDE
 )
 
 add_library( ModelicaBuildingsEnergyPlus SHARED 
@@ -68,7 +44,7 @@ add_library( ModelicaBuildingsEnergyPlus SHARED
 target_link_libraries( ModelicaBuildingsEnergyPlus
   ${MODELICA_LIBS}
 )
-install( TARGETS ModelicaBuildingsEnergyPlus DESTINATION ${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX} )
+install( TARGETS ModelicaBuildingsEnergyPlus DESTINATION ${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/ )
 
 add_jar( ConvertEIRData 
   Buildings/Resources/src/fluid/chillers/convertEIR/src/convertEIR/BiCubicCurve.java 
@@ -103,11 +79,6 @@ add_jar( ConvertWeatherData
 )
 get_target_property(ConvertWeatherData_JAR ConvertWeatherData JAR_FILE)
 install( PROGRAMS ${ConvertWeatherData_JAR} DESTINATION ${BUILDINGS_INSTALL_PREFIX}/Resources/bin )
-
-install( DIRECTORY Buildings/
-  DESTINATION ${BUILDINGS_INSTALL_PREFIX}
-  PATTERN CMakeLists.txt EXCLUDE
-)
 
 # Other stuff not compiled yet
 
