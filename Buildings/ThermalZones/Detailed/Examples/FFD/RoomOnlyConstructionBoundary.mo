@@ -29,7 +29,7 @@ model RoomOnlyConstructionBoundary
         extent={{10,-10},{-10,10}},
         origin={110,-30})));
 
-  HeatTransfer.Sources.FixedTemperature TEasWal(each T=313.15)
+  HeatTransfer.Sources.FixedTemperature TEasWal(T=313.15)
     "Temperature of the east wall"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -87,6 +87,10 @@ Figure (b)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong use of <code>each</code>.
+</li>
 <li>
 August 13, 2013, by Wangda Zuo:<br/>
 First implementation.

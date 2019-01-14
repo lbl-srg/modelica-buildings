@@ -45,9 +45,9 @@ model Controller "Validation controller model"
     "Occupant number in zone 2"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
-    each height=4,
-    each duration=3600,
-    each offset=273.15 + 14) "AHU supply air temperature"
+    height=4,
+    duration=3600,
+    offset=273.15 + 14) "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-170,20},{-150,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
     duration=1800,
@@ -190,6 +190,10 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong use of <code>each</code>.
+</li>
 <li>
 October 30, 2017, by Jianjun Hu:<br/>
 First implementation.

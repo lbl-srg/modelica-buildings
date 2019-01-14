@@ -25,12 +25,12 @@ model RoomOnlySurfaceBoundary
             Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate})),
         nSurBou=6);
 
-  Buildings.HeatTransfer.Sources.FixedTemperature TWesWal(each T=283.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TWesWal(T=283.15)
     "Boundary condition for the west wall" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={110,-30})));
 
-  HeatTransfer.Sources.FixedTemperature TEasWal(each T=313.15)
+  HeatTransfer.Sources.FixedTemperature TEasWal(T=313.15)
     "Temperature of the east wall"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -94,6 +94,10 @@ Figure (b)
 <p align=\"left\">
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong use of <code>each</code>.
+</li>
 <li>
 July 7, 2015 by Michael Wetter:<br/>
 Removed model for prescribed heat flow boundary condition

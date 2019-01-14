@@ -12,8 +12,9 @@ block SpeedSelect
   Modelica.Blocks.Interfaces.RealOutput speRat "Standard speed ratio"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  final parameter Real speRatNor[nSta](each min=0, max=1)=
-    {speSet[i]/speSet[nSta] for i in 1:nSta}
+  final parameter Real speRatNor[nSta](
+    each min=0,
+    each max=1)={speSet[i]/speSet[nSta] for i in 1:nSta}
     "Array of normalized speed ratios for the compressor";
 
 equation
@@ -30,6 +31,10 @@ and all other stages are proportional to their actual speed.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Added missing <code>each</code>.
+</li>
 <li>
 June 26, 2018, by Michael Wetter:<br/>
 Replaced <code>algorithm</code> with <code>equation</code>.
