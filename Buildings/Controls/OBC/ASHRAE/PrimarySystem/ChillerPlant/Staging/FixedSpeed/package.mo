@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging;
-package Subsequences "fixme: add brief description"
+package FixedSpeed "Chiller staging for fixed speed chillers (positive displacement and centrifugal)"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
@@ -7,4 +7,4 @@ annotation (preferredView="info", Documentation(info="<html>
 fixme: add a package description.
 </p>
 </html>"));
-end Subsequences;
+end FixedSpeed;

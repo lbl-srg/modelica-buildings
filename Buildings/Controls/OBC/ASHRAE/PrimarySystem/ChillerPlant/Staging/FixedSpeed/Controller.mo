@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging;
-block ControllerPositiveDisplacement
-  "Determines chiller stage based on the previous stage and the current capacity requirement for positive displacement chillers"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.FixedSpeed;
+block Controller
+  "Chiller stage for fixed speed chillers (positive displacement and centrifugal)"
 
   parameter Integer numSta=2 "Number of stages";
 
@@ -8,64 +8,57 @@ block ControllerPositiveDisplacement
 
   parameter Real small=0.00000001 "Small number to avoid division with zero";
 
+  parameter Modelica.SIunits.Time minStaRun=15*60 "Minimum stage runtime";
+
   parameter Modelica.SIunits.Power staNomCap[numSta + 1]={small,3.517*1000*310,2
       *3.517*1000*310} "Array of nominal stage capacities starting at stage 0";
 
   parameter Real staUpPlr(
-final min = 0,
-final max = 1,
-final unit="1") = 0.8
-"Maximum operating part load ratio of the current stage before staging up";
+    final min = 0,
+    final max = 1,
+    final unit="1") = 0.8
+    "Maximum operating part load ratio of the current stage before staging up";
 
   parameter Real staDowPlr(
-final min = 0,
-final max = 1,
-final unit="1") = 0.8
-"Minimum operating part load ratio of the next lower stage before staging down";
+    final min = 0,
+    final max = 1,
+    final unit="1") = 0.8
+    "Minimum operating part load ratio of the next lower stage before staging down";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
-final quantity="VolumeFlowRate",
-final unit="m3/s")
-"Measured chilled water flow rate"
-annotation (Placement(transformation(extent={{-180,-70},{-140,-30}}),
-iconTransformation(extent={{-120,-80},{-100,-60}})));
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
+    "Measured chilled water flow rate"
+    annotation (Placement(transformation(extent={{-180,-70},{-140,-30}}),
+    iconTransformation(extent={{-120,-80},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
-final unit="K",
-final quantity="ThermodynamicTemperature")
-"Chilled water return temperature"
-annotation (Placement(transformation(extent={{-180,-30},{-140,10}}),
-  iconTransformation(extent={{-120,0},{-100,20}})));
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
+    "Chilled water return temperature"
+    annotation (Placement(transformation(extent={{-180,-30},{-140,10}}),
+      iconTransformation(extent={{-120,0},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
-final unit="K",
-final quantity="ThermodynamicTemperature")
-"Chilled water supply setpoint temperature"
-annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
-iconTransformation(extent={{-120,40},{-100,60}})));
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
+    "Chilled water supply setpoint temperature"
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+    iconTransformation(extent={{-120,40},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(
-final min=0,
-final max=numSta) "Chiller stage"
-annotation (Placement(transformation(extent={{
-140,-10},{160,10}}), iconTransformation(extent={{100,-10},{120,10}})));
+    final min=0,
+    final max=numSta) "Chiller stage"
+    annotation (Placement(transformation(extent={{
+    140,-10},{160,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
-    staCap(
-final min_plr1=minPlrSta1,
-final staNomCap=staNomCap) "Returns nominal capacities at the current and one lower stage"
-annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities
+    staCap(final min_plr1=minPlrSta1, final staNomCap=staNomCap)
+    "Returns nominal capacities at the current and one lower stage"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PositiveDisplacement
-staChaPosDis(
-final staUpPlr=staUpPlr,
-final staDowPlr=staDowPlr,
-numSta=numSta) "Chiller stage change"
-annotation (Placement(transformation(extent={{-50,100},{-30,120}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement
-    capReq
-annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.CapacityRequirement
+    capReq annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt(k2=+1)
 annotation (Placement(transformation(extent={{-20,50},{0,70}})));
@@ -80,7 +73,8 @@ annotation (Placement(transformation(extent={{-20,90},{0,110}})));
 annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
 annotation (Placement(transformation(extent={{50,0},{70,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=1)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=minStaRun)
+    "Samples signal at a minimum runtime interval "
 annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
 annotation (Placement(transformation(extent={{90,40},{110,60}})));
@@ -101,13 +95,15 @@ annotation (Placement(
 "Chilled water pump speed"
 annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
                              iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Subsequences.Change staChaPosDis
+    annotation (Placement(transformation(extent={{-52,94},{-32,114}})));
 equation
-  connect(staChaPosDis.y, addInt.u1) annotation (Line(points={{-29,110},{-26,
-      110},{-26,66},{-22,66}}, color={255,127,0}));
-  connect(staCap.ySta, staChaPosDis.uCapNomSta) annotation (Line(points={{-79,
-      94},{-76,94},{-76,110},{-51,110}}, color={0,0,127}));
-  connect(staCap.yLowSta, staChaPosDis.uCapNomLowSta) annotation (Line(points={
-      {-79,86},{-74,86},{-74,108},{-51,108}}, color={0,0,127}));
+  connect(staChaPosDis.y, addInt.u1) annotation (Line(points={{-31,104},{-26,104},
+          {-26,66},{-22,66}},  color={255,127,0}));
+  connect(staCap.ySta, staChaPosDis.uCapNomSta) annotation (Line(points={{-79,94},
+          {-76,94},{-76,104},{-53,104}}, color={0,0,127}));
+  connect(staCap.yLowSta, staChaPosDis.uCapNomLowSta) annotation (Line(points={{-79,86},
+          {-74,86},{-74,102},{-53,102}},      color={0,0,127}));
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-160,60},
       {-120,60},{-120,35},{-101,35}},
                                     color={0,0,127}));
@@ -124,7 +120,8 @@ equation
   connect(minStage.y, maxInt.u2) annotation (Line(points={{41,-30},{50,-30},{50,
       -10},{14,-10},{14,4},{18,4}},     color={255,127,0}));
   connect(capReq.y, staChaPosDis.uCapReq) annotation (Line(points={{-79,30},{-72,
-      30},{-72,106},{-51,106}}, color={0,0,127}));
+          30},{-72,100},{-53,100}},
+                                color={0,0,127}));
   connect(maxInt.y, intToRea.u)
 annotation (Line(points={{41,10},{48,10}},   color={255,127,0}));
   connect(intToRea.y, uniDel.u) annotation (Line(points={{71,10},{80,10},{80,30},
@@ -134,22 +131,28 @@ annotation (Line(points={{41,10},{48,10}},   color={255,127,0}));
 annotation (Line(points={{81,50},{88,50}}, color={0,0,127}));
   connect(y, reaToInt.y) annotation (Line(points={{150,0},{130,0},{130,50},{111,
       50}}, color={255,127,0}));
-  connect(dpChiWatPumSet, staChaPosDis.dpChiWatPumSet) annotation (Line(points={
-      {-160,-90},{-68,-90},{-68,103},{-51,103}}, color={0,0,127}));
+  connect(dpChiWatPumSet, staChaPosDis.dpChiWatPumSet) annotation (Line(points={{-160,
+          -90},{-68,-90},{-68,97},{-53,97}},     color={0,0,127}));
   connect(chiWatPumSpe, staChaPosDis.chiWatPumSpe) annotation (Line(points={{-160,
-      -120},{-66,-120},{-66,101},{-51,101}}, color={0,0,127}));
+          -120},{-66,-120},{-66,95},{-53,95}},
+                                             color={0,0,127}));
   connect(dpChiWatPum, staChaPosDis.dpChiWatPum) annotation (Line(points={{-160,
-      -150},{-64,-150},{-64,99},{-51,99}}, color={0,0,127}));
-  connect(TChiWatSupSet, staChaPosDis.TChiWatSupSet) annotation (Line(points={{-160,
-      60},{-134,60},{-134,117},{-51,117}}, color={0,0,127}));
+          -150},{-64,-150},{-64,93},{-53,93}},
+                                           color={0,0,127}));
+  connect(TChiWatSupSet, staChaPosDis.TChiWatSupSet) annotation (Line(points={{-160,60},
+          {-134,60},{-134,111},{-53,111}}, color={0,0,127}));
   connect(TChiWatSup, staChaPosDis.TChiWatSup) annotation (Line(points={{-160,30},
-      {-132,30},{-132,115},{-51,115}}, color={0,0,127}));
+          {-132,30},{-132,109},{-53,109}},
+                                       color={0,0,127}));
   connect(TChiWatRet, staChaPosDis.TChiWatRet) annotation (Line(points={{-160,-10},
-      {-130,-10},{-130,113},{-51,113}}, color={0,0,127}));
+          {-130,-10},{-130,107},{-53,107}},
+                                        color={0,0,127}));
   connect(reaToInt.y, staChaPosDis.uChiSta) annotation (Line(points={{111,50},{120,
-      50},{120,130},{-68,130},{-68,120},{-51,120}}, color={255,127,0}));
+          50},{120,130},{-68,130},{-68,114},{-53,114}},
+                                                    color={255,127,0}));
   connect(reaToInt.y, staCap.uSta) annotation (Line(points={{111,50},{120,50},{120,
-      130},{-110,130},{-110,90},{-102,90}}, color={255,127,0}));
+          130},{-110,130},{-110,90},{-102,90}},
+                                            color={255,127,0}));
   connect(reaToInt.y, addInt.u2) annotation (Line(points={{111,50},{120,50},{
       120,-50},{-26,-50},{-26,54},{-22,54}}, color={255,127,0}));
   annotation (
@@ -168,16 +171,7 @@ annotation (Line(points={{81,50},{88,50}}, color={0,0,127}));
     Documentation(info=
                "<html>
 <p>
-General for staging sequences
-
-Fixme: 
-- change to fixed speed.
-- placeholder for variable speed
-- implement separate OPRL calculation that can be dropped into
-the top level sequence, with just a change sequence left.
-
-
-
+Fixme
 </p>
 </html>", revisions=
       "<html>
@@ -188,4 +182,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ControllerPositiveDisplacement;
+end Controller;
