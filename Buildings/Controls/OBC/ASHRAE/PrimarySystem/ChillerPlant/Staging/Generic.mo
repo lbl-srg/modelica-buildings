@@ -2068,21 +2068,24 @@ First implementation.
       "Small number to avoid division with zero";
 
       Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities staCap0(
-        final numSta = 2,
         final min_plr1=minPlrSta0,
-        final staNomCap={small,capSta1,capSta2})
+        final staNomCap={small,capSta1,capSta2},
+        final numSta=2)
+        "Nominal capacitites at the current and stage one lower"
         annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
       Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities staCap1(
         final numSta = 2,
         final min_plr1=minPlrSta0,
         final staNomCap={small,capSta1,capSta2})
+        "Nominal capacitites at the current and stage one lower"
         annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
       Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities staCap2(
         final numSta = 2,
         final min_plr1=minPlrSta0,
         final staNomCap={small,capSta1,capSta2})
+        "Nominal capacitites at the current and stage one lower"
         annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
       Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(k=0) "Stage 0"
