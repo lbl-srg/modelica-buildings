@@ -17,13 +17,15 @@ block Capacities "Returns nominal capacities at current and one lower stage"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySta(final unit="W", final
-      quantity="Power") "Nominal capacity of the current stage" annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySta(
+    final unit="W",
+    final quantity="Power") "Nominal capacity of the current stage" annotation (
       Placement(transformation(extent={{160,30},{180,50}}), iconTransformation(
           extent={{100,30},{120,50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLowSta(final unit="W",
-      final quantity="Power") "Nominal capacity of the first lower stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLowSta(
+    final unit="W",
+    final quantity="Power") "Nominal capacity of the first lower stage"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
@@ -39,7 +41,8 @@ block Capacities "Returns nominal capacities at current and one lower stage"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant   stage0(k=0) "Stage 0"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
 
-  Buildings.Controls.OBC.CDL.Utilities.Assert staExc(message="The provided chiller stage is in not within the number of stages available")
+  Buildings.Controls.OBC.CDL.Utilities.Assert staExc(
+    final message="The provided chiller stage is in not within the number of stages available")
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   CDL.Continuous.LessThreshold                           lesThr(threshold=-0.5)
@@ -127,7 +130,9 @@ equation
           extent={{-160,-140},{160,140}})),
 Documentation(info="<html>
 <p>
-Fixme
+Based on the current chiller stage and nominal stage capacities returns the
+nominal capacity of the current and one lower stage for the purpose of 
+calculating the operative part load ratio (OPLR). 
 </p>
 </html>",
 revisions="<html>

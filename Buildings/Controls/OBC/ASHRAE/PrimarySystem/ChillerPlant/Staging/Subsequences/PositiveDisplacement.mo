@@ -47,52 +47,107 @@ block PositiveDisplacement
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(final max=1, final min=
-        -1) "Chiller stage change" annotation (Placement(transformation(extent=
-            {{180,-10},{200,10}}), iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
+    "Chilled water return temperature downstream of WSE"
+    annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
+      iconTransformation(extent={{-120,20},{-100,40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
+    "Chilled water return temperature"
+    annotation (Placement(transformation(
+      extent={{-220,-150},{-180,-110}}), iconTransformation(extent={{-120,40},
+      {-100,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
+    "Chilled water supply setpoint temperature"
+    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
+    iconTransformation(extent={{-120,60},{-100,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
+    final unit="Pa",
+    final quantity="PressureDifference")
+    "Chilled water pump differential static pressure setpoint"
+    annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
+      iconTransformation(extent={{-120,-80},{-100,-60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiWatPumSpe(
+    final unit="Pa",
+    final quantity="PressureDifference")
+    "Chilled water pump speed"
+    annotation (Placement(transformation(extent={{-220,
+    -280},{-180,-240}}), iconTransformation(extent={{-120,-100},{-100,-80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
+    final unit="Pa",
+    final quantity="PressureDifference")
+    "Chilled water pump differential static pressure"
+    annotation (Placement(
+    transformation(extent={{-220,-250},{-180,-210}}), iconTransformation(
+     extent={{-120,-120},{-100,-100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(
+    final max=1,
+    final min=-1) "Chiller stage change (1 - up, -1 - down, 0 - unchanged)"
+    annotation (Placement(transformation(extent=
+    {{180,-10},{200,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
-    "Operating part load ratio at the current stage"
+    "Calculates operating part load ratio at the current stage"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrLowSta
-    "Operating part load ratio at the first lower stage"
+    "Calculates operating part load ratio at the first lower stage"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swiDown
-    "Checks if the stage should go down"
+    "Checks if the stage down should occur"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swiUp "Checks if the stage should go up"
+  Buildings.Controls.OBC.CDL.Logical.Switch swiUp
+    "Checks if the stage up should occur"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
+    "Equality check"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
+    "Equality check"
     annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(k=1) "Stage 1"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(k=1)
+    "Stage 1"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stageMax(k=numSta) "Last stage"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stageMax(k=numSta)
+    "Highest stage"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEquStaUpCap
-    "Checks if staging up needed due to the capacity requirement"
+    "Checks if staging up is needed due to the capacity requirement"
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessEqual greEquStaDowCap
-    "Checks if staging down needed due to the capacity requirement"
+    "Checks if staging down is needed due to the capacity requirement"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
+    "Boolean to integer conversion"
     annotation (Placement(transformation(extent={{110,0},{130,20}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
+    "Boolean to integer conversion"
     annotation (Placement(transformation(extent={{110,-40},{130,-20}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt(k2=-1)
+  Buildings.Controls.OBC.CDL.Integers.Add addInt(
+    final k2=-1)
+    "Adder"
     annotation (Placement(transformation(extent={{150,-10},{170,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staUpOpePlr(final k=staUpPlr)
@@ -111,20 +166,7 @@ block PositiveDisplacement
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   CDL.Logical.TrueDelay truDel1(delayTime=delayStaCha)
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  CDL.Interfaces.RealInput                        TChiWatRet(final unit="K",
-      final quantity="ThermodynamicTemperature")
-    "Chilled water return temperature downstream of WSE"
-    annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
-      iconTransformation(extent={{-120,20},{-100,40}})));
-  CDL.Interfaces.RealInput TChiWatSup(final unit="K", final quantity="ThermodynamicTemperature")
-    "Chilled water return temperature" annotation (Placement(transformation(
-          extent={{-220,-150},{-180,-110}}), iconTransformation(extent={{-120,40},
-            {-100,60}})));
-  CDL.Interfaces.RealInput                        TChiWatSupSet(final unit="K",
-      final quantity="ThermodynamicTemperature")
-    "Chilled water supply setpoint temperature"
-    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
-    iconTransformation(extent={{-120,60},{-100,80}})));
+
   CDL.Logical.Or  andStaDow "And for staging down"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   CDL.Logical.Or3  andStaUp
@@ -138,24 +180,6 @@ block PositiveDisplacement
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   CDL.Logical.TrueDelay truDel2(delayTime=delayStaCha)
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-
-  CDL.Interfaces.RealInput dpChiWatPumSet(final unit="Pa",
-      final quantity="PressureDifference")
-    "Chilled water pump differential static pressure setpoint"
-    annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
-      iconTransformation(extent={{-120,-80},{-100,-60}})));
-
-  CDL.Interfaces.RealInput chiWatPumSpe(final unit="Pa", final quantity="PressureDifference")
-    "Chilled water pump speed"
-    annotation (Placement(transformation(extent={{-220,
-            -280},{-180,-240}}), iconTransformation(extent={{-120,-100},{-100,
-            -80}})));
-
-  CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa", final quantity="PressureDifference")
-    "Chilled water pump differential static pressure"
-    annotation (Placement(
-        transformation(extent={{-220,-250},{-180,-210}}), iconTransformation(
-          extent={{-120,-120},{-100,-100}})));
 
   CDL.Continuous.GreaterThreshold greThr(threshold=chiWatPumSpeThr)
     annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
@@ -274,7 +298,7 @@ equation
         extent={{-180,-280},{180,200}})),
 Documentation(info="<html>
 <p>
-Fixme
+Outputs the chiller stage change signal
 </p>
 </html>",
 revisions="<html>
