@@ -32,6 +32,7 @@ void* getAdr(FMU *fmu, const char* functionName){
 
 void loadLib(const char* libPath, FMU *fmu) {
   writeLog(0, "Opening EnergyPlus library.");
+  writeLog(0, libPath);
 
 #ifdef _MSC_VER
   HINSTANCE h;
@@ -85,9 +86,9 @@ void loadLib(const char* libPath, FMU *fmu) {
     ModelicaError("Can't find function getNextEventTime().");
   }
 
-  fmu->terminate = (fTerminate)getAdr(fmu, "terminate");
-  if (!(fmu->terminate)) {
-    ModelicaError("Can't find function terminate().");
+  fmu->terminateSim = (fTerminateSim)getAdr(fmu, "terminateSim");
+  if (!(fmu->terminateSim)) {
+    ModelicaError("Can't find function terminateSim().");
   }
   return;
 }
@@ -176,15 +177,19 @@ void getParametersFromEnergyPlus(
     zone->parameterVariableNames, zone->parameterValueReferences, zone->nParameterValueReferences,
     parameterValueReferences);
   /* Get initial parameter variables */
+  //result = fmu->getVariables(parameterValueReferences, outputs, nOut, NULL);
+
+  writeLog(1, "begin getVariables");
   result = fmu->getVariables(parameterValueReferences, outputs, nOut, NULL);
+  writeLog(1, "end getVariables");
   if (result <0 ){
     ModelicaFormatError("Failed to get initial outputs for building %s, zone %s.",
     zone->ptrBui->name, zone->name);
   }
-  for (i = 0; i < nOut; i++)
-    free(fullNames[i]);
-  free(fullNames);
-  free(parameterValueReferences);
+  //for (i = 0; i < nOut; i++)
+  //  free(fullNames[i]);
+  //free(fullNames);
+  //free(parameterValueReferences);
 
   return;
 }
@@ -448,5 +453,5 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
     *AFlo = outputs[1];
     *mSenFac = outputs[2];
 
-    free(outputs);
+    //free(outputs);
  }
