@@ -14,7 +14,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
   if ( ptrBui != NULL ){
     ModelicaFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name);
     writeLog(1, "Calling terminate on EnergyPlus library.");
-    ptrBui->fmu->terminate(NULL);
+    ptrBui->fmu->terminateSim(NULL);
     writeLog(1, "Returned from terminate on EnergyPlus library.");
     free(ptrBui->name);
     free(ptrBui->weather);

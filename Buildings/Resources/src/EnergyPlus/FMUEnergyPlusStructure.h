@@ -78,7 +78,7 @@ typedef unsigned int (*fGetVariables)(const unsigned int valueReferences[],
 typedef unsigned int (*fGetNextEventTime)(fmi2EventInfo *eventInfo,
                               fmi2String log);
 
-typedef unsigned int (*fTerminate)(fmi2String log);
+typedef unsigned int (*fTerminateSim)(fmi2String log);
 
 
 typedef struct FMU{
@@ -89,7 +89,7 @@ typedef struct FMU{
   fSetVariables setVariables;
   fGetVariables getVariables;
   fGetNextEventTime getNextEventTime;
-  fTerminate terminate;
+  fTerminateSim terminateSim;
 } FMU;
 
 typedef struct FMUBuilding
