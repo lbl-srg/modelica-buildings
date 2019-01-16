@@ -33,10 +33,12 @@ model PositiveDisplacement
     staChaPosDis4 "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stageMax(k=2) "Last stage"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stageMax(
+    final k=2) "Last stage"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(k=0) "0th stage"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(
+    final k=0) "0th stage"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(k=1) "0th stage"

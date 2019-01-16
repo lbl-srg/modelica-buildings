@@ -17,9 +17,11 @@ model Tuning_uEcoSta_uTowFanSpe
   Tuning wseTun3
     "Tests tuning parameter remains constant inspite of a dip in tower fan speed due to the prolonged WSE on status"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ecoSta(
-    final width=0.5, final period=2*55*60)
+    final width=0.5,
+    final period=2*55*60)
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 
@@ -29,7 +31,7 @@ protected
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ecoSta1(
-    final width=0.5, final period=2*20*60)
+    final width=0.5, final period=2*18*60)
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
@@ -59,11 +61,14 @@ protected
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 
-  CDL.Logical.Sources.Pulse                        ecoSta3(final width=0.5, final
-      period=2*20*60)
+  CDL.Logical.Sources.Pulse ecoSta3(
+    final width=0.5,
+    final period=2*20*60)
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  CDL.Continuous.Sources.Constant                        maxTowFanSig2(final k=1)
+
+  CDL.Continuous.Sources.Constant maxTowFanSig2(
+    final k=1)
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 equation

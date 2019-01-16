@@ -25,8 +25,10 @@ protected
   parameter Modelica.SIunits.Temperature TWseOut = 290.15
   "Chilled water retun temperature downstream of the WSE";
 
-  parameter Real VChiWat_flow(final quantity="VolumeFlowRate", unit="m3/s") = 0.01
-  "Measured chilled water return temperature";
+  parameter Real VChiWat_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s") = 0.01
+    "Measured chilled water return temperature";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow(
     final k=VChiWat_flow)

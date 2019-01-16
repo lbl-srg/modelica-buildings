@@ -95,16 +95,18 @@ equation
           {-22,-44}}, color={0,0,127}));
   connect(uTunPar, pro1.u2) annotation (Line(points={{-180,-140},{-30,-140},{-30,
           -56},{-22,-56}}, color={0,0,127}));
-  connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{46,140},{46,
-          5.25},{78,5.25}}, color={0,0,127}));
-  connect(pro.y, mulSum.u[2]) annotation (Line(points={{1,54},{30,54},{30,1.75},
-          {78,1.75}}, color={0,0,127}));
-  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{1,-50},{30,-50},{30,-1.75},
-          {78,-1.75}}, color={0,0,127}));
-  connect(towAppDes1.y, mulSum.u[4]) annotation (Line(points={{41,-90},{48,-90},
-          {48,-5.25},{78,-5.25}}, color={0,0,127}));
+  connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{46,140},{
+          46,1.5},{78,1.5}},color={0,0,127}));
+  connect(pro.y, mulSum.u[2]) annotation (Line(points={{1,54},{30,54},{30,0.5},
+          {78,0.5}},  color={0,0,127}));
+  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{1,-50},{10,-50},{10,
+          -0.5},{78,-0.5}},
+                       color={0,0,127}));
+  connect(towAppDes1.y, mulSum.u[4]) annotation (Line(points={{41,-90},{60,-90},
+          {60,0},{78,0},{78,-1.5}},
+                                  color={0,0,127}));
   connect(mulSum.y, y)
-    annotation (Line(points={{101.7,0},{180,0}}, color={0,0,127}));
+    annotation (Line(points={{101,0},{180,0}},   color={0,0,127}));
   connect(heaExcPlr.y, lim.u)
     annotation (Line(points={{-59,70},{-52,70}}, color={0,0,127}));
   connect(pro.u1, lim.y) annotation (Line(points={{-22,60},{-26,60},{-26,70},{-29,
