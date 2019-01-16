@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableSpeed.Subsequences.Validation;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableStagingPartLoadRatio.Subsequences.Validation;
 model Change "Validate chiller stage change"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTem(
@@ -6,7 +6,7 @@ model Change "Validate chiller stage change"
     freqHz=1/(24*3600),
     offset=293.15) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-240,190},{-220,210}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableSpeed.Subsequences.OperatingPartLoadRatio
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableStagingPartLoadRatio.Subsequences.OperatingPartLoadRatio
     upZerToOne(
     chiOnHou=5,
     chiOffHou=22,
@@ -37,7 +37,7 @@ model Change "Validate chiller stage change"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableSpeed.Subsequences.OperatingPartLoadRatio
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableStagingPartLoadRatio.Subsequences.OperatingPartLoadRatio
     upOneToTwo(
     chiOffHou=22,
     chiOnHou=0,
@@ -46,7 +46,7 @@ model Change "Validate chiller stage change"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=1) "Chiller plant request"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableSpeed.Subsequences.OperatingPartLoadRatio
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableStagingPartLoadRatio.Subsequences.OperatingPartLoadRatio
     upOneToTwo1(
     chiOffHou=22,
     chiOnHou=0,

@@ -1,5 +1,6 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableSpeed.Subsequences;
-block Change "Stage change for variable speed chillers"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableStagingPartLoadRatio.Subsequences;
+block OperatingPartLoadRatio
+  "Stage operating part load ratio (current, up, down and minimum)"
 
   parameter Integer num = 2 "Total number of chiller";
   parameter Modelica.SIunits.Temperature TLocChi
@@ -800,4 +801,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Change;
+end OperatingPartLoadRatio;

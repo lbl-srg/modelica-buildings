@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging;
-package VariableSpeed "Chiller staging for variable speed chillers (centrifugal)"
+package VariableStagingPartLoadRatio "Chiller staging for plants with more than one variable speed centrifugal chiller"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
@@ -7,4 +7,4 @@ annotation (preferredView="info", Documentation(info="<html>
 fixme: add a package description.
 </p>
 </html>"));
-end VariableSpeed;
+end VariableStagingPartLoadRatio;
