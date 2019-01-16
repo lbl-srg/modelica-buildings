@@ -31,14 +31,14 @@ protected
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ecoSta1(
-    final width=0.5, final period=2*18*60)
+    final width=0.5, final period=2*16*60)
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooTowFanSta1(
     final amplitude=0.2,
     final offset=1.1,
-    final freqHz=1/(100*60),
+    final freqHz=1/(80*60),
     final phase=3.1415926535898) "Cooling tower fan speed status signal"
     annotation (Placement(transformation(extent={{20,18},{40,38}})));
 
