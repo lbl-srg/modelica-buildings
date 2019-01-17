@@ -7,8 +7,8 @@ block Capacities "Returns nominal capacities at current and one lower stage"
   parameter Modelica.SIunits.Power staNomCap[numSta + 1] = {small, 5e5, 1e6}
   "Nominal capacity at all chiller stages, starting with stage 0";
 
-  parameter Real minPlr[numSta + 1](final unit="1") = {0, 0.2, 0.2}
-  "Nominal part load ratio for at all chiller stages, starting with stage 0";
+  parameter Modelica.SIunits.Power minStaUnlCap[numSta + 1] = {0, 0.2*staNomCap[2], 0.2*staNomCap[3]}
+    "Nominal part load ratio for at all chiller stages, starting with stage 0";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta "Chiller stage"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
@@ -19,13 +19,13 @@ block Capacities "Returns nominal capacities at current and one lower stage"
     final quantity="Power") "Nominal capacity of the current stage"
     annotation (
       Placement(transformation(extent={{160,70},{180,90}}), iconTransformation(
-          extent={{100,30},{120,50}})));
+          extent={{100,50},{120,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaLow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaDow(
     final unit="W",
-    final quantity="Power") "Nominal capacity of the first lower stage"
-    annotation (Placement(transformation(extent={{160,10},{180,30}}),
-        iconTransformation(extent={{100,-50},{120,-30}})));
+    final quantity="Power") "Nominal capacity of the first stage down"
+    annotation (Placement(transformation(extent={{160,-10},{180,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
 //protected
   parameter Real small = 0.001
@@ -36,11 +36,13 @@ block Capacities "Returns nominal capacities at current and one lower stage"
     "Array of chiller stage nominal capacities starting with stage 0"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staLow(final k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staLow(
+    final k=1)
     "One stage lower"
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(final k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(
+    final k=1)
     "Index at Stage 0"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 
@@ -55,13 +57,9 @@ block Capacities "Returns nominal capacities at current and one lower stage"
   CDL.Integers.Equal intEqu "Equal stage 1"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-
   CDL.Routing.RealExtractor extStaCap(
     final outOfRangeValue=-1,
-    final nin=numSta + 1)
-    "Extracts the nominal capacity at the current stage"
+    final nin=numSta + 1) "Extracts the nominal capacity at the current stage"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
 
   CDL.Routing.RealExtractor extStaLowCap(
@@ -73,27 +71,31 @@ block Capacities "Returns nominal capacities at current and one lower stage"
   CDL.Integers.Max maxInt "Maximum"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  CDL.Continuous.Sources.Constant minPlrSta1(final k=minPlr[2])
-    "Minimum part load ratio of the first stage"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-
   CDL.Logical.Switch swi "Switch"
-    annotation (Placement(transformation(extent={{120,10},{140,30}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
   CDL.Integers.Add addInt
     "Aligns indexes (stage starts with 0, indexes with 1)"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  CDL.Continuous.Sources.Constant minPLR[numSta + 1](final k=minPlr)
-    "Array of chiller stage minimal part load ratios"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  CDL.Continuous.Product pro1[numSta + 1] "Product"
-    annotation (Placement(transformation(extent={{-52,-100},{-32,-80}})));
-  CDL.Continuous.MultiSum mulSum(nin=3, k=fill(1, uSta + 1))
-    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
-  CDL.Interfaces.RealOutput yStaMin(final unit="W", final quantity="Power")
-    "Minimum capacity of the current stage" annotation (Placement(
-        transformation(extent={{160,-100},{180,-80}}), iconTransformation(
-          extent={{100,-50},{120,-30}})));
+
+  CDL.Continuous.Sources.Constant minStaUnl[numSta + 1](
+    final k=minStaUnlCap)
+    "Array of chiller stage minimal unload capacities"
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+
+  CDL.Interfaces.RealOutput yStaMin(
+    final unit="W",
+    final quantity="Power")
+    "Minimum capacity of the current stage"
+    annotation (Placement(
+    transformation(extent={{160,-90},{180,-70}}), iconTransformation(
+          extent={{100,-70},{120,-50}})));
+
+  CDL.Routing.RealExtractor extMinUnlCap(
+    final outOfRangeValue=-1,
+    final nin=numSta + 1) "Extracts minimal stage capacity"
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+
 equation
   connect(extStaCap.y, lesThr.u) annotation (Line(points={{-39,110},{-22,110}},
      color={0,0,127}));
@@ -114,17 +116,12 @@ equation
           {-10,28}},      color={255,127,0}));
   connect(extStaCap.y, ySta) annotation (Line(points={{-39,110},{-30,110},{-30,80},
           {170,80}},                   color={0,0,127}));
-  connect(pro.u2, minPlrSta1.y) annotation (Line(points={{38,-26},{30,-26},{30,-40},
-          {21,-40}},       color={0,0,127}));
   connect(intEqu.y, swi.u2)
-    annotation (Line(points={{61,20},{118,20}},   color={255,0,255}));
-  connect(pro.y, swi.u1) annotation (Line(points={{61,-20},{86,-20},{86,28},{118,
-          28}},     color={0,0,127}));
-  connect(extStaCap.y, pro.u1) annotation (Line(points={{-39,110},{-30,110},{-30,
-          -14},{38,-14}},color={0,0,127}));
-  connect(extStaLowCap.y, swi.u3) annotation (Line(points={{1,40},{80,40},{80,12},
-          {118,12}},      color={0,0,127}));
-  connect(swi.y,yStaLow)  annotation (Line(points={{141,20},{170,20}},
+    annotation (Line(points={{61,20},{90,20},{90,0},{118,0}},
+                                                  color={255,0,255}));
+  connect(extStaLowCap.y, swi.u3) annotation (Line(points={{1,40},{80,40},{80,-8},
+          {118,-8}},      color={0,0,127}));
+  connect(swi.y,yStaDow)  annotation (Line(points={{141,0},{170,0}},
                       color={0,0,127}));
   connect(uSta, intEqu.u1) annotation (Line(points={{-180,0},{-110,0},{-110,20},
           {38,20}}, color={255,127,0}));
@@ -136,14 +133,14 @@ equation
           {-102,76}},     color={255,127,0}));
   connect(staLow.y, addInt.u2) annotation (Line(points={{-129,-20},{-120,-20},{-120,
           64},{-102,64}},       color={255,127,0}));
-  connect(staCap.y, pro1.u1) annotation (Line(points={{-79,110},{-68,110},{
-          -68,-84},{-54,-84}}, color={0,0,127}));
-  connect(minPLR.y, pro1.u2) annotation (Line(points={{-79,-90},{-66,-90},{
-          -66,-96},{-54,-96}}, color={0,0,127}));
-  connect(pro1.y, mulSum.u[1:3]) annotation (Line(points={{-31,-90},{-16,-90},
-          {-16,-91.3333},{-2,-91.3333}}, color={0,0,127}));
-  connect(mulSum.y, yStaMin)
-    annotation (Line(points={{21,-90},{170,-90}}, color={0,0,127}));
+  connect(addInt.y, extMinUnlCap.index) annotation (Line(points={{-79,70},{-30,70},
+          {-30,-100},{-50,-100},{-50,-92}},  color={255,127,0}));
+  connect(minStaUnl.y, extMinUnlCap.u)
+    annotation (Line(points={{-79,-80},{-62,-80}}, color={0,0,127}));
+  connect(minStaUnl[2].y, swi.u1) annotation (Line(points={{-79,-80},{-70,-80},
+          {-70,-60},{100,-60},{100,8},{118,8}},   color={0,0,127}));
+  connect(extMinUnlCap.y, yStaMin)
+    annotation (Line(points={{-39,-80},{170,-80}}, color={0,0,127}));
   annotation (defaultComponentName = "staCap",
         Icon(graphics={
         Rectangle(
