@@ -52,14 +52,6 @@ block Controller
     annotation (Placement(transformation(extent={{
     140,-10},{160,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities
-    staCap(final min_plr1=minPlrSta1, final staNomCap=staNomCap)
-    "Returns nominal capacities at the current and one lower stage"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.CapacityRequirement
-    capReq annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-
   Buildings.Controls.OBC.CDL.Integers.Add addInt(k2=+1)
 annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
