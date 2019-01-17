@@ -97,7 +97,7 @@ equation
       110},{-26,66},{-22,66}}, color={255,127,0}));
   connect(staCap.ySta, staChaPosDis.uCapNomSta) annotation (Line(points={{-79,94},
           {-76,94},{-76,110},{-51,110}}, color={0,0,127}));
-  connect(staCap.yLowSta, staChaPosDis.uCapNomLowSta) annotation (Line(points={{-79,86},
+  connect(staCap.yStaLow, staChaPosDis.uCapNomLowSta) annotation (Line(points={{-79,86},
           {-74,86},{-74,108},{-51,108}},      color={0,0,127}));
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-160,60},
       {-120,60},{-120,35},{-101,35}},

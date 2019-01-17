@@ -11,14 +11,9 @@ block EquipmentRotationTwo
   parameter Boolean initRoles[num] = initialization[1:num]
     "Sets initial roles: true = lead, false = lag or standby";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevRol[num]
-    "Current devices operation status: true = lead, false = lag or standby"
-    annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[num]
     "Device role: true = lead, false = lag or standby"
-    annotation (Placement(transformation(extent={{240,-10},{260,10}}),
+    annotation (Placement(transformation(extent={{200,-40},{220,-20}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[num](
@@ -30,6 +25,20 @@ block EquipmentRotationTwo
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
+  CDL.Routing.BooleanReplicator repLead(nout=num) "Replicates lead signal"
+    annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
+  CDL.Routing.BooleanReplicator repLag(nout=num) "Replicates lag signal"
+    annotation (Placement(transformation(extent={{-182,-80},{-162,-60}})));
+  CDL.Interfaces.BooleanInput                        uLeaSta
+    "Lead device status" annotation (Placement(transformation(extent={{-240,20},
+            {-200,60}}), iconTransformation(extent={{-140,40},{-100,80}})));
+  CDL.Interfaces.BooleanInput uLagSta "Lag device status" annotation (Placement(
+        transformation(extent={{-240,-60},{-200,-20}}),  iconTransformation(
+          extent={{-140,-80},{-100,-40}})));
+  CDL.Interfaces.BooleanOutput yDevSta[num]
+    "Device status (index represents the physical device)" annotation (
+      Placement(transformation(extent={{200,30},{220,50}}),
+        iconTransformation(extent={{100,50},{120,70}})));
 protected
   final parameter Boolean initialization[num] = {true, false}
     "fixme - there may be a better way. Initiates device mapped to the first index with the lead role and all other to lag";
@@ -40,8 +49,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=num)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not fixme_for_n[num]
-    "Fixme: For more than 2 devices this should be replaced by an implementation which moves the lead chiller to the first higher index"
+  Buildings.Controls.OBC.CDL.Logical.Not not0[num] "Logical not"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[num]
@@ -52,23 +60,23 @@ protected
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre[num](
-    final pre_u_start=initRoles)
+    final pre_u_start=initRoles) "Previous timestep"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1[num]
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1[num]
-    "Fixme: For more than 2 devices this should be replaced by an implementation which moves the lead chiller to the first higher index"
+  Buildings.Controls.OBC.CDL.Logical.Not not1[num] "Logical not"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
+  CDL.Logical.LogicalSwitch                        logSwi1
+                                                         [num]
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 equation
-  connect(uDevRol, tim.u) annotation (Line(points={{-240,0},{-160,0},{-160,30},{
-          -122,30}}, color={255,0,255}));
   connect(greEquThr.y, and3.u1) annotation (Line(points={{-59,30},{-30,30},{-30,
           8},{-22,8}}, color={255,0,255}));
-  connect(logSwi.u1, fixme_for_n.y) annotation (Line(points={{98,-22},{70,-22},
-          {70,-50},{41,-50}},color={255,0,255}));
+  connect(logSwi.u1, not0.y) annotation (Line(points={{98,-22},{70,-22},{70,-50},
+          {41,-50}}, color={255,0,255}));
   connect(mulOr.u[1:2],and3. y)
     annotation (Line(points={{18,0},{18,0},{1,0}},    color={255,0,255}));
   connect(mulOr.y, booRep.u) annotation (Line(points={{41.7,0},{58,0}},
@@ -77,13 +85,10 @@ equation
           {81,0}}, color={255,0,255}));
   connect(logSwi.y, pre.u) annotation (Line(points={{121,-30},{130,-30},{130,
           -50},{138,-50}}, color={255,0,255}));
-  connect(pre.y, fixme_for_n.u) annotation (Line(points={{161,-50},{170,-50},{
-          170,-70},{10,-70},{10,-50},{18,-50}},color={255,0,255}));
+  connect(pre.y, not0.u) annotation (Line(points={{161,-50},{170,-50},{170,-70},
+          {10,-70},{10,-50},{18,-50}}, color={255,0,255}));
   connect(pre.y, logSwi.u3) annotation (Line(points={{161,-50},{170,-50},{170,
           -70},{90,-70},{90,-38},{98,-38}}, color={255,0,255}));
-  connect(uDevRol, not1.u) annotation (Line(points={{-240,0},{-160,0},{-160,-10},
-          {-122,-10}},
-                color={255,0,255}));
   connect(not1.y,and3. u2)
     annotation (Line(points={{-99,-10},{-60,-10},{-60,0},{-22,0}},
     color={255,0,255}));
@@ -97,9 +102,25 @@ equation
     annotation (Line(points={{161,-50},{170,-50},{170,
           20},{-20,20},{-20,40},{-2,40}}, color={255,0,255}));
   connect(logSwi.y, yDevRol)
-    annotation (Line(points={{121,-30},{150,-30},{150,0},{250,0}},
+    annotation (Line(points={{121,-30},{210,-30}},
                        color={255,0,255}));
-  annotation (Diagram(coordinateSystem(extent={{-180,-120},{180,120}})),
+  connect(pre.y, logSwi1.u2) annotation (Line(points={{161,-50},{170,-50},{170,-80},
+          {-152,-80},{-152,-60},{-142,-60}}, color={255,0,255}));
+  connect(logSwi1.u1, repLead.y) annotation (Line(points={{-142,-52},{-142,40},{
+          -149,40}}, color={255,0,255}));
+  connect(logSwi1.u3, repLag.y) annotation (Line(points={{-142,-68},{-142,-70},{
+          -161,-70}}, color={255,0,255}));
+  connect(logSwi1.y, tim.u) annotation (Line(points={{-119,-60},{-110,-60},{-110,
+          -40},{-130,-40},{-130,30},{-122,30}}, color={255,0,255}));
+  connect(uLeaSta, repLead.u)
+    annotation (Line(points={{-220,40},{-172,40}}, color={255,0,255}));
+  connect(uLagSta, repLag.u) annotation (Line(points={{-220,-40},{-190,-40},{-190,
+          -70},{-184,-70}}, color={255,0,255}));
+  connect(logSwi1.y, yDevSta) annotation (Line(points={{-119,-60},{-110,-60},{-110,
+          -100},{180,-100},{180,40},{210,40}}, color={255,0,255}));
+  connect(logSwi1.y, not1.u) annotation (Line(points={{-119,-60},{-110,-60},{-110,
+          -26},{-126,-26},{-126,-10},{-122,-10}}, color={255,0,255}));
+  annotation (Diagram(coordinateSystem(extent={{-200,-120},{200,120}})),
       defaultComponentName="equRot",
     Icon(graphics={
         Rectangle(

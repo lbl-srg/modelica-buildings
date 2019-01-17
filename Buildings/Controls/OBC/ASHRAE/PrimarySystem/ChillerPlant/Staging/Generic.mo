@@ -8,10 +8,10 @@ package Generic "Generic chiller staging sequences"
     "Highest chiller stage";
 
     parameter Modelica.SIunits.Power staNomCap[numSta + 1] = {small, 5e5, 1e6}
-    "Nominal capacity at all chiller stages, starting with 0 stage";
+    "Nominal capacity at all chiller stages, starting with stage 0";
 
-    parameter Real min_plr1(final unit="1") = 0.1
-    "Minimum part load ratio for the first stage";
+    parameter Real minPlr[numSta + 1](final unit="1") = {0, 0.2, 0.2}
+    "Nominal part load ratio for at all chiller stages, starting with stage 0";
 
     Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta "Chiller stage"
       annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
@@ -21,13 +21,13 @@ package Generic "Generic chiller staging sequences"
       final unit="W",
       final quantity="Power") "Nominal capacity of the current stage"
       annotation (
-        Placement(transformation(extent={{160,30},{180,50}}), iconTransformation(
+        Placement(transformation(extent={{160,70},{180,90}}), iconTransformation(
             extent={{100,30},{120,50}})));
 
-    Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLowSta(
+    Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaLow(
       final unit="W",
       final quantity="Power") "Nominal capacity of the first lower stage"
-      annotation (Placement(transformation(extent={{160,-30},{180,-10}}),
+      annotation (Placement(transformation(extent={{160,10},{180,30}}),
           iconTransformation(extent={{100,-50},{120,-30}})));
 
   //protected
@@ -37,97 +37,116 @@ package Generic "Generic chiller staging sequences"
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staCap[numSta + 1](
       final k=staNomCap)
       "Array of chiller stage nominal capacities starting with stage 0"
-      annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+      annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 
     Buildings.Controls.OBC.CDL.Integers.Sources.Constant staLow(final k=1)
       "One stage lower"
-      annotation (Placement(transformation(extent={{-150,-70},{-130,-50}})));
+      annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
 
     Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(final k=1)
       "Index at Stage 0"
-      annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+      annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 
     Buildings.Controls.OBC.CDL.Utilities.Assert staExc(
       final message="The provided chiller stage is not within the number of stages available")
-      annotation (Placement(transformation(extent={{20,60},{40,80}})));
+      annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
     CDL.Continuous.LessThreshold lesThr(
       final threshold=-0.5) "Less than threshold"
-      annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+      annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
     CDL.Integers.Equal intEqu "Equal stage 1"
-      annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+      annotation (Placement(transformation(extent={{40,10},{60,30}})));
 
     Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
-      annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+      annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 
     CDL.Routing.RealExtractor extStaCap(
       final outOfRangeValue=-1,
       final nin=numSta + 1)
       "Extracts the nominal capacity at the current stage"
-      annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+      annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
 
     CDL.Routing.RealExtractor extStaLowCap(
       final outOfRangeValue=-1,
       final nin=numSta + 1)
       "Extracts the nominal capacity of one stage lower than the current stage"
-      annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+      annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
     CDL.Integers.Max maxInt "Maximum"
-      annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-    CDL.Continuous.Sources.Constant minPlrSta1(
-      final k=min_plr1)
+    CDL.Continuous.Sources.Constant minPlrSta1(final k=minPlr[2])
       "Minimum part load ratio of the first stage"
-      annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+      annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
     CDL.Logical.Switch swi "Switch"
-      annotation (Placement(transformation(extent={{102,-30},{122,-10}})));
+      annotation (Placement(transformation(extent={{120,10},{140,30}})));
 
     CDL.Integers.Add addInt
       "Aligns indexes (stage starts with 0, indexes with 1)"
-      annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+      annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    CDL.Continuous.Sources.Constant minPLR[numSta + 1](final k=minPlr)
+      "Array of chiller stage minimal part load ratios"
+      annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    CDL.Continuous.Product pro1[numSta + 1] "Product"
+      annotation (Placement(transformation(extent={{-52,-100},{-32,-80}})));
+    CDL.Continuous.MultiSum mulSum(nin=3, k=fill(1, uSta + 1))
+      annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
+    CDL.Interfaces.RealOutput yStaMin(final unit="W", final quantity="Power")
+      "Minimum capacity of the current stage" annotation (Placement(
+          transformation(extent={{160,-100},{180,-80}}), iconTransformation(
+            extent={{100,-50},{120,-30}})));
   equation
-    connect(extStaCap.y, lesThr.u) annotation (Line(points={{-39,70},{-22,70}},
+    connect(extStaCap.y, lesThr.u) annotation (Line(points={{-39,110},{-22,110}},
        color={0,0,127}));
     connect(staExc.u, lesThr.y)
-      annotation (Line(points={{18,70},{1,70}}, color={255,0,255}));
+      annotation (Line(points={{18,110},{1,110}},
+                                                color={255,0,255}));
     connect(staCap.y,extStaCap. u)
-      annotation (Line(points={{-79,70},{-62,70}}, color={0,0,127}));
-    connect(staCap.y, extStaLowCap.u) annotation (Line(points={{-79,70},{-70,70},
-            {-70,20},{-40,20},{-40,0},{-22,0}},
+      annotation (Line(points={{-79,110},{-62,110}},
+                                                   color={0,0,127}));
+    connect(staCap.y, extStaLowCap.u) annotation (Line(points={{-79,110},{-70,110},
+            {-70,60},{-40,60},{-40,40},{-22,40}},
                                     color={0,0,127}));
-    connect(staLow.y, intEqu.u2) annotation (Line(points={{-129,-60},{20,-60},{
-            20,-28},{38,-28}},
-                             color={255,127,0}));
-    connect(stage0.y,maxInt. u2) annotation (Line(points={{-79,-80},{-70,-80},{-70,
-            -46},{-62,-46}},        color={255,127,0}));
-    connect(maxInt.y, extStaLowCap.index) annotation (Line(points={{-39,-40},{-10,
-            -40},{-10,-12}},color={255,127,0}));
-    connect(extStaCap.y, ySta) annotation (Line(points={{-39,70},{-30,70},{-30,40},
-            {170,40}},                   color={0,0,127}));
-    connect(pro.u2, minPlrSta1.y) annotation (Line(points={{38,-66},{30,-66},{30,-80},
-            {21,-80}},       color={0,0,127}));
+    connect(staLow.y, intEqu.u2) annotation (Line(points={{-129,-20},{20,-20},{20,
+            12},{38,12}},    color={255,127,0}));
+    connect(stage0.y,maxInt. u2) annotation (Line(points={{-79,-40},{-70,-40},{-70,
+            -6},{-62,-6}},          color={255,127,0}));
+    connect(maxInt.y, extStaLowCap.index) annotation (Line(points={{-39,0},{-10,0},
+            {-10,28}},      color={255,127,0}));
+    connect(extStaCap.y, ySta) annotation (Line(points={{-39,110},{-30,110},{-30,80},
+            {170,80}},                   color={0,0,127}));
+    connect(pro.u2, minPlrSta1.y) annotation (Line(points={{38,-26},{30,-26},{30,-40},
+            {21,-40}},       color={0,0,127}));
     connect(intEqu.y, swi.u2)
-      annotation (Line(points={{61,-20},{100,-20}}, color={255,0,255}));
-    connect(pro.y, swi.u1) annotation (Line(points={{61,-60},{86,-60},{86,-12},{100,
-            -12}},    color={0,0,127}));
-    connect(extStaCap.y, pro.u1) annotation (Line(points={{-39,70},{-30,70},{-30,-54},
-            {38,-54}},     color={0,0,127}));
-    connect(extStaLowCap.y, swi.u3) annotation (Line(points={{1,0},{80,0},{80,-28},
-            {100,-28}},     color={0,0,127}));
-    connect(swi.y, yLowSta) annotation (Line(points={{123,-20},{170,-20}},
+      annotation (Line(points={{61,20},{118,20}},   color={255,0,255}));
+    connect(pro.y, swi.u1) annotation (Line(points={{61,-20},{86,-20},{86,28},{118,
+            28}},     color={0,0,127}));
+    connect(extStaCap.y, pro.u1) annotation (Line(points={{-39,110},{-30,110},{-30,
+            -14},{38,-14}},color={0,0,127}));
+    connect(extStaLowCap.y, swi.u3) annotation (Line(points={{1,40},{80,40},{80,12},
+            {118,12}},      color={0,0,127}));
+    connect(swi.y,yStaLow)  annotation (Line(points={{141,20},{170,20}},
                         color={0,0,127}));
-    connect(uSta, intEqu.u1) annotation (Line(points={{-180,0},{-60,0},{-60,-20},
-            {38,-20}},color={255,127,0}));
-    connect(uSta, maxInt.u1) annotation (Line(points={{-180,0},{-110,0},{-110,
-            -34},{-62,-34}}, color={255,127,0}));
-    connect(addInt.y, extStaCap.index) annotation (Line(points={{-79,30},{-50,
-            30},{-50,58}}, color={255,127,0}));
-    connect(uSta, addInt.u1) annotation (Line(points={{-180,0},{-130,0},{-130,
-            36},{-102,36}}, color={255,127,0}));
-    connect(staLow.y, addInt.u2) annotation (Line(points={{-129,-60},{-120,-60},
-            {-120,24},{-102,24}}, color={255,127,0}));
+    connect(uSta, intEqu.u1) annotation (Line(points={{-180,0},{-110,0},{-110,20},
+            {38,20}}, color={255,127,0}));
+    connect(uSta, maxInt.u1) annotation (Line(points={{-180,0},{-110,0},{-110,6},{
+            -62,6}},         color={255,127,0}));
+    connect(addInt.y, extStaCap.index) annotation (Line(points={{-79,70},{-50,70},
+            {-50,98}},     color={255,127,0}));
+    connect(uSta, addInt.u1) annotation (Line(points={{-180,0},{-130,0},{-130,76},
+            {-102,76}},     color={255,127,0}));
+    connect(staLow.y, addInt.u2) annotation (Line(points={{-129,-20},{-120,-20},{-120,
+            64},{-102,64}},       color={255,127,0}));
+    connect(staCap.y, pro1.u1) annotation (Line(points={{-79,110},{-68,110},{
+            -68,-84},{-54,-84}}, color={0,0,127}));
+    connect(minPLR.y, pro1.u2) annotation (Line(points={{-79,-90},{-66,-90},{
+            -66,-96},{-54,-96}}, color={0,0,127}));
+    connect(pro1.y, mulSum.u[1:3]) annotation (Line(points={{-31,-90},{-16,-90},
+            {-16,-91.3333},{-2,-91.3333}}, color={0,0,127}));
+    connect(mulSum.y, yStaMin)
+      annotation (Line(points={{21,-90},{170,-90}}, color={0,0,127}));
     annotation (defaultComponentName = "staCap",
           Icon(graphics={
           Rectangle(
@@ -140,7 +159,7 @@ package Generic "Generic chiller staging sequences"
             lineColor={0,0,255},
             textString="%name")}),
                             Diagram(coordinateSystem(preserveAspectRatio=false,
-            extent={{-160,-100},{160,100}})),
+            extent={{-160,-140},{160,140}})),
   Documentation(info="<html>
 <p>
 Based on the current chiller stage and nominal stage capacities returns the
@@ -3236,14 +3255,14 @@ First implementation.
         annotation (Line(points={{-59,0},{-42,0}}, color={255,127,0}));
       connect(stage2.y, staCap2.uSta)
         annotation (Line(points={{-59,-50},{-42,-50}}, color={255,127,0}));
-      connect(staCap0.yLowSta, absErrorSta0[1].u1) annotation (Line(points={{-19,56},
+      connect(staCap0.yStaLow, absErrorSta0[1].u1) annotation (Line(points={{-19,56},
               {50,56},{50,80},{58,80}},         color={0,0,127}));
       connect(staCap0.ySta, absErrorSta0[2].u1) annotation (Line(points={{-19,64},
               {50,64},{50,80},{58,80}},     color={0,0,127}));
       connect(sta0.y, absErrorSta0[1].u2) annotation (Line(points={{21,80},{30,
               80},{30,48},{70,48},{70,68}},
                                        color={0,0,127}));
-      connect(staCap1.yLowSta, absErrorSta1[1].u1) annotation (Line(points={{-19,-4},
+      connect(staCap1.yStaLow, absErrorSta1[1].u1) annotation (Line(points={{-19,-4},
               {-10,-4},{-10,-10},{58,-10}}, color={0,0,127}));
       connect(staCap1.ySta, absErrorSta1[2].u1) annotation (Line(points={{-19,4},{-10,
               4},{-10,-10},{58,-10}}, color={0,0,127}));
@@ -3252,7 +3271,7 @@ First implementation.
                                   color={0,0,127}));
       connect(sta1.y, absErrorSta1[2].u2) annotation (Line(points={{21,-30},{70,-30},
               {70,-22}},         color={0,0,127}));
-      connect(staCap2.yLowSta, absErrorSta2[1].u1) annotation (Line(points={{-19,-54},
+      connect(staCap2.yStaLow, absErrorSta2[1].u1) annotation (Line(points={{-19,-54},
               {50,-54},{50,-50},{58,-50}}, color={0,0,127}));
       connect(staCap2.ySta, absErrorSta2[2].u1) annotation (Line(points={{-19,-46},{
               -10,-46},{-10,-50},{58,-50}},
