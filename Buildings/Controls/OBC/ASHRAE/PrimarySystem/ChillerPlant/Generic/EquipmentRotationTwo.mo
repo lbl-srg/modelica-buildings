@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block EquipmentRotationTwo
-  "Defines lead-lag or lead-standby equipment rotation for two devices or two groups of devices"
+  "Lead-lag or lead-standby equipment rotation for two devices or two groups of devices"
+
+  parameter Boolean lag = true
+    "true = lead/lag, false = lead/standby";
 
   parameter Integer num = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
@@ -9,44 +12,54 @@ block EquipmentRotationTwo
     "Staging runtime";
 
   parameter Boolean initRoles[num] = initialization[1:num]
-    "Sets initial roles: true = lead, false = lag or standby";
+    "Initial roles: true = lead, false = lag/standby";
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaSta
+    "Lead device status"
+    annotation (Placement(transformation(extent={{-240,20},
+    {-200,60}}), iconTransformation(extent={{-140,40},{-100,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLagSta if lag
+    "Lag device status"
+    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
+    iconTransformation(extent={{-140,-80},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevSta[num]
+    "Device status (index represents the physical device)" annotation (
+      Placement(transformation(extent={{200,30},{220,50}}),
+        iconTransformation(extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[num]
     "Device role: true = lead, false = lag or standby"
     annotation (Placement(transformation(extent={{200,-40},{220,-20}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-70},{120,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[num](
     final threshold=stagingRuntime)
     "Staging runtime hysteresis"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim[num](reset=false)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[num](
+    final reset=false)
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
+protected
   CDL.Routing.BooleanReplicator repLead(nout=num) "Replicates lead signal"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
-  CDL.Routing.BooleanReplicator repLag(nout=num) "Replicates lag signal"
+
+  CDL.Routing.BooleanReplicator repLag(nout=num) if lag
+    "Replicates lag signal"
     annotation (Placement(transformation(extent={{-182,-80},{-162,-60}})));
-  CDL.Interfaces.BooleanInput                        uLeaSta
-    "Lead device status" annotation (Placement(transformation(extent={{-240,20},
-            {-200,60}}), iconTransformation(extent={{-140,40},{-100,80}})));
-  CDL.Interfaces.BooleanInput uLagSta "Lag device status" annotation (Placement(
-        transformation(extent={{-240,-60},{-200,-20}}),  iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
-  CDL.Interfaces.BooleanOutput yDevSta[num]
-    "Device status (index represents the physical device)" annotation (
-      Placement(transformation(extent={{200,30},{220,50}}),
-        iconTransformation(extent={{100,50},{120,70}})));
-protected
+
   final parameter Boolean initialization[num] = {true, false}
     "fixme - there may be a better way. Initiates device mapped to the first index with the lead role and all other to lag";
 
   Buildings.Controls.OBC.CDL.Logical.And3 and3[num]
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=num)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=num)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not0[num] "Logical not"
@@ -69,9 +82,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1[num] "Logical not"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
-  CDL.Logical.LogicalSwitch                        logSwi1
-                                                         [num]
+  CDL.Logical.LogicalSwitch logSwi1[num] "Switch"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+
+  CDL.Logical.Sources.Constant staSta[num](final k=false) if not lag
+    "Standby status"
+    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
+
 equation
   connect(greEquThr.y, and3.u1) annotation (Line(points={{-59,30},{-30,30},{-30,
           8},{-22,8}}, color={255,0,255}));
@@ -120,6 +137,8 @@ equation
           -100},{180,-100},{180,40},{210,40}}, color={255,0,255}));
   connect(logSwi1.y, not1.u) annotation (Line(points={{-119,-60},{-110,-60},{-110,
           -26},{-126,-26},{-126,-10},{-122,-10}}, color={255,0,255}));
+  connect(staSta.y, logSwi1.u3) annotation (Line(points={{-159,-100},{-152,-100},
+          {-152,-68},{-142,-68}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-200,-120},{200,120}})),
       defaultComponentName="equRot",
     Icon(graphics={
@@ -155,8 +174,10 @@ equation
 This block rotates equipment, such as chillers, pumps or valves, in order 
 to ensure equal wear and tear. It can be used for lead/lag and 
 lead/standby operation, as specified in &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
-Chapter 7, App B, 1.01, A.4.  The input vector <code>uDevRol<\code> indicates the lead/lag (or lead/standby) status
-of the devices. Default initial lead role is assigned to the device associated
+Chapter 7, App B, 1.01, A.4.  The output vector <code>yDevRol<\code> indicates the lead/lag (or lead/standby) status
+of the devices, while the <code>yDevSta<\code> indicates the on/off status of each device. The index of
+output vectors and <code>initRoles<\code> parameter indicates the physical device.
+Default initial lead role is assigned to the device associated
 with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
 for each device and switches the lead role to the next higher index
 as its <code>stagingRuntime<\code> expires. This block can be used for 2 devices. 

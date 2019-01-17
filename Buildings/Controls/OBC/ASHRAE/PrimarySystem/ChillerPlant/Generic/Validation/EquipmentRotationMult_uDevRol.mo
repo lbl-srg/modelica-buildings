@@ -14,37 +14,30 @@ model EquipmentRotationMult_uDevRol
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult leaSta(
     final stagingRuntime=5*60*60,
     final num=num,
-    final initRoles=initRoles) "Equipment rotation - lead/standby"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    final initRoles=initRoles,
+    lag=false)                 "Equipment rotation - lead/standby"
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
   EquipmentRotationMult leaLag(stagingRuntime=5*60*60)
                                "Equipment rotation - lead/lag"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad(final width=0.8,
       final period=2*60*60) "Lead device on/off status"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(final width=0.2,
       final period=1*60*60)
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad1(final width=0.8,
-      final period=2*60*60) "Lead device on/off status"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant standby(final k=false)
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 equation
-  connect(leadLoad.y, leaLag.uLeaSta) annotation (Line(points={{-59,80},{-40,80},
-          {-40,56},{-22,56}}, color={255,0,255}));
-  connect(lagLoad.y, leaLag.uLagSta) annotation (Line(points={{-59,20},{-40,20},
-          {-40,44},{-22,44}}, color={255,0,255}));
-  connect(leadLoad1.y, leaSta.uLeaSta) annotation (Line(points={{-59,-20},{-40,
-          -20},{-40,-44},{-22,-44}}, color={255,0,255}));
-  connect(standby.y, leaSta.uLagSta) annotation (Line(points={{-59,-80},{-40,
-          -80},{-40,-56},{-22,-56}}, color={255,0,255}));
+  connect(leadLoad.y, leaLag.uLeaSta) annotation (Line(points={{-59,20},{-40,20},
+          {-40,-4},{-22,-4}}, color={255,0,255}));
+  connect(lagLoad.y, leaLag.uLagSta) annotation (Line(points={{-59,-40},{-40,
+          -40},{-40,-16},{-22,-16}},
+                              color={255,0,255}));
+  connect(leadLoad.y, leaSta.uLeaSta) annotation (Line(points={{-59,20},{30,20},
+          {30,-4},{38,-4}}, color={255,0,255}));
           annotation (
    experiment(StopTime=10000.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/Validation/EquipmentRotationMult_uDevRol.mos"
