@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.VariableStagingPartLoadRatio.Subsequences;
-block OperatingPartLoadRatio
-  "Stage operating part load ratio (current, up, down and minimum)"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
+block ChangeOld
+  "Stage operating part load ratio (current, up, down and minimum), will be replaced by a generic change sequence"
 
   parameter Integer num = 2 "Total number of chiller";
   parameter Modelica.SIunits.Temperature TLocChi
@@ -801,4 +801,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OperatingPartLoadRatio;
+end ChangeOld;

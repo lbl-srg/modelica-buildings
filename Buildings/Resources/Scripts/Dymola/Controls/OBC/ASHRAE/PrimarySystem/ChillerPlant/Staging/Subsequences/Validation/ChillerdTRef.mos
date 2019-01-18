@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Validation.ChillerdTRef", method="dassl", stopTime=3600, tolerance=1e-06, resultFile="ChillerdTRef");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.ChillerdTRef", method="dassl", stopTime=3600, tolerance=1e-06, resultFile="ChillerdTRef");
 createPlot(id=1, position={10, 10, 450, 700}, y={"chillerdTRef.yPLR"}, range={0.0, 3600, 0, 1}, grid=true, subPlot=1, colors={{28,108,200}});
 createPlot(id=1, position={10, 10, 450, 700}, y={"chillerdTRef.dTRef"}, range={0.0, 3600, 5, 25}, grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=2, position={470, 10, 450, 700}, y={"chillerdTRef_Sim.yPLR"}, range={0.0, 3600, 0, 1}, grid=true, subPlot=1, colors={{28,108,200}});

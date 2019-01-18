@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
-block PositiveDisplacement
-  "Stage change conditions for positive displacement chillers"
+block ChangeDeprecated
+  "Will turn into a generic change sequence that takes all PLRs from PartLoadRatios"
 
+  // fixme: pull OPRLup and OPRLdown out into chiller type staging packages
   parameter Integer numSta = 2
   "Number of stages";
 
@@ -133,7 +134,7 @@ block PositiveDisplacement
     "Checks if staging up is needed due to the capacity requirement"
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessEqual greEquStaDowCap
+  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEquStaDowCap
     "Checks if staging down is needed due to the capacity requirement"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
 
@@ -162,11 +163,6 @@ block PositiveDisplacement
     "Operating part load ratio limit for lower and upper extremes"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  CDL.Logical.TrueDelay truDel(delayTime=delayStaCha)
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  CDL.Logical.TrueDelay truDel1(delayTime=delayStaCha)
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
-
   CDL.Logical.Or  andStaDow "And for staging down"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
   CDL.Logical.Or3  andStaUp
@@ -178,8 +174,6 @@ block PositiveDisplacement
     annotation (Placement(transformation(extent={{10,-140},{30,-120}})));
   CDL.Continuous.AddParameter addTOffset(p=TChiWatSetOffset, k=1)
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
-  CDL.Logical.TrueDelay truDel2(delayTime=delayStaCha)
-    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
   CDL.Continuous.GreaterThreshold greThr(threshold=chiWatPumSpeThr)
     annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
@@ -217,9 +211,9 @@ equation
                              color={0,0,127}));
   connect(firstAndLast.y, swiUp.u1) annotation (Line(points={{-59,70},{-50,70},{
           -50,158},{-42,158}},            color={0,0,127}));
-  connect(swiDown.y, greEquStaDowCap.u2) annotation (Line(points={{-19,-30},{0,-30},
+  connect(swiDown.y,lesEquStaDowCap. u2) annotation (Line(points={{-19,-30},{0,-30},
           {0,22},{8,22}},   color={0,0,127}));
-  connect(opePlrLowSta.y, greEquStaDowCap.u1)
+  connect(opePlrLowSta.y,lesEquStaDowCap. u1)
     annotation (Line(points={{-59,30},{8,30}},  color={0,0,127}));
   connect(swiUp.y, greEquStaUpCap.u2) annotation (Line(points={{-19,150},{0,150},
           {0,92},{8,92}},   color={0,0,127}));
@@ -239,30 +233,18 @@ equation
           106},{-82,106}},     color={0,0,127}));
   connect(addInt.y, y)
     annotation (Line(points={{171,0},{190,0}}, color={255,127,0}));
-  connect(greEquStaUpCap.y, truDel.u)
-    annotation (Line(points={{31,100},{38,100}}, color={255,0,255}));
-  connect(greEquStaDowCap.y, truDel1.u)
-    annotation (Line(points={{31,30},{38,30}}, color={255,0,255}));
   connect(TChiWatSupSet, addTOffset.u) annotation (Line(points={{-200,-100},{-60,
           -100},{-60,-110},{-42,-110}}, color={0,0,127}));
   connect(TChiWatSup, gre.u1) annotation (Line(points={{-200,-130},{-140,-130},{
           -140,-80},{-60,-80},{-60,-90},{8,-90}}, color={0,0,127}));
   connect(addTOffset.y, gre.u2) annotation (Line(points={{-19,-110},{0,-110},{0,
           -98},{8,-98}}, color={0,0,127}));
-  connect(gre.y, truDel2.u)
-    annotation (Line(points={{31,-90},{38,-90}}, color={255,0,255}));
-  connect(truDel.y, andStaUp.u1) annotation (Line(points={{61,100},{72,100},{72,
-          18},{78,18}}, color={255,0,255}));
-  connect(truDel2.y, andStaUp.u2) annotation (Line(points={{61,-90},{72,-90},{72,
-          10},{78,10}},  color={255,0,255}));
   connect(booToInt.u, andStaUp.y)
     annotation (Line(points={{108,10},{101,10}}, color={255,0,255}));
   connect(TChiWatRet, les.u1) annotation (Line(points={{-200,-160},{-40,-160},{-40,
           -130},{8,-130}},      color={0,0,127}));
   connect(TChiWatSupSet, les.u2) annotation (Line(points={{-200,-100},{-80,-100},
           {-80,-138},{8,-138}},         color={0,0,127}));
-  connect(truDel1.y, andStaDow.u1) annotation (Line(points={{61,30},{70,30},{70,
-          -30},{78,-30}}, color={255,0,255}));
   connect(les.y, andStaDow.u2) annotation (Line(points={{31,-130},{70,-130},{70,
           -38},{78,-38}}, color={255,0,255}));
   connect(booToInt1.u, andStaDow.y)
@@ -283,6 +265,12 @@ equation
           {-60,-230},{-42,-230}}, color={255,0,255}));
   connect(andStaUp1.y, andStaUp.u3) annotation (Line(points={{-19,-230},{74,-230},
           {74,2},{78,2}}, color={255,0,255}));
+  connect(greEquStaUpCap.y, andStaUp.u1) annotation (Line(points={{31,100},{54,
+          100},{54,18},{78,18}}, color={255,0,255}));
+  connect(gre.y, andStaUp.u2) annotation (Line(points={{31,-90},{54,-90},{54,10},
+          {78,10}}, color={255,0,255}));
+  connect(lesEquStaDowCap.y, andStaDow.u1) annotation (Line(points={{31,30},{40,
+          30},{40,-30},{78,-30}}, color={255,0,255}));
   annotation (defaultComponentName = "staChaPosDis",
         Icon(graphics={
         Rectangle(
@@ -309,4 +297,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PositiveDisplacement;
+end ChangeDeprecated;

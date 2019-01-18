@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.FixedStagingPartLoadRatio;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging;
 block Controller
   "Chiller stage for fixed speed chillers (positive displacement and centrifugal),try to have optional WSE"
 
@@ -87,11 +87,12 @@ annotation (Placement(
 "Chilled water pump speed"
 annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
                              iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Subsequences.OperatingPartLoadRatio staChaPosDis
+  Subsequences.PartLoadRatios staChaPosDis
     annotation (Placement(transformation(extent={{-52,94},{-32,114}})));
 equation
-  connect(staChaPosDis.y, addInt.u1) annotation (Line(points={{-31,104},{-26,104},
-          {-26,66},{-22,66}},  color={255,127,0}));
+  connect(staChaPosDis.y, addInt.u1) annotation (Line(points={{-31,110},{-26,
+          110},{-26,66},{-22,66}},
+                               color={255,127,0}));
   connect(staCap.ySta, staChaPosDis.uStaCap) annotation (Line(points={{-79,94},
           {-76,94},{-76,104},{-53,104}}, color={0,0,127}));
   connect(staCap.yStaLow, staChaPosDis.uStaLowCap) annotation (Line(points={{-79,

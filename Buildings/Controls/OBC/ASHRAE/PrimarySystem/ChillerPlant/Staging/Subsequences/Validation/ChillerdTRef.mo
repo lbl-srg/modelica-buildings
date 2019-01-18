@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
 model ChillerdTRef "Validate model of calculate chiller LIFT"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerdTRef chillerdTRef_Sim(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerdTRef
+    chillerdTRef_Sim(
     APPROACH_nominal=5,
     cooTowEff=21,
     dTRefMin=5,
@@ -26,7 +27,8 @@ model ChillerdTRef "Validate model of calculate chiller LIFT"
     height=0.05,
     offset=0.01) "Chilled water flow rate"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerdTRef chillerdTRef(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChillerdTRef
+    chillerdTRef(
     APPROACH_nominal=5,
     cooTowEff=21,
     dTRefMin=5,

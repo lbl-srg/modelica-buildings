@@ -1,6 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model ControllerPositiveDisplacement
-  "Validates stage status for positive displacement chillers (screw, scroll)"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Validation;
+model Controller "Validates stage status for fixed speed chillers"
 
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
   "Chilled water supply set temperature";
@@ -27,7 +26,7 @@ model ControllerPositiveDisplacement
     amplitude=0.03,
     freqHz=1/1200) "Chilled water flow"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.ControllerPositiveDisplacement
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Controller
     chiSta(minPlrSta1=10/310)
     "Determines chiller stage based on the current load and stage"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -41,7 +40,7 @@ equation
           {0,-30},{0,3},{39,3}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/ControllerPositiveDisplacement.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Controller.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -68,4 +67,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end ControllerPositiveDisplacement;
+end Controller;

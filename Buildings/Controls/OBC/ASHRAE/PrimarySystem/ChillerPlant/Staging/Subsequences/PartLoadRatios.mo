@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.FixedStagingPartLoadRatio.Subsequences;
-block OperatingPartLoadRatio
-  "Stage operating part load ratio (current, up, down and minimum)"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
+block PartLoadRatios
+  "Stage operating part load ratios (current, up, down and minimum) with reset based on stage chiller type"
 
   parameter Integer numSta = 2
   "Number of stages";
@@ -61,7 +61,6 @@ block OperatingPartLoadRatio
     "Calculates operating part load ratio at the current stage"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-
   CDL.Continuous.Division staDowPlr "Calculates stage down part load ratio"
     annotation (Placement(transformation(extent={{-38,-192},{-18,-172}})));
   CDL.Continuous.Product staUpPlr "Calculates stage up part load ratio"
@@ -93,12 +92,13 @@ equation
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),          Diagram(
+          textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-180,-200},{180,200}})),
 Documentation(info="<html>
 <p>
-Outputs the chiller stage change signal
+Fixme: This is a development version of the staging part load ratio 
+calculation with chiller type reset.
 </p>
 </html>",
 revisions="<html>
@@ -109,4 +109,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OperatingPartLoadRatio;
+end PartLoadRatios;

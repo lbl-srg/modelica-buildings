@@ -1,12 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model Centrifugal "Validate model of controlling chiller stage"
+model ChangeOld "Validate chiller stage change"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTem(
     amplitude=6,
     freqHz=1/(24*3600),
     offset=293.15) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-240,190},{-220,210}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Centrifugal upZerToOne(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChangeOld
+    upZerToOne(
     chiOnHou=5,
     chiOffHou=22,
     TLocChi=288.71) "Stage from zero to one"
@@ -36,7 +37,8 @@ model Centrifugal "Validate model of controlling chiller stage"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Centrifugal upOneToTwo(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChangeOld
+    upOneToTwo(
     chiOffHou=22,
     chiOnHou=0,
     TLocChi=288.71)
@@ -44,7 +46,8 @@ model Centrifugal "Validate model of controlling chiller stage"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=1) "Chiller plant request"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Centrifugal upOneToTwo1(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.ChangeOld
+    upOneToTwo1(
     chiOffHou=22,
     chiOnHou=0,
     TLocChi=288.71)
@@ -417,4 +420,4 @@ plant reset is 100 and PLR greater than 0.3"),
           horizontalAlignment=TextAlignment.Right,
           textString="Stage down from two to one: 
 when PLR is less than SPLR for 15 minutes")}));
-end Centrifugal;
+end ChangeOld;

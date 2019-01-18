@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Validation;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
 model Capacities_uSta
   "Validate water side economizer tuning parameter sequence"
 
@@ -27,27 +27,25 @@ model Capacities_uSta
     "Array of chiller stage minimal unload capacities"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap0(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
     final numSta=2) "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap1(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final numSta=2)
-    "Nominal capacitites at the current and stage one lower"
+    final numSta=2) "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap2(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final numSta=2)
-    "Nominal capacitites at the current and stage one lower"
+    final numSta=2) "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(k=0) "Stage 0"
@@ -117,7 +115,7 @@ equation
           -80},{94,-80},{94,-20},{70,-20},{70,-12}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Generic/Validation/Capacities_uSta.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uSta.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

@@ -1,5 +1,6 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.FixedStagingPartLoadRatio.Subsequences.Validation;
-model Change "Validates stage change for fixed speed chillers"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
+model ChangeDeprecated
+  "Validates stage change for fixed speed chillers"
 
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
   "Chilled water supply set temperature";
@@ -12,23 +13,23 @@ model Change "Validates stage change for fixed speed chillers"
     final unit="m3/s") = 0.05
     "Average measured chilled water flow rate";
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.FixedStagingPartLoadRatio.Subsequences.OperatingPartLoadRatio
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios
     staChaPosDis "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.FixedStagingPartLoadRatio.Subsequences.OperatingPartLoadRatio
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios
     staChaPosDis1 "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
-  .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.FixedStagingPartLoadRatio.Subsequences.OperatingPartLoadRatio
+  .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios
     staChaPosDis2 "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
-  .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.FixedStagingPartLoadRatio.Subsequences.OperatingPartLoadRatio
+  .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios
     staChaPosDis3 "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 
-  .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.FixedStagingPartLoadRatio.Subsequences.OperatingPartLoadRatio
+  .Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios
     staChaPosDis4 "Determines if the stage should go up, down or stay constant"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
@@ -128,7 +129,7 @@ equation
           110},{-44,110},{-44,-28},{22,-28},{22,-12},{99,-12}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Validation/PositiveDisplacement.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/ChangeDeprecated.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -155,4 +156,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},{140,140}})));
-end Change;
+end ChangeDeprecated;

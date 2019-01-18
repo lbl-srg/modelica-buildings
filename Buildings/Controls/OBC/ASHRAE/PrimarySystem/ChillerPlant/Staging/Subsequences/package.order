@@ -1,8 +1,9 @@
 Capacities
 CapacityRequirement
-Centrifugal
+ChangeDeprecated
+ChangeOld
 ChillerdTRef
 DownProcess
-PositiveDisplacement
+PartLoadRatios
 UpProcess
 Validation

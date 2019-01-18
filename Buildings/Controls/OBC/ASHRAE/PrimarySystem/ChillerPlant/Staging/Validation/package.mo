@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging;
 package Validation "Collection of validation models"
 
 

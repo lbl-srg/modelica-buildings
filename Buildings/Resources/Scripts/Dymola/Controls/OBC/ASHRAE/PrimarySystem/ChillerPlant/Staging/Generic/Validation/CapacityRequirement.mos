@@ -1,7 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Validation.CapacityRequirement", method="Cvode", stopTime=1800, tolerance=1e-06, resultFile="CapacityRequirement");
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"capReq.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"capReq.VChiWat_flow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"capReq.TChiWatRet", "capReq.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-
-
-
