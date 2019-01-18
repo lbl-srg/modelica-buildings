@@ -132,7 +132,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->ffd->temHea = (REAL *) malloc(nSur*sizeof(REAL));
   if(haveShade==1) cosim->ffd->TSha = (REAL *) malloc(nConExtWin*sizeof(REAL));
   cosim->ffd->TPor = (REAL *) malloc(nPorts*sizeof(REAL));
-  cosim->ffd->msg = (REAL *) malloc(400*sizeof(char));
+  cosim->ffd->msg = (char *) malloc(400*sizeof(char));
 
   /****************************************************************************
   | Implicitly launch DLL module.
