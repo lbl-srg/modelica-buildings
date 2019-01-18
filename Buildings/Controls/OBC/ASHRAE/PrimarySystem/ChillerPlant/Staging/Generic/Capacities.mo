@@ -14,13 +14,15 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaNom(final unit="W",
-      final quantity="Power") "Nominal capacity of the current stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaNom(
+    final unit="W",
+    final quantity="Power") "Nominal capacity of the current stage"
     annotation (Placement(transformation(extent={{160,70},{180,90}}),
         iconTransformation(extent={{100,50},{120,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaDowNom(final unit="W",
-      final quantity="Power") "Nominal capacity of the first stage down"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaDowNom(
+    final unit="W",
+    final quantity="Power") "Nominal capacity of the first stage down"
     annotation (Placement(transformation(extent={{160,-10},{180,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -41,7 +43,8 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     "Array of chiller stage minimal unload capacities"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(final k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
+    final k=1)
     "Constant integer"
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
 
@@ -77,14 +80,17 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     "Aligns indexes (stage starts with 0, indexes with 1)"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
-  CDL.Interfaces.RealOutput yStaUpMin(final unit="W", final quantity="Power")
+  CDL.Interfaces.RealOutput yStaUpMin(
+    final unit="W",
+    final quantity="Power")
     "Minimum capacity of the next higher stage" annotation (Placement(
         transformation(extent={{160,-90},{180,-70}}), iconTransformation(extent=
            {{100,-70},{120,-50}})));
 
   CDL.Routing.RealExtractor extMinUnlCap(
-    final outOfRangeValue=-1, final nin=numSta + 2)
-                          "Extracts minimal stage capacity"
+    final outOfRangeValue=-1,
+    final nin=numSta + 2)
+    "Extracts minimal stage capacity"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
   CDL.Integers.Add addInt1 "Adds a stage"
