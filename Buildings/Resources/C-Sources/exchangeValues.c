@@ -14,6 +14,7 @@
  */
 
 #include "externalObjectStructure.h"
+#include "ModelicaUtilities.h"
 #include <string.h>
 #include <stdlib.h>
 

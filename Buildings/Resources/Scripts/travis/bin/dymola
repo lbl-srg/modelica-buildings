@@ -13,7 +13,7 @@ docker run \
   --detach=false \
   --rm \
   -v ${sha_dir}:/mnt/shared \
-  ${DOCKER_USERNAME}/travis_ubuntu-1604_dymola-2019-x86_64 /bin/bash -c \
+  ${DOCKER_USERNAME}/travis_ubuntu-1804_dymola-2019fd01-x86_64 /bin/bash -c \
   "Xvfb :77  -extension RANDR -extension GLX & \
   export DISPLAY=:77.0 && \
   cd /mnt/shared/${bas_nam} && \

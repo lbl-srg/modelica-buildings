@@ -3,9 +3,9 @@ record SandStone
   "Soil data record of sandstone heat transfer properties"
   extends
     Buildings.Fluid.Geothermal.Borefields.Data.Soil.Template(
-    kSoi=2.8,
-    dSoi=540,
-    cSoi=1210);
+    kSoi=2.5,
+    dSoi=1800,
+    cSoi=1200);
   annotation (
   defaultComponentPrefixes="parameter",
   defaultComponentName="soiDat",
@@ -17,6 +17,14 @@ This soil data record contains the heat transfer properties of sandstone.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 21, 2018, by Jianjun Hu:<br/>
+Changed the default properties based on Table 4 in the
+<a href=\"http://www.15000inc.com/wp/wp-content/uploads/Geothermal-Heat-Pump-Design-Manual.pdf\">
+McQuay geothermal heat pump design manual</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1062\">#1062</a>.
+</li>
+
 <li>
 July 15, 2018, by Michael Wetter:<br/>
 Revised implementation, added <code>defaultComponentPrefixes</code> and

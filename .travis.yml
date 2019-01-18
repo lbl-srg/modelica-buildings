@@ -53,7 +53,7 @@ env:
 
 before_install:
   - if [[ "$TEST_ARG" == *test-dymola* ]]; then
-       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2019-x86_64;
+       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola-2019fd01-x86_64;
        chmod +x Buildings/Resources/Scripts/travis/bin/dymola;
        cp Buildings/Resources/Scripts/travis/bin/dymola $HOME/bin/;
     fi;
@@ -69,7 +69,7 @@ before_install:
 # the test to fail
 install:
   - pip install --upgrade pip setuptools wheel
-  - pip install --only-binary=numpy,scipy,matplotlib numpy scipy matplotlib
+  - pip install --only-binary=numpy,scipy,matplotlib numpy==1.13.3 scipy==0.19.1 matplotlib==2.1.0
   - pip install sphinx==1.5.1 sphinx-bootstrap-theme==0.4.13 \
       sphinxcontrib-bibtex==0.3.4 sphinxcontrib-plantuml==0.8.1 \
       alabaster==0.7.10 MarkupSafe==0.23 html5lib==0.999 \

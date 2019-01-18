@@ -211,6 +211,9 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
         </td>
         </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers
         </td>
         <td valign=\"top\">Added <code>Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</code>
@@ -218,6 +221,9 @@ its class name ends with the string <code>Beta</code>.
                            based on design conditions and current mass flow rates.
         </td>
         </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Math
         </td>
         <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
@@ -240,6 +246,16 @@ its class name ends with the string <code>Beta</code>.
                            The accumulated timer can be reset when boolean reset input becomes <code>true</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>
                            and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1/AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow
+        </td>
+        <td valign=\"top\">Made input connector for occupancy conditionally removable to avoid having to set the
+                           number of occupants as an input if there is no occupancy sensor.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1270\">issue 1270</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
@@ -265,11 +281,25 @@ its class name ends with the string <code>Beta</code>.
      <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorDiscretizedOperable
+        </td>
+        <td valign=\"top\">Removed parameter <code>CD</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/971\">IBPSA, #971</a>.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Airflow.Multizone.EffectiveAirLeakageArea
         </td>
         <td valign=\"top\">Removed parameters <code>A</code>, <code>CD</code> and <code>lWet</code>.<br/>
                            For Dymola, a conversion script makes this change.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumnDynamic
+        </td>
+        <td valign=\"top\">Removed parameter <code>m_flow_nominal</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/970\">IBPSA, #970</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Airflow.Multizone.Orifice
@@ -334,7 +364,13 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Renamed model to
                            <code>Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</code>
                            because the convective heat transfer coefficients are for air.<br/>
-                           For Dymola, a conversion script makes this change.
+                           For Dymola, a conversion script makes this change.<br/>
+                           Removed variable <code>Z</code> as it is not used.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU
+        </td>
+        <td valign=\"top\">Removed variable <code>Z</code> as it is not used.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial
@@ -391,6 +427,16 @@ its class name ends with the string <code>Beta</code>.
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.Data.Soil.SandStone
+        </td>
+        <td valign=\"top\">Corrected wrong thermal properties.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1062\">IBPSA, #1062</a>.
+        </td>
+    </tr>
+
     <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
         </td>
     </tr>
