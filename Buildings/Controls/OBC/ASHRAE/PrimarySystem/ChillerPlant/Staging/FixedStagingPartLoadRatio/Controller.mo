@@ -92,10 +92,10 @@ annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
 equation
   connect(staChaPosDis.y, addInt.u1) annotation (Line(points={{-31,104},{-26,104},
           {-26,66},{-22,66}},  color={255,127,0}));
-  connect(staCap.ySta, staChaPosDis.uCapNomSta) annotation (Line(points={{-79,94},
+  connect(staCap.ySta, staChaPosDis.uStaCap) annotation (Line(points={{-79,94},
           {-76,94},{-76,104},{-53,104}}, color={0,0,127}));
-  connect(staCap.yStaLow, staChaPosDis.uCapNomLowSta) annotation (Line(points={{-79,86},
-          {-74,86},{-74,102},{-53,102}},      color={0,0,127}));
+  connect(staCap.yStaLow, staChaPosDis.uStaLowCap) annotation (Line(points={{-79,
+          86},{-74,86},{-74,102},{-53,102}}, color={0,0,127}));
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-160,60},
       {-120,60},{-120,35},{-101,35}},
                                     color={0,0,127}));
