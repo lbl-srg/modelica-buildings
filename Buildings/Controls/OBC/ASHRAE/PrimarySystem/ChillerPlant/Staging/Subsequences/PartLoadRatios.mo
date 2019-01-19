@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block PartLoadRatios
-  "Stage operating part load ratios (current, up, down and minimum) with reset based on stage chiller type"
+  "Operating and staging part load ratios with chiller type reset"
 
   parameter Integer numSta = 2
   "Number of stages";
@@ -31,7 +31,7 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUpCapMin(
     final unit="W",
     final quantity="Power") "Minimal capacity of the next higher stage"
-    annotation (Placement(transformation(extent={{-380,-220},{-340,-180}}),
+    annotation (Placement(transformation(extent={{-380,-282},{-340,-242}}),
         iconTransformation(extent={{-120,-20},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaDowCapNom(
@@ -79,9 +79,8 @@ block PartLoadRatios
                     iconTransformation(extent={{100,-20},{120,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaUpMin(
-    final unit="1", min = 0)
-    "Stage up minimal part load ratio"
-    annotation (Placement(transformation(extent={{260,-230},{280,-210}}),
+    final unit="1", min = 0) "Stage up minimal part load ratio"
+    annotation (Placement(transformation(extent={{262,-270},{282,-250}}),
                     iconTransformation(extent={{100,-80},{120,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
@@ -159,7 +158,7 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
   CDL.Continuous.Product staDowPlr2 "Calculates stage down part load ratio"
     annotation (Placement(transformation(extent={{-120,-300},{-100,-280}})));
-  CDL.Continuous.Division minStaPlr "Calculates minimum SPLR of one stage up"
+  CDL.Continuous.Division minStaUpPlr "Calculates minimum SPLR of one stage up"
     annotation (Placement(transformation(extent={{-282,-210},{-262,-190}})));
   CDL.Interfaces.RealOutput yUp(final unit="1", min=0)
     "Operating part load ratio of the next higher stage" annotation (Placement(
@@ -218,6 +217,17 @@ block PartLoadRatios
   CDL.Continuous.Division opePlrStaDow
     "Calculates operating part load ratio of the next stage down"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+  CDL.Interfaces.RealInput uStaCapMin(final unit="W", final quantity="Power")
+    "Minimal capacity of the current stage" annotation (Placement(
+        transformation(extent={{-382,-240},{-342,-200}}), iconTransformation(
+          extent={{-120,-20},{-100,0}})));
+  CDL.Interfaces.RealOutput yStaMin(final unit="1", min=0)
+    "Current stage minimal part load ratio" annotation (Placement(
+        transformation(extent={{260,-214},{280,-194}}), iconTransformation(
+          extent={{100,-100},{120,-80}})));
+  CDL.Continuous.Division minStaPlr
+    "Calculates minimum SPLR of the current stage"
+    annotation (Placement(transformation(extent={{-282,-288},{-262,-268}})));
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-362,16},{-280,16},{-280,
           -66},{-238,-66}},    color={0,0,127}));
@@ -322,22 +332,21 @@ equation
           {-40,-224},{20,-224}}, color={0,0,127}));
   connect(swi.y, yStaUp) annotation (Line(points={{163,150},{218,150},{218,0},{272,
           0}}, color={0,0,127}));
-  connect(swi2.y, yStaDow) annotation (Line(points={{83,-172},{218,-172},{218,
-          -160},{272,-160}},
-                       color={0,0,127}));
+  connect(swi2.y, yStaDow) annotation (Line(points={{83,-172},{218,-172},{218,-160},
+          {272,-160}}, color={0,0,127}));
   connect(uCapReq, opePlrStaUp.u1) annotation (Line(points={{-362,16},{-310,16},
           {-310,-154},{-224,-154}}, color={0,0,127}));
   connect(uStaUpCapNom, opePlrStaUp.u2) annotation (Line(points={{-360,-162},{-290,
           -162},{-290,-166},{-224,-166}}, color={0,0,127}));
-  connect(opePlrStaUp.y, yUp) annotation (Line(points={{-201,-160},{-62,-160},{
-          -62,-120},{270,-120}},
+  connect(opePlrStaUp.y, yUp) annotation (Line(points={{-201,-160},{-62,-160},{-62,
+          -120},{270,-120}},
                            color={0,0,127}));
-  connect(uStaUpCapMin, minStaPlr.u1) annotation (Line(points={{-360,-200},{-300,
-          -200},{-300,-194},{-284,-194}}, color={0,0,127}));
-  connect(uStaUpCapNom, minStaPlr.u2) annotation (Line(points={{-360,-162},{-308,
+  connect(uStaUpCapMin, minStaUpPlr.u1) annotation (Line(points={{-360,-262},{-300,
+          -262},{-300,-194},{-284,-194}}, color={0,0,127}));
+  connect(uStaUpCapNom, minStaUpPlr.u2) annotation (Line(points={{-360,-162},{-308,
           -162},{-308,-208},{-284,-208},{-284,-206}}, color={0,0,127}));
-  connect(minStaPlr.y, yStaUpMin) annotation (Line(points={{-261,-200},{-254,-200},
-          {-254,-248},{240,-248},{240,-220},{270,-220}}, color={0,0,127}));
+  connect(minStaUpPlr.y, yStaUpMin) annotation (Line(points={{-261,-200},{-254,-200},
+          {-254,-248},{240,-248},{240,-260},{272,-260}}, color={0,0,127}));
   connect(uLifMin, add2.u2) annotation (Line(points={{-360,-420},{-240,-420},{-240,
           -414},{-122,-414}}, color={0,0,127}));
   connect(const.y, div.u1) annotation (Line(points={{-219,-350},{-130,-350},{-130,
@@ -384,18 +393,24 @@ equation
           62}}, color={0,0,127}));
   connect(const4.y, swi3.u3)
     annotation (Line(points={{3,-278},{3,-240},{20,-240}}, color={0,0,127}));
-  connect(swi.y, lesThr.u) annotation (Line(points={{163,150},{172,150},{172,
-          272},{178,272}}, color={0,0,127}));
+  connect(swi.y, lesThr.u) annotation (Line(points={{163,150},{172,150},{172,272},
+          {178,272}},      color={0,0,127}));
   connect(swi3.y, lesThr1.u) annotation (Line(points={{43,-232},{168,-232},{168,
           222},{178,222}}, color={0,0,127}));
   connect(uLifMax, add2.u1) annotation (Line(points={{-360,-360},{-260,-360},{-260,
           -388},{-142,-388},{-142,-402},{-122,-402}}, color={0,0,127}));
   connect(uCapReq, opePlrStaDow.u1) annotation (Line(points={{-362,16},{-284,16},
           {-284,24},{-200,24},{-200,-84},{78,-84}}, color={0,0,127}));
-  connect(uStaDowCapNom, opePlrStaDow.u2) annotation (Line(points={{-360,-120},
-          {-282,-120},{-282,-94},{78,-94},{78,-96}}, color={0,0,127}));
-  connect(opePlrStaDow.y, yDow) annotation (Line(points={{101,-90},{198,-90},{
-          198,-80},{270,-80}}, color={0,0,127}));
+  connect(uStaDowCapNom, opePlrStaDow.u2) annotation (Line(points={{-360,-120},{
+          -282,-120},{-282,-94},{78,-94},{78,-96}}, color={0,0,127}));
+  connect(opePlrStaDow.y, yDow) annotation (Line(points={{101,-90},{198,-90},{198,
+          -80},{270,-80}}, color={0,0,127}));
+  connect(uStaCapMin, minStaPlr.u1) annotation (Line(points={{-362,-220},{-322,-220},
+          {-322,-272},{-284,-272}}, color={0,0,127}));
+  connect(minStaPlr.u2, uCapReq) annotation (Line(points={{-284,-284},{-322,-284},
+          {-322,16},{-362,16}}, color={0,0,127}));
+  connect(minStaPlr.y, yStaMin) annotation (Line(points={{-261,-278},{-224,-278},
+          {-224,-274},{-48,-274},{-48,-204},{270,-204}}, color={0,0,127}));
   annotation (defaultComponentName = "staChaPosDis",
         Icon(graphics={
         Rectangle(

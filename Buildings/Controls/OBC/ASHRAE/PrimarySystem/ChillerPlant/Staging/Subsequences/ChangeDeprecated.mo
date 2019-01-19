@@ -130,11 +130,11 @@ block ChangeDeprecated
     "Highest stage"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEquStaUpCap
+  CDL.Continuous.Greater                             greEquStaUpCap
     "Checks if staging up is needed due to the capacity requirement"
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessEqual lesEquStaDowCap
+  CDL.Continuous.Less                             lesEquStaDowCap
     "Checks if staging down is needed due to the capacity requirement"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
 

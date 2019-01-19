@@ -18,7 +18,7 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     final unit="W",
     final quantity="Power") "Nominal capacity of the current stage"
     annotation (Placement(transformation(extent={{160,70},{180,90}}),
-        iconTransformation(extent={{100,70},{120,90}})));
+        iconTransformation(extent={{100,60},{120,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaDowNom(
     final unit="W",
@@ -83,22 +83,20 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     final unit="W",
     final quantity="Power") "Minimum capacity of the next higher stage"
                                                 annotation (Placement(
-        transformation(extent={{160,-130},{180,-110}}),
-                                                      iconTransformation(extent={{100,-90},
+        transformation(extent={{160,-90},{180,-70}}), iconTransformation(extent={{100,-90},
             {120,-70}})));
 
   CDL.Routing.RealExtractor extMinUnlCap(
     final outOfRangeValue=-1,
-    final nin=numSta + 2)
-    "Extracts minimal stage capacity"
+    final nin=numSta + 2) "Extracts minimal capacity of the next higher stage"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
   CDL.Integers.Add addInt1 "Adds a stage"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   CDL.Interfaces.RealOutput yStaUpNom(final unit="W", final quantity="Power")
     "Nominal capacity of the next higher stage" annotation (Placement(
-        transformation(extent={{160,-70},{180,-50}}), iconTransformation(extent=
-           {{100,-40},{120,-20}})));
+        transformation(extent={{160,30},{180,50}}),   iconTransformation(extent={{100,-22},
+            {120,-2}})));
   CDL.Routing.RealExtractor extStaUpCap(final outOfRangeValue=-1, final nin=
         numSta + 1) "Extracts the nominal capacity of the next stage"
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
@@ -107,6 +105,13 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   CDL.Integers.Sources.Constant staMax(final k=numSta + 1)
     "Index of the maximal stage"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+  CDL.Interfaces.RealOutput yStaMin(final unit="W", final quantity="Power")
+    "Minimum capacity of the current stage" annotation (Placement(
+        transformation(extent={{160,-50},{180,-30}}), iconTransformation(extent
+          ={{100,-70},{120,-50}})));
+  CDL.Routing.RealExtractor extStaCapMin(final outOfRangeValue=-1, final nin=
+        numSta + 2) "Extracts the minimum capacity of the current stage"
+    annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
 equation
   connect(extStaCap.y, lesThr.u) annotation (Line(points={{-39,110},{-22,110}},
      color={0,0,127}));
@@ -146,8 +151,7 @@ equation
   connect(minStaUnl[2].y, swi.u1) annotation (Line(points={{-79,-80},{-70,-80},
           {-70,-60},{100,-60},{100,8},{118,8}},   color={0,0,127}));
   connect(extMinUnlCap.y, yStaUpMin)
-    annotation (Line(points={{-39,-80},{66,-80},{66,-120},{170,-120}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-39,-80},{170,-80}}, color={0,0,127}));
   connect(one.y, maxInt.u2) annotation (Line(points={{-129,-20},{-70,-20},{-70,-6},
           {-62,-6}}, color={255,127,0}));
   connect(addInt.y, addInt1.u1) annotation (Line(points={{-79,70},{-30,70},{-30,
@@ -158,14 +162,20 @@ equation
           {12,-100},{-50,-100},{-50,-92}}, color={255,127,0}));
   connect(staCap.y, extStaUpCap.u) annotation (Line(points={{-79,110},{-70,110},
           {-70,20},{20,20},{20,-20},{48,-20}}, color={0,0,127}));
-  connect(extStaUpCap.y, yStaUpNom) annotation (Line(points={{71,-20},{120,-20},
-          {120,-60},{170,-60}}, color={0,0,127}));
+  connect(extStaUpCap.y, yStaUpNom) annotation (Line(points={{71,-20},{96,-20},
+          {96,40},{170,40}},    color={0,0,127}));
   connect(staMax.y, minInt.u2) annotation (Line(points={{1,-70},{10,-70},{10,-56},
           {28,-56}}, color={255,127,0}));
   connect(addInt1.y, minInt.u1) annotation (Line(points={{1,-40},{10,-40},{10,-44},
           {28,-44}}, color={255,127,0}));
   connect(minInt.y, extStaUpCap.index)
     annotation (Line(points={{51,-50},{60,-50},{60,-32}}, color={255,127,0}));
+  connect(addInt.y, extStaCapMin.index) annotation (Line(points={{-79,70},{-74,
+          70},{-74,-120},{50,-120},{50,-112}}, color={255,127,0}));
+  connect(minStaUnl.y, extStaCapMin.u) annotation (Line(points={{-79,-80},{-70,
+          -80},{-70,-110},{28,-110},{28,-100},{38,-100}}, color={0,0,127}));
+  connect(extStaCapMin.y, yStaMin) annotation (Line(points={{61,-100},{140,-100},
+          {140,-40},{170,-40}}, color={0,0,127}));
   annotation (defaultComponentName = "staCap",
         Icon(graphics={
         Rectangle(
