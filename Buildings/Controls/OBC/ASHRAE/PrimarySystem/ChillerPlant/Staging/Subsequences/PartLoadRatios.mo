@@ -82,7 +82,7 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaUpMin(
     final unit="1", min = 0)
     "Stage up minimal part load ratio"
-    annotation (Placement(transformation(extent={{262,-230},{282,-210}}),
+    annotation (Placement(transformation(extent={{260,-230},{280,-210}}),
                     iconTransformation(extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
@@ -92,7 +92,7 @@ block PartLoadRatios
   CDL.Continuous.Division staDowPlr "Calculates stage down part load ratio"
     annotation (Placement(transformation(extent={{-98,-448},{-78,-428}})));
   CDL.Continuous.Product staUpPlr "Calculates stage up part load ratio"
-    annotation (Placement(transformation(extent={{-198,-120},{-178,-100}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Continuous.Sources.Constant chiStaType[numSta](k=chiStaTyp)
     "Chiller stage type"
     annotation (Placement(transformation(extent={{-300,260},{-280,280}})));
@@ -128,31 +128,44 @@ block PartLoadRatios
   CDL.Integers.Min minInt
     annotation (Placement(transformation(extent={{-180,160},{-160,180}})));
   CDL.Logical.Switch swi
-    annotation (Placement(transformation(extent={{30,-242},{50,-222}})));
+    annotation (Placement(transformation(extent={{142,140},{162,160}})));
   CDL.Integers.Sources.Constant staTyp1(final k=1) "Chiller stage type 1"
-    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
+    annotation (Placement(transformation(extent={{-62,130},{-42,150}})));
   CDL.Integers.Sources.Constant staTyp2(final k=2) "Chiller stage type 2"
-    annotation (Placement(transformation(extent={{-100,-220},{-80,-200}})));
-  CDL.Integers.Sources.Constant staTyp3(final k=3) "Chiller stage type 3"
-    annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
+    annotation (Placement(transformation(extent={{-62,70},{-42,90}})));
   CDL.Integers.Equal intEqu
-    annotation (Placement(transformation(extent={{46,-176},{66,-156}})));
+    annotation (Placement(transformation(extent={{-20,160},{0,180}})));
   CDL.Continuous.Sources.Constant posDisTypMult(k=chiStaTyp)
     "Positive displacement chiller type SPLR multiplier"
-    annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
+    annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
   CDL.Continuous.Sources.Constant conSpeCenTypMult(k=conSpeCenMult)
     "Constant speed centrifugal chiller type SPLR multiplier"
-    annotation (Placement(transformation(extent={{-240,-220},{-220,-200}})));
+    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   CDL.Logical.Switch swi1
-    annotation (Placement(transformation(extent={{60,-272},{80,-252}})));
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
   CDL.Logical.Switch swi2
-    annotation (Placement(transformation(extent={{86,-300},{106,-280}})));
+    annotation (Placement(transformation(extent={{62,-182},{82,-162}})));
   CDL.Logical.Switch swi3
-    annotation (Placement(transformation(extent={{6,-398},{26,-378}})));
+    annotation (Placement(transformation(extent={{22,-242},{42,-222}})));
   CDL.Logical.Switch swi4
     annotation (Placement(transformation(extent={{36,-428},{56,-408}})));
   CDL.Logical.Switch swi5
     annotation (Placement(transformation(extent={{62,-456},{82,-436}})));
+  CDL.Integers.Equal intEqu1
+    annotation (Placement(transformation(extent={{-22,98},{-2,118}})));
+  CDL.Continuous.Product staUpPlr1 "Calculates stage up part load ratio"
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+  CDL.Integers.Equal intEqu2
+    annotation (Placement(transformation(extent={{-18,10},{2,30}})));
+  CDL.Integers.Equal intEqu3
+    annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
+  CDL.Continuous.Product staDowPlr1 "Calculates stage down part load ratio"
+    annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
+  CDL.Continuous.Product staDowPlr2 "Calculates stage down part load ratio"
+    annotation (Placement(transformation(extent={{-120,-300},{-100,-280}})));
+  CDL.Continuous.Division                        opePlrSta1
+    "Calculates minimum PLR of one stage up"
+    annotation (Placement(transformation(extent={{-280,-200},{-260,-180}})));
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-362,-100},{-280,-100},
           {-280,-66},{-238,-66}},
@@ -160,9 +173,6 @@ equation
   connect(uStaCapNom, opePlrSta.u2) annotation (Line(points={{-362,-60},{-298,-60},
           {-298,-78},{-238,-78}},
                               color={0,0,127}));
-  connect(opePlrSta.y, staUpPlr.u1) annotation (Line(points={{-215,-72},{-208,-72},
-          {-208,-104},{-200,-104}},
-                        color={0,0,127}));
   connect(chiStaType.y,extStaTyp. u)
     annotation (Line(points={{-279,270},{-242,270}},color={0,0,127}));
   connect(uSta,extStaTyp. index) annotation (Line(points={{-360,240},{-230,240},
@@ -205,8 +215,68 @@ equation
   connect(maxInt.y, extStaTyp2.index)
     annotation (Line(points={{-159,70},{-150,70},{-150,98}},
                                                            color={255,127,0}));
-  connect(staUpPlr.y, y) annotation (Line(points={{-177,-110},{0,-110},{0,-60},
-          {272,-60}}, color={0,0,127}));
+  connect(staUpTyp.y, intEqu.u1) annotation (Line(points={{-99,210},{-60,210},{
+          -60,170},{-22,170}}, color={255,127,0}));
+  connect(intEqu.u2, staTyp1.y) annotation (Line(points={{-22,162},{-32,162},{
+          -32,140},{-41,140}}, color={255,127,0}));
+  connect(intEqu.y, swi.u2) annotation (Line(points={{1,170},{18,170},{18,150},
+          {140,150}}, color={255,0,255}));
+  connect(opePlrSta.y, y) annotation (Line(points={{-215,-72},{-38,-72},{-38,
+          -60},{272,-60}}, color={0,0,127}));
+  connect(conSpeCenTypMult.y, staUpPlr.u2) annotation (Line(points={{-139,-30},
+          {-132,-30},{-132,-16},{-122,-16}}, color={0,0,127}));
+  connect(staUpPlr.y, swi.u1) annotation (Line(points={{-99,-10},{32,-10},{32,
+          158},{140,158}}, color={0,0,127}));
+  connect(uStaCapNom, staUpPlr.u1) annotation (Line(points={{-362,-60},{-300,
+          -60},{-300,-4},{-122,-4}}, color={0,0,127}));
+  connect(curStaTyp.y, intEqu1.u1) annotation (Line(points={{-139,270},{-80,270},
+          {-80,108},{-24,108}}, color={255,127,0}));
+  connect(staTyp2.y, intEqu1.u2) annotation (Line(points={{-41,80},{-30,80},{
+          -30,100},{-24,100}}, color={255,127,0}));
+  connect(intEqu1.y, swi1.u2) annotation (Line(points={{-1,108},{40,108},{40,70},
+          {98,70}}, color={255,0,255}));
+  connect(posDisTypMult.y, staUpPlr1.u2) annotation (Line(points={{-159,-130},{
+          -142,-130},{-142,-116},{-122,-116}}, color={0,0,127}));
+  connect(uStaCapNom, staUpPlr1.u1) annotation (Line(points={{-362,-60},{-298,
+          -60},{-298,-104},{-122,-104}}, color={0,0,127}));
+  connect(staUpPlr1.y, swi1.u1) annotation (Line(points={{-99,-110},{-50,-110},
+          {-50,-106},{40,-106},{40,78},{98,78}}, color={0,0,127}));
+  connect(staDowTyp1.y, intEqu2.u1) annotation (Line(points={{-99,110},{-90,110},
+          {-90,20},{-20,20}}, color={255,127,0}));
+  connect(swi1.y, swi.u3) annotation (Line(points={{121,70},{128,70},{128,142},
+          {140,142}}, color={0,0,127}));
+  connect(staTyp1.y, intEqu3.u2) annotation (Line(points={{-41,140},{-34,140},{
+          -34,-158},{-22,-158}}, color={255,127,0}));
+  connect(curStaTyp.y, intEqu3.u1) annotation (Line(points={{-139,270},{-80,270},
+          {-80,-150},{-22,-150}}, color={255,127,0}));
+  connect(intEqu3.y, swi2.u2) annotation (Line(points={{1,-150},{20,-150},{20,
+          -172},{60,-172}}, color={255,0,255}));
+  connect(uStaDowCapNom, staDowPlr1.u1) annotation (Line(points={{-362,-140},{
+          -241,-140},{-241,-204},{-122,-204}}, color={0,0,127}));
+  connect(uStaDowCapNom, staDowPlr2.u1) annotation (Line(points={{-362,-140},{
+          -242,-140},{-242,-284},{-122,-284}}, color={0,0,127}));
+  connect(conSpeCenTypMult.y, staDowPlr1.u2) annotation (Line(points={{-139,-30},
+          {-130,-30},{-130,-216},{-122,-216}}, color={0,0,127}));
+  connect(posDisTypMult.y, staDowPlr2.u2) annotation (Line(points={{-159,-130},
+          {-142,-130},{-142,-296},{-122,-296}}, color={0,0,127}));
+  connect(staDowPlr1.y, swi2.u1) annotation (Line(points={{-99,-210},{-80,-210},
+          {-80,-180},{38,-180},{38,-164},{60,-164}}, color={0,0,127}));
+  connect(staTyp2.y, intEqu2.u2) annotation (Line(points={{-41,80},{-41,78},{
+          -30,78},{-30,12},{-20,12}}, color={255,127,0}));
+  connect(swi3.y, swi2.u3) annotation (Line(points={{43,-232},{50,-232},{50,
+          -180},{60,-180}}, color={0,0,127}));
+  connect(intEqu2.y, swi3.u2) annotation (Line(points={{3,20},{10,20},{10,-232},
+          {20,-232}}, color={255,0,255}));
+  connect(staDowPlr2.y, swi3.u1) annotation (Line(points={{-99,-290},{-40,-290},
+          {-40,-224},{20,-224}}, color={0,0,127}));
+  connect(swi.y, yStaUp) annotation (Line(points={{163,150},{218,150},{218,0},{
+          272,0}}, color={0,0,127}));
+  connect(swi2.y, yStaDow) annotation (Line(points={{83,-172},{218,-172},{218,
+          -120},{272,-120}}, color={0,0,127}));
+  connect(uCapReq, opePlrSta1.u1) annotation (Line(points={{-362,-100},{-306,
+          -100},{-306,-184},{-282,-184}}, color={0,0,127}));
+  connect(uStaUpCapMin, opePlrSta1.u2) annotation (Line(points={{-362,-180},{
+          -326,-180},{-326,-196},{-282,-196}}, color={0,0,127}));
   annotation (defaultComponentName = "staChaPosDis",
         Icon(coordinateSystem(extent={{-340,-400},{260,320}}),
              graphics={
@@ -220,7 +290,15 @@ equation
           lineColor={0,0,255},
           textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-340,-400},{260,320}})),
+        extent={{-340,-400},{260,320}}), graphics={Text(
+          extent={{80,56},{142,24}},
+          lineColor={28,108,200},
+          textString="lift 
+formula"), Text(
+          extent={{-2,-250},{60,-282}},
+          lineColor={28,108,200},
+          textString="lift 
+formula")}),
 Documentation(info="<html>
 <p>
 Fixme: This is a development version of the staging part load ratio 
