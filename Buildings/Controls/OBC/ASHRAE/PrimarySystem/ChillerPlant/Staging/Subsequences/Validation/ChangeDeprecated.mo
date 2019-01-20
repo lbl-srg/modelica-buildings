@@ -90,11 +90,12 @@ equation
   connect(stage0.y, staChaPosDis.uChiSta) annotation (Line(points={{41,110},{50,
           110},{50,130},{90,130},{90,120},{99,120}}, color={255,127,0}));
   connect(capReq1.y, staChaPosDis.uCapReq) annotation (Line(points={{41,70},{90,
-          70},{90,106},{99,106}}, color={0,0,127}));
+          70},{90,117},{99,117}}, color={0,0,127}));
   connect(stage1.y, staChaPosDis1.uChiSta) annotation (Line(points={{-99,110},{-90,
           110},{-90,128},{-30,128},{-30,120},{-21,120}}, color={255,127,0}));
-  connect(capReq2.y, staChaPosDis1.uCapReq) annotation (Line(points={{-59,50},{-30,
-          50},{-30,106},{-21,106}}, color={0,0,127}));
+  connect(capReq2.y, staChaPosDis1.uCapReq) annotation (Line(points={{-59,50},{
+          -30,50},{-30,117},{-21,117}},
+                                    color={0,0,127}));
   connect(NomSta1LowCap.y, staChaPosDis1.uStaLowCap) annotation (Line(points={{
           -59,80},{-40,80},{-40,108},{-21,108}}, color={0,0,127}));
   connect(NomSta1Cap.y, staChaPosDis1.uStaCap) annotation (Line(points={{-59,
@@ -109,20 +110,21 @@ equation
           {-40,-30},{-40,-10},{-21,-10}}, color={0,0,127}));
   connect(NomSta1Cap.y, staChaPosDis2.uStaLowCap) annotation (Line(points={{-59,
           110},{-42,110},{-42,-12},{-21,-12}}, color={0,0,127}));
-  connect(capReq1.y, staChaPosDis2.uCapReq) annotation (Line(points={{41,70},{60,
-          70},{60,30},{-32,30},{-32,-14},{-21,-14}}, color={0,0,127}));
+  connect(capReq1.y, staChaPosDis2.uCapReq) annotation (Line(points={{41,70},{
+          60,70},{60,30},{-32,30},{-32,-3},{-21,-3}},color={0,0,127}));
   connect(stageMax.y, staChaPosDis4.uChiSta) annotation (Line(points={{-99,-10},
           {-90,-10},{-90,-60},{-21,-60}}, color={255,127,0}));
-  connect(capReq3.y, staChaPosDis4.uCapReq) annotation (Line(points={{-59,-90},{
-          -40,-90},{-40,-74},{-21,-74}}, color={0,0,127}));
+  connect(capReq3.y, staChaPosDis4.uCapReq) annotation (Line(points={{-59,-90},
+          {-40,-90},{-40,-63},{-21,-63}},color={0,0,127}));
   connect(NomStaCap2.y, staChaPosDis4.uStaCap) annotation (Line(points={{-59,-30},
           {-40,-30},{-40,-70},{-21,-70}}, color={0,0,127}));
   connect(NomSta1Cap.y, staChaPosDis4.uStaLowCap) annotation (Line(points={{-59,
           110},{-40,110},{-40,-72},{-21,-72}}, color={0,0,127}));
   connect(stageMax.y, staChaPosDis3.uChiSta) annotation (Line(points={{-99,-10},
           {-90,-10},{-90,12},{80,12},{80,0},{99,0}}, color={255,127,0}));
-  connect(staChaPosDis3.uCapReq, capReq0.y) annotation (Line(points={{99,-14},{80.5,
-          -14},{80.5,-50},{61,-50}}, color={0,0,127}));
+  connect(staChaPosDis3.uCapReq, capReq0.y) annotation (Line(points={{99,-3},{
+          80.5,-3},{80.5,-50},{61,-50}},
+                                     color={0,0,127}));
   connect(NomStaCap2.y, staChaPosDis3.uStaCap) annotation (Line(points={{-59,-30},
           {20,-30},{20,-10},{99,-10}}, color={0,0,127}));
   connect(NomSta1Cap.y, staChaPosDis3.uStaLowCap) annotation (Line(points={{-59,

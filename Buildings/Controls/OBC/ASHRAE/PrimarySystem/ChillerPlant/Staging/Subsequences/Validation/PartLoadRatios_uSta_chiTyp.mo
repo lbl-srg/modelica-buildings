@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model PartLoadRatios_uSta
-  "Validates the operating and stage part load ratios calculation"
+model PartLoadRatios_uSta_chiTyp
+  "Validates the operating and stage part load ratios calculation under various chiller stage and stage types inputs"
 
 //protected
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
@@ -14,7 +14,7 @@ model PartLoadRatios_uSta
     final unit="m3/s") = 0.05
     "Average measured chilled water flow rate";
 
-  PartLoadRatios PLRs(chiStaTyp={2,2}) "Stage and operating part load ratios"
+  PartLoadRatios PLRs0(chiStaTyp={2,2}) "Stage and operating part load ratios"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
   Capacities staCap(
     numSta=2,
@@ -52,20 +52,20 @@ model PartLoadRatios_uSta
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 equation
 
-  connect(staSig1.y, PLRs.uSta) annotation (Line(points={{-139,150},{-110,150},{-110,
-          159},{-61,159}}, color={255,127,0}));
-  connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-99,120},{-90,120},{-90,
-          157},{-61,157}}, color={0,0,127}));
-  connect(staCap.yStaNom, PLRs.uStaCapNom) annotation (Line(points={{-99,87},{-88,87},
-          {-88,155},{-61,155}}, color={0,0,127}));
-  connect(staCap.yStaUpNom, PLRs.uStaUpCapNom) annotation (Line(points={{-99,83},{-86,
-          83},{-86,153},{-61,153}}, color={0,0,127}));
-  connect(staCap.yStaDowNom, PLRs.uStaDowCapNom) annotation (Line(points={{-99,79},
-          {-84,79},{-84,151},{-61,151}}, color={0,0,127}));
-  connect(staCap.yStaUpMin, PLRs.uStaUpCapMin) annotation (Line(points={{-99,74},{-82,
-          74},{-82,149},{-61,149}}, color={0,0,127}));
-  connect(staCap.yStaMin, PLRs.uStaCapMin) annotation (Line(points={{-99,72},{-80,72},
-          {-80,147},{-61,147}}, color={0,0,127}));
+  connect(staSig1.y, PLRs0.uSta) annotation (Line(points={{-139,150},{-110,150},
+          {-110,159},{-61,159}}, color={255,127,0}));
+  connect(capReq.y, PLRs0.uCapReq) annotation (Line(points={{-99,120},{-90,120},
+          {-90,157},{-61,157}}, color={0,0,127}));
+  connect(staCap.yStaNom, PLRs0.uStaCapNom) annotation (Line(points={{-99,87},{
+          -88,87},{-88,155},{-61,155}}, color={0,0,127}));
+  connect(staCap.yStaUpNom, PLRs0.uStaUpCapNom) annotation (Line(points={{-99,
+          83},{-86,83},{-86,153},{-61,153}}, color={0,0,127}));
+  connect(staCap.yStaDowNom, PLRs0.uStaDowCapNom) annotation (Line(points={{-99,
+          79},{-84,79},{-84,151},{-61,151}}, color={0,0,127}));
+  connect(staCap.yStaUpMin, PLRs0.uStaUpCapMin) annotation (Line(points={{-99,
+          74},{-82,74},{-82,149},{-61,149}}, color={0,0,127}));
+  connect(staCap.yStaMin, PLRs0.uStaCapMin) annotation (Line(points={{-99,72},{
+          -80,72},{-80,147},{-61,147}}, color={0,0,127}));
   connect(staSig1.y, staCap.uSta) annotation (Line(points={{-139,150},{-130,150},{-130,
           80},{-122,80}}, color={255,127,0}));
   connect(staSig2.y, PLRs1.uSta) annotation (Line(points={{61,150},{90,150},{90,159},
@@ -129,4 +129,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,200}})));
-end PartLoadRatios_uSta;
+end PartLoadRatios_uSta_chiTyp;

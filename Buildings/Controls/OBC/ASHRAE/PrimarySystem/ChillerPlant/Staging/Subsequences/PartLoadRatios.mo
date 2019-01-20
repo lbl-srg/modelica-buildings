@@ -208,13 +208,14 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const4(k=-1) if max(chiStaTyp) < 2.5 "Constant"
     annotation (Placement(transformation(extent={{-30,-280},{-10,-260}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert                        staTyp(final message="Unlisted chiller type got selected")
-    "\"Unlisted chiller type got selected\""
+    "Unlisted chiller type got selected"
     annotation (Placement(transformation(extent={{220,262},{240,282}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(final threshold=-0.5)
                           "Less than threshold"
     annotation (Placement(transformation(extent={{180,262},{200,282}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert                        staExc1(final message="\"\"Unlisted chiller type got selected\"")
-    "\"Unlisted chiller type got selected\""
+  Buildings.Controls.OBC.CDL.Utilities.Assert                        staExc1(final
+      message="Unlisted chiller type got selected")
+    "Unlisted chiller type got selected"
     annotation (Placement(transformation(extent={{220,212},{240,232}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(final threshold=-0.5)
                           "Less than threshold"
@@ -317,7 +318,7 @@ equation
           -254,-248},{240,-248},{240,-240},{270,-240}}, color={0,0,127}));
   connect(uLifMin, add2.u2) annotation (Line(points={{-360,-420},{-240,-420},{-240,
           -414},{-122,-414}}, color={0,0,127}));
-  connect(const.y, div.u1) annotation (Line(points={{-219,-350},{-130,-350},{-130,
+  connect(const.y, div.u1) annotation (Line(points={{-219,-350},{-98,-350},{-98,
           -354},{-56,-354}}, color={0,0,127}));
   connect(add2.y, div.u2) annotation (Line(points={{-99,-408},{-80,-408},{-80,-366},
           {-56,-366}}, color={0,0,127}));
@@ -398,16 +399,16 @@ equation
           210},{-22,210}}, color={255,127,0}));
   connect(intEqu3.y, swi2.u2) annotation (Line(points={{1,210},{28,210},{28,-172},{
           60,-172}}, color={255,0,255}));
-  connect(staTyp1.y, intEqu4.u2) annotation (Line(points={{-41,140},{34,140},{
-          34,202},{58,202}}, color={255,127,0}));
-  connect(curStaTyp.y, intEqu4.u1) annotation (Line(points={{-139,270},{40,270},
-          {40,210},{58,210}}, color={255,127,0}));
-  connect(swi.u2, or2.y) annotation (Line(points={{140,150},{130,150},{130,190},
-          {121,190}}, color={255,0,255}));
-  connect(intEqu4.y, or2.u1) annotation (Line(points={{81,210},{90,210},{90,190},
-          {98,190}}, color={255,0,255}));
-  connect(intEqu.y, or2.u2) annotation (Line(points={{1,170},{44,170},{44,174},
-          {98,174},{98,182}}, color={255,0,255}));
+  connect(staTyp1.y, intEqu4.u2) annotation (Line(points={{-41,140},{34,140},{34,202},
+          {58,202}}, color={255,127,0}));
+  connect(curStaTyp.y, intEqu4.u1) annotation (Line(points={{-139,270},{40,270},{40,
+          210},{58,210}}, color={255,127,0}));
+  connect(swi.u2, or2.y) annotation (Line(points={{140,150},{130,150},{130,190},{121,
+          190}}, color={255,0,255}));
+  connect(intEqu4.y, or2.u1) annotation (Line(points={{81,210},{90,210},{90,190},{98,
+          190}}, color={255,0,255}));
+  connect(intEqu.y, or2.u2) annotation (Line(points={{1,170},{44,170},{44,174},{98,
+          174},{98,182}}, color={255,0,255}));
   annotation (defaultComponentName = "PLRs",
         Icon(graphics={
         Rectangle(
@@ -434,7 +435,12 @@ Documentation(info="<html>
 Fixme: This is a development version of the staging part load ratio 
 calculation with chiller type reset.
 
-Explain SPLR
+OPLR - Operating part load ratio refers to any ratio of current capacity requirement
+to a nominal or minimal stage capacity.
+
+SPLR - Stage part load ratio (up or down) is defined separately for each stage chiller type.
+It is used in deciding whether to stage up or down when compared with OPLRs of the current 
+and first stage down, respectively.
 
 Set stage chiller type to:
 
@@ -446,7 +452,8 @@ If more than one condition applies for a single stage, use the determination wit
 
 Recomended staging order: more than one positive displacement, variable speed contrifugal, constant speed centrifugal
 
-add test for centrifugal late, after we clarify why both up and down SPLR equations look the same.
+add test for centrifugal later, after we clarify why both up and down SPLR equations look the same, at that time also add check for 
+chiller type = 3.
 
 </p>
 </html>",
