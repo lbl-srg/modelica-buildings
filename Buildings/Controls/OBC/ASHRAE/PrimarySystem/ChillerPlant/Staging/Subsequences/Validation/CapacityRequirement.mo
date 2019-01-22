@@ -3,7 +3,8 @@ model CapacityRequirement
   "Validates the cooling capacity requirement calculation"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement
-    capReq annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    capReq "Capacity requirement"
+           annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
 //protected
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15

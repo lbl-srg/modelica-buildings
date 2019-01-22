@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model ChangeDeprecated
-  "Validates stage change for fixed speed chillers"
+model Change "Validates chiller stage change"
 
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
   "Chilled water supply set temperature";
@@ -158,4 +157,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},{140,140}})));
-end ChangeDeprecated;
+end Change;
