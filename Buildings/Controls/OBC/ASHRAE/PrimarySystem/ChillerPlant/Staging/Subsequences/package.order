@@ -3,6 +3,7 @@ CapacityRequirement
 ChangeDeprecated
 ChangeOld
 ChillerdTRef
+FailsafeCondition
 DownProcess
 PartLoadRatios
 UpProcess

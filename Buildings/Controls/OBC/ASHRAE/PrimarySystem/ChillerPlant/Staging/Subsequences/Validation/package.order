@@ -3,4 +3,5 @@ CapacityRequirement
 ChillerdTRef
 ChangeOld
 ChangeDeprecated
+FailsafeCondition
 PartLoadRatios_uSta_chiTyp
