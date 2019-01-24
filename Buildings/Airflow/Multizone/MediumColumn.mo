@@ -5,13 +5,7 @@ model MediumColumn
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15,
-          X_a=0.40)
-          "Propylene glycol water, 40% mass fraction")));
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
   parameter Buildings.Airflow.Multizone.Types.densitySelection densitySelection
@@ -209,6 +203,11 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 May 1, 2018, by Filip Jorissen:<br/>
 Removed declaration of <code>allowFlowReversal</code>

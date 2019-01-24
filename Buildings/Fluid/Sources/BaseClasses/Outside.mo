@@ -1,7 +1,8 @@
 within Buildings.Fluid.Sources.BaseClasses;
 partial model Outside
   "Boundary that takes weather data, and optionally trace substances, as an input"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
+  extends Buildings.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
+
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
     annotation(Evaluate=true, HideResult=true);
@@ -36,11 +37,13 @@ protected
   Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
        quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput h_internal = Medium.specificEnthalpy(
+    Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
 
 equation
   // Check medium properties
   Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
-    Medium.singleState, true, medium.X, "Boundary_pT");
+    Medium.singleState, true, X_in_internal, "Boundary_pT");
 
   // Conditional connectors for trace substances
   connect(C_in, C_in_internal);
@@ -60,11 +63,28 @@ equation
   if singleSubstance then
     X_in_internal = ones(Medium.nX);
   end if;
-  // Assign medium properties
-  medium.p = p_in_internal;
-  medium.T = T_in_internal;
-  medium.Xi = X_in_internal[1:Medium.nXi];
+
+  connect(X_in_internal[1:Medium.nXi], Xi_in_internal);
+
   ports.C_outflow = fill(C_in_internal, nPorts);
+
+  if not verifyInputs then
+    h_internal    = Medium.h_default;
+    p_in_internal = Medium.p_default;
+    X_in_internal = Medium.X_default;
+    T_in_internal = Medium.T_default;
+  end if;
+
+  // Assign medium properties
+  connect(medium.h, h_internal);
+  connect(medium.Xi, Xi_in_internal);
+
+  for i in 1:nPorts loop
+    ports[i].p          = p_in_internal;
+    ports[i].h_outflow  = h_internal;
+    ports[i].Xi_outflow = Xi_in_internal;
+  end for;
+
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -111,6 +131,12 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 14, 2019 by Jianjun Hu:<br/>
+Changed to extend <a href=\"modelica://Buildings.Fluid.Sources.BaseClasses.PartialSource\">
+Buildings.Fluid.Sources.BaseClasses.PartialSource</a>. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\"> #1050</a>.
+</li>
 <li>
 May 30, 2017 by Jianjun Hu:<br/>
 Corrected <code>X_in_internal = zeros()</code> to be <code>X_in_internal = ones()</code>.

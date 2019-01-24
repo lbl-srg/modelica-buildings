@@ -79,6 +79,11 @@ If the temperature is outside these bounds, the simulation will stop with an err
 </html>", revisions="<html>
 <ul>
 <li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
 May 30, 2018, by Michael Wetter:<br/>
 Improved documentation.
 </li>
