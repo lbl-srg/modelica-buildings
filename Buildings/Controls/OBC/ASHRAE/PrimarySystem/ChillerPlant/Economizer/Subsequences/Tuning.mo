@@ -133,7 +133,7 @@ protected
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat "Latch"
-    annotation (Placement(transformation(extent={{-38,-160},{-18,-140}})));
+    annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
 
 equation
   connect(uWseSta, tim.u)
@@ -218,11 +218,11 @@ equation
   connect(and5.u1, not2.y)
     annotation (Line(points={{-82,-170},{-92,-170},{-92,-160},{-99,-160}},
                                                       color={255,0,255}));
-  connect(and5.y, lat.u) annotation (Line(points={{-59,-170},{-42,-170},{-42,
-          -150},{-39,-150}}, color={255,0,255}));
-  connect(not1.y, lat.u0) annotation (Line(points={{-119,-60},{-50,-60},{-50,-156},
-          {-39,-156}},       color={255,0,255}));
-  connect(lat.y, and4.u2) annotation (Line(points={{-17,-150},{-10,-150},{-10,
+  connect(and5.y, lat.u) annotation (Line(points={{-59,-170},{-52,-170},{-52,
+          -150},{-41,-150}}, color={255,0,255}));
+  connect(not1.y, lat.u0) annotation (Line(points={{-119,-60},{-50,-60},{-50,
+          -156},{-41,-156}}, color={255,0,255}));
+  connect(lat.y, and4.u2) annotation (Line(points={{-19,-150},{-10,-150},{-10,
           -138},{-2,-138}},                  color={255,0,255}));
   connect(and1.y, triSam1.trigger)
     annotation (Line(points={{61,-50},{70,-50},{70,-31.8}},
