@@ -19,8 +19,7 @@ protected
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUpMin(
-    final k=0.4)
-    "Minimum operating part load ratio of the next stage up"
+    final k=0.4) "Minimum operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSup(

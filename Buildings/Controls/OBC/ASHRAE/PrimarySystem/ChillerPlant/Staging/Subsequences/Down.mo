@@ -1,15 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
-block Change "Stage change signal"
+block Down "Conditions to enable stage down"
 
   // fixme: pull OPRLup and OPRLdown out into chiller type staging packages
   parameter Integer numSta = 2
   "Number of stages";
 
-
   parameter Modelica.SIunits.Time delayStaCha = 15*60
   "Minimum chiller load time below or above current stage before a change is enabled";
-
-
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
@@ -83,10 +80,6 @@ block Change "Stage change signal"
                                                    annotation (Placement(
         transformation(extent={{-220,-40},{-180,0}}), iconTransformation(extent=
            {{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput uOplrMin(final unit="1")
-    "Minimum operating part load ratio at the current stage" annotation (
-      Placement(transformation(extent={{-220,60},{-180,100}}),
-        iconTransformation(extent={{-120,30},{-100,50}})));
 equation
   connect(booToInt.y, addInt.u1) annotation (Line(points={{131,10},{134,10},{134,
           6},{148,6}}, color={255,127,0}));
@@ -130,4 +123,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Change;
+end Down;

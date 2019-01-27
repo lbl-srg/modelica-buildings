@@ -207,7 +207,7 @@ equation
           -60},{-142,-60}},   color={255,0,255}));
   connect(hys.y, and6.u1) annotation (Line(points={{-139,-100},{-124,-100},{
           -124,-130},{-82,-130}},  color={255,0,255}));
-  connect(not1.y, and6.u2) annotation (Line(points={{-119,-60},{-110,-60},{-110,
+  connect(not1.y, and6.u2) annotation (Line(points={{-119,-60},{-90,-60},{-90,
           -138},{-82,-138}},       color={255,0,255}));
   connect(and4.u1, and6.y) annotation (Line(points={{-2,-130},{-59,-130}},
                   color={255,0,255}));
@@ -216,7 +216,7 @@ equation
   connect(hys.y, not2.u) annotation (Line(points={{-139,-100},{-132,-100},{-132,
           -160},{-122,-160}}, color={255,0,255}));
   connect(and5.u1, not2.y)
-    annotation (Line(points={{-82,-170},{-92,-170},{-92,-160},{-99,-160}},
+    annotation (Line(points={{-82,-170},{-90,-170},{-90,-160},{-99,-160}},
                                                       color={255,0,255}));
   connect(and5.y, lat.u) annotation (Line(points={{-59,-170},{-52,-170},{-52,
           -150},{-41,-150}}, color={255,0,255}));
