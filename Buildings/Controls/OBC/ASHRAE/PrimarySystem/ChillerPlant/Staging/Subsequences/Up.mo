@@ -12,31 +12,6 @@ block Up "Conditions to enable stage up"
     annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(
-    final max=1,
-    final min=-1) "Chiller stage change (1 - up, -1 - down, 0 - unchanged)"
-    annotation (Placement(transformation(extent=
-    {{180,-10},{200,10}}), iconTransformation(extent={{100,-10},{120,10}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
-    "Boolean to integer conversion"
-    annotation (Placement(transformation(extent={{110,0},{130,20}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
-    "Boolean to integer conversion"
-    annotation (Placement(transformation(extent={{110,-40},{130,-20}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Add addInt(
-    final k2=-1)
-    "Adder"
-    annotation (Placement(transformation(extent={{150,-10},{170,10}})));
-
-  CDL.Logical.Or  andStaDow "And for staging down"
-    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  CDL.Logical.Or3  andStaUp
-                           "And for staging up"
-    annotation (Placement(transformation(extent={{80,0},{100,20}})));
-
   CDL.Interfaces.RealInput uOplrUp(final unit="1")
     "Operating part load ratio of the next higher stage"
     annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
@@ -84,17 +59,12 @@ block Up "Conditions to enable stage up"
     "Minimum operating part load ratio at the current stage" annotation (
       Placement(transformation(extent={{-220,60},{-180,100}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
-equation
-  connect(booToInt.y, addInt.u1) annotation (Line(points={{131,10},{134,10},{134,
-          6},{148,6}}, color={255,127,0}));
-  connect(booToInt1.y, addInt.u2) annotation (Line(points={{131,-30},{134,-30},{
-          134,-6},{148,-6}}, color={255,127,0}));
-  connect(addInt.y, y)
-    annotation (Line(points={{171,0},{190,0}}, color={255,127,0}));
-  connect(booToInt.u, andStaUp.y)
-    annotation (Line(points={{108,10},{101,10}}, color={255,0,255}));
-  connect(booToInt1.u, andStaDow.y)
-    annotation (Line(points={{108,-30},{101,-30}}, color={255,0,255}));
+  CDL.Logical.Or orStaUp "Or for staging up"
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+  FailsafeCondition faiSafCon
+    annotation (Placement(transformation(extent={{-58,-80},{-38,-60}})));
+  EfficiencyCondition effCon
+    annotation (Placement(transformation(extent={{-68,-6},{-48,14}})));
   annotation (defaultComponentName = "staChaPosDis",
         Icon(graphics={
         Rectangle(

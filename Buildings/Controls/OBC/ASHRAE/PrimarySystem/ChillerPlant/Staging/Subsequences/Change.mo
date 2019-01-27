@@ -1,15 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
-block Change "Stage change signal"
+block Change "Calculates the chiller stage signal"
 
   // fixme: pull OPRLup and OPRLdown out into chiller type staging packages
   parameter Integer numSta = 2
   "Number of stages";
 
-
   parameter Modelica.SIunits.Time delayStaCha = 15*60
   "Minimum chiller load time below or above current stage before a change is enabled";
-
-
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
