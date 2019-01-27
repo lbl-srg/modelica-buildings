@@ -95,11 +95,11 @@ equation
           {-22,-44}}, color={0,0,127}));
   connect(uTunPar, pro1.u2) annotation (Line(points={{-180,-140},{-30,-140},{-30,
           -56},{-22,-56}}, color={0,0,127}));
-  connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{46,140},{
-          46,1.5},{78,1.5}},color={0,0,127}));
-  connect(pro.y, mulSum.u[2]) annotation (Line(points={{1,54},{30,54},{30,0.5},
+  connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{60,140},{
+          60,1.5},{78,1.5}},color={0,0,127}));
+  connect(pro.y, mulSum.u[2]) annotation (Line(points={{1,54},{20,54},{20,0.5},
           {78,0.5}},  color={0,0,127}));
-  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{1,-50},{10,-50},{10,
+  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{1,-50},{20,-50},{20,
           -0.5},{78,-0.5}},
                        color={0,0,127}));
   connect(towAppDes1.y, mulSum.u[4]) annotation (Line(points={{41,-90},{60,-90},

@@ -82,6 +82,12 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
     iconTransformation(extent={{100,-10},{120,10}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTPre(
+    final quantity="ThermodynamicTemperature",
+    final unit="K") "Predicted waterside economizer outlet temperature"
+    annotation (Placement(transformation(extent={{180,70},{200,90}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning wseTun(
     final step=step,
     final wseOnTimDec=wseOnTimDec,
@@ -194,6 +200,8 @@ equation
     annotation (Line(points={{21,-10},{28,-10}},   color={255,0,255}));
   connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{81,-10},{90,-10},{
           90,42},{98,42}}, color={255,0,255}));
+  connect(wseTOut.y, yTPre) annotation (Line(points={{-78,60},{-70,60},{-70,90},
+          {160,90},{160,80},{190,80}}, color={0,0,127}));
   annotation (defaultComponentName = "wseSta",
         Icon(graphics={
         Rectangle(

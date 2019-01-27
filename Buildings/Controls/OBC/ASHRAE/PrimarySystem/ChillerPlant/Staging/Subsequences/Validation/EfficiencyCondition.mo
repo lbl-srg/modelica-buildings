@@ -12,8 +12,7 @@ protected
     phase(displayUnit="rad"),
     startTime=0,
     final offset=0.85,
-    final freqHz=1/2100)
-                      "Operating part load ratio of the current stage"
+    final freqHz=1/2100) "Operating part load ratio of the current stage"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant splrUp(final k=0.8)

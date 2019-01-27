@@ -16,10 +16,10 @@ block Tuning
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe
-    "Cooling tower fan speed"
-    annotation (Placement(transformation(extent={{-222,-120},{-182,-80}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
+    "Maximum cooling tower fan speed" annotation (Placement(transformation(
+          extent={{-222,-120},{-182,-80}}), iconTransformation(extent={{-140,-70},
+            {-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final max=0.5,
@@ -161,7 +161,7 @@ equation
     annotation (Line(points={{-79,10},{-62,10}}, color={255,0,255}));
   connect(and1.u1, pre1.y) annotation (Line(points={{38,-42},{-30,-42},{-30,10},
           {-39,10}},  color={255,0,255}));
-  connect(uTowFanSpe, hys.u)
+  connect(uTowFanSpeMax, hys.u)
     annotation (Line(points={{-202,-100},{-162,-100}}, color={0,0,127}));
   connect(triSam.y, zerOrdHol.u)
     annotation (Line(points={{81,130},{98,130}}, color={0,0,127}));
@@ -227,8 +227,9 @@ equation
   connect(and1.y, triSam1.trigger)
     annotation (Line(points={{61,-50},{70,-50},{70,-31.8}},
                                                        color={255,0,255}));
-  connect(greThr.y, and1.u3) annotation (Line(points={{81,-100},{90,-100},{90,-80},
-          {8,-80},{8,-58},{38,-58}},      color={255,0,255}));
+  connect(greThr.y, and1.u3) annotation (Line(points={{81,-100},{90,-100},{90,
+          -80},{20,-80},{20,-58},{38,-58}},
+                                          color={255,0,255}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(

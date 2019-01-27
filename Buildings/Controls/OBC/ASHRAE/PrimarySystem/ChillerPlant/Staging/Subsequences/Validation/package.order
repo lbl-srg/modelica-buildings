@@ -1,10 +1,10 @@
 Capacities_uSta
 CapacityRequirement
 ChillerdTRef
-Down
 Change
 ChangeOld
+Down
+EfficiencyCondition
 FailsafeCondition
 PartLoadRatios_uSta_chiTyp
-EfficiencyCondition
 Up
