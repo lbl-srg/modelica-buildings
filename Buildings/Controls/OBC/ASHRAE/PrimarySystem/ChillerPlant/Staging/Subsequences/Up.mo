@@ -8,64 +8,73 @@ block Up "Conditions to enable stage up"
   parameter Modelica.SIunits.Time delayStaCha = 15*60
   "Minimum chiller load time below or above current stage before a change is enabled";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
-    annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
-        iconTransformation(extent={{-120,90},{-100,110}})));
-
   CDL.Interfaces.RealInput uOplrUp(final unit="1")
     "Operating part load ratio of the next higher stage"
-    annotation (Placement(transformation(extent={{-220,-90},{-180,-50}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
+    annotation (Placement(transformation(extent={{-120,30},{-80,70}}),
+        iconTransformation(extent={{-120,30},{-100,50}})));
   CDL.Interfaces.RealInput uOplrUpMin(final unit="1")
     "Minimum operating part load ratio at the next stage up"
-    annotation (Placement(transformation(extent={{-220,-130},{-180,-90}}),
-        iconTransformation(extent={{-120,30},{-100,50}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-80,30}}),
+        iconTransformation(extent={{-120,10},{-100,30}})));
   CDL.Interfaces.RealInput dpChiWatPumSet(final unit="Pa", final quantity="PressureDifference")
     "Chilled water pump differential static pressure setpoint"
-    annotation (Placement(transformation(extent={{-220,-260},{-180,-220}}),
+    annotation (Placement(transformation(extent={{-120,-130},{-80,-90}}),
       iconTransformation(extent={{-120,-80},{-100,-60}})));
   CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa", final quantity="PressureDifference")
     "Chilled water pump differential static pressure"
     annotation (Placement(
-    transformation(extent={{-220,-300},{-180,-260}}), iconTransformation(
+    transformation(extent={{-120,-170},{-80,-130}}),  iconTransformation(
      extent={{-120,-100},{-100,-80}})));
   CDL.Interfaces.RealInput TChiWatSupSet(final unit="K", final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
-    iconTransformation(extent={{-120,-20},{-100,0}})));
+    annotation (Placement(transformation(extent={{-120,-50},{-80,-10}}),
+    iconTransformation(extent={{-120,-30},{-100,-10}})));
   CDL.Interfaces.RealInput TChiWatSup(final unit="K", final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(
-      extent={{-220,-220},{-180,-180}}), iconTransformation(extent={{-120,-40},{
-            -100,-20}})));
+      extent={{-120,-90},{-80,-50}}),    iconTransformation(extent={{-120,-50},
+            {-100,-30}})));
   CDL.Interfaces.RealInput uOplr(final unit="1")
     "Operating part load ratio of the current stage" annotation (Placement(
-        transformation(extent={{-220,120},{-180,160}}),iconTransformation(
-          extent={{-120,70},{-100,90}})));
+        transformation(extent={{-120,110},{-80,150}}), iconTransformation(
+          extent={{-120,80},{-100,100}})));
   CDL.Interfaces.RealInput uSplrUp(final unit="1")
     "Staging part load ratio of the next stage up" annotation (Placement(
-        transformation(extent={{-220,90},{-180,130}}),iconTransformation(extent=
-           {{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput uOplrDow(final unit="1")
-    "Operating part load ratio of the next stage down" annotation (Placement(
-        transformation(extent={{-220,0},{-180,40}}),  iconTransformation(extent=
-           {{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput uSplrDow(final unit="1")
-    "Staging part load ratio of the next stage down"
-                                                   annotation (Placement(
-        transformation(extent={{-220,-40},{-180,0}}), iconTransformation(extent=
-           {{-120,70},{-100,90}})));
-  CDL.Interfaces.RealInput uOplrMin(final unit="1")
-    "Minimum operating part load ratio at the current stage" annotation (
-      Placement(transformation(extent={{-220,60},{-180,100}}),
-        iconTransformation(extent={{-120,30},{-100,50}})));
+        transformation(extent={{-120,80},{-80,120}}), iconTransformation(extent={{-120,60},
+            {-100,80}})));
   CDL.Logical.Or orStaUp "Or for staging up"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   FailsafeCondition faiSafCon
-    annotation (Placement(transformation(extent={{-58,-80},{-38,-60}})));
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   EfficiencyCondition effCon
-    annotation (Placement(transformation(extent={{-68,-6},{-48,14}})));
-  annotation (defaultComponentName = "staChaPosDis",
+    annotation (Placement(transformation(extent={{0,110},{20,130}})));
+  CDL.Interfaces.BooleanOutput y "Efficiency condition for chiller staging"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+equation
+  connect(uOplr, effCon.uOplr) annotation (Line(points={{-100,130},{-71,130},{-71,
+          125},{-1,125}}, color={0,0,127}));
+  connect(uSplrUp, effCon.uSplrUp) annotation (Line(points={{-100,100},{-70,100},
+          {-70,115},{-1,115}}, color={0,0,127}));
+  connect(uOplrUp, faiSafCon.uOplrUp) annotation (Line(points={{-100,50},{-10,50},
+          {-10,-62},{-1,-62}}, color={0,0,127}));
+  connect(uOplrUpMin, faiSafCon.uOplrUpMin) annotation (Line(points={{-100,10},{
+          -20,10},{-20,-66},{-1,-66}}, color={0,0,127}));
+  connect(TChiWatSupSet, faiSafCon.TChiWatSupSet) annotation (Line(points={{-100,
+          -30},{-30,-30},{-30,-71},{-1,-71}}, color={0,0,127}));
+  connect(TChiWatSup, faiSafCon.TChiWatSup) annotation (Line(points={{-100,-70},
+          {-40,-70},{-40,-73},{-1,-73}}, color={0,0,127}));
+  connect(dpChiWatPumSet, faiSafCon.dpChiWatPumSet) annotation (Line(points={{-100,
+          -110},{-40,-110},{-40,-77},{-1,-77}}, color={0,0,127}));
+  connect(dpChiWatPum, faiSafCon.dpChiWatPum) annotation (Line(points={{-100,-150},
+          {-20,-150},{-20,-79},{-1,-79}}, color={0,0,127}));
+  connect(effCon.y, orStaUp.u1) annotation (Line(points={{21,120},{40,120},{40,0},
+          {58,0}}, color={255,0,255}));
+  connect(faiSafCon.y, orStaUp.u2) annotation (Line(points={{21,-70},{40,-70},{40,
+          -8},{58,-8}}, color={255,0,255}));
+  connect(orStaUp.y, y)
+    annotation (Line(points={{81,0},{110,0}}, color={255,0,255}));
+  annotation (defaultComponentName = "staUp",
         Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -77,7 +86,7 @@ block Up "Conditions to enable stage up"
           lineColor={0,0,255},
           textString="%name")}),          Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-180,-280},{180,200}})),
+        extent={{-80,-160},{100,140}})),
 Documentation(info="<html>
 <p>
 Outputs the chiller stage change signal

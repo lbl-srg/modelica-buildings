@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
 model FailsafeCondition "Validate failsafe condition sequence"
 
-
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition
     faiSafCon0
     "Failsafe condition to test for the operating part load ratio input"
@@ -32,7 +31,8 @@ protected
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(final k=64.1*6895)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
+    final k=64.1*6895)
     "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
@@ -72,7 +72,7 @@ protected
     final startTime=300,
     final freqHz=1/1200,
     final offset=63*6895)
-                         "Chilled water differential pressure"
+    "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
 equation
