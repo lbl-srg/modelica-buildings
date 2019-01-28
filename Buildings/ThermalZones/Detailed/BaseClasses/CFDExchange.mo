@@ -20,7 +20,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)"
     annotation(Evaluate=true);
   parameter Real yFixed[nRea] "Fixed output, used if activateInterface=false"
-    annotation (Evaluate=true, Dialog(enable=not activateInterface));
+    annotation (Dialog(enable=not activateInterface));
   parameter Integer nSur(min=2) "Number of surfaces";
   parameter Integer nConExtWin(min=0)
     "number of exterior construction with window";
@@ -371,6 +371,11 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed <code>Evaluate</code> statement as the model is used with
+<code>fixed=false</code> which causes a warning in JModelica.
+</li>
 <li>
 November 17, 2016, by Michael Wetter:<br/>
 Removed public parameter <code>uStart</code>, which is not needed and

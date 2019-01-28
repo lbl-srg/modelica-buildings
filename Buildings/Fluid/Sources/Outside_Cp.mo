@@ -29,7 +29,11 @@ equation
   if not use_Cp_in then
     Cp_in_internal = Cp;
   end if;
-  pWin = 0.5*Cp_in_internal*medium.d*vWin*vWin;
+  pWin = 0.5*Cp_in_internal*vWin*vWin
+    *Medium.density(Medium.setState_pTX(
+      p=pWea,
+      T=T_in_internal,
+      X=Medium.X_default));
   pTot = pWea + pWin;
 
   connect(weaBus.winSpe, vWin);
@@ -67,6 +71,10 @@ wind pressure coefficient is obtained from the input connector
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 24, 2019, by Michael Wetter:<br/>
+Changed model to use new base class.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

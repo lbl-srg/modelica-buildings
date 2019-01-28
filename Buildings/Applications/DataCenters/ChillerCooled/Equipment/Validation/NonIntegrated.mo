@@ -20,7 +20,7 @@ model NonIntegrated "Non-integrated WSE  in a chilled water system"
     dp2_chi_nominal=dpCHW_nominal,
     dp2_wse_nominal=dpCHW_nominal,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    redeclare each
+    redeclare
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHF_2567kW_11_77COP_VSD
       perChi,
     k=0.4,
@@ -83,6 +83,10 @@ according to different cooling mode signals
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong use of <code>each</code>.
+</li>
 <li>
 September 11, 2017, by Michael Wetter:<br/>
 Corrected wrong use of replaceable model in the base class.<br/>

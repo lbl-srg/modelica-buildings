@@ -42,7 +42,7 @@ model ElectroChromicWindow
     hRoo=3.37,
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
-    each conBou(opa(T(each start = T_start))),
+    conBou(opa(T(each start = T_start))),
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.65484753534827,
@@ -271,6 +271,10 @@ and controls the window state based on room air temperature and solar irradiatio
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong <code>each</code>.
+</li>
 <li>
 November 21, 2016, by Michael Wetter:<br/>
 Removed unused block <code>Infiltration</code> which also had an error due to a wrong instance name.<br/>

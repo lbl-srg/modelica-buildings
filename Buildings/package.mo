@@ -279,11 +279,25 @@ its class name ends with the string <code>Beta</code>.
      <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorDiscretizedOperable
+        </td>
+        <td valign=\"top\">Removed parameter <code>CD</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/971\">IBPSA, #971</a>.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Airflow.Multizone.EffectiveAirLeakageArea
         </td>
         <td valign=\"top\">Removed parameters <code>A</code>, <code>CD</code> and <code>lWet</code>.<br/>
                            For Dymola, a conversion script makes this change.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumnDynamic
+        </td>
+        <td valign=\"top\">Removed parameter <code>m_flow_nominal</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/970\">IBPSA, #970</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Airflow.Multizone.Orifice
@@ -348,7 +362,13 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Renamed model to
                            <code>Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</code>
                            because the convective heat transfer coefficients are for air.<br/>
-                           For Dymola, a conversion script makes this change.
+                           For Dymola, a conversion script makes this change.<br/>
+                           Removed variable <code>Z</code> as it is not used.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU
+        </td>
+        <td valign=\"top\">Removed variable <code>Z</code> as it is not used.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial

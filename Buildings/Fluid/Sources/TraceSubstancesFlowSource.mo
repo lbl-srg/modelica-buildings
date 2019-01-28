@@ -1,7 +1,14 @@
 within Buildings.Fluid.Sources;
 model TraceSubstancesFlowSource
   "Source with mass flow that does not take part in medium mass balance (such as CO2)"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
+
+  replaceable package Medium =
+    Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Moist air with CO2")));
+
+  parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
 
   parameter String substanceName = "CO2" "Name of trace substance";
   parameter Boolean use_m_flow_in = false
@@ -11,9 +18,14 @@ model TraceSubstancesFlowSource
   parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Dialog(enable = not use_m_flow_in));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s")
-    if use_m_flow_in "Prescribed mass flow rate for extra property"
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s") if
+       use_m_flow_in "Prescribed mass flow rate for extra property"
     annotation (Placement(transformation(extent={{-141,-20},{-101,20}})));
+
+  Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
+    redeclare each package Medium = Medium)
+    "Connector for fluid ports"
+    annotation (Placement(transformation(extent={{90,40},{110,-40}})));
 
 protected
   Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(final unit="kg/s")
@@ -22,6 +34,14 @@ protected
     each fixed=false,
     final quantity=Medium.extraPropertiesNames) "Boundary trace substances"
     annotation (Dialog(enable = Medium.nC > 0));
+
+  Modelica.SIunits.SpecificEnthalpy h_default=
+    Medium.specificEnthalpy(Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default))
+      "Enthalpy of outstreaming medium";
+
 initial algorithm
   for i in 1:Medium.nC loop
     if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
@@ -35,17 +55,35 @@ initial algorithm
   assert(sum(C_in_internal) > 1E-4, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check source parameter and medium model.");
+initial equation
+  // Only one connection allowed to a port to avoid unwanted ideal mixing
+  for i in 1:nPorts loop
+    assert(cardinality(ports[i]) <= 1,"
+Each ports[i] of boundary shall at most be connected to one component.
+If two or more connections are present, ideal mixing takes
+place in these connections, which is usually not the intention
+of the modeller. Increase nPorts to add an additional port.
+");
+  end for;
+
 equation
+  sum(ports.m_flow) = -m_flow_in_internal;
+
   connect(m_flow_in, m_flow_in_internal);
   if not use_m_flow_in then
     m_flow_in_internal = m_flow;
   end if;
 
   assert(m_flow_in_internal >= 0, "Reverse flow for species source is not yet implemented.");
-  sum(ports.m_flow) = -m_flow_in_internal;
-  medium.T = Medium.T_default;
-  medium.Xi = Medium.X_default[1:Medium.nXi];
+
+  for i in 2:nPorts loop
+    ports[1].p = ports[i].p;
+  end for;
+
   ports.C_outflow = fill(C_in_internal, nPorts);
+  ports.h_outflow = fill(h_default, nPorts);
+  ports.Xi_outflow = fill(Medium.X_default[1:Medium.nXi], nPorts);
+
   annotation (
 defaultComponentName="souTraSub",
 Documentation(info="<html>
@@ -72,6 +110,14 @@ which is more efficient than using this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2019, by Michael Wetter:<br/>
+Refactored implementation to provide default medium choice.
+This refactoring removes the dependency of the base class but is
+compatible with the previous implementation.<br/>
+This is for
+<a href=\"modelica://https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Added <code>unit</code> and <code>quantity</code> attributes.
@@ -147,15 +193,20 @@ First implementation.
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-210,102},{-70,70}},
+          extent={{-212,62},{-72,30}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
+          visible=use_m_flow_in,
           textString="m_flow"),
         Text(
           extent={{-100,14},{-60,-20}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="C")}));
+          textString="C"),
+        Text(
+          extent={{-150,110},{150,150}},
+          textString="%name",
+          lineColor={0,0,255})}));
 end TraceSubstancesFlowSource;

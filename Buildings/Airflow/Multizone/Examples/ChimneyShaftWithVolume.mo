@@ -80,7 +80,6 @@ model ChimneyShaftWithVolume
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
   Buildings.Airflow.Multizone.MediumColumnDynamic sha(
     redeclare package Medium = Medium,
-    m_flow_nominal=0.05,
     V=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Shaft of chimney"
@@ -162,6 +161,12 @@ connected in series.)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 8, 2019, by Michael Wetter:<br/>
+Removed parameter assignment for <code>sha.m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/970\">#970</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
