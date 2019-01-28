@@ -112,7 +112,7 @@ partial model PartialParallelElectricEIR
       each final X2_start=X2_start,
       each final C2_start=C2_start,
       each final C2_nominal=C2_nominal)
-    "Identical chillers with different performance curves"
+    "Chillers with identical nominal parameters but different performance curves"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

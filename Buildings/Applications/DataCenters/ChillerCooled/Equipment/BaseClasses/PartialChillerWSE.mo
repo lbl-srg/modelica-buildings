@@ -18,7 +18,7 @@ partial model PartialChillerWSE
      final activate_ThrWayVal=use_controller);
 
   //Chiller
-  parameter Integer numChi(min=1) "Number of identical chillers"
+  parameter Integer numChi(min=1) "Number of chillers"
     annotation(Dialog(group="Chiller"));
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi[numChi]
     "Performance data for chillers"
@@ -192,7 +192,7 @@ partial model PartialChillerWSE
     final dpValve_nominal=dpValve_nominal[1:2],
     final rhoStd=rhoStd[1:2],
     final yValve_start=yValChi_start)
-    "Identical chillers"
+    "Chillers with identical nominal parameters but different performance curves"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer wse(
     redeclare final replaceable package Medium1 = Medium1,
