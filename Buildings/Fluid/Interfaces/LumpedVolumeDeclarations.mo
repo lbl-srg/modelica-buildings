@@ -68,6 +68,11 @@ Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>.
 revisions="<html>
 <ul>
 <li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
 November 9, 2018 by Michael Wetter:<br/>
 Limited choices of media that are displayed in the pull down menu of
 graphical editors.<br/>

@@ -8,7 +8,13 @@ partial model PartialBorehole
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+              property_T=293.15,
+              X_a=0.40)
+              "Propylene glycol water, 40% mass fraction")));
 
   constant Real mSenFac(min=1)=1
    "Factor for scaling the sensible thermal mass of the volume";
@@ -50,6 +56,11 @@ as several borehole segments, with a uniform borehole wall boundary condition.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to water and glycolWater.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 July 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation of partial model.
