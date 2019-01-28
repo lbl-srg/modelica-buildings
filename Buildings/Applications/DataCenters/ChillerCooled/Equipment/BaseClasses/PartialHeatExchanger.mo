@@ -7,7 +7,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
-    redeclare package Medium=Medium2);
+    redeclare final package Medium=Medium2);
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters;
 

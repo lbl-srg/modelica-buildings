@@ -2,7 +2,7 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 model PartialIntegratedPrimary
   "Integrated water-side economizer for primary-only chilled water system"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE(
-    numVal=6);
+    final numVal=6);
 
   //Parameters for the valve used in free cooling mode
   parameter Real lVal5(min=1e-10,max=1) = 0.0001
