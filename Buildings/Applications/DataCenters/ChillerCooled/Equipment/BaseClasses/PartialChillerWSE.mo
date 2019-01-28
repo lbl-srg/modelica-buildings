@@ -26,12 +26,12 @@ partial model PartialChillerWSE
                 Placement(transformation(extent={{70,78},{90,98}})));
   parameter Real[2] lValChi(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Shutoff valve"));
+    annotation(Dialog(group="Two-way valve"));
   parameter Real[2] kFixedValChi(each unit="",each min=0)=
     {m1_flow_chi_nominal,m2_flow_chi_nominal} ./ sqrt({dp1_chi_nominal,dp2_chi_nominal})
     "Flow coefficient of fixed resistance that may be in series with valves
     in chillers, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Shutoff valve"));
+    annotation(Dialog(group="Two-way valve"));
   parameter Real[numChi] yValChi_start=fill(0,numChi)
     "Initial value of output from on/off valves in chillers"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
@@ -43,12 +43,12 @@ partial model PartialChillerWSE
 
   parameter Real[2] lValWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Shutoff valve"));
+    annotation(Dialog(group="Two-way valve"));
   parameter Real[2] kFixedValWSE(each unit="", each min=0)=
     {m1_flow_wse_nominal/ sqrt(dp1_wse_nominal),0}
     "Flow coefficient of fixed resistance that may be in series with valves
     in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Shutoff valve"));
+    annotation(Dialog(group="Two-way valve"));
   parameter Real yValWSE_start=0
     "Initial value of output from on/off valve in WSE"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
