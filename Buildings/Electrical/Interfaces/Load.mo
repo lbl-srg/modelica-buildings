@@ -30,7 +30,7 @@ model Load "Partial model for a generic load"
 
   Modelica.SIunits.Voltage v[:](start = PhaseSystem.phaseVoltages(V_nominal)) = terminal.v
     "Voltage vector";
-  Modelica.SIunits.Current i[:] = terminal.i
+  Modelica.SIunits.Current i[:](each start=0) = terminal.i
     "Current vector";
   Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, -i)
     "Phase powers";
