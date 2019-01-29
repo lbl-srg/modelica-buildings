@@ -2,16 +2,23 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 model Up "Validate change stage up condition sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up
-    staUp annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  CDL.Integers.Sources.Constant                        stage0(k=0) "0th stage"
-    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+    staUp "Generates stage up signal"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+
+
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up
-    staUp1
-          annotation (Placement(transformation(extent={{140,20},{160,40}})));
-  CDL.Integers.Sources.Constant                        stage1(k=1) "1st stage"
-    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+    staUp1 "Generates stage up signal"
+    annotation (Placement(transformation(extent={{140,20},{160,40}})));
 
 protected
+  CDL.Integers.Sources.Constant stage0(
+    final k=0) "0th stage"
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(
+    final k=1) "1st stage"
+    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUpMin(final k=0.4)
     "Minimum operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
@@ -41,49 +48,60 @@ protected
     final offset=63*6895) "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 
-  CDL.Continuous.Sources.Sine oplr(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine oplr(
     final phase(displayUnit="rad"),
     final startTime=0,
     final offset=0.85,
     final freqHz=1/2100,
     final amplitude=0.05) "Operating part load ratio of the current stage"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  CDL.Continuous.Sources.Constant splrUp(final k=0.8)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant splrUp(
+    final k=0.8)
     "Staging part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
-  CDL.Continuous.Sources.Constant oplrUpMin1(final k=0.4)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUpMin1(
+    final k=0.4)
     "Minimum operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Continuous.Sources.Constant TCWSupSet1(final k=273.15
-         + 14) "Chilled water supply temperature setpoint"
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet1(
+    final k=273.15 + 14) "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  CDL.Continuous.Sources.Constant                        dpChiWatSet1(final k=65
-        *6895)
-              "Chilled water differential pressure setpoint"
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet1(
+    final k=65*6895)
+   "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  CDL.Continuous.Sources.Constant                        oplrUp1(final k=0.5)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUp1(
+    final k=0.5)
     "Operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  CDL.Continuous.Sources.Sine                        TCWSup1(
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TCWSup1(
     final amplitude=1.5,
     final offset=273.15 + 15.5,
     final freqHz=1/600) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  CDL.Continuous.Sources.Sine                        dpChiWat1(
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine dpChiWat1(
     final amplitude=6895,
     final startTime=300,
     final freqHz=1/1200,
     final offset=63*6895) "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  CDL.Continuous.Sources.Sine oplr1(
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine oplr1(
     final amplitude=0.1,
     final phase(displayUnit="rad"),
     final startTime=0,
     final offset=0.85,
     final freqHz=1/2100) "Operating part load ratio of the current stage"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  CDL.Continuous.Sources.Constant splrUp1(final k=0.8)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant splrUp1(final k=0.8)
     "Staging part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation

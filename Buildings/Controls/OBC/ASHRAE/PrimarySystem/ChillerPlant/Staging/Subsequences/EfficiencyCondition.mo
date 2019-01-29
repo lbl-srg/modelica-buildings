@@ -5,33 +5,33 @@ block EfficiencyCondition
   parameter Modelica.SIunits.Time delayStaCha = 15*60
   "Enable delay";
 
-  CDL.Interfaces.RealInput uOplr(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplr(final unit="1")
     "Operating part load ratio of the current stage" annotation (Placement(
         transformation(extent={{-140,0},{-100,40}}),   iconTransformation(
           extent={{-120,40},{-100,60}})));
 
-  CDL.Interfaces.RealInput uSplrUp(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSplrUp(final unit="1")
     "Staging part load ratio of the next stage up" annotation (Placement(
         transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent={{-120,
             -60},{-100,-40}})));
 
-  CDL.Interfaces.BooleanOutput y "Efficiency condition for chiller staging"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Efficiency condition for chiller staging"
     annotation (Placement(transformation(extent={{80,-10},{100,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  CDL.Logical.TrueDelay truDel(
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=delayStaCha)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  CDL.Continuous.Hysteresis hysOplr(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
     final uLow=0,
     final uHigh=0.05)
     "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  CDL.Continuous.Add add(final k2=-1) "Subtracts part load ratios"
+  Buildings.Controls.OBC.CDL.Continuous.Add add(final k2=-1) "Subtracts part load ratios"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation

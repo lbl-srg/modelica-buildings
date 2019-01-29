@@ -170,8 +170,9 @@ equation
           {28,-44}}, color={255,127,0}));
   connect(minInt.y, extStaUpCap.index)
     annotation (Line(points={{51,-50},{60,-50},{60,-32}}, color={255,127,0}));
-  connect(addInt.y, extStaCapMin.index) annotation (Line(points={{-79,70},{-74,70},
-          {-74,-120},{50,-120},{50,-112}}, color={255,127,0}));
+  connect(addInt.y, extStaCapMin.index) annotation (Line(points={{-79,70},{-74,
+          70},{-74,-120},{50,-120},{50,-112}},
+                                           color={255,127,0}));
   connect(minStaUnl.y, extStaCapMin.u) annotation (Line(points={{-79,-80},{-70,-80},
           {-70,-110},{28,-110},{28,-100},{38,-100}}, color={0,0,127}));
   connect(extStaCapMin.y, yStaMin) annotation (Line(points={{61,-100},{140,-100},

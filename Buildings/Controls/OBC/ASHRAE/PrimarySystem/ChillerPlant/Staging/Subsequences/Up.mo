@@ -19,83 +19,109 @@ block Up "Conditions to enable stage up"
   parameter Modelica.SIunits.TemperatureDifference large = 2
   "Offset between the chilled water supply temperature and its setpoint";
 
-  CDL.Interfaces.RealInput uOplrUp(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
+    annotation (Placement(transformation(extent={{-180,-180},{-140,-140}}),
+        iconTransformation(extent={{-120,-110},{-100,-90}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplr(final unit="1")
+    "Operating part load ratio of the current stage" annotation (Placement(
+        transformation(extent={{-180,130},{-140,170}}),iconTransformation(
+          extent={{-120,90},{-100,110}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSplrUp(final unit="1")
+    "Staging part load ratio of the next stage up" annotation (Placement(
+        transformation(extent={{-180,100},{-140,140}}),iconTransformation(extent={{-120,70},
+            {-100,90}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrUp(final unit="1")
     "Operating part load ratio of the next higher stage"
     annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
-  CDL.Interfaces.RealInput uOplrUpMin(final unit="1")
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrUpMin(final unit="1")
     "Minimum operating part load ratio at the next stage up"
     annotation (Placement(transformation(extent={{-180,30},{-140,70}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
-  CDL.Interfaces.RealInput dpChiWatPumSet(final unit="Pa", final quantity="PressureDifference")
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(final unit="Pa", final quantity="PressureDifference")
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
-  CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa", final quantity="PressureDifference")
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa", final quantity="PressureDifference")
     "Chilled water pump differential static pressure"
-    annotation (Placement(
-    transformation(extent={{-180,-60},{-140,-20}}),   iconTransformation(
-     extent={{-120,-80},{-100,-60}})));
-  CDL.Interfaces.RealInput TChiWatSupSet(final unit="K", final quantity="ThermodynamicTemperature")
+    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
+    iconTransformation(extent={{-120,-80},{-100,-60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K", final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
     iconTransformation(extent={{-120,-10},{-100,10}})));
-  CDL.Interfaces.RealInput TChiWatSup(final unit="K", final quantity="ThermodynamicTemperature")
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(final unit="K", final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(
       extent={{-180,-140},{-140,-100}}), iconTransformation(extent={{-120,-30},
             {-100,-10}})));
-  CDL.Interfaces.RealInput uOplr(final unit="1")
-    "Operating part load ratio of the current stage" annotation (Placement(
-        transformation(extent={{-180,130},{-140,170}}),iconTransformation(
-          extent={{-120,90},{-100,110}})));
-  CDL.Interfaces.RealInput uSplrUp(final unit="1")
-    "Staging part load ratio of the next stage up" annotation (Placement(
-        transformation(extent={{-180,100},{-140,140}}),
-                                                      iconTransformation(extent={{-120,70},
-            {-100,90}})));
-  CDL.Logical.Or orStaUp "Or for staging up"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  FailsafeCondition faiSafCon
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  EfficiencyCondition effCon
-    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
-  CDL.Interfaces.BooleanOutput y "Efficiency condition for chiller staging"
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Efficiency condition for chiller staging"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  CDL.Interfaces.IntegerInput                        uChiSta "Chiller stage"
-    annotation (Placement(transformation(extent={{-180,-180},{-140,-140}}),
-        iconTransformation(extent={{-120,-110},{-100,-90}})));
-  CDL.Logical.LogicalSwitch logSwi
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.EfficiencyCondition effCon
+    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or orStaUp "Or for staging up"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  CDL.Integers.GreaterThreshold intGreThr "Switches staging up rules"
+
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr "Switches staging up rules"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
-  CDL.Continuous.Hysteresis hysTSup(final uLow=small, final uHigh=small + 1,
-    pre_y_start=false)
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
+    final uLow=small,
+    final uHigh=small + 1,
+    final pre_y_start=false)
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  CDL.Continuous.Hysteresis hysTSup1(final uLow=large, final uHigh=large + 1,
-    pre_y_start=false)
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup1(
+    final uLow=large,
+    final uHigh=large + 1,
+    final pre_y_start=false)
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  CDL.Logical.Or orStaUp1
-                         "Or for staging up"
+
+  Buildings.Controls.OBC.CDL.Logical.Or orStaUp1 "Or for staging up"
     annotation (Placement(transformation(extent={{50,-82},{70,-62}})));
-protected
-  CDL.Continuous.Add add0(final k1=-1, final k2=1)
-                "Adder for temperatures"
+
+  Buildings.Controls.OBC.CDL.Continuous.Add add0(
+    final k1=-1,
+    final k2=1)
+    "Adder for temperatures"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  CDL.Continuous.Add add1(final k1=-1, final k2=1)
-                "Adder for temperatures"
+
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(
+    final k1=-1,
+    final k2=1)
+    "Adder for temperatures"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-protected
-  CDL.Logical.TrueDelay truDel(final delayTime=long)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=long)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-protected
-  CDL.Logical.TrueDelay truDel1(final delayTime=short)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+    final delayTime=short)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
+
 equation
   connect(uOplr, effCon.uOplr) annotation (Line(points={{-160,150},{-130,150},{
           -130,135},{-81,135}},
