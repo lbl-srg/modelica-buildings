@@ -2,15 +2,15 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 model Down "Validate change stage down condition sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Down
-    staDown
-          annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    staDow "Generates stage down signal"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant                        stage2(k=2) "2nd stage"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant WSESta(k=true) "Waterside economizer status"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Down
-    staDown1
-          annotation (Placement(transformation(extent={{120,40},{140,60}})));
+    staDow1 "Generates stage down signal"
+    annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant                        stage1(k=1) "2nd stage"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant WSESta1(k=true) "Waterside economizer status"
@@ -95,57 +95,57 @@ protected
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 equation
 
-  connect(TCWSupSet.y, staDown.TChiWatSupSet) annotation (Line(points={{-119,-10},
-          {-50,-10},{-50,48},{-41,48}},color={0,0,127}));
-  connect(TCWSup.y, staDown.TChiWatSup) annotation (Line(points={{-119,-50},{-48,
+  connect(TCWSupSet.y, staDow.TChiWatSupSet) annotation (Line(points={{-119,-10},
+          {-50,-10},{-50,48},{-41,48}}, color={0,0,127}));
+  connect(TCWSup.y, staDow.TChiWatSup) annotation (Line(points={{-119,-50},{-48,
           -50},{-48,46},{-41,46}}, color={0,0,127}));
-  connect(dpChiWatSet.y, staDown.dpChiWatPumSet) annotation (Line(points={{-79,10},
-          {-56,10},{-56,54},{-41,54}}, color={0,0,127}));
-  connect(dpChiWat.y, staDown.dpChiWatPum) annotation (Line(points={{-79,-30},{-52,
+  connect(dpChiWatSet.y, staDow.dpChiWatPumSet) annotation (Line(points={{-79,
+          10},{-56,10},{-56,54},{-41,54}}, color={0,0,127}));
+  connect(dpChiWat.y, staDow.dpChiWatPum) annotation (Line(points={{-79,-30},{-52,
           -30},{-52,52},{-41,52}}, color={0,0,127}));
-  connect(oplrDown.y, staDown.uOplrDow) annotation (Line(points={{-79,130},{-50,
+  connect(oplrDown.y, staDow.uOplrDow) annotation (Line(points={{-79,130},{-50,
           130},{-50,62},{-41,62}}, color={0,0,127}));
-  connect(splrDown.y, staDown.uSplrDow) annotation (Line(points={{-119,110},{-52,
-          110},{-52,60},{-41,60}},color={0,0,127}));
-  connect(oplr.y, staDown.uOplr) annotation (Line(points={{-79,90},{-56,90},{-56,
+  connect(splrDown.y, staDow.uSplrDow) annotation (Line(points={{-119,110},{-52,
+          110},{-52,60},{-41,60}}, color={0,0,127}));
+  connect(oplr.y, staDow.uOplr) annotation (Line(points={{-79,90},{-56,90},{-56,
           58},{-41,58}}, color={0,0,127}));
-  connect(oplrMin.y, staDown.uOplrMin) annotation (Line(points={{-119,70},{-60,70},
-          {-60,56},{-41,56}}, color={0,0,127}));
-  connect(WSESta.y, staDown.uWseSta) annotation (Line(points={{-79,-70},{-46,-70},
+  connect(oplrMin.y, staDow.uOplrMin) annotation (Line(points={{-119,70},{-60,
+          70},{-60,56},{-41,56}}, color={0,0,127}));
+  connect(WSESta.y, staDow.uWseSta) annotation (Line(points={{-79,-70},{-46,-70},
           {-46,42},{-41,42}}, color={255,0,255}));
-  connect(stage2.y, staDown.uChiSta) annotation (Line(points={{-119,-90},{-44,-90},
+  connect(stage2.y, staDow.uChiSta) annotation (Line(points={{-119,-90},{-44,-90},
           {-44,40},{-41,40}}, color={255,127,0}));
-  connect(TWsePre.y, staDown.uTWsePre) annotation (Line(points={{-119,30},{-60,30},
+  connect(TWsePre.y, staDow.TWsePre) annotation (Line(points={{-119,30},{-60,30},
           {-60,50},{-41,50}}, color={0,0,127}));
-  connect(TowFanSpeMax.y, staDown.uTowFanSpeMax) annotation (Line(points={{-79,50},
-          {-70,50},{-70,44},{-41,44}}, color={0,0,127}));
-  connect(TCWSupSet1.y, staDown1.TChiWatSupSet) annotation (Line(points={{41,-10},
+  connect(TowFanSpeMax.y, staDow.uTowFanSpeMax) annotation (Line(points={{-79,
+          50},{-70,50},{-70,44},{-41,44}}, color={0,0,127}));
+  connect(TCWSupSet1.y, staDow1.TChiWatSupSet) annotation (Line(points={{41,-10},
           {110,-10},{110,48},{119,48}}, color={0,0,127}));
-  connect(TCWSup1.y, staDown1.TChiWatSup) annotation (Line(points={{41,-50},{112,
+  connect(TCWSup1.y, staDow1.TChiWatSup) annotation (Line(points={{41,-50},{112,
           -50},{112,46},{119,46}}, color={0,0,127}));
-  connect(dpChiWatSet1.y, staDown1.dpChiWatPumSet) annotation (Line(points={{81,10},
-          {104,10},{104,54},{119,54}},     color={0,0,127}));
-  connect(dpChiWat1.y, staDown1.dpChiWatPum) annotation (Line(points={{81,-30},{
+  connect(dpChiWatSet1.y, staDow1.dpChiWatPumSet) annotation (Line(points={{81,
+          10},{104,10},{104,54},{119,54}}, color={0,0,127}));
+  connect(dpChiWat1.y, staDow1.dpChiWatPum) annotation (Line(points={{81,-30},{
           108,-30},{108,52},{119,52}}, color={0,0,127}));
-  connect(oplrDown1.y, staDown1.uOplrDow) annotation (Line(points={{81,130},{110,
+  connect(oplrDown1.y, staDow1.uOplrDow) annotation (Line(points={{81,130},{110,
           130},{110,62},{119,62}}, color={0,0,127}));
-  connect(splrDown1.y, staDown1.uSplrDow) annotation (Line(points={{41,110},{108,
+  connect(splrDown1.y, staDow1.uSplrDow) annotation (Line(points={{41,110},{108,
           110},{108,60},{119,60}}, color={0,0,127}));
-  connect(oplr1.y, staDown1.uOplr) annotation (Line(points={{81,90},{104,90},{104,
-          58},{119,58}}, color={0,0,127}));
-  connect(oplrMin1.y, staDown1.uOplrMin) annotation (Line(points={{41,70},{100,70},
-          {100,56},{119,56}}, color={0,0,127}));
-  connect(WSESta1.y, staDown1.uWseSta) annotation (Line(points={{81,-70},{114,-70},
+  connect(oplr1.y, staDow1.uOplr) annotation (Line(points={{81,90},{104,90},{
+          104,58},{119,58}}, color={0,0,127}));
+  connect(oplrMin1.y, staDow1.uOplrMin) annotation (Line(points={{41,70},{100,
+          70},{100,56},{119,56}}, color={0,0,127}));
+  connect(WSESta1.y, staDow1.uWseSta) annotation (Line(points={{81,-70},{114,-70},
           {114,42},{119,42}}, color={255,0,255}));
-  connect(stage1.y, staDown1.uChiSta) annotation (Line(points={{41,-90},{116,-90},
+  connect(stage1.y, staDow1.uChiSta) annotation (Line(points={{41,-90},{116,-90},
           {116,40},{119,40}}, color={255,127,0}));
-  connect(TowFanSpeMax1.y, staDown1.uTowFanSpeMax) annotation (Line(points={{81,50},
-          {90,50},{90,44},{119,44}},     color={0,0,127}));
-  connect(TWsePre1.y, staDown1.uTWsePre) annotation (Line(points={{41,30},{74,30},
+  connect(TowFanSpeMax1.y, staDow1.uTowFanSpeMax) annotation (Line(points={{81,
+          50},{90,50},{90,44},{119,44}}, color={0,0,127}));
+  connect(TWsePre1.y, staDow1.TWsePre) annotation (Line(points={{41,30},{74,30},
           {74,32},{106,32},{106,50},{119,50}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Up.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Down.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

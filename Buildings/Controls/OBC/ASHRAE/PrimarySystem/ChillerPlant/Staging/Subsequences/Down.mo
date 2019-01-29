@@ -68,10 +68,10 @@ block Down "Conditions to enable stage down"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
     iconTransformation(extent={{-120,10},{-100,30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTWsePre(final unit="1")
-    "Predicted waterside economizer outlet temperature"
-    annotation (Placement( transformation(extent={{-180,-80},{-140,-40}}),
-      iconTransformation(extent={{-120,-10},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(final unit="1")
+    "Predicted waterside economizer outlet temperature" annotation (Placement(
+        transformation(extent={{-180,-80},{-140,-40}}), iconTransformation(
+          extent={{-120,-10},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
@@ -161,7 +161,7 @@ equation
           {-110,-30},{-110,27},{-81,27}},  color={0,0,127}));
   connect(TChiWatSupSet, add0.u2) annotation (Line(points={{-160,-90},{-110,-90},
           {-110,-86},{-82,-86}},color={0,0,127}));
-  connect(uTWsePre, add0.u1) annotation (Line(points={{-160,-60},{-112,-60},{-112,
+  connect(TWsePre, add0.u1) annotation (Line(points={{-160,-60},{-112,-60},{-112,
           -74},{-82,-74}}, color={0,0,127}));
   connect(hys.y, not0.u)
     annotation (Line(points={{-99,-120},{-82,-120}}, color={255,0,255}));
@@ -195,7 +195,7 @@ equation
           {98,8}}, color={255,0,255}));
   connect(add.y, hysOplr.u)
     annotation (Line(points={{-59,170},{-42,170}}, color={0,0,127}));
-  annotation (defaultComponentName = "staDown",
+  annotation (defaultComponentName = "staDow",
         Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
