@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Change "Calculates the chiller stage signal"
 
-  // fixme: pull OPRLup and OPRLdown out into chiller type staging packages
   parameter Integer numSta = 2
   "Number of stages";
 
@@ -14,7 +13,8 @@ block Change "Calculates the chiller stage signal"
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(
     final max=1,
-    final min=-1) "Chiller stage change (1 - up, -1 - down, 0 - unchanged)"
+    final min=-1)
+    "fixme change to chiller stage and loop back as input to up and down seq"
     annotation (Placement(transformation(extent=
     {{180,-10},{200,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -84,6 +84,10 @@ block Change "Calculates the chiller stage signal"
     "Minimum operating part load ratio at the current stage" annotation (
       Placement(transformation(extent={{-220,60},{-180,100}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
+  Up staUp annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  CDL.Integers.GreaterThreshold intGreThr "Switches staging up rules"
+    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
+  Down staDown annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 equation
   connect(booToInt.y, addInt.u1) annotation (Line(points={{131,10},{134,10},{134,
           6},{148,6}}, color={255,127,0}));

@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Up "Conditions to enable stage up"
 
-  // fixme: pull OPRLup and OPRLdown out into chiller type staging packages
   parameter Integer numSta = 2
   "Number of stages";
 
@@ -23,38 +22,38 @@ block Up "Conditions to enable stage up"
   CDL.Interfaces.RealInput uOplrUp(final unit="1")
     "Operating part load ratio of the next higher stage"
     annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
-        iconTransformation(extent={{-120,30},{-100,50}})));
+        iconTransformation(extent={{-120,40},{-100,60}})));
   CDL.Interfaces.RealInput uOplrUpMin(final unit="1")
     "Minimum operating part load ratio at the next stage up"
     annotation (Placement(transformation(extent={{-180,30},{-140,70}}),
-        iconTransformation(extent={{-120,10},{-100,30}})));
+        iconTransformation(extent={{-120,20},{-100,40}})));
   CDL.Interfaces.RealInput dpChiWatPumSet(final unit="Pa", final quantity="PressureDifference")
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
-      iconTransformation(extent={{-120,-80},{-100,-60}})));
+      iconTransformation(extent={{-120,-60},{-100,-40}})));
   CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa", final quantity="PressureDifference")
     "Chilled water pump differential static pressure"
     annotation (Placement(
     transformation(extent={{-180,-60},{-140,-20}}),   iconTransformation(
-     extent={{-120,-100},{-100,-80}})));
+     extent={{-120,-80},{-100,-60}})));
   CDL.Interfaces.RealInput TChiWatSupSet(final unit="K", final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-    iconTransformation(extent={{-120,-30},{-100,-10}})));
+    iconTransformation(extent={{-120,-10},{-100,10}})));
   CDL.Interfaces.RealInput TChiWatSup(final unit="K", final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(
-      extent={{-180,-140},{-140,-100}}), iconTransformation(extent={{-120,-50},{
-            -100,-30}})));
+      extent={{-180,-140},{-140,-100}}), iconTransformation(extent={{-120,-30},
+            {-100,-10}})));
   CDL.Interfaces.RealInput uOplr(final unit="1")
     "Operating part load ratio of the current stage" annotation (Placement(
         transformation(extent={{-180,130},{-140,170}}),iconTransformation(
-          extent={{-120,80},{-100,100}})));
+          extent={{-120,90},{-100,110}})));
   CDL.Interfaces.RealInput uSplrUp(final unit="1")
     "Staging part load ratio of the next stage up" annotation (Placement(
         transformation(extent={{-180,100},{-140,140}}),
-                                                      iconTransformation(extent={{-120,60},
-            {-100,80}})));
+                                                      iconTransformation(extent={{-120,70},
+            {-100,90}})));
   CDL.Logical.Or orStaUp "Or for staging up"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   FailsafeCondition faiSafCon
@@ -66,7 +65,7 @@ block Up "Conditions to enable stage up"
         iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Interfaces.IntegerInput                        uChiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-180,-180},{-140,-140}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+        iconTransformation(extent={{-120,-110},{-100,-90}})));
   CDL.Logical.LogicalSwitch logSwi
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   CDL.Integers.GreaterThreshold intGreThr "Switches staging up rules"
@@ -173,19 +172,13 @@ equation
         extent={{-140,-180},{100,160}})),
 Documentation(info="<html>
 <p>
-Outputs the chiller stage change signal
-
-fixme: add a stage availability input signal, which will
-remove the stage change delay if the stage is unavailable, to
-allow for a change to the next available stage at the next instant.  
-
-add WSE enable at plant enable part (input, output, predicted temperature) and at staging down from 1.
+Outputs the chiller stage change up enable signal.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-January xx, 2019, by Milica Grahovac:<br/>
+January 28, 2019, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
