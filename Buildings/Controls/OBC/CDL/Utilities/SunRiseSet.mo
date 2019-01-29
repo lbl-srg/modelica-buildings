@@ -8,13 +8,19 @@ block SunRiseSet "Next sunrise and sunset time"
     final quantity="Time",
     final unit="s",
     displayUnit="h") "Time of next sunrise"
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}}),
+        iconTransformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput nextSunSet(
     final quantity="Time",
     final unit="s",
     displayUnit="h") "Time of next sunset"
-    annotation (Placement(transformation(extent={{100,-52},{120,-32}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
+
+  Interfaces.BooleanOutput sunIsUp "Output true if the sun is up"
+    annotation (Placement(transformation(extent={{100,-70},
+            {120,-50}}), iconTransformation(extent={{100,-70},{120,-50}})));
 protected
   constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Intermediate constant";
   constant Real k2 = 2*Modelica.Constants.pi/365.25 "Intermediate constant";
@@ -51,7 +57,6 @@ protected
       iDay := iDay + 1;
     end while;
     houAng := Modelica.Math.acos(cosHou);
-    annotation(Inline=true);
   end nextHouAng;
 
   function sunRise "Output next sunrise time"
@@ -68,7 +73,6 @@ protected
     (houAng,timCor,tNext) := nextHouAng(t,lat,lon,timZon);
     sunRise :=(12 - houAng*24/(2*Modelica.Constants.pi) - timCor/3600 + floor(
                tNext/24/3600)*24)*3600;
-    annotation(Inline=true);
   end sunRise;
 
   function sunSet "Output next sunset time"
@@ -85,33 +89,38 @@ protected
     (houAng,timCor,tNext) := nextHouAng(t,lat,lon,timZon);
     sunSet :=(12 + houAng*24/(2*Modelica.Constants.pi) - timCor/3600 + floor(
                tNext/24/3600)*24)*3600;
-    annotation(Inline=true);
   end sunSet;
 
 initial equation
   nextSunRise = sunRise(time-86400,lat,lon,timZon);
   nextSunSet = sunSet(time-86400,lat,lon,timZon);
+  sunIsUp = nextSunSet < nextSunRise;
 
 equation
-  when time >= pre(nextSunRise) then
-    nextSunRise = sunRise(time,lat,lon,timZon);
+  when time >= min(pre(nextSunRise), pre(nextSunSet)) then
+    nextSunRise = if pre(sunIsUp) then sunRise(time,lat,lon,timZon) else pre(nextSunRise);
+    nextSunSet = if pre(sunIsUp) then pre(nextSunSet) else sunSet(time,lat,lon,timZon);
+    sunIsUp = not pre(sunIsUp);
   end when;
 
-  when time >= pre(nextSunSet) then
-    nextSunSet = sunSet(time,lat,lon,timZon);
-  end when;
+//  when time >= pre(nextSunSet) then
+ //   sunIsUp = not pre(sunIsUp);
+//  end when;
 
-  annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})),
+  annotation (
   defaultComponentName="sunRiseSet",
   Documentation(info="<html>
-<p>This block outputs the next sunrise and sunset time. The hours are output like step functions. </p>
-<p>The sunrise time keeps constant until the model time reaches the sunrise; </p>
+<p>
+This block outputs the next sunrise and sunset time. The hours are output like step functions.
+The sunrise time keeps constant until the model time reaches the sunrise;
+</p>
 <p>when the model time passes the current sunrise, the sunrise hour gets updated with the next sunrise.</p>
 <p>Sunset output works in the same way as sunrise. </p>
 <p>Note that daylight savings time is not considered in this component. </p>
 <h4>Validation </h4>
-<p>A validation can be found at <a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet\">Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>. </p>
+<p>A validation can be found at
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet\">
+Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>. </p>
 </html>",
 revisions="<html>
 <ul>
