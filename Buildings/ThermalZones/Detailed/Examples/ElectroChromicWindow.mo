@@ -202,9 +202,10 @@ model ElectroChromicWindow
   Modelica.Blocks.Math.MatrixGain gai(K=120/AFlo*[0.4; 0.4; 0.2])
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Modelica.Blocks.Sources.Pulse nPer(period(displayUnit="d") = 86400, startTime(
-        displayUnit="h") = 25200,
-    amplitude=2)                  "Number of persons"
+  Modelica.Blocks.Sources.Pulse nPer(
+    period(displayUnit="d") = 86400,
+    startTime(displayUnit="h") = 25200,
+    amplitude=2) "Number of persons"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
 equation
