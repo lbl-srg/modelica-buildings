@@ -11,6 +11,12 @@
 #include <string.h>
 #include <stdio.h>
 
+#if defined _WIN32
+#include <windows.h>
+#else
+#include <dlfcn.h>
+#endif
+
 
 int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
   int iZ;
@@ -27,9 +33,33 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 /* Create the structure and return a pointer to its address. */
 void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName, const char* zoneName)
 {
-  const char* epLibName = "libepfmi-9.0.1.so";
+  const char* epLibName;
 
-  writeLog(1, "Initializing zone.");
+  #if defined _WIN32
+    // TODO this probably needs improvement to work on windows
+    TCHAR szPath[MAX_PATH];
+    if( GetModuleFileName( nullptr, szPath, MAX_PATH ) ) {
+      epLibName = szPath;
+    }
+  #else
+    Dl_info info;
+    if (dladdr("main", &info)) {
+      const char * fullpath = info.dli_fname;
+      const char * filename = strrchr(fullpath, '/');
+      const char * extension = strrchr(fullpath, '.');
+      const char * beginfilename = strstr(fullpath, filename);
+      size_t length = beginfilename - fullpath;
+      // TODO fix memory leak
+      char * dirpath = (char *)malloc((length + 50) * sizeof(char));
+      strncpy(dirpath,fullpath,length);
+      dirpath[length] = '\0';
+      // TODO don't hard code epfmi name and version
+      strcat(dirpath, "/libepfmi-9.0.1");
+      strcat(dirpath, extension);
+      epLibName = dirpath;
+    }
+  #endif
+
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   unsigned int i;
