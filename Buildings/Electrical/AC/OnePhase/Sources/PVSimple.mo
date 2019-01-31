@@ -3,7 +3,7 @@ model PVSimple "Simple PV model"
   extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
   extends Buildings.Electrical.Interfaces.PartialPV(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_p terminal,
+    redeclare replaceable Interfaces.Terminal_p terminal,
     V_nominal(start = 110));
   parameter Boolean linearized=false
     "If =true, introduce a linearization in the load";
@@ -72,6 +72,10 @@ Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 30, 2019, by Michael Wetter:<br/>
+Added <code>replaceable</code>.
+</li>
 <li>
 February 26, 2016, by Michael Wetter:<br/>
 In load, set <code>P_nominal = 0</code> as it is not used.

@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Loads;
 model Capacitive "Model of a capacitive and resistive load"
   extends Buildings.Electrical.Interfaces.CapacitiveLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal,
+    redeclare replaceable Interfaces.Terminal_n terminal,
     V_nominal(start = 110));
 
 protected
@@ -205,6 +205,10 @@ The choices are between a null current or the linearized model.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 29, 2019, by Michael Wetter:<br/>
+Added <code>replaceable</code> for terminal.
+</li>
 <li>
 May 26, 2016, by Michael Wetter:<br/>
 Moved function call to <code>PhaseSystem.thetaRef</code> out of
