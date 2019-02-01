@@ -4,7 +4,14 @@ partial model PartialAbsoluteSensor
 
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium in the sensor"
-    annotation(choicesAllMatching=true);
+    annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+              property_T=293.15,
+              X_a=0.40)
+              "Propylene glycol water, 40% mass fraction")));
 
   Modelica.Fluid.Interfaces.FluidPort_a port(redeclare package Medium=Medium, m_flow(min=0))
     annotation (Placement(transformation(
@@ -28,6 +35,11 @@ Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 September 7, 2018, by Michael Wetter:<br/>
 Changed

@@ -145,6 +145,11 @@ the model stops with an error.
 </html>", revisions="<html>
 <ul>
 <li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
 June 9, 2016, by Thierry S. Nouidui:<br/>
 Removed <code>assert()</code> statement which was triggered
 when the model was exported as an FMU

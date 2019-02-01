@@ -8,13 +8,15 @@ model OnlyExteriorWallWithWindowExteriorShade "Test model for room model"
    nConBou=0,
    nSurBou=0,
    roo(
-    datConExtWin(layers={matLayExt, matLayExt}, each A=10,
-                 glaSys={glaSys, glaSys},
-                 each wWin=2,
-                 each hWin=2,
-                 each fFra=0.1,
-                 til={Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Ceiling},
-                 each azi=Buildings.Types.Azimuth.W)),
+    datConExtWin(
+      layers={matLayExt, matLayExt},
+      each A=10,
+      glaSys={glaSys, glaSys},
+      each wWin=2,
+      each hWin=2,
+      each fFra=0.1,
+      til={Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Ceiling},
+      each azi=Buildings.Types.Azimuth.W)),
     glaSys(haveExteriorShade=true));
   Modelica.Blocks.Sources.Constant uSha(k=0.5)
     "Control signal for the shading device"

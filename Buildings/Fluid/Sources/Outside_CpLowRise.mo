@@ -29,11 +29,14 @@ protected
     "Wind direction from weather bus";
   Modelica.SIunits.Angle surOut = azi-Modelica.Constants.pi
     "Angle of surface that is used to compute angle of attack of wind";
+  Modelica.Blocks.Interfaces.RealInput d = Medium.density(
+    Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
+
 equation
   alpha = winDir-surOut;
   CpAct = Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(
             Cp0=Cp0, incAng=alpha, G=G);
-  pWin = 0.5*CpAct*medium.d*vWin*vWin;
+  pWin = 0.5*CpAct*d*vWin*vWin;
   pTot = pWea + pWin;
 
   connect(weaBus.winDir, winDir);

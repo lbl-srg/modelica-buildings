@@ -6,7 +6,13 @@ partial model PartialInternalHEX
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium"
-    annotation (choicesAllMatching = true);
+    annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+              property_T=293.15,
+              X_a=0.40)
+              "Propylene glycol water, 40% mass fraction")));
   constant Real mSenFac=1
     "Factor for scaling the sensible thermal mass of the volume";
   parameter Boolean dynFil=true
@@ -84,6 +90,11 @@ need to be declared in models which extend this partial model:
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to water and glycolWater.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 July 10, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation of partial model.

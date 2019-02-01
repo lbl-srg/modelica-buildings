@@ -83,6 +83,11 @@ are not implemented.
 </html>", revisions="<html>
 <ul>
 <li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
 July 8, 2018, by Filip Jorissen:<br/>
 Added nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">#977</a>.

@@ -334,3 +334,7 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.Operatio
 // Heat exchanger
 convertClass("Buildings.Fluid.HeatExchangers.DryEffectivenessNTU",
              "Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU");
+
+// Airflow models
+convertModifiers("Buildings.Airflow.Multizone.DoorDiscretizedOperable", {"CD"}, fill("",0), true);
+convertModifiers("Buildings.Airflow.Multizone.MediumColumnDynamic", {"m_flow_nominal"}, fill("",0), true);
