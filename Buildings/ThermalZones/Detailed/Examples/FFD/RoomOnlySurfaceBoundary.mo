@@ -51,7 +51,7 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/RoomOnlySurfaceBoundary.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-06, StopTime=1800),
+    experiment(Tolerance=1e-06, StopTime=900),
     Documentation(info="<html>
 <p>
 This model tests the coupled simulation of
