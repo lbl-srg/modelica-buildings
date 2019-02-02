@@ -63,10 +63,10 @@ model CenterOfGlass "Test model for center of glas heat transfer"
   Modelica.Thermal.HeatTransfer.Components.Convection conRooSha
     "Convection for room-facing surface of shaded part of window"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conOutSha
+  Modelica.Thermal.HeatTransfer.Components.Convection conOutSha(dT(start=0))
     "Convection for outside-facing surface of shaded part of window"
     annotation (Placement(transformation(extent={{-40,30},{-60,50}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conOutNonSha1
+  Modelica.Thermal.HeatTransfer.Components.Convection conOutNonSha1(dT(start=0))
     "Convection for outside-facing surface of non-shaded part of window"
     annotation (Placement(transformation(extent={{-40,-100},{-60,-80}})));
   Modelica.Thermal.HeatTransfer.Components.Convection conRooNonSha

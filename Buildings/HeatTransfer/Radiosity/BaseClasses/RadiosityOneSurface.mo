@@ -7,7 +7,7 @@ partial model RadiosityOneSurface
   Buildings.HeatTransfer.Interfaces.RadiosityInflow JIn(start=A*0.8*Modelica.Constants.sigma*293.15^4)
     "Incoming radiosity"
     annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
-  Buildings.HeatTransfer.Interfaces.RadiosityOutflow JOut "Outgoing radiosity"
+  Buildings.HeatTransfer.Interfaces.RadiosityOutflow JOut(start=A*0.8*Modelica.Constants.sigma*293.15^4) "Outgoing radiosity"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   annotation (           Documentation(info="<html>

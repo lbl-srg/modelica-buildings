@@ -73,10 +73,12 @@ model GlassLayer "Test model for glass layer heat transfer"
   Modelica.Blocks.Math.Product hANonSha
     "Convection of non-shaded part of window"
     annotation (Placement(transformation(extent={{60,130},{80,150}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conOutSha
+  Modelica.Thermal.HeatTransfer.Components.Convection conOutSha(
+    dT(start=0))
     "Convection for outside-facing surface of shaded part of window"
     annotation (Placement(transformation(extent={{-40,30},{-60,50}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conOutNonSha1
+  Modelica.Thermal.HeatTransfer.Components.Convection conOutNonSha1(
+    dT(start=0))
     "Convection for outside-facing surface of non-shaded part of window"
     annotation (Placement(transformation(extent={{-40,-100},{-60,-80}})));
   Modelica.Blocks.Sources.Ramp uSha(

@@ -4,10 +4,12 @@ model ACACConverter "AC AC converter single phase systems"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(
+    redeclare replaceable Interfaces.Terminal_n terminal_n
+      constrainedby Interfaces.Terminal_n(
       i(start = zeros(PhaseSystem_n.n),
       each stateSelect = StateSelect.prefer)),
-    redeclare Interfaces.Terminal_p terminal_p(
+    redeclare replaceable Interfaces.Terminal_p terminal_p
+      constrainedby Interfaces.Terminal_p(
       i(start = zeros(PhaseSystem_p.n),
       each stateSelect = StateSelect.prefer)));
   parameter Real conversionFactor(min = Modelica.Constants.eps)
@@ -128,6 +130,10 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 30, 2019, by Michael Wetter:<br/>
+Added missing <code>replaceable</code> for the terminal.
+</li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Revised model.

@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Sources;
 model WindTurbine "Simple wind turbine model"
   extends Buildings.Electrical.Interfaces.PartialWindTurbine(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_p terminal,
+    redeclare replaceable Interfaces.Terminal_p terminal,
     V_nominal(start = 110));
 
   parameter Real pf(min=0, max=1) = 0.9 "Power factor"
@@ -73,6 +73,10 @@ Below and above these wind speeds, the generated power is zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2019, by Michael Wetter:<br/>
+Added <code>replaceable</code> for terminal.
+</li>
 <li>
 February 26, 2016, by Michael Wetter:<br/>
 In load, set <code>P_nominal = 0</code> as it is not used.
