@@ -185,9 +185,8 @@ equation
           {-8,-86},{-8,-74}}, color={255,0,255}));
   connect(yRes.y, hex2.y_reset_in) annotation (Line(points={{-79,-120},{-12,-120},
           {-12,-74}}, color={0,0,127}));
-  annotation (
-  __Dymola_Commands(
-    file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/HeatExchanger_ResetController.mos"
+  annotation (__Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/HeatExchanger_ResetController.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
 <p>

@@ -1,7 +1,6 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
 model IntegratedPrimarySecondary
   "Integrated WSE on the load side in a primary-secondary chilled water system"
-  import Buildings;
   extends Modelica.Icons.Example;
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
@@ -134,7 +133,7 @@ equation
   connect(TSup2.port_a, intWSEPriSec2.port_b2)
     annotation (Line(points={{-40,-116},{-10,-116}}, color={0,127,255}));
   annotation (__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimarySecondary.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimarySecondary.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates how the model responses

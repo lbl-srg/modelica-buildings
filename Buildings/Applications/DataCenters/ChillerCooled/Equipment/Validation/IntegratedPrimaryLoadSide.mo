@@ -93,17 +93,16 @@ model IntegratedPrimaryLoadSide
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
   parameter Fluid.Movers.Data.Generic[numChi] perPum(each pressure=
         Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-        V_flow=mCHW_flow_nominal/1000*{0.2,0.6,1.0,1.2}, dp=dpCHW_nominal*{1.2,
-        1.1,1.0,0.6})) "Pump performance data"
+        V_flow=mCHW_flow_nominal/1000*{0.2,0.6,1.0,1.2}, dp=dpCHW_nominal*{1.2,1.1,
+        1.0,0.6})) "Pump performance data"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 equation
   connect(onChi.y, intWSEPri1.on[1]) annotation (Line(points={{-79,90},{-26,90},
           {-26,-30.4},{-11.6,-30.4}}, color={255,0,255}));
   connect(onWSE.y, intWSEPri1.on[2]) annotation (Line(points={{-79,60},{-26,60},
           {-26,-30.4},{-11.6,-30.4}}, color={255,0,255}));
-  connect(TSet.y, intWSEPri1.TSet) annotation (Line(points={{-79,30},{-28,30},{
-          -28,-27.2},{-11.6,-27.2}},
-                                 color={0,0,127}));
+  connect(TSet.y, intWSEPri1.TSet) annotation (Line(points={{-79,30},{-28,30},{-28,
+          -27.2},{-11.6,-27.2}}, color={0,0,127}));
   connect(yVal5.y, intWSEPri1.yVal5) annotation (Line(points={{19,80},{-24,80},{
           -24,-35},{-11.6,-35}}, color={0,0,127}));
   connect(yVal6.y, intWSEPri1.yVal6) annotation (Line(points={{19,60},{2,60},{2,
@@ -116,8 +115,8 @@ equation
     annotation (Line(points={{-10,-44},{-40,-44}}, color={0,127,255}));
   connect(intWSEPri1.port_b1, sin1.ports[1]) annotation (Line(points={{10,-32},{
           22,-32},{22,-4},{70,-4}}, color={0,127,255}));
-  connect(intWSEPri1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},
-          {26,-44},{26,-72},{40,-72}},color={0,127,255}));
+  connect(intWSEPri1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},{
+          26,-44},{26,-72},{40,-72}}, color={0,127,255}));
   connect(TEva_in.y, sou2.T_in)
     annotation (Line(points={{69,-70},{62,-70}},          color={0,0,127}));
   connect(TSup2.port_a, intWSEPri2.port_b2)
@@ -134,9 +133,8 @@ equation
           {-26,-112.4},{-11.6,-112.4}}, color={255,0,255}));
   connect(onWSE.y, intWSEPri2.on[2]) annotation (Line(points={{-79,60},{-26,60},
           {-26,-112.4},{-11.6,-112.4}}, color={255,0,255}));
-  connect(TSet.y, intWSEPri2.TSet) annotation (Line(points={{-79,30},{-28,30},{
-          -28,-109.2},{-11.6,-109.2}},
-                                   color={0,0,127}));
+  connect(TSet.y, intWSEPri2.TSet) annotation (Line(points={{-79,30},{-28,30},{-28,
+          -109.2},{-11.6,-109.2}}, color={0,0,127}));
   connect(yVal5.y, intWSEPri2.yVal5) annotation (Line(points={{19,80},{-24,80},{
           -24,-117},{-11.6,-117}}, color={0,0,127}));
   connect(yVal6.y, intWSEPri2.yVal6) annotation (Line(points={{19,60},{2,60},{2,
@@ -145,9 +143,10 @@ equation
           {-20,-124.4},{-11.6,-124.4}}, color={0,0,127}));
   connect(tri.y, intWSEPri2.trigger) annotation (Line(points={{-79,-150},{-6,-150},
           {-6,-130}}, color={255,0,255}));
-  annotation (__Dymola_Commands(
-    file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimaryLoadSide.mos"
-    "Simulate and plot"), Documentation(info="<html>
+  annotation (__Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimaryLoadSide.mos"
+        "Simulate and plot"),
+Documentation(info="<html>
 <p>
 This example demonstrates how the model responses
 according to different cooling mode signals

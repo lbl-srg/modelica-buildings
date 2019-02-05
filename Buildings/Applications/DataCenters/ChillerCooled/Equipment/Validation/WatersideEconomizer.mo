@@ -111,15 +111,16 @@ equation
   connect(TCon_in.y,sou1. T_in)
     annotation (Line(points={{-79,0},{-62,0}},
       color={0,0,127}));
-  connect(sin2.ports[1], TSup.port_b) annotation (Line(points={{-70,-70},{-64,
-          -70},{-64,-44},{-60,-44}}, color={0,127,255}));
+  connect(sin2.ports[1], TSup.port_b) annotation (Line(points={{-70,-70},{-64,-70},
+          {-64,-44},{-60,-44}}, color={0,127,255}));
   connect(onWSE.y, WSE.on[1]) annotation (Line(points={{-79,60},{-18,60},{-18,-34},
           {-12,-34}}, color={255,0,255}));
   connect(sou1.ports[1], WSE.port_a1) annotation (Line(points={{-40,-4},{-34,-4},
           {-34,-32},{-10,-32}}, color={0,127,255}));
   connect(WSE.port_b1, sin1.ports[1]) annotation (Line(points={{10,-32},{26,-32},
           {26,-4},{70,-4}}, color={0,127,255}));
-  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/WatersideEconomizer.mos"
+  annotation (__Dymola_Commands(file=
+  "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/WatersideEconomizer.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates that the temperature at port_b2 is controlled by setting

@@ -1,8 +1,6 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
 model IntegratedPrimaryPlantSide
   "Integrated WSE on the plant side in a primary-only chilled water system"
-  import Buildings;
-
   extends Modelica.Icons.Example;
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
     sou1(nPorts=2, m_flow=2*mCW_flow_nominal),
@@ -92,8 +90,8 @@ equation
           -20,-44},{-40,-44}}, color={0,127,255}));
   connect(intWSEPri1.port_b1, sin1.ports[1]) annotation (Line(points={{10,-32},{
           20,-32},{20,-4},{70,-4}}, color={0,127,255}));
-  connect(intWSEPri1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},
-          {26,-44},{26,-72},{40,-72}},         color={0,127,255}));
+  connect(intWSEPri1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},{
+          26,-44},{26,-72},{40,-72}},          color={0,127,255}));
   connect(TEva_in.y, sou2.T_in)
     annotation (Line(points={{69,-70},{62,-70}},          color={0,0,127}));
   connect(TSet.y, intWSEPri1.TSet) annotation (Line(points={{-79,30},{-16,30},{-16,
@@ -104,8 +102,8 @@ equation
           {-18,-30.4},{-11.6,-30.4}}, color={255,0,255}));
   connect(sou1.ports[2], intWSEPri2.port_a1) annotation (Line(points={{-40,-4},{
           -28,-4},{-28,-102},{-10,-102}}, color={0,127,255}));
-  connect(sou2.ports[2], intWSEPri2.port_a2) annotation (Line(points={{40,-76},
-          {26,-76},{26,-114},{10,-114}},color={0,127,255}));
+  connect(sou2.ports[2], intWSEPri2.port_a2) annotation (Line(points={{40,-76},{
+          26,-76},{26,-114},{10,-114}}, color={0,127,255}));
   connect(intWSEPri2.port_b1, sin1.ports[2]) annotation (Line(points={{10,-102},
           {20,-102},{20,-4},{70,-4}}, color={0,127,255}));
   connect(TSet.y, intWSEPri2.TSet) annotation (Line(points={{-79,30},{-16,30},{-16,
@@ -125,7 +123,7 @@ equation
   connect(TSup2.port_a, intWSEPri2.port_b2)
     annotation (Line(points={{-40,-114},{-10,-114}}, color={0,127,255}));
   annotation (__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimaryPlantSide.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimaryPlantSide.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates how the model responses

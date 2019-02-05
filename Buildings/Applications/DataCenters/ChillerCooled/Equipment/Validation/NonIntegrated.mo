@@ -1,7 +1,5 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
 model NonIntegrated "Non-integrated WSE  in a chilled water system"
-  import Buildings;
-
   extends Modelica.Icons.Example;
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
     sou1(nPorts=2, m_flow=2*mCW_flow_nominal),
@@ -107,7 +105,7 @@ equation
   connect(tri.y, nonIntWSE2.trigger) annotation (Line(points={{-79,-150},{-6,-150},
           {-6,-120}}, color={255,0,255}));
   annotation (__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/NonIntegrated.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/NonIntegrated.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates how the model responses
