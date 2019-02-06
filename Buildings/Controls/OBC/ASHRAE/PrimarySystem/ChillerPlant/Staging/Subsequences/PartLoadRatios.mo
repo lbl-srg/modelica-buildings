@@ -230,7 +230,7 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-260,-110},{-240,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division minOpePlr "Calculates minimum OPLR of the current stage"
-    annotation (Placement(transformation(extent={{-282,-290},{-262,-270}})));
+    annotation (Placement(transformation(extent={{-278,-270},{-258,-250}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
 equation
@@ -374,8 +374,8 @@ equation
                                     color={0,0,127}));
   connect(opePlrDow.y, yDow) annotation (Line(points={{-239,-100},{200,-100},{200,-80},
           {270,-80}}, color={0,0,127}));
-  connect(minOpePlr.y, yMin) annotation (Line(points={{-261,-280},{-220,-280},{-220,
-          -260},{-48,-260},{-48,-200},{270,-200}}, color={0,0,127}));
+  connect(minOpePlr.y, yMin) annotation (Line(points={{-257,-260},{-48,-260},{
+          -48,-200},{270,-200}},                   color={0,0,127}));
   connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-139,-30},{40,-30},
           {40,158},{140,158}}, color={0,0,127}));
   connect(posDisTypMult.y, swi1.u1) annotation (Line(points={{-139,-130},{-60,-130},
@@ -391,9 +391,9 @@ equation
   connect(intEqu3.y, swi2.u2) annotation (Line(points={{1,210},{28,210},{28,-172},{
           60,-172}}, color={255,0,255}));
   connect(uStaCapMin, minOpePlr.u1) annotation (Line(points={{-362,-220},{-300,
-          -220},{-300,-274},{-284,-274}}, color={0,0,127}));
+          -220},{-300,-254},{-280,-254}}, color={0,0,127}));
   connect(uStaCapNom, minOpePlr.u2) annotation (Line(points={{-362,-60},{-320,
-          -60},{-320,-286},{-284,-286}}, color={0,0,127}));
+          -60},{-320,-266},{-280,-266}}, color={0,0,127}));
   connect(uStaUpCapMin, minOpePlrUp.u1) annotation (Line(points={{-360,-260},{
           -312,-260},{-312,-194},{-282,-194}}, color={0,0,127}));
   connect(uStaUpCapNom, minOpePlrUp.u2) annotation (Line(points={{-360,-160},{

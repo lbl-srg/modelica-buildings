@@ -5,7 +5,7 @@ model EquipmentRotationTwo_uDevRol
   parameter Integer num = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
-  parameter Boolean initRoles[num] = {true, false}
+  parameter Boolean initRoles[:] = {if i==1 then true else false for i in 1:num}
     "Sets initial roles: true = lead, false = lag or standby";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationTwo
@@ -35,8 +35,7 @@ equation
   connect(leadLoad.y, leaLag.uLeaSta) annotation (Line(points={{-59,20},{-40,20},
           {-40,-4},{-22,-4}}, color={255,0,255}));
   connect(lagLoad.y, leaLag.uLagSta) annotation (Line(points={{-59,-40},{-40,
-          -40},{-40,-16},{-22,-16}},
-                              color={255,0,255}));
+          -40},{-40,-16},{-22,-16}},color={255,0,255}));
   connect(leadLoad.y, leaSta.uLeaSta) annotation (Line(points={{-59,20},{30,20},
           {30,-4},{38,-4}}, color={255,0,255}));
           annotation (

@@ -18,7 +18,7 @@ block Tuning
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
     "Maximum cooling tower fan speed" annotation (Placement(transformation(
-          extent={{-222,-120},{-182,-80}}), iconTransformation(extent={{-140,-70},
+          extent={{-220,-120},{-180,-80}}), iconTransformation(extent={{-140,-70},
             {-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
@@ -162,7 +162,7 @@ equation
   connect(and1.u1, pre1.y) annotation (Line(points={{38,-42},{-30,-42},{-30,10},
           {-39,10}},  color={255,0,255}));
   connect(uTowFanSpeMax, hys.u)
-    annotation (Line(points={{-202,-100},{-162,-100}}, color={0,0,127}));
+    annotation (Line(points={{-200,-100},{-162,-100}}, color={0,0,127}));
   connect(triSam.y, zerOrdHol.u)
     annotation (Line(points={{81,130},{98,130}}, color={0,0,127}));
   connect(add1.y, triSam.u) annotation (Line(points={{41,150},{50,150},{50,130},

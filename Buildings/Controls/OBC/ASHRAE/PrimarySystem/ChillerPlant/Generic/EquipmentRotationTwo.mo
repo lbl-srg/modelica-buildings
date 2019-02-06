@@ -11,7 +11,7 @@ block EquipmentRotationTwo
   parameter Real stagingRuntime(unit = "s") = 240 * 60 * 60
     "Staging runtime";
 
-  parameter Boolean initRoles[num] = initialization[1:num]
+  parameter Boolean initRoles[:] = {if i==1 then true else false for i in 1:num}
     "Initial roles: true = lead, false = lag/standby";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaSta
@@ -45,31 +45,31 @@ block EquipmentRotationTwo
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
 protected
-  CDL.Routing.BooleanReplicator repLead(nout=num) "Replicates lead signal"
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(
+    final nout=num) "Replicates lead signal"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
 
-  CDL.Routing.BooleanReplicator repLag(nout=num) if lag
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
+    final nout=num) if lag
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-182,-80},{-162,-60}})));
 
-  final parameter Boolean initialization[num] = {true, false}
-    "fixme - there may be a better way. Initiates device mapped to the first index with the lead role and all other to lag";
-
-  Buildings.Controls.OBC.CDL.Logical.And3 and3[num]
+  Buildings.Controls.OBC.CDL.Logical.And3 and3[num] "Logical and"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=num)
+    final nu=num) "Array input or"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not0[num] "Logical not"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[num]
+    "Switch"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
-    final nout=num)
+    final nout=num) "Signal replicator"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre[num](
@@ -77,6 +77,7 @@ protected
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1[num]
+    "Falling Edge"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1[num] "Logical not"
