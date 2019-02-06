@@ -170,9 +170,8 @@ equation
           {28,-44}}, color={255,127,0}));
   connect(minInt.y, extStaUpCap.index)
     annotation (Line(points={{51,-50},{60,-50},{60,-32}}, color={255,127,0}));
-  connect(addInt.y, extStaCapMin.index) annotation (Line(points={{-79,70},{-74,
-          70},{-74,-120},{50,-120},{50,-112}},
-                                           color={255,127,0}));
+  connect(addInt.y, extStaCapMin.index) annotation (Line(points={{-79,70},{-74,70},
+          {-74,-120},{50,-120},{50,-112}}, color={255,127,0}));
   connect(minStaUnl.y, extStaCapMin.u) annotation (Line(points={{-79,-80},{-70,-80},
           {-70,-110},{28,-110},{28,-100},{38,-100}}, color={0,0,127}));
   connect(extStaCapMin.y, yStaMin) annotation (Line(points={{61,-100},{140,-100},
@@ -196,8 +195,10 @@ Based on the current chiller stage and nominal stage capacities returns the
 nominal capacity of the current and one lower stage for the purpose of 
 calculating the operative part load ratio (OPLR).
 
-fixme: if we'd like to implement skipping unavailable stages, we'd need a multiple
-extracter with an input and zip.sum.
+fixme: implement skipping unavailable stages using:
+lower_triangle = avail_sta * sta_cap
+
+  parameter Real lower_triangle[numSta,numSta] = {if i<= j then 1 else 0 for i in 1:numSta, j in 1:numSta};
 </p>
 </html>",
 revisions="<html>
