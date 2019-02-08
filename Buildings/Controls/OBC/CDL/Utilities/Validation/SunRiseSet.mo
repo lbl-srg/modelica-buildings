@@ -22,7 +22,6 @@ model SunRiseSet "Test model for the block SunRiseSet"
     lon=2.6354471705114,
     timZon=36000) "Sydney as a test example in the southern hemisphere"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-equation
 
 annotation (
   experiment(StopTime=31536000, Tolerance=1e-06),
@@ -30,13 +29,20 @@ annotation (
   file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Utilities/Validation/SunRiseSet.mos"
         "Simulate and plot"),
   Documentation(info="<html>
-<p>This example includes 4 tests for the <a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.SunRiseSet\">
-Buildings.Controls.OBC.CDL.Utilities.SunRiseSet</a> block: 2 normal cases, an arctic and antarctic case.
-The normal cases are represented by San Francisco and Sydney, where there is a sunrise and sunset every day. </p>
-<p>Above the arctic circle, no sunset in summer and no sunrise in winter are observed for a period;
-the next sunrise and sunset time are reported for that period. </p>
-<p>Below the antarctic circle, no sunrise in summer and no sunset in winter are observed for a period;
-the next sunrise and sunset are reported for that period likewise. </p>
+<p>
+This example includes four instances of the
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.SunRiseSet\">
+Buildings.Controls.OBC.CDL.Utilities.SunRiseSet</a> block:
+Two normal cases, an arctic and antarctic case.
+The normal cases are represented by San Francisco and Sydney,
+where there is a sunrise and sunset every day.
+</p>
+<p>
+Above the arctic circle and below the antarctic circle,
+in winter and summer there is a period in which there is no sunset and sunrise
+for a few days.
+Hence, the output signals of the block remain constant.
+</p>
 </html>",
 revisions="<html>
 <ul>

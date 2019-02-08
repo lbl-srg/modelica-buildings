@@ -1,5 +1,5 @@
 simulateModel("Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet",
-  method="dassl", tolerance=1e-06, stopTime=3.1536e+007, numberOfIntervals=5000, resultFile="SunRiseSet");
+  method="CVode", tolerance=1e-06, stopTime=3.1536e+007, numberOfIntervals=5000, resultFile="SunRiseSet");
 createPlot(id=1,
   position={15, 10, 590, 600}, subPlot=1, y={"sunRiseSetArctic.nextSunRise", "sunRiseSetArctic.nextSunSet","sunRiseSetArctic.sunUp"},
   range={0.0, 370, -2, 24}, grid=true, colors={{0,140,72}, {238,46,47}, {28,108,200}});

@@ -143,16 +143,22 @@ equation
   sunUp = nextSunSet < nextSunRise
   annotation (defaultComponentName="sunRiseSet",
   Documentation(info="<html>
-<p>This block outputs the next sunrise and sunset time. The hours are output like step functions.
-The sunrise time keeps constant until the model time reaches the current sunrise;
-when the model time passes the current sunrise, the sunrise hour gets updated with the next sunrise.
-Sunset output works in the same way as sunrise. </p>
-<p>The time zone parameter is based on UTC time; for instance, Eastern Standard Time is -5h.
-Note that daylight savings time is not considered in this component. </p>
-<h4>Validation </h4>
-<p>A validation can be found at
+<p>
+This block outputs the next sunrise and sunset time.
+The sunrise time keeps constant until the model time reaches the next sunrise,
+at which time the output gets updated.
+Similarly, the output for the next sunset is updated at each sunset.
+</p>
+<p>
+The time zone parameter is based on UTC time; for instance, Eastern Standard Time is -5h.
+Note that daylight savings time is not considered in this component.
+</p>
+<h4>Validation</h4>
+<p>
+A validation can be found at
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet\">
-Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>. </p>
+Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
