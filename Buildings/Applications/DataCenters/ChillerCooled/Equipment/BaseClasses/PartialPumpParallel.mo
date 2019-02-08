@@ -32,11 +32,11 @@ partial model PartialPumpParallel "Partial model for pump parallel"
 
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Shutoff valve"));
+    annotation(Dialog(group="Two-way valve"));
   parameter Real kFixed=m_flow_nominal/sqrt(dpValve_nominal)
     "Flow coefficient of fixed resistance that may be in series with valve,
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Shutoff valve"));
+    annotation(Dialog(group="Two-way valve"));
   parameter Modelica.SIunits.Time riseTimeValve = 120
     "Rise time of the filter (time to reach 99.6 % of the speed)"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
@@ -139,15 +139,15 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final from_dp=from_dp,
     each final linearized=linearizeFlowResistance,
     each final homotopyInitialization=homotopyInitialization)
-    "Shutoff valves"
+    "Isolation valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[num](
     each final uLow=threshold,
-    each final uHigh=2*threshold) "Hysteresis for shut-off valve"
+    each final uHigh=2*threshold) "Hysteresis for isolation valves"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
-    "Boolean to real conversion for shut-off valve"
+    "Boolean to real conversion for isolation valves"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 equation
   connect(pum.port_b, val.port_a)
@@ -248,7 +248,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Partial model for <code>num</code> parallel pumps, each with a shut-off valve to
+Partial model for <code>num</code> parallel pumps, each with an isolation valve to
 avoid recirculation.
 </p>
 </html>"));

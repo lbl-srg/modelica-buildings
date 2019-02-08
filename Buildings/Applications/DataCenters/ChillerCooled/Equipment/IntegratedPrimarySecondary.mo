@@ -1,7 +1,8 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model IntegratedPrimarySecondary
   "Integrated waterside economizer on the load side in a primary-secondary chilled water system"
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE(
     final numVal=5,
     final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_chi_nominal,
       m2_flow_wse_nominal,numChi*m2_flow_chi_nominal},
@@ -66,7 +67,8 @@ model IntegratedPrimarySecondary
   Modelica.Blocks.Interfaces.RealInput yPum[numPum](
       each final unit = "1",
       each min = 0,
-      each max = 1) "Prescribed speed signal for primary pumps"
+      each max = 1)
+    "Prescribed normalized flowrate for primary pumps: 1 - nominal flowrate, 0 - no flowrate"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-130,-50},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput yVal5(
@@ -104,7 +106,7 @@ model IntegratedPrimarySecondary
     final rhoStd=rhoStd[5],
     final y_start=yVal5_start,
     final l=lVal5)
-    "Shutoff valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
+    "Bypass valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m pum(
     redeclare final package Medium = Medium2,

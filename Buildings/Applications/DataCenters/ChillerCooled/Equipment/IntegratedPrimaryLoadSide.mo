@@ -90,7 +90,7 @@ model IntegratedPrimaryLoadSide
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
     final linearizeFlowResistance=linearizeFlowResistance2)
-    "Identical pumps"
+    "Pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
 
 equation
