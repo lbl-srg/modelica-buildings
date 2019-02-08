@@ -4,19 +4,7 @@
  * Michael Wetter, LBNL                  2/14/2018
  */
 
-#include "FMUEnergyPlusStructure.h"
-#include "ModelicaUtilities.h"
-
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
-#if defined _WIN32
-#include <windows.h>
-#else
-#include <dlfcn.h>
-#endif
-
+#include "FMUZoneInit.h"
 
 int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
   int iZ;
