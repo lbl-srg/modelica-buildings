@@ -40,7 +40,7 @@ model WatersideEconomizer "Waterside economizer"
         transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
           extent={{-140,-20},{-100,20}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger heaExc(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
     final use_controller=use_controller,
@@ -124,7 +124,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This module impliments a waterside economizer model that consists of a
-<a href=\"Modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger\">heat exchanger</a> and a shutoff valve on each medium side.
+<a href=\"Modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet\">heat exchanger</a> and a shutoff valve on each medium side.
 This waterside economizer model can be used in two different control scenarios:
 </p>
 <ol>

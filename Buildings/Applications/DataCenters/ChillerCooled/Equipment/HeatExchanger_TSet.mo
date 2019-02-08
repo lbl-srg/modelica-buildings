@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
-model HeatExchanger "Heat exchanger"
+model HeatExchanger_TSet "Heat exchanger"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialHeatExchanger(
     final activate_ThrWayVal=use_controller);
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialControllerInterface;
@@ -80,4 +80,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeatExchanger;
+end HeatExchanger_TSet;

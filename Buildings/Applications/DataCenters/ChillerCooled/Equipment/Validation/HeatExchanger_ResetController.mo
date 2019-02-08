@@ -12,7 +12,7 @@ model HeatExchanger_ResetController
     "Nominal pressure difference on medium 1 side";
   parameter Modelica.SIunits.Pressure dp2_nominal=60000
     "Nominal pressure difference on medium 2 side";
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger hex1(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet hex1(
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     eta=0.8,
@@ -89,7 +89,7 @@ model HeatExchanger_ResetController
   Modelica.Blocks.Sources.Constant TEva_in(k=273.15 + 25.28)
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{100,18},{80,38}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger hex2(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet hex2(
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     eta=0.8,
@@ -109,7 +109,7 @@ model HeatExchanger_ResetController
   Modelica.Blocks.Sources.BooleanPulse tri(period=900)
     "Trigger controller reset"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger hex3(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet hex3(
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     eta=0.8,
