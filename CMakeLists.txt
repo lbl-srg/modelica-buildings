@@ -1,3 +1,9 @@
+##################################################################
+# CMake file for Modelica Buildings Library
+# To build all targets, run
+# rm -rf build && mkdir build && cd build && cmake ../ && cmake --build . --target install && cd ..
+#
+##################################################################
 cmake_policy(SET CMP0048 NEW)
 
 project( Modelica-Buildings VERSION 5.1.0 )
