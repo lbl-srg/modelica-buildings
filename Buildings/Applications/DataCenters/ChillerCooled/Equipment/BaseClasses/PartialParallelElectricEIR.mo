@@ -2,10 +2,6 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 partial model PartialParallelElectricEIR
   "Partial model for electric chiller parallel"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallel(
-    final numVal = 2,
-    final m_flow_nominal = {m1_flow_nominal,m2_flow_nominal},
-    rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
-      Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
     val2(each final dpFixed_nominal=dp2_nominal),
     val1(each final dpFixed_nominal=dp1_nominal));
 

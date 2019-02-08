@@ -2,17 +2,13 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model WatersideEconomizer "Waterside economizer"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallel(
     final num=1,
-    final numVal=2,
-    final m_flow_nominal={m1_flow_nominal,m2_flow_nominal},
-    rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
-            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
     val2(each final dpFixed_nominal=0),
     val1(each final dpFixed_nominal=dp1_nominal),
     kFixed={m1_flow_nominal/sqrt(dp1_nominal),0},
     final yValve_start={yValWSE_start});
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
-    redeclare package Medium=Medium2);
+    redeclare final package Medium=Medium2);
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
     final activate_ThrWayVal=use_controller);
