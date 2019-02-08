@@ -142,7 +142,8 @@ equation
   connect(TEva_in1.y, sou2_1.T_in)
     annotation (Line(points={{69,28},{56,28}}, color={0,0,127}));
   annotation (
-__Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/HeatExchanger.mos"
+  __Dymola_Commands(file=
+  "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/HeatExchanger.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
