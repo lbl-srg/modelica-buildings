@@ -26,8 +26,9 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-90})));
-  Modelica.Blocks.Interfaces.RealOutput P(each final quantity="Power", each final
-            unit="W") "Power" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput P(
+    final quantity="Power",
+    final unit="W") "Power" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-60,-50}), iconTransformation(
@@ -56,6 +57,10 @@ As this sensor is configured to measure DC power, the reactive power is always z
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong use of <code>each</code>.
+</li>
 <li>
 March 19, 2015, by Michael Wetter:<br/>
 Removed redeclaration of phase system in <code>Terminal_n</code> and

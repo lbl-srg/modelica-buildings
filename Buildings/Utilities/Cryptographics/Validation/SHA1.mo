@@ -11,8 +11,7 @@ model SHA1 "Model that verifies the SHA1 encryption C function"
     "Third test string";
   parameter String strIn4 = "1.23e+4"
     "Fourth test string";
-  parameter String strIn5 = Modelica.Utilities.Strings.repeat(1000,
-    string="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+  parameter String strIn5 = Modelica.Utilities.Strings.repeat(509, string="a")
     "Fifth test string";
 
   //Expected outputs
@@ -29,7 +28,7 @@ model SHA1 "Model that verifies the SHA1 encryption C function"
     "bdd220adb45b392f17915af70ed8a006c382b983"
     "Encryption result of fourth string";
   parameter String strEx5=
-    "34aa973cd4c4daa4f61eeb2bdbad27316534016f"
+    "edff7a135c2e06d4c8084e61b4516c901bd5fcd0"
     "Encryption result of fifth string";
 
   //Comparison results
@@ -65,7 +64,7 @@ the following strings:
 <code>&#34;1.23e+4&#34;</code>
 </li>
 <li>
-<code>&#34;a&#34;</code> repeated a million consecutive times
+<code>&#34;a&#34;</code> repeated <i>509</i> times.
 </li>
 </ul>
 <p>
@@ -75,6 +74,11 @@ results, the <code>cmpAll</code> boolean variable will be <code>true</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 13, 2019, by Michael Wetter:<br/>
+Reduced string length for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1081\">issue 1081</a>.
+</li>
 <li>
 May 30, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.

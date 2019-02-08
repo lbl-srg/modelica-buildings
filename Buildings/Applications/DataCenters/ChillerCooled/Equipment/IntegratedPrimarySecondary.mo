@@ -107,7 +107,7 @@ model IntegratedPrimarySecondary
     "Shutoff valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m pum(
-    redeclare each final package Medium = Medium2,
+    redeclare final package Medium = Medium2,
     final p_start=p2_start,
     final T_start=T2_start,
     final X_start=X2_start,
@@ -264,9 +264,13 @@ Otherwise, V5 is off.
 </html>", revisions="<html>
 <ul>
 <li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong <code>each</code>.
+</li>
+<li>
 December 1, 2017, by Yangyang Fu:<br/>
-Changed the input connector <code>m_flow_in</code> into <code>yPum</code> to 
-avoid multipling mass flowrate twice in the <code>pum</code>. This is for 
+Changed the input connector <code>m_flow_in</code> into <code>yPum</code> to
+avoid multipling mass flowrate twice in the <code>pum</code>. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1080\">#1080</a>.
 </li>
 <li>

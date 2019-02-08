@@ -1,0 +1,68 @@
+[
+  {
+    "jmodelica": {
+      "solver": "Radau5ODE"
+    },
+    "model_name": "Buildings.Airflow.Multizone.Examples.OneOpenDoor"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+  },
+  "model_name": "Buildings.Fluid.Examples.FlowSystem.Basic"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+  },
+  "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified1"
+  },
+  {
+    "jmodelica": {
+      "simulate": false
+  },
+  "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
+  },
+  {
+     "jmodelica": {
+       "simulate": false
+  },
+  "model_name": "Buildings.Utilities.IO.Python27.Examples.SimpleRoom"
+  },
+  {
+     "jmodelica": {
+       "simulate": false
+  },
+  "model_name": "Buildings.Utilities.IO.Python27.Examples.KalmanFilter"
+  },
+  {
+     "jmodelica": {
+       "simulate": false
+  },
+  "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.ExchangeWithPassPythonObject"
+  },
+  {
+     "jmodelica": {
+       "simulate": false
+  },
+  "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
+  },
+  {
+     "jmodelica": {
+       "simulate": false
+  },
+  "model_name": "Buildings.Examples.VAVCO2.VAVSystemCTControl"
+  },
+  {
+     "jmodelica": {
+       "simulate": false
+  },
+  "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
+  },
+  {
+     "jmodelica": {
+       "simulate": false
+  },
+  "model_name": "Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.PumpParallel"
+  }
+]
