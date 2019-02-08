@@ -15,7 +15,6 @@ extends ExternalObject;
            iddName,
            zoneName)
     annotation (Library={"ModelicaBuildingsEnergyPlus", "epfmi-9.0.1"});
-    //           epLibName,
 
     annotation (Documentation(info="<html>
 <p>
@@ -37,7 +36,7 @@ First implementation.
   function destructor "Release storage"
     input FMUZoneClass adapter;
     external "C" FMUZoneFree(adapter)
-    annotation (Library="ModelicaBuildingsEnergyPlus");
+    annotation (Library={"ModelicaBuildingsEnergyPlus", "epfmi-9.0.1"});
 
   annotation(Documentation(info="<html>
 <p>
