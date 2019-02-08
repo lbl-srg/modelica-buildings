@@ -5,8 +5,8 @@ model TwoPortRL
     final V_nominal=0,
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p,
+    redeclare replaceable Interfaces.Terminal_n terminal_n,
+    redeclare replaceable Interfaces.Terminal_p terminal_p,
     final C=0);
   parameter Modelica.SIunits.Current i_start[PhaseSystem_p.n] = zeros(PhaseSystem_p.n)
     "Initial current phasor of the line (positive if entering from terminal p)"
@@ -76,6 +76,10 @@ The model represents the lumped RL cable as shown in the figure below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2019, by Michael Wetter:<br/>
+Added <code>replaceable</code> for terminal.
+</li>
 <li>
 May 26, 2016, by Michael Wetter:<br/>
 Moved function call to <code>PhaseSystem.thetaRef</code> out of

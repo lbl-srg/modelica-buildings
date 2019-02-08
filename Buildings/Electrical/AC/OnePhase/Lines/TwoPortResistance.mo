@@ -4,8 +4,8 @@ model TwoPortResistance "Model of a resistance with two electrical ports"
     Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p);
+    redeclare replaceable Interfaces.Terminal_n terminal_n,
+    redeclare replaceable Interfaces.Terminal_p terminal_p);
 equation
   terminal_p.v - terminal_n.v = terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual);
 
@@ -39,6 +39,10 @@ The model represents the lumped resistance as shown in the figure below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2019, by Michael Wetter:<br/>
+Added <code>replaceable</code> for terminal.
+</li>
 <li>
 January 14, 2015, by Marco Bonvini:<br/>
 Added equation that represents Joule losses
