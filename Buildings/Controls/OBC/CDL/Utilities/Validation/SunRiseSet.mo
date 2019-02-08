@@ -10,7 +10,7 @@ model SunRiseSet "Test model for the block SunRiseSet"
   Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetSf(
     lat=0.6457718232379,
     lon=-2.1293016874331,
-    timZon=-28800) "San Francisco as a test example in the northen hemisphere"
+    timZon=-28800) "San Francisco as an example in the northen hemisphere"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetAntarctic(
     lat=-1.3089969389957,
@@ -20,7 +20,7 @@ model SunRiseSet "Test model for the block SunRiseSet"
   Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetSyd(
     lat=-0.59341194567807,
     lon=2.6354471705114,
-    timZon=36000) "Sydney as a test example in the southern hemisphere"
+    timZon=36000) "Sydney as an example in the southern hemisphere"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
 annotation (
