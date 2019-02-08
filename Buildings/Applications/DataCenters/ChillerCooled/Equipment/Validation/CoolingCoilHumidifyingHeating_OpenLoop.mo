@@ -76,7 +76,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1E-6, StopTime=1000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/CoolingCoilHumidifyingHeating_OpenLoop.mos"
+__Dymola_Commands(file=
+  "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/CoolingCoilHumidifyingHeating_OpenLoop.mos"
         "Simulate and PLot"),
 Documentation(info="<html>
 <p>

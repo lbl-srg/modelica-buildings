@@ -168,8 +168,8 @@ equation
   connect(senTem.port_b, val5.port_b)
     annotation (Line(points={{8,24},{2,24},{2,
           0},{30,0},{30,-20},{40,-20}}, color={0,127,255}));
-  connect(yPum, pum.u) annotation (Line(points={{-120,-40},{-96,-40},{-40,-40},{
-          -40,-6},{16,-6},{16,-16},{12,-16}}, color={0,0,127}));
+  connect(yPum, pum.u) annotation (Line(points={{-120,-44},{-96,-44},{-40,-44},
+          {-40,-6},{16,-6},{16,-16},{12,-16}},color={0,0,127}));
   connect(pum.port_a, val5.port_b)
     annotation (Line(points={{10,-20},{25,-20},{40,-20}}, color={0,127,255}));
   connect(pum.P, powPum) annotation (Line(points={{-11,-16},{-14,-16},{-14,50},
