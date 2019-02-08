@@ -6,27 +6,56 @@ cmake_minimum_required(VERSION 3.8)
 # find_package(Java REQUIRED)
 # include(UseJava)
 
-set( BUILDINGS_INSTALL_PREFIX "Buildings")
-if( APPLE )
-  set( PLATFORM_INSTALL_PREFIX darwin64 )
-elseif( WIN32 )
-  if(CMAKE_SYSTEM_PROCESSOR STREQUAL "i386")
-    set( PLATFORM_INSTALL_PREFIX win32 )
-  else()
-    set( PLATFORM_INSTALL_PREFIX win64 )
-  endif()
-elseif( LINUX )
-  if(CMAKE_SYSTEM_PROCESSOR STREQUAL "i386")
-    set( PLATFORM_INSTALL_PREFIX linux32 )
-  else()
-    set( PLATFORM_INSTALL_PREFIX linux64 )
-  endif()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -ldl")
+
+set( BUILDINGS_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Buildings")
+
+set( CMAKE_INSTALL_PREFIX "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/" )
+
+# Output build system directories.
+message("CMake source directory is: ${CMAKE_SOURCE_DIR}")
+
+# Detect OS.
+if(CMAKE_SYSTEM_NAME MATCHES Windows)
+    set(WINDOWS 1)
+    message("Windows system detected.")
+elseif(CMAKE_SYSTEM_NAME MATCHES Linux)
+    set(LINUX 1)
+    message("Linux system detected.")
+elseif(CMAKE_SYSTEM_NAME MATCHES Darwin)
+    set(MACOSX 1)
+    message("Mac OS X system detected.")
+else()
+    message(WARNING "OS unknown!")
 endif()
 
-install( DIRECTORY Buildings/
-  DESTINATION ${BUILDINGS_INSTALL_PREFIX}
-  PATTERN CMakeLists.txt EXCLUDE
-)
+# Set target directories.
+# NOTE: always add quotes to protect spaces in path when setting new variables.
+if (WINDOWS)
+    if(CMAKE_SYSTEM_PROCESSOR MATCHES ".*64$")
+        set(PLATFORM_INSTALL_PREFIX win64)
+    else()
+        set(PLATFORM_INSTALL_PREFIX win32)
+    endif()
+elseif(LINUX)
+    if(CMAKE_SYSTEM_PROCESSOR MATCHES ".*64$")
+        set(PLATFORM_INSTALL_PREFIX linux64)
+    else()
+        set(PLATFORM_INSTALL_PREFIX linux32)
+    endif()
+elseif(MACOSX)
+    set(PLATFORM_INSTALL_PREFIX darwin64)
+endif()
+
+if (LINUX)
+add_definitions(-D_GNU_SOURCE)
+message("Added GNU_SOURCE")
+endif()
+
+#install( DIRECTORY Buildings/
+#  DESTINATION ${BUILDINGS_INSTALL_PREFIX}
+#  PATTERN CMakeLists.txt EXCLUDE
+#)
 
 add_library( ModelicaBuildingsEnergyPlus SHARED
   Buildings/Resources/src/EnergyPlus/ModelicaUtilities.h
@@ -36,13 +65,19 @@ add_library( ModelicaBuildingsEnergyPlus SHARED
   Buildings/Resources/src/EnergyPlus/FMUEnergyPlusStructure.c
   Buildings/Resources/src/EnergyPlus/FMUZoneExchange.c
   Buildings/Resources/src/EnergyPlus/FMUZoneFree.c
+  Buildings/Resources/src/EnergyPlus/FMUZoneInit.h
   Buildings/Resources/src/EnergyPlus/FMUZoneInit.c
   Buildings/Resources/src/EnergyPlus/FMUZoneInstantiate.c
 )
 target_link_libraries( ModelicaBuildingsEnergyPlus
   ${MODELICA_LIBS}
 )
-install( TARGETS ModelicaBuildingsEnergyPlus DESTINATION ${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/ )
+target_link_libraries(ModelicaBuildingsEnergyPlus dl)
+
+set(BUILDINGS_INSTALL_DIR "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/")
+message("Installing to: ${BUILDINGS_INSTALL_DIR}")
+
+install( TARGETS ModelicaBuildingsEnergyPlus DESTINATION ${BUILDINGS_INSTALL_DIR} )
 
 # Other stuff not compiled yet
 
