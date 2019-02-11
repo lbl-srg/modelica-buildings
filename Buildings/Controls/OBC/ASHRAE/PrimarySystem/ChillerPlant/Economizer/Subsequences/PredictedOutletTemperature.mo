@@ -31,11 +31,12 @@ block PredictedOutletTemperature
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final quantity=
-        "ThermodynamicTemperature", final unit="K")
-    "Predicted waterside economizer outlet temperature" annotation (Placement(
-        transformation(extent={{160,-20},{200,20}}), iconTransformation(extent=
-            {{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
+    final quantity="ThermodynamicTemperature",
+    final unit="K")
+    "Predicted waterside economizer outlet temperature"
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
+    iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Division heaExcPlr
@@ -55,7 +56,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
     annotation (Placement(transformation(extent={{-20,44},{0,64}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k1=-1) "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(
+    final k1=-1) "Adder"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWetDes(
@@ -71,7 +73,8 @@ protected
     "Cooling tower design approach"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(final nin=4)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+    final nin=4)
     "Sum of multiple inputs"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
@@ -99,18 +102,17 @@ equation
           60,1.5},{78,1.5}},color={0,0,127}));
   connect(pro.y, mulSum.u[2]) annotation (Line(points={{1,54},{20,54},{20,0.5},
           {78,0.5}},  color={0,0,127}));
-  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{1,-50},{20,-50},{20,
-          -0.5},{78,-0.5}},
-                       color={0,0,127}));
+  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{1,-50},{20,-50},{20,-0.5},
+          {78,-0.5}},  color={0,0,127}));
   connect(towAppDes1.y, mulSum.u[4]) annotation (Line(points={{41,-90},{60,-90},
-          {60,0},{78,0},{78,-1.5}},
-                                  color={0,0,127}));
+          {60,-2},{78,-2},{78,-1.5}}, color={0,0,127}));
   connect(mulSum.y, y)
-    annotation (Line(points={{101,0},{180,0}},   color={0,0,127}));
+    annotation (Line(points={{101,0},{180,0}}, color={0,0,127}));
   connect(heaExcPlr.y, lim.u)
     annotation (Line(points={{-59,70},{-52,70}}, color={0,0,127}));
-  connect(pro.u1, lim.y) annotation (Line(points={{-22,60},{-26,60},{-26,70},{-29,
-          70}}, color={0,0,127}));
+  connect(pro.u1, lim.y)
+    annotation (Line(points={{-22,60},{-26,60},{-26,70},{-29,70}},
+      color={0,0,127}));
     annotation (defaultComponentName = "wseTOut",
         Icon(graphics={
         Rectangle(
@@ -121,7 +123,7 @@ equation
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),      Diagram(
+          textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-160,-180},{160,180}})),
 Documentation(info="<html>

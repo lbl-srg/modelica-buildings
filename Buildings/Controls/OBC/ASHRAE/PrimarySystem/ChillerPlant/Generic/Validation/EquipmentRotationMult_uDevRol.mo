@@ -20,20 +20,21 @@ model EquipmentRotationMult_uDevRol
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad(final width=0.8,
-      final period=2*60*60) "Lead device on/off status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad(
+    final width=0.8,
+    final period=2*60*60) "Lead device on/off status"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(final width=0.2,
-      final period=1*60*60)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(
+    final width=0.2,
+    final period=1*60*60)
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 equation
   connect(leadLoad.y, leaLag.uLeaSta) annotation (Line(points={{-59,20},{-40,20},
           {-40,-4},{-22,-4}}, color={255,0,255}));
   connect(lagLoad.y, leaLag.uLagSta) annotation (Line(points={{-59,-40},{-40,
-          -40},{-40,-16},{-22,-16}},
-                              color={255,0,255}));
+          -40},{-40,-16},{-22,-16}},color={255,0,255}));
   connect(leadLoad.y, leaSta.uLeaSta) annotation (Line(points={{-59,20},{30,20},
           {30,-4},{38,-4}}, color={255,0,255}));
           annotation (

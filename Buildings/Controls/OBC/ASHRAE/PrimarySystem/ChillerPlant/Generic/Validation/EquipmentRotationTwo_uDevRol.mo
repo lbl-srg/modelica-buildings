@@ -18,16 +18,18 @@ model EquipmentRotationTwo_uDevRol
     leaSta(
     final stagingRuntime=5*60*60,
     final num=num,
-    lag=false)
+    final lag=false)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad(final width=0.8,
-      final period=2*60*60) "Lead device on/off status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad(
+    final width=0.8,
+    final period=2*60*60) "Lead device on/off status"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(final width=0.2,
-      final period=1*60*60)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(
+    final width=0.2,
+    final period=1*60*60)
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 equation

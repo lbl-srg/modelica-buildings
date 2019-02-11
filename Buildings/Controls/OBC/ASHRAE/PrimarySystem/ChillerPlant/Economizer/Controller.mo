@@ -65,10 +65,10 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpe
-    "Cooling tower fan speed"
-    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
+    "Maximum cooling tower fan speed" annotation (Placement(transformation(
+          extent={{-220,-120},{-180,-80}}), iconTransformation(extent={{-140,-100},
+            {-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
@@ -158,11 +158,8 @@ equation
           {-2,42}}, color={0,0,127}));
   connect(TChiWatRet, enaTWet.u1) annotation (Line(points={{-200,60},{-140,60},{
           -140,80},{-10,80},{-10,50},{-2,50}}, color={0,0,127}));
-  connect(uTowFanSpe, wseTun.uTowFanSpe)
-    annotation (Line(points={{-200,-100},{-150,-100},{-150,-105},{-142,-105}},
-    color={0,0,127}));
-  connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,-100},{-110,
-          -100},{-110,52},{-102,52}},color={0,0,127}));
+  connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,-100},
+          {-150,-100},{-150,-105},{-142,-105}}, color={0,0,127}));
   connect(TOutWet, wseTOut.TOutWet)
     annotation (Line(points={{-200,100},{-120,100},{-120,68},{-102,68}},
     color={0,0,127}));
@@ -202,6 +199,8 @@ equation
           90,42},{98,42}}, color={255,0,255}));
   connect(wseTOut.y, yTPre) annotation (Line(points={{-78,60},{-70,60},{-70,90},
           {160,90},{160,80},{190,80}}, color={0,0,127}));
+  connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,-100},{-110,
+          -100},{-110,52},{-102,52}}, color={0,0,127}));
   annotation (defaultComponentName = "wseSta",
         Icon(graphics={
         Rectangle(

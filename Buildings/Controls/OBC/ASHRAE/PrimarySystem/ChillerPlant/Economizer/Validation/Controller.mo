@@ -112,8 +112,8 @@ protected
     annotation (Placement(transformation(extent={{90,0},{110,20}})));
 equation
 
-  connect(constTowFanSig.y, wseSta.uTowFanSpe) annotation (Line(points={{-119,-70},
-          {-80,-70},{-80,2},{-72,2}},color={0,0,127}));
+  connect(constTowFanSig.y, wseSta.uTowFanSpeMax) annotation (Line(points={{-119,
+          -70},{-80,-70},{-80,2},{-72,2}}, color={0,0,127}));
   connect(TOutWetSig.y, wseSta.TOutWet) annotation (Line(points={{-119,70},{-80,
           70},{-80,18},{-72,18}},color={0,0,127}));
   connect(TChiWatRetSig.y, wseSta.TChiWatRet) annotation (Line(points={{-119,40},
@@ -122,8 +122,8 @@ equation
           {-90,-30},{-90,6},{-72,6}},color={0,0,127}));
   connect(TChiWatRetDow.y,wseSta.TChiWatRetDow)
     annotation (Line(points={{-119,10},{-72,10}},color={0,0,127}));
-  connect(constTowFanSig1.y, wseSta1.uTowFanSpe) annotation (Line(points={{-9,-70},
-          {30,-70},{30,2},{38,2}}, color={0,0,127}));
+  connect(constTowFanSig1.y, wseSta1.uTowFanSpeMax) annotation (Line(points={{-9,
+          -70},{30,-70},{30,2},{38,2}}, color={0,0,127}));
   connect(TOutWetSig1.y, wseSta1.TOutWet) annotation (Line(points={{-9,70},{30,70},
           {30,18},{38,18}}, color={0,0,127}));
   connect(TChiWatRetSig1.y, wseSta1.TChiWatRet) annotation (Line(points={{-9,40},
@@ -132,8 +132,8 @@ equation
           {20,-30},{20,6},{38,6}}, color={0,0,127}));
   connect(TChiWatRetDow1.y,wseSta1.TChiWatRetDow)
     annotation (Line(points={{-9,10},{38,10}}, color={0,0,127}));
-  connect(constTowFanSig2.y,wseSta2. uTowFanSpe) annotation (Line(points={{111,-70},
-          {150,-70},{150,2},{158,2}}, color={0,0,127}));
+  connect(constTowFanSig2.y, wseSta2.uTowFanSpeMax) annotation (Line(points={{
+          111,-70},{150,-70},{150,2},{158,2}}, color={0,0,127}));
   connect(TOutWetSig2.y,wseSta2. TOutWet) annotation (Line(points={{111,70},{150,
           70},{150,18},{158,18}},color={0,0,127}));
   connect(TChiWatRetSig2.y,wseSta2. TChiWatRet) annotation (Line(points={{111,40},

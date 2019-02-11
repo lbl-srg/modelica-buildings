@@ -1,16 +1,12 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Validation.Controller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="Controller");
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"wseSta.TOutWet", "wseSta.TChiWatRet", "wseSta.TChiWatRetDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"wseSta.VChiWat_flow", "wseSta.uTowFanSpe"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"wseSta.VChiWat_flow", "wseSta.uTowFanSpeMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"wseSta.y", "wseSta.enaTWet.y", "wseSta.enaTChiWatRet.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 
 createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"wseSta1.TOutWet", "wseSta1.TChiWatRet", "wseSta1.TChiWatRetDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"wseSta1.VChiWat_flow", "wseSta1.uTowFanSpe"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"wseSta1.VChiWat_flow", "wseSta1.uTowFanSpeMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"wseSta1.y", "wseSta1.enaTWet.y", "wseSta1.enaTChiWatRet.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 
 createPlot(id=3, position={20, 10, 1200, 650}, subPlot=1, y={"wseSta2.TOutWet", "wseSta2.TChiWatRet", "wseSta2.TChiWatRetDow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=3, position={20, 10, 1200, 650}, subPlot=2, y={"wseSta2.VChiWat_flow", "wseSta2.uTowFanSpe"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=2, y={"wseSta2.VChiWat_flow", "wseSta2.uTowFanSpeMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=3, position={20, 10, 1200, 650}, subPlot=3, y={"wseSta2.y", "wseSta2.enaTWet.y", "wseSta2.enaTChiWatRet.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-
-
-
-

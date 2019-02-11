@@ -113,15 +113,14 @@ equation
   connect(tim.u0, falEdg1.y) annotation (Line(points={{-122,22},{-140,22},{-140,
           60},{40,60},{40,40},{21,40}}, color={255,0,255}));
   connect(pre.y, and3.u3) annotation (Line(points={{161,-50},{170,-50},{170,-70},
-          {-30,-70},{-30,-8},{-22,-8}},        color={255,0,255}));
+          {-30,-70},{-30,-8},{-22,-8}}, color={255,0,255}));
   connect(tim.y, greEquThr.u)
     annotation (Line(points={{-99,30},{-82,30}}, color={0,0,127}));
   connect(pre.y, falEdg1.u)
     annotation (Line(points={{161,-50},{170,-50},{170,
           20},{-20,20},{-20,40},{-2,40}}, color={255,0,255}));
   connect(logSwi.y, yDevRol)
-    annotation (Line(points={{121,-30},{210,-30}},
-                       color={255,0,255}));
+    annotation (Line(points={{121,-30},{210,-30}},color={255,0,255}));
   connect(pre.y, logSwi1.u2) annotation (Line(points={{161,-50},{170,-50},{170,-80},
           {-152,-80},{-152,-60},{-142,-60}}, color={255,0,255}));
   connect(logSwi1.u1, repLead.y) annotation (Line(points={{-142,-52},{-142,40},{

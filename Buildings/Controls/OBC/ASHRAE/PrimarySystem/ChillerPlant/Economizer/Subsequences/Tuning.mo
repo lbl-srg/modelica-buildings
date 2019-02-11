@@ -18,8 +18,8 @@ block Tuning
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
     "Maximum cooling tower fan speed" annotation (Placement(transformation(
-          extent={{-220,-120},{-180,-80}}), iconTransformation(extent={{-140,-70},
-            {-100,-30}})));
+    extent={{-220,-120},{-180,-80}}), iconTransformation(extent={{-140,-70},
+      {-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final max=0.5,
