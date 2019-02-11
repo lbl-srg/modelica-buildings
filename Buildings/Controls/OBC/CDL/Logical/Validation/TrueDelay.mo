@@ -1,78 +1,117 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model TrueDelay "Validation model for the TrueDelay block"
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    width=0.5, period=1.5) "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay0(delayTime=0)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay0(
+    final delayTime=0)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay1(delayTime=0.5)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay1(
+    final delayTime=0.5)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{60,130},{80,150}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay2(delayTime=0.8)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay2(
+    final delayTime=0.8)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay4(delayTime=0)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay4(
+    final delayTime=0)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay5(delayTime=0.5)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay5(
+    final delayTime=0.5)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay6(delayTime=0.8)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay6(
+    final delayTime=0.8)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
+
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Negation of input signal"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay3(delayTime=1.8)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay3(
+    final delayTime=1.8)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay7(delayTime=1.8)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay7(
+    final delayTime=1.8)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
-  Sources.Pulse                                    booPul1(width=0.5, period=
-        1.5)               "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay00(delayTime=0,
-      delayOnInit=true)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay00(
+    final delayTime=0,
+    final delayOnInit=true)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay11(delayTime=0.5,
-      delayOnInit=true)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay11(
+    final delayTime=0.5,
+    final delayOnInit=true)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay22(delayTime=0.8,
-      delayOnInit=true)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay22(
+    final delayTime=0.8,
+    final delayOnInit=true)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay44(delayTime=0,
-      delayOnInit=true)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay44(
+    final delayTime=0,
+    final delayOnInit=true)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay55(delayTime=0.5,
-      delayOnInit=true)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay55(
+    final delayTime=0.5,
+    final delayOnInit=true)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay66(delayTime=0.8,
-      delayOnInit=true)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay66(
+    final delayTime=0.8,
+    final delayOnInit=true)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
+
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Negation of input signal"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay33(delayTime=1.8,
-      delayOnInit=true)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay33(
+    final delayTime=1.8,
+    final delayOnInit=true)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay77(delayTime=1.8,
-      delayOnInit=true)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay77(
+    final delayTime=1.8,
+    final delayOnInit=true)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{60,-170},{80,-150}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final width=0.5,
+    final period=1.5) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
+    final width=0.5,
+    final period=1.5) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
 equation
   connect(booPul.y, not1.u)
     annotation (Line(points={{-79,90},{-70,90},{-70,70},{-62,70}},
       color={255,0,255}));
-  connect(booPul.y, onDelay0.u) annotation (Line(points={{-79,90},{-20,90},{-20,
+  connect(booPul.y, onDelay0.u)
+    annotation (Line(points={{-79,90},{-20,90},{-20,
           140},{-2,140}}, color={255,0,255}));
   connect(booPul.y, onDelay2.u)
     annotation (Line(points={{-79,90},{-20,90},{-20,110},{-2,110}},
@@ -96,24 +135,34 @@ equation
     annotation (Line(points={{-39,70},{40,70},{40,20},{58,20}},
       color={255,0,255}));
 
-  connect(booPul1.y, not2.u) annotation (Line(points={{-79,-90},{-70,-90},{-70,
+  connect(booPul1.y, not2.u)
+    annotation (Line(points={{-79,-90},{-70,-90},{-70,
           -110},{-62,-110}}, color={255,0,255}));
-  connect(booPul1.y, onDelay00.u) annotation (Line(points={{-79,-90},{-20,-90},
+  connect(booPul1.y, onDelay00.u)
+    annotation (Line(points={{-79,-90},{-20,-90},
           {-20,-40},{-2,-40}}, color={255,0,255}));
-  connect(booPul1.y, onDelay22.u) annotation (Line(points={{-79,-90},{-20,-90},
+  connect(booPul1.y, onDelay22.u)
+    annotation (Line(points={{-79,-90},{-20,-90},
           {-20,-70},{-2,-70}}, color={255,0,255}));
-  connect(booPul1.y, onDelay11.u) annotation (Line(points={{-79,-90},{40,-90},{
+  connect(booPul1.y, onDelay11.u)
+    annotation (Line(points={{-79,-90},{40,-90},{
           40,-40},{58,-40}}, color={255,0,255}));
-  connect(booPul1.y, onDelay33.u) annotation (Line(points={{-79,-90},{40,-90},{
+  connect(booPul1.y, onDelay33.u)
+    annotation (Line(points={{-79,-90},{40,-90},{
           40,-70},{58,-70}}, color={255,0,255}));
-  connect(not2.y, onDelay44.u) annotation (Line(points={{-39,-110},{-20,-110},{
+  connect(not2.y, onDelay44.u)
+    annotation (Line(points={{-39,-110},{-20,-110},{
           -20,-130},{-2,-130}}, color={255,0,255}));
-  connect(not2.y, onDelay66.u) annotation (Line(points={{-39,-110},{-20,-110},{
+  connect(not2.y, onDelay66.u)
+    annotation (Line(points={{-39,-110},{-20,-110},{
           -20,-160},{-2,-160}}, color={255,0,255}));
-  connect(not2.y, onDelay55.u) annotation (Line(points={{-39,-110},{40,-110},{
+  connect(not2.y, onDelay55.u)
+    annotation (Line(points={{-39,-110},{40,-110},{
           40,-130},{58,-130}}, color={255,0,255}));
-  connect(not2.y, onDelay77.u) annotation (Line(points={{-39,-110},{40,-110},{
+  connect(not2.y, onDelay77.u)
+    annotation (Line(points={{-39,-110},{40,-110},{
           40,-160},{58,-160}}, color={255,0,255}));
+
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/TrueDelay.mos"
@@ -127,14 +176,17 @@ Buildings.Controls.OBC.CDL.Logical.TrueDelay</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+February 11, 2019, by Milica Grahovac:<br/>
+Added tests for initial true input delay.
+</li>
+<li>
 April 2, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
 
 </html>"),
-    Icon(coordinateSystem(extent={{-100,-180},{100,180}}),
-         graphics={
+    Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,

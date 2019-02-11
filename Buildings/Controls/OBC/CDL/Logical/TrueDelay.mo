@@ -17,14 +17,16 @@ protected
   parameter Modelica.SIunits.Time t_past(fixed=false)
      "Time before simulation started";
    Modelica.SIunits.Time t_next;
+
 initial equation
   t_past = time - 1000;
   pre(u) = false;
   pre(t_next) = time - 1000;
+
 equation
   when initial() then
     t_next = if not delayOnInit then t_past else time + delayTime;
-    y = if not delayOnInit then u elseif delayTime > 0 then false else u;
+    y = if not (delayOnInit and delayTime > 0) then u else false;
   elsewhen u then
     t_next = time + delayTime;
     y = if delayTime > 0 then false else true;
@@ -75,8 +77,8 @@ Block that delays a signal when it becomes <code>true</code>.
 <p>
 A rising edge of the Boolean input <code>u</code> gives a delayed output.
 A falling edge of the input is immediately given to the output. If 
-<code>delayOnInit</code> is <code>true</code> then the true input signal
-at initiation time is also delayed, otherwise input signal is given to output.
+<code>delayOnInit</code> is <code>true</code> then a true input signal
+at an initiation time is also delayed, otherwise input signal is given to output.
 </p>
 
 <p>
@@ -96,7 +98,7 @@ is shown in the next figure.
 <ul>
 <li>
 February 11, 2019, by Milica Grahovac:<br/>
-Added boolean input to allow delay of an initial true input.
+Added boolean input to enable delay of an initial true input.
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
