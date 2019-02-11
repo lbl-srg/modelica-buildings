@@ -99,11 +99,12 @@ is shown in the next figure.
 <li>
 February 11, 2019, by Milica Grahovac:<br/>
 Added boolean input to enable delay of an initial true input.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
-<li>
+</li>
 </ul>
 </html>"));
 end TrueDelay;
