@@ -4,6 +4,9 @@ block TrueDelay
 
   parameter Modelica.SIunits.Time delayTime "Delay time";
 
+  parameter Boolean delayOnInit = false
+    "Delay initial true input";
+
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
@@ -20,8 +23,8 @@ initial equation
   pre(t_next) = time - 1000;
 equation
   when initial() then
-    t_next = t_past;
-    y = u;
+    t_next = if not delayOnInit then t_past else time + delayTime;
+    y = if not delayOnInit then u elseif delayTime > 0 then false else u;
   elsewhen u then
     t_next = time + delayTime;
     y = if delayTime > 0 then false else true;
@@ -71,7 +74,9 @@ Block that delays a signal when it becomes <code>true</code>.
 </p>
 <p>
 A rising edge of the Boolean input <code>u</code> gives a delayed output.
-A falling edge of the input is immediately given to the output.
+A falling edge of the input is immediately given to the output. If 
+<code>delayOnInit</code> is <code>true</code> then the true input signal
+at initiation time is also delayed, otherwise input signal is given to output.
 </p>
 
 <p>
@@ -90,10 +95,13 @@ is shown in the next figure.
 </html>", revisions="<html>
 <ul>
 <li>
+February 11, 2019, by Milica Grahovac:<br/>
+Added boolean input to allow delay of an initial true input.
+<li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
-</li>
+<li>
 </ul>
 </html>"));
 end TrueDelay;
