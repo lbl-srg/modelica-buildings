@@ -62,10 +62,10 @@ Modelica Standard Library.
           textString="%name",
           lineColor={0,0,255}),
                               Text(
-          extent={{8,-30},{80,10}},
+          extent={{-82,-30},{-10,10}},
           lineColor={0,0,0},
           textString="*"),    Text(
-          extent={{-46,-30},{24,38}},
+          extent={{-20,-28},{50,40}},
           lineColor={0,0,0},
           textString="[  ]")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
@@ -75,10 +75,10 @@ Modelica Standard Library.
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
                               Text(
-          extent={{8,-30},{80,10}},
+          extent={{-20,-28},{50,40}},
           lineColor={0,0,0},
-          textString="*"),    Text(
-          extent={{-46,-30},{24,38}},
+          textString="[  ]"), Text(
+          extent={{-82,-30},{-10,10}},
           lineColor={0,0,0},
-          textString="[  ]")}));
+          textString="*")}));
 end MatrixGain;
