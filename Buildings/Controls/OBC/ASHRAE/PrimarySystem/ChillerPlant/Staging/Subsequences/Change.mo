@@ -84,10 +84,16 @@ block Change "Calculates the chiller stage signal"
     "Minimum operating part load ratio at the current stage" annotation (
       Placement(transformation(extent={{-220,60},{-180,100}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
-  Up staUp annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  CDL.Integers.GreaterThreshold intGreThr "Switches staging up rules"
-    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
-  Down staDown annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Capacities              staCap
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  CapacityRequirement              capReq
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+  PartLoadRatios              PLRs
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Up              staUp
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Down              staDow
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 equation
   connect(booToInt.y, addInt.u1) annotation (Line(points={{131,10},{134,10},{134,
           6},{148,6}}, color={255,127,0}));
@@ -99,6 +105,18 @@ equation
     annotation (Line(points={{108,10},{101,10}}, color={255,0,255}));
   connect(booToInt1.u, andStaDow.y)
     annotation (Line(points={{108,-30},{101,-30}}, color={255,0,255}));
+  connect(capReq.y,PLRs. uCapReq) annotation (Line(points={{-79,10},{-70,10},{
+          -70,-3},{-61,-3}}, color={0,0,127}));
+  connect(staCap.yStaNom,PLRs. uStaCapNom) annotation (Line(points={{-79,-23},{
+          -74,-23},{-74,-5},{-61,-5}}, color={0,0,127}));
+  connect(staCap.yStaUpNom,PLRs. uStaUpCapNom) annotation (Line(points={{-79,
+          -27},{-72,-27},{-72,-7},{-61,-7}}, color={0,0,127}));
+  connect(staCap.yStaDowNom,PLRs. uStaDowCapNom) annotation (Line(points={{-79,
+          -31},{-70,-31},{-70,-9},{-61,-9}}, color={0,0,127}));
+  connect(staCap.yStaUpMin,PLRs. uStaUpCapMin) annotation (Line(points={{-79,
+          -36},{-66,-36},{-66,-11},{-61,-11}}, color={0,0,127}));
+  connect(staCap.yStaMin,PLRs. uStaCapMin) annotation (Line(points={{-79,-38},{
+          -64,-38},{-64,-13},{-61,-13}}, color={0,0,127}));
   annotation (defaultComponentName = "staChaPosDis",
         Icon(graphics={
         Rectangle(

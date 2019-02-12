@@ -412,7 +412,13 @@ equation
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}), Diagram(
+          textString="%name"),
+        Text(
+          extent={{-82,26},{40,-138}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="PLR")}),   Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-340,-600},{260,320}}), graphics={Text(
           extent={{80,56},{142,24}},

@@ -54,7 +54,8 @@ model Capacities_uSta
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(k=1) "Stage 1"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage2(k=2) "Stage 2"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage2(k=2)
+    "Stage 2 (highest stage in the example)"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback absErrorSta0[5]

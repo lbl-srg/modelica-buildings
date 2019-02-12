@@ -106,7 +106,14 @@ equation
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}), Diagram(
+          textString="%name"),
+        Text(
+          extent={{-78,-14},{44,-178}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="Load
+")}),                            Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

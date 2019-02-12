@@ -205,7 +205,20 @@ equation
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),          Diagram(
+          textString="%name"),
+        Rectangle(extent={{-80,-10},{-20,-22}}, lineColor={0,0,127}),
+        Rectangle(extent={{-80,-28},{-20,-40}}, lineColor={0,0,127}),
+        Rectangle(extent={{-76,-22},{-72,-28}}, lineColor={0,0,127}),
+        Rectangle(extent={{-28,-22},{-24,-28}}, lineColor={0,0,127}),
+        Rectangle(extent={{20,-10},{80,-22}}, lineColor={0,0,127}),
+        Rectangle(extent={{20,-28},{80,-40}}, lineColor={0,0,127}),
+        Rectangle(extent={{24,-22},{28,-28}}, lineColor={0,0,127}),
+        Rectangle(extent={{72,-22},{76,-28}}, lineColor={0,0,127}),
+        Rectangle(extent={{-80,30},{-20,18}}, lineColor={0,0,127}),
+        Rectangle(extent={{-80,12},{-20,0}}, lineColor={0,0,127}),
+        Rectangle(extent={{-76,18},{-72,12}}, lineColor={0,0,127}),
+        Rectangle(extent={{-28,18},{-24,12}}, lineColor={0,0,127})}),
+                                          Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-140,-200},{140,200}})),
 Documentation(info="<html>

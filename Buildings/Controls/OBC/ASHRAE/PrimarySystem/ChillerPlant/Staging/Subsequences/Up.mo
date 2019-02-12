@@ -193,7 +193,25 @@ equation
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),          Diagram(
+          textString="%name"),
+        Rectangle(extent={{-80,-10},{-20,-22}}, lineColor={0,0,127}),
+        Rectangle(extent={{-80,-28},{-20,-40}}, lineColor={0,0,127}),
+        Rectangle(extent={{-76,-22},{-72,-28}}, lineColor={0,0,127}),
+        Rectangle(extent={{-28,-22},{-24,-28}}, lineColor={0,0,127}),
+        Rectangle(extent={{20,-10},{80,-22}}, lineColor={0,0,127}),
+        Rectangle(extent={{20,-28},{80,-40}}, lineColor={0,0,127}),
+        Rectangle(extent={{24,-22},{28,-28}}, lineColor={0,0,127}),
+        Rectangle(extent={{72,-22},{76,-28}}, lineColor={0,0,127}),
+        Rectangle(extent={{20,30},{80,18}}, lineColor={0,0,127}),
+        Rectangle(extent={{20,12},{80,0}}, lineColor={0,0,127}),
+        Rectangle(extent={{24,18},{28,12}}, lineColor={0,0,127}),
+        Rectangle(extent={{72,18},{76,12}}, lineColor={0,0,127}),
+        Line(points={{130,-48}}, color={0,0,127}),
+        Line(
+          points={{-50,0},{0,24}},
+          color={0,0,127},
+          arrow={Arrow.None,Arrow.Filled})}),
+                                          Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-140,-180},{100,160}})),
 Documentation(info="<html>
