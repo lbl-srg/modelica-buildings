@@ -35,7 +35,7 @@ model Floor "Model of a floor of the building"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     idfName=idfName,
     weaName=weaName,
-    zoneName="Perimeter_ZN_1")             "South zone"
+    zoneName="Perimeter_ZN_1") "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
   ThermalZone eas(
     redeclare package Medium = Medium,
@@ -43,7 +43,7 @@ model Floor "Model of a floor of the building"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     idfName=idfName,
     weaName=weaName,
-    zoneName="Perimeter_ZN_2")             "East zone"
+    zoneName="Perimeter_ZN_2") "East zone"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
   ThermalZone nor(
     redeclare package Medium = Medium,
@@ -51,7 +51,7 @@ model Floor "Model of a floor of the building"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     idfName=idfName,
     weaName=weaName,
-    zoneName="Perimeter_ZN_3")             "North zone"
+    zoneName="Perimeter_ZN_3") "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
   ThermalZone wes(
     redeclare package Medium = Medium,
@@ -59,7 +59,7 @@ model Floor "Model of a floor of the building"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     idfName=idfName,
     weaName=weaName,
-    zoneName="Perimeter_ZN_4")             "West zone"
+    zoneName="Perimeter_ZN_4") "West zone"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
   ThermalZone cor(
     redeclare package Medium = Medium,
@@ -67,9 +67,16 @@ model Floor "Model of a floor of the building"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     idfName=idfName,
     weaName=weaName,
-    zoneName="Core_ZN")             "Core zone"
+    zoneName="Core_ZN") "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
 
+  ThermalZone att(
+    redeclare package Medium = Medium,
+    idfName=idfName,
+    weaName=weaName,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    zoneName="Attic") "Attic zone"
+    annotation (Placement(transformation(extent={{310,400},{350,440}})));
 
   Modelica.SIunits.Temperature TAirCor = cor.TAir
     "Air temperature corridor";
@@ -214,6 +221,16 @@ model Floor "Model of a floor of the building"
   Modelica.Blocks.Math.Gain gaiIntSou[3](each k=2 - kIntNor)
     "Gain to change the internal heat gain for south"
     annotation (Placement(transformation(extent={{-60,-38},{-40,-18}})));
+
+  Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
+    annotation (Placement(transformation(extent={{214,420},{234,440}})));
+  Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
+    annotation (Placement(transformation(extent={{214,460},{234,480}})));
+  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
+    annotation (Placement(transformation(extent={{260,420},{280,440}})));
+  Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
+    annotation (Placement(transformation(extent={{214,380},{234,400}})));
+
 equation
   connect(uSha.y, replicator.u) annotation (Line(
       points={{-59,180},{-42,180}},
@@ -490,6 +507,14 @@ equation
       points={{-39,-28},{68,-28},{68,-14},{142,-14}},
       color={0,0,127},
       pattern=LinePattern.Dash));
+  connect(multiplex3_1.u1[1], qRadGai_flow.y) annotation (Line(points={{258,437},
+          {250,437},{250,470},{235,470}}, color={0,0,127}));
+  connect(multiplex3_1.u2[1], qConGai_flow.y)
+    annotation (Line(points={{258,430},{235,430}}, color={0,0,127}));
+  connect(multiplex3_1.u3[1], qLatGai_flow.y) annotation (Line(points={{258,423},
+          {258,422},{248,422},{248,390},{235,390}}, color={0,0,127}));
+  connect(multiplex3_1.y, att.qGai_flow)
+    annotation (Line(points={{281,430},{308,430}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},
             {400,500}},
         initialScale=0.1)),     Icon(coordinateSystem(
