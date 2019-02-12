@@ -10,7 +10,13 @@ partial model PartialBorefield
     final computeFlowResistance=(borFieDat.conDat.dp_nominal > Modelica.Constants.eps));
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+              property_T=293.15,
+              X_a=0.40)
+              "Propylene glycol water, 40% mass fraction")));
 
   constant Real mSenFac(min=1)=1
     "Factor for scaling the sensible thermal mass of the volume";
@@ -268,6 +274,11 @@ temperature after calculating and/or read (from a previous calculation) the bore
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to water and glycolWater.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 July 2018, by Alex Laferri&egrave;re:<br/>
 Changed into a partial model and changed documentation to reflect the new approach

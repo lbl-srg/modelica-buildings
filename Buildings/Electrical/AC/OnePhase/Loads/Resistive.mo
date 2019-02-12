@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Loads;
 model Resistive "Model of a resistive load"
   extends Buildings.Electrical.Interfaces.ResistiveLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal,
+    redeclare replaceable Interfaces.Terminal_n terminal,
     V_nominal(start = 110));
 equation
 
@@ -158,6 +158,10 @@ The choices are between a null current or the linearized model.
 
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2019, by Michael Wetter:<br/>
+Added <code>replaceable</code> for terminal.
+</li>
 <li>May 14, 2015, by Marco Bonvini:<br/>
 Changed parent class to <a href=\"modelica://Buildings.Electrical.Interfaces.ResistiveLoad\">
 Buildings.Electrical.Interfaces.ResistiveLoad</a> in order

@@ -58,7 +58,7 @@ model WindowWithoutShade
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/WindowWithoutShade.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-06, StopTime=7200),
+    experiment(Tolerance=1e-06, StopTime=3600),
     Documentation(info="<html>
 <p>
 This model tests the coupled simulation of

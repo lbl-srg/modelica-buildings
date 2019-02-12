@@ -58,6 +58,11 @@ for a block that extends this partial block.
 </html>", revisions="<html>
 <ul>
 <li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
 April 29, 2015, by Michael Wetter:<br/>
 Redesigned to conditionally remove the pressure connector
 if <code>use_p_in=false</code>.

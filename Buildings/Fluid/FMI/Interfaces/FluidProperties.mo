@@ -54,6 +54,11 @@ outlet connector.
 </html>", revisions="<html>
 <ul>
 <li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
 April 15, 2015 by Michael Wetter:<br/>
 Changed connector variable to be temperature instead of
 specific enthalpy.

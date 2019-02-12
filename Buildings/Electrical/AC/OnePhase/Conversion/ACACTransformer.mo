@@ -4,10 +4,12 @@ model ACACTransformer "AC AC transformer simplified equivalent circuit"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(
+    redeclare replaceable Interfaces.Terminal_n terminal_n
+      constrainedby Interfaces.Terminal_n(
       i(start = zeros(PhaseSystem_n.n),
       each stateSelect = StateSelect.prefer)),
-    redeclare Interfaces.Terminal_p terminal_p(
+    redeclare replaceable Interfaces.Terminal_p terminal_p
+      constrainedby Interfaces.Terminal_p(
       i(start = zeros(PhaseSystem_p.n),
       each stateSelect = StateSelect.prefer)));
   parameter Modelica.SIunits.Voltage VHigh
@@ -259,6 +261,10 @@ Given the nominal conditions,the model computes the values of the resistance and
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 30, 2019, by Michael Wetter:<br/>
+Added missing <code>replaceable</code> for the terminal.
+</li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
 Made voltage public to allow setting a start value in

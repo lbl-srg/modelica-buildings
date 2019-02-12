@@ -40,7 +40,6 @@ equation
         points={{100,-30},{72,-30},{72,24}},
         color={191,0,0},
         smooth=Smooth.None));
-
   end for;
 
   connect(TEasWal.port, roo.surf_conBou[1]) annotation (Line(
@@ -53,7 +52,7 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/RoomOnlyConstructionBoundary.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-06, StopTime=1800),
+    experiment(Tolerance=1e-06, StopTime=900),
     Documentation(info="<html>
 <p>
 This model tests the copuled simulation of

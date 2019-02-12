@@ -32,7 +32,7 @@ model ScrollCompressor
   Modelica.SIunits.Power PThe
     "Theoretical power consumed by the compressor";
 
-  Modelica.SIunits.Efficiency COP
+  Modelica.SIunits.Efficiency COP(start=5)
     "Heating COP of the compressor";
 
 protected
@@ -135,6 +135,10 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2019, by Michael Wetter:<br/>
+Added start value to avoid warning in JModelica.
+</li>
 <li>
 May 30, 2017, by Filip Jorissen:<br/>
 Removed <code>pressure_error</code> as

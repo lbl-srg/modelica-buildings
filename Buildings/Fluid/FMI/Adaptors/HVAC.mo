@@ -5,13 +5,7 @@ model HVAC
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15,
-          X_a=0.40)
-          "Propylene glycol water, 40% mass fraction")));
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
   // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones
@@ -336,6 +330,11 @@ for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 September 13, 2017, by Michael Wetter:<br/>
 Removed erroneous <code>each</code>.

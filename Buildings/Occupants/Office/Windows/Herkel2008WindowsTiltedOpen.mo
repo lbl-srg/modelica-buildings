@@ -1,4 +1,4 @@
-﻿within Buildings.Occupants.Office.Windows;
+within Buildings.Occupants.Office.Windows;
 model Herkel2008WindowsTiltedOpen "A model to predict occupants' window behavior with outdoor temperature for tilted-open 
 large windows"
   extends Modelica.Blocks.Icons.DiscreteBlock;
