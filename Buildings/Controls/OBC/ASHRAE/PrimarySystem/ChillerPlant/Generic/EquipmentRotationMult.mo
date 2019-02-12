@@ -5,17 +5,19 @@ block EquipmentRotationMult
   parameter Boolean lag = true
     "true = lead/lag, false = lead/standby";
 
+  parameter Boolean initRoles[num] = {if i==1 then true else false for i in 1:num}
+    "Sets initial roles: true = lead, false = lag or standby"
+    annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
+
   parameter Integer num = 3
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
-  parameter Real stagingRuntime(unit = "s") = 240 * 60 * 60
-    "Staging runtime";
-
-  parameter Boolean initRoles[:] = {if i==1 then true else false for i in 1:num}
-    "Sets initial roles: true = lead, false = lag or standby";
+  parameter Modelica.SIunits.Time stagingRuntime = 240 * 60 * 60
+    "Staging runtime for each device";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaSta
-    "Lead device status" annotation (Placement(transformation(extent={{-260,-20},
+    "Lead device status"
+    annotation (Placement(transformation(extent={{-260,-20},
             {-220,20}}), iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLagSta if lag
@@ -35,34 +37,44 @@ block EquipmentRotationMult
         iconTransformation(extent={{100,-70},{120,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[num](
-    final threshold=stagingRuntime)
+    final threshold=stagingRuntimes)
     "Stagin runtime hysteresis"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim[num](
-    final reset=false)
+    final reset=fill(false, num))
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
 protected
-  CDL.Routing.BooleanReplicator repLag(nout=num) if lag
+  parameter Modelica.SIunits.Time stagingRuntimes[num] = fill(stagingRuntime, num)
+    "Staging runtimes array";
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
+    final nout=num) if lag
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 
-  CDL.Routing.BooleanReplicator repLead(nout=num) "Replicates lead signal"
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(
+    final nout=num)
+    "Replicates lead signal"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.And3 and3[num] "Logical and"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=num) "Logical or with an array input"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=num)
+    "Logical or with an array input"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=num)
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=num)
     "Converts scalar input into an array output"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre[num](final pre_u_start=initRoles)
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[num](
+    final pre_u_start=initRoles)
     "Returns previous timestep value to avoid algebraic loops"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
 
@@ -122,7 +134,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staSta[num](
-    final k=false) if not lag
+    final k=fill(false, num)) if not lag
     "Standby status"
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
 equation

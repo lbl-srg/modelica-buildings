@@ -5,14 +5,14 @@ model EquipmentRotationMult_uDevRol
   parameter Integer num = 3
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
-  parameter Boolean initRoles[:] = {if i==1 then true else false for i in 1:num}
+  parameter Boolean initRoles[num] = {if i==1 then true else false for i in 1:num}
     "Sets initial roles: true = lead, false = lag or standby";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult leaSta(
     final stagingRuntime=5*60*60,
     final num=num,
     final initRoles=initRoles,
-    lag=false) "Equipment rotation - lead/standby"
+    final lag=false) "Equipment rotation - lead/standby"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
   EquipmentRotationMult leaLag(stagingRuntime=5*60*60)

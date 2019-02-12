@@ -2,17 +2,18 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block EquipmentRotationTwo
   "Lead-lag or lead-standby equipment rotation for two devices or two groups of devices"
 
-  parameter Boolean lag = true
-    "true = lead/lag, false = lead/standby";
-
   parameter Integer num = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
-  parameter Real stagingRuntime(unit = "s") = 240 * 60 * 60
-    "Staging runtime";
+  parameter Boolean lag = true
+    "true = lead/lag, false = lead/standby";
 
-  parameter Boolean initRoles[:] = {if i==1 then true else false for i in 1:num}
-    "Initial roles: true = lead, false = lag/standby";
+  parameter Boolean initRoles[num] = {true, false}
+    "Initial roles: true = lead, false = lag/standby"
+    annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
+
+  parameter Modelica.SIunits.Time stagingRuntime = 240 * 60 * 60
+    "Staging runtime for each device";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaSta
     "Lead device status"
@@ -35,16 +36,19 @@ block EquipmentRotationTwo
         iconTransformation(extent={{100,-70},{120,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[num](
-    final threshold=stagingRuntime)
+    final threshold=stagingRuntimes)
     "Staging runtime hysteresis"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim[num](
-    final reset=false)
+    final reset={false,false})
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
 protected
+  parameter Modelica.SIunits.Time stagingRuntimes[num] = fill(stagingRuntime, num)
+    "Staging runtimes array";
+
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(
     final nout=num) "Replicates lead signal"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
@@ -86,7 +90,7 @@ protected
   CDL.Logical.LogicalSwitch logSwi1[num] "Switch"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
-  CDL.Logical.Sources.Constant staSta[num](final k=false) if not lag
+  CDL.Logical.Sources.Constant staSta[num](final k={false, false}) if not lag
     "Standby status"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
 

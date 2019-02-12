@@ -1,13 +1,9 @@
 Capacities
 CapacityRequirement
 Change
-ChangeOld
-ChillerdTRef
 Down
 EfficiencyCondition
 FailsafeCondition
-DownProcess
 PartLoadRatios
 Up
-UpProcess
 Validation

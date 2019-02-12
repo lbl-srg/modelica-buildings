@@ -129,7 +129,7 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
   Buildings.Controls.OBC.CDL.Integers.Add oneUp "Adds one"
     annotation (Placement(transformation(extent={{-240,140},{-220,160}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant                        one(final k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(final k=1)
     "Constant integer"
     annotation (Placement(transformation(extent={{-300,140},{-280,160}})));
   Buildings.Controls.OBC.CDL.Integers.Add oneDown(k2=-1) "Subtracts one"
