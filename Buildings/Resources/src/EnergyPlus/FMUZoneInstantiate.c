@@ -179,9 +179,9 @@ void getParametersFromEnergyPlus(
   /* Get initial parameter variables */
   //result = fmu->getVariables(parameterValueReferences, outputs, nOut, NULL);
 
-  writeLog(1, "begin getVariables");
+  //writeLog(1, "begin getVariables");
   result = fmu->getVariables(parameterValueReferences, outputs, nOut, NULL);
-  writeLog(1, "end getVariables");
+  //writeLog(1, "end getVariables");
   if (result <0 ){
     ModelicaFormatError("Failed to get initial outputs for building %s, zone %s.",
     zone->ptrBui->name, zone->name);
