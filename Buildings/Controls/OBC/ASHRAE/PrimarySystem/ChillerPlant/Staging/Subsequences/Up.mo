@@ -206,11 +206,7 @@ equation
         Rectangle(extent={{20,12},{80,0}}, lineColor={0,0,127}),
         Rectangle(extent={{24,18},{28,12}}, lineColor={0,0,127}),
         Rectangle(extent={{72,18},{76,12}}, lineColor={0,0,127}),
-        Line(points={{130,-48}}, color={0,0,127}),
-        Line(
-          points={{-50,0},{0,24}},
-          color={0,0,127},
-          arrow={Arrow.None,Arrow.Filled})}),
+        Line(points={{130,-48}}, color={0,0,127})}),
                                           Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-140,-180},{100,160}})),
