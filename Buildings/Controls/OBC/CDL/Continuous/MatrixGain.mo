@@ -22,17 +22,17 @@ equation
     defaultComponentName="matGai",
     Documentation(info="<html>
 <p>
-This blocks computes output vector <b>y</b> as <i>product</i> of the
-gain matrix <b>K</b> with the input signal vector <b>u</b>:
+This blocks computes output vector <i>y</i> as <i>product</i> of the
+gain matrix <i>K</i> with the input signal vector <i>u</i>:
 </p>
 <pre>
-    <b>y</b> = <b>K</b> * <b>u</b>;
+    <i>y</i> = <i>K</i> * <i>u</i>;
 </pre>
 <p>
 Example:
 </p>
 <pre>
-   parameter: <b>K</b> = [0.12 2; 3 1.5]
+   parameter: <i>K</i> = [0.12 2; 3 1.5]
 
    results in the following equations:
 
