@@ -200,7 +200,12 @@ its class name ends with the string <code>Beta</code>.
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
-    </tr>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixGain
+        </td>
+        <td valign=\"top\">Output the product of a gain matrix with the input signal vector.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
         </td>
         <td valign=\"top\">Extract scalar signal out of signal vector dependent on Integer-valued input.
