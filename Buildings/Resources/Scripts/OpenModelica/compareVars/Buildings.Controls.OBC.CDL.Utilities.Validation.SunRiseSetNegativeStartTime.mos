@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "sunRiseSetArctic.nextSunRise",
+    "sunRiseSetArctic.nextSunSet",
+    "sunRiseSetArctic.sunUp",
+    "sunRiseSetSf.nextSunRise",
+    "sunRiseSetSf.nextSunSet",
+    "sunRiseSetSf.sunUp",
+    "sunRiseSetAntarctic.nextSunRise",
+    "sunRiseSetAntarctic.nextSunSet",
+    "sunRiseSetAntarctic.sunUp",
+    "sunRiseSetSyd.nextSunRise",
+    "sunRiseSetSyd.nextSunSet",
+    "sunRiseSetSyd.sunUp"
+  };
