@@ -2,32 +2,32 @@ within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model MatrixGain "Validation model for the MatrixGain block"
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain matGai(
-    final K=[1,0; 1,1; 1,2])
+    K=[1,0; 1,1; 1,2])
     "Block that outputs the product of a matrix gain value with the input signal"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain matGai1(
-    final K=[1,2; 3,4])
+    K=[1,2; 3,4])
     "Block that outputs the product of a matrix gain value with the input signal"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
-protected
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp(
-    final duration=1,
-    final offset=0,
-    final height=2) "Block that generates ramp signal"
+    duration=1,
+    offset=0,
+    height=2) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
   Sources.Ramp ramp1(
-    final duration=1,
-    final offset=0,
-    final height=1) "Block that generates ramp signal"
+    duration=1,
+    offset=0,
+    height=1) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Sources.Ramp ramp2(
-    final duration=1,
-    final offset=0,
-    final height=2) "Block that generates ramp signal"
+    duration=1,
+    offset=0,
+    height=2) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 equation
