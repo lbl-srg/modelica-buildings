@@ -77,13 +77,14 @@ Block that delays a signal when it becomes <code>true</code>.
 <p>
 A rising edge of the Boolean input <code>u</code> gives a delayed output.
 A falling edge of the input is immediately given to the output. If 
-<code>delayOnInit</code> is <code>true</code> then a true input signal
-at an initiation time is also delayed, otherwise input signal is given to output.
+<code>delayOnInit = true</code>, then a <code>true</code> input signal
+at the start time is also delayed, otherwise the input signal is
+produced immediately at the output.
 </p>
 
 <p>
-Simulation results of a typical example with a delay time of 0.1 s
-is shown in the next figure.
+Simulation results of a typical example with a delay time of <i>0.1</i> second
+is shown below.
 </p>
 
 <p align=\"center\">
