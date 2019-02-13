@@ -28,14 +28,7 @@ annotation (
   experiment(StartTime=-43200, StopTime=259200, Tolerance=1e-06),
   __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Utilities/Validation/SunRiseSetNegativeStartTime.mos"
-        "Simulate and plot", executeCall=simulateModel(
-          "Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSetNegativeStartTime",
-          startTime=-43200,
-          stopTime=259200,
-          numberOfIntervals=500,
-          method="dassl",
-          tolerance=1e-06,
-          resultFile="SunRiseSetNegativeStartTime")),
+        "Simulate and plot"),
   Documentation(info="<html>
 <p>This example includes 4 tests for the <a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.SunRiseSet\">
 Buildings.Controls.OBC.CDL.Utilities.SunRiseSet</a> block: 2 normal cases, an arctic and antarctic case.
