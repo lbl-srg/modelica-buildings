@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Utilities.Validation;
-model SunRiseSet2 "Test model for the block SunRiseSet"
+model SunRiseSetNegativeStartTime "Test model for the block SunRiseSet with negative start time"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetArctic(
@@ -25,22 +25,22 @@ model SunRiseSet2 "Test model for the block SunRiseSet"
 equation
 
 annotation (
-  experiment(StartTime=43200, StopTime=345600, Tolerance=1e-06),
+  experiment(StartTime=-43200, StopTime=259200, Tolerance=1e-06),
   __Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Utilities/Validation/SunRiseSet2.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Utilities/Validation/SunRiseSetNegativeStartTime.mos"
         "Simulate and plot", executeCall=simulateModel(
-          "Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet2",
-          startTime=43200,
-          stopTime=345600,
+          "Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSetNegativeStartTime",
+          startTime=-43200,
+          stopTime=259200,
           numberOfIntervals=500,
           method="dassl",
           tolerance=1e-06,
-          resultFile="SunRiseSet2")),
+          resultFile="SunRiseSetNegativeStartTime")),
   Documentation(info="<html>
 <p>This example includes 4 tests for the <a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.SunRiseSet\">
 Buildings.Controls.OBC.CDL.Utilities.SunRiseSet</a> block: 2 normal cases, an arctic and antarctic case.
 The normal cases are represented by San Francisco and Sydney, where there is a sunrise and sunset every day. </p>
-<p>This model starts the simulation from 12 hour instead of 0. </p>
+<p>This model starts the simulation from -12 hour instead of 0. </p>
 </html>",
 revisions="<html>
 <ul>
@@ -50,4 +50,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SunRiseSet2;
+end SunRiseSetNegativeStartTime;
