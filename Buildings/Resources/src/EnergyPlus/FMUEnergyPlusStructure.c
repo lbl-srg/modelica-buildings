@@ -157,6 +157,8 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
   if ( Buildings_FMUS[nFMU]->zones== NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zones.");
 
+  getEnergyPlusTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
+
   /* Assign the zone */
   Buildings_FMUS[nFMU]->zones[0] = zone;
 
@@ -188,4 +190,47 @@ void decrementBuildings_nFMU(){
 
 unsigned int getBuildings_nFMU(){
   return Buildings_nFMU;
+}
+
+void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
+  /* Return the name of the temporary directory to be used for EnergyPlus */
+  /* Get file name without path */
+  /* return "tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"; */
+  fmi2Byte * namWitSla = strrchr(idfName, '/');
+
+  if ( namWitSla == NULL )
+    ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with forward slash '/'?", idfName);
+  /* Remove the first slash */
+  char * nam = namWitSla + 1;
+  /* Get the extension */
+  char * ext = strrchr(nam, '.');
+  if ( ext == NULL )
+    ModelicaFormatError("Failed to parse idfName '%s'. Expected a file extension such as '.idf'?", idfName);
+
+  /* Get the file name without extension */
+  size_t lenNam = strlen(nam) - strlen(ext);
+  char * namOnl;
+  namOnl = malloc((lenNam) * sizeof(char));
+  if ( namOnl == NULL )
+    ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
+
+  strncpy(namOnl, nam, lenNam);
+  /* Add termination character */
+  namOnl[lenNam] = '\0';
+
+  /* Prefix for temporary directory */
+  const char* pre = "tmp-eplus-\0";
+  size_t lenPre = strlen(pre);
+
+  *dirNam = malloc((lenPre+lenNam+1) * sizeof(char));
+  if ( *dirNam == NULL )
+    ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
+
+  strncpy(*dirNam, pre, lenPre);
+  (*dirNam)[lenPre] = '\0';
+  /* Add termination character */
+  strcat(*dirNam, namOnl);
+  free(namOnl);
+
+  return;
 }

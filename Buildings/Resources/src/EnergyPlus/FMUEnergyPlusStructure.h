@@ -102,6 +102,7 @@ typedef struct FMUBuilding
   fmi2Byte** zoneNames; /* Names of zones in this FMU */
   void** zones; /* Pointers to all zones*/
   FMU* fmu;
+  char* tmpDir; /* Temporary directory used by EnergyPlus */
 } FMUBuilding;
 
 typedef struct FMUZone
@@ -137,5 +138,6 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(
   const char* zoneName, FMUZone* zone);
 
 FMUBuilding* getBuildingsFMU(size_t iFMU);
+void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam);
 
 #endif

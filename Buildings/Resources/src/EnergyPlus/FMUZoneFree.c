@@ -22,6 +22,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     free(ptrBui->epLib);
     free(ptrBui->zoneNames);
     free(ptrBui->zones);
+    free(ptrBui->tmpDir);
     writeLog(1, "Freed pointers.");
 
 #ifdef _MSC_VER

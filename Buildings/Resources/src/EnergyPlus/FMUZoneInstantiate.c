@@ -93,49 +93,6 @@ void loadLib(const char* libPath, FMU *fmu) {
   return;
 }
 
-void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
-  /* Return the name of the temporary directory to be used for EnergyPlus */
-  /* Get file name without path */
-  /* return "tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"; */
-  char * namWitSla = strrchr(idfName, '/');
-
-  if ( namWitSla == NULL )
-    ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with forward slash '/'?", idfName);
-  /* Remove the first slash */
-  char * nam = namWitSla + 1;
-  /* Get the extension */
-  char * ext = strrchr(nam, '.');
-  if ( ext == NULL )
-    ModelicaFormatError("Failed to parse idfName '%s'. Expected a file extension such as '.idf'?", idfName);
-
-  /* Get the file name without extension */
-  size_t lenNam = strlen(nam) - strlen(ext);
-  char * namOnl;
-  namOnl = malloc((lenNam) * sizeof(char));
-  if ( namOnl == NULL )
-    ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
-
-  strncpy(namOnl, nam, lenNam);
-  /* Add termination character */
-  namOnl[lenNam] = '\0';
-
-  /* Prefix for temporary directory */
-  const char* pre = "tmp-eplus-\0";
-  size_t lenPre = strlen(pre);
-
-  *dirNam = malloc((lenPre+lenNam+1) * sizeof(char));
-  if ( *dirNam == NULL )
-    ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
-
-  strncpy(*dirNam, pre, lenPre);
-  (*dirNam)[lenPre] = '\0';
-  /* Add termination character */
-  strcat(*dirNam, namOnl);
-  free(namOnl);
-
-  return;
-}
-
 /* Returns the value references in selectedValueReferences
 */
 void getValueReferences(
@@ -157,7 +114,6 @@ void getValueReferences(
       }
     }
   }
-
 
 void getParametersFromEnergyPlus(
   FMU* fmu,
@@ -235,9 +191,6 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   const size_t nOut = scaOut*nZon;
   size_t len;
   writeLog(1, "Allocating data structure for all zones in the building.");
-
-  char* tmpDir;
-  tmpDir = NULL;
 
   fmi2ValueReference* parameterValueReferences;
   fmi2Byte** parameterNames;
@@ -364,10 +317,6 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 
   loadLib(bui->epLib, bui->fmu);
 
-  /* Instantiate the building FMU*/
-  getEnergyPlusTemporaryDirectory(bui->name, &tmpDir);
-
-
   writeLog(0, "Instantiating fmu.");
   logStringArray(3, "Parameter names", (const char**)parameterNames, nPar);
   logValueReferenceArray(3, "Parameter value references", parameterValueReferences, nPar);
@@ -378,7 +327,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   result = bui->fmu->instantiate(bui->name, /* input */
                        bui->weather,  /* weather */
                        bui->idd,  /* idd */
-                       tmpDir,  /* instanceName */
+                       bui->tmpDir,  /* temporary directory name */
                        (const char**)parameterNames,  /* parameterNames */
                        parameterValueReferences, /* parameterValueReferences[] */
                        nPar, /* nPar */
