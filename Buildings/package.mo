@@ -200,7 +200,12 @@ its class name ends with the string <code>Beta</code>.
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
-    </tr>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixGain
+        </td>
+        <td valign=\"top\">Output the product of a gain matrix with the input signal vector.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
         </td>
         <td valign=\"top\">Extract scalar signal out of signal vector dependent on Integer-valued input.
@@ -249,6 +254,12 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Update implementation to output accumulated time when input is <code>true</code>.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueDelay
+        </td>
+        <td valign=\"top\">Added parameter <code>delayOnInit</code> to optionally delay the initial <code>true</code> input.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1346\">issue 1346</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
