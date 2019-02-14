@@ -5,7 +5,7 @@ block TrueDelay
   parameter Modelica.SIunits.Time delayTime "Delay time";
 
   parameter Boolean delayOnInit = false
-    "Delay initial true input";
+    "Set to true to delay initial true input";
 
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -81,12 +81,10 @@ A falling edge of the input is immediately given to the output. If
 at the start time is also delayed, otherwise the input signal is
 produced immediately at the output.
 </p>
-
 <p>
 Simulation results of a typical example with a delay time of <i>0.1</i> second
 is shown below.
 </p>
-
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueDelay1.png\"
      alt=\"OnDelay1.png\" />
