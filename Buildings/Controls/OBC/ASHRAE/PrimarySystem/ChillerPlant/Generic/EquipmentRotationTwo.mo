@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block EquipmentRotationTwo
   "Lead-lag or lead-standby equipment rotation for two devices or two groups of devices"
 
-  parameter Integer num = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+  parameter Integer nDev = 2
+    "Total nDevber of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
   parameter Boolean lag = true
     "true = lead/lag, false = lead/standby";
 
-  parameter Boolean initRoles[num] = {true, false}
+  parameter Boolean initRoles[nDev] = {true, false}
     "Initial roles: true = lead, false = lag/standby"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
 
@@ -25,72 +25,72 @@ block EquipmentRotationTwo
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevSta[num]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevSta[nDev]
     "Device status (index represents the physical device)" annotation (
       Placement(transformation(extent={{200,30},{220,50}}),
         iconTransformation(extent={{100,50},{120,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[num]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
     "Device role: true = lead, false = lag or standby"
     annotation (Placement(transformation(extent={{200,-40},{220,-20}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[num](
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nDev](
     final threshold=stagingRuntimes)
     "Staging runtime hysteresis"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim[num](
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[nDev](
     final reset={false,false})
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
 protected
-  parameter Modelica.SIunits.Time stagingRuntimes[num] = fill(stagingRuntime, num)
+  parameter Modelica.SIunits.Time stagingRuntimes[nDev] = fill(stagingRuntime, nDev)
     "Staging runtimes array";
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(
-    final nout=num) "Replicates lead signal"
+    final nout=nDev) "Replicates lead signal"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
-    final nout=num) if lag
+    final nout=nDev) if lag
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-182,-80},{-162,-60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and3[num] "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev] "Logical and"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=num) "Array input or"
+    final nu=nDev) "Array input or"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not0[num] "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not0[nDev] "Logical not"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[num]
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nDev]
     "Switch"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
-    final nout=num) "Signal replicator"
+    final nout=nDev) "Signal replicator"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre[num](
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[nDev](
     final pre_u_start=initRoles) "Previous timestep"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1[num]
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1[nDev]
     "Falling Edge"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1[num] "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1[nDev] "Logical not"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
-  CDL.Logical.LogicalSwitch logSwi1[num] "Switch"
+  CDL.Logical.LogicalSwitch logSwi1[nDev] "Switch"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
-  CDL.Logical.Sources.Constant staSta[num](final k={false, false}) if not lag
+  CDL.Logical.Sources.Constant staSta[nDev](final k={false, false}) if not lag
     "Standby status"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
 

@@ -2,22 +2,22 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validati
 model EquipmentRotationTwo_uDevRol
   "Validate lead/lag and lead/standby switching"
 
-  parameter Integer num = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+  parameter Integer nDev = 2
+    "Total nDevber of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
-  parameter Boolean initRoles[:] = {if i==1 then true else false for i in 1:num}
+  parameter Boolean initRoles[:] = {if i==1 then true else false for i in 1:nDev}
     "Sets initial roles: true = lead, false = lag or standby";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationTwo
     leaLag(
     final stagingRuntime=5*60*60,
-    final num=num)
+    final nDev=nDev)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationTwo
     leaSta(
     final stagingRuntime=5*60*60,
-    final num=num,
+    final nDev=nDev,
     final lag=false)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
