@@ -98,6 +98,7 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   /* Get file name without path */
   /* return "tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"; */
   char * namWitSla = strrchr(idfName, '/');
+
   if ( namWitSla == NULL )
     ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with forward slash '/'?", idfName);
   /* Remove the first slash */
@@ -107,26 +108,30 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   if ( ext == NULL )
     ModelicaFormatError("Failed to parse idfName '%s'. Expected a file extension such as '.idf'?", idfName);
 
-  size_t lenExt = strlen(ext);
   /* Get the file name without extension */
-  size_t lenNam = strlen(nam) - lenExt;
+  size_t lenNam = strlen(nam) - strlen(ext);
   char * namOnl;
-  namOnl = malloc((lenNam+1) * sizeof(char));
+  namOnl = malloc((lenNam) * sizeof(char));
   if ( namOnl == NULL )
     ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
 
   strncpy(namOnl, nam, lenNam);
+  /* Add termination character */
+  namOnl[lenNam] = '\0';
 
   /* Prefix for temporary directory */
   const char* pre = "tmp-eplus-\0";
   size_t lenPre = strlen(pre);
 
-  *dirNam = (char*)malloc((lenPre+lenNam+1) * sizeof(char));
+  *dirNam = malloc((lenPre+lenNam+1) * sizeof(char));
   if ( *dirNam == NULL )
     ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
 
   strncpy(*dirNam, pre, lenPre);
+  (*dirNam)[lenPre] = '\0';
+  /* Add termination character */
   strcat(*dirNam, namOnl);
+  free(namOnl);
 
   return;
 }
