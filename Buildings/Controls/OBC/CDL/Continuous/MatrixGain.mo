@@ -22,20 +22,18 @@ equation
     defaultComponentName="matGai",
     Documentation(info="<html>
 <p>
-This blocks computes output vector <i>y</i> as <i>product</i> of the
-gain matrix <i>K</i> with the input signal vector <i>u</i>:
+This blocks computes output vector <i>y</i> as the product of the
+gain matrix <i>K</i> with the input signal vector <i>u</i> as
+<i>y = K u</i>.
+For example,
 </p>
 <pre>
-    <i>y</i> = <i>K</i> * <i>u</i>;
+   parameter Real K[:,:] = [0.12 2; 3 1.5];
 </pre>
 <p>
-Example:
+results in
 </p>
 <pre>
-   parameter: <i>K</i> = [0.12 2; 3 1.5]
-
-   results in the following equations:
-
      | y[1] |     | 0.12  2.00 |   | u[1] |
      |      |  =  |            | * |      |
      | y[2] |     | 3.00  1.50 |   | u[2] |
