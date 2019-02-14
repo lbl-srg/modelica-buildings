@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
-model HeatExchanger "Heat exchanger"
+model HeatExchanger_TSet "Heat exchanger"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialHeatExchanger(
     final activate_ThrWayVal=use_controller);
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialControllerInterface;
@@ -36,12 +36,11 @@ model HeatExchanger "Heat exchanger"
     "Temperature at port_b2"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 protected
-  Medium2.Temperature T_outflow "Temperature of outflowing fluid at port_b on medium 2 side";
+  Medium2.Temperature T_outflow = Medium2.temperature(state=Medium2.setState_phX(
+      p=port_b2.p, h=actualStream(port_b2.h_outflow), X=actualStream(port_b2.Xi_outflow)))
+      "Temperature of outflowing fluid at port_b on medium 2 side";
 
 equation
-  T_outflow=Medium2.temperature(state=Medium2.setState_phX(
-      p=port_b2.p, h=actualStream(port_b2.h_outflow), X=actualStream(port_b2.Xi_outflow)));
-
   if use_controller then
     connect(T_b2.y, con.u_m)
       annotation (Line(points={{-59,70},{-44,70},{-44,20},
@@ -81,4 +80,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeatExchanger;
+end HeatExchanger_TSet;

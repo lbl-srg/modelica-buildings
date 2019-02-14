@@ -1,7 +1,7 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model FlowMachine_m "Identical m_flow controlled pumps"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPumpParallel(
-    redeclare Buildings.Fluid.Movers.FlowControlled_m_flow pum(
+    redeclare final Buildings.Fluid.Movers.FlowControlled_m_flow pum(
       each final m_flow_nominal = m_flow_nominal,
       final m_flow_start=yPump_start*m_flow_nominal),
     rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
