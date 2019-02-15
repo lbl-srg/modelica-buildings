@@ -3,8 +3,6 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
     sensibleOnly1 = true,
     sensibleOnly2 = true,
-    final prescribedHeatFlowRate1=true,
-    final prescribedHeatFlowRate2=true,
     Q1_flow = eps * QMax_flow,
     Q2_flow = -Q1_flow,
     mWat1_flow = 0,
@@ -23,7 +21,6 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
           extent={{-56,-12},{54,-72}},
           lineColor={255,255,255},
           textString="eps=%eps")}),
-          preferredView="info",
 defaultComponentName="hex",
 Documentation(info="<html>
 <p>
@@ -48,6 +45,11 @@ instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 15, 2019, by Michael Wetter:<br/>
+Removed <code>prescribedHeatFlowRate=true</code> assignment.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1101\">#1101</a>.
+</li>
 <li>
 August 13, 2013 by Michael Wetter:<br/>
 Corrected error in the documentation.

@@ -8,8 +8,6 @@ model ConstantEffectiveness
         Modelica.Media.Interfaces.PartialCondensingGases,
   sensibleOnly1=false,
   sensibleOnly2=false,
-  final prescribedHeatFlowRate1=true,
-  final prescribedHeatFlowRate2=true,
   Q1_flow = epsS * QMax_flow + QLat_flow,
   Q2_flow = -Q1_flow,
   mWat1_flow = +mWat_flow,
@@ -103,7 +101,6 @@ equation
           extent={{-60,4},{50,-56}},
           lineColor={255,255,255},
           textString="epsL=%epsL")}),
-          preferredView="info",
 defaultComponentName="masExc",
 Documentation(info="<html>
 <p>
@@ -135,6 +132,11 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 15, 2019, by Michael Wetter:<br/>
+Removed <code>prescribedHeatFlowRate=true</code> assignment.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1101\">#1101</a>.
+</li>
 <li>
 April 30, 2018, by Filip Jorissen:<br/>
 Set <code>final prescribedHeatFlowRate1=true</code> and 
