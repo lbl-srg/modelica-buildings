@@ -44,24 +44,23 @@ equation
   connect(winSta.y, outAirSet_SinZon.uWin)
     annotation (Line(points={{-39,-40},{-9.75,-40},{-9.75,12},{18,12}}, color={255,0,255}));
   connect(TZon.y, outAirSet_SinZon.TZon)
-    annotation (Line(points={{-39,20},{-10,20},{-10,28},{18,28}},        color={0,0,127}));
+    annotation (Line(points={{-39,20},{-20,20},{-20,28},{18,28}},  color={0,0,127}));
   connect(outAirSet_SinZon.uOpeMod, opeMod.y)
-    annotation (Line(points={{18,4},{10,4},{10,-70},{1,-70}},     color={255,127,0}));
+    annotation (Line(points={{18,4},{10,4},{10,-70},{1,-70}}, color={255,127,0}));
   connect(supFan.y, outAirSet_SinZon.uSupFan)
-    annotation (Line(points={{-39,-70},{-30,-70},{-30,8},{18,8}},                     color={255,0,255}));
+    annotation (Line(points={{-39,-70},{-30,-70},{-30,8},{18,8}}, color={255,0,255}));
   connect(TDis.y, outAirSet_SinZon.TDis)
-    annotation (Line(points={{-39,-10},{-20,-10},{-20,20},{18,20}},
-                                                                  color={0,0,127}));
-  connect(winSta.y, outAirSet_SinZon_noOccSen.uWin) annotation (Line(points={{
-          -39,-40},{-9.75,-40},{-9.75,-48},{18,-48}}, color={255,0,255}));
-  connect(TZon.y, outAirSet_SinZon_noOccSen.TZon) annotation (Line(points={{-39,
-          20},{-10,20},{-10,-32},{18,-32}}, color={0,0,127}));
-  connect(outAirSet_SinZon_noOccSen.uOpeMod, opeMod.y) annotation (Line(points=
-          {{18,-56},{10,-56},{10,-70},{1,-70}}, color={255,127,0}));
-  connect(supFan.y, outAirSet_SinZon_noOccSen.uSupFan) annotation (Line(points=
-          {{-39,-70},{-30,-70},{-30,-52},{18,-52}}, color={255,0,255}));
-  connect(TDis.y, outAirSet_SinZon_noOccSen.TDis) annotation (Line(points={{-39,
-          -10},{-20,-10},{-20,-40},{18,-40}}, color={0,0,127}));
+    annotation (Line(points={{-39,-10},{0,-10},{0,20},{18,20}},  color={0,0,127}));
+  connect(winSta.y, outAirSet_SinZon_noOccSen.uWin)
+    annotation (Line(points={{-39,-40},{-9.75,-40},{-9.75,-48},{18,-48}}, color={255,0,255}));
+  connect(TZon.y, outAirSet_SinZon_noOccSen.TZon)
+    annotation (Line(points={{-39,20},{-20,20},{-20,-32},{18,-32}},  color={0,0,127}));
+  connect(outAirSet_SinZon_noOccSen.uOpeMod, opeMod.y)
+    annotation (Line(points={{18,-56},{10,-56},{10,-70},{1,-70}}, color={255,127,0}));
+  connect(supFan.y, outAirSet_SinZon_noOccSen.uSupFan)
+    annotation (Line(points={{-39,-70},{-30,-70},{-30,-52},{18,-52}}, color={255,0,255}));
+  connect(TDis.y, outAirSet_SinZon_noOccSen.TDis)
+    annotation (Line(points={{-39,-10},{0,-10},{0,-40},{18,-40}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Validation/OutsideAirFlow.mos"

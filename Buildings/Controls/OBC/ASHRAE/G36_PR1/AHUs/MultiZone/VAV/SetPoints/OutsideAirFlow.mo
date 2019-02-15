@@ -232,11 +232,11 @@ protected
     "Occupied mode index"
     annotation (Placement(transformation(extent={{-170,-242},{-150,-222}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desDisEff[numZon](
-    each final k = desZonDisEff)
+    final k = desZonDisEff)
     "Design zone air distribution effectiveness"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonFlo[numZon](
-    each final k = minZonPriFlo)
+    final k = minZonPriFlo)
     "Minimum expected zone primary flow rate"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre[numZon](
@@ -248,15 +248,15 @@ protected
     "Population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disEffHea[numZon](
-    each final k = zonDisEffHea)
+    final k = zonDisEffHea)
     "Zone distribution effectiveness for heating"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disEffCoo[numZon](
-    each final k = zonDisEffCoo)
+    final k = zonDisEffCoo)
     "Zone distribution effectiveness fo cooling"
     annotation (Placement(transformation(extent={{-120,-82},{-100,-62}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desZonPopulation[numZon](
-    each final k=desZonPop)
+    final k=desZonPop)
     "Design zone population"
     annotation (Placement(transformation(extent={{-168,220},{-148,240}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOutAir[numZon](

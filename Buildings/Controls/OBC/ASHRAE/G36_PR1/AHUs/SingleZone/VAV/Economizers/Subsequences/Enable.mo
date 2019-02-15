@@ -193,7 +193,7 @@ equation
     annotation (Line(points={{-79,200},{-60,200},{-60,202},{-42,202}},
     color={255,0,255}));
   connect(uOutDamPosMin, outDamSwitch.u1)
-    annotation (Line(points={{-200,-160},{-120,-160},{-60,-160},{-60,-132},{38,-132}},
+    annotation (Line(points={{-200,-160},{-60,-160},{-60,-132},{38,-132}},
     color={0,0,127}));
   connect(uOutDamPosMax, outDamSwitch.u3)
     annotation (Line(points={{-200,-130},{-80,-130},{-80,-148},{38,-148}}, color={0,0,127}));
@@ -203,7 +203,7 @@ equation
     annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}},
     color={255,0,255}));
   connect(minRetDamSwitch.y, yRetDamPosMin)
-    annotation (Line(points={{61,-240},{100,-240},{146,-240},{190,-240}}, color={0,0,127}));
+    annotation (Line(points={{61,-240},{190,-240}},  color={0,0,127}));
   connect(truFalHol.y, and1.u1)
     annotation (Line(points={{21,210},{30,210},{30,130},{-10,130},{-10,110},{-2,110}},
     color={255,0,255}));
@@ -214,7 +214,7 @@ equation
   connect(retDamPhyPosMaxSig.y, minRetDamSwitch.u1)
     annotation (Line(points={{-119,-210},{-4,-210},{-4,-232},{38,-232}}, color={0,0,127}));
   connect(retDamPhyPosMinSig.y, minRetDamSwitch.u3)
-    annotation (Line(points={{-119,-248},{0,-248},{38,-248}}, color={0,0,127}));
+    annotation (Line(points={{-119,-248},{38,-248}},  color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPosMax)
     annotation (Line(points={{-119,-210},{190,-210}}, color={0,0,127}));
   connect(not2.y, minRetDamSwitch.u2)

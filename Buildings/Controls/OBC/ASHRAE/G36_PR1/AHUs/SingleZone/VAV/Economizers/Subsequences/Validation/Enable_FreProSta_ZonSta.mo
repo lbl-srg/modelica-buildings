@@ -60,13 +60,11 @@ protected
 
 equation
   connect(TOutBelowCutoff.y, enaDis.TOut)
-    annotation (Line(points={{-19,150},{32,150},{32,60},{81,60}}, color={0,0,127}));
-  connect(TOutCut.y, enaDis.TOutCut)
-    annotation (Line(points={{-19,110},{31.5,110},{31.5,58},{81,58}}, color={0,0,127}));
+    annotation (Line(points={{-19,150},{34,150},{34,60},{81,60}}, color={0,0,127}));
   connect(TOutCut.y, enaDis1.TOutCut)
-    annotation (Line(points={{-19,110},{32,110},{32,-22},{81,-22}}, color={0,0,127}));
+    annotation (Line(points={{-19,110},{30,110},{30,-22},{81,-22}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
-    annotation (Line(points={{-19,150},{32,150},{32,-20},{81,-20}}, color={0,0,127}));
+    annotation (Line(points={{-19,150},{34,150},{34,-20},{81,-20}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
     annotation (Line(points={{-79,110},{-60,110},{-60,56},{81,56}}, color={0,0,127}));
   connect(hOutCut.y, enaDis.hOutCut)
@@ -97,7 +95,10 @@ equation
     annotation (Line(points={{-139,-30},{-34,-30},{-34,48},{81,48}}, color={255,0,255}));
   connect(supFanSta.y, enaDis1.uSupFan)
     annotation (Line(points={{-139,-30},{-34,-30},{-34,-32},{81,-32}}, color={255,0,255}));
-    annotation (
+  connect(TOutCut.y, enaDis.TOutCut)
+    annotation (Line(points={{-19,110},{30,110},{30,58},{81,58}}, color={0,0,127}));
+
+annotation (
     experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Enable_FreProSta_ZonSta.mos"
     "Simulate and plot"),
@@ -117,13 +118,11 @@ equation
           extent={{80,42},{164,14}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests zone state disable condition"),
         Text(
-          extent={{80,-36},{174,-64}},
+          extent={{80,-40},{178,-58}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests freeze protection disable condition")}),
     Documentation(info="<html>
 <p>

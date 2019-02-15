@@ -101,7 +101,6 @@ equation
           extent={{58,-38},{176,-64}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests freeze protection disable condition")}),
 Documentation(info="<html>
 <p>
