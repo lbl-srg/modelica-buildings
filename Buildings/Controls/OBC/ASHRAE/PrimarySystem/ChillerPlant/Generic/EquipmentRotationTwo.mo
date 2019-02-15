@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block EquipmentRotationTwo
   "Lead-lag or lead-standby equipment rotation for two devices or two groups of devices"
 
-  parameter Integer nDev = 2
+  final parameter Integer nDev = 2
     "Total nDevber of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
   parameter Boolean lag = true
@@ -12,7 +12,8 @@ block EquipmentRotationTwo
     "Initial roles: true = lead, false = lag/standby"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
 
-  parameter Modelica.SIunits.Time stagingRuntime = 240 * 60 * 60
+  parameter Modelica.SIunits.Time stagingRuntime(
+    final displayUnit = "h") = 864000
     "Staging runtime for each device";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaSta
@@ -56,7 +57,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
     final nout=nDev) if lag
     "Replicates lag signal"
-    annotation (Placement(transformation(extent={{-182,-80},{-162,-60}})));
+    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev] "Logical and"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
@@ -94,6 +95,10 @@ protected
     "Standby status"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
 
+  CDL.Logical.Or or0[nDev] "Logical or"
+    annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
+  CDL.Logical.And or1[nDev] "Logical or"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 equation
   connect(greEquThr.y, and3.u1) annotation (Line(points={{-59,30},{-30,30},{-30,
           8},{-22,8}}, color={255,0,255}));
@@ -111,9 +116,6 @@ equation
           {10,-70},{10,-50},{18,-50}}, color={255,0,255}));
   connect(pre.y, logSwi.u3) annotation (Line(points={{161,-50},{170,-50},{170,
           -70},{90,-70},{90,-38},{98,-38}}, color={255,0,255}));
-  connect(not1.y,and3. u2)
-    annotation (Line(points={{-99,-10},{-60,-10},{-60,0},{-22,0}},
-    color={255,0,255}));
   connect(tim.u0, falEdg1.y) annotation (Line(points={{-122,22},{-140,22},{-140,
           60},{40,60},{40,40},{21,40}}, color={255,0,255}));
   connect(pre.y, and3.u3) annotation (Line(points={{161,-50},{170,-50},{170,-70},
@@ -125,24 +127,40 @@ equation
           20},{-20,20},{-20,40},{-2,40}}, color={255,0,255}));
   connect(logSwi.y, yDevRol)
     annotation (Line(points={{121,-30},{210,-30}},color={255,0,255}));
-  connect(pre.y, logSwi1.u2) annotation (Line(points={{161,-50},{170,-50},{170,-80},
-          {-152,-80},{-152,-60},{-142,-60}}, color={255,0,255}));
-  connect(logSwi1.u1, repLead.y) annotation (Line(points={{-142,-52},{-142,40},{
-          -149,40}}, color={255,0,255}));
-  connect(logSwi1.u3, repLag.y) annotation (Line(points={{-142,-68},{-142,-70},{
-          -161,-70}}, color={255,0,255}));
+  connect(pre.y, logSwi1.u2) annotation (Line(points={{161,-50},{170,-50},{170,
+          -80},{-150,-80},{-150,-60},{-142,-60}},
+                                             color={255,0,255}));
+  connect(logSwi1.u1, repLead.y) annotation (Line(points={{-142,-52},{-146,-52},
+          {-146,40},{-149,40}},
+                     color={255,0,255}));
+  connect(logSwi1.u3, repLag.y) annotation (Line(points={{-142,-68},{-152,-68},
+          {-152,-70},{-159,-70}},
+                      color={255,0,255}));
   connect(logSwi1.y, tim.u) annotation (Line(points={{-119,-60},{-110,-60},{-110,
           -40},{-130,-40},{-130,30},{-122,30}}, color={255,0,255}));
   connect(uLeaSta, repLead.u)
     annotation (Line(points={{-220,40},{-172,40}}, color={255,0,255}));
-  connect(uLagSta, repLag.u) annotation (Line(points={{-220,-40},{-190,-40},{-190,
-          -70},{-184,-70}}, color={255,0,255}));
+  connect(uLagSta, repLag.u) annotation (Line(points={{-220,-40},{-190,-40},{
+          -190,-70},{-182,-70}},
+                            color={255,0,255}));
   connect(logSwi1.y, yDevSta) annotation (Line(points={{-119,-60},{-110,-60},{-110,
           -100},{180,-100},{180,40},{210,40}}, color={255,0,255}));
   connect(logSwi1.y, not1.u) annotation (Line(points={{-119,-60},{-110,-60},{-110,
           -26},{-126,-26},{-126,-10},{-122,-10}}, color={255,0,255}));
   connect(staSta.y, logSwi1.u3) annotation (Line(points={{-159,-100},{-152,-100},
           {-152,-68},{-142,-68}}, color={255,0,255}));
+  connect(or0.y, and3.u2) annotation (Line(points={{-49,-10},{-40,-10},{-40,0},
+          {-22,0}}, color={255,0,255}));
+  connect(not1.y, or0.u1)
+    annotation (Line(points={{-99,-10},{-72,-10}}, color={255,0,255}));
+  connect(or1.y, or0.u2) annotation (Line(points={{-59,-50},{-50,-50},{-50,-30},
+          {-80,-30},{-80,-18},{-72,-18}}, color={255,0,255}));
+  connect(repLag.y, or1.u2) annotation (Line(points={{-159,-70},{-150,-70},{
+          -150,-90},{-92,-90},{-92,-58},{-82,-58}}, color={255,0,255}));
+  connect(repLead.y, or1.u1) annotation (Line(points={{-149,40},{-144,40},{-144,
+          -30},{-90,-30},{-90,-50},{-82,-50}}, color={255,0,255}));
+  connect(staSta.y, or1.u2) annotation (Line(points={{-159,-100},{-140,-100},{
+          -140,-94},{-90,-94},{-90,-58},{-82,-58}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-200,-120},{200,120}})),
       defaultComponentName="equRot",
     Icon(graphics={
@@ -180,7 +198,7 @@ to ensure equal wear and tear. It can be used for lead/lag and
 lead/standby operation, as specified in &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
 Chapter 7, App B, 1.01, A.4.  The output vector <code>yDevRol<\code> indicates the lead/lag (or lead/standby) status
 of the devices, while the <code>yDevSta<\code> indicates the on/off status of each device. The index of
-output vectors and <code>initRoles<\code> parameter indicates the physical device.
+output vectors and <code>initRoles<\code> parameter represents the physical device.
 Default initial lead role is assigned to the device associated
 with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
 for each device and switches the lead role to the next higher index

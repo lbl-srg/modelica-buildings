@@ -4,7 +4,12 @@ createPlot(id=1, subPlot=2, position={10, 10, 1200, 800}, y={"leaLag.yDevRol[1]"
 createPlot(id=1, subPlot=3, position={10, 10, 1200, 800}, y={"leaLag.tim[1].y","leaLag.tim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
 createPlot(id=1, subPlot=4, position={10, 10, 1200, 800}, y={"leaLag.greEquThr[1].y","leaLag.greEquThr[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
 
-createPlot(id=2, subPlot=1, position={20, 10, 1200, 800}, y={"leaSta.yDevSta[1]","leaSta.yDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
-createPlot(id=2, subPlot=2, position={20, 10, 1200, 800}, y={"leaSta.yDevRol[1]","leaSta.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, subPlot=3, position={20, 10, 1200, 800}, y={"leaSta.tim[1].y","leaSta.tim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
-createPlot(id=2, subPlot=4, position={20, 10, 1200, 800}, y={"leaSta.greEquThr[1].y","leaSta.greEquThr[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=1, position={20, 10, 1200, 800}, y={"leaLag1.yDevSta[1]","leaLag1.yDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=2, position={20, 10, 1200, 800}, y={"leaLag1.yDevRol[1]","leaLag1.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, subPlot=3, position={20, 10, 1200, 800}, y={"leaLag1.tim[1].y","leaLag1.tim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=4, position={20, 10, 1200, 800}, y={"leaLag1.greEquThr[1].y","leaLag1.greEquThr[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=3, subPlot=1, position={20, 10, 1200, 800}, y={"leaSta.yDevSta[1]","leaSta.yDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=2, position={20, 10, 1200, 800}, y={"leaSta.yDevRol[1]","leaSta.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, subPlot=3, position={20, 10, 1200, 800}, y={"leaSta.tim[1].y","leaSta.tim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=4, position={20, 10, 1200, 800}, y={"leaSta.greEquThr[1].y","leaSta.greEquThr[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});

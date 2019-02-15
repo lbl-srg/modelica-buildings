@@ -185,7 +185,7 @@ wetbulb temperature"),
 based on the chilled water  
 temperature downstream of WSE"),
         Text(
-          extent={{72,-82},{132,-104}},
+          extent={{86,-88},{114,-96}},
           lineColor={0,0,127},
           textString="Combines conditions from 
 the first two tests")}));

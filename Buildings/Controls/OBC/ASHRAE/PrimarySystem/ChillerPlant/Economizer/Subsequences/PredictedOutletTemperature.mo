@@ -41,12 +41,11 @@ block PredictedOutletTemperature
 protected
   Buildings.Controls.OBC.CDL.Continuous.Division heaExcPlr
     "Heat exchanger flow part load ratio"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant des_flow(
-    final k=VHeaExcDes_flow)
-    "Heat exchanger design flow"
-    annotation (Placement(transformation(extent={{-112,40},{-92,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaExcDes_flow(
+    final k= VHeaExcDes_flow) "Heat exchanger design flow"
+    annotation (Placement(transformation(extent={{-130,40},{-110,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaAppDes(
     final k=heaExcAppDes)
@@ -81,16 +80,16 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
     final uMax=1,
     final uMin=0) "Limiter"
-    annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
 equation
-  connect(heaExcPlr.u2, des_flow.y) annotation (Line(points={{-82,64},{-88,64},{
-          -88,50},{-91,50}}, color={0,0,127}));
-  connect(VChiWat_flow, heaExcPlr.u1) annotation (Line(points={{-180,0},{-120,0},
-          {-120,76},{-82,76}}, color={0,0,127}));
-  connect(heaAppDes.y, pro.u2) annotation (Line(points={{-39,30},{-32,30},{-32,48},
+  connect(heaExcPlr.u2, heaExcDes_flow.y) annotation (Line(points={{-92,64},{-100,
+          64},{-100,50},{-109,50}}, color={0,0,127}));
+  connect(VChiWat_flow, heaExcPlr.u1) annotation (Line(points={{-180,0},{-140,0},
+          {-140,76},{-92,76}}, color={0,0,127}));
+  connect(heaAppDes.y, pro.u2) annotation (Line(points={{-39,30},{-30,30},{-30,48},
           {-22,48}}, color={0,0,127}));
-  connect(TOutWet, add1.u1) annotation (Line(points={{-180,140},{-130,140},{-130,
+  connect(TOutWet, add1.u1) annotation (Line(points={{-180,140},{-150,140},{-150,
           -44},{-62,-44}}, color={0,0,127}));
   connect(TWetDes.y, add1.u2) annotation (Line(points={{-79,-70},{-72,-70},{-72,
           -56},{-62,-56}}, color={0,0,127}));
@@ -109,9 +108,9 @@ equation
   connect(mulSum.y, y)
     annotation (Line(points={{101,0},{180,0}}, color={0,0,127}));
   connect(heaExcPlr.y, lim.u)
-    annotation (Line(points={{-59,70},{-52,70}}, color={0,0,127}));
+    annotation (Line(points={{-69,70},{-62,70}}, color={0,0,127}));
   connect(pro.u1, lim.y)
-    annotation (Line(points={{-22,60},{-26,60},{-26,70},{-29,70}},
+    annotation (Line(points={{-22,60},{-30,60},{-30,70},{-39,70}},
       color={0,0,127}));
     annotation (defaultComponentName = "wseTOut",
         Icon(graphics={
