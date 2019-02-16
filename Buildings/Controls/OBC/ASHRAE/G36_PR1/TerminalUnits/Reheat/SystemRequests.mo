@@ -97,11 +97,11 @@ block SystemRequests
     "Zone cooling supply air temperature reset request"
     annotation (Placement(transformation(extent={{180,190},{200,210}}),
       iconTransformation(extent={{100,60},{120,80}})));
-  CDL.Interfaces.IntegerOutput yHeaValResReq if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq if have_heaWatCoi
     "Hot water reset requests"
     annotation (Placement(transformation(extent={{180,-250},{200,-230}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
-  CDL.Interfaces.IntegerOutput yHeaPlaReq if (have_heaWatCoi and have_heaPla)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaPlaReq if (have_heaWatCoi and have_heaPla)
     "Heating plant request"
     annotation (Placement(transformation(extent={{180,-440},{200,-420}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
@@ -142,8 +142,7 @@ block SystemRequests
     annotation (Placement(transformation(extent={{-40,-310},{-20,-290}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys10(
     final uLow=0.85,
-    final uHigh=0.95) if
-       have_heaWatCoi
+    final uHigh=0.95) if have_heaWatCoi
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-360},{-120,-340}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys11(
@@ -157,7 +156,8 @@ protected
     final samplePeriod=samplePeriod)
     "Sample current cooling setpoint"
     annotation (Placement(transformation(extent={{-160,430},{-140,450}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(final samplePeriod=samplePeriod)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
+    final samplePeriod=samplePeriod)
     "Delay value to record input value"
     annotation (Placement(transformation(extent={{-80,450},{-60,470}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute change of the setpoint temperature"
@@ -346,7 +346,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim5(delayTime=durTimDisAir) if have_heaWatCoi
     "Check if it is more than durTimDisAir"
     annotation (Placement(transformation(extent={{0,-310},{20,-290}})));
-
   Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(
     final samplePeriod=samplePeriod)
     "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
@@ -363,13 +362,13 @@ protected
     final samplePeriod=samplePeriod)
     "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
     "Check if discharge airflow is less than 50% of setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu1
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+
 equation
   connect(add2.y, hys.u)
     annotation (Line(points={{-79,200},{-62,200}},   color={0,0,127}));
@@ -418,12 +417,10 @@ equation
       color={0,0,127}));
   connect(abs.y, triSam.u)
     annotation (Line(points={{121,410},{140,410},{140,360},{-140,360},{-140,280},
-          {-122,280}},
-                   color={0,0,127}));
+          {-122,280}}, color={0,0,127}));
   connect(abs.y, hys2.u)
     annotation (Line(points={{121,410},{140,410},{140,360},{-140,360},{-140,340},
-          {-122,340}},
-                   color={0,0,127}));
+          {-122,340}}, color={0,0,127}));
   connect(and2.y, swi1.u2)
     annotation (Line(points={{61,200},{98,200}}, color={255,0,255}));
   connect(thrCooResReq.y, swi1.u1)
@@ -601,7 +598,6 @@ equation
   connect(tim1.y, and2.u2)
     annotation (Line(points={{1,200},{10,200},{10,192},{38,192}},
       color={255,0,255}));
-
   connect(sampler.u, VDisSet_flow)
     annotation (Line(points={{-162,-40},{-170,-40},{-170,30},{-200,30}},
                                                    color={0,0,127}));

@@ -65,12 +65,12 @@ equation
   connect(damLim.uSupFan, fanStatus.y)
     annotation (Line(points={{-41,-12},{-70,-12},{-70,-10},{-99,-10}}, color={255,0,255}));
   connect(operationMode.y, damLim.uOpeMod)
-    annotation (Line(points={{-99,-50},{-70,-50},{-70,-16},{-70,-15},{-56,-15},{-41,-15}},
+    annotation (Line(points={{-99,-50},{-70,-50},{-70,-15},{-41,-15}},
     color={255,127,0}));
   connect(fanStatus.y, damLim1.uSupFan)
     annotation (Line(points={{-99,-10},{-80,-10},{-80,-30},{60,-30},{60,-12},{99,-12}}, color={255,0,255}));
   connect(operationMode.y, damLim1.uOpeMod)
-    annotation (Line(points={{-99,-50},{70,-50},{70,-16},{70,-15},{80,-15},{99,-15}}, color={255,127,0}));
+    annotation (Line(points={{-99,-50},{70,-50},{70,-15},{99,-15}},  color={255,127,0}));
   connect(freProSta.y, damLim1.uFreProSta)
     annotation (Line(points={{-99,-90},{80,-90},{80,-18},{99,-18}}, color={255,127,0}));
   connect(VOutMinSetSig.y, damLim.VOutMinSet_flow)
@@ -97,23 +97,21 @@ equation
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}}), graphics={
         Text(
-          extent={{-120,116},{-86,104}},
+          extent={{-126,114},{-2,98}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=16,
           textString="Variable supply fan speed,
 constant minimum outdoor airflow setpoint"),
         Text(
-          extent={{0,112},{34,100}},
+          extent={{8,110},{140,96}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=16,
           textString="Variable minimum outdoor airflow setpoint,
 constant supply fan speed
 ")}),

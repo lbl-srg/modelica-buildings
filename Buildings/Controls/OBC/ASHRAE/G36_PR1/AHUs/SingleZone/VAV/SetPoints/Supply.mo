@@ -299,8 +299,8 @@ equation
           -256},{60,-256},{60,-284},{55,-284}}, color={0,0,127}));
   connect(offCoo.y, addHeaCoo.u2) annotation (Line(points={{61,-192},{90,-192},{
           90,-92},{48,-92},{48,-66},{58,-66}}, color={0,0,127}));
-  connect(addHeaCoo.y, y) annotation (Line(points={{81,-60},{90,-60},{90,-60},{110,
-          -60}}, color={0,0,127}));
+  connect(addHeaCoo.y, y) annotation (Line(points={{81,-60},{110,-60}},
+                 color={0,0,127}));
   connect(lin050.x2, con1.y) annotation (Line(points={{-22,-196},{-44,-196},{-44,
           -170},{-59,-170}}, color={0,0,127}));
   connect(con025.y, lin050.x1) annotation (Line(points={{-59,-202},{-52,-202},{-52,

@@ -28,8 +28,6 @@ block DamperValves
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -286,7 +284,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1)
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
-  CDL.Logical.TrueHoldWithReset truHol2(duration=600)
+  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol2(duration=600)
     "Check if the true input holds for certain time"
     annotation (Placement(transformation(extent={{-222,-240},{-202,-220}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(delayTime=600)
@@ -295,42 +293,45 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(delayTime=600)
     "Check if the true input holds for certain time"
     annotation (Placement(transformation(extent={{-240,200},{-220,220}})));
-
-  CDL.Integers.Equal isUno "Output true if the operation mode is unoccupied"
+  Buildings.Controls.OBC.CDL.Integers.Equal isUno "Output true if the operation mode is unoccupied"
     annotation (Placement(transformation(extent={{220,-342},{240,-322}})));
-  CDL.Integers.Sources.Constant unOcc(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant unOcc(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Constant signal for unoccupied mode"
     annotation (Placement(transformation(extent={{170,-342},{190,-322}})));
-  CDL.Logical.Switch watValPosUno "Output hot water valve position"
+  Buildings.Controls.OBC.CDL.Logical.Switch watValPosUno "Output hot water valve position"
     annotation (Placement(transformation(extent={{280,-50},{300,-30}})));
-  CDL.Logical.Switch damPosUno "Output damper position"
+  Buildings.Controls.OBC.CDL.Logical.Switch damPosUno "Output damper position"
     annotation (Placement(transformation(extent={{280,40},{300,60}})));
-  CDL.Logical.Not not5 "Negation of input signal"
+  Buildings.Controls.OBC.CDL.Logical.Not not5 "Negation of input signal"
     annotation (Placement(transformation(extent={{202,-282},{222,-262}})));
-
-  CDL.Continuous.Gain VDisSet_flowNor(final k=1/V_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain VDisSet_flowNor(
+    final k=1/V_flow_nominal)
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,160},{260,180}})));
-  CDL.Continuous.Gain VDis_flowNor(final k=1/V_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain VDis_flowNor(
+    final k=1/V_flow_nominal)
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,122},{260,142}})));
-  CDL.Continuous.Sources.Constant lowDisAirTem(final k=TDisMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowDisAirTem(
+    final k=TDisMin)
     "Lowest allowed discharge air temperature"
     annotation (Placement(transformation(extent={{-68,-128},{-48,-108}})));
-  CDL.Logical.Switch swi6
+  Buildings.Controls.OBC.CDL.Logical.Switch swi6
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
-  CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-68,-84},{-48,-64}})));
-  CDL.Logical.Not not3 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{104,-102},{124,-82}})));
-  CDL.Logical.Not not6 "Negation of input signal"
+  Buildings.Controls.OBC.CDL.Logical.Not not6 "Negation of input signal"
     annotation (Placement(transformation(extent={{-40,-212},{-20,-192}})));
-  CDL.Logical.And and1
+  Buildings.Controls.OBC.CDL.Logical.And and1
     annotation (Placement(transformation(extent={{20,-76},{40,-56}})));
+
 equation
   connect(uCoo, lin.u)
     annotation (Line(points={{-340,260},{-162,260}}, color={0,0,127}));
@@ -413,14 +414,13 @@ equation
     annotation (Line(points={{101,-320},{120,-320},{120,-278},{138,-278}},
       color={0,0,127}));
   connect(swi.y, mulSum.u[1])
-    annotation (Line(points={{161,250},{164,250},{164,214},{182,214},{182,
-          214.667},{198,214.667}},
+    annotation (Line(points={{161,250},{168,250},{168,211.333},{198,211.333}},
       color={0,0,127}));
   connect(swi1.y, mulSum.u[2])
     annotation (Line(points={{153,30},{168,30},{168,210},{198,210}},
       color={0,0,127}));
   connect(swi4.y, mulSum.u[3])
-    annotation (Line(points={{161,-270},{172,-270},{172,205.333},{198,205.333}},
+    annotation (Line(points={{161,-270},{172,-270},{172,208.667},{198,208.667}},
       color={0,0,127}));
   connect(VActMin_flow, swi5.u1)
     annotation (Line(points={{-340,50},{30,50},{30,198},{58,198}},
@@ -434,8 +434,7 @@ equation
     annotation (Line(points={{81,190},{94,190},{94,258},{138,258}},
       color={0,0,127}));
   connect(hys4.y, not4.u)
-    annotation (Line(points={{-219,110},{-204,110}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-219,110},{-204,110}}, color={255,0,255}));
   connect(TSup, add2.u1)
     annotation (Line(points={{-340,-50},{-300,-50},{-300,160},{-176,160},
       {-176,186},{-162,186}}, color={0,0,127}));
@@ -448,8 +447,8 @@ equation
     annotation (Line(points={{-99,180},{-80,180},{-80,182},{-62,182}},
       color={255,0,255}));
   connect(conTDisHeaSet.y, add1.u1)
-    annotation (Line(points={{-99,-92},{-80,-92},{-80,-240},{-140,-240},{-140,
-          -264},{-122,-264}},   color={0,0,127}));
+    annotation (Line(points={{-99,-92},{-80,-92},{-80,-240},{-140,-240},
+      {-140,-264},{-122,-264}},  color={0,0,127}));
   connect(addPar1.y, add1.u2)
     annotation (Line(points={{-239,-270},{-140,-270},{-140,-276},{-122,-276}},
       color={0,0,127}));
@@ -457,7 +456,7 @@ equation
     annotation (Line(points={{-99,-270},{-90,-270},{-90,-270},{-82,-270}},
       color={0,0,127}));
   connect(mulSum.y, VDisSet_flow)
-    annotation (Line(points={{221.7,210},{330,210}}, color={0,0,127}));
+    annotation (Line(points={{221,210},{330,210}},   color={0,0,127}));
   connect(conTDisHeaSet.y, TDisHeaSet)
     annotation (Line(points={{-99,-92},{-80,-92},{-80,-160},{330,-160}},
       color={0,0,127}));
@@ -475,9 +474,8 @@ equation
     annotation (Line(points={{-219,210},{-20,210},{-20,250},{138,250}},
       color={255,0,255}));
   connect(truHol2.y, not2.u)
-    annotation (Line(points={{-201,-230},{-180,-230},{-180,-148},{-280,-148},{
-          -280,-10},{-222,-10}},
-                              color={255,0,255}));
+    annotation (Line(points={{-201,-230},{-180,-230},{-180,-148},{-280,-148},
+      {-280,-10},{-222,-10}}, color={255,0,255}));
   connect(truDel4.y, not1.u)
     annotation (Line(points={{-219,210},{-200,210},{-200,164},{-304,164},
       {-304,30},{-222,30}}, color={255,0,255}));
@@ -498,8 +496,7 @@ equation
   connect(isUno.y, watValPosUno.u2) annotation (Line(points={{241,-332},{266,-332},
           {266,-40},{278,-40}}, color={255,0,255}));
   connect(conZer2.y, watValPosUno.u1) annotation (Line(points={{-59,-12},{-20,-12},
-          {-20,-32},{278,-32}},
-                              color={0,0,127}));
+          {-20,-32},{278,-32}}, color={0,0,127}));
   connect(watValPosUno.y, yHeaVal)
     annotation (Line(points={{301,-40},{330,-40}}, color={0,0,127}));
   connect(conZer2.y, damPosUno.u1) annotation (Line(points={{-59,-12},{-20,-12},
@@ -516,7 +513,7 @@ equation
                                        color={255,0,255}));
   connect(not5.y, conDam.trigger) annotation (Line(points={{223,-272},{232,-272},
           {232,150},{282,150},{282,158}}, color={255,0,255}));
-  connect(mulSum.y, VDisSet_flowNor.u) annotation (Line(points={{221.7,210},{230,210},
+  connect(mulSum.y, VDisSet_flowNor.u) annotation (Line(points={{221,210},{230,210},
           {230,170},{238,170}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conDam.u_s)
     annotation (Line(points={{261,170},{278,170}}, color={0,0,127}));
@@ -540,17 +537,16 @@ equation
           {200,-48},{278,-48}},       color={0,0,127}));
   connect(truHol2.y, not6.u) annotation (Line(points={{-201,-230},{-60,-230},{
           -60,-202},{-42,-202}}, color={255,0,255}));
-  connect(not6.y, and1.u2) annotation (Line(points={{-19,-202},{-12,-202},{-12,
-          -200},{-4,-200},{-4,-74},{18,-74}},
-                    color={255,0,255}));
+  connect(not6.y, and1.u2) annotation (Line(points={{-19,-202},{0,-202},{0,-74},
+          {18,-74}},color={255,0,255}));
   connect(and1.y, swi3.u2) annotation (Line(points={{41,-66},{64,-66},{64,-92},{
           102,-92}},   color={255,0,255}));
   connect(conVal.y, swi3.u3)
     annotation (Line(points={{55,-100},{102,-100}}, color={0,0,127}));
   connect(swi3.u1, conZer2.y) annotation (Line(points={{102,-84},{76,-84},{76,-32},
           {-20,-32},{-20,-12},{-59,-12}},    color={0,0,127}));
-  connect(not3.y, and1.u1) annotation (Line(points={{-99,110},{-2,110},{-2,-66},
-          {18,-66}},color={255,0,255}));
+  connect(not3.y, and1.u1) annotation (Line(points={{-99,110},{0,110},{0,-66},{18,
+          -66}},    color={255,0,255}));
   connect(not4.y, truDel3.u)
     annotation (Line(points={{-181,110},{-162,110}}, color={255,0,255}));
   connect(not5.y, conVal.trigger) annotation (Line(points={{223,-272},{232,-272},
