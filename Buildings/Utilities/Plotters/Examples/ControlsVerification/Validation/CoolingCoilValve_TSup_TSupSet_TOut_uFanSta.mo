@@ -217,7 +217,7 @@ equation
   connect(uSupFan3.y, cooVal3.uFanSta)
     annotation (Line(points={{121,-100},{128,-100},{128,-100},{
           134,-100},{134,-42},{139,-42}}, color={255,0,255}));
-annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
+annotation (experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/ControlsVerification/Validation/CoolingCoilValve_TSup_TSupSet_TOut_uFanSta.mos"
     "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}}),
