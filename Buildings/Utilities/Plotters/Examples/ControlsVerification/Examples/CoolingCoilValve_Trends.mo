@@ -210,7 +210,7 @@ equation
   connect(to_degC2.y, timSerInp.y[3]) annotation (Line(points={{-39,-10},{-20,
           -10},{-20,58.6667},{98,58.6667}},
                                       color={0,0,127}));
-  annotation(experiment(Tolerance=1e-06), StopTime = 315710,
+  annotation(experiment(Tolerance=1e-06, StopTime = 315710),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/ControlsVerification/Examples/CoolingCoilValve_Trends.mos"
     "Simulate and plot"),
     Documentation(
