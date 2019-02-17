@@ -37,9 +37,12 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Recorded maximum supply air temperature for defining the upper limit of the valve position"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Real interval(min = 1, unit="s") = 15
+  parameter Modelica.SIunits.Time interval(min = 1) = 15
     "Recorded interval at which integration part of the output gets updated"
     annotation(Evaluate=true, Dialog(group="Controller"));
+
+  parameter Boolean reverseAction = true "Controller reverse action"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
 
   parameter Real k(final unit="1/K") = alc_prop_k * alc_k_unit_conv
     "Proportional controller gain"
@@ -47,9 +50,6 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
 
   parameter Real Ti(final unit="s") = k*interval/(alc_int_k * alc_k_unit_conv)
     "Integral controller gain"
-    annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
-
-  parameter Boolean reverseAction = true "Controller reverse action"
     annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
 
   parameter Real uMax(
@@ -117,7 +117,7 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
   Buildings.Controls.OBC.CDL.Continuous.Line higLim(
     final limitBelow=true,
     final limitAbove=true)
-    "Defines lower limit of the Cooling valve signal at low range SATs"
+    "Defines lower limit of the cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
 protected
@@ -125,6 +125,7 @@ protected
     final k=uMin)
     "Minimal control loop signal limit when supply air temperature is at a defined high limit"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMax(
     final k=uMax)
     "Minimal control loop signal limit when supply air temperature is at a defined low limit"
@@ -146,6 +147,7 @@ protected
     final k=TSupHigLim)
     "Low range supply air temperature low limit"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(
     final k=TSupHighLim)
     "Low range supply air temperature high limit"
@@ -165,6 +167,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Product pro
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
@@ -261,10 +264,9 @@ low TSup"),
           textString="Controller")}),
     Documentation(info="<html>
 <p>
-This subsequence defines cooling coil valve position. The implementation is identical to
+This subsequence defines cooling coil valve position. The implementation is according to
 the ALC EIKON control sequence implementation in one of the LBNL buildings. 5s trends were 
-recorded between 2018-06-07 17:00:00 PDT and 6/11/2018 08:41:50 PDT. 
-This version of the sequences uses F as a temperature unit.
+recorded between 2018-06-07 17:00:00 PDT and 6/11/2018 08:41:50 PDT.
 </p>
 
 </html>", revisions="<html>

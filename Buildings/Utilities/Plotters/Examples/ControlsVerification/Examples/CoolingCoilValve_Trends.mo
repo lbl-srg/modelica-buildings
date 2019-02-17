@@ -11,8 +11,7 @@ model CoolingCoilValve_Trends
     tableName="OA_Temp",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns={3},
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/OA_Temp.mos"))
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/OA_Temp.mos"))
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
@@ -24,8 +23,7 @@ model CoolingCoilValve_Trends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="SA_Clg_Stpt",
     columns={3},
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/SA_Clg_Stpt.mos"))
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/SA_Clg_Stpt.mos"))
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
@@ -37,8 +35,7 @@ model CoolingCoilValve_Trends
     tableName="Clg_Coil_Valve",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/Clg_Coil_Valve.mos"))
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/Clg_Coil_Valve.mos"))
     "Output of the cooling valve control subsequence"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
@@ -50,8 +47,7 @@ model CoolingCoilValve_Trends
     tableName="VFD_Fan_Feedback",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/VFD_Fan_Feedback.mos"))
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/VFD_Fan_Feedback.mos"))
     "Fan feedback"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
@@ -63,8 +59,7 @@ model CoolingCoilValve_Trends
     tableName="VFD_Fan_Enable",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/VFD_Fan_Enable.mos"))
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/VFD_Fan_Enable.mos"))
     "Fan status"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
@@ -76,8 +71,7 @@ model CoolingCoilValve_Trends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="Supply_Air_Temp",
     columns={3},
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/Supply_Air_Temp.mos"))
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/Supply_Air_Temp.mos"))
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
@@ -158,10 +152,10 @@ protected
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
 
   Buildings.Utilities.Plotters.TimeSeries timSerInp(
+    n=3,
     legend={"Supply air temperature, [degC]","Supply air temperature setpoint, [degC]",
         "Outdoor air temperature, [degC]"},
-    title="Trended input signals",
-    n=3)
+    title="Trended input signals")
     "Trended input signals"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
@@ -216,7 +210,7 @@ equation
   connect(to_degC2.y, timSerInp.y[3]) annotation (Line(points={{-39,-10},{-20,
           -10},{-20,58.6667},{98,58.6667}},
                                       color={0,0,127}));
-  annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
+  annotation(experiment(Tolerance=1e-06), StopTime = 315710,
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/ControlsVerification/Examples/CoolingCoilValve_Trends.mos"
     "Simulate and plot"),
     Documentation(
@@ -224,7 +218,8 @@ equation
 <p>
 This model validates the cooling coil signal subsequence implemented 
 in Building 33 on the main LBNL campus. Data used for the validation are measured 
-input and output trends with 5s time steps exported from the building's ALC EIKON webserver.
+input and output trends with 5s time steps, starting at 
+2018-06-07 00:00:00 PDT, exported from the building's ALC EIKON webserver.
 </p>
 </html>",
 revisions="<html>
