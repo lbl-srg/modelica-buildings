@@ -20,7 +20,7 @@
  *
  */
 #include "cfdCosimulation.h"
-
+#include <ModelicaUtilities.h>
 /*
  * Start the cosimulation
  *
@@ -28,15 +28,6 @@
  *
  */
 void *cfdcosim() {
-
-/* Windows*/
-#ifdef _MSC_VER
-  HANDLE workerThreadHandle[1];
-/*  Linux*/
-#else
-   pthread_t thread1[1];
-#endif
-
   /****************************************************************************
   | Allocate memory for cosimulation variables
   ****************************************************************************/
@@ -45,15 +36,8 @@ void *cfdcosim() {
   cosim->modelica = (ModelicaSharedData *) malloc(sizeof(ModelicaSharedData));
   cosim->ffd = (ffdSharedData *) malloc(sizeof(ffdSharedData));
   
-  ModelicaMessage("finish allocate memory to cosim from constructor\n");
-
-/* Windows*/
-#ifdef _MSC_VER
-	return workerThreadHandle;
-/*  Linux*/
-#else
-	return thread1;
-#endif  
+  if ( cosim == NULL )
+    ModelicaError("Not enough memory in cfdcosim.c.");
   
-  
+	return (void*) cosim;   
 } /* End of cfdcosim()*/

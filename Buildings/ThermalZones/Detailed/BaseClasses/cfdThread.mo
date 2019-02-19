@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
-class CFDThread "class used to create the external object: cosimcreate constructor and destructor associated with external objects"
+class CFDThread "class used to handle CFD thread"
    extends ExternalObject;
    // constructor
    function constructor "allocate memeory for cosimulation variables"
