@@ -1,65 +1,58 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
-class CFDThread
-  "create constructor and destructor associated with external objects"
- extends ExternalObject;
- // constructor
- function constructor "create ffd.dll or ffd.so"
-  input String cfdFilNam "CFD input file name";
-  input String[nSur] name "Surface names";
-  input Modelica.SIunits.Area[nSur] A "Surface areas";
-  input Modelica.SIunits.Angle[nSur] til "Surface tilt";
-  input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions[nSur] bouCon
-      "Type of boundary condition";
-  input Integer nPorts(min=0)
-      "Number of fluid ports for the HVAC inlet and outlets";
-  input String portName[nPorts]
-      "Names of fluid ports as declared in the CFD input file";
-  input Boolean haveSensor "Flag, true if the model has at least one sensor";
-  input String sensorName[nSen]
-      "Names of sensors as declared in the CFD input file";
-  input Boolean haveShade "Flag, true if the windows have a shade";
-  input Integer nSur "Number of surfaces";
-  input Integer nSen(min=0)
-      "Number of sensors that are connected to CFD output";
-  input Integer nConExtWin(min=0) "number of exterior construction with window";
-  input Integer nXi(min=0) "Number of independent species";
-  input Integer nC(min=0) "Number of trace substances";
-  input Modelica.SIunits.Density rho_start "Density at initial state";
-  input Boolean verbose "Set to true for verbose output";
-  //output Integer retVal
-  //    "Return value of the function (0 indicates CFD successfully started.)";
-  // FIXME: need to declare a struct FFDThread as void pointer
-  output CFDThread FFDThre "the handler of FFD thread";
-  // FIXME: need to let cfdStartCosimulation return a construct
-  external"C" FFDThre=  cfdStartCosimulation(
-   cfdFilNam,
-   name,
-   A,
-   til,
-   bouCon,
-   nPorts,
-   portName,
-   haveSensor,
-   sensorName,
-   haveShade,
-   nSur,
-   nSen,
-   nConExtWin,
-   nXi,
-   nC,
-   rho_start) annotation (Include="#include <cfdStartCosimulation.c>",
-    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-    LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");
-  //external"C" retVal=  cfdStartCosimulation(
- end constructor;
+class CFDThread "class used to create the external object: cosimcreate constructor and destructor associated with external objects"
+   extends ExternalObject;
+   // constructor
+   function constructor "allocate memeory for cosimulation variables"
+    output CFDThread FFDThre "the handler of FFD thread";
+    external"C" FFDThre = cfdcosim()   annotation (Include="#include <cfdcosim.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");
+     annotation (Documentation(info="<html>
+<p>
+Constructor allocates memory for co-simulation variables when co-simulation starts
+</html>",   revisions="<html>
+<ul>
+<li>
+July, 2018, by Wei Tian and Xu Han:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+   end constructor;
 
- // destructor
- function destructor "release ffd.dll or ffd.so"
-  input CFDThread FFDThre "the handler of FFD thread";
+   // destructor
+   function destructor "release ffd.dll or ffd.so"
+    input CFDThread FFDThre "the handler of FFD thread";
+    external"C" cfdSendStopCommand(FFDThre) annotation (Include="#include <cfdSendStopCommand.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+      LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");
+      annotation (Documentation(info="<html>
+<p>
+Destructor sends stop command to FFD and releases memory for co-simulation variables at the end of the simulation
 
-  external"C" cfdCloseThread(FFDThre)         annotation (Include="#include <cfdCloseThread.c>",
-    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-    LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");
- end destructor;
+</html>",   revisions="<html>
+<ul>
+<li>
+July, 2018, by Wei Tian and Xu Han:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+   end destructor;
+     annotation (Documentation(info="<html>
+<p>
+Class derived from <code>ExternalObject</code> having two local external function definition,
+named <code>destructor</code> and <code>constructor</code> respectively.
+To fix the issue FFD fails in JModelica tests due to unsupported OS #612.
+</html>",   revisions="<html>
+<ul>
+<li>
+July 27, 2018, by Wei Tian and Xu Han:<br/>
+First implementation.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
+</li>
+</ul>
+</html>"));
 
 end CFDThread;
