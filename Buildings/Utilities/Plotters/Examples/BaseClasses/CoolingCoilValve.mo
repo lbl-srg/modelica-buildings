@@ -1,4 +1,4 @@
-within Buildings.Utilities.Plotters.Examples.ControlsVerification;
+within Buildings.Utilities.Plotters.Examples.BaseClasses;
 block CoolingCoilValve "Cooling coil valve position control sequence"
 
   parameter Real alc_prop_k(final unit="1/F") = 1/100

@@ -1,5 +1,5 @@
-within Buildings.Utilities.Plotters.Examples.ControlsVerification.Examples;
-model CoolingCoilValve_Trends
+within Buildings.Utilities.Plotters.Examples;
+model ControlsVerification_CoolingCoilValve
   "Validation model for the cooling coil control subsequence with recorded data trends"
   extends Modelica.Icons.Example;
 
@@ -75,7 +75,7 @@ model CoolingCoilValve_Trends
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
-  Buildings.Utilities.Plotters.Examples.ControlsVerification.CoolingCoilValve cooValSta(
+  Buildings.Utilities.Plotters.Examples.BaseClasses.CoolingCoilValve cooValSta(
     reverseAction=true,
     TSupHighLim(displayUnit="K"),
     TSupHigLim(displayUnit="K"),
@@ -211,7 +211,7 @@ equation
           -10},{-20,58.6667},{98,58.6667}},
                                       color={0,0,127}));
   annotation(experiment(Tolerance=1e-06, StopTime = 315710),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/ControlsVerification/Examples/CoolingCoilValve_Trends.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/ControlsVerification_CoolingCoilValve.mos"
     "Simulate and plot"),
     Documentation(
     info="<html>
@@ -236,4 +236,4 @@ First implementation.
           lineColor={217,217,217},
           fillColor={217,217,217},
           fillPattern=FillPattern.Solid)}));
-end CoolingCoilValve_Trends;
+end ControlsVerification_CoolingCoilValve;
