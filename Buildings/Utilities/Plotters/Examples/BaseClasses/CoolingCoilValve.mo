@@ -69,31 +69,31 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFanSta
     "Optional additional status signal"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
-    iconTransformation(extent={{-120,-110},{-100,-90}})));
+    iconTransformation(extent={{-120,-90},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanFee "Supply fan feedback"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
-        iconTransformation(extent={{-120,-60},{-100,-40}})));
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature (SAT)"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
-      iconTransformation(extent={{-120,90},{-100,110}})));
+      iconTransformation(extent={{-120,70},{-100,90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-160,70},{-120,110}}),
-      iconTransformation(extent={{-120,60},{-100,80}})));
+      iconTransformation(extent={{-120,30},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
-      iconTransformation(extent={{-120,20},{-100,40}})));
+      iconTransformation(extent={{-120,-10},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooVal(
     final min=0,
@@ -169,7 +169,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+    annotation (Placement(transformation(extent={{40,74},{60,94}})));
 
 equation
   connect(TOut, TOutThr.u)
@@ -209,12 +209,12 @@ equation
           {-82,-68},{-72,-68}}, color={255,0,255}));
   connect(andIntErr.y, booToRea.u) annotation (Line(points={{-49,-60},{-46,-60},
           {-46,-20},{-42,-20}},color={255,0,255}));
-  connect(limPI.y, pro.u1) annotation (Line(points={{-19,90},{0,90},{0,96},{38,
-          96}}, color={0,0,127}));
-  connect(booToRea.y, pro.u2) annotation (Line(points={{-19,-20},{0,-20},{0,84},
-          {38,84}},color={0,0,127}));
+  connect(limPI.y, pro.u1) annotation (Line(points={{-19,90},{38,90}},
+                color={0,0,127}));
+  connect(booToRea.y, pro.u2) annotation (Line(points={{-19,-20},{0,-20},{0,78},
+          {38,78}},color={0,0,127}));
   connect(min.u1, pro.y)
-    annotation (Line(points={{78,36},{72,36},{72,90},{61,90}},color={0,0,127}));
+    annotation (Line(points={{78,36},{72,36},{72,84},{61,84}},color={0,0,127}));
   annotation (
     defaultComponentName = "cooVal",
     Icon(graphics={
@@ -229,9 +229,9 @@ equation
           lineColor={0,0,127},
           textString="%name"),
         Text(
-          extent={{18,-84},{100,-12}},
+          extent={{-64,-132},{60,-18}},
           lineColor={0,0,127},
-          textString="V")}),
+          textString="Cooling coil valve")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}}), graphics={
         Rectangle(
@@ -264,11 +264,9 @@ low TSup"),
           textString="Controller")}),
     Documentation(info="<html>
 <p>
-This subsequence defines cooling coil valve position. The implementation is according to
-the ALC EIKON control sequence implementation in one of the LBNL buildings. 5s trends were 
-recorded between 2018-06-07 17:00:00 PDT and 6/11/2018 08:41:50 PDT.
+Control sequence that outputs the cooling coil valve position. The implementation is according to
+the ALC EIKON control sequence implementation in one of LBNL buildings.
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>

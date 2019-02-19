@@ -167,20 +167,20 @@ protected
 
 equation
   connect(cooValSta.yCooVal, timSerRes.y[1])
-    annotation (Line(points={{41,0},{60,0},{60,90},{98,90},{98,91}},
+    annotation (Line(points={{41,0},{70,0},{70,84},{98,84},{98,91}},
     color={0,0,127}));
   connect(cooValSta.yCooVal, correlation.y[1])
     annotation (Line(points={{41,0},{70,0},{70,30},{98,30}}, color={0,0,127}));
   connect(percConv.y, timSerRes.y[2])
-    annotation (Line(points={{-79,90},{20,90},{20,96},{98,96},{98,89}},
+    annotation (Line(points={{-79,90},{98,90},{98,89}},
     color={0,0,127}));
   connect(percConv.y, correlation.x)
     annotation (Line(points={{-79,90},{50,90},{50,22},{98,22}},color={0,0,127}));
   connect(greEquThr.y, cooValSta.uFanSta)
-    annotation (Line(points={{-79,-90},{0,-90},{0,-10},{19,-10}},
+    annotation (Line(points={{-79,-90},{0,-90},{0,-8},{19,-8}},
     color={255,0,255}));
   connect(percConv1.y, cooValSta.uFanFee)
-    annotation (Line(points={{-79,-60},{-6,-60},{-6,-5},{19,-5}},color={0,0,127}));
+    annotation (Line(points={{-79,-60},{-6,-60},{-6,-4},{19,-4}},color={0,0,127}));
   connect(coolingValveSignal.y[1], percConv.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   connect(fanFeedback.y[1], percConv1.u)
@@ -204,11 +204,12 @@ equation
   connect(from_degF2.y, to_degC2.u) annotation (Line(points={{-79,-20},{-72,-20},
           {-72,-10},{-62,-10}}, color={0,0,127}));
   connect(from_degF2.y, cooValSta.TOut) annotation (Line(points={{-79,-20},{-72,
-          -20},{-72,-30},{-10,-30},{-10,3},{19,3}},color={0,0,127}));
-  connect(from_degF1.y, cooValSta.TSupSet) annotation (Line(points={{-79,20},{-70,
-          20},{-70,10},{-10,10},{-10,7},{19,7}},color={0,0,127}));
+          -20},{-72,-30},{-10,-30},{-10,0},{19,0}},color={0,0,127}));
+  connect(from_degF1.y, cooValSta.TSupSet) annotation (Line(points={{-79,20},{
+          -70,20},{-70,10},{-10,10},{-10,4},{19,4}},
+                                                color={0,0,127}));
   connect(from_degF.y, cooValSta.TSup) annotation (Line(points={{-79,50},{0,50},
-          {0,10},{19,10}}, color={0,0,127}));
+          {0,8},{19,8}},   color={0,0,127}));
   connect(to_degC.y, timSerInp.y[1]) annotation (Line(points={{-39,70},{-30,70},
           {-30,61.3333},{98,61.3333}},color={0,0,127}));
   connect(to_degC1.y, timSerInp.y[2]) annotation (Line(points={{-39,30},{-30,30},
@@ -225,7 +226,7 @@ equation
 This model validates the cooling coil signal subsequence implemented
 in Building 33 on the main LBNL campus. Data used for the validation are measured
 input and output trends with 5s time steps, starting at
-2018-06-07 00:00:00 PDT, exported from the building's ALC EIKON webserver.
+2018-06-07 00:00:00 PDT. The trends were exported from the ALC EIKON webserver.
 </p>
 </html>",
 revisions="<html>
@@ -236,10 +237,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}}), graphics={
-        Rectangle(
-          extent={{-180,120},{180,-120}},
-          lineColor={217,217,217},
-          fillColor={217,217,217},
-          fillPattern=FillPattern.Solid)}));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})));
 end ControlsVerification_CoolingCoilValve;
