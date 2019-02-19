@@ -121,7 +121,7 @@ model CoolingCoilValve_Trends
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
 protected
-  Buildings.Utilities.IO.Files.CSVWriter cSVWriter(
+  Buildings.Utilities.IO.Files.CSVWriter csvWriter(
     samplePeriod=5,
     nin=2,
     headerNames={"Trended","Modeled"})
@@ -181,9 +181,9 @@ equation
     annotation (Line(points={{-119,-60},{-102,-60}}, color={0,0,127}));
   connect(fanStatus.y[1], greEquThr.u)
     annotation (Line(points={{-119,-90},{-102,-90}}, color={0,0,127}));
-  connect(percConv.y, cSVWriter.u[1])
+  connect(percConv.y,csvWriter. u[1])
     annotation (Line(points={{-79,90},{50,90},{50,-29},{100,-29}}, color={0,0,127}));
-  connect(cooValSta.yCooVal, cSVWriter.u[2]) annotation (Line(points={{41,0},{
+  connect(cooValSta.yCooVal,csvWriter. u[2]) annotation (Line(points={{41,0},{
           70,0},{70,-31},{100,-31}}, color={0,0,127}));
   connect(TSupply_F.y[1], from_degF.u)
     annotation (Line(points={{-119,50},{-102,50}}, color={0,0,127}));
