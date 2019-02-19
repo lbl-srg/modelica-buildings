@@ -11,7 +11,8 @@ model ControlsVerification_CoolingCoilValve
     tableName="OA_Temp",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns={3},
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/OA_Temp.mos"))
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Utilities/Plotters/Examples/ControlsVerification_CoolingCoilValve/OA_Temp.mos"))
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
@@ -23,7 +24,8 @@ model ControlsVerification_CoolingCoilValve
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="SA_Clg_Stpt",
     columns={3},
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/SA_Clg_Stpt.mos"))
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Utilities/Plotters/Examples/ControlsVerification_CoolingCoilValve/SA_Clg_Stpt.mos"))
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
@@ -35,7 +37,8 @@ model ControlsVerification_CoolingCoilValve
     tableName="Clg_Coil_Valve",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/Clg_Coil_Valve.mos"))
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Utilities/Plotters/Examples/ControlsVerification_CoolingCoilValve/Clg_Coil_Valve.mos"))
     "Output of the cooling valve control subsequence"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
@@ -47,7 +50,8 @@ model ControlsVerification_CoolingCoilValve
     tableName="VFD_Fan_Feedback",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/VFD_Fan_Feedback.mos"))
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Utilities/Plotters/Examples/ControlsVerification_CoolingCoilValve/VFD_Fan_Feedback.mos"))
     "Fan feedback"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
@@ -59,7 +63,8 @@ model ControlsVerification_CoolingCoilValve
     tableName="VFD_Fan_Enable",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/VFD_Fan_Enable.mos"))
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Utilities/Plotters/Examples/ControlsVerification_CoolingCoilValve/VFD_Fan_Enable.mos"))
     "Fan status"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
@@ -71,16 +76,17 @@ model ControlsVerification_CoolingCoilValve
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="Supply_Air_Temp",
     columns={3},
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Utilities/Plotters/Examples/ControlsVerification/Examples/Data/Supply_Air_Temp.mos"))
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Utilities/Plotters/Examples/ControlsVerification_CoolingCoilValve/Supply_Air_Temp.mos"))
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   Buildings.Utilities.Plotters.Examples.BaseClasses.CoolingCoilValve cooValSta(
     reverseAction=true,
-    TSupHighLim(displayUnit="K"),
-    TSupHigLim(displayUnit="K"),
-    TOutDelta(displayUnit="K"),
-    TOutCooCut(displayUnit="K") = 50*(5/9) - 32*(5/9) + 273.15)
+    TSupHighLim(displayUnit="degC"),
+    TSupHigLim(displayUnit="degC"),
+    TOutDelta(displayUnit="degC"),
+    TOutCooCut(displayUnit="degC") = 50*(5/9) - 32*(5/9) + 273.15)
     "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -216,9 +222,9 @@ equation
     Documentation(
     info="<html>
 <p>
-This model validates the cooling coil signal subsequence implemented 
-in Building 33 on the main LBNL campus. Data used for the validation are measured 
-input and output trends with 5s time steps, starting at 
+This model validates the cooling coil signal subsequence implemented
+in Building 33 on the main LBNL campus. Data used for the validation are measured
+input and output trends with 5s time steps, starting at
 2018-06-07 00:00:00 PDT, exported from the building's ALC EIKON webserver.
 </p>
 </html>",
