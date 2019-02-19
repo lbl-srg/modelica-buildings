@@ -12,10 +12,19 @@ protected
   final lat=lat,
   final lon=lon,
   final timZon=timZon)
-   annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+   annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  CDL.Logical.Not not1
+     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  CDL.Conversions.BooleanToReal booToRea
+     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
-  y = if sunRiseSet.sunUp then 0 else 1;
+  connect(sunRiseSet.sunUp, not1.u) annotation (Line(points={{-59,-6},{-34,-6},{
+          -34,0},{-22,0}}, color={255,0,255}));
+  connect(not1.y, booToRea.u)
+    annotation (Line(points={{1,0},{38,0}}, color={255,0,255}));
+  connect(booToRea.y, y)
+    annotation (Line(points={{61,0},{110,0}}, color={0,0,127}));
 annotation (
 defaultComponentName="DaylightControlled",
 Documentation(
