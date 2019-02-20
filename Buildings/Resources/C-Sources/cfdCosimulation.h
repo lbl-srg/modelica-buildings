@@ -24,6 +24,7 @@
 #else /* Linux*/
 #include <dlfcn.h>  /*For load shared library*/
 #include <unistd.h> /*For Linux function*/
+#include <pthread> /*For creating thread*/
 #endif
 
 #ifndef _MODELICA_FFD_COMMON_H
@@ -36,4 +37,4 @@ CosimulationData *cosim;
 char msg[1000];
 
 /*declare the ffd_dll function in DLL*/
-int ffd_dll(CosimulationData *cosim);
+void *ffd_dll(CosimulationData *cosim);
