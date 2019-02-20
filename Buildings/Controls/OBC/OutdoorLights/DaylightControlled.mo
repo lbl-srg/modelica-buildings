@@ -4,19 +4,22 @@ block DaylightControlled "Controlling the outdoor lighting based on daylight tim
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
   parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone of location";
 
-  CDL.Interfaces.RealOutput y "Output on/off control signal"
+  CDL.Interfaces.RealOutput y(
+    final min = 0,
+    final max = 1,
+    unit="1") "On/off control signal"
    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   CDL.Utilities.SunRiseSet sunRiseSet(
   final lat=lat,
   final lon=lon,
-  final timZon=timZon)
+  final timZon=timZon) "Output next sunrise and sunset time, and if sun is up"
    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  CDL.Logical.Not not1
-     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  CDL.Conversions.BooleanToReal booToRea
-     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  CDL.Logical.Not not1 "Logical not"
+   annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  CDL.Conversions.BooleanToReal booToRea "Boolean to real converter"
+   annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
   connect(sunRiseSet.sunUp, not1.u) annotation (Line(points={{-59,-6},{-34,-6},{
@@ -104,5 +107,9 @@ Icon(graphics={
           closure=EllipseClosure.None),
         Line(points={{-88,70},{-88,64}}, color={238,46,47}),
         Line(points={{-70,90},{-62,90}}, color={238,46,47}),
-        Line(points={{-76,78},{-72,74}}, color={238,46,47})}));
+        Line(points={{-76,78},{-72,74}}, color={238,46,47}),
+        Text(
+          extent={{-164,144},{164,106}},
+          lineColor={0,0,255},
+          textString="%name")}));
 end DaylightControlled;

@@ -5,7 +5,7 @@ model DaylightControlled "Validation model for the block DaylightControlled"
   Buildings.Controls.OBC.OutdoorLights.DaylightControlled daylightControlled(
     lat=0.6457718232379,
     lon=-2.1293016874331,
-    timZon=-28800)
+    timZon=-28800) "Controlling the outdoor lighting based on daylight time"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 annotation (
 experiment(StopTime=604800.0, Tolerance=1e-06),
