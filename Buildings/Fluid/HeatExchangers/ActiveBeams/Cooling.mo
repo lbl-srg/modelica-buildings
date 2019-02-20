@@ -1,12 +1,14 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams;
 model Cooling "Active beam unit for cooling"
 
-  replaceable package MediumWat = Modelica.Media.Interfaces.PartialMedium
-    "Medium 1 in the component"
-    annotation (choicesAllMatching = true);
-  replaceable package MediumAir = Modelica.Media.Interfaces.PartialMedium
-    "Medium 2 in the component"
-    annotation (choicesAllMatching = true);
+  replaceable package MediumWat =
+    Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Water "Water")));
+  replaceable package MediumAir =
+    Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   replaceable parameter Data.Generic perCoo "Performance data for cooling"
     annotation (
@@ -292,6 +294,11 @@ DOE(2015) EnergyPlus documentation v8.4.0 - Engineering Reference.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Set <code>final alpha=0</code> for prescribed heat flow rate.

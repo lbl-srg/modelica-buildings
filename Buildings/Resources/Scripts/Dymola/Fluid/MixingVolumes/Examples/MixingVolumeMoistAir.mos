@@ -2,7 +2,6 @@ simulateModel("Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMoistAir",
    tolerance=1E-6,
  stopTime=600,
    resultFile="MixingVolumeMoistAir");
-
 createPlot(id = 1,
  position = {15, 10, 391, 559},
  y = {"vol1.T"},

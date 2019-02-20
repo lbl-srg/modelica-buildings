@@ -9,9 +9,6 @@ model IndoorRadiosity "Model for indoor radiosity"
     "Heat port of the surface" annotation (Placement(transformation(extent={{-10,
             -108},{10,-88}}), iconTransformation(extent={{-2,-108},{18,-88}})));
 protected
-  final parameter Real T03(
-    min=0,
-    final unit="K3") = T0^3 "3rd power of temperature T0";
   final parameter Real T04(
     min=0,
     final unit="K4") = T0^4 "4th power of temperature T0";
@@ -79,6 +76,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2019, by Michael Wetter:<br/>
+Removed parameter <code>T03</code> which is already inherited from
+the base class.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

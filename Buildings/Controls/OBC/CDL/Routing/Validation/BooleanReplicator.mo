@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
 model BooleanReplicator "Validation model for the BooleanReplicator block"
-  extends Modelica.Icons.Example;
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
     nout=3) "Block that outputs the array replicating input value"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -29,5 +28,15 @@ July 24, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end BooleanReplicator;

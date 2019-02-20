@@ -1,0 +1,16 @@
+simulateModel("Buildings.Utilities.Math.Examples.BesselY0", tolerance=1e-6, startTime=0.1, stopTime=30.0, method="dassl", resultFile="BesselY0Block");
+createPlot(id = 1,
+ position = {35, 30, 631, 456},
+ x = "time",
+ y = {"Y0.y"},
+ range = {0.0, 30.0, -2.0, 1.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "BesselY0Block.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

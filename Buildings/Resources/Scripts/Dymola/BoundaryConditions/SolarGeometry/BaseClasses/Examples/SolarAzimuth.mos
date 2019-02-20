@@ -1,7 +1,5 @@
 removePlots();
 simulateModel("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarAzimuth", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="SolarAzimuth");
-
-
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"solAzi.solAzi"},

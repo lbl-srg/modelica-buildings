@@ -15,7 +15,7 @@ model DXCooledAirsideEconomizer
       y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
       then 1 else 0));
 
-  replaceable package Medium = Buildings.Media.Air;
+  replaceable package Medium = Buildings.Media.Air "Medium model";
 
   // Air temperatures at design conditions
   parameter Modelica.SIunits.Temperature TASup_nominal = 286.15
@@ -168,8 +168,7 @@ model DXCooledAirsideEconomizer
   Buildings.Fluid.Actuators.Dampers.Exponential dam2(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
-    y_start=0)
-    "open when mechanical cooling is activated"
+    y_start=0) "Open when mechanical cooling is activated"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemMixAir(
     redeclare package Medium = Medium,
@@ -328,7 +327,7 @@ equation
       points={{-39,-10},{-28,-10},{-28,-52},{-21,-52}},
       color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-280,-200},{220,220}})),
+    extent={{-280,-200},{320,220}})),
     __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
         "Simulate and plot"),
@@ -381,5 +380,6 @@ First implementation.
     experiment(
       StartTime=11880000,
       StopTime=12600000,
-      Tolerance=1e-06));
+      Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-100, -100},{100, 100}})));
 end DXCooledAirsideEconomizer;

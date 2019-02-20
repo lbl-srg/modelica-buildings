@@ -2,24 +2,36 @@ within Buildings.Controls.OBC.CDL.Logical;
 block Timer
   "Timer measuring the time from the time instant where the Boolean input became true"
 
+  parameter Boolean reset = true
+    "Set to true for reseting timer to zero when input becomes false";
+
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
   Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
+  discrete Modelica.SIunits.Time entryTime
+    "Time instant when u became true";
+  discrete Real yAcc "Accumulated time up to last change to true";
 
 initial equation
   pre(entryTime) = 0;
-
+  yAcc = 0;
 equation
   when u then
     entryTime = time;
   end when;
 
-  y = if u then time - entryTime else 0.0;
+  when (not u) then
+    yAcc = pre(y);
+  end when;
+
+  if reset then
+    y = if u then time - entryTime else 0.0;
+  else
+    y = if u then yAcc + (time - entryTime) else yAcc;
+  end if;
 
 annotation (
     defaultComponentName="tim",
@@ -64,14 +76,27 @@ annotation (
 Block that represents a timer.
 </p>
 <p>
-When the Boolean input <code>u</code> becomes <code>true</code>, the timer is started
-and the output <code>y</code> is the time from the time instant where
-<code>u</code> became true.
-The timer is stopped and the output is reset to zero, once the
-input becomes <code>false</code>.
+When the Boolean input <code>u</code> becomes true, the timer is 
+started and the output <code>y</code> is the time from the time instant where
+<code>u</code> became true. 
 </p>
+<ul>
+<li>
+If parameter <code>reset</code> is true, once the input becomes false, 
+the timer is stopped and the output is reset to zero. 
+</li>
+<li>
+If parameter <code>reset</code> is false, once the input becomes false,
+the timer will not fully stopped but hold the accumulated true input time.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 18, 2018, by Jianjun Hu:<br/>
+Update implementation to output accumulated true input time.  This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

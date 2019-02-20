@@ -69,7 +69,7 @@ model TraceSubstances "Test model for the extra property sensor"
     "PPM sensor"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 equation
-  connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4}}, color={0,0,127}));
+  connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{-2,-4}},color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{45,100},{45,100},{139,
           100}}, color={0,0,127}));
   connect(senVol.C, masFraVol.m) annotation (Line(points={{121,60},{139,60}},

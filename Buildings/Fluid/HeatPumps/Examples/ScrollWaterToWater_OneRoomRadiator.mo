@@ -100,14 +100,14 @@ model ScrollWaterToWater_OneRoomRadiator
 
 //------------------------------------------------------------------------------------//
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
-  BoundaryConditions.WeatherData.Bus weaBus
-    "Weather data bus"
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
@@ -116,7 +116,7 @@ model ScrollWaterToWater_OneRoomRadiator
   ScrollWaterToWater heaPum(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
-    redeclare package ref = Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     dp1_nominal=2000,
     dp2_nominal=2000,
     tau1=15,
@@ -130,13 +130,13 @@ model ScrollWaterToWater_OneRoomRadiator
     "Heat pump"
     annotation (Placement(transformation(extent={{34,-146},{14,-126}})));
 
-  Sources.FixedBoundary sou(
+  Buildings.Fluid.Sources.FixedBoundary sou(
     redeclare package Medium = MediumW,
     use_T=true,
     nPorts=1,
     T=281.15) "Fluid source on source side"
     annotation (Placement(transformation(extent={{-38,-208},{-18,-188}})));
-  Sources.FixedBoundary sin(
+  Buildings.Fluid.Sources.FixedBoundary sin(
     redeclare package Medium = MediumW,
     use_T=true,
     nPorts=1,
@@ -278,16 +278,16 @@ equation
     annotation (Line(points={{-25.5,-77},{5,-77}}, color={255,0,255}));
   connect(tesEvaPum.y, and1.u2) annotation (Line(points={{1.11022e-15,-95.4},{0,
           -95.4},{0,-81},{5,-81}}, color={255,0,255}));
-  connect(pumHeaPum.m_flow_actual, tesConHea.u) annotation (Line(points={{-52,-89},
+  connect(pumHeaPum.m_flow_actual, tesConHea.u) annotation (Line(points={{-55,-89},
           {-52,-89},{-52,-78},{-52,-77},{-44,-77},{-37,-77}}, color={0,0,127}));
-  connect(pumHeaPumSou.m_flow_actual, tesEvaPum.u) annotation (Line(points={{6.66134e-16,
-          -167},{0,-167},{0,-109.2},{-1.33227e-15,-109.2}}, color={0,0,127}));
+  connect(pumHeaPumSou.m_flow_actual, tesEvaPum.u) annotation (Line(points={{-3,-167},
+          {0,-167},{0,-109.2},{-1.33227e-15,-109.2}},       color={0,0,127}));
   connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{14,-130},{
           -10,-130},{-50,-130},{-50,-110}}, color={0,127,255}));
   connect(booToReaPum.y, pumHeaPum.m_flow_in) annotation (Line(points={{-99,-100},
-          {-62,-100},{-62,-100.2}}, color={0,0,127}));
+          {-62,-100},{-62,-100}},   color={0,0,127}));
   connect(booToReaPum.y, pumHeaPumSou.m_flow_in) annotation (Line(points={{-99,-100},
-          {-80,-100},{-80,-178.2},{-10,-178.2}}, color={0,0,127}));
+          {-80,-100},{-80,-178},{-10,-178}},     color={0,0,127}));
   connect(not2.y, and2.u1) annotation (Line(points={{-139,-50},{24.8,-50},{24.8,
           -50}}, color={255,0,255}));
   connect(not2.y, booToReaPum.u) annotation (Line(points={{-139,-50},{-130,-50},

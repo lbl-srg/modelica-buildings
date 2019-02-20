@@ -2,8 +2,10 @@ within Buildings.Fluid.FMI.Adaptors;
 model ThermalZone
   "Adaptor for connecting a thermal zone to signal ports which then can be exposed at an FMI interface"
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium model within the source" annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
   // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones
@@ -117,8 +119,7 @@ The (time varying) vector <code>Real</code> output signal of this block can be d
 parameter menu via variable <code>y</code>. The purpose is to support the
 easy definition of vector-valued Real expressions in a block diagram.
 </p>
-</html>", revisions=
-"<html>
+</html>", revisions="<html>
 <ul>
 <li>
 April 27, 2016, by Thierry S. Nouidui:<br/>
@@ -133,7 +134,8 @@ First implementation.
 
     replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
-     annotation (choicesAllMatching=true);
+     annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
     Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi](each final unit="kg/kg") if
       Medium.nXi > 0 "Water vapor concentration in kg/kg total air"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -161,7 +163,12 @@ First implementation.
   X_w_internal = sum(Xi_internal);
   connect( X_w, X_w_internal)
   annotation (Documentation(revisions="<html>
-<ul>
+  <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Removed wrong usage of <code>each</code> keyword.
@@ -203,8 +210,8 @@ equation
   connect(x_w_toX.X, bou.X_in)
     annotation (Line(points={{-18,56},{-18,56},{-14,56},{-14,44},{0,44}},
                                                color={0,0,127}));
-  connect(con.C, bou.C_in) annotation (Line(points={{-58,52},{-50,52},{-50,40},{
-          -10,40},{2,40}},                  color={0,0,127}));
+  connect(con.C, bou.C_in) annotation (Line(points={{-58,52},{-50,52},{-50,40},
+          {0,40},{0,40}},                   color={0,0,127}));
   connect(heaPorAir, senTemAir.port) annotation (Line(points={{100,-80},{80,-80},
           {72,-80}},          color={191,0,0}));
   connect(XiSup.y, x_i_toX.Xi)
@@ -228,8 +235,9 @@ equation
   connect(CSup.y, con[i].CZon)
     annotation (Line(points={{-1,-60},{-64,-60},{-64,48}}, color={0,0,127}));
   end for;
-  connect(bou.m_flow_in, con.m_flow) annotation (Line(points={{2,56},{-8,56},{-8,
-          78},{-50,78},{-50,68},{-58,68}}, color={0,0,127}));
+  connect(bou.m_flow_in, con.m_flow) annotation (Line(points={{0,56},{-8,56},{
+          -8,78},{-50,78},{-50,68},{-58,68}},
+                                           color={0,0,127}));
   annotation (defaultComponentName="hvacAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false),      graphics={
@@ -375,6 +383,11 @@ for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 June 29, 2016, by Michael Wetter:<br/>
 Revised implementation and documentation.

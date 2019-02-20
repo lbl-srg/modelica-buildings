@@ -1,7 +1,5 @@
 removePlots();
-
 simulateModel("Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank", tolerance=1e-6, stopTime = 86400, method = "dassl", resultFile = "FlatPlateWithTank");
-
 createPlot(id = 1,
  position = {0, 0, 1000, 600},
  y = {"solCol.vol[9].T", "tan.vol[1].T", "TIn.T"},

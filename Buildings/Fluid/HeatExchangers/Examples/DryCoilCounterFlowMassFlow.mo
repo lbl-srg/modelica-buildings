@@ -28,8 +28,8 @@ model DryCoilCounterFlowMassFlow
                              annotation (Placement(transformation(extent={{70,20},
             {90,40}})));
 
-  Sensors.RelativeHumidityTwoPort senRelHum(         redeclare package Medium
-      = Medium2, m_flow_nominal=m2_flow_nominal)
+  Sensors.RelativeHumidityTwoPort senRelHum(         redeclare package Medium =
+        Medium2, m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{60,14},{40,34}})));
 equation
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(

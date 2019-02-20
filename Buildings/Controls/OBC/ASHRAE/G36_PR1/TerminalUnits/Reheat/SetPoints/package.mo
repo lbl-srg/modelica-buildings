@@ -1,10 +1,24 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat;
 package SetPoints "Output setpoints for terminal unit control"
-  extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains sequences generating setpoints for terminal units.
 </p>
-</html>"));
+</html>"),
+  Icon(graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+      Text(
+        extent={{-100,100},{100,-100}},
+        lineColor={0,0,0},
+        textString="S")}));
 end SetPoints;

@@ -85,8 +85,7 @@ public
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume without dynamics"
     annotation (Placement(transformation(extent={{74,80},{94,100}})));
-  Buildings.Fluid.Sensors.PPM senPPMVol2(
-                                      redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.PPM senPPMVol2( redeclare package Medium = Medium)
     "PPM sensor for mixing volume"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Buildings.Fluid.Sources.MassFlowSource_T mSouSta(

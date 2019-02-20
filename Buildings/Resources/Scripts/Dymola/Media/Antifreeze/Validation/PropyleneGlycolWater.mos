@@ -1,0 +1,25 @@
+simulateModel("Buildings.Media.Antifreeze.Validation.PropyleneGlycolWater", startTime=0, stopTime=1, tolerance=1E-6, method="dassl", resultFile="MediaAntifreezeValidationPropyleneGlycolWater");
+createPlot(
+  id   = 1,
+  x    = "T_degC",
+  y    = {"d[1]", "d[2]", "d[3]", "d[4]", "d[5]", "d[6]", "d[7]"},
+  grid = true
+)
+createPlot(
+  id   = 2,
+  x    = "T_degC",
+  y    = {"cp[1]", "cp[2]", "cp[3]", "cp[4]", "cp[5]", "cp[6]", "cp[7]"},
+  grid = true
+)
+createPlot(
+  id   = 3,
+  x    = "T_degC",
+  y    = {"lambda[1]", "lambda[2]", "lambda[3]", "lambda[4]", "lambda[5]", "lambda[6]", "lambda[7]"},
+  grid = true
+)
+createPlot(
+  id   = 4,
+  x    = "T_degC",
+  y    = {"eta[1]", "eta[2]", "eta[3]", "eta[4]", "eta[5]", "eta[6]", "eta[7]"},
+  grid = true
+)

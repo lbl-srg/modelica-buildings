@@ -81,9 +81,9 @@ equation
   connect(senTem2.port_b, bou2.ports[1])
     annotation (Line(points={{60,0},{70,0}},        color={0,127,255}));
   connect(m1_flow.y, bou1.m_flow_in)
-    annotation (Line(points={{-69,8},{-60,8}}, color={0,0,127}));
+    annotation (Line(points={{-69,8},{-62,8}}, color={0,0,127}));
   connect(m3_flow.y, bou3.m_flow_in)
-    annotation (Line(points={{-71,-52},{-60,-52}}, color={0,0,127}));
+    annotation (Line(points={{-71,-52},{-62,-52}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=100),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/FlowJunctionSteadyStateNoPressureDrop.mos"
         "Simulate and plot"),

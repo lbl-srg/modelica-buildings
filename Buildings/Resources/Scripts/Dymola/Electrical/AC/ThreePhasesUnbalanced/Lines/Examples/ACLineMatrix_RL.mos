@@ -21,7 +21,6 @@ filename="ACLineMatrix_RL3phu.mat",
 leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}});
-
 createPlot(id=1,
 position={11, -43, 920, 158},
 y={"Rline_3a.terminal_n.phase[1].i[1]", "Rline_3a.terminal_n.phase[1].i[2]", "Rline_3b.terminal_n.phase[1].i[1]", "Rline_3b.terminal_n.phase[1].i[2]"},

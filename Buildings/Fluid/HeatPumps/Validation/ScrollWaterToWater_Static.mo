@@ -57,8 +57,7 @@ model ScrollWaterToWater_Static
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     show_T=true,
     enable_variable_speed=true,
     datHeaPum(
@@ -71,8 +70,7 @@ model ScrollWaterToWater_Static
       V_flow_nominal=0.003,
       leaCoe=0.01),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    enable_temperature_protection=false)
-                    "Scroll water to water heat pump"
+    enable_temperature_protection=false) "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp yLoa(
     height=20,

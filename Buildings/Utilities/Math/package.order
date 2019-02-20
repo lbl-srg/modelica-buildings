@@ -1,7 +1,15 @@
 Average
+BesselJ0
+BesselJ1
+BesselY0
+BesselY1
 Bicubic
+Binomial
 Biquadratic
 BooleanReplicator
+ExponentialIntegralE1
+Factorial
+FallingFactorial
 IntegerReplicator
 IntegratorWithReset
 InverseXRegularized

@@ -20,7 +20,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)"
     annotation(Evaluate=true);
   parameter Real yFixed[nRea] "Fixed output, used if activateInterface=false"
-    annotation (Evaluate=true, Dialog(enable=not activateInterface));
+    annotation (Dialog(enable=not activateInterface));
   parameter Integer nSur(min=2) "Number of surfaces";
   parameter Integer nConExtWin(min=0)
     "number of exterior construction with window";

@@ -1,0 +1,10 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.Validation.Sandbox", startTime=0, method="Cvode", tolerance=1e-6, stopTime=186360, resultFile="Sandbox");
+removePlots();
+createPlot(
+  id=1,
+  position={0, 0, 1268, 736},
+  y={"TBorFieIn.T", "TBorFieOut.T", "sandBoxMea.y[1]", "sandBoxMea.y[2]"},
+  range={0.0, 36000.0, 19.0, 41.0},
+  grid=true,
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}},
+  filename = "Sandbox.mat");

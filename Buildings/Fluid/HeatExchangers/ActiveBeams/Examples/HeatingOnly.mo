@@ -116,7 +116,7 @@ equation
           54},{12,-80},{62,-80},{62,-70}}, color={0,127,255}));
   connect(pumHea.ports[1], beaCooHea.watHea_a)
     annotation (Line(points={{0,60},{0,60},{26,60}}, color={0,127,255}));
-  connect(pumHea.m_flow_in, conPID.y) annotation (Line(points={{-20,68},{-40,68},
+  connect(pumHea.m_flow_in, conPID.y) annotation (Line(points={{-22,68},{-40,68},
           {-40,-10},{-49,-10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,120}})),experiment(Tolerance=1e-6, StopTime=172800),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/HeatingOnly.mos"

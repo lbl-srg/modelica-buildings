@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Logical.Sources.Validation;
 model SampleTrigger "Validation model for the SampleTrigger block"
-  extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(
     period = 0.5)
@@ -39,5 +38,15 @@ July 17, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end SampleTrigger;

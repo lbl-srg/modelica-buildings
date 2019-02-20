@@ -1,11 +1,8 @@
 within Buildings.Fluid.SolarCollectors.Examples;
 model FlatPlate "Test model for FlatPlate"
   extends Modelica.Icons.Example;
-  replaceable package Medium = Buildings.Media.Water
+  replaceable package Medium = Modelica.Media.Incompressible.Examples.Glycol47
     "Medium in the system";
-//    "Medium in the system";
-//  replaceable package Medium = Modelica.Media.Incompressible.Examples.Glycol47
-//    "Medium in the system";
 
   Buildings.Fluid.SolarCollectors.ASHRAE93 solCol(
     redeclare package Medium = Medium,
@@ -88,12 +85,6 @@ San Francisco, CA, USA.
 </html>",
 revisions="<html>
 <ul>
-<li>
-December 18, 2017 by Michael Wetter:<br/>
-Changed medium from glycol to water.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1102\">#1102</a>.
-</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

@@ -1,6 +1,6 @@
 within Buildings.Controls.DemandResponse;
 model Client "Demand response client"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   final parameter Modelica.SIunits.Time tPeriod = 24*3600
     "Period, generally one day";

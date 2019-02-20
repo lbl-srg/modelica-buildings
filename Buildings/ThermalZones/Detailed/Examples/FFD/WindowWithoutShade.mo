@@ -41,7 +41,7 @@ model WindowWithoutShade
         boundaryCondition={
             Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
             Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature}),
-      cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/WindowWithoutShade.ffd",
+      cfdFilNam="modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/WindowWithoutShade.ffd",
       uSha_fixed={0, 0}));
 
   parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
@@ -58,7 +58,7 @@ model WindowWithoutShade
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/WindowWithoutShade.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-06, StopTime=7200),
+    experiment(Tolerance=1e-06, StopTime=3600),
     Documentation(info="<html>
 <p>
 This model tests the coupled simulation of

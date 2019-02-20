@@ -44,7 +44,7 @@ void *ffd_dll(CosimulationData *cosim) {
 #endif
 
   /*printf("ffd_dll(): Launched FFD simulation.\n");*/
-	// return the handle or thread
+	/* return the handle or thread*/
 #ifdef _MSC_VER	
   return workerThreadHandle;
 #else

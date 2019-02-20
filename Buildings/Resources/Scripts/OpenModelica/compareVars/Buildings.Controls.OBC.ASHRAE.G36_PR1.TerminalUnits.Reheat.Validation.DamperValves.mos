@@ -2,12 +2,12 @@ compareVars :=
   {
     "damVal.uHea",
     "damVal.uCoo",
-    "damVal.VDisSet",
-    "damVal.VDis",
+    "damVal.VDisSet_flow",
+    "damVal.VDis_flow",
     "damVal.yDam",
     "damVal.uHea",
     "damVal.uCoo",
-    "damVal.TDisSet",
+    "damVal.TDisHeaSet",
     "damVal.yHeaVal",
     "damVal.conVal.u_s",
     "damVal.conVal.u_m"

@@ -126,13 +126,383 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+    class Version_6_0_0 "Version 6.0.0"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
+    <div class=\"release-summary\">
+    <p>
+    Version 6.0.0 is ... xxx
+    </p>
+    </div>
+    <!-- New libraries -->
+    <p>
+    The following <b style=\"color:blue\">new libraries</b> have been added:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.Shade
+        </td>
+        <td valign=\"top\">Package with shade controllers.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.UnitConversions
+        </td>
+        <td valign=\"top\">Package with blocks for unit conversion.
+                           Blocks in this package are meant to use when reading
+                           data from a building automation system,
+                           or writing data to a building automation system,
+                           that uses units that are different
+                           from the units used by Modelica.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal
+        </td>
+        <td valign=\"top\">Package with models for geothermal heat exchangers.
+                           This package has models for borefields with vertical boreholes,
+                           and for a single vertical borehole with a U-tube heat exchanger.
+                           The borefield models can have any geometrical configuration,
+                           and either one or two U-tube heat exchangers.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Occupants
+       </td>
+       <td valign=\"top\">Package with occupant behavior models and functions to
+                          simulate the occupancy and the interaction of occupants
+                          with air-conditioning and heating systems, windows,
+                          blinds, and lighting in residential and office buildings.
+       </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Cryptographics
+        </td>
+        <td valign=\"top\">Package with a function to compute a SHA1 encrypted string.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Files
+    </td>
+    <td valign=\"top\">Package with blocks to write CSV files or combi time table files.
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Plotters
+       </td>
+       <td valign=\"top\">Package with blocks that allow generating
+                          time series and scatter plots, and writing these plots to
+                          one or several html files.
+                          The plots can be deactivated based on an input signal and a time
+                          delay, for example, to plot data only while the HVAC system
+                          operates for at least <i>30</i> minutes.
+       </td>
+    </tr>
+    </table>
+    <!-- New components for existing libraries -->
+    <p>
+    The following <b style=\"color:blue\">new components</b> have been added
+    to <b style=\"color:blue\">existing</b> libraries:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
+        </td>
+        <td valign=\"top\">Extract scalar signal out of signal vector dependent on Integer-valued input.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
+        </td>
+        <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
+        </td>
+        </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers
+        </td>
+        <td valign=\"top\">Added <code>Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</code>
+                           which computes the effectiveness of a plate heat exchanger
+                           based on design conditions and current mass flow rates.
+        </td>
+        </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Math
+        </td>
+        <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
+        </td>
+        </tr>
+    </table>
+    <!-- Backward compatible changes -->
+    <p>
+    The following <b style=\"color:blue\">existing components</b>
+    have been <b style=\"color:blue\">improved</b> in a
+    <b style=\"color:blue\">backward compatible</b> way:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
+        </td>
+        <td valign=\"top\">Update implementation to output accumulated time when input is <code>true</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1/AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow
+        </td>
+        <td valign=\"top\">Made input connector for occupancy conditionally removable to avoid having to set the
+                           number of occupants as an input if there is no occupancy sensor.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1270\">issue 1270</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Media</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Media.Air<br/>
+                           Buildings.Media.Water<br/>
+                           Buildings.Media.Antifreeze.PropyleneGlycolWater<br/>
+                           Buildings.Media.Specialized.Air.PerfectGas<br/>
+        </td>
+        <td valign=\"top\">Improved error message when temperature or mass fraction is outside the allowed range.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">IBPSA, issue 1045</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Non-backward compatible changes to existing components -->
+    <p>
+    The following <b style=\"color:blue\">existing components</b>
+    have been <b style=\"color:blue\">improved</b> in a
+    <b style=\"color:blue\">non-backward compatible</b> way:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+     <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorDiscretizedOperable
+        </td>
+        <td valign=\"top\">Removed parameter <code>CD</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/971\">IBPSA, #971</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.EffectiveAirLeakageArea
+        </td>
+        <td valign=\"top\">Removed parameters <code>A</code>, <code>CD</code> and <code>lWet</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumnDynamic
+        </td>
+        <td valign=\"top\">Removed parameter <code>m_flow_nominal</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/970\">IBPSA, #970</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.Orifice
+        </td>
+        <td valign=\"top\">Removed parameter <code>lWet</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/932\">IBPSA, #932</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumnDynamic<br/>
+                           Buildings.Airflow.Multizone.MediumColumn<br/>
+                           Buildings.Airflow.Multizone.EffectiveAirLeakageArea<br/>
+                           Buildings.Airflow.Multizone.Orifice
+        </td>
+        <td valign=\"top\">Removed parameter <code>allowFlowReversal</code> as this is not meaningful
+                           for these models.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">IBPSA, #877</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone<br/>
+                         Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone
+        </td>
+        <td valign=\"top\">Renamed packages to
+                           <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV</code>
+                           and <code>Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV</code>,
+                           and renamed various signals and parameters for consistency.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.RealExtractSignal
+        </td>
+        <td valign=\"top\">Changed block name from <code>ExtractSignal</code>.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiMax
+        </td>
+        <td valign=\"top\">Changed output variable name from <code>yMax</code> to <code>y</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/\">issue 1252</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiMin
+        </td>
+        <td valign=\"top\">Changed output variable name from <code>yMin</code> to <code>y</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/\">issue 1252</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+        </td>
+        <td valign=\"top\">Renamed model to
+                           <code>Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</code>
+                           because the convective heat transfer coefficients are for air.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           Removed variable <code>Z</code> as it is not used.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU
+        </td>
+        <td valign=\"top\">Removed variable <code>Z</code> as it is not used.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.factorial
+        </td>
+        <td valign=\"top\">Renamed function to
+                           <code>Buildings.Utilities.Math.Functions.factorial</code>
+                           because it is also used by the new Geothermal package.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes
+        </td>
+        <td valign=\"top\">Renamed package to
+                           <code>Buildings.Fluid.Geothermal.Boreholes</code>
+                           due to the introduction of the new Geothermal package.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier
+        </td>
+        <td valign=\"top\">Renamed model to
+                           <code>Buildings.Fluid.BaseClasses.MassFlowRateMultiplier</code>
+                           because it is also used by the new Geothermal package.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Media</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
+        </td>
+        <td valign=\"top\">Removed the function <code>pressureSatLiq_T</code> as it was not used.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/995\">IBPSA, #995</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities.Reports</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br/>
+                           Buildings.Utilities.Reports.printRealArray
+        </td>
+        <td valign=\"top\">Moved <code>Buildings.Utilities.Reports.Printer</code> to
+                           <code>Buildings.Utilities.IO.Files.Printer</code> and moved
+                           <code>Buildings.Utilities.Reports.printRealArray</code> to
+                           <code>Buildings.Utilities.IO.Files.BaseClasses.printRealArray</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is due to the newly introduced package <code>Buildings.Utilities.IO.Files</code>.
+        </td>
+    </tr>
+    </table>
+    <!-- Errors that have been fixed -->
+    <p>
+    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+    that can lead to wrong simulation results):
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.Data.Soil.SandStone
+        </td>
+        <td valign=\"top\">Corrected wrong thermal properties.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1062\">IBPSA, #1062</a>.
+        </td>
+    </tr>
 
-   class Version_5_0_2 "Version 5.0.2"
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Heater_T<br/>
+                           Buildings.Fluid.HeatExchangers.SensibleCooler_T
+        </td>
+        <td valign=\"top\">Corrected missing propagation of initial conditions.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1016\">IBPSA, #1016</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements
+        </td>
+        <td valign=\"top\">The RC element of the roof <code>roofRC</code>
+                           was flipped to have its <code>port_b</code> on the outside.
+                           The resistances <code>RRem</code> and <code>R</code>
+                           of the roof and floor have been switched
+                           in the documentation.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/997\">IBPSA, #997</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Uncritical errors -->
+    <p>
+    The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+    that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+    units are wrong or errors in documentation):
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">xxx
+        </td>
+        <td valign=\"top\">xxx.
+        </td>
+    </tr>
+    </table>
+    <p>
+    Note:
+    </p>
+    <ul>
+    <li>
+    xxx
+    </li>
+    </ul>
+    </html>"));
+    end Version_6_0_0;
+
+   class Version_5_1_0 "Version 5.1.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 5.0.2 is ... xxx
+   Version 5.1.0 adds new libraries, new components and improves various existing components.
+   Version 5.1.0 updates the license to a 3-clause BSD license.
+   It is backward compatible with versions 5.0.0 and 5.0.1.
+   </p>
+   <p>
+   This release adds
+   a model for propylene glycol - water mixtures, a model for long pipes
+   suited for district heating and cooling simulations, a new valve model whose
+   opening characteristics can be fit to measured data, and idealized models
+   that allow to prescribe the temperature and humidity in any part of a fluid flow
+   system.
    </p>
    </div>
    <!-- New libraries -->
@@ -140,9 +510,11 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Media.Antifreeze.PropyleneGlycolWater
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Package with medium model for propylene glycol - water mixture.
+                          The concentration and the medium temperature for which the properties are evaluated
+                          can be set when instantiating the medium.
        </td>
        </tr>
    </table>
@@ -170,6 +542,14 @@ its class name ends with the string <code>Beta</code>.
                           simulation of long pipes such as in district heating and cooling systems.
        </td>
        </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sources.PropertySource_T<br/>
+                          Buildings.Fluid.Sources.PropertySource_h
+       </td>
+       <td valign=\"top\">Model that changes the fluid properties of the medium that flows through it
+                          based on input signals. These idealized models can be used to force a certain temperature,
+                          enthalpy or humidity in a fluid flow system.
+       </td>
+       </tr>
    </table>
    <!-- Backward compatible changes -->
    <p>
@@ -178,83 +558,142 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorDiscretizedOpen<br/>
+                          Buildings.Airflow.Multizone.DoorDiscretizedOperable
+       </td>
+       <td valign=\"top\">Removed term that assures non-zero flow rate in each path,
+                          reformulated flow balance to ensure that model is symmetric,
+                          and improved implementation to reduce number of calculations.<br/>
+                          This is
+                          for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/937\">IBPSA, issue 937</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Applications.DataCenters</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialParallelElectricEIR
+       </td>
+       <td valign=\"top\">Added <code>constrainedby</code> to declaration of chiller.<br/>
+                          This is for
+                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply
+   </td>
+       <td valign=\"top\">Revised implementation of fan speed control signal calculation
+                          to remove the hysteresis blocks.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1153\">issue 1153</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Line
+   </td>
+   <td valign=\"top\">Improved documentation and icon, and added a warning if the limits are used and x1 &gt; x2.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
                           Buildings.Fluid.SolarCollectors.EN12975
        </td>
-       <td valign=\"top\">Improved calculation of heat loss.
+       <td valign=\"top\">Improved calculation of heat loss.<br/>
                           This is for
                           <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1100\">issue 1100</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Sources.Boundary_pT<br/>
+                          Buildings.Fluid.Sources.Boundary_ph<br/>
+                          Buildings.Fluid.Sources.FixedBoundary<br/>
+                          Buildings.Fluid.Sources.MassFlowSource_T<br/>
+                          Buildings.Fluid.Sources.MassFlowSource_h
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Refactored models to allow using <code>Xi</code> rather
+                          than <code>X</code> as an input.<br/>
+                          By default, the check on the medium base properties is now removed
+                          to reduce translation and simulation time.<br/>
+                          This is for
+                          <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">IBPSA, issue 882</a>.
        </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified
+       </td>
+       <td valign=\"top\">Refactored tank to allow modeling of tanks that have multiple inlets or outlets along the height.
+                          The tank now has for each control volume a fluid port that can be connected from outside the model.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1182\">issue 1182</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python27
+       </td>
+       <td valign=\"top\">Added option for a Python object
+                        to be passed from one Python function invocation to the next.
+                        This allows to build up a Python data structure (or to instantiate a Python object),
+                        and do computations on this object at each function invocation. For example,
+                        a Model Predictive Control algorithm or a machine learning algorithm,
+                        implemented in Python, could be fed with data at each time step.
+                        It could then store this data
+                        and use the current and its historical data to feed its algorithm.
+                        Based on this algorithm, it could output a control signal for use in another Modelica model.
+                        <br/>
+                        The function <code>Buildings.Utilities.IO.Python27.Functions.exchange</code> now takes
+                        two additional arguments: A class that contains a pointer to the Python interpreter
+                        (for efficiency, as this avoids initializing Python at each call), and
+                        a flag that determines whether the Python function returns an object and receives this
+                        object at the next invocation. See
+                        <code>Buildings.Utilities.IO.Python27.UsersGuide</code> and
+                        <code>Buildings.Utilities.IO.Python27.Real_Real</code> for how to use
+                        these two arguments.
+                        <br/>
+                        Models that use <code>Buildings.Utilities.IO.Python27.Real_Real</code>
+                        will still work as before. The change only affects the low-level function
+                        <code>Buildings.Utilities.IO.Python27.Functions.exchange</code>.
+       </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Python27</td>
+     <td valign=\"top\">
+                      Corrected <code>LibraryDirectory</code> annotation.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1160\">issue 1160</a>.
+     </td>
    </tr>
    </table>
    <!-- Non-backward compatible changes to existing components -->
-   <p>
-   The following <b style=\"color:blue\">existing components</b>
-   have been <b style=\"color:blue\">improved</b> in a
-   <b style=\"color:blue\">non-backward compatible</b> way:
-   </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-   </table>
    <!-- Errors that have been fixed -->
    <p>
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PrescribedOutlet
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Corrected error that caused the old model do not track <code>TSet</code> and <code>X_wSet</code>
+                          simultaneously.<br/>
+                          This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/893\">IBPSA, issue 893</a>.
        </td>
    </tr>
    </table>
    <!-- Uncritical errors -->
-   <p>
-   The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-   that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-   units are wrong or errors in documentation):
-   </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-   </table>
-   <p>
-   Note:
-   </p>
-   <ul>
-   <li>
-   xxx
-   </li>
-   </ul>
    </html>"));
-   end Version_5_0_2;
+   end Version_5_1_0;
 
    class Version_5_0_1 "Version 5.0.1"
      extends Modelica.Icons.ReleaseNotes;
@@ -1267,7 +1706,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes
        </td>
        <td valign=\"top\">Moved the package <code>Buildings.Fluid.HeatExchangers.Boreholes</code> to
-                          <code>Buildings.Fluid.HeatExchangers.Ground.Boreholes</code>.
+                          <code>Buildings.Fluid.Geothermal.Boreholes</code>.
                           This is for compatibility with an ongoing model development that will include
                           a borefield model.<br/>
                           For Dymola, the conversion script will update models that use any model of the package
@@ -1674,7 +2113,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
     </td>
     </tr>
 
-    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube
+    <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.UTube
        </td>
        <td valign=\"top\">Updated code for 64 bit on Linux and Windows.
                           This closes
@@ -2910,7 +3349,7 @@ that can lead to wrong simulation results):
                        of PEX pipes.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.singleUTubeResistances
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.BaseClasses.singleUTubeResistances
     </td>
     <td valign=\"top\">Corrected error in function that used <code>beta</code>
                        before it was assigned a value.
@@ -3193,7 +3632,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.UTube
     </td>
     <td valign=\"top\">Reimplemented the resistor network inside the borehole
                        as the old implementation led to too slow a transient
@@ -3213,7 +3652,7 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.HexInternalElement
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes.BaseClasses.HexInternalElement
     </td>
     <td valign=\"top\">Corrected error in documentation which stated a wrong default value
                        for the pipe spacing.
@@ -3590,8 +4029,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.FixedResistances.BaseClasses.Pipe<br/>
                        Buildings.Fluid.FixedResistances.FixedResistanceDpM<br/>
                        Buildings.Fluid.FixedResistances.LosslessPipe<br/>
-                       Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.BoreholeSegment<br/>
-                       Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube<br/>
+                       Buildings.Fluid.Geothermal.Boreholes.BaseClasses.BoreholeSegment<br/>
+                       Buildings.Fluid.Geothermal.Boreholes.UTube<br/>
                        Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab<br/>
                        Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
                        Buildings.Fluid.Interfaces.PartialFourPortInterface<br/>
@@ -5215,7 +5654,7 @@ The following
 have been fixed:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Ground.Boreholes</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Boreholes</b>
     </td>
 </tr>
 <tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/45\">&#35;45</a>
@@ -5260,7 +5699,7 @@ in converting old models to this version of the library.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes</td>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Boreholes</td>
     <td valign=\"top\">
     This is a library with a model for a borehole heat exchanger.
     </td></tr>
@@ -5544,8 +5983,8 @@ near zero flow if the components have exactly two fluid ports connected.</td>
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Reports</b></td></tr>
-<tr><td valign=\"top\">Buildings.Utilities.Reports.Printer<br/>
-                     Buildings.Utilities.Reports.printRealArray</td>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Files.Printer<br/>
+                     Buildings.Utilities.IO.Files.BaseClasses.printRealArray</td>
     <td valign=\"top\">Changed parameter <code>precision</code> to <code>significantDigits</code> and
                      <code>minimumWidth</code> to <code>minimumLength</code>
                      to use the same terminology as the Modelica Standard Library.</td>
@@ -6545,7 +6984,10 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_1\">Version 5.0.2</a> (xxx)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (xxx)
+</li>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_1_0\">Version 5.1.0</a> (June 14, 2018)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_1\">Version 5.0.1</a> (November 22, 2017)
@@ -6755,211 +7197,83 @@ The following people have directly contributed to the implementation of the Buil
 </html>"));
   end Acknowledgements;
 
-  class License "Modelica License 2"
+  class License "License"
     extends Modelica.Icons.Information;
     annotation (preferredView="info",
     Documentation(info="<html>
-<h4><font color=\"#008000\" size=\"5\">The Modelica License 2</font></h4>
+<h4>License</h4>
 <p>
-<strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work.
+Modelica Buildings Library. Copyright (c) 1998-2018
+Modelica Association,
+International Building Performance Simulation Association (IBPSA),
+The Regents of the University of California, through Lawrence Berkeley National Laboratory
+(subject to receipt of any required approvals from the U.S. Dept. of Energy) and
+contributors.
+All rights reserved.
 </p>
 <p>
-The Modelica License applies to any Original Work that contains the following licensing notice adjacent to the copyright notice(s) for this Original Work:
+NOTICE.  This Software was developed under funding from the U.S. Department of Energy and
+the U.S. Government consequently retains certain rights.
+As such, the U.S. Government has been granted for itself and others acting on its behalf
+a paid-up, nonexclusive, irrevocable, worldwide license in the Software
+to reproduce, distribute copies to the public, prepare derivative works, and
+perform publicly and display publicly, and to permit other to do so.
 </p>
 <p>
-<strong>Note.</strong> This is the standard Modelica License 2, except for the following changes: the parenthetical in paragraph 7., paragraph 5., and the addition of paragraph 15.d).
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
 </p>
-<p>
-<strong>Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 </strong>
-</p>
-
-<h4>1. Definitions</h4>
-<ol type=\"a\"><li>
-\"License\" is this Modelica License.
-</li><li>
-\"Original Work\" is any work of authorship, including software, images, documents, data files, that contains the above licensing notice or that is packed together with a licensing notice referencing it.
-</li><li>
-\"Licensor\" is the provider of the Original Work who has placed this licensing notice adjacent to the copyright notice(s) for the Original Work. The Original Work is either directly provided by the owner of the Original Work, or by a licensee of the owner.
-</li><li>
-\"Derivative Work\" is any modification of the Original Work which represents, as a whole, an original work of authorship. For the matter of clarity and as examples:
-<ol type=\"A\">
+<ol>
 <li>
-Derivative Work shall not include work that remains separable from the Original Work, as well as merely extracting a part of the Original Work without modifying it.
-</li><li>
-Derivative Work shall not include (a) fixing of errors and/or (b) adding vendor specific Modelica annotations and/or (c) using a subset of the classes of a Modelica package, and/or (d) using a different representation, e.g., a binary representation.
-</li><li>
-Derivative Work shall include classes that are copied from the Original Work where declarations, equations or the documentation are modified.
-</li><li>
-Derivative Work shall include executables to simulate the models that are generated by a Modelica translator based on the Original Work (of a Modelica package). </li>
-</ol>
+Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.
 </li>
 <li>
-\"Modified Work\" is any modification of the Original Work with the following exceptions: (a) fixing of errors and/or (b) adding vendor specific Modelica annotations and/or (c) using a subset of the classes of a Modelica package, and/or (d) using a different representation, e.g., a binary representation.
-</li><li>
-\"Source Code\" means the preferred form of the Original Work for making modifications to it and all available documentation describing how to modify the Original Work.
-</li><li>
-\"You\" means an individual or a legal entity exercising rights under, and complying with all of the terms of, this License.
-</li><li>
-\"Modelica package\" means any Modelica library that is defined with the
- <b>package</b> &lt;Name&gt; ... <b>end</b> &lt;Name&gt;<b>;</b> Modelica language element.
+Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the distribution.
+</li>
+<li>
+Neither the names of the Modelica Association,
+International Building Performance Simulation Association (IBPSA),
+the University of California,
+Lawrence Berkeley National Laboratory,
+U.S. Dept. of Energy,
+nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
 </li>
 </ol>
-
-<h4>2. Grant of Copyright License</h4>
 <p>
-Licensor grants You a worldwide, royalty-free, non-exclusive, sublicensable license, for the duration of the copyright, to do the following:
-</p>
-<ol type=\"a\">
-<li>
-To reproduce the Original Work in copies, either alone or as part of a collection.
-</li><li>
-To create Derivative Works according to Section 1d) of this License.
-</li><li>
-To distribute or communicate to the public copies of the <u>Original Work</u> or a <u>Derivative Work</u> under <u>this License</u>. No fee, neither as a copyright-license fee, nor as a selling fee for the copy as such may be charged under this License. Furthermore, a verbatim copy of this License must be included in any copy of the Original Work or a Derivative Work under this License.
-<br/>
-For the matter of clarity, it is permitted A) to distribute or communicate such copies as part of a (possible commercial) collection where other parts are provided under different licenses and a license fee is charged for the other parts only and B) to charge for mere printing and shipping costs.
-</li><li>
-To distribute or communicate to the public copies of a <u>Derivative Work</u>, alternatively to Section 2c), under <u>any other license</u> of your choice, especially also under a license for commercial/proprietary software, as long as You comply with Sections 3, 4 and 8 below.
-<br/>
-For the matter of clarity, no restrictions regarding fees, either as to a copyright-license fee or as to a selling fee for the copy as such apply.
-</li><li>
-To perform the Original Work publicly.
-</li><li>
-To display the Original Work publicly.
-</li></ol>
-
-<h4>3. Acceptance</h4>
-<p>
-Any use of the Original Work or a Derivative Work, or any action according to either Section 2a) to 2f) above constitutes Your acceptance of this License.
-</p>
-
-<h4>4. Designation of Derivative Works and of Modified Works</h4>
-<p>
-The identifying designation of Derivative Work and of Modified Work must be different to the corresponding identifying designation of the Original Work. This means especially that the (root-level) name of a Modelica package under this license must be changed if the package is modified (besides fixing of errors, adding vendor specific Modelica annotations, using a subset of the classes of a Modelica package, or using another representation, e.g. a binary representation).
-</p>
-
-<h4>5. [reserved]</h4>
-<h4>6. Provision of Source Code</h4>
-<p>
-Licensor agrees to provide You with a copy of the Source Code of the Original Work but reserves the right to decide freely on the manner of how the Original Work is provided. For the matter of clarity, Licensor might provide only a binary representation of the Original Work. In that case, You may (a) either reproduce the Source Code from the binary representation if this is possible (e.g., by performing a copy of an encrypted Modelica package, if encryption allows the copy operation) or (b) request the Source Code from the Licensor who will provide it to You.
-</p>
-
-<h4>7. Exclusions from License Grant</h4>
-<p>
-Neither the names of Licensor (including, but not limited to, University of California, Lawrence Berkeley National Laboratory, U.S. Dept. of Energy, UC, LBNL, LBL, and DOE), nor the names of any contributors to the Original Work, nor any of their trademarks or service marks, may be used to endorse or promote products derived from this Original Work without express prior permission of the Licensor. Except as otherwise expressly stated in this License and in particular in Sections 2 and 5, nothing in this License grants any license to Licensor's trademarks, copyrights, patents, trade secrets or any other intellectual property, and no patent license is granted to make, use, sell, offer for sale, have made, or import embodiments of any patent claims.
-No license is granted to the trademarks of Licensor even if such trademarks are included in the Original Work, except as expressly stated in this License. Nothing in this License shall be interpreted to prohibit Licensor from licensing under terms different from this License any Original Work that Licensor otherwise would have a right to license.
-</p>
-
-<h4>8. Attribution Rights</h4>
-<p>
-You must retain in the Source Code of the Original Work and of any Derivative Works that You create, all author, copyright, patent, or trademark notices, as well as any descriptive text identified therein as an \"Attribution Notice\". The same applies to the licensing notice of this License in the Original Work. For the matter of clarity, \"author notice\" means the notice that identifies the original author(s).
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 </p>
 <p>
-You must cause the Source Code for any Derivative Works that You create to carry a prominent Attribution Notice reasonably calculated to inform recipients that You have modified the Original Work.
+You are under no obligation whatsoever to provide any bug fixes, patches,
+or upgrades to the features, functionality or performance of the source code
+(\"Enhancements\") to anyone; however, if you choose to make your Enhancements
+available either publicly, or directly to Lawrence Berkeley National
+Laboratory, without imposing a separate written license agreement for such
+Enhancements, then you hereby grant the following license: a non-exclusive,
+royalty-free perpetual license to install, use, modify, prepare derivative
+works, incorporate into other computer software, distribute, and sublicense
+such enhancements or derivative works thereof, in binary and source code form.
 </p>
 <p>
-In case the Original Work or Derivative Work is not provided in Source Code, the Attribution Notices shall be appropriately displayed, e.g., in the documentation of the Derivative Work.
+Note: The license is a revised 3 clause BSD license with an ADDED paragraph
+at the end that makes it easy to accept improvements.
 </p>
-
-<h4>9. Disclaimer of Warranty</h4>
-<p>
-<u><strong>The Original Work is provided under this License on an \"as is\" basis and without warranty, either express or implied, including, without limitation, the warranties of non-infringement, merchantability or fitness for a particular purpose. The entire risk as to the quality of the Original Work is with You.</strong></u> This disclaimer of warranty constitutes an essential part of this License. No license to the Original Work is granted by this License except under this disclaimer.
-</p>
-
-<h4>10. Limitation of Liability</h4>
-<p>
-Under no circumstances and under no legal theory, whether in tort (including negligence), contract, or otherwise, shall the Licensor, the owner or a licensee of the Original Work be liable to anyone for any direct, indirect, general, special, incidental, or consequential damages of any character arising as a result of this License or the use of the Original Work including, without limitation, damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all other commercial damages or losses. This limitation of liability shall not apply to the extent applicable law prohibits such limitation.
-</p>
-
-<h4>11. Termination</h4>
-<p>
-This License conditions your rights to undertake the activities listed in Section 2 and 5, including your right to create Derivative Works based upon the Original Work, and doing so without observing these terms and conditions is prohibited by copyright law and international treaty. Nothing in this License is intended to affect copyright exceptions and limitations. This License shall terminate immediately and You may no longer exercise any of the rights granted to You by this License upon your failure to observe the conditions of this license.
-</p>
-
-<h4>12. Termination for Patent Action</h4>
-<p>
-This License shall terminate automatically and You may no longer exercise any of the rights granted to You by this License as of the date You commence an action, including a cross-claim or counterclaim, against Licensor, any owners of the Original Work or any licensee alleging that the Original Work infringes a patent. This termination provision shall not apply for an action alleging patent infringement through combinations of the Original Work under combination with other software or hardware.
-</p>
-
-<h4>13. Jurisdiction</h4>
-<p>
-Any action or suit relating to this License may be brought only in the courts of a jurisdiction wherein the Licensor resides and under the laws of that jurisdiction excluding its conflict-of-law provisions. The application of the United Nations Convention on Contracts for the International Sale of Goods is expressly excluded. Any use of the Original Work outside the scope of this License or after its termination shall be subject to the requirements and penalties of copyright or patent law in the appropriate jurisdiction. This section shall survive the termination of this License.
-</p>
-
-<h4>14. Attorneys' Fees</h4>
-<p>
-In any action to enforce the terms of this License or seeking damages relating thereto, the prevailing party shall be entitled to recover its costs and expenses, including, without limitation, reasonable attorneys' fees and costs incurred in connection with such action, including any appeal of such action. This section shall survive the termination of this License.
-</p>
-
-<h4>15. Miscellaneous</h4>
-<ol type=\"a\">
-<li>If any provision of this License is held to be unenforceable, such provision shall be reformed only to the extent necessary to make it enforceable.
-</li><li>
-No verbal ancillary agreements have been made. Changes and additions to this License must appear in writing to be valid. This also applies to changing the clause pertaining to written form.
-</li><li>
-You may use the Original Work in all ways not otherwise restricted or conditioned by this License or by law, and Licensor promises not to interfere with or be responsible for such uses by You.
-</li><li>
-You are under no obligation whatsoever to provide any bug fixes, patches, or upgrades to the features, functionality or performance of the source code (\"Enhancements\") to anyone; however, if you choose to make your Enhancements available either publicly, or directly to Lawrence Berkeley National Laboratory, without imposing a separate written license agreement for such Enhancements, then you hereby grant the following license: a non-exclusive, royalty-free perpetual license to install, use, modify, prepare derivative works, incorporate into other computer software, distribute, and sublicense such enhancements or derivative works thereof, in binary and source code form.
-</li></ol>
-
-<h4>How to Apply the Modelica License 2</h4>
-<p>
-At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package:
-</p>
-<ul><li style=\"list-style-type:none\">
-Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2017, The Regents of the University of California, through Lawrence Berkeley National Laboratory.
-</li>
-<li style=\"list-style-type:none\"><i>
-This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>.
-</i></li></ul>
-
-<p>
-Include a copy of the Modelica License 2 under <strong>&lt;library&gt;.UsersGuide.ModelicaLicense2</strong>
-(use <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.mo\">
-http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.mo</a>)
-Furthermore, add the list of authors and contributors under
-<strong>&lt;library&gt;.UsersGuide.Contributors</strong> or <strong>&lt;library&gt;.UsersGuide.Contact</strong>
-</p>
-<p>
-For example, sublibrary Modelica.Blocks of the Modelica Standard Library may have the following notices:</p>
-<ul><li style=\"list-style-type:none\">
-Licensed by Modelica Association under the Modelica License 2 Copyright (c) 1998-2008, Modelica Association.
-<li style=\"list-style-type:none\"><i>
-This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at
-<a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>.
-</i>
-</li></ul>
-
-<p>For C-source code and documents, add similar notices in the corresponding file.</p>
-<p>
-For images, add a \"readme.txt\" file to the directories where the images are stored and include a similar notice in this file.
-</p>
-
-<p>
-In these cases, save a copy of the Modelica License 2 in one directory of the distribution, e.g.,
-<a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html</a> in directory <strong>&lt;library&gt;/help/documentation/ModelicaLicense2.html</strong>.
-</p>
-
 </html>"));
   end License;
 
-  class Copyright "Copyright"
-    extends Modelica.Icons.Information;
-    annotation (preferredView="info",
-    Documentation(info="<html>
-<h4><font color=\"#008000\" size=\"5\">Copyright</font></h4>
-<p>
-Copyright (c) 2009-2017, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
-</p>
-<p>
-If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at
-<a href=\"mailto:TTD@lbl.gov\">TTD@lbl.gov</a>
-</p>
-<p>
-NOTICE. This software was developed under partial funding from the U.S. Department of Energy. As such, the U.S. Government has been granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, and perform publicly and display publicly. Beginning five (5) years after the date permission to assert copyright is obtained from the U.S. Department of Energy, and subject to any subsequent five (5) year renewals, the U.S. Government is granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, distribute copies to the public, perform publicly and display publicly, and to permit others to do so.
-</p>
-</html>"));
-  end Copyright;
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
@@ -7071,7 +7385,14 @@ particular package.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
-</tr></table><br/>
+</tr>
+
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.Plotters.UsersGuide\">Utilities.Plotters</a>
+   </td>
+   <td valign=\"top\">Package that allow writing time series and scatter plots to an html output file.</td>
+</tr>
+
+</table><br/>
 </li>
 <li>
 There is also a tutorial available at
@@ -7086,13 +7407,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="5.0.2",
-versionDate="2017-11-17",
-dateModified="2017-11-22",
+version="6.0.0",
+versionDate="2018-06-14",
+dateModified="2018-06-14",
 uses(Modelica(version="3.2.2")),
 conversion(
- from(version={"4.0.0", "5.0.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_4.0_to_5.0.mos")),
+  from(version={"5.0.0", "5.0.1", "5.1.0"},
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_5_to_6.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>

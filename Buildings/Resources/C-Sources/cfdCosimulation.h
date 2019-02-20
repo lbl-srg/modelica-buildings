@@ -24,7 +24,6 @@
 #else /* Linux*/
 #include <dlfcn.h>  /*For load shared library*/
 #include <unistd.h> /*For Linux function*/
-#include <pthread> /*For creating thread*/
 #endif
 
 #ifndef _MODELICA_FFD_COMMON_H

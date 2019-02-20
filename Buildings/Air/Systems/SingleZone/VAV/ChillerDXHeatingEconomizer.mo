@@ -155,7 +155,7 @@ model ChillerDXHeatingEconomizer
     "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU cooCoi(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     dp1_nominal=0,

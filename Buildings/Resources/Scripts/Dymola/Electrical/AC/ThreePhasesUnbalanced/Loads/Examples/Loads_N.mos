@@ -6,7 +6,6 @@ Advanced.FilenameInLegend = false;
 Advanced.SequenceInLegend = true;
 Advanced.PlotLegendTooltip = true;
 Advanced.FullPlotTooltip = true;
-
 createPlot(id=1,
 position={9, 24, 810, 474},
 y={"sen.I[1]", "sen.I[2]", "sen.I[3]", "sen.I[4]"},

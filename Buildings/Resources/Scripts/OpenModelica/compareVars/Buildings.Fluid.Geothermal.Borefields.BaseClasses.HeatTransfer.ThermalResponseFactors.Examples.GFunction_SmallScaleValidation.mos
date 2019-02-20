@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "gFun_int"
+  };

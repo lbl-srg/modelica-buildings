@@ -44,7 +44,7 @@ equation
       points={{5.55112e-16,-30},{28,-30},{28,-20},{28,-20}},
       color={0,127,255}));
   connect(ramSou.y, sou.m_flow_in) annotation (Line(
-      points={{-59,-22},{-20,-22}},
+      points={{-59,-22},{-22,-22}},
       color={0,0,127}));
   connect(volB.ports[1], cra.port_b) annotation (Line(
       points={{80,20},{80,-30},{70,-30}},

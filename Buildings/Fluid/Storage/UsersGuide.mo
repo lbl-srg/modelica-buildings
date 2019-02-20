@@ -1,6 +1,7 @@
 within Buildings.Fluid.Storage;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
+
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
@@ -27,13 +28,23 @@ width=\"387\" height=\"453\"/>
 The tank uses several volumes to model the stratification.
 Heat conduction is modeled between the volumes through the fluid,
 and between the volumes and the ambient.
-The port <code>heaPorVol</code> may be used to connect a temperature sensor
+</p>
+<p>
+The heat port <code>heaPorVol</code> may be used to connect a temperature sensor
 that measures the fluid temperature of an individual volume. It may also
 be used to add heat to individual volumes, for example if the tank contains
 an electrical resistance heater.
 </p>
 <p>
-The tank has <code>nSeg</code> fluid volumes. The top volume has the index <code>1</code>.
+Similarly, the fluid port <code>fluPorVol</code> may be used to connect a fluid pipe
+to an individual volume. This allows for example to draw water from that volume whose temperature
+is close to the temperature required by the consumer.
+Conversely, water could be added to that tank volume whose temperature is close to the
+inlet water temperature.
+If you don't use such a pipe, simply leave the ports unconnected.
+</p>
+<p>
+The tank has <code>nSeg</code> fluid volumes. The top segment has the index <code>1</code>.
 Thus, to add a heating element to the bottom element, connect a heat input to
 <code>heaPorVol[nSeg]</code>.
 </p>
@@ -60,9 +71,17 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>
 The model is identical to
 <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
 Buildings.Fluid.Storage.Stratified</a>,
-except that it adds a correction that reduces the numerical
-dissipation.
+except for the following:
 </p>
+<ul>
+<li>
+It adds a correction that reduces the numerical dissipation.
+</li>
+<li>
+It does not contain the fluid ports <code>fluPorVol</code> that
+connect from the outside to the individual volumes.
+</li>
+</ul>
 <p>
 The correction uses a third order upwind scheme to compute the
 outlet temperatures of the segments in the tank. This model

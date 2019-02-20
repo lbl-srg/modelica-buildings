@@ -7,7 +7,6 @@ partial model DoorDiscretized
 
   parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0) = 0.01
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01";
-  parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
 
   Modelica.SIunits.PressureDifference dpAB[nCom](each nominal=1)
     "Pressure difference between compartments";
@@ -18,6 +17,22 @@ partial model DoorDiscretized
 
 protected
   parameter Modelica.SIunits.Length dh=hOpe/nCom "Height of each compartment";
+
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default);
+
+  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+    "Density, used to compute fluid volume";
+
+  parameter Real hAg[nCom](each unit="m2/s2")=
+    {Modelica.Constants.g_n*(hA - (i - 0.5)*dh) for i in 1:nCom}
+    "Product g*h_i for each compartment";
+
+  parameter Real hBg[nCom](each unit="m2/s2")=
+    {Modelica.Constants.g_n*(hB - (i - 0.5)*dh) for i in 1:nCom}
+    "Product g*h_i for each compartment";
   Modelica.SIunits.AbsolutePressure pA[nCom](each nominal=101325)
     "Pressure in compartments of room A";
   Modelica.SIunits.AbsolutePressure pB[nCom](each nominal=101325)
@@ -29,36 +44,30 @@ protected
     "Volume flow rate through compartment from A to B if positive";
   Modelica.SIunits.VolumeFlowRate dVBA_flow[nCom]
     "Volume flow rate through compartment from B to A if positive";
+  Modelica.SIunits.VolumeFlowRate VZerCom_flow = VZer_flow/nCom
+    "Small flow rate for regularization";
 
   Real m(min=0.5, max=1) "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   Real kVal "Flow coefficient for each compartment, k = V_flow/ dp^m";
   Modelica.SIunits.Area dA "Compartment area";
-
-  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
-    "Density, used to compute fluid volume";
-
+  Real gaiFlo[nCom] "Gain to sum up the positive flows and set the negative to zero in a differentiable way";
 equation
   dA = A/nCom;
 
   for i in 1:nCom loop
     // pressure drop in each compartment
-    pA[i] = port_a1.p + rho_a1_inflow*Modelica.Constants.g_n*(hA - (i - 0.5)*dh);
-    pB[i] = port_a2.p + rho_a2_inflow*Modelica.Constants.g_n*(hB - (i - 0.5)*dh);
+    pA[i] = port_a1.p + rho_a1_inflow*hAg[i];
+    pB[i] = port_a2.p + rho_a2_inflow*hBg[i];
     dpAB[i] = pA[i] - pB[i];
     v[i] = dV_flow[i]/dA;
     // assignment of net volume flows
-    dVAB_flow[i] = dV_flow[i]*
-      Buildings.Utilities.Math.Functions.smoothHeaviside(x=dV_flow[i], delta=
-      VZer_flow/nCom) + VZer_flow/nCom;
-    dVBA_flow[i] = -dV_flow[i] + dVAB_flow[i] + 2*VZer_flow/nCom;
+    gaiFlo[i] = Buildings.Utilities.Math.Functions.smoothHeaviside(x=dV_flow[i], delta=VZerCom_flow);
+    dVAB_flow[i] =  dV_flow[i] * gaiFlo[i];
+    dVBA_flow[i] = -dV_flow[i] * (1-gaiFlo[i]);
   end for;
   // add positive and negative flows
-  VAB_flow = ones(nCom)*dVAB_flow;
-  VBA_flow = ones(nCom)*dVBA_flow;
+  VAB_flow = sum(dVAB_flow);
+  VBA_flow = sum(dVBA_flow);
   vTop = v[nCom];
   vBot = v[1];
   annotation (
@@ -102,6 +111,28 @@ using the model for a door that can be open or closed.
 revisions="<html>
 <ul>
 <li>
+January 8, 2019, by Michael Wetter:<br/>
+Moved parameter <code>CD</code> from
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized\">
+Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</a>
+to
+<a href=\"modelica://Buildings.Airflow.Multizone.DoorDiscretizedOpen\">
+Buildings.Airflow.Multizone.DoorDiscretizedOpen</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/971\">#971</a>.
+</li>
+<li>
+June 27, 2018, by Michael Wetter:<br/>
+Corrected old parameter annotation.
+</li>
+<li>
+June 6, 2018, by Michael Wetter:<br/>
+Removed term that assures non-zero flow rate in each path, and
+reformulated flow balance to ensure that model is symmetric.
+This is
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/937\">#937</a>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
@@ -128,6 +159,7 @@ Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li><i>February 8, 2005</i> by Michael Wetter:<br/>
        Released first version.
+</li>
 </ul>
 </html>"));
 end DoorDiscretized;

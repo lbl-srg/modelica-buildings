@@ -133,16 +133,16 @@ equation
       points={{98,120},{120,120},{120,36.6667},{140,36.6667}},
       color={0,127,255}));
   connect(m_flow.y, sou1.m_flow_in) annotation (Line(
-      points={{-59,42},{-50,42},{-50,128},{-40,128}},
+      points={{-59,42},{-50,42},{-50,128},{-42,128}},
       color={0,0,127}));
   connect(sou1.ports[1], heaHigPowIn.port_a) annotation (Line(
       points={{-20,120},{-8,120}},
       color={0,127,255}));
   connect(m_flow.y, sou2.m_flow_in) annotation (Line(
-      points={{-59,42},{-40,42}},
+      points={{-59,42},{-42,42}},
       color={0,0,127}));
   connect(m_flow.y, sou3.m_flow_in) annotation (Line(
-      points={{-59,42},{-50,42},{-50,-42},{-40,-42}},
+      points={{-59,42},{-50,42},{-50,-42},{-42,-42}},
       color={0,0,127}));
   connect(sou2.ports[1], cooLimPowIn.port_a) annotation (Line(
       points={{-20,34},{-6,34}},

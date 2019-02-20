@@ -1,0 +1,10 @@
+last-generated=2018-01-31
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+yR2[1]=[1.6e+01, 1.6e+01]
+yR1[1]=[3e+00, 3e+00]
+time=[0e+00, 1e+00]

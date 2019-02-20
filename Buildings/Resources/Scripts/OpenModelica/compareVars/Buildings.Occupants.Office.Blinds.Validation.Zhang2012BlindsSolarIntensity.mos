@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "bli.H",
+    "bli.occ",
+    "bli.pUp",
+    "bli.blindState"
+  };

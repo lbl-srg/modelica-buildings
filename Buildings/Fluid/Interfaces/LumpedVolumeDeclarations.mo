@@ -2,7 +2,14 @@ within Buildings.Fluid.Interfaces;
 record LumpedVolumeDeclarations "Declarations for lumped volumes"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+              property_T=293.15,
+              X_a=0.40)
+              "Propylene glycol water, 40% mass fraction")));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -60,6 +67,18 @@ Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
+November 9, 2018 by Michael Wetter:<br/>
+Limited choices of media that are displayed in the pull down menu of
+graphical editors.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">issue 1050</a>.
+</li>
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for

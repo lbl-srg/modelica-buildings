@@ -6,7 +6,7 @@ model NaturalConvectionWithControl
         nPorts=0,
         useCFD=true,
         samplePeriod=30,
-        cfdFilNam = "modelica://Buildings/Resources/Data/Rooms/FFD/NaturalConvectionWithControl.ffd",
+        cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/NaturalConvectionWithControl.ffd",
         massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo

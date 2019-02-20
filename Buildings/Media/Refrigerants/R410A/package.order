@@ -1,0 +1,15 @@
+dPressureVap_dSpecificVolume_Tv
+dPressureVap_dTemperature_Tv
+dSpecificVolumeVap_pT
+enthalpySatLiq_T
+enthalpySatVap_T
+isentropicExponentVap_Tv
+pressureSatVap_T
+pressureVap_Tv
+specificIsobaricHeatCapacityVap_Tv
+specificIsochoricHeatCapacityVap_Tv
+specificVolumeVap_pT
+R
+TCri
+T_min
+pCri

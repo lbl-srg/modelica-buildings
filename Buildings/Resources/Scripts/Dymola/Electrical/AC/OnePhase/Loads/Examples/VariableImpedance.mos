@@ -21,7 +21,6 @@ filename="VariableImpedance.mat",
 leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}});
-
 createPlot(id=2,
 position={3, -39, 1482, 217},
 y={"Z_C.i[1]", "Z_C.i[2]"},
@@ -37,7 +36,6 @@ subPlot=2,
 leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}});
-
 createPlot(id=2,
 position={3, -39, 1482, 216},
 y={"Z_R.i[1]", "Z_R.i[2]"},

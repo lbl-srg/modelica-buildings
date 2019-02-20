@@ -1,7 +1,3 @@
-// Switch off pedantic mode as this model writes a assertion with level= AssertionLevel.warning
-// because of the selected parameter values
-ibpsa_pedantic_old=Advanced.PedanticModelica;
-Advanced.PedanticModelica=false;
 simulateModel("Buildings.Fluid.Movers.Validation.ControlledFlowMachine", method="dassl", tolerance=1e-6, stopTime=600, resultFile="ControlledFlowMachine");
 createPlot(id = 3,
  position = {55, 50, 750, 480},
@@ -26,4 +22,3 @@ createPlot(id = 3,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-Advanced.PedanticModelica=ibpsa_pedantic_old;

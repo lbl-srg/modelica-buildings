@@ -61,7 +61,7 @@ equation
   connect(senTemIn.port_b, pip.port_a)
     annotation (Line(points={{-10,0},{0,0}}, color={0,127,255}));
   connect(m_flow.y, sou.m_flow_in)
-    annotation (Line(points={{-71,8},{-60,8}}, color={0,0,127}));
+    annotation (Line(points={{-71,8},{-62,8}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/FlowReversal.mos"

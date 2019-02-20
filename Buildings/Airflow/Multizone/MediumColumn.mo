@@ -1,28 +1,25 @@
 within Buildings.Airflow.Multizone;
 model MediumColumn
   "Vertical shaft with no friction and no storage of heat and mass"
-  import Modelica.Constants;
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component" annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
   parameter Buildings.Airflow.Multizone.Types.densitySelection densitySelection
     "Select how to pick density" annotation (Evaluate=true);
-  parameter Boolean allowFlowReversal=true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation (Dialog(tab="Assumptions"),Evaluate=true);
+
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
@@ -63,19 +60,19 @@ equation
   if (densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop) then
       Xi = inStream(port_a.Xi_outflow);
       rho = Buildings.Utilities.Psychrometrics.Functions.density_pTX(
-        p=port_a.p,
+        p=Medium.p_default,
         T=Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Xi)),
         X_w=if Medium.nXi == 0 then 0 else Xi[1]);
   elseif (densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom) then
       Xi = inStream(port_b.Xi_outflow);
       rho = Buildings.Utilities.Psychrometrics.Functions.density_pTX(
-        p=port_b.p,
+        p=Medium.p_default,
         T=Medium.temperature(Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), Xi)),
         X_w=if Medium.nXi == 0 then 0 else Xi[1]);
    else
       Xi = actualStream(port_a.Xi_outflow);
       rho = Buildings.Utilities.Psychrometrics.Functions.density_pTX(
-        p=port_a.p,
+        p=Medium.p_default,
         T=Medium.temperature(Medium.setState_phX(port_a.p, actualStream(port_a.h_outflow), Xi)),
         X_w=if Medium.nXi == 0 then 0 else Xi[1]);
   end if;
@@ -163,6 +160,7 @@ This model describes the pressure difference of a vertical medium
 column. It can be used to model the pressure difference caused by
 stack effect.
 </p>
+<h4>Typical use and important parameters</h4>
 <p>
 The model can be used with the following three configurations, which are
 controlled by the setting of the parameter <code>densitySelection</code>:
@@ -196,14 +194,27 @@ a column of air will change its density based on the flow direction.
 In this model, the parameter <code>h</code> must always be positive, and the port <code>port_a</code> must be
 at the top of the column.
 </p>
+<h4>Dynamics</h4>
 <p>
-For a steady-state model, use
+For a dynamic model, use
 <a href=\"modelica://Buildings.Airflow.Multizone.MediumColumnDynamic\">
 Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
+May 1, 2018, by Filip Jorissen:<br/>
+Removed declaration of <code>allowFlowReversal</code>
+and changed default density computation such
+that it assumes a constant pressure.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">#877</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Removed start values for mass flow rate and pressure difference
@@ -234,22 +245,25 @@ Removed <code>Modelica.Fluid.System</code>
 to address issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
 </li>
-<li><i>October 4, 2014</i> by Michael Wetter:<br/>
+<li>October 4, 2014 by Michael Wetter:<br/>
 Removed assignment of <code>port_?.p.nominal</code> to avoid a warning in OpenModelica because
 alias sets have different nominal values.
 </li>
-<li><i>April 17, 2013</i> by Michael Wetter:<br/>
-       Reformulated the assert statement that checks for the correct value of <code>densitySelection</code>.
+<li>April 17, 2013 by Michael Wetter:<br/>
+Reformulated the assert statement that checks for the correct value of <code>densitySelection</code>.
 </li>
-<li><i>July 28, 2010</i> by Michael Wetter:<br/>
-       Changed sign for pressure difference.
+<li>July 28, 2010 by Michael Wetter:<br/>
+Changed sign for pressure difference.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br/>
-       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
-       Reimplemented assignment of density based on flow direction or based on outflowing state.
+<li>
+July 20, 2010 by Michael Wetter:<br/>
+Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+Reimplemented assignment of density based on flow direction or based on outflowing state.
 </li>
-<li><i>February 24, 2005</i> by Michael Wetter:<br/>
-       Released first version.
+<li>
+February 24, 2005 by Michael Wetter:<br/>
+Released first version.
+</li>
 </ul>
 </html>"));
 end MediumColumn;

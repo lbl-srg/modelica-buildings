@@ -1,5 +1,9 @@
 compareVars :=
   {
+    "hysteresis.u",
+    "hysteresis.y",
     "hysteresis1.u",
-    "hysteresis1.y"
+    "hysteresis1.y",
+    "hysteresis2.u",
+    "hysteresis2.y"
   };

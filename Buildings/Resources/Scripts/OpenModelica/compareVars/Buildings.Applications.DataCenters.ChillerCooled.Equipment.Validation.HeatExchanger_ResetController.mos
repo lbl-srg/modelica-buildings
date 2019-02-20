@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "tri.y",
+    "hex1.con.I.y",
+    "hex2.con.I.y",
+    "hex3.con.I.y",
+    "TSen1.T",
+    "hex1.TSet",
+    "TSen2.T",
+    "hex2.TSet",
+    "TSen3.T",
+    "hex3.TSet"
+  };

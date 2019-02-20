@@ -1,0 +1,22 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.Examples.BoreholeDynamics", stopTime=15000, method="dassl", tolerance=1E-6, resultFile="BoreholeDynamics");
+removePlots();
+createPlot(
+  id=1,
+  position={0, 0, 1268, 736},
+  y={"TBor1UTubDyn.T", "TBor1UTubSteSta.T"},
+  range={0.0, 15000.0, 19.0, 30.0},
+  autoscale=false, grid=true,
+  colors={{28,108,200}, {238,46,47}},
+  filename="BoreholeDynamics.mat");
+
+createPlot(
+  id=1,
+  position={0, 0, 1268, 365},
+  y={"TBor2UTubDyn.T", "TBor2UTubSteSta.T"},
+  range={0.0, 15000.0, 19.0, 30.0},
+  autoscale=false,
+  grid=true,
+  subPlot=2,
+  colors={{28,108,200},
+  {238,46,47}},
+  filename="BoreholeDynamics.mat");

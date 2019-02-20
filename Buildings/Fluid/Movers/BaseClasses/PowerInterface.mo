@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.BaseClasses;
 model PowerInterface
   "Partial model to compute power draw and heat dissipation of fans and pumps"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));

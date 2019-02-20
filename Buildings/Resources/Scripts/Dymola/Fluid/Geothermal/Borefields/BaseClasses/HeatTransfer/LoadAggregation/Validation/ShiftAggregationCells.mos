@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.ShiftAggregationCells", tolerance=1e-6, startTime=3.5, stopTime=5.5, resultFile="ShiftAggregationCells");
+removePlots();
+createPlot(id = 1,
+ position = {50, 50, 700, 500},
+ x = "time",
+ y = {"QAggShi_flow[3]","QAggShi_flow[4]"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename="ShiftAggregationCells.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

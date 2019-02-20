@@ -1,10 +1,10 @@
 within Buildings.Fluid.HeatPumps.Compressors.Validation;
 model ScrollCompressor
   extends Modelica.Icons.Example;
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature eva(T=253.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature eva(T=253.15)
     "Evaporating temperature"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature con(T=323.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature con(T=323.15)
     "Condensing temperature"
     annotation (Placement(transformation(extent={{84,-10},{64,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloEva
@@ -14,8 +14,7 @@ model ScrollCompressor
     "Condenser heat flow rate sensor"
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
   Buildings.Fluid.HeatPumps.Compressors.ScrollCompressor com(
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     V_flow_nominal=0.003,
     leaCoe=0.005,
     etaEle=0.85,

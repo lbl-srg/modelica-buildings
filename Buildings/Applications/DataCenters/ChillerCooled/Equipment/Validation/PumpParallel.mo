@@ -13,7 +13,7 @@ model PumpParallel "Example that tests the model pump parallels"
     num=numPum,
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
-    redeclare each Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     threshold=thr1,
@@ -64,7 +64,7 @@ model PumpParallel "Example that tests the model pump parallels"
     num=numPum,
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
-    redeclare each Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     threshold=thr2,
@@ -112,7 +112,8 @@ equation
           {-20,-36}}, color={0,0,127}));
   connect(dp2.port_b, sin.ports[2])
     annotation (Line(points={{40,40},{82,40},{82,38}}, color={0,127,255}));
-  annotation (    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/PumpParallel.mos"
+  annotation (    __Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/PumpParallel.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -121,6 +122,10 @@ At steady-state, all flow models have the same mass flow rate and pressure diffe
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed <code>each</code>.
+</li>
 <li>
 July 22, 2017, by Yangyang Fu:<br/>
 First implementation.

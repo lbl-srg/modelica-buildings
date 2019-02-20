@@ -40,7 +40,7 @@ model Pressure "Test model for the pressure sensor"
     annotation (Placement(transformation(extent={{-2,-50},{18,-30}})));
 equation
   connect(ramp.y, masFloRat.m_flow_in) annotation (Line(
-      points={{-69,8},{-52,8}},
+      points={{-69,8},{-54,8}},
       color={0,0,127}));
   connect(masFloRat.ports[1], dp.port_a) annotation (Line(
       points={{-32,0},{-18,0},{-18,6.66134e-16},{-2,6.66134e-16}},

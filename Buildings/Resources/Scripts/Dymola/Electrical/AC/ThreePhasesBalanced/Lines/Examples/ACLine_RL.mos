@@ -19,7 +19,6 @@ position={-6, -484, 1674, 904},
  colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}},
  markers={MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None,
 MarkerStyle.None, MarkerStyle.Cross});
-
 createPlot(id=1,
  position={-6, -484, 1674, 449},
  y={"load_sc_1.i[1]", "load_sc_1.i[2]", "load_sc_2.i[1]", "load_sc_2.i[2]", "load_sc_3.i[1]", "load_sc_3.i[2]"},

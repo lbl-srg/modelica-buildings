@@ -12,7 +12,7 @@ model HeatExchanger
     "Nominal pressure difference on medium 1 side";
   parameter Modelica.SIunits.Pressure dp2_nominal=60000
     "Nominal pressure difference on medium 2 side";
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger hex1(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet hex1(
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     eta=0.8,
@@ -29,7 +29,7 @@ model HeatExchanger
     "Water-to-water heat exchanger with built-in PID controller to control the temperature at port_b2"
     annotation (Placement(transformation(extent={{-12,48},{8,64}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger hex2(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet hex2(
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     eta=0.8,
@@ -142,7 +142,8 @@ equation
   connect(TEva_in1.y, sou2_1.T_in)
     annotation (Line(points={{69,28},{56,28}}, color={0,0,127}));
   annotation (
-__Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/HeatExchanger.mos"
+  __Dymola_Commands(file=
+  "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/HeatExchanger.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>

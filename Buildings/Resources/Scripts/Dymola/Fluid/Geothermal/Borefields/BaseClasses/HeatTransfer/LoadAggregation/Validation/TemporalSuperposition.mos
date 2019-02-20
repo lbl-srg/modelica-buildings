@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemporalSuperposition", tolerance=1e-6, stopTime=1.0, resultFile="TemporalSuperposition");
+removePlots();
+createPlot(id = 1,
+ position = {50, 50, 700, 500},
+ x = "time",
+ y = {"supPosErr"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename="TemporalSuperposition.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

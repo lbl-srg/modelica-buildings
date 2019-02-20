@@ -31,6 +31,6 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Bitmap(extent={{-74,74},{76,-78}}, fileName=
+            100}}), graphics={Bitmap(extent={{-74,-78},{76,74}}, fileName=
               "modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/BaseClasses/relativeHumidity.png")}));
 end ConvertRelativeHumidity;

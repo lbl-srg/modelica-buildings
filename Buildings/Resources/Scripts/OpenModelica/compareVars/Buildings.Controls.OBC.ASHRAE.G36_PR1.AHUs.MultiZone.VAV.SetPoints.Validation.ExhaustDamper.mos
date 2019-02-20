@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "exhDamPos.yExhDamPos",
+    "exhDamPos.conP.y",
+    "exhDamPos1.yExhDamPos",
+    "exhDamPos1.conP.y",
+    "exhDamPos2.yExhDamPos",
+    "exhDamPos2.conP.y",
+    "exhDamPos.dpBui",
+    "exhDamPos.uSupFan"
+  };

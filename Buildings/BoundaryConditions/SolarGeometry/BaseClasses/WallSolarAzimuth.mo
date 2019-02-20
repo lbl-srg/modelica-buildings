@@ -37,7 +37,7 @@ equation
   verAzi=Modelica.Math.acos(
        Buildings.Utilities.Math.Functions.smoothLimit(x=rat, l=-1+deltaX, u=1-deltaX, deltaX=deltaX/10));
 
-  annotation (Icon(graphics={Bitmap(extent={{-92,92},{92,-92}}, fileName=
+  annotation (Icon(graphics={Bitmap(extent={{-90,-90},{90,90}}, fileName=
               "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/WallSolarAzimuth.png")}),
 defaultComponentName="wallSolAzi",
 Documentation(info="<html>

@@ -8,6 +8,8 @@ model ConstantEffectiveness
         Modelica.Media.Interfaces.PartialCondensingGases,
   sensibleOnly1=false,
   sensibleOnly2=false,
+  final prescribedHeatFlowRate1=true,
+  final prescribedHeatFlowRate2=true,
   Q1_flow = epsS * QMax_flow + QLat_flow,
   Q2_flow = -Q1_flow,
   mWat1_flow = +mWat_flow,
@@ -133,6 +135,13 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 30, 2018, by Filip Jorissen:<br/>
+Set <code>final prescribedHeatFlowRate1=true</code> and 
+<code>final prescribedHeatFlowRate2=true</code>.<br/>
+See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/907\">#907</a>.
+</li>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
 Corrected bug as <code>Q1_flow</code> did not include latent heat flow rate.<br/>

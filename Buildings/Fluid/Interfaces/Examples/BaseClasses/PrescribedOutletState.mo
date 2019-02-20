@@ -113,13 +113,13 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
 equation
 
   connect(m_flow.y, sou1.m_flow_in) annotation (Line(
-      points={{-109,8},{-100,8},{-100,94},{-90,94}},
+      points={{-109,8},{-100,8},{-100,94},{-92,94}},
       color={0,0,127}));
   connect(m_flow.y, sou2.m_flow_in) annotation (Line(
-      points={{-109,8},{-90,8}},
+      points={{-109,8},{-92,8}},
       color={0,0,127}));
   connect(m_flow.y, sou3.m_flow_in) annotation (Line(
-      points={{-109,8},{-100,8},{-100,-52},{-90,-52}},
+      points={{-109,8},{-100,8},{-100,-52},{-92,-52}},
       color={0,0,127}));
   connect(sou1.ports[1], heaHigPow.port_a) annotation (Line(
       points={{-70,86},{-10,86}},
@@ -139,8 +139,8 @@ equation
   connect(heaHigPow.port_b, sin.ports[3]) annotation (Line(
       points={{10,86},{50,86},{50,1},{90,1}},
       color={0,127,255}));
-  connect(m_flow.y, sou4.m_flow_in) annotation (Line(points={{-109,8},{-100,8},{
-          -100,-82},{-90,-82}}, color={0,0,127}));
+  connect(m_flow.y, sou4.m_flow_in) annotation (Line(points={{-109,8},{-100,8},
+          {-100,-82},{-92,-82}},color={0,0,127}));
   connect(sou4.ports[1], steSta.port_a) annotation (Line(points={{-70,-90},{-40,
           -90},{-10,-90}}, color={0,127,255}));
   connect(steSta.port_b, sin.ports[4]) annotation (Line(points={{10,-90},{54,-90},
