@@ -12,7 +12,9 @@
  *
  */
 #include "cfdCosimulation.h"
-
+#include <ModelicaUtilities.h>
+#include <stdlib.h>
+#include <stdio.h>
 /*
  * Exchange the data between Modelica and CFD
  *
@@ -143,6 +145,11 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   cosim->ffd->flag = 0;
 
   *t1 = cosim->ffd->t;
+
+  /* Add debug info*/
+/*  FILE *f = fopen("log.txt", "a+");
+  fprintf(f, "cfdExchangeData() was called at modelica time =%lf, ffd time=%lf\n",cosim->modelica->t,cosim->ffd->t);
+  fclose(f);*/
 
   return 0;
 } /* End of cfdExchangeData()*/
