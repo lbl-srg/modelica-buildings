@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.OutdoorLights.Validation;
 model DaylightControlled "Validation model for the block DaylightControlled"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.OutdoorLights.DaylightControlled daylightControlled(
+  Buildings.Controls.OBC.OutdoorLights.DaylightControlled dayCon(
     lat=0.6457718232379,
     lon=-2.1293016874331,
     timZon=-28800) "Controlling the outdoor lighting based on daylight time"

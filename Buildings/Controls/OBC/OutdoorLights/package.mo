@@ -3,8 +3,11 @@ package OutdoorLights "Package with models for outdoor lighting controls"
   extends Modelica.Icons.Package;
 
 annotation (
-preferredView="info",Documentation(info="<html>
+Documentation(
+info="<html>
+<p>
 This package contains component models for outdoor lighting controls.
+</p>
 </html>"),
 Icon(graphics={
         Rectangle(
