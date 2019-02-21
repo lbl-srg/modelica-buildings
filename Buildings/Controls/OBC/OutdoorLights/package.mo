@@ -6,7 +6,7 @@ annotation (
 Documentation(
 info="<html>
 <p>
-This package contains component models for outdoor lighting controls.
+This package contains outdoor lighting controllers.
 </p>
 </html>"),
 Icon(graphics={

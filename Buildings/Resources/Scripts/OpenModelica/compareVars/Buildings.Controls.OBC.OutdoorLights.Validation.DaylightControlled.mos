@@ -1,4 +1,4 @@
 compareVars :=
   {
-    "daylightControlled.y"
+    "dayCon.y"
   };
