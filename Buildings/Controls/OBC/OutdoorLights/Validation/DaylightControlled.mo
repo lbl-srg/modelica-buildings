@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.OutdoorLights.Validation;
-model DaylightControlled "Validation model for the block DaylightControlled"
+model DaylightControlled "Validation model for the outdoor lighting control based on daylight"
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.OutdoorLights.DaylightControlled dayCon(
