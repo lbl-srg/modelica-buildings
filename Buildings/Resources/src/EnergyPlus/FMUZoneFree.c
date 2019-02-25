@@ -6,13 +6,13 @@
  */
 
 #include "FMUEnergyPlusStructure.h"
-#include "ModelicaUtilities.h"
+#include "EnergyPlusModelicaUtilities.h"
 
 #include <stdlib.h>
 
 void FMUBuildingFree(FMUBuilding* ptrBui){
   if ( ptrBui != NULL ){
-    ModelicaFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name);
+    EnergyPlusFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name);
     writeLog(1, "Calling terminate on EnergyPlus library.");
     ptrBui->fmu->terminateSim(NULL);
     writeLog(1, "Returned from terminate on EnergyPlus library.");
@@ -27,12 +27,12 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 
 #ifdef _MSC_VER
     if (!FreeLibrary(ptrBui->fmu->dllHandle)){
-      ModelicaMessage("Warning: Failed to free EnergyPlus library.");
+      EnergyPlusMessage("Warning: Failed to free EnergyPlus library.");
     }
 #else
     writeLog(1, "Calling dlclose.");
     if (0 != dlclose(ptrBui->fmu->dllHandle)){
-      ModelicaMessage("Warning: Failed to free EnergyPlus library.");
+      EnergyPlusMessage("Warning: Failed to free EnergyPlus library.");
     }
 #endif
     writeLog(1, "Closed EnergyPlus library.");
@@ -43,7 +43,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 }
 
 void FMUZoneFree(void* object){
-  /* ModelicaMessage("*** Entered FMUZoneFree."); */
+  /* EnergyPlusMessage("*** Entered FMUZoneFree."); */
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure
@@ -60,6 +60,6 @@ void FMUZoneFree(void* object){
       decrementBuildings_nFMU();
     }
     free(zone);
-    /* ModelicaMessage("*** Freed zone.\n"); */
+    /* EnergyPlusMessage("*** Freed zone.\n"); */
   }
 }

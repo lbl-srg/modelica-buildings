@@ -74,6 +74,7 @@ add_library( ModelicaBuildingsEnergyPlus SHARED
   Buildings/Resources/src/EnergyPlus/FMUZoneInit.h
   Buildings/Resources/src/EnergyPlus/FMUZoneInit.c
   Buildings/Resources/src/EnergyPlus/FMUZoneInstantiate.c
+  Buildings/Resources/src/EnergyPlus/EnergyPlusModelicaUtilities.c
 )
 target_link_libraries( ModelicaBuildingsEnergyPlus
   ${MODELICA_LIBS}

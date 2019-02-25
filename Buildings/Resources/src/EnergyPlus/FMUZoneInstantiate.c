@@ -6,7 +6,7 @@
  */
 
 #include "FMUEnergyPlusStructure.h"
-#include "ModelicaUtilities.h"
+#include "EnergyPlusModelicaUtilities.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +24,7 @@ void* getAdr(FMU *fmu, const char* functionName){
   fp = dlsym(fmu->dllHandle, functionName);
 #endif
   if (!fp) {
-    ModelicaFormatError("Function %s, not found in the EnergyPlus functions library.",
+    EnergyPlusFormatError("Function %s, not found in the EnergyPlus functions library.",
     functionName);
   }
   return fp;
@@ -43,13 +43,13 @@ void loadLib(const char* libPath, FMU *fmu) {
 #ifdef _MSC_VER
   h = LoadLibrary(libPath);
   if (!h) {
-    ModelicaFormatError("Unable to load the EnergyPlus functions library with path %s.",
+    EnergyPlusFormatError("Unable to load the EnergyPlus functions library with path %s.",
     libPath);
   }
 #else
   h = dlopen(libPath, RTLD_LAZY);
   if (!h) {
-    ModelicaFormatError("Unable to load the EnergyPlus functions library with path %s.",
+    EnergyPlusFormatError("Unable to load the EnergyPlus functions library with path %s.",
     libPath);
   }
 #endif
@@ -59,36 +59,36 @@ void loadLib(const char* libPath, FMU *fmu) {
   /* Set pointers to functions provided by dll */
   fmu->instantiate = (fInstantiate)getAdr(fmu, "instantiate");
   if (!(fmu->instantiate)) {
-    ModelicaError("Can't find function instantiate().");
+    EnergyPlusError("Can't find function instantiate().");
   }
 
   fmu->setupExperiment = (fSetupExperiment)getAdr(fmu, "setupExperiment");
   if (!(fmu->setupExperiment)) {
-    ModelicaError("Can't find function setupExperiment().");
+    EnergyPlusError("Can't find function setupExperiment().");
   }
 
   fmu->setTime = (fSetTime)getAdr(fmu, "setTime");
   if (!(fmu->setTime)) {
-    ModelicaMessage("Can't find function setTime().");
+    EnergyPlusMessage("Can't find function setTime().");
   }
 
   fmu->setVariables = (fSetVariables) getAdr(fmu, "setVariables");
   if (!(fmu->setVariables)) {
-    ModelicaError("Can't find function setVariables().");
+    EnergyPlusError("Can't find function setVariables().");
   }
   fmu->getVariables = (fGetVariables)getAdr(fmu, "getVariables");
   if (!(fmu->getVariables)) {
-    ModelicaError("Can't find function getVariables().");
+    EnergyPlusError("Can't find function getVariables().");
   }
 
   fmu->getNextEventTime = (fGetNextEventTime)getAdr(fmu, "getNextEventTime");
   if (!(fmu->getNextEventTime)) {
-    ModelicaError("Can't find function getNextEventTime().");
+    EnergyPlusError("Can't find function getNextEventTime().");
   }
 
   fmu->terminateSim = (fTerminateSim)getAdr(fmu, "terminateSim");
   if (!(fmu->terminateSim)) {
-    ModelicaError("Can't find function terminateSim().");
+    EnergyPlusError("Can't find function terminateSim().");
   }
   return;
 }
@@ -131,7 +131,7 @@ void getParametersFromEnergyPlus(
   fmi2ValueReference* parameterValueReferences;
   parameterValueReferences = (fmi2ValueReference*)malloc(nOut * sizeof(fmi2ValueReference));
   if ( parameterValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for parameterValueReferences in FMUZoneInstantiate.c.");
+    EnergyPlusFormatError("Failed to allocate memory for parameterValueReferences in FMUZoneInstantiate.c.");
 
   buildVariableNames(zone->name, parNames, nOut, &fullNames, &len);
   getValueReferences(fullNames, nOut,
@@ -144,7 +144,7 @@ void getParametersFromEnergyPlus(
   result = fmu->getVariables(parameterValueReferences, outputs, nOut, NULL);
   //writeLog(1, "end getVariables");
   if (result <0 ){
-    ModelicaFormatError("Failed to get initial outputs for building %s, zone %s.",
+    EnergyPlusFormatError("Failed to get initial outputs for building %s, zone %s.",
     zone->ptrBui->name, zone->name);
   }
   //for (i = 0; i < nOut; i++)
@@ -164,7 +164,7 @@ void FMUZoneSetValueReferences(
   int k;
   *valRef = (fmi2ValueReference*)malloc(nVal * sizeof(fmi2ValueReference));
   if (*valRef == NULL)
-    ModelicaFormatError("Failed to allocate memory for valRef.");
+    EnergyPlusFormatError("Failed to allocate memory for valRef.");
   for(k=0; k < nVal; k++){
     (*valRef)[k]=*cntr;
     (*cntr)++;
@@ -220,21 +220,21 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   /* Get 1-D array of value references */
   parameterValueReferences = (fmi2ValueReference*)malloc(nPar * sizeof(fmi2ValueReference));
   if ( parameterValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for parameterValueReferences.");
+    EnergyPlusFormatError("Failed to allocate memory for parameterValueReferences.");
 
   inputValueReferences = (fmi2ValueReference*)malloc(nInp * sizeof(fmi2ValueReference));
   if ( inputValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for inputValueReferences.");
+    EnergyPlusFormatError("Failed to allocate memory for inputValueReferences.");
 
   outputValueReferences = (fmi2ValueReference*)malloc(nOut * sizeof(fmi2ValueReference));
   if ( outputValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for outputValueReferences.");
+    EnergyPlusFormatError("Failed to allocate memory for outputValueReferences.");
 
   /* Get 1-D array of names */
   /* Parameters */
   parameterNames = (char**)malloc(nPar * sizeof(char*));
   if ( parameterNames == NULL)
-    ModelicaFormatError("Failed to allocate memory for parameterNames.");
+    EnergyPlusFormatError("Failed to allocate memory for parameterNames.");
 
   len = 0;
   for(i = 0; i < nZon; i++){
@@ -246,7 +246,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   for(i = 0; i < nPar; i++){
     parameterNames[i] = (char*)malloc(len * sizeof(char));
     if ( parameterNames[i] == NULL)
-      ModelicaFormatError("Failed to allocate memory for parameterNames[i].");
+      EnergyPlusFormatError("Failed to allocate memory for parameterNames[i].");
   }
   cntr = 0;
   for(i = 0; i < nZon; i++){
@@ -260,7 +260,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   /* Inputs */
   inputNames = (char**)malloc(nInp * sizeof(char*));
   if ( inputNames == NULL)
-    ModelicaFormatError("Failed to allocate memory for inputNames.");
+    EnergyPlusFormatError("Failed to allocate memory for inputNames.");
 
   len = 0;
   for(i = 0; i < nZon; i++){
@@ -272,7 +272,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   for(i = 0; i < nInp; i++){
     inputNames[i] = (char*)malloc(len * sizeof(char));
     if ( inputNames[i] == NULL)
-      ModelicaFormatError("Failed to allocate memory for inputNames[i].");
+      EnergyPlusFormatError("Failed to allocate memory for inputNames[i].");
   }
   cntr = 0;
   for(i = 0; i < nZon; i++){
@@ -286,7 +286,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   /* Outputs */
   outputNames = (char**)malloc(nOut * sizeof(char*));
   if ( outputNames == NULL)
-    ModelicaFormatError("Failed to allocate memory for outputNames.");
+    EnergyPlusFormatError("Failed to allocate memory for outputNames.");
   len = 0;
   for(i = 0; i < nZon; i++){
     for(j = 0; j < scaOut; j++){
@@ -296,7 +296,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   for(i = 0; i < nOut; i++){
     outputNames[i] = (char*)malloc(len * sizeof(char));
     if ( outputNames[i] == NULL)
-      ModelicaFormatError("Failed to allocate memory for outputNames[i].");
+      EnergyPlusFormatError("Failed to allocate memory for outputNames[i].");
   }
 
   cntr = 0;
@@ -313,7 +313,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   */
   bui->fmu = (FMU*)malloc(sizeof(FMU));
   if ( bui->fmu == NULL )
-    ModelicaError("Not enough memory in FMUZoneInstantiate.c to allocate memory for fmu.");
+    EnergyPlusError("Not enough memory in FMUZoneInstantiate.c to allocate memory for fmu.");
 
   loadLib(bui->epLib, bui->fmu);
 
@@ -340,7 +340,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
                        NULL); /*log); */
   writeLog(3, "Returned from instantiating fmu.");
   if(result<0){
-    ModelicaFormatError("Failed to instantiate building FMU with name %s.",
+    EnergyPlusFormatError("Failed to instantiate building FMU with name %s.",
     bui->name);
   }
 
@@ -385,14 +385,14 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
     result = zone->ptrBui->fmu->setupExperiment(t0, 1, NULL);
     writeLog(0, "Returned from setting up experiment.");
     if(result<0){
-      ModelicaFormatError("Failed to setup experiment for building FMU with name %s.",  zone->ptrBui->name);
+      EnergyPlusFormatError("Failed to setup experiment for building FMU with name %s.",  zone->ptrBui->name);
   }
 
   }
   /* Allocate memory */
   outputs = (double*)malloc(nOut * sizeof(double));
   if (outputs == NULL)
-    ModelicaError("Failed to allocated memory for outputs in FMUZoneInstantiate.c.");
+    EnergyPlusError("Failed to allocated memory for outputs in FMUZoneInstantiate.c.");
 
 
   getParametersFromEnergyPlus(
