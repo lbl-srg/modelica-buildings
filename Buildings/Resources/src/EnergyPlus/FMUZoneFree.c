@@ -12,6 +12,7 @@
 
 void FMUBuildingFree(FMUBuilding* ptrBui){
   if ( ptrBui != NULL ){
+    printf("Closing EnergyPlus library for %s.\n", ptrBui->name);
     EnergyPlusFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name);
     writeLog(1, "Calling terminate on EnergyPlus library.");
     ptrBui->fmu->terminateSim(NULL);
