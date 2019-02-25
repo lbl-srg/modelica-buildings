@@ -3,8 +3,9 @@ model Sink_T
   "Model of a sink with temperature for reverse flow as an input that can be exported as an FMU"
   extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Boolean use_p_in = true
     "= true to use a pressure from connector, false to output Medium.p_default"
@@ -113,6 +114,11 @@ may be needed to iteratively solve for the mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air and water.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 April 29, 2015, by Michael Wetter:<br/>
 Redesigned to conditionally remove the pressure connector

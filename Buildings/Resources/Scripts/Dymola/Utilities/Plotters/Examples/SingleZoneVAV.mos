@@ -1,0 +1,2 @@
+simulateModel("Buildings.Utilities.Plotters.Examples.SingleZoneVAV", startTime=15552000, stopTime=15984000, method="Cvode", tolerance=1e-06, resultFile="SingleZoneVAV");
+createPlot(id=4, position={93, 67, 592, 424}, x="hvac.uFan", y={"hvac.PFan"}, range={0.2, 0.45, 0.0, 50.0}, grid=true, colors={{28,108,200}});

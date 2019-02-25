@@ -2,10 +2,6 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 partial model PartialParallelElectricEIR
   "Partial model for electric chiller parallel"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallel(
-    final numVal = 2,
-    final m_flow_nominal = {m1_flow_nominal,m2_flow_nominal},
-    rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
-      Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
     val2(each final dpFixed_nominal=dp2_nominal),
     val1(each final dpFixed_nominal=dp1_nominal));
 
@@ -78,40 +74,41 @@ partial model PartialParallelElectricEIR
     "Electric power consumed by chiller compressor"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
-  replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectric chi[num](
-    redeclare each replaceable package Medium1 = Medium1,
-    redeclare each replaceable package Medium2 = Medium2,
-    each final allowFlowReversal1=allowFlowReversal1,
-    each final allowFlowReversal2=allowFlowReversal2,
-    each final show_T=show_T,
-    each final from_dp1=from_dp1,
-    each final dp1_nominal=0,
-    each final linearizeFlowResistance1=linearizeFlowResistance1,
-    each final deltaM1=deltaM1,
-    each final from_dp2=from_dp2,
-    each final dp2_nominal=0,
-    each final linearizeFlowResistance2=linearizeFlowResistance2,
-    each final deltaM2=deltaM2,
-    each final homotopyInitialization=homotopyInitialization,
-    each final m1_flow_nominal=m1_flow_nominal,
-    each final m2_flow_nominal=m2_flow_nominal,
-    each final m1_flow_small=m1_flow_small,
-    each final m2_flow_small=m2_flow_small,
-    each final tau1=tau1,
-    each final tau2=tau2,
-    each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
-    each final p1_start=p1_start,
-    each final T1_start=T1_start,
-    each final X1_start=X1_start,
-    each final C1_start=C1_start,
-    each final C1_nominal=C1_nominal,
-    each final p2_start=p2_start,
-    each final T2_start=T2_start,
-    each final X2_start=X2_start,
-    each final C2_start=C2_start,
-    each final C2_nominal=C2_nominal)
-    "Identical chillers"
+  replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectric chi[num]
+    constrainedby Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
+      redeclare each final package Medium1 = Medium1,
+      redeclare each final package Medium2 = Medium2,
+      each final allowFlowReversal1=allowFlowReversal1,
+      each final allowFlowReversal2=allowFlowReversal2,
+      each final show_T=show_T,
+      each final from_dp1=from_dp1,
+      each final dp1_nominal=0,
+      each final linearizeFlowResistance1=linearizeFlowResistance1,
+      each final deltaM1=deltaM1,
+      each final from_dp2=from_dp2,
+      each final dp2_nominal=0,
+      each final linearizeFlowResistance2=linearizeFlowResistance2,
+      each final deltaM2=deltaM2,
+      each final homotopyInitialization=homotopyInitialization,
+      each final m1_flow_nominal=m1_flow_nominal,
+      each final m2_flow_nominal=m2_flow_nominal,
+      each final m1_flow_small=m1_flow_small,
+      each final m2_flow_small=m2_flow_small,
+      each final tau1=tau1,
+      each final tau2=tau2,
+      each final energyDynamics=energyDynamics,
+      each final massDynamics=massDynamics,
+      each final p1_start=p1_start,
+      each final T1_start=T1_start,
+      each final X1_start=X1_start,
+      each final C1_start=C1_start,
+      each final C1_nominal=C1_nominal,
+      each final p2_start=p2_start,
+      each final T2_start=T2_start,
+      each final X2_start=X2_start,
+      each final C2_start=C2_start,
+      each final C2_nominal=C2_nominal)
+    "Chillers with identical nominal parameters but different performance curves"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
@@ -138,12 +135,18 @@ equation
         color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-Partial model that implements the parallel electric chillers with associated valves.
-The parallel have <code>num</code> identical chillers.
+Partial model that implements parallel electric chillers with associated valves.
+The model has <code>num</code> identical chillers.
 </p>
 </html>",
         revisions="<html>
 <ul>
+<li>
+January 26, 2018, by Michael Wetter:<br/>
+Added <code>constrainedby</code> to instance <code>chi</code>
+in order for the parameter assignments to remain when the chiller is redeclared.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1118\">issue 1118</a>.
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.

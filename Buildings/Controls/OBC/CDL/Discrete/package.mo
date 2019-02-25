@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Discrete "Package with discrete input/output blocks with fixed sample period"
-
-  extends Modelica.Icons.Package;
+package Discrete "Package with discrete blocks"
 
   annotation (Documentation(info="<html>
 <p>
@@ -27,8 +25,17 @@ December 22, 2016, by Michael Wetter:<br/>
 Firt implementation, based on the blocks from the Modelica Standard Library.
 </li>
 </ul>
-</html>"),
-Icon(graphics={
+</html>"), Icon(graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
         Line(points={{-88,0},{-45,0}}, color={95,95,95}),
         Ellipse(
           lineColor={95,95,95},

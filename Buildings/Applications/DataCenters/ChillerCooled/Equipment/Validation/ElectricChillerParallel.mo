@@ -24,7 +24,7 @@ model ElectricChillerParallel "Model that test electric chiller parallel"
     dp2_nominal=6000,
     dpValve_nominal={6000,6000},
     per={per1,per2})
-    "Identical chillers"
+    "Chillers with identical nominal parameters but different performance curves"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 equation
   connect(chiPar.port_b1, res1.port_a)

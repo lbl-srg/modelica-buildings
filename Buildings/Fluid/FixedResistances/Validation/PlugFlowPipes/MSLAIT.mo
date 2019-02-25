@@ -321,11 +321,11 @@ model MSLAIT
     annotation (Placement(transformation(extent={{100,82},{80,102}})));
 equation
   connect(m_flow_p3.y, Point3.m_flow_in) annotation (Line(
-      points={{-60,-126},{-56,-126},{-56,-116}},
+      points={{-60,-126},{-56,-126},{-56,-118}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Point2.m_flow_in, m_flow_p2.y) annotation (Line(
-      points={{-96,120},{-96,130},{-112,130}},
+      points={{-96,122},{-96,130},{-112,130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_p1.y, Point1.T_in) annotation (Line(
@@ -333,7 +333,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
-      points={{55,-142},{64,-142},{64,-108},{116,-108},{116,-94}},
+      points={{55,-142},{64,-142},{64,-108},{116,-108},{116,-96}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(DataReader.y[9], prescribedTemperature.T)
@@ -414,7 +414,7 @@ equation
     annotation (Line(points={{178,158},{102,158}},     color={0,0,127}));
   connect(switch.u1,m_flow_p4. y) annotation (Line(points={{102,174},{178,174}},
                                color={0,0,127}));
-  connect(Point4.m_flow_in,switch. y) annotation (Line(points={{50,130},{50,166},
+  connect(Point4.m_flow_in,switch. y) annotation (Line(points={{50,132},{50,166},
           {79,166}},          color={0,0,127}));
   connect(switch.u2,lessThreshold. y) annotation (Line(points={{102,166},{108,
           166},{108,132},{123,132}},
@@ -430,7 +430,7 @@ equation
           158},{160,100},{102,100}},
                               color={0,0,127}));
   connect(switch1.y, Point5.m_flow_in) annotation (Line(points={{79,92},{78,92},
-          {78,62},{74,62}}, color={0,0,127}));
+          {78,62},{76,62}}, color={0,0,127}));
   connect(col1.port_b, prescribedTemperature.port) annotation (Line(points={{
           112,46},{214,46},{214,-142},{94,-142}}, color={191,0,0}));
   annotation (
@@ -438,9 +438,10 @@ equation
             220,200}})),
     experiment(
       StopTime=603900,
-      Tolerance=1e-006,
-      __Dymola_Algorithm="Dassl"),
-    __Dymola_experimentSetupOutput(events=false),
+      Tolerance=1e-006),
+       __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/MSLAIT.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 The example contains
@@ -514,8 +515,5 @@ influence of allowFlowReversal and the presence of explicit volumes in the pipe.
 </li>
 <li>January 26, 2016 by Carles Ribas:<br/>First implementation. </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/MSLAIT.mos"
-        "Simulate and plot"));
+</html>"));
 end MSLAIT;

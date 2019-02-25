@@ -55,7 +55,7 @@ equation
   connect(sou2.ports[1], fouPor.port_a2) annotation (Line(points={{40,10},{20,
           10},{20,4},{10,4}}, color={0,127,255}));
   connect(ram_m_flow.y, sou1.m_flow_in) annotation (Line(points={{-69,40},{-66,
-          40},{-66,18},{-60,18}}, color={0,0,127}));
+          40},{-66,18},{-62,18}}, color={0,0,127}));
   connect(ram_T.y, sou1.T_in) annotation (Line(points={{-69,0},{-66,0},{-66,14},
           {-62,14}},     color={0,0,127}));
   annotation (    Documentation(info="<html>

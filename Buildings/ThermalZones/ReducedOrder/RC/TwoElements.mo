@@ -34,7 +34,8 @@ model TwoElements
     annotation (Placement(transformation(extent={{182,-50},{202,-28}})));
 
 protected
-  Modelica.Thermal.HeatTransfer.Components.Convection convIntWall if AInt > 0
+  Modelica.Thermal.HeatTransfer.Components.Convection convIntWall(dT(start=0)) if
+                                                                     AInt > 0
     "Convective heat transfer of interior walls"
     annotation (Placement(transformation(extent={{148,-30},{128,-50}})));
   Modelica.Blocks.Sources.Constant alphaIntWall(k=AInt*alphaInt) if AInt > 0
@@ -44,11 +45,13 @@ protected
     rotation=-90,
     origin={138,-61})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallIntWall(
-    final G=min(ATotExt, AInt)*alphaRad) if  ATotExt > 0 and AInt > 0
+    final G=min(ATotExt, AInt)*alphaRad, dT(start=0)) if
+                                             ATotExt > 0 and AInt > 0
     "Resistor between exterior walls and interior walls"
     annotation (Placement(transformation(extent={{138,-116},{158,-96}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntWallWin(
-    final G=min(ATotWin, AInt)*alphaRad) if  ATotWin > 0 and AInt > 0
+    final G=min(ATotWin, AInt)*alphaRad, dT(start=0)) if
+                                             ATotWin > 0 and AInt > 0
     "Resistor between interior walls and windows"
     annotation (Placement(transformation(extent={{74,-118},{94,-98}})));
 
@@ -124,6 +127,10 @@ equation
     fillPattern=FillPattern.Solid,
     textString="Interior Walls")}), Documentation(revisions="<html>
   <ul>
+  <li>
+  January 25, 2019, by Michael Wetter:<br/>
+  Added start value to avoid warning in JModelica.
+  </li>
   <li>
   April 18, 2015, by Moritz Lauster:<br/>
   First implementation.

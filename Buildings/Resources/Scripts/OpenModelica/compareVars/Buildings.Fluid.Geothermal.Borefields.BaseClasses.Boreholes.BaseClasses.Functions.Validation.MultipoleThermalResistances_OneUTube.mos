@@ -1,0 +1,19 @@
+compareVars :=
+  {
+    "RDelta[1, 1]",
+    "RDelta[2, 2]",
+    "RDelta[1, 2]",
+    "RDelta[2, 1]",
+    "RDelta_Ref[1, 1]",
+    "RDelta_Ref[2, 2]",
+    "RDelta_Ref[1, 2]",
+    "RDelta_Ref[2, 1]",
+    "R[1, 1]",
+    "R[2, 2]",
+    "R[1, 2]",
+    "R[2, 1]",
+    "R_Ref[1, 1]",
+    "R_Ref[2, 2]",
+    "R_Ref[1, 2]",
+    "R_Ref[2, 1]"
+  };

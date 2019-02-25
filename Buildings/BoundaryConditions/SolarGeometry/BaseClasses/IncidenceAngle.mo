@@ -2,9 +2,9 @@ within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block IncidenceAngle "The solar incidence angle on a tilted surface"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle azi(displayUnit="degree")
+  parameter Modelica.SIunits.Angle azi(displayUnit="deg")
     "Surface azimuth. azi=-90 degree if surface outward unit normal points toward east; azi=0 if it points toward south";
-  parameter Modelica.SIunits.Angle til(displayUnit="degree")
+  parameter Modelica.SIunits.Angle til(displayUnit="deg")
     "Surface tilt. til=90 degree for walls; til=0 for ceilings; til=180 for roof";
   Modelica.Blocks.Interfaces.RealInput solHouAng(quantity="Angle", unit="rad")
     "Solar hour angle"
@@ -37,6 +37,12 @@ This component computes the solar incidence angle on a tilted surface using the 
 </html>", revisions="<html>
 <ul>
 <li>
+April 27, 2018, by Michael Wetter:<br/>
+Corrected <code>displayUnit</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/912\">Buildings, issue 912</a>.
+</li>
+<li>
 Dec 7, 2010, by Michael Wetter:<br/>
 Rewrote equation in explicit form to avoid nonlinear equations in room model.
 </li>
@@ -48,6 +54,8 @@ First implementation.
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
+        Bitmap(extent={{-90,-90},{90,90}}, fileName=
+              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/IncidenceAngle.png"),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
@@ -59,7 +67,5 @@ First implementation.
         Text(
           extent={{-98,-42},{-42,-54}},
           lineColor={0,0,127},
-          textString="solHouAng"),
-        Bitmap(extent={{-90,92},{90,-94}}, fileName=
-              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/IncidenceAngle.png")}));
+          textString="solHouAng")}));
 end IncidenceAngle;

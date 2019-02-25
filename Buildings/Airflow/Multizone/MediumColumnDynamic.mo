@@ -2,39 +2,40 @@ within Buildings.Airflow.Multizone;
 model MediumColumnDynamic
   "Vertical shaft with no friction and storage of heat and mass"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  import Modelica.Constants;
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component" annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
-  parameter Boolean allowFlowReversal=true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation (Dialog(tab="Assumptions"),Evaluate=true);
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition, used only for steady-state model"));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
+  parameter Modelica.SIunits.Volume V "Volume in medium shaft";
+
+  // Heat transfer through boundary
+  parameter Boolean use_HeatTransfer = false
+    "= true to use the HeatTransfer model"
+      annotation (Dialog(tab="Assumptions", group="Heat transfer"));
+
   // m_flow_nominal is not used by vol, since this component
   // can only be configured as a dynamic model.
+  // Therefore we set it to about 10 air changes per hour
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     final nPorts=2,
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=V/360,
     final V=V,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -50,25 +51,17 @@ model MediumColumnDynamic
   MediumColumn colTop(
     redeclare final package Medium = Medium,
     final densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom,
-    h=h/2,
-    final allowFlowReversal=allowFlowReversal)
+    h=h/2)
     "Medium column that connects to top port"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   MediumColumn colBot(
     redeclare final package Medium = Medium,
     final densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop,
-    h=h/2,
-    final allowFlowReversal=allowFlowReversal)
+    h=h/2)
     "Medium colum that connects to bottom port"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
-  parameter Modelica.SIunits.Volume V "Volume in medium shaft";
-
-  // Heat transfer through boundary
-  parameter Boolean use_HeatTransfer = false
-    "= true to use the HeatTransfer model"
-      annotation (Dialog(tab="Assumptions", group="Heat transfer"));
   replaceable model HeatTransfer =
       Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
     constrainedby
@@ -165,7 +158,9 @@ This model contains a completely mixed fluid volume and
 models that take into account the pressure difference of
 a medium column that is at the same temperature as the
 fluid volume. It can be used to model the pressure difference
-caused by a stack effect.</p>
+caused by a stack effect.
+</p>
+<h4>Typical use and important parameters</h4>
 <p>
 Set the parameter <code>use_HeatTransfer=true</code> to expose
 a <code>heatPort</code>. This <code>heatPort</code> can be used
@@ -173,6 +168,7 @@ to add or subtract heat from the volume. This allows, for example,
 to use this model in conjunction with a model for heat transfer through
 walls to model a solar chimney that stores heat.
 </p>
+<h4>Dynamics</h4>
 <p>
 For a steady-state model, use
 <a href=\"modelica://Buildings.Airflow.Multizone.MediumColumn\">
@@ -184,21 +180,41 @@ at the top of the column.
 </html>",
 revisions="<html>
 <ul>
-<li><i>October 6, 2014</i> by Michael Wetter:<br/>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
+January 8, 2019, by Michael Wetter:<br/>
+Changed public parameter <code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/970\">#970</a>.
+</li>
+<li>
+May 1, 2018, by Filip Jorissen:<br/>
+Removed declaration of <code>allowFlowReversal</code>
+and changed default density computation such
+that it assumes a constant pressure.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">#877</a>.
+</li>
+<li>
+October 6, 2014 by Michael Wetter:<br/>
 Removed assignment of <code>port_?.p.nominal</code> to avoid a warning
 in OpenModelica because
 alias sets have different nominal values.
 </li>
-<li><i>July 31, 2011</i> by Michael Wetter:<br/>
+<li>
+July 31, 2011 by Michael Wetter:<br/>
 Changed model to use new base class
 <a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
-<li><i>May 25, 2011</i> by Michael Wetter:<br/>
-       Added <code>m_flow_nominal</code>, which is used if component is configured as steady-state.
+<li>May 25, 2011 by Michael Wetter:<br/>
+Added <code>m_flow_nominal</code>, which is used if component is configured as steady-state.
 </li>
-<li><i>July 28, 2010</i> by Michael Wetter:<br/>
-       Released first version.
+<li>July 28, 2010 by Michael Wetter:<br/>
+Released first version.
 </li>
 </ul>
 </html>"));

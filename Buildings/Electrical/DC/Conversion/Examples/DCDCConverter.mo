@@ -6,11 +6,14 @@ model DCDCConverter "Test model DC to DC converter"
     P_nominal=-2000,
     V_nominal=60) "Resistive load"
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
-  Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=120)
+  Buildings.Electrical.DC.Sources.ConstantVoltage sou(V=120)
     "Voltage source"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Buildings.Electrical.DC.Conversion.DCDCConverter conDCDC(VHigh=120, VLow=60,
-      eta=0.9) "DC/DC transformer"
+  Buildings.Electrical.DC.Conversion.DCDCConverter conDCDC(
+    VHigh=120,
+    VLow=60,
+    eta=0.9,
+    i_n(start=0)) "DC/DC transformer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Electrical.DC.Loads.Conductor conductor(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
       V_nominal=60,
@@ -53,6 +56,10 @@ This model illustrates the use of a model that converts between DC voltages.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 30, 2019, by Michael Wetter:<br/>
+Added start value.
+</li>
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.

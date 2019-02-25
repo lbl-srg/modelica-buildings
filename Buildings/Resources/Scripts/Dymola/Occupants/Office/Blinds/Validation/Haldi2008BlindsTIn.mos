@@ -1,0 +1,3 @@
+simulateModel("Buildings.Occupants.Office.Blinds.Validation.Haldi2008BlindsTIn", stopTime=3600, method="Cvode", tolerance=1E-6, resultFile="Haldi2008BlindsTIn");
+createPlot(id=1, position={33, 24, 1372, 721}, y={"bli.TIn","bli.occ"}, range={0.0, 4000.0, 270.0, 310.0}, grid=true, subPlot=2, colors={{28,108,200}, {108,28,200}});
+createPlot(id=1, position={33, 24, 1372, 358}, y={"bli.pDown", "bli.blindState"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {108,28,200}});

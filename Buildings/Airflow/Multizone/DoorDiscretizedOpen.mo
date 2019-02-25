@@ -3,6 +3,9 @@ model DoorDiscretizedOpen
   "Door model using discretization along height coordinate"
   extends Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized;
 
+  parameter Real CD=0.65 "Discharge coefficient"
+    annotation (Dialog(group="Orifice characteristics"));
+
 protected
   constant Real mFixed = 0.5 "Fixed value for flow coefficient";
   constant Real gamma(min=1) = 1.5
@@ -53,25 +56,38 @@ for a door that can either be open or closed.
 revisions="<html>
 <ul>
 <li>
+January 8, 2019, by Michael Wetter:<br/>
+Moved parameter <code>CD</code> from
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized\">
+Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</a>
+to
+<a href=\"modelica://Buildings.Airflow.Multizone.DoorDiscretizedOpen\">
+Buildings.Airflow.Multizone.DoorDiscretizedOpen</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/971\">#971</a>.
+</li>
+<li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
-<li><i>December 6, 2011</i> by Michael Wetter:<br/>
-       Changed the computation of the discharge coefficient to use the
-       nominal density instead of the actual density.
-       Computing <code>sqrt(2/rho)</code> sometimes causes warnings from the solver,
-       as it seems to try negative values for the density during iterative solutions.
+<li>December 6, 2011 by Michael Wetter:<br/>
+Changed the computation of the discharge coefficient to use the
+nominal density instead of the actual density.
+Computing <code>sqrt(2/rho)</code> sometimes causes warnings from the solver,
+as it seems to try negative values for the density during iterative solutions.
 </li>
-<li><i>August 12, 2011</i> by Michael Wetter:<br/>
-       Changed model to use the new function
-       <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
-       Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
+<li>August 12, 2011 by Michael Wetter:<br/>
+Changed model to use the new function
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
+Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br/>
-       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+<li>July 20, 2010 by Michael Wetter:<br/>
+Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>February 10, 2005</i> by Michael Wetter:<br/>
-       Released first version.
+<li>
+February 10, 2005 by Michael Wetter:<br/>
+Released first version.
+</li>
 </ul>
 </html>"));
 end DoorDiscretizedOpen;

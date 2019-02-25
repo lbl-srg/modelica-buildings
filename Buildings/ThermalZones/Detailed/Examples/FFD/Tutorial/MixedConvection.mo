@@ -40,7 +40,7 @@ model MixedConvection "Tutorial for Mixed Convection case"
     linearizeRadiation = false,
     useCFD = true,
     sensorName = {"Occupied zone air temperature", "Velocity"},
-    cfdFilNam = "modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/MixedConvection.ffd",
+    cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.ffd",
     nConExt = nConExt,
     nConExtWin = nConExtWin,
     nConPar = nConPar,
@@ -236,7 +236,7 @@ Buildings.ThermalZones.Detailed.CFD roo(
     linearizeRadiation = false,
     useCFD = true,
     sensorName = {\"Occupied zone air temperature\", \"Velocity\"},
-    cfdFilNam = \"modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/MixedConvection.ffd\",
+    cfdFilNam = \"modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.ffd\",
     nConExt = nConExt,
     nConExtWin = nConExtWin,
     nConPar = nConPar,
@@ -321,7 +321,7 @@ Rename the files as <code>MixedConvection.cfd</code> and <code>MixedConvection.d
 <li>
 <p>
 Revise the FFD parameter input file <code>MixedConvection.ffd</code>
-(an example file is available in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):  </p>
+(an example file is available in <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</code>):  </p>
 <pre>
   inpu.parameter_file_format SCI
   inpu.parameter_file_name MixedConvection.cfd
@@ -345,7 +345,7 @@ Revise the FFD parameter input file <code>MixedConvection.ffd</code>
 </li>
 <li>
 Put the files <code>MixedConvection.ffd</code>, <code>MixedConvection.dat</code>, and <code>MixedConvection.cfd</code> in the
-directory <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>.
+directory <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</code>.
 </li>
 <li>
 Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the Radau solver.

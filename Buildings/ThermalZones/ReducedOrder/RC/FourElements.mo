@@ -43,7 +43,7 @@ model FourElements "Thermal Zone with four elements for exterior walls,
     final T_start=T_start) if ARoof > 0 "RC-element for roof"
     annotation (Placement(
     transformation(
-    extent={{10,-11},{-10,11}},
+    extent={{-10,-11},{10,11}},
     rotation=90,
     origin={-12,155})));
 
@@ -92,10 +92,10 @@ protected
       origin={-108,6})));
 
 equation
-  connect(convRoof.solid, roofRC.port_b)
+  connect(convRoof.solid, roofRC.port_a)
     annotation (Line(points={{-12,130},{-12,138},{-12,145},{-11,145}},
                                                      color={191,0,0}));
-  connect(roofRC.port_a, roof)
+  connect(roofRC.port_b, roof)
     annotation (Line(points={{-11,165},{-11,168},{-11,180}},
                                                      color={191,0,0}));
   connect(resRoofWin.port_a, convWin.solid)
@@ -154,11 +154,11 @@ equation
     connect(thermSplitterIntGains.portOut[4], roofRC.port_a);
     connect(roofRC.port_a, thermSplitterSolRad.portOut[4]);
   elseif ATotExt > 0 and ATotWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0 then
-    connect(thermSplitterSolRad.portOut[5], roofRC.port_b)
+    connect(thermSplitterSolRad.portOut[5], roofRC.port_a)
     annotation (Line(
     points={{-122,146},{-122,146},{-38,146},{-38,142},{-11,142},{-11,145}},
     color={191,0,0}));
-    connect(thermSplitterIntGains.portOut[5], roofRC.port_b)
+    connect(thermSplitterIntGains.portOut[5], roofRC.port_a)
     annotation (Line(points={{190,86},{190,86},{190,138},{-11,138},{-11,145}},
     color={191,0,0}));
   end if;
@@ -168,7 +168,7 @@ equation
   connect(convRoof.fluid, senTAir.port)
     annotation (Line(points={{-12,110},{-12,110},{-12,96},{66,96},{66,0},{80,0}},
                                                  color={191,0,0}));
-  connect(roofRC.port_b, roofIndoorSurface)
+  connect(roofRC.port_a, roofIndoorSurface)
     annotation (Line(points={{-11,145},{-11,136},{-112,136},{-112,112},{-216,
           112},{-216,-140},{-40,-140},{-40,-180}},
     color={191,0,0}));
@@ -198,6 +198,13 @@ equation
   textString="4")}),
   Documentation(revisions="<html>
   <ul>
+  <li>
+  August 31, 2018 by Moritz Lauster:<br/>
+  Updated schema in documentation and fixes
+  orientation and connections of roofRC for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/997\">
+  issue 997</a>.
+  </li>
   <li>
   September 11, 2015 by Moritz Lauster:<br/>
   First Implementation.

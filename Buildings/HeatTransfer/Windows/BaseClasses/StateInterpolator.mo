@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 block StateInterpolator "Block to interpolate between different window states"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Integer NSta(min=1)
     "Number of window states for electrochromic windows"

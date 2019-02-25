@@ -3,6 +3,9 @@ function exchange "Function that communicates with Python"
   input String moduleName
     "Name of the python module that contains the function";
   input String functionName=moduleName "Name of the python function";
+  input BaseClasses.PythonObject pytObj "Memory that holds the Python object";
+  input Boolean passPythonObject
+    "Set to true if the Python function returns and receives an object, see User's Guide";
 
   input Real    dblWri[max(1, nDblWri)] "Double values to write";
   input Integer intWri[max(1, nIntWri)] "Integer values to write";
@@ -27,14 +30,15 @@ function exchange "Function that communicates with Python"
                                     dblRea, nDblRea,
                                     intWri, nIntWri,
                                     intRea, nIntRea,
-                                    strWri, nStrWri)
+                                    strWri, nStrWri,
+                                    pytObj,
+                                    passPythonObject)
     annotation (Library={"ModelicaBuildingsPython2.7",  "python2.7"},
-      LibraryDirectory={"modelica://Buildings/Resources/Library"},
+      LibraryDirectory="modelica://Buildings/Resources/Library",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       Include="#include \"python27Wrapper.c\"",
       __iti_dll = "ITI_ModelicaBuildingsPython2.7.dll",
       __iti_dllNoExport = true);
-
   annotation (Documentation(info="<html>
 <p>
 This function exchanges data with Python.
@@ -48,6 +52,11 @@ for examples.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2018, by Michael Wetter:<br/>
+Corrected <code>LibraryDirectory</code> annotation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1160\">issue 1160</a>.
+</li>
 <li>
 March 27, 2013, by Thierry S. Nouidui:<br/>
 Added  a wrapper to <code>ModelicaFormatError</code> to support Windows OS.

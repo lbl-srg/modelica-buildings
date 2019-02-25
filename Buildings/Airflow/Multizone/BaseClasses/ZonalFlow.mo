@@ -9,7 +9,8 @@ partial model ZonalFlow "Flow across zonal boundaries of a room"
      final m2_flow_nominal = m1_flow_nominal);
 
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    annotation (choicesAllMatching = true);
+    annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
 equation
   // Energy balance (no storage, no heat loss/gain)
@@ -34,21 +35,30 @@ equation
   port_b2.C_outflow = inStream(port_a2.C_outflow);
 
   annotation (                       Icon(graphics={
-        Line(points={{-86,-46},{0,-34},{88,-52}}, color={0,0,127}),
-        Line(points={{-92,50},{0,34},{84,48}},    color={0,0,127}),
-        Polygon(
-          points={{-7,1},{9,1},{7,9},{-7,1}},
-          lineColor={0,0,127},
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid,
-          origin={-87,-49},
-          rotation=360),
+                                Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
+        Line(points={{-84,54},{-40,34},{0,68},{36,42},{72,50}},
+                                                  color={0,0,127},
+          smooth=Smooth.Bezier),
         Polygon(
           points={{7,-1},{-9,-1},{-7,-9},{7,-1}},
           lineColor={0,0,127},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
-          origin={85,53},
+          origin={79,55},
+          rotation=360),
+        Line(points={{76,-62},{32,-82},{-8,-48},{-44,-74},{-80,-66}},
+                                                  color={0,0,127},
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{-7,-1},{9,-1},{7,-9},{-7,-1}},
+          lineColor={0,0,127},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          origin={-79,-63},
           rotation=360)}),
     Documentation(info="<html>
 <p>
@@ -59,6 +69,11 @@ Models that extend this model need to provide an equation for
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 August 18, 2014, by Michael Wetter:<br/>
 Removed parameter <code>forceErrorControlOnFlow</code> as it was not used.

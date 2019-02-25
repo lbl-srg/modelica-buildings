@@ -1,8 +1,34 @@
 within Buildings.Fluid.Storage;
 model StratifiedEnhanced "Stratified tank model with enhanced discretization"
-  extends Stratified(nSeg=4, nPorts=3, vol(each prescribedHeatFlowRate=true));
+  extends BaseClasses.PartialStratified(
+    nSeg=4,
+    vol(each prescribedHeatFlowRate=true,
+        each nPorts=3));
 
 protected
+  Buildings.Fluid.Sensors.EnthalpyFlowRate H_a_flow(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small) "Enthalpy flow rate at port a"
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+  Buildings.Fluid.Sensors.EnthalpyFlowRate[nSeg - 1] H_vol_flow(
+    redeclare package Medium = Medium,
+    each final m_flow_nominal=m_flow_nominal,
+    each final tau=0,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=m_flow_small)
+    "Enthalpy flow rate between the volumes"
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+  Buildings.Fluid.Sensors.EnthalpyFlowRate H_b_flow(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small) "Enthalpy flow rate at port b"
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
+
   BaseClasses.ThirdOrderStratifier str(
     redeclare package Medium = Medium,
     nSeg=nSeg,
@@ -13,9 +39,23 @@ protected
     "Mass flow rate at port a" annotation (Placement(transformation(extent={{-94,-42},
             {-74,-22}})));
 equation
+  connect(H_a_flow.port_b, vol[1].ports[1]) annotation (Line(points={{-40,-80},
+          {-40,-80},{14,-80},{14,-16},{16,-16}},color={0,127,255}));
+  connect(vol[nSeg].ports[2], H_b_flow.port_a) annotation (Line(points={{16,-16},
+          {14,-16},{14,-80},{50,-80}}, color={0,127,255}));
+  connect(H_b_flow.port_b, port_b) annotation (Line(points={{70,-80},{80,-80},{80,
+          0},{100,0}}, color={0,127,255}));
+  for i in 1:(nSeg-1) loop
+    connect(vol[i].ports[2], H_vol_flow[i].port_a) annotation (Line(points={{16,
+            -16},{16,-20},{-28,-20},{-28,-40},{-20,-40}}, color={0,127,255}));
+    connect(H_vol_flow[i].port_b, vol[i + 1].ports[1]) annotation (Line(points={{0,-40},
+            {4,-40},{4,-16},{16,-16}},         color={0,127,255}));
+  end for;
+  connect(port_a, H_a_flow.port_a) annotation (Line(points={{-100,0},{
+          -80,0},{-80,-80},{-60,-80}}, color={0,127,255}));
+
   connect(vol[1:nSeg].ports[3], str.fluidPort[2:nSeg+1])
-                                                        annotation (Line(points={{16,-16},
-          {16,-20},{-72,-20},{-72,-40},{-60,-40}},
+   annotation (Line(points={{16,-16},{16,-18},{-66,-18},{-66,-40},{-60,-40}},
                  color={0,127,255}));
   connect(H_a_flow.H_flow, str.H_flow[1]) annotation (Line(points={{-50,-69},{-50,
           -62},{-68,-62},{-68,-48},{-62,-48}},
@@ -54,6 +94,19 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+<li>
+June 1, 2018, by Michael Wetter:<br/>
+Refactored model to allow a fluid port in the tank that do not have
+the enhanced stratification model.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1182\">
+issue 1182</a>.
+</li>
 <li>
 March 29, 2012 by Wangda Zuo:<br/>
 Revised the implementation to reduce the temperature overshoot.

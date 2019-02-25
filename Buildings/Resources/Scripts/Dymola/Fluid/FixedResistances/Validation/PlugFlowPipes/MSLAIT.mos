@@ -51,10 +51,6 @@ createPlot(id = 6,
  subPlot=2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
-
-
-
 createPlot(id = 7,
  position = {55, 600, 500, 500},
  x = "time",
@@ -82,8 +78,6 @@ createPlot(id = 7,
  subPlot=2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
-
 createPlot(id = 8,
  position = {600, 600, 500, 500},
  x = "time",

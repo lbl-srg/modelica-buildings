@@ -1,13 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.Validation;
 model ActiveAirFlow
   "Validate the model for calculating active airflow setpoint for VAV terminal unit with reheat"
-  extends Modelica.Icons.Example;
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet_RehBox(
-    VCooMax=0.075,
-    VMin=0.017,
-    VHeaMax=0.05,
-    VMinCon=0.01,
+    VDisCooSetMax_flow=0.075,
+    VDisSetMin_flow=0.017,
+    VDisHeaSetMax_flow=0.05,
+    VDisConMin_flow=0.01,
     AFlo=40,
     have_occSen=true,
     have_winSen=true,
@@ -16,10 +15,10 @@ model ActiveAirFlow
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SetPoints.ActiveAirFlow
     actAirSet_RehBox1(
-    VCooMax=0.075,
-    VMin=0.017,
-    VHeaMax=0.05,
-    VMinCon=0.01,
+    VDisCooSetMax_flow=0.075,
+    VDisSetMin_flow=0.017,
+    VDisHeaSetMax_flow=0.05,
+    VDisConMin_flow=0.01,
     AFlo=40,
     have_occSen=true,
     have_winSen=true,
@@ -92,5 +91,25 @@ September 07, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}}),
+                   Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}), Polygon(
+          lineColor={0,0,255},
+          fillColor={75,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-36,58},{64,-2},{-36,-62},{-36,58}})}));
 end ActiveAirFlow;

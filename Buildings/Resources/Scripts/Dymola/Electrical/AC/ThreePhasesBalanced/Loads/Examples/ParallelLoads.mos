@@ -5,7 +5,6 @@ Advanced.FilenameInLegend = false;
 Advanced.SequenceInLegend = true;
 Advanced.PlotLegendTooltip = true;
 Advanced.FullPlotTooltip = true;
-
 createPlot(id=1,
 position={0, 0, 1535, 703},
 y={"RL_pf.S[1]", "RL_pf.S[2]", "varRL_y.S[1]", "varRL_y.S[2]", "varRC_y.S[1]", "varRC_y.S[2]", "varRL_P.S[1]", "varRL_P.S[2]"},
@@ -23,7 +22,6 @@ bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}, {255,0,0}, {0,128,0}},
 markers={MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None,
 MarkerStyle.None, MarkerStyle.Cross, MarkerStyle.Cross, MarkerStyle.Cross});
-
 createPlot(id=1,
 position={0, 0, 1535, 348},
 y={"E.S[1]", "E.S[2]"},

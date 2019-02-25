@@ -135,7 +135,7 @@ equation
     annotation (Line(points={{40,-1.33227e-15},{40,0},{60,0}},
                                                     color={0,127,255}));
   connect(gain.y, WaterCityNetwork.m_flow_in) annotation (Line(points={{73,-40},
-          {104,-40},{104,8},{80,8}},
+          {104,-40},{104,8},{82,8}},
                                    color={0,0,127}));
   connect(Tin.y, Boiler.TSet) annotation (Line(points={{61,-70},{94,-70},{94,28},
           {52,28},{52,8},{42,8}},          color={0,0,127}));

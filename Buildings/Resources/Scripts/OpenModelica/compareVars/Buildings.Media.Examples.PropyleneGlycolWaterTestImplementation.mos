@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "volume.medium.T",
+    "volume.medium.X[1]"
+  };

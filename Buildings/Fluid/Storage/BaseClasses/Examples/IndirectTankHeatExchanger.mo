@@ -17,8 +17,7 @@ model IndirectTankHeatExchanger
     dp_nominal=10000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TTan_nominal=293.15,
-    THex_nominal=323.15) "Heat exchanger"
-    annotation (Placement(transformation(
+    THex_nominal=323.15) "Heat exchanger" annotation (Placement(transformation(
         extent={{-12,-17},{12,17}},
         rotation=90,
         origin={-19,8})));
@@ -71,6 +70,12 @@ of the heat exchanger is modeled as a constant temperature.<br/>
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
 <li>
 February 27, 2016 by Michael Wetter:<br/>
 Stored example in a single file rather than a file with multiple examples.

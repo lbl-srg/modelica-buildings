@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.Storage.Examples.StratifiedUnloadAtMinimumTemperature", stopTime=21600, method="Cvode", tolerance=1e-06, resultFile="StratifiedUnloadAtMinimumTemperature");
+createPlot(id=1, position={15, 10, 1382, 1112}, y={"tan.vol[1].T", "tan.vol[3].T", "tan.vol[5].T"}, range={0.0, 22000.0, 0.0, 100.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={15, 10, 1382, 368}, y={"senTem.T"}, range={0.0, 22000.0, 20.0, 100.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 1382, 367}, y={"yBot.u", "yMid.u", "yTop.u", "yHea.u"}, range={0.0, 22000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});

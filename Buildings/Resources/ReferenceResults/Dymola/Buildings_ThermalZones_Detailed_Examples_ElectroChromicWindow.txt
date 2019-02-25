@@ -1,4 +1,4 @@
-last-generated=2017-12-20
+last-generated=2019-01-08
 statistics-initialization=
 {
   "nonlinear": "1, 1, 1, 1, 1, 13",

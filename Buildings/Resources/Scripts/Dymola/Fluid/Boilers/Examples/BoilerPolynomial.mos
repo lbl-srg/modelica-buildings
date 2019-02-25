@@ -1,5 +1,4 @@
 simulateModel("Buildings.Fluid.Boilers.Examples.BoilerPolynomial", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="BoilerPolynomial");
-
 createPlot(id = 1,
  position = {15, 10, 400, 370},
  y = {"boi1.sta_a.T", "boi1.sta_b.T", "boi1.T", "boi2.sta_a.T", "boi2.sta_b.T", "boi2.T"},

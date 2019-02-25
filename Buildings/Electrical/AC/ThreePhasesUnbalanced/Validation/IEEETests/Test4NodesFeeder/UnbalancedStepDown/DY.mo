@@ -23,7 +23,7 @@ model DY
     final Theta3_ref=Modelica.Constants.pi/180.0*{-32.4,-153.8,85.2},
     final Theta4_ref=Modelica.Constants.pi/180.0*{-34.2,-157.0,73.4},
     loadRL(use_pf_in=true),
-    line2(terminal_p(each phase(v(each start=-1)))));
+    line2(terminal_p(phase(v(each start=-1)))));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownDY
     transformer(
     VHigh=VLL_side1,
@@ -99,6 +99,10 @@ equation
         "Simulate and plot"),
  Documentation(revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Corrected wrong use of <code>each</code>.
+</li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
 Set start values.<br/>

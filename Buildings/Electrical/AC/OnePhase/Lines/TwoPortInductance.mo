@@ -5,8 +5,8 @@ model TwoPortInductance
     Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortInductance(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p);
+    redeclare replaceable Interfaces.Terminal_n terminal_n,
+    redeclare replaceable Interfaces.Terminal_p terminal_p);
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
@@ -56,6 +56,10 @@ The model represents the lumped inductance as shown in the figure below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2019, by Michael Wetter:<br/>
+Added <code>replaceable</code> for terminal.
+</li>
 <li>
 May 26, 2016, by Michael Wetter:<br/>
 Moved function call to <code>PhaseSystem.thetaRef</code> out of

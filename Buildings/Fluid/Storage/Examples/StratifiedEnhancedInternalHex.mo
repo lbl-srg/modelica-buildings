@@ -19,14 +19,12 @@ model StratifiedEnhancedInternalHex
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,-12})));
-  Sources.Boundary_pT solColSup(
+  Buildings.Fluid.Sources.Boundary_pT solColSup(
     redeclare package Medium = MediumHex,
     nPorts=3,
     use_p_in=true,
-    T=353.15) "Water from solar collector"
-              annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-30,40})));
+    T=353.15) "Water from solar collector" annotation (Placement(transformation(
+          extent={{-10,-10},{10,10}}, origin={-30,40})));
   Buildings.Fluid.Sources.Boundary_pT toSolCol(
     redeclare package Medium = MediumHex,
     nPorts=3,
@@ -55,7 +53,8 @@ model StratifiedEnhancedInternalHex
     dpHex_nominal=dpHex_nominal)
     "Tank with heat exchanger configured as steady state"
     annotation (Placement(transformation(extent={{6,56},{40,88}})));
-  Sensors.TemperatureTwoPort senTemSte(redeclare package Medium = MediumHex,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSte(
+    redeclare package Medium = MediumHex,
     allowFlowReversal=false,
     m_flow_nominal=mHex_flow_nominal,
     tau=0) "Temperature sensor for outlet of steady-state heat exchanger"
@@ -65,7 +64,7 @@ model StratifiedEnhancedInternalHex
     offset=3E5,
     startTime=300) "Step input for mass flow rate"
     annotation (Placement(transformation(extent={{-80,38},{-60,58}})));
-  Sensors.TemperatureTwoPort senTemDyn(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemDyn(
     redeclare package Medium = MediumHex,
     allowFlowReversal=false,
     m_flow_nominal=mHex_flow_nominal,
@@ -111,7 +110,7 @@ model StratifiedEnhancedInternalHex
     THex_nominal=323.15)
     "Tank with heat exchanger configured as steady-state except for metal which is dynamic"
     annotation (Placement(transformation(extent={{6,-76},{40,-44}})));
-  Sensors.TemperatureTwoPort senTemDynSol(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemDynSol(
     redeclare package Medium = MediumHex,
     allowFlowReversal=false,
     m_flow_nominal=mHex_flow_nominal,
@@ -176,6 +175,12 @@ mass flow rate, and is set to its design flow rate at <i>t=300</i> seconds.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

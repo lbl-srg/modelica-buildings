@@ -2,7 +2,10 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.Examples;
 model ACDCConverter
   "This example illustrates how to use the AC/DC converter model"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.DC.Loads.Resistor res(R=1, V_nominal=120)
+  Buildings.Electrical.DC.Loads.Resistor res(
+    R=1,
+    V_nominal=120,
+    i(each start=0))
     "Resistive load" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},

@@ -2,9 +2,9 @@ within Buildings.Fluid.FixedResistances;
 model Junction
   "Flow splitter with fixed resistance at each port"
     extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
+    m_flow_small=mDyn_flow_nominal*1e-4,
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
     redeclare Buildings.Fluid.FixedResistances.PressureDrop res1(
-      final allowFlowReversal=true,
       from_dp=from_dp,
       final m_flow_nominal=m_flow_nominal[1],
       final dp_nominal=dp_nominal[1],
@@ -12,7 +12,6 @@ model Junction
       homotopyInitialization=homotopyInitialization,
       deltaM=deltaM),
     redeclare Buildings.Fluid.FixedResistances.PressureDrop res2(
-      final allowFlowReversal=true,
       from_dp=from_dp,
       final m_flow_nominal=m_flow_nominal[2],
       final dp_nominal=dp_nominal[2],
@@ -20,7 +19,6 @@ model Junction
       homotopyInitialization=homotopyInitialization,
       deltaM=deltaM),
     redeclare Buildings.Fluid.FixedResistances.PressureDrop res3(
-      final allowFlowReversal=true,
       from_dp=from_dp,
       final m_flow_nominal=m_flow_nominal[3],
       final dp_nominal=dp_nominal[3],
@@ -119,6 +117,15 @@ system of equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2018 by Filip Jorissen:<br/>
+Removed <code>final allowFlowReversal=true</code> from all resistances 
+since this overrides the default simplification when the flow
+is not bidirectional.
+This change can lead to smaller algebraic loops.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/898\">issue 898</a>.
+</li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 Renamed model from <code>SplitterFixedResistanceDpM</code> to

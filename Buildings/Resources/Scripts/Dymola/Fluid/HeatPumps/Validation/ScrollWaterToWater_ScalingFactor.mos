@@ -1,5 +1,4 @@
 simulateModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_ScalingFactor", method="dassl", tolerance=1e-6, stopTime=1000, resultFile="ScrollWaterToWater_ScalingFactor");
-
 createPlot(id = 1,
    position = {60, 10, 640, 480},
    y = {"heaPum.QCon_flow", "heaPum1.QCon_flow"},
@@ -11,7 +10,6 @@ createPlot(id = 1,
    filename = "ScrollWaterToWater_ScalingFactor.mat",
    leftTitleType = 1,
    bottomTitleType = 1);
-
 createPlot(id = 2,
    position = {120, 30, 640, 480},
    y = {"capErr.y"},

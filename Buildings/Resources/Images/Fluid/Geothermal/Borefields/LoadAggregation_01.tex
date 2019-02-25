@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{nopageno}
+\usepackage[active,tightpage]{preview}  %generates a tightly fitting border around the work
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{2mm}
+
+\begin{document}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows}
+
+\begin{tikzpicture}[scale=1.0,>=angle 60]
+% Visualization of the load aggregation of Claesson and Javed (2012)
+
+% Highlight loads shifted to bigger cells
+\fill[red] (5,10) -- (5,12) -- (6,12) -- (6,10) -- cycle;
+\fill[red] (3,5) -- (3,6) -- (4,6) -- (4,5) -- cycle;
+\fill[red] (5,5) -- (5,8) -- (6,8) -- (6,5) -- cycle;
+
+% Generate axes
+\foreach \y in {0,5,10}
+{
+    % x-axis
+    \draw[line width=2pt,black,->] (0,\y) -- (10,\y);
+    % y-axis
+    \draw[line width=2pt,black,->] (8,\y) node[below right] {\large $t-t_i$} -- (8,\y+4) node[right] {\large Q};
+    % y-axis ticks
+    \foreach \dy in {1,2,3}
+	\draw[line width=1pt,black] (8-0.15,\y+\dy) -- (8+0.15,\y+\dy);
+}
+
+% Cell delimiters
+\foreach \n/\dt in {5/1,4/3,3/5,2/6,1/7}
+	\draw[line width=1.5pt,black,dashed] (\dt,-0.5) -- (\dt,14) node[right] {\large \n};
+
+% Identify cell widths
+\foreach \dt in {2,4}
+	\path (\dt,-0.5) node {\large $2\Delta t$};
+\foreach \dt in {5.5,6.5,7.5}
+	\path (\dt,-0.5) node {\large $\Delta t$};
+
+% Loads in top graph
+\foreach \dt/\ddt/\Q in {5/1/2,6/1/3,7/1/1}
+	\draw[line width=1.5pt,blue] (\dt,10) -- (\dt,10+\Q) -- (\dt+\ddt,10+\Q) -- (\dt+\ddt,10);
+% Loads in middle graph
+\foreach \dt/\ddt/\Q in {3/2/1,5/1/3,6/1/1}
+	\draw[line width=1.5pt,blue] (\dt,5) -- (\dt,5+\Q) -- (\dt+\ddt,5+\Q) -- (\dt+\ddt,5);
+% Loads in bottom graph
+\foreach \dt/\ddt/\Q in {1/2/0.5,3/2/2,5/1/1}
+	\draw[line width=1.5pt,blue] (\dt,0) -- (\dt,0+\Q) -- (\dt+\ddt,0+\Q) -- (\dt+\ddt,0);
+
+% Arrows
+\draw[red,line width=2pt,->] (5.5,9.85) to [out=-90, in=90] (4,6.15);
+\draw[red,line width=2pt,->] (3.5,4.85) to [out=-90, in=90] (2,0.65);
+\draw[red,line width=2pt,->] (5.5,4.85) to [out=-90, in=90] (4,2.15);
+
+
+\end{tikzpicture}
+
+\end{document}

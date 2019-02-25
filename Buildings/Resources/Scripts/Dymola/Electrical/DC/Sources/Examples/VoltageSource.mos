@@ -6,7 +6,6 @@ Advanced.FilenameInLegend = false;
 Advanced.SequenceInLegend = true;
 Advanced.PlotLegendTooltip = true;
 Advanced.FullPlotTooltip = true;
-
 createPlot(id=1,
 position={0, 0, 1340, 565},
 y={"sen.V"},
@@ -22,7 +21,6 @@ filename="VoltageSourceDC.mat",
 leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}});
-
 createPlot(id=1,
 position={0, 0, 1340, 279},
 y={"sen.I"},

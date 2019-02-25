@@ -2,8 +2,10 @@ within Buildings.Fluid.FMI.ExportContainers;
 partial block ThermalZones
   "Partial block to export a model of multiple thermal zones as an FMU"
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium model" annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Integer nZon(min=1)
     "Number of thermal zones in this container";
@@ -214,6 +216,11 @@ that has signal flow.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 September 20, 2016, by Thierry S. Nouidui:<br/>
 Revised documentation to explain the rationale

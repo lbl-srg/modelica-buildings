@@ -2,13 +2,16 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
 model IntegratedPrimarySecondary
   "Integrated WSE on the load side in a primary-secondary chilled water system"
   extends Modelica.Icons.Example;
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
-    sou1(nPorts=1),
-    sin1(nPorts=1),
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
+    sou1(nPorts=2, m_flow=2*mCW_flow_nominal),
+    sin1(nPorts=2),
     TSet(k=273.15 + 5.56),
-    TEva_in(k=273.15 + 10.28));
+    TEva_in(k=273.15 + 10.28),
+    sin2(nPorts=2));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary intWSEPriSec(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary
+    intWSEPriSec1(
     m1_flow_chi_nominal=mCW_flow_nominal,
     m2_flow_chi_nominal=mCHW_flow_nominal,
     m1_flow_wse_nominal=mCW_flow_nominal,
@@ -35,67 +38,122 @@ model IntegratedPrimarySecondary
   Modelica.Blocks.Sources.RealExpression yVal5(
     y=if onChi.y and not onWSE.y then 1 else 0)
     "On/off signal for valve 5"
-    annotation (Placement(transformation(extent={{40,70},{20,90}})));
-  Modelica.Blocks.Sources.BooleanStep onChi(startTime = 7200)
-    "On and off signal for the chiller"
-    annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
-  Modelica.Blocks.Sources.BooleanStep onWSE(
-    startTime = 14400,
-    startValue=true)
-    "On and off signal for the WSE"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{40,80},{20,100}})));
   Modelica.Blocks.Sources.RealExpression yPum(y=if onChi.y then 1 else 0)
     "Input signal for primary pump"
-    annotation (Placement(transformation(extent={{40,50},{20,70}})));
+    annotation (Placement(transformation(extent={{40,60},{20,80}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = MediumCHW,
-    m_flow=0.8*mCHW_flow_nominal,
-    nPorts=1,
-    use_T_in=true) "Source on medium 2 side"
+    nPorts=2,
+    use_T_in=true,
+    m_flow=1.6*mCHW_flow_nominal)
+                   "Source on medium 2 side"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        origin={50,-70})));
+        origin={50,-74})));
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary
+    intWSEPriSec2(
+    m1_flow_chi_nominal=mCW_flow_nominal,
+    m2_flow_chi_nominal=mCHW_flow_nominal,
+    m1_flow_wse_nominal=mCW_flow_nominal,
+    m2_flow_wse_nominal=mCHW_flow_nominal,
+    redeclare package Medium1 = MediumCW,
+    redeclare package Medium2 = MediumCHW,
+    dp1_chi_nominal=dpCW_nominal,
+    dp1_wse_nominal=dpCW_nominal,
+    dp2_chi_nominal=dpCHW_nominal,
+    dp2_wse_nominal=dpCHW_nominal,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    redeclare
+      Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHF_2567kW_11_77COP_VSD
+      perChi,
+    k=0.4,
+    Ti=80,
+    numChi=numChi,
+    addPowerToMedium=false,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    reset=Buildings.Types.Reset.Parameter,
+    y_reset=0)
+    "Integrated waterside economizer on the load side of a primary-secondary chilled water system"
+    annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
+  Modelica.Blocks.Sources.BooleanPulse tri(period=1800)
+    "Trigger controller reset"
+    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+  parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPum(each pressure=
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+        V_flow=mCHW_flow_nominal/1000*{0.2,0.6,1.0,1.2}, dp=dpCHW_nominal*{1.2,1.1,
+        1.0,0.6})) "Pump performance data"
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TSup2(redeclare package Medium =
+        MediumCHW, m_flow_nominal=mCHW_flow_nominal) "Temperature sensor"
+    annotation (Placement(transformation(extent={{-40,-126},{-60,-106}})));
 equation
-  connect(onChi.y, intWSEPriSec.on[1])
-    annotation (Line(points={{-71,80},{-71,80},{-24,80},{-24,-30.4},{-11.6,
-          -30.4}},                                 color={255,0,255}));
-  connect(onWSE.y, intWSEPriSec.on[2])
-    annotation (Line(points={{-39,60},{-39,60},{-26,60},{-26,-30},{-18,-30},{
-          -18,-30.4},{-11.6,-30.4}},               color={255,0,255}));
-  connect(TSet.y, intWSEPriSec.TSet)
-    annotation (Line(points={{-69,30},{-69,30},{-20,30},{-20,-27.2},{-11.6,-27.2}},
-                                               color={0,0,127}));
-  connect(yVal5.y, intWSEPriSec.yVal5)
-    annotation (Line(points={{19,80},{-18,80},{-18,80},{-18,-35},{-11.6,-35}},
-                                           color={0,0,127}));
-  connect(intWSEPriSec.port_a1, sou1.ports[1])
-    annotation (Line(points={{-10,-32},
+  connect(TSet.y, intWSEPriSec1.TSet) annotation (Line(points={{-79,30},{-16,30},
+          {-16,-27.2},{-11.6,-27.2}}, color={0,0,127}));
+  connect(yVal5.y, intWSEPriSec1.yVal5) annotation (Line(points={{19,90},{-20,90},
+          {-20,-35},{-11.6,-35}}, color={0,0,127}));
+  connect(intWSEPriSec1.port_a1, sou1.ports[1]) annotation (Line(points={{-10,-32},
           {-22,-32},{-28,-32},{-28,-4},{-40,-4}}, color={0,127,255}));
-  connect(intWSEPriSec.port_b2, TSup.port_a)
-    annotation (Line(points={{-10,-44},
+  connect(intWSEPriSec1.port_b2, TSup1.port_a) annotation (Line(points={{-10,-44},
           {-20,-44},{-40,-44}}, color={0,127,255}));
-  connect(intWSEPriSec.port_b1, sin1.ports[1])
-    annotation (Line(points={{10,-32},{26,-32},{26,-4},{70,-4}},
-                                     color={0,127,255}));
-  connect(intWSEPriSec.port_a2, sou2.ports[1])
-    annotation (Line(points={{10,-44},{20,-44},{26,-44},{26,-70},{40,-70}},
-                                                color={0,127,255}));
-  connect(yPum.y, intWSEPriSec.yPum[1]) annotation (Line(points={{19,60},{19,60},
-          {-16,60},{-16,-41.5},{-11.5,-41.5}}, color={0,0,127}));
+  connect(intWSEPriSec1.port_b1, sin1.ports[1]) annotation (Line(points={{10,-32},
+          {20,-32},{20,-4},{70,-4}}, color={0,127,255}));
+  connect(intWSEPriSec1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},
+          {26,-44},{26,-72},{40,-72}},          color={0,127,255}));
+  connect(yPum.y, intWSEPriSec1.yPum[1]) annotation (Line(points={{19,70},{-22,70},
+          {-22,-42},{-11.6,-42}}, color={0,0,127}));
   connect(TEva_in.y, sou2.T_in)
-    annotation (Line(points={{69,-70},{66,-70},{66,-66},{64,-66},{64,-66},{62,
-          -66},{62,-66}},                                 color={0,0,127}));
+    annotation (Line(points={{69,-70},{62,-70}},          color={0,0,127}));
+  connect(onChi.y, intWSEPriSec1.on[1]) annotation (Line(points={{-79,90},{-18,90},
+          {-18,-30.4},{-11.6,-30.4}}, color={255,0,255}));
+  connect(onWSE.y, intWSEPriSec1.on[2]) annotation (Line(points={{-79,60},{-18,60},
+          {-18,-30.4},{-11.6,-30.4}}, color={255,0,255}));
+  connect(TSet.y, intWSEPriSec2.TSet) annotation (Line(points={{-79,30},{-16,30},
+          {-16,-99.2},{-11.6,-99.2}}, color={0,0,127}));
+  connect(onChi.y, intWSEPriSec2.on[1]) annotation (Line(points={{-79,90},{-18,90},
+          {-18,-102.4},{-11.6,-102.4}}, color={255,0,255}));
+  connect(onWSE.y, intWSEPriSec2.on[2]) annotation (Line(points={{-79,60},{-18,60},
+          {-18,-102.4},{-11.6,-102.4}}, color={255,0,255}));
+  connect(yVal5.y, intWSEPriSec2.yVal5) annotation (Line(points={{19,90},{-20,90},
+          {-20,-107},{-11.6,-107}}, color={0,0,127}));
+  connect(yPum.y, intWSEPriSec2.yPum[1]) annotation (Line(points={{19,70},{-22,70},
+          {-22,-114},{-11.6,-114}}, color={0,0,127}));
+  connect(sou1.ports[2], intWSEPriSec2.port_a1) annotation (Line(points={{-40,-4},
+          {-28,-4},{-28,-104},{-10,-104}}, color={0,127,255}));
+  connect(sou2.ports[2], intWSEPriSec2.port_a2) annotation (Line(points={{40,-76},
+          {26,-76},{26,-116},{10,-116}}, color={0,127,255}));
+  connect(intWSEPriSec2.port_b1, sin1.ports[2]) annotation (Line(points={{10,-104},
+          {20,-104},{20,-4},{70,-4}}, color={0,127,255}));
+  connect(tri.y, intWSEPriSec2.trigger) annotation (Line(points={{-79,-150},{-6,
+          -150},{-6,-120}}, color={255,0,255}));
+  connect(sin2.ports[2], TSup2.port_b) annotation (Line(points={{-70,-70},{-64,-70},
+          {-64,-116},{-60,-116}}, color={0,127,255}));
+  connect(TSup2.port_a, intWSEPriSec2.port_b2)
+    annotation (Line(points={{-40,-116},{-10,-116}}, color={0,127,255}));
   annotation (__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimarySecondary.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimarySecondary.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates how the model responses
 according to different cooling mode signals
 (free cooling mode, partially mechanical cooling and fully mechanical cooling).
 </p>
+<p>
+The reponses are also compared with a second case where the PI controller in the WSE
+is reset every 1800s.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 28, 2019, by Yangyang Fu:<br/>
+Added test case for PI controller reset.
+</li>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong use of <code>each</code>.
+</li>
 <li>
 September 11, 2017, by Michael Wetter:<br/>
 Corrected wrong use of replaceable model in the base class.<br/>
@@ -111,5 +169,6 @@ First implementation.
 experiment(
       StartTime=0,
       StopTime=21600,
-      Tolerance=1e-06));
+      Tolerance=1e-06),
+    Diagram(coordinateSystem(extent={{-100,-160},{100,100}})));
 end IntegratedPrimarySecondary;

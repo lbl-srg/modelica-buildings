@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model LimPID "Test model for LimPID controller"
-extends Modelica.Icons.Example;
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulse(period=0.25)
     annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPID(
@@ -124,5 +122,15 @@ November 21, 2011, by Michael Wetter:<br/>
 Added documentation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end LimPID;

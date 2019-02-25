@@ -14,12 +14,12 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
     use_T_in=false,
     nPorts=2)             annotation (Placement(transformation(extent={{-100,-20},
             {-80,0}})));
-  Sources.MassFlowSource_T sin_1(
+  Buildings.Fluid.Sources.MassFlowSource_T sin_1(
     redeclare package Medium = Medium,
     T=273.15 + 20,
     m_flow=-0.028,
     use_m_flow_in=true,
-    nPorts=1)      annotation (Placement(transformation(extent={{78,-2},{58,18}})));
+    nPorts=1) annotation (Placement(transformation(extent={{78,-2},{58,18}})));
   Buildings.Fluid.Storage.StratifiedEnhanced tanEnh(
     redeclare package Medium = Medium,
     hTan=3,
@@ -28,15 +28,14 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
     nSeg=nSeg,
     show_T=true,
     m_flow_nominal=m_flow_nominal) "Tank"
-                               annotation (Placement(transformation(extent={{-30,-2},
-            {-10,18}})));
+    annotation (Placement(transformation(extent={{-30,-2},{-10,18}})));
 
-  Sources.MassFlowSource_T sin_2(
+  Buildings.Fluid.Sources.MassFlowSource_T sin_2(
     redeclare package Medium = Medium,
     T=273.15 + 20,
     m_flow=-0.028,
     use_m_flow_in=true,
-    nPorts=1)      annotation (Placement(transformation(extent={{78,-40},{58,-20}})));
+    nPorts=1) annotation (Placement(transformation(extent={{78,-40},{58,-20}})));
   Buildings.Fluid.Storage.Stratified tan(
     redeclare package Medium = Medium,
     hTan=3,
@@ -45,8 +44,7 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
     nSeg=nSeg,
     show_T=true,
     m_flow_nominal=m_flow_nominal) "Tank"
-                               annotation (Placement(transformation(extent={{-26,-40},
-            {-6,-20}})));
+    annotation (Placement(transformation(extent={{-26,-40},{-6,-20}})));
 
   Modelica.Blocks.Sources.Pulse pulse(
     amplitude=2*m_flow_nominal,
@@ -57,12 +55,12 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
         Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{-60,-38},{-44,-22}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
+  Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{22,-38},{38,-22}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate HInEnh_flow(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
+  Buildings.Fluid.Sensors.EnthalpyFlowRate HInEnh_flow(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{-60,0},{-44,16}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate HOutEnh_flow(redeclare package
@@ -139,11 +137,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulse.y, sin_1.m_flow_in) annotation (Line(
-      points={{41,90},{92,90},{92,16},{78,16}},
+      points={{41,90},{92,90},{92,16},{80,16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulse.y, sin_2.m_flow_in) annotation (Line(
-      points={{41,90},{90,90},{90,-22},{78,-22}},
+      points={{41,90},{90,90},{90,-22},{80,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (                     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedLoadingUnloading.mos"
@@ -153,6 +151,15 @@ This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization
 scheme that reduces numerical diffusion that is induced when connecting
 volumes in series.
+</html>", revisions="<html>
+<ul>
+<li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+</ul>
 </html>"),
     experiment(Tolerance=1e-6, StopTime=14400));
 end StratifiedLoadingUnloading;

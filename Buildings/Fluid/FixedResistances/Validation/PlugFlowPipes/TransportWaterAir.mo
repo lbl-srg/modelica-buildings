@@ -132,7 +132,7 @@ equation
     annotation (Line(points={{-12,-70},{-2,-70}},color={0,127,255}));
   connect(sou1.X_in, XiIn.y) annotation (Line(points={{-64,-74},{-75,-74}},
                       color={0,0,127}));
-  connect(sou1.C_in, CIn.y) annotation (Line(points={{-62,-78},{-70,-78},{-70,
+  connect(sou1.C_in, CIn.y) annotation (Line(points={{-64,-78},{-70,-78},{-70,
           -106},{-75,-106}},
                       color={0,0,127}));
   connect(Tin.y, sou1.T_in) annotation (Line(points={{-71,30},{-68,30},{-68,-66},

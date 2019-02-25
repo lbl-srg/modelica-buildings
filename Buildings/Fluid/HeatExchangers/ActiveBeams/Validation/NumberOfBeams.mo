@@ -164,14 +164,14 @@ equation
           {28,-74},{28,78},{60,78}}, color={0,127,255}));
   connect(beaCooHea10.watHea_b, sin_2.ports[2]) annotation (Line(points={{14,-80},
           {28,-80},{40,-80},{40,38},{60,38}}, color={0,127,255}));
-  connect(step.y, pumChiWat.m_flow_in) annotation (Line(points={{-159,100},{-108,
-          100},{-50.2,100},{-50.2,92}}, color={0,0,127}));
-  connect(step1.y, pumHotWat.m_flow_in) annotation (Line(points={{-159,60},{-110,
-          60},{-50.2,60},{-50.2,52}}, color={0,0,127}));
+  connect(step.y, pumChiWat.m_flow_in) annotation (Line(points={{-159,100},{
+          -108,100},{-50,100},{-50,92}},color={0,0,127}));
+  connect(step1.y, pumHotWat.m_flow_in) annotation (Line(points={{-159,60},{
+          -110,60},{-50,60},{-50,52}},color={0,0,127}));
   connect(step3.y, pumChiWat10.m_flow_in) annotation (Line(points={{-159,-20},{
-          -104,-20},{-50.2,-20},{-50.2,-28}}, color={0,0,127}));
+          -104,-20},{-50,-20},{-50,-28}},     color={0,0,127}));
   connect(step2.y, pumHotWat10.m_flow_in) annotation (Line(points={{-159,-60},{
-          -104,-60},{-50.2,-60},{-50.2,-68}}, color={0,0,127}));
+          -104,-60},{-50,-60},{-50,-68}},     color={0,0,127}));
   connect(step4.y, prescribedTemperature.T)
     annotation (Line(points={{-99,-150},{-62,-150}}, color={0,0,127}));
   connect(prescribedTemperature.port, beaCooHea10.heaPor) annotation (Line(

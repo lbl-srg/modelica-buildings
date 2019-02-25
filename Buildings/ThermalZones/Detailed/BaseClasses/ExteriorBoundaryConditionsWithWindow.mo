@@ -33,8 +33,9 @@ model ExteriorBoundaryConditionsWithWindow
        haveOverhangOrSideFins "Shade due to overhang or side fins"
     annotation (Placement(transformation(extent={{140,100},{120,120}})));
 
-  Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1) if
-       haveShade
+  Modelica.Blocks.Interfaces.RealInput uSha[nCon](
+    each min=0,
+    each max=1) if haveShade
     "Control signal for the shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
         iconTransformation(extent={{-340,80},{-300,120}})));
@@ -338,6 +339,10 @@ the model
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Added missing <code>each</code>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error

@@ -2,8 +2,15 @@ within Buildings.Fluid.FMI.ExportContainers;
 partial block PartialTwoPort
   "Partial block to be used as a container to export a thermofluid flow model with two ports"
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
@@ -50,6 +57,11 @@ for a block that extends this partial block.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 April 29, 2015, by Michael Wetter:<br/>
 Redesigned to conditionally remove the pressure connector

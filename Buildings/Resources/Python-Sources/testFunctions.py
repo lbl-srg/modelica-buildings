@@ -34,3 +34,23 @@ def s2_r1(xS):
     os.remove(filNam)
     y = float(l)
     return y
+
+def r1i1_r2i1(xR, xI):
+    # Cast the return value to a long
+    return [[2.*xR, 2.*float(xI)], long(3)]
+
+# Functions with memory
+def r1_r1PassPythonObject(xR, obj):
+    if obj == None:
+        # Initialize the Python object
+        obj = {'a': xR, 'b': 1}
+    else:
+        # Use the python object
+        obj['a'] = obj['a'] + xR
+        obj['b'] = obj['b'] + 10
+    # Return the sum of the dictionary,
+    # and also return the dictionary so that it can be used again at the next
+    # invocation.
+    res = obj['a'] + obj['b']
+    #raise Exception("Result is {}".format(res))
+    return [res, obj]

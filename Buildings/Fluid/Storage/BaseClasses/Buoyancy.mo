@@ -1,9 +1,9 @@
 within Buildings.Fluid.Storage.BaseClasses;
 model Buoyancy
   "Model to add buoyancy if there is a temperature inversion in the tank"
-  extends Buildings.BaseClasses.BaseIcon;
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
+  extends Modelica.Blocks.Icons.Block;
+
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
       choicesAllMatching = true);
   parameter Modelica.SIunits.Volume V "Volume";
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
@@ -49,6 +49,12 @@ associated with the buoyancy induced mass flow rate.
 </html>", revisions="<html>
 <ul>
 <li>
+June 7, 2018 by Filip Jorissen:<br/>
+Copied model from Buildings and update the model accordingly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/314\">#314</a>.
+</li>
+<li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with naming convention.
 </li>
@@ -75,11 +81,6 @@ First implementation.
 </html>"),
 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-44,68},{36,28}},
           lineColor={0,0,255},

@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE;
 package G36_PR1 "Package with control sequences from ASHRAE Guideline 36"
-  extends Modelica.Icons.VariantsPackage;
 
 annotation (Documentation(info="<html>
 <p>
@@ -46,13 +45,13 @@ is used.
 Hence, the PID controllers are in the standard form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-y = k &nbsp; ( e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(s) ds + T<sub>d</sub> de(t)&frasl;dt ),
+y(t) = k &nbsp; ( e(t) + 1 &frasl; T<sub>i</sub> &nbsp; &int; e(s) ds + T<sub>d</sub> de(t)&frasl;dt ),
 </p>
 <p>
 where
-<i>y</i> is the control signal,
-<i>e(t) = u<sub>s</sub> - u<sub>m</sub></i> is the control error,
-with <i>u<sub>s</sub></i> being the set point and <i>u<sub>m</sub></i> being
+<i>y(t)</i> is the control signal,
+<i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error,
+with <i>u<sub>s</sub>(t)</i> being the set point and <i>u<sub>m</sub>(t)</i> being
 the measured quantity,
 <i>k</i> is the gain,
 <i>T<sub>i</sub></i> is the time constant of the integral term and
@@ -96,5 +95,38 @@ tuning process.
 <i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC
 systems</i>. First Public Review Draft (June 2016)</a>
 </p>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+        Ellipse(
+          origin={10.0,10.0},
+          fillColor={76,76,76},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          extent={{-80.0,-80.0},{-20.0,-20.0}}),
+        Ellipse(
+          origin={10.0,10.0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          extent={{0.0,-80.0},{60.0,-20.0}}),
+        Ellipse(
+          origin={10.0,10.0},
+          fillColor={128,128,128},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          extent={{0.0,0.0},{60.0,60.0}}),
+        Ellipse(
+          origin={10.0,10.0},
+          lineColor={128,128,128},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-80.0,0.0},{-20.0,60.0}})}));
 end G36_PR1;

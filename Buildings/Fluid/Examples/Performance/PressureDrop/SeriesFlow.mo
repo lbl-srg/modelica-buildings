@@ -41,7 +41,7 @@ equation
   connect(resSeries[1].port_a, sou.ports[1])
     annotation (Line(points={{-10,0},{-20,0},{-40,0}}, color={0,127,255}));
 
-  connect(sou.m_flow_in, pulse_p.y) annotation (Line(points={{-60,8},{-70,8},{
+  connect(sou.m_flow_in, pulse_p.y) annotation (Line(points={{-62,8},{-62,8},{
           -79,8}},           color={0,0,127}));
    annotation (    Documentation(revisions="<html>
 <ul>

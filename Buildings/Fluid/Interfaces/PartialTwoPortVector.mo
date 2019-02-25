@@ -1,8 +1,16 @@
 within Buildings.Fluid.Interfaces;
 partial model PartialTwoPortVector "Partial component with two ports, one of which being vectorized"
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component" annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
   parameter Integer nPorts "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Boolean allowFlowReversal=true
@@ -12,14 +20,14 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default))
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connector a (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts](
     redeclare each package Medium = Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default))
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{90,-40},{110,40}})));
   annotation (
@@ -45,6 +53,16 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
+July 8, 2018, by Filip Jorissen:<br/>
+Added nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">#977</a>.
+</li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed parameters

@@ -42,7 +42,7 @@ model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
     annotation (Placement(transformation(extent={{0,54},{20,74}})));
 equation
   connect(ramp.y, sou.m_flow_in) annotation (Line(
-      points={{-79,-2},{-60,-2}},
+      points={{-79,-2},{-62,-2}},
       color={0,0,127}));
   connect(sou.ports[1], senH_flow.port_a) annotation (Line(
       points={{-40,-10},{-30,-10}},

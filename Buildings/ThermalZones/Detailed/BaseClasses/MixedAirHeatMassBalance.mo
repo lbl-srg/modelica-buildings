@@ -114,7 +114,7 @@ model MixedAirHeatMassBalance
   // Latent and convective sensible heat gains
 protected
   constant Modelica.SIunits.SpecificEnergy h_fg=
-    Medium.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
+    Buildings.Media.Air.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
 
   Modelica.Blocks.Math.Gain mWat_flow(
     final k(unit="kg/J")=1/h_fg,
@@ -312,7 +312,6 @@ equation
   connect(vol.C_flow, C_flow) annotation (Line(points={{12,-206},{16,-206},{16,-220},
           {-260,-220}}, color={0,0,127}));
   annotation (
-    preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
             240}})),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,240}}),
@@ -338,6 +337,13 @@ The model assumes a completely mixed air volume.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 14, 2018, by Michael Wetter:<br/>
+Replaced call to <code>Medium.enthalpyOfCondensingGas</code> with
+<code>Buildings.Media.Air.enthalpyOfCondensingGas</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1285\">Buildings #1285</a>.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed temperature connection that is no longer needed.<br/>

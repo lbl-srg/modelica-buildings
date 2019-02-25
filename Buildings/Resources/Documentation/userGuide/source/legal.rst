@@ -1,7 +1,7 @@
 Copyright and License
 =====================
 
-Copyright (c) 2012-2015, The Regents of the University of California, Department
+Copyright (c) 2012-2018, The Regents of the University of California, Department
 of Energy contract-operators of the Lawrence Berkeley National Laboratory.
 All rights reserved.
 

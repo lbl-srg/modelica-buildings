@@ -8,7 +8,6 @@ Advanced.PlotLegendTooltip = true;
 Advanced.FullPlotTooltip = true;
 Advanced.DefaultAutoErase = true;
 Advanced.Legend.Horizontal = true;
-
 createPlot(id=1,
 position={43, 20, 982, 708},
 y={"grid.P.real", "grid.P.apparent"},
@@ -18,7 +17,6 @@ filename="AcGridDCLoad.mat",
 leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}});
-
 createPlot(id=1,
 position={43, 20, 982, 351},
 y={"resistor.S[1]", "resistor.S[2]"},

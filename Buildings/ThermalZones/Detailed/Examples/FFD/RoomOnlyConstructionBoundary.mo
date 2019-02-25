@@ -29,7 +29,7 @@ model RoomOnlyConstructionBoundary
         extent={{10,-10},{-10,10}},
         origin={110,-30})));
 
-  HeatTransfer.Sources.FixedTemperature TEasWal(each T=313.15)
+  HeatTransfer.Sources.FixedTemperature TEasWal(T=313.15)
     "Temperature of the east wall"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -40,7 +40,6 @@ equation
         points={{100,-30},{72,-30},{72,24}},
         color={191,0,0},
         smooth=Smooth.None));
-
   end for;
 
   connect(TEasWal.port, roo.surf_conBou[1]) annotation (Line(
@@ -53,7 +52,7 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/RoomOnlyConstructionBoundary.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-06, StopTime=1800),
+    experiment(Tolerance=1e-06, StopTime=900),
     Documentation(info="<html>
 <p>
 This model tests the copuled simulation of
@@ -87,6 +86,10 @@ Figure (b)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong use of <code>each</code>.
+</li>
 <li>
 August 13, 2013, by Wangda Zuo:<br/>
 First implementation.

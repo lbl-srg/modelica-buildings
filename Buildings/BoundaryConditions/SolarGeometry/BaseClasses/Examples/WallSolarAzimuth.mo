@@ -28,7 +28,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaDat.weaBus, incAng.weaBus) annotation (Line(
-      points={{-80,10},{-72,10},{-72,-29.6},{-20,-29.6}},
+      points={{-80,10},{-72,10},{-72,-30},{-20,-30}},
       color={255,204,51},
       thickness=0.5));
   connect(incAng.y, walSolAzi.incAng) annotation (Line(

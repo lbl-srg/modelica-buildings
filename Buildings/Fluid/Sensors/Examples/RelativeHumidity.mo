@@ -16,28 +16,21 @@ model RelativeHumidity "Test model for relative humidity sensor"
     redeclare package Medium = Medium,
     m_flow=1,
     use_T_in=true,
-    use_X_in=true,
     use_m_flow_in=true,
-    nPorts=2) "Flow boundary condition"  annotation (Placement(transformation(
-          extent={{-30,12},{-10,32}})));
+    nPorts=2,
+    use_Xi_in=true)
+              "Flow boundary condition"  annotation (Placement(transformation(
+          extent={{-28,12},{-8,32}})));
   Modelica.Blocks.Sources.Ramp TDryBul(
     height=10,
     offset=273.15 + 30,
     duration=120) "Dry bulb temperature"
-                 annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
+                 annotation (Placement(transformation(extent={{-100,16},{-80,36}})));
   Modelica.Blocks.Sources.Ramp XHum(
     duration=1,
     height=(0.0133 - 0.0175),
     offset=0.0175) "Humidity concentration"
-                 annotation (Placement(transformation(extent={{-100,-60},{-80,
-            -40}})));
-  Modelica.Blocks.Sources.Constant const(k=1) "Constant"
-                                         annotation (Placement(transformation(
-          extent={{-100,-20},{-80,0}})));
-  Modelica.Blocks.Math.Feedback dif
-    "Difference, used to compute the mass fraction of dry air"
-    annotation (Placement(transformation(
-          extent={{-68,-20},{-48,0}})));
+                 annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Fluid.Sensors.RelativeHumidity senRelHum(
     redeclare package Medium = Medium)
@@ -54,28 +47,22 @@ model RelativeHumidity "Test model for relative humidity sensor"
     "Relative humidity of the passing fluid"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 equation
-  connect(TDryBul.y, sou.T_in)          annotation (Line(points={{-79,24},{-32,24},
-          {-32,26}},          color={0,0,127}));
-  connect(const.y, dif.u1)      annotation (Line(points={{-79,-10},{-66,-10}},
-        color={0,0,127}));
-  connect(XHum.y, dif.u2)      annotation (Line(points={{-79,-50},{-58,-50},{
-          -58,-18}}, color={0,0,127}));
-  connect(XHum.y, sou.X_in[1])          annotation (Line(points={{-79,-50},{-40,
-          -50},{-40,18},{-32,18}},       color={0,0,127}));
-  connect(dif.y, sou.X_in[2])               annotation (Line(points={{-49,-10},
-          {-40,-10},{-40,18},{-32,18}},       color={0,0,127}));
+  connect(TDryBul.y, sou.T_in)          annotation (Line(points={{-79,26},{-30,
+          26}},               color={0,0,127}));
   connect(m_flow.y, sou.m_flow_in)          annotation (Line(
-      points={{-59,50},{-46,50},{-46,30},{-30,30}},
+      points={{-59,50},{-46,50},{-46,30},{-32,30}},
       color={0,0,127}));
   connect(relHum.port_b, sin.ports[1]) annotation (Line(
       points={{40,20},{60,20}},
       color={0,127,255}));
   connect(senRelHum.port, sou.ports[1]) annotation (Line(
-      points={{-6,42},{-6,24},{-10,24}},
+      points={{-6,42},{-6,24},{-8,24}},
       color={0,127,255}));
   connect(sou.ports[2], relHum.port_a) annotation (Line(
-      points={{-10,20},{20,20}},
+      points={{-8,20},{20,20}},
       color={0,127,255}));
+  connect(sou.Xi_in[1], XHum.y) annotation (Line(points={{-30,18},{-40,18},{-40,
+          -10},{-79,-10}}, color={0,0,127}));
     annotation (experiment(Tolerance=1e-6, StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/RelativeHumidity.mos"
         "Simulate and plot"),

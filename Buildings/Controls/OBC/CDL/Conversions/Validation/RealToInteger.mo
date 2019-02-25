@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Conversions.Validation;
 model RealToInteger "Validation model for the RealToInteger block"
-extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Block that converts Real to Integer signal"
@@ -32,5 +31,15 @@ March 31, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end RealToInteger;

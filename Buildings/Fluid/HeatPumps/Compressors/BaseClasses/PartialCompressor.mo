@@ -65,11 +65,9 @@ equation
 
   PR = max(pDis/pSuc, 0);
 
-
   // The specific volume at suction of the compressor is calculated
   // from the Martin-Hou equation of state
   vSuc = ref.specificVolumeVap_pT(pSuc, TSuc);
-
 
   // Saturation pressure of refrigerant vapor at condenser temperature
   pCon = ref.pressureSatVap_T(port_b.T);

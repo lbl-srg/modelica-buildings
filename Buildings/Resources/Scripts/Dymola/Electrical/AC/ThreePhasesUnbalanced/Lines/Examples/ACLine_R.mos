@@ -20,7 +20,6 @@ filename="ACLine_R3phu.mat",
 leftTitleType=1,
 bottomTitleType=1,
 colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}});
-
 createPlot(id=1,
 position={0, 0, 920, 158},
 y={"R1.load1.i[1]", "R2.load1.i[1]", "R3.load1.i[1]", "sc_load.load1.i[1]"},

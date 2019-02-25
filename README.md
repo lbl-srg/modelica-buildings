@@ -24,13 +24,14 @@ The main project site is http://simulationresearch.lbl.gov/modelica.
 
 ## Current release
 
-Download [Buildings Library 5.0.1 (2017-11-22)](https://github.com/lbl-srg/modelica-buildings/releases/download/v5.0.1/Buildings-v5.0.1.zip)
+Download [Buildings Library 5.1.0 (2018-06-14)](https://github.com/lbl-srg/modelica-buildings/releases/download/v5.1.0/Buildings-v5.1.0.zip)
 
 ## License
 
-The models in the Buildings library are released under the following license, which is based on the Modelica license 2.0, with changes to protect entities that are funding the copyright holder, including without limitation the U.S. Government. See [Buildings library license](http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License).
+The Modelica _Buildings_ Library is available under a 3-clause BSD-license.
+See [Modelica Buildings Library license](https://htmlpreview.github.io/?https://github.com/lbl-srg/modelica-buildings/blob/master/Buildings/legal.html).
 
-Python modules are available under the 3-clause BSD-license. See [BuildingsPy license](http://simulationresearch.lbl.gov/modelica/buildingspy/legal.html).
+Python modules are available under a 3-clause BSD-license. See [BuildingsPy license](http://simulationresearch.lbl.gov/modelica/buildingspy/legal.html).
 
 ## Development and contribution
 You may report any issues with using the [Issues](https://github.com/lbl-srg/modelica-buildings/issues) button.

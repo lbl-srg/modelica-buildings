@@ -1,7 +1,5 @@
 within Buildings.Controls.OBC.CDL;
 package Constants "Package with constants"
-  extends Modelica.Icons.Package;
-
   // Machine dependent constants
   final constant Real eps=1E-15
     "Biggest number such that 1.0 + eps = 1.0";
@@ -24,6 +22,12 @@ Modelica Standard Library.
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}}), graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
       Polygon(
         origin={-9.2597,25.6673},
         fillColor={102,102,102},
@@ -47,5 +51,9 @@ Modelica Standard Library.
         fillPattern=FillPattern.Solid,
         points={{-10.873,41.478},{-10.873,41.478},{-14.048,-4.162},{-9.352,-24.8},{7.912,-24.469},{16.247,0.27},
         {16.247,0.27},{13.336,0.071},{13.336,0.071},{7.515,-9.983},{-3.134,-7.271},{-2.671,41.214},{-2.671,41.214}},
-        smooth=Smooth.Bezier)}));
+        smooth=Smooth.Bezier),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0)}));
 end Constants;

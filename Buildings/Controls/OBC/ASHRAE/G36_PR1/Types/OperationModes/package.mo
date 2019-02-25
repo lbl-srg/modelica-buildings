@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Types;
 package OperationModes "Zone group operating modes"
-  extends Modelica.Icons.Package;
   constant Integer coolDown = 2 "Cool-down";
   constant Integer freezeProtection = 6 "Freeze protection";
   constant Integer occupied = 1 "Occupied";
@@ -28,5 +27,15 @@ July 1, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0)}));
 end OperationModes;

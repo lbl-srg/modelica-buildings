@@ -11,24 +11,24 @@ block ActiveAirFlow
   parameter Boolean have_CO2Sen
     "Set to true if the zone has CO2 sensor"
     annotation(Dialog(group="Zone sensors"));
-  parameter Modelica.SIunits.VolumeFlowRate VCooMax
+  parameter Modelica.SIunits.VolumeFlowRate VDisCooSetMax_flow
     "Zone maximum cooling airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VMin
+  parameter Modelica.SIunits.VolumeFlowRate VDisSetMin_flow
     "Zone minimum airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VHeaMax
+  parameter Modelica.SIunits.VolumeFlowRate VDisHeaSetMax_flow
     "Zone maximum heating airflow setpoint"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate VMinCon
+  parameter Modelica.SIunits.VolumeFlowRate VDisConMin_flow
     "VAV box controllable minimum"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Area AFlo "Area of the zone"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real outAirPerAre(final unit = "m3/(s.m2)")=3e-4
+  parameter Real VOutPerAre_flow(final unit = "m3/(s.m2)")=3e-4
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.VolumeFlowRate outAirPerPer=2.5e-3
+  parameter Modelica.SIunits.VolumeFlowRate VOutPerPer_flow=2.5e-3
     "Outdoor air rate per person"
     annotation(Dialog(group="Nominal condition"));
   parameter Real CO2Set = 894 "CO2 setpoint in ppm"
@@ -50,44 +50,44 @@ block ActiveAirFlow
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-320,-130},{-280,-90}}),
       iconTransformation(extent={{-120,-40},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOccMinAir(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOccDisMin_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Occupied minimum airflow "
     annotation (Placement(transformation(extent={{280,-310},{320,-270}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActCooMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActCooMax_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Active cooling maximum"
     annotation (Placement(transformation(extent={{280,150},{320,190}}),
       iconTransformation(extent={{100,70},{120,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActCooMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActCooMin_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Active cooling minimum"
     annotation (Placement(transformation(extent={{280,110},{320,150}}),
       iconTransformation(extent={{100,40},{120,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActMin_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Active minimum"
     annotation (Placement(transformation(extent={{280,70},{320,110}}),
       iconTransformation(extent={{100,10},{120,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActHeaMin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActHeaMin_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Active heating minimum"
     annotation (Placement(transformation(extent={{280,30},{320,70}}),
       iconTransformation(extent={{100,-20},{120,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActHeaMax(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VActHeaMax_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Active heating maximum"
     annotation (Placement(transformation(extent={{280,-10},{320,30}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=outAirPerPer) if have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=VOutPerPer_flow) if have_occSen
   "Outdoor air per person"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
   Buildings.Controls.OBC.CDL.Continuous.Add breZon if have_occSen
@@ -97,16 +97,16 @@ block ActiveAirFlow
     "Maintain CO2 concentration at setpoint, reset 0% at (setpoint-200) and 100% at setpoint"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin1 if have_CO2Sen
-    "Reset occupied minimum airflow setpoint from 0% at VMin and 100% at VCooMax"
+    "Reset occupied minimum airflow setpoint from 0% at VDisSetMin_flow and 100% at VDisCooSetMax_flow"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre
-    "Check if zone minimum airflow setpoint Vmin is less than the allowed controllable VMinCon"
+    "Check if zone minimum airflow setpoint Vmin is less than the allowed controllable VDisConMin_flow"
     annotation (Placement(transformation(extent={{-20,-460},{0,-440}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=0) if have_occSen
     "Check if the zone becomes unpopulated"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
-    "Check if zone minimum airflow setpoint VMin is non-zero"
+    "Check if zone minimum airflow setpoint VDisSetMin_flow is non-zero"
     annotation (Placement(transformation(extent={{-80,-410},{-60,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Reset occupied minimum airflow according to occupancy"
@@ -128,19 +128,19 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir1(final k=VMin) if not have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir1(final k=VDisSetMin_flow) if not have_CO2Sen
     "Zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxZonCooAir(final k=VCooMax) if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxZonCooAir(final k=VDisCooSetMax_flow) if have_CO2Sen
     "Zone maximum cooling airflow setpoint"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(final k=outAirPerAre*AFlo) if have_occSen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(final k=VOutPerAre_flow*AFlo) if have_occSen
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-140,-370},{-120,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conVolMin(final k=VMinCon)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conVolMin(final k=VDisConMin_flow)
     "VAV box controllable minimum"
     annotation (Placement(transformation(extent={{-80,-440},{-60,-420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir(final k=VMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir(final k=VDisSetMin_flow)
     "Zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO1(final k=CO2Set - 200) if have_CO2Sen
@@ -172,10 +172,10 @@ protected
     annotation (Placement(transformation(extent={{-240,-240},{-220,-220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon1(final k=1) if have_CO2Sen "Output one"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxAir(final k=VCooMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxAir(final k=VDisCooSetMax_flow)
     "Cooling maximum airflow"
     annotation (Placement(transformation(extent={{-240,-20},{-220,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxAir(final k=VHeaMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxAir(final k=VDisHeaSetMax_flow)
     "Heat maximum airflow"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon6(final k=0)
@@ -371,7 +371,7 @@ equation
   connect(swi2.y, swi1.u1)
     annotation (Line(points={{161,-400},{180,-400},{180,-492},{198,-492}},
       color={0,0,127}));
-  connect(swi1.y, VOccMinAir)
+  connect(swi1.y, VOccDisMin_flow)
     annotation (Line(points={{221,-500},{240,-500},{240,-290},{300,-290}},
       color={0,0,127}));
   connect(con.y, swi.u2)
@@ -554,19 +554,19 @@ equation
   connect(swi1.y, maxInp.u1)
     annotation (Line(points={{221,-500},{240,-500},{240,-28},{-128,-28},{-128,-4},
       {-102,-4}}, color={0,0,127}));
-  connect(actCooMaxAir.y, VActCooMax)
+  connect(actCooMaxAir.y, VActCooMax_flow)
     annotation (Line(points={{241.7,170},{300,170}},
       color={0,0,127}));
-  connect(actCooMinAir.y, VActCooMin)
+  connect(actCooMinAir.y, VActCooMin_flow)
     annotation (Line(points={{241.7,140},{260,140},{260,130},{300,130}},
       color={0,0,127}));
-  connect(actMinAir.y, VActMin)
+  connect(actMinAir.y, VActMin_flow)
     annotation (Line(points={{241.7,110},{260,110},{260,90},{300,90}},
       color={0,0,127}));
-  connect(actHeaMinAir.y, VActHeaMin)
+  connect(actHeaMinAir.y, VActHeaMin_flow)
     annotation (Line(points={{241.7,70},{260,70},{260,50},{300,50}},
       color={0,0,127}));
-  connect(actHeaMaxAir.y, VActHeaMax)
+  connect(actHeaMaxAir.y, VActHeaMax_flow)
     annotation (Line(points={{241.7,30},{256,30},{256,10},{300,10}},
       color={0,0,127}));
 
@@ -680,74 +680,74 @@ according to operation modes")}),
           extent={{62,88},{98,74}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActCooMax"),
+          textString="VActCooMax_flow"),
         Text(
           extent={{62,58},{98,44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActCooMin"),
+          textString="VActCooMin_flow"),
         Text(
           extent={{72,24},{98,14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActMin"),
+          textString="VActMin_flow"),
         Text(
           extent={{62,-2},{98,-16}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActHeaMin"),
+          textString="VActHeaMin_flow"),
         Text(
           extent={{62,-32},{98,-46}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActHeaMax"),
+          textString="VActHeaMax_flow"),
         Text(
           extent={{62,-72},{98,-86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VOccMinAir")}),
+          textString="VOccDisMin_flow")}),
 Documentation(info="<html>
 <p>
-This atomic sequence sets the active maximum and minimum setpoints <code>VActCooMax</code>,
-<code>VActCooMin</code>, <code>VActMin</code>, <code>VActHeaMin</code>,
-<code>VActHeaMax</code> for VAV reheat terminal unit according to ASHRAE
+This atomic sequence sets the active maximum and minimum setpoints <code>VActCooMax_flow</code>,
+<code>VActCooMin_flow</code>, <code>VActMin_flow</code>, <code>VActHeaMin_flow</code>,
+<code>VActHeaMax_flow</code> for VAV reheat terminal unit according to ASHRAE
 Guideline 36 (G36), PART5.E.3-5.
 </p>
 <h4>1. Information provided by designer</h4>
 <p>According to G36 PART 3.1.B.2, following VAV box design information should be
 provided:</p>
 <ul>
-<li>Zone maximum cooling airflow setpoint <code>VCooMax</code></li>
-<li>Zone minimum airflow setpoint <code>VMin</code></li>
-<li>Zone maximum heating airflow setpoint <code>VHeaMax</code></li>
+<li>Zone maximum cooling airflow setpoint <code>VDisCooSetMax_flow</code></li>
+<li>Zone minimum airflow setpoint <code>VDisSetMin_flow</code></li>
+<li>Zone maximum heating airflow setpoint <code>VDisHeaSetMax_flow</code></li>
 </ul>
 
-<h4>2. Occupied minimum airflow <code>VOccMinAir</code></h4>
-<p>The <code>VOccMinAir</code> shall be equal to zone minimum airflow setpoint
-<code>VMin</code> except as follows:</p>
+<h4>2. Occupied minimum airflow <code>VOccDisMin_flow</code></h4>
+<p>The <code>VOccDisMin_flow</code> shall be equal to zone minimum airflow setpoint
+<code>VDisSetMin_flow</code> except as follows:</p>
 <ul>
 <li>
-If the zone has an occupancy sensor, <code>VOccMinAir</code> shall be equal to
+If the zone has an occupancy sensor, <code>VOccDisMin_flow</code> shall be equal to
 minimum breathing zone outdoor airflow (if ventilation is according to ASHRAE
 Standard 62.1-2013) or zone minimum outdoor airflow for building area
 (if ventilation is according to California Title 24) when the room is unpopulated.
 </li>
 <li>
-If the zone has a window switch, <code>VOccMinAir</code> shall be zero when the
+If the zone has a window switch, <code>VOccDisMin_flow</code> shall be zero when the
 window is open.
 </li>
 <li>
-If <code>VMin</code> is non-zero and less than the lowest possible airflow setpoint
-allowed by the controls <code>VMinCon</code>, <code>VOccMinAir</code> shall be set
-equal to <code>VMinCon</code>.
+If <code>VDisSetMin_flow</code> is non-zero and less than the lowest possible airflow setpoint
+allowed by the controls <code>VDisConMin_flow</code>, <code>VOccDisMin_flow</code> shall be set
+equal to <code>VDisConMin_flow</code>.
 </li>
 <li>
 If the zone has a CO2 sensor, then following steps are applied for calculating
-<code>VOccMinAir</code>. (1) During occupied mode, a P-only loop shall maintain
+<code>VOccDisMin_flow</code>. (1) During occupied mode, a P-only loop shall maintain
 CO2 concentration at setpoint, reset 0% at (CO2 setpoint <code>CO2Set</code> -
 200 ppm) and 100% at <code>CO2Set</code>. If ventilation outdoor airflow is controlled
 in accordance with ASHRAE Standard 62.1-2013, the loop output shall reset the
-<code>VOccMinAir</code> from <code>VMin</code> at 0% loop output up to <code>VCooMax</code>
+<code>VOccDisMin_flow</code> from <code>VDisSetMin_flow</code> at 0% loop output up to <code>VDisCooSetMax_flow</code>
 at 100% loop output; (2) Loop is diabled and output set to zero when the zone is
 not in occupied mode.
 </li>
@@ -758,18 +758,18 @@ not in occupied mode.
 <table summary=\"summary\" border=\"1\">
 <tr><th>Setpoint</th> <th>Occupied</th><th>Cool-down</th>
 <th>Setup</th><th>Warmup</th><th>Setback</th><th>Unoccupied</th></tr>
-<tr><td>Cooling maximum (<code>VActCooMax</code>)</td><td><code>VCooMax</code></td>
-<td><code>VCooMax</code></td><td><code>VCooMax</code></td>
+<tr><td>Cooling maximum (<code>VActCooMax_flow</code>)</td><td><code>VDisCooSetMax_flow</code></td>
+<td><code>VDisCooSetMax_flow</code></td><td><code>VDisCooSetMax_flow</code></td>
 <td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Cooling minimum (<code>VActCooMin</code>)</td><td><code>VOccMinAir</code></td>
+<tr><td>Cooling minimum (<code>VActCooMin_flow</code>)</td><td><code>VOccDisMin_flow</code></td>
 <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Minimum (<code>VActMin</code>)</td><td><code>VOccMinAir</code></td><td>0</td>
+<tr><td>Minimum (<code>VActMin_flow</code>)</td><td><code>VOccDisMin_flow</code></td><td>0</td>
 <td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>Heating minimum (<code>VActHeaMin</code>)</td><td><code>VOccMinAir</code></td>
-<td>0</td><td>0</td><td><code>VHeaMax</code></td><td><code>VHeaMax</code></td>
+<tr><td>Heating minimum (<code>VActHeaMin_flow</code>)</td><td><code>VOccDisMin_flow</code></td>
+<td>0</td><td>0</td><td><code>VDisHeaSetMax_flow</code></td><td><code>VDisHeaSetMax_flow</code></td>
 <td>0</td></tr>
-<tr><td>Heating maximum (<code>VActHeaMax</code>)</td><td>max(<code>VHeaMax,VOccMinAir</code>)</td>
-<td><code>VHeaMax</code></td><td>0</td><td><code>VCooMax</code></td><td><code>VCooMax</code></td>
+<tr><td>Heating maximum (<code>VActHeaMax_flow</code>)</td><td>max(<code>VDisHeaSetMax_flow,VOccDisMin_flow</code>)</td>
+<td><code>VDisHeaSetMax_flow</code></td><td>0</td><td><code>VDisCooSetMax_flow</code></td><td><code>VDisCooSetMax_flow</code></td>
 <td>0</td></tr>
 </table>
 <br/>

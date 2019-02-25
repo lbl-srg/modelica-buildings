@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.Types;
 package DemandLimitLevels "Demand limit levels"
-  extends Modelica.Icons.Package;
   constant Integer cooling0 = 0 "Cooling demand limit level 0";
   constant Integer cooling1 = 1 "Cooling demand limit level 1";
   constant Integer cooling2 = 2 "Cooling demand limit level 2";
@@ -23,5 +22,15 @@ August 16, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0)}));
 end DemandLimitLevels;

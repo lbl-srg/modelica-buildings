@@ -81,7 +81,7 @@ model X3WithRadiantFloor
     tableOnFile=true,
     tableName="airCon",
     fileName=Modelica.Utilities.Files.loadResource(
-       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
+       "modelica://Buildings/Resources/Data/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected closet of test cell X3A (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -104,7 +104,7 @@ model X3WithRadiantFloor
     tableOnFile=true,
     tableName="airCon",
     fileName=Modelica.Utilities.Files.loadResource(
-       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
+       "modelica://Buildings/Resources/Data/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected closet of test cell X3B (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -128,7 +128,7 @@ model X3WithRadiantFloor
     tableOnFile=true,
     tableName="airCon",
     fileName=Modelica.Utilities.Files.loadResource(
-       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
+       "modelica://Buildings/Resources/Data/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for test cell X3A (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-170,-2},{-150,18}})));
@@ -147,7 +147,7 @@ model X3WithRadiantFloor
     tableOnFile=true,
     tableName="airCon",
     fileName=Modelica.Utilities.Files.loadResource(
-       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
+       "modelica://Buildings/Resources/Data/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for test cell X3B (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,22},{10,42}})));
@@ -165,7 +165,7 @@ model X3WithRadiantFloor
     tableOnFile=true,
     tableName="airCon",
     fileName=Modelica.Utilities.Files.loadResource(
-       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
+       "modelica://Buildings/Resources/Data/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected electrical room in test cell X3A (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -244,7 +244,7 @@ model X3WithRadiantFloor
     tableOnFile=true,
     tableName="airCon",
     fileName=Modelica.Utilities.Files.loadResource(
-       "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
+       "modelica://Buildings/Resources/Data/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected electrical room in test cell X3B (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
