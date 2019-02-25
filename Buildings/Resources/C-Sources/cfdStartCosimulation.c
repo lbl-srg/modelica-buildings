@@ -99,6 +99,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->para->flag = 1;
   cosim->para->ffdError = 0;
   cosim->modelica->t = 0;
+	cosim->modelica->lt = -1;/*initialize lt to -1 to avoid skipping all exchange() at time = 0*/
 
   cosim->modelica->temHea = (REAL *) malloc(nSur*sizeof(REAL));
   /* Having a shade for window*/
