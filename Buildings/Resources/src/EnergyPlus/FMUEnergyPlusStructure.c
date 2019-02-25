@@ -210,7 +210,7 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   /* Get the file name without extension */
   size_t lenNam = strlen(nam) - strlen(ext);
   char * namOnl;
-  namOnl = malloc((lenNam) * sizeof(char));
+  namOnl = malloc((lenNam+1) * sizeof(char));
   if ( namOnl == NULL )
     EnergyPlusFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
 
