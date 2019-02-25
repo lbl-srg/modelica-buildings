@@ -244,7 +244,8 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   }
 
   for(i = 0; i < nPar; i++){
-    parameterNames[i] = (char*)malloc(len * sizeof(char));
+    /* strlen, used above, does not include the terminating null character */
+    parameterNames[i] = (char*)malloc((len+1) * sizeof(char));
     if ( parameterNames[i] == NULL)
       EnergyPlusFormatError("Failed to allocate memory for parameterNames[i].");
   }
@@ -270,7 +271,8 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   }
 
   for(i = 0; i < nInp; i++){
-    inputNames[i] = (char*)malloc(len * sizeof(char));
+    /* strlen, used above, does not include the terminating null character */
+    inputNames[i] = (char*)malloc((len+1) * sizeof(char));
     if ( inputNames[i] == NULL)
       EnergyPlusFormatError("Failed to allocate memory for inputNames[i].");
   }
@@ -294,7 +296,8 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
     }
   }
   for(i = 0; i < nOut; i++){
-    outputNames[i] = (char*)malloc(len * sizeof(char));
+    /* strlen, used above, does not include the terminating null character */
+    outputNames[i] = (char*)malloc((len+1) * sizeof(char));
     if ( outputNames[i] == NULL)
       EnergyPlusFormatError("Failed to allocate memory for outputNames[i].");
   }
