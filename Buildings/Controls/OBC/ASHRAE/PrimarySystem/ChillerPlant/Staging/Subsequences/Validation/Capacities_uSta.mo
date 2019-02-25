@@ -2,27 +2,31 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 model Capacities_uSta
   "Validate water side economizer tuning parameter sequence"
 
-  parameter Integer numSta = 2
+  parameter Integer nSta = 2
   "Highest chiller stage";
 
-  parameter Modelica.SIunits.Power staNomCap[numSta] = {5e5, 1e6}
+  parameter Modelica.SIunits.Power staNomCap[nSta] = {5e5, 1e6}
   "Nominal capacity at all chiller stages, starting with stage 0";
 
-  parameter Modelica.SIunits.Power minStaUnlCap[numSta] = {0.2*staNomCap[1], 0.2*staNomCap[2]}
+  parameter Modelica.SIunits.Power minStaUnlCap[nSta] = {0.2*staNomCap[1], 0.2*staNomCap[2]}
     "Nominal part load ratio for at all chiller stages, starting with stage 0";
 
   parameter Real small[1] = {0.001}
   "Small number to avoid division with zero";
 
-  parameter Real large[1] = {staNomCap[numSta]*2}
+  parameter Real large[1] = {staNomCap[nSta]*2}
   "Large number for numerical consistency";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staCap[numSta + 1](
-    final k=cat(1, small, staNomCap))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staCap[nSta + 2](
+      final k=cat(
+        1,
+        small,
+        staNomCap,
+        large))
     "Array of chiller stage nominal capacities starting with stage 0"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaUnload[numSta + 2](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaUnload[nSta + 2](
     final k=cat(1, {0}, minStaUnlCap, large))
     "Array of chiller stage minimal unload capacities"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
@@ -31,21 +35,21 @@ model Capacities_uSta
     staCap0(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final numSta=2) "Nominal capacitites at the current and stage one lower"
+    final nSta=2) "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap1(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final numSta=2) "Nominal capacitites at the current and stage one lower"
+    final nSta=2) "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap2(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final numSta=2) "Nominal capacitites at the current and stage one lower"
+    final nSta=2) "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(k=0) "Stage 0"
@@ -104,24 +108,24 @@ equation
           30},{46,40},{60,40},{60,60},{70,60},{70,68}}, color={0,0,127}));
   connect(minStaUnload[2].y, absErrorSta1[2].u2) annotation (Line(points={{21,-80},
           {94,-80},{94,-20},{70,-20},{70,-12}},      color={0,0,127}));
-  connect(staCap0.yStaUpNom, absErrorSta0[3].u1) annotation (Line(points={{-19,
-          63},{40,63},{40,80},{58,80}}, color={0,0,127}));
+  connect(staCap0.yStaUpNom, absErrorSta0[3].u1) annotation (Line(points={{-19,63},
+          {40,63},{40,80},{58,80}},     color={0,0,127}));
   connect(staCap1.yStaUpNom, absErrorSta1[3].u1)
     annotation (Line(points={{-19,3},{40,3},{40,0},{58,0}}, color={0,0,127}));
-  connect(staCap2.yStaUpNom, absErrorSta2[3].u1) annotation (Line(points={{-19,
-          -47},{40,-47},{40,-50},{58,-50}}, color={0,0,127}));
+  connect(staCap2.yStaUpNom, absErrorSta2[3].u1) annotation (Line(points={{-19,-47},
+          {40,-47},{40,-50},{58,-50}},      color={0,0,127}));
   connect(staCap[2].y, absErrorSta0[3].u2) annotation (Line(points={{21,30},{54,
           30},{54,36},{64,36},{64,52},{70,52},{70,68}}, color={0,0,127}));
   connect(staCap[3].y, absErrorSta1[3].u2) annotation (Line(points={{21,30},{44,
           30},{44,-22},{70,-22},{70,-12}}, color={0,0,127}));
-  connect(staCap[3].y, absErrorSta2[3].u2) annotation (Line(points={{21,30},{44,
+  connect(staCap[4].y, absErrorSta2[3].u2) annotation (Line(points={{21,30},{44,
           30},{44,-72},{70,-72},{70,-62}}, color={0,0,127}));
   connect(minStaUnload[1].y, absErrorSta0[4].u2) annotation (Line(points={{21,
           -80},{92,-80},{92,62},{70,62},{70,68}}, color={0,0,127}));
   connect(staCap0.yStaMin, absErrorSta0[4].u1) annotation (Line(points={{-19,52},
           {40,52},{40,80},{58,80}}, color={0,0,127}));
-  connect(staCap0.yStaUpMin, absErrorSta0[5].u1) annotation (Line(points={{-19,
-          54},{40,54},{40,80},{58,80}}, color={0,0,127}));
+  connect(staCap0.yStaUpMin, absErrorSta0[5].u1) annotation (Line(points={{-19,54},
+          {40,54},{40,80},{58,80}},     color={0,0,127}));
   connect(minStaUnload[2].y, absErrorSta0[5].u2) annotation (Line(points={{21,
           -80},{88,-80},{88,60},{70,60},{70,68}}, color={0,0,127}));
   connect(minStaUnload[3].y, absErrorSta1[5].u2) annotation (Line(points={{21,
@@ -132,16 +136,16 @@ equation
           0,127}));
   connect(staCap1.yStaMin, absErrorSta1[4].u1) annotation (Line(points={{-19,-8},
           {40,-8},{40,0},{58,0}}, color={0,0,127}));
-  connect(staCap1.yStaUpMin, absErrorSta1[5].u1) annotation (Line(points={{-19,
-          -6},{40,-6},{40,0},{58,0}}, color={0,0,127}));
+  connect(staCap1.yStaUpMin, absErrorSta1[5].u1) annotation (Line(points={{-19,-6},
+          {40,-6},{40,0},{58,0}},     color={0,0,127}));
   connect(minStaUnload[3].y, absErrorSta2[4].u2)
     annotation (Line(points={{21,-80},{70,-80},{70,-62}}, color={0,0,127}));
   connect(minStaUnload[4].y, absErrorSta2[5].u2) annotation (Line(points={{21,
           -80},{72,-80},{72,-66},{70,-66},{70,-62}}, color={0,0,127}));
   connect(absErrorSta2[4].u1, staCap2.yStaMin) annotation (Line(points={{58,-50},
           {40,-50},{40,-58},{-19,-58}}, color={0,0,127}));
-  connect(staCap2.yStaUpMin, absErrorSta2[5].u1) annotation (Line(points={{-19,
-          -56},{40,-56},{40,-50},{58,-50}}, color={0,0,127}));
+  connect(staCap2.yStaUpMin, absErrorSta2[5].u1) annotation (Line(points={{-19,-56},
+          {40,-56},{40,-50},{58,-50}},      color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uSta.mos"

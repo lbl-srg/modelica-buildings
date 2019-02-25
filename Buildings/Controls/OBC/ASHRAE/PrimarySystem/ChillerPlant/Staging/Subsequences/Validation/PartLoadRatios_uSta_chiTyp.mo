@@ -14,10 +14,9 @@ model PartLoadRatios_uSta_chiTyp
     final unit="m3/s") = 0.05
     "Average measured chilled water flow rate";
 
-  PartLoadRatios PLRs0(chiStaTyp={2,2}) "Stage and operating part load ratios"
+  PartLoadRatios PLRs0(nPosDis=2) "Stage and operating part load ratios"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
   Capacities staCap(
-    numSta=2,
     staNomCap={10,30},
     minStaUnlCap={2,6})
     "Returns all capacities needed to decide on staging up or down from current stage"
@@ -26,10 +25,9 @@ model PartLoadRatios_uSta_chiTyp
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
   CDL.Continuous.Sources.Constant capReq(k=5) "Capacity requirement"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  PartLoadRatios PLRs1(chiStaTyp={2,2}) "Stage and operating part load ratios"
+  PartLoadRatios PLRs1(nPosDis=2) "Stage and operating part load ratios"
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
   Capacities staCap1(
-    numSta=2,
     staNomCap={10,30},
     minStaUnlCap={2,6})
     "Returns all capacities needed to decide on staging up or down from current stage"
@@ -38,10 +36,9 @@ model PartLoadRatios_uSta_chiTyp
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
   CDL.Continuous.Sources.Constant capReq1(k=20) "Capacity requirement"
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
-  PartLoadRatios PLRs2(chiStaTyp={1,2}) "Stage and operating part load ratios"
+  PartLoadRatios PLRs2(nPosDis=2) "Stage and operating part load ratios"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Capacities staCap2(
-    numSta=2,
     staNomCap={10,30},
     minStaUnlCap={2,6})
     "Returns all capacities needed to decide on staging up or down from current stage"
@@ -58,48 +55,58 @@ equation
           {-90,157},{-61,157}}, color={0,0,127}));
   connect(staCap.yStaNom, PLRs0.uStaCapNom) annotation (Line(points={{-99,87},{
           -88,87},{-88,155},{-61,155}}, color={0,0,127}));
-  connect(staCap.yStaUpNom, PLRs0.uStaUpCapNom) annotation (Line(points={{-99,
-          83},{-86,83},{-86,153},{-61,153}}, color={0,0,127}));
-  connect(staCap.yStaDowNom, PLRs0.uStaDowCapNom) annotation (Line(points={{-99,
-          79},{-84,79},{-84,151},{-61,151}}, color={0,0,127}));
-  connect(staCap.yStaUpMin, PLRs0.uStaUpCapMin) annotation (Line(points={{-99,
-          74},{-82,74},{-82,149},{-61,149}}, color={0,0,127}));
+  connect(staCap.yStaUpNom, PLRs0.uStaUpCapNom) annotation (Line(points={{-99,83},
+          {-86,83},{-86,153},{-61,153}},     color={0,0,127}));
+  connect(staCap.yStaDowNom, PLRs0.uStaDowCapNom) annotation (Line(points={{-99,79},
+          {-84,79},{-84,151},{-61,151}},     color={0,0,127}));
+  connect(staCap.yStaUpMin, PLRs0.uStaUpCapMin) annotation (Line(points={{-99,74},
+          {-82,74},{-82,149},{-61,149}},     color={0,0,127}));
   connect(staCap.yStaMin, PLRs0.uStaCapMin) annotation (Line(points={{-99,72},{
           -80,72},{-80,147},{-61,147}}, color={0,0,127}));
-  connect(staSig1.y, staCap.uSta) annotation (Line(points={{-139,150},{-130,150},{-130,
-          80},{-122,80}}, color={255,127,0}));
+  connect(staSig1.y, staCap.uSta) annotation (Line(points={{-139,150},{-130,150},
+          {-130,80},{-122,80}},
+                          color={255,127,0}));
   connect(staSig2.y, PLRs1.uSta) annotation (Line(points={{61,150},{90,150},{90,159},
           {139,159}}, color={255,127,0}));
   connect(capReq1.y, PLRs1.uCapReq) annotation (Line(points={{101,120},{110,120},{110,
           157},{139,157}}, color={0,0,127}));
-  connect(staCap1.yStaNom, PLRs1.uStaCapNom) annotation (Line(points={{101,87},{112,
-          87},{112,155},{139,155}}, color={0,0,127}));
+  connect(staCap1.yStaNom, PLRs1.uStaCapNom) annotation (Line(points={{101,87},
+          {112,87},{112,155},{139,155}},
+                                    color={0,0,127}));
   connect(staCap1.yStaUpNom, PLRs1.uStaUpCapNom) annotation (Line(points={{101,83},
           {114,83},{114,153},{139,153}}, color={0,0,127}));
   connect(staCap1.yStaDowNom, PLRs1.uStaDowCapNom) annotation (Line(points={{101,79},
           {116,79},{116,151},{139,151}}, color={0,0,127}));
   connect(staCap1.yStaUpMin, PLRs1.uStaUpCapMin) annotation (Line(points={{101,74},
           {118,74},{118,149},{139,149}}, color={0,0,127}));
-  connect(staCap1.yStaMin, PLRs1.uStaCapMin) annotation (Line(points={{101,72},{120,
-          72},{120,147},{139,147}}, color={0,0,127}));
-  connect(staSig2.y, staCap1.uSta) annotation (Line(points={{61,150},{70,150},{70,80},
-          {78,80}}, color={255,127,0}));
+  connect(staCap1.yStaMin, PLRs1.uStaCapMin) annotation (Line(points={{101,72},
+          {120,72},{120,147},{139,147}},
+                                    color={0,0,127}));
+  connect(staSig2.y, staCap1.uSta) annotation (Line(points={{61,150},{70,150},{
+          70,80},{78,80}},
+                    color={255,127,0}));
   connect(staSig3.y, PLRs2.uSta) annotation (Line(points={{-139,-50},{-110,-50},{-110,
           -41},{-61,-41}}, color={255,127,0}));
   connect(capReq2.y, PLRs2.uCapReq) annotation (Line(points={{-99,-80},{-90,-80},{-90,
           -43},{-61,-43}}, color={0,0,127}));
-  connect(staCap2.yStaNom, PLRs2.uStaCapNom) annotation (Line(points={{-99,-113},{-88,
-          -113},{-88,-45},{-61,-45}}, color={0,0,127}));
-  connect(staCap2.yStaUpNom, PLRs2.uStaUpCapNom) annotation (Line(points={{-99,-117},
-          {-86,-117},{-86,-47},{-61,-47}}, color={0,0,127}));
-  connect(staCap2.yStaDowNom, PLRs2.uStaDowCapNom) annotation (Line(points={{-99,-121},
-          {-84,-121},{-84,-49},{-61,-49}}, color={0,0,127}));
-  connect(staCap2.yStaUpMin, PLRs2.uStaUpCapMin) annotation (Line(points={{-99,-126},
-          {-82,-126},{-82,-51},{-61,-51}}, color={0,0,127}));
-  connect(staCap2.yStaMin, PLRs2.uStaCapMin) annotation (Line(points={{-99,-128},{-80,
-          -128},{-80,-53},{-61,-53}}, color={0,0,127}));
-  connect(staSig3.y, staCap2.uSta) annotation (Line(points={{-139,-50},{-130,-50},{
-          -130,-120},{-122,-120}}, color={255,127,0}));
+  connect(staCap2.yStaNom, PLRs2.uStaCapNom) annotation (Line(points={{-99,-113},
+          {-88,-113},{-88,-45},{-61,-45}},
+                                      color={0,0,127}));
+  connect(staCap2.yStaUpNom, PLRs2.uStaUpCapNom) annotation (Line(points={{-99,
+          -117},{-86,-117},{-86,-47},{-61,-47}},
+                                           color={0,0,127}));
+  connect(staCap2.yStaDowNom, PLRs2.uStaDowCapNom) annotation (Line(points={{-99,
+          -121},{-84,-121},{-84,-49},{-61,-49}},
+                                           color={0,0,127}));
+  connect(staCap2.yStaUpMin, PLRs2.uStaUpCapMin) annotation (Line(points={{-99,
+          -126},{-82,-126},{-82,-51},{-61,-51}},
+                                           color={0,0,127}));
+  connect(staCap2.yStaMin, PLRs2.uStaCapMin) annotation (Line(points={{-99,-128},
+          {-80,-128},{-80,-53},{-61,-53}},
+                                      color={0,0,127}));
+  connect(staSig3.y, staCap2.uSta) annotation (Line(points={{-139,-50},{-130,
+          -50},{-130,-120},{-122,-120}},
+                                   color={255,127,0}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/PartLoadRatios_uSta_ChiTyp.mos"
