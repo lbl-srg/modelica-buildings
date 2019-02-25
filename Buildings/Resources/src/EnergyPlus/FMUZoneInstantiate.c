@@ -248,12 +248,16 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
     parameterNames[i] = (char*)malloc((len+1) * sizeof(char));
     if ( parameterNames[i] == NULL)
       EnergyPlusFormatError("Failed to allocate memory for parameterNames[i].");
+    memset(parameterNames[i], '\0', len + 1);
   }
+
   cntr = 0;
   for(i = 0; i < nZon; i++){
     for(j = 0; j < scaPar; j++){
       parameterValueReferences[cntr] = zones[i]->parameterValueReferences[j];
-      strcpy(parameterNames[cntr], zones[i]->parameterVariableNames[j]);
+      strncpy(parameterNames[cntr],
+        zones[i]->parameterVariableNames[j],
+        strlen(zones[i]->parameterVariableNames[j]));
       cntr++;
     }
   }
@@ -275,12 +279,15 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
     inputNames[i] = (char*)malloc((len+1) * sizeof(char));
     if ( inputNames[i] == NULL)
       EnergyPlusFormatError("Failed to allocate memory for inputNames[i].");
+    memset(inputNames[i], '\0', len + 1);
   }
   cntr = 0;
   for(i = 0; i < nZon; i++){
     for(j = 0; j < scaInp; j++){
       inputValueReferences[cntr] = zones[i]->inputValueReferences[j];
-      strcpy(inputNames[cntr], zones[i]->inputVariableNames[j]);
+      strncpy(inputNames[cntr],
+        zones[i]->inputVariableNames[j],
+        strlen(zones[i]->inputVariableNames[j]));
       cntr++;
     }
   }
@@ -300,13 +307,16 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
     outputNames[i] = (char*)malloc((len+1) * sizeof(char));
     if ( outputNames[i] == NULL)
       EnergyPlusFormatError("Failed to allocate memory for outputNames[i].");
+    memset(outputNames[i], '\0', len + 1);
   }
 
   cntr = 0;
   for(i = 0; i < nZon; i++){
     for(j = 0; j < scaOut; j++){
       outputValueReferences[cntr] = zones[i]->outputValueReferences[j];
-      strcpy(outputNames[cntr], zones[i]->outputVariableNames[j]);
+      strncpy(outputNames[cntr],
+        zones[i]->outputVariableNames[j],
+        strlen(zones[i]->outputVariableNames[j]));
       cntr++;
     }
   }
