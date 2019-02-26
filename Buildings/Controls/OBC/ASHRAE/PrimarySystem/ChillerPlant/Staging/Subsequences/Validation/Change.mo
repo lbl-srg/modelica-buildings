@@ -13,29 +13,35 @@ model Change "Validates chiller stage signal"
     "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    staChaPosDis
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    staCha annotation (Placement(transformation(extent={{20,0},{40,20}})));
+  CDL.Continuous.Sources.Constant                        TCWSupSet1(final k=
+        TChiWatSupSet)
+    "Chilled water supply temperature"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  CDL.Continuous.Sources.Sine                        TChiWatRet(
+    final amplitude=2,
+    final freqHz=1/300,
+    final offset=aveTChiWatRet) "Chiller water return temeprature"
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+  CDL.Continuous.Sources.Sine                        chiWatFlow(
+    final freqHz=1/600,
+    final offset=aveVChiWat_flow,
+    final amplitude=0.01) "Chilled water flow"
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected
   CDL.Integers.Sources.Constant stage0(final k=0)
                "0th stage"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  CDL.Continuous.Sources.Constant                        oplrUp(final k=0.5)
-    "Operating part load ratio of the next stage up"
-    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  CDL.Continuous.Sources.Constant                        splrUp(final k=0.8)
-    "Staging part load ratio of the next stage up"
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  CDL.Continuous.Sources.Constant                        oplrUpMin(final k=0.4)
-    "Minimum operating part load ratio of the next stage up"
-    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  CDL.Continuous.Sources.Constant                        dpChiWatSet(final k=65
-        *6895)
-              "Chilled water differential pressure setpoint"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+  CDL.Continuous.Sources.Constant dpChiWat(final k=65*6895)
+    "Chilled water differential pressure"
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   CDL.Continuous.Sources.Constant                        TCWSupSet(final k=
         273.15 + 14)
                "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+    annotation (Placement(transformation(extent={{-160,-18},{-140,2}})));
+  CDL.Continuous.Sources.Constant dpChiWatSet(final k=65*6895)
+    "Chilled water differential pressure setpoint"
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 equation
 
 annotation (

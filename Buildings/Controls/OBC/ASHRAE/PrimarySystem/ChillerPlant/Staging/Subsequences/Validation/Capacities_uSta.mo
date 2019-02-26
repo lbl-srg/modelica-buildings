@@ -6,7 +6,7 @@ model Capacities_uSta
   "Highest chiller stage";
 
   parameter Modelica.SIunits.Power staNomCap[nSta] = {5e5, 5e5}
-  "Nominal capacity at all chiller stages, starting with stage 0";
+    "Nominal capacity at all chiller stages, starting with stage 0";
 
   parameter Modelica.SIunits.Power minStaUnlCap[nSta] = {0.2*staNomCap[1], 0.2*staNomCap[2]}
     "Nominal part load ratio for at all chiller stages, starting with stage 0";

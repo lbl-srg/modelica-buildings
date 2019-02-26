@@ -98,7 +98,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or orStaUp1 "Or for staging up"
-    annotation (Placement(transformation(extent={{50,-82},{70,-62}})));
+    annotation (Placement(transformation(extent={{50,-80},{70,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add0(
     final k1=-1,
@@ -140,8 +140,9 @@ equation
                                          color={0,0,127}));
   connect(dpChiWatPumSet, faiSafCon.dpChiWatPumSet) annotation (Line(points={{-160,0},
           {-92,0},{-92,23},{-81,23}},           color={0,0,127}));
-  connect(dpChiWatPum, faiSafCon.dpChiWatPum) annotation (Line(points={{-160,-40},
-          {-88,-40},{-88,21},{-81,21}},   color={0,0,127}));
+  connect(dpChiWatPum, faiSafCon.dpChiWatPum) annotation (Line(points={{-160,
+          -40},{-90,-40},{-90,21},{-81,21}},
+                                          color={0,0,127}));
   connect(effCon.y, orStaUp.u1) annotation (Line(points={{-59,130},{-20,130},{
           -20,10},{-2,10}},
                    color={255,0,255}));
@@ -153,7 +154,7 @@ equation
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-59,-160},{40,-160},
           {40,10},{58,10}},
                           color={255,0,255}));
-  connect(orStaUp.y, logSwi.u1) annotation (Line(points={{21,10},{40,10},{40,18},
+  connect(orStaUp.y, logSwi.u1) annotation (Line(points={{21,10},{30,10},{30,18},
           {58,18}},
                   color={255,0,255}));
   connect(y, logSwi.y)
@@ -161,15 +162,15 @@ equation
                                               color={255,0,255}));
   connect(add0.y,hysTSup. u)
     annotation (Line(points={{-59,-50},{-42,-50}}, color={0,0,127}));
-  connect(TChiWatSupSet,add0. u1) annotation (Line(points={{-160,-80},{-100,-80},
-          {-100,-44},{-82,-44}},  color={0,0,127}));
+  connect(TChiWatSupSet,add0. u1) annotation (Line(points={{-160,-80},{-90,-80},
+          {-90,-44},{-82,-44}},   color={0,0,127}));
   connect(TChiWatSup,add0. u2) annotation (Line(points={{-160,-120},{-110,-120},
           {-110,-56},{-82,-56}},
                             color={0,0,127}));
   connect(add1.y, hysTSup1.u)
     annotation (Line(points={{-59,-90},{-42,-90}},   color={0,0,127}));
-  connect(TChiWatSupSet,add1. u1) annotation (Line(points={{-160,-80},{-100,-80},
-          {-100,-84},{-82,-84}},  color={0,0,127}));
+  connect(TChiWatSupSet,add1. u1) annotation (Line(points={{-160,-80},{-90,-80},
+          {-90,-84},{-82,-84}},   color={0,0,127}));
   connect(TChiWatSup,add1. u2) annotation (Line(points={{-160,-120},{-110,-120},
           {-110,-96},{-82,-96}},
                             color={0,0,127}));
@@ -178,10 +179,11 @@ equation
   connect(hysTSup1.y, truDel1.u)
     annotation (Line(points={{-19,-90},{-2,-90}}, color={255,0,255}));
   connect(truDel.y, orStaUp1.u1) annotation (Line(points={{21,-50},{30,-50},{30,
-          -72},{48,-72}}, color={255,0,255}));
-  connect(truDel1.y, orStaUp1.u2) annotation (Line(points={{21,-90},{30,-90},{30,
-          -80},{48,-80}}, color={255,0,255}));
-  connect(orStaUp1.y, logSwi.u3) annotation (Line(points={{71,-72},{80,-72},{80,
+          -70},{48,-70}}, color={255,0,255}));
+  connect(truDel1.y, orStaUp1.u2) annotation (Line(points={{21,-90},{30,-90},{
+          30,-78},{48,-78}},
+                          color={255,0,255}));
+  connect(orStaUp1.y, logSwi.u3) annotation (Line(points={{71,-70},{80,-70},{80,
           -50},{50,-50},{50,2},{58,2}}, color={255,0,255}));
   annotation (defaultComponentName = "staUp",
         Icon(graphics={

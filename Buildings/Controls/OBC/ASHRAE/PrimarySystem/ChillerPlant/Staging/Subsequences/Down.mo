@@ -188,7 +188,7 @@ equation
     annotation (Line(points={{41,-80},{58,-80}}, color={255,0,255}));
   connect(truDel.y, logSwi.u3) annotation (Line(points={{81,-80},{90,-80},{90,-8},
           {98,-8}}, color={255,0,255}));
-  connect(hysOplr.y, and0.u1) annotation (Line(points={{-19,170},{10,170},{10,40},
+  connect(hysOplr.y, and0.u1) annotation (Line(points={{-19,170},{0,170},{0,40},
           {18,40}}, color={255,0,255}));
   connect(and0.y, truDel1.u)
     annotation (Line(points={{41,40},{58,40}}, color={255,0,255}));
