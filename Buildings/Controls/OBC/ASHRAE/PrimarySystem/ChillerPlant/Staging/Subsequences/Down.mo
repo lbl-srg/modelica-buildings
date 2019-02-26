@@ -4,6 +4,9 @@ block Down "Conditions to enable stage down"
   parameter Integer numSta = 2
   "Number of stages";
 
+  parameter Boolean hasWSE = true
+  "true = plant has a WSE, false = plant does not have WSE";
+
   parameter Modelica.SIunits.Time delPer = 15*60
   "True delay period";
 
@@ -20,7 +23,8 @@ block Down "Conditions to enable stage down"
      Placement(transformation(extent={{-180,-170},{-140,-130}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta "Chiller stage"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta if hasWSE
+    "Chiller stage"
     annotation (Placement(transformation(extent={{-180,-200},{-140,-160}}),
         iconTransformation(extent={{-120,-110},{-100,-90}})));
 
@@ -44,12 +48,16 @@ block Down "Conditions to enable stage down"
     annotation (Placement(transformation(extent={{-180,130},{-140,170}}),
       iconTransformation(extent={{-120,90},{-100,110}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K", final quantity="ThermodynamicTemperature")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
     iconTransformation(extent={{-120,-30},{-100,-10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(final unit="K", final quantity="ThermodynamicTemperature")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-180,-50},{-140,-10}}),
     iconTransformation(extent={{-120,-50},{-100,-30}})));
@@ -68,12 +76,14 @@ block Down "Conditions to enable stage down"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
     iconTransformation(extent={{-120,10},{-100,30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
+    final unit="1") if hasWSE
     "Predicted waterside economizer outlet temperature" annotation (Placement(
         transformation(extent={{-180,-80},{-140,-40}}), iconTransformation(
           extent={{-120,-10},{-100,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax "Maximum cooling tower fan speed"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if hasWSE
+    "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
 
@@ -82,6 +92,10 @@ block Down "Conditions to enable stage down"
         iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
+  CDL.Logical.Sources.Constant noWSE(final k=true) if not hasWSE
+    "Replacement signal if plant does not have WSE"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon "Failsafe condition of the next lower stage"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
@@ -91,7 +105,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=1)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=1) if hasWSE
     "Switches staging down rules"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
@@ -180,8 +194,8 @@ equation
     annotation (Line(points={{-59,30},{-42,30}}, color={255,0,255}));
   connect(not1.y, and0.u2) annotation (Line(points={{-19,30},{0,30},{0,32},{18,32}},
         color={255,0,255}));
-  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-99,-180},{90,-180},
-          {90,0},{98,0}}, color={255,0,255}));
+  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-99,-180},{86,-180},
+          {86,0},{98,0}}, color={255,0,255}));
   connect(not0.y, and1.u2) annotation (Line(points={{-59,-120},{0,-120},{0,-80},
           {18,-80}}, color={255,0,255}));
   connect(and1.y, truDel.u)
@@ -196,6 +210,10 @@ equation
           {98,8}}, color={255,0,255}));
   connect(add.y, hysOplr.u)
     annotation (Line(points={{-59,170},{-42,170}}, color={0,0,127}));
+  connect(noWSE.y, logSwi.u2)
+    annotation (Line(points={{41,0},{98,0}}, color={255,0,255}));
+  connect(noWSE.y, logSwi.u3) annotation (Line(points={{41,0},{80,0},{80,-8},{98,
+          -8}}, color={255,0,255}));
   annotation (defaultComponentName = "staDow",
         Icon(graphics={
         Rectangle(
