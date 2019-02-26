@@ -14,7 +14,28 @@ model Change "Validates chiller stage signal"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
     staChaPosDis
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+protected
+  CDL.Integers.Sources.Constant stage0(final k=0)
+               "0th stage"
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+  CDL.Continuous.Sources.Constant                        oplrUp(final k=0.5)
+    "Operating part load ratio of the next stage up"
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+  CDL.Continuous.Sources.Constant                        splrUp(final k=0.8)
+    "Staging part load ratio of the next stage up"
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+  CDL.Continuous.Sources.Constant                        oplrUpMin(final k=0.4)
+    "Minimum operating part load ratio of the next stage up"
+    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
+  CDL.Continuous.Sources.Constant                        dpChiWatSet(final k=65
+        *6895)
+              "Chilled water differential pressure setpoint"
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+  CDL.Continuous.Sources.Constant                        TCWSupSet(final k=
+        273.15 + 14)
+               "Chilled water supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 equation
 
 annotation (
@@ -45,5 +66,5 @@ Icon(graphics={
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},{140,140}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{180,160}})));
 end Change;
