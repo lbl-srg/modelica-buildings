@@ -83,8 +83,9 @@ void getEnergyPlusDLLName(char** epLibName) {
       const char * extension = strrchr(fullpath, '.');
 
       const char* libepfmi="/libepfmi-9.0.1";
+      size_t lenLibepfmi = strlen(libepfmi);
       size_t lenPat = strlen(fullpath) - strlen(filename);
-      size_t length = lenPat + strlen(libepfmi);
+      size_t length = lenPat + strlen(libepfmi) + strlen(extension);
       *epLibName = (char *)malloc((length + 1) * sizeof(char));
       if ( *epLibName == NULL)
         EnergyPlusFormatError("Failed to allocate memory for epLibName.");
@@ -92,9 +93,10 @@ void getEnergyPlusDLLName(char** epLibName) {
       strncpy(*epLibName, fullpath, lenPat);
 
       // TODO don't hard code epfmi name and version
-      strcat(*epLibName, libepfmi);
-      strcat(*epLibName, extension);
-      printf("*** Set dll name to %s\n", *epLibName);
+      memcpy(*epLibName + lenPat,
+          libepfmi, lenLibepfmi);
+      memcpy(*epLibName + lenPat + lenLibepfmi,
+          extension, strlen(extension));
     }
   #endif
 }
