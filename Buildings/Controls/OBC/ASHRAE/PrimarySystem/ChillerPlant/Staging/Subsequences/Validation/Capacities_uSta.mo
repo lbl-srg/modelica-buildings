@@ -5,25 +5,25 @@ model Capacities_uSta
   parameter Integer nSta = 2
   "Highest chiller stage";
 
-  parameter Modelica.SIunits.Power staNomCap[nSta] = {5e5, 1e6}
+  parameter Modelica.SIunits.Power staNomCap[nSta] = {5e5, 5e5}
   "Nominal capacity at all chiller stages, starting with stage 0";
 
   parameter Modelica.SIunits.Power minStaUnlCap[nSta] = {0.2*staNomCap[1], 0.2*staNomCap[2]}
     "Nominal part load ratio for at all chiller stages, starting with stage 0";
 
-  parameter Real small[1] = {0.001}
+  parameter Real small = 0.001
   "Small number to avoid division with zero";
 
-  parameter Real large[1] = {staNomCap[nSta]*2}
+  parameter Real large = staNomCap[end]*nSta*10
   "Large number for numerical consistency";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staCap[nSta + 2](
-    final k=cat(1, small, staNomCap, large))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staCap[nSta + 2](final k=
+        {small,5e5,1e6,large})
     "Array of chiller stage nominal capacities starting with stage 0"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaUnload[nSta + 2](
-    final k=cat(1, {0}, minStaUnlCap, large))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaUnload[nSta + 2](final k=
+        {0,1e5,6e5,large})
     "Array of chiller stage minimal unload capacities"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
@@ -70,6 +70,8 @@ model Capacities_uSta
     "Delta between the expected and the calculated value"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
+  CDL.Logical.Sources.Constant con[nSta](k=fill(true, nSta))
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
 
   connect(stage0.y, staCap0.uSta)
@@ -142,6 +144,12 @@ equation
           {40,-50},{40,-58},{-19,-58}}, color={0,0,127}));
   connect(staCap2.yStaUpMin, absErrorSta2[5].u1) annotation (Line(points={{-19,-56},
           {40,-56},{40,-50},{58,-50}},      color={0,0,127}));
+  connect(con.y, staCap0.u) annotation (Line(points={{-59,30},{-52,30},{-52,54},
+          {-42,54}}, color={255,0,255}));
+  connect(con.y, staCap1.u) annotation (Line(points={{-59,30},{-50,30},{-50,-6},
+          {-42,-6}}, color={255,0,255}));
+  connect(con.y, staCap2.u) annotation (Line(points={{-59,30},{-50,30},{-50,-56},
+          {-42,-56}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uSta.mos"
