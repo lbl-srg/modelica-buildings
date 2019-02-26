@@ -71,7 +71,7 @@ model Capacities_uSta
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   CDL.Logical.Sources.Constant con[nSta](k=fill(true, nSta))
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
 
   connect(stage0.y, staCap0.uSta)
@@ -144,12 +144,12 @@ equation
           {40,-50},{40,-58},{-19,-58}}, color={0,0,127}));
   connect(staCap2.yStaUpMin, absErrorSta2[5].u1) annotation (Line(points={{-19,-56},
           {40,-56},{40,-50},{58,-50}},      color={0,0,127}));
-  connect(con.y, staCap0.u) annotation (Line(points={{-59,30},{-52,30},{-52,54},
-          {-42,54}}, color={255,0,255}));
-  connect(con.y, staCap1.u) annotation (Line(points={{-59,30},{-50,30},{-50,-6},
-          {-42,-6}}, color={255,0,255}));
-  connect(con.y, staCap2.u) annotation (Line(points={{-59,30},{-50,30},{-50,-56},
-          {-42,-56}}, color={255,0,255}));
+  connect(con.y, staCap0.uStaAva) annotation (Line(points={{-59,-80},{-50,-80},
+          {-50,54},{-42,54}}, color={255,0,255}));
+  connect(con.y, staCap1.uStaAva) annotation (Line(points={{-59,-80},{-50,-80},
+          {-50,-6},{-42,-6}}, color={255,0,255}));
+  connect(con.y, staCap2.uStaAva) annotation (Line(points={{-59,-80},{-50,-80},
+          {-50,-56},{-42,-56}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uSta.mos"

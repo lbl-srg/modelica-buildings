@@ -124,12 +124,12 @@ equation
                                       color={0,0,127}));
   connect(staSig3.y, staCap2.uSta) annotation (Line(points={{-139,-50},{-130,-50},
           {-130,-120},{-122,-120}},color={255,127,0}));
-  connect(con.y, staCap.u) annotation (Line(points={{-139,50},{-132,50},{-132,74},
-          {-122,74}}, color={255,0,255}));
-  connect(con.y, staCap1.u) annotation (Line(points={{-139,50},{-30,50},{-30,74},
-          {78,74}}, color={255,0,255}));
-  connect(con.y, staCap2.u) annotation (Line(points={{-139,50},{-132,50},{-132,-126},
-          {-122,-126}}, color={255,0,255}));
+  connect(con.y, staCap.uStaAva) annotation (Line(points={{-139,50},{-132,50},{
+          -132,74},{-122,74}}, color={255,0,255}));
+  connect(con.y, staCap1.uStaAva) annotation (Line(points={{-139,50},{-30,50},{
+          -30,74},{78,74}}, color={255,0,255}));
+  connect(con.y, staCap2.uStaAva) annotation (Line(points={{-139,50},{-132,50},
+          {-132,-126},{-122,-126}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/PartLoadRatios_uSta_ChiTyp.mos"
