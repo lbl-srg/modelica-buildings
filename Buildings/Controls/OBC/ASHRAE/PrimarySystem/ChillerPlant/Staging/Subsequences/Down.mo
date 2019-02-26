@@ -81,6 +81,7 @@ block Down "Conditions to enable stage down"
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
+protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon "Failsafe condition of the next lower stage"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 

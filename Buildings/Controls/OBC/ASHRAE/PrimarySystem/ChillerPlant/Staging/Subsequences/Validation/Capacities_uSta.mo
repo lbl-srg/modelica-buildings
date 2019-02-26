@@ -18,11 +18,7 @@ model Capacities_uSta
   "Large number for numerical consistency";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staCap[nSta + 2](
-      final k=cat(
-        1,
-        small,
-        staNomCap,
-        large))
+    final k=cat(1, small, staNomCap, large))
     "Array of chiller stage nominal capacities starting with stage 0"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 

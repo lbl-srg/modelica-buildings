@@ -25,73 +25,54 @@ block Controller
     final unit="1") = 0.8
     "Minimum operating part load ratio of the next lower stage before staging down";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")
-    "Measured chilled water flow rate"
-    annotation (Placement(transformation(extent={{-180,-70},{-140,-30}}),
-    iconTransformation(extent={{-120,-80},{-100,-60}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
-    final unit="K",
-    final quantity="ThermodynamicTemperature")
-    "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{-180,-30},{-140,10}}),
-      iconTransformation(extent={{-120,0},{-100,20}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
-    final unit="K",
-    final quantity="ThermodynamicTemperature")
-    "Chilled water supply setpoint temperature"
-    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
-    iconTransformation(extent={{-120,40},{-100,60}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(
     final min=0,
     final max=numSta) "Chiller stage"
     annotation (Placement(transformation(extent={{
     140,-10},{160,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  CDL.Interfaces.RealInput TChiWatSup(final unit="K", final quantity="ThermodynamicTemperature")
-"Chilled water return temperature" annotation (Placement(transformation(
-      extent={{-180,10},{-140,50}}),     iconTransformation(extent={{-120,0},
-        {-100,20}})));
-  CDL.Interfaces.RealInput dpChiWatPumSet(final unit="Pa", final quantity="PressureDifference")
-"Chilled water pump differential static pressure setpoint"
-annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
-  iconTransformation(extent={{-140,-100},{-100,-60}})));
-  CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa", final quantity="PressureDifference")
-"Chilled water pump differential static pressure"
-annotation (Placement(
-    transformation(extent={{-180,-170},{-140,-130}}), iconTransformation(
-      extent={{-140,-100},{-100,-60}})));
-  CDL.Interfaces.RealInput chiWatPumSpe(final unit="Pa", final quantity="PressureDifference")
-"Chilled water pump speed"
-annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
-                             iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Subsequences.Capacities staCap
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Subsequences.CapacityRequirement capReq
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Subsequences.PartLoadRatios PLRs
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Subsequences.Up staUp
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Subsequences.Down staDow
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-equation
-  connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-79,10},{-70,10},{
-          -70,-3},{-61,-3}}, color={0,0,127}));
-  connect(staCap.yStaNom, PLRs.uStaCapNom) annotation (Line(points={{-79,-23},{
-          -74,-23},{-74,-5},{-61,-5}}, color={0,0,127}));
-  connect(staCap.yStaUpNom, PLRs.uStaUpCapNom) annotation (Line(points={{-79,
-          -27},{-72,-27},{-72,-7},{-61,-7}}, color={0,0,127}));
-  connect(staCap.yStaDowNom, PLRs.uStaDowCapNom) annotation (Line(points={{-79,
-          -31},{-70,-31},{-70,-9},{-61,-9}}, color={0,0,127}));
-  connect(staCap.yStaUpMin, PLRs.uStaUpCapMin) annotation (Line(points={{-79,
-          -36},{-66,-36},{-66,-11},{-61,-11}}, color={0,0,127}));
-  connect(staCap.yStaMin, PLRs.uStaCapMin) annotation (Line(points={{-79,-38},{
-          -64,-38},{-64,-13},{-61,-13}}, color={0,0,127}));
+  Subsequences.Change staChaPosDis
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  CDL.Interfaces.BooleanInput                        uWseSta "Waterside economizer status" annotation (
+     Placement(transformation(extent={{-180,-160},{-140,-120}}),
+        iconTransformation(extent={{-120,-110},{-100,-90}})));
+  CDL.Interfaces.RealInput                        uTowFanSpeMax "Maximum cooling tower fan speed"
+    annotation (Placement(transformation(extent={{-180,-130},{-140,-90}}),
+        iconTransformation(extent={{-120,-90},{-100,-70}})));
+  CDL.Interfaces.RealInput                        TWsePre(final unit="1")
+    "Predicted waterside economizer outlet temperature" annotation (Placement(
+        transformation(extent={{-180,-90},{-140,-50}}), iconTransformation(
+          extent={{-120,-70},{-100,-50}})));
+  CDL.Interfaces.RealInput TChiWatSup(final unit="K", final quantity=
+        "ThermodynamicTemperature")
+    "Chilled water return temperature" annotation (Placement(transformation(
+          extent={{-180,-60},{-140,-20}}),   iconTransformation(extent={{-120,10},
+            {-100,30}})));
+  CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa", final quantity=
+        "PressureDifference")
+    "Chilled water pump differential static pressure" annotation (Placement(
+        transformation(extent={{-180,-30},{-140,10}}),    iconTransformation(
+          extent={{-120,-40},{-100,-20}})));
+  CDL.Interfaces.RealInput dpChiWatPumSet(final unit="Pa", final quantity=
+        "PressureDifference")
+    "Chilled water pump differential static pressure setpoint" annotation (
+      Placement(transformation(extent={{-180,0},{-140,40}}),
+        iconTransformation(extent={{-120,-20},{-100,0}})));
+  CDL.Interfaces.RealInput                        VChiWat_flow(final quantity=
+        "VolumeFlowRate", final unit="m3/s")
+                       "Measured chilled water flow rate"
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+      iconTransformation(extent={{-120,40},{-100,60}})));
+  CDL.Interfaces.RealInput                        TChiWatRet(final unit="K",
+      final quantity="ThermodynamicTemperature")
+    "Chilled water return temperature"
+    annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
+      iconTransformation(extent={{-120,60},{-100,80}})));
+  CDL.Interfaces.RealInput TChiWatSupSet(final unit="K", final quantity=
+        "ThermodynamicTemperature")
+    "Chilled water supply temperature setpoint" annotation (Placement(
+        transformation(extent={{-180,100},{-140,140}}), iconTransformation(
+          extent={{-120,80},{-100,100}})));
   annotation (
     defaultComponentName="chiSta",
     Icon(graphics={
