@@ -5,10 +5,10 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   "Total number of stages";
 
   parameter Modelica.SIunits.Power staNomCap[nSta] = {5e5, 5e5}
-  "Stage nominal capacity (cumulative)";
+  "Stage nominal capacity";
 
   parameter Modelica.SIunits.Power minStaUnlCap[nSta] = {0.2*staNomCap[1], 0.2*staNomCap[2]}
-    "Stage minimal unload capacity (cumulative)";
+    "Stage minimal unload capacity";
 
   final parameter Real lowDia[nSta, nSta] = {if i<= j then 1 else 0 for i in 1:nSta, j in 1:nSta};
 
