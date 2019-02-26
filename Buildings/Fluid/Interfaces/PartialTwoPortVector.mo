@@ -30,6 +30,23 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{90,-40},{110,40}})));
+
+  // Diagnostics
+   parameter Boolean show_T = false
+    "= true, if actual temperature at port is computed"
+    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+
+  Medium.ThermodynamicState sta_a=
+      Medium.setState_phX(port_a.p,
+                          noEvent(actualStream(port_a.h_outflow)),
+                          noEvent(actualStream(port_a.Xi_outflow))) if
+         show_T "Medium properties in port_a";
+
+  Medium.ThermodynamicState sta_b[nPorts]=
+      Medium.setState_phX(ports_b.p,
+                          noEvent(actualStream(ports_b.h_outflow)),
+                          noEvent(actualStream(ports_b.Xi_outflow))) if
+         show_T "Medium properties in ports_b";
   annotation (
     Documentation(info="<html>
 <p>
@@ -53,6 +70,11 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 31, 2019, by Michael Mans:<br/>
+Added optional temperature state calculation as diagnostics option.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1092\">#1092</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.

@@ -26,22 +26,22 @@ block ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Fan on/off signal, true if fan is on" annotation (Placement(transformation(
-          extent={{-180,-110},{-140,-70}}), iconTransformation(extent={{-140,-80},
-            {-100,-40}})));
+    "Fan on/off signal, true if fan is on"
+    annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
      final unit="Pa",
      displayUnit="Pa",
      min=0)
     "Return fan discharge static pressure setpoint"
-    annotation (Placement(transformation(extent={{120,-90},{140,-70}}),
+    annotation (Placement(transformation(extent={{120,-100},{140,-80}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
      final unit="1",
      min=0,
      max=1)
     "Exhaust damper control signal (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{120,70},{140,90}}),
+    annotation (Placement(transformation(extent={{120,10},{140,30}}),
       iconTransformation(extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback conErr(
@@ -130,19 +130,20 @@ equation
   connect(linRetFanStaPre.y, swi.u1)
     annotation (Line(points={{81,-40},{100,-40},{100,-60},{60,-60},{60,-82},
       {78,-82}}, color={0,0,127}));
-  connect(uFan, swi1.u2) annotation (Line(points={{-160,-90},{-100,-90},{-100,20},
-          {78,20}}, color={255,0,255}));
+  connect(uFan, swi1.u2)
+    annotation (Line(points={{-160,-90},{-100,-90},{-100,20},{78,20}},
+      color={255,0,255}));
   connect(linExhAirDam.y, swi1.u1)
     annotation (Line(points={{81,90},{100,90},{100,70},{60,70},{60,28},{78,28}},
       color={0,0,127}));
   connect(swi1.y, yExhDam)
-    annotation (Line(points={{101,20},{108,20},{108,80},{130,80}},
+    annotation (Line(points={{101,20},{130,20}},
       color={0,0,127}));
   connect(zer1.y, swi1.u3)
     annotation (Line(points={{-47,52},{30,52},{30,12},{78,12}},
       color={0,0,127}));
   connect(swi.y, dpDisSet)
-    annotation (Line(points={{101,-90},{106,-90},{106,-80},{130,-80}},
+    annotation (Line(points={{101,-90},{130,-90}},
       color={0,0,127}));
   connect(conP.y, linExhAirDam.u)
     annotation (Line(points={{-15,90},{58,90}}, color={0,0,127}));

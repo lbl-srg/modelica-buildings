@@ -437,15 +437,15 @@ block Controller "Multizone AHU controller that composes subsequences for contro
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
       use_G36FrePro
-   "Freeze protection status, used if use_G36FrePro=true" annotation (
-     Placement(transformation(extent={{-220,-190},{-200,-170}}),
-        iconTransformation(extent={{-220,-260},{-200,-240}})));
+   "Freeze protection status, used if use_G36FrePro=true"
+    annotation (Placement(transformation(extent={{-220,-190},{-200,-170}}),
+      iconTransformation(extent={{-220,-260},{-200,-240}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
-    annotation (Placement(transformation(extent={{200,70},{220,90}}),
+    annotation (Placement(transformation(extent={{200,80},{220,100}}),
       iconTransformation(extent={{200,-80},{220,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
     final min=0,
@@ -615,8 +615,7 @@ equation
           -56.875},{60,-100},{-210,-100}},
                         color={255,127,0}));
   connect(supTemSetPoi.TSupSet, TSupSet)
-    annotation (Line(points={{21,90},{126,90},{126,80},{210,80}},
-                                                color={0,0,127}));
+    annotation (Line(points={{21,90},{210,90}}, color={0,0,127}));
   connect(supTemSetPoi.TOut, TOut) annotation (Line(points={{-1,94},{-60,94},{
           -60,166},{-210,166}},
                             color={0,0,127}));
@@ -651,7 +650,7 @@ equation
     annotation (Line(points={{-139,137},{-84,137},{-84,56},{-39,56}},
       color={255,0,255}));
   connect(supTemSetPoi.TZonSetAve, TZonSetPoiAve.y)
-    annotation (Line(points={{-1,98},{-16,98},{-16,220.2},{-139,220.2}},
+    annotation (Line(points={{-1,98},{-20,98},{-20,220.2},{-139,220.2}},
       color={0,0,127}));
   connect(outAirSetPoi.VDis_flow, VDis_flow)
     annotation (Line(points={{-39,51},{-184,51},{-184,140},{-210,140}},

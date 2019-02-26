@@ -2,13 +2,16 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subs
 model Limits_LoopDisable
   "Validation model for the multi zone VAV AHU minimum outdoor air control - damper position limits"
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(final k=VOutSet_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
+    final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet1_flow(final k=VOutSet_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet1_flow(
+    final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet2_flow(final k=VOutSet_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet2_flow(
+    final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
@@ -76,15 +79,18 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus1(final k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus1(
+    final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta1(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection stage is 1"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus2(final k=true) "Fan is on"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanStatus2(
+    final k=true) "Fan is on"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod2(final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod2(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
@@ -102,15 +108,15 @@ equation
   connect(VOutMinSet1_flow.y, damLim1.VOutMinSet_flow_normalized) annotation (
       Line(points={{-39,30},{-10,30},{-10,-5},{19,-5}}, color={0,0,127}));
   connect(fanStatus1.y, damLim1.uSupFan)
-    annotation (Line(points={{-39,-10},{-20,-10},{19,-10}}, color={255,0,255}));
+    annotation (Line(points={{-39,-10},{19,-10}}, color={255,0,255}));
   connect(freProSta1.y, damLim1.uFreProSta)
     annotation (Line(points={{-39,-90},{0,-90},{0,-18},{19,-18}}, color={255,127,0}));
-  connect(VOut2_flow.y, damLim2.VOut_flow_normalized) annotation (Line(points={
-          {101,70},{140,70},{140,-2},{159,-2}}, color={0,0,127}));
-  connect(VOutMinSet2_flow.y, damLim2.VOutMinSet_flow_normalized) annotation (
-      Line(points={{101,30},{130,30},{130,-5},{159,-5}}, color={0,0,127}));
+  connect(VOut2_flow.y, damLim2.VOut_flow_normalized)
+    annotation (Line(points={{101,70},{140,70},{140,-2},{159,-2}}, color={0,0,127}));
+  connect(VOutMinSet2_flow.y, damLim2.VOutMinSet_flow_normalized)
+    annotation (Line(points={{101,30},{130,30},{130,-5},{159,-5}}, color={0,0,127}));
   connect(fanStatus2.y, damLim2.uSupFan)
-    annotation (Line(points={{101,-10},{120,-10},{159,-10}}, color={255,0,255}));
+    annotation (Line(points={{101,-10},{159,-10}}, color={255,0,255}));
   connect(freProSta2.y, damLim2.uFreProSta)
     annotation (Line(points={{101,-90},{140,-90},{140,-18},{159,-18}},color={255,127,0}));
   connect(opeMod.y, damLim.uOpeMod)
@@ -119,7 +125,8 @@ equation
     annotation (Line(points={{-39,-50},{-10,-50},{-10,-15},{19,-15}}, color={255,127,0}));
   connect(opeMod2.y, damLim2.uOpeMod)
     annotation (Line(points={{101,-50},{130,-50},{130,-15},{159,-15}}, color={255,127,0}));
-  annotation (
+
+annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Economizers/Subsequences/Validation/Limits_LoopDisable.mos"
     "Simulate and plot"),
@@ -136,31 +143,28 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-120},{
             220,120}}), graphics={
         Text(
-          extent={{-200,110},{-166,98}},
+          extent={{-200,110},{-174,100}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=16,
           textString="Fan is off"),
         Text(
-          extent={{-60,114},{68,96}},
+          extent={{-60,114},{34,100}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=16,
           textString="Operation mode is other than occupied"),
         Text(
-          extent={{80,114},{208,96}},
+          extent={{80,114},{172,100}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=16,
           textString="Freeze protection status is higher than 1")}),
 Documentation(info="<html>
 <p>
