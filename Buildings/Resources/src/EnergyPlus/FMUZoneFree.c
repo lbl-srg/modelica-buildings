@@ -32,7 +32,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     }
 #else
     writeLog(1, "Calling dlclose.");
-    if (0 != dlclose(ptrBui->fmu->dllHandle)){
+   if (0 != dlclose(ptrBui->fmu->dllHandle)){
       EnergyPlusMessage("Warning: Failed to free EnergyPlus library.");
     }
 #endif

@@ -97,7 +97,7 @@ typedef struct FMUBuilding
   fmi2Byte* name;
   fmi2Byte* weather;
   fmi2Byte* idd;
-  fmi2Byte* epLib;
+  char* epLib;
   fmi2Integer nZon; /* Number of zones that use this FMU */
   fmi2Byte** zoneNames; /* Names of zones in this FMU */
   void** zones; /* Pointers to all zones*/
@@ -121,6 +121,8 @@ typedef struct FMUZone
   fmi2ValueReference* outputValueReferences; /* Value references of output variables*/
 } FMUZone;
 
+void getEnergyPlusDLLName(char** epLibName);
+
 void incrementBuildings_nFMU();
 void decrementBuildings_nFMU();
 unsigned int getBuildings_nFMU();
@@ -134,7 +136,7 @@ void buildVariableNames(
 
 FMUBuilding* FMUZoneAllocateBuildingDataStructure(
   const char* idfName, const char* weaName,
-  const char* iddName, const char* epLibName,
+  const char* iddName,
   const char* zoneName, FMUZone* zone);
 
 FMUBuilding* getBuildingsFMU(size_t iFMU);

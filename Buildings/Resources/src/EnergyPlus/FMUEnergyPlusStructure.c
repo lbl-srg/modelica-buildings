@@ -68,6 +68,38 @@ void printBacktrace(){
 static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
 
+void getEnergyPlusDLLName(char** epLibName) {
+  #if defined _WIN32
+    // TODO this probably needs improvement to work on windows
+    TCHAR szPath[MAX_PATH];
+    if( GetModuleFileName( nullptr, szPath, MAX_PATH ) ) {
+      *epLibName = szPath;
+    }
+  #else
+    Dl_info info;
+    if (dladdr("main", &info)) {
+      const char * fullpath = info.dli_fname;
+      const char * filename = strrchr(fullpath, '/');
+      const char * extension = strrchr(fullpath, '.');
+
+      const char* libepfmi="/libepfmi-9.0.1";
+      size_t lenPat = strlen(fullpath) - strlen(filename);
+      size_t length = lenPat + strlen(libepfmi);
+      *epLibName = (char *)malloc((length + 1) * sizeof(char));
+      if ( *epLibName == NULL)
+        EnergyPlusFormatError("Failed to allocate memory for epLibName.");
+      memset(*epLibName, '\0', length+1);
+      strncpy(*epLibName, fullpath, lenPat);
+
+      // TODO don't hard code epfmi name and version
+      strcat(*epLibName, libepfmi);
+      strcat(*epLibName, extension);
+      printf("*** Set dll name to %s\n", *epLibName);
+    }
+  #endif
+}
+
+
 void buildVariableNames(
   const char* zoneName,
   const char** variableNames,
@@ -102,7 +134,7 @@ void buildVariableNames(
 }
 
 FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
-  const char* iddName, const char* epLibName, const char* zoneName, FMUZone* zone){
+  const char* iddName, const char* zoneName, FMUZone* zone){
   /* Allocate memory */
   writeLog(1, "Allocating data structure for building.");
 
@@ -139,12 +171,6 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
     EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate IDD name.");
   strcpy(Buildings_FMUS[nFMU]->idd, iddName);
 
-  /* Assign the Energyplus library name */
-  Buildings_FMUS[nFMU]->epLib = (char*) malloc((strlen(epLibName)+1) * sizeof(char));
-  if ( Buildings_FMUS[nFMU]->epLib == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate IDD name.");
-  strcpy(Buildings_FMUS[nFMU]->epLib, epLibName);
-
   /* Assign the zone name */
   Buildings_FMUS[nFMU]->zoneNames[0] = malloc((strlen(zoneName)+1) * sizeof(char));
   if ( Buildings_FMUS[nFMU]->zoneNames[0] == NULL )
@@ -158,6 +184,19 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
     EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate zones.");
 
   getEnergyPlusTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
+  /* Assign the dll name */
+  if (nFMU == 0) {
+    getEnergyPlusDLLName(&(Buildings_FMUS[nFMU]->epLib));
+  }
+  else{
+    /* All FMUs share the same dll name. Copy it from the Buildings_FMUS[0] */
+    size_t len = strlen(Buildings_FMUS[0]->epLib);
+    Buildings_FMUS[nFMU]->epLib = (char *)malloc((len + 1) * sizeof(char));
+    if ( Buildings_FMUS[nFMU]->epLib == NULL)
+      EnergyPlusFormatError("Failed to allocate memory for epLibName.");
+    memset(Buildings_FMUS[nFMU]->epLib, '\0', len+1);
+    strncpy(Buildings_FMUS[nFMU]->epLib, Buildings_FMUS[0]->epLib, len);
+  }
 
   /* Assign the zone */
   Buildings_FMUS[nFMU]->zones[0] = zone;
@@ -213,10 +252,8 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   namOnl = malloc((lenNam+1) * sizeof(char));
   if ( namOnl == NULL )
     EnergyPlusFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
-
+  memset(namOnl, '\0', lenNam+1);
   strncpy(namOnl, nam, lenNam);
-  /* Add termination character */
-  namOnl[lenNam] = '\0';
 
   /* Prefix for temporary directory */
   const char* pre = "tmp-eplus-\0";
@@ -225,10 +262,9 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   *dirNam = malloc((lenPre+lenNam+1) * sizeof(char));
   if ( *dirNam == NULL )
     EnergyPlusFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
-
+  memset(*dirNam, '\0', (lenPre+lenNam+1));
   strncpy(*dirNam, pre, lenPre);
-  (*dirNam)[lenPre] = '\0';
-  /* Add termination character */
+
   strcat(*dirNam, namOnl);
   free(namOnl);
 
