@@ -33,7 +33,8 @@ model PartLoadRatios_uSta_chiTyp
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities staCap(final
-      staNomCap={10,20}, final minStaUnlCap={2,4})
+      staNomCap={10,20}, final minStaUnlCap={2,4},
+    nSta=2)
     "Returns all capacities needed to decide on staging up or down from current stage"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
@@ -44,7 +45,8 @@ protected
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities staCap1(staNomCap=
-       {10,20}, minStaUnlCap={2,4})
+       {10,20}, minStaUnlCap={2,4},
+    nSta=2)
     "Returns all capacities needed to decide on staging up or down from current stage"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
 
@@ -55,7 +57,8 @@ protected
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities staCap2(final
-      staNomCap={10,20}, final minStaUnlCap={2,4})
+      staNomCap={10,20}, final minStaUnlCap={2,4},
+    nSta=2)
     "Returns all capacities needed to decide on staging up or down from current stage"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
