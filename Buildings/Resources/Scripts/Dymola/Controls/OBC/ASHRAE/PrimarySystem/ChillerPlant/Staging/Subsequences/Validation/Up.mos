@@ -4,10 +4,16 @@ createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"staUp.uOplr", "sta
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"staUp.uOplrUp", "staUp.uOplrUpMin"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"staUp.dpChiWatPumSet", "staUp.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"staUp.TChiWatSup", "staUp.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=5, y={"staUp.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=5, y={"staUp.y", "staUp.uChiSta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 
 createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"staUp1.uOplr", "staUp1.uSplrUp"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"staUp1.uOplrUp", "staUp1.uOplrUpMin"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"staUp1.dpChiWatPumSet", "staUp1.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=2, position={20, 10, 1200, 650}, subPlot=4, y={"staUp1.TChiWatSup", "staUp1.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={20, 10, 1200, 650}, subPlot=5, y={"staUp1.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=5, y={"staUp1.y", "staUp1.uChiSta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=1, y={"noWSE.uOplr", "noWSE.uSplrUp"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=2, y={"noWSE.uOplrUp", "noWSE.uOplrUpMin"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=3, y={"noWSE.dpChiWatPumSet", "noWSE.dpChiWatPum"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=4, y={"noWSE.TChiWatSup", "noWSE.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=5, y={"noWSE.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
