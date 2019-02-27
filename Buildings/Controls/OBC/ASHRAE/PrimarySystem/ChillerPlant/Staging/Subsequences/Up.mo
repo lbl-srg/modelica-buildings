@@ -1,9 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Up "Conditions to enable stage up"
 
-  parameter Integer numSta = 2
-  "Number of stages";
-
   parameter Modelica.SIunits.Time delayStaCha = 15*60
   "Delay enable stage change upon satisfying stage change conditions";
 
@@ -43,22 +40,30 @@ block Up "Conditions to enable stage up"
     annotation (Placement(transformation(extent={{-180,30},{-140,70}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(final unit="Pa", final quantity="PressureDifference")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
+    final unit="Pa",
+    final quantity="PressureDifference")
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(final unit="Pa", final quantity="PressureDifference")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
+    final unit="Pa",
+    final quantity="PressureDifference")
     "Chilled water pump differential static pressure"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
     iconTransformation(extent={{-120,-80},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K", final quantity="ThermodynamicTemperature")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
     iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(final unit="K", final quantity="ThermodynamicTemperature")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(
       extent={{-180,-140},{-140,-100}}), iconTransformation(extent={{-120,-30},
@@ -67,11 +72,18 @@ block Up "Conditions to enable stage up"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Efficiency condition for chiller staging"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
+
 protected
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
+    final delayStaCha = delayStaCha,
+    final TDiff = TDiff,
+    final dpDiff = dpDiff)
+    "Failsafe condition of the current stage"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.EfficiencyCondition effCon
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.EfficiencyCondition effCon(
+    final delayStaCha = delayStaCha)
+    "Efficiency condition of the current stage"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or orStaUp "Or for staging up"
@@ -140,9 +152,8 @@ equation
                                          color={0,0,127}));
   connect(dpChiWatPumSet, faiSafCon.dpChiWatPumSet) annotation (Line(points={{-160,0},
           {-92,0},{-92,23},{-81,23}},           color={0,0,127}));
-  connect(dpChiWatPum, faiSafCon.dpChiWatPum) annotation (Line(points={{-160,
-          -40},{-90,-40},{-90,21},{-81,21}},
-                                          color={0,0,127}));
+  connect(dpChiWatPum, faiSafCon.dpChiWatPum) annotation (Line(points={{-160,-40},
+          {-90,-40},{-90,21},{-81,21}},   color={0,0,127}));
   connect(effCon.y, orStaUp.u1) annotation (Line(points={{-59,130},{-20,130},{
           -20,10},{-2,10}},
                    color={255,0,255}));
@@ -180,9 +191,8 @@ equation
     annotation (Line(points={{-19,-90},{-2,-90}}, color={255,0,255}));
   connect(truDel.y, orStaUp1.u1) annotation (Line(points={{21,-50},{30,-50},{30,
           -70},{48,-70}}, color={255,0,255}));
-  connect(truDel1.y, orStaUp1.u2) annotation (Line(points={{21,-90},{30,-90},{
-          30,-78},{48,-78}},
-                          color={255,0,255}));
+  connect(truDel1.y, orStaUp1.u2) annotation (Line(points={{21,-90},{30,-90},{30,
+          -78},{48,-78}}, color={255,0,255}));
   connect(orStaUp1.y, logSwi.u3) annotation (Line(points={{71,-70},{80,-70},{80,
           -50},{50,-50},{50,2},{58,2}}, color={255,0,255}));
   annotation (defaultComponentName = "staUp",

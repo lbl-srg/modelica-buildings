@@ -218,13 +218,15 @@ equation
   connect(TChiWatSupSet, staUp.TChiWatSupSet) annotation (Line(points={{-200,90},
           {6,90},{6,10},{59,10}},  color={0,0,127}));
   connect(TChiWatSupSet, staDow.TChiWatSupSet) annotation (Line(points={{-200,90},
-          {6,90},{6,-32},{59,-32}},  color={0,0,127}));
-  connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-200,-190},{6,
-          -190},{6,-34},{59,-34}}, color={0,0,127}));
+          {6,90},{6,-30},{59,-30}},  color={0,0,127}));
+  connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-200,-190},{
+          6,-190},{6,-32},{59,-32}},
+                                   color={0,0,127}));
   connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-200,-190},{8,
           -190},{8,8},{59,8}}, color={0,0,127}));
-  connect(TWsePre, staDow.TWsePre) annotation (Line(points={{-200,-220},{10,-220},
-          {10,-30},{59,-30}}, color={0,0,127}));
+  connect(TWsePre, staDow.TWsePre) annotation (Line(points={{-200,-220},{10,
+          -220},{10,-34},{59,-34}},
+                              color={0,0,127}));
   connect(dpChiWatPumSet, staUp.dpChiWatPumSet) annotation (Line(points={{-200,-120},
           {12,-120},{12,5},{59,5}}, color={0,0,127}));
   connect(dpChiWatPum, staUp.dpChiWatPum) annotation (Line(points={{-200,-150},{

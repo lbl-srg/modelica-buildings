@@ -26,7 +26,8 @@ model Change "Validates chiller stage signal"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   CDL.Logical.Sources.Constant con[2](k={true,true})
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  CDL.Logical.Sources.Constant                        WSESta(k=true) "Waterside economizer status"
+  CDL.Logical.Sources.Constant                        WSESta(k=true)
+    "Waterside economizer status"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 protected
   CDL.Integers.Sources.Constant stage1(final k=1) "Chiller stage"

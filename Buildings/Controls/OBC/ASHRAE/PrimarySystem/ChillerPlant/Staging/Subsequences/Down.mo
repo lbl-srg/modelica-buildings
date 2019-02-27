@@ -1,25 +1,20 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Down "Conditions to enable stage down"
 
-  parameter Integer numSta = 2
-  "Number of stages";
-
   parameter Boolean hasWSE = true
   "true = plant has a WSE, false = plant does not have WSE";
 
-  parameter Modelica.SIunits.Time delPer = 15*60
+  parameter Modelica.SIunits.Time delayStaCha = 15*60
   "True delay period";
 
-  parameter Modelica.SIunits.Time short = 10*60
-  "Enable delay";
-
-  parameter Modelica.SIunits.Time long = 20*60
-  "Enable delay";
-
   parameter Modelica.SIunits.TemperatureDifference TDiff = 1
-  "Offset between the predicted downstream WSE temperature and the chilled water supply temperature setpoint";
+  "Offset between the chilled water supply temperature and its setpoint";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta "Waterside economizer status" annotation (
+  parameter Modelica.SIunits.PressureDifference dpDiff = 2 * 6895
+  "Offset between the chilled water pump differential static pressure and its setpoint";
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
+    "Waterside economizer status" annotation (
      Placement(transformation(extent={{-180,-170},{-140,-130}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
 
@@ -53,14 +48,14 @@ block Down "Conditions to enable stage down"
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
-    iconTransformation(extent={{-120,-30},{-100,-10}})));
+    iconTransformation(extent={{-120,-10},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-180,-50},{-140,-10}}),
-    iconTransformation(extent={{-120,-50},{-100,-30}})));
+    iconTransformation(extent={{-120,-30},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
@@ -80,7 +75,7 @@ block Down "Conditions to enable stage down"
     final unit="1") if hasWSE
     "Predicted waterside economizer outlet temperature" annotation (Placement(
         transformation(extent={{-180,-80},{-140,-40}}), iconTransformation(
-          extent={{-120,-10},{-100,10}})));
+          extent={{-120,-50},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if hasWSE
     "Maximum cooling tower fan speed"
@@ -96,7 +91,11 @@ protected
     "Replacement signal if plant does not have WSE"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon "Failsafe condition of the next lower stage"
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
+    final delayStaCha = delayStaCha,
+    final TDiff = TDiff,
+    final dpDiff = dpDiff)
+    "Failsafe condition of the next lower stage"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and0 "And for staging down"
@@ -109,35 +108,38 @@ protected
     "Switches staging down rules"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(final uLow=TDiff,
-      final uHigh=TDiff + 1)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
+    final uLow=TDiff,
+    final uHigh=TDiff + 1) if hasWSE
     "Checks if the predicted downstream WSE chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and1 "Or for staging up"
+  Buildings.Controls.OBC.CDL.Logical.And3 and1 if hasWSE "Or for staging up"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not0 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not0 if  hasWSE "Logical not"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add0(final k1=-1, final k2=1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add0(
+    final k1=-1,
+    final k2=1) if hasWSE
     "Adder for temperatures"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uHigh=0.99,
-    final uLow=0.98) "Checks if the signal is at its maximum"
+    final uLow=0.98) if hasWSE "Checks if the signal is at its maximum"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=delPer)
+    final delayTime=delayStaCha) if hasWSE
     "Delays a true signal"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(final delayTime=delPer)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(final delayTime=delayStaCha)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
