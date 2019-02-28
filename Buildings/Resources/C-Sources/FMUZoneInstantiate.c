@@ -30,14 +30,15 @@ void* getAdr(FMU *fmu, const char* functionName){
 }
 
 void loadLib(const char* libPath, FMU *fmu) {
-  writeLog(0, "Opening EnergyPlus library.");
-  writeLog(0, libPath);
 
 #ifdef _MSC_VER
   HINSTANCE h;
 #else
   void *h;
 #endif
+
+writeLog(0, "Opening EnergyPlus library.");
+writeLog(0, libPath);
 
 #ifdef _MSC_VER
   h = LoadLibrary(libPath);
@@ -124,10 +125,11 @@ void getParametersFromEnergyPlus(
   int i;
   int result;
   size_t len;
-  writeLog(1, "Getting parameters from EnergyPlus.");
   char** fullNames = NULL;
 
   fmi2ValueReference* parameterValueReferences;
+  writeLog(1, "Getting parameters from EnergyPlus.");
+
   parameterValueReferences = (fmi2ValueReference*)malloc(nOut * sizeof(fmi2ValueReference));
   if ( parameterValueReferences == NULL)
     ModelicaFormatError("Failed to allocate memory for parameterValueReferences in FMUZoneInstantiate.c.");
@@ -145,10 +147,12 @@ void getParametersFromEnergyPlus(
     ModelicaFormatError("Failed to get initial outputs for building %s, zone %s.",
     zone->ptrBui->name, zone->name);
   }
-  //for (i = 0; i < nOut; i++)
-  //  free(fullNames[i]);
-  //free(fullNames);
-  //free(parameterValueReferences);
+  /*
+  for (i = 0; i < nOut; i++)
+    free(fullNames[i]);
+  free(fullNames);
+  free(parameterValueReferences);
+  */
 
   return;
 }
@@ -175,8 +179,8 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   int result;
   int i;
   int j;
-  FMUZone** zones = NULL;
-  zones = (FMUZone**)bui->zones;
+  
+  FMUZone** zones = (FMUZone**)bui->zones;
 
 /*  FMUBuilding* bui = zone->ptrBui; */
   const int nZon=bui->nZon;
@@ -188,7 +192,6 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   const size_t nInp = scaInp*nZon;
   const size_t nOut = scaOut*nZon;
   size_t len;
-  writeLog(1, "Allocating data structure for all zones in the building.");
 
   fmi2ValueReference* parameterValueReferences;
   fmi2Byte** parameterNames;
@@ -196,6 +199,9 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   fmi2Byte** inputNames;
   fmi2ValueReference* outputValueReferences;
   fmi2Byte** outputNames;
+
+  writeLog(1, "Allocating data structure for all zones in the building.");
+
   /* Define value references */
   /* Save input value references at zone and building level */
   cntr=0;
@@ -418,5 +424,5 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
     *AFlo = outputs[1];
     *mSenFac = outputs[2];
 
-    //free(outputs);
+    /* free(outputs); */
  }

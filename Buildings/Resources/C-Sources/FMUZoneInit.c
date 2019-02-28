@@ -37,6 +37,15 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   unsigned int i;
   size_t len;
   const size_t nFMU = getBuildings_nFMU();
+
+  char** fullParameterNames = NULL;
+  char** fullInputNames = NULL;
+  char** fullOutputNames = NULL;
+
+  const char* consParameterNames[]={"V", "AFlo", "mSenFac"};
+  const char* consInputNames[]={"T"};
+  const char* consOutputNames[]={"QConSen_flow"};
+
   /* ModelicaMessage("*** Entered FMUZoneInit."); */
 
   /* ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName); */
@@ -59,14 +68,6 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   zone->nParameterValueReferences = 3;
   zone->nInputValueReferences = 1;
   zone->nOutputValueReferences = 1;
-
-  char** fullParameterNames = NULL;
-  char** fullInputNames = NULL;
-  char** fullOutputNames = NULL;
-
-  const char* consParameterNames[]={"V", "AFlo", "mSenFac"};
-  const char* consInputNames[]={"T"};
-  const char* consOutputNames[]={"QConSen_flow"};
 
   buildVariableNames(zone->name, consParameterNames, zone->nParameterValueReferences, &fullParameterNames, &len);
   zone->parameterVariableNames =  fullParameterNames;
@@ -131,4 +132,4 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
 
   /* Return a pointer to this zone */
   return (void*) zone;
-};
+}
