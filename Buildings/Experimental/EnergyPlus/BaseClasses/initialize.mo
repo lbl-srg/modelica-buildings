@@ -8,8 +8,10 @@ function initialize "Initialization"
   output Real mSenFac "Factor for scaling the sensible thermal mass of the zone air volume";
 
   external "C" FMUZoneInstantiate(adapter, t0, AFlo, V, mSenFac)
-  annotation (Library="ModelicaBuildingsEnergyPlus");
-                   // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
+  annotation(
+    Include="#include <FMUZoneInstantiate.c>",
+    IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+
   annotation (Documentation(info="<html>
 <p>
 External function to obtain parameters from the EnergyPlus FMU.

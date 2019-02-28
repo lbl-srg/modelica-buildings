@@ -5,7 +5,6 @@
  * Thierry S. Nouidui, LBNL              4/16/2018
  */
 
-#include "EnergyPlusModelicaUtilities.h"
 #include "FMUEnergyPlusStructure.h"
 
 #include <stdlib.h>
@@ -22,11 +21,11 @@ void setGetVariables(
   {
     int result = fmuZon->ptrBui->fmu->setVariables(inputValueReferences, inputValues, nInp, NULL);
     if(result < 0){
-      EnergyPlusFormatError("Failed to set variables for building FMU with name %s\n", fmuZon->ptrBui->name);
+      ModelicaFormatError("Failed to set variables for building FMU with name %s\n", fmuZon->ptrBui->name);
     }
     result = fmuZon->ptrBui->fmu->getVariables(outputValueReferences, outputValues, 1, NULL);
     if(result < 0){
-      EnergyPlusFormatError("Failed to get variables for building FMU with name %s\n", fmuZon->ptrBui->name);
+      ModelicaFormatError("Failed to get variables for building FMU with name %s\n", fmuZon->ptrBui->name);
     }
   }
 
@@ -57,18 +56,18 @@ void FMUZoneExchange(
   const double dT = 0.01; /* Increment for derivative approximation */
   double QConSenPer_flow;
 
-  /* EnergyPlusFormatMessage("*** Entered FMUZoneExchange at t = %f  ", time); */
+  /* ModelicaFormatMessage("*** Entered FMUZoneExchange at t = %f  ", time); */
 
 
   FMUZone* tmpZon = malloc(sizeof(FMUZone));
   if ( tmpZon == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.");
+    ModelicaError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.");
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
   result=zone->ptrBui->fmu->setTime(time, NULL);
   if(result<0){
-    EnergyPlusFormatError("Failed to set time in building FMU with name %s.",
+    ModelicaFormatError("Failed to set time in building FMU with name %s.",
     zone->ptrBui->name);
   }
 
@@ -84,21 +83,21 @@ void FMUZoneExchange(
   /* Get next event time */
   result = zone->ptrBui->fmu->getNextEventTime(&eventInfo, NULL);
   if(result<0){
-    EnergyPlusFormatError("Failed to get next event time for building FMU with name %s.",
+    ModelicaFormatError("Failed to get next event time for building FMU with name %s.",
     zone->ptrBui->name);
   }
   if(eventInfo.terminateSimulation == fmi2True){
-    EnergyPlusFormatError("EnergyPlus requested to terminate the simulation for building = %s, zone = %s, time = %f.",
+    ModelicaFormatError("EnergyPlus requested to terminate the simulation for building = %s, zone = %s, time = %f.",
     zone->ptrBui->name, zone->name, time);
   }
   if(eventInfo.nextEventTimeDefined == fmi2False){
-    EnergyPlusFormatError("EnergyPlus failed to declare the next event time for building = %s, zone = %s, time = %f. Check with support.",
+    ModelicaFormatError("EnergyPlus failed to declare the next event time for building = %s, zone = %s, time = %f. Check with support.",
     zone->ptrBui->name, zone->name, time);
   }
   *tNext = eventInfo.nextEventTime;
   /* result = zone->ptrBui->fmu->setTime(*tNext, NULL); */
   if(result<0){
-    EnergyPlusFormatError("Failed to set time for building FMU with name %s.",
+    ModelicaFormatError("Failed to set time for building FMU with name %s.",
     zone->ptrBui->name);
   }
 

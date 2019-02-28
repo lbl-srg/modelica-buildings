@@ -10,11 +10,15 @@ extends ExternalObject;
     input String zoneName "Name of the thermal zone";
     output FMUZoneClass adapter;
      external"C" adapter = FMUZoneInit(
-           idfName,
-           weaName,
-           iddName,
-           zoneName)
-    annotation (Library={"ModelicaBuildingsEnergyPlus", "epfmi-9.0.1"});
+      idfName,
+      weaName,
+      iddName,
+      zoneName)
+        annotation(
+          Include="#include <FMUZoneInit.c>",
+          IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+          Library={"epfmi-9.0.1", "dl"});
+          // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
     annotation (Documentation(info="<html>
 <p>
@@ -65,7 +69,7 @@ revisions="<html>
 <ul>
 <li>
 April 04, 2018, by Thierry S. Nouidui:<br/>
-Added additional parameters for parametrizing 
+Added additional parameters for parametrizing
 the EnergyPlus model.
 </li>
 <li>

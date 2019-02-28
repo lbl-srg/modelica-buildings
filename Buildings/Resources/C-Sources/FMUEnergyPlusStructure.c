@@ -5,7 +5,6 @@
  */
 
 #include "FMUEnergyPlusStructure.h"
-#include "EnergyPlusModelicaUtilities.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -17,7 +16,7 @@ void writeLog(unsigned int level, const char* msg)
       char* m;
       m = (char*)malloc( (strlen(msg)+strlen(prefix)+1) * sizeof(char));
       if (m == NULL)
-        EnergyPlusError("Failed to allocate string array in writeLog.\n");
+        ModelicaError("Failed to allocate string array in writeLog.\n");
       strcpy(m, prefix);
       strcat(m, msg);
       fprintf(stdout, "%s\n", m);
@@ -88,7 +87,7 @@ void getEnergyPlusDLLName(char** epLibName) {
       size_t length = lenPat + strlen(libepfmi) + strlen(extension);
       *epLibName = (char *)malloc((length + 1) * sizeof(char));
       if ( *epLibName == NULL)
-        EnergyPlusFormatError("Failed to allocate memory for epLibName.");
+        ModelicaError("Failed to allocate memory for epLibName.");
       memset(*epLibName, '\0', length+1);
       strncpy(*epLibName, fullpath, lenPat);
 
@@ -118,12 +117,12 @@ void buildVariableNames(
   *fullNames = (char**)malloc(nVar * sizeof(char*));
 
   if (*fullNames == NULL)
-    EnergyPlusError("Failed to allocate memory for fullNames in FMUZoneInstantiate.c.");
+    ModelicaError("Failed to allocate memory for fullNames in FMUZoneInstantiate.c.");
 
   for (i=0; i<nVar; i++){
     (*fullNames)[i] = (char*)malloc(( (*len) + 2 ) * sizeof(char));
     if ( (*fullNames)[i] == NULL)
-      EnergyPlusError("Failed to allocate memory for fullNames[i] in FMUZoneInstantiate.c.");
+      ModelicaError("Failed to allocate memory for fullNames[i] in FMUZoneInstantiate.c.");
   }
   /* Copy the string */
   for (i=0; i<nVar; i++){
@@ -146,44 +145,44 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
   else
     Buildings_FMUS = realloc(Buildings_FMUS, (nFMU+1) * sizeof(struct FMUBuilding*));
   if ( Buildings_FMUS == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMU.");
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMU.");
 
   Buildings_FMUS[nFMU] = malloc(sizeof(FMUBuilding));
   if ( Buildings_FMUS[nFMU] == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMU[0].");
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMU[0].");
   Buildings_FMUS[nFMU]->zoneNames = malloc(sizeof(char*));
   if ( Buildings_FMUS[nFMU]->zoneNames == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMUS[0]->zoneNames.");
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMUS[0]->zoneNames.");
 
   /* Assign the fmu name */
   Buildings_FMUS[nFMU]->name = (char*) malloc((strlen(idfName)+1) * sizeof(char));
   if ( Buildings_FMUS[nFMU]->name == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate fmu name.");
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate fmu name.");
   strcpy(Buildings_FMUS[nFMU]->name, idfName);
 
   /* Assign the weather name */
   Buildings_FMUS[nFMU]->weather = (char*) malloc((strlen(weaName)+1) * sizeof(char));
   if ( Buildings_FMUS[nFMU]->weather == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate weather name.");
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate weather name.");
   strcpy(Buildings_FMUS[nFMU]->weather, weaName);
 
   /* Assign the idd name */
   Buildings_FMUS[nFMU]->idd = (char*) malloc((strlen(iddName)+1) * sizeof(char));
   if ( Buildings_FMUS[nFMU]->idd == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate IDD name.");
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate IDD name.");
   strcpy(Buildings_FMUS[nFMU]->idd, iddName);
 
   /* Assign the zone name */
   Buildings_FMUS[nFMU]->zoneNames[0] = malloc((strlen(zoneName)+1) * sizeof(char));
   if ( Buildings_FMUS[nFMU]->zoneNames[0] == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
   strcpy(Buildings_FMUS[nFMU]->zoneNames[0], zoneName);
 
   Buildings_FMUS[nFMU]->nZon = 1;
 
   Buildings_FMUS[nFMU]->zones=malloc(sizeof(FMUZone *));
   if ( Buildings_FMUS[nFMU]->zones== NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate zones.");
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zones.");
 
   getEnergyPlusTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
   /* Assign the dll name */
@@ -195,7 +194,7 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
     size_t len = strlen(Buildings_FMUS[0]->epLib);
     Buildings_FMUS[nFMU]->epLib = (char *)malloc((len + 1) * sizeof(char));
     if ( Buildings_FMUS[nFMU]->epLib == NULL)
-      EnergyPlusFormatError("Failed to allocate memory for epLibName.");
+      ModelicaError("Failed to allocate memory for epLibName.");
     memset(Buildings_FMUS[nFMU]->epLib, '\0', len+1);
     strncpy(Buildings_FMUS[nFMU]->epLib, Buildings_FMUS[0]->epLib, len);
   }
@@ -204,7 +203,7 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
   Buildings_FMUS[nFMU]->zones[0] = zone;
 
   incrementBuildings_nFMU();
-  /* EnergyPlusMessage("*** Leaving instantiateEnergyPlusFMU."); */
+  /* ModelicaMessage("*** Leaving instantiateEnergyPlusFMU."); */
 
   /* Return the pointer to the FMU for this EnergyPlus instance */
   return Buildings_FMUS[nFMU];
@@ -216,7 +215,7 @@ FMUBuilding* getBuildingsFMU(size_t iFMU){
 
 void incrementBuildings_nFMU(){
   Buildings_nFMU++;
-  /* EnergyPlusFormatMessage("*** Increased Buildings_nFMU to %zu.", Buildings_nFMU); */
+  /* ModelicaFormatMessage("*** Increased Buildings_nFMU to %zu.", Buildings_nFMU); */
   return;
 }
 
@@ -225,7 +224,7 @@ void decrementBuildings_nFMU(){
   if (Buildings_nFMU == 0){
      free(Buildings_FMUS);
    }
-  /* EnergyPlusFormatMessage("*** Decreased Buildings_nFMU to %zu.", Buildings_nFMU); */
+  /* ModelicaFormatMessage("*** Decreased Buildings_nFMU to %zu.", Buildings_nFMU); */
   return;
 }
 
@@ -240,20 +239,20 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   fmi2Byte * namWitSla = strrchr(idfName, '/');
 
   if ( namWitSla == NULL )
-    EnergyPlusFormatError("Failed to parse idfName '%s'. Expected an absolute path with forward slash '/'?", idfName);
+    ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with forward slash '/'?", idfName);
   /* Remove the first slash */
   char * nam = namWitSla + 1;
   /* Get the extension */
   char * ext = strrchr(nam, '.');
   if ( ext == NULL )
-    EnergyPlusFormatError("Failed to parse idfName '%s'. Expected a file extension such as '.idf'?", idfName);
+    ModelicaFormatError("Failed to parse idfName '%s'. Expected a file extension such as '.idf'?", idfName);
 
   /* Get the file name without extension */
   size_t lenNam = strlen(nam) - strlen(ext);
   char * namOnl;
   namOnl = malloc((lenNam+1) * sizeof(char));
   if ( namOnl == NULL )
-    EnergyPlusFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
+    ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
   memset(namOnl, '\0', lenNam+1);
   strncpy(namOnl, nam, lenNam);
 
@@ -263,7 +262,7 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
 
   *dirNam = malloc((lenPre+lenNam+1) * sizeof(char));
   if ( *dirNam == NULL )
-    EnergyPlusFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
+    ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
   memset(*dirNam, '\0', (lenPre+lenNam+1));
   strncpy(*dirNam, pre, lenPre);
 

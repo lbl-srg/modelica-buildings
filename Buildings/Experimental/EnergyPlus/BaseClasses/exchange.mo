@@ -26,7 +26,8 @@ function exchange "Exchange the values for the thermal zone"
   external "C" FMUZoneExchange(adapter,
     T, X, mInlet_flow, TAveInlet, QGaiRad_flow, tModel,
     TRad, QCon_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)
-  annotation (Library="ModelicaBuildingsEnergyPlus");
+      annotation(Include="#include <FMUZoneExchange.c>",
+      IncludeDirectory="modelica://Buildings/Resources/C-Sources");
 
   annotation (Documentation(info="<html>
 <p>

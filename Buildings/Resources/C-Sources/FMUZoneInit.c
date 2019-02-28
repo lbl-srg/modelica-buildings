@@ -6,7 +6,6 @@
 
 #include "FMUZoneInit.h"
 #include "FMUEnergyPlusStructure.h"
-#include "EnergyPlusModelicaUtilities.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -38,20 +37,20 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   unsigned int i;
   size_t len;
   const size_t nFMU = getBuildings_nFMU();
-  /* EnergyPlusMessage("*** Entered FMUZoneInit."); */
+  /* ModelicaMessage("*** Entered FMUZoneInit."); */
 
-  /* EnergyPlusFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName); */
+  /* ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName); */
 
   /* ********************************************************************** */
   /* Initialize the zone */
   FMUZone* zone = (FMUZone*) malloc(sizeof(FMUZone));
   if ( zone == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate zone.");
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone.");
 
   /* Assign the zone name */
   zone->name = malloc((strlen(zoneName)+1) * sizeof(char));
   if ( zone->name == NULL )
-    EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
+    ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
   strcpy(zone->name, zoneName);
   /* Set the number of inputs and outputs to zero. This will be used to check if
      the data structures for the inputs and outputs
@@ -98,7 +97,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
         if (strcmp(idfName, fmu->name) == 0){
           /* This is the same FMU as before. */
           if (! zoneIsUnique(fmu, zoneName)){
-            EnergyPlusFormatError("Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
+            ModelicaFormatError("Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
             zoneName, fmu->name);
           }
 
@@ -107,12 +106,12 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
           fmu->zoneNames = realloc(fmu->zoneNames, (fmu->nZon + 1) * sizeof(char*));
           fmu->zones = realloc(fmu->zones, (fmu->nZon + 1) * sizeof(FMUZone*));
           if (fmu->zoneNames == NULL){
-            EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate memory for bld->zoneNames.");
+            ModelicaError("Not enough memory in FMUZoneInit.c. to allocate memory for bld->zoneNames.");
           }
           /* Add storage for new zone name, and copy the zone name */
           fmu->zoneNames[fmu->nZon] = malloc((strlen(zoneName)+1) * sizeof(char));
           if ( fmu->zoneNames[fmu->nZon] == NULL )
-            EnergyPlusError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
+            ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
           fmu->zones[fmu->nZon] = zone;
           strcpy(fmu->zoneNames[fmu->nZon], zoneName);
           /* Increment the count of zones to this building. */
