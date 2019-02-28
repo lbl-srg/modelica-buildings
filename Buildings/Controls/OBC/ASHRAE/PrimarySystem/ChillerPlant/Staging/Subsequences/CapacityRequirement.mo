@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 block CapacityRequirement
   "Cooling capacity requirement"
 
-  parameter Modelica.SIunits.Density water_density = 1000 "Water density";
+  parameter Modelica.SIunits.Density watDen = 1000 "Water density";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity water_spec_heat = 4184
+  parameter Modelica.SIunits.SpecificHeatCapacity watSpeHea = 4184
   "Specific heat capacity of water";
 
   parameter Modelica.SIunits.Time avePer = 5*60
@@ -36,12 +36,12 @@ block CapacityRequirement
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant density(
-    final k=water_density)
+    final k = watDen)
     "Water density"
     annotation (Placement(transformation(extent={{-80,-32},{-60,-12}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speHeaCap(
-    final k=water_spec_heat)
+    final k = watSpeHea)
     "Specific heat capacity of water"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 

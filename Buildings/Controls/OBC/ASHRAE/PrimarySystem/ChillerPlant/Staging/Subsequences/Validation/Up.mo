@@ -1,10 +1,9 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
 model Up "Validate change stage up condition sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up
     staUp "Generates stage up signal"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up
     staUp1 "Generates stage up signal"
@@ -13,6 +12,7 @@ model Up "Validate change stage up condition sequence"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up
     noWSE(hasWSE=false) "Generates stage up signal"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+
 protected
   CDL.Integers.Sources.Constant stage0(
     final k=0) "0th stage"
@@ -26,15 +26,16 @@ protected
     "Minimum operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(final k=273.15
-         + 14) "Chilled water supply temperature setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(
+    final k=273.15 + 14) "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet(final k=65*
-        6895) "Chilled water differential pressure setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet(
+    final k=65*6895) "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUp(final k=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUp(
+    final k=0.5)
     "Operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
 
@@ -201,16 +202,16 @@ equation
           -70},{-41,-70}}, color={0,0,127}));
   connect(oplrUp2.y, noWSE.uOplrUp) annotation (Line(points={{-139,-60},{-80,-60},
           {-80,-75},{-41,-75}}, color={0,0,127}));
-  connect(oplrUpMin2.y, noWSE.uOplrUpMin) annotation (Line(points={{-139,-100},
-          {-80,-100},{-80,-77},{-41,-77}}, color={0,0,127}));
+  connect(oplrUpMin2.y, noWSE.uOplrUpMin) annotation (Line(points={{-139,-100},{
+          -80,-100},{-80,-77},{-41,-77}}, color={0,0,127}));
   connect(TCWSupSet2.y, noWSE.TChiWatSupSet) annotation (Line(points={{-139,-140},
           {-70,-140},{-70,-80},{-41,-80}}, color={0,0,127}));
   connect(TCWSup2.y, noWSE.TChiWatSup) annotation (Line(points={{-139,-180},{-60,
           -180},{-60,-82},{-41,-82}}, color={0,0,127}));
   connect(dpChiWatSet2.y, noWSE.dpChiWatPumSet) annotation (Line(points={{-99,-120},
           {-56,-120},{-56,-85},{-41,-85}}, color={0,0,127}));
-  connect(dpChiWat2.y, noWSE.dpChiWatPum) annotation (Line(points={{-99,-160},{
-          -52,-160},{-52,-87},{-41,-87}}, color={0,0,127}));
+  connect(dpChiWat2.y, noWSE.dpChiWatPum) annotation (Line(points={{-99,-160},{-52,
+          -160},{-52,-87},{-41,-87}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Up.mos"
@@ -221,9 +222,7 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Up</a>.
 
-fixme: if in the test on the left one sets a large difference between CWT and setpoint, the output is 
-simply true, without a delay. If this is desired, we should consider replacing true delay with
-timer+greater than in a few of the subsequences used in staging.
+fixme: To implement, pg 31: When enabling the plant, skip Stage 0 + WSE if PHXLWT calculated with PLRHX set equal to 1 is not 1°F < CHWST setpoint.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -246,7 +245,7 @@ Icon(graphics={
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-240},{180,240}}),
         graphics={
         Text(
-          extent={{-136,30},{-76,8}},
+          extent={{-140,28},{-78,4}},
           lineColor={0,0,127},
           textString="Tests stage 0 to stage 1 enable
 based on chilled water supply

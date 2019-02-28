@@ -1,29 +1,29 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
-block Up "Conditions to enable stage up"
+block Up "Stage up conditions"
 
   parameter Boolean hasWSE = true
-  "true = plant has a WSE, false = plant does not have WSE";
+    "true = plant has a WSE, false = plant does not have WSE";
 
   parameter Modelica.SIunits.Time delayStaCha = 15*60
-  "Delay enable stage change upon satisfying stage change conditions";
+    "Delay stage change";
 
-  parameter Modelica.SIunits.Time short = 10*60
-  "Enable delay";
+  parameter Modelica.SIunits.Time shortDelay = 10*60
+    "Short stage 0 to 1 delay";
 
-  parameter Modelica.SIunits.Time long = 20*60
-  "Enable delay";
+  parameter Modelica.SIunits.Time longDelay = 20*60
+    "Long stage 0 to 1 delay";
 
-  parameter Modelica.SIunits.TemperatureDifference small = 1
-  "Offset between the chilled water supply temperature and its setpoint";
+  parameter Modelica.SIunits.TemperatureDifference smallTDiff = 1
+    "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.TemperatureDifference large = 2
-  "Offset between the chilled water supply temperature and its setpoint";
+  parameter Modelica.SIunits.TemperatureDifference largeTDiff = 2
+    "Offset between the chilled water supply temperature and its setpoint";
 
   parameter Modelica.SIunits.TemperatureDifference TDiff = 1
-  "Offset between the chilled water supply temperature and its setpoint";
+    "Offset between the chilled water supply temperature and its setpoint";
 
   parameter Modelica.SIunits.PressureDifference dpDiff = 2 * 6895
-  "Offset between the chilled water pump differential static pressure and its setpoint";
+    "Offset between the chilled water pump differential static pressure and its setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta if hasWSE
     "Chiller stage"
@@ -36,9 +36,9 @@ block Up "Conditions to enable stage up"
           extent={{-120,90},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSplrUp(final unit="1")
-    "Staging part load ratio of the next stage up" annotation (Placement(
-        transformation(extent={{-180,100},{-140,140}}),iconTransformation(extent={{-120,70},
-            {-100,90}})));
+    "Staging part load ratio of the next stage up"
+    annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
+      iconTransformation(extent={{-120,70}, {-100,90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrUp(final unit="1")
     "Operating part load ratio of the next higher stage"
@@ -79,9 +79,10 @@ block Up "Conditions to enable stage up"
       extent={{-180,-140},{-140,-100}}), iconTransformation(extent={{-120,-30},
             {-100,-10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Efficiency condition for chiller staging"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Efficiency condition for chiller staging"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+      iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
@@ -107,15 +108,15 @@ protected
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
-    final uLow=small,
-    final uHigh=small + 1,
+    final uLow=smallTDiff,
+    final uHigh=smallTDiff + 1,
     final pre_y_start=false) if hasWSE
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup1(
-    final uLow=large,
-    final uHigh=large + 1,
+    final uLow=largeTDiff,
+    final uHigh=largeTDiff + 1,
     final pre_y_start=false) if hasWSE
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -137,12 +138,12 @@ protected
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=long) if hasWSE
+    final delayTime=longDelay) if hasWSE
     "Delays a true signal"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=short) if hasWSE
+    final delayTime=shortDelay) if hasWSE
     "Delays a true signal"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 

@@ -97,14 +97,16 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDow(
     final unit="1",
     final min=0)
-    "Operating part load ratio of the next stage down"   annotation (Placement(
+    "Operating part load ratio of the next stage down"
+    annotation (Placement(
         transformation(extent={{260,-90},{280,-70}}), iconTransformation(extent={{100,20},
             {120,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMin(
     final unit="1",
     final min=0)
-    "Minimum operating part load ratio at current stage" annotation (Placement(
+    "Minimum operating part load ratio at current stage"
+    annotation (Placement(
         transformation(extent={{260,-210},{280,-190}}), iconTransformation(extent={
             {100,-100},{120,-80}})));
 
@@ -129,7 +131,8 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(
     final unit="1",
     final min=0)
-    "Minimum operating part load ratio at the next stage up" annotation (Placement(
+    "Minimum operating part load ratio at the next stage up"
+    annotation (Placement(
         transformation(extent={{260,-250},{280,-230}}), iconTransformation(extent={
             {100,-80},{120,-60}})));
 
@@ -196,11 +199,13 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant posDisTypMult(k=posDisMult)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant posDisTypMult(
+    final k=posDisMult)
     "Positive displacement chiller type SPLR multiplier"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSpeCenTypMult(k=conSpeCenMult)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSpeCenTypMult(
+    final k=conSpeCenMult)
     "Constant speed centrifugal chiller type SPLR multiplier"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
@@ -219,7 +224,8 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division minOpePlrUp "Calculates minimum OPLR of one stage up"
+  Buildings.Controls.OBC.CDL.Continuous.Division minOpePlrUp
+   "Calculates minimum OPLR of one stage up"
     annotation (Placement(transformation(extent={{-240,-200},{-220,-180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrUp
@@ -270,21 +276,21 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Utilities.Assert staTyp(
     final message="Unlisted chiller type got selected")
     "Unlisted chiller type got selected"
-    annotation (Placement(transformation(extent={{220,262},{240,282}})));
+    annotation (Placement(transformation(extent={{220,250},{240,270}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
     final threshold=-0.5)
     "Less than threshold"
-    annotation (Placement(transformation(extent={{180,262},{200,282}})));
+    annotation (Placement(transformation(extent={{180,250},{200,270}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert staExc1(
     final message="Unlisted chiller type got selected")
     "Unlisted chiller type got selected"
-    annotation (Placement(transformation(extent={{220,210},{240,230}})));
+    annotation (Placement(transformation(extent={{220,200},{240,220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
     final threshold=-0.5) "Less than threshold"
-    annotation (Placement(transformation(extent={{180,210},{200,230}})));
+    annotation (Placement(transformation(extent={{180,200},{200,220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrDow
     "Calculates operating part load ratio of the next stage down"
@@ -411,12 +417,12 @@ equation
   connect(mult2.y, add3.u1) annotation (Line(points={{21,-430},{100,-430},{100,-466},
           {118,-466}}, color={0,0,127}));
   connect(staTyp.u,lesThr. y)
-    annotation (Line(points={{218,272},{201,272}},
+    annotation (Line(points={{218,260},{201,260}},
                                               color={255,0,255}));
-  connect(swi.y, lesThr.u) annotation (Line(points={{163,150},{170,150},{170,272},
-          {178,272}},      color={0,0,127}));
+  connect(swi.y, lesThr.u) annotation (Line(points={{163,150},{170,150},{170,
+          260},{178,260}}, color={0,0,127}));
   connect(swi3.y, lesThr1.u) annotation (Line(points={{41,-230},{170,-230},{170,
-          220},{178,220}}, color={0,0,127}));
+          210},{178,210}}, color={0,0,127}));
   connect(uLifMax, add2.u1) annotation (Line(points={{-360,-360},{-260,-360},{-260,
           -388},{-140,-388},{-140,-404},{-122,-404}}, color={0,0,127}));
   connect(uCapReq, opePlrDow.u1) annotation (Line(points={{-360,0},{-280,0},{-280,
@@ -453,7 +459,7 @@ equation
   connect(uStaUpCapNom, minOpePlrUp.u2) annotation (Line(points={{-360,-160},{-280,
           -160},{-280,-196},{-242,-196}},      color={0,0,127}));
   connect(lesThr1.y, staExc1.u)
-    annotation (Line(points={{201,220},{218,220}}, color={255,0,255}));
+    annotation (Line(points={{201,210},{218,210}}, color={255,0,255}));
   connect(intEqu.y, swi.u2) annotation (Line(points={{1,170},{120,170},{120,150},
           {140,150}}, color={255,0,255}));
   connect(chiStaType.y, intToRea.u)

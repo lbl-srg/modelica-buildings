@@ -271,8 +271,6 @@ equation
           84},{-42,84}},  color={255,127,0}));
   connect(subInt.y, forStaDow.u1) annotation (Line(points={{-79,40},{-50,40},{-50,
           36},{-42,36}}, color={255,127,0}));
-  connect(zero.y, forStaDow.u2) annotation (Line(points={{-199,-60},{-120,-60},{
-          -120,-40},{-50,-40},{-50,24},{-42,24}}, color={255,127,0}));
   connect(forStaUp.y, extStaUpCapMin.index) annotation (Line(points={{-19,90},{20,
           90},{20,-130},{110,-130},{110,-122}}, color={255,127,0}));
   connect(forCurSta.y, extStaCapMin.index) annotation (Line(points={{-79,130},{70,
@@ -345,6 +343,8 @@ equation
                  color={255,0,255}));
   connect(lesThr.y, mulOr.u[1:3]) annotation (Line(points={{161,190},{170,190},
           {170,185.333},{178,185.333}},color={255,0,255}));
+  connect(one.y, forStaDow.u2) annotation (Line(points={{-199,-20},{-60,-20},{
+          -60,24},{-42,24}}, color={255,127,0}));
   annotation (defaultComponentName = "staCap",
         Icon(graphics={
         Rectangle(

@@ -1,17 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
-block Down "Conditions to enable stage down"
+block Down "Stage down conditions"
 
   parameter Boolean hasWSE = true
-  "true = plant has a WSE, false = plant does not have WSE";
+    "true = plant has a WSE, false = plant does not have WSE";
 
   parameter Modelica.SIunits.Time delayStaCha = 15*60
-  "True delay period";
+    "True delay period";
 
   parameter Modelica.SIunits.TemperatureDifference TDiff = 1
-  "Offset between the chilled water supply temperature and its setpoint";
+    "Offset between the chilled water supply temperature and its setpoint";
 
   parameter Modelica.SIunits.PressureDifference dpDiff = 2 * 6895
-  "Offset between the chilled water pump differential static pressure and its setpoint";
+    "Offset between the chilled water pump differential static pressure and its setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
     "Waterside economizer status" annotation (

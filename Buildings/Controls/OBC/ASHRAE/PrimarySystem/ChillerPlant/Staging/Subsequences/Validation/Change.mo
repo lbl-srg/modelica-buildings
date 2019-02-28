@@ -13,7 +13,8 @@ model Change "Validates chiller stage signal"
     "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    staCha annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    staCha(hasWSE=true, nVsdCen=0)
+           annotation (Placement(transformation(extent={{0,0},{20,20}})));
   CDL.Continuous.Sources.Sine                        TChiWatRet(
     final amplitude=2,
     final freqHz=1/300,
@@ -23,7 +24,7 @@ model Change "Validates chiller stage signal"
     final freqHz=1/600,
     final offset=aveVChiWat_flow,
     final amplitude=0.01) "Chilled water flow"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   CDL.Logical.Sources.Constant con[2](k={true,true})
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   CDL.Logical.Sources.Constant                        WSESta(k=true)
@@ -49,6 +50,9 @@ protected
   CDL.Continuous.Sources.Constant                        TowFanSpeMax(final k=1)
     "Maximum cooling tower speed signal"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+  CDL.Continuous.Sources.Constant TCWSup(final k=273.15 + 14)
+    "Chilled water supply temperature"
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 equation
 
   connect(dpChiWatSet.y, staCha.dpChiWatPumSet) annotation (Line(points={{-79,
@@ -65,12 +69,14 @@ equation
           20},{-1,20}}, color={255,0,255}));
   connect(staCha.uSta, stage1.y) annotation (Line(points={{-1,22},{-6,22},{-6,
           130},{-79,130}}, color={255,127,0}));
-  connect(chiWatFlow.y, staCha.VChiWat_flow) annotation (Line(points={{-99,-10},
-          {-74,-10},{-74,11},{-1,11}}, color={0,0,127}));
+  connect(chiWatFlow.y, staCha.VChiWat_flow) annotation (Line(points={{-79,10},
+          {-74,10},{-74,11},{-1,11}},  color={0,0,127}));
   connect(TChiWatRet.y, staCha.TChiWatRet) annotation (Line(points={{-119,30},{
           -20,30},{-20,13},{-1,13}}, color={0,0,127}));
   connect(staCha.uWseSta, WSESta.y) annotation (Line(points={{-1,18},{-10,18},{
           -10,70},{-119,70}}, color={255,0,255}));
+  connect(TCWSup.y, staCha.TChiWatSup) annotation (Line(points={{-79,-20},{-74,
+          -20},{-74,8},{-1,8}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/ChangeDeprecated.mos"
