@@ -278,7 +278,7 @@ block PartLoadRatios
     "Unlisted chiller type got selected"
     annotation (Placement(transformation(extent={{220,250},{240,270}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
+  CDL.Continuous.GreaterThreshold                     greThr(
     final threshold=-0.5)
     "Less than threshold"
     annotation (Placement(transformation(extent={{180,250},{200,270}})));
@@ -288,7 +288,7 @@ block PartLoadRatios
     "Unlisted chiller type got selected"
     annotation (Placement(transformation(extent={{220,200},{240,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
+  CDL.Continuous.GreaterThreshold                     greThr1(
     final threshold=-0.5) "Less than threshold"
     annotation (Placement(transformation(extent={{180,200},{200,220}})));
 
@@ -416,12 +416,12 @@ equation
           {118,-478}},       color={0,0,127}));
   connect(mult2.y, add3.u1) annotation (Line(points={{21,-430},{100,-430},{100,-466},
           {118,-466}}, color={0,0,127}));
-  connect(staTyp.u,lesThr. y)
+  connect(staTyp.u,greThr. y)
     annotation (Line(points={{218,260},{201,260}},
                                               color={255,0,255}));
-  connect(swi.y, lesThr.u) annotation (Line(points={{163,150},{170,150},{170,
+  connect(swi.y,greThr. u) annotation (Line(points={{163,150},{170,150},{170,
           260},{178,260}}, color={0,0,127}));
-  connect(swi3.y, lesThr1.u) annotation (Line(points={{41,-230},{170,-230},{170,
+  connect(swi3.y,greThr1. u) annotation (Line(points={{41,-230},{170,-230},{170,
           210},{178,210}}, color={0,0,127}));
   connect(uLifMax, add2.u1) annotation (Line(points={{-360,-360},{-260,-360},{-260,
           -388},{-140,-388},{-140,-404},{-122,-404}}, color={0,0,127}));
@@ -458,7 +458,7 @@ equation
           -260},{-300,-184},{-242,-184}},      color={0,0,127}));
   connect(uStaUpCapNom, minOpePlrUp.u2) annotation (Line(points={{-360,-160},{-280,
           -160},{-280,-196},{-242,-196}},      color={0,0,127}));
-  connect(lesThr1.y, staExc1.u)
+  connect(greThr1.y, staExc1.u)
     annotation (Line(points={{201,210},{218,210}}, color={255,0,255}));
   connect(intEqu.y, swi.u2) annotation (Line(points={{1,170},{120,170},{120,150},
           {140,150}}, color={255,0,255}));

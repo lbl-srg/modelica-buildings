@@ -25,7 +25,7 @@ model Change "Validates chiller stage signal"
     final offset=aveVChiWat_flow,
     final amplitude=0.01) "Chilled water flow"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  CDL.Logical.Sources.Constant con[2](k={true,true})
+  CDL.Logical.Sources.Constant staAva[2](k={true,true})
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   CDL.Logical.Sources.Constant                        WSESta(k=true)
     "Waterside economizer status"
@@ -65,8 +65,8 @@ equation
           -50},{-32,2},{-1,2}}, color={0,0,127}));
   connect(TCWSupSet.y, staCha.TChiWatSupSet) annotation (Line(points={{-79,50},
           {-12,50},{-12,15},{-1,15}}, color={0,0,127}));
-  connect(con.y, staCha.uStaAva) annotation (Line(points={{-79,90},{-8,90},{-8,
-          20},{-1,20}}, color={255,0,255}));
+  connect(staAva.y, staCha.uStaAva) annotation (Line(points={{-79,90},{-8,90},{
+          -8,20},{-1,20}}, color={255,0,255}));
   connect(staCha.uSta, stage1.y) annotation (Line(points={{-1,22},{-6,22},{-6,
           130},{-79,130}}, color={255,127,0}));
   connect(chiWatFlow.y, staCha.VChiWat_flow) annotation (Line(points={{-79,10},
@@ -79,7 +79,7 @@ equation
           -20},{-74,8},{-1,8}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/ChangeDeprecated.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Capacities_uStaAva", method="Cvode", stopTime=1800, tolerance=1e-06, resultFile="Capacities_uStaAva");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"staCap.yStaNom", "staCap.yStaDowNom", "staCap.yStaUpNom", "staCap.yStaMin", "staCap.yStaUpMin"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}, {255, 0, 43}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"absErrorSta[1].y", "absErrorSta[2].y", "absErrorSta[3].y", "absErrorSta[4].y", "absErrorSta[5].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}, {255, 0, 43}});

@@ -90,7 +90,7 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   CDL.Logical.MultiOr mulOr(nu=3) "Or operator on array inputs"
     annotation (Placement(transformation(extent={{180,180},{200,200}})));
 
-protected
+//protected
   parameter Real small = 0.001
   "Small number to avoid division with zero";
 
@@ -107,9 +107,10 @@ protected
 
   Buildings.Controls.OBC.CDL.Utilities.Assert staExc(
     final message="The provided chiller stage is not within the number of stages available")
+    "Error assertion"
     annotation (Placement(transformation(extent={{220,180},{240,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[3](
+  CDL.Continuous.GreaterThreshold                     greThr[3](
     final threshold = fill(-0.5, 3)) "Less than threshold"
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
 
@@ -177,10 +178,6 @@ protected
     final k=nSta) "Highest stage"
     annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
 
-  CDL.Integers.Sources.Constant maxSta1(
-    final k=nSta + 1) "Highest stage"
-    annotation (Placement(transformation(extent={{-220,100},{-200,120}})));
-
   CDL.Integers.Equal intEqu1
     "Equal stage 1"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
@@ -223,12 +220,12 @@ equation
           {-102,16}}, color={255,127,0}));
   connect(one.y, addInt.u2) annotation (Line(points={{-199,-20},{-120,-20},{-120,
           4},{-102,4}},   color={255,127,0}));
-  connect(extStaLowCap.y, lesThr[2].u) annotation (Line(points={{21,110},{80,110},
+  connect(extStaLowCap.y,greThr [2].u) annotation (Line(points={{21,110},{80,110},
           {80,190},{138,190}},
                              color={0,0,127}));
-  connect(extStaUpCap.y, lesThr[3].u) annotation (Line(points={{121,50},{130,50},
+  connect(extStaUpCap.y,greThr [3].u) annotation (Line(points={{121,50},{130,50},
           {130,190},{138,190}},           color={0,0,127}));
-  connect(extStaCap.y, lesThr[1].u)
+  connect(extStaCap.y,greThr [1].u)
     annotation (Line(points={{-19,150},{120,150},{120,190},{138,190}},
                                                   color={0,0,127}));
   connect(matGai.y, extStaCap.u) annotation (Line(points={{-119,180},{-50,180},{
@@ -265,11 +262,9 @@ equation
           -190,136},{-102,136}},    color={255,127,0}));
   connect(uSta, forCurSta.u2) annotation (Line(points={{-280,0},{-180,0},{-180,124},
           {-102,124}}, color={255,127,0}));
-  connect(maxSta1.y, forStaUp.u1) annotation (Line(points={{-199,110},{-152,110},
-          {-152,96},{-42,96}},  color={255,127,0}));
   connect(addInt.y, forStaUp.u2) annotation (Line(points={{-79,10},{-70,10},{-70,
           84},{-42,84}},  color={255,127,0}));
-  connect(subInt.y, forStaDow.u1) annotation (Line(points={{-79,40},{-50,40},{-50,
+  connect(subInt.y, forStaDow.u1) annotation (Line(points={{-79,40},{-60,40},{-60,
           36},{-42,36}}, color={255,127,0}));
   connect(forStaUp.y, extStaUpCapMin.index) annotation (Line(points={{-19,90},{20,
           90},{20,-130},{110,-130},{110,-122}}, color={255,127,0}));
@@ -279,8 +274,8 @@ equation
           130},{-30,138}}, color={255,127,0}));
   connect(forStaDow.y, extStaLowCap.index) annotation (Line(points={{-19,30},{10,
           30},{10,98}},                color={255,127,0}));
-  connect(forStaUp.y, extStaUpCap.index) annotation (Line(points={{-19,90},{28,90},
-          {28,30},{110,30},{110,38}},                       color={255,127,0}));
+  connect(forStaUp.y, extStaUpCap.index) annotation (Line(points={{-19,90},{30,90},
+          {30,30},{110,30},{110,38}},                       color={255,127,0}));
   connect(minStaCap[1].y, swi.u1) annotation (Line(points={{-199,-150},{130,-150},
           {130,28},{138,28}},                        color={0,0,127}));
   connect(zero.y, intEqu1.u1) annotation (Line(points={{-199,-60},{-120.5,-60},{
@@ -341,10 +336,12 @@ equation
           {270,80}}, color={0,0,127}));
   connect(mulOr.y, staExc.u) annotation (Line(points={{201.7,190},{218,190}},
                  color={255,0,255}));
-  connect(lesThr.y, mulOr.u[1:3]) annotation (Line(points={{161,190},{170,190},
+  connect(greThr.y, mulOr.u[1:3]) annotation (Line(points={{161,190},{170,190},
           {170,185.333},{178,185.333}},color={255,0,255}));
   connect(one.y, forStaDow.u2) annotation (Line(points={{-199,-20},{-60,-20},{
           -60,24},{-42,24}}, color={255,127,0}));
+  connect(maxSta.y, forStaUp.u1) annotation (Line(points={{-199,70},{-80,70},{-80,
+          96},{-42,96}}, color={255,127,0}));
   annotation (defaultComponentName = "staCap",
         Icon(graphics={
         Rectangle(

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
 model Capacities_uSta
-  "Validate water side economizer tuning parameter sequence"
+  "Validate stage capacities sequence for chiller stage inputs"
 
   parameter Integer nSta = 2
   "Highest chiller stage";
