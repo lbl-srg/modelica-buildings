@@ -179,7 +179,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   int result;
   int i;
   int j;
-  
+
   FMUZone** zones = (FMUZone**)bui->zones;
 
 /*  FMUBuilding* bui = zone->ptrBui; */
