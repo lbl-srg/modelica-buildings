@@ -10,7 +10,11 @@ annotation (
       lineColor={0,127,0},
       fillColor={0,127,0},
       fillPattern=FillPattern.Solid,
-      points={{-100.0,100.0},{100.0,0.0},{-100.0,-100.0}})}),
+      points={{0,50},{100,0},{0,-50}}),
+    Text(
+      lineColor={0,127,0},
+      extent={{0,58},{0,83}},
+      textString="%name")}),
   Diagram(
     coordinateSystem(preserveAspectRatio=true,
       initialScale=0.2,
@@ -33,6 +37,12 @@ Buildings.Controls.OBC.CDL.Types.Day</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2019, by Michael Wetter:<br/>
+On the icon layer, changed connector size and added the connector name.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1375\">issue 1375</a>.
+</li>
 <li>
 July 17, 2017 by Jianjun Hu:<br/>
 First implementation.
