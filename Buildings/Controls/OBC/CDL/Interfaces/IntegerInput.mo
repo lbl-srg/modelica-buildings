@@ -6,11 +6,7 @@ connector IntegerInput = input Integer "'input Integer' as connector"
         lineColor={255,127,0},
         fillColor={255,127,0},
         fillPattern=FillPattern.Solid,
-        points={{0,50},{100,0},{0,-50}}),
-      Text(
-        lineColor={255,127,0},
-        extent={{0,72},{0,97}},
-        textString="%name")},
+        points={{0,50},{100,0},{0,-50}})},
         coordinateSystem(
       extent={{-100,-100},{100,100}},
       preserveAspectRatio=true,

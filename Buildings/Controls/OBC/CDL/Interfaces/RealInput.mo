@@ -7,11 +7,7 @@ annotation (
       lineColor={0,0,127},
       fillColor={0,0,127},
       fillPattern=FillPattern.Solid,
-      points={{0,50},{100,0},{0,-50}}),
-    Text(
-      lineColor={0,0,127},
-      extent={{0,72},{0,97}},
-      textString="%name")},
+      points={{0,50},{100,0},{0,-50}})},
     coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}},
       preserveAspectRatio=true,
       initialScale=0.2)),

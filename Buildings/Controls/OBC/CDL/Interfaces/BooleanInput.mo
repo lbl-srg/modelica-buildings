@@ -6,11 +6,7 @@ connector BooleanInput = input Boolean "'input Boolean' as connector"
         lineColor={255,0,255},
         fillColor={255,0,255},
         fillPattern=FillPattern.Solid,
-        points={{0,50},{100,0},{0,-50}}),
-      Text(
-        lineColor={255,0,255},
-        extent={{0,72},{0,97}},
-        textString="%name")},
+        points={{0,50},{100,0},{0,-50}})},
       coordinateSystem(
       extent={{-100,-100},{100,100}},
       preserveAspectRatio=true,
