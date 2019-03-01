@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.OutdoorLights;
-block DaylightControlled "Controlling the outdoor lighting based on daylight time"
+block DaylightControlled "Controlling the outdoor lighting based on whether the sun is up"
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
   parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone of location";
@@ -7,14 +7,14 @@ block DaylightControlled "Controlling the outdoor lighting based on daylight tim
   CDL.Interfaces.RealOutput y(
     final min = 0,
     final max = 1,
-    unit="1") "On/off control signal"
+    unit="1") "Output true if lights should be on"
    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   CDL.Utilities.SunRiseSet sunRiseSet(
   final lat=lat,
   final lon=lon,
-  final timZon=timZon) "Output next sunrise and sunset time, and if sun is up"
+  final timZon=timZon) "Output next sunrise and sunset time, and whether the sun is up"
    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   CDL.Logical.Not not1 "Logical not"
    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
