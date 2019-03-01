@@ -147,7 +147,7 @@ block PartLoadRatios
 
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaTyp(
-    final nin=nSta)
+    final nin=nSta, outOfRangeValue=-1)
     "Extract stage type"
     annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
 
@@ -167,7 +167,8 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staUpTyp "Stage up chiller type"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaTyp1(nin=nSta)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaTyp1(nin=nSta,
+      outOfRangeValue=-1)
     "Extract stage type"
     annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
 
@@ -202,12 +203,12 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant posDisTypMult(
     final k=posDisMult)
     "Positive displacement chiller type SPLR multiplier"
-    annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
+    annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSpeCenTypMult(
     final k=conSpeCenMult)
     "Constant speed centrifugal chiller type SPLR multiplier"
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+    annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
@@ -314,7 +315,7 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{80,-152},{100,-132}})));
 
   CDL.Integers.Equal intEqu4
-    annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
+    annotation (Placement(transformation(extent={{-178,0},{-158,20}})));
 
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-360,0},{-260,0},{-260,
@@ -435,14 +436,18 @@ equation
                       color={0,0,127}));
   connect(minOpePlr.y, yMin) annotation (Line(points={{-219,-230},{-80,-230},{-80,
           -200},{270,-200}},                       color={0,0,127}));
-  connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-139,-30},{40,-30},
-          {40,158},{140,158}}, color={0,0,127}));
-  connect(posDisTypMult.y, swi1.u1) annotation (Line(points={{-139,-110},{-60,-110},
-          {-60,60},{0,60},{0,78},{98,78}},    color={0,0,127}));
-  connect(posDisTypMult.y, swi3.u1) annotation (Line(points={{-139,-110},{-60,-110},
-          {-60,-222},{18,-222}}, color={0,0,127}));
-  connect(conSpeCenTypMult.y, swi2.u1) annotation (Line(points={{-139,-30},{0,-30},
-          {0,-172},{58,-172}}, color={0,0,127}));
+  connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-159,-30},{40,
+          -30},{40,158},{140,158}},
+                               color={0,0,127}));
+  connect(posDisTypMult.y, swi1.u1) annotation (Line(points={{-159,-110},{-60,
+          -110},{-60,60},{0,60},{0,78},{98,78}},
+                                              color={0,0,127}));
+  connect(posDisTypMult.y, swi3.u1) annotation (Line(points={{-159,-110},{-60,
+          -110},{-60,-222},{18,-222}},
+                                 color={0,0,127}));
+  connect(conSpeCenTypMult.y, swi2.u1) annotation (Line(points={{-159,-30},{0,
+          -30},{0,-172},{58,-172}},
+                               color={0,0,127}));
   connect(staTyp1.y, intEqu3.u2) annotation (Line(points={{-39,140},{-32,140},{-32,
           202},{-22,202}}, color={255,127,0}));
   connect(curStaTyp.y, intEqu3.u1) annotation (Line(points={{-99,270},{-32,270},
@@ -487,13 +492,16 @@ equation
           -152},{118,-152}}, color={0,0,127}));
   connect(one.y, maxInt.u2) annotation (Line(points={{-279,150},{-268,150},{-268,
           50},{-192,50},{-192,64},{-182,64}}, color={255,127,0}));
-  connect(uSta, intEqu4.u2) annotation (Line(points={{-360,240},{-338,240},{-338,
-          236},{-320,236},{-320,12},{-238,12},{-238,2},{-202,2}}, color={255,127,
+  connect(uSta, intEqu4.u2) annotation (Line(points={{-360,240},{-338,240},{
+          -338,236},{-320,236},{-320,12},{-238,12},{-238,2},{-180,2}},
+                                                                  color={255,127,
           0}));
-  connect(one.y, intEqu4.u1) annotation (Line(points={{-279,150},{-268,150},{-268,
-          20},{-220,20},{-220,10},{-202,10}}, color={255,127,0}));
-  connect(intEqu4.y, swi4.u2) annotation (Line(points={{-179,10},{-10,10},{-10,-160},
-          {118,-160}}, color={255,0,255}));
+  connect(one.y, intEqu4.u1) annotation (Line(points={{-279,150},{-268,150},{
+          -268,20},{-220,20},{-220,10},{-180,10}},
+                                              color={255,127,0}));
+  connect(intEqu4.y, swi4.u2) annotation (Line(points={{-157,10},{-10,10},{-10,
+          -160},{118,-160}},
+                       color={255,0,255}));
   annotation (defaultComponentName = "PLRs",
         Icon(graphics={
         Rectangle(
@@ -516,12 +524,7 @@ equation
           extent={{80,56},{142,24}},
           lineColor={28,108,200},
           textString="lift 
-formula"), Text(
-          extent={{-82,-532},{-20,-564}},
-          lineColor={28,108,200},
-          textString="fixme: lift 
-formula - awaiting correctness
-confirmation from Steve")}),
+formula")}),
 Documentation(info="<html>
 <p>
 OPLR - Operating part load ratio refers to any ratio of current capacity requirement
