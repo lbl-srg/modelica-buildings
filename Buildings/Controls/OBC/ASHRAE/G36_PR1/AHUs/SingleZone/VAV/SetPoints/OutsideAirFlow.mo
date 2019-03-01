@@ -58,7 +58,6 @@ block OutsideAirFlow
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
@@ -132,11 +131,11 @@ protected
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-
-  CDL.Continuous.Sources.Constant zerOcc(final k=0) if
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOcc(final k=0) if
        not have_occSen
     "Zero occupant when there is no occupancy sensor"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+
 equation
   connect(breZonAre.y, breZon.u1)
     annotation (Line(points={{-39,100},{-30,100},{-30,86},{-22,86}},
@@ -198,16 +197,17 @@ equation
   connect(not1.y, swi3.u2)
     annotation (Line(points={{1,-120},{130,-120},{130,10},{138,10}}, color={255,0,255}));
   connect(uSupFan, and1.u1)
-    annotation (Line(points={{-220,-120},{-142,-120},{-142,-120},{-62,-120}}, color={255,0,255}));
+    annotation (Line(points={{-220,-120},{-62,-120}}, color={255,0,255}));
   connect(intEqu1.y, and1.u2)
     annotation (Line(points={{-119,-150},{-90,-150},{-90,-128},{-62,-128}}, color={255,0,255}));
   connect(uOpeMod, intEqu1.u1)
     annotation (Line(points={{-220,-150},{-142,-150},{-142,-150}}, color={255,127,0}));
   connect(occMod.y, intEqu1.u2)
     annotation (Line(points={{-159,-170},{-150,-170},{-150,-158},{-142,-158}}, color={255,127,0}));
-  connect(swi.u1, zerOcc.y) annotation (Line(points={{-62,56},{-70,56},{-70,90},
-          {-139,90}}, color={0,0,127}));
- annotation (
+  connect(swi.u1, zerOcc.y)
+    annotation (Line(points={{-62,56},{-70,56},{-70,90},{-139,90}}, color={0,0,127}));
+
+annotation (
 defaultComponentName="outAirSetPoi",
 Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},

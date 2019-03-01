@@ -151,7 +151,6 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     final unit="1")
     "Effective minimum outdoor airflow setpoint, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if use_G36FrePro
     "Freeze protection status"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}}),
@@ -164,7 +163,6 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     "Supply fan status"
     annotation (Placement(transformation(extent={{-180,-70},{-160,-50}}),
     iconTransformation(extent={{-180,-80},{-160,-60}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
@@ -259,13 +257,13 @@ equation
   connect(uFreProSta, damLim.uFreProSta)
     annotation (Line(points={{-170,-140},{-100,-140},{-100,2},{-81,2}}, color={255,127,0}));
   connect(damLim.yOutDamPosMax, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-59,17},{-24,17},{-24,16},{-24,-32},{-1,-32}}, color={0,0,127}));
+    annotation (Line(points={{-59,17},{-24,17},{-24,-32},{-1,-32}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin)
     annotation (Line(points={{-59,15},{-26,15},{-26,12},{-26,-34},{-1,-34}}, color={0,0,127}));
   connect(damLim.yRetDamPosMin, enaDis.uRetDamPosMin)
-    annotation (Line(points={{-59,10},{-28,10},{-28,8},{-28,-40},{-1,-40}}, color={0,0,127}));
+    annotation (Line(points={{-59,10},{-28,10},{-28,-40},{-1,-40}}, color={0,0,127}));
   connect(damLim.yRetDamPhyPosMax, enaDis.uRetDamPhyPosMax)
-    annotation (Line(points={{-59,6},{-32,6},{-32,2},{-32,-36},{-1,-36}}, color={0,0,127}));
+    annotation (Line(points={{-59,6},{-32,6},{-32,-36},{-1,-36}}, color={0,0,127}));
   connect(damLim.yRetDamPosMax, enaDis.uRetDamPosMax)
     annotation (Line(points={{-59,8},{-30,8},{-30,-38},{-1,-38}}, color={0,0,127}));
   connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax)
@@ -273,41 +271,41 @@ equation
   connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax)
     annotation (Line(points={{21,-30},{28,-30},{28,18},{39,18}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, mod.uOutDamPosMin)
-    annotation (Line(points={{-59,15},{0,15},{0,14},{0,2},{39,2}},            color={0,0,127}));
+    annotation (Line(points={{-59,15},{0,15},{0,2},{39,2}}, color={0,0,127}));
   connect(enaDis.yRetDamPosMin, mod.uRetDamPosMin)
     annotation (Line(points={{21,-36},{30,-36},{30,14},{39,14}}, color={0,0,127}));
   connect(uTSup, mod.uTSup)
     annotation (Line(points={{-170,50},{10,50},{10,10},{39,10}}, color={0,0,127}));
-  connect(VOut_flow_normalized, movAve.u) annotation (Line(points={{-170,20},{-150,
-          20},{-150,30},{-142,30}}, color={0,0,127}));
-  connect(movAve.y, damLim.VOut_flow_normalized) annotation (Line(points={{-119,
-          30},{-100,30},{-100,18},{-81,18}}, color={0,0,127}));
+  connect(VOut_flow_normalized, movAve.u)
+    annotation (Line(points={{-170,20},{-150,20},{-150,30},{-142,30}}, color={0,0,127}));
+  connect(movAve.y, damLim.VOut_flow_normalized)
+    annotation (Line(points={{-119,30},{-100,30},{-100,18},{-81,18}}, color={0,0,127}));
   connect(retDamMinFre.y, yRetDamPos)
-    annotation (Line(points={{141,40},{150,40},{170,40}},          color={0,0,127}));
+    annotation (Line(points={{141,40},{170,40}}, color={0,0,127}));
   connect(mod.yOutDamPos, outDamMaxFre.u1)
     annotation (Line(points={{61,8},{110,8},{110,-34},{118,-34}}, color={0,0,127}));
   connect(outDamMaxFre.y, yOutDamPos)
-    annotation (Line(points={{141,-40},{170,-40}},                     color={0,0,127}));
+    annotation (Line(points={{141,-40},{170,-40}}, color={0,0,127}));
   connect(outDamMaxFre.u2, noTMix1.y)
-    annotation (Line(points={{118,-46},{110,-46},{101,-46}},          color={0,0,127}));
+    annotation (Line(points={{118,-46},{101,-46}}, color={0,0,127}));
   connect(mod.yRetDamPos, retDamMinFre.u2)
     annotation (Line(points={{61,12},{110,12},{110,34},{118,34}}, color={0,0,127}));
   connect(retDamMinFre.u1, noTMix.y)
-    annotation (Line(points={{118,46},{118,46},{97,46}},           color={0,0,127}));
+    annotation (Line(points={{118,46},{97,46}}, color={0,0,127}));
   connect(TMix, freProTMix.TMix)
     annotation (Line(points={{-170,-30},{-120,-30},{-120,-80},{60,-80},{60,-10},{79,-10}},
-    color={0,0,127}));
+      color={0,0,127}));
   connect(freProTMix.yFrePro, retDamMinFre.u1)
     annotation (Line(points={{101,-4},{104,-4},{104,46},{118,46}}, color={0,0,127}));
   connect(freProTMix.yFreProInv, outDamMaxFre.u2)
-    annotation (Line(points={{101,-16},{101,-16},{104,-16},{104,-46},{108,-46},{
-          118,-46}},
-    color={0,0,127}));
+    annotation (Line(points={{101,-16},{104,-16},{104,-46},{118,-46}},
+      color={0,0,127}));
   connect(freProSta.y, damLim.uFreProSta)
     annotation (Line(points={{-119,-120},{-90,-120},{-90,2},{-81,2}}, color={255,127,0}));
   connect(freProSta.y, enaDis.uFreProSta)
     annotation (Line(points={{-119,-120},{-60,-120},{-60,-30},{-1,-30}}, color={255,127,0}));
-  annotation (
+
+annotation (
     defaultComponentName="conEco",
     Icon(coordinateSystem(extent={{-160,-160},{160,160}}),
          graphics={

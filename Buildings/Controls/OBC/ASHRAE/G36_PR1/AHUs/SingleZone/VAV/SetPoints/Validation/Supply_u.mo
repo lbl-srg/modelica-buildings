@@ -52,9 +52,10 @@ model Supply_u "Validation model for control input"
     "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  CDL.Continuous.Sources.Constant TZon1(k=273.15 + 23)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon1(k=273.15 + 23)
     "Zone air temperature"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
 equation
   connect(TZon.y, setPoiVAV.TZon) annotation (Line(
       points={{-59,-10},{-31.5,-10},{-31.5,46},{-2,46}},

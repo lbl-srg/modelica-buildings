@@ -119,9 +119,9 @@ equation
   connect(TOutCut1.y, economizer.TOutCut)
     annotation (Line(points={{-99,70},{-90,70},{-8,70},{-8,20},{19,20}},color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
-    annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
+    annotation (Line(points={{-99,20},{-60,20},{-60,18},{19,18}}, color={0,0,127}));
   connect(hOutCut.y, economizer.hOutCut)
-    annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
+    annotation (Line(points={{-99,-20},{-60,-20},{-60,16},{19,16}}, color={0,0,127}));
   connect(TSup.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}},color={0,0,127}));
   connect(TSupSetSig.y, economizer.THeaSupSet)
@@ -169,7 +169,7 @@ equation
   connect(TOutCut1.y, economizer2.TOutCut)
     annotation (Line(points={{-99,70},{162,70},{162,-20},{179,-20}}, color={0,0,127}));
   connect(TSup.y, economizer2.TSup)
-    annotation (Line(points={{-59,90},{-52,90},{-52,-26},{-44,-26},{-44,-26},{179,-26}},
+    annotation (Line(points={{-59,90},{-52,90},{-52,-26},{179,-26}},
     color={0,0,127}));
   connect(TSupSetSig.y, economizer2.THeaSupSet)
     annotation (Line(points={{-59,50},{-54,50},{-54,-28},{179,-28}}, color={0,0,127}));
@@ -200,19 +200,17 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{220,160}}),
         graphics={
         Text(
-          extent={{20,146},{104,118}},
+          extent={{20,148},{166,124}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=9,
           textString="Disable modulation
 (zone state is heating),
 enable minimal
 outdoor air control"),
         Text(
-          extent={{100,144},{184,116}},
+          extent={{100,148},{212,120}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=9,
           textString="Disable modulation
 (zone state is heating)
 disable minimal
@@ -222,7 +220,6 @@ outdoor air control
           extent={{180,10},{238,-18}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=8,
           textString="Overide damper positions
 based on the TMix tracking
 freeze protection ")}),
