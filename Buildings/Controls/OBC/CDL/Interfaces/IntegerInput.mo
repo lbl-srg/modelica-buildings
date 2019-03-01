@@ -9,7 +9,7 @@ connector IntegerInput = input Integer "'input Integer' as connector"
         points={{0,50},{100,0},{0,-50}}),
       Text(
         lineColor={255,127,0},
-        extent={{0,58},{0,83}},
+        extent={{0,72},{0,97}},
         textString="%name")},
         coordinateSystem(
       extent={{-100,-100},{100,100}},

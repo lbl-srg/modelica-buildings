@@ -13,7 +13,7 @@ annotation (
       points={{0,50},{100,0},{0,-50}}),
     Text(
       lineColor={0,127,0},
-      extent={{0,58},{0,83}},
+      extent={{0,72},{0,97}},
       textString="%name")}),
   Diagram(
     coordinateSystem(preserveAspectRatio=true,

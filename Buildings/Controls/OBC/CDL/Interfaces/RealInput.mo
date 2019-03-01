@@ -10,7 +10,7 @@ annotation (
       points={{0,50},{100,0},{0,-50}}),
     Text(
       lineColor={0,0,127},
-      extent={{0,58},{0,83}},
+      extent={{0,72},{0,97}},
       textString="%name")},
     coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}},
       preserveAspectRatio=true,
