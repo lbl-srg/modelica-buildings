@@ -29,6 +29,7 @@ void writeLog(unsigned int level, const char* msg)
       strcat(m, msg);
       fprintf(stdout, "%s\n", m);
       fflush(stdout);
+      ModelicaFormatMessage("%s\n", m);
     }
 }
 

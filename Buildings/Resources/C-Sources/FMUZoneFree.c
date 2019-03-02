@@ -11,11 +11,12 @@
 #include <stdlib.h>
 
 void FMUBuildingFree(FMUBuilding* ptrBui){
+  fmi2String log = NULL;
   if ( ptrBui != NULL ){
     printf("Closing EnergyPlus library for %s.\n", ptrBui->name);
     ModelicaFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name);
     writeLog(1, "Calling terminate on EnergyPlus library.");
-    ptrBui->fmu->terminateSim(NULL);
+    ptrBui->fmu->terminateSim(&log);
     writeLog(1, "Returned from terminate on EnergyPlus library.");
     free(ptrBui->name);
     free(ptrBui->weather);
@@ -44,7 +45,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 }
 
 void FMUZoneFree(void* object){
-  /* ModelicaMessage("*** Entered FMUZoneFree."); */
+  ModelicaMessage("*** Entered FMUZoneFree.\n");
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure
@@ -61,6 +62,7 @@ void FMUZoneFree(void* object){
       decrementBuildings_nFMU();
     }
     free(zone);
-    /* ModelicaMessage("*** Freed zone.\n"); */
+    ModelicaMessage("*** Freed zone.\n");
   }
+  ModelicaMessage("*** Leaving FMUZoneFree.\n");
 }
