@@ -9,6 +9,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* Use windows.h only for Windows */
+#ifdef _WIN32
+#include <windows.h>
+#else
+#define _GNU_SOURCE
+#include <dlfcn.h>
+#endif
+
 void writeLog(unsigned int level, const char* msg)
 {
     if (level <= FMU_EP_VERBOSITY){
@@ -68,13 +76,15 @@ static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
 
 void getEnergyPlusDLLName(char** epLibName) {
-  #if defined _WIN32
+  *epLibName = "libepfmi-9.0.1.so"; /* fixme */
+/*
+#if defined _WIN32
     // TODO this probably needs improvement to work on windows
     TCHAR szPath[MAX_PATH];
     if( GetModuleFileName( nullptr, szPath, MAX_PATH ) ) {
       *epLibName = szPath;
     }
-  #else
+#else
     Dl_info info;
     if (dladdr("main", &info)) {
       const char * fullpath = info.dli_fname;
@@ -91,13 +101,13 @@ void getEnergyPlusDLLName(char** epLibName) {
       memset(*epLibName, '\0', length+1);
       strncpy(*epLibName, fullpath, lenPat);
 
-      // TODO don't hard code epfmi name and version
       memcpy(*epLibName + lenPat,
           libepfmi, lenLibepfmi);
       memcpy(*epLibName + lenPat + lenLibepfmi,
           extension, strlen(extension));
     }
-  #endif
+#endif
+*/
 }
 
 
@@ -137,9 +147,10 @@ void buildVariableNames(
 FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
   const char* iddName, const char* zoneName, FMUZone* zone){
   /* Allocate memory */
-  writeLog(1, "Allocating data structure for building.");
 
   const size_t nFMU = getBuildings_nFMU();
+  writeLog(1, "Allocating data structure for building.");
+
   if (nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
   else
@@ -236,29 +247,36 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   /* Return the name of the temporary directory to be used for EnergyPlus */
   /* Get file name without path */
   /* return "tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"; */
+  char * nam;
+  char * ext;
+  size_t lenNam;
+  char * namOnl;
+  size_t lenPre;
+
+  /* Prefix for temporary directory */
+  const char* pre = "tmp-eplus-\0";
+
   fmi2Byte * namWitSla = strrchr(idfName, '/');
 
   if ( namWitSla == NULL )
     ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with forward slash '/'?", idfName);
   /* Remove the first slash */
-  char * nam = namWitSla + 1;
+  nam = namWitSla + 1;
   /* Get the extension */
-  char * ext = strrchr(nam, '.');
+  ext = strrchr(nam, '.');
   if ( ext == NULL )
     ModelicaFormatError("Failed to parse idfName '%s'. Expected a file extension such as '.idf'?", idfName);
 
   /* Get the file name without extension */
-  size_t lenNam = strlen(nam) - strlen(ext);
-  char * namOnl;
+  lenNam = strlen(nam) - strlen(ext);
+
   namOnl = malloc((lenNam+1) * sizeof(char));
   if ( namOnl == NULL )
     ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
   memset(namOnl, '\0', lenNam+1);
   strncpy(namOnl, nam, lenNam);
 
-  /* Prefix for temporary directory */
-  const char* pre = "tmp-eplus-\0";
-  size_t lenPre = strlen(pre);
+  lenPre = strlen(pre);
 
   *dirNam = malloc((lenPre+lenNam+1) * sizeof(char));
   if ( *dirNam == NULL )

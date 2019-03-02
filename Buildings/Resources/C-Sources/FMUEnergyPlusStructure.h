@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <execinfo.h>
+
 #include "fmi2FunctionTypes.h"
 #include "ModelicaUtilities.h"
 
@@ -21,10 +22,11 @@
 #define WINDOWS 0
 #define HANDLE void *
 /* See http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html */
+#define _GNU_SOURCE
 #include <dlfcn.h>
 #endif
 
-#define FMU_EP_VERBOSITY 3 /* Verbosity flag, 0: quiet, 3: all output */
+#define FMU_EP_VERBOSITY 2 /* Verbosity flag, 0: quiet, 3: all output */
 
 #ifndef max
   #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )

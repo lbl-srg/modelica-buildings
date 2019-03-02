@@ -5,7 +5,8 @@
  * Thierry S. Nouidui, LBNL              4/03/2018
  */
 
-#include "FMUEnergyPlusStructure.h"
+#include "FMUZoneFree.h"
+#include "FMUEnergyPlusStructure.c"
 
 #include <stdlib.h>
 

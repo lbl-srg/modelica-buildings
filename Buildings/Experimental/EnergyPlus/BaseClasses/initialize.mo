@@ -8,9 +8,9 @@ function initialize "Initialization"
   output Real mSenFac "Factor for scaling the sensible thermal mass of the zone air volume";
 
   external "C" FMUZoneInstantiate(adapter, t0, AFlo, V, mSenFac)
-  annotation(
-    Include="#include <FMUZoneInstantiate.c>",
-    IncludeDirectory="modelica://Buildings/Resources/C-Sources");
+ annotation(
+   IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+   Include="#include \"FMUZoneInstantiate.c\"");
 
   annotation (Documentation(info="<html>
 <p>

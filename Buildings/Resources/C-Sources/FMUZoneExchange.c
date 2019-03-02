@@ -5,6 +5,7 @@
  * Thierry S. Nouidui, LBNL              4/16/2018
  */
 
+#include "FMUZoneExchange.h"
 #include "FMUEnergyPlusStructure.h"
 
 #include <stdlib.h>
@@ -60,6 +61,8 @@ void FMUZoneExchange(
 
 
   FMUZone* tmpZon = malloc(sizeof(FMUZone));
+  writeLog(3, "Exchanging data with EnergyPlus.");
+
   if ( tmpZon == NULL )
     ModelicaError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.");
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];

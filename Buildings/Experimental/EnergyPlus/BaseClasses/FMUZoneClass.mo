@@ -9,14 +9,14 @@ extends ExternalObject;
     //    input String epLibName "Name of the Energyplus FMI library";
     input String zoneName "Name of the thermal zone";
     output FMUZoneClass adapter;
-     external"C" adapter = FMUZoneInit(
+    external "C" adapter = FMUZoneInit(
       idfName,
       weaName,
       iddName,
       zoneName)
-        annotation(
-          Include="#include <FMUZoneInit.c>",
+        annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+          Include="#include \"FMUZoneInit.c\"",
           Library={"epfmi-9.0.1", "dl"});
           // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
@@ -40,7 +40,9 @@ First implementation.
   function destructor "Release storage"
     input FMUZoneClass adapter;
     external "C" FMUZoneFree(adapter)
-    annotation (Library={"ModelicaBuildingsEnergyPlus", "epfmi-9.0.1"});
+        annotation (
+          IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+          Include="#include \"FMUZoneFree.c\"");
 
   annotation(Documentation(info="<html>
 <p>
