@@ -18,6 +18,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     writeLog(1, "Calling terminate on EnergyPlus library.");
     ptrBui->fmu->terminateSim(&log);
     writeLog(1, "Returned from terminate on EnergyPlus library.");
+    ModelicaFormatMessage("Closed EnergyPlus library for %s.\n", ptrBui->name);
     free(ptrBui->name);
     free(ptrBui->weather);
     free(ptrBui->idd);
