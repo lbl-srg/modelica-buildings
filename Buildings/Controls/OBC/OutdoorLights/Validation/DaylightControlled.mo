@@ -3,8 +3,8 @@ model DaylightControlled "Validation model for the outdoor lighting control base
   extends Modelica.Icons.Example;
 
   Buildings.Controls.OBC.OutdoorLights.DaylightControlled dayCon(
-    lat=0.6457718232379,
-    lon=-2.1293016874331,
+    lat=0.3,
+    lon=1,
     timZon=-28800) "Controlling the outdoor lighting based on daylight time"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 annotation (
