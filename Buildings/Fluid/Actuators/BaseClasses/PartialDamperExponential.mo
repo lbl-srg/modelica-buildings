@@ -29,10 +29,10 @@ partial model PartialDamperExponential
  parameter Real yU = 55/90 "Upper value for damper curve"
   annotation(Dialog(tab="Damper coefficients"));
  parameter Real k0(min=0) = 1E6
-    "Flow coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
+    "Loss coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
   annotation(Dialog(tab="Damper coefficients"));
  parameter Real k1(min=0) = 0.45
-    "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
+    "Loss coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
   annotation(Dialog(tab="Damper coefficients"));
  parameter Boolean use_constant_density=true
     "Set to true to use constant density for flow friction"
@@ -45,6 +45,8 @@ partial model PartialDamperExponential
  Real k(unit="")
     "Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
+ parameter Boolean preInd = false
+    "If preInd then pressure drop calculation is not performed by this model.";
  parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
  parameter Real[3] cL=
@@ -79,33 +81,35 @@ equation
     yU=yU);
   k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
   // Pressure drop calculation
-  if linearized then
-    m_flow*m_flow_nominal_pos = k^2*dp;
-  else
-    if homotopyInitialization then
-      if from_dp then
-        m_flow=homotopy(
-           actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                  dp=dp, k=k,
-                  m_flow_turbulent=m_flow_turbulent),
-           simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-      else
-        dp=homotopy(
-           actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                  m_flow=m_flow, k=k,
-                  m_flow_turbulent=m_flow_turbulent),
-           simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-       end if;  // from_dp
-    else // do not use homotopy
-      if from_dp then
-        m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                 dp=dp, k=k, m_flow_turbulent=m_flow_turbulent);
-      else
-        dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                 m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent);
-      end if;  // from_dp
-    end if; // homotopyInitialization
-  end if; // linearized
+  if not preInd then
+    if linearized then
+      m_flow*m_flow_nominal_pos = k^2*dp;
+    else
+      if homotopyInitialization then
+        if from_dp then
+          m_flow=homotopy(
+            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                    dp=dp, k=k,
+                    m_flow_turbulent=m_flow_turbulent),
+            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+        else
+          dp=homotopy(
+            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                    m_flow=m_flow, k=k,
+                    m_flow_turbulent=m_flow_turbulent),
+            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+        end if;  // from_dp
+      else // do not use homotopy
+        if from_dp then
+          m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                  dp=dp, k=k, m_flow_turbulent=m_flow_turbulent);
+        else
+          dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                  m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent);
+        end if;  // from_dp
+      end if; // homotopyInitialization
+    end if; // linearized
+  end if;  // not pressureIndDamp
 annotation(Documentation(info="<html>
 <p>
 Partial model for air dampers with exponential opening characteristics.
