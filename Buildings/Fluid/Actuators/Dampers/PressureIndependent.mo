@@ -1,21 +1,29 @@
 within Buildings.Fluid.Actuators.Dampers;
 model PressureIndependent
   "Pressure independent damper"
+  // TODO:
+  //  Relax limits for k0 & k1 in PartialDamperExponential based on ASHRAE Dampers and Airflow Control
+  // HACK:
+  //  l(min=1e-10, max=1) = 0.001
+  //  v_nominal=3
+  //  assert(k1 <= 5, "k1 must be between 0.2 and 0.5.");
+  //  assert(k0 <= 1e8, "k0 must be between k1 and 1e6.");
+  //
+  // kResSqu >= 0
   extends Buildings.Fluid.Actuators.Dampers.VAVBoxExponential(
     dp(nominal=dp_nominal),
     final preInd=true,
     final linearized=false,
     final from_dp=true,
     final dp_nominalIncludesDamper=true,
-    final k1=2 * rho * (A / kDam_1)^2,
-    final k0=2 * rho * (A / kDam_0)^2,
-    dpDamOpe_nominal=dp_nominal-dpFixed_nominal  // so that dp_nominal-dpDamOpe_nominal=dpFixed_nominal
+    final k1=2 * rho_default * (A / kDam_1)^2,
+    final k0=2 * rho_default * (A / kDam_0)^2,
+    v_nominal=3
   );
-
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of duct and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
-  parameter Real l(min=1e-10, max=1) = 0.0001
+  parameter Real l(min=1e-10, max=1) = 0.001
     "Damper leakage, l=k(y=0)/k(y=1)";
   Modelica.Blocks.Interfaces.RealOutput y_open "Fractional damper opening"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -26,15 +34,15 @@ protected
   parameter Real facRouDuc = if roundDuct then sqrt(Modelica.Constants.pi) / 2 else 1;
   parameter Real kDam_1 = m_flow_nominal / sqrt(dp_nominal_pos)
     "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  parameter Real kFixed=if dpFixed_nominal > Modelica.Constants.eps then
-    m_flow_nominal / sqrt(dpFixed_nominal) else 0
-    "Flow coefficient of fixed resistance in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  parameter Real k_1 = if (dpFixed_nominal > Modelica.Constants.eps) then
-    sqrt(1 / (1 / kFixed^2 + 1 / kDam_1^2)) else kDam_1
+  // parameter Real kFixed=if dpFixed_nominal > Modelica.Constants.eps then
+  //   m_flow_nominal / sqrt(dpFixed_nominal) else 0
+  //   "Flow coefficient of fixed resistance in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+  parameter Real k_1 = if dpFixed_nominal > Modelica.Constants.eps then
+    sqrt(1 / (1 / kResSqu + 1 / kDam_1^2)) else kDam_1
     "Flow coefficient of damper fully open plus fixed resistance";
-  Real kDam_0 = l * kDam_1 "Flow coefficient of damper fully closed in metric unit (kg.m)^(1/2)";
-  Real k_0 = if (kFixed > Modelica.Constants.eps) then
-    sqrt(1 / (1 / kFixed^2 + 1 / kDam_0^2)) else kDam_0
+  parameter Real kDam_0 = l * kDam_1 "Flow coefficient of damper fully closed in metric unit (kg.m)^(1/2)";
+  parameter Real k_0 = if dpFixed_nominal > Modelica.Constants.eps then
+    sqrt(1 / (1 / kResSqu + 1 / kDam_0^2)) else kDam_0
     "Flow coefficient of damper fully closed + fixed resistance in metric unit (kg.m)^(1/2)";
   Real kThetaSqRt "Square root of damper loss coefficient, with unit (-)";
   Modelica.SIunits.MassFlowRate m_flow_lin;
@@ -45,11 +53,11 @@ protected
   parameter Modelica.SIunits.PressureDifference dp_small = 1E-4 * dp_nominal_pos;
   parameter Real c_regul = 1E-4 * m_flow_nominal_pos / dp_nominal_pos
     "Regularization coefficient";
+initial equation
+  kResSqu=if dpFixed_nominal > Modelica.Constants.eps then
+    m_flow_nominal^2 / dpFixed_nominal else 0
+    "Flow coefficient of fixed resistance in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 equation
-  rho = if use_constant_density then
-          rho_default
-        else
-          Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   m_flow_lin = y_actual * m_flow_nominal + c_regul * dp;
   dp_0 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=m_flow_lin,
@@ -129,11 +137,12 @@ equation
   );
   dpDam = dp - Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
         m_flow=m_flow,
-        k=kFixed,
+        k=sqrt(kResSqu),
         m_flow_turbulent=m_flow_turbulent
   );
-  kThetaSqRt = sqrt(2 * rho) * A / Buildings.Utilities.Math.SmoothMax(m_flow, m_flow_small) * sqrt(
-    Buildings.Utilities.Math.SmoothMax(dpDam, dp_small));
+  kThetaSqRt = sqrt(2 * rho) * A / Buildings.Utilities.Math.Functions.smoothMax(
+    m_flow, m_flow_small, deltaX=m_flow_small) * sqrt(
+    Buildings.Utilities.Math.Functions.smoothMax(dpDam, dp_small, deltaX=dp_small));
   y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamperInv(
       kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU
   );

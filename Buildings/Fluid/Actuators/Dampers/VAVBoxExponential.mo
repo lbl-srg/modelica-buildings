@@ -3,7 +3,7 @@ model VAVBoxExponential
   "VAV box with a fixed resistance plus a damper model withe exponential characteristics"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
   dp(nominal=dp_nominal),
-  final kFixed=sqrt(kResSqu));
+  kFixed=sqrt(kResSqu));
   parameter Boolean dp_nominalIncludesDamper = true
     "set to true if dp_nominal includes the pressure loss of the open damper"
                                               annotation(Dialog(group = "Nominal condition"));
@@ -14,10 +14,12 @@ protected
   parameter Real kResSqu(unit="kg.m", fixed=false)
     "Resistance coefficient for fixed resistance element";
 initial equation
-  kResSqu = if dp_nominalIncludesDamper then
-       m_flow_nominal^2 / (dp_nominal-dpDamOpe_nominal) else
-       m_flow_nominal^2 / dp_nominal;
-  assert(kResSqu > 0,
+  if not preInd then
+    kResSqu = if dp_nominalIncludesDamper then
+        m_flow_nominal^2 / (dp_nominal-dpDamOpe_nominal) else
+        m_flow_nominal^2 / dp_nominal;
+  end if;
+  assert(kResSqu >= 0,
          "Wrong parameters in damper model: dp_nominal < dpDamOpe_nominal"
           + "\n  dp_nominal = "       + String(dp_nominal)
           + "\n  dpDamOpe_nominal = " + String(dpDamOpe_nominal));
