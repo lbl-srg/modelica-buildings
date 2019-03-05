@@ -6,7 +6,9 @@ model CheckWindDirection "Test model for wind direction check"
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindDirection
     cheWinDir "Block that constrains the wind direction"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
+    weaDatStaTim=0,
+    weaDatEndTim=31536000)
     "Block that converts time"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg
