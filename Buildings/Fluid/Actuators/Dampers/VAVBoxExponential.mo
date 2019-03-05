@@ -75,16 +75,6 @@ First implementation.
 </ul>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
-        Rectangle(
-          extent={{-100,22},{100,-24}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
-        Rectangle(
-          extent={{-80,40},{80,-40}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
         Text(
           extent={{-110,-34},{12,-100}},
           lineColor={0,0,255},
@@ -94,11 +84,7 @@ First implementation.
           lineColor={0,0,255},
           textString="m0=%m_flow_nominal"),
         Polygon(
-          points={{-24,8},{24,50},{24,38},{-24,-4},{-24,8}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-20,-36},{28,6},{28,-6},{-20,-48},{-20,-36}},
+          points={{-24,-16},{24,22},{24,14},{-24,-24},{-24,-16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid)}));
 end VAVBoxExponential;

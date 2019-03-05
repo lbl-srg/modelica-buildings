@@ -21,72 +21,72 @@ model Damper
     redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101335,
     T=293.15,
-    nPorts=4) "Pressure boundary condition"
+    nPorts=3) "Pressure boundary condition"
      annotation (Placement(
         transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
-    nPorts=4) "Pressure boundary condition"
+    nPorts=3) "Pressure boundary condition"
       annotation (Placement(
         transformation(extent={{94,-10},{74,10}})));
 
-  Buildings.Fluid.Actuators.Dampers.PressureIndependent preIndDpFixed_nominal(
-    use_inputFilter=false,
-    redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    dpFixed_nominal=5,
-    dp_nominal=10)
-    "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-
-  Buildings.Fluid.Actuators.Dampers.PressureIndependent preIndFrom_dp(
-    use_inputFilter=false,
-    redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    dpFixed_nominal=0,
-    dp_nominal=10,
-    from_dp=false)
-    "A damper with a mass flow proportional to the input signal and using from_dp = false"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-
   Buildings.Fluid.Actuators.Dampers.PressureIndependent preInd(
+    use_inputFilter=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=10,
-    use_inputFilter=false)
-    "A damper with a mass flow proportional to the input signal"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    dpFixed_nominal=150,
+    use_deltaM=false,
+    roundDuct=true)
+    "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
+    annotation (Placement(transformation(extent={{-4,-40},{16,-20}})));
 
+  Exponential dam(
+    use_inputFilter=false,
+    redeclare package Medium = Medium,
+    v_nominal=preInd.v_nominal,
+    a=preInd.a,
+    b=preInd.b,
+    yL=preInd.yL,
+    yU=preInd.yU,
+    k0=preInd.k0,
+    k1=preInd.k1,
+    m_flow_nominal=preInd.m_flow_nominal,
+    from_dp=false,
+    use_deltaM=false,
+    roundDuct=true)
+    annotation (Placement(transformation(extent={{28,-84},{48,-64}})));
+  FixedResistances.PressureDrop res1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
+    dp_nominal=150)
+    annotation (Placement(transformation(extent={{-12,-84},{8,-64}})));
 equation
   connect(yRam.y, res.y) annotation (Line(
       points={{1,70},{10,70},{10,52}},
       color={0,0,127}));
-  connect(yRam.y, preInd.y) annotation (Line(points={{1,70},{30,70},{30,20},{10,
-          20},{10,12}}, color={0,0,127}));
-  connect(res.port_a, sou.ports[1]) annotation (Line(points={{0,40},{-20,40},{
-          -20,4},{-20,3},{-40,3}},
+  connect(res.port_a, sou.ports[1]) annotation (Line(points={{0,40},{-28,40},{
+          -28,2.66667},{-40,2.66667}},
                                color={0,127,255}));
-  connect(preInd.port_a, sou.ports[2])
-    annotation (Line(points={{0,0},{-40,0},{-40,1}}, color={0,127,255}));
-  connect(preIndFrom_dp.port_a, sou.ports[3]) annotation (Line(points={{0,-40},
-          {-20,-40},{-20,-1},{-40,-1}}, color={0,127,255}));
   connect(res.port_b, sin.ports[1]) annotation (Line(points={{20,40},{60,40},{
-          60,3},{74,3}},
+          60,2.66667},{74,2.66667}},
                       color={0,127,255}));
-  connect(preInd.port_b, sin.ports[2])
-    annotation (Line(points={{20,0},{74,0},{74,1}}, color={0,127,255}));
-  connect(sou.ports[4], preIndDpFixed_nominal.port_a) annotation (Line(points={
-          {-40,-3},{-24,-3},{-24,-4},{-24,-4},{-24,-80},{0,-80}}, color={0,127,
+  connect(sou.ports[2], preInd.port_a) annotation (Line(points={{-40,0},{-28,0},
+          {-28,-30},{-4,-30}},                                     color={0,127,
           255}));
-  connect(preIndFrom_dp.port_b, sin.ports[3]) annotation (Line(points={{20,-40},
-          {60,-40},{60,-1},{74,-1}}, color={0,127,255}));
-  connect(preIndDpFixed_nominal.port_b, sin.ports[4]) annotation (Line(points={
-          {20,-80},{44,-80},{64,-80},{64,-3},{74,-3}}, color={0,127,255}));
-  connect(preIndFrom_dp.y, yRam.y) annotation (Line(points={{10,-28},{10,-20},{
-          30,-20},{30,70},{1,70}}, color={0,0,127}));
-  connect(preIndDpFixed_nominal.y, yRam.y) annotation (Line(points={{10,-68},{
-          10,-60},{30,-60},{30,70},{1,70}}, color={0,0,127}));
+  connect(preInd.port_b, sin.ports[2]) annotation (Line(points={{16,-30},{60,
+          -30},{60,0},{74,0}},                           color={0,127,255}));
+  connect(preInd.y, yRam.y) annotation (Line(points={{6,-18},{6,-10},{26,-10},{
+          26,70},{1,70}},  color={0,0,127}));
+  connect(preInd.y_open, dam.y)
+    annotation (Line(points={{11,-20},{38,-20},{38,-62}},  color={0,0,127}));
+  connect(dam.port_b, sin.ports[3]) annotation (Line(points={{48,-74},{60,-74},
+          {60,-2.66667},{74,-2.66667}}, color={0,127,255}));
+  connect(dam.port_a, res1.port_b)
+    annotation (Line(points={{28,-74},{8,-74}},    color={0,127,255}));
+  connect(sou.ports[3], res1.port_a) annotation (Line(points={{-40,-2.66667},{
+          -28,-2.66667},{-28,-74},{-12,-74}},  color={0,127,255}));
     annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),

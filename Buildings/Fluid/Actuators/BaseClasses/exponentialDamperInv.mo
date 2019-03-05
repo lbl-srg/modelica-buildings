@@ -24,16 +24,16 @@ algorithm
   if kThetaSqRt > kL then
     // kThetaSqRt := sqrt(Modelica.Math.exp(cL[3] + yC * (cL[2] + yC * cL[1])));
     roots := Modelica.Math.Vectors.Utilities.roots({cL[1], cL[2],
-      -2*Modelica.Math.log(kThetaSqRt) + cL[3]});
-      if (roots[1,1] < yL and roots[1,1] >= 0) and abs(roots[1, 2])<Modelica.Constants.eps then y := roots[1,1];
+      -2 * Modelica.Math.log(kThetaSqRt) + cL[3]});
+      if (roots[1,1] < yL and roots[1,1] >= 0) and (abs(roots[1, 2]) < Modelica.Constants.eps) then y := roots[1,1];
       else y := max(0, roots[2,1]);
       end if;
   else
     if kThetaSqRt < kU then
      //kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + yC * (cU[2] + yC * cU[1])));
       roots := Modelica.Math.Vectors.Utilities.roots({cU[1], cU[2],
-        -2*Modelica.Math.log(kThetaSqRt) + cU[3]});
-      if (roots[1,1] > yU and roots[1,1] <= 1) and abs(roots[1,2])<Modelica.Constants.eps then y := roots[1,1];
+        -2 * Modelica.Math.log(kThetaSqRt) + cU[3]});
+      if (roots[1,1] > yU and roots[1,1] <= 1) and (abs(roots[1,2]) < Modelica.Constants.eps) then y := roots[1,1];
       else y := min(1, roots[2,1]);
       end if;
     else

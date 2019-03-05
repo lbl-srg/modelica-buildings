@@ -141,17 +141,5 @@ July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}), graphics={
-        Rectangle(
-          extent={{-100,22},{100,-24}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),  Polygon(
-          points={{-26,12},{22,54},{22,42},{-26,0},{-26,12}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Solid), Polygon(
-          points={{-22,-32},{26,10},{26,-2},{-22,-44},{-22,-32}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Solid)}));
+</html>"));
 end Exponential;

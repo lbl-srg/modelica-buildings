@@ -187,8 +187,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-   Icon(graphics={Line(
-         points={{0,100},{0,-24}}),
+   Icon(graphics={
         Rectangle(
           extent={{-100,40},{100,-42}},
           lineColor={0,0,0},
@@ -198,5 +197,11 @@ First implementation.
           extent={{-100,22},{100,-24}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255})}));
+          fillColor={0,127,255}),
+                  Line(
+         points={{0,100},{0,-24}}),
+        Polygon(
+          points={{-24,-16},{24,22},{24,14},{-24,-24},{-24,-16}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid)}));
 end PartialDamperExponential;
