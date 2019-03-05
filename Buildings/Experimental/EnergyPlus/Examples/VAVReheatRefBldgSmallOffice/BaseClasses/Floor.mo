@@ -28,6 +28,7 @@ model Floor "Model of a floor of the building"
   final parameter Modelica.SIunits.Area AFloNor=nor.AFlo "Floor area north";
   final parameter Modelica.SIunits.Area AFloEas=eas.AFlo "Floor area east";
   final parameter Modelica.SIunits.Area AFloWes=wes.AFlo "Floor area west";
+  final parameter Modelica.SIunits.Area AFlo=AFloCor+AFloSou+AFloNor+AFloEas+AFloWes "Floor area west";
 
   ThermalZone sou(
     redeclare package Medium = Medium,
