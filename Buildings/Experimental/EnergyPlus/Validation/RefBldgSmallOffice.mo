@@ -70,7 +70,7 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="EnergyPlus",
     columns=2:8,
-    y(each unit="K", displayUnit="degC"),
+    y(each unit="K", each displayUnit="degC"),
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     "Data reader with results from EnergyPlus"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
