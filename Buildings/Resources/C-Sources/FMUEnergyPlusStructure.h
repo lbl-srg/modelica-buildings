@@ -26,7 +26,7 @@
 #include <dlfcn.h>
 #endif
 
-#define FMU_EP_VERBOSITY 2 /* Verbosity flag, 0: quiet, 3: all output */
+#define FMU_EP_VERBOSITY 0 /* Verbosity flag, 0: quiet, 3: all output */
 
 #ifndef max
   #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )

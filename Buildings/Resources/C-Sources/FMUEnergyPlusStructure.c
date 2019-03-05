@@ -77,7 +77,14 @@ static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
 
 void getEnergyPlusDLLName(char** epLibName) {
-  *epLibName = "libepfmi-9.0.1.so"; /* fixme */
+char * epLib = "libepfmi-9.0.1.so"; /* fixme */
+  size_t len = strlen(epLib);
+  *epLibName = (char *)malloc((len + 1) * sizeof(char));
+  if ( *epLibName == NULL)
+    ModelicaError("Failed to allocate memory for epLibName.");
+  memset(*epLibName, '\0', len+1);
+  memcpy(*epLibName, epLib, len);
+
 /*
 #if defined _WIN32
     // TODO this probably needs improvement to work on windows
@@ -150,7 +157,7 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
   /* Allocate memory */
 
   const size_t nFMU = getBuildings_nFMU();
-  writeLog(1, "Allocating data structure for building.");
+  writeLog(2, "Allocating data structure for building.");
 
   if (nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));

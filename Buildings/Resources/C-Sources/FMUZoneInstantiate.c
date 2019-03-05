@@ -129,7 +129,7 @@ void getParametersFromEnergyPlus(
   char** fullNames = NULL;
 
   fmi2ValueReference* parameterValueReferences;
-  writeLog(1, "Getting parameters from EnergyPlus.");
+  writeLog(2, "Getting parameters from EnergyPlus.");
 
   parameterValueReferences = (fmi2ValueReference*)malloc(nOut * sizeof(fmi2ValueReference));
   if ( parameterValueReferences == NULL)
@@ -356,7 +356,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
                        outputValueReferences, /* outputValueReferences[] */
                        nOut, /* nOut */
                        NULL); /*log); */
-  writeLog(3, "Returned from instantiating fmu.");
+  writeLog(2, "Returned from instantiating fmu.");
   if(result<0){
     ModelicaFormatError("Failed to instantiate building FMU with name %s.",
     bui->name);

@@ -13,12 +13,10 @@
 void FMUBuildingFree(FMUBuilding* ptrBui){
   fmi2String log = NULL;
   if ( ptrBui != NULL ){
-    printf("Closing EnergyPlus library for %s.\n", ptrBui->name);
-    ModelicaFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name);
-    writeLog(1, "Calling terminate on EnergyPlus library.");
+  /*  printf("Closing EnergyPlus library for %s.\n", ptrBui->name); */
+  /*  ModelicaFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name); */
+    writeLog(2, "Calling terminate on EnergyPlus library.");
     ptrBui->fmu->terminateSim(&log);
-    writeLog(1, "Returned from terminate on EnergyPlus library.");
-    ModelicaFormatMessage("Closed EnergyPlus library for %s.\n", ptrBui->name);
     free(ptrBui->name);
     free(ptrBui->weather);
     free(ptrBui->idd);
@@ -26,27 +24,27 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     free(ptrBui->zoneNames);
     free(ptrBui->zones);
     free(ptrBui->tmpDir);
-    writeLog(1, "Freed pointers.");
+    writeLog(2, "Freed pointers.");
 
 #ifdef _MSC_VER
     if (!FreeLibrary(ptrBui->fmu->dllHandle)){
       ModelicaMessage("Warning: Failed to free EnergyPlus library.");
     }
 #else
-    writeLog(1, "Calling dlclose.");
+    writeLog(2, "Calling dlclose.");
    if (0 != dlclose(ptrBui->fmu->dllHandle)){
       ModelicaMessage("Warning: Failed to free EnergyPlus library.");
     }
 #endif
-    writeLog(1, "Closed EnergyPlus library.");
+    writeLog(2, "Closing EnergyPlus library.");
     free(ptrBui);
-    writeLog(1, "Closed EnergyPlus library.");
+    writeLog(2, "Closed EnergyPlus library.");
 
   }
 }
 
 void FMUZoneFree(void* object){
-  ModelicaMessage("*** Entered FMUZoneFree.\n");
+  writeLog(2, "*** Entered FMUZoneFree.");
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure
@@ -63,7 +61,7 @@ void FMUZoneFree(void* object){
       decrementBuildings_nFMU();
     }
     free(zone);
-    ModelicaMessage("*** Freed zone.\n");
+    writeLog(2, "*** Freed zone.");
   }
-  ModelicaMessage("*** Leaving FMUZoneFree.\n");
+  writeLog(2, "*** Leaving FMUZoneFree.");
 }
