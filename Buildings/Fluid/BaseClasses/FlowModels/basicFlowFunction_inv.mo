@@ -8,22 +8,26 @@ function basicFlowFunction_inv
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
+  input Modelica.SIunits.MassFlowRate m_flow_small
+    "Minimal value of mass flow rate for guarding against k = (0)/sqrt(dp)";
+  input Modelica.SIunits.PressureDifference dp_small
+    "Minimal value of pressure drop for guarding against k = m_flow/(0)";
   output Real k(unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
-  Real m_flowNorm = m_flow/m_flow_turbulent
+  Real m_flowNorm = m_flowGuard/m_flow_turbulent
     "Normalised mass flow rate";
   Real m_flowNormSq = m_flowNorm^2
     "Square of normalised mass flow rate";
-
+  Real m_flowGuard = Buildings.Utilities.Math.Functions.smoothMax(
+    m_flow, m_flow_small, deltaX=m_flow_small);
+  Real dpGuard = Buildings.Utilities.Math.Functions.smoothMax(
+    dp, dp_small, deltaX=dp_small);
 algorithm
-  k := smooth(
-    2,
-    if noEvent(abs(m_flow) > m_flow_turbulent)
-    then abs(m_flow) / sqrt(abs(dp))
-    else sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dp * m_flowNorm)
-  );
- annotation (
+  k := if noEvent(abs(m_flow) > m_flow_turbulent)
+    then abs(m_flowGuard) / sqrt(abs(dpGuard))
+    else sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm);
+annotation (
   smoothOrder=2,
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}}), graphics={Line(

@@ -15,7 +15,6 @@ function exponentialDamper_inv
   output Real y1;
   output Real y2;
   output Real flag;
-
 protected
   Real roots[2,2] = fill(0, 2, 2);
   Real yC(min=0, max=1, unit="")
