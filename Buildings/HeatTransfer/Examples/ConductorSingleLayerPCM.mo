@@ -1,9 +1,6 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayerPCM "Test model for heat conductor"
   extends Modelica.Icons.Example;
-  Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
-    "Temperature boundary condition"
-    annotation (Placement(transformation(extent={{100,0},{80,20}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA
     "Temperature boundary condition"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -12,9 +9,6 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
     offset=293.15,
     startTime=360)
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TB1(T=293.15)
-    "Temperature boundary condition"
-    annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     "Temperature boundary condition"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -72,9 +66,6 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
     stateAtSurface_b=false)
                       "Construction with phase change near room temperature"
     annotation (Placement(transformation(extent={{24,34},{44,54}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TB2(T=293.15)
-    "Temperature boundary condition"
-    annotation (Placement(transformation(extent={{100,34},{80,54}})));
   parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic matPCM2(
     x=0.2,
     k=1.4,
@@ -123,21 +114,12 @@ equation
       points={{6,10},{24,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conPCM.port_b, TB.port)
-                               annotation (Line(
-      points={{44,10},{80,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(heaFlo2.port_b, con1.port_a) annotation (Line(
       points={{14,-30},{22,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(con1.port_b, con2.port_a) annotation (Line(
       points={{42,-30},{50,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(con2.port_b, TB1.port) annotation (Line(
-      points={{70,-30},{80,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(step.y, TA2.T) annotation (Line(
@@ -151,11 +133,6 @@ equation
   connect(conv3.solid, conPCM2.port_a)
                                       annotation (Line(
       points={{-12,44},{24,44}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conPCM2.port_b, TB2.port)
-                                   annotation (Line(
-      points={{44,44},{80,44}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayerPCM.mos"
@@ -183,6 +160,12 @@ which should be equal except for the numerical approximation error of the solver
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2019, by Michael Wetter:<br/>
+Changed model to use adiabatic boundary condition on the right hand side.
+This avoids that <code>der(conPCM.u)</code> is an iteration variable with no
+start value, which would trigger a warning in JModelica.
+</li>
 <li>
 November 9, 2016, by Michael Wetter:<br/>
 Changed assertion with a computation of the difference.<br/>

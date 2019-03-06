@@ -300,13 +300,13 @@ equation
   connect(uSupFan, damLim.uSupFan)
     annotation (Line(points={{-130,-40},{-104,-40},{-104,8},{-81,8}}, color={255,0,255}));
   connect(uOpeMod, damLim.uOpeMod)
-    annotation (Line(points={{-130,-80},{-102,-80},{-102,4},{-102,5},{-81,5}}, color={255,127,0}));
+    annotation (Line(points={{-130,-80},{-102,-80},{-102,5},{-81,5}}, color={255,127,0}));
   connect(uFreProSta, damLim.uFreProSta)
     annotation (Line(points={{-130,-120},{-90,-120},{-90,2},{-81,2}}, color={255,127,0}));
   connect(damLim.yOutDamPosMax, enaDis.uOutDamPosMax)
     annotation (Line(points={{-59,6},{-28,6},{-28,-34},{-1,-34}}, color={0,0,127}));
   connect(damLim.yOutDamPosMin, enaDis.uOutDamPosMin)
-    annotation (Line(points={{-59,14},{-26,14},{-26,12},{-26,-36},{-1,-36}}, color={0,0,127}));
+    annotation (Line(points={{-59,14},{-26,14},{-26,-36},{-1,-36}}, color={0,0,127}));
   connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax)
     annotation (Line(points={{22,-25.2},{30,-25.2},{30,6},{39,6}},  color={0,0,127}));
   connect(enaDis.yRetDamPosMax, mod.uRetDamPosMax)
@@ -314,9 +314,9 @@ equation
   connect(damLim.yOutDamPosMin, mod.uOutDamPosMin)
     annotation (Line(points={{-59,14},{0,14},{0,3},{39,3}}, color={0,0,127}));
   connect(THeaSupSet, mod.THeaSupSet)
-    annotation (Line(points={{-130,40},{32,40},{32,17},{39,17}}, color={0,0,127}));
+    annotation (Line(points={{-130,40},{30,40},{30,17},{39,17}}, color={0,0,127}));
   connect(TSup, mod.TSup)
-    annotation (Line(points={{-130,60},{30,60},{30,20},{39,20}}, color={0,0,127}));
+    annotation (Line(points={{-130,60},{32,60},{32,20},{39,20}}, color={0,0,127}));
   connect(enaDis.yRetDamPosMin, mod.uRetDamPosMin)
     annotation (Line(points={{22,-38},{34,-38},{34,10},{39,10}}, color={0,0,127}));
   connect(uZonSta, enaDis.uZonSta)

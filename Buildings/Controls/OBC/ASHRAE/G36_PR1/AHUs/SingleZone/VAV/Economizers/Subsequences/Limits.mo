@@ -112,8 +112,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMaxSig(
     final k=yFanMax) "Maximum supply fan speed"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutMin_minSpeSig(final k=
-        yDam_VOutMin_minSpe)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutMin_minSpeSig(
+    final k=yDam_VOutMin_minSpe)
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutDes_minSpeSig(
@@ -163,7 +163,7 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages.stage1)
     "Freeze protection stage 1"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
-  CDL.Integers.LessEqual intLesEqu
+  Buildings.Controls.OBC.CDL.Integers.LessEqual intLesEqu
     "Check if freeze protection stage is stage 0"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
@@ -183,15 +183,15 @@ equation
   connect(yDam_VOutDes_curSpe.y, minVOutSetCurFanSpePos.f2)
     annotation (Line(points={{37,50},{76,50},{76,112},{98,112}}, color={0,0,127}));
   connect(enaDis.y, yOutDamPosMin)
-    annotation (Line(points={{103,-110},{104,-110},{108,-110},{150,-110},{150,-40},{170,-40}},
+    annotation (Line(points={{103,-110},{150,-110},{150,-40},{170,-40}},
     color={0,0,127}));
   connect(yDam_VOutDes_minSpeSig.y, yDam_VOutDes_curSpe.f1)
     annotation (Line(points={{-119,-20},{-100,-20},{-100,54},{14,54}}, color={0,0,127}));
   connect(yDam_VOutDes_maxSpeSig.y, yDam_VOutDes_curSpe.f2)
-    annotation (Line(points={{-119,10},{-104,10},{-96,10},{-8,10},{-8,42},{14,42}}, color={0,0,127}));
-  connect(yDam_VOutMin_minSpeSig.y, yDam_VOutMin_curSpe.f1) annotation (Line(
-        points={{-119,130},{-120,130},{-118,130},{-28,130},{-28,144},{14,144}},
-        color={0,0,127}));
+    annotation (Line(points={{-119,10},{-8,10},{-8,42},{14,42}}, color={0,0,127}));
+  connect(yDam_VOutMin_minSpeSig.y, yDam_VOutMin_curSpe.f1)
+    annotation (Line(points={{-119,130},{-120,130},{-118,130},{-28,130},
+      {-28,144},{14,144}}, color={0,0,127}));
   connect(yDam_VOutMin_maxSpeSig.y, yDam_VOutMin_curSpe.f2)
     annotation (Line(points={{-119,160},{-58,160},{-58,132},{14,132}}, color={0,0,127}));
   connect(uSupFanSpe, yDam_VOutMin_curSpe.u)
@@ -223,7 +223,7 @@ equation
   connect(enaDis1.y, yOutDamPosMax)
     annotation (Line(points={{101,-70},{140,-70},{140,40},{170,40}}, color={0,0,127}));
   connect(not1.y, enaDis1.u2)
-    annotation (Line(points={{1,-70},{48,-70},{78,-70}}, color={255,0,255}));
+    annotation (Line(points={{1,-70},{78,-70}}, color={255,0,255}));
   connect(uSupFan, and1.u[1])
     annotation (Line(points={{-180,-80},{-122,-80},{-122,-65.3333},{-62,
           -65.3333}},
@@ -314,9 +314,8 @@ annotation (Placement(transformation(extent={{-20,110},{0,130}})),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{62,-152},{206,-234}},
+          extent={{-52,-156},{158,-194}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Enable/disable conditions
 for damper position limits
@@ -329,7 +328,6 @@ control loop"),
                                    Text(
           extent={{-140,212},{-32,194}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Values set at commissioning"),
         Rectangle(
@@ -338,12 +336,14 @@ control loop"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{54,212},{168,188}},
+          extent={{48,212},{126,196}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
-          textString="Damper position limit
-calculation and assignments")}),
+          textString="Damper position limit"),
+        Text(
+          extent={{50,198},{152,186}},
+          lineColor={0,0,0},
+          textString="calculation and assignments")}),
     Documentation(info="<html>
 <p>
 This block implements the single zone VAV AHU minimum outdoor air control with a single

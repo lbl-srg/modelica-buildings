@@ -70,7 +70,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final unit="Pa",
     quantity="PressureDifference")
     "Measured duct static pressure"
-    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
+    annotation (Placement(transformation(extent={{-200,-92},{-160,-52}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow[numZon](
     each final unit="m3/s",
@@ -89,7 +89,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     min=0,
     max=1,
     final unit="1") "Supply fan speed"
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}}),
+    annotation (Placement(transformation(extent={{140,-70},{160,-50}}),
       iconTransformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput sumVDis_flow(
     final unit="m3/s",
@@ -178,13 +178,13 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  CDL.Continuous.Gain norPSet(final k=1/maxSet)
+  Buildings.Controls.OBC.CDL.Continuous.Gain norPSet(final k=1/maxSet)
     "Normalization for pressure set point"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
-  CDL.Continuous.Gain norPMea(final k=1/maxSet)
+  Buildings.Controls.OBC.CDL.Continuous.Gain norPMea(final k=1/maxSet)
     "Normalization of pressure measurement"
     annotation (Placement(transformation(extent={{-70,-82},{-50,-62}})));
-  CDL.Discrete.FirstOrderHold firOrdHol(
+  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(
     final samplePeriod=samplePeriod)
     "Extrapolation through the values of the last two sampled input signals"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
@@ -199,7 +199,7 @@ equation
   connect(VDis_flow, sum1.u)
     annotation (Line(points={{-180,-110},{58,-110}}, color={0,0,127}));
   connect(sum1.y, sumVDis_flow)
-    annotation (Line(points={{81.7,-110},{150,-110}},
+    annotation (Line(points={{81,-110},{150,-110}},
       color={0,0,127}));
   connect(or1.y, staPreSetRes.uDevSta)
     annotation (Line(points={{101,70},{120,70},{120,-8},{-150,-8},{-150,-32},
@@ -214,7 +214,7 @@ equation
     annotation (Line(points={{41,-40},{60,-40},{60,-52},{78,-52}},
       color={0,0,127}));
   connect(swi.y, ySupFanSpe)
-    annotation (Line(points={{101,-60},{120,-60},{120,-50},{150,-50}},
+    annotation (Line(points={{101,-60},{150,-60}},
       color={0,0,127}));
   connect(uZonPreResReq, staPreSetRes.numOfReq)
     annotation (Line(points={{-180,-40},{-142,-40},{-142,-48},{-132,-48}},
@@ -271,7 +271,7 @@ equation
   connect(norPSet.y, conSpe.u_s)
     annotation (Line(points={{-49,-40},{-42,-40}}, color={0,0,127}));
   connect(ducStaPre, norPMea.u)
-    annotation (Line(points={{-180,-80},{-132,-80},{-132,-72},{-72,-72}},
+    annotation (Line(points={{-180,-72},{-72,-72}},
       color={0,0,127}));
   connect(norPMea.y, conSpe.u_m)
     annotation (Line(points={{-49,-72},{-30,-72},{-30,-52}}, color={0,0,127}));

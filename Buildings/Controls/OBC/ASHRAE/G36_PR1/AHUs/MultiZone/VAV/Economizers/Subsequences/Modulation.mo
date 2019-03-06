@@ -12,7 +12,6 @@ block Modulation
     final unit="1")=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
     annotation (Evaluate=true,Dialog(tab="Commissioning", group="Controller"));
-
   parameter Real uOutDamMax(
     final min=-1,
     final max=1,
@@ -25,7 +24,6 @@ block Modulation
     final unit="1") = (uMin + uMax)/2
     "Minimum loop signal for the RA damper to be fully open"
     annotation (Evaluate=true, Dialog(tab="Commissioning", group="Controller"));
-
   parameter Modelica.SIunits.Time samplePeriod = 300
     "Sample period of component, used to limit the rate of change of the dampers (to avoid quick opening that can result in frost)";
 
@@ -44,8 +42,8 @@ block Modulation
     final min=0,
     final max=1,
     final unit="1") "Maximum economizer damper position limit as returned by the economizer enable-disable sequence.
-    If the economizer is disabled, this value equals uOutDamPosMin" annotation (
-    Placement(transformation(extent={{-160,-70},{-120,-30}}),
+    If the economizer is disabled, this value equals uOutDamPosMin"
+    annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMin(
     final min=0,
@@ -61,18 +59,17 @@ block Modulation
     "Maximum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
-    final unit="1") "Economizer damper position" annotation (Placement(
-    transformation(extent={{120,-70},{140,-50}}),
+    final unit="1") "Economizer damper position"
+    annotation (Placement(transformation(extent={{120,-70},{140,-50}}),
       iconTransformation(extent={{100,-30},{120,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
-    final unit="1") "Return air damper position" annotation (Placement(
-    transformation(extent={{120,50},{140,70}}),
+    final unit="1") "Return air damper position"
+    annotation (Placement(transformation(extent={{120,50},{140,70}}),
       iconTransformation(extent={{100,10},{120,30}})));
 
 protected
@@ -103,18 +100,20 @@ protected
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max "Overwrite due to freeze protection"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-
-  CDL.Discrete.FirstOrderHold firOrdHolOutDam(final samplePeriod=samplePeriod)
+  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHolOutDam(
+    final samplePeriod=samplePeriod)
     "First order hold to avoid too fast opening/closing of damper (which may cause freeze protection to be too slow to compensate)"
     annotation (Placement(transformation(extent={{92,-70},{112,-50}})));
-  CDL.Discrete.FirstOrderHold firOrdHolRetDam(final samplePeriod=samplePeriod)
+  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHolRetDam(
+    final samplePeriod=samplePeriod)
     "First order hold to avoid too fast opening/closing of damper (which may cause freeze protection to be too slow to compensate)"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
+
 equation
   connect(outDamPos.x2, outDamMaxLimSig.y)
     annotation (Line(points={{-2,-34},{-30,-34},{-30,-50},{-79,-50}},color={0,0,127}));
   connect(outDamPos.x1, outDamMinLimSig.y)
-    annotation (Line(points={{-2,-22},{-39,-22}},                    color={0,0,127}));
+    annotation (Line(points={{-2,-22},{-39,-22}}, color={0,0,127}));
   connect(outDamPos.f1, uOutDamPosMin)
     annotation (Line(points={{-2,-26},{-24,-26},{-24,-100},{-140,-100}},color={0,0,127}));
   connect(outDamPos.f2, uOutDamPosMax)
@@ -140,15 +139,16 @@ equation
     annotation (Line(points={{81,-60},{90,-60}}, color={0,0,127}));
   connect(firOrdHolOutDam.y, yOutDamPos)
     annotation (Line(points={{113,-60},{130,-60}}, color={0,0,127}));
-  connect(uTSup, retDamPos.u) annotation (Line(points={{-140,0},{-22,0},{-22,70},
-          {-2,70}}, color={0,0,127}));
-  connect(uTSup, outDamPos.u) annotation (Line(points={{-140,0},{-22,0},{-22,
-          -30},{-2,-30}}, color={0,0,127}));
+  connect(uTSup, retDamPos.u)
+    annotation (Line(points={{-140,0},{-22,0},{-22,70},{-2,70}}, color={0,0,127}));
+  connect(uTSup, outDamPos.u)
+    annotation (Line(points={{-140,0},{-22,0},{-22,-30},{-2,-30}}, color={0,0,127}));
   connect(max.y, firOrdHolRetDam.u)
     annotation (Line(points={{81,60},{88,60}}, color={0,0,127}));
   connect(firOrdHolRetDam.y, yRetDamPos)
     annotation (Line(points={{111,60},{130,60}}, color={0,0,127}));
-  annotation (
+
+annotation (
     defaultComponentName="mod",
     Icon(graphics={
         Rectangle(
@@ -183,17 +183,14 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-80,128},{-36,88}},
+          extent={{-116,118},{-34,102}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
-          textString="Damper position
-supply air temperature
-control loop"),
+          textString="Damper position supply 
+air temperature control loop"),
         Text(
-          extent={{-20,128},{24,88}},
+          extent={{-24,118},{24,106}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 assignments"),
@@ -203,9 +200,8 @@ assignments"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{58,124},{102,84}},
+          extent={{54,118},{120,96}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Overwrite if the freeze protection
 that tracks TFre at the measured

@@ -150,7 +150,7 @@ equation
    The heat flow rate equals " + String(Q_flow) +
    " W and the mass flow rate equals " + String(m_flow) + " kg/s,
    which results in a temperature difference " +
-   String(abs(Q_flow)/ (dTMax*cp_default*max(m_flow_small/1E3, abs(m_flow)))) +
+   String(abs(Q_flow)/ (cp_default*max(m_flow_small/1E3, abs(m_flow)))) +
    " K > dTMax=" +String(dTMax) + " K.
    This may indicate that energy is not conserved for small mass flow rates.
    The implementation may require prescribedHeatFlowRate = false.");
@@ -339,6 +339,11 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 12, 2019, by Filip Jorissen:<br/>
+Removed obsolete division by <code>TMax</code> in assert.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1097\">#1097</a>.
+</li>
 <li>
 June 23, 2018, by Filip Jorissen:<br/>
 Added more details to energy conservation assert to facilitate

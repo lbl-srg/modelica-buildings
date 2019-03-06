@@ -4,21 +4,17 @@ block Modulation "Outdoor and return air damper position modulation sequence for
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
-
   parameter Real k(final unit="1/K") = 1 "Gain of controller";
-
   parameter Modelica.SIunits.Time Ti=300
     "Time constant of modulation controller integrator block"
     annotation (Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Modelica.SIunits.Time Td=0.1
     "Time constant of derivative block for cooling control loop signal"
     annotation (Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Real uMin=0
     "Lower limit of controller output uTSup at which the dampers are at their limits"
     annotation(Evaluate=true);
@@ -37,11 +33,9 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
-
-  CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
       iconTransformation(extent={{-120,-110},{-100,-90}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final min=0,
     final max=1,
@@ -71,7 +65,6 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     "Maximum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
@@ -103,7 +96,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
       final k=uMax) "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(
     final limitBelow=true,
     final limitAbove=true)
@@ -118,38 +110,39 @@ protected
 equation
   connect(TSup, uTSup.u_m)
     annotation (Line(points={{-140,110},{-108,110},{-108,58},{-70,58},{-70,68}},
-                                                             color={0,0,127}));
+      color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
-    annotation (Line(points={{81,-20},{100,-20},{120,-20},{130,-20}},          color={0,0,127}));
+    annotation (Line(points={{81,-20},{130,-20}}, color={0,0,127}));
   connect(retDamPos.y, yRetDamPos)
-    annotation (Line(points={{79,20},{100,20},{130,20}},           color={0,0,127}));
+    annotation (Line(points={{79,20},{130,20}}, color={0,0,127}));
   connect(retDamMaxLimSig.y,retDamPos. x2)
-    annotation (Line(points={{1,30},{30,30},{30,16},{56,16}},                       color={0,0,127}));
-  connect(uTSup.y, retDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,20},
-          {56,20}},     color={0,0,127}));
-  connect(uTSup.y, outDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,-20},
-          {58,-20}}, color={0,0,127}));
+    annotation (Line(points={{1,30},{30,30},{30,16},{56,16}}, color={0,0,127}));
+  connect(uTSup.y, retDamPos.u)
+    annotation (Line(points={{-59,80},{40,80},{40,20},{56,20}}, color={0,0,127}));
+  connect(uTSup.y, outDamPos.u)
+    annotation (Line(points={{-59,80},{40,80},{40,-20},{58,-20}}, color={0,0,127}));
   connect(uRetDamPosMax,retDamPos. f1)
-    annotation (Line(points={{-140,40},{-112,40},{-112,48},{48,48},{48,24},{56,
-          24}},                                                    color={0,0,127}));
+    annotation (Line(points={{-140,40},{-112,40},{-112,48},{48,48},{48,24},
+      {56,24}},  color={0,0,127}));
   connect(uOutDamPosMin, outDamPos.f1)
-    annotation (Line(points={{-140,-70},{28,-70},{28,-16},{58,-16}},               color={0,0,127}));
+    annotation (Line(points={{-140,-70},{28,-70},{28,-16},{58,-16}},  color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1)
-    annotation (Line(points={{1,-12},{1,-12},{28,-12},{58,-12}},           color={0,0,127}));
+    annotation (Line(points={{1,-12},{58,-12}}, color={0,0,127}));
   connect(THeaSupSet, uTSup.u_s)
-    annotation (Line(points={{-140,80},{-82,80}},           color={0,0,127}));
+    annotation (Line(points={{-140,80},{-82,80}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
-    annotation (Line(points={{-140,0},{-112,0},{-112,-10},{-38,-10},{-38,12},{
-          56,12}},                                                 color={0,0,127}));
-  connect(uOutDamPosMax, outDamPos.f2) annotation (Line(points={{-140,-40},{40,
-          -40},{40,-28},{58,-28}},     color={0,0,127}));
+    annotation (Line(points={{-140,0},{-112,0},{-112,-10},{-38,-10},{-38,12},
+      {56,12}}, color={0,0,127}));
+  connect(uOutDamPosMax, outDamPos.f2)
+    annotation (Line(points={{-140,-40},{40,-40},{40,-28},{58,-28}}, color={0,0,127}));
   connect(retDamMaxLimSig.y, outDamPos.x2)
     annotation (Line(points={{1,30},{30,30},{30,-24},{58,-24}}, color={0,0,127}));
   connect(outDamMinLimSig.y, retDamPos.x1)
     annotation (Line(points={{1,-12},{24,-12},{24,28},{56,28}}, color={0,0,127}));
-  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-78,-110},
-          {-78,68}},       color={255,0,255}));
-  annotation (
+  connect(uSupFan, uTSup.trigger)
+    annotation (Line(points={{-140,-110},{-78,-110},{-78,68}},  color={255,0,255}));
+
+annotation (
     defaultComponentName = "mod",
     Icon(graphics={
         Rectangle(
@@ -184,16 +177,14 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{-102,128},{-58,88}},
+          extent={{-104,112},{0,96}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 supply air temperature
 control loop"),                    Text(
-          extent={{82,128},{126,88}},
+          extent={{54,114},{114,96}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 assignments")}),

@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "cooValSta.TSup",
+    "cooValSta.TSupSet",
+    "cooValSta.TOut",
+    "cooValSta.uFanFee",
+    "cooValSta.uFanSta",
+    "percConv.y",
+    "cooValSta.yCooVal"
+  };

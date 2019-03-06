@@ -507,7 +507,7 @@ equation
     annotation (Line(points={{-219,-10},{-204,-10},{-204,16},{80,16},{80,208},
       {118,208}}, color={0,0,127}));
   connect(swi24.y, actCooMaxAir.u[1])
-    annotation (Line(points={{-79,160},{60,160},{60,174.667},{218,174.667}},
+    annotation (Line(points={{-79,160},{60,160},{60,171.333},{218,171.333}},
       color={0,0,127}));
   connect(swi25.y, actCooMinAir.u[1])
     annotation (Line(points={{-79,130},{60,130},{60,140},{218,140}},
@@ -516,31 +516,31 @@ equation
     annotation (Line(points={{-79,100},{60,100},{60,110},{218,110}},
       color={0,0,127}));
   connect(swi27.y, actHeaMinAir.u[1])
-    annotation (Line(points={{-79,70},{60,70},{60,74.6667},{218,74.6667}},
+    annotation (Line(points={{-79,70},{60,70},{60,71.3333},{218,71.3333}},
       color={0,0,127}));
   connect(swi28.y, actHeaMaxAir.u[1])
-    annotation (Line(points={{-79,40},{60,40},{60,35.25},{218,35.25}},
+    annotation (Line(points={{-79,40},{60,40},{60,31.5},{218,31.5}},
       color={0,0,127}));
   connect(swi4.y, actCooMaxAir.u[2])
     annotation (Line(points={{-79,300},{-28,300},{-28,170},{218,170}},
       color={0,0,127}));
   connect(swi8.y, actHeaMaxAir.u[2])
-    annotation (Line(points={{-79,270},{-44,270},{-44,31.75},{218,31.75}},
+    annotation (Line(points={{-79,270},{-44,270},{-44,30.5},{218,30.5}},
       color={0,0,127}));
   connect(swi9.y, actCooMaxAir.u[3])
-    annotation (Line(points={{-79,230},{-48,230},{-48,165.333},{218,165.333}},
+    annotation (Line(points={{-79,230},{-48,230},{-48,168.667},{218,168.667}},
       color={0,0,127}));
   connect(swi17.y, actHeaMinAir.u[2])
     annotation (Line(points={{141,300},{194,300},{194,70},{218,70}},
       color={0,0,127}));
   connect(swi18.y, actHeaMaxAir.u[3])
-    annotation (Line(points={{141,270},{190,270},{190,28.25},{218,28.25}},
+    annotation (Line(points={{141,270},{190,270},{190,29.5},{218,29.5}},
       color={0,0,127}));
   connect(swi22.y, actHeaMinAir.u[3])
-    annotation (Line(points={{141,230},{172,230},{172,65.3333},{218,65.3333}},
+    annotation (Line(points={{141,230},{172,230},{172,68.6667},{218,68.6667}},
       color={0,0,127}));
   connect(swi23.y, actHeaMaxAir.u[4])
-    annotation (Line(points={{141,200},{168,200},{168,24.75},{218,24.75}},
+    annotation (Line(points={{141,200},{168,200},{168,28.5},{218,28.5}},
       color={0,0,127}));
   connect(swi1.y, swi25.u1)
     annotation (Line(points={{221,-500},{240,-500},{240,-28},{-128,-28},{-128,138},
@@ -555,19 +555,19 @@ equation
     annotation (Line(points={{221,-500},{240,-500},{240,-28},{-128,-28},{-128,-4},
       {-102,-4}}, color={0,0,127}));
   connect(actCooMaxAir.y, VActCooMax_flow)
-    annotation (Line(points={{241.7,170},{300,170}},
+    annotation (Line(points={{241,170},{300,170}},
       color={0,0,127}));
   connect(actCooMinAir.y, VActCooMin_flow)
-    annotation (Line(points={{241.7,140},{260,140},{260,130},{300,130}},
+    annotation (Line(points={{241,140},{260,140},{260,130},{300,130}},
       color={0,0,127}));
   connect(actMinAir.y, VActMin_flow)
-    annotation (Line(points={{241.7,110},{260,110},{260,90},{300,90}},
+    annotation (Line(points={{241,110},{260,110},{260,90},{300,90}},
       color={0,0,127}));
   connect(actHeaMinAir.y, VActHeaMin_flow)
-    annotation (Line(points={{241.7,70},{260,70},{260,50},{300,50}},
+    annotation (Line(points={{241,70},{260,70},{260,50},{300,50}},
       color={0,0,127}));
   connect(actHeaMaxAir.y, VActHeaMax_flow)
-    annotation (Line(points={{241.7,30},{256,30},{256,10},{300,10}},
+    annotation (Line(points={{241,30},{256,30},{256,10},{300,10}},
       color={0,0,127}));
 
 annotation (

@@ -120,7 +120,7 @@ equation
   connect(outDamPosMinSig.y, enaDis1.uOutDamPosMin)
     annotation (Line(points={{-219,-150},{-190,-150},{-190,-104},{12,-104},{12,-76},{79,-76}}, color={0,0,127}));
   connect(TOut.y, enaDis2.TOut)
-    annotation (Line(points={{-139,90},{-82,90},{200,90},{200,-60},{219,-60}}, color={0,0,127}));
+    annotation (Line(points={{-139,90},{200,90},{200,-60},{219,-60}}, color={0,0,127}));
   connect(TOutCut.y, enaDis2.TOutCut)
     annotation (Line(points={{-139,50},{-120,50},{-120,80},{188,80},{188,-62},{219,-62}}, color={0,0,127}));
   connect(freProSta.y, enaDis2.uFreProSta)
@@ -163,22 +163,19 @@ equation
                       TOut > 75 degF [24 degC]
                       hOut > 28 Btu/lb [65.1 kJ/kg]"),
         Text(
-          extent={{-82,-80},{42,-108}},
+          extent={{-82,-82},{0,-96}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests temperature hysteresis"),
         Text(
-          extent={{80,-80},{208,-108}},
+          extent={{80,-80},{156,-96}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests enthalpy hysteresis"),
         Text(
-          extent={{220,-86},{348,-114}},
+          extent={{208,-82},{260,-100}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="No enthalpy
 sensor")}),
 Documentation(info="<html>

@@ -39,9 +39,9 @@ block ExhaustDamper
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDamPos(
     min=0,
     max=1,
-    final unit="1") "Exhaust damper position" annotation (Placement(
-        transformation(extent={{120,-10},{140,10}}), iconTransformation(extent=
-            {{100,-10},{120,10}})));
+    final unit="1") "Exhaust damper position"
+    annotation (Placement(transformation(extent={{120,-10},{140,10}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line exhDamPos
     "Linearly map exhaust damper position to the outdoor air damper position"
@@ -71,8 +71,8 @@ protected
     final k=maxExhDamPos)
     "Exhaust damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPosAtMinSpd(final k=
-       minOutPosMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPosAtMinSpd(
+    final k=minOutPosMin)
     "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
@@ -114,8 +114,8 @@ equation
   connect(exhDamPos.y, swi1.u1)
     annotation (Line(points={{41,0},{60,0},{60,-42},{78,-42}},
       color={0,0,127}));
-  connect(swi1.y, yExhDamPos) annotation (Line(points={{101,-50},{110,-50},{110,0},
-          {130,0}}, color={0,0,127}));
+  connect(swi1.y, yExhDamPos)
+    annotation (Line(points={{101,-50},{110,-50},{110,0},{130,0}}, color={0,0,127}));
 
 annotation (
   defaultComponentName = "exhDam",

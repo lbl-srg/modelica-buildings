@@ -18,9 +18,11 @@ model SingleLayer "Model for single layer heat conductance"
    each nominal=300)
     "Temperature at the states";
 
-  Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
+  Modelica.SIunits.HeatFlowRate Q_flow[nSta+1](each start=0)
     "Heat flow rates to each state";
-  Modelica.SIunits.SpecificInternalEnergy u[nSta](each nominal=270000)
+  Modelica.SIunits.SpecificInternalEnergy u[nSta](
+    each start=2.7E5,
+    each nominal=2.7E5)
     "Definition of specific internal energy";
 
   parameter Boolean stateAtSurface_a=true

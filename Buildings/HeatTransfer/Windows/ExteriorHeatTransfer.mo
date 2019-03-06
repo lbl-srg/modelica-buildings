@@ -91,7 +91,8 @@ public
   Modelica.Thermal.HeatTransfer.Components.Convection conFra
     "Convective heat transfer between air and frame"
     annotation (Placement(transformation(extent={{50,-98},{30,-78}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conWinUns
+  Modelica.Thermal.HeatTransfer.Components.Convection conWinUns(
+    dT(start=0))
     "Convection from unshaded part of window to outside or room air"
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
 protected

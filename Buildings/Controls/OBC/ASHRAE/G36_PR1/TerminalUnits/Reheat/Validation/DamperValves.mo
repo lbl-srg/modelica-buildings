@@ -13,7 +13,7 @@ model DamperValves
     startTime=0)
     "Heating control signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  CDL.Continuous.Sources.Ramp uCoo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
     height=1,
     duration=36000,
     offset=0,
@@ -52,17 +52,18 @@ model DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDis(k=273.15 + 25)
     "Discharge air temperature"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-
-  CDL.Integers.Sources.Constant occSig(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant occSig(
+    k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied signal"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
+
 equation
   connect(VDis_flow.y, damVal.VDis_flow)
     annotation (Line(points={{41,-60},{74,-60},{74,37}}, color={0,0,127}));
   connect(TDis.y, damVal.TDis)
     annotation (Line(points={{41,-20},{66,-20},{66,37}}, color={0,0,127}));
-  connect(VActCooMax_flow.y, damVal.VActCooMax_flow) annotation (Line(points={{41,80},
-          {50,80},{50,59},{59,59}}, color={0,0,127}));
+  connect(VActCooMax_flow.y, damVal.VActCooMax_flow)
+    annotation (Line(points={{41,80},{50,80},{50,59},{59,59}}, color={0,0,127}));
   connect(VActCooMin_flow.y, damVal.VActCooMin_flow)
     annotation (Line(points={{-59,80},{-2,80},{-2,57},{59,57}}, color={0,0,127}));
   connect(VActHeaMax_flow.y, damVal.VActHeaMax_flow)
@@ -81,9 +82,9 @@ equation
     annotation (Line(points={{-19,-60},{6,-60},{6,43},{59,43}}, color={0,0,127}));
   connect(TZon.y, damVal.TZon)
     annotation (Line(points={{-59,-80},{8,-80},{8,41},{59,41}}, color={0,0,127}));
+  connect(occSig.y, damVal.uOpeMod)
+    annotation (Line(points={{41,20},{50,20},{50,39},{59,39}}, color={255,127,0}));
 
-  connect(occSig.y, damVal.uOpeMod) annotation (Line(points={{41,20},{50,20},{
-          50,39},{59,39}}, color={255,127,0}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/TerminalUnits/Reheat/Validation/DamperValves.mos"
