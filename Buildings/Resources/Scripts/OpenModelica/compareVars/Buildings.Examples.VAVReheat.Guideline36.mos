@@ -1,10 +1,10 @@
 compareVars :=
   {
-    "flo.TAirSou",
-    "flo.TAirEas",
-    "flo.TAirNor",
-    "flo.TAirWes",
-    "flo.TAirCor",
+    "flo.sou.air.vol.T",
+    "flo.eas.air.vol.T",
+    "flo.nor.air.vol.T",
+    "flo.wes.air.vol.T",
+    "flo.cor.air.vol.T",
     "sou.vav.m_flow",
     "eas.vav.m_flow",
     "nor.vav.m_flow",

@@ -3,77 +3,16 @@ model Floor "Model of a floor of the building"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
 
-  constant Modelica.SIunits.Height hRoo=2.74 "Room height";
-
   parameter Boolean use_windPressure=true
     "Set to true to enable wind pressure";
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Boolean sampleModel = false
-    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
-    annotation (
-      Evaluate=true,
-      Dialog(tab="Experimental (may be changed in future releases)"));
 
-  final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
-  final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";
-  final parameter Modelica.SIunits.Area AFloNor=nor.AFlo "Floor area north";
-  final parameter Modelica.SIunits.Area AFloEas=eas.AFlo "Floor area east";
-  final parameter Modelica.SIunits.Area AFloWes=wes.AFlo "Floor area west";
-
-  Modelica.Blocks.Interfaces.RealOutput TRooAir[5](
-    each unit="K",
-    each displayUnit="degC") "Room air temperatures"
-    annotation (Placement(transformation(extent={{380,150},{400,170}}),
-        iconTransformation(extent={{380,150},{400,170}})));
-
-  Modelica.Blocks.Interfaces.RealOutput p_rel(
-    unit="Pa",
-    displayUnit="Pa")
-    "Relative pressure signal of building static pressure" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-170,220})));
-
-  BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
-    annotation (Placement(transformation(extent={{200,190},{220,210}})));
-
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{70,-42},{110,-26}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsEas[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{314,28},{354,44}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsNor[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{70,118},{110,134}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsWes[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{-50,38},{-10,54}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsCor[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{70,38},{110,54}})));
-
-  Modelica.SIunits.Temperature TAirCor = cor.air.vol.T
-    "Air temperature corridor";
-  Modelica.SIunits.Temperature TAirSou = sou.air.vol.T
-    "Air temperature south zone";
-  Modelica.SIunits.Temperature TAirNor = nor.air.vol.T
-    "Air temperature north zone";
-  Modelica.SIunits.Temperature TAirEas = eas.air.vol.T
-    "Air temperature east zone";
-  Modelica.SIunits.Temperature TAirWes = wes.air.vol.T
-    "Air temperature west zone";
-
-protected
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
-
+  parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Real winWalRat(
     min=0.01,
     max=0.99) = 0.33 "Window to wall ratio for exterior walls";
   parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
-
   parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
     annotation (Placement(transformation(extent={{140,460},{160,480}})));
@@ -138,6 +77,13 @@ protected
     annotation (Placement(transformation(extent={{240,460},{260,480}})));
   parameter Real kIntNor(min=0, max=1) = 1
     "Gain factor to scale internal heat gain in north zone";
+  constant Modelica.SIunits.Height hRoo=2.74 "Room height";
+
+  parameter Boolean sampleModel = false
+    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Experimental (may be changed in future releases)"));
 
   Buildings.ThermalZones.Detailed.MixedAir sou(
     redeclare package Medium = Medium,
@@ -301,7 +247,21 @@ protected
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final sampleModel=sampleModel) "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
-
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{70,-42},{110,-26}})));
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsEas[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{314,28},{354,44}})));
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsNor[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{70,118},{110,134}})));
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsWes[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{-50,38},{-10,54}})));
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsCor[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{70,38},{110,54}})));
   Modelica.Blocks.Math.MatrixGain gai(K=20*[0.4; 0.4; 0.2])
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
@@ -310,6 +270,8 @@ protected
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=1)
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
+  BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
+    annotation (Placement(transformation(extent={{200,190},{220,210}})));
   RoomLeakage leaSou(redeclare package Medium = Medium, VRoo=568.77,
     s=49.91/33.27,
     azi=Buildings.Types.Azimuth.S,
@@ -351,7 +313,11 @@ protected
     annotation (Placement(transformation(extent={{294,218},{314,238}})));
   Modelica.Blocks.Routing.Multiplex5 multiplex5_1
     annotation (Placement(transformation(extent={{340,280},{360,300}})));
-
+  Modelica.Blocks.Interfaces.RealOutput TRooAir[5](
+    each unit="K",
+    each displayUnit="degC") "Room air temperatures"
+    annotation (Placement(transformation(extent={{380,150},{400,170}}),
+        iconTransformation(extent={{380,150},{400,170}})));
   Airflow.Multizone.DoorDiscretizedOpen opeSouCor(redeclare package Medium =
         Medium, wOpe=10,
     forceErrorControlOnFlow=false)
@@ -392,6 +358,12 @@ protected
     annotation (Placement(transformation(extent={{60,240},{40,260}})));
   Buildings.Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-58,240},{-38,260}})));
+  Modelica.Blocks.Interfaces.RealOutput p_rel
+    "Relative pressure signal of building static pressure" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-170,220})));
 
   Modelica.Blocks.Math.Gain gaiIntNor[3](each k=kIntNor)
     "Gain for internal heat gain amplification for north zone"
@@ -862,21 +834,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-June 1, 2018, by Michael Wetter:<br/>
-Add public parameters and variables for refactoring of room model.
-</li>
-<li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
 </li>
 </ul>
-</html>", info="<html>
-<p>
-Model of one floor of the DOE Reference office building for Chicago.
-The model has five zones that are connected to each other through open doors.
-The model has air infiltration or exfiltration based on wind pressure on the facade,
-and based on the static pressure of the HVAC system.
-</p>
 </html>"));
 end Floor;

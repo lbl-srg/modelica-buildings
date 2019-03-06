@@ -17,14 +17,14 @@ partial model PartialOpenLoop
   parameter Modelica.SIunits.Volume VRooWes=AFloWes*flo.hRoo "Room volume west";
 
 
-  parameter Modelica.SIunits.Area AFloCor=flo.AFloCor "Floor area corridor";
-  parameter Modelica.SIunits.Area AFloSou=flo.AFloSou "Floor area south";
-  parameter Modelica.SIunits.Area AFloNor=flo.AFloNor "Floor area north";
-  parameter Modelica.SIunits.Area AFloEas=flo.AFloEas "Floor area east";
-  parameter Modelica.SIunits.Area AFloWes=flo.AFloWes "Floor area west";
+  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
+  parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
+  parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
+  parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
+  parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
 
-  parameter Modelica.SIunits.Area AFlo[numZon]=
-    {AFloCor, AFloSou, AFloEas, AFloNor, AFloWes} "Floor area of each zone";
+  parameter Modelica.SIunits.Area AFlo[numZon]={flo.cor.AFlo,flo.sou.AFlo,flo.eas.AFlo,
+      flo.nor.AFlo,flo.wes.AFlo} "Floor area of each zone";
   final parameter Modelica.SIunits.Area ATot=sum(AFlo) "Total floor area";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
@@ -390,7 +390,7 @@ partial model PartialOpenLoop
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-330,170},{-310,190}}),
         iconTransformation(extent={{-360,170},{-340,190}})));
-  replaceable ThermalZones.Floor flo(
+  ThermalZones.Floor flo(
     redeclare final package Medium = MediumA,
     final lat=lat,
     final use_windPressure=use_windPressure,
@@ -796,10 +796,10 @@ equation
       points={{210,-52},{230,-52},{230,-110}},
       color={28,108,200},
       thickness=0.5));
-  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{121,-210},{124,
-          -210},{124,-132}},     color={0,0,127}));
-  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{222,
-          -248},{222,-132}},     color={0,0,127}));
+  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{121,-210},{
+          124,-210},{124,-130}}, color={0,0,127}));
+  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{
+          222,-248},{222,-130}}, color={0,0,127}));
   connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
       points={{320,10},{320,14},{-88,14},{-88,-47.9333},{-114,-47.9333}},
       color={0,0,0},
