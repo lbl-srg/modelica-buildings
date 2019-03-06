@@ -31,7 +31,10 @@ model PressureIndependent
         iconTransformation(extent={{40,90},{60,110}})));
   Medium.Density rho "Medium density";
   Real test_kthsqrt;
-  Real test_char_inv;
+  Real[4] test_char_inv;
+  Real[3] y_dum;
+  Real[2, 2] roots;
+
 protected
   parameter Medium.Density rho_default = Medium.density(sta_default)
     "Density, used to compute fluid volume";
@@ -57,7 +60,7 @@ protected
   parameter Modelica.SIunits.PressureDifference dp_small = 1E-4 * dp_nominal_pos;
   parameter Real c_regul = 1E-4 * m_flow_nominal_pos / dp_nominal_pos
     "Regularization coefficient";
-  Real roots[2, 2];
+
 initial equation
   kResSqu=if dpFixed_nominal > Modelica.Constants.eps then
     m_flow_nominal^2 / dpFixed_nominal else 0
@@ -151,13 +154,14 @@ equation
   test_kthsqrt = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
       y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
 
-  test_char_inv = Buildings.Fluid.Actuators.BaseClasses.exponentialDamperInv(
-    kThetaSqRt=test_kthsqrt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+  (test_char_inv[1], test_char_inv[2], test_char_inv[3], test_char_inv[4]) =
+    Buildings.Fluid.Actuators.BaseClasses.exponentialDamperInv(
+      kThetaSqRt=test_kthsqrt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
 
   roots = Modelica.Math.Vectors.Utilities.roots({cU[1], cU[2],
       -2*Modelica.Math.log(test_kthsqrt) + cU[3]});
 
-  y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamperInv(
+  (y_open, y_dum[1], y_dum[2], y_dum[3]) = Buildings.Fluid.Actuators.BaseClasses.exponentialDamperInv(
     kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
 annotation(Documentation(info="<html>
 <p>

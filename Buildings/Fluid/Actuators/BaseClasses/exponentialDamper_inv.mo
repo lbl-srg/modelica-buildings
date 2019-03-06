@@ -1,5 +1,5 @@
 within Buildings.Fluid.Actuators.BaseClasses;
-function exponentialDamperInv
+function exponentialDamper_inv
   "Inverse function of damper opening characteristics for an exponential damper"
   import Modelica.Math.Matrices;
   extends Modelica.Icons.Function;
@@ -10,7 +10,11 @@ function exponentialDamperInv
   input Real[3] cU "Polynomial coefficients for curve fit for y > yu";
   input Real yL "Lower value for damper curve";
   input Real yU "Upper value for damper curve";
-  output Real y(min=0, max=1, unit="");
+  // output Real y(min=0, max=1, unit="");
+  output Real y;
+  output Real y1;
+  output Real y2;
+  output Real flag;
 
 protected
   Real roots[2,2] = fill(0, 2, 2);
@@ -20,24 +24,28 @@ protected
        y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
   Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
        y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+  Real delta;
 algorithm
   if kThetaSqRt > kL then
     // kThetaSqRt := sqrt(Modelica.Math.exp(cL[3] + yC * (cL[2] + yC * cL[1])));
-    roots := Modelica.Math.Vectors.Utilities.roots({cL[1], cL[2],
-      -2 * Modelica.Math.log(kThetaSqRt) + cL[3]});
-      if (roots[1,1] < yL and roots[1,1] >= 0) and (abs(roots[1, 2]) < Modelica.Constants.eps) then y := roots[1,1];
-      else y := max(0, roots[2,1]);
-      end if;
+    delta := cL[2]^2 - 4 * cL[1] * (-2 * Modelica.Math.log(kThetaSqRt) + cL[3]);
+    y1 := (-cL[2] - sqrt(delta)) / (2 * cL[1]);
+    y2 := (-cL[2] + sqrt(delta)) / (2 * cL[1]);
+    y := if cL[2] + 2 * cL[1] * y1 <= 0 then max(0, y1) else max(0, y2);
+    flag := 1;
   else
     if kThetaSqRt < kU then
      //kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + yC * (cU[2] + yC * cU[1])));
-      roots := Modelica.Math.Vectors.Utilities.roots({cU[1], cU[2],
-        -2 * Modelica.Math.log(kThetaSqRt) + cU[3]});
-      if (roots[1,1] > yU and roots[1,1] <= 1) and (abs(roots[1,2]) < Modelica.Constants.eps) then y := roots[1,1];
-      else y := min(1, roots[2,1]);
-      end if;
+      delta := cU[2]^2 - 4 * cU[1] * (-2 * Modelica.Math.log(kThetaSqRt) + cU[3]);
+      y1 := (-cU[2] - sqrt(delta)) / (2 * cU[1]);
+      y2 := (-cU[2] + sqrt(delta)) / (2 * cU[1]);
+      y := if cU[2] + 2 * cU[1] * y1 <= 0 then min(1, y1) else min(1, y2);
+      flag := -1;
     else
       y := 1 -(2 * Modelica.Math.log(kThetaSqRt) - a) / b;
+      y1 := 0;
+      y2 := 0;
+      flag := 0;
       //kThetaSqRt := sqrt(Modelica.Math.exp(a+b*(1-y))) "y=0 is closed";
     end if;
   end if;
@@ -90,4 +98,4 @@ First implementation.
 </li>
 </ul>
 </html>"),   smoothOrder=1);
-end exponentialDamperInv;
+end exponentialDamper_inv;

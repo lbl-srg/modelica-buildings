@@ -17,21 +17,24 @@ protected
     "Square of normalised mass flow rate";
 
 algorithm
- k := if noEvent(abs(m_flow) > m_flow_turbulent)
-       then abs(m_flow) / sqrt(abs(dp))
-       else sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dp * m_flowNorm);
-
+  k := smooth(
+    2,
+    if noEvent(abs(m_flow) > m_flow_turbulent)
+    then abs(m_flow) / sqrt(abs(dp))
+    else sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dp * m_flowNorm)
+  );
  annotation (
-             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={Line(
-          points={{-80,-40},{-80,60},{80,-40},{80,60}},
-          color={0,0,255},
-          thickness=1), Text(
-          extent={{-40,-40},{40,-80}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={232,0,0},
-          textString="%name")}),
+  smoothOrder=2,
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  -100},{100,100}}), graphics={Line(
+  points={{-80,-40},{-80,60},{80,-40},{80,60}},
+  color={0,0,255},
+  thickness=1), Text(
+  extent={{-40,-40},{40,-80}},
+  lineColor={0,0,0},
+  fillPattern=FillPattern.Sphere,
+  fillColor={232,0,0},
+  textString="%name")}),
 Documentation(info="<html>
 <p>
 Function that computes the pressure drop of flow elements as

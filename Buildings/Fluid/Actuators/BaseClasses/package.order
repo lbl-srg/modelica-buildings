@@ -7,5 +7,5 @@ ValveParameters
 der_equalPercentage
 equalPercentage
 exponentialDamper
-exponentialDamperInv
+exponentialDamper_inv
 Examples

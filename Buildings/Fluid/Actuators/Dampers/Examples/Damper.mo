@@ -19,9 +19,10 @@ model Damper
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101335,
-    T=293.15,
-    nPorts=3) "Pressure boundary condition"
+    nPorts=3,
+    p(displayUnit="Pa") = Medium.p_default + preInd.dp_nominal + preInd.dpFixed_nominal,
+
+    T=293.15) "Pressure boundary condition"
      annotation (Placement(
         transformation(extent={{-60,-10},{-40,10}})));
 
@@ -36,9 +37,9 @@ model Damper
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=10,
-    dpFixed_nominal=150,
     use_deltaM=false,
-    roundDuct=true)
+    roundDuct=true,
+    dpFixed_nominal=20)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{-4,-40},{16,-20}})));
 
@@ -59,8 +60,8 @@ model Damper
     annotation (Placement(transformation(extent={{28,-84},{48,-64}})));
   FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    dp_nominal=150)
+    dp_nominal=preInd.dpFixed_nominal,
+    m_flow_nominal=preInd.m_flow_nominal)
     annotation (Placement(transformation(extent={{-12,-84},{8,-64}})));
 equation
   connect(yRam.y, res.y) annotation (Line(
