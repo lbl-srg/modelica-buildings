@@ -57,7 +57,7 @@ writeLog(0, libPath);
 
   fmu->dllHandle = h;
 
-  /* Set pointers to functions provided by dll */
+  /* Set pointers to functions provided by dll
   fmu->instantiate = (fInstantiate)getAdr(fmu, "instantiate");
   if (!(fmu->instantiate)) {
     ModelicaError("Can't find function instantiate().");
@@ -91,6 +91,7 @@ writeLog(0, libPath);
   if (!(fmu->terminateSim)) {
     ModelicaError("Can't find function terminateSim().");
   }
+   */
   return;
 }
 
@@ -174,8 +175,7 @@ void FMUZoneSetValueReferences(
   }
 }
 
-
-void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
+void writeModelStructureForEnergyPlus(const FMUBuilding* bui){
   fmi2ValueReference cntr=0;
   int result;
   int i;
@@ -217,7 +217,6 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   for(j=0; j<nZon; j++){
     FMUZoneSetValueReferences(&(zones[j]), zones[j]->nOutputValueReferences, &(zones[j]->outputValueReferences), &cntr);
   }
-
 
   /* Build data structure to be sent to EnergyPlus */
   /* Allocate memory */
@@ -326,44 +325,16 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
     }
   }
 
-  /* This is the first call for this idf file.
-     Allocate memory and load the library.
-  */
-  bui->fmu = (FMU*)malloc(sizeof(FMU));
-  if ( bui->fmu == NULL )
-    ModelicaError("Not enough memory in FMUZoneInstantiate.c to allocate memory for fmu.");
-
-  loadLib(bui->epLib, bui->fmu);
-
-  writeLog(0, "Instantiating fmu.");
   logStringArray(3, "Parameter names", (const char**)parameterNames, nPar);
   logValueReferenceArray(3, "Parameter value references", parameterValueReferences, nPar);
   logStringArray(3, "Input names", (const char**)inputNames, nInp);
   logValueReferenceArray(3, "Input value references", inputValueReferences, nInp);
   logStringArray(3, "Output names", (const char**)outputNames, nOut);
   logValueReferenceArray(3, "Output value references", outputValueReferences, nOut);
-  result = bui->fmu->instantiate(bui->name, /* input */
-                       bui->weather,  /* weather */
-                       bui->idd,  /* idd */
-                       bui->tmpDir,  /* temporary directory name */
-                       (const char**)parameterNames,  /* parameterNames */
-                       parameterValueReferences, /* parameterValueReferences[] */
-                       nPar, /* nPar */
-                       (const char**)inputNames, /* inputNames */
-                       inputValueReferences, /* inputValueReferences[] */
-                       nInp, /* nInp */
-                       (const char**)outputNames, /* outputNames */
-                       outputValueReferences, /* outputValueReferences[] */
-                       nOut, /* nOut */
-                       NULL); /*log); */
-  writeLog(2, "Returned from instantiating fmu.");
-  if(result<0){
-    ModelicaFormatError("Failed to instantiate building FMU with name %s.",
-    bui->name);
-  }
 
-  /* EnergyPlus relies on these memories
-  free(tmpDir);
+  /* **************************************************************** */
+  ModelicaMessage("*** fixme: need to write the file here.");
+  /* **************************************************************** */
 
   free(parameterValueReferences);
   for(i = 0; i < nPar; i++)
@@ -379,7 +350,47 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   for(i = 0; i < nOut; i++)
     free(outputNames[i]);
   free(outputNames);
+
+  return;
+}
+
+
+void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
+
+  fmi2Boolean visible = fmi2False;
+  fmi2Boolean loggingOn = fmi2True; /* fixme: Make an argument from Modelica */
+  fmi2String fmuGUID = bui->name; /* GUID (simply set to the idf name because this is unique already) */
+
+  /* Write the model structure to the FMU Resources folder so that EnergyPlus can
+     read it and set up the data structure.
   */
+  writeModelStructureForEnergyPlus(bui);
+  /* This is the first call for this idf file.
+     Allocate memory and load the library.
+  */
+  bui->fmu = (FMU*)malloc(sizeof(FMU));
+  if ( bui->fmu == NULL )
+    ModelicaError("Not enough memory in FMUZoneInstantiate.c to allocate memory for fmu.");
+
+  loadLib(bui->epLib, bui->fmu);
+
+  writeLog(0, "Instantiating fmu.");
+
+  bui->fmuCom = bui->fmu->instantiate(
+                       bui->name, /* instanceName (set to the same as the building name) */
+                       fmuType,
+                       fmuGUID,
+                       bui->tmpDir,  /* fmuResourceLocation, which is the temporary directory name */
+                       callBackFunctions, /* call back functions so that FMU can report to master */
+                       visible, /* Set to fmi2False, e.g., no user interaction or pop up windows */
+                       loggingOn); /* If fmi2True, debug logging is enabled, else it is disabled */
+
+  writeLog(2, "Returned from instantiating fmu.");
+  if( bui->fmuCom == NULL ){
+    ModelicaFormatError("Failed to instantiate building FMU with name %s.",
+    bui->name);
+  }
+
   return;
 }
 

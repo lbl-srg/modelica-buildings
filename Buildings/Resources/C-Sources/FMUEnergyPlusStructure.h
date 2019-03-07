@@ -85,6 +85,7 @@ typedef unsigned int (*fTerminateSim)(fmi2String log);
 
 typedef struct FMU{
   HANDLE dllHandle;
+  /*
   fInstantiate instantiate;
   fSetupExperiment setupExperiment;
   fSetTime setTime;
@@ -92,10 +93,12 @@ typedef struct FMU{
   fGetVariables getVariables;
   fGetNextEventTime getNextEventTime;
   fTerminateSim terminateSim;
+  */
 } FMU;
 
 typedef struct FMUBuilding
 {
+  fmi2Component* fmuCom; /* Opaque void* pointer to this building, used by EnergyPlus */
   fmi2Byte* name;
   fmi2Byte* weather;
   fmi2Byte* idd;
@@ -103,7 +106,7 @@ typedef struct FMUBuilding
   fmi2Integer nZon; /* Number of zones that use this FMU */
   fmi2Byte** zoneNames; /* Names of zones in this FMU */
   void** zones; /* Pointers to all zones*/
-  FMU* fmu;
+  FMU* fmu; /* fixme: check if it can be deleted */
   char* tmpDir; /* Temporary directory used by EnergyPlus */
 } FMUBuilding;
 
