@@ -32,6 +32,8 @@
   #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
 #endif
 
+static char* MOD_BUI_JSON = "ModelicaBuildingsEnergyPlus.json";
+
 void writeLog(unsigned int level, const char* msg);
 
 void logStringArray(unsigned int level,
@@ -44,21 +46,13 @@ void logValueReferenceArray(unsigned int level,
                             const fmi2ValueReference* array,
                             size_t n);
 
-
-typedef unsigned int (*fInstantiate)(fmi2String input,
-                         fmi2String weather,
-                         fmi2String idd,
-                         fmi2String instanceName,
-                         fmi2String* parameterNames,
-                         const unsigned int parameterValueReferences[],
-                         size_t nPar,
-                         fmi2String* inputNames,
-                         const fmi2ValueReference inputValueReferences[],
-                         size_t nInp,
-                         fmi2String* outputNames,
-                         const fmi2ValueReference outputValueReferences[],
-                         size_t nOut,
-                         fmi2String log);
+typedef fmi2Component (*fmi2Instantiate)(fmi2String  instanceName,
+                                         fmi2Type    fmuType,
+                                         fmi2String fmuGUID,
+                                         fmi2String fmuResourceLocation,
+                                         const fmi2CallbackFunctions* functions,
+                                         fmi2Boolean visible,
+                                         fmi2Boolean loggingOn);
 
 typedef unsigned int (*fSetupExperiment)(fmi2Real tStart,
                              int stopTimeDefined,
@@ -85,15 +79,14 @@ typedef unsigned int (*fTerminateSim)(fmi2String log);
 
 typedef struct FMU{
   HANDLE dllHandle;
-  /*
-  fInstantiate instantiate;
+  /* fixme: change to fmi2 functions */
+  fmi2Instantiate instantiate;
   fSetupExperiment setupExperiment;
   fSetTime setTime;
   fSetVariables setVariables;
   fGetVariables getVariables;
   fGetNextEventTime getNextEventTime;
   fTerminateSim terminateSim;
-  */
 } FMU;
 
 typedef struct FMUBuilding
@@ -115,15 +108,22 @@ typedef struct FMUZone
   int index;
   fmi2Byte* name;      /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
-  size_t nParameterValueReferences;/* Number of parameter value references per zone*/
-  fmi2Byte** parameterVariableNames; /* Names of parameter variables*/
+
+  char** parameterNames;
+  char** inputNames;
+  char** outputNames;
+
+  size_t nParameterValueReferences; /* Number of parameter value references per zone*/
+  size_t nInputValueReferences; /* Number of input value references per zone*/
+  size_t nOutputValueReferences; /* Number of output value references per zone*/
+
   fmi2ValueReference* parameterValueReferences; /* Value reference of parameter variables*/
-  size_t nInputValueReferences;/* Number of input value references per zone*/
-  fmi2Byte** inputVariableNames; /* Names of input variables*/
   fmi2ValueReference* inputValueReferences; /* Value reference of input variables*/
-  size_t nOutputValueReferences;/* Number of output value references per zone*/
-  fmi2Byte** outputVariableNames; /* Names of output variables*/
   fmi2ValueReference* outputValueReferences; /* Value references of output variables*/
+
+  fmi2Byte** parameterVariableNames; /* Full names of parameter variables (used for reporting only) */
+  fmi2Byte** inputVariableNames; /* Full names of input variables (used for reporting only)*/
+  fmi2Byte** outputVariableNames; /* Full names of output variables (used for reporting only)*/
 } FMUZone;
 
 void getEnergyPlusDLLName(char** epLibName);
@@ -136,8 +136,8 @@ void buildVariableNames(
   const char* zoneName,
   const char** variableNames,
   const size_t nVar,
-  char** *fullNames,
-  size_t* len);
+  char** *ptrVarNames,
+  char** *ptrFullNames);
 
 FMUBuilding* FMUZoneAllocateBuildingDataStructure(
   const char* idfName, const char* weaName,

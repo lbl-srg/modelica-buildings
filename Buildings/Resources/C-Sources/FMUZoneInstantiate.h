@@ -7,6 +7,7 @@
 #define Buildings_FMUZoneInstantiate_h
 
 #include "FMUEnergyPlusStructure.h"
+#include <stdio.h>
 
 void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
 

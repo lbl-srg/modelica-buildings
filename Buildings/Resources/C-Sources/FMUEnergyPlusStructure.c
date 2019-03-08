@@ -118,39 +118,59 @@ char * epLib = "libepfmi-9.0.1.so"; /* fixme */
 */
 }
 
-
 void buildVariableNames(
   const char* zoneName,
   const char** variableNames,
   const size_t nVar,
-  char** *fullNames,
-  size_t* len){
-  /* Map the output values to correct parameters */
-  /* Compute longest output name */
-  size_t i;
-  *len = 0;
-  for (i=0; i<nVar; i++)
-    *len = max(*len, strlen(zoneName) + 2 + strlen(variableNames[i]));
+  char** *ptrVarNames,
+  char** *ptrFullNames){
+    size_t i;
+    size_t len;
+    /* Compute longest output plus zone name */
+    len = 0;
+    for (i=0; i<nVar; i++)
+      len = max(len, strlen(variableNames[i]));
 
-  *fullNames = (char**)malloc(nVar * sizeof(char*));
+    *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
+      if (*ptrVarNames == NULL)
+        ModelicaError("Failed to allocate memory for ptrVarNames in FMUZoneInstantiate.c.");
 
-  if (*fullNames == NULL)
-    ModelicaError("Failed to allocate memory for fullNames in FMUZoneInstantiate.c.");
+    for (i=0; i<nVar; i++){
+      (*ptrVarNames)[i] = (char*)malloc( (len+1) * sizeof(char));
+      if ( (*ptrVarNames)[i] == NULL)
+        ModelicaError("Failed to allocate memory for ptrVarNames[i] in FMUZoneInstantiate.c.");
+    }
+    /* Copy the string */
+    for (i=0; i<nVar; i++){
+      memset((*ptrVarNames)[i], '\0', len+1);
+      strcpy((*ptrVarNames)[i], variableNames[i]);
+    }
 
-  for (i=0; i<nVar; i++){
-    (*fullNames)[i] = (char*)malloc(( (*len) + 2 ) * sizeof(char));
-    if ( (*fullNames)[i] == NULL)
-      ModelicaError("Failed to allocate memory for fullNames[i] in FMUZoneInstantiate.c.");
-  }
-  /* Copy the string */
-  for (i=0; i<nVar; i++){
-    strcpy((*fullNames)[i], zoneName);
-    strcat((*fullNames)[i], ",");
-    strcat((*fullNames)[i], variableNames[i]);
+    /* Compute longest output plus zone name */
+    len = 0;
+    for (i=0; i<nVar; i++){
+      /* Use +1 to account for the comma */
+      len = max(len, strlen(zoneName) + 1 + strlen(variableNames[i]));
+    }
 
-  }
-  return;
-}
+    *ptrFullNames = (char**)malloc(nVar * sizeof(char*));
+    if (*ptrFullNames == NULL)
+      ModelicaError("Failed to allocate memory for ptrFullNames in FMUZoneInstantiate.c.");
+
+    for (i=0; i<nVar; i++){
+      (*ptrFullNames)[i] = (char*)malloc(( len + 1 ) * sizeof(char));
+      if ( (*ptrFullNames)[i] == NULL)
+        ModelicaError("Failed to allocate memory for ptrFullNames[i] in FMUZoneInstantiate.c.");
+    }
+    /* Copy the string */
+    for (i=0; i<nVar; i++){
+      memset((*ptrFullNames)[i], '\0', len+1);
+      strcpy((*ptrFullNames)[i], zoneName);
+      strcat((*ptrFullNames)[i], ",");
+      strcat((*ptrFullNames)[i], variableNames[i]);
+    }
+    return;
+    }
 
 FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
   const char* iddName, const char* zoneName, FMUZone* zone){

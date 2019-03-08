@@ -35,16 +35,11 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   unsigned int i;
-  size_t len;
+  const char* parNames[] = {"V", "AFlo", "mSenFac"};
+  const char* inpNames[] = {"T"};
+  const char* outNames[] = {"QConSen_flow"};
+
   const size_t nFMU = getBuildings_nFMU();
-
-  char** fullParameterNames = NULL;
-  char** fullInputNames = NULL;
-  char** fullOutputNames = NULL;
-
-  const char* consParameterNames[]={"V", "AFlo", "mSenFac"};
-  const char* consInputNames[]={"T"};
-  const char* consOutputNames[]={"QConSen_flow"};
 
   /* ModelicaMessage("*** Entered FMUZoneInit."); */
 
@@ -61,24 +56,34 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   if ( zone->name == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone name.");
   strcpy(zone->name, zoneName);
-  /* Set the number of inputs and outputs to zero. This will be used to check if
-     the data structures for the inputs and outputs
-     have already been set in a call in the 'initial equation' section
-  */
-  zone->nParameterValueReferences = 3;
-  zone->nInputValueReferences = 1;
-  zone->nOutputValueReferences = 1;
 
-  buildVariableNames(zone->name, consParameterNames, zone->nParameterValueReferences, &fullParameterNames, &len);
-  zone->parameterVariableNames =  fullParameterNames;
+  /* Assign structural data */
+  zone->nParameterValueReferences = 3; /* Number of parameter value references per zone*/
+  zone->nInputValueReferences = 1; /* Number of input value references per zone*/
+  zone->nOutputValueReferences = 1; /* Number of output value references per zone*/
+
+  buildVariableNames(
+    zone->name,
+    parNames,
+    zone->nParameterValueReferences,
+    &zone->parameterNames, /* This will be set to {"V", "AFlo", "mSenFac"} */
+    &zone->parameterVariableNames); /* This will be set to the full name */
   zone->parameterValueReferences = NULL;
 
-  buildVariableNames(zone->name, consInputNames, zone->nInputValueReferences, &fullInputNames, &len);
-  zone->inputVariableNames =  fullInputNames;
+  buildVariableNames(
+    zone->name,
+    inpNames,
+    zone->nInputValueReferences,
+    &zone->inputNames,
+    &zone->inputVariableNames);
   zone->inputValueReferences = NULL;
 
-  buildVariableNames(zone->name, consOutputNames, zone->nOutputValueReferences, &fullOutputNames, &len);
-  zone->outputVariableNames = fullOutputNames;
+  buildVariableNames(
+    zone->name,
+    outNames,
+    zone->nOutputValueReferences,
+    &zone->outputNames,
+    &zone->outputVariableNames);
   zone->outputValueReferences = NULL;
 
   /* ********************************************************************** */

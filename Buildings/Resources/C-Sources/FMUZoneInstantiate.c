@@ -57,12 +57,12 @@ writeLog(0, libPath);
 
   fmu->dllHandle = h;
 
-  /* Set pointers to functions provided by dll
-  fmu->instantiate = (fInstantiate)getAdr(fmu, "instantiate");
+  /* Set pointers to functions provided by dll */
+  fmu->instantiate = (fmi2Instantiate)getAdr(fmu, "instantiate");
   if (!(fmu->instantiate)) {
     ModelicaError("Can't find function instantiate().");
   }
-
+/*
   fmu->setupExperiment = (fSetupExperiment)getAdr(fmu, "setupExperiment");
   if (!(fmu->setupExperiment)) {
     ModelicaError("Can't find function setupExperiment().");
@@ -121,40 +121,41 @@ void getParametersFromEnergyPlus(
   FMU* fmu,
   FMUZone* zone,
   const char* parNames[], /* such as {"V", "AFlo", "mSenFac"} */
-  double* outputs,
-  size_t nOut)
+  double* parValues,
+  size_t nPar)
   {
   int i;
   int result;
-  size_t len;
-  char** fullNames = NULL;
+  char** ptrVarNames = NULL;
+  char** ptrFullNames = NULL;
 
   fmi2ValueReference* parameterValueReferences;
   writeLog(2, "Getting parameters from EnergyPlus.");
 
-  parameterValueReferences = (fmi2ValueReference*)malloc(nOut * sizeof(fmi2ValueReference));
+  parameterValueReferences = (fmi2ValueReference*)malloc(nPar * sizeof(fmi2ValueReference));
   if ( parameterValueReferences == NULL)
     ModelicaFormatError("Failed to allocate memory for parameterValueReferences in FMUZoneInstantiate.c.");
 
-  buildVariableNames(zone->name, parNames, nOut, &fullNames, &len);
-  getValueReferences(fullNames, nOut,
+  buildVariableNames(zone->name, parNames, nPar, &ptrVarNames, &ptrFullNames);
+
+  getValueReferences(ptrFullNames, nPar,
     zone->parameterVariableNames, zone->parameterValueReferences, zone->nParameterValueReferences,
     parameterValueReferences);
   /* Get initial parameter variables */
 
   /* writeLog(1, "begin getVariables"); */
-  result = fmu->getVariables(parameterValueReferences, outputs, nOut, NULL);
+  result = fmu->getVariables(parameterValueReferences, parValues, nPar, NULL);
   /* writeLog(1, "end getVariables"); */
   if (result <0 ){
-    ModelicaFormatError("Failed to get initial outputs for building %s, zone %s.",
+    ModelicaFormatError("Failed to get parameters for building %s, zone %s.",
     zone->ptrBui->name, zone->name);
   }
-  /*
-  for (i = 0; i < nOut; i++)
-    free(fullNames[i]);
-  free(fullNames);
-  free(parameterValueReferences);
-  */
+
+  for (i = 0; i < nPar; i++)
+    free(ptrVarNames[i]);
+  free(ptrVarNames);
+
+  /* free(parameterValueReferences);  */
 
   return;
 }
@@ -175,7 +176,159 @@ void FMUZoneSetValueReferences(
   }
 }
 
+/*
+ Appends a character array to another character array.
+
+ The array size of buffer may be extended by this function
+ to prevent a buffer overflow.
+
+ Arguments:
+  buffer The buffer to which the character array will be added.
+  toAdd The character array that will be appended to \c buffer
+  bufLen The length of the character array buffer. This parameter will
+         be set to the new size of buffer if memory was reallocated.
+*/
+void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen){
+  const size_t minInc = 1024;
+  const size_t nNewCha = strlen(toAdd);
+  const size_t nBufCha = strlen(*buffer);
+  /* reallocate memory if needed */
+  if ( *bufLen < nNewCha + nBufCha + 1){
+    *bufLen = *bufLen + nNewCha + minInc + 1;
+    *buffer = realloc(*buffer, *bufLen);
+    if (*buffer == NULL) {
+      ModelicaError("Realloc failed in saveAppend.");
+    }
+  }
+  /* append toAdd to buffer */
+  strcpy(*buffer + strlen(*buffer), toAdd);
+  return;
+}
+
+
+void saveAppendJSONElements(
+  char* *buffer,
+  const char* names[],
+  fmi2ValueReference* valueReferences,
+  size_t nNames,
+  size_t* bufLen){
+    int i;
+    /* Write all names and value references in the format
+        { "name": "V", "valueReference": 0},
+        { "name": "AFlo", "valueReference": 1}
+    */
+    char* strValRef;
+    /* Compute the string length for the value reference */
+    size_t len = 0;
+
+    for(i = 0; i < nNames; i++)
+      len = len > valueReferences[i] ? len : valueReferences[i];
+    len = len / 10 + 1;
+
+    strValRef = (char*)malloc((len+1) * sizeof(char));
+    if (strValRef == NULL)
+      ModelicaError("Failed to allocate memory for strValRef in saveAppendJSONElements.");
+
+    for(i = 0; i < nNames; i++){
+      /* Convert value reference to string */
+      sprintf(strValRef, "%u", valueReferences[i]);
+      /* Build JSON string */
+      saveAppend(buffer, "      { \"name\": \"", bufLen);
+      saveAppend(buffer, names[i], bufLen);
+      saveAppend(buffer, "\", \"valueReference\": ", bufLen);
+      saveAppend(buffer, strValRef, bufLen);
+      saveAppend(buffer, " }", bufLen);
+      if (i < nNames-1)
+        saveAppend(buffer, ",\n", bufLen);
+      else
+        saveAppend(buffer, "\n", bufLen);
+      }
+      free(strValRef);
+  }
+
+
+void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer, size_t* size){
+  int iZon;
+  FMUZone** zones = (FMUZone**)bui->zones;
+
+  saveAppend(buffer, "\"zones\": [\n  {\n", size);
+  for(iZon = 0; iZon < bui->nZon; iZon++){
+    /* Write zone name */
+    saveAppend(buffer, "    \"name\": \"", size);
+    saveAppend(buffer, zones[iZon]->name, size);
+    saveAppend(buffer, "\",\n", size);
+    /* Write parameters */
+    saveAppend(buffer, "    \"parameters\": [\n", size);
+    saveAppendJSONElements(
+      buffer,
+      (const char **)(zones[iZon]->parameterNames),
+      zones[iZon]->parameterValueReferences,
+      zones[iZon]->nParameterValueReferences,
+      size);
+    saveAppend(buffer, "\n    ],\n", size);
+    /* Write inputs */
+    saveAppend(buffer, "    \"inputs\": [\n", size);
+    saveAppendJSONElements(
+      buffer,
+      (const char **)(zones[iZon]->inputNames),
+      zones[iZon]->inputValueReferences,
+      zones[iZon]->nInputValueReferences,
+      size);
+    saveAppend(buffer, "\n    ],\n", size);
+    /* Write outputs */
+    saveAppend(buffer, "    \"outputs\": [\n", size);
+    saveAppendJSONElements(
+      buffer,
+      (const char **)(zones[iZon]->outputNames),
+      zones[iZon]->outputValueReferences,
+      zones[iZon]->nOutputValueReferences,
+      size);
+    /* Close json array */
+    saveAppend(buffer, "\n    ]\n", size);
+
+    return;
+  }
+}
+
+
 void writeModelStructureForEnergyPlus(const FMUBuilding* bui){
+  char * buffer;
+  size_t size;
+  size_t lenNam;
+  char * filNam;
+  FILE* fp;
+
+  /* Initial size which will grow as needed */
+  size = 1024;
+
+  buffer = (char*)malloc((size+1) * sizeof(char));
+  if ( buffer == NULL)
+    ModelicaFormatError("Failed to allocate memory for json buffer.");
+  memset(buffer, '\0', size + 1);
+
+  /* Build the json structure */
+  buildJSONModelStructureForEnergyPlus(bui, &buffer, &size);
+
+  /* Write to file */
+  /* Build the file name */
+  lenNam = strlen(bui->tmpDir) + strlen(MOD_BUI_JSON);
+  filNam = malloc((lenNam+1) * sizeof(char));
+  if (filNam == NULL)
+    ModelicaFormatError("Failed to allocate memory for name of '%s' file.", MOD_BUI_JSON);
+  memset(filNam, '\0', lenNam+1);
+  strcpy(filNam, bui->tmpDir);
+  strcat(filNam, MOD_BUI_JSON);
+
+  /* Open and write file */
+  fp = fopen(filNam, "w");
+  if (fp == NULL)
+    ModelicaFormatError("Failed to open '%s' with write mode.", filNam);
+  fprintf(fp, "%s", buffer);
+  fclose(fp);
+  free(filNam);
+}
+
+void setValueReferences(const FMUBuilding* bui){
   fmi2ValueReference cntr=0;
   int result;
   int i;
@@ -332,10 +485,6 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui){
   logStringArray(3, "Output names", (const char**)outputNames, nOut);
   logValueReferenceArray(3, "Output value references", outputValueReferences, nOut);
 
-  /* **************************************************************** */
-  ModelicaMessage("*** fixme: need to write the file here.");
-  /* **************************************************************** */
-
   free(parameterValueReferences);
   for(i = 0; i < nPar; i++)
     free(parameterNames[i]);
@@ -360,6 +509,21 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   fmi2Boolean visible = fmi2False;
   fmi2Boolean loggingOn = fmi2True; /* fixme: Make an argument from Modelica */
   fmi2String fmuGUID = bui->name; /* GUID (simply set to the idf name because this is unique already) */
+  fmi2Type fmuType = fmi2CoSimulation;
+
+
+  /* Set callback functions */
+  fmi2CallbackAllocateMemory allocateMemory = calloc;
+  fmi2CallbackFreeMemory freeMemory = free;
+  fmi2StepFinished stepFinished = NULL;
+  fmi2ComponentEnvironment componentEnvironment = NULL;
+  fmi2Status loggerStatus = fmi2OK;
+  fmi2CallbackLogger logger = {componentEnvironment, bui->name, loggerStatus, "category", "message"};
+
+  const fmi2CallbackFunctions callBackFunctions = { logger, allocateMemory, freeMemory, stepFinished, componentEnvironment };
+
+  /* Set the value references for all parameters, inputs and outputs */
+  setValueReferences(bui);
 
   /* Write the model structure to the FMU Resources folder so that EnergyPlus can
      read it and set up the data structure.
@@ -376,12 +540,13 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 
   writeLog(0, "Instantiating fmu.");
 
+  /* Instantiate EnergyPlus, and get an fmi2Component */
   bui->fmuCom = bui->fmu->instantiate(
                        bui->name, /* instanceName (set to the same as the building name) */
                        fmuType,
                        fmuGUID,
                        bui->tmpDir,  /* fmuResourceLocation, which is the temporary directory name */
-                       callBackFunctions, /* call back functions so that FMU can report to master */
+                       &callBackFunctions, /* call back functions so that FMU can report to master */
                        visible, /* Set to fmi2False, e.g., no user interaction or pop up windows */
                        loggingOn); /* If fmi2True, debug logging is enabled, else it is disabled */
 
@@ -415,14 +580,13 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
     writeLog(0, "Returned from setting up experiment.");
     if(result<0){
       ModelicaFormatError("Failed to setup experiment for building FMU with name %s.",  zone->ptrBui->name);
+    }
   }
 
-  }
   /* Allocate memory */
   outputs = (double*)malloc(nOut * sizeof(double));
   if (outputs == NULL)
     ModelicaError("Failed to allocated memory for outputs in FMUZoneInstantiate.c.");
-
 
   getParametersFromEnergyPlus(
     zone->ptrBui->fmu,
@@ -437,4 +601,4 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
     *mSenFac = outputs[2];
 
     /* free(outputs); */
- }
+}
