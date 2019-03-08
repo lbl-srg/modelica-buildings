@@ -139,6 +139,11 @@ its class name ends with the string <code>Beta</code>.
     The following <b style=\"color:blue\">new libraries</b> have been added:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.OutdoorLights
+        </td>
+        <td valign=\"top\">Package with outdoor lighting controllers.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.Shade
         </td>
         <td valign=\"top\">Package with shade controllers.
@@ -220,7 +225,7 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Block that outputs sunrise and sunset time for each day.
         </td>
-        </tr>        
+        </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>

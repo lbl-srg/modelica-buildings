@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.OutdoorLights.Validation.DaylightControlled", method="Cvode", stopTime=604800, tolerance=1e-06, resultFile="DaylightControlled");
+createPlot(id=1, position={55, 50, 592, 300}, y={"dayCon.y"}, range={0.0, 604800.0, -0.2, 1.2}, grid=true, subPlot=1, colors={{28,108,200}});
