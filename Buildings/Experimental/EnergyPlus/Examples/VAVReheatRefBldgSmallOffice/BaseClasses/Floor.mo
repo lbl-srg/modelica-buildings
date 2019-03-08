@@ -3,16 +3,8 @@ model Floor "Model of a floor of the building"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
 
-  constant Modelica.SIunits.Height hRoo=2.74 "Room height";
-
   parameter Boolean use_windPressure=true
     "Set to true to enable wind pressure";
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Boolean sampleModel = false
-    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
-    annotation (
-      Evaluate=true,
-      Dialog(tab="Experimental (may be changed in future releases)"));
 
  parameter Real kIntNor(min=0, max=1) = 1
     "Gain factor to scale internal heat gain in north zone";
@@ -615,7 +607,12 @@ equation
           extent={{-84,234},{-62,200}},
           lineColor={0,0,255},
           textString="dP")}),
-    Documentation(revisions="<html>
+    Documentation(info="<html>
+<p>
+Model of one floor of the DOE reference office building.
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
 May 1, 2013, by Michael Wetter:<br/>

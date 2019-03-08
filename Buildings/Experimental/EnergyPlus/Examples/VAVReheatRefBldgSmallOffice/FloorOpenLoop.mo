@@ -4,7 +4,6 @@ model FloorOpenLoop "Open loop model of one floor"
 
   replaceable package Medium = Buildings.Media.Air "Medium for air"
     annotation (__Dymola_choicesAllMatching=true);
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
   final parameter Modelica.SIunits.Area AFlo=flo.AFlo "Floor area west";
   final parameter Modelica.SIunits.MassFlowRate mOut_flow = 2
     "Outside air infiltration for each room";
@@ -16,8 +15,7 @@ model FloorOpenLoop "Open loop model of one floor"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
     redeclare package Medium = Medium,
-    use_windPressure=false,
-    lat=lat)
+    use_windPressure=false)
     "One floor of the office building"
     annotation (Placement(transformation(extent={{28,-8},{84,52}})));
   Fluid.Sources.MassFlowSource_WeatherData bou[4](
@@ -96,7 +94,7 @@ experiment(
       Tolerance=1e-06),
 Documentation(info="<html>
 <p>
-Test case of one floor of the small office reference building.
+Test case of one floor of the small office DOE reference building.
 </p>
 </html>", revisions="<html>
 <ul><li>
