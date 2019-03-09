@@ -58,40 +58,45 @@ writeLog(0, libPath);
   fmu->dllHandle = h;
 
   /* Set pointers to functions provided by dll */
-  fmu->instantiate = (fmi2Instantiate)getAdr(fmu, "instantiate");
+  fmu->instantiate = (fmi2Instantiate)getAdr(fmu, "fmi2Instantiate");
   if (!(fmu->instantiate)) {
-    ModelicaError("Can't find function instantiate().");
+    ModelicaError("Can't find function fmi2SetupExperiment().");
   }
-/*
-  fmu->setupExperiment = (fSetupExperiment)getAdr(fmu, "setupExperiment");
+
+  fmu->setupExperiment = (fmi2SetupExperiment)getAdr(fmu, "fmi2SetupExperiment");
   if (!(fmu->setupExperiment)) {
-    ModelicaError("Can't find function setupExperiment().");
+    ModelicaError("Can't find function fmi2SetupExperiment().");
   }
 
-  fmu->setTime = (fSetTime)getAdr(fmu, "setTime");
+  fmu->setTime = (fmi2SetTime)getAdr(fmu, "fmi2SetTime");
   if (!(fmu->setTime)) {
-    ModelicaMessage("Can't find function setTime().");
+    ModelicaMessage("Can't find function fmi2SetTime().");
   }
 
-  fmu->setVariables = (fSetVariables) getAdr(fmu, "setVariables");
+  fmu->setVariables = (fmi2SetReal) getAdr(fmu, "fmi2SetReal");
   if (!(fmu->setVariables)) {
-    ModelicaError("Can't find function setVariables().");
+    ModelicaError("Can't find function fmi2SetReal().");
   }
-  fmu->getVariables = (fGetVariables)getAdr(fmu, "getVariables");
+  fmu->getVariables = (fmi2GetReal)getAdr(fmu, "fmi2GetReal");
   if (!(fmu->getVariables)) {
-    ModelicaError("Can't find function getVariables().");
+    ModelicaError("Can't find function fmi2GetReal().");
   }
 
-  fmu->getNextEventTime = (fGetNextEventTime)getAdr(fmu, "getNextEventTime");
-  if (!(fmu->getNextEventTime)) {
-    ModelicaError("Can't find function getNextEventTime().");
+  fmu->newDiscreteStates = (fmi2NewDiscreteStates)getAdr(fmu, "fmi2NewDiscreteStates");
+  if (!(fmu->newDiscreteStates)) {
+    ModelicaError("Can't find function fmi2NewDiscreteStates().");
   }
 
-  fmu->terminateSim = (fTerminateSim)getAdr(fmu, "terminateSim");
+  fmu->terminateSim = (fmi2Terminate)getAdr(fmu, "terminateSim");
   if (!(fmu->terminateSim)) {
-    ModelicaError("Can't find function terminateSim().");
+    ModelicaError("Can't find function fmi2Terminate().");
   }
-   */
+
+  fmu->freeInstance = (fmi2FreeInstance)getAdr(fmu, "freeInstance");
+  if (!(fmu->freeInstance)) {
+    ModelicaError("Can't find function fmi2FreeInstance().");
+  }
+
   return;
 }
 
@@ -125,7 +130,7 @@ void getParametersFromEnergyPlus(
   size_t nPar)
   {
   int i;
-  int result;
+  fmi2Status status;
   char** ptrVarNames = NULL;
   char** ptrFullNames = NULL;
 
@@ -144,9 +149,9 @@ void getParametersFromEnergyPlus(
   /* Get initial parameter variables */
 
   /* writeLog(1, "begin getVariables"); */
-  result = fmu->getVariables(parameterValueReferences, parValues, nPar, NULL);
+  status = fmu->getVariables(zone->ptrBui->fmuCom, parameterValueReferences, nPar, parValues);
   /* writeLog(1, "end getVariables"); */
-  if (result <0 ){
+  if (status != fmi2OK ){
     ModelicaFormatError("Failed to get parameters for building %s, zone %s.",
     zone->ptrBui->name, zone->name);
   }
@@ -509,7 +514,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   fmi2Boolean visible = fmi2False;
   fmi2Boolean loggingOn = fmi2True; /* fixme: Make an argument from Modelica */
   fmi2String fmuGUID = bui->name; /* GUID (simply set to the idf name because this is unique already) */
-  fmi2Type fmuType = fmi2CoSimulation;
+  fmi2Type fmuType = fmi2ModelExchange;
 
 
   /* Set callback functions */
@@ -561,11 +566,9 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 
 /* This function is called for each zone in the 'initial equation section'
 */
-void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac){
-  int result = 0;
+void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V, double* mSenFac){
+  fmi2Status status;
   FMUZone* zone = (FMUZone*) object;
-  const size_t nOut = 3;
-  const char* parNames[] = {"V", "AFlo", "mSenFac"};
 
   double* outputs;
 
@@ -576,24 +579,32 @@ void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double
     FMUZoneAllocateAndInstantiateBuilding(zone->ptrBui);
     /* This function can only be called once per building FMU */
     writeLog(0, "Setting up experiment.");
-    result = zone->ptrBui->fmu->setupExperiment(t0, 1, NULL);
+
+    status = zone->ptrBui->fmu->setupExperiment(
+        zone->ptrBui->fmuCom, /* fmi2Component */
+        fmi2False,            /* toleranceDefined */
+        0.0,                  /* tolerance */
+        startTime,            /* startTime */
+        fmi2False,            /* stopTimeDefined */
+        0);                   /* stopTime */
+
     writeLog(0, "Returned from setting up experiment.");
-    if(result<0){
+    if( status =! fmi2OK ){
       ModelicaFormatError("Failed to setup experiment for building FMU with name %s.",  zone->ptrBui->name);
     }
   }
 
   /* Allocate memory */
-  outputs = (double*)malloc(nOut * sizeof(double));
+  outputs = (double*)malloc(zone->nParameterValueReferences * sizeof(double));
   if (outputs == NULL)
     ModelicaError("Failed to allocated memory for outputs in FMUZoneInstantiate.c.");
 
   getParametersFromEnergyPlus(
     zone->ptrBui->fmu,
     zone,
-    parNames,
+    (const char **)(zone->parameterNames),
     outputs,
-    nOut);
+    zone->nParameterValueReferences);
 
     /* Obtain the floor area and the volume of the zone */
     *V = outputs[0];

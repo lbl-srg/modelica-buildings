@@ -20,12 +20,24 @@ void setGetVariables(
   fmi2Real outputValues[],
   size_t nOut)
   {
-    int result = fmuZon->ptrBui->fmu->setVariables(inputValueReferences, inputValues, nInp, NULL);
-    if(result < 0){
+    int status;
+    fmi2Component c = fmuZon->ptrBui->fmuCom;
+
+    status = fmuZon->ptrBui->fmu->setVariables(
+      c,
+      inputValueReferences,
+      nInp,
+      inputValues);
+    if (status != fmi2OK) {
       ModelicaFormatError("Failed to set variables for building FMU with name %s\n", fmuZon->ptrBui->name);
     }
-    result = fmuZon->ptrBui->fmu->getVariables(outputValueReferences, outputValues, 1, NULL);
-    if(result < 0){
+
+    status = fmuZon->ptrBui->fmu->getVariables(
+      c,
+      outputValueReferences,
+      nOut,
+      outputValues);
+    if (status != fmi2OK) {
       ModelicaFormatError("Failed to get variables for building FMU with name %s\n", fmuZon->ptrBui->name);
     }
   }
@@ -49,7 +61,7 @@ void FMUZoneExchange(
   double inputValues[1];
   double outputValues[1];
   fmi2EventInfo eventInfo;
-  int result;
+  fmi2Status status;
 
   /* Emulate heat transfer to a surface at constant T=18 degC */
   /* *QConSen_flow = 10*((273.15+18)-T);*/
@@ -68,8 +80,8 @@ void FMUZoneExchange(
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
-  result=zone->ptrBui->fmu->setTime(time, NULL);
-  if(result<0){
+  status = zone->ptrBui->fmu->setTime(zone->ptrBui->fmuCom, time);
+  if ( status != fmi2OK ) {
     ModelicaFormatError("Failed to set time in building FMU with name %s.",
     zone->ptrBui->name);
   }
@@ -84,9 +96,9 @@ void FMUZoneExchange(
   *dQConSen_flow = (QConSenPer_flow-*QConSen_flow)/dT;
 
   /* Get next event time */
-  result = zone->ptrBui->fmu->getNextEventTime(&eventInfo, NULL);
-  if(result<0){
-    ModelicaFormatError("Failed to get next event time for building FMU with name %s.",
+  status = zone->ptrBui->fmu->newDiscreteStates(zone->ptrBui->fmuCom, &eventInfo);
+  if (status != fmi2OK) {
+    ModelicaFormatError("Failed during call to fmi2NewDiscreteStates for building FMU with name %s.",
     zone->ptrBui->name);
   }
   if(eventInfo.terminateSimulation == fmi2True){
@@ -97,11 +109,12 @@ void FMUZoneExchange(
     ModelicaFormatError("EnergyPlus failed to declare the next event time for building = %s, zone = %s, time = %f. Check with support.",
     zone->ptrBui->name, zone->name, time);
   }
-  *tNext = eventInfo.nextEventTime;
-  /* result = zone->ptrBui->fmu->setTime(*tNext, NULL); */
-  if(result<0){
-    ModelicaFormatError("Failed to set time for building FMU with name %s.",
-    zone->ptrBui->name);
+  else{
+    *tNext = eventInfo.nextEventTime;
+    if (*tNext <= time + 1E-6){
+      ModelicaFormatError("EnergyPlus requested at time = %f a next event time of %f for building = %s, zone = %s. Zero time steps are not supported. Check with support.",
+      time, *tNext, zone->ptrBui->name, zone->name);
+    }
   }
 
   *TRad = 293.15;

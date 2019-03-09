@@ -54,39 +54,37 @@ typedef fmi2Component (*fmi2Instantiate)(fmi2String  instanceName,
                                          fmi2Boolean visible,
                                          fmi2Boolean loggingOn);
 
-typedef unsigned int (*fSetupExperiment)(fmi2Real tStart,
-                             int stopTimeDefined,
-                             fmi2String log);
+typedef fmi2Status (*fmi2SetupExperiment)(fmi2Component c,
+                                          fmi2Boolean   toleranceDefined,
+                                          fmi2Real      tolerance,
+                                          fmi2Real      startTime,
+                                          fmi2Boolean   stopTimeDefined,
+                                          fmi2Real      stopTime);
 
-typedef unsigned int (*fSetTime)(fmi2Real time,
-                     fmi2String log);
+typedef fmi2Status (*fmi2SetTime)(fmi2Component c, fmi2Real time);
 
-typedef unsigned int (*fSetVariables)(const fmi2ValueReference valueReferences[],
-                          const fmi2Real variablePointers[],
-                          size_t nVars1,
-                          fmi2String log);
+typedef fmi2Status (*fmi2SetReal)(fmi2Component c, const fmi2ValueReference valRef[], size_t nVal, const fmi2Real val[]);
 
-typedef unsigned int (*fGetVariables)(const unsigned int valueReferences[],
-                          fmi2Real variablePointers[],
-                          size_t nVars2,
-                          fmi2String log);
+typedef fmi2Status (*fmi2GetReal)(fmi2Component c, const fmi2ValueReference valRef[], size_t nVal, fmi2Real val[]);
 
-typedef unsigned int (*fGetNextEventTime)(fmi2EventInfo *eventInfo,
-                              fmi2String log);
+typedef fmi2Status (*fmi2NewDiscreteStates)(fmi2Component  c, fmi2EventInfo* fmi2eventInfo);
 
-typedef unsigned int (*fTerminateSim)(fmi2String log);
+typedef fmi2Status (*fmi2Terminate)(fmi2Component c);
+
+typedef void (*fmi2FreeInstance)(fmi2Component c);
 
 
 typedef struct FMU{
   HANDLE dllHandle;
   /* fixme: change to fmi2 functions */
   fmi2Instantiate instantiate;
-  fSetupExperiment setupExperiment;
-  fSetTime setTime;
-  fSetVariables setVariables;
-  fGetVariables getVariables;
-  fGetNextEventTime getNextEventTime;
-  fTerminateSim terminateSim;
+  fmi2SetupExperiment setupExperiment;
+  fmi2SetTime setTime;
+  fmi2SetReal setVariables;
+  fmi2GetReal getVariables;
+  fmi2NewDiscreteStates newDiscreteStates;
+  fmi2Terminate terminateSim;
+  fmi2FreeInstance freeInstance;
 } FMU;
 
 typedef struct FMUBuilding

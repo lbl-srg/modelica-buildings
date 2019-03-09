@@ -11,12 +11,18 @@
 #include <stdlib.h>
 
 void FMUBuildingFree(FMUBuilding* ptrBui){
+  fmi2Status status;
   const char * log = NULL;
   if ( ptrBui != NULL ){
   /*  printf("Closing EnergyPlus library for %s.\n", ptrBui->name); */
   /*  ModelicaFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name); */
     writeLog(2, "Calling terminate on EnergyPlus library.");
-    ptrBui->fmu->terminateSim(log);
+    status = ptrBui->fmu->terminateSim(ptrBui->fmuCom);
+    if (status != fmi2OK){
+      ModelicaFormatMessage("fmi2Terminate returned with non-OK status for building %s.", ptrBui->name);
+    }
+    ptrBui->fmu->freeInstance(ptrBui->fmuCom);
+    free(ptrBui->fmuCom);
     free(ptrBui->name);
     free(ptrBui->weather);
     free(ptrBui->idd);
