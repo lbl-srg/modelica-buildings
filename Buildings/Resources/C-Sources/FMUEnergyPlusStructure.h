@@ -76,7 +76,6 @@ typedef void (*fmi2FreeInstance)(fmi2Component c);
 
 typedef struct FMU{
   HANDLE dllHandle;
-  /* fixme: change to fmi2 functions */
   fmi2Instantiate instantiate;
   fmi2SetupExperiment setupExperiment;
   fmi2SetTime setTime;
