@@ -77,7 +77,7 @@ block FailsafeCondition
 
 protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=delayStaCha)
+    final delayTime=delayStaCha, delayOnInit=true)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 

@@ -138,12 +138,14 @@ protected
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=longDelay) if hasWSE
+    final delayTime=longDelay, delayOnInit=true) if
+                                  hasWSE
     "Delays a true signal"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=shortDelay) if hasWSE
+    final delayTime=shortDelay, delayOnInit=true) if
+                                   hasWSE
     "Delays a true signal"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 

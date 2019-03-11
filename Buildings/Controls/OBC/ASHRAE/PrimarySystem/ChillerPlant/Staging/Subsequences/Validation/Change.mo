@@ -13,7 +13,9 @@ model Change "Validates chiller stage signal"
     "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    staCha(             nVsdCen=0, hasWSE=true)
+    staCha(             nVsdCen=0,
+    uSta(start=1),
+    hasWSE=false)
            annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   CDL.Continuous.Sources.Sine                        TChiWatRet(
     final amplitude=7,
@@ -86,16 +88,16 @@ equation
           -56},{-102,-56}}, color={0,0,127}));
   connect(chiWatFlow.y, max.u1) annotation (Line(points={{-119,-30},{-110,-30},
           {-110,-44},{-102,-44}}, color={0,0,127}));
-  connect(staCha.VChiWat_flow, max.y) annotation (Line(points={{39,-9},{-68,-9},
-          {-68,-50},{-79,-50}}, color={0,0,127}));
+  connect(staCha.VChiWat_flow, max.y) annotation (Line(points={{39,-9},{-70,-9},
+          {-70,-50},{-79,-50}}, color={0,0,127}));
   connect(TChiWatRet.y, staCha.TChiWatRet) annotation (Line(points={{-119,10},{
-          -68,10},{-68,-7},{39,-7}}, color={0,0,127}));
+          -70,10},{-70,-7},{39,-7}}, color={0,0,127}));
   connect(intToRea.y, uniDel.u)
     annotation (Line(points={{101,-10},{108,-10}}, color={0,0,127}));
   connect(uniDel.y, reaToInt.u)
     annotation (Line(points={{131,-10},{138,-10}}, color={0,0,127}));
   connect(reaToInt.y, staCha.uSta) annotation (Line(points={{161,-10},{170,-10},
-          {170,12},{34,12},{34,2},{39,2}}, color={255,127,0}));
+          {170,10},{34,10},{34,2},{39,2}}, color={255,127,0}));
   connect(staCha.ySta, intToRea.u) annotation (Line(points={{61,-5},{69.5,-5},{
           69.5,-10},{78,-10}}, color={255,127,0}));
 annotation (

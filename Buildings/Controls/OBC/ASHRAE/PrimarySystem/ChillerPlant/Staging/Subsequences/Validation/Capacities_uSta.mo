@@ -31,31 +31,36 @@ model Capacities_uSta
     staCap0(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final nSta=2) "Nominal capacitites at the current and stage one lower"
+    final nSta=nSta)
+                  "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap1(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final nSta=2) "Nominal capacitites at the current and stage one lower"
+    final nSta=nSta)
+                  "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap2(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final nSta=2) "Nominal capacitites at the current and stage one lower"
+    final nSta=nSta)
+                  "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(k=0) "Stage 0"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(k=0)
+    "Chiller stage"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(k=1) "Stage 1"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(k=1)
+    "Chiller stage"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage2(k=2)
-    "Stage 2 (highest stage in the example)"
+    "Chiller stage"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback absErrorSta0[5]
@@ -71,6 +76,7 @@ model Capacities_uSta
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   CDL.Logical.Sources.Constant con[nSta](k=fill(true, nSta))
+    "Stage availability array"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
 
