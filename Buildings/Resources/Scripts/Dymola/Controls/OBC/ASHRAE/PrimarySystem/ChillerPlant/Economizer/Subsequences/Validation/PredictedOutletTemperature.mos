@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Validation.PredictedOutletTemperature", method="Cvode", stopTime=2100, tolerance=1e-06, resultFile="PredictedOutletTemperature");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"wseTOut.uTunPar"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"wseTOut.VChiWat_flow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"wseTOut.TOutWet", "wseTOut.y", "wseTOut.TOutWetDes"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+
+
