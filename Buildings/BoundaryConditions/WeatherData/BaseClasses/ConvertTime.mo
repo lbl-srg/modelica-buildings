@@ -20,10 +20,10 @@ protected
   parameter Modelica.SIunits.Time lenWea = weaDatEndTim-weaDatStaTim "Length of weather data";
 
   parameter Boolean canRepeatWeatherFile = abs(mod(lenWea, 365*24*3600)) < 1E-2
-    "true if the weather file can be repeated, since it has the lenth of a year or a multiple of it";
+    "=true, if the weather file can be repeated, since it has the length of a year or a multiple of it";
 
   Modelica.SIunits.Time tNext "Start time of next period";
-  function getNextTime
+  function getNextTime "Function that computes the next time when a switch needs to happen"
     input Modelica.SIunits.Time modelTime "Model time";
     input Modelica.SIunits.Time lengthWeather "Length of weather data";
     output Modelica.SIunits.Time t "Next time when switch needs to happen";
@@ -41,7 +41,7 @@ equation
   end when;
   calTim = if canRepeatWeatherFile then modTim - (tNext - lenWea) else modTim;
   assert(canRepeatWeatherFile or (time - weaDatEndTim) < shiftSolarRad,
-    "Insufficient weather data provided for the desired simulation period.",
+    "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.",
     AssertionLevel.error);
 
   annotation (
