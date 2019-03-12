@@ -4,7 +4,9 @@ model ASHRAE2006
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
     heaCoi(show_T=true),
-    cooCoi(show_T=true));
+    cooCoi(show_T=true),
+    fanSup(per(pressure(V_flow={0,m_flow_nominal/1.2*2}, dp=4*{780 + 10 +
+              dpBuiStaSet,0}))));
 
   Modelica.Blocks.Sources.Constant TSupSetHea(y(
       final quantity="ThermodynamicTemperature",
@@ -35,9 +37,10 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-300,-358},{-280,-338}})));
   Controls.DuctStaticPressureSetpoint pSetDuc(
     nin=5,
+    k=0.1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     pMin=50) "Duct static pressure setpoint"
-    annotation (Placement(transformation(extent={{160,-16},{180,4}})));
+    annotation (Placement(transformation(extent={{162,-18},{182,2}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-130,-212},{-110,-192}})));
   Controls.RoomVAV conVAVCor "Controller for terminal unit corridor"
@@ -82,23 +85,28 @@ model ASHRAE2006
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{0,-180},{20,-160}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=cor.vav.y_open)
+  Modelica.Blocks.Sources.RealExpression DamCor(y=cor.vav.y_open)
+    "Damper opening of the corridor VAV box"
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
+  Modelica.Blocks.Sources.RealExpression DamNor(y=nor.vav.y_open)
+    "Damper opening of the north VAV box"
     annotation (Placement(transformation(extent={{100,44},{120,64}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=sou.vav.y_open)
-    annotation (Placement(transformation(extent={{100,26},{120,46}})));
-  Modelica.Blocks.Sources.RealExpression realExpression2(y=eas.vav.y_open)
-    annotation (Placement(transformation(extent={{100,8},{120,28}})));
-  Modelica.Blocks.Sources.RealExpression realExpression3(y=nor.vav.y_open)
-    annotation (Placement(transformation(extent={{100,-12},{120,8}})));
-  Modelica.Blocks.Sources.RealExpression realExpression4(y=wes.vav.y_open)
-    annotation (Placement(transformation(extent={{100,-28},{120,-8}})));
+  Modelica.Blocks.Sources.RealExpression DamWes(y=wes.vav.y_open)
+    "Damper opening of the west VAV box"
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Sources.RealExpression DamEas(y=eas.vav.y_open)
+    "Damper opening of the east VAV box"
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+  Modelica.Blocks.Sources.RealExpression DamSou(y=sou.vav.y_open)
+    "Damper opening of the south VAV box"
+    annotation (Placement(transformation(extent={{100,76},{120,96}})));
 equation
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
       points={{-159,-162},{-96,-162},{-96,-202},{-82,-202}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
-      points={{320,-40},{320,0},{320,-10},{320,-10}},
+      points={{320,-40},{320,-10}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
@@ -154,7 +162,7 @@ equation
       pattern=LinePattern.Dash));
 
   connect(pSetDuc.y, conFanSup.u) annotation (Line(
-      points={{181,-6},{210,-6},{210,0},{238,0}},
+      points={{183,-8},{210,-8},{210,0},{238,0}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -210,32 +218,22 @@ equation
       points={{511,166},{1220,166},{1220,34},{1238,34}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(conVAVCor.TDis, TSupCor.T) annotation (Line(points={{528,34},{522,34},
-          {522,34},{514,34},{514,92},{569,92}}, color={0,0,127}));
-  connect(TSupSou.T, conVAVSou.TDis) annotation (Line(points={{749,92},{688,92},
-          {688,32},{698,32}}, color={0,0,127}));
-  connect(TSupEas.T, conVAVEas.TDis) annotation (Line(points={{929,90},{872,90},
-          {872,32},{878,32}}, color={0,0,127}));
-  connect(TSupNor.T, conVAVNor.TDis) annotation (Line(points={{1089,94},{1032,
-          94},{1032,32},{1038,32}}, color={0,0,127}));
-  connect(TSupWes.T, conVAVWes.TDis) annotation (Line(points={{1289,90},{1228,
-          90},{1228,30},{1238,30}}, color={0,0,127}));
   connect(cor.yVAV, conVAVCor.yDam) annotation (Line(points={{566,50},{556,50},
-          {556,46.8},{551,46.8}},color={0,0,127}));
+          {556,37},{551,37}},    color={0,0,127}));
   connect(cor.yVal, conVAVCor.yVal) annotation (Line(points={{566,34},{560,34},
-          {560,37},{551,37}},color={0,0,127}));
-  connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{721,44.8},{730,
-          44.8},{730,48},{746,48}}, color={0,0,127}));
-  connect(conVAVSou.yVal, sou.yVal) annotation (Line(points={{721,35},{732.5,35},
+          {560,48},{551,48}},color={0,0,127}));
+  connect(conVAVSou.yDam, sou.yVAV) annotation (Line(points={{721,35},{730,35},
+          {730,48},{746,48}},       color={0,0,127}));
+  connect(conVAVSou.yVal, sou.yVal) annotation (Line(points={{721,46},{732.5,46},
           {732.5,32},{746,32}}, color={0,0,127}));
-  connect(conVAVEas.yVal, eas.yVal) annotation (Line(points={{901,35},{912.5,35},
+  connect(conVAVEas.yVal, eas.yVal) annotation (Line(points={{901,46},{912.5,46},
           {912.5,32},{926,32}}, color={0,0,127}));
-  connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{901,44.8},{910,
-          44.8},{910,48},{926,48}}, color={0,0,127}));
-  connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1061,44.8},{
-          1072.5,44.8},{1072.5,48},{1086,48}}, color={0,0,127}));
-  connect(conVAVNor.yVal, nor.yVal) annotation (Line(points={{1061,35},{1072.5,
-          35},{1072.5,32},{1086,32}}, color={0,0,127}));
+  connect(conVAVEas.yDam, eas.yVAV) annotation (Line(points={{901,35},{910,35},
+          {910,48},{926,48}},       color={0,0,127}));
+  connect(conVAVNor.yDam, nor.yVAV) annotation (Line(points={{1061,35},{1072.5,
+          35},{1072.5,48},{1086,48}},          color={0,0,127}));
+  connect(conVAVNor.yVal, nor.yVal) annotation (Line(points={{1061,46},{1072.5,
+          46},{1072.5,32},{1086,32}}, color={0,0,127}));
   connect(conVAVCor.TRooHeaSet, controlBus.TRooSetHea) annotation (Line(points=
           {{528,50},{480,50},{480,-342},{-240,-342}},color={0,0,127}));
   connect(conVAVCor.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
@@ -257,10 +255,10 @@ equation
   connect(conVAVWes.TRooCooSet, controlBus.TRooSetCoo) annotation (Line(points=
           {{1238,42},{1202,42},{1202,-342},{-240,-342}},color={0,0,127}));
 
-  connect(conVAVWes.yVal, wes.yVal) annotation (Line(points={{1261,33},{1272.5,
-          33},{1272.5,32},{1286,32}}, color={0,0,127}));
+  connect(conVAVWes.yVal, wes.yVal) annotation (Line(points={{1261,44},{1272.5,
+          44},{1272.5,32},{1286,32}}, color={0,0,127}));
   connect(wes.yVAV, conVAVWes.yDam) annotation (Line(points={{1286,48},{1274,48},
-          {1274,42.8},{1261,42.8}}, color={0,0,127}));
+          {1274,33},{1261,33}},     color={0,0,127}));
   connect(occSch.tNexOcc, controlBus.dTNexOcc) annotation (Line(
       points={{-297,-204},{-240,-204},{-240,-342}},
       color={0,0,127},
@@ -275,7 +273,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(pSetDuc.TOut, TOut.y) annotation (Line(points={{158,2},{32,2},{32,130},
+  connect(pSetDuc.TOut, TOut.y) annotation (Line(points={{160,0},{32,0},{32,130},
           {-160,130},{-160,180},{-279,180}}, color={0,0,127}));
   connect(TOut.y, controlBus.TOut) annotation (Line(points={{-279,180},{-240,180},
           {-240,-342}},                            color={0,0,127}), Text(
@@ -328,19 +326,27 @@ equation
                                      color={255,0,255}));
   connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{21,-170},{40,-170},{40,
           -190},{40,-190},{40,-210},{58,-210}}, color={255,0,255}));
-  connect(realExpression.y, pSetDuc.u[1]) annotation (Line(points={{121,54},{
-          138,54},{138,-7.6},{158,-7.6}}, color={0,0,127}));
-  connect(realExpression1.y, pSetDuc.u[2]) annotation (Line(points={{121,36},{
-          140,36},{140,-6.8},{158,-6.8}}, color={0,0,127}));
-  connect(realExpression2.y, pSetDuc.u[3]) annotation (Line(points={{121,18},{
-          140,18},{140,-6},{158,-6}}, color={0,0,127}));
-  connect(realExpression3.y, pSetDuc.u[4]) annotation (Line(points={{121,-2},{
-          144,-2},{144,-5.2},{158,-5.2}}, color={0,0,127}));
-  connect(realExpression4.y, pSetDuc.u[5]) annotation (Line(points={{121,-18},{
-          144,-18},{144,-4.4},{158,-4.4}}, color={0,0,127}));
+  connect(DamCor.y, pSetDuc.u[1]) annotation (Line(points={{121,100},{138,100},
+          {138,-9.6},{160,-9.6}}, color={0,0,127}));
+  connect(DamEas.y, pSetDuc.u[3]) annotation (Line(points={{121,70},{138,70},{
+          138,-8},{160,-8}}, color={0,0,127}));
+  connect(DamNor.y, pSetDuc.u[4]) annotation (Line(points={{121,54},{138,54},{
+          138,-7.2},{160,-7.2}}, color={0,0,127}));
+  connect(DamWes.y, pSetDuc.u[5]) annotation (Line(points={{121,40},{138,40},{
+          138,-6.4},{160,-6.4}}, color={0,0,127}));
+  connect(DamSou.y, pSetDuc.u[2]) annotation (Line(points={{121,86},{138,86},{
+          138,-8.8},{160,-8.8}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
-            580}})),
+            580}}), graphics={Text(
+          extent={{172,350},{334,286}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Use of damper opening VS control signal
+PI pSupSet in reverse mode
+Increased fan pressure curve to be able to provide nominal downstream pressure drop at nominal flowrate (2 to 4 coef)
+
+")}),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
