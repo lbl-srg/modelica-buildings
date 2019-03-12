@@ -790,16 +790,14 @@ equation
     annotation (Line(points={{360,140},{380,140}}, color={0,127,255}));
   connect(TSup.port_b, senSupFlo.port_a)
     annotation (Line(points={{350,-40},{400,-40}}, color={0,127,255}));
-  connect(senSupFlo.port_b, splSupRoo1.port_1)
-    annotation (Line(points={{420,-40},{570,-40}}, color={0,127,255}));
   connect(cooCoi.port_a1, souCoo.ports[1]) annotation (Line(
       points={{210,-52},{230,-52},{230,-110}},
       color={28,108,200},
       thickness=0.5));
   connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{121,-210},{
-          124,-210},{124,-130}}, color={0,0,127}));
+          124,-210},{124,-132}}, color={0,0,127}));
   connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{
-          222,-248},{222,-130}}, color={0,0,127}));
+          222,-248},{222,-132}}, color={0,0,127}));
   connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
       points={{320,10},{320,14},{-88,14},{-88,-47.9333},{-114,-47.9333}},
       color={0,0,0},
@@ -826,6 +824,8 @@ equation
       points={{98,-52},{80,-52},{80,-112}},
       color={28,108,200},
       thickness=0.5));
+  connect(senSupFlo.port_b, splSupRoo1.port_1)
+    annotation (Line(points={{420,-40},{570,-40}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
             -400},{1420,600}})), Documentation(info="<html>
 <p>
