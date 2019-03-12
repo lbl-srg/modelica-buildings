@@ -163,8 +163,8 @@ BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=ModelicaServices.Externa
 
   // Control of the heatig system
 
-  Modelica.Blocks.Logical.Hysteresis
-  hyst_RoomTemp(uLow=19 + 273.15, uHigh=21 + 273.15)
+  Modelica.Blocks.Logical.Hysteresis hyst_RoomTem(uLow=19 + 273.15, uHigh=21 +
+        273.15)
     annotation (Placement(transformation(extent={{-74,46},{-88,60}})));
 
   Modelica.Blocks.Logical.Not not1
@@ -239,10 +239,10 @@ equation
     annotation (Line(points={{16,-61},{36,-61},{36,-56}}, color={0,127,255}));
   connect(EvaPum.port_b, heaPum.port_b2)
     annotation (Line(points={{36,-36},{36,-32},{56,-32}}, color={0,127,255}));
-  connect(temperatureSensor.T, hyst_RoomTemp.u) annotation (Line(points={{8,53},{-72.6,53}},
-                                         color={0,0,127}));
-  connect(hyst_RoomTemp.y, not1.u) annotation (Line(points={{-88.7,53},{-88.7,53.5},{-115.4,53.5},{-115.4,-59}},
-                                       color={255,0,255}));
+  connect(temperatureSensor.T, hyst_RoomTem.u)
+    annotation (Line(points={{8,53},{-72.6,53}}, color={0,0,127}));
+  connect(hyst_RoomTem.y, not1.u) annotation (Line(points={{-88.7,53},{-88.7,
+          53.5},{-115.4,53.5},{-115.4,-59}}, color={255,0,255}));
   connect(booleanToReal.u, not1.y) annotation (Line(points={{-59,-81},{-70,-81},
           {-70,-84},{-78,-84},{-78,-59},{-99.3,-59}}, color={255,0,255}));
   connect(booleanToReal.y, ConPum.m_flow_in) annotation (Line(points={{-47.5,-81},
