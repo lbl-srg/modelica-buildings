@@ -21,6 +21,7 @@ model Damper
     redeclare package Medium = Medium,
     nPorts=3,
     p(displayUnit="Pa") = Medium.p_default + preInd.dp_nominal + preInd.dpFixed_nominal,
+
     T=293.15) "Pressure boundary condition"
      annotation (Placement(
         transformation(extent={{-60,-10},{-40,10}})));

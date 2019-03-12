@@ -90,13 +90,13 @@ equation
         dp=dp_1 - dp_small,
         k=kTot_1,
         m_flow_turbulent=m_flow_turbulent),
-      y2=m_flow_lin + c_regul * dp,
+      y2=m_flow_lin,
       y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
         dp=dp_1 - dp_small,
         k=kTot_1,
         m_flow_turbulent=m_flow_turbulent,
         dp_der=1),
-      y2d=c_regul,
+      y2d=0,
       y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
         dp=dp_1 - dp_small,
         k=kTot_1,
@@ -106,18 +106,18 @@ equation
       y2dd=0)
     elseif dp < dp_0 - dp_small then
     // damper controlling flow rate
-    m_flow_lin + c_regul * dp elseif dp < dp_0 then
+    m_flow_lin elseif dp < dp_0 then
     // transition towards leakage (damper fully closed)
     Buildings.Utilities.Math.Functions.quinticHermite(
       x=dp,
       x1=dp_0 - dp_small,
       x2=dp_0,
-      y1=m_flow_lin + c_regul * dp,
+      y1=m_flow_lin,
       y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
         dp=dp_0,
         k=kTot_0,
         m_flow_turbulent=m_flow_turbulent),
-      y1d=c_regul,
+      y1d=0,
       y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
         dp=dp_0,
         k=kTot_0,
@@ -143,14 +143,17 @@ equation
       m_flow=m_flow,
       k=sqrt(kResSqu),
       m_flow_turbulent=m_flow_turbulent) else dp;
-  // kThetaSqRt = noEvent(
-  //   if dp <= dp_1 then sqrt(k1)  // covers also dp <= 0 i.e. flow reversal or zero pressure drop
-  //   elseif dp >= dp_0 then sqrt(k0)  // covers also zero demand (y = 0 implies dp_0 = 0)
-  //   else sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
-  //   m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent)
-  // );
-  kThetaSqRt = sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
-    m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small
+
+  kThetaSqRt = Buildings.Utilities.Math.Functions.regStep(
+    x=dp - dp_1,  // covers also dp <= 0 i.e. flow reversal or zero pressure drop)
+    y1=Buildings.Utilities.Math.Functions.regStep(
+      x=dp - dp_0,  // covers also zero demand (y = 0 implies dp_0 = 0)
+      y1=sqrt(k0),
+      y2= sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
+        m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small)
+    ),
+    y2=sqrt(k1),
+    x_small=dp_small
   );
 
   test_kthsqrt = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
@@ -176,8 +179,6 @@ equation
     y2=1,
     x_small=dp_small
   );
-
-  // y_open = y_dum[1];
 
 annotation(Documentation(info="<html>
 <p>

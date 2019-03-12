@@ -15,18 +15,15 @@ function basicFlowFunction_inv
   output Real k(unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
-  // Real m_flowNorm = m_flowGuard/m_flow_turbulent
   Real m_flowNorm = m_flowGuard / m_flow_turbulent
     "Normalised mass flow rate";
   Real m_flowNormSq = m_flowNorm^2
     "Square of normalised mass flow rate";
-  Real m_flowGuard = Buildings.Utilities.Math.Functions.smoothMax(
-    m_flow, m_flow_small, deltaX=m_flow_small);
-  Real dpGuard = Buildings.Utilities.Math.Functions.smoothMax(
-    dp, dp_small, deltaX=dp_small);
+  Real m_flowGuard = max(abs(m_flow), m_flow_small);
+  Real dpGuard = max(abs(dp), dp_small);
 algorithm
   k := if noEvent(abs(m_flow) > m_flow_turbulent)
-    then abs(m_flow) / sqrt(abs(dpGuard))
+    then abs(m_flowGuard) / sqrt(abs(dpGuard))
     else sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm);
 annotation (
   smoothOrder=2,
