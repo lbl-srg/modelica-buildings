@@ -16,11 +16,15 @@ block PredictedOutletTemperature
     final unit="m3/s")=0.01
   "Desing heat exchanger chilled water flow rate";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar(min=-0.2, max=0.5) "Tuning parameter"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar(
+    final min=-0.2,
+    final max=0.5) "Tuning parameter"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet "Outdoor air wet bulb temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature") "Outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
 
@@ -129,8 +133,10 @@ Documentation(info="<html>
 <p>
 This algorithm predicts the achievable WSE output temperature based on current plant load conditions
 and ambient wet bulb temperature relative to design conditions, as described in
-OBC Chilled Water Plant Sequence of Operation, section 3.2.3.1. The tuning parameter 
-<code>uTunPar</code> is an output from the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
+ASHRAE RP-1711, Draft 4, section 5.2.3.1. 
+
+The tuning parameter <code>uTunPar</code> is an output from the 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning</a> sequence.
 </p>
 </html>",

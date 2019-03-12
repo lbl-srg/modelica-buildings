@@ -16,8 +16,10 @@ block Tuning
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
-    "Maximum cooling tower fan speed" annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax(
+    final unit="1")
+    "Maximum cooling tower fan speed"
+    annotation (Placement(transformation(
     extent={{-220,-120},{-180,-80}}), iconTransformation(extent={{-140,-70},
       {-100,-30}})));
 
@@ -53,6 +55,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tunStep(
     final k=step) "Tuning step"
     annotation (Placement(transformation(extent={{-30,140},{-10,160}})));
+
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam(y_start=0)
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
@@ -246,9 +249,9 @@ equation
 Documentation(info="<html>
 <p>
 Waterside economizer outlet temperature prediction tuning parameter subsequence 
-per OBC Chilled Water Plant Sequence of Operation, section 3.2.3.3. The parameter
-is increased or decreased in a <code>step</code> depending on how long the
-the economizer remained enabled and the values of the cooling tower fan speed signal 
+per ASHRAE RP-1711, Draft 4, section 5.2.3.3. The parameter
+is increased or decreased in a <code>step</code> depending the
+economizer enable time and the cooling tower fan speed signal values.  
 <code>uTowFanSpe</code> during that period.
 </p>
 </html>",
