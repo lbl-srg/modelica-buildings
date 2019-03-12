@@ -34,7 +34,7 @@ algorithm
     flag := 1;
   else
     if kThetaSqRt < kU then
-     //kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + yC * (cU[2] + yC * cU[1])));
+    //kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + yC * (cU[2] + yC * cU[1])));
       delta := cU[2]^2 - 4 * cU[1] * (-2 * Modelica.Math.log(kThetaSqRt) + cU[3]);
       y1 := (-cU[2] - sqrt(delta)) / (2 * cU[1]);
       y2 := (-cU[2] + sqrt(delta)) / (2 * cU[1]);
