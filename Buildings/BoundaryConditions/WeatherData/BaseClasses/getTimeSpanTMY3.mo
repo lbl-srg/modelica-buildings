@@ -81,7 +81,7 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function returns the start time (first time stamp) and end time 
+This function returns the start time (first time stamp) and end time
 (last time stamp + average increment) of the TMY3 weather data file.
 </p>
 </html>", revisions="<html>

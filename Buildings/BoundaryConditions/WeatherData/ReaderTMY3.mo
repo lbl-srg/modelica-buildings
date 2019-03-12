@@ -1465,8 +1465,11 @@ and allows the following configurations:
 <p>
 If weather data span a year, which is the default for TMY3 data, or multiple years,
 then this model can be used for simulations that span multiple years. The simulation
-start time need to be set to the clock time of the respective start time. For example,
+start time needs to be set to the clock time of the respective start time. For example,
 to start at January 2 at 10am, set start time to <code>t=(24+10)*3600</code> seconds.
+For this computation, the used date and time (here January 2, 10 am) must be expressed in the same time zone
+as the one that is used to define the TMY3 file. This is usually the local (winter) time zone.
+The parameter `timZon` represents the TMY3 file time zone, expressed in seconds compared to UTC.
 </p>
 <p>
 Moreover, weather data need not span a whole year, or it can span across New Year.
