@@ -1,5 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.FixedSpeed.Validation.Controller="Cvode", stopTime=1800, tolerance=1e-06, resultFile="Controller");
-
-
-
-
