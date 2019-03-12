@@ -7,10 +7,9 @@ model WaterSourceHeatPump
 
 // TConLvgMin=273.15 + 27,
 // TConLvgMax=273.15 + 35,
-  HeatPumps.WaterSourceHeatPump heaPum(
-       redeclare package Medium1 = Medium,
-       redeclare package Medium2 = Medium)
-       annotation (Placement(transformation(extent={{20,-12},{40,8}})));
+  Buildings.Fluid.HeatPumps.WaterSourceHeatPump heaPum(redeclare package
+      Medium1 = Medium, redeclare package Medium2 = Medium)
+    annotation (Placement(transformation(extent={{20,-12},{40,8}})));
 
 //     TEvaEntMin=273.15 + 5,
 //     TEvaEntMax=273.15 + 15,
