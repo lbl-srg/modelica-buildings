@@ -12,6 +12,10 @@ function basicFlowFunction_inv
     "Minimal value of mass flow rate for guarding against k = (0)/sqrt(dp)";
   input Modelica.SIunits.PressureDifference dp_small
     "Minimal value of pressure drop for guarding against k = m_flow/(0)";
+  input Real k_min
+    "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+  input Real k_max
+    "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   output Real k(unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
@@ -23,8 +27,8 @@ protected
   Real dpGuard = max(abs(dp), dp_small);
 algorithm
   k := if noEvent(abs(m_flow) > m_flow_turbulent)
-    then abs(m_flowGuard) / sqrt(abs(dpGuard))
-    else sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm);
+    then min(k_max, max(k_min, abs(m_flowGuard) / sqrt(abs(dpGuard))))
+    else min(k_max, max(sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm)));
 annotation (
   smoothOrder=2,
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

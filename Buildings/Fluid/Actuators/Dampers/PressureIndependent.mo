@@ -144,17 +144,9 @@ equation
       k=sqrt(kResSqu),
       m_flow_turbulent=m_flow_turbulent) else dp;
 
-  kThetaSqRt = Buildings.Utilities.Math.Functions.regStep(
-    x=dp - dp_1,  // covers also dp <= 0 i.e. flow reversal or zero pressure drop)
-    y1=Buildings.Utilities.Math.Functions.regStep(
-      x=dp - dp_0,  // covers also zero demand (y = 0 implies dp_0 = 0)
-      y1=sqrt(k0),
-      y2= sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
-        m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small)
-    ),
-    y2=sqrt(k1),
-    x_small=dp_small
-  );
+  kThetaSqRt = sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
+    m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
+    k_min=kDam_0, k_max=kDam_1);
 
   test_kthsqrt = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
       y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
@@ -170,14 +162,15 @@ equation
     kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
 
   y_open = Buildings.Utilities.Math.Functions.regStep(
-    x=dp - dp_1,  // covers also dp <= 0 i.e. flow reversal or zero pressure drop)
+    x=dp - dp_1 - dp_small/2,  // covers also dp <= 0 i.e. flow reversal or zero pressure drop)
     y1=Buildings.Utilities.Math.Functions.regStep(
-      x=dp - dp_0,  // covers also zero demand (y = 0 implies dp_0 = 0)
+      x=dp - dp_0 + dp_small/2,  // covers also zero demand (y = 0 implies dp_0 = 0)
       y1=0,
-      y2=y_dum[1]
+      y2=y_dum[1],
+      x_small=dp_small/2
     ),
     y2=1,
-    x_small=dp_small
+    x_small=dp_small/2
   );
 
 annotation(Documentation(info="<html>

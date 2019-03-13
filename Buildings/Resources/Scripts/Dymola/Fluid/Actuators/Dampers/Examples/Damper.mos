@@ -1,3 +1,4 @@
+Advanced.StoreProtectedVariables = true;
 simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.Damper", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="Damper");
 createPlot(id = 4,
  position = {73, 9, 598, 390},
@@ -12,3 +13,12 @@ createPlot(id = 4,
  filename = "Damper.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
+createPlot(id=5, position={347, 72, 1165, 830},
+    y={"preInd1.m_flow", "preInd1.y_open", "preInd1.y_dum[2]", "preInd1.y_dum[3]"},  autoscale = true,
+ autoerase = true,
+ autoreplot = true, grid=true);
+plotExpression(apply(Damper[end].preInd1.dp/(Damper[end].preInd1.dp_nominal+Damper[end].preInd1.dpFixed_nominal)), false, "dp/(dp_nominal+dpFixed_nominal)", 5);
+createPlot(id=6, position={326, 26, 1419, 793}, y={"dam.m_flow", "preInd.y_open"},  autoerase = true,
+ autoreplot = true, grid=true);
+plotExpression(apply(Damper[end].preInd.dp/(Damper[end].preInd.dp_nominal+Damper[end].preInd.dpFixed_nominal)), false, "dp/(dp_nominal+dpFixed_nominal)", 6);
+createPlot(id=7, position={75, 70, 1149, 796}, y={"preInd.test_kthsqrt", "preInd.y_actual"}, range={0.25, 0.5700000000000001, -0.5, 2.0}, autoscale=false, grid=true, range2={0.0347, 0.0364});

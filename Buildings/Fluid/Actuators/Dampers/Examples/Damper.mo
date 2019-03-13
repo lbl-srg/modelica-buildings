@@ -21,7 +21,6 @@ model Damper
     redeclare package Medium = Medium,
     nPorts=3,
     p(displayUnit="Pa") = Medium.p_default + preInd.dp_nominal + preInd.dpFixed_nominal,
-
     T=293.15) "Pressure boundary condition"
      annotation (Placement(
         transformation(extent={{-60,-10},{-40,10}})));
@@ -72,10 +71,10 @@ model Damper
      annotation (Placement(
         transformation(extent={{-60,-140},{-40,-120}})));
   Modelica.Blocks.Sources.Ramp ramp(
-    duration=1,
     offset=Medium.p_default,
     height=preInd.dp_nominal + 1.5*preInd.dpFixed_nominal,
-    startTime=1)
+    duration=0.3,
+    startTime=0.2)
     annotation (Placement(transformation(extent={{-152,-132},{-132,-112}})));
   PressureIndependent                                   preInd1(
     use_inputFilter=false,
@@ -143,6 +142,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-160,-160},{100,100}})),
-    Icon(coordinateSystem(extent={{-160,-160},{100,100}})));
+    Diagram(coordinateSystem(extent={{-160,-160},{100,100}})));
 end Damper;
