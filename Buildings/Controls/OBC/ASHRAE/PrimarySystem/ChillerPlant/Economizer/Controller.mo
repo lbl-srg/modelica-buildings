@@ -211,6 +211,8 @@ equation
 Documentation(info="<html>
 <p>
 Waterside economizer (WSE) sequence per ASHRAE RP-1711, Draft 4, section 5.2.3. It consists of enable/disable conditions as provided in sections 5.2.3.1. and 5.2.3.2., and:
+</p>
+<ul>
 <li>
 - A subsequence to predict the WSE outlet temperature at given conditions:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature\">
@@ -222,20 +224,21 @@ tuning parameter:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning</a>
 </li>
-<li>
+</ul>
 <p>
 The sequence controls the WSE status as follows:
-<li>
-- Enable if WSE has been disabled for at least <code>holdPeriod<\code> of time and chilled water return 
-temperature (CHWRT) upstream of WSE is greater than the predicted heat 
-exchanger leaving water temperature (PHXLWT) plus <code>TOffsetEna<\code>
-</li>
-<li>
-- Disable if WSE has been enabled for at least <code>holdPeriod<\code> of time and CHWRT downstream of 
-WSE is greater than CHWRT upstream of WSE less <code>TOffsetDis<\code> for <code>dTperiod<\code>.
-</li>
-<p>
 </p>
+<ul>
+<li>
+- Enable if WSE has been disabled for at least <code>holdPeriod</code> of time and chilled water return
+temperature (CHWRT) upstream of WSE is greater than the predicted heat
+exchanger leaving water temperature (PHXLWT) plus <code>TOffsetEna</code>
+</li>
+<li>
+- Disable if WSE has been enabled for at least <code>holdPeriod</code> of time and CHWRT downstream of
+WSE is greater than CHWRT upstream of WSE less <code>TOffsetDis</code> for <code>dTperiod</code>.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>
