@@ -92,8 +92,7 @@ equation
   connect(maxTowFanSpeSig0.y, wseTun.uTowFanSpeMax) annotation (Line(points={{-99,
           50},{-70,50},{-70,65},{-42,65}}, color={0,0,127}));
   connect(ecoSta3.y,wseTun3.uWseSta)  annotation (Line(points={{41,-10},{70,-10},
-          {70,-45},{98,-45}},
-                            color={255,0,255}));
+          {70,-45},{98,-45}}, color={255,0,255}));
   connect(wseTun3.uTowFanSpeMax, maxTowFanSpeSig3.y) annotation (Line(points={{
           98,-55},{70,-55},{70,-60},{41,-60}}, color={0,0,127}));
 annotation (
