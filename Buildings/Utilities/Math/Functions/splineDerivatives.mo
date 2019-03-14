@@ -21,7 +21,7 @@ algorithm
            x[" + String(n) + "] = " + String(x[n]));
   // Check data
     assert(isMonotonic(x, strict=true),
-      "x-values must be strictly monontone increasing or decreasing.");
+      "x-values must be strictly monotone increasing or decreasing.");
     if ensureMonotonicity then
       assert(isMonotonic(y, strict=false),
         "If ensureMonotonicity=true, y-values must be monontone increasing or decreasing.");

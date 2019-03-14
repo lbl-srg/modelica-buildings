@@ -28,7 +28,7 @@ protected
 algorithm
   k := if noEvent(abs(m_flow) > m_flow_turbulent)
     then min(k_max, max(k_min, abs(m_flowGuard) / sqrt(abs(dpGuard))))
-    else min(k_max, max(sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm)));
+    else min(k_max, max(k_min, sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm)));
 annotation (
   smoothOrder=2,
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
