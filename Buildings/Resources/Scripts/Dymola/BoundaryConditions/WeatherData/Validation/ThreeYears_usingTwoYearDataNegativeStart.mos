@@ -1,0 +1,2 @@
+simulateModel("Buildings.BoundaryConditions.WeatherData.Validation.ThreeYears_usingTwoYearDataNegativeStart", startTime=-47174400, stopTime=47433600, method="CVode", tolerance=1e-006, resultFile="ThreeYears_usingTwoYearDataNegativeStart");
+createPlot(id=1, position={0, 0, 1124, 701}, y={"weaDat.weaBus.TDryBul"}, range={0.0, 95000000.0, 5.0, 25.0}, autoerase=false, grid=true, colors={{28,108,200}}, displayUnits={"degC"});
