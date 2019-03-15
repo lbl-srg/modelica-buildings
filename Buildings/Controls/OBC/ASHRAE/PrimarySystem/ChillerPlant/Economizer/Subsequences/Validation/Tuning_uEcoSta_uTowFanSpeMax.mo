@@ -97,7 +97,7 @@ equation
           98,-55},{70,-55},{70,-60},{41,-60}}, color={0,0,127}));
 annotation (
  experiment(StopTime=28800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Subsequences/Validation/Tuning_uEcoSta_uTowFanSpe.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Subsequences/Validation/Tuning_uEcoSta_uTowFanSpeMax.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
