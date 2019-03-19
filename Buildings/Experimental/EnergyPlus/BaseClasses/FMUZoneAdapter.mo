@@ -151,7 +151,9 @@ equation
     tLast = time;
   end when;
   QCon_flow = QConLast_flow + (T-TRooLast) * dQCon_flow;
-  annotation (Icon(graphics={Bitmap(extent={{-90,-86},{84,88}}, fileName=
+  annotation (
+  defaultComponentName="fmuZon",
+  Icon(graphics={Bitmap(extent={{-90,-86},{84,88}}, fileName=
             "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png")}),
       Documentation(info="<html>
 <p>
