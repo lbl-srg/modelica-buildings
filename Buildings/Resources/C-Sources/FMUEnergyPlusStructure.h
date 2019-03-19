@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <execinfo.h>
 
-#include "fmi2FunctionTypes.h"
+#include "../Include/fmi-library/FMI2/fmi2FunctionTypes.h"
 #include "ModelicaUtilities.h"
 
 /* Use windows.h only for Windows */
