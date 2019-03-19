@@ -16,8 +16,10 @@ block Tuning
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
-    "Maximum cooling tower fan speed" annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax(
+    final unit="1")
+    "Maximum cooling tower fan speed signal"
+    annotation (Placement(transformation(
     extent={{-220,-120},{-180,-80}}), iconTransformation(extent={{-140,-70},
       {-100,-30}})));
 
@@ -25,7 +27,7 @@ block Tuning
     final max=0.5,
     final min=-0.2,
     final start=initTunPar)
-    "Tuning parameter for the waterside economizer outlet temperature prediction "
+    "Tuning parameter for the waterside economizer outlet temperature prediction"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -53,7 +55,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tunStep(
     final k=step) "Tuning step"
     annotation (Placement(transformation(extent={{-30,140},{-10,160}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam(y_start=0)
+
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam(
+    final y_start=0) "Triggered sampler"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
@@ -138,7 +142,7 @@ protected
 equation
   connect(uWseSta, tim.u)
     annotation (Line(points={{-200,80},{-160,80},{-160,110},{-142,110}},
-                                                     color={255,0,255}));
+          color={255,0,255}));
   connect(gre.u2, wseOnTim.y) annotation (Line(points={{-102,102},{-110,102},{-110,
           80},{-119,80}}, color={0,0,127}));
   connect(tim.y, gre.u1)
@@ -148,11 +152,9 @@ equation
   connect(gre.y, pre.u)
     annotation (Line(points={{-79,110},{-72,110}}, color={255,0,255}));
   connect(and2.u1, pre.y)
-    annotation (Line(points={{-32,110},{-49,110}},
-                                                color={255,0,255}));
+    annotation (Line(points={{-32,110},{-49,110}},color={255,0,255}));
   connect(uWseSta, tim1.u) annotation (Line(points={{-200,80},{-160,80},{-160,
-          10},{-142,10}},
-                       color={255,0,255}));
+          10},{-142,10}},color={255,0,255}));
   connect(les.u2, wseOnTim1.y) annotation (Line(points={{-102,2},{-110,2},{-110,
           -20},{-119,-20}}, color={0,0,127}));
   connect(tim1.y, les.u1)
@@ -186,50 +188,47 @@ equation
   connect(triSam2.y, greThr.u)
     annotation (Line(points={{41,-100},{58,-100}},   color={0,0,127}));
   connect(booToRea.y, triSam2.u) annotation (Line(points={{1,-100},{18,-100}},
-                                color={0,0,127}));
+          color={0,0,127}));
   connect(uWseSta, falEdg.u) annotation (Line(points={{-200,80},{-160,80},{-160,
           60},{-102,60}}, color={255,0,255}));
   connect(falEdg.y, and2.u2) annotation (Line(points={{-79,60},{-40,60},{-40,
-          102},{-32,102}},
-                     color={255,0,255}));
+          102},{-32,102}},color={255,0,255}));
   connect(and2.y, triSam.trigger)
-    annotation (Line(points={{-9,110},{70,110},{70,118.2}},
-                                                         color={255,0,255}));
+    annotation (Line(points={{-9,110},{70,110},{70,118.2}}, color={255,0,255}));
   connect(uWseSta, falEdg1.u) annotation (Line(points={{-200,80},{-160,80},{
           -160,-40},{-82,-40}}, color={255,0,255}));
   connect(and1.u2, falEdg1.y) annotation (Line(points={{38,-50},{-40,-50},{-40,-40},
-          {-59,-40}},      color={255,0,255}));
+          {-59,-40}}, color={255,0,255}));
   connect(hys.y, booToRea.u)
-    annotation (Line(points={{-139,-100},{-22,-100}},  color={255,0,255}));
+    annotation (Line(points={{-139,-100},{-22,-100}}, color={255,0,255}));
   connect(and4.y, triSam2.trigger) annotation (Line(points={{21,-130},{30,-130},
-          {30,-111.8}},                              color={255,0,255}));
+          {30,-111.8}}, color={255,0,255}));
   connect(uWseSta, not1.u) annotation (Line(points={{-200,80},{-160,80},{-160,
-          -60},{-142,-60}},   color={255,0,255}));
+          -60},{-142,-60}},color={255,0,255}));
   connect(hys.y, and6.u1) annotation (Line(points={{-139,-100},{-124,-100},{
-          -124,-130},{-82,-130}},  color={255,0,255}));
+          -124,-130},{-82,-130}},color={255,0,255}));
   connect(not1.y, and6.u2) annotation (Line(points={{-119,-60},{-90,-60},{-90,
-          -138},{-82,-138}},       color={255,0,255}));
+          -138},{-82,-138}}, color={255,0,255}));
   connect(and4.u1, and6.y) annotation (Line(points={{-2,-130},{-59,-130}},
-                  color={255,0,255}));
+           color={255,0,255}));
   connect(uWseSta, and5.u2) annotation (Line(points={{-200,80},{-170,80},{-170,
           -178},{-82,-178}}, color={255,0,255}));
   connect(hys.y, not2.u) annotation (Line(points={{-139,-100},{-132,-100},{-132,
           -160},{-122,-160}}, color={255,0,255}));
   connect(and5.u1, not2.y)
     annotation (Line(points={{-82,-170},{-90,-170},{-90,-160},{-99,-160}},
-                                                      color={255,0,255}));
+          color={255,0,255}));
   connect(and5.y, lat.u) annotation (Line(points={{-59,-170},{-52,-170},{-52,
           -150},{-41,-150}}, color={255,0,255}));
   connect(not1.y, lat.u0) annotation (Line(points={{-119,-60},{-50,-60},{-50,
           -156},{-41,-156}}, color={255,0,255}));
   connect(lat.y, and4.u2) annotation (Line(points={{-19,-150},{-10,-150},{-10,
-          -138},{-2,-138}},                  color={255,0,255}));
+          -138},{-2,-138}},color={255,0,255}));
   connect(and1.y, triSam1.trigger)
     annotation (Line(points={{61,-50},{70,-50},{70,-31.8}},
-                                                       color={255,0,255}));
+          color={255,0,255}));
   connect(greThr.y, and1.u3) annotation (Line(points={{81,-100},{90,-100},{90,
-          -80},{20,-80},{20,-58},{38,-58}},
-                                          color={255,0,255}));
+          -80},{20,-80},{20,-58},{38,-58}}, color={255,0,255}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(
@@ -246,9 +245,9 @@ equation
 Documentation(info="<html>
 <p>
 Waterside economizer outlet temperature prediction tuning parameter subsequence 
-per OBC Chilled Water Plant Sequence of Operation, section 3.2.3.3. The parameter
-is increased or decreased in a <code>step</code> depending on how long the
-the economizer remained enabled and the values of the cooling tower fan speed signal 
+per ASHRAE RP-1711, Draft 4, section 5.2.3.3. The parameter
+is increased or decreased in a <code>step</code> depending the
+economizer enable time and the cooling tower fan speed signal values.  
 <code>uTowFanSpe</code> during that period.
 </p>
 </html>",
