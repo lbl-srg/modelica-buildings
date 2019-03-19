@@ -3,10 +3,9 @@ package ChillerPlant "Chiller plant control sequences as from ASHRAE Fundamental
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains sequences for controlling a chiller plant comprising a single or multiple chillers, 
+This package contains control sequences for a chiller plant comprising a single chiller or multiple chillers, 
 chilled and condenser water pumps, cooling towers and an optional water side economizer. The control sequences 
-are implemented based on ASHRAE Fundamentals of Design & Control of Chilled Water Plants, Chapter 7 and Steve 
-Taylor's update document: OBC Plant SOO. fixme: finalize source citation once implemented.
+are implemented based on ASHRAE RP-1711, Draft 4.
 </p>
 </html>"),
   Icon(graphics={

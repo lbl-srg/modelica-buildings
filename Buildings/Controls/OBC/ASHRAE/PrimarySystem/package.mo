@@ -4,8 +4,7 @@ package PrimarySystem "Package with control sequences for primary system"
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences for HVAC primary system control. They are
-developed according to ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL.
+This package contains control sequences for primary HVAC systems. They are developed according to ASHRAE RP-1711, Draft 4, January 7 2019.
 </p>
 </html>"),
 Icon(graphics={
