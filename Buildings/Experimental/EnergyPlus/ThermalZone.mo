@@ -218,13 +218,13 @@ equation
   connect(fmuZon.TRad, TRad) annotation (Line(points={{101,120},{126,120},{126,
           -40},{210,-40}},
                       color={0,0,127}));
-  connect(fmuZon.T, senTAir.T) annotation (Line(points={{78,124},{52,124},{52,0},
+  connect(fmuZon.T, senTAir.T) annotation (Line(points={{78,122},{52,122},{52,0},
           {40,0}}, color={0,0,127}));
   connect(vol.X_w, fmuZon.X_w) annotation (Line(points={{12,-60},{60,-60},{60,
-          120},{78,120}},
+          118},{78,118}},
                      color={0,0,127}));
   connect(heaGai.QRad_flow, fmuZon.QGaiRad_flow)
-    annotation (Line(points={{-158,106},{-40,106},{-40,108},{78,108}},
+    annotation (Line(points={{-158,106},{-40,106},{-40,106},{78,106}},
                                                    color={0,0,127}));
   connect(heaGai.QCon_flow, QConTot_flow.u1) annotation (Line(points={{-158,100},
           {-132,100},{-132,56},{-122,56}}, color={0,0,127}));
@@ -255,8 +255,8 @@ equation
   for i in 1:nPorts loop
     connect(ports[i], senMasFlo[i].port_a)
     annotation (Line(points={{0,-150},{0,-110}}, color={0,127,255}));
-    connect(fmuZon.m_flow[i], senMasFlo[i].m_flow) annotation (Line(points={{78,116},
-            {66,116},{66,-100},{11,-100}},
+    connect(fmuZon.m_flow[i], senMasFlo[i].m_flow) annotation (Line(points={{78,114},
+            {66,114},{66,-100},{11,-100}},
                                      color={0,0,127}));
     connect(senMasFlo[i].port_b, vol.ports[i]) annotation (Line(points={{
             5.55112e-16,-90},{0,-90},{0,-66}},
@@ -266,8 +266,8 @@ equation
     annotation (Line(points={{-122,-140},{-139,-140}}, color={0,0,127}));
   connect(matrixGain.y, CTot_flow.u2) annotation (Line(points={{-99,-140},{-80,-140},
           {-80,-126},{-62,-126}}, color={0,0,127}));
-  connect(fmuZon.TInlet, TAirIn.y) annotation (Line(points={{78,112},{41,112}},
-                                color={0,0,127}));
+  connect(fmuZon.TInlet, TAirIn.y) annotation (Line(points={{78,110},{48,110},{
+          48,112},{41,112}},    color={0,0,127}));
   annotation (
   defaultComponentName="zon",
    Icon(coordinateSystem(preserveAspectRatio=false,
