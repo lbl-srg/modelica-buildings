@@ -23,25 +23,25 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     final unit="K",
     displayUnit="degC")
     "Zone air temperature" annotation (
-      Placement(transformation(extent={{-140,80},{-100,120}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+      Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput X_w(final unit="kg/kg")
     "Zone air mass fraction in kg/kg total air" annotation (Placement(
-        transformation(extent={{-140,40},{-100,80}}), iconTransformation(extent=
-           {{-140,40},{-100,80}})));
+        transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},
+            {-100,60}})));
   Modelica.Blocks.Interfaces.RealInput m_flow[nFluPor](
      each final unit = "kg/s")
      "Mass flow rate" annotation (
-      Placement(transformation(extent={{-140,0},{-100,40}})));
+      Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput TInlet[nFluPor](
     each final unit="K",
     each displayUnit="degC") "Air inlet temperatures"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput QGaiRad_flow(
     final unit="W") "Radiative heat gain"
                           annotation (Placement(
-        transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
+        transformation(extent={{-140,-100},{-100,-60}}),iconTransformation(
+          extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput TRad(
     final unit="K",
     displayUnit="degC")
