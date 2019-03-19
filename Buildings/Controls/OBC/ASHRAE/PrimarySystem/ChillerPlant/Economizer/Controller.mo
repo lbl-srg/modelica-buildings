@@ -66,9 +66,9 @@ block Controller "Waterside economizer (WSE) enable/disable status"
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
-    "Maximum cooling tower fan speed" annotation (Placement(transformation(
-          extent={{-220,-120},{-180,-80}}), iconTransformation(extent={{-140,-100},
-            {-100,-60}})));
+    "Maximum cooling tower fan speed"
+    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
+    iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
@@ -115,7 +115,8 @@ protected
     "Calculates the predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1) "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+    final k2=-1) "Adder"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre"
@@ -186,9 +187,9 @@ equation
   connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{81,-10},{90,-10},{
           90,42},{98,42}}, color={255,0,255}));
   connect(wseTOut.y, yTPre) annotation (Line(points={{-78,50},{-30,50},{-30,80},
-          {190,80}},                   color={0,0,127}));
+          {190,80}}, color={0,0,127}));
   connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,-90},{-110,-90},
-          {-110,42},{-102,42}},       color={0,0,127}));
+          {-110,42},{-102,42}},color={0,0,127}));
   connect(wseTOut.y, add2.u2) annotation (Line(points={{-78,50},{-50,50},{-50,44},
           {-22,44}}, color={0,0,127}));
   connect(TChiWatRet, add2.u1) annotation (Line(points={{-200,60},{-140,60},{-140,
@@ -210,16 +211,16 @@ equation
           extent={{-180,-120},{180,120}})),
 Documentation(info="<html>
 <p>
-Waterside economizer (WSE) sequence per ASHRAE RP-1711, Draft 4, section 5.2.3. It consists of enable/disable conditions as provided in sections 5.2.3.1. and 5.2.3.2., and:
+Waterside economizer (WSE) sequence per ASHRAE RP-1711, Draft 4, section 5.2.3. It consists of enable/disable conditions as provided in sections 5.2.3.1. and 5.2.3.2. and:
 </p>
 <ul>
 <li>
-- A subsequence to predict the WSE outlet temperature at given conditions:
+A subsequence to predict the WSE outlet temperature at given conditions:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature</a>
 </li>
 <li>
-- A subsequence to define the temperature prediction
+A subsequence to define the temperature prediction
 tuning parameter:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning</a>
@@ -230,12 +231,12 @@ The sequence controls the WSE status as follows:
 </p>
 <ul>
 <li>
-- Enable if WSE has been disabled for at least <code>holdPeriod</code> of time and chilled water return
+Enable if WSE has been disabled for at least <code>holdPeriod</code> of time and chilled water return
 temperature (CHWRT) upstream of WSE is greater than the predicted heat
 exchanger leaving water temperature (PHXLWT) plus <code>TOffsetEna</code>
 </li>
 <li>
-- Disable if WSE has been enabled for at least <code>holdPeriod</code> of time and CHWRT downstream of
+Disable if WSE has been enabled for at least <code>holdPeriod</code> of time and CHWRT downstream of
 WSE is greater than CHWRT upstream of WSE less <code>TOffsetDis</code> for <code>dTperiod</code>.
 </li>
 </ul>

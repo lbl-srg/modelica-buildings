@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences;
 block PredictedOutletTemperature
-  "waterside economizer predicted outlet temperature"
+  "Waterside economizer predicted outlet temperature"
 
   parameter Modelica.SIunits.TemperatureDifference heaExcAppDes=2
   "Design heat exchanger approach";
@@ -14,7 +14,7 @@ block PredictedOutletTemperature
   parameter Real VHeaExcDes_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.01
-  "Desing heat exchanger chilled water flow rate";
+    "Desing heat exchanger chilled water flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar(
     final min=-0.2,
