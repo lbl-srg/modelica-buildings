@@ -30,7 +30,6 @@ algorithm
     then min(k_max, max(k_min, abs(m_flowGuard) / sqrt(abs(dpGuard))))
     else min(k_max, max(k_min, sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm)));
 annotation (
-  smoothOrder=2,
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}}), graphics={Line(
   points={{-80,-40},{-80,60},{80,-40},{80,60}},

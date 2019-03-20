@@ -4,23 +4,18 @@ function exponentialDamper_inv
   import Modelica.Math.Matrices;
   extends Modelica.Icons.Function;
   input Real kThetaSqRt(min=0);
-  input Real a(unit="") "Coefficient a for damper characteristics";
-  input Real b(unit="") "Coefficient b for damper characteristics";
+  input Real a "Coefficient a for damper characteristics";
+  input Real b "Coefficient b for damper characteristics";
   input Real[3] cL "Polynomial coefficients for curve fit for y < yl";
   input Real[3] cU "Polynomial coefficients for curve fit for y > yu";
   input Real yL "Lower value for damper curve";
   input Real yU "Upper value for damper curve";
-  // output Real y(min=0, max=1, unit="");
-  output Real y;
+  output Real y(min=0, max=1);
 protected
-  Real roots[2,2] = fill(0, 2, 2);
-  Real yC(min=0, max=1, unit="")
-    "y constrained to 0 <= y <= 1 to avoid numerical problems";
   Real kL = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
        y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
   Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
        y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
-
   parameter Integer sizeSupSpl = 3;
   parameter Real[sizeSupSpl] ySupSpl = {1, yU*1.1, yU};
   parameter Real[sizeSupSpl] kSupSpl = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
@@ -30,9 +25,9 @@ protected
     x=kSupSpl, y=ySupSpl, ensureMonotonicity=true);
   Real kBnd "Bounded flow resistance sqrt value";
   Integer i "Integer to select data interval";
-  Real delta;
-  Real y1;
-  Real y2;
+  Real delta "Discriminant";
+  Real y1 "First root";
+  Real y2 "Second root";
 algorithm
   kBnd := if kThetaSqRt < kSupSpl[1] then kSupSpl[1] elseif
     kThetaSqRt > kSupSpl[sizeSupSpl] then kSupSpl[sizeSupSpl] else kThetaSqRt;
@@ -44,10 +39,7 @@ algorithm
     y2 := (-cL[2] + sqrt(delta)) / (2 * cL[1]);
     y := if cL[2] + 2 * cL[1] * y1 <= 0 then max(0, y1) else max(0, y2);
   elseif kThetaSqRt < kU then
-    //kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + yC * (cU[2] + yC * cU[1])));
-    delta := 0;
-    y1 := 0;
-    y2 := 0;
+    // kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + yC * (cU[2] + yC * cU[1])));
     i := 1;
     for j in 2:sizeSupSpl loop
       if kBnd <= kSupSpl[j] then
@@ -64,7 +56,6 @@ algorithm
       y1d=invSplDer[i - 1],
       y2d=invSplDer[i]
     ));
-
   else
     y := 1 -(2 * Modelica.Math.log(kThetaSqRt) - a) / b;
     y1 := 0;

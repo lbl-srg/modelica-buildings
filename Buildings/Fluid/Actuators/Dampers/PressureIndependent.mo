@@ -4,7 +4,6 @@ model PressureIndependent
   // TODO:
   // Cf. Michael: include mass flow rate computation into function.
   // TODO:
-  //  Allow flow reversal when computing kThetaSqRt
   //  Relax limits for k0 & k1 in PartialDamperExponential based on ASHRAE Dampers and Airflow Control
   // HACK:
   //  l(min=1e-10, max=1) = 0.001
@@ -12,7 +11,6 @@ model PressureIndependent
   //  assert(k1 <= 5, "k1 must be between 0.2 and 0.5.");
   //  assert(k0 <= 1e8, "k0 must be between k1 and 1e6.");
   //
-  // kResSqu >= 0
   extends Buildings.Fluid.Actuators.Dampers.VAVBoxExponential(
     dp(nominal=dp_nominal),
     final preInd=true,
@@ -31,7 +29,6 @@ model PressureIndependent
     annotation (Placement(transformation(extent={{40,90},{60,110}}),
         iconTransformation(extent={{40,90},{60,110}})));
   Medium.Density rho "Medium density";
-  Real test_kthsqrt;
 protected
   parameter Medium.Density rho_default = Medium.density(sta_default)
     "Density, used to compute fluid volume";
@@ -141,22 +138,15 @@ equation
       m_flow=m_flow,
       k=sqrt(kResSqu),
       m_flow_turbulent=m_flow_turbulent) else dp;
-
-  kThetaSqRt = if dp <= dp_1 then sqrt(k1)
+  kThetaSqRt = noEvent(
+    if dp <= dp_1 then sqrt(k1)
     elseif dp >= dp_0 then sqrt(k0) else
     sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
-    m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
-    k_min=kDam_0, k_max=kDam_1);
-
+      m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
+      k_min=kDam_0, k_max=kDam_1)
+  );
   y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-          kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
-
-  test_kthsqrt = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
-
-  // y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv_spl(
-  //         kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
-
+    kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
 annotation(Documentation(info="<html>
 <p>
 Model for an air damper whose airflow is proportional to the input signal, assuming
