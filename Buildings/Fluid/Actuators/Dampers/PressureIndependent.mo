@@ -31,6 +31,7 @@ model PressureIndependent
     annotation (Placement(transformation(extent={{40,90},{60,110}}),
         iconTransformation(extent={{40,90},{60,110}})));
   Medium.Density rho "Medium density";
+  Real test_kthsqrt;
 protected
   parameter Medium.Density rho_default = Medium.density(sta_default)
     "Density, used to compute fluid volume";
@@ -147,20 +148,11 @@ equation
     m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
     k_min=kDam_0, k_max=kDam_1);
 
-  y_open = noEvent(
-    Buildings.Utilities.Math.Functions.regStep(
-      x=dp - dp_1 - dp_small/2,  // covers also dp <= 0 i.e. flow reversal or zero pressure drop)
-      y1=Buildings.Utilities.Math.Functions.regStep(
-        x=dp - dp_0 + dp_small/2,  // covers also zero demand (y = 0 implies dp_0 = 0)
-        y1=0,
-        y2=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-          kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU),
-        x_small=dp_small/2
-      ),
-      y2=1,
-      x_small=dp_small/2
-    )
-  );
+  y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
+          kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+
+  test_kthsqrt = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+    y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
 
   // y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv_spl(
   //         kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);

@@ -20,10 +20,23 @@ protected
        y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
   Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
        y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+
+  parameter Integer sizeSupSpl = 3;
+  parameter Real[sizeSupSpl] ySupSpl = {1, yU*1.1, yU};
+  parameter Real[sizeSupSpl] kSupSpl = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+      y=ySupSpl, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)
+      "Strict monotone increasing";
+  parameter Real[sizeSupSpl] invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=kSupSpl, y=ySupSpl, ensureMonotonicity=true);
+  Real kBnd "Bounded flow resistance sqrt value";
+  Integer i "Integer to select data interval";
   Real delta;
   Real y1;
   Real y2;
 algorithm
+  kBnd := if kThetaSqRt < kSupSpl[1] then kSupSpl[1] elseif
+    kThetaSqRt > kSupSpl[sizeSupSpl] then kSupSpl[sizeSupSpl] else kThetaSqRt;
+
   if kThetaSqRt > kL then
     // kThetaSqRt := sqrt(Modelica.Math.exp(cL[3] + yC * (cL[2] + yC * cL[1])));
     delta := cL[2]^2 - 4 * cL[1] * (-2 * Modelica.Math.log(kThetaSqRt) + cL[3]);
@@ -32,10 +45,26 @@ algorithm
     y := if cL[2] + 2 * cL[1] * y1 <= 0 then max(0, y1) else max(0, y2);
   elseif kThetaSqRt < kU then
     //kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + yC * (cU[2] + yC * cU[1])));
-    delta := cU[2]^2 - 4 * cU[1] * (-2 * Modelica.Math.log(kThetaSqRt) + cU[3]);
-    y1 := (-cU[2] - sqrt(delta)) / (2 * cU[1]);
-    y2 := (-cU[2] + sqrt(delta)) / (2 * cU[1]);
-    y := if cU[2] + 2 * cU[1] * y1 <= 0 then min(1, y1) else min(1, y2);
+    delta := 0;
+    y1 := 0;
+    y2 := 0;
+    i := 1;
+    for j in 2:sizeSupSpl loop
+      if kBnd <= kSupSpl[j] then
+        i := j;
+        break;
+      end if;
+    end for;
+    y := min(1, Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+      x=kBnd,
+      x1=kSupSpl[i - 1],
+      x2=kSupSpl[i],
+      y1=ySupSpl[i - 1],
+      y2=ySupSpl[i],
+      y1d=invSplDer[i - 1],
+      y2d=invSplDer[i]
+    ));
+
   else
     y := 1 -(2 * Modelica.Math.log(kThetaSqRt) - a) / b;
     y1 := 0;
