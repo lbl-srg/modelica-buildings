@@ -2,6 +2,8 @@ within Buildings.Fluid.Actuators.Dampers;
 model PressureIndependent
   "Pressure independent damper"
   // TODO:
+  // Cf. Michael: include mass flow rate computation into function.
+  // TODO:
   //  Allow flow reversal when computing kThetaSqRt
   //  Relax limits for k0 & k1 in PartialDamperExponential based on ASHRAE Dampers and Airflow Control
   // HACK:
@@ -29,8 +31,6 @@ model PressureIndependent
     annotation (Placement(transformation(extent={{40,90},{60,110}}),
         iconTransformation(extent={{40,90},{60,110}})));
   Medium.Density rho "Medium density";
-  Real test_kthsqrt;
-  Real test_char_inv;
 protected
   parameter Medium.Density rho_default = Medium.density(sta_default)
     "Density, used to compute fluid volume";
@@ -81,21 +81,21 @@ equation
     // transition towards m_flow_lin
     Buildings.Utilities.Math.Functions.quinticHermite(
       x=dp,
-      x1=dp_1 - dp_small,
-      x2=dp_1,
+      x1=dp_1,
+      x2=dp_1 + dp_small,
       y1=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-        dp=dp_1 - dp_small,
+        dp=dp_1,
         k=kTot_1,
         m_flow_turbulent=m_flow_turbulent),
       y2=m_flow_lin,
       y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
-        dp=dp_1 - dp_small,
+        dp=dp_1,
         k=kTot_1,
         m_flow_turbulent=m_flow_turbulent,
         dp_der=1),
       y2d=0,
       y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
-        dp=dp_1 - dp_small,
+        dp=dp_1,
         k=kTot_1,
         m_flow_turbulent=m_flow_turbulent,
         dp_der=1,
@@ -147,14 +147,23 @@ equation
     m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
     k_min=kDam_0, k_max=kDam_1);
 
-  test_kthsqrt = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-      y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+  y_open = noEvent(
+    Buildings.Utilities.Math.Functions.regStep(
+      x=dp - dp_1 - dp_small/2,  // covers also dp <= 0 i.e. flow reversal or zero pressure drop)
+      y1=Buildings.Utilities.Math.Functions.regStep(
+        x=dp - dp_0 + dp_small/2,  // covers also zero demand (y = 0 implies dp_0 = 0)
+        y1=0,
+        y2=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
+          kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU),
+        x_small=dp_small/2
+      ),
+      y2=1,
+      x_small=dp_small/2
+    )
+  );
 
-  test_char_inv = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-      kThetaSqRt=test_kthsqrt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
-
-  y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-    kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+  // y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv_spl(
+  //         kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
 
 annotation(Documentation(info="<html>
 <p>

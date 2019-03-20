@@ -37,9 +37,9 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-300,-358},{-280,-338}})));
   Controls.DuctStaticPressureSetpoint pSetDuc(
     nin=5,
-    k=0.1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    pMin=50) "Duct static pressure setpoint"
+    pMin=50,
+    k=0.1)   "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{162,-18},{182,2}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-130,-212},{-110,-192}})));
@@ -339,12 +339,12 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}}), graphics={Text(
-          extent={{172,350},{334,286}},
+          extent={{-46,272},{116,208}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="Use of damper opening VS control signal
 PI pSupSet in reverse mode
-Increased fan pressure curve to be able to provide nominal downstream pressure drop at nominal flowrate (2 to 4 coef)
+Increased fan pressure curve to be able to provide nominal downstream pressure drop at nominal flowrate (coef=4 VS 2)
 
 ")}),
     Documentation(info="<html>
