@@ -23,7 +23,9 @@ block PartLoadRatios
   parameter Real conSpeCenMult(unit = "1", min = 0, max = 1)=0.9
   "Constant speed centrifugal chiller type staging multiplier";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta "Chiller stage"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
+    final min=0,
+    final max=nSta) "Chiller stage"
     annotation (Placement(transformation(extent={{-380,220},{-340,260}}),
         iconTransformation(extent={{-120,80},{-100,100}})));
 
@@ -91,7 +93,7 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUp(
     final unit="1", final min=0)
     "Operating part load ratio of the next higher stage"
-    annotation (Placement(transformation(extent={{260,-130},{280,-110}}),
+    annotation (Placement(transformation(extent={{340,-130},{360,-110}}),
     iconTransformation(extent={{100,40},{120,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDow(
@@ -99,7 +101,7 @@ block PartLoadRatios
     final min=0)
     "Operating part load ratio of the next stage down"
     annotation (Placement(
-        transformation(extent={{260,-90},{280,-70}}), iconTransformation(extent={{100,20},
+        transformation(extent={{340,-90},{360,-70}}), iconTransformation(extent={{100,20},
             {120,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMin(
@@ -107,25 +109,25 @@ block PartLoadRatios
     final min=0)
     "Minimum operating part load ratio at current stage"
     annotation (Placement(
-        transformation(extent={{260,-210},{280,-190}}), iconTransformation(extent={
+        transformation(extent={{340,-210},{360,-190}}), iconTransformation(extent={
             {100,-100},{120,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="1",
     final min = 0) "Operating part load ratio of the current stage"
-    annotation (Placement(transformation(extent={{260,-50},{280,-30}}),
+    annotation (Placement(transformation(extent={{340,-50},{360,-30}}),
                             iconTransformation(extent={{100,60},{120,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaDow(
     final unit="1",
     final min = 0) "Staging down part load ratio"
-    annotation (Placement(transformation(extent={{260,-170},{280,-150}}),
+    annotation (Placement(transformation(extent={{340,-170},{360,-150}}),
                     iconTransformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaUp(
     final unit="1",
     final min = 0) "Staging up part load ratio"
-    annotation (Placement(transformation(extent={{260,-10},{280,10}}),
+    annotation (Placement(transformation(extent={{340,-10},{360,10}}),
                     iconTransformation(extent={{100,-20},{120,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(
@@ -133,7 +135,7 @@ block PartLoadRatios
     final min=0)
     "Minimum operating part load ratio at the next stage up"
     annotation (Placement(
-        transformation(extent={{260,-250},{280,-230}}), iconTransformation(extent={
+        transformation(extent={{340,-250},{360,-230}}), iconTransformation(extent={
             {100,-80},{120,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
@@ -143,13 +145,13 @@ block PartLoadRatios
   CDL.Integers.Sources.Constant chiStaType[nSta](
     final k=chiStaTyp)
     "Chiller stage type"
-    annotation (Placement(transformation(extent={{-340,260},{-320,280}})));
+    annotation (Placement(transformation(extent={{-340,290},{-320,310}})));
 
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaTyp(
     final nin=nSta, outOfRangeValue=-1)
     "Extract stage type"
-    annotation (Placement(transformation(extent={{-180,260},{-160,280}})));
+    annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add oneUp "Adds one"
     annotation (Placement(transformation(extent={{-240,140},{-220,160}})));
@@ -162,7 +164,7 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-240,60},{-220,80}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger curStaTyp "Current stage chiller type"
-    annotation (Placement(transformation(extent={{-120,260},{-100,280}})));
+    annotation (Placement(transformation(extent={{-120,290},{-100,310}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staUpTyp "Stage up chiller type"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
@@ -172,7 +174,8 @@ block PartLoadRatios
     "Extract stage type"
     annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaTyp2(nin=nSta)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaTyp2(nin=nSta,
+      outOfRangeValue=-1)
     "Extract stage type"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
 
@@ -189,7 +192,7 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-180,160},{-160,180}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi
-    annotation (Placement(transformation(extent={{142,140},{162,160}})));
+    annotation (Placement(transformation(extent={{160,140},{180,160}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant staTyp1(final k=3) "Chiller stage type 1"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
@@ -198,7 +201,7 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
-    annotation (Placement(transformation(extent={{-20,160},{0,180}})));
+    annotation (Placement(transformation(extent={{20,160},{40,180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant posDisTypMult(
     final k=posDisMult)
@@ -211,7 +214,7 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+    annotation (Placement(transformation(extent={{120,60},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
@@ -220,7 +223,7 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{20,-240},{40,-220}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
-    annotation (Placement(transformation(extent={{-20,98},{0,118}})));
+    annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -268,7 +271,7 @@ block PartLoadRatios
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const3(k=-1) if nVsdCen == 0
     "Constant"
-    annotation (Placement(transformation(extent={{50,20},{70,40}})));
+    annotation (Placement(transformation(extent={{70,20},{90,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const4(k=-1) if nVsdCen == 0
     "Constant"
@@ -277,21 +280,21 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Utilities.Assert staTyp(
     final message="Unlisted chiller type got selected")
     "Unlisted chiller type got selected"
-    annotation (Placement(transformation(extent={{220,250},{240,270}})));
+    annotation (Placement(transformation(extent={{300,360},{320,380}})));
 
   CDL.Continuous.GreaterThreshold                     greThr(
     final threshold=-0.5)
     "Less than threshold"
-    annotation (Placement(transformation(extent={{180,250},{200,270}})));
+    annotation (Placement(transformation(extent={{260,360},{280,380}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert staExc1(
     final message="Unlisted chiller type got selected")
     "Unlisted chiller type got selected"
-    annotation (Placement(transformation(extent={{220,200},{240,220}})));
+    annotation (Placement(transformation(extent={{300,310},{320,330}})));
 
   CDL.Continuous.GreaterThreshold                     greThr1(
     final threshold=-0.5) "Less than threshold"
-    annotation (Placement(transformation(extent={{180,200},{200,220}})));
+    annotation (Placement(transformation(extent={{260,310},{280,330}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrDow
     "Calculates operating part load ratio of the next stage down"
@@ -302,10 +305,10 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-240,-240},{-220,-220}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
-    annotation (Placement(transformation(extent={{-20,200},{0,220}})));
+    annotation (Placement(transformation(extent={{20,240},{40,260}})));
 
   CDL.Conversions.IntegerToReal intToRea[nSta]
-    annotation (Placement(transformation(extent={{-300,260},{-280,280}})));
+    annotation (Placement(transformation(extent={{-300,290},{-280,310}})));
 
   CDL.Logical.Switch swi4
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
@@ -315,10 +318,10 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
 
   CDL.Integers.Equal intEqu4
-    annotation (Placement(transformation(extent={{-178,0},{-158,20}})));
+    annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
 
   CDL.Integers.Max                        maxInt1
-    annotation (Placement(transformation(extent={{-200,220},{-180,240}})));
+    annotation (Placement(transformation(extent={{-230,220},{-210,240}})));
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-360,0},{-260,0},{-260,
           -44},{-242,-44}}, color={0,0,127}));
@@ -328,7 +331,7 @@ equation
   connect(one.y, oneDown.u2) annotation (Line(points={{-279,150},{-260,150},{-260,
           64},{-242,64}},   color={255,127,0}));
   connect(extStaTyp.y, curStaTyp.u)
-    annotation (Line(points={{-159,270},{-122,270}}, color={0,0,127}));
+    annotation (Line(points={{-159,300},{-122,300}}, color={0,0,127}));
   connect(one.y, oneUp.u2) annotation (Line(points={{-279,150},{-260,150},{-260,
           144},{-242,144}}, color={255,127,0}));
   connect(uSta, oneDown.u1) annotation (Line(points={{-360,240},{-250,240},{-250,
@@ -339,8 +342,9 @@ equation
     annotation (Line(points={{-139,210},{-122,210}}, color={0,0,127}));
   connect(extStaTyp2.y, staDowTyp1.u)
     annotation (Line(points={{-139,110},{-122,110}}, color={0,0,127}));
-  connect(maxSta.y, minInt.u1) annotation (Line(points={{-279,190},{-230,190},{-230,
-          176},{-182,176}},color={255,127,0}));
+  connect(maxSta.y, minInt.u1) annotation (Line(points={{-279,190},{-220,190},{
+          -220,176},{-182,176}},
+                           color={255,127,0}));
   connect(oneUp.y, minInt.u2) annotation (Line(points={{-219,150},{-210,150},{
           -210,164},{-182,164}},
                            color={255,127,0}));
@@ -351,29 +355,30 @@ equation
   connect(maxInt.y, extStaTyp2.index)
     annotation (Line(points={{-159,70},{-150,70},{-150,98}}, color={255,127,0}));
   connect(staUpTyp.y, intEqu.u1) annotation (Line(points={{-99,210},{-60,210},{-60,
-          170},{-22,170}}, color={255,127,0}));
-  connect(intEqu.u2, staTyp1.y) annotation (Line(points={{-22,162},{-32,162},{-32,
+          170},{18,170}},  color={255,127,0}));
+  connect(intEqu.u2, staTyp1.y) annotation (Line(points={{18,162},{-32,162},{-32,
           140},{-39,140}}, color={255,127,0}));
-  connect(opePlrSta.y, y) annotation (Line(points={{-219,-50},{-40,-50},{-40,-40},
-          {270,-40}}, color={0,0,127}));
-  connect(curStaTyp.y, intEqu1.u1) annotation (Line(points={{-99,270},{-80,270},
-          {-80,108},{-22,108}}, color={255,127,0}));
-  connect(staTyp2.y, intEqu1.u2) annotation (Line(points={{-39,80},{-30,80},{-30,100},
-          {-22,100}},      color={255,127,0}));
-  connect(intEqu1.y, swi1.u2) annotation (Line(points={{1,108},{50,108},{50,70},
-          {98,70}}, color={255,0,255}));
+  connect(opePlrSta.y, y) annotation (Line(points={{-219,-50},{-40,-50},{-40,
+          -40},{350,-40}},
+                      color={0,0,127}));
+  connect(curStaTyp.y, intEqu1.u1) annotation (Line(points={{-99,300},{-80,300},
+          {-80,110},{18,110}},  color={255,127,0}));
+  connect(staTyp2.y, intEqu1.u2) annotation (Line(points={{-39,80},{-30,80},{-30,
+          102},{18,102}},  color={255,127,0}));
+  connect(intEqu1.y, swi1.u2) annotation (Line(points={{41,110},{100,110},{100,70},
+          {118,70}},color={255,0,255}));
   connect(staDowTyp1.y, intEqu2.u1) annotation (Line(points={{-99,110},{-90,110},{-90,
           30},{-22,30}},      color={255,127,0}));
-  connect(swi1.y, swi.u3) annotation (Line(points={{121,70},{130,70},{130,142},{
-          140,142}}, color={0,0,127}));
+  connect(swi1.y, swi.u3) annotation (Line(points={{141,70},{150,70},{150,142},{
+          158,142}}, color={0,0,127}));
   connect(staTyp2.y, intEqu2.u2) annotation (Line(points={{-39,80},{-30,80},{-30,22},
           {-22,22}},              color={255,127,0}));
   connect(swi3.y, swi2.u3) annotation (Line(points={{41,-230},{50,-230},{50,-188},
           {58,-188}}, color={0,0,127}));
   connect(intEqu2.y, swi3.u2) annotation (Line(points={{1,30},{10,30},{10,-230},
           {18,-230}}, color={255,0,255}));
-  connect(swi.y, yStaUp) annotation (Line(points={{163,150},{180,150},{180,0},{
-          270,0}},
+  connect(swi.y, yStaUp) annotation (Line(points={{181,150},{210,150},{210,0},{
+          350,0}},
                color={0,0,127}));
   connect(uCapReq, opePlrUp.u1) annotation (Line(points={{-360,0},{-300,0},{-300,
           -134},{-242,-134}},
@@ -382,10 +387,10 @@ equation
           -160},{-280,-146},{-242,-146}},
                                     color={0,0,127}));
   connect(opePlrUp.y, yUp) annotation (Line(points={{-219,-140},{-40,-140},{-40,
-          -120},{270,-120}},
+          -120},{350,-120}},
                        color={0,0,127}));
   connect(minOpePlrUp.y, yUpMin) annotation (Line(points={{-219,-190},{-100,
-          -190},{-100,-280},{170,-280},{170,-240},{270,-240}},
+          -190},{-100,-280},{200,-280},{200,-240},{350,-240}},
                                                         color={0,0,127}));
   connect(uLifMin, add2.u2) annotation (Line(points={{-360,-420},{-240,-420},{-240,
           -416},{-122,-416}}, color={0,0,127}));
@@ -423,12 +428,12 @@ equation
   connect(mult2.y, add3.u1) annotation (Line(points={{21,-430},{100,-430},{100,-466},
           {118,-466}}, color={0,0,127}));
   connect(staTyp.u,greThr. y)
-    annotation (Line(points={{218,260},{201,260}},
+    annotation (Line(points={{298,370},{281,370}},
                                               color={255,0,255}));
-  connect(swi.y,greThr. u) annotation (Line(points={{163,150},{170,150},{170,
-          260},{178,260}}, color={0,0,127}));
-  connect(swi3.y,greThr1. u) annotation (Line(points={{41,-230},{170,-230},{170,
-          210},{178,210}}, color={0,0,127}));
+  connect(swi.y,greThr. u) annotation (Line(points={{181,150},{190,150},{190,
+          370},{258,370}}, color={0,0,127}));
+  connect(swi3.y,greThr1. u) annotation (Line(points={{41,-230},{200,-230},{200,
+          320},{258,320}}, color={0,0,127}));
   connect(uLifMax, add2.u1) annotation (Line(points={{-360,-360},{-260,-360},{-260,
           -388},{-140,-388},{-140,-404},{-122,-404}}, color={0,0,127}));
   connect(uCapReq, opePlrDow.u1) annotation (Line(points={{-360,0},{-280,0},{-280,
@@ -437,16 +442,14 @@ equation
   connect(uStaDowCapNom, opePlrDow.u2) annotation (Line(points={{-360,-100},{
           -280,-100},{-280,-86},{-242,-86}},
                                     color={0,0,127}));
-  connect(opePlrDow.y, yDow) annotation (Line(points={{-219,-80},{270,-80}},
+  connect(opePlrDow.y, yDow) annotation (Line(points={{-219,-80},{350,-80}},
                       color={0,0,127}));
-  connect(minOpePlr.y, yMin) annotation (Line(points={{-219,-230},{-80,-230},{-80,
-          -200},{270,-200}},                       color={0,0,127}));
-  connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-159,-30},{40,
-          -30},{40,158},{140,158}},
-                               color={0,0,127}));
-  connect(posDisTypMult.y, swi1.u1) annotation (Line(points={{-159,-110},{-60,
-          -110},{-60,60},{0,60},{0,78},{98,78}},
-                                              color={0,0,127}));
+  connect(minOpePlr.y, yMin) annotation (Line(points={{-219,-230},{-80,-230},{
+          -80,-200},{350,-200}},                   color={0,0,127}));
+  connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-159,-30},{60,-30},
+          {60,158},{158,158}}, color={0,0,127}));
+  connect(posDisTypMult.y, swi1.u1) annotation (Line(points={{-159,-110},{-60,-110},
+          {-60,60},{0,60},{0,78},{118,78}},   color={0,0,127}));
   connect(posDisTypMult.y, swi3.u1) annotation (Line(points={{-159,-110},{-60,
           -110},{-60,-222},{18,-222}},
                                  color={0,0,127}));
@@ -454,11 +457,11 @@ equation
           -30},{0,-172},{58,-172}},
                                color={0,0,127}));
   connect(staTyp1.y, intEqu3.u2) annotation (Line(points={{-39,140},{-32,140},{-32,
-          202},{-22,202}}, color={255,127,0}));
-  connect(curStaTyp.y, intEqu3.u1) annotation (Line(points={{-99,270},{-32,270},
-          {-32,210},{-22,210}},
+          242},{18,242}},  color={255,127,0}));
+  connect(curStaTyp.y, intEqu3.u1) annotation (Line(points={{-99,300},{-32,300},
+          {-32,250},{18,250}},
                            color={255,127,0}));
-  connect(intEqu3.y, swi2.u2) annotation (Line(points={{1,210},{30,210},{30,-180},
+  connect(intEqu3.y, swi2.u2) annotation (Line(points={{41,250},{50,250},{50,-180},
           {58,-180}},color={255,0,255}));
   connect(uStaCapMin, minOpePlr.u1) annotation (Line(points={{-360,-220},{-280,
           -220},{-280,-224},{-242,-224}}, color={0,0,127}));
@@ -469,30 +472,31 @@ equation
   connect(uStaUpCapNom, minOpePlrUp.u2) annotation (Line(points={{-360,-160},{-280,
           -160},{-280,-196},{-242,-196}},      color={0,0,127}));
   connect(greThr1.y, staExc1.u)
-    annotation (Line(points={{201,210},{218,210}}, color={255,0,255}));
-  connect(intEqu.y, swi.u2) annotation (Line(points={{1,170},{120,170},{120,150},
-          {140,150}}, color={255,0,255}));
+    annotation (Line(points={{281,320},{298,320}}, color={255,0,255}));
+  connect(intEqu.y, swi.u2) annotation (Line(points={{41,170},{120,170},{120,150},
+          {158,150}}, color={255,0,255}));
   connect(chiStaType.y, intToRea.u)
-    annotation (Line(points={{-319,270},{-302,270}}, color={255,127,0}));
+    annotation (Line(points={{-319,300},{-302,300}}, color={255,127,0}));
   connect(intToRea.y, extStaTyp.u)
-    annotation (Line(points={{-279,270},{-182,270}}, color={0,0,127}));
-  connect(intToRea.y, extStaTyp1.u) annotation (Line(points={{-279,270},{-260,270},
+    annotation (Line(points={{-279,300},{-182,300}}, color={0,0,127}));
+  connect(intToRea.y, extStaTyp1.u) annotation (Line(points={{-279,300},{-260,300},
           {-260,210},{-162,210}}, color={0,0,127}));
-  connect(intToRea.y, extStaTyp2.u) annotation (Line(points={{-279,270},{-260,270},
+  connect(intToRea.y, extStaTyp2.u) annotation (Line(points={{-279,300},{-260,300},
           {-260,210},{-200,210},{-200,110},{-162,110}}, color={0,0,127}));
   connect(const4.y, swi3.u3) annotation (Line(points={{-19,-250},{0,-250},{0,
           -238},{18,-238}},
                       color={0,0,127}));
-  connect(const3.y, swi1.u3) annotation (Line(points={{71,30},{80,30},{80,62},{
-          98,62}},
+  connect(const3.y, swi1.u3) annotation (Line(points={{91,30},{100,30},{100,62},
+          {118,62}},
                 color={0,0,127}));
   connect(add3.y, swi3.u3) annotation (Line(points={{141,-472},{150,-472},{150,-260},
           {10,-260},{10,-238},{18,-238}},
                                         color={0,0,127}));
   connect(add3.y, swi1.u3) annotation (Line(points={{141,-472},{150,-472},{150,20},
-          {88,20},{88,62},{98,62}}, color={0,0,127}));
+          {110,20},{110,62},{118,62}},
+                                    color={0,0,127}));
   connect(swi4.y, yStaDow)
-    annotation (Line(points={{141,-160},{270,-160}}, color={0,0,127}));
+    annotation (Line(points={{141,-160},{350,-160}}, color={0,0,127}));
   connect(swi2.y, swi4.u3) annotation (Line(points={{81,-180},{100,-180},{100,-168},
           {118,-168}}, color={0,0,127}));
   connect(const5.y, swi4.u1) annotation (Line(points={{81,-140},{100,-140},{100,
@@ -500,23 +504,22 @@ equation
   connect(one.y, maxInt.u2) annotation (Line(points={{-279,150},{-270,150},{
           -270,50},{-192,50},{-192,64},{-182,64}},
                                               color={255,127,0}));
-  connect(uSta, intEqu4.u2) annotation (Line(points={{-360,240},{-320,240},{
-          -320,12},{-240,12},{-240,2},{-180,2}},                  color={255,127,
+  connect(uSta, intEqu4.u2) annotation (Line(points={{-360,240},{-320,240},{-320,
+          12},{-240,12},{-240,2},{-182,2}},                       color={255,127,
           0}));
-  connect(one.y, intEqu4.u1) annotation (Line(points={{-279,150},{-270,150},{
-          -270,20},{-220,20},{-220,10},{-180,10}},
-                                              color={255,127,0}));
-  connect(intEqu4.y, swi4.u2) annotation (Line(points={{-157,10},{-10,10},{-10,
-          -160},{118,-160}},
-                       color={255,0,255}));
-  connect(maxInt1.y, extStaTyp.index) annotation (Line(points={{-179,230},{-170,
-          230},{-170,258}}, color={255,127,0}));
-  connect(one.y, maxInt1.u2) annotation (Line(points={{-279,150},{-270,150},{
-          -270,224},{-202,224}}, color={255,127,0}));
-  connect(uSta, maxInt1.u1) annotation (Line(points={{-360,240},{-220,240},{
-          -220,236},{-202,236}}, color={255,127,0}));
+  connect(one.y, intEqu4.u1) annotation (Line(points={{-279,150},{-270,150},{-270,
+          20},{-220,20},{-220,10},{-182,10}}, color={255,127,0}));
+  connect(intEqu4.y, swi4.u2) annotation (Line(points={{-159,10},{-10,10},{-10,-160},
+          {118,-160}}, color={255,0,255}));
+  connect(one.y, maxInt1.u2) annotation (Line(points={{-279,150},{-270,150},{-270,
+          224},{-232,224}},      color={255,127,0}));
+  connect(uSta, maxInt1.u1) annotation (Line(points={{-360,240},{-240,240},{-240,
+          236},{-232,236}},      color={255,127,0}));
+  connect(maxInt1.y, extStaTyp.index) annotation (Line(points={{-209,230},{-170,
+          230},{-170,288}}, color={255,127,0}));
   annotation (defaultComponentName = "PLRs",
-        Icon(graphics={
+        Icon(coordinateSystem(extent={{-340,-600},{340,400}}),
+             graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -533,7 +536,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="PLR")}),   Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-340,-600},{260,320}})),
+        extent={{-340,-600},{340,400}})),
 Documentation(info="<html>
 <p>
 OPLR - Operating part load ratio refers to any ratio of current capacity requirement

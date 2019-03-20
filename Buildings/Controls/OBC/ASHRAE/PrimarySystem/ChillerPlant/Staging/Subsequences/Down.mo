@@ -198,14 +198,15 @@ equation
     annotation (Line(points={{-59,30},{-42,30}}, color={255,0,255}));
   connect(not1.y, and0.u2) annotation (Line(points={{-19,30},{0,30},{0,32},{18,32}},
         color={255,0,255}));
-  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-99,-180},{86,-180},
-          {86,0},{98,0}}, color={255,0,255}));
+  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-99,-180},{90,-180},
+          {90,0},{98,0}}, color={255,0,255}));
   connect(not0.y, and1.u2) annotation (Line(points={{-59,-120},{0,-120},{0,-80},
           {18,-80}}, color={255,0,255}));
   connect(and1.y, truDel.u)
     annotation (Line(points={{41,-80},{58,-80}}, color={255,0,255}));
-  connect(truDel.y, logSwi.u3) annotation (Line(points={{81,-80},{90,-80},{90,-8},
-          {98,-8}}, color={255,0,255}));
+  connect(truDel.y, logSwi.u3) annotation (Line(points={{81,-80},{88,-80},{88,
+          -8},{98,-8}},
+                    color={255,0,255}));
   connect(hysOplr.y, and0.u1) annotation (Line(points={{-19,170},{0,170},{0,40},
           {18,40}}, color={255,0,255}));
   connect(and0.y, truDel1.u)
