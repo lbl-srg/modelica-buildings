@@ -5,7 +5,7 @@ model ASHRAE2006
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop(
     heaCoi(show_T=true),
     cooCoi(show_T=true),
-    fanSup(per(pressure(V_flow={0,m_flow_nominal/1.2*2}, dp=4*{780 + 10 +
+    fanSup(per(pressure(V_flow={0,m_flow_nominal/1.2*2}, dp=2*{780 + 10 +
               dpBuiStaSet,0}))));
 
   Modelica.Blocks.Sources.Constant TSupSetHea(y(
@@ -39,7 +39,7 @@ model ASHRAE2006
     nin=5,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     pMin=50,
-    k=0.1)   "Duct static pressure setpoint"
+    k=0.5)   "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{162,-18},{182,2}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-130,-212},{-110,-192}})));
@@ -339,12 +339,12 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1440,
             580}}), graphics={Text(
-          extent={{-46,272},{116,208}},
+          extent={{-300,256},{-138,192}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="Use of damper opening VS control signal
-PI pSupSet in reverse mode
-Increased fan pressure curve to be able to provide nominal downstream pressure drop at nominal flowrate (coef=4 VS 2)
+PI pSupSet in reverse mode & k=0.5 (VS 0.1)
+Nota: Current fan pressure curve does not enable reaching nominal flowrate in VAV box at nominal fan speed (pressure curve coefficient should be set to 4 VS 2). No change is made here for the sake of comparison with Guideline36.
 
 ")}),
     Documentation(info="<html>
