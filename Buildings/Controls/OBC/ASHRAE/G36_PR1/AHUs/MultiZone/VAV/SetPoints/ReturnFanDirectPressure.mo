@@ -265,7 +265,7 @@ to <code>dpDisMax</code>. The <code>dpDisMin</code> and
 </ol>
 <p align=\"center\">
 <img alt=\"Image of return fan control for multi zone AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ReturnFanControlWithPressure.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/ReturnFanControlWithPressure.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
