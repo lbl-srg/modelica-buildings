@@ -1,18 +1,11 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block PlantEnable "Sequence to enable and disable plant"
 
-
   parameter Boolean haveWSE = true
     "Flag to indicate if the plant has waterside economizer";
   parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
     "Plant enabling schedule allowing operators to lock out the plant during off-hour";
-  parameter Buildings.Controls.OBC.CDL.Types.Smoothness tabSmo=
-    Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments
-    "Smoothness of table interpolation";
-  final parameter Buildings.Controls.OBC.CDL.Types.Extrapolation extrapolation=
-    Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic
-    "Extrapolation of data outside the definition range";
-  parameter Modelica.SIunits.Temperature TChiLocOut
+  parameter Modelica.SIunits.Temperature TChiLocOut=277.5
     "Outdoor air lockout temperature below which the chiller plant should be disabled";
   parameter Modelica.SIunits.Time plaThrTim = 15*60
     "Threshold time to check status of chiller plant";
@@ -21,7 +14,7 @@ block PlantEnable "Sequence to enable and disable plant"
   parameter Integer ignReq = 0
     "Ignorable chiller plant requests";
   parameter Integer iniSta = 1
-    "Lowest chiller plant stage";
+    "Initial chiller plant stage when there is waterside economizer";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Current chiller plant enabling status"
@@ -33,10 +26,10 @@ block PlantEnable "Sequence to enable and disable plant"
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TChiWatSupResReq
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput chiWatSupResReq
     "Cooling chilled water supply temperature setpoint reset request"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreHeaChaLea(
     final unit="K",
     final quantity="ThermodynamicTemperature") if haveWSE
@@ -66,6 +59,12 @@ block PlantEnable "Sequence to enable and disable plant"
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
+  final parameter Buildings.Controls.OBC.CDL.Types.Smoothness tabSmo=
+    Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments
+    "Smoothness of table interpolation";
+  final parameter Buildings.Controls.OBC.CDL.Types.Extrapolation extrapolation=
+    Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic
+    "Extrapolation of data outside the definition range";
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
     final table=schTab,
     final smoothness=tabSmo,
@@ -91,12 +90,11 @@ protected
     "Check if the chiller plant request is greater than ignorable request"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nu=4)
+    final nu=4) "Logical and receiving multiple input"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Buildings.Controls.OBC.CDL.Logical.Timer enaTim "Chiller plant enabled time"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(
-    final threshold=ignReq)
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold noReq(final threshold=ignReq)
     "Check if the chiller plant request is less than ignorable request"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Timer enaTim1
@@ -108,6 +106,7 @@ protected
     "Difference between chiller lockout temperature and outdoor temperature"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Convert real input to integer output"
     annotation (Placement(transformation(extent={{140,-290},{160,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
@@ -117,6 +116,7 @@ protected
     "Maintains an on signal until conditions changes"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
+    "Triggered sampling of continuous signals"
     annotation (Placement(transformation(extent={{140,-210},{160,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     annotation (Placement(transformation(extent={{120,-250},{140,-230}})));
@@ -164,11 +164,12 @@ protected
     "Check if predict heat exchange leaving water temperature is greater than chilled water supply temperature setpoint minus 1degF"
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback if haveWSE
+    "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-150,-210},{-130,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,-210},{80,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=true) if not haveWSE
-    "Constant true"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
+    final k=true) if not haveWSE "Constant true"
     annotation (Placement(transformation(extent={{-60,-280},{-40,-260}})));
 
 equation
@@ -184,17 +185,17 @@ equation
     annotation (Line(points={{-119,140},{-102,140}}, color={255,0,255}));
   connect(disTim.y, greEquThr.u)
     annotation (Line(points={{-79,140},{-62,140}}, color={0,0,127}));
-  connect(TChiWatSupResReq, hasReq.u)
+  connect(chiWatSupResReq, hasReq.u)
     annotation (Line(points={{-220,100},{-142,100}}, color={255,127,0}));
   connect(uPla, enaTim.u)
     annotation (Line(points={{-220,140},{-160,140},{-160,-40},{-142,-40}},
       color={255,0,255}));
   connect(enaTim.y, greEquThr1.u)
     annotation (Line(points={{-119,-40},{-102,-40}}, color={0,0,127}));
-  connect(TChiWatSupResReq, intLesThr.u)
+  connect(chiWatSupResReq, noReq.u)
     annotation (Line(points={{-220,100},{-170,100},{-170,-100},{-142,-100}},
       color={255,127,0}));
-  connect(intLesThr.y, enaTim1.u)
+  connect(noReq.y, enaTim1.u)
     annotation (Line(points={{-119,-100},{-102,-100}}, color={255,0,255}));
   connect(enaTim1.y, greEquThr2.u)
     annotation (Line(points={{-79,-100},{-62,-100}}, color={0,0,127}));
@@ -280,75 +281,39 @@ annotation (
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineThickness=5,
+          borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
           textString="%name"),
+        Ellipse(extent={{-80,80},{80,-80}}, lineColor={28,108,200},fillColor={170,255,213},
+          fillPattern=FillPattern.Solid),
+        Ellipse(extent={{-90,90},{90,-90}}, lineColor={28,108,200}),
+        Rectangle(extent={{-75,2},{75,-2}}, lineColor={28,108,200},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-17,7.5},{17,-7.5}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          origin={-83,97.5},
-          rotation=0,
-          textString="uPla"),
+          extent={{-66,46},{76,10}},
+          lineColor={28,108,200},
+          textString="START"),
         Text(
-          extent={{-49,9.5},{49,-9.5}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          origin={-49,59.5},
-          rotation=0,
-          textString="TChiWatSupResReq"),
-        Text(
-          extent={{-16,6.5},{16,-6.5}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          origin={-84,20.5},
-          rotation=0,
-          textString="TOut"),
-        Text(
-          extent={{-17,7.5},{17,-7.5}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          origin={81,-0.5},
-          rotation=0,
-          textString="yPla"),
-        Text(
-          extent={{-27,9},{27,-9}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          origin={69,-59},
-          rotation=0,
-          textString="yIniChiSta"),
-        Text(
-          extent={{-39,7.5},{39,-7.5}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          origin={-57,-20.5},
-          rotation=0,
-          textString="TPreHeaChaLea"),
-        Text(
-          extent={{-36,8.5},{36,-8.5}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          origin={-60,-59.5},
-          rotation=0,
-          textString="TChiWatSupSet"),
-        Text(
-          extent={{-28,6.5},{28,-6.5}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          origin={-68,-91.5},
-          rotation=0,
-          textString="PLRHeaExc")}),
+          extent={{-66,-8},{76,-44}},
+          lineColor={28,108,200},
+          textString="STOP")}),
  Documentation(info="<html>
 <p>
-Block that generate chiller plant enable signals, according to
-ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.2.
+Block that generate chiller plant enable signals and output the initial plant stage,
+according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
+Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.2 and 
+5.2.4.13 Table 2.
+</p>
+<p>
+The chiller plant should be enabled and disabled according to following sequences:
 </p>
 <ol>
 <li>
@@ -373,14 +338,51 @@ The chiller enable schedule is active.
 </li>
 </ul>
 </li>
-
 <li>
 The plant should be disabled when it has been enabled for at least 
 <code>plaThrTim</code>, e.g. 15 minutes and:
-
-
+<ul>
+<li>
+Number of chiller plant requests &le; <code>ignReq</code> for <code>reqThrTim</code>, or,
+</li>
+<li>
+Outdoor air temperature is 1 &deg;F less than chiller lockout temperature,
+<code>TOut</code> &lt; <code>TChiLocOut</code> - 1 &deg;F, or,
+</li>
+<li>
+The chiller enable schedule is inactive.
+</li>
+</ul>
 </li>
 </ol>
+
+<p>
+The initial stage <code>yIniChiSta</code> should be defined as:
+</p>
+<ol>
+<li>
+When the plant is enabled and the plant has no waterside economizer (<code>haveWSE</code>=false), 
+the initial stage will be 1.
+</li>
+<li>
+When the plant is enabled and the plant has waterside economizer (<code>haveWSE</code>=true),
+the initial stage should be:
+<ul>
+<li>
+If predicted heat exchanger leaving water temperature <code>TPreHeaChaLea</code> (
+calculated with predicted heat exchanger part load ratio <code>PLRHeaExc</code> 
+equals to 1) is 1 &deg;F &lt; <code>TChiWatSupSet</code> (the chilled water supply
+temperature setpoint), then the initial stage will be 0. Waterside economizer will be
+enabled.
+</li>
+<li>
+Otherwise, the initial stage will be 1.
+</li>
+
+</ul>
+</li>
+</ol>
+
 
 </html>",
 revisions="<html>

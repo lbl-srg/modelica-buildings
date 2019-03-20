@@ -1,7 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
-package Generic
-  
-annotation (Icon(graphics={
+package Generic "Generic control sequences"
+
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This package contains generic sequences that would be needed for plant control.
+</p>
+</html>"),
+Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
