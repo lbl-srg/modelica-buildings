@@ -1,14 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
-package Economizer "Waterside economizer (WSE) sequences"
-
-annotation (
-preferredView="info", Documentation(info="<html>
-<p>
-This package contains waterside economizer (WSE) control sequences.
-The implementation is based on section 5.2.3. in ASHRAE RP-1711, Draft 4.
-</p>
-</html>"),
-Icon(graphics={
+package Generic
+  
+annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
@@ -42,4 +35,4 @@ Icon(graphics={
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}));
-end Economizer;
+end Generic;
