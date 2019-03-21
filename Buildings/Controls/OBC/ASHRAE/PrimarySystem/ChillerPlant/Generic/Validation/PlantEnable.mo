@@ -2,91 +2,93 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validati
 model PlantEnable "Validation sequence for enabling and disabling chiller plant"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable enaPlaWse0(
-    schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
+    final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
     "Enabling control of plant with waterside economizer, stage up from zero"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable enaPlaWse1(
-    schTab=[0,0; 6*3600,1; 19*3600,1; 24*3600,0])
+    final schTab=[0,0; 6*3600,1; 19*3600,1; 24*3600,0])
     "Enabling control of plant with waterside economizer, stage up from one"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaSch(
-    haveWSE=false,
-    schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
+    final haveWSE=false,
+    final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
     "Disable plant without waterside economizer, due to schedule"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaReq(
-    haveWSE=false,
-    schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
+    final haveWSE=false,
+    final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
     "Disable plant without waterside economizer, due to lack of request"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaOutTem(
-    haveWSE=false,
-    schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
+    final haveWSE=false,
+    final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
     "Disable plant without waterside economizer, due to low outdoor temperature"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable chiPlaReq(
-    table=[0,0; 6.5*3600,1; 9*3600,2; 14*3600,3; 19*3600,3; 24*3600,0],
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
+    final table=[0,0; 6.5*3600,1; 9*3600,2; 14*3600,3; 19*3600,3; 24*3600,0],
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Number of chiller plant request"
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTem(
-    amplitude=7.5,
-    freqHz=1/(24*3600),
-    offset=282.15) "Outdoor temperature"
+    final amplitude=7.5,
+    final freqHz=1/(24*3600),
+    final offset=282.15) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiSupTemSet(
-    amplitude=2,
-    freqHz=1/(24*3600),
-    offset=279.15) "Chilled water supply temperature setpoint"
+    final amplitude=2,
+    final freqHz=1/(24*3600),
+    final offset=279.15) "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1) "Constant one"
     annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine preHeaExcLeaTem(
-    amplitude=2,
-    freqHz=1/(24*3600),
-    offset=277.15) "Predicted heat exchanger leaving water temperature"
+    final amplitude=2,
+    final freqHz=1/(24*3600),
+    final offset=277.15) "Predicted heat exchanger leaving water temperature"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine preHeaExcLeaTem1(
-    amplitude=2,
-    freqHz=1/(24*3600),
-    offset=280.15) "Predicted heat exchanger leaving water temperature"
+    final amplitude=2,
+    final freqHz=1/(24*3600),
+    final offset=280.15) "Predicted heat exchanger leaving water temperature"
     annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Breaks algebraic loops"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Breaks algebraic loops"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable chiPlaReq1(
-    table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,3; 19*3600,3; 24*3600,1],
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
+    final table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,3; 19*3600,3; 24*3600,1],
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Number of chiller plant request"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOutTem(k=282.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOutTem(
+    final k=282.15)
     "Constant outdoor temperature"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre2 "Breaks algebraic loops"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable chiPlaReq2(
-    table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,0; 19*3600,0; 24*3600,1],
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
+    final table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,0; 19*3600,0; 24*3600,1],
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Number of chiller plant request"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOutTem1(k=282.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOutTem1(
+    final k=282.15)
     "Constant outdoor temperature"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre3 "Breaks algebraic loops"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable chiPlaReq3(
-    table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,3; 19*3600,3; 24*3600,1],
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
+    final table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,3; 19*3600,3; 24*3600,1],
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Number of chiller plant request"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
@@ -95,9 +97,9 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
   Buildings.Controls.OBC.CDL.Logical.Pre pre4 "Breaks algebraic loops"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTem1(
-    amplitude=7.5,
-    freqHz=1/(24*3600),
-    offset=280.15) "Outdoor temperature"
+    final amplitude=7.5,
+    final freqHz=1/(24*3600),
+    final offset=280.15) "Outdoor temperature"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
 
 equation
