@@ -2,19 +2,19 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subse
 model Tuning_uEcoSta_uTowFanSpeMax
   "Validate water side economizer tuning parameter sequence"
 
-  Tuning wseTun
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning wseTun
     "Tests tuning parameter increase due to a dip in tower fan speed"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
-  Tuning wseTun1
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning wseTun1
     "Tests tuning parameter remains constant inspite of a dip in tower fan speed due to the prolonged WSE on status"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
-  Tuning wseTun2
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning wseTun2
     "Tests tuning parameter decrease due to WSE being on for a long time before disable"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  Tuning wseTun3
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning wseTun3
     "Tests tuning parameter remains constant despite of a dip in tower fan speed due to the prolonged WSE on status"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
@@ -126,13 +126,13 @@ Icon(graphics={
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,140}}),
         graphics={
         Text(
-          extent={{-106,-80},{-46,-102}},
+          extent={{-124,-84},{-18,-96}},
           lineColor={0,0,127},
           textString="Tests tuning parameter decrease
 based on WSE enable duration
 prior to disable"),
         Text(
-          extent={{38,-78},{98,-100}},
+          extent={{-12,-72},{152,-104}},
           lineColor={0,0,127},
           textString="Tests tuning parameter increase
 based on WSE enable duration

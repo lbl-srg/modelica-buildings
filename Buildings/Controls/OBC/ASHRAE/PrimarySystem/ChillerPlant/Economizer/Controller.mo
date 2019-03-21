@@ -29,9 +29,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   "Design outdoor air wet bulb temperature"
     annotation(Dialog(group="Design parameters"));
 
-  parameter Real VHeaExcDes_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")=0.015
+  parameter Modelica.SIunits.VolumeFlowRate VHeaExcDes_flow=0.015
     "Desing heat exchanger chilled water volume flow rate"
     annotation(Dialog(group="Design parameters"));
 

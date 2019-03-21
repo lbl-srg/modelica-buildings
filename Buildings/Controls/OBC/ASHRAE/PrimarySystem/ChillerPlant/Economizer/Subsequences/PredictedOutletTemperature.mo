@@ -11,9 +11,7 @@ block PredictedOutletTemperature
   parameter Modelica.SIunits.Temperature TOutWetDes=288.15
   "Design outdoor air wet bulb temperature";
 
-  parameter Real VHeaExcDes_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s")=0.01
+  parameter Modelica.SIunits.VolumeFlowRate VHeaExcDes_flow=0.01
     "Desing heat exchanger chilled water flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar(

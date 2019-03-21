@@ -25,9 +25,7 @@ protected
   parameter Modelica.SIunits.Temperature TWseOut = 290.15
   "Chilled water retun temperature downstream of the WSE";
 
-  parameter Real VChiWat_flow(
-    final quantity="VolumeFlowRate",
-    final unit="m3/s") = 0.01
+  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow = 0.01
     "Measured chilled water return temperature";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow(
@@ -76,7 +74,7 @@ protected
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
 
-  CDL.Continuous.Sources.Sine TChiWatRetDow1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRetDow1(
     final offset=TWseOut,
     final freqHz=1/1800,
     final amplitude=4)
@@ -104,14 +102,14 @@ protected
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
 
-  CDL.Continuous.Sources.Sine TChiWatRetDow3(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRetDow3(
     final offset=TWseOut,
     final freqHz=1/1800,
     final amplitude=4)
     "Chilled water return temperature downstream of WSE"
     annotation (Placement(transformation(extent={{90,0},{110,20}})));
-equation
 
+equation
   connect(constTowFanSig.y, wseSta.uTowFanSpeMax) annotation (Line(points={{-119,
           -70},{-80,-70},{-80,2},{-72,2}}, color={0,0,127}));
   connect(TOutWetSig.y, wseSta.TOutWet) annotation (Line(points={{-119,70},{-80,
@@ -173,19 +171,19 @@ Icon(graphics={
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{200,100}}),
         graphics={
         Text(
-          extent={{-160,-82},{-100,-104}},
+          extent={{-172,-74},{-86,-112}},
           lineColor={0,0,127},
           textString="Tests enable conditions 
 based on the outdoor air 
 wetbulb temperature"),
         Text(
-          extent={{-50,-82},{10,-104}},
+          extent={{-70,-72},{32,-114}},
           lineColor={0,0,127},
           textString="Tests disable conditions 
 based on the chilled water  
 temperature downstream of WSE"),
         Text(
-          extent={{86,-88},{114,-96}},
+          extent={{74,-88},{126,-102}},
           lineColor={0,0,127},
           textString="Combines conditions from 
 the first two tests")}));

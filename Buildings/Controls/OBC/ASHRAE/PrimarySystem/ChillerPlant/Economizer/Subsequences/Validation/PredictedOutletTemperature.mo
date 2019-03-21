@@ -5,7 +5,7 @@ model PredictedOutletTemperature
   parameter Modelica.SIunits.Temperature aveTWetBul = 288.15
   "Chilled water supply set temperature";
 
-  parameter Real aveVChiWat_flow(quantity="VolumeFlowRate", unit="m3/s") = 0.01
+  parameter Modelica.SIunits.VolumeFlowRate aveVChiWat_flow = 0.01
   "Average measured chilled water return temperature";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature
