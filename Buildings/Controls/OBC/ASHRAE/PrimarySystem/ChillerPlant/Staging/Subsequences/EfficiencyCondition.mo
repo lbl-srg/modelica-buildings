@@ -19,7 +19,7 @@ block EfficiencyCondition
     annotation (Placement(transformation(extent={{80,-10},{100,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=delayStaCha, delayOnInit=true)
     "Delays a true signal"

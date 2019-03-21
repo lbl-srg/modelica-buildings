@@ -86,7 +86,7 @@ block Down "Stage down conditions"
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-protected
+//protected
   CDL.Logical.Sources.Constant noWSE(final k=true) if not hasWSE
     "Replacement signal if plant does not have WSE"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -99,7 +99,7 @@ protected
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and0 "And for staging down"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -143,7 +143,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(final delayTime=delayStaCha,
       delayOnInit=true)
     "Delays a true signal"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
     final uLow=0,
@@ -180,8 +180,9 @@ equation
           {-110,-30},{-110,27},{-81,27}},  color={0,0,127}));
   connect(TChiWatSupSet, add0.u2) annotation (Line(points={{-160,-90},{-110,-90},
           {-110,-86},{-82,-86}},color={0,0,127}));
-  connect(TWsePre, add0.u1) annotation (Line(points={{-160,-60},{-112,-60},{-112,
-          -74},{-82,-74}}, color={0,0,127}));
+  connect(TWsePre, add0.u1) annotation (Line(points={{-160,-60},{-110,-60},{
+          -110,-74},{-82,-74}},
+                           color={0,0,127}));
   connect(hys.y, not0.u)
     annotation (Line(points={{-99,-120},{-82,-120}}, color={255,0,255}));
   connect(uTowFanSpeMax, hys.u) annotation (Line(points={{-160,-120},{-122,-120}},
@@ -196,7 +197,8 @@ equation
           176},{-82,176}},       color={0,0,127}));
   connect(faiSafCon.y, not1.u)
     annotation (Line(points={{-59,30},{-42,30}}, color={255,0,255}));
-  connect(not1.y, and0.u2) annotation (Line(points={{-19,30},{0,30},{0,32},{18,32}},
+  connect(not1.y, and0.u2) annotation (Line(points={{-19,30},{0,30},{0,62},{18,
+          62}},
         color={255,0,255}));
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-99,-180},{90,-180},
           {90,0},{98,0}}, color={255,0,255}));
@@ -207,18 +209,18 @@ equation
   connect(truDel.y, logSwi.u3) annotation (Line(points={{81,-80},{88,-80},{88,
           -8},{98,-8}},
                     color={255,0,255}));
-  connect(hysOplr.y, and0.u1) annotation (Line(points={{-19,170},{0,170},{0,40},
-          {18,40}}, color={255,0,255}));
-  connect(and0.y, truDel1.u)
-    annotation (Line(points={{41,40},{58,40}}, color={255,0,255}));
-  connect(truDel1.y, logSwi.u1) annotation (Line(points={{81,40},{90,40},{90,8},
-          {98,8}}, color={255,0,255}));
   connect(add.y, hysOplr.u)
     annotation (Line(points={{-59,170},{-42,170}}, color={0,0,127}));
   connect(noWSE.y, logSwi.u2)
     annotation (Line(points={{41,0},{98,0}}, color={255,0,255}));
   connect(noWSE.y, logSwi.u3) annotation (Line(points={{41,0},{80,0},{80,-8},{98,
           -8}}, color={255,0,255}));
+  connect(and0.y, truDel1.u) annotation (Line(points={{41,70},{50,70},{50,30},{
+          58,30}}, color={255,0,255}));
+  connect(truDel1.y, logSwi.u1) annotation (Line(points={{81,30},{90,30},{90,8},
+          {98,8}}, color={255,0,255}));
+  connect(hysOplr.y, and0.u1) annotation (Line(points={{-19,170},{0,170},{0,70},
+          {18,70}}, color={255,0,255}));
   annotation (defaultComponentName = "staDow",
         Icon(graphics={
         Rectangle(

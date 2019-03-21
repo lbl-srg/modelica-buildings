@@ -86,7 +86,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     final quantity="ThermodynamicTemperature",
     final unit="K") "Predicted waterside economizer outlet temperature"
     annotation (Placement(transformation(extent={{180,70},{200,90}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{120,-90},{160,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold enaTChiWatRet(
     final threshold=dTperiod)

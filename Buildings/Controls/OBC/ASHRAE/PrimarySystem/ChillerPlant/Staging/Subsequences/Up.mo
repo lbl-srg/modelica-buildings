@@ -84,7 +84,7 @@ block Up "Stage up conditions"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-protected
+//protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
     final delayStaCha = delayStaCha,
     final TDiff = TDiff,

@@ -75,7 +75,7 @@ block FailsafeCondition
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=delayStaCha, delayOnInit=true)
     "Delays a true signal"
