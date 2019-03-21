@@ -353,7 +353,7 @@ The following state machine chart illustrates the transitions between enabling a
 </p>
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconEnableDisableStateMachineChartSingleZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/EconEnableDisableStateMachineChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
