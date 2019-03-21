@@ -4,7 +4,7 @@ function basicFlowFunction_inv
 
   input Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
-  input Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
+  input Modelica.SIunits.PressureDifference dp
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
@@ -16,7 +16,7 @@ function basicFlowFunction_inv
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   input Real k_max
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  output Real k(unit="")
+  output Real k
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
   Real m_flowNorm = m_flowGuard / m_flow_turbulent
@@ -27,7 +27,7 @@ protected
   Real dpGuard = max(abs(dp), dp_small);
 algorithm
   k := if noEvent(abs(m_flow) > m_flow_turbulent)
-    then min(k_max, max(k_min, abs(m_flowGuard) / sqrt(abs(dpGuard))))
+    then min(k_max, max(k_min, m_flowGuard / sqrt(dpGuard)))
     else min(k_max, max(k_min, sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm)));
 annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

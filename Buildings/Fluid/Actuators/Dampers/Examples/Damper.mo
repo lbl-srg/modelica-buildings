@@ -71,10 +71,10 @@ model Damper
      annotation (Placement(
         transformation(extent={{-60,-140},{-40,-120}})));
   Modelica.Blocks.Sources.Ramp ramp(
-    offset=Medium.p_default,
-    height=preInd.dp_nominal + 1.5*preInd.dpFixed_nominal,
     duration=0.3,
-    startTime=0.2)
+    startTime=0.2,
+    offset=Medium.p_default,
+    height=preInd.dp_nominal + 3*preInd.dpFixed_nominal)
     annotation (Placement(transformation(extent={{-152,-132},{-132,-112}})));
   PressureIndependent                                   preInd1(
     use_inputFilter=false,
