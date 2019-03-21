@@ -13,9 +13,12 @@ model Change "Validates chiller stage signal"
     "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    staCha(             nVsdCen=0,
+    staCha(
     uSta(start=1),
-    hasWSE=false)
+    hasWSE=false,
+    nVsdCen=0,
+    nPosDis=1,
+    nConCen=1)
            annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   CDL.Continuous.Sources.Sine                        TChiWatRet(
     final amplitude=7,

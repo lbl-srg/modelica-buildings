@@ -181,8 +181,6 @@ equation
   connect(orStaUp.y, logSwi.u1) annotation (Line(points={{21,40},{30,40},{30,18},
           {58,18}},
                   color={255,0,255}));
-  connect(y, logSwi.y)
-    annotation (Line(points={{110,0},{96,0},{96,10},{81,10}}, color={255,0,255}));
   connect(add0.y,hysTSup. u)
     annotation (Line(points={{-59,-50},{-42,-50}}, color={0,0,127}));
   connect(TChiWatSupSet,add0. u1) annotation (Line(points={{-160,-80},{-90,-80},
@@ -209,6 +207,8 @@ equation
     annotation (Line(points={{21,10},{58,10}}, color={255,0,255}));
   connect(noWSE.y, logSwi.u3) annotation (Line(points={{21,10},{40,10},{40,2},{58,
           2}}, color={255,0,255}));
+  connect(logSwi.y, y) annotation (Line(points={{81,10},{90,10},{90,0},{110,0}},
+        color={255,0,255}));
   annotation (defaultComponentName = "staUp",
         Icon(graphics={
         Rectangle(

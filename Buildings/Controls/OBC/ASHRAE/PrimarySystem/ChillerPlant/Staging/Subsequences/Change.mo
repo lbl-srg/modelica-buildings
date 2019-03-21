@@ -212,12 +212,16 @@ block Change "Calculates the chiller stage signal"
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt1(final k2=+1)
     "Adder"
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   CDL.Integers.Min minInt "Minimum"
-    annotation (Placement(transformation(extent={{140,100},{160,120}})));
+    annotation (Placement(transformation(extent={{100,100},{120,120}})));
   CDL.Integers.Sources.Constant conInt(k=nSta) "Highest stage"
-    annotation (Placement(transformation(extent={{100,120},{120,140}})));
+    annotation (Placement(transformation(extent={{60,120},{80,140}})));
+  CDL.Integers.Sources.Constant conInt1(k=0) "Stage 0"
+    annotation (Placement(transformation(extent={{100,150},{120,170}})));
+  CDL.Integers.Max maxInt "Minimum"
+    annotation (Placement(transformation(extent={{140,130},{160,150}})));
 equation
   connect(booToInt.y, addInt.u1) annotation (Line(points={{121,10},{130,10},{130,
           -4},{138,-4}}, color={255,127,0}));
@@ -301,15 +305,19 @@ equation
           -40},{-92,-40},{-92,-16},{-61,-16}},color={0,0,127}));
   connect(uStaAva, staCap.uStaAva) annotation (Line(points={{-200,160},{-132,160},
           {-132,-76},{-122,-76}}, color={255,0,255}));
-  connect(addInt.y, addInt1.u2) annotation (Line(points={{161,-10},{170,-10},{
-          170,50},{80,50},{80,64},{98,64}},color={255,127,0}));
-  connect(uSta, addInt1.u1) annotation (Line(points={{-200,190},{80,190},{80,76},
-          {98,76}},  color={255,127,0}));
-  connect(conInt.y, minInt.u1) annotation (Line(points={{121,130},{130,130},{
-          130,116},{138,116}}, color={255,127,0}));
-  connect(addInt1.y, minInt.u2) annotation (Line(points={{121,70},{130,70},{130,
-          104},{138,104}}, color={255,127,0}));
-  connect(minInt.y, ySta) annotation (Line(points={{161,110},{170,110},{170,70},
+  connect(addInt.y, addInt1.u2) annotation (Line(points={{161,-10},{170,-10},{170,
+          50},{40,50},{40,64},{58,64}},    color={255,127,0}));
+  connect(uSta, addInt1.u1) annotation (Line(points={{-200,190},{40,190},{40,76},
+          {58,76}},  color={255,127,0}));
+  connect(conInt.y, minInt.u1) annotation (Line(points={{81,130},{90,130},{90,116},
+          {98,116}},           color={255,127,0}));
+  connect(addInt1.y, minInt.u2) annotation (Line(points={{81,70},{90,70},{90,104},
+          {98,104}},       color={255,127,0}));
+  connect(conInt1.y, maxInt.u1) annotation (Line(points={{121,160},{129.5,160},{
+          129.5,146},{138,146}}, color={255,127,0}));
+  connect(minInt.y, maxInt.u2) annotation (Line(points={{121,110},{130,110},{130,
+          134},{138,134}}, color={255,127,0}));
+  connect(maxInt.y, ySta) annotation (Line(points={{161,140},{170,140},{170,70},
           {190,70}}, color={255,127,0}));
   annotation (defaultComponentName = "staCha",
         Icon(graphics={

@@ -342,9 +342,8 @@ equation
     annotation (Line(points={{-139,210},{-122,210}}, color={0,0,127}));
   connect(extStaTyp2.y, staDowTyp1.u)
     annotation (Line(points={{-139,110},{-122,110}}, color={0,0,127}));
-  connect(maxSta.y, minInt.u1) annotation (Line(points={{-279,190},{-220,190},{
-          -220,176},{-182,176}},
-                           color={255,127,0}));
+  connect(maxSta.y, minInt.u1) annotation (Line(points={{-279,190},{-220,190},{-220,
+          176},{-182,176}},color={255,127,0}));
   connect(oneUp.y, minInt.u2) annotation (Line(points={{-219,150},{-210,150},{
           -210,164},{-182,164}},
                            color={255,127,0}));
@@ -358,9 +357,8 @@ equation
           170},{18,170}},  color={255,127,0}));
   connect(intEqu.u2, staTyp1.y) annotation (Line(points={{18,162},{-32,162},{-32,
           140},{-39,140}}, color={255,127,0}));
-  connect(opePlrSta.y, y) annotation (Line(points={{-219,-50},{-40,-50},{-40,
-          -40},{350,-40}},
-                      color={0,0,127}));
+  connect(opePlrSta.y, y) annotation (Line(points={{-219,-50},{-40,-50},{-40,-40},
+          {350,-40}}, color={0,0,127}));
   connect(curStaTyp.y, intEqu1.u1) annotation (Line(points={{-99,300},{-80,300},
           {-80,110},{18,110}},  color={255,127,0}));
   connect(staTyp2.y, intEqu1.u2) annotation (Line(points={{-39,80},{-30,80},{-30,
@@ -377,9 +375,8 @@ equation
           {58,-188}}, color={0,0,127}));
   connect(intEqu2.y, swi3.u2) annotation (Line(points={{1,30},{10,30},{10,-230},
           {18,-230}}, color={255,0,255}));
-  connect(swi.y, yStaUp) annotation (Line(points={{181,150},{210,150},{210,0},{
-          350,0}},
-               color={0,0,127}));
+  connect(swi.y, yStaUp) annotation (Line(points={{181,150},{210,150},{210,0},{350,
+          0}}, color={0,0,127}));
   connect(uCapReq, opePlrUp.u1) annotation (Line(points={{-360,0},{-300,0},{-300,
           -134},{-242,-134}},
                         color={0,0,127}));
@@ -389,9 +386,8 @@ equation
   connect(opePlrUp.y, yUp) annotation (Line(points={{-219,-140},{-40,-140},{-40,
           -120},{350,-120}},
                        color={0,0,127}));
-  connect(minOpePlrUp.y, yUpMin) annotation (Line(points={{-219,-190},{-100,
-          -190},{-100,-280},{200,-280},{200,-240},{350,-240}},
-                                                        color={0,0,127}));
+  connect(minOpePlrUp.y, yUpMin) annotation (Line(points={{-219,-190},{-100,-190},
+          {-100,-280},{200,-280},{200,-240},{350,-240}},color={0,0,127}));
   connect(uLifMin, add2.u2) annotation (Line(points={{-360,-420},{-240,-420},{-240,
           -416},{-122,-416}}, color={0,0,127}));
   connect(const.y, div.u1) annotation (Line(points={{-219,-350},{-100,-350},{-100,
@@ -430,8 +426,8 @@ equation
   connect(staTyp.u,greThr. y)
     annotation (Line(points={{298,370},{281,370}},
                                               color={255,0,255}));
-  connect(swi.y,greThr. u) annotation (Line(points={{181,150},{190,150},{190,
-          370},{258,370}}, color={0,0,127}));
+  connect(swi.y,greThr. u) annotation (Line(points={{181,150},{190,150},{190,370},
+          {258,370}},      color={0,0,127}));
   connect(swi3.y,greThr1. u) annotation (Line(points={{41,-230},{200,-230},{200,
           320},{258,320}}, color={0,0,127}));
   connect(uLifMax, add2.u1) annotation (Line(points={{-360,-360},{-260,-360},{-260,
@@ -444,8 +440,8 @@ equation
                                     color={0,0,127}));
   connect(opePlrDow.y, yDow) annotation (Line(points={{-219,-80},{350,-80}},
                       color={0,0,127}));
-  connect(minOpePlr.y, yMin) annotation (Line(points={{-219,-230},{-80,-230},{
-          -80,-200},{350,-200}},                   color={0,0,127}));
+  connect(minOpePlr.y, yMin) annotation (Line(points={{-219,-230},{-80,-230},{-80,
+          -200},{350,-200}},                       color={0,0,127}));
   connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-159,-30},{60,-30},
           {60,158},{158,158}}, color={0,0,127}));
   connect(posDisTypMult.y, swi1.u1) annotation (Line(points={{-159,-110},{-60,-110},
@@ -518,8 +514,7 @@ equation
   connect(maxInt1.y, extStaTyp.index) annotation (Line(points={{-209,230},{-170,
           230},{-170,288}}, color={255,127,0}));
   annotation (defaultComponentName = "PLRs",
-        Icon(coordinateSystem(extent={{-340,-600},{340,400}}),
-             graphics={
+        Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
