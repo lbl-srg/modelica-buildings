@@ -81,15 +81,9 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "WSE enable disable status"
+    "WSE enable/disable status"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
     iconTransformation(extent={{100,-10},{120,10}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTPre(
-    final quantity="ThermodynamicTemperature",
-    final unit="K") "Predicted waterside economizer outlet temperature"
-    annotation (Placement(transformation(extent={{180,70},{200,90}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold enaTChiWatRet(
     final threshold=dTperiod)
@@ -189,8 +183,6 @@ equation
     annotation (Line(points={{1,-10},{18,-10}},    color={255,0,255}));
   connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{81,-10},{90,-10},{
           90,42},{98,42}}, color={255,0,255}));
-  connect(wseTOut.y, yTPre) annotation (Line(points={{-78,50},{-30,50},{-30,80},
-          {190,80}}, color={0,0,127}));
   connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,-90},{-110,-90},
           {-110,42},{-102,42}},color={0,0,127}));
   connect(wseTOut.y, add2.u2) annotation (Line(points={{-78,50},{-50,50},{-50,44},
