@@ -58,12 +58,17 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
     "Chiller water return temperature downstream of the WSE"
     annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax(
+    final min=0,
+    final max=1,
+    final unit="1")
     "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
     iconTransformation(extent={{-140,-100},{-100,-60}})));
