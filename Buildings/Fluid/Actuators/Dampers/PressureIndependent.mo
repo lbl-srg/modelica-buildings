@@ -70,80 +70,103 @@ equation
     m_flow_turbulent=m_flow_turbulent);
   m_flow = smooth(2, noEvent(
     if dp <= dp_1 then
-    // damper fully open (covers also dp <= 0 i.e. flow reversal or zero pressure drop)
+      // damper fully open (covers also dp <= 0 i.e. flow reversal or zero pressure drop)
       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-      dp=dp,
-      k=kTot_1,
-      m_flow_turbulent=m_flow_turbulent)
+        dp=dp,
+        k=kTot_1,
+        m_flow_turbulent=m_flow_turbulent)
     elseif dp <= dp_1 + dp_small then
-    // transition towards m_flow_lin
-    Buildings.Utilities.Math.Functions.quinticHermite(
-      x=dp,
-      x1=dp_1,
-      x2=dp_1 + dp_small,
-      y1=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-        dp=dp_1,
-        k=kTot_1,
-        m_flow_turbulent=m_flow_turbulent),
-      y2=m_flow_lin + c_regul * dp,
-      y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
-        dp=dp_1,
-        k=kTot_1,
-        m_flow_turbulent=m_flow_turbulent,
-        dp_der=1),
-      y2d=c_regul,
-      y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
-        dp=dp_1,
-        k=kTot_1,
-        m_flow_turbulent=m_flow_turbulent,
-        dp_der=1,
-        dp_der2=0),
-      y2dd=0)
+      // transition towards m_flow_lin
+      Buildings.Utilities.Math.Functions.quinticHermite(
+        x=dp,
+        x1=dp_1,
+        x2=dp_1 + dp_small,
+        y1=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+          dp=dp_1,
+          k=kTot_1,
+          m_flow_turbulent=m_flow_turbulent),
+        y2=m_flow_lin + c_regul * dp,
+        y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+          dp=dp_1,
+          k=kTot_1,
+          m_flow_turbulent=m_flow_turbulent,
+          dp_der=1),
+        y2d=c_regul,
+        y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+          dp=dp_1,
+          k=kTot_1,
+          m_flow_turbulent=m_flow_turbulent,
+          dp_der=1,
+          dp_der2=0),
+        y2dd=0)
     elseif dp < dp_0 - dp_small then
-    // damper controlling flow rate
-    m_flow_lin + c_regul * dp elseif dp < dp_0 then
-    // transition towards leakage (damper fully closed)
-    Buildings.Utilities.Math.Functions.quinticHermite(
-      x=dp,
-      x1=dp_0 - dp_small,
-      x2=dp_0,
-      y1=m_flow_lin + c_regul * dp,
-      y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-        dp=dp_0,
-        k=kTot_0,
-        m_flow_turbulent=m_flow_turbulent),
-      y1d=c_regul,
-      y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
-        dp=dp_0,
-        k=kTot_0,
-        m_flow_turbulent=m_flow_turbulent,
-        dp_der=1),
-      y1dd=0,
-      y2dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
-        dp=dp_0,
-        k=kTot_0,
-        m_flow_turbulent=m_flow_turbulent,
-        dp_der=1,
-        dp_der2=0))
+      // damper controlling flow rate
+      m_flow_lin + c_regul * dp
+    elseif dp < dp_0 then
+      // transition towards leakage (damper fully closed)
+      Buildings.Utilities.Math.Functions.quinticHermite(
+        x=dp,
+        x1=dp_0 - dp_small,
+        x2=dp_0,
+        y1=m_flow_lin + c_regul * dp,
+        y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+          dp=dp_0,
+          k=kTot_0,
+          m_flow_turbulent=m_flow_turbulent),
+        y1d=c_regul,
+        y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+          dp=dp_0,
+          k=kTot_0,
+          m_flow_turbulent=m_flow_turbulent,
+          dp_der=1),
+        y1dd=0,
+        y2dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+          dp=dp_0,
+          k=kTot_0,
+          m_flow_turbulent=m_flow_turbulent,
+          dp_der=1,
+          dp_der2=0))
     else
-    // leakage (damper fully closed)
-    Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-      dp=dp,
-      k=kTot_0,
-      m_flow_turbulent=m_flow_turbulent)
+      // leakage (damper fully closed)
+      Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+        dp=dp,
+        k=kTot_0,
+        m_flow_turbulent=m_flow_turbulent)
   ));
   // Computation of damper opening
+  // dpDam = if dpFixed_nominal > Modelica.Constants.eps then
+  //   dp - Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+  //     m_flow=m_flow,
+  //     k=sqrt(kResSqu),
+  //     m_flow_turbulent=m_flow_turbulent) else dp;
+  // kThetaSqRt = noEvent(
+  //   if dp <= dp_1 then sqrt(k1)
+  //   elseif dp >= dp_0 then sqrt(k0) else
+  //   sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
+  //     m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=0, dp_small=0,
+  //     k_min=kDam_0, k_max=kDam_1)
+  // );
+  // y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
+  //   kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+
   dpDam = if dpFixed_nominal > Modelica.Constants.eps then
     dp - Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
       m_flow=m_flow,
       k=sqrt(kResSqu),
       m_flow_turbulent=m_flow_turbulent) else dp;
-  kThetaSqRt = noEvent(
-    if dp <= dp_1 then sqrt(k1)
-    elseif dp >= dp_0 then sqrt(k0) else
-    sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
-      m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
-      k_min=kDam_0, k_max=kDam_1)
+  kThetaSqRt = Buildings.Utilities.Math.Functions.regStep(
+    x=dp-dp_1-dp_small/2,
+    y1=Buildings.Utilities.Math.Functions.regStep(
+      x=dp-dp_0-dp_small/2,
+      y1=sqrt(k0),
+      y2=sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
+        m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
+        k_min=kDam_0, k_max=kDam_1
+      ),
+      x_small=dp_small/2
+    ),
+    y2=sqrt(k1),
+    x_small=dp_small/2
   );
   y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
     kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
