@@ -9,6 +9,9 @@
 #include "FMUEnergyPlusStructure.h"
 #include <stdio.h>
 
+#include "fmilib.h"
+#include "JM/jm_portability.h"
+
 void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
 
 #endif

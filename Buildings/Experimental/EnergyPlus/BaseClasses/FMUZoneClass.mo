@@ -15,7 +15,7 @@ extends ExternalObject;
       iddName,
       zoneName)
         annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
           Include="#include \"FMUZoneInit.c\"",
           Library={"epfmi-9.0.1", "dl"});
           // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
@@ -41,7 +41,7 @@ First implementation.
     input FMUZoneClass adapter;
     external "C" FMUZoneFree(adapter)
         annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
           Include="#include \"FMUZoneFree.c\"");
 
   annotation(Documentation(info="<html>

@@ -11,7 +11,8 @@
 #include <stdio.h>
 #include <execinfo.h>
 
-#include "../Include/fmi-library/FMI2/fmi2FunctionTypes.h"
+#include "FMI/fmi_import_context.h"
+#include "FMI2/fmi2FunctionTypes.h"
 #include "ModelicaUtilities.h"
 
 /* Use windows.h only for Windows */
@@ -46,49 +47,11 @@ void logValueReferenceArray(unsigned int level,
                             const fmi2ValueReference* array,
                             size_t n);
 
-typedef fmi2Component (*fmi2Instantiate)(fmi2String  instanceName,
-                                         fmi2Type    fmuType,
-                                         fmi2String fmuGUID,
-                                         fmi2String fmuResourceLocation,
-                                         const fmi2CallbackFunctions* functions,
-                                         fmi2Boolean visible,
-                                         fmi2Boolean loggingOn);
-
-typedef fmi2Status (*fmi2SetupExperiment)(fmi2Component c,
-                                          fmi2Boolean   toleranceDefined,
-                                          fmi2Real      tolerance,
-                                          fmi2Real      startTime,
-                                          fmi2Boolean   stopTimeDefined,
-                                          fmi2Real      stopTime);
-
-typedef fmi2Status (*fmi2SetTime)(fmi2Component c, fmi2Real time);
-
-typedef fmi2Status (*fmi2SetReal)(fmi2Component c, const fmi2ValueReference valRef[], size_t nVal, const fmi2Real val[]);
-
-typedef fmi2Status (*fmi2GetReal)(fmi2Component c, const fmi2ValueReference valRef[], size_t nVal, fmi2Real val[]);
-
-typedef fmi2Status (*fmi2NewDiscreteStates)(fmi2Component  c, fmi2EventInfo* fmi2eventInfo);
-
-typedef fmi2Status (*fmi2Terminate)(fmi2Component c);
-
-typedef void (*fmi2FreeInstance)(fmi2Component c);
-
-
-typedef struct FMU{
-  HANDLE dllHandle;
-  fmi2Instantiate instantiate;
-  fmi2SetupExperiment setupExperiment;
-  fmi2SetTime setTime;
-  fmi2SetReal setVariables;
-  fmi2GetReal getVariables;
-  fmi2NewDiscreteStates newDiscreteStates;
-  fmi2Terminate terminateSim;
-  fmi2FreeInstance freeInstance;
-} FMU;
 
 typedef struct FMUBuilding
 {
-  fmi2Component* fmuCom; /* Opaque void* pointer to this building, used by EnergyPlus */
+  fmi2_import_t* fmu;
+  char* GUID;
   fmi2Byte* name;
   fmi2Byte* weather;
   fmi2Byte* idd;
@@ -96,7 +59,6 @@ typedef struct FMUBuilding
   fmi2Integer nZon; /* Number of zones that use this FMU */
   fmi2Byte** zoneNames; /* Names of zones in this FMU */
   void** zones; /* Pointers to all zones*/
-  FMU* fmu; /* fixme: check if it can be deleted */
   char* tmpDir; /* Temporary directory used by EnergyPlus */
 } FMUBuilding;
 

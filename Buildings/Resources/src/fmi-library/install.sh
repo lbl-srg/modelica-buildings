@@ -1,9 +1,11 @@
-# This script installs the binaries and header files
-# of the fmi library that is used to link to EnergyPlus.
+# This script installs the fmi library that is used to link to EnergyPlus.
 # This file should be replaced with a cmake file that builds the binaries
 # and copies the files as below.
+# It also need to be updated to allow binaries for the different
+# operating systems.
+set -e
 
-FMILIB_INST=../../../../../../../svn-fmi-library/trunk/install
+FMILIB=~/proj/ldrd/bie/modeling/svn-fmi-library/trunk
 # Make sure we are in right directory
 CURDIR=`pwd`
 DIR=`basename $CURDIR`
@@ -21,10 +23,26 @@ fi
 RESDIR=`dirname $CURDIR`
 RESDIR=`dirname $RESDIR`
 
-# Copy headers
-rm -rf $RESDIR/Include/fmi-library
-mkdir -p $RESDIR/Include/fmi-library/FMI2
-cp -rp $FMILIB_INST/include/FMI2/*.h $RESDIR/Include/fmi-library/FMI2/
+# Compile library
+cd $FMILIB
+rm -rf install
+rm -rf build-fmil
+mkdir build-fmil; cd build-fmil
+cmake DFMILIB_BUILD_SHARED_LIB=OFF DFMILIB_GENERATE_DOXYGEN_DOC=OFF ..
+make install test
+cd $CURDIR
 
-# Copy .so
-cp $FMILIB_INST/lib/libfmilib_shared.so $RESDIR/Library/linux64/
+# Copy installation package
+rm -rf $RESDIR/thirdParty/fmi-library
+mkdir -p $RESDIR/thirdParty/fmi-library/
+cp -r $FMILIB/install $RESDIR/thirdParty/fmi-library/
+# Move .so file
+mv $RESDIR/thirdParty/fmi-library/install/lib/libfmilib_shared.so $RESDIR/Library/linux64/
+# Delete static library
+rm $RESDIR/thirdParty/fmi-library/install/lib/libfmilib.a
+rmdir $RESDIR/thirdParty/fmi-library/install/lib
+
+# Move header files so that JModelica can resolve statements
+# like #include <FMI/fmi_import_context.h>
+mv $RESDIR/thirdParty/fmi-library/install/include/{FMI,FMI1,FMI2,fmilib_config.h,fmilib.h,JM} $RESDIR/C-Sources/EnergyPlus/
+echo "Built $RESDIR/C-Sources/EnergyPlus"

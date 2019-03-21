@@ -17,7 +17,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
   /*  printf("Closing EnergyPlus library for %s.\n", ptrBui->name); */
   /*  ModelicaFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name); */
     writeLog(2, "Calling terminate on EnergyPlus library.");
-    status = ptrBui->fmu->terminateSim(ptrBui->fmuCom);
+    status = fmi2_import_terminate(ptrBui->fmu);
     if (status != fmi2OK){
       ModelicaFormatMessage("fmi2Terminate returned with non-OK status for building %s.", ptrBui->name);
     }

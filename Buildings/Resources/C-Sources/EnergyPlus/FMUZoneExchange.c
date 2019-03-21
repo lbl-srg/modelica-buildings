@@ -20,11 +20,10 @@ void setGetVariables(
   fmi2Real outputValues[],
   size_t nOut)
   {
-    int status;
-    fmi2Component c = fmuZon->ptrBui->fmuCom;
+    fmi2_status_t status;
 
-    status = fmuZon->ptrBui->fmu->setVariables(
-      c,
+    status = fmi2_import_set_real(
+      fmuZon->ptrBui->fmu,
       inputValueReferences,
       nInp,
       inputValues);
@@ -32,8 +31,8 @@ void setGetVariables(
       ModelicaFormatError("Failed to set variables for building FMU with name %s\n", fmuZon->ptrBui->name);
     }
 
-    status = fmuZon->ptrBui->fmu->getVariables(
-      c,
+    status = fmi2_import_get_real(
+      fmuZon->ptrBui->fmu,
       outputValueReferences,
       nOut,
       outputValues);
@@ -72,7 +71,7 @@ void FMUZoneExchange(
   /* ModelicaFormatMessage("*** Entered FMUZoneExchange at t = %f  ", time); */
 
 
-  FMUZone* tmpZon = malloc(sizeof(FMUZone));
+  FMUZone* tmpZon = malloc(sizeof(FMUZone)); /* fixme: this malloc is probably not needed */
   writeLog(3, "Exchanging data with EnergyPlus.");
 
   if ( tmpZon == NULL )
@@ -80,7 +79,7 @@ void FMUZoneExchange(
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
-  status = zone->ptrBui->fmu->setTime(zone->ptrBui->fmuCom, time);
+  status = fmi2_import_set_time(zone->ptrBui->fmu, time);
   if ( status != fmi2OK ) {
     ModelicaFormatError("Failed to set time in building FMU with name %s.",
     zone->ptrBui->name);
@@ -96,7 +95,7 @@ void FMUZoneExchange(
   *dQConSen_flow = (QConSenPer_flow-*QConSen_flow)/dT;
 
   /* Get next event time */
-  status = zone->ptrBui->fmu->newDiscreteStates(zone->ptrBui->fmuCom, &eventInfo);
+  status = fmi2_import_new_discrete_states(zone->ptrBui->fmu, &eventInfo);
   if (status != fmi2OK) {
     ModelicaFormatError("Failed during call to fmi2NewDiscreteStates for building FMU with name %s.",
     zone->ptrBui->name);
