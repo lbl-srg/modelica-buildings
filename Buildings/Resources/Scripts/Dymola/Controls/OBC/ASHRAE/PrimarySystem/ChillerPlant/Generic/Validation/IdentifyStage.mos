@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validation.IdentifyStage", method="Cvode", stopTime=3, tolerance=1e-06, resultFile="IdentifyStage");
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=1, y={"noWSEnoPon.uChi[1]", "noWSEnoPon.uChi[2]","noWSEnoPon.uChi[3]"}, range={0.0, 3.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=2, y={"noWSEnoPon.ySta"}, range={0.0, 3.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=3, y={"noWSEnoPon.yPla"}, range={0.0, 3.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+
+createPlot(id=2, position={740, 10, 700, 900}, subPlot=1, y={"noWSEPon.uChi[1]", "noWSEPon.uChi[2]","noWSEPon.uChi[3]"}, range={0.0, 3.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={740, 10, 700, 900}, subPlot=2, y={"noWSEPon.ySta"}, range={0.0, 3.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={740, 10, 700, 900}, subPlot=3, y={"noWSEPon.yPla"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+
+createPlot(id=3, position={1460, 10, 700, 900}, subPlot=1, y={"WSEPon.uChi[1]", "WSEPon.uChi[2]","WSEPon.uChi[3]"}, range={0.0, 3.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=3, position={1460, 10, 700, 900}, subPlot=2, y={"WSEPon.ySta"}, range={0.0, 3.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={1460, 10, 700, 900}, subPlot=3, y={"WSEPon.uWSE","WSEPon.yPla"}, range={0.0, 3.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200}});
