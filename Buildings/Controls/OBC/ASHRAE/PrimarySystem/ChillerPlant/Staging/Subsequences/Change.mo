@@ -174,18 +174,10 @@ block Change "Calculates the chiller stage signal"
     "Capacity requirement"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
-    "Boolean to integer conversion"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
-    "Boolean to integer conversion"
-    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-
   Buildings.Controls.OBC.CDL.Integers.Add addInt(
     final k2=-1)
     "Adder"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{128,-120},{148,-100}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up staUp(
     final delayStaCha = delayStaCha,
@@ -207,32 +199,39 @@ block Change "Calculates the chiller stage signal"
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt1(final k2=+1)
     "Adder"
-    annotation (Placement(transformation(extent={{160,-30},{180,-10}})));
+    annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Min minInt "Minimum"
-    annotation (Placement(transformation(extent={{220,10},{240,30}})));
+    annotation (Placement(transformation(extent={{220,-50},{240,-30}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=nSta) "Highest stage"
-    annotation (Placement(transformation(extent={{160,10},{180,30}})));
+    annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=0) "Stage 0"
-    annotation (Placement(transformation(extent={{220,70},{240,90}})));
+    annotation (Placement(transformation(extent={{180,10},{200,30}})));
 
   Buildings.Controls.OBC.CDL.Integers.Max maxInt "Minimum"
     annotation (Placement(transformation(extent={{260,30},{280,50}})));
 
   CDL.Conversions.IntegerToReal                        intToRea
-    annotation (Placement(transformation(extent={{180,120},{200,140}})));
-  CDL.Discrete.UnitDelay                        uniDel(samplePeriod=delayStaCha)
+    annotation (Placement(transformation(extent={{290,30},{310,50}})));
+  CDL.Discrete.ZeroOrderHold                    zerOrdHol(samplePeriod=1)
     "Stage change delay"
     annotation (Placement(transformation(extent={{220,120},{240,140}})));
   CDL.Conversions.RealToInteger                        reaToInt
     annotation (Placement(transformation(extent={{260,120},{280,140}})));
+  CDL.Discrete.TriggeredSampler triSam2
+    annotation (Placement(transformation(extent={{280,80},{300,100}})));
+  CDL.Logical.Or or2
+    annotation (Placement(transformation(extent={{80,50},{100,70}})));
+  CDL.Conversions.BooleanToInteger booToInt
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
+  CDL.Conversions.BooleanToInteger booToInt1
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+  CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=delayStaCha,
+      falseHoldDuration=delayStaCha)
+    annotation (Placement(transformation(extent={{118,50},{138,70}})));
 equation
-  connect(booToInt.y, addInt.u1) annotation (Line(points={{81,0},{90,0},{90,-44},
-          {98,-44}},     color={255,127,0}));
-  connect(booToInt1.y, addInt.u2) annotation (Line(points={{81,-100},{90,-100},
-          {90,-56},{98,-56}},  color={255,127,0}));
   connect(staCap.yStaNom,PLRs. uStaCapNom) annotation (Line(points={{-119,-63},{
           -94,-63},{-94,-5},{-81,-5}}, color={0,0,127}));
   connect(staCap.yStaUpNom,PLRs. uStaUpCapNom) annotation (Line(points={{-119,-67},
@@ -313,30 +312,22 @@ equation
                                               color={0,0,127}));
   connect(uStaAva, staCap.uStaAva) annotation (Line(points={{-220,160},{-152,160},
           {-152,-76},{-142,-76}}, color={255,0,255}));
-  connect(conInt.y, minInt.u1) annotation (Line(points={{181,20},{210,20},{210,
-          26},{218,26}},       color={255,127,0}));
-  connect(addInt1.y, minInt.u2) annotation (Line(points={{181,-20},{210,-20},{210,
-          14},{218,14}},   color={255,127,0}));
-  connect(conInt1.y, maxInt.u1) annotation (Line(points={{241,80},{250,80},{250,
+  connect(conInt.y, minInt.u1) annotation (Line(points={{201,-30},{210,-30},{
+          210,-34},{218,-34}}, color={255,127,0}));
+  connect(addInt1.y, minInt.u2) annotation (Line(points={{201,-70},{210,-70},{
+          210,-46},{218,-46}},
+                           color={255,127,0}));
+  connect(conInt1.y, maxInt.u1) annotation (Line(points={{201,20},{210,20},{210,
           46},{258,46}},         color={255,127,0}));
-  connect(minInt.y, maxInt.u2) annotation (Line(points={{241,20},{250,20},{250,34},
-          {258,34}},       color={255,127,0}));
-  connect(maxInt.y, ySta) annotation (Line(points={{281,40},{350,40}},
-                     color={255,127,0}));
-  connect(staUp.y, booToInt.u) annotation (Line(points={{41,10},{50,10},{50,0},{
-          58,0}},   color={255,0,255}));
-  connect(staDow.y, booToInt1.u) annotation (Line(points={{41,-110},{50,-110},{50,
-          -100},{58,-100}},    color={255,0,255}));
-  connect(intToRea.y, uniDel.u)
-    annotation (Line(points={{201,130},{218,130}}, color={0,0,127}));
-  connect(uniDel.y, reaToInt.u)
+  connect(minInt.y, maxInt.u2) annotation (Line(points={{241,-40},{250,-40},{
+          250,34},{258,34}},
+                           color={255,127,0}));
+  connect(zerOrdHol.y, reaToInt.u)
     annotation (Line(points={{241,130},{258,130}}, color={0,0,127}));
-  connect(addInt.y, addInt1.u2) annotation (Line(points={{121,-50},{150,-50},{
-          150,-26},{158,-26}}, color={255,127,0}));
-  connect(maxInt.y, intToRea.u) annotation (Line(points={{281,40},{290,40},{290,
-          110},{170,110},{170,130},{178,130}}, color={255,127,0}));
+  connect(addInt.y, addInt1.u2) annotation (Line(points={{149,-110},{160,-110},
+          {160,-76},{178,-76}},color={255,127,0}));
   connect(reaToInt.y, addInt1.u1) annotation (Line(points={{281,130},{290,130},
-          {290,150},{150,150},{150,-14},{158,-14}}, color={255,127,0}));
+          {290,150},{150,150},{150,-64},{178,-64}}, color={255,127,0}));
   connect(reaToInt.y, staUp.uChiSta) annotation (Line(points={{281,130},{290,
           130},{290,150},{10,150},{10,0},{19,0}}, color={255,127,0}));
   connect(reaToInt.y, PLRs.uSta) annotation (Line(points={{281,130},{290,130},{
@@ -345,8 +336,32 @@ equation
           {290,150},{-150,150},{-150,-70},{-142,-70}}, color={255,127,0}));
   connect(reaToInt.y, staDow.uChiSta) annotation (Line(points={{281,130},{290,
           130},{290,150},{10,150},{10,-120},{19,-120}}, color={255,127,0}));
-  connect(addInt.y, y) annotation (Line(points={{121,-50},{210,-50},{210,-40},{
-          350,-40}}, color={255,127,0}));
+  connect(addInt.y, y) annotation (Line(points={{149,-110},{320,-110},{320,-40},
+          {350,-40}},color={255,127,0}));
+  connect(maxInt.y, intToRea.u)
+    annotation (Line(points={{281,40},{288,40}}, color={255,127,0}));
+  connect(intToRea.y, triSam2.u) annotation (Line(points={{311,40},{320,40},{
+          320,68},{272,68},{272,90},{278,90}}, color={0,0,127}));
+  connect(staUp.y, booToInt1.u) annotation (Line(points={{41,10},{50,10},{50,
+          -40},{78,-40}}, color={255,0,255}));
+  connect(booToInt1.y, addInt.u1) annotation (Line(points={{101,-40},{120,-40},
+          {120,-104},{126,-104}}, color={255,127,0}));
+  connect(staDow.y, booToInt.u) annotation (Line(points={{41,-110},{50,-110},{
+          50,-70},{78,-70}}, color={255,0,255}));
+  connect(booToInt.y, addInt.u2) annotation (Line(points={{101,-70},{110,-70},{
+          110,-116},{126,-116}}, color={255,127,0}));
+  connect(triSam2.y, zerOrdHol.u) annotation (Line(points={{301,90},{320,90},{
+          320,110},{200,110},{200,130},{218,130}}, color={0,0,127}));
+  connect(reaToInt.y, ySta) annotation (Line(points={{281,130},{336,130},{336,
+          40},{350,40}}, color={255,127,0}));
+  connect(staUp.y, or2.u1) annotation (Line(points={{41,10},{50,10},{50,60},{78,
+          60}}, color={255,0,255}));
+  connect(staDow.y, or2.u2) annotation (Line(points={{41,-110},{60,-110},{60,52},
+          {78,52}}, color={255,0,255}));
+  connect(or2.y, truFalHol.u)
+    annotation (Line(points={{101,60},{117,60}}, color={255,0,255}));
+  connect(truFalHol.y, triSam2.trigger) annotation (Line(points={{139,60},{290,
+          60},{290,78.2}}, color={255,0,255}));
   annotation (defaultComponentName = "staCha",
         Icon(graphics={
         Rectangle(

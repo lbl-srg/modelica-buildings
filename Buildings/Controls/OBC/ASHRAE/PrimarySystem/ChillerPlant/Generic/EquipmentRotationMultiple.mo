@@ -92,8 +92,7 @@ protected
     "Adder"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg[nDev]
-    "Logical edge"
+  Buildings.Controls.OBC.CDL.Logical.Edge edg[nDev] "Logical edge"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nDev]
