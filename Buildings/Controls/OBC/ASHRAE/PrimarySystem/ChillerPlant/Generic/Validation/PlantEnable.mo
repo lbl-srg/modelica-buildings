@@ -1,6 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validation;
 model PlantEnable "Validation sequence for enabling and disabling chiller plant"
 
+  parameter Modelica.SIunits.Temperature aveTWetBul = 288.15
+    "Chilled water supply set temperature";
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable enaPlaWse0(
     final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
     "Enabling control of plant with waterside economizer, stage up from zero"
@@ -8,7 +10,7 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable enaPlaWse1(
     final schTab=[0,0; 6*3600,1; 19*3600,1; 24*3600,0])
     "Enabling control of plant with waterside economizer, stage up from one"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable disPlaSch(
     final haveWSE=false,
     final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
@@ -28,36 +30,24 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
     final table=[0,0; 6.5*3600,1; 9*3600,2; 14*3600,3; 19*3600,3; 24*3600,0],
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Number of chiller plant request"
-    annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
+    annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTem(
     final amplitude=7.5,
     final freqHz=1/(24*3600),
     final offset=282.15) "Outdoor temperature"
-    annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
+    annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiSupTemSet(
     final amplitude=2,
     final freqHz=1/(24*3600),
     final offset=279.15) "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1) "Constant one"
-    annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine preHeaExcLeaTem(
-    final amplitude=2,
-    final freqHz=1/(24*3600),
-    final offset=277.15) "Predicted heat exchanger leaving water temperature"
-    annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
+    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine preHeaExcLeaTem1(
-    final amplitude=2,
-    final freqHz=1/(24*3600),
-    final offset=280.15) "Predicted heat exchanger leaving water temperature"
-    annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Breaks algebraic loops"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Breaks algebraic loops"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable chiPlaReq1(
     final table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,3; 19*3600,3; 24*3600,1],
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
@@ -101,40 +91,54 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
     final freqHz=1/(24*3600),
     final offset=280.15) "Outdoor temperature"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOutWetSig(
+    final amplitude=2,
+    final freqHz=1/28800,
+    final offset=aveTWetBul)
+    "Measured outdoor air wet bulb temperature"
+    annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+    final offset=-0.2,
+    final height=0.7,
+    final duration=86400) "Ramp output"
+    annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sam1(final samplePeriod=800)
+    "Ideal sampler of a continuous signal"
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOutWetSig1(
+    final amplitude=2,
+    final freqHz=1/28800,
+    final offset=aveTWetBul - 10)
+    "Measured outdoor air wet bulb temperature"
+    annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
 
 equation
   connect(chiPlaReq.y[1], reaToInt.u)
-    annotation (Line(points={{-159,90},{-142,90}}, color={0,0,127}));
+    annotation (Line(points={{-159,80},{-142,80}}, color={0,0,127}));
   connect(reaToInt.y, enaPlaWse0.chiWatSupResReq)
-    annotation (Line(points={{-119,90},{-100,90},{-100,106},{-62,106}}, color={255,127,0}));
+    annotation (Line(points={{-119,80},{-100,80},{-100,106},{-62,106}}, color={255,127,0}));
   connect(outTem.y, enaPlaWse0.TOut)
-    annotation (Line(points={{-159,50},{-96,50},{-96,102},{-62,102}}, color={0,0,127}));
-  connect(preHeaExcLeaTem.y, enaPlaWse0.TPreHeaChaLea)
-    annotation (Line(points={{-159,10},{-92,10},{-92,98},{-62,98}}, color={0,0,127}));
+    annotation (Line(points={{-159,40},{-96,40},{-96,102},{-62,102}}, color={0,0,127}));
   connect(chiSupTemSet.y, enaPlaWse0.TChiWatSupSet)
-    annotation (Line(points={{-159,-70},{-88,-70},{-88,94},{-62,94}}, color={0,0,127}));
-  connect(con.y, enaPlaWse0.PLRHeaExc)
-    annotation (Line(points={{-159,-110},{-84,-110},{-84,90},{-62,90}}, color={0,0,127}));
+    annotation (Line(points={{-159,-120},{-84,-120},{-84,90},{-62,90}},
+      color={0,0,127}));
   connect(reaToInt.y, enaPlaWse1.chiWatSupResReq)
-    annotation (Line(points={{-119,90},{-100,90},{-100,16},{-62,16}}, color={255,127,0}));
+    annotation (Line(points={{-119,80},{-100,80},{-100,6},{-62,6}}, color={255,127,0}));
   connect(outTem.y, enaPlaWse1.TOut)
-    annotation (Line(points={{-159,50},{-96,50},{-96,12},{-62,12}}, color={0,0,127}));
-  connect(preHeaExcLeaTem1.y, enaPlaWse1.TPreHeaChaLea)
-    annotation (Line(points={{-159,-30},{-92,-30},{-92,8},{-62,8}}, color={0,0,127}));
+    annotation (Line(points={{-159,40},{-96,40},{-96,2},{-62,2}}, color={0,0,127}));
   connect(chiSupTemSet.y, enaPlaWse1.TChiWatSupSet)
-    annotation (Line(points={{-159,-70},{-88,-70},{-88,4},{-62,4}}, color={0,0,127}));
-  connect(con.y, enaPlaWse1.PLRHeaExc)
-    annotation (Line(points={{-159,-110},{-84,-110},{-84,0},{-62,0}}, color={0,0,127}));
+    annotation (Line(points={{-159,-120},{-84,-120},{-84,-10},{-62,-10}},
+      color={0,0,127}));
   connect(enaPlaWse0.yPla, pre.u)
     annotation (Line(points={{-39,100},{-20,100},{-20,134},{-150,134},{-150,120},
       {-142,120}}, color={255,0,255}));
   connect(pre.y, enaPlaWse0.uPla)
     annotation (Line(points={{-119,120},{-104,120},{-104,110},{-62,110}}, color={255,0,255}));
   connect(enaPlaWse1.yPla, pre1.u)
-    annotation (Line(points={{-39,10},{-20,10},{-20,44},{-150,44},{-150,30},
-      {-142,30}}, color={255,0,255}));
+    annotation (Line(points={{-39,0},{-20,0},{-20,34},{-150,34},{-150,20},
+      {-142,20}},   color={255,0,255}));
   connect(pre1.y, enaPlaWse1.uPla)
-    annotation (Line(points={{-119,30},{-104,30},{-104,20},{-62,20}}, color={255,0,255}));
+    annotation (Line(points={{-119,20},{-90,20},{-90,10},{-62,10}}, color={255,0,255}));
   connect(chiPlaReq1.y[1], reaToInt1.u)
     annotation (Line(points={{41,90},{58,90}}, color={0,0,127}));
   connect(reaToInt1.y, disPlaSch.chiWatSupResReq)
@@ -143,7 +147,7 @@ equation
     annotation (Line(points={{141,90},{160,90},{160,134},{50,134},{50,120},
       {58,120}}, color={255,0,255}));
   connect(pre2.y, disPlaSch.uPla)
-    annotation (Line(points={{81,120},{100,120},{100,100},{118,100}},  color={255,0,255}));
+    annotation (Line(points={{81,120},{100,120},{100,100},{118,100}}, color={255,0,255}));
   connect(conOutTem.y, disPlaSch.TOut)
     annotation (Line(points={{81,60},{104,60},{104,92},{118,92}}, color={0,0,127}));
   connect(chiPlaReq2.y[1], reaToInt2.u)
@@ -168,6 +172,16 @@ equation
     annotation (Line(points={{81,-60},{100,-60},{100,-80},{118,-80}}, color={255,0,255}));
   connect(outTem1.y, disPlaOutTem.TOut)
     annotation (Line(points={{81,-120},{104,-120},{104,-88},{118,-88}}, color={0,0,127}));
+  connect(ram.y, sam1.u)
+    annotation (Line(points={{-159,-80},{-142,-80}}, color={0,0,127}));
+  connect(TOutWetSig.y, enaPlaWse1.TOutWet)
+    annotation (Line(points={{-159,-40},{-92,-40},{-92,-2},{-62,-2}}, color={0,0,127}));
+  connect(sam1.y, enaPlaWse0.uTunPar)
+    annotation (Line(points={{-119,-80},{-88,-80},{-88,94},{-62,94}}, color={0,0,127}));
+  connect(sam1.y, enaPlaWse1.uTunPar)
+    annotation (Line(points={{-119,-80},{-88,-80},{-88,-6},{-62,-6}}, color={0,0,127}));
+  connect(TOutWetSig1.y, enaPlaWse0.TOutWet)
+    annotation (Line(points={{-159,0},{-92,0},{-92,98},{-62,98}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=86400.0, Tolerance=1e-06),
@@ -208,7 +222,7 @@ First implementation.
 begin from 0 stage",
           horizontalAlignment=TextAlignment.Left),
         Text(
-          extent={{-64,-2},{14,-18}},
+          extent={{-64,-10},{14,-26}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -216,7 +230,7 @@ begin from 0 stage",
           textString="Enabe plant with WSE, 
 begin from 1 stage,"),
         Text(
-          extent={{-64,-16},{44,-28}},
+          extent={{-64,-26},{44,-38}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
