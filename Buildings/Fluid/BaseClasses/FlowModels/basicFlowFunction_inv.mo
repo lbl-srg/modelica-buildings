@@ -26,9 +26,10 @@ protected
   Real m_flowGuard = max(abs(m_flow), m_flow_small);
   Real dpGuard = max(abs(dp), dp_small);
 algorithm
-  k := if noEvent(abs(m_flow) > m_flow_turbulent)
-    then min(k_max, max(k_min, m_flowGuard / sqrt(dpGuard)))
-    else min(k_max, max(k_min, sqrt((0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm)));
+  k := if noEvent(abs(m_flow) > m_flow_turbulent) then min(k_max, max(k_min, m_flowGuard / sqrt(dpGuard)))
+    else min(k_max, max(k_min, sqrt(
+      (0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm
+    )));
 annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}}), graphics={Line(

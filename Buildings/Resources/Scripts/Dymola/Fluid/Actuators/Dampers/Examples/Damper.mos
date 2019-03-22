@@ -21,4 +21,3 @@ plotExpression(apply(Damper[end].preInd1.dp/(Damper[end].preInd1.dp_nominal+Damp
 createPlot(id=6, position={326, 26, 1419, 793}, y={"dam.m_flow", "preInd.y_open"},  autoerase = true,
  autoreplot = true, grid=true);
 plotExpression(apply(Damper[end].preInd.dp/(Damper[end].preInd.dp_nominal+Damper[end].preInd.dpFixed_nominal)), false, "dp/(dp_nominal+dpFixed_nominal)", 6);
-createPlot(id=7, position={75, 70, 1149, 796}, y={"preInd.test_kthsqrt", "preInd.y_actual"}, range={0.25, 0.5700000000000001, -0.5, 2.0}, autoscale=false, grid=true, range2={0.0347, 0.0364});

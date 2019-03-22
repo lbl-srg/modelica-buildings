@@ -139,20 +139,21 @@ equation
       m_flow=m_flow,
       k=sqrt(kResSqu),
       m_flow_turbulent=m_flow_turbulent) else dp;
-  kThetaSqRt = Buildings.Utilities.Math.Functions.regStep(
-    x=dp-dp_1-dp_small/2,
-    y1=Buildings.Utilities.Math.Functions.regStep(
-      x=dp-dp_0+dp_small/2,
-      y1=sqrt(k0),
-      y2=sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
-        m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
-        k_min=kDam_0, k_max=kDam_1
+  kThetaSqRt = if noEvent(y_actual < Modelica.Constants.eps) then sqrt(k0)
+    else Buildings.Utilities.Math.Functions.regStep(
+      x=dp-dp_1-dp_small/2,
+      y1=Buildings.Utilities.Math.Functions.regStep(
+        x=dp-dp_0+dp_small/2,
+        y1=sqrt(k0),
+        y2=sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
+          m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
+          k_min=kDam_0, k_max=kDam_1
+        ),
+        x_small=dp_small/2
       ),
+      y2=sqrt(k1),
       x_small=dp_small/2
-    ),
-    y2=sqrt(k1),
-    x_small=dp_small/2
-  );
+    );
   y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
     kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
 annotation(Documentation(info="<html>

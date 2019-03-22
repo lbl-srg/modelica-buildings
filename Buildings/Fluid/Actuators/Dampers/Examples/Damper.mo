@@ -73,8 +73,8 @@ model Damper
   Modelica.Blocks.Sources.Ramp ramp(
     duration=0.3,
     startTime=0.2,
-    offset=Medium.p_default,
-    height=preInd.dp_nominal + 3*preInd.dpFixed_nominal)
+    height=preInd.dp_nominal + 3*preInd.dpFixed_nominal,
+    offset=Medium.p_default - preInd.dpFixed_nominal)
     annotation (Placement(transformation(extent={{-152,-132},{-132,-112}})));
   PressureIndependent                                   preInd1(
     use_inputFilter=false,
@@ -86,7 +86,7 @@ model Damper
     dpFixed_nominal=20)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{-2,-140},{18,-120}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=1)
+  Modelica.Blocks.Sources.RealExpression realExpression(y=0)
     annotation (Placement(transformation(extent={{-152,-98},{-132,-78}})));
 equation
   connect(yRam.y, res.y) annotation (Line(
