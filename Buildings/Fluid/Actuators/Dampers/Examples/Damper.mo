@@ -86,7 +86,7 @@ model Damper
     dpFixed_nominal=20)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{-2,-140},{18,-120}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=0)
+  Modelica.Blocks.Sources.RealExpression realExpression(y=1 - min(time*2, 1))
     annotation (Placement(transformation(extent={{-152,-98},{-132,-78}})));
 equation
   connect(yRam.y, res.y) annotation (Line(
