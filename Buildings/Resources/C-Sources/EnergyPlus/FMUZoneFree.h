@@ -7,6 +7,7 @@
 #define Buildings_FMUZoneFree_h
 
 #include "FMUEnergyPlusStructure.h"
+#include "FMI2/fmi2_import.h"
 
 void FMUBuildingFree(FMUBuilding* ptrBui);
 

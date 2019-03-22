@@ -21,8 +21,10 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     if (status != fmi2OK){
       ModelicaFormatMessage("fmi2Terminate returned with non-OK status for building %s.", ptrBui->name);
     }
-    ptrBui->fmu->freeInstance(ptrBui->fmuCom);
-    free(ptrBui->fmuCom);
+    fmi2_import_destroy_dllfmu(ptrBui->fmu);
+  	fmi2_import_free(ptrBui->fmu);
+  	fmi_import_free_context(ptrBui->context);
+
     free(ptrBui->name);
     free(ptrBui->weather);
     free(ptrBui->idd);
@@ -32,6 +34,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     free(ptrBui->tmpDir);
     writeLog(2, "Freed pointers.");
 
+/*
 #ifdef _MSC_VER
     if (!FreeLibrary(ptrBui->fmu->dllHandle)){
       ModelicaMessage("Warning: Failed to free EnergyPlus library.");
@@ -42,6 +45,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
       ModelicaMessage("Warning: Failed to free EnergyPlus library.");
     }
 #endif
+*/
     writeLog(2, "Closing EnergyPlus library.");
     free(ptrBui);
     writeLog(2, "Closed EnergyPlus library.");

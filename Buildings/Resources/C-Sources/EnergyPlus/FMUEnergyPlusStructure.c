@@ -76,6 +76,15 @@ void printBacktrace(){
 static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
 
+void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message){
+  if (log_level == jm_log_level_error){
+    ModelicaFormatError("Error in FMU: module = %s, log level = %d: %s", module, log_level, message);
+  }
+  else{
+    ModelicaFormatMessage("Message from FMU: module = %s, log level = %d: %s", module, log_level, message);
+  }
+}
+
 void getEnergyPlusDLLName(char** epLibName) {
 char * epLib = "libepfmi-9.0.1.so"; /* fixme */
   size_t len = strlen(epLib);

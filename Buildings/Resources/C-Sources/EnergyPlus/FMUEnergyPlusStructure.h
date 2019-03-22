@@ -51,7 +51,8 @@ void logValueReferenceArray(unsigned int level,
 typedef struct FMUBuilding
 {
   fmi2_import_t* fmu;
-  char* GUID;
+  fmi_import_context_t* context;
+  const char* GUID;
   fmi2Byte* name;
   fmi2Byte* weather;
   fmi2Byte* idd;
@@ -84,6 +85,8 @@ typedef struct FMUZone
   fmi2Byte** inputVariableNames; /* Full names of input variables (used for reporting only)*/
   fmi2Byte** outputVariableNames; /* Full names of output variables (used for reporting only)*/
 } FMUZone;
+
+void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message);
 
 void getEnergyPlusDLLName(char** epLibName);
 

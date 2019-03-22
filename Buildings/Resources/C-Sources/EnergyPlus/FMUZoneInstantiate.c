@@ -217,8 +217,8 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 	const char* tmpPath = bui->tmpDir;
   const fmi2Boolean visible = fmi2False;
 
+  fmi2_callback_functions_t callBackFunctions;
   jm_callbacks callbacks;
-  fmi_import_context_t* context;
   fmi_version_enu_t version;
   fmi2_fmu_kind_enu_t fmukind;
 	jm_status_enu_t jm_status;
@@ -239,23 +239,23 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   callbacks.calloc = calloc;
   callbacks.realloc = realloc;
   callbacks.free = free;
-  callbacks.logger = importlogger;
+  callbacks.logger = fmilogger;
 	callbacks.log_level = jm_log_level_all;
   callbacks.context = 0;
 
-  context = fmi_import_allocate_context(&callbacks);
+  bui->context = fmi_import_allocate_context(&callbacks);
 
-  version = fmi_import_get_fmi_version(context, FMUPath, tmpPath);
+  version = fmi_import_get_fmi_version(bui->context, FMUPath, tmpPath);
 
   if (version != fmi_version_2_0_enu){
-    fmi_import_free_context(context);
+    fmi_import_free_context(bui->context);
     ModelicaFormatError("Wrong FMU version for %s, require FMI 2.0 for Model Exchange.", FMUPath);
   }
 
-  bui->fmu = fmi2_import_parse_xml(context, tmpPath, 0);
+  bui->fmu = fmi2_import_parse_xml(bui->context, tmpPath, 0);
 
 	if(!bui->fmu) {
-    fmi_import_free_context(context);
+    fmi_import_free_context(bui->context);
 		ModelicaError("Error parsing XML, exiting.");
 	}
 	/* modelName = fmi2_import_get_model_name(bui->fmu); */
@@ -268,11 +268,16 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 		ModelicaFormatError("Unxepected FMU kind for %s, require ME.", FMUPath);
 	}
 
-	jm_status = fmi2_import_create_dllfmu(bui->fmu, fmukind, &callbacks);
-	if (jm_status == jm_status_error) {
-    fmi_import_free_context(context);
-		ModelicaFormatError("Could not create the DLL loading mechanism (C-API) for %s.", FMUPath);
-	}
+  callBackFunctions.logger = fmi2_log_forwarding;
+  callBackFunctions.allocateMemory = calloc;
+  callBackFunctions.freeMemory = free;
+  callBackFunctions.componentEnvironment = bui->fmu;
+
+  jm_status = fmi2_import_create_dllfmu(bui->fmu, fmukind, &callBackFunctions);
+  if (jm_status == jm_status_error) {
+    fmi_import_free_context(bui->context);
+  	ModelicaFormatError("Could not create the DLL loading mechanism (C-API) for %s.", FMUPath);
+  }
 
   writeLog(0, "Instantiating fmu.");
 

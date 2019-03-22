@@ -59,7 +59,7 @@ void FMUZoneExchange(
   FMUZone* zone = (FMUZone*) object;
   double inputValues[1];
   double outputValues[1];
-  fmi2EventInfo eventInfo;
+  fmi2_event_info_t eventInfo;
   fmi2Status status;
 
   /* Emulate heat transfer to a surface at constant T=18 degC */
