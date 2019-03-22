@@ -35,6 +35,7 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   unsigned int i;
+  FMUZone* zone;
   const char* parNames[] = {"V", "AFlo", "mSenFac"};
   const char* inpNames[] = {"T"};
   const char* outNames[] = {"QConSen_flow"};
@@ -47,7 +48,9 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
 
   /* ********************************************************************** */
   /* Initialize the zone */
-  FMUZone* zone = (FMUZone*) malloc(sizeof(FMUZone));
+  writeLog(3, "Initializing zone.");
+
+  zone = (FMUZone*) malloc(sizeof(FMUZone));
   if ( zone == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zone.");
 

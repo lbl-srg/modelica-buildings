@@ -21,7 +21,7 @@ void setGetVariables(
   size_t nOut)
   {
     fmi2_status_t status;
-
+    writeLog(3, "Setting real variables in EnergyPlus.");
     status = fmi2_import_set_real(
       fmuZon->ptrBui->fmu,
       inputValueReferences,
@@ -31,6 +31,7 @@ void setGetVariables(
       ModelicaFormatError("Failed to set variables for building FMU with name %s\n", fmuZon->ptrBui->name);
     }
 
+    writeLog(3, "Getting real variables from EnergyPlus.");
     status = fmi2_import_get_real(
       fmuZon->ptrBui->fmu,
       outputValueReferences,
@@ -79,6 +80,7 @@ void FMUZoneExchange(
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
+  writeLog(3, "Setting time in EnergyPlus.");
   status = fmi2_import_set_time(zone->ptrBui->fmu, time);
   if ( status != fmi2OK ) {
     ModelicaFormatError("Failed to set time in building FMU with name %s.",
