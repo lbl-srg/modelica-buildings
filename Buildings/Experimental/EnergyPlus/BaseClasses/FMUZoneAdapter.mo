@@ -113,10 +113,16 @@ initial equation
     startTime = time);
   //TRooLast = T;
 
-  // Initialization of output variables.
-
 equation
+  // These assertions must be here. Otherwise, JModelica may optimize the code for
+  // Buildings.Experimental.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter in a way that
+  // initialize() is never called.
+  assert(AFlo > 0, "Floor area must not be zero.");
+  assert(V > 0, "Volume must not be zero.");
+  assert(mSenFac > 0.9999, "mSenFac must be bigger or equal than one.");
+
   when {initial(), time >= pre(tNext)} then
+  // Initialization of output variables.
     TRooLast = T;
     dtLast = time-pre(tLast);
   //  Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
