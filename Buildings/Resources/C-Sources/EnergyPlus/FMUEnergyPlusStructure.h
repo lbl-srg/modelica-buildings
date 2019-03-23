@@ -38,6 +38,12 @@
 
 static char* MOD_BUI_JSON = "ModelicaBuildingsEnergyPlus.json";
 
+#ifdef _WIN32
+static char* SEPARATOR = "\\";
+#else
+static char* SEPARATOR = "/";
+#endif
+
 void writeLog(unsigned int level, const char* msg);
 
 void logStringArray(unsigned int level,

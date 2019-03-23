@@ -109,62 +109,77 @@ void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen){
 
 void saveAppendJSONElements(
   char* *buffer,
-  const char* names[],
-  size_t nNames,
+  const char* values[],
+  size_t n,
   size_t* bufLen){
     int i;
-    /* Write all names and value references in the format
+    /* Write all values and value references in the format
         { "name": "V"},
         { "name": "AFlo"}
     */
-    for(i = 0; i < nNames; i++){
+    for(i = 0; i < n; i++){
       /* Build JSON string */
-      saveAppend(buffer, "      { \"name\": \"", bufLen);
-      saveAppend(buffer, names[i], bufLen);
-      saveAppend(buffer, " }", bufLen);
-      if (i < nNames-1)
+      saveAppend(buffer, "        { \"", bufLen);
+      saveAppend(buffer, "name", bufLen);
+      saveAppend(buffer, "\": \"", bufLen);
+      saveAppend(buffer, values[i], bufLen);
+      saveAppend(buffer, "\" }", bufLen);
+      if (i < n-1)
         saveAppend(buffer, ",\n", bufLen);
-      else
-        saveAppend(buffer, "\n", bufLen);
       }
   }
-
 
 void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer, size_t* size){
   int iZon;
   FMUZone** zones = (FMUZone**)bui->zones;
 
-  saveAppend(buffer, "\"zones\": [\n  {\n", size);
+  saveAppend(buffer, "{\n", size);
+  /* idf name */
+  saveAppend(buffer, "  \"idf\": \"", size);
+  saveAppend(buffer, bui->name, size);
+  saveAppend(buffer, "\",\n", size);
+
+  /* idd file */
+  saveAppend(buffer, "  \"idd\": \"", size);
+  saveAppend(buffer, bui->idd, size);
+  saveAppend(buffer, "\",\n", size);
+
+  /* weather file */
+  saveAppend(buffer, "  \"weather\": \"", size);
+  saveAppend(buffer, bui->weather, size);
+  saveAppend(buffer, "\",\n", size);
+
+  saveAppend(buffer, "  \"zones\": [\n    {\n", size);
   for(iZon = 0; iZon < bui->nZon; iZon++){
     /* Write zone name */
-    saveAppend(buffer, "    \"name\": \"", size);
+    saveAppend(buffer, "      \"name\": \"", size);
     saveAppend(buffer, zones[iZon]->name, size);
     saveAppend(buffer, "\",\n", size);
     /* Write parameters */
-    saveAppend(buffer, "    \"parameters\": [\n", size);
+    saveAppend(buffer, "      \"parameters\": [\n", size);
     saveAppendJSONElements(
       buffer,
       (const char **)(zones[iZon]->parameterNames),
       zones[iZon]->nParameterValueReferences,
       size);
-    saveAppend(buffer, "\n    ],\n", size);
+    saveAppend(buffer, "\n      ],\n", size);
     /* Write inputs */
-    saveAppend(buffer, "    \"inputs\": [\n", size);
+    saveAppend(buffer, "      \"inputs\": [\n", size);
     saveAppendJSONElements(
       buffer,
       (const char **)(zones[iZon]->inputNames),
       zones[iZon]->nInputValueReferences,
       size);
-    saveAppend(buffer, "\n    ],\n", size);
+    saveAppend(buffer, "\n      ],\n", size);
     /* Write outputs */
-    saveAppend(buffer, "    \"outputs\": [\n", size);
+    saveAppend(buffer, "      \"outputs\": [\n", size);
     saveAppendJSONElements(
       buffer,
       (const char **)(zones[iZon]->outputNames),
       zones[iZon]->nOutputValueReferences,
       size);
     /* Close json array */
-    saveAppend(buffer, "\n    ]\n", size);
+    saveAppend(buffer, "\n      ]\n    }\n  ]\n}\n", size);
 
     return;
   }
@@ -191,12 +206,13 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui){
 
   /* Write to file */
   /* Build the file name */
-  lenNam = strlen(bui->tmpDir) + strlen(MOD_BUI_JSON);
+  lenNam = strlen(bui->tmpDir) + strlen(SEPARATOR) + strlen(MOD_BUI_JSON);
   filNam = malloc((lenNam+1) * sizeof(char));
   if (filNam == NULL)
     ModelicaFormatError("Failed to allocate memory for name of '%s' file.", MOD_BUI_JSON);
   memset(filNam, '\0', lenNam+1);
   strcpy(filNam, bui->tmpDir);
+  strcat(filNam, SEPARATOR);
   strcat(filNam, MOD_BUI_JSON);
 
   /* Open and write file */
