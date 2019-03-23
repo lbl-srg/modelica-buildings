@@ -44,5 +44,11 @@ rmdir $RESDIR/thirdParty/fmi-library/install/lib
 
 # Move header files so that JModelica can resolve statements
 # like #include <FMI/fmi_import_context.h>
+rm -f $RESDIR/C-Sources/EnergyPlus/fmilib_config.h
+rm -f $RESDIR/C-Sources/EnergyPlus/fmilib.h
+rm -rf $RESDIR/C-Sources/EnergyPlus/FMI
+rm -rf $RESDIR/C-Sources/EnergyPlus/FMI1
+rm -rf $RESDIR/C-Sources/EnergyPlus/FMI2
+rm -rf $RESDIR/C-Sources/EnergyPlus/JM
 mv $RESDIR/thirdParty/fmi-library/install/include/{FMI,FMI1,FMI2,fmilib_config.h,fmilib.h,JM} $RESDIR/C-Sources/EnergyPlus/
 echo "Built $RESDIR/C-Sources/EnergyPlus"
