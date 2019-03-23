@@ -135,8 +135,9 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
         zone->ptrBui = FMUZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone);
       }
   }
-  /*Set the fmu to null to control execution*/
+  /*Set the fmu to null to control execution
   zone->ptrBui->fmu=NULL;
+  */
 
   /* Return a pointer to this zone */
   return (void*) zone;

@@ -10,6 +10,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <execinfo.h>
+#include <sys/types.h> /* To create directory */
+#include <sys/stat.h>  /* To create directory */
+#include <unistd.h>    /* To use stat to check for directory */
 
 #include "FMI/fmi_import_context.h"
 #include "FMI2/fmi2FunctionTypes.h"

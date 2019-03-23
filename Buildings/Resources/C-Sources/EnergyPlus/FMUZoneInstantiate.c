@@ -213,7 +213,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   /* This is the first call for this idf file.
      Allocate memory and load the fmu.
   */
-  const char* FMUPath = "FIXME";
+  const char* FMUPath = "Buildings/Resources/src/EnergyPlus/FMUs/SingleZone.fmu";
 	const char* tmpPath = bui->tmpDir;
   const fmi2Boolean visible = fmi2False;
 
@@ -224,6 +224,9 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 	jm_status_enu_t jm_status;
   int ret;
 
+  if( access( FMUPath, F_OK ) == -1 ) {
+    ModelicaFormatError("Requested to load fmu '%s' which does not exist.", FMUPath);
+  }
   /* Write the model structure to the FMU Resources folder so that EnergyPlus can
      read it and set up the data structure.
   */
@@ -245,13 +248,15 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 
   bui->context = fmi_import_allocate_context(&callbacks);
 
+  writeLog(3, "Getting fmi version.");
   version = fmi_import_get_fmi_version(bui->context, FMUPath, tmpPath);
 
   if (version != fmi_version_2_0_enu){
     fmi_import_free_context(bui->context);
-    ModelicaFormatError("Wrong FMU version for %s, require FMI 2.0 for Model Exchange.", FMUPath);
+    ModelicaFormatError("Wrong FMU version for %s, require FMI 2.0 for Model Exchange, received %s.", FMUPath, fmi_version_to_string(version));
   }
 
+  writeLog(3, "Parsing xml file.");
   bui->fmu = fmi2_import_parse_xml(bui->context, tmpPath, 0);
 
 	if(!bui->fmu) {
@@ -273,18 +278,25 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   callBackFunctions.freeMemory = free;
   callBackFunctions.componentEnvironment = bui->fmu;
 
+  writeLog(3, "Loading dllfmu.");
+
+/*
+  if( access( "tmp-eplus-RefBldgSmallOfficeNew2004_Chicago/binaries/linux64/SingleZone.so", F_OK ) == -1 ) {
+    ModelicaFormatError("Requested to load '%s' which does not exist.", "tmp-eplus-RefBldgSmallOfficeNew2004_Chicago/binaries/linux64/SingleZone.so");
+  }
+*/
   jm_status = fmi2_import_create_dllfmu(bui->fmu, fmukind, &callBackFunctions);
   if (jm_status == jm_status_error) {
     fmi_import_free_context(bui->context);
   	ModelicaFormatError("Could not create the DLL loading mechanism (C-API) for %s.", FMUPath);
   }
 
-  writeLog(0, "Instantiating fmu.");
+  writeLog(3, "Instantiating fmu.");
 
   /* Instantiate EnergyPlus */
   jm_status = fmi2_import_instantiate(bui->fmu, bui->name, fmi2_model_exchange, NULL, visible);
 
-  writeLog(2, "Returned from instantiating fmu.");
+  writeLog(3, "Returned from instantiating fmu.");
   if(jm_status == jm_status_error){
     ModelicaFormatError("Failed to instantiate building FMU with name %s.",
     bui->name);
@@ -301,6 +313,7 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
 
   double* outputs;
 
+  printf("*** fmu address is %p\n", (void*)zone->ptrBui->fmu);
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
        This section is only executed once if the 'initial equation' section is called multiple times.

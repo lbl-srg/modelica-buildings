@@ -73,7 +73,7 @@ void FMUZoneExchange(
 
 
   FMUZone* tmpZon = malloc(sizeof(FMUZone)); /* fixme: this malloc is probably not needed */
-  writeLog(3, "Exchanging data with EnergyPlus.");
+  writeLog(3, "Exchanging data with EnergyPlus in FMUZoneExchange.");
 
   if ( tmpZon == NULL )
     ModelicaError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.");

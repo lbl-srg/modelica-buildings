@@ -8,6 +8,7 @@
 
 #include "FMUEnergyPlusStructure.h"
 #include <stdio.h>
+#include <unistd.h>
 
 #include "fmilib.h"
 #include "JM/jm_portability.h"

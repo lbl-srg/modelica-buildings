@@ -181,6 +181,17 @@ void buildVariableNames(
     return;
     }
 
+
+void createDirectory(const char* dirName){
+  struct stat st = {0};
+
+  if (stat(dirName, &st) == -1) {
+    if ( mkdir(dirName, 0700) == -1)
+      ModelicaFormatError("Failed to create directory %s", dirName);
+  }
+}
+
+
 FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
   const char* iddName, const char* zoneName, FMUZone* zone){
   /* Allocate memory */
@@ -198,6 +209,11 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
   Buildings_FMUS[nFMU] = malloc(sizeof(FMUBuilding));
   if ( Buildings_FMUS[nFMU] == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMU[0].");
+
+  Buildings_FMUS[nFMU]->fmu = NULL;
+  Buildings_FMUS[nFMU]->context = NULL;
+  Buildings_FMUS[nFMU]->GUID = NULL;
+
   Buildings_FMUS[nFMU]->zoneNames = malloc(sizeof(char*));
   if ( Buildings_FMUS[nFMU]->zoneNames == NULL )
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate array for Buildings_FMUS[0]->zoneNames.");
@@ -233,6 +249,10 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
     ModelicaError("Not enough memory in FMUZoneInit.c. to allocate zones.");
 
   getEnergyPlusTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
+
+  /* Create the temporary directory */
+  createDirectory(Buildings_FMUS[nFMU]->tmpDir);
+
   /* Assign the dll name */
   if (nFMU == 0) {
     getEnergyPlusDLLName(&(Buildings_FMUS[nFMU]->epLib));
