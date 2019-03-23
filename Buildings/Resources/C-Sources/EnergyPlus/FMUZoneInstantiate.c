@@ -348,7 +348,7 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
 
     writeLog(0, "Returned from setting up experiment.");
     if( status =! fmi2OK ){
-      ModelicaFormatError("Failed to setup experiment for building FMU with name %s.",  zone->ptrBui->name);
+      ModelicaFormatError("Failed to setup experiment for building with name %s.",  zone->ptrBui->name);
     }
   }
 

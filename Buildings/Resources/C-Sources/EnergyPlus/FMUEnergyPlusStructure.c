@@ -301,22 +301,33 @@ unsigned int getBuildings_nFMU(){
 }
 
 void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
-  /* Return the name of the temporary directory to be used for EnergyPlus */
-  /* Get file name without path */
-  /* return "tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"; */
+  /* Return the absolute name of the temporary directory to be used for EnergyPlus
+     in the form "/mnt/xxx/tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"
+     This must be an absolute path as it is used to load the .so of the fmu, which
+     requires the path to be absolute.
+  */
   char * nam;
   char * ext;
   size_t lenNam;
   char * namOnl;
   size_t lenPre;
+  size_t lenCur;
+  size_t lenSep;
+  const char* curDir;
+  fmi2Byte * namWitSla;
 
   /* Prefix for temporary directory */
   const char* pre = "tmp-eplus-\0";
 
-  fmi2Byte * namWitSla = strrchr(idfName, '/');
+  /* Current directory */
+  curDir = get_current_dir_name();
+  if (curDir == NULL)
+    ModelicaError("Failed to get current working directory in getEnergyPlusTemporaryDirectory.");
+
+  namWitSla = strrchr(idfName, '/');
 
   if ( namWitSla == NULL )
-    ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with forward slash '/'?", idfName);
+    ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with slash '%s'?", idfName, "/");
   /* Remove the first slash */
   nam = namWitSla + 1;
   /* Get the extension */
@@ -333,16 +344,20 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   memset(namOnl, '\0', lenNam+1);
   strncpy(namOnl, nam, lenNam);
 
+  lenCur = strlen(curDir);
+  lenSep = 1;
   lenPre = strlen(pre);
 
-  *dirNam = malloc((lenPre+lenNam+1) * sizeof(char));
+  *dirNam = malloc((lenCur+lenSep+lenPre+lenNam+1) * sizeof(char));
   if ( *dirNam == NULL )
     ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
-  memset(*dirNam, '\0', (lenPre+lenNam+1));
-  strncpy(*dirNam, pre, lenPre);
-
+  memset(*dirNam, '\0', (lenCur+lenSep+lenPre+lenNam+1));
+  strncpy(*dirNam, curDir, lenCur);
+  strcat(*dirNam, "/");
+  strcat(*dirNam, pre);
   strcat(*dirNam, namOnl);
   free(namOnl);
+  free(curDir);
 
   return;
 }
