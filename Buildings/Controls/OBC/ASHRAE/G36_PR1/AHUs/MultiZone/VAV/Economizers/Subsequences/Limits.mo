@@ -307,7 +307,7 @@ annotation (
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position limit
-calculation and 
+calculation and
 assignments"),
         Text(
           extent={{-170,160},{-4,130}},
@@ -352,7 +352,7 @@ commissioning fixed limits. The state machine chart below illustrates listed con
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconDamperLimitsStateMachineChartMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconDamperLimitsStateMachineChart.png\"/>
 </p>
 <p>
 The controller sets the outdoor and return damper position limits so
@@ -370,14 +370,14 @@ limits for a well configured controller.
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconDamperLimitsControlDiagramMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconDamperLimitsControlDiagram.png\"/>
 </p>
 <p>
 The expected damper position limits vs. the control loop signal are as follows:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconDamperLimitsControlChartMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconDamperLimitsControlChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

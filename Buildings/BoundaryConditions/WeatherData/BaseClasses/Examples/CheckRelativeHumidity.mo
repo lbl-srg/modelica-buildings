@@ -8,7 +8,7 @@ model CheckRelativeHumidity "Test model for CheckRelativeHumidity"
   annotation (Placement(transformation(extent={{60,0},{80,20}})));
 equation
   connect(conRelHum.relHumOut, cheRelHum.relHumIn) annotation (Line(
-      points={{41,10},{58,10}},
+      points={{61,0},{60,0},{60,10},{58,10}},
       color={0,0,127}));
   annotation (
   Documentation(info="<html>
