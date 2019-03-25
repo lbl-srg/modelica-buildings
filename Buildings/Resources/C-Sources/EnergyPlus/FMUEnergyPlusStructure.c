@@ -76,6 +76,179 @@ void printBacktrace(){
 static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
 
+
+/*
+ Appends a character array to another character array.
+
+ The array size of buffer may be extended by this function
+ to prevent a buffer overflow.
+
+ Arguments:
+  buffer The buffer to which the character array will be added.
+  toAdd The character array that will be appended to \c buffer
+  bufLen The length of the character array buffer. This parameter will
+         be set to the new size of buffer if memory was reallocated.
+*/
+void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen){
+  const size_t minInc = 1024;
+  const size_t nNewCha = strlen(toAdd);
+  const size_t nBufCha = strlen(*buffer);
+  /* reallocate memory if needed */
+  if ( *bufLen < nNewCha + nBufCha + 1){
+    *bufLen = *bufLen + nNewCha + minInc + 1;
+    *buffer = realloc(*buffer, *bufLen);
+    if (*buffer == NULL) {
+      ModelicaError("Realloc failed in saveAppend.");
+    }
+  }
+  /* append toAdd to buffer */
+  strcpy(*buffer + strlen(*buffer), toAdd);
+  return;
+}
+
+
+void saveAppendJSONElements(
+  char* *buffer,
+  const char* values[],
+  size_t n,
+  size_t* bufLen){
+    int i;
+    /* Write all values and value references in the format
+        { "name": "V"},
+        { "name": "AFlo"}
+    */
+    for(i = 0; i < n; i++){
+      /* Build JSON string */
+      saveAppend(buffer, "        { \"", bufLen);
+      saveAppend(buffer, "name", bufLen);
+      saveAppend(buffer, "\": \"", bufLen);
+      saveAppend(buffer, values[i], bufLen);
+      saveAppend(buffer, "\" }", bufLen);
+      if (i < n-1)
+        saveAppend(buffer, ",\n", bufLen);
+      }
+  }
+
+
+void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char* *fmuAbsPat){
+  size_t lenIDF = strlen(idfName);
+  size_t lenTMP = strlen(tmpDir);
+  size_t iniLen = 100;
+  char * idfNamNoExt = getIDFNameWithoutExtension(idfName);
+
+
+  *fmuAbsPat = malloc(iniLen * sizeof(char));
+  if (*fmuAbsPat == NULL){
+    ModelicaFormatError("Failed to allocate memory for FMU name for %s.", idfName);
+  }
+  memset(*fmuAbsPat, '\0', iniLen);
+
+  saveAppend(fmuAbsPat, tmpDir, &iniLen);
+  saveAppend(fmuAbsPat, SEPARATOR, &iniLen);
+  saveAppend(fmuAbsPat, idfNamNoExt, &iniLen);
+  saveAppend(fmuAbsPat, ".fmu", &iniLen);
+  free(idfNamNoExt);
+
+  return;
+}
+
+
+char * getIDFNameWithoutExtension(const char* idfName){
+  char * namWitSla;
+  char * nam;
+  char * namOnl;
+  char * ext;
+  size_t lenNam;
+
+  namWitSla = strrchr(idfName, '/');
+
+  if ( namWitSla == NULL )
+    ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with slash '%s'?", idfName, "/");
+
+  /* Remove the first slash */
+  nam = namWitSla + 1;
+  /* Get the extension */
+  ext = strrchr(nam, '.');
+  if ( ext == NULL )
+    ModelicaFormatError("Failed to parse idfName '%s'. Expected a file extension such as '.idf'?", idfName);
+
+  /* Get the file name without extension */
+  lenNam = strlen(nam) - strlen(ext);
+
+  namOnl = malloc((lenNam+1) * sizeof(char));
+  if ( namOnl == NULL )
+    ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
+  memset(namOnl, '\0', lenNam+1);
+  /* Copy nam to namOnl */
+  strncpy(namOnl, nam, lenNam);
+
+  return namOnl;
+}
+
+void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
+  /* Return the absolute name of the temporary directory to be used for EnergyPlus
+     in the form "/mnt/xxx/tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"
+     This must be an absolute path as it is used to load the .so of the fmu, which
+     requires the path to be absolute.
+  */
+  size_t lenNam;
+  size_t lenPre;
+  size_t lenCur;
+  size_t lenSep;
+  char* curDir;
+  char* namOnl;
+  size_t lenCurDir = 256;
+  const size_t incLenCurDir = 256;
+  const size_t maxLenCurDir = 100000;
+
+
+  /* Prefix for temporary directory */
+  const char* pre = "tmp-eplus-\0";
+
+  writeLog(3, "Getting EnergyPlus temporary directory.");
+  /* Current directory */
+  curDir = malloc(lenCurDir * sizeof(char));
+  if (curDir == NULL)
+    ModelicaError("Failed to allocate memory for current working directory in getEnergyPlusTemporaryDirectory.");
+
+  memset(curDir, '\0', lenCurDir);
+
+  while ( getcwd(curDir, lenCurDir) == NULL ){
+    if ( errno == ERANGE){
+      lenCurDir += incLenCurDir;
+      if (lenCurDir > maxLenCurDir){
+        ModelicaFormatError("Temporary directories with names longer than %u characters are not supported in FMUEnergyPlusStructure.c.", maxLenCurDir);
+      }
+      curDir = realloc(curDir, lenCurDir * sizeof(char));
+      if (curDir == NULL)
+        ModelicaError("Failed to reallocate memory for current working directory in getEnergyPlusTemporaryDirectory.");
+      memset(curDir, '\0', lenCurDir);
+    }
+    else{ /* Other error than insufficient length */
+      ModelicaFormatError("Unknown error when allocating memory for temporary directory in FMUEnergyPlusStructure.c.");
+    }
+  }
+
+  namOnl = getIDFNameWithoutExtension(idfName);
+  lenNam = strlen(namOnl);
+  lenCur = strlen(curDir);
+  lenSep = 1;
+  lenPre = strlen(pre);
+  writeLog(3, "*** Got string length.");
+
+  *dirNam = malloc((lenCur+lenSep+lenPre+lenNam+1) * sizeof(char));
+  if ( *dirNam == NULL )
+    ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
+  memset(*dirNam, '\0', (lenCur+lenSep+lenPre+lenNam+1));
+  strncpy(*dirNam, curDir, lenCur);
+  strcat(*dirNam, "/");
+  strcat(*dirNam, pre);
+  strcat(*dirNam, namOnl);
+  free(namOnl);
+  free(curDir);
+  return;
+}
+
 void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message){
   if (log_level == jm_log_level_error){
     ModelicaFormatError("Error in FMU: module = %s, log level = %d: %s", module, log_level, message);
@@ -250,6 +423,7 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
 
   getEnergyPlusTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
 
+  getEnergyPlusFMUName(idfName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir);
 
@@ -298,66 +472,4 @@ void decrementBuildings_nFMU(){
 
 unsigned int getBuildings_nFMU(){
   return Buildings_nFMU;
-}
-
-void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
-  /* Return the absolute name of the temporary directory to be used for EnergyPlus
-     in the form "/mnt/xxx/tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"
-     This must be an absolute path as it is used to load the .so of the fmu, which
-     requires the path to be absolute.
-  */
-  char * nam;
-  char * ext;
-  size_t lenNam;
-  char * namOnl;
-  size_t lenPre;
-  size_t lenCur;
-  size_t lenSep;
-  const char* curDir;
-  fmi2Byte * namWitSla;
-
-  /* Prefix for temporary directory */
-  const char* pre = "tmp-eplus-\0";
-
-  /* Current directory */
-  curDir = get_current_dir_name();
-  if (curDir == NULL)
-    ModelicaError("Failed to get current working directory in getEnergyPlusTemporaryDirectory.");
-
-  namWitSla = strrchr(idfName, '/');
-
-  if ( namWitSla == NULL )
-    ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with slash '%s'?", idfName, "/");
-  /* Remove the first slash */
-  nam = namWitSla + 1;
-  /* Get the extension */
-  ext = strrchr(nam, '.');
-  if ( ext == NULL )
-    ModelicaFormatError("Failed to parse idfName '%s'. Expected a file extension such as '.idf'?", idfName);
-
-  /* Get the file name without extension */
-  lenNam = strlen(nam) - strlen(ext);
-
-  namOnl = malloc((lenNam+1) * sizeof(char));
-  if ( namOnl == NULL )
-    ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
-  memset(namOnl, '\0', lenNam+1);
-  strncpy(namOnl, nam, lenNam);
-
-  lenCur = strlen(curDir);
-  lenSep = 1;
-  lenPre = strlen(pre);
-
-  *dirNam = malloc((lenCur+lenSep+lenPre+lenNam+1) * sizeof(char));
-  if ( *dirNam == NULL )
-    ModelicaFormatError("Failed to allocate memory for temporary directory name in FMUZoneInstantiate.c.");
-  memset(*dirNam, '\0', (lenCur+lenSep+lenPre+lenNam+1));
-  strncpy(*dirNam, curDir, lenCur);
-  strcat(*dirNam, "/");
-  strcat(*dirNam, pre);
-  strcat(*dirNam, namOnl);
-  free(namOnl);
-  free(curDir);
-
-  return;
 }

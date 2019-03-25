@@ -77,112 +77,51 @@ void getParametersFromEnergyPlus(
 }
 
 
-/*
- Appends a character array to another character array.
-
- The array size of buffer may be extended by this function
- to prevent a buffer overflow.
-
- Arguments:
-  buffer The buffer to which the character array will be added.
-  toAdd The character array that will be appended to \c buffer
-  bufLen The length of the character array buffer. This parameter will
-         be set to the new size of buffer if memory was reallocated.
-*/
-void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen){
-  const size_t minInc = 1024;
-  const size_t nNewCha = strlen(toAdd);
-  const size_t nBufCha = strlen(*buffer);
-  /* reallocate memory if needed */
-  if ( *bufLen < nNewCha + nBufCha + 1){
-    *bufLen = *bufLen + nNewCha + minInc + 1;
-    *buffer = realloc(*buffer, *bufLen);
-    if (*buffer == NULL) {
-      ModelicaError("Realloc failed in saveAppend.");
-    }
-  }
-  /* append toAdd to buffer */
-  strcpy(*buffer + strlen(*buffer), toAdd);
-  return;
-}
-
-
-void saveAppendJSONElements(
-  char* *buffer,
-  const char* values[],
-  size_t n,
-  size_t* bufLen){
-    int i;
-    /* Write all values and value references in the format
-        { "name": "V"},
-        { "name": "AFlo"}
-    */
-    for(i = 0; i < n; i++){
-      /* Build JSON string */
-      saveAppend(buffer, "        { \"", bufLen);
-      saveAppend(buffer, "name", bufLen);
-      saveAppend(buffer, "\": \"", bufLen);
-      saveAppend(buffer, values[i], bufLen);
-      saveAppend(buffer, "\" }", bufLen);
-      if (i < n-1)
-        saveAppend(buffer, ",\n", bufLen);
-      }
-  }
-
 void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer, size_t* size){
   int iZon;
   FMUZone** zones = (FMUZone**)bui->zones;
 
   saveAppend(buffer, "{\n", size);
+  saveAppend(buffer, "  \"version\": \"0.1\",\n", size);
+  saveAppend(buffer, "  \"EnergyPlus\": {\n", size);
   /* idf name */
-  saveAppend(buffer, "  \"idf\": \"", size);
+  saveAppend(buffer, "    \"idf\": \"", size);
   saveAppend(buffer, bui->name, size);
   saveAppend(buffer, "\",\n", size);
 
   /* idd file */
-  saveAppend(buffer, "  \"idd\": \"", size);
+  saveAppend(buffer, "    \"idd\": \"", size);
   saveAppend(buffer, bui->idd, size);
   saveAppend(buffer, "\",\n", size);
 
   /* weather file */
-  saveAppend(buffer, "  \"weather\": \"", size);
+  saveAppend(buffer, "    \"weather\": \"", size);
   saveAppend(buffer, bui->weather, size);
+  saveAppend(buffer, "\"\n", size);
+  saveAppend(buffer, "  },\n", size);
+  /* fmu */
+  saveAppend(buffer, "  \"fmu\": {\n", size);
+  saveAppend(buffer, "      \"name\": \"", size);
+  saveAppend(buffer, bui->fmuAbsPat, size);
   saveAppend(buffer, "\",\n", size);
+  saveAppend(buffer, "      \"version\": \"2.0\",\n", size);
+  saveAppend(buffer, "      \"kind\"   : \"ME\"\n", size);
+  saveAppend(buffer, "  },\n", size);
 
-  saveAppend(buffer, "  \"zones\": [\n    {\n", size);
+  saveAppend(buffer, "  \"zones\": [\n", size);
   for(iZon = 0; iZon < bui->nZon; iZon++){
     /* Write zone name */
-    saveAppend(buffer, "      \"name\": \"", size);
+    ModelicaFormatMessage("Writing zone data %s.", zones[iZon]->name);
+    saveAppend(buffer, "      { \"name\": \"", size);
     saveAppend(buffer, zones[iZon]->name, size);
-    saveAppend(buffer, "\",\n", size);
-    /* Write parameters */
-    saveAppend(buffer, "      \"parameters\": [\n", size);
-    saveAppendJSONElements(
-      buffer,
-      (const char **)(zones[iZon]->parameterNames),
-      zones[iZon]->nParameterValueReferences,
-      size);
-    saveAppend(buffer, "\n      ],\n", size);
-    /* Write inputs */
-    saveAppend(buffer, "      \"inputs\": [\n", size);
-    saveAppendJSONElements(
-      buffer,
-      (const char **)(zones[iZon]->inputNames),
-      zones[iZon]->nInputValueReferences,
-      size);
-    saveAppend(buffer, "\n      ],\n", size);
-    /* Write outputs */
-    saveAppend(buffer, "      \"outputs\": [\n", size);
-    saveAppendJSONElements(
-      buffer,
-      (const char **)(zones[iZon]->outputNames),
-      zones[iZon]->nOutputValueReferences,
-      size);
-    /* Close json array */
-    saveAppend(buffer, "\n      ]\n    }\n  ]\n}\n", size);
-
-    return;
+    if (iZon < (bui->nZon) - 1)
+      saveAppend(buffer, "\" },\n", size);
+    else
+      saveAppend(buffer, "\" }\n", size);
   }
+  /* Close json array */
+  saveAppend(buffer, "  ]\n}\n", size);  
+  return;
 }
 
 
@@ -324,7 +263,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 /* This function is called for each zone in the 'initial equation section'
 */
 void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V, double* mSenFac){
-  fmi2Status status;
+  fmi2_status_t status;
   FMUZone* zone = (FMUZone*) object;
 
   double* outputs;
@@ -336,6 +275,16 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
     */
     FMUZoneAllocateAndInstantiateBuilding(zone->ptrBui);
     /* This function can only be called once per building FMU */
+
+    status = fmi2_import_set_debug_logging(zone->ptrBui->fmu, fmi2_false,0,0);
+  	printf("fmi2_import_set_debug_logging:  %s\n", fmi2_status_to_string(status));
+  	status = fmi2_import_set_debug_logging(zone->ptrBui->fmu, fmi2_true, 0, 0);
+    printf("fmi2_import_set_debug_logging:  %s\n", fmi2_status_to_string(status));
+    if( status =! fmi2_status_ok ){
+      printf("***fmi2_import_set_debug_logging:  %s\n", fmi2_status_to_string(status));
+      ModelicaFormatError("Failed to set debug logging for building with name %s.",  zone->ptrBui->name);
+    }
+
     writeLog(0, "Setting up experiment.");
 
     status = fmi2_import_setup_experiment(
@@ -347,7 +296,7 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
         0);                   /* stopTime */
 
     writeLog(0, "Returned from setting up experiment.");
-    if( status =! fmi2OK ){
+    if( status =! fmi2_status_ok ){
       ModelicaFormatError("Failed to setup experiment for building with name %s.",  zone->ptrBui->name);
     }
   }
@@ -356,6 +305,8 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
   outputs = (double*)malloc(zone->nParameterValueReferences * sizeof(double));
   if (outputs == NULL)
     ModelicaError("Failed to allocated memory for outputs in FMUZoneInstantiate.c.");
+
+  writeLog(0, "Getting parameters.");
 
   getParametersFromEnergyPlus(
     zone,

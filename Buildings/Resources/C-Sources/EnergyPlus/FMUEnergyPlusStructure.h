@@ -13,8 +13,10 @@
 #include <sys/types.h> /* To create directory */
 #include <sys/stat.h>  /* To create directory */
 #include <unistd.h>    /* To use stat to check for directory */
+#include <errno.h>
 
-#include "FMI/fmi_import_context.h"
+#include "fmilib.h"
+/*#include "FMI/fmi_import_context.h"*/
 #include "FMI2/fmi2FunctionTypes.h"
 #include "ModelicaUtilities.h"
 
@@ -56,7 +58,6 @@ void logValueReferenceArray(unsigned int level,
                             const fmi2ValueReference* array,
                             size_t n);
 
-
 typedef struct FMUBuilding
 {
   fmi2_import_t* fmu;
@@ -70,6 +71,7 @@ typedef struct FMUBuilding
   fmi2Byte** zoneNames; /* Names of zones in this FMU */
   void** zones; /* Pointers to all zones*/
   char* tmpDir; /* Temporary directory used by EnergyPlus */
+  char* fmuAbsPat; /* Absolute name of the fmu */
 } FMUBuilding;
 
 typedef struct FMUZone
@@ -96,6 +98,16 @@ typedef struct FMUZone
 } FMUZone;
 
 void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message);
+
+void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen);
+
+void saveAppendJSONElements(char* *buffer, const char* values[], size_t n, size_t* bufLen);
+
+void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char** fmuAbsPat);
+
+char* getIDFNameWithoutExtension(const char* idfName);
+
+void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam);
 
 void getEnergyPlusDLLName(char** epLibName);
 
