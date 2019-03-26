@@ -69,9 +69,8 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
     zone->name,
     parNames,
     zone->nParameterValueReferences,
-    &zone->parameterNames, /* This will be set to {"V", "AFlo", "mSenFac"} */
-    &zone->parameterVariableNames); /* This will be set to the full name */
-  zone->parameterValueReferences = NULL;
+    &zone->parameterNames,
+    &zone->parameterVariableNames);
 
   buildVariableNames(
     zone->name,
@@ -79,7 +78,6 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
     zone->nInputValueReferences,
     &zone->inputNames,
     &zone->inputVariableNames);
-  zone->inputValueReferences = NULL;
 
   buildVariableNames(
     zone->name,
@@ -87,7 +85,21 @@ void* FMUZoneInit(const char* idfName, const char* weaName, const char* iddName,
     zone->nOutputValueReferences,
     &zone->outputNames,
     &zone->outputVariableNames);
+
+  zone->parameterValueReferences = NULL;
+  zone->parameterValueReferences = (fmi2ValueReference*)malloc(zone->nParameterValueReferences * sizeof(fmi2ValueReference));
+  if ( zone->parameterValueReferences == NULL)
+    ModelicaFormatError("Failed to allocate memory for parameterValueReferences in FMUZoneInit.c.");
+
+  zone->inputValueReferences = NULL;
+  zone->inputValueReferences = (fmi2ValueReference*)malloc(zone->nInputValueReferences * sizeof(fmi2ValueReference));
+  if ( zone->inputValueReferences == NULL)
+    ModelicaFormatError("Failed to allocate memory for inputValueReferences in FMUZoneInit.c.");
+
   zone->outputValueReferences = NULL;
+  zone->outputValueReferences = (fmi2ValueReference*)malloc(zone->nOutputValueReferences * sizeof(fmi2ValueReference));
+  if ( zone->outputValueReferences == NULL)
+    ModelicaFormatError("Failed to allocate memory for outputValueReferences in FMUZoneInit.c.");
 
   /* ********************************************************************** */
   /* Initialize the pointer for the FMU to which this zone belongs */

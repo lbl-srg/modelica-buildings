@@ -23,6 +23,7 @@ void FMUZoneExchange(
   double* dQConSen_flow,
   double* QLat_flow,
   double* QPeo_flow,
+  int* nextEventTimeDefined,  
   double* tNext);
 
 #endif

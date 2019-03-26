@@ -92,9 +92,9 @@ typedef struct FMUZone
   fmi2ValueReference* inputValueReferences; /* Value reference of input variables*/
   fmi2ValueReference* outputValueReferences; /* Value references of output variables*/
 
-  fmi2Byte** parameterVariableNames; /* Full names of parameter variables (used for reporting only) */
-  fmi2Byte** inputVariableNames; /* Full names of input variables (used for reporting only)*/
-  fmi2Byte** outputVariableNames; /* Full names of output variables (used for reporting only)*/
+  fmi2Byte** parameterVariableNames; /* Full names of parameter variables (used to get value reference) */
+  fmi2Byte** inputVariableNames; /* Full names of input variables (used to get value reference)*/
+  fmi2Byte** outputVariableNames; /* Full names of output variables (used to get value reference)*/
 } FMUZone;
 
 void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message);

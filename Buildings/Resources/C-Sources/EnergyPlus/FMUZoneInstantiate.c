@@ -36,43 +36,21 @@ void getValueReferences(
 
 void getParametersFromEnergyPlus(
   FMUZone* zone,
-  const char* parNames[], /* such as {"V", "AFlo", "mSenFac"} */
-  double* parValues,
-  size_t nPar)
+  double* parValues)
   {
-  int i;
   fmi2Status status;
-  char** ptrVarNames = NULL;
-  char** ptrFullNames = NULL;
 
-  fmi2ValueReference* parameterValueReferences;
   writeLog(2, "Getting parameters from EnergyPlus.");
-
-  parameterValueReferences = (fmi2ValueReference*)malloc(nPar * sizeof(fmi2ValueReference));
-  if ( parameterValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for parameterValueReferences in FMUZoneInstantiate.c.");
-
-  buildVariableNames(zone->name, parNames, nPar, &ptrVarNames, &ptrFullNames);
-
-  getValueReferences(ptrFullNames, nPar,
-    zone->parameterVariableNames, zone->parameterValueReferences, zone->nParameterValueReferences,
-    parameterValueReferences);
-  /* Get initial parameter variables */
-
-  /* writeLog(1, "begin getVariables"); */
-  status = fmi2_import_get_real(zone->ptrBui->fmu, parameterValueReferences, nPar, parValues);
+  status = fmi2_import_get_real(
+    zone->ptrBui->fmu,
+    zone->parameterValueReferences,
+    zone->nParameterValueReferences,
+    parValues);
   /* writeLog(1, "end getVariables"); */
   if (status != fmi2OK ){
     ModelicaFormatError("Failed to get parameters for building %s, zone %s.",
     zone->ptrBui->name, zone->name);
   }
-
-  for (i = 0; i < nPar; i++)
-    free(ptrVarNames[i]);
-  free(ptrVarNames);
-
-  /* free(parameterValueReferences);  */
-
   return;
 }
 
@@ -120,7 +98,7 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
       saveAppend(buffer, "\" }\n", size);
   }
   /* Close json array */
-  saveAppend(buffer, "  ]\n}\n", size);  
+  saveAppend(buffer, "  ]\n}\n", size);
   return;
 }
 
@@ -163,6 +141,83 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui){
   free(filNam);
 }
 
+void setValueReference(
+  const char* fmuNam,
+  fmi2_import_variable_list_t* varLis,
+  const fmi2_value_reference_t varValRef[],
+  size_t nVar,
+  fmi2Byte** modNames,
+  const size_t nNam,
+  fmi2ValueReference** modValRef){
+
+  size_t iMod;
+  size_t iFMI;
+  fmi2_import_variable_t* fmiVar;
+  fmi2_value_reference_t vr;
+  fmi2_import_variable_t* var;
+
+  for (iMod = 0; iMod < nNam; iMod++){
+    for (iFMI = 0; iFMI < nVar; iFMI++){
+      var = fmi2_import_get_variable(varLis, iFMI);
+      if (strcmp(modNames[iMod], fmi2_import_get_variable_name(var)) == 0){
+        /* Found the variable */
+        (*modValRef)[iMod] = varValRef[iFMI];
+        break;
+      }
+    }
+    if (iFMI == nVar){
+      ModelicaFormatError("Failed to find variable %s in %s.", modNames[iMod], fmuNam);
+      }
+    }
+ }
+
+
+void setValueReferences(FMUBuilding* fmuBui){
+  size_t i;
+  size_t iZon;
+  size_t vr;
+  FMUZone* zone;
+
+  fmi2_import_variable_list_t* vl = fmi2_import_get_variable_list(fmuBui->fmu, 0);
+  const fmi2_value_reference_t* vrl = fmi2_import_get_value_referece_list(vl);
+  size_t nv = fmi2_import_get_variable_list_size(vl);
+
+  writeLog(3, "Searching for variable reference.");
+  /* Set value references for the parameters by assigning the values obtained from the FMU */
+  for(iZon = 0; iZon < fmuBui->nZon; iZon++){
+    zone = (FMUZone*) fmuBui->zones[iZon];
+    setValueReference(
+      fmuBui->fmuAbsPat,
+      vl, vrl, nv,
+      zone->parameterVariableNames,
+      zone->nParameterValueReferences,
+      &(zone->parameterValueReferences));
+   setValueReference(
+      fmuBui->fmuAbsPat,
+      vl, vrl, nv,
+      zone->inputVariableNames,
+      zone->nInputValueReferences,
+      &(zone->inputValueReferences));
+   setValueReference(
+     fmuBui->fmuAbsPat,
+     vl, vrl, nv,
+     zone->outputVariableNames,
+     zone->nOutputValueReferences,
+     &(zone->outputValueReferences));
+  }
+  writeLog(3, "Searched for variable reference.");
+/*
+  for(i = 0; i < nv; i++) {
+    var = fmi2_import_get_variable(vl, i);
+    printf("Variable name: %s\n", fmi2_import_get_variable_name(var));
+    vr = fmi2_import_get_variable_vr(var);
+    printf("Value reference: %u\n", vr);
+  }
+*/
+  printf("Finished importing variable list\n");
+  fmi2_import_free_variable_list(vl);
+  return;
+}
 
 void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   /* This is the first call for this idf file.
@@ -173,7 +228,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   const fmi2Boolean visible = fmi2False;
 
   fmi2_callback_functions_t callBackFunctions;
-  jm_callbacks callbacks;
+  jm_callbacks* callbacks;
   fmi_version_enu_t version;
   fmi2_fmu_kind_enu_t fmukind;
 	jm_status_enu_t jm_status;
@@ -193,15 +248,10 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 */
 
   /* Set callback functions */
-  callbacks.malloc = malloc;
-  callbacks.calloc = calloc;
-  callbacks.realloc = realloc;
-  callbacks.free = free;
-  callbacks.logger = fmilogger;
-	callbacks.log_level = jm_log_level_all;
-  callbacks.context = 0;
 
-  bui->context = fmi_import_allocate_context(&callbacks);
+  callbacks = jm_get_default_callbacks();
+
+  bui->context = fmi_import_allocate_context(callbacks);
 
   writeLog(3, "Getting fmi version.");
   version = fmi_import_get_fmi_version(bui->context, FMUPath, tmpPath);
@@ -253,40 +303,54 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 
   writeLog(3, "Returned from instantiating fmu.");
   if(jm_status == jm_status_error){
-    ModelicaFormatError("Failed to instantiate building FMU with name %s.",
-    bui->name);
+    ModelicaFormatError("Failed to instantiate building FMU with name %s.",  bui->name);
   }
+  /* Set the value references for all parameters, inputs and outputs */
+  setValueReferences(bui);
 
   return;
 }
 
+void do_event_iteration(fmi2_import_t *fmu, fmi2_event_info_t *eventInfo)
+{
+    eventInfo->newDiscreteStatesNeeded = fmi2_true;
+    eventInfo->terminateSimulation     = fmi2_false;
+    while (eventInfo->newDiscreteStatesNeeded && !eventInfo->terminateSimulation) {
+        fmi2_import_new_discrete_states(fmu, eventInfo);
+    }
+    if (eventInfo->terminateSimulation){
+      ModelicaFormatError("FMU requested to terminate the simulation.");
+    }
+}
 /* This function is called for each zone in the 'initial equation section'
 */
 void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V, double* mSenFac){
   fmi2_status_t status;
   FMUZone* zone = (FMUZone*) object;
+  fmi2_event_info_t eventInfo;
 
   double* outputs;
 
-  printf("*** fmu address is %p\n", (void*)zone->ptrBui->fmu);
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
        This section is only executed once if the 'initial equation' section is called multiple times.
     */
-    FMUZoneAllocateAndInstantiateBuilding(zone->ptrBui);
-    /* This function can only be called once per building FMU */
 
-    status = fmi2_import_set_debug_logging(zone->ptrBui->fmu, fmi2_false,0,0);
-  	printf("fmi2_import_set_debug_logging:  %s\n", fmi2_status_to_string(status));
-  	status = fmi2_import_set_debug_logging(zone->ptrBui->fmu, fmi2_true, 0, 0);
-    printf("fmi2_import_set_debug_logging:  %s\n", fmi2_status_to_string(status));
-    if( status =! fmi2_status_ok ){
-      printf("***fmi2_import_set_debug_logging:  %s\n", fmi2_status_to_string(status));
-      ModelicaFormatError("Failed to set debug logging for building with name %s.",  zone->ptrBui->name);
+    /* Instantiate the FMU for this building */
+    FMUZoneAllocateAndInstantiateBuilding(zone->ptrBui);
+
+  	status = fmi2_import_set_debug_logging(
+        zone->ptrBui->fmu,
+        fmi2_true, /* Logging on */
+        0, /* nCategories */
+        0); /* Which categories to log */
+    if( status != fmi2_status_ok ){
+      ModelicaFormatError("Failed to set debug logging for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
     }
 
-    writeLog(0, "Setting up experiment.");
-
+   
+    writeLog(3, "Setting up experiment.");
+    /* This function can only be called once per building FMU */
     status = fmi2_import_setup_experiment(
         zone->ptrBui->fmu,    /* fmu */
         fmi2False,            /* toleranceDefined */
@@ -294,11 +358,34 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
         startTime,            /* startTime */
         fmi2False,            /* stopTimeDefined */
         0);                   /* stopTime */
-
-    writeLog(0, "Returned from setting up experiment.");
-    if( status =! fmi2_status_ok ){
-      ModelicaFormatError("Failed to setup experiment for building with name %s.",  zone->ptrBui->name);
+    writeLog(3, "Returned from setup_experiment.");
+    if( status != fmi2_status_ok ){
+      ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
     }
+    writeLog(3, "Enter initialization mode of FMU.");
+    status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
+    writeLog(3, "Returned from enter initialization mode of FMU.");
+    if( status != fmi2_status_ok ){
+      ModelicaFormatError("Failed to enter initialization mode for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
+    }
+    writeLog(3, "Enter exit initialization mode of FMU.");
+    status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
+    if( status != fmi2_status_ok ){
+      ModelicaFormatError("Failed to exit initialization mode for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
+    }
+    writeLog(3, "Initializing eventInfo.");
+    eventInfo.newDiscreteStatesNeeded           = fmi2_false;
+  	eventInfo.terminateSimulation               = fmi2_false;
+  	eventInfo.nominalsOfContinuousStatesChanged = fmi2_false;
+  	eventInfo.valuesOfContinuousStatesChanged   = fmi2_true;
+  	eventInfo.nextEventTimeDefined              = fmi2_false;
+  	eventInfo.nextEventTime                     = -0.0;
+
+    /* fmiExitInitializationMode leaves FMU in event mode */
+    writeLog(3, "Doing event iteration.");
+    do_event_iteration(zone->ptrBui->fmu, &eventInfo);
+    writeLog(3, "Returned from event iteration.");
+
   }
 
   /* Allocate memory */
@@ -308,11 +395,7 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
 
   writeLog(0, "Getting parameters.");
 
-  getParametersFromEnergyPlus(
-    zone,
-    (const char **)(zone->parameterNames),
-    outputs,
-    zone->nParameterValueReferences);
+  getParametersFromEnergyPlus(zone, outputs);
 
     /* Obtain the floor area and the volume of the zone */
     *V = outputs[0];

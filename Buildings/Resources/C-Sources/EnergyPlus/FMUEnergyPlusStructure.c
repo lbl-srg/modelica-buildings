@@ -348,11 +348,12 @@ void buildVariableNames(
     for (i=0; i<nVar; i++){
       memset((*ptrFullNames)[i], '\0', len+1);
       strcpy((*ptrFullNames)[i], zoneName);
-      strcat((*ptrFullNames)[i], ",");
+      strcat((*ptrFullNames)[i], "_");
       strcat((*ptrFullNames)[i], variableNames[i]);
     }
-    return;
-    }
+  return;
+}
+
 
 
 void createDirectory(const char* dirName){

@@ -12,7 +12,7 @@ model FMUZoneAdapter
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
     final idfName=idfName,
     final weaName=weaName,
-    final zoneName="Core_ZN",
+    final zoneName="office",
     final nFluPor=2) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.RealExpression TZone(y=293.15) "Zone air temperature"

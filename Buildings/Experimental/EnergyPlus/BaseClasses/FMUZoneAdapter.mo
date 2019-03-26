@@ -2,6 +2,8 @@ within Buildings.Experimental.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
 
+  constant Modelica.SIunits.Time maxSamplePeriod = 3600
+    "Maximum time step in EnergyPlus (usually overwritten by a smaller time step in the idf file)";
   parameter String idfName "Name of the IDF file that contains this zone";
   parameter String weaName "Name of the Energyplus weather file";
   final parameter String iddName=Modelica.Utilities.Files.loadResource(
@@ -79,6 +81,8 @@ protected
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
 
+  discrete Boolean nextEventTimeDefined "true if tNext is set by the FMU, false otherwise";
+
   discrete Modelica.SIunits.Time tLast(fixed=true, start=startTime) "Last time of data exchange";
   discrete Modelica.SIunits.Time dtLast "Time step since the last synchronization";
 
@@ -128,7 +132,7 @@ equation
   //  Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
     mInlet_flow =  sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
     TAveInlet = sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor)/max(1E-10, mInlet_flow);
-    (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNextEP) =
+    (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, nextEventTimeDefined, tNextEP) =
       Buildings.Experimental.EnergyPlus.BaseClasses.exchange(
       adapter,
       T,
@@ -152,7 +156,10 @@ equation
     //tNext = roundToMinute(min(tNextEP, time+60));
    //fixme assert(abs(tNextEP-pre(tNext)) > 59 or time < t0+1, "EnergyPlus requested a time step that is smaller than one minute which is beyond its capability. Contact support.");
 
-    tNext = round(tNextEP, 60);
+    tNext = if nextEventTimeDefined then
+        round(min(pre(tNext)+maxSamplePeriod, tNextEP), 60)
+      else
+        round(pre(tNext)+maxSamplePeriod, 60);
     //Modelica.Utilities.Streams.print("Time = " + String(time) + "\t tNextEP = " + String(tNextEP) + "\t tNext = " + String(tNext));
     tLast = time;
   end when;
