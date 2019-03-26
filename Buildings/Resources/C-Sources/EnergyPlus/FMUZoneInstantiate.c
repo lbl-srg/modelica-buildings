@@ -217,7 +217,7 @@ void generateFMU(const char* FMUPath){
   size_t len;
   int retVal;
 
-  len = strlen(cmd) + strlen(FMUPath) + 1 + strlen(testFMU);
+  len = strlen(cmd) + strlen(FMUPath) + 1 + strlen(testFMU) + 1;
   fulCmd = malloc(len * sizeof(char));
   if (fulCmd == NULL){
     ModelicaFormatError("Failed to allocate memory in generateFMU().");
@@ -232,6 +232,7 @@ void generateFMU(const char* FMUPath){
   if (retVal != 0){
     ModelicaFormatError("Generating FMU failed using command '%s'.", fulCmd);
   }
+  free(fulCmd);
 }
 
 void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
