@@ -209,11 +209,36 @@ void setValueReferences(FMUBuilding* fmuBui){
   return;
 }
 
+void generateFMU(const char* FMUPath){
+  /* Generate the FMU */
+  const char* cmd = "cp -p ";
+  const char* testFMU = "Buildings/Resources/src/EnergyPlus/FMUs/SingleZone.fmu";
+  char* fulCmd;
+  size_t len;
+  int retVal;
+
+  len = strlen(cmd) + strlen(FMUPath) + 1 + strlen(testFMU);
+  fulCmd = malloc(len * sizeof(char));
+  if (fulCmd == NULL){
+    ModelicaFormatError("Failed to allocate memory in generateFMU().");
+  }
+  memset(fulCmd, '\0', len);
+  strcpy(fulCmd, cmd);
+  strcat(fulCmd, testFMU);
+  strcat(fulCmd, " ");
+  strcat(fulCmd, FMUPath);
+  /* Generate the FMU */
+  retVal = system(fulCmd);
+  if (retVal != 0){
+    ModelicaFormatError("Generating FMU failed using command '%s'.", fulCmd);
+  }
+}
+
 void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   /* This is the first call for this idf file.
      Allocate memory and load the fmu.
   */
-  const char* FMUPath = "Buildings/Resources/src/EnergyPlus/FMUs/SingleZone.fmu";
+  const char* FMUPath;
 	const char* tmpPath = bui->tmpDir;
   const fmi2Boolean visible = fmi2False;
 
@@ -225,6 +250,9 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 	jm_status_enu_t jm_status;
   int ret;
 
+  FMUPath = bui->fmuAbsPat;
+  generateFMU(FMUPath);
+
   if( access( FMUPath, F_OK ) == -1 ) {
     ModelicaFormatError("Requested to load fmu '%s' which does not exist.", FMUPath);
   }
@@ -233,13 +261,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   */
   writeModelStructureForEnergyPlus(bui);
 
-/*
-  fmi2Boolean loggingOn = fmi2True;
-  fmi2Type fmuType = fmi2ModelExchange;
-*/
-
   /* Set callback functions */
-
   callbacks = jm_get_default_callbacks();
 
   bui->context = fmi_import_allocate_context(callbacks);
