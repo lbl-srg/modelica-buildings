@@ -16,4 +16,6 @@
 
 void FMUZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
 
+fmi2Status do_event_iteration(fmi2_import_t *fmu, fmi2_event_info_t *eventInfo);
+
 #endif

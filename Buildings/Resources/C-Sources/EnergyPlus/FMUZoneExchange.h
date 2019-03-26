@@ -7,6 +7,7 @@
 #define Buildings_FMUZoneExchange_h
 
 #include "FMUEnergyPlusStructure.h"
+#include "FMUZoneInstantiate.h"
 #include "FMI2/fmi2_import_capi.h"
 
 

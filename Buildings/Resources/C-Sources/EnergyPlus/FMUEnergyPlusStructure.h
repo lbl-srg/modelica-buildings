@@ -16,7 +16,6 @@
 #include <errno.h>
 
 #include "fmilib.h"
-/*#include "FMI/fmi_import_context.h"*/
 #include "FMI2/fmi2FunctionTypes.h"
 #include "ModelicaUtilities.h"
 
