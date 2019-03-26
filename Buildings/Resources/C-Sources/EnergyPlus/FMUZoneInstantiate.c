@@ -227,6 +227,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 	const char* tmpPath = bui->tmpDir;
   const fmi2Boolean visible = fmi2False;
 
+  /* fmi2_import_model_counts_t  mc; */
   fmi2_callback_functions_t callBackFunctions;
   jm_callbacks* callbacks;
   fmi_version_enu_t version;
@@ -278,6 +279,10 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 		ModelicaFormatError("Unxepected FMU kind for %s, require ME.", FMUPath);
 	}
 
+  /* Get model statistics
+  fmi2_import_collect_model_counts(bui->fmu, &mc);
+  printf("*** Number of discrete variables %u.\n", mc.num_discrete);
+ */
   callBackFunctions.logger = fmi2_log_forwarding;
   callBackFunctions.allocateMemory = calloc;
   callBackFunctions.freeMemory = free;
@@ -311,16 +316,24 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   return;
 }
 
-void do_event_iteration(fmi2_import_t *fmu, fmi2_event_info_t *eventInfo)
-{
-    eventInfo->newDiscreteStatesNeeded = fmi2_true;
-    eventInfo->terminateSimulation     = fmi2_false;
-    while (eventInfo->newDiscreteStatesNeeded && !eventInfo->terminateSimulation) {
-        fmi2_import_new_discrete_states(fmu, eventInfo);
-    }
-    if (eventInfo->terminateSimulation){
-      ModelicaFormatError("FMU requested to terminate the simulation.");
-    }
+fmi2Status do_event_iteration(fmi2_import_t *fmu, fmi2_event_info_t *eventInfo){
+  size_t i = 0;
+  const size_t nMax = 50;
+  fmi2Status status;
+
+  eventInfo->newDiscreteStatesNeeded = fmi2_true;
+  eventInfo->terminateSimulation     = fmi2_false;
+  while (eventInfo->newDiscreteStatesNeeded && !eventInfo->terminateSimulation && i < nMax) {
+    i++;
+    status = fmi2_import_new_discrete_states(fmu, eventInfo);
+  }
+  if (eventInfo->terminateSimulation){
+    ModelicaFormatError("FMU requested to terminate the simulation.");
+  }
+  if (i == nMax){
+    ModelicaFormatError("Did not converge during event iteration.");
+  }
+  return status;
 }
 /* This function is called for each zone in the 'initial equation section'
 */
@@ -348,7 +361,7 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
       ModelicaFormatError("Failed to set debug logging for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
     }
 
-   
+
     writeLog(3, "Setting up experiment.");
     /* This function can only be called once per building FMU */
     status = fmi2_import_setup_experiment(

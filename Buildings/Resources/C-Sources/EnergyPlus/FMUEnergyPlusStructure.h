@@ -46,6 +46,8 @@ static char* SEPARATOR = "\\";
 static char* SEPARATOR = "/";
 #endif
 
+void writeFormatLog(unsigned int level, const char *fmt, ...);
+
 void writeLog(unsigned int level, const char* msg);
 
 void logStringArray(unsigned int level,

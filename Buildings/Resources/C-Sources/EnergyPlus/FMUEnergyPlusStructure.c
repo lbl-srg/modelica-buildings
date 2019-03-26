@@ -17,6 +17,19 @@
 #include <dlfcn.h>
 #endif
 
+void writeFormatLog(unsigned int level, const char *fmt, ...) {
+  const char* prefix = "*** Log: ";
+  va_list args;
+
+  if (level <= FMU_EP_VERBOSITY){
+    fprintf(stdout, "%s", prefix);
+    va_start(args, fmt);
+    vprintf(fmt, args);
+    va_end(args);
+    fprintf(stdout, "%s", "\n");
+  }
+}
+
 void writeLog(unsigned int level, const char* msg)
 {
     if (level <= FMU_EP_VERBOSITY){

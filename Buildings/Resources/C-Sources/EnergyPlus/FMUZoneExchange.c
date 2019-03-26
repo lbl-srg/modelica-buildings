@@ -55,7 +55,6 @@ void FMUZoneExchange(
   double* dQConSen_flow,
   double* QLat_flow,
   double* QPeo_flow,
-  int* nextEventTimeDefined,
   double* tNext){
 
   FMUZone* zone = (FMUZone*) object;
@@ -74,7 +73,7 @@ void FMUZoneExchange(
 
 
   FMUZone* tmpZon = malloc(sizeof(FMUZone)); /* fixme: this malloc is probably not needed */
-  writeLog(3, "Exchanging data with EnergyPlus in FMUZoneExchange.");
+  writeFormatLog(3, "Exchanging data with EnergyPlus in FMUZoneExchange at t = %.2f.", time);
 
   if ( tmpZon == NULL )
     ModelicaError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.");
@@ -98,9 +97,10 @@ void FMUZoneExchange(
   *dQConSen_flow = (QConSenPer_flow-*QConSen_flow)/dT;
 
   /* Get next event time */
-  writeLog(3, "Getting next event time.");
-  status = fmi2_import_new_discrete_states(zone->ptrBui->fmu, &eventInfo);
-  writeLog(3, "Checking status.");
+  writeFormatLog(3, "Getting next event time at %.2f\n", time);
+  status = do_event_iteration(zone->ptrBui->fmu, &eventInfo);
+  /* status = fmi2_import_new_discrete_states(zone->ptrBui->fmu, &eventInfo);*/
+  writeFormatLog(3, "Status after fmi2_import_new_discrete_states is %s\n", fmi2_status_to_string(status));
   if (status != fmi2OK) {
     ModelicaFormatError("Failed during call to fmi2NewDiscreteStates for building FMU with name %s.",
     zone->ptrBui->name);
@@ -110,11 +110,14 @@ void FMUZoneExchange(
     zone->ptrBui->name, zone->name, time);
   }
   if(eventInfo.nextEventTimeDefined == fmi2False){
-    *nextEventTimeDefined ==  fmi2False;
+    writeFormatLog(3, "Next event time NOT defined at %.2f\n", time);
+    ModelicaFormatError("Expected EnergyPlus to set nextEventTimeDefined = true in FMU =%s, zone = %s, time = %f.",
+      zone->ptrBui->name, zone->name, time);
   }
   else{
-    *nextEventTimeDefined ==  fmi2True;
     *tNext = eventInfo.nextEventTime;
+    writeFormatLog(3, "Requested next event time at %.2f: %.2f\n", time, *tNext);
+
     if (*tNext <= time + 1E-6){
       ModelicaFormatError("EnergyPlus requested at time = %f a next event time of %f for building = %s, zone = %s. Zero time steps are not supported. Check with support.",
       time, *tNext, zone->ptrBui->name, zone->name);
@@ -124,6 +127,6 @@ void FMUZoneExchange(
   *TRad = 293.15;
   *QLat_flow = 0;
   *QPeo_flow = 0;
-  writeLog(3, "Returning from FMUZoneExchange.");
+  writeFormatLog(3, "Returning from FMUZoneExchange with nextEventTime = %.2f.", *tNext);
   return;
 }

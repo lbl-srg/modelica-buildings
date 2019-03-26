@@ -21,12 +21,11 @@ function exchange "Exchange the values for the thermal zone"
     "Latent heat gain to be added to zone air (positive if heat is added to zone air)";
   output Modelica.SIunits.HeatFlowRate  QPeo_flow
     "Total heat gain from people, to be used to optionall compute CO2 emitted (positive if heat is added to zone air)";
-  output Boolean nextEventTimeDefined "true if tNext is set by the FMU, false otherwise";
   output Modelica.SIunits.Time tNext "Next time that the zone need to be invoked";
 
   external "C" FMUZoneExchange(adapter,
     T, X, mInlet_flow, TAveInlet, QGaiRad_flow, tModel,
-    TRad, QCon_flow, dQCon_flow, QLat_flow, QPeo_flow, nextEventTimeDefined, tNext)
+    TRad, QCon_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)
       annotation(
         IncludeDirectory="modelica://Buildings/Resources/C-Sources",
         Include="#include \"FMUZoneExchange.c\"");
