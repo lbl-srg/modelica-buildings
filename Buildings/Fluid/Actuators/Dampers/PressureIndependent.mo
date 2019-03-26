@@ -61,7 +61,7 @@ initial equation
 equation
   m_flow_lin = y_actual * m_flow_nominal;
   dp_0 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-    m_flow=m_flow_lin,
+    m_flow=m_flow_lin + 1E-2 * m_flow_nominal_pos,
     k=kTot_0,
     m_flow_turbulent=m_flow_turbulent);
   dp_1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
