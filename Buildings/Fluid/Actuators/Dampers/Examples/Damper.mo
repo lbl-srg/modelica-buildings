@@ -163,6 +163,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-160,-200},{100,100}})),
-    Icon(coordinateSystem(extent={{-160,-200},{100,100}})));
+    Diagram(coordinateSystem(extent={{-160,-200},{100,100}})));
 end Damper;

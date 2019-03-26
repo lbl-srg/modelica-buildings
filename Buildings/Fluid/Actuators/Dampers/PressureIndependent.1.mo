@@ -50,7 +50,8 @@ protected
   Modelica.SIunits.PressureDifference dp_0;
   Modelica.SIunits.PressureDifference dp_1;
   parameter Modelica.SIunits.PressureDifference dp_small = 1E-4 * dp_nominal_pos;
-  Real c_regul  "Regularization coefficient";
+  parameter Real c_regul = 1E-4 * m_flow_nominal_pos / dp_nominal_pos
+    "Regularization coefficient";
   Modelica.SIunits.PressureDifference dpDam
     "Pressure drop at damper boundaries, excluding fixed resistance";
 initial equation
@@ -60,14 +61,13 @@ initial equation
 equation
   m_flow_lin = y_actual * m_flow_nominal;
   dp_0 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-    m_flow=m_flow_lin + y_actual * 1E-2 * m_flow_nominal_pos,
+    m_flow=m_flow_lin + 1E-2 * m_flow_nominal_pos,
     k=kTot_0,
     m_flow_turbulent=m_flow_turbulent);
   dp_1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=m_flow_lin,
     k=kTot_1,
     m_flow_turbulent=m_flow_turbulent);
-  c_regul = y_actual * 1E-2 * m_flow_nominal_pos / max(Modelica.Constants.eps, dp_0 - dp_1);
   m_flow = smooth(2, noEvent(
     if dp <= dp_1 then
       // damper fully open (covers also dp <= 0 i.e. flow reversal or zero pressure drop)
@@ -101,14 +101,14 @@ equation
         y2dd=0)
     elseif dp < dp_0 - dp_small then
       // damper controlling flow rate
-      m_flow_lin + c_regul * (dp - dp_1)
+      m_flow_lin + c_regul * dp
     elseif dp < dp_0 then
       // transition towards leakage (damper fully closed)
       Buildings.Utilities.Math.Functions.quinticHermite(
         x=dp,
         x1=dp_0 - dp_small,
         x2=dp_0,
-        y1=m_flow_lin + c_regul * (dp - dp_1),
+        y1=m_flow_lin + c_regul * dp,
         y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
           dp=dp_0,
           k=kTot_0,
