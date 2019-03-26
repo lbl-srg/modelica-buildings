@@ -205,16 +205,6 @@ void setValueReferences(FMUBuilding* fmuBui){
      zone->nOutputValueReferences,
      &(zone->outputValueReferences));
   }
-  writeLog(3, "Searched for variable reference.");
-/*
-  for(i = 0; i < nv; i++) {
-    var = fmi2_import_get_variable(vl, i);
-    printf("Variable name: %s\n", fmi2_import_get_variable_name(var));
-    vr = fmi2_import_get_variable_vr(var);
-    printf("Value reference: %u\n", vr);
-  }
-*/
-  printf("Finished importing variable list\n");
   fmi2_import_free_variable_list(vl);
   return;
 }

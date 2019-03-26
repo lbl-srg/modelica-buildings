@@ -97,10 +97,8 @@ void FMUZoneExchange(
   *dQConSen_flow = (QConSenPer_flow-*QConSen_flow)/dT;
 
   /* Get next event time */
-  writeFormatLog(3, "Getting next event time at %.2f\n", time);
   status = do_event_iteration(zone->ptrBui->fmu, &eventInfo);
   /* status = fmi2_import_new_discrete_states(zone->ptrBui->fmu, &eventInfo);*/
-  writeFormatLog(3, "Status after fmi2_import_new_discrete_states is %s\n", fmi2_status_to_string(status));
   if (status != fmi2OK) {
     ModelicaFormatError("Failed during call to fmi2NewDiscreteStates for building FMU with name %s.",
     zone->ptrBui->name);
@@ -110,14 +108,12 @@ void FMUZoneExchange(
     zone->ptrBui->name, zone->name, time);
   }
   if(eventInfo.nextEventTimeDefined == fmi2False){
-    writeFormatLog(3, "Next event time NOT defined at %.2f\n", time);
     ModelicaFormatError("Expected EnergyPlus to set nextEventTimeDefined = true in FMU =%s, zone = %s, time = %f.",
       zone->ptrBui->name, zone->name, time);
   }
   else{
     *tNext = eventInfo.nextEventTime;
     writeFormatLog(3, "Requested next event time at %.2f: %.2f\n", time, *tNext);
-
     if (*tNext <= time + 1E-6){
       ModelicaFormatError("EnergyPlus requested at time = %f a next event time of %f for building = %s, zone = %s. Zero time steps are not supported. Check with support.",
       time, *tNext, zone->ptrBui->name, zone->name);

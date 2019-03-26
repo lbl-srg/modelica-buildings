@@ -48,8 +48,6 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 */
     writeLog(2, "Closing EnergyPlus library.");
     free(ptrBui);
-    writeLog(2, "Closed EnergyPlus library.");
-
   }
 }
 
