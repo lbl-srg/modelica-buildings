@@ -186,7 +186,7 @@ annotation (
           extent={{-116,118},{-34,102}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          textString="Damper position supply 
+          textString="Damper position supply
 air temperature control loop"),
         Text(
           extent={{-24,118},{24,106}},
@@ -243,7 +243,7 @@ modulation sequence assuming a well configured controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multi zone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconModulationControlDiagramMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconModulationControlDiagram.png\"/>
 </p>
 <p>
 Multi zone AHU economizer modulation control chart:
@@ -251,7 +251,7 @@ Multi zone AHU economizer modulation control chart:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the multi zone AHU modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconModulationControlChartMultiZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconModulationControlChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
