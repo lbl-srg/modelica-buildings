@@ -82,6 +82,7 @@ void FMUZoneExchange(
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
   writeLog(3, "Setting time in EnergyPlus.");
   status = fmi2_import_set_time(zone->ptrBui->fmu, time);
+  writeLog(3, "Returned from setting time in EnergyPlus.");
   if ( status != fmi2OK ) {
     ModelicaFormatError("Failed to set time in building FMU with name %s.",
     zone->ptrBui->name);

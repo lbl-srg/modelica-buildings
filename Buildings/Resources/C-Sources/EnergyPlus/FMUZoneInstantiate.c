@@ -86,11 +86,12 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
   saveAppend(buffer, "      \"kind\"   : \"ME\"\n", size);
   saveAppend(buffer, "  },\n", size);
 
-  saveAppend(buffer, "  \"zones\": [\n", size);
+  saveAppend(buffer, "  \"model\": {\n", size);
+  saveAppend(buffer, "    \"zones\": [\n", size);
   for(iZon = 0; iZon < bui->nZon; iZon++){
     /* Write zone name */
     ModelicaFormatMessage("Writing zone data %s.", zones[iZon]->name);
-    saveAppend(buffer, "      { \"name\": \"", size);
+    saveAppend(buffer, "        { \"name\": \"", size);
     saveAppend(buffer, zones[iZon]->name, size);
     if (iZon < (bui->nZon) - 1)
       saveAppend(buffer, "\" },\n", size);
@@ -98,7 +99,7 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
       saveAppend(buffer, "\" }\n", size);
   }
   /* Close json array */
-  saveAppend(buffer, "  ]\n}\n", size);
+  saveAppend(buffer, "    ]\n  }\n}\n", size);
   return;
 }
 
@@ -296,7 +297,7 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   fmi2_import_collect_model_counts(bui->fmu, &mc);
   printf("*** Number of discrete variables %u.\n", mc.num_discrete);
  */
-  callBackFunctions.logger = fmi2_log_forwarding;
+  callBackFunctions.logger = fmi2_log_forwarding; /* fmilogger; */
   callBackFunctions.allocateMemory = calloc;
   callBackFunctions.freeMemory = free;
   callBackFunctions.componentEnvironment = bui->fmu;
