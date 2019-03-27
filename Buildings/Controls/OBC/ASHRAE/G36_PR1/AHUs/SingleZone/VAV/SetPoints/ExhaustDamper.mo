@@ -200,7 +200,7 @@ The control sequence is as follows:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the exhaust damper control chart for single zone AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ExhaustDamperControlChart_SingleZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/ExhaustDamperControlChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
