@@ -82,21 +82,19 @@ model Damper
     m_flow_nominal=1,
     dp_nominal=10,
     use_deltaM=false,
-    roundDuct=true,
     dpFixed_nominal=20)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{-2,-140},{18,-120}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=1 - min(time*2, 1))
-    annotation (Placement(transformation(extent={{-152,-98},{-132,-78}})));
+    annotation (Placement(transformation(extent={{-152,-110},{-132,-90}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=0.5)
-    annotation (Placement(transformation(extent={{-150,-168},{-130,-148}})));
+    annotation (Placement(transformation(extent={{-150,-170},{-130,-150}})));
   PressureIndependent                                   preInd2(
     use_inputFilter=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=10,
     use_deltaM=false,
-    roundDuct=true,
     dpFixed_nominal=20,
     l=0.1)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
@@ -134,10 +132,10 @@ equation
   connect(preInd1.port_b, sin.ports[4]) annotation (Line(points={{18,-130},{64,
           -130},{64,-1.6},{74,-1.6}},
                                   color={0,127,255}));
-  connect(preInd1.y, realExpression.y) annotation (Line(points={{8,-118},{-32,
-          -118},{-32,-88},{-131,-88}}, color={0,0,127}));
-  connect(realExpression1.y, preInd2.y) annotation (Line(points={{-129,-158},{
-          -60,-158},{-60,-172},{10,-172}}, color={0,0,127}));
+  connect(preInd1.y, realExpression.y) annotation (Line(points={{8,-118},{8,
+          -100},{-131,-100}},          color={0,0,127}));
+  connect(realExpression1.y, preInd2.y) annotation (Line(points={{-129,-160},{
+          10,-160},{10,-172}},             color={0,0,127}));
   connect(preInd2.port_b, sin.ports[5]) annotation (Line(points={{20,-184},{64,
           -184},{64,-3.2},{74,-3.2}}, color={0,127,255}));
   connect(sou1.ports[2], preInd2.port_a) annotation (Line(points={{-40,-132},{

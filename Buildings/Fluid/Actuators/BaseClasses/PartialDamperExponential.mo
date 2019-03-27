@@ -63,7 +63,7 @@ initial equation
   assert(k0 > k1, "k0 must be between k1 and 1e6.");
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
   assert(k1 >= 0.2, "k1 must be between 0.2 and 0.5.");
-  assert(k1 <= 5, "k1 must be between 0.2 and 0.5.");
+  assert(k1 <= 5.0, "k1 must be between 0.2 and 0.5.");
   assert(k0 <= 1e8, "k0 must be between k1 and 1e6.");
 equation
   rho = if use_constant_density then

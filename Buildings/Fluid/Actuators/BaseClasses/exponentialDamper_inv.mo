@@ -12,9 +12,9 @@ function exponentialDamper_inv
   input Real yU "Upper value for damper curve";
   output Real y(min=0, max=1);
 protected
-  Real kL = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+  parameter Real kL = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
        y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
-  Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+  parameter Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
        y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
   parameter Integer sizeSupSpl = 3;
   parameter Real[sizeSupSpl] ySupSpl = {1, yU*1.1, yU};
