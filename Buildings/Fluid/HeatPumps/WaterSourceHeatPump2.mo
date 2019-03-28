@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps;
-model WaterSourceHeatPump "Water source heat pump_Performance curve"
+model WaterSourceHeatPump2 "Water source heat pump_Equation Fit"
 //testtesttest
  extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
    m2_flow_nominal = mEva_flow_nominal,
@@ -17,12 +17,12 @@ model WaterSourceHeatPump "Water source heat pump_Performance curve"
 
  Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
-    annotation (Placement(transformation(extent={{-140,-56},{-100,-16}}),
-        iconTransformation(extent={{-140,-56},{-100,-16}})));
- Modelica.Blocks.Interfaces.RealInput TSet(final unit="K", displayUnit="degC")
-    "Set point for leaving chilled water temperature"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
+ Modelica.Blocks.Interfaces.RealInput TSet(final unit="K", displayUnit="degC")
+    "Set point for leaving chilled water temperature"
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
     "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
@@ -39,8 +39,7 @@ model WaterSourceHeatPump "Water source heat pump_Performance curve"
   Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
     "Evaorator heat flow rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva "Prescribed heat flow rate"
-   annotation (Placement(transformation(extent={{-37,-50},{-17,-30}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva "Prescribed heat flow rate" annotation (Placement(transformation(extent={{-37,-50},{-17,-30}})));
 
  //--------------------------------------------------------------------------
 
@@ -61,15 +60,13 @@ model WaterSourceHeatPump "Water source heat pump_Performance curve"
     nominal=QCon_flow_nominal,
     start=QCon_flow_nominal)
     "Heating capacity available at Condenser";
-  Modelica.SIunits.HeatFlowRate QCon_flow_set(nominal=QCon_flow_nominal,
-  start=QCon_flow_nominal)
+  Modelica.SIunits.HeatFlowRate QCon_flow_set(nominal=QCon_flow_nominal,start=QCon_flow_nominal)
     "Heating capacity required to heat to set point temperature";
   Modelica.SIunits.SpecificEnthalpy hSet
     "Enthalpy setpoint for heating water";
 
 //perfromance curve functions-variables defintion
-  Real capFunT(min=0,nominal=1, unit="1")    "Heating capacity factor function
-   of temperature curve";
+  Real capFunT(min=0,nominal=1, unit="1")    "Heating capacity factor function of temperature curve";
 
   Modelica.SIunits.Efficiency EIRFunT(nominal=1)
     "Power input to heating capacity ratio function of temperature curve";
@@ -87,15 +84,13 @@ protected
   Real PLR2(min=0, nominal=1, unit="1") "Part load ratio";
   Real CR(min=0, nominal=1, unit="1") "Cycling ratio";
 
- final parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal= per.QCon_flow_nominal
- "Reference capacity";
+ final parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal= per.QCon_flow_nominal "Reference capacity";
  final parameter Modelica.SIunits.Efficiency   COP_nominal = per.COP_nominal
     "Reference coefficient of performance";
  final parameter Real PLRMax =    per.PLRMax               "Maximum part load ratio";
  final parameter Real PLRMinUnl = per.PLRMinUnl           "Minimum part unload ratio";
  final parameter Real PLRMin =    per. PLRMin              "Minimum part load ratio";
- final parameter Real etaMotor(min=0, max=1)= per.etaMotor "Fraction of compressor motor
-  heat entering refrigerant";
+ final parameter Real etaMotor(min=0, max=1)= per.etaMotor "Fraction of compressor motor heat entering refrigerant";
 
  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal= per.mCon_flow_nominal
     "Nominal mass flow at Condenser"
@@ -199,8 +194,7 @@ equation
        deltaX = 1E-7);
 
 /*    assert(capFunT < 0.1, "Error: Received capFunT = " + String(capFunT)  + ".\n"
-+ "Coefficient for polynomial seem to be not valid for the encountered 
-temperature range.\n"
+           + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
            + "Temperatures are TConEnt_degC = " + String(TConEnt_degC) + " degC\n"
            + "                 TEvaLvg_degC = " + String(TEvaLvg_degC) + " degC");
 */
@@ -254,7 +248,7 @@ temperature range.\n"
       deltaX= -Q_flow_small/10);
 
   //QCon_flow = max(QCon_flow_set, QCon_flow_ava);
-   QCon_flow = QEva_flow+ P*etaMotor;
+    QCon_flow = QEva_flow + P*etaMotor;
     // Coefficient of performance
     COP = QCon_flow/(P-Q_flow_small);
 
@@ -276,8 +270,7 @@ temperature range.\n"
 
 //--------------------------------------------------------------------------
 
-  connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(points={{-59,-40},{-37,-40}},
-   color={0,0,127}));
+  connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(points={{-59,-40},{-37,-40}}, color={0,0,127}));
   connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(points={{-57,34},
           {-48,34},{-48,34},{-41,34}}, color={0,0,127}));
 
@@ -369,7 +362,9 @@ annotation (  Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(points={{0,68},{0,90},{90,90},{100,90}},
-                                                 color={0,0,255})}),
+                                                 color={0,0,255}),
+        Line(points={{0,-70},{0,-90},{100,-90}}, color={0,0,255}),
+        Line(points={{62,0},{100,0}},                 color={0,0,255})}),
     defaultComponentName="heaPum",
     Documentation(info="<html>
 <p>
@@ -377,15 +372,13 @@ Model for a water to water heat pump with a scroll compressor, as described
 in Jin (2002). The thermodynamic heat pump cycle is represented below.
 </p>
 <p align=\"center\">
-<img  alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatPumps/
-WaterToWater_Cycle.png\" border=\"1\"/>
+<img  alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatPumps/WaterToWater_Cycle.png\" border=\"1\"/>
 </p>
 <p>
 The rate of heat transferred to the evaporator is given by:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q&#775;<sub>Eva</sub> = m&#775;<sub>ref</sub> ( h<sub>Vap</sub>(T<sub>Eva</sub>) - 
-h<sub>Liq</sub>(T<sub>Con</sub>) ).
+Q&#775;<sub>Eva</sub> = m&#775;<sub>ref</sub> ( h<sub>Vap</sub>(T<sub>Eva</sub>) - h<sub>Liq</sub>(T<sub>Con</sub>) ).
 </p>
 <p>
 The power consumed by the compressor is given by a linear efficiency relation:
@@ -457,4 +450,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WaterSourceHeatPump;
+end WaterSourceHeatPump2;

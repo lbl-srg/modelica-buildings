@@ -82,7 +82,7 @@ model ScrollWaterToWater_OneRoomRadiator
     "Pump for radiator side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-50,-100})));
+        origin={-50,-98})));
 //----------------------------------------------------------------------------//
 
   Buildings.Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
@@ -264,7 +264,7 @@ equation
     annotation (Line(points={{-50,30},{-220,30},{-220,30},{-220,-50},{-202,-50},
           {-202,-50}},                                      color={0,0,127}));
   connect(pumHeaPum.port_b, temSup.port_a)
-    annotation (Line(points={{-50,-90},{-50,-30}}, color={0,127,255}));
+    annotation (Line(points={{-50,-88},{-50,-30}}, color={0,127,255}));
   connect(temRet.port_a, rad.port_b)
     annotation (Line(points={{58,-10},{42,-10},{20,-10}}, color={0,127,255}));
   connect(and2.u2, and1.y) annotation (Line(points={{24.8,-54.8},{18,-54.8},{18,
@@ -278,14 +278,15 @@ equation
     annotation (Line(points={{-25.5,-77},{5,-77}}, color={255,0,255}));
   connect(tesEvaPum.y, and1.u2) annotation (Line(points={{1.11022e-15,-95.4},{0,
           -95.4},{0,-81},{5,-81}}, color={255,0,255}));
-  connect(pumHeaPum.m_flow_actual, tesConHea.u) annotation (Line(points={{-55,-89},
-          {-52,-89},{-52,-78},{-52,-77},{-44,-77},{-37,-77}}, color={0,0,127}));
+  connect(pumHeaPum.m_flow_actual, tesConHea.u) annotation (Line(points={{-55,-87},
+          {-52,-87},{-52,-77},{-37,-77}},                     color={0,0,127}));
   connect(pumHeaPumSou.m_flow_actual, tesEvaPum.u) annotation (Line(points={{-3,-167},
           {0,-167},{0,-109.2},{-1.33227e-15,-109.2}},       color={0,0,127}));
-  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{14,-130},{
-          -10,-130},{-50,-130},{-50,-110}}, color={0,127,255}));
-  connect(booToReaPum.y, pumHeaPum.m_flow_in) annotation (Line(points={{-99,-100},
-          {-62,-100},{-62,-100}},   color={0,0,127}));
+  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{14,-130},
+          {-50,-130},{-50,-108}},           color={0,127,255}));
+  connect(booToReaPum.y, pumHeaPum.m_flow_in) annotation (Line(points={{-99,
+          -100},{-62,-100},{-62,-98}},
+                                    color={0,0,127}));
   connect(booToReaPum.y, pumHeaPumSou.m_flow_in) annotation (Line(points={{-99,-100},
           {-80,-100},{-80,-178},{-10,-178}},     color={0,0,127}));
   connect(not2.y, and2.u1) annotation (Line(points={{-139,-50},{24.8,-50},{24.8,
