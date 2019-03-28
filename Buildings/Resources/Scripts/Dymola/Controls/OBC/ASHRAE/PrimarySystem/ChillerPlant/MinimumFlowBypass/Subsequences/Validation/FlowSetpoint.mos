@@ -1,0 +1,9 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.Validation.FlowSetpoint", method="Cvode", stopTime=4, tolerance=1e-06, resultFile="minBypasFlo");
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=1, y={"staUpMinFlo.uStaUp","staUpMinFlo.uUpsDevSta","staUpMinFlo.uSta","staUpMinFlo.uOnOff"}, range={0.0, 4.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 900}, subPlot=2, y={"staUpMinFlo.yChiWatBypSet"}, range={0.0, 4.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={740, 10, 700, 900}, subPlot=1, y={"onOffStaUpMinFlo.uStaUp","onOffStaUpMinFlo.uUpsDevSta","onOffStaUpMinFlo.uSta","onOffStaUpMinFlo.uOnOff","onOffStaUpMinFlo.uEnaNexChi"}, range={0.0, 4.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={740, 10, 700, 900}, subPlot=2, y={"onOffStaUpMinFlo.yChiWatBypSet"}, range={0.0, 4.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={1460, 10, 700, 900}, subPlot=1, y={"staDowMinFlo.uStaDow","staDowMinFlo.uUpsDevSta","staDowMinFlo.uSta","staDowMinFlo.uOnOff"}, range={0.0, 4.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=3, position={1460, 10, 700, 900}, subPlot=2, y={"staDowMinFlo.yChiWatBypSet"}, range={0.0, 4.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+
+
