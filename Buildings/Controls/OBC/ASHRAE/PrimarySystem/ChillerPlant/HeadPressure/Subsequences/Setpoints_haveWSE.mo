@@ -1,6 +1,6 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
-block EquipmentsSet_haveWSE
-  "Sequences for controlling equipments when chiller head pressure control is enabled, plants with waterside economizer"
+block Setpoints_haveWSE
+  "Equipment setpoints when chiller head pressure control is enabled, for plants with waterside economizer"
   parameter Real minTowSpe
     "Minimum cooling tower fan speed";
   parameter Real minConWatPumSpe
@@ -26,7 +26,7 @@ block EquipmentsSet_haveWSE
       iconTransformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
     "Status of water side economizer: true = ON, false = OFF"
-    annotation (Placement(transformation(extent={{-160,-30},{-120,10}}),
+    annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreConVal
     "Current head pressure control valve position"
@@ -151,7 +151,7 @@ equation
     annotation (Line(points={{-140,180},{60,180},{60,168},{78,168}},
       color={0,0,127}));
   connect(uWSE, swi.u2)
-    annotation (Line(points={{-140,-10},{-104,-10},{-104,160},{78,160}},
+    annotation (Line(points={{-140,-20},{-104,-20},{-104,160},{78,160}},
       color={255,0,255}));
   connect(maxCooTowSpeSet.y, swi.u3)
     annotation (Line(points={{41,110},{60,110},{60,152},{78,152}},
@@ -159,7 +159,7 @@ equation
   connect(swi.y, yMaxTowSpeSet)
     annotation (Line(points={{101,160},{130,160}}, color={0,0,127}));
   connect(uWSE, swi1.u2)
-    annotation (Line(points={{-140,-10},{-104,-10},{-104,50},{78,50}},
+    annotation (Line(points={{-140,-20},{-104,-20},{-104,50},{78,50}},
       color={255,0,255}));
   connect(uConWatPumSpe, swi1.u1)
     annotation (Line(points={{-140,58},{78,58}}, color={0,0,127}));
@@ -172,7 +172,7 @@ equation
     annotation (Line(points={{41,-80},{60,-80},{60,-122},{78,-122}},
       color={0,0,127}));
   connect(uWSE, swi2.u2)
-    annotation (Line(points={{-140,-10},{-104,-10},{-104,-130},{78,-130}},
+    annotation (Line(points={{-140,-20},{-104,-20},{-104,-130},{78,-130}},
       color={255,0,255}));
   connect(uHeaPreConVal, swi2.u3)
     annotation (Line(points={{-140,-150},{60,-150},{60,-138},{78,-138}},
@@ -223,7 +223,11 @@ annotation (
           lineColor={28,108,200},
           lineThickness=0.5,
           fillColor={28,108,200},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-2,-54},{-2,52}},
+          color={28,108,200},
+          pattern=LinePattern.Dash)}),
   Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-120,-220},{120,200}})),
   Documentation(info="<html>
@@ -231,7 +235,7 @@ annotation (
 Block that resets maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code>, 
 controls condenser water pump speed <code>yConWatPumSpe</code> and 
 head pressure control valve position <code>yHeaPreConVal</code>
-for plants with water side economizers. The develop follows
+for plants with water side economizers. The development follows
 ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
 section 5.2.10 Head pressure control, part 5.2.10.4, 5.2.10.5 and 5.2.10.6.
@@ -243,7 +247,7 @@ map chiller head pressure control loop signal <code>uHeaPreCon</code> as follows
 <ul>
 <li>
 When <code>uHeaPreCon</code> changes from 0 to 50%, reset maximum cooling tower
-speed point <code>yMaxTowSpeSet</code> from 100% to minimum speed 
+speed setpoint <code>yMaxTowSpeSet</code> from 100% to minimum speed 
 <code>minTowSpe</code>.
 </li>
 <li>
@@ -284,4 +288,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EquipmentsSet_haveWSE;
+end Setpoints_haveWSE;

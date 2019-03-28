@@ -1,6 +1,6 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
-block EquipmentsSet_noWSE
-  "Sequences for controlling equipments when chiller head pressure control is enabled, plants without waterside economizer"
+block Setpoints_noWSE
+  "Equipment setpoints when chiller head pressure control is enabled, for plants without waterside economizer"
   parameter Real minTowSpe
     "Minimum cooling tower fan speed";
   parameter Real minHeaPreValPos
@@ -134,14 +134,18 @@ annotation (
           lineColor={28,108,200},
           lineThickness=0.5,
           fillColor={28,108,200},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-2,-54},{-2,52}},
+          color={28,108,200},
+          pattern=LinePattern.Dash)}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-120},{100,120}})),
   Documentation(info="<html>
 <p>
 Block that resets maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code>
 and controls head pressure control valve position <code>yHeaPreConVal</code>,
-for plants without water side economizers. The develop follows
+for plants without water side economizers. The development follows
 ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
 section 5.2.10 Head pressure control, part 5.2.10.3 and 5.2.10.6.
@@ -181,4 +185,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EquipmentsSet_noWSE;
+end Setpoints_noWSE;

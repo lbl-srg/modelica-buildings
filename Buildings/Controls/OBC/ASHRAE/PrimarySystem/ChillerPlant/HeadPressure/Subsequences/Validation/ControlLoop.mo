@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation;
 model ControlLoop "Validate sequence of output head pressure control signal"
+
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.ControlLoop
     chiHeaPreLoo(minChiLif=25)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));

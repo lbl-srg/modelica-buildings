@@ -9,14 +9,14 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="112.85407mm"
+   width="118.1704mm"
    height="52.529049mm"
-   viewBox="0 0 112.85407 52.529048"
+   viewBox="0 0 118.1704 52.529048"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (unknown)"
-   sodipodi:docname="HeadControlCWP.svg"
-   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/HeadControlCWP.png"
+   sodipodi:docname="HeadControlCWP_WSE.svg"
+   inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/HeadControlCWP_WSE.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300">
   <defs
@@ -90,9 +90,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.174799"
-     inkscape:cx="332.94777"
-     inkscape:cy="51.362454"
+     inkscape:zoom="4.0469979"
+     inkscape:cx="283.31946"
+     inkscape:cy="53.581094"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -100,15 +100,15 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="2831"
-     inkscape:window-height="1776"
+     inkscape:window-width="3791"
+     inkscape:window-height="1980"
      inkscape:window-x="49"
      inkscape:window-y="24"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
        id="grid815"
-       originx="-6.2528455"
+       originx="-6.2528451"
        originy="-179.23211" />
   </sodipodi:namedview>
   <metadata
@@ -257,11 +257,10 @@
        x="93.351349"
        y="74.191917"
        id="text1248-2-9-6-0"><tspan
-         style="stroke-width:0.05966172px"
          sodipodi:role="line"
-         id="tspan1334-2"
+         id="tspan907"
          x="93.351349"
-         y="74.191917">100%</tspan></text>
+         y="74.191917">uConWatPumSpe_nominal</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.14577079px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05364396px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
