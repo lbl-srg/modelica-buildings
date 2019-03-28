@@ -77,11 +77,11 @@ annotation (
   defaultComponentName= "chiHeaPreLoo",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={170,255,255},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid,
-        borderPattern=BorderPattern.Raised),
+          extent={{-100,-100},{100,100}},
+          lineColor={170,255,255},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
@@ -94,7 +94,7 @@ annotation (
         Polygon(
           points={{-80,60},{-14,4},{-80,-60},{-80,60}},
           lineColor={28,108,200},
-          fillColor={215,215,215},
+          fillColor={85,255,255},
           fillPattern=FillPattern.Solid)}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
