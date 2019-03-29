@@ -35,6 +35,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch curSta "Current stage"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noStaCha(
     final k=false) "No stage change"
@@ -46,6 +47,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch curSta1 "Current stage"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
+    "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-20,-190},{0,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter dowSta(
     final p=-1, final k=1) "Stage down"
@@ -89,7 +91,7 @@ equation
     annotation (Line(points={{-79,200},{-72,200},{-72,120},{-62,120}},
       color={255,0,255}));
   connect(not1.y, staUpMinFlo.uStaUp)
-    annotation (Line(points={{-79,200},{20,200},{20,200},{78,200}},
+    annotation (Line(points={{-79,200},{78,200}},
       color={255,0,255}));
   connect(not2.y, staUpMinFlo.uUpsDevSta)
     annotation (Line(points={{-79,170},{28,170},{28,196},{78,196}},

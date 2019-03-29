@@ -331,17 +331,21 @@ annotation (
           extent={{-260,-200},{260,200}})),
   Documentation(info="<html>
 <p>
-Block that controls chilled water minimum flow bypass valve for primary-only
+Block that output chilled water minimum flow bypass flow setpoint for primary-only
 plants with a minimum flow bypass valve, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
 section 5.2.8 Chilled water minimum flow bypass valve.
 </p>
-<p>
-1. Bypass valve shall modulate to maintain minimum flow <code>VBypas_flow</code>
+
+<ul>
+<li>
+Bypass valve shall modulate to maintain minimum flow <code>VBypas_flow</code>
 at a setpoint equal to the sum of the minimum chilled water flowrate of the chillers
 commanded on run in each stage.
-</p>
+</li>
+</ul>
+
 <table summary=\"summary\" border=\"1\">
 <tr>
 <th> Chiller stage </th> 
@@ -366,18 +370,15 @@ commanded on run in each stage.
 </table>
 <br/>
 
-<p>
-2. If there is any stage change requiring a chiller on and another chiller off,
+<ul>
+<li>
+If there is any stage change requiring a chiller on and another chiller off,
 the minimum flow setpoint shall temporarily change to include the minimum 
 chilled water flowrate of both enabling chiller and disabled chiller prior
 to starting the newly enabled chiller.
-</p>
-<p>
-3. When any chilled water pump is proven on (<code>uChiWatPum</code> = true), 
-the bypass valve PID loop shall be enabled. The valve shall be opened otherwise.
-When enabled, the bypass valve loop shall be biased to start with the valve
-100% open.
-</p>
+</li>
+</ul>
+
 <p>
 Note that when there is stage change thus requires changes of 
 minimum bypass flow setpoint, the change should be slowly.
