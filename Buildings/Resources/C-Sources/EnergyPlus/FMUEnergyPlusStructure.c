@@ -218,7 +218,7 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   /* Prefix for temporary directory */
   const char* pre = "tmp-eplus-\0";
 
-  writeLog(3, "Getting EnergyPlus temporary directory.");
+  writeLog(3, "Entered getEnergyPlusTemporaryDirectory.");
   /* Current directory */
   curDir = malloc(lenCurDir * sizeof(char));
   if (curDir == NULL)
@@ -247,7 +247,6 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   lenCur = strlen(curDir);
   lenSep = 1;
   lenPre = strlen(pre);
-  writeLog(3, "*** Got string length.");
 
   *dirNam = malloc((lenCur+lenSep+lenPre+lenNam+1) * sizeof(char));
   if ( *dirNam == NULL )

@@ -217,6 +217,7 @@ void generateFMU(const char* FMUPath){
   char* fulCmd;
   size_t len;
   int retVal;
+  writeLog(3, "Entered generateFMU.");
 
   len = strlen(cmd) + strlen(FMUPath) + 1 + strlen(testFMU) + 1;
   fulCmd = malloc(len * sizeof(char));
@@ -251,6 +252,8 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   fmi2_fmu_kind_enu_t fmukind;
 	jm_status_enu_t jm_status;
   int ret;
+
+  writeLog(3, "Entered FMUZoneAllocateAndInstantiateBuilding.");
 
   FMUPath = bui->fmuAbsPat;
   generateFMU(FMUPath);
@@ -357,6 +360,7 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
   fmi2_event_info_t eventInfo;
 
   double* outputs;
+  writeLog(3, "Entered FMUZoneInstantiate.");
 
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
@@ -366,6 +370,7 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
     /* Instantiate the FMU for this building */
     FMUZoneAllocateAndInstantiateBuilding(zone->ptrBui);
 
+    writeLog(3, "Setting debug logging.");
   	status = fmi2_import_set_debug_logging(
         zone->ptrBui->fmu,
         fmi2_true, /* Logging on */
