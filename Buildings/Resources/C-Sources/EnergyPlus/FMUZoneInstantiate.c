@@ -434,5 +434,7 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
     *AFlo = outputs[1];
     *mSenFac = outputs[2];
 
+  /* Set flag to indicate that this zone has been properly initialized */
+  zone->isInstantiated = fmi2True;
     /* free(outputs); */
 }

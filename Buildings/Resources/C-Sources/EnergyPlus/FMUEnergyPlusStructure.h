@@ -96,6 +96,8 @@ typedef struct FMUZone
   fmi2Byte** parameterVariableNames; /* Full names of parameter variables (used to get value reference) */
   fmi2Byte** inputVariableNames; /* Full names of input variables (used to get value reference)*/
   fmi2Byte** outputVariableNames; /* Full names of output variables (used to get value reference)*/
+
+  fmi2Boolean isInstantiated; /* Flag set to true when the zone has been completely instantiated */
 } FMUZone;
 
 void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message);

@@ -18,7 +18,7 @@
 #endif
 
 void writeFormatLog(unsigned int level, const char *fmt, ...) {
-  const char* prefix = "*** Log: ";
+  const char* prefix = "\033[1;33m*** Log\033[0m: ";
   va_list args;
 
   if (level <= FMU_EP_VERBOSITY){
@@ -33,7 +33,7 @@ void writeFormatLog(unsigned int level, const char *fmt, ...) {
 void writeLog(unsigned int level, const char* msg)
 {
     if (level <= FMU_EP_VERBOSITY){
-      const char* prefix = "*** Log: ";
+      const char* prefix = "\033[1;33m*** Log\033[0m: ";
       char* m;
       m = (char*)malloc( (strlen(msg)+strlen(prefix)+1) * sizeof(char));
       if (m == NULL)

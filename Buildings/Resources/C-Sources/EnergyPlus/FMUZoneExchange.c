@@ -69,17 +69,29 @@ void FMUZoneExchange(
   const double dT = 0.01; /* Increment for derivative approximation */
   double QConSenPer_flow;
 
-  /* ModelicaFormatMessage("*** Entered FMUZoneExchange at t = %f  ", time); */
+  double AFlo;
+  double V;
+  double mSenFac;
 
+  FMUZone* tmpZon;
 
-  FMUZone* tmpZon = malloc(sizeof(FMUZone)); /* fixme: this malloc is probably not needed */
   writeFormatLog(3, "Exchanging data with EnergyPlus in FMUZoneExchange at t = %.2f.", time);
 
+  tmpZon = malloc(sizeof(FMUZone)); /* fixme: this malloc is probably not needed */
   if ( tmpZon == NULL )
     ModelicaError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.");
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
+
+  if (! tmpZon->isInstantiated){
+    /* This zone has not been initialized because the simulator optimized away the call to initialize().
+       Hence, we intialize it now.
+    */
+    FMUZoneInstantiate(object, time, &AFlo, &V, &mSenFac);
+  }
+
+  writeFormatLog(3, "Zone pointer is %p.", zone->ptrBui->fmu);
   writeLog(3, "Setting time in EnergyPlus.");
   status = fmi2_import_set_time(zone->ptrBui->fmu, time);
   writeLog(3, "Returned from setting time in EnergyPlus.");
