@@ -8,13 +8,14 @@ model FMUZoneAdapter
   parameter String weaName = Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
     "Name of the weather file";
+  parameter Modelica.SIunits.HeatCapacity CZon = 6*6*2.7*1.2*1006 "Heat capacity of zone air";
 
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
     final idfName=idfName,
     final weaName=weaName,
-    final zoneName="office",
+    final zoneName="Core_ZN",
     final nFluPor=2) "Adapter to EnergyPlus"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.RealExpression TZone(y=293.15) "Zone air temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.RealExpression X_w(y=0.01) "Zone absolute humidity"
@@ -29,21 +30,29 @@ model FMUZoneAdapter
   Modelica.Blocks.Sources.RealExpression QGaiRad_flow(
     y=0) "Radiative heat gain for the zone"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  Modelica.Blocks.Continuous.Integrator TZon(
+    k=1/CZon,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=293.15,
+    y(unit="K", displayUnit="degC")) "Zone air temperature"
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 equation
-  connect(fmuZon.T, TZone.y) annotation (Line(points={{-12,8},{-34,8},{-34,40},{
-          -59,40}}, color={0,0,127}));
   connect(X_w.y, fmuZon.X_w) annotation (Line(points={{-59,20},{-36,20},{-36,4},
-          {-12,4}}, color={0,0,127}));
-  connect(fmuZon.m_flow[1], mIn_flow.y) annotation (Line(points={{-12,-1},{-35,-1},
+          {18,4}},  color={0,0,127}));
+  connect(fmuZon.m_flow[1], mIn_flow.y) annotation (Line(points={{18,-1},{-35,-1},
           {-35,0},{-59,0}}, color={0,0,127}));
   connect(mOut_flow.u, mIn_flow.y) annotation (Line(points={{-52,-22},{-56,-22},
           {-56,0},{-59,0}}, color={0,0,127}));
   connect(mOut_flow.y, fmuZon.m_flow[2]) annotation (Line(points={{-29,-22},{-22,
-          -22},{-22,1},{-12,1}}, color={0,0,127}));
+          -22},{-22,1},{18,1}},  color={0,0,127}));
   connect(TIn.y, fmuZon.TInlet) annotation (Line(points={{-59,-50},{-20,-50},{-20,
-          -4},{-12,-4}}, color={0,0,127}));
-  connect(fmuZon.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{-12,-8},
+          -4},{18,-4}},  color={0,0,127}));
+  connect(fmuZon.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{18,-8},
           {-16,-8},{-16,-70},{-59,-70}}, color={0,0,127}));
+  connect(TZon.y, fmuZon.T)
+    annotation (Line(points={{1,40},{10,40},{10,8},{18,8}}, color={0,0,127}));
+  connect(fmuZon.QCon_flow, TZon.u) annotation (Line(points={{41,2},{50,2},{50,60},
+          {-30,60},{-30,40},{-22,40}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Validation model that communicates with EnergyPlus.
