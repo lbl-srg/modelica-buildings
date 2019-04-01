@@ -58,14 +58,11 @@ void FMUZoneExchange(
   double* tNext){
 
   FMUZone* zone = (FMUZone*) object;
-  double inputValues[1];
-  double outputValues[1];
+  fmi2Real inputValues[ZONE_N_INP];
+  fmi2Real outputValues[ZONE_N_OUT];
   fmi2_event_info_t eventInfo;
   fmi2Status status;
 
-  /* Emulate heat transfer to a surface at constant T=18 degC */
-  /* *QConSen_flow = 10*((273.15+18)-T);*/
-  /* snprintf(msg, 200, "local is %f\n", *QConSen_flow); */
   const double dT = 0.01; /* Increment for derivative approximation */
   double QConSenPer_flow;
 
@@ -77,9 +74,6 @@ void FMUZoneExchange(
 
   writeFormatLog(3, "Exchanging data with EnergyPlus in FMUZoneExchange at t = %.2f.", time);
 
-  tmpZon = malloc(sizeof(FMUZone)); /* fixme: this malloc is probably not needed */
-  if ( tmpZon == NULL )
-    ModelicaError("Not enough memory in FMUZoneExchange.c. to allocate memory for zone.");
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
@@ -100,14 +94,40 @@ void FMUZoneExchange(
     zone->ptrBui->name);
   }
 
+  /* Set input values, which are of the order below
+     const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
+  */
+  inputValues[1] = X/(1.-X); /* Conversion from kg/kg_total_air to kg/kg_dry_air */
+  inputValues[2] = mInlets_flow;
+  inputValues[3] = TAveInlet;
+  inputValues[4] = QGaiRad_flow;
+
   /* Forward difference for QConSen_flow */
   inputValues[0] = T - 273.15 + dT;
-  setGetVariables(zone, tmpZon->inputValueReferences, inputValues, 1, tmpZon->outputValueReferences, outputValues, 1);
-  QConSenPer_flow=outputValues[0];
+
+  writeFormatLog(3, "Input to fmu: TAir = %.2f; \t QGaiRad_flow = %.2f",
+    inputValues[0], inputValues[4]);
+
+  setGetVariables(zone,
+    tmpZon->inputValueReferences, inputValues, ZONE_N_INP,
+    tmpZon->outputValueReferences, outputValues, ZONE_N_OUT);
+  QConSenPer_flow=outputValues[1];
   inputValues[0] = T - 273.15;
-  setGetVariables(zone, tmpZon->inputValueReferences, inputValues, 1, tmpZon->outputValueReferences, outputValues, 1);
-  *QConSen_flow=outputValues[0];
+  setGetVariables(zone,
+    tmpZon->inputValueReferences, inputValues, ZONE_N_INP,
+    tmpZon->outputValueReferences, outputValues, ZONE_N_OUT);
+
+  /* Assign output values, which are of the order below
+     const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
+  */
+  *TRad = outputValues[0] + 273.15;
+  *QConSen_flow = outputValues[1];
+  *QLat_flow = outputValues[2];
+  *QPeo_flow = outputValues[3];
   *dQConSen_flow = (QConSenPer_flow-*QConSen_flow)/dT;
+
+  writeFormatLog(3, "After time step: TRad = %.2f; \t QCon = %.2f;\t QLat = %.2f", *TRad, *QConSen_flow,
+    *QLat_flow);
 
   /* Get next event time */
   status = do_event_iteration(zone->ptrBui->fmu, &eventInfo);
@@ -133,9 +153,6 @@ void FMUZoneExchange(
     }
   }
 
-  *TRad = 293.15;
-  *QLat_flow = 0;
-  *QPeo_flow = 0;
   writeFormatLog(3, "Returning from FMUZoneExchange with nextEventTime = %.2f.", *tNext);
   return;
 }

@@ -44,7 +44,7 @@ void getParametersFromEnergyPlus(
   status = fmi2_import_get_real(
     zone->ptrBui->fmu,
     zone->parameterValueReferences,
-    zone->nParameterValueReferences,
+    ZONE_N_PAR,
     parValues);
   /* writeLog(1, "end getVariables"); */
   if (status != fmi2OK ){
@@ -191,19 +191,19 @@ void setValueReferences(FMUBuilding* fmuBui){
       fmuBui->fmuAbsPat,
       vl, vrl, nv,
       zone->parameterVariableNames,
-      zone->nParameterValueReferences,
+      ZONE_N_PAR,
       &(zone->parameterValueReferences));
    setValueReference(
       fmuBui->fmuAbsPat,
       vl, vrl, nv,
       zone->inputVariableNames,
-      zone->nInputValueReferences,
+      ZONE_N_INP,
       &(zone->inputValueReferences));
    setValueReference(
      fmuBui->fmuAbsPat,
      vl, vrl, nv,
      zone->outputVariableNames,
-     zone->nOutputValueReferences,
+     ZONE_N_OUT,
      &(zone->outputValueReferences));
   }
   fmi2_import_free_variable_list(vl);
@@ -359,7 +359,8 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
   FMUZone* zone = (FMUZone*) object;
   fmi2_event_info_t eventInfo;
 
-  double* outputs;
+  double outputValues[ZONE_N_OUT];
+
   writeLog(3, "Entered FMUZoneInstantiate.");
 
   if (zone->ptrBui->fmu == NULL){
@@ -400,6 +401,9 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
     if( status != fmi2_status_ok ){
       ModelicaFormatError("Failed to enter initialization mode for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
     }
+
+    writeLog(0, "****** fixme: must send initial inputs to FMU.");
+
     writeLog(3, "Enter exit initialization mode of FMU.");
     status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
     if( status != fmi2_status_ok ){
@@ -420,21 +424,16 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
 
   }
 
-  /* Allocate memory */
-  outputs = (double*)malloc(zone->nParameterValueReferences * sizeof(double));
-  if (outputs == NULL)
-    ModelicaError("Failed to allocated memory for outputs in FMUZoneInstantiate.c.");
-
   writeLog(0, "Getting parameters.");
 
-  getParametersFromEnergyPlus(zone, outputs);
+  getParametersFromEnergyPlus(zone, outputValues);
 
     /* Obtain the floor area and the volume of the zone */
-    *V = outputs[0];
-    *AFlo = outputs[1];
-    *mSenFac = outputs[2];
+    *V = outputValues[0];
+    *AFlo = outputValues[1];
+    *mSenFac = outputValues[2];
 
   /* Set flag to indicate that this zone has been properly initialized */
   zone->isInstantiated = fmi2True;
-    /* free(outputs); */
+
 }

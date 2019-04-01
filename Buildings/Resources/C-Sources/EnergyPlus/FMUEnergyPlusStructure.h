@@ -75,6 +75,10 @@ typedef struct FMUBuilding
   fmi2Boolean dllfmu_created; /* Flag to indicate if dll fmu functions were successfully created */
 } FMUBuilding;
 
+#define ZONE_N_PAR 3 /* Number of parameter value references per zone*/
+#define ZONE_N_INP 5 /* Number of input value references per zone*/
+#define ZONE_N_OUT 4 /* Number of output value references per zone*/
+
 typedef struct FMUZone
 {
   int index;
@@ -84,10 +88,6 @@ typedef struct FMUZone
   char** parameterNames;
   char** inputNames;
   char** outputNames;
-
-  size_t nParameterValueReferences; /* Number of parameter value references per zone*/
-  size_t nInputValueReferences; /* Number of input value references per zone*/
-  size_t nOutputValueReferences; /* Number of output value references per zone*/
 
   fmi2ValueReference* parameterValueReferences; /* Value reference of parameter variables*/
   fmi2ValueReference* inputValueReferences; /* Value reference of input variables*/
