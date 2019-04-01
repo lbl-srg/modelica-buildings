@@ -67,6 +67,6 @@ First implementation.
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/BaseClasses/Validation/FMUZoneAdapter.mos"
         "Simulate and plot"),
 experiment(
-      StopTime=86400,
+      StopTime=180,
       Tolerance=1e-06));
 end FMUZoneAdapter;
