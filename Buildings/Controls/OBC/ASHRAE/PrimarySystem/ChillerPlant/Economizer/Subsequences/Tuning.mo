@@ -249,7 +249,6 @@ per ASHRAE RP-1711, Draft 4, section 5.2.3.3. The parameter
 is increased or decreased in a <code>step</code> depending the
 economizer enable time and the cooling tower fan speed signal values 
 <code>uTowFanSpeMax</code> during that period.
-</p>
 </html>",
 revisions="<html>
 <ul>
