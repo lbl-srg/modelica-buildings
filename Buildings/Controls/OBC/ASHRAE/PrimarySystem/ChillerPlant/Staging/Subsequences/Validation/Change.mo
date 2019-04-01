@@ -18,7 +18,9 @@ model Change "Validates chiller stage signal"
     hasWSE=false,
     nVsdCen=0,
     nConCen=1,
-    nPosDis=2) "Stage change"
+    nPosDis=2,
+    staNomCap={3e5,6e5,1e5})
+               "Stage change"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
@@ -34,7 +36,7 @@ model Change "Validates chiller stage signal"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staAva[3](final k={true,
-        true,true})
+        false,true})
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant WSESta(
