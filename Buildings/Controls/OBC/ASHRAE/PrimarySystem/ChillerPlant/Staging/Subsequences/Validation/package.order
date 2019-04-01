@@ -1,4 +1,5 @@
 Capacities_uSta
+Capacities_uStaAva
 CapacityRequirement
 Change
 Down
@@ -6,4 +7,3 @@ EfficiencyCondition
 FailsafeCondition
 PartLoadRatios_uSta_chiTyp
 Up
-Capacities_uStaAva

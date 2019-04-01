@@ -20,14 +20,16 @@ model Change "Validates chiller stage signal"
     nConCen=1,
     nPosDis=2,
     staNomCap={3e5,6e5,1e5})
-               "Stage change"
+    "Stage change"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
     final amplitude=7,
     final offset=273.15 + 15,
-    final freqHz=1/21600) "Chiller water return temeprature"
+    final freqHz=1/21600)
+    "Chiller water return temeprature"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
     final offset=0,
     final freqHz=1/21600,
