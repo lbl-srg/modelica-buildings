@@ -2,6 +2,7 @@ within Buildings.Experimental.EnergyPlus.BaseClasses;
 function exchange "Exchange the values for the thermal zone"
   input Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass
     adapter "External object";
+  input Boolean initialCall "Set to true if initial() is true, false otherwise";
   input Modelica.SIunits.Temperature T "Zone air temperature";
   input Modelica.SIunits.MassFraction X "Zone air mass fraction in kg/kg total air";
   input Modelica.SIunits.MassFlowRate mInlet_flow "Sum of positive mass flow rates into
@@ -23,7 +24,7 @@ function exchange "Exchange the values for the thermal zone"
     "Total heat gain from people, to be used to optionall compute CO2 emitted (positive if heat is added to zone air)";
   output Modelica.SIunits.Time tNext "Next time that the zone need to be invoked";
 
-  external "C" FMUZoneExchange(adapter,
+  external "C" FMUZoneExchange(adapter, initialCall,
     T, X, mInlet_flow, TAveInlet, QGaiRad_flow, tModel,
     TRad, QCon_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)
       annotation(

@@ -357,7 +357,6 @@ fmi2Status do_event_iteration(fmi2_import_t *fmu, fmi2_event_info_t *eventInfo){
 void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V, double* mSenFac){
   fmi2_status_t status;
   FMUZone* zone = (FMUZone*) object;
-  fmi2_event_info_t eventInfo;
 
   double outputValues[ZONE_N_OUT];
 
@@ -395,40 +394,12 @@ void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V,
     if( status != fmi2_status_ok ){
       ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
     }
-    writeLog(3, "Enter initialization mode of FMU.");
-    status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
-    writeLog(3, "Returned from enter initialization mode of FMU.");
-    if( status != fmi2_status_ok ){
-      ModelicaFormatError("Failed to enter initialization mode for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
-    }
-
-    writeLog(0, "****** fixme: must send initial inputs to FMU.");
-
-    writeLog(3, "Enter exit initialization mode of FMU.");
-    status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
-    if( status != fmi2_status_ok ){
-      ModelicaFormatError("Failed to exit initialization mode for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
-    }
-    writeLog(3, "Initializing eventInfo.");
-    eventInfo.newDiscreteStatesNeeded           = fmi2_false;
-  	eventInfo.terminateSimulation               = fmi2_false;
-  	eventInfo.nominalsOfContinuousStatesChanged = fmi2_false;
-  	eventInfo.valuesOfContinuousStatesChanged   = fmi2_true;
-  	eventInfo.nextEventTimeDefined              = fmi2_false;
-  	eventInfo.nextEventTime                     = -0.0;
-
-    /* fmiExitInitializationMode leaves FMU in event mode */
-    writeLog(3, "Doing event iteration.");
-    do_event_iteration(zone->ptrBui->fmu, &eventInfo);
-    writeLog(3, "Returned from event iteration.");
-
   }
+    writeLog(0, "Getting parameters.");
 
-  writeLog(0, "Getting parameters.");
+    getParametersFromEnergyPlus(zone, outputValues);
 
-  getParametersFromEnergyPlus(zone, outputValues);
-
-    /* Obtain the floor area and the volume of the zone */
+   /* Obtain the floor area and the volume of the zone */
     *V = outputValues[0];
     *AFlo = outputValues[1];
     *mSenFac = outputValues[2];

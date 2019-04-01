@@ -17,7 +17,7 @@
 
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
-#include "ModelicaUtilities.h"
+#include <ModelicaUtilities.h>
 
 /* Use windows.h only for Windows */
 #ifdef _WIN32

@@ -13,6 +13,7 @@
 
 void FMUZoneExchange(
   void* object,
+  int initialCall,
   double T,
   double X,
   double mInlets_flow,

@@ -44,6 +44,7 @@ void setGetVariables(
 
 void FMUZoneExchange(
   void* object,
+  int initialCall,
   double T,
   double X,
   double mInlets_flow,
@@ -72,7 +73,8 @@ void FMUZoneExchange(
 
   FMUZone* tmpZon;
 
-  writeFormatLog(3, "Exchanging data with EnergyPlus in FMUZoneExchange at t = %.2f.", time);
+  writeFormatLog(3, "Exchanging data with EnergyPlus in FMUZoneExchange at t = %.2f, initialCall = %d.",
+    time, initialCall);
 
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
   /* Time need to be guarded against rounding error */
@@ -85,14 +87,26 @@ void FMUZoneExchange(
     FMUZoneInstantiate(object, time, &AFlo, &V, &mSenFac);
   }
 
-  writeFormatLog(3, "Zone pointer is %p.", zone->ptrBui->fmu);
-  writeLog(3, "Setting time in EnergyPlus.");
-  status = fmi2_import_set_time(zone->ptrBui->fmu, time);
-  writeLog(3, "Returned from setting time in EnergyPlus.");
-  if ( status != fmi2OK ) {
-    ModelicaFormatError("Failed to set time in building FMU with name %s.",
-    zone->ptrBui->name);
+  if (initialCall){
+    /* Enter initialization mode */
+    writeFormatLog(3, "Enter initialization mode of FMU with T = %.f.", T);
+    status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
+    writeLog(3, "Returned from enter initialization mode of FMU.");
+    if( status != fmi2_status_ok ){
+      ModelicaFormatError("Failed to enter initialization mode for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
+    }
   }
+  else{
+    writeLog(3, "Setting time in EnergyPlus.");
+    status = fmi2_import_set_time(zone->ptrBui->fmu, time);
+    writeLog(3, "Returned from setting time in EnergyPlus.");
+    if ( status != fmi2OK ) {
+      ModelicaFormatError("Failed to set time in building FMU with name %s.",
+      zone->ptrBui->name);
+    }
+  }
+
+  /* fixme: check if we need to add call to fmi2CompletedIntegratorStep */
 
   /* Set input values, which are of the order below
      const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
@@ -128,6 +142,14 @@ void FMUZoneExchange(
 
   writeFormatLog(3, "After time step: TRad = %.2f; \t QCon = %.2f;\t QLat = %.2f", *TRad, *QConSen_flow,
     *QLat_flow);
+
+  if (initialCall){
+    writeLog(3, "Enter exit initialization mode of FMU.");
+    status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
+    if( status != fmi2_status_ok ){
+      ModelicaFormatError("Failed to exit initialization mode for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
+    }
+  }
 
   /* Get next event time */
   status = do_event_iteration(zone->ptrBui->fmu, &eventInfo);
