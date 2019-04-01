@@ -3,7 +3,7 @@ package Generic "Generic control sequences"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains generic sequences that would be needed for plant control.
+This package contains generic primary plant control sequences.
 </p>
 </html>"),
 Icon(graphics={
