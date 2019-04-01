@@ -67,12 +67,12 @@ typedef struct FMUBuilding
   fmi2Byte* name;
   fmi2Byte* weather;
   fmi2Byte* idd;
-  char* epLib;
   fmi2Integer nZon; /* Number of zones that use this FMU */
   fmi2Byte** zoneNames; /* Names of zones in this FMU */
   void** zones; /* Pointers to all zones*/
   char* tmpDir; /* Temporary directory used by EnergyPlus */
   char* fmuAbsPat; /* Absolute name of the fmu */
+  fmi2Boolean dllfmu_created; /* Flag to indicate if dll fmu functions were successfully created */
 } FMUBuilding;
 
 typedef struct FMUZone
@@ -111,8 +111,6 @@ void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char** fmuAbs
 char* getIDFNameWithoutExtension(const char* idfName);
 
 void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam);
-
-void getEnergyPlusDLLName(char** epLibName);
 
 void incrementBuildings_nFMU();
 void decrementBuildings_nFMU();

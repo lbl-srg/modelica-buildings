@@ -27,6 +27,8 @@ void writeFormatLog(unsigned int level, const char *fmt, ...) {
     vprintf(fmt, args);
     va_end(args);
     fprintf(stdout, "%s", "\n");
+    fflush(stdout);
+    ModelicaFormatMessage(fmt, args);
   }
 }
 
@@ -270,47 +272,6 @@ void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, 
   }
 }
 
-void getEnergyPlusDLLName(char** epLibName) {
-char * epLib = "libepfmi-9.0.1.so"; /* fixme */
-  size_t len = strlen(epLib);
-  *epLibName = (char *)malloc((len + 1) * sizeof(char));
-  if ( *epLibName == NULL)
-    ModelicaError("Failed to allocate memory for epLibName.");
-  memset(*epLibName, '\0', len+1);
-  memcpy(*epLibName, epLib, len);
-
-/*
-#if defined _WIN32
-    // TODO this probably needs improvement to work on windows
-    TCHAR szPath[MAX_PATH];
-    if( GetModuleFileName( nullptr, szPath, MAX_PATH ) ) {
-      *epLibName = szPath;
-    }
-#else
-    Dl_info info;
-    if (dladdr("main", &info)) {
-      const char * fullpath = info.dli_fname;
-      const char * filename = strrchr(fullpath, '/');
-      const char * extension = strrchr(fullpath, '.');
-
-      const char* libepfmi="/libepfmi-9.0.1";
-      size_t lenLibepfmi = strlen(libepfmi);
-      size_t lenPat = strlen(fullpath) - strlen(filename);
-      size_t length = lenPat + strlen(libepfmi) + strlen(extension);
-      *epLibName = (char *)malloc((length + 1) * sizeof(char));
-      if ( *epLibName == NULL)
-        ModelicaError("Failed to allocate memory for epLibName.");
-      memset(*epLibName, '\0', length+1);
-      strncpy(*epLibName, fullpath, lenPat);
-
-      memcpy(*epLibName + lenPat,
-          libepfmi, lenLibepfmi);
-      memcpy(*epLibName + lenPat + lenLibepfmi,
-          extension, strlen(extension));
-    }
-#endif
-*/
-}
 
 void buildVariableNames(
   const char* zoneName,
@@ -399,6 +360,8 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
   Buildings_FMUS[nFMU]->fmu = NULL;
   Buildings_FMUS[nFMU]->context = NULL;
   Buildings_FMUS[nFMU]->GUID = NULL;
+  /* Set flag that dll fmu functions are not yet created */
+  Buildings_FMUS[nFMU]->dllfmu_created = fmi2_false;
 
   Buildings_FMUS[nFMU]->zoneNames = malloc(sizeof(char*));
   if ( Buildings_FMUS[nFMU]->zoneNames == NULL )
@@ -439,20 +402,6 @@ FMUBuilding* FMUZoneAllocateBuildingDataStructure(const char* idfName, const cha
   getEnergyPlusFMUName(idfName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir);
-
-  /* Assign the dll name */
-  if (nFMU == 0) {
-    getEnergyPlusDLLName(&(Buildings_FMUS[nFMU]->epLib));
-  }
-  else{
-    /* All FMUs share the same dll name. Copy it from the Buildings_FMUS[0] */
-    size_t len = strlen(Buildings_FMUS[0]->epLib);
-    Buildings_FMUS[nFMU]->epLib = (char *)malloc((len + 1) * sizeof(char));
-    if ( Buildings_FMUS[nFMU]->epLib == NULL)
-      ModelicaError("Failed to allocate memory for epLibName.");
-    memset(Buildings_FMUS[nFMU]->epLib, '\0', len+1);
-    strncpy(Buildings_FMUS[nFMU]->epLib, Buildings_FMUS[0]->epLib, len);
-  }
 
   /* Assign the zone */
   Buildings_FMUS[nFMU]->zones[0] = zone;

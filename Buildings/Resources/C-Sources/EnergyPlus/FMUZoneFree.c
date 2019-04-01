@@ -13,13 +13,15 @@
 void FMUBuildingFree(FMUBuilding* ptrBui){
   fmi2Status status;
   const char * log = NULL;
+  writeLog(2, "*** Entered FMUBuildingFree.");
   if ( ptrBui != NULL ){
-  /*  printf("Closing EnergyPlus library for %s.\n", ptrBui->name); */
-  /*  ModelicaFormatMessage("Closing EnergyPlus library for %s.\n", ptrBui->name); */
-    writeLog(2, "Calling terminate on EnergyPlus library.");
-    status = fmi2_import_terminate(ptrBui->fmu);
-    if (status != fmi2OK){
-      ModelicaFormatMessage("fmi2Terminate returned with non-OK status for building %s.", ptrBui->name);
+    /* The call to fmi2_import_terminate causes a seg fault if
+       fmi2_import_create_dllfmu was not successful */
+    if (ptrBui->dllfmu_created){
+      status = fmi2_import_terminate(ptrBui->fmu);
+      if (status != fmi2OK){
+        ModelicaFormatMessage("fmi2Terminate returned with non-OK status for building %s.", ptrBui->name);
+      }
     }
     fmi2_import_destroy_dllfmu(ptrBui->fmu);
   	fmi2_import_free(ptrBui->fmu);
@@ -28,25 +30,9 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     free(ptrBui->name);
     free(ptrBui->weather);
     free(ptrBui->idd);
-    free(ptrBui->epLib);
     free(ptrBui->zoneNames);
     free(ptrBui->zones);
     free(ptrBui->tmpDir);
-    writeLog(2, "Freed pointers.");
-
-/*
-#ifdef _MSC_VER
-    if (!FreeLibrary(ptrBui->fmu->dllHandle)){
-      ModelicaMessage("Warning: Failed to free EnergyPlus library.");
-    }
-#else
-    writeLog(2, "Calling dlclose.");
-   if (0 != dlclose(ptrBui->fmu->dllHandle)){
-      ModelicaMessage("Warning: Failed to free EnergyPlus library.");
-    }
-#endif
-*/
-    writeLog(2, "Closing EnergyPlus library.");
     free(ptrBui);
   }
 }

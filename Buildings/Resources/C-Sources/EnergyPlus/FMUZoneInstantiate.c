@@ -275,7 +275,6 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   version = fmi_import_get_fmi_version(bui->context, FMUPath, tmpPath);
 
   if (version != fmi_version_2_0_enu){
-    fmi_import_free_context(bui->context);
     ModelicaFormatError("Wrong FMU version for %s, require FMI 2.0 for Model Exchange, received %s.", FMUPath, fmi_version_to_string(version));
   }
 
@@ -283,7 +282,6 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
   bui->fmu = fmi2_import_parse_xml(bui->context, tmpPath, 0);
 
 	if(!bui->fmu) {
-    fmi_import_free_context(bui->context);
 		ModelicaError("Error parsing XML, exiting.");
 	}
 	/* modelName = fmi2_import_get_model_name(bui->fmu); */
@@ -314,8 +312,10 @@ void FMUZoneAllocateAndInstantiateBuilding(FMUBuilding* bui){
 */
   jm_status = fmi2_import_create_dllfmu(bui->fmu, fmukind, &callBackFunctions);
   if (jm_status == jm_status_error) {
-    fmi_import_free_context(bui->context);
   	ModelicaFormatError("Could not create the DLL loading mechanism (C-API) for %s.", FMUPath);
+  }
+  else{
+    bui->dllfmu_created = fmi2_true;
   }
 
   writeLog(3, "Instantiating fmu.");
