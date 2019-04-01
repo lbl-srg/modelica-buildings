@@ -26,10 +26,10 @@ block PlantEnable "Sequence to enable and disable plant"
     "Desing heat exchanger chilled water flow rate"
     annotation (Dialog(group="Waterside economizer", enable=haveWSE));
   parameter Real locDt = 1
-    "Deadband temperature for lockout chiller"
+    "Offset temperature for lockout chiller"
     annotation (Dialog(tab="Advanced"));
   parameter Real wseDt = 1
-    "Deadband for checking waterside economizer leaving water temperature"
+    "Offset for checking waterside economizer leaving water temperature"
     annotation (Dialog(tab="Advanced"));
   parameter Real hysDt = 1
     "Deadband temperature used in hysteresis block"
