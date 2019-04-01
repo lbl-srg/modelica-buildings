@@ -111,7 +111,7 @@ initial equation
   (AFlo, V, mSenFac) = Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
     adapter = adapter,
     startTime = time);
-  //TRooLast = T;
+    /* fixme: in initial equation, must send initial inputs to FMU */
 
 equation
   // These assertions must be here. Otherwise, JModelica may optimize the code for
