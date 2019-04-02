@@ -11,12 +11,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#if defined _WIN32
-#include <windows.h>
-#else
-#include <dlfcn.h>
-#endif
-
 int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
   int iZ;
   int isUnique = 1;

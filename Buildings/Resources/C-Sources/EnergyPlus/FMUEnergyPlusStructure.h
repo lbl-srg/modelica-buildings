@@ -73,6 +73,7 @@ typedef struct FMUBuilding
   char* tmpDir; /* Temporary directory used by EnergyPlus */
   char* fmuAbsPat; /* Absolute name of the fmu */
   fmi2Boolean dllfmu_created; /* Flag to indicate if dll fmu functions were successfully created */
+  fmi2Real time; /* Time that is set in the building fmu */
 } FMUBuilding;
 
 #define ZONE_N_PAR 3 /* Number of parameter value references per zone*/

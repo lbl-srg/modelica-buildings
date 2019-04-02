@@ -62,6 +62,8 @@ void FMUZoneExchange(
   fmi2Real inputValues[ZONE_N_INP];
   fmi2Real outputValues[ZONE_N_OUT];
   fmi2_event_info_t eventInfo;
+  fmi2Boolean callEventUpdate;
+  fmi2Boolean terminateSimulation;
   fmi2Status status;
 
   const double dT = 0.01; /* Increment for derivative approximation */
@@ -90,23 +92,46 @@ void FMUZoneExchange(
   if (initialCall){
     /* Enter initialization mode */
     writeFormatLog(3, "Enter initialization mode of FMU with T = %.f.", T);
-    status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
+    status = fmi2_import_enter_initialization_mode(tmpZon->ptrBui->fmu);
     writeLog(3, "Returned from enter initialization mode of FMU.");
     if( status != fmi2_status_ok ){
-      ModelicaFormatError("Failed to enter initialization mode for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
+      ModelicaFormatError("Failed to enter initialization mode for FMU with name %s.",  tmpZon->ptrBui->fmuAbsPat);
     }
   }
-  else{
+  else if ( fabs(tmpZon->ptrBui->time) < 0.001 ) {
+    /* This is not in the initial clause of the Modelica when, and
+       it is the first zone that advances time for this building.
+       Complete the integrator step in the FMU, and set the new time
+    */
+    status = fmi2_import_completed_integrator_step(tmpZon->ptrBui->fmu, fmi2_true,
+      &callEventUpdate,
+      &terminateSimulation);
+
+    if ( status != fmi2OK ) {
+      ModelicaFormatError("Failed to complete integrator step in building FMU with name %s.",
+      tmpZon->ptrBui->name);
+    }
+    if (callEventUpdate){
+      ModelicaFormatError(
+        "Unexpected value for callEventUpdate in FMUZoneExchange at t = %.2f for FMU with name %s",
+        time, tmpZon->ptrBui->name);
+    }
+    if (terminateSimulation){
+      ModelicaFormatError(
+        "Unexpected value for terminateSimulation in FMUZoneExchange at t = %.2f for FMU with name %s",
+        time, tmpZon->ptrBui->name);
+    }
+
     writeLog(3, "Setting time in EnergyPlus.");
-    status = fmi2_import_set_time(zone->ptrBui->fmu, time);
+    tmpZon->ptrBui->time = time;
+    status = fmi2_import_set_time(tmpZon->ptrBui->fmu, time);
     writeLog(3, "Returned from setting time in EnergyPlus.");
     if ( status != fmi2OK ) {
       ModelicaFormatError("Failed to set time in building FMU with name %s.",
-      zone->ptrBui->name);
+      tmpZon->ptrBui->name);
     }
-  }
+  } /* end of else if */
 
-  /* fixme: check if we need to add call to fmi2CompletedIntegratorStep */
 
   /* Set input values, which are of the order below
      const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
@@ -177,4 +202,24 @@ void FMUZoneExchange(
 
   writeFormatLog(3, "Returning from FMUZoneExchange with nextEventTime = %.2f.", *tNext);
   return;
+}
+
+fmi2Status do_event_iteration(fmi2_import_t *fmu, fmi2_event_info_t *eventInfo){
+  size_t i = 0;
+  const size_t nMax = 50;
+  fmi2Status status;
+
+  eventInfo->newDiscreteStatesNeeded = fmi2_true;
+  eventInfo->terminateSimulation     = fmi2_false;
+  while (eventInfo->newDiscreteStatesNeeded && !eventInfo->terminateSimulation && i < nMax) {
+    i++;
+    status = fmi2_import_new_discrete_states(fmu, eventInfo);
+  }
+  if (eventInfo->terminateSimulation){
+    ModelicaFormatError("FMU requested to terminate the simulation.");
+  }
+  if (i == nMax){
+    ModelicaFormatError("Did not converge during event iteration.");
+  }
+  return status;
 }
