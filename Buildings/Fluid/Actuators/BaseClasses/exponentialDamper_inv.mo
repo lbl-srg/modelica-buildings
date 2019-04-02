@@ -1,67 +1,61 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 function exponentialDamper_inv
   "Inverse function of damper opening characteristics for an exponential damper"
-  import Modelica.Math.Matrices;
   extends Modelica.Icons.Function;
   input Real kThetaSqRt(min=0);
-  input Real a "Coefficient a for damper characteristics";
-  input Real b "Coefficient b for damper characteristics";
+  input Real a(unit="") "Coefficient a for damper characteristics";
+  input Real b(unit="") "Coefficient b for damper characteristics";
   input Real[3] cL "Polynomial coefficients for curve fit for y < yl";
   input Real[3] cU "Polynomial coefficients for curve fit for y > yu";
   input Real yL "Lower value for damper curve";
   input Real yU "Upper value for damper curve";
-  output Real y(min=0, max=1);
+  output Real y;
 protected
   parameter Real kL = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-       y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+    y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
   parameter Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-       y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
-  parameter Integer sizeSupSpl = 3;
-  parameter Real[sizeSupSpl] ySupSpl = {1, yU*1.1, yU};
-  parameter Real[sizeSupSpl] kSupSpl = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-      y=ySupSpl, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)
-      "Strict monotone increasing";
-  parameter Real[sizeSupSpl] invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(
-    x=kSupSpl, y=ySupSpl, ensureMonotonicity=true);
-  Real kBnd "Bounded flow resistance sqrt value";
+    y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+  parameter Integer sizeSupSplBnd = 4;
+  parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3;
+  parameter Real[sizeSupSpl] ySupSpl_raw = cat(
+    1,
+    linspace(1, yU, sizeSupSplBnd),
+    {yU-1/3*(yU-yL), (yU+yL)/2, yU-2/3*(yU-yL)},
+    linspace(yL, 0, sizeSupSplBnd)
+  );
+  parameter Real[sizeSupSpl] kSupSpl_raw = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+      y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+  Real[sizeSupSpl] kSupSpl
+    "Strict monotone increasing";
+  Integer[sizeSupSpl] idx_sorted;
+  Real[sizeSupSpl] ySupSpl;
+  Real[sizeSupSpl] invSplDer;
   Integer i "Integer to select data interval";
-  Real delta "Discriminant";
-  Real y1 "First root";
-  Real y2 "Second root";
+  Real kBnd "Bounded flow resistance sqrt value";
 algorithm
+  (kSupSpl, idx_sorted) := Modelica.Math.Vectors.sort(kSupSpl_raw, ascending=true);
+  ySupSpl := ySupSpl_raw[idx_sorted];
+  invSplDer := Buildings.Utilities.Math.Functions.splineDerivatives(
+      x=kSupSpl, y=ySupSpl);
   kBnd := if kThetaSqRt < kSupSpl[1] then kSupSpl[1] elseif
     kThetaSqRt > kSupSpl[sizeSupSpl] then kSupSpl[sizeSupSpl] else kThetaSqRt;
+  i := 1;
+  for j in 2:sizeSupSpl loop
+    if kBnd <= kSupSpl[j] then
+      i := j;
+      break;
+    end if;
+  end for;
+  y := max(0, min(1, Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+    x=kBnd,
+    x1=kSupSpl[i - 1],
+    x2=kSupSpl[i],
+    y1=ySupSpl[i - 1],
+    y2=ySupSpl[i],
+    y1d=invSplDer[i - 1],
+    y2d=invSplDer[i]
+  )));
 
-  if kThetaSqRt > kL then
-    // kThetaSqRt := sqrt(Modelica.Math.exp(cL[3] + yC * (cL[2] + yC * cL[1])));
-    delta := cL[2]^2 - 4 * cL[1] * (-2 * Modelica.Math.log(kThetaSqRt) + cL[3]);
-    y1 := (-cL[2] - sqrt(delta)) / (2 * cL[1]);
-    y2 := (-cL[2] + sqrt(delta)) / (2 * cL[1]);
-    y := if cL[2] + 2 * cL[1] * y1 <= 0 then max(0, y1) else max(0, y2);
-  elseif kThetaSqRt < kU then
-    // kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + yC * (cU[2] + yC * cU[1])));
-    i := 1;
-    for j in 2:sizeSupSpl loop
-      if kBnd <= kSupSpl[j] then
-        i := j;
-        break;
-      end if;
-    end for;
-    y := min(1, Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-      x=kBnd,
-      x1=kSupSpl[i - 1],
-      x2=kSupSpl[i],
-      y1=ySupSpl[i - 1],
-      y2=ySupSpl[i],
-      y1d=invSplDer[i - 1],
-      y2d=invSplDer[i]
-    ));
-  else
-    y := 1 -(2 * Modelica.Math.log(kThetaSqRt) - a) / b;
-    y1 := 0;
-    y2 := 0;
-    //kThetaSqRt := sqrt(Modelica.Math.exp(a+b*(1-y))) "y=0 is closed";
-  end if;
 annotation (
 Documentation(info="<html>
 <p>

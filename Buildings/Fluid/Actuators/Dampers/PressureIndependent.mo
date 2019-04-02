@@ -25,7 +25,7 @@ model PressureIndependent
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of duct and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
-  parameter Real l(min=1e-10, max=1) = 0.001
+  parameter Real l(min=1e-10, max=1) = 0.0001
     "Damper leakage, l=k(y=0)/k(y=1)";
   Modelica.Blocks.Interfaces.RealOutput y_open "Fractional damper opening"
     annotation (Placement(transformation(extent={{40,90},{60,110}}),
@@ -138,8 +138,7 @@ equation
       m_flow=m_flow,
       k=sqrt(kResSqu),
       m_flow_turbulent=m_flow_turbulent) else dp;
-  kThetaSqRt = if noEvent(y_actual < Modelica.Constants.eps) then sqrt(k0)
-    else Buildings.Utilities.Math.Functions.regStep(
+  kThetaSqRt = Buildings.Utilities.Math.Functions.regStep(
       x=dp - dp_1 - dp_small / 2,
       y1=Buildings.Utilities.Math.Functions.regStep(
         x=dp - dp_0 + dp_small / 2,
@@ -152,7 +151,7 @@ equation
       ),
       y2=sqrt(k1),
       x_small=dp_small / 2
-    );
+  );
   y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
     kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
 annotation(Documentation(info="<html>

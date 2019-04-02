@@ -45,6 +45,10 @@ partial model PartialDamperExponential
  Real k(unit="")
     "Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
+  parameter Real kL = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+    y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+  parameter Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+    y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
  parameter Boolean preInd = false
     "If preInd then pressure drop calculation is not performed by this model.";
  parameter Medium.Density rho_default=Medium.density(sta_default)
@@ -60,11 +64,13 @@ protected
     "Polynomial coefficients for curve fit for y > yu";
  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
 initial equation
-  assert(k0 > k1, "k0 must be between k1 and 1e6.");
+  assert(k0 > k1, "k0 must be strictly higher than k1.");
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
-  assert(k1 >= 0.2, "k1 must be between 0.2 and 0.5.");
-  assert(k1 <= 5.0, "k1 must be between 0.2 and 0.5.");
-  assert(k0 <= 1e8, "k0 must be between k1 and 1e6.");
+  assert(k1 >= 0.2, "k1 must higher than 0.2.");
+  assert(k1 <= 20.0, "k1 must be lower than 0.5.");
+  assert(k0 <= 1e10, "k0 must be lower than 1e8.");
+  assert(k1 < kU, "k1 must be strictly lower than exp(a + b * (1 - yU)).");
+  assert(k0 > kL, "k0 must be strictly higher than exp(a + b * (1 - yL)).");
 equation
   rho = if use_constant_density then
           rho_default
