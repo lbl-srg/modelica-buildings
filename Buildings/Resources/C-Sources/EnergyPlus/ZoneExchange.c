@@ -5,8 +5,8 @@
  * Thierry S. Nouidui, LBNL              4/16/2018
  */
 
-#include "FMUZoneExchange.h"
-#include "FMUEnergyPlusStructure.h"
+#include "ZoneExchange.h"
+#include "EnergyPlusStructure.h"
 
 #include <stdlib.h>
 #include <math.h>
@@ -42,7 +42,7 @@ void setGetVariables(
     }
   }
 
-void FMUZoneExchange(
+void ZoneExchange(
   void* object,
   int initialCall,
   double T,
@@ -75,7 +75,7 @@ void FMUZoneExchange(
 
   FMUZone* tmpZon;
 
-  writeFormatLog(3, "Exchanging data with EnergyPlus in FMUZoneExchange at t = %.2f, initialCall = %d.",
+  writeFormatLog(3, "Exchanging data with EnergyPlus in ZoneExchange at t = %.2f, initialCall = %d.",
     time, initialCall);
 
   tmpZon=(FMUZone*)zone->ptrBui->zones[zone->index-1];
@@ -86,7 +86,7 @@ void FMUZoneExchange(
     /* This zone has not been initialized because the simulator optimized away the call to initialize().
        Hence, we intialize it now.
     */
-    FMUZoneInstantiate(object, time, &AFlo, &V, &mSenFac);
+    ZoneInstantiate(object, time, &AFlo, &V, &mSenFac);
   }
 
   if (initialCall){
@@ -113,12 +113,12 @@ void FMUZoneExchange(
     }
     if (callEventUpdate){
       ModelicaFormatError(
-        "Unexpected value for callEventUpdate in FMUZoneExchange at t = %.2f for FMU with name %s",
+        "Unexpected value for callEventUpdate in ZoneExchange at t = %.2f for FMU with name %s",
         time, tmpZon->ptrBui->name);
     }
     if (terminateSimulation){
       ModelicaFormatError(
-        "Unexpected value for terminateSimulation in FMUZoneExchange at t = %.2f for FMU with name %s",
+        "Unexpected value for terminateSimulation in ZoneExchange at t = %.2f for FMU with name %s",
         time, tmpZon->ptrBui->name);
     }
 
@@ -200,7 +200,7 @@ void FMUZoneExchange(
     }
   }
 
-  writeFormatLog(3, "Returning from FMUZoneExchange with nextEventTime = %.2f.", *tNext);
+  writeFormatLog(3, "Returning from ZoneExchange with nextEventTime = %.2f.", *tNext);
   return;
 }
 

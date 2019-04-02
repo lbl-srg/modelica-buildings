@@ -4,8 +4,8 @@
  * Michael Wetter, LBNL                  2/14/2018
  */
 
-#include "FMUZoneAllocate.h"
-#include "FMUEnergyPlusStructure.h"
+#include "ZoneAllocate.h"
+#include "EnergyPlusStructure.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +24,7 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 }
 
 /* Create the structure and return a pointer to its address. */
-void* FMUZoneAllocate(const char* idfName, const char* weaName, const char* iddName, const char* zoneName)
+void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName, const char* zoneName)
 {
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
@@ -37,7 +37,7 @@ void* FMUZoneAllocate(const char* idfName, const char* weaName, const char* iddN
 
   nFMU = getBuildings_nFMU();
 
-  /* ModelicaMessage("*** Entered FMUZoneAllocate."); */
+  /* ModelicaMessage("*** Entered ZoneAllocate."); */
 
   /* ModelicaFormatMessage("****** Initializing zone %s, fmu = %s****** \n", zoneName, idfName); */
 
@@ -47,11 +47,11 @@ void* FMUZoneAllocate(const char* idfName, const char* weaName, const char* iddN
 
   zone = (FMUZone*) malloc(sizeof(FMUZone));
   if ( zone == NULL )
-    ModelicaError("Not enough memory in FMUZoneAllocate.c. to allocate zone.");
+    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zone.");
   /* Assign the zone name */
   zone->name = malloc((strlen(zoneName)+1) * sizeof(char));
   if ( zone->name == NULL )
-    ModelicaError("Not enough memory in FMUZoneAllocate.c. to allocate zone name.");
+    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zone name.");
   strcpy(zone->name, zoneName);
 
   /* Assign structural data */
@@ -80,17 +80,17 @@ void* FMUZoneAllocate(const char* idfName, const char* weaName, const char* iddN
   zone->parameterValueReferences = NULL;
   zone->parameterValueReferences = (fmi2ValueReference*)malloc(ZONE_N_PAR * sizeof(fmi2ValueReference));
   if ( zone->parameterValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for parameterValueReferences in FMUZoneAllocate.c.");
+    ModelicaFormatError("Failed to allocate memory for parameterValueReferences in ZoneAllocate.c.");
 
   zone->inputValueReferences = NULL;
   zone->inputValueReferences = (fmi2ValueReference*)malloc(ZONE_N_INP * sizeof(fmi2ValueReference));
   if ( zone->inputValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for inputValueReferences in FMUZoneAllocate.c.");
+    ModelicaFormatError("Failed to allocate memory for inputValueReferences in ZoneAllocate.c.");
 
   zone->outputValueReferences = NULL;
   zone->outputValueReferences = (fmi2ValueReference*)malloc(ZONE_N_OUT * sizeof(fmi2ValueReference));
   if ( zone->outputValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for outputValueReferences in FMUZoneAllocate.c.");
+    ModelicaFormatError("Failed to allocate memory for outputValueReferences in ZoneAllocate.c.");
 
   /* ********************************************************************** */
   /* Initialize the pointer for the FMU to which this zone belongs */
@@ -98,7 +98,7 @@ void* FMUZoneAllocate(const char* idfName, const char* weaName, const char* iddN
   if (nFMU == 0){
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
-    zone->ptrBui = FMUZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone);
+    zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone);
     zone->index = 1;
   } else {
     /* There is already a Buildings FMU allocated.
@@ -118,12 +118,12 @@ void* FMUZoneAllocate(const char* idfName, const char* weaName, const char* iddN
           fmu->zoneNames = realloc(fmu->zoneNames, (fmu->nZon + 1) * sizeof(char*));
           fmu->zones = realloc(fmu->zones, (fmu->nZon + 1) * sizeof(FMUZone*));
           if (fmu->zoneNames == NULL){
-            ModelicaError("Not enough memory in FMUZoneAllocate.c. to allocate memory for bld->zoneNames.");
+            ModelicaError("Not enough memory in ZoneAllocate.c. to allocate memory for bld->zoneNames.");
           }
           /* Add storage for new zone name, and copy the zone name */
           fmu->zoneNames[fmu->nZon] = malloc((strlen(zoneName)+1) * sizeof(char));
           if ( fmu->zoneNames[fmu->nZon] == NULL )
-            ModelicaError("Not enough memory in FMUZoneAllocate.c. to allocate zone name.");
+            ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zone name.");
           fmu->zones[fmu->nZon] = zone;
           strcpy(fmu->zoneNames[fmu->nZon], zoneName);
           /* Increment the count of zones to this building. */
@@ -135,7 +135,7 @@ void* FMUZoneAllocate(const char* idfName, const char* weaName, const char* iddN
       /* Check if we found an FMU */
       if (zone->ptrBui == NULL){
         /* Did not find an FMU. */
-        zone->ptrBui = FMUZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone);
+        zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone);
       }
   }
 

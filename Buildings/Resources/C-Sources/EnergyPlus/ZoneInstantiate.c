@@ -5,9 +5,9 @@
  * Thierry S. Nouidui, LBNL              3/23/2018
  */
 
-#include "FMUZoneInstantiate.h"
-#include "FMUBuildingInstantiate.c" /* Include c file, otherwise Modelica won't compile it */
-#include "FMUEnergyPlusStructure.h"
+#include "ZoneInstantiate.h"
+#include "BuildingInstantiate.c" /* Include c file, otherwise Modelica won't compile it */
+#include "EnergyPlusStructure.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -58,13 +58,13 @@ void getParametersFromEnergyPlus(
 
 /* This function is called for each zone in the 'initial equation section'
 */
-void FMUZoneInstantiate(void* object, double startTime, double* AFlo, double* V, double* mSenFac){
+void ZoneInstantiate(void* object, double startTime, double* AFlo, double* V, double* mSenFac){
   fmi2_status_t status;
   FMUZone* zone = (FMUZone*) object;
 
   double outputValues[ZONE_N_OUT];
 
-  writeLog(3, "Entered FMUZoneInstantiate.");
+  writeLog(3, "Entered ZoneInstantiate.");
 
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.

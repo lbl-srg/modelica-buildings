@@ -5,8 +5,8 @@
  * Thierry S. Nouidui, LBNL              4/03/2018
  */
 
-#include "FMUZoneFree.h"
-#include "FMUEnergyPlusStructure.c"
+#include "ZoneFree.h"
+#include "EnergyPlusStructure.c"
 
 #include <stdlib.h>
 
@@ -37,8 +37,8 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
   }
 }
 
-void FMUZoneFree(void* object){
-  writeLog(2, "*** Entered FMUZoneFree.");
+void ZoneFree(void* object){
+  writeLog(2, "*** Entered ZoneFree.");
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure
@@ -57,5 +57,5 @@ void FMUZoneFree(void* object){
     free(zone);
     writeLog(2, "*** Freed zone.");
   }
-  writeLog(2, "*** Leaving FMUZoneFree.");
+  writeLog(2, "*** Leaving ZoneFree.");
 }

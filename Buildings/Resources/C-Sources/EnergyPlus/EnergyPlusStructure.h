@@ -2,8 +2,8 @@
  * A structure to store the data needed to communicate with EnergyPlus.
  */
 
-#ifndef Buildings_FMUEnergyPlusStructure_h /* Not needed since it is only a typedef; added for safety */
-#define Buildings_FMUEnergyPlusStructure_h
+#ifndef Buildings_EnergyPlusStructure_h /* Not needed since it is only a typedef; added for safety */
+#define Buildings_EnergyPlusStructure_h
 
 #include <stdlib.h>
 #include <stddef.h>  /* stddef defines size_t */
@@ -124,7 +124,7 @@ void buildVariableNames(
   char** *ptrVarNames,
   char** *ptrFullNames);
 
-FMUBuilding* FMUZoneAllocateBuildingDataStructure(
+FMUBuilding* ZoneAllocateBuildingDataStructure(
   const char* idfName, const char* weaName,
   const char* iddName,
   const char* zoneName, FMUZone* zone);

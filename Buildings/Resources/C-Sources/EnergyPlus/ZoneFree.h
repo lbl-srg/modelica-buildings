@@ -3,14 +3,14 @@
  *
  * Michael Wetter, LBNL                  2/9/2019
  */
-#ifndef Buildings_FMUZoneFree_h
-#define Buildings_FMUZoneFree_h
+#ifndef Buildings_ZoneFree_h
+#define Buildings_ZoneFree_h
 
-#include "FMUEnergyPlusStructure.h"
+#include "EnergyPlusStructure.h"
 #include "FMI2/fmi2_import.h"
 
 void FMUBuildingFree(FMUBuilding* ptrBui);
 
-void FMUZoneFree(void* object);
+void ZoneFree(void* object);
 
 #endif

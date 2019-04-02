@@ -68,12 +68,12 @@ add_library( ModelicaBuildingsEnergyPlus SHARED
   Buildings/Resources/src/EnergyPlus/fmi2FunctionTypes.h
   Buildings/Resources/src/EnergyPlus/fmi2Functions.h
   Buildings/Resources/src/EnergyPlus/fmi2TypesPlatform.h
-  Buildings/Resources/src/EnergyPlus/FMUEnergyPlusStructure.c
-  Buildings/Resources/src/EnergyPlus/FMUZoneExchange.c
-  Buildings/Resources/src/EnergyPlus/FMUZoneFree.c
-  Buildings/Resources/src/EnergyPlus/FMUZoneAllocate.h
-  Buildings/Resources/src/EnergyPlus/FMUZoneAllocate.c
-  Buildings/Resources/src/EnergyPlus/FMUZoneInstantiate.c
+  Buildings/Resources/src/EnergyPlus/EnergyPlusStructure.c
+  Buildings/Resources/src/EnergyPlus/ZoneExchange.c
+  Buildings/Resources/src/EnergyPlus/ZoneFree.c
+  Buildings/Resources/src/EnergyPlus/ZoneAllocate.h
+  Buildings/Resources/src/EnergyPlus/ZoneAllocate.c
+  Buildings/Resources/src/EnergyPlus/ZoneInstantiate.c
   Buildings/Resources/src/EnergyPlus/EnergyPlusModelicaUtilities.c
 )
 target_link_libraries( ModelicaBuildingsEnergyPlus

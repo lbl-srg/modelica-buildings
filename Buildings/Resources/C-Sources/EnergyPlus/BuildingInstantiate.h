@@ -3,10 +3,10 @@
  *
  * Michael Wetter, LBNL                  2/9/2019
  */
-#ifndef Buildings_FMUBuildingInstantiate_h
-#define Buildings_FMUBuildingInstantiate_h
+#ifndef Buildings_BuildingInstantiate_h
+#define Buildings_BuildingInstantiate_h
 
-#include "FMUEnergyPlusStructure.h"
+#include "EnergyPlusStructure.h"
 
 #include <stdio.h>
 #include <unistd.h>

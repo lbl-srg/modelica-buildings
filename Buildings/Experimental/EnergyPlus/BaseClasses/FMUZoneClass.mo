@@ -9,14 +9,14 @@ extends ExternalObject;
     //    input String epLibName "Name of the Energyplus FMI library";
     input String zoneName "Name of the thermal zone";
     output FMUZoneClass adapter;
-    external "C" adapter = FMUZoneAllocate(
+    external "C" adapter = ZoneAllocate(
       idfName,
       weaName,
       iddName,
       zoneName)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"FMUZoneAllocate.c\"",
+          Include="#include \"ZoneAllocate.c\"",
           Library={"fmilib_shared", "dl"});
           // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
@@ -24,7 +24,7 @@ extends ExternalObject;
 <p>
 The function <code>constructor</code> is a C function that is called by a Modelica simulator
 exactly once during the initialization.
-The function returns the object <code>FMUBuildingAdapter</code> that
+The function returns the object <code>adapter</code> that
 will be used to store the data structure needed to communicate with EnergyPlus.
 </p>
 </html>", revisions="<html>
@@ -39,10 +39,10 @@ First implementation.
 
   function destructor "Release storage"
     input FMUZoneClass adapter;
-    external "C" FMUZoneFree(adapter)
+    external "C" ZoneFree(adapter)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"FMUZoneFree.c\"");
+          Include="#include \"ZoneFree.c\"");
 
   annotation(Documentation(info="<html>
 <p>

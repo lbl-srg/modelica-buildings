@@ -5,8 +5,8 @@
  * Thierry S. Nouidui, LBNL              3/23/2018
  */
 
-#include "FMUBuildingInstantiate.h"
-#include "FMUEnergyPlusStructure.h"
+#include "BuildingInstantiate.h"
+#include "EnergyPlusStructure.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -290,7 +290,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
      Allocate memory and load the fmu.
   */
 
-  writeLog(3, "Entered FMUZoneAllocateAndInstantiateBuilding.");
+  writeLog(3, "Entered ZoneAllocateAndInstantiateBuilding.");
 
   generateFMU(bui->fmuAbsPat);
 

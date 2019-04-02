@@ -3,15 +3,15 @@
  *
  * Michael Wetter, LBNL                  2/9/2019
  */
-#ifndef Buildings_FMUZoneExchange_h
-#define Buildings_FMUZoneExchange_h
+#ifndef Buildings_ZoneExchange_h
+#define Buildings_ZoneExchange_h
 
-#include "FMUEnergyPlusStructure.h"
-#include "FMUZoneInstantiate.h"
+#include "EnergyPlusStructure.h"
+#include "ZoneInstantiate.h"
 #include "FMI2/fmi2_import_capi.h"
 
 
-void FMUZoneExchange(
+void ZoneExchange(
   void* object,
   int initialCall,
   double T,
