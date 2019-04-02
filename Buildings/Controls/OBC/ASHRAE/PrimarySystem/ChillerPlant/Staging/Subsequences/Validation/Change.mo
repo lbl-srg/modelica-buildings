@@ -38,7 +38,7 @@ model Change "Validates chiller stage signal"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staAva[3](final k={true,
-        false,true})
+        false,false})
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant WSESta(
