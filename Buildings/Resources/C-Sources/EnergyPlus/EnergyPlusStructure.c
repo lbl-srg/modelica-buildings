@@ -91,7 +91,11 @@ void printBacktrace(){
 static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
 
-
+/* Wrapper to set fmu mode indicator and log the mode change for debugging */
+void setFMUMode(FMUBuilding* bui, FMUMode mode){
+  writeFormatLog(3, "Switching %s to mode %d", bui->name, mode);
+  bui->mode = mode;
+}
 /*
  Appends a character array to another character array.
 

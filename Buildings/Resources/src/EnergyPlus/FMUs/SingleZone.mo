@@ -17,7 +17,8 @@ model SingleZone "Model of a thermal zone"
     "Average of inlets medium temperatures carried by the mass flow rates";
   discrete input Modelica.SIunits.HeatFlowRate Core_ZN_QGaiRad_flow
     "Radiative sensible heat gain added to the zone";
-
+  discrete input Real Core_ZN_xTest "Test";
+  discrete output Real Core_ZN_yTest "Test";
 
   discrete output Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_TRad
     "Average radiative temperature in the room";
@@ -43,7 +44,6 @@ protected
 initial equation
   startTime = time;
   TCon = 20;
-
 equation
   sampleTrigger = sample(startTime, samplePeriod);
 
@@ -54,13 +54,21 @@ equation
   when {sampleTrigger, initial()} then
 //    Modelica.Utilities.Streams.print("+++ In when clause at t = "
 //      + String(time) + " with Core_ZN_T = " + String(Core_ZN_T));
+/*
     if initial() then
       TCon = pre(TCon) + samplePeriod / CCon * (Core_ZN_QConSen_flow + Core_ZN_QGaiRad_flow);
     else
       TCon = pre(TCon);
     end if;
+    */
+    if initial() then
+      Core_ZN_yTest = pre(Core_ZN_xTest);
+    else
+      Core_ZN_yTest = pre(Core_ZN_xTest) + 1;
+    end if;
+    TCon = 20;
     Core_ZN_TRad = 22;
-    Core_ZN_QConSen_flow = Core_ZN_T;// fixme Ah * (Core_ZN_T-pre(TCon));
+    Core_ZN_QConSen_flow = 1*Core_ZN_T;// fixme Ah * (Core_ZN_T-pre(TCon));
     Core_ZN_QLat_flow = 400;
     Core_ZN_QPeo_flow = 200;
   end when;

@@ -32,8 +32,8 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
   FMUZone* zone;
   size_t nFMU;
   const char* parNames[] = {"V", "AFlo", "mSenFac"};
-  const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
-  const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
+  const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow", "xTest"};
+  const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow", "yTest"};
 
   nFMU = getBuildings_nFMU();
 
@@ -145,6 +145,7 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
      This behavior was observed when simulating Buildings.Experimental.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
   */
   zone->isInstantiated = fmi2False;
+  zone->isInitialized = fmi2False;
 
   /* Return a pointer to this zone */
   return (void*) zone;

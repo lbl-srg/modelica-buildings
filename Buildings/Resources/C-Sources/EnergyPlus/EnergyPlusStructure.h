@@ -14,6 +14,7 @@
 #include <sys/stat.h>  /* To create directory */
 #include <unistd.h>    /* To use stat to check for directory */
 #include <errno.h>
+#include <stdbool.h>
 
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
@@ -45,6 +46,9 @@ static char* SEPARATOR = "\\";
 static char* SEPARATOR = "/";
 #endif
 
+
+typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
+
 void writeFormatLog(unsigned int level, const char *fmt, ...);
 
 void writeLog(unsigned int level, const char* msg);
@@ -74,11 +78,12 @@ typedef struct FMUBuilding
   char* fmuAbsPat; /* Absolute name of the fmu */
   fmi2Boolean dllfmu_created; /* Flag to indicate if dll fmu functions were successfully created */
   fmi2Real time; /* Time that is set in the building fmu */
+  FMUMode mode; /* Mode that the FMU is in */
 } FMUBuilding;
 
 #define ZONE_N_PAR 3 /* Number of parameter value references per zone*/
-#define ZONE_N_INP 5 /* Number of input value references per zone*/
-#define ZONE_N_OUT 4 /* Number of output value references per zone*/
+#define ZONE_N_INP 6 /* Number of input value references per zone*/
+#define ZONE_N_OUT 5 /* Number of output value references per zone*/
 
 typedef struct FMUZone
 {
@@ -99,6 +104,8 @@ typedef struct FMUZone
   fmi2Byte** outputVariableNames; /* Full names of output variables (used to get value reference)*/
 
   fmi2Boolean isInstantiated; /* Flag set to true when the zone has been completely instantiated */
+  fmi2Boolean isInitialized; /* Flag set to true after the zone has executed all get/set calls in the initializion mode
+                                of the FMU */
 } FMUZone;
 
 void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message);
@@ -106,6 +113,8 @@ void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, 
 void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen);
 
 void saveAppendJSONElements(char* *buffer, const char* values[], size_t n, size_t* bufLen);
+
+void setFMUMode(FMUBuilding* bui, FMUMode mode);
 
 void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char** fmuAbsPat);
 

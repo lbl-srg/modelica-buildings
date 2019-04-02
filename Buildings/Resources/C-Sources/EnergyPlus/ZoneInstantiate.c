@@ -80,6 +80,8 @@ void ZoneInstantiate(void* object, double startTime, double* AFlo, double* V, do
 
     writeLog(3, "Setting up experiment.");
     zone->ptrBui->time = startTime;
+    setFMUMode(zone->ptrBui, instantiationMode);
+
     /* This function can only be called once per building FMU */
     status = fmi2_import_setup_experiment(
         zone->ptrBui->fmu,    /* fmu */
