@@ -9,7 +9,7 @@ function initialize "Initialization"
 
   external "C" FMUZoneInstantiate(adapter, startTime, AFlo, V, mSenFac)
  annotation (
-   IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+   IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
    Include="#include \"FMUZoneInstantiate.c\"");
 
   annotation (Documentation(info="<html>
