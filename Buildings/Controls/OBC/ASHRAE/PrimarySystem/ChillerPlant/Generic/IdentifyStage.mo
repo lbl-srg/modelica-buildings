@@ -8,13 +8,13 @@ block IdentifyStage "Sequence for identifying current plant stage"
     "Total number of stages, zero stage should be seen as one stage"
     annotation (Dialog(enable=havePony));
   parameter Boolean ponChiFlg[nChi]={false for i in 1:nChi}
-    "Flag to indicate which chiller is pony chiller, array size equals to total number of chiller"
+    "Array of flags indicating which chiller is pony chiller, array size equals to total number of chiller"
     annotation (Dialog(enable=havePony));
   parameter Integer ponChiCou[nSta]={0 for i in 1:nSta}
-    "Total number of operating pony chillers at each stage, array size equals to total number of stage"
+    "Array of number of operating pony chillers at each stage, array size equals to total number of stage"
     annotation (Dialog(enable=havePony));
   parameter Integer regChiCou[nSta]={i-1 for i in 1:nSta}
-    "Total number of operating regular chillers at each stage, array size equals to total number of stage"
+    "Array of number of operating regular chillers at each stage, array size equals to total number of stage"
     annotation (Dialog(enable=havePony));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if haveWSE
@@ -82,12 +82,12 @@ protected
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nSta] if havePony
     "Convert integer input to real output"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nSta](
     each final k=0) if havePony "Zero constant"
     annotation (Placement(transformation(extent={{-100,-210},{-80,-190}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nSta] if havePony
-    "Check integer inputs equality"
+    "Check equality of integer inputs"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nSta] if havePony
     "Logical switch"
@@ -99,7 +99,7 @@ protected
     "Replicate integer input"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nSta] if havePony
-    "Check integer inputs equality"
+    "Check equality of integer inputs"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1[nSta] if havePony
     "Logical switch"
@@ -111,7 +111,7 @@ protected
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2[nSta] if havePony
-    "Check integer inputs equality"
+    "Check equality of integer inputs"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2[nSta] if havePony "Logical switch"
     annotation (Placement(transformation(extent={{80,-210},{100,-190}})));
@@ -129,7 +129,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant staInd[nSta](
     final k=staIndVec) if havePony "Stage index"
-    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
     "Check if there is any enabled chiller"
     annotation (Placement(transformation(extent={{-20,170},{0,190}})));
@@ -173,16 +173,16 @@ equation
   connect(enaRegChi.y, booToInt2.u)
     annotation (Line(points={{1,20},{18,20}}, color={255,0,255}));
   connect(staInd.y, intToRea.u)
-    annotation (Line(points={{-119,-50},{-102,-50}}, color={255,127,0}));
+    annotation (Line(points={{-119,-40},{-102,-40}}, color={255,127,0}));
   connect(totEnaPonChi.y, intRep.u)
     annotation (Line(points={{81.7,60},{98,60}}, color={255,127,0}));
   connect(totEnaRegChi.y, intRep1.u)
     annotation (Line(points={{81.7,20},{98,20}}, color={255,127,0}));
   connect(intRep1.y, intEqu1.u2)
-    annotation (Line(points={{121,20},{136,20},{136,-20},{-110,-20},{-110,-128},
+    annotation (Line(points={{121,20},{136,20},{136,-16},{-110,-16},{-110,-128},
       {-102,-128}}, color={255,127,0}));
   connect(intRep.y, intEqu.u2)
-    annotation (Line(points={{121,60},{140,60},{140,-24},{-106,-24},{-106,-88},
+    annotation (Line(points={{121,60},{140,60},{140,-20},{-106,-20},{-106,-88},
       {-102,-88}}, color={255,127,0}));
   connect(ponChiNum.y, intEqu.u1)
     annotation (Line(points={{-119,-80},{-102,-80}}, color={255,127,0}));
@@ -191,12 +191,13 @@ equation
   connect(intEqu.y, swi.u2)
     annotation (Line(points={{-79,-80},{-62,-80}},  color={255,0,255}));
   connect(intToRea.y, swi.u1)
-    annotation (Line(points={{-79,-50},{-72,-50},{-72,-72},{-62,-72}},color={0,0,127}));
+    annotation (Line(points={{-79,-40},{-72,-40},{-72,-72},{-62,-72}},color={0,0,127}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{-79,-200},{-68,-200},{-68,-88},{-62,-88}},
       color={0,0,127}));
   connect(intToRea.y, swi1.u1)
-    annotation (Line(points={{-79,-50},{-72,-50},{-72,-112},{-62,-112}},color={0,0,127}));
+    annotation (Line(points={{-79,-40},{-72,-40},{-72,-112},{-62,-112}},
+      color={0,0,127}));
   connect(intEqu1.y, swi1.u2)
     annotation (Line(points={{-79,-120},{-62,-120}},color={255,0,255}));
   connect(zer.y, swi1.u3)
@@ -205,13 +206,15 @@ equation
   connect(swi1.y, reaToInt1.u)
     annotation (Line(points={{-39,-120},{-22,-120}}, color={0,0,127}));
   connect(swi.y, reaToInt.u)
-    annotation (Line(points={{-39,-80},{-22,-80}},   color={0,0,127}));
+    annotation (Line(points={{-39,-80},{-22,-80}}, color={0,0,127}));
   connect(reaToInt.y, intEqu2.u1)
-    annotation (Line(points={{1,-80},{18,-80}},   color={255,127,0}));
+    annotation (Line(points={{1,-80},{18,-80}}, color={255,127,0}));
   connect(reaToInt1.y, intEqu2.u2)
-    annotation (Line(points={{1,-120},{10,-120},{10,-88},{18,-88}}, color={255,127,0}));
+    annotation (Line(points={{1,-120},{10,-120},{10,-88},{18,-88}},
+      color={255,127,0}));
   connect(intToRea.y, swi2.u1)
-    annotation (Line(points={{-79,-50},{-72,-50},{-72,-192},{78,-192}}, color={0,0,127}));
+    annotation (Line(points={{-79,-40},{-72,-40},{-72,-192},{78,-192}},
+      color={0,0,127}));
   connect(uChi, booToInt.u)
     annotation (Line(points={{-180,20},{-140,20},{-140,150},{-122,150}},
       color={255,0,255}));
@@ -228,7 +231,7 @@ equation
   connect(booToInt1.y, totEnaPonChi.u)
     annotation (Line(points={{41,60},{58,60}}, color={255,127,0}));
   connect(booToInt2.y, totEnaRegChi.u)
-    annotation (Line(points={{41,20},{58,20}},   color={255,127,0}));
+    annotation (Line(points={{41,20},{58,20}}, color={255,127,0}));
   connect(swi2.y, mulSum.u)
     annotation (Line(points={{101,-200},{118,-200}}, color={0,0,127}));
   connect(con.y, noPon.u)
@@ -245,19 +248,23 @@ equation
   connect(uWSE, or2.u1)
     annotation (Line(points={{-180,200},{38,200}}, color={255,0,255}));
   connect(fal.y, or2.u1)
-    annotation (Line(points={{-99,180},{-80,180},{-80,200},{38,200}}, color={255,0,255}));
+    annotation (Line(points={{-99,180},{-80,180},{-80,200},{38,200}},
+      color={255,0,255}));
   connect(or2.y, yPla)
     annotation (Line(points={{61,200},{170,200}}, color={255,0,255}));
   connect(reaToInt.y, intGreThr1.u)
     annotation (Line(points={{1,-80},{10,-80},{10,-50},{18,-50}}, color={255,127,0}));
   connect(intGreThr1.y, and2.u1)
-    annotation (Line(points={{41,-50},{50,-50},{50,-60},{58,-60}}, color={255,0,255}));
+    annotation (Line(points={{41,-50},{50,-50},{50,-60},{58,-60}},
+      color={255,0,255}));
   connect(intEqu2.y, and2.u2)
-    annotation (Line(points={{41,-80},{50,-80},{50,-68},{58,-68}}, color={255,0,255}));
+    annotation (Line(points={{41,-80},{50,-80},{50,-68},{58,-68}},
+      color={255,0,255}));
   connect(zer.y, swi2.u3)
-    annotation (Line(points={{-79,-200},{-68,-200},{-68,-208},{78,-208}}, color={0,0,127}));
+    annotation (Line(points={{-79,-200},{-68,-200},{-68,-208},{78,-208}},
+      color={0,0,127}));
   connect(intRep1.y, intEqu3.u1)
-    annotation (Line(points={{121,20},{136,20},{136,-20},{-110,-20},{-110,-170},
+    annotation (Line(points={{121,20},{136,20},{136,-16},{-110,-16},{-110,-170},
       {18,-170}}, color={255,127,0}));
   connect(conInt.y, intEqu3.u2)
     annotation (Line(points={{-119,-160},{0,-160},{0,-178},{18,-178}},
@@ -271,17 +278,22 @@ equation
     annotation (Line(points={{141,-200},{150,-200},{150,90},{40,90},{40,112},
       {58,112}}, color={0,0,127}));
   connect(intEqu2.y, and1.u1)
-    annotation (Line(points={{41,-80},{50,-80},{50,-102},{58,-102}}, color={255,0,255}));
+    annotation (Line(points={{41,-80},{50,-80},{50,-102},{58,-102}},
+      color={255,0,255}));
   connect(conInt.y, intEqu4.u2)
-    annotation (Line(points={{-119,-160},{0,-160},{0,-148},{18,-148}}, color={255,127,0}));
+    annotation (Line(points={{-119,-160},{0,-160},{0,-148},{18,-148}},
+      color={255,127,0}));
   connect(intEqu4.y, and1.u2)
-    annotation (Line(points={{41,-140},{46,-140},{46,-110},{58,-110}}, color={255,0,255}));
+    annotation (Line(points={{41,-140},{46,-140},{46,-110},{58,-110}},
+      color={255,0,255}));
   connect(intEqu3.y, and1.u3)
-    annotation (Line(points={{41,-170},{50,-170},{50,-118},{58,-118}}, color={255,0,255}));
+    annotation (Line(points={{41,-170},{50,-170},{50,-118},{58,-118}},
+      color={255,0,255}));
   connect(and1.y, or1.u2)
-    annotation (Line(points={{81,-110},{90,-110},{90,-68},{98,-68}}, color={255,0,255}));
+    annotation (Line(points={{81,-110},{90,-110},{90,-68},{98,-68}},
+      color={255,0,255}));
   connect(intRep.y, intEqu4.u1)
-    annotation (Line(points={{121,60},{140,60},{140,-24},{-106,-24},{-106,-140},
+    annotation (Line(points={{121,60},{140,60},{140,-20},{-106,-20},{-106,-140},
       {18,-140}}, color={255,127,0}));
 
 annotation (
@@ -493,8 +505,10 @@ annotation (
           fillColor={170,255,170},
           fillPattern=FillPattern.Solid,
           textString="nRegChi_n"),
-        Line(points={{20,-30},{20,-60}}, color={28,108,200}),
-        Line(points={{20,-60},{100,-60}},color={28,108,200})}),
+        Line(points={{20,-30},{20,-60}}, color={255,127,0},
+          thickness=0.5),
+        Line(points={{20,-60},{100,-60}},color={255,127,0},
+          thickness=0.5)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-220},{160,220}})),
   Documentation(info="<html>
 <p>
