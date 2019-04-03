@@ -28,6 +28,13 @@
  *
  */
 void *cfdcosim() {
+	
+  /****************************************************************************
+  | return modelica error if more than one ffd instances are created
+  ****************************************************************************/
+	if ( cosim != NULL )
+		ModelicaError("ModelicaError: More than one FFD instances");
+	
   /****************************************************************************
   | Allocate memory for cosimulation variables
   ****************************************************************************/
