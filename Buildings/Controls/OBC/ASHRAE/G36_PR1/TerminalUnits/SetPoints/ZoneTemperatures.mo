@@ -766,34 +766,34 @@ equation
     annotation (Line(points={{-199,0},{-180,0},{-180,-86},{-150,-86},{-150,-81.8}},
       color={255,0,255}));
   connect(pro6.y, mulSum.u[1])
-    annotation (Line(points={{121,150},{146,150},{146,95.25},{158,95.25}},
+    annotation (Line(points={{121,150},{146,150},{146,91.5},{158,91.5}},
       color={0,0,127}));
   connect(pro.y, mulSum.u[2])
-    annotation (Line(points={{121,110},{142,110},{142,91.75},{158,91.75}},
+    annotation (Line(points={{121,110},{142,110},{142,90.5},{158,90.5}},
       color={0,0,127}));
   connect(pro1.y, mulSum.u[3])
-    annotation (Line(points={{121,70},{140,70},{140,88.25},{158,88.25}},
+    annotation (Line(points={{121,70},{140,70},{140,89.5},{158,89.5}},
       color={0,0,127}));
   connect(pro2.y, mulSum.u[4])
-    annotation (Line(points={{121,30},{136,30},{136,84.75},{158,84.75}},
+    annotation (Line(points={{121,30},{136,30},{136,88.5},{158,88.5}},
       color={0,0,127}));
   connect(pro7.y, mulSum1.u[1])
-    annotation (Line(points={{121,-70},{146,-70},{146,-124.75},{158,-124.75}},
+    annotation (Line(points={{121,-70},{146,-70},{146,-128.5},{158,-128.5}},
       color={0,0,127}));
   connect(pro3.y, mulSum1.u[2])
-    annotation (Line(points={{121,-110},{142,-110},{142,-128.25},{158,-128.25}},
+    annotation (Line(points={{121,-110},{142,-110},{142,-129.5},{158,-129.5}},
       color={0,0,127}));
   connect(pro4.y, mulSum1.u[3])
-    annotation (Line(points={{121,-150},{138,-150},{138,-131.75},{158,-131.75}},
+    annotation (Line(points={{121,-150},{138,-150},{138,-130.5},{158,-130.5}},
       color={0,0,127}));
   connect(pro5.y, mulSum1.u[4])
-    annotation (Line(points={{121,-190},{132,-190},{132,-135.25},{158,-135.25}},
+    annotation (Line(points={{121,-190},{132,-190},{132,-131.5},{158,-131.5}},
       color={0,0,127}));
   connect(mulSum.y, swi10.u3)
-    annotation (Line(points={{181.7,90},{194,90},{194,82},{218,82}},
+    annotation (Line(points={{181,90},{194,90},{194,82},{218,82}},
       color={0,0,127}));
   connect(mulSum1.y, swi11.u3)
-    annotation (Line(points={{181.7,-130},{194,-130},{194,-138},{218,-138}},
+    annotation (Line(points={{181,-130},{194,-130},{194,-138},{218,-138}},
       color={0,0,127}));
   connect(or5.y, swi10.u2)
     annotation (Line(points={{181,-10},{200,-10},{200,90},{218,90}},

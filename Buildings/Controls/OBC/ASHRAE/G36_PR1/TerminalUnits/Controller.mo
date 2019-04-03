@@ -328,13 +328,17 @@ block Controller "Controller for room VAV box"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
 protected
-  CDL.Integers.Equal isUnOcc "Output true if unoccupied"
+  Buildings.Controls.OBC.CDL.Integers.Equal isUnOcc
+    "Output true if unoccupied"
     annotation (Placement(transformation(extent={{-38,-160},{-18,-140}})));
-  CDL.Integers.Sources.Constant conIntUn(final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntUn(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Constant signal for unoccupied mode"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  CDL.Logical.Not isNotUn "Output true if not unoccupied"
+  Buildings.Controls.OBC.CDL.Logical.Not isNotUn
+  "Output true if not unoccupied"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
+
 equation
   connect(sysReq.TZonCooSet, TZonCooSet)
     annotation (Line(points={{79,-81},{-120,-81},{-120,120},{-160,120}},
@@ -369,7 +373,7 @@ equation
     annotation (Line(points={{79,-92},{62,-92},{62,-6},{41,-6}},
       color={0,0,127}));
   connect(damVal.yHeaVal, sysReq.uHeaVal)
-    annotation (Line(points={{41,-14},{40,-14},{40,-99},{79,-99}},
+    annotation (Line(points={{41,-14},{50,-14},{50,-99},{79,-99}},
                                                              color={0,0,127}));
   connect(TZon, damVal.TZon) annotation (Line(points={{-160,-20},{-40,-20},{-40,
           -19},{19,-19}},
@@ -453,7 +457,7 @@ equation
   connect(isUnOcc.y, isNotUn.u)
     annotation (Line(points={{-17,-150},{-2,-150}}, color={255,0,255}));
   connect(isNotUn.y, conCooLoo.trigger) annotation (Line(points={{21,-150},{40,-150},
-          {40,-122},{-116,-122},{-116,102},{-108,102},{-108,108}}, color={255,0,
+          {40,-120},{-116,-120},{-116,104},{-108,104},{-108,108}}, color={255,0,
           255}));
   connect(isNotUn.y, conHeaLoo.trigger) annotation (Line(points={{21,-150},{40,-150},
           {40,-120},{-116,-120},{-116,142},{-108,142},{-108,148}}, color={255,0,

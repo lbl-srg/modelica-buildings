@@ -1,0 +1,14 @@
+simulateModel("Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet",
+  method="CVode", tolerance=1e-06, stopTime=3.1536e+007, numberOfIntervals=5000, resultFile="SunRiseSet");
+createPlot(id=1,
+  position={15, 10, 590, 600}, subPlot=1, y={"sunRiseSetArctic.nextSunRise", "sunRiseSetArctic.nextSunSet","sunRiseSetArctic.sunUp"},
+  range={0.0, 370, -2, 24}, grid=true, colors={{0,140,72}, {238,46,47}, {28,108,200}});
+createPlot(id=1,
+  position={15, 10, 590, 600}, subPlot=2, y={"sunRiseSetSf.nextSunRise", "sunRiseSetSf.nextSunSet","sunRiseSetSf.sunUp"},
+  range={0.0, 370, -2, 24}, grid=true, colors={{0,140,72}, {238,46,47}, {28,108,200}});
+createPlot(id=1,
+  position={15, 10, 590, 600}, subPlot=3, y={"sunRiseSetAntarctic.nextSunRise", "sunRiseSetAntarctic.nextSunSet","sunRiseSetAntarctic.sunUp"},
+  range={0.0, 370, -2, 24}, grid=true, colors={{0,140,72}, {238,46,47}, {28,108,200}});
+createPlot(id=1,
+  position={15, 10, 590, 600}, subPlot=4, y={"sunRiseSetSyd.nextSunRise", "sunRiseSetSyd.nextSunSet","sunRiseSetSyd.sunUp"},
+  range={0.0, 370, -2, 24}, grid=true, colors={{0,140,72}, {238,46,47}, {28,108,200}});

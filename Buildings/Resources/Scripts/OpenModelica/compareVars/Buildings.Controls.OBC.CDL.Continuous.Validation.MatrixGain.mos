@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "matGai.y[1]",
+    "matGai.y[2]",
+    "matGai.y[3]",
+    "matGai.u[1]",
+    "matGai.u[2]",
+    "matGai1.y[1]",
+    "matGai1.y[2]",
+    "matGai1.u[1]",
+    "matGai1.u[2]"
+  };
