@@ -159,15 +159,19 @@ protected
 
 equation
   connect(uChi, enaPonChi.u1)
-    annotation (Line(points={{-180,20},{-140,20},{-140,60},{-22,60}}, color={255,0,255}));
+    annotation (Line(points={{-180,20},{-140,20},{-140,60},{-22,60}},
+      color={255,0,255}));
   connect(ponChi.y, not2.u)
-    annotation (Line(points={{-99,40},{-80,40},{-80,0},{-62,0}}, color={255,0,255}));
+    annotation (Line(points={{-99,40},{-80,40},{-80,0},{-62,0}},
+      color={255,0,255}));
   connect(ponChi.y, enaPonChi.u2)
-    annotation (Line(points={{-99,40},{-80,40},{-80,52},{-22,52}}, color={255,0,255}));
+    annotation (Line(points={{-99,40},{-80,40},{-80,52},{-22,52}},
+      color={255,0,255}));
   connect(uChi, enaRegChi.u1)
     annotation (Line(points={{-180,20},{-22,20}}, color={255,0,255}));
   connect(not2.y, enaRegChi.u2)
-    annotation (Line(points={{-39,0},{-32,0},{-32,12},{-22,12}}, color={255,0,255}));
+    annotation (Line(points={{-39,0},{-32,0},{-32,12},{-22,12}},
+      color={255,0,255}));
   connect(enaPonChi.y, booToInt1.u)
     annotation (Line(points={{1,60},{18,60}}, color={255,0,255}));
   connect(enaRegChi.y, booToInt2.u)
@@ -191,7 +195,8 @@ equation
   connect(intEqu.y, swi.u2)
     annotation (Line(points={{-79,-80},{-62,-80}},  color={255,0,255}));
   connect(intToRea.y, swi.u1)
-    annotation (Line(points={{-79,-40},{-72,-40},{-72,-72},{-62,-72}},color={0,0,127}));
+    annotation (Line(points={{-79,-40},{-72,-40},{-72,-72},{-62,-72}},
+      color={0,0,127}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{-79,-200},{-68,-200},{-68,-88},{-62,-88}},
       color={0,0,127}));
