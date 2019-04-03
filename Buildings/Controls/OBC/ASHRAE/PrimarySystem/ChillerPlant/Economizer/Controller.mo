@@ -29,6 +29,10 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   "Design outdoor air wet bulb temperature"
     annotation(Dialog(group="Design parameters"));
 
+  parameter Modelica.SIunits.TemperatureDifference hysDt = 1
+   "Deadband temperature used in hysteresis block"
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
+
   parameter Modelica.SIunits.VolumeFlowRate VHeaExcDes_flow=0.015
     "Desing heat exchanger chilled water volume flow rate"
     annotation(Dialog(group="Design parameters"));
@@ -85,14 +89,19 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     annotation (Placement(transformation(extent={{180,-10},{200,10}}),
     iconTransformation(extent={{100,-10},{120,10}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTunPar
+    "Tuning parameter"
+    annotation (Placement(transformation(extent={{180,
+            -100},{200,-80}}), iconTransformation(extent={{100,-60},{120,-40}})));
+
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold enaTChiWatRet(
     final threshold=dTperiod)
     "Enable condition based on chilled water return temperature upstream and downstream WSE"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis enaTWet(
-    final uLow=TOffsetEna - 0.5,
-    final uHigh=TOffsetEna + 0.5)
+    final uLow = TOffsetEna - hysDt/2,
+    final uHigh = TOffsetEna + hysDt/2)
     "Enable condition based on the outdoor wet bulb temperature"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
@@ -134,8 +143,8 @@ protected
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=TOffsetDis - 0.5,
-    final uHigh=TOffsetDis + 0.5)
+    final uLow = TOffsetDis - hysDt/2,
+    final uHigh = TOffsetDis + hysDt/2)
     "Hysteresis comparing CHW temperatures upstream and downstream WSE"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
@@ -191,6 +200,8 @@ equation
           70},{-50,70},{-50,56},{-22,56}}, color={0,0,127}));
   connect(add2.y, enaTWet.u)
     annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
+  connect(wseTun.y, yTunPar)
+    annotation (Line(points={{-119,-90},{190,-90}}, color={0,0,127}));
   annotation (defaultComponentName = "wseSta",
         Icon(graphics={
         Rectangle(

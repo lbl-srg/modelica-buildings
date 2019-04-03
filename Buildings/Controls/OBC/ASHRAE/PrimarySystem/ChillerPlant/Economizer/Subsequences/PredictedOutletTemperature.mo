@@ -69,7 +69,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towAppDes1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towAppDes(
     final k=cooTowAppDes)
     "Cooling tower design approach"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
@@ -105,7 +105,7 @@ equation
           {78,0.5}},  color={0,0,127}));
   connect(pro1.y, mulSum.u[3]) annotation (Line(points={{1,-50},{20,-50},{20,-0.5},
           {78,-0.5}},  color={0,0,127}));
-  connect(towAppDes1.y, mulSum.u[4]) annotation (Line(points={{41,-90},{60,-90},
+  connect(towAppDes.y, mulSum.u[4]) annotation (Line(points={{41,-90},{60,-90},
           {60,-2},{78,-2},{78,-1.5}}, color={0,0,127}));
   connect(mulSum.y, y)
     annotation (Line(points={{101,0},{180,0}}, color={0,0,127}));
@@ -131,12 +131,27 @@ Documentation(info="<html>
 <p>
 This algorithm predicts the achievable WSE output temperature based on current plant load conditions
 and ambient wet bulb temperature relative to design conditions, as described in
-ASHRAE RP-1711, Draft 4, section 5.2.3.1. 
-
+ASHRAE RP-1711, Draft 4, section 5.2.3.1.
+</p>
+<p>
 The tuning parameter <code>uTunPar</code> is an output from the 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning</a> sequence.
 </p>
+<p>
+The predicted WSE output temperature <code>y</code> is a sum of:
+</p>
+<ul>
+<li>
+Current outoor air wet bulb temperature <code>TOutWet</code>;
+</li>
+<li>
+Predicted heat exchanger approach at current part load flow;
+</li>
+<li>
+Predicted cooling tower approach.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>
