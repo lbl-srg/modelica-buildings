@@ -85,8 +85,12 @@ model Damper
     dp_nominal=5)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{-2,-140},{18,-120}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=1 - min(1, 2*time))
-    annotation (Placement(transformation(extent={{-152,-110},{-132,-90}})));
+  Modelica.Blocks.Sources.Ramp ramp1(
+    duration=0.3,
+    startTime=0.5,
+    height=0,
+    offset=0)
+    annotation (Placement(transformation(extent={{-150,-98},{-130,-78}})));
 equation
   connect(yRam.y, res.y) annotation (Line(
       points={{1,70},{10,70},{10,52}},
@@ -119,8 +123,8 @@ equation
                                                     color={0,127,255}));
   connect(preInd1.port_b, sin.ports[4]) annotation (Line(points={{18,-130},{64,
           -130},{64,-3},{74,-3}}, color={0,127,255}));
-  connect(preInd1.y, realExpression.y) annotation (Line(points={{8,-118},{8,
-          -100},{-131,-100}},          color={0,0,127}));
+  connect(ramp1.y, preInd1.y)
+    annotation (Line(points={{-129,-88},{8,-88},{8,-118}}, color={0,0,127}));
     annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),

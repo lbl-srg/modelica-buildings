@@ -31,11 +31,3 @@ createPlot(
     autoreplot = true,
     grid=true
 );
-plotExpression(apply(Damper[end].preInd.dp/(Damper[end].preInd.dp_nominal+Damper[end].preInd.dpFixed_nominal)), false, "dp/(dp_nominal+dpFixed_nominal)", 6);
-createPlot(
-    id=7,
-    position={95, 90, 1241, 786},
-    x="preInd2.m_flow",
-    y={"preInd2.dp", "preInd2.dp_0", "preInd2.dp_1"},
-    grid=true
-);
