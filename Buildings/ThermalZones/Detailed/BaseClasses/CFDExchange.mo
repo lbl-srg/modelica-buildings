@@ -349,6 +349,9 @@ Removed <code>Evaluate</code> statement as the model is used with
 <code>fixed=false</code> which causes a warning in JModelica.
 </li>
 <li>
+July 27, 2018, by Wei Tian and Xu Han:<br/>
+To fix the issue FFD fails in JModelica tests due to unsupported OS #612 at
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
 November 17, 2016, by Michael Wetter:<br/>
 Removed public parameter <code>uStart</code>, which is not needed and
 refactored model.<br/>
