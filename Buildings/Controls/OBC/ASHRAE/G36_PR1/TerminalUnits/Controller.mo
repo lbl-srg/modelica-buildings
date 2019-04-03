@@ -373,7 +373,7 @@ equation
     annotation (Line(points={{79,-92},{62,-92},{62,-6},{41,-6}},
       color={0,0,127}));
   connect(damVal.yHeaVal, sysReq.uHeaVal)
-    annotation (Line(points={{41,-14},{40,-14},{40,-99},{79,-99}},
+    annotation (Line(points={{41,-14},{50,-14},{50,-99},{79,-99}},
                                                              color={0,0,127}));
   connect(TZon, damVal.TZon) annotation (Line(points={{-160,-20},{-40,-20},{-40,
           -19},{19,-19}},

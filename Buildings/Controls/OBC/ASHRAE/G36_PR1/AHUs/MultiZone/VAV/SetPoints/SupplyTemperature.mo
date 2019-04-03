@@ -301,8 +301,8 @@ cooling savings from economizer operation.
 <p>
 The <code>TSupSet</code> shall be reset from <code>TSupSetMin</code> when the outdoor
 air temperature is <code>TOutMax</code> and above, proportionally up to
-<code>TMax</code> when the outdoor air temperature is <code>TOutMin</code> and
-below. The <code>TMax</code> shall be reset using trim and respond logic between
+maximum supply temperature when the outdoor air temperature is <code>TOutMin</code> and
+below. The maximum supply temperature shall be reset using trim and respond logic between
 <code>TSupSetDes</code> and <code>TSupSetMax</code>. Parameters suggested for the
 trim and respond logic are shown in the table below. They require adjustment
 during the commissioning and tuning phase.
@@ -312,7 +312,7 @@ during the commissioning and tuning phase.
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
 <tr><td>SP0</td><td><code>iniSet</code></td><td>Initial setpoint</td></tr>
-<tr><td>SPmin</td><td><code>TSupSetMin</code></td><td>Minimum setpoint</td></tr>
+<tr><td>SPmin</td><td><code>TSupSetDes</code></td><td>Minimum setpoint</td></tr>
 <tr><td>SPmax</td><td><code>TSupSetMax</code></td><td>Maximum setpoint</td></tr>
 <tr><td>Td</td><td><code>delTim</code></td><td>Delay timer</td></tr>
 <tr><td>T</td><td><code>samplePeriod</code></td><td>Time step</td></tr>
