@@ -57,8 +57,8 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real input to integer ouput"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(final k=0) if not havePony
-    "Zero constant"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
+    final k=0) if not havePony "Zero constant"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2[nChi] if havePony "Logical not"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
