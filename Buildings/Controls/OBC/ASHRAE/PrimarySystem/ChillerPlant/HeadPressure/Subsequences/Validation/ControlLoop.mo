@@ -2,19 +2,23 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Sub
 model ControlLoop "Validate sequence of output head pressure control signal"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.ControlLoop
-    chiHeaPreLoo(minChiLif=25)
+    chiHeaPreLoo
+    "Output chiller head pressure control loop signal"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=5, startTime=1.5)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final width=0.7,
+    final period=5,
+    final startTime=0.5) "Head pressure control enabling status"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TConWatRet(
     final amplitude=2,
     final freqHz=1/10,
-    final offset=273.15 + 30) "Measured condenser water return temperature"
+    final offset=273.15 + 32) "Measured condenser water return temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatSup(
     final amplitude=1,
     final freqHz=1/5,
-    final offset=273.15 + 7) "Measured chilled water supply temperature"
+    final offset=273.15 + 6) "Measured chilled water supply temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
 equation

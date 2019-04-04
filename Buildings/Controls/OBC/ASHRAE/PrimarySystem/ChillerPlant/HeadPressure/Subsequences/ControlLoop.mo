@@ -2,7 +2,7 @@
 block ControlLoop
   "Sequence to generate head pressure control signal if it is not available from the chiller controller"
 
-  parameter Modelica.SIunits.TemperatureDifference minChiLif
+  parameter Modelica.SIunits.TemperatureDifference minChiLif(final min=1e-5)=25
     "Minimum allowable lift at minimum load for chiller";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -50,12 +50,12 @@ block ControlLoop
 protected
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=minChiLif)
-    "Minimum allowable lift at minimum load for chiller"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=1)
+    "Constant one"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=1/minChiLif)
+    "Normalized by minimum allowable lift at minimum load for chiller"
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
 equation
   connect(TConWatRet, feedback.u1)
@@ -64,14 +64,14 @@ equation
     annotation (Line(points={{-120,-80},{-60,-80},{-60,-32}}, color={0,0,127}));
   connect(con.y, conPID.u_s)
     annotation (Line(points={{-19,60},{18,60}}, color={0,0,127}));
-  connect(feedback.y, conPID.u_m)
-    annotation (Line(points={{-49,-20},{30,-20},{30,48}}, color={0,0,127}));
-  connect(uHeaPreEna, not1.u)
-    annotation (Line(points={{-120,20},{-42,20}}, color={255,0,255}));
-  connect(not1.y, conPID.trigger)
-    annotation (Line(points={{-19,20},{22,20},{22,48}}, color={255,0,255}));
   connect(conPID.y, yHeaPreCon)
     annotation (Line(points={{41,60},{60,60},{60,0},{110,0}}, color={0,0,127}));
+  connect(feedback.y, gai.u)
+    annotation (Line(points={{-49,-20},{-22,-20}}, color={0,0,127}));
+  connect(gai.y, conPID.u_m)
+    annotation (Line(points={{1,-20},{30,-20},{30,48}}, color={0,0,127}));
+  connect(uHeaPreEna, conPID.trigger)
+    annotation (Line(points={{-120,20},{22,20},{22,48}}, color={255,0,255}));
 
 annotation (
   defaultComponentName= "chiHeaPreLoo",
@@ -79,23 +79,30 @@ annotation (
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={170,255,255},
-          fillColor={210,210,210},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
           textString="%name"),
-        Rectangle(
-          extent={{-80,60},{82,-60}},
-          lineColor={28,108,200},
-          fillColor={170,255,255},
-          fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-80,60},{-14,4},{-80,-60},{-80,60}},
-          lineColor={28,108,200},
-          fillColor={85,255,255},
-          fillPattern=FillPattern.Solid)}),
+          points={{-80,90},{-88,68},{-72,68},{-80,90}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
+        Line(points={{-90,0},{82,0}},     color={192,192,192}),
+        Polygon(
+          points={{90,0},{68,8},{68,-8},{90,0}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+    Line(origin = {-1.939,-1.816},
+        points={{61.939,7.816},{37.939,15.816},{11.939,-80.184},{-29.966,113.485},
+              {-65.374,-61.217},{-78.061,-78.184}},
+        color = {0,0,127},
+        smooth = Smooth.Bezier)}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

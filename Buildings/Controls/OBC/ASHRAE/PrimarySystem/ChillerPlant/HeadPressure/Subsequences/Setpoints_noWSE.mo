@@ -1,14 +1,28 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block Setpoints_noWSE
   "Equipment setpoints when chiller head pressure control is enabled, for plants without waterside economizer"
-  parameter Real minTowSpe
+  parameter Boolean fixSpePum = true
+    "Flag: true=fixed speed condenser water pumps, false=variable speed condenser water pumps";
+  parameter Real minTowSpe = 0.1
     "Minimum cooling tower fan speed";
-  parameter Real minHeaPreValPos
-    "Minimum head pressure control valve position";
+  parameter Real minConWatPumSpe = 0.1 "Minimum condenser water pump speed"
+    annotation (Dialog(enable=not fixSpePum));
+  parameter Real minHeaPreValPos = 0.1 "Minimum head pressure control valve position"
+    annotation (Dialog(enable=fixSpePum));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreCon
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreCon(
+    final min=0,
+    final max=1,
+    final unit="1")
     "Chiller head pressure control loop signal"
-    annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpeSet(
+    final min=0,
+    final max=1,
+    final unit="1") if not fixSpePum
+    "Design condenser water pump speed for current stage"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPreEna
     "Status of head pressure control: true = ON, false = OFF"
@@ -18,14 +32,20 @@ block Setpoints_noWSE
     final unit="1",
     final min=0,
     final max=1) "Maximum cooling tower speed setpoint"
-    annotation (Placement(transformation(extent={{100,50},{120,70}}),
+    annotation (Placement(transformation(extent={{100,90},{120,110}}),
       iconTransformation(extent={{100,50},{120,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal(
     final unit="1",
     final min=0,
-    final max=1) "Head pressure control valve position"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
+    final max=1) if fixSpePum "Head pressure control valve position"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpe(
+    final unit="1",
+    final min=0,
+    final max=1) if not fixSpePum "Condenser water pump speed"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
+      iconTransformation(extent={{100,-90},{120,-70}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Line maxCooTowSpeSet
@@ -33,74 +53,96 @@ protected
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Constant zero"
-    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+    annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
     "Constant one"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal(final k=0.5)
     "Constant value"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowMaxSpe(
     final k=minTowSpe)
     "Minimum allowable tower speed"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line heaPreConVal
-    "Head pressure control valve position"
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Line lin
+    "Head pressure control valve position, or condenser water pump speed"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal1(final k=0.5)
     "Constant value"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one1(final k=1)
-    "Constant one"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpeVal(
+    final k=1) if fixSpePum "Fully open valve position"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2(k=1) "Constant one"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=minHeaPreValPos)
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minValPos(
+    final k=minHeaPreValPos) if fixSpePum
     "Minimum head pressure control valve position"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
     "Constant value"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPumSpe(
+    final k=minConWatPumSpe) if not fixSpePum
+    "Minimum condenser water pump speed"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
 equation
   connect(zer.y, maxCooTowSpeSet.x1)
-    annotation (Line(points={{1,90},{20,90},{20,68},{38,68}}, color={0,0,127}));
+    annotation (Line(points={{21,80},{30,80},{30,68},{38,68}},color={0,0,127}));
   connect(one.y, maxCooTowSpeSet.f1)
-    annotation (Line(points={{-39,90},{-30,90},{-30,64},{38,64}}, color={0,0,127}));
+    annotation (Line(points={{-19,80},{-10,80},{-10,64},{38,64}}, color={0,0,127}));
   connect(hal.y, maxCooTowSpeSet.x2)
-    annotation (Line(points={{-39,40},{-30,40},{-30,56},{38,56}}, color={0,0,127}));
+    annotation (Line(points={{-19,40},{-10,40},{-10,56},{38,56}}, color={0,0,127}));
   connect(hpTowMaxSpe.y, maxCooTowSpeSet.f2)
-    annotation (Line(points={{1,40},{20,40},{20,52},{38,52}}, color={0,0,127}));
+    annotation (Line(points={{21,40},{30,40},{30,52},{38,52}},color={0,0,127}));
   connect(uHeaPreCon, maxCooTowSpeSet.u)
-    annotation (Line(points={{-120,10},{-80,10},{-80,60},{38,60}}, color={0,0,127}));
-  connect(maxCooTowSpeSet.y, yMaxTowSpeSet)
-    annotation (Line(points={{61,60},{110,60}}, color={0,0,127}));
-  connect(hal1.y, heaPreConVal.x1)
-    annotation (Line(points={{1,0},{20,0},{20,-12},{38,-12}}, color={0,0,127}));
-  connect(one1.y, heaPreConVal.f1)
-    annotation (Line(points={{-39,0},{-30,0},{-30,-16},{38,-16}},
+    annotation (Line(points={{-120,60},{38,60}}, color={0,0,127}));
+  connect(hal1.y, lin.x1)
+    annotation (Line(points={{21,0},{30,0},{30,-12},{38,-12}}, color={0,0,127}));
+  connect(fulOpeVal.y, lin.f1)
+    annotation (Line(points={{-19,0},{-10,0},{-10,-16},{38,-16}}, color={0,0,127}));
+  connect(minValPos.y, lin.f2)
+    annotation (Line(points={{21,-50},{30,-50},{30,-28},{38,-28}},
       color={0,0,127}));
-  connect(con.y, heaPreConVal.f2)
-    annotation (Line(points={{1,-50},{20,-50},{20,-28},{38,-28}}, color={0,0,127}));
-  connect(one2.y, heaPreConVal.x2)
-    annotation (Line(points={{-39,-50},{-30,-50},{-30,-24},{38,-24}},
+  connect(one2.y, lin.x2)
+    annotation (Line(points={{-59,-40},{-50,-40},{-50,-24},{38,-24}},
       color={0,0,127}));
-  connect(uHeaPreCon, heaPreConVal.u)
-    annotation (Line(points={{-120,10},{-80,10},{-80,-20},{38,-20}},
+  connect(uHeaPreCon, lin.u)
+    annotation (Line(points={{-120,60},{-60,60},{-60,-20},{38,-20}},
       color={0,0,127}));
   connect(uHeaPreEna, swi.u2)
     annotation (Line(points={{-120,-80},{58,-80}}, color={255,0,255}));
-  connect(heaPreConVal.y, swi.u1)
+  connect(lin.y, swi.u1)
     annotation (Line(points={{61,-20},{80,-20},{80,-40},{40,-40},{40,-72},
       {58,-72}}, color={0,0,127}));
   connect(zer2.y, swi.u3)
     annotation (Line(points={{-19,-100},{40,-100},{40,-88},{58,-88}},
       color={0,0,127}));
-  connect(swi.y, yHeaPreConVal)
+  connect(swi.y, yConWatPumSpe)
     annotation (Line(points={{81,-80},{110,-80}}, color={0,0,127}));
+  connect(uConWatPumSpeSet, lin.f1)
+    annotation (Line(points={{-120,0},{-80,0},{-80,-16},{38,-16}},
+      color={0,0,127}));
+  connect(minPumSpe.y, lin.f2)
+    annotation (Line(points={{-19,-50},{-10,-50},{-10,-28},{38,-28}},
+      color={0,0,127}));
+  connect(swi.y, yHeaPreConVal)
+    annotation (Line(points={{81,-80},{90,-80},{90,-40},{110,-40}}, color={0,0,127}));
+  connect(uHeaPreEna, swi1.u2)
+    annotation (Line(points={{-120,-80},{-90,-80},{-90,100},{58,100}},
+      color={255,0,255}));
+  connect(maxCooTowSpeSet.y, swi1.u1)
+    annotation (Line(points={{61,60},{70,60},{70,80},{40,80},{40,108},
+      {58,108}}, color={0,0,127}));
+  connect(swi1.y, yMaxTowSpeSet)
+    annotation (Line(points={{81,100},{110,100}}, color={0,0,127}));
+  connect(one.y, swi1.u3)
+    annotation (Line(points={{-19,80},{-10,80},{-10,92},{58,92}}, color={0,0,127}));
 
 annotation (
   defaultComponentName= "heaPreConEqu",
@@ -109,7 +151,8 @@ annotation (
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+        fillPattern=FillPattern.Solid,
+        borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
@@ -143,8 +186,9 @@ annotation (
           extent={{-100,-120},{100,120}})),
   Documentation(info="<html>
 <p>
-Block that resets maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code>
-and controls head pressure control valve position <code>yHeaPreConVal</code>,
+Block that resets maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code>,
+controls head pressure control valve position <code>yHeaPreConVal</code> or 
+condenser water pump speed <code>yConWatPumSpe</code>
 for plants without water side economizers. The development follows
 ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
@@ -161,9 +205,17 @@ speed point <code>yMaxTowSpeSet</code> from 100% to minimum speed
 <code>minTowSpe</code>.
 </li>
 <li>
-When <code>uHeaPreCon</code> changes from 50% to 100%, reset head pressure control
+If the plant has fixed speed condenser water pumps (<code>fixSpePum</code>=true), then: 
+when <code>uHeaPreCon</code> changes from 50% to 100%, reset head pressure control
 valve position <code>yHeaPreConVal</code> from 100% open to 
 <code>minHeaPreValPos</code>.
+</li>
+<li>
+If the plant has variable speed condenser water pumps (<code>fixSpePum</code>=false), then: 
+when <code>uHeaPreCon</code> changes from 50% to 100%, reset condenser water pump 
+speed <code>yConWatPumSpe</code> from design speed for the stage <code>uConWatPumSpeSet</code> to 
+minimum speed <code>minConWatPumSpe</code>. When the pumps are dedicated, speed
+reset shall be independent for each chiller.
 </li>
 </ul>
 
@@ -174,7 +226,7 @@ valve position <code>yHeaPreConVal</code> from 100% open to
 
 <p>
 2. When the head pressure control loop is disabled (<code>uHeaPreEna</code> = false), 
-the head pressure control valve shall be closed. 
+the head pressure control valve shall be closed, or the pump should be disabled. 
 </p>
 </html>",
 revisions="<html>
