@@ -153,8 +153,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staZer(final k=0)
     "Zero stage"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(final uLow=wseDt,
-      final uHigh=wseDt + hysDt) if haveWSE
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    final uLow=wseDt,
+    final uHigh=wseDt + hysDt) if haveWSE
     "Check if predict heat exchange leaving water temperature is greater than chilled water supply temperature setpoint minus 1degF"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback if haveWSE

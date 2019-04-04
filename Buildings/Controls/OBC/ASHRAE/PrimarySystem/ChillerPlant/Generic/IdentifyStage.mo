@@ -510,10 +510,8 @@ annotation (
           fillColor={170,255,170},
           fillPattern=FillPattern.Solid,
           textString="nRegChi_n"),
-        Line(points={{20,-30},{20,-60}}, color={255,127,0},
-          thickness=0.5),
-        Line(points={{20,-60},{100,-60}},color={255,127,0},
-          thickness=0.5)}),
+        Line(points={{20,-30},{20,-60}}, color={255,127,0}, thickness=0.5),
+        Line(points={{20,-60},{100,-60}},color={255,127,0}, thickness=0.5)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-220},{160,220}})),
   Documentation(info="<html>
 <p>
