@@ -71,7 +71,7 @@ protected
     annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor lowMinSet(final nin=nSta)
     "Minimum flow setpoint at previous low stage"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor uppMinSet(final nin=nSta)
     "Minimum flow setpoint at previous upper stage"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
@@ -116,15 +116,15 @@ equation
   connect(curMinSet.u, con.y)
     annotation (Line(points={{-122,100},{-199,100}}, color={0,0,127}));
   connect(con.y, lowMinSet.u)
-    annotation (Line(points={{-199,100},{-140,100},{-140,60},{-122,60}},
+    annotation (Line(points={{-199,100},{-140,100},{-140,40},{-122,40}},
       color={0,0,127}));
   connect(addInt1.y, lowMinSet.index)
-    annotation (Line(points={{-159,20},{-110,20},{-110,48}}, color={255,127,0}));
+    annotation (Line(points={{-159,20},{-110,20},{-110,28}}, color={255,127,0}));
   connect(con2.y, upSet.x1)
     annotation (Line(points={{41,120},{50,120},{50,88},{78,88}},
       color={0,0,127}));
   connect(lowMinSet.y, upSet.f1)
-    annotation (Line(points={{-99,60},{-80,60},{-80,84},{78,84}},
+    annotation (Line(points={{-99,40},{-80,40},{-80,84},{78,84}},
       color={0,0,127}));
   connect(tim.y, upSet.u)
     annotation (Line(points={{-19,180},{60,180},{60,80},{78,80}},
@@ -150,7 +150,7 @@ equation
     annotation (Line(points={{-99,100},{-60,100},{-60,66},{-42,66}},
       color={0,0,127}));
   connect(lowMinSet.y, add2.u2)
-    annotation (Line(points={{-99,60},{-80,60},{-80,54},{-42,54}},
+    annotation (Line(points={{-99,40},{-80,40},{-80,54},{-42,54}},
       color={0,0,127}));
   connect(add2.y, swi.u1)
     annotation (Line(points={{-19,60},{0,60},{0,8},{18,8}},

@@ -55,8 +55,10 @@ block Controller
     "Indicate if there is stage down"
     annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
       iconTransformation(extent={{-120,-100},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValPos
-    "Chilled water minimum flow bypass valve position"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValPos(
+    final min=0,
+    final max=1,
+    final unit="1") "Chilled water minimum flow bypass valve position"
     annotation (Placement(transformation(extent={{100,120},{120,140}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
