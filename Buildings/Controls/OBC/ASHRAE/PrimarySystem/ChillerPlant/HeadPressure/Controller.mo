@@ -166,26 +166,27 @@ equation
 
 annotation (
   defaultComponentName="heaPreCon",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+       graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent={{-100,-100},{100,100}},
-          lineColor={0,0,127},
+          extent={{-80,60},{82,-60}},
+          lineColor={28,108,200},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
-        Rectangle(
-          extent={{-80,60},{82,-60}},
-          lineColor={28,108,200},
-          fillColor={170,255,255},
-          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-80,60},{-14,4},{-80,-60},{-80,60}},
-          lineColor={28,108,200},
-          fillColor={85,255,255},
+          lineColor={175,175,175},
+          fillColor={175,175,175},
           fillPattern=FillPattern.Solid)}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-140},{100,140}})),
