@@ -2,5 +2,11 @@ compareVars :=
   {
     "toggle1.u0",
     "toggle1.u",
-    "toggle1.y"
+    "toggle1.y",
+    "toggle2.u0",
+    "toggle2.u",
+    "toggle2.y",
+    "toggle3.u0",
+    "toggle3.u",
+    "toggle3.y"
   };

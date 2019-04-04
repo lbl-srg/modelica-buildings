@@ -1,17 +1,18 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Toggle "Toggles output value whenever its input turns on"
-  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
-  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
-  Interfaces.BooleanInput u "Connector of Boolean input signal: toggle input"
+
+  Interfaces.BooleanInput u "Toggle input"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Interfaces.BooleanInput u0 "Connector of Boolean input signal: clr input"
+  Interfaces.BooleanInput u0 "Clear input"
      annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Interfaces.BooleanOutput y
-    "Connector of Real output signal used as actuator signal"
+    "Output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   Integer scenario "Scenario index";
+  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
+  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
 initial equation
   pre(y) = pre_y_start;
@@ -36,7 +37,9 @@ equation
     scenario =  7;
   end when;
 
-  if scenario == 1 then y = true;
+  if (scenario == 0 and not u0 and u) then y = true;
+  elseif (scenario == 0 and not u0 and not u) then y = false;
+  elseif scenario == 1 then y = true;
   elseif scenario == 2 then y = false;
   elseif scenario == 3 then y = false;
   elseif scenario == 4 then y = true;
@@ -47,9 +50,8 @@ equation
     y = false;
   end if;
 
-  annotation (
-        defaultComponentName="tog",
-        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+annotation (defaultComponentName="tog",
+  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
@@ -104,7 +106,6 @@ When the input <code>u</code> turns back <code>ON</code>, the output turns <code
 When the <code>clr</code> input turns <code>ON</code>, the output turns <code>OFF</code>.
 </p>
 
-
 <table summary=\"summary\" border=\"1\">
 <tr><th> Scenario </th>
 <th> <code>clr</code> input <code>u0</code> </th><th> <code>toggle</code> input <code>u</code> </th>
@@ -141,6 +142,11 @@ When the <code>clr</code> input turns <code>ON</code>, the output turns <code>OF
 
 </html>", revisions="<html>
 <ul>
+<li>
+April 4, 2019, by Jianjun Hu:<br/>
+Corrected implementation. 
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+</li>
 <li>
 March 31, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

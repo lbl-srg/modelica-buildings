@@ -1,9 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Latch "Maintains an on signal until conditions changes"
 
-  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
-  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
-
   Interfaces.BooleanInput u "Latch input"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Interfaces.BooleanInput u0 "Control input"
@@ -14,6 +11,8 @@ block Latch "Maintains an on signal until conditions changes"
 
 protected
   Integer scenario "scenario index";
+  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
+  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
 initial equation
   pre(y) = pre_y_start;
@@ -36,7 +35,9 @@ equation
     scenario = 6;
   end when;
 
-  if (scenario == 1 or scenario == 2) then y = true;
+  if (scenario == 0 and u and not u0) then y = true;
+  elseif (scenario == 0 and not u and not u0) then y = false;
+  elseif (scenario == 1 or scenario == 2) then y = true;
   elseif (scenario == 3) then y = false;
   elseif (scenario == 4) then y = true;
   elseif (scenario == 5) then y = false;
@@ -44,9 +45,9 @@ equation
   else
     y = false;
   end if;
-  annotation (
-        defaultComponentName="lat",
-        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+
+annotation (defaultComponentName="lat",
+  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
@@ -151,6 +152,11 @@ then <code>y=false</code>.</td></tr>
 
 </html>", revisions="<html>
 <ul>
+<li>
+April 4, 2019, by Jianjun Hu:<br/>
+Corrected implementation. 
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+</li>
 <li>
 December 1, 2017, by Michael Wetter:<br/>
 Revised documentation.
