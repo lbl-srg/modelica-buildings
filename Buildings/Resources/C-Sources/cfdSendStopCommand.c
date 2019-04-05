@@ -20,8 +20,8 @@
  */
 void cfdSendStopCommand(void *thread) {
 
-	size_t i = 0, imax = 10000;
-	char msg[100];
+	size_t i = 0;
+  size_t imax = 10000;
 
 	/*send stop command to FFD*/
   cosim->para->flag = 0;

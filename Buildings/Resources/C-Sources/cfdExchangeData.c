@@ -30,14 +30,13 @@
 int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
                  double *t1, double *y) {
   size_t i, j, k;
-  int verbose = 0;
 
 	/*check if current modelica time equals to last time*/
 	/*if yes, it means cfdExchangeData() was called multiple times at one synchronization point, then directly return*/
-	if(cosim->modelica->lt == (REAL) t0){
-			return 0;
-	}	
-	
+	if(abs(cosim->modelica->lt - (REAL) t0) < 1E-6){
+    return 0;
+	}
+
   /*--------------------------------------------------------------------------
   | Write data to CFD
   | Command:
