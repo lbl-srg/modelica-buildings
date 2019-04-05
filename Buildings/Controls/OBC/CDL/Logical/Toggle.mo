@@ -102,14 +102,15 @@ annotation (defaultComponentName="tog",
   Documentation(info="<html>
 <p>
 When clear input <code>u0</code> is <code>false</code>, the block toggles output value 
-whenever input turns <code>true</code>. For instance, 
-when the <code>toggle</code> input <code>u</code> turns <code>true</code>, the output 
-<code>y</code> turns <code>true</code> and remains <code>true</code> when 
+whenever input becomes <code>true</code>. For instance, 
+when the <code>toggle</code> input <code>u</code> becomes <code>true</code>, the output 
+<code>y</code> becomes <code>true</code> and remains <code>true</code> when 
 <code>u</code> turns <code>false</code> again.
-When <code>u</code> turns back <code>true</code>, the output turns <code>false</code>.
+When <code>u</code> turns back <code>true</code>, <code>y</code> becomes <code>false</code>.
 </p>
 <p>
-When clear input <code>u0</code> is <code>true</code>, the output keeps <code>false</code>.
+When clear input <code>u0</code> is <code>true</code>, the output <code>y</code> 
+keeps <code>false</code>.
 </p>
 
 <p>
