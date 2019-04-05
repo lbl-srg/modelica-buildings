@@ -154,7 +154,7 @@ then <code>y=false</code>.</td></tr>
 <ul>
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
-Corrected implementation. 
+Corrected implementation that causes wrong output at initial stage. 
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
 </li>
 <li>

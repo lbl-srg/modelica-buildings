@@ -467,6 +467,22 @@ its class name ends with the string <code>Beta</code>.
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
+        </td>
+        <td valign=\"top\">Corrected implementation that causes wrong output at initial stage.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Toggle
+        </td>
+        <td valign=\"top\">Corrected implementation that causes wrong output at initial stage.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+        </td>
+    </tr>
+
     <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
         </td>
     </tr>
