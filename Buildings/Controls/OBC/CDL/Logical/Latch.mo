@@ -1,5 +1,8 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block Latch "Maintains an on signal until conditions changes"
+block Latch "Maintains a true signal until conditions changes"
+
+  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
+  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
   Interfaces.BooleanInput u "Latch input"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -11,8 +14,6 @@ block Latch "Maintains an on signal until conditions changes"
 
 protected
   Integer scenario "scenario index";
-  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
-  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
 initial equation
   pre(y) = pre_y_start;
@@ -95,15 +96,21 @@ annotation (defaultComponentName="lat",
           lineColor={0,0,255},
           textString="%name")}),Documentation(info="<html>
 <p>
-The block maintains a <code>true</code> output signal until the input <code>u0</code>
-switches to <code>false</code>.
-When the latch input <code>u</code> switches to <code>true</code>, the output <code>y</code>
-becomes <code>true</code> and remains <code>true</code>,
-even if <code>u</code> turns <code>false</code>,
-until the clear input <code>u0</code> becomes <code>true</code>.
-When the clear input <code>u0</code> becomes <code>true</code>, then
-the output <code>y</code> becomes <code>false</code>.
+The block maintains a <code>true</code> output signal until clear input <code>u0</code>
+becomes <code>true</code>. For instance,
 </p>
+<ul>
+<li>
+If the clear input <code>u0</code> is <code>false</code>, when latch input <code>u</code>
+becomes <code>true</code>, output <code>y</code> becomes <code>true</code> 
+and remains <code>true</code>, even if <code>u</code> becomes <code>false</code>.
+</li>
+<li>
+If the clear input <code>u0</code> is <code>true</code>, the output <code>y</code> keeps
+<code>false</code>.
+</li>
+</ul>
+
 <p>
 The table below shows the different scenarios.
 </p>
@@ -163,8 +170,7 @@ Revised documentation.
 </li>
 <li>
 March 30, 2017, by Jianjun Hu:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
+First implementation.
 </li>
 </ul>
 </html>"));

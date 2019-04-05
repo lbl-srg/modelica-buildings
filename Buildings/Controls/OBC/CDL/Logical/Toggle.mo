@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Toggle "Toggles output value whenever its input turns on"
 
+  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
+  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
+
   Interfaces.BooleanInput u "Toggle input"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Interfaces.BooleanInput u0 "Clear input"
@@ -11,8 +14,6 @@ block Toggle "Toggles output value whenever its input turns on"
 
 protected
   Integer scenario "Scenario index";
-  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
-  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
 initial equation
   pre(y) = pre_y_start;
@@ -98,39 +99,48 @@ annotation (defaultComponentName="tog",
           fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid)}),
-                                Documentation(info="<html>
+  Documentation(info="<html>
 <p>
-The block toggles output value whenever input turns <code>ON</code>. For instance, when the <code>toggle</code> input <code>u</code>
-turns <code>ON</code>, the output <code>y</code> turns <code>ON</code> and remains <code>ON</code> when the input <code>u</code> turns <code>OFF</code> again.
-When the input <code>u</code> turns back <code>ON</code>, the output turns <code>OFF</code>.
-When the <code>clr</code> input turns <code>ON</code>, the output turns <code>OFF</code>.
+When clear input <code>u0</code> is <code>false</code>, the block toggles output value 
+whenever input turns <code>true</code>. For instance, 
+when the <code>toggle</code> input <code>u</code> turns <code>true</code>, the output 
+<code>y</code> turns <code>true</code> and remains <code>true</code> when 
+<code>u</code> turns <code>false</code> again.
+When <code>u</code> turns back <code>true</code>, the output turns <code>false</code>.
+</p>
+<p>
+When clear input <code>u0</code> is <code>true</code>, the output keeps <code>false</code>.
+</p>
+
+<p>
+The table below shows the different scenarios.
 </p>
 
 <table summary=\"summary\" border=\"1\">
 <tr><th> Scenario </th>
-<th> <code>clr</code> input <code>u0</code> </th><th> <code>toggle</code> input <code>u</code> </th>
+<th> <code>u0</code> input <code>u0</code> </th><th> <code>toggle</code> input <code>u</code> </th>
 <th> output <code>y</code> </th><th> Description </th>
 </tr>
-<tr><td> 1 </td><td> <code>OFF</code> </td><td> from <code>OFF</code> to <code>ON</code> </td><td> <code>ON</code> </td>
-<td>If <code>clr</code> <code>OFF</code>, <code>toggle</code> switches from <code>OFF</code> to <code>ON</code>, previous output is <code>OFF</code>, then output <code>ON</code>.</td></tr>
+<tr><td> 1 </td><td> <code>false</code> </td><td> from <code>false</code> to <code>true</code> </td><td> <code>true</code> </td>
+<td>If <code>u0</code> <code>false</code>, <code>toggle</code> switches from <code>false</code> to <code>true</code>, previous output is <code>false</code>, then output <code>true</code>.</td></tr>
 
-<tr><td> 2 </td><td> <code>OFF</code> </td><td> from <code>OFF</code> to <code>ON</code> </td><td> <code>OFF</code> </td>
-<td>If <code>clr</code> <code>OFF</code>, <code>toggle</code> switches from <code>OFF</code> to <code>ON</code>, previous output is <code>ON</code>, then output <code>OFF</code>.</td></tr>
+<tr><td> 2 </td><td> <code>false</code> </td><td> from <code>false</code> to <code>true</code> </td><td> <code>false</code> </td>
+<td>If <code>u0</code> <code>false</code>, <code>toggle</code> switches from <code>false</code> to <code>true</code>, previous output is <code>true</code>, then output <code>false</code>.</td></tr>
 
-<tr><td> 3 </td><td> <code>OFF</code> </td><td> from <code>ON</code> to <code>OFF</code> </td><td> <code>OFF</code> </td>
-<td>If <code>clr</code> <code>OFF</code>, <code>toggle</code> switches from <code>ON</code> to <code>OFF</code>, previous output is <code>OFF</code>, then remain output <code>OFF</code>.</td></tr>
+<tr><td> 3 </td><td> <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td><td> <code>false</code> </td>
+<td>If <code>u0</code> <code>false</code>, <code>toggle</code> switches from <code>true</code> to <code>false</code>, previous output is <code>false</code>, then remain output <code>false</code>.</td></tr>
 
-<tr><td> 4 </td><td> <code>OFF</code> </td><td> from <code>ON</code> to <code>OFF</code> </td><td> <code>ON</code> </td>
-<td>If <code>clr</code> <code>OFF</code>, <code>toggle</code> switches from <code>ON</code> to <code>OFF</code>, previous output is <code>ON</code>, then remain output <code>ON</code>.</td></tr>
+<tr><td> 4 </td><td> <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td><td> <code>true</code> </td>
+<td>If <code>u0</code> <code>false</code>, <code>toggle</code> switches from <code>true</code> to <code>false</code>, previous output is <code>true</code>, then remain output <code>true</code>.</td></tr>
 
-<tr><td> 5 </td><td> <code>OFF</code> </td><td>  <code>OFF</code> </td><td> <code>OFF</code> </td>
-<td>Initially, if <code>clr</code> <code>OFF</code> and <code>toggle</code> <code>OFF</code>, then output <code>OFF</code>.</td></tr>
+<tr><td> 5 </td><td> <code>false</code> </td><td>  <code>false</code> </td><td> <code>false</code> </td>
+<td>Initially, if <code>u0</code> <code>false</code> and <code>toggle</code> <code>false</code>, then output <code>false</code>.</td></tr>
 
-<tr><td> 6 </td><td> <code>OFF</code> </td><td>  <code>ON</code> </td><td> <code>ON</code> </td>
-<td>Initially, if <code>clr</code> <code>OFF</code> and <code>toggle</code> <code>ON</code>, then output <code>ON</code>.</td></tr>
+<tr><td> 6 </td><td> <code>false</code> </td><td>  <code>true</code> </td><td> <code>true</code> </td>
+<td>Initially, if <code>u0</code> <code>false</code> and <code>toggle</code> <code>true</code>, then output <code>true</code>.</td></tr>
 
-<tr><td> 7 </td><td> <code>ON</code> </td><td>  <code>ON</code> or <code>OFF</code> </td><td> <code>OFF</code> </td>
-<td>If <code>clr</code> <code>ON</code>, then output <code>OFF</code>.</td></tr>
+<tr><td> 7 </td><td> <code>true</code> </td><td>  <code>true</code> or <code>false</code> </td><td> <code>false</code> </td>
+<td>If <code>u0</code> <code>true</code>, then output <code>false</code>.</td></tr>
 
 </table>
 <br/>
@@ -149,8 +159,7 @@ This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issu
 </li>
 <li>
 March 31, 2017, by Jianjun Hu:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
+First implementation.
 </li>
 </ul>
 </html>"));
