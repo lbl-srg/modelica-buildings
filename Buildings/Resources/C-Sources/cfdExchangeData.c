@@ -12,7 +12,9 @@
  *
  */
 #include "cfdCosimulation.h"
-
+#include <ModelicaUtilities.h>
+#include <stdlib.h>
+#include <stdio.h>
 /*
  * Exchange the data between Modelica and CFD
  *
@@ -30,6 +32,12 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   size_t i, j, k;
   int verbose = 0;
 
+	/*check if current modelica time equals to last time*/
+	/*if yes, it means cfdExchangeData() was called multiple times at one synchronization point, then directly return*/
+	if(cosim->modelica->lt == (REAL) t0){
+			return 0;
+	}	
+	
   /*--------------------------------------------------------------------------
   | Write data to CFD
   | Command:
@@ -47,6 +55,7 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
 
   cosim->modelica->t = (REAL) t0;
   cosim->modelica->dt = (REAL) dt;
+	cosim->modelica->lt == (REAL) t0;
 
   /* Copy the Modelica data to shared memory*/
   for(i=0; i<cosim->para->nSur; i++) {
@@ -143,6 +152,11 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   cosim->ffd->flag = 0;
 
   *t1 = cosim->ffd->t;
+
+  /* Add debug info*/
+/*  FILE *f = fopen("log.txt", "a+");
+  fprintf(f, "cfdExchangeData() was called at modelica time =%lf, ffd time=%lf\n",cosim->modelica->t,cosim->ffd->t);
+  fclose(f);*/
 
   return 0;
 } /* End of cfdExchangeData()*/

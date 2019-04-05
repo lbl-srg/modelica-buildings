@@ -46,13 +46,6 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
                 char **sensorName, int haveShade, size_t nSur, size_t nSen,
                 size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {
   size_t i, nBou;
-  /****************************************************************************
-  | For call FFD-DLL
-  ****************************************************************************/
-  cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
-  cosim->para = (ParameterSharedData *) malloc(sizeof(ParameterSharedData));
-  cosim->modelica = (ModelicaSharedData *) malloc(sizeof(ModelicaSharedData));
-  cosim->ffd = (ffdSharedData *) malloc(sizeof(ffdSharedData));
 
   /****************************************************************************
   | allocate the memory and assign the data
@@ -105,6 +98,8 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->ffd->flag = 0;
   cosim->para->flag = 1;
   cosim->para->ffdError = 0;
+  cosim->modelica->t = 0;
+	cosim->modelica->lt = -1;/*initialize lt to -1 to avoid skipping all exchange() at time = 0*/
 
   cosim->modelica->temHea = (REAL *) malloc(nSur*sizeof(REAL));
   /* Having a shade for window*/

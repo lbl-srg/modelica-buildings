@@ -17,9 +17,8 @@ RoomHeatMassBalance
 SkyRadiationExchange
 SolarRadiationExchange
 cfdExchangeData
-cfdReceiveFeedback
-cfdSendStopCommand
 cfdStartCosimulation
+CFDThread
 to_W
 CFDSurfaceIdentifier
 ConstructionNumbers

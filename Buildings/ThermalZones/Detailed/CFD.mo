@@ -91,7 +91,7 @@ equation
       points={{39.6,-120},{28,-120},{28,180},{-239,180}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (
+  annotation (singleInstance=true,
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}}),
                                graphics={Rectangle(
           extent={{-140,138},{140,78}},
