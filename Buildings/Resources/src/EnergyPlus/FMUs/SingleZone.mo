@@ -8,16 +8,16 @@ model SingleZone "Model of a thermal zone"
   parameter Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
   parameter Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
 
-  discrete input Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T "Temperature of the zone air";
-  discrete input Real Core_ZN_X(min=0, final unit="1") "Water vapor mass fraction in kg water/kg dry air";
-  discrete input Real X "Water vapor mass fraction per total air mass of zone";
-  discrete input Modelica.SIunits.MassFlowRate Core_ZN_mInlets_flow
+  input Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T "Temperature of the zone air";
+  input Real Core_ZN_X(min=0, final unit="1") "Water vapor mass fraction in kg water/kg dry air";
+  input Real X "Water vapor mass fraction per total air mass of zone";
+  input Modelica.SIunits.MassFlowRate Core_ZN_mInlets_flow
      "Sum of positive mass flow rates into the zone for all air inlets (including infiltration)";
-  discrete input Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_TAveInlet
+  input Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_TAveInlet
     "Average of inlets medium temperatures carried by the mass flow rates";
-  discrete input Modelica.SIunits.HeatFlowRate Core_ZN_QGaiRad_flow
+  input Modelica.SIunits.HeatFlowRate Core_ZN_QGaiRad_flow
     "Radiative sensible heat gain added to the zone";
-  discrete input Real Core_ZN_xTest "Test";
+  input Real Core_ZN_xTest "Test";
   discrete output Real Core_ZN_yTest "Test";
 
   discrete output Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_TRad
