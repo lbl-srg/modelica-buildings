@@ -29,13 +29,14 @@ model SingleZone "Model of a thermal zone"
   discrete output Modelica.SIunits.HeatFlowRate Core_ZN_QPeo_flow
       "Heat gain due to people";
 
+  discrete output Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TCon(start=20) "Construction temperature (first order approximation)";
+
 protected
   parameter Modelica.SIunits.Time startTime(fixed=false) "First sample time instant";
   parameter Modelica.SIunits.Area ACon = (2*6*6+4*6*2.7) "Surface area of constructions";
   parameter Modelica.SIunits.Conductance Ah = ACon * 8 "Conductance A*h for all surfaces";
   parameter Modelica.SIunits.HeatCapacity CCon = ACon*0.2*800*2000 "Heat capacity of constructions";
 
-  discrete Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TCon(start=20) "Construction temperature (first order approximation)";
 
   output Boolean sampleTrigger "True, if sample time instant";
   output Boolean firstTrigger(start=false, fixed=true)
@@ -43,7 +44,7 @@ protected
 
 initial equation
   startTime = time;
-  TCon = 20;
+
 equation
   sampleTrigger = sample(startTime, samplePeriod);
 
@@ -63,11 +64,12 @@ equation
     */
     if initial() then
       Core_ZN_yTest = pre(Core_ZN_xTest);
+      TCon = pre(Core_ZN_xTest) ;//+ samplePeriod / CCon * (Core_ZN_QConSen_flow + Core_ZN_QGaiRad_flow);
     else
       Core_ZN_yTest = pre(Core_ZN_xTest) + 1;
+      TCon = pre(Core_ZN_xTest) + 1;
     end if;
-    TCon = 20;
-    Core_ZN_TRad = 22;
+    Core_ZN_TRad = TCon;
     Core_ZN_QConSen_flow = 1*Core_ZN_T;// fixme Ah * (Core_ZN_T-pre(TCon));
     Core_ZN_QLat_flow = 400;
     Core_ZN_QPeo_flow = 200;

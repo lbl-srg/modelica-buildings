@@ -11,34 +11,21 @@
 #include <stdlib.h>
 #include <math.h>
 
-void setGetVariables(
-  FMUZone* fmuZon,
-  fmi2ValueReference inputValueReferences[],
-  fmi2Real inputValues[],
-  size_t nInp,
-  fmi2ValueReference outputValueReferences[],
-  fmi2Real outputValues[],
-  size_t nOut)
-  {
+void setVariables(FMUBuilding* bui, fmi2ValueReference vr[],  fmi2Real values[], size_t n){
     fmi2_status_t status;
     writeLog(3, "Setting real variables in EnergyPlus.");
-    status = fmi2_import_set_real(
-      fmuZon->ptrBui->fmu,
-      inputValueReferences,
-      nInp,
-      inputValues);
+    status = fmi2_import_set_real(bui->fmu, vr, n, values);
     if (status != fmi2OK) {
-      ModelicaFormatError("Failed to set variables for building FMU with name %s\n", fmuZon->ptrBui->name);
+      ModelicaFormatError("Failed to set variables for building FMU with name %s\n", bui->name);
     }
+  }
 
+void getVariables(FMUBuilding* bui, fmi2ValueReference vr[], fmi2Real values[], size_t n){
+    fmi2_status_t status;
     writeLog(3, "Getting real variables from EnergyPlus.");
-    status = fmi2_import_get_real(
-      fmuZon->ptrBui->fmu,
-      outputValueReferences,
-      nOut,
-      outputValues);
+    status = fmi2_import_get_real(bui->fmu, vr, n, values);
     if (status != fmi2OK) {
-      ModelicaFormatError("Failed to get variables for building FMU with name %s\n", fmuZon->ptrBui->name);
+      ModelicaFormatError("Failed to get variables for building FMU with name %s\n", bui->name);
     }
   }
 
@@ -91,8 +78,8 @@ void ZoneExchange(
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
 
-  writeFormatLog(3, "Exchanging data with EnergyPlus in ZoneExchange at t = %.2f, initialCall = %d, mode = %d.",
-    time, initialCall, tmpZon->ptrBui->mode);
+  writeFormatLog(3, "Exchanging data with EnergyPlus in ZoneExchange at t = %.2f, initialCall = %d, mode = %s.",
+    time, initialCall, fmuModeToString(tmpZon->ptrBui->mode));
 
   if (! tmpZon->isInstantiated){
     /* This zone has not been initialized because the simulator optimized away the call to initialize().
@@ -168,32 +155,18 @@ void ZoneExchange(
   writeFormatLog(3, "Input to fmu: TAir = %.2f; \t QGaiRad_flow = %.2f",
     inputValues[0], inputValues[4]);
 
-  setGetVariables(zone,
-    tmpZon->inputValueReferences, inputValues, ZONE_N_INP,
-    tmpZon->outputValueReferences, outputValues, ZONE_N_OUT);
+  setVariables(zone->ptrBui, tmpZon->inputValueReferences, inputValues, ZONE_N_INP);
+  getVariables(zone->ptrBui, tmpZon->outputValueReferences, outputValues, ZONE_N_OUT);
   QConSenPer_flow=outputValues[1];
   inputValues[0] = T - 273.15;
-  setGetVariables(zone,
-    tmpZon->inputValueReferences, inputValues, ZONE_N_INP,
-    tmpZon->outputValueReferences, outputValues, ZONE_N_OUT);
+  setVariables(zone->ptrBui, tmpZon->inputValueReferences, inputValues, ZONE_N_INP);
+  getVariables(zone->ptrBui, tmpZon->outputValueReferences, outputValues, ZONE_N_OUT);
 
-  /* Assign output values, which are of the order below
-     const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
-  */
-  *TRad = outputValues[0] + 273.15;
-  *QConSen_flow = outputValues[1];
-  *QLat_flow = outputValues[2];
-  *QPeo_flow = outputValues[3];
-  *dQConSen_flow = (QConSenPer_flow-*QConSen_flow)/dT;
-
-  writeFormatLog(3, "*** In Exchange, time = %.2f;\t xTest = %.2f;\t yTest = %.2f",
-    time, inputValues[5], outputValues[4]);
-
-  writeFormatLog(3, "After time step: TRad = %.2f; \t QCon = %.2f;\t QLat = %.2f", *TRad, *QConSen_flow,
+/*  writeFormatLog(3, "After time step: TRad = %.2f; \t QCon = %.2f;\t QLat = %.2f", *TRad, *QConSen_flow,
     *QLat_flow);
-
+*/
   if (initialCall && allZonesAreInitialized(tmpZon->ptrBui)){
-    writeLog(3, "Enter exit initialization mode of FMU.");
+    writeLog(3, "Enter exit initialization mode of FMU in exchange().");
     status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
     if( status != fmi2_status_ok ){
       ModelicaFormatError("Failed to exit initialization mode for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
@@ -204,6 +177,7 @@ void ZoneExchange(
 
   /* Get next event time */
   status = do_event_iteration(zone->ptrBui->fmu, &eventInfo);
+
  /* status = fmi2_import_new_discrete_states(zone->ptrBui->fmu, &eventInfo); */
   if (status != fmi2OK) {
     ModelicaFormatError("Failed during call to fmi2NewDiscreteStates for building FMU with name %s with status %s.",
@@ -231,6 +205,24 @@ void ZoneExchange(
     }
   }
 
+ /* After the event iteration, we must get the output. Otherwise, we get the
+     discrete output before the time event, and not after.
+     To test, run SingleZone.mo in EnergyPlus/src
+  */
+  getVariables(zone->ptrBui, tmpZon->outputValueReferences, outputValues, ZONE_N_OUT);
+
+  writeFormatLog(3, "*** In Exchange, time = %.2f;\t xTest = %.2f;\t yTest = %.2f;\t mode = %s",
+    time, inputValues[5], outputValues[4], fmuModeToString(tmpZon->ptrBui->mode));
+
+  /* Assign output values, which are of the order below
+     const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
+  */
+  *TRad = outputValues[0] + 273.15;
+  *QConSen_flow = outputValues[1];
+  *QLat_flow = outputValues[2];
+  *QPeo_flow = outputValues[3];
+  *dQConSen_flow = (QConSenPer_flow-*QConSen_flow)/dT;
+
   writeFormatLog(3, "Returning from ZoneExchange with nextEventTime = %.2f. in mode %d", *tNext, zone->ptrBui->mode);
   return;
 }
@@ -247,6 +239,7 @@ fmi2Status do_event_iteration(fmi2_import_t *fmu, fmi2_event_info_t *eventInfo){
   eventInfo->terminateSimulation     = fmi2_false;
   while (eventInfo->newDiscreteStatesNeeded && !eventInfo->terminateSimulation && i < nMax) {
     i++;
+    writeFormatLog(3, "*************** Doing event iteration with i = %d", i);
     status = fmi2_import_new_discrete_states(fmu, eventInfo);
   }
   if (eventInfo->terminateSimulation){

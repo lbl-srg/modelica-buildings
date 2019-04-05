@@ -44,7 +44,7 @@ void writeLog(unsigned int level, const char* msg)
       strcat(m, msg);
       fprintf(stdout, "%s\n", m);
       fflush(stdout);
-      ModelicaFormatMessage("%s\n", m);
+      ModelicaFormatMessage("%s", m);
     }
 }
 
@@ -91,9 +91,22 @@ void printBacktrace(){
 static unsigned int Buildings_nFMU = 0;     /* Number of FMUs */
 static struct FMUBuilding** Buildings_FMUS; /* Array with pointers to all FMUs */
 
+char* fmuModeToString(FMUMode mode){
+  if (mode == instantiationMode)
+    return "instantiation";
+  if (mode == initializationMode)
+    return "initialization";
+  if (mode == eventMode)
+    return "event";
+  if (mode == continuousTimeMode)
+    return "continuous";
+  ModelicaFormatError("Unknown fmu mode %d", mode);
+  return "unknown error";
+}
+
 /* Wrapper to set fmu mode indicator and log the mode change for debugging */
 void setFMUMode(FMUBuilding* bui, FMUMode mode){
-  writeFormatLog(3, "Switching %s to mode %d", bui->name, mode);
+  writeFormatLog(3, "Switching %s to mode %s", bui->name, fmuModeToString(mode));
   bui->mode = mode;
 }
 /*
