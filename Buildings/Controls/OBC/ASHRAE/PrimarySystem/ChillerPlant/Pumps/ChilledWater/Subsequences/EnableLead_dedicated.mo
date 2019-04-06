@@ -1,12 +1,13 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLead_dedicated
   "Sequence for enabling lead pump of plants with dedicated primary chilled water pumps"
+
   parameter Modelica.SIunits.Time offTimThr = 180
     "Threshold to check lead chiller off time";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna
     "Lead chiller enabling status"
-    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiOn
     "Lead chiller status"
@@ -18,7 +19,7 @@ block EnableLead_dedicated
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
     "Lead pump status"
-    annotation (Placement(transformation(extent={{100,60},{120,80}}),
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -30,7 +31,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta
     "Lead pump status"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Count the total time of the chiller is off"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
@@ -46,9 +47,9 @@ equation
   connect(uLeaChiWatReq, not1.u)
     annotation (Line(points={{-120,-80},{-82,-80}}, color={255,0,255}));
   connect(uLeaChiEna, leaPumSta.u)
-    annotation (Line(points={{-120,70},{59,70}}, color={255,0,255}));
+    annotation (Line(points={{-120,80},{59,80}}, color={255,0,255}));
   connect(leaPumSta.y, yLeaPum)
-    annotation (Line(points={{81,70},{110,70}}, color={255,0,255}));
+    annotation (Line(points={{81,80},{110,80}}, color={255,0,255}));
   connect(uLeaChiOn, not2.u)
     annotation (Line(points={{-120,-20},{-82,-20}}, color={255,0,255}));
   connect(not2.y, tim.u)
@@ -61,7 +62,7 @@ equation
     annotation (Line(points={{-59,-80},{30,-80},{30,-28},{38,-28}},
       color={255,0,255}));
   connect(uLeaChiEna, not3.u)
-    annotation (Line(points={{-120,70},{-80,70},{-80,40},{-62,40}},
+    annotation (Line(points={{-120,80},{-80,80},{-80,40},{-62,40}},
       color={255,0,255}));
   connect(not3.y, and2.u1)
     annotation (Line(points={{-39,40},{-20,40},{-20,40},{-2,40}},
@@ -70,7 +71,7 @@ equation
     annotation (Line(points={{61,-20},{80,-20},{80,20},{-20,20},{-20,32},
       {-2,32}}, color={255,0,255}));
   connect(and2.y, leaPumSta.u0)
-    annotation (Line(points={{21,40},{40,40},{40,64},{59,64}}, color={255,0,255}));
+    annotation (Line(points={{21,40},{40,40},{40,74},{59,74}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaLeaChiPum",
