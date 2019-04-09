@@ -117,8 +117,6 @@ equation
           {-50,-56},{-42,-56}}, color={255,0,255}));
   connect(nomStaCap1[4].y, absErrorSta1[1].u2)
     annotation (Line(points={{21,-80},{70,-80},{70,-42}}, color={0,0,127}));
-  connect(nomStaCap1[3].y, absErrorSta1[2].u2) annotation (Line(points={{21,-80},
-          {68,-80},{68,-50},{70,-50},{70,-42}},color={0,0,127}));
   connect(nomStaCap1[5].y, absErrorSta1[3].u2) annotation (Line(points={{21,-80},
           {72,-80},{72,-50},{70,-50},{70,-42}},color={0,0,127}));
   connect(minStaUnload1[4].y, absErrorSta1[4].u2) annotation (Line(points={{21,-140},
@@ -126,6 +124,8 @@ equation
   connect(minStaUnload1[5].y, absErrorSta1[5].u2) annotation (Line(points={{21,-140},
           {76,-140},{76,-50},{70,-50},{70,-42}}, color={0,0,127}));
 
+  connect(minStaUnload1[4].y, absErrorSta1[2].u2) annotation (Line(points={{21,
+          -140},{68,-140},{68,-50},{70,-50},{70,-42}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uStaAva.mos"
