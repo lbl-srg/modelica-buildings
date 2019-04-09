@@ -2,6 +2,7 @@ CFDAirHeatMassBalance
 CFDExchange
 CFDFluidInterface
 CFDSurfaceInterface
+CFDThread
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
 HeatGain
@@ -18,7 +19,6 @@ SkyRadiationExchange
 SolarRadiationExchange
 cfdExchangeData
 cfdStartCosimulation
-CFDThread
 to_W
 CFDSurfaceIdentifier
 ConstructionNumbers

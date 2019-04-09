@@ -15,7 +15,7 @@
  *         Xu Han
  *         University of Colorado Boulder
  *         xuha3556@colorado.edu
- * 
+ *
  * \date   7/27/2017
  *
  */
@@ -28,23 +28,38 @@
  *
  */
 void *cfdcosim() {
-	
+
   /****************************************************************************
   | return modelica error if more than one ffd instances are created
   ****************************************************************************/
 	if ( cosim != NULL )
 		ModelicaError("ModelicaError: More than one FFD instances");
-	
+
   /****************************************************************************
   | Allocate memory for cosimulation variables
   ****************************************************************************/
+  cosim = NULL;
   cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
+  if (cosim == NULL){
+    ModelicaError("Failed to allocate memory for cosim in cfdcosim.c");
+  }
+  cosim->para = NULL;
   cosim->para = (ParameterSharedData *) malloc(sizeof(ParameterSharedData));
+  if (cosim->para == NULL){
+    ModelicaError("Failed to allocate memory for cosim->para in cfdcosim.c");
+  }
+
+  cosim->modelica = NULL;
   cosim->modelica = (ModelicaSharedData *) malloc(sizeof(ModelicaSharedData));
+  if (cosim->para == NULL){
+    ModelicaError("Failed to allocate memory for cosim->modelica in cfdcosim.c");
+  }
+
+  cosim->ffd = NULL;
   cosim->ffd = (ffdSharedData *) malloc(sizeof(ffdSharedData));
-  
-  if ( cosim == NULL )
-    ModelicaError("Not enough memory in cfdcosim.c.");
-  
-	return (void*) cosim;   
+    if (cosim->para == NULL){
+    ModelicaError("Failed to allocate memory for cosim->ffd in cfdcosim.c");
+  }
+
+	return (void*) cosim;
 } /* End of cfdcosim()*/

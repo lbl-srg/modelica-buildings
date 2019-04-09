@@ -33,7 +33,6 @@
 #endif
 
 CosimulationData *cosim;
-char msg[1000];
 
 /*declare the ffd_dll function in DLL*/
 void *ffd_dll(CosimulationData *cosim);
