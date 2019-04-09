@@ -202,7 +202,8 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
   CDL.Integers.Equal equLowSta "Check if stage is the lowest available"
     annotation (Placement(transformation(extent={{0,-180},{20,-160}})));
-  CDL.Integers.LessEqual intLesEqu[nSta]
+  CDL.Integers.GreaterEqual
+                         intGreEqu[nSta]
     annotation (Placement(transformation(extent={{-180,-202},{-160,-182}})));
   CDL.Routing.IntegerReplicator intRep(nout=nSta)
     annotation (Placement(transformation(extent={{-220,-180},{-200,-160}})));
@@ -304,21 +305,22 @@ equation
     annotation (Line(points={{-79,60},{10,60},{10,128}},  color={255,127,0}));
   connect(addInt.y, extStaUpCapMin.index) annotation (Line(points={{-79,30},{40,
           30},{40,-60},{110,-60},{110,-42}},        color={255,127,0}));
-  connect(one.y, equLowSta.u2) annotation (Line(points={{-199,0},{-20,0},{-20,-178},
-          {-2,-178}}, color={255,127,0}));
+  connect(one.y, equLowSta.u2) annotation (Line(points={{-199,0},{-10,0},{-10,
+          -178},{-2,-178}},
+                      color={255,127,0}));
   connect(mulSumInt.y, equLowSta.u1)
     annotation (Line(points={{-38.3,-170},{-2,-170}}, color={255,127,0}));
-  connect(stages.y, intLesEqu.u2) annotation (Line(points={{-199,-210},{-190,-210},
+  connect(stages.y,intGreEqu. u2) annotation (Line(points={{-199,-210},{-190,-210},
           {-190,-200},{-182,-200}},       color={255,127,0}));
   connect(uSta, intRep.u) annotation (Line(points={{-280,80},{-250,80},{-250,-170},
           {-222,-170}},       color={255,127,0}));
-  connect(intRep.y, intLesEqu.u1) annotation (Line(points={{-199,-170},{-190,-170},
+  connect(intRep.y,intGreEqu. u1) annotation (Line(points={{-199,-170},{-190,-170},
           {-190,-192},{-182,-192}},       color={255,127,0}));
   connect(and2.y, booToInt.u)
     annotation (Line(points={{-119,-170},{-102,-170}}, color={255,0,255}));
   connect(uStaAva, and2.u1) annotation (Line(points={{-280,-40},{-240,-40},{-240,
           -150},{-150,-150},{-150,-170},{-142,-170}},      color={255,0,255}));
-  connect(intLesEqu.y, and2.u2) annotation (Line(points={{-159,-192},{-150,-192},
+  connect(intGreEqu.y, and2.u2) annotation (Line(points={{-159,-192},{-150,-192},
           {-150,-178},{-142,-178}}, color={255,0,255}));
   connect(equLowSta.y, lowSta) annotation (Line(points={{21,-170},{240,-170},{240,
           -140},{270,-140}}, color={255,0,255}));
@@ -336,8 +338,8 @@ equation
           130},{218,130}}, color={255,0,255}));
   connect(uStaAva, booToInt1.u)
     annotation (Line(points={{-280,-40},{-102,-40}}, color={255,0,255}));
-  connect(mulSumInt1.y, equHigSta.u1) annotation (Line(points={{-38.3,-40},{-10,
-          -40},{-10,-250},{-2,-250}}, color={255,127,0}));
+  connect(mulSumInt1.y, equHigSta.u1) annotation (Line(points={{-38.3,-40},{-20,
+          -40},{-20,-250},{-2,-250}}, color={255,127,0}));
   connect(mulSumInt.y, equHigSta.u2) annotation (Line(points={{-38.3,-170},{-28,
           -170},{-28,-258},{-2,-258}}, color={255,127,0}));
   connect(extStaCap.y, greThr[1].u) annotation (Line(points={{-19,210},{60,210},
