@@ -2,12 +2,15 @@ within Buildings.Controls.OBC.CDL.Logical.Validation;
 model Latch "Validation model for the Latch block"
 
   Buildings.Controls.OBC.CDL.Logical.Latch latch1
+    "Initial clear input is true"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch latch2
+    "Initial clear input is false with initial latch input is true"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch latch3
+    "Initial clear input is false with initial latch input is false"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp(
@@ -18,8 +21,7 @@ model Latch "Validation model for the Latch block"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse conInp(
     final width=0.5,
-    final period=5)
-    "Block that outputs cyclic on and off"
+    final period=5) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse conInp1(
@@ -28,10 +30,10 @@ model Latch "Validation model for the Latch block"
     final startTime=0.5) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
 equation
@@ -63,12 +65,6 @@ annotation (
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Latch\">
 Buildings.Controls.OBC.CDL.Logical.Latch</a>.
-</p>
-<p>
-The <code>latch</code> input <code>u</code> cycles from OFF to ON, with cycle 
-period of <code>1.5 s</code> and <code>50%</code> ON time.
-The <code>clr</code> input <code>u0</code> cycles from OFF to ON, with cycle 
-period of <code>5 s</code> and <code>50%</code> ON time.
 </p>
 </html>", revisions="<html>
 <ul>

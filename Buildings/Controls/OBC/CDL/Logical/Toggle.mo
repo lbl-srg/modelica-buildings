@@ -101,17 +101,20 @@ annotation (defaultComponentName="tog",
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-When clear input <code>u0</code> is <code>false</code>, the block toggles output value 
-whenever input becomes <code>true</code>. For instance, 
-when the <code>toggle</code> input <code>u</code> becomes <code>true</code>, the output 
-<code>y</code> becomes <code>true</code> and remains <code>true</code> when 
-<code>u</code> turns <code>false</code> again.
+The block toggles output value whenever its input turns on. For instance,
+</p>
+<ul>
+<li>
+If the clear input <code>u0</code> is <code>false</code>, when the <code>toggle</code> input <code>u</code> 
+becomes <code>true</code>, the output <code>y</code> becomes <code>true</code> and 
+remains <code>true</code> when <code>u</code> turns <code>false</code> again.
 When <code>u</code> turns back <code>true</code>, <code>y</code> becomes <code>false</code>.
-</p>
-<p>
-When clear input <code>u0</code> is <code>true</code>, the output <code>y</code> 
+</li>
+<li>
+If the clear input <code>u0</code> is <code>true</code>, the output <code>y</code> 
 keeps <code>false</code>.
-</p>
+</li>
+</ul>
 
 <p>
 The table below shows the different scenarios.

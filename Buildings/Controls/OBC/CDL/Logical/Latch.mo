@@ -1,15 +1,14 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block Latch "Maintains a true signal until conditions changes"
+block Latch "Maintains a true signal until change condition"
 
   parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
-  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
+  parameter Boolean pre_y_start=false "Start value of pre(y) at initial time";
 
   Interfaces.BooleanInput u "Latch input"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Interfaces.BooleanInput u0 "Control input"
+  Interfaces.BooleanInput u0 "Clear input"
      annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Interfaces.BooleanOutput y
-    "Output signal"
+  Interfaces.BooleanOutput y "Output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
