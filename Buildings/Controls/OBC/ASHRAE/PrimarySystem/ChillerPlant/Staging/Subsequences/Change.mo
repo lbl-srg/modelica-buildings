@@ -274,7 +274,8 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   CDL.Integers.Change cha
     annotation (Placement(transformation(extent={{200,70},{220,90}})));
-  CDL.Logical.Edge edg
+  CDL.Logical.Change
+                   cha1
     annotation (Placement(transformation(extent={{180,30},{200,50}})));
 equation
   connect(staCap.yStaNom,PLRs. uStaCapNom) annotation (Line(points={{-119,-63},{
@@ -405,9 +406,9 @@ equation
           260,50}}, color={255,0,255}));
   connect(or2.y, triSam2.trigger) annotation (Line(points={{283,50},{288,50},{
           288,78.2},{290,78.2}}, color={255,0,255}));
-  connect(truFalHol.y, edg.u) annotation (Line(points={{141,30},{166,30},{166,
+  connect(truFalHol.y, cha1.u) annotation (Line(points={{141,30},{166,30},{166,
           40},{178,40}}, color={255,0,255}));
-  connect(edg.y, or2.u2) annotation (Line(points={{201,40},{234,40},{234,42},{
+  connect(cha1.y, or2.u2) annotation (Line(points={{201,40},{234,40},{234,42},{
           260,42}}, color={255,0,255}));
   connect(cha.y, and2.u1) annotation (Line(points={{221,80},{224,80},{224,70},{
           230,70}}, color={255,0,255}));

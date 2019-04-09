@@ -17,13 +17,13 @@ model Capacities_uSta
   parameter Real large = staNomCap[end]*nSta*10
   "Large number for numerical consistency";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staCap[nSta + 2](final k=
-        {small,5e5,1e6,large})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staCap[nSta + 2](
+    final k={small,5e5,1e6,large})
     "Array of chiller stage nominal capacities starting with stage 0"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaUnload[nSta + 2](final k=
-        {0,1e5,6e5,large})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaUnload[nSta + 2](
+    final k={0,1e5,6e5,large})
     "Array of chiller stage minimal unload capacities"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
@@ -31,35 +31,32 @@ model Capacities_uSta
     staCap0(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final nSta=nSta)
-                  "Nominal capacitites at the current and stage one lower"
+    final nSta=nSta) "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap1(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final nSta=nSta)
-                  "Nominal capacitites at the current and stage one lower"
+    final nSta=nSta) "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap2(
     final minStaUnlCap=minStaUnlCap,
     final staNomCap=staNomCap,
-    final nSta=nSta)
-                  "Nominal capacitites at the current and stage one lower"
+    final nSta=nSta) "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(final k=0)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(final k=1)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage2(k=2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage2(final k=2)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
@@ -75,9 +72,11 @@ model Capacities_uSta
     "Delta between the expected and the calculated value"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  CDL.Logical.Sources.Constant con[nSta](k=fill(true, nSta))
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nSta](
+    final k=fill(true, nSta))
     "Stage availability array"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
 equation
 
   connect(stage0.y, staCap0.uSta)
