@@ -145,9 +145,8 @@ block Down "Stage down conditions"
     "Delays a true signal"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
-    final uLow=0,
-    final uHigh=0.05)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(final uLow=-0.05,
+      final uHigh=0)
     "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
     annotation (Placement(transformation(extent={{-40,160},{-20,180}})));
 

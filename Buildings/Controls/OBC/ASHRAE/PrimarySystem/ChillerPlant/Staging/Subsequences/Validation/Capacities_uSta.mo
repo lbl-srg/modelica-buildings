@@ -18,13 +18,13 @@ model Capacities_uSta
   "Large number for numerical consistency";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staCap[nSta + 2](
-    final k={small,5e5,1e6,large})
-    "Array of chiller stage nominal capacities starting with stage 0"
+      final k={small,5e5,1e6,large})
+    "Array of chiller stage cumulative capacities starting with stage 0 and ending with a large value to prevent staging up from the maximum stage"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaUnload[nSta + 2](
-    final k={0,1e5,6e5,large})
-    "Array of chiller stage minimal unload capacities"
+    final k={0,1e5,2e5,large})
+    "Array of chiller stage cumulative minimum capacities starting with stage 0 and ending with a large value to prevent staging up from the maximum stage"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
@@ -131,8 +131,8 @@ equation
           {40,54},{40,80},{58,80}},     color={0,0,127}));
   connect(minStaUnload[2].y, absErrorSta0[5].u2) annotation (Line(points={{21,
           -80},{88,-80},{88,60},{70,60},{70,68}}, color={0,0,127}));
-  connect(minStaUnload[3].y, absErrorSta1[5].u2) annotation (Line(points={{21,
-          -80},{52,-80},{52,-78},{86,-78},{86,-22},{70,-22},{70,-12}}, color={0,
+  connect(minStaUnload[3].y, absErrorSta1[5].u2) annotation (Line(points={{21,-80},
+          {52,-80},{52,-78},{86,-78},{86,-22},{70,-22},{70,-12}},      color={0,
           0,127}));
   connect(minStaUnload[2].y, absErrorSta1[4].u2) annotation (Line(points={{21,
           -80},{54,-80},{54,-78},{90,-78},{90,-18},{70,-18},{70,-12}}, color={0,
