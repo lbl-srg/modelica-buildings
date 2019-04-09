@@ -31,7 +31,8 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
   unsigned int i;
   FMUZone* zone;
   size_t nFMU;
-  const char* parNames[] = {"V", "AFlo", "mSenFac"};
+  const char* parInpNames[] = {"T_start"};
+  const char* parOutNames[] = {"V", "AFlo", "mSenFac"};
   const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow", "xTest"};
   const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow", "yTest"};
 
@@ -58,39 +59,51 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
 
   buildVariableNames(
     zone->name,
-    parNames,
-    ZONE_N_PAR,
-    &zone->parameterNames,
-    &zone->parameterVariableNames);
+    parInpNames,
+    ZONE_N_PAR_INP,
+    &zone->parInpNames,
+    &zone->parInpVarNames);
+
+  buildVariableNames(
+    zone->name,
+    parOutNames,
+    ZONE_N_PAR_OUT,
+    &zone->parOutNames,
+    &zone->parOutVarNames);
 
   buildVariableNames(
     zone->name,
     inpNames,
     ZONE_N_INP,
-    &zone->inputNames,
-    &zone->inputVariableNames);
+    &zone->inpNames,
+    &zone->inpVarNames);
 
   buildVariableNames(
     zone->name,
     outNames,
     ZONE_N_OUT,
-    &zone->outputNames,
-    &zone->outputVariableNames);
+    &zone->outNames,
+    &zone->outVarNames);
 
-  zone->parameterValueReferences = NULL;
-  zone->parameterValueReferences = (fmi2ValueReference*)malloc(ZONE_N_PAR * sizeof(fmi2ValueReference));
-  if ( zone->parameterValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for parameterValueReferences in ZoneAllocate.c.");
+    zone->parInpValReferences = NULL;
+    zone->parInpValReferences = (fmi2ValueReference*)malloc(ZONE_N_PAR_INP * sizeof(fmi2ValueReference));
+    if ( zone->parInpValReferences == NULL)
+      ModelicaFormatError("Failed to allocate memory for parInpValReferences in ZoneAllocate.c.");
 
-  zone->inputValueReferences = NULL;
-  zone->inputValueReferences = (fmi2ValueReference*)malloc(ZONE_N_INP * sizeof(fmi2ValueReference));
-  if ( zone->inputValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for inputValueReferences in ZoneAllocate.c.");
+  zone->parOutValReferences = NULL;
+  zone->parOutValReferences = (fmi2ValueReference*)malloc(ZONE_N_PAR_OUT * sizeof(fmi2ValueReference));
+  if ( zone->parOutValReferences == NULL)
+    ModelicaFormatError("Failed to allocate memory for parOutValReferences in ZoneAllocate.c.");
 
-  zone->outputValueReferences = NULL;
-  zone->outputValueReferences = (fmi2ValueReference*)malloc(ZONE_N_OUT * sizeof(fmi2ValueReference));
-  if ( zone->outputValueReferences == NULL)
-    ModelicaFormatError("Failed to allocate memory for outputValueReferences in ZoneAllocate.c.");
+  zone->inpValReferences = NULL;
+  zone->inpValReferences = (fmi2ValueReference*)malloc(ZONE_N_INP * sizeof(fmi2ValueReference));
+  if ( zone->inpValReferences == NULL)
+    ModelicaFormatError("Failed to allocate memory for inpValReferences in ZoneAllocate.c.");
+
+  zone->outValReferences = NULL;
+  zone->outValReferences = (fmi2ValueReference*)malloc(ZONE_N_OUT * sizeof(fmi2ValueReference));
+  if ( zone->outValReferences == NULL)
+    ModelicaFormatError("Failed to allocate memory for outValReferences in ZoneAllocate.c.");
 
   /* ********************************************************************** */
   /* Initialize the pointer for the FMU to which this zone belongs */
@@ -99,7 +112,7 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
     zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone);
-    zone->index = 1;
+    /*zone->index = 1;*/
   } else {
     /* There is already a Buildings FMU allocated.
        Check if the current zone is for this FMU. */
@@ -128,7 +141,7 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
           strcpy(fmu->zoneNames[fmu->nZon], zoneName);
           /* Increment the count of zones to this building. */
           fmu->nZon++;
-          zone->index = fmu->nZon;
+          /*zone->index = fmu->nZon;*/
           break;
         }
       }

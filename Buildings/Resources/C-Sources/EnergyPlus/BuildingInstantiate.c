@@ -146,21 +146,27 @@ void setValueReferences(FMUBuilding* fmuBui){
     setValueReference(
       fmuBui->fmuAbsPat,
       vl, vrl, nv,
-      zone->parameterVariableNames,
-      ZONE_N_PAR,
-      &(zone->parameterValueReferences));
+      zone->parInpVarNames,
+      ZONE_N_PAR_INP,
+      &(zone->parInpValReferences));
+    setValueReference(
+      fmuBui->fmuAbsPat,
+      vl, vrl, nv,
+      zone->parOutVarNames,
+      ZONE_N_PAR_OUT,
+      &(zone->parOutValReferences));
    setValueReference(
       fmuBui->fmuAbsPat,
       vl, vrl, nv,
-      zone->inputVariableNames,
+      zone->inpVarNames,
       ZONE_N_INP,
-      &(zone->inputValueReferences));
+      &(zone->inpValReferences));
    setValueReference(
      fmuBui->fmuAbsPat,
      vl, vrl, nv,
-     zone->outputVariableNames,
+     zone->outVarNames,
      ZONE_N_OUT,
-     &(zone->outputValueReferences));
+     &(zone->outValReferences));
   }
   fmi2_import_free_variable_list(vl);
   return;
@@ -169,7 +175,7 @@ void setValueReferences(FMUBuilding* fmuBui){
 void generateFMU(const char* FMUPath){
   /* Generate the FMU */
   const char* cmd = "cp -p ";
-  const char* testFMU = "Buildings/Resources/src/EnergyPlus/FMUs/SingleZone.fmu";
+  const char* testFMU = "Buildings/Resources/src/EnergyPlus/FMUs/TwoZones.fmu";
   char* fulCmd;
   size_t len;
   int retVal;

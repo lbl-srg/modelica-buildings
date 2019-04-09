@@ -9,6 +9,9 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Name of the Energyplus IDD file";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter Modelica.SIunits.Temperature T_start = 293.15+3.12345
+    "Initial temperature of zone air"
+    annotation(Dialog(group="Initialization"));
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
 
@@ -72,7 +75,6 @@ protected
       iddName=iddName,
       zoneName=zoneName)
     "Class to communicate with EnergyPlus";
-//      epLibName=epLibName,
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
 
@@ -107,7 +109,8 @@ initial equation
   startTime = time;
   (AFlo, V, mSenFac) = Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
     adapter = adapter,
-    startTime = time);
+    startTime = time,
+    T_start = T_start);
     /* fixme: in initial equation, must send initial inputs to FMU */
 
 equation

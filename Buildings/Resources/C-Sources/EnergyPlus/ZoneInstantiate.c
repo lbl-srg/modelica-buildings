@@ -35,19 +35,31 @@ void getValueReferences(
     }
   }
 
-void getParametersFromEnergyPlus(
-  FMUZone* zone,
-  double* parValues)
-  {
+void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
   fmi2Status status;
 
-  writeLog(2, "Getting parameters from EnergyPlus.");
+  writeFormatLog(2, "Setting parameters in EnergyPlus zone %s.", zone->name);
+  status = fmi2_import_set_real(
+    zone->ptrBui->fmu,
+    zone->parInpValReferences,
+    ZONE_N_PAR_INP,
+    parValues);
+  if (status != fmi2OK ){
+    ModelicaFormatError("Failed to set parameters for building %s, zone %s.",
+    zone->ptrBui->name, zone->name);
+  }
+  return;
+}
+
+void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
+  fmi2Status status;
+
+  writeFormatLog(2, "Getting parameters from EnergyPlus zone %s.", zone->name);
   status = fmi2_import_get_real(
     zone->ptrBui->fmu,
-    zone->parameterValueReferences,
-    ZONE_N_PAR,
+    zone->parOutValReferences,
+    ZONE_N_PAR_OUT,
     parValues);
-  /* writeLog(1, "end getVariables"); */
   if (status != fmi2OK ){
     ModelicaFormatError("Failed to get parameters for building %s, zone %s.",
     zone->ptrBui->name, zone->name);
@@ -58,13 +70,13 @@ void getParametersFromEnergyPlus(
 
 /* This function is called for each zone in the 'initial equation section'
 */
-void ZoneInstantiate(void* object, double startTime, double* AFlo, double* V, double* mSenFac){
+void ZoneInstantiate(void* object, double startTime, double T_start, double* AFlo, double* V, double* mSenFac){
   fmi2_status_t status;
   FMUZone* zone = (FMUZone*) object;
+  double parValToSet[ZONE_N_PAR_INP];
+  double outputValues[ZONE_N_PAR_OUT];
 
-  double outputValues[ZONE_N_OUT];
-
-  writeLog(3, "Entered ZoneInstantiate.");
+  writeFormatLog(3, "Entered ZoneInstantiate for zone %s.", zone->name);
 
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
@@ -94,9 +106,9 @@ void ZoneInstantiate(void* object, double startTime, double* AFlo, double* V, do
       ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
     }
   }
-
-    writeLog(0, "Getting parameters from EnergyPlus.");
-    getParametersFromEnergyPlus(zone, outputValues);
+  parValToSet[0] = T_start;
+  setParametersInEnergyPlus(zone, parValToSet);
+  getParametersFromEnergyPlus(zone, outputValues);
 
    /* Assign the floor area and the volume of the zone */
     *V = outputValues[0];

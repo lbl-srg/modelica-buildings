@@ -27,6 +27,6 @@ void ZoneExchange(
   double* QPeo_flow,
   double* tNext);
 
-fmi2Status do_event_iteration(fmi2_import_t *fmu, fmi2_event_info_t *eventInfo);
+fmi2Status do_event_iteration(FMUZone* zone, fmi2_event_info_t *eventInfo);
 
 #endif

@@ -16,8 +16,6 @@ model FMUZoneAdapter
     final zoneName="Core_ZN",
     final nFluPor=2) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Blocks.Sources.RealExpression TZone(y=293.15) "Zone air temperature"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.RealExpression X_w(y=0.01) "Zone absolute humidity"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.RealExpression mIn_flow(y=0) "Inlet mass flow rate"
@@ -36,8 +34,10 @@ model FMUZoneAdapter
     y_start=293.15,
     y(unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+  Modelica.Blocks.Sources.RealExpression modTim(y=273.15 + time + 5) "Time"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
-  connect(X_w.y, fmuZon.X_w) annotation (Line(points={{-59,20},{-36,20},{-36,4},
+  connect(X_w.y, fmuZon.X_w) annotation (Line(points={{-59,20},{-40,20},{-40,4},
           {18,4}},  color={0,0,127}));
   connect(fmuZon.m_flow[1], mIn_flow.y) annotation (Line(points={{18,-1},{-35,-1},
           {-35,0},{-59,0}}, color={0,0,127}));
@@ -49,10 +49,10 @@ equation
           -4},{18,-4}},  color={0,0,127}));
   connect(fmuZon.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{18,-8},
           {-16,-8},{-16,-70},{-59,-70}}, color={0,0,127}));
-  connect(TZon.y, fmuZon.T)
-    annotation (Line(points={{1,40},{10,40},{10,8},{18,8}}, color={0,0,127}));
   connect(fmuZon.QCon_flow, TZon.u) annotation (Line(points={{41,2},{50,2},{50,60},
           {-30,60},{-30,40},{-22,40}}, color={0,0,127}));
+  connect(modTim.y, fmuZon.T) annotation (Line(points={{-59,40},{-36,40},{-36,8},
+          {18,8}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Validation model that communicates with EnergyPlus.

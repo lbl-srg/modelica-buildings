@@ -81,27 +81,31 @@ typedef struct FMUBuilding
   FMUMode mode; /* Mode that the FMU is in */
 } FMUBuilding;
 
-#define ZONE_N_PAR 3 /* Number of parameter value references per zone*/
+#define ZONE_N_PAR_INP 1 /* Number of parameter value references to be set in EnergyPlus per zone*/
+#define ZONE_N_PAR_OUT 3 /* Number of parameter value references to be read from EnergyPlus per zone*/
 #define ZONE_N_INP 6 /* Number of input value references per zone*/
 #define ZONE_N_OUT 5 /* Number of output value references per zone*/
 
 typedef struct FMUZone
 {
-  int index;
+  /*int index;*/
   fmi2Byte* name;      /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
 
-  char** parameterNames;
-  char** inputNames;
-  char** outputNames;
+  char** parInpNames;
+  char** parOutNames;
+  char** inpNames;
+  char** outNames;
 
-  fmi2ValueReference* parameterValueReferences; /* Value reference of parameter variables*/
-  fmi2ValueReference* inputValueReferences; /* Value reference of input variables*/
-  fmi2ValueReference* outputValueReferences; /* Value references of output variables*/
+  fmi2ValueReference* parInpValReferences; /* Value reference of parameter variables*/
+  fmi2ValueReference* parOutValReferences; /* Value reference of parameter variables*/
+  fmi2ValueReference* inpValReferences; /* Value reference of input variables*/
+  fmi2ValueReference* outValReferences; /* Value references of output variables*/
 
-  fmi2Byte** parameterVariableNames; /* Full names of parameter variables (used to get value reference) */
-  fmi2Byte** inputVariableNames; /* Full names of input variables (used to get value reference)*/
-  fmi2Byte** outputVariableNames; /* Full names of output variables (used to get value reference)*/
+  fmi2Byte** parInpVarNames; /* Full names of parameter variables (used to get value reference) */
+  fmi2Byte** parOutVarNames; /* Full names of parameter variables (used to get value reference) */
+  fmi2Byte** inpVarNames; /* Full names of input variables (used to get value reference)*/
+  fmi2Byte** outVarNames; /* Full names of output variables (used to get value reference)*/
 
   fmi2Boolean isInstantiated; /* Flag set to true when the zone has been completely instantiated */
   fmi2Boolean isInitialized; /* Flag set to true after the zone has executed all get/set calls in the initializion mode

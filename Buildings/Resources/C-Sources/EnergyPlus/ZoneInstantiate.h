@@ -15,6 +15,6 @@
 #include "fmilib.h"
 #include "JM/jm_portability.h"
 
-void ZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
+void ZoneInstantiate(void* object, double t0, double T_start, double* AFlo, double* V, double* mSenFac);
 
 #endif
