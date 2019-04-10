@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "roo1.mSenFac",
+    "roo2.mSenFac",
+    "roo1.air.vol.T",
+    "roo2.air.vol.T"
+  };
