@@ -143,12 +143,13 @@ void setValueReferences(FMUBuilding* fmuBui){
   /* Set value references for the parameters by assigning the values obtained from the FMU */
   for(iZon = 0; iZon < fmuBui->nZon; iZon++){
     zone = (FMUZone*) fmuBui->zones[iZon];
-    setValueReference(
+/*    setValueReference(
       fmuBui->fmuAbsPat,
       vl, vrl, nv,
       zone->parInpVarNames,
       ZONE_N_PAR_INP,
       &(zone->parInpValReferences));
+*/
     setValueReference(
       fmuBui->fmuAbsPat,
       vl, vrl, nv,

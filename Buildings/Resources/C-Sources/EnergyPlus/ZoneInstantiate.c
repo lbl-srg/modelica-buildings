@@ -35,6 +35,7 @@ void getValueReferences(
     }
   }
 
+/*
 void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
   fmi2Status status;
 
@@ -50,7 +51,7 @@ void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
   }
   return;
 }
-
+*/
 void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
   fmi2Status status;
 
@@ -70,10 +71,10 @@ void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
 
 /* This function is called for each zone in the 'initial equation section'
 */
-void ZoneInstantiate(void* object, double startTime, double T_start, double* AFlo, double* V, double* mSenFac){
+void ZoneInstantiate(void* object, double startTime, double* AFlo, double* V, double* mSenFac){
   fmi2_status_t status;
   FMUZone* zone = (FMUZone*) object;
-  double parValToSet[ZONE_N_PAR_INP];
+  /*double parValToSet[ZONE_N_PAR_INP];*/
   double outputValues[ZONE_N_PAR_OUT];
 
   writeFormatLog(3, "Entered ZoneInstantiate for zone %s.", zone->name);
@@ -106,8 +107,9 @@ void ZoneInstantiate(void* object, double startTime, double T_start, double* AFl
       ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
     }
   }
-  parValToSet[0] = T_start;
+  /* parValToSet[0] = T_start;
   setParametersInEnergyPlus(zone, parValToSet);
+  */
   getParametersFromEnergyPlus(zone, outputValues);
 
    /* Assign the floor area and the volume of the zone */

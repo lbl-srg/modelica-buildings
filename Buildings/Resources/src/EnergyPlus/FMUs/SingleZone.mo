@@ -7,8 +7,8 @@ model SingleZone "Model of a thermal zone"
   parameter Modelica.SIunits.Volume Core_ZN_V = 3*4*3 "Volume";
   parameter Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
   parameter Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
-  parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T_start = 20
-    "Initial temperature of zone air";
+  //parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T_start = 20
+  //  "Initial temperature of zone air";
 
   input Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T "Temperature of the zone air";
   input Real Core_ZN_X(min=0, final unit="1") "Water vapor mass fraction in kg water/kg dry air";
@@ -65,8 +65,8 @@ equation
     end if;
     */
     if initial() then
-      Core_ZN_yTest = Core_ZN_T_start;
-      Core_TCon = Core_ZN_T_start;//+ samplePeriod / CCon * (Core_ZN_QConSen_flow + Core_ZN_QGaiRad_flow);
+      Core_ZN_yTest = Core_ZN_xTest;
+      Core_TCon = Core_ZN_xTest;//+ samplePeriod / CCon * (Core_ZN_QConSen_flow + Core_ZN_QGaiRad_flow);
     else
       Core_ZN_yTest = pre(Core_ZN_xTest) + 1;
       Core_TCon = pre(Core_ZN_xTest) + 1;

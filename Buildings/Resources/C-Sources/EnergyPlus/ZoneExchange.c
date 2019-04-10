@@ -10,6 +10,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 void setVariables(FMUBuilding* bui, const char* zoneName, fmi2ValueReference vr[],  fmi2Real values[], size_t n){
     fmi2_status_t status;
@@ -84,8 +85,8 @@ void ZoneExchange(
     /* This zone has not been initialized because the simulator optimized away the call to initialize().
        Hence, we intialize it now.
     */
-    ModelicaError("fixme: Error, we should not be here as we don't know T_start.");
-    ZoneInstantiate(object, time, 20, &AFlo, &V, &mSenFac);
+    ModelicaError("fixme: Error, we should not be here.");
+    ZoneInstantiate(object, time, &AFlo, &V, &mSenFac);
   }
 
   if (initialCall){
@@ -151,7 +152,14 @@ void ZoneExchange(
   inputValues[2] = mInlets_flow;
   inputValues[3] = TAveInlet;
   inputValues[4] = QGaiRad_flow;
-  inputValues[5] = time+0.5; /* this is xTest */
+  if ( strcmp(zone->name, "Core_ZN") ){
+    inputValues[5] = time+0.1; /* this is xTest */
+  }
+  else
+  {
+    inputValues[5] = time+0.2; /* this is xTest */
+  }
+
 
   /* Forward difference for QConSen_flow */
   inputValues[0] = T - 273.15 + dT;

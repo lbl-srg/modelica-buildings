@@ -31,7 +31,7 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
   unsigned int i;
   FMUZone* zone;
   size_t nFMU;
-  const char* parInpNames[] = {"T_start"};
+  /*const char* parInpNames[] = {"T_start"};*/
   const char* parOutNames[] = {"V", "AFlo", "mSenFac"};
   const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow", "xTest"};
   const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow", "yTest"};
@@ -57,13 +57,14 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
 
   /* Assign structural data */
 
+  /*
   buildVariableNames(
     zone->name,
     parInpNames,
     ZONE_N_PAR_INP,
     &zone->parInpNames,
     &zone->parInpVarNames);
-
+*/
   buildVariableNames(
     zone->name,
     parOutNames,
@@ -85,11 +86,12 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
     &zone->outNames,
     &zone->outVarNames);
 
+/*
     zone->parInpValReferences = NULL;
     zone->parInpValReferences = (fmi2ValueReference*)malloc(ZONE_N_PAR_INP * sizeof(fmi2ValueReference));
     if ( zone->parInpValReferences == NULL)
       ModelicaFormatError("Failed to allocate memory for parInpValReferences in ZoneAllocate.c.");
-
+*/
   zone->parOutValReferences = NULL;
   zone->parOutValReferences = (fmi2ValueReference*)malloc(ZONE_N_PAR_OUT * sizeof(fmi2ValueReference));
   if ( zone->parOutValReferences == NULL)

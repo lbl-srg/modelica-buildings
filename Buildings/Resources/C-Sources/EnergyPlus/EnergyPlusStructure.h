@@ -81,7 +81,7 @@ typedef struct FMUBuilding
   FMUMode mode; /* Mode that the FMU is in */
 } FMUBuilding;
 
-#define ZONE_N_PAR_INP 1 /* Number of parameter value references to be set in EnergyPlus per zone*/
+/*#define ZONE_N_PAR_INP 1 Number of parameter value references to be set in EnergyPlus per zone*/
 #define ZONE_N_PAR_OUT 3 /* Number of parameter value references to be read from EnergyPlus per zone*/
 #define ZONE_N_INP 6 /* Number of input value references per zone*/
 #define ZONE_N_OUT 5 /* Number of output value references per zone*/
@@ -92,12 +92,12 @@ typedef struct FMUZone
   fmi2Byte* name;      /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
 
-  char** parInpNames;
+/* char** parInpNames; */
   char** parOutNames;
   char** inpNames;
   char** outNames;
 
-  fmi2ValueReference* parInpValReferences; /* Value reference of parameter variables*/
+  /* fmi2ValueReference* parInpValReferences; Value reference of parameter variables*/
   fmi2ValueReference* parOutValReferences; /* Value reference of parameter variables*/
   fmi2ValueReference* inpValReferences; /* Value reference of input variables*/
   fmi2ValueReference* outValReferences; /* Value references of output variables*/
