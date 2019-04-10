@@ -2158,6 +2158,7 @@ Buildings/Utilities/Psychrometrics/Functions/Internal.mo
 Buildings/Utilities/Psychrometrics/Functions/TDewPoi_pW.mo
 Buildings/Utilities/Psychrometrics/Functions/TDewPoi_pW_amb.mo
 Buildings/Utilities/Psychrometrics/Functions/X_pSatpphi.mo
+Buildings/Utilities/Psychrometrics/Functions/X_pTphi.mo
 Buildings/Utilities/Psychrometrics/Functions/X_pW.mo
 Buildings/Utilities/Psychrometrics/Functions/density_pTX.mo
 Buildings/Utilities/Psychrometrics/Functions/pW_TDewPoi.mo
