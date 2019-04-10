@@ -18,11 +18,13 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     /* The call to fmi2_import_terminate causes a seg fault if
        fmi2_import_create_dllfmu was not successful */
     if (ptrBui->dllfmu_created){
+      writeLog(3, "fmi2_import_terminate: terminating EnergyPlus.");
       status = fmi2_import_terminate(ptrBui->fmu);
       if (status != fmi2OK){
         ModelicaFormatMessage("fmi2Terminate returned with non-OK status for building %s.", ptrBui->name);
       }
     }
+    writeLog(3, "fmi2_import_destroy_dllfmu: destroying dll fmu.");
     fmi2_import_destroy_dllfmu(ptrBui->fmu);
   	fmi2_import_free(ptrBui->fmu);
   	fmi_import_free_context(ptrBui->context);

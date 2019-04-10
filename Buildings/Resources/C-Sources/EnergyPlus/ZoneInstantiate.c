@@ -38,7 +38,7 @@ void getValueReferences(
 void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
   fmi2Status status;
 
-  writeFormatLog(2, "Setting parameters in EnergyPlus zone %s.", zone->name);
+  writeFormatLog(2, "fmi2_import_set_real: Setting parameters in EnergyPlus zone %s.", zone->name);
   status = fmi2_import_set_real(
     zone->ptrBui->fmu,
     zone->parInpValReferences,
@@ -54,7 +54,7 @@ void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
 void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
   fmi2Status status;
 
-  writeFormatLog(2, "Getting parameters from EnergyPlus zone %s.", zone->name);
+  writeFormatLog(2, "fmi2_import_get_real: Getting parameters from EnergyPlus zone %s.", zone->name);
   status = fmi2_import_get_real(
     zone->ptrBui->fmu,
     zone->parOutValReferences,
@@ -90,7 +90,7 @@ void ZoneInstantiate(void* object, double startTime, double T_start, double* AFl
     /* Instantiate the FMU for this building */
     generateAndInstantiateBuilding(zone->ptrBui);
 
-    writeLog(3, "Setting up experiment.");
+    writeLog(3, "fmi2_import_setup_experiment: Setting up experiment.");
     zone->ptrBui->time = startTime;
     setFMUMode(zone->ptrBui, instantiationMode);
 

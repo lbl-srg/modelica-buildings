@@ -13,7 +13,7 @@
 
 void setVariables(FMUBuilding* bui, const char* zoneName, fmi2ValueReference vr[],  fmi2Real values[], size_t n){
     fmi2_status_t status;
-    writeFormatLog(3, "Setting real variables in EnergyPlus for zone %s, mode = %s.",
+    writeFormatLog(3, "fmi2_import_set_real: Setting real variables in EnergyPlus for zone %s, mode = %s.",
       zoneName, fmuModeToString(bui->mode));
     status = fmi2_import_set_real(bui->fmu, vr, n, values);
     if (status != fmi2OK) {
@@ -23,7 +23,7 @@ void setVariables(FMUBuilding* bui, const char* zoneName, fmi2ValueReference vr[
 
 void getVariables(FMUBuilding* bui, const char* zoneName, fmi2ValueReference vr[], fmi2Real values[], size_t n){
     fmi2_status_t status;
-    writeFormatLog(3, "Getting real variables from EnergyPlus for zone %s, mode = %s.",
+    writeFormatLog(3, "fmi2_import_get_real: Getting real variables from EnergyPlus for zone %s, mode = %s.",
       zoneName, fmuModeToString(bui->mode));
     status = fmi2_import_get_real(bui->fmu, vr, n, values);
     if (status != fmi2OK) {
@@ -91,7 +91,7 @@ void ZoneExchange(
   if (initialCall){
     if ( ! zone->ptrBui->mode == initializationMode){
       /* Enter initialization mode for initial call */
-      writeFormatLog(3, "Enter initialization mode of FMU with T = %.f for zone = %s.", T, zone->name);
+      writeFormatLog(3, "fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with T = %.f for zone = %s.", T, zone->name);
       status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
       if( status != fmi2_status_ok ){
         ModelicaFormatError("Failed to enter initialization mode for FMU with name %s for zone %s.",
@@ -113,7 +113,7 @@ void ZoneExchange(
        it is the first zone that advances time for this building.
        Complete the integrator step in the FMU, and set the new time
     */
-   writeFormatLog(3, "Calling completed integrator step with time = %.f in zone = %s",
+   writeFormatLog(3, "fmi2_import_completed_integrator_step: Calling completed integrator step with time = %.f in zone = %s",
      zone->ptrBui->time, zone->name);
     status = fmi2_import_completed_integrator_step(zone->ptrBui->fmu, fmi2_true,
       &callEventUpdate,
@@ -134,10 +134,9 @@ void ZoneExchange(
         time, zone->ptrBui->name);
     }
 
-    writeLog(3, "Setting time in EnergyPlus.");
+    writeFormatLog(3, "fmi2_import_set_time: Setting time in EnergyPlus to %.2f.", time);
     zone->ptrBui->time = time;
     status = fmi2_import_set_time(zone->ptrBui->fmu, time);
-    writeLog(3, "Returned from setting time in EnergyPlus.");
     if ( status != fmi2OK ) {
       ModelicaFormatError("Failed to set time in building FMU with name %s.",
       zone->ptrBui->name);
@@ -212,7 +211,7 @@ void ZoneExchange(
 
   /* Get out of the initialization mode if this zone is in the initial call, and if it was the last zone */
   if (initialCall && allZonesAreInitialized(zone->ptrBui)){
-    writeFormatLog(3, "Enter exit initialization mode of FMU in exchange() for zone = %s.", zone->name);
+    writeFormatLog(3, "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for zone = %s.", zone->name);
     status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
     if( status != fmi2_status_ok ){
       ModelicaFormatError("Failed to exit initialization mode for FMU with name %s in zone %s",
@@ -248,7 +247,7 @@ fmi2Status do_event_iteration(FMUZone* zone, fmi2_event_info_t *eventInfo){
   eventInfo->terminateSimulation     = fmi2_false;
   while (eventInfo->newDiscreteStatesNeeded && !eventInfo->terminateSimulation && i < nMax) {
     i++;
-    writeFormatLog(3, "*************** Doing event iteration with i = %d, zone = %s", i, zone->name);
+    writeFormatLog(3, "fmi2_import_new_discrete_states: Doing event iteration with i = %d, zone = %s", i, zone->name);
     status = fmi2_import_new_discrete_states(zone->ptrBui->fmu, eventInfo);
   }
   if (eventInfo->terminateSimulation){
