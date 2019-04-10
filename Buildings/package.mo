@@ -487,6 +487,17 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1016\">IBPSA, #1016</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
+        </td>
+        <td valign=\"top\">Propagated parameter <code>mSenFac</code> which
+                           increased the thermal capacity of the room air, such as
+                           to account for furniture.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1405\">issue 1405</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
