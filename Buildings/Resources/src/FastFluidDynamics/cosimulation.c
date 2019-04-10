@@ -246,9 +246,9 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
 				return 0;
 		}		
 		
-    Sleep(1000);
+    Sleep(10);
     if(para->outp->version==DEBUG)
-      ffd_log("read_cosim_data(): Sleep for 1000.", FFD_NORMAL);
+      ffd_log("read_cosim_data(): Sleep for 0.01s.", FFD_NORMAL);
   }
 
   if(para->outp->version==DEBUG) {
@@ -341,7 +341,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
   while(para->cosim->ffd->flag==1) {
     ffd_log("write_cosim_data(): Wait since previous data is not taken "
             "by Modelica", FFD_NORMAL);
-    Sleep(1000);
+    Sleep(10);
   }
 
   /****************************************************************************
