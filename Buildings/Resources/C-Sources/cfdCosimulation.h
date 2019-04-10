@@ -23,6 +23,7 @@
 #else /* Linux*/
 #include <dlfcn.h>  /*For load shared library*/
 #include <unistd.h> /*For Linux function*/
+#define Sleep(x) sleep(x/1000)
 #endif
 
 #ifndef _MODELICA_FFD_COMMON_H

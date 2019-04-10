@@ -54,7 +54,7 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
 
   cosim->modelica->t = (double) t0;
   cosim->modelica->dt = (double) dt;
-	cosim->modelica->lt == (double) t0;
+	cosim->modelica->lt = (double) t0;
 
   /* Copy the Modelica data to shared memory*/
   for(i=0; i<cosim->para->nSur; i++) {
@@ -151,11 +151,6 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   cosim->ffd->flag = 0;
 
   *t1 = cosim->ffd->t;
-
-  /* Add debug info*/
-/*  FILE *f = fopen("log.txt", "a+");
-  fprintf(f, "cfdExchangeData() was called at modelica time =%lf, ffd time=%lf\n",cosim->modelica->t,cosim->ffd->t);
-  fclose(f);*/
 
   return 0;
 } /* End of cfdExchangeData()*/
