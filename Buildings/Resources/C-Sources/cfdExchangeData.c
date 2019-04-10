@@ -33,7 +33,7 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
 
 	/*check if current modelica time equals to last time*/
 	/*if yes, it means cfdExchangeData() was called multiple times at one synchronization point, then directly return*/
-	if(abs(cosim->modelica->lt - (REAL) t0) < 1E-6){
+	if(abs(cosim->modelica->lt - (double) t0) < 1E-6){
     return 0;
 	}
 
@@ -49,50 +49,50 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
     if(cosim->para->ffdError==1)
       ModelicaError(cosim->ffd->msg);
     else
-      sleep(1);
+      Sleep(10);
   }
 
-  cosim->modelica->t = (REAL) t0;
-  cosim->modelica->dt = (REAL) dt;
-	cosim->modelica->lt == (REAL) t0;
+  cosim->modelica->t = (double) t0;
+  cosim->modelica->dt = (double) dt;
+	cosim->modelica->lt == (double) t0;
 
   /* Copy the Modelica data to shared memory*/
   for(i=0; i<cosim->para->nSur; i++) {
-    cosim->modelica->temHea[i] = (REAL) u[i];
+    cosim->modelica->temHea[i] = (double) u[i];
   }
 
   if(cosim->para->sha==1) {
     for(j=0; j<cosim->para->nConExtWin; j++) {
-      cosim->modelica->shaConSig[j] = (REAL) u[i+j];
-      cosim->modelica->shaAbsRad[j] = (REAL) u[i+j+cosim->para->nConExtWin];
+      cosim->modelica->shaConSig[j] = (double) u[i+j];
+      cosim->modelica->shaAbsRad[j] = (double) u[i+j+cosim->para->nConExtWin];
     }
     i = i + 2*cosim->para->nConExtWin;
   }
 
-  cosim->modelica->sensibleHeat = (REAL) u[i];
+  cosim->modelica->sensibleHeat = (double) u[i];
   i++;
 
-  cosim->modelica->latentHeat = (REAL) u[i];
+  cosim->modelica->latentHeat = (double) u[i];
   i++;
 
-  cosim->modelica->p = (REAL) u[i];
+  cosim->modelica->p = (double) u[i];
   i++;
 
   for(j=0; j<cosim->para->nPorts; j++) {
-    cosim->modelica->mFloRatPor[j] = (REAL) u[i+j];
-    cosim->modelica->TPor[j] = (REAL) u[i+j+cosim->para->nPorts];
+    cosim->modelica->mFloRatPor[j] = (double) u[i+j];
+    cosim->modelica->TPor[j] = (double) u[i+j+cosim->para->nPorts];
   }
 
   i = i + 2*cosim->para->nPorts;
   for(j=0; j<cosim->para->nPorts; j++)
     for(k=0; k<cosim->para->nXi; k++) {
-      cosim->modelica->XiPor[j][k] = (REAL) u[i+j*cosim->para->nXi+k];
+      cosim->modelica->XiPor[j][k] = (double) u[i+j*cosim->para->nXi+k];
     }
 
   i = i + cosim->para->nPorts*cosim->para->nXi;
   for(j=0; j<cosim->para->nPorts; j++)
     for(k=0; k<cosim->para->nC; k++) {
-      cosim->modelica->CPor[j][k] = (REAL) u[i+j*cosim->para->nC+k];
+      cosim->modelica->CPor[j][k] = (double) u[i+j*cosim->para->nC+k];
     }
 
   /* Set the flag to new data*/
@@ -106,7 +106,7 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
     if(cosim->para->ffdError==1)
       ModelicaError(cosim->ffd->msg);
     else
-      sleep(1);
+      Sleep(10);
   }
 
   /* Get the temperature/heat flux for solid surface*/

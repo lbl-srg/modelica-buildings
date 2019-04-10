@@ -20,7 +20,6 @@
 
 #if defined(_MSC_VER) || defined(__WIN32__) /* Windows */
 #include <windows.h>
-#define sleep(x) Sleep(1000*x)
 #else /* Linux*/
 #include <dlfcn.h>  /*For load shared library*/
 #include <unistd.h> /*For Linux function*/
