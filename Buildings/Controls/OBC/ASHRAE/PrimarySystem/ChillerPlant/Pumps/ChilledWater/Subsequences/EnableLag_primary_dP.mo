@@ -5,7 +5,7 @@ block EnableLag_primary_dP
   parameter Integer nPum_nominal(final max = nPum, final min = 0) = 1
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(final min=1e-6)
+  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(final min=1e-6)=0.5
     "Total plant design chilled water flow rate"
     annotation (Dialog(group="Nominal conditions"));
 

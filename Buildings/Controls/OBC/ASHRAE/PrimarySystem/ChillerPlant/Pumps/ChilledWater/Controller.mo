@@ -17,18 +17,18 @@ block Controller
   parameter Integer nPum_nominal=1
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal
+  parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(final min=1e-6)=0.5
     "Total plant design chilled water flow rate"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Time offTimThr=180
     "Threshold to check lead chiller off time"
-    annotation (Dialog(group="Enable dedicate lead pump"), enable=not isHeadered);
+    annotation (Dialog(group="Enable dedicate lead pump", enable=not isHeadered));
   parameter Modelica.SIunits.PressureDifference minLocDp=5*6894.75
     "Minimum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(group="Pump speed control when there is local DP sensor"),enable=haveLocalSensor);
+    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=haveLocalSensor));
   parameter Modelica.SIunits.PressureDifference maxLocDp=15*6894.75
     "Maximum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(group="Pump speed control when there is local DP sensor"), enable=haveLocalSensor);
+    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=haveLocalSensor));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumPri[nPum]
     "Chiller water pump enabling priority"
@@ -85,7 +85,7 @@ block Controller
     annotation (Placement(transformation(extent={{260,-210},{280,-190}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-protected
+
   final parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_dedicated
@@ -101,6 +101,7 @@ protected
     final nPum=nPum,
     final nPum_nominal=nPum_nominal,
     final VChiWat_flow_nominal=VChiWat_flow_nominal)
+    "Enable lag pump for primary-only plants using differential pressure pump speed control"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-200,190},{-180,210}})));

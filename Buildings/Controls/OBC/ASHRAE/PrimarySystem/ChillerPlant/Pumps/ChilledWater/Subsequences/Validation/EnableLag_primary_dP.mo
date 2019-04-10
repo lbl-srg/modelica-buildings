@@ -7,18 +7,20 @@ model EnableLag_primary_dP
     final nPum=3,
     final nPum_nominal=3,
     final VChiWat_flow_nominal=0.5)
+    "Enable lag pump for primary-only plants using differential pressure pump speed control"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
     each final k=true) "Constant true"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=false) "Constant false"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=false)
+    "Constant false"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
     final amplitude=0.25,
     final freqHz=1/3600,
-    final offset=0.25)
+    final offset=0.25) "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
 equation
