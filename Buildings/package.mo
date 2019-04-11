@@ -243,7 +243,13 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
         </td>
-        </tr>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.X_pTphi
+        </td>
+        <td valign=\"top\">Added function to compute humidity mass fraction for given pressure, temperature
+                         and relative humidity.
+        </td>
+    </tr>
     </table>
     <!-- Backward compatible changes -->
     <p>
