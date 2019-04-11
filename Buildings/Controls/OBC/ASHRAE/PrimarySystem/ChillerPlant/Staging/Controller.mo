@@ -31,8 +31,6 @@ block Controller
     annotation (Placement(transformation(extent={{
     140,-10},{160,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  Subsequences.Change staChaPosDis
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   CDL.Interfaces.BooleanInput                        uWseSta "Waterside economizer status" annotation (
      Placement(transformation(extent={{-180,-160},{-140,-120}}),
         iconTransformation(extent={{-120,-110},{-100,-90}})));

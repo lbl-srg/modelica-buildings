@@ -5,11 +5,14 @@ block FailsafeCondition
   parameter Modelica.SIunits.Time delayStaCha = 15*60
   "Enable delay";
 
-  parameter Modelica.SIunits.TemperatureDifference TDiff = 1
+  parameter Modelica.SIunits.TemperatureDifference TDif = 1
   "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.PressureDifference dpDiff = 2 * 6895
-  "Offset between the chilled water pump differential static pressure and its setpoint";
+  parameter Modelica.SIunits.TemperatureDifference TDifHyst = 1
+    "Hysteresis deadband for temperature";
+
+  parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
+  "Offset between the chilled water pump Diferential static pressure and its setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrUp(
     final unit="1")
@@ -26,14 +29,14 @@ block FailsafeCondition
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Chilled water pump differential static pressure setpoint"
+    "Chilled water pump Diferential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
       iconTransformation(extent={{-120,-80},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Chilled water pump differential static pressure"
+    "Chilled water pump Diferential static pressure"
     annotation (Placement(
     transformation(extent={{-180,-140},{-140,-100}}), iconTransformation(
      extent={{-120,-100},{-100,-80}})));
@@ -64,14 +67,14 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(
-    final uLow=dpDiff,
-    final uHigh=dpDiff + dpDiff/4)
-    "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
+    final uLow=dpDif,
+    final uHigh=dpDif + dpDif/4)
+    "Checks how closely the chilled water pump Diferential pressure aproaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
-    final uLow=TDiff,
-    final uHigh=TDiff + 1)
+    final uLow=TDif,
+    final uHigh=TDif + TDifHyst)
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
@@ -93,7 +96,7 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k1=1, final k2=-1)
-                "Adder for differetial pressures"
+                "Adder for Diferetial pressures"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(

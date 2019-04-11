@@ -1,24 +1,24 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Down "Stage down conditions"
 
-  parameter Boolean hasWSE = true
-    "true = plant has a WSE, false = plant does not have WSE";
-
   parameter Modelica.SIunits.Time delayStaCha = 15*60
     "True delay period";
 
-  parameter Modelica.SIunits.TemperatureDifference TDiff = 1
+  parameter Modelica.SIunits.TemperatureDifference TDif = 1
     "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.PressureDifference dpDiff = 2 * 6895
-    "Offset between the chilled water pump differential static pressure and its setpoint";
+  parameter Modelica.SIunits.TemperatureDifference TDifHyst = 1
+    "Hysteresis deadband for temperature";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
+  parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
+    "Offset between the chilled water pump Diferential static pressure and its setpoint";
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta
     "Waterside economizer status" annotation (
      Placement(transformation(extent={{-180,-170},{-140,-130}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Chiller stage"
     annotation (Placement(transformation(extent={{-180,-200},{-140,-160}}),
         iconTransformation(extent={{-120,-110},{-100,-90}})));
@@ -60,24 +60,24 @@ block Down "Stage down conditions"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Chilled water pump differential static pressure setpoint"
+    "Chilled water pump Diferential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,10},{-140,50}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Chilled water pump differential static pressure"
+    "Chilled water pump Diferential static pressure"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
     iconTransformation(extent={{-120,10},{-100,30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
-    final unit="1") if hasWSE
+    final unit="1")
     "Predicted waterside economizer outlet temperature" annotation (Placement(
         transformation(extent={{-180,-80},{-140,-40}}), iconTransformation(
           extent={{-120,-50},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
     "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
@@ -87,14 +87,11 @@ block Down "Stage down conditions"
         iconTransformation(extent={{100,-10},{120,10}})));
 
 //protected
-  CDL.Logical.Sources.Constant noWSE(final k=true) if not hasWSE
-    "Replacement signal if plant does not have WSE"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
     final delayStaCha = delayStaCha,
-    final TDiff = TDiff,
-    final dpDiff = dpDiff)
+    final TDif = TDif,
+    final dpDif = dpDif)
     "Failsafe condition of the next lower stage"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
@@ -104,20 +101,20 @@ block Down "Stage down conditions"
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=1) if hasWSE
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=1)
     "Switches staging down rules"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
-    final uLow=TDiff,
-    final uHigh=TDiff + 1) if hasWSE
+    final uLow=TDif,
+    final uHigh=TDif + TDifHyst)
     "Checks if the predicted downstream WSE chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and1 if hasWSE "Or for staging up"
+  Buildings.Controls.OBC.CDL.Logical.And3 and1 "Or for staging up"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not0 if  hasWSE "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not0 "Logical not"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
@@ -125,28 +122,29 @@ block Down "Stage down conditions"
 
   Buildings.Controls.OBC.CDL.Continuous.Add add0(
     final k1=-1,
-    final k2=1) if hasWSE
+    final k2=1)
     "Adder for temperatures"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uHigh=0.99,
-    final uLow=0.98) if hasWSE "Checks if the signal is at its maximum"
+    final uLow=0.98) "Checks if the signal is at its maximum"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=delayStaCha, delayOnInit=true) if
-                                    hasWSE
+    final delayTime=delayStaCha, delayOnInit=true)
     "Delays a true signal"
-    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(final delayTime=delayStaCha,
-      delayOnInit=true)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+    final delayTime=delayStaCha,
+    final delayOnInit=true)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(final uLow=-0.05,
-      final uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
+    final uLow=-0.05,
+    final uHigh=0)
     "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
     annotation (Placement(transformation(extent={{-40,160},{-20,180}})));
 
@@ -199,21 +197,16 @@ equation
   connect(not1.y, and0.u2) annotation (Line(points={{-19,30},{0,30},{0,62},{18,
           62}},
         color={255,0,255}));
-  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-99,-180},{90,-180},
-          {90,0},{98,0}}, color={255,0,255}));
+  connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-99,-180},{80,-180},
+          {80,0},{98,0}}, color={255,0,255}));
   connect(not0.y, and1.u2) annotation (Line(points={{-59,-120},{0,-120},{0,-80},
           {18,-80}}, color={255,0,255}));
   connect(and1.y, truDel.u)
-    annotation (Line(points={{41,-80},{58,-80}}, color={255,0,255}));
-  connect(truDel.y, logSwi.u3) annotation (Line(points={{81,-80},{88,-80},{88,
-          -8},{98,-8}},
-                    color={255,0,255}));
+    annotation (Line(points={{41,-80},{48,-80}}, color={255,0,255}));
+  connect(truDel.y, logSwi.u3) annotation (Line(points={{71,-80},{90,-80},{90,-8},
+          {98,-8}}, color={255,0,255}));
   connect(add.y, hysOplr.u)
     annotation (Line(points={{-59,170},{-42,170}}, color={0,0,127}));
-  connect(noWSE.y, logSwi.u2)
-    annotation (Line(points={{41,0},{98,0}}, color={255,0,255}));
-  connect(noWSE.y, logSwi.u3) annotation (Line(points={{41,0},{80,0},{80,-8},{98,
-          -8}}, color={255,0,255}));
   connect(and0.y, truDel1.u) annotation (Line(points={{41,70},{50,70},{50,30},{
           58,30}}, color={255,0,255}));
   connect(truDel1.y, logSwi.u1) annotation (Line(points={{81,30},{90,30},{90,8},

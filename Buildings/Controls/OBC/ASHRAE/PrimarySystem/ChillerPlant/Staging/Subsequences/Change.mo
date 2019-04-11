@@ -46,17 +46,17 @@ block Change "Calculates the chiller stage signal"
   parameter Modelica.SIunits.Time longDelay = 20*60
     "Long stage 0 to 1 delay";
 
-  parameter Modelica.SIunits.TemperatureDifference smallTDiff = 1
+  parameter Modelica.SIunits.TemperatureDifference smallTDif = 1
     "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.TemperatureDifference largeTDiff = 2
+  parameter Modelica.SIunits.TemperatureDifference largeTDif = 2
     "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.TemperatureDifference TDiff = 1
+  parameter Modelica.SIunits.TemperatureDifference TDif = 1
     "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.PressureDifference dpDiff = 2 * 6895
-    "Offset between the chilled water pump differential static pressure and its setpoint";
+  parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
+    "Offset between the chilled water pump Diferential static pressure and its setpoint";
 
   parameter Modelica.SIunits.Density watDen = 1000 "Water density";
 
@@ -95,14 +95,14 @@ block Change "Calculates the chiller stage signal"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Chilled water pump differential static pressure" annotation (Placement(
+    "Chilled water pump Diferential static pressure" annotation (Placement(
         transformation(extent={{-240,-170},{-200,-130}}), iconTransformation(
           extent={{-120,-70},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Chilled water pump differential static pressure setpoint" annotation (
+    "Chilled water pump Diferential static pressure setpoint" annotation (
       Placement(transformation(extent={{-240,-140},{-200,-100}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
 
@@ -193,20 +193,19 @@ block Change "Calculates the chiller stage signal"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Up staUp(
     final delayStaCha = delayStaCha,
-    final TDiff = TDiff,
-    final dpDiff = dpDiff,
-    final hasWSE = hasWSE,
+    final TDif = TDif,
+    final dpDif = dpDif,
     final shortDelay = shortDelay,
     final longDelay = longDelay,
-    final smallTDiff = smallTDiff,
-    final largeTDiff = largeTDiff) "Stage up conditions"
+    final smallTDif = smallTDif,
+    final largeTDif = largeTDif) "Stage up conditions"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Down staDow(
     final hasWSE = hasWSE,
     final delayStaCha = delayStaCha,
-    final TDiff = TDiff,
-    final dpDiff = dpDiff) "Stage down conditions"
+    final TDif = TDif,
+    final dpDif = dpDif) "Stage down conditions"
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt1(
@@ -329,16 +328,16 @@ equation
           250,4},{258,4}},   color={255,127,0}));
   connect(addInt.y, addInt1.u2) annotation (Line(points={{151,-110},{160,-110},
           {160,-76},{178,-76}},color={255,127,0}));
-  connect(reaToInt.y, addInt1.u1) annotation (Line(points={{361,130},{368,130},
-          {368,148},{160,148},{160,-64},{178,-64}}, color={255,127,0}));
+  connect(reaToInt.y, addInt1.u1) annotation (Line(points={{361,130},{368,130},{
+          368,150},{160,150},{160,-64},{178,-64}},  color={255,127,0}));
   connect(reaToInt.y, staUp.uChiSta) annotation (Line(points={{361,130},{372,130},
-          {372,150},{10,150},{10,0},{19,0}},      color={255,127,0}));
+          {372,152},{10,152},{10,0},{19,0}},      color={255,127,0}));
   connect(reaToInt.y, PLRs.uSta) annotation (Line(points={{361,130},{378,130},{378,
-          150},{-90,150},{-90,-1},{-81,-1}},     color={255,127,0}));
+          154},{-90,154},{-90,-1},{-81,-1}},     color={255,127,0}));
   connect(reaToInt.y, staCap.uSta) annotation (Line(points={{361,130},{382,130},
-          {382,150},{-150,150},{-150,-70},{-142,-70}}, color={255,127,0}));
-  connect(reaToInt.y, staDow.uChiSta) annotation (Line(points={{361,130},{386,
-          130},{386,154},{10,154},{10,-120},{19,-120}}, color={255,127,0}));
+          {382,156},{-150,156},{-150,-70},{-142,-70}}, color={255,127,0}));
+  connect(reaToInt.y, staDow.uChiSta) annotation (Line(points={{361,130},{386,130},
+          {386,160},{8,160},{8,-120},{19,-120}},        color={255,127,0}));
   connect(addInt.y, y) annotation (Line(points={{151,-110},{400,-110},{400,-40},
           {430,-40}},color={255,127,0}));
   connect(maxInt.y, intToRea.u)
@@ -360,6 +359,8 @@ equation
     annotation (Line(points={{221,180},{238,180}},           color={0,0,127}));
   connect(zerOrdHol.y, reaToInt.u) annotation (Line(points={{261,180},{297.5,
           180},{297.5,130},{338,130}}, color={0,0,127}));
+  connect(staCap.higSta, staUp.uHigSta) annotation (Line(points={{-119,-79},{10,
+          -79},{10,-2},{19,-2}}, color={255,0,255}));
   annotation (defaultComponentName = "staCha",
         Icon(graphics={
         Rectangle(

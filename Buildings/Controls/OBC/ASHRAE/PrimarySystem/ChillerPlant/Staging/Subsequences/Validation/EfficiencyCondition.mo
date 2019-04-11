@@ -9,8 +9,8 @@ model EfficiencyCondition "Validate efficiency condition sequence"
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine oplr(
     final amplitude=0.1,
-    phase(displayUnit="rad"),
-    startTime=0,
+    final phase(displayUnit="rad"),
+    final startTime=0,
     final offset=0.85,
     final freqHz=1/2100) "Operating part load ratio of the current stage"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
