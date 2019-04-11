@@ -152,7 +152,7 @@ block Change "Calculates the chiller stage signal"
     final max=1,
     final min=-1)
     "Stage change signal"
-    annotation (Placement(transformation(extent={{340,-50},{360,-30}}),
+    annotation (Placement(transformation(extent={{420,-50},{440,-30}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
@@ -160,7 +160,7 @@ block Change "Calculates the chiller stage signal"
     final max=nSta,
     final min=0)
     "Chiller stage"
-    annotation (Placement(transformation(extent={{340,30},{360,50}}),
+    annotation (Placement(transformation(extent={{420,30},{440,50}}),
       iconTransformation(extent={{100,40},{120,60}})));
 
 //protected
@@ -232,18 +232,18 @@ block Change "Calculates the chiller stage signal"
     "Type converter"
     annotation (Placement(transformation(extent={{290,0},{310,20}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
-    final samplePeriod=1)
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(final
+      samplePeriod=1)
     "Stage change delay"
-    annotation (Placement(transformation(extent={{220,120},{240,140}})));
+    annotation (Placement(transformation(extent={{240,170},{260,190}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Type converter"
-    annotation (Placement(transformation(extent={{260,120},{280,140}})));
+    annotation (Placement(transformation(extent={{340,120},{360,140}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam2
+  CDL.Discrete.Sampler                                 sam(samplePeriod=1)
     "Triggered sampler"
-    annotation (Placement(transformation(extent={{280,80},{300,100}})));
+    annotation (Placement(transformation(extent={{200,170},{220,190}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Type converter"
@@ -253,30 +253,6 @@ block Change "Calculates the chiller stage signal"
     "Type converter"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
-  CDL.Conversions.BooleanToReal booToRea[nSta](realTrue=fill(0, nSta),
-      realFalse=fill(1, nSta))
-    "Negated state availability signal (true if stage unavailable)"
-    annotation (Placement(transformation(extent={{80,100},{100,120}})));
-  CDL.Routing.RealExtractor                        extStaLowCap(final
-      outOfRangeValue=-1, final nin=nSta)
-    "Extracts the nominal capacity of one stage lower than the current stage"
-    annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  CDL.Conversions.RealToInteger reaToInt1
-    annotation (Placement(transformation(extent={{170,70},{190,90}})));
-  CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{262,40},{282,60}})));
-  CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{232,60},{252,80}})));
-  CDL.Logical.Or or1
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=delayStaCha,
-      falseHoldDuration=delayStaCha)
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  CDL.Integers.Change cha
-    annotation (Placement(transformation(extent={{200,70},{220,90}})));
-  CDL.Logical.Change
-                   cha1
-    annotation (Placement(transformation(extent={{180,30},{200,50}})));
 equation
   connect(staCap.yStaNom,PLRs. uStaCapNom) annotation (Line(points={{-119,-63},{
           -94,-63},{-94,-5},{-81,-5}}, color={0,0,127}));
@@ -284,10 +260,11 @@ equation
           {-92,-67},{-92,-7},{-81,-7}},      color={0,0,127}));
   connect(staCap.yStaDowNom,PLRs. uStaDowCapNom) annotation (Line(points={{-119,
           -71},{-90,-71},{-90,-9},{-81,-9}}, color={0,0,127}));
-  connect(staCap.yStaUpMin,PLRs. uStaUpCapMin) annotation (Line(points={{-119,-76},
-          {-86,-76},{-86,-11},{-81,-11}}, color={0,0,127}));
-  connect(staCap.yStaMin,PLRs. uStaCapMin) annotation (Line(points={{-119,-78},{
-          -84,-78},{-84,-13},{-81,-13}}, color={0,0,127}));
+  connect(staCap.yStaUpMin,PLRs. uStaUpCapMin) annotation (Line(points={{-119,
+          -75},{-86,-75},{-86,-11},{-81,-11}},
+                                          color={0,0,127}));
+  connect(staCap.yStaMin,PLRs. uStaCapMin) annotation (Line(points={{-119,-77},
+          {-84,-77},{-84,-13},{-81,-13}},color={0,0,127}));
   connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-119,-10},{-100,-10},
           {-100,-3},{-81,-3}}, color={0,0,127}));
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-220,90},
@@ -332,8 +309,8 @@ equation
           -6,-150},{-6,3},{19,3}}, color={0,0,127}));
   connect(uTowFanSpeMax, staDow.uTowFanSpeMax) annotation (Line(points={{-220,-260},
           {-4,-260},{-4,-116},{19,-116}}, color={0,0,127}));
-  connect(uWseSta, staDow.uWseSta) annotation (Line(points={{-220,130},{2,130},{
-          2,-118},{19,-118}},  color={255,0,255}));
+  connect(uWseSta, staDow.uWseSta) annotation (Line(points={{-220,130},{0,130},
+          {0,-118},{19,-118}}, color={255,0,255}));
   connect(uLifMax, PLRs.uLifMax) annotation (Line(points={{-220,-10},{-190,-10},
           {-190,-24},{-110,-24},{-110,-18},{-81,-18}}, color={0,0,127}));
   connect(uLifMin, PLRs.uLifMin) annotation (Line(points={{-220,-40},{-190,-40},
@@ -350,26 +327,25 @@ equation
           16},{258,16}}, color={255,127,0}));
   connect(minInt.y, maxInt.u2) annotation (Line(points={{241,-40},{250,-40},{
           250,4},{258,4}},   color={255,127,0}));
-  connect(zerOrdHol.y, reaToInt.u)
-    annotation (Line(points={{241,130},{258,130}}, color={0,0,127}));
   connect(addInt.y, addInt1.u2) annotation (Line(points={{151,-110},{160,-110},
           {160,-76},{178,-76}},color={255,127,0}));
-  connect(reaToInt.y, addInt1.u1) annotation (Line(points={{281,130},{290,130},
-          {290,150},{160,150},{160,-64},{178,-64}}, color={255,127,0}));
-  connect(reaToInt.y, staUp.uChiSta) annotation (Line(points={{281,130},{290,
-          130},{290,150},{10,150},{10,0},{19,0}}, color={255,127,0}));
-  connect(reaToInt.y, PLRs.uSta) annotation (Line(points={{281,130},{290,130},{
-          290,150},{-90,150},{-90,-1},{-81,-1}}, color={255,127,0}));
-  connect(reaToInt.y, staCap.uSta) annotation (Line(points={{281,130},{290,130},
-          {290,150},{-150,150},{-150,-70},{-142,-70}}, color={255,127,0}));
-  connect(reaToInt.y, staDow.uChiSta) annotation (Line(points={{281,130},{290,
-          130},{290,150},{10,150},{10,-120},{19,-120}}, color={255,127,0}));
-  connect(addInt.y, y) annotation (Line(points={{151,-110},{320,-110},{320,-40},
-          {350,-40}},color={255,127,0}));
+  connect(reaToInt.y, addInt1.u1) annotation (Line(points={{361,130},{368,130},
+          {368,148},{160,148},{160,-64},{178,-64}}, color={255,127,0}));
+  connect(reaToInt.y, staUp.uChiSta) annotation (Line(points={{361,130},{372,130},
+          {372,150},{10,150},{10,0},{19,0}},      color={255,127,0}));
+  connect(reaToInt.y, PLRs.uSta) annotation (Line(points={{361,130},{378,130},{378,
+          150},{-90,150},{-90,-1},{-81,-1}},     color={255,127,0}));
+  connect(reaToInt.y, staCap.uSta) annotation (Line(points={{361,130},{382,130},
+          {382,150},{-150,150},{-150,-70},{-142,-70}}, color={255,127,0}));
+  connect(reaToInt.y, staDow.uChiSta) annotation (Line(points={{361,130},{386,
+          130},{386,154},{10,154},{10,-120},{19,-120}}, color={255,127,0}));
+  connect(addInt.y, y) annotation (Line(points={{151,-110},{400,-110},{400,-40},
+          {430,-40}},color={255,127,0}));
   connect(maxInt.y, intToRea.u)
     annotation (Line(points={{281,10},{288,10}}, color={255,127,0}));
-  connect(intToRea.y, triSam2.u) annotation (Line(points={{311,10},{320,10},{
-          320,68},{272,68},{272,90},{278,90}}, color={0,0,127}));
+  connect(intToRea.y, sam.u) annotation (Line(points={{311,10},{320,10},{320,
+          106},{180,106},{180,180},{198,180}},
+                                          color={0,0,127}));
   connect(staUp.y, booToInt1.u) annotation (Line(points={{41,10},{50,10},{50,
           -40},{78,-40}}, color={255,0,255}));
   connect(booToInt1.y, addInt.u1) annotation (Line(points={{101,-40},{120,-40},
@@ -378,40 +354,12 @@ equation
           50,-70},{78,-70}}, color={255,0,255}));
   connect(booToInt.y, addInt.u2) annotation (Line(points={{101,-70},{110,-70},{
           110,-116},{128,-116}}, color={255,127,0}));
-  connect(triSam2.y, zerOrdHol.u) annotation (Line(points={{301,90},{320,90},{
-          320,110},{200,110},{200,130},{218,130}}, color={0,0,127}));
-  connect(reaToInt.y, ySta) annotation (Line(points={{281,130},{336,130},{336,
-          40},{350,40}}, color={255,127,0}));
-  connect(uStaAva, booToRea.u) annotation (Line(points={{-220,160},{70,160},{70,
-          110},{78,110}}, color={255,0,255}));
-  connect(reaToInt.y, extStaLowCap.index) annotation (Line(points={{281,130},{
-          292,130},{292,160},{150,160},{150,90},{130,90},{130,98}}, color={255,
-          127,0}));
-  connect(booToRea.y, extStaLowCap.u)
-    annotation (Line(points={{101,110},{118,110}}, color={0,0,127}));
-  connect(extStaLowCap.y, reaToInt1.u) annotation (Line(points={{141,110},{156,
-          110},{156,80},{168,80}}, color={0,0,127}));
-  connect(staUp.y, or1.u1) annotation (Line(points={{41,10},{50,10},{50,30},{78,
-          30}}, color={255,0,255}));
-  connect(staDow.y, or1.u2) annotation (Line(points={{41,-110},{60,-110},{60,22},
-          {78,22}}, color={255,0,255}));
-  connect(or1.y, truFalHol.u)
-    annotation (Line(points={{101,30},{119,30}}, color={255,0,255}));
-  connect(reaToInt1.y, cha.u)
-    annotation (Line(points={{191,80},{198,80}}, color={255,127,0}));
-  connect(staUp.y, and2.u2) annotation (Line(points={{41,10},{172,10},{172,60},
-          {202,60},{202,62},{230,62}},
-                         color={255,0,255}));
-  connect(and2.y, or2.u1) annotation (Line(points={{253,70},{258,70},{258,50},{
-          260,50}}, color={255,0,255}));
-  connect(or2.y, triSam2.trigger) annotation (Line(points={{283,50},{288,50},{
-          288,78.2},{290,78.2}}, color={255,0,255}));
-  connect(truFalHol.y, cha1.u) annotation (Line(points={{141,30},{166,30},{166,
-          40},{178,40}}, color={255,0,255}));
-  connect(cha1.y, or2.u2) annotation (Line(points={{201,40},{234,40},{234,42},{
-          260,42}}, color={255,0,255}));
-  connect(cha.y, and2.u1) annotation (Line(points={{221,80},{224,80},{224,70},{
-          230,70}}, color={255,0,255}));
+  connect(reaToInt.y, ySta) annotation (Line(points={{361,130},{400,130},{400,40},
+          {430,40}},     color={255,127,0}));
+  connect(sam.y, zerOrdHol.u)
+    annotation (Line(points={{221,180},{238,180}},           color={0,0,127}));
+  connect(zerOrdHol.y, reaToInt.u) annotation (Line(points={{261,180},{297.5,
+          180},{297.5,130},{338,130}}, color={0,0,127}));
   annotation (defaultComponentName = "staCha",
         Icon(graphics={
         Rectangle(
@@ -424,7 +372,7 @@ equation
           lineColor={0,0,255},
           textString="%name")}),          Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-200,-280},{340,200}})),
+        extent={{-200,-280},{420,240}})),
 Documentation(info="<html>
 <p>
 Outputs the chiller stage change signal
