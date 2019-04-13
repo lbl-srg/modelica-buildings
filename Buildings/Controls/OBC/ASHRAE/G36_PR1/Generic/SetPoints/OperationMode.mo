@@ -110,11 +110,11 @@ block OperationMode "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "If all zone temperature are higher than unoccupied heating setpoint
-    by bouLim, then the setback mode should be off."
+    by bouLim, then the setback mode should be off"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "If all zone temperature are higher than TZonFreProOff, then freeze
-    protection setback mode should be off."
+    protection setback mode should be off"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum sum2(final nin=numZon)
     "Sum up number of zones that have temperature being higher than setpoint"
@@ -143,11 +143,11 @@ block OperationMode "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{420,-70},{440,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro[numZon]
     "Decide if the cool down time of one zone should be ignored: if window
-    open, then output zero, otherwise, output cooDowTim[zone] "
+    open, then output zero, otherwise, output cooDowTim[zone]"
     annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro1[numZon]
     "Decide if the warm-up time of one zone should be ignored: if window
-    open, then output zero, otherwise, output warUpTim[zone] "
+    open, then output zero, otherwise, output warUpTim[zone]"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k1=+1,
@@ -165,15 +165,14 @@ block OperationMode "Block that outputs the operation mode"
     pre_y_start=true,
     uHigh=0,
     uLow=-60)
-    "Whether or not the maximum cool-down time is more than allowed
-    cool-down time, with deadband range of 20 seconds"
+    "Hysteresis that outputs whether the maximum cool-down time is more than the allowed cool-down time"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     pre_y_start=true,
     uHigh=0,
     uLow=-60)
-    "Whether or not the maximum warm-up time is more than allowed warm-up
-    time, with deadband range of 20 seconds"
+    "Hysteresis that outputs whether or not the maximum warm-up time is more than allowed warm-up
+    time"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add5(
     final k1=-1,
@@ -185,15 +184,13 @@ block OperationMode "Block that outputs the operation mode"
     pre_y_start=false,
     uHigh=0,
     uLow=-60)
-    "Whether or not the cool-down model should be activated, with deadband
-    range of 20 s"
+    "Hysteresis to activate the cool-down model"
     annotation (Placement(transformation(extent={{100,180},{120,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
     pre_y_start=false,
     uHigh=0,
     uLow=-60)
-    "Whether or not the warm-up model should be activated, with deadband
-    range of 20 s"
+    "Hysteresis to activate the warm-up model"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add6(
     final k1=-1,
@@ -989,6 +986,11 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/Generic/
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+April 13, 2019, by Michael Wetter:<br/>
+Corrected wrong time in the documentation of the parameters.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1409\">#1409</a>.
+</li>
 <li>
 June 19, 2017, by Jianjun Hu:<br/>
 First implementation.
