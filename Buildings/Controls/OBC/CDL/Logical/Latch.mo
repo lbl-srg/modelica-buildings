@@ -95,17 +95,17 @@ annotation (defaultComponentName="lat",
           lineColor={0,0,255},
           textString="%name")}),Documentation(info="<html>
 <p>
-The block maintains a <code>true</code> output signal until clear input <code>u0</code>
+Block that maintains a <code>true</code> output signal until clear input <code>u0</code>
 becomes <code>true</code>. For instance,
 </p>
 <ul>
 <li>
-If the clear input <code>u0</code> is <code>false</code>, when latch input <code>u</code>
-becomes <code>true</code>, output <code>y</code> becomes <code>true</code> 
+Suppose the clear input <code>u0</code> is <code>false</code>. When the latch input <code>u</code>
+becomes <code>true</code>, then the output <code>y</code> becomes <code>true</code>
 and remains <code>true</code>, even if <code>u</code> becomes <code>false</code>.
 </li>
 <li>
-If the clear input <code>u0</code> is <code>true</code>, the output <code>y</code> keeps
+If the clear input <code>u0</code> is <code>true</code>, the output <code>y</code> remains
 <code>false</code>.
 </li>
 </ul>

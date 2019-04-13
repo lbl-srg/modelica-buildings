@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block Toggle "Toggles output value whenever its input turns on"
+block Toggle "Toggles output value whenever its input turns true"
 
   parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
@@ -101,14 +101,14 @@ annotation (defaultComponentName="tog",
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-The block toggles output value whenever its input turns on. For instance,
+Block that toggles the output value whenever its input turns <code>true</code>. For instance,
 </p>
 <ul>
 <li>
-If the clear input <code>u0</code> is <code>false</code>, when the <code>toggle</code> input <code>u</code> 
-becomes <code>true</code>, the output <code>y</code> becomes <code>true</code> and 
-remains <code>true</code> when <code>u</code> turns <code>false</code> again.
-When <code>u</code> turns back <code>true</code>, <code>y</code> becomes <code>false</code>.
+Suppose the clear input <code>u0</code> is <code>false</code>. When the toggle input <code>u</code>
+becomes <code>true</code>, the output <code>y</code> becomes <code>true</code> and
+remains <code>true</code> even when <code>u</code> turns <code>false</code> again.
+When <code>u</code> turns back to <code>true</code>, then <code>y</code> becomes <code>false</code>.
 </li>
 <li>
 If the clear input <code>u0</code> is <code>true</code>, the output <code>y</code> 
@@ -122,26 +122,26 @@ The table below shows the different scenarios.
 
 <table summary=\"summary\" border=\"1\">
 <tr><th> Scenario </th>
-<th> <code>u0</code> input <code>u0</code> </th><th> <code>toggle</code> input <code>u</code> </th>
-<th> output <code>y</code> </th><th> Description </th>
+<th>input <code>u0</code> </th><th> toggle input <code>u</code></th>
+<th>output <code>y</code> </th><th>Description</th>
 </tr>
 <tr><td> 1 </td><td> <code>false</code> </td><td> from <code>false</code> to <code>true</code> </td><td> <code>true</code> </td>
-<td>If <code>u0</code> <code>false</code>, <code>toggle</code> switches from <code>false</code> to <code>true</code>, previous output is <code>false</code>, then output <code>true</code>.</td></tr>
+<td>If <code>u0</code> <code>false</code>, toggle switches from <code>false</code> to <code>true</code>, previous output is <code>false</code>, then output <code>true</code>.</td></tr>
 
 <tr><td> 2 </td><td> <code>false</code> </td><td> from <code>false</code> to <code>true</code> </td><td> <code>false</code> </td>
-<td>If <code>u0</code> <code>false</code>, <code>toggle</code> switches from <code>false</code> to <code>true</code>, previous output is <code>true</code>, then output <code>false</code>.</td></tr>
+<td>If <code>u0</code> <code>false</code>, toggle switches from <code>false</code> to <code>true</code>, previous output is <code>true</code>, then output <code>false</code>.</td></tr>
 
 <tr><td> 3 </td><td> <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td><td> <code>false</code> </td>
-<td>If <code>u0</code> <code>false</code>, <code>toggle</code> switches from <code>true</code> to <code>false</code>, previous output is <code>false</code>, then remain output <code>false</code>.</td></tr>
+<td>If <code>u0</code> <code>false</code>, toggle switches from <code>true</code> to <code>false</code>, previous output is <code>false</code>, then remain output <code>false</code>.</td></tr>
 
 <tr><td> 4 </td><td> <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td><td> <code>true</code> </td>
-<td>If <code>u0</code> <code>false</code>, <code>toggle</code> switches from <code>true</code> to <code>false</code>, previous output is <code>true</code>, then remain output <code>true</code>.</td></tr>
+<td>If <code>u0</code> <code>false</code>, toggle switches from <code>true</code> to <code>false</code>, previous output is <code>true</code>, then remain output <code>true</code>.</td></tr>
 
 <tr><td> 5 </td><td> <code>false</code> </td><td>  <code>false</code> </td><td> <code>false</code> </td>
-<td>Initially, if <code>u0</code> <code>false</code> and <code>toggle</code> <code>false</code>, then output <code>false</code>.</td></tr>
+<td>Initially, if <code>u0</code> <code>false</code> and toggle <code>false</code>, then output <code>false</code>.</td></tr>
 
 <tr><td> 6 </td><td> <code>false</code> </td><td>  <code>true</code> </td><td> <code>true</code> </td>
-<td>Initially, if <code>u0</code> <code>false</code> and <code>toggle</code> <code>true</code>, then output <code>true</code>.</td></tr>
+<td>Initially, if <code>u0</code> <code>false</code> and toggle <code>true</code>, then output <code>true</code>.</td></tr>
 
 <tr><td> 7 </td><td> <code>true</code> </td><td>  <code>true</code> or <code>false</code> </td><td> <code>false</code> </td>
 <td>If <code>u0</code> <code>true</code>, then output <code>false</code>.</td></tr>
