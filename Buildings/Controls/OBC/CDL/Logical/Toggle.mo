@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Toggle "Toggles output value whenever its input turns true"
 
-  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
+  parameter Boolean pre_u_start=false "Value of pre(u) at initial time";
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
   Interfaces.BooleanInput u "Toggle input"
@@ -117,37 +117,45 @@ keeps <code>false</code>.
 </ul>
 
 <p>
-The table below shows the different scenarios.
+The table below shows the different scenarios during the simulation (after the initialization).
 </p>
 
 <table summary=\"summary\" border=\"1\">
 <tr><th> Scenario </th>
 <th>input <code>u0</code> </th><th> toggle input <code>u</code></th>
-<th>output <code>y</code> </th><th>Description</th>
+<th>previous output <code>pre(y)</code> </th><th>New output <code>y</code></th>
 </tr>
 <tr><td> 1 </td><td> <code>false</code> </td><td> from <code>false</code> to <code>true</code> </td><td> <code>true</code> </td>
-<td>If <code>u0</code> <code>false</code>, toggle switches from <code>false</code> to <code>true</code>, previous output is <code>false</code>, then output <code>true</code>.</td></tr>
+<td><code>true</code></td></tr>
 
 <tr><td> 2 </td><td> <code>false</code> </td><td> from <code>false</code> to <code>true</code> </td><td> <code>false</code> </td>
-<td>If <code>u0</code> <code>false</code>, toggle switches from <code>false</code> to <code>true</code>, previous output is <code>true</code>, then output <code>false</code>.</td></tr>
+<td><code>false</code></td></tr>
 
 <tr><td> 3 </td><td> <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td><td> <code>false</code> </td>
-<td>If <code>u0</code> <code>false</code>, toggle switches from <code>true</code> to <code>false</code>, previous output is <code>false</code>, then remain output <code>false</code>.</td></tr>
+<td><code>false</code></td></tr>
 
 <tr><td> 4 </td><td> <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td><td> <code>true</code> </td>
-<td>If <code>u0</code> <code>false</code>, toggle switches from <code>true</code> to <code>false</code>, previous output is <code>true</code>, then remain output <code>true</code>.</td></tr>
+<td><code>true</code></td></tr>
 
-<tr><td> 5 </td><td> <code>false</code> </td><td>  <code>false</code> </td><td> <code>false</code> </td>
-<td>Initially, if <code>u0</code> <code>false</code> and toggle <code>false</code>, then output <code>false</code>.</td></tr>
-
-<tr><td> 6 </td><td> <code>false</code> </td><td>  <code>true</code> </td><td> <code>true</code> </td>
-<td>Initially, if <code>u0</code> <code>false</code> and toggle <code>true</code>, then output <code>true</code>.</td></tr>
 
 <tr><td> 7 </td><td> <code>true</code> </td><td>  <code>true</code> or <code>false</code> </td><td> <code>false</code> </td>
-<td>If <code>u0</code> <code>true</code>, then output <code>false</code>.</td></tr>
+<td><code>false</code></td></tr>
 
 </table>
-<br/>
+<p>
+At initial time, the behavior is as follows:
+</p>
+<table summary=\"summary\" border=\"1\">
+<tr><th> Scenario </th>
+<th>input <code>u0</code> </th><th> toggle input <code>u</code></th>
+<th>previous output <code>pre(y)</code> </th><th>New output <code>y</code></th>
+</tr>
+<tr><td> 5 </td><td> <code>false</code> </td><td>  <code>false</code> </td><td> <code>false</code> </td>
+<td><code>false</code></td></tr>
+
+<tr><td> 6 </td><td> <code>false</code> </td><td>  <code>true</code> </td><td> <code>true</code> </td>
+<td><code>true</code></td></tr>
+</table>
 
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Toggle.png\"
