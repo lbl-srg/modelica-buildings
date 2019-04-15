@@ -49,8 +49,8 @@ block RoomVAV "Controller for room VAV box"
     k=0.1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    yMin=0.1,
-    reverseAction=true)
+    reverseAction=true,
+    yMin=0)
     "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 protected

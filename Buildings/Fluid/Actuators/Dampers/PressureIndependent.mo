@@ -59,10 +59,12 @@ initial equation
     m_flow_nominal^2 / dpFixed_nominal else 0
     "Flow coefficient of fixed resistance in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 equation
-  dp_0 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-    m_flow=y_actual * m_flow_nominal * (1 + c_regul),
-    k=kTot_0,
-    m_flow_turbulent=m_flow_turbulent);
+  dp_0 = max(dp_1 + 2 * dp_small,
+    Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+      m_flow=y_actual * m_flow_nominal * (1 + c_regul),
+      k=kTot_0,
+      m_flow_turbulent=m_flow_turbulent)
+  );
   dp_1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=y_actual * m_flow_nominal,
     k=kTot_1,
