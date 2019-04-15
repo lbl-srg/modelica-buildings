@@ -50,7 +50,7 @@ protected
   Real kThetaSqRt "Square root of damper loss coefficient, with unit (-)";
   Modelica.SIunits.PressureDifference dp_0;
   Modelica.SIunits.PressureDifference dp_1;
-  parameter Modelica.SIunits.PressureDifference dp_small = 1E-4 * dp_nominal_pos;
+  parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dp_nominal_pos;
   parameter Real c_regul = 1E-2 "Regularization coefficient";
   Modelica.SIunits.PressureDifference dpDam
     "Pressure drop at damper boundaries, excluding fixed resistance";
@@ -128,7 +128,7 @@ equation
           dp_der=1,
           dp_der2=0))
     else
-      // leakage (damper fully closed)
+      // if dp >= dp_0 then leakage (damper fully closed)
       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
         dp=dp,
         k=kTot_0,
