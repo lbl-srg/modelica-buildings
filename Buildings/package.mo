@@ -243,7 +243,13 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
         </td>
-        </tr>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.X_pTphi
+        </td>
+        <td valign=\"top\">Added function to compute humidity mass fraction for given pressure, temperature
+                         and relative humidity.
+        </td>
+    </tr>
     </table>
     <!-- Backward compatible changes -->
     <p>
@@ -501,6 +507,17 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Corrected missing propagation of initial conditions.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1016\">IBPSA, #1016</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
+        </td>
+        <td valign=\"top\">Propagated parameter <code>mSenFac</code> which
+                           increased the thermal capacity of the room air, such as
+                           to account for furniture.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1405\">issue 1405</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
