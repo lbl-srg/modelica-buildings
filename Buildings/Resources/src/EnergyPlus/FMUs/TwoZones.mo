@@ -4,15 +4,15 @@ model TwoZones "Model of two thermal zones"
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps, start=0.1) = 60
     "Sample period of component";
 
-  parameter Modelica.SIunits.Volume Core_ZN_V = 3*4*3 "Volume";
-  parameter Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
-  parameter Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
+  output Modelica.SIunits.Volume Core_ZN_V = 3*4*3 "Volume";
+  output Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
+  output Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
   //parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T_start = 20
   //  "Initial temperature of zone air";
 
-  parameter Modelica.SIunits.Volume South_ZN_V = 3*4*3 "Volume";
-  parameter Modelica.SIunits.Area South_ZN_AFlo = 3*4 "Floor area";
-  parameter Real South_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
+  output Modelica.SIunits.Volume South_ZN_V = 3*4*3 "Volume";
+  output Modelica.SIunits.Area South_ZN_AFlo = 3*4 "Floor area";
+  output Real South_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
   //parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC South_ZN_T_start = 20
   //  "Initial temperature of zone air";
 

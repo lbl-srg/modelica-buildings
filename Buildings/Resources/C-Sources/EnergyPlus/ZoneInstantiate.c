@@ -105,17 +105,24 @@ void ZoneInstantiate(void* object, double startTime, double* AFlo, double* V, do
         0);                   /* stopTime */
     if( status != fmi2_status_ok ){
       ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
+   }
+    /* Enter initialization mode, because getting parameters is only
+       allowed in the initialization mode, see FMU state diagram in standard */
+    writeFormatLog(3, "fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.",
+      zone->ptrBui->fmuAbsPat);
+    status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
+    if( status != fmi2_status_ok ){
+      ModelicaFormatError("Failed to enter initialization mode for FMU with name %s for zone %s.",
+      zone->ptrBui->fmuAbsPat, zone->name);
     }
+    setFMUMode(zone->ptrBui, initializationMode);
   }
-  /* parValToSet[0] = T_start;
-  setParametersInEnergyPlus(zone, parValToSet);
-  */
   getParametersFromEnergyPlus(zone, outputValues);
 
-   /* Assign the floor area and the volume of the zone */
-    *V = outputValues[0];
-    *AFlo = outputValues[1];
-    *mSenFac = outputValues[2];
+  /* Assign the floor area and the volume of the zone */
+  *V = outputValues[0];
+  *AFlo = outputValues[1];
+  *mSenFac = outputValues[2];
 
   /* Set flag to indicate that this zone has been properly initialized */
   zone->isInstantiated = fmi2True;
