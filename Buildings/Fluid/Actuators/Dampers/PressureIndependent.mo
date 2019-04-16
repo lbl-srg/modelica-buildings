@@ -54,8 +54,8 @@ protected
   parameter Real c_regul = 1E-2 "Regularization coefficient";
   Modelica.SIunits.PressureDifference dpDam
     "Pressure drop at damper boundaries, excluding fixed resistance";
-  parameter Integer sizeSupSplBnd = 4;
-  parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3;
+  parameter Integer sizeSupSplBnd = 4 "Number of support points on each quadratic domain for spline interpolation";
+  parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3 "Total number of support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl_raw = cat(
     1,
     linspace(1, yU, sizeSupSplBnd),
