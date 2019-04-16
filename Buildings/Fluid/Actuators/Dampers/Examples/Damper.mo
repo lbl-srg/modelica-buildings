@@ -81,7 +81,8 @@ model Damper
     m_flow_nominal=1,
     use_deltaM=false,
     dpFixed_nominal=20,
-    dp_nominal=5)
+    dp_nominal=5,
+    use_inputFilter=false)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{-4,-136},{16,-116}})));
   Modelica.Blocks.Sources.Ramp ramp1(
