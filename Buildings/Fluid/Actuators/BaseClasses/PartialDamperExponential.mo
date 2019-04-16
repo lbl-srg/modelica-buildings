@@ -14,7 +14,6 @@ partial model PartialDamperExponential
  parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
  final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area";
-
  parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"
    annotation(Dialog(enable=not use_deltaM));
@@ -49,8 +48,6 @@ protected
     y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
   parameter Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
- parameter Boolean preInd = false
-    "If preInd then pressure drop calculation is not performed by this model.";
  parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
  parameter Real[3] cL=
@@ -64,12 +61,13 @@ protected
     "Polynomial coefficients for curve fit for y > yu";
  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
 initial equation
-  assert(k0 > k1, "k0 must be strictly higher than k1.");
+  assert(yL < yU, "yL must be strictly lower than yU.");
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
   assert(k1 >= 0.2, "k1 must higher than 0.2.");
-  assert(k1 <= 20.0, "k1 must be lower than 0.5.");
-  assert(k0 <= 1e10, "k0 must be lower than 1e8.");
-  assert(k1 < kU, "k1 must be strictly lower than exp(a + b * (1 - yU)).");
+  assert(k1 < kU, "k1 must be strictly lower than exp(a + b * (1 - yU)). k1=" +
+    String(k1) + ", exp(...) = " + String(kU)
+  );
+  assert(k0 <= 1e10, "k0 must be lower than 1e10.");
   assert(k0 > kL, "k0 must be strictly higher than exp(a + b * (1 - yL)).");
 equation
   rho = if use_constant_density then

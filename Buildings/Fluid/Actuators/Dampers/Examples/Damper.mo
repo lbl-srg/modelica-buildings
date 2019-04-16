@@ -38,7 +38,8 @@ model Damper
     roundDuct=true,
     dpFixed_nominal=20,
     dp_nominal=5,
-    use_inputFilter=false)
+    use_inputFilter=false,
+    v_nominal=2)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{-4,-40},{16,-20}})));
 
@@ -82,7 +83,8 @@ model Damper
     use_deltaM=false,
     dpFixed_nominal=20,
     dp_nominal=5,
-    use_inputFilter=false)
+    use_inputFilter=false,
+    v_nominal=2)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{-4,-136},{16,-116}})));
   Modelica.Blocks.Sources.Ramp ramp1(
@@ -128,10 +130,6 @@ equation
           255}));
   connect(preInd.port_b, sin.ports[2]) annotation (Line(points={{16,-30},{60,
           -30},{60,1.6},{74,1.6}},                       color={0,127,255}));
-  connect(preInd.y, yRam.y) annotation (Line(points={{6,-18},{6,-10},{26,-10},{
-          26,70},{1,70}},  color={0,0,127}));
-  connect(preInd.y_open, dam.y)
-    annotation (Line(points={{11,-20},{40,-20},{40,-62}},  color={0,0,127}));
   connect(dam.port_b, sin.ports[3]) annotation (Line(points={{50,-74},{60,-74},
           {60,0},{74,0}},               color={0,127,255}));
   connect(dam.port_a, res1.port_b)
@@ -146,10 +144,6 @@ equation
   connect(preInd1.port_b, sin.ports[4]) annotation (Line(points={{16,-126},{64,
           -126},{64,-1.6},{74,-1.6}},
                                   color={0,127,255}));
-  connect(ramp1.y, preInd1.y)
-    annotation (Line(points={{-129,-88},{6,-88},{6,-114}}, color={0,0,127}));
-  connect(preInd1.y_open, filter.u) annotation (Line(points={{11,-116},{24,-116},
-          {24,-154},{34.6,-154}}, color={0,0,127}));
   connect(filter.y, vavDam.y) annotation (Line(points={{50.7,-154},{60,-154},{
           60,-170}}, color={0,0,127}));
   connect(sou1.ports[2], vavDam.port_a) annotation (Line(points={{-40,-132},{
@@ -157,6 +151,14 @@ equation
                                      color={0,127,255}));
   connect(vavDam.port_b, sin.ports[5]) annotation (Line(points={{70,-182},{72,
           -182},{72,-3.2},{74,-3.2}}, color={0,127,255}));
+  connect(yRam.y, preInd.y) annotation (Line(points={{1,70},{4,70},{4,-12},{6,
+          -12},{6,-18}}, color={0,0,127}));
+  connect(preInd.y_actual, dam.y) annotation (Line(points={{11,-23},{11,-42.5},
+          {40,-42.5},{40,-62}}, color={0,0,127}));
+  connect(ramp1.y, preInd1.y) annotation (Line(points={{-129,-88},{-62,-88},{
+          -62,-114},{6,-114}}, color={0,0,127}));
+  connect(preInd1.y_actual, filter.u) annotation (Line(points={{11,-119},{11,
+          -136.5},{34.6,-136.5},{34.6,-154}}, color={0,0,127}));
     annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),

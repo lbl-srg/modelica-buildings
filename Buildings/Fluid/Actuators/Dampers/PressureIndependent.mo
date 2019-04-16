@@ -20,21 +20,16 @@ model PressureIndependent
     final from_dp=true,
     final dp_nominalIncludesDamper=true,
     final k1=2 * rho_default * (A / kDam_1)^2,
-    final k0=2 * rho_default * (A / kDam_0)^2,
-    v_nominal=3);
+    final k0=2 * rho_default * (A / kDam_0)^2
+  );
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of duct and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Damper leakage, l=k(y=0)/k(y=1)";
-  Modelica.Blocks.Interfaces.RealOutput y_open "Fractional damper opening"
-    annotation (Placement(transformation(extent={{40,90},{60,110}}),
-        iconTransformation(extent={{40,90},{60,110}})));
-  Medium.Density rho "Medium density";
+  Modelica.Blocks.Interfaces.RealOutput y_actual "Actual damper position"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 protected
-  parameter Medium.Density rho_default = Medium.density(sta_default)
-    "Density, used to compute fluid volume";
-  parameter Real facRouDuc = if roundDuct then sqrt(Modelica.Constants.pi) / 2 else 1;
   parameter Real kDam_1 = m_flow_nominal / sqrt(dp_nominal_pos)
     "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   // parameter Real kFixed=if dpFixed_nominal > Modelica.Constants.eps then
@@ -48,13 +43,16 @@ protected
     sqrt(1 / (1 / kResSqu + 1 / kDam_0^2)) else kDam_0
     "Flow coefficient of damper fully closed + fixed resistance in metric unit (kg.m)^(1/2)";
   Real kThetaSqRt "Square root of damper loss coefficient, with unit (-)";
-  Modelica.SIunits.PressureDifference dp_0;
+  Modelica.SIunits.PressureDifference dp_0
+    "Pressure drop at required flow rate with damper fully closed";
   Modelica.SIunits.PressureDifference dp_1;
-  parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dp_nominal_pos;
+    "Pressure drop at required flow rate with damper fully open";
+  parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dp_nominal_pos
+    "Pressure drop for sizing the transition regions";
   parameter Real c_regul = 1E-2 "Regularization coefficient";
   Modelica.SIunits.PressureDifference dpDam
     "Pressure drop at damper boundaries, excluding fixed resistance";
-  parameter Integer sizeSupSplBnd = 4 "Number of support points on each quadratic domain for spline interpolation";
+  parameter Integer sizeSupSplBnd = 5 "Number of support points on each quadratic domain for spline interpolation";
   parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3 "Total number of support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl_raw = cat(
     1,
@@ -78,11 +76,11 @@ initial equation
 equation
   dp_0 = max(dp_1 + 2 * dp_small,
     Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-      m_flow=y_actual * m_flow_nominal * (1 + c_regul),
+      m_flow=y_internal * m_flow_nominal * (1 + c_regul),
       k=kTot_0,
       m_flow_turbulent=m_flow_turbulent));
   dp_1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-    m_flow=y_actual * m_flow_nominal,
+    m_flow=y_internal * m_flow_nominal,
     k=kTot_1,
     m_flow_turbulent=m_flow_turbulent);
   m_flow = smooth(2, noEvent(
@@ -100,13 +98,13 @@ equation
           dp=dp_1,
           k=kTot_1,
           m_flow_turbulent=m_flow_turbulent),
-        y2=y_actual * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
+        y2=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
         y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
           dp=dp_1,
           k=kTot_1,
           m_flow_turbulent=m_flow_turbulent,
           dp_der=1),
-        y2d=y_actual * m_flow_nominal * c_regul,
+        y2d=y_internal * m_flow_nominal * c_regul,
         y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
           dp=dp_1,
           k=kTot_1,
@@ -115,18 +113,18 @@ equation
           dp_der2=0),
         y2dd=0)
     elseif dp < dp_0 - dp_small then
-      y_actual * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1))
+      y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1))
     elseif dp < dp_0 then
       Buildings.Utilities.Math.Functions.quinticHermite(
         x=dp,
         x1=dp_0 - dp_small,
         x2=dp_0,
-        y1=y_actual * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
+        y1=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
         y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
           dp=dp_0,
           k=kTot_0,
           m_flow_turbulent=m_flow_turbulent),
-        y1d=y_actual * m_flow_nominal * c_regul,
+        y1d=y_internal * m_flow_nominal * c_regul,
         y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
           dp=dp_0,
           k=kTot_0,
@@ -144,30 +142,28 @@ equation
         dp=dp,
         k=kTot_0,
         m_flow_turbulent=m_flow_turbulent)));
-      // damper fully open (covers also dp <= 0 i.e. flow reversal or zero pressure drop)
-      // transition towards m_flow_lin
-      // damper controlling flow rate
-      // transition towards leakage (damper fully closed)
-      // if dp >= dp_0 then leakage (damper fully closed)
   // Computation of damper opening
   dpDam = if dpFixed_nominal > Modelica.Constants.eps then
     dp - Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
       m_flow=m_flow,
       k=sqrt(kResSqu),
-      m_flow_turbulent=m_flow_turbulent) else dp;
+      m_flow_turbulent=m_flow_turbulent
+    ) else dp;
   kThetaSqRt = Buildings.Utilities.Math.Functions.regStep(
-      x=dp - dp_1 - dp_small / 2,
-      y1=Buildings.Utilities.Math.Functions.regStep(
-        x=dp - dp_0 + dp_small / 2,
-        y1=sqrt(k0),
-        y2=sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
-          m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
-          k_min=kDam_0, k_max=kDam_1),
-        x_small=dp_small / 2),
-      y2=sqrt(k1),
-      x_small=dp_small / 2);
-  y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-    kThetaSqRt=kThetaSqRt, kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer);
+    x=dp - dp_1 - dp_small / 2,
+    y1=Buildings.Utilities.Math.Functions.regStep(
+      x=dp - dp_0 + dp_small / 2,
+      y1=sqrt(k0),
+      y2=sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
+        m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
+        k_min=kDam_0, k_max=kDam_1),
+      x_small=dp_small / 2),
+    y2=sqrt(k1),
+    x_small=dp_small / 2
+  );
+  y_actual = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
+    kThetaSqRt=kThetaSqRt, kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer
+  );
 annotation(Documentation(info="<html>
 <p>
 Model for an air damper whose airflow is proportional to the input signal, assuming

@@ -16,7 +16,7 @@ createPlot(id = 4,
 createPlot(
     id=5,
     position={347, 72, 1165, 830},
-    y={"preInd1.y_actual", "preInd1.m_flow", "preInd1.y_open", "preInd1.y_dum[2]", "preInd1.y_dum[3]"},
+    y={"preInd1.y", "preInd1.m_flow", "preInd1.y_actual", "preInd1.y_dum[2]", "preInd1.y_dum[3]"},
     autoscale = true,
     autoerase = true,
     autoreplot = true,
@@ -26,7 +26,7 @@ plotExpression(apply(Damper[end].preInd1.dp/(Damper[end].preInd1.dp_nominal+Damp
 createPlot(
     id=6,
     position={326, 26, 1419, 793},
-    y={"preInd.y_actual", "preInd.y_open", "dam.m_flow"},
+    y={"preInd.y", "preInd.y_actual", "dam.m_flow"},
     autoerase = true,
     autoreplot = true,
     grid=true

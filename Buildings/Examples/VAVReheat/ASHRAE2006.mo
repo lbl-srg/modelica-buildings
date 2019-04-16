@@ -85,19 +85,19 @@ model ASHRAE2006
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{0,-180},{20,-160}})));
-  Modelica.Blocks.Sources.RealExpression DamCor(y=cor.vav.y_open)
+  Modelica.Blocks.Sources.RealExpression DamCor(y=cor.vav.y_actual)
     "Damper opening of the corridor VAV box"
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
-  Modelica.Blocks.Sources.RealExpression DamNor(y=nor.vav.y_open)
+  Modelica.Blocks.Sources.RealExpression DamNor(y=nor.vav.y_actual)
     "Damper opening of the north VAV box"
     annotation (Placement(transformation(extent={{100,44},{120,64}})));
-  Modelica.Blocks.Sources.RealExpression DamWes(y=wes.vav.y_open)
+  Modelica.Blocks.Sources.RealExpression DamWes(y=wes.vav.y_actual)
     "Damper opening of the west VAV box"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Sources.RealExpression DamEas(y=eas.vav.y_open)
+  Modelica.Blocks.Sources.RealExpression DamEas(y=eas.vav.y_actual)
     "Damper opening of the east VAV box"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Modelica.Blocks.Sources.RealExpression DamSou(y=sou.vav.y_open)
+  Modelica.Blocks.Sources.RealExpression DamSou(y=sou.vav.y_actual)
     "Damper opening of the south VAV box"
     annotation (Placement(transformation(extent={{100,76},{120,96}})));
 equation

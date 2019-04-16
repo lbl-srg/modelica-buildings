@@ -4,7 +4,7 @@ createPlot(id=1, position={689, 16, 808, 292}, y={"TSupSou.T", "TSupEas.T", "TSu
 createPlot(id=1, position={689, 16, 808, 291}, y={"sou.vav.m_flow", "eas.vav.m_flow", "nor.vav.m_flow", "wes.vav.m_flow","cor.vav.m_flow_turbulent"}, range={0.0, 52.0, -0.5, 2.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
 createPlot(id=2, position={73, 495, 588, 415}, y={"conEco.yOA"}, range={0.0, 55.0, -0.1, 1.1}, grid=true, colors={{28,108,200}});
 createPlot(id=3, position={65, 17, 588, 422}, y={"dpRetDuc.m_flow", "dpRetDuc.m_flow_nominal", "fanSup.m_flow", "fanSup.m_flow_nominal"}, range={0.0, 55.0, -2.0, 22.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
-createPlot(id=4, position={14, 9, 1258, 853}, y={"wes.vav.y_open", "pSetDuc.limPID.u_m"}, grid=true, timeUnit="d");
-createPlot(id=4, position={14, 9, 1258, 281}, y={"wes.vav.y_actual"}, grid=true, subPlot=2, timeUnit="d");
+createPlot(id=4, position={14, 9, 1258, 853}, y={"wes.vav.y_actual", "pSetDuc.limPID.u_m"}, grid=true, timeUnit="d");
+createPlot(id=4, position={14, 9, 1258, 281}, y={"wes.vav.y"}, grid=true, subPlot=2, timeUnit="d");
 plotExpression(apply(ASHRAE2006[end].wes.vav.m_flow/ASHRAE2006[end].wes.vav.m_flow_nominal), false, "wes.vav.m_flow/Awes.vav.m_flow_nominal", 4);
 createPlot(id=4, position={14, 9, 1258, 282}, y={"pSetDuc.y", "pSetDuc.pMin", "pSetDuc.pMax"}, grid=true, subPlot=3, timeUnit="d");
