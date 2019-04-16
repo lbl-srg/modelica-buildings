@@ -3,40 +3,15 @@ function exponentialDamper_inv
   "Inverse function of damper opening characteristics for an exponential damper"
   extends Modelica.Icons.Function;
   input Real kThetaSqRt(min=0);
-  input Real a(unit="") "Coefficient a for damper characteristics";
-  input Real b(unit="") "Coefficient b for damper characteristics";
-  input Real[3] cL "Polynomial coefficients for curve fit for y < yl";
-  input Real[3] cU "Polynomial coefficients for curve fit for y > yu";
-  input Real yL "Lower value for damper curve";
-  input Real yU "Upper value for damper curve";
-  output Real y;
+  input Real[:] kSupSpl "k values of support points";
+  input Real[:] ySupSpl "y values of support points";
+  input Real[:] invSplDer "Derivatives at support points";
+  output Real y "Fractional opening";
 protected
-  parameter Real kL = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
-  parameter Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
-  parameter Integer sizeSupSplBnd = 4;
-  parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3;
-  parameter Real[sizeSupSpl] ySupSpl_raw = cat(
-    1,
-    linspace(1, yU, sizeSupSplBnd),
-    {yU-1/3*(yU-yL), (yU+yL)/2, yU-2/3*(yU-yL)},
-    linspace(yL, 0, sizeSupSplBnd)
-  );
-  parameter Real[sizeSupSpl] kSupSpl_raw = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-      y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
-  Real[sizeSupSpl] kSupSpl
-    "Strict monotone increasing";
-  Integer[sizeSupSpl] idx_sorted;
-  Real[sizeSupSpl] ySupSpl;
-  Real[sizeSupSpl] invSplDer;
+  parameter Integer sizeSupSpl = size(kSupSpl, 1);
   Integer i "Integer to select data interval";
   Real kBnd "Bounded flow resistance sqrt value";
 algorithm
-  (kSupSpl, idx_sorted) := Modelica.Math.Vectors.sort(kSupSpl_raw, ascending=true);
-  ySupSpl := ySupSpl_raw[idx_sorted];
-  invSplDer := Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=kSupSpl, y=ySupSpl);
   kBnd := if kThetaSqRt < kSupSpl[1] then kSupSpl[1] elseif
     kThetaSqRt > kSupSpl[sizeSupSpl] then kSupSpl[sizeSupSpl] else kThetaSqRt;
   i := 1;

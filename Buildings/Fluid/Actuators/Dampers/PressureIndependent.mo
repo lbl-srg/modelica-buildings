@@ -54,10 +54,27 @@ protected
   parameter Real c_regul = 1E-2 "Regularization coefficient";
   Modelica.SIunits.PressureDifference dpDam
     "Pressure drop at damper boundaries, excluding fixed resistance";
+  parameter Integer sizeSupSplBnd = 4;
+  parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3;
+  parameter Real[sizeSupSpl] ySupSpl_raw = cat(
+    1,
+    linspace(1, yU, sizeSupSplBnd),
+    {yU-1/3*(yU-yL), (yU+yL)/2, yU-2/3*(yU-yL)},
+    linspace(yL, 0, sizeSupSplBnd)
+  ) "y values of unsorted support points for spline interpolation";
+  parameter Real[sizeSupSpl] kSupSpl_raw = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+      y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU) "k values of unsorted support points for spline interpolation";
+  parameter Real[sizeSupSpl] ySupSpl(fixed=false) "y values of sorted support points for spline interpolation";
+  parameter Real[sizeSupSpl] kSupSpl(fixed=false) "k values of sorted support points for spline interpolation";
+  parameter Integer[sizeSupSpl] idx_sorted(fixed=false) "Indexes of sorted support points";
+  parameter Real[sizeSupSpl] invSplDer(fixed=false) "Derivatives at support points for spline interpolation";
 initial equation
   kResSqu=if dpFixed_nominal > Modelica.Constants.eps then
     m_flow_nominal^2 / dpFixed_nominal else 0
     "Flow coefficient of fixed resistance in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+  (kSupSpl, idx_sorted) = Modelica.Math.Vectors.sort(kSupSpl_raw, ascending=true);
+  ySupSpl = ySupSpl_raw[idx_sorted];
+  invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(x=kSupSpl, y=ySupSpl);
 equation
   dp_0 = max(dp_1 + 2 * dp_small,
     Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
@@ -150,7 +167,7 @@ equation
       y2=sqrt(k1),
       x_small=dp_small / 2);
   y_open = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-    kThetaSqRt=kThetaSqRt, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+    kThetaSqRt=kThetaSqRt, kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer);
 annotation(Documentation(info="<html>
 <p>
 Model for an air damper whose airflow is proportional to the input signal, assuming

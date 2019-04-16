@@ -37,7 +37,8 @@ model Damper
     use_deltaM=false,
     roundDuct=true,
     dpFixed_nominal=20,
-    dp_nominal=5)
+    dp_nominal=5,
+    use_inputFilter=false)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{-4,-40},{16,-20}})));
 
