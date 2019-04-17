@@ -71,21 +71,15 @@ initial equation
   assert(k0 > kL, "k0 must be strictly higher than exp(a + b * (1 - yL)).");
 equation
   rho = if use_constant_density then
-          rho_default
-        else
-          Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
+    rho_default else
+    Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // flow coefficient, k=m_flow/sqrt(dp)
   kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=y_actual,
-    a=a,
-    b=b,
-    cL=cL,
-    cU=cU,
-    yL=yL,
-    yU=yU);
+    y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU
+  );
   k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
   // Pressure drop calculation
-  if not preInd then
+  if not casePreInd then
     if linearized then
       m_flow*m_flow_nominal_pos = k^2*dp;
     else
@@ -93,27 +87,25 @@ equation
         if from_dp then
           m_flow=homotopy(
             actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                    dp=dp, k=k,
-                    m_flow_turbulent=m_flow_turbulent),
+              dp=dp, k=k, m_flow_turbulent=m_flow_turbulent),
             simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
         else
           dp=homotopy(
             actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                    m_flow=m_flow, k=k,
-                    m_flow_turbulent=m_flow_turbulent),
+              m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent),
             simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
         end if;  // from_dp
       else // do not use homotopy
         if from_dp then
           m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                  dp=dp, k=k, m_flow_turbulent=m_flow_turbulent);
+            dp=dp, k=k, m_flow_turbulent=m_flow_turbulent);
         else
           dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                  m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent);
+            m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent);
         end if;  // from_dp
       end if; // homotopyInitialization
     end if; // linearized
-  end if;  // not pressureIndDamp
+  end if;  // not casePreInd
 annotation(Documentation(info="<html>
 <p>
 Partial model for air dampers with exponential opening characteristics.

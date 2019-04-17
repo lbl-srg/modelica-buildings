@@ -15,7 +15,7 @@ model PressureIndependent
   //
   extends Buildings.Fluid.Actuators.Dampers.VAVBoxExponential(
     dp(nominal=dp_nominal),
-    final preInd=true,
+    final casePreInd=true,
     final linearized=false,
     final from_dp=true,
     final dp_nominalIncludesDamper=true,
@@ -45,7 +45,7 @@ protected
   Real kThetaSqRt "Square root of damper loss coefficient, with unit (-)";
   Modelica.SIunits.PressureDifference dp_0
     "Pressure drop at required flow rate with damper fully closed";
-  Modelica.SIunits.PressureDifference dp_1;
+  Modelica.SIunits.PressureDifference dp_1
     "Pressure drop at required flow rate with damper fully open";
   parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dp_nominal_pos
     "Pressure drop for sizing the transition regions";
@@ -164,7 +164,9 @@ equation
   y_actual = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
     kThetaSqRt=kThetaSqRt, kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer
   );
-annotation(Documentation(info="<html>
+annotation(
+defaultComponentName="preInd",
+Documentation(info="<html>
 <p>
 Model for an air damper whose airflow is proportional to the input signal, assuming
 that at <code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless the pressure difference
@@ -185,7 +187,5 @@ March 21, 2017 by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(graphics={
-        Line(
-          points={{0,100},{40,100}})}));
+</html>"));
 end PressureIndependent;

@@ -23,12 +23,12 @@ model ActuatorSignal
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-  Modelica.Blocks.Interfaces.RealOutput y_actual if not preInd
+  Modelica.Blocks.Interfaces.RealOutput y_actual if not casePreInd
     "Actual valve position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   // Classes used to implement the filtered opening
 protected
-  parameter Boolean preInd = false
+  parameter Boolean casePreInd = false
     "In case of PressureIndependent the model I/O is modified.";
   Modelica.Blocks.Interfaces.RealOutput y_internal
     "Output connector for internal use (= y_actual)";
@@ -63,7 +63,7 @@ equation
       points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
       color={0,0,127}));
   end if;
-  if not preInd then
+  if not casePreInd then
     connect(y_internal, y_actual);
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

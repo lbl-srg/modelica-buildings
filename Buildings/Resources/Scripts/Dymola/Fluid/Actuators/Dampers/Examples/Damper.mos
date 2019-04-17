@@ -1,9 +1,8 @@
-Advanced.StoreProtectedVariables = true;
-simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.Damper", method="cvode", tolerance=1e-6, stopTime=1.0, resultFile="Damper");
+simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.Damper", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="Damper");
 createPlot(id = 4,
  position = {73, 9, 598, 390},
  x = "res.y",
- y = {"res.m_flow", "preInd.m_flow", "preIndFrom_dp.m_flow", "preIndDpFixed_nominal.m_flow"},
+ y = {"res.m_flow", "preInd.m_flow", "preIndDpFixed_nominal.m_flow"},
  range = {0.15, 0.6, 11.0, 7.0},
  autoscale = true,
  autoerase = true,
@@ -13,21 +12,3 @@ createPlot(id = 4,
  filename = "Damper.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-createPlot(
-    id=5,
-    position={347, 72, 1165, 830},
-    y={"preInd1.y", "preInd1.m_flow", "preInd1.y_actual", "preInd1.y_dum[2]", "preInd1.y_dum[3]"},
-    autoscale = true,
-    autoerase = true,
-    autoreplot = true,
-    grid=true
-);
-plotExpression(apply(Damper[end].preInd1.dp/(Damper[end].preInd1.dp_nominal+Damper[end].preInd1.dpFixed_nominal)), false, "dp/(dp_nominal+dpFixed_nominal)", 5);
-createPlot(
-    id=6,
-    position={326, 26, 1419, 793},
-    y={"preInd.y", "preInd.y_actual", "dam.m_flow"},
-    autoerase = true,
-    autoreplot = true,
-    grid=true
-);
