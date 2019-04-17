@@ -31,7 +31,8 @@ protected
   parameter Real kTot_0 = if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kResSqu + 1 / kDam_0^2)) else kDam_0
     "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
-  Real kThetaSqRt "Square root of damper loss coefficient, dimensionless";
+  Real kThetaDam "Loss coefficient of damper in actual position, dimensionless";
+  Real kThetaTot "Loss coefficient of damper + fixed resistance, dimensionless";
   Modelica.SIunits.PressureDifference dp_0
     "Pressure drop at required flow rate with damper fully closed";
   Modelica.SIunits.PressureDifference dp_1
@@ -132,26 +133,24 @@ equation
         k=kTot_0,
         m_flow_turbulent=m_flow_turbulent)));
   // Computation of damper opening
-  dpDam = if dpFixed_nominal > Modelica.Constants.eps then
-    dp - Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-      m_flow=m_flow,
-      k=sqrt(kResSqu),
-      m_flow_turbulent=m_flow_turbulent
-    ) else dp;
-  kThetaSqRt = Buildings.Utilities.Math.Functions.regStep(
+  kThetaTot = Buildings.Utilities.Math.Functions.regStep(
     x=dp - dp_1 - dp_small / 2,
     y1=Buildings.Utilities.Math.Functions.regStep(
       x=dp - dp_0 + dp_small / 2,
-      y1=sqrt(k0),
-      y2=sqrt(2 * rho) * A / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
-        m_flow=m_flow, dp=dpDam, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
-        k_min=kDam_0, k_max=kDam_1),
+      y1=2 * rho * A^2 / kTot_0^2,
+      y2=2 * rho * A^2 / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
+        m_flow=m_flow,
+        dp=dp, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
+        k_min=kTot_0, k_max=kTot_1
+      ),
       x_small=dp_small / 2),
-    y2=sqrt(k1),
+    y2=2 * rho * A^2 / kTot_1^2,
     x_small=dp_small / 2
   );
+  kThetaDam = if dpFixed_nominal > Modelica.Constants.eps then
+    kThetaTot - 2 * rho * A^2 / kResSqu else kThetaTot;
   y_actual = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-    kThetaSqRt=kThetaSqRt, kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer
+    kThetaSqRt=sqrt(kThetaDam), kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer
   );
 annotation(
 defaultComponentName="preInd",

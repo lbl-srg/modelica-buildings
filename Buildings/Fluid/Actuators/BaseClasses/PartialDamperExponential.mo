@@ -62,15 +62,15 @@ protected
   parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
   parameter Boolean char_linear_pro = false
     "If char_linear_pro then the flow characteristic is linearized.";
-  parameter Real kDam_1 = m_flow_nominal / sqrt(dp_nominal_pos)
+  parameter Real kDam_1 =  (2 * rho_default / k1)^0.5 * A
     "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  parameter Real kTot_1 = if dpFixed_nominal > Modelica.Constants.eps then
-    sqrt(1 / (1 / kResSqu + 1 / kDam_1^2)) else kDam_1
+  parameter Real kTot_1 = if kFixed > Modelica.Constants.eps then
+    sqrt(1 / (1 / kFixed^2 + 1 / kDam_1^2)) else kDam_1
     "Flow coefficient of damper fully open plus fixed resistance, with unit=(kg.m)^(1/2)";
-  parameter Real kDam_0 = l * kDam_1
+  parameter Real kDam_0 = (2 * rho_default / k0)^0.5 * A
     "Flow coefficient of damper fully closed, with unit=(kg.m)^(1/2)";
   parameter Real kTot_0 = if dpFixed_nominal > Modelica.Constants.eps then
-    sqrt(1 / (1 / kResSqu + 1 / kDam_0^2)) else kDam_0
+    sqrt(1 / (1 / kFixed^2 + 1 / kDam_0^2)) else kDam_0
     "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
 initial equation
   assert(yL < yU, "yL must be strictly lower than yU.");
@@ -85,11 +85,18 @@ equation
   rho = if use_constant_density then
     rho_default else
     Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
-  // flow coefficient, k=m_flow/sqrt(dp)
-  kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU
-  );
-  k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
+  // Optional characteristic linearization
+  y_char_linear = if linearized then sqrt(y_actual) else y_actual;
+  if char_linear_pro then
+    k = y_char_linear * (kTot_1 - kTot_0) + kTot_0;
+    kDam = if kFixed > Modelica.Constants.eps then
+      sqrt(1 / (1 / k^2 - 1 / kFixed^2)) else k;
+  else
+    kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+      y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU
+    );
+    k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
+  end if;
   // Pressure drop calculation
   if not casePreInd then
     if linearized then
