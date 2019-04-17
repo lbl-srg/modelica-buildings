@@ -37,6 +37,7 @@ model MixedAirHeatMassBalance
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
+    final mSenFac=mSenFac,
     final m_flow_nominal = m_flow_nominal,
     final prescribedHeatFlowRate = true,
     final nPorts=nPorts,
@@ -337,6 +338,12 @@ The model assumes a completely mixed air volume.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 8, 2019, by Michael Wetter:<br/>
+Propagated parameter <code>mSenFac</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1405\">Buildings #1405</a>.
+</li>
 <li>
 December 14, 2018, by Michael Wetter:<br/>
 Replaced call to <code>Medium.enthalpyOfCondensingGas</code> with

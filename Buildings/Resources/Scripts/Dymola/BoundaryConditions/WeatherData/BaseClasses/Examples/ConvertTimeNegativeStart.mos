@@ -1,0 +1,13 @@
+simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.ConvertTimeNegativeStart", tolerance=1e-6, startTime = -31536000, stopTime=31536000, method="CVode", resultFile="ConvertTimeNegativeStart");
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"conTim.modTim", "conTim.calTim"},
+ range = {-31536000.0, 90000.0, 31536000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "ConvertTimeNegativeStart.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

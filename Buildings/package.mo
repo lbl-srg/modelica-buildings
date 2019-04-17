@@ -243,7 +243,13 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
         </td>
-        </tr>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.X_pTphi
+        </td>
+        <td valign=\"top\">Added function to compute humidity mass fraction for given pressure, temperature
+                         and relative humidity.
+        </td>
+    </tr>
     </table>
     <!-- Backward compatible changes -->
     <p>
@@ -252,19 +258,29 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+        </td>
+        <td valign=\"top\">Updated implementation to allow for weather data file that span less than a year and cross New Year,
+                         and for weather data files that span more than a year.<br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-ibpsa/issues/842\">IBPSA, #842</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
         </td>
-        <td valign=\"top\">Update implementation to output accumulated time when input is <code>true</code>.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
+        <td valign=\"top\">Updated implementation to output accumulated time when input is <code>true</code>.<br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueDelay
         </td>
         <td valign=\"top\">Added parameter <code>delayOnInit</code> to optionally delay the initial <code>true</code> input.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1346\">issue 1346</a>.
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1346\">issue 1346</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
@@ -297,7 +313,7 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-     <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+    <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorDiscretizedOperable
@@ -337,6 +353,17 @@ its class name ends with the string <code>Beta</code>.
                            for these models.<br/>
                            For Dymola, a conversion script makes this change.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/877\">IBPSA, #877</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime
+        </td>
+        <td valign=\"top\">Added new parameters needed for weather data files that span multiple years.
+                           Models of users are not likely to be affected by this change as this model
+                           is part of the weather data file reader that implements all required changes.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">IBPSA, #842</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
@@ -464,6 +491,17 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Corrected missing propagation of initial conditions.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1016\">IBPSA, #1016</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
+        </td>
+        <td valign=\"top\">Propagated parameter <code>mSenFac</code> which
+                           increased the thermal capacity of the room air, such as
+                           to account for furniture.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1405\">issue 1405</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
