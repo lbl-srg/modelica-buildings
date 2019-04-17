@@ -15,9 +15,10 @@ protected
     "Resistance coefficient for fixed resistance element";
 initial equation
   if not casePreInd then
-    kResSqu = if dp_nominalIncludesDamper then
-        m_flow_nominal^2 / (dp_nominal-dpDamOpe_nominal) else
-        m_flow_nominal^2 / dp_nominal;
+    kResSqu = if dp_nominal < Modelica.Constants.eps then 0
+    elseif dp_nominalIncludesDamper then
+      m_flow_nominal^2 / (dp_nominal - dpDamOpe_nominal)
+    else m_flow_nominal^2 / dp_nominal;
   end if;
   assert(kResSqu >= 0,
          "Wrong parameters in damper model: dp_nominal < dpDamOpe_nominal"
