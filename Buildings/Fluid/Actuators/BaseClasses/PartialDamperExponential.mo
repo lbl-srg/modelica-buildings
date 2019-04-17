@@ -1,74 +1,86 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialDamperExponential
   "Partial model for air dampers with exponential opening characteristics"
-   extends Buildings.Fluid.BaseClasses.PartialResistance(
-      m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
-      eta_default*ReC*sqrt(A)*facRouDuc);
-   extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
-
- parameter Boolean use_deltaM = true
+  extends Buildings.Fluid.BaseClasses.PartialResistance(
+    m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
+    eta_default*ReC*sqrt(A)*facRouDuc);
+  extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
+  parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
- parameter Real deltaM = 0.3
+  parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
-   annotation(Dialog(enable=use_deltaM));
- parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
- final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+    annotation(Dialog(enable=use_deltaM));
+  parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
+  final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area";
- parameter Boolean roundDuct = false
+  parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"
-   annotation(Dialog(enable=not use_deltaM));
- parameter Real ReC=4000 "Reynolds number where transition to turbulent starts"
-   annotation(Dialog(enable=not use_deltaM));
- parameter Real a(unit="")=-1.51 "Coefficient a for damper characteristics"
+    annotation(Dialog(enable=not use_deltaM));
+  parameter Real ReC = 4000 "Reynolds number where transition to turbulent starts"
+    annotation(Dialog(enable=not use_deltaM));
+  parameter Real a = -1.51 "Coefficient a for damper characteristics"
   annotation(Dialog(tab="Damper coefficients"));
- parameter Real b(unit="")=0.105*90 "Coefficient b for damper characteristics"
+  parameter Real b = 0.105*90 "Coefficient b for damper characteristics"
   annotation(Dialog(tab="Damper coefficients"));
- parameter Real yL = 15/90 "Lower value for damper curve"
+  parameter Real yL = 15/90 "Lower value for damper curve"
   annotation(Dialog(tab="Damper coefficients"));
- parameter Real yU = 55/90 "Upper value for damper curve"
+  parameter Real yU = 55/90 "Upper value for damper curve"
   annotation(Dialog(tab="Damper coefficients"));
- parameter Real k0(min=0) = 1E6
+  parameter Real k0(min=0) = 1E6
     "Loss coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
   annotation(Dialog(tab="Damper coefficients"));
- parameter Real k1(min=0) = 0.45
+  parameter Real k1(min=0) = 0.45
     "Loss coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
   annotation(Dialog(tab="Damper coefficients"));
- parameter Boolean use_constant_density=true
+  parameter Boolean use_constant_density = true
     "Set to true to use constant density for flow friction"
-   annotation (Evaluate=true, Dialog(tab="Advanced"));
- Medium.Density rho "Medium density";
- parameter Real kFixed(unit="")
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
+  Medium.Density rho "Medium density";
+  parameter Real kFixed
     "Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
- Real kDam(unit="")
+  Real kDam
     "Flow coefficient of damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
- Real k(unit="")
+  Real k
     "Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
   parameter Real kL = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
   parameter Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
- parameter Medium.Density rho_default=Medium.density(sta_default)
+  parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
- parameter Real[3] cL=
-    {(Modelica.Math.log(k0) - b - a)/yL^2,
-      (-b*yL - 2*Modelica.Math.log(k0) + 2*b + 2*a)/yL,
-      Modelica.Math.log(k0)} "Polynomial coefficients for curve fit for y < yl";
- parameter Real[3] cU=
-    {(Modelica.Math.log(k1) - a)/(yU^2 - 2*yU + 1),
+  parameter Real[3] cL={
+    (Modelica.Math.log(k0) - b - a)/yL^2,
+    (-b*yL - 2*Modelica.Math.log(k0) + 2*b + 2*a)/yL,
+    Modelica.Math.log(k0)
+  } "Polynomial coefficients for curve fit for y < yl";
+  parameter Real[3] cU={
+    (Modelica.Math.log(k1) - a)/(yU^2 - 2*yU + 1),
     (-b*yU^2 - 2*Modelica.Math.log(k1)*yU - (-2*b - 2*a)*yU - b)/(yU^2 - 2*yU + 1),
-    (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)}
-    "Polynomial coefficients for curve fit for y > yu";
- parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
+    (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)
+  } "Polynomial coefficients for curve fit for y > yu";
+  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
+  parameter Boolean char_linear_pro = false
+    "If char_linear_pro then the flow characteristic is linearized.";
+  parameter Real kDam_1 = m_flow_nominal / sqrt(dp_nominal_pos)
+    "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+  parameter Real kTot_1 = if dpFixed_nominal > Modelica.Constants.eps then
+    sqrt(1 / (1 / kResSqu + 1 / kDam_1^2)) else kDam_1
+    "Flow coefficient of damper fully open plus fixed resistance, with unit=(kg.m)^(1/2)";
+  parameter Real kDam_0 = l * kDam_1
+    "Flow coefficient of damper fully closed, with unit=(kg.m)^(1/2)";
+  parameter Real kTot_0 = if dpFixed_nominal > Modelica.Constants.eps then
+    sqrt(1 / (1 / kResSqu + 1 / kDam_0^2)) else kDam_0
+    "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
 initial equation
   assert(yL < yU, "yL must be strictly lower than yU.");
-  assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
-  assert(k1 >= 0.2, "k1 must higher than 0.2.");
+  assert(m_flow_turbulent > 0, "m_flow_turbulent must be strictly greater than zero.");
+  assert(k1 >= 0.2, "k1 must be greater than 0.2. k1=" + String(k1));
   assert(k1 < kU, "k1 must be strictly lower than exp(a + b * (1 - yU)). k1=" +
-    String(k1) + ", exp(...) = " + String(kU)
-  );
-  assert(k0 <= 1e10, "k0 must be lower than 1e10.");
-  assert(k0 > kL, "k0 must be strictly higher than exp(a + b * (1 - yL)).");
+    String(k1) + ", exp(...) = " + String(kU));
+  assert(k0 <= 1e10, "k0 must be lower than 1e10. k0=" + String(k0));
+  assert(k0 > kL, "k0 must be strictly higher than exp(a + b * (1 - yL)). k0=" +
+    String(k0) + ", exp(...) = " + String(kL));
 equation
   rho = if use_constant_density then
     rho_default else

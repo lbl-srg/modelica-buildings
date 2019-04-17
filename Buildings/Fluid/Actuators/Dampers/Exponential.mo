@@ -2,11 +2,16 @@ within Buildings.Fluid.Actuators.Dampers;
 model Exponential
   "VAV box with a fixed resistance plus a damper model withe exponential characteristics"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
-  dp(nominal=dp_nominal),
-  kFixed=sqrt(kResSqu));
+    dp(nominal=dp_nominal),
+    kFixed=sqrt(kResSqu)
+    char_linear_pro=char_linear
+  );
   parameter Boolean dp_nominalIncludesDamper = true
     "set to true if dp_nominal includes the pressure loss of the open damper"
-                                              annotation(Dialog(group = "Nominal condition"));
+    annotation(Dialog(group="Nominal condition"));
+  parameter Boolean char_linear = false
+    "If char_linear then the flow characteristic is linearized."
+    annotation(Dialog(tab="Advanced"));
 protected
   parameter Modelica.SIunits.PressureDifference dpDamOpe_nominal(displayUnit="Pa")=
      k1*m_flow_nominal^2/2/Medium.density(sta_default)/A^2
@@ -24,8 +29,7 @@ initial equation
          "Wrong parameters in damper model: dp_nominal < dpDamOpe_nominal"
           + "\n  dp_nominal = "       + String(dp_nominal)
           + "\n  dpDamOpe_nominal = " + String(dpDamOpe_nominal));
-
-   annotation (
+annotation (
 defaultComponentName="dam",
 Documentation(info="<html>
 <p>

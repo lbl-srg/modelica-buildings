@@ -3,15 +3,6 @@ model PressureIndependent
   "Pressure independent damper"
   // TODO:
   // Cf. Michael: include mass flow rate computation into function.
-  // TODO:
-  //  Relax limits for k0 & k1 in PartialDamperExponential based on ASHRAE Dampers and Airflow Control
-  // TODO:
-  //  PartialDamperExponential: add assert exponentialDamper(yL)<k0 & exponentialDamper(yU)>k1
-  // HACK:
-  //  l(min=1e-10, max=1) = 0.001 (impacts k0)
-  //  v_nominal=3 (impacts k0 and k1 through A)
-  //  assert(k1 <= 5, "k1 must be between 0.2 and 0.5.");
-  //  assert(k0 <= 1e8, "k0 must be between k1 and 1e6.");
   //
   extends Buildings.Fluid.Actuators.Dampers.Exponential(
     dp(nominal=dp_nominal),
@@ -32,17 +23,15 @@ model PressureIndependent
 protected
   parameter Real kDam_1 = m_flow_nominal / sqrt(dp_nominal_pos)
     "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  // parameter Real kFixed=if dpFixed_nominal > Modelica.Constants.eps then
-  //   m_flow_nominal / sqrt(dpFixed_nominal) else 0
-  //   "Flow coefficient of fixed resistance in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   parameter Real kTot_1 = if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kResSqu + 1 / kDam_1^2)) else kDam_1
-    "Flow coefficient of damper fully open plus fixed resistance";
-  parameter Real kDam_0 = l * kDam_1 "Flow coefficient of damper fully closed in metric unit (kg.m)^(1/2)";
+    "Flow coefficient of damper fully open plus fixed resistance, with unit=(kg.m)^(1/2)";
+  parameter Real kDam_0 = l * kDam_1
+    "Flow coefficient of damper fully closed, with unit=(kg.m)^(1/2)";
   parameter Real kTot_0 = if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kResSqu + 1 / kDam_0^2)) else kDam_0
-    "Flow coefficient of damper fully closed + fixed resistance in metric unit (kg.m)^(1/2)";
-  Real kThetaSqRt "Square root of damper loss coefficient, with unit (-)";
+    "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
+  Real kThetaSqRt "Square root of damper loss coefficient, dimensionless";
   Modelica.SIunits.PressureDifference dp_0
     "Pressure drop at required flow rate with damper fully closed";
   Modelica.SIunits.PressureDifference dp_1
