@@ -14,7 +14,7 @@ protected
   parameter Real kResSqu(unit="kg.m", fixed=false)
     "Resistance coefficient for fixed resistance element";
 initial equation
-  if not preInd then
+  if not casePreInd then
     kResSqu = if dp_nominalIncludesDamper then
         m_flow_nominal^2 / (dp_nominal-dpDamOpe_nominal) else
         m_flow_nominal^2 / dp_nominal;

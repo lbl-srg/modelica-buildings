@@ -4,11 +4,13 @@ model Damper
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model for air";
 
-    Modelica.Blocks.Sources.Ramp yRam(
-    duration=0.3,
-    offset=0,
-    startTime=0.2,
-    height=1) annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  parameter Real yCstVal = 0 "Constant value for control input signal";
+
+  Modelica.Blocks.Sources.Ramp yRam(
+  duration=0.3,
+  offset=0,
+  startTime=0.2,
+  height=1) annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -66,7 +68,7 @@ model Damper
     use_inputFilter=false,
     v_nominal=3) "A damper with a mass flow proportional to the input signal"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Modelica.Blocks.Sources.Constant yCst(k=0)
+  Modelica.Blocks.Sources.Constant yCst(k=yCstVal)
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 equation
   connect(sou.ports[1], res.port_a) annotation (Line(points={{-40,2.66667},{-20,
