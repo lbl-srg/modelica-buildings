@@ -293,6 +293,17 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1270\">issue 1270</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                           Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                           Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
+        </td>
+        <td valign=\"top\">Changed model so that the volume is no longer fixed at compilation time.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1411\">issue 1411</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
         </td>
     </tr>

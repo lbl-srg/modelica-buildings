@@ -135,7 +135,7 @@ protected
      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
   // Parameter for avoiding extra overhead calculations when CSen==0
-  final parameter Boolean computeCSen = CSen > Modelica.Constants.eps
+  final parameter Boolean computeCSen = abs(mSenFac-1) > Modelica.Constants.eps
     annotation(Evaluate=true);
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
@@ -421,6 +421,12 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 16, 2019, by Michael Wetter:<br/>
+Changed computation of <code>computeCSen</code> to avoid the volume to become
+a structural parameter.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1122\">Buildings, issue 1122</a>.
+</li>
 <li>
 April 16, 2018, by Michael Wetter:<br/>
 Reformulated mass calculation so that Dymola can differentiate the equations.<br/>
