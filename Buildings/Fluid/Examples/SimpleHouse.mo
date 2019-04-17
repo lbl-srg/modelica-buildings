@@ -94,7 +94,7 @@ model SimpleHouse
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemZonAir
     "Zone air temperature sensor"
     annotation (Placement(transformation(extent={{80,170},{60,190}})));
-  Actuators.Dampers.VAVBoxExponential vavDam(
+  Actuators.Dampers.Exponential vavDam(
     redeclare package Medium = MediumAir,
     dp_nominal=dpAir_nominal,
     from_dp=true,

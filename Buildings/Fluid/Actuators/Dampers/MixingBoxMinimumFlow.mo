@@ -36,7 +36,7 @@ model MixingBoxMinimumFlow
     annotation (Placement(transformation(extent={{-52,58},{-32,78}}),
         iconTransformation(extent={{-52,58},{-32,78}})));
 
-  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential damOAMin(
+  Buildings.Fluid.Actuators.Dampers.Exponential damOAMin(
     redeclare package Medium = Medium,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,

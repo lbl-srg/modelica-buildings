@@ -34,7 +34,7 @@ model SupplyBranch "Supply branch of a dual duct system"
   VAVReheat.Controls.ControlBus controlBus
                                  annotation (Placement(transformation(extent={{
             -110,-50},{-90,-30}}), iconTransformation(extent={{-110,-38},{-90,-18}})));
-  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vavHot(
+  Buildings.Fluid.Actuators.Dampers.Exponential vavHot(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAirHot_flow_nominal,
     dp_nominal(displayUnit="Pa") = 40,
@@ -45,7 +45,7 @@ model SupplyBranch "Supply branch of a dual duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-30})));
-  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vavCol(
+  Buildings.Fluid.Actuators.Dampers.Exponential vavCol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAirCol_flow_nominal,
     dp_nominal(displayUnit="Pa") = 40,

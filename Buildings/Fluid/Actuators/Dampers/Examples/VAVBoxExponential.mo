@@ -5,7 +5,8 @@ model VAVBoxExponential
 
  package Medium = Buildings.Media.Air;
 
-  Buildings.Fluid.Actuators.Dampers.Exponential dam(redeclare package Medium =
+  Buildings.Fluid.Actuators.Dampers.Exponential dam(
+dp_nominal=0, dp_nominalIncludesDamper=false, redeclare package Medium =
         Medium, m_flow_nominal=2)
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
     Modelica.Blocks.Sources.Step yDam(
@@ -30,7 +31,7 @@ model VAVBoxExponential
           extent={{72,-20},{52,0}})));
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
+  Buildings.Fluid.Actuators.Dampers.Exponential vav(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=2)

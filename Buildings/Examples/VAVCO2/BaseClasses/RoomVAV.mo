@@ -9,7 +9,7 @@ model RoomVAV "Model for CO2 emitted by people"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
 
-  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
+  Buildings.Fluid.Actuators.Dampers.Exponential vav(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1E2,

@@ -141,7 +141,7 @@ model MixingBox
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
-  Fluid.Actuators.Dampers.VAVBoxExponential damOut(
+  Fluid.Actuators.Dampers.Exponential damOut(
     redeclare package Medium = Medium,
     dp_nominal=dpOut_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
@@ -166,7 +166,7 @@ model MixingBox
     y_start=y_start) "Outdoor air damper"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  Fluid.Actuators.Dampers.VAVBoxExponential damExh(
+  Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
     m_flow_nominal=mExh_flow_nominal,
     dp_nominal=dpExh_nominal,
@@ -191,7 +191,7 @@ model MixingBox
     y_start=y_start) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 
-  Fluid.Actuators.Dampers.VAVBoxExponential damRet(
+  Fluid.Actuators.Dampers.Exponential damRet(
     redeclare package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
     dp_nominal=dpRec_nominal,

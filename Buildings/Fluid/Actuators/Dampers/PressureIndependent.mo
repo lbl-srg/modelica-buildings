@@ -13,7 +13,7 @@ model PressureIndependent
   //  assert(k1 <= 5, "k1 must be between 0.2 and 0.5.");
   //  assert(k0 <= 1e8, "k0 must be between k1 and 1e6.");
   //
-  extends Buildings.Fluid.Actuators.Dampers.VAVBoxExponential(
+  extends Buildings.Fluid.Actuators.Dampers.Exponential(
     dp(nominal=dp_nominal),
     final casePreInd=true,
     final linearized=false,
