@@ -41,6 +41,7 @@ model MixingBoxMinimumFlow
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
+    char_linear=char_linear,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
     v_nominal=v_nominal,
@@ -140,6 +141,12 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+April 19, 2019, by Antoine Gautier:<br/>
+Added the option for characteristics linearization.<br/>
+This is for
+<a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>

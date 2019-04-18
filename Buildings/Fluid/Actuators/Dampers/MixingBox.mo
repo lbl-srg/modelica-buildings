@@ -12,12 +12,13 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  VAVBoxExponential damOA(
+  Buildings.Fluid.Actuators.Dampers.Exponential damOA(
     redeclare package Medium = Medium,
     dp_nominal=dpOut_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
+    char_linear=char_linear,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
     roundDuct=roundDuct,
@@ -47,13 +48,14 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "Reynolds number where transition to turbulent starts"
     annotation(Dialog(enable=not use_deltaM));
 
-  VAVBoxExponential damExh(
+  Buildings.Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
     m_flow_nominal=mExh_flow_nominal,
     dp_nominal=dpExh_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
+    char_linear=char_linear,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
     roundDuct=roundDuct,
@@ -69,13 +71,14 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final use_inputFilter=false) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 
-  VAVBoxExponential damRec(
+  Buildings.Fluid.Actuators.Dampers.Exponential damRec(
     redeclare package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
     dp_nominal=dpRec_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
+    char_linear=char_linear,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
     roundDuct=roundDuct,
@@ -125,6 +128,9 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced"));
+  parameter Boolean char_linear=false
+    "Set to true to linearize the flow characteristics of damper plus fixed resistance"
+    annotation (Dialog(tab="Advanced"));
   parameter Boolean use_constant_density=true
     "Set to true to use constant density for flow friction"
     annotation (Dialog(tab="Advanced"));
@@ -137,10 +143,10 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Real yU=55/90 "Upper value for damper curve"
     annotation (Dialog(tab="Damper coefficients"));
   parameter Real k0=1E6
-    "Flow coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
+    "Loss coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
     annotation (Dialog(tab="Damper coefficients"));
   parameter Real k1=0.45
-    "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
+    "Loss coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
     annotation (Dialog(tab="Damper coefficients"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(redeclare package Medium =
@@ -288,6 +294,12 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+April 19, 2019, by Antoine Gautier:<br/>
+Added the option for characteristics linearization.<br/>
+This is for
+<a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air only.

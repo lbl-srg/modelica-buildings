@@ -1,6 +1,6 @@
 within Buildings.Fluid.Actuators.Dampers;
 model Exponential
-  "VAV box with a fixed resistance plus a damper model withe exponential characteristics"
+  "VAV box with a fixed resistance plus a damper model with exponential characteristics"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
     dp(nominal=dp_nominal),
     final kFixed=sqrt(kResSqu),
@@ -9,7 +9,7 @@ model Exponential
     "Set to true if dp_nominal includes the pressure loss of the open damper"
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean char_linear = false
-    "Set to true to linearize the flow characteristic of damper plus fixed resistance"
+    "Set to true to linearize the flow characteristics of damper plus fixed resistance"
     annotation(Dialog(tab="Advanced"));
 protected
   parameter Modelica.SIunits.PressureDifference dpDamOpe_nominal(displayUnit="Pa")=
@@ -32,6 +32,9 @@ annotation (
 defaultComponentName="dam",
 Documentation(info="<html>
 <p>
+<b>General Description</b>
+</p>
+<p>
 Model of two resistances in series. One resistance has a fixed flow coefficient, the
 other resistance is an air damper whose flow coefficient is an exponential function of the opening angle.
 </p>
@@ -42,8 +45,98 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
+<p>
+<b>Exponential Damper Model Description</b>
+</p>
+<p>
+This model is an air damper with loss coefficient that is an exponential function
+of the opening angle. The model is as in ASHRAE 825-RP.
+A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper
+is open. This is opposite of the implementation of ASHRAE 825-RP, but used here
+for consistency within this library.
+</p>
+<p>
+For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  k<sub>d</sub>(y) = exp(a+b (1-y)).
+</p>
+<p>
+Outside this range, the damper characteristics is defined by a quadratic polynomial that
+matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and
+<code>y=1</code>, respectively. In addition, the polynomials are such that
+<i>k<sub>d</sub>(y)</i> is
+differentiable in <i>y</i> and the derivative is continuous.
+</p>
+<p>
+The damper characteristics <i>k<sub>d</sub>(y)</i> is then used to
+compute the flow coefficient <i>k(y)</i> as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup> A,
+</p>
+<p>
+where <i>A</i> is the face area, which is computed using the nominal
+mass flow rate <code>m_flow_nominal</code>, the nominal velocity
+<code>v_nominal</code> and the density of the medium. The flow coefficient <i>k(y)</i>
+is used to compute the mass flow rate versus pressure
+drop relation as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  m = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+</p>
+<p>
+with regularization near the origin.
+</p>
+<p>
+ASHRAE 825-RP lists the following parameter values as typical:
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<td></td><th>opposed blades</th><th>single blades</th>
+</tr>
+<tr>
+<td>yL</td><td>15/90</td><td>15/90</td>
+</tr>
+<tr>
+<td>yU</td><td>55/90</td><td>65/90</td>
+</tr>
+<tr>
+<td>k0</td><td>1E6</td><td>1E6</td>
+</tr>
+<tr>
+<td>k1</td><td>0.2 to 0.5</td><td>0.2 to 0.5</td>
+</tr>
+<tr>
+<td>a</td><td>-1.51</td><td>-1.51</td>
+</tr>
+<tr>
+<td>b</td><td>0.105*90</td><td>0.0842*90</td>
+</tr>
+</table>
+<p>
+ASHRAE 2009 <i>Dampers and Airflow Control</i> provides additional data.
+</p>
+<h4>References</h4>
+<p>
+P. Haves, L. K. Norford, M. DeSimone and L. Mei,
+<i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>,
+ASHRAE Final Report 825-RP, Atlanta, GA.
+</p>
+<p>
+L. G. Felker and T. L. Felker,
+<i>Dampers and Airflow Control</i>,
+ASHRAE, Atlanta, GA, 2009.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 19, 2019, by Antoine Gautier:<br/>
+Refactored <code>Exponential</code> and <code>VAVBoxExponential</code> into one single class.<br/>
+Added the option for characteristics linearization.<br/>
+This is for
+<a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
