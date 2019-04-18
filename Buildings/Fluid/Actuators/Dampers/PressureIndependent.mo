@@ -1,9 +1,6 @@
 within Buildings.Fluid.Actuators.Dampers;
 model PressureIndependent
   "Pressure independent damper"
-  // TODO:
-  // Cf. Michael: include mass flow rate computation into function.
-  //
   extends Buildings.Fluid.Actuators.Dampers.Exponential(
     dp(nominal=dp_nominal),
     final casePreInd=true,
@@ -15,9 +12,9 @@ model PressureIndependent
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of duct and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
-  parameter Real l(min=1e-10, max=1) = 0.0001
+  parameter Real l(min=1e-10, max=1, unit="1") = 0.0001
     "Damper leakage, l=k(y=0)/k(y=1)";
-  Modelica.Blocks.Interfaces.RealOutput y_actual "Actual damper position"
+  Modelica.Blocks.Interfaces.RealOutput y_actual(unit="1") "Actual damper position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 protected
   parameter Real kDam_1 = m_flow_nominal / sqrt(dp_nominal_pos)
@@ -30,12 +27,6 @@ protected
   parameter Real kTot_0 = if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kResSqu + 1 / kDam_0^2)) else kDam_0
     "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
-  Real kThetaDam "Loss coefficient of damper in actual position, dimensionless";
-  Real kThetaTot "Loss coefficient of damper + fixed resistance, dimensionless";
-  Modelica.SIunits.PressureDifference dp_0
-    "Pressure drop at required flow rate with damper fully closed";
-  Modelica.SIunits.PressureDifference dp_1
-    "Pressure drop at required flow rate with damper fully open";
   parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dp_nominal_pos
     "Pressure drop for sizing the transition regions";
   parameter Real c_regul = 1E-2 "Regularization coefficient";
@@ -53,6 +44,12 @@ protected
   parameter Real[sizeSupSpl] kSupSpl(fixed=false) "k values of sorted support points for spline interpolation";
   parameter Integer[sizeSupSpl] idx_sorted(fixed=false) "Indexes of sorted support points";
   parameter Real[sizeSupSpl] invSplDer(fixed=false) "Derivatives at support points for spline interpolation";
+  Real kThetaDam(unit="1") "Loss coefficient of damper in actual position";
+  Real kThetaTot(unit="1") "Loss coefficient of damper + fixed resistance";
+  Modelica.SIunits.PressureDifference dp_0
+    "Pressure drop at required flow rate with damper fully closed";
+  Modelica.SIunits.PressureDifference dp_1
+    "Pressure drop at required flow rate with damper fully open";
 initial equation
   kResSqu=if dpFixed_nominal > Modelica.Constants.eps then
     m_flow_nominal^2 / dpFixed_nominal else 0
@@ -151,9 +148,20 @@ defaultComponentName="preInd",
 Documentation(info="<html>
 <p>
 Model for an air damper whose airflow is proportional to the input signal, assuming
-that at <code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless the pressure difference
-<code>dp</code> is too low,
-in which case a <code>kDam = m_flow_nominal/sqrt(dp_nominal)</code> characteristic is used.
+that at <code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless:
+<ul>
+<li>
+the pressure difference <code>dp</code> is too low, in which case the flow rate is computed 
+under the assumption of a fully open damper with exponential flow characteristics;
+</li>
+<li>
+the pressure difference <code>dp</code> is too high, in which case the flow rate is computed 
+under the assumption of a fully closed damper with exponential flow characteristics.
+</li>
+</p>
+<p>
+Eventually the fractional opening of the damper is computed under the assumption of an 
+exponential flow characteristics.
 </p>
 <p>
 The model is similar to
@@ -164,6 +172,12 @@ Please see that documentation for more information.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 19, 2019, by Antoine Gautier:<br/>
+Added opening calculation, improved leakage modeling and fixed mass flow rate drift at high pressure drop.<br/>
+This is for
+<a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+</li>
 <li>
 March 21, 2017 by David Blum:<br/>
 First implementation.

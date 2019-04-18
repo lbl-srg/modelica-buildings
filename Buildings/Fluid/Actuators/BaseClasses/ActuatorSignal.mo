@@ -1,7 +1,6 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
-
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
@@ -24,13 +23,13 @@ model ActuatorSignal
         rotation=270,
         origin={0,120})));
   Modelica.Blocks.Interfaces.RealOutput y_actual if not casePreInd
-    "Actual valve position"
+    "Actual position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   // Classes used to implement the filtered opening
 protected
   parameter Boolean casePreInd = false
     "In case of PressureIndependent the model I/O is modified.";
-  Modelica.Blocks.Interfaces.RealOutput y_internal
+  Modelica.Blocks.Interfaces.RealOutput y_internal(unit="1")
     "Output connector for internal use (= y_actual)";
   Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter
     "Filtered valve position in the range 0..1"

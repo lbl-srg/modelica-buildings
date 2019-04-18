@@ -150,6 +150,10 @@ The control signal of the dampers is constant, either equal to 0 or 1.
 </html>", revisions="<html>
 <ul>
 <li>
+April 19, 2019, by Antoine Gautier:<br/>
+Updated the test cases for pressure independent dampers.
+</li>
+<li>
 March 21, 2017 by David Blum:<br/>
 Added Linear damper models <code>lin</code>, <code>preIndFrom_dp</code>, and <code>preInd</code>.
 </li>

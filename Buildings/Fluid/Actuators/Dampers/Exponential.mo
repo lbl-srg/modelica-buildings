@@ -35,8 +35,9 @@ Documentation(info="<html>
 <b>General Description</b>
 </p>
 <p>
-Model of two resistances in series. One resistance has a fixed flow coefficient, the
-other resistance is an air damper whose flow coefficient is an exponential function of the opening angle.
+Model of two resistances in series. One (optional) resistance has a fixed flow coefficient.
+The other resistance corresponds to a damper whose loss coefficient is an exponential function
+of the opening angle.
 </p>
 <p>
 If <code>dp_nominalIncludesDamper=true</code>, then the parameter <code>dp_nominal</code>
@@ -44,6 +45,13 @@ is equal to the pressure drop of the damper plus the fixed flow resistance at th
 flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
+</p>
+<p>
+If <code>char_linear=true</code>, then the lumped flow coefficient
+(for both damper and optional fixed flow resistance) varies linearly with the filtered control
+input signal <code>y_actual</code>.
+This yields a linear relationship between the mass flow rate and <code>y_actual</code> when
+the model is exposed to constant pressure boundary conditions.
 </p>
 <p>
 <b>Exponential Damper Model Description</b>

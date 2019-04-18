@@ -357,5 +357,12 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
+<p>
+If <code>char_linear=true</code>, then the lumped flow coefficient 
+(for both damper and optional fixed flow resistance) varies linearly with the filtered control 
+input signal <code>y_actual</code>.  
+This yields a linear relationship between the mass flow rate and <code>y_actual</code> when 
+the model is exposed to constant pressure boundary conditions.
+</p>
 </html>"));
 end MixingBox;
