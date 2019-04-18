@@ -11,8 +11,7 @@ model PressureIndependent
     final from_dp=true,
     final dp_nominalIncludesDamper=true,
     final k1=2 * rho_default * (A / kDam_1)^2,
-    final k0=2 * rho_default * (A / kDam_0)^2
-  );
+    final k0=2 * rho_default * (A / kDam_0)^2);
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of duct and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
@@ -25,7 +24,7 @@ protected
     "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   parameter Real kTot_1 = if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kResSqu + 1 / kDam_1^2)) else kDam_1
-    "Flow coefficient of damper fully open plus fixed resistance, with unit=(kg.m)^(1/2)";
+    "Flow coefficient of damper fully open + fixed resistance, with unit=(kg.m)^(1/2)";
   parameter Real kDam_0 = l * kDam_1
     "Flow coefficient of damper fully closed, with unit=(kg.m)^(1/2)";
   parameter Real kTot_0 = if dpFixed_nominal > Modelica.Constants.eps then
@@ -40,16 +39,14 @@ protected
   parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dp_nominal_pos
     "Pressure drop for sizing the transition regions";
   parameter Real c_regul = 1E-2 "Regularization coefficient";
-  Modelica.SIunits.PressureDifference dpDam
-    "Pressure drop at damper boundaries, excluding fixed resistance";
   parameter Integer sizeSupSplBnd = 5 "Number of support points on each quadratic domain for spline interpolation";
   parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3 "Total number of support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl_raw = cat(
     1,
     linspace(1, yU, sizeSupSplBnd),
     {yU-1/3*(yU-yL), (yU+yL)/2, yU-2/3*(yU-yL)},
-    linspace(yL, 0, sizeSupSplBnd)
-  ) "y values of unsorted support points for spline interpolation";
+    linspace(yL, 0, sizeSupSplBnd))
+    "y values of unsorted support points for spline interpolation";
   parameter Real[sizeSupSpl] kSupSpl_raw = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
       y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU) "k values of unsorted support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl(fixed=false) "y values of sorted support points for spline interpolation";
@@ -141,18 +138,15 @@ equation
       y2=2 * rho * A^2 / Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_inv(
         m_flow=m_flow,
         dp=dp, m_flow_turbulent=m_flow_turbulent, m_flow_small=m_flow_small, dp_small=dp_small,
-        k_min=kTot_0, k_max=kTot_1
-      ),
+        k_min=kTot_0, k_max=kTot_1),
       x_small=dp_small / 2),
     y2=2 * rho * A^2 / kTot_1^2,
-    x_small=dp_small / 2
-  );
+    x_small=dp_small / 2);
   kThetaDam = if dpFixed_nominal > Modelica.Constants.eps then
     kThetaTot - 2 * rho * A^2 / kResSqu else kThetaTot;
   y_actual = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-    kThetaSqRt=sqrt(kThetaDam), kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer
-  );
-annotation(
+    kThetaSqRt=sqrt(kThetaDam), kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer);
+annotation (
 defaultComponentName="preInd",
 Documentation(info="<html>
 <p>

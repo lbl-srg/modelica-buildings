@@ -28,8 +28,7 @@ protected
 algorithm
   kSqu := if noEvent(abs(m_flow) > m_flow_turbulent) then min(k_max^2, max(k_min^2, m_flowGuard^2 / dpGuard))
     else min(k_max^2, max(k_min^2,
-      (0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm
-    ));
+      (0.375 + (0.75 - 0.125 * m_flowNormSq) * m_flowNormSq) * m_flow_turbulent^2 / dpGuard * m_flowNorm));
 annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}}), graphics={Line(

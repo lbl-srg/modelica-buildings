@@ -52,26 +52,27 @@ protected
   parameter Real[3] cL={
     (Modelica.Math.log(k0) - b - a)/yL^2,
     (-b*yL - 2*Modelica.Math.log(k0) + 2*b + 2*a)/yL,
-    Modelica.Math.log(k0)
-  } "Polynomial coefficients for curve fit for y < yl";
+    Modelica.Math.log(k0)}
+    "Polynomial coefficients for curve fit for y < yl";
   parameter Real[3] cU={
     (Modelica.Math.log(k1) - a)/(yU^2 - 2*yU + 1),
     (-b*yU^2 - 2*Modelica.Math.log(k1)*yU - (-2*b - 2*a)*yU - b)/(yU^2 - 2*yU + 1),
-    (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)
-  } "Polynomial coefficients for curve fit for y > yu";
+    (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)}
+    "Polynomial coefficients for curve fit for y > yu";
   parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
   parameter Boolean char_linear_pro = false
-    "If char_linear_pro then the flow characteristic is linearized.";
-  parameter Real kDam_1 =  (2 * rho_default / k1)^0.5 * A
+    "If char_linear_pro then the flow characteristic is linearized";
+  parameter Real kDamMax =  (2 * rho_default / k1)^0.5 * A
     "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  parameter Real kTot_1 = if kFixed > Modelica.Constants.eps then
-    sqrt(1 / (1 / kFixed^2 + 1 / kDam_1^2)) else kDam_1
+  parameter Real kTotMax = if kFixed > Modelica.Constants.eps then
+    sqrt(1 / (1 / kFixed^2 + 1 / kDamMax^2)) else kDamMax
     "Flow coefficient of damper fully open plus fixed resistance, with unit=(kg.m)^(1/2)";
-  parameter Real kDam_0 = (2 * rho_default / k0)^0.5 * A
+  parameter Real kDamMin = (2 * rho_default / k0)^0.5 * A
     "Flow coefficient of damper fully closed, with unit=(kg.m)^(1/2)";
-  parameter Real kTot_0 = if dpFixed_nominal > Modelica.Constants.eps then
-    sqrt(1 / (1 / kFixed^2 + 1 / kDam_0^2)) else kDam_0
+  parameter Real kTotMin = if kFixed > Modelica.Constants.eps then
+    sqrt(1 / (1 / kFixed^2 + 1 / kDamMin^2)) else kDamMin
     "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
+  Real y_char_linear "Actuator signal modified for characteristic linearization";
 initial equation
   assert(yL < yU, "yL must be strictly lower than yU.");
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be strictly greater than zero.");
@@ -88,13 +89,12 @@ equation
   // Optional characteristic linearization
   y_char_linear = if linearized then sqrt(y_actual) else y_actual;
   if char_linear_pro then
-    k = y_char_linear * (kTot_1 - kTot_0) + kTot_0;
+    k = y_char_linear * (kTotMax - kTotMin) + kTotMin;
     kDam = if kFixed > Modelica.Constants.eps then
       sqrt(1 / (1 / k^2 - 1 / kFixed^2)) else k;
   else
     kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-      y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU
-    );
+      y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
     k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
   end if;
   // Pressure drop calculation

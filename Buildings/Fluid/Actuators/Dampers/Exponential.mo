@@ -3,14 +3,13 @@ model Exponential
   "VAV box with a fixed resistance plus a damper model withe exponential characteristics"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
     dp(nominal=dp_nominal),
-    kFixed=sqrt(kResSqu)
-    char_linear_pro=char_linear
-  );
+    final kFixed=sqrt(kResSqu),
+    final char_linear_pro=char_linear);
   parameter Boolean dp_nominalIncludesDamper = true
-    "set to true if dp_nominal includes the pressure loss of the open damper"
+    "Set to true if dp_nominal includes the pressure loss of the open damper"
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean char_linear = false
-    "If char_linear then the flow characteristic is linearized."
+    "Set to true to linearize the flow characteristic of damper plus fixed resistance"
     annotation(Dialog(tab="Advanced"));
 protected
   parameter Modelica.SIunits.PressureDifference dpDamOpe_nominal(displayUnit="Pa")=
