@@ -11,37 +11,57 @@ block Latch "Maintains a true signal until change condition"
   Interfaces.BooleanOutput y "Output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-protected
+//protected
   Integer scenario "scenario index";
 
 initial equation
   pre(y) = pre_y_start;
   pre(u) = pre_u_start;
-  pre(u0) = pre_u_start;
+  pre(u0) = false;
   pre(scenario) = 0;
 
 equation
-  when (not u0) and (pre(u) <> u) and (pre(u) == false) then
+//   when (not u0) and (pre(u) <> u) and (pre(u) == false) then
+//     scenario = 1;
+//   elsewhen (pre(u0)==u0) and (not u0) and (pre(u) <> u) and (pre(u) == true) then
+//     scenario = 2;
+//   elsewhen (pre(u0)<>u0) and (not u0) and (pre(u) <> u) and (pre(u) == true) then
+//     scenario = 3;
+//   elsewhen (not u0) and u then
+//     scenario = 4;
+//   elsewhen (not u0) and (not u) then
+//     scenario = 5;
+//   elsewhen u0 then
+//     scenario = 6;
+//   end when;
+//
+//   if (scenario == 0 and u and not u0) then y = true;
+//   elseif (scenario == 0 and not u and not u0) then y = false;
+//   elseif (scenario == 1 or scenario == 2) then y = true;
+//   elseif (scenario == 3) then y = false;
+//   elseif (scenario == 4) then y = true;
+//   elseif (scenario == 5) then y = false;
+//   elseif (scenario == 6 and u) then y = false;
+//   else
+//     y = false;
+//   end if;
+
+  when initial() then
     scenario = 1;
-  elsewhen (pre(u0)==u0) and (not u0) and (pre(u) <> u) and (pre(u) == true) then
+  elsewhen (not u0) and (pre(u)<>u) and (pre(u) == false) then
     scenario = 2;
-  elsewhen (pre(u0)<>u0) and (not u0) and (pre(u) <> u) and (pre(u) == true) then
+  elsewhen (not u0) and (pre(u)<>u) and (pre(u) == true) and (pre(y) == true) then
     scenario = 3;
-  elsewhen (not u0) and u then
+  elsewhen (pre(u0)<>u0) and (pre(u0) == true) and (not u) then
     scenario = 4;
-  elsewhen (not u0) and (not u) then
-    scenario = 5;
   elsewhen u0 then
-    scenario = 6;
+    scenario = 5;
   end when;
 
-  if (scenario == 0 and u and not u0) then y = true;
-  elseif (scenario == 0 and not u and not u0) then y = false;
-  elseif (scenario == 1 or scenario == 2) then y = true;
-  elseif (scenario == 3) then y = false;
-  elseif (scenario == 4) then y = true;
-  elseif (scenario == 5) then y = false;
-  elseif (scenario == 6 and u) then y = false;
+  if (scenario == 1) then y = pre(y);
+  elseif (scenario == 2) then y = true;
+  elseif (scenario == 3) then y = true;
+  elseif (scenario == 4) then y = false;
   else
     y = false;
   end if;
@@ -109,45 +129,125 @@ If the clear input <code>u0</code> is <code>true</code>, the output <code>y</cod
 <code>false</code>.
 </li>
 </ul>
-
 <p>
-The table below shows the different scenarios.
+The table below shows the different scenarios:
 </p>
-
+<p>
+<b>Fixme: At initial time, the behavior needs to be determined:</b>
+</p>
+<ul>
+<li>
+Type-1: the output <code>y</code> will not be affected by <code>pre(u)</code> or <code>pre(y)</code>. 
+It equals to latch input <code>u</code>
+</li>
+</ul>
 <table summary=\"summary\" border=\"1\">
-<tr><th> Scenario
-<th> clear input <code>u0</code> </th>
-<th> latch input <code>u</code> </th>
-<th> output <code>y</code> </th>
-<th> Description </th>
-</tr>
 <tr>
-<td> 1 </td><td> <code>false</code> </td><td> from <code>false</code> to <code>true</code> </td>
-<td> <code>true</code> </td>
-<td>If <code>u0=false</code> and <code>latch</code> switches from <code>false</code> to <code>true</code>,
-then <code>y=true</code>.</td>
+<th> Scenario </th>
+<th> input <code>u0</code> </th>
+<th> previous latch input <code>pre(u)</code> </th>
+<th> latch input <code>u</code> </th>
+<th> previous output <code>pre(y)</code> </th>
+<th> New output <code>y</code> </th>
 </tr>
-<tr><td> 2 </td><td> <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td>
-<td> <code>true</code> </td>
-<td>If <code>u0=false</code> and <code>latch</code> switches from <code>true</code> to <code>false</code>,
-then remain <code>y=true</code>.</td></tr>
-
-<tr><td> 3 </td><td> from <code>true</code> to <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td>
-<td> <code>false</code> </td>
-<td>If <code>u</code> and <code>u0</code> switch from <code>true</code> to <code>false</code> at same time,
-then <code>y=false</code>.</td></tr>
-
-<tr><td> 4 </td><td> <code>false</code> </td><td>  <code>true</code> </td><td> <code>true</code> </td>
-<td>Initially, if <code>u0=false</code> and <code>u=true</code>,
-then <code>y=true</code>.</td></tr>
-
-<tr><td> 5 </td><td> <code>false</code> </td><td>  <code>false</code> </td><td> <code>false</code> </td>
-<td>Initially, if <code>u0=false</code> and <code>u=false</code>,
-then <code>y=false</code>.</td></tr>
-
-<tr><td> 6 </td><td> <code>true</code> </td><td>  <code>true</code> or <code>false</code> </td>
-<td> <code>false</code> </td>
-<td>If <code>u=true</code>, then <code>y=false</code>.</td></tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> </td></tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>false</code> </td></tr>
+</table>
+<br/>
+<ul>
+<li>
+Type-2: the output <code>y</code> will not be affected by latch input <code>u</code>
+and its start value <code>pre(u)</code>. 
+It equals to start value <code>pre(y)</code> (Current implementation)
+</li>
+</ul>
+<table summary=\"summary\" border=\"1\">
+<tr>
+<th> Scenario </th>
+<th> input <code>u0</code> </th>
+<th> previous latch input <code>pre(u)</code> </th>
+<th> latch input <code>u</code> </th>
+<th> previous output <code>pre(y)</code> </th>
+<th> New output <code>y</code> </th>
+</tr>
+<tr><td> 1 </td><td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>pre(y)</code> </td></tr>
+</table>
+<br/>
+<ul>
+<li>
+Type-3: following the same logic as during the simulation
+</li>
+</ul>
+<table summary=\"summary\" border=\"1\">
+<tr>
+<th> Scenario </th>
+<th> input <code>u0</code> </th>
+<th> previous latch input <code>pre(u)</code> </th>
+<th> latch input <code>u</code> </th>
+<th> previous output <code>pre(y)</code> </th>
+<th> New output <code>y</code> </th>
+</tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>pre(y)</code> </td></tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> </td></tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>pre(y)</code> </td></tr>
+</table>
+<br/>
+<p>
+During the simulation (after the initialization):
+</p>
+<table summary=\"summary\" border=\"1\">
+<tr>
+<th> Scenario </th>
+<th> input <code>u0</code> </th>
+<th> previous latch input <code>pre(u)</code> </th>
+<th> latch input <code>u</code> </th>
+<th> previous output <code>pre(y)</code> </th>
+<th> New output <code>y</code> </th>
+</tr>
+<tr><td> 2 </td><td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code></td></tr>
+<tr><td> 3 </td><td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code></tr>
+<tr><td> 4 </td><td> from <code>true</code> to <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>false</code></tr>
+<tr><td> 5 </td><td> <code>true</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>false</code> </td></tr>
 </table>
 <br/>
 

@@ -117,44 +117,141 @@ keeps <code>false</code>.
 </ul>
 
 <p>
-The table below shows the different scenarios during the simulation (after the initialization).
+The table below shows the different scenarios:
 </p>
 
-<table summary=\"summary\" border=\"1\">
-<tr><th> Scenario </th>
-<th>input <code>u0</code> </th><th> toggle input <code>u</code></th>
-<th>previous output <code>pre(y)</code> </th><th>New output <code>y</code></th>
-</tr>
-<tr><td> 1 </td><td> <code>false</code> </td><td> from <code>false</code> to <code>true</code> </td><td> <code>true</code> </td>
-<td><code>true</code></td></tr>
-
-<tr><td> 2 </td><td> <code>false</code> </td><td> from <code>false</code> to <code>true</code> </td><td> <code>false</code> </td>
-<td><code>false</code></td></tr>
-
-<tr><td> 3 </td><td> <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td><td> <code>false</code> </td>
-<td><code>false</code></td></tr>
-
-<tr><td> 4 </td><td> <code>false</code> </td><td> from <code>true</code> to <code>false</code> </td><td> <code>true</code> </td>
-<td><code>true</code></td></tr>
-
-
-<tr><td> 7 </td><td> <code>true</code> </td><td>  <code>true</code> or <code>false</code> </td><td> <code>false</code> </td>
-<td><code>false</code></td></tr>
-
-</table>
 <p>
-At initial time, the behavior is as follows:
+<b>Fixme: At initial time, the behavior needs to be determined:</b>
 </p>
+<ul>
+<li>
+Type-1: the output <code>y</code> will not be affected by <code>pre(u)</code> or <code>pre(y)</code>. 
+It equals to toggle input <code>u</code> (Current implementation)
+</li>
+</ul>
 <table summary=\"summary\" border=\"1\">
-<tr><th> Scenario </th>
-<th>input <code>u0</code> </th><th> toggle input <code>u</code></th>
-<th>previous output <code>pre(y)</code> </th><th>New output <code>y</code></th>
+<tr>
+<th> Scenario </th>
+<th> input <code>u0</code> </th>
+<th> previous toggle input <code>pre(u)</code> </th>
+<th> toggle input <code>u</code> </th>
+<th> previous output <code>pre(y)</code> </th>
+<th> New output <code>y</code> </th>
 </tr>
-<tr><td> 5 </td><td> <code>false</code> </td><td>  <code>false</code> </td><td> <code>false</code> </td>
-<td><code>false</code></td></tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>false</code> </td></tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> </td></tr>
+</table>
+<br/>
+<ul>
+<li>
+Type-2: the output <code>y</code> will not be affected by toggle input <code>u</code>
+and its start value <code>pre(u)</code>. 
+It equals to start value <code>pre(y)</code>
+</li>
+</ul>
+<table summary=\"summary\" border=\"1\">
+<tr>
+<th> Scenario </th>
+<th> input <code>u0</code> </th>
+<th> previous toggle input <code>pre(u)</code> </th>
+<th> toggle input <code>u</code> </th>
+<th> previous output <code>pre(y)</code> </th>
+<th> New output <code>y</code> </th>
+</tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>pre(y)</code> </td></tr>
+</table>
+<br/>
+<ul>
+<li>
+Type-3: following the same logic as during the simulation
+</li>
+</ul>
+<table summary=\"summary\" border=\"1\">
+<tr>
+<th> Scenario </th>
+<th> input <code>u0</code> </th>
+<th> previous toggle input <code>pre(u)</code> </th>
+<th> toggle input <code>u</code> </th>
+<th> previous output <code>pre(y)</code> </th>
+<th> New output <code>y</code> </th>
+</tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>pre(y)</code> </td></tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>pre(y)</code> </td></tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>pre(y)</code> </td></tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>false</code> </td></tr>
+<tr><td> xx </td><td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> </td></tr>
+</table>
+<br/>
+<p>
+During the simulation (after the initialization): 
+</p>
 
-<tr><td> 6 </td><td> <code>false</code> </td><td>  <code>true</code> </td><td> <code>true</code> </td>
-<td><code>true</code></td></tr>
+<table summary=\"summary\" border=\"1\">
+<tr>
+<th> Scenario </th>
+<th> input <code>u0</code> </th>
+<th> previous toggle input <code>pre(u)</code> </th>
+<th> toggle input <code>u</code> </th>
+<th> previous output <code>pre(y)</code> </th>
+<th> New output <code>y</code> </th>
+</tr>
+<tr><td> 1 </td><td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code></td></tr>
+<tr><td> 2 </td><td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>false</code></td></tr>
+<tr><td> 3 </td><td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>false</code></td></tr>
+<tr><td> 4 </td><td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>false</code> </td>
+                <td> <code>true</code> </td>
+                <td> <code>true</code></td></tr>
+<tr><td> 7 </td><td> <code>true</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>false</code></td></tr>
 </table>
 
 <p align=\"center\">
