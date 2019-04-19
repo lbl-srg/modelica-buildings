@@ -42,7 +42,7 @@ partial model PartialBorefield
 
   // General parameters of borefield
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat "Borefield data"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   // Temperature gradient in undisturbed soil
   parameter Modelica.SIunits.Temperature TExt0_start=283.15
@@ -274,6 +274,11 @@ temperature after calculating and/or read (from a previous calculation) the bore
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2019, by Filip Jorissen:<br/>
+Added <code>choicesAllMatching</code> for <code>borFieDat</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1117\">#1117</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to water and glycolWater.
