@@ -293,6 +293,17 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1270\">issue 1270</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                           Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                           Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
+        </td>
+        <td valign=\"top\">Changed model so that the volume is no longer fixed at compilation time.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1411\">issue 1411</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
         </td>
     </tr>
@@ -542,12 +553,13 @@ its class name ends with the string <code>Beta</code>.
     units are wrong or errors in documentation):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Corrected wrong time in the documentation of the parameters.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1409\">issue 1409</a>.
         </td>
     </tr>
     </table>

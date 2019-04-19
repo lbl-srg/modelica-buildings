@@ -1,4 +1,4 @@
-last-generated=2018-06-24
+last-generated=2019-04-17
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -41,8 +41,12 @@ statistics-fmu-dependencies=
       "inlet.m_flow",
       "inlet.p"
     ],
-    "vol.dynBal.U": [],
-    "vol.dynBal.mXi[1]": []
+    "vol.dynBal.U": [
+      "V"
+    ],
+    "vol.dynBal.mXi[1]": [
+      "V"
+    ]
   },
   "Outputs": {
     "inlet.backward.T": [
