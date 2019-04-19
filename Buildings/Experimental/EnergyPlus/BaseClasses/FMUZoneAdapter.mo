@@ -1,6 +1,6 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
-  extends Modelica.Blocks.Icons.Block;
+  extends Modelica.Blocks.Icons.DiscreteBlock;
 
   parameter String idfName "Name of the IDF file that contains this zone";
   parameter String weaName "Name of the Energyplus weather file";
@@ -15,10 +15,14 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
 
+  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps, start=0.1)
+    "Sample period of component";
+
   final parameter Modelica.SIunits.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.SIunits.Volume V(fixed=false) "Zone volume";
   final parameter Real mSenFac(fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
+
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
     displayUnit="degC")
@@ -62,8 +66,8 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
 
-  Modelica.SIunits.Time tNext(start=startTime-1, fixed=true) "Next sampling time";
-  Modelica.SIunits.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
+  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
+  //Modelica.SIunits.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
  // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
 //  Modelica.SIunits.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
 
@@ -77,6 +81,9 @@ protected
     "Class to communicate with EnergyPlus";
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
+  output Boolean sampleTrigger "True, if sample time instant";
+  output Boolean firstTrigger(start=false, fixed=true)
+    "Rising edge signals first sample instant";
 
   discrete Modelica.SIunits.Time tLast(fixed=true, start=startTime) "Last time of data exchange";
   discrete Modelica.SIunits.Time dtLast "Time step since the last synchronization";
@@ -105,12 +112,11 @@ protected
     y :=if (u > 0) then floor(u/accuracy + 0.5)*accuracy else ceil(u/accuracy - 0.5)*accuracy;
   end round;
 
-initial equation
-  startTime = time;
-  (AFlo, V, mSenFac) = Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
+initial algorithm
+  startTime := time;
+  (AFlo, V, mSenFac) := Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
     adapter = adapter,
     startTime = time);
-    /* fixme: in initial equation, must send initial inputs to FMU */
 
 equation
   // These assertions must be here. Otherwise, JModelica may optimize the code for
@@ -120,14 +126,19 @@ equation
   assert(V > 0, "Volume must not be zero.");
   assert(mSenFac > 0.9999, "mSenFac must be bigger or equal than one.");
 
-  when {initial(), time >= pre(tNext)} then
+  sampleTrigger = sample(startTime, samplePeriod);
+  when sampleTrigger then
+    firstTrigger = time <= startTime + samplePeriod/2;
+  end when;
+
+  when {initial(), sampleTrigger} then
   // Initialization of output variables.
     TRooLast = T;
     dtLast = time-pre(tLast);
   //  Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
-    mInlet_flow =  sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
-    TAveInlet = sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor)/max(1E-10, mInlet_flow);
-    (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNextEP) =
+    mInlet_flow =  0;//sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
+    TAveInlet = 293.15;//sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor)/max(1E-10, mInlet_flow);
+    (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)  =
       Buildings.Experimental.EnergyPlus.BaseClasses.exchange(
       adapter,
       initial(),
@@ -137,24 +148,6 @@ equation
       TAveInlet,
       QGaiRad_flow,
       round(time, 1E-3));
-
-    // Guard against division by zero in first call
-    //dtMax = min(tNextEP-time, round(dTMax * V * 1.2 *1006/max(1, abs(QCon_flow))/60)*60);
-    //    if dT_dt > dT_dtMax then
-//      dtMax = max(60, pre(dtMax)/10);
-//    elseif dT_dt < dT_dtMax/2 then
-//      dtMax = min(10 * pre(dtMax), 1800);
-//    else
-//      dtMax = pre(dtMax);
-//   end if;
-
-    //tNext = roundToMinute(min(tNextEP, time+dtMax));
-    //tNext = roundToMinute(min(tNextEP, time+60));
-   //fixme assert(abs(tNextEP-pre(tNext)) > 59 or time < t0+1, "EnergyPlus requested a time step that is smaller than one minute which is beyond its capability. Contact support.");
-
-    // Round next event time to multiple of one minute as EnergyPlus cannot do time steps shorter than one minute */
-    tNext = round(tNextEP, 60);
-//    Modelica.Utilities.Streams.print("*** **** From Modelica:  Time = " + String(time) + "\t tNextEP = " + String(tNextEP) + "\t tNext = " + String(tNext));
     tLast = time;
   end when;
   QCon_flow = QConLast_flow + (T-TRooLast) * dQCon_flow;

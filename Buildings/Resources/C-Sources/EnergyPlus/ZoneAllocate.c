@@ -33,8 +33,8 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
   size_t nFMU;
   /*const char* parInpNames[] = {"T_start"};*/
   const char* parOutNames[] = {"V", "AFlo", "mSenFac"};
-  const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow", "xTest"};
-  const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow", "yTest"};
+  const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
+  const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
 
   nFMU = getBuildings_nFMU();
 

@@ -98,6 +98,22 @@ void ZoneExchange(
       zone->name, zone->isInitialized);
   }
 
+  /* Get out of the initialization mode if this zone is no longer in the initial call
+     but the FMU is still in initializationMode */
+  if (! initialCall && zone->ptrBui->mode == initializationMode){
+    writeFormatLog(3, "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for zone = %s.", zone->name);
+    status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
+    if( status != fmi2_status_ok ){
+      ModelicaFormatError("Failed to exit initialization mode for FMU with name %s in zone %s",
+        zone->ptrBui->fmuAbsPat, zone->name);
+    }
+    /* After exit_initialization_mode, the FMU is implicitely in event mode per the FMI standard */
+    setFMUMode(zone->ptrBui, eventMode);
+    /* Do an event iteration to get tNext */
+    writeFormatLog(3, "Calling do_event_iteration after exiting initialization mode for zone = %s", zone->name);
+    *tNext = do_event_iteration(zone);
+  }
+
 
   if ( !initialCall && (time - zone->ptrBui->time) > 0.001 ) {
     /* This is not in the initial clause of the Modelica when, and
@@ -142,13 +158,6 @@ void ZoneExchange(
   inputValues[2] = mInlets_flow;
   inputValues[3] = TAveInlet;
   inputValues[4] = QGaiRad_flow;
-  if ( strcmp(zone->name, "Core_ZN") ){
-    inputValues[5] = T-273.15+0.1; /* this is xTest */
-  }
-  else
-  {
-    inputValues[5] = T-273.15+0.2; /* this is xTest */
-  }
 
 
   /* Forward difference for QConSen_flow */
@@ -169,8 +178,9 @@ void ZoneExchange(
 */
   /* Get next event time, unless FMU is in initialization mode */
   if (zone->ptrBui->mode == initializationMode){
-    writeFormatLog(3, "Returning current time as tNext due to initializationMode for zone = %s", zone->name);
-    *tNext = zone->ptrBui->time; /* Return start time for next even time */
+    writeFormatLog(3, "Returning current time %.0f as tNext due to initializationMode for zone = %s",
+    zone->ptrBui->time, zone->name);
+    *tNext = zone->ptrBui->time; /* Return start time for next event time */
   }
   else{
     writeFormatLog(3, "Calling do_event_iteration after setting inputs for zone = %s", zone->name);
@@ -184,21 +194,6 @@ void ZoneExchange(
   */
   getVariables(zone->ptrBui, zone->name, zone->outValReferences, outputValues, ZONE_N_OUT);
 
-  /* Get out of the initialization mode if this zone is in the initial call, and if it was the last zone */
-  if (initialCall && allZonesAreInitialized(zone->ptrBui)){
-    writeFormatLog(3, "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for zone = %s.", zone->name);
-    status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
-    if( status != fmi2_status_ok ){
-      ModelicaFormatError("Failed to exit initialization mode for FMU with name %s in zone %s",
-        zone->ptrBui->fmuAbsPat, zone->name);
-    }
-    /* After exit_initialization_mode, the FMU is implicitely in event mode per the FMI standard */
-    setFMUMode(zone->ptrBui, eventMode);
-    /* Do an event iteration to get tNext */
-    writeFormatLog(3, "Calling do_event_iteration after exiting initialization mode for zone = %s", zone->name);
-    *tNext = do_event_iteration(zone);
-  }
-
   /* Assign output values, which are of the order below
      const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
   */
@@ -209,12 +204,8 @@ void ZoneExchange(
   *QPeo_flow = outputValues[3];
   *dQConSen_flow = 0*(QConSenPer_flow-*QConSen_flow)/dT;
 
-  writeFormatLog(3, "*** In Exchange, time = %.2f;\t xTest = %.2f;\t yTest = %.2f;\t initialCall = %d;\t time = %.2f;\t tNext = %.2f;\t mode = %s;\t zone = %s",
-    time, inputValues[5], outputValues[4], initialCall, time, *tNext, fmuModeToString(zone->ptrBui->mode), zone->name);
-
-
-  writeFormatLog(3, "Returning from ZoneExchange with nextEventTime = %.2f., zone = %s, mode = %s",
-    *tNext, zone->name, fmuModeToString(zone->ptrBui->mode));
+  writeFormatLog(3, "Returning from ZoneExchange with nextEventTime = %.2f, QCon = %.2f, zone = %s, mode = %s",
+    *tNext, *QConSen_flow, zone->name, fmuModeToString(zone->ptrBui->mode));
   return;
 }
 
@@ -232,7 +223,7 @@ double do_event_iteration(FMUZone* zone){
     zone->name, fmuModeToString(zone->ptrBui->mode));
   /* Enter event mode if the FMU is in Continuous time mode
      because fmi2NewDiscreteStates can only be called in event mode */
-  if (zone->ptrBui->mode != eventMode){
+  if (zone->ptrBui->mode == continuousTimeMode){
     status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
     /* fixme if (status != fmi2_status_ok){
       ModelicaFormatError("Failed to enter event mode for FMU %s and zone %s.",

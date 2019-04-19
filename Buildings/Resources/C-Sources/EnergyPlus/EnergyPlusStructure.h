@@ -83,8 +83,8 @@ typedef struct FMUBuilding
 
 /*#define ZONE_N_PAR_INP 1 Number of parameter value references to be set in EnergyPlus per zone*/
 #define ZONE_N_PAR_OUT 3 /* Number of parameter value references to be read from EnergyPlus per zone*/
-#define ZONE_N_INP 6 /* Number of input value references per zone*/
-#define ZONE_N_OUT 5 /* Number of output value references per zone*/
+#define ZONE_N_INP 5 /* Number of input value references per zone*/
+#define ZONE_N_OUT 4 /* Number of output value references per zone*/
 
 typedef struct FMUZone
 {

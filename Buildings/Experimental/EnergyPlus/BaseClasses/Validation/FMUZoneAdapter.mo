@@ -14,7 +14,8 @@ model FMUZoneAdapter
     final idfName=idfName,
     final weaName=weaName,
     final zoneName="Core_ZN",
-    final nFluPor=2) "Adapter to EnergyPlus"
+    final nFluPor=2,
+    samplePeriod=60) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.RealExpression X_w(y=0.01) "Zone absolute humidity"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
@@ -31,7 +32,7 @@ model FMUZoneAdapter
   Modelica.Blocks.Continuous.Integrator TZon(
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=293.15,
+    y_start=295.15,
     y(unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Modelica.Blocks.Sources.RealExpression modTim(y=273.15 + time + 5) "Time"
@@ -51,8 +52,8 @@ equation
           {-16,-8},{-16,-70},{-59,-70}}, color={0,0,127}));
   connect(fmuZon.QCon_flow, TZon.u) annotation (Line(points={{41,2},{50,2},{50,60},
           {-30,60},{-30,40},{-22,40}}, color={0,0,127}));
-  connect(modTim.y, fmuZon.T) annotation (Line(points={{-59,40},{-36,40},{-36,8},
-          {18,8}}, color={0,0,127}));
+  connect(TZon.y, fmuZon.T)
+    annotation (Line(points={{1,40},{10,40},{10,8},{18,8}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Validation model that communicates with EnergyPlus.

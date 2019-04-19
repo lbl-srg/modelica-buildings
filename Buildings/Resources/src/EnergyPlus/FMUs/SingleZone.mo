@@ -4,9 +4,9 @@ model SingleZone "Model of a thermal zone"
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps, start=0.1) = 60
     "Sample period of component";
 
-  parameter Modelica.SIunits.Volume Core_ZN_V = 3*4*3 "Volume";
-  parameter Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
-  parameter Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
+  parameter output Modelica.SIunits.Volume Core_ZN_V = 3*4*3 "Volume";
+  parameter output Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
+  parameter output Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
   //parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T_start = 20
   //  "Initial temperature of zone air";
 
@@ -19,8 +19,6 @@ model SingleZone "Model of a thermal zone"
     "Average of inlets medium temperatures carried by the mass flow rates";
   input Modelica.SIunits.HeatFlowRate Core_ZN_QGaiRad_flow
     "Radiative sensible heat gain added to the zone";
-  input Real Core_ZN_xTest "Test";
-  discrete output Real Core_ZN_yTest "Test";
 
   discrete output Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_TRad
     "Average radiative temperature in the room";
@@ -47,6 +45,8 @@ protected
 initial equation
   startTime = time;
 
+  Core_TCon = 20;
+
 equation
   sampleTrigger = sample(startTime, samplePeriod);
 
@@ -54,27 +54,18 @@ equation
     firstTrigger = time <= startTime + samplePeriod/2;
   end when;
 
-  when {sampleTrigger, initial()} then
-//    Modelica.Utilities.Streams.print("+++ In when clause at t = "
-//      + String(time) + " with Core_ZN_T = " + String(Core_ZN_T));
-/*
-    if initial() then
+  when {sampleTrigger} then
+    if not initial() then
       Core_TCon = pre(Core_TCon) + samplePeriod / CCon * (Core_ZN_QConSen_flow + Core_ZN_QGaiRad_flow);
     else
       Core_TCon = pre(Core_TCon);
     end if;
-    */
-    if initial() then
-      Core_ZN_yTest = Core_ZN_xTest;
-      Core_TCon = Core_ZN_xTest;//+ samplePeriod / CCon * (Core_ZN_QConSen_flow + Core_ZN_QGaiRad_flow);
-    else
-      Core_ZN_yTest = pre(Core_ZN_xTest) + 1;
-      Core_TCon = pre(Core_ZN_xTest) + 1;
-    end if;
+
     Core_ZN_TRad = Core_TCon;
-    Core_ZN_QConSen_flow = 1*Core_ZN_T;// fixme Ah * (Core_ZN_T-pre(TCon));
+    Core_ZN_QConSen_flow = Ah * (pre(Core_TCon) - Core_ZN_T);
     Core_ZN_QLat_flow = 400;
     Core_ZN_QPeo_flow = 200;
+
   end when;
 
 end SingleZone;
