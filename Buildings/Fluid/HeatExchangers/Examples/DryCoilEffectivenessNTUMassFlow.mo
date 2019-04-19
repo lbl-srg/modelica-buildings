@@ -54,7 +54,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilEffectivenessNTUMassFlow.mos"
+__Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilEffectivenessNTUMassFlow.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
