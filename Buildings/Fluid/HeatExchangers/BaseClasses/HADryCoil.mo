@@ -1,6 +1,8 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model HADryCoil "Sensible convective heat transfer model for air to water coil"
-  extends Buildings.BaseClasses.BaseIcon;
+model HADryCoil
+  "Sensible convective heat transfer model for air to water coil"
+  extends Modelica.Blocks.Icons.Block;
+
   parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow"
           annotation(Dialog(tab="General", group="Nominal condition"));
@@ -149,11 +151,7 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Text(
+            100}}), graphics={            Text(
           extent={{-60,90},{66,0}},
           lineColor={0,0,0},
           fillColor={255,255,255},
