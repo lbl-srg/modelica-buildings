@@ -243,7 +243,13 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
         </td>
-        </tr>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.X_pTphi
+        </td>
+        <td valign=\"top\">Added function to compute humidity mass fraction for given pressure, temperature
+                         and relative humidity.
+        </td>
+    </tr>
     </table>
     <!-- Backward compatible changes -->
     <p>
@@ -520,12 +526,13 @@ its class name ends with the string <code>Beta</code>.
     units are wrong or errors in documentation):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Corrected wrong time in the documentation of the parameters.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1409\">issue 1409</a>.
         </td>
     </tr>
     </table>
