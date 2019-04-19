@@ -151,16 +151,16 @@ Model for an air damper whose airflow is proportional to the input signal, assum
 that at <code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless:
 <ul>
 <li>
-the pressure difference <code>dp</code> is too low, in which case the flow rate is computed 
+the pressure difference <code>dp</code> is too low, in which case the flow rate is computed
 under the assumption of a fully open damper with exponential flow characteristics;
 </li>
 <li>
-the pressure difference <code>dp</code> is too high, in which case the flow rate is computed 
+the pressure difference <code>dp</code> is too high, in which case the flow rate is computed
 under the assumption of a fully closed damper with exponential flow characteristics.
 </li>
 </p>
 <p>
-Eventually the fractional opening of the damper is computed under the assumption of an 
+Eventually the fractional opening of the damper is computed under the assumption of an
 exponential flow characteristics.
 </p>
 <p>
