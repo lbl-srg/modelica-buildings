@@ -1,59 +1,46 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model Toggle "Validation model for the Toggle block"
 
-  Buildings.Controls.OBC.CDL.Logical.Toggle toggle1
-    "Initial clear input is true"
+  Buildings.Controls.OBC.CDL.Logical.Toggle iniTruOut(
+    pre_y_start=true)
+    "Initial false clear input, initial true output"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Toggle toggle2
-    "Initial clear input is false with initial toggle input is true"
+  Buildings.Controls.OBC.CDL.Logical.Toggle iniFalOut
+    "Initial false clear input, initial false output"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Toggle toggle3
-    "Initial clear input is false with initial toggle input is false"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Toggle swiCleInp
+    "Initial false output, with clear input switch between false and true"
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse togInp(
     final width=0.5,
-    final period=1.5) "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    final period=2) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse cleInp(
     final width=0.5,
-    final period=5) "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    final period=6) "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse cleInpu1(
-    final width=0.9,
-    final period=12,
-    final startTime=0.5) "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(
+    final k=false) "False clear input"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation
-  connect(togInp.y, toggle1.u)
-    annotation (Line(points={{-59,60},{-40,60},{-40,40},{39,40}}, color={255,0,255}));
-  connect(cleInp.y, toggle1.u0)
-    annotation (Line(points={{-59,20},{-50,20},{-50,34},{39,34}}, color={255,0,255}));
-  connect(togInp.y, toggle2.u)
-    annotation (Line(points={{-59,60},{-40,60},{-40,0},{39,0}}, color={255,0,255}));
-  connect(togInp.y, not2.u)
-    annotation (Line(points={{-59,60},{-40,60},{-40,-60},{-22,-60}}, color={255,0,255}));
-  connect(cleInp.y, and2.u1)
-    annotation (Line(points={{-59,20},{-50,20},{-50,-20},{-22,-20}}, color={255,0,255}));
-  connect(cleInpu1.y, and2.u2)
-    annotation (Line(points={{-59,-40},{-50,-40},{-50,-28},{-22,-28}}, color={255,0,255}));
-  connect(and2.y, toggle2.u0)
-    annotation (Line(points={{1,-20},{20,-20},{20,-6},{39,-6}}, color={255,0,255}));
-  connect(and2.y, toggle3.u0)
-    annotation (Line(points={{1,-20},{20,-20},{20,-66},{39,-66}}, color={255,0,255}));
-  connect(not2.y, toggle3.u)
-    annotation (Line(points={{1,-60},{39,-60}}, color={255,0,255}));
+  connect(togInp.y, iniTruOut.u)
+    annotation (Line(points={{-39,40},{39,40}}, color={255,0,255}));
+  connect(togInp.y, iniFalOut.u)
+    annotation (Line(points={{-39,40},{0,40},{0,0},{39,0}}, color={255,0,255}));
+  connect(togInp.y, swiCleInp.u)
+    annotation (Line(points={{-39,40},{0,40},{0,-40},{39,-40}}, color={255,0,255}));
+  connect(fal.y, iniTruOut.u0)
+    annotation (Line(points={{-39,0},{-20,0},{-20,34},{39,34}}, color={255,0,255}));
+  connect(fal.y, iniFalOut.u0)
+    annotation (Line(points={{-39,0},{-20,0},{-20,-6},{39,-6}}, color={255,0,255}));
+  connect(cleInp.y, swiCleInp.u0)
+    annotation (Line(points={{-39,-40},{-20,-40},{-20,-46},{39,-46}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),

@@ -1,12 +1,12 @@
 compareVars :=
   {
-    "latch1.u0",
-    "latch1.u",
-    "latch1.y",
-    "latch2.u0",
-    "latch2.u",
-    "latch2.y",
-    "latch3.u0",
-    "latch3.u",
-    "latch3.y"
+    "iniTruOut.u0",
+    "iniTruOut.u",
+    "iniTruOut.y",
+    "iniFalOut.u0",
+    "iniFalOut.u",
+    "iniFalOut.y",
+    "swiCleInp.u0",
+    "swiCleInp.u",
+    "swiCleInp.y"
   };

@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Latch "Maintains a true signal until change condition"
 
-  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
   parameter Boolean pre_y_start=false "Start value of pre(y) at initial time";
 
   Interfaces.BooleanInput u "Latch input"
@@ -11,46 +10,21 @@ block Latch "Maintains a true signal until change condition"
   Interfaces.BooleanOutput y "Output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-//protected
+protected
   Integer scenario "scenario index";
 
 initial equation
   pre(y) = pre_y_start;
-  pre(u) = pre_u_start;
+  pre(u) = false;
   pre(u0) = false;
   pre(scenario) = 0;
 
 equation
-//   when (not u0) and (pre(u) <> u) and (pre(u) == false) then
-//     scenario = 1;
-//   elsewhen (pre(u0)==u0) and (not u0) and (pre(u) <> u) and (pre(u) == true) then
-//     scenario = 2;
-//   elsewhen (pre(u0)<>u0) and (not u0) and (pre(u) <> u) and (pre(u) == true) then
-//     scenario = 3;
-//   elsewhen (not u0) and u then
-//     scenario = 4;
-//   elsewhen (not u0) and (not u) then
-//     scenario = 5;
-//   elsewhen u0 then
-//     scenario = 6;
-//   end when;
-//
-//   if (scenario == 0 and u and not u0) then y = true;
-//   elseif (scenario == 0 and not u and not u0) then y = false;
-//   elseif (scenario == 1 or scenario == 2) then y = true;
-//   elseif (scenario == 3) then y = false;
-//   elseif (scenario == 4) then y = true;
-//   elseif (scenario == 5) then y = false;
-//   elseif (scenario == 6 and u) then y = false;
-//   else
-//     y = false;
-//   end if;
-
   when initial() then
     scenario = 1;
   elsewhen (not u0) and (pre(u)<>u) and (pre(u) == false) then
     scenario = 2;
-  elsewhen (not u0) and (pre(u)<>u) and (pre(u) == true) and (pre(y) == true) then
+  elsewhen (not u0) and (pre(u)<>u) and (pre(u) == true) then
     scenario = 3;
   elsewhen (pre(u0)<>u0) and (pre(u0) == true) and (not u) then
     scenario = 4;
@@ -60,7 +34,7 @@ equation
 
   if (scenario == 1) then y = pre(y);
   elseif (scenario == 2) then y = true;
-  elseif (scenario == 3) then y = true;
+  elseif (scenario == 3) then y = pre(y);
   elseif (scenario == 4) then y = false;
   else
     y = false;
@@ -123,6 +97,8 @@ becomes <code>true</code>. For instance,
 Suppose the clear input <code>u0</code> is <code>false</code>. When the latch input <code>u</code>
 becomes <code>true</code>, then the output <code>y</code> becomes <code>true</code>
 and remains <code>true</code>, even if <code>u</code> becomes <code>false</code>.
+The output <code>y</code> becomes <code>false</code> only when the clear input 
+<code>u0</code> becomes <code>true</code>.
 </li>
 <li>
 If the clear input <code>u0</code> is <code>true</code>, the output <code>y</code> remains
@@ -132,93 +108,31 @@ If the clear input <code>u0</code> is <code>true</code>, the output <code>y</cod
 <p>
 The table below shows the different scenarios:
 </p>
-<p>
-<b>Fixme: At initial time, the behavior needs to be determined:</b>
-</p>
 <ul>
 <li>
-Type-1: the output <code>y</code> will not be affected by <code>pre(u)</code> or <code>pre(y)</code>. 
-It equals to latch input <code>u</code>
+At initial time, the output <code>y</code> will be determined by initial value 
+<code>pre_y_start</code>, with <code>false</code> as default.
 </li>
 </ul>
 <table summary=\"summary\" border=\"1\">
 <tr>
 <th> Scenario </th>
 <th> input <code>u0</code> </th>
-<th> previous latch input <code>pre(u)</code> </th>
-<th> latch input <code>u</code> </th>
-<th> previous output <code>pre(y)</code> </th>
-<th> New output <code>y</code> </th>
-</tr>
-<tr><td> xx </td><td> <code>false</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>true</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>true</code> </td></tr>
-<tr><td> xx </td><td> <code>false</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>false</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>false</code> </td></tr>
-</table>
-<br/>
-<ul>
-<li>
-Type-2: the output <code>y</code> will not be affected by latch input <code>u</code>
-and its start value <code>pre(u)</code>. 
-It equals to start value <code>pre(y)</code> (Current implementation)
-</li>
-</ul>
-<table summary=\"summary\" border=\"1\">
-<tr>
-<th> Scenario </th>
-<th> input <code>u0</code> </th>
-<th> previous latch input <code>pre(u)</code> </th>
 <th> latch input <code>u</code> </th>
 <th> previous output <code>pre(y)</code> </th>
 <th> New output <code>y</code> </th>
 </tr>
 <tr><td> 1 </td><td> <code>false</code> </td>
                 <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>pre(y)</code> </td></tr>
+                <td> <code>pre_y_start</code> </td>
+                <td> <code>pre_y_start</code> </td></tr>
 </table>
 <br/>
 <ul>
 <li>
-Type-3: following the same logic as during the simulation
+During the simulation (after the initialization):
 </li>
 </ul>
-<table summary=\"summary\" border=\"1\">
-<tr>
-<th> Scenario </th>
-<th> input <code>u0</code> </th>
-<th> previous latch input <code>pre(u)</code> </th>
-<th> latch input <code>u</code> </th>
-<th> previous output <code>pre(y)</code> </th>
-<th> New output <code>y</code> </th>
-</tr>
-<tr><td> xx </td><td> <code>false</code> </td>
-                <td> <code>false</code> </td>
-                <td> <code>false</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>pre(y)</code> </td></tr>
-<tr><td> xx </td><td> <code>false</code> </td>
-                <td> <code>false</code> </td>
-                <td> <code>true</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>true</code> </td></tr>
-<tr><td> xx </td><td> <code>false</code> </td>
-                <td> <code>true</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>pre(y)</code> </td></tr>
-</table>
-<br/>
-<p>
-During the simulation (after the initialization):
-</p>
 <table summary=\"summary\" border=\"1\">
 <tr>
 <th> Scenario </th>
@@ -236,8 +150,8 @@ During the simulation (after the initialization):
 <tr><td> 3 </td><td> <code>false</code> </td>
                 <td> <code>true</code> </td>
                 <td> <code>false</code> </td>
-                <td> <code>true</code> </td>
-                <td> <code>true</code></tr>
+                <td> <code>true</code> or <code>false</code> </td>
+                <td> <code>pre(y)</code></tr>
 <tr><td> 4 </td><td> from <code>true</code> to <code>false</code> </td>
                 <td> <code>true</code> or <code>false</code> </td>
                 <td> <code>false</code> </td>

@@ -1,4 +1,4 @@
 simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.Latch", stopTime=10.0, method="Cvode", tolerance=1e-06, resultFile="Latch1");
-createPlot(id=1, position={10, 10, 900, 1000}, y={"latch1.u0","latch1.u","latch1.y"}, subPlot=1, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47},{0,140,72},{28,108,200}});
-createPlot(id=1, position={10, 10, 900, 1000}, y={"latch2.u0","latch2.u","latch2.y"}, subPlot=2, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47},{0,140,72},{28,108,200}});
-createPlot(id=1, position={10, 10, 900, 1000}, y={"latch3.u0","latch3.u","latch3.y"}, subPlot=3, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47},{0,140,72},{28,108,200}});
+createPlot(id=1, position={10, 10, 900, 1000}, y={"iniTruOut.u0","iniTruOut.u","iniTruOut.y"}, subPlot=1, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47},{0,140,72},{28,108,200}});
+createPlot(id=1, position={10, 10, 900, 1000}, y={"iniFalOut.u0","iniFalOut.u","iniFalOut.y"}, subPlot=2, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47},{0,140,72},{28,108,200}});
+createPlot(id=1, position={10, 10, 900, 1000}, y={"swiCleInp.u0","swiCleInp.u","swiCleInp.y"}, subPlot=3, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{238,46,47},{0,140,72},{28,108,200}});
