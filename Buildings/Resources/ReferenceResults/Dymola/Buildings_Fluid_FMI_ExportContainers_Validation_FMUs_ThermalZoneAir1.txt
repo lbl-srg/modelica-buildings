@@ -1,4 +1,4 @@
-last-generated=2018-06-24
+last-generated=2019-04-17
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -73,14 +73,17 @@ statistics-fmu-dependencies=
       "vol.X_start[1]"
     ],
     "vol.dynBal.U": [
+      "V",
       "vol.p_start",
       "vol.T_start",
       "vol.X_start[1]"
     ],
     "vol.dynBal.m": [
+      "V",
       "vol.p_start"
     ],
     "vol.dynBal.mXi[1]": [
+      "V",
       "vol.p_start",
       "vol.X_start[1]"
     ]

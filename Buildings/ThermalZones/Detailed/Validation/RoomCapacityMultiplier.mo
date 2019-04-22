@@ -70,7 +70,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {200,200}})),        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/RoomCapacityMultiplier.mos"
+            {200,200}})),        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/RoomCapacityMultiplier.mos"
         "Simulate and plot"),
     Documentation(info="<html>
     This model validates the room capacity multipler of

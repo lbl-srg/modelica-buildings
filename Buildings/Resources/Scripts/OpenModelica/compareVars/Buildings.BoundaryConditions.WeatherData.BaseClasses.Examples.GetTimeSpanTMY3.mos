@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "timeSpan[1]",
+    "timeSpan[2]"
+  };

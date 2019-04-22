@@ -141,6 +141,8 @@ Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertTimePositiv
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/EquationOfTime.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mo
+Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3.mo
+Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3_NonzeroStart.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/LocalCivilTime.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/SolarTime.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/Examples/package.mo
@@ -1231,6 +1233,8 @@ Buildings/Resources/C-Sources/cryptographicsHash.h
 Buildings/Resources/C-Sources/fileWriterFree.c
 Buildings/Resources/C-Sources/fileWriterInit.c
 Buildings/Resources/C-Sources/fileWriterStructure.h
+Buildings/Resources/C-Sources/getTimeSpan.c
+Buildings/Resources/C-Sources/getTimeSpan.h
 Buildings/Resources/Data/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mos
 Buildings/Resources/Data/BoundaryConditions/WeatherData/Validation/TwoYears_DataOnceAMonth_TMY3.mos
 Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Analytic_20Years.txt
@@ -1374,6 +1378,8 @@ Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png
 Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_BoundaryConditions_WeatherData_BaseClasses_Examples_GetTimeSpanTMY3.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_BoundaryConditions_WeatherData_BaseClasses_Examples_GetTimeSpanTMY3_NonzeroStart.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -1425,6 +1431,8 @@ Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Ex
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/EquationOfTime.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos
+Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3.mos
+Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetTimeSpanTMY3_NonzeroStart.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/LocalCivilTime.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/SolarTime.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3.mos
