@@ -32,8 +32,8 @@ void *cfdcosim() {
   /****************************************************************************
   | return modelica error if more than one ffd instances are created
   ****************************************************************************/
-	if ( cosim != NULL )
-		ModelicaError("ModelicaError: Only one room with FFD can be used, but more than one is used.");
+  if ( cosim != NULL )
+    ModelicaError("ModelicaError: Only one room with FFD can be used, but more than one is used.");
 
   /****************************************************************************
   | Allocate memory for cosimulation variables
@@ -61,5 +61,41 @@ void *cfdcosim() {
     ModelicaError("Failed to allocate memory for cosim->ffd in cfdcosim.c");
   }
 
-	return (void*) cosim;
+  /****************************************************************************
+  | Initialize cosimulation variables
+  ****************************************************************************/
+  cosim->modelica->flag = 0;
+  cosim->ffd->flag = 0;
+  cosim->para->flag = 1;
+  cosim->para->ffdError = 0;
+  cosim->para->nSur = 0;
+  cosim->para->nSen = 0;
+  cosim->para->nConExtWin = 0;
+  cosim->para->nPorts = 0;
+  cosim->para->sha = 0;
+  cosim->para->nC = 0;
+  cosim->para->nXi = 0;
+  cosim->ffd->msg = NULL;
+  cosim->para->fileName = NULL;
+  cosim->para->are = NULL;
+  cosim->para->til = NULL;
+  cosim->para->bouCon = NULL;
+  cosim->para->name = NULL;
+  cosim->para->sensorName = NULL;
+  cosim->ffd->senVal = NULL;
+  cosim->modelica->CPor = NULL;
+  cosim->ffd->CPor = NULL;
+  cosim->modelica->XiPor = NULL;
+  cosim->ffd->XiPor = NULL;
+  cosim->modelica->TPor = NULL;
+  cosim->ffd->TPor = NULL;
+  cosim->para->portName = NULL;
+  cosim->modelica->mFloRatPor = NULL;
+  cosim->ffd->temHea = NULL;
+  cosim->modelica->temHea = NULL;
+  cosim->modelica->shaConSig = NULL;
+  cosim->modelica->shaAbsRad = NULL;
+  cosim->ffd->TSha = NULL;
+
+  return (void*) cosim;
 } /* End of cfdcosim()*/

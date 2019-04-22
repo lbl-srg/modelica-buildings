@@ -31,11 +31,11 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
                  double *t1, double *y) {
   size_t i, j, k;
 
-	/*check if current modelica time equals to last time*/
-	/*if yes, it means cfdExchangeData() was called multiple times at one synchronization point, then directly return*/
-	if(abs(cosim->modelica->lt - t0) < 1E-6){
+  /*check if current modelica time equals to last time*/
+  /*if yes, it means cfdExchangeData() was called multiple times at one synchronization point, then directly return*/
+  if(abs(cosim->modelica->lt - t0) < 1E-6){
     return 0;
-	}
+  }
 
   /*--------------------------------------------------------------------------
   | Write data to CFD
@@ -54,7 +54,7 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
 
   cosim->modelica->t = t0;
   cosim->modelica->dt = dt;
-	cosim->modelica->lt = t0;
+  cosim->modelica->lt = t0;
 
   /* Copy the Modelica data to shared memory*/
   for(i=0; i<cosim->para->nSur; i++) {
