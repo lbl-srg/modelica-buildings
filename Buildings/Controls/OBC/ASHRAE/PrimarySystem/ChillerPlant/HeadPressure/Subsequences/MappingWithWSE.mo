@@ -1,6 +1,6 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
-block Setpoints_haveWSE
-  "Equipment setpoints when chiller head pressure control is enabled, for plants with waterside economizer"
+block MappingWithWSE
+  "Equipment setpoints when chiller head pressure control is enabled, for plants with waterside economizer and headered condenser water pumps"
   parameter Real minTowSpe = 0.1
     "Minimum cooling tower fan speed";
   parameter Real minConWatPumSpe = 0.1
@@ -12,7 +12,7 @@ block Setpoints_haveWSE
     "Chiller head pressure control loop signal"
     annotation (Placement(transformation(extent={{-160,110},{-120,150}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpeSet
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput desConWatPumSpe
     "Design condenser water pump speed for current stage"
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
@@ -144,7 +144,7 @@ equation
       color={0,0,127}));
   connect(swi.y, yMaxTowSpeSet)
     annotation (Line(points={{101,180},{130,180}}, color={0,0,127}));
-  connect(uConWatPumSpeSet, swi1.u1)
+  connect(desConWatPumSpe, swi1.u1)
     annotation (Line(points={{-140,60},{-60,60},{-60,78},{78,78}}, color={0,0,127}));
   connect(conWatPumSpe.y, swi1.u3)
     annotation (Line(points={{61,30},{70,30},{70,62},{78,62}},
@@ -167,7 +167,7 @@ equation
   connect(one.y, swi.u1)
     annotation (Line(points={{-19,150},{-10,150},{-10,188},{78,188}},
       color={0,0,127}));
-  connect(uConWatPumSpeSet, conWatPumSpe.f1)
+  connect(desConWatPumSpe, conWatPumSpe.f1)
     annotation (Line(points={{-140,60},{-60,60},{-60,34},{38,34}},
       color={0,0,127}));
   connect(one4.y, swi2.u3)
@@ -237,9 +237,9 @@ annotation (
 Block that resets maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code>, 
 controls condenser water pump speed <code>yConWatPumSpe</code> and 
 head pressure control valve position <code>yHeaPreConVal</code>
-for plants with water side economizers. The development follows
-ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
+for plants with water side economizers and headered condenser water pumps. 
+The development follows ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems 
+Phase II – Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
 section 5.2.10 Head pressure control, part 5.2.10.4, 5.2.10.5 and 5.2.10.6.
 </p>
 <p>
@@ -255,7 +255,7 @@ speed setpoint <code>yMaxTowSpeSet</code> from 100% to minimum speed
 <li>
 When <code>uHeaPreCon</code> changes from 50% to 100%, reset condenser water 
 pump speed <code>yConWatPumSpe</code> from design speed for the stage 
-<code>uConWatPumSpeSet</code> to minimum speed <code>minConWatPumSpe</code>.
+<code>desConWatPumSpe</code> to minimum speed <code>minConWatPumSpe</code>.
 </li>
 <li>
 Each head pressure control valve <code>yHeaPreConVal</code> of enabled chiller shall 
@@ -278,7 +278,7 @@ irrespective of loop output.
 </li>
 <li>
 Condenser water pump speed <code>yConWatPumSpe</code> shall be equal to the design
-speed for the stage <code>uConWatPumSpeSet</code>, irrespective of loop output.
+speed for the stage <code>desConWatPumSpe</code>, irrespective of loop output.
 </li>
 <li>
 Each enabled chiller head pressure control loop output <code>uHeaPreCon</code> 
@@ -306,4 +306,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Setpoints_haveWSE;
+end MappingWithWSE;

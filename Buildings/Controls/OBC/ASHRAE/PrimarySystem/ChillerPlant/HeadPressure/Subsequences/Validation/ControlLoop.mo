@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation;
 model ControlLoop "Validate sequence of output head pressure control signal"
-
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.ControlLoop
     chiHeaPreLoo
     "Output chiller head pressure control loop signal"
@@ -11,10 +10,10 @@ model ControlLoop "Validate sequence of output head pressure control signal"
     final startTime=0.5) "Head pressure control enabling status"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TConWatRet(
-    final amplitude=2,
-    final freqHz=1/10,
-    final offset=273.15 + 32) "Measured condenser water return temperature"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    final amplitude=-11,
+    final freqHz=2/10,
+    final offset=273.15 + 27) "Measured condenser water return temperature"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatSup(
     final amplitude=1,
     final freqHz=1/5,
@@ -25,7 +24,7 @@ equation
   connect(booPul.y, chiHeaPreLoo.uHeaPreEna)
     annotation (Line(points={{-59,70},{0,70},{0,58},{18,58}}, color={255,0,255}));
   connect(TConWatRet.y, chiHeaPreLoo.TConWatRet)
-    annotation (Line(points={{-59,30},{-20,30},{-20,50},{18,50}}, color={0,0,127}));
+    annotation (Line(points={{-59,20},{-20,20},{-20,50},{18,50}}, color={0,0,127}));
   connect(TChiWatSup.y, chiHeaPreLoo.TChiWatSup)
     annotation (Line(points={{-59,-20},{0,-20},{0,42},{18,42}}, color={0,0,127}));
 

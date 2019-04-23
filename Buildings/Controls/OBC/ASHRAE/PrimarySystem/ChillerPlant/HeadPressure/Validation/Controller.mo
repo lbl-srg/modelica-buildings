@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Validation;
 model Controller "Validation head pressure controller"
-
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     enaWSE "Head pressure for plant with waterside economizer that is enabled"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
@@ -9,12 +8,12 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     conSpePum(
-    final haveWSE=false)
+    final hasWSE=false)
     "Head pressure for plant without waterside economizer, constant speed condenser water pump"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     varSpePum(
-    final haveWSE=false,
+    final hasWSE=false,
     final fixSpePum=false)
     "Head pressure for plant without waterside economizer, variable speed condenser water pump"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
@@ -26,9 +25,9 @@ protected
     final startTime=0.5) "Head pressure control enabling status"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TConWatRet(
-    final amplitude=2,
-    final freqHz=1/10,
-    final offset=273.15 + 32) "Measured condenser water return temperature"
+    final amplitude=-11,
+    final freqHz=2/10,
+    final offset=273.15 + 27) "Measured condenser water return temperature"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatSup(
     final amplitude=1,
@@ -51,7 +50,7 @@ equation
     annotation (Line(points={{-99,60},{-20,60},{-20,86},{58,86}}, color={0,0,127}));
   connect(TChiWatSup.y, enaWSE.TChiWatSup)
     annotation (Line(points={{-99,20},{-10,20},{-10,82},{58,82}}, color={0,0,127}));
-  connect(desPumSpe.y, enaWSE.uConWatPumSpeSet)
+  connect(desPumSpe.y, enaWSE.desConWatPumSpe)
     annotation (Line(points={{-99,-20},{10,-20},{10,78},{58,78}}, color={0,0,127}));
   connect(runWSE.y, enaWSE.uWSE)
     annotation (Line(points={{-99,-60},{0,-60},{0,74},{58,74}}, color={255,0,255}));
@@ -61,7 +60,7 @@ equation
     annotation (Line(points={{-99,60},{-20,60},{-20,-54},{58,-54}}, color={0,0,127}));
   connect(TChiWatSup.y, disWSE.TChiWatSup)
     annotation (Line(points={{-99,20},{-10,20},{-10,-58},{58,-58}}, color={0,0,127}));
-  connect(desPumSpe.y, disWSE.uConWatPumSpeSet)
+  connect(desPumSpe.y, disWSE.desConWatPumSpe)
     annotation (Line(points={{-99,-20},{10,-20},{10,-62},{58,-62}}, color={0,0,127}));
   connect(runWSE.y, not1.u)
     annotation (Line(points={{-99,-60},{-80,-60},{-80,-80},{-62,-80}}, color={255,0,255}));
@@ -79,7 +78,7 @@ equation
     annotation (Line(points={{-99,60},{-20,60},{-20,-94},{98,-94}}, color={0,0,127}));
   connect(TChiWatSup.y, varSpePum.TChiWatSup)
     annotation (Line(points={{-99,20},{-10,20},{-10,-98},{98,-98}}, color={0,0,127}));
-  connect(desPumSpe.y, varSpePum.uConWatPumSpeSet)
+  connect(desPumSpe.y, varSpePum.desConWatPumSpe)
     annotation (Line(points={{-99,-20},{10,-20},{10,-102},{98,-102}}, color={0,0,127}));
 
 annotation (

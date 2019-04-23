@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
-package Validation
+package Validation "Collection of validation models"
 
 annotation (Icon(graphics={
         Rectangle(

@@ -1,8 +1,7 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block ControlLoop
   "Sequence to generate head pressure control signal if it is not available from the chiller controller"
-
-  parameter Modelica.SIunits.TemperatureDifference minChiLif(final min=1e-5)=25
+  parameter Modelica.SIunits.TemperatureDifference minChiLif(final min=1e-5)=10
     "Minimum allowable lift at minimum load for chiller";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -19,12 +18,14 @@ block ControlLoop
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
@@ -42,7 +43,6 @@ block ControlLoop
     final Ti=Ti,
     final yMax=1,
     final yMin=0,
-    final reverseAction=true,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=0) "Generate head pressure control signal"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
@@ -106,17 +106,18 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
-Block that generates chiller head pressure control loop signal when the signal 
-is not available from chiller controller, 
+Block that generates chiller head pressure control loop signal when the signal
+is not available from chiller controller,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
+Central Plants and Hydronic Systems (Draft 4 on January 7, 2019),
 section 5.2.10 Head pressure control, part 5.2.10.1 and 5.2.10.2.
 </p>
 <p>
-1. When head pressure control loop is enabled, reverse acting PID loop shall 
-maintain the temperature differential between the chiller condenser water 
-return temperature <code>TConWatRet</code> and chilled water supply temperature 
-<code>TChiWatSup</code> at minimum allowable lift <code>minChiLif</code>.
+1. When head pressure control loop is enabled, reverse acting PID loop shall
+maintain the temperature differential between the chiller condenser water
+return (condenser leaving) temperature <code>TConWatRet</code> and chilled water supply temperature
+<code>TChiWatSup</code> at minimum allowable lift <code>minChiLif</code> (chiller lift
+equals to <code>TConWatRet</code> minus <code>TChiWatSup</code>)
 </p>
 <p>
 2. Each operating chiller shall have its own head pressure control loop.

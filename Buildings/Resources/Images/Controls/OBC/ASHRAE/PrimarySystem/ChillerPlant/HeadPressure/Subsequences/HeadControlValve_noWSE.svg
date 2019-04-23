@@ -10,15 +10,15 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="110.01737mm"
-   height="51.999878mm"
-   viewBox="0 0 110.01737 51.999878"
+   height="51.307713mm"
+   viewBox="0 0 110.01737 51.307714"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (unknown)"
    sodipodi:docname="HeadControlValve_noWSE.svg"
    inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/HeadControlValve_noWSE.png"
-   inkscape:export-xdpi="300"
-   inkscape:export-ydpi="300">
+   inkscape:export-xdpi="200"
+   inkscape:export-ydpi="200">
   <defs
      id="defs2">
     <marker
@@ -90,9 +90,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.6478311"
-     inkscape:cx="377.9748"
-     inkscape:cy="94.907992"
+     inkscape:zoom="4.1913431"
+     inkscape:cx="227.0345"
+     inkscape:cy="10.235947"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -108,8 +108,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid815"
-       originx="-7.3111807"
-       originy="-179.76129" />
+       originx="-7.3111801"
+       originy="-180.45347" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -171,14 +171,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:2.10999799px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05274994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="36.172638"
-       y="116.67664"
+       x="25.509605"
+       y="116.10764"
        id="text1200"><tspan
          sodipodi:role="line"
          id="tspan1198"
-         x="36.172638"
-         y="116.67664"
-         style="stroke-width:0.05274994px">Head pressure control loop</tspan></text>
+         x="25.509605"
+         y="116.10764"
+         style="stroke-width:0.05274994px">Head pressure control loop, uHeaPreCon</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1"
        d="M 56.885416,110.46875 V 65.489584"
@@ -186,7 +186,7 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1208)"
-       d="m 67.468749,116.28959 h 11.90625"
+       d="m 69.289544,115.49299 h 11.90625"
        id="path1204"
        inkscape:connector-curvature="0" />
     <text
@@ -337,15 +337,14 @@
          style="stroke-width:0.05042365px">(yConWatPumSpe)</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.07592726px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05189814px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.07592082px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05189814px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="93.033905"
        y="75.831337"
        id="text1248-2-9-6-0-9"><tspan
          sodipodi:role="line"
-         id="tspan989"
+         id="tspan915"
          x="93.033905"
-         y="75.831337"
-         style="stroke-width:0.05189814px">(uConWatPumSpeSet)</tspan></text>
+         y="75.831337">(desConWatPumSpe)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.96548486px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.04913684px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"

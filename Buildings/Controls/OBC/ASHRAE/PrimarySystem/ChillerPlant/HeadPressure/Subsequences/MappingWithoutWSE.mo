@@ -1,5 +1,5 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
-block Setpoints_noWSE
+block MappingWithoutWSE
   "Equipment setpoints when chiller head pressure control is enabled, for plants without waterside economizer"
   parameter Boolean fixSpePum = true
     "Flag: true=fixed speed condenser water pumps, false=variable speed condenser water pumps";
@@ -17,7 +17,7 @@ block Setpoints_noWSE
     "Chiller head pressure control loop signal"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpeSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput desConWatPumSpe(
     final min=0,
     final max=1,
     final unit="1") if not fixSpePum
@@ -125,7 +125,7 @@ equation
       color={0,0,127}));
   connect(swi.y, yConWatPumSpe)
     annotation (Line(points={{81,-80},{110,-80}}, color={0,0,127}));
-  connect(uConWatPumSpeSet, lin.f1)
+  connect(desConWatPumSpe, lin.f1)
     annotation (Line(points={{-120,0},{-80,0},{-80,-16},{38,-16}},
       color={0,0,127}));
   connect(minPumSpe.y, lin.f2)
@@ -201,7 +201,7 @@ section 5.2.10 Head pressure control, part 5.2.10.3 and 5.2.10.6.
 <ul>
 <li>
 When <code>uHeaPreCon</code> changes from 0 to 50%, reset maximum cooling tower
-speed point <code>yMaxTowSpeSet</code> from 100% to minimum speed 
+speed setpoint <code>yMaxTowSpeSet</code> from 100% to minimum speed 
 <code>minTowSpe</code>.
 </li>
 <li>
@@ -213,7 +213,7 @@ valve position <code>yHeaPreConVal</code> from 100% open to
 <li>
 If the plant has variable speed condenser water pumps (<code>fixSpePum</code>=false), then: 
 when <code>uHeaPreCon</code> changes from 50% to 100%, reset condenser water pump 
-speed <code>yConWatPumSpe</code> from design speed for the stage <code>uConWatPumSpeSet</code> to 
+speed <code>yConWatPumSpe</code> from design speed for the stage <code>desConWatPumSpe</code> to 
 minimum speed <code>minConWatPumSpe</code>. When the pumps are dedicated, speed
 reset shall be independent for each chiller.
 </li>
@@ -237,4 +237,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Setpoints_noWSE;
+end MappingWithoutWSE;

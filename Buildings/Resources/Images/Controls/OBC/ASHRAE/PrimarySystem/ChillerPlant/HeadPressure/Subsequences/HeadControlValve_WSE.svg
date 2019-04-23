@@ -10,15 +10,15 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="97.449997mm"
-   height="50.412369mm"
-   viewBox="0 0 97.449995 50.412368"
+   height="50.370724mm"
+   viewBox="0 0 97.449997 50.370722"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (unknown)"
    sodipodi:docname="HeadControlValve_WSE.svg"
    inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/HeadControlValve_WSE.png"
-   inkscape:export-xdpi="300"
-   inkscape:export-ydpi="300">
+   inkscape:export-xdpi="200"
+   inkscape:export-ydpi="200">
   <defs
      id="defs2">
     <marker
@@ -105,9 +105,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.5997674"
-     inkscape:cx="258.81562"
-     inkscape:cy="93.817722"
+     inkscape:zoom="6.4894244"
+     inkscape:cx="210.82911"
+     inkscape:cy="63.076053"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -115,16 +115,16 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="2831"
-     inkscape:window-height="1776"
+     inkscape:window-width="3791"
+     inkscape:window-height="1980"
      inkscape:window-x="49"
      inkscape:window-y="24"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
        id="grid815"
-       originx="-2.0195117"
-       originy="-181.34878" />
+       originx="-2.0195087"
+       originy="-181.39042" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -165,18 +165,17 @@
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:2.31665802px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05791644px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="33.506523"
-       y="115.04613"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.31665635px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05791644px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="24.781429"
+       y="115.12767"
        id="text1200"><tspan
          sodipodi:role="line"
-         id="tspan1198"
-         x="33.506523"
-         y="115.04613"
-         style="stroke-width:0.05791644px">Head pressure control loop</tspan></text>
+         id="tspan912"
+         x="24.781429"
+         y="115.12767">Head pressure control loop, uHeaPreCon</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1208)"
-       d="m 67.997916,114.70208 h 11.90625"
+       d="m 73.461292,114.45573 h 11.90625"
        id="path1204"
        inkscape:connector-curvature="0" />
     <text

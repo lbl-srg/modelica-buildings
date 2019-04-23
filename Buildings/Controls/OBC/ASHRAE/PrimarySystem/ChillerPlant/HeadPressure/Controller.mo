@@ -1,30 +1,29 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
 block Controller "Head pressure controller"
-
   parameter Real minTowSpe=0.1 "Minimum cooling tower fan speed";
   parameter Real minConWatPumSpe=0.1 "Minimum condenser water pump speed"
-    annotation (Dialog(enable= not ((not haveWSE) and fixSpePum)));
+    annotation (Dialog(enable= not ((not hasWSE) and fixSpePum)));
   parameter Real minHeaPreValPos=0.1 "Minimum head pressure control valve position"
-    annotation (Dialog(enable= (not ((not haveWSE) and (not fixSpePum)))));
-  parameter Boolean haveHeaPreConSig = false
+    annotation (Dialog(enable= (not ((not hasWSE) and (not fixSpePum)))));
+  parameter Boolean hasHeaPreConSig = false
     "Flag indicating if there is head pressure control signal from chiller controller"
     annotation (Dialog(group="Plant"));
-  parameter Boolean haveWSE = true
+  parameter Boolean hasWSE = true
     "Flag indicating if the plant has waterside economizer"
     annotation (Dialog(group="Plant"));
   parameter Boolean fixSpePum = true
     "Flag indicating if the plant has fixed speed condenser water pumps"
-    annotation (Dialog(group="Plant", enable=not haveWSE));
-  parameter Modelica.SIunits.TemperatureDifference minChiLif=25
+    annotation (Dialog(group="Plant", enable=not hasWSE));
+  parameter Modelica.SIunits.TemperatureDifference minChiLif=10
     "Minimum allowable lift at minimum load for chiller"
-    annotation (Dialog(tab="Loop signal", enable=not haveHeaPreConSig));
+    annotation (Dialog(tab="Loop signal", enable=not hasHeaPreConSig));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not haveHeaPreConSig));
+    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not hasHeaPreConSig));
   parameter Real k=1 "Gain of controller"
-    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not haveHeaPreConSig));
+    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not hasHeaPreConSig));
   parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
-    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not haveHeaPreConSig));
+    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not hasHeaPreConSig));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPreEna
     "Status of head pressure control: true = ON, false = OFF"
@@ -32,31 +31,33 @@ block Controller "Head pressure controller"
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if not haveHeaPreConSig
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") if not hasHeaPreConSig
     "Measured condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
-    final quantity="ThermodynamicTemperature") if not haveHeaPreConSig
+    final displayUnit="degC",
+    final quantity="ThermodynamicTemperature") if not hasHeaPreConSig
     "Measured chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpeSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput desConWatPumSpe(
     final min=0,
     final max=1,
-    final unit="1") if not ((not haveWSE) and fixSpePum)
+    final unit="1") if not ((not hasWSE) and fixSpePum)
     "Design condenser water pump speed for current stage"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if haveWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
     "Status of water side economizer: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreCon(
     final min=0,
     final max=1,
-    final unit="1") if haveHeaPreConSig
+    final unit="1") if hasHeaPreConSig
     "Chiller head pressure control loop signal from chiller controller"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -69,14 +70,14 @@ block Controller "Head pressure controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal(
     final min=0,
     final max=1,
-    final unit="1") if not ((not haveWSE) and not fixSpePum)
+    final unit="1") if not ((not hasWSE) and not fixSpePum)
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{100,10},{120,30}}),
       iconTransformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpe(
     final min=0,
     final max=1,
-    final unit="1") if not ((not haveWSE) and fixSpePum)
+    final unit="1") if not ((not hasWSE) and fixSpePum)
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
@@ -86,30 +87,30 @@ block Controller "Head pressure controller"
     final minChiLif=minChiLif,
     final controllerType=controllerType,
     final k=k,
-    final Ti=Ti) if not haveHeaPreConSig
+    final Ti=Ti) if not hasHeaPreConSig
     "Generate chiller head pressure control loop signal"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_noWSE
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithoutWSE
     noWSE(
     final fixSpePum=fixSpePum,
     final minTowSpe=minTowSpe,
     final minConWatPumSpe=minConWatPumSpe,
-    final minHeaPreValPos=minHeaPreValPos) if not haveWSE
+    final minHeaPreValPos=minHeaPreValPos) if not hasWSE
     "Controlling equipments for plants without waterside economizer"
     annotation (Placement(transformation(extent={{40,42},{60,62}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_haveWSE
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithWSE
     withWSE(
     final minTowSpe=minTowSpe,
     final minConWatPumSpe=minConWatPumSpe,
-    final minHeaPreValPos=minHeaPreValPos) if haveWSE
+    final minHeaPreValPos=minHeaPreValPos) if hasWSE
     "Controlling equipments for plants with waterside economizer"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch swi if haveHeaPreConSig
+  Buildings.Controls.OBC.CDL.Logical.Switch swi if hasHeaPreConSig
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=0) if haveHeaPreConSig "Constant"
+    final k=0) if hasHeaPreConSig "Constant"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
 equation
@@ -155,9 +156,9 @@ equation
   connect(withWSE.yConWatPumSpe, yConWatPumSpe)
     annotation (Line(points={{61,-30},{70,-30},{70,-40},{110,-40}},
       color={0,0,127}));
-  connect(uConWatPumSpeSet, noWSE.uConWatPumSpeSet)
+  connect(desConWatPumSpe, noWSE.desConWatPumSpe)
     annotation (Line(points={{-120,20},{0,20},{0,52},{38,52}}, color={0,0,127}));
-  connect(uConWatPumSpeSet, withWSE.uConWatPumSpeSet)
+  connect(desConWatPumSpe, withWSE.desConWatPumSpe)
     annotation (Line(points={{-120,20},{0,20},{0,-26},{38,-26}}, color={0,0,127}));
   connect(noWSE.yConWatPumSpe, yConWatPumSpe)
     annotation (Line(points={{61,44},{70,44},{70,-40},{110,-40}}, color={0,0,127}));
@@ -192,18 +193,18 @@ annotation (
           extent={{-100,-140},{100,140}})),
   Documentation(info="<html>
 <p>
-Block that generates control signals for chiller head pressure control, 
+Block that generates control signals for chiller head pressure control,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
-section 5.2.10 Head pressure control. 
+Central Plants and Hydronic Systems (Draft 4 on January 7, 2019),
+section 5.2.10 Head pressure control.
 </p>
 <p>
 This sequence contains three subsequences:
 </p>
 <ul>
 <li>
-First, if the head pressure control signal <code>uHeaPreCon</code> is not 
-available from the chiller controller. The signal will be generated by block 
+First, if the head pressure control signal <code>uHeaPreCon</code> is not
+available from the chiller controller. The signal will be generated by block
 <code>chiHeaPreLoo</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.ControlLoop\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.ControlLoop</a>
@@ -211,10 +212,10 @@ for a description.
 </li>
 <li>
 If the chiller plant does not have waterside economizer, block <code>noWSE</code>
-will be used for controlling maximum cooling tower speed setpoint 
-<code>yMaxTowSpeSet</code> and depending on if the plant has constant speed condenser
-water pump, resetting head pressure control valve position 
-<code>yHeaPreConVal</code> when <code>fixSpePum</code>=true, or reseting condenser
+will be used for controlling maximum cooling tower speed setpoint
+<code>yMaxTowSpeSet</code> and, whether the plant has constant speed condenser
+water pump or not, resetting head pressure control valve position
+<code>yHeaPreConVal</code> when <code>fixSpePum</code>=true, or resetting condenser
 water pump speed <code>yConWatPumSpe</code> when <code>fixSpePum</code>=false. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_noWSE\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_noWSE</a>
@@ -222,10 +223,10 @@ for a description.
 </li>
 <li>
 If the chiller plant has waterside economizer, block <code>withWSE</code>
-will be used for specifying <code>yMaxTowSpeSet</code>, <code>yHeaPreConVal</code> and 
+will be used for specifying <code>yMaxTowSpeSet</code>, <code>yHeaPreConVal</code> and
 condenser water pump speed <code>yConWatPumSpe</code>. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_haveWSE\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_haveWSE</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_hasWSE\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_hasWSE</a>
 for a description.
 </li>
 </ul>
