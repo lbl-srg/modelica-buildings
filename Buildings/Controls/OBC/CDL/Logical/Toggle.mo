@@ -106,11 +106,9 @@ If the clear input <code>u0</code> is <code>true</code>, the output <code>y</cod
 keeps <code>false</code>.
 </li>
 </ul>
-
 <p>
 The table below shows the different scenarios:
 </p>
-
 <ul>
 <li>
 At initial time, the output <code>y</code> will be determined by initial value 
@@ -135,8 +133,8 @@ At initial time, the output <code>y</code> will be determined by initial value
 <ul>
 <li>
 During the simulation (after the initialization): 
-</ul>
 </li>
+</ul>
 
 <table summary=\"summary\" border=\"1\">
 <tr>
