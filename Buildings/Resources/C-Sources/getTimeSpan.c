@@ -36,41 +36,39 @@ char *concat(const char *s1, const char *s2) {
 }
 
 /*
- * Funciton: getTimeSpan
+ * Function: getTimeSpan
  * ---------------------
  * Get start and end time of weather data.
  *
- * filename: weather data file path
- * tabNam: name of table on weather file
+ * fileName: weather data file path
+ * tabName: name of table on weather file
  * timeSpan: vector [start time, end time]
  */
-int getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
+int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   double firstTimeStamp, lastTimeStamp, interval;
-  int rowCount, colonCount;
+  int rowCount, columnCount;
   int rowIndex=0;
   int tempInd=0;
-  char *colonCountString;
-  char *lastColonIndicator;
   char *line = NULL;
   int retVal;
   size_t len = 0;
 
   FILE *fp;
 
-  /* create format string: "%*s tab1(rowCount, colonCount)" */
-  char *tempString = concat("%*s ", tabNam);
+  /* create format string: "%*s tab1(rowCount, columnCount)" */
+  char *tempString = concat("%*s ", tabName);
   char *formatString = concat(tempString, "(%d,%d)");
   free(tempString);
 
-  fp = fopen(filename, "r");
+  fp = fopen(fileName, "r");
   if (fp == NULL){
-    ModelicaFormatError("Failed to open file %s", filename);
+    ModelicaFormatError("Failed to open file %s", fileName);
   }
 
-  /* find rowCount and colonCount */
+  /* find rowCount and columnCount */
   while (1) {
     rowIndex++;
-    if (fscanf(fp, formatString, &rowCount, &colonCount) == 2) {
+    if (fscanf(fp, formatString, &rowCount, &columnCount) == 2) {
       break;
     }
   }
@@ -81,30 +79,17 @@ int getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
   rowIndex++;
 
    /* find the end of file head */
-   if (-1 == asprintf(&colonCountString, "%d", colonCount)){
-     ModelicaError("Failed to allocate memory in getTimeSpan.c");
-   }
-
-  lastColonIndicator = concat("#C", colonCountString);
-  free(colonCountString);
-
-  while (1) {
+  while(strstr(line,"#")) {
     getline(&line, &len, fp);
     rowIndex++;
-    if (strstr(line, lastColonIndicator)) {
-      break;
-    }
   }
-  free(lastColonIndicator);
 
   /* find first time stamp */
-  retVal = fscanf(fp, "%lf", &firstTimeStamp);
+  retVal = sscanf(line, "%lf", &firstTimeStamp);
   if (retVal == EOF){
     ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching for first time stamp in %s.",
-    filename);
+    fileName);
   }
-  getline(&line, &len, fp); /* finish the line */
-  rowIndex++;
 
   /* scan to file end, to find the last time stamp */
   tempInd = rowIndex;
@@ -115,14 +100,14 @@ int getTimeSpan(const char * filename, const char * tabNam, double* timeSpan) {
   retVal = fscanf(fp, "%lf", &lastTimeStamp);
   if (retVal == EOF){
     ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching last time stamp in %s.",
-    filename);
+    fileName);
   }
   free(line);
   fclose(fp);
 
-  /* find average time inteval */
+  /* find average time interval */
   if (rowCount < 2){
-    ModelicaFormatError("Expected rowCount larger than 2 when reading %s.", filename);
+    ModelicaFormatError("Expected rowCount larger than 2 when reading %s.", fileName);
   }
   interval = (lastTimeStamp - firstTimeStamp) / (rowCount - 1);
 
