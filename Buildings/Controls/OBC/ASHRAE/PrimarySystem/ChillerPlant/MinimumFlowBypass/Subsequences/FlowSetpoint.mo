@@ -12,14 +12,14 @@ block FlowSetpoint "Chilled water minimum flow bypass setpoint"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
-    "Status of resetting status of device before reset minimum bypass flow setpoint"
+    "Resetting status of upstream device (in staging up or down process) before reset minimum bypass flow setpoint"
     annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta "Current stage index"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
-    "Indicate if the stage require one chiller to be enabled while another is disabled"
+    "Indicate if the stage change requires one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaNexChi
@@ -101,15 +101,15 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch byPasSet1
     "Minimum flow bypass setpoint"
     annotation (Placement(transformation(extent={{200,10},{220,30}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
     annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
 equation
