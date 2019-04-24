@@ -1,5 +1,12 @@
 #include "pythonInterpreter.h"
 
+#define _GNU_SOURCE
+#include <stdio.h> /* for asprintf */
+
+#include <stdlib.h> /* for putenv */
+
+extern char **environ;
+
 /* Create the structure and initialize its pointer to NULL. */
 void* initPythonMemory()
 {
@@ -9,11 +16,13 @@ void* initPythonMemory()
   ptr->isInitialized = 0;
   ptr->pModule = NULL;
   ptr->pFunc = NULL;
+  ptr->PYTHONPATH = NULL;
   return (void*) ptr;
 }
 
 void pythonExchangeValuesNoModelica(const char * moduleName,
                           const char * functionName,
+                          const char * pythonPath,
                           const double * dblValWri, size_t nDblWri,
                           double * dblValRea, size_t nDblRea,
                           const int * intValWri, size_t nIntWri,
@@ -36,6 +45,17 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   Py_ssize_t iRet = 0;
   Py_ssize_t nRet = 0;
   pythonPtr* ptrMemory = (pythonPtr*)memory;
+
+  if (ptrMemory->PYTHONPATH == NULL){
+    /* Construct the python path */
+    if (-1 == asprintf(&(ptrMemory->PYTHONPATH), "PYTHONPATH=%s", pythonPath)){
+        ModelicaFormatError("Failed to allocate memory for PYTHONPATH in pythonExchangeValuesNoModelica for %s.", moduleName);
+    }
+    if (0 != putenv(ptrMemory->PYTHONPATH)){
+      ModelicaFormatError("Failed to set %s in pythonExchangeValuesNoModelica for %s.", ptrMemory->PYTHONPATH, moduleName);
+    }
+  }
+
   /*//////////////////////////////////////////////////////////////////////////*/
   /* Initialize Python interpreter*/
   if (!Py_IsInitialized())
@@ -415,6 +435,7 @@ void freePythonMemory(void* object)
 {
   if ( object != NULL ){
     pythonPtr* p = (pythonPtr*) object;
+    free(p->PYTHONPATH);
     free(p);
   }
 }

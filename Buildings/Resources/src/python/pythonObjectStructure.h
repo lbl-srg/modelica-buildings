@@ -21,6 +21,7 @@ typedef struct pythonPtr
   int isInitialized;
   PyObject* pModule;
   PyObject* pFunc;
+  char* PYTHONPATH;
 } pythonPtr;
 
 #endif

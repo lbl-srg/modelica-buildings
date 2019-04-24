@@ -23,6 +23,11 @@
 /*////////////////////////////////////////////////////////////////////////////*/
 #include <stddef.h>  /* stddef defines size_t */
 
+#define _GNU_SOURCE
+#include <stdio.h> /* for asprintf */
+
+#include <stdlib.h> /* for putenv */
+
 #ifdef __APPLE__
 #include <Python/Python.h>
 #else
@@ -72,6 +77,7 @@ to not export all symbols but only the needed ones */
 /*  have_memory           - Set to 0 for false, and 1 for true.*/
 LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * moduleName,
                           const char * functionName,
+                          const char * pythonPath,
                           const double * dblValWri, size_t nDblWri,
                           double * dblValRea, size_t nDblRea,
                           const int * intValWri, size_t nIntWri,
