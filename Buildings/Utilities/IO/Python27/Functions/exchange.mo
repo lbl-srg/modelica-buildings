@@ -33,21 +33,17 @@ protected
     "Name to a file of the Buildings library";
 algorithm
  // Get the directory to Buildings/Resources/Python-Sources
-//-- The lines below do not work in Dymola 2014 due to an issue with the loadResource
-//-- (ticket #15168). This will be fixed in future versions.
- //pytPatBuildings := Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(uri=filNam);
- //pytPatBuildings := Modelica.Utilities.Strings.replace(
- //  string=pytPatBuildings,
- //  searchString=filNam,
- //  replaceString="Resources/Python-Sources");
- // The next line is a temporary fix for the above problem
- pytPatBuildings := "Resources/Python-Sources";
+ pytPatBuildings := Modelica.Utilities.Files.loadResource(uri=filNam);
+ pytPatBuildings := Modelica.Utilities.Strings.replace(
+   string=pytPatBuildings,
+   searchString=filNam,
+   replaceString="Resources/Python-Sources");
  // Update the PYTHONPATH variable
  (pytPatOld, havePytPat) :=Modelica.Utilities.System.getEnvironmentVariable("PYTHONPATH");
  if havePytPat then
    pytPat:=pytPatOld + ":" + pytPatBuildings;
  else
-   pytPat :=pytPatBuildings;
+   pytPat := pytPatBuildings;
  end if;
  // Call the exchange function
  (dblRea, intRea) :=BaseClasses.exchange(
@@ -84,6 +80,12 @@ for examples.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 24, 2019, by Michael Wetter:<br/>
+Refactored for getting <code>PYTHONPATH</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1421\">#1421</a>.
+</li>
 <li>
 May 2, 2013, by Michael Wetter:<br/>
 First implementation.
