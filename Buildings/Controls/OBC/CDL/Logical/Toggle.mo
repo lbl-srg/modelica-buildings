@@ -91,19 +91,23 @@ annotation (defaultComponentName="tog",
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-Block that toggles the output value whenever its input turns <code>true</code>. For instance,
+Block that generates a <code>true</code> output when toggle input <code>u</code> 
+rises from <code>false</code> to <code>true</code>. It remains <code>true</code>
+when <code>u</code> falls to <code>false</code>. 
+When <code>u</code> rises to <code>true</code> again, the output 
+becomes <code>false</code>. For instance,
 </p>
 <ul>
 <li>
-Suppose the clear input <code>u0</code> is <code>false</code>. When the toggle 
-input <code>u</code> becomes <code>true</code>, the output <code>y</code> 
-becomes <code>true</code> and remains <code>true</code> even when <code>u</code> 
-turns <code>false</code> again. When <code>u</code> turns back to <code>true</code>, 
+Suppose the clear input <code>u0</code> is <code>false</code>. When <code>u</code> 
+becomes <code>true</code>, the output <code>y</code> becomes <code>true</code> and 
+remains <code>true</code> even when <code>u</code> 
+becomes <code>false</code>. When <code>u</code> turns back to <code>true</code>, 
 then <code>y</code> becomes <code>false</code>.
 </li>
 <li>
-If the clear input <code>u0</code> is <code>true</code>, the output <code>y</code> 
-keeps <code>false</code>.
+Suppose the clear input <code>u0</code> is <code>true</code>, the output <code>y</code> 
+remains <code>false</code>, regardless the status of toggle input <code>u</code>.
 </li>
 </ul>
 <p>
