@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer;
-package Subsequences "Waterside economizer control subsequences"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure;
+package Subsequences "Subsequences for chiller head pressure control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
