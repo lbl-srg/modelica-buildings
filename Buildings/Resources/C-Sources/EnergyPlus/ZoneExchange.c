@@ -44,6 +44,60 @@ bool allZonesAreInitialized(FMUBuilding* bui){
   return true;
 }
 
+
+/* Set the new time in the FMU, complete the integrator step and set the FMU into event mode.
+*/
+void advanceTime_completeIntegratorStep_enterEventMode(FMUZone* zone, double time){
+  fmi2Status status;
+  fmi2Boolean enterEventMode;
+  fmi2Boolean terminateSimulation;
+
+  writeFormatLog(2, "fmi2_import_enter_continuous_time_mode: ************ Setting EnergyPlus to continuous time mode at t = %.2f", time);
+  status = fmi2_import_enter_continuous_time_mode(zone->ptrBui->fmu);
+  if ( status != fmi2OK ) {
+    ModelicaFormatError("Failed to set time in building FMU with name %s, returned status is %s.",
+      zone->ptrBui->name, fmi2_status_to_string(status));
+  }
+  setFMUMode(zone->ptrBui, continuousTimeMode);
+
+  writeFormatLog(2, "fmi2_import_set_time: Setting time in EnergyPlus to %.2f.", time);
+  zone->ptrBui->time = time;
+  status = fmi2_import_set_time(zone->ptrBui->fmu, time);
+  if ( status != fmi2OK ) {
+    ModelicaFormatError("Failed to set time in building FMU with name %s, returned status is %s.",
+      zone->ptrBui->name, fmi2_status_to_string(status));
+  }
+
+  writeFormatLog(2, "fmi2_import_completed_integrator_step: Calling completed integrator step at t = %.2f", time);
+  status = fmi2_import_completed_integrator_step(zone->ptrBui->fmu, fmi2_true, &enterEventMode, &terminateSimulation);
+  if ( status != fmi2OK ) {
+    ModelicaFormatError("Failed to complete integrator step in building FMU with name %s, returned status is %s.",
+    zone->ptrBui->name, fmi2_status_to_string(status));
+  }
+  if (enterEventMode){
+    ModelicaFormatError(
+      "Unexpected value for enterEventMode in ZoneExchange at t = %.2f for FMU with name %s and zone %s",
+      time, zone->ptrBui->name, zone->name);
+  }
+  if (terminateSimulation){
+    ModelicaFormatError(
+      "Unexpected value for terminateSimulation in ZoneExchange at t = %.2f for FMU with name %s and zone %s",
+      time, zone->ptrBui->name, zone->name);
+  }
+  /* Enter the FMU into event mode */
+  writeFormatLog(3, "fmi2_import_enter_event_mode: Enter event mode in ZoneExchange for FMU %s", zone->ptrBui->name);
+  status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
+  if (status != fmi2_status_ok){
+    ModelicaFormatError("Failed to enter event mode in ZoneExchange for FMU %s and zone %s, returned status is %s.",
+    zone->ptrBui->name, zone->name, fmi2_status_to_string(status));
+  }
+  setFMUMode(zone->ptrBui, eventMode);
+
+  return;
+}
+
+/* Exchange data between Modelica zone and EnergyPlus zone
+*/
 void ZoneExchange(
   void* object,
   int initialCall,
@@ -63,8 +117,7 @@ void ZoneExchange(
   FMUZone* zone = (FMUZone*) object;
   fmi2Real inputValues[ZONE_N_INP];
   fmi2Real outputValues[ZONE_N_OUT];
-  fmi2Boolean callEventUpdate;
-  fmi2Boolean terminateSimulation;
+
   fmi2Status status;
 
   const double dT = 0.01; /* Increment for derivative approximation */
@@ -81,11 +134,10 @@ void ZoneExchange(
     time, initialCall, fmuModeToString(zone->ptrBui->mode), zone->name);
 
   if (! zone->isInstantiated){
-    /* This zone has not been initialized because the simulator optimized away the call to initialize().
-       Hence, we intialize it now.
+    /* This zone has not been initialized because the simulator removed the call to initialize().
     */
-    ModelicaError("fixme: Error, we should not be here.");
-    ZoneInstantiate(object, time, &AFlo, &V, &mSenFac);
+    ModelicaFormatError("Error, zone %s should have been initialized. Contact support.", zone->name);
+    /*ZoneInstantiate(object, time, &AFlo, &V, &mSenFac);*/
   }
 
   if (initialCall){
@@ -100,56 +152,22 @@ void ZoneExchange(
 
   /* Get out of the initialization mode if this zone is no longer in the initial call
      but the FMU is still in initializationMode */
-  if (! initialCall && zone->ptrBui->mode == initializationMode){
+  if ((!initialCall) && zone->ptrBui->mode == initializationMode){
     writeFormatLog(3, "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for zone = %s.", zone->name);
     status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
     if( status != fmi2_status_ok ){
       ModelicaFormatError("Failed to exit initialization mode for FMU with name %s in zone %s",
         zone->ptrBui->fmuAbsPat, zone->name);
     }
-    /* After exit_initialization_mode, the FMU is implicitely in event mode per the FMI standard */
+    /* After exit_initialization_mode, the FMU is implicitly in event mode per the FMI standard */
     setFMUMode(zone->ptrBui, eventMode);
-    /* Do an event iteration to get tNext */
-    writeFormatLog(3, "Calling do_event_iteration after exiting initialization mode for zone = %s", zone->name);
-    *tNext = do_event_iteration(zone);
   }
 
 
-  if ( !initialCall && (time - zone->ptrBui->time) > 0.001 ) {
-    /* This is not in the initial clause of the Modelica when, and
-       it is the first zone that advances time for this building.
-       Complete the integrator step in the FMU, and set the new time
-    */
-/*   writeFormatLog(3, "fmi2_import_completed_integrator_step: Calling completed integrator step with time = %.f, mode = %s, zone = %s",
-     zone->ptrBui->time, fmuModeToString(zone->ptrBui->mode), zone->name);
-    status = fmi2_import_completed_integrator_step(zone->ptrBui->fmu, fmi2_true,
-      &callEventUpdate,
-      &terminateSimulation);
-
-    if ( status != fmi2OK ) {
-      ModelicaFormatError("Failed to complete integrator step in building FMU with name %s.",
-      zone->ptrBui->name);
-    }
-    if (callEventUpdate){
-      ModelicaFormatError(
-        "Unexpected value for callEventUpdate in ZoneExchange at t = %.2f for FMU with name %s",
-        time, zone->ptrBui->name);
-    }
-    if (terminateSimulation){
-      ModelicaFormatError(
-        "Unexpected value for terminateSimulation in ZoneExchange at t = %.2f for FMU with name %s",
-        time, zone->ptrBui->name);
-    }
-*/
-    writeFormatLog(2, "fmi2_import_set_time: Setting time in EnergyPlus to %.2f.", time);
-    zone->ptrBui->time = time;
-    status = fmi2_import_set_time(zone->ptrBui->fmu, time);
-    if ( status != fmi2OK ) {
-      ModelicaFormatError("Failed to set time in building FMU with name %s.",
-      zone->ptrBui->name);
-    }
-  } /* end of else if */
-
+  if ( (time - zone->ptrBui->time) > 0.001 ) {
+    /* Real time advanced */
+    advanceTime_completeIntegratorStep_enterEventMode(zone, time);
+  }
 
   /* Set input values, which are of the order below
      const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
@@ -163,15 +181,34 @@ void ZoneExchange(
   /* Forward difference for QConSen_flow */
   inputValues[0] = T - 273.15 + dT;
 
-  writeFormatLog(3, "Input to fmu: TAir = %.2f; \t QGaiRad_flow = %.2f",
-    inputValues[0], inputValues[4]);
-
+  writeFormatLog(3, "Input to fmu: TAir = %.2f; \t QGaiRad_flow = %.2f", inputValues[0], inputValues[4]);
+/*
+  if (zone->ptrBui->mode == eventMode){
+  status = fmi2_import_enter_continuous_time_mode(zone->ptrBui->fmu);
+  if ( status != fmi2OK ) {
+    ModelicaFormatError("Failed to set continuous time mode in building FMU with name %s, returned status is %s.",
+      zone->ptrBui->name, fmi2_status_to_string(status));
+  }
+  setFMUMode(zone->ptrBui, continuousTimeMode);
+  }
+*/
   setVariables(zone->ptrBui, zone->name, zone->inpValReferences, inputValues, ZONE_N_INP);
   getVariables(zone->ptrBui, zone->name, zone->outValReferences, outputValues, ZONE_N_OUT);
   QConSenPer_flow=outputValues[1];
   inputValues[0] = T - 273.15;
   setVariables(zone->ptrBui, zone->name, zone->inpValReferences, inputValues, ZONE_N_INP);
   getVariables(zone->ptrBui, zone->name, zone->outValReferences, outputValues, ZONE_N_OUT);
+/*
+  if (zone->ptrBui->mode == continuousTimeMode){
+  status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
+  if ( status != fmi2OK ) {
+    ModelicaFormatError("Failed to set event mode in building FMU with name %s, returned status is %s.",
+      zone->ptrBui->name, fmi2_status_to_string(status));
+  }
+  setFMUMode(zone->ptrBui, eventMode);
+  }
+*/
+  *dQConSen_flow = (QConSenPer_flow-outputValues[1])/dT;
 
 /*  writeFormatLog(3, "After time step: TRad = %.2f; \t QCon = %.2f;\t QLat = %.2f", *TRad, *QConSen_flow,
     *QLat_flow);
@@ -185,14 +222,12 @@ void ZoneExchange(
   else{
     writeFormatLog(3, "Calling do_event_iteration after setting inputs for zone = %s", zone->name);
     *tNext = do_event_iteration(zone);
+    /* After the event iteration, we must get the output. Otherwise, we get the
+       discrete output before the time event, and not after.
+       To test, run SingleZone.mo in EnergyPlus/src
+    */
+    getVariables(zone->ptrBui, zone->name, zone->outValReferences, outputValues, ZONE_N_OUT);
   }
-
-
- /* After the event iteration, we must get the output. Otherwise, we get the
-     discrete output before the time event, and not after.
-     To test, run SingleZone.mo in EnergyPlus/src
-  */
-  getVariables(zone->ptrBui, zone->name, zone->outValReferences, outputValues, ZONE_N_OUT);
 
   /* Assign output values, which are of the order below
      const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
@@ -202,15 +237,13 @@ void ZoneExchange(
   *QConSen_flow = outputValues[1];
   *QLat_flow = outputValues[2];
   *QPeo_flow = outputValues[3];
-  *dQConSen_flow = 0*(QConSenPer_flow-*QConSen_flow)/dT;
 
   writeFormatLog(3, "Returning from ZoneExchange with nextEventTime = %.2f, QCon = %.2f, zone = %s, mode = %s",
     *tNext, *QConSen_flow, zone->name, fmuModeToString(zone->ptrBui->mode));
   return;
 }
 
-/* fixme, newDiscreteStateNeeded is a wrong criteria
-   because we operate here on a room by room basis
+/* Do the event iteration
    */
 double do_event_iteration(FMUZone* zone){
   fmi2_event_info_t eventInfo;
@@ -224,14 +257,32 @@ double do_event_iteration(FMUZone* zone){
   /* Enter event mode if the FMU is in Continuous time mode
      because fmi2NewDiscreteStates can only be called in event mode */
   if (zone->ptrBui->mode == continuousTimeMode){
+    ModelicaFormatError("********* FMU is in unexpected mode in do_event_iteration at t=%.2f, zone = %s, mode = %s. Contact support.",
+      zone->ptrBui->time, zone->name, fmuModeToString(zone->ptrBui->mode));
+    /*
+    writeFormatLog(3, "fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s", zone->ptrBui->name);
     status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
-    /* fixme if (status != fmi2_status_ok){
-      ModelicaFormatError("Failed to enter event mode for FMU %s and zone %s.",
-      zone->ptrBui->name, zone->name);
-    }*/
+    if (status != fmi2_status_ok){
+      ModelicaFormatError("Failed to enter event mode in do_event_iteration for FMU %s and zone %s, returned status is %s.",
+      zone->ptrBui->name, zone->name, fmi2_status_to_string(status));
+    }
+    setFMUMode(zone->ptrBui, eventMode);
+    */
+  }
+/* *****************************************************************************
+  if (zone->ptrBui->mode != initializationMode){
+    writeFormatLog(3, "fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s", zone->ptrBui->name);
+    status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
+    if (status != fmi2_status_ok){
+      ModelicaFormatError("Failed to enter event mode in do_event_iteration for FMU %s and zone %s, returned status is %s.",
+      zone->ptrBui->name, zone->name, fmi2_status_to_string(status));
+    }
     setFMUMode(zone->ptrBui, eventMode);
   }
-  /* Make sure we are in event model (this is for debugging) */
+  ***************************************************************************** */
+
+
+  /* Make sure we are in event mode (this is for debugging) */
   if (zone->ptrBui->mode != eventMode){
     ModelicaFormatError("Expected to be in event mode, but was in %s, for FMU %s and zone %s.",
       fmuModeToString(zone->ptrBui->mode), zone->ptrBui->name, zone->name);
@@ -259,14 +310,8 @@ double do_event_iteration(FMUZone* zone){
     zone->ptrBui->name, zone->name, zone->ptrBui->time);
   }
   if(eventInfo.nextEventTimeDefined == fmi2False){
-/*    if (initialCall){
-      tNext = time;
-    }
-    else{
-*/
     ModelicaFormatError("Expected EnergyPlus to set nextEventTimeDefined = true in FMU =%s, zone = %s, time = %f.",
     zone->ptrBui->name, zone->name, zone->ptrBui->time);
-/*    }*/
   }
   else{
     tNext = eventInfo.nextEventTime;
@@ -278,8 +323,8 @@ double do_event_iteration(FMUZone* zone){
     }
   }
 
-  /* if newDiscreteStatesNeeded is false, the FMU is in continuous time mode */
-  setFMUMode(zone->ptrBui, continuousTimeMode);
+  /* THIS WAS WRONG: if newDiscreteStatesNeeded is false, the FMU is in continuous time mode
+  setFMUMode(zone->ptrBui, continuousTimeMode); */
   writeFormatLog(3, "Exiting do_event_iteration for zone %s, mode = %s with tNext = %.2f",
     zone->name, fmuModeToString(zone->ptrBui->mode), tNext);
   return tNext;

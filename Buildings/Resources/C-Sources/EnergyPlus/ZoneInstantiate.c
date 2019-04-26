@@ -69,6 +69,43 @@ void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
 }
 
 
+void loadFMU_setupExperiment_enterInitializationMode(FMUZone* zone, double startTime){
+
+  fmi2_status_t status;
+
+  /* Instantiate the FMU for this building */
+  generateAndInstantiateBuilding(zone->ptrBui);
+
+  writeLog(3, "fmi2_import_setup_experiment: Setting up experiment.");
+  zone->ptrBui->time = startTime;
+  setFMUMode(zone->ptrBui, instantiationMode);
+
+  /* This function can only be called once per building FMU */
+  status = fmi2_import_setup_experiment(
+      zone->ptrBui->fmu,    /* fmu */
+      fmi2False,            /* toleranceDefined */
+      0.0,                  /* tolerance */
+      startTime,            /* startTime */
+      fmi2False,            /* stopTimeDefined */
+      0);                   /* stopTime */
+  if( status != fmi2_status_ok ){
+    ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
+  }
+
+  /* Enter initialization mode, because getting parameters is only
+     allowed in the initialization mode, see FMU state diagram in standard */
+  writeFormatLog(3, "fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.",
+    zone->ptrBui->fmuAbsPat);
+  status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
+  if( status != fmi2_status_ok ){
+    ModelicaFormatError("Failed to enter initialization mode for FMU with name %s for zone %s.",
+    zone->ptrBui->fmuAbsPat, zone->name);
+  }
+  setFMUMode(zone->ptrBui, initializationMode);
+
+  return;
+}
+
 /* This function is called for each zone in the 'initial equation section'
 */
 void ZoneInstantiate(void* object, double startTime, double* AFlo, double* V, double* mSenFac){
@@ -87,36 +124,9 @@ void ZoneInstantiate(void* object, double startTime, double* AFlo, double* V, do
        Hence we cannot construct the FMU in the constructor because we don't know which
        is the last constructor to be called.
     */
-
-    /* Instantiate the FMU for this building */
-    generateAndInstantiateBuilding(zone->ptrBui);
-
-    writeLog(3, "fmi2_import_setup_experiment: Setting up experiment.");
-    zone->ptrBui->time = startTime;
-    setFMUMode(zone->ptrBui, instantiationMode);
-
-    /* This function can only be called once per building FMU */
-    status = fmi2_import_setup_experiment(
-        zone->ptrBui->fmu,    /* fmu */
-        fmi2False,            /* toleranceDefined */
-        0.0,                  /* tolerance */
-        startTime,            /* startTime */
-        fmi2False,            /* stopTimeDefined */
-        0);                   /* stopTime */
-    if( status != fmi2_status_ok ){
-      ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  zone->ptrBui->fmuAbsPat);
-   }
-    /* Enter initialization mode, because getting parameters is only
-       allowed in the initialization mode, see FMU state diagram in standard */
-    writeFormatLog(3, "fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.",
-      zone->ptrBui->fmuAbsPat);
-    status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
-    if( status != fmi2_status_ok ){
-      ModelicaFormatError("Failed to enter initialization mode for FMU with name %s for zone %s.",
-      zone->ptrBui->fmuAbsPat, zone->name);
-    }
-    setFMUMode(zone->ptrBui, initializationMode);
+    loadFMU_setupExperiment_enterInitializationMode(zone, startTime);
   }
+
   getParametersFromEnergyPlus(zone, outputValues);
 
   /* Assign the floor area and the volume of the zone */

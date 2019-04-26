@@ -220,8 +220,6 @@ char * getIDFNameWithoutExtension(const char* idfName){
 void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   /* Return the absolute name of the temporary directory to be used for EnergyPlus
      in the form "/mnt/xxx/tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"
-     This must be an absolute path as it is used to load the .so of the fmu, which
-     requires the path to be absolute.
   */
   size_t lenNam;
   size_t lenPre;
@@ -249,7 +247,7 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
     if ( errno == ERANGE){
       lenCurDir += incLenCurDir;
       if (lenCurDir > maxLenCurDir){
-        ModelicaFormatError("Temporary directories with names longer than %u characters are not supported in EnergyPlusStructure.c.", maxLenCurDir);
+        ModelicaFormatError("Temporary directories with names longer than %u characters are not supported in EnergyPlusStructure.c unless you change maxLenCurDir.", maxLenCurDir);
       }
       curDir = realloc(curDir, lenCurDir * sizeof(char));
       if (curDir == NULL)

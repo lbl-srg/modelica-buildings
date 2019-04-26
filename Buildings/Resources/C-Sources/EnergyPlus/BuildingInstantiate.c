@@ -143,13 +143,6 @@ void setValueReferences(FMUBuilding* fmuBui){
   /* Set value references for the parameters by assigning the values obtained from the FMU */
   for(iZon = 0; iZon < fmuBui->nZon; iZon++){
     zone = (FMUZone*) fmuBui->zones[iZon];
-/*    setValueReference(
-      fmuBui->fmuAbsPat,
-      vl, vrl, nv,
-      zone->parInpVarNames,
-      ZONE_N_PAR_INP,
-      &(zone->parInpValReferences));
-*/
     setValueReference(
       fmuBui->fmuAbsPat,
       vl, vrl, nv,
@@ -176,7 +169,7 @@ void setValueReferences(FMUBuilding* fmuBui){
 void generateFMU(const char* FMUPath){
   /* Generate the FMU */
   const char* cmd = "cp -p ";
-  const char* testFMU = "Buildings/Resources/src/EnergyPlus/FMUs/TwoZones.fmu";
+  const char* testFMU = "Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu";
   char* fulCmd;
   size_t len;
   int retVal;
@@ -207,12 +200,13 @@ void setEnergyPlusDebugLevel(FMUBuilding* bui){
   	status = fmi2_import_set_debug_logging(
         bui->fmu,
         fmi2_true, /* Logging on */
-        0, /* nCategories */
-        0); /* Which categories to log */
+        0,         /* nCategories */
+        0);        /* Which categories to log */
     if( status != fmi2_status_ok ){
       ModelicaFormatError("Failed to set debug logging for FMU with name %s.",  bui->fmuAbsPat);
     }
 }
+
 /* Import the EnergyPlus FMU
 */
 void importEnergyPlusFMU(FMUBuilding* bui){
@@ -268,11 +262,6 @@ void importEnergyPlusFMU(FMUBuilding* bui){
 
   writeLog(3, "Loading dllfmu.");
 
-/*
-  if( access( "tmp-eplus-RefBldgSmallOfficeNew2004_Chicago/binaries/linux64/SingleZone.so", F_OK ) == -1 ) {
-    ModelicaFormatError("Requested to load '%s' which does not exist.", "tmp-eplus-RefBldgSmallOfficeNew2004_Chicago/binaries/linux64/SingleZone.so");
-  }
-*/
   jm_status = fmi2_import_create_dllfmu(bui->fmu, fmukind, &callBackFunctions);
   if (jm_status == jm_status_error) {
   	ModelicaFormatError("Could not create the DLL loading mechanism (C-API) for %s.", FMUPath);

@@ -52,6 +52,7 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Radiative temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
         iconTransformation(extent={{100,50},{120,70}})));
+  Real TRad_degC(final unit="degC") = TRad-273.15 "Radiative temperature in degC";
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W")
     "Convective sensible heat to be added to zone air" annotation (Placement(
         transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{

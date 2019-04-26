@@ -33,7 +33,7 @@ model FMUZoneAdapter
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=295.15,
-    y(unit="K", displayUnit="degC")) "Zone air temperature"
+    y(final unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Modelica.Blocks.Sources.RealExpression modTim(y=273.15 + time + 5) "Time"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));

@@ -33,7 +33,7 @@ model FMUZoneAdapterTwoZones
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=295.15,
-    y(unit="K", displayUnit="degC")) "Zone air temperature"
+    y(final unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{8,32},{28,52}})));
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonSou(
     final idfName=idfName,
@@ -46,8 +46,10 @@ model FMUZoneAdapterTwoZones
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=295.15,
-    y(unit="K", displayUnit="degC")) "Zone air temperature"
+    y(final unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+  Modelica.Blocks.Sources.RealExpression QCon(y=CZon) "Convective gain"
+    annotation (Placement(transformation(extent={{-58,38},{-38,58}})));
 equation
   connect(X_w.y, fmuZonCor.X_w) annotation (Line(points={{-59,20},{-20,20},{-20,
           4},{58,4}}, color={0,0,127}));
@@ -61,8 +63,6 @@ equation
           0,-4},{58,-4}}, color={0,0,127}));
   connect(fmuZonCor.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{58,
           -8},{4,-8},{4,-70},{-59,-70}}, color={0,0,127}));
-  connect(fmuZonCor.QCon_flow, TZonCor.u) annotation (Line(points={{81,2},{88,2},
-          {88,60},{-10,60},{-10,42},{6,42}}, color={0,0,127}));
   connect(X_w.y, fmuZonSou.X_w) annotation (Line(points={{-59,20},{-20,20},{-20,
           -26},{58,-26}}, color={0,0,127}));
   connect(fmuZonSou.m_flow[1], mIn_flow.y) annotation (Line(points={{58,-31},{
@@ -73,12 +73,14 @@ equation
           0,-34},{58,-34}}, color={0,0,127}));
   connect(fmuZonSou.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{58,
           -38},{4,-38},{4,-70},{-59,-70}}, color={0,0,127}));
-  connect(fmuZonSou.QCon_flow, TZonSou.u) annotation (Line(points={{81,-28},{90,
-          -28},{90,-80},{12,-80},{12,-60},{18,-60}}, color={0,0,127}));
   connect(TZonCor.y, fmuZonCor.T)
     annotation (Line(points={{29,42},{44,42},{44,8},{58,8}}, color={0,0,127}));
   connect(TZonSou.y, fmuZonSou.T) annotation (Line(points={{41,-60},{48,-60},{
           48,-22},{58,-22}}, color={0,0,127}));
+  connect(QCon.y, TZonCor.u) annotation (Line(points={{-37,48},{-16,48},{-16,42},
+          {6,42}}, color={0,0,127}));
+  connect(QCon.y, TZonSou.u) annotation (Line(points={{-37,48},{-10,48},{-10,-60},
+          {18,-60}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Validation model that communicates with EnergyPlus.
@@ -93,6 +95,6 @@ First implementation.
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/BaseClasses/Validation/FMUZoneAdapter.mos"
         "Simulate and plot"),
 experiment(
-      StopTime=120,
+      StopTime=180,
       Tolerance=1e-06));
 end FMUZoneAdapterTwoZones;
