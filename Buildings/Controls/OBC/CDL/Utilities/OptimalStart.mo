@@ -1,10 +1,11 @@
 within Buildings.Controls.OBC.CDL.Utilities;
 block OptimalStart "Optimal start time of HVAC system before occupancy"
+
   extends Modelica.Blocks.Icons.Block;
-  parameter Real temGraHeaIni = 1 "initial temperature gradient for heating, unit = K/h";
-  parameter Real temGraCooIni = 1.5 "initial temperature gradient for cooling, unit = K/h";
-  parameter Real nDay = 2 "Number of previous days used for averaging optimal time";
-  parameter Modelica.SIunits.Time maxOptTim = 4*3600 "maximum optimal start time";
+  parameter Real temGraHea = 2 "initial temperature gradient for heating, unit = K/h";
+  parameter Real temGraCoo = 2.5 "initial temperature gradient for cooling, unit = K/h";
+  parameter Real occupancy[:] = {8,18}*3600 "Number of previous days used for averaging optimal time";
+  parameter Modelica.SIunits.Time maxOptTim = 3*3600 "maximum optimal start time";
 
   Interfaces.RealInput tNexOcc(
     final quantity="Time",
@@ -41,41 +42,47 @@ block OptimalStart "Optimal start time of HVAC system before occupancy"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
                     iconTransformation(extent={{100,-10},{120,10}})));
 
-protected
+//protected
   parameter Modelica.SIunits.Time staTim(fixed=false) "Simulation start time";
   parameter Modelica.SIunits.Time period = 86400 "Duration of each iteration";
-  parameter Integer iDay "Iterator";
-  Modelica.SIunits.Time tStart;
-  Modelica.SIunits.Time tStop;
-  Real temGraHea[nDay,1] = temGraHeaIni.*ones(nDay,1) "temperature gradient for heating";
-  Real temGraCoo[nDay,1] = temGraCooIni.*ones(nDay,1) "temperature gradient for cooling";
+  parameter Modelica.SIunits.Time samplePeriod = 3600;
+  Modelica.SIunits.Time tOptHea;
+  Modelica.SIunits.Time tOptCoo;
+  //Real temGraHea "temperature gradient for heating";
+  //Real temGraCoo "temperature gradient for cooling";
+  Integer iDay "Iterator";
   Boolean compute;
+  parameter Modelica.SIunits.Time samStart(fixed=false)
+    "Time when the first sampling starts";
+  Boolean sampleTrigger "True, if sample time instant";
 
-initial algorithm
-  //simulation start time can be negative or positive
-  staTim := time;
-
-  // no heating nor cooling
+function sampleStart "Start time for sampling"
+  input Modelica.SIunits.Time t "Simulation time";
+  input Modelica.SIunits.Time samplePeriod "Sample Period";
+  output Modelica.SIunits.Time sampleStart "Time at which first sample happens";
 algorithm
-  if TZon >= TSetZonHea and TZon <= TSetZonCoo then
-    tOpt :=0;
-  // heating mode
-  elseif TZon <= TSetZonHea then
+  sampleStart :=ceil(t/samplePeriod)*samplePeriod;
+end sampleStart;
 
-    tOpt :=(TSetZonHea - TZon)/(sum(temGraHea)/nDay)*3600;
-  // cooling mode
-  else
-    tOpt :=(TZon - TSetZonCoo)/(sum(temGraHea)/nDay)*3600;
-  end if;
+initial equation
+  //simulation start time can be negative or positive
+  staTim = time;
+  samStart = sampleStart(time,samplePeriod);
+equation
 
-  iDay := integer(time/period);
+  sampleTrigger = sample(samStart, samplePeriod);
 
-  compute := time > (iDay + 1)*period;
-  // calculate Tg for the past day
-  while compute loop
-
-  end while;
-
+algorithm
+  //when sampleTrigger then
+    iDay :=0;
+    compute :=samStart - iDay*period >= occupancy[1] - maxOptTim;
+    while compute loop
+      tOptHea :=(TSetZonHea - TZon)/temGraHea*3600;
+      tOptCoo :=(TZon - TSetZonCoo)/temGraCoo*3600;
+      tOpt :=min(maxOptTim, max(max(tOptHea, tOptCoo), 0));
+      iDay :=iDay + 1;
+    end while;
+  //end when
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
