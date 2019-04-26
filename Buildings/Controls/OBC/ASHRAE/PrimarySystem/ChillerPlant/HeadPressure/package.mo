@@ -1,12 +1,14 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer;
-package Subsequences "Waterside economizer control subsequences"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
+package HeadPressure "Chiller head pressure control sequence"
 
-annotation (preferredView="info", Documentation(info="<html>
+annotation (
+preferredView="info", Documentation(info="<html>
 <p>
-This package contains waterside economizer control subsequences.
+This package contains chiller head pressure control sequences.
+The implementation is based on section 5.2.10. in ASHRAE RP-1711, Draft 4.
 </p>
 </html>"),
-  Icon(graphics={
+Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
@@ -19,10 +21,15 @@ This package contains waterside economizer control subsequences.
           radius=25.0),
         Ellipse(
           origin={10.0,10.0},
-          lineColor={128,128,128},
-          fillColor={255,255,255},
+          fillColor={76,76,76},
+          pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}}),
+          extent={{-80.0,-80.0},{-20.0,-20.0}}),
+        Ellipse(
+          origin={10.0,10.0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          extent={{0.0,-80.0},{60.0,-20.0}}),
         Ellipse(
           origin={10.0,10.0},
           fillColor={128,128,128},
@@ -31,13 +38,8 @@ This package contains waterside economizer control subsequences.
           extent={{0.0,0.0},{60.0,60.0}}),
         Ellipse(
           origin={10.0,10.0},
-          pattern=LinePattern.None,
+          lineColor={128,128,128},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{0.0,-80.0},{60.0,-20.0}}),
-        Ellipse(
-          origin={10.0,10.0},
-          fillColor={76,76,76},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.Solid,
-          extent={{-80.0,-80.0},{-20.0,-20.0}})}));
-end Subsequences;
+          extent={{-80.0,0.0},{-20.0,60.0}})}));
+end HeadPressure;
