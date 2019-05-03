@@ -183,7 +183,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Utilities.IO.Files
     </td>
-    <td valign=\"top\">Package with blocks to write CSV files or combi time table files.
+    <td valign=\"top\">Package with blocks to write CSV files, JSON files or combi time table files.
     </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Plotters
