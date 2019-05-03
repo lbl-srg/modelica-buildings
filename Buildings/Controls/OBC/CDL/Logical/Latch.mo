@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Latch "Maintains a true signal until change condition"
 
-  parameter Boolean pre_y_start=false "Start value of pre(y) at initial time";
+  parameter Boolean pre_y_start=false "Start value of pre(y) if u0=false";
 
   Interfaces.BooleanInput u "Latch input"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -32,14 +32,16 @@ equation
     scenario = 5;
   end when;
 
-  if (scenario == 1) then y = pre(y);
-  elseif (scenario == 2) then y = true;
-  elseif (scenario == 3) then y = pre(y);
-  elseif (scenario == 4) then y = false;
-  else
+  if u0 then
     y = false;
+  else
+    if (scenario == 1) then y = if u0 then false else pre(y);
+      elseif (scenario == 2) then y = true;
+      elseif (scenario == 3) then y = pre(y);
+      elseif (scenario == 4) then y = false;
+    else y = false;
+    end if;
   end if;
-
 annotation (defaultComponentName="lat",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
@@ -89,51 +91,25 @@ annotation (defaultComponentName="lat",
           lineColor={0,0,255},
           textString="%name")}),Documentation(info="<html>
 <p>
-Block that generates a <code>true</code> output when latch input <code>u</code> 
-rises from <code>false</code> to <code>true</code>. It remains the <code>true</code> 
-output until clear input <code>u0</code> becomes <code>true</code>. For instance,
+Block that generates a <code>true</code> output when the latch input <code>u</code> 
+rises from <code>false</code> to <code>true</code>, provided that the clear input <code>u0</code>
+is <code>false</code> or also became at the same time <code>false</code>.
+The output remains <code>true</code>
+until the clear input <code>u0</code> rises from <code>false</code> to <code>true</code>.
 </p>
-<ul>
-<li>
-Suppose the clear input <code>u0</code> is <code>false</code>. When the latch input <code>u</code>
-becomes <code>true</code>, then the output <code>y</code> becomes <code>true</code>
-and remains <code>true</code>, even if <code>u</code> becomes <code>false</code>.
-The output <code>y</code> becomes <code>false</code> only when the clear input 
-<code>u0</code> becomes <code>true</code>.
-</li>
-<li>
-Suppose the clear input <code>u0</code> is <code>true</code>, the output <code>y</code> 
-remains <code>false</code>, regardless the status of latch input <code>u</code>.
-</li>
-</ul>
 <p>
-The table below shows the different scenarios:
+If the clear input <code>u0</code> is <code>true</code>, the output <code>y</code>
+is always <code>false</code>.
 </p>
-<ul>
-<li>
-At initial time, the output <code>y</code> will be determined by initial value 
-<code>pre_y_start</code>, with <code>false</code> as default.
-</li>
-</ul>
-<table summary=\"summary\" border=\"1\">
-<tr>
-<th> Scenario </th>
-<th> input <code>u0</code> </th>
-<th> latch input <code>u</code> </th>
-<th> previous output <code>pre(y)</code> </th>
-<th> New output <code>y</code> </th>
-</tr>
-<tr><td> 1 </td><td> <code>false</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>pre_y_start</code> </td>
-                <td> <code>pre_y_start</code> </td></tr>
-</table>
+<p>
+At initial time, if <code>u0 = false</code>, then the output will be <code>y = pre_y_start</code>.
+Otherwise it will be <code>y=false</code> (because the clear input <code>u0</code> is <code>true</code>).
+</p>
+<p>
+fixme: Revise or remove this table, and make sure the code above is correct.
 <br/>
-<ul>
-<li>
-During the simulation (after the initialization):
-</li>
-</ul>
+After the initialization, the output is as follows:
+</p>
 <table summary=\"summary\" border=\"1\">
 <tr>
 <th> Scenario </th>

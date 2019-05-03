@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Toggle "Toggles output value whenever its input turns true"
 
-  parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
+  parameter Boolean pre_y_start=false "Value of pre(y)";
 
   Interfaces.BooleanInput u "Toggle input"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -67,17 +67,17 @@ annotation (defaultComponentName="tog",
         Line(points={{-68,24},{-48,24},{-48,56},{-16,56},{-16,24},{24,24},{24,56},
               {54,56},{54,24},{74,24}}, color={255,0,255}),
         Text(
-          extent={{-38,-46},{-8,-58}},
+          extent={{-92,-26},{-42,-52}},
           lineColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Clear"),
         Text(
-          extent={{-16,46},{24,32}},
+          extent={{-94,40},{-36,4}},
           lineColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          textString="Toggle input"),
+          textString="Toggle"),
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
@@ -95,50 +95,26 @@ Block that generates a <code>true</code> output when toggle input <code>u</code>
 rises from <code>false</code> to <code>true</code>. It remains <code>true</code>
 when <code>u</code> falls to <code>false</code>. 
 When <code>u</code> rises to <code>true</code> again, the output 
-becomes <code>false</code>. For instance,
-</p>
-<ul>
-<li>
-Suppose the clear input <code>u0</code> is <code>false</code>. When <code>u</code> 
+becomes <code>false</code>. For example,
+suppose the clear input <code>u0</code> is <code>false</code>. When <code>u</code> 
 becomes <code>true</code>, the output <code>y</code> becomes <code>true</code> and 
 remains <code>true</code> even when <code>u</code> 
 becomes <code>false</code>. When <code>u</code> turns back to <code>true</code>, 
 then <code>y</code> becomes <code>false</code>.
 </li>
 <li>
-Suppose the clear input <code>u0</code> is <code>true</code>, the output <code>y</code> 
-remains <code>false</code>, regardless the status of toggle input <code>u</code>.
+If the clear input <code>u0</code> is <code>true</code>, the output <code>y</code>
+switches to <code>false</code> (if it was <code>true</code>) and it remains <code>false</code>,
+regardless of the value of the toggle input <code>u</code>.
 </li>
 </ul>
 <p>
-The table below shows the different scenarios:
+At initial time, the output <code>y</code> is equal to the value of the parameter
+<code>pre_y_start</code>.
 </p>
-<ul>
-<li>
-At initial time, the output <code>y</code> will be determined by initial value 
-<code>pre_y_start</code>, with <code>false</code> as default. 
-</li>
-</ul>
-<table summary=\"summary\" border=\"1\">
-<tr>
-<th> Scenario </th>
-<th> input <code>u0</code> </th>
-<th> toggle input <code>u</code> </th>
-<th> previous output <code>pre(y)</code> </th>
-<th> New output <code>y</code> </th>
-</tr>
-<tr><td> 1 </td><td> <code>false</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>true</code> or <code>false</code> </td>
-                <td> <code>pre_y_start</code> </td></tr>
-</table>
-<br/>
-
-<ul>
-<li>
-During the simulation (after the initialization): 
-</li>
-</ul>
+<p>
+After the initialization, the output is as follows:
+</p>
 
 <table summary=\"summary\" border=\"1\">
 <tr>
