@@ -5,6 +5,8 @@ clear
 
 convertClear();
 
+convertModifiers("Buildings.Controls.OBC.CDL.Logical.Toggle", {"pre_u_start"}, fill("",0), true);
+
 convertModifiers("Buildings.Airflow.Multizone.MediumColumnDynamic", {"allowFlowReversal"}, fill("",0), true);
 convertModifiers("Buildings.Airflow.Multizone.MediumColumn", {"allowFlowReversal"}, fill("",0), true);
 convertModifiers("Buildings.Airflow.Multizone.EffectiveAirLeakageArea", {"allowFlowReversal"}, fill("",0), true);
