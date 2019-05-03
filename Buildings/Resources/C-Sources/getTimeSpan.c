@@ -8,9 +8,90 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
 
 #include "getTimeSpan.h"
+
+/*
+ * Function: getLine
+ * -----------------
+ * Reimplement the getline() function as getline() is not supported on Windows. This
+ * implementation is based on:
+ * web.mit.edu/freebsd/head/contrib/file/src/getline.c
+ * with the following copyright notice:
+
+   * Copyright (c) 2011 The NetBSD Foundation, Inc.
+   * All rights reserved.
+   *
+   * This code is derived from software contributed to The NetBSD Foundation
+   * by Christos Zoulas.
+   *
+   * Redistribution and use in source and binary forms, with or without
+   * modification, are permitted provided that the following conditions
+   * are met:
+   * 1. Redistributions of source code must retain the above copyright
+   *    notice, this list of conditions and the following disclaimer.
+   * 2. Redistributions in binary form must reproduce the above copyright
+   *    notice, this list of conditions and the following disclaimer in the
+   *    documentation and/or other materials provided with the distribution.
+   *
+   * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
+   * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+   * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+   * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
+   * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+   * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+   * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+   * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+   * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+   * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+   * POSSIBILITY OF SUCH DAMAGE.
+
+ */
+int getDelim(char **buf, size_t *bufsiz, int delimiter, FILE *fp) {
+  char *ptr, *eptr, *nbuf;
+  int c;
+  size_t nbufsiz;
+  size_t d;
+
+  if (*buf == NULL || *bufsiz == 0) {
+    *bufsiz = BUFSIZ;
+    if ((*buf = malloc(*bufsiz)) == NULL) {
+      ModelicaError("Failed to allocate memory in getTimeSpan.c");
+    }
+  }
+  for (ptr = *buf, eptr = *buf + *bufsiz;;) {
+    c = fgetc(fp);
+    if (c == -1) {
+      if (feof(fp)) {
+        return ptr == *buf ? -1 : ptr - *buf;
+      } else {
+        ModelicaFormatError("Received unexpected EOF in getTimeSpan.c when searching lines.");
+      }
+    }
+    *ptr++ = c;
+    if (c == delimiter) {
+      *ptr = '\0';
+      return ptr - *buf;
+    }
+    if (ptr + 2 >= eptr) {
+      nbufsiz = *bufsiz * 2;
+      d = ptr - *buf;
+      if ((nbuf = realloc(*buf, nbufsiz)) == NULL) {
+        ModelicaError("Failed to allocate memory in getTimeSpan.c");
+      }
+      *buf = nbuf;
+      *bufsiz = nbufsiz;
+      eptr = nbuf + nbufsiz;
+      ptr = nbuf + d;
+      free(nbuf);
+    }
+  }
+}
+
+int getLine(char **buf, size_t *bufsiz, FILE *fp)
+{
+  return getDelim(buf, bufsiz, '\n', fp);
+}
 
 /*
  * Function: concat
@@ -27,7 +108,7 @@ char *concat(const char *s1, const char *s2) {
   const size_t len1 = strlen(s1);
   const size_t len2 = strlen(s2);
   char *result = malloc(len1 + len2 + 1);
-  if (result == NULL){
+  if (result == NULL) {
     ModelicaError("Failed to allocate memory in getTimeSpan.c");
   }
   strcpy(result, s1);
@@ -74,13 +155,13 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   }
   free(formatString);
 
-  getline(&line, &len, fp); /* finish the line */
-  getline(&line, &len, fp); /* keep reading next line */
+  getLine(&line, &len, fp); /* finish the line */
+  getLine(&line, &len, fp); /* keep reading next line */
   rowIndex++;
 
    /* find the end of file head */
   while(strstr(line,"#")) {
-    getline(&line, &len, fp);
+    getLine(&line, &len, fp);
     rowIndex++;
   }
 
@@ -94,7 +175,7 @@ int getTimeSpan(const char * fileName, const char * tabName, double* timeSpan) {
   /* scan to file end, to find the last time stamp */
   tempInd = rowIndex;
   while (rowIndex < (rowCount+tempInd-2)) {
-    getline(&line, &len, fp);
+    getLine(&line, &len, fp);
     rowIndex++;
   }
   retVal = fscanf(fp, "%lf", &lastTimeStamp);
