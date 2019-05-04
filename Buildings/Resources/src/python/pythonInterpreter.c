@@ -1,9 +1,7 @@
-#include "pythonInterpreter.h"
-
 #define _GNU_SOURCE
-#include <stdio.h> /* for asprintf */
-
 #include <stdlib.h> /* for putenv */
+#include "asprintf.h"
+#include "pythonInterpreter.h"
 
 extern char **environ;
 
@@ -16,7 +14,7 @@ void* initPythonMemory()
   ptr->isInitialized = 0;
   ptr->pModule = NULL;
   ptr->pFunc = NULL;
-  ptr->PYTHONPATH = NULL;
+  ptr->pythonPath = NULL;
   return (void*) ptr;
 }
 
@@ -36,7 +34,8 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   PyObject *pArgsDbl, *pArgsInt, *pArgsStr;
   PyObject *pArgs, *pValue;
   Py_ssize_t pIndVal;
-  PyObject *pItemDbl, *pItemInt;
+  PyObject *pItemDbl = NULL;
+  PyObject *pItemInt = NULL;
   PyObject* obj;
   char* arg="";
   Py_ssize_t i;
@@ -46,13 +45,13 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   Py_ssize_t nRet = 0;
   pythonPtr* ptrMemory = (pythonPtr*)memory;
 
-  if (ptrMemory->PYTHONPATH == NULL){
+  if (ptrMemory->pythonPath == NULL){
     /* Construct the python path */
-    if (-1 == asprintf(&(ptrMemory->PYTHONPATH), "PYTHONPATH=%s", pythonPath)){
+    if (-1 == asprintf(&(ptrMemory->pythonPath), "PYTHONPATH=%s", pythonPath)){
         ModelicaFormatError("Failed to allocate memory for PYTHONPATH in pythonExchangeValuesNoModelica for %s.", moduleName);
     }
-    if (0 != putenv(ptrMemory->PYTHONPATH)){
-      ModelicaFormatError("Failed to set %s in pythonExchangeValuesNoModelica for %s.", ptrMemory->PYTHONPATH, moduleName);
+    if (0 != _putenv(ptrMemory->pythonPath)){
+      ModelicaFormatError("Failed to set %s in pythonExchangeValuesNoModelica for %s.", ptrMemory->pythonPath, moduleName);
     }
   }
 
@@ -105,7 +104,6 @@ The error message is \"%s\"",
         (*ModelicaFormatError)(
           "Cannot find function \"%s\".\nMake sure PYTHONPATH contains the path of the module that contains this function.\n",
         functionName);
-
       }
       ptrMemory->isInitialized = 1;
     }
@@ -435,7 +433,7 @@ void freePythonMemory(void* object)
 {
   if ( object != NULL ){
     pythonPtr* p = (pythonPtr*) object;
-    free(p->PYTHONPATH);
+    free(p->pythonPath);
     free(p);
   }
 }

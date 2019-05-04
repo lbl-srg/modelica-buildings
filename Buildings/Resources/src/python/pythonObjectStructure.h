@@ -5,7 +5,6 @@
  *
  * Michael Wetter, LBNL                                1/31/2018
  */
-
 #ifndef BUILDINGS_PYTHONOBJECTSTRUCTURE_H /* Not needed since it is only a typedef; added for safety */
 #define BUILDINGS_PYTHONOBJECTSTRUCTURE_H
 
@@ -21,7 +20,7 @@ typedef struct pythonPtr
   int isInitialized;
   PyObject* pModule;
   PyObject* pFunc;
-  char* PYTHONPATH;
+  char* pythonPath;
 } pythonPtr;
 
 #endif
