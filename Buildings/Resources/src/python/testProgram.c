@@ -2,9 +2,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include "testProgram.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "testProgram.h"
 
 void ModelicaFormatError(const char* string, const char* fmt, const char* val){
   fprintf(stderr, string, fmt, val);

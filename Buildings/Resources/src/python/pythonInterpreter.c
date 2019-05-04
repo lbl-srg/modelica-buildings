@@ -1,7 +1,7 @@
+#include "pythonInterpreter.h"
 #define _GNU_SOURCE
 #include <stdlib.h> /* for putenv */
 #include "asprintf.h"
-#include "pythonInterpreter.h"
 
 extern char **environ;
 
