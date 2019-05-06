@@ -11,7 +11,13 @@
 #ifdef __APPLE__
 #include <Python/Python.h>
 #else
+#ifdef _DEBUG
+#undef _DEBUG
 #include <Python.h>
+#define _DEBUG
+#else
+#include <Python.h>
+#endif
 #endif
 
 typedef struct pythonPtr
