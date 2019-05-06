@@ -1,7 +1,12 @@
-#include "pythonInterpreter.h"
 #define _GNU_SOURCE
 #include <stdlib.h> /* for putenv */
+
+#include "pythonInterpreter.h"
+
+#if defined(_WIN32)     /* Win32 or Win64              */
 #include "asprintf.h"
+#define putenv(x) (_putenv(x))
+#endif
 
 extern char **environ;
 
@@ -50,7 +55,7 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
     if (-1 == asprintf(&(ptrMemory->pythonPath), "PYTHONPATH=%s", pythonPath)){
         ModelicaFormatError("Failed to allocate memory for PYTHONPATH in pythonExchangeValuesNoModelica for %s.", moduleName);
     }
-    if (0 != _putenv(ptrMemory->pythonPath)){
+    if (0 != putenv(ptrMemory->pythonPath)){
       ModelicaFormatError("Failed to set %s in pythonExchangeValuesNoModelica for %s.", ptrMemory->pythonPath, moduleName);
     }
   }
@@ -58,7 +63,7 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   /*//////////////////////////////////////////////////////////////////////////*/
   /* Initialize Python interpreter*/
   if (!Py_IsInitialized())
-      Py_Initialize();
+    Py_Initialize();
   /* Set the entries for sys.argv.*/
   /* This is required if a script uses sys.argv, such as bacpypes.*/
   /* See also http://stackoverflow.com/questions/19381441/python-modelica-connection-fails-due-to-import-error*/
