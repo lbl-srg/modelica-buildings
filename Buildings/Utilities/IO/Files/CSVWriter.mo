@@ -14,23 +14,25 @@ initial algorithm
     writeLine(filWri, str, 1);
   end if;
 
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="csvWri",
+  Documentation(info="<html>
 <p>This model samples the model inputs <code>u</code> and saves them to a .csv file,
 which can be read using e.g. Excel or Python.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The parameter <code>nin</code> defines the number of variables that are stored.
-In Dymola this variable is updated automatically when inputs are connected to the component.
+In Dymola, this parameter is updated automatically when inputs are connected to the component.
 </p>
 <p>
 The parameter <code>fileName</code> defines to what file name the results
-are stored. Results are saved in the current working directory
+are saved. The file is in the current working directory,
 unless an absolute path is provided.
 </p>
 <p>
 The parameter <code>samplePeriod</code> defines every how many seconds
-the inputs are saved to the file. 
+the inputs are saved to the file.
 </p>
 <h4>Options</h4>
 <p>
