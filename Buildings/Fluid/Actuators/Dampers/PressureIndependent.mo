@@ -17,6 +17,8 @@ model PressureIndependent
   Modelica.Blocks.Interfaces.RealOutput y_actual(unit="1") "Actual damper position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 protected
+  parameter Real y_min = 2E-2
+    "Minimum value of control signal before autozeroing the opening.";
   parameter Real kDam_1 = m_flow_nominal / sqrt(dp_nominal_pos)
     "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   parameter Real kTot_1 = if dpFixed_nominal > Modelica.Constants.eps then
@@ -141,8 +143,13 @@ equation
     x_small=dp_small / 2);
   kThetaDam = if dpFixed_nominal > Modelica.Constants.eps then
     kThetaTot - 2 * rho * A^2 / kResSqu else kThetaTot;
-  y_actual = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
-    kThetaSqRt=sqrt(kThetaDam), kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer);
+  y_actual = Buildings.Utilities.Math.Functions.regStep(
+    x=y_internal - y_min,
+    y1=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
+      kThetaSqRt=sqrt(kThetaDam), kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer),
+    y2=0,
+    x_small=1E-3
+  );
 annotation (
 defaultComponentName="preInd",
 Documentation(info="<html>
@@ -168,6 +175,9 @@ The model is similar to
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
 Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>, except for adaptations for damper parameters.
 Please see that documentation for more information.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/Dampers/PressureIndependent.svg\"/>
 </p>
 </html>",
 revisions="<html>

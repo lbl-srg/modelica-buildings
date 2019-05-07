@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.Damper", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="Damper");
-createPlot(id = 4,
+createPlot(id = 1,
  position = {0, 0, 592, 427},
  x = "res.y",
  y = {"res.m_flow", "resChaLin.m_flow", "preInd.m_flow", "preIndDpFixed_nominal.m_flow"},
@@ -9,46 +9,44 @@ createPlot(id = 4,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "Damper.mat",
  leftTitleType = 1,
  bottomTitleType = 1
 );
 createPlot(
- id=5,
+ id=2,
  position={30, 30, 592, 427},
  y={"yRam.y", "preInd.y_actual", "preIndDpFixed_nominal.y_actual"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
  grid = true,
- color = true,
- filename = "Damper.mat"
+ color = true
 );
-plotExpression(apply(Damper[end].preInd.m_flow/Damper[end].preInd.m_flow_nominal), false, "preInd.m_flow/m_flow_nominal", 5);
-plotExpression(apply(Damper[end].preIndDpFixed_nominal.m_flow/Damper[end].preIndDpFixed_nominal.m_flow_nominal), false, "preIndDpFixed_nominal.m_flow/m_flow_nominal", 5);
+plotExpression(apply(Damper[end].preInd.m_flow/Damper[end].preInd.m_flow_nominal), false, "preInd.m_flow/m_flow_nominal", 2);
+plotExpression(apply(Damper[end].preIndDpFixed_nominal.m_flow/Damper[end].preIndDpFixed_nominal.m_flow_nominal), false, "preIndDpFixed_nominal.m_flow/m_flow_nominal", 2);
 createPlot(
- id=6,
- position={60, 60, 592, 427},
+ id=3,
+ subPlot=1,
+ position={60, 60, 592, 700},
  y={"preInd0.y", "preInd0.y_actual"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
  grid = true,
- color = true,
- filename = "Damper.mat"
+ color = true
 );
-plotExpression(apply(Damper[end].preInd0.dp/Damper[end].preInd0.dp_nominal), false, "preInd0.dp/dp_nominal", 6);
-plotExpression(apply(Damper[end].preInd0.m_flow/Damper[end].preInd0.m_flow_nominal), false, "preInd0.m_flow/m_flow_nominal", 6);
+plotExpression(apply(Damper[end].preInd0.dp/Damper[end].preInd0.dp_nominal), false, "preInd0.dp/dp_nominal", 3);
+plotExpression(apply(Damper[end].preInd0.m_flow/Damper[end].preInd0.m_flow_nominal), false, "preInd0.m_flow/m_flow_nominal", 3);
 createPlot(
- id=7,
- position={90, 90, 592, 427},
+ id=3,
+ subPlot=2,
+ position={60, 60, 592, 700},
  y={"preInd1.y", "preInd1.y_actual"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
  grid = true,
- color = true,
- filename = "Damper.mat"
+ color = true
 );
-plotExpression(apply(Damper[end].preInd1.dp/Damper[end].preInd1.dp_nominal), false, "preInd1.dp/dp_nominal", 7);
-plotExpression(apply(Damper[end].preInd1.m_flow/Damper[end].preInd1.m_flow_nominal), false, "preInd1.m_flow/m_flow_nominal", 7);
+plotExpression(apply(Damper[end].preInd1.dp/Damper[end].preInd1.dp_nominal), false, "preInd1.dp/dp_nominal", 3);
+plotExpression(apply(Damper[end].preInd1.m_flow/Damper[end].preInd1.m_flow_nominal), false, "preInd1.m_flow/m_flow_nominal", 3);
