@@ -17,8 +17,12 @@ model PressureIndependent
   Modelica.Blocks.Interfaces.RealOutput y_actual(unit="1") "Actual damper position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 protected
+  Modelica.SIunits.MassFlowRate m_flow_smooth
+    "Smooth interpolation result between the three flow regimes";
+  Real y_actual_smooth
+    "Fractional opening computed based on m_flow_smooth and dp";
   parameter Real y_min = 2E-2
-    "Minimum value of control signal before autozeroing the opening.";
+    "Minimum value of control signal before zeroing the opening.";
   parameter Real kDam_1 = m_flow_nominal / sqrt(dp_nominal_pos)
     "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   parameter Real kTot_1 = if dpFixed_nominal > Modelica.Constants.eps then
@@ -69,65 +73,72 @@ equation
     m_flow=y_internal * m_flow_nominal,
     k=kTot_1,
     m_flow_turbulent=m_flow_turbulent);
-  m_flow = smooth(2, noEvent(
-    if dp <= dp_1 then
-      Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-        dp=dp,
-        k=kTot_1,
-        m_flow_turbulent=m_flow_turbulent)
-    elseif dp <= dp_1 + dp_small then
-      Buildings.Utilities.Math.Functions.quinticHermite(
-        x=dp,
-        x1=dp_1,
-        x2=dp_1 + dp_small,
-        y1=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-          dp=dp_1,
-          k=kTot_1,
-          m_flow_turbulent=m_flow_turbulent),
-        y2=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
-        y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
-          dp=dp_1,
-          k=kTot_1,
-          m_flow_turbulent=m_flow_turbulent,
-          dp_der=1),
-        y2d=y_internal * m_flow_nominal * c_regul,
-        y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
-          dp=dp_1,
-          k=kTot_1,
-          m_flow_turbulent=m_flow_turbulent,
-          dp_der=1,
-          dp_der2=0),
-        y2dd=0)
-    elseif dp < dp_0 - dp_small then
-      y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1))
-    elseif dp < dp_0 then
-      Buildings.Utilities.Math.Functions.quinticHermite(
-        x=dp,
-        x1=dp_0 - dp_small,
-        x2=dp_0,
-        y1=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
-        y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-          dp=dp_0,
+  m_flow_smooth = smooth(2, noEvent(
+    Buildings.Utilities.Math.Functions.regStep(
+      x=y_internal - y_min,
+      y1=if dp <= dp_1 then
+          Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+            dp=dp,
+            k=kTot_1,
+            m_flow_turbulent=m_flow_turbulent)
+        elseif dp <= dp_1 + dp_small then
+          Buildings.Utilities.Math.Functions.quinticHermite(
+            x=dp,
+            x1=dp_1,
+            x2=dp_1 + dp_small,
+            y1=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+              dp=dp_1,
+              k=kTot_1,
+              m_flow_turbulent=m_flow_turbulent),
+            y2=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
+            y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+              dp=dp_1,
+              k=kTot_1,
+              m_flow_turbulent=m_flow_turbulent,
+              dp_der=1),
+            y2d=y_internal * m_flow_nominal * c_regul,
+            y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+              dp=dp_1,
+              k=kTot_1,
+              m_flow_turbulent=m_flow_turbulent,
+              dp_der=1,
+              dp_der2=0),
+            y2dd=0)
+        elseif dp < dp_0 - dp_small then
+          y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1))
+        elseif dp < dp_0 then
+          Buildings.Utilities.Math.Functions.quinticHermite(
+            x=dp,
+            x1=dp_0 - dp_small,
+            x2=dp_0,
+            y1=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
+            y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+              dp=dp_0,
+              k=kTot_0,
+              m_flow_turbulent=m_flow_turbulent),
+            y1d=y_internal * m_flow_nominal * c_regul,
+            y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+              dp=dp_0,
+              k=kTot_0,
+              m_flow_turbulent=m_flow_turbulent,
+              dp_der=1),
+            y1dd=0,
+            y2dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+              dp=dp_0,
+              k=kTot_0,
+              m_flow_turbulent=m_flow_turbulent,
+              dp_der=1,
+              dp_der2=0))
+        else
+          Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+            dp=dp,
+            k=kTot_0,
+            m_flow_turbulent=m_flow_turbulent),
+      y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+          dp=dp,
           k=kTot_0,
           m_flow_turbulent=m_flow_turbulent),
-        y1d=y_internal * m_flow_nominal * c_regul,
-        y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
-          dp=dp_0,
-          k=kTot_0,
-          m_flow_turbulent=m_flow_turbulent,
-          dp_der=1),
-        y1dd=0,
-        y2dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
-          dp=dp_0,
-          k=kTot_0,
-          m_flow_turbulent=m_flow_turbulent,
-          dp_der=1,
-          dp_der2=0))
-    else
-      Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-        dp=dp,
-        k=kTot_0,
-        m_flow_turbulent=m_flow_turbulent)));
+      x_small=1E-3)));
   // Computation of damper opening
   kThetaTot = Buildings.Utilities.Math.Functions.regStep(
     x=dp - dp_1 - dp_small / 2,
@@ -143,19 +154,31 @@ equation
     x_small=dp_small / 2);
   kThetaDam = if dpFixed_nominal > Modelica.Constants.eps then
     kThetaTot - 2 * rho * A^2 / kResSqu else kThetaTot;
-  y_actual = Buildings.Utilities.Math.Functions.regStep(
+  y_actual_smooth = Buildings.Utilities.Math.Functions.regStep(
     x=y_internal - y_min,
     y1=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
       kThetaSqRt=sqrt(kThetaDam), kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer),
     y2=0,
     x_small=1E-3
   );
+  // Homotopy transformation
+  if homotopyInitialization then
+    m_flow = homotopy(
+      actual=m_flow_smooth,
+      simplified=m_flow_nominal_pos * dp / dp_nominal_pos);
+    y_actual = homotopy(
+      actual=y_actual_smooth,
+      simplified=dp / dp_nominal_pos);
+  else
+    m_flow = m_flow_smooth;
+    y_actual = y_actual_smooth;
+  end if;
 annotation (
 defaultComponentName="preInd",
 Documentation(info="<html>
 <p>
-Model for an air damper whose airflow is proportional to the input signal, assuming
-that at <code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless:
+Model for an air damper with ideal pressure independent flow control.
+<code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless:
 <ul>
 <li>
 the pressure difference <code>dp</code> is too low, in which case the flow rate is computed
@@ -176,8 +199,8 @@ The model is similar to
 Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>, except for adaptations for damper parameters.
 Please see that documentation for more information.
 </p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/Dampers/PressureIndependent.svg\"/>
+<p align=\"left\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/Dampers/PressureIndependent.png\"/>
 </p>
 </html>",
 revisions="<html>

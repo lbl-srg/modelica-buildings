@@ -68,7 +68,7 @@ model Damper
     use_inputFilter=false,
     v_nominal=3) "A damper with a mass flow proportional to the input signal"
     annotation (Placement(transformation(extent={{30,-102},{50,-82}})));
-  Modelica.Blocks.Sources.Constant yCst0(k=0.02)
+  Modelica.Blocks.Sources.Constant yCst0(k=0)
     annotation (Placement(transformation(extent={{-10,-82},{10,-62}})));
   PressureIndependent preInd1(
     redeclare package Medium = Medium,
