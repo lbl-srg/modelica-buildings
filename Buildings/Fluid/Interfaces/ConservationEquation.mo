@@ -135,7 +135,7 @@ protected
      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
   // Parameter for avoiding extra overhead calculations when CSen==0
-  final parameter Boolean computeCSen = CSen > Modelica.Constants.eps
+  final parameter Boolean computeCSen = abs(mSenFac-1) > Modelica.Constants.eps
     annotation(Evaluate=true);
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
@@ -169,15 +169,16 @@ protected
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
-      "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
-         + Medium.mediumName + "'.\n"
-         + "Check medium model.");
+      "In " + getInstanceName() + ":
+         If Medium.nXi > 1, then substance 'water' must be present for one component of '"
+         + Medium.mediumName + "'.
+         Check medium model.");
 
   // Make sure that if energyDynamics is SteadyState, then
   // massDynamics is also SteadyState.
   // Otherwise, the system of ordinary differential equations may be inconsistent.
   if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    assert(massDynamics == energyDynamics, "
+    assert(massDynamics == energyDynamics, "In " + getInstanceName() + ":
          If 'massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState', then it is
          required that 'energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState'.
          Otherwise, the system of equations may not be consistent.
@@ -421,6 +422,17 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 26, 2019, by Filip Jorissen:<br/>
+Returning <code>getInstanceName()</code> in asserts.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1133\">1133</a>.
+</li>
+<li>
+April 16, 2019, by Michael Wetter:<br/>
+Changed computation of <code>computeCSen</code> to avoid the volume to become
+a structural parameter.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1122\">Buildings, issue 1122</a>.
+</li>
 <li>
 April 16, 2018, by Michael Wetter:<br/>
 Reformulated mass calculation so that Dymola can differentiate the equations.<br/>

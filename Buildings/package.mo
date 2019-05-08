@@ -183,7 +183,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Utilities.IO.Files
     </td>
-    <td valign=\"top\">Package with blocks to write CSV files or combi time table files.
+    <td valign=\"top\">Package with blocks to write CSV files, JSON files or combi time table files.
     </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Plotters
@@ -291,6 +291,17 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Made input connector for occupancy conditionally removable to avoid having to set the
                            number of occupants as an input if there is no occupancy sensor.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1270\">issue 1270</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                           Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                           Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
+        </td>
+        <td valign=\"top\">Changed model so that the volume is no longer fixed at compilation time.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1411\">issue 1411</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
@@ -526,12 +537,13 @@ its class name ends with the string <code>Beta</code>.
     units are wrong or errors in documentation):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Corrected wrong time in the documentation of the parameters.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1409\">issue 1409</a>.
         </td>
     </tr>
     </table>
@@ -7329,6 +7341,48 @@ such enhancements or derivative works thereof, in binary and source code form.
 <p>
 Note: The license is a revised 3 clause BSD license with an ADDED paragraph
 at the end that makes it easy to accept improvements.
+</p>
+<h4>Third Party License</h4>
+<p>
+To parse weather file, the function <code>getTimeSpan.c</code> uses
+third party code that uses the following license:
+</p>
+<p>
+Copyright (c) 2011 The NetBSD Foundation, Inc.<br/>
+All rights reserved.
+</p>
+<p>
+This code is derived from software contributed to The NetBSD Foundation
+by Christos Zoulas.
+</p>
+<p>
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+</p>
+<ol>
+<li>
+  Redistributions of source code must retain the above copyright
+  notice, this list of conditions and the following disclaimer.
+</li>
+<li>
+  Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+</li>
+</ol>
+<p>
+THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
+''AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
 </p>
 </html>"));
   end License;
