@@ -314,6 +314,16 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1298\">issue 1298</a>.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential
+        </td>
+        <td valign=\"top\">Added the option for characteristics linearization.<br/>
+                           Added the option to exclude pressure drop computation for use with
+                           <code>Buildings.Fluid.Actuators.Dampers.PressureIndependent</code>.<br/>
+                           Extended the range of allowed values for <code>k0</code> and <code>k1</code>.<br/>
+                           This is for
+                           <a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
         </td>
     </tr>
@@ -431,7 +441,6 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Refactored <code>Buildings.Fluid.Actuators.Dampers.Exponential</code> and
                            <code>Buildings.Fluid.Actuators.Dampers.VAVBoxExponential</code> into one single class.<br/>
                            Added the option for characteristics linearization.<br/>
-                           Updated the limiting values for <code>k0</code> and <code>k1</code>.<br/>
                            A conversion script is available to update all the instances of this class with
                            the following parameters <code>dp_nominal=0, dp_nominalIncludesDamper=false</code> and
                            ensure backward compatibility.<br/>
