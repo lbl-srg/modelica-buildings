@@ -143,6 +143,7 @@ ASHRAE, Atlanta, GA, 2009.
 April 19, 2019, by Antoine Gautier:<br/>
 Refactored <code>Exponential</code> and <code>VAVBoxExponential</code> into one single class.<br/>
 Added the option for characteristics linearization.<br/>
+Updated the limiting values for <code>k0</code> and <code>k1</code>.<br/>
 This is for
 <a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
 </li>

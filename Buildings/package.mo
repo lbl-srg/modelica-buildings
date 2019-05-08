@@ -413,7 +413,38 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/\">issue 1252</a>.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential
+        </td>
+        <td valign=\"top\">Refactored <code>Buildings.Fluid.Actuators.Dampers.Exponential</code> and
+                           <code>Buildings.Fluid.Actuators.Dampers.VAVBoxExponential</code> into one single class.<br/>
+                           Added the option for characteristics linearization.<br/>
+                           Updated the limiting values for <code>k0</code> and <code>k1</code>.<br/>
+                           A conversion script is available to update all the instances of this class with
+                           the following parameters <code>dp_nominal=0, dp_nominalIncludesDamper=false</code> and
+                           ensure backward compatibility.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1298\">issue 1298</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.PressureIndependent
+        </td>
+        <td valign=\"top\">Added opening calculation, improved leakage modeling and fixed mass flow rate drift at
+                           high pressure drop.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1298\">issue 1298</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.VAVBoxExponential
+        </td>
+        <td valign=\"top\">Retired after refactoring <code>Buildings.Fluid.Actuators.Dampers.Exponential</code> and
+                           <code>Buildings.Fluid.Actuators.Dampers.VAVBoxExponential</code> into one single class.<br/>
+                           A conversion script is available to change all the instances of this class in favor of
+                           <code>Buildings.Fluid.Actuators.Dampers.Exponential</code> and
+                           ensure backward compatibility.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU

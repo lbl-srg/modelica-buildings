@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.Damper", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="Damper");
 createPlot(id = 1,
- position = {0, 0, 592, 427},
+ position = {0, 0, 550, 400},
  x = "res.y",
  y = {"res.m_flow", "resChaLin.m_flow", "preInd.m_flow", "preIndDpFixed_nominal.m_flow"},
  range = {0.15, 0.6, 11.0, 7.0},
@@ -14,7 +14,7 @@ createPlot(id = 1,
 );
 createPlot(
  id=2,
- position={30, 30, 592, 427},
+ position={0, 430, 550, 400},
  y={"yRam.y", "preInd.y_actual", "preIndDpFixed_nominal.y_actual"},
  autoscale = true,
  autoerase = true,
@@ -27,7 +27,7 @@ plotExpression(apply(Damper[end].preIndDpFixed_nominal.m_flow/Damper[end].preInd
 createPlot(
  id=3,
  subPlot=1,
- position={60, 60, 592, 700},
+ position={560, 0, 550, 800},
  y={"preInd0.y", "preInd0.y_actual"},
  autoscale = true,
  autoerase = true,
@@ -40,7 +40,6 @@ plotExpression(apply(Damper[end].preInd0.m_flow/Damper[end].preInd0.m_flow_nomin
 createPlot(
  id=3,
  subPlot=2,
- position={60, 60, 592, 700},
  y={"preInd1.y", "preInd1.y_actual"},
  autoscale = true,
  autoerase = true,
