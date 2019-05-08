@@ -74,71 +74,64 @@ equation
     k=kTot_1,
     m_flow_turbulent=m_flow_turbulent);
   m_flow_smooth = smooth(2, noEvent(
-    Buildings.Utilities.Math.Functions.regStep(
-      x=y_internal - y_min,
-      y1=if dp <= dp_1 then
-          Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-            dp=dp,
-            k=kTot_1,
-            m_flow_turbulent=m_flow_turbulent)
-        elseif dp <= dp_1 + dp_small then
-          Buildings.Utilities.Math.Functions.quinticHermite(
-            x=dp,
-            x1=dp_1,
-            x2=dp_1 + dp_small,
-            y1=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-              dp=dp_1,
-              k=kTot_1,
-              m_flow_turbulent=m_flow_turbulent),
-            y2=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
-            y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
-              dp=dp_1,
-              k=kTot_1,
-              m_flow_turbulent=m_flow_turbulent,
-              dp_der=1),
-            y2d=y_internal * m_flow_nominal * c_regul,
-            y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
-              dp=dp_1,
-              k=kTot_1,
-              m_flow_turbulent=m_flow_turbulent,
-              dp_der=1,
-              dp_der2=0),
-            y2dd=0)
-        elseif dp < dp_0 - dp_small then
-          y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1))
-        elseif dp < dp_0 then
-          Buildings.Utilities.Math.Functions.quinticHermite(
-            x=dp,
-            x1=dp_0 - dp_small,
-            x2=dp_0,
-            y1=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
-            y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-              dp=dp_0,
-              k=kTot_0,
-              m_flow_turbulent=m_flow_turbulent),
-            y1d=y_internal * m_flow_nominal * c_regul,
-            y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
-              dp=dp_0,
-              k=kTot_0,
-              m_flow_turbulent=m_flow_turbulent,
-              dp_der=1),
-            y1dd=0,
-            y2dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
-              dp=dp_0,
-              k=kTot_0,
-              m_flow_turbulent=m_flow_turbulent,
-              dp_der=1,
-              dp_der2=0))
-        else
-          Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-            dp=dp,
-            k=kTot_0,
-            m_flow_turbulent=m_flow_turbulent),
-      y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-          dp=dp,
+    if dp <= dp_1 then
+      Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+        dp=dp,
+        k=kTot_1,
+        m_flow_turbulent=m_flow_turbulent)
+    elseif dp <= dp_1 + dp_small then
+      Buildings.Utilities.Math.Functions.quinticHermite(
+        x=dp,
+        x1=dp_1,
+        x2=dp_1 + dp_small,
+        y1=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+          dp=dp_1,
+          k=kTot_1,
+          m_flow_turbulent=m_flow_turbulent),
+        y2=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
+        y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+          dp=dp_1,
+          k=kTot_1,
+          m_flow_turbulent=m_flow_turbulent,
+          dp_der=1),
+        y2d=y_internal * m_flow_nominal * c_regul,
+        y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+          dp=dp_1,
+          k=kTot_1,
+          m_flow_turbulent=m_flow_turbulent,
+          dp_der=1,
+          dp_der2=0),
+        y2dd=0)
+    elseif dp < dp_0 - dp_small then
+      y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1))
+    elseif dp < dp_0 then
+      Buildings.Utilities.Math.Functions.quinticHermite(
+        x=dp,
+        x1=dp_0 - dp_small,
+        x2=dp_0,
+        y1=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
+        y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+          dp=dp_0,
           k=kTot_0,
           m_flow_turbulent=m_flow_turbulent),
-      x_small=1E-3)));
+        y1d=y_internal * m_flow_nominal * c_regul,
+        y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+          dp=dp_0,
+          k=kTot_0,
+          m_flow_turbulent=m_flow_turbulent,
+          dp_der=1),
+        y1dd=0,
+        y2dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+          dp=dp_0,
+          k=kTot_0,
+          m_flow_turbulent=m_flow_turbulent,
+          dp_der=1,
+          dp_der2=0))
+    else
+      Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+        dp=dp,
+        k=kTot_0,
+        m_flow_turbulent=m_flow_turbulent)));
   // Computation of damper opening
   kThetaTot = Buildings.Utilities.Math.Functions.regStep(
     x=dp - dp_1 - dp_small / 2,
@@ -177,30 +170,75 @@ annotation (
 defaultComponentName="preInd",
 Documentation(info="<html>
 <p>
-Model for an air damper with ideal pressure independent flow control.
-<code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless:
-<ul>
-<li>
-the pressure difference <code>dp</code> is too low, in which case the flow rate is computed
-under the assumption of a fully open damper with exponential flow characteristics;
-</li>
-<li>
-the pressure difference <code>dp</code> is too high, in which case the flow rate is computed
-under the assumption of a fully closed damper with exponential flow characteristics.
-</li>
+Model for an air damper with ideal pressure independent flow control and exponential characteristics.
 </p>
 <p>
-Eventually the fractional opening of the damper is computed under the assumption of an
-exponential flow characteristics.
+The input control signal <code>y</code> is the required fractional mass flow rate
+(<code>m_flow_setpoint/m_flow_nominal</code>).
 </p>
 <p>
-The model is similar to
-<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
-Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>, except for adaptations for damper parameters.
-Please see that documentation for more information.
+When the model is exposed to a pressure drop whithin the controllable range, the flow rate is equal
+to the setpoint within a 1% tolerance.
+</p>
+<h4>Main equations</h4>
+<p>
+First the boundaries of the controllable range <code>dp_0</code> and <code>dp_1</code> are computed based
+on the required mass flow rate and the flow coefficient of the damper
+in a fully closed and fully open position.
+</p>
+<p>
+Three flow domains are then considered depending on the actual pressure drop at the damper's boundaries:
+</p>
+<ol>
+<li>
+Between <code>dp_0</code> and <code>dp_1</code> (controllable domain): an ideal flow control is considered and
+the mass flow rate is computed as the setpoint <code>y*m_flow_nominal</code> plus a regularization term so that
+the derivative <code>d(m_flow)/d(dp)</code> is not zeroed (which may introduce singularities, for instance when
+connecting this component with a fixed mass flow source). The regularization term is such that the error on the
+computed flow rate is less than 1% of its nominal value.
+</li>
+<li>
+Above <code>dp_0</code> (leakage domain): the flow rate is computed using the loss coefficient <code>k0</code>
+corresponding to the fully closed position.
+</li>
+<li>
+Below <code>dp_1</code> (low flow domain): the flow rate is computed using the loss coefficient <code>k1</code>
+corresponding to the fully open position.
+</li>
+</ol>
+<p>
+In the transition intervals between these domains, a quintic spline interpolation is used so that the relationship
+between the flow rate and the pressure drop is C<sup>2</sup>.
 </p>
 <p align=\"left\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/Dampers/PressureIndependent.png\"/>
+</p>
+<h4>Fractional opening</h4>
+<p>
+The fractional opening of the damper is then computed by:
+</p>
+<ul>
+<li>
+inverting the quadratic flow function (see <a href=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow>
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>)
+to compute the flow coefficient from the flow rate and the pressure drop values;
+</li>
+<li>
+inverting the exponential characteristics (see <a href=Buildings.Fluid.Actuators.Dampers.Exponential>
+Buildings.Fluid.Actuators.Dampers.Exponential</a>) to compute
+the fractional opening from the loss coefficient value (directly yielded from the flow coefficient).
+</li>
+</ul>
+<p>
+Below a threshold value of the input control signal (fixed at 0.02) the fractional opening is forced to zero and
+no more related to the actual flow coefficient of the damper.
+This avoids steep transient of the computed opening while transiting from reverse flow. This is to be considered
+as a modeling workaround to prevent control chattering during shut off period (while avoiding an additional state
+variable). In standard operation the minimum flow rate should be higher than this value.
+</p>
+<h4>Optional fixed flow resistance</h4>
+<p>
+The model allows for the definition of an optional fixed flow resistance in series with the damper.
 </p>
 </html>",
 revisions="<html>
