@@ -42,72 +42,18 @@ annotation (
   textString="%name")}),
 Documentation(info="<html>
 <p>
-Function that computes the pressure drop of flow elements as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &Delta;p = sign(m) (m &frasl; k)<sup>2</sup>
+Function that computes the square value of the flow coefficient from the flow rate and
+pressure drop values.
 </p>
 <p>
-with regularization near the origin.
-Therefore, the flow coefficient is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
-</p>
-<p>
-The input <code>m_flow_turbulent</code> determines the location of the regularization.
+This function is the formal inverse of <a href=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow>
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-January 4, 2019, by Michael Wetter:<br/>
-Set `Inline=false`.<br/>
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1070\">#1070</a>.
-</li>
-<li>
-May 1, 2017, by Filip Jorissen:<br/>
-Revised implementation such that
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
-Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
-is C2 continuous.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/725\">#725</a>.
-</li>
-<li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
-</li>
-<li>
-July 28, 2015, by Michael Wetter:<br/>
-Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
-and changed <code>Inline=true</code> to <code>LateInline=true</code>.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/301\">issue 301</a>.
-</li>
-<li>
-July 15, 2015, by Filip Jorissen:<br/>
-New, more efficient implementation based on regularisation using simple polynomial.
-Expanded common subexpressions for function inlining to be possible.
-Set <code>Inline=true</code> for inlining to occur.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/279\">#279</a>.
-</li>
-<li>
-August 10, 2011, by Michael Wetter:<br/>
-Removed <code>if-then</code> optimization that set <code>dp=0</code> if <code>m_flow=0</code>,
-as this causes the derivative to be discontinuous at <code>m_flow=0</code>.
-</li>
-<li>
-August 4, 2011, by Michael Wetter:<br/>
-Removed option to use a linear function. The linear implementation is now done
-in models that call this function. With the previous implementation,
-the symbolic processor may not rearrange the equations, which can lead
-to coupled equations instead of an explicit solution.
-</li>
-<li>
-April 13, 2009, by Michael Wetter:<br/>
+April 19, 2019, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
