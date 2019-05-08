@@ -1,6 +1,6 @@
 within Buildings.Fluid.Actuators.Dampers;
 model Exponential
-  "VAV box with a fixed resistance plus a damper model with exponential characteristics"
+  "Damper model with exponential characteristics and optional fixed flow resistance"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
     dp(nominal=dp_nominal),
     final kFixed=sqrt(kResSqu),
@@ -32,7 +32,7 @@ annotation (
 defaultComponentName="dam",
 Documentation(info="<html>
 <p>
-<b>General Description</b>
+<h4>General description</h4>
 </p>
 <p>
 Model of two resistances in series. One (optional) resistance has a fixed flow coefficient.
@@ -51,14 +51,15 @@ If <code>char_linear=true</code>, then the lumped flow coefficient
 (for both damper and optional fixed flow resistance) varies linearly with the filtered control
 input signal <code>y_actual</code>.
 This yields a linear relationship between the mass flow rate and <code>y_actual</code> when
-the model is exposed to constant pressure boundary conditions.
+the model is exposed to constant pressure boundary conditions. This option is used to approximate
+a feedback control compensating for the static nonlinearities of the controlled system.
 </p>
 <p>
-<b>Exponential Damper Model Description</b>
+<h4>Exponential damper model description</h4>
 </p>
 <p>
-This model is an air damper with loss coefficient that is an exponential function
-of the opening angle. The model is as in ASHRAE 825-RP.
+The relationship between the damper loss coefficient and the opening angle is modeled with
+an exponential function. The model is as in ASHRAE 825-RP.
 A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper
 is open. This is opposite of the implementation of ASHRAE 825-RP, but used here
 for consistency within this library.
