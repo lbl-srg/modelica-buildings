@@ -32,7 +32,7 @@ algorithm
 annotation (
 Documentation(info="<html>
 <p>
-This function inverts the opening characteristics of an exponential damper.
+This function provides an approximate inverse of the exponential damper characteristics.
 </p><p>
 The function is used by the model
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
@@ -49,7 +49,7 @@ revisions="<html>
 <ul>
 <li>
 April 19, 2019, by Antoine Gautier:<br/>
-First implementation..
+First implementation.
 </li>
 </ul>
 </html>"), smoothOrder=1);
