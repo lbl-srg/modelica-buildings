@@ -9,6 +9,9 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Name of the Energyplus IDD file";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter String fmuName=""
+    "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
+    annotation(Dialog(tab="Debugging"));
 //  parameter Modelica.SIunits.Temperature T_start = 293.15+3.12345
 //    "Initial temperature of zone air"
 //    annotation(Dialog(group="Initialization"));
@@ -78,13 +81,12 @@ protected
       idfName=idfName,
       weaName=weaName,
       iddName=iddName,
-      zoneName=zoneName)
+      zoneName=zoneName,
+      fmuName=fmuName)
     "Class to communicate with EnergyPlus";
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
   output Boolean sampleTrigger "True, if sample time instant";
-  output Boolean firstTrigger(start=false, fixed=true)
-    "Rising edge signals first sample instant";
 
   discrete Modelica.SIunits.Time tLast(fixed=true, start=startTime) "Last time of data exchange";
   discrete Modelica.SIunits.Time dtLast "Time step since the last synchronization";
@@ -128,11 +130,8 @@ equation
   assert(mSenFac > 0.9999, "mSenFac must be bigger or equal than one.");
 
   sampleTrigger = sample(startTime, samplePeriod);
-  when sampleTrigger then
-    firstTrigger = time <= startTime + samplePeriod/2;
-  end when;
 
-  when {initial(), sampleTrigger} then
+  when {initial(), sampleTrigger, time >= pre(tNext)} then
   // Initialization of output variables.
     TRooLast = T;
     dtLast = time-pre(tLast);

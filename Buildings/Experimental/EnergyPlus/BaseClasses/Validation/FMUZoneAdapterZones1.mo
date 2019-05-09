@@ -1,5 +1,5 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses.Validation;
-model FMUZoneAdapterZones3
+model FMUZoneAdapterZones1
   "Validation model for the class and functions that instantiate and communicate with an FMU for Model Exchange"
   extends Modelica.Icons.Example;
   parameter String idfName=Modelica.Utilities.Files.loadResource(
@@ -36,34 +36,6 @@ model FMUZoneAdapterZones3
     y_start=294.15,
     y(final unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{58,26},{78,46}})));
-  Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonSou(
-    final idfName=idfName,
-    final weaName=weaName,
-    final zoneName="South_ZN",
-    final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
-    final nFluPor=2,
-    samplePeriod=60) "Adapter to EnergyPlus"
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Modelica.Blocks.Continuous.Integrator TZonSou(
-    k=1/CZon,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=294.15,
-    y(final unit="K", displayUnit="degC")) "Zone air temperature"
-    annotation (Placement(transformation(extent={{58,-18},{78,2}})));
-  Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonNor(
-    final idfName=idfName,
-    final weaName=weaName,
-    final zoneName="North_ZN",
-    final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
-    final nFluPor=2,
-    samplePeriod=60) "Adapter to EnergyPlus"
-    annotation (Placement(transformation(extent={{18,-60},{38,-40}})));
-  Modelica.Blocks.Continuous.Integrator TZonNor(
-    k=1/CZon,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=294.15,
-    y(final unit="K", displayUnit="degC")) "Zone air temperature"
-    annotation (Placement(transformation(extent={{58,-58},{78,-38}})));
 equation
   connect(X_w.y, fmuZonCor.X_w) annotation (Line(points={{-67,54},{-28,54},{-28,
           38},{18,38}},
@@ -78,39 +50,11 @@ equation
           30},{18,30}},   color={0,0,127}));
   connect(fmuZonCor.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{18,26},
           {-4,26},{-4,-36},{-67,-36}},   color={0,0,127}));
-  connect(X_w.y, fmuZonSou.X_w) annotation (Line(points={{-67,54},{-28,54},{-28,
-          -6},{18,-6}},   color={0,0,127}));
-  connect(fmuZonSou.m_flow[1], mIn_flow.y) annotation (Line(points={{18,-11},{-24,
-          -11},{-24,34},{-67,34}},   color={0,0,127}));
-  connect(mOut_flow.y, fmuZonSou.m_flow[2]) annotation (Line(points={{-39,10},{-10,
-          10},{-10,-9},{18,-9}},       color={0,0,127}));
-  connect(TIn.y, fmuZonSou.TInlet) annotation (Line(points={{-67,-14},{18,-14}},
-                            color={0,0,127}));
-  connect(fmuZonSou.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{18,-18},
-          {-4,-18},{-4,-36},{-67,-36}},    color={0,0,127}));
   connect(TZonCor.y, fmuZonCor.T)
     annotation (Line(points={{79,36},{88,36},{88,60},{8,60},{8,42},{18,42}},
                                                              color={0,0,127}));
-  connect(X_w.y, fmuZonNor.X_w) annotation (Line(points={{-67,54},{-20,54},{-20,
-          -46},{16,-46}}, color={0,0,127}));
-  connect(fmuZonNor.m_flow[1], mIn_flow.y) annotation (Line(points={{16,-51},{-24,
-          -51},{-24,34},{-67,34}}, color={0,0,127}));
-  connect(mOut_flow.y, fmuZonNor.m_flow[2]) annotation (Line(points={{-39,10},{-10,
-          10},{-10,-49},{16,-49}}, color={0,0,127}));
-  connect(TIn.y, fmuZonNor.TInlet) annotation (Line(points={{-67,-14},{0,-14},{0,
-          -54},{16,-54}}, color={0,0,127}));
-  connect(fmuZonNor.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{16,-58},
-          {-4,-58},{-4,-36},{-67,-36}}, color={0,0,127}));
   connect(fmuZonCor.QCon_flow, TZonCor.u)
     annotation (Line(points={{41,36},{56,36}},  color={0,0,127}));
-  connect(fmuZonSou.QCon_flow, TZonSou.u)
-    annotation (Line(points={{41,-8},{56,-8}}, color={0,0,127}));
-  connect(TZonSou.y, fmuZonSou.T) annotation (Line(points={{79,-8},{86,-8},{86,10},
-          {10,10},{10,-2},{18,-2}},     color={0,0,127}));
-  connect(fmuZonNor.QCon_flow, TZonNor.u)
-    annotation (Line(points={{39,-48},{56,-48}}, color={0,0,127}));
-  connect(TZonNor.y, fmuZonNor.T) annotation (Line(points={{79,-48},{86,-48},{86,
-          -32},{10,-32},{10,-42},{16,-42}},     color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Validation model that communicates with an FMU that emulates simple thermal zones.
@@ -127,11 +71,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/BaseClasses/Validation/FMUZoneAdapterZones3.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/BaseClasses/Validation/FMUZoneAdapterZones1.mos"
         "Simulate and plot"),
 experiment(
       StopTime=3600,
       Tolerance=1e-06),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end FMUZoneAdapterZones3;
+end FMUZoneAdapterZones1;

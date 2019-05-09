@@ -238,8 +238,8 @@ void ZoneExchange(
   *QLat_flow = outputValues[2];
   *QPeo_flow = outputValues[3];
 
-  writeFormatLog(3, "Returning from ZoneExchange with nextEventTime = %.2f, QCon = %.2f, zone = %s, mode = %s",
-    *tNext, *QConSen_flow, zone->name, fmuModeToString(zone->ptrBui->mode));
+  writeFormatLog(3, "Returning from ZoneExchange with nextEventTime = %.2f, TRad_degC = %.2f, zone = %s, mode = %s",
+    *tNext, outputValues[0], zone->name, fmuModeToString(zone->ptrBui->mode));
   return;
 }
 

@@ -76,6 +76,7 @@ typedef struct FMUBuilding
   void** zones; /* Pointers to all zones*/
   char* tmpDir; /* Temporary directory used by EnergyPlus */
   char* fmuAbsPat; /* Absolute name of the fmu */
+  bool usePrecompiledFMU; /* if true, a pre-compiled FMU will be used (for debugging) */
   fmi2Boolean dllfmu_created; /* Flag to indicate if dll fmu functions were successfully created */
   fmi2Real time; /* Time that is set in the building fmu */
   FMUMode mode; /* Mode that the FMU is in */
@@ -140,7 +141,8 @@ void buildVariableNames(
 FMUBuilding* ZoneAllocateBuildingDataStructure(
   const char* idfName, const char* weaName,
   const char* iddName,
-  const char* zoneName, FMUZone* zone);
+  const char* zoneName, FMUZone* zone,
+  const char* fmuName);
 
 FMUBuilding* getBuildingsFMU(size_t iFMU);
 void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam);

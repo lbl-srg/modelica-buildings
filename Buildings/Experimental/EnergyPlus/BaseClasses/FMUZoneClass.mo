@@ -8,12 +8,15 @@ extends ExternalObject;
     input String iddName "Name of the IDD file";
     //    input String epLibName "Name of the Energyplus FMI library";
     input String zoneName "Name of the thermal zone";
+    input String fmuName
+      "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
     output FMUZoneClass adapter;
     external "C" adapter = ZoneAllocate(
       idfName,
       weaName,
       iddName,
-      zoneName)
+      zoneName,
+      fmuName)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
           Include="#include \"ZoneAllocate.c\"",

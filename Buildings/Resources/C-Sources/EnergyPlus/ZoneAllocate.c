@@ -24,7 +24,7 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 }
 
 /* Create the structure and return a pointer to its address. */
-void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName, const char* zoneName)
+void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName, const char* zoneName, const char* fmuName)
 {
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
@@ -94,7 +94,7 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
   if (nFMU == 0){
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
-    zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone);
+    zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, fmuName);
     /*zone->index = 1;*/
   } else {
     /* There is already a Buildings FMU allocated.
@@ -107,6 +107,10 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
           if (! zoneIsUnique(fmu, zoneName)){
             ModelicaFormatError("Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
             zoneName, fmu->name);
+          }
+          if (strlen(fmuName) > 0 && strcmp(fmuName, fmu->fmuAbsPat) != 0){
+            ModelicaFormatError("Modelica model specifies two different FMU names for the same building, Check parameter fmuName = %s and fmuName = %s.",
+              fmuName, fmu->fmuAbsPat);
           }
 
           zone->ptrBui = fmu;
@@ -131,7 +135,7 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
       /* Check if we found an FMU */
       if (zone->ptrBui == NULL){
         /* Did not find an FMU. */
-        zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone);
+        zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, fmuName);
       }
   }
 

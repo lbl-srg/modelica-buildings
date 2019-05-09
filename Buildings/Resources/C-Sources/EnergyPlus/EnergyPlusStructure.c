@@ -166,8 +166,7 @@ void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char* *fmuAbs
   size_t lenIDF = strlen(idfName);
   size_t lenTMP = strlen(tmpDir);
   size_t iniLen = 100;
-  char * idfNamNoExt = getIDFNameWithoutExtension(idfName);
-
+  char * idfNamNoExt;
 
   *fmuAbsPat = malloc(iniLen * sizeof(char));
   if (*fmuAbsPat == NULL){
@@ -177,6 +176,7 @@ void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char* *fmuAbs
 
   saveAppend(fmuAbsPat, tmpDir, &iniLen);
   saveAppend(fmuAbsPat, SEPARATOR, &iniLen);
+  idfNamNoExt = getIDFNameWithoutExtension(idfName);
   saveAppend(fmuAbsPat, idfNamNoExt, &iniLen);
   saveAppend(fmuAbsPat, ".fmu", &iniLen);
   free(idfNamNoExt);
@@ -355,7 +355,7 @@ void createDirectory(const char* dirName){
 
 
 FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
-  const char* iddName, const char* zoneName, FMUZone* zone){
+  const char* iddName, const char* zoneName, FMUZone* zone, const char* fmuName){
   /* Allocate memory */
 
   const size_t nFMU = getBuildings_nFMU();
@@ -414,7 +414,20 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* 
 
   getEnergyPlusTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
 
-  getEnergyPlusFMUName(idfName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
+  if (strlen(fmuName) == 0){
+    /* Use actual EnergyPlus */
+    getEnergyPlusFMUName(idfName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
+    Buildings_FMUS[nFMU]->usePrecompiledFMU = false;
+  }
+  else{
+    Buildings_FMUS[nFMU]->fmuAbsPat = malloc(strlen((fmuName)+1) * sizeof(char));
+    if (Buildings_FMUS[nFMU]->fmuAbsPat == NULL){
+     ModelicaFormatError("Failed to allocate memory for FMU name for %s.", idfName);
+    }
+   memset(Buildings_FMUS[nFMU]->fmuAbsPat, '\0', strlen((fmuName)+1));
+   strcpy(Buildings_FMUS[nFMU]->fmuAbsPat, fmuName);
+   Buildings_FMUS[nFMU]->usePrecompiledFMU = true;
+  }
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir);
 

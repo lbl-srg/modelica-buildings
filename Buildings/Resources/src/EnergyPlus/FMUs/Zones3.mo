@@ -1,26 +1,19 @@
 within ;
 model Zones3 "Model of three thermal zones"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps, start=0.1) = 60
-    "Sample period of component";
-
   parameter output Modelica.SIunits.Volume Core_ZN_V = 3*4*3 "Volume";
   parameter output Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
   parameter output Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
-  //parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T_start = 20
-  //  "Initial temperature of zone air";
+
 
   parameter output Modelica.SIunits.Volume South_ZN_V = 3*4*3 "Volume";
   parameter output Modelica.SIunits.Area South_ZN_AFlo = 3*4 "Floor area";
   parameter output Real South_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
-  //parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC South_ZN_T_start = 20
-  //  "Initial temperature of zone air";
+
 
   parameter output Modelica.SIunits.Volume North_ZN_V = 3*4*3 "Volume";
   parameter output Modelica.SIunits.Area North_ZN_AFlo = 3*4 "Floor area";
   parameter output Real North_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
-  //parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC North_ZN_T_start = 20
-  //  "Initial temperature of zone air";
 
   input Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T "Temperature of the zone air";
   input Real Core_ZN_X(min=0, final unit="1") "Water vapor mass fraction in kg water/kg dry air";
@@ -58,7 +51,6 @@ model Zones3 "Model of three thermal zones"
     "Latent heat gain added to the zone";
   output Modelica.SIunits.HeatFlowRate Core_ZN_QPeo_flow
       "Heat gain due to people";
-  discrete output Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_TCon(start=20) "Construction temperature (first order approximation)";
 
   discrete output Modelica.SIunits.Conversions.NonSIunits.Temperature_degC South_ZN_TRad
     "Average radiative temperature in the room";
@@ -68,7 +60,6 @@ model Zones3 "Model of three thermal zones"
     "Latent heat gain added to the zone";
   output Modelica.SIunits.HeatFlowRate South_ZN_QPeo_flow
       "Heat gain due to people";
-  discrete output Modelica.SIunits.Conversions.NonSIunits.Temperature_degC South_TCon(start=20) "Construction temperature (first order approximation)";
 
   discrete output Modelica.SIunits.Conversions.NonSIunits.Temperature_degC North_ZN_TRad
     "Average radiative temperature in the room";
@@ -78,69 +69,61 @@ model Zones3 "Model of three thermal zones"
     "Latent heat gain added to the zone";
   output Modelica.SIunits.HeatFlowRate North_ZN_QPeo_flow
       "Heat gain due to people";
-  discrete output Modelica.SIunits.Conversions.NonSIunits.Temperature_degC North_TCon(start=20) "Construction temperature (first order approximation)";
 
 protected
-  parameter Modelica.SIunits.Time startTime(fixed=false) "First sample time instant";
-  parameter Modelica.SIunits.Area ACon = (2*6*6+4*6*2.7) "Surface area of constructions";
-  parameter Modelica.SIunits.Conductance Ah = ACon * 8 "Conductance A*h for all surfaces";
-  parameter Modelica.SIunits.HeatCapacity CCon = ACon*0.2*800*2000 "Heat capacity of constructions";
+  RoomModel core(
+    V       = Core_ZN_V,
+    AFlo    = Core_ZN_AFlo,
+    mSenFac = Core_ZN_mSenFac) "Room model";
 
-  output Boolean sampleTrigger "True, if sample time instant";
-  output Boolean firstTrigger(start=false, fixed=true)
-    "Rising edge signals first sample instant";
+  RoomModel north(
+    V       = North_ZN_V,
+    AFlo    = North_ZN_AFlo,
+    mSenFac = North_ZN_mSenFac) "Room model";
 
-initial equation
-  startTime = time;
+  RoomModel south(
+    V       = South_ZN_V,
+    AFlo    = South_ZN_AFlo,
+    mSenFac = South_ZN_mSenFac) "Room model";
 
-  Core_TCon = 20;
-  South_TCon = 20;
-  North_TCon = 20;
-  Modelica.Utilities.Files.removeFile("TestModelOutput.txt");
 equation
-  sampleTrigger = sample(startTime, samplePeriod);
+  // Inputs for room
+  core.T            = Core_ZN_T;
+  core.X            = Core_ZN_X;
+  core.mInlets_flow = Core_ZN_mInlets_flow;
+  core.TAveInlet    = Core_ZN_TAveInlet;
+  core.QGaiRad_flow = Core_ZN_QGaiRad_flow;
 
-  when sampleTrigger then
-    firstTrigger = time <= startTime + samplePeriod/2;
-  end when;
+  // Outputs from room
+  core.TRad         = Core_ZN_TRad;
+  core.QConSen_flow = Core_ZN_QConSen_flow;
+  core.QLat_flow    = Core_ZN_QLat_flow;
+  core.QPeo_flow    = Core_ZN_QPeo_flow;
 
-  when {sampleTrigger} then
-    if not initial() then
-      Core_TCon  = pre(Core_TCon) +  0*samplePeriod / CCon * (Core_ZN_QConSen_flow +  Core_ZN_QGaiRad_flow);
-      South_TCon = pre(South_TCon) + 0*samplePeriod / CCon * (South_ZN_QConSen_flow + South_ZN_QGaiRad_flow);
-      North_TCon = pre(North_TCon) + 0*samplePeriod / CCon * (North_ZN_QConSen_flow + North_ZN_QGaiRad_flow);
-    else
-      Core_TCon  = pre(Core_TCon);
-      South_TCon = pre(South_TCon);
-      North_TCon = pre(North_TCon);
-    end if;
+  // Inputs for room
+  north.T            = North_ZN_T;
+  north.X            = North_ZN_X;
+  north.mInlets_flow = North_ZN_mInlets_flow;
+  north.TAveInlet    = North_ZN_TAveInlet;
+  north.QGaiRad_flow = North_ZN_QGaiRad_flow;
 
-    Core_ZN_TRad = pre(Core_ZN_T);
+  // Outputs from room
+  north.TRad         = North_ZN_TRad;
+  north.QConSen_flow = North_ZN_QConSen_flow;
+  north.QLat_flow    = North_ZN_QLat_flow;
+  north.QPeo_flow    = North_ZN_QPeo_flow;
 
-    South_ZN_TRad = pre(South_ZN_T);
+  // Inputs for room
+  south.T            = South_ZN_T;
+  south.X            = South_ZN_X;
+  south.mInlets_flow = South_ZN_mInlets_flow;
+  south.TAveInlet    = South_ZN_TAveInlet;
+  south.QGaiRad_flow = South_ZN_QGaiRad_flow;
 
-    North_ZN_TRad = pre(North_ZN_T);
-    Modelica.Utilities.Streams.print("------ time = " + String(time)
-      + " \t initial(), sampleTrigger = " + String(initial()) + ", " + String(sampleTrigger)
-      + " \t {Core,South,North}_ZN_T = " + String(Core_ZN_T) + ", " + String(South_ZN_T) + ", " + String(North_ZN_T),
-      "TestModelOutput.txt");
-      //       + "\t {Core,South,North}_ZN_QConSen_flow = " + String(Core_ZN_QConSen_flow) + ", " + String(South_ZN_QConSen_flow) + ", " + String(North_ZN_QConSen_flow),
-  end when;
-    Modelica.Utilities.Streams.print("---+++ time = " + String(time)
-      + " \t initial(), sampleTrigger = " + String(initial()) + ", " + String(sampleTrigger)
-      + " \t {Core,South,North}_ZN_T = " + String(Core_ZN_T) + ", " + String(South_ZN_T) + ", " + String(North_ZN_T),
-      "TestModelOutput.txt");
-
-    Core_ZN_QConSen_flow = Ah * (Core_TCon-Core_ZN_T);
-    Core_ZN_QLat_flow = 0;
-    Core_ZN_QPeo_flow = 200;
-
-    South_ZN_QConSen_flow = Ah * (South_TCon-South_ZN_T);
-    South_ZN_QLat_flow = 0;
-    South_ZN_QPeo_flow = 200;
-
-    North_ZN_QConSen_flow = Ah * (North_TCon-North_ZN_T);
-    North_ZN_QLat_flow = 0;
-    North_ZN_QPeo_flow = 200;
+  // Outputs from room
+  south.TRad         = South_ZN_TRad;
+  south.QConSen_flow = South_ZN_QConSen_flow;
+  south.QLat_flow    = South_ZN_QLat_flow;
+  south.QPeo_flow    = South_ZN_QPeo_flow;
 
 end Zones3;
