@@ -14,7 +14,7 @@ model FMUZoneAdapterZones1
     final idfName=idfName,
     final weaName=weaName,
     final zoneName="Core_ZN",
-    final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
+    final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     final nFluPor=2,
     samplePeriod=60) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,24},{40,44}})));
