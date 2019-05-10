@@ -108,9 +108,9 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
             ModelicaFormatError("Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
             zoneName, fmu->name);
           }
-          if (strlen(fmuName) > 0 && strcmp(fmuName, fmu->fmuAbsPat) != 0){
+          if (strlen(fmuName) > 0 && strcmp(fmuName, fmu->precompiledFMUAbsPat) != 0){
             ModelicaFormatError("Modelica model specifies two different FMU names for the same building, Check parameter fmuName = %s and fmuName = %s.",
-              fmuName, fmu->fmuAbsPat);
+              fmuName, fmu->precompiledFMUAbsPat);
           }
 
           zone->ptrBui = fmu;
