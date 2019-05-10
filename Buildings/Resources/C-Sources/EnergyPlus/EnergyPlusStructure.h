@@ -77,6 +77,7 @@ typedef struct FMUBuilding
   char* tmpDir; /* Temporary directory used by EnergyPlus */
   char* fmuAbsPat; /* Absolute name of the fmu */
   bool usePrecompiledFMU; /* if true, a pre-compiled FMU will be used (for debugging) */
+  char* precompiledFMUAbsPat; /* Name of pre-compiled FMU (if usePrecompiledFMU = true, otherwise set the NULL) */
   fmi2Boolean dllfmu_created; /* Flag to indicate if dll fmu functions were successfully created */
   fmi2Real time; /* Time that is set in the building fmu */
   FMUMode mode; /* Mode that the FMU is in */

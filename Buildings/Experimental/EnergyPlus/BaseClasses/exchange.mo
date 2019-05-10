@@ -11,6 +11,8 @@ function exchange "Exchange the values for the thermal zone"
     carried by the mass flow rates";
   input Modelica.SIunits.HeatFlowRate QGaiRad_flow
     "Radiative heat gain (positive if heat gain)";
+  input Modelica.SIunits.Area AFlo
+    "Floor area (used to force Modelica tools to call initialize())";
   input Modelica.SIunits.Time tModel "Current model time";
   output Modelica.SIunits.Temperature TRad "Radiative temperature";
   output Modelica.SIunits.HeatFlowRate QCon_flow
@@ -25,7 +27,7 @@ function exchange "Exchange the values for the thermal zone"
   output Modelica.SIunits.Time tNext "Next time that the zone need to be invoked";
 
   external "C" ZoneExchange(adapter, initialCall,
-    T, X, mInlet_flow, TAveInlet, QGaiRad_flow, tModel,
+    T, X, mInlet_flow, TAveInlet, QGaiRad_flow, AFlo, tModel,
     TRad, QCon_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)
       annotation (
         IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",

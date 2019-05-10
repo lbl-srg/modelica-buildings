@@ -115,20 +115,16 @@ protected
     y :=if (u > 0) then floor(u/accuracy + 0.5)*accuracy else ceil(u/accuracy - 0.5)*accuracy;
   end round;
 
-initial algorithm
-  startTime := time;
-  (AFlo, V, mSenFac) := Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
+initial equation
+  startTime =  time;
+  (AFlo, V, mSenFac) =  Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
     adapter = adapter,
     startTime = time);
-
-equation
-  // These assertions must be here. Otherwise, JModelica may optimize the code for
-  // Buildings.Experimental.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter in a way that
-  // initialize() is never called.
   assert(AFlo > 0, "Floor area must not be zero.");
   assert(V > 0, "Volume must not be zero.");
   assert(mSenFac > 0.9999, "mSenFac must be bigger or equal than one.");
 
+equation
   sampleTrigger = sample(startTime, samplePeriod);
 
   when {initial(), sampleTrigger, time >= pre(tNext)} then
@@ -147,6 +143,7 @@ equation
       mInlet_flow,
       TAveInlet,
       QGaiRad_flow,
+      AFlo,
       round(time, 1E-3));
     tLast = time;
   end when;

@@ -414,19 +414,21 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* 
 
   getEnergyPlusTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
 
+  getEnergyPlusFMUName(idfName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
   if (strlen(fmuName) == 0){
     /* Use actual EnergyPlus */
-    getEnergyPlusFMUName(idfName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
     Buildings_FMUS[nFMU]->usePrecompiledFMU = false;
+    Buildings_FMUS[nFMU]->precompiledFMUAbsPat = NULL;
   }
   else{
-    Buildings_FMUS[nFMU]->fmuAbsPat = malloc(strlen((fmuName)+1) * sizeof(char));
-    if (Buildings_FMUS[nFMU]->fmuAbsPat == NULL){
+    Buildings_FMUS[nFMU]->usePrecompiledFMU = true;
+    /* Copy name of precompiled FMU */
+    Buildings_FMUS[nFMU]->precompiledFMUAbsPat = malloc(strlen((fmuName)+1) * sizeof(char));
+    if (Buildings_FMUS[nFMU]->precompiledFMUAbsPat == NULL){
      ModelicaFormatError("Failed to allocate memory for FMU name for %s.", idfName);
     }
-   memset(Buildings_FMUS[nFMU]->fmuAbsPat, '\0', strlen((fmuName)+1));
-   strcpy(Buildings_FMUS[nFMU]->fmuAbsPat, fmuName);
-   Buildings_FMUS[nFMU]->usePrecompiledFMU = true;
+    memset(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, '\0', strlen((fmuName)+1));
+    strcpy(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, fmuName);
   }
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir);

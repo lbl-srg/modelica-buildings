@@ -166,37 +166,41 @@ void setValueReferences(FMUBuilding* fmuBui){
   return;
 }
 
-void generateFMU(bool usePrecompiledFMU, const char* FMUPath){
+void generateFMU(bool usePrecompiledFMU, const char* precompiledFMUPath, const char* FMUPath){
   /* Generate the FMU */
   const char* cmd = "cp -p ";
   char* testFMU;
   char* fulCmd;
   size_t len;
   int retVal;
-  writeLog(3, "Entered generateFMU.");
+  writeFormatLog(3, "Entered generateFMU with FMUPath = %s.", FMUPath);
 
   if (usePrecompiledFMU){
-    /* This is currently not needed. Here will be the FMU generation done.
-
-    testFMU = "Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu";
+    writeFormatLog(3, "Using precompiled fmu %s", FMUPath);
     ModelicaFormatMessage("Using pre-compiled FMU %s", FMUPath);
-    len = strlen(cmd) + strlen(FMUPath) + 1 + strlen(testFMU) + 1;
+
+    if( access( precompiledFMUPath, F_OK ) == -1 ) {
+      ModelicaFormatError("Requested to use fmu '%s' which does not exist.", precompiledFMUPath);
+    }
+
+    len = strlen(cmd) + strlen(FMUPath) + 1 + strlen(precompiledFMUPath) + 1;
     fulCmd = malloc(len * sizeof(char));
     if (fulCmd == NULL){
       ModelicaFormatError("Failed to allocate memory in generateFMU().");
     }
     memset(fulCmd, '\0', len);
     strcpy(fulCmd, cmd);
-    strcat(fulCmd, testFMU);
+    strcat(fulCmd, precompiledFMUPath);
     strcat(fulCmd, " ");
     strcat(fulCmd, FMUPath);
-    /* Generate the FMU
+    /* Copy the FMU */
+    writeFormatLog(3, "Executing %s", fulCmd);
     retVal = system(fulCmd);
     if (retVal != 0){
       ModelicaFormatError("Generating FMU failed using command '%s'.", fulCmd);
     }
     free(fulCmd);
-    */
+
   }
   else{
     ModelicaError("Can currently only use pre-compiled FMUs.");
@@ -298,7 +302,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
 
   writeLog(3, "Entered ZoneAllocateAndInstantiateBuilding.");
 
-  generateFMU(bui->usePrecompiledFMU, bui->fmuAbsPat);
+  generateFMU(bui->usePrecompiledFMU, bui->precompiledFMUAbsPat, bui->fmuAbsPat);
 
   if( access( bui->fmuAbsPat, F_OK ) == -1 ) {
     ModelicaFormatError("Requested to load fmu '%s' which does not exist.", bui->fmuAbsPat);

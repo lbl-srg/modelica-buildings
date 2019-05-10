@@ -106,6 +106,7 @@ void ZoneExchange(
   double mInlets_flow,
   double TAveInlet,
   double QGaiRad_flow,
+  double AFlo,
   double time,
   double* TRad,
   double* QConSen_flow,
@@ -123,10 +124,6 @@ void ZoneExchange(
   const double dT = 0.01; /* Increment for derivative approximation */
   double QConSenPer_flow;
 
-  double AFlo;
-  double V;
-  double mSenFac;
-
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
 
@@ -137,7 +134,6 @@ void ZoneExchange(
     /* This zone has not been initialized because the simulator removed the call to initialize().
     */
     ModelicaFormatError("Error, zone %s should have been initialized. Contact support.", zone->name);
-    /*ZoneInstantiate(object, time, &AFlo, &V, &mSenFac);*/
   }
 
   if (initialCall){

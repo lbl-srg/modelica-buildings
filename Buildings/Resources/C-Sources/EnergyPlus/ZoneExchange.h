@@ -19,6 +19,7 @@ void ZoneExchange(
   double mInlets_flow,
   double TAveInlet,
   double QGaiRad_flow,
+  double AFlo,
   double time,
   double* TRad,
   double* QConSen_flow,
