@@ -75,6 +75,11 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
  // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
 //  Modelica.SIunits.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
 
+  discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
+    fixed=false,
+    start=0)
+    "Convective sensible heat to be added to zone air if T = TRooLast";
+
 protected
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass adapter=
     Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass(
@@ -98,10 +103,6 @@ protected
 
   discrete Modelica.SIunits.Temperature TRooLast
      "Room air temperature at last sampling";
-  discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
-    fixed=false,
-    start=0)
-    "Convective sensible heat to be added to zone air if T = TRooLast";
   discrete Real dQCon_flow(
     final unit="W/K")
     "Derivative dQCon_flow / dT";
