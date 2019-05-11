@@ -7,8 +7,8 @@ REM # Thierry S. Nouidui (TSNouidui@lbl.gov) March 16, 2016
 
 REM ############## NOTES #################################################
 REM # To compile the libraries, we need to have visual studio
-REM # compilers installed. The user must provide the system 
-REM # architecture (x86 or x64) as first argument. Also the architecture 
+REM # compilers installed. The user must provide the system
+REM # architecture (x86 or x64) as first argument. Also the architecture
 REM # related paths must be properly set up in the batch file (see below).
 REM ######################################################################
 
@@ -27,12 +27,12 @@ SET DUMMY_DLL=python2.7.dll
 IF NOT -%1-==-- (
   IF "%~1"=="x86" SET ARCH=%~1
   IF "%~1"=="x64" SET ARCH=%~1
-) 
+)
 IF "%ARCH%"=="" (
   SET /A errno=1
   ECHO Unknown system architecture: specify either x86 or x64.
   EXIT /B 1
-) 
+)
 
 :: Specify architecture related paths.
 REM For testing on Win32: need to run the following commands before batch to properly set up Python environment.
@@ -130,4 +130,3 @@ del testProgram.lib
 del testProgram.exe
 
 EXIT /B %errno%
-

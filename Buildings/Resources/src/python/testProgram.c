@@ -27,12 +27,13 @@ int main(int nArgs, char ** args){
   const char * strValWri[] = {"aaa"};
   size_t nStrWri = 0;
 
+  int i;
   pythonPtr* ptr = malloc(sizeof(pythonPtr));
   /* Set ptr to null as pythonExchangeValuesNoModelica is checking for this */
   ptr->ptr = NULL;
   ptr->isInitialized = 0;
 
-  for(int i=0; i < 3  ; i++){
+  for(i=0; i < 3  ; i++){
     printf("Calling pythonExchangeValuesNoModelica with i = %d.\n", i);
     pythonExchangeValuesNoModelica(
       moduleName,
