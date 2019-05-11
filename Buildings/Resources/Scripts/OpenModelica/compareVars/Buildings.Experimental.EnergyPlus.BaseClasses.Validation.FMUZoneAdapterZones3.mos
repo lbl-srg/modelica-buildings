@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "fmuZonCor.T",
+    "fmuZonNor.T",
+    "fmuZonSou.T",
+    "fmuZonCor.QCon_flow",
+    "fmuZonCor.QConLast_flow",
+    "fmuZonSou.QCon_flow",
+    "fmuZonSou.QConLast_flow",
+    "fmuZonNor.QCon_flow",
+    "fmuZonNor.QConLast_flow"
+  };
