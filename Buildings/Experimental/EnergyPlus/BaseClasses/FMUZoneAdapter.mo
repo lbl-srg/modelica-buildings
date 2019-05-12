@@ -1,6 +1,6 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
-  extends Modelica.Blocks.Icons.DiscreteBlock;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter String idfName "Name of the IDF file that contains this zone";
   parameter String weaName "Name of the Energyplus weather file";
@@ -11,15 +11,13 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter String fmuName=""
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
-    annotation(Dialog(tab="Debugging"));
-//  parameter Modelica.SIunits.Temperature T_start = 293.15+3.12345
-//    "Initial temperature of zone air"
-//    annotation(Dialog(group="Initialization"));
+    annotation(Dialog(tab="Debug"));
+
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
 
-  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps, start=0.1)
-    "Sample period of component";
+ // parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps, start=0.1)
+ //   "Sample period of component";
 
   final parameter Modelica.SIunits.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.SIunits.Volume V(fixed=false) "Zone volume";
@@ -91,7 +89,6 @@ protected
     "Class to communicate with EnergyPlus";
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
-  output Boolean sampleTrigger "True, if sample time instant";
 
   discrete Modelica.SIunits.Time tLast(fixed=true, start=startTime) "Last time of data exchange";
   discrete Modelica.SIunits.Time dtLast "Time step since the last synchronization";
@@ -126,9 +123,9 @@ initial equation
   assert(mSenFac > 0.9999, "mSenFac must be bigger or equal than one.");
 
 equation
-  sampleTrigger = sample(startTime, samplePeriod);
-
-  when {initial(), sampleTrigger, time >= pre(tNext)} then
+  // The 'not initial()' triggers one sample when the continuous time simulation starts.
+  // This is required for the correct event handling. Otherwise the regression tests will fail.
+  when {initial(), not initial(), time >= pre(tNext)} then
   // Initialization of output variables.
     TRooLast = T;
     dtLast = time-pre(tLast);
@@ -151,7 +148,7 @@ equation
   QCon_flow = QConLast_flow + (T-TRooLast) * dQCon_flow;
   annotation (
   defaultComponentName="fmuZon",
-  Icon(graphics={Bitmap(extent={{-90,-86},{84,88}}, fileName=
+  Icon(graphics={Bitmap(extent={{-92,-82},{82,92}}, fileName=
             "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png")}),
       Documentation(info="<html>
 <p>
