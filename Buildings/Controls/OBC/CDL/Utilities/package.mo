@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL;
 package Utilities "Package with utility functions"
 
-  block OptimalStartConstantTemperatureGradient
-    "Optimal start time of HVAC system before occupancy"
+  block OptimalStartConstantTemperatureGradient "Optimal start time of HVAC system before occupancy"
     extends Modelica.Blocks.Icons.Block;
     parameter Real temGraHea = 2 "Temperature gradient for heating, unit = K/h";
     parameter Real temGraCoo = 2.5 "Temperature gradient for cooling, unit = K/h";
     parameter Real occupancy[:]=3600*{8, 18}
       "Occupancy table, each entry switching occupancy on or off";
+    //parameter Integer nDay = 2 "Number of previous days used for averaging optimal time";
     parameter Modelica.SIunits.Time maxOptTim = 3*3600 "maximum optimal start time";
 
     Interfaces.RealInput TZon(
@@ -38,6 +38,7 @@ package Utilities "Package with utility functions"
 protected
     parameter Modelica.SIunits.Time staTim(fixed=false) "Simulation start time";
     Boolean sampleTrigger;
+
   initial equation
     //simulation start time can be negative or positive
     staTim = time;
