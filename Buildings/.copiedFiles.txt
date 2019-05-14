@@ -1232,9 +1232,14 @@ Buildings/Resources/C-Sources/cryptographicsHash.c
 Buildings/Resources/C-Sources/cryptographicsHash.h
 Buildings/Resources/C-Sources/fileWriterFree.c
 Buildings/Resources/C-Sources/fileWriterInit.c
+Buildings/Resources/C-Sources/fileWriterStructure.c
 Buildings/Resources/C-Sources/fileWriterStructure.h
 Buildings/Resources/C-Sources/getTimeSpan.c
 Buildings/Resources/C-Sources/getTimeSpan.h
+Buildings/Resources/C-Sources/jsonWriterFree.c
+Buildings/Resources/C-Sources/jsonWriterFree.h
+Buildings/Resources/C-Sources/jsonWriterInit.c
+Buildings/Resources/C-Sources/jsonWriterInit.h
 Buildings/Resources/Data/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mos
 Buildings/Resources/Data/BoundaryConditions/WeatherData/Validation/TwoYears_DataOnceAMonth_TMY3.mos
 Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Analytic_20Years.txt
@@ -1378,8 +1383,6 @@ Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png
 Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
-Buildings/Resources/ReferenceResults/Dymola/Buildings_BoundaryConditions_WeatherData_BaseClasses_Examples_GetTimeSpanTMY3.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_BoundaryConditions_WeatherData_BaseClasses_Examples_GetTimeSpanTMY3_NonzeroStart.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -1806,6 +1809,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Cryptographics/Validation/SHA1.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Diagnostics/Validation/CheckEquality.mos
 Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/CSVReader.mos
 Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/CSVWriter.mos
+Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/JSONWriter.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Average.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/BesselJ0.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/BesselJ1.mos
@@ -1992,8 +1996,12 @@ Buildings/Utilities/Diagnostics/package.mo
 Buildings/Utilities/Diagnostics/package.order
 Buildings/Utilities/IO/Files/BaseClasses/FileWriter.mo
 Buildings/Utilities/IO/Files/BaseClasses/FileWriterObject.mo
+Buildings/Utilities/IO/Files/BaseClasses/JSONWriterObject.mo
+Buildings/Utilities/IO/Files/BaseClasses/OutputTime.mo
+Buildings/Utilities/IO/Files/BaseClasses/cacheVals.mo
 Buildings/Utilities/IO/Files/BaseClasses/package.mo
 Buildings/Utilities/IO/Files/BaseClasses/package.order
+Buildings/Utilities/IO/Files/BaseClasses/writeJSON.mo
 Buildings/Utilities/IO/Files/CSVWriter.mo
 Buildings/Utilities/IO/Files/CombiTimeTableWriter.mo
 Buildings/Utilities/IO/Files/Examples/BaseClasses/PartialCSV.mo
@@ -2001,8 +2009,10 @@ Buildings/Utilities/IO/Files/Examples/BaseClasses/package.mo
 Buildings/Utilities/IO/Files/Examples/BaseClasses/package.order
 Buildings/Utilities/IO/Files/Examples/CSVReader.mo
 Buildings/Utilities/IO/Files/Examples/CSVWriter.mo
+Buildings/Utilities/IO/Files/Examples/JSONWriter.mo
 Buildings/Utilities/IO/Files/Examples/package.mo
 Buildings/Utilities/IO/Files/Examples/package.order
+Buildings/Utilities/IO/Files/JSONWriter.mo
 Buildings/Utilities/IO/Files/package.mo
 Buildings/Utilities/IO/Files/package.order
 Buildings/Utilities/IO/package.mo
