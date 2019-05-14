@@ -3,8 +3,6 @@ model OptimalStart
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.CDL.Utilities.OptimalStart optimalStart
     annotation (Placement(transformation(extent={{0,-18},{20,2}})));
-  Buildings.Controls.SetPoints.OccupancySchedule occSch
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Continuous.Sources.Constant TSetHea(k=22 + 273.15)
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Continuous.Sources.Constant TSetCoo(k=24 + 273.15)
