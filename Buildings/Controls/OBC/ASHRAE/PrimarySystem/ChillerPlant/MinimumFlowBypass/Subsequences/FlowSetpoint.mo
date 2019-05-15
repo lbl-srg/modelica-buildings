@@ -1,5 +1,5 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences;
-block FlowSetpoint "Chilled water minimum flow bypass setpoint"
+block FlowSetpoint "Chilled water minimum flow setpoint"
 
   parameter Integer nSta = 3
     "Total number of stages, zero stage should be seem as one stage";
@@ -8,11 +8,11 @@ block FlowSetpoint "Chilled water minimum flow bypass setpoint"
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nSta] = {0, 0.0089, 0.0177}
     "Minimum flow rate at each chiller stage";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp "Indicate if there is stage up"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp "Stage up logical signal"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
-    "Resetting status of upstream device (in staging up or down process) before reset minimum bypass flow setpoint"
+    "Resetting status of upstream device (in staging up or down process) before reset minimum chilled water flow setpoint"
     annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta "Current stage index"
@@ -27,19 +27,21 @@ block FlowSetpoint "Chilled water minimum flow bypass setpoint"
     annotation (Placement(transformation(extent={{-300,-60},{-260,-20}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow
-    "Indicate if there is stage down"
+    "Stage down logical signal"
     annotation (Placement(transformation(extent={{-300,-160},{-260,-120}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatBypSet(
-    final unit="m3/s")
-    "Chilled water minimum flow bypass setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatMinFloSet(
+    quantity="VolumeFlowRate",
+    final unit="m3/s",
+    final min=0)
+    "Chilled water minimum flow setpoint"
     annotation (Placement(transformation(extent={{260,10},{280,30}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nSta](
     final k=minFloSet)
-    "Minimum bypass flow setpoint at each stage, equal to the sum of minimum chilled water flowrate of the chillers being enabled at the stage"
+    "Minimum chilled flow setpoint at each stage, equal to the sum of minimum chilled water flowrate of the chillers being enabled at the stage"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor curMinSet(final nin=nSta)
     "Targeted minimum flow setpoint at current stage"
@@ -90,7 +92,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch byPasSet
-    "Minimum flow bypass setpoint"
+    "Minimum flow chilled water flow setpoint"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and4 "Logical and"
     annotation (Placement(transformation(extent={{200,150},{220,170}})));
@@ -99,7 +101,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{140,150},{160,170}})));
   Buildings.Controls.OBC.CDL.Logical.Switch byPasSet1
-    "Minimum flow bypass setpoint"
+    "Minimum flow chilled water flow setpoint"
     annotation (Placement(transformation(extent={{200,10},{220,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
@@ -217,7 +219,7 @@ equation
   connect(and4.y, byPasSet1.u2)
     annotation (Line(points={{221,160},{240,160},{240,60},{180,60},{180,20},
       {198,20}},  color={255,0,255}));
-  connect(byPasSet1.y, yChiWatBypSet)
+  connect(byPasSet1.y, yChiWatMinFloSet)
     annotation (Line(points={{221,20},{270,20}}, color={0,0,127}));
   connect(byPasSet.y, byPasSet1.u3)
     annotation (Line(points={{161,0},{180,0},{180,12},{198,12}}, color={0,0,127}));
@@ -255,7 +257,7 @@ equation
     annotation (Line(points={{-99,0},{-70,0},{-70,-60},{18,-60}}, color={255,0,255}));
 
 annotation (
-  defaultComponentName="minBypSet",
+  defaultComponentName="minChiFloSet",
   Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -303,9 +305,9 @@ annotation (
         Rectangle(extent={{2,0},{38,-14}}, lineColor={28,108,200}),
         Rectangle(extent={{2,-14},{38,-28}}, lineColor={28,108,200}),
         Text(
-          extent={{4,40},{36,30}},
+          extent={{8,38},{34,32}},
           lineColor={28,108,200},
-          textString="Min bypass flow"),
+          textString="Min flow"),
         Text(
           extent={{6,24},{34,18}},
           lineColor={28,108,200},
@@ -331,18 +333,17 @@ annotation (
           extent={{-260,-200},{260,200}})),
   Documentation(info="<html>
 <p>
-Block that output chilled water minimum flow bypass flow setpoint for primary-only
+Block that output chilled water minimum flow flow setpoint for primary-only
 plants with a minimum flow bypass valve, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
 section 5.2.8 Chilled water minimum flow bypass valve.
 </p>
-
 <ul>
 <li>
-Bypass valve shall modulate to maintain minimum flow <code>VBypas_flow</code>
+Bypass valve shall modulate to maintain minimum flow <code>yChiWatMinFloSet</code>
 at a setpoint equal to the sum of the minimum chilled water flowrate of the chillers
-commanded on run in each stage.
+commanded on in each stage.
 </li>
 </ul>
 
@@ -378,7 +379,6 @@ chilled water flowrate of both enabling chiller and disabled chiller prior
 to starting the newly enabled chiller.
 </li>
 </ul>
-
 <p>
 Note that when there is stage change thus requires changes of 
 minimum bypass flow setpoint, the change should be slowly.

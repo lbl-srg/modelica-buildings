@@ -113,8 +113,8 @@ equation
       color={0,0,127}));
   connect(ram.y, add2.u2)
     annotation (Line(points={{-99,120},{-90,120},{-90,134},{-82,134}}, color={0,0,127}));
-  connect(add2.y, minBypValCon.VBypas_flow)
-    annotation (Line(points={{-59,140},{64,140},{64,-53},{99,-53}}, color={0,0,127}));
+  connect(add2.y, minBypValCon.VChiWat_flow) annotation (Line(points={{-59,140},
+          {64,140},{64,-53},{99,-53}}, color={0,0,127}));
 
 annotation (
  experiment(StopTime=4.0, Tolerance=1e-06),

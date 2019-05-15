@@ -24,16 +24,17 @@ block Controller
     annotation (Dialog(group="Controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum
-    "Indicate if there is any chilled water pump is proven on: true=ON, false=OFF"
+    "Maximum status feedback of all the chilled water pumps: true means at least one pump is proven on"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
       iconTransformation(extent={{-120,80},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VBypas_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Measured bypass flow rate"
+    quantity="VolumeFlowRate")
+    "Measured chilled water flow rate through chillers"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp "Indicate if there is stage up"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp "Stage up logical signal"
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
@@ -119,10 +120,10 @@ equation
     annotation (Line(points={{-120,70},{42,70},{42,78}}, color={255,0,255}));
   connect(minFlo.y, multiMax.u)
     annotation (Line(points={{1,-100},{18,-100}}, color={0,0,127}));
-  connect(VBypas_flow, div1.u1)
+  connect(VChiWat_flow, div1.u1)
     annotation (Line(points={{-120,40},{8,40},{8,46},{18,46}}, color={0,0,127}));
-  connect(minBypSet.yChiWatBypSet, div.u1)
-    annotation (Line(points={{1,-50},{12,-50},{12,-44},{18,-44}}, color={0,0,127}));
+  connect(minBypSet.yChiWatMinFloSet, div.u1) annotation (Line(points={{1,-50},
+          {12,-50},{12,-44},{18,-44}}, color={0,0,127}));
   connect(multiMax.y, div1.u2)
     annotation (Line(points={{41,-100},{60,-100},{60,-70},{8,-70},{8,34},{18,34}},
       color={0,0,127}));
@@ -130,7 +131,7 @@ equation
     annotation (Line(points={{41,-100},{60,-100},{60,-70},{8,-70},{8,-56},{18,-56}},
       color={0,0,127}));
   connect(div1.y, valPos.u_m)
-    annotation (Line(points={{41,40},{50,40},{50,78}},  color={0,0,127}));
+    annotation (Line(points={{41,40},{50,40},{50,78}}, color={0,0,127}));
   connect(div.y, valPos.u_s)
     annotation (Line(points={{41,-50},{60,-50},{60,10},{0,10},{0,90},{38,90}},
       color={0,0,127}));
@@ -172,14 +173,14 @@ annotation (
           extent={{-100,-160},{100,160}})),
   Documentation(info="<html>
 <p>
-Block that controls chilled water minimum flow bypass valve for primary-only
+Block that controls chilled water minimum flow for primary-only
 plants with a minimum flow bypass valve, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
 section 5.2.8 Chilled water minimum flow bypass valve.
 </p>
 <p>
-The minimum bypass flow setpoint is specified by block 
+The minimum chilled water flow setpoint is specified by block 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint</a>.
 </p>
