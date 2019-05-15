@@ -11,6 +11,12 @@
 int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName);
 
 /* Create the structure and return a pointer to its address. */
-void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName, const char* zoneName, const char* fmuName);
+void* ZoneAllocate(
+  const char* idfName,
+  const char* weaName,
+  const char* iddName,
+  const char* zoneName,
+  const char* fmuName,
+  const int verbosity);
 
 #endif

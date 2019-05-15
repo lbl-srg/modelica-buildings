@@ -24,7 +24,13 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
 }
 
 /* Create the structure and return a pointer to its address. */
-void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName, const char* zoneName, const char* fmuName)
+void* ZoneAllocate(
+  const char* idfName,
+  const char* weaName,
+  const char* iddName,
+  const char* zoneName,
+  const char* fmuName,
+  const int verbosity)
 {
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
@@ -37,10 +43,22 @@ void* ZoneAllocate(const char* idfName, const char* weaName, const char* iddName
   const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
 
   nFMU = getBuildings_nFMU();
+  if (nFMU == 0){
+    FMU_EP_VERBOSITY = verbosity;
+  }
+  else{
+    if (FMU_EP_VERBOSITY != verbosity){
+        ModelicaFormatMessage(
+          "Warning: Thermal zones declare different verbosity. Check parameter verbosity. Use highest declared value.");
+    }
+    if (verbosity > FMU_EP_VERBOSITY){
+      FMU_EP_VERBOSITY = verbosity;
+    }
+  }
 
   /* ********************************************************************** */
   /* Initialize the zone */
-  writeFormatLog(3, "Allocating memory for zone %s in %s.", zoneName, idfName);
+  writeFormatLog(1, "Allocating memory for zone %s in %s.", zoneName, idfName);
 
   zone = (FMUZone*) malloc(sizeof(FMUZone));
   if ( zone == NULL )

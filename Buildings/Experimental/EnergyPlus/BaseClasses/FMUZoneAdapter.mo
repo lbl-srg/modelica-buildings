@@ -13,6 +13,9 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
     annotation(Dialog(tab="Debug"));
 
+  parameter Integer verbosity(min=0, max=2) = 0 "Verbosity (0: no output to console, 2: all output)"
+    annotation(Dialog(tab="Debug"));
+
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
 
@@ -85,7 +88,8 @@ protected
       weaName=weaName,
       iddName=iddName,
       zoneName=zoneName,
-      fmuName=fmuName)
+      fmuName=fmuName,
+      verbosity=verbosity)
     "Class to communicate with EnergyPlus";
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
@@ -114,6 +118,7 @@ protected
   end round;
 
 initial equation
+  assert(0 <= verbosity and verbosity < 3, "Invalid value for parameter 'verbosity' in '" + getInstanceName() + "'.");
   startTime =  time;
   (AFlo, V, mSenFac) =  Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
     adapter = adapter,

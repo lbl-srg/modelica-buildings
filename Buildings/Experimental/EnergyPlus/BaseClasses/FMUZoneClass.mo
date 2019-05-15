@@ -10,13 +10,15 @@ extends ExternalObject;
     input String zoneName "Name of the thermal zone";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
+    input Integer verbosity(min=0, max=2) "Verbosity (0: no output to console, 2: all output)";
     output FMUZoneClass adapter;
     external "C" adapter = ZoneAllocate(
       idfName,
       weaName,
       iddName,
       zoneName,
-      fmuName)
+      fmuName,
+      verbosity)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
           Include="#include \"ZoneAllocate.c\"",

@@ -32,8 +32,6 @@
 #include <dlfcn.h>
 #endif
 
-#define FMU_EP_VERBOSITY 3 /* Verbosity flag, 0: quiet, 3: all output */
-
 #ifndef max
   #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
 #endif
@@ -48,6 +46,8 @@ static char* SEPARATOR = "/";
 
 
 typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
+
+static int FMU_EP_VERBOSITY = 1; /* Verbosity flag, 0: quiet, 2: all output */
 
 void writeFormatLog(unsigned int level, const char *fmt, ...);
 

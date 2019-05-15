@@ -70,13 +70,12 @@ void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
 
 
 void loadFMU_setupExperiment_enterInitializationMode(FMUZone* zone, double startTime){
-
   fmi2_status_t status;
 
   /* Instantiate the FMU for this building */
   generateAndInstantiateBuilding(zone->ptrBui);
 
-  writeLog(3, "fmi2_import_setup_experiment: Setting up experiment.");
+  writeFormatLog(2, "fmi2_import_setup_experiment: Setting up experiment.");
   zone->ptrBui->time = startTime;
   setFMUMode(zone->ptrBui, instantiationMode);
 
@@ -94,7 +93,7 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUZone* zone, double start
 
   /* Enter initialization mode, because getting parameters is only
      allowed in the initialization mode, see FMU state diagram in standard */
-  writeFormatLog(3, "fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.",
+  writeFormatLog(2, "fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.",
     zone->ptrBui->fmuAbsPat);
   status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
   if( status != fmi2_status_ok ){
@@ -108,13 +107,18 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUZone* zone, double start
 
 /* This function is called for each zone in the 'initial equation section'
 */
-void ZoneInstantiate(void* object, double startTime, double* AFlo, double* V, double* mSenFac){
+void ZoneInstantiate(
+    void* object,
+    double startTime,
+    double* AFlo,
+    double* V,
+    double* mSenFac){
   fmi2_status_t status;
   FMUZone* zone = (FMUZone*) object;
   /*double parValToSet[ZONE_N_PAR_INP];*/
   double outputValues[ZONE_N_PAR_OUT];
 
-  writeFormatLog(3, "Entered ZoneInstantiate for zone %s.", zone->name);
+  writeFormatLog(2, "Entered ZoneInstantiate for zone %s.", zone->name);
 
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.

@@ -18,7 +18,8 @@
 #endif
 
 void writeFormatLog(unsigned int level, const char *fmt, ...) {
-  const char* prefix = "\033[1;33m*** Log\033[0m: ";
+  /*const char* prefix = "\033[1;33m*** Log\033[0m: ";*/
+  const char* prefix = "*** Log: ";
   va_list args;
 
   if (level <= FMU_EP_VERBOSITY){
@@ -35,7 +36,7 @@ void writeFormatLog(unsigned int level, const char *fmt, ...) {
 void writeLog(unsigned int level, const char* msg)
 {
     if (level <= FMU_EP_VERBOSITY){
-      const char* prefix = "\033[1;33m*** Log\033[0m: ";
+      const char* prefix = "*** Log: ";
       char* m;
       m = (char*)malloc( (strlen(msg)+strlen(prefix)+1) * sizeof(char));
       if (m == NULL)
@@ -106,7 +107,7 @@ char* fmuModeToString(FMUMode mode){
 
 /* Wrapper to set fmu mode indicator and log the mode change for debugging */
 void setFMUMode(FMUBuilding* bui, FMUMode mode){
-  writeFormatLog(3, "Switching %s to mode %s", bui->name, fmuModeToString(mode));
+  writeFormatLog(2, "Switching %s to mode %s", bui->name, fmuModeToString(mode));
   bui->mode = mode;
 }
 /*
@@ -235,7 +236,7 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   /* Prefix for temporary directory */
   const char* pre = "tmp-eplus-\0";
 
-  writeLog(3, "Entered getEnergyPlusTemporaryDirectory.");
+  writeFormatLog(2, "Entered getEnergyPlusTemporaryDirectory.");
   /* Current directory */
   curDir = malloc(lenCurDir * sizeof(char));
   if (curDir == NULL)
