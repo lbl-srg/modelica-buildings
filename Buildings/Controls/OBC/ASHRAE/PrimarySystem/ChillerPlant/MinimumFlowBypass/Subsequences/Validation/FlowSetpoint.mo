@@ -48,13 +48,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant haveOnOff(
     final k=true)
     "Have chiller on/off during the stage change"
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaNexChi(
     final width=0.8, final period=4)
     "Enable next chiller"
-    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
-    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=3) "Index of enabling chiller"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
@@ -120,7 +120,7 @@ equation
     annotation (Line(points={{-79,170},{72,170},{72,6},{119,6}},
       color={255,0,255}));
   connect(haveOnOff.y, onOffStaUpMinFlo.uOnOff)
-    annotation (Line(points={{-119,-20},{20,-20},{20,1},{119,1}},
+    annotation (Line(points={{-119,-60},{40,-60},{40,1},{119,1}},
       color={255,0,255}));
   connect(noStaCha.y, onOffStaUpMinFlo.uStaDow)
     annotation (Line(points={{-119,20},{0,20},{0,-9},{119,-9}},
@@ -132,9 +132,9 @@ equation
     annotation (Line(points={{-119,60},{76,60},{76,-157},{119,-157}},
       color={255,0,255}));
   connect(enaNexChi.y, not3.u)
-    annotation (Line(points={{-119,-60},{-102,-60}}, color={255,0,255}));
+    annotation (Line(points={{-119,-20},{-102,-20}}, color={255,0,255}));
   connect(not3.y, onOffStaUpMinFlo.uEnaNexChi)
-    annotation (Line(points={{-79,-60},{40,-60},{40,3},{119,3}},
+    annotation (Line(points={{-79,-20},{20,-20},{20,3},{119,3}},
       color={255,0,255}));
   connect(con.y, enaChi.u1)
     annotation (Line(points={{-119,120},{-100,120},{-100,108},{-42,108}},

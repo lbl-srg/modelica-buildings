@@ -26,15 +26,15 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
       iconTransformation(extent={{-120,0},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller status: true=ON"
-    annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
+    annotation (Placement(transformation(extent={{-300,560},{-260,600}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next enabling chiller"
-    annotation (Placement(transformation(extent={{-300,-80},{-260,-40}}),
+    annotation (Placement(transformation(extent={{-300,460},{-260,500}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisChi
     "Index of next disabling chiller"
-    annotation (Placement(transformation(extent={{-300,-120},{-260,-80}}),
+    annotation (Placement(transformation(extent={{-300,320},{-260,360}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow
     "Stage down logical signal"
@@ -48,7 +48,42 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
     annotation (Placement(transformation(extent={{260,50},{280,70}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
+  CDL.Continuous.Division floRat[nChi] "Flow rate ratio through each chiller"
+    annotation (Placement(transformation(extent={{-180,610},{-160,630}})));
+  CDL.Logical.Switch swi1[nChi] "Flow rate ratio of operating chiller"
+    annotation (Placement(transformation(extent={{-120,570},{-100,590}})));
+  CDL.Continuous.MultiMax multiMax
+    annotation (Placement(transformation(extent={{-80,570},{-60,590}})));
+  CDL.Logical.Switch swi2[nChi] "Minimum flow rate of operating chiller"
+    annotation (Placement(transformation(extent={{-120,530},{-100,550}})));
+  CDL.Continuous.MultiSum mulSum
+    annotation (Placement(transformation(extent={{-80,530},{-60,550}})));
+  CDL.Continuous.MultiMax multiMax1
+    annotation (Placement(transformation(extent={{-370,390},{-350,410}})));
+  CDL.Routing.RealExtractor nexChiRat(nin=nChi)
+    "Flow rate ratio of next enabling chiller"
+    annotation (Placement(transformation(extent={{-120,490},{-100,510}})));
+  CDL.Routing.RealExtractor nexChiMinFlo(nin=nChi)
+    "Minimum flow rate of next enabling chiller"
+    annotation (Placement(transformation(extent={{-120,450},{-100,470}})));
+  CDL.Continuous.Max max
+    annotation (Placement(transformation(extent={{-20,490},{0,510}})));
+  CDL.Continuous.Add add2
+    annotation (Placement(transformation(extent={{-20,450},{0,470}})));
+  CDL.Continuous.Product pro
+    annotation (Placement(transformation(extent={{40,550},{60,570}})));
+  CDL.Continuous.Product pro1
+    annotation (Placement(transformation(extent={{40,470},{60,490}})));
+  CDL.Integers.Sources.Constant conInt[nChi](k=chiInd) "Chiller index vector"
+    annotation (Placement(transformation(extent={{-240,370},{-220,390}})));
+
+  CDL.Routing.IntegerReplicator intRep(nout=nChi) "Replicate integer input"
+    annotation (Placement(transformation(extent={{-240,330},{-220,350}})));
+  CDL.Integers.Equal intEqu[nChi] "Check equality of two integer inputs"
+    annotation (Placement(transformation(extent={{-180,370},{-160,390}})));
 protected
+  final parameter Integer chiInd[nChi]={i for i in 1:nChi}
+    "Chiller index, {1,2,...,n}";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
     final k=byPasSetTim)
     "Duration time to change old setpoint to new setpoint"
@@ -92,32 +127,18 @@ protected
     annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(final nin=nChi)
-    "Sum of minimum flow setpoint of running chillers"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Next stage minimum chilled water flow rate setpoint"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k1=-1)
-    "Next stage minimum chilled water flow rate setpoint"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFlo[nChi](
-    final k=minFloSet)
-    "Minimum chilled water flow rate through each chiller"
-    annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2[nChi]
-    "Minimum chilled water flow rate of the running chiller"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
-    each final k=0) "Zero flow rate "
-    annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor enaChiMinFlo(
-    final nin=nChi)
-    "Minimum flow setpoint of next enabling chiller"
-    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor disChiMinFlo(final nin=nChi)
-    "Minimum flow setpoint of next disabling chiller"
-    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
 
+protected
+  CDL.Continuous.Sources.Constant                        minFlo[nChi](final k=
+        minFloSet) "Minimum chilled water flow through each chiller"
+    annotation (Placement(transformation(extent={{-240,630},{-220,650}})));
+protected
+  CDL.Continuous.Sources.Constant maxFlo[nChi](final k=maxFloSet)
+    "Maximum chilled water flow through each chiller"
+    annotation (Placement(transformation(extent={{-240,600},{-220,620}})));
+protected
+  CDL.Continuous.Sources.Constant zer[nChi](final k=0) "Constant zero"
+    annotation (Placement(transformation(extent={{-240,550},{-220,570}})));
 equation
   connect(con2.y, upSet.x1)
     annotation (Line(points={{41,120},{50,120},{50,98},{78,98}},
@@ -188,53 +209,60 @@ equation
     annotation (Line(points={{-199,80},{-190,80},{-190,42},{-182,42}}, color={255,0,255}));
   connect(and2.y, swi.u2)
     annotation (Line(points={{-159,50},{18,50}}, color={255,0,255}));
-  connect(minFlo.y, swi2.u1)
-    annotation (Line(points={{-199,20},{-180,20},{-180,8},{-162,8}}, color={0,0,127}));
-  connect(uChi, swi2.u2)
-    annotation (Line(points={{-280,0},{-162,0}}, color={255,0,255}));
-  connect(zer.y, swi2.u3)
-    annotation (Line(points={{-199,-20},{-190,-20},{-190,-8},{-162,-8}}, color={0,0,127}));
-  connect(minFlo.y, enaChiMinFlo.u)
-    annotation (Line(points={{-199,20},{-180,20}, {-180,-40},{-162,-40}}, color={0,0,127}));
-  connect(nexEnaChi, enaChiMinFlo.index)
-    annotation (Line(points={{-280,-60},{-150,-60},{-150,-52}}, color={255,127,0}));
-  connect(minFlo.y, disChiMinFlo.u)
-    annotation (Line(points={{-199,20},{-180,20},{-180,-80},{-162,-80}}, color={0,0,127}));
-  connect(nexDisChi, disChiMinFlo.index)
-    annotation (Line(points={{-280,-100},{-150,-100},{-150,-92}}, color={255,127,0}));
-  connect(mulSum.y, add3.u1)
-    annotation (Line(points={{-99,0},{-80,0},{-80,-14}, {-42,-14}}, color={0,0,127}));
-  connect(enaChiMinFlo.y, add3.u2)
-    annotation (Line(points={{-139,-40},{-90,-40},{-90,-26},{-42,-26}},  color={0,0,127}));
-  connect(mulSum.y, upSet.f1)
-    annotation (Line(points={{-99,0},{-80,0},{-80,94},{78,94}}, color={0,0,127}));
-  connect(add3.y, swi.u1)
-    annotation (Line(points={{-19,-20},{0,-20},{0,58},{18,58}}, color={0,0,127}));
-  connect(mulSum.y, byPasSet1.u1)
-    annotation (Line(points={{-99,0},{-80,0},{-80,68},{198,68}}, color={0,0,127}));
-  connect(add1.y, swi.u3)
-    annotation (Line(points={{-19,20},{8,20},{8,42},{18,42}}, color={0,0,127}));
   connect(swi.y, dowSet.f2)
     annotation (Line(points={{41,50},{60,50},{60,-68},{78,-68}}, color={0,0,127}));
-  connect(mulSum.y, dowSet.f1)
-    annotation (Line(points={{-99,0},{-80,0},{-80,-56},{78,-56}}, color={0,0,127}));
   connect(uStaUp, byPasSet.u2)
     annotation (Line(points={{-280,180},{-220,180},{-220,160},{120,160},{120,40},{138,40}},
       color={255,0,255}));
   connect(and4.y, byPasSet1.u2)
     annotation (Line(points={{221,160},{240,160},{240,120},{180,120},{180,60},{198,60}},
       color={255,0,255}));
-  connect(disChiMinFlo.y, add1.u1)
-    annotation (Line(points={{-139,-80},{-60,-80},{-60,26},{-42,26}}, color={0,0,127}));
-  connect(add3.y, add1.u2)
-    annotation (Line(points={{-19,-20},{0,-20},{0,0},{-50,0},{-50,14},{-42,14}},
-      color={0,0,127}));
-  connect(swi2.y, mulSum.u)
-    annotation (Line(points={{-139,0},{-122,0}}, color={0,0,127}));
 
+  connect(minFlo.y, floRat.u1) annotation (Line(points={{-219,640},{-200,640},{-200,
+          626},{-182,626}}, color={0,0,127}));
+  connect(maxFlo.y, floRat.u2) annotation (Line(points={{-219,610},{-190,610},{-190,
+          614},{-182,614}}, color={0,0,127}));
+  connect(uChi, swi1.u2)
+    annotation (Line(points={{-280,580},{-122,580}}, color={255,0,255}));
+  connect(floRat.y, swi1.u1) annotation (Line(points={{-159,620},{-140,620},{-140,
+          588},{-122,588}}, color={0,0,127}));
+  connect(zer.y, swi1.u3) annotation (Line(points={{-219,560},{-160,560},{-160,572},
+          {-122,572}}, color={0,0,127}));
+  connect(uChi, swi2.u2) annotation (Line(points={{-280,580},{-180,580},{-180,540},
+          {-122,540}}, color={255,0,255}));
+  connect(zer.y, swi2.u3) annotation (Line(points={{-219,560},{-160,560},{-160,532},
+          {-122,532}}, color={0,0,127}));
+  connect(minFlo.y, swi2.u1) annotation (Line(points={{-219,640},{-200,640},{-200,
+          548},{-122,548}}, color={0,0,127}));
+  connect(nexEnaChi, nexChiRat.index) annotation (Line(points={{-280,480},{-110,
+          480},{-110,488}}, color={255,127,0}));
+  connect(floRat.y, nexChiRat.u) annotation (Line(points={{-159,620},{-140,620},
+          {-140,500},{-122,500}}, color={0,0,127}));
+  connect(minFlo.y, nexChiMinFlo.u) annotation (Line(points={{-219,640},{-200,640},
+          {-200,460},{-122,460}}, color={0,0,127}));
+  connect(nexEnaChi, nexChiMinFlo.index) annotation (Line(points={{-280,480},{-220,
+          480},{-220,440},{-110,440},{-110,448}}, color={255,127,0}));
+  connect(nexChiRat.y, max.u2) annotation (Line(points={{-99,500},{-60,500},{-60,
+          494},{-22,494}}, color={0,0,127}));
+  connect(multiMax.y, max.u1) annotation (Line(points={{-59,580},{-40,580},{-40,
+          506},{-22,506}}, color={0,0,127}));
+  connect(nexChiMinFlo.y, add2.u2) annotation (Line(points={{-99,460},{-60,460},
+          {-60,454},{-22,454}}, color={0,0,127}));
+  connect(mulSum.y, add2.u1) annotation (Line(points={{-59,540},{-44,540},{-44,466},
+          {-22,466}}, color={0,0,127}));
+  connect(multiMax.y, pro.u1) annotation (Line(points={{-59,580},{-40,580},{-40,
+          566},{38,566}}, color={0,0,127}));
+  connect(mulSum.y, pro.u2) annotation (Line(points={{-59,540},{-44,540},{-44,554},
+          {38,554}}, color={0,0,127}));
+  connect(max.y, pro1.u1) annotation (Line(points={{1,500},{20,500},{20,486},{38,
+          486}}, color={0,0,127}));
+  connect(add2.y, pro1.u2) annotation (Line(points={{1,460},{20,460},{20,474},{38,
+          474}}, color={0,0,127}));
+  connect(nexDisChi, intRep.u)
+    annotation (Line(points={{-280,340},{-242,340}}, color={255,127,0}));
 annotation (
   defaultComponentName="minChiFloSet",
-  Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+  Icon(coordinateSystem(extent={{-260,-200},{260,660}}),
        graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -307,10 +335,10 @@ annotation (
           lineColor={28,108,200},
           textString="minFloSet[3]")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-260,-200},{260,200}})),
+          extent={{-260,-200},{260,660}})),
   Documentation(info="<html>
 <p>
-Block that output chilled water minimum flow flow setpoint for primary-only
+Block that output chilled water minimum flow setpoint for primary-only
 plants with a minimum flow bypass valve, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
@@ -318,9 +346,9 @@ section 5.2.8 Chilled water minimum flow bypass valve.
 </p>
 <ul>
 <li>
-Bypass valve shall modulate to maintain minimum flow <code>yChiWatMinFloSet</code>
-at a setpoint equal to the sum of the minimum chilled water flowrate of the chillers
-commanded on in each stage.
+The chilled water minimum flow setpoint <code>yChiWatMinFloSet</code> equals to the 
+sum of the minimum chilled water flowrates of the chillers
+commanded to run in each stage.
 </li>
 </ul>
 
