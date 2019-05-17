@@ -1,4 +1,5 @@
 CSVReader
 CSVWriter
+JSONWriter
 Printer
 BaseClasses

@@ -25,8 +25,8 @@ convertClass("Buildings.Utilities.Reports.printRealArray",
 convertClass("Buildings.Utilities.Reports.Examples.Printer",
              "Buildings.Utilities.IO.Files.Examples.Printer");
 
-convertClass("Buildings.Controls.OBC.CDL.ExtractSignal",
-             "Buildings.Controls.OBC.CDL.RealExtractSignal");
+convertClass("Buildings.Controls.OBC.CDL.Routing.ExtractSignal",
+             "Buildings.Controls.OBC.CDL.Routing.RealExtractSignal");
 
 convertElement("Buildings.Controls.OBC.CDL.Continuous.MultiMax", "yMax", "y");
 convertElement("Buildings.Controls.OBC.CDL.Continuous.MultiMin", "yMin", "y");
