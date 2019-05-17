@@ -109,22 +109,18 @@ protected
 
 equation
   connect(uStaUp, minBypSet.uStaUp)
-    annotation (Line(points={{-120,60},{-40,60},{-40,-23.2558},{-14.2308,
-          -23.2558}},
+    annotation (Line(points={{-120,60},{-40,60},{-40,-11},{-21,-11}},
       color={255,0,255}));
   connect(uOnOff, minBypSet.uOnOff)
-    annotation (Line(points={{-120,-30},{-60,-30},{-60,-25.1163},{-14.2308,
-          -25.1163}},
+    annotation (Line(points={{-120,-30},{-60,-30},{-60,-26},{-21,-26}},
       color={255,0,255}));
   connect(uStaDow, minBypSet.uStaDow)
-    annotation (Line(points={{-120,-150},{-40,-150},{-40,-27.4419},{-14.2308,
-          -27.4419}},
+    annotation (Line(points={{-120,-150},{-40,-150},{-40,-29},{-21,-29}},
       color={255,0,255}));
   connect(minBypSet.uUpsDevSta, uUpsDevSta)
-    annotation (Line(points={{-14.2308,-23.9535},{-46,-23.9535},{-46,30},{-120,
-          30}},
+    annotation (Line(points={{-21,-14},{-46,-14},{-46,30},{-120,30}},
       color={255,0,255}));
-  connect(minBypSet.uEnaNexChi, uEnaNexChi)
+  connect(minBypSet.uDisNexChi, uEnaNexChi)
     annotation (Line(points={{-14.2308,-24.6512},{-50,-24.6512},{-50,0},{-120,0}},
       color={255,0,255}));
   connect(minFlo.y, mulSum.u)
@@ -132,8 +128,7 @@ equation
   connect(VChiWat_flow, div1.u1)
     annotation (Line(points={{-120,90},{-20,90},{-20,46},{18,46}}, color={0,0,127}));
   connect(minBypSet.yChiWatMinFloSet, div.u1)
-    annotation (Line(points={{-5.76923,-25.3488},{12,-25.3488},{12,-14},{18,-14}},
-                                                                  color={0,0,127}));
+    annotation (Line(points={{1,-20},{12,-20},{12,-14},{18,-14}}, color={0,0,127}));
   connect(mulSum.y, div1.u2)
     annotation (Line(points={{41,-100},{60,-100},{60,-70},{8,-70},{8,34},{18,34}},
       color={0,0,127}));
@@ -158,16 +153,13 @@ equation
     annotation (Line(points={{-120,130},{10,130},{10,60},{42,60},{42,68}},
       color={255,0,255}));
   connect(nexEnaChi, minBypSet.nexEnaChi)
-    annotation (Line(points={{-120,-90},{-50,-90},{-50,-26.2791},{-14.2308,
-          -26.2791}},
+    annotation (Line(points={{-120,-90},{-50,-90},{-50,-20},{-21,-20}},
       color={255,127,0}));
   connect(minBypSet.nexDisChi, nexDisChi)
-    annotation (Line(points={{-14.2308,-26.7442},{-46,-26.7442},{-46,-120},{
-          -120,-120}},
+    annotation (Line(points={{-21,-22},{-46,-22},{-46,-120},{-120,-120}},
       color={255,127,0}));
   connect(minBypSet.uChi, uChi)
-    annotation (Line(points={{-14.2308,-25.814},{-54,-25.814},{-54,-60},{-120,
-          -60}},
+    annotation (Line(points={{-21,-17},{-54,-17},{-54,-60},{-120,-60}},
       color={255,0,255}));
 
 annotation (

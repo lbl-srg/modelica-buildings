@@ -49,12 +49,6 @@ protected
     final k=true)
     "Have chiller on/off during the stage change"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaNexChi(
-    final width=0.8, final period=4)
-    "Enable next chiller"
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=3) "Index of enabling chiller"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
@@ -80,7 +74,7 @@ protected
 
 equation
   connect(noOnOff.y, staUpMinFlo.uOnOff)
-    annotation (Line(points={{-119,60},{76,60},{76,181},{119,181}},
+    annotation (Line(points={{-119,60},{76,60},{76,174},{119,174}},
       color={255,0,255}));
   connect(noStaCha.y, staUpMinFlo.uStaDow)
     annotation (Line(points={{-119,20},{92,20},{92,171},{119,171}},
@@ -102,7 +96,7 @@ equation
     annotation (Line(points={{-79,200},{-60,200},{-60,-120},{-42,-120}},
       color={255,0,255}));
   connect(noOnOff.y, staDowMinFlo.uOnOff)
-    annotation (Line(points={{-119,60},{76,60},{76,-159},{119,-159}},
+    annotation (Line(points={{-119,60},{76,60},{76,-166},{119,-166}},
       color={255,0,255}));
   connect(noStaCha.y, staDowMinFlo.uStaUp)
     annotation (Line(points={{-119,20},{92,20},{92,-151},{119,-151}},
@@ -120,21 +114,10 @@ equation
     annotation (Line(points={{-79,170},{72,170},{72,6},{119,6}},
       color={255,0,255}));
   connect(haveOnOff.y, onOffStaUpMinFlo.uOnOff)
-    annotation (Line(points={{-119,-60},{40,-60},{40,1},{119,1}},
+    annotation (Line(points={{-119,-60},{40,-60},{40,-6},{119,-6}},
       color={255,0,255}));
   connect(noStaCha.y, onOffStaUpMinFlo.uStaDow)
     annotation (Line(points={{-119,20},{0,20},{0,-9},{119,-9}},
-      color={255,0,255}));
-  connect(noOnOff.y, staUpMinFlo.uEnaNexChi)
-    annotation (Line(points={{-119,60},{76,60},{76,183},{119,183}},
-      color={255,0,255}));
-  connect(noOnOff.y, staDowMinFlo.uEnaNexChi)
-    annotation (Line(points={{-119,60},{76,60},{76,-157},{119,-157}},
-      color={255,0,255}));
-  connect(enaNexChi.y, not3.u)
-    annotation (Line(points={{-119,-20},{-102,-20}}, color={255,0,255}));
-  connect(not3.y, onOffStaUpMinFlo.uEnaNexChi)
-    annotation (Line(points={{-79,-20},{20,-20},{20,3},{119,3}},
       color={255,0,255}));
   connect(con.y, enaChi.u1)
     annotation (Line(points={{-119,120},{-100,120},{-100,108},{-42,108}},
@@ -156,31 +139,31 @@ equation
     annotation (Line(points={{-119,-180},{-60,-180},{-60,-180},{-2,-180}},
       color={0,0,127}));
   connect(chiSta.y, staUpMinFlo.uChi)
-    annotation (Line(points={{-19,140},{80,140},{80,178},{119,178}},
+    annotation (Line(points={{-19,140},{80,140},{80,183},{119,183}},
       color={255,0,255}));
   connect(chiSta.y, onOffStaUpMinFlo.uChi)
-    annotation (Line(points={{-19,140},{80,140},{80,-2},{119,-2}},
+    annotation (Line(points={{-19,140},{80,140},{80,3},{119,3}},
       color={255,0,255}));
   connect(chiSta.y, staDowMinFlo.uChi)
-    annotation (Line(points={{-19,140},{80,140},{80,-162},{119,-162}},
+    annotation (Line(points={{-19,140},{80,140},{80,-157},{119,-157}},
       color={255,0,255}));
   connect(reaToInt.y, staUpMinFlo.nexEnaChi)
-    annotation (Line(points={{21,100},{88,100},{88,176},{119,176}},
+    annotation (Line(points={{21,100},{88,100},{88,180},{119,180}},
       color={255,127,0}));
   connect(reaToInt2.y, staUpMinFlo.nexDisChi)
-    annotation (Line(points={{21,-180},{84,-180},{84,174},{119,174}},
+    annotation (Line(points={{21,-180},{84,-180},{84,178},{119,178}},
       color={255,127,0}));
   connect(reaToInt2.y, staDowMinFlo.nexEnaChi)
-    annotation (Line(points={{21,-180},{84,-180},{84,-164},{119,-164}},
+    annotation (Line(points={{21,-180},{84,-180},{84,-160},{119,-160}},
       color={255,127,0}));
   connect(reaToInt1.y, staDowMinFlo.nexDisChi)
-    annotation (Line(points={{21,-120},{88,-120},{88,-166},{119,-166}},
+    annotation (Line(points={{21,-120},{88,-120},{88,-162},{119,-162}},
       color={255,127,0}));
   connect(reaToInt.y, onOffStaUpMinFlo.nexEnaChi)
-    annotation (Line(points={{21,100},{88,100},{88,-4},{119,-4}},
+    annotation (Line(points={{21,100},{88,100},{88,0},{119,0}},
       color={255,127,0}));
   connect(reaToInt1.y, onOffStaUpMinFlo.nexDisChi)
-    annotation (Line(points={{21,-120},{88,-120},{88,-6},{119,-6}},
+    annotation (Line(points={{21,-120},{88,-120},{88,-2},{119,-2}},
       color={255,127,0}));
 
 annotation (
