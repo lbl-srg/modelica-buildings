@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block MatrixMin "Output vector of row- or column-wise minimum values"
+block MatrixMax "Output vector of row- or column-wise maximum values"
 
   parameter Boolean rowMin = true "If true outputs row-wise minimum, otherwise column-wise";
 
@@ -17,16 +17,16 @@ block MatrixMin "Output vector of row- or column-wise minimum values"
 
 equation
   if rowMin then
-    y = {min(u[i,:]) for i in 1:size(u, 1)};
+    y = {max(u[i,:]) for i in 1:size(u, 1)};
   else
-    y = {min(u[:,i]) for i in 1:size(u, 2)};
+    y = {max(u[:,i]) for i in 1:size(u, 2)};
   end if
   annotation (
     defaultComponentName="matMin",
     Documentation(info="<html>
 <p>
 This blocks computes output vector <code>y</code> as the row-wise or 
-column-wise (depending on the <code>rowMin</code> value) minimum of the input 
+column-wise (depending on the <code>rowMin</code> value) maximum of the input 
 matrix <code>u</code>.
 </p>
 </html>", revisions="<html>
@@ -48,11 +48,10 @@ Modelica Standard Library.
                             Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
-                              Text(
+          lineColor={0,0,255}),Text(
           extent={{-78,-62},{86,68}},
           lineColor={0,0,0},
-          textString="[  ] min()")}),
+          textString="[  ] max()")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={Rectangle(
             extent={{-100,-100},{100,100}},
@@ -62,5 +61,5 @@ Modelica Standard Library.
                               Text(
           extent={{-78,-62},{86,68}},
           lineColor={0,0,0},
-          textString="[  ] min()")}));
-end MatrixMin;
+          textString="[  ] max()")}));
+end MatrixMax;
