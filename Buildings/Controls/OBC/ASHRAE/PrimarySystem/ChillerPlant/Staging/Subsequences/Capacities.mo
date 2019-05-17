@@ -10,7 +10,7 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   parameter Modelica.SIunits.Power minStaUnlCap[nSta] = fill(0.2*staNomCap[1], nSta)
     "Array of unload capacities at each individual stage";
 
-  final parameter Real lowDia[nSta, nSta] = {if i<= j then 1 else 0 for i in 1:nSta, j in 1:nSta}
+  final parameter Real lowDia[nSta, nSta] = {if i<=j then 1 else 0 for i in 1:nSta, j in 1:nSta}
     "Lower diagonal unit matrix";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaAva[nSta]

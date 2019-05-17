@@ -14,7 +14,7 @@ block PartLoadRatios
   final parameter Integer nSta = nPosDis + nVsdCen + nConCen
   "Number of stages";
 
-  final parameter Integer chiStaTyp[nSta] = cat(1, {1 for i in 1:nPosDis}, {2 for j in 1:nVsdCen}, {3 for k in 1:nConCen})
+  final parameter Integer staTyp[nSta] = cat(1, {1 for i in 1:nPosDis}, {2 for j in 1:nVsdCen}, {3 for k in 1:nConCen})
   "Integer stage chiller type populated in order: positive displacement stage type, variable speed centrifugal stage type, constant speed centrifugal stage type";
 
   parameter Real posDisMult(unit = "1", min = 0, max = 1)=0.8
@@ -142,8 +142,8 @@ block PartLoadRatios
     "Calculates operating part load ratio at the current stage"
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
 
-  CDL.Integers.Sources.Constant chiStaType[nSta](
-    final k=chiStaTyp)
+  CDL.Integers.Sources.Constant staType[nSta](
+    final k=staTyp)
     "Chiller stage type"
     annotation (Placement(transformation(extent={{-340,290},{-320,310}})));
 
@@ -277,7 +277,7 @@ block PartLoadRatios
     "Constant"
     annotation (Placement(transformation(extent={{-40,-260},{-20,-240}})));
 
-  Buildings.Controls.OBC.CDL.Utilities.Assert staTyp(
+  Buildings.Controls.OBC.CDL.Utilities.Assert cheStaTyp(
     final message="Unlisted chiller type got selected")
     "Unlisted chiller type got selected"
     annotation (Placement(transformation(extent={{300,360},{320,380}})));
@@ -423,7 +423,7 @@ equation
           {118,-478}},       color={0,0,127}));
   connect(mult2.y, add3.u1) annotation (Line(points={{21,-430},{100,-430},{100,-466},
           {118,-466}}, color={0,0,127}));
-  connect(staTyp.u,greThr. y)
+  connect(cheStaTyp.u,greThr. y)
     annotation (Line(points={{298,370},{281,370}},
                                               color={255,0,255}));
   connect(swi.y,greThr. u) annotation (Line(points={{181,150},{190,150},{190,370},
@@ -471,7 +471,7 @@ equation
     annotation (Line(points={{281,320},{298,320}}, color={255,0,255}));
   connect(intEqu.y, swi.u2) annotation (Line(points={{41,170},{120,170},{120,150},
           {158,150}}, color={255,0,255}));
-  connect(chiStaType.y, intToRea.u)
+  connect(staType.y, intToRea.u)
     annotation (Line(points={{-319,300},{-302,300}}, color={255,127,0}));
   connect(intToRea.y, extStaTyp.u)
     annotation (Line(points={{-279,300},{-182,300}}, color={0,0,127}));
@@ -534,24 +534,35 @@ equation
         extent={{-340,-600},{340,400}})),
 Documentation(info="<html>
 <p>
-OPLR - Operating part load ratio refers to any ratio of current capacity requirement
-to a nominal or minimal stage capacity.
-
-SPLR - Stage part load ratio (up or down) is defined separately for each stage chiller type.
+Operating part load ratio (OPLR) is a ratio of the capacity requirement
+to a current nominal (<code>y</code>) and minimal (<code>yMin</code>), as well as to
+the next higher nominal (<code>yUp</code>) and minimal (<code>yUpMin</code>) stage capacity.
+</p>
+<p>
+Stage part load ratio (SPLR up, <code>yStaUp</code>, and SPLR down, <code>yStaDown</code>) 
+definition depends on the stage type (<code>staTyp</code>). 
 It is used in deciding whether to stage up or down when compared with OPLRs of the current 
 and first stage down, respectively.
-
-Set stage chiller type to:
-
+</p>
+<p>
+*mg move all below to stage definition preprocessing sequence
+Set stage type to: 
+<ul>
+<li>
 1: Positive displacement - if the stage has more than one positive displacement chiller
+</li>
+<li>
 2: Variable speed centrifugal - if the stage contains any variable speed centrifugal chillers
+</li>
+<li>
 3: Constant speed centrifugal - if the stage contains any constant speed centrifugal chillers
-
+</li>
+</ul>
+<p>
 If more than one condition applies for a single stage, use the determination with the highest integer.
-
-Recomended staging order: more than one positive displacement, variable speed centrifugal, constant speed centrifugal
-
-fixme: add test for centrifugal later, after we clarify why both up and down SPLR equations look the same.
+</p>
+<p>
+Recomended staging order based on determined stage type: positive displacement, variable speed centrifugal, constant speed centrifugal
 </p>
 </html>",
 revisions="<html>
