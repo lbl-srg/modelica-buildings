@@ -49,6 +49,14 @@ protected
     final k=true)
     "Have chiller on/off during the stage change"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaNexChi(
+    final width=0.8, final period=4)
+    "Enable next chiller"
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=3) "Index of enabling chiller"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
@@ -74,7 +82,7 @@ protected
 
 equation
   connect(noOnOff.y, staUpMinFlo.uOnOff)
-    annotation (Line(points={{-119,60},{76,60},{76,174},{119,174}},
+    annotation (Line(points={{-119,60},{76,60},{76,173},{119,173}},
       color={255,0,255}));
   connect(noStaCha.y, staUpMinFlo.uStaDow)
     annotation (Line(points={{-119,20},{92,20},{92,171},{119,171}},
@@ -96,7 +104,7 @@ equation
     annotation (Line(points={{-79,200},{-60,200},{-60,-120},{-42,-120}},
       color={255,0,255}));
   connect(noOnOff.y, staDowMinFlo.uOnOff)
-    annotation (Line(points={{-119,60},{76,60},{76,-166},{119,-166}},
+    annotation (Line(points={{-119,60},{76,60},{76,-167},{119,-167}},
       color={255,0,255}));
   connect(noStaCha.y, staDowMinFlo.uStaUp)
     annotation (Line(points={{-119,20},{92,20},{92,-151},{119,-151}},
@@ -114,7 +122,7 @@ equation
     annotation (Line(points={{-79,170},{72,170},{72,6},{119,6}},
       color={255,0,255}));
   connect(haveOnOff.y, onOffStaUpMinFlo.uOnOff)
-    annotation (Line(points={{-119,-60},{40,-60},{40,-6},{119,-6}},
+    annotation (Line(points={{-119,-60},{40,-60},{40,-7},{119,-7}},
       color={255,0,255}));
   connect(noStaCha.y, onOffStaUpMinFlo.uStaDow)
     annotation (Line(points={{-119,20},{0,20},{0,-9},{119,-9}},
@@ -166,6 +174,14 @@ equation
     annotation (Line(points={{21,-120},{88,-120},{88,-2},{119,-2}},
       color={255,127,0}));
 
+  connect(enaNexChi.y, not3.u)
+    annotation (Line(points={{-119,-20},{-102,-20}}, color={255,0,255}));
+  connect(noOnOff.y, staUpMinFlo.uEnaNexChi) annotation (Line(points={{-119,60},
+          {76,60},{76,175},{119,175}}, color={255,0,255}));
+  connect(noOnOff.y, staDowMinFlo.uEnaNexChi) annotation (Line(points={{-119,60},
+          {76,60},{76,-165},{119,-165}}, color={255,0,255}));
+  connect(not3.y, onOffStaUpMinFlo.uEnaNexChi) annotation (Line(points={{-79,
+          -20},{20,-20},{20,-5},{119,-5}}, color={255,0,255}));
 annotation (
  experiment(StopTime=4.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/MinimumFlowBypass/Subsequences/Validation/FlowSetpoint.mos"

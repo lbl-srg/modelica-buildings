@@ -81,7 +81,7 @@ protected
     "Minimum flow chilled water flow setpoint"
     annotation (Placement(transformation(extent={{260,-150},{280,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and4 "Logical and"
-    annotation (Placement(transformation(extent={{320,268},{340,288}})));
+    annotation (Placement(transformation(extent={{320,270},{340,290}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-260,-330},{-240,-310}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
@@ -226,10 +226,10 @@ equation
     annotation (Line(points={{-380,310},{-320,310},{-320,290},{258,290}},
       color={255,0,255}));
   connect(not3.y,and4. u1)
-    annotation (Line(points={{281,290},{294,290},{294,286},{318,286}},
+    annotation (Line(points={{281,290},{300,290},{300,288},{318,288}},
       color={255,0,255}));
   connect(not2.y,and4. u2)
-    annotation (Line(points={{-239,-320},{294,-320},{294,278},{318,278}},
+    annotation (Line(points={{-239,-320},{292,-320},{292,280},{318,280}},
       color={255,0,255}));
   connect(byPasSet1.y, yChiWatMinFloSet)
     annotation (Line(points={{341,-100},{370,-100}}, color={0,0,127}));
@@ -253,7 +253,7 @@ equation
   connect(uUpsDevSta, not1.u)
     annotation (Line(points={{-380,270},{198,270}},color={255,0,255}));
   connect(not1.y, and4.u3)
-    annotation (Line(points={{221,270},{318,270}},
+    annotation (Line(points={{221,270},{260,270},{260,272},{318,272}},
       color={255,0,255}));
   connect(swi.y, dowSet.f2)
     annotation (Line(points={{161,-200},{180,-200},{180,-268},{198,-268}},
@@ -262,7 +262,7 @@ equation
     annotation (Line(points={{-380,310},{-320,310},{-320,290},{240,290},{240,-140},
       {258,-140}}, color={255,0,255}));
   connect(and4.y, byPasSet1.u2)
-    annotation (Line(points={{341,278},{350,278},{350,150},{300,150},{300,-100},
+    annotation (Line(points={{341,280},{350,280},{350,150},{300,150},{300,-100},
       {318,-100}}, color={255,0,255}));
   connect(minFlo.y, floRat.u1)
     annotation (Line(points={{-279,240},{-260,240},{-260,226},{-242,226}},
@@ -456,6 +456,9 @@ equation
   connect(pro.y, byPasSet1.u1)
     annotation (Line(points={{21,170},{32,170},{32,-92},{318,-92}},
       color={0,0,127}));
+  connect(swi.y, upSet.f2)
+    annotation (Line(points={{161,-200},{180,-200},{180,192},{198,192}},
+      color={0,0,127}));
 
 annotation (
   defaultComponentName="minChiFloSet",
@@ -620,49 +623,59 @@ annotation (
 Block that output chilled water minimum flow setpoint for primary-only
 plants with a minimum flow bypass valve, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
+Central Plants and Hydronic Systems (Draft 4 on March 26, 2019), 
 section 5.2.8 Chilled water minimum flow bypass valve.
+</p>
+<p>
+1. For plants with parallel chillers, bypass valve shall modulate to maintain minimum
+flow as measured by the chilled water flow meter at a setpoint that ensures minimum
+flow through all operating chillers, as follows:
 </p>
 <ul>
 <li>
-The chilled water minimum flow setpoint <code>yChiWatMinFloSet</code> equals to the 
-sum of the minimum chilled water flowrates of the chillers
-commanded to run in each stage.
+For the operating chillers in current stage, identify the chiller with the 
+highest raio of <code>minFloSet</code> to <code>maxFloSet</code>.
+</li>
+<li>
+Calculate the minimum flow setpoint as the highest ratio multiplied by the sum
+of <code>maxFloSet</code> for the operating chillers.
 </li>
 </ul>
-
 <table summary=\"summary\" border=\"1\">
 <tr>
-<th> Chiller stage </th> 
+<th> Chiller </th> 
 <th> Minimum flow </th>  
-</tr>
-<tr>
-<td align=\"center\">0</td>
-<td align=\"center\">0</td>
+<th> Maximum flow </th>  
 </tr>
 <tr>
 <td align=\"center\">1</td>
 <td align=\"center\"><code>minFloSet</code>[1]</td>
+<td align=\"center\"><code>maxFloSet</code>[1]</td>
 </tr>
 <tr>
 <td align=\"center\">2</td>
 <td align=\"center\"><code>minFloSet</code>[2]</td>
+<td align=\"center\"><code>maxFloSet</code>[2]</td>
 </tr>
 <tr>
+<td align=\"center\">...</td>
 <td align=\"center\">...</td>
 <td align=\"center\">...</td>
 </tr>
 </table>
 <br/>
 
-<ul>
-<li>
-If there is any stage change requiring a chiller on and another chiller off,
-the minimum flow setpoint shall temporarily change to include the minimum 
-chilled water flowrate of both enabling chiller and disabled chiller prior
-to starting the newly enabled chiller.
-</li>
-</ul>
+<p>
+2. For plants with series chillers, bypass valve shall modulate to maintain minimum
+flow as measured by the chilled water flow meter at a setpoint equal to the largest
+<code>minFloSet</code> of the operating series chillers.
+</p>
+<p>
+3. If there is any stage change requiring a chiller on and another chiller off,
+the minimum flow setpoint shall temporarily change to account for the 
+<code>minFloSet</code> of both enabling and disabling chillers prior to starting
+the newly enabled chiller.
+</p>
 <p>
 Note that when there is stage change thus requires changes of 
 minimum bypass flow setpoint, the change should be slowly.

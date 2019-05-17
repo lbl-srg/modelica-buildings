@@ -7,6 +7,8 @@ block Controller
     "Time to reset minimum by-pass flow";
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi] = {0.005, 0.005, 0.005}
     "Minimum chilled water flow through each chiller";
+  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]={0.025,0.025,0.025}
+    "Maximum chilled water flow through each chiller";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller"
@@ -85,7 +87,8 @@ block Controller
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint minBypSet(
     final nChi=nChi,
     final byPasSetTim=byPasSetTim,
-    final minFloSet=minFloSet) "Minimum by-pass flow setpoint"
+    final minFloSet=minFloSet,
+    maxFloSet=maxFloSet)       "Minimum by-pass flow setpoint"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
 protected
@@ -112,16 +115,13 @@ equation
     annotation (Line(points={{-120,60},{-40,60},{-40,-11},{-21,-11}},
       color={255,0,255}));
   connect(uOnOff, minBypSet.uOnOff)
-    annotation (Line(points={{-120,-30},{-60,-30},{-60,-26},{-21,-26}},
+    annotation (Line(points={{-120,-30},{-60,-30},{-60,-27},{-21,-27}},
       color={255,0,255}));
   connect(uStaDow, minBypSet.uStaDow)
     annotation (Line(points={{-120,-150},{-40,-150},{-40,-29},{-21,-29}},
       color={255,0,255}));
   connect(minBypSet.uUpsDevSta, uUpsDevSta)
     annotation (Line(points={{-21,-14},{-46,-14},{-46,30},{-120,30}},
-      color={255,0,255}));
-  connect(minBypSet.uDisNexChi, uEnaNexChi)
-    annotation (Line(points={{-14.2308,-24.6512},{-50,-24.6512},{-50,0},{-120,0}},
       color={255,0,255}));
   connect(minFlo.y, mulSum.u)
     annotation (Line(points={{1,-100},{18,-100}}, color={0,0,127}));
@@ -161,6 +161,9 @@ equation
   connect(minBypSet.uChi, uChi)
     annotation (Line(points={{-21,-17},{-54,-17},{-54,-60},{-120,-60}},
       color={255,0,255}));
+  connect(uEnaNexChi, minBypSet.uEnaNexChi)
+    annotation (Line(points={{-120,0},{-60,0},{-60,-25},{-21,-25}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="minBypValCon",
@@ -193,7 +196,7 @@ annotation (
 Block that controls chilled water minimum flow for primary-only
 plants with a minimum flow bypass valve, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
+Central Plants and Hydronic Systems (Draft 4 on March 26, 2019), 
 section 5.2.8 Chilled water minimum flow bypass valve.
 </p>
 <p>
@@ -204,7 +207,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subse
 
 <p>
 When any chilled water pump is proven on (<code>uChiWatPum</code> = true), 
-the bypass valve PID loop shall be enabled. The valve shall be opened otherwise.
+the bypass valve PID loop shall be enabled. The valve shall be opened 100% otherwise.
 When enabled, the bypass valve loop shall be biased to start with the valve
 100% open.
 </p>

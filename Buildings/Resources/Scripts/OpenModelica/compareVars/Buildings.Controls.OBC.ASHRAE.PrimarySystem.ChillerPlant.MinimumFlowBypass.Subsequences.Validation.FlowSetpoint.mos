@@ -2,18 +2,15 @@ compareVars :=
   {
     "staUpMinFlo.uStaUp",
     "staUpMinFlo.uUpsDevSta",
-    "staUpMinFlo.uSta",
     "staUpMinFlo.uOnOff",
-    "staUpMinFlo.yChiWatBypSet",
+    "staUpMinFlo.yChiWatMinFloSet",
     "onOffStaUpMinFlo.uStaUp",
     "onOffStaUpMinFlo.uUpsDevSta",
-    "onOffStaUpMinFlo.uSta",
     "onOffStaUpMinFlo.uOnOff",
     "onOffStaUpMinFlo.uEnaNexChi",
-    "onOffStaUpMinFlo.yChiWatBypSet",
+    "onOffStaUpMinFlo.yChiWatMinFloSet",
     "staDowMinFlo.uStaDow",
     "staDowMinFlo.uUpsDevSta",
-    "staDowMinFlo.uSta",
     "staDowMinFlo.uOnOff",
-    "staDowMinFlo.yChiWatBypSet"
+    "staDowMinFlo.yChiWatMinFloSet"
   };

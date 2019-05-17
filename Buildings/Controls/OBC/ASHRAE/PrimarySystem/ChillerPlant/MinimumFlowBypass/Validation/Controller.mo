@@ -7,14 +7,18 @@ model Controller "Validate control of minimum bypass valve"
     minBypValCon(
     final nChi=nChi,
     final byPasSetTim=1.5,
-    final minFloSet={0,minOne,minTwo}) "Minimum bypass valve position"
+    final minFloSet={minFloChiOne,minFloChiTwo,minFloChiThr},
+    final maxFloSet={maxFloChiOne,maxFloChiTwo,maxFloChiThr})
+    "Minimum bypass valve position"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
-  final parameter Modelica.SIunits.VolumeFlowRate minOne = 0.01
-    "Minimum bypass flow rate at stage 1";
-  final parameter Modelica.SIunits.VolumeFlowRate minTwo = 0.02
-    "Minimum bypass flow rate at stage 2";
+  final parameter Modelica.SIunits.VolumeFlowRate minFloChiOne = 0.005;
+  final parameter Modelica.SIunits.VolumeFlowRate minFloChiTwo = 0.005;
+  final parameter Modelica.SIunits.VolumeFlowRate minFloChiThr = 0.005;
+  final parameter Modelica.SIunits.VolumeFlowRate maxFloChiOne = 0.025;
+  final parameter Modelica.SIunits.VolumeFlowRate maxFloChiTwo = 0.025;
+  final parameter Modelica.SIunits.VolumeFlowRate maxFloChiThr = 0.025;
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse upDev(
@@ -47,12 +51,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
-    final amplitude=minOne/2,
+    final amplitude=minFloChiOne/2,
     final freqHz=1/2,
-    final offset=minTwo/2) "Output sine wave value"
+    final offset=(minFloChiOne + minFloChiTwo)/2) "Output sine wave value"
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
-    final height=minTwo + minOne,
+    final height=minFloChiOne + minFloChiTwo + minFloChiThr,
     final duration=2,
     final startTime=1.2) "Output ramp value"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
