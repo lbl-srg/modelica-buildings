@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "matMax.y[1]",
+    "matMax.y[2]",
+    "matMax.y[3]",
+    "matMax1.y[1]",
+    "matMax1.y[2]",
+    "matMax1.y[3]",
+    "matMax2.y[1]",
+    "matMax2.y[2]"
+  };

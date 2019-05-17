@@ -28,6 +28,7 @@ Line
 Log
 Log10
 MatrixGain
+MatrixMax
 MatrixMin
 Max
 Min
@@ -45,4 +46,3 @@ SlewRateLimiter
 Sort
 Sqrt
 Tan
-MatrixMax
