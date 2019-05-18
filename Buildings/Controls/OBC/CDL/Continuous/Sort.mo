@@ -1,8 +1,10 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Sort "Sort elements of input vector in ascending or descending order"
 
-  parameter Integer nin(min=0) = 0 "Number of input connections"
-    annotation (Dialog(connectorSizing=true), HideResult=true);
+//  parameter Integer nin(min=0) = 0 "Number of input connections"
+//    annotation (Dialog(connectorSizing=true), HideResult=true);
+
+  parameter Integer nin(min=0) = 0 "Number of input connections";
 
   parameter Boolean ascending=true
     "= true if ascending order, otherwise descending order";
