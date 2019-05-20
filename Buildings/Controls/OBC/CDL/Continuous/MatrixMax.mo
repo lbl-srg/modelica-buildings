@@ -22,7 +22,7 @@ equation
     y = {max(u[:,i]) for i in 1:size(u, 2)};
   end if
   annotation (
-    defaultComponentName="matMin",
+    defaultComponentName="matMax",
     Documentation(info="<html>
 <p>
 This blocks computes output vector <code>y</code> as the row-wise or 
