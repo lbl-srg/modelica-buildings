@@ -76,6 +76,10 @@ block Configurator "Configures chiller staging"
     annotation (Placement(transformation(extent={{60,-162},{80,-142}})));
   CDL.Integers.Equal intEqu[nSta] "check if all true (sum = nSta)"
     annotation (Placement(transformation(extent={{166,-178},{186,-158}})));
+  CDL.Interfaces.IntegerInput                        uSta(final min=0, final
+      max=nSta)       "Chiller stage"
+    annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 equation
   connect(chiNomCaps.y, staNomCaps.u) annotation (Line(points={{-179,90},{-150,90},
           {-150,50},{-122,50}}, color={0,0,127}));
@@ -83,8 +87,8 @@ equation
           {-150,-30},{-122,-30}}, color={0,0,127}));
   connect(staNomCaps.y, yStaNomCap) annotation (Line(points={{-99,50},{82,50},{82,
           60},{270,60}}, color={0,0,127}));
-  connect(staMinCaps.y, yStaMinCap) annotation (Line(points={{-99,-30},{81.5,-30},
-          {81.5,0},{270,0}}, color={0,0,127}));
+  connect(staMinCaps.y, yStaMinCap) annotation (Line(points={{-99,-30},{82,-30},
+          {82,0},{270,0}},   color={0,0,127}));
   connect(staType.y, intToRea.u)
     annotation (Line(points={{-179,-90},{-162,-90}}, color={255,127,0}));
   connect(intToRea.y, pro.u1) annotation (Line(points={{-139,-90},{-120,-90},{
@@ -115,19 +119,7 @@ equation
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name"),
-        Rectangle(extent={{-80,-30},{-20,-42}}, lineColor={0,0,127}),
-        Rectangle(extent={{-80,-48},{-20,-60}}, lineColor={0,0,127}),
-        Rectangle(extent={{-76,-42},{-72,-48}}, lineColor={0,0,127}),
-        Rectangle(extent={{-28,-42},{-24,-48}}, lineColor={0,0,127}),
-        Rectangle(extent={{0,-10},{80,-30}}, lineColor={0,0,127}),
-        Rectangle(extent={{0,-40},{80,-60}}, lineColor={0,0,127}),
-        Rectangle(extent={{6,-30},{12,-40}}, lineColor={0,0,127}),
-        Rectangle(extent={{68,-30},{74,-40}}, lineColor={0,0,127}),
-        Rectangle(extent={{-80,10},{-20,-2}}, lineColor={0,0,127}),
-        Rectangle(extent={{-80,-8},{-20,-20}}, lineColor={0,0,127}),
-        Rectangle(extent={{-76,-2},{-72,-8}}, lineColor={0,0,127}),
-        Rectangle(extent={{-28,-2},{-24,-8}}, lineColor={0,0,127})}),
+          textString="%name")}),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-260,-300},{260,300}})),
 Documentation(info="<html>

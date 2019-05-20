@@ -38,8 +38,8 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaUpNom(
     final unit="W",
-    final quantity="Power")
-    "Nominal capacity of the next higher stage" annotation (Placement(
+    final quantity="Power") "Nominal capacity of the next higher stage"
+                                                annotation (Placement(
       transformation(extent={{260,110},{280,130}}),
       iconTransformation(extent={{100,20},{120,40}})));
 
@@ -129,8 +129,7 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     annotation (Placement(transformation(extent={{140,220},{160,240}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaCap[nSta](
-    final k=minStaUnlCap)
-    "Array of chiller stage minimal unload capacities"
+    final k=minStaUnlCap) "Array of chiller stage minimal unload capacities"
     annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add subInt(

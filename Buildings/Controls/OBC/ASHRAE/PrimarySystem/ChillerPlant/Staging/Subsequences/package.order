@@ -2,6 +2,7 @@ Capacities
 CapacityRequirement
 Change
 Configurator
+ConfiguratorT
 Down
 EfficiencyCondition
 FailsafeCondition
