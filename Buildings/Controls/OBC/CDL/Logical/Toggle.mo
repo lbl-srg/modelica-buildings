@@ -1,14 +1,13 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Toggle "Toggles output value whenever its input turns true"
 
-  parameter Boolean pre_y_start=false "Value of pre(y)";
+  parameter Boolean pre_y_start=false "Start value of pre(y) if clr=false";
 
   Interfaces.BooleanInput u "Toggle input"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Interfaces.BooleanInput clr "Clear input"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Interfaces.BooleanOutput y
-    "Output signal"
+  Interfaces.BooleanOutput y "Output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -24,21 +23,24 @@ equation
   when initial() then
     scenario = 1;
   elsewhen (not clr) and ((pre(u) <> u) and (pre(u) == false)) and (pre(y) == false) then
-    scenario =  2;
+    scenario = 2;
   elsewhen (not clr) and ((pre(u) <> u) and (pre(u) == false)) and (pre(y) == true) then
-    scenario =  3;
+    scenario = 3;
   elsewhen (not clr) and ((pre(u) <> u) and (pre(u) == true)) then
-    scenario =  4;
+    scenario = 4;
   elsewhen clr then
-    scenario =  5;
+    scenario = 5;
   end when;
 
-  if (scenario == 1) then y = pre(y);
-  elseif scenario == 2 then y = true;
-  elseif scenario == 3 then y = false;
-  elseif scenario == 4 then y = pre(y);
-  else
+  if clr then
     y = false;
+  else
+    if (scenario == 1) then y = if clr then false else pre(y);
+    elseif (scenario == 2) then y = true;
+    elseif (scenario == 3) then y = false;
+    elseif (scenario == 4) then y = pre(y);
+    else y = false;
+    end if;
   end if;
 
 annotation (defaultComponentName="tog",
@@ -109,9 +111,11 @@ If the clear input <code>clr</code> is <code>true</code>, the output <code>y</co
 switches to <code>false</code> (if it was <code>true</code>) and it remains <code>false</code>,
 regardless of the value of the toggle input <code>u</code>.
 </p>
+
 <p>
-At initial time, the output <code>y</code> is equal to the value of the parameter
-<code>pre_y_start</code>.
+At initial time, if <code>clr = false</code>, then the output will be 
+<code>y = pre_y_start</code>. Otherwise it will be <code>y=false</code> 
+(because the clear input <code>clr</code> is <code>true</code>).
 </p>
 
 <p align=\"center\">

@@ -11,7 +11,7 @@ block Latch "Maintains a true signal until change condition"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Integer scenario "scenario index";
+  Integer scenario "Scenario index";
 
 initial equation
   pre(y) = pre_y_start;
@@ -35,13 +35,14 @@ equation
   if clr then
     y = false;
   else
-    if (scenario == 1) then y =if clr then false else pre(y);
-      elseif (scenario == 2) then y = true;
-      elseif (scenario == 3) then y = pre(y);
-      elseif (scenario == 4) then y = false;
+    if (scenario == 1) then y = if clr then false else pre(y);
+    elseif (scenario == 2) then y = true;
+    elseif (scenario == 3) then y = pre(y);
+    elseif (scenario == 4) then y = false;
     else y = false;
     end if;
   end if;
+
 annotation (defaultComponentName="lat",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
