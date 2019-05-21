@@ -391,9 +391,8 @@ equation
   connect(lat.y, edg.u)
     annotation (Line(points={{-39,340},{-20,340},{-20,318},{-80,318},{-80,300},{-62,300}},
       color={255,0,255}));
-  connect(edg.y, lat1.u0)
-    annotation (Line(points={{-39,300},{-20,300},{-20,264},{59,264}},
-      color={255,0,255}));
+  connect(edg.y, lat1.clr) annotation (Line(points={{-39,300},{-20,300},{-20,
+          264},{59,264}}, color={255,0,255}));
   connect(modTim.y, gre1.u1)
     annotation (Line(points={{-119,410},{-82,410}},  color={0,0,127}));
   connect(con.y, gre1.u2)
@@ -545,9 +544,8 @@ equation
     annotation (Line(points={{161,-430},{190,-430}}, color={255,127,0}));
   connect(gre.y, truHol.u)
     annotation (Line(points={{81,340},{119,340}}, color={255,0,255}));
-  connect(truHol.y, lat.u0)
-    annotation (Line(points={{141,340},{160,340},{160,320},{-80,320},{-80,334},
-      {-61,334}}, color={255,0,255}));
+  connect(truHol.y, lat.clr) annotation (Line(points={{141,340},{160,340},{160,
+          320},{-80,320},{-80,334},{-61,334}}, color={255,0,255}));
   connect(gre.y, lat1.u)
     annotation (Line(points={{81,340},{100,340},{100,322},{44,322},{44,270},{59,270}},
       color={255,0,255}));
