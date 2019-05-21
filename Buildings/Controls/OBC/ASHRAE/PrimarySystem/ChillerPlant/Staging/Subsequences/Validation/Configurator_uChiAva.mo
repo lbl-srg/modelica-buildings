@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model ConfiguratorT_uChiAva
+model Configurator_uChiAva
   "Validate stage capacities sequence for chiller stage inputs"
 
   parameter Integer nSta = 2
@@ -17,17 +17,26 @@ model ConfiguratorT_uChiAva
   parameter Real large = staNomCap[end]*nSta*10
   "Large number for numerical consistency";
 
-  ConfiguratorT conf(chiTyp={2,1})
+  Configurator conf(
+    nSta=4,
+    nChi=3,
+    staMat={{1,0,0},{0,1,1},{1,1,0},{1,1,1}},
+    chiTyp={2,1,1})
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  CDL.Integers.Sources.Constant conInt(k=2)
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](final k={true,
-        false})
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[3](final k={true,
+        false,true})
             "Stage availability array"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
 equation
   connect(con.y, conf.uChiAva)
-    annotation (Line(points={{-59,0},{-22,0}}, color={255,0,255}));
+    annotation (Line(points={{-59,30},{-40,30},{-40,6},{-22,6}},
+                                               color={255,0,255}));
+  connect(conInt.y, conf.uSta) annotation (Line(points={{-59,-30},{-40,-30},{
+          -40,-6},{-22,-6}}, color={255,127,0}));
 annotation (
  experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uSta.mos"
@@ -57,4 +66,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end ConfiguratorT_uChiAva;
+end Configurator_uChiAva;
