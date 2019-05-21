@@ -34,27 +34,37 @@ initial equation
   tNext = getNextTime(modTim, lenWea);
 
 equation
-  when modTim > pre(tNext) then
-    // simulation time stamp went over the end time of the weather file
-    //(last time stamp of the weather file + average increment)
-    tNext = if canRepeatWeatherFile then getNextTime(modTim, lenWea) else integer(Modelica.Constants.inf);
-  end when;
-  calTim = if canRepeatWeatherFile then modTim - (tNext - lenWea) else modTim;
-  assert(canRepeatWeatherFile or (time - weaDatEndTim) < shiftSolarRad,
-    "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
-    Based on the provided weather file the following start time " + String(weaDatStaTim) +
-    " and end time " + String(weaDatEndTim) + " (last time stamp + average increment) for the weather data were determined",
-    AssertionLevel.error);
+  if canRepeatWeatherFile then
+    when modTim > pre(tNext) then
+      // simulation time stamp went over the end time of the weather file
+      //(last time stamp of the weather file + average increment)
+      tNext = getNextTime(modTim, lenWea);
+    end when;
+    calTim = modTim - tNext + lenWea;
+  else
+    calTim = modTim;
+    assert((time - weaDatEndTim) < shiftSolarRad,
+      "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
+      Based on the provided weather file the following start time " + String(weaDatStaTim) +
+      " and end time " + String(weaDatEndTim) + " (last time stamp + average increment) for the weather data were determined",
+      AssertionLevel.error);
+  end if;
+
 
   annotation (
     defaultComponentName="conTim",
     Documentation(info="<html>
 <p>
-This component converts the simulation time to calendar time in a scale of 1 year (365 days), 
+This component converts the simulation time to calendar time in a scale of 1 year (365 days),
 or a multiple of it, if this is the length of the weather file.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 21, 2019, by Michael Wetter:<br/>
+Corrected code to avoid wrong type conversion.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1142\">#1142</a>.
+</li>
 <li>
 March 4, 2019, by Michael Wetter:<br/>
 Refactored implementation to correctly account for negative start times.<br/>
