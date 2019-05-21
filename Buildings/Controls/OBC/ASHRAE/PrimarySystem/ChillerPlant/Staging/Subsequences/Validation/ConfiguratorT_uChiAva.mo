@@ -17,11 +17,12 @@ model ConfiguratorT_uChiAva
   parameter Real large = staNomCap[end]*nSta*10
   "Large number for numerical consistency";
 
-  ConfiguratorT conf
+  ConfiguratorT conf(chiTyp={2,1})
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](final k=fill(true,
-        2)) "Stage availability array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](final k={true,
+        false})
+            "Stage availability array"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
 equation

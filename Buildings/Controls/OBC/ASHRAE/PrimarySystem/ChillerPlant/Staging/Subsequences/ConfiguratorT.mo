@@ -66,7 +66,7 @@ block ConfiguratorT "Configures chiller staging"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2[nSta](k2=fill(-1, nSta))
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr[nSta](threshold=fill(0.5, nSta))
+  CDL.Continuous.LessThreshold                           lesThr[nSta](threshold=fill(0.5, nSta))
     "Checks if the number of chillers available in each stage equals the design number of chillers"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput staTyp[nSta](
@@ -120,9 +120,9 @@ equation
           -100,26},{-82,26}}, color={0,0,127}));
   connect(staMinCaps2.y, add2.u2) annotation (Line(points={{-119,-10},{-100.5,-10},
           {-100.5,14},{-82,14}}, color={0,0,127}));
-  connect(add2.y, greThr.u)
+  connect(add2.y,lesThr. u)
     annotation (Line(points={{-59,20},{-42,20}}, color={0,0,127}));
-  connect(greThr.y, staAva) annotation (Line(points={{-19,20},{60,20},{60,-60},{
+  connect(lesThr.y, staAva) annotation (Line(points={{-19,20},{60,20},{60,-60},{
           270,-60}}, color={255,0,255}));
   connect(staType.y,intToRea. u)
     annotation (Line(points={{-159,-106},{-142,-106}},
