@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block MatrixMax "Output vector of row- or column-wise maximum values"
 
-  parameter Boolean rowMin = true "If true outputs row-wise minimum, otherwise column-wise";
+  parameter Boolean rowMin = true "If true outputs row-wise maximum, otherwise column-wise";
 
   parameter Integer ninr(min=0) "Number or input matrix rows";
 
