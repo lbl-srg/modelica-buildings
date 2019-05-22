@@ -16,6 +16,8 @@ void* ZoneAllocate(
   const char* weaName,
   const char* iddName,
   const char* zoneName,
+  const char* modelicaInstanceName,
+  int usePrecompiledFMU,
   const char* fmuName,
   const int verbosity);
 

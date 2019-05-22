@@ -91,8 +91,9 @@ typedef struct FMUBuilding
 typedef struct FMUZone
 {
   /*int index;*/
-  fmi2Byte* name;      /* Name of this zone */
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
+  char* name;      /* Name of this zone */
+  char* modelicaInstanceName; /* Name of the Modelica instance of this zone */
 
 /* char** parInpNames; */
   char** parOutNames;
@@ -143,6 +144,7 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(
   const char* idfName, const char* weaName,
   const char* iddName,
   const char* zoneName, FMUZone* zone,
+  int usePrecompiledFMU,
   const char* fmuName);
 
 FMUBuilding* getBuildingsFMU(size_t iFMU);

@@ -356,7 +356,8 @@ void createDirectory(const char* dirName){
 
 
 FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
-  const char* iddName, const char* zoneName, FMUZone* zone, const char* fmuName){
+  const char* iddName, const char* zoneName, FMUZone* zone,
+  int usePrecompiledFMU, const char* fmuName){
   /* Allocate memory */
 
   const size_t nFMU = getBuildings_nFMU();
@@ -416,13 +417,8 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* 
   getEnergyPlusTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
 
   getEnergyPlusFMUName(idfName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
-  if (strlen(fmuName) == 0){
-    /* Use actual EnergyPlus */
-    Buildings_FMUS[nFMU]->usePrecompiledFMU = false;
-    Buildings_FMUS[nFMU]->precompiledFMUAbsPat = NULL;
-  }
-  else{
-    Buildings_FMUS[nFMU]->usePrecompiledFMU = true;
+  if (usePrecompiledFMU){
+    Buildings_FMUS[nFMU]->usePrecompiledFMU = usePrecompiledFMU;
     /* Copy name of precompiled FMU */
     Buildings_FMUS[nFMU]->precompiledFMUAbsPat = malloc((strlen(fmuName)+1) * sizeof(char));
     if (Buildings_FMUS[nFMU]->precompiledFMUAbsPat == NULL){
@@ -430,6 +426,11 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* 
     }
     memset(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, '\0', strlen(fmuName)+1);
     strcpy(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, fmuName);
+  }
+  else{
+    /* Use actual EnergyPlus */
+    Buildings_FMUS[nFMU]->usePrecompiledFMU = usePrecompiledFMU;
+    Buildings_FMUS[nFMU]->precompiledFMUAbsPat = NULL;
   }
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir);

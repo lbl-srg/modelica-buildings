@@ -23,15 +23,36 @@ int zoneIsUnique(const struct FMUBuilding* fmuBld, const char* zoneName){
   return isUnique;
 }
 
+void setPointerIfAlreadyInstanciated(const char* modelicaInstanceName, FMUZone** ptrFMUZone){
+  int iBui;
+  int iZon;
+  FMUBuilding* ptrBui;
+  FMUZone* ptrZon;
+  *ptrFMUZone = NULL;
+
+  for(iBui = 0; iBui < getBuildings_nFMU(); iBui++){
+    ptrBui = getBuildingsFMU(iBui);
+    for(iZon = 0; iZon < ptrBui->nZon; iZon++){
+      ptrZon = (FMUZone*)(ptrBui->zones[iZon]);
+      if (strcmp(modelicaInstanceName, ptrZon->modelicaInstanceName) == 0){
+        *ptrFMUZone = ptrZon;
+        return;
+      }
+    }
+  }
+  return;
+}
+
 /* Create the structure and return a pointer to its address. */
 void* ZoneAllocate(
   const char* idfName,
   const char* weaName,
   const char* iddName,
   const char* zoneName,
+  const char* modelicaInstanceName,
+  int usePrecompiledFMU,
   const char* fmuName,
-  const int verbosity)
-{
+  const int verbosity){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
   unsigned int i;
@@ -49,16 +70,27 @@ void* ZoneAllocate(
   else{
     if (FMU_EP_VERBOSITY != verbosity){
         ModelicaFormatMessage(
-          "Warning: Thermal zones declare different verbosity. Check parameter verbosity. Use highest declared value.");
+          "Warning: Thermal zones declare different verbosity. Check parameter verbosity. Using highest declared value.");
     }
     if (verbosity > FMU_EP_VERBOSITY){
       FMU_EP_VERBOSITY = verbosity;
     }
   }
 
+  writeFormatLog(1, "Entered ZoneAllocate for building %s", idfName);
+  writeFormatLog(1, "Allocating memory for zone %s.", zoneName);
+  /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
+  setPointerIfAlreadyInstanciated(modelicaInstanceName, &zone);
+  if (zone != NULL){
+    writeFormatLog(1, "*** ZoneAllocate called more than once for %s.", modelicaInstanceName);
+    /* Return pointer to this zone */
+    return (void*) zone;
+  }
+  writeFormatLog(1, "*** First call for this instance %s.", modelicaInstanceName);
+
   /* ********************************************************************** */
   /* Initialize the zone */
-  writeFormatLog(1, "Allocating memory for zone %s in %s.", zoneName, idfName);
+  writeFormatLog(1, "*** Initializing memory for zone for %s.", modelicaInstanceName);
 
   zone = (FMUZone*) malloc(sizeof(FMUZone));
   if ( zone == NULL )
@@ -69,6 +101,11 @@ void* ZoneAllocate(
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zone name.");
   strcpy(zone->name, zoneName);
 
+  /* Assign the Modelica instance name */
+  zone->modelicaInstanceName = malloc((strlen(modelicaInstanceName)+1) * sizeof(char));
+  if ( zone->modelicaInstanceName == NULL )
+    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate Modelica instance name.");
+  strcpy(zone->modelicaInstanceName, modelicaInstanceName);
   /* Assign structural data */
   buildVariableNames(
     zone->name,
@@ -112,7 +149,7 @@ void* ZoneAllocate(
   if (nFMU == 0){
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
-    zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, fmuName);
+    zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, usePrecompiledFMU, fmuName);
     /*zone->index = 1;*/
   } else {
     /* There is already a Buildings FMU allocated.
@@ -153,7 +190,7 @@ void* ZoneAllocate(
       /* Check if we found an FMU */
       if (zone->ptrBui == NULL){
         /* Did not find an FMU. */
-        zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, fmuName);
+        zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, usePrecompiledFMU, fmuName);
       }
   }
 
@@ -164,7 +201,7 @@ void* ZoneAllocate(
   */
   zone->isInstantiated = fmi2False;
   zone->isInitialized = fmi2False;
-
+  writeFormatLog(1, "Exiting allocation for %s", modelicaInstanceName);
   /* Return a pointer to this zone */
   return (void*) zone;
 }

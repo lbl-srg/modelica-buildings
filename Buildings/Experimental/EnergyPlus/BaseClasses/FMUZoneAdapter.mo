@@ -9,9 +9,13 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Name of the Energyplus IDD file";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter Boolean usePrecompiledFMU = true
+    "Set to true to use pre-compiled FMU with name specified by fmuName"
+    annotation(Dialog(tab="Debug"));
+
   parameter String fmuName=""
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
-    annotation(Dialog(tab="Debug"));
+    annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
   parameter Integer verbosity(min=0, max=2) = 0 "Verbosity (0: no output to console, 2: all output)"
     annotation(Dialog(tab="Debug"));
@@ -82,12 +86,16 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Convective sensible heat to be added to zone air if T = TRooLast";
 
 protected
+  constant String modelicaInstanceName = getInstanceName()
+    "Name of this instance";
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass adapter=
     Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass(
       idfName=idfName,
       weaName=weaName,
       iddName=iddName,
       zoneName=zoneName,
+      modelicaInstanceName=modelicaInstanceName,
+      usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
       verbosity=verbosity)
     "Class to communicate with EnergyPlus";

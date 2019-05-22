@@ -59,8 +59,8 @@ equation
   connect(mOut_flow.y, fmuZonCor.m_flow[2]) annotation (Line(points={{-29,10},{
           -10,10},{-10,35},{18,35}},
                                    color={0,0,127}));
-  connect(TIn.y, fmuZonCor.TInlet) annotation (Line(points={{-67,-14},{0,-14},{0,
-          30},{18,30}},   color={0,0,127}));
+  connect(TIn.y, fmuZonCor.TInlet) annotation (Line(points={{-67,-14},{0,-14},{
+          0,30},{18,30}}, color={0,0,127}));
   connect(fmuZonCor.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{18,26},
           {-4,26},{-4,-36},{-67,-36}},   color={0,0,127}));
   connect(X_w.y, fmuZonSou.X_w) annotation (Line(points={{-67,54},{-16,54},{-16,

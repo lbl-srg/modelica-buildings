@@ -8,6 +8,9 @@ extends ExternalObject;
     input String iddName "Name of the IDD file";
     //    input String epLibName "Name of the Energyplus FMI library";
     input String zoneName "Name of the thermal zone";
+    input String modelicaInstanceName
+      "Name of the Modelica instance";
+    input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
     input Integer verbosity(min=0, max=2) "Verbosity (0: no output to console, 2: all output)";
@@ -17,6 +20,8 @@ extends ExternalObject;
       weaName,
       iddName,
       zoneName,
+      modelicaInstanceName,
+      usePrecompiledFMU,
       fmuName,
       verbosity)
         annotation (
