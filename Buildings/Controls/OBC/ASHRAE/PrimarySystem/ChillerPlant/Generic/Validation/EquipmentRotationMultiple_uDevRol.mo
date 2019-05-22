@@ -11,12 +11,12 @@ model EquipmentRotationMultiple_uDevRol
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMultiple
     leaSta(
     final stagingRuntime=5*60*60,
-    final nDev=nDev,
     final initRoles=initRoles,
-    final lag=false) "Equipment rotation - lead/standby"
+    final lag=false,
+    final nDev=nDev) "Equipment rotation - lead/standby"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
-  EquipmentRotationMultiple leaLag(stagingRuntime=5*60*60)
+  EquipmentRotationMultiple leaLag(stagingRuntime=5*60*60, nDev=nDev)
     "Equipment rotation - lead/lag"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 

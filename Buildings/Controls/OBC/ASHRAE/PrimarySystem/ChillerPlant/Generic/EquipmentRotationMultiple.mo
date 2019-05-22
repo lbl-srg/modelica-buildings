@@ -181,7 +181,7 @@ equation
           {100,0},{100,30},{118,30}},     color={255,0,255}));
   connect(lesThr.y, yDevRol) annotation (Line(points={{161,-110},{200,-110},{200,
           0},{250,0}},                     color={255,0,255}));
-  connect(and3.y, mulOr.u[1:nDev]) annotation (Line(points={{1,30},{18,30}},
+  connect(and3.y, mulOr.u) annotation (Line(points={{1,30},{18,30}},
                       color={255,0,255}));
   connect(logSwi.y, tim.u) annotation (Line(points={{-119,-30},{-110,-30},{-110,
           60},{-102,60}}, color={255,0,255}));

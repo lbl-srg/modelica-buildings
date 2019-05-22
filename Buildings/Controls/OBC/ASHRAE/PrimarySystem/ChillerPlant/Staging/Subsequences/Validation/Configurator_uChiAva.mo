@@ -2,41 +2,26 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 model Configurator_uChiAva
   "Validate stage capacities sequence for chiller stage inputs"
 
-  parameter Integer nSta = 2
-  "Highest chiller stage";
-
-  parameter Modelica.SIunits.Power staNomCap[nSta] = {5e5, 5e5}
-    "Nominal capacity at all chiller stages, starting with stage 0";
-
-  parameter Modelica.SIunits.Power minStaUnlCap[nSta] = {0.2*staNomCap[1], 0.2*staNomCap[2]}
-    "Nominal part load ratio for at all chiller stages, starting with stage 0";
-
-  parameter Real small = 0.001
-  "Small number to avoid division with zero";
-
-  parameter Real large = staNomCap[end]*nSta*10
-  "Large number for numerical consistency";
-
+  CDL.Integers.Sources.Constant conInt(k=2)
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Configurator conf(
     nSta=4,
     nChi=3,
-    staMat={{1,0,0},{0,1,1},{1,1,0},{1,1,1}},
-    chiTyp={2,1,1})
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  CDL.Integers.Sources.Constant conInt(k=2)
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
+    chiTyp={1,1,2},
+    chiNomCap={10,20,10},
+    chiMinCap={1,2,2})
+    annotation (Placement(transformation(extent={{20,0},{40,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[3](final k={true,
-        false,true})
-            "Stage availability array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[3](final k={true,
+        true,true}) "Chiller availability array"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
 equation
-  connect(con.y, conf.uChiAva)
-    annotation (Line(points={{-59,30},{-40,30},{-40,6},{-22,6}},
-                                               color={255,0,255}));
+  connect(chiAva.y, conf.uChiAva) annotation (Line(points={{-59,30},{-40,30},{
+          -40,16},{18,16}}, color={255,0,255}));
   connect(conInt.y, conf.uSta) annotation (Line(points={{-59,-30},{-40,-30},{
-          -40,-6},{-22,-6}}, color={255,127,0}));
+          -40,4},{18,4}},    color={255,127,0}));
 annotation (
  experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uSta.mos"
