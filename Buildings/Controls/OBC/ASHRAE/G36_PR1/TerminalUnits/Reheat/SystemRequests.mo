@@ -32,7 +32,6 @@ block SystemRequests
     "Duration time of discharge air temperature is less than setpoint"
     annotation(Dialog(group="Duration times"));
 
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     quantity="ThermodynamicTemperature")
@@ -391,8 +390,8 @@ equation
   connect(lat.y, edg.u)
     annotation (Line(points={{-39,340},{-20,340},{-20,318},{-80,318},{-80,300},{-62,300}},
       color={255,0,255}));
-  connect(edg.y, lat1.clr) annotation (Line(points={{-39,300},{-20,300},{-20,
-          264},{59,264}}, color={255,0,255}));
+  connect(edg.y, lat1.clr)
+    annotation (Line(points={{-39,300},{-20,300},{-20,264},{59,264}}, color={255,0,255}));
   connect(modTim.y, gre1.u1)
     annotation (Line(points={{-119,410},{-82,410}},  color={0,0,127}));
   connect(con.y, gre1.u2)
@@ -416,16 +415,16 @@ equation
       color={0,0,127}));
   connect(abs.y, triSam.u)
     annotation (Line(points={{121,410},{140,410},{140,360},{-140,360},{-140,280},
-          {-122,280}}, color={0,0,127}));
+      {-122,280}}, color={0,0,127}));
   connect(abs.y, hys2.u)
     annotation (Line(points={{121,410},{140,410},{140,360},{-140,360},{-140,340},
-          {-122,340}}, color={0,0,127}));
+      {-122,340}}, color={0,0,127}));
   connect(and2.y, swi1.u2)
     annotation (Line(points={{61,200},{98,200}}, color={255,0,255}));
   connect(thrCooResReq.y, swi1.u1)
     annotation (Line(points={{61,230},{80,230},{80,208},{98,208}}, color={0,0,127}));
   connect(add3.y, hys3.u)
-    annotation (Line(points={{-79,140},{-62,140}},   color={0,0,127}));
+    annotation (Line(points={{-79,140},{-62,140}}, color={0,0,127}));
   connect(twoCooResReq.y, swi2.u1)
     annotation (Line(points={{61,170},{80,170},{80,148},{98,148}},
       color={0,0,127}));
@@ -544,8 +543,9 @@ equation
     annotation (Line(points={{161,-430},{190,-430}}, color={255,127,0}));
   connect(gre.y, truHol.u)
     annotation (Line(points={{81,340},{119,340}}, color={255,0,255}));
-  connect(truHol.y, lat.clr) annotation (Line(points={{141,340},{160,340},{160,
-          320},{-80,320},{-80,334},{-61,334}}, color={255,0,255}));
+  connect(truHol.y, lat.clr)
+    annotation (Line(points={{141,340},{160,340},{160,320},{-80,320},
+      {-80,334},{-61,334}}, color={255,0,255}));
   connect(gre.y, lat1.u)
     annotation (Line(points={{81,340},{100,340},{100,322},{44,322},{44,270},{59,270}},
       color={255,0,255}));
@@ -598,11 +598,12 @@ equation
       color={255,0,255}));
   connect(sampler.u, VDisSet_flow)
     annotation (Line(points={{-162,-40},{-170,-40},{-170,30},{-200,30}},
-                                                   color={0,0,127}));
-  connect(sampler.y, gai1.u) annotation (Line(points={{-139,-40},{-102,-40}},
-                            color={0,0,127}));
-  connect(sampler.y, gai2.u) annotation (Line(points={{-139,-40},{-128,-40},{-128,
-          -88},{-102,-88}},   color={0,0,127}));
+      color={0,0,127}));
+  connect(sampler.y, gai1.u)
+    annotation (Line(points={{-139,-40},{-102,-40}}, color={0,0,127}));
+  connect(sampler.y, gai2.u)
+    annotation (Line(points={{-139,-40},{-128,-40},{-128,-88},{-102,-88}},
+      color={0,0,127}));
   connect(sampler1.u, VDis_flow)
     annotation (Line(points={{-162,-70},{-200,-70}}, color={0,0,127}));
   connect(uDam, sampler2.u)
@@ -613,29 +614,38 @@ equation
     annotation (Line(points={{-200,90},{-162,90}}, color={0,0,127}));
   connect(sampler4.y, hys5.u)
     annotation (Line(points={{-139,90},{-62,90}}, color={0,0,127}));
-  connect(samTZonCooSet.y, add2.u1) annotation (Line(points={{-139,440},{-128,440},
-          {-128,426},{-150,426},{-150,206},{-102,206}}, color={0,0,127}));
-  connect(samTZonCooSet.y, add3.u1) annotation (Line(points={{-139,440},{-128,440},
-          {-128,426},{-150,426},{-150,206},{-112,206},{-112,146},{-102,146}},
-        color={0,0,127}));
+  connect(samTZonCooSet.y, add2.u1)
+    annotation (Line(points={{-139,440},{-128,440},{-128,426},{-150,426},
+      {-150,206},{-102,206}}, color={0,0,127}));
+  connect(samTZonCooSet.y, add3.u1)
+    annotation (Line(points={{-139,440},{-128,440},{-128,426},{-150,426},
+      {-150,206},{-112,206},{-112,146},{-102,146}}, color={0,0,127}));
   connect(hys7.u, VDisSet_flow)
     annotation (Line(points={{-62,30},{-200,30}}, color={0,0,127}));
-  connect(add2.u2, TZon) annotation (Line(points={{-102,194},{-150,194},{-150,170},
-          {-200,170}}, color={0,0,127}));
-  connect(add3.u2, TZon) annotation (Line(points={{-102,134},{-150,134},{-150,170},
-          {-200,170}}, color={0,0,127}));
+  connect(add2.u2, TZon)
+    annotation (Line(points={{-102,194},{-150,194},{-150,170},{-200,170}},
+      color={0,0,127}));
+  connect(add3.u2, TZon)
+    annotation (Line(points={{-102,134},{-150,134},{-150,170},{-200,170}},
+      color={0,0,127}));
   connect(greEqu.u1, gai1.y)
     annotation (Line(points={{-62,-40},{-79,-40}}, color={0,0,127}));
-  connect(greEqu.u2, sampler1.y) annotation (Line(points={{-62,-48},{-72,-48},{-72,
-          -70},{-139,-70}}, color={0,0,127}));
-  connect(greEqu.y, and3.u2) annotation (Line(points={{-39,-40},{0,-40},{0,-48},
-          {38,-48}}, color={255,0,255}));
-  connect(gai2.y, greEqu1.u1) annotation (Line(points={{-79,-88},{-76,-88},{-76,
-          -100},{-62,-100}}, color={0,0,127}));
-  connect(sampler1.y, greEqu1.u2) annotation (Line(points={{-139,-70},{-132,-70},
-          {-132,-108},{-62,-108}}, color={0,0,127}));
-  connect(greEqu1.y, and4.u2) annotation (Line(points={{-39,-100},{0,-100},{0,-108},
-          {38,-108}}, color={255,0,255}));
+  connect(greEqu.u2, sampler1.y)
+    annotation (Line(points={{-62,-48},{-72,-48},{-72,-70},{-139,-70}},
+      color={0,0,127}));
+  connect(greEqu.y, and3.u2)
+    annotation (Line(points={{-39,-40},{0,-40},{0,-48},{38,-48}},
+      color={255,0,255}));
+  connect(gai2.y, greEqu1.u1)
+    annotation (Line(points={{-79,-88},{-76,-88},{-76,-100},{-62,-100}},
+      color={0,0,127}));
+  connect(sampler1.y, greEqu1.u2)
+    annotation (Line(points={{-139,-70},{-132,-70},{-132,-108},{-62,-108}},
+      color={0,0,127}));
+  connect(greEqu1.y, and4.u2)
+    annotation (Line(points={{-39,-100},{0,-100},{0,-108},{38,-108}},
+      color={255,0,255}));
+
 annotation (
   defaultComponentName="sysReqRehBox",
   Diagram(coordinateSystem(preserveAspectRatio=
