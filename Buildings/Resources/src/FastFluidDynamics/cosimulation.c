@@ -7,8 +7,14 @@
 	* \author Wangda Zuo
 	*         University of Miami
 	*         W.Zuo@miami.edu
+	*         Xu Han
+	*         University of Colorado Boulder
+	*         xuha3556@colorado.edu	
+	*         Tian Wei
+	*         University of Miami
+	*         W.tian@miami.edu	
 	*
-	* \date   8/3/2013
+	* \date   2/19/2019
 	*
 	* This file provides functions that are used for conducting the coupled simulation
 	* with Modelica
@@ -235,10 +241,14 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
               para->cosim->modelica->flag);
       ffd_log(msg, FFD_NORMAL);
     }
-
-    Sleep(1000);
+		/*return when detecting stop command*/
+		if (para->cosim->para->flag==0){
+				return 0;
+		}		
+		
+    Sleep(10);
     if(para->outp->version==DEBUG)
-      ffd_log("read_cosim_data(): Sleep for 1000.", FFD_NORMAL);
+      ffd_log("read_cosim_data(): Sleep for 0.01s.", FFD_NORMAL);
   }
 
   if(para->outp->version==DEBUG) {
@@ -331,7 +341,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
   while(para->cosim->ffd->flag==1) {
     ffd_log("write_cosim_data(): Wait since previous data is not taken "
             "by Modelica", FFD_NORMAL);
-    Sleep(1000);
+    Sleep(10);
   }
 
   /****************************************************************************
