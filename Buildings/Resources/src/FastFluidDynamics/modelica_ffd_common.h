@@ -37,6 +37,7 @@ typedef struct {
 
 typedef struct {
   REAL t; /* Current time of integration*/
+	REAL lt; /* Last time of integration*/
   int flag; /* To control the data exchange. 0: old data, 1: new data; -1: Stop coupled simulation*/
   REAL dt; /* Time step size for next synchronization*/
   REAL *temHea; /* temHea[nSur]: Temperature or heat flow rate depending on surBou.bouCon*/

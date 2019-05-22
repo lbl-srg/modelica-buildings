@@ -72,8 +72,8 @@ equation
   connect(mWat_flow.y, hADryCoiWat.m1_flow) annotation (Line(points={{-59,70},{
           -20,70},{-20,-33},{-1,-33}}, color={0,0,127}));
   annotation ( __Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HADryCoil.mos"
-  "Simulate and plot"),
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HADryCoil.mos"
+        "Simulate and plot"),
   experiment(StopTime=80.0,
              Tolerance=1E-6),
   Documentation(info="<html>
