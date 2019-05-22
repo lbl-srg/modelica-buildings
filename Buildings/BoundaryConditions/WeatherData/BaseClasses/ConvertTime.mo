@@ -22,26 +22,20 @@ protected
   parameter Boolean canRepeatWeatherFile = abs(mod(lenWea, 365*24*3600)) < 1E-2
     "=true, if the weather file can be repeated, since it has the length of a year or a multiple of it";
 
-  Modelica.SIunits.Time tNext "Start time of next period";
-  function getNextTime "Function that computes the next time when a switch needs to happen"
-    input Modelica.SIunits.Time modelTime "Model time";
-    input Modelica.SIunits.Time lengthWeather "Length of weather data";
-    output Modelica.SIunits.Time t "Next time when switch needs to happen";
-  algorithm
-    t := integer(modelTime/lengthWeather)*lengthWeather + lengthWeather;
-  end getNextTime;
-initial equation
-  tNext = getNextTime(modTim, lenWea);
+  discrete Modelica.SIunits.Time tNext(start=0, fixed=true) "Start time of next period";
 
 equation
   if canRepeatWeatherFile then
-    when modTim > pre(tNext) then
+    when {initial(), modTim > pre(tNext)} then
       // simulation time stamp went over the end time of the weather file
       //(last time stamp of the weather file + average increment)
-      tNext = getNextTime(modTim, lenWea);
+      tNext = integer(modTim/lenWea)*lenWea + lenWea;
     end when;
     calTim = modTim - tNext + lenWea;
   else
+    when initial() then
+      tNext = time;
+    end when;
     calTim = modTim;
     assert((time - weaDatEndTim) < shiftSolarRad,
       "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
