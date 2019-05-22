@@ -24,10 +24,14 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
         ModelicaFormatMessage("fmi2Terminate returned with non-OK status for building %s.", ptrBui->name);
       }
     }
-    writeFormatLog(2, "fmi2_import_destroy_dllfmu: destroying dll fmu.");
-    fmi2_import_destroy_dllfmu(ptrBui->fmu);
-  	fmi2_import_free(ptrBui->fmu);
-  	fmi_import_free_context(ptrBui->context);
+    if (ptrBui->fmu != NULL){
+      writeFormatLog(2, "fmi2_import_destroy_dllfmu: destroying dll fmu.");
+      fmi2_import_destroy_dllfmu(ptrBui->fmu);
+      fmi2_import_free(ptrBui->fmu);
+    }
+    if (ptrBui->context != NULL){
+      fmi_import_free_context(ptrBui->context);
+    }
 
     free(ptrBui->name);
     free(ptrBui->weather);
