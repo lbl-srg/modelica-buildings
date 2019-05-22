@@ -424,11 +424,11 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* 
   else{
     Buildings_FMUS[nFMU]->usePrecompiledFMU = true;
     /* Copy name of precompiled FMU */
-    Buildings_FMUS[nFMU]->precompiledFMUAbsPat = malloc(strlen((fmuName)+1) * sizeof(char));
+    Buildings_FMUS[nFMU]->precompiledFMUAbsPat = malloc((strlen(fmuName)+1) * sizeof(char));
     if (Buildings_FMUS[nFMU]->precompiledFMUAbsPat == NULL){
      ModelicaFormatError("Failed to allocate memory for FMU name for %s.", idfName);
     }
-    memset(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, '\0', strlen((fmuName)+1));
+    memset(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, '\0', strlen(fmuName)+1);
     strcpy(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, fmuName);
   }
   /* Create the temporary directory */
