@@ -7,8 +7,14 @@ ARCH = $(shell getconf LONG_BIT)
 # Michael Wetter (MWetter@lbl.gov) October 24, 2012
 
 # Python directories
-PYTHONInc=/home/agautier/miniconda2/include/python2.7
-PYTHONLib=/home/agautier/miniconda2/lib
+# PYTHONHOME must be defined before running the make file.
+# For instance:
+#   export PYTHONHOME=$HOME/miniconda3/envs/python2
+ifndef PYTHONHOME
+$(error PYTHONHOME is not set)
+endif
+PYTHONInc=$(PYTHONHOME)/include/python2.7
+PYTHONLib=$(PYTHONHOME)/lib
 
 # Directory where executable will be copied to
 BINDIR = ../../Library/linux$(ARCH)
