@@ -255,11 +255,11 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Continuous.Add add3 if anyVsdCen "Subtract"
     annotation (Placement(transformation(extent={{120,-482},{140,-462}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const3(k=-1) if nVsdCen == 0
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const3(k=-1) if not anyVsdCen
     "Constant"
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const4(k=-1) if nVsdCen == 0
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const4(k=-1) if not anyVsdCen
     "Constant"
     annotation (Placement(transformation(extent={{-40,-260},{-20,-240}})));
 
@@ -299,14 +299,14 @@ block PartLoadRatios
   CDL.Logical.Switch swi4
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
 
-  CDL.Continuous.Sources.Constant const5(k=1) if  nVsdCen == 0
+  CDL.Continuous.Sources.Constant const5(k=1)
     "If staging from 1 to 0 staging down part load ratio is 1"
     annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
 
   CDL.Integers.Equal intEqu4
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
 
-  CDL.Integers.Max                        maxInt1
+  CDL.Integers.Max maxInt1
     annotation (Placement(transformation(extent={{-230,220},{-210,240}})));
 
   CDL.Interfaces.IntegerInput uStaTyp[nSta](final min=fill(1, nSta), final max=

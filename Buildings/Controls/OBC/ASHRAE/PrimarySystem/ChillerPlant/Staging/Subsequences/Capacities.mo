@@ -66,10 +66,6 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   final parameter Integer staRan[nSta] = {i for i in 1:nSta}
   "Range with all possible stage values";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staCap[nSta](
-    final k=staNomCap) "Array of chiller stage nominal capacities"
-    annotation (Placement(transformation(extent={{-220,270},{-200,290}})));
-
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
     final k=1) "Constant integer"
     annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
@@ -128,10 +124,6 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     final k=large) "Large number to prevent staging up at the highest stage"
     annotation (Placement(transformation(extent={{140,220},{160,240}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaCap[nSta](
-    final k=minStaUnlCap) "Array of chiller stage minimal unload capacities"
-    annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
-
   Buildings.Controls.OBC.CDL.Integers.Add subInt(
     final k1=-1) "Subtracts from index"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
@@ -159,27 +151,6 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   Modelica.Blocks.Logical.Switch swi1
     "Use minimum stage capacity for nominal stage down capacity if operating in the lowest available stage"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain matGai(final K=lowDia)
-    annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain matGai1(final K=lowDia)
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nSta]
-    annotation (Placement(transformation(extent={{-220,-120},{-200,-100}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta]
-    "Multiplies each stage capacity with the availability status"
-    annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nSta]
-    "Type converter"
-    annotation (Placement(transformation(extent={{-220,210},{-200,230}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nSta]
-    "Multiplies each stage capacity with the availability status"
-    annotation (Placement(transformation(extent={{-180,240},{-160,260}})));
 
   Buildings.Controls.OBC.CDL.Integers.Min forCurSta
     "Limiter for current stage capacity extraction"
@@ -220,41 +191,23 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   CDL.Integers.MultiSum mulSumInt1(nin=nSta, k=fill(1, nSta))
     "Counts number of available stages"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+  CDL.Interfaces.RealInput uNomCap[nSta](final quantity="Power", final unit="W")
+    "Nominal stage capacities considering the chiller availability" annotation
+    (Placement(transformation(extent={{-300,238},{-260,278}}),
+        iconTransformation(extent={{-120,40},{-100,60}})));
+  CDL.Interfaces.RealInput uMinCap[nSta](final quantity="Power", final unit="W")
+    "Unload stage capacities considering the chiller availability" annotation (
+      Placement(transformation(extent={{-302,-272},{-262,-232}}),
+        iconTransformation(extent={{-120,40},{-100,60}})));
 equation
   connect(uSta, addInt.u1) annotation (Line(points={{-280,80},{-130,80},{-130,36},
           {-102,36}}, color={255,127,0}));
   connect(one.y, addInt.u2) annotation (Line(points={{-199,0},{-120,0},{-120,24},
           {-102,24}},     color={255,127,0}));
-  connect(matGai.y, extStaCap.u) annotation (Line(points={{-119,250},{-50,250},{
-          -50,210},{-42,210}}, color={0,0,127}));
-  connect(uStaAva, booToRea.u) annotation (Line(points={{-280,-40},{-240,-40},{-240,
-          -110},{-222,-110}},       color={255,0,255}));
-  connect(pro.y, matGai1.u)
-    annotation (Line(points={{-159,-90},{-142,-90}},   color={0,0,127}));
-  connect(minStaCap.y, pro.u1) annotation (Line(points={{-199,-70},{-190,-70},{-190,
-          -84},{-182,-84}},         color={0,0,127}));
-  connect(booToRea.y, pro.u2) annotation (Line(points={{-199,-110},{-190,-110},{
-          -190,-96},{-182,-96}},   color={0,0,127}));
-  connect(pro1.y, matGai.u)
-    annotation (Line(points={{-159,250},{-142,250}}, color={0,0,127}));
-  connect(staCap.y, pro1.u1) annotation (Line(points={{-199,280},{-190,280},{-190,
-          256},{-182,256}}, color={0,0,127}));
-  connect(booToRea1.y, pro1.u2) annotation (Line(points={{-199,220},{-190,220},{
-          -190,244},{-182,244}}, color={0,0,127}));
-  connect(uStaAva, booToRea1.u) annotation (Line(points={{-280,-40},{-240,-40},{
-          -240,220},{-222,220}},  color={255,0,255}));
-  connect(matGai1.y, extStaUpCapMin.u) annotation (Line(points={{-119,-90},{80,-90},
-          {80,-30},{98,-30}},         color={0,0,127}));
-  connect(matGai1.y, extStaCapMin.u) annotation (Line(points={{-119,-90},{98,-90}},
-                                 color={0,0,127}));
   connect(uSta, subInt.u2) annotation (Line(points={{-280,80},{-130,80},{-130,54},
           {-102,54}}, color={255,127,0}));
   connect(one.y, subInt.u1) annotation (Line(points={{-199,0},{-140,0},{-140,66},
           {-102,66}},     color={255,127,0}));
-  connect(matGai.y, extStaLowCap.u) annotation (Line(points={{-119,250},{-60,250},
-          {-60,140},{-2,140}},   color={0,0,127}));
-  connect(matGai.y, extStaUpCap.u) annotation (Line(points={{-119,250},{90,250},
-          {90,140},{98,140}},             color={0,0,127}));
   connect(maxSta.y, forCurSta.u1) annotation (Line(points={{-199,100},{-190,100},
           {-190,166},{-102,166}},   color={255,127,0}));
   connect(uSta, forCurSta.u2) annotation (Line(points={{-280,80},{-180,80},{-180,
@@ -348,6 +301,17 @@ equation
           170,266.5},{178,266.5}}, color={255,0,255}));
   connect(booToInt1.y, mulSumInt1.u) annotation (Line(points={{-79,-40},{-70,
           -40},{-70,-40},{-62,-40}},           color={255,127,0}));
+  connect(uMinCap, extStaUpCapMin.u) annotation (Line(points={{-282,-252},{-110,
+          -252},{-110,-78},{20,-78},{20,-30},{98,-30}}, color={0,0,127}));
+  connect(uMinCap, extStaCapMin.u) annotation (Line(points={{-282,-252},{-138,
+          -252},{-138,-274},{34,-274},{34,-84},{98,-84},{98,-90}}, color={0,0,
+          127}));
+  connect(uNomCap, extStaCap.u) annotation (Line(points={{-280,258},{-160,258},
+          {-160,210},{-42,210}}, color={0,0,127}));
+  connect(uNomCap, extStaLowCap.u) annotation (Line(points={{-280,258},{-230,
+          258},{-230,182},{-44,182},{-44,140},{-2,140}}, color={0,0,127}));
+  connect(uNomCap, extStaUpCap.u) annotation (Line(points={{-280,258},{70,258},
+          {70,146},{98,146},{98,140}}, color={0,0,127}));
   annotation (defaultComponentName = "staCap",
         Icon(graphics={
         Rectangle(
