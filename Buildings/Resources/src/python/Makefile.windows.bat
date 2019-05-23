@@ -23,38 +23,62 @@ SET MOD_LIB=ModelicaBuildingsPython2.7.lib
 SET DUMMY_SRC=dummy.c
 SET DUMMY_DLL=python2.7.dll
 
-:: The first parameter is the architecture flag (x86 or x64).
+REM The first parameter is the architecture flag (x86 or x64).
+REM + Architecture related paths must be specified before running the batch file:
+REM   PYTHONHOME and CLPATH (compiler path).
+REM + For compiling on Win32: need to properly set up Python environment first.
+REM So for instance (from the command line in CMD.EXE):
+REM x86
+REM   set CONDA_FORCE_32BIT=1
+REM   activate {name of Python 32-bit environment}
+REM   set PYTHONHOME=%HOME%\Miniconda2\envs\{name of Python 32-bit environment}
+REM   set CLPATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+REM x64
+REM   set CONDA_FORCE_32BIT=
+REM   activate {name of Python 64-bit environment}
+REM   set PYTHONHOME=%HOME%\Miniconda2\envs\{name of Python 64-bit environment}
+REM   set CLPATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+
 IF NOT -%1-==-- (
   IF "%~1"=="x86" SET ARCH=%~1
   IF "%~1"=="x64" SET ARCH=%~1
 )
-IF "%ARCH%"=="" (
-  SET /A errno=1
+
+VERIFY OTHER 2>nul
+SETLOCAL ENABLEEXTENSIONS
+IF ERRORLEVEL 1 ECHO Unable to enable extensions.
+
+IF NOT DEFINED ARCH (
   ECHO Unknown system architecture: specify either x86 or x64.
   EXIT /B 1
 )
+IF DEFINED PYTHONHOME (
+  ECHO PYTHONHOME is: %PYTHONHOME%
+) ELSE (
+  ECHO PYTHONHOME is not set: compilation aborted.
+  EXIT /B 1
+)
+IF DEFINED CLPATH (
+  ECHO CLPATH ^(compiler path^) is: %CLPATH%
+) ELSE (
+  ECHO CLPATH ^(compiler path^) is not set: compilation aborted.
+  EXIT /B 1
+)
 
-:: Specify architecture related paths.
-REM For testing on Win32: need to run the following commands before batch to properly set up Python environment.
-REM set CONDA_FORCE_32BIT=1
-REM activate py27_32
-REM PYTHONHOME is set here for testing purposes as well.
+ENDLOCAL
+
 IF %ARCH%==x86 (
-  ECHO Windows 32 bit compilation activated.
-  SET PYTHONHOME=C:\Users\agautier\Miniconda2\envs\py27_32
-  SET PYTHONInc=C:\Users\agautier\Miniconda2\envs\py27_32\include
-  SET PYTHONLibs=C:\Users\agautier\Miniconda2\envs\py27_32\libs\python27.lib
   SET BINDIR=..\..\Library\win32
-  SET CLPATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+  ECHO Windows 32 bit compilation activated.
 )
 IF %ARCH%==x64 (
-  ECHO Windows 64 bit compilation activated.
-  SET PYTHONHOME=C:\Users\agautier\Miniconda2
-  SET PYTHONInc=C:\Users\agautier\Miniconda2\include
-  SET PYTHONLibs=C:\Users\agautier\Miniconda2\libs\python27.lib
   SET BINDIR=..\..\Library\win64
-  SET CLPATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+  ECHO Windows 64 bit compilation activated.
 )
+ECHO DLL will be saved in: %BINDIR%.
+
+SET PYTHONInc=%PYTHONHOME%\include
+SET PYTHONLibs=%PYTHONHOME%\libs\python27.lib
 
 CALL %CLPATH%
 IF %ERRORLEVEL% neq 0 (
@@ -102,13 +126,13 @@ IF %ERRORLEVEL% neq 0 (
   ECHO Test program succeeded.
 )
 
-ECHO Rename library file
+ECHO Rename library file.
 ren %LIBS% %MOD_LIB%
 
-ECHO Copy files to the Library
-move %MOD_DLL% %BINDIR%
-move %MOD_LIB% %BINDIR%
-move %DUMMY_DLL% %BINDIR%
+ECHO Move files to the Library.
+move /Y %MOD_DLL% %BINDIR%
+move /Y %MOD_LIB% %BINDIR%
+move /Y %DUMMY_DLL% %BINDIR%
 IF %ERRORLEVEL% neq 0 (
     ECHO Error while trying to move the binaries.
     SET /A errno=%ERRORLEVEL%
@@ -116,7 +140,8 @@ IF %ERRORLEVEL% neq 0 (
 )
 
 : done
-ECHO Delete temporary files
+ECHO Delete temporary files.
+
 :: Delete object files
 del *.obj
 
