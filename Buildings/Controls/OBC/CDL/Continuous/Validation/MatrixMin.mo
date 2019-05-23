@@ -23,13 +23,13 @@ model MatrixMin "Validation model for the MatrixMin block"
     ninc=3,
     rowMin=false,
     ninr=2) "Matrix minimum"
-            annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMin matMin2(
     ninc=3,
     rowMin=true,
     ninr=2) "Matrix minimum"
-            annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
 equation
   connect(con.y, matMin.u)

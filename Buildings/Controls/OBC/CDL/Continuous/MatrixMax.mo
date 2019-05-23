@@ -25,14 +25,15 @@ equation
     defaultComponentName="matMax",
     Documentation(info="<html>
 <p>
-This blocks computes output vector <code>y</code> as the row-wise or 
-column-wise (depending on the <code>rowMin</code> value) maximum of the input 
+This blocks computes output vector <code>y</code> as the row-wise 
+(if <code>rowMin</code> is <code>true</code>) or 
+column-wise (if <code>rowMin</code> is <code>false</code>) maximum of the input 
 matrix <code>u</code>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-February 11, 2019, by Milica Grahovac:<br/>
+May 17, 2019, by Milica Grahovac:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
 </li>
