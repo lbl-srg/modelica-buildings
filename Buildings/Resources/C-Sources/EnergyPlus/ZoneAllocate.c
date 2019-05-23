@@ -52,6 +52,7 @@ void* ZoneAllocate(
   const char* modelicaInstanceName,
   int usePrecompiledFMU,
   const char* fmuName,
+  const char* buildingsLibraryRoot,
   const int verbosity){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference
      for the zone with zoneName can be obtained */
@@ -78,6 +79,8 @@ void* ZoneAllocate(
   }
 
   writeFormatLog(1, "Entered ZoneAllocate for building %s", idfName);
+  writeFormatLog(0, "Buildings library root is at %s", buildingsLibraryRoot);
+
   writeFormatLog(1, "Allocating memory for zone %s.", zoneName);
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
   setPointerIfAlreadyInstanciated(modelicaInstanceName, &zone);
@@ -149,7 +152,7 @@ void* ZoneAllocate(
   if (nFMU == 0){
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
-    zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, usePrecompiledFMU, fmuName);
+    zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, usePrecompiledFMU, fmuName, buildingsLibraryRoot);
     /*zone->index = 1;*/
   } else {
     /* There is already a Buildings FMU allocated.
@@ -190,7 +193,7 @@ void* ZoneAllocate(
       /* Check if we found an FMU */
       if (zone->ptrBui == NULL){
         /* Did not find an FMU. */
-        zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, usePrecompiledFMU, fmuName);
+        zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, usePrecompiledFMU, fmuName, buildingsLibraryRoot);
       }
   }
 

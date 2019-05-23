@@ -15,10 +15,5 @@
 #include "JM/jm_portability.h"
 
 void generateAndInstantiateBuilding(FMUBuilding* bui);
-/*
-void writeModelStructureForEnergyPlus(const FMUBuilding* bui);
-void setValueReferences(FMUBuilding* fmuBui);
-void generateFMU(const char* FMUPath);
-void setEnergyPlusDebugLevel(FMUBuilding* bui);
-*/
+
 #endif

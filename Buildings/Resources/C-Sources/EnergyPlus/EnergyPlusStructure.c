@@ -357,7 +357,8 @@ void createDirectory(const char* dirName){
 
 FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
   const char* iddName, const char* zoneName, FMUZone* zone,
-  int usePrecompiledFMU, const char* fmuName){
+  int usePrecompiledFMU, const char* fmuName,
+  const char* buildingsLibraryRoot){
   /* Allocate memory */
 
   const size_t nFMU = getBuildings_nFMU();
@@ -383,6 +384,12 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* 
   Buildings_FMUS[nFMU]->zoneNames = malloc(sizeof(char*));
   if ( Buildings_FMUS[nFMU]->zoneNames == NULL )
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate array for Buildings_FMUS[0]->zoneNames.");
+
+  /* Assign the Buildings library root */
+  Buildings_FMUS[nFMU]->buildingsLibraryRoot = (char*) malloc((strlen(buildingsLibraryRoot)+1) * sizeof(char));
+  if ( Buildings_FMUS[nFMU]->buildingsLibraryRoot == NULL )
+    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate buildingsLibraryRoot.");
+  strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
 
   /* Assign the fmu name */
   Buildings_FMUS[nFMU]->name = (char*) malloc((strlen(idfName)+1) * sizeof(char));

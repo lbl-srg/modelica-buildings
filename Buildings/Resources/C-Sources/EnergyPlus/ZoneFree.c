@@ -33,6 +33,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
       fmi_import_free_context(ptrBui->context);
     }
 
+    free(ptrBui->buildingsLibraryRoot);
     free(ptrBui->name);
     free(ptrBui->weather);
     free(ptrBui->idd);

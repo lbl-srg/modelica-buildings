@@ -68,6 +68,7 @@ typedef struct FMUBuilding
   fmi2_import_t* fmu;
   fmi_import_context_t* context;
   const char* GUID;
+  char* buildingsLibraryRoot; /* Root directory of Buildings library */
   fmi2Byte* name;
   fmi2Byte* weather;
   fmi2Byte* idd;
@@ -145,7 +146,8 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(
   const char* iddName,
   const char* zoneName, FMUZone* zone,
   int usePrecompiledFMU,
-  const char* fmuName);
+  const char* fmuName,
+  const char* buildingsLibraryRoot);
 
 FMUBuilding* getBuildingsFMU(size_t iFMU);
 void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam);

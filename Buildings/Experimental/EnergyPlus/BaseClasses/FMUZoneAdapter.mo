@@ -9,7 +9,7 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Name of the Energyplus IDD file";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter Boolean usePrecompiledFMU = true
+  parameter Boolean usePrecompiledFMU = false
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation(Dialog(tab="Debug"));
 
@@ -88,6 +88,11 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
 protected
   constant String modelicaInstanceName = getInstanceName()
     "Name of this instance";
+  constant String buildingsLibraryRoot = Modelica.Utilities.Strings.replace(
+    string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("file://Buildings/package.mo")),
+    searchString="/package.mo",
+    replaceString="") "Root directory of the Buildings library (used to find the spawn executable";
+
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass adapter=
     Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass(
       idfName=idfName,
@@ -97,6 +102,7 @@ protected
       modelicaInstanceName=modelicaInstanceName,
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
+      buildingsLibraryRoot=buildingsLibraryRoot,
       verbosity=verbosity)
     "Class to communicate with EnergyPlus";
 

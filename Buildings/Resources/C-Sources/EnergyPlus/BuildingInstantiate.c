@@ -61,7 +61,7 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
 }
 
 
-void writeModelStructureForEnergyPlus(const FMUBuilding* bui){
+void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBuildingsJsonFile){
   char * buffer;
   size_t size;
   size_t lenNam;
@@ -82,21 +82,20 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui){
   /* Write to file */
   /* Build the file name */
   lenNam = strlen(bui->tmpDir) + strlen(SEPARATOR) + strlen(MOD_BUI_JSON);
-  filNam = malloc((lenNam+1) * sizeof(char));
-  if (filNam == NULL)
+  *modelicaBuildingsJsonFile = malloc((lenNam+1) * sizeof(char));
+  if (modelicaBuildingsJsonFile == NULL)
     ModelicaFormatError("Failed to allocate memory for name of '%s' file.", MOD_BUI_JSON);
-  memset(filNam, '\0', lenNam+1);
-  strcpy(filNam, bui->tmpDir);
-  strcat(filNam, SEPARATOR);
-  strcat(filNam, MOD_BUI_JSON);
+  memset(*modelicaBuildingsJsonFile, '\0', lenNam+1);
+  strcpy(*modelicaBuildingsJsonFile, bui->tmpDir);
+  strcat(*modelicaBuildingsJsonFile, SEPARATOR);
+  strcat(*modelicaBuildingsJsonFile, MOD_BUI_JSON);
 
   /* Open and write file */
-  fp = fopen(filNam, "w");
+  fp = fopen(*modelicaBuildingsJsonFile, "w");
   if (fp == NULL)
-    ModelicaFormatError("Failed to open '%s' with write mode.", filNam);
+    ModelicaFormatError("Failed to open '%s' with write mode.", *modelicaBuildingsJsonFile);
   fprintf(fp, "%s", buffer);
   fclose(fp);
-  free(filNam);
 }
 
 void setValueReference(
@@ -166,9 +165,14 @@ void setValueReferences(FMUBuilding* fmuBui){
   return;
 }
 
-void generateFMU(bool usePrecompiledFMU, const char* precompiledFMUPath, const char* FMUPath){
+void generateFMU(
+  bool usePrecompiledFMU,
+  const char* precompiledFMUPath,
+  const char* FMUPath,
+  const char* modelicaBuildingsJsonFile,
+  const char* buildingsLibraryRoot){
   /* Generate the FMU */
-  const char* cmd = "cp -p ";
+  char* cmd;
   char* testFMU;
   char* fulCmd;
   size_t len;
@@ -182,7 +186,7 @@ void generateFMU(bool usePrecompiledFMU, const char* precompiledFMUPath, const c
     if( access( precompiledFMUPath, F_OK ) == -1 ) {
       ModelicaFormatError("Requested to use fmu '%s' which does not exist.", precompiledFMUPath);
     }
-
+    cmd = "cp -p ";
     len = strlen(cmd) + strlen(FMUPath) + 1 + strlen(precompiledFMUPath) + 1;
     fulCmd = malloc(len * sizeof(char));
     if (fulCmd == NULL){
@@ -193,18 +197,31 @@ void generateFMU(bool usePrecompiledFMU, const char* precompiledFMUPath, const c
     strcat(fulCmd, precompiledFMUPath);
     strcat(fulCmd, " ");
     strcat(fulCmd, FMUPath);
-    /* Copy the FMU */
-    writeFormatLog(1, "Executing %s", fulCmd);
-    retVal = system(fulCmd);
-    if (retVal != 0){
-      ModelicaFormatError("Generating FMU failed using command '%s'.", fulCmd);
-    }
-    free(fulCmd);
-
   }
   else{
-    ModelicaError("Can currently only use pre-compiled FMUs.");
+    if( access( modelicaBuildingsJsonFile, F_OK ) == -1 ) {
+      ModelicaFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
+
+    cmd = "/Resources/bin/spawn-linux64/bin/spawn -c ";
+
+    len = strlen(buildingsLibraryRoot) + strlen(cmd) + strlen(modelicaBuildingsJsonFile) + 1;
+    fulCmd = malloc(len * sizeof(char));
+    if (fulCmd == NULL){
+      ModelicaFormatError("Failed to allocate memory in generateFMU().");
+    }
+    memset(fulCmd, '\0', len);
+    strcpy(fulCmd, buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
+    strcat(fulCmd, cmd);
+    strcat(fulCmd, modelicaBuildingsJsonFile);
+    }
   }
+  /* Copy or generate the FMU */
+  writeFormatLog(1, "Executing %s", fulCmd);
+  retVal = system(fulCmd);
+  if (retVal != 0){
+    ModelicaFormatError("Generating FMU failed using command '%s'.", fulCmd);
+  }
+  free(fulCmd);
 }
 
 void setEnergyPlusDebugLevel(FMUBuilding* bui){
@@ -299,18 +316,26 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   /* This is the first call for this idf file.
      Allocate memory and load the fmu.
   */
+  char* modelicaBuildingsJsonFile;
 
   writeFormatLog(2, "Entered ZoneAllocateAndInstantiateBuilding.");
 
-  generateFMU(bui->usePrecompiledFMU, bui->precompiledFMUAbsPat, bui->fmuAbsPat);
+  /* Write the model structure to the FMU Resources folder so that EnergyPlus can
+     read it and set up the data structure.
+  */
+  writeModelStructureForEnergyPlus(bui, &modelicaBuildingsJsonFile);
+  generateFMU(
+      bui->usePrecompiledFMU,
+      bui->precompiledFMUAbsPat,
+      bui->fmuAbsPat,
+      modelicaBuildingsJsonFile,
+      bui->buildingsLibraryRoot);
+  free(modelicaBuildingsJsonFile);
 
   if( access( bui->fmuAbsPat, F_OK ) == -1 ) {
     ModelicaFormatError("Requested to load fmu '%s' which does not exist.", bui->fmuAbsPat);
   }
-  /* Write the model structure to the FMU Resources folder so that EnergyPlus can
-     read it and set up the data structure.
-  */
-  writeModelStructureForEnergyPlus(bui);
+
   importEnergyPlusFMU(bui);
   setEnergyPlusDebugLevel(bui);
   /* Set the value references for all parameters, inputs and outputs */

@@ -14,6 +14,7 @@ model FMUZoneAdapterZones2
     final idfName=idfName,
     final weaName=weaName,
     final zoneName="Core_ZN",
+    usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
     final nFluPor=2) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,24},{40,44}})));
@@ -39,6 +40,7 @@ model FMUZoneAdapterZones2
     final idfName=idfName,
     final weaName=weaName,
     final zoneName="South_ZN",
+    usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
     final nFluPor=2) "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
