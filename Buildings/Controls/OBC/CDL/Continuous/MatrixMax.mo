@@ -25,9 +25,8 @@ equation
     defaultComponentName="matMax",
     Documentation(info="<html>
 <p>
-This blocks computes output vector <code>y</code> as the row-wise 
-(if <code>rowMin</code> is <code>true</code>) or 
-column-wise (if <code>rowMin</code> is <code>false</code>) maximum of the input 
+This blocks computes output vector <code>y</code> as the row-wise, if <code>rowMin</code> is <code>true</code>, or 
+column-wise, if <code>rowMin</code> is <code>false</code>, maximum of the input 
 matrix <code>u</code>.
 </p>
 </html>", revisions="<html>
