@@ -3,11 +3,11 @@ block MatrixMax "Output vector of row- or column-wise maximum values"
 
   parameter Boolean rowMin = true "If true outputs row-wise maximum, otherwise column-wise";
 
-  parameter Integer ninr(min=0) "Number or input matrix rows";
+  parameter Integer nRow(min=0) "Number or input matrix rows";
 
-  parameter Integer ninc(min=0) "Number or input matrix columns";
+  parameter Integer nCol(min=0) "Number or input matrix columns";
 
-  Interfaces.RealInput u[ninr, ninc] "Connector of Real input signals"
+  Interfaces.RealInput u[nRow, nCol] "Connector of Real input signals"
     annotation (Placement(
       transformation(extent={{-140,-20},{-100,20}})));
 

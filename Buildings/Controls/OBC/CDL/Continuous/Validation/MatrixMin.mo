@@ -14,21 +14,21 @@ model MatrixMin "Validation model for the MatrixMin block"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMin matMin(
-    ninr=3,
-    ninc=3,
+    nRow=3,
+    nCol=3,
     rowMin=false) "Matrix minimum"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMin matMin1(
-    ninc=3,
+    nCol=3,
     rowMin=false,
-    ninr=2) "Matrix minimum"
+    nRow=2) "Matrix minimum"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMin matMin2(
-    ninc=3,
+    nCol=3,
     rowMin=true,
-    ninr=2) "Matrix minimum"
+    nRow=2) "Matrix minimum"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
 equation
