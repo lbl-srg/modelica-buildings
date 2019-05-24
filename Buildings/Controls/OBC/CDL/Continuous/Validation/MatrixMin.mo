@@ -1,34 +1,34 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model MatrixMin "Validation model for the MatrixMin block"
 
-  Sources.Constant con[3,3](k={{1,2,3},{0,0,0},{2,6,9}})
+  Sources.Constant con[3,3](k={{-1,-2,-3},{-6,-4,-2},{-3,-9,-6}})
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  Sources.Constant con1[2,3](k={{0,0,0},{2,4,6}})
+  Sources.Constant con1[2,3](k={{-1,-4,-3},{-2,-2,-6}})
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Sources.Constant con2[2,3](k={{0,1,1},{2,0,6}})
+  Sources.Constant con2[2,3](k={{-1,-2,-3},{-6,-4,-2}})
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMin matMin(
-    ninr=3,
-    ninc=3,
+    nRow=3,
+    nCol=3,
     rowMin=false) "Matrix minimum"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMin matMin1(
-    ninc=3,
+    nCol=3,
     rowMin=false,
-    ninr=2) "Matrix minimum"
+    nRow=2) "Matrix minimum"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMin matMin2(
-    ninc=3,
+    nCol=3,
     rowMin=true,
-    ninr=2) "Matrix minimum"
+    nRow=2) "Matrix minimum"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
 equation
