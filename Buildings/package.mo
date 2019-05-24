@@ -206,6 +206,16 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixMin
+        </td>
+        <td valign=\"top\">Output vector of row- or column-wise minimum values.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixMax
+        </td>
+        <td valign=\"top\">Output vector of row- or column-wise maximum values.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixGain
         </td>
         <td valign=\"top\">Output the product of a gain matrix with the input signal vector.

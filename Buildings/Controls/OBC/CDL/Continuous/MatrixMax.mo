@@ -1,22 +1,22 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block MatrixMax "Output vector of row- or column-wise maximum values"
 
-  parameter Boolean rowMin = true "If true outputs row-wise maximum, otherwise column-wise";
+  parameter Boolean rowMax = true "If true, outputs row-wise maximum, otherwise column-wise";
 
-  parameter Integer ninr(min=0) "Number or input matrix rows";
+  parameter Integer nRow(final min=1) "Number of rows in input matrix";
 
-  parameter Integer ninc(min=0) "Number or input matrix columns";
+  parameter Integer nCol(final min=1) "Number of columns in input matrix";
 
-  Interfaces.RealInput u[ninr, ninc] "Connector of Real input signals"
+  Interfaces.RealInput u[nRow, nCol] "Connector of Real input signals"
     annotation (Placement(
       transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.RealOutput y[if rowMin then size(u, 1) else size(u, 2)] "Connector of Real output signals"
+  Interfaces.RealOutput y[if rowMax then size(u, 1) else size(u, 2)] "Connector of Real output signals"
     annotation (Placement(
       transformation(extent={{100,-10},{120,10}})));
 
 equation
-  if rowMin then
+  if rowMax then
     y = {max(u[i,:]) for i in 1:size(u, 1)};
   else
     y = {max(u[:,i]) for i in 1:size(u, 2)};
@@ -25,16 +25,16 @@ equation
     defaultComponentName="matMax",
     Documentation(info="<html>
 <p>
-This blocks computes output vector <code>y</code> as the row-wise, if <code>rowMin</code> is <code>true</code>, or 
-column-wise, if <code>rowMin</code> is <code>false</code>, maximum of the input 
+This blocks computes output vector <code>y</code> as the row-wise,
+if <code>rowMax = true</code>, or
+column-wise, if <code>rowMax = false</code>, maximum of the input
 matrix <code>u</code>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 May 17, 2019, by Milica Grahovac:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
+First implementation.
 </li>
 </ul>
 </html>"),
@@ -53,13 +53,5 @@ Modelica Standard Library.
           lineColor={0,0,0},
           textString="[  ] max()")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={Rectangle(
-            extent={{-100,-100},{100,100}},
-            lineColor={0,0,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),
-                              Text(
-          extent={{-78,-62},{86,68}},
-          lineColor={0,0,0},
-          textString="[  ] max()")}));
+            100,100}})));
 end MatrixMax;
