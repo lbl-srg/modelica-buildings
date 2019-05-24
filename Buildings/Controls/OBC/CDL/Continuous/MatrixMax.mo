@@ -53,13 +53,5 @@ First implementation.
           lineColor={0,0,0},
           textString="[  ] max()")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={Rectangle(
-            extent={{-100,-100},{100,100}},
-            lineColor={0,0,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),
-                              Text(
-          extent={{-78,-62},{86,68}},
-          lineColor={0,0,0},
-          textString="[  ] max()")}));
+            100,100}})));
 end MatrixMax;
