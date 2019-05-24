@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block MatrixMin "Output vector of row- or column-wise minimum values"
 
-  parameter Boolean rowMin = true "If true outputs row-wise minimum, otherwise column-wise";
+  parameter Boolean rowMin = true "If true, outputs row-wise minimum, otherwise column-wise";
 
-  parameter Integer nRow(min=0) "Number or input matrix rows";
+  parameter Integer nRow(final min=1) "Number of rows in input matrix";
 
-  parameter Integer nCol(min=0) "Number or input matrix columns";
+  parameter Integer nCol(final min=1) "Number of columns in input matrix";
 
   Interfaces.RealInput u[nRow, nCol] "Connector of Real input signals"
     annotation (Placement(
@@ -25,16 +25,16 @@ equation
     defaultComponentName="matMin",
     Documentation(info="<html>
 <p>
-This blocks computes output vector <code>y</code> as the row-wise, if <code>rowMin</code> is <code>true</code>, or 
-column-wise, if <code>rowMin</code> is <code>false</code>, minimum of the input 
+This blocks computes the output vector <code>y</code> as the row-wise,
+if <code>rowMin = true</code>, or
+column-wise, if <code>rowMin = false</code>, minimum of the input
 matrix <code>u</code>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 May 17, 2019, by Milica Grahovac:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
+First implementation.
 </li>
 </ul>
 </html>"),
