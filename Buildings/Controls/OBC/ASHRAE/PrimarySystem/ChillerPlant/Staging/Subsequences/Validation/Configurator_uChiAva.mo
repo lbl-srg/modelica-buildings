@@ -8,13 +8,14 @@ model Configurator_uChiAva
     nSta=4,
     nChi=3,
     staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    chiTyp={1,1,2},
     chiNomCap={10,20,10},
-    chiMinCap={1,2,2})
+    chiMinCap={1,2,2},
+    chiTyp={2,1,1})
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[3](final k={true,
-        true,true}) "Chiller availability array"
+        true,false})
+                    "Chiller availability array"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
 equation
