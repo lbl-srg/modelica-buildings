@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model MatrixMax "Validation model for the MatrixMax block"
 
-  Sources.Constant con[3,3](k={{-1,-2,-3},{0,0,0},{-2,-6,-9}})
+  Sources.Constant con[3,3](k={{1,2,3},{6,4,2},{3,9,6}})
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  Sources.Constant con1[2,3](k={{0,0,0},{-2,-4,-6}})
+  Sources.Constant con1[2,3](k={{1,4,3},{2,2,6}})
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Sources.Constant con2[2,3](k={{0,-1,-1},{-2,0,-6}})
+  Sources.Constant con2[2,3](k={{1,2,3},{6,4,2}})
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
@@ -21,13 +21,11 @@ model MatrixMax "Validation model for the MatrixMax block"
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax1(
     nCol=3,
-    rowMin=false,
     nRow=2) "Matrix maximum"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax2(
     nCol=3,
-    rowMin=true,
     nRow=2) "Matrix maximum"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 

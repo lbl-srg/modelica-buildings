@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block MatrixMax "Output vector of row- or column-wise maximum values"
 
-  parameter Boolean rowMin = true "If true, outputs row-wise maximum, otherwise column-wise";
+  parameter Boolean rowMax = true "If true, outputs row-wise maximum, otherwise column-wise";
 
   parameter Integer nRow(final min=1) "Number of rows in input matrix";
 
@@ -11,12 +11,12 @@ block MatrixMax "Output vector of row- or column-wise maximum values"
     annotation (Placement(
       transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.RealOutput y[if rowMin then size(u, 1) else size(u, 2)] "Connector of Real output signals"
+  Interfaces.RealOutput y[if rowMax then size(u, 1) else size(u, 2)] "Connector of Real output signals"
     annotation (Placement(
       transformation(extent={{100,-10},{120,10}})));
 
 equation
-  if rowMin then
+  if rowMax then
     y = {max(u[i,:]) for i in 1:size(u, 1)};
   else
     y = {max(u[:,i]) for i in 1:size(u, 2)};
@@ -26,8 +26,8 @@ equation
     Documentation(info="<html>
 <p>
 This blocks computes output vector <code>y</code> as the row-wise,
-if <code>rowMin = true</code>, or
-column-wise, if <code>rowMin = false</code>, maximum of the input
+if <code>rowMax = true</code>, or
+column-wise, if <code>rowMax = false</code>, maximum of the input
 matrix <code>u</code>.
 </p>
 </html>", revisions="<html>
