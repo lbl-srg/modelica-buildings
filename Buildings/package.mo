@@ -208,22 +208,22 @@ its class name ends with the string <code>Beta</code>.
         </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixMin
         </td>
-        <td valign=\"top\">Output vector of row- or column-wise minimum values.
+        <td valign=\"top\">Block that outputs vector of row- or column-wise minimum values.
         </td>
         </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixMax
         </td>
-        <td valign=\"top\">Output vector of row- or column-wise maximum values.
+        <td valign=\"top\">Block that outputs vector of row- or column-wise maximum values.
         </td>
         </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixGain
         </td>
-        <td valign=\"top\">Output the product of a gain matrix with the input signal vector.
+        <td valign=\"top\">Block that outputs the product of a gain matrix with the input signal vector.
         </td>
         </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
         </td>
-        <td valign=\"top\">Extract scalar signal out of signal vector dependent on Integer-valued input.
+        <td valign=\"top\">Block that extracts a scalar signal out of a signal vector dependent on an Integer-valued input.
         </td>
         </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
