@@ -36,7 +36,7 @@ static void saveAppendModelica(
 		*bufLen = *bufLen + nNewCha + minInc + 1;
 		*buffer = realloc(*buffer, *bufLen);
 		if (*buffer == NULL) {
-			ModelicaFormatError("Realloc failed in saveAppendModelica.", moduleName);
+			ModelicaFormatError("Realloc failed in saveAppendModelica %s.", moduleName);
 		}
 	}
 	/* append toAdd to buffer */
