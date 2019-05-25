@@ -96,7 +96,7 @@ block Configurator "Configures chiller staging"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nChi]
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(ninr=nSta, ninc=nChi)
+  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(nRow=nSta, nCol=nChi)
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[nSta]
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
@@ -131,9 +131,9 @@ block Configurator "Configures chiller staging"
   Buildings.Controls.OBC.CDL.Continuous.Product                        pro1[nSta,nChi]
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax                        matMax1(
-    rowMin=false,
-    ninr=nSta,
-    ninc=nChi)
+    rowMax=false,
+    nRow=nSta,
+    nCol=nChi)
     annotation (Placement(transformation(extent={{60,-250},{80,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold chiInSta[nChi](threshold=fill(0.5, nChi))
     "Identifies chillers designated to operate in a given stage (regardless of the availability)"
