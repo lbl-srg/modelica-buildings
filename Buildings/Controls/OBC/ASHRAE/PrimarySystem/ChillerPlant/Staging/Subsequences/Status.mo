@@ -70,29 +70,21 @@ block Status
     "Next available stage down" annotation (Placement(transformation(extent={{260,
             10},{280,30}}), iconTransformation(extent={{100,0},{120,20}})));
   CDL.Integers.Product proInt1[nSta]
-    annotation (Placement(transformation(extent={{0,118},{20,138}})));
+    annotation (Placement(transformation(extent={{0,120},{20,140}})));
   CDL.Integers.Sources.Constant staRange[nSta](final k=staRan)
     annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
   CDL.Integers.Greater intGre[nSta]
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  CDL.Conversions.BooleanToInteger booToInt1[nSta]
+  CDL.Conversions.BooleanToInteger booToInt1[nSta](integerFalse=fill(nSta, nSta))
     annotation (Placement(transformation(extent={{-40,78},{-20,98}})));
   CDL.Logical.And and2[nSta]
     annotation (Placement(transformation(extent={{-80,78},{-60,98}})));
   CDL.Continuous.MultiMin multiMin(nin=nSta)
-    annotation (Placement(transformation(extent={{80,118},{100,138}})));
+    annotation (Placement(transformation(extent={{80,120},{100,140}})));
   CDL.Conversions.IntegerToReal intToRea1[nSta]
-    annotation (Placement(transformation(extent={{40,118},{60,138}})));
+    annotation (Placement(transformation(extent={{40,120},{60,140}})));
   CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{220,110},{240,130}})));
-  CDL.Logical.Switch swiUp
-    annotation (Placement(transformation(extent={{160,150},{180,170}})));
-  CDL.Integers.Sources.Constant maxSta(final k=nSta)
-    annotation (Placement(transformation(extent={{-40,154},{-20,174}})));
-  CDL.Integers.Equal intEqu2
-    annotation (Placement(transformation(extent={{18,176},{38,196}})));
-  CDL.Conversions.IntegerToReal intToRea2
-    annotation (Placement(transformation(extent={{100,170},{120,190}})));
   CDL.Integers.Less intLes[nSta]
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   CDL.Integers.Sources.Constant minSta(final k=1)
@@ -142,32 +134,19 @@ equation
           88},{-82,88}}, color={255,0,255}));
   connect(uAva, and2.u2) annotation (Line(points={{-280,40},{-182,40},{-182,80},
           {-82,80}}, color={255,0,255}));
-  connect(and2.y, booToInt1.u) annotation (Line(points={{-59,88},{-54,88},{-54,86},
-          {-50,86},{-50,88},{-42,88}}, color={255,0,255}));
+  connect(and2.y, booToInt1.u) annotation (Line(points={{-59,88},{-42,88}},
+                                       color={255,0,255}));
   connect(staRange.y, proInt1.u1) annotation (Line(points={{-159,150},{-80,150},
-          {-80,134},{-2,134}}, color={255,127,0}));
-  connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-19,88},{-12,88},{-12,
-          122},{-2,122}}, color={255,127,0}));
+          {-80,136},{-2,136}}, color={255,127,0}));
+  connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-19,88},{-12,88},{
+          -12,124},{-2,124}},
+                          color={255,127,0}));
   connect(proInt1.y, intToRea1.u)
-    annotation (Line(points={{21,128},{38,128}}, color={255,127,0}));
-  connect(intToRea1.y, multiMin.u) annotation (Line(points={{61,128},{80,128},{
-          80,128},{78,128}},          color={0,0,127}));
+    annotation (Line(points={{21,130},{38,130}}, color={255,127,0}));
+  connect(intToRea1.y, multiMin.u) annotation (Line(points={{61,130},{78,130}},
+                                      color={0,0,127}));
   connect(uUp, reaToInt.y)
     annotation (Line(points={{270,120},{241,120}}, color={255,127,0}));
-  connect(reaToInt.u, swiUp.y)
-    annotation (Line(points={{218,120},{218,160},{181,160}}, color={0,0,127}));
-  connect(uSta, intEqu2.u1) annotation (Line(points={{-280,260},{-240,260},{-240,
-          184},{-112,184},{-112,186},{16,186}}, color={255,127,0}));
-  connect(maxSta.y, intEqu2.u2) annotation (Line(points={{-19,164},{0,164},{0,178},
-          {16,178}}, color={255,127,0}));
-  connect(intEqu2.y, swiUp.u2) annotation (Line(points={{39,186},{49.5,186},{49.5,
-          160},{158,160}}, color={255,0,255}));
-  connect(maxSta.y, intToRea2.u) annotation (Line(points={{-19,164},{72,164},{72,
-          180},{98,180}}, color={255,127,0}));
-  connect(intToRea2.y, swiUp.u1) annotation (Line(points={{121,180},{140,180},{140,
-          168},{158,168}}, color={0,0,127}));
-  connect(multiMin.y, swiUp.u3) annotation (Line(points={{101,128},{140,128},{140,
-          152},{158,152}}, color={0,0,127}));
   connect(intRep.y, intLes.u2) annotation (Line(points={{-199,260},{-199,2},{-142,
           2}}, color={255,127,0}));
   connect(staRange.y, intLes.u1) annotation (Line(points={{-159,150},{-150,150},
@@ -196,6 +175,8 @@ equation
           14},{178,14}}, color={255,127,0}));
   connect(maxInt1.y, uDown)
     annotation (Line(points={{201,20},{270,20}}, color={255,127,0}));
+  connect(multiMin.y, reaToInt.u) annotation (Line(points={{101,130},{160,130},
+          {160,120},{218,120}}, color={0,0,127}));
   annotation (defaultComponentName = "sta",
         Icon(graphics={
         Rectangle(

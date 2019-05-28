@@ -29,6 +29,7 @@ block Configurator "Configures chiller staging"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAva[nSta]
     "Stage availability status array" annotation (Placement(transformation(
+<<<<<<< HEAD
           extent={{260,-30},{280,-10}}), iconTransformation(extent={{100,-100},{120,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yTyp[nSta](final max=nSta)
@@ -45,6 +46,30 @@ block Configurator "Configures chiller staging"
       final quantity="Power") "Stage minimal capacities" annotation (Placement(
         transformation(extent={{260,0},{280,20}}),  iconTransformation(extent={{
             100,20},{120,40}})));
+=======
+          extent={{260,10},{280,30}}), iconTransformation(extent={{100,-40},{
+            120,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
+    "Chillers in a given stage (assigned and available)"                                 annotation (
+      Placement(transformation(extent={{260,-250},{280,-230}}),
+        iconTransformation(extent={{100,-80},{120,-60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yTyp[nSta](final max=nSta)
+    "Nominal chiller stage types"
+                         annotation (Placement(transformation(extent={{260,-50},
+            {280,-30}}), iconTransformation(extent={{100,0},{120,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yNomCap[nSta](final unit="W",
+      final quantity="Power") "Stage nominal capacities" annotation (Placement(
+        transformation(extent={{260,100},{280,120}}), iconTransformation(extent={{100,80},
+            {120,100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinCap[nSta](final unit="W",
+      final quantity="Power") "Stage minimal capacities" annotation (Placement(
+        transformation(extent={{260,40},{280,60}}), iconTransformation(extent={{100,40},
+            {120,60}})));
+>>>>>>> a77f9f48b2b8fd12bd63697419607f4cc84c5aa5
 
 //protected
 
@@ -54,12 +79,21 @@ block Configurator "Configures chiller staging"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiMinCaps[nChi](
     final k=chiMinCap) "Array of chiller unload capacities"
+<<<<<<< HEAD
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staNomCaps(K=staMat)
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps(K=staMat)
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
+=======
+    annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.MatrixGain staNomCaps(K=staMat)
+    annotation (Placement(transformation(extent={{-60,240},{-40,260}})));
+  Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps(K=staMat)
+    annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
+>>>>>>> a77f9f48b2b8fd12bd63697419607f4cc84c5aa5
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps1(K=staMat)
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps2(K=staMat)
@@ -83,9 +117,15 @@ block Configurator "Configures chiller staging"
     "Chiller stage type"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nChi]
+<<<<<<< HEAD
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(nRow=nSta, nCol=nChi)
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+=======
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(nRow=nSta, nCol=nChi)
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+>>>>>>> a77f9f48b2b8fd12bd63697419607f4cc84c5aa5
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[nSta]
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sort sort(nin=nSta)
@@ -97,6 +137,7 @@ block Configurator "Configures chiller staging"
   Buildings.Controls.OBC.CDL.Integers.Equal                        intEqu[nSta]
     annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message="Chillers are not staged according to G36 recommendation: stage any positive displacement machines first, stage any variable speed centrifugal next and any constant speed centrifugal last.")
+<<<<<<< HEAD
     annotation (Placement(transformation(extent={{220,-140},{240,-120}})));
 
   CDL.Logical.MultiAnd mulAnd(nu=nSta)
@@ -108,6 +149,50 @@ equation
     annotation (Line(points={{-159,60},{-122,60}}, color={0,0,127}));
   connect(chiMinCaps.y, staMinCaps.u) annotation (Line(points={{-159,130},{-122,
           130}},                         color={0,0,127}));
+=======
+    annotation (Placement(transformation(extent={{240,-100},{260,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput                        uSta(final min=0, final
+      max=nSta)       "Chiller stage"
+    annotation (Placement(transformation(extent={{-300,-240},{-260,-200}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(nout=nSta)
+    annotation (Placement(transformation(extent={{-220,-230},{-200,-210}})));
+  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1[nSta](nout=fill(nChi, nSta))
+    annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
+  CDL.Integers.Sources.Constant                          chiExtMatr[nSta,nChi](final k=chiExtMat)
+    "Transposed staging matrix"
+    annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nSta,nChi]
+    annotation (Placement(transformation(extent={{-100,-230},{-80,-210}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nSta,nChi]
+    annotation (Placement(transformation(extent={{-60,-230},{-40,-210}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiStaMat1[nSta,nChi](final k=staMat)
+    "Transposed staging matrix"
+    annotation (Placement(transformation(extent={{-60,-280},{-40,-260}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product                        pro1[nSta,nChi]
+    annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
+  Buildings.Controls.OBC.CDL.Continuous.MatrixMax                        matMax1(
+    rowMax=false,
+    nRow=nSta,
+    nCol=nChi)
+    annotation (Placement(transformation(extent={{60,-250},{80,-230}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold chiInSta[nChi](threshold=fill(0.5, nChi))
+    "Identifies chillers designated to operate in a given stage (regardless of the availability)"
+    annotation (Placement(transformation(extent={{120,-250},{140,-230}})));
+
+  CDL.Logical.MultiAnd mulAnd(nu=nSta)
+    annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
+  CDL.Logical.And and2[nChi]
+    annotation (Placement(transformation(extent={{180,-250},{200,-230}})));
+  CDL.Continuous.Product                        pro2[nChi]
+    annotation (Placement(transformation(extent={{-120,278},{-100,298}})));
+  CDL.Continuous.Product                        pro3[nChi]
+    annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
+equation
+  connect(oneVec.y, staMinCaps1.u)
+    annotation (Line(points={{-179,100},{-142,100}},
+                                                   color={0,0,127}));
+>>>>>>> a77f9f48b2b8fd12bd63697419607f4cc84c5aa5
   connect(uChiAva, booToRea.u)
     annotation (Line(points={{-280,0},{-182,0}}, color={255,0,255}));
   connect(booToRea.y, staMinCaps2.u) annotation (Line(points={{-159,0},{-122,0}},
@@ -141,6 +226,7 @@ equation
   connect(reaToInt1.y,intEqu. u2) annotation (Line(points={{121,-160},{130,-160},
           {130,-138},{138,-138}}, color={255,127,0}));
   connect(mulAnd.y, assMes.u)
+<<<<<<< HEAD
     annotation (Line(points={{201.7,-130},{218,-130}},
                                                      color={255,0,255}));
   connect(intEqu.y, mulAnd.u) annotation (Line(points={{161,-130},{178,-130}},
@@ -151,6 +237,37 @@ equation
           70},{270,70}}, color={0,0,127}));
   connect(staMinCaps.y, yMinCap) annotation (Line(points={{-99,130},{100,130},{100,
           10},{270,10}}, color={0,0,127}));
+=======
+    annotation (Line(points={{221.7,-90},{238,-90}}, color={255,0,255}));
+  connect(intEqu.y, mulAnd.u) annotation (Line(points={{181,-90},{190,-90},
+          {190,-90},{198,-90}},           color={255,0,255}));
+  connect(chiExtMatr.y, intEqu1.u2) annotation (Line(points={{-139,-270},{-120,-270},
+          {-120,-228},{-102,-228}}, color={255,127,0}));
+  connect(staType.y, pro.u1) annotation (Line(points={{-139,-30},{-100,-30},{-100,
+          -44},{-82,-44}}, color={0,0,127}));
+  connect(uChiAva, and2.u1) annotation (Line(points={{-280,40},{-220,40},{-220,-180},
+          {160,-180},{160,-240},{178,-240}}, color={255,0,255}));
+  connect(chiInSta.y, and2.u2) annotation (Line(points={{141,-240},{150,-240},{150,
+          -248},{178,-248}}, color={255,0,255}));
+  connect(and2.y, yChi)
+    annotation (Line(points={{201,-240},{270,-240}}, color={255,0,255}));
+  connect(chiNomCaps.y, pro2.u1) annotation (Line(points={{-179,310},{-148,310},
+          {-148,294},{-122,294}}, color={0,0,127}));
+  connect(chiMinCaps.y, pro3.u1) annotation (Line(points={{-179,210},{-150,210},
+          {-150,196},{-122,196}}, color={0,0,127}));
+  connect(pro2.y, staNomCaps.u) annotation (Line(points={{-99,288},{-80,288},{
+          -80,250},{-62,250}}, color={0,0,127}));
+  connect(pro3.y, staMinCaps.u) annotation (Line(points={{-99,190},{-79.5,190},
+          {-79.5,170},{-62,170}}, color={0,0,127}));
+  connect(staNomCaps.y, yNomCap) annotation (Line(points={{-39,250},{116,250},{
+          116,110},{270,110}}, color={0,0,127}));
+  connect(staMinCaps.y, yMinCap) annotation (Line(points={{-39,170},{82,170},{
+          82,50},{270,50}}, color={0,0,127}));
+  connect(booToRea.y, pro2.u2) annotation (Line(points={{-179,40},{-162,40},{
+          -162,282},{-122,282}}, color={0,0,127}));
+  connect(booToRea.y, pro3.u2) annotation (Line(points={{-179,40},{-150,40},{
+          -150,184},{-122,184}}, color={0,0,127}));
+>>>>>>> a77f9f48b2b8fd12bd63697419607f4cc84c5aa5
   annotation (defaultComponentName = "conf",
         Icon(graphics={
         Rectangle(

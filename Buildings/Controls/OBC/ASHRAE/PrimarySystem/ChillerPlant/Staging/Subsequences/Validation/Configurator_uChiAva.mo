@@ -6,7 +6,6 @@ model Configurator_uChiAva
     nSta=4,
     nChi=3,
     staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    chiTyp={1,1,2},
     chiNomCap={10,20,10},
     chiMinCap={1,2,2})
     annotation (Placement(transformation(extent={{40,0},{60,20}})));

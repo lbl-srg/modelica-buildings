@@ -1,22 +1,22 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
 model Status_u_uAva "Validate status model"
 
-  Status       conf(
+  Status sta(
     nSta=4,
     nChi=3,
     staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}})
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  CDL.Integers.Sources.Constant uSta(final k=2)
+  CDL.Integers.Sources.Constant uSta(final k=4)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[3](final k={true,
-        true,true}) "Chiller availability array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava[4](final k={true,true,
+        true,true}) "Stage availability array"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
 equation
-  connect(chiAva.y, conf.uAva) annotation (Line(points={{-39,20},{0,20},{0,16},
-          {38,16}}, color={255,0,255}));
-  connect(uSta.y, conf.uSta) annotation (Line(points={{-39,-30},{0,-30},{0,4},{
+  connect(ava.y, sta.uAva) annotation (Line(points={{-39,20},{0,20},{0,16},{38,
+          16}}, color={255,0,255}));
+  connect(uSta.y, sta.uSta) annotation (Line(points={{-39,-30},{0,-30},{0,4},{
           38,4}}, color={255,127,0}));
 annotation (
  experiment(StopTime=1800.0, Tolerance=1e-06),
