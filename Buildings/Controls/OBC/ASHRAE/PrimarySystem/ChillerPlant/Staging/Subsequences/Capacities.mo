@@ -192,8 +192,8 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     "Counts number of available stages"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   CDL.Interfaces.RealInput uNomCap[nSta](final quantity="Power", final unit="W")
-    "Nominal stage capacities considering the chiller availability" annotation
-    (Placement(transformation(extent={{-300,238},{-260,278}}),
+    "Nominal stage capacities considering the chiller availability" annotation (
+     Placement(transformation(extent={{-300,240},{-260,280}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
   CDL.Interfaces.RealInput uMinCap[nSta](final quantity="Power", final unit="W")
     "Unload stage capacities considering the chiller availability" annotation (
@@ -283,10 +283,12 @@ equation
           60},{158,60}}, color={255,0,255}));
   connect(booToInt.y, mulSumInt.u) annotation (Line(points={{-79,-170},{-62,-170}},
                                                 color={255,127,0}));
-  connect(equHigSta.y, swi4.u2) annotation (Line(points={{21,-250},{208,-250},{208,
-          -30},{218,-30}}, color={255,0,255}));
-  connect(equHigSta.y, swi2.u2) annotation (Line(points={{21,-250},{208,-250},{208,
-          130},{218,130}}, color={255,0,255}));
+  connect(equHigSta.y, swi4.u2) annotation (Line(points={{21,-250},{210,-250},{
+          210,-30},{218,-30}},
+                           color={255,0,255}));
+  connect(equHigSta.y, swi2.u2) annotation (Line(points={{21,-250},{210,-250},{
+          210,130},{218,130}},
+                           color={255,0,255}));
   connect(uStaAva, booToInt1.u)
     annotation (Line(points={{-280,-40},{-102,-40}}, color={255,0,255}));
   connect(mulSumInt1.y, equHigSta.u1) annotation (Line(points={{-38.3,-40},{-20,
@@ -306,12 +308,12 @@ equation
   connect(uMinCap, extStaCapMin.u) annotation (Line(points={{-282,-252},{-138,
           -252},{-138,-274},{34,-274},{34,-84},{98,-84},{98,-90}}, color={0,0,
           127}));
-  connect(uNomCap, extStaCap.u) annotation (Line(points={{-280,258},{-160,258},
+  connect(uNomCap, extStaCap.u) annotation (Line(points={{-280,260},{-160,260},
           {-160,210},{-42,210}}, color={0,0,127}));
-  connect(uNomCap, extStaLowCap.u) annotation (Line(points={{-280,258},{-230,
-          258},{-230,182},{-44,182},{-44,140},{-2,140}}, color={0,0,127}));
-  connect(uNomCap, extStaUpCap.u) annotation (Line(points={{-280,258},{70,258},
-          {70,146},{98,146},{98,140}}, color={0,0,127}));
+  connect(uNomCap, extStaLowCap.u) annotation (Line(points={{-280,260},{-230,
+          260},{-230,182},{-44,182},{-44,140},{-2,140}}, color={0,0,127}));
+  connect(uNomCap, extStaUpCap.u) annotation (Line(points={{-280,260},{70,260},
+          {70,140},{98,140}},          color={0,0,127}));
   annotation (defaultComponentName = "staCap",
         Icon(graphics={
         Rectangle(

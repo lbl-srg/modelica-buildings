@@ -150,7 +150,7 @@ block Up "Stage up conditions"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 
   CDL.Logical.Sources.Constant noWSE(final k=true) if not hasWSE
-    "Replacement signal if plant does not have WSE"
+    "Replacement signal if plant does not have WSE - assuming if plant gets enabled the lowest available stage should be engaged"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
   CDL.Interfaces.BooleanInput uHigSta
