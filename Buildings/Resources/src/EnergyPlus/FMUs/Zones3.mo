@@ -1,19 +1,19 @@
 within ;
 model Zones3 "Model of three thermal zones"
 
-  parameter output Modelica.SIunits.Volume Core_ZN_V = 3*4*3 "Volume";
-  parameter output Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
-  parameter output Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
+  constant Modelica.SIunits.Volume Core_ZN_V = 3*4*3 "Volume";
+  constant Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
+  constant Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
 
 
-  parameter output Modelica.SIunits.Volume South_ZN_V = 3*4*3 "Volume";
-  parameter output Modelica.SIunits.Area South_ZN_AFlo = 3*4 "Floor area";
-  parameter output Real South_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
+  constant Modelica.SIunits.Volume South_ZN_V = 3*4*3 "Volume";
+  constant Modelica.SIunits.Area South_ZN_AFlo = 3*4 "Floor area";
+  constant Real South_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
 
 
-  parameter output Modelica.SIunits.Volume North_ZN_V = 3*4*3 "Volume";
-  parameter output Modelica.SIunits.Area North_ZN_AFlo = 3*4 "Floor area";
-  parameter output Real North_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
+  constant Modelica.SIunits.Volume North_ZN_V = 3*4*3 "Volume";
+  constant Modelica.SIunits.Area North_ZN_AFlo = 3*4 "Floor area";
+  constant Real North_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
 
   input Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T "Temperature of the zone air";
   input Real Core_ZN_X(min=0, final unit="1") "Water vapor mass fraction in kg water/kg dry air";

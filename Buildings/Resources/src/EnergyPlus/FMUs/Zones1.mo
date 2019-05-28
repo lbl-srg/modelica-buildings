@@ -1,9 +1,9 @@
 within ;
 model Zones1 "Model of a thermal zone"
 
-  parameter output Modelica.SIunits.Volume Core_ZN_V = 3*4*3 "Volume";
-  parameter output Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
-  parameter output Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
+  constant Modelica.SIunits.Volume Core_ZN_V = 3*4*3 "Volume";
+  constant Modelica.SIunits.Area Core_ZN_AFlo = 3*4 "Floor area";
+  constant Real Core_ZN_mSenFac = 1 "Factor for scaling sensible thermal mass of volume";
  // parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Core_ZN_T_start = 20
  //   "Initial temperature of zone air";
 
