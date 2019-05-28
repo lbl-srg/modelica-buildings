@@ -25,10 +25,26 @@ block Status
     annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHig "Operating in the highest available stage"
+    annotation (Placement(transformation(extent={{260,-110},{280,-90}}),
+        iconTransformation(extent={{100,-60},{120,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLow "Operating in the lowest available stage"
+    annotation (Placement(transformation(extent={{260,-190},{280,-170}}),
+        iconTransformation(extent={{100,-60},{120,-40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
-    "Chillers in a given stage"                                                          annotation (
+    "Chillers in a given stage" annotation (
       Placement(transformation(extent={{260,230},{280,250}}),
         iconTransformation(extent={{100,-60},{120,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput uUp(final min=1, final max=nSta) "Next available stage up"
+    annotation (Placement(transformation(extent={{260,110},{280,130}}),
+        iconTransformation(extent={{100,40},{120,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput uDown(final min=1, final max=nSta)
+    "Next available stage down" annotation (Placement(transformation(extent={{260,
+            10},{280,30}}), iconTransformation(extent={{100,0},{120,20}})));
 
 //protected
 
@@ -38,11 +54,11 @@ block Status
     annotation (Placement(transformation(extent={{-220,250},{-200,270}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1[nSta](nout=fill(nChi, nSta))
     annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
-  CDL.Integers.Sources.Constant                          chiExtMatr[nSta,nChi](final k=chiExtMat)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant                          chiExtMatr[nSta,nChi](final k=chiExtMat)
     annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nSta,nChi]
     annotation (Placement(transformation(extent={{-100,250},{-80,270}})));
-  CDL.Integers.Sources.Constant                          chiStaMat1[nSta,nChi](final k=staMat)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant                          chiStaMat1[nSta,nChi](final k=staMat)
     "Transposed staging matrix"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
@@ -54,55 +70,80 @@ block Status
     "Identifies chillers designated to operate in a given stage (regardless of the availability)"
     annotation (Placement(transformation(extent={{100,230},{120,250}})));
 
-  CDL.Interfaces.BooleanInput uAva[nSta] "Stage availability status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAva[nSta] "Stage availability status"
     annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  CDL.Integers.Product proInt[nSta,nChi]
+  Buildings.Controls.OBC.CDL.Integers.Product proInt[nSta,nChi]
     annotation (Placement(transformation(extent={{-20,230},{0,250}})));
-  CDL.Conversions.BooleanToInteger booToInt[nSta,nChi]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta,nChi]
     annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
-  CDL.Conversions.IntegerToReal intToRea[nSta,nChi]
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nSta,nChi]
     annotation (Placement(transformation(extent={{20,230},{40,250}})));
-  CDL.Interfaces.IntegerOutput uUp(final max=nSta) "Next available stage up"
-    annotation (Placement(transformation(extent={{260,110},{280,130}}),
-        iconTransformation(extent={{100,40},{120,60}})));
-  CDL.Interfaces.IntegerOutput uDown(final max=nSta)
-    "Next available stage down" annotation (Placement(transformation(extent={{260,
-            10},{280,30}}), iconTransformation(extent={{100,0},{120,20}})));
-  CDL.Integers.Product proInt1[nSta]
+
+  Buildings.Controls.OBC.CDL.Integers.Product proInt1[nSta]
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
-  CDL.Integers.Sources.Constant staRange[nSta](final k=staRan)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staRange[nSta](final k=staRan)
     annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
-  CDL.Integers.Greater intGre[nSta]
+  Buildings.Controls.OBC.CDL.Integers.Greater intGre[nSta]
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  CDL.Conversions.BooleanToInteger booToInt1[nSta](integerFalse=fill(nSta, nSta))
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nSta](integerFalse=fill(nSta + 1,
+        nSta))
     annotation (Placement(transformation(extent={{-40,78},{-20,98}})));
-  CDL.Logical.And and2[nSta]
+  Buildings.Controls.OBC.CDL.Logical.And and2[nSta]
     annotation (Placement(transformation(extent={{-80,78},{-60,98}})));
-  CDL.Continuous.MultiMin multiMin(nin=nSta)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin multiMin(nin=nSta)
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  CDL.Conversions.IntegerToReal intToRea1[nSta]
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1[nSta]
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
-  CDL.Conversions.RealToInteger reaToInt
-    annotation (Placement(transformation(extent={{220,110},{240,130}})));
-  CDL.Integers.Less intLes[nSta]
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    annotation (Placement(transformation(extent={{120,120},{140,140}})));
+  Buildings.Controls.OBC.CDL.Integers.Less intLes[nSta]
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  CDL.Integers.Sources.Constant minSta(final k=1)
-    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
-  CDL.Logical.And and1[nSta]
+  Buildings.Controls.OBC.CDL.Logical.And and1[nSta]
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Conversions.BooleanToInteger booToInt2[nSta]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nSta]
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  CDL.Integers.Product proInt2[nSta]
+  Buildings.Controls.OBC.CDL.Integers.Product proInt2[nSta]
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  CDL.Conversions.IntegerToReal intToRea3[nSta]
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea3[nSta]
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  CDL.Continuous.MultiMax multiMax(nin=nSta)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(nin=nSta)
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  CDL.Integers.Max maxInt1
-    annotation (Placement(transformation(extent={{180,10},{200,30}})));
-  CDL.Conversions.RealToInteger reaToInt1
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=nSta)
+    "Current stage is the highest available stage"
+    annotation (Placement(transformation(extent={{160,120},{180,140}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea5
+    annotation (Placement(transformation(extent={{160,150},{180,170}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea4
+    annotation (Placement(transformation(extent={{160,80},{180,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    annotation (Placement(transformation(extent={{200,120},{220,140}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
+    annotation (Placement(transformation(extent={{230,120},{250,140}})));
+
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(threshold=0)
+    "Current stage is the highest available stage"
+    annotation (Placement(transformation(extent={{160,20},{180,40}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2
+    annotation (Placement(transformation(extent={{160,-20},{180,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+    annotation (Placement(transformation(extent={{200,20},{220,40}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
+    annotation (Placement(transformation(extent={{230,20},{250,40}})));
+  CDL.Routing.RealExtractor                        extStaCap(final
+      outOfRangeValue=-1, final nin=nSta)
+    "Extracts the nominal capacity at the current stage"
+    annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
+  CDL.Utilities.Assert                        cheStaAva(final message=
+        "Unavailable stage passed as input.")
+    "Checks if current stage is available"
+    annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
+  CDL.Continuous.GreaterThreshold greThr(threshold=0.5)
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+  CDL.Conversions.BooleanToReal booToRea[nSta]
+    annotation (Placement(transformation(extent={{-200,-120},{-180,-100}})));
 equation
   connect(uSta, intRep.u)
     annotation (Line(points={{-280,260},{-222,260}},   color={255,127,0}));
@@ -138,15 +179,12 @@ equation
                                        color={255,0,255}));
   connect(staRange.y, proInt1.u1) annotation (Line(points={{-159,150},{-80,150},
           {-80,136},{-2,136}}, color={255,127,0}));
-  connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-19,88},{-12,88},{
-          -12,124},{-2,124}},
-                          color={255,127,0}));
+  connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-19,88},{-12,88},{-12,
+          124},{-2,124}}, color={255,127,0}));
   connect(proInt1.y, intToRea1.u)
     annotation (Line(points={{21,130},{38,130}}, color={255,127,0}));
   connect(intToRea1.y, multiMin.u) annotation (Line(points={{61,130},{78,130}},
                                       color={0,0,127}));
-  connect(uUp, reaToInt.y)
-    annotation (Line(points={{270,120},{241,120}}, color={255,127,0}));
   connect(intRep.y, intLes.u2) annotation (Line(points={{-199,260},{-199,2},{-142,
           2}}, color={255,127,0}));
   connect(staRange.y, intLes.u1) annotation (Line(points={{-159,150},{-150,150},
@@ -169,14 +207,52 @@ equation
           6},{-2,24}}, color={255,127,0}));
   connect(multiMax.y, reaToInt1.u)
     annotation (Line(points={{101,30},{118,30}}, color={0,0,127}));
-  connect(reaToInt1.y, maxInt1.u1) annotation (Line(points={{141,30},{164,30},{164,
-          26},{178,26}}, color={255,127,0}));
-  connect(minSta.y, maxInt1.u2) annotation (Line(points={{141,-10},{162,-10},{162,
-          14},{178,14}}, color={255,127,0}));
-  connect(maxInt1.y, uDown)
-    annotation (Line(points={{201,20},{270,20}}, color={255,127,0}));
-  connect(multiMin.y, reaToInt.u) annotation (Line(points={{101,130},{160,130},
-          {160,120},{218,120}}, color={0,0,127}));
+  connect(multiMin.y, reaToInt.u)
+    annotation (Line(points={{101,130},{118,130}}, color={0,0,127}));
+  connect(reaToInt.y, intGreThr.u)
+    annotation (Line(points={{141,130},{158,130}}, color={255,127,0}));
+  connect(intGreThr.y, swi.u2)
+    annotation (Line(points={{181,130},{198,130}}, color={255,0,255}));
+  connect(uSta, intToRea5.u) annotation (Line(points={{-280,260},{-240,260},{-240,
+          160},{158,160}}, color={255,127,0}));
+  connect(intToRea5.y, swi.u1) annotation (Line(points={{181,160},{190,160},{190,
+          138},{198,138}}, color={0,0,127}));
+  connect(reaToInt.y, intToRea4.u) annotation (Line(points={{141,130},{150,130},
+          {150,90},{158,90}}, color={255,127,0}));
+  connect(intToRea4.y, swi.u3) annotation (Line(points={{181,90},{186,90},{186,122},
+          {198,122}}, color={0,0,127}));
+  connect(uUp, reaToInt2.y) annotation (Line(points={{270,120},{260,120},{260,130},
+          {251,130}}, color={255,127,0}));
+  connect(swi.y, reaToInt2.u)
+    annotation (Line(points={{221,130},{228,130}}, color={0,0,127}));
+  connect(intGreThr.y, yHig) annotation (Line(points={{181,130},{188,130},{188,60},
+          {240,60},{240,-100},{270,-100}}, color={255,0,255}));
+  connect(reaToInt3.y, uDown) annotation (Line(points={{251,30},{254,30},{254,20},
+          {270,20}}, color={255,127,0}));
+  connect(reaToInt1.y, intLesEquThr.u)
+    annotation (Line(points={{141,30},{158,30}}, color={255,127,0}));
+  connect(intToRea5.y, swi1.u1) annotation (Line(points={{181,160},{190,160},{190,
+          38},{198,38}}, color={0,0,127}));
+  connect(intLesEquThr.y, swi1.u2)
+    annotation (Line(points={{181,30},{198,30}}, color={255,0,255}));
+  connect(reaToInt1.y, intToRea2.u) annotation (Line(points={{141,30},{141,10},{
+          158,10},{158,-10}}, color={255,127,0}));
+  connect(intToRea2.y, swi1.u3) annotation (Line(points={{181,-10},{190,-10},{190,
+          22},{198,22}}, color={0,0,127}));
+  connect(swi1.y, reaToInt3.u)
+    annotation (Line(points={{221,30},{228,30}}, color={0,0,127}));
+  connect(intLesEquThr.y, yLow) annotation (Line(points={{181,30},{190,30},{190,
+          -180},{270,-180}}, color={255,0,255}));
+  connect(greThr.y, cheStaAva.u) annotation (Line(points={{-99,-110},{-88,-110},
+          {-88,-110},{-82,-110}}, color={255,0,255}));
+  connect(extStaCap.y, greThr.u) annotation (Line(points={{-139,-110},{-128,
+          -110},{-128,-110},{-122,-110}}, color={0,0,127}));
+  connect(uAva, booToRea.u) annotation (Line(points={{-280,40},{-220,40},{-220,
+          -110},{-202,-110}}, color={255,0,255}));
+  connect(booToRea.y, extStaCap.u)
+    annotation (Line(points={{-179,-110},{-162,-110}}, color={0,0,127}));
+  connect(uSta, extStaCap.index) annotation (Line(points={{-280,260},{-240,260},
+          {-240,-140},{-150,-140},{-150,-122}}, color={255,127,0}));
   annotation (defaultComponentName = "sta",
         Icon(graphics={
         Rectangle(
