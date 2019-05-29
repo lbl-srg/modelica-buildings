@@ -109,12 +109,12 @@ equation
           m_flow=homotopy(
             actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
               dp=dp, k=k, m_flow_turbulent=m_flow_turbulent),
-            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+            simplified=m_flow_nominal_pos*dp/dpTot_nominal);
         else
           dp=homotopy(
             actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
               m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent),
-            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+            simplified=dpTot_nominal*m_flow/m_flow_nominal_pos);
         end if;  // from_dp
       else // do not use homotopy
         if from_dp then
