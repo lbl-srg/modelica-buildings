@@ -35,7 +35,6 @@ protected
     "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
   parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dp_nominal_pos
     "Pressure drop for sizing the transition regions";
-  parameter Real c_regul = 1E-2 "Regularization coefficient";
   parameter Integer sizeSupSplBnd = 5 "Number of support points on each quadratic domain for spline interpolation";
   parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3 "Total number of support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl_raw = cat(
@@ -56,6 +55,7 @@ protected
     "Pressure drop at required flow rate with damper fully closed";
   Modelica.SIunits.PressureDifference dp_1
     "Pressure drop at required flow rate with damper fully open";
+  Real c_regul(start=1E-2) "Regularization coefficient";
 initial equation
   kResSqu=if dpFixed_nominal > Modelica.Constants.eps then
     m_flow_nominal^2 / dpFixed_nominal else 0
@@ -73,6 +73,7 @@ equation
     m_flow=y_internal * m_flow_nominal,
     k=kTot_1,
     m_flow_turbulent=m_flow_turbulent);
+  c_regul = 1E-2 + y_internal * (kTot_1 / kTot_0)^2;
   m_flow_smooth = smooth(2, noEvent(
     if dp <= dp_1 then
       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
@@ -94,7 +95,7 @@ equation
           k=kTot_1,
           m_flow_turbulent=m_flow_turbulent,
           dp_der=1),
-        y2d=y_internal * m_flow_nominal * c_regul,
+        y2d=y_internal * m_flow_nominal * c_regul / (dp_0 - dp_1),
         y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
           dp=dp_1,
           k=kTot_1,
@@ -114,7 +115,7 @@ equation
           dp=dp_0,
           k=kTot_0,
           m_flow_turbulent=m_flow_turbulent),
-        y1d=y_internal * m_flow_nominal * c_regul,
+        y1d=y_internal * m_flow_nominal * c_regul / (dp_0 - dp_1),
         y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
           dp=dp_0,
           k=kTot_0,
