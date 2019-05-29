@@ -16,8 +16,10 @@ model VAVBranch "Supply branch of a VAV system"
   Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal = 220 + 20,
-    allowFlowReversal=allowFlowReversal) "VAV box for room" annotation (
+    allowFlowReversal=allowFlowReversal,
+    dp_nominal=20,
+    v_nominal=4,
+    dpFixed_nominal=220)                 "VAV box for room" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -127,7 +129,7 @@ equation
   connect(vav.y, yVAV) annotation (Line(points={{-62,40},{-120,40}},
                 color={0,0,127}));
   connect(souTer.m_flow_in, gaiM_flow.y)
-    annotation (Line(points={{50,12},{59,12}}, color={0,0,127}));
+    annotation (Line(points={{52,12},{59,12}}, color={0,0,127}));
   connect(sinTer.ports[1], terHea.port_b2) annotation (Line(points={{30,-20},{
           -38,-20},{-38,-10}}, color={0,127,255}));
   connect(gaiM_flow.u, yVal) annotation (Line(points={{82,12},{90,12},{90,-40},
