@@ -6,7 +6,7 @@ model Status_u_uAva "Validate status model"
     nChi=3,
     staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}})
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  CDL.Integers.Sources.Constant uSta(final k=0)
+  CDL.Integers.Sources.Constant uSta(final k=3)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava[4](final k={false,

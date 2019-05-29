@@ -133,8 +133,10 @@ block Status
     annotation (Placement(transformation(extent={{198,-120},{218,-100}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     annotation (Placement(transformation(extent={{228,-120},{248,-100}})));
-  CDL.Routing.RealExtractor                        extStaCap(final
-      outOfRangeValue=-1, final nin=nSta)
+  CDL.Routing.RealExtractor                        extStaCap(
+                          final nin=nSta,
+    allowOutOfRange=true,
+    final outOfRangeValue=nSta + 1)
     "Extracts the nominal capacity at the current stage"
     annotation (Placement(transformation(extent={{-220,-220},{-200,-200}})));
   CDL.Utilities.Assert                        cheStaAva(final message="Unavailable stage passed as input.")
@@ -144,6 +146,13 @@ block Status
     annotation (Placement(transformation(extent={{-180,-220},{-160,-200}})));
   CDL.Conversions.BooleanToReal booToRea[nSta]
     annotation (Placement(transformation(extent={{-260,-220},{-240,-200}})));
+  CDL.Utilities.Assert                        cheStaAva1(final message="There are no available chiller stages. The staging cannot be performed.")
+    "Checks if any stage is available"
+    annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
+  CDL.Logical.MultiOr mulOr(nu=nSta)
+    annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
+  CDL.Continuous.Sources.Constant con(k=0)
+    annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
 equation
   connect(uSta, intRep.u)
     annotation (Line(points={{-320,120},{-282,120}},   color={255,127,0}));
@@ -246,9 +255,6 @@ equation
   connect(reaToInt1.y, intLesEquThr.u)
     annotation (Line(points={{101,-110},{116,-110}},
                                                  color={255,127,0}));
-  connect(intToRea5.y, swi1.u1) annotation (Line(points={{141,30},{180,30},{180,
-          -102},{196,-102}},
-                         color={0,0,127}));
   connect(intLesEquThr.y, swi1.u2)
     annotation (Line(points={{139,-110},{196,-110}},
                                                  color={255,0,255}));
@@ -273,6 +279,12 @@ equation
           {-290,-240},{-210,-240},{-210,-222}}, color={255,127,0}));
   connect(reaToInt1.y, intToRea2.u) annotation (Line(points={{101,-110},{108,-110},
           {108,-150},{116,-150}}, color={255,127,0}));
+  connect(uAva, mulOr.u) annotation (Line(points={{-320,-100},{-270,-100},{-270,
+          -180},{-92,-180},{-92,-210},{-82,-210}},              color={255,0,255}));
+  connect(mulOr.y, cheStaAva1.u)
+    annotation (Line(points={{-58.3,-210},{-42,-210}}, color={255,0,255}));
+  connect(con.y, swi1.u1) annotation (Line(points={{181,-70},{188,-70},{188,
+          -102},{196,-102}}, color={0,0,127}));
   annotation (defaultComponentName = "sta",
         Icon(graphics={
         Rectangle(
