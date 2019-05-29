@@ -6,7 +6,7 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
   parameter Boolean isParallelChiller = true
     "Flag: true means that the plant has parallel chillers";
   parameter Modelica.SIunits.Time byPasSetTim = 300
-    "Time to reset minimum by-pass flow";
+    "Time constant for resetting minimum bypass flow";
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi] = {0.005, 0.005, 0.005}
     "Minimum chilled water flow through each chiller";
   parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi] = {0.025, 0.025, 0.025}
@@ -25,15 +25,15 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
     annotation (Placement(transformation(extent={{-400,150},{-360,190}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
-    "Index of next enabling chiller"
+    "Index of next chiller to be enabled"
     annotation (Placement(transformation(extent={{-400,50},{-360,90}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisChi
-    "Index of next disabling chiller"
+    "Index of next chiller to be disabled"
     annotation (Placement(transformation(extent={{-400,-40},{-360,0}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaNexChi
-    "Status to indicate that it starts to enable another chiller. This input used when the stage change needs chiller on/off"
+    "Status to indicate that it starts to enable another chiller. This input is used when the stage change needs chiller on/off"
     annotation (Placement(transformation(extent={{-400,-180},{-360,-140}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
@@ -620,10 +620,10 @@ annotation (
           textString="disabling one chiller")}),
   Documentation(info="<html>
 <p>
-Block that output chilled water minimum flow setpoint for primary-only
-plants with a minimum flow bypass valve, 
+Block that outputs chilled water minimum flow setpoint for primary-only
+plants with a minimum flow bypass valve,
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on March 26, 2019), 
+Central Plants and Hydronic Systems (Draft 4 on March 26, 2019),
 section 5.2.8 Chilled water minimum flow bypass valve.
 </p>
 <p>
@@ -633,8 +633,8 @@ flow through all operating chillers, as follows:
 </p>
 <ul>
 <li>
-For the operating chillers in current stage, identify the chiller with the 
-highest raio of <code>minFloSet</code> to <code>maxFloSet</code>.
+For the operating chillers in current stage, identify the chiller with the
+highest ratio of <code>minFloSet</code> to <code>maxFloSet</code>.
 </li>
 <li>
 Calculate the minimum flow setpoint as the highest ratio multiplied by the sum
@@ -643,9 +643,9 @@ of <code>maxFloSet</code> for the operating chillers.
 </ul>
 <table summary=\"summary\" border=\"1\">
 <tr>
-<th> Chiller </th> 
-<th> Minimum flow </th>  
-<th> Maximum flow </th>  
+<th> Chiller </th>
+<th> Minimum flow </th>
+<th> Maximum flow </th>
 </tr>
 <tr>
 <td align=\"center\">1</td>
@@ -668,19 +668,19 @@ of <code>maxFloSet</code> for the operating chillers.
 <p>
 2. For plants with series chillers, bypass valve shall modulate to maintain minimum
 flow as measured by the chilled water flow meter at a setpoint equal to the largest
-<code>minFloSet</code> of the operating series chillers.
+<code>minFloSet</code> of the operating chillers in current stage.
 </p>
 <p>
 3. If there is any stage change requiring a chiller on and another chiller off,
-the minimum flow setpoint shall temporarily change to account for the 
-<code>minFloSet</code> of both enabling and disabling chillers prior to starting
-the newly enabled chiller.
+the minimum flow setpoint shall temporarily change to account for the
+<code>minFloSet</code> of both the chiller to be enabled and to be disabled
+prior to starting the newly enabled chiller.
 </p>
 <p>
-Note that when there is stage change thus requires changes of 
-minimum bypass flow setpoint, the change should be slowly.
-For example, this could be accomplished by resetting the setpoint X GPM/second, 
-where X = (NewSetpoint - OldSetpoint) / <code>byPasSetTim</code>.
+Note that when there is a stage change requiring a change in the
+minimum flow setpoint, the change should be slowly.
+For example, this could be accomplished by resetting the setpoint X GPM/second,
+where <code>X = (NewSetpoint - OldSetpoint) / byPasSetTim</code>.
 </p>
 </html>", revisions="<html>
 <ul>
