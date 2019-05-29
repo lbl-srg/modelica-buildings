@@ -2,9 +2,10 @@ within Buildings.Fluid.Actuators.Dampers;
 model Exponential
   "Damper model with exponential characteristics and optional fixed flow resistance"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
-    dp(nominal=dp_nominal),
+    dp(nominal=if dp_nominalIncludesDamper then dp_nominal else dp_nominal + dpDamOpe_nominal),
     final kFixed=sqrt(kResSqu),
-    final char_linear_pro=char_linear);
+    final char_linear_pro=char_linear,
+    dpTot_nominal=if dp_nominalIncludesDamper then dp_nominal else dp_nominal + dpDamOpe_nominal);
   parameter Boolean dp_nominalIncludesDamper = true
     "Set to true if dp_nominal includes the pressure loss of the open damper"
     annotation(Dialog(group="Nominal condition"));
