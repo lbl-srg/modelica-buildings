@@ -234,7 +234,7 @@ Below a threshold value of the input control signal (fixed at 0.02) the fraction
 no more related to the actual flow coefficient of the damper.
 This avoids steep transient of the computed opening while transiting from reverse flow. This is to be considered
 as a modeling workaround to prevent control chattering during shut off period (while avoiding an additional state
-variable). In standard operation the minimum flow rate should be higher than this value.
+variable).
 </p>
 <h4>Optional fixed flow resistance</h4>
 <p>
