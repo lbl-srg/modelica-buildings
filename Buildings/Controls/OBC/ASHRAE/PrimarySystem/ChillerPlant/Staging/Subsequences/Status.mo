@@ -52,11 +52,11 @@ block Status
 
 
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(nout=nSta)
-    annotation (Placement(transformation(extent={{-280,110},{-260,130}})));
+    annotation (Placement(transformation(extent={{-260,110},{-240,130}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1[nSta](nout=fill(nChi, nSta))
-    annotation (Placement(transformation(extent={{-220,110},{-200,130}})));
+    annotation (Placement(transformation(extent={{-200,110},{-180,130}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant                          chiExtMatr[nSta,nChi](final k=chiExtMat)
-    annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
+    annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nSta,nChi]
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant                          chiStaMat1[nSta,nChi](final k=staMat)
@@ -84,9 +84,9 @@ block Status
   Buildings.Controls.OBC.CDL.Integers.Product proInt1[nSta]
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant staRange[nSta](final k=staRan)
-    annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
+    annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
   Buildings.Controls.OBC.CDL.Integers.Greater intGre[nSta]
-    annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
+    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nSta](integerFalse=fill(nSta + 1,
         nSta))
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
@@ -99,7 +99,7 @@ block Status
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   Buildings.Controls.OBC.CDL.Integers.Less intLes[nSta]
-    annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
+    annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
   Buildings.Controls.OBC.CDL.Logical.And and1[nSta]
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nSta]
@@ -154,17 +154,15 @@ block Status
   CDL.Continuous.Sources.Constant con(k=0)
     annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
 equation
-  connect(uSta, intRep.u)
-    annotation (Line(points={{-320,120},{-282,120}},   color={255,127,0}));
-  connect(intRep.y, intRep1.u) annotation (Line(points={{-259,120},{-222,120}},
+  connect(intRep.y, intRep1.u) annotation (Line(points={{-239,120},{-202,120}},
                                     color={255,127,0}));
   connect(intRep1.y, intEqu1.u1)
-    annotation (Line(points={{-199,120},{-122,120}},   color={255,127,0}));
+    annotation (Line(points={{-179,120},{-122,120}},   color={255,127,0}));
   connect(matMax.y, chiInSta.u)
     annotation (Line(points={{101,100},{118,100}},
                                                  color={0,0,127}));
-  connect(chiExtMatr.y, intEqu1.u2) annotation (Line(points={{-199,70},{-160,70},
-          {-160,112},{-122,112}},   color={255,127,0}));
+  connect(chiExtMatr.y, intEqu1.u2) annotation (Line(points={{-179,70},{-130,70},
+          {-130,112},{-122,112}},   color={255,127,0}));
   connect(chiInSta.y, yChi)
     annotation (Line(points={{141,100},{310,100}}, color={255,0,255}));
   connect(proInt.y, intToRea.u)
@@ -177,21 +175,21 @@ equation
     annotation (Line(points={{-99,120},{-82,120}}, color={255,0,255}));
   connect(chiStaMat1.y, proInt.u2) annotation (Line(points={{-99,70},{-20,70},{-20,
           94},{-2,94}},         color={255,127,0}));
-  connect(staRange.y, intGre.u1) annotation (Line(points={{-199,10},{-190,10},{-190,
-          -30},{-182,-30}},       color={255,127,0}));
-  connect(intRep.y, intGre.u2) annotation (Line(points={{-259,120},{-240,120},{-240,
-          -38},{-182,-38}},
+  connect(staRange.y, intGre.u1) annotation (Line(points={{-179,10},{-170,10},{
+          -170,-30},{-162,-30}},  color={255,127,0}));
+  connect(intRep.y, intGre.u2) annotation (Line(points={{-239,120},{-220,120},{
+          -220,-38},{-162,-38}},
                  color={255,127,0}));
-  connect(intGre.y, and2.u1) annotation (Line(points={{-159,-30},{-140,-30},{-140,
-          -50},{-122,-50}},
+  connect(intGre.y, and2.u1) annotation (Line(points={{-139,-30},{-130,-30},{
+          -130,-50},{-122,-50}},
                          color={255,0,255}));
   connect(uAva, and2.u2) annotation (Line(points={{-320,-100},{-270,-100},{-270,
           -58},{-122,-58}},
                      color={255,0,255}));
   connect(and2.y, booToInt1.u) annotation (Line(points={{-99,-50},{-82,-50}},
                                        color={255,0,255}));
-  connect(staRange.y, proInt1.u1) annotation (Line(points={{-199,10},{-120,10},{
-          -120,-4},{-42,-4}},  color={255,127,0}));
+  connect(staRange.y, proInt1.u1) annotation (Line(points={{-179,10},{-120,10},
+          {-120,-4},{-42,-4}}, color={255,127,0}));
   connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-59,-50},{-52,-50},
           {-52,-16},{-42,-16}},
                           color={255,127,0}));
@@ -199,16 +197,17 @@ equation
     annotation (Line(points={{-19,-10},{-2,-10}},color={255,127,0}));
   connect(intToRea1.y, multiMin.u) annotation (Line(points={{21,-10},{38,-10}},
                                       color={0,0,127}));
-  connect(intRep.y, intLes.u2) annotation (Line(points={{-259,120},{-240,120},{-240,
-          -138},{-182,-138}},
+  connect(intRep.y, intLes.u2) annotation (Line(points={{-239,120},{-220,120},{
+          -220,-138},{-162,-138}},
                color={255,127,0}));
-  connect(staRange.y, intLes.u1) annotation (Line(points={{-199,10},{-190,10},{-190,
-          -130},{-182,-130}}, color={255,127,0}));
+  connect(staRange.y, intLes.u1) annotation (Line(points={{-179,10},{-170,10},{
+          -170,-130},{-162,-130}},
+                              color={255,127,0}));
   connect(uAva, and1.u2) annotation (Line(points={{-320,-100},{-270,-100},{-270,
           -158},{-122,-158}},
                       color={255,0,255}));
-  connect(intLes.y, and1.u1) annotation (Line(points={{-159,-130},{-140,-130},{-140,
-          -150},{-122,-150}},
+  connect(intLes.y, and1.u1) annotation (Line(points={{-139,-130},{-130,-130},{
+          -130,-150},{-122,-150}},
                       color={255,0,255}));
   connect(and1.y, booToInt2.u)
     annotation (Line(points={{-99,-150},{-82,-150}},
@@ -218,10 +217,10 @@ equation
                                                color={255,127,0}));
   connect(intToRea3.y, multiMax.u) annotation (Line(points={{21,-110},{38,-110}},
                                       color={0,0,127}));
-  connect(staRange.y, proInt2.u1) annotation (Line(points={{-199,10},{-190,10},{
-          -190,-104},{-42,-104}},                 color={255,127,0}));
-  connect(booToInt2.y, proInt2.u2) annotation (Line(points={{-59,-150},{-50,-150},
-          {-50,-116},{-42,-116}},
+  connect(staRange.y, proInt2.u1) annotation (Line(points={{-179,10},{-170,10},
+          {-170,-104},{-42,-104}},                color={255,127,0}));
+  connect(booToInt2.y, proInt2.u2) annotation (Line(points={{-59,-150},{-50,
+          -150},{-50,-116},{-42,-116}},
                        color={255,127,0}));
   connect(multiMax.y, reaToInt1.u)
     annotation (Line(points={{61,-110},{78,-110}},
@@ -232,9 +231,6 @@ equation
     annotation (Line(points={{101,-10},{116,-10}}, color={255,127,0}));
   connect(intGreThr.y, swi.u2)
     annotation (Line(points={{139,-10},{196,-10}}, color={255,0,255}));
-  connect(uSta, intToRea5.u) annotation (Line(points={{-320,120},{-290,120},{-290,
-          40},{-52,40},{-52,30},{118,30}},
-                           color={255,127,0}));
   connect(intToRea5.y, swi.u1) annotation (Line(points={{141,30},{180,30},{180,-2},
           {196,-2}},       color={0,0,127}));
   connect(reaToInt.y, intToRea4.u) annotation (Line(points={{101,-10},{110,-10},
@@ -243,14 +239,14 @@ equation
   connect(intToRea4.y, swi.u3) annotation (Line(points={{139,-50},{188,-50},{188,
           -18},{196,-18}},
                       color={0,0,127}));
-  connect(uUp, reaToInt2.y) annotation (Line(points={{310,0},{258,0},{258,-10},{
-          249,-10}},  color={255,127,0}));
+  connect(uUp, reaToInt2.y) annotation (Line(points={{310,0},{260,0},{260,-10},
+          {249,-10}}, color={255,127,0}));
   connect(swi.y, reaToInt2.u)
     annotation (Line(points={{219,-10},{226,-10}}, color={0,0,127}));
   connect(intGreThr.y, yHig) annotation (Line(points={{139,-10},{160,-10},{160,-40},
           {310,-40}},                      color={255,0,255}));
-  connect(reaToInt3.y, uDown) annotation (Line(points={{249,-110},{252,-110},{252,
-          -100},{310,-100}},
+  connect(reaToInt3.y, uDown) annotation (Line(points={{249,-110},{260,-110},{
+          260,-100},{310,-100}},
                      color={255,127,0}));
   connect(reaToInt1.y, intLesEquThr.u)
     annotation (Line(points={{101,-110},{116,-110}},
@@ -275,8 +271,6 @@ equation
           -210},{-262,-210}}, color={255,0,255}));
   connect(booToRea.y, extStaCap.u)
     annotation (Line(points={{-239,-210},{-222,-210}}, color={0,0,127}));
-  connect(uSta, extStaCap.index) annotation (Line(points={{-320,120},{-290,120},
-          {-290,-240},{-210,-240},{-210,-222}}, color={255,127,0}));
   connect(reaToInt1.y, intToRea2.u) annotation (Line(points={{101,-110},{108,-110},
           {108,-150},{116,-150}}, color={255,127,0}));
   connect(uAva, mulOr.u) annotation (Line(points={{-320,-100},{-270,-100},{-270,
@@ -285,6 +279,12 @@ equation
     annotation (Line(points={{-58.3,-210},{-42,-210}}, color={255,0,255}));
   connect(con.y, swi1.u1) annotation (Line(points={{181,-70},{188,-70},{188,
           -102},{196,-102}}, color={0,0,127}));
+  connect(uSta, intRep.u)
+    annotation (Line(points={{-320,120},{-262,120}}, color={255,127,0}));
+  connect(uSta, intToRea5.u) annotation (Line(points={{-320,120},{-280,120},{
+          -280,30},{118,30}}, color={255,127,0}));
+  connect(uSta, extStaCap.index) annotation (Line(points={{-320,120},{-280,120},
+          {-280,-240},{-210,-240},{-210,-222}}, color={255,127,0}));
   annotation (defaultComponentName = "sta",
         Icon(graphics={
         Rectangle(

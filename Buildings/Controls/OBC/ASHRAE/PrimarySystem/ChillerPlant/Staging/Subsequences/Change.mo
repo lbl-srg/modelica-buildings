@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Change "Calculates the chiller stage signal"
 
+  // stage change limiter between 0 and nSta should be here and then
+  // we don't need to defend the range in any other sequence
+
   parameter Boolean hasWSE = true
     "true = plant has a WSE, false = plant does not have WSE";
 
@@ -331,10 +334,10 @@ equation
           368,150},{160,150},{160,-64},{178,-64}},  color={255,127,0}));
   connect(reaToInt.y, staUp.uChiSta) annotation (Line(points={{361,130},{372,130},
           {372,152},{10,152},{10,0},{19,0}},      color={255,127,0}));
-  connect(reaToInt.y, PLRs.uSta) annotation (Line(points={{361,130},{378,130},{378,
-          154},{-90,154},{-90,-1},{-81,-1}},     color={255,127,0}));
-  connect(reaToInt.y, staCap.uSta) annotation (Line(points={{361,130},{382,130},
-          {382,156},{-150,156},{-150,-70},{-142,-70}}, color={255,127,0}));
+  connect(reaToInt.y, PLRs.u) annotation (Line(points={{361,130},{378,130},{378,
+          154},{-90,154},{-90,-1},{-81,-1}}, color={255,127,0}));
+  connect(reaToInt.y, staCap.u) annotation (Line(points={{361,130},{382,130},{382,
+          156},{-150,156},{-150,-70},{-142,-70}}, color={255,127,0}));
   connect(reaToInt.y, staDow.uChiSta) annotation (Line(points={{361,130},{386,130},
           {386,160},{8,160},{8,-120},{19,-120}},        color={255,127,0}));
   connect(addInt.y, y) annotation (Line(points={{151,-110},{400,-110},{400,-40},
