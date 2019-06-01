@@ -25,26 +25,27 @@ block Configurator "Configures chiller staging"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nChi]
     "Chiller availability status"
     annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAva[nSta]
     "Stage availability status array" annotation (Placement(transformation(
-          extent={{260,-30},{280,-10}}), iconTransformation(extent={{100,-100},{120,-80}})));
+          extent={{260,-30},{280,-10}}), iconTransformation(extent={{100,-80},{
+            120,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yTyp[nSta](final max=nSta)
     "Nominal chiller stage types"
                          annotation (Placement(transformation(extent={{260,-90},
-            {280,-70}}), iconTransformation(extent={{100,40},{120,60}})));
+            {280,-70}}), iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yNomCap[nSta](final unit="W",
       final quantity="Power") "Stage nominal capacities" annotation (Placement(
-        transformation(extent={{260,60},{280,80}}),   iconTransformation(extent=
-           {{100,60},{120,80}})));
+        transformation(extent={{260,60},{280,80}}),   iconTransformation(extent={{100,60},
+            {120,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinCap[nSta](final unit="W",
       final quantity="Power") "Stage minimal capacities" annotation (Placement(
-        transformation(extent={{260,0},{280,20}}),  iconTransformation(extent={{
-            100,20},{120,40}})));
+        transformation(extent={{260,0},{280,20}}),  iconTransformation(extent={{100,40},
+            {120,60}})));
 
 //protected
 

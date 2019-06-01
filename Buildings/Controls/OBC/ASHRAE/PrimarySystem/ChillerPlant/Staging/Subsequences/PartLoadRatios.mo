@@ -16,68 +16,68 @@ block PartLoadRatios
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(final min=0, final max=
         nSta) "Chiller stage" annotation (Placement(transformation(extent={{-380,
-            220},{-340,260}}), iconTransformation(extent={{-120,80},{-100,100}})));
+            220},{-340,260}}), iconTransformation(extent={{-120,-110},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUpCapNom(
     final unit="W",
     final quantity="Power")
     "Nominal capacity of the next higher stage" annotation (Placement(
         transformation(extent={{-380,-180},{-340,-140}}), iconTransformation(
-          extent={{-120,20},{-100,40}})));
+          extent={{-120,80},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapReq(
     final unit="W",
     final quantity="Power")
     "Chilled water cooling capacity requirement"
     annotation (Placement(transformation(extent={{-380,-20},{-340,20}}),
-    iconTransformation(extent={{-120,60},{-100,80}})));
+    iconTransformation(extent={{-120,120},{-100,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaCapNom(
     final unit="W",
     final quantity="Power")
     "Nominal capacity of the current stage"
     annotation (Placement(transformation(extent={{-380,-70},{-340,-30}}),
-        iconTransformation(extent={{-120,40},{-100,60}})));
+        iconTransformation(extent={{-120,100},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUpCapMin(
     final unit="W",
     final quantity="Power") "Minimal capacity of the next higher stage"
     annotation (Placement(transformation(extent={{-380,-300},{-340,-260}}),
-        iconTransformation(extent={{-120,-20},{-100,0}})));
+        iconTransformation(extent={{-120,40},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaDowCapNom(
     final unit="W",
     final quantity="Power") "Nominal capacity of the next lower stage"
     annotation (Placement(transformation(extent={{-380,-120},{-340,-80}}),
-        iconTransformation(extent={{-120,0},{-100,20}})));
+        iconTransformation(extent={{-120,60},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMin(
     final unit="K",
     final quantity="ThermodynamicTemperature") if anyVsdCen
     "Minimum chiller lift"
     annotation (Placement(transformation(extent={{-380,-440},{-340,-400}}),
-        iconTransformation(extent={{-120,-110},{-100,-90}})));
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMax(
     final unit="K",
     final quantity="ThermodynamicTemperature") if anyVsdCen
     "Maximum chiller lift"
     annotation (Placement(transformation(extent={{-380,-380},{-340,-340}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+        iconTransformation(extent={{-120,-30},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLif(
     final unit="K",
     final quantity="ThermodynamicTemperature") if anyVsdCen
     "Chiller lift"
     annotation (Placement(transformation(extent={{-380,-500},{-340,-460}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
+        iconTransformation(extent={{-120,-10},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaCapMin(
     final unit="W",
     final quantity="Power")
     "Minimal capacity of the current stage" annotation (Placement(
         transformation(extent={{-380,-240},{-340,-200}}), iconTransformation(
-          extent={{-120,-40},{-100,-20}})));
+          extent={{-120,20},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUp(
     final unit="1", final min=0)
@@ -294,18 +294,18 @@ block PartLoadRatios
   CDL.Integers.Max maxInt
     annotation (Placement(transformation(extent={{-240,220},{-220,240}})));
 
-  CDL.Interfaces.IntegerInput uStaTyp[nSta](final min=fill(1, nSta), final max=
+  CDL.Interfaces.IntegerInput uTyp[nSta](final min=fill(1, nSta), final max=
         fill(3, nSta)) "Nominal chiller stage types" annotation (Placement(
         transformation(extent={{-380,280},{-340,320}}), iconTransformation(
-          extent={{-120,80},{-100,100}})));
+          extent={{-120,-80},{-100,-60}})));
   CDL.Integers.Max maxIntUp
     annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
   CDL.Interfaces.IntegerInput uUp(final min=0, final max=nSta) annotation (
       Placement(transformation(extent={{-380,160},{-340,200}}),
-        iconTransformation(extent={{-120,80},{-100,100}})));
+        iconTransformation(extent={{-120,-130},{-100,-110}})));
   CDL.Interfaces.IntegerInput uDown(final min=0, final max=nSta) annotation (
       Placement(transformation(extent={{-380,100},{-340,140}}),
-        iconTransformation(extent={{-120,80},{-100,100}})));
+        iconTransformation(extent={{-120,-150},{-100,-130}})));
   CDL.Integers.Max maxIntDown
     annotation (Placement(transformation(extent={{-240,100},{-220,120}})));
 equation
@@ -476,7 +476,7 @@ equation
           236},{-242,236}}, color={255,127,0}));
   connect(maxInt.y, extStaTyp.index) annotation (Line(points={{-219,230},{-170,
           230},{-170,288}}, color={255,127,0}));
-  connect(uStaTyp, intToRea.u) annotation (Line(points={{-360,300},{-302,300},{-302,
+  connect(uTyp, intToRea.u) annotation (Line(points={{-360,300},{-302,300},{-302,
           300}}, color={255,127,0}));
   connect(one.y, maxIntUp.u2) annotation (Line(points={{-279,150},{-260,150},{
           -260,164},{-242,164}}, color={255,127,0}));

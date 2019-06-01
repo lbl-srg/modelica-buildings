@@ -4,17 +4,17 @@ block Change "Calculates the chiller stage signal"
   // stage change limiter between 0 and nSta should be here and then
   // we don't need to defend the range in any other sequence
 
+  parameter Modelica.SIunits.Power chiNomCap[nChi]
+    "Nominal chiller capacities";
+
+  parameter Modelica.SIunits.Power chiMinCap[nChi]
+    "Chiller unload capacities";
+
+  parameter Integer chiTyp[nChi] = {1,2}
+    "Chiller type: 1 - positive displacement, 2 - variable speed centrifugal, 3 - constant speed centrifugal";
+
   parameter Boolean hasWSE = true
     "true = plant has a WSE, false = plant does not have WSE";
-
-  parameter Integer nPosDis = 2
-    "Number of chiller stages of positive displacement chiller type";
-
-  parameter Integer nVsdCen = 0
-    "Number of chiller stages of variable speed centrifugal chiller type";
-
-  parameter Integer nConCen = 0
-    "Number of chiller stages of constant speed centrifugal chiller type";
 
   parameter Real posDisMult(
     final unit = "1",
@@ -27,15 +27,6 @@ block Change "Calculates the chiller stage signal"
     final min = 0,
     final max = 1)=0.9
     "Constant speed centrifugal chiller type staging multiplier";
-
-  final parameter Integer nSta = nPosDis + nVsdCen + nConCen
-    "Number of stages";
-
-  parameter Modelica.SIunits.Power staNomCap[nSta] = fill(5e5, nSta)
-    "Array of nominal capacities at each individual stage";
-
-  parameter Modelica.SIunits.Power minStaUnlCap[nSta] = fill(0.2*staNomCap[1], nSta)
-    "Array of unload capacities at each individual stage";
 
   parameter Modelica.SIunits.Time delayStaCha = 15*60
     "Delay stage change";
@@ -72,10 +63,10 @@ block Change "Calculates the chiller stage signal"
      Placement(transformation(extent={{-240,110},{-200,150}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaAva[nSta]
-    "Stage availability status"
-    annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
-        iconTransformation(extent={{-120,90},{-100,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nSta]
+    "Chiller availability status"
+    annotation (Placement(transformation(extent={{
+            -240,140},{-200,180}}), iconTransformation(extent={{-120,90},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
     "Maximum cooling tower fan speed"
@@ -166,10 +157,12 @@ block Change "Calculates the chiller stage signal"
       iconTransformation(extent={{100,40},{120,60}})));
 
 //protected
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities staCap(
-    final nSta = nSta,
-    final staNomCap = staNomCap,
-    final minStaUnlCap = minStaUnlCap) "Nominal and minimal capacities at each stage"
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
+    cap(
+    final nSta=nSta,
+    final staNomCap=staNomCap,
+    final minStaUnlCap=minStaUnlCap)
+    "Nominal and minimal capacities at each stage"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios PLRs(
@@ -254,20 +247,30 @@ block Change "Calculates the chiller stage signal"
     "Type converter"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
+  Status sta(
+    nSta=nSta,
+    nChi=nChi,
+    staMat=staMat)
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
+  Configurator conf(chiNomCap=chiNomCap, chiMinCap=chiMinCap,
+    staMat=staMat,
+    chiTyp=chiTyp,
+    nSta=nSta,
+    nChi=nChi)
+    annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
 equation
-  connect(staCap.yStaNom,PLRs. uStaCapNom) annotation (Line(points={{-119,-63},{
-          -94,-63},{-94,-5},{-81,-5}}, color={0,0,127}));
-  connect(staCap.yStaUpNom,PLRs. uStaUpCapNom) annotation (Line(points={{-119,-67},
-          {-92,-67},{-92,-7},{-81,-7}},      color={0,0,127}));
-  connect(staCap.yStaDowNom,PLRs. uStaDowCapNom) annotation (Line(points={{-119,
-          -71},{-90,-71},{-90,-9},{-81,-9}}, color={0,0,127}));
-  connect(staCap.yStaUpMin,PLRs. uStaUpCapMin) annotation (Line(points={{-119,
-          -75},{-86,-75},{-86,-11},{-81,-11}},
-                                          color={0,0,127}));
-  connect(staCap.yStaMin,PLRs. uStaCapMin) annotation (Line(points={{-119,-77},
-          {-84,-77},{-84,-13},{-81,-13}},color={0,0,127}));
-  connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-119,-10},{-100,-10},
-          {-100,-3},{-81,-3}}, color={0,0,127}));
+  connect(cap.yStaNom, PLRs.uStaCapNom) annotation (Line(points={{-119,-63},{-94,
+          -63},{-94,1},{-81,1}}, color={0,0,127}));
+  connect(cap.yStaUpNom, PLRs.uStaUpCapNom) annotation (Line(points={{-119,-67},
+          {-92,-67},{-92,-1},{-81,-1}}, color={0,0,127}));
+  connect(cap.yStaDowNom, PLRs.uStaDowCapNom) annotation (Line(points={{-119,-71},
+          {-90,-71},{-90,-3},{-81,-3}}, color={0,0,127}));
+  connect(cap.yStaUpMin, PLRs.uStaUpCapMin) annotation (Line(points={{-119,-75},
+          {-86,-75},{-86,-5},{-81,-5}}, color={0,0,127}));
+  connect(cap.yStaMin, PLRs.uStaCapMin) annotation (Line(points={{-119,-77},{-84,
+          -77},{-84,-7},{-81,-7}}, color={0,0,127}));
+  connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-119,-10},{-116,-10},
+          {-116,3},{-81,3}},   color={0,0,127}));
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-220,90},
           {-160,90},{-160,-5},{-141,-5}},  color={0,0,127}));
   connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-220,60},{-168,
@@ -313,18 +316,16 @@ equation
   connect(uWseSta, staDow.uWseSta) annotation (Line(points={{-220,130},{0,130},
           {0,-118},{19,-118}}, color={255,0,255}));
   connect(uLifMax, PLRs.uLifMax) annotation (Line(points={{-220,-10},{-190,-10},
-          {-190,-24},{-110,-24},{-110,-18},{-81,-18}}, color={0,0,127}));
+          {-190,-24},{-110,-24},{-110,-12},{-81,-12}}, color={0,0,127}));
   connect(uLifMin, PLRs.uLifMin) annotation (Line(points={{-220,-40},{-190,-40},
-          {-190,-26},{-108,-26},{-108,-20},{-81,-20}}, color={0,0,127}));
+          {-190,-26},{-108,-26},{-108,-14},{-81,-14}}, color={0,0,127}));
   connect(uLif, PLRs.uLif) annotation (Line(points={{-220,-70},{-190,-70},{-190,
-          -40},{-112,-40},{-112,-16},{-81,-16}}, color={0,0,127}));
-  connect(uStaAva, staCap.uStaAva) annotation (Line(points={{-220,160},{-152,160},
-          {-152,-76},{-142,-76}}, color={255,0,255}));
+          -40},{-112,-40},{-112,-10},{-81,-10}}, color={0,0,127}));
   connect(conInt.y, minInt.u1) annotation (Line(points={{201,-30},{210,-30},{
           210,-34},{218,-34}}, color={255,127,0}));
   connect(addInt1.y, minInt.u2) annotation (Line(points={{201,-70},{210,-70},{
           210,-46},{218,-46}}, color={255,127,0}));
-  connect(conInt1.y, maxInt.u1) annotation (Line(points={{201,10},{210,10},{210,
+  connect(conInt1.y, maxInt.u1) annotation (Line(points={{201,10},{240,10},{240,
           16},{258,16}}, color={255,127,0}));
   connect(minInt.y, maxInt.u2) annotation (Line(points={{241,-40},{250,-40},{
           250,4},{258,4}},   color={255,127,0}));
@@ -335,11 +336,12 @@ equation
   connect(reaToInt.y, staUp.uChiSta) annotation (Line(points={{361,130},{372,130},
           {372,152},{10,152},{10,0},{19,0}},      color={255,127,0}));
   connect(reaToInt.y, PLRs.u) annotation (Line(points={{361,130},{378,130},{378,
-          154},{-90,154},{-90,-1},{-81,-1}}, color={255,127,0}));
-  connect(reaToInt.y, staCap.u) annotation (Line(points={{361,130},{382,130},{382,
-          156},{-150,156},{-150,-70},{-142,-70}}, color={255,127,0}));
-  connect(reaToInt.y, staDow.uChiSta) annotation (Line(points={{361,130},{386,130},
-          {386,160},{8,160},{8,-120},{19,-120}},        color={255,127,0}));
+          154},{-88,154},{-88,-20},{-81,-20}},
+                                             color={255,127,0}));
+  connect(reaToInt.y, cap.u) annotation (Line(points={{361,130},{382,130},{382,156},
+          {-150,156},{-150,-67},{-141,-67}}, color={255,127,0}));
+  connect(reaToInt.y, staDow.u) annotation (Line(points={{361,130},{386,130},{386,
+          160},{8,160},{8,-120},{19,-120}}, color={255,127,0}));
   connect(addInt.y, y) annotation (Line(points={{151,-110},{400,-110},{400,-40},
           {430,-40}},color={255,127,0}));
   connect(maxInt.y, intToRea.u)
@@ -361,8 +363,34 @@ equation
     annotation (Line(points={{221,180},{238,180}},           color={0,0,127}));
   connect(zerOrdHol.y, reaToInt.u) annotation (Line(points={{261,180},{297.5,
           180},{297.5,130},{338,130}}, color={0,0,127}));
-  connect(staCap.higSta, staUp.uHigSta) annotation (Line(points={{-119,-79},{10,
-          -79},{10,-2},{19,-2}}, color={255,0,255}));
+  connect(uChiAva, conf.uChiAva) annotation (Line(points={{-220,160},{-202,160},
+          {-202,110},{-192,110}}, color={255,0,255}));
+  connect(conf.yAva, sta.uAva) annotation (Line(points={{-169,103},{-164,103},{
+          -164,56},{-142,56}},
+                          color={255,0,255}));
+  connect(conf.yTyp, PLRs.uTyp) annotation (Line(points={{-169,110},{-90,110},{
+          -90,-17},{-81,-17}},
+                           color={255,127,0}));
+  connect(PLRs.uUp, sta.uUp) annotation (Line(points={{-81,-22},{-94,-22},{-94,
+          55},{-119,55}},
+                     color={255,127,0}));
+  connect(sta.uDown, PLRs.uDown) annotation (Line(points={{-119,51},{-96,51},{
+          -96,-24},{-81,-24}},
+                           color={255,127,0}));
+  connect(conf.yNomCap, cap.uNomCap) annotation (Line(points={{-169,117},{-148,
+          117},{-148,-61},{-141,-61}}, color={0,0,127}));
+  connect(conf.yMinCap, cap.uMinCap) annotation (Line(points={{-169,115},{-146,
+          115},{-146,-63},{-141,-63}}, color={0,0,127}));
+  connect(sta.uUp, cap.uUp) annotation (Line(points={{-119,55},{-110,55},{-110,
+          20},{-152,20},{-152,-69},{-141,-69}}, color={255,127,0}));
+  connect(sta.uDown, cap.uDown) annotation (Line(points={{-119,51},{-112,51},{
+          -112,22},{-154,22},{-154,-71},{-141,-71}}, color={255,127,0}));
+  connect(sta.yHig, cap.uHigh) annotation (Line(points={{-119,47},{-114,47},{
+          -114,10},{-156,10},{-156,-77},{-141,-77}}, color={255,0,255}));
+  connect(sta.yLow, cap.uLow) annotation (Line(points={{-119,45},{-116,45},{
+          -116,12},{-158,12},{-158,-79},{-141,-79}}, color={255,0,255}));
+  connect(sta.yHig, staUp.uHigSta) annotation (Line(points={{-119,47},{12,47},{
+          12,-2},{19,-2}}, color={255,0,255}));
   annotation (defaultComponentName = "staCha",
         Icon(graphics={
         Rectangle(
