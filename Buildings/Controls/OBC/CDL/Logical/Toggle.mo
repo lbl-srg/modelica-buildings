@@ -96,14 +96,14 @@ annotation (defaultComponentName="tog",
 Block that generates a <code>true</code> output when toggle input <code>u</code> 
 rises from <code>false</code> to <code>true</code>, provided that the clear input
 <code>clr</code> is <code>false</code> or also became at the same time 
-<code>false</code>. The output remains <code>true</code> until:
+<code>false</code>. The output remains <code>true</code> until
 </p>
 <ul>
 <li>
-the toggle input <code>u</code> rises from <code>false</code> to <code>true</code> again
+the toggle input <code>u</code> rises from <code>false</code> to <code>true</code> again, or
 </li>
 <li>
-or, the clear input <code>clr</code> rises from <code>false</code> to <code>true</code>
+the clear input <code>clr</code> rises from <code>false</code> to <code>true</code>.
 </li>
 </ul>
 <p>

@@ -137,7 +137,7 @@ First implementation.
         Text(
           extent={{-108,-26},{0,-48}},
           lineColor={28,108,200},
-          textString="Start value of y keeps to false (default)"),
+          textString="Start value of y is false (default)"),
         Text(
           extent={{-108,-100},{-40,-112}},
           lineColor={28,108,200},
@@ -145,11 +145,11 @@ First implementation.
         Text(
           extent={{-110,-110},{-28,-124}},
           lineColor={28,108,200},
-          textString="Start value of y sets to true"),
+          textString="Start value of y is true"),
         Text(
           extent={{-108,50},{-28,38}},
           lineColor={28,108,200},
-          textString="Start value of y sets to true"),
+          textString="Start value of y is true"),
         Text(
           extent={{76,148},{136,140}},
           lineColor={28,108,200},
