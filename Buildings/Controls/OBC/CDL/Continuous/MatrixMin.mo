@@ -25,10 +25,9 @@ equation
     defaultComponentName="matMin",
     Documentation(info="<html>
 <p>
-This blocks computes the output vector <code>y</code> as the row-wise,
-if <code>rowMin = true</code>, or
-column-wise, if <code>rowMin = false</code>, minimum of the input
-matrix <code>u</code>.
+If <code>rowMin = true</code>, this block outputs the row-wise minimum
+of the input matrix <code>u</code>,
+otherwise it outputs the column-wise minimum of the input matrix <code>u</code>.
 </p>
 </html>", revisions="<html>
 <ul>

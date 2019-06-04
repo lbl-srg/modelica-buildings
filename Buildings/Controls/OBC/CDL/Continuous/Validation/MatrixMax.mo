@@ -16,7 +16,7 @@ model MatrixMax "Validation model for the MatrixMax block"
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
     rowMax=false,
     nRow=3,
-    nCol=3)       "Matrix maximum"
+    nCol=3) "Matrix maximum"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax1(
