@@ -1450,7 +1450,6 @@ Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/OccupancySchedule
 Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/Table.mos
 Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Validation/OccupancyScheduleNegativeStartTime.mos
 Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Validation/OccupancySchedulePositiveStartTime.mos
-Buildings/Resources/Scripts/Dymola/ConvertIBPSA_from_3.0_to_4.0.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/BaseClasses/Examples/EqualPercentageDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBox.mos
