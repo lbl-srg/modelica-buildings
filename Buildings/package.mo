@@ -464,6 +464,15 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Sources.FixedBoundary
+        </td>
+        <td valign=\"top\">This model is now obsolete and will be removed in future releases.
+                           The model has been renamed model to
+                           <code>Buildings.Obsolete.Fluid.Sources.FixedBoundary</code>.
+                           Use <code>Buildings.Fluid.Sources.Boundary_pT</code> instead.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
         </td>
     </tr>
