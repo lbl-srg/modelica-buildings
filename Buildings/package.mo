@@ -206,14 +206,24 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixMin
+        </td>
+        <td valign=\"top\">Block that outputs vector of row- or column-wise minimum values.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixMax
+        </td>
+        <td valign=\"top\">Block that outputs vector of row- or column-wise maximum values.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixGain
         </td>
-        <td valign=\"top\">Output the product of a gain matrix with the input signal vector.
+        <td valign=\"top\">Block that outputs the product of a gain matrix with the input signal vector.
         </td>
         </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
         </td>
-        <td valign=\"top\">Extract scalar signal out of signal vector dependent on Integer-valued input.
+        <td valign=\"top\">Block that extracts a scalar signal out of a signal vector dependent on an Integer-valued input.
         </td>
         </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
@@ -484,6 +494,22 @@ its class name ends with the string <code>Beta</code>.
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
+        </td>
+        <td valign=\"top\">Corrected implementation that causes wrong output at initial stage.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Toggle
+        </td>
+        <td valign=\"top\">Corrected implementation that causes wrong output at initial stage.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+        </td>
+    </tr>
+
     <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
         </td>
     </tr>
