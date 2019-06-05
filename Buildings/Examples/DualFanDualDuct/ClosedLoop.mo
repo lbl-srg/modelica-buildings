@@ -116,7 +116,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
-  Buildings.Fluid.Sources.FixedBoundary sinHea(
+  Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     nPorts=2,
     p=300000,
@@ -124,7 +124,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={90,-220})));
-  Buildings.Fluid.Sources.FixedBoundary sinCoo(
+  Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
     T=285.15,
@@ -188,7 +188,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={380,-190})));
-  Buildings.Fluid.Sources.FixedBoundary souCoo(
+  Buildings.Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
     p=3E5 + 12000,
     nPorts=1,
@@ -212,7 +212,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint TSetRoo(THeaOff=
         289.15)
     annotation (Placement(transformation(extent={{-300,-276},{-280,-256}})));
-  Buildings.Fluid.Sources.FixedBoundary souHea(
+  Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 12000,
     T=318.15,

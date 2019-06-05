@@ -192,7 +192,7 @@ This model provides inlet air for the <code>roo</code>.
 Name it as <code>bouIn</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">Buildings.Fluid.Sources.FixedBoundary</a>.
+<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>.
 This model is the outdoor environment to which the outlet of <code>roo</code> is connected.
 Name it as <code>bouOut</code>.
 </li>

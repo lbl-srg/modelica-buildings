@@ -31,7 +31,7 @@ model HeatExchanger_ResetController
     "Water-to-water heat exchanger with built-in PID controller to control the temperature at port_b2"
     annotation (Placement(transformation(extent={{-12,48},{8,64}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  Buildings.Fluid.Sources.Boundary_pT sin1(
      nPorts=3,
      redeclare package Medium = MediumW)
      "Sink on medium 1 side"
@@ -57,7 +57,7 @@ model HeatExchanger_ResetController
     startTime=0)
     "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  Buildings.Fluid.Sources.Boundary_pT sin2(
      nPorts=3,
      redeclare package Medium = MediumW)
      "Sink on medium 2 side"

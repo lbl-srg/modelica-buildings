@@ -50,7 +50,7 @@ model ChillerSetPointControl
     m2_flow_nominal=mAir_flow_nominal,
     eps=1.0) "Cooling coil"
              annotation (Placement(transformation(extent={{86,-64},{106,-44}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(redeclare package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium1,
       nPorts=1) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={174,88})));
@@ -106,7 +106,7 @@ model ChillerSetPointControl
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={170,-90})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(redeclare package Medium =
+  Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium =
         MediumAir, nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-30,-60})));
