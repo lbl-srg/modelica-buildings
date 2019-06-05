@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps;
-model WaterSourceHeatPump "Water source heat pump_Performance curve"
+model DOE2WaterToWater "Water source heat pump_Performance curve"
 //testtesttest
  extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
    m2_flow_nominal = mEva_flow_nominal,
@@ -77,8 +77,8 @@ model WaterSourceHeatPump "Water source heat pump_Performance curve"
   Modelica.SIunits.Efficiency EIRFunPLR(nominal=1)
     "Power input to heating capacity ratio function of part load ratio";
 
- parameter Buildings.Fluid.HeatPumps.Data.WSHP.Generic per
-    annotation (Placement(transformation(extent={{34,64},{66,96}})));
+  parameter Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater.Generic_DOE2
+    per annotation (Placement(transformation(extent={{34,64},{66,96}})));
 
 // Part load variables
 
@@ -213,10 +213,11 @@ temperature range.\n"
 
     // HeatPump energy input ratio quadratic curve
     EIRFunPLR= per.EIRFunPLR[1]+per.EIRFunPLR[2]*PLR2+per.EIRFunPLR[3]*PLR2^2;
+
     // Available Heating capacity
     QCon_flow_ava = QCon_flow_nominal*capFunT;
-    // Cooling capacity required to chill water to setpoint
 
+    // Cooling capacity required to chill water to setpoint
     QCon_flow_set = Buildings.Utilities.Math.Functions.smoothMin(
       x1 = m1_flow*(hSet-inStream(port_a1.h_outflow)),
       x2= Q_flow_small,
@@ -457,4 +458,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WaterSourceHeatPump;
+end DOE2WaterToWater;

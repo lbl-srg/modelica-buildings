@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.HeatPumps.Examples.EquationFitWatertoWater", method="dassl",
+ tolerance=1e-6, stopTime=14400, resultFile="EquationFitWaterToWater");
+createPlot(id = 1,
+   position = {60, 10, 640, 480},
+   y = {"heaPum.QCon_flow", "heaPum.QEva_flow"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   filename = "EquationFitWaterToWater.mat",
+   leftTitleType = 1,
+   bottomTitleType = 1);
+

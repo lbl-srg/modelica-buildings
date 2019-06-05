@@ -2,11 +2,11 @@ Carnot_TCon
 Carnot_y
 ReciprocatingWaterToWater
 ScrollWaterToWater
-WaterSourceHeatPump
+DOE2WaterToWater
+EquationFitWaterToWater
 Calibration
 Compressors
 Data
 Examples
 Validation
 BaseClasses
-WaterSourceHeatPump2

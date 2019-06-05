@@ -1,6 +1,7 @@
 within Buildings.Fluid.Geothermal.Borefields.Data.Borefield;
 record Example
   "Example definition of a borefield data record"
+
   extends
     Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template(
       filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(),

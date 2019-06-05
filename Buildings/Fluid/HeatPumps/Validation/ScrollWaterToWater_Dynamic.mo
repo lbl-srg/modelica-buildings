@@ -91,7 +91,7 @@ model ScrollWaterToWater_Dynamic
       leaCoe=0.01),
     enable_temperature_protection=false)
     "Scroll water to water heat pump with transient effects"
-    annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
+    annotation (Placement(transformation(extent={{-10,-62},{10,-42}})));
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)
     "Heat pump control signal"
     annotation (Placement(transformation(extent={{-98,70},{-78,90}})));
@@ -133,14 +133,14 @@ equation
     annotation (Line(points={{-10,58},{-34,58},{-40,58}},color={0,127,255}));
   connect(heaPum.port_b2, sin2.ports[1]) annotation (Line(points={{-10,46},{-22,
           46},{-22,22}},            color={0,127,255}));
-  connect(sin2.ports[2], heaPum1.port_b2) annotation (Line(points={{-22,18},{-22,
-          18},{-22,-60},{-10,-60}}, color={0,127,255}));
+  connect(sin2.ports[2], heaPum1.port_b2) annotation (Line(points={{-22,18},{
+          -22,-58},{-10,-58}},      color={0,127,255}));
   connect(mLoa.y, loa.m_flow_in) annotation (Line(points={{-79,-40},{-74,-40},{-74,
           66},{-60,66}}, color={0,0,127}));
   connect(mLoa.y, loa1.m_flow_in)
     annotation (Line(points={{-79,-40},{-68,-40},{-60,-40}}, color={0,0,127}));
   connect(sou1.ports[1], heaPum1.port_a2)
-    annotation (Line(points={{40,-60},{26,-60},{10,-60}}, color={0,127,255}));
+    annotation (Line(points={{40,-60},{10,-60},{10,-58}}, color={0,127,255}));
   connect(mSou.y, sou1.m_flow_in)
     annotation (Line(points={{79,-52},{74,-52},{60,-52}}, color={0,0,127}));
   connect(TSou.y, sou1.T_in) annotation (Line(points={{79,-80},{70,-80},{70,-56},
@@ -151,16 +151,18 @@ equation
           {-62,-44}}, color={0,0,127}));
   connect(TLoa.y, loa.T_in) annotation (Line(points={{-79,-60},{-70,-60},{-70,62},
           {-62,62}}, color={0,0,127}));
-  connect(loa1.ports[1], heaPum1.port_a1) annotation (Line(points={{-40,-48},{-10,
-          -48}},               color={0,127,255}));
-  connect(heaPum1.port_b1, sin1.ports[2]) annotation (Line(points={{10,-48},{20,
-          -48},{20,18},{34,18}}, color={0,127,255}));
+  connect(loa1.ports[1], heaPum1.port_a1) annotation (Line(points={{-40,-48},{
+          -26,-48},{-26,-46},{-10,-46}},
+                               color={0,127,255}));
+  connect(heaPum1.port_b1, sin1.ports[2]) annotation (Line(points={{10,-46},{20,
+          -46},{20,18},{34,18}}, color={0,127,255}));
   connect(N.y, realToInteger.u)
     annotation (Line(points={{-77,80},{-42,80},{-42,80}}, color={0,0,127}));
   connect(realToInteger.y, heaPum.stage) annotation (Line(points={{-19,80},{-16,
           80},{-16,55},{-12,55}}, color={255,127,0}));
-  connect(realToInteger.y, heaPum1.stage) annotation (Line(points={{-19,80},{-16,
-          80},{-16,-51},{-12,-51}}, color={255,127,0}));
+  connect(realToInteger.y, heaPum1.stage) annotation (Line(points={{-19,80},{
+          -16,80},{-16,-49},{-12,-49}},
+                                    color={255,127,0}));
   annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Dynamic.mos"
         "Simulate and plot"),
     experiment(

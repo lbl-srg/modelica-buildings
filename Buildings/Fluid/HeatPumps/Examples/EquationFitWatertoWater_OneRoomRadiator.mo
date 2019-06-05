@@ -1,15 +1,13 @@
 within Buildings.Fluid.HeatPumps.Examples;
-model WaterSourceHeatPump_OneRoomRadiator
+model EquationFitWatertoWater_OneRoomRadiator
 
   extends Modelica.Icons.Example;
-
 
 package MediumA = Buildings.Media.Air
       "Medium model for air";
 
 package MediumW = Buildings.Media.Water
        "Medium model for water";
-
 
   // Internal Loads
 
@@ -24,14 +22,12 @@ package MediumW = Buildings.Media.Water
 
  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
 
-
   // Heat Pump
-  Buildings.Fluid.HeatPumps.WaterSourceHeatPump heaPum(
-  redeclare package Medium1=MediumW,
-  redeclare package Medium2=MediumW,
-  per = per_Trane)
-annotation (Placement(transformation(extent={{44,-38},{64,-18}})));
-
+  EquationFitWaterToWater                    heaPum(
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumW,
+    per=Data.WatertoWater_HeatPump.Trane_Axiom_EXW240())
+    annotation (Placement(transformation(extent={{44,-38},{64,-18}})));
 
  parameter Modelica.SIunits.Power Q_flow_nominal = 70000
     "Nominal heating power (positive for heating)"
@@ -56,12 +52,10 @@ annotation (Placement(transformation(extent={{44,-38},{64,-18}})));
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal =  per_Trane.mEva_flow_nominal
  "Nominal Evaporator flow rate";
 
-
 //Room description
 
   HeatTransfer.Sources.PrescribedTemperature Tout "outside Drybulb tempearture"
    annotation (Placement(transformation(extent={{-32,58},{-20,70}})));
-
 
   HeatTransfer.Sources.PrescribedHeatFlow preHea
     annotation (Placement(transformation(extent={{16,74},{36,94}})));
@@ -73,7 +67,6 @@ annotation (Placement(transformation(extent={{44,-38},{64,-18}})));
         40)
     annotation (Placement(transformation(extent={{30,56},{46,72}})));
 
-
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
   energyDynamics= Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -82,8 +75,6 @@ annotation (Placement(transformation(extent={{44,-38},{64,-18}})));
     annotation (Placement(transformation(extent={{112,42},{130,58}})));
 
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2/3600  "Nominal mass flow rate";
-
-
 
   //radiator parameters
 
@@ -99,8 +90,6 @@ annotation (Placement(transformation(extent={{44,-38},{64,-18}})));
     TRad_nominal=293.15)         "Radiator"
    annotation (Placement(transformation(extent={{62,-2},{42,18}})));
 
-
-
 Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor rooSen
     annotation (Placement(transformation(extent={{14,40},{4,50}})));
 
@@ -112,11 +101,9 @@ weaDat(filNam=ModelicaServices.ExternalReferences.loadResource(
 "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-134,88},{-114,108}})));
 
-
 Sensors.TemperatureTwoPort temRet(redeclare package Medium = MediumW,
       m_flow_nominal=per_Trane.mCon_flow_nominal) "Heating water return temperature"
     annotation (Placement(transformation(extent={{26,14},{12,30}})));
-
 
 Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
       m_flow_nominal=per_Trane.mCon_flow_nominal) " Heating water supply temperature"
@@ -128,9 +115,7 @@ Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(transformation(extent={{-92,50},{-68,
             78}}), iconTransformation(extent={{-190,-58},{-170,-38}})));
 
-
 //-------------------------------------------------------------------------------------------------------------------------------
-
 
 //Chilled water source and sink
 
@@ -140,13 +125,11 @@ Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
    T= 273.15+12)
     annotation (Placement(transformation(extent={{110,-92},{96,-78}})));
 
-
   Sources.FixedBoundary cHw_Return(nPorts=1,
      redeclare package Medium =MediumW,
      use_T= true,
      T= 273.15+6)
         annotation (Placement(transformation(extent={{8,-108},{22,-94}})));
-
 
   //Condenser Pump- heating water
 
@@ -163,7 +146,6 @@ Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
         rotation=270,
         origin={-12,0})));
 
-
 //Evaporator pump-Chilled water
   Movers.FlowControlled_m_flow EvaPum(
   redeclare package Medium=MediumW,
@@ -177,7 +159,6 @@ Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={24,-70})));
-
 
   // Control of the heatig system
 
@@ -194,14 +175,12 @@ Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
     y(start=0))
     annotation (Placement(transformation(extent={{-88,-104},{-78,-94}})));
 
-
   // Condenser pump control
   Modelica.Blocks.Logical.Hysteresis hyst_ConPum(
     uLow=0.005*mCon_flow_nominal,
     uHigh=0.01*mCon_flow_nominal,
     pre_y_start=false)
     annotation (Placement(transformation(extent={{-52,-52},{-62,-42}})));
-
 
   // Evaporator pump control
   Modelica.Blocks.Logical.Hysteresis hyst_EvaPum(uLow=0.005*mEva_flow_nominal,
@@ -220,30 +199,9 @@ Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
 
 // Heat Pump Nominal Dat
 
- parameter Buildings.Fluid.HeatPumps.Data.WSHP.Generic per_Trane(
-    QCon_flow_nominal=7000,
-    COP_nominal=3.6,
-    mCon_flow_nominal=1.89,
-    mEva_flow_nominal=1.89,
-    TConLvg_nominal=319.15,
-    TConEnt_nominal=311.15,
-    TConEntMin=288.65,
-    TConEntMax=322.15,
-    etaMotor=1,
-    capFunT={2.521130E-01,1.324053E-02,-8.637329E-03,8.581056E-02,-4.261176E-03,
-        8.661899E-03},
-    EIRFunT={4.475238E-01,-2.588210E-02,-1.459053E-03,4.342595E-02,-1.000651E-03,
-        1.920106E-03},
-    EIRFunPLR={2.778889E-01,2.338363E-01,4.883748E-01})
-    annotation (Placement(transformation(extent={{46,-102},{68,-80}})));
-
   Sources.FixedBoundary expTan(redeclare package Medium = MediumW,
     T=318.15,                                                      nPorts=1)
     annotation (Placement(transformation(extent={{114,-4},{98,10}})));
-
-
-
-
 
 equation
 
@@ -269,8 +227,6 @@ equation
                                           color={0,0,127}));
   connect(evaPum_Signal.y, EvaPum.m_flow_in) annotation (Line(points={{-77.5,-99},{-30,-99},{-30,-70},
           {12,-70}},                     color={0,0,127}));
-  connect(conPum_Signal.y, heaPum.TSet) annotation (Line(points={{-77.5,5},{-42,5},{-42,-18},{8,-18},
-          {8,-25},{42,-25}},                  color={0,0,127}));
 
   connect(timTab.y[1], preHea.Q_flow) annotation (Line(points={{4.6,84},{16,84}},
                                    color={0,0,127}));
@@ -304,8 +260,6 @@ equation
                  color={255,0,255}));
   connect(and1.u2, hyst_EvaPum.y) annotation (Line(points={{-73,-21},{-82,-21},{-82,-78},{-62.5,-78},
           {-62.5,-77}},         color={255,0,255}));
-  connect(and1.y, heaPum.on) annotation (Line(points={{-61.5,-25},{6,-25},{6,-31.6},{42,-31.6}},
-        color={255,0,255}));
   connect(rooSen.port, vol.heatPort)
     annotation (Line(points={{14,45},{112,45},{112,50}},color={191,0,0}));
   connect(rad.heatPortRad, vol.heatPort)
@@ -359,6 +313,8 @@ First implementation.
 </html>"),  Placement(transformation(extent={{56,-36},{76,-16}})),
              Placement(transformation(extent={{-100,-98},{-80,-78}})),
                 Placement(transformation(extent={{-28,72},{-14,86}})),
-              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
-       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})));
-end WaterSourceHeatPump_OneRoomRadiator;
+              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}})),
+       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})));
+end EquationFitWatertoWater_OneRoomRadiator;

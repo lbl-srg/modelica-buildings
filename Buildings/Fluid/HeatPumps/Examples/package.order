@@ -1,5 +1,6 @@
 Carnot_TCon
 Carnot_y
 ScrollWaterToWater_OneRoomRadiator
-WaterSourceHeatPump
-WaterSourceHeatPump_OneRoomRadiator
+DOE2WatertoWaterHeatPump
+EquationFitWatertoWater_OneRoomRadiator
+EquationFitWatertoWater

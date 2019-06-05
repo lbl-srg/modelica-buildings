@@ -19,7 +19,7 @@ model MultiStage "Multi-stage DX cooling coil"
     annotation (Placement(transformation(extent={{-56,-68},{-44,-56}})));
 equation
   connect(onSwi.y, eva.on) annotation (Line(
-      points={{-43.4,-62},{-10,-62}},
+      points={{-43.4,-62},{-26,-62},{-26,-64},{-10,-64}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(onSwi.u, stage) annotation (Line(

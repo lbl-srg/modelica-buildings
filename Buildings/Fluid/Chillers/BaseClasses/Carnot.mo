@@ -148,7 +148,7 @@ protected
   constant Boolean COP_is_for_cooling
     "Set to true if the specified COP is for cooling";
 
-  parameter Real etaCarnot_nominal_internal(unit="1") =
+  parameter Real etaCarnot_nominal_internal(unit="1")=
     if use_eta_Carnot_nominal
       then etaCarnot_nominal
       else COP_nominal/
