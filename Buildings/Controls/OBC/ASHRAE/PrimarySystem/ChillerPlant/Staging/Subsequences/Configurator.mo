@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 block Configurator "Configures chiller staging"
 
   parameter Integer nSta = 3
-    "Number of stages";
+    "Number of chiller stages";
 
   parameter Integer nChi = 2
     "Number of chillers";
@@ -20,7 +20,7 @@ block Configurator "Configures chiller staging"
     "Chiller unload capacities";
 
   final parameter Integer chiTypExp[nSta, nChi] = {chiTyp[i] for i in 1:nChi, j in 1:nSta}
-    "Chiller type array expanded to allow for elementwise multiplication with the staging matrix";
+    "Chiller type array expanded to allow for element-wise multiplication with the staging matrix";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nChi]
     "Chiller availability status"
@@ -28,24 +28,28 @@ block Configurator "Configures chiller staging"
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAva[nSta]
-    "Stage availability status array" annotation (Placement(transformation(
-          extent={{260,-30},{280,-10}}), iconTransformation(extent={{100,-80},{
-            120,-60}})));
+    "Stage availability status array"
+    annotation (Placement(transformation(extent={{260,-30},{280,-10}}),
+      iconTransformation(extent={{100,-80},{120,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yTyp[nSta](final max=nSta)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yTyp[nSta](
+    final max=nSta)
     "Nominal chiller stage types"
-                         annotation (Placement(transformation(extent={{260,-90},
+    annotation (Placement(transformation(extent={{260,-90},
             {280,-70}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yNomCap[nSta](final unit="W",
-      final quantity="Power") "Stage nominal capacities" annotation (Placement(
-        transformation(extent={{260,60},{280,80}}),   iconTransformation(extent={{100,60},
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yNomCap[nSta](
+    final unit="W",
+    final quantity="Power") "Stage nominal capacities"
+    annotation (Placement(
+        transformation(extent={{260,60},{280,80}}), iconTransformation(extent={{100,60},
             {120,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinCap[nSta](final unit="W",
-      final quantity="Power") "Stage minimal capacities" annotation (Placement(
-        transformation(extent={{260,0},{280,20}}),  iconTransformation(extent={{100,40},
-            {120,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinCap[nSta](
+    final unit="W",
+    final quantity="Power") "Unload stage capacities"
+    annotation (Placement(transformation(extent={{260,0},{280,20}}),
+      iconTransformation(extent={{100,40},{120,60}})));
 
 //protected
 
@@ -59,49 +63,68 @@ block Configurator "Configures chiller staging"
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staNomCaps(K=staMat)
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
+
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps(K=staMat)
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
+
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps1(K=staMat)
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps2(K=staMat)
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nChi](final k=fill(1, nSta))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nChi](
+    final k=fill(1, nSta))
     "All chillers available"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
+
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Add add2[nSta](k2=fill(-1, nSta))
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold                           lesThr[nSta](threshold=fill(0.5, nSta))
+
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[nSta](
+    final threshold=fill(0.5, nSta))
     "Checks if the number of chillers available in each stage equals the design number of chillers"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiStaMat[nSta,nChi](final k=
-        staMat) "Staging matrix"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiStaMat[nSta,nChi](
+    final k=staMat) "Staging matrix"
     annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
-  CDL.Continuous.Sources.Constant                      staType[nSta,nChi](final k=chiTypExp)
+  CDL.Continuous.Sources.Constant staType[nSta,nChi](
+    final k=chiTypExp)
     "Chiller stage type"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nChi]
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(nRow=nSta, nCol=nChi)
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[nSta]
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sort sort(nin=nSta)
     annotation (Placement(transformation(extent={{60,-170},{80,-150}})));
+
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1[nSta]
     annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
+
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1[nSta]
     annotation (Placement(transformation(extent={{100,-170},{120,-150}})));
+
   Buildings.Controls.OBC.CDL.Integers.Equal                        intEqu[nSta]
     annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message="Chillers are not staged according to G36 recommendation: stage any positive displacement machines first, stage any variable speed centrifugal next and any constant speed centrifugal last.")
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    final message="Chillers are not staged according to G36 recommendation: stage any positive displacement machines first, stage any variable speed centrifugal next and any constant speed centrifugal last.")
     annotation (Placement(transformation(extent={{220,-140},{240,-120}})));
 
   CDL.Logical.MultiAnd mulAnd(nu=nSta)
     annotation (Placement(transformation(extent={{180,-140},{200,-120}})));
+
 equation
   connect(chiNomCaps.y, staNomCaps.u) annotation (Line(points={{-159,190},{-122,
           190}},                color={0,0,127}));

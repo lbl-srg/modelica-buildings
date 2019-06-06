@@ -4,20 +4,48 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   parameter Integer nSta = 3
     "Total number of stages";
 
-  parameter Modelica.SIunits.Power chiNomCap[nChi]
-    "Nominal chiller capacities";
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLow "Current stage is the lowest stage"
+    annotation (Placement(transformation(extent={{-300,-120},{-260,-80}}),
+        iconTransformation(extent={{-120,-100},{-100,-80}})));
 
-  parameter Modelica.SIunits.Power chiMinCap[nChi]
-    "Chiller unload capacities";
-
-  final parameter Real lowDia[nSta, nSta] = {if i<=j then 1 else 0 for i in 1:nSta, j in 1:nSta}
-    "Lower diagonal unit matrix";
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigh "Current stage is the highest stage"
+    annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
+        iconTransformation(extent={{-120,-80},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
     final max=nSta) "Chiller stage"
     annotation (Placement(transformation(extent={{-300,
             100},{-260,140}}), iconTransformation(extent={{-120,20},{-100,40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp(
+    final min=0,
+    final max=nSta)
+    "Next higher available stage"
+    annotation (Placement(transformation(extent={{
+      -300,40},{-260,80}}), iconTransformation(extent={{-120,0},{-100,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDown(
+    final min=0,
+    final max=nSta) "Next lower available stage"
+    annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
+      iconTransformation(extent={{-120,-20},{-100,0}})));
+
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uNomCap[nSta](
+    final quantity="Power",
+    final unit="W")
+    "Nominal stage capacities considering the chiller availability"
+    annotation (
+     Placement(transformation(extent={{-300,180},{-260,220}}),
+        iconTransformation(extent={{-120,80},{-100,100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinCap[nSta](
+    final quantity="Power",
+    final unit="W")
+    "Unload stage capacities considering the chiller availability" annotation (
+      Placement(transformation(extent={{-300,-240},{-260,-200}}),
+        iconTransformation(extent={{-120,60},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaNom(
     final unit="W",
@@ -34,7 +62,7 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaUpNom(
     final unit="W",
     final quantity="Power") "Nominal capacity of the next higher stage"
-                                                annotation (Placement(
+    annotation (Placement(
       transformation(extent={{260,50},{280,70}}),
       iconTransformation(extent={{100,20},{120,40}})));
 
@@ -55,11 +83,8 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   final parameter Real small = 0.001
   "Small number to avoid division with zero";
 
-  final parameter Real large = staNomCap[end]*nSta*10
-  "Value to avoid stage up when at the highest stage";
-
-  final parameter Integer staRan[nSta] = {i for i in 1:nSta}
-  "Range with all possible stage values";
+  final parameter Real larGai = 10
+  "Large gain generate number much larger than the highest stage capacity";
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
     final k=1) "Constant integer"
@@ -70,51 +95,42 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     "Error assertion"
     annotation (Placement(transformation(extent={{220,200},{240,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr[2](final
-      threshold=fill(-0.5, 2)) "Less than threshold"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr[2](
+    final threshold=fill(-0.5, 2)) "Less than threshold"
     annotation (Placement(transformation(extent={{140,200},{160,220}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaCap(
     final outOfRangeValue=-1,
-    final nin=nSta)
-    "Extracts the nominal capacity at the current stage"
+    final nin=nSta) "Extracts the nominal capacity at the current stage"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaLowCap(
     final outOfRangeValue=-1,
     final nin=nSta,
-    allowOutOfRange=true)
+    final allowOutOfRange=true)
     "Extracts the nominal capacity of one stage lower than the current stage"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaUpCapMin(
     final nin=nSta,
     final allowOutOfRange=true,
-    final outOfRangeValue=large)
+    final outOfRangeValue=-1)
     "Extracts minimal capacity of the next higher stage"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaUpCap(
     final nin=nSta,
     final allowOutOfRange=true,
-    final outOfRangeValue=large)
+    final outOfRangeValue=-1)
     "Extracts the nominal capacity of the next stage"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaCapMin(
     final nin=nSta,
-    final outOfRangeValue=0,
+    final outOfRangeValue=-1,
     final allowOutOfRange=true)
     "Extracts the minimum capacity of the current stage"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaNum(
-    final k=small) "Small number to prevent division with zero downstream"
-    annotation (Placement(transformation(extent={{140,100},{160,120}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant larNum(
-    final k=large) "Large number to prevent staging up at the highest stage"
-    annotation (Placement(transformation(extent={{140,160},{160,180}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "Switch"
@@ -140,36 +156,23 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     "Or operator on array inputs"
     annotation (Placement(transformation(extent={{180,200},{200,220}})));
 
-  CDL.Interfaces.RealInput uNomCap[nSta](final quantity="Power", final unit="W")
-    "Nominal stage capacities considering the chiller availability" annotation (
-     Placement(transformation(extent={{-300,180},{-260,220}}),
-        iconTransformation(extent={{-120,80},{-100,100}})));
-  CDL.Interfaces.RealInput uMinCap[nSta](final quantity="Power", final unit="W")
-    "Unload stage capacities considering the chiller availability" annotation (
-      Placement(transformation(extent={{-300,-240},{-260,-200}}),
-        iconTransformation(extent={{-120,60},{-100,80}})));
-  CDL.Interfaces.IntegerInput uUp(final min=0, final max=nSta)
-    "Next higher available stage" annotation (Placement(transformation(extent={{
-            -300,40},{-260,80}}), iconTransformation(extent={{-120,0},{-100,20}})));
-  CDL.Interfaces.IntegerInput                        uDown(final min=0, final
-      max=nSta) "Next lower available stage"
-    annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
-      iconTransformation(extent={{-120,-20},{-100,0}})));
-  CDL.Integers.Max maxInt
+  Buildings.Controls.OBC.CDL.Integers.Max maxInt
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
-  CDL.Integers.Max maxIntUp
+
+  Buildings.Controls.OBC.CDL.Integers.Max maxIntUp
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  CDL.Integers.Max maxIntDown
+
+  Buildings.Controls.OBC.CDL.Integers.Max maxIntDown
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
-  CDL.Interfaces.BooleanInput uLow "Current stage is the lowest stage"
-    annotation (Placement(transformation(extent={{-300,-120},{-260,-80}}),
-        iconTransformation(extent={{-120,-100},{-100,-80}})));
-  CDL.Interfaces.BooleanInput uHigh "Current stage is the highest stage"
-    annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
-        iconTransformation(extent={{-120,-80},{-100,-60}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaNum(final k=small)
+    "Small number to prevent division with zero"
+    annotation (Placement(transformation(extent={{140,100},{160,120}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=larGai)
+    "To make a very large and unachievable staging up capacity if already the highest available stage"
+    annotation (Placement(transformation(extent={{20,100},{40,120}})));
 equation
-  connect(larNum.y, swi2.u1) annotation (Line(points={{161,170},{200,170},{200,78},
-          {218,78}}, color={0,0,127}));
   connect(swi2.y, yStaUpNom) annotation (Line(points={{241,70},{250,70},{250,60},
           {270,60}}, color={0,0,127}));
   connect(extStaUpCap.y, swi2.u3) annotation (Line(points={{121,80},{172,80},{172,
@@ -177,8 +180,6 @@ equation
                      color={0,0,127}));
   connect(yStaMin, yStaMin)
     annotation (Line(points={{270,-20},{270,-20}}, color={0,0,127}));
-  connect(larNum.y, swi4.u1) annotation (Line(points={{161,170},{190,170},{190,-82},
-          {218,-82}},  color={0,0,127}));
   connect(extStaUpCapMin.y, swi4.u3) annotation (Line(points={{121,-30},{140,-30},
           {140,-98},{218,-98}},    color={0,0,127}));
   connect(swi4.y, yStaUpMin) annotation (Line(points={{241,-90},{250,-90},{250,-60},
@@ -191,14 +192,9 @@ equation
           {0,136},{218,136}}, color={0,0,127}));
   connect(forStaNom.y, yStaNom) annotation (Line(points={{241,130},{250,130},{250,
           100},{270,100}},   color={0,0,127}));
-  connect(forStaNom.u2, smaNum.y) annotation (Line(points={{218,124},{180,124},{
-          180,110},{161,110}},color={0,0,127}));
   connect(forStaDowNom.y, yStaDowNom)
     annotation (Line(points={{241,20},{270,20}},
                                                color={0,0,127}));
-  connect(smaNum.y, forStaDowNom.u1) annotation (Line(points={{161,110},{180,110},
-          {180,26},{218,26}},
-                            color={0,0,127}));
   connect(swi1.y, forStaDowNom.u2) annotation (Line(points={{181,0},{200,0},{200,
           14},{218,14}}, color={0,0,127}));
   connect(extStaLowCap.y, swi1.u3) annotation (Line(points={{-19,80},{50,80},{50,
@@ -252,6 +248,16 @@ equation
           64},{-182,64}}, color={255,127,0}));
   connect(uUp, maxIntUp.u1) annotation (Line(points={{-280,60},{-220,60},{-220,76},
           {-182,76}}, color={255,127,0}));
+  connect(smaNum.y, forStaNom.u2) annotation (Line(points={{161,110},{180,110},{
+          180,124},{218,124}}, color={0,0,127}));
+  connect(smaNum.y, forStaDowNom.u1) annotation (Line(points={{161,110},{180,110},
+          {180,26},{218,26}}, color={0,0,127}));
+  connect(extStaCap.y, gai.u) annotation (Line(points={{-19,150},{0,150},{0,110},
+          {18,110}}, color={0,0,127}));
+  connect(gai.y, swi2.u1) annotation (Line(points={{41,110},{132,110},{132,90},{
+          198,90},{198,78},{218,78},{218,78}}, color={0,0,127}));
+  connect(gai.y, swi4.u1) annotation (Line(points={{41,110},{60,110},{60,-70},{200,
+          -70},{200,-82},{218,-82}}, color={0,0,127}));
   annotation (defaultComponentName = "cap",
         Icon(graphics={
         Rectangle(
