@@ -51,11 +51,16 @@ protected
   parameter Real[sizeSupSpl] invSplDer(fixed=false) "Derivatives at support points for spline interpolation";
   Real kThetaDam(unit="1") "Loss coefficient of damper in actual position";
   Real kThetaTot(unit="1") "Loss coefficient of damper + fixed resistance";
-  Modelica.SIunits.PressureDifference dp_0
+  Modelica.SIunits.PressureDifference dp_0(start=
+    Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+      m_flow=m_flow_nominal,
+      k=l * m_flow_nominal / sqrt(dp_nominal_pos),
+      m_flow_turbulent=m_flow_turbulent), displayUnit="Pa")
     "Pressure drop at required flow rate with damper fully closed";
-  Modelica.SIunits.PressureDifference dp_1
+  Modelica.SIunits.PressureDifference dp_1(displayUnit="Pa")
     "Pressure drop at required flow rate with damper fully open";
-  Real c_regul(start=1E-2) "Regularization coefficient";
+  parameter Real c_regul = 1E-2 "Regularization coefficient";
+  Modelica.SIunits.MassFlowRate m_inter(min=0);
 initial equation
   kResSqu=if dpFixed_nominal > Modelica.Constants.eps then
     m_flow_nominal^2 / dpFixed_nominal else 0
@@ -64,16 +69,21 @@ initial equation
   ySupSpl = ySupSpl_raw[idx_sorted];
   invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(x=kSupSpl, y=ySupSpl);
 equation
-  dp_0 = max(dp_1 + 2 * dp_small,
-    Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-      m_flow=y_internal * m_flow_nominal * (1 + c_regul),
+  m_inter =  m_flow_nominal * (y_internal + c_regul * dp_0 / dpTot_nominal);
+  dp_0 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+      m_flow=m_inter,
       k=kTot_0,
-      m_flow_turbulent=m_flow_turbulent));
+      m_flow_turbulent=m_flow_turbulent);
+  // dp_0 = max(dp_1 + 2 * dp_small,
+  //   Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+  //     m_flow=y_internal * m_flow_nominal * (
+  //       1 + c_regul * (y_internal * m_flow_nominal / kTot_0)^2 / dpTot_nominal),
+  //     k=kTot_0,
+  //     m_flow_turbulent=m_flow_turbulent));
   dp_1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=y_internal * m_flow_nominal,
     k=kTot_1,
     m_flow_turbulent=m_flow_turbulent);
-  c_regul = 1E-2 + y_internal * (kTot_1 / kTot_0)^2;
   m_flow_smooth = smooth(2, noEvent(
     if dp <= dp_1 then
       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
@@ -89,13 +99,13 @@ equation
           dp=dp_1,
           k=kTot_1,
           m_flow_turbulent=m_flow_turbulent),
-        y2=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
+        y2=y_internal * m_flow_nominal * (1 + c_regul * dp / dpTot_nominal),
         y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
           dp=dp_1,
           k=kTot_1,
           m_flow_turbulent=m_flow_turbulent,
           dp_der=1),
-        y2d=y_internal * m_flow_nominal * c_regul / (dp_0 - dp_1),
+        y2d=y_internal * m_flow_nominal * c_regul / dpTot_nominal,
         y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
           dp=dp_1,
           k=kTot_1,
@@ -104,18 +114,18 @@ equation
           dp_der2=0),
         y2dd=0)
     elseif dp < dp_0 - dp_small then
-      y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1))
+      y_internal * m_flow_nominal * (1 + c_regul * dp / dpTot_nominal)
     elseif dp < dp_0 then
       Buildings.Utilities.Math.Functions.quinticHermite(
         x=dp,
         x1=dp_0 - dp_small,
         x2=dp_0,
-        y1=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
+        y1=y_internal * m_flow_nominal * (1 + c_regul * dp / dpTot_nominal),
         y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
           dp=dp_0,
           k=kTot_0,
           m_flow_turbulent=m_flow_turbulent),
-        y1d=y_internal * m_flow_nominal * c_regul / (dp_0 - dp_1),
+        y1d=y_internal * m_flow_nominal * c_regul / dpTot_nominal,
         y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
           dp=dp_0,
           k=kTot_0,
