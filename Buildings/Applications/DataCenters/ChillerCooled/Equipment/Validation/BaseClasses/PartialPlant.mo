@@ -18,7 +18,7 @@ partial model PartialPlant
     "Nominal pressure";
   parameter Integer numChi=1 "Number of chillers";
 
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = MediumCW)
     "Sink on medium 1 side"
     annotation (Placement(
@@ -42,7 +42,7 @@ partial model PartialPlant
     startTime=0)
     "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  Buildings.Fluid.Sources.Boundary_pT sin2(
     nPorts=1,
     redeclare package Medium = MediumCHW)
     "Sink on medium 2 side"

@@ -106,7 +106,7 @@ block HVACZones
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
     annotation (Placement(transformation(extent={{-40,-48},{-20,-28}})));
-  Sources.FixedBoundary sinWat(
+  Buildings.Fluid.Sources.Boundary_pT sinWat(
     redeclare package Medium = MediumW, nPorts=1) "Sink for water circuit"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -326,6 +326,11 @@ ports which are exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 April 4, 2017, by Michael Wetter:<br/>
 Removed import statement.

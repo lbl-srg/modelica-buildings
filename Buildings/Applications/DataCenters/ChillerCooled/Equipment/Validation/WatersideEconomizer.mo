@@ -45,7 +45,7 @@ model WatersideEconomizer
         transformation(
         extent={{10,-10},{-10,10}},
         origin={50,-70})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = MediumCW, nPorts=1)
     "Sink on medium 1 side"
     annotation (Placement(
@@ -70,7 +70,7 @@ model WatersideEconomizer
     startTime=0)
     "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  Buildings.Fluid.Sources.Boundary_pT sin2(
     nPorts=1,
     redeclare package Medium = MediumCHW)
     "Sink on medium 2 side"

@@ -1,9 +1,58 @@
 within Buildings.Fluid.Sources;
 model Boundary_pT
   "Boundary with prescribed pressure, temperature, composition and trace substances"
-  extends Buildings.Fluid.Sources.BaseClasses.PartialSource_p;
-  extends Buildings.Fluid.Sources.BaseClasses.PartialSource_T;
   extends Buildings.Fluid.Sources.BaseClasses.PartialSource_Xi_C;
+
+  parameter Boolean use_p_in = false
+    "Get the pressure from the input connector"
+    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+  parameter Medium.AbsolutePressure p = Medium.p_default
+    "Fixed value of pressure"
+    annotation (Dialog(enable = not use_p_in, group="Fixed inputs"));
+
+  parameter Boolean use_T_in= false
+    "Get the temperature from the input connector"
+    annotation(Evaluate=true, HideResult=true,Dialog(group="Conditional inputs"));
+  parameter Medium.Temperature T = Medium.T_default
+    "Fixed value of temperature"
+    annotation (Dialog(enable = not use_T_in,group="Fixed inputs"));
+
+  Modelica.Blocks.Interfaces.RealInput p_in(final unit="Pa") if use_p_in
+    "Prescribed boundary pressure"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+
+  Modelica.Blocks.Interfaces.RealInput T_in(final unit="K",
+                                            displayUnit="degC") if use_T_in
+    "Prescribed boundary temperature"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+
+protected
+  Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",
+                                                     displayUnit="degC")
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput h_internal=
+    Medium.specificEnthalpy(Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal))
+    "Internal connector for enthalpy";
+
+equation
+  // Pressure
+  connect(p_in, p_in_internal);
+  if not use_p_in then
+    p_in_internal = p;
+  end if;
+  for i in 1:nPorts loop
+    ports[i].p = p_in_internal;
+  end for;
+
+  // Temperature
+  connect(T_in, T_in_internal);
+  if not use_T_in then
+    T_in_internal = T;
+  end if;
+  for i in 1:nPorts loop
+     ports[i].h_outflow  = h_internal;
+  end for;
+  connect(medium.h, h_internal);
   annotation (defaultComponentName="bou",
     Documentation(info="<html>
 <p>
@@ -54,6 +103,11 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+January 25, 2019, by Michael Wetter:<br/>
+Refactored use of base classes.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\">#1072</a>.
+</li>
+<li>
 February 2nd, 2018 by Filip Jorissen<br/>
 Made <code>medium</code> conditional and refactored inputs.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">#882</a>.
@@ -79,5 +133,28 @@ First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Text(
+          visible=use_p_in,
+          extent={{-152,134},{-68,94}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="p"),
+        Text(
+          visible=use_T_in,
+          extent={{-162,34},{-60,-6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="T"),
+         Ellipse(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,127,255}), Text(
+          extent={{-150,110},{150,150}},
+          textString="%name",
+          lineColor={0,0,255})}));
 end Boundary_pT;

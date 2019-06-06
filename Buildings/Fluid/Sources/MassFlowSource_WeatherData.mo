@@ -139,10 +139,6 @@ equation
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="m"),
-        Text(
-          extent={{-150,130},{150,170}},
-          textString="%name",
-          lineColor={0,0,255}),
         Ellipse(
           extent={{-26,30},{-18,22}},
           lineColor={255,0,0},
@@ -161,7 +157,10 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="C")}),
+          textString="C"),        Text(
+          extent={{-161,110},{139,150}},
+          textString="%name",
+          lineColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate and trace

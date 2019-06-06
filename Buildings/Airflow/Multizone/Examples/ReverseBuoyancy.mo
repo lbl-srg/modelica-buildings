@@ -136,14 +136,13 @@ model ReverseBuoyancy
     vZer=0.01,
     dp_turbulent=0.1) "Discretized door"
     annotation (Placement(transformation(extent={{-63,80},{-43,100}})));
-  Buildings.Fluid.Sources.FixedBoundary volOut(
+  Buildings.Fluid.Sources.Boundary_pT volOut(
     redeclare package Medium = Medium,
     p=100000,
     T=283.15,
-    nPorts=2) "Ambient conditions" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={130,-50})));
+    nPorts=2) "Ambient conditions"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=180, origin={130,-50})));
 equation
   connect(ope.y, dooOpeClo.y) annotation (Line(points={{-81,-13},{-74,-13},{-74,
           -45},{-62,-45}}, color={0,0,255}));
@@ -263,6 +262,11 @@ bottom floor directly exchanges air with the outside.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
