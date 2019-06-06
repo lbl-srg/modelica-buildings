@@ -107,12 +107,10 @@ HeatPump:WatertoWater,
     4.10,                    !- Reference COP {W/W}
     0.0018,                  !- Reference Evaporator Water Flow Rate {m3/s}
     0.0018,                  !- Reference Condenser Water Flow Rate {m3/s}
-
     55680,                   !- Reference Cooling Capacity {W}
     13.5,                    !- Refrence EER{BTUh/W}
     0.0044,                  !- Reference Evaporator Water Flow Rate {m3/s}
     0.0018,                  !- Reference Condenser Water Flow Rate {m3/s}
-
 
 
     HeatPump WatertoWater Trane EXW 77kW/4.11COP HLR,  !- Heating Load Ratio Function of Temperature Curve Name
@@ -120,7 +118,6 @@ HeatPump:WatertoWater,
 
     HeatPump WatertoWater Trane EXW 55.68kW/13.5 EER (BTUh/W) CLR,  !- cooling Load Ratio Function of Temperature Curve Name
     HeatPump:WatertoWater Trane EXW 55.68kW/13.5 EER (BTUh/W) PowR_CD, !- Electric Input to nominal electric input Ratio Function of Temperature Curve Name
-
 
 
 </pre>

@@ -4,6 +4,9 @@ Carnot_TCon_etaPL
 Carnot_TCon_reverseFlow
 Carnot_y_etaCar
 Carnot_y_etaPL
+EquationFitWaterToWater_Dynamic
+EquationFitWaterToWater_EnergyPlus
+EquationFitWaterToWater_Static
 ReciprocatingWaterToWater_Dynamic
 ReciprocatingWaterToWater_ScalingFactor
 ReciprocatingWaterToWater_Static

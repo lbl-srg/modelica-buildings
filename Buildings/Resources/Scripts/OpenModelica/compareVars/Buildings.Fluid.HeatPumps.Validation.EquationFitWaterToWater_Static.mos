@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "heaPum.QCon_flow",
+    "heaPum.QEva_flow",
+    "heaPum.TConEnt",
+    "heaPum.TConLvg",
+    "heaPum.TEvaEnt",
+    "heaPum.TEvaLvg"
+  };
