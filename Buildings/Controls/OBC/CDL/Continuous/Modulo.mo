@@ -11,8 +11,8 @@ block Modulo
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-8},{120,12}}),
+        iconTransformation(extent={{100,-8},{120,12}})));
 
 equation
   y = mod(u1,u2);

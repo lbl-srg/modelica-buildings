@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses;
+within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data.BaseClasses;
 partial record PipeDataULg "Base class for ULg experimental data"
   extends PipeDataBaseDefinition;
   parameter Modelica.SIunits.Temp_C T_start_in = 20
