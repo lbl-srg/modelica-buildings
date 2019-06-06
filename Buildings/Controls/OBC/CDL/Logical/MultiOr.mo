@@ -3,8 +3,10 @@ block MultiOr "Logical MultiOr, y = u[1] or u[2] or u[3] or ..."
 
   parameter Integer nu(min=0) = 0 "Number of input connections"
     annotation (Dialog(connectorSizing=true), HideResult=true);
+
   Interfaces.BooleanInput u[nu] "Connector of Boolean input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
+
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-17},{134,17}})));
 
@@ -52,7 +54,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Block that outputs <code>y = true</code> if any element in the input 
+Block that outputs <code>y = true</code> if any element in the input
 vector <code>u</code> is <code>true</code>.
 The dimension of the input vector <code>u</code> is automatically enlarged
 when a new connection is made.
@@ -70,7 +72,7 @@ for an example.
 revisions="<html>
 <ul>
 <li>
-September 17, 2018, by Milica Grahovac:<br/>
+June 6, 2019, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
