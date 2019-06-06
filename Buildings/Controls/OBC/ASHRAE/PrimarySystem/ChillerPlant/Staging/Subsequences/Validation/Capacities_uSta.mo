@@ -79,11 +79,11 @@ protected
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
 equation
-  connect(stage0.y, staCap0.uSta)
+  connect(stage0.y, staCap0.u)
     annotation (Line(points={{-59,60},{-42,60}}, color={255,127,0}));
-  connect(stage1.y, staCap1.uSta)
+  connect(stage1.y, staCap1.u)
     annotation (Line(points={{-59,0},{-42,0}}, color={255,127,0}));
-  connect(stage2.y, staCap2.uSta)
+  connect(stage2.y, staCap2.u)
     annotation (Line(points={{-59,-50},{-42,-50}}, color={255,127,0}));
   connect(staCap0.yStaNom, absErrorSta0[1].u1) annotation (Line(points={{-19,67},
           {40,67},{40,80},{58,80}}, color={0,0,127}));

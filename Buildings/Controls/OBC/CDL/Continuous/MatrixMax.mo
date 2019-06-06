@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block MatrixMax "Output vector of row- or column-wise maximum values"
+block MatrixMax "Output vector of row- or column-wise maximum of the input matrix"
 
   parameter Boolean rowMax = true "If true, outputs row-wise maximum, otherwise column-wise";
 
@@ -25,10 +25,9 @@ equation
     defaultComponentName="matMax",
     Documentation(info="<html>
 <p>
-This blocks computes output vector <code>y</code> as the row-wise,
-if <code>rowMax = true</code>, or
-column-wise, if <code>rowMax = false</code>, maximum of the input
-matrix <code>u</code>.
+If <code>rowMax = true</code>, this block outputs the row-wise maximum
+of the input matrix <code>u</code>,
+otherwise it outputs the column-wise maximum of the input matrix <code>u</code>.
 </p>
 </html>", revisions="<html>
 <ul>

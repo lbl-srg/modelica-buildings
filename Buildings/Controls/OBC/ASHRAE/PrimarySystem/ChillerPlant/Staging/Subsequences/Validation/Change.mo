@@ -95,7 +95,7 @@ equation
           8,-18},{39,-18}},     color={0,0,127}));
   connect(TCWSupSet.y, staCha.TChiWatSupSet) annotation (Line(points={{-39,30},
           {28,30},{28,-5},{39,-5}},   color={0,0,127}));
-  connect(staAva.y, staCha.uStaAva) annotation (Line(points={{-39,70},{32,70},{
+  connect(staAva.y, staCha.uChiAva) annotation (Line(points={{-39,70},{32,70},{
           32,0},{39,0}}, color={255,0,255}));
   connect(staCha.uWseSta, WSESta.y) annotation (Line(points={{39,-2},{30,-2},{
           30,50},{-79,50}},   color={255,0,255}));

@@ -18,8 +18,7 @@ block Down "Stage down conditions"
      Placement(transformation(extent={{-180,-170},{-140,-130}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
-    "Chiller stage"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u "Chiller stage"
     annotation (Placement(transformation(extent={{-180,-200},{-140,-160}}),
         iconTransformation(extent={{-120,-110},{-100,-90}})));
 
@@ -161,8 +160,8 @@ equation
           {-130,30},{-130,23},{-81,23}},        color={0,0,127}));
   connect(dpChiWatPum, faiSafCon.dpChiWatPum) annotation (Line(points={{-160,0},
           {-100,0},{-100,21},{-81,21}},   color={0,0,127}));
-  connect(uChiSta, intGreThr.u)
-    annotation (Line(points={{-160,-180},{-122,-180}},color={255,127,0}));
+  connect(u, intGreThr.u)
+    annotation (Line(points={{-160,-180},{-122,-180}}, color={255,127,0}));
   connect(y, logSwi.y)
     annotation (Line(points={{150,0},{121,0}},color={255,0,255}));
   connect(add0.y,hysTSup. u)

@@ -145,13 +145,13 @@ block Status
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
     final threshold=nSta)
     "Current stage is the highest available stage"
-    annotation (Placement(transformation(extent={{118,-20},{138,0}})));
+    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea5
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea4
-    annotation (Placement(transformation(extent={{118,-60},{138,-40}})));
+    annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{198,-20},{218,0}})));
@@ -210,8 +210,8 @@ equation
     annotation (Line(points={{-179,120},{-122,120}},   color={255,127,0}));
   connect(matMax.y, chiInSta.u)
     annotation (Line(points={{101,100},{118,100}},color={0,0,127}));
-  connect(chiExtMatr.y, intEqu1.u2) annotation (Line(points={{-179,70},{-130,70},
-          {-130,112},{-122,112}},   color={255,127,0}));
+  connect(chiExtMatr.y, intEqu1.u2) annotation (Line(points={{-179,70},{-150,70},
+          {-150,112},{-122,112}},   color={255,127,0}));
   connect(chiInSta.y, yChi)
     annotation (Line(points={{141,100},{310,100}}, color={255,0,255}));
   connect(proInt.y, intToRea.u)
@@ -275,23 +275,23 @@ equation
   connect(multiMin.y, reaToInt.u)
     annotation (Line(points={{61,-10},{78,-10}},   color={0,0,127}));
   connect(reaToInt.y, intGreThr.u)
-    annotation (Line(points={{101,-10},{116,-10}}, color={255,127,0}));
+    annotation (Line(points={{101,-10},{118,-10}}, color={255,127,0}));
   connect(intGreThr.y, swi.u2)
-    annotation (Line(points={{139,-10},{196,-10}}, color={255,0,255}));
+    annotation (Line(points={{141,-10},{196,-10}}, color={255,0,255}));
   connect(intToRea5.y, swi.u1) annotation (Line(points={{141,30},{180,30},{180,-2},
           {196,-2}},       color={0,0,127}));
   connect(reaToInt.y, intToRea4.u) annotation (Line(points={{101,-10},{110,-10},
-          {110,-50},{116,-50}},
+          {110,-50},{118,-50}},
                               color={255,127,0}));
-  connect(intToRea4.y, swi.u3) annotation (Line(points={{139,-50},{188,-50},{188,
-          -18},{196,-18}},
+  connect(intToRea4.y, swi.u3) annotation (Line(points={{141,-50},{188,-50},{
+          188,-18},{196,-18}},
                       color={0,0,127}));
   connect(uUp, reaToInt2.y) annotation (Line(points={{310,0},{260,0},{260,-10},{
           249,-10}},  color={255,127,0}));
   connect(swi.y, reaToInt2.u)
     annotation (Line(points={{219,-10},{226,-10}}, color={0,0,127}));
-  connect(intGreThr.y, yHig) annotation (Line(points={{139,-10},{160,-10},{160,-40},
-          {310,-40}},                      color={255,0,255}));
+  connect(intGreThr.y, yHig) annotation (Line(points={{141,-10},{160,-10},{160,
+          -40},{310,-40}},                 color={255,0,255}));
   connect(reaToInt3.y, uDown) annotation (Line(points={{249,-110},{260,-110},{260,
           -100},{310,-100}},
                      color={255,127,0}));

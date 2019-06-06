@@ -13,19 +13,19 @@ model OperationMode "Validate block OperationModeSelector"
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-52,-100},{-32,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=22.5, final k=12.5)
+    final k=12.5, final p=273.15 + 22.5)
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetUno(
-    final k=12) "Unoccupied heating setpoint"
+    final k=273.15 + 12)  "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,-170},{-40,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetUno(
-    final k=30) "Unoccupied cooling setpoint"
+    final k=273.15 + 30)  "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetOcc(
-    final k=20) "Occupied heating setpoint"
+    final k=273.15 + 20)  "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(
-    final k=24) "Occupied cooling setpoint"
+    final k=273.15 + 24)  "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warUpTim(
     final k=1800) "Warm-up time"

@@ -1,6 +1,21 @@
 compareVars :=
   {
-    "toggle1.u0",
-    "toggle1.u",
-    "toggle1.y"
+    "falCle.u",
+    "falCle.clr",
+    "falCle.y",
+    "truCle.u",
+    "truCle.clr",
+    "truCle.y",
+    "iniFalOut.u",
+    "iniFalOut.clr",
+    "iniFalOut.y",
+    "iniTruOut.u",
+    "iniTruOut.clr",
+    "iniTruOut.y",
+    "swiCleInp.u",
+    "swiCleInp.clr",
+    "swiCleInp.y",
+    "swiCleInp1.u",
+    "swiCleInp1.clr",
+    "swiCleInp1.y"
   };

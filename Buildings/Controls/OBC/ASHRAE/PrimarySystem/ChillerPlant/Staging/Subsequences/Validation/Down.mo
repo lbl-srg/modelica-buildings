@@ -117,8 +117,8 @@ equation
           {-80,56},{-61,56}},     color={0,0,127}));
   connect(WSESta.y, staDow.uWseSta) annotation (Line(points={{-99,-70},{-66,-70},
           {-66,42},{-61,42}}, color={255,0,255}));
-  connect(stage2.y, staDow.uChiSta) annotation (Line(points={{-139,-90},{-64,-90},
-          {-64,40},{-61,40}}, color={255,127,0}));
+  connect(stage2.y, staDow.u) annotation (Line(points={{-139,-90},{-64,-90},{-64,
+          40},{-61,40}}, color={255,127,0}));
   connect(TWsePre.y, staDow.TWsePre) annotation (Line(points={{-139,30},{-80,30},
           {-80,46},{-61,46}}, color={0,0,127}));
   connect(TowFanSpeMax.y, staDow.uTowFanSpeMax) annotation (Line(points={{-99,50},
@@ -141,8 +141,8 @@ equation
           {120,56},{139,56}},     color={0,0,127}));
   connect(WSESta1.y, staDow1.uWseSta) annotation (Line(points={{101,-70},{134,-70},
           {134,42},{139,42}}, color={255,0,255}));
-  connect(stage1.y, staDow1.uChiSta) annotation (Line(points={{61,-90},{136,-90},
-          {136,40},{139,40}}, color={255,127,0}));
+  connect(stage1.y, staDow1.u) annotation (Line(points={{61,-90},{136,-90},{136,
+          40},{139,40}}, color={255,127,0}));
   connect(TowFanSpeMax1.y, staDow1.uTowFanSpeMax) annotation (Line(points={{101,50},
           {110,50},{110,44},{139,44}},   color={0,0,127}));
   connect(TWsePre1.y, staDow1.TWsePre) annotation (Line(points={{61,30},{126,30},

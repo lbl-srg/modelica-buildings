@@ -97,8 +97,8 @@ protected
 
 equation
 
-  connect(staSig1.y,PLRs1. uSta) annotation (Line(points={{-119,310},{-90,310},{
-          -90,319},{-41,319}},   color={255,127,0}));
+  connect(staSig1.y, PLRs1.u) annotation (Line(points={{-119,310},{-90,310},{-90,
+          319},{-41,319}}, color={255,127,0}));
   connect(capReq.y,PLRs1. uCapReq) annotation (Line(points={{-79,280},{-70,280},
           {-70,317},{-41,317}}, color={0,0,127}));
   connect(staCap.yStaNom,PLRs1. uStaCapNom) annotation (Line(points={{-79,247},{
@@ -111,12 +111,10 @@ equation
           {-62,234},{-62,309},{-41,309}},    color={0,0,127}));
   connect(staCap.yStaMin,PLRs1. uStaCapMin) annotation (Line(points={{-79,232},{
           -60,232},{-60,307},{-41,307}},color={0,0,127}));
-  connect(staSig1.y, staCap.uSta) annotation (Line(points={{-119,310},{-110,310},
-          {-110,240},{-102,240}},
-                          color={255,127,0}));
-  connect(staSig2.y,PLRs2. uSta) annotation (Line(points={{-319,130},{-290,130},
-          {-290,139},{-241,139}},
-                      color={255,127,0}));
+  connect(staSig1.y, staCap.u) annotation (Line(points={{-119,310},{-110,310},{
+          -110,240},{-102,240}}, color={255,127,0}));
+  connect(staSig2.y, PLRs2.u) annotation (Line(points={{-319,130},{-290,130},{-290,
+          139},{-241,139}}, color={255,127,0}));
   connect(capReq1.y,PLRs2. uCapReq) annotation (Line(points={{-279,100},{-270,100},
           {-270,137},{-241,137}},
                            color={0,0,127}));
@@ -135,10 +133,9 @@ equation
   connect(staCap1.yStaMin,PLRs2. uStaCapMin) annotation (Line(points={{-279,52},
           {-260,52},{-260,127},{-241,127}},
                                     color={0,0,127}));
-  connect(staSig2.y, staCap1.uSta) annotation (Line(points={{-319,130},{-310,130},
-          {-310,60},{-302,60}},
-                    color={255,127,0}));
-  connect(staSig3.y, PLRsNoWSE.uSta) annotation (Line(points={{-119,130},{-90,130},
+  connect(staSig2.y, staCap1.u) annotation (Line(points={{-319,130},{-310,130},
+          {-310,60},{-302,60}}, color={255,127,0}));
+  connect(staSig3.y, PLRsNoWSE.u) annotation (Line(points={{-119,130},{-90,130},
           {-90,139},{-41,139}}, color={255,127,0}));
   connect(capReq2.y, PLRsNoWSE.uCapReq) annotation (Line(points={{-79,100},{-70,
           100},{-70,137},{-41,137}}, color={0,0,127}));
@@ -152,16 +149,16 @@ equation
           54},{-62,54},{-62,129},{-41,129}}, color={0,0,127}));
   connect(staCap2.yStaMin, PLRsNoWSE.uStaCapMin) annotation (Line(points={{-79,52},
           {-60,52},{-60,127},{-41,127}}, color={0,0,127}));
-  connect(staSig3.y, staCap2.uSta) annotation (Line(points={{-119,130},{-110,130},
-          {-110,60},{-102,60}},    color={255,127,0}));
+  connect(staSig3.y, staCap2.u) annotation (Line(points={{-119,130},{-110,130},
+          {-110,60},{-102,60}}, color={255,127,0}));
   connect(con.y, staCap.uStaAva) annotation (Line(points={{-319,30},{-180,30},{-180,
           234},{-102,234}},    color={255,0,255}));
   connect(con.y, staCap1.uStaAva) annotation (Line(points={{-319,30},{-310,30},{
           -310,54},{-302,54}},color={255,0,255}));
   connect(con.y, staCap2.uStaAva) annotation (Line(points={{-319,30},{-110,30},{
           -110,54},{-102,54}},      color={255,0,255}));
-  connect(staSig0.y,PLRs0. uSta) annotation (Line(points={{-319,310},{-290,310},
-          {-290,319},{-241,319}},color={255,127,0}));
+  connect(staSig0.y, PLRs0.u) annotation (Line(points={{-319,310},{-290,310},{-290,
+          319},{-241,319}}, color={255,127,0}));
   connect(capReq3.y, PLRs0.uCapReq) annotation (Line(points={{-279,280},{-270,280},
           {-270,317},{-241,317}}, color={0,0,127}));
   connect(staCap3.yStaNom, PLRs0.uStaCapNom) annotation (Line(points={{-279,247},
@@ -174,7 +171,7 @@ equation
           234},{-262,234},{-262,309},{-241,309}}, color={0,0,127}));
   connect(staCap3.yStaMin, PLRs0.uStaCapMin) annotation (Line(points={{-279,232},
           {-260,232},{-260,307},{-241,307}}, color={0,0,127}));
-  connect(staSig0.y, staCap3.uSta) annotation (Line(points={{-319,310},{-310,310},
+  connect(staSig0.y, staCap3.u) annotation (Line(points={{-319,310},{-310,310},
           {-310,240},{-302,240}}, color={255,127,0}));
   connect(con.y, staCap3.uStaAva) annotation (Line(points={{-319,30},{-312,30},{
           -312,234},{-302,234}}, color={255,0,255}));
