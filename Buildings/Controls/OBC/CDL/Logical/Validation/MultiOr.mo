@@ -1,6 +1,10 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model MultiOr "Model to validate the application of MultiOr block"
 
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr0
+    "Logical 'MultiOr': 1 input connection y=u"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(nu=1)
     "Logical 'MultiOr': 1 input connection y=u"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
@@ -32,10 +36,6 @@ model MultiOr "Model to validate the application of MultiOr block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
       width=0.5, period=5) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr0
-    "Logical 'MultiOr': 1 input connection y=u"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
 equation
   connect(booPul1.y, mulOr5.u[1]) annotation (Line(points={{-39,60},{-39,60},{20,

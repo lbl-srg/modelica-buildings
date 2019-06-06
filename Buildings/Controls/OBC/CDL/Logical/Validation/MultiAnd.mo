@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model MultiAnd "Model to validate the application of MultiAnd block"
 
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd0
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(nu=1)
     "Logical 'MultiAnd': 1 input connection y=u"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
@@ -32,9 +35,6 @@ model MultiAnd "Model to validate the application of MultiAnd block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
       width=0.5, period=5) "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd0
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
 equation
   connect(booPul1.y, mulAnd5.u[1]) annotation (Line(points={{-39,60},{-39,60},{20,
