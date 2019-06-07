@@ -17,7 +17,7 @@ record C_VerificationModel =
     final G_nominal = 1000,
     final dT_nominal = 20)
   "C - All inputs necessary for verification of EN12975 models"
-    annotation(
+    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info = "<html>

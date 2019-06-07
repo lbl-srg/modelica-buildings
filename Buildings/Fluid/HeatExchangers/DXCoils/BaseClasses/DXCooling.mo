@@ -132,8 +132,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(dryWet.SHR, SHR) annotation (Line(
-      points={{61,6.10623e-16},{81.5,6.10623e-16},{81.5,5.55112e-16},{110,
-          5.55112e-16}},
+      points={{61,-4},{81.5,-4},{81.5,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dryWet.mWat_flow, mWat_flow) annotation (Line(

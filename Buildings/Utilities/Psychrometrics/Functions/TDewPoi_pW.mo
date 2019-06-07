@@ -15,7 +15,7 @@ algorithm
     y_zero=p_w,
     x_min=200,
     x_max=400,
-    f_nonlinear_data=  dummy);
+    f_nonlinear_data = dummy);
   annotation (
     Documentation(info="<html>
 <p>

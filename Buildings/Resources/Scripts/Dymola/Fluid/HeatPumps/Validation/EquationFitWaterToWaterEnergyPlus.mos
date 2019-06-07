@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWaterEnergyPlus", method="dassl", tolerance=1e-6, stopTime=172800, resultFile="EquationFitWaterToWaterEnergyPlus");
+createPlot(id = 1,
+   position = {60, 10, 640, 480},
+   y = {"heaPum.QCon_flow", "heaPum.QEva_flow", "QConEP.y", "QEvaEP.y"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   filename = "EquationFitWaterToWaterEnergyPlus.mat",
+   leftTitleType = 1,
+   bottomTitleType = 1);
+

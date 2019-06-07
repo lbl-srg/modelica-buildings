@@ -171,10 +171,10 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   Model that demonstrates the use of the <a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitWaterToWater\">
   Buildings.Fluid.HeatPumps.EquationFitWaterToWater </a> heat pump model implementing dynamic energy and mass balance.
   <p>
-  The heat pump power, condenser heat transfer rate and evaporator heat transfer rate are calculated for given 
+  The heat pump power, condenser heat transfer rate and evaporator heat transfer rate are calculated for given
   leaving water temperatures and flow rates on the evaporator and condenser sides.
   </p>
-  
+
   </html>", revisions="<html>
   <ul>
   <li>
