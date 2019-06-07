@@ -426,7 +426,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU
         </td>
         <td valign=\"top\">Renamed model to
                            <code>Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</code>
@@ -2227,7 +2227,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
     </tr>
 
-   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU
     </td>
     <td valign=\"top\">Reformulated model to allow translation in OpenModelica.
                        This is for issue
@@ -2235,7 +2235,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
     </td>
    </tr>
 
-   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_y
     </td>
     <td valign=\"top\">Changed the sign convention for <code>dTEva_nominal</code>.
                        Now, this quantity needs to be negative.
@@ -2381,7 +2381,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                         For Dymola, the conversion script updates the model for these changes.
      </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_y
      </td>
      <td valign=\"top\">Renamed the model to  <code>Buildings.Fluid.Chillers.Carnot_y</code>
                         due to the addition of the new model <code>Buildings.Fluid.Chillers.Carnot_TEva</code>.
@@ -2555,7 +2555,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_y
        </td>
        <td valign=\"top\">Corrected wrong computation of state of leaving fluid
                           <code>staB1</code> and <code>staB2</code>
@@ -2602,7 +2602,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/442\">issue 442</a>.
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_y
        </td>
        <td valign=\"top\">Corrected wrong assert statement for test on the efficiency function. This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/468\">issue 468</a>.
@@ -2741,7 +2741,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot<br/>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_y<br/>
                           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil<br/>
                           Buildings.Fluid.HeatExchangers.HeaterCooler_u<br/>
                           Buildings.Fluid.MassExchangers.Humidifier_u
@@ -3094,8 +3094,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        <code>ThermodynamicState</code> record. Setting the start value for
                        <code>T</code> is required to avoid an error due to
                        conflicting start values when translating
-                       <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
-                       Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+                       <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
+                       Buildings.Examples.VAVReheat.ASHRAE2006</a> in pedantic mode.
     </td>
 </tr>
 
@@ -3294,7 +3294,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
-<tr><td valign=\"top\">Buildings.Fluid.MassExchangers.HumidifierPrescribed
+<tr><td valign=\"top\">Buildings.Fluid.Humidifiers.Humidifier_u
     </td>
     <td valign=\"top\">Renamed the model to <code>Humidifier_u</code> due to
                        the introduction of the new model <code>HeaterCooler_T</code>
@@ -3769,7 +3769,7 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Added dummy argument to function call of <code>Internal.solve</code>
                        to avoid a warning during model check in Dymola 2015.
     </td>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU
     </td>
     <td valign=\"top\">Changed <code>assert</code> statement to avoid comparing
                        enumeration with an integer, which triggers a warning
@@ -3815,8 +3815,8 @@ have been fixed:
         Documentation(info="<html>
 <p>
 Version 1.5 build 3 is a maintenance release that corrects an error in
-<a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
-Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
+<a href=\"modelica://Buildings.Fluid.Humidifiers.Humidifier_u\">
+Buildings.Fluid.Humidifiers.Humidifier_u</a>.
 It is fully compatible with version 1.5 build 2.
 </p>
 <!-- Errors that have been fixed -->
@@ -3827,7 +3827,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.MassExchangers.HumidifierPrescribed
+<tr><td valign=\"top\">Buildings.Fluid.Humidifiers.Humidifier_u
     </td>
     <td valign=\"top\">
            Corrected the enthalpy balance, which caused the latent heat flow rate to be added
@@ -4105,13 +4105,13 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">
                        Buildings.Fluid.HeatExchangers.ConstantEffectiveness<br/>
-                       Buildings.Fluid.HeatExchangers.DryEffectivenessNTU<br/>
+                       Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU<br/>
                        Buildings.Fluid.Interfaces.ConservationEquation<br/>
                        Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger<br/>
                        Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
                        Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger<br/>
                        Buildings.Fluid.MassExchangers.ConstantEffectiveness<br/>
-                       Buildings.Fluid.MassExchangers.HumidifierPrescribed<br/>
+                       Buildings.Fluid.Humidifiers.Humidifier_u<br/>
                        Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort<br/>
                        Buildings.Fluid.MixingVolumes.MixingVolume<br/>
                        Buildings.Fluid.MixingVolumes.MixingVolumeDryAir<br/>
@@ -5934,7 +5934,7 @@ are used as steady-state models, have been improved.</td>
     </td></tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid.MassExchangers</b></td></tr>
-<tr><td valign=\"top\">Buildings.Fluid.MassExchangers.HumidifierPrescribed</td>
+<tr><td valign=\"top\">Buildings.Fluid.Humidifiers.Humidifier_u</td>
     <td valign=\"top\">This model can now be configured as a steady-state or dynamic model.</td>
 </tr>
 
@@ -6385,8 +6385,8 @@ solar irradiation and sky temperature.
 </li>
 <li>
 Added package
-<a href=\"modelica://Buildings.Utilities.IO.WeatherData\">
-Buildings.Utilities.IO.WeatherData</a>
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData\">
+Buildings.BoundaryConditions.WeatherData</a>
 with models to read weather data in the TMY3 format.
 </li>
 <li>
@@ -6419,8 +6419,7 @@ With the new implementation, the energy and moisture balance is exact.
 In
 <a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
 Buildings.Fluid.Interfaces.ConservationEquation</a> and in
-<a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium\">
-Buildings.Media.Interfaces.PartialSimpleMedium</a>, set
+<code>Buildings.Media.Interfaces.PartialSimpleMedium</code>, set
 nominal attribute for medium to provide consistent normalization.
 Without this change, Dymola 7.4 uses different values for the nominal attribute
 based on the value of <code>Advanced.OutputModelicaCodeWithJacobians=true/false;</code>
@@ -6430,8 +6429,8 @@ Buildings.Examples.HydronicHeating</a>.
 </li>
 <li>
 Fixed bug in energy balance of
-<a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
-Buildings.Fluid.Chillers.Carnot</a>.
+<a href=\"modelica://Buildings.Fluid.Chillers.Carnot_y\">
+Buildings.Fluid.Chillers.Carnot_y</a>.
 </li>
 <li>
 Fixed bug in efficiency curves in package
@@ -6548,8 +6547,8 @@ that can lead to wrong simulation results):
 Added the following heat exchanger models
 <ul>
 <li>
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</a>
 for a sensible heat exchanger that uses the <code>epsilon-NTU</code>
 relations to compute the heat transfer.
 </li>
@@ -6619,8 +6618,7 @@ of nonlinear equations.
 </li>
 <li>
 Changed
-<a href=\"modelica://Buildings.Media.PerfectGases.MoistAir.T_phX\">
-Buildings.Media.PerfectGases.MoistAir.T_phX</a> (and by inheritance all
+<code>Buildings.Media.PerfectGases.MoistAir.T_phX</code> (and by inheritance all
 other moist air medium models) to first compute <code>T</code>
 in closed form assuming no saturation. Then, a check is done to determine
 whether the state is in the fog region. If the state is in the fog region,
@@ -6630,8 +6628,7 @@ time in models that frequently call <code>T_phX</code>.
 </li>
 <li>
 Added package
-<a href=\"modelica://Buildings.Media.GasesConstantDensity\">
-Buildings.Media.GasesConstantDensity</a> which contains medium models
+<code>Buildings.Media.GasesConstantDensity</code> which contains medium models
 for dry air and moist air.
 The use of a constant density avoids having pressure as a state variable in mixing volumes. Hence, fast transients
 introduced by a change in pressure are avoided.
@@ -6673,8 +6670,7 @@ medium to be initialized to <code>reference_X</code>, ignoring the value of <cod
 <li>
 Renamed <code>Buildings.Media.PerfectGases.MoistAirNonSaturated</code>
 to
-<a href=\"modelica://Buildings.Media.PerfectGases.MoistAirUnsaturated\">
-Buildings.Media.PerfectGases.MoistAirUnsaturated</a>
+<code>Buildings.Media.PerfectGases.MoistAirUnsaturated</code>
 and <code>Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid</code>
 to
 <a href=\"modelica://Buildings.Media.Air\">
@@ -6691,8 +6687,7 @@ Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>.
 </li>
 <li>
 Fixed bug regarding temperature offset in
-<a href=\"modelica://Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX\">
-Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX</a>.
+<code>Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX</code>.
 </li>
 <li>
 Added implementation of function
@@ -6700,11 +6695,9 @@ Added implementation of function
 Buildings.Media.Air.enthalpyOfNonCondensingGas</a> and its derivative.
 </li>
 <li>
-In <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
-Buildings.Media.PerfectGases.MoistAir</a>, fixed
-bug in implementation of <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir.T_phX\">
-Buildings.Media.PerfectGases.MoistAir.T_phX</a>. In the
-previous version, it computed the inverse of its parent class,
+In <code>Buildings.Media.PerfectGases.MoistAir</code>, fixed
+bug in implementation of <code>Buildings.Media.PerfectGases.MoistAir.T_phX</code>. 
+In the previous version, it computed the inverse of its parent class,
 which gave slightly different results.
 </li>
 <li>
@@ -6715,10 +6708,8 @@ and added parameter that deactivates the interface. Deactivating
 the interface is sometimes useful during debugging.
 </li>
 <li>
-In <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
-Buildings.Media.GasesPTDecoupled.MoistAir</a> and in
-<a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
-Buildings.Media.PerfectGases.MoistAir</a>, added function
+In <code>Buildings.Media.GasesPTDecoupled.MoistAir</code> and in
+<code>Buildings.Media.PerfectGases.MoistAir</code>, added function
 <code>enthalpyOfNonCondensingGas</code> and its derivative.
 <li>
 In <a href=\"modelica://Buildings.Media\">
@@ -6731,9 +6722,8 @@ Added model
 Buildings.Fluid.Storage.ExpansionVessel</a>.
 </li>
 <li>
-Added Wrapper function <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.solve\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</a> for
-<a href=\"modelica://Modelica.Math.Matrices.solve\">
+Added Wrapper function <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</code> 
+for <a href=\"modelica://Modelica.Math.Matrices.solve\">
 Modelica.Math.Matrices.solve</a>. This is currently needed since
 <a href=\"modelica://Modelica.Math.Matrices.solve\">
 Modelica.Math.Matrices.solve</a> does not specify a
@@ -6749,13 +6739,12 @@ the outside,
 the whole thickness of the water volume was used
 instead of only half the thickness.
 <li>
-In <a href=\"Buildings.Media.ConstantPropertyLiquidWater\">
-Buildings.Media.ConstantPropertyLiquidWater</a>, added the option to specify a compressibility.
+In <a href=\"Buildings.Media.Water\">
+Buildings.Media.Water</a>, added the option to specify a compressibility.
 This can help reducing the size of the coupled nonlinear system of equations, at
 the expense of introducing stiffness. This change required to change the inheritance
 tree of the medium. Its base class is now
-<a href=\"Buildings.Media.Interfaces.PartialSimpleMedium\">
-Buildings.Media.Interfaces.PartialSimpleMedium</a>,
+<code>Buildings.Media.Interfaces.PartialSimpleMedium</code>,
 which contains the equation for the compressibility. The default setting will model
 the flow as incompressible.
 </li>
@@ -6780,8 +6769,7 @@ in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 The new models are better suited than the existing fan model
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachinePolynomial\">
-Buildings.Fluid.Movers.FlowMachinePolynomial</a> for zero flow rate.
+<code>Buildings.Fluid.Movers.FlowMachinePolynomial</code> for zero flow rate.
 </li>
 <li>
 Added an optional mixing volume to <a href=\"modelica://Buildings.Fluid.BaseClasses.PartialThreeWayResistance\">
@@ -6832,14 +6820,13 @@ Updated license to Modelica License 2.
 </li>
 <li>
 Replaced
-<a href=\"modelica://Buildings.Utilities.Psychrometrics.HumidityRatioPressure.mo\">
-Buildings.Utilities.Psychrometrics.HumidityRatioPressure.mo</a>
+<code>Buildings.Utilities.Psychrometrics.HumidityRatioPressure</code>
 by
-<a href=\"modelica://Buildings.Utilities.Psychrometrics.HumidityRatio_pWat.mo\">
-Buildings.Utilities.Psychrometrics.HumidityRatio_pWat.mo</a>
+<a href=\"modelica://Buildings.Utilities.Psychrometrics.X_pW\">
+Buildings.Utilities.Psychrometrics.X_pW</a>
 and
-<a href=\"modelica://Buildings.Utilities.Psychrometrics.VaporPressure_X.mo\">
-Buildings.Utilities.Psychrometrics.VaporPressure_X.mo</a>
+<a href=\"modelica://Buildings.Utilities.Psychrometrics.pW_X\">
+Buildings.Utilities.Psychrometrics.pW_X</a>
 because the old model used <code>RealInput</code> ports, which are obsolete
 in Modelica 3.0.
 </li>
@@ -6867,8 +6854,7 @@ Buildings.Utilities.Math.Functions</a>.
 </li>
 <li>
 Fixed sign error in
-<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.Stratifier\">
-Buildings.Fluid.Storage.BaseClasses.Stratifier</a>
+<code>Buildings.Fluid.Storage.BaseClasses.Stratifier</code>
 which caused a wrong energy balance in
 <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
 Buildings.Fluid.Storage.StratifiedEnhanced</a>.
@@ -6876,11 +6862,11 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 <li>
 Renamed
 <code>Buildings.Fluid.HeatExchangers.HeaterCoolerIdeal</code> to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
-Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
+Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>
 to have the same nomenclatures as is used for
-<a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
-Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>
+<a href=\"modelica://Buildings.Fluid.Humidifiers.Humidifier_u\">
+Buildings.Fluid.Humidifiers.Humidifier_u</a>
 </li>
 <li>
 In
@@ -6904,8 +6890,8 @@ child classes.
 </li>
 <li>
 Added models for chiller
-(<a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
-Buildings.Fluid.Chillers.Carnot</a>),
+(<a href=\"modelica://Buildings.Fluid.Chillers.Carnot_y\">
+Buildings.Fluid.Chillers.Carnot_y</a>),
 for occupancy
 (<a href=\"modelica://Buildings.Controls.SetPoints.OccupancySchedule\">
 Buildings.Controls.SetPoints.OccupancySchedule</a>) and for
@@ -6939,10 +6925,9 @@ Buildings.Fluid.Examples</a> to the example directory in the package of the
 individual model.
 </li>
 <li>
-Renamed package <a href=\"modelica://Buildings.Utilites.Controls\">
-Buildings.Utilites.Controls</a> to
-<a href=\"modelica://Buildings.Utilites.Diagnostics\">
-Buildings.Utilites.Diagnostics</a>.
+Renamed package <code>Buildings.Utilites.Controls</code> to
+<a href=\"modelica://Buildings.Utilities.Diagnostics\">
+Buildings.Utilities.Diagnostics</a>.
 </li>
 <li>
 Introduced packages
@@ -6979,7 +6964,7 @@ See <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
 </li>
 <li>
-Added package <a href=\"modelica://Buildings.Utilities.Reports\">Buildings.Utilities.Reports</a>.
+Added package <code>Buildings.Utilities.Reports</code>.
 The package contains models that facilitate reporting.
 </li>
 </ul>
@@ -7004,15 +6989,13 @@ The package contains a motor model for valves and dampers.
 <li>
 The package <a href=\"modelica://Buildings.Media\">Buildings.Media</a> has been reorganized and
 the new medium model
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
-Buildings.Media.GasesPTDecoupled.MoistAir</a>
+<code>Buildings.Media.GasesPTDecoupled.MoistAir</code>
 has been added.
 <br/>
 In addition, this package now contains a bug fix that is needed for Modelica 2.2.1 and 2.2.2.
 The bugs are fixed by using a new
 base class
-<a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleIdealGasMedium\">
-Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</a>
+<code>Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</code>
  (that fixes the bugs) instead of
 <a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>.
