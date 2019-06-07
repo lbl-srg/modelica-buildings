@@ -56,9 +56,6 @@ equation
 <p>
 Block that outputs <code>y = true</code> if any element in the input 
 vector <code>u</code> is <code>true</code>.
-The dimension of the input vector <code>u</code> is automatically enlarged
-when a new connection is made.
-<p>
 If no connection to the input connector <code>u</code> is present,
 the output is <code>y=false</code>.
 </p>
