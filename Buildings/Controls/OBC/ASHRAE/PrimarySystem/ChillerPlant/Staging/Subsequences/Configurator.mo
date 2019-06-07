@@ -14,8 +14,8 @@ block Configurator "Configures chiller staging"
     "Chiller unload capacities";
 
   parameter Integer chiTyp[nChi] = {
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.vsdCen}
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.positiveDisplacement,
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.variableSpeedCentrifugal}
     "Chiller type";
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}

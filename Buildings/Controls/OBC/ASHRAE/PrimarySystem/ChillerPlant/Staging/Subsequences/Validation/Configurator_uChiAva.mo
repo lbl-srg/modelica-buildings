@@ -7,63 +7,64 @@ model Configurator_uChiAva "Validate stage capacities sequence for chiller stage
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
     final chiNomCap={10,20,15},
     final chiMinCap={2,4,3},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.vsdCen,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.conCen})
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
   Configurator conf1(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    final chiNomCap={10,20,10},
-    final chiMinCap={1,2,2},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.vsdCen,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.conCen})
+    final chiMinCap={1,3,2},
+    final chiNomCap={10,20,15},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
+
   Configurator conf3(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    final chiNomCap={10,20,10},
-    final chiMinCap={1,2,2},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.vsdCen})
+    final chiNomCap={10,20,15},
+    final chiMinCap={1,3,2},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
   Configurator conf4(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    final chiNomCap={10,20,10},
-    final chiMinCap={1,2,2},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.vsdCen})
+    final chiNomCap={10,20,15},
+    final chiMinCap={1,3,2},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Configurator conf5(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    final chiNomCap={10,20,10},
-    final chiMinCap={1,2,2},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.vsdCen})
+    final chiNomCap={10,20,15},
+    final chiMinCap={1,3,2},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
 
   Configurator conf2(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    final chiNomCap={10,20,10},
-    final chiMinCap={1,2,2},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.posDis,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.vsdCen})
+    final chiNomCap={10,20,15},
+    final chiMinCap={1,3,2},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[3](
@@ -109,7 +110,7 @@ equation
     annotation (Line(points={{-19,20},{18,20}}, color={255,0,255}));
 annotation (
  experiment(StopTime=1800.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uSta.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Configurator_uChiAva.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -135,5 +136,5 @@ Icon(graphics={
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-60,-120},{60,120}})));
 end Configurator_uChiAva;
