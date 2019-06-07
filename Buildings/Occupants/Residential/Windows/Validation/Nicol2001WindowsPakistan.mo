@@ -26,8 +26,8 @@ experiment(Tolerance=1e-6, StopTime=3600.0),
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Occupants.Office.Windows.Nicol2001WindowsPakistan\">
-Buildings.Occupants.Office.Windows.Nicol2001WindowsPakistan</a>
+<a href=\"modelica://Buildings.Occupants.Residential.Windows.Nicol2001WindowsPakistan\">
+Buildings.Occupants.Residential.Windows.Nicol2001WindowsPakistan</a>
 by examing how the window state corresponds
 to the outdoor temperature.
 </p>
