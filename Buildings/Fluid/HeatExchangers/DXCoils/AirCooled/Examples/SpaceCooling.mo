@@ -247,7 +247,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{110,-52},{110,-44},{92,-44},{92,10},{81,10}},
+      points={{109.8,-52},{109.8,-44},{92,-44},{92,10},{81,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1, senTemHXEvaOut.port_a) annotation (Line(
@@ -560,11 +560,11 @@ equation
       smooth=Smooth.None));
 
   connect(mAir_flow.y, fan1.m_flow_in) annotation (Line(
-      points={{81,10},{92,10},{92,-140},{110,-140},{110,-152}},
+      points={{81,10},{92,10},{92,-140},{109.8,-140},{109.8,-152}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mAir_flow.y, fan2.m_flow_in) annotation (Line(
-      points={{81,10},{92,10},{92,-212},{108,-212},{108,-228}},
+      points={{81,10},{92,10},{92,-212},{107.8,-212},{107.8,-228}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(rooSinSpe.TOutDryBul, weaBus.TDryBul) annotation (Line(
