@@ -13,9 +13,9 @@ block Configurator "Configures chiller staging"
   parameter Modelica.SIunits.Power chiMinCap[nChi]
     "Chiller unload capacities";
 
-  parameter Integer chiTyp[nChi] = {
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.positiveDisplacement,
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.StageTypes.variableSpeedCentrifugal}
+  parameter Integer chiTyp[nChi]={
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal}
     "Chiller type";
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
@@ -61,24 +61,22 @@ protected
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staNomCaps(
-    final K=staMat) ""
+    final K=staMat) "Matrix gain for nominal capacities"
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps(
-    final K=staMat) ""
+    final K=staMat) "Matrix gain from minimal capacities"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps1(
-    final K=staMat) ""
+  Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMatGai(final K=staMat) ""
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps2(
     final K=staMat) ""
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nChi](
-    final k=fill(1, nSta))
-    "All chillers available"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nChi](final k=
+        fill(1, nSta)) "All chillers available"
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
@@ -138,7 +136,7 @@ protected
 equation
   connect(chiNomCaps.y, staNomCaps.u) annotation (Line(points={{-179,150},{-142,
           150}},                color={0,0,127}));
-  connect(oneVec.y, staMinCaps1.u)
+  connect(oneVec.y, staMatGai.u)
     annotation (Line(points={{-179,60},{-142,60}}, color={0,0,127}));
   connect(chiMinCaps.y, staMinCaps.u) annotation (Line(points={{-179,110},{-142,
           110}},                         color={0,0,127}));
@@ -146,8 +144,8 @@ equation
     annotation (Line(points={{-240,0},{-202,0}}, color={255,0,255}));
   connect(booToRea.y, staMinCaps2.u) annotation (Line(points={{-179,0},{-142,0}},
                                     color={0,0,127}));
-  connect(staMinCaps1.y, add2.u1) annotation (Line(points={{-119,60},{-100,60},{
-          -100,36},{-82,36}}, color={0,0,127}));
+  connect(staMatGai.y, add2.u1) annotation (Line(points={{-119,60},{-100,60},{-100,
+          36},{-82,36}}, color={0,0,127}));
   connect(staMinCaps2.y, add2.u2) annotation (Line(points={{-119,0},{-100.5,0},{
           -100.5,24},{-82,24}},  color={0,0,127}));
   connect(add2.y,lesThr. u)
