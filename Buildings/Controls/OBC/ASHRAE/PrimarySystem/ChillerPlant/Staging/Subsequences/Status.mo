@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Status
-  "Outputs next available lower and higher stage, whether curent stage is lowest and/or is highest and current stage chillers"
+  "Outputs current stage chiller index vector, next available lower and higher stage index and whether curent stage is the lowest and/or the highest available stage"
 
   parameter Integer nSta = 3
     "Number of stages";
@@ -23,11 +23,9 @@ block Status
     annotation (Placement(transformation(extent={{-340,-120},{-300,-80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
-    final min=0,
-    final max=nSta)       "Chiller stage"
-    annotation (Placement(transformation(extent={{-340,100},{-300,140}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(final min=0, final max=nSta) "Chiller stage"
+    annotation (Placement(transformation(extent={{-340,100},{-300,140}}), iconTransformation(extent={{-140,
+            -80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHig "Operating in the highest available stage"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}}),
@@ -326,12 +324,11 @@ equation
     annotation (Line(points={{-58.3,-210},{-42,-210}}, color={255,0,255}));
   connect(con.y, swi1.u1) annotation (Line(points={{181,-70},{188,-70},{188,
           -102},{196,-102}}, color={0,0,127}));
-  connect(uSta, intRep.u)
-    annotation (Line(points={{-320,120},{-262,120}}, color={255,127,0}));
-  connect(uSta, intToRea5.u) annotation (Line(points={{-320,120},{-280,120},{-280,
-          30},{118,30}}, color={255,127,0}));
-  connect(uSta, extStaCap.index) annotation (Line(points={{-320,120},{-280,120},
-          {-280,-240},{-210,-240},{-210,-222}}, color={255,127,0}));
+  connect(u, intRep.u) annotation (Line(points={{-320,120},{-262,120}}, color={255,127,0}));
+  connect(u, intToRea5.u)
+    annotation (Line(points={{-320,120},{-280,120},{-280,30},{118,30}}, color={255,127,0}));
+  connect(u, extStaCap.index) annotation (Line(points={{-320,120},{-280,120},{-280,-240},{-210,-240},{-210,
+          -222}}, color={255,127,0}));
   annotation (defaultComponentName = "sta",
         Icon(graphics={
         Rectangle(
@@ -347,24 +344,21 @@ equation
           extent={{-300,-280},{300,180}})),
 Documentation(info="<html>
 <p>
-Configures the chiller staging based on the nominal <code>chiNomCap</code> and 
-minimal <code>chiMinCap</code> chiller capacities and the chiller staging matrix <code>staMat</code>. 
-The rows in <code>staMat</code> correspond to array indices in <code>chiNomCap</code>
-and <code>chiMinCap</code>.
-</p>
-<p>
-The outputs of the staging configurator are:
+Based on the current stage <code>u</code> and stage availability vector <code>uAva</code> the sequence outputs:
 <ul>
 <li>
-
+Vector of chillers operating in the current stage <code>yChi</code>
 </li>
 <li>
-
+First available higher stage <code>yUp</code> and first available lower stage <code>yDown</code>
 </li>
-
-
+<li>
+Boolean indicators whether current operating stage <code>u</code> is the highest <code>yHig</code> and/or the lowest <code>yLow</code> stage
+</li>
+</ul>
 </p>
-
+<p>
+The sequences are implemented to allow for RP-1711 Draft 4 5.2.4.11. 3.
 </p>
 </html>",
 revisions="<html>
