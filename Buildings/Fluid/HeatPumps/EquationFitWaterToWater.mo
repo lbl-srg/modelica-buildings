@@ -257,7 +257,6 @@ equation
 
   end if;
 
-//--------------------------------------------------------------------------
 
   connect(preHeaFloCon.port,vol1.heatPort)
   annotation (Line(points={{-19,34},{-16,34},{-16,60},{-10,60}}, color={191,0,0}));
