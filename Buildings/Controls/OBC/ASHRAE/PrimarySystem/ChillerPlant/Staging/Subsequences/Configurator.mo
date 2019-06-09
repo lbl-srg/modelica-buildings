@@ -21,9 +21,6 @@ block Configurator "Configures chiller staging"
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
     "Staging matrix with stage as row index and chiller as column index";
 
-  final parameter Integer chiTypMat[nSta, nChi] = {chiTyp[i] for i in 1:nChi, j in 1:nSta}
-    "Chiller type array expanded to allow for element-wise multiplication with the staging matrix";
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nChi]
     "Chiller availability status vector"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
@@ -52,6 +49,9 @@ block Configurator "Configures chiller staging"
       iconTransformation(extent={{100,20},{120,40}})));
 
 protected
+  final parameter Integer chiTypMat[nSta, nChi] = {chiTyp[i] for i in 1:nChi, j in 1:nSta}
+    "Chiller type array expanded to allow for element-wise multiplication with the staging matrix";
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiDesCaps[nChi](
     final k=chiDesCap) "Design chiller capacities vector"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
@@ -68,16 +68,18 @@ protected
     final K=staMat) "Matrix gain from minimal capacities"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumChi(final K=staMat)
+  Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumChi(
+    final K=staMat)
     "Returns the total chiller count per stage vector "
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumAvaChi(final K=staMat)
+  Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumAvaChi(
+    final K=staMat)
     "Returns the available chiller count per stage vector"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nChi](final k=
-        fill(1, nChi)) "Case with all chillers available "
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nChi](
+    final k=fill(1, nChi)) "Case with all chillers available "
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
@@ -141,9 +143,9 @@ protected
 
 equation
   connect(chiDesCaps.y, staDesCaps.u) annotation (Line(points={{-179,150},{-142,
-          150}},                color={0,0,127}));
+          150}}, color={0,0,127}));
   connect(chiMinCaps.y, staMinCaps.u) annotation (Line(points={{-179,110},{-142,
-          110}},                         color={0,0,127}));
+          110}}, color={0,0,127}));
   connect(uChiAva, booToRea.u)
     annotation (Line(points={{-240,0},{-202,0}}, color={255,0,255}));
   connect(booToRea.y, sumNumAvaChi.u)
@@ -159,16 +161,13 @@ equation
   connect(chiStaMat.y,pro. u2) annotation (Line(points={{-179,-130},{-160,-130},
           {-160,-96},{-142,-96}},   color={0,0,127}));
   connect(pro.y,matMax. u)
-    annotation (Line(points={{-119,-90},{-102,-90}},
-                                               color={0,0,127}));
+    annotation (Line(points={{-119,-90},{-102,-90}}, color={0,0,127}));
   connect(matMax.y,reaToInt. u)
-    annotation (Line(points={{-79,-90},{-62,-90}},
-                                               color={0,0,127}));
+    annotation (Line(points={{-79,-90},{-62,-90}}, color={0,0,127}));
   connect(reaToInt.y, yTyp) annotation (Line(points={{-39,-90},{90,-90},{90,-80},
           {230,-80}}, color={255,127,0}));
   connect(reaToInt.y, intToRea1.u) annotation (Line(points={{-39,-90},{-28,-90},
-          {-28,-130},{-22,-130}},
-                                color={255,127,0}));
+          {-28,-130},{-22,-130}},color={255,127,0}));
   connect(intToRea1.y, sort.u)
     annotation (Line(points={{1,-130},{18,-130}},  color={0,0,127}));
   connect(sort.y, reaToInt1.u)
@@ -210,13 +209,13 @@ Given the staging matrix input parameter <code>staMat</code> the staging configu
 Stage availability vector <code>yAva</code> according to the chiller availability <code>uChiAva</code> input vector based on RP-1711 Draft 4 section 5.2.4.9.
 </li>
 <li>
-Design stage capacity vector <code>yDesCap</code> according to the design chiller capacity vector input parameter <code>chiDesCap</code> 
+Design stage capacity vector <code>yDesCap</code> according to the design chiller capacity vector input parameter <code>chiDesCap</code> based on RP-1711 Draft 4 section 3.1.1.4., 2.
 </li>
 <li>
-Minimum stage capacity vector <code>yMinCap</code> according to the chiller capacity vector input parameter <code>chiMinCap</code>
+Minimum stage capacity vector <code>yMinCap</code> according to the chiller capacity vector input parameter <code>chiMinCap</code> based on RP-1711 Draft 4 section 3.1.1.5.
 </li>
 <li>
-Stage type vector <code>yMinCap</code> according to the chiller type vector input parameter <code>uChiTyp</code>
+Stage type vector <code>yTyp</code> according to the chiller type vector input parameter <code>uChiTyp</code> based on RP-1711 Draft 4 section 5.2.4.10.
 </li>
 </ul>
 </html>",
