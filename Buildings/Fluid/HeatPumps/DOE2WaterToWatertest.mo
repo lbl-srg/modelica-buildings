@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps;
-model DOE2WaterToWater "Water source heat pump_Performance curve"
+model DOE2WaterToWatertest "Water source heat pump_Performance curve"
 //testtesttest
  extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
    m2_flow_nominal = mEva_flow_nominal,
@@ -19,7 +19,7 @@ model DOE2WaterToWater "Water source heat pump_Performance curve"
     "Heating=+1, Off=0, Cooling=-1" annotation (Placement(transformation(extent={{-132,
             -114},{-100,-82}}),      iconTransformation(extent={{-126,-108},{-100,
             -82}})));
- Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
+ Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W", max=P_nominal_H)
     "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
@@ -32,14 +32,13 @@ model DOE2WaterToWater "Water source heat pump_Performance curve"
         transformation(extent={{-126,88},{-102,112}}), iconTransformation(
           extent={{-118,78},{-94,102}})));
 //--------------------------------------------------------------------------
-parameter Data.DOE2WaterToWater.Generic per annotation (choicesAllMatching=
-        true, Placement(transformation(extent={{48,66},{68,86}})));
+parameter HeatPumps.Data.DOE2WaterToWater.Generic per annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{48,66},{68,86}})));
 
 //--------------------------------------------------------------------------
 
  final parameter Real RatioNomCooCap=0.75;
  final parameter Real RatioNomCooPow=1.5;
-
 
  final parameter Modelica.SIunits.Power         P_nominal_C = -QEva_flow_nominal/COP_nominal_C
  "Reference coefficient of performance";
@@ -47,13 +46,10 @@ parameter Data.DOE2WaterToWater.Generic per annotation (choicesAllMatching=
  final parameter Modelica.SIunits.Power         P_nominal_H = P_nominal_C*RatioNomCooPow
  "Reference coefficient of performance";
  final parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal = - QEva_flow_nominal_H+P_nominal_H;
- final parameter Modelica.SIunits.Efficiency   COP_nominal_H= QCon_flow_nominal/P_nominal_H;
-
-
+ final parameter Modelica.SIunits.Efficiency   COP_nominal_H= -QEva_flow_nominal_H/P_nominal_H;
 
  final parameter Modelica.SIunits.Efficiency   COP_nominal_C= per.COP_nominal
  "Reference coefficient of performance";
-
 
  final parameter Real PLRMax =    per.PLRMax               "Maximum part load ratio";
  final parameter Real PLRMinUnl = per.PLRMinUnl            "Minimum part unload ratio";
@@ -61,9 +57,7 @@ parameter Data.DOE2WaterToWater.Generic per annotation (choicesAllMatching=
  final parameter Real etaMotor(min=0, max=1)= per.etaMotor "Fraction of compressor motor
   heat entering refrigerant";
 
-
  final parameter Modelica.SIunits.HeatFlowRate  QEva_flow_nominal= per.QEva_flow_nominal;
-
 
  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal= per.mCon_flow_nominal
     "Nominal mass flow at Condenser"
@@ -90,15 +84,11 @@ parameter Data.DOE2WaterToWater.Generic per annotation (choicesAllMatching=
     "Maximum value for entering Evaporator temperature"
     annotation (Dialog(group="Performance curves"));
 
-
  final parameter Modelica.SIunits.HeatFlowRate Q_flow_small = QCon_flow_nominal*1E-9
     "Small value for heat flow rate or power, used to avoid division by zero";
 
-
   Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
   Modelica.SIunits.HeatFlowRate QEva_flow "Evaorator heat input";
-
-
 
 // Variables definition
   Modelica.SIunits.Temperature  TEvaEnt "Evaorator entering temperature";
@@ -125,7 +115,6 @@ parameter Data.DOE2WaterToWater.Generic per annotation (choicesAllMatching=
   Modelica.SIunits.SpecificEnthalpy hCon
     "Enthalpy setpoint for heating water";
 
-
   Real capFunT(min=0,nominal=1)
   "CooTConEntMaxling capacity factor function of temperature curve";
 
@@ -135,13 +124,10 @@ parameter Data.DOE2WaterToWater.Generic per annotation (choicesAllMatching=
   Modelica.SIunits.Efficiency EIRFunPLR(nominal=1)
     "Power input to cooling capacity ratio function of part load ratio";
 
-
-
 // Part load variables
   Real PLR1(min=0, nominal=1, unit="1") "Part load ratio";
   Real PLR2(min=0, nominal=1, unit="1") "Part load ratio";
   Real CR(min=0, nominal=1, unit="1")   "Cycling ratio";
-
 
 protected
   Modelica.Blocks.Sources.RealExpression QCon_flow_in(final y=QCon_flow)
@@ -154,36 +140,23 @@ protected
     "Evaorator heat flow rate"
     annotation (Placement(transformation(extent={{84,-50},{64,-30}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva "Prescribed heat flow rate"
-  annotation (Placement(transformation(extent={{45,-50},{25,-30}})));
-
-
-
+  annotation (Placement(transformation(extent={{51,-50},{31,-30}})));
 
  //--------------------------------------------------------------------------
 
-
-
 //--------------------------------------------------------------------------
 
-
-
 //perfromance curve functions-variables defintion
-
-
 
  //--------------------------------------------------------------------------
 
  // setpoint variables for Evaporator and Condenser
-
 
 Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TEvaLvg_degC=
     Modelica.SIunits.Conversions.to_degC(TEvaLvg);
 
 Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConEnt_degC=
     Modelica.SIunits.Conversions.to_degC(TEvaEnt);
-
-
-
 
 initial equation
   assert(QCon_flow_nominal > 0, "Parameter QCon_flow_nominal must be greater than zero.");
@@ -233,7 +206,6 @@ equation
         {1 - sum(port_b2.Xi_outflow)}));
   hCon=0;
 
-
   capFunT = Buildings.Utilities.Math.Functions.smoothMax(
        x1 = 1E-7,
        x2 = Buildings.Utilities.Math.Functions.biquadratic(
@@ -252,13 +224,13 @@ equation
   EIRFunPLR= per.EIRFunPLR[1]+per.EIRFunPLR[2]*PLR2+per.EIRFunPLR[3]*PLR2^2;
 
     // Available Heating capacity
-  QCon_flow_ava = QCon_flow_nominal*capFunT;
+  QEva_flow_ava = QEva_flow_nominal_H*capFunT;
 
-  QEva_flow_ava = 0;
+  QCon_flow_ava = (-QEva_flow_ava) + P;
 
     // Part load ratio
   PLR1 = Buildings.Utilities.Math.Functions.smoothMax(
-      x1 = QCon_flow_set/(QCon_flow_ava-Q_flow_small),
+      x1 = QCon_flow_set/(QCon_flow_ava+Q_flow_small),
       x2 = PLRMax,
       deltaX=PLRMax/100);
     // PLR2 is the compressor part load ratio. The lower bound PLRMinUnl is
@@ -279,7 +251,7 @@ equation
       deltaX=0.001);
 
     // Compressor power.
-  P =  (QCon_flow_ava/COP_nominal_H)*EIRFunT*EIRFunPLR*CR;
+  P =  (-QEva_flow_ava/COP_nominal_H)*EIRFunT*EIRFunPLR*CR;
     // Heat flow rates into Evaorator and condenser
 
     // Cooling capacity required to chill water to setpoint
@@ -298,7 +270,6 @@ equation
   QEva_flow = - (QCon_flow - P*etaMotor);
     // Coefficient of performance
   COP = QCon_flow/(P+Q_flow_small);
-
 
   elseif (heaPumMod==-1) then
 
@@ -364,7 +335,6 @@ equation
       x2 = PLR1,
       deltaX = PLRMinUnl/100);
 
-
     // Cycling ratio.
     // Due to smoothing, this can be about deltaX/10 above 1.0
     CR = Buildings.Utilities.Math.Functions.smoothMin(
@@ -386,7 +356,6 @@ equation
     // Coefficient of performance
     COP = -QEva_flow/(P+Q_flow_small);
 
-
     else
     hEvaSet =0;
     hConSet =0;
@@ -403,7 +372,6 @@ equation
     QEva_flow_set = 0;
     QCon_flow_set = 0;
 
-
     PLR1 = 0;
     PLR2 = 0;
     CR   = 0;
@@ -418,7 +386,7 @@ equation
 //--------------------------------------------------------------------------
 
   connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(points={{63,-40},
-          {45,-40}},
+          {51,-40}},
    color={0,0,127}));
   connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(points={{-57,34},
           {-48,34},{-48,34},{-41,34}}, color={0,0,127}));
@@ -427,7 +395,7 @@ equation
   annotation (Line(points={{-21,34},{-16,34},{-16,60},{-10,60}}, color={191,0,0}));
 
   connect(preHeaFloEva.port,vol2.heatPort)
-  annotation (Line(points={{25,-40},{-2,-40},{-2,-60},{12,-60}},
+  annotation (Line(points={{31,-40},{12,-40},{12,-60}},
                                        color={191,0,0}));
 
   connect(port_a2, port_a2) annotation (Line(points={{100,-60},{105,-60},{105,-60},
@@ -520,88 +488,118 @@ equation
     defaultComponentName="heaPum",
     Documentation(info="<html>
 <p>
-Model for a water to water heat pump with a scroll compressor, as described
-in Jin (2002). The thermodynamic heat pump cycle is represented below.
+
+Model of water to water heatpump which predicts thermal performance of cooling,
+heating and simultaneous heating and cooling modes based on the DOE-2.1 chiller model and
+the Energy Plus chiller model
+ <code>Chiller:Electric:EIR</code>.
 </p>
-<p align=\"center\">
-<img  alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatPumps/
-WaterToWater_Cycle.png\" border=\"1\"/>
+<p> This model uses three functions to predict capacity and power consumption:
 </p>
-<p>
-The rate of heat transferred to the evaporator is given by:
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-Q&#775;<sub>Eva</sub> = m&#775;<sub>ref</sub> ( h<sub>Vap</sub>(T<sub>Eva</sub>) - 
-h<sub>Liq</sub>(T<sub>Con</sub>) ).
-</p>
-<p>
-The power consumed by the compressor is given by a linear efficiency relation:
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-P = P<sub>Theoretical</sub> / &eta; + P<sub>Loss,constant</sub>.
-</p>
-<p>
-Heat transfer in the evaporator and condenser is calculated using an
-&epsilon;-NTU method, assuming constant refrigerant temperature and constant heat
-transfer coefficient between fluid and refrigerant.
-</p>
-<p>
-Variable speed is achieved by multiplying the full load suction volume flow rate
-by the normalized compressor speed. The power and heat transfer rates are forced
-to zero if the resulting heat pump state has higher evaporating pressure than
-condensing pressure.
-</p>
-<p>
-The model parameters are obtained by calibration of the heat pump model to
-manufacturer performance data. Calibrated model parameters for various heat
-pumps from different manufacturers are found in
-<a href=\"modelica://Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater\">
-Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater</a>. The calibrated model is
-located in
-<a href=\"modelica://Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater\">
-Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater</a>.
-</p>
-<h4>Options</h4>
-<p>
-Parameters <code>TConMax</code> and <code>TEvaMin</code>
-may be used to set an upper or lower bound for the
-condenser and evaporator.
-The compressor is disabled when these conditions
-are not satisfied, or when the
-evaporator temperature is larger
-than the condenser temperature.
-This mimics the temperature protection
-of heat pumps and moreover it avoids
-non-converging algebraic loops of equations,
-or freezing of evaporator medium.
-This option can be disabled by setting
-<code>enable_temperature_protection = false</code>.
-</p>
-<h4>Assumptions and limitations</h4>
-<p>
-The compression process is assumed isentropic. The thermal energy
-of superheating is ignored in the evaluation of the heat transferred to the refrigerant
-in the evaporator. There is no supercooling.
-</p>
-<h4>References</h4>
-<p>
-H. Jin.
-<i>
-Parameter estimation based models of water source heat pumps.
-</i>
-PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
-</p>
-</html>", revisions="<html>
 <ul>
 <li>
-May 30, 2017, by Filip Jorissen:<br/>
-Revised documentation for temperature protection.
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/769\">#769</a>.
+A biquadratic function is used to predict cooling capacity as a function of
+condenser entering and evaporator leaving fluid temperature.
 </li>
 <li>
-November 11, 2016, by Massimo Cimmino:<br/>
+A quadratic functions is used to predict power input to cooling capacity ratio with respect to the part load ratio.
+</li>
+<li>
+A biquadratic functions is used to predict power input to cooling capacity ratio as a function of
+condenser entering and evaporator leaving fluid temperature.
+</li>
+</ul>
+<p>
+These curves are stored in the data record <code>per</code> and are available from
+<a href=\"Buildings.Fluid.HeatPumps.Data.DOE2WaterToWater\">
+Buildings.Fluid.HeatPumps.Data.DOE2WaterToWater</a>.
+
+Additional performance curves can be developed using
+two available techniques (Hydeman and Gillespie, 2002). The first technique is called the
+Least-squares Linear Regression method and is used when sufficient performance data exist
+to employ standard least-square linear regression techniques. The second technique is called
+Reference Curve Method and is used when insufficient performance data exist to apply linear
+regression techniques. A detailed description of both techniques can be found in
+Hydeman and Gillespie (2002).
+</p>
+<p>
+The model takes as an input the set point for the leaving chilled water temperature,
+which is met if the chiller has sufficient cooling capacity or the leaving heating water
+temperature which is met if the chiller has sufficient heating capacity
+Thus, the model has a built-in, ideal temperature control.
+The model has three tests on the part load ratio and the cycling ratio:
+</p>
+<ol>
+<li>
+The test<pre>
+  PLR1 =min(QEva_flow_set/QEva_flow_ava, per.PLRMax);
+</pre>
+ensures that the chiller capacity does not exceed the chiller capacity specified
+by the parameter <code>per.PLRMax</code>.
+</li>
+<li>
+The test <pre>
+  CR = min(PLR1/per.PRLMin, 1.0);
+</pre>
+computes a cycling ratio. This ratio expresses the fraction of time
+that a chiller would run if it were to cycle because its load is smaller than the
+minimal load at which it can operate.
+Note that this model continuously operates even if the part load ratio is below the minimum part load ratio.
+Its leaving evaporator and condenser temperature can therefore be considered as an
+average temperature between the modes where the compressor is off and on.
+</li>
+<li>
+The test <pre>
+  PLR2 = max(per.PLRMinUnl, PLR1);
+</pre>
+computes the part load ratio of the compressor.
+The assumption is that for a part load ratio below <code>per.PLRMinUnl</code>,
+the chiller uses hot gas bypass to reduce the capacity, while the compressor
+power draw does not change.
+</li>
+</ol>
+<p>
+The electric power only contains the power for the compressor, but not any power for pumps or fans.
+</p>
+<p>
+The model can be parametrized to compute a transient
+or steady-state response.
+The transient response of the chiller is computed using a first
+order differential equation for the evaporator and condenser fluid volumes.
+The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
+</p>
+<h4>References</h4>
+<ul>
+<li>
+Hydeman, M. and K.L. Gillespie. 2002. Tools and Techniques to Calibrate Electric Chiller
+Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
+</li>
+</ul>
+</html>",
+revisions="<html>
+<ul>
+<li>
+June 10, 2019, by Hagar Elarga:<br/>
+Refactored model to include heating and simultaneous heating and cooling modes
+
+</li>
+<li>
+March 12, 2015, by Michael Wetter:<br/>
+Refactored model to make it once continuously differentiable.
+This is for issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/373\">373</a>.
+</li>
+<li>
+Jan. 9, 2011, by Michael Wetter:<br/>
+Added input signal to switch chiller off.
+</li>
+<li>
+Sep. 8, 2010, by Michael Wetter:<br/>
+Revised model and included it in the Buildings library.
+</li>
+<li>
+October 13, 2008, by Brandon Hencey:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end DOE2WaterToWater;
+end DOE2WaterToWatertest;

@@ -81,7 +81,7 @@ protected
     annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
+    annotation (Placement(transformation(extent={{-37,30},{-17,50}})));
   Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
     "Evaporator heat flow rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -166,11 +166,11 @@ equation
   end if;
 
   connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
-      points={{-59,40},{-39,40}},
+      points={{-59,40},{-37,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHeaFloCon.port, vol1.heatPort) annotation (Line(
-      points={{-19,40},{-10,40},{-10,60}},
+      points={{-17,40},{-10,40},{-10,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(

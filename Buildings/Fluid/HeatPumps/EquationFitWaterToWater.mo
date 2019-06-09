@@ -23,14 +23,17 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
     final prescribedHeatFlowRate=true));
 
   Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
-    "Set point for leaving chilled water temperature" annotation (Placement(
+    "Set point for leaving chilled water temperature"
+   annotation (Placement(
         transformation(extent={{-140,-110},{-100,-70}}), iconTransformation(
           extent={{-140,-110},{-100,-70}})));
   Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
-    "Set point for leaving heating water temperature" annotation (Placement(
+    "Set point for leaving heating water temperature"
+   annotation (Placement(
         transformation(extent={{-140,70},{-100,110}}), iconTransformation(
           extent={{-140,70},{-100,110}})));
-  Modelica.Blocks.Interfaces.IntegerInput uMod "Heating mode= 1, Off=0, Cooling mode=-1" annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.IntegerInput uMod "Heating mode= 1, Off=0, Cooling mode=-1"
+   annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.SIunits.Efficiency HLR
     "Heating load ratio";
