@@ -1,15 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model Configurator_uChiAva "Validate stage capacities sequence for chiller stage inputs"
+model Configurator_uChiAva "Validate chiller staging configurator sequence"
 
   Configurator conf(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    final chiNomCap={10,20,15},
+    final chiDesCap={10,20,15},
     final chiMinCap={2,4,3},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
+        "Stage configurator"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
   Configurator conf1(
@@ -17,58 +18,64 @@ model Configurator_uChiAva "Validate stage capacities sequence for chiller stage
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
     final chiMinCap={1,3,2},
-    final chiNomCap={10,20,15},
+    final chiDesCap={10,20,15},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
+        "Stage configurator"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
   Configurator conf3(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    final chiNomCap={10,20,15},
+    final chiDesCap={10,20,15},
     final chiMinCap={1,3,2},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
+        "Stage configurator"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
   Configurator conf4(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    final chiNomCap={10,20,15},
+    final chiDesCap={10,20,15},
     final chiMinCap={1,3,2},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
+        "Stage configurator"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Configurator conf5(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    final chiNomCap={10,20,15},
+    final chiDesCap={10,20,15},
     final chiMinCap={1,3,2},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
+        "Stage configurator"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
 
   Configurator conf2(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
-    final chiNomCap={10,20,15},
+    final chiDesCap={10,20,15},
     final chiMinCap={1,3,2},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
         Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal})
+        "Stage configurator"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[3](
-    final k={true,true,true}) "Chiller availability array"
+    final k={true,true,true})
+    "Chiller availability array"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
 
   CDL.Logical.Sources.Constant chiAva1[3](
@@ -115,13 +122,13 @@ annotation (
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-October 13, by Milica Grahovac:<br/>
+June 6, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
