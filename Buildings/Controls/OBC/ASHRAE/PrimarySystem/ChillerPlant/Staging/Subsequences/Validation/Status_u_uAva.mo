@@ -8,9 +8,10 @@ model Status_u_uAva "Validate status model"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   CDL.Integers.Sources.Constant uSta(final k=3)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava[4](final k={false,
-        true,true,false}) "Stage availability array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava[4](
+    final k={false,true,true,false}) "Stage availability array"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
 equation
@@ -31,7 +32,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacit
 </html>", revisions="<html>
 <ul>
 <li>
-October 13, by Milica Grahovac:<br/>
+June 10, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
