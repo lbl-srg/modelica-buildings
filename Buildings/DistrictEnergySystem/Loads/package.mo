@@ -1,5 +1,5 @@
 within Buildings.DistrictEnergySystem;
-package Loads "Models for the demand prediction in building"
+package Loads "Models for computing thermal loads served by the DES"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
