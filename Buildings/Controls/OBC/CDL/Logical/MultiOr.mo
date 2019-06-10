@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block MultiAnd
-  "Logical MultiAnd, y = u[1] and u[2] and u[3] and ..."
+block MultiOr "Logical MultiOr, y = u[1] or u[2] or u[3] or ..."
 
   parameter Integer nu(min=0) = 0 "Number of input connections"
     annotation (Dialog(connectorSizing=true), HideResult=true);
@@ -18,7 +17,7 @@ equation
   if size(u, 1) > 1 then
     uTemp[1] = u[1];
     for i in 2:size(u, 1) loop
-      uTemp[i] = u[i] and uTemp[i-1];
+      uTemp[i] = u[i] or uTemp[i-1];
     end for;
     y = uTemp[nu];
   elseif (size(u, 1) == 1) then
@@ -29,7 +28,7 @@ equation
   end if;
 
   annotation (
-  defaultComponentName="mulAnd",
+  defaultComponentName="mulOr",
   Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -45,7 +44,7 @@ equation
         Text(
           extent={{-80,52},{56,-52}},
           lineColor={0,0,0},
-          textString="AND"),
+          textString="OR"),
         Ellipse(
           extent={{71,7},{85,-7}},
           lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
@@ -55,25 +54,24 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Block that outputs <code>y = true</code> if and only if
-all elements of the input vector <code>u</code> are <code>true</code>.
+Block that outputs <code>y = true</code> if any element in the input 
+vector <code>u</code> is <code>true</code>.
 If no connection to the input connector <code>u</code> is present,
 the output is <code>y=false</code>.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Validation.MultiAnd\">
-Buildings.Controls.OBC.CDL.Logical.Validation.MultiAnd</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Validation.MultiOr\">
+Buildings.Controls.OBC.CDL.Logical.Validation.MultiOr</a>
 for an example.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-June 28, 2017, by Jianjun Hu:<br/>
-First implementation. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">issue 825</a>.
+June 6, 2019, by Milica Grahovac:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));
-end MultiAnd;
+end MultiOr;

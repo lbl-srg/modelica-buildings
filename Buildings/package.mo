@@ -206,6 +206,11 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiOr
+        </td>
+        <td valign=\"top\">Block that outputs true boolean signal if and only if any element of the boolean input vector is true.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixMin
         </td>
         <td valign=\"top\">Block that outputs vector of row- or column-wise minimum values.
