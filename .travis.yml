@@ -58,7 +58,7 @@ before_install:
        cp Buildings/Resources/Scripts/travis/bin/dymola $HOME/bin/;
     fi;
   - if [[ "$TEST_ARG" == *test-jmodelica* ]]; then
-       docker pull "$DOCKER_USERNAME"/ubuntu-1604_jmodelica_trunk;
+       docker pull "$DOCKER_USERNAME"/ubuntu-1804_jmodelica_trunk;
        chmod +x Buildings/Resources/Scripts/travis/bin/jm_ipython.sh;
        cp Buildings/Resources/Scripts/travis/bin/jm_ipython.sh $HOME/bin/;
     fi;
