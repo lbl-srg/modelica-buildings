@@ -88,7 +88,8 @@ rooms.</p>
 Modelling long-wave radiation heat exchange for thermal network building
 simulations at urban scale using Modelica. <i>Proceedings of the 10th
 International Modelica Conference</i>, p. 125-133, Lund, Sweden. Mar. 10-12,
-2014. <a href=\"http://dx.doi.org/10.3384/ECP14096125\">doi:10.3384/ECP14096125</a></p>
+2014. <a href=\"http://www.ep.liu.se/ecp/096/013/ecp14096013.pdf\">
+http://www.ep.liu.se/ecp/096/013/ecp14096013.pdf</a></p>
 </html>"));
 end UsersGuide;
 

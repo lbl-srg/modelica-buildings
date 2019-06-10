@@ -53,7 +53,7 @@ model MSLAIT2Nodes
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
     "Inlet temperature"
     annotation (Placement(transformation(extent={{18,-132},{58,-112}})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(redeclare package Medium = Medium,
+  Buildings.Fluid.Sources.Boundary_pT ExcludedBranch(redeclare package Medium = Medium,
       nPorts=1) "Mass flow sink for excluded branch"
                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -493,6 +493,11 @@ Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/(m K)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>November 28, 2016 by Bram van der Heijde:<br/>Remove <code>pipVol.</code>
 </li>
 <li>

@@ -41,7 +41,7 @@ model HeatExchanger
     use_controller=false)
     "Water-to-water heat exchanger without built-in controllers to control the temperature at port_b2"
     annotation (Placement(transformation(extent={{-12,-30},{8,-14}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  Buildings.Fluid.Sources.Boundary_pT sin1(
      nPorts=2,
      redeclare package Medium = MediumW)
      "Sink on medium 1 side"
@@ -67,7 +67,7 @@ model HeatExchanger
     startTime=0)
     "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  Buildings.Fluid.Sources.Boundary_pT sin2(
      nPorts=2,
      redeclare package Medium = MediumW)
      "Sink on medium 2 side"

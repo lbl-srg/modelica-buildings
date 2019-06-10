@@ -72,7 +72,7 @@ Cape Canaveral, Florida.
 <p>
 Andrew K. Persily and Elizabeth M. Ivy.
 <i>
-<a href=\"www.bfrl.nist.gov/IAQanalysis/docs/NISTIR6585.pdf\">
+<a href=\"http://ws680.nist.gov/publication/get_pdf.cfm?pub_id=860831\">
 Input Data for Multizone Airflow and IAQ Analysis.</a></i>
 NIST, NISTIR 6585.
 January, 2001.

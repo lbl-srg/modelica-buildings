@@ -79,28 +79,28 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     each from_dp=false,
     each linearized=false) "Filter"
     annotation (Placement(transformation(extent={{-176,-36},{-162,-24}})));
-  Buildings.Fluid.Sources.FixedBoundary sinHea[nFlo](
+  Buildings.Fluid.Sources.Boundary_pT sinHea[nFlo](
     redeclare each package Medium = MediumW,
     each p=300000,
     each T=318.15,
     each nPorts=1) "Sink for heating coil"
     annotation (Placement(transformation(extent={{-8,-8},{8,8}},
       rotation=90, origin={-148,-74})));
-  Buildings.Fluid.Sources.FixedBoundary souHea[nFlo](
+  Buildings.Fluid.Sources.Boundary_pT souHea[nFlo](
     redeclare each package Medium = MediumW,
     each p(displayUnit="Pa") = 300000 + 12000,
     each T=318.15,
     each nPorts=1) "Source for heating coil"
     annotation (Placement(transformation(extent={{-8,-8},{8,8}},
       rotation=90, origin={-120,-74})));
-  Buildings.Fluid.Sources.FixedBoundary sinCoo[nFlo](
+  Buildings.Fluid.Sources.Boundary_pT sinCoo[nFlo](
     redeclare each package Medium = MediumW,
     each p=300000,
     each T=285.15,
     each nPorts=1) "Sink for cooling coil"
     annotation (Placement(transformation(extent={{-8,-8},{8,8}},
       rotation=90, origin={-80,-74})));
-  Buildings.Fluid.Sources.FixedBoundary souCoo[nFlo](
+  Buildings.Fluid.Sources.Boundary_pT souCoo[nFlo](
     redeclare each package Medium = MediumW,
     each p=3E5 + 12000,
     each T=279.15,

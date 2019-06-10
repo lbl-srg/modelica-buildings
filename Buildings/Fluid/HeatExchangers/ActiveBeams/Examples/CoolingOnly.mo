@@ -6,7 +6,7 @@ model CoolingOnly
 
   package MediumW = Buildings.Media.Water "Medium model for water";
 
-  Buildings.Fluid.Sources.FixedBoundary sin_1(
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink for water"
     annotation (Placement(transformation(extent={{100,56},{80,76}})));
@@ -17,7 +17,7 @@ model CoolingOnly
     nPorts=1,
     T=285.85) "Source for air"
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
-  Buildings.Fluid.Sources.FixedBoundary bou(
+  Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = MediumA,
     nPorts=1) "Sink for air"
     annotation (Placement(transformation(extent={{100,-110},{80,-90}})));
@@ -117,6 +117,11 @@ that regulates the water flow rate in the active beam.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 June 14, 2016, by Michael Wetter:<br/>
 Revised implementation.
