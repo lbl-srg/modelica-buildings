@@ -17,7 +17,7 @@ Icon(graphics={
           radius=25.0),
         Rectangle(
           lineColor={128,128,128},
-          extent={{-100.0,-100.0},{100.0,100.0}},
+          extent={{-100,-100},{100,100}},
           radius=25.0),
         Ellipse(
           origin={10.0,10.0},
