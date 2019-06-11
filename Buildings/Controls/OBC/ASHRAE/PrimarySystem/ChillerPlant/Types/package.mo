@@ -3,12 +3,12 @@ package Types "Package with type definitions for control sequences"
 
   annotation (Documentation(info="<html>
 <p>
-This package provides type definitions used in Guideline 36 control sequences.
+This package provides type definitions used in chiller plant control sequences.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-July 1, 2017, by Jianjun Hu:<br/>
+June 10, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
