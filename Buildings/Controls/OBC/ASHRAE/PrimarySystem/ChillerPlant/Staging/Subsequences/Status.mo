@@ -368,6 +368,7 @@ equation
 Documentation(info="<html>
 <p>
 Based on the current stage <code>u</code> and stage availability vector <code>uAva</code> the sequence outputs:
+</p>
 <ul>
 <li>
 Vector of chillers operating in the current stage <code>yChi</code>
@@ -379,7 +380,6 @@ Index of the first available higher stage <code>yUp</code> and the first availab
 Boolean indicators whether current operating stage <code>u</code> is the highest <code>yHig</code> and/or the lowest <code>yLow</code> stage
 </li>
 </ul>
-</p>
 <p>
 The sequences are implemented according to RP-1711 Draft 4 5.2.4.11. 3.
 </p>

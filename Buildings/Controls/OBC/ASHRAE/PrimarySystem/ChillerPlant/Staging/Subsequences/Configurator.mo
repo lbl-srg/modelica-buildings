@@ -204,6 +204,7 @@ equation
 Documentation(info="<html>
 <p>
 Given the staging matrix input parameter <code>staMat</code> the staging configurator calculates:
+</p>
 <ul>
 <li>
 Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code> input vector according to RP-1711 Draft 4 section 5.2.4.9.

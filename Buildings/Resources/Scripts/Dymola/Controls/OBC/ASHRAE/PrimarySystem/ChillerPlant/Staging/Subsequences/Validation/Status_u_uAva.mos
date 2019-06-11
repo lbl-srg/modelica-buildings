@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Status_u_uAva", method="Cvode", stopTime=1700, tolerance=1e-06, resultFile="Status_u_uAva");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation.Status_u_uAva", method="Cvode", stopTime=10, tolerance=1e-06, resultFile="Status_u_uAva");
 
 createPlot(id=1, position={20, 10, 800, 700}, subPlot=1, y={"sta.nSta", "sta.nChi", "sta.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=1, position={20, 10, 800, 700}, subPlot=2, y={"sta.uAva[1]", "sta.uAva[2]", "sta.uAva[3]", "sta.uAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});

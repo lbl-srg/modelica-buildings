@@ -76,7 +76,7 @@ equation
   connect(u3.y, sta3.u) annotation (Line(points={{41,-60},{80,-60},{80,-46},{118,
           -46}},color={255,127,0}));
 annotation (
- experiment(StopTime=1800.0, Tolerance=1e-06),
+ experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Status_u_uAva.mos"
     "Simulate and plot"),
   Documentation(info="<html>

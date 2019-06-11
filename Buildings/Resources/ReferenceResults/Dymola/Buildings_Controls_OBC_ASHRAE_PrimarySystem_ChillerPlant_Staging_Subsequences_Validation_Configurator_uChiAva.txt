@@ -7,7 +7,7 @@ statistics-simulation=
 }
 conf.nChi=[3e+00, 3e+00]
 conf.nSta=[4e+00, 4e+00]
-time=[0e+00, 1.7e+03]
+time=[0e+00, 1e+01]
 conf.uChiAva[2]=[1e+00, 1e+00]
 conf.uChiAva[3]=[1e+00, 1e+00]
 conf.uChiAva[1]=[1e+00, 1e+00]

@@ -1,4 +1,4 @@
-last-generated=2019-06-10
+last-generated=2019-06-11
 statistics-simulation=
 {
   "linear": " ",
@@ -8,7 +8,7 @@ statistics-simulation=
 sta.nSta=[4e+00, 4e+00]
 sta.u=[3e+00, 3e+00]
 sta.nChi=[3e+00, 3e+00]
-time=[0e+00, 1.7e+03]
+time=[0e+00, 1e+01]
 sta.uAva[2]=[1e+00, 1e+00]
 sta.uAva[4]=[1e+00, 1e+00]
 sta.uAva[3]=[1e+00, 1e+00]
