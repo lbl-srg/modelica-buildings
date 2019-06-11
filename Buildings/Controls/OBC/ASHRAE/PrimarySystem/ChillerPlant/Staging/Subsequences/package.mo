@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging;
-package Subsequences "Chiller staging sequences"
+package Subsequences "Chiller staging subsequences"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
