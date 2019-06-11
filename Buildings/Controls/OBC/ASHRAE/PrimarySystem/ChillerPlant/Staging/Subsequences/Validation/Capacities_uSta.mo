@@ -80,25 +80,26 @@ protected
 
 equation
   connect(stage0.y, staCap0.u)
-    annotation (Line(points={{-59,60},{-42,60}}, color={255,127,0}));
+    annotation (Line(points={{-59,60},{-50,60},{-50,63},{-41,63}},
+                                                 color={255,127,0}));
   connect(stage1.y, staCap1.u)
-    annotation (Line(points={{-59,0},{-42,0}}, color={255,127,0}));
+    annotation (Line(points={{-59,0},{-50,0},{-50,3},{-41,3}},
+                                               color={255,127,0}));
   connect(stage2.y, staCap2.u)
-    annotation (Line(points={{-59,-50},{-42,-50}}, color={255,127,0}));
-  connect(staCap0.yStaNom, absErrorSta0[1].u1) annotation (Line(points={{-19,67},
-          {40,67},{40,80},{58,80}}, color={0,0,127}));
-  connect(staCap0.yStaDowNom, absErrorSta0[2].u1) annotation (Line(points={{-19,59},
-          {40,59},{40,80},{58,80}},     color={0,0,127}));
-  connect(staCap1.yStaNom, absErrorSta1[1].u1)
+    annotation (Line(points={{-59,-50},{-50,-50},{-50,-47},{-41,-47}},
+                                                   color={255,127,0}));
+  connect(staCap0.yNom, absErrorSta0[1].u1) annotation (Line(points={{-19,67},{
+          40,67},{40,80},{58,80}}, color={0,0,127}));
+  connect(staCap0.yDowNom, absErrorSta0[2].u1) annotation (Line(points={{-19,59},
+          {40,59},{40,80},{58,80}}, color={0,0,127}));
+  connect(staCap1.yNom, absErrorSta1[1].u1)
     annotation (Line(points={{-19,7},{40,7},{40,0},{58,0}}, color={0,0,127}));
-  connect(staCap1.yStaDowNom, absErrorSta1[2].u1)
-    annotation (Line(points={{-19,-1},{40,-1},{40,0},{58,0}},
-                                              color={0,0,127}));
-  connect(staCap2.yStaNom, absErrorSta2[1].u1) annotation (Line(points={{-19,-43},
+  connect(staCap1.yDowNom, absErrorSta1[2].u1) annotation (Line(points={{-19,-1},
+          {40,-1},{40,0},{58,0}}, color={0,0,127}));
+  connect(staCap2.yNom, absErrorSta2[1].u1) annotation (Line(points={{-19,-43},
           {40,-43},{40,-50},{58,-50}}, color={0,0,127}));
-  connect(staCap2.yStaDowNom, absErrorSta2[2].u1)
-    annotation (Line(points={{-19,-51},{40,-51},{40,-50},{58,-50}},
-                                                  color={0,0,127}));
+  connect(staCap2.yDowNom, absErrorSta2[2].u1) annotation (Line(points={{-19,-51},
+          {40,-51},{40,-50},{58,-50}}, color={0,0,127}));
   connect(staCap[3].y, absErrorSta2[1].u2) annotation (Line(points={{21,30},{48,
           30},{48,-70},{70,-70},{70,-62}}, color={0,0,127}));
   connect(staCap[2].y, absErrorSta2[2].u2) annotation (Line(points={{21,30},{46,
@@ -111,12 +112,12 @@ equation
           30},{46,40},{60,40},{60,60},{70,60},{70,68}}, color={0,0,127}));
   connect(minStaUnload[2].y, absErrorSta1[2].u2) annotation (Line(points={{21,-80},
           {94,-80},{94,-20},{70,-20},{70,-12}},      color={0,0,127}));
-  connect(staCap0.yStaUpNom, absErrorSta0[3].u1) annotation (Line(points={{-19,63},
-          {40,63},{40,80},{58,80}},     color={0,0,127}));
-  connect(staCap1.yStaUpNom, absErrorSta1[3].u1)
+  connect(staCap0.yUpNom, absErrorSta0[3].u1) annotation (Line(points={{-19,63},
+          {40,63},{40,80},{58,80}}, color={0,0,127}));
+  connect(staCap1.yUpNom, absErrorSta1[3].u1)
     annotation (Line(points={{-19,3},{40,3},{40,0},{58,0}}, color={0,0,127}));
-  connect(staCap2.yStaUpNom, absErrorSta2[3].u1) annotation (Line(points={{-19,-47},
-          {40,-47},{40,-50},{58,-50}},      color={0,0,127}));
+  connect(staCap2.yUpNom, absErrorSta2[3].u1) annotation (Line(points={{-19,-47},
+          {40,-47},{40,-50},{58,-50}}, color={0,0,127}));
   connect(staCap[2].y, absErrorSta0[3].u2) annotation (Line(points={{21,30},{54,
           30},{54,36},{64,36},{64,52},{70,52},{70,68}}, color={0,0,127}));
   connect(staCap[3].y, absErrorSta1[3].u2) annotation (Line(points={{21,30},{44,
@@ -125,10 +126,10 @@ equation
           30},{44,-72},{70,-72},{70,-62}}, color={0,0,127}));
   connect(minStaUnload[1].y, absErrorSta0[4].u2) annotation (Line(points={{21,
           -80},{92,-80},{92,62},{70,62},{70,68}}, color={0,0,127}));
-  connect(staCap0.yStaMin, absErrorSta0[4].u1) annotation (Line(points={{-19,53},
-          {40,53},{40,80},{58,80}}, color={0,0,127}));
-  connect(staCap0.yStaUpMin, absErrorSta0[5].u1) annotation (Line(points={{-19,55},
-          {40,55},{40,80},{58,80}},     color={0,0,127}));
+  connect(staCap0.yMin, absErrorSta0[4].u1) annotation (Line(points={{-19,53},{
+          40,53},{40,80},{58,80}}, color={0,0,127}));
+  connect(staCap0.yUpMin, absErrorSta0[5].u1) annotation (Line(points={{-19,55},
+          {40,55},{40,80},{58,80}}, color={0,0,127}));
   connect(minStaUnload[2].y, absErrorSta0[5].u2) annotation (Line(points={{21,
           -80},{88,-80},{88,60},{70,60},{70,68}}, color={0,0,127}));
   connect(minStaUnload[3].y, absErrorSta1[5].u2) annotation (Line(points={{21,-80},
@@ -137,18 +138,18 @@ equation
   connect(minStaUnload[2].y, absErrorSta1[4].u2) annotation (Line(points={{21,
           -80},{54,-80},{54,-78},{90,-78},{90,-18},{70,-18},{70,-12}}, color={0,
           0,127}));
-  connect(staCap1.yStaMin, absErrorSta1[4].u1) annotation (Line(points={{-19,-7},
-          {40,-7},{40,0},{58,0}}, color={0,0,127}));
-  connect(staCap1.yStaUpMin, absErrorSta1[5].u1) annotation (Line(points={{-19,-5},
-          {40,-5},{40,0},{58,0}},     color={0,0,127}));
+  connect(staCap1.yMin, absErrorSta1[4].u1) annotation (Line(points={{-19,-7},{
+          40,-7},{40,0},{58,0}}, color={0,0,127}));
+  connect(staCap1.yUpMin, absErrorSta1[5].u1) annotation (Line(points={{-19,-5},
+          {40,-5},{40,0},{58,0}}, color={0,0,127}));
   connect(minStaUnload[3].y, absErrorSta2[4].u2)
     annotation (Line(points={{21,-80},{70,-80},{70,-62}}, color={0,0,127}));
   connect(minStaUnload[4].y, absErrorSta2[5].u2) annotation (Line(points={{21,
           -80},{72,-80},{72,-66},{70,-66},{70,-62}}, color={0,0,127}));
-  connect(absErrorSta2[4].u1, staCap2.yStaMin) annotation (Line(points={{58,-50},
-          {40,-50},{40,-57},{-19,-57}}, color={0,0,127}));
-  connect(staCap2.yStaUpMin, absErrorSta2[5].u1) annotation (Line(points={{-19,-55},
-          {40,-55},{40,-50},{58,-50}},      color={0,0,127}));
+  connect(absErrorSta2[4].u1, staCap2.yMin) annotation (Line(points={{58,-50},{
+          40,-50},{40,-57},{-19,-57}}, color={0,0,127}));
+  connect(staCap2.yUpMin, absErrorSta2[5].u1) annotation (Line(points={{-19,-55},
+          {40,-55},{40,-50},{58,-50}}, color={0,0,127}));
   connect(con.y, staCap0.uStaAva) annotation (Line(points={{-59,-80},{-50,-80},
           {-50,54},{-42,54}}, color={255,0,255}));
   connect(con.y, staCap1.uStaAva) annotation (Line(points={{-59,-80},{-50,-80},

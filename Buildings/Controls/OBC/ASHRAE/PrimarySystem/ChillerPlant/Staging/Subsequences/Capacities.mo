@@ -47,37 +47,30 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
       Placement(transformation(extent={{-300,-240},{-260,-200}}),
         iconTransformation(extent={{-120,60},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaNom(
-    final unit="W",
-    final quantity="Power") "Nominal capacity of the current stage"
-    annotation (Placement(transformation(extent={{260,90},{280,110}}),
-      iconTransformation(extent={{100,60},{120,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yNom(final unit="W", final
+      quantity="Power") "Nominal capacity of the current stage" annotation (
+      Placement(transformation(extent={{260,90},{280,110}}), iconTransformation(
+          extent={{100,60},{120,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaDowNom(
-    final unit="W",
-    final quantity="Power") "Nominal capacity of the first stage down"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowNom(final unit="W",
+      final quantity="Power") "Nominal capacity of the first stage down"
     annotation (Placement(transformation(extent={{260,10},{280,30}}),
-      iconTransformation(extent={{100,-20},{120,0}})));
+        iconTransformation(extent={{100,-20},{120,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaUpNom(
-    final unit="W",
-    final quantity="Power") "Nominal capacity of the next higher stage"
-    annotation (Placement(
-      transformation(extent={{260,50},{280,70}}),
-      iconTransformation(extent={{100,20},{120,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpNom(final unit="W",
+      final quantity="Power") "Nominal capacity of the next higher stage"
+    annotation (Placement(transformation(extent={{260,50},{280,70}}),
+        iconTransformation(extent={{100,20},{120,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaMin(
-    final unit="W",
-    final quantity="Power")
-    "Minimum capacity of the current stage" annotation (Placement(
-      transformation(extent={{260,-30},{280,-10}}), iconTransformation(extent={{100,-80},
-            {120,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMin(final unit="W", final
+      quantity="Power") "Minimum capacity of the current stage" annotation (
+      Placement(transformation(extent={{260,-30},{280,-10}}),
+        iconTransformation(extent={{100,-80},{120,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaUpMin(
-    final unit="W",
-    final quantity="Power") "Minimum capacity of the next higher stage"
-      annotation (Placement(transformation(extent={{260,-70},{280,-50}}),
-      iconTransformation(extent={{100,-60},{120,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(final unit="W",
+      final quantity="Power") "Minimum capacity of the next higher stage"
+    annotation (Placement(transformation(extent={{260,-70},{280,-50}}),
+        iconTransformation(extent={{100,-60},{120,-40}})));
 
 //protected
   final parameter Real small = 0.001
@@ -173,28 +166,27 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     "To make a very large and unachievable staging up capacity if already the highest available stage"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 equation
-  connect(swi2.y, yStaUpNom) annotation (Line(points={{241,70},{250,70},{250,60},
-          {270,60}}, color={0,0,127}));
+  connect(swi2.y, yUpNom) annotation (Line(points={{241,70},{250,70},{250,60},{
+          270,60}}, color={0,0,127}));
   connect(extStaUpCap.y, swi2.u3) annotation (Line(points={{121,80},{172,80},{172,
           62},{218,62}},
                      color={0,0,127}));
-  connect(yStaMin, yStaMin)
+  connect(yMin, yMin)
     annotation (Line(points={{270,-20},{270,-20}}, color={0,0,127}));
   connect(extStaUpCapMin.y, swi4.u3) annotation (Line(points={{121,-30},{140,-30},
           {140,-98},{218,-98}},    color={0,0,127}));
-  connect(swi4.y, yStaUpMin) annotation (Line(points={{241,-90},{250,-90},{250,-60},
-          {270,-60}},      color={0,0,127}));
+  connect(swi4.y, yUpMin) annotation (Line(points={{241,-90},{250,-90},{250,-60},
+          {270,-60}}, color={0,0,127}));
   connect(mulOr.y, staExc.u) annotation (Line(points={{201.7,210},{218,210}},
                  color={255,0,255}));
-  connect(extStaCapMin.y, yStaMin) annotation (Line(points={{121,-90},{180,-90},
-          {180,-20},{270,-20}}, color={0,0,127}));
+  connect(extStaCapMin.y, yMin) annotation (Line(points={{121,-90},{180,-90},{
+          180,-20},{270,-20}}, color={0,0,127}));
   connect(extStaCap.y, forStaNom.u1) annotation (Line(points={{-19,150},{0,150},
           {0,136},{218,136}}, color={0,0,127}));
-  connect(forStaNom.y, yStaNom) annotation (Line(points={{241,130},{250,130},{250,
-          100},{270,100}},   color={0,0,127}));
-  connect(forStaDowNom.y, yStaDowNom)
-    annotation (Line(points={{241,20},{270,20}},
-                                               color={0,0,127}));
+  connect(forStaNom.y, yNom) annotation (Line(points={{241,130},{250,130},{250,
+          100},{270,100}}, color={0,0,127}));
+  connect(forStaDowNom.y, yDowNom)
+    annotation (Line(points={{241,20},{270,20}}, color={0,0,127}));
   connect(swi1.y, forStaDowNom.u2) annotation (Line(points={{181,0},{200,0},{200,
           14},{218,14}}, color={0,0,127}));
   connect(extStaLowCap.y, swi1.u3) annotation (Line(points={{-19,80},{50,80},{50,

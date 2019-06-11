@@ -18,12 +18,10 @@ block PartLoadRatios
         nSta) "Chiller stage" annotation (Placement(transformation(extent={{-380,
             220},{-340,260}}), iconTransformation(extent={{-120,-110},{-100,-90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUpCapNom(
-    final unit="W",
-    final quantity="Power")
-    "Nominal capacity of the next higher stage" annotation (Placement(
-        transformation(extent={{-380,-180},{-340,-140}}), iconTransformation(
-          extent={{-120,80},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapNom(final unit="W",
+      final quantity="Power") "Nominal capacity of the next higher stage"
+    annotation (Placement(transformation(extent={{-380,-180},{-340,-140}}),
+        iconTransformation(extent={{-120,80},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapReq(
     final unit="W",
@@ -32,22 +30,18 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-380,-20},{-340,20}}),
     iconTransformation(extent={{-120,120},{-100,140}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaCapNom(
-    final unit="W",
-    final quantity="Power")
-    "Nominal capacity of the current stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapNom(final unit="W",
+      final quantity="Power") "Nominal capacity of the current stage"
     annotation (Placement(transformation(extent={{-380,-70},{-340,-30}}),
         iconTransformation(extent={{-120,100},{-100,120}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUpCapMin(
-    final unit="W",
-    final quantity="Power") "Minimal capacity of the next higher stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapMin(final unit="W",
+      final quantity="Power") "Minimal capacity of the next higher stage"
     annotation (Placement(transformation(extent={{-380,-300},{-340,-260}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaDowCapNom(
-    final unit="W",
-    final quantity="Power") "Nominal capacity of the next lower stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDowCapNom(final unit="W",
+      final quantity="Power") "Nominal capacity of the next lower stage"
     annotation (Placement(transformation(extent={{-380,-120},{-340,-80}}),
         iconTransformation(extent={{-120,60},{-100,80}})));
 
@@ -72,12 +66,10 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-380,-500},{-340,-460}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaCapMin(
-    final unit="W",
-    final quantity="Power")
-    "Minimal capacity of the current stage" annotation (Placement(
-        transformation(extent={{-380,-240},{-340,-200}}), iconTransformation(
-          extent={{-120,20},{-100,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapMin(final unit="W",
+      final quantity="Power") "Minimal capacity of the current stage"
+    annotation (Placement(transformation(extent={{-380,-240},{-340,-200}}),
+        iconTransformation(extent={{-120,20},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUp(
     final unit="1", final min=0)
@@ -311,9 +303,8 @@ block PartLoadRatios
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-360,0},{-260,0},{-260,
           -44},{-242,-44}}, color={0,0,127}));
-  connect(uStaCapNom, opePlrSta.u2) annotation (Line(points={{-360,-50},{-290,
-          -50},{-290,-56},{-242,-56}},
-                                  color={0,0,127}));
+  connect(uCapNom, opePlrSta.u2) annotation (Line(points={{-360,-50},{-290,-50},
+          {-290,-56},{-242,-56}}, color={0,0,127}));
   connect(extStaTyp.y, curStaTyp.u)
     annotation (Line(points={{-159,300},{-122,300}}, color={0,0,127}));
   connect(extStaTyp1.y, staUpTyp.u)
@@ -347,9 +338,8 @@ equation
   connect(uCapReq, opePlrUp.u1) annotation (Line(points={{-360,0},{-300,0},{-300,
           -134},{-242,-134}},
                         color={0,0,127}));
-  connect(uStaUpCapNom, opePlrUp.u2) annotation (Line(points={{-360,-160},{-280,
-          -160},{-280,-146},{-242,-146}},
-                                    color={0,0,127}));
+  connect(uUpCapNom, opePlrUp.u2) annotation (Line(points={{-360,-160},{-280,-160},
+          {-280,-146},{-242,-146}}, color={0,0,127}));
   connect(opePlrUp.y, yUp) annotation (Line(points={{-219,-140},{-40,-140},{-40,
           -120},{350,-120}},
                        color={0,0,127}));
@@ -402,9 +392,8 @@ equation
   connect(uCapReq, opePlrDow.u1) annotation (Line(points={{-360,0},{-280,0},{-280,
           -74},{-242,-74}},
                        color={0,0,127}));
-  connect(uStaDowCapNom, opePlrDow.u2) annotation (Line(points={{-360,-100},{
-          -280,-100},{-280,-86},{-242,-86}},
-                                    color={0,0,127}));
+  connect(uDowCapNom, opePlrDow.u2) annotation (Line(points={{-360,-100},{-280,
+          -100},{-280,-86},{-242,-86}}, color={0,0,127}));
   connect(opePlrDow.y, yDow) annotation (Line(points={{-219,-80},{350,-80}},
                       color={0,0,127}));
   connect(minOpePlr.y, yMin) annotation (Line(points={{-219,-230},{-80,-230},{-80,
@@ -426,14 +415,14 @@ equation
                            color={255,127,0}));
   connect(intEqu3.y, swi2.u2) annotation (Line(points={{41,250},{50,250},{50,-180},
           {58,-180}},color={255,0,255}));
-  connect(uStaCapMin, minOpePlr.u1) annotation (Line(points={{-360,-220},{-280,
-          -220},{-280,-224},{-242,-224}}, color={0,0,127}));
-  connect(uStaCapNom, minOpePlr.u2) annotation (Line(points={{-360,-50},{-320,
-          -50},{-320,-236},{-242,-236}}, color={0,0,127}));
-  connect(uStaUpCapMin, minOpePlrUp.u1) annotation (Line(points={{-360,-280},{
-          -300,-280},{-300,-184},{-242,-184}}, color={0,0,127}));
-  connect(uStaUpCapNom, minOpePlrUp.u2) annotation (Line(points={{-360,-160},{-280,
-          -160},{-280,-196},{-242,-196}},      color={0,0,127}));
+  connect(uCapMin, minOpePlr.u1) annotation (Line(points={{-360,-220},{-280,-220},
+          {-280,-224},{-242,-224}}, color={0,0,127}));
+  connect(uCapNom, minOpePlr.u2) annotation (Line(points={{-360,-50},{-320,-50},
+          {-320,-236},{-242,-236}}, color={0,0,127}));
+  connect(uUpCapMin, minOpePlrUp.u1) annotation (Line(points={{-360,-280},{-300,
+          -280},{-300,-184},{-242,-184}}, color={0,0,127}));
+  connect(uUpCapNom, minOpePlrUp.u2) annotation (Line(points={{-360,-160},{-280,
+          -160},{-280,-196},{-242,-196}}, color={0,0,127}));
   connect(greThr1.y, staExc1.u)
     annotation (Line(points={{281,320},{298,320}}, color={255,0,255}));
   connect(intEqu.y, swi.u2) annotation (Line(points={{41,170},{120,170},{120,150},
