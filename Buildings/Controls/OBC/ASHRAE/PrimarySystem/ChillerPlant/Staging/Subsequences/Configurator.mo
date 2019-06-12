@@ -61,7 +61,7 @@ protected
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staDesCaps(
-    final K=staMat) "Matrix gain for Design capacities"
+    final K=staMat) "Matrix gain for design capacities"
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps(
@@ -110,7 +110,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
     final nRow=nSta,
-    final nCol=nChi) "Row-wise matrix maximum "
+    final nCol=nChi) "Row-wise matrix maximum"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[nSta]
@@ -133,12 +133,12 @@ protected
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Chillers are not staged according to G36 recommendation. If possible, please stage any positive displacement machines first, any variable speed centrifugal next and any constant speed centrifugal last.")
+    final message="Chillers are not staged in a recommended order. If possible, please stage any positive displacement machines first, any variable speed centrifugal next and any constant speed centrifugal last.")
     "Staging type order assertion"
     annotation (Placement(transformation(extent={{180,-120},{200,-100}})));
 
   CDL.Logical.MultiAnd mulAnd(
-    final nu=nSta) "Logical and for a vector input"
+    final nu=nSta) "Logical and with a vector input"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
 
 equation
