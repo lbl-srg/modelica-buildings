@@ -1,0 +1,82 @@
+within Buildings.Fluid.HeatPumps;
+block EquationfitCalculations
+  extends Modelica.Blocks.Icons.Block;
+
+  Modelica.Blocks.Sources.Constant HLRC[5](k=per.HLRC) annotation (Placement(transformation(extent={{-192,80},{-172,100}})));
+  Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=10)
+                                                            annotation (Placement(transformation(extent={{-230,44},{-210,64}})));
+  Modelica.Blocks.Logical.Switch A1H[5] annotation (Placement(transformation(extent={{-140,72},{-120,92}})));
+  Modelica.Blocks.Logical.Switch A1C[5] annotation (Placement(transformation(extent={{-140,-18},{-120,2}})));
+  Modelica.Blocks.Sources.Constant CLRC[5](k=per.CLRC) annotation (Placement(transformation(extent={{-194,-10},{-174,10}})));
+  Modelica.Blocks.Sources.Constant offSys[5](k=0) annotation (Placement(transformation(extent={{-194,-86},{-174,-66}})));
+  Modelica.Blocks.Sources.Constant const(k=1) annotation (Placement(transformation(extent={{-78,90},{-58,110}})));
+  Modelica.Blocks.Math.Gain gain1(k=1/Tref) annotation (Placement(transformation(extent={{-76,46},{-56,66}})));
+  Modelica.Blocks.Math.Gain gain2(k=1/Tref) annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
+  Modelica.Blocks.Math.Gain gain3(k=1/mCon_flow_nominal) annotation (Placement(transformation(extent={{-76,-30},{-56,-10}})));
+  Modelica.Blocks.Math.Gain gain4(k=mEva_flow_nominal) annotation (Placement(transformation(extent={{-76,-60},{-56,-40}})));
+  Modelica.Blocks.Math.Product product[5] annotation (Placement(transformation(extent={{-30,100},{-10,120}})));
+  Modelica.Blocks.Sources.Constant P_HDC[5](k=per.P_HDC) annotation (Placement(transformation(extent={{-192,132},{-172,152}})));
+  Modelica.Blocks.Sources.Constant P_CDC[5](k=per.P_CDC) annotation (Placement(transformation(extent={{-192,-50},{-172,-30}})));
+  Modelica.Blocks.Logical.Switch A2H[5] annotation (Placement(transformation(extent={{-142,124},{-122,144}})));
+  Modelica.Blocks.Logical.Switch A2C[5] annotation (Placement(transformation(extent={{-138,-72},{-118,-52}})));
+  Controls.OBC.CDL.Routing.BooleanReplicator booRep1(nout=10)
+                                                            annotation (Placement(transformation(extent={{-230,10},{-210,30}})));
+  Controls.OBC.CDL.Interfaces.BooleanInput heaMod annotation (Placement(transformation(extent={{-282,34},{-242,74}})));
+  Controls.OBC.CDL.Interfaces.BooleanInput cooMod annotation (Placement(transformation(extent={{-282,0},{-242,40}})));
+  Modelica.Blocks.Math.Sum HLRorCLR(nin=5) annotation (Placement(transformation(extent={{12,100},{32,120}})));
+  Controls.OBC.CDL.Interfaces.RealInput TConEnt annotation (Placement(transformation(extent={{-280,146},{-240,186}})));
+  Controls.OBC.CDL.Interfaces.RealInput TEvaEnt annotation (Placement(transformation(extent={{-282,-150},{-242,-110}})));
+  Controls.OBC.CDL.Interfaces.RealInput m1_flow annotation (Placement(transformation(extent={{-280,-74},{-240,-34}})));
+  Controls.OBC.CDL.Interfaces.RealInput m2_flow annotation (Placement(transformation(extent={{-282,-118},{-242,-78}})));
+  Modelica.Blocks.Sources.Constant const1 annotation (Placement(transformation(extent={{80,54},{100,74}})));
+  Modelica.Blocks.Math.Gain gain5(k=1/Tref) annotation (Placement(transformation(extent={{82,4},{102,24}})));
+  Modelica.Blocks.Math.Gain gain6(k=1/Tref) annotation (Placement(transformation(extent={{82,-28},{102,-8}})));
+  Modelica.Blocks.Math.Gain gain7(k=mCon_flow_nominal) annotation (Placement(transformation(extent={{82,-72},{102,-52}})));
+  Modelica.Blocks.Math.Gain gain8(k=mEva_flow_nominal) annotation (Placement(transformation(extent={{82,-102},{102,-82}})));
+  Modelica.Blocks.Math.Product product1[5] annotation (Placement(transformation(extent={{128,80},{148,100}})));
+  Modelica.Blocks.Math.Sum P_HDorP_CD(nin=1) annotation (Placement(transformation(extent={{182,80},{202,100}})));
+  Controls.OBC.CDL.Interfaces.RealOutput P_HDorPCD "Power coefficient either in cooling or heating dominated mode"
+    annotation (Placement(transformation(extent={{224,80},{244,100}})));
+  Controls.OBC.CDL.Interfaces.RealOutput CLRorHLR "thermal load ration either in cooling or heating dominated mode"
+    annotation (Placement(transformation(extent={{224,128},{244,148}})));
+equation
+  connect(heaMod, booRep.u) annotation (Line(points={{-262,54},{-232,54}}, color={255,0,255}));
+  connect(booRep.y[5], A1H.u2) annotation (Line(points={{-209,53.9},{-164,53.9},{-164,82},{-142,82}}, color={255,0,255}));
+  connect(A1C.y, A1H.u3) annotation (Line(points={{-119,-8},{-102,-8},{-102,64},{-152,64},{-152,74},{-142,74}}, color={0,0,127}));
+  connect(const.y, product[1].u2) annotation (Line(points={{-57,100},{-44,100},{-44,104},{-32,104}}, color={0,0,127}));
+  connect(gain2.y, product[3].u2) annotation (Line(points={{-55,24},{-48,24},{-48,104},{-32,104}}, color={0,0,127}));
+  connect(gain1.y, product[2].u2) annotation (Line(points={{-55,56},{-48,56},{-48,104},{-32,104}}, color={0,0,127}));
+  connect(gain3.y, product[4].u2) annotation (Line(points={{-55,-20},{-48,-20},{-48,104},{-32,104}}, color={0,0,127}));
+  connect(gain4.y, product[5].u2) annotation (Line(points={{-55,-50},{-48,-50},{-48,104},{-32,104}}, color={0,0,127}));
+  connect(HLRC.y, A1H.u1) annotation (Line(points={{-171,90},{-142,90}}, color={0,0,127}));
+  connect(CLRC.y, A1C.u1) annotation (Line(points={{-173,0},{-142,0}}, color={0,0,127}));
+  connect(offSys.y, A1C.u3) annotation (Line(points={{-173,-76},{-148,-76},{-148,-16},{-142,-16}}, color={0,0,127}));
+  connect(A1H.y, product.u1) annotation (Line(points={{-119,82},{-48,82},{-48,116},{-32,116}}, color={0,0,127}));
+  connect(booRep.y, A2H.u2) annotation (Line(points={{-209,54},{-164,54},{-164,134},{-144,134}}, color={255,0,255}));
+  connect(P_HDC.y, A2H.u1) annotation (Line(points={{-171,142},{-144,142}}, color={0,0,127}));
+  connect(offSys.y, A2C.u3) annotation (Line(points={{-173,-76},{-140,-76},{-140,-70}}, color={0,0,127}));
+  connect(P_CDC.y, A2C.u1) annotation (Line(points={{-171,-40},{-154,-40},{-154,-54},{-140,-54}}, color={0,0,127}));
+  connect(cooMod, booRep1.u) annotation (Line(points={{-262,20},{-232,20}}, color={255,0,255}));
+  connect(booRep1.y, A1C.u2) annotation (Line(points={{-209,20},{-156,20},{-156,-8},{-142,-8}}, color={255,0,255}));
+  connect(booRep1.y, A2C.u2) annotation (Line(points={{-209,20},{-156,20},{-156,-62},{-140,-62}}, color={255,0,255}));
+  connect(A1C.y, A2H.u3) annotation (Line(points={{-119,-8},{-102,-8},{-102,64},{-152,64},{-152,126},{-144,126}}, color={0,0,127}));
+  connect(TConEnt, gain1.u) annotation (Line(points={{-260,166},{-98,166},{-98,56},{-78,56}}, color={0,0,127}));
+  connect(product.y, HLRorCLR.u) annotation (Line(points={{-9,110},{10,110}}, color={0,0,127}));
+  connect(const1.y, product1[1].u2) annotation (Line(points={{101,64},{114,64},{114,84},{126,84}}, color={0,0,127}));
+  connect(gain6.y, product1[3].u2) annotation (Line(points={{103,-18},{114,-18},{114,84},{126,84}}, color={0,0,127}));
+  connect(gain5.y, product1[2].u2) annotation (Line(points={{103,14},{114,14},{114,84},{126,84}}, color={0,0,127}));
+  connect(gain7.y, product1[4].u2) annotation (Line(points={{103,-62},{114,-62},{114,84},{126,84}}, color={0,0,127}));
+  connect(gain8.y, product1[5].u2) annotation (Line(points={{103,-92},{114,-92},{114,84},{126,84}}, color={0,0,127}));
+  connect(TConEnt, gain5.u) annotation (Line(points={{-260,166},{60,166},{60,14},{80,14}}, color={0,0,127}));
+  connect(product1.y, P_HDorP_CD.u) annotation (Line(points={{149,90},{180,90}}, color={0,0,127}));
+  connect(TEvaEnt, gain2.u) annotation (Line(points={{-262,-130},{-86,-130},{-86,24},{-78,24}}, color={0,0,127}));
+  connect(TEvaEnt, gain6.u) annotation (Line(points={{-262,-130},{60,-130},{60,-18},{80,-18}}, color={0,0,127}));
+  connect(A2H.y, product1.u1) annotation (Line(points={{-121,134},{110,134},{110,96},{126,96}}, color={0,0,127}));
+  connect(A2C.y, product1.u1) annotation (Line(points={{-117,-62},{-100,-62},{-100,-114},{46,-114},{46,96},{126,96}}, color={0,0,127}));
+  connect(P_HDorP_CD.y, P_HDorPCD) annotation (Line(points={{203,90},{234,90}}, color={0,0,127}));
+  connect(m2_flow, gain4.u) annotation (Line(points={{-262,-98},{-92,-98},{-92,-50},{-78,-50}}, color={0,0,127}));
+  connect(m2_flow, gain8.u) annotation (Line(points={{-262,-98},{72,-98},{72,-92},{80,-92}}, color={0,0,127}));
+  connect(m1_flow, gain7.u) annotation (Line(points={{-260,-54},{-230,-54},{-230,-94},{66,-94},{66,-62},{80,-62}}, color={0,0,127}));
+  connect(HLRorCLR.y, CLRorHLR) annotation (Line(points={{33,110},{198,110},{198,138},{234,138}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-140},{220,200}})));
+end EquationfitCalculations;
