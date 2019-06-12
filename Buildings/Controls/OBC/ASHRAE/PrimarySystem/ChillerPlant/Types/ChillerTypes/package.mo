@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types;
 package ChillerTypes "Chiller type enumeration"
 
-  constant Integer positiveDisplacement = 1 "The stage has any positive displacement machines";
-  constant Integer variableSpeedCentrifugal = 2 "The stage has any variable speed centrifugal machines";
-  constant Integer constantSpeedCentrifugal = 3 "The stage has any constant speed centrifugal machines";
+  constant Integer positiveDisplacement = 1 "Positive displacement chiller";
+  constant Integer variableSpeedCentrifugal = 2 "Variable speed centrifugal chiller";
+  constant Integer constantSpeedCentrifugal = 3 "Constant speed centrifugal chiller";
 
 annotation (
 Documentation(info="<html>
