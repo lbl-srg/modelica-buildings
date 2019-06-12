@@ -28,8 +28,8 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
     annotation (choicesAllMatching = true,
                 Placement(transformation(extent={{40,80},{60,100}})));
 
-  Calibration.BaseClasses.EquationFitEqu equationfit(per=per)
-    annotation (Placement(transformation(extent={{-82,-12},{-50,14}})));
+  BaseClasses.EquationFitEqu equationfit(per=per)
+    annotation (Placement(transformation(extent={{-82,-12},{-58,14}})));
 
 
    parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
@@ -114,33 +114,39 @@ equation
   connect(preHeaFloEva.port, vol2.heatPort) annotation (Line(points={{-7,-20},{20,-20},{20,-60},{12,-60}},  color={191,0,0}));
 
   connect(uMod, equationfit.uMod) annotation (Line(points={{-160,2},{-96,2},{
-          -96,1.13},{-82.8,1.13}},                                                                     color={255,127,0}));
+          -96,0.61},{-83.08,0.61}},                                                                    color={255,127,0}));
   connect(TConSet, equationfit.TConSet) annotation (Line(points={{-160,90},{-88,
-          90},{-88,13.74},{-82.64,13.74}},               color={0,0,111}));
+          90},{-88,14},{-83.2,14}},                      color={0,0,111}));
   connect(TEvaSet, equationfit.TEvaSet) annotation (Line(points={{-162,-90},{
-          -88,-90},{-88,-11.48},{-82.64,-11.48}},                                                                    color={0,0,127}));
-  connect(equationfit.QEva_flow, preHeaFloEva.Q_flow) annotation (Line(points={{-48.4,
+          -88,-90},{-88,-11.74},{-82.96,-11.74}},                                                                    color={0,0,127}));
+  connect(equationfit.QEva_flow, preHeaFloEva.Q_flow) annotation (Line(points={{-56.8,
           -3.94},{-42,-3.94},{-42,-20},{-27,-20}},       color={0,0,127}));
-  connect(equationfit.QEva_flow, QEva_flow) annotation (Line(points={{-48.4,-3.94},
-          {122,-3.94},{122,-32},{152,-32}}, color={0,0,127}));
+  connect(equationfit.QEva_flow, QEva_flow) annotation (Line(points={{-56.8,
+          -3.94},{122,-3.94},{122,-32},{152,-32}},
+                                            color={0,0,127}));
   connect(QCon_flow_Set.y, equationfit.QCon_flow_Set)
-  annotation (Line(points={{-113,8},{-106,8},{-106,3.34},{-82.64,3.34}},   color={0,0,127},pattern=LinePattern.Dash));
+  annotation (Line(points={{-113,8},{-106,8},{-106,3.6},{-83.2,3.6}},      color={0,0,127},pattern=LinePattern.Dash));
   connect(QEva_flow_Set.y, equationfit.QEva_flow_Set)
-  annotation (Line(points={{-113,-8},{-106,-8},{-106,-1.6},{-82.64,-1.6}},     color={0,0,127},pattern=LinePattern.Dash));
-  connect(equationfit.QCon_flow, QCon_flow) annotation (Line(points={{-48.4,1},
+  annotation (Line(points={{-113,-8},{-106,-8},{-106,-1.73},{-83.08,-1.73}},   color={0,0,127},pattern=LinePattern.Dash));
+  connect(equationfit.QCon_flow, QCon_flow) annotation (Line(points={{-56.8,1},
           {128,1},{128,-4},{152,-4}}, color={0,0,127}));
-  connect(equationfit.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{
-          -48.4,1},{-42,1},{-42,30},{-37,30}}, color={0,0,127}));
-  connect(TEvaEnt.y, equationfit.TEvaEnt) annotation (Line(points={{-113,-54},{-98,-54},{-98,-9.4},{-82.64,-9.4}}, color={0,0,127}));
-  connect(TEvaLvg.y, equationfit.TEvaLvg) annotation (Line(points={{-113,-40},{-102,-40},{-102,-6.8},{-82.64,-6.8}}, color={0,0,127}));
-  connect(TConEnt.y, equationfit.TConEnt) annotation (Line(points={{-113,38},{-102,38},{-102,8.8},{-82.64,8.8}}, color={0,0,127}));
-  connect(TConLvg.y, equationfit.TConLvg) annotation (Line(points={{-113,54},{-96,54},{-96,12},{-82.64,12},{-82.64,11.4}}, color={0,0,127}));
+  connect(equationfit.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{-56.8,1},
+          {-42,1},{-42,30},{-37,30}},          color={0,0,127}));
+  connect(TEvaEnt.y, equationfit.TEvaEnt) annotation (Line(points={{-113,-54},{
+          -98,-54},{-98,-9.4},{-82.96,-9.4}},                                                                      color={0,0,127}));
+  connect(TEvaLvg.y, equationfit.TEvaLvg) annotation (Line(points={{-113,-40},{
+          -102,-40},{-102,-6.93},{-83.08,-6.93}},                                                                    color={0,0,127}));
+  connect(TConEnt.y, equationfit.TConEnt) annotation (Line(points={{-113,38},{
+          -102,38},{-102,8.8},{-83.2,8.8}},                                                                      color={0,0,127}));
+  connect(TConLvg.y, equationfit.TConLvg) annotation (Line(points={{-113,54},{
+          -96,54},{-96,12},{-83.2,12},{-83.2,11.4}},                                                                       color={0,0,127}));
   connect(mEva_flow.y, equationfit.m2_flow) annotation (Line(points={{-113,-26},
-          {-104,-26},{-104,-4.2},{-82.64,-4.2}}, color={0,0,127}));
+          {-104,-26},{-104,-4.07},{-83.08,-4.07}},
+                                                 color={0,0,127}));
   connect(mCon_flow.y, equationfit.m1_flow) annotation (Line(points={{-113,24},
-          {-104,24},{-104,6.2},{-82.64,6.2}}, color={0,0,127}));
-  connect(equationfit.P, P) annotation (Line(points={{-48.4,6.2},{132,6.2},{132,
-          20},{152,20},{152,20}}, color={0,0,127}));
+          {-104,24},{-104,6.2},{-83.2,6.2}},  color={0,0,127}));
+  connect(equationfit.P, P) annotation (Line(points={{-56.8,6.2},{132,6.2},{132,
+          20},{152,20}},          color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
         Rectangle(

@@ -1,17 +1,17 @@
-within Buildings.Fluid.HeatPumps.Calibration.BaseClasses;
+within Buildings.Fluid.HeatPumps.BaseClasses;
 block EquationFitEqu
 
   Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
     "Set point for leaving chilled water temperature" annotation (Placement(
         transformation(extent={{-124,-112},{-100,-88}}), iconTransformation(
-          extent={{-108,-100},{-100,-92}})));
+          extent={{-116,-106},{-100,-90}})));
   Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
     "Set point for leaving heating water temperature" annotation (Placement(
         transformation(extent={{-124,86},{-100,110}}), iconTransformation(
-          extent={{-108,94},{-100,102}})));
+          extent={{-120,90},{-100,110}})));
   Modelica.Blocks.Interfaces.IntegerInput uMod "Heating mode= 1, Off=0, Cooling mode=-1" annotation (Placement(transformation(extent={{-124,
             -18},{-100,6}}),
-        iconTransformation(extent={{-110,-4},{-100,6}})));
+        iconTransformation(extent={{-118,-12},{-100,6}})));
 
   Modelica.SIunits.Efficiency HLR
     "Heating load ratio";
@@ -60,23 +60,30 @@ block EquationFitEqu
     annotation (Placement(transformation(extent={{100,30},{120,50}}), iconTransformation(extent={{100,30},{120,
             50}})));
   Modelica.Blocks.Interfaces.RealInput TConLvg(final unit="K", displayUnit="degC") "Condenser leaving water temperature"
-    annotation (Placement(transformation(extent={{-126,66},{-100,92}}), iconTransformation(extent={{-108,76},{-100,84}})));
+    annotation (Placement(transformation(extent={{-126,66},{-100,92}}), iconTransformation(extent={{-120,70},
+            {-100,90}})));
   Modelica.Blocks.Interfaces.RealInput TConEnt(final unit="K", displayUnit="degC") "Condenser entering water temperature"
-    annotation (Placement(transformation(extent={{-126,46},{-100,72}}),iconTransformation(extent={{-108,56},{-100,64}})));
+    annotation (Placement(transformation(extent={{-126,46},{-100,72}}),iconTransformation(extent={{-120,50},
+            {-100,70}})));
   Modelica.Blocks.Interfaces.RealInput TEvaLvg(final unit="K", displayUnit="degC") "Evaporator leaving water temperature"
-    annotation (Placement(transformation(extent={{-126,-76},{-100,-50}}), iconTransformation(extent={{-108,-64},{-100,-56}})));
+    annotation (Placement(transformation(extent={{-126,-76},{-100,-50}}), iconTransformation(extent={{-118,
+            -70},{-100,-52}})));
   Modelica.Blocks.Interfaces.RealInput TEvaEnt(final unit="K", displayUnit="degC") "Evaporator entering water temperature"
-    annotation (Placement(transformation(extent={{-126,-94},{-100,-68}}), iconTransformation(extent={{-108,-84},{-100,-76}})));
+    annotation (Placement(transformation(extent={{-126,-94},{-100,-68}}), iconTransformation(extent={{-116,
+            -88},{-100,-72}})));
   Modelica.Blocks.Interfaces.RealInput m1_flow(final unit="kg/s") "Volume 1 massflow rate "
-    annotation (Placement(transformation(extent={{-128,16},{-100,44}}), iconTransformation(extent={{-108,36},
-            {-100,44}})));
+    annotation (Placement(transformation(extent={{-128,2},{-100,30}}),  iconTransformation(extent={{-120,30},
+            {-100,50}})));
   Modelica.Blocks.Interfaces.RealInput m2_flow(final unit="kg/s") "Volume2 mass flow rate"
-    annotation (Placement(transformation(extent={{-126,-34},{-100,-8}}),  iconTransformation(extent={{-108,-44},{-100,-36}})));
+    annotation (Placement(transformation(extent={{-126,-34},{-100,-8}}),  iconTransformation(extent={{-118,
+            -48},{-100,-30}})));
 
   Modelica.Blocks.Interfaces.RealInput QCon_flow_Set(final unit="W", displayUnit="W") "Condenser setpoint heat flow rate"
-    annotation (Placement(transformation(extent={{-126,30},{-100,56}}), iconTransformation(extent={{-108,14},{-100,22}})));
+    annotation (Placement(transformation(extent={{-126,24},{-100,50}}), iconTransformation(extent={{-120,10},
+            {-100,30}})));
   Modelica.Blocks.Interfaces.RealInput QEva_flow_Set(final unit="W", displayUnit="W") "Evaporator setpoint heat flow rate"
-    annotation (Placement(transformation(extent={{-126,-54},{-100,-28}}), iconTransformation(extent={{-108,-24},{-100,-16}})));
+    annotation (Placement(transformation(extent={{-126,-54},{-100,-28}}), iconTransformation(extent={{-118,
+            -30},{-100,-12}})));
 
 protected
     Real A1[5];
@@ -173,10 +180,12 @@ equation
   end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          lineThickness=1)}),                                    Diagram(coordinateSystem(preserveAspectRatio=false)),
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0)}),                                        Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 
 The Block includes the mathematical description of the EQUATIONFit method dedicated for<a href=\"Buildings.Fluid.HeatPumps.WatertoWaterEquationFit\">
