@@ -74,6 +74,7 @@ protected
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
+    "Switch to select supply temperature control signal based on status of supply fan"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(
     final k=uHeaMax)
@@ -88,7 +89,7 @@ protected
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
     "Zero control signal"
-    annotation (Placement(transformation(extent={{-60,-46},{-40,-26}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
     "Unity signal"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
@@ -105,7 +106,7 @@ protected
 
 equation
   connect(zer.y,swi. u3)
-    annotation (Line(points={{-39,-36},{-20,-36},{-20,52},{-2,52}},
+    annotation (Line(points={{-39,-40},{-20,-40},{-20,52},{-2,52}},
       color={0,0,127}));
   connect(TSup,conTSup. u_m)
     annotation (Line(points={{-120,-20},{-50,-20},{-50,18}}, color={0,0,127}));
@@ -125,14 +126,15 @@ equation
     annotation (Line(points={{21,-10},{30,-10},{30,16},{58,16}},
       color={0,0,127}));
   connect(zer.y,conSigHea. f2)
-    annotation (Line(points={{-39,-36},{-20,-36},{-20,-30},{36,-30},{36,12},
-      {58,12}}, color={0,0,127}));
+    annotation (Line(points={{-39,-40},{-20,-40},{-20,-30},{36,-30},{36,12},{58,
+          12}}, color={0,0,127}));
   connect(uCooMinCon.y,conSigCoo. x1)
     annotation (Line(points={{21,-50},{40,-50},{40,-12},{58,-12}},
       color={0,0,127}));
   connect(zer.y,conSigCoo. f1)
-    annotation (Line(points={{-39,-36},{-20,-36},{-20,-30},{36,-30},{36,-16},
-      {58,-16}}, color={0,0,127}));
+    annotation (Line(points={{-39,-40},{-20,-40},{-20,-30},{36,-30},{36,-16},{
+          58,-16}},
+                 color={0,0,127}));
   connect(one.y,conSigCoo. x2)
     annotation (Line(points={{21,-80},{50,-80},{50,-24},{58,-24}},
       color={0,0,127}));
