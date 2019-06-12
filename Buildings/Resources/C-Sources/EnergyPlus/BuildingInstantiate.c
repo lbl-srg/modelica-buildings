@@ -177,11 +177,12 @@ void generateFMU(
   char* fulCmd;
   size_t len;
   int retVal;
+  struct stat st = {0};
+
   writeFormatLog(2, "Entered generateFMU with FMUPath = %s.", FMUPath);
 
   if (usePrecompiledFMU){
-    writeFormatLog(1, "Using precompiled fmu %s", FMUPath);
-    ModelicaFormatMessage("Using pre-compiled FMU %s", FMUPath);
+    ModelicaFormatMessage("Using pre-compiled FMU %s", precompiledFMUPath);
 
     if( access( precompiledFMUPath, F_OK ) == -1 ) {
       ModelicaFormatError("Requested to use fmu '%s' which does not exist.", precompiledFMUPath);
@@ -201,7 +202,7 @@ void generateFMU(
   else{
     if( access( modelicaBuildingsJsonFile, F_OK ) == -1 ) {
       ModelicaFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
-
+    }
     cmd = "/Resources/bin/spawn-linux64/bin/spawn -c ";
 
     len = strlen(buildingsLibraryRoot) + strlen(cmd) + strlen(modelicaBuildingsJsonFile) + 1;
@@ -213,14 +214,31 @@ void generateFMU(
     strcpy(fulCmd, buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
     strcat(fulCmd, cmd);
     strcat(fulCmd, modelicaBuildingsJsonFile);
-    }
   }
+
+
+  /* Remove the old fmu if it already exists */
+  if (stat(FMUPath, &st) != -1) {
+    /* FMU exists. Delete it. */
+    retVal = remove(FMUPath);
+    if (retVal != 0){
+      ModelicaFormatError("Failed to remove old FMU %s", FMUPath);
+   }
+  }
+
   /* Copy or generate the FMU */
-  writeFormatLog(1, "Executing %s", fulCmd);
+  writeFormatLog(3, "Executing %s", fulCmd);
+
   retVal = system(fulCmd);
-  if (retVal != 0){
-    ModelicaFormatError("Generating FMU failed using command '%s'.", fulCmd);
+  /* Check if generated FMU indeed exists */
+  if( access( FMUPath, F_OK ) == -1 ) {
+    ModelicaFormatError("Attempt to generated fmu '%s' failed.", FMUPath);
   }
+  if (retVal != 0){
+    fprintf(stdout, "*** Warning: Generating FMU returned value %d, but FMU exists.\n", retVal);
+/*    ModelicaFormatError("Generating FMU failed using command '%s', return value %d.", fulCmd, retVal);*/
+  }
+
   free(fulCmd);
 }
 
