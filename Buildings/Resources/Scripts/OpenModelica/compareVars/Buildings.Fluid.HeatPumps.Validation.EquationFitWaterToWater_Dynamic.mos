@@ -2,8 +2,8 @@ compareVars :=
   {
     "heaPum.QCon_flow",
     "heaPum.QEva_flow",
-    "heaPum.TConEnt",
-    "heaPum.TConLvg",
-    "heaPum.TEvaEnt",
-    "heaPum.TEvaLvg"
+    "heaPum.equationfit.TConLvg",
+    "heaPum.equationfit.TConEnt",
+    "heaPum.equationfit.TEvaLvg",
+    "heaPum.equationfit.TEvaEnt"
   };

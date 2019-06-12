@@ -3,7 +3,8 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
 
  package Medium = Buildings.Media.Water "Medium model";
 
-  Buildings.Fluid.HeatPumps.EquationFitWaterToWater heaPum(
+  EquationFitWaterToWater heaPum(
+    per=perEP,
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     allowFlowReversal1=true,
@@ -19,18 +20,17 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     T1_start=55 + 273.15,
-    T2_start=12 + 273.15,
-    per=Data.EquationFitWaterToWater.EnergyPlus_HeatPump())
-    "Water to Water HeatPump"
+    T2_start=12 + 273.15) "Water to Water HeatPump"
     annotation (Placement(transformation(extent={{32,-10},{52,10}})));
 
-    parameter Data.EquationFitWaterToWater.EnergyPlus_HeatPump per
-       "EnergyPlus HeatPump performance"
+    parameter Data.EquationFitWaterToWater.EnergyPlus_HeatPump perEP
+    "EnergyPlus HeatPump performance"
     annotation (Placement(transformation(extent={{70,24},{90,44}})));
-    parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=per.mEva_flow_nominal
-       "Nominal mass flow rate";
-    parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=per.mCon_flow_nominal
-       "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=perEP.mEva_flow_nominal
+    "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=perEP.mCon_flow_nominal
+    "Nominal mass flow rate";
+
 
   Sources.MassFlowSource_T conPum(
     use_m_flow_in=false,
@@ -541,14 +541,13 @@ equation
                                                        color={0,127,255}));
   connect(res2.port_b, heaPum.port_b2)
     annotation (Line(points={{10,-82},{24,-82},{24,-6},{32,-6}},  color={0,127,255}));
-  connect(greEquThr.y,booToInt1. u)
-    annotation (Line(points={{-75,-30},{-60,-30}},        color={255,0,255}));
 
   connect(addInt.y, heaPum.uMod)
-    annotation (Line(points={{11,0},{30,0}},   color={255,127,0}));
+    annotation (Line(points={{11,0},{18,0},{18,0.2},{26,0.2}},
+                                               color={255,127,0}));
 
   connect(TSetCoo.y, heaPum.TEvaSet)
-   annotation (Line(points={{1,-50},{20,-50},{20,-9},{30,-9}},
+   annotation (Line(points={{1,-50},{20,-50},{20,-9},{25.8,-9}},
                            color={0,0,127}));
 
   connect(HeaPumMod.y, lesEquThr.u)
@@ -561,7 +560,7 @@ equation
   connect(TConEnt.y, conPum.T_in) annotation (Line(points={{-99,84},{-60,84},{-60,
           81.8},{-56.6,81.8}}, color={0,0,127}));
   connect(TSetHea.y, heaPum.TConSet)
-    annotation (Line(points={{1,50},{20,50},{20,9},{30,9}}, color={0,0,127}));
+    annotation (Line(points={{1,50},{20,50},{20,9},{26,9}}, color={0,0,127}));
 
   connect(lesEquThr.y, booToInt.u)
     annotation (Line(points={{-73,30},{-62,30}}, color={255,0,255}));
@@ -573,6 +572,8 @@ equation
     annotation (Line(points={{-10,-82},{-28,-82}}, color={0,127,255}));
   connect(res1.port_b, heaVol.ports[1])
     annotation (Line(points={{84,84},{98,84}}, color={0,127,255}));
+  connect(greEquThr.y, booToInt1.u)
+    annotation (Line(points={{-75,-30},{-60,-30}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                          graphics={
@@ -585,7 +586,7 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
-                           Diagram(graphics,
+                           Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{120,100}})),
                  __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/EquationFitWaterToWater_EnergyPlus.mos"
         "Simulate and plot"),

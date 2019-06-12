@@ -4,14 +4,15 @@ model EquationFitWatertoWater "example"
  package Medium = Buildings.Media.Water "Medium model";
 
   Buildings.Fluid.HeatPumps.EquationFitWaterToWater heaPum(
+    per=per,
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     show_T=true,
     dp1_nominal=200,
     dp2_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    per=per) "Water to Water heatpump"
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Water to Water heatpump"
     annotation (Placement(transformation(extent={{32,-10},{52,10}})));
 
 
@@ -91,15 +92,15 @@ model EquationFitWatertoWater "example"
     offset=-5,
     startTime=0) "HeatPump operational mode input signal"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Controls.OBC.CDL.Continuous.LessEqualThreshold           lesEquThr(threshold=-1)
+  Controls.OBC.CDL.Continuous.LessEqualThreshold          lesEquThr(threshold=-1)
             annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Controls.OBC.CDL.Continuous.GreaterEqualThreshold           greEquThr(threshold=1)
+  Controls.OBC.CDL.Continuous.GreaterEqualThreshold       greEquThr(threshold=1)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Controls.OBC.CDL.Conversions.BooleanToInteger           booToInt(integerTrue=-1)
     annotation (Placement(transformation(extent={{-48,20},{-28,40}})));
   Controls.OBC.CDL.Conversions.BooleanToInteger           booToInt1
     annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
-  Controls.OBC.CDL.Integers.Add           addInt
+  Controls.OBC.CDL.Integers.Add                           addInt
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 
 
@@ -121,9 +122,9 @@ equation
   connect(res2.port_b, heaPum.port_b2)
     annotation (Line(points={{10,-84},{24,-84},{24,-6},{32,-6}},  color={0,127,255}));
   connect(TSetHea.y, heaPum.TConSet)
-    annotation (Line(points={{1,70},{16,70},{16,9},{30,9}}, color={0,0,127}));
-  connect(TSetCoo.y, heaPum.TEvaSet) annotation (Line(points={{1,-50},{16,-50},
-          {16,-9},{30,-9}}, color={0,0,127}));
+    annotation (Line(points={{1,70},{16,70},{16,9},{26,9}}, color={0,0,127}));
+  connect(TSetCoo.y, heaPum.TEvaSet) annotation (Line(points={{1,-50},{16,-50},{16,-9},{25.8,-9}},
+                            color={0,0,127}));
   connect(uMod.y, greEquThr.u) annotation (Line(points={{-99,0},{-96,0},{-96,
           -30},{-82,-30}}, color={0,0,127}));
   connect(lesEquThr.y,booToInt. u)
@@ -134,7 +135,8 @@ equation
           {-18,-6},{-10,-6}},
                            color={255,127,0}));
   connect(addInt.y, heaPum.uMod)
-  annotation (Line(points={{13,0},{30,0}},   color={255,127,0}));
+  annotation (Line(points={{13,0},{20,0},{20,0.2},{26,0.2}},
+                                             color={255,127,0}));
 
   connect(res1.port_b, heaVol.ports[1])
     annotation (Line(points={{78,66},{86,66},{86,84}}, color={0,127,255}));
@@ -164,9 +166,10 @@ equation
      Documentation(info="<html>
 <p>
 Example that simulates the performance of <a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitWaterToWater\">
-Buildings.Fluid.HeatPumps.EquationFitWaterToWater </a> water to water heatpump based on the equation fit method.
-  The heatpump takes as an input the condenser/evaporator leaving water temperature. In addition to an integer input to
-  specify the heatpump operational mode.
+Buildings.Fluid.HeatPumps.EquationFitWaterToWater </a> based on the equation fit method.
+The heat pump takes as an input the condenser/evaporator leaving water temperature. In addition to an integer input to
+specify the heat pump operational mode.
+
 </p>
 </html>", revisions="<html>
 <ul>

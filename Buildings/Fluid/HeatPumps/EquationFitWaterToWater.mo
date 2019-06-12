@@ -2,6 +2,8 @@ within Buildings.Fluid.HeatPumps;
 model EquationFitWaterToWater "Water source heat pump_Equation Fit"
 
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
+    dp2_nominal=200,
+    dp1_nominal=200,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true,
@@ -9,7 +11,7 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
    T2_start = 273.15+5,
    m1_flow_nominal= mCon_flow_nominal,
    m2_flow_nominal= mEva_flow_nominal,
-    redeclare Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
       V=m2_flow_nominal*tau2/rho2_nominal,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -19,255 +21,126 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       V=m1_flow_nominal*tau1/rho1_nominal,
-      nPorts=2,
     final prescribedHeatFlowRate=true));
+
+  parameter Data.EquationFitWaterToWater.Generic_EquationFit per
+    "Performance data"
+    annotation (choicesAllMatching = true,
+                Placement(transformation(extent={{40,80},{60,100}})));
+
+  Calibration.BaseClasses.EquationFitEqu equationfit(per=per)
+    annotation (Placement(transformation(extent={{-82,-12},{-50,14}})));
+
+
+   parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
+   "Heating load nominal capacity_Heating mode";
+   parameter Modelica.SIunits.MassFlowRate   mCon_flow_nominal= per.mCon_flow_nominal
+   "Heating mode Condenser mass flow rate nominal capacity";
+   parameter Modelica.SIunits.MassFlowRate   mEva_flow_nominal=per.mEva_flow_nominal
+   "Heating mode Evaporator mass flow rate nominal capacity";
+   parameter Modelica.SIunits.HeatFlowRate   Q_flow_small = QCon_heatflow_nominal*1E-9
+     "Small value for heat flow rate or power, used to avoid division by zero";
 
   Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
     "Set point for leaving chilled water temperature" annotation (Placement(
-        transformation(extent={{-140,-110},{-100,-70}}), iconTransformation(
-          extent={{-140,-110},{-100,-70}})));
+        transformation(extent={{-182,-110},{-142,-70}}), iconTransformation(
+          extent={{-182,-110},{-142,-70}})));
   Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
     "Set point for leaving heating water temperature" annotation (Placement(
-        transformation(extent={{-140,70},{-100,110}}), iconTransformation(
-          extent={{-140,70},{-100,110}})));
-  Modelica.Blocks.Interfaces.IntegerInput uMod "Heating mode= 1, Off=0, Cooling mode=-1" annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Modelica.SIunits.Efficiency HLR
-    "Heating load ratio";
-  Modelica.SIunits.Efficiency CLR
-    "Cooling load ratio";
-  Modelica.SIunits.Efficiency P_HD
-    "Power Ratio in heating dominanat mode";
-  Modelica.SIunits.Efficiency P_CD
-    "Power Ratio in cooling dominant mode";
-  Modelica.SIunits.HeatFlowRate  QCon_flow
-  "Condenser heatflow input";
-  Modelica.SIunits.HeatFlowRate  QEva_flow
-  "Evaporator heatflow input";
-  Modelica.SIunits.Temperature   TEvaLvg
-  "Evaporator leaving water temperature";
-  Modelica.SIunits.Temperature   TEvaEnt
-  "Evaporator entering water temperature";
-  Modelica.SIunits.Temperature   TConLvg
-  "Condenser leaving water temperature";
-  Modelica.SIunits.Temperature   TConEnt
-  "Condenser entering water temperature";
-  Modelica.SIunits.Power         P
-  "HeatPump Compressor Power";
-  Modelica.SIunits.HeatFlowRate QCon_flow_ava
-  "Heating capacity available at the condender";
-  Modelica.SIunits.HeatFlowRate QEva_flow_ava
-  "Cooling capacity available at the Evaporator";
-  Modelica.SIunits.SpecificEnthalpy hSet_Con
-  "Enthalpy setpoint for heating water";
-  Modelica.SIunits.SpecificEnthalpy hSet_Eva
-  "Enthalpy setpoint for cooling water";
-  Modelica.SIunits.SpecificEnthalpy hCon
-  "Enthalpy value for heating water";
-  Modelica.SIunits.SpecificEnthalpy hEva
-  "Enthalpy value for cooling water";
-  Modelica.SIunits.HeatFlowRate QCon_flow_set
-  "Heating capacity required to heat to set point temperature";
-  Modelica.SIunits.HeatFlowRate QEva_flow_set
-  "Cooling capacity required to cool to set point temperature";
-
-  final parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
-  "Heating load nominal capacity_Heating mode";
-  final parameter Modelica.SIunits.HeatFlowRate   QEva_heatflow_nominal=per.QEva_heatflow_nominal
-  "Cooling load nominal capacity_Cooling mode";
-  final parameter Modelica.SIunits.VolumeFlowRate VCon_flow_nominal=per.VCon_nominal
-  "Heating mode Condenser volume flow rate nominal capacity";
-  final parameter Modelica.SIunits.MassFlowRate   mCon_flow_nominal= per.mCon_flow_nominal
-  "Heating mode Condenser mass flow rate nominal capacity";
-  final parameter Modelica.SIunits.VolumeFlowRate VEva_flow_nominal=per.VEva_nominal
-  "Heating mode Condenser volume flow rate nominal capacity";
-  final parameter Modelica.SIunits.MassFlowRate   mEva_flow_nominal=per.mEva_flow_nominal
-  "Heating mode Evaporator mass flow rate nominal capacity";
-  final parameter Modelica.SIunits.Power          PCon_nominal_HD= per.PCon_nominal_HD
-  "Heating mode Compressor Power nominal capacity";
-  final parameter Modelica.SIunits.Power          PEva_nominal_CD = per.PEva_nominal_CD
-  "Heating mode Compressor Power nominal capacity";
-  final parameter Modelica.SIunits.Temperature    TRef= per.TRef;
-  final parameter Modelica.SIunits.HeatFlowRate   Q_flow_small = QCon_heatflow_nominal*1E-9
-    "Small value for heat flow rate or power, used to avoid division by zero";
-
-  parameter
-    Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater.Generic_EquationFit
-    per annotation (choicesAllMatching=true, Placement(transformation(extent={{
-            48,12},{80,44}})));
-
-protected
-  Modelica.Blocks.Sources.RealExpression QCon_flow_in( final y=QCon_flow)
-  "Condenser heat flow rate"
-    annotation (Placement(transformation(extent={{-82,36},{-62,56}})));
-
-  Modelica.Blocks.Sources.RealExpression QEva_flow_in( final y=QEva_flow)
-  "Evaorator heat flow rate"
-    annotation (Placement(transformation(extent={{-82,-50},{-62,-30}})));
-
+        transformation(extent={{-180,70},{-140,110}}), iconTransformation(
+          extent={{-180,70},{-140,110}})));
+  Modelica.Blocks.Interfaces.IntegerInput uMod "Heating mode= 1, Off=0, Cooling mode=-1"
+    annotation (Placement(transformation(extent={{-180,-18},{-140,22}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
   "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,24},{-19,44}})));
-
+    annotation (Placement(transformation(extent={{-37,20},{-17,40}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
   "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-43,-30},{-23,-10}})));
+    annotation (Placement(transformation(extent={{-27,-30},{-7,-10}})));
 
- // Load and power coefficients matrices
-    Real A1[5];
-    Real x1[5];
-    Real A2[5];
-    Real x2[5];
+  Modelica.Blocks.Sources.RealExpression hSet_Con(final y=Medium1.specificEnthalpy_pTX(
+        p=port_b1.p,
+        T=TConSet,
+        X=cat(
+          1,
+          port_b1.Xi_outflow,
+          {1 - sum(port_b1.Xi_outflow)}))) "Heating water setpoint enthalpy" annotation (Placement(transformation(extent={{-134,58},
+            {-114,78}})));
+  Modelica.Blocks.Sources.RealExpression hSet_Eva(final y=Medium2.specificEnthalpy_pTX(
+        p=port_b2.p,
+        T=TEvaSet,
+        X=cat(
+          1,
+          port_b2.Xi_outflow,
+          {1 - sum(port_b2.Xi_outflow)}))) "Cooled water setpoint enthalpy" annotation (Placement(transformation(extent={{-134,
+            -80},{-114,-60}})));
+  Modelica.Blocks.Sources.RealExpression QCon_flow_Set(final y=
+        Buildings.Utilities.Math.Functions.smoothMax(
+        x1=mCon_flow.y*(hSet_Con.y - inStream(port_a1.h_outflow)),
+        x2=Q_flow_small,
+        deltaX=Q_flow_small/10)) "Setpoint heat flow rate of the condenser"
+    annotation (Placement(transformation(extent={{-134,-2},{-114,18}})));
+  Modelica.Blocks.Sources.RealExpression QEva_flow_Set(y=
+        Buildings.Utilities.Math.Functions.smoothMin(
+        x1=mEva_flow.y*(hSet_Eva.y - inStream(port_a2.h_outflow)),
+        x2=-Q_flow_small,
+        deltaX=Q_flow_small/100)) "Setpoint heat flow rate of the evaporator " annotation (Placement(transformation(extent={{-134,
+            -18},{-114,2}})));
 
-initial equation
-   assert(QCon_heatflow_nominal> 0,"Parameter QCon_heatflow_nominal must be greater than zero.");
-   assert(QEva_heatflow_nominal< 0,"Parameter QEva_heatflow_nominal must be greater than zero.");
-   assert(Q_flow_small > 0,"Parameter Q_flow_small must be larger than zero.");
+  Modelica.Blocks.Interfaces.RealOutput P "Compressor Power " annotation (Placement(transformation(extent={{142,10},{162,30}})));
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow "Evaporator heat flow rate"
+    annotation (Placement(transformation(extent={{142,-42},{162,-22}})));
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow "Condenser heat flow rate"
+    annotation (Placement(transformation(extent={{142,-14},{162,6}})));
+
+  Modelica.Blocks.Sources.RealExpression TConEnt(y=Medium1.temperature(
+                                                 Medium1.setState_phX(port_a1.p,
+                                                  inStream(port_a1.h_outflow))))
+    annotation (Placement(transformation(extent={{-134,28},{-114,48}})));
+  Modelica.Blocks.Sources.RealExpression TConLvg(y=vol1.heatPort.T) annotation (Placement(transformation(extent={{-134,44},{-114,64}})));
+  Modelica.Blocks.Sources.RealExpression TEvaEnt(y=Medium2.temperature(
+                                                 Medium2.setState_phX(port_a2.p,
+                                                 inStream(port_a2.h_outflow))))
+    annotation (Placement(transformation(extent={{-134,-64},{-114,-44}})));
+  Modelica.Blocks.Sources.RealExpression TEvaLvg(y=vol2.heatPort.T) annotation (Placement(transformation(extent={{-134,-50},{-114,-30}})));
+  Modelica.Blocks.Sources.RealExpression mCon_flow(y=vol1.ports[1].m_flow)
+    annotation (Placement(transformation(extent={{-134,14},{-114,34}})));
+  Modelica.Blocks.Sources.RealExpression mEva_flow(y=vol2.ports[1].m_flow)
+    annotation (Placement(transformation(extent={{-134,-36},{-114,-16}})));
 
 equation
-  // Condenser temperatures
-  TConLvg = vol1.heatPort.T;
-  TConEnt= Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow)));
-  // Evaporator temperatures
-  TEvaEnt= Medium2.temperature(Medium2.setState_phX(port_a2.p, inStream(port_a2.h_outflow)));
-  TEvaLvg= vol2.heatPort.T;
 
-  if (uMod==1) then
-    A1=per.HLRC;
-    x1={1,TConEnt/TRef,TEvaEnt/TRef,
-      m1_flow/mCon_flow_nominal,m2_flow/mEva_flow_nominal};
+  connect(preHeaFloCon.port,vol1.heatPort)  annotation (Line(points={{-17,30},{-16,30},{-16,60},{-10,60}}, color={191,0,0}));
+  connect(preHeaFloEva.port, vol2.heatPort) annotation (Line(points={{-7,-20},{20,-20},{20,-60},{12,-60}},  color={191,0,0}));
 
-    A2= per.P_HDC;
-    x2={1,TConEnt/TRef,TEvaEnt/TRef,
-       m1_flow/mCon_flow_nominal,m2_flow/mEva_flow_nominal};
-
-    HLR  = sum( A1.*x1);
-    CLR = 0;
-    P_HD = sum( A2.*x2);
-    P_CD = 0;
-
-  // Compressor power
-    P = P_HD * (PCon_nominal_HD);
-
-  // Available heating capacity
-    QCon_flow_ava= HLR *(QCon_heatflow_nominal);
-
-    QEva_flow_ava = 0;
-
- // Heating capacity required to heat water to setpoint
-    QCon_flow_set = Buildings.Utilities.Math.Functions.smoothMax(
-      x1 = (m1_flow)*(hSet_Con-inStream(port_a1.h_outflow)),
-      x2 = Q_flow_small,
-      deltaX = Q_flow_small/10);
-    QEva_flow_set = 0;
-
- // Condenser water enthalpy setpoint
-    hSet_Con = Medium1.specificEnthalpy_pTX(
-              p=port_b1.p,
-      T=TConSet,
-      X=cat(1,
-        port_b1.Xi_outflow,
-        {1 - sum(port_b1.Xi_outflow)}));
-
-   hSet_Eva=0;
-   hCon=0;
-
-   hEva = Medium2.specificEnthalpy_pTX(
-           p=port_b2.p,
-           T=TEvaLvg,
-           X=cat(1, port_b2.Xi_outflow, {1-sum(port_b2.Xi_outflow)}));
-
-   QCon_flow = Buildings.Utilities.Math.Functions.smoothMin(
-      x1 = QCon_flow_set,
-      x2 = QCon_flow_ava,
-      deltaX= Q_flow_small/10);
-
-   QEva_flow = -(QCon_flow -P);
-
-//***********************************************************************
-  elseif (uMod==0) then
-
-    A1={0,0,0,0,0};
-    x1={0,0,0,0,0};
-    A2={0,0,0,0,0};
-    x2={0,0,0,0,0};
-    HLR= 0;
-    CLR=0;
-    P_HD =0;
-    P_CD = 0;
-    P = 0;
-    QCon_flow_ava = 0;
-    QEva_flow_ava = 0;
-    QCon_flow_set = 0;
-    QEva_flow_set = 0;
-    hSet_Con  = 0;
-    hEva  = 0;
-    hCon  = 0;
-    hSet_Eva  = 0;
-    QCon_flow = 0;
-    QEva_flow = 0;
-
-//***********************************************************
-  else
-
- //-----------------------------------------------------
-    A1= per.CLRC;
-    x1={1,TConEnt/TRef,TEvaEnt/TRef,
-       m1_flow/mCon_flow_nominal,m2_flow/mEva_flow_nominal};
-
-    A2= per.P_CDC;
-    x2={1,TConEnt/TRef,TEvaEnt/TRef,
-       m1_flow/mCon_flow_nominal,m2_flow/mEva_flow_nominal};
- //---------------------------------------------------------
-    HLR = 0;
-    CLR  = sum(A1.*x1);
-    P_HD = 0;
-    P_CD = sum(A2.*x2);
-    P = P_CD * (PEva_nominal_CD);
- //---------------------------------------------------------
-    QCon_flow_ava = 0;
-    QEva_flow_ava = CLR* (QEva_heatflow_nominal);
- //---------------------------------------------------------
- // Cooling capacity required to cool water to setpoint
-    QCon_flow_set = 0;
-    QEva_flow_set = Buildings.Utilities.Math.Functions.smoothMin(
-        x1 = (m2_flow)*(hSet_Eva-inStream(port_a2.h_outflow)),
-        x2= -Q_flow_small,
-        deltaX=Q_flow_small/100);
-
- // Evaporator water enthalpy setpoint
-    hSet_Eva = Medium2.specificEnthalpy_pTX(
-                 p=port_b2.p,
-                 T=TEvaSet,
-                 X=cat(1,port_b2.Xi_outflow,{1 - sum(port_b2.Xi_outflow)}));
-    hSet_Con=0;
-    hEva=0;
-
-    hCon = Medium1.specificEnthalpy_pTX(
-           p=port_b1.p,
-           T=TConLvg,
-           X=cat(1, port_b1.Xi_outflow, {1-sum(port_b1.Xi_outflow)}));
-
-    QEva_flow= Buildings.Utilities.Math.Functions.smoothMax(
-        x1 = QEva_flow_set,
-        x2 = QEva_flow_ava,
-        deltaX= Q_flow_small/10);
-
-    QCon_flow = -QEva_flow + P;
-
-  end if;
-
-
-  connect(preHeaFloCon.port,vol1.heatPort)
-  annotation (Line(points={{-19,34},{-16,34},{-16,60},{-10,60}}, color={191,0,0}));
-
-  connect(QCon_flow_in.y, preHeaFloCon.Q_flow)
-    annotation (Line(points={{-61,46},{-52,46},{-52,34},{-39,34}}, color={0,0,127}));
-  connect(QEva_flow_in.y, preHeaFloEva.Q_flow)
-    annotation (Line(points={{-61,-40},{-52,-40},{-52,-20},{-43,-20}}, color={0,0,127}));
-  connect(preHeaFloEva.port, vol2.heatPort)
-    annotation (Line(points={{-23,-20},{20,-20},{20,-60},{12,-60}}, color={191,0,0}));
-
+  connect(uMod, equationfit.uMod) annotation (Line(points={{-160,2},{-96,2},{
+          -96,1.13},{-82.8,1.13}},                                                                     color={255,127,0}));
+  connect(TConSet, equationfit.TConSet) annotation (Line(points={{-160,90},{-88,
+          90},{-88,13.74},{-82.64,13.74}},               color={0,0,111}));
+  connect(TEvaSet, equationfit.TEvaSet) annotation (Line(points={{-162,-90},{
+          -88,-90},{-88,-11.48},{-82.64,-11.48}},                                                                    color={0,0,127}));
+  connect(equationfit.QEva_flow, preHeaFloEva.Q_flow) annotation (Line(points={{-48.4,
+          -3.94},{-42,-3.94},{-42,-20},{-27,-20}},       color={0,0,127}));
+  connect(equationfit.QEva_flow, QEva_flow) annotation (Line(points={{-48.4,-3.94},
+          {122,-3.94},{122,-32},{152,-32}}, color={0,0,127}));
+  connect(QCon_flow_Set.y, equationfit.QCon_flow_Set)
+  annotation (Line(points={{-113,8},{-106,8},{-106,3.34},{-82.64,3.34}},   color={0,0,127},pattern=LinePattern.Dash));
+  connect(QEva_flow_Set.y, equationfit.QEva_flow_Set)
+  annotation (Line(points={{-113,-8},{-106,-8},{-106,-1.6},{-82.64,-1.6}},     color={0,0,127},pattern=LinePattern.Dash));
+  connect(equationfit.QCon_flow, QCon_flow) annotation (Line(points={{-48.4,1},
+          {128,1},{128,-4},{152,-4}}, color={0,0,127}));
+  connect(equationfit.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{
+          -48.4,1},{-42,1},{-42,30},{-37,30}}, color={0,0,127}));
+  connect(TEvaEnt.y, equationfit.TEvaEnt) annotation (Line(points={{-113,-54},{-98,-54},{-98,-9.4},{-82.64,-9.4}}, color={0,0,127}));
+  connect(TEvaLvg.y, equationfit.TEvaLvg) annotation (Line(points={{-113,-40},{-102,-40},{-102,-6.8},{-82.64,-6.8}}, color={0,0,127}));
+  connect(TConEnt.y, equationfit.TConEnt) annotation (Line(points={{-113,38},{-102,38},{-102,8.8},{-82.64,8.8}}, color={0,0,127}));
+  connect(TConLvg.y, equationfit.TConLvg) annotation (Line(points={{-113,54},{-96,54},{-96,12},{-82.64,12},{-82.64,11.4}}, color={0,0,127}));
+  connect(mEva_flow.y, equationfit.m2_flow) annotation (Line(points={{-113,-26},
+          {-104,-26},{-104,-4.2},{-82.64,-4.2}}, color={0,0,127}));
+  connect(mCon_flow.y, equationfit.m1_flow) annotation (Line(points={{-113,24},
+          {-104,24},{-104,6.2},{-82.64,6.2}}, color={0,0,127}));
+  connect(equationfit.P, P) annotation (Line(points={{-48.4,6.2},{132,6.2},{132,
+          20},{152,20},{152,20}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
         Rectangle(
@@ -353,11 +226,11 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
     Model for a water to water heat pump using the equation fit model as described
 in the EnergyPlus HeatPump: Waterto Water equationfit model and based on (J.Hui 2002, S.Arun. 2004 and C.Tang 2004).
 <p>
-The model uses four non-dimensional equations or curves to predict the heatpump performance in either cooling or heating modes.
+The model uses four non-dimensional equations or curves to predict the heat pump performance in either cooling or heating modes.
 The methodology involved using the generalized least square method to create a set of performance
-coefficients (A1 to A10) and (B1 to B10) from the catalog data at indicated reference conditions. Then the respective coefficients
+coefficients (A1 to A10) and (B1 to B10) from the catalog data at indicated reference conditions. These respective coefficients
 and indicated reference conditions are used in the model to simulate the heat pump performance.
-The variables includes load side inlet temperature,source side inlet temperature,
+The variables include load side inlet temperature, source side inlet temperature,
 load side water flow rate and source side water flow rate. Source and load are identified based on the thermal dominated mode,
 for ex. in case of heating dominated mode, the source is the evaporator and load is the condenser.
 </p>
@@ -371,23 +244,31 @@ Buildings.Fluid.HeatPumo.Data.WatertoWaterEquationFit</a>.
 This model uses four functions to predict capacity and power consumption for heating and cooling dominated modes:
 
 <p>
-1. The heating dominated mode:
+<ul>
+<li>
+The heating dominated mode:
 </p>
-
 
 <p align=\"left\" style=\"font-style:italic;\">
 (Q&#775;<sub>Con</sub>)/(Q&#775;<sub>Con,nominal</sub>) = A<sub>1</sub>+ A<sub>2</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
 A<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>4</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
 + A<sub>5</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
 
+
 <p align=\"left\" style=\"font-style:italic;\">
 (Power<sub>Con</sub>)/(Power<sub>Con,nominal</sub>) = B<sub>1</sub>+ B<sub>2</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
 B<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>4</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
 + B<sub>5</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
 
+</li>
+</ul>
 
 <p>
-2. The cooling dominated mode:
+
+<ul>
+<li>
+
+The cooling dominated mode:
 </p>
 
 <p align=\"left\" style=\"font-style:italic;\">
@@ -401,21 +282,25 @@ A<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>9</sub>[V&#775
 B<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>9</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
 + B<sub>10</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
 
+</li>
+</ul>
+
 
 <p>
-For these four equations, the inlet conditions or variables are divided by the reference conditions. This formulation allows the coefficients to fall into smaller range of values. moreover, the value of the coefficient
+For these four equations, the inlet conditions or variables are divided by the reference conditions. 
+This formulation allows the coefficients to fall into smaller range of values. Moreover, the value of the coefficient
 indirectly represents the sensitivity of the output to that particular inlet variable.
 </p>
 <p>
-The model takes as an input the set point for either the leaving  water temperature for the
-condenser or evaporator which is met if the heatpump has sufficient capacity. In addition to the integer input which identifies the heat pump operational mode,1 for heating dominated mode,
-</p>
+The model takes as an input the set point for either the leaving water temperature for the
+condenser or the evaporator which is met if the heat pump has sufficient capacity. In addition to the integer input which identifies the heat pump operational mode:
+(+1) for heating dominated mode, (-1) for cooling dominated mode, (0) for shut off the system.
+
+
 <p>
-1- cooling dominated mode and 0 shut off the system.
+In addition, the electric power only includes the power for the compressor, but not any power for pumps or fans.
 </p>
-<p>
-The electric power only includes the power for the compressor, but not any power for pumps or fans
-</p>
+
 
 
 <h4>References</h4>
@@ -433,5 +318,6 @@ May 3, 2019, by Hagar Elarga:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-140,-100},{140,100}})));
 end EquationFitWaterToWater;

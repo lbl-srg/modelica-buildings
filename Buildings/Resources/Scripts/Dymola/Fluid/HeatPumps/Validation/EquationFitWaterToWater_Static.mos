@@ -10,9 +10,10 @@ createPlot(id = 1,
    filename = "EquationFitWaterToWater_Static.mat",
    leftTitleType = 1,
    bottomTitleType = 1);
+
 createPlot(id = 2,
    position = {60, 10, 640, 480},
-   y = {"heaPum.TConEnt", "heaPum.TConLvg"},
+   y = {"heaPum.equationfit.TConLvg", "heaPum.equationfit.TConEnt","heaPum.equationfit.TEvaLvg", "heaPum.equationfit.TEvaEnt"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,
@@ -21,14 +22,4 @@ createPlot(id = 2,
    filename = "EquationFitWaterToWater_Static.mat",
    leftTitleType = 1,
    bottomTitleType = 1);
-createPlot(id = 3,
-   position = {60, 10, 640, 480},
-   y = {"heaPum.TEvaEnt", "heaPum.TEvaLvg"},
-   autoscale = true,
-   autoerase = true,
-   autoreplot = true,
-   grid = true,
-   color = true,
-   filename = "EquationFitWaterToWater_Static.mat",
-   leftTitleType = 1,
-   bottomTitleType = 1);
+

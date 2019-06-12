@@ -1,0 +1,861 @@
+ = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LimitedCapacity");
+Check of Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LimitedCapacity:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_TCon_LimitedCapacity.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LimitedCapacity\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LimitedCapacity\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_TCon_LimitedCapacity.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LimitedCapacity", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Carnot_TCon_LimitedCapacity");
+Translation of Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LimitedCapacity:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LimitedCapacity.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_VariableSpeed");
+Check of Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_VariableSpeed:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+Declaring variable: Boolean rCheck ;
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_VariableSpeed.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_VariableSpeed\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_VariableSpeed\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_VariableSpeed.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_VariableSpeed", method="dassl", tolerance=1e-6, stopTime=2000, resultFile="ReciprocatingWaterToWater_VariableSpeed");
+Translation of Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_VariableSpeed:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+Declaring variable: Boolean rScript ;
+    savelog("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_VariableSpeed.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Static");
+Check of Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Static:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/EquationFitWaterToWater_Static.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Static\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Static\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/EquationFitWaterToWater_Static.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Static", method="dassl", tolerance=1e-6, stopTime=14400, resultFile="EquationFitWaterToWater_Static");
+Translation of Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Static:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+
+
+    savelog("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Static.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Examples.Carnot_TCon");
+Check of Buildings.Fluid.HeatPumps.Examples.Carnot_TCon:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/Carnot_TCon.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Examples.Carnot_TCon\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Examples.Carnot_TCon\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/Carnot_TCon.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Examples.Carnot_TCon", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Carnot_TCon");
+Translation of Buildings.Fluid.HeatPumps.Examples.Carnot_TCon:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Examples.Carnot_TCon.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor");
+Check of Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor:
+The model has the same number of unknowns and equations: 36
+Check of Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor successful.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ReciprocatingCompressor.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ReciprocatingCompressor.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor", method="dassl", tolerance=1e-6, stopTime=100, resultFile="ReciprocatingCompressor");
+Translation of Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor:
+The DAE has 36 scalar unknowns and 36 scalar equations.
+ 
+Statistics
+ 
+Original Model
+  Number of components: 7
+  Variables: 45
+  Parameters: 9 (9 scalars)
+  Unknowns: 36 (36 scalars)
+  Equations: 25
+  Nontrivial: 18
+Translated Model
+  Free parameters: 9 scalars
+  Parameter depending: 5 scalars
+  Time-varying variables: 13 scalars
+  Alias variables: 18 scalars
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: { }
+  Sizes after manipulation of the linear systems: { }
+  Sizes of nonlinear systems of equations: { }
+  Sizes after manipulation of the nonlinear systems: { }
+  Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+ = true
+Finished
+ = true
+
+    savelog("Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_TemperatureProtection");
+Check of Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_TemperatureProtection:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_TemperatureProtection.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_TemperatureProtection\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_TemperatureProtection\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_TemperatureProtection.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_TemperatureProtection", stopTime=1000, method="dassl", tolerance=1e-06, resultFile="ScrollWaterToWater_TemperatureProtection");
+Translation of Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_TemperatureProtection:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_TemperatureProtection.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Static");
+Check of Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Static:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Static.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Static\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Static\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Static.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Static", method="dassl", tolerance=1e-6, stopTime=1000, resultFile="ScrollWaterToWater_Static");
+Translation of Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Static:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Static.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Dynamic");
+Check of Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Dynamic:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Dynamic.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Dynamic\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Dynamic\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Dynamic.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Dynamic", method="dassl", tolerance=1e-6, stopTime=1000, resultFile="ScrollWaterToWater_Dynamic");
+Translation of Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Dynamic:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_Dynamic.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaPL");
+Check of Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaPL:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_y_etaPL.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaPL\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaPL\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_y_etaPL.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaPL", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="HeatPump_Carnot_y_etaPL");
+Translation of Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaPL:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaPL.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_VariableSpeed");
+Check of Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_VariableSpeed:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_VariableSpeed.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_VariableSpeed\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_VariableSpeed\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_VariableSpeed.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_VariableSpeed", method="dassl", tolerance=1e-6, stopTime=1000, resultFile="ScrollWaterToWater_VariableSpeed");
+Translation of Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_VariableSpeed:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_VariableSpeed.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_ScalingFactor");
+Check of Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_ScalingFactor:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_ScalingFactor.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_ScalingFactor\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_ScalingFactor\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_ScalingFactor.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_ScalingFactor", method="dassl", tolerance=1e-6, stopTime=1000, resultFile="ScrollWaterToWater_ScalingFactor");
+Translation of Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_ScalingFactor:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater_ScalingFactor.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_EnergyPlus");
+Check of Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_EnergyPlus:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+Declaring variable: Boolean rCheck ;
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/EquationFitWaterToWater_EnergyPlus.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_EnergyPlus\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_EnergyPlus\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/EquationFitWaterToWater_EnergyPlus.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_EnergyPlus", method="dassl", tolerance=1e-6, stopTime=172800, resultFile="EquationFitWaterToWater_EnergyPlus");
+Translation of Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_EnergyPlus:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+
+Declaring variable: Boolean rScript ;
+    savelog("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_EnergyPlus.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Examples.EquationFitWatertoWater");
+Check of Buildings.Fluid.HeatPumps.Examples.EquationFitWatertoWater:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/EquationFitWaterToWater.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Examples.EquationFitWatertoWater\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Examples.EquationFitWatertoWater\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/EquationFitWaterToWater.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Examples.EquationFitWatertoWater", method="dassl",
+ tolerance=1e-6, stopTime=14400, resultFile="EquationFitWaterToWater");
+Translation of Buildings.Fluid.HeatPumps.Examples.EquationFitWatertoWater:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+
+
+
+    savelog("Buildings.Fluid.HeatPumps.Examples.EquationFitWatertoWater.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor");
+Check of Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor:
+The model has the same number of unknowns and equations: 38
+Check of Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor successful.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ScrollCompressor.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ScrollCompressor.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor", method="dassl", tolerance=1e-6, stopTime=100, resultFile="ScrollCompressor");
+Translation of Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor:
+The DAE has 38 scalar unknowns and 38 scalar equations.
+ 
+Statistics
+ 
+Original Model
+  Number of components: 7
+  Variables: 47
+  Parameters: 9 (9 scalars)
+  Unknowns: 38 (38 scalars)
+  Equations: 26
+  Nontrivial: 19
+Translated Model
+  Free parameters: 9 scalars
+  Parameter depending: 6 scalars
+  Time-varying variables: 12 scalars
+  Alias variables: 20 scalars
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: { }
+  Sizes after manipulation of the linear systems: { }
+  Sizes of nonlinear systems of equations: { }
+  Sizes after manipulation of the nonlinear systems: { }
+  Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+ = true
+Finished
+ = true
+
+    savelog("Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator");
+Check of Buildings.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ScrollWaterToWater_OneRoomRadiator.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ScrollWaterToWater_OneRoomRadiator.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator", stopTime=172800, method="radau", tolerance=1e-08, resultFile="ScrollWaterToWater_OneRoomRadiator");
+Translation of Buildings.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_reverseFlow");
+Check of Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_reverseFlow:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_TCon_reverseFlow.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_reverseFlow\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_reverseFlow\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_TCon_reverseFlow.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_reverseFlow", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Carnot_TCon_reverseFlow");
+Translation of Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_reverseFlow:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_reverseFlow.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor_ZeroInput");
+Check of Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor_ZeroInput:
+The model has the same number of unknowns and equations: 38
+Check of Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor_ZeroInput successful.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ScrollCompressor_ZeroInput.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor_ZeroInput\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor_ZeroInput\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ScrollCompressor_ZeroInput.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor_ZeroInput", method="dassl", tolerance=1e-6, stopTime=100, resultFile="ScrollCompressor_ZeroInput");
+Translation of Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor_ZeroInput:
+The DAE has 38 scalar unknowns and 38 scalar equations.
+ 
+Statistics
+ 
+Original Model
+  Number of components: 7
+  Variables: 47
+  Parameters: 9 (9 scalars)
+  Unknowns: 38 (38 scalars)
+  Equations: 26
+  Nontrivial: 19
+Translated Model
+  Free parameters: 9 scalars
+  Parameter depending: 6 scalars
+  Time-varying variables: 12 scalars
+  Alias variables: 20 scalars
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: { }
+  Sizes after manipulation of the linear systems: { }
+  Sizes of nonlinear systems of equations: { }
+  Sizes after manipulation of the nonlinear systems: { }
+  Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+ = true
+Finished
+ = true
+
+    savelog("Buildings.Fluid.HeatPumps.Compressors.Validation.ScrollCompressor_ZeroInput.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_etaPL");
+Check of Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_etaPL:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_TCon_etaPL.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_etaPL\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_etaPL\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_TCon_etaPL.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_etaPL", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="HeatPump_Carnot_TCon_etaPL");
+Translation of Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_etaPL:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_etaPL.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Dynamic");
+Check of Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Dynamic:
+Error: In class Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Dynamic annotation,  the annotation 'Placement' is unknown.
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/EquationFitWaterToWater_Dynamic.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Dynamic\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Dynamic\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/EquationFitWaterToWater_Dynamic.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Dynamic", method="dassl", tolerance=1e-6, stopTime=14400, resultFile="EquationFitWaterToWater_Dynamic");
+Translation of Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Dynamic:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+
+
+    savelog("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Dynamic.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater");
+Check of Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Calibration/ScrollWaterToWater.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Calibration/ScrollWaterToWater.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater", method="dassl", tolerance=1e-6, stopTime=142, resultFile="ScrollWaterToWater");
+Translation of Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_ScalingFactor");
+Check of Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_ScalingFactor:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+Declaring variable: Boolean rCheck ;
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_ScalingFactor.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_ScalingFactor\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_ScalingFactor\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_ScalingFactor.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_ScalingFactor", method="dassl", tolerance=1e-6, stopTime=1000, resultFile="ReciprocatingWaterToWater_ScalingFactor");
+Translation of Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_ScalingFactor:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+Declaring variable: Boolean rScript ;
+    savelog("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_ScalingFactor.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LowTemperature");
+Check of Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LowTemperature:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_TCon_LowTemperature.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LowTemperature\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LowTemperature\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_TCon_LowTemperature.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LowTemperature", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Carnot_TCon_LowTemperature");
+Translation of Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LowTemperature:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_LowTemperature.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Dynamic");
+Check of Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Dynamic:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+Declaring variable: Boolean rCheck ;
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Dynamic.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Dynamic\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Dynamic\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Dynamic.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Dynamic", method="dassl", tolerance=1e-6, stopTime=1000, resultFile="ReciprocatingWaterToWater_Dynamic");
+Translation of Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Dynamic:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+Declaring variable: Boolean rScript ;
+    savelog("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Dynamic.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor_ZeroInput");
+Check of Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor_ZeroInput:
+The model has the same number of unknowns and equations: 36
+Check of Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor_ZeroInput successful.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ReciprocatingCompressor_ZeroInput.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor_ZeroInput\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor_ZeroInput\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ReciprocatingCompressor_ZeroInput.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor_ZeroInput", method="dassl", tolerance=1e-6, stopTime=100, resultFile="ReciprocatingCompressor_ZeroInput");
+Translation of Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor_ZeroInput:
+The DAE has 36 scalar unknowns and 36 scalar equations.
+ 
+Statistics
+ 
+Original Model
+  Number of components: 7
+  Variables: 45
+  Parameters: 9 (9 scalars)
+  Unknowns: 36 (36 scalars)
+  Equations: 25
+  Nontrivial: 18
+Translated Model
+  Free parameters: 9 scalars
+  Parameter depending: 5 scalars
+  Time-varying variables: 13 scalars
+  Alias variables: 18 scalars
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: { }
+  Sizes after manipulation of the linear systems: { }
+  Sizes of nonlinear systems of equations: { }
+  Sizes after manipulation of the nonlinear systems: { }
+  Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+ = true
+Finished
+ = true
+
+    savelog("Buildings.Fluid.HeatPumps.Compressors.Validation.ReciprocatingCompressor_ZeroInput.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Compressors.BaseClasses.Validation.TemperatureProtection");
+Check of Buildings.Fluid.HeatPumps.Compressors.BaseClasses.Validation.TemperatureProtection:
+The model has the same number of unknowns and equations: 42
+Check of Buildings.Fluid.HeatPumps.Compressors.BaseClasses.Validation.TemperatureProtection successful.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/BaseClasses/Validation/TemperatureProtection.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Compressors.BaseClasses.Validation.TemperatureProtection\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Compressors.BaseClasses.Validation.TemperatureProtection\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/BaseClasses/Validation/TemperatureProtection.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Compressors.BaseClasses.Validation.TemperatureProtection", stopTime=5, tolerance=1E-6, method="dassl", resultFile="TemperatureProtection");
+Translation of Buildings.Fluid.HeatPumps.Compressors.BaseClasses.Validation.TemperatureProtection:
+The DAE has 42 scalar unknowns and 42 scalar equations.
+ 
+Statistics
+ 
+Original Model
+  Number of components: 19
+  Variables: 74
+  Parameters: 34 (34 scalars)
+  Unknowns: 40 (42 scalars)
+  Equations: 45
+  Nontrivial: 41
+Translated Model
+  Constants: 6 scalars
+  Free parameters: 22 scalars
+  Parameter depending: 8 scalars
+  Time-varying variables: 16 scalars
+  Alias variables: 24 scalars
+  Number of mixed real/discrete systems of equations: 0
+  Sizes of linear systems of equations: { }
+  Sizes after manipulation of the linear systems: { }
+  Sizes of nonlinear systems of equations: { }
+  Sizes after manipulation of the nonlinear systems: { }
+  Number of numerical Jacobians: 0
+ 
+Selected continuous time states
+ = true
+Finished
+ = true
+
+    savelog("Buildings.Fluid.HeatPumps.Compressors.BaseClasses.Validation.TemperatureProtection.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaCar");
+Check of Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaCar:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_y_etaCar.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaCar\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaCar\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_y_etaCar.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaCar", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Carnot_y_etaCar");
+Translation of Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaCar:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.Carnot_y_etaCar.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Examples.Carnot_y");
+Check of Buildings.Fluid.HeatPumps.Examples.Carnot_y:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/Carnot_y.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Examples.Carnot_y\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Examples.Carnot_y\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/Carnot_y.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Examples.Carnot_y", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Carnot_y");
+Translation of Buildings.Fluid.HeatPumps.Examples.Carnot_y:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Examples.Carnot_y.translation.log"); = true
+
+    rCheck = checkModel("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Static");
+Check of Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Static:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+    Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Static.mos\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Static\",", "statistics.json");
+    Modelica.Utilities.Streams.print("      \"check\" : {", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Static\\\");\",", "statistics.json");
+    Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "statistics.json");
+    Modelica.Utilities.Streams.print("      },", "statistics.json");
+    
+    rScript=RunScript("Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Static.mos");
+simulateModel("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Static", method="dassl", tolerance=1e-6, stopTime=1000, resultFile="ReciprocatingWaterToWater_Static");
+Translation of Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Static:
+-------------------------------------------------
+Error: the model is too complex for the current license.
+Your license must be upgraded to handle this model.
+-------------------------------------------------
+Error: ERRORS have been issued.
+ = false
+
+Instantiation of ?:
+    savelog("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater_Static.translation.log");

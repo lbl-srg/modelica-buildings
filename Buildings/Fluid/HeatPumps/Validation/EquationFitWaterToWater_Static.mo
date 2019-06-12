@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatPumps.Validation;
 model EquationFitWaterToWater_Static "example"
+  import Buildings;
 
  package Medium = Buildings.Media.Water "Medium model";
 
@@ -7,6 +8,9 @@ model EquationFitWaterToWater_Static "example"
        "Nominal mass flow rate";
     parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=per.mCon_flow_nominal
        "Nominal mass flow rate";
+
+  parameter Data.EquationFitWaterToWater.Trane_Axiom_EXW240 per
+    annotation (Placement(transformation(extent={{74,24},{94,44}})));
 
   Controls.OBC.CDL.Continuous.Sources.Ramp TCon_Ent(
     height=20,
@@ -22,15 +26,16 @@ model EquationFitWaterToWater_Static "example"
   Sources.FixedBoundary heaVol(nPorts=1, redeclare package Medium = Medium)
     "Volume for heating load"
     annotation (Placement(transformation(extent={{118,74},{98,94}})));
-  EquationFitWaterToWater heaPum(
+  Buildings.Fluid.HeatPumps.EquationFitWaterToWater heaPum(
+    per=per,
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     show_T=true,
     dp1_nominal=200,
     dp2_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    per=per) "Water to Water heatpump"
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Water to Water heatpump"
     annotation (Placement(transformation(extent={{38,-12},{58,8}})));
   Sources.FixedBoundary cooVol(nPorts=1, redeclare package Medium = Medium)
     "Volume for cooling load"
@@ -52,8 +57,8 @@ model EquationFitWaterToWater_Static "example"
     offset=-5,
     startTime=0) "HeatPump operational mode input signal"
     annotation (Placement(transformation(extent={{-120,-12},{-100,8}})));
-  Controls.OBC.CDL.Continuous.GreaterEqualThreshold           greEquThr(threshold
-      =1)
+  Controls.OBC.CDL.Continuous.GreaterEqualThreshold           greEquThr(threshold=
+       1)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Controls.OBC.CDL.Conversions.BooleanToInteger           booToInt1
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
@@ -79,9 +84,6 @@ model EquationFitWaterToWater_Static "example"
   Controls.OBC.CDL.Conversions.BooleanToInteger           booToInt(integerTrue=
         -1)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-    parameter Data.EquationFitWaterToWater.Trane_Axiom_EXW240 per
-       "HeatPump performance"
-    annotation (Placement(transformation(extent={{86,18},{106,38}})));
   Sources.MassFlowSource_T conPum(
     use_m_flow_in=false,
     m_flow=mCon_flow_nominal,
@@ -98,6 +100,7 @@ model EquationFitWaterToWater_Static "example"
     offset=40 + 273.15,
     startTime=0) "Condenser setpoint water temperature"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+
 equation
 
 
@@ -107,8 +110,8 @@ equation
     annotation (Line(points={{-34,-86},{-4,-86}},  color={0,127,255}));
   connect(res2.port_b, heaPum.port_b2) annotation (Line(points={{16,-86},{30,
           -86},{30,-8},{38,-8}}, color={0,127,255}));
-  connect(TSetCoo.y, heaPum.TEvaSet) annotation (Line(points={{7,-52},{22,-52},
-          {22,-11},{36,-11}}, color={0,0,127}));
+  connect(TSetCoo.y, heaPum.TEvaSet) annotation (Line(points={{7,-52},{22,-52},{
+          22,-11},{31.8,-11}},color={0,0,127}));
   connect(uMod.y,greEquThr. u) annotation (Line(points={{-99,-2},{-94,-2},{-94,
           -30},{-82,-30}}, color={0,0,127}));
   connect(greEquThr.y,booToInt1. u)
@@ -117,7 +120,8 @@ equation
           {-12,-8},{-4,-8}},
                            color={255,127,0}));
   connect(addInt.y, heaPum.uMod)
-    annotation (Line(points={{19,-2},{36,-2}}, color={255,127,0}));
+    annotation (Line(points={{19,-2},{26,-2},{26,-1.8},{32,-1.8}},
+                                               color={255,127,0}));
   connect(TEva_ent.y,evaPum. T_in) annotation (Line(points={{93,-86},{104,-86},
           {104,-53.4},{92.2,-53.4}},
                                    color={0,0,127}));
@@ -126,7 +130,7 @@ equation
   connect(heaPum.port_a1, conPum.ports[1]) annotation (Line(points={{38,4},{30,
           4},{30,90},{-40,90}}, color={0,127,255}));
   connect(TSetHea.y, heaPum.TConSet)
-    annotation (Line(points={{1,70},{22,70},{22,7},{36,7}}, color={0,0,127}));
+    annotation (Line(points={{1,70},{22,70},{22,7},{32,7}}, color={0,0,127}));
   connect(lesEquThr.y, booToInt.u)
     annotation (Line(points={{-59,30},{-42,30}}, color={255,0,255}));
   connect(uMod.y, lesEquThr.u) annotation (Line(points={{-99,-2},{-94,-2},{-94,

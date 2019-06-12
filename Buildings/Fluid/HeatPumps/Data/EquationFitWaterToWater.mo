@@ -135,12 +135,12 @@ HeatPump:WatertoWater,
         mCon_flow_nominal=1000*0.001893,
         VEva_nominal=0.001893,
         mEva_flow_nominal=1000*0.001893,
-        PCon_nominal_HD=4790,
-        PEva_nominal_CD=4790,
+      PCon_nominal_HD=4790,
+      PEva_nominal_CD=4790,
       HLRC={-3.33491153,-0.51451946,4.51592706,0.01797107,0.155797661},
       CLRC={-1.52030596,3.46625667,-1.32267797,0.09395678,0.038975504},
-      P_HDC={-8.59564386,0.96265085,8.69489229,0.2501669, -1.20132665},
-      P_CDC={-8.59564386,0.96265085,8.69489229,0.02501669,-0.20132665})
+      P_HDC={-4.59564386,0.96265085,4.69489229,0.2501669,-1.20132665},
+      P_CDC={-4.59564386,0.96265085,4.69489229,0.02501669,-0.20132665})
         "EnergyPlus_HeatPump"
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
