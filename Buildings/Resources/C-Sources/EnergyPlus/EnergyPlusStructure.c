@@ -347,7 +347,7 @@ void buildVariableNames(
 
 void createDirectory(const char* dirName){
   struct stat st = {0};
-
+  /* Create directory if it does not already exist */
   if (stat(dirName, &st) == -1) {
     if ( mkdir(dirName, 0700) == -1)
       ModelicaFormatError("Failed to create directory %s", dirName);
@@ -464,9 +464,6 @@ void incrementBuildings_nFMU(){
 
 void decrementBuildings_nFMU(){
   Buildings_nFMU--;
-  if (Buildings_nFMU == 0){
-     free(Buildings_FMUS);
-   }
   /* ModelicaFormatMessage("*** Decreased Buildings_nFMU to %zu.", Buildings_nFMU); */
   return;
 }
