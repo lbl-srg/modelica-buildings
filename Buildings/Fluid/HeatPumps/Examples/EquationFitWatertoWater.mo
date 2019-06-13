@@ -4,7 +4,7 @@ model EquationFitWatertoWater "example"
  package Medium = Buildings.Media.Water "Medium model";
 
   Buildings.Fluid.HeatPumps.EquationFitWaterToWater heaPum(
-    per=per,
+    per=Data.EquationFitWaterToWater.Trane_Axiom_EXW240(),
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     show_T=true,
@@ -14,7 +14,6 @@ model EquationFitWatertoWater "example"
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Water to Water heatpump"
     annotation (Placement(transformation(extent={{32,-10},{52,10}})));
-
 
     parameter Data.EquationFitWaterToWater.Trane_Axiom_EXW240 per
        "HeatPump performance"

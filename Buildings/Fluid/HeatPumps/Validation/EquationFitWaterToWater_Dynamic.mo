@@ -14,7 +14,6 @@ model EquationFitWaterToWater_Dynamic "example"
     massDynamics=massDynamics) "Water to Water heatpump"
     annotation (Placement(transformation(extent={{32,-10},{52,10}})));
 
-
   parameter Data.EquationFitWaterToWater.Trane_Axiom_EXW240 per
     annotation (Placement(transformation(extent={{72,22},{92,42}})));
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=per.mEva_flow_nominal

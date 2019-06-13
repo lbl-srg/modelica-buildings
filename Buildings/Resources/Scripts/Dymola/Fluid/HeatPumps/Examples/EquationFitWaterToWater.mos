@@ -15,7 +15,7 @@ createPlot(id = 1,
 
 createPlot(id = 2,
    position = {60, 10, 640, 480},
-   y = {"heaPum.equationfit.TConLvg", "heaPum.equationfit.TConEnt","heaPum.equationfit.TEvaLvg", "heaPum.equationfit.TEvaEnt"},
+   y = {"heaPum.equFit.TConLvg", "heaPum.equFit.TConEnt","heaPum.equFit.TEvaLvg", "heaPum.equFit.TEvaEnt"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,
