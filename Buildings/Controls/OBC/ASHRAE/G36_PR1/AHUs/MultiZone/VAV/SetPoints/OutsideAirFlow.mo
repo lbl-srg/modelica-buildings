@@ -657,7 +657,7 @@ is found by
 where <code>minZonFlo</code> is the minimum expected zone primary flow rate and
 <code>desZonOutAirRate</code> is required design zone outdoor airflow rate.
 
-<h4>Step 5: Occupancy diversity fraction<code>occDivFra</code></h4>
+<h4>Step 5: Occupancy diversity fraction <code>occDivFra</code></h4>
 For actual system operation, the system population equals the sum of zone population,
 so <code>occDivFra=1</code>. It has no impact on the calculation of uncorrected
 outdoor airflow <code>sysUncOutAir</code>.

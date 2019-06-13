@@ -31,7 +31,8 @@ partial model AHUParameters "Essential parameters for air handling unit"
 Documentation(info="<html>
 <p>
 This  block declares parameters that are required by most classes in the package
-<a href=\"modelica://Buildings.Applications.DataCenters.AHUs\">Buildings.Applications.DataCenters.AHUs</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment\">
+Buildings.Applications.DataCenters.ChillerCooled.Equipment</a>.
 </p>
 </html>", revisions="<html>
 <ul>

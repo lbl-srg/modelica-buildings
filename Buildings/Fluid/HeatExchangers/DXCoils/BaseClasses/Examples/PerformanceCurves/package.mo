@@ -7,14 +7,6 @@ This package contains performance curves for the cooling capacity and the EIR
 of DX cooling coils that are used in the examples.
 </p>
 <p>
-  For performance data of specific DX cooling coils, see the packages
-  <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed\">
-  Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed</a>
-  and
-  <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed\">
-  Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed</a>.
-</p>
-<p>
 The data are described in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a>.
