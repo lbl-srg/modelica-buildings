@@ -308,7 +308,7 @@ October 9, 2013, by Michael Wetter:<br/>
 Replaced
 <code>Modelica.Fluid.Sources.FixedBoundary</code>
 with
-<code>Buildings.Fluid.Sources.Boundary_pT</code>
+<code>Buildings.Fluid.Sources.FixedBoundary</code>
 as otherwise, the pedantic model check fails in
 Dymola 2014 FD01 beta3.
 </li>
