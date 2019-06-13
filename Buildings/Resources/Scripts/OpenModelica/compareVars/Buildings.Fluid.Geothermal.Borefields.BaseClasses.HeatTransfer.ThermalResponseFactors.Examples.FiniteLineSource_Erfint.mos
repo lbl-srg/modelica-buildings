@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "erfint",
-    "erfint_num",
-    "err"
-  };
