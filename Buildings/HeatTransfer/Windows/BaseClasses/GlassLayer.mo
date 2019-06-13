@@ -99,10 +99,6 @@ needs to be connected to the solar radiation that is absorbed
 by the glass pane.
 The model computes the heat conduction between the two glass surfaces.
 The heat flow <code>QAbs_flow</code> is added at the center of the glass.
-The model also computes the infrared radiative heat balance using an instance
-of the model
-<a href=\"Buildings.HeatTransfer.Radiosity.WindowPane\">
-Buildings.HeatTransfer.Radiosity.WindowPane</a>.
 <br/>
 </html>", revisions="<html>
 <ul>

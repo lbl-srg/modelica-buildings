@@ -60,15 +60,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(gaiNPan.y, bou1.m_flow_in)
-    annotation (Line(points={{-31,-22},{-12,-22}}, color={0,0,127}));
+    annotation (Line(points={{-31,-22},{-14,-22}}, color={0,0,127}));
   connect(gaiNPan.u, datRea.y[4]) annotation (Line(points={{-54,-22},{-60,-22},{
           -60,38},{-69,38}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
 This model validates the solar collector model
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE\">
-Buildings.Fluid.SolarCollectors.ASHRAE</a>
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
+Buildings.Fluid.SolarCollectors.ASHRAE93</a>
 for the case
 where the number of panels is <i>1</i> for the instance <code>solCol</code>
 and <i>10</i> for the instance <code>solCol1</code>.
