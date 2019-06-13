@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.BaseClasses;
-block EquationFitEqu
+block equFit
 
   Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
     "Set point for leaving chilled water temperature" annotation (Placement(
@@ -186,10 +186,11 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           extent={{-100.0,-100.0},{100.0,100.0}},
           radius=25.0)}),                                        Diagram(coordinateSystem(preserveAspectRatio=false)),
+  defaultComponentName="equFit",
   Documentation(info="<html>
 
 The Block includes the mathematical description of the EQUATIONFit method dedicated for<a href=\"Buildings.Fluid.HeatPumps.WatertoWaterEquationFit\">
 Buildings.Fluid.HeatPumo.WatertoWaterEquationFit</a>.
 
 </html>"));
-end EquationFitEqu;
+end equFit;

@@ -200,7 +200,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
           lineThickness=0.5),
         Rectangle(
           extent={{-44,50},{-40,10}},
-          lineColor={0,0,0},
+          lineColor={<p>0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Rectangle(
@@ -228,9 +228,10 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
         Line(points={{0,68},{0,90},{-100,90}},   color={0,0,255})}),
     defaultComponentName="heaPum",
     Documentation(info="<html>
-
+<p>
     Model for a water to water heat pump using the equation fit model as described
 in the EnergyPlus HeatPump: Waterto Water equationfit model and based on (J.Hui 2002, S.Arun. 2004 and C.Tang 2004).
+</p>
 <p>
 The model uses four non-dimensional equations or curves to predict the heat pump performance in either cooling or heating modes.
 The methodology involved using the generalized least square method to create a set of performance
@@ -249,17 +250,14 @@ Buildings.Fluid.HeatPumo.Data.WatertoWaterEquationFit</a>.
 <h4>Implementation</h4>
 This model uses four functions to predict capacity and power consumption for heating and cooling dominated modes:
 
-<p>
 <ul>
 <li>
 The heating dominated mode:
-</p>
 
 <p align=\"left\" style=\"font-style:italic;\">
 (Q&#775;<sub>Con</sub>)/(Q&#775;<sub>Con,nominal</sub>) = A<sub>1</sub>+ A<sub>2</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
 A<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>4</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
 + A<sub>5</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
-
 
 <p align=\"left\" style=\"font-style:italic;\">
 (Power<sub>Con</sub>)/(Power<sub>Con,nominal</sub>) = B<sub>1</sub>+ B<sub>2</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
@@ -269,18 +267,15 @@ B<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>4</sub>[V&#775
 </li>
 </ul>
 
-<p>
 
 <ul>
 <li>
-
 The cooling dominated mode:
-</p>
 
 <p align=\"left\" style=\"font-style:italic;\">
 (Q&#775;<sub>Eva</sub>)/(Q&#775;<sub>Eva,nominal</sub>) = A<sub>6</sub>+ A<sub>7</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
 A<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>9</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
-+ A<sub>10</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]</p>
++ A<sub>10</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
 
 
 <p align=\"left\" style=\"font-style:italic;\">
@@ -288,12 +283,13 @@ A<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>9</sub>[V&#775
 B<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>9</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
 + B<sub>10</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
 
+
 </li>
 </ul>
 
 
 <p>
-For these four equations, the inlet conditions or variables are divided by the reference conditions. 
+For these four equations, the inlet conditions or variables are divided by the reference conditions.
 This formulation allows the coefficients to fall into smaller range of values. Moreover, the value of the coefficient
 indirectly represents the sensitivity of the output to that particular inlet variable.
 </p>
@@ -301,12 +297,11 @@ indirectly represents the sensitivity of the output to that particular inlet var
 The model takes as an input the set point for either the leaving water temperature for the
 condenser or the evaporator which is met if the heat pump has sufficient capacity. In addition to the integer input which identifies the heat pump operational mode:
 (+1) for heating dominated mode, (-1) for cooling dominated mode, (0) for shut off the system.
-
+</p>
 
 <p>
 In addition, the electric power only includes the power for the compressor, but not any power for pumps or fans.
 </p>
-
 
 
 <h4>References</h4>
@@ -316,7 +311,7 @@ C.C Tang
 Equation fit based models of water source heat pumps.
   </i>
 Master Thesis. Oklahoma State University, Oklahoma, USA. 2005.
-  </p>
+</p>
   </html>", revisions="<html>
 <ul>
 <li>

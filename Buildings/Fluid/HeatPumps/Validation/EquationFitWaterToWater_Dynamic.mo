@@ -16,7 +16,7 @@ model EquationFitWaterToWater_Dynamic "example"
 
 
   parameter Data.EquationFitWaterToWater.Trane_Axiom_EXW240 per
-    annotation (Placement(transformation(extent={{74,24},{94,44}})));
+    annotation (Placement(transformation(extent={{72,22},{92,42}})));
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=per.mEva_flow_nominal
        "Nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=per.mCon_flow_nominal
@@ -146,8 +146,8 @@ equation
           98,-51.4},{86.2,-51.4}}, color={0,0,127}));
   connect(evaPum.ports[1], heaPum.port_a2) annotation (Line(points={{62,-47},{
           56,-47},{56,-6},{52,-6}}, color={0,127,255}));
-    annotation (Placement(transformation(extent={{80,20},{100,40}})),
-           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+
+annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                          graphics={
         Ellipse(lineColor = {75,138,73},
@@ -169,10 +169,10 @@ equation
   Model that demonstrates the use of the <a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitWaterToWater\">
   Buildings.Fluid.HeatPumps.EquationFitWaterToWater </a> heat pump model implementing dynamic energy and mass balance.
   <p>
-  The heat pump power, condenser heat transfer rate and evaporator heat transfer rate are calculated for given 
+  The heat pump power, condenser heat transfer rate and evaporator heat transfer rate are calculated for given
   leaving water temperatures and flow rates on the evaporator and condenser sides.
   </p>
-  
+
   </html>", revisions="<html>
   <ul>
   <li>
