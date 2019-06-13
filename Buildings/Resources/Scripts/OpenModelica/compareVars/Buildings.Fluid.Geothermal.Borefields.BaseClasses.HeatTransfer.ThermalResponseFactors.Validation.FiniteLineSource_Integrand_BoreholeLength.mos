@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "logy150",
+    "logy75",
+    "logy25",
+    "logy5",
+    "logy1"
+  };

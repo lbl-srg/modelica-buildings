@@ -127,7 +127,7 @@ protected
   Modelica.Blocks.Math.Gain gaiQ_flow(k=borFieDat.conDat.nBor)
     "Gain to multiply the heat extracted by one borehole by the number of boreholes"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Utilities.Math.Average AveTBor(nin=nSeg)
+  Buildings.Utilities.Math.Average AveTBor(nin=nSeg)
     "Average temperature of all the borehole segments"
     annotation (Placement(transformation(extent={{50,34},{70,54}})));
 
