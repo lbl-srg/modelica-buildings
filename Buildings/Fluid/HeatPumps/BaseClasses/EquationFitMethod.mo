@@ -35,7 +35,7 @@ block EquationFitMethod
   "Heating mode Compressor Power nominal capacity";
   parameter Modelica.SIunits.Temperature    TRef= per.TRef;
   parameter Modelica.SIunits.HeatFlowRate   Q_flow_small = QCon_heatflow_nominal*1E-9
-    "Small value for heat flow rate or power, used to avoid division by zero";
+  "Small value for heat flow rate or power, used to avoid division by zero";
 
   Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
     "Set point for leaving chilled water temperature" annotation (Placement(
