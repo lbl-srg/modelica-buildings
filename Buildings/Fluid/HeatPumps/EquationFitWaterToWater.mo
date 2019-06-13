@@ -28,7 +28,7 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
     annotation (choicesAllMatching = true,
                 Placement(transformation(extent={{40,80},{60,100}})));
 
-  BaseClasses.EquationFitEqu equationfit(per=per)
+  Buildings.Fluid.HeatPumps.BaseClasses.equFit equFit(per=per)
     annotation (Placement(transformation(extent={{-82,-12},{-58,14}})));
 
 
@@ -200,7 +200,8 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
           lineThickness=0.5),
         Rectangle(
           extent={{-44,50},{-40,10}},
-          lineColor={<p>0,0,0},
+          lineColor={ERROR,
+                          0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Rectangle(
