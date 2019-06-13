@@ -26,7 +26,7 @@ without being limited by the maximum power limitation
 (see dotted curve on figure below).
 Pump curves (H(m_flow) and P(m_flow)) from the data sheets
 are digitized using
-<a href=\"http://arohatgi.info/WebPlotDigitizer/app/\">web plot digitizer</a>.
+<a href=\"https://automeris.io/WebPlotDigitizer/\">web plot digitizer</a>.
 </p>
 <h4>Limitations:</h4>
 <ul>
