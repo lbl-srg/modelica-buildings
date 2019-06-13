@@ -36,7 +36,7 @@ model TraceSubstances "Test model for the extra property sensor"
     use_m_flow_in=true,
     nPorts=1) "Fresh air supply"
     annotation (Placement(transformation(extent={{0,-22},{20,-2}})));
-  Sources.FixedBoundary mSin(
+  Buildings.Fluid.Sources.Boundary_pT mSin(
     redeclare package Medium = Medium, nPorts=1) "Exhaust air"
     annotation (Placement(transformation(extent={{-42,-62},{-22,-42}})));
   Buildings.Fluid.Sensors.Conversions.To_VolumeFraction masFraSou(
@@ -52,7 +52,6 @@ model TraceSubstances "Test model for the extra property sensor"
     m_flow_nominal=m_flow_nominal,
     tau=0) "Sensor at exhaust air"
     annotation (Placement(transformation(extent={{50,-62},{30,-42}})));
-
   FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     dp_nominal=10,
@@ -68,6 +67,7 @@ model TraceSubstances "Test model for the extra property sensor"
   Buildings.Fluid.Sensors.PPM senPPM(redeclare package Medium = Medium)
     "PPM sensor"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
+
 equation
   connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{-2,-4}},color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{45,100},{45,100},{139,
@@ -123,6 +123,11 @@ to the outside air concentration.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 2, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 May 22, 2015, by Michael Wetter:<br/>
 Updated example to test the correction for

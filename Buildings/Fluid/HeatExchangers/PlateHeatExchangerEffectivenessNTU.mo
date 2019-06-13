@@ -119,8 +119,8 @@ The convective heat transfer coefficients scale proportional to
 </p>
 <p>
 For a plate exchanger, use
-<a href=\"modelica://Buildings.Fluid.MassExchangers.PlateHeatExchangerEffectivenessNTU\">
-Buildings.Fluid.MassExchangers.PlateHeatExchangerEffectivenessNTU</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</a>.
 </p>
 <p>
 For a heat and moisture exchanger, use

@@ -41,7 +41,7 @@ model InternalHEXTwoUTube
     m_flow=borFieDat.conDat.mBor_flow_nominal,
     T=288.15)
     annotation (Placement(transformation(extent={{54,4},{34,-16}})));
-  Buildings.Fluid.Sources.FixedBoundary bou(nPorts=4, redeclare package Medium = Medium)
+  Buildings.Fluid.Sources.Boundary_pT bou(nPorts=4, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,-14},{-40,-34}})));
   Real Rb_sim(unit="(m.K)/W") = ((senTem.T + senTem1.T + senTem2.T + senTem3.T)/4 - intHex.port_wall.T)/max(-intHex.port_wall.Q_flow / hSeg,1);
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
@@ -59,8 +59,7 @@ model InternalHEXTwoUTube
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
         Medium, m_flow_nominal=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{-14,-22},{-26,-10}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem3(
-                                                redeclare package Medium =
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem3(redeclare package Medium =
         Medium, m_flow_nominal=borFieDat.conDat.mBor_flow_nominal)
     annotation (Placement(transformation(extent={{16,-22},{28,-10}})));
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
@@ -120,6 +119,11 @@ equation
 This example simulates the interior thermal behavior of a double U-tube borehole segment.
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 June 2018, by Damien Picard:<br/>
 First implementation.

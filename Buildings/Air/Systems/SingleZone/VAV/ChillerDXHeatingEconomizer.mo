@@ -234,7 +234,7 @@ model ChillerDXHeatingEconomizer
     "Air cooled chiller"
     annotation (Placement(transformation(extent={{110,-158},{90,-178}})));
 
-  Buildings.Fluid.Sources.FixedBoundary bouPreChi(
+  Buildings.Fluid.Sources.Boundary_pT bouPreChi(
     redeclare package Medium = MediumW, nPorts=1)
     "Pressure boundary condition for chilled water loop"
     annotation (Placement(transformation(extent={{50,-172},{70,-152}})));

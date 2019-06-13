@@ -51,8 +51,8 @@ Model included into the Buildings library.
 </html>", info="<html>
 <p>
 This is a model of a generic inductive load. This model is an extension of the base load model
-<a href=\"Buildings.Electrical.Interfaces.PartialLoad\">
-Buildings.Electrical.Interfaces.PartialLoad</a>.
+<a href=\"Buildings.Electrical.Interfaces.Load\">
+Buildings.Electrical.Interfaces.Load</a>.
 </p>
 <p>
 This model assumes a fixed power factor <code>pf</code> when the flag <code>use_pf_in = false</code>

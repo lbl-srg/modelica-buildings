@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-IMG_NAME=ubuntu-1604_jmodelica_trunk
+IMG_NAME=ubuntu-1804_jmodelica_trunk
 DOCKER_USERNAME=michaelwetter
 # Export the MODELICAPATH
 if [ -z ${MODELICAPATH+x} ]; then
