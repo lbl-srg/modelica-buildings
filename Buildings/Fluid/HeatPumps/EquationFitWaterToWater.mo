@@ -39,6 +39,7 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
     "EquationFit method which describes the water to water heat pump"
     annotation (Placement(transformation(extent={{-82,-12},{-58,14}})));
   Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
+<<<<<<< HEAD
     "Set point for leaving chilled water temperature" annotation (Placement(
         transformation(extent={{-182,-110},{-142,-70}}), iconTransformation(
           extent={{-182,-110},{-142,-70}})));
@@ -48,6 +49,93 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
           extent={{-180,70},{-140,110}})));
   Modelica.Blocks.Interfaces.IntegerInput uMod "Heating mode= 1, Off=0, Cooling mode=-1"
     annotation (Placement(transformation(extent={{-180,-18},{-140,22}})));
+=======
+    "Set point for leaving chilled water temperature"
+   annotation (Placement(
+        transformation(extent={{-140,-110},{-100,-70}}), iconTransformation(
+          extent={{-140,-110},{-100,-70}})));
+  Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
+    "Set point for leaving heating water temperature"
+   annotation (Placement(
+        transformation(extent={{-140,70},{-100,110}}), iconTransformation(
+          extent={{-140,70},{-100,110}})));
+  Modelica.Blocks.Interfaces.IntegerInput uMod "Heating mode= 1, Off=0, Cooling mode=-1"
+   annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+  Modelica.SIunits.Efficiency HLR
+    "Heating load ratio";
+  Modelica.SIunits.Efficiency CLR
+    "Cooling load ratio";
+  Modelica.SIunits.Efficiency P_HD
+    "Power Ratio in heating dominanat mode";
+  Modelica.SIunits.Efficiency P_CD
+    "Power Ratio in cooling dominant mode";
+  Modelica.SIunits.HeatFlowRate  QCon_flow
+  "Condenser heatflow input";
+  Modelica.SIunits.HeatFlowRate  QEva_flow
+  "Evaporator heatflow input";
+  Modelica.SIunits.Temperature   TEvaLvg
+  "Evaporator leaving water temperature";
+  Modelica.SIunits.Temperature   TEvaEnt
+  "Evaporator entering water temperature";
+  Modelica.SIunits.Temperature   TConLvg
+  "Condenser leaving water temperature";
+  Modelica.SIunits.Temperature   TConEnt
+  "Condenser entering water temperature";
+  Modelica.SIunits.Power         P
+  "HeatPump Compressor Power";
+  Modelica.SIunits.HeatFlowRate QCon_flow_ava
+  "Heating capacity available at the condender";
+  Modelica.SIunits.HeatFlowRate QEva_flow_ava
+  "Cooling capacity available at the Evaporator";
+  Modelica.SIunits.SpecificEnthalpy hSet_Con
+  "Enthalpy setpoint for heating water";
+  Modelica.SIunits.SpecificEnthalpy hSet_Eva
+  "Enthalpy setpoint for cooling water";
+  Modelica.SIunits.SpecificEnthalpy hCon
+  "Enthalpy value for heating water";
+  Modelica.SIunits.SpecificEnthalpy hEva
+  "Enthalpy value for cooling water";
+  Modelica.SIunits.HeatFlowRate QCon_flow_set
+  "Heating capacity required to heat to set point temperature";
+  Modelica.SIunits.HeatFlowRate QEva_flow_set
+  "Cooling capacity required to cool to set point temperature";
+
+  final parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
+  "Heating load nominal capacity_Heating mode";
+  final parameter Modelica.SIunits.HeatFlowRate   QEva_heatflow_nominal=per.QEva_heatflow_nominal
+  "Cooling load nominal capacity_Cooling mode";
+  final parameter Modelica.SIunits.VolumeFlowRate VCon_flow_nominal=per.VCon_nominal
+  "Heating mode Condenser volume flow rate nominal capacity";
+  final parameter Modelica.SIunits.MassFlowRate   mCon_flow_nominal= per.mCon_flow_nominal
+  "Heating mode Condenser mass flow rate nominal capacity";
+  final parameter Modelica.SIunits.VolumeFlowRate VEva_flow_nominal=per.VEva_nominal
+  "Heating mode Condenser volume flow rate nominal capacity";
+  final parameter Modelica.SIunits.MassFlowRate   mEva_flow_nominal=per.mEva_flow_nominal
+  "Heating mode Evaporator mass flow rate nominal capacity";
+  final parameter Modelica.SIunits.Power          PCon_nominal_HD= per.PCon_nominal_HD
+  "Heating mode Compressor Power nominal capacity";
+  final parameter Modelica.SIunits.Power          PEva_nominal_CD = per.PEva_nominal_CD
+  "Heating mode Compressor Power nominal capacity";
+  final parameter Modelica.SIunits.Temperature    TRef= per.TRef;
+  final parameter Modelica.SIunits.HeatFlowRate   Q_flow_small = QCon_heatflow_nominal*1E-9
+    "Small value for heat flow rate or power, used to avoid division by zero";
+
+  parameter
+    Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater.Generic_EquationFit
+    per annotation (choicesAllMatching=true, Placement(transformation(extent={{
+            48,12},{80,44}})));
+
+protected
+  Modelica.Blocks.Sources.RealExpression QCon_flow_in( final y=QCon_flow)
+  "Condenser heat flow rate"
+    annotation (Placement(transformation(extent={{-82,36},{-62,56}})));
+
+  Modelica.Blocks.Sources.RealExpression QEva_flow_in( final y=QEva_flow)
+  "Evaorator heat flow rate"
+    annotation (Placement(transformation(extent={{-82,-50},{-62,-30}})));
+
+>>>>>>> issue1379_DOE2HP
   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
   "Prescribed heat flow rate" annotation (Placement(transformation(extent={{-37,20},{-17,40}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva

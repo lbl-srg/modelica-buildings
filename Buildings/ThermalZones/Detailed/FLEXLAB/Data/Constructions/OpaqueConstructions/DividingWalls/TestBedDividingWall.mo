@@ -12,7 +12,7 @@ record TestBedDividingWall =
     Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.1016),
     Buildings.HeatTransfer.Data.Solids.GypsumBoard(x=0.1588)},
     nLay = 10) "Wall separating test beds"
-    annotation(
+    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datOpaCon",
 Documentation(info="<html>

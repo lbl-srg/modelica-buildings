@@ -1,4 +1,4 @@
-within Buildings.Occupants.Office.Windows;
+﻿within Buildings.Occupants.Office.Windows;
 model Zhang2012WindowsWest "A model to predict occupants' window behavior with outdoor temperature for West-oriented windows"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A = 0.12 "Slope of the logistic relation";

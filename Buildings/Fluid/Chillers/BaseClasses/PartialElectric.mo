@@ -81,7 +81,7 @@ protected
     annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
+    annotation (Placement(transformation(extent={{-37,30},{-17,50}})));
   Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
     "Evaporator heat flow rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -94,6 +94,7 @@ initial equation
   assert(Q_flow_small < 0, "Parameter Q_flow_small must be smaller than zero.");
   assert(PLRMinUnl >= PLRMin, "Parameter PLRMinUnl must be bigger or equal to PLRMin");
   assert(PLRMax > PLRMinUnl, "Parameter PLRMax must be bigger than PLRMinUnl");
+
 equation
   // Condenser temperatures
   TConEnt = Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow)));
@@ -114,29 +115,29 @@ equation
     QEva_flow_ava = QEva_flow_nominal*capFunT;
     // Cooling capacity required to chill water to setpoint
     QEva_flow_set = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=  m2_flow*(hSet-inStream(port_a2.h_outflow)),
+      x1 = m2_flow*(hSet-inStream(port_a2.h_outflow)),
       x2= Q_flow_small,
       deltaX=-Q_flow_small/100);
 
     // Part load ratio
     PLR1 = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=  QEva_flow_set/(QEva_flow_ava+Q_flow_small),
-      x2=  PLRMax,
+      x1 = QEva_flow_set/(QEva_flow_ava+Q_flow_small),
+      x2 = PLRMax,
       deltaX=PLRMax/100);
     // PLR2 is the compressor part load ratio. The lower bound PLRMinUnl is
     // since for PLR1<PLRMinUnl, the chiller uses hot gas bypass, under which
     // condition the compressor power is assumed to be the same as if the chiller
     // were to operate at PLRMinUnl
     PLR2 = Buildings.Utilities.Math.Functions.smoothMax(
-      x1=  PLRMinUnl,
-      x2=  PLR1,
-      deltaX=  PLRMinUnl/100);
+      x1 = PLRMinUnl,
+      x2 = PLR1,
+      deltaX = PLRMinUnl/100);
 
     // Cycling ratio.
     // Due to smoothing, this can be about deltaX/10 above 1.0
     CR = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=  PLR1/PLRMin,
-      x2=  1,
+      x1 = PLR1/PLRMin,
+      x2 = 1,
       deltaX=0.001);
 
     // Compressor power.
@@ -144,8 +145,8 @@ equation
     // Heat flow rates into evaporator and condenser
     // Q_flow_small is a negative number.
     QEva_flow = Buildings.Utilities.Math.Functions.smoothMax(
-      x1=  QEva_flow_set,
-      x2=  QEva_flow_ava,
+      x1 = QEva_flow_set,
+      x2 = QEva_flow_ava,
       deltaX= -Q_flow_small/10);
 
   //QEva_flow = max(QEva_flow_set, QEva_flow_ava);
@@ -165,11 +166,11 @@ equation
   end if;
 
   connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
-      points={{-59,40},{-39,40}},
+      points={{-59,40},{-37,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHeaFloCon.port, vol1.heatPort) annotation (Line(
-      points={{-19,40},{-10,40},{-10,60}},
+      points={{-17,40},{-10,40},{-10,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(

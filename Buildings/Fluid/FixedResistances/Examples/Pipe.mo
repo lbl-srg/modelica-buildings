@@ -46,8 +46,8 @@ model Pipe "Test of a pipe with multiple segments"
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
         Medium, m_flow_nominal=pip.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
-      = Medium, m_flow_nominal=pip.m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
+        Medium, m_flow_nominal=pip.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
