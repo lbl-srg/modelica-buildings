@@ -14,14 +14,13 @@ model OptimalStart
     offset=20 + 273.15,
     startTime(displayUnit="h") = -3600) "Zone temperature"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  OptimalStartAdaptiveTemperatureGradient
-    optimalStartAdaptiveTemperatureGradient
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Continuous.Sources.Sine TOut(
     amplitude=5,
     freqHz=1/86400,
     offset=273.15 + 10) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  Buildings.Controls.OBC.CDL.Utilities.OptimalStart optimalStart
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(optimalStartConstantTemperatureGradient.TSetZonHea, TSetHea.y)
     annotation (Line(points={{-2,-54},{-20,-54},{-20,-20},{-39,-20}}, color={0,
@@ -31,16 +30,12 @@ equation
           0,127}));
   connect(optimalStartConstantTemperatureGradient.TZon, TZon.y) annotation (
       Line(points={{-2,-50},{-18,-50},{-18,30},{-39,30}}, color={0,0,127}));
-  connect(TSetCoo.y, optimalStartAdaptiveTemperatureGradient.TSetZonCoo)
-    annotation (Line(points={{-39,-60},{-24,-60},{-24,2},{-2,2}}, color={0,0,
-          127}));
-  connect(TSetHea.y, optimalStartAdaptiveTemperatureGradient.TSetZonHea)
-    annotation (Line(points={{-39,-20},{-26,-20},{-26,6},{-2,6}}, color={0,0,
-          127}));
-  connect(optimalStartAdaptiveTemperatureGradient.TZon, TZon.y) annotation (
-      Line(points={{-2,10},{-18,10},{-18,30},{-39,30}}, color={0,0,127}));
-  connect(optimalStartAdaptiveTemperatureGradient.TOut, TOut.y) annotation (
-      Line(points={{-2,14},{-20,14},{-20,70},{-39,70}}, color={0,0,127}));
+  connect(TZon.y, optimalStart.TZon) annotation (Line(points={{-39,30},{-22,30},
+          {-22,18},{-2,18}}, color={0,0,127}));
+  connect(TSetHea.y, optimalStart.TSetZonHea) annotation (Line(points={{-39,-20},
+          {-22,-20},{-22,10},{-2,10}}, color={0,0,127}));
+  connect(TSetCoo.y, optimalStart.TSetZonCoo) annotation (Line(points={{-39,-60},
+          {-28,-60},{-28,2},{-2,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end OptimalStart;
