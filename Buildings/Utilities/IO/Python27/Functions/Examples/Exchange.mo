@@ -33,7 +33,7 @@ equation
     yR1_2 = Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r2_r1",
-      pytObj=pytObj[2],
+      pytObj=pytObj2,
       passPythonObject=passPythonObject,
       dblWri={2.0, 3.0},
       intWri={0},
