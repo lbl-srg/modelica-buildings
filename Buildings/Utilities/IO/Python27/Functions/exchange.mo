@@ -29,19 +29,27 @@ protected
   String pytPatBuildings "PYTHONPATH of Buildings library";
   String pytPat "Value of PYTHONPATH environment variable";
   Boolean havePytPat "true if PYTHONPATH is already set by the user";
-  String filNam = "Utilities/IO/Python27/UsersGuide/package.mo"
+  String filNam = "modelica://Buildings/legal.html"
     "Name to a file of the Buildings library";
+  String searchString = "legal.html" "String to be replaced";
 algorithm
  // Get the directory to Buildings/Resources/Python-Sources
  pytPatBuildings := Modelica.Utilities.Files.loadResource(uri=filNam);
  pytPatBuildings := Modelica.Utilities.Strings.replace(
    string=pytPatBuildings,
-   searchString=filNam,
+   searchString=searchString,
    replaceString="Resources/Python-Sources");
+
  // Update the PYTHONPATH variable
  (pytPatOld, havePytPat) :=Modelica.Utilities.System.getEnvironmentVariable("PYTHONPATH");
  if havePytPat then
-   pytPat:=pytPatOld + ":" + pytPatBuildings;
+   if Modelica.Utilities.Strings.find(pytPatOld, pytPatBuildings) == 0 then
+     // The new python path is not yet in the environment variable, add it.
+     pytPat:=pytPatOld + ":" + pytPatBuildings;
+   else
+     // The new python path is already in the variable.
+     pytPat:=pytPatOld;
+   end if;
  else
    pytPat := pytPatBuildings;
  end if;
@@ -80,6 +88,10 @@ for examples.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 14, 2019, by Antoine Gautier and Michael Wetter:<br/>
+Refactored for setting <code>PYTHONPATH</code> correctly independent of working directory.
+</li>
 <li>
 April 24, 2019, by Michael Wetter:<br/>
 Refactored for getting <code>PYTHONPATH</code>.<br/>
