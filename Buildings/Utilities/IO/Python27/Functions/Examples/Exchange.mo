@@ -6,13 +6,16 @@ model Exchange "Test model for exchange function"
     "Set to true if the Python function returns and receives an object, see User's Guide";
   Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject[8] pytObj=
     {Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject() for i in 1:8};
+  Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject pytObj2=
+    Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject();
+  Real    yR1_1[1] "Real function value";
+  Real    yR1_2[1] "Real function value";
+//  Integer yI1[1] "Integer function value";
+//  Real    yR2[2] "Real function value";
+//  Integer yI2[2] "Integer function value";
+equation
 
-  Real    yR1[1] "Real function value";
-  Integer yI1[1] "Integer function value";
-  Real    yR2[2] "Real function value";
-  Integer yI2[2] "Integer function value";
-algorithm
-  yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
+  yR1_1 = Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1_r1",
       pytObj=pytObj[1],
@@ -25,9 +28,9 @@ algorithm
       nIntRea=0,
       nStrWri=0,
       strWri={""});
-    assert(abs(4-yR1[1]) < 1e-5, "Error in function r1_r1");
+    assert(abs(4-yR1_1[1]) < 1e-5, "Error in function r1_r1 " + String(yR1_1[1]));
 
-    yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
+    yR1_2 = Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r2_r1",
       pytObj=pytObj[2],
@@ -40,8 +43,8 @@ algorithm
       nIntRea=0,
       nStrWri=0,
       strWri={""});
-    assert(abs(6-yR1[1]) < 1e-5, "Error in function r2_r1");
-
+    assert(abs(6-yR1_2[1]) < 1e-5, "Error in function r2_r1, obtained " + String(yR1_2[1]));
+/*
   yR2 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1_r2",
@@ -138,6 +141,7 @@ algorithm
       strWri={""});
   assert(abs(yR2[1]-0.6) + abs(yR2[2]-4) < 1E-5, "Error in function r1i1_r2i1");
   assert(abs(yI1[1]-3) == 0, "Error in function r1i1_r2i1");
+  */
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python27/Functions/Examples/Exchange.mos"
