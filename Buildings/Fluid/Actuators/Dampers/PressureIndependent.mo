@@ -213,7 +213,7 @@ between the flow rate and the pressure drop is C<sup>2</sup>.
 <p align=\"left\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/Dampers/PressureIndependent.png\"/>
 </p>
-<h4>Fractional opening</h4>
+<h4>Fractional opening </h4>
 <p>
 The fractional opening of the damper is then computed by:
 </p>
