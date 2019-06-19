@@ -357,8 +357,8 @@ a deadband of 1 Kelvin and a waiting time of 120 s are used.
 </p>
 <p>
 A demonstration on how to switch among these three cooling modes is shown in
-<a href=\"modelica://Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode\">
-Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.DXCooled.Controls.Validation.CoolingMode\">
+Buildings.Applications.DataCenters.DXCooled.Controls.Validation.CoolingMode</a>.
 </p>
 <h5>Supply air temperature control</h5>
 <p>

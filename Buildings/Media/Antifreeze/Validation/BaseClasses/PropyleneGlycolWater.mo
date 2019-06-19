@@ -15,8 +15,8 @@ package PropyleneGlycolWater
     annotation (Documentation(info="<html>
 <p>
 Function that makes
-<a href=\"modelica://Buildings.Media.Antifreeze.density_TX_a\">
-Buildings.Media.Antifreeze.density_TX_a</a>
+<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater.density_TX_a\">
+Buildings.Media.Antifreeze.PropyleneGlycolWater.density_TX_a</a>
 publicly accessible as needed for the validation model
 <a href=\"modelica://Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties\">
 Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties</a>.
@@ -43,8 +43,8 @@ First implementation.
     annotation (Documentation(info="<html>
 <p>
 Function that makes
-<a href=\"modelica://Buildings.Media.Antifreeze.dynamicViscosity_TX_a\">
-Buildings.Media.Antifreeze.dynamicViscosity_TX_a</a>
+<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater.dynamicViscosity_TX_a\">
+Buildings.Media.Antifreeze.PropyleneGlycolWater.dynamicViscosity_TX_a</a>
 publicly accessible as needed for the validation model
 <a href=\"modelica://Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties\">
 Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties</a>.
@@ -71,8 +71,8 @@ First implementation.
     annotation (Documentation(info="<html>
 <p>
 Function that makes
-<a href=\"modelica://Buildings.Media.Antifreeze.fusionTemperature_TX_a\">
-Buildings.Media.Antifreeze.fusionTemperature_TX_a</a>
+<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater.fusionTemperature_TX_a\">
+Buildings.Media.Antifreeze.PropyleneGlycolWater.fusionTemperature_TX_a</a>
 publicly accessible as needed for the validation model
 <a href=\"modelica://Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties\">
 Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties</a>.
@@ -99,8 +99,8 @@ First implementation.
     annotation (Documentation(info="<html>
 <p>
 Function that makes
-<a href=\"modelica://Buildings.Media.Antifreeze.specificHeatCapacityCp_TX_a\">
-Buildings.Media.Antifreeze.specificHeatCapacityCp_TX_a</a>
+<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater.specificHeatCapacityCp_TX_a\">
+Buildings.Media.Antifreeze.PropyleneGlycolWater.specificHeatCapacityCp_TX_a</a>
 publicly accessible as needed for the validation model
 <a href=\"modelica://Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties\">
 Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties</a>.
@@ -127,8 +127,8 @@ First implementation.
     annotation (Documentation(info="<html>
 <p>
 Function that makes
-<a href=\"modelica://Buildings.Media.Antifreeze.thermalConductivity_TX_a\">
-Buildings.Media.Antifreeze.thermalConductivity_TX_a</a>
+<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater.thermalConductivity_TX_a\">
+Buildings.Media.Antifreeze.PropyleneGlycolWater.thermalConductivity_TX_a</a>
 publicly accessible as needed for the validation model
 <a href=\"modelica://Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties\">
 Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties</a>.

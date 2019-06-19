@@ -6,7 +6,7 @@ model CoolingAndHeating
 
   package MediumW = Buildings.Media.Water "Medium model for water";
 
-  Buildings.Fluid.Sources.FixedBoundary sin_1(
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink chilled water"
     annotation (Placement(transformation(extent={{100,90},{80,110}})));
@@ -17,7 +17,7 @@ model CoolingAndHeating
     nPorts=1,
     T=285.85) "Source air"
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
-  Buildings.Fluid.Sources.FixedBoundary bou(
+  Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = MediumA,
     nPorts=1) "Sink air"
     annotation (Placement(transformation(extent={{100,-110},{80,-90}})));
@@ -59,7 +59,7 @@ model CoolingAndHeating
     nPorts=1,
     T=320.95) "Source hot water"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Fluid.Sources.FixedBoundary sin_2(
+  Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink hot water"
     annotation (Placement(transformation(extent={{100,50},{80,70}})));
@@ -153,6 +153,11 @@ for both heating and cooling mode. An air volume is maintained at a temperature 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 June 25, 2016, by Michael Wetter:<br/>
 Changed medium start temperature to avoid conflicting

@@ -123,7 +123,7 @@ model MixedAir
     "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
-  Fluid.Sources.FixedBoundary boundary(
+  Buildings.Fluid.Sources.Boundary_pT boundary(
     nPorts=1,
     redeclare package Medium = MediumA,
     T=T_start) "Boundary condition"
@@ -149,7 +149,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{22,50},{22,48},{44,48}},
+      points={{1,50},{22,50},{22,48},{44.4,48}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -175,7 +175,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(roo.uSha, replicator.y) annotation (Line(
-      points={{44,56},{40,56},{40,100},{31,100}},
+      points={{44.4,58},{40,58},{40,100},{31,100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.ports[1], boundary.ports[1]) annotation (Line(

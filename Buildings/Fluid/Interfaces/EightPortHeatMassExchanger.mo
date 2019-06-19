@@ -379,7 +379,7 @@ equation
 <p>This component transports four fluid streams between eight ports. It provides the basic model for implementing a dynamic heat exchanger. </p>
 <p>The model can be used as-is, although there will be no heat or mass transfer between the four fluid streams. To add heat transfer, heat flow can be added to the heat port of the four volumes.</p>
 <h4>Implementation</h4>
-<p>The variable names follow the conventions used in <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">Modelica.Fluid.HeatExchangers.BasicHX</a>. </p>
+<p>The variable names follow the conventions used in <a href=\"modelica://Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX\">Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>. </p>
 </html>", revisions="<html>
 <ul>
 <li>July 18, 2018, by Massimo Cimmino:
