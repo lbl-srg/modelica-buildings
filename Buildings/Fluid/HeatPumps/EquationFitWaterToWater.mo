@@ -23,230 +23,134 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
       V=m1_flow_nominal*tau1/rho1_nominal,
     final prescribedHeatFlowRate=true));
 
-   parameter Data.EquationFitWaterToWater.Generic_EquationFit per
+  parameter Data.EquationFitWaterToWater.Generic_EquationFit per
     "Performance data" annotation (choicesAllMatching = true,
-                Placement(transformation(extent={{40,80},{60,100}})));
-   parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
+                Placement(transformation(extent={{118,80},{138,100}})));
+  parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
    "Heating load nominal capacity_Heating mode";
-   parameter Modelica.SIunits.MassFlowRate   mCon_flow_nominal= per.mCon_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate   mCon_flow_nominal= per.mCon_flow_nominal
    "Heating mode Condenser mass flow rate nominal capacity";
-   parameter Modelica.SIunits.MassFlowRate   mEva_flow_nominal=per.mEva_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate   mEva_flow_nominal=per.mEva_flow_nominal
    "Heating mode Evaporator mass flow rate nominal capacity";
-   parameter Modelica.SIunits.HeatFlowRate   Q_flow_small = QCon_heatflow_nominal*1E-9
+  parameter Modelica.SIunits.HeatFlowRate   Q_flow_small = QCon_heatflow_nominal*1E-9
      "Small value for heat flow rate or power, used to avoid division by zero";
 
-  Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod equFit(per=per)
-    "EquationFit method which describes the water to water heat pump"
-    annotation (Placement(transformation(extent={{-82,-12},{-58,14}})));
-  Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
-<<<<<<< HEAD
+   Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod equFit(per=per)
+    "EquationFit method which describes the water to water heat pump" annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+   Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
     "Set point for leaving chilled water temperature" annotation (Placement(
         transformation(extent={{-182,-110},{-142,-70}}), iconTransformation(
-          extent={{-182,-110},{-142,-70}})));
-  Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
+          extent={{-128,-104},{-100,-76}})));
+   Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
     "Set point for leaving heating water temperature" annotation (Placement(
         transformation(extent={{-180,70},{-140,110}}), iconTransformation(
-          extent={{-180,70},{-140,110}})));
-  Modelica.Blocks.Interfaces.IntegerInput uMod "Heating mode= 1, Off=0, Cooling mode=-1"
-    annotation (Placement(transformation(extent={{-180,-18},{-140,22}})));
-=======
-    "Set point for leaving chilled water temperature"
-   annotation (Placement(
-        transformation(extent={{-140,-110},{-100,-70}}), iconTransformation(
-          extent={{-140,-110},{-100,-70}})));
-  Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
-    "Set point for leaving heating water temperature"
-   annotation (Placement(
-        transformation(extent={{-140,70},{-100,110}}), iconTransformation(
-          extent={{-140,70},{-100,110}})));
-  Modelica.Blocks.Interfaces.IntegerInput uMod "Heating mode= 1, Off=0, Cooling mode=-1"
-   annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Modelica.SIunits.Efficiency HLR
-    "Heating load ratio";
-  Modelica.SIunits.Efficiency CLR
-    "Cooling load ratio";
-  Modelica.SIunits.Efficiency P_HD
-    "Power Ratio in heating dominanat mode";
-  Modelica.SIunits.Efficiency P_CD
-    "Power Ratio in cooling dominant mode";
-  Modelica.SIunits.HeatFlowRate  QCon_flow
-  "Condenser heatflow input";
-  Modelica.SIunits.HeatFlowRate  QEva_flow
-  "Evaporator heatflow input";
-  Modelica.SIunits.Temperature   TEvaLvg
-  "Evaporator leaving water temperature";
-  Modelica.SIunits.Temperature   TEvaEnt
-  "Evaporator entering water temperature";
-  Modelica.SIunits.Temperature   TConLvg
-  "Condenser leaving water temperature";
-  Modelica.SIunits.Temperature   TConEnt
-  "Condenser entering water temperature";
-  Modelica.SIunits.Power         P
-  "HeatPump Compressor Power";
-  Modelica.SIunits.HeatFlowRate QCon_flow_ava
-  "Heating capacity available at the condender";
-  Modelica.SIunits.HeatFlowRate QEva_flow_ava
-  "Cooling capacity available at the Evaporator";
-  Modelica.SIunits.SpecificEnthalpy hSet_Con
-  "Enthalpy setpoint for heating water";
-  Modelica.SIunits.SpecificEnthalpy hSet_Eva
-  "Enthalpy setpoint for cooling water";
-  Modelica.SIunits.SpecificEnthalpy hCon
-  "Enthalpy value for heating water";
-  Modelica.SIunits.SpecificEnthalpy hEva
-  "Enthalpy value for cooling water";
-  Modelica.SIunits.HeatFlowRate QCon_flow_set
-  "Heating capacity required to heat to set point temperature";
-  Modelica.SIunits.HeatFlowRate QEva_flow_set
-  "Cooling capacity required to cool to set point temperature";
-
-  final parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
-  "Heating load nominal capacity_Heating mode";
-  final parameter Modelica.SIunits.HeatFlowRate   QEva_heatflow_nominal=per.QEva_heatflow_nominal
-  "Cooling load nominal capacity_Cooling mode";
-  final parameter Modelica.SIunits.VolumeFlowRate VCon_flow_nominal=per.VCon_nominal
-  "Heating mode Condenser volume flow rate nominal capacity";
-  final parameter Modelica.SIunits.MassFlowRate   mCon_flow_nominal= per.mCon_flow_nominal
-  "Heating mode Condenser mass flow rate nominal capacity";
-  final parameter Modelica.SIunits.VolumeFlowRate VEva_flow_nominal=per.VEva_nominal
-  "Heating mode Condenser volume flow rate nominal capacity";
-  final parameter Modelica.SIunits.MassFlowRate   mEva_flow_nominal=per.mEva_flow_nominal
-  "Heating mode Evaporator mass flow rate nominal capacity";
-  final parameter Modelica.SIunits.Power          PCon_nominal_HD= per.PCon_nominal_HD
-  "Heating mode Compressor Power nominal capacity";
-  final parameter Modelica.SIunits.Power          PEva_nominal_CD = per.PEva_nominal_CD
-  "Heating mode Compressor Power nominal capacity";
-  final parameter Modelica.SIunits.Temperature    TRef= per.TRef;
-  final parameter Modelica.SIunits.HeatFlowRate   Q_flow_small = QCon_heatflow_nominal*1E-9
-    "Small value for heat flow rate or power, used to avoid division by zero";
-
-  parameter
-    Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater.Generic_EquationFit
-    per annotation (choicesAllMatching=true, Placement(transformation(extent={{
-            48,12},{80,44}})));
-
-protected
-  Modelica.Blocks.Sources.RealExpression QCon_flow_in( final y=QCon_flow)
-  "Condenser heat flow rate"
-    annotation (Placement(transformation(extent={{-82,36},{-62,56}})));
-
-  Modelica.Blocks.Sources.RealExpression QEva_flow_in( final y=QEva_flow)
-  "Evaorator heat flow rate"
-    annotation (Placement(transformation(extent={{-82,-50},{-62,-30}})));
-
->>>>>>> issue1379_DOE2HP
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
-  "Prescribed heat flow rate" annotation (Placement(transformation(extent={{-37,20},{-17,40}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
-  "Prescribed heat flow rate"  annotation (Placement(transformation(extent={{-37,-30},{-17,-10}})));
-
-  Modelica.Blocks.Sources.RealExpression hSet_Con(
+          extent={{-128,76},{-100,104}})));
+   Modelica.Blocks.Interfaces.IntegerInput uMod
+    "Heating mode= 1, Off=0, Cooling mode=-1" annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
+        iconTransformation(extent={{-128,-14},{-100,14}})));
+   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
+    "Prescribed heat flow rate" annotation (Placement(transformation(extent={{-37,20},{-17,40}})));
+   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
+    "Prescribed heat flow rate"  annotation (Placement(transformation(extent={{-37,-30},{-17,-10}})));
+   Modelica.Blocks.Sources.RealExpression hSet_Con(
           final y=Medium1.specificEnthalpy_pTX( p=port_b1.p,
                                                 T=TConSet,
                                                 X=cat(1,port_b1.Xi_outflow,
                                                 {1 - sum(port_b1.Xi_outflow)})))
- "Heating water setpoint enthalpy" annotation (Placement(transformation(extent={{-134,58},
+   "Heating water setpoint enthalpy" annotation (Placement(transformation(extent={{-134,58},
             {-114,78}})));
-  Modelica.Blocks.Sources.RealExpression hSet_Eva(
+   Modelica.Blocks.Sources.RealExpression hSet_Eva(
           final y=Medium2.specificEnthalpy_pTX( p=port_b2.p,
                                                 T=TEvaSet,
                                                 X=cat(1,port_b2.Xi_outflow,
                                                 {1 - sum(port_b2.Xi_outflow)})))
- "Cooled water setpoint enthalpy" annotation (Placement(transformation(extent={{-134,
+   "Cooled water setpoint enthalpy" annotation (Placement(transformation(extent={{-134,
             -80},{-114,-60}})));
-
-  Modelica.Blocks.Sources.RealExpression QCon_flow_Set(
+   Modelica.Blocks.Sources.RealExpression QCon_flow_Set(
           final y=Buildings.Utilities.Math.Functions.smoothMax(
                   x1=mCon_flow.y*(hSet_Con.y - inStream(port_a1.h_outflow)),
                   x2=Q_flow_small,
-                  deltaX=Q_flow_small/10)) "Setpoint heat flow rate of the condenser" annotation (Placement(transformation(extent={{-134,-2},{-114,18}})));
-
-
-  Modelica.Blocks.Sources.RealExpression QEva_flow_Set(
+                  deltaX=Q_flow_small/10))
+   "Setpoint heat flow rate of the condenser" annotation (Placement(transformation(extent={{-134,-2},{-114,18}})));
+   Modelica.Blocks.Sources.RealExpression QEva_flow_Set(
          final y=Buildings.Utilities.Math.Functions.smoothMin(
                    x1=mEva_flow.y*(hSet_Eva.y - inStream(port_a2.h_outflow)),
                    x2=-Q_flow_small,
                    deltaX=Q_flow_small/100))
-                                            "Setpoint heat flow rate of the evaporator " annotation (Placement(transformation(extent={{-134,
-            -18},{-114,2}})));
-  Modelica.Blocks.Sources.RealExpression TConEnt(y=Medium1.temperature(
+   "Setpoint heat flow rate of the evaporator" annotation (Placement(transformation(extent={{-134,
+            -20},{-114,0}})));
+   Modelica.Blocks.Sources.RealExpression TConEnt(y=Medium1.temperature(
                                                    Medium1.setState_phX(port_a1.p,
                                                    inStream(port_a1.h_outflow))))
-    "Condenser entering water temperature"
-    annotation (Placement(transformation(extent={{-134,28},{-114,48}})));
-  Modelica.Blocks.Sources.RealExpression TConLvg(y=vol1.heatPort.T)
-    "Condenser leaving water temperature" annotation (Placement(transformation(extent={{-134,44},{-114,64}})));
-  Modelica.Blocks.Sources.RealExpression TEvaEnt(y=Medium2.temperature(
+   "Condenser entering water temperature" annotation (Placement(transformation(extent={{-134,28},{-114,48}})));
+   Modelica.Blocks.Sources.RealExpression TEvaEnt(y=Medium2.temperature(
                                                    Medium2.setState_phX(port_a2.p,
                                                    inStream(port_a2.h_outflow))))
     "Evaporator entering water temperature" annotation (Placement(transformation(extent={{-134,-64},{-114,-44}})));
-  Modelica.Blocks.Sources.RealExpression TEvaLvg(y=vol2.heatPort.T)
-    "Evaporator leaving water temperature"  annotation (Placement(transformation(extent={{-134,-50},{-114,-30}})));
-  Modelica.Blocks.Sources.RealExpression mCon_flow(y=vol1.ports[1].m_flow)
+   Modelica.Blocks.Sources.RealExpression TConLvg(y=vol1.heatPort.T)
+    "Condenser leaving water temperature" annotation (Placement(transformation(extent={{-134,44},{-114,64}})));
+   Modelica.Blocks.Sources.RealExpression TEvaLvg(y=vol2.heatPort.T)
+    "Evaporator leaving water temperature" annotation (Placement(transformation(extent={{-134,-50},{-114,-30}})));
+   Modelica.Blocks.Sources.RealExpression mCon_flow(y=vol1.ports[1].m_flow)
     "Condenser water mass flow rate" annotation (Placement(transformation(extent={{-134,14},{-114,34}})));
-  Modelica.Blocks.Sources.RealExpression mEva_flow(y=vol2.ports[1].m_flow)
+   Modelica.Blocks.Sources.RealExpression mEva_flow(y=vol2.ports[1].m_flow)
     "Evaporator mass flow rate"     annotation (Placement(transformation(extent={{-134,-36},{-114,-16}})));
-  Modelica.Blocks.Interfaces.RealOutput P "Compressor Power "
-   annotation (Placement(transformation(extent={{142,10},{162,30}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow "Evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{142,-42},{162,-22}})));
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow "Condenser heat flow rate"
-    annotation (Placement(transformation(extent={{142,-14},{162,6}})));
-
+   Modelica.Blocks.Interfaces.RealOutput P "Compressor Power " annotation (Placement(transformation(extent={{140,-10},{160,10}}),
+        iconTransformation(extent={{100,-12},{120,8}})));
+   Modelica.Blocks.Interfaces.RealOutput QEva_flow "Evaporator heat flow rate" annotation (Placement(transformation(extent={{140,-30},{160,-10}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
+   Modelica.Blocks.Interfaces.RealOutput QCon_flow "Condenser heat flow rate"  annotation (Placement(transformation(extent={{140,10},{160,30}}),
+        iconTransformation(extent={{100,78},{120,98}})));
 
 equation
-
   connect(preHeaFloCon.port,vol1.heatPort)
   annotation (Line(points={{-17,30},{-16,30},{-16,60},{-10,60}}, color={191,0,0}));
   connect(preHeaFloEva.port, vol2.heatPort)
   annotation (Line(points={{-17,-20},{
           20,-20},{20,-60},{12,-60}},color={191,0,0}));
   connect(uMod, equFit.uMod)
-  annotation (Line(points={{-160,2},{-96,2},{-96,0.87},
-          {-83.08,0.87}},color={255,127,0}));
+  annotation (Line(points={{-160,0},{-96,0},{-96,-0.1},{-80.9,-0.1}},
+                         color={255,127,0}));
   connect(TConSet, equFit.TConSet)
-  annotation (Line(points={{-160,90},{-88,
-          90},{-88,14},{-83.2,14}}, color={0,0,111}));
+  annotation (Line(points={{-160,90},{-88,90},{-88,10},{-81,10}},
+                                    color={0,0,111}));
   connect(TEvaSet, equFit.TEvaSet)
-  annotation (Line(points={{-162,-90},{-88,-90},
-          {-88,-11.87},{-83.08,-11.87}},color={0,0,127}));
+  annotation (Line(points={{-162,-90},{-88,-90},{-88,-9.9},{-80.9,-9.9}},
+                                        color={0,0,127}));
   connect(equFit.QEva_flow, preHeaFloEva.Q_flow)
-  annotation (Line(points={{-56.8,
-          -3.94},{-42,-3.94},{-42,-20},{-37,-20}},       color={0,0,127}));
+  annotation (Line(points={{-59,-4},{-42,-4},{-42,-20},{-37,-20}},
+                                                         color={0,0,127}));
   connect(equFit.QEva_flow, QEva_flow)
-  annotation (Line(points={{-56.8,-3.94},{128,
-          -3.94},{128,-32},{152,-32}},      color={0,0,127}));
+  annotation (Line(points={{-59,-4},{132,-4},{132,-20},{150,-20}},
+                                            color={0,0,127}));
   connect(QCon_flow_Set.y, equFit.QCon_flow_Set)
-  annotation (Line(points={{-113,8},{-106,8},{-106,3.6},{-83.2,3.6}},color={0,0,127},pattern=LinePattern.Dash));
+  annotation (Line(points={{-113,8},{-106,8},{-106,2},{-81,2}},      color={0,0,127},pattern=LinePattern.Dash));
   connect(QEva_flow_Set.y, equFit.QEva_flow_Set)
-  annotation (Line(points={{-113,-8},{-106,-8},{-106,-1.73},{-83.08,-1.73}},color={0,0,127},pattern=LinePattern.Dash));
-  connect(equFit.QCon_flow, QCon_flow)
-  annotation (Line(points={{-56.8,1},{132,1},
-          {132,-4},{152,-4}},         color={0,0,127}));
+  annotation (Line(points={{-113,-10},{-106,-10},{-106,-2.1},{-80.9,-2.1}}, color={0,0,127},pattern=LinePattern.Dash));
   connect(equFit.QCon_flow, preHeaFloCon.Q_flow)
-  annotation (Line(points={{-56.8,1},{-42,1},{-42,30},{-37,30}},color={0,0,127}));
+  annotation (Line(points={{-59,4},{-42,4},{-42,30},{-37,30}},  color={0,0,127}));
   connect(TEvaEnt.y, equFit.TEvaEnt)
-  annotation (Line(points={{-113,-54},{-98,-54},
-          {-98,-9.27},{-83.08,-9.27}},color={0,0,127}));
+  annotation (Line(points={{-113,-54},{-98,-54},{-98,-7.9},{-80.9,-7.9}},
+                                      color={0,0,127}));
   connect(TEvaLvg.y, equFit.TEvaLvg)
-  annotation (Line(points={{-113,-40},{
-          -102,-40},{-102,-6.93},{-83.08,-6.93}},color={0,0,127}));
+  annotation (Line(points={{-113,-40},{-102,-40},{-102,-6.1},{-80.9,-6.1}},
+                                                 color={0,0,127}));
   connect(TConEnt.y, equFit.TConEnt)
-  annotation (Line(points={{-113,38},{
-          -102,38},{-102,8.8},{-83.2,8.8}},color={0,0,127}));
+  annotation (Line(points={{-113,38},{-102,38},{-102,6},{-81,6}},
+                                           color={0,0,127}));
   connect(TConLvg.y, equFit.TConLvg)
-  annotation (Line(points={{-113,54},{
-          -96,54},{-96,12},{-83.2,12},{-83.2,11.4}},color={0,0,127}));
+  annotation (Line(points={{-113,54},{-96,54},{-96,8},{-81,8}},
+                                                    color={0,0,127}));
   connect(mEva_flow.y,equFit.m2_flow)
-  annotation (Line(points={{-113,-26},
-          {-104,-26},{-104,-4.07},{-83.08,-4.07}}, color={0,0,127}));
+  annotation (Line(points={{-113,-26},{-104,-26},{-104,-3.9},{-80.9,-3.9}},
+                                                   color={0,0,127}));
   connect(mCon_flow.y,equFit.m1_flow)
-  annotation (Line(points={{-113,24},
-          {-104,24},{-104,6.2},{-83.2,6.2}},  color={0,0,127}));
+  annotation (Line(points={{-113,24},{-104,24},{-104,4},{-81,4}},
+                                              color={0,0,127}));
   connect(equFit.P, P)
-  annotation (Line(points={{-56.8,6.2},{132,6.2},{132,
-          20},{152,20}},          color={0,0,127}));
+  annotation (Line(points={{-59,0},{150,0}}, color={0,0,127}));
+  connect(equFit.QCon_flow, QCon_flow) annotation (Line(points={{-59,4},{132,4},
+          {132,20},{150,20}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
         Rectangle(
@@ -326,97 +230,56 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(points={{0,-70},{0,-90},{-100,-90}},color={0,0,255}),
-        Line(points={{0,68},{0,90},{-100,90}},   color={0,0,255})}),
+        Line(points={{0,68},{0,90},{-100,90}},   color={0,0,255}),
+        Line(points={{112,-6}}, color={28,108,200}),
+        Line(points={{2,68},{2,90},{100,90},{102,86}}, color={28,108,200}),
+        Line(points={{64,0},{108,0}}, color={28,108,200}),
+        Line(points={{2,-90}}, color={28,108,200}),
+        Line(points={{2,-70},{2,-90},{106,-90}}, color={28,108,200})}),
     defaultComponentName="heaPum",
     Documentation(info="<html>
 <p>
     Model for a water to water heat pump using the equation fit model as described
-in the EnergyPlus HeatPump: Waterto Water equationfit model and based on (J.Hui 2002, S.Arun. 2004 and C.Tang 2004).
+    in the EnergyPlus reference: Water to Water equation fit model and based on (J.Hui 2002, S.Arun. 2004 and C.Tang 2004).
 </p>
 <p>
-The model uses four non-dimensional equations or curves to predict the heat pump performance in either cooling or heating modes.
+The model uses four non-dimensional equations or curves stated in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod\">
+Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod</a> to predict the heat pump performance in either cooling or heating modes.
 The methodology involved using the generalized least square method to create a set of performance
 coefficients (A1 to A10) and (B1 to B10) from the catalog data at indicated reference conditions. These respective coefficients
 and indicated reference conditions are used in the model to simulate the heat pump performance.
 The variables include load side inlet temperature, source side inlet temperature,
-load side water flow rate and source side water flow rate. Source and load are identified based on the thermal dominated mode,
-for ex. in case of heating dominated mode, the source is the evaporator and load is the condenser.
+load side water flow rate and source side water flow rate. Source and load sides are identified based on the control integer signal uMod,
+for ex. in case of uMod=+1, the source side is the evaporator and the load side is the condenser.In case of uMod=-1, the source side is the condenser and the load side is the evaporator.
 </p>
 
 <p>
-The heating and cooling coefficients are stored in the data record per and are available from <a href=\"Buildings.Fluid.HeatPumo.Data.WatertoWaterEquationFit\">
-Buildings.Fluid.HeatPumo.Data.WatertoWaterEquationFit</a>.
-</p>
-
-<h4>Implementation</h4>
-This model uses four functions to predict capacity and power consumption for heating and cooling dominated modes:
-
-<ul>
-<li>
-The heating dominated mode:
-
-<p align=\"left\" style=\"font-style:italic;\">
-(Q&#775;<sub>Con</sub>)/(Q&#775;<sub>Con,nominal</sub>) = A<sub>1</sub>+ A<sub>2</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
-A<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>4</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
-+ A<sub>5</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
-
-<p align=\"left\" style=\"font-style:italic;\">
-(Power<sub>Con</sub>)/(Power<sub>Con,nominal</sub>) = B<sub>1</sub>+ B<sub>2</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
-B<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>4</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
-+ B<sub>5</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
-
-</li>
-</ul>
-
-
-<ul>
-<li>
-The cooling dominated mode:
-
-<p align=\"left\" style=\"font-style:italic;\">
-(Q&#775;<sub>Eva</sub>)/(Q&#775;<sub>Eva,nominal</sub>) = A<sub>6</sub>+ A<sub>7</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
-A<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>9</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
-+ A<sub>10</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
-
-
-<p align=\"left\" style=\"font-style:italic;\">
-(Power<sub>Eva</sub>)/(Power<sub>Eva,nominal</sub>) = B<sub>6</sub>+ B<sub>7</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
-B<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>9</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
-+ B<sub>10</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
-
-
-</li>
-</ul>
-
-
-<p>
-For these four equations, the inlet conditions or variables are divided by the reference conditions.
-This formulation allows the coefficients to fall into smaller range of values. Moreover, the value of the coefficient
-indirectly represents the sensitivity of the output to that particular inlet variable.
-</p>
-<p>
-The model takes as an input the set point for either the leaving water temperature for the
-condenser or the evaporator which is met if the heat pump has sufficient capacity. In addition to the integer input which identifies the heat pump operational mode:
-(+1) for heating dominated mode, (-1) for cooling dominated mode, (0) for shut off the system.
+The heating and cooling coefficients are stored in the data record per and are available from <a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater\">
+Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater</a>.
 </p>
 
 <p>
-In addition, the electric power only includes the power for the compressor, but not any power for pumps or fans.
+The model takes as input signals; the set point for either the leaving water temperature for the
+condenser or the evaporator which is met if the heat pump has sufficient capacity and the integer input uMod which identifies the heat pump operational mode:
+(uMod=+1) for heating mode, (uMod=-1) for cooling mode, (uMod=0) for shut off the system.
 </p>
 
+<p>
+The electric power only includes the power for the compressor, but not any power for pumps or fans.
+</p>
 
 <h4>References</h4>
 <p>
 C.C Tang
  <i>
 Equation fit based models of water source heat pumps.
-  </i>
+</i>
 Master Thesis. Oklahoma State University, Oklahoma, USA. 2005.
 </p>
   </html>", revisions="<html>
 <ul>
 <li>
-May 3, 2019, by Hagar Elarga:<br/>
+June 19, 2019, by Hagar Elarga:<br/>
 First implementation.
 </li>
 </ul>

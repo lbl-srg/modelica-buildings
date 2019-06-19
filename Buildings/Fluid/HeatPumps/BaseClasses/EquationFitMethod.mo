@@ -1,22 +1,24 @@
 within Buildings.Fluid.HeatPumps.BaseClasses;
 block EquationFitMethod
 
-  Modelica.SIunits.Efficiency HLR
-    "Heating load ratio";
-  Modelica.SIunits.Efficiency CLR
-    "Cooling load ratio";
-  Modelica.SIunits.Efficiency P_HD
-    "Power Ratio in heating dominanat mode";
-  Modelica.SIunits.Efficiency P_CD
-    "Power Ratio in cooling dominant mode";
-  Modelica.SIunits.HeatFlowRate QCon_flow_ava
-  "Heating capacity available at the condender";
-  Modelica.SIunits.HeatFlowRate QEva_flow_ava
-  "Cooling capacity available at the Evaporator";
+  extends ModelicaReference.Icons.Package;
+
+    Modelica.SIunits.Efficiency HLR
+      "Heating load ratio";
+    Modelica.SIunits.Efficiency CLR
+      "Cooling load ratio";
+    Modelica.SIunits.Efficiency P_HD
+      "Power Ratio in heating dominanat mode";
+    Modelica.SIunits.Efficiency P_CD
+      "Power Ratio in cooling dominant mode";
+    Modelica.SIunits.HeatFlowRate QCon_flow_ava
+    "Heating capacity available at the condender";
+    Modelica.SIunits.HeatFlowRate QEva_flow_ava
+    "Cooling capacity available at the Evaporator";
 
   parameter Data.EquationFitWaterToWater.Generic_EquationFit per
     "Performance data" annotation (choicesAllMatching = true,
-                Placement(transformation(extent={{40,60},{60,80}})));
+                Placement(transformation(extent={{78,80},{98,100}})));
   parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
   "Heating load nominal capacity_Heating mode";
   parameter Modelica.SIunits.HeatFlowRate   QEva_heatflow_nominal=per.QEva_heatflow_nominal
@@ -33,7 +35,8 @@ block EquationFitMethod
   "Heating mode Compressor Power nominal capacity";
   parameter Modelica.SIunits.Power          PEva_nominal_CD = per.PEva_nominal_CD
   "Heating mode Compressor Power nominal capacity";
-  parameter Modelica.SIunits.Temperature    TRef= per.TRef;
+  parameter Modelica.SIunits.Temperature    TRef= per.TRef
+  "Reference temperature used to normalize the inlet temperature variables";
   parameter Modelica.SIunits.HeatFlowRate   Q_flow_small = QCon_heatflow_nominal*1E-9
   "Small value for heat flow rate or power, used to avoid division by zero";
 
@@ -46,49 +49,41 @@ block EquationFitMethod
         transformation(extent={{-122,88},{-100,110}}), iconTransformation(
           extent={{-120,90},{-100,110}})));
   Modelica.Blocks.Interfaces.IntegerInput uMod
-  "Heating mode= 1, Off=0, Cooling mode=-1"
-   annotation (Placement(transformation(extent={{-124,
+  "Heating mode= 1, Off=0, Cooling mode=-1" annotation (Placement(transformation(extent={{-124,
             -12},{-100,12}}),
         iconTransformation(extent={{-118,-10},{-100,8}})));
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow "Condenser heat flow rate "
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow "Evaporator heat flow rate "
-    annotation (Placement(transformation(extent={{100,-48},{120,-28}})));
-  Modelica.Blocks.Interfaces.RealOutput P "Compressor power"
-    annotation (Placement(transformation(extent={{100,30},{120,50}}), iconTransformation(extent={{100,30},{120,
-            50}})));
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow
+  "Condenser heat flow rate " annotation (Placement(transformation(extent={{100,30},{120,50}}),
+        iconTransformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow
+  "Evaporator heat flow rate " annotation (Placement(transformation(extent={{100,-48},{120,-28}}),
+        iconTransformation(extent={{100,-50},{120,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput P
+  "Compressor power" annotation (Placement(transformation(extent={{100,-10},{120,10}}),iconTransformation(extent={{100,-10},
+            {120,10}})));
   Modelica.Blocks.Interfaces.RealInput TConLvg(final unit="K", displayUnit="degC")
-  "Condenser leaving water temperature"
-    annotation (Placement(transformation(extent={{-122,68},{-100,90}}), iconTransformation(extent={{-120,70},
+  "Condenser leaving water temperature" annotation (Placement(transformation(extent={{-122,68},{-100,90}}), iconTransformation(extent={{-120,70},
             {-100,90}})));
   Modelica.Blocks.Interfaces.RealInput TConEnt(final unit="K", displayUnit="degC")
-  "Condenser entering water temperature"
-    annotation (Placement(transformation(extent={{-124,48},{-100,72}}),iconTransformation(extent={{-120,50},
+  "Condenser entering water temperature" annotation (Placement(transformation(extent={{-124,48},{-100,72}}),iconTransformation(extent={{-120,50},
             {-100,70}})));
   Modelica.Blocks.Interfaces.RealInput TEvaLvg(final unit="K", displayUnit="degC")
-   "Evaporator leaving water temperature"
-    annotation (Placement(transformation(extent={{-124,-72},{-100,-48}}), iconTransformation(extent={{-118,
+   "Evaporator leaving water temperature" annotation (Placement(transformation(extent={{-124,-72},{-100,-48}}), iconTransformation(extent={{-118,
             -70},{-100,-52}})));
   Modelica.Blocks.Interfaces.RealInput TEvaEnt(final unit="K", displayUnit="degC")
-  "Evaporator entering water temperature"
-    annotation (Placement(transformation(extent={{-124,-92},{-100,-68}}), iconTransformation(extent={{-118,
+  "Evaporator entering water temperature" annotation (Placement(transformation(extent={{-124,-92},{-100,-68}}), iconTransformation(extent={{-118,
             -88},{-100,-70}})));
   Modelica.Blocks.Interfaces.RealInput m1_flow(final unit="kg/s")
-  "Volume 1 massflow rate "
-    annotation (Placement(transformation(extent={{-124,8},{-100,32}}),  iconTransformation(extent={{-120,30},
+  "Volume 1 massflow rate " annotation (Placement(transformation(extent={{-124,8},{-100,32}}),  iconTransformation(extent={{-120,30},
             {-100,50}})));
   Modelica.Blocks.Interfaces.RealInput m2_flow(final unit="kg/s")
-  "Volume2 mass flow rate"
-    annotation (Placement(transformation(extent={{-124,-32},{-100,-8}}),  iconTransformation(extent={{-118,
+  "Volume2 mass flow rate" annotation (Placement(transformation(extent={{-124,-32},{-100,-8}}),  iconTransformation(extent={{-118,
             -48},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealInput QCon_flow_Set(final unit="W", displayUnit="W")
-  "Condenser setpoint heat flow rate"
-    annotation (Placement(transformation(extent={{-124,28},{-100,52}}), iconTransformation(extent={{-120,10},
+  "Condenser setpoint heat flow rate" annotation (Placement(transformation(extent={{-124,28},{-100,52}}), iconTransformation(extent={{-120,10},
             {-100,30}})));
   Modelica.Blocks.Interfaces.RealInput QEva_flow_Set(final unit="W", displayUnit="W")
-  "Evaporator setpoint heat flow rate"
-    annotation (Placement(transformation(extent={{-124,-52},{-100,-28}}), iconTransformation(extent={{-118,
+  "Evaporator setpoint heat flow rate" annotation (Placement(transformation(extent={{-124,-52},{-100,-28}}), iconTransformation(extent={{-118,
             -30},{-100,-12}})));
 
 protected
@@ -99,9 +94,9 @@ protected
 
 initial equation
    assert(QCon_heatflow_nominal> 0,
-   "Parameter QCon_heatflow_nominal must be greater than zero.");
+   "Parameter QCon_heatflow_nominal must be larger than zero.");
    assert(QEva_heatflow_nominal< 0,
-   "Parameter QEva_heatflow_nominal must be greater than zero.");
+   "Parameter QEva_heatflow_nominal must be lesser than zero.");
    assert(Q_flow_small > 0,
    "Parameter Q_flow_small must be larger than zero.");
 
@@ -175,18 +170,69 @@ equation
 
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(
-          lineColor={200,200,200},
-          fillColor={248,248,248},
-          fillPattern=FillPattern.HorizontalCylinder,
-          extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0)}),                                        Diagram(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
   defaultComponentName="equFit",
   Documentation(info="<html>
+<p>
+The Block includes the description of the equation fit method dedicated for<a href=\"Buildings.Fluid.HeatPumps.EquationFitWaterToWater\">
+Buildings.Fluid.HeatPumps.EquationFitWaterToWater</a>.
+</p>
 
-The Block includes the mathematical description of the EQUATIONFit method dedicated for<a href=\"Buildings.Fluid.HeatPumps.WatertoWaterEquationFit\">
-Buildings.Fluid.HeatPumo.WatertoWaterEquationFit</a>.
+<h4>Implementation</h4>
+<p>
+The block uses four functions to predict capacity and power consumption for heating mode-uMod=+1 and cooling mode uMod=-1:
+</p>
+<ul>
+<li>
+The heating mode when uMod=+1:
 
+<p align=\"left\" style=\"font-style:italic;\">
+Q&#775;<sub>Con</sub>/Q&#775;<sub>Con,nominal</sub> = A<sub>1</sub>+ A<sub>2</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
+A<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>4</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
++ A<sub>5</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
+
+<p align=\"left\" style=\"font-style:italic;\">
+Power<sub>Con</sub>/Power<sub>Con,nominal</sub>= B<sub>1</sub>+ B<sub>2</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
+B<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>4</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
++ B<sub>5</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
+
+</li>
+</ul>
+
+
+<ul>
+<li>
+The cooling mode when uMod=-1:
+
+<p align=\"left\" style=\"font-style:italic;\">
+Q&#775;<sub>Eva</sub>/Q&#775;<sub>Eva,nominal</sub> = A<sub>6</sub>+ A<sub>7</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
+A<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>9</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
++ A<sub>10</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
+
+
+<p align=\"left\" style=\"font-style:italic;\">
+ Power<sub>Eva</sub>/Power<sub>Eva,nominal</sub> = B<sub>6</sub>+ B<sub>7</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
+B<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>9</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
++ B<sub>10</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
+
+
+</li>
+</ul>
+
+
+<p>
+For these four equations, the inlet conditions or variables are divided by the reference conditions.
+This formulation allows the coefficients to fall into smaller range of values. Moreover, the value of the coefficient
+indirectly represents the sensitivity of the output to that particular inlet variable.
+</p>
+
+</html>",
+revisions="<html>
+<ul>
+<li>
+June 19, 2019, by Hagar Elarga:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end EquationFitMethod;
