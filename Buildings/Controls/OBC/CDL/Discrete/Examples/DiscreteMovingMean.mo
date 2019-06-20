@@ -11,8 +11,7 @@ model DiscreteMovingMean "Validation model for the DiscreteMovingMean block"
     startTime=-0.5) "Discrete moving mean of the sampled input signal"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
-  connect(sin.y, disMovMea.u)
-    annotation (Line(points={{-39,10},{-2,10}}, color={0,0,127}));
+  connect(sin.y, disMovMea.u)  annotation (Line(points={{-39,10},{-2,10}}, color={0,0,127}));
   annotation (
   experiment(StartTime = -0.5, StopTime=15.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Examples/DiscreteMovingMean.mos"

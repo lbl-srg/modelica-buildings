@@ -3,12 +3,14 @@ block DiscreteMovingMean "Discrete moving mean of a sampled input signal"
   parameter Integer nSam(min=2) "Number of samples to be averaged";
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
       "Sampling period of component";
-  parameter Real y_start=0 "Initial value of output signal";
-  parameter Modelica.SIunits.Time startTime = 0 "Simulation start time";
+  parameter Real y_start = 0
+      "Initial value for the first nSam-1 samples";
+  parameter Modelica.SIunits.Time startTime = 0
+      "Simulation start time, can be negative";
 
   Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y "Averaged discrete signal"
+  Interfaces.RealOutput y "Discrete averaged signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Sampler sampler(samplePeriod=samplePeriod) "Sampled input signal as a reference"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
@@ -88,7 +90,7 @@ sample.
 </p>
 <p>
 During initialization, the initial value given by the user is the value for the 
-past n-1 samples.
+initial n-1 samples.
 </p>
 </html>",
 revisions="<html>
