@@ -40,7 +40,7 @@ model Exchange "Test model for exchange function"
   Real    yR1_2[1] "Real function value";
  // Real    yR1_3[1] "Real function value";
 //  Integer yI1_1[1] "Integer function value";
-//  Real    yR2_1[2] "Real function value";
+  Real    yR2_1[2] "Real function value";
 //  Integer yI2[2] "Integer function value";
 equation
   yR1_1 =  Buildings.Utilities.IO.Python27.Functions.exchange(
@@ -73,22 +73,22 @@ equation
       strWri={""});
     assert(abs(6-yR1_2[1]) < 1e-5, "Error in function r2_r1");
 
- // yR2_1 =  Buildings.Utilities.IO.Python27.Functions.exchange(
- //     moduleName="testFunctions",
- //     functionName="r1_r2",
- //     pytObj=pytObj3,
- //     passPythonObject=passPythonObject,
- //     dblWri={2.0},
- //     intWri={0},
- //     nDblWri=1,
- //     nDblRea=2,
- //     nIntWri=0,
- //     nIntRea=0,
- //     nStrWri=0,
- //     strWri={""});
- // assert(abs(yR2_1[1]-2) + abs(yR2_1[2]-4) < 1E-5, "Error in function r1_r2");
-  /* If the function below is uncommented, the model fails to translate in JModelica
-
+  yR2_1 =  Buildings.Utilities.IO.Python27.Functions.exchange(
+      moduleName="testFunctions",
+      functionName="r1_r2",
+      pytObj=pytObj3,
+      passPythonObject=passPythonObject,
+      dblWri={2.0},
+      intWri={0},
+      nDblWri=1,
+      nDblRea=2,
+      nIntWri=0,
+      nIntRea=0,
+      nStrWri=0,
+      strWri={""});
+  assert(abs(yR2_1[1]-2) + abs(yR2_1[2]-4) < 1E-5, "Error in function r1_r2");
+  // If the function below is uncommented, the model fails to translate in JModelica
+/*
 
   // In the call below, yR1 is a dummy variable, as exchange returns (Real[1], Integer[1])
   (yR1_3, yI1_1) =  Buildings.Utilities.IO.Python27.Functions.exchange(
