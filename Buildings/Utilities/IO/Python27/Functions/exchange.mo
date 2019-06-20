@@ -31,12 +31,13 @@ protected
   Boolean havePytPat "true if PYTHONPATH is already set by the user";
   String filNam = "modelica://Buildings/legal.html"
     "Name to a file of the Buildings library";
+  String buiLibFil "Absolute path to filNam";
   String searchString = "legal.html" "String to be replaced";
 algorithm
  // Get the directory to Buildings/Resources/Python-Sources
- pytPatBuildings := Modelica.Utilities.Files.loadResource(uri=filNam);
+ buiLibFil := Modelica.Utilities.Files.loadResource(uri=filNam);
  pytPatBuildings := Modelica.Utilities.Strings.replace(
-   string=pytPatBuildings,
+   string=buiLibFil,
    searchString=searchString,
    replaceString="Resources/Python-Sources");
 
