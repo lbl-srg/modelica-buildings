@@ -5,8 +5,11 @@ model Exchange "Test model for exchange function"
   parameter Boolean passPythonObject = false
     "Set to true if the Python function returns and receives an object, see User's Guide";
 
-  Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject pytObj[2]=
-    {Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject() for i in 1:2}
+  Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject pytObj1=
+    Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject()
+    "Pointer to Python object";
+  Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject pytObj2=
+    Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject()
     "Pointer to Python object";
 
   Real    yR1_1[1] "Real function value";
@@ -19,7 +22,7 @@ equation
   yR1_1 =  Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1_r1",
-      pytObj=pytObj[1],
+      pytObj=pytObj1,
       passPythonObject=passPythonObject,
       dblWri={2.0},
       intWri={0},
@@ -34,7 +37,7 @@ equation
     yR1_2 =  Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r2_r1",
-      pytObj=pytObj[2],
+      pytObj=pytObj2,
       passPythonObject=passPythonObject,
       dblWri={2.0, 3.0},
       intWri={0},
