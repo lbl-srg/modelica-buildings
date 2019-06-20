@@ -5,8 +5,8 @@ model Exchange "Test model for exchange function"
   parameter Boolean passPythonObject = false
     "Set to true if the Python function returns and receives an object, see User's Guide";
 
-  Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject pytObj[3]=
-    {Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject() for i in 1:3}
+  Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject pytObj[2]=
+    {Buildings.Utilities.IO.Python27.Functions.BaseClasses.PythonObject() for i in 1:2}
     "Pointer to Python object";
 
   Real    yR1_1[1] "Real function value";
