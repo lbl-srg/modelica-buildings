@@ -1,14 +1,20 @@
 within Buildings.Controls.OBC.CDL.Discrete.Examples;
-model DiscreteMovingMean
-  Continuous.Sources.Sine sin(freqHz=1/8, phase=0.5235987755983)
+model DiscreteMovingMean "Validation model for the DiscreteMovingMean block"
+  Continuous.Sources.Sine sin(freqHz=1/8,
+    phase=0.5235987755983,
+    startTime=-0.5) "Example input signal"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.DiscreteMovingMean disMovMea
+  Buildings.Controls.OBC.CDL.Discrete.DiscreteMovingMean disMovMea(
+    nSam=3,
+    samplePeriod=1,
+    y_start=2,
+    startTime=-0.5) "Discrete moving mean of the sampled input signal"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(sin.y, disMovMea.u)
     annotation (Line(points={{-39,10},{-2,10}}, color={0,0,127}));
   annotation (
-  experiment(StopTime=15.0, Tolerance=1e-06),
+  experiment(StartTime = -0.5, StopTime=15.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Examples/DiscreteMovingMean.mos"
         "Simulate and plot"),
     Documentation(
