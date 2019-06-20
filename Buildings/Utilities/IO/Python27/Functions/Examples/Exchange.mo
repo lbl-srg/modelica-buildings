@@ -38,8 +38,8 @@ model Exchange "Test model for exchange function"
 
   Real    yR1_1[1] "Real function value";
   Real    yR1_2[1] "Real function value";
- // Real    yR1_3[1] "Real function value";
-//  Integer yI1_1[1] "Integer function value";
+  Real    yR1_3[1] "Real function value";
+  Integer yI1_1[1] "Integer function value";
   Real    yR2_1[2] "Real function value";
 //  Integer yI2[2] "Integer function value";
 equation
@@ -88,7 +88,7 @@ equation
       strWri={""});
   assert(abs(yR2_1[1]-2) + abs(yR2_1[2]-4) < 1E-5, "Error in function r1_r2");
   // If the function below is uncommented, the model fails to translate in JModelica
-/*
+
 
   // In the call below, yR1 is a dummy variable, as exchange returns (Real[1], Integer[1])
   (yR1_3, yI1_1) =  Buildings.Utilities.IO.Python27.Functions.exchange(
@@ -105,7 +105,7 @@ equation
       nStrWri=0,
       strWri={""});
   assert((6-yI1_1[1]) < 1e-5, "Error in function i1_i1");
-
+/*
   // In the call below, yR1 is a dummy variable, as exchange returns (Real[1], Integer[2])
   (yR1, yI2) := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
