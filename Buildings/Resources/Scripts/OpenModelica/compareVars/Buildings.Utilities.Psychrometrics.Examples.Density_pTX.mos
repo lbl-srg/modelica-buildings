@@ -1,5 +1,4 @@
 compareVars :=
   {
-    "den.d",
     "den.d"
   };
