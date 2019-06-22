@@ -36,7 +36,8 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
      "Small value for heat flow rate or power, used to avoid division by zero";
 
    Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod equFit(per=per)
-    "EquationFit method which describes the water to water heat pump" annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    "EquationFit method which describes the water to water heat pump performance"
+                                                                      annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
    Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
     "Set point for leaving chilled water temperature" annotation (Placement(
         transformation(extent={{-182,-110},{-142,-70}}), iconTransformation(
@@ -49,9 +50,11 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
     "Heating mode= 1, Off=0, Cooling mode=-1" annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
         iconTransformation(extent={{-128,-14},{-100,14}})));
    HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
-    "Prescribed heat flow rate" annotation (Placement(transformation(extent={{-37,20},{-17,40}})));
+    "Prescribed condenser heat flow rate"
+                                annotation (Placement(transformation(extent={{-37,20},{-17,40}})));
    HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
-    "Prescribed heat flow rate"  annotation (Placement(transformation(extent={{-37,-30},{-17,-10}})));
+    "Prescribed evaporator heat flow rate"
+                                 annotation (Placement(transformation(extent={{-37,-30},{-17,-10}})));
    Modelica.Blocks.Sources.RealExpression hSet_Con(
           final y=Medium1.specificEnthalpy_pTX( p=port_b1.p,
                                                 T=TConSet,
@@ -246,7 +249,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
 The model uses four non-dimensional equations or curves stated in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod\">
 Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod</a> to predict the heat pump performance in either cooling or heating modes.
 The methodology involved using the generalized least square method to create a set of performance
-coefficients (A1 to A10) and (B1 to B10) from the catalog data at indicated reference conditions. These respective coefficients
+coefficients A1 to A10 and B1 to B10 from the catalog data at indicated reference conditions. These respective coefficients
 and indicated reference conditions are used in the model to simulate the heat pump performance.
 The variables include load side inlet temperature, source side inlet temperature,
 load side water flow rate and source side water flow rate. Source and load sides are identified based on the control integer signal uMod,
@@ -261,7 +264,7 @@ Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater</a>.
 <p>
 The model takes as input signals; the set point for either the leaving water temperature for the
 condenser or the evaporator which is met if the heat pump has sufficient capacity and the integer input uMod which identifies the heat pump operational mode:
-(uMod=+1) for heating mode, (uMod=-1) for cooling mode, (uMod=0) for shut off the system.
+uMod=+1 for heating mode, uMod=-1 for cooling mode, uMod=0 for shut off the system.
 </p>
 
 <p>

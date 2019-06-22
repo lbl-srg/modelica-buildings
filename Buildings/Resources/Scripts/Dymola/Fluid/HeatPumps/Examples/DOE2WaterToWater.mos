@@ -1,0 +1,27 @@
+simulateModel("Buildings.Fluid.HeatPumps.Examples.DOE2WatertoWater", method="dassl",
+ tolerance=1e-6, stopTime=14400, resultFile="DOE2WaterToWater");
+createPlot(id = 1,
+   position = {60, 10, 640, 480},
+   y = {"heaPumDOE2.QCon_flow", "heaPumDOE2.QEva_flow"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+  filename = "DOE2WaterToWater.mat",
+   leftTitleType = 1,
+   bottomTitleType = 1);
+
+
+createPlot(id = 2,
+   position = {60, 10, 640, 480},
+   y = {"heaPumDOE2.DOE2.TConLvg", "heaPumDOE2.DOE2.TConEnt","heaPumDOE2.DOE2.TEvaLvg", "heaPumDOE2.DOE2.TEvaEnt"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   filename = "DOE2WaterToWater.mat",
+   leftTitleType = 1,
+   bottomTitleType = 1);
+

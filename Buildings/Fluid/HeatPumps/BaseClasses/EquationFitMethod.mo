@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.BaseClasses;
-block EquationFitMethod
+block EquationFitMethod "EquationFit method to predict heatpump performance"
 
   extends ModelicaReference.Icons.Package;
 
@@ -17,7 +17,7 @@ block EquationFitMethod
     "Cooling capacity available at the Evaporator";
 
   parameter Data.EquationFitWaterToWater.Generic_EquationFit per
-    "Performance data" annotation (choicesAllMatching = true,
+  "Performance data" annotation (choicesAllMatching = true,
                 Placement(transformation(extent={{78,80},{98,100}})));
   parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
   "Heating load nominal capacity_Heating mode";
@@ -187,14 +187,14 @@ The block uses four functions to predict capacity and power consumption for heat
 The heating mode when uMod=+1:
 
 <p align=\"left\" style=\"font-style:italic;\">
-Q&#775;<sub>Con</sub>/Q&#775;<sub>Con,nominal</sub> = A<sub>1</sub>+ A<sub>2</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
-A<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>4</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
-+ A<sub>5</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
+Q&#775;<sub>Con</sub>/Q&#775;<sub>Con,nominal</sub> = A<sub>1</sub>+ A<sub>2</sub> T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>+
+A<sub>3</sub> T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>+ A<sub>4</sub> V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>+
++ A<sub>5</sub> V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>
 
 <p align=\"left\" style=\"font-style:italic;\">
-Power<sub>Con</sub>/Power<sub>Con,nominal</sub>= B<sub>1</sub>+ B<sub>2</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
-B<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>4</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
-+ B<sub>5</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
+Power<sub>Con</sub>/Power<sub>Con,nominal</sub>= B<sub>1</sub>+ B<sub>2</sub> T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>+
+B<sub>3</sub>.T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>+ B<sub>4</sub> V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>+
++ B<sub>5</sub> V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>
 
 </li>
 </ul>
@@ -205,15 +205,15 @@ B<sub>3</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>4</sub>[V&#775
 The cooling mode when uMod=-1:
 
 <p align=\"left\" style=\"font-style:italic;\">
-Q&#775;<sub>Eva</sub>/Q&#775;<sub>Eva,nominal</sub> = A<sub>6</sub>+ A<sub>7</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
-A<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ A<sub>9</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
-+ A<sub>10</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
+Q&#775;<sub>Eva</sub>/Q&#775;<sub>Eva,nominal</sub> = A<sub>6</sub>+ A<sub>7</sub> T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>+
+A<sub>8</sub> T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>+ A<sub>9</sub> V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>+
++ A<sub>10</sub> V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>
 
 
 <p align=\"left\" style=\"font-style:italic;\">
- Power<sub>Eva</sub>/Power<sub>Eva,nominal</sub> = B<sub>6</sub>+ B<sub>7</sub>[T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>]+
-B<sub>8</sub>[T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>]+ B<sub>9</sub>[V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>]+
-+ B<sub>10</sub>[V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>]
+ Power<sub>Eva</sub>/Power<sub>Eva,nominal</sub> = B<sub>6</sub>+ B<sub>7</sub>.T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>+
+ B<sub>8</sub> T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>+ B<sub>9</sub> V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>+
+ + B<sub>10</sub> V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>
 
 
 </li>
