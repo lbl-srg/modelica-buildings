@@ -608,14 +608,14 @@ equation
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=172800),
-  Documentation(info="<html>  
+  Documentation(info="<html>
   <p>
 This model validates the model
 <a href=\"modelica://Buildings.Fluid.HeatPumps.WaterToWaterEquationFit\">
 Buildings.Fluid.HeatPumps.WaterToWaterEquationFit</a>.
 The slight difference in results between
 <i>Q<sub>ConHeaPum</sub></i> and <i>Q<sub>ConEP</sub></i>
-occurs during the cooling dominated mode. like wise during the heating dominated mode,a difference in the performance between <i>Q<sub>EvaHeaPum</sub></i> 
+occurs during the cooling dominated mode. like wise during the heating dominated mode,a difference in the performance between <i>Q<sub>EvaHeaPum</sub></i>
 and <i>Q<sub>EvaEP</sub></i>occured.
 </p>
 

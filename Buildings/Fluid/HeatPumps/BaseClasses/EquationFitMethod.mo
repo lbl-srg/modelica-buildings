@@ -16,81 +16,83 @@ block EquationFitMethod "EquationFit method to predict heatpump performance"
     Modelica.SIunits.HeatFlowRate QEva_flow_ava
     "Cooling capacity available at the Evaporator";
 
-  parameter Data.EquationFitWaterToWater.Generic_EquationFit per
-  "Performance data" annotation (choicesAllMatching = true,
+    parameter Data.EquationFitWaterToWater.Generic_EquationFit per
+      "Performance data" annotation (choicesAllMatching = true,
                 Placement(transformation(extent={{78,80},{98,100}})));
-  parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
-  "Heating load nominal capacity_Heating mode";
-  parameter Modelica.SIunits.HeatFlowRate   QEva_heatflow_nominal=per.QEva_heatflow_nominal
-  "Cooling load nominal capacity_Cooling mode";
-  parameter Modelica.SIunits.VolumeFlowRate VCon_flow_nominal=per.VCon_nominal
-  "Heating mode Condenser volume flow rate nominal capacity";
-  parameter Modelica.SIunits.MassFlowRate   mCon_flow_nominal= per.mCon_flow_nominal
-  "Heating mode Condenser mass flow rate nominal capacity";
-  parameter Modelica.SIunits.VolumeFlowRate VEva_flow_nominal=per.VEva_nominal
-  "Heating mode Condenser volume flow rate nominal capacity";
-  parameter Modelica.SIunits.MassFlowRate   mEva_flow_nominal=per.mEva_flow_nominal
-  "Heating mode Evaporator mass flow rate nominal capacity";
-  parameter Modelica.SIunits.Power          PCon_nominal_HD= per.PCon_nominal_HD
-  "Heating mode Compressor Power nominal capacity";
-  parameter Modelica.SIunits.Power          PEva_nominal_CD = per.PEva_nominal_CD
-  "Heating mode Compressor Power nominal capacity";
-  parameter Modelica.SIunits.Temperature    TRef= per.TRef
-  "Reference temperature used to normalize the inlet temperature variables";
-  parameter Modelica.SIunits.HeatFlowRate   Q_flow_small = QCon_heatflow_nominal*1E-9
-  "Small value for heat flow rate or power, used to avoid division by zero";
+    parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
+      "Heating load nominal capacity_Heating mode";
+    parameter Modelica.SIunits.HeatFlowRate   QEva_heatflow_nominal=per.QEva_heatflow_nominal
+      "Cooling load nominal capacity_Cooling mode";
+    parameter Modelica.SIunits.VolumeFlowRate VCon_flow_nominal=per.VCon_nominal
+      "Heating mode Condenser volume flow rate nominal capacity";
+    parameter Modelica.SIunits.MassFlowRate   mCon_flow_nominal= per.mCon_flow_nominal
+      "Heating mode Condenser mass flow rate nominal capacity";
+    parameter Modelica.SIunits.VolumeFlowRate VEva_flow_nominal=per.VEva_nominal
+      "Heating mode Condenser volume flow rate nominal capacity";
+    parameter Modelica.SIunits.MassFlowRate   mEva_flow_nominal=per.mEva_flow_nominal
+      "Heating mode Evaporator mass flow rate nominal capacity";
+    parameter Modelica.SIunits.Power          PCon_nominal_HD= per.PCon_nominal_HD
+      "Heating mode Compressor Power nominal capacity";
+    parameter Modelica.SIunits.Power          PEva_nominal_CD = per.PEva_nominal_CD
+      "Heating mode Compressor Power nominal capacity";
+    parameter Modelica.SIunits.Temperature    TRef= per.TRef
+      "Reference temperature used to normalize the inlet temperature variables";
+    parameter Modelica.SIunits.HeatFlowRate   Q_flow_small = QCon_heatflow_nominal*1E-9
+      "Small value for heat flow rate or power, used to avoid division by zero";
 
-  Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
-    "Set point for leaving chilled water temperature" annotation (Placement(
+    Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
+      "Set point for leaving chilled water temperature" annotation (Placement(
         transformation(extent={{-124,-112},{-100,-88}}), iconTransformation(
           extent={{-118,-108},{-100,-90}})));
-  Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
-    "Set point for leaving heating water temperature" annotation (Placement(
+    Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
+      "Set point for leaving heating water temperature" annotation (Placement(
         transformation(extent={{-122,88},{-100,110}}), iconTransformation(
           extent={{-120,90},{-100,110}})));
-  Modelica.Blocks.Interfaces.IntegerInput uMod
-  "Heating mode= 1, Off=0, Cooling mode=-1" annotation (Placement(transformation(extent={{-124,
+    Modelica.Blocks.Interfaces.IntegerInput uMod
+       "Heating mode= 1, Off=0, Cooling mode=-1" annotation (Placement(transformation(extent={{-124,
             -12},{-100,12}}),
         iconTransformation(extent={{-118,-10},{-100,8}})));
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow
-  "Condenser heat flow rate " annotation (Placement(transformation(extent={{100,30},{120,50}}),
-        iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow
-  "Evaporator heat flow rate " annotation (Placement(transformation(extent={{100,-48},{120,-28}}),
-        iconTransformation(extent={{100,-50},{120,-30}})));
-  Modelica.Blocks.Interfaces.RealOutput P
-  "Compressor power" annotation (Placement(transformation(extent={{100,-10},{120,10}}),iconTransformation(extent={{100,-10},
+    Modelica.Blocks.Interfaces.RealOutput QCon(final unit="W", displayUnit="W")
+    "Condenser heat flow rate " annotation (Placement(transformation(extent={{100,
+            30},{120,50}}), iconTransformation(extent={{100,30},{120,50}})));
+    Modelica.Blocks.Interfaces.RealOutput QEva(final unit="W", displayUnit="W")
+      "Evaporator heat flow rate " annotation (Placement(transformation(extent={{100,
+            -48},{120,-28}}), iconTransformation(extent={{100,-50},{120,-30}})));
+    Modelica.Blocks.Interfaces.RealOutput P(          final unit="W", displayUnit="W")
+      "Compressor power" annotation (Placement(transformation(extent={{100,-10},{120,10}}),iconTransformation(extent={{100,-10},
             {120,10}})));
-  Modelica.Blocks.Interfaces.RealInput TConLvg(final unit="K", displayUnit="degC")
-  "Condenser leaving water temperature" annotation (Placement(transformation(extent={{-122,68},{-100,90}}), iconTransformation(extent={{-120,70},
+    Modelica.Blocks.Interfaces.RealInput TConLvg(final unit="K", displayUnit="degC")
+      "Condenser leaving water temperature" annotation (Placement(transformation(extent={{-122,68},{-100,90}}), iconTransformation(extent={{-120,70},
             {-100,90}})));
-  Modelica.Blocks.Interfaces.RealInput TConEnt(final unit="K", displayUnit="degC")
-  "Condenser entering water temperature" annotation (Placement(transformation(extent={{-124,48},{-100,72}}),iconTransformation(extent={{-120,50},
+    Modelica.Blocks.Interfaces.RealInput TConEnt(final unit="K", displayUnit="degC")
+      "Condenser entering water temperature" annotation (Placement(transformation(extent={{-124,48},{-100,72}}),iconTransformation(extent={{-120,50},
             {-100,70}})));
-  Modelica.Blocks.Interfaces.RealInput TEvaLvg(final unit="K", displayUnit="degC")
-   "Evaporator leaving water temperature" annotation (Placement(transformation(extent={{-124,-72},{-100,-48}}), iconTransformation(extent={{-118,
+    Modelica.Blocks.Interfaces.RealInput TEvaLvg(final unit="K", displayUnit="degC")
+       "Evaporator leaving water temperature" annotation (Placement(transformation(extent={{-124,-72},{-100,-48}}), iconTransformation(extent={{-118,
             -70},{-100,-52}})));
-  Modelica.Blocks.Interfaces.RealInput TEvaEnt(final unit="K", displayUnit="degC")
-  "Evaporator entering water temperature" annotation (Placement(transformation(extent={{-124,-92},{-100,-68}}), iconTransformation(extent={{-118,
+    Modelica.Blocks.Interfaces.RealInput TEvaEnt(final unit="K", displayUnit="degC")
+      "Evaporator entering water temperature" annotation (Placement(transformation(extent={{-124,-92},{-100,-68}}), iconTransformation(extent={{-118,
             -88},{-100,-70}})));
-  Modelica.Blocks.Interfaces.RealInput m1_flow(final unit="kg/s")
-  "Volume 1 massflow rate " annotation (Placement(transformation(extent={{-124,8},{-100,32}}),  iconTransformation(extent={{-120,30},
+    Modelica.Blocks.Interfaces.RealInput m1_flow(final unit="kg/s")
+      "Volume 1 massflow rate " annotation (Placement(transformation(extent={{-124,8},{-100,32}}),  iconTransformation(extent={{-120,30},
             {-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput m2_flow(final unit="kg/s")
-  "Volume2 mass flow rate" annotation (Placement(transformation(extent={{-124,-32},{-100,-8}}),  iconTransformation(extent={{-118,
+    Modelica.Blocks.Interfaces.RealInput m2_flow(final unit="kg/s")
+      "Volume2 mass flow rate" annotation (Placement(transformation(extent={{-124,-32},{-100,-8}}),  iconTransformation(extent={{-118,
             -48},{-100,-30}})));
-  Modelica.Blocks.Interfaces.RealInput QCon_flow_Set(final unit="W", displayUnit="W")
-  "Condenser setpoint heat flow rate" annotation (Placement(transformation(extent={{-124,28},{-100,52}}), iconTransformation(extent={{-120,10},
-            {-100,30}})));
-  Modelica.Blocks.Interfaces.RealInput QEva_flow_Set(final unit="W", displayUnit="W")
-  "Evaporator setpoint heat flow rate" annotation (Placement(transformation(extent={{-124,-52},{-100,-28}}), iconTransformation(extent={{-118,
-            -30},{-100,-12}})));
+    Modelica.Blocks.Interfaces.RealInput QConFloSet(final unit="W", displayUnit="W")
+       "Condenser setpoint heat flow rate" annotation (Placement(transformation(
+          extent={{-124,28},{-100,52}}), iconTransformation(extent={{-120,10},{-100,
+            30}})));
+    Modelica.Blocks.Interfaces.RealInput QEvaFloSet(final unit="W", displayUnit="W")
+      "Evaporator setpoint heat flow rate" annotation (Placement(transformation(
+          extent={{-124,-52},{-100,-28}}), iconTransformation(extent={{-118,-30},
+            {-100,-12}})));
 
 protected
-    Real A1[5];
-    Real x1[5];
-    Real A2[5];
-    Real x2[5];
+    Real A1[5] "Thermal load ratio coefficients";
+    Real x1[5] "normalized inlet variables";
+    Real A2[5] "Compressor power ratio coefficients";
+    Real x2[5] "normalized inlet variables";
 
 initial equation
    assert(QCon_heatflow_nominal> 0,
@@ -118,13 +120,13 @@ equation
       QCon_flow_ava= HLR *(QCon_heatflow_nominal);
       QEva_flow_ava = 0;
 
-      QCon_flow = Buildings.Utilities.Math.Functions.smoothMin(
-        x1 = QCon_flow_Set,
-        x2 = QCon_flow_ava,
-        deltaX= Q_flow_small/10);
+    QCon = Buildings.Utilities.Math.Functions.smoothMin(
+      x1=QConFloSet,
+      x2=QCon_flow_ava,
+      deltaX=Q_flow_small/10);
 
       P = P_HD * (PCon_nominal_HD);
-      QEva_flow = -(QCon_flow - P);
+    QEva = -(QCon - P);
 
        elseif (uMod==0) then
 
@@ -139,8 +141,8 @@ equation
       P = 0;
       QCon_flow_ava = 0;
       QEva_flow_ava = 0;
-      QCon_flow = 0;
-      QEva_flow = 0;
+    QCon = 0;
+    QEva = 0;
 
        else
 
@@ -160,17 +162,21 @@ equation
       QCon_flow_ava = 0;
       QEva_flow_ava = CLR* (QEva_heatflow_nominal);
 
-      QEva_flow=  Buildings.Utilities.Math.Functions.smoothMax(
-        x1 = QEva_flow_Set,
-        x2 = QEva_flow_ava,
-        deltaX= Q_flow_small/10);
+    QEva = Buildings.Utilities.Math.Functions.smoothMax(
+      x1=QEvaFloSet,
+      x2=QEva_flow_ava,
+      deltaX=Q_flow_small/10);
 
       P = P_CD * (PEva_nominal_CD);
-      QCon_flow = -QEva_flow + P;
+    QCon = -QEva + P;
 
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                                      Text(
+          extent={{-152,100},{148,140}},
+          textString="%name",
+          lineColor={0,0,255})}),                                Diagram(coordinateSystem(preserveAspectRatio=false)),
   defaultComponentName="equFit",
   Documentation(info="<html>
 <p>

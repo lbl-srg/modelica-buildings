@@ -2,7 +2,7 @@ simulateModel("Buildings.Fluid.HeatPumps.Examples.EquationFitWatertoWater", meth
  tolerance=1e-6, stopTime=14400, resultFile="EquationFitWaterToWater");
 createPlot(id = 1,
    position = {60, 10, 640, 480},
-   y = {"heaPum.QCon_flow", "heaPum.QEva_flow"},
+   y = {"heaPum.QCon", "heaPum.QEva"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,

@@ -20,17 +20,14 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     T1_start=55 + 273.15,
-    T2_start=12 + 273.15) "Water to Water HeatPump"
-    annotation (Placement(transformation(extent={{32,-10},{52,10}})));
+    T2_start=12 + 273.15) "Water to Water HeatPump" annotation (Placement(transformation(extent={{32,-10},{52,10}})));
 
     parameter Data.EquationFitWaterToWater.EnergyPlus_HeatPump perEP
-    "EnergyPlus HeatPump performance"
-    annotation (Placement(transformation(extent={{70,24},{90,44}})));
+    "EnergyPlus HeatPump performance" annotation (Placement(transformation(extent={{70,24},{90,44}})));
     parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=perEP.mEva_flow_nominal
     "Evaporator nominal mass flow rate";
     parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=perEP.mCon_flow_nominal
     "Condenser nominal mass flow rate";
-
     parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state";
     parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -139,7 +136,8 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         168600,286.65; 169200,286.64; 169800,286.64; 170400,286.63; 171000,286.63;
         171600,286.62; 172200,286.62; 172800,286.61],
                       offset=0)
-        "EP-Condenserwater entering temperature" annotation (Placement(transformation(extent={{-120,74},{-100,94}})));
+    "EnergyPlus Condenserwater entering temperature"
+                                                 annotation (Placement(transformation(extent={{-120,74},{-100,94}})));
 
   Modelica.Blocks.Sources.TimeTable TEvaEnt(
     table=[0,286; 600,286; 1200,286.09; 1800,286.21; 2400,286.24; 3000,286.24; 3600,
@@ -197,8 +195,8 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         279.82; 168000,279.82; 168600,279.82; 169200,279.82; 169800,279.82; 170400,
         279.82; 171000,279.82; 171600,279.82; 172200,279.82; 172800,279.82],
         offset=0,
-        startTime=0)
-        "EP Evaporator entering water temperature" annotation (Placement(transformation(extent={{62,-90},{82,-70}})));
+        startTime=0) "EnergyPlus Evaporator entering water temperature"
+                                                   annotation (Placement(transformation(extent={{62,-90},{82,-70}})));
 
   Modelica.Blocks.Sources.TimeTable HeaPumMod(table=[0,1; 600,1; 1200,1; 1800,1; 2400,
         1; 3000,1; 3600,1; 4200,1; 4800,1; 5400,1; 6000,1; 6600,1; 7200,1; 7800,1;
@@ -237,9 +235,10 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         0; 161400,0; 162000,0; 162600,0; 163200,0; 163800,0; 164400,0; 165000,0; 165600,
         0; 166200,0; 166800,0; 167400,0; 168000,0; 168600,0; 169200,0; 169800,0; 170400,
         0; 171000,0; 171600,0; 172200,0; 172800,0])
-        "EP HeatPump mode control signal"  annotation (Placement(transformation(extent={{-132,-10},{-112,10}})));
+    "EnergyPlus HeatPump mode control signal"
+                                           annotation (Placement(transformation(extent={{-132,-10},{-112,10}})));
 
-  Modelica.Blocks.Sources.TimeTable TSetCoo(
+  Modelica.Blocks.Sources.TimeTable TEvaSet(
     table=[0,285.66; 600,285.66; 1200,285.75; 1800,285.86; 2400,285.9; 3000,285.89;
         3600,285.88; 4200,285.87; 4800,285.86; 5400,285.85; 6000,285.84; 6600,285.84;
         7200,285.83; 7800,285.82; 8400,285.81; 9000,285.8; 9600,285.79; 10200,285.78;
@@ -296,10 +295,10 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         169800,279.82; 170400,279.82; 171000,279.82; 171600,279.82; 172200,279.82;
         172800,279.82],
         offset=0,
-        startTime=0)
-       "EP Evaporator leaving water Temperature"  annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+        startTime=0) "EnergyPlus evaporator leaving water Temperature"
+                                                  annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
-  Modelica.Blocks.Sources.TimeTable TSetHea(table=[0,328.44; 600,328.44; 1200,328.44;
+  Modelica.Blocks.Sources.TimeTable TConSet(table=[0,328.44; 600,328.44; 1200,328.44;
         1800,328.44; 2400,328.45; 3000,328.45; 3600,328.45; 4200,328.46; 4800,328.46;
         5400,328.46; 6000,328.47; 6600,328.47; 7200,328.48; 7800,328.49; 8400,328.49;
         9000,328.5; 9600,328.5; 10200,328.51; 10800,328.52; 11400,328.52; 12000,328.53;
@@ -354,7 +353,8 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         286.68; 166200,286.67; 166800,286.67; 167400,286.66; 168000,286.65; 168600,
         286.65; 169200,286.64; 169800,286.64; 170400,286.63; 171000,286.63; 171600,
         286.62; 172200,286.62; 172800,286.62])
-        "EP-Condesner leaving Water Temperature"  annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    "EnergyPlus condesner leaving Water Temperature"
+                                                  annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Modelica.Blocks.Sources.TimeTable QEvaEP(table=[0,-2666.52; 600,-2689.23; 1200,-2720.31;
         1800,-2747.97; 2400,-2777.49; 3000,-2809.37; 3600,-2838.95; 4200,-2874.35;
@@ -548,7 +548,7 @@ equation
   connect(addInt.y, heaPum.uMod)
    annotation (Line(points={{11,0},{18,0},{18,1.66533e-16},{30.6,1.66533e-16}},
                                                color={255,127,0}));
-  connect(TSetCoo.y, heaPum.TEvaSet)
+  connect(TEvaSet.y, heaPum.TEvaSet)
    annotation (Line(points={{1,-50},{20,-50},{20,-9},{30.6,-9}},
                            color={0,0,127}));
   connect(HeaPumMod.y, lesEquThr.u)
@@ -560,7 +560,7 @@ equation
   connect(TConEnt.y, conPum.T_in)
    annotation (Line(points={{-99,84},{-60,84},{-60,
           81.8},{-56.6,81.8}}, color={0,0,127}));
-  connect(TSetHea.y, heaPum.TConSet)
+  connect(TConSet.y, heaPum.TConSet)
    annotation (Line(points={{1,50},{20,50},{20,9},{30.6,9}},color={0,0,127}));
   connect(lesEquThr.y, booToInt.u)
    annotation (Line(points={{-73,30},{-62,30}}, color={255,0,255}));

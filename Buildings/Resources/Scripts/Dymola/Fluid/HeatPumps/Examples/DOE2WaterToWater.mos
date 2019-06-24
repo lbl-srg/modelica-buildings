@@ -2,7 +2,7 @@ simulateModel("Buildings.Fluid.HeatPumps.Examples.DOE2WatertoWater", method="das
  tolerance=1e-6, stopTime=14400, resultFile="DOE2WaterToWater");
 createPlot(id = 1,
    position = {60, 10, 640, 480},
-   y = {"heaPumDOE2.QCon_flow", "heaPumDOE2.QEva_flow"},
+   y = {"heaPumDOE2.QCon", "heaPumDOE2.QEva"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,

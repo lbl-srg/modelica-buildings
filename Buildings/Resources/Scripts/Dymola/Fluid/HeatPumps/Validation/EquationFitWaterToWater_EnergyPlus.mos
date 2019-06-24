@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_EnergyPlus", method="dassl", tolerance=1e-6, stopTime=172800, resultFile="EquationFitWaterToWater_EnergyPlus");
 createPlot(id = 1,
    position = {60, 10, 640, 480},
-   y = {"heaPum.QCon_flow", "heaPum.QEva_flow", "QConEP.y", "QEvaEP.y"},
+   y = {"heaPum.QCon", "heaPum.QEva", "QConEP.y", "QEvaEP.y"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,
