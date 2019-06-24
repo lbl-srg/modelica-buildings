@@ -64,7 +64,7 @@ model System2
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 //------------------------------------------------------------------------//
 
-  Buildings.Fluid.Sources.FixedBoundary sin(nPorts=1, redeclare package Medium = MediumW)
+  Buildings.Fluid.Sources.Boundary_pT sin(nPorts=1, redeclare package Medium = MediumW)
     "Sink for mass flow rate"           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -92,7 +92,7 @@ Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
 
 //------------------------------------------------------------------------//
 
-  Buildings.Fluid.Sources.FixedBoundary sou(
+  Buildings.Fluid.Sources.Boundary_pT sou(
     nPorts=1,
     redeclare package Medium = MediumW,
     T=TRadSup_nominal) "Sink for mass flow rate"
@@ -223,8 +223,8 @@ Buildings.Fluid.Sensors.TemperatureTwoPort</a>
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2\">
 Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>
 (instance <code>rad</code>), and
-<a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
-Buildings.Fluid.Sources.FixedBoundary</a>
+<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
+Buildings.Fluid.Sources.Boundary_pT</a>
 (instance <code>sou</code> and <code>sin</code> for the sink and source
 reservoirs, which will later be replace by the boiler loop).
 </p>
