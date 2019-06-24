@@ -24,11 +24,38 @@ model Boundary_ph
   Modelica.Blocks.Interfaces.RealInput h_in(final unit="J/kg") if use_h_in
     "Prescribed boundary specific enthalpy"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  // Boolean constants to avoid a potential string comparison in an equation section
 protected
+  constant Boolean checkWaterPressure = Medium.mediumName == "SimpleLiquidWater"
+    "Evaluates to true if the pressure should be checked";
+  constant Boolean checkAirPressure = Medium.mediumName == "Air"
+    "Evaluates to true if the pressure should be checked";
+
   Modelica.Blocks.Interfaces.RealInput h_in_internal(final unit="J/kg")
     "Needed to connect to conditional connector";
-
+initial equation
+  if not use_p_in then
+    if checkWaterPressure then
+      assert(p_in_internal>1e4, "In "+getInstanceName() +
+        ": The parameter value p="+String(p_in_internal)+" is low for water. This is likely an error.");
+    end if;
+    if checkAirPressure then
+      assert(p_in_internal>5e4 and p_in_internal < 1.5e5, "In "+getInstanceName() +
+        ": The parameter value p="+String(p_in_internal)+" is not within a realistic range for air. This is likely an error.");
+    end if;
+  end if;
 equation
+  if use_p_in then
+    if checkWaterPressure then
+      assert(p_in_internal>1e4, "In "+getInstanceName() +
+        ": The value of p_in="+String(p_in_internal)+" is low for water. This is likely an error.");
+    end if;
+    if checkAirPressure then
+      assert(p_in_internal>5e4 and p_in_internal < 1.5e5, "In "+getInstanceName() +
+        ": The value of p_in="+String(p_in_internal)+" is not within a realistic range for air. This is likely an error.");
+    end if;
+  end if;
+
   // Pressure
   connect(p_in, p_in_internal);
   if not use_p_in then
@@ -97,6 +124,16 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+Juni 7, 2019, by Michael Wetter:<br/>
+Added constant boolean expressions to avoid a potential string comparison in an equation section.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1148\">#1148</a>.
+</li>
+<li>
+Juni 4, 2019, by Filip Jorissen:<br/>
+Added check for the value of <code>p</code> and <code>p_in</code>.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1148\">#1148</a>.
+</li>
 <li>
 January 25, 2019, by Michael Wetter:<br/>
 Refactored use of base classes.<br/>
