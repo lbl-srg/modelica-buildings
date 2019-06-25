@@ -54,9 +54,9 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         extent={{-12,-12},{12,12}},
         rotation=180,
         origin={88,-40})));
-  Sources.FixedBoundary cooVol(redeclare package Medium = Medium, nPorts=1)
+  Modelica.Fluid.Sources.FixedBoundary cooVol(redeclare package Medium = Medium, nPorts=1)
     "Volume for cooling load" annotation (Placement(transformation(extent={{-48,-92},{-28,-72}})));
-  Sources.FixedBoundary heaVol(nPorts=1, redeclare package Medium = Medium)
+  Modelica.Fluid.Sources.FixedBoundary heaVol(nPorts=1, redeclare package Medium = Medium)
     "Volume for heating load" annotation (Placement(transformation(extent={{118,74},{98,94}})));
   FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,

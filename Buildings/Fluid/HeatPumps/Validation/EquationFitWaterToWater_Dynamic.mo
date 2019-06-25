@@ -57,9 +57,9 @@ model EquationFitWaterToWater_Dynamic "example"
     startTime=0) "Evaporator entering water temperature"
     annotation (Placement(transformation(extent={{66,-94},{86,-74}})));
 
-  Sources.FixedBoundary cooVol(nPorts=1, redeclare package Medium = Medium)
+  Modelica.Fluid.Sources.FixedBoundary cooVol(nPorts=1, redeclare package Medium = Medium)
     "Volume for cooling load" annotation (Placement(transformation(extent={{-60,-94},{-40,-74}})));
-  Sources.FixedBoundary heaVol(nPorts=1, redeclare package Medium = Medium)
+  Modelica.Fluid.Sources.FixedBoundary heaVol(nPorts=1, redeclare package Medium = Medium)
     "Volume for heating load" annotation (Placement(transformation(extent={{106,74},{86,94}})));
   FixedResistances.PressureDrop   res2(
     redeclare package Medium = Medium,

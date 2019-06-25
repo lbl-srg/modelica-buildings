@@ -65,9 +65,9 @@ model EquationFitWaterToWater_Static "example"
     dp_nominal=6000)
       "Flow resistance" annotation (Placement(transformation(extent={{-4,-94},{16,
             -74}})));
-    Sources.FixedBoundary heaVol(nPorts=1, redeclare package Medium = Medium)
+    Modelica.Fluid.Sources.FixedBoundary heaVol(nPorts=1, redeclare package Medium = Medium)
       "Volume for heating load" annotation (Placement(transformation(extent={{118,74},{98,94}})));
-    Sources.FixedBoundary cooVol(nPorts=1, redeclare package Medium = Medium)
+    Modelica.Fluid.Sources.FixedBoundary cooVol(nPorts=1, redeclare package Medium = Medium)
       "Volume for cooling load" annotation (Placement(transformation(extent={{-54,-94},
             {-34,-74}})));
     Controls.OBC.CDL.Continuous.Sources.Ramp TEvaSet(
