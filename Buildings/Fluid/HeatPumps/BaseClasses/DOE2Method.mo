@@ -261,8 +261,9 @@ either the heating mode-uMod=+1 or the cooling mode uMod=-1:
 </p>
 <ul>
 <li>
+<p>
 The capacity function of temperature bi-quadratic curve:
-
+</p>
 <p align=\"left\" style=\"font-style:italic;\">
 CAPFT = A<sub>1</sub>+ A<sub>2</sub>T<sub>Eva,Lvg</sub>+
 A<sub>3</sub>T<sup>2</sup><sub>Eva,Lvg</sub>+ A<sub>4</sub>T<sub>Con,Ent</sub>+A<sub>5</sub>T<sup>2</sup><sub>Con,Ent</sub>
@@ -272,27 +273,27 @@ A<sub>3</sub>T<sup>2</sup><sub>Eva,Lvg</sub>+ A<sub>4</sub>T<sub>Con,Ent</sub>+A
 
 <ul>
 <li>
+<p>
 The electric input to capacity output ratio function of temperature bi-quadratic curve:
-
+</p>
 <p align=\"left\" style=\"font-style:italic;\">
 EIRFT = A<sub>7</sub>+ A<sub>8</sub>T<sub>Eva,Lvg</sub>+
 A<sub>9</sub>T<sup>2</sup><sub>Eva,Lvg</sub>+ A<sub>10</sub>T<sub>Con,Ent</sub>+A<sub>11</sub>T<sup>2</sup><sub>Con,Ent</sub>
 +A<sub>12</sub>T<sub>Con,Ent</sub>T<sub>Eva,Lvg</sub>
-
 </li>
 </ul>
 
 
 <ul>
 <li>
+<p>
 The electric input to capacity output ratio function of part load ratio bi-cubic curve:
-
+</p>
 <p align=\"left\" style=\"font-style:italic;\">
 EIRFPLR = A<sub>13</sub>+ A<sub>14</sub>PLR+A<sub>15</sub>PLR<sup>2</sup>
 
 </li>
 </ul>
-
 
 <p>
 These curves are stored in the data record <code>per</code> and are available from
@@ -318,6 +319,7 @@ The test<pre>
 ensures that the heatpump capacity does not exceed the heatpump capacity specified
 by the parameter <code>per.PLRMax</code>.
 </li>
+
 <li>
 The test <pre>
   CR = min(PLR1/per.PRLMin, 1.0);

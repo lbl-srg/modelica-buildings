@@ -249,10 +249,11 @@ Documentation(info="<html>
 <p>
 Model of a water to water heat pump, based on the DOE-2.1 chiller model,
 the EnergyPlus chiller model <code>Chiller:Electric:EIR</code> and from <a href=\"Buildings.Fluid.Chillers.ElectricEIR\">
-Buildings.Fluid.Chillers.ElectricEIR</a>. 
+Buildings.Fluid.Chillers.ElectricEIR</a>.
 </p>
-<p> This model uses three functions stated in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.DOE2Method\">
-Buildings.Fluid.HeatPupms.BaseClasses.DOE2Method</a>. to predict the thermal capacity and the compressor power consumption through 
+<p>
+This model uses three functions stated in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.DOE2Method\">
+Buildings.Fluid.HeatPupms.BaseClasses.DOE2Method</a>. to predict the thermal capacity and the compressor power consumption through
 three operational modes executed by a control input signal uMod=+1 heating mode, uMod=-1 cooling mode and
 uMod=0 shutoff.
 </p>
@@ -263,7 +264,7 @@ A biquadratic function is used to predict the thermal capacity as a function of
 condenser entering and evaporator leaving fluid temperature.
 </li>
 <li>
-A quadratic functions is used to predict power input to the thermal capacity 
+A quadratic functions is used to predict power input to the thermal capacity
 ratio with respect to the part load ratio.
 </li>
 <li>
@@ -274,7 +275,7 @@ condenser entering and evaporator leaving fluid temperature.
 
 <p>
 The model takes as input signals; the set point either for the leaving water temperature of the
-condenser or the evaporator which is met if the heat pump has sufficient capacity and the 
+condenser or the evaporator which is met if the heat pump has sufficient capacity and the
 integer input uMod which identifies the heat pump operational mode:
 uMod=+1 for heating mode, uMod=-1 for cooling mode, uMod=0 for shut off the system.
 The model has a built-in, ideal temperature control.
@@ -287,6 +288,7 @@ The transient response of the heatpump is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The heatpump outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
+
 <h4>References</h4>
 <ul>
 <li>
@@ -303,6 +305,8 @@ First implementation.
 Refactored ,<a href=\"Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR EIR chiller</a>
 model to include simultaneous heating and cooling modes.
 </li>
+</ul>
+
 </html>"),
     Diagram(coordinateSystem(extent={{-160,-100},{100,100}})));
 end DOE2WaterToWater;
