@@ -100,7 +100,7 @@ protected
     final k=staMat) "Staging matrix"
     annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
 
-  CDL.Continuous.Sources.Constant staType[nSta,nChi](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staType[nSta,nChi](
     final k=chiTypMat) "Chiller stage type matrix"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
 
@@ -137,7 +137,7 @@ protected
     "Staging type order assertion"
     annotation (Placement(transformation(extent={{180,-120},{200,-100}})));
 
-  CDL.Logical.MultiAnd mulAnd(
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
     final nu=nSta) "Logical and with a vector input"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
 

@@ -123,7 +123,7 @@ protected
     "Identifies any available stages above the current stage"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin multiMin(nin=nSta)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin multiMin(final nin=nSta)
     "Minimum of a vector input"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
@@ -155,7 +155,7 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(nin=nSta)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(final nin=nSta)
     "Maximum of a vector input"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
@@ -183,7 +183,7 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{240,30},{260,50}})));
 
-  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(threshold=0)
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(final threshold=0)
     "If the current stage is the lowest available the input value equals 0"
     annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
 
@@ -209,7 +209,7 @@ protected
     "Checks if current stage is available"
     annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(threshold=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final threshold=0.5)
     "Check if the current stage is available"
     annotation (Placement(transformation(extent={{-140,-180},{-120,-160}})));
 
