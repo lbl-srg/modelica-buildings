@@ -85,7 +85,7 @@ model ScrollWaterToWater_Dynamic
       leaCoe=0.01),
     enable_temperature_protection=false)
     "Scroll water to water heat pump with transient effects"
-    annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
+    annotation (Placement(transformation(extent={{-10,-62},{10,-42}})));
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)
     "Heat pump control signal"
     annotation (Placement(transformation(extent={{-98,70},{-78,90}})));
@@ -133,7 +133,7 @@ equation
   connect(mLoa.y, loa1.m_flow_in)
     annotation (Line(points={{-79,-40},{-68,-40},{-60,-40}}, color={0,0,127}));
   connect(sou1.ports[1], heaPum1.port_a2)
-    annotation (Line(points={{40,-60},{26,-60},{10,-60}}, color={0,127,255}));
+    annotation (Line(points={{40,-60},{10,-60},{10,-58}}, color={0,127,255}));
   connect(mSou.y, sou1.m_flow_in)
     annotation (Line(points={{79,-52},{74,-52},{60,-52}}, color={0,0,127}));
   connect(TSou.y, sou1.T_in) annotation (Line(points={{79,-80},{70,-80},{70,-56},
@@ -152,8 +152,9 @@ equation
     annotation (Line(points={{-77,80},{-42,80},{-42,80}}, color={0,0,127}));
   connect(realToInteger.y, heaPum.stage) annotation (Line(points={{-19,80},{-16,
           80},{-16,55},{-12,55}}, color={255,127,0}));
-  connect(realToInteger.y, heaPum1.stage) annotation (Line(points={{-19,80},{-16,
-          80},{-16,-51},{-12,-51}}, color={255,127,0}));
+  connect(realToInteger.y, heaPum1.stage) annotation (Line(points={{-19,80},{
+          -16,80},{-16,-49},{-12,-49}},
+                                    color={255,127,0}));
   annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Dynamic.mos"
         "Simulate and plot"),
     experiment(
@@ -174,7 +175,7 @@ steady-state model and to the condenser heat transfer rate.
 <ul>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

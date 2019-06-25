@@ -304,7 +304,7 @@ off when the room temperature rises above <i>21</i>&deg;C.
 <ul>
 <li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>
