@@ -26,14 +26,14 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
       iconTransformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next chiller to be enabled"
-    annotation (Placement(transformation(extent={{-400,50},{-360,90}}),
+    annotation (Placement(transformation(extent={{-400,70},{-360,110}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisChi
     "Index of next chiller to be disabled"
     annotation (Placement(transformation(extent={{-400,-40},{-360,0}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaNexChi
-    "Status to indicate that it starts to enable another chiller. This input is used when the stage change needs chiller on/off"
+    "Indicate that it starts to enable another chiller in a staging process. This input is used when the stage change needs chiller on/off"
     annotation (Placement(transformation(extent={{-400,-180},{-360,-140}}),
       iconTransformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
@@ -49,7 +49,7 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
     final unit="m3/s",
     final min=0)
     "Chilled water minimum flow setpoint"
-    annotation (Placement(transformation(extent={{360,-110},{380,-90}}),
+    annotation (Placement(transformation(extent={{360,-130},{380,-110}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -79,7 +79,7 @@ protected
     annotation (Placement(transformation(extent={{140,-210},{160,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Switch byPasSet
     "Minimum flow chilled water flow setpoint"
-    annotation (Placement(transformation(extent={{260,-150},{280,-130}})));
+    annotation (Placement(transformation(extent={{260,-170},{280,-150}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and4 "Logical and"
     annotation (Placement(transformation(extent={{320,270},{340,290}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
@@ -88,7 +88,7 @@ protected
     annotation (Placement(transformation(extent={{260,280},{280,300}})));
   Buildings.Controls.OBC.CDL.Logical.Switch byPasSet1
     "Minimum flow chilled water flow setpoint"
-    annotation (Placement(transformation(extent={{320,-110},{340,-90}})));
+    annotation (Placement(transformation(extent={{320,-130},{340,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-260,300},{-240,320}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
@@ -214,10 +214,10 @@ equation
     annotation (Line(points={{101,-280},{140,-280},{140,-260},{198,-260}},
       color={0,0,127}));
   connect(upSet.y, byPasSet.u1)
-    annotation (Line(points={{221,200},{234,200},{234,-132},{258,-132}},
+    annotation (Line(points={{221,200},{234,200},{234,-152},{258,-152}},
       color={0,0,127}));
   connect(dowSet.y, byPasSet.u3)
-    annotation (Line(points={{221,-260},{240,-260},{240,-148},{258,-148}},
+    annotation (Line(points={{221,-260},{240,-260},{240,-168},{258,-168}},
       color={0,0,127}));
   connect(uStaDow, not2.u)
     annotation (Line(points={{-380,-280},{-320,-280},{-320,-320},{-262,-320}},
@@ -232,9 +232,9 @@ equation
     annotation (Line(points={{-239,-320},{292,-320},{292,280},{318,280}},
       color={255,0,255}));
   connect(byPasSet1.y, yChiWatMinFloSet)
-    annotation (Line(points={{341,-100},{370,-100}}, color={0,0,127}));
+    annotation (Line(points={{341,-120},{370,-120}}, color={0,0,127}));
   connect(byPasSet.y, byPasSet1.u3)
-    annotation (Line(points={{281,-140},{300,-140},{300,-108},{318,-108}},
+    annotation (Line(points={{281,-160},{300,-160},{300,-128},{318,-128}},
       color={0,0,127}));
   connect(uStaUp, and1.u1)
     annotation (Line(points={{-380,310},{-262,310}}, color={255,0,255}));
@@ -259,11 +259,13 @@ equation
     annotation (Line(points={{161,-200},{180,-200},{180,-268},{198,-268}},
       color={0,0,127}));
   connect(uStaUp, byPasSet.u2)
-    annotation (Line(points={{-380,310},{-320,310},{-320,290},{240,290},{240,-140},
-      {258,-140}}, color={255,0,255}));
+    annotation (Line(points={{-380,310},{-320,310},{-320,290},{240,290},{240,-160},
+          {258,-160}},
+                   color={255,0,255}));
   connect(and4.y, byPasSet1.u2)
-    annotation (Line(points={{341,280},{350,280},{350,150},{300,150},{300,-100},
-      {318,-100}}, color={255,0,255}));
+    annotation (Line(points={{341,280},{350,280},{350,150},{300,150},{300,-120},
+          {318,-120}},
+                   color={255,0,255}));
   connect(minFlo.y, floRat.u1)
     annotation (Line(points={{-279,240},{-260,240},{-260,226},{-242,226}},
       color={0,0,127}));
@@ -286,13 +288,13 @@ equation
     annotation (Line(points={{-279,130},{-160,130},{-160,142},{-142,142}},
       color={0,0,127}));
   connect(nexEnaChi, nexChiRat.index)
-    annotation (Line(points={{-380,70},{-130,70},{-130,98}},
+    annotation (Line(points={{-380,90},{-130,90},{-130,98}},
       color={255,127,0}));
   connect(floRat.y, nexChiRat.u)
     annotation (Line(points={{-219,220},{-154,220},{-154,110},{-142,110}},
       color={0,0,127}));
   connect(nexEnaChi,nexChiMaxFlo. index)
-    annotation (Line(points={{-380,70},{-316,70},{-316,50},{-130,50},{-130,58}},
+    annotation (Line(points={{-380,90},{-316,90},{-316,50},{-130,50},{-130,58}},
       color={255,127,0}));
   connect(nexChiRat.y, max.u2)
     annotation (Line(points={{-119,110},{-60,110},{-60,104},{-42,104}},
@@ -386,7 +388,7 @@ equation
     annotation (Line(points={{-279,240},{-260,240},{-260,-90},{-142,-90}},
       color={0,0,127}));
   connect(nexEnaChi, nexChiMinFlo.index)
-    annotation (Line(points={{-380,70},{-316,70},{-316,-110},{-130,-110},{-130,-102}},
+    annotation (Line(points={{-380,90},{-316,90},{-316,-110},{-130,-110},{-130,-102}},
       color={255,127,0}));
   connect(multiMax1.y, max1.u1)
     annotation (Line(points={{-79,-60},{-60,-60},{-60,-84},{-42,-84}},
@@ -451,10 +453,10 @@ equation
     annotation (Line(points={{-19,-130},{60,-130},{60,-248},{78,-248}},
       color={0,0,127}));
   connect(multiMax1.y, byPasSet1.u1)
-    annotation (Line(points={{-79,-60},{52,-60},{52,-92},{318,-92}},
+    annotation (Line(points={{-79,-60},{52,-60},{52,-112},{318,-112}},
       color={0,0,127}));
   connect(pro.y, byPasSet1.u1)
-    annotation (Line(points={{21,170},{32,170},{32,-92},{318,-92}},
+    annotation (Line(points={{21,170},{32,170},{32,-112},{318,-112}},
       color={0,0,127}));
   connect(swi.y, upSet.f2)
     annotation (Line(points={{161,-200},{180,-200},{180,192},{198,192}},

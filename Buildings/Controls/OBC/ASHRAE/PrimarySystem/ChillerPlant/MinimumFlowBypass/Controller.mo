@@ -2,22 +2,24 @@
 block Controller
   "Controller for chilled water minimum flow bypass valve"
 
-  parameter Integer nChi=3 "Total number of chillers";
-  parameter Modelica.SIunits.Time byPasSetTim = 300
+  parameter Integer nChi "Total number of chillers";
+  parameter Boolean isParallelChiller
+    "Flag: true means that the plant has parallel chillers";
+  parameter Modelica.SIunits.Time byPasSetTim
     "Time constant for resetting minimum bypass flow";
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi] = {0.005, 0.005, 0.005}
+  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
     "Minimum chilled water flow through each chiller";
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]={0.025,0.025,0.025}
+  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
     "Maximum chilled water flow through each chiller";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Controller"));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Controller"));
   parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Controller"));
-  parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
+  parameter Modelica.SIunits.Time Td=0 "Time constant of derivative block"
     annotation (Dialog(group="Controller"));
   parameter Real yMax=1 "Upper limit of output"
     annotation (Dialog(group="Controller"));
@@ -39,7 +41,7 @@ block Controller
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
-    "Status of resetting status of device before reset minimum flow setpoint"
+    "During chiller stage changing process, resetting status of device before reset minimum flow setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaNexChi
@@ -47,7 +49,7 @@ block Controller
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-120,0},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
-    "Indicate if the stage requires one chiller to be enabled while another is disabled"
+    "Indicate if the stage change requires one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
       iconTransformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -81,14 +83,14 @@ block Controller
     final yMax=yMax,
     final yMin=yMin,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    final y_reset=1,
-    final reverseAction=false) "By pass valve position PI controller"
+    final y_reset=1)  "By pass valve position PI controller"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint minBypSet(
     final nChi=nChi,
+    final isParallelChiller=isParallelChiller,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet,
-    maxFloSet=maxFloSet)       "Minimum by-pass flow setpoint"
+    final maxFloSet=maxFloSet)  "Minimum by-pass flow setpoint"
     annotation (Placement(transformation(extent={{-20,-24},{0,-4}})));
 
 protected
@@ -128,7 +130,7 @@ equation
   connect(VChiWat_flow, div1.u1)
     annotation (Line(points={{-120,90},{-20,90},{-20,46},{18,46}}, color={0,0,127}));
   connect(minBypSet.yChiWatMinFloSet, div.u1)
-    annotation (Line(points={{1,-14},{18,-14}},                   color={0,0,127}));
+    annotation (Line(points={{1,-14},{18,-14}},  color={0,0,127}));
   connect(mulSum.y, div1.u2)
     annotation (Line(points={{41,-100},{60,-100},{60,-70},{8,-70},{8,34},{18,34}},
       color={0,0,127}));

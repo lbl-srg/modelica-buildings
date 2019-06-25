@@ -6,6 +6,7 @@ model Controller "Validate control of minimum bypass valve"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller
     minBypValCon(
     final nChi=nChi,
+    isParallelChiller=true,
     final byPasSetTim=1.5,
     final minFloSet={minFloChiOne,minFloChiTwo,minFloChiThr},
     final maxFloSet={maxFloChiOne,maxFloChiTwo,maxFloChiThr})
