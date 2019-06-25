@@ -175,8 +175,8 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                       Text(
           extent={{-152,100},{148,140}},
-          textString="%name",
-          lineColor={0,0,255})}),                                Diagram(coordinateSystem(preserveAspectRatio=false)),
+          lineColor={0,0,255},
+          textString="%name")}),                                 Diagram(coordinateSystem(preserveAspectRatio=false)),
   defaultComponentName="equFit",
   Documentation(info="<html>
 <p>

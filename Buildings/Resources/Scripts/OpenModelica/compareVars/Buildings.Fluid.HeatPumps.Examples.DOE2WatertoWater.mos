@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "heaPumDOE2.QCon",
+    "heaPumDOE2.QEva",
+    "heaPumDOE2.DOE2.TConLvg",
+    "heaPumDOE2.DOE2.TConEnt",
+    "heaPumDOE2.DOE2.TEvaLvg",
+    "heaPumDOE2.DOE2.TEvaEnt"
+  };

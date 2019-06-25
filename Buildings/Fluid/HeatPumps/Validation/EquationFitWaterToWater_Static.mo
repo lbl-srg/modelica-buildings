@@ -13,22 +13,23 @@ model EquationFitWaterToWater_Static "example"
     dp2_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Water to Water heatpump" annotation (Placement(transformation(extent={{34,-10},
+    "Water to Water heatpump"
+     annotation (Placement(transformation(extent={{34,-10},
             {54,10}})));
-
     parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=per.mEva_flow_nominal
-       "Evaporator nominal mass flow rate";
+    "Evaporator nominal mass flow rate";
     parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=per.mCon_flow_nominal
-       "Condenser nominal mass flow rate";
+    "Condenser nominal mass flow rate";
     parameter Data.EquationFitWaterToWater.Trane_Axiom_EXW240 per
-       "Water to water heat pump performance data " annotation (Placement(transformation(extent={{74,24},{94,44}})));
-
+    "Water to water heat pump performance data "
+     annotation (Placement(transformation(extent={{74,24},{94,44}})));
     Sources.MassFlowSource_T evaPum(
     m_flow=mEva_flow_nominal,
     nPorts=1,
     use_T_in=true,
     redeclare package Medium = Medium)
-      "Evaporator water Pump" annotation (Placement(transformation(
+    "Evaporator water Pump"
+     annotation (Placement(transformation(
         extent={{-11,-11},{11,11}},
         rotation=180,
         origin={79,-49})));
@@ -38,7 +39,8 @@ model EquationFitWaterToWater_Static "example"
     nPorts=1,
     use_T_in=true,
     redeclare package Medium = Medium)
-      "Condenser water Pump" annotation (Placement(transformation(
+    "Condenser water Pump"
+     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-50,90})));
@@ -47,49 +49,61 @@ model EquationFitWaterToWater_Static "example"
     duration(displayUnit="h") = 14400,
     offset=20 + 273.15,
     startTime=0)
-      "Condesner entering water temperature" annotation (Placement(transformation(extent={{-116,76},{-96,96}})));
+    "Condesner entering water temperature"
+     annotation (Placement(transformation(extent={{-116,76},{-96,96}})));
     Controls.OBC.CDL.Continuous.Sources.Ramp TEvaEnt(
     height=4,
     duration(displayUnit="h") = 14400,
     offset=12 + 273.15,
     startTime=0)
-      "Evaporator entering water temperature" annotation (Placement(transformation(extent={{72,-96},{92,-76}})));
+    "Evaporator entering water temperature"
+     annotation (Placement(transformation(extent={{72,-96},{92,-76}})));
     FixedResistances.PressureDrop  res1(
     redeclare package Medium = Medium,
     m_flow_nominal=mCon_flow_nominal,
     dp_nominal=6000)
-    "Flow resistance" annotation (Placement(transformation(extent={{66,66},{86,86}})));
+    "Flow resistance"
+     annotation (Placement(transformation(extent={{66,66},{86,86}})));
     FixedResistances.PressureDrop  res2(
     redeclare package Medium = Medium,
     m_flow_nominal=mEva_flow_nominal,
     dp_nominal=6000)
-      "Flow resistance" annotation (Placement(transformation(extent={{-4,-94},{16,
+    "Flow resistance"
+     annotation (Placement(transformation(extent={{-4,-94},{16,
             -74}})));
     Modelica.Fluid.Sources.FixedBoundary heaVol(nPorts=1, redeclare package Medium = Medium)
-      "Volume for heating load" annotation (Placement(transformation(extent={{118,74},{98,94}})));
+    "Volume for heating load"
+     annotation (Placement(transformation(extent={{118,74},{98,94}})));
     Modelica.Fluid.Sources.FixedBoundary cooVol(nPorts=1, redeclare package Medium = Medium)
-      "Volume for cooling load" annotation (Placement(transformation(extent={{-54,-94},
+    "Volume for cooling load"
+     annotation (Placement(transformation(extent={{-54,-94},
             {-34,-74}})));
     Controls.OBC.CDL.Continuous.Sources.Ramp TEvaSet(
     height=4,
     duration(displayUnit="h") = 14400,
     offset=6 + 273.15,
-    startTime=0) "Evaporator setpoint water temperature" annotation (Placement(transformation(extent={{-20,-60},
+    startTime=0)
+    "Evaporator setpoint water temperature"
+     annotation (Placement(transformation(extent={{-20,-60},
             {0,-40}})));
     Controls.OBC.CDL.Continuous.Sources.Ramp TConSet(
     height=20,
     duration(displayUnit="h") = 14400,
     offset=40 + 273.15,
-    startTime=0) "Condenser setpoint water temperature" annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    startTime=0)
+    "Condenser setpoint water temperature"
+     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
     Controls.OBC.CDL.Continuous.Sources.Ramp uMod(
     height=2,
     duration(displayUnit="h") = 14400,
     offset=-1,
-    startTime=0) "HeatPump operational mode input signal" annotation (Placement(transformation(extent={{-118,
+    startTime=0)
+    "HeatPump operational mode input signal"
+     annotation (Placement(transformation(extent={{-118,
             -10},{-98,10}})));
+    Modelica.Blocks.Math.RealToInteger reaToInt
+     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Modelica.Blocks.Math.RealToInteger reaToInt
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(res1.port_b,heaVol. ports[1])
    annotation (Line(points={{86,76},{98,76},{98,84}}, color={0,127,255}));
@@ -115,11 +129,11 @@ equation
    annotation (Line(points={{66,76},{54,76},{54,6}},
                           color={0,127,255}));
   connect(TConEnt.y, conPum.T_in)
-    annotation (Line(points={{-95,86},{-62,86}}, color={0,0,127}));
+   annotation (Line(points={{-95,86},{-62,86}}, color={0,0,127}));
   connect(uMod.y, reaToInt.u)
-    annotation (Line(points={{-97,0},{-62,0}}, color={0,0,127}));
+   annotation (Line(points={{-97,0},{-62,0}}, color={0,0,127}));
   connect(reaToInt.y, heaPum.uMod)
-    annotation (Line(points={{-39,0},{32.6,0}}, color={255,127,0}));
+   annotation (Line(points={{-39,0},{32.6,0}}, color={255,127,0}));
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                          graphics={
@@ -141,8 +155,7 @@ equation
 <p>
 Model that demonstrates the use of <a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitWaterToWater\">
 Buildings.Fluid.HeatPumps.EquationFitWaterToWater </a> heat pump model implementing steady state energy and mass balance.
-
-  The heat pump power, condenser heat transfer rate and evaporator heat transfer rate are calculated for given leaving water
+The heat pump power, condenser heat transfer rate and evaporator heat transfer rate are calculated for given leaving water
   temperatures and mass flow rates on the evaporator and condenser sides.
 </p>
 </html>", revisions="<html>

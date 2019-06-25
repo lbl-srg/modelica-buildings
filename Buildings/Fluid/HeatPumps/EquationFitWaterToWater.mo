@@ -24,7 +24,8 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
     final prescribedHeatFlowRate=true));
 
   parameter Data.EquationFitWaterToWater.Generic_EquationFit per
-    "Performance data" annotation (choicesAllMatching = true,
+    "Performance data"
+     annotation (choicesAllMatching = true,
                 Placement(transformation(extent={{118,80},{138,100}})));
   parameter Modelica.SIunits.HeatFlowRate   QCon_heatflow_nominal=per.QCon_heatflow_nominal
    "Heating load nominal capacity_Heating mode";
@@ -37,23 +38,19 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
 
    Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod equFit(per=per)
     "EquationFit method which describes the water to water heat pump performance"
-                                                                      annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-   Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
-    "Set point for leaving chilled water temperature" annotation (Placement(
-        transformation(extent={{-182,-110},{-142,-70}}), iconTransformation(
-          extent={{-128,-104},{-100,-76}})));
-   Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
-    "Set point for leaving heating water temperature" annotation (Placement(
-        transformation(extent={{-180,70},{-140,110}}), iconTransformation(
-          extent={{-128,76},{-100,104}})));
+     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
    Modelica.Blocks.Interfaces.IntegerInput uMod
-    "HeatPump control input signal,Heating mode= 1, Off=0, Cooling mode=-1" annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
+    "HeatPump control input signal,Heating mode= 1, Off=0, Cooling mode=-1"
+     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
         iconTransformation(extent={{-128,-14},{-100,14}})));
    HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
-    "Prescribed condenser heat flow rate"  annotation (Placement(transformation(extent={{-37,12},
+    "Prescribed condenser heat flow rate"
+     annotation (Placement(transformation(extent={{-37,12},
             {-17,32}})));
    HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
-    "Prescribed evaporator heat flow rate" annotation (Placement(transformation(extent={{-37,-30},{-17,-10}})));
+    "Prescribed evaporator heat flow rate"
+     annotation (Placement(transformation(extent={{-37,-30},{-17,-10}})));
    Modelica.Blocks.Sources.RealExpression hConSet(final y=
         Medium1.specificEnthalpy_pTX(
         p=port_b1.p,
@@ -62,7 +59,8 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
           1,
           port_b1.Xi_outflow,
           {1 - sum(port_b1.Xi_outflow)})))
-    "Heating water setpoint enthalpy" annotation (Placement(transformation(extent={{-134,58},{-114,78}})));
+    "Heating water setpoint enthalpy"
+     annotation (Placement(transformation(extent={{-134,58},{-114,78}})));
    Modelica.Blocks.Sources.RealExpression hEvaSet(final y=
         Medium2.specificEnthalpy_pTX(
         p=port_b2.p,
@@ -71,94 +69,123 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
           1,
           port_b2.Xi_outflow,
           {1 - sum(port_b2.Xi_outflow)})))
-    "Cooled water setpoint enthalpy" annotation (Placement(transformation(extent={{-134,-80},{-114,-60}})));
+    "Cooled water setpoint enthalpy"
+     annotation (Placement(transformation(extent={{-134,-80},{-114,-60}})));
   Modelica.Blocks.Sources.RealExpression QConFloSet(final y=
         Buildings.Utilities.Math.Functions.smoothMax(
         x1=mConFlo.y*(hConSet.y - inStream(port_a1.h_outflow)),
         x2=Q_flow_small,
         deltaX=Q_flow_small/10))
-    "Setpoint heat flow rate of the condenser" annotation (Placement(transformation(extent={{-134,-2},{-114,18}})));
+    "Setpoint heat flow rate of the condenser"
+     annotation (Placement(transformation(extent={{-134,-2},{-114,18}})));
   Modelica.Blocks.Sources.RealExpression QEvaFloSet(final y=
         Buildings.Utilities.Math.Functions.smoothMin(
         x1=mEvaFlo.y*(hEvaSet.y - inStream(port_a2.h_outflow)),
         x2=-Q_flow_small,
         deltaX=Q_flow_small/100))
-    "Setpoint heat flow rate of the evaporator" annotation (Placement(transformation(extent={{-134,-20},{-114,0}})));
+    "Setpoint heat flow rate of the evaporator"
+     annotation (Placement(transformation(extent={{-134,-20},{-114,0}})));
    Modelica.Blocks.Sources.RealExpression TConEnt(y=Medium1.temperature(
                                                    Medium1.setState_phX(port_a1.p,
                                                    inStream(port_a1.h_outflow))))
-    "Condenser entering water temperature" annotation (Placement(transformation(extent={{-134,28},{-114,48}})));
+    "Condenser entering water temperature"
+     annotation (Placement(transformation(extent={{-134,28},{-114,48}})));
    Modelica.Blocks.Sources.RealExpression TEvaEnt(y=Medium2.temperature(
                                                    Medium2.setState_phX(port_a2.p,
                                                    inStream(port_a2.h_outflow))))
-    "Evaporator entering water temperature" annotation (Placement(transformation(extent={{-134,-64},{-114,-44}})));
+    "Evaporator entering water temperature"
+     annotation (Placement(transformation(extent={{-134,-64},{-114,-44}})));
    Modelica.Blocks.Sources.RealExpression TConLvg(y=vol1.heatPort.T)
-    "Condenser leaving water temperature" annotation (Placement(transformation(extent={{-134,44},{-114,64}})));
+    "Condenser leaving water temperature"
+     annotation (Placement(transformation(extent={{-134,44},{-114,64}})));
    Modelica.Blocks.Sources.RealExpression TEvaLvg(y=vol2.heatPort.T)
-    "Evaporator leaving water temperature" annotation (Placement(transformation(extent={{-134,-50},{-114,-30}})));
+    "Evaporator leaving water temperature"
+     annotation (Placement(transformation(extent={{-134,-50},{-114,-30}})));
    Modelica.Blocks.Sources.RealExpression mConFlo(y=vol1.ports[1].m_flow)
-    "Condenser water mass flow rate" annotation (Placement(transformation(extent={{-134,14},{-114,34}})));
+    "Condenser water mass flow rate"
+     annotation (Placement(transformation(extent={{-134,14},{-114,34}})));
    Modelica.Blocks.Sources.RealExpression mEvaFlo(y=vol2.ports[1].m_flow)
-    "Evaporator mass flow rate" annotation (Placement(transformation(extent={{-134,-36},{-114,-16}})));
+    "Evaporator mass flow rate"
+     annotation (Placement(transformation(extent={{-134,-36},{-114,-16}})));
    Modelica.Blocks.Interfaces.RealOutput P( final unit="W", displayUnit="W")
-    "Compressor Power " annotation (Placement(transformation(extent={{140,-10},{160,10}}),
+    "Compressor Power "
+     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
         iconTransformation(extent={{100,-12},{120,8}})));
    Modelica.Blocks.Interfaces.RealOutput QEva(final unit="W", displayUnit="W")
-    "Evaporator heat flow rate" annotation (Placement(transformation(extent={{140,
+    "Evaporator heat flow rate"
+     annotation (Placement(transformation(extent={{140,
             -30},{160,-10}}), iconTransformation(extent={{100,-100},{120,-80}})));
    Modelica.Blocks.Interfaces.RealOutput QCon(final unit="W", displayUnit="W")
-    "Condenser heat flow rate" annotation (Placement(transformation(extent={{140,
+    "Condenser heat flow rate"
+     annotation (Placement(transformation(extent={{140,
             10},{160,30}}), iconTransformation(extent={{100,78},{120,98}})));
-
+   Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
+    "Set point for leaving chilled water temperature"
+     annotation (Placement(
+        transformation(extent={{-182,-110},{-142,-70}}), iconTransformation(
+          extent={{-128,-104},{-100,-76}})));
+   Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
+    "Set point for leaving heating water temperature"
+     annotation (Placement(
+        transformation(extent={{-180,70},{-140,110}}), iconTransformation(
+          extent={{-128,76},{-100,104}})));
 equation
   connect(preHeaFloCon.port,vol1.heatPort)
-  annotation (Line(points={{-17,22},{-16,22},{-16,60},{-10,60}}, color={191,0,0}));
+     annotation (Line(points={{-17,22},{-16,22},{-16,60},{-10,60}}, color={191,0,0}));
   connect(preHeaFloEva.port, vol2.heatPort)
-  annotation (Line(points={{-17,-20},{
+     annotation (Line(points={{-17,-20},{
           20,-20},{20,-60},{12,-60}},color={191,0,0}));
   connect(uMod, equFit.uMod)
-  annotation (Line(points={{-160,0},{-96,0},{-96,-0.1},{-80.9,-0.1}},
+     annotation (Line(points={{-160,0},{-96,0},{-96,-0.1},{-80.9,-0.1}},
                          color={255,127,0}));
   connect(TConSet, equFit.TConSet)
-  annotation (Line(points={{-160,90},{-88,90},{-88,10},{-81,10}},
+     annotation (Line(points={{-160,90},{-88,90},{-88,10},{-81,10}},
                                     color={0,0,111}));
   connect(TEvaSet, equFit.TEvaSet)
-  annotation (Line(points={{-162,-90},{-88,-90},{-88,-9.9},{-80.9,-9.9}},
+     annotation (Line(points={{-162,-90},{-88,-90},{-88,-9.9},{-80.9,-9.9}},
                                         color={0,0,127}));
-  connect(equFit.QEva, preHeaFloEva.Q_flow) annotation (Line(points={{-59,-4},{-42,
+  connect(equFit.QEva, preHeaFloEva.Q_flow)
+     annotation (Line(points={{-59,-4},{-42,
           -4},{-42,-20},{-37,-20}}, color={0,0,127}));
   connect(equFit.QEva, QEva) annotation (Line(points={{-59,-4},{132,-4},{132,-20},
           {150,-20}}, color={0,0,127}));
-  connect(QConFloSet.y, equFit.QConFloSet) annotation (Line(
+  connect(QConFloSet.y, equFit.QConFloSet)
+     annotation (Line(
       points={{-113,8},{-106,8},{-106,2},{-81,2}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(QEvaFloSet.y, equFit.QEvaFloSet) annotation (Line(
+  connect(QEvaFloSet.y, equFit.QEvaFloSet)
+     annotation (Line(
       points={{-113,-10},{-106,-10},{-106,-2.1},{-80.9,-2.1}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(equFit.QCon, preHeaFloCon.Q_flow) annotation (Line(points={{-59,4},{-42,
+  connect(equFit.QCon, preHeaFloCon.Q_flow)
+     annotation (Line(points={{-59,4},{-42,
           4},{-42,22},{-37,22}}, color={0,0,127}));
   connect(TEvaEnt.y, equFit.TEvaEnt)
-  annotation (Line(points={{-113,-54},{-98,-54},{-98,-7.9},{-80.9,-7.9}},
+     annotation (Line(points={{-113,-54},{-98,-54},{-98,-7.9},{-80.9,-7.9}},
                                       color={0,0,127}));
   connect(TEvaLvg.y, equFit.TEvaLvg)
-  annotation (Line(points={{-113,-40},{-102,-40},{-102,-6.1},{-80.9,-6.1}},
+     annotation (Line(points={{-113,-40},{-102,-40},{-102,-6.1},{-80.9,-6.1}},
                                                  color={0,0,127}));
   connect(TConEnt.y, equFit.TConEnt)
-  annotation (Line(points={{-113,38},{-102,38},{-102,6},{-81,6}},
+     annotation (Line(points={{-113,38},{-102,38},{-102,6},{-81,6}},
                                            color={0,0,127}));
   connect(TConLvg.y, equFit.TConLvg)
-  annotation (Line(points={{-113,54},{-96,54},{-96,8},{-81,8}},
+     annotation (Line(points={{-113,54},{-96,54},{-96,8},{-81,8}},
                                                     color={0,0,127}));
-  connect(mEvaFlo.y, equFit.m2_flow) annotation (Line(points={{-113,-26},{-104,-26},
+  connect(mEvaFlo.y, equFit.m2_flow)
+     annotation (Line(points={{-113,-26},{-104,-26},
           {-104,-3.9},{-80.9,-3.9}}, color={0,0,127}));
-  connect(mConFlo.y, equFit.m1_flow) annotation (Line(points={{-113,24},{-104,24},
+  connect(mConFlo.y, equFit.m1_flow)
+     annotation (Line(points={{-113,24},{-104,24},
           {-104,4},{-81,4}}, color={0,0,127}));
   connect(equFit.P, P)
-  annotation (Line(points={{-59,0},{150,0}}, color={0,0,127}));
-  connect(equFit.QCon, QCon) annotation (Line(points={{-59,4},{132,4},{132,20},{
+     annotation (Line(points={{-59,0},{150,0}}, color={0,0,127}));
+  connect(equFit.QCon, QCon)
+     annotation (Line(points={{-59,4},{132,4},{132,20},{
           150,20}}, color={0,0,127}));
+
 annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
         Rectangle(

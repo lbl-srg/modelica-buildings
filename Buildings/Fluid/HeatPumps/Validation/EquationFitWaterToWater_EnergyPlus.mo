@@ -20,10 +20,13 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     T1_start=55 + 273.15,
-    T2_start=12 + 273.15) "Water to Water HeatPump" annotation (Placement(transformation(extent={{32,-10},{52,10}})));
+    T2_start=12 + 273.15)
+    "Water to Water HeatPump"
+     annotation (Placement(transformation(extent={{32,-10},{52,10}})));
 
     parameter Data.EquationFitWaterToWater.EnergyPlus_HeatPump perEP
-    "EnergyPlus HeatPump performance" annotation (Placement(transformation(extent={{70,24},{90,44}})));
+    "EnergyPlus HeatPump performance"
+     annotation (Placement(transformation(extent={{70,24},{90,44}})));
     parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=perEP.mEva_flow_nominal
     "Evaporator nominal mass flow rate";
     parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=perEP.mCon_flow_nominal
@@ -39,7 +42,8 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
     nPorts=1,
     use_T_in=true,
     redeclare package Medium = Medium)
-    "Condenser water pump" annotation (
+    "Condenser water pump"
+     annotation (
       Placement(transformation(
         extent={{13,-13},{-13,13}},
         rotation=180,
@@ -49,38 +53,44 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
     nPorts=1,
     use_T_in=true,
     redeclare package Medium = Medium)
-    "Evaporator water pump"   annotation (
+    "Evaporator water pump"
+     annotation (
       Placement(transformation(
         extent={{-12,-12},{12,12}},
         rotation=180,
         origin={88,-40})));
   Modelica.Fluid.Sources.FixedBoundary cooVol(redeclare package Medium = Medium, nPorts=1)
-    "Volume for cooling load" annotation (Placement(transformation(extent={{-48,-92},{-28,-72}})));
+    "Volume for cooling load"
+    annotation (Placement(transformation(extent={{-48,-92},{-28,-72}})));
+
   Modelica.Fluid.Sources.FixedBoundary heaVol(nPorts=1, redeclare package Medium = Medium)
-    "Volume for heating load" annotation (Placement(transformation(extent={{118,74},{98,94}})));
+    "Volume for heating load"
+     annotation (Placement(transformation(extent={{118,74},{98,94}})));
   FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     m_flow_nominal=mCon_flow_nominal,
     dp_nominal=6000)
-    "Flow resistance" annotation (Placement(transformation(extent={{64,74},{84,94}})));
+    "Flow resistance"
+     annotation (Placement(transformation(extent={{64,74},{84,94}})));
   FixedResistances.PressureDrop  res2(
     redeclare package Medium = Medium,
      m_flow_nominal=mEva_flow_nominal,
     dp_nominal=6000)
-    "Flow resistance" annotation (Placement(transformation(extent={{-10,-92},{10,-72}})));
+    "Flow resistance"
+     annotation (Placement(transformation(extent={{-10,-92},{10,-72}})));
 
-  Controls.OBC.CDL.Continuous.LessEqualThreshold    lesEquThr(threshold=-1)
-    annotation (Placement(transformation(extent={{-94,20},{-74,40}})));
-  Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1)
-    annotation (Placement(transformation(extent={{-96,-40},{-76,-20}})));
-  Controls.OBC.CDL.Conversions.BooleanToInteger     booToInt(integerTrue=-1)
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Controls.OBC.CDL.Conversions.BooleanToInteger     booToInt1
-    annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
-  Controls.OBC.CDL.Integers.Add                     addInt
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+   Controls.OBC.CDL.Continuous.LessEqualThreshold    lesEquThr(threshold=-1)
+     annotation (Placement(transformation(extent={{-94,20},{-74,40}})));
+   Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1)
+     annotation (Placement(transformation(extent={{-96,-40},{-76,-20}})));
+   Controls.OBC.CDL.Conversions.BooleanToInteger     booToInt(integerTrue=-1)
+     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+   Controls.OBC.CDL.Conversions.BooleanToInteger     booToInt1
+     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
+   Controls.OBC.CDL.Integers.Add                     addInt
+     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Sources.TimeTable TConEnt(table=[0,327.92; 600,327.92; 1200,327.92;
+    Modelica.Blocks.Sources.TimeTable TConEnt(table=[0,327.92; 600,327.92; 1200,327.92;
         1800,327.92; 2400,327.92; 3000,327.91; 3600,327.91; 4200,327.91; 4800,327.91;
         5400,327.9; 6000,327.9; 6600,327.9; 7200,327.89; 7800,327.89; 8400,327.88;
         9000,327.88; 9600,327.87; 10200,327.87; 10800,327.86; 11400,327.86; 12000,
@@ -136,10 +146,9 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         168600,286.65; 169200,286.64; 169800,286.64; 170400,286.63; 171000,286.63;
         171600,286.62; 172200,286.62; 172800,286.61],
                       offset=0)
-    "EnergyPlus Condenserwater entering temperature"
-                                                 annotation (Placement(transformation(extent={{-120,74},{-100,94}})));
-
-  Modelica.Blocks.Sources.TimeTable TEvaEnt(
+        "EnergyPlus Condenserwater entering temperature"
+         annotation (Placement(transformation(extent={{-120,74},{-100,94}})));
+    Modelica.Blocks.Sources.TimeTable TEvaEnt(
     table=[0,286; 600,286; 1200,286.09; 1800,286.21; 2400,286.24; 3000,286.24; 3600,
         286.23; 4200,286.22; 4800,286.22; 5400,286.22; 6000,286.22; 6600,286.22; 7200,
         286.21; 7800,286.21; 8400,286.21; 9000,286.21; 9600,286.2; 10200,286.2; 10800,
@@ -195,10 +204,10 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         279.82; 168000,279.82; 168600,279.82; 169200,279.82; 169800,279.82; 170400,
         279.82; 171000,279.82; 171600,279.82; 172200,279.82; 172800,279.82],
         offset=0,
-        startTime=0) "EnergyPlus Evaporator entering water temperature"
-                                                   annotation (Placement(transformation(extent={{62,-90},{82,-70}})));
-
-  Modelica.Blocks.Sources.TimeTable HeaPumMod(table=[0,1; 600,1; 1200,1; 1800,1; 2400,
+        startTime=0)
+        "EnergyPlus Evaporator entering water temperature"
+         annotation (Placement(transformation(extent={{62,-90},{82,-70}})));
+   Modelica.Blocks.Sources.TimeTable heaPumMod(table=[0,1; 600,1; 1200,1; 1800,1; 2400,
         1; 3000,1; 3600,1; 4200,1; 4800,1; 5400,1; 6000,1; 6600,1; 7200,1; 7800,1;
         8400,1; 9000,1; 9600,1; 10200,1; 10800,1; 11400,1; 12000,1; 12600,1; 13200,
         1; 13800,1; 14400,1; 15000,1; 15600,1; 16200,1; 16800,1; 17400,1; 18000,1;
@@ -235,10 +244,9 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         0; 161400,0; 162000,0; 162600,0; 163200,0; 163800,0; 164400,0; 165000,0; 165600,
         0; 166200,0; 166800,0; 167400,0; 168000,0; 168600,0; 169200,0; 169800,0; 170400,
         0; 171000,0; 171600,0; 172200,0; 172800,0])
-    "EnergyPlus HeatPump mode control signal"
-                                           annotation (Placement(transformation(extent={{-132,-10},{-112,10}})));
-
-  Modelica.Blocks.Sources.TimeTable TEvaSet(
+        "EnergyPlus HeatPump mode control signal"
+         annotation (Placement(transformation(extent={{-132,-10},{-112,10}})));
+    Modelica.Blocks.Sources.TimeTable TEvaSet(
     table=[0,285.66; 600,285.66; 1200,285.75; 1800,285.86; 2400,285.9; 3000,285.89;
         3600,285.88; 4200,285.87; 4800,285.86; 5400,285.85; 6000,285.84; 6600,285.84;
         7200,285.83; 7800,285.82; 8400,285.81; 9000,285.8; 9600,285.79; 10200,285.78;
@@ -295,10 +303,10 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         169800,279.82; 170400,279.82; 171000,279.82; 171600,279.82; 172200,279.82;
         172800,279.82],
         offset=0,
-        startTime=0) "EnergyPlus evaporator leaving water Temperature"
-                                                  annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-
-  Modelica.Blocks.Sources.TimeTable TConSet(table=[0,328.44; 600,328.44; 1200,328.44;
+        startTime=0)
+        "EnergyPlus evaporator leaving water Temperature"
+         annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    Modelica.Blocks.Sources.TimeTable TConSet(table=[0,328.44; 600,328.44; 1200,328.44;
         1800,328.44; 2400,328.45; 3000,328.45; 3600,328.45; 4200,328.46; 4800,328.46;
         5400,328.46; 6000,328.47; 6600,328.47; 7200,328.48; 7800,328.49; 8400,328.49;
         9000,328.5; 9600,328.5; 10200,328.51; 10800,328.52; 11400,328.52; 12000,328.53;
@@ -353,9 +361,8 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         286.68; 166200,286.67; 166800,286.67; 167400,286.66; 168000,286.65; 168600,
         286.65; 169200,286.64; 169800,286.64; 170400,286.63; 171000,286.63; 171600,
         286.62; 172200,286.62; 172800,286.62])
-    "EnergyPlus condesner leaving Water Temperature"
-                                                  annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-
+       "EnergyPlus condesner leaving Water Temperature"
+         annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.TimeTable QEvaEP(table=[0,-2666.52; 600,-2689.23; 1200,-2720.31;
         1800,-2747.97; 2400,-2777.49; 3000,-2809.37; 3600,-2838.95; 4200,-2874.35;
         4800,-2908.25; 5400,-2950.57; 6000,-2995.97; 6600,-3049.86; 7200,-3104.07;
@@ -414,9 +421,9 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         165000,-21.8; 165600,-21.8; 166200,-21.8; 166800,-21.8; 167400,-21.8; 168000,
         -21.8; 168600,-21.8; 169200,-21.8; 169800,-21.8; 170400,-21.8; 171000,-21.8;
         171600,-21.8; 172200,-21.8])
-        "EnergyPlus result: Evaporator heat flow" annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-
-  Modelica.Blocks.Sources.TimeTable QConEP(table=[0,4076.801; 600,4107.967; 1200,4150.948;
+        "EnergyPlus result: Evaporator heat flow"
+         annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+    Modelica.Blocks.Sources.TimeTable QConEP(table=[0,4076.801; 600,4107.967; 1200,4150.948;
         1800,4191.577; 2400,4236.65; 3000,4285.584; 3600,4330.89; 4200,4384.892; 4800,
         4436.572; 5400,4501.051; 6000,4570.25; 6600,4652.368; 7200,4734.978; 7800,
         4812.416; 8400,4902.982; 9000,4993.823; 9600,5078.105; 10200,5169.262; 10800,
@@ -472,9 +479,10 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         25.4; 163800,25.4; 164400,25.4; 165000,25.4; 165600,25.4; 166200,25.4; 166800,
         25.4; 167400,25.4; 168000,25.4; 168600,25.4; 169200,25.4; 169800,25.4; 170400,
         25.4; 171000,25.4; 171600,25.4; 172200,25.4; 172800,25.4])
-        "EnergyPlus result: Condenser heat flow " annotation (Placement(transformation(extent={{-84,-90},{-64,-70}})));
+        "EnergyPlus result: Condenser heat flow "
+        annotation (Placement(transformation(extent={{-84,-90},{-64,-70}})));
 
-  Modelica.Blocks.Sources.TimeTable ComP(table=[0,1410.3; 600,1418.7; 1200,1430.6;
+    Modelica.Blocks.Sources.TimeTable ComP(table=[0,1410.3; 600,1418.7; 1200,1430.6;
         1800,1443.6; 2400,1459.2; 3000,1476.2; 3600,1491.9; 4200,1510.5; 4800,1528.3;
         5400,1550.5; 6000,1574.3; 6600,1602.5; 7200,1630.9; 7800,1657.5; 8400,1688.6;
         9000,1719.8; 9600,1748.8; 10200,1780.1; 10800,1810.8; 11400,1844.5; 12000,
@@ -551,10 +559,10 @@ equation
   connect(TEvaSet.y, heaPum.TEvaSet)
    annotation (Line(points={{1,-50},{20,-50},{20,-9},{30.6,-9}},
                            color={0,0,127}));
-  connect(HeaPumMod.y, lesEquThr.u)
+  connect(heaPumMod.y, lesEquThr.u)
    annotation (Line(points={{-111,0},{-104,0},{-104,30},{-96,30}},
                            color={0,0,127}));
-  connect(HeaPumMod.y, greEquThr.u)
+  connect(heaPumMod.y, greEquThr.u)
    annotation (Line(points={{-111,0},{-104,0},{-104,-30},{-98,-30}},
                              color={0,0,127}));
   connect(TConEnt.y, conPum.T_in)
@@ -618,8 +626,6 @@ While <a href=\"Buildings.Fluid.HeatPumps.EquationFitWaterToWater\">
 Buildings.Fluid.HeatPumps.EquationFitWaterToWater</a> considers the condenser and evaporator nominal flow rates
 as two parameters during the simulation interval.
 </p>
-
-
 <p>
 The EnergyPlus results were generated using the example file <code>GSHPSimple-GLHE.idf</code>
 from EnergyPlus 9.1, with a nominal cooling capacity of <i>39890</i> Watts  and nominal heating capacity of <i>39040</i> Watts.
