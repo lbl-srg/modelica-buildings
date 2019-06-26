@@ -534,7 +534,6 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         "EnergyPlus results: compressor power"
          annotation (Placement(transformation(extent={{-112,-90},{-92,-70}})));
 equation
-
   connect(heaPum.port_a1, conPum.ports[1])
    annotation (Line(points={{32,6},{24,6},
           {24,87},{-28,87}}, color={0,127,255}));

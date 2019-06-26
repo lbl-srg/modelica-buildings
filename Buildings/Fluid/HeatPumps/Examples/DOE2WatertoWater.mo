@@ -101,7 +101,6 @@ model DOE2WatertoWater
      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation
-
   connect(heaPumDOE2.port_a1, conPum.ports[1])
     annotation (Line(points={{32,6},{
           24,6},{24,90},{-40,90}}, color={0,127,255}));

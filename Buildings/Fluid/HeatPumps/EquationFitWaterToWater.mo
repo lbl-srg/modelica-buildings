@@ -183,8 +183,7 @@ equation
   connect(equFit.QCon, QCon)
      annotation (Line(points={{-59,4},{132,4},{132,20},{
           150,20}}, color={0,0,127}));
-
-annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
+     annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -312,7 +311,7 @@ Master Thesis. Oklahoma State University, Oklahoma, USA. 2005.
   </html>", revisions="<html>
 <ul>
 <li>
-June 19, 2019, by Hagar Elarga:<br/>
+May 19, 2019, by Hagar Elarga:<br/>
 First implementation.
 </li>
 </ul>

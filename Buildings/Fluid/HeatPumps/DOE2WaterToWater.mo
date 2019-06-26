@@ -141,7 +141,6 @@ model DOE2WaterToWater "Water source heat pump_Performance curve"
        annotation (Placement(transformation(extent={{-41,-50},{-21,-30}})));
 
 equation
-
   connect(preHeaFloCon.port,vol1.heatPort)
    annotation (Line(points={{-21,34},{-16,34},{-16,60},{-10,60}}, color={191,0,0}));
   connect(preHeaFloEva.port,vol2.heatPort)

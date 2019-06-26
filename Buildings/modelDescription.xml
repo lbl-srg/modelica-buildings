@@ -2,21 +2,21 @@
 <fmiModelDescription
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   fmiVersion="2.0"
-  modelName="Buildings.Fluid.HeatPumps.Validation.EquationFitWaterToWater_Static"
-  guid="{d27ad130-0cc9-443e-be45-fc440f02b532}"
+  modelName="Buildings.Fluid.HeatPumps.Examples.EquationFitWatertoWater"
+  guid="{64e581cc-d67a-4074-87be-1aa13e1aadef}"
   description="example"
   version="6.0.0"
   generationTool="Dymola Version 2019 FD01 (64-bit), 2018-10-10 (requires license to execute)"
-  generationDateAndTime="2019-06-26T19:54:26Z"
+  generationDateAndTime="2019-06-26T23:51:53Z"
   variableNamingConvention="structured"
   numberOfEventIndicators="10">
   <ModelExchange
-    modelIdentifier="Buildings_Fluid_HeatPumps_Validation_EquationFitWaterToWater_0Static"
+    modelIdentifier="Buildings_Fluid_HeatPumps_Examples_EquationFitWatertoWater"
     canGetAndSetFMUstate="true"
     canSerializeFMUstate="true"
     providesDirectionalDerivative="true"/>
   <CoSimulation
-    modelIdentifier="Buildings_Fluid_HeatPumps_Validation_EquationFitWaterToWater_0Static"
+    modelIdentifier="Buildings_Fluid_HeatPumps_Examples_EquationFitWatertoWater"
     canHandleVariableCommunicationStepSize="true"
     canInterpolateInputs="true"
     maxOutputDerivativeOrder="1"
@@ -349,7 +349,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="61 382"
+          <Data dependencies="61 394"
             equation="heaPum.port_b2.h_outflow = evaPum.ports[1].h_outflow+0.5282620179609087*heaPum.Q2_flow; "/>
         </Tool>
       </Annotations>
@@ -495,7 +495,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="394"
+          <Data dependencies="382"
             equation="heaPum.sta_a1.T = 273.15+0.0002390057361376673*conPum.ports[1].h_outflow; "/>
         </Tool>
       </Annotations>
@@ -575,7 +575,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="382"
+          <Data dependencies="394"
             equation="heaPum.sta_a2.T = 273.15+0.0002390057361376673*evaPum.ports[1].h_outflow; "/>
         </Tool>
       </Annotations>
@@ -655,7 +655,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="394"
+          <Data dependencies="382"
             equation="heaPum.state_a1_inflow.T = 273.15+0.0002390057361376673*conPum.ports[1].h_outflow; "/>
         </Tool>
       </Annotations>
@@ -715,7 +715,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="382"
+          <Data dependencies="394"
             equation="heaPum.state_a2_inflow.T = 273.15+0.0002390057361376673*evaPum.ports[1].h_outflow; "/>
         </Tool>
       </Annotations>
@@ -870,7 +870,7 @@
       variability="constant">
       <Enumeration
         declaredType="Modelica.Fluid.Types.Dynamics"
-        start="4"/>
+        start="2"/>
     </ScalarVariable>
     <!-- Index for next variable = 53 -->
     <ScalarVariable
@@ -880,7 +880,7 @@
       variability="constant">
       <Enumeration
         declaredType="Modelica.Fluid.Types.Dynamics"
-        start="4"/>
+        start="2"/>
     </ScalarVariable>
     <!-- Index for next variable = 54 -->
     <ScalarVariable
@@ -1323,7 +1323,7 @@
     <!-- Index for next variable = 86 -->
     <ScalarVariable
       name="heaPum.vol1.m"
-      valueReference="100663701"
+      valueReference="100663674"
       description="Mass of the component">
       <Real
         unit="kg"/>
@@ -1580,7 +1580,7 @@
     <!-- Index for next variable = 102 -->
     <ScalarVariable
       name="heaPum.vol1.dynBal.mOut"
-      valueReference="100663701"
+      valueReference="100663674"
       description="Mass of the component">
       <Real
         unit="kg"
@@ -1674,7 +1674,7 @@
     <!-- Index for next variable = 107 -->
     <ScalarVariable
       name="heaPum.vol1.dynBal.medium.T"
-      valueReference="905970060"
+      valueReference="905970033"
       description="Temperature of medium">
       <Real
         quantity="ThermodynamicTemperature"
@@ -1765,7 +1765,7 @@
     <!-- Index for next variable = 112 -->
     <ScalarVariable
       name="heaPum.vol1.dynBal.medium.state.T"
-      valueReference="905970060"
+      valueReference="905970033"
       description="Temperature of medium">
       <Real
         quantity="ThermodynamicTemperature"
@@ -1785,7 +1785,7 @@
     <!-- Index for next variable = 113 -->
     <ScalarVariable
       name="heaPum.vol1.dynBal.medium.T_degC"
-      valueReference="905970067"
+      valueReference="905970040"
       description="Temperature of medium in [degC]">
       <Real
         quantity="ThermodynamicTemperature"
@@ -1828,7 +1828,7 @@
     <!-- Index for next variable = 116 -->
     <ScalarVariable
       name="heaPum.vol1.dynBal.Hb_flow"
-      valueReference="637534616"
+      valueReference="637534589"
       description="Enthalpy flow across boundaries or energy source/sink">
       <Real
         quantity="EnthalpyFlowRate"
@@ -1844,7 +1844,7 @@
     <!-- Index for next variable = 117 -->
     <ScalarVariable
       name="heaPum.vol1.dynBal.ports_H_flow[1]"
-      valueReference="637534619">
+      valueReference="637534592">
       <Real
         quantity="EnthalpyFlowRate"
         unit="W"
@@ -1854,7 +1854,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="394"
+          <Data dependencies="382"
             equation="heaPum.vol1.dynBal.ports_H_flow[1] = 1.893*conPum.ports[1].h_outflow; "/>
         </Tool>
       </Annotations>
@@ -1862,7 +1862,7 @@
     <!-- Index for next variable = 118 -->
     <ScalarVariable
       name="heaPum.vol1.dynBal.ports_H_flow[2]"
-      valueReference="637534620">
+      valueReference="637534593">
       <Real
         quantity="EnthalpyFlowRate"
         unit="W"
@@ -2133,7 +2133,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="61 382"
+          <Data dependencies="61 394"
             equation="heaPum.vol2.ports[2].h_outflow = heaPum.port_b2.h_outflow = evaPum.ports[1].h_outflow+0.5282620179609087*heaPum.Q2_flow; "/>
         </Tool>
       </Annotations>
@@ -2205,7 +2205,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="61 382"
+          <Data dependencies="61 394"
             equation="heaPum.vol2.hOut_internal = heaPum.port_b2.h_outflow = evaPum.ports[1].h_outflow+0.5282620179609087*heaPum.Q2_flow; "/>
         </Tool>
       </Annotations>
@@ -2473,7 +2473,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="61 382"
+          <Data dependencies="61 394"
             equation="heaPum.vol2.steBal.port_b.h_outflow = heaPum.port_b2.h_outflow = evaPum.ports[1].h_outflow+0.5282620179609087*heaPum.Q2_flow; "/>
         </Tool>
       </Annotations>
@@ -2503,7 +2503,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="61 382"
+          <Data dependencies="61 394"
             equation="heaPum.vol2.steBal.hOut = heaPum.port_b2.h_outflow = evaPum.ports[1].h_outflow+0.5282620179609087*heaPum.Q2_flow; "/>
         </Tool>
       </Annotations>
@@ -2604,7 +2604,7 @@
     <!-- Index for next variable = 169 -->
     <ScalarVariable
       name="heaPum.preDro1.port_b.h_outflow"
-      valueReference="637534503"
+      valueReference="637534462"
       description="Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0">
       <Real
         quantity="SpecificEnergy"
@@ -2615,7 +2615,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="400"
+          <Data dependencies="388"
             equation="heaPum.preDro1.port_b.h_outflow = conPum.ports[1].h_outflow = 4184*(conPum.T_in_internal-273.15); "/>
         </Tool>
       </Annotations>
@@ -2836,7 +2836,7 @@
     <!-- Index for next variable = 188 -->
     <ScalarVariable
       name="heaPum.preDro2.port_b.h_outflow"
-      valueReference="637534489"
+      valueReference="637534476"
       description="Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0">
       <Real
         quantity="SpecificEnergy"
@@ -2847,7 +2847,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="388"
+          <Data dependencies="400"
             equation="heaPum.preDro2.port_b.h_outflow = evaPum.ports[1].h_outflow = 4184*(evaPum.T_in_internal-273.15); "/>
         </Tool>
       </Annotations>
@@ -2975,48 +2975,56 @@
     <!-- Index for next variable = 201 -->
     <ScalarVariable
       name="heaPum.per.QCon_heatflow_nominal"
-      valueReference="100663448"
+      valueReference="16777233"
       description="Nominal condenser heating capacity"
-      variability="fixed">
-      <Real
-        quantity="Power"
-        unit="W"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 202 -->
-    <ScalarVariable
-      name="heaPum.per.QEva_heatflow_nominal"
-      valueReference="100663449"
-      description="Nominal evaporator cooling capacity_negative number"
+      causality="parameter"
       variability="fixed">
       <Real
         quantity="Power"
         unit="W"
-        max="0.0"/>
+        start="77000.0"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 202 -->
+    <ScalarVariable
+      name="heaPum.per.QEva_heatflow_nominal"
+      valueReference="16777234"
+      description="Nominal evaporator cooling capacity_negative number"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        quantity="Power"
+        unit="W"
+        max="0.0"
+        start="-55680.0"/>
     </ScalarVariable>
     <!-- Index for next variable = 203 -->
     <ScalarVariable
       name="heaPum.per.VCon_nominal"
-      valueReference="100663450"
+      valueReference="16777235"
       description="Nominal condesner volume flow rate"
+      causality="parameter"
       variability="fixed">
       <Real
         quantity="VolumeFlowRate"
-        unit="m3/s"/>
+        unit="m3/s"
+        start="0.001893"/>
     </ScalarVariable>
     <!-- Index for next variable = 204 -->
     <ScalarVariable
       name="heaPum.per.VEva_nominal"
-      valueReference="100663451"
+      valueReference="16777236"
       description="Nominal evaporator volume flow rate"
+      causality="parameter"
       variability="fixed">
       <Real
         quantity="VolumeFlowRate"
-        unit="m3/s"/>
+        unit="m3/s"
+        start="0.001893"/>
     </ScalarVariable>
     <!-- Index for next variable = 205 -->
     <ScalarVariable
       name="heaPum.per.mCon_flow_nominal"
-      valueReference="100663452"
+      valueReference="100663448"
       description="Nominal condenser mass flow rate"
       variability="constant">
       <Real
@@ -3027,7 +3035,7 @@
     <!-- Index for next variable = 206 -->
     <ScalarVariable
       name="heaPum.per.mEva_flow_nominal"
-      valueReference="100663453"
+      valueReference="100663449"
       description="Nominal evaporator mass flow"
       variability="constant">
       <Real
@@ -3038,27 +3046,31 @@
     <!-- Index for next variable = 207 -->
     <ScalarVariable
       name="heaPum.per.PCon_nominal_HD"
-      valueReference="100663454"
+      valueReference="16777237"
       description="Nominal compressor power heating mode"
+      causality="parameter"
       variability="fixed">
       <Real
         quantity="Power"
-        unit="W"/>
+        unit="W"
+        start="18000.0"/>
     </ScalarVariable>
     <!-- Index for next variable = 208 -->
     <ScalarVariable
       name="heaPum.per.PEva_nominal_CD"
-      valueReference="100663455"
+      valueReference="16777238"
       description="Nominal compressor power cooling mode"
+      causality="parameter"
       variability="fixed">
       <Real
         quantity="Power"
-        unit="W"/>
+        unit="W"
+        start="14244.44"/>
     </ScalarVariable>
     <!-- Index for next variable = 209 -->
     <ScalarVariable
       name="heaPum.per.nCLR"
-      valueReference="100663456"
+      valueReference="100663450"
       description="Number of coefficients for Cooling load Ratio "
       variability="constant">
       <Integer start="5"/>
@@ -3066,7 +3078,7 @@
     <!-- Index for next variable = 210 -->
     <ScalarVariable
       name="heaPum.per.nPowR_CD"
-      valueReference="100663457"
+      valueReference="100663451"
       description="Number of coefficients for Power Ratio"
       variability="constant">
       <Integer start="5"/>
@@ -3074,7 +3086,7 @@
     <!-- Index for next variable = 211 -->
     <ScalarVariable
       name="heaPum.per.nHLR"
-      valueReference="100663458"
+      valueReference="100663452"
       description="Number of coefficients for HLR "
       variability="constant">
       <Integer start="5"/>
@@ -3082,7 +3094,7 @@
     <!-- Index for next variable = 212 -->
     <ScalarVariable
       name="heaPum.per.nPowR_HD"
-      valueReference="100663459"
+      valueReference="100663453"
       description="Number of coefficients for PowR"
       variability="constant">
       <Integer start="5"/>
@@ -3090,180 +3102,202 @@
     <!-- Index for next variable = 213 -->
     <ScalarVariable
       name="heaPum.per.HLRC[1]"
-      valueReference="100663460"
+      valueReference="16777239"
       description="Heating Load ratio coefficients"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="-4.23"/>
     </ScalarVariable>
     <!-- Index for next variable = 214 -->
     <ScalarVariable
       name="heaPum.per.HLRC[2]"
-      valueReference="100663461"
+      valueReference="16777240"
       description="Heating Load ratio coefficients"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="-1.24"/>
     </ScalarVariable>
     <!-- Index for next variable = 215 -->
     <ScalarVariable
       name="heaPum.per.HLRC[3]"
-      valueReference="100663462"
+      valueReference="16777241"
       description="Heating Load ratio coefficients"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="6.28"/>
     </ScalarVariable>
     <!-- Index for next variable = 216 -->
     <ScalarVariable
       name="heaPum.per.HLRC[4]"
-      valueReference="100663463"
+      valueReference="16777242"
       description="Heating Load ratio coefficients"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="0.01"/>
     </ScalarVariable>
     <!-- Index for next variable = 217 -->
     <ScalarVariable
       name="heaPum.per.HLRC[5]"
-      valueReference="100663464"
+      valueReference="16777243"
       description="Heating Load ratio coefficients"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="0.08"/>
     </ScalarVariable>
     <!-- Index for next variable = 218 -->
     <ScalarVariable
       name="heaPum.per.P_HDC[1]"
-      valueReference="100663465"
+      valueReference="16777244"
       description="Power Ratio coefficients  in heating mode"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="-5.55"/>
     </ScalarVariable>
     <!-- Index for next variable = 219 -->
     <ScalarVariable
       name="heaPum.per.P_HDC[2]"
-      valueReference="100663466"
+      valueReference="16777245"
       description="Power Ratio coefficients  in heating mode"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="5.08"/>
     </ScalarVariable>
     <!-- Index for next variable = 220 -->
     <ScalarVariable
       name="heaPum.per.P_HDC[3]"
-      valueReference="100663467"
+      valueReference="16777246"
       description="Power Ratio coefficients  in heating mode"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="1.01"/>
     </ScalarVariable>
     <!-- Index for next variable = 221 -->
     <ScalarVariable
       name="heaPum.per.P_HDC[4]"
-      valueReference="100663468"
+      valueReference="16777247"
       description="Power Ratio coefficients  in heating mode"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="-0.04"/>
     </ScalarVariable>
     <!-- Index for next variable = 222 -->
     <ScalarVariable
       name="heaPum.per.P_HDC[5]"
-      valueReference="100663469"
+      valueReference="16777248"
       description="Power Ratio coefficients  in heating mode"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="0.0"/>
     </ScalarVariable>
     <!-- Index for next variable = 223 -->
     <ScalarVariable
       name="heaPum.per.CLRC[1]"
-      valueReference="100663470"
+      valueReference="16777249"
       description="Cooling Load ratio coefficients"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="-5.79235417"/>
     </ScalarVariable>
     <!-- Index for next variable = 224 -->
     <ScalarVariable
       name="heaPum.per.CLRC[2]"
-      valueReference="100663471"
+      valueReference="16777250"
       description="Cooling Load ratio coefficients"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="9.83800467"/>
     </ScalarVariable>
     <!-- Index for next variable = 225 -->
     <ScalarVariable
       name="heaPum.per.CLRC[3]"
-      valueReference="100663472"
+      valueReference="16777251"
       description="Cooling Load ratio coefficients"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="-3.19795605"/>
     </ScalarVariable>
     <!-- Index for next variable = 226 -->
     <ScalarVariable
       name="heaPum.per.CLRC[4]"
-      valueReference="100663473"
+      valueReference="16777252"
       description="Cooling Load ratio coefficients"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="0.32498894"/>
     </ScalarVariable>
     <!-- Index for next variable = 227 -->
     <ScalarVariable
       name="heaPum.per.CLRC[5]"
-      valueReference="100663474"
+      valueReference="16777253"
       description="Cooling Load ratio coefficients"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="0.043752306918433"/>
     </ScalarVariable>
     <!-- Index for next variable = 228 -->
     <ScalarVariable
       name="heaPum.per.P_CDC[1]"
-      valueReference="100663475"
+      valueReference="16777254"
       description="Power Ratio coefficients in cooling mode"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="-6.37109639"/>
     </ScalarVariable>
     <!-- Index for next variable = 229 -->
     <ScalarVariable
       name="heaPum.per.P_CDC[2]"
-      valueReference="100663476"
+      valueReference="16777255"
       description="Power Ratio coefficients in cooling mode"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="1.27560526"/>
     </ScalarVariable>
     <!-- Index for next variable = 230 -->
     <ScalarVariable
       name="heaPum.per.P_CDC[3]"
-      valueReference="100663477"
+      valueReference="16777256"
       description="Power Ratio coefficients in cooling mode"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="5.8178049"/>
     </ScalarVariable>
     <!-- Index for next variable = 231 -->
     <ScalarVariable
       name="heaPum.per.P_CDC[4]"
-      valueReference="100663478"
+      valueReference="16777257"
       description="Power Ratio coefficients in cooling mode"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="0.03132874"/>
     </ScalarVariable>
     <!-- Index for next variable = 232 -->
     <ScalarVariable
       name="heaPum.per.P_CDC[5]"
-      valueReference="100663479"
+      valueReference="16777258"
       description="Power Ratio coefficients in cooling mode"
+      causality="parameter"
       variability="fixed">
-      <Real/>
+      <Real start="-0.082990443216406"/>
     </ScalarVariable>
     <!-- Index for next variable = 233 -->
     <ScalarVariable
       name="heaPum.per.TRef"
-      valueReference="100663480"
+      valueReference="16777259"
       description="Reference temperature used to normalize the inlet temperature variables"
+      causality="parameter"
       variability="fixed">
       <Real
         quantity="ThermodynamicTemperature"
         unit="K"
         displayUnit="degC"
         min="0.0"
-        nominal="300.0"/>
+        nominal="300.0"
+        start="283.15"/>
     </ScalarVariable>
     <!-- Index for next variable = 234 -->
     <ScalarVariable
       name="heaPum.QCon_heatflow_nominal"
-      valueReference="100663481"
+      valueReference="100663454"
       description="Heating load nominal capacity_Heating mode"
       variability="fixed">
       <Real
@@ -3273,7 +3307,7 @@
     <!-- Index for next variable = 235 -->
     <ScalarVariable
       name="heaPum.mCon_flow_nominal"
-      valueReference="100663482"
+      valueReference="100663455"
       description="Heating mode Condenser mass flow rate nominal capacity"
       variability="constant">
       <Real
@@ -3284,7 +3318,7 @@
     <!-- Index for next variable = 236 -->
     <ScalarVariable
       name="heaPum.mEva_flow_nominal"
-      valueReference="100663483"
+      valueReference="100663456"
       description="Heating mode Evaporator mass flow rate nominal capacity"
       variability="constant">
       <Real
@@ -3295,7 +3329,7 @@
     <!-- Index for next variable = 237 -->
     <ScalarVariable
       name="heaPum.Q_flow_small"
-      valueReference="100663484"
+      valueReference="100663457"
       description="Small value for heat flow rate or power, used to avoid division by zero"
       variability="fixed">
       <Real
@@ -3305,7 +3339,7 @@
     <!-- Index for next variable = 238 -->
     <ScalarVariable
       name="heaPum.equFit.per.QCon_heatflow_nominal"
-      valueReference="100663485"
+      valueReference="100663458"
       description="Nominal condenser heating capacity"
       variability="fixed">
       <Real
@@ -3315,7 +3349,7 @@
     <!-- Index for next variable = 239 -->
     <ScalarVariable
       name="heaPum.equFit.per.QEva_heatflow_nominal"
-      valueReference="100663486"
+      valueReference="100663459"
       description="Nominal evaporator cooling capacity_negative number"
       variability="fixed">
       <Real
@@ -3326,7 +3360,7 @@
     <!-- Index for next variable = 240 -->
     <ScalarVariable
       name="heaPum.equFit.per.VCon_nominal"
-      valueReference="100663487"
+      valueReference="100663460"
       description="Nominal condesner volume flow rate"
       variability="fixed">
       <Real
@@ -3336,7 +3370,7 @@
     <!-- Index for next variable = 241 -->
     <ScalarVariable
       name="heaPum.equFit.per.VEva_nominal"
-      valueReference="100663488"
+      valueReference="100663461"
       description="Nominal evaporator volume flow rate"
       variability="fixed">
       <Real
@@ -3346,7 +3380,7 @@
     <!-- Index for next variable = 242 -->
     <ScalarVariable
       name="heaPum.equFit.per.mCon_flow_nominal"
-      valueReference="16777233"
+      valueReference="16777260"
       description="Nominal condenser mass flow rate"
       causality="parameter"
       variability="fixed">
@@ -3358,7 +3392,7 @@
     <!-- Index for next variable = 243 -->
     <ScalarVariable
       name="heaPum.equFit.per.mEva_flow_nominal"
-      valueReference="16777234"
+      valueReference="16777261"
       description="Nominal evaporator mass flow"
       causality="parameter"
       variability="fixed">
@@ -3370,7 +3404,7 @@
     <!-- Index for next variable = 244 -->
     <ScalarVariable
       name="heaPum.equFit.per.PCon_nominal_HD"
-      valueReference="100663489"
+      valueReference="100663462"
       description="Nominal compressor power heating mode"
       variability="fixed">
       <Real
@@ -3380,7 +3414,7 @@
     <!-- Index for next variable = 245 -->
     <ScalarVariable
       name="heaPum.equFit.per.PEva_nominal_CD"
-      valueReference="100663490"
+      valueReference="100663463"
       description="Nominal compressor power cooling mode"
       variability="fixed">
       <Real
@@ -3390,7 +3424,7 @@
     <!-- Index for next variable = 246 -->
     <ScalarVariable
       name="heaPum.equFit.per.nCLR"
-      valueReference="100663491"
+      valueReference="100663464"
       description="Number of coefficients for Cooling load Ratio "
       variability="constant">
       <Integer start="5"/>
@@ -3398,7 +3432,7 @@
     <!-- Index for next variable = 247 -->
     <ScalarVariable
       name="heaPum.equFit.per.nPowR_CD"
-      valueReference="100663492"
+      valueReference="100663465"
       description="Number of coefficients for Power Ratio"
       variability="constant">
       <Integer start="5"/>
@@ -3406,7 +3440,7 @@
     <!-- Index for next variable = 248 -->
     <ScalarVariable
       name="heaPum.equFit.per.nHLR"
-      valueReference="100663493"
+      valueReference="100663466"
       description="Number of coefficients for HLR "
       variability="constant">
       <Integer start="5"/>
@@ -3414,7 +3448,7 @@
     <!-- Index for next variable = 249 -->
     <ScalarVariable
       name="heaPum.equFit.per.nPowR_HD"
-      valueReference="100663494"
+      valueReference="100663467"
       description="Number of coefficients for PowR"
       variability="constant">
       <Integer start="5"/>
@@ -3422,7 +3456,7 @@
     <!-- Index for next variable = 250 -->
     <ScalarVariable
       name="heaPum.equFit.per.HLRC[1]"
-      valueReference="100663495"
+      valueReference="100663468"
       description="Heating Load ratio coefficients"
       variability="fixed">
       <Real/>
@@ -3430,7 +3464,7 @@
     <!-- Index for next variable = 251 -->
     <ScalarVariable
       name="heaPum.equFit.per.HLRC[2]"
-      valueReference="100663496"
+      valueReference="100663469"
       description="Heating Load ratio coefficients"
       variability="fixed">
       <Real/>
@@ -3438,7 +3472,7 @@
     <!-- Index for next variable = 252 -->
     <ScalarVariable
       name="heaPum.equFit.per.HLRC[3]"
-      valueReference="100663497"
+      valueReference="100663470"
       description="Heating Load ratio coefficients"
       variability="fixed">
       <Real/>
@@ -3446,7 +3480,7 @@
     <!-- Index for next variable = 253 -->
     <ScalarVariable
       name="heaPum.equFit.per.HLRC[4]"
-      valueReference="100663498"
+      valueReference="100663471"
       description="Heating Load ratio coefficients"
       variability="fixed">
       <Real/>
@@ -3454,7 +3488,7 @@
     <!-- Index for next variable = 254 -->
     <ScalarVariable
       name="heaPum.equFit.per.HLRC[5]"
-      valueReference="100663499"
+      valueReference="100663472"
       description="Heating Load ratio coefficients"
       variability="fixed">
       <Real/>
@@ -3462,7 +3496,7 @@
     <!-- Index for next variable = 255 -->
     <ScalarVariable
       name="heaPum.equFit.per.P_HDC[1]"
-      valueReference="100663500"
+      valueReference="100663473"
       description="Power Ratio coefficients  in heating mode"
       variability="fixed">
       <Real/>
@@ -3470,7 +3504,7 @@
     <!-- Index for next variable = 256 -->
     <ScalarVariable
       name="heaPum.equFit.per.P_HDC[2]"
-      valueReference="100663501"
+      valueReference="100663474"
       description="Power Ratio coefficients  in heating mode"
       variability="fixed">
       <Real/>
@@ -3478,7 +3512,7 @@
     <!-- Index for next variable = 257 -->
     <ScalarVariable
       name="heaPum.equFit.per.P_HDC[3]"
-      valueReference="100663502"
+      valueReference="100663475"
       description="Power Ratio coefficients  in heating mode"
       variability="fixed">
       <Real/>
@@ -3486,7 +3520,7 @@
     <!-- Index for next variable = 258 -->
     <ScalarVariable
       name="heaPum.equFit.per.P_HDC[4]"
-      valueReference="100663503"
+      valueReference="100663476"
       description="Power Ratio coefficients  in heating mode"
       variability="fixed">
       <Real/>
@@ -3494,7 +3528,7 @@
     <!-- Index for next variable = 259 -->
     <ScalarVariable
       name="heaPum.equFit.per.P_HDC[5]"
-      valueReference="100663504"
+      valueReference="100663477"
       description="Power Ratio coefficients  in heating mode"
       variability="fixed">
       <Real/>
@@ -3502,7 +3536,7 @@
     <!-- Index for next variable = 260 -->
     <ScalarVariable
       name="heaPum.equFit.per.CLRC[1]"
-      valueReference="100663505"
+      valueReference="100663478"
       description="Cooling Load ratio coefficients"
       variability="fixed">
       <Real/>
@@ -3510,7 +3544,7 @@
     <!-- Index for next variable = 261 -->
     <ScalarVariable
       name="heaPum.equFit.per.CLRC[2]"
-      valueReference="100663506"
+      valueReference="100663479"
       description="Cooling Load ratio coefficients"
       variability="fixed">
       <Real/>
@@ -3518,7 +3552,7 @@
     <!-- Index for next variable = 262 -->
     <ScalarVariable
       name="heaPum.equFit.per.CLRC[3]"
-      valueReference="100663507"
+      valueReference="100663480"
       description="Cooling Load ratio coefficients"
       variability="fixed">
       <Real/>
@@ -3526,7 +3560,7 @@
     <!-- Index for next variable = 263 -->
     <ScalarVariable
       name="heaPum.equFit.per.CLRC[4]"
-      valueReference="100663508"
+      valueReference="100663481"
       description="Cooling Load ratio coefficients"
       variability="fixed">
       <Real/>
@@ -3534,7 +3568,7 @@
     <!-- Index for next variable = 264 -->
     <ScalarVariable
       name="heaPum.equFit.per.CLRC[5]"
-      valueReference="100663509"
+      valueReference="100663482"
       description="Cooling Load ratio coefficients"
       variability="fixed">
       <Real/>
@@ -3542,7 +3576,7 @@
     <!-- Index for next variable = 265 -->
     <ScalarVariable
       name="heaPum.equFit.per.P_CDC[1]"
-      valueReference="100663510"
+      valueReference="100663483"
       description="Power Ratio coefficients in cooling mode"
       variability="fixed">
       <Real/>
@@ -3550,7 +3584,7 @@
     <!-- Index for next variable = 266 -->
     <ScalarVariable
       name="heaPum.equFit.per.P_CDC[2]"
-      valueReference="100663511"
+      valueReference="100663484"
       description="Power Ratio coefficients in cooling mode"
       variability="fixed">
       <Real/>
@@ -3558,7 +3592,7 @@
     <!-- Index for next variable = 267 -->
     <ScalarVariable
       name="heaPum.equFit.per.P_CDC[3]"
-      valueReference="100663512"
+      valueReference="100663485"
       description="Power Ratio coefficients in cooling mode"
       variability="fixed">
       <Real/>
@@ -3566,7 +3600,7 @@
     <!-- Index for next variable = 268 -->
     <ScalarVariable
       name="heaPum.equFit.per.P_CDC[4]"
-      valueReference="100663513"
+      valueReference="100663486"
       description="Power Ratio coefficients in cooling mode"
       variability="fixed">
       <Real/>
@@ -3574,7 +3608,7 @@
     <!-- Index for next variable = 269 -->
     <ScalarVariable
       name="heaPum.equFit.per.P_CDC[5]"
-      valueReference="100663514"
+      valueReference="100663487"
       description="Power Ratio coefficients in cooling mode"
       variability="fixed">
       <Real/>
@@ -3582,7 +3616,7 @@
     <!-- Index for next variable = 270 -->
     <ScalarVariable
       name="heaPum.equFit.per.TRef"
-      valueReference="100663515"
+      valueReference="100663488"
       description="Reference temperature used to normalize the inlet temperature variables"
       variability="fixed">
       <Real
@@ -3595,7 +3629,7 @@
     <!-- Index for next variable = 271 -->
     <ScalarVariable
       name="heaPum.equFit.QCon_heatflow_nominal"
-      valueReference="100663516"
+      valueReference="100663489"
       description="Heating load nominal capacity_Heating mode"
       variability="fixed">
       <Real
@@ -3605,7 +3639,7 @@
     <!-- Index for next variable = 272 -->
     <ScalarVariable
       name="heaPum.equFit.QEva_heatflow_nominal"
-      valueReference="100663517"
+      valueReference="100663490"
       description="Cooling load nominal capacity_Cooling mode"
       variability="fixed">
       <Real
@@ -3615,7 +3649,7 @@
     <!-- Index for next variable = 273 -->
     <ScalarVariable
       name="heaPum.equFit.VCon_flow_nominal"
-      valueReference="100663518"
+      valueReference="100663491"
       description="Heating mode Condenser volume flow rate nominal capacity"
       variability="fixed">
       <Real
@@ -3625,7 +3659,7 @@
     <!-- Index for next variable = 274 -->
     <ScalarVariable
       name="heaPum.equFit.mCon_flow_nominal"
-      valueReference="100663519"
+      valueReference="100663492"
       description="Heating mode Condenser mass flow rate nominal capacity"
       variability="fixed">
       <Real
@@ -3635,7 +3669,7 @@
     <!-- Index for next variable = 275 -->
     <ScalarVariable
       name="heaPum.equFit.VEva_flow_nominal"
-      valueReference="100663520"
+      valueReference="100663493"
       description="Heating mode Condenser volume flow rate nominal capacity"
       variability="fixed">
       <Real
@@ -3645,7 +3679,7 @@
     <!-- Index for next variable = 276 -->
     <ScalarVariable
       name="heaPum.equFit.mEva_flow_nominal"
-      valueReference="100663521"
+      valueReference="100663494"
       description="Heating mode Evaporator mass flow rate nominal capacity"
       variability="fixed">
       <Real
@@ -3655,7 +3689,7 @@
     <!-- Index for next variable = 277 -->
     <ScalarVariable
       name="heaPum.equFit.PCon_nominal_HD"
-      valueReference="100663522"
+      valueReference="100663495"
       description="Heating mode Compressor Power nominal capacity"
       variability="fixed">
       <Real
@@ -3665,7 +3699,7 @@
     <!-- Index for next variable = 278 -->
     <ScalarVariable
       name="heaPum.equFit.PEva_nominal_CD"
-      valueReference="100663523"
+      valueReference="100663496"
       description="Heating mode Compressor Power nominal capacity"
       variability="fixed">
       <Real
@@ -3675,7 +3709,7 @@
     <!-- Index for next variable = 279 -->
     <ScalarVariable
       name="heaPum.equFit.TRef"
-      valueReference="100663524"
+      valueReference="100663497"
       description="Reference temperature used to normalize the inlet temperature variables"
       variability="fixed">
       <Real
@@ -3688,7 +3722,7 @@
     <!-- Index for next variable = 280 -->
     <ScalarVariable
       name="heaPum.equFit.Q_flow_small"
-      valueReference="100663525"
+      valueReference="100663498"
       description="Small value for heat flow rate or power, used to avoid division by zero"
       variability="fixed">
       <Real
@@ -3698,7 +3732,7 @@
     <!-- Index for next variable = 281 -->
     <ScalarVariable
       name="heaPum.equFit.HLR"
-      valueReference="637534438"
+      valueReference="637534411"
       description="Heating load ratio">
       <Real
         quantity="Efficiency"
@@ -3715,7 +3749,7 @@
     <!-- Index for next variable = 282 -->
     <ScalarVariable
       name="heaPum.equFit.CLR"
-      valueReference="637534439"
+      valueReference="637534412"
       description="Cooling load ratio">
       <Real
         quantity="Efficiency"
@@ -3732,7 +3766,7 @@
     <!-- Index for next variable = 283 -->
     <ScalarVariable
       name="heaPum.equFit.P_HD"
-      valueReference="637534440"
+      valueReference="637534413"
       description="Power Ratio in heating dominanat mode">
       <Real
         quantity="Efficiency"
@@ -3749,7 +3783,7 @@
     <!-- Index for next variable = 284 -->
     <ScalarVariable
       name="heaPum.equFit.P_CD"
-      valueReference="637534441"
+      valueReference="637534414"
       description="Power Ratio in cooling dominant mode">
       <Real
         quantity="Efficiency"
@@ -3766,7 +3800,7 @@
     <!-- Index for next variable = 285 -->
     <ScalarVariable
       name="heaPum.equFit.QCon_flow_ava"
-      valueReference="637534442"
+      valueReference="637534415"
       description="Heating capacity available at the condender">
       <Real
         quantity="Power"
@@ -3782,7 +3816,7 @@
     <!-- Index for next variable = 286 -->
     <ScalarVariable
       name="heaPum.equFit.QEva_flow_ava"
-      valueReference="637534443"
+      valueReference="637534416"
       description="Cooling capacity available at the Evaporator">
       <Real
         quantity="Power"
@@ -3798,7 +3832,7 @@
     <!-- Index for next variable = 287 -->
     <ScalarVariable
       name="heaPum.equFit.TEvaSet"
-      valueReference="637534476"
+      valueReference="637534449"
       description="Set point for leaving chilled water temperature">
       <Real
         unit="K"
@@ -3814,7 +3848,7 @@
     <!-- Index for next variable = 288 -->
     <ScalarVariable
       name="heaPum.equFit.TConSet"
-      valueReference="637534477"
+      valueReference="637534450"
       description="Set point for leaving heating water temperature">
       <Real
         unit="K"
@@ -3830,7 +3864,7 @@
     <!-- Index for next variable = 289 -->
     <ScalarVariable
       name="heaPum.equFit.uMod"
-      valueReference="637534470"
+      valueReference="637534443"
       description="Heating mode= 1, Off=0, Cooling mode=-1"
       variability="discrete">
       <Integer/>
@@ -3877,7 +3911,7 @@
     <!-- Index for next variable = 292 -->
     <ScalarVariable
       name="heaPum.equFit.P"
-      valueReference="637534475"
+      valueReference="637534448"
       description="Compressor power">
       <Real
         unit="W"
@@ -3909,7 +3943,7 @@
     <!-- Index for next variable = 294 -->
     <ScalarVariable
       name="heaPum.equFit.TConEnt"
-      valueReference="637534444"
+      valueReference="637534417"
       description="Condenser entering water temperature">
       <Real
         unit="K"
@@ -3917,7 +3951,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="394"
+          <Data dependencies="382"
             equation="heaPum.equFit.TConEnt = 273.15+0.0002390057361376673*conPum.ports[1].h_outflow; "/>
         </Tool>
       </Annotations>
@@ -3941,7 +3975,7 @@
     <!-- Index for next variable = 296 -->
     <ScalarVariable
       name="heaPum.equFit.TEvaEnt"
-      valueReference="637534445"
+      valueReference="637534418"
       description="Evaporator entering water temperature">
       <Real
         unit="K"
@@ -3949,7 +3983,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="382"
+          <Data dependencies="394"
             equation="heaPum.equFit.TEvaEnt = 273.15+0.0002390057361376673*evaPum.ports[1].h_outflow; "/>
         </Tool>
       </Annotations>
@@ -3957,7 +3991,7 @@
     <!-- Index for next variable = 297 -->
     <ScalarVariable
       name="heaPum.equFit.m1_flow"
-      valueReference="100663534"
+      valueReference="100663507"
       description="Volume 1 massflow rate "
       variability="constant">
       <Real
@@ -3967,7 +4001,7 @@
     <!-- Index for next variable = 298 -->
     <ScalarVariable
       name="heaPum.equFit.m2_flow"
-      valueReference="100663535"
+      valueReference="100663508"
       description="Volume2 mass flow rate"
       variability="constant">
       <Real
@@ -3977,7 +4011,7 @@
     <!-- Index for next variable = 299 -->
     <ScalarVariable
       name="heaPum.equFit.QConFloSet"
-      valueReference="637534448"
+      valueReference="637534421"
       description="Condenser setpoint heat flow rate">
       <Real
         unit="W"
@@ -3985,7 +4019,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="328 394"
+          <Data dependencies="328 382"
             equation="heaPum.equFit.QConFloSet = smooth(1, smooth(1, (if noEvent(1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)-heaPum.Q_flow_small &gt; heaPum.Q_flow_small/10) then 1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow) else (if noEvent(1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)-heaPum.Q_flow_small &lt;  -heaPum.Q_flow_small/10) then heaPum.Q_flow_small else (if heaPum.Q_flow_small/10 &gt; 0 then 2.5*((1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)-heaPum.Q_flow_small)*((10*(1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)-heaPum.Q_flow_small)/heaPum.Q_flow_small)^2-3)*(heaPum.Q_flow_small-1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)))/heaPum.Q_flow_small+0.5*(1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)+heaPum.Q_flow_small) else 0.5*(1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)+heaPum.Q_flow_small)))))); "/>
         </Tool>
       </Annotations>
@@ -3993,7 +4027,7 @@
     <!-- Index for next variable = 300 -->
     <ScalarVariable
       name="heaPum.equFit.QEvaFloSet"
-      valueReference="637534449"
+      valueReference="637534422"
       description="Evaporator setpoint heat flow rate">
       <Real
         unit="W"
@@ -4001,7 +4035,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="329 382"
+          <Data dependencies="329 394"
             equation="heaPum.equFit.QEvaFloSet = smooth(1, smooth(1, (if noEvent( -(heaPum.Q_flow_small+1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow)) &gt; heaPum.Q_flow_small/100) then 1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow) else (if noEvent( -(heaPum.Q_flow_small+1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow)) &lt;  -heaPum.Q_flow_small/100) then  -heaPum.Q_flow_small else (if heaPum.Q_flow_small/100 &gt; 0 then 25.0*((heaPum.Q_flow_small+1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow))*((100*(heaPum.Q_flow_small+1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow))/heaPum.Q_flow_small)^2-3)*(heaPum.Q_flow_small+1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow)))/heaPum.Q_flow_small+0.5*(1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow)-heaPum.Q_flow_small) else 0.5*(1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow)-heaPum.Q_flow_small)))))); "/>
         </Tool>
       </Annotations>
@@ -4009,7 +4043,7 @@
     <!-- Index for next variable = 301 -->
     <ScalarVariable
       name="heaPum.equFit.A1[1]"
-      valueReference="637534450"
+      valueReference="637534423"
       description="Thermal load ratio coefficients"
       variability="discrete">
       <Real/>
@@ -4024,7 +4058,7 @@
     <!-- Index for next variable = 302 -->
     <ScalarVariable
       name="heaPum.equFit.A1[2]"
-      valueReference="637534451"
+      valueReference="637534424"
       description="Thermal load ratio coefficients"
       variability="discrete">
       <Real/>
@@ -4039,7 +4073,7 @@
     <!-- Index for next variable = 303 -->
     <ScalarVariable
       name="heaPum.equFit.A1[3]"
-      valueReference="637534452"
+      valueReference="637534425"
       description="Thermal load ratio coefficients"
       variability="discrete">
       <Real/>
@@ -4054,7 +4088,7 @@
     <!-- Index for next variable = 304 -->
     <ScalarVariable
       name="heaPum.equFit.A1[4]"
-      valueReference="637534453"
+      valueReference="637534426"
       description="Thermal load ratio coefficients"
       variability="discrete">
       <Real/>
@@ -4069,7 +4103,7 @@
     <!-- Index for next variable = 305 -->
     <ScalarVariable
       name="heaPum.equFit.A1[5]"
-      valueReference="637534454"
+      valueReference="637534427"
       description="Thermal load ratio coefficients"
       variability="discrete">
       <Real/>
@@ -4084,7 +4118,7 @@
     <!-- Index for next variable = 306 -->
     <ScalarVariable
       name="heaPum.equFit.x1[1]"
-      valueReference="637534455"
+      valueReference="637534428"
       description="normalized inlet variables"
       variability="discrete">
       <Real/>
@@ -4099,7 +4133,7 @@
     <!-- Index for next variable = 307 -->
     <ScalarVariable
       name="heaPum.equFit.x1[2]"
-      valueReference="637534456"
+      valueReference="637534429"
       description="normalized inlet variables">
       <Real/>
       <Annotations>
@@ -4113,7 +4147,7 @@
     <!-- Index for next variable = 308 -->
     <ScalarVariable
       name="heaPum.equFit.x1[3]"
-      valueReference="637534457"
+      valueReference="637534430"
       description="normalized inlet variables">
       <Real/>
       <Annotations>
@@ -4127,7 +4161,7 @@
     <!-- Index for next variable = 309 -->
     <ScalarVariable
       name="heaPum.equFit.x1[4]"
-      valueReference="637534458"
+      valueReference="637534431"
       description="normalized inlet variables"
       variability="discrete">
       <Real/>
@@ -4142,7 +4176,7 @@
     <!-- Index for next variable = 310 -->
     <ScalarVariable
       name="heaPum.equFit.x1[5]"
-      valueReference="637534459"
+      valueReference="637534432"
       description="normalized inlet variables"
       variability="discrete">
       <Real/>
@@ -4157,7 +4191,7 @@
     <!-- Index for next variable = 311 -->
     <ScalarVariable
       name="heaPum.equFit.A2[1]"
-      valueReference="637534460"
+      valueReference="637534433"
       description="Compressor power ratio coefficients"
       variability="discrete">
       <Real/>
@@ -4172,7 +4206,7 @@
     <!-- Index for next variable = 312 -->
     <ScalarVariable
       name="heaPum.equFit.A2[2]"
-      valueReference="637534461"
+      valueReference="637534434"
       description="Compressor power ratio coefficients"
       variability="discrete">
       <Real/>
@@ -4187,7 +4221,7 @@
     <!-- Index for next variable = 313 -->
     <ScalarVariable
       name="heaPum.equFit.A2[3]"
-      valueReference="637534462"
+      valueReference="637534435"
       description="Compressor power ratio coefficients"
       variability="discrete">
       <Real/>
@@ -4202,7 +4236,7 @@
     <!-- Index for next variable = 314 -->
     <ScalarVariable
       name="heaPum.equFit.A2[4]"
-      valueReference="637534463"
+      valueReference="637534436"
       description="Compressor power ratio coefficients"
       variability="discrete">
       <Real/>
@@ -4217,7 +4251,7 @@
     <!-- Index for next variable = 315 -->
     <ScalarVariable
       name="heaPum.equFit.A2[5]"
-      valueReference="637534464"
+      valueReference="637534437"
       description="Compressor power ratio coefficients"
       variability="discrete">
       <Real/>
@@ -4232,7 +4266,7 @@
     <!-- Index for next variable = 316 -->
     <ScalarVariable
       name="heaPum.equFit.x2[1]"
-      valueReference="637534465"
+      valueReference="637534438"
       description="normalized inlet variables"
       variability="discrete">
       <Real/>
@@ -4247,7 +4281,7 @@
     <!-- Index for next variable = 317 -->
     <ScalarVariable
       name="heaPum.equFit.x2[2]"
-      valueReference="637534466"
+      valueReference="637534439"
       description="normalized inlet variables">
       <Real/>
       <Annotations>
@@ -4261,7 +4295,7 @@
     <!-- Index for next variable = 318 -->
     <ScalarVariable
       name="heaPum.equFit.x2[3]"
-      valueReference="637534467"
+      valueReference="637534440"
       description="normalized inlet variables">
       <Real/>
       <Annotations>
@@ -4275,7 +4309,7 @@
     <!-- Index for next variable = 319 -->
     <ScalarVariable
       name="heaPum.equFit.x2[4]"
-      valueReference="637534468"
+      valueReference="637534441"
       description="normalized inlet variables"
       variability="discrete">
       <Real/>
@@ -4290,7 +4324,7 @@
     <!-- Index for next variable = 320 -->
     <ScalarVariable
       name="heaPum.equFit.x2[5]"
-      valueReference="637534469"
+      valueReference="637534442"
       description="normalized inlet variables"
       variability="discrete">
       <Real/>
@@ -4305,7 +4339,7 @@
     <!-- Index for next variable = 321 -->
     <ScalarVariable
       name="heaPum.uMod"
-      valueReference="637534470"
+      valueReference="637534443"
       description="HeatPump control input signal,Heating mode= 1, Off=0, Cooling mode=-1"
       variability="discrete">
       <Integer/>
@@ -4416,7 +4450,7 @@
     <!-- Index for next variable = 328 -->
     <ScalarVariable
       name="heaPum.hConSet.y"
-      valueReference="637534471"
+      valueReference="637534444"
       description="Value of Real output">
       <Real/>
       <Annotations>
@@ -4430,7 +4464,7 @@
     <!-- Index for next variable = 329 -->
     <ScalarVariable
       name="heaPum.hEvaSet.y"
-      valueReference="637534472"
+      valueReference="637534445"
       description="Value of Real output">
       <Real/>
       <Annotations>
@@ -4444,13 +4478,13 @@
     <!-- Index for next variable = 330 -->
     <ScalarVariable
       name="heaPum.QConFloSet.y"
-      valueReference="637534448"
+      valueReference="637534421"
       description="Value of Real output">
       <Real/>
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="328 394"
+          <Data dependencies="328 382"
             equation="heaPum.QConFloSet.y = heaPum.equFit.QConFloSet = smooth(1, smooth(1, (if noEvent(1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)-heaPum.Q_flow_small &gt; heaPum.Q_flow_small/10) then 1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow) else (if noEvent(1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)-heaPum.Q_flow_small &lt;  -heaPum.Q_flow_small/10) then heaPum.Q_flow_small else (if heaPum.Q_flow_small/10 &gt; 0 then 2.5*((1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)-heaPum.Q_flow_small)*((10*(1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)-heaPum.Q_flow_small)/heaPum.Q_flow_small)^2-3)*(heaPum.Q_flow_small-1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)))/heaPum.Q_flow_small+0.5*(1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)+heaPum.Q_flow_small) else 0.5*(1.893*(heaPum.hConSet.y-conPum.ports[1].h_outflow)+heaPum.Q_flow_small)))))); "/>
         </Tool>
       </Annotations>
@@ -4458,13 +4492,13 @@
     <!-- Index for next variable = 331 -->
     <ScalarVariable
       name="heaPum.QEvaFloSet.y"
-      valueReference="637534449"
+      valueReference="637534422"
       description="Value of Real output">
       <Real/>
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="329 382"
+          <Data dependencies="329 394"
             equation="heaPum.QEvaFloSet.y = heaPum.equFit.QEvaFloSet = smooth(1, smooth(1, (if noEvent( -(heaPum.Q_flow_small+1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow)) &gt; heaPum.Q_flow_small/100) then 1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow) else (if noEvent( -(heaPum.Q_flow_small+1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow)) &lt;  -heaPum.Q_flow_small/100) then  -heaPum.Q_flow_small else (if heaPum.Q_flow_small/100 &gt; 0 then 25.0*((heaPum.Q_flow_small+1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow))*((100*(heaPum.Q_flow_small+1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow))/heaPum.Q_flow_small)^2-3)*(heaPum.Q_flow_small+1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow)))/heaPum.Q_flow_small+0.5*(1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow)-heaPum.Q_flow_small) else 0.5*(1.893*(heaPum.hEvaSet.y-evaPum.ports[1].h_outflow)-heaPum.Q_flow_small)))))); "/>
         </Tool>
       </Annotations>
@@ -4472,13 +4506,13 @@
     <!-- Index for next variable = 332 -->
     <ScalarVariable
       name="heaPum.TConEnt.y"
-      valueReference="637534444"
+      valueReference="637534417"
       description="Value of Real output">
       <Real/>
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="394"
+          <Data dependencies="382"
             equation="heaPum.TConEnt.y = heaPum.equFit.TConEnt = 273.15+0.0002390057361376673*conPum.ports[1].h_outflow; "/>
         </Tool>
       </Annotations>
@@ -4486,13 +4520,13 @@
     <!-- Index for next variable = 333 -->
     <ScalarVariable
       name="heaPum.TEvaEnt.y"
-      valueReference="637534445"
+      valueReference="637534418"
       description="Value of Real output">
       <Real/>
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="382"
+          <Data dependencies="394"
             equation="heaPum.TEvaEnt.y = heaPum.equFit.TEvaEnt = 273.15+0.0002390057361376673*evaPum.ports[1].h_outflow; "/>
         </Tool>
       </Annotations>
@@ -4528,7 +4562,7 @@
     <!-- Index for next variable = 336 -->
     <ScalarVariable
       name="heaPum.mConFlo.y"
-      valueReference="100663561"
+      valueReference="100663534"
       description="Value of Real output"
       variability="constant">
       <Real start="1.893"/>
@@ -4536,7 +4570,7 @@
     <!-- Index for next variable = 337 -->
     <ScalarVariable
       name="heaPum.mEvaFlo.y"
-      valueReference="100663562"
+      valueReference="100663535"
       description="Value of Real output"
       variability="constant">
       <Real start="1.893"/>
@@ -4544,7 +4578,7 @@
     <!-- Index for next variable = 338 -->
     <ScalarVariable
       name="heaPum.P"
-      valueReference="637534475"
+      valueReference="637534448"
       description="Compressor Power ">
       <Real
         unit="W"
@@ -4592,7 +4626,7 @@
     <!-- Index for next variable = 341 -->
     <ScalarVariable
       name="heaPum.TEvaSet"
-      valueReference="637534476"
+      valueReference="637534449"
       description="Set point for leaving chilled water temperature">
       <Real
         unit="K"
@@ -4608,7 +4642,7 @@
     <!-- Index for next variable = 342 -->
     <ScalarVariable
       name="heaPum.TConSet"
-      valueReference="637534477"
+      valueReference="637534450"
       description="Set point for leaving heating water temperature">
       <Real
         unit="K"
@@ -4623,30 +4657,8 @@
     </ScalarVariable>
     <!-- Index for next variable = 343 -->
     <ScalarVariable
-      name="mEva_flow_nominal"
-      valueReference="100663566"
-      description="Evaporator nominal mass flow rate"
-      variability="constant">
-      <Real
-        quantity="MassFlowRate"
-        unit="kg/s"
-        start="1.893"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 344 -->
-    <ScalarVariable
-      name="mCon_flow_nominal"
-      valueReference="100663567"
-      description="Condenser nominal mass flow rate"
-      variability="constant">
-      <Real
-        quantity="MassFlowRate"
-        unit="kg/s"
-        start="1.893"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 345 -->
-    <ScalarVariable
       name="per.QCon_heatflow_nominal"
-      valueReference="16777235"
+      valueReference="16777262"
       description="Nominal condenser heating capacity"
       causality="parameter"
       variability="fixed">
@@ -4655,10 +4667,10 @@
         unit="W"
         start="77000.0"/>
     </ScalarVariable>
-    <!-- Index for next variable = 346 -->
+    <!-- Index for next variable = 344 -->
     <ScalarVariable
       name="per.QEva_heatflow_nominal"
-      valueReference="16777236"
+      valueReference="16777263"
       description="Nominal evaporator cooling capacity_negative number"
       causality="parameter"
       variability="fixed">
@@ -4668,10 +4680,10 @@
         max="0.0"
         start="-55680.0"/>
     </ScalarVariable>
-    <!-- Index for next variable = 347 -->
+    <!-- Index for next variable = 345 -->
     <ScalarVariable
       name="per.VCon_nominal"
-      valueReference="16777237"
+      valueReference="16777264"
       description="Nominal condesner volume flow rate"
       causality="parameter"
       variability="fixed">
@@ -4680,10 +4692,10 @@
         unit="m3/s"
         start="0.001893"/>
     </ScalarVariable>
-    <!-- Index for next variable = 348 -->
+    <!-- Index for next variable = 346 -->
     <ScalarVariable
       name="per.VEva_nominal"
-      valueReference="16777238"
+      valueReference="16777265"
       description="Nominal evaporator volume flow rate"
       causality="parameter"
       variability="fixed">
@@ -4692,10 +4704,10 @@
         unit="m3/s"
         start="0.001893"/>
     </ScalarVariable>
-    <!-- Index for next variable = 349 -->
+    <!-- Index for next variable = 347 -->
     <ScalarVariable
       name="per.mCon_flow_nominal"
-      valueReference="100663568"
+      valueReference="100663539"
       description="Nominal condenser mass flow rate"
       variability="constant">
       <Real
@@ -4703,10 +4715,10 @@
         unit="kg/s"
         start="1.893"/>
     </ScalarVariable>
-    <!-- Index for next variable = 350 -->
+    <!-- Index for next variable = 348 -->
     <ScalarVariable
       name="per.mEva_flow_nominal"
-      valueReference="100663569"
+      valueReference="100663540"
       description="Nominal evaporator mass flow"
       variability="constant">
       <Real
@@ -4714,10 +4726,10 @@
         unit="kg/s"
         start="1.893"/>
     </ScalarVariable>
-    <!-- Index for next variable = 351 -->
+    <!-- Index for next variable = 349 -->
     <ScalarVariable
       name="per.PCon_nominal_HD"
-      valueReference="16777239"
+      valueReference="16777266"
       description="Nominal compressor power heating mode"
       causality="parameter"
       variability="fixed">
@@ -4726,10 +4738,10 @@
         unit="W"
         start="18000"/>
     </ScalarVariable>
-    <!-- Index for next variable = 352 -->
+    <!-- Index for next variable = 350 -->
     <ScalarVariable
       name="per.PEva_nominal_CD"
-      valueReference="16777240"
+      valueReference="16777267"
       description="Nominal compressor power cooling mode"
       causality="parameter"
       variability="fixed">
@@ -4738,222 +4750,222 @@
         unit="W"
         start="14244.44"/>
     </ScalarVariable>
-    <!-- Index for next variable = 353 -->
+    <!-- Index for next variable = 351 -->
     <ScalarVariable
       name="per.nCLR"
-      valueReference="100663570"
+      valueReference="100663541"
       description="Number of coefficients for Cooling load Ratio "
+      variability="constant">
+      <Integer start="5"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 352 -->
+    <ScalarVariable
+      name="per.nPowR_CD"
+      valueReference="100663542"
+      description="Number of coefficients for Power Ratio"
+      variability="constant">
+      <Integer start="5"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 353 -->
+    <ScalarVariable
+      name="per.nHLR"
+      valueReference="100663543"
+      description="Number of coefficients for HLR "
       variability="constant">
       <Integer start="5"/>
     </ScalarVariable>
     <!-- Index for next variable = 354 -->
     <ScalarVariable
-      name="per.nPowR_CD"
-      valueReference="100663571"
-      description="Number of coefficients for Power Ratio"
+      name="per.nPowR_HD"
+      valueReference="100663544"
+      description="Number of coefficients for PowR"
       variability="constant">
       <Integer start="5"/>
     </ScalarVariable>
     <!-- Index for next variable = 355 -->
     <ScalarVariable
-      name="per.nHLR"
-      valueReference="100663572"
-      description="Number of coefficients for HLR "
-      variability="constant">
-      <Integer start="5"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 356 -->
-    <ScalarVariable
-      name="per.nPowR_HD"
-      valueReference="100663573"
-      description="Number of coefficients for PowR"
-      variability="constant">
-      <Integer start="5"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 357 -->
-    <ScalarVariable
       name="per.HLRC[1]"
-      valueReference="16777241"
+      valueReference="16777268"
       description="Heating Load ratio coefficients"
       causality="parameter"
       variability="fixed">
       <Real start="-4.23"/>
     </ScalarVariable>
-    <!-- Index for next variable = 358 -->
+    <!-- Index for next variable = 356 -->
     <ScalarVariable
       name="per.HLRC[2]"
-      valueReference="16777242"
+      valueReference="16777269"
       description="Heating Load ratio coefficients"
       causality="parameter"
       variability="fixed">
       <Real start="-1.24"/>
     </ScalarVariable>
-    <!-- Index for next variable = 359 -->
+    <!-- Index for next variable = 357 -->
     <ScalarVariable
       name="per.HLRC[3]"
-      valueReference="16777243"
+      valueReference="16777270"
       description="Heating Load ratio coefficients"
       causality="parameter"
       variability="fixed">
       <Real start="6.28"/>
     </ScalarVariable>
-    <!-- Index for next variable = 360 -->
+    <!-- Index for next variable = 358 -->
     <ScalarVariable
       name="per.HLRC[4]"
-      valueReference="16777244"
+      valueReference="16777271"
       description="Heating Load ratio coefficients"
       causality="parameter"
       variability="fixed">
       <Real start="0.01"/>
     </ScalarVariable>
-    <!-- Index for next variable = 361 -->
+    <!-- Index for next variable = 359 -->
     <ScalarVariable
       name="per.HLRC[5]"
-      valueReference="16777245"
+      valueReference="16777272"
       description="Heating Load ratio coefficients"
       causality="parameter"
       variability="fixed">
       <Real start="0.08"/>
     </ScalarVariable>
-    <!-- Index for next variable = 362 -->
+    <!-- Index for next variable = 360 -->
     <ScalarVariable
       name="per.P_HDC[1]"
-      valueReference="16777246"
+      valueReference="16777273"
       description="Power Ratio coefficients  in heating mode"
       causality="parameter"
       variability="fixed">
       <Real start="-5.55"/>
     </ScalarVariable>
-    <!-- Index for next variable = 363 -->
+    <!-- Index for next variable = 361 -->
     <ScalarVariable
       name="per.P_HDC[2]"
-      valueReference="16777247"
+      valueReference="16777274"
       description="Power Ratio coefficients  in heating mode"
       causality="parameter"
       variability="fixed">
       <Real start="5.08"/>
     </ScalarVariable>
-    <!-- Index for next variable = 364 -->
+    <!-- Index for next variable = 362 -->
     <ScalarVariable
       name="per.P_HDC[3]"
-      valueReference="16777248"
+      valueReference="16777275"
       description="Power Ratio coefficients  in heating mode"
       causality="parameter"
       variability="fixed">
       <Real start="1.01"/>
     </ScalarVariable>
-    <!-- Index for next variable = 365 -->
+    <!-- Index for next variable = 363 -->
     <ScalarVariable
       name="per.P_HDC[4]"
-      valueReference="16777249"
+      valueReference="16777276"
       description="Power Ratio coefficients  in heating mode"
       causality="parameter"
       variability="fixed">
       <Real start="-0.04"/>
     </ScalarVariable>
-    <!-- Index for next variable = 366 -->
+    <!-- Index for next variable = 364 -->
     <ScalarVariable
       name="per.P_HDC[5]"
-      valueReference="16777250"
+      valueReference="16777277"
       description="Power Ratio coefficients  in heating mode"
       causality="parameter"
       variability="fixed">
       <Real start="0.0"/>
     </ScalarVariable>
-    <!-- Index for next variable = 367 -->
+    <!-- Index for next variable = 365 -->
     <ScalarVariable
       name="per.CLRC[1]"
-      valueReference="16777251"
+      valueReference="16777278"
       description="Cooling Load ratio coefficients"
       causality="parameter"
       variability="fixed">
       <Real start="-5.79235417"/>
     </ScalarVariable>
-    <!-- Index for next variable = 368 -->
+    <!-- Index for next variable = 366 -->
     <ScalarVariable
       name="per.CLRC[2]"
-      valueReference="16777252"
+      valueReference="16777279"
       description="Cooling Load ratio coefficients"
       causality="parameter"
       variability="fixed">
       <Real start="9.83800467"/>
     </ScalarVariable>
-    <!-- Index for next variable = 369 -->
+    <!-- Index for next variable = 367 -->
     <ScalarVariable
       name="per.CLRC[3]"
-      valueReference="16777253"
+      valueReference="16777280"
       description="Cooling Load ratio coefficients"
       causality="parameter"
       variability="fixed">
       <Real start="-3.19795605"/>
     </ScalarVariable>
-    <!-- Index for next variable = 370 -->
+    <!-- Index for next variable = 368 -->
     <ScalarVariable
       name="per.CLRC[4]"
-      valueReference="16777254"
+      valueReference="16777281"
       description="Cooling Load ratio coefficients"
       causality="parameter"
       variability="fixed">
       <Real start="0.32498894"/>
     </ScalarVariable>
-    <!-- Index for next variable = 371 -->
+    <!-- Index for next variable = 369 -->
     <ScalarVariable
       name="per.CLRC[5]"
-      valueReference="16777255"
+      valueReference="16777282"
       description="Cooling Load ratio coefficients"
       causality="parameter"
       variability="fixed">
       <Real start="0.043752306918433"/>
     </ScalarVariable>
-    <!-- Index for next variable = 372 -->
+    <!-- Index for next variable = 370 -->
     <ScalarVariable
       name="per.P_CDC[1]"
-      valueReference="16777256"
+      valueReference="16777283"
       description="Power Ratio coefficients in cooling mode"
       causality="parameter"
       variability="fixed">
       <Real start="-6.37109639"/>
     </ScalarVariable>
-    <!-- Index for next variable = 373 -->
+    <!-- Index for next variable = 371 -->
     <ScalarVariable
       name="per.P_CDC[2]"
-      valueReference="16777257"
+      valueReference="16777284"
       description="Power Ratio coefficients in cooling mode"
       causality="parameter"
       variability="fixed">
       <Real start="1.27560526"/>
     </ScalarVariable>
-    <!-- Index for next variable = 374 -->
+    <!-- Index for next variable = 372 -->
     <ScalarVariable
       name="per.P_CDC[3]"
-      valueReference="16777258"
+      valueReference="16777285"
       description="Power Ratio coefficients in cooling mode"
       causality="parameter"
       variability="fixed">
       <Real start="5.8178049"/>
     </ScalarVariable>
-    <!-- Index for next variable = 375 -->
+    <!-- Index for next variable = 373 -->
     <ScalarVariable
       name="per.P_CDC[4]"
-      valueReference="16777259"
+      valueReference="16777286"
       description="Power Ratio coefficients in cooling mode"
       causality="parameter"
       variability="fixed">
       <Real start="0.03132874"/>
     </ScalarVariable>
-    <!-- Index for next variable = 376 -->
+    <!-- Index for next variable = 374 -->
     <ScalarVariable
       name="per.P_CDC[5]"
-      valueReference="16777260"
+      valueReference="16777287"
       description="Power Ratio coefficients in cooling mode"
       causality="parameter"
       variability="fixed">
       <Real start="-0.082990443216406"/>
     </ScalarVariable>
-    <!-- Index for next variable = 377 -->
+    <!-- Index for next variable = 375 -->
     <ScalarVariable
       name="per.TRef"
-      valueReference="16777261"
+      valueReference="16777288"
       description="Reference temperature used to normalize the inlet temperature variables"
       causality="parameter"
       variability="fixed">
@@ -4965,26 +4977,48 @@
         nominal="300.0"
         start="283.15"/>
     </ScalarVariable>
+    <!-- Index for next variable = 376 -->
+    <ScalarVariable
+      name="mEva_flow_nominal"
+      valueReference="100663545"
+      description="Evaporator nominal mass flow rate"
+      variability="constant">
+      <Real
+        quantity="MassFlowRate"
+        unit="kg/s"
+        start="1.893"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 377 -->
+    <ScalarVariable
+      name="mCon_flow_nominal"
+      valueReference="100663546"
+      description="Condenser nominal mass flow rate"
+      variability="constant">
+      <Real
+        quantity="MassFlowRate"
+        unit="kg/s"
+        start="1.893"/>
+    </ScalarVariable>
     <!-- Index for next variable = 378 -->
     <ScalarVariable
-      name="evaPum.nPorts"
-      valueReference="100663574"
+      name="conPum.nPorts"
+      valueReference="100663547"
       description="Number of ports"
       variability="constant">
       <Integer start="1"/>
     </ScalarVariable>
     <!-- Index for next variable = 379 -->
     <ScalarVariable
-      name="evaPum.verifyInputs"
-      valueReference="100663575"
+      name="conPum.verifyInputs"
+      valueReference="100663548"
       description="Set to true to stop the simulation with an error if the medium temperature is outside its allowable range"
       variability="constant">
       <Boolean start="false"/>
     </ScalarVariable>
     <!-- Index for next variable = 380 -->
     <ScalarVariable
-      name="evaPum.ports[1].m_flow"
-      valueReference="100663576"
+      name="conPum.ports[1].m_flow"
+      valueReference="100663549"
       description="Mass flow rate from the connection point into the component"
       variability="constant">
       <Real
@@ -4995,177 +5029,6 @@
         start="-1.893"/>
     </ScalarVariable>
     <!-- Index for next variable = 381 -->
-    <ScalarVariable
-      name="evaPum.ports[1].p"
-      valueReference="100663304"
-      description="Thermodynamic pressure in the connection point">
-      <Real
-        quantity="Pressure"
-        unit="Pa"
-        displayUnit="bar"
-        min="0.0"
-        max="100000000.0"
-        nominal="100000.0"/>
-      <Annotations>
-        <Tool
-          name="Dymola">
-          <Data dependencies=""
-            equation="evaPum.ports[1].p = heaPum.port_a2.p; "/>
-        </Tool>
-      </Annotations>
-    </ScalarVariable>
-    <!-- Index for next variable = 382 -->
-    <ScalarVariable
-      name="evaPum.ports[1].h_outflow"
-      valueReference="637534489"
-      description="Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0">
-      <Real
-        quantity="SpecificEnergy"
-        unit="J/kg"
-        min="-10000000000.0"
-        max="10000000000.0"
-        nominal="1000000.0"/>
-      <Annotations>
-        <Tool
-          name="Dymola">
-          <Data dependencies="388"
-            equation="evaPum.ports[1].h_outflow = 4184*(evaPum.T_in_internal-273.15); "/>
-        </Tool>
-      </Annotations>
-    </ScalarVariable>
-    <!-- Index for next variable = 383 -->
-    <ScalarVariable
-      name="evaPum.p_in_internal"
-      valueReference="100663304"
-      description="Needed to connect to conditional connector">
-      <Real
-        unit="Pa"/>
-      <Annotations>
-        <Tool
-          name="Dymola">
-          <Data dependencies=""
-            equation="evaPum.p_in_internal = heaPum.port_a2.p; "/>
-        </Tool>
-      </Annotations>
-    </ScalarVariable>
-    <!-- Index for next variable = 384 -->
-    <ScalarVariable
-      name="evaPum.X[1]"
-      valueReference="16777262"
-      description="Fixed value of composition"
-      causality="parameter"
-      variability="fixed">
-      <Real
-        quantity="SimpleLiquidWater"
-        unit="kg/kg"
-        min="0.0"
-        max="1.0"
-        nominal="0.1"
-        start="1"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 385 -->
-    <ScalarVariable
-      name="evaPum.m_flow"
-      valueReference="100663584"
-      description="Fixed mass flow rate going out of the fluid port"
-      variability="constant">
-      <Real
-        quantity="MassFlowRate"
-        unit="kg/s"
-        start="1.893"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 386 -->
-    <ScalarVariable
-      name="evaPum.T"
-      valueReference="16777263"
-      description="Fixed value of temperature"
-      causality="parameter"
-      variability="fixed">
-      <Real
-        quantity="ThermodynamicTemperature"
-        unit="K"
-        displayUnit="degC"
-        min="1.0"
-        max="10000.0"
-        nominal="300.0"
-        start="293.15"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 387 -->
-    <ScalarVariable
-      name="evaPum.T_in"
-      valueReference="637534499"
-      description="Prescribed boundary temperature">
-      <Real
-        unit="K"
-        displayUnit="degC"/>
-      <Annotations>
-        <Tool
-          name="Dymola">
-          <Data dependencies="1"
-            equation="evaPum.T_in = evaPum.T_in_internal = TEvaEnt.offset+(if time &lt; TEvaEnt.startTime then 0 else (if time &lt; TEvaEnt.startTime+TEvaEnt.duration then (time-TEvaEnt.startTime)*TEvaEnt.height/TEvaEnt.duration else TEvaEnt.height)); "/>
-        </Tool>
-      </Annotations>
-    </ScalarVariable>
-    <!-- Index for next variable = 388 -->
-    <ScalarVariable
-      name="evaPum.T_in_internal"
-      valueReference="637534499"
-      description="Needed to connect to conditional connector">
-      <Real
-        unit="K"
-        displayUnit="degC"/>
-      <Annotations>
-        <Tool
-          name="Dymola">
-          <Data dependencies="1"
-            equation="evaPum.T_in_internal = TEvaEnt.offset+(if time &lt; TEvaEnt.startTime then 0 else (if time &lt; TEvaEnt.startTime+TEvaEnt.duration then (time-TEvaEnt.startTime)*TEvaEnt.height/TEvaEnt.duration else TEvaEnt.height)); "/>
-        </Tool>
-      </Annotations>
-    </ScalarVariable>
-    <!-- Index for next variable = 389 -->
-    <ScalarVariable
-      name="evaPum.h_internal"
-      valueReference="637534489"
-      description="Internal connector for enthalpy">
-      <Real/>
-      <Annotations>
-        <Tool
-          name="Dymola">
-          <Data dependencies="388"
-            equation="evaPum.h_internal = evaPum.ports[1].h_outflow = 4184*(evaPum.T_in_internal-273.15); "/>
-        </Tool>
-      </Annotations>
-    </ScalarVariable>
-    <!-- Index for next variable = 390 -->
-    <ScalarVariable
-      name="conPum.nPorts"
-      valueReference="100663588"
-      description="Number of ports"
-      variability="constant">
-      <Integer start="1"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 391 -->
-    <ScalarVariable
-      name="conPum.verifyInputs"
-      valueReference="100663589"
-      description="Set to true to stop the simulation with an error if the medium temperature is outside its allowable range"
-      variability="constant">
-      <Boolean start="false"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 392 -->
-    <ScalarVariable
-      name="conPum.ports[1].m_flow"
-      valueReference="100663590"
-      description="Mass flow rate from the connection point into the component"
-      variability="constant">
-      <Real
-        quantity="MassFlowRate.SimpleLiquidWater"
-        unit="kg/s"
-        min="-1E+60"
-        max="1E+60"
-        start="-1.893"/>
-    </ScalarVariable>
-    <!-- Index for next variable = 393 -->
     <ScalarVariable
       name="conPum.ports[1].p"
       valueReference="100663299"
@@ -5185,10 +5048,10 @@
         </Tool>
       </Annotations>
     </ScalarVariable>
-    <!-- Index for next variable = 394 -->
+    <!-- Index for next variable = 382 -->
     <ScalarVariable
       name="conPum.ports[1].h_outflow"
-      valueReference="637534503"
+      valueReference="637534462"
       description="Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0">
       <Real
         quantity="SpecificEnergy"
@@ -5199,12 +5062,12 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="400"
+          <Data dependencies="388"
             equation="conPum.ports[1].h_outflow = 4184*(conPum.T_in_internal-273.15); "/>
         </Tool>
       </Annotations>
     </ScalarVariable>
-    <!-- Index for next variable = 395 -->
+    <!-- Index for next variable = 383 -->
     <ScalarVariable
       name="conPum.p_in_internal"
       valueReference="100663299"
@@ -5219,10 +5082,181 @@
         </Tool>
       </Annotations>
     </ScalarVariable>
-    <!-- Index for next variable = 396 -->
+    <!-- Index for next variable = 384 -->
     <ScalarVariable
       name="conPum.X[1]"
-      valueReference="16777264"
+      valueReference="16777289"
+      description="Fixed value of composition"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        quantity="SimpleLiquidWater"
+        unit="kg/kg"
+        min="0.0"
+        max="1.0"
+        nominal="0.1"
+        start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 385 -->
+    <ScalarVariable
+      name="conPum.m_flow"
+      valueReference="100663557"
+      description="Fixed mass flow rate going out of the fluid port"
+      variability="constant">
+      <Real
+        quantity="MassFlowRate"
+        unit="kg/s"
+        start="1.893"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 386 -->
+    <ScalarVariable
+      name="conPum.T"
+      valueReference="16777290"
+      description="Fixed value of temperature"
+      causality="parameter"
+      variability="fixed">
+      <Real
+        quantity="ThermodynamicTemperature"
+        unit="K"
+        displayUnit="degC"
+        min="1.0"
+        max="10000.0"
+        nominal="300.0"
+        start="293.15"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 387 -->
+    <ScalarVariable
+      name="conPum.T_in"
+      valueReference="637534472"
+      description="Prescribed boundary temperature">
+      <Real
+        unit="K"
+        displayUnit="degC"/>
+      <Annotations>
+        <Tool
+          name="Dymola">
+          <Data dependencies="1"
+            equation="conPum.T_in = conPum.T_in_internal = TConEnt.offset+(if time &lt; TConEnt.startTime then 0 else (if time &lt; TConEnt.startTime+TConEnt.duration then (time-TConEnt.startTime)*TConEnt.height/TConEnt.duration else TConEnt.height)); "/>
+        </Tool>
+      </Annotations>
+    </ScalarVariable>
+    <!-- Index for next variable = 388 -->
+    <ScalarVariable
+      name="conPum.T_in_internal"
+      valueReference="637534472"
+      description="Needed to connect to conditional connector">
+      <Real
+        unit="K"
+        displayUnit="degC"/>
+      <Annotations>
+        <Tool
+          name="Dymola">
+          <Data dependencies="1"
+            equation="conPum.T_in_internal = TConEnt.offset+(if time &lt; TConEnt.startTime then 0 else (if time &lt; TConEnt.startTime+TConEnt.duration then (time-TConEnt.startTime)*TConEnt.height/TConEnt.duration else TConEnt.height)); "/>
+        </Tool>
+      </Annotations>
+    </ScalarVariable>
+    <!-- Index for next variable = 389 -->
+    <ScalarVariable
+      name="conPum.h_internal"
+      valueReference="637534462"
+      description="Internal connector for enthalpy">
+      <Real/>
+      <Annotations>
+        <Tool
+          name="Dymola">
+          <Data dependencies="388"
+            equation="conPum.h_internal = conPum.ports[1].h_outflow = 4184*(conPum.T_in_internal-273.15); "/>
+        </Tool>
+      </Annotations>
+    </ScalarVariable>
+    <!-- Index for next variable = 390 -->
+    <ScalarVariable
+      name="evaPum.nPorts"
+      valueReference="100663561"
+      description="Number of ports"
+      variability="constant">
+      <Integer start="1"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 391 -->
+    <ScalarVariable
+      name="evaPum.verifyInputs"
+      valueReference="100663562"
+      description="Set to true to stop the simulation with an error if the medium temperature is outside its allowable range"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 392 -->
+    <ScalarVariable
+      name="evaPum.ports[1].m_flow"
+      valueReference="100663563"
+      description="Mass flow rate from the connection point into the component"
+      variability="constant">
+      <Real
+        quantity="MassFlowRate.SimpleLiquidWater"
+        unit="kg/s"
+        min="-1E+60"
+        max="1E+60"
+        start="-1.893"/>
+    </ScalarVariable>
+    <!-- Index for next variable = 393 -->
+    <ScalarVariable
+      name="evaPum.ports[1].p"
+      valueReference="100663304"
+      description="Thermodynamic pressure in the connection point">
+      <Real
+        quantity="Pressure"
+        unit="Pa"
+        displayUnit="bar"
+        min="0.0"
+        max="100000000.0"
+        nominal="100000.0"/>
+      <Annotations>
+        <Tool
+          name="Dymola">
+          <Data dependencies=""
+            equation="evaPum.ports[1].p = heaPum.port_a2.p; "/>
+        </Tool>
+      </Annotations>
+    </ScalarVariable>
+    <!-- Index for next variable = 394 -->
+    <ScalarVariable
+      name="evaPum.ports[1].h_outflow"
+      valueReference="637534476"
+      description="Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0">
+      <Real
+        quantity="SpecificEnergy"
+        unit="J/kg"
+        min="-10000000000.0"
+        max="10000000000.0"
+        nominal="1000000.0"/>
+      <Annotations>
+        <Tool
+          name="Dymola">
+          <Data dependencies="400"
+            equation="evaPum.ports[1].h_outflow = 4184*(evaPum.T_in_internal-273.15); "/>
+        </Tool>
+      </Annotations>
+    </ScalarVariable>
+    <!-- Index for next variable = 395 -->
+    <ScalarVariable
+      name="evaPum.p_in_internal"
+      valueReference="100663304"
+      description="Needed to connect to conditional connector">
+      <Real
+        unit="Pa"/>
+      <Annotations>
+        <Tool
+          name="Dymola">
+          <Data dependencies=""
+            equation="evaPum.p_in_internal = heaPum.port_a2.p; "/>
+        </Tool>
+      </Annotations>
+    </ScalarVariable>
+    <!-- Index for next variable = 396 -->
+    <ScalarVariable
+      name="evaPum.X[1]"
+      valueReference="16777291"
       description="Fixed value of composition"
       causality="parameter"
       variability="fixed">
@@ -5236,8 +5270,8 @@
     </ScalarVariable>
     <!-- Index for next variable = 397 -->
     <ScalarVariable
-      name="conPum.m_flow"
-      valueReference="100663598"
+      name="evaPum.m_flow"
+      valueReference="100663571"
       description="Fixed mass flow rate going out of the fluid port"
       variability="constant">
       <Real
@@ -5247,8 +5281,8 @@
     </ScalarVariable>
     <!-- Index for next variable = 398 -->
     <ScalarVariable
-      name="conPum.T"
-      valueReference="16777265"
+      name="evaPum.T"
+      valueReference="16777292"
       description="Fixed value of temperature"
       causality="parameter"
       variability="fixed">
@@ -5263,8 +5297,8 @@
     </ScalarVariable>
     <!-- Index for next variable = 399 -->
     <ScalarVariable
-      name="conPum.T_in"
-      valueReference="637534513"
+      name="evaPum.T_in"
+      valueReference="637534486"
       description="Prescribed boundary temperature">
       <Real
         unit="K"
@@ -5273,14 +5307,14 @@
         <Tool
           name="Dymola">
           <Data dependencies="1"
-            equation="conPum.T_in = conPum.T_in_internal = TConEnt.offset+(if time &lt; TConEnt.startTime then 0 else (if time &lt; TConEnt.startTime+TConEnt.duration then (time-TConEnt.startTime)*TConEnt.height/TConEnt.duration else TConEnt.height)); "/>
+            equation="evaPum.T_in = evaPum.T_in_internal = TEvaEnt.offset+(if time &lt; TEvaEnt.startTime then 0 else (if time &lt; TEvaEnt.startTime+TEvaEnt.duration then (time-TEvaEnt.startTime)*TEvaEnt.height/TEvaEnt.duration else TEvaEnt.height)); "/>
         </Tool>
       </Annotations>
     </ScalarVariable>
     <!-- Index for next variable = 400 -->
     <ScalarVariable
-      name="conPum.T_in_internal"
-      valueReference="637534513"
+      name="evaPum.T_in_internal"
+      valueReference="637534486"
       description="Needed to connect to conditional connector">
       <Real
         unit="K"
@@ -5289,28 +5323,28 @@
         <Tool
           name="Dymola">
           <Data dependencies="1"
-            equation="conPum.T_in_internal = TConEnt.offset+(if time &lt; TConEnt.startTime then 0 else (if time &lt; TConEnt.startTime+TConEnt.duration then (time-TConEnt.startTime)*TConEnt.height/TConEnt.duration else TConEnt.height)); "/>
+            equation="evaPum.T_in_internal = TEvaEnt.offset+(if time &lt; TEvaEnt.startTime then 0 else (if time &lt; TEvaEnt.startTime+TEvaEnt.duration then (time-TEvaEnt.startTime)*TEvaEnt.height/TEvaEnt.duration else TEvaEnt.height)); "/>
         </Tool>
       </Annotations>
     </ScalarVariable>
     <!-- Index for next variable = 401 -->
     <ScalarVariable
-      name="conPum.h_internal"
-      valueReference="637534503"
+      name="evaPum.h_internal"
+      valueReference="637534476"
       description="Internal connector for enthalpy">
       <Real/>
       <Annotations>
         <Tool
           name="Dymola">
           <Data dependencies="400"
-            equation="conPum.h_internal = conPum.ports[1].h_outflow = 4184*(conPum.T_in_internal-273.15); "/>
+            equation="evaPum.h_internal = evaPum.ports[1].h_outflow = 4184*(evaPum.T_in_internal-273.15); "/>
         </Tool>
       </Annotations>
     </ScalarVariable>
     <!-- Index for next variable = 402 -->
     <ScalarVariable
       name="TConEnt.height"
-      valueReference="16777266"
+      valueReference="16777293"
       description="Height of ramps"
       causality="parameter"
       variability="fixed">
@@ -5319,7 +5353,7 @@
     <!-- Index for next variable = 403 -->
     <ScalarVariable
       name="TConEnt.duration"
-      valueReference="16777267"
+      valueReference="16777294"
       description="Duration of ramp (= 0.0 gives a Step)"
       causality="parameter"
       variability="fixed">
@@ -5333,7 +5367,7 @@
     <!-- Index for next variable = 404 -->
     <ScalarVariable
       name="TConEnt.offset"
-      valueReference="16777268"
+      valueReference="16777295"
       description="Offset of output signal"
       causality="parameter"
       variability="fixed">
@@ -5342,7 +5376,7 @@
     <!-- Index for next variable = 405 -->
     <ScalarVariable
       name="TConEnt.startTime"
-      valueReference="16777269"
+      valueReference="16777296"
       description="Output = offset for time &lt; startTime"
       causality="parameter"
       variability="fixed">
@@ -5354,7 +5388,7 @@
     <!-- Index for next variable = 406 -->
     <ScalarVariable
       name="TConEnt.y"
-      valueReference="637534513"
+      valueReference="637534472"
       description="Connector of Real output signal">
       <Real/>
       <Annotations>
@@ -5368,7 +5402,7 @@
     <!-- Index for next variable = 407 -->
     <ScalarVariable
       name="TEvaEnt.height"
-      valueReference="16777270"
+      valueReference="16777297"
       description="Height of ramps"
       causality="parameter"
       variability="fixed">
@@ -5377,7 +5411,7 @@
     <!-- Index for next variable = 408 -->
     <ScalarVariable
       name="TEvaEnt.duration"
-      valueReference="16777271"
+      valueReference="16777298"
       description="Duration of ramp (= 0.0 gives a Step)"
       causality="parameter"
       variability="fixed">
@@ -5391,7 +5425,7 @@
     <!-- Index for next variable = 409 -->
     <ScalarVariable
       name="TEvaEnt.offset"
-      valueReference="16777272"
+      valueReference="16777299"
       description="Offset of output signal"
       causality="parameter"
       variability="fixed">
@@ -5400,7 +5434,7 @@
     <!-- Index for next variable = 410 -->
     <ScalarVariable
       name="TEvaEnt.startTime"
-      valueReference="16777273"
+      valueReference="16777300"
       description="Output = offset for time &lt; startTime"
       causality="parameter"
       variability="fixed">
@@ -5412,7 +5446,7 @@
     <!-- Index for next variable = 411 -->
     <ScalarVariable
       name="TEvaEnt.y"
-      valueReference="637534499"
+      valueReference="637534486"
       description="Connector of Real output signal">
       <Real/>
       <Annotations>
@@ -5426,7 +5460,7 @@
     <!-- Index for next variable = 412 -->
     <ScalarVariable
       name="res1.allowFlowReversal"
-      valueReference="100663602"
+      valueReference="100663575"
       description="= false to simplify equations, assuming, but not enforcing, no flow reversal"
       variability="constant">
       <Boolean start="true"/>
@@ -5434,7 +5468,7 @@
     <!-- Index for next variable = 413 -->
     <ScalarVariable
       name="res1.port_a.m_flow"
-      valueReference="100663603"
+      valueReference="100663576"
       description="Mass flow rate from the connection point into the component"
       variability="constant">
       <Real
@@ -5467,7 +5501,7 @@
     <!-- Index for next variable = 415 -->
     <ScalarVariable
       name="res1.port_a.h_outflow"
-      valueReference="100663604"
+      valueReference="100663577"
       description="Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0"
       variability="fixed">
       <Real
@@ -5480,7 +5514,7 @@
     <!-- Index for next variable = 416 -->
     <ScalarVariable
       name="res1.port_b.m_flow"
-      valueReference="100663605"
+      valueReference="100663578"
       description="Mass flow rate from the connection point into the component"
       variability="constant">
       <Real
@@ -5493,7 +5527,7 @@
     <!-- Index for next variable = 417 -->
     <ScalarVariable
       name="res1.port_b.p"
-      valueReference="234881086"
+      valueReference="234881113"
       description="Thermodynamic pressure in the connection point">
       <Real
         quantity="Pressure"
@@ -5532,7 +5566,7 @@
     <!-- Index for next variable = 419 -->
     <ScalarVariable
       name="res1.m_flow_nominal"
-      valueReference="100663606"
+      valueReference="100663579"
       description="Nominal mass flow rate"
       variability="constant">
       <Real
@@ -5543,7 +5577,7 @@
     <!-- Index for next variable = 420 -->
     <ScalarVariable
       name="res1.m_flow_small"
-      valueReference="100663607"
+      valueReference="100663580"
       description="Small mass flow rate for regularization of zero flow"
       variability="constant">
       <Real
@@ -5555,7 +5589,7 @@
     <!-- Index for next variable = 421 -->
     <ScalarVariable
       name="res1.show_T"
-      valueReference="100663608"
+      valueReference="100663581"
       description="= true, if actual temperature at port is computed"
       variability="constant">
       <Boolean start="false"/>
@@ -5563,7 +5597,7 @@
     <!-- Index for next variable = 422 -->
     <ScalarVariable
       name="res1.m_flow"
-      valueReference="100663609"
+      valueReference="100663582"
       description="Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction)"
       variability="constant">
       <Real
@@ -5575,7 +5609,7 @@
     <!-- Index for next variable = 423 -->
     <ScalarVariable
       name="res1.dp"
-      valueReference="100663610"
+      valueReference="100663583"
       description="Pressure difference between port_a and port_b"
       variability="fixed">
       <Real
@@ -5587,7 +5621,7 @@
     <!-- Index for next variable = 424 -->
     <ScalarVariable
       name="res1.from_dp"
-      valueReference="100663613"
+      valueReference="100663586"
       description="= true, use m_flow = f(dp) else dp = f(m_flow)"
       variability="constant">
       <Boolean start="false"/>
@@ -5595,7 +5629,7 @@
     <!-- Index for next variable = 425 -->
     <ScalarVariable
       name="res1.dp_nominal"
-      valueReference="100663614"
+      valueReference="100663587"
       description="Pressure drop at nominal mass flow rate"
       variability="constant">
       <Real
@@ -5607,7 +5641,7 @@
     <!-- Index for next variable = 426 -->
     <ScalarVariable
       name="res1.homotopyInitialization"
-      valueReference="100663615"
+      valueReference="100663588"
       description="= true, use homotopy method"
       variability="constant">
       <Boolean start="true"/>
@@ -5615,7 +5649,7 @@
     <!-- Index for next variable = 427 -->
     <ScalarVariable
       name="res1.linearized"
-      valueReference="100663616"
+      valueReference="100663589"
       description="= true, use linear relation between m_flow and dp for any flow rate"
       variability="constant">
       <Boolean start="false"/>
@@ -5623,7 +5657,7 @@
     <!-- Index for next variable = 428 -->
     <ScalarVariable
       name="res1.m_flow_turbulent"
-      valueReference="100663617"
+      valueReference="100663590"
       description="Turbulent flow if |m_flow| &gt;= m_flow_turbulent"
       variability="constant">
       <Real
@@ -5635,7 +5669,7 @@
     <!-- Index for next variable = 429 -->
     <ScalarVariable
       name="res1.deltaM"
-      valueReference="100663621"
+      valueReference="100663594"
       description="Fraction of nominal mass flow rate where transition to turbulent occurs"
       variability="constant">
       <Real min="1E-06"
@@ -5644,7 +5678,7 @@
     <!-- Index for next variable = 430 -->
     <ScalarVariable
       name="res1.k"
-      valueReference="100663622"
+      valueReference="100663595"
       description="Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)"
       variability="constant">
       <Real start="0.024438524914568802"/>
@@ -5652,7 +5686,7 @@
     <!-- Index for next variable = 431 -->
     <ScalarVariable
       name="res2.allowFlowReversal"
-      valueReference="100663625"
+      valueReference="100663598"
       description="= false to simplify equations, assuming, but not enforcing, no flow reversal"
       variability="constant">
       <Boolean start="true"/>
@@ -5660,7 +5694,7 @@
     <!-- Index for next variable = 432 -->
     <ScalarVariable
       name="res2.port_a.m_flow"
-      valueReference="100663626"
+      valueReference="100663599"
       description="Mass flow rate from the connection point into the component"
       variability="constant">
       <Real
@@ -5673,7 +5707,7 @@
     <!-- Index for next variable = 433 -->
     <ScalarVariable
       name="res2.port_a.p"
-      valueReference="234881090"
+      valueReference="234881117"
       description="Thermodynamic pressure in the connection point">
       <Real
         quantity="Pressure"
@@ -5704,7 +5738,7 @@
       <Annotations>
         <Tool
           name="Dymola">
-          <Data dependencies="61 382"
+          <Data dependencies="61 394"
             equation="res2.port_a.h_outflow = heaPum.port_b2.h_outflow = evaPum.ports[1].h_outflow+0.5282620179609087*heaPum.Q2_flow; "/>
         </Tool>
       </Annotations>
@@ -5712,7 +5746,7 @@
     <!-- Index for next variable = 435 -->
     <ScalarVariable
       name="res2.port_b.m_flow"
-      valueReference="100663627"
+      valueReference="100663600"
       description="Mass flow rate from the connection point into the component"
       variability="constant">
       <Real
@@ -5745,7 +5779,7 @@
     <!-- Index for next variable = 437 -->
     <ScalarVariable
       name="res2.port_b.h_outflow"
-      valueReference="100663628"
+      valueReference="100663601"
       description="Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0"
       variability="fixed">
       <Real
@@ -5758,7 +5792,7 @@
     <!-- Index for next variable = 438 -->
     <ScalarVariable
       name="res2.m_flow_nominal"
-      valueReference="100663629"
+      valueReference="100663602"
       description="Nominal mass flow rate"
       variability="constant">
       <Real
@@ -5769,7 +5803,7 @@
     <!-- Index for next variable = 439 -->
     <ScalarVariable
       name="res2.m_flow_small"
-      valueReference="100663630"
+      valueReference="100663603"
       description="Small mass flow rate for regularization of zero flow"
       variability="constant">
       <Real
@@ -5781,7 +5815,7 @@
     <!-- Index for next variable = 440 -->
     <ScalarVariable
       name="res2.show_T"
-      valueReference="100663631"
+      valueReference="100663604"
       description="= true, if actual temperature at port is computed"
       variability="constant">
       <Boolean start="false"/>
@@ -5789,7 +5823,7 @@
     <!-- Index for next variable = 441 -->
     <ScalarVariable
       name="res2.m_flow"
-      valueReference="100663632"
+      valueReference="100663605"
       description="Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction)"
       variability="constant">
       <Real
@@ -5801,7 +5835,7 @@
     <!-- Index for next variable = 442 -->
     <ScalarVariable
       name="res2.dp"
-      valueReference="100663633"
+      valueReference="100663606"
       description="Pressure difference between port_a and port_b"
       variability="fixed">
       <Real
@@ -5813,7 +5847,7 @@
     <!-- Index for next variable = 443 -->
     <ScalarVariable
       name="res2.from_dp"
-      valueReference="100663636"
+      valueReference="100663609"
       description="= true, use m_flow = f(dp) else dp = f(m_flow)"
       variability="constant">
       <Boolean start="false"/>
@@ -5821,7 +5855,7 @@
     <!-- Index for next variable = 444 -->
     <ScalarVariable
       name="res2.dp_nominal"
-      valueReference="100663637"
+      valueReference="100663610"
       description="Pressure drop at nominal mass flow rate"
       variability="constant">
       <Real
@@ -5833,7 +5867,7 @@
     <!-- Index for next variable = 445 -->
     <ScalarVariable
       name="res2.homotopyInitialization"
-      valueReference="100663638"
+      valueReference="100663611"
       description="= true, use homotopy method"
       variability="constant">
       <Boolean start="true"/>
@@ -5841,7 +5875,7 @@
     <!-- Index for next variable = 446 -->
     <ScalarVariable
       name="res2.linearized"
-      valueReference="100663639"
+      valueReference="100663612"
       description="= true, use linear relation between m_flow and dp for any flow rate"
       variability="constant">
       <Boolean start="false"/>
@@ -5849,7 +5883,7 @@
     <!-- Index for next variable = 447 -->
     <ScalarVariable
       name="res2.m_flow_turbulent"
-      valueReference="100663640"
+      valueReference="100663613"
       description="Turbulent flow if |m_flow| &gt;= m_flow_turbulent"
       variability="constant">
       <Real
@@ -5861,7 +5895,7 @@
     <!-- Index for next variable = 448 -->
     <ScalarVariable
       name="res2.deltaM"
-      valueReference="100663644"
+      valueReference="100663617"
       description="Fraction of nominal mass flow rate where transition to turbulent occurs"
       variability="constant">
       <Real min="1E-06"
@@ -5870,7 +5904,7 @@
     <!-- Index for next variable = 449 -->
     <ScalarVariable
       name="res2.k"
-      valueReference="100663645"
+      valueReference="100663618"
       description="Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)"
       variability="constant">
       <Real start="0.024438524914568802"/>
@@ -5878,7 +5912,7 @@
     <!-- Index for next variable = 450 -->
     <ScalarVariable
       name="heaVol.nPorts"
-      valueReference="100663648"
+      valueReference="100663621"
       description="Number of ports"
       variability="constant">
       <Integer start="1"/>
@@ -5886,7 +5920,7 @@
     <!-- Index for next variable = 451 -->
     <ScalarVariable
       name="heaVol.medium.T"
-      valueReference="234881087"
+      valueReference="234881114"
       description="Temperature of medium">
       <Real
         quantity="ThermodynamicTemperature"
@@ -5906,7 +5940,7 @@
     <!-- Index for next variable = 452 -->
     <ScalarVariable
       name="heaVol.medium.p"
-      valueReference="234881086"
+      valueReference="234881113"
       description="Absolute pressure of medium">
       <Real
         quantity="Pressure"
@@ -5925,7 +5959,7 @@
     <!-- Index for next variable = 453 -->
     <ScalarVariable
       name="heaVol.medium.h"
-      valueReference="100663604"
+      valueReference="100663577"
       description="Specific enthalpy of medium">
       <Real
         quantity="SpecificEnergy"
@@ -5941,7 +5975,7 @@
     <!-- Index for next variable = 454 -->
     <ScalarVariable
       name="heaVol.medium.u"
-      valueReference="100663604"
+      valueReference="100663577"
       description="Specific internal energy of medium">
       <Real
         quantity="SpecificEnergy"
@@ -5957,7 +5991,7 @@
     <!-- Index for next variable = 455 -->
     <ScalarVariable
       name="heaVol.medium.d"
-      valueReference="100663649"
+      valueReference="100663622"
       description="Density of medium"
       variability="constant">
       <Real
@@ -5970,7 +6004,7 @@
     <!-- Index for next variable = 456 -->
     <ScalarVariable
       name="heaVol.medium.X[1]"
-      valueReference="100663650"
+      valueReference="100663623"
       description="Mass fractions (= (component mass)/total mass  m_i/m)"
       variability="constant">
       <Real
@@ -5983,7 +6017,7 @@
     <!-- Index for next variable = 457 -->
     <ScalarVariable
       name="heaVol.medium.R"
-      valueReference="100663651"
+      valueReference="100663624"
       description="Gas constant (of mixture if applicable)"
       variability="constant">
       <Real
@@ -5994,7 +6028,7 @@
     <!-- Index for next variable = 458 -->
     <ScalarVariable
       name="heaVol.medium.MM"
-      valueReference="100663652"
+      valueReference="100663625"
       description="Molar mass (of mixture or single fluid)"
       variability="constant">
       <Real
@@ -6006,7 +6040,7 @@
     <!-- Index for next variable = 459 -->
     <ScalarVariable
       name="heaVol.medium.state.p"
-      valueReference="234881086"
+      valueReference="234881113"
       description="Absolute pressure of medium">
       <Real
         quantity="Pressure"
@@ -6026,7 +6060,7 @@
     <!-- Index for next variable = 460 -->
     <ScalarVariable
       name="heaVol.medium.state.T"
-      valueReference="234881087"
+      valueReference="234881114"
       description="Temperature of medium">
       <Real
         quantity="ThermodynamicTemperature"
@@ -6046,7 +6080,7 @@
     <!-- Index for next variable = 461 -->
     <ScalarVariable
       name="heaVol.medium.preferredMediumStates"
-      valueReference="100663653"
+      valueReference="100663626"
       description="= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       variability="constant">
       <Boolean start="false"/>
@@ -6054,7 +6088,7 @@
     <!-- Index for next variable = 462 -->
     <ScalarVariable
       name="heaVol.medium.standardOrderComponents"
-      valueReference="100663654"
+      valueReference="100663627"
       description="If true, and reducedX = true, the last element of X will be computed from the other ones"
       variability="constant">
       <Boolean start="true"/>
@@ -6062,7 +6096,7 @@
     <!-- Index for next variable = 463 -->
     <ScalarVariable
       name="heaVol.medium.T_degC"
-      valueReference="100663655"
+      valueReference="100663628"
       description="Temperature of medium in [degC]"
       variability="fixed">
       <Real
@@ -6072,7 +6106,7 @@
     <!-- Index for next variable = 464 -->
     <ScalarVariable
       name="heaVol.medium.p_bar"
-      valueReference="100663656"
+      valueReference="100663629"
       description="Absolute pressure of medium in [bar]"
       variability="fixed">
       <Real
@@ -6082,7 +6116,7 @@
     <!-- Index for next variable = 465 -->
     <ScalarVariable
       name="heaVol.ports[1].m_flow"
-      valueReference="100663657"
+      valueReference="100663630"
       description="Mass flow rate from the connection point into the component"
       variability="constant">
       <Real
@@ -6095,7 +6129,7 @@
     <!-- Index for next variable = 466 -->
     <ScalarVariable
       name="heaVol.ports[1].p"
-      valueReference="234881086"
+      valueReference="234881113"
       description="Thermodynamic pressure in the connection point">
       <Real
         quantity="Pressure"
@@ -6115,7 +6149,7 @@
     <!-- Index for next variable = 467 -->
     <ScalarVariable
       name="heaVol.ports[1].h_outflow"
-      valueReference="100663604"
+      valueReference="100663577"
       description="Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0">
       <Real
         quantity="SpecificEnergy"
@@ -6134,7 +6168,7 @@
     <!-- Index for next variable = 468 -->
     <ScalarVariable
       name="heaVol.use_p"
-      valueReference="100663659"
+      valueReference="100663632"
       description="select p or d"
       variability="constant">
       <Boolean start="true"/>
@@ -6142,7 +6176,7 @@
     <!-- Index for next variable = 469 -->
     <ScalarVariable
       name="heaVol.p"
-      valueReference="16777278"
+      valueReference="16777305"
       description="Boundary pressure"
       causality="parameter"
       variability="fixed">
@@ -6158,7 +6192,7 @@
     <!-- Index for next variable = 470 -->
     <ScalarVariable
       name="heaVol.d"
-      valueReference="100663660"
+      valueReference="100663633"
       description="Boundary density"
       variability="constant">
       <Real
@@ -6173,7 +6207,7 @@
     <!-- Index for next variable = 471 -->
     <ScalarVariable
       name="heaVol.use_T"
-      valueReference="100663661"
+      valueReference="100663634"
       description="select T or h"
       variability="constant">
       <Boolean start="true"/>
@@ -6181,7 +6215,7 @@
     <!-- Index for next variable = 472 -->
     <ScalarVariable
       name="heaVol.T"
-      valueReference="16777279"
+      valueReference="16777306"
       description="Boundary temperature"
       causality="parameter"
       variability="fixed">
@@ -6197,7 +6231,7 @@
     <!-- Index for next variable = 473 -->
     <ScalarVariable
       name="heaVol.h"
-      valueReference="16777280"
+      valueReference="16777307"
       description="Boundary specific enthalpy"
       causality="parameter"
       variability="fixed">
@@ -6212,7 +6246,7 @@
     <!-- Index for next variable = 474 -->
     <ScalarVariable
       name="heaVol.X[1]"
-      valueReference="16777281"
+      valueReference="16777308"
       description="Boundary mass fractions m_i/m"
       causality="parameter"
       variability="fixed">
@@ -6227,7 +6261,7 @@
     <!-- Index for next variable = 475 -->
     <ScalarVariable
       name="heaVol.state.p"
-      valueReference="234881086"
+      valueReference="234881113"
       description="Absolute pressure of medium">
       <Real
         quantity="Pressure"
@@ -6247,7 +6281,7 @@
     <!-- Index for next variable = 476 -->
     <ScalarVariable
       name="heaVol.state.T"
-      valueReference="234881087"
+      valueReference="234881114"
       description="Temperature of medium">
       <Real
         quantity="ThermodynamicTemperature"
@@ -6267,7 +6301,7 @@
     <!-- Index for next variable = 477 -->
     <ScalarVariable
       name="cooVol.nPorts"
-      valueReference="100663662"
+      valueReference="100663635"
       description="Number of ports"
       variability="constant">
       <Integer start="1"/>
@@ -6275,7 +6309,7 @@
     <!-- Index for next variable = 478 -->
     <ScalarVariable
       name="cooVol.medium.T"
-      valueReference="234881091"
+      valueReference="234881118"
       description="Temperature of medium">
       <Real
         quantity="ThermodynamicTemperature"
@@ -6295,7 +6329,7 @@
     <!-- Index for next variable = 479 -->
     <ScalarVariable
       name="cooVol.medium.p"
-      valueReference="234881090"
+      valueReference="234881117"
       description="Absolute pressure of medium">
       <Real
         quantity="Pressure"
@@ -6314,7 +6348,7 @@
     <!-- Index for next variable = 480 -->
     <ScalarVariable
       name="cooVol.medium.h"
-      valueReference="100663628"
+      valueReference="100663601"
       description="Specific enthalpy of medium">
       <Real
         quantity="SpecificEnergy"
@@ -6330,7 +6364,7 @@
     <!-- Index for next variable = 481 -->
     <ScalarVariable
       name="cooVol.medium.u"
-      valueReference="100663628"
+      valueReference="100663601"
       description="Specific internal energy of medium">
       <Real
         quantity="SpecificEnergy"
@@ -6346,7 +6380,7 @@
     <!-- Index for next variable = 482 -->
     <ScalarVariable
       name="cooVol.medium.d"
-      valueReference="100663663"
+      valueReference="100663636"
       description="Density of medium"
       variability="constant">
       <Real
@@ -6359,7 +6393,7 @@
     <!-- Index for next variable = 483 -->
     <ScalarVariable
       name="cooVol.medium.X[1]"
-      valueReference="100663664"
+      valueReference="100663637"
       description="Mass fractions (= (component mass)/total mass  m_i/m)"
       variability="constant">
       <Real
@@ -6372,7 +6406,7 @@
     <!-- Index for next variable = 484 -->
     <ScalarVariable
       name="cooVol.medium.R"
-      valueReference="100663665"
+      valueReference="100663638"
       description="Gas constant (of mixture if applicable)"
       variability="constant">
       <Real
@@ -6383,7 +6417,7 @@
     <!-- Index for next variable = 485 -->
     <ScalarVariable
       name="cooVol.medium.MM"
-      valueReference="100663666"
+      valueReference="100663639"
       description="Molar mass (of mixture or single fluid)"
       variability="constant">
       <Real
@@ -6395,7 +6429,7 @@
     <!-- Index for next variable = 486 -->
     <ScalarVariable
       name="cooVol.medium.state.p"
-      valueReference="234881090"
+      valueReference="234881117"
       description="Absolute pressure of medium">
       <Real
         quantity="Pressure"
@@ -6415,7 +6449,7 @@
     <!-- Index for next variable = 487 -->
     <ScalarVariable
       name="cooVol.medium.state.T"
-      valueReference="234881091"
+      valueReference="234881118"
       description="Temperature of medium">
       <Real
         quantity="ThermodynamicTemperature"
@@ -6435,7 +6469,7 @@
     <!-- Index for next variable = 488 -->
     <ScalarVariable
       name="cooVol.medium.preferredMediumStates"
-      valueReference="100663667"
+      valueReference="100663640"
       description="= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       variability="constant">
       <Boolean start="false"/>
@@ -6443,7 +6477,7 @@
     <!-- Index for next variable = 489 -->
     <ScalarVariable
       name="cooVol.medium.standardOrderComponents"
-      valueReference="100663668"
+      valueReference="100663641"
       description="If true, and reducedX = true, the last element of X will be computed from the other ones"
       variability="constant">
       <Boolean start="true"/>
@@ -6451,7 +6485,7 @@
     <!-- Index for next variable = 490 -->
     <ScalarVariable
       name="cooVol.medium.T_degC"
-      valueReference="100663669"
+      valueReference="100663642"
       description="Temperature of medium in [degC]"
       variability="fixed">
       <Real
@@ -6461,7 +6495,7 @@
     <!-- Index for next variable = 491 -->
     <ScalarVariable
       name="cooVol.medium.p_bar"
-      valueReference="100663670"
+      valueReference="100663643"
       description="Absolute pressure of medium in [bar]"
       variability="fixed">
       <Real
@@ -6471,7 +6505,7 @@
     <!-- Index for next variable = 492 -->
     <ScalarVariable
       name="cooVol.ports[1].m_flow"
-      valueReference="100663671"
+      valueReference="100663644"
       description="Mass flow rate from the connection point into the component"
       variability="constant">
       <Real
@@ -6484,7 +6518,7 @@
     <!-- Index for next variable = 493 -->
     <ScalarVariable
       name="cooVol.ports[1].p"
-      valueReference="234881090"
+      valueReference="234881117"
       description="Thermodynamic pressure in the connection point">
       <Real
         quantity="Pressure"
@@ -6504,7 +6538,7 @@
     <!-- Index for next variable = 494 -->
     <ScalarVariable
       name="cooVol.ports[1].h_outflow"
-      valueReference="100663628"
+      valueReference="100663601"
       description="Specific thermodynamic enthalpy close to the connection point if m_flow &lt; 0">
       <Real
         quantity="SpecificEnergy"
@@ -6523,7 +6557,7 @@
     <!-- Index for next variable = 495 -->
     <ScalarVariable
       name="cooVol.use_p"
-      valueReference="100663673"
+      valueReference="100663646"
       description="select p or d"
       variability="constant">
       <Boolean start="true"/>
@@ -6531,7 +6565,7 @@
     <!-- Index for next variable = 496 -->
     <ScalarVariable
       name="cooVol.p"
-      valueReference="16777282"
+      valueReference="16777309"
       description="Boundary pressure"
       causality="parameter"
       variability="fixed">
@@ -6547,7 +6581,7 @@
     <!-- Index for next variable = 497 -->
     <ScalarVariable
       name="cooVol.d"
-      valueReference="100663674"
+      valueReference="100663647"
       description="Boundary density"
       variability="constant">
       <Real
@@ -6562,7 +6596,7 @@
     <!-- Index for next variable = 498 -->
     <ScalarVariable
       name="cooVol.use_T"
-      valueReference="100663675"
+      valueReference="100663648"
       description="select T or h"
       variability="constant">
       <Boolean start="true"/>
@@ -6570,7 +6604,7 @@
     <!-- Index for next variable = 499 -->
     <ScalarVariable
       name="cooVol.T"
-      valueReference="16777283"
+      valueReference="16777310"
       description="Boundary temperature"
       causality="parameter"
       variability="fixed">
@@ -6586,7 +6620,7 @@
     <!-- Index for next variable = 500 -->
     <ScalarVariable
       name="cooVol.h"
-      valueReference="16777284"
+      valueReference="16777311"
       description="Boundary specific enthalpy"
       causality="parameter"
       variability="fixed">
@@ -6601,7 +6635,7 @@
     <!-- Index for next variable = 501 -->
     <ScalarVariable
       name="cooVol.X[1]"
-      valueReference="16777285"
+      valueReference="16777312"
       description="Boundary mass fractions m_i/m"
       causality="parameter"
       variability="fixed">
@@ -6616,7 +6650,7 @@
     <!-- Index for next variable = 502 -->
     <ScalarVariable
       name="cooVol.state.p"
-      valueReference="234881090"
+      valueReference="234881117"
       description="Absolute pressure of medium">
       <Real
         quantity="Pressure"
@@ -6636,7 +6670,7 @@
     <!-- Index for next variable = 503 -->
     <ScalarVariable
       name="cooVol.state.T"
-      valueReference="234881091"
+      valueReference="234881118"
       description="Temperature of medium">
       <Real
         quantity="ThermodynamicTemperature"
@@ -6656,7 +6690,7 @@
     <!-- Index for next variable = 504 -->
     <ScalarVariable
       name="TEvaSet.height"
-      valueReference="16777286"
+      valueReference="16777313"
       description="Height of ramps"
       causality="parameter"
       variability="fixed">
@@ -6665,7 +6699,7 @@
     <!-- Index for next variable = 505 -->
     <ScalarVariable
       name="TEvaSet.duration"
-      valueReference="16777287"
+      valueReference="16777314"
       description="Duration of ramp (= 0.0 gives a Step)"
       causality="parameter"
       variability="fixed">
@@ -6679,7 +6713,7 @@
     <!-- Index for next variable = 506 -->
     <ScalarVariable
       name="TEvaSet.offset"
-      valueReference="16777288"
+      valueReference="16777315"
       description="Offset of output signal"
       causality="parameter"
       variability="fixed">
@@ -6688,7 +6722,7 @@
     <!-- Index for next variable = 507 -->
     <ScalarVariable
       name="TEvaSet.startTime"
-      valueReference="16777289"
+      valueReference="16777316"
       description="Output = offset for time &lt; startTime"
       causality="parameter"
       variability="fixed">
@@ -6700,7 +6734,7 @@
     <!-- Index for next variable = 508 -->
     <ScalarVariable
       name="TEvaSet.y"
-      valueReference="637534476"
+      valueReference="637534449"
       description="Connector of Real output signal">
       <Real/>
       <Annotations>
@@ -6714,7 +6748,7 @@
     <!-- Index for next variable = 509 -->
     <ScalarVariable
       name="TConSet.height"
-      valueReference="16777290"
+      valueReference="16777317"
       description="Height of ramps"
       causality="parameter"
       variability="fixed">
@@ -6723,7 +6757,7 @@
     <!-- Index for next variable = 510 -->
     <ScalarVariable
       name="TConSet.duration"
-      valueReference="16777291"
+      valueReference="16777318"
       description="Duration of ramp (= 0.0 gives a Step)"
       causality="parameter"
       variability="fixed">
@@ -6737,7 +6771,7 @@
     <!-- Index for next variable = 511 -->
     <ScalarVariable
       name="TConSet.offset"
-      valueReference="16777292"
+      valueReference="16777319"
       description="Offset of output signal"
       causality="parameter"
       variability="fixed">
@@ -6746,7 +6780,7 @@
     <!-- Index for next variable = 512 -->
     <ScalarVariable
       name="TConSet.startTime"
-      valueReference="16777293"
+      valueReference="16777320"
       description="Output = offset for time &lt; startTime"
       causality="parameter"
       variability="fixed">
@@ -6758,7 +6792,7 @@
     <!-- Index for next variable = 513 -->
     <ScalarVariable
       name="TConSet.y"
-      valueReference="637534477"
+      valueReference="637534450"
       description="Connector of Real output signal">
       <Real/>
       <Annotations>
@@ -6772,7 +6806,7 @@
     <!-- Index for next variable = 514 -->
     <ScalarVariable
       name="uMod.height"
-      valueReference="16777294"
+      valueReference="16777321"
       description="Height of ramps"
       causality="parameter"
       variability="fixed">
@@ -6781,7 +6815,7 @@
     <!-- Index for next variable = 515 -->
     <ScalarVariable
       name="uMod.duration"
-      valueReference="16777295"
+      valueReference="16777322"
       description="Duration of ramp (= 0.0 gives a Step)"
       causality="parameter"
       variability="fixed">
@@ -6795,7 +6829,7 @@
     <!-- Index for next variable = 516 -->
     <ScalarVariable
       name="uMod.offset"
-      valueReference="16777296"
+      valueReference="16777323"
       description="Offset of output signal"
       causality="parameter"
       variability="fixed">
@@ -6804,7 +6838,7 @@
     <!-- Index for next variable = 517 -->
     <ScalarVariable
       name="uMod.startTime"
-      valueReference="16777297"
+      valueReference="16777324"
       description="Output = offset for time &lt; startTime"
       causality="parameter"
       variability="fixed">
@@ -6816,7 +6850,7 @@
     <!-- Index for next variable = 518 -->
     <ScalarVariable
       name="uMod.y"
-      valueReference="637534588"
+      valueReference="637534561"
       description="Connector of Real output signal">
       <Real/>
       <Annotations>
@@ -6830,7 +6864,7 @@
     <!-- Index for next variable = 519 -->
     <ScalarVariable
       name="reaToInt.u"
-      valueReference="637534588"
+      valueReference="637534561"
       description="Connector of Real input signal">
       <Real/>
       <Annotations>
@@ -6844,7 +6878,7 @@
     <!-- Index for next variable = 520 -->
     <ScalarVariable
       name="reaToInt.y"
-      valueReference="637534470"
+      valueReference="637534443"
       description="Connector of Integer output signal"
       variability="discrete">
       <Integer/>
