@@ -10,7 +10,7 @@ model Convector
     T=288.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Fluid.Sources.FixedBoundary bou(
+  Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium, nPorts=1) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Modelica.Blocks.Sources.Ramp airFlo(height=0.0792, duration=4)
@@ -57,6 +57,11 @@ The room air temperature and the water mass flow rate are constant while the air
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 June 13, 2016, by Michael Wetter:<br/>
 Revised implementation.

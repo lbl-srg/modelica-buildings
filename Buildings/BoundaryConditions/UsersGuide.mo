@@ -74,10 +74,12 @@ Buildings.Types.Tilt</a>
 can be used.
 </p>
 <p>
-Note that a ceiling has a tilt of <i>0</i>, and also the solar collector models
+Note that a ceiling has a tilt of <i>0</i>
+, and also the solar collector models
 in
 <a href=\"Buildings.Fluid.SolarCollectors\">Buildings.Fluid.SolarCollectors</a>
-require a tilt of <i>0</i> if they are facing straight upwards.
+require a tilt of <i>0</i>
+if they are facing straight upwards.
 This is correct because
 the solar irradiation on a ceiling construction is on the other-side surface,
 which faces upwards toward the sky. Hence, a construction is considered

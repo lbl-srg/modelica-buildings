@@ -42,20 +42,13 @@ model To_VolumeFraction "Example problem for conversion model"
     C={300E-6}*44.009544/28.9651159,
     nPorts=1) "Source of fresh air with 300 PPM CO2"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.Fluid.Sources.FixedBoundary sin(
-    redeclare package Medium = Medium,
-    p=100000,
-    C={300E-6}*44.009544/28.9651159,
-    nPorts=1) "Sink for exhaust air"                        annotation (
-      Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        origin={170,40})));
   Modelica.Blocks.Math.Gain gai(k=50/3600) "Gain for mass flow rate"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant nPeo(k=1) "Number of people"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(redeclare package Medium =
-        Medium, m_flow_nominal=0.1)
+  Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(
+    redeclare package Medium = Medium,
+    m_flow_nominal=0.1)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Math.Gain norSet(k=1/1000E-6)
     "Normalization for set point (to scale control input)"
@@ -67,26 +60,31 @@ model To_VolumeFraction "Example problem for conversion model"
     "Conversion from m3/s to m3/h"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubPeo(m_flow_nominal=0.1,
-      redeclare package Medium = Medium,
+    redeclare package Medium = Medium,
     C_start=0,
     initType=Modelica.Blocks.Types.Init.InitialState)
     "CO2 concentration in absorptance from people"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubFre(m_flow_nominal=0.1,
-      redeclare package Medium = Medium,
+    redeclare package Medium = Medium,
     C_start=0,
     initType=Modelica.Blocks.Types.Init.InitialState)
     "CO2 concentration in fresh air supply"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     dp_nominal=10,
     m_flow_nominal=50/3600)
     "Pressure drop to decouple the state of the volume from the state of the boundary condition"
     annotation (Placement(transformation(extent={{122,30},{142,50}})));
-equation
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
+    C={300E-6}*44.009544/28.9651159,
+    p=100000,
+    nPorts=1) "Sink for exhaust air"
+    annotation (Placement(transformation(extent={{180,30},{160,50}})));
 
+equation
   connect(souCO2.m_flow_in, CO2Per.y) annotation (Line(
       points={{-22.1,70},{-39,70}},
       color={0,0,127}));
@@ -138,9 +136,8 @@ equation
   connect(vol.ports[4], res.port_a) annotation (Line(
       points={{103,60},{102,60},{102,38},{122,38},{122,40}},
       color={0,127,255}));
-  connect(res.port_b, sin.ports[1]) annotation (Line(
-      points={{142,40},{160,40}},
-      color={0,127,255}));
+  connect(sin.ports[1], res.port_b)
+    annotation (Line(points={{160,40},{142,40}}, color={0,127,255}));
   annotation (
 experiment(Tolerance=1e-8, StopTime=36000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
@@ -156,6 +153,11 @@ Note that for simplicity, we allow zero outside air flow rate if the CO<sub>2</s
 the setpoint, which does not comply with ASHRAE regulations.
 </html>", revisions="<html>
 <ul>
+<li>
+May 2, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 April 25, 2017 by Filip Jorissen:<br/>
 Increased model tolerance for

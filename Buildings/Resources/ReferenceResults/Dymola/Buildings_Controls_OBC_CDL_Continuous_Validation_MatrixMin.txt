@@ -1,0 +1,16 @@
+last-generated=2019-05-24
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+matMin.y[2]=[-9e+00, -9e+00]
+matMin.y[3]=[-6e+00, -6e+00]
+matMin.y[1]=[-6e+00, -6e+00]
+time=[0e+00, 1e+00]
+matMin1.y[2]=[-4e+00, -4e+00]
+matMin1.y[1]=[-2e+00, -2e+00]
+matMin1.y[3]=[-6e+00, -6e+00]
+matMin2.y[1]=[-3e+00, -3e+00]
+matMin2.y[2]=[-6e+00, -6e+00]

@@ -48,7 +48,7 @@ partial model PartialStaticTwoPortCoolingTower
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
-  Buildings.Fluid.Sources.FixedBoundary exp(
+  Buildings.Fluid.Sources.Boundary_pT exp(
     redeclare package Medium = Medium_W,
     nPorts=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},

@@ -6,6 +6,7 @@ FallingEdge
 Latch
 LogicalSwitch
 MultiAnd
+MultiOr
 Nand
 Nor
 Not

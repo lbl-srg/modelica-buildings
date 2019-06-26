@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "mulOr0.y",
+    "mulOr1.u[1]",
+    "mulOr1.y",
+    "mulOr2.u[1]",
+    "mulOr2.u[2]",
+    "mulOr2.y",
+    "mulOr5.u[1]",
+    "mulOr5.u[2]",
+    "mulOr5.u[3]",
+    "mulOr5.u[4]",
+    "mulOr5.u[5]",
+    "mulOr5.y"
+  };
