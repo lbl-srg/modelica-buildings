@@ -275,7 +275,6 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
     Model for a water to water heat pump using the equation fit model as described
     in the EnergyPlus reference: Water to Water equation fit model and based on (J.Hui 2002, S.Arun. 2004 and C.Tang 2004).
 </p>
-
 <p>
 The model uses four non-dimensional equations or curves stated in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod\">
 Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod</a> to predict the heat pump performance in either cooling or
@@ -290,22 +289,18 @@ the source sideis the evaporator and the load side is the condenser.
 Likewise, in case of <code>uMod</code>=-1, the heat pump is controlled to meet the evaporator leaving water temperature,
 accordingly, the source side is the condenser and the load side is the evaporator.
 </p>
-
 <p>
 The heating and cooling coefficients are stored in the data record <code>per</code> and are available from <a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater\">
 Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater</a>.
 </p>
-
 <p>
 The model takes as input signals; the set point for either the leaving water temperature for the
 condenser or the evaporator which is met if the heat pump has sufficient capacity and the integer input <code>uMod</code> which identifies the heat pump operational mode:
 <code>uMod</code>=+1 for heating mode, <code>uMod</code>=-1 for cooling mode, <code>uMod</code>=0 for shut off the system.
 </p>
-
 <p>
 The electric power only includes the power for the compressor, but not any power for pumps or fans.
 </p>
-
 <h4>References</h4>
 <p>
 C.C Tang
