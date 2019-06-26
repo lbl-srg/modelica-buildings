@@ -212,8 +212,6 @@ equation
       color={255,0,255}));
   connect(mulAnd.y, lat.u)
     annotation (Line(points={{61.7,170},{99,170}}, color={255,0,255}));
-  connect(and2.y, lat.u0)
-    annotation (Line(points={{61,80},{80,80},{80,164},{99,164}}, color={255,0,255}));
   connect(lat.y, yPla)
     annotation (Line(points={{121,170},{210,170}}, color={255,0,255}));
   connect(mulOr.y, and2.u2)
@@ -290,6 +288,8 @@ equation
   connect(not4.y, mulAnd.u[4])
     annotation (Line(points={{1,100},{20,100},{20,164.75},{38,164.75}},
       color={255,0,255}));
+  connect(and2.y, lat.clr)
+    annotation (Line(points={{61,80},{80,80},{80,164},{99,164}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "plaEna",
