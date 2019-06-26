@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatPumps.Examples;
 model EquationFitWatertoWater "example"
-
  package Medium = Buildings.Media.Water "Medium model";
 
   Buildings.Fluid.HeatPumps.EquationFitWaterToWater heaPum(

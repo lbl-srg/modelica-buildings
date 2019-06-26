@@ -7,9 +7,9 @@ model DOE2WatertoWater
     per "Performance data"
      annotation (Placement(transformation(extent={{72,24},{92,44}})));
    parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=per.mEva_flow_nominal
-       "Nominal mass flow rate";
+       "Evaporator nominal mass flow rate";
    parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=per.mCon_flow_nominal
-       "Nominal mass flow rate";
+       "Condenser nominal mass flow rate";
 
     DOE2WaterToWater heaPumDOE2(
     per=per,
@@ -28,7 +28,7 @@ model DOE2WatertoWater
     nPorts=1,
     use_T_in=true,
     redeclare package Medium = Medium)
-     "Condenser water Pump"
+     "Condenser water pump"
      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -38,7 +38,7 @@ model DOE2WatertoWater
     nPorts=1,
     use_T_in=true,
     redeclare package Medium = Medium)
-     "Evaporator water Pump"
+     "Evaporator water pump"
       annotation (Placement(transformation(
         extent={{-11,-11},{11,11}},
         rotation=180,
@@ -107,7 +107,8 @@ equation
           24,6},{24,90},{-40,90}}, color={0,127,255}));
   connect(TConEnt.y, conPum.T_in)
     annotation (Line(points={{-99,86},{-62,86}}, color={0,0,127}));
-  connect(TEvaEnt.y, evaPum.T_in) annotation (Line(points={{81,-86},{98,-86},{98,
+  connect(TEvaEnt.y, evaPum.T_in)
+    annotation (Line(points={{81,-86},{98,-86},{98,
           -51.4},{86.2,-51.4}}, color={0,0,127}));
   connect(evaPum.ports[1], heaPumDOE2.port_a2)
     annotation (Line(points={{62,-47},
@@ -132,7 +133,7 @@ equation
   connect(reaToInt.y, heaPumDOE2.uMod)
     annotation (Line(points={{-39,0},{-4,0},{
           -4,-0.1},{31.5,-0.1}}, color={255,127,0}));
-   annotation (experiment(StopTime=14400, Tolerance=1e-06),
+    annotation (experiment(StopTime=14400, Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/DOE2WaterToWater.mos"
         "Simulate and plot"),
     Documentation(

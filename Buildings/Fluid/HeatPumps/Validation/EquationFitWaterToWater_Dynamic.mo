@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatPumps.Validation;
 model EquationFitWaterToWater_Dynamic "example"
-
  package Medium = Buildings.Media.Water "Medium model";
 
   EquationFitWaterToWater heaPum(

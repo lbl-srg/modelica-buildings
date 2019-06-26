@@ -1,8 +1,6 @@
 within Buildings.Fluid.HeatPumps.Validation;
 model EquationFitWaterToWater_Static "example"
-  import Buildings;
-
- package Medium = Buildings.Media.Water "Medium model";
+  package Medium = Buildings.Media.Water "Medium model";
 
    Buildings.Fluid.HeatPumps.EquationFitWaterToWater heaPum(
     per=per,

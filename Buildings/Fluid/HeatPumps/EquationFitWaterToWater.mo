@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatPumps;
 model EquationFitWaterToWater "Water source heat pump_Equation Fit"
-
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
     dp2_nominal=200,
     dp1_nominal=200,
@@ -39,7 +38,6 @@ model EquationFitWaterToWater "Water source heat pump_Equation Fit"
    Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod equFit(per=per)
     "EquationFit method which describes the water to water heat pump performance"
      annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
    Modelica.Blocks.Interfaces.IntegerInput uMod
     "HeatPump control input signal,Heating mode= 1, Off=0, Cooling mode=-1"
      annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
@@ -280,28 +278,28 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
 
 <p>
 The model uses four non-dimensional equations or curves stated in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod\">
-Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod</a> to predict the heat pump performance in either cooling or heating modes.
-The methodology involved using the generalized least square method to create a set of performance
+Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod</a> to predict the heat pump performance in either cooling or
+heating modes.The methodology involved using the generalized least square method to create a set of performance
 coefficients A1 to A10 and B1 to B10 from the catalog data at indicated reference conditions. These respective coefficients
 and indicated reference conditions are used in the model to simulate the heat pump performance.
 The variables include load side inlet temperature, source side inlet temperature,
 load side water flow rate and source side water flow rate. Source and load sides are terms which 
-separates between thermal source and building load sides within the heat pump. For ex. when the control integer signal uMod= +1,
-the heat pump is controlled to meet the condenser outlet temperature i.e. supply heating temperature to the building, the source side
-is the evaporator and the load side is the condenser.
-Likewise, in case of uMod=-1, the heat pump is controlled to meet the evaporator leaving water temperature, accordingly,
-the source side is the condenser and the load side is the evaporator.
+separates between thermal source and building load sides within the heat pump. For ex. when the control integer signal <code>uMod</code>= +1,
+the heat pump is controlled to meet the condenser outlet temperature i.e. supply heating temperature to the building, 
+the source sideis the evaporator and the load side is the condenser.
+Likewise, in case of <code>uMod</code>=-1, the heat pump is controlled to meet the evaporator leaving water temperature,
+accordingly, the source side is the condenser and the load side is the evaporator.
 </p>
 
 <p>
-The heating and cooling coefficients are stored in the data record per and are available from <a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater\">
+The heating and cooling coefficients are stored in the data record <code>per</code> and are available from <a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater\">
 Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater</a>.
 </p>
 
 <p>
 The model takes as input signals; the set point for either the leaving water temperature for the
-condenser or the evaporator which is met if the heat pump has sufficient capacity and the integer input uMod which identifies the heat pump operational mode:
-uMod=+1 for heating mode, uMod=-1 for cooling mode, uMod=0 for shut off the system.
+condenser or the evaporator which is met if the heat pump has sufficient capacity and the integer input <code>uMod</code> which identifies the heat pump operational mode:
+<code>uMod</code>=+1 for heating mode, <code>uMod</code>=-1 for cooling mode, <code>uMod</code>=0 for shut off the system.
 </p>
 
 <p>
