@@ -192,10 +192,8 @@ equation
    annotation (Line(points={{-135,52},{-118,52},
           {-118,7.4},{-111,7.4}}, color={0,0,127}));
    annotation (choicesAllMatching=true,Placement(transformation(extent={{48,66},{68,86}})),
-                choicesAllMatching=true,Placement(transformation(extent={{48,66},{68,86}})),
-                choicesAllMatching=true,Placement(transformation(extent={{48,66},{68,86}})),
-              Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-            {100,100}}),       graphics={
+              Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
+                   graphics={
         Rectangle(
           extent={{-92,96},{94,-94}},
           lineColor={0,0,0},
@@ -279,7 +277,6 @@ equation
         Line(points={{0,-70},{0,-84},{0,-90},{100,-90}}, color={28,108,200}),
         Line(points={{60,0},{104,0}}, color={28,108,200})}),
     defaultComponentName="heaPumDOE2",
-   defaultComponentName="chi",
 Documentation(info="<html>
 <p>
 Model of a water to water heat pump, based on the DOE-2.1 chiller model,

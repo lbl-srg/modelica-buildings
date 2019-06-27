@@ -597,23 +597,23 @@ equation
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=172800),
-  Documentation(info="<html>  
+  Documentation(info="<html>
 <p>
 This model validates the model
 <a href=\"Buildings.Fluid.HeatPumps.EquationFitWaterToWater\">
 Buildings.Fluid.HeatPumps.EquationFitWaterToWater</a>.
 The slight difference in results between <code><i>Q<sub>ConHeaPum</sub></i></code> and <code> <i>Q<sub>ConEP</sub></i></code>
 occurs during the integer input signal <code>uMod</code>=-1 i.e. cooling mode. Likewise during the <code>uMod</code>=+1 i.e.
-heating mode,a difference in the performance between <i>Q<sub>EvaHeaPum</sub></i> 
-and<code><i>Q<sub>EvaEP</sub></i>. 
+heating mode,a difference in the performance between <code><i>Q<sub>EvaHeaPum</sub></i></code>
+and <code><i>Q<sub>EvaEP</sub></i></code>.
 <p>
-It is worth highlighting that this thermal performance difference occurs only within the source side i.e. 
+It is worth highlighting that this thermal performance difference occurs only within the source side i.e.
 condenser in the cooling mode and evaporator in the heating mode.
 </p>
 <p>
-This is due to the fact that Energyplus model uses two values of nominal flow rate for the evaporator 
-and the condenser depending on the operational mode. Hence, in case of <code>uMod</code>=-1 cooling mode, the evaporator implements 
-a nominal flow rate value differs from the evaporator nominal flow rate in case of <code>uMod</code>=+1 heating mode. likewise, for 
+This is due to the fact that Energyplus model uses two values of nominal flow rate for the evaporator
+and the condenser depending on the operational mode. Hence, in case of <code>uMod</code>=-1 cooling mode, the evaporator implements
+a nominal flow rate value differs from the evaporator nominal flow rate in case of <code>uMod</code>=+1 heating mode. likewise, for
 the condenser, two nominal flow rate values are implemented.
 </P>
 <P>

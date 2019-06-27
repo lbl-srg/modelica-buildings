@@ -137,11 +137,11 @@ equation
   if (uMod==1) then
 
     capFunT = Buildings.Utilities.Math.Functions.smoothMax(
-       x1 = 1E-7,
-       x2 =   Buildings.Utilities.Math.Functions.biquadratic(a = per.capFunT,
-                                                            x1 = TEvaLvg_degC,
-                                                            x2 = TConEnt_degC),
-                                              deltaX = 1E-7);
+       x1 =  1E-7,
+       x2 =   Buildings.Utilities.Math.Functions.biquadratic( a = per.capFunT,
+                                                             x1 = TEvaLvg_degC,
+                                                             x2 = TConEnt_degC),
+                                                         deltaX = 1E-7);
 
     EIRFunT = Buildings.Utilities.Math.Functions.biquadratic( a=per.EIRFunT,
                                                              x1=TEvaLvg_degC,
@@ -183,7 +183,7 @@ equation
        x2 =   Buildings.Utilities.Math.Functions.biquadratic( a = per.capFunT,
                                                              x1 = TEvaLvg_degC,
                                                              x2 = TConEnt_degC),
-                                               deltaX = 1E-7);
+                                                         deltaX = 1E-7);
 
       EIRFunT = Buildings.Utilities.Math.Functions.biquadratic( a = per.EIRFunT,
                                                                x1 = TEvaLvg_degC,
@@ -243,54 +243,46 @@ equation
 The Block includes the description of the DOE2 method dedicated for<a href=\"Buildings.Fluid.HeatPumps.DOE2WaterToWater\">
 Buildings.Fluid.HeatPumps.DOE2WaterToWater</a>.
 </p>
-<h4>Implementation</h4>
-<p>
 The block uses three functions to predict the thermal capacity and power consumption for
 either the heating mode <code>uMod</code>=+1 or the cooling mode <code>uMod</code>=-1:
-</p>
 <ul>
 <li>
-<p>
 The capacity function of temperature bi-quadratic curve:
-</p>
 <p align=\"left\" style=\"font-style:italic;\">
 CAPFT = A<sub>1</sub>+ A<sub>2</sub>T<sub>Eva,Lvg</sub>+
 A<sub>3</sub>T<sup>2</sup><sub>Eva,Lvg</sub>+ A<sub>4</sub>T<sub>Con,Ent</sub>+A<sub>5</sub>T<sup>2</sup><sub>Con,Ent</sub>
 +A<sub>6</sub>T<sub>Con,Ent</sub>T<sub>Eva,Lvg</sub>
 </li>
+</ul>
 <p>
 where the performance curve coefficients from <i>A<sub>1</sub> to A<sub>6</sub> </i>
 are stored in the data record <code>per</code>.
 </p>
-</ul>
 <ul>
 <li>
-<p>
 The electric input to capacity output ratio function of temperature bi-quadratic curve:
-</p>
+
 <p align=\"left\" style=\"font-style:italic;\">
 EIRFT = A<sub>7</sub>+ A<sub>8</sub>T<sub>Eva,Lvg</sub>+
 A<sub>9</sub>T<sup>2</sup><sub>Eva,Lvg</sub>+ A<sub>10</sub>T<sub>Con,Ent</sub>+A<sub>11</sub>T<sup>2</sup><sub>Con,Ent</sub>
 +A<sub>12</sub>T<sub>Con,Ent</sub>T<sub>Eva,Lvg</sub>
 </li>
+</ul>
 <p>
 where the performance curve coefficients from <i>A<sub>7</sub> to A<sub>12</sub> </i>
 are stored in the data record <code>per</code>.
 </p>
-</ul>
 <ul>
 <li>
-<p>
 The electric input to capacity output ratio function of part load ratio bi-cubic curve:
-</p>
 <p align=\"left\" style=\"font-style:italic;\">
 EIRFPLR = A<sub>13</sub>+ A<sub>14</sub>PLR+A<sub>15</sub>PLR<sup>2</sup>
 </li>
+</ul>
 <p>
 where the performance curve coefficients from <i>A<sub>13</sub> to A<sub>15</sub> </i>
 are stored in the data record <code>per</code>.
 </p>
-</ul>
 <p>
 The data record <code>per</code> is available at
 <a href=\"Buildings.Fluid.Chillers.Data.ElectricEIR\">
@@ -337,7 +329,7 @@ power draw does not change.
 </li>
 </ol>
 <p>
-The electric power only contains the power for the compressor, but not any power 
+The electric power only contains the power for the compressor, but not any power
 for pumps or fans.
 </p>
 </html>",

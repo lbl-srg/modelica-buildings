@@ -196,7 +196,6 @@ The Block includes the description of the equation fit method dedicated for
 <a href=\"Buildings.Fluid.HeatPumps.EquationFitWaterToWater\">
 Buildings.Fluid.HeatPumps.EquationFitWaterToWater</a>.
 </p>
-<h4>Implementation</h4>
 <p>
 The block uses four functions to predict capacity and power consumption for heating mode
 <code>uMod</code>=+1 and cooling mode <code>uMod</code>=-1:
@@ -214,16 +213,16 @@ Power<sub>Con</sub>/Power<sub>Con,nominal</sub>= B<sub>1</sub>+ B<sub>2</sub> T<
 B<sub>3</sub>.T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>+ B<sub>4</sub> V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>+
 + B<sub>5</sub> V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>
 </li>
+</ul>
 <p>
 where the coefficients <i>A<sub>1</sub> to A<sub>5</sub> </i> and  <i>B<sub>1</sub> to B<sub>5</sub> </i>
 are stored in the data record <code>per</code> at <a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater\">
 Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater</a>.
 </p>
-</ul>
+
 <ul>
 <li>
 The cooling mode when <code>uMod</code>=-1:
-
 <p align=\"left\" style=\"font-style:italic;\">
 Q&#775;<sub>Eva</sub>/Q&#775;<sub>Eva,nominal</sub> = A<sub>6</sub>+ A<sub>7</sub> T<sub>Con,Ent</sub>/T<sub>Con,nominal</sub>+
 A<sub>8</sub> T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>+ A<sub>9</sub> V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>+
@@ -234,12 +233,13 @@ A<sub>8</sub> T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>+ A<sub>9</sub> V&#775;
  B<sub>8</sub> T<sub>Eva,Ent</sub>/T<sub>Eva,nominal</sub>+ B<sub>9</sub> V&#775;<sub>Con,Ent</sub>/V&#775;<sub>Con,nominal</sub>+
  + B<sub>10</sub> V&#775;<sub>Eva,Ent</sub>/V&#775;<sub>Eva,nominal</sub>
 </li>
+</ul>
 <p>
 where the coefficients <i>A<sub>6</sub> to A<sub>10</sub> </i> and  <i>B<sub>6</sub> to B<sub>10</sub> </i>
 are stored in the data record <code>per</code> at <a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater\">
 Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater</a>.
 </p>
-</ul>
+
 <p>
 For these four equations, the inlet conditions or variables are divided by the reference conditions.
 This formulation allows the coefficients to fall into smaller range of values. Moreover, the value of the coefficient
