@@ -1,11 +1,11 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
 package Validation "Collection of validation models"
 
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences</a>.
 </p>
 <p>
 Note that most validation models contain simple input data
@@ -15,8 +15,7 @@ The examples plot various outputs, which have been verified against these
 solutions. These model outputs are stored as reference data and
 used for continuous validation whenever models in the library change.
 </p>
-</html>"),
-  Icon(graphics={
+</html>"), Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

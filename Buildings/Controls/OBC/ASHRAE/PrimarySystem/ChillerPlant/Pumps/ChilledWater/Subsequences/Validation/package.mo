@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
-package Validation
+package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

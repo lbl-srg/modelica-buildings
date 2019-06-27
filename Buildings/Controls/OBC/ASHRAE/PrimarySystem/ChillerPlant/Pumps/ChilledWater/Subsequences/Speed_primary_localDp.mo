@@ -245,7 +245,7 @@ section 5.2.6 Primary chilled water pumps, part 5.2.6.7, 5.2.6.8 and 5.2.6.9.
 <ol>
 <li>
 Remote DP shall be maintained at setpoint <code>dpChiWatSet</code> by a reverse
-acting PID loop running in the controller tp which the remote sensor is wired.
+acting PID loop running in the controller to which the remote sensor is wired.
 The loop output shall be a DP setpoint for the local primary loop DP sensor
 hardwired to the plant controller. Reset local DP from <code>minLocDp</code>, 
 e.g. 5 psi (34473.8 Pa), at 0% loop output to <code>maxLocDp</code> at 100%

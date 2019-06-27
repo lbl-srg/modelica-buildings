@@ -29,6 +29,8 @@ block Controller
   parameter Modelica.SIunits.PressureDifference maxLocDp=15*6894.75
     "Maximum chilled water loop local differential pressure setpoint"
     annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=haveLocalSensor));
+  final parameter Integer pumInd[nPum]={i for i in 1:nPum}
+    "Pump index, {1,2,...,n}";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumPri[nPum]
     "Chiller water pump enabling priority"
@@ -85,9 +87,6 @@ block Controller
     annotation (Placement(transformation(extent={{260,-210},{280,-190}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-
-  final parameter Integer pumInd[nPum]={i for i in 1:nPum}
-    "Pump index, {1,2,...,n}";
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_dedicated
     enaDedLeaPum(final offTimThr=offTimThr) if not isHeadered
     "Enable lead pump of dedicated pumps"
@@ -137,7 +136,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(final nout=nPum)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 pumSta[nPum] "Chilled water pump status"
+  Buildings.Controls.OBC.CDL.Logical.Or enaPum[nPum] "Chilled water pump status"
     annotation (Placement(transformation(extent={{200,-40},{220,-20}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_localDp
     pumSpeLocDp(
@@ -194,6 +193,8 @@ block Controller
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3[nPum] "Check next lag pump"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.And pumSta[nPum] "Chilled water pump status"
+    annotation (Placement(transformation(extent={{200,-110},{220,-90}})));
 
 equation
   connect(enaDedLeaPum.uLeaChiEna, uLeaChiEna)
@@ -306,13 +307,11 @@ equation
   connect(uChiWatPum, lasLagPumSta.u3)
     annotation (Line(points={{-280,140},{120,140},{120,-108},{138,-108}},
       color={255,0,255}));
-  connect(nexLagPumSta.y, pumSta.u2)
-    annotation (Line(points={{161,-30},{198,-30}}, color={255,0,255}));
-  connect(leaPumSta.y, pumSta.u1)
-    annotation (Line(points={{161,190},{180,190},{180,-22},{198,-22}},
+  connect(nexLagPumSta.y,enaPum. u2)
+    annotation (Line(points={{161,-30},{180,-30},{180,-38},{198,-38}},
       color={255,0,255}));
-  connect(lasLagPumSta.y, pumSta.u3)
-    annotation (Line(points={{161,-100},{180,-100},{180,-38},{198,-38}},
+  connect(leaPumSta.y,enaPum. u1)
+    annotation (Line(points={{161,190},{180,190},{180,-30},{198,-30}},
       color={255,0,255}));
   connect(pumSpeLocDp.dpChiWat_local, dpChiWat_local)
     annotation (Line(points={{-42,-192},{-220,-192},{-220,-160},{-280,-160}},
@@ -320,18 +319,12 @@ equation
   connect(pumSpeLocDp.dpChiWat_remote, dpChiWat_remote)
     annotation (Line(points={{-42,-204},{-220,-204},{-220,-200},{-280,-200}},
       color={0,0,127}));
-  connect(pumSta.y, pumSpeLocDp.uChiWatPum)
-    annotation (Line(points={{221,-30},{240,-30},{240,-150},{-60,-150},
-      {-60,-196},{-42,-196}}, color={255,0,255}));
   connect(pumSpeLocDp.dpChiWatSet, dpChiWatSet)
     annotation (Line(points={{-42,-208},{-200,-208},{-200,-240},{-280,-240}},
       color={0,0,127}));
   connect(dpChiWat_remote, pumSpeRemDp.dpChiWat)
     annotation (Line(points={{-280,-200},{-220,-200},{-220,-240},{-42,-240}},
       color={0,0,127}));
-  connect(pumSta.y, pumSpeRemDp.uChiWatPum)
-    annotation (Line(points={{221,-30},{240,-30},{240,-150},{-60,-150},{-60,-232},
-      {-42,-232}}, color={255,0,255}));
   connect(dpChiWatSet, pumSpeRemDp.dpChiWatSet)
     annotation (Line(points={{-280,-240},{-200,-240},{-200,-248},{-42,-248}},
       color={0,0,127}));
@@ -345,11 +338,22 @@ equation
   connect(conInt1.y, pumSpe.u3)
     annotation (Line(points={{101,-240},{120,-240},{120,-208},{138,-208}},
       color={0,0,127}));
-  connect(pumSta.y, pumSpe.u2)
-    annotation (Line(points={{221,-30},{240,-30},{240,-150},{120,-150},
-      {120,-200},{138,-200}}, color={255,0,255}));
   connect(pumSpe.y, yPumSpe)
     annotation (Line(points={{161,-200},{270,-200}}, color={0,0,127}));
+  connect(enaPum.y, pumSta.u2)
+    annotation (Line(points={{221,-30},{240,-30},{240,-60},{180,-60},{180,-108},
+      {198,-108}}, color={255,0,255}));
+  connect(lasLagPumSta.y, pumSta.u1)
+    annotation (Line(points={{161,-100},{198,-100}}, color={255,0,255}));
+  connect(pumSta.y, pumSpeLocDp.uChiWatPum)
+    annotation (Line(points={{221,-100},{240,-100},{240,-180},{-60,-180},
+      {-60,-196},{-42,-196}}, color={255,0,255}));
+  connect(pumSta.y, pumSpeRemDp.uChiWatPum)
+    annotation (Line(points={{221,-100},{240,-100},{240,-180},{-60,-180},
+      {-60,-232},{-42,-232}}, color={255,0,255}));
+  connect(pumSta.y, pumSpe.u2)
+    annotation (Line(points={{221,-100},{240,-100},{240,-180},{120,-180},
+      {120,-200},{138,-200}}, color={255,0,255}));
 
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false,
