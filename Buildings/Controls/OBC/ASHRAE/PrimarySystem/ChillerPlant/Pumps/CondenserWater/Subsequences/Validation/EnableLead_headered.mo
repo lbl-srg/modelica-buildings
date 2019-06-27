@@ -5,34 +5,34 @@ model EnableLead_headered
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered
     enaLeaConPum
     "Enable lead chilled water pump based on status of chilled water isolation valve status"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiConWatIsoVal(
     final period=3600,
     final startTime=300) "Chiller condenser water isolation valve status"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse WSEConWatIsoVal(
     final period=3600,
     final startTime=800) "Water side economizer condenser water isolation valve status"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation
   connect(chiConWatIsoVal.y, enaLeaConPum.uChiConIsoVal)
-    annotation (Line(points={{1,50},{20,50},{20,24},{38,24}}, color={255,0,255}));
+    annotation (Line(points={{1,30},{20,30},{20,4},{38,4}}, color={255,0,255}));
   connect(WSEConWatIsoVal.y, enaLeaConPum.uWseConIsoVal)
-    annotation (Line(points={{1,-10},{20,-10},{20,16},{38,16}}, color={255,0,255}));
+    annotation (Line(points={{1,-30},{20,-30},{20,-4},{38,-4}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/EnableLead_dedicated.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/EnableLead_headered.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_dedicated\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_dedicated</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered</a>.
 </p>
 </html>", revisions="<html>
 <ul>

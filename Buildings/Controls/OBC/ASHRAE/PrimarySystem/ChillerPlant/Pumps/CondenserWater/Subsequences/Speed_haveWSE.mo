@@ -3,7 +3,7 @@ block Speed_haveWSE
   "Sequence for operating condenser water pumps for plants with waterside economizer"
 
   parameter Integer staNum = 3
-    "Total number of stages, stage zero should be counted as one stage";
+    "Total number of stages, stage zero should be seen as one stage";
   parameter Real conWatPumSpeSet[2*staNum] = {0, 0.5, 0.75, 0.6, 0.75, 0.9}
     "Condenser water pump speed setpoint, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage"));
@@ -119,15 +119,20 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yConWatPumSpe"),
         Text(
-          extent={{-98,8},{-54,-8}},
+          extent={{-98,-32},{-54,-48}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uChiOn"),
+          textString="uWSE"),
         Text(
           extent={{36,14},{96,-10}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yConWatPumNum")}),
+          textString="yConWatPumNum"),
+        Text(
+          extent={{-96,52},{-36,28}},
+          lineColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="uChiSta")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
