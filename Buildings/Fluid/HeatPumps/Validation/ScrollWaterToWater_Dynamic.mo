@@ -150,10 +150,10 @@ equation
           -48},{20,-2},{40,-2}}, color={0,127,255}));
   connect(N.y, realToInteger.u)
     annotation (Line(points={{-77,80},{-42,80},{-42,80}}, color={0,0,127}));
-  connect(realToInteger.y, heaPum.stage) annotation (Line(points={{-19,80},{
-            -16,80},{-16,55},{-12,55}},color={255,127,0}));
-  connect(realToInteger.y, heaPum1.stage) annotation (Line(points={{-19,80},{
-          -16,80},{-16,-51},{-12,-51}},color={255,127,0}));
+  connect(realToInteger.y, heaPum.stage) annotation (Line(points={{-19,80},{-16,
+          80},{-16,55},{-12,55}},color={255,127,0}));
+  connect(realToInteger.y, heaPum1.stage) annotation (Line(points={{-19,80},{-16,
+          80},{-16,-51},{-12,-51}},color={255,127,0}));
   annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Dynamic.mos"
         "Simulate and plot"),
     experiment(
@@ -174,7 +174,7 @@ steady-state model and to the condenser heat transfer rate.
 <ul>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for
+Replaced fluid source. This is for 
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>
