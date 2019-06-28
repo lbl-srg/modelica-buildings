@@ -1,27 +1,25 @@
 within Buildings.Controls.OBC.CDL.Discrete.Examples;
-model DiscreteMovingMean "Validation model for the DiscreteMovingMean block"
+model MovingMean "Validation model for the MovingMean block"
   Continuous.Sources.Sine sin(freqHz=1/8,
     phase=0.5235987755983,
     startTime=-0.5) "Example input signal"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.DiscreteMovingMean disMovMea(
-    nSam=3,
-    samplePeriod=1,
-    y_start=2,
-    startTime=-0.5) "Discrete moving mean of the sampled input signal"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    Buildings.Controls.OBC.CDL.Discrete.MovingMean movMea(n=4, samplePeriod=1)
+      "Discrete moving mean of the sampled input signal"
+  annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
-  connect(sin.y, disMovMea.u)  annotation (Line(points={{-39,10},{-2,10}}, color={0,0,127}));
+connect(sin.y, movMea.u)
+  annotation (Line(points={{-39,10},{-2,10}}, color={0,0,127}));
   annotation (
-  experiment(StartTime = -0.5, StopTime=15.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Examples/DiscreteMovingMean.mos"
+  experiment(StartTime=-0.5, StopTime=15.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Examples/MovingMean.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.DiscreteMovingMean\">
-Buildings.Controls.OBC.CDL.Discrete.DiscreteMovingMean</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.MovingMean\">
+Buildings.Controls.OBC.CDL.Discrete.MovingMean</a>.
 </p>
 </html>",
 revisions="<html>
@@ -42,4 +40,4 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end DiscreteMovingMean;
+end MovingMean;

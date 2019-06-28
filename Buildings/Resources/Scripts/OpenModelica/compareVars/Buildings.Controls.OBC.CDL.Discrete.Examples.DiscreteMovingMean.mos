@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "disMovMea.u",
-    "disMovMea.y",
-    "disMovMea.sampler.y"
-  };
