@@ -43,14 +43,14 @@ model Carnot_TEva
     use_T_in=false,
     T=295.15)
     annotation (Placement(transformation(extent={{80,-16},{60,4}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium1,
     nPorts=1)
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={70,30})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(nPorts=1,
+  Buildings.Fluid.Sources.Boundary_pT sin2(nPorts=1,
     redeclare package Medium = Medium2)
     annotation (Placement(
         transformation(
@@ -115,6 +115,11 @@ a temperature difference equal to <code>dTEva_nominal</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 November 25, 2015, by Michael Wetter:<br/>
 First implementation.

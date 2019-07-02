@@ -191,11 +191,11 @@ This example demonstrates how to export a model
 that contains two thermal zones with convective heat input from the
 HVAC system only. The thermal zones are connected to an adaptor so that
 they can be coupled
-to an air-based HVAC system. The thermal zone is
+to an air-based HVAC system.
+The thermal zone is
 taken from
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3
-</a>.
+Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </p>
 <p>
 The example extends from

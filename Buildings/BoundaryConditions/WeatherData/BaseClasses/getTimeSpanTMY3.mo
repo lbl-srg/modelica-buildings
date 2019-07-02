@@ -1,6 +1,8 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 function getTimeSpanTMY3
     "Get the time span of the weather data from the file"
+  extends Modelica.Icons.Function;
+
   input String filNam "Name of weather data file";
   input String tabNam "Name of table on weather file";
   output Modelica.SIunits.Time[2] timeSpan "Start time, end time of weather data";

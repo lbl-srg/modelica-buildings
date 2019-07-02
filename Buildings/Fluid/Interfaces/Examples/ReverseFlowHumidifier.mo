@@ -44,10 +44,10 @@ package Medium = Buildings.Media.Air;
                    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-90,30})));
-  Buildings.Fluid.Sources.FixedBoundary sink1(
+  Buildings.Fluid.Sources.Boundary_pT  sink1(
     redeclare package Medium = Medium,
     nPorts=2) "Fluid sink"
-                 annotation (Placement(
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={40,28})));
@@ -83,7 +83,6 @@ package Medium = Buildings.Media.Air;
     linearized=false,
     dp_nominal=1000) "Fixed resistance"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
-
   Modelica.Fluid.Sources.MassFlowSource_T source2(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -93,15 +92,16 @@ package Medium = Buildings.Media.Air;
     X={0.01,0.99},
     nPorts=1,
     m_flow=0.5) "Fluid source"
-                   annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-90,-6})));
+
 equation
   connect(u2.y, humFor.u)                annotation (Line(
-      points={{-79.4,60},{-60,60},{-60,36},{-52,36}},
+      points={{-79.4,60},{-60,60},{-60,36},{-51,36}},
       color={0,0,127}));
   connect(u2.y, humBac.u)         annotation (Line(
-      points={{-79.4,60},{-70,60},{-70,12},{-24,12},{-24,0},{-30,0}},
+      points={{-79.4,60},{-70,60},{-70,12},{-24,12},{-24,0},{-31,0}},
       color={0,0,127}));
   connect(humFor.port_b, senTem1.port)         annotation (Line(
       points={{-30,30},{-30,70},{-20,70}},
@@ -118,16 +118,16 @@ equation
   connect(humBac.port_a, senEnt2.port)         annotation (Line(
       points={{-32,-6},{-32,-30},{-60,-30},{-60,-70},{-10,-70},{-10,-60}},
       color={0,127,255}));
-  connect(humBac.port_a, senMas2.port)         annotation (Line(
+  connect(humBac.port_a, senMas2.port) annotation (Line(
       points={{-32,-6},{-32,-30},{-60,-30},{-60,-70},{30,-70},{30,-60}},
       color={0,127,255}));
-  connect(humFor.port_b, res1.port_a)         annotation (Line(
+  connect(humFor.port_b, res1.port_a) annotation (Line(
       points={{-30,30},{-10,30}},
       color={0,127,255}));
   connect(res1.port_b, sink1.ports[1]) annotation (Line(
       points={{10,30},{30,30}},
       color={0,127,255}));
-  connect(humBac.port_a, res2.port_a)         annotation (Line(
+  connect(humBac.port_a, res2.port_a) annotation (Line(
       points={{-32,-6},{-10,-6}},
       color={0,127,255}));
   connect(res2.port_b, sink1.ports[2]) annotation (Line(
@@ -166,6 +166,11 @@ This model tests whether the results for a humidifer are
 identical for forward flow and reverse flow.
 </html>", revisions="<html>
 <ul>
+<li>
+May 2, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed temperature connection that is no longer needed.<br/>

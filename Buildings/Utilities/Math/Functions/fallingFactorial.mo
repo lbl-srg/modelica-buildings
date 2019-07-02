@@ -27,7 +27,7 @@ Function that evaluates the falling factorial \"k-permutations of n\".
 May 22, 2019, by Michael Wetter:<br/>
 Changed upper limit for <code>maxInt</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1145\">IBPSA, issue 1145</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1145\">issue 1145</a>.
 </li>
 <li>
 February 9, 2018, by Massimo Cimmino:<br/>

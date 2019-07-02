@@ -1,7 +1,7 @@
 within models;
 model FixedPressure
   extends PartialFluidLoop(vol(nPorts=3));
-  Buildings.Fluid.Sources.FixedBoundary bou(nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1)
     annotation (Placement(transformation(extent={{-32,30},{-12,50}})));
 equation
   connect(vol.ports[1], bou.ports[1]) annotation (Line(

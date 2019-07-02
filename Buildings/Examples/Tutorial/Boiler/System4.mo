@@ -174,7 +174,7 @@ model System4
         origin={-50,-150})));
 //----------------------------------------------------------------------------//
 
-  Buildings.Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
+  Buildings.Fluid.Sources.Boundary_pT preSou(redeclare package Medium = MediumW,
       nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{92,-320},{72,-300}})));

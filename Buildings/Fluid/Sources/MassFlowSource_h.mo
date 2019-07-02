@@ -1,9 +1,57 @@
 within Buildings.Fluid.Sources;
 model MassFlowSource_h
   "Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, composition and trace substances"
-  extends Buildings.Fluid.Sources.BaseClasses.PartialSource_m_flow;
-  extends Buildings.Fluid.Sources.BaseClasses.PartialSource_h;
   extends Buildings.Fluid.Sources.BaseClasses.PartialSource_Xi_C;
+
+  parameter Boolean use_m_flow_in = false
+    "Get the mass flow rate from the input connector"
+    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+  parameter Modelica.SIunits.MassFlowRate m_flow = 0
+    "Fixed mass flow rate going out of the fluid port"
+    annotation (Dialog(enable = not use_m_flow_in,group="Fixed inputs"));
+
+  parameter Boolean use_h_in= false
+    "Get the specific enthalpy from the input connector"
+    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+  parameter Medium.SpecificEnthalpy h = Medium.h_default
+    "Fixed value of specific enthalpy"
+    annotation (Dialog(enable = not use_h_in, group="Fixed inputs"));
+
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s") if use_m_flow_in
+    "Prescribed mass flow rate"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),iconTransformation(extent={{-140,60},
+            {-100,100}})));
+
+  Modelica.Blocks.Interfaces.RealInput h_in(final unit="J/kg") if use_h_in
+    "Prescribed boundary specific enthalpy"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+
+protected
+  Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(final unit="kg/s")
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput h_in_internal(final unit="J/kg")
+    "Needed to connect to conditional connector";
+
+equation
+  // Mass flow rate
+  connect(m_flow_in, m_flow_in_internal);
+  if not use_m_flow_in then
+    m_flow_in_internal = m_flow;
+  end if;
+  for i in 1:nPorts loop
+    ports[i].p = p_in_internal;
+  end for;
+  sum(ports.m_flow) = -m_flow_in_internal;
+  // Enthalpy
+  connect(h_in, h_in_internal);
+  if not use_h_in then
+    h_in_internal = h;
+  end if;
+  for i in 1:nPorts loop
+     ports[i].h_outflow  = h_in_internal;
+  end for;
+  connect(medium.h, h_in_internal);
+
   annotation (defaultComponentName="boundary",
     Documentation(info="<html>
 <p>
@@ -78,5 +126,50 @@ First implementation.
 Implemenation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Text(
+          visible=use_m_flow_in,
+          extent={{-185,132},{-45,100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="m_flow"),
+        Text(
+          visible=use_h_in,
+          extent={{-162,34},{-60,-6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="h"),
+        Rectangle(
+          extent={{35,45},{100,-45}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Ellipse(
+          extent={{-100,80},{60,-80}},
+          lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-60,70},{60,0},{-60,-68},{-60,70}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-54,32},{16,-30}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="m"),
+        Ellipse(
+          extent={{-26,30},{-18,22}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+                                  Text(
+          extent={{-161,110},{139,150}},
+          textString="%name",
+          lineColor={0,0,255})}));
 end MassFlowSource_h;

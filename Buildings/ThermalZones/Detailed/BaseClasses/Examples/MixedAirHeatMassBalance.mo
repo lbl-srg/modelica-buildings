@@ -67,7 +67,7 @@ public
   Modelica.Blocks.Sources.Constant QRadAbs_flow[NConExtWin](each k=0)
     "Radiation absorbed by shade"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  Buildings.Fluid.Sources.FixedBoundary
+  Buildings.Fluid.Sources.Boundary_pT
                               boundary(
     nPorts=1,
     redeclare package Medium = Medium,

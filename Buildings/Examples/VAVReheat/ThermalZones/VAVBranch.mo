@@ -40,7 +40,7 @@ model VAVBranch "Supply branch of a VAV system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-44,0})));
-  Buildings.Fluid.Sources.FixedBoundary sinTer(
+  Buildings.Fluid.Sources.Boundary_pT sinTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 3E5,
     nPorts=1) "Sink for terminal box " annotation (Placement(transformation(
