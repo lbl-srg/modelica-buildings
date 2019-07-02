@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
 model Configurator_uChiAva "Validate chiller staging configurator sequence"
 
-  Configurator conf(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
@@ -13,7 +13,7 @@ model Configurator_uChiAva "Validate chiller staging configurator sequence"
         "Stage configurator"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
-  Configurator conf1(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf1(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
@@ -25,7 +25,7 @@ model Configurator_uChiAva "Validate chiller staging configurator sequence"
         "Stage configurator"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  Configurator conf3(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf3(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
@@ -37,7 +37,7 @@ model Configurator_uChiAva "Validate chiller staging configurator sequence"
         "Stage configurator"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
-  Configurator conf4(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf4(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
@@ -49,7 +49,7 @@ model Configurator_uChiAva "Validate chiller staging configurator sequence"
         "Stage configurator"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  Configurator conf5(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf5(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
@@ -61,7 +61,7 @@ model Configurator_uChiAva "Validate chiller staging configurator sequence"
         "Stage configurator"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
 
-  Configurator conf2(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf2(
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}},
@@ -78,27 +78,27 @@ model Configurator_uChiAva "Validate chiller staging configurator sequence"
     "Chiller availability array"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
 
-  CDL.Logical.Sources.Constant chiAva1[3](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva1[3](
     final k={false,true,true})
     "Chiller availability array"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  CDL.Logical.Sources.Constant chiAva3[3](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva3[3](
     final k={true,true,false})
     "Chiller availability array"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  CDL.Logical.Sources.Constant chiAva4[3](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva4[3](
     final k={true,false,false})
     "Chiller availability array"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
-  CDL.Logical.Sources.Constant chiAva5[3](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva5[3](
     final k={false,false,false})
     "Chiller availability array"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 
-  CDL.Logical.Sources.Constant chiAva2[3](final k={false,false,true})
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva2[3](final k={false,false,true})
     "Chiller availability array"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 

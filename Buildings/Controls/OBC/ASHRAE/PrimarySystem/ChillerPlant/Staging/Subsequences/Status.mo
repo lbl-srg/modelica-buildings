@@ -43,8 +43,8 @@ block Status
         iconTransformation(extent={{100,-60},{120,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
-    "Chillers index for a given stage" annotation (
-      Placement(transformation(extent={{300,140},{320,160}}),
+    "Chillers index for a given stage"
+    annotation (Placement(transformation(extent={{300,140},{320,160}}),
         iconTransformation(extent={{100,-90},{120,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput uUp(

@@ -1,13 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging;
 package Subsequences "Chiller staging subsequences"
-  extends Modelica.Icons.Package;
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains chiller staging control sequences.
 </p>
 </html>"),
   Icon(graphics={
+        Rectangle(
+          lineColor={200,200,200},
+          fillColor={248,248,248},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0),
         Ellipse(
           origin={10.0,10.0},
           lineColor={128,128,128},
@@ -30,5 +34,9 @@ This package contains chiller staging control sequences.
           fillColor={76,76,76},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,-80.0},{-20.0,-20.0}})}));
+          extent={{-80.0,-80.0},{-20.0,-20.0}}),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0)}));
 end Subsequences;

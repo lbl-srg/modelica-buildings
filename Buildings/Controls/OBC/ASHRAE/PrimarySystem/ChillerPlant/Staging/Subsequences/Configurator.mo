@@ -207,16 +207,20 @@ Given the staging matrix input parameter <code>staMat</code> the staging configu
 </p>
 <ul>
 <li>
-Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code> input vector according to RP-1711 Draft 4 section 5.2.4.9.
+Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code> 
+input vector according to RP-1711 Draft 4 section 5.2.4.9.
 </li>
 <li>
-Design stage capacity vector <code>yDesCap</code> from the design chiller capacity vector input parameter <code>chiDesCap</code> according to RP-1711 Draft 4 section 3.1.1.4., 2.
+Design stage capacity vector <code>yDesCap</code> from the design chiller capacity vector 
+input parameter <code>chiDesCap</code> according to RP-1711 Draft 4 section 3.1.1.4., 2.
 </li>
 <li>
-Minimum stage capacity vector <code>yMinCap</code> from the chiller capacity vector input parameter <code>chiMinCap</code> according to RP-1711 Draft 4 section 3.1.1.5.
+Minimum stage capacity vector <code>yMinCap</code> from the chiller capacity vector input 
+parameter <code>chiMinCap</code> according to RP-1711 Draft 4 section 3.1.1.5.
 </li>
 <li>
-Stage type vector <code>yTyp</code> from the chiller type vector input parameter <code>uChiTyp</code> according to RP-1711 Draft 4 section 5.2.4.10.
+Stage type vector <code>yTyp</code> from the chiller type vector input parameter 
+<code>uChiTyp</code> according to RP-1711 Draft 4 section 5.2.4.10.
 </li>
 </ul>
 </html>",
