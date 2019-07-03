@@ -7,6 +7,7 @@ model PressureIndependent
     final linearized=false,
     final from_dp=true,
     final dp_nominalIncludesDamper=true,
+    final dpTot_nominal=dp_nominal+dpFixed_nominal,
     final k1=2 * rho_default * (A / kDam_1)^2,
     final k0=2 * rho_default * (A / kDam_0)^2);
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
@@ -16,6 +17,16 @@ model PressureIndependent
     "Damper leakage, l=k(y=0)/k(y=1)";
   Modelica.Blocks.Interfaces.RealOutput y_actual(unit="1") "Actual damper position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
+  parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dpTot_nominal
+    "Pressure drop for sizing the transition regions"
+    annotation(Dialog(tab="Advanced"));
+  parameter Real c_regul(unit="s.m") = 1E-3
+    "Regularization coefficient"
+    annotation(Dialog(tab="Advanced"));
+  Modelica.SIunits.PressureDifference dp_lim
+    "Pressure drop limit before interpolation between pressure independent and leakage flow"
+    annotation(Dialog(tab="Advanced"));
+  parameter Real tol_m = 2E-2;
 protected
   Modelica.SIunits.MassFlowRate m_flow_smooth
     "Smooth interpolation result between the three flow regimes";
@@ -33,8 +44,6 @@ protected
   parameter Real kTot_0 = if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kResSqu + 1 / kDam_0^2)) else kDam_0
     "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
-  parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dp_nominal_pos
-    "Pressure drop for sizing the transition regions";
   parameter Integer sizeSupSplBnd = 5 "Number of support points on each quadratic domain for spline interpolation";
   parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3 "Total number of support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl_raw = cat(
@@ -55,7 +64,6 @@ protected
     "Pressure drop at required flow rate with damper fully closed";
   Modelica.SIunits.PressureDifference dp_1(displayUnit="Pa")
     "Pressure drop at required flow rate with damper fully open";
-  parameter Real c_regul = 1E-2 "Regularization coefficient";
 initial equation
   kResSqu=if dpFixed_nominal > Modelica.Constants.eps then
     m_flow_nominal^2 / dpFixed_nominal else 0
@@ -64,11 +72,12 @@ initial equation
   ySupSpl = ySupSpl_raw[idx_sorted];
   invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(x=kSupSpl, y=ySupSpl);
 equation
-  dp_0 = max(dp_1 + 2 * dp_small,
-    Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-      m_flow=y_internal * m_flow_nominal * (1 + c_regul),
-      k=kTot_0,
-      m_flow_turbulent=m_flow_turbulent));
+  dp_lim = dp_1 + tol_m * y_internal * m_flow_nominal / c_regul;
+  // basicFlowFunction_m_flow and basicFlowFunction_dp are not strict inverse!
+  Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+    dp=dp_0,
+    k=kTot_0,
+    m_flow_turbulent=m_flow_turbulent) = y_internal * m_flow_nominal * (1 + 2 * tol_m);
   dp_1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=y_internal * m_flow_nominal,
     k=kTot_1,
@@ -88,13 +97,13 @@ equation
           dp=dp_1,
           k=kTot_1,
           m_flow_turbulent=m_flow_turbulent),
-        y2=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
+        y2=y_internal * m_flow_nominal + c_regul * dp_small,
         y1d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
           dp=dp_1,
           k=kTot_1,
           m_flow_turbulent=m_flow_turbulent,
           dp_der=1),
-        y2d=y_internal * m_flow_nominal * c_regul /  (dp_0 - dp_1),
+        y2d=c_regul,
         y1dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
           dp=dp_1,
           k=kTot_1,
@@ -102,19 +111,19 @@ equation
           dp_der=1,
           dp_der2=0),
         y2dd=0)
-    elseif dp < dp_0 - dp_small then
-      y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1))
+    elseif dp < dp_lim then
+      y_internal * m_flow_nominal + c_regul * (dp - dp_1)
     elseif dp < dp_0 then
       Buildings.Utilities.Math.Functions.quinticHermite(
         x=dp,
-        x1=dp_0 - dp_small,
+        x1=dp_lim,
         x2=dp_0,
-        y1=y_internal * m_flow_nominal * (1 + c_regul * (dp - dp_1) / (dp_0 - dp_1)),
+        y1=y_internal * m_flow_nominal + c_regul * (dp_lim - dp_1),
         y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
           dp=dp_0,
           k=kTot_0,
           m_flow_turbulent=m_flow_turbulent),
-        y1d=y_internal * m_flow_nominal * c_regul /  (dp_0 - dp_1),
+        y1d=c_regul,
         y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
           dp=dp_0,
           k=kTot_0,

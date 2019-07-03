@@ -20,7 +20,7 @@ model Damper
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
-    nPorts=6) "Pressure boundary condition"
+    nPorts=7) "Pressure boundary condition"
       annotation (Placement(
         transformation(extent={{102,-10},{82,10}})));
 
@@ -89,12 +89,36 @@ model Damper
     dp_nominalIncludesDamper=false)
     "A damper with quadratic relationship between m_flow and dp and linearized characteristic"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
+  PressureIndependent preIndTest(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
+    dp_nominal=5,
+    use_inputFilter=false,
+    v_nominal=3,
+    l=0.03) "A damper with a mass flow proportional to the input signal"
+    annotation (Placement(transformation(extent={{30,-208},{50,-188}})));
+  Sources.Boundary_pT                 sou1(
+    redeclare package Medium = Medium,
+    p(displayUnit="Pa") = 101335,
+    nPorts=1,
+    use_p_in=true,
+    T=293.15) "Pressure boundary condition"
+     annotation (Placement(
+        transformation(extent={{-60,-208},{-40,-188}})));
+    Modelica.Blocks.Sources.Ramp pSouVar1(
+    duration=0.3,
+    startTime=0.2,
+    offset=Medium.p_default,
+    height=120)
+    annotation (Placement(transformation(extent={{-114,-200},{-94,-180}})));
+  Modelica.Blocks.Sources.Constant yCst2(k=0.1)
+    annotation (Placement(transformation(extent={{-24,-190},{-4,-170}})));
 equation
-  connect(res.port_b, sin.ports[1]) annotation (Line(points={{50,80},{68,80},{
-          68,3.33333},{82,3.33333}},
+  connect(res.port_b, sin.ports[1]) annotation (Line(points={{50,80},{68,80},{68,3.42857},{82,3.42857}},
                          color={0,127,255}));
   connect(preInd.port_b, sin.ports[2])
-    annotation (Line(points={{50,0},{68,0},{68,2},{82,2}}, color={0,127,255}));
+    annotation (Line(points={{50,0},{68,0},{68,2.28571},{82,2.28571}},
+                                                           color={0,127,255}));
   connect(yRam.y, res.y)
     annotation (Line(points={{11,100},{40,100},{40,92}},color={0,0,127}));
   connect(yRam.y, preInd.y) annotation (Line(points={{11,100},{20,100},{20,20},
@@ -107,30 +131,33 @@ equation
     annotation (Line(points={{-40,-92},{30,-92}},color={0,127,255}));
   connect(yCst0.y, preInd0.y)
     annotation (Line(points={{11,-72},{40,-72},{40,-80}}, color={0,0,127}));
-  connect(preIndDpFixed_nominal.port_b, sin.ports[3]) annotation (Line(points={{50,-40},
-          {68,-40},{68,0.666667},{82,0.666667}},
-                                              color={0,127,255}));
-  connect(preInd0.port_b, sin.ports[4]) annotation (Line(points={{50,-92},{68,
-          -92},{68,-0.666667},{82,-0.666667}},
+  connect(preIndDpFixed_nominal.port_b, sin.ports[3]) annotation (Line(points={{50,-40},{68,-40},{68,1.14286},{82,
+          1.14286}},                          color={0,127,255}));
+  connect(preInd0.port_b, sin.ports[4]) annotation (Line(points={{50,-92},{68,-92},{68,1.11022e-16},{82,1.11022e-16}},
                                  color={0,127,255}));
   connect(yCst1.y, preInd1.y)
     annotation (Line(points={{11,-112},{40,-112},{40,-128}}, color={0,0,127}));
   connect(souVar.ports[2], preInd1.port_a) annotation (Line(points={{-40,-96},{-20,
           -96},{-20,-140},{30,-140}},     color={0,127,255}));
-  connect(preInd1.port_b, sin.ports[5]) annotation (Line(points={{50,-140},{68,
-          -140},{68,-2},{82,-2}},   color={0,127,255}));
+  connect(preInd1.port_b, sin.ports[5]) annotation (Line(points={{50,-140},{68,-140},{68,-1.14286},{82,-1.14286}},
+                                    color={0,127,255}));
   connect(yRam.y, resChaLin.y) annotation (Line(points={{11,100},{20,100},{20,60},
           {40,60},{40,52}},     color={0,0,127}));
-  connect(resChaLin.port_b, sin.ports[6]) annotation (Line(points={{50,40},{68,
-          40},{68,-3.33333},{82,-3.33333}}, color={0,127,255}));
-  connect(sou.ports[1], preIndDpFixed_nominal.port_a) annotation (Line(points={
-          {-42,3},{-20,3},{-20,-40},{30,-40}}, color={0,127,255}));
-  connect(sou.ports[2], preInd.port_a) annotation (Line(points={{-42,1},{-20,1},
-          {-20,0},{30,0}}, color={0,127,255}));
-  connect(sou.ports[3], resChaLin.port_a) annotation (Line(points={{-42,-1},{
-          -20,-1},{-20,40},{30,40}}, color={0,127,255}));
-  connect(sou.ports[4], res.port_a) annotation (Line(points={{-42,-3},{-20,-3},
-          {-20,80},{30,80}}, color={0,127,255}));
+  connect(resChaLin.port_b, sin.ports[6]) annotation (Line(points={{50,40},{68,40},{68,-2.28571},{82,-2.28571}},
+                                            color={0,127,255}));
+  connect(sou.ports[1], preIndDpFixed_nominal.port_a) annotation (Line(points={{-42,3},{-20,3},{-20,-40},{30,-40}},
+                                               color={0,127,255}));
+  connect(sou.ports[2], preInd.port_a) annotation (Line(points={{-42,1},{-20,1},{-20,0},{30,0}},
+                           color={0,127,255}));
+  connect(sou.ports[3], resChaLin.port_a) annotation (Line(points={{-42,-1},{-20,-1},{-20,40},{30,40}},
+                                     color={0,127,255}));
+  connect(sou.ports[4], res.port_a) annotation (Line(points={{-42,-3},{-20,-3},{-20,80},{30,80}},
+                             color={0,127,255}));
+  connect(preIndTest.port_b, sin.ports[7])
+    annotation (Line(points={{50,-198},{66,-198},{66,-3.42857},{82,-3.42857}}, color={0,127,255}));
+  connect(sou1.ports[1], preIndTest.port_a) annotation (Line(points={{-40,-198},{30,-198}}, color={0,127,255}));
+  connect(sou1.p_in, pSouVar1.y) annotation (Line(points={{-62,-190},{-93,-190}}, color={0,0,127}));
+  connect(yCst2.y, preIndTest.y) annotation (Line(points={{-3,-180},{20,-180},{20,-186},{40,-186}}, color={0,0,127}));
     annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),
@@ -163,5 +190,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-160},{120,120}})));
+    Diagram(coordinateSystem(extent={{-120,-220},{160,120}})),
+    Icon(coordinateSystem(extent={{-120,-220},{160,120}})));
 end Damper;
