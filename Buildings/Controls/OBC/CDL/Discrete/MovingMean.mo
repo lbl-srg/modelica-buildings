@@ -14,7 +14,8 @@ protected
   parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
   Boolean sampleTrigger "Trigger samples at each sampling instant";
   Integer iSample(start=0, fixed=true) "Sample numbering in the simulation";
-  Integer counter(start=0, fixed=true) "Number of samples used for averaging";
+  Integer counter(start=0, fixed=true)
+      "Number of samples used for averaging calculation";
   Integer index(start=0, fixed=true) "Index of the vector ySample";
   Real ySample[n](start=vector(zeros(n,1)), fixed=true)
       "Vector of samples to be averaged";
@@ -48,20 +49,20 @@ algorithm
        extent={{-150,150},{150,110}},
        textString="%name",
        lineColor={0,0,255}),
-        Line(points={{-88,0},{70,0}}, color={192,192,192}),
-        Polygon(
+       Line(points={{-88,0},{70,0}}, color={192,192,192}),
+       Polygon(
           points={{92,0},{70,8},{70,-8},{92,0}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
-        Polygon(
+       Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
+       Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,0},{-52,0}},   color={217,67,180}),
-        Line(
+       Line(points={{-80,0},{-52,0}}, color={217,67,180}),
+       Line(
           points={{-80,0},{-68.7,34.2},{-61.5,53.1},{-55.1,66.4},{-49.4,74.6},
               {-43.8,79.1},{-38.2,79.8},{-32.6,76.6},{-26.9,69.7},{-21.3,59.4},
               {-14.9,44.1},{-6.83,21.2},{10.1,-30.8},{17.3,-50.2},{23.7,-64.2},
@@ -69,31 +70,16 @@ algorithm
               57.5,-61.9},{63.9,-47.2},{72,-24.8},{80,0}},
           smooth=Smooth.Bezier,
           color={28,108,200}),
-        Line(points={{-52,36},{-24,36}}, color={217,67,180}),
-        Line(
-          points={{-52,0},{-52,36}},
-          color={217,67,180},
-          smooth=Smooth.Bezier),
-        Line(
-          points={{-24,36},{-24,46}},
-          color={217,67,180},
-          smooth=Smooth.Bezier),
-        Line(points={{-24,46},{4,46}},   color={217,67,180}),
-        Line(points={{4,4},{32,4}},      color={217,67,180}),
-        Line(
-          points={{4,46},{4,4}},
-          color={217,67,180},
-          smooth=Smooth.Bezier),
-        Line(points={{32,-32},{60,-32}}, color={217,67,180}),
-        Line(
-          points={{32,4},{32,-32}},
-          color={217,67,180},
-          smooth=Smooth.Bezier),
-        Line(points={{60,-58},{82,-58}}, color={217,67,180}),
-        Line(
-          points={{60,-32},{60,-58}},
-          color={217,67,180},
-          smooth=Smooth.Bezier)}),
+       Line(points={{-52,36},{-24,36}}, color={217,67,180}),
+       Line(points={{-52,0},{-52,36}}, color={217,67,180}, smooth=Smooth.Bezier),
+       Line(points={{-24,36},{-24,46}}, color={217,67,180}, smooth=Smooth.Bezier),
+       Line(points={{-24,46},{4,46}}, color={217,67,180}),
+       Line(points={{4,4},{32,4}}, color={217,67,180}),
+       Line(points={{4,46},{4,4}}, color={217,67,180}, smooth=Smooth.Bezier),
+       Line(points={{32,-32},{60,-32}}, color={217,67,180}),
+       Line(points={{32,4},{32,-32}}, color={217,67,180}, smooth=Smooth.Bezier),
+       Line(points={{60,-58},{82,-58}}, color={217,67,180}),
+       Line(points={{60,-32},{60,-58}}, color={217,67,180},smooth=Smooth.Bezier)}),
 Documentation(info="<html>
 <p>
 This block outputs the discrete moving mean values of an input signal.
@@ -101,8 +87,8 @@ At each sampling instant, the block outputs the average value of the past <i>n</
 samples including the current sample. 
 </p>
 <p>
-At the first sample, the block produces the first sampled input. At the next 
-sample, it produces the average of the past two samples, then the past three 
+At the first sample, the block outputs the first sampled input. At the next 
+sample, it outputs the average of the past two samples, then the past three 
 samples and so on up to <i>n</i> samples.
 </p>
 </html>",
