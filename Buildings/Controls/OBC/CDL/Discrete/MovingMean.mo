@@ -9,46 +9,29 @@ block MovingMean "Discrete moving mean of a sampled input signal"
   Interfaces.RealOutput y "Discrete averaged signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  output Real yDiscrete(fixed=true, start=0)
-    "Discretized input signal as a reference for verification";
 
 protected
   parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
-  Boolean discreteTrigger "Trigger samples at each sampling rate";
-  Boolean sampleTrigger[n]
-    "Trigger samples at different start time for each replicated signal";
-  Real ySample[n](fixed=true, start=vector(zeros(n,1)))
-    "Sampling outputs at different start time";
-  Boolean mode(start=false, fixed=true) "Calculation mode";
+  Boolean sampleTrigger "Trigger samples at each sampling instant";
+  Integer iSample(start=0, fixed=true) "Sample numbering in the simulation";
+  Integer counter(start=0, fixed=true) "Number of samples used for averaging";
+  Integer index(start=0, fixed=true) "Index of the vector ySample";
+  Real ySample[n](start=vector(zeros(n,1)), fixed=true)
+      "Vector of samples to be averaged";
 
-initial equation
-  t0 = time;
+initial algorithm
+  t0 := time;
+  y := 0;
 
-equation
-  // Get the sampled signal at the user-defined sampling rate
-  discreteTrigger = sample(t0, samplePeriod);
-  when discreteTrigger then
-    yDiscrete = u;
+algorithm
+  sampleTrigger := sample(t0, samplePeriod);
+  when sampleTrigger then
+    index := mod(iSample, n) + 1;
+    ySample[index] := u;
+    counter := if counter == n then n else pre(counter) + 1;
+    y := sum(ySample) / counter;
+    iSample := iSample + 1;
   end when;
-
-  // Build replicative samples at different start time used for averaging
-  for i in 1:n loop
-    sampleTrigger[i] = sample(t0+(i-1)*samplePeriod, n*samplePeriod);
-    when sampleTrigger[i] then
-      ySample[i] = u;
-    end when;
-  end for;
-
-  when time >= t0+(n-1)*samplePeriod then
-    mode = true;
-  end when;
-
-  // Only when there are n or more samples, the signal is averaged over n samples
-  if mode then
-    y = sum(ySample)/n;
-  else
-    y = sum(ySample)/(integer(time-t0)/samplePeriod+1);
-  end if;
 
   annotation (
   defaultComponentName="movMea",
@@ -71,33 +54,56 @@ equation
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-78,68},{-78,-80}}, color={192,192,192}),
+        Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
         Polygon(
-          points={{-78,90},{-86,68},{-70,68},{-78,90}},
+          points={{-80,90},{-88,68},{-72,68},{-80,90}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-78,22},{-58,22},{-58,-22}}, color={28,108,200}),
-        Line(points={{-58,-22},{-42,-22},{-38,-22},{-38,22}}, color={28,108,200}),
-        Line(points={{-38,22},{-18,22},{-18,-22}}, color={28,108,200}),
-        Line(points={{-18,-22},{-2,-22},{2,-22},{2,22}}, color={28,108,200}),
-        Line(points={{2,22},{22,22},{22,-22}}, color={28,108,200}),
-        Line(points={{22,-22},{38,-22},{42,-22},{42,22}}, color={28,108,200}),
-        Line(points={{-78,22},{-58,22}}, color={217,67,180}),
-        Line(points={{-58,22},{-58,0}}, color={217,67,180}),
-        Line(points={{-58,0},{62,0}}, color={217,67,180}),
-        Line(points={{42,22},{62,22},{62,-22}}, color={28,108,200})}),
+        Line(points={{-80,0},{-52,0}},   color={217,67,180}),
+        Line(
+          points={{-80,0},{-68.7,34.2},{-61.5,53.1},{-55.1,66.4},{-49.4,74.6},
+              {-43.8,79.1},{-38.2,79.8},{-32.6,76.6},{-26.9,69.7},{-21.3,59.4},
+              {-14.9,44.1},{-6.83,21.2},{10.1,-30.8},{17.3,-50.2},{23.7,-64.2},
+              {29.3,-73.1},{35,-78.4},{40.6,-80},{46.2,-77.6},{51.9,-71.5},{
+              57.5,-61.9},{63.9,-47.2},{72,-24.8},{80,0}},
+          smooth=Smooth.Bezier,
+          color={28,108,200}),
+        Line(points={{-52,36},{-24,36}}, color={217,67,180}),
+        Line(
+          points={{-52,0},{-52,36}},
+          color={217,67,180},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-24,36},{-24,46}},
+          color={217,67,180},
+          smooth=Smooth.Bezier),
+        Line(points={{-24,46},{4,46}},   color={217,67,180}),
+        Line(points={{4,4},{32,4}},      color={217,67,180}),
+        Line(
+          points={{4,46},{4,4}},
+          color={217,67,180},
+          smooth=Smooth.Bezier),
+        Line(points={{32,-32},{60,-32}}, color={217,67,180}),
+        Line(
+          points={{32,4},{32,-32}},
+          color={217,67,180},
+          smooth=Smooth.Bezier),
+        Line(points={{60,-58},{82,-58}}, color={217,67,180}),
+        Line(
+          points={{60,-32},{60,-58}},
+          color={217,67,180},
+          smooth=Smooth.Bezier)}),
 Documentation(info="<html>
 <p>
-This block calculates the discrete moving mean values of an input signal.
-The continuous input signal is first sampled; then at each sampling rate, the 
-block outputs the average value of the past n samples including the current 
-sample. 
+This block outputs the discrete moving mean values of an input signal.
+At each sampling instant, the block outputs the average value of the past <i>n</i> 
+samples including the current sample. 
 </p>
 <p>
 At the first sample, the block produces the first sampled input. At the next 
 sample, it produces the average of the past two samples, then the past three 
-samples and so on up to n samples.
+samples and so on up to <i>n</i> samples.
 </p>
 </html>",
 revisions="<html>
