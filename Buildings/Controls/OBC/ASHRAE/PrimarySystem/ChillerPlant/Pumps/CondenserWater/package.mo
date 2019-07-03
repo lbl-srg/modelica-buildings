@@ -1,7 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps;
 package CondenserWater "Sequences for condenser water pump control"
-  
-annotation (Icon(graphics={
+
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This package contains control sequences for condenser water pumps.
+The implementations are based on section 5.2.9 Condener water water pumps, 
+in ASHRAE RP-1711 (Draft 4 on January 7, 2019).
+</p>
+</html>"), Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

@@ -1,6 +1,7 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
 block EnableLead_dedicated
   "Sequence for enabling lead pump of plants with dedicated condenser water pumps"
+
   parameter Modelica.SIunits.Time offTimThr = 180
     "Threshold to check lead chiller off time";
 

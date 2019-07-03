@@ -22,6 +22,11 @@ block EnableLead_dedicated
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta(
+    final pre_y_start=true)
+    "Lead pump status"
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+
 protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -29,9 +34,6 @@ protected
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta
-    "Lead pump status"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Count the total time of the chiller is off"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
@@ -70,6 +72,8 @@ equation
   connect(or2.y, and2.u2)
     annotation (Line(points={{61,-20},{80,-20},{80,20},{-20,20},{-20,32},
       {-2,32}}, color={255,0,255}));
+  connect(and2.y, leaPumSta.clr)
+    annotation (Line(points={{21,40},{40,40},{40,74},{59,74}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaLeaChiPum",

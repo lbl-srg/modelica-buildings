@@ -5,18 +5,29 @@ block Speed_primary_remoteDp
     "Total number of remote differential pressure sensors";
   parameter Integer nPum = 2
     "Total number of chilled water pumps";
-  parameter Real minPumSpe = 0.1
-    "Minimum pump speed";
-  parameter Real maxPumSpe = 1
-    "Maximum pump speed";
+  parameter Real minPumSpe = 0.1 "Minimum pump speed";
+  parameter Real maxPumSpe = 1  "Maximum pump speed";
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Speed controller"));
+  parameter Real k=1 "Gain of controller"
+    annotation(Dialog(group="Speed controller"));
+  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
+    annotation(Dialog(group="Speed controller"));
+  parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
+    annotation (Dialog(group="Speed controller",
+      enable=
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pump status"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat[nSen](
-    each final unit="Pa",
-    each final quantity="PressureDifference")
+    final unit=fill("Pa", nSen),
+    final quantity=fill("PressureDifference", nSen))
     "Chilled water differential static pressure"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -38,18 +49,22 @@ block Speed_primary_remoteDp
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Line pumSpe "Pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID[nSen](
+    final controllerType=fill(controllerType, nSen),
+    final k=fill(k, nSen),
+    final Ti=fill(Ti, nSen),
+    final Td=fill(Td, nSen),
+    final yMax=fill(1, nSen),
+    final yMin=fill(0, nSen),
+    final reverseAction=fill(true, nSen),
+    final reset=fill(Buildings.Controls.OBC.CDL.Types.Reset.Parameter, nSen),
+    final y_reset=fill(0, nSen)) "Pump speed controller"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
     final nout=nSen) "Replicate real input"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID[nSen](
-    each final yMax=1,
-    each final yMin=0,
-    each final reverseAction=true,
-    each final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    each final y_reset=0) "Pump speed controller"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
     final nout=nSen)
     "Replicate boolean input"

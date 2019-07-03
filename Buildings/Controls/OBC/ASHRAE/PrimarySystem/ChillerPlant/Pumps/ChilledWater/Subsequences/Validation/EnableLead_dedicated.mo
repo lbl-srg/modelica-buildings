@@ -37,11 +37,11 @@ equation
   connect(booPul.y, lat.u)
     annotation (Line(points={{1,50},{20,50},{20,-20},{-40,-20},{-40,-40},
       {-21,-40}}, color={255,0,255}));
-  connect(con.y, lat.u0)
-    annotation (Line(points={{-39,-60},{-30,-60},{-30,-46},{-21,-46}},
-      color={255,0,255}));
   connect(lat.y, disLeaChiPum.uLeaChiWatReq)
     annotation (Line(points={{1,-40},{20,-40},{20,-28},{38,-28}},
+      color={255,0,255}));
+  connect(con.y, lat.clr)
+    annotation (Line(points={{-39,-60},{-30,-60},{-30,-46},{-21,-46}},
       color={255,0,255}));
 
 annotation (

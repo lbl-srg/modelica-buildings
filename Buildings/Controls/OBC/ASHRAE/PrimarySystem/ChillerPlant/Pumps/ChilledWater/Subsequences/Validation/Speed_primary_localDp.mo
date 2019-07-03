@@ -47,7 +47,7 @@ equation
     annotation (Line(points={{-39,-40},{-20,-40},{-20,-4},{18,-4}},
       color={0,0,127}));
   connect(difPreSet.y, chiPumSpe.dpChiWatSet)
-    annotation (Line(points={{-39,-80},{-20,-80},{-20,-8},{18,-8}},
+    annotation (Line(points={{-39,-80},{0,-80},{0,-8},{18,-8}},
       color={0,0,127}));
   connect(pumSta.y, chiPumSpe.uChiWatPum)
     annotation (Line(points={{-39,40},{-20,40},{-20,4},{18,4}},

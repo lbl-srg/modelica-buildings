@@ -15,6 +15,19 @@ block Speed_primary_localDp
     "Maximum chilled water loop local differential pressure setpoint";
   parameter Real minPumSpe = 0.1 "Minimum pump speed";
   parameter Real maxPumSpe = 1 "Maximum pump speed";
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation(Dialog(group="Speed controller"));
+  parameter Real k=1 "Gain of controller"
+    annotation(Dialog(group="Speed controller"));
+  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
+    annotation(Dialog(group="Speed controller"));
+  parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
+    annotation (Dialog(group="Speed controller",
+      enable=
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
@@ -27,8 +40,8 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nSen](
-    each final unit="Pa",
-    each final quantity="PressureDifference")
+    final unit=fill("Pa", nSen),
+    final quantity=fill("PressureDifference", nSen))
     "Chilled water differential static pressure from remote sensor"
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -46,6 +59,10 @@ block Speed_primary_localDp
       iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
     final yMax=1,
     final yMin=0,
     final reverseAction=true,
@@ -60,18 +77,22 @@ block Speed_primary_localDp
   Buildings.Controls.OBC.CDL.Continuous.Line locDpSet
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID[nSen](
+    final controllerType=fill(controllerType, nSen),
+    final k=fill(k, nSen),
+    final Ti=fill(Ti, nSen),
+    final Td=fill(Td, nSen),
+    final yMax=fill(1, nSen),
+    final yMin=fill(0, nSen),
+    final reverseAction=fill(true, nSen),
+    final reset=fill(Buildings.Controls.OBC.CDL.Types.Reset.Parameter, nSen),
+    final y_reset=fill(0, nSen)) "Pump speed controller"
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
     final nout=nSen) "Replicate real input"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPID[nSen](
-    each final yMax=1,
-    each final yMin=0,
-    each final reverseAction=true,
-    each final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    each final y_reset=0) "Pump speed controller"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
     final nout=nSen)
     "Replicate boolean input"
@@ -103,7 +124,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div[nSen]
     "Normalized pressure difference"
-    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
+    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div1
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
@@ -153,10 +174,10 @@ equation
     annotation (Line(points={{-99,-20},{-80,-20},{-80,-40},{-130,-40},
       {-130,-60},{-122,-60}}, color={255,0,255}));
   connect(dpChiWat_remote, div.u1)
-    annotation (Line(points={{-160,-90},{-80,-90},{-80,-104},{-42,-104}},
+    annotation (Line(points={{-160,-90},{-80,-90},{-80,-94},{-42,-94}},
       color={0,0,127}));
   connect(reaRep.y, div.u2)
-    annotation (Line(points={{-99,-120},{-80,-120},{-80,-116},{-42,-116}},
+    annotation (Line(points={{-99,-120},{-80,-120},{-80,-106},{-42,-106}},
       color={0,0,127}));
   connect(locDpSet.y, div1.u2)
     annotation (Line(points={{121,-20},{130,-20},{130,40},{-120,40},{-120,74},
@@ -177,7 +198,7 @@ equation
   connect(reaRep1.y, conPID.u_s)
     annotation (Line(points={{-59,0},{-20,0},{-20,-20},{-2,-20}}, color={0,0,127}));
   connect(div.y, conPID.u_m)
-    annotation (Line(points={{-19,-110},{10,-110},{10,-32}}, color={0,0,127}));
+    annotation (Line(points={{-19,-100},{10,-100},{10,-32}}, color={0,0,127}));
   connect(one.y, conPID1.u_s)
     annotation (Line(points={{-99,20},{-90,20},{-90,60},{-42,60}}, color={0,0,127}));
   connect(div1.y, conPID1.u_m)
