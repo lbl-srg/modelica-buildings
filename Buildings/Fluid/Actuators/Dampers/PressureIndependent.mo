@@ -50,10 +50,14 @@ protected
   parameter Real[sizeSupSpl] kSupSpl_raw = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)
     "k values of unsorted support points for spline interpolation";
-  parameter Real[sizeSupSpl] ySupSpl(fixed=false) "y values of sorted support points for spline interpolation";
-  parameter Real[sizeSupSpl] kSupSpl(fixed=false) "k values of sorted support points for spline interpolation";
-  parameter Integer[sizeSupSpl] idx_sorted(fixed=false) "Indexes of sorted support points";
-  parameter Real[sizeSupSpl] invSplDer(fixed=false) "Derivatives at support points for spline interpolation";
+  parameter Real[sizeSupSpl] ySupSpl(each fixed=false)
+    "y values of sorted support points for spline interpolation";
+  parameter Real[sizeSupSpl] kSupSpl(each fixed=false)
+    "k values of sorted support points for spline interpolation";
+  parameter Integer[sizeSupSpl] idx_sorted(each fixed=false)
+    "Indexes of sorted support points";
+  parameter Real[sizeSupSpl] invSplDer(each fixed=false)
+    "Derivatives at support points for spline interpolation";
   Real kThetaDam(unit="1") "Loss coefficient of damper in actual position";
   Real kThetaTot(unit="1") "Loss coefficient of damper + fixed resistance";
   Modelica.SIunits.PressureDifference dp_0(displayUnit="Pa")
