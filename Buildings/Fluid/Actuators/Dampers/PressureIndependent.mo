@@ -20,13 +20,14 @@ model PressureIndependent
   parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dpTot_nominal
     "Pressure drop for sizing the transition regions"
     annotation(Dialog(tab="Advanced"));
-  parameter Real c_regul(unit="s.m") = 1E-3
+  parameter Real c_regul(unit="s.m") = 1E-4
     "Regularization coefficient"
     annotation(Dialog(tab="Advanced"));
-  Modelica.SIunits.PressureDifference dp_lim
+  Modelica.SIunits.PressureDifference dp_lim(displayUnit="Pa")
     "Pressure drop limit before interpolation between pressure independent and leakage flow"
     annotation(Dialog(tab="Advanced"));
-  parameter Real tol_m = 2E-2;
+  parameter Real tol_m = 1E-2;
+  Modelica.SIunits.MassFlowRate m_flow_lim;
 protected
   Modelica.SIunits.MassFlowRate m_flow_smooth
     "Smooth interpolation result between the three flow regimes";
@@ -72,12 +73,14 @@ initial equation
   ySupSpl = ySupSpl_raw[idx_sorted];
   invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(x=kSupSpl, y=ySupSpl);
 equation
-  dp_lim = dp_1 + tol_m * y_internal * m_flow_nominal / c_regul;
+  dp_lim = dp_1 + tol_m * m_flow_nominal / c_regul;
+  m_flow_lim = y_internal * m_flow_nominal + 2 * tol_m * m_flow_nominal;
+  dp_0 = max(dp_lim + dp_small,
+    Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+      m_flow=m_flow_lim,
+      k=kTot_0,
+      m_flow_turbulent=y_min * m_flow_nominal));
   // basicFlowFunction_m_flow and basicFlowFunction_dp are not strict inverse!
-  Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-    dp=dp_0,
-    k=kTot_0,
-    m_flow_turbulent=m_flow_turbulent) = y_internal * m_flow_nominal * (1 + 2 * tol_m);
   dp_1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=y_internal * m_flow_nominal,
     k=kTot_1,
@@ -122,25 +125,25 @@ equation
         y2=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
           dp=dp_0,
           k=kTot_0,
-          m_flow_turbulent=m_flow_turbulent),
+          m_flow_turbulent=y_min * m_flow_nominal),
         y1d=c_regul,
         y2d=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
           dp=dp_0,
           k=kTot_0,
-          m_flow_turbulent=m_flow_turbulent,
+          m_flow_turbulent=y_min * m_flow_nominal,
           dp_der=1),
         y1dd=0,
         y2dd=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
           dp=dp_0,
           k=kTot_0,
-          m_flow_turbulent=m_flow_turbulent,
+          m_flow_turbulent=y_min * m_flow_nominal,
           dp_der=1,
           dp_der2=0))
     else
       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
         dp=dp,
         k=kTot_0,
-        m_flow_turbulent=m_flow_turbulent)));
+        m_flow_turbulent=y_min * m_flow_nominal)));
   // Computation of damper opening
   kThetaTot = Buildings.Utilities.Math.Functions.regStep(
     x=dp - dp_1 - dp_small / 2,
@@ -161,8 +164,7 @@ equation
     y1=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_inv(
       kThetaSqRt=sqrt(kThetaDam), kSupSpl=kSupSpl, ySupSpl=ySupSpl, invSplDer=invSplDer),
     y2=0,
-    x_small=1E-3
-  );
+    x_small=1E-3);
   // Homotopy transformation
   if homotopyInitialization then
     m_flow = homotopy(

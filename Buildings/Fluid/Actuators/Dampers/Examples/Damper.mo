@@ -109,7 +109,7 @@ model Damper
     duration=0.3,
     startTime=0.2,
     offset=Medium.p_default,
-    height=120)
+    height=700)
     annotation (Placement(transformation(extent={{-114,-200},{-94,-180}})));
   Modelica.Blocks.Sources.Constant yCst2(k=0.1)
     annotation (Placement(transformation(extent={{-24,-190},{-4,-170}})));
@@ -190,6 +190,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-220},{160,120}})),
-    Icon(coordinateSystem(extent={{-120,-220},{160,120}})));
+    Diagram(coordinateSystem(extent={{-120,-220},{160,120}})));
 end Damper;
