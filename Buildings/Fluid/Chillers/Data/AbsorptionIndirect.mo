@@ -28,13 +28,6 @@ package AbsorptionIndirect
     parameter Real  capFunCon[ncapFunCon]
     "Cubic coefficients for capFunCon for the condenser capacity factor as a function of temperature curve"
       annotation (Dialog(group="Performance curves"));
-
-    /*
-  parameter Real  capFunGen[ncapFunGen]
-  "Cubic coefficients for capFunGen for the generator capacity factor as a function of temperature curve"
-  annotation (Dialog(group="Performance curves"));
-  */
-
     parameter Real GenHIR[nGenHIR]
     "Cubic coefficients for the generator heat input to chiller operating capacity"
       annotation (Dialog(group="Performance curves"));
@@ -57,13 +50,6 @@ package AbsorptionIndirect
     constant Integer nEIRP=3
     "Number of coefficients for EIRP"
       annotation (Dialog(group="Performance curves"));
-
-    /*
-  constant Integer ncapFunGen=4
-  "Number of coefficients for capFunGen"
-  annotation (Dialog(group="Performance curves"));
-  */
-
     constant Integer nGenHIR=4
     "Number of coefficients for GenHIR"
       annotation (Dialog(group="Performance curves"));
@@ -73,50 +59,7 @@ package AbsorptionIndirect
       constant Integer nGenEvaT=4
     "Number of coefficients for GenEvaT"
       annotation (Dialog(group="Performance curves"));
-
-
-  /*
-  parameter Modelica.SIunits.Temperature TEvaLvgMin
-    "Minimum value for leaving evaporator temperature"
-    annotation (Dialog(group="Performance curves"));
-    
-  parameter Modelica.SIunits.Temperature TEvaLvgMax
-    "Maximum value for leaving evaporator temperature"
-    annotation (Dialog(group="Performance curves"));
-    
-  parameter Modelica.SIunits.Temperature TConLvg_nominal
-    "Temperature of fluid leaving condenser at nominal condition";
-    
-  parameter Modelica.SIunits.Temperature TConLvgMin
-    "Minimum value for leaving condenser temperature"
-    annotation (Dialog(group="Performance curves"));
-    
-  Modelica.SIunits.Temperature TConLvgMax
-    "Maximum value for leaving condenser temperature"
-    annotation (Dialog(group="Performance curves"));
-    
-    parameter Modelica.SIunits.Temperature TEvaLvg_nominal
-    "Temperature of fluid leaving evaporator at nominal condition"
-    annotation (Dialog(group="Nominal condition"))
-    */
-
-        /*
-  final parameter Modelica.SIunits.Temperature TConEnt_nominal=per.TConEnt_nominal
-    "Temperature of fluid entering condenser at nominal condition";
-  final parameter Modelica.SIunits.Temperature TEvaLvg_nominal=per.TEvaLvg_nominal
-    "Temperature of fluid leaving condenser at nominal condition";
-  final parameter Modelica.SIunits.Temperature TConEntMin=per.TConEntMin
-    "Minimum temperature of fluid entering condenser at nominal condition";
-  final parameter Modelica.SIunits.Temperature TConEntMax=per.TConEntMax
-    "Maximum temperature of fluid entering condenser at nominal condition";
-  final parameter Modelica.SIunits.Temperature TEvaLvgMax= per.TEvaLvgMax
-    "Maximum temperature of fluid leaving evaporator  at nominal condition";
-  final parameter Modelica.SIunits.Temperature TEvaLvgMin=per.TEvaLvgMin
-    "Minimum temperature of fluid leaving evaporator  at nominal condition";
-   */
-
-
-
+      
     annotation (
       defaultComponentName="datChi",
       defaultComponentPrefixes="parameter",
