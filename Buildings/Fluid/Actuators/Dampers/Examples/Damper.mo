@@ -89,13 +89,15 @@ model Damper
     dp_nominalIncludesDamper=false)
     "A damper with quadratic relationship between m_flow and dp and linearized characteristic"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
-  PressureIndependent preIndTest(
+  PressureIndependent preIndChar(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=5,
     use_inputFilter=false,
     v_nominal=3,
-    l=0.03) "A damper with a mass flow proportional to the input signal"
+    dp_nominal=5,
+    l=0.02,
+    dpFixed_nominal=100)
+            "A damper with a mass flow proportional to the input signal"
     annotation (Placement(transformation(extent={{30,-208},{50,-188}})));
   Sources.Boundary_pT                 sou1(
     redeclare package Medium = Medium,
@@ -109,7 +111,7 @@ model Damper
     duration=0.3,
     startTime=0.2,
     offset=Medium.p_default,
-    height=700)
+    height=400)
     annotation (Placement(transformation(extent={{-114,-200},{-94,-180}})));
   Modelica.Blocks.Sources.Constant yCst2(k=0.1)
     annotation (Placement(transformation(extent={{-24,-190},{-4,-170}})));
@@ -153,11 +155,11 @@ equation
                                      color={0,127,255}));
   connect(sou.ports[4], res.port_a) annotation (Line(points={{-42,-3},{-20,-3},{-20,80},{30,80}},
                              color={0,127,255}));
-  connect(preIndTest.port_b, sin.ports[7])
+  connect(preIndChar.port_b, sin.ports[7])
     annotation (Line(points={{50,-198},{66,-198},{66,-3.42857},{82,-3.42857}}, color={0,127,255}));
-  connect(sou1.ports[1], preIndTest.port_a) annotation (Line(points={{-40,-198},{30,-198}}, color={0,127,255}));
+  connect(sou1.ports[1],preIndChar. port_a) annotation (Line(points={{-40,-198},{30,-198}}, color={0,127,255}));
   connect(sou1.p_in, pSouVar1.y) annotation (Line(points={{-62,-190},{-93,-190}}, color={0,0,127}));
-  connect(yCst2.y, preIndTest.y) annotation (Line(points={{-3,-180},{20,-180},{20,-186},{40,-186}}, color={0,0,127}));
+  connect(yCst2.y,preIndChar. y) annotation (Line(points={{-3,-180},{20,-180},{20,-186},{40,-186}}, color={0,0,127}));
     annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),

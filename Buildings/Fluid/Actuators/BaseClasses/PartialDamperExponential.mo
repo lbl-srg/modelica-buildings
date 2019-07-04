@@ -89,12 +89,14 @@ equation
     rho_default else
     Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // Optional characteristic linearization
-  y_char_linear = if linearized then sqrt(y_actual) else y_actual;
   if char_linear_pro then
+    // Guard againts y_actual that can be negative within the solver tolerance.
+    y_char_linear = if linearized then sqrt(abs(y_actual)) else y_actual;
     k = y_char_linear * (kTotMax - kTotMin) + kTotMin;
     kDam = if kFixed > Modelica.Constants.eps then
       sqrt(1 / (1 / k^2 - 1 / kFixed^2)) else k;
   else
+    y_char_linear = y_actual;
     kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
       y=y_actual, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
     k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;

@@ -15,24 +15,18 @@ model PressureIndependent
      annotation(Dialog(group = "Nominal condition"));
   parameter Real l(min=1e-10, max=1, unit="1") = 0.0001
     "Damper leakage, l=k(y=0)/k(y=1)";
-  Modelica.Blocks.Interfaces.RealOutput y_actual(unit="1") "Actual damper position"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  parameter Modelica.SIunits.PressureDifference dp_small = 1E-2 * dpTot_nominal
-    "Pressure drop for sizing the transition regions"
-    annotation(Dialog(tab="Advanced"));
   parameter Real c_regul(unit="s.m") = 1E-4
     "Regularization coefficient"
     annotation(Dialog(tab="Advanced"));
-  Modelica.SIunits.PressureDifference dp_lim(displayUnit="Pa")
-    "Pressure drop limit before interpolation between pressure independent and leakage flow"
+  parameter Modelica.SIunits.MassFlowRate m_tol = 2E-2 * m_flow_nominal
+    "Tolerance on mass flow rate for sizing the transition regions"
     annotation(Dialog(tab="Advanced"));
-  parameter Real tol_m = 1E-2;
-  Modelica.SIunits.MassFlowRate m_flow_lim;
+  parameter Modelica.SIunits.PressureDifference dp_small(displayUnit="Pa") = 1E-2 * dpTot_nominal
+    "Pressure drop for sizing the transition regions"
+    annotation(Dialog(tab="Advanced"));
+  Modelica.Blocks.Interfaces.RealOutput y_actual(unit="1") "Actual damper position"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 protected
-  Modelica.SIunits.MassFlowRate m_flow_smooth
-    "Smooth interpolation result between the three flow regimes";
-  Real y_actual_smooth
-    "Fractional opening computed based on m_flow_smooth and dp";
   parameter Real y_min = 2E-2
     "Minimum value of control signal before zeroing the opening.";
   parameter Real kDam_1 = m_flow_nominal / sqrt(dp_nominal_pos)
@@ -45,8 +39,10 @@ protected
   parameter Real kTot_0 = if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kResSqu + 1 / kDam_0^2)) else kDam_0
     "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)";
-  parameter Integer sizeSupSplBnd = 5 "Number of support points on each quadratic domain for spline interpolation";
-  parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3 "Total number of support points for spline interpolation";
+  parameter Integer sizeSupSplBnd = 5
+    "Number of support points on each quadratic domain for spline interpolation";
+  parameter Integer sizeSupSpl = 2 * sizeSupSplBnd + 3
+    "Total number of support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl_raw = cat(
     1,
     linspace(1, yU, sizeSupSplBnd),
@@ -54,7 +50,8 @@ protected
     linspace(yL, 0, sizeSupSplBnd))
     "y values of unsorted support points for spline interpolation";
   parameter Real[sizeSupSpl] kSupSpl_raw = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-      y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU) "k values of unsorted support points for spline interpolation";
+    y=ySupSpl_raw, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)
+    "k values of unsorted support points for spline interpolation";
   parameter Real[sizeSupSpl] ySupSpl(fixed=false) "y values of sorted support points for spline interpolation";
   parameter Real[sizeSupSpl] kSupSpl(fixed=false) "k values of sorted support points for spline interpolation";
   parameter Integer[sizeSupSpl] idx_sorted(fixed=false) "Indexes of sorted support points";
@@ -65,6 +62,14 @@ protected
     "Pressure drop at required flow rate with damper fully closed";
   Modelica.SIunits.PressureDifference dp_1(displayUnit="Pa")
     "Pressure drop at required flow rate with damper fully open";
+  Modelica.SIunits.MassFlowRate m_flow_smooth
+    "Smooth interpolation result between the three flow regimes";
+  Real y_actual_smooth
+    "Fractional opening computed based on m_flow_smooth and dp";
+  Modelica.SIunits.MassFlowRate m_flow_lim
+    "Mass flow rate limit before leakage flow";
+  Modelica.SIunits.PressureDifference dp_lim(displayUnit="Pa")
+    "Pressure drop limit before interpolation between pressure independent and leakage flow";
 initial equation
   kResSqu=if dpFixed_nominal > Modelica.Constants.eps then
     m_flow_nominal^2 / dpFixed_nominal else 0
@@ -73,14 +78,15 @@ initial equation
   ySupSpl = ySupSpl_raw[idx_sorted];
   invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(x=kSupSpl, y=ySupSpl);
 equation
-  dp_lim = dp_1 + tol_m * m_flow_nominal / c_regul;
-  m_flow_lim = y_internal * m_flow_nominal + 2 * tol_m * m_flow_nominal;
-  dp_0 = max(dp_lim + dp_small,
-    Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+  dp_lim = min(dp_1 + 0.5 * m_tol / c_regul,
+    dp_0 - dp_small);
+  m_flow_lim = y_internal * m_flow_nominal + m_tol;
+  dp_0 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
       m_flow=m_flow_lim,
       k=kTot_0,
-      m_flow_turbulent=y_min * m_flow_nominal));
-  // basicFlowFunction_m_flow and basicFlowFunction_dp are not strict inverse!
+      m_flow_turbulent=y_min * m_flow_nominal);
+  // basicFlowFunction_m_flow and basicFlowFunction_dp are not strict inverse outside the
+  // turbulent flow region.
   dp_1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=y_internal * m_flow_nominal,
     k=kTot_1,
