@@ -24,8 +24,6 @@ model PressureIndependent
   parameter Modelica.SIunits.PressureDifference dp_small(displayUnit="Pa") = 1E-2 * dpTot_nominal
     "Pressure drop for sizing the transition regions"
     annotation(Dialog(tab="Advanced"));
-  Modelica.Blocks.Interfaces.RealOutput y_actual(unit="1") "Actual damper position"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 protected
   parameter Real y_min = 2E-2
     "Minimum value of control signal before zeroing the opening.";
