@@ -2,4 +2,5 @@ Carnot
 PartialCarnot_T
 PartialCarnot_y
 PartialElectric
+AbsorptionIndirect
 warnIfPerformanceOutOfBounds

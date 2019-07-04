@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "absChi.QCon",
+    "absChi.QEva",
+    "QConEP.y",
+    "QEvaEP.y"
+  };
