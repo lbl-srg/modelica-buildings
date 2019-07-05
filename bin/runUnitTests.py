@@ -91,8 +91,12 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui):
     retVal = ut.run()
 
     # Display HTML report if not run in batch mode.
+    # (For buildingspy.__version__ >= 2)
     if not batch:
-        ut.report()
+        try:
+            ut.report()
+        except AttributeError:
+            pass
 
     return retVal
 
