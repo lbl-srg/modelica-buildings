@@ -200,7 +200,7 @@ if __name__ == '__main__':
                            path=args.path,
                            n_pro=args.number_of_processors,
                            show_gui=args.show_gui,
-                           check_jmodelica=args.check_jmodelica,
+                           check_jmodelica=True  # args.check_jmodelica,
                            )
     exit(retVal)
 
