@@ -42,8 +42,8 @@ protected
     "Chiller stage"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava[4](
-    final k={true,true,true,true}) "Stage availability array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava[4](final k={false,
+        false,false,false})        "Stage availability array"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava1[4](

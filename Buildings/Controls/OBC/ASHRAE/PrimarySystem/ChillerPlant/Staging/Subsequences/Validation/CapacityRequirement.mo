@@ -4,9 +4,9 @@ model CapacityRequirement
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.CapacityRequirement
     capReq "Capacity requirement"
-           annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-//protected
+protected
   parameter Modelica.SIunits.Temperature TChiWatSupSet = 285.15
   "Chilled water supply set temperature";
 
@@ -15,36 +15,34 @@ model CapacityRequirement
 
   parameter Real aveVChiWat_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") = 0.05
+    final unit="m3/s") = 0.02
     "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(
     final k=TChiWatSupSet)
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
     final amplitude=2,
     final freqHz=1/300,
     final offset=aveTChiWatRet) "Chiller water return temeprature"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
     final freqHz=1/600,
     final offset=aveVChiWat_flow,
     final amplitude=0.01) "Chilled water flow"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
 equation
-
-  connect(TCWSupSet.y, capReq.TChiWatSupSet) annotation (Line(points={{-59,60},{
-          -20,60},{-20,15},{19,15}}, color={0,0,127}));
-  connect(TChiWatRet.y, capReq.TChiWatRet) annotation (Line(points={{-59,20},{-30,
-          20},{-30,10},{19,10}}, color={0,0,127}));
-  connect(chiWatFlow.y, capReq.VChiWat_flow) annotation (Line(points={{-59,-30},
-          {-20,-30},{-20,5},{19,5}}, color={0,0,127}));
-annotation (
- experiment(StopTime=3600.0, Tolerance=1e-06),
+  connect(TCWSupSet.y, capReq.TChiWatSupSet) annotation (Line(points={{-19,40},{
+          10,40},{10,6},{19,6}}, color={0,0,127}));
+  connect(TChiWatRet.y, capReq.TChiWatRet) annotation (Line(points={{-19,0},{19,
+          0}}, color={0,0,127}));
+  connect(chiWatFlow.y, capReq.VChiWat_flow) annotation (Line(points={{-19,-40},
+          {12,-40},{12,-6},{19,-6}}, color={0,0,127}));
+annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/CapacityRequirement.mos"
     "Simulate and plot"),
   Documentation(info="<html>
@@ -56,7 +54,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacit
 </html>", revisions="<html>
 <ul>
 <li>
-October 13, by Milica Grahovac:<br/>
+July 5, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
@@ -71,5 +69,5 @@ Icon(graphics={
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false, extent={{-60,-60},{60,60}})));
 end CapacityRequirement;

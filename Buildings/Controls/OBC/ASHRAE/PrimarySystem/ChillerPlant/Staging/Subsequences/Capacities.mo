@@ -79,177 +79,110 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   final parameter Real larGai = 10
   "Large gain generate number much larger than the highest stage capacity";
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
-    final k=1) "Constant integer"
-    annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor cap(final outOfRangeValue=
+        small, final nin=nSta)
+    "Extracts the nominal capacity at the current stage"
+    annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
 
-  Buildings.Controls.OBC.CDL.Utilities.Assert staExc(
-    final message="The provided chiller stage is not within the number of stages available")
-    "Error assertion"
-    annotation (Placement(transformation(extent={{220,200},{240,220}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr[2](
-    final threshold=fill(-0.5, 2)) "Less than threshold"
-    annotation (Placement(transformation(extent={{140,200},{160,220}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaCap(
-    final outOfRangeValue=-1,
-    final nin=nSta) "Extracts the nominal capacity at the current stage"
-    annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaLowCap(
-    final outOfRangeValue=-1,
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor dowCap(
+    final outOfRangeValue=small,
     final nin=nSta,
     final allowOutOfRange=true)
     "Extracts the nominal capacity of one stage lower than the current stage"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaUpCapMin(
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor upCapMin(
     final nin=nSta,
     final allowOutOfRange=true,
     final outOfRangeValue=-1)
     "Extracts minimal capacity of the next higher stage"
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaUpCap(
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor upCap(
     final nin=nSta,
     final allowOutOfRange=true,
-    final outOfRangeValue=-1)
+    final outOfRangeValue=small)
     "Extracts the nominal capacity of the next stage"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaCapMin(
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor capMin(
     final nin=nSta,
-    final outOfRangeValue=-1,
+    final outOfRangeValue=small,
     final allowOutOfRange=true)
     "Extracts the minimum capacity of the current stage"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
+    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi2
     "Switch"
-    annotation (Placement(transformation(extent={{220,60},{240,80}})));
+    annotation (Placement(transformation(extent={{200,60},{220,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi4
     "Switch"
-    annotation (Placement(transformation(extent={{220,-100},{240,-80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Max forStaDowNom
-    "To avoid division zero downstream"
-    annotation (Placement(transformation(extent={{220,10},{240,30}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Max forStaNom
-    "To avoid division zero downstream"
-    annotation (Placement(transformation(extent={{220,120},{240,140}})));
+    annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
 
   Modelica.Blocks.Logical.Switch swi1
     "Use minimum stage capacity for nominal stage down capacity if operating in the lowest available stage"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nu=2)
-    "Or operator on array inputs"
-    annotation (Placement(transformation(extent={{180,200},{200,220}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Max maxInt
-    annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Max maxIntUp
-    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Max maxIntDown
-    annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaNum(final k=small)
-    "Small number to prevent division with zero"
-    annotation (Placement(transformation(extent={{140,100},{160,120}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=larGai)
     "To make a very large and unachievable staging up capacity if already the highest available stage"
-    annotation (Placement(transformation(extent={{20,100},{40,120}})));
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
 equation
-  connect(swi2.y, yUpNom) annotation (Line(points={{241,70},{250,70},{250,60},{
+  connect(swi2.y, yUpNom) annotation (Line(points={{221,70},{250,70},{250,60},{
           270,60}}, color={0,0,127}));
-  connect(extStaUpCap.y, swi2.u3) annotation (Line(points={{121,80},{172,80},{172,
-          62},{218,62}},
-                     color={0,0,127}));
+  connect(upCap.y, swi2.u3) annotation (Line(points={{41,80},{80,80},{80,62},{
+          198,62}}, color={0,0,127}));
   connect(yMin, yMin)
     annotation (Line(points={{270,-20},{270,-20}}, color={0,0,127}));
-  connect(extStaUpCapMin.y, swi4.u3) annotation (Line(points={{121,-30},{140,-30},
-          {140,-98},{218,-98}},    color={0,0,127}));
-  connect(swi4.y, yUpMin) annotation (Line(points={{241,-90},{250,-90},{250,-60},
+  connect(upCapMin.y, swi4.u3) annotation (Line(points={{41,-30},{50,-30},{50,
+          -98},{198,-98}}, color={0,0,127}));
+  connect(swi4.y, yUpMin) annotation (Line(points={{221,-90},{250,-90},{250,-60},
           {270,-60}}, color={0,0,127}));
-  connect(mulOr.y, staExc.u) annotation (Line(points={{201.7,210},{218,210}},
-                 color={255,0,255}));
-  connect(extStaCapMin.y, yMin) annotation (Line(points={{121,-90},{180,-90},{
-          180,-20},{270,-20}}, color={0,0,127}));
-  connect(extStaCap.y, forStaNom.u1) annotation (Line(points={{-19,150},{0,150},
-          {0,136},{218,136}}, color={0,0,127}));
-  connect(forStaNom.y, yNom) annotation (Line(points={{241,130},{250,130},{250,
-          100},{270,100}}, color={0,0,127}));
-  connect(forStaDowNom.y, yDowNom)
-    annotation (Line(points={{241,20},{270,20}}, color={0,0,127}));
-  connect(swi1.y, forStaDowNom.u2) annotation (Line(points={{181,0},{200,0},{200,
-          14},{218,14}}, color={0,0,127}));
-  connect(extStaLowCap.y, swi1.u3) annotation (Line(points={{-19,80},{50,80},{50,
-          -8},{158,-8}}, color={0,0,127}));
-  connect(extStaCapMin.y, swi1.u1) annotation (Line(points={{121,-90},{130,-90},
-          {130,8},{158,8}},   color={0,0,127}));
-  connect(extStaCap.y, greThr[1].u) annotation (Line(points={{-19,150},{60,150},
-          {60,210},{138,210}}, color={0,0,127}));
-  connect(extStaLowCap.y, greThr[2].u) annotation (Line(points={{-19,80},{70,80},
-          {70,210},{138,210}}, color={0,0,127}));
-  connect(greThr.y, mulOr.u[1:2]) annotation (Line(points={{161,210},{170,210},{
-          170,206.5},{178,206.5}}, color={255,0,255}));
-  connect(uMinCap, extStaUpCapMin.u) annotation (Line(points={{-280,-220},{-110,
-          -220},{-110,-140},{20,-140},{20,-30},{98,-30}},
-                                                        color={0,0,127}));
-  connect(uMinCap, extStaCapMin.u) annotation (Line(points={{-280,-220},{40,-220},
-          {40,-90},{98,-90}},                                      color={0,0,
-          127}));
-  connect(uNomCap, extStaCap.u) annotation (Line(points={{-280,200},{-160,200},{
-          -160,150},{-42,150}},  color={0,0,127}));
-  connect(uNomCap, extStaLowCap.u) annotation (Line(points={{-280,200},{-220,200},
-          {-220,128},{-60,128},{-60,80},{-42,80}},       color={0,0,127}));
-  connect(uNomCap, extStaUpCap.u) annotation (Line(points={{-280,200},{80,200},{
-          80,80},{98,80}},             color={0,0,127}));
-  connect(one.y, maxIntDown.u1) annotation (Line(points={{-219,40},{-200,40},{-200,
-          16},{-182,16}}, color={255,127,0}));
-  connect(uDown, maxIntDown.u2) annotation (Line(points={{-280,0},{-200,0},{-200,
-          4},{-182,4}}, color={255,127,0}));
-  connect(maxInt.y, extStaCap.index) annotation (Line(points={{-159,110},{-30,110},
-          {-30,138}}, color={255,127,0}));
-  connect(maxIntUp.y, extStaUpCap.index) annotation (Line(points={{-159,70},{-140,
-          70},{-140,60},{110,60},{110,68}}, color={255,127,0}));
-  connect(maxIntDown.y, extStaLowCap.index)
-    annotation (Line(points={{-159,10},{-30,10},{-30,68}}, color={255,127,0}));
-  connect(maxIntUp.y, extStaUpCapMin.index) annotation (Line(points={{-159,70},{
-          -140,70},{-140,60},{40,60},{40,-50},{110,-50},{110,-42}}, color={255,127,
-          0}));
-  connect(maxIntDown.y, extStaCapMin.index) annotation (Line(points={{-159,10},{
-          -30,10},{-30,-110},{110,-110},{110,-102}}, color={255,127,0}));
-  connect(uLow, swi1.u2) annotation (Line(points={{-280,-100},{0,-100},{0,0},{158,
-          0}}, color={255,0,255}));
-  connect(uHigh, swi2.u2) annotation (Line(points={{-280,-160},{210,-160},{210,70},
-          {218,70}}, color={255,0,255}));
-  connect(uHigh, swi4.u2) annotation (Line(points={{-280,-160},{210,-160},{210,-90},
-          {218,-90}}, color={255,0,255}));
-  connect(one.y, maxInt.u2) annotation (Line(points={{-219,40},{-200,40},{-200,104},
-          {-182,104}}, color={255,127,0}));
-  connect(u, maxInt.u1) annotation (Line(points={{-280,120},{-220,120},{-220,116},
-          {-182,116}}, color={255,127,0}));
-  connect(one.y, maxIntUp.u2) annotation (Line(points={{-219,40},{-200,40},{-200,
-          64},{-182,64}}, color={255,127,0}));
-  connect(uUp, maxIntUp.u1) annotation (Line(points={{-280,60},{-220,60},{-220,76},
-          {-182,76}}, color={255,127,0}));
-  connect(smaNum.y, forStaNom.u2) annotation (Line(points={{161,110},{180,110},{
-          180,124},{218,124}}, color={0,0,127}));
-  connect(smaNum.y, forStaDowNom.u1) annotation (Line(points={{161,110},{180,110},
-          {180,26},{218,26}}, color={0,0,127}));
-  connect(extStaCap.y, gai.u) annotation (Line(points={{-19,150},{0,150},{0,110},
-          {18,110}}, color={0,0,127}));
-  connect(gai.y, swi2.u1) annotation (Line(points={{41,110},{132,110},{132,90},{
-          198,90},{198,78},{218,78},{218,78}}, color={0,0,127}));
-  connect(gai.y, swi4.u1) annotation (Line(points={{41,110},{60,110},{60,-70},{200,
-          -70},{200,-82},{218,-82}}, color={0,0,127}));
+  connect(capMin.y, yMin) annotation (Line(points={{41,-90},{100,-90},{100,-20},
+          {270,-20}}, color={0,0,127}));
+  connect(dowCap.y, swi1.u3) annotation (Line(points={{-79,80},{-60,80},{-60,-8},
+          {98,-8}}, color={0,0,127}));
+  connect(uMinCap, upCapMin.u) annotation (Line(points={{-280,-220},{-200,-220},
+          {-200,-30},{18,-30}}, color={0,0,127}));
+  connect(uMinCap, capMin.u) annotation (Line(points={{-280,-220},{-100,-220},{
+          -100,-90},{18,-90}}, color={0,0,127}));
+  connect(uNomCap, cap.u) annotation (Line(points={{-280,200},{-160,200},{-160,
+          150},{-122,150}}, color={0,0,127}));
+  connect(uNomCap, dowCap.u) annotation (Line(points={{-280,200},{-220,200},{
+          -220,140},{-130,140},{-130,80},{-102,80}}, color={0,0,127}));
+  connect(uNomCap, upCap.u) annotation (Line(points={{-280,200},{-20,200},{-20,
+          80},{18,80}}, color={0,0,127}));
+  connect(uLow, swi1.u2) annotation (Line(points={{-280,-100},{-140,-100},{-140,
+          0},{98,0}},
+               color={255,0,255}));
+  connect(uHigh, swi2.u2) annotation (Line(points={{-280,-160},{160,-160},{160,
+          70},{198,70}},
+                     color={255,0,255}));
+  connect(uHigh, swi4.u2) annotation (Line(points={{-280,-160},{160,-160},{160,
+          -90},{198,-90}},
+                      color={255,0,255}));
+  connect(cap.y, gai.u) annotation (Line(points={{-99,150},{-70,150},{-70,120},
+          {-62,120}}, color={0,0,127}));
+  connect(gai.y, swi2.u1) annotation (Line(points={{-39,120},{80,120},{80,90},{
+          160,90},{160,78},{198,78}},          color={0,0,127}));
+  connect(gai.y, swi4.u1) annotation (Line(points={{-39,120},{60,120},{60,-82},
+          {198,-82}},                color={0,0,127}));
+  connect(swi1.y, yDowNom) annotation (Line(points={{121,0},{200,0},{200,20},{
+          270,20}}, color={0,0,127}));
+  connect(u, cap.index) annotation (Line(points={{-280,120},{-110,120},{-110,
+          138}}, color={255,127,0}));
+  connect(uDown, dowCap.index) annotation (Line(points={{-280,0},{-184,0},{-184,
+          2},{-90,2},{-90,68}}, color={255,127,0}));
+  connect(uUp, upCap.index) annotation (Line(points={{-280,60},{-130,60},{-130,
+          48},{30,48},{30,68}}, color={255,127,0}));
+  connect(uUp, upCapMin.index) annotation (Line(points={{-280,60},{-130,60},{
+          -130,-52},{30,-52},{30,-42}}, color={255,127,0}));
+  connect(cap.y, yNom) annotation (Line(points={{-99,150},{220,150},{220,100},{
+          270,100}}, color={0,0,127}));
+  connect(capMin.y, swi1.u1) annotation (Line(points={{41,-90},{80,-90},{80,8},
+          {98,8}}, color={0,0,127}));
+  connect(u, capMin.index) annotation (Line(points={{-280,120},{-190,120},{-190,
+          -110},{30,-110},{30,-102}}, color={255,127,0}));
   annotation (defaultComponentName = "cap",
         Icon(graphics={
         Rectangle(

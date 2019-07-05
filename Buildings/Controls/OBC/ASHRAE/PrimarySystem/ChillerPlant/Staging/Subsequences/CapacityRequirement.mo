@@ -14,45 +14,47 @@ block CapacityRequirement
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-    iconTransformation(extent={{-120,40},{-100,60}})));
+    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
+    iconTransformation(extent={{-120,50},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") "Measured chilled water flow rate"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-      iconTransformation(extent={{-120,-60},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
+      iconTransformation(extent={{-120,-70},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity="Power",
     final unit="W") "Chilled water cooling capacity requirement"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant density(
     final k = watDen)
     "Water density"
-    annotation (Placement(transformation(extent={{-80,-32},{-60,-12}})));
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speHeaCap(
     final k = watSpeHea)
     "Specific heat capacity of water"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLim(
     final k=0)
     "Minimum capacity requirement limit"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k1=-1) "Adder"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
     final delta=avePer)
@@ -60,41 +62,45 @@ block CapacityRequirement
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro2 "Product"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum of two inputs"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  connect(TChiWatRet, add2.u2) annotation (Line(points={{-120,20},{-60,20},{-60,
-          24},{-42,24}}, color={0,0,127}));
-  connect(add2.u1, TChiWatSupSet) annotation (Line(points={{-42,36},{-60,36},{-60,
-          80},{-120,80}}, color={0,0,127}));
-  connect(add2.y, pro.u1) annotation (Line(points={{-19,30},{-10,30},{-10,6},{28,
-          6}}, color={0,0,127}));
+  connect(TChiWatRet, add2.u2) annotation (Line(points={{-160,20},{-130,20},{-130,
+          44},{-122,44}},color={0,0,127}));
+  connect(add2.u1, TChiWatSupSet) annotation (Line(points={{-122,56},{-130,56},{
+          -130,80},{-160,80}},
+                          color={0,0,127}));
+  connect(add2.y, pro.u1) annotation (Line(points={{-99,50},{-70,50},{-70,6},{
+          18,6}},
+               color={0,0,127}));
   connect(pro.y, movMea.u)
-    annotation (Line(points={{51,0},{58,0}}, color={0,0,127}));
-  connect(speHeaCap.y, pro1.u2) annotation (Line(points={{-59,-70},{-50,-70},{-50,
-          -66},{-42,-66}}, color={0,0,127}));
-  connect(pro1.y, pro2.u2) annotation (Line(points={{-19,-60},{-10,-60},{-10,-36},
-          {-2,-36}}, color={0,0,127}));
-  connect(pro.u2, pro2.y) annotation (Line(points={{28,-6},{24,-6},{24,-30},{21,
-          -30}}, color={0,0,127}));
-  connect(pro1.u1, density.y) annotation (Line(points={{-42,-54},{-50,-54},{-50,
-          -22},{-59,-22}}, color={0,0,127}));
-  connect(VChiWat_flow, pro2.u1) annotation (Line(points={{-120,-50},{-80,-50},{
-          -80,-40},{-20,-40},{-20,-24},{-2,-24}}, color={0,0,127}));
-  connect(max.u1, minLim.y) annotation (Line(points={{58,56},{50,56},{50,60},{41,
-          60}}, color={0,0,127}));
-  connect(movMea.y, max.u2) annotation (Line(points={{81,0},{82,0},{82,30},{50,30},
-          {50,44},{58,44}}, color={0,0,127}));
-  connect(max.y, y) annotation (Line(points={{81,50},{90,50},{90,0},{110,0}},
+    annotation (Line(points={{41,0},{58,0}}, color={0,0,127}));
+  connect(speHeaCap.y, pro1.u2) annotation (Line(points={{-99,-70},{-90,-70},{
+          -90,-56},{-82,-56}},
+                           color={0,0,127}));
+  connect(pro1.y, pro2.u2) annotation (Line(points={{-59,-50},{-50,-50},{-50,
+          -16},{-22,-16}},
+                     color={0,0,127}));
+  connect(pro.u2, pro2.y) annotation (Line(points={{18,-6},{10,-6},{10,-10},{1,
+          -10}}, color={0,0,127}));
+  connect(pro1.u1, density.y) annotation (Line(points={{-82,-44},{-90,-44},{-90,
+          -30},{-99,-30}}, color={0,0,127}));
+  connect(VChiWat_flow, pro2.u1) annotation (Line(points={{-160,-60},{-130,-60},
+          {-130,-4},{-22,-4}},                    color={0,0,127}));
+  connect(max.u1, minLim.y) annotation (Line(points={{98,6},{90,6},{90,50},{81,
+          50}}, color={0,0,127}));
+  connect(movMea.y, max.u2) annotation (Line(points={{81,0},{90,0},{90,-6},{98,
+          -6}},             color={0,0,127}));
+  connect(max.y, y) annotation (Line(points={{121,0},{150,0}},
         color={0,0,127}));
   annotation (defaultComponentName = "capReq",
         Icon(graphics={
@@ -108,27 +114,26 @@ equation
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-78,-14},{44,-178}},
-          lineColor={0,0,127},
+          extent={{-62,88},{60,-76}},
+          lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="Load
-")}),                            Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+          textString="Load")}), Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{140,100}})),
 Documentation(info="<html>
 <p>
 Calculates cooling capacity requirement based on the measured chilled water return temperature
 (CHWRT), <code>TChiWatRet<\code>, calculated chilled water supply temperature setpoint (CHWST setpoint),
 <code>TChiWatSupSet<\code>, and the measured chilled water flow, <code>VChiWat_flow<\code>.
 <li>
-The calculation is according to OBC Chilled Water Plant Sequence of Operation document, section 3.2.4.3. 
+The calculation is according to Draft 4, section 5.2.4.3.
 </li>
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-October 13, 2018, by Milica Grahovac:<br/>
+July 5, 2019, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
