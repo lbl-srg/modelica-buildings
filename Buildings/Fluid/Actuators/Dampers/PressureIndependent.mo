@@ -73,7 +73,7 @@ protected
   Modelica.SIunits.PressureDifference dp_lim(displayUnit="Pa")
     "Pressure drop limit before interpolation between pressure independent and leakage flow";
 initial equation
-  kResSqu=if dpFixed_nominal > Modelica.Constants.eps then
+  kResSqu = if dpFixed_nominal > Modelica.Constants.eps then
     m_flow_nominal^2 / dpFixed_nominal else 0
     "Flow coefficient of fixed resistance in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   (kSupSpl, idx_sorted) = Modelica.Math.Vectors.sort(kSupSpl_raw, ascending=true);
