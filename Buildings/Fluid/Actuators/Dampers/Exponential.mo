@@ -34,9 +34,7 @@ initial algorithm
 annotation (
 defaultComponentName="dam",
 Documentation(info="<html>
-<p>
 <h4>General description</h4>
-</p>
 <p>
 Model of two resistances in series. One (optional) resistance has a fixed flow coefficient.
 The other resistance corresponds to a damper whose loss coefficient is an exponential function
@@ -57,9 +55,7 @@ This yields a linear relationship between the mass flow rate and <code>y_actual<
 the model is exposed to constant pressure boundary conditions. This option is used to approximate
 a feedback control compensating for the static nonlinearities of the controlled system.
 </p>
-<p>
 <h4>Exponential damper model description</h4>
-</p>
 <p>
 The relationship between the damper loss coefficient and the opening angle is modeled with
 an exponential function. The model is as in ASHRAE 825-RP.
@@ -102,6 +98,7 @@ with regularization near the origin.
 </p>
 <p>
 ASHRAE 825-RP lists the following parameter values as typical:
+<br />
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
@@ -127,7 +124,9 @@ ASHRAE 825-RP lists the following parameter values as typical:
 </tr>
 </table>
 <p>
+<br />
 ASHRAE 2009 <i>Dampers and Airflow Control</i> provides additional data.
+<br />
 </p>
 <h4>References</h4>
 <p>
