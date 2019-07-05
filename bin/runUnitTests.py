@@ -68,10 +68,10 @@ def _setEnvironmentVariables(var, value):
         os.environ[var] = value
 
 
-def _runUnitTests(batch, tool, package, path, n_pro, show_gui):
+def _runUnitTests(batch, tool, package, path, n_pro, show_gui, check_jmodelica):
     import buildingspy.development.regressiontest as u
 
-    ut = u.Tester(tool=tool)
+    ut = u.Tester(tool=tool, check_jmodelica=check_jmodelica)
     ut.batchMode(batch)
     ut.setLibraryRoot(path)
     if package is not None:
@@ -94,7 +94,8 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui):
     # (For buildingspy.__version__ >= 2)
     if not batch:
         try:
-            ut.report()
+            if tool == 'dymola' or check_jmodelica:
+                ut.report()
         except AttributeError:
             pass
 
@@ -141,6 +142,9 @@ if __name__ == '__main__':
                                  help='Maximum number of processors to be used')
     unit_test_group.add_argument("--show-gui",
                                  help='Show the GUI of the simulator',
+                                 action="store_true")
+    unit_test_group.add_argument("--check-jmodelica",
+                                 help='Check JModelica simulation results against reference points',
                                  action="store_true")
 
     html_group = parser.add_argument_group(
@@ -195,7 +199,9 @@ if __name__ == '__main__':
                            package=single_package,
                            path=args.path,
                            n_pro=args.number_of_processors,
-                           show_gui=args.show_gui)
+                           show_gui=args.show_gui,
+                           check_jmodelica=args.check_jmodelica,
+                           )
     exit(retVal)
 
 #   _runOpenModelicaUnitTests()
