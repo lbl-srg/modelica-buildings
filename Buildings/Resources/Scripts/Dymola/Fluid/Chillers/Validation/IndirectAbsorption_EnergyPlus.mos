@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.Chillers.Validation.IndirectAbsorption_EnergyPlus", method="dassl", tolerance=1e-6, stopTime=151200, resultFile="IndirectAbsorption_EnergyPlus");
+createPlot(id = 1,
+   position = {60, 10, 640, 480},
+   y = {"absChi.QCon", "absChi.QEva", "QConEP.y", "QEvaEP.y"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   filename = "IndirectAbsorption_EnergyPlus.mat",
+   leftTitleType = 1,
+   bottomTitleType = 1);
+
