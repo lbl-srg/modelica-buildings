@@ -5,5 +5,7 @@ compareVars :=
     "conMix.TRooSetCoo",
     "conMix.yHot",
     "conMix.yCol",
-    "m_flow.y"
+    "m_flow.y",
+    "conMix.yHot",
+    "conMix.yCol"
   };
