@@ -266,7 +266,7 @@ revisions="<html>
 April 19, 2019, by Antoine Gautier:<br/>
 Added opening calculation, improved leakage modeling and fixed mass flow rate drift at high pressure drop.<br/>
 This is for
-<a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
 </li>
 <li>
 March 21, 2017 by David Blum:<br/>

@@ -145,7 +145,7 @@ Documentation(revisions="<html>
 April 19, 2019, by Antoine Gautier:<br/>
 Added the option for characteristics linearization.<br/>
 This is for
-<a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
@@ -205,10 +205,10 @@ If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
 <p>
-If <code>char_linear=true</code>, then the lumped flow coefficient 
-(for both damper and optional fixed flow resistance) varies linearly with the filtered control 
-input signal <code>y_actual</code>.  
-This yields a linear relationship between the mass flow rate and <code>y_actual</code> when 
+If <code>char_linear=true</code>, then the lumped flow coefficient
+(for both damper and optional fixed flow resistance) varies linearly with the filtered control
+input signal <code>y_actual</code>.
+This yields a linear relationship between the mass flow rate and <code>y_actual</code> when
 the model is exposed to constant pressure boundary conditions.
 </p>
 </html>"));

@@ -147,7 +147,7 @@ April 19, 2019, by Antoine Gautier:<br/>
 Refactored <code>Exponential</code> and <code>VAVBoxExponential</code> into one single class.<br/>
 Added the option for characteristics linearization.<br/>
 This is for
-<a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>

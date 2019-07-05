@@ -336,7 +336,7 @@ its class name ends with the string <code>Beta</code>.
                            <code>Buildings.Fluid.Actuators.Dampers.PressureIndependent</code>.<br/>
                            Extended the range of allowed values for <code>k0</code> and <code>k1</code>.<br/>
                            This is for
-                           <a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
@@ -6738,7 +6738,7 @@ Buildings.Media.Air.enthalpyOfNonCondensingGas</a> and its derivative.
 </li>
 <li>
 In <code>Buildings.Media.PerfectGases.MoistAir</code>, fixed
-bug in implementation of <code>Buildings.Media.PerfectGases.MoistAir.T_phX</code>. 
+bug in implementation of <code>Buildings.Media.PerfectGases.MoistAir.T_phX</code>.
 In the previous version, it computed the inverse of its parent class,
 which gave slightly different results.
 </li>
@@ -6764,7 +6764,7 @@ Added model
 Buildings.Fluid.Storage.ExpansionVessel</a>.
 </li>
 <li>
-Added Wrapper function <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</code> 
+Added Wrapper function <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</code>
 for <a href=\"modelica://Modelica.Math.Matrices.solve\">
 Modelica.Math.Matrices.solve</a>. This is currently needed since
 <a href=\"modelica://Modelica.Math.Matrices.solve\">
@@ -6781,9 +6781,9 @@ the outside,
 the whole thickness of the water volume was used
 instead of only half the thickness.
 <li>
-In <code>Buildings.Media.ConstantPropertyLiquidWater</code>, added the option to specify 
-a compressibility. This can help reducing the size of the coupled nonlinear system of 
-equations, at the expense of introducing stiffness. This change required to change 
+In <code>Buildings.Media.ConstantPropertyLiquidWater</code>, added the option to specify
+a compressibility. This can help reducing the size of the coupled nonlinear system of
+equations, at the expense of introducing stiffness. This change required to change
 the inheritance tree of the medium. Its base class is now
 <code>Buildings.Media.Interfaces.PartialSimpleMedium</code>,
 which contains the equation for the compressibility. The default setting will model

@@ -154,7 +154,7 @@ Added the option to exclude pressure drop computation for use with
 PressureIndependent</a>.<br/>
 Extended the range of allowed values for <code>k0</code> and <code>k1</code>.<br/>
 This is for
-<a href=\https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1298\">#1298</a>.
 </li>
 <li>
 March 22, 2017, by Michael Wetter:<br/>
