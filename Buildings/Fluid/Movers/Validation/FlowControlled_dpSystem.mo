@@ -229,6 +229,5 @@ This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/770\">#770</a>.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
+</html>"));
 end FlowControlled_dpSystem;
