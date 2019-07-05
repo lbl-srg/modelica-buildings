@@ -19,7 +19,8 @@ block Derivative "Block that approximates the derivative of the input"
   output Real x(start=x_start) "State of block";
 
 protected
-  parameter Boolean zeroGain = abs(k) < 100*1E-15;
+  parameter Boolean zeroGain = abs(k) < 100*1E-15
+    "= true, if gain equals to zero";
 initial equation
   if initType == Buildings.Controls.OBC.CDL.Types.Init.InitialState then
     x = x_start;

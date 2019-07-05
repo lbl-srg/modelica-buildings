@@ -25,25 +25,18 @@ protected
   discrete Modelica.SIunits.Time tNext(start=0, fixed=true) "Start time of next period";
 
 equation
-  if canRepeatWeatherFile then
-    when {initial(), modTim > pre(tNext)} then
-      // simulation time stamp went over the end time of the weather file
-      //(last time stamp of the weather file + average increment)
-      tNext = integer(modTim/lenWea)*lenWea + lenWea;
-    end when;
-    calTim = modTim - tNext + lenWea;
-  else
-    when initial() then
-      tNext = time;
-    end when;
-    calTim = modTim;
-    assert((time - weaDatEndTim) < shiftSolarRad,
-      "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
-      Based on the provided weather file the following start time " + String(weaDatStaTim) +
-      " and end time " + String(weaDatEndTim) + " (last time stamp + average increment) for the weather data were determined",
-      AssertionLevel.error);
-  end if;
+  when {initial(), canRepeatWeatherFile and modTim > pre(tNext)} then
+    // simulation time stamp went over the end time of the weather file
+    //(last time stamp of the weather file + average increment)
+    tNext = if canRepeatWeatherFile then integer(modTim/lenWea)*lenWea + lenWea else time;
+  end when;
+  calTim = if canRepeatWeatherFile then modTim - tNext + lenWea else modTim;
 
+  assert(canRepeatWeatherFile or (time - weaDatEndTim) < shiftSolarRad,
+    "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
+    Based on the provided weather file the following start time " + String(weaDatStaTim) +
+    " and end time " + String(weaDatEndTim) + " (last time stamp + average increment) for the weather data were determined",
+    AssertionLevel.error);
 
   annotation (
     defaultComponentName="conTim",
@@ -54,6 +47,15 @@ or a multiple of it, if this is the length of the weather file.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 12, 2019, by Michael Wetter:<br/>
+Reformulated model to avoid having to evaluate the weather file during compilation
+(as it determined the structural parameter <code>lenWea</code>). The new formulation
+allows inclusion of the weather file in JModelica-generated FMUs, and it works with
+Dymola as well.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1147\">#1147</a>.
+</li>
 <li>
 May 21, 2019, by Michael Wetter:<br/>
 Corrected code to avoid wrong type conversion.<br/>
