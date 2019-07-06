@@ -10,4 +10,3 @@ createPlot(id = 1,
    filename = "IndirectAbsorption_EnergyPlus.mat",
    leftTitleType = 1,
    bottomTitleType = 1);
-

@@ -59,7 +59,7 @@ package AbsorptionIndirect
       constant Integer nGenEvaT=4
     "Number of coefficients for GenEvaT"
       annotation (Dialog(group="Performance curves"));
-      
+
     annotation (
       defaultComponentName="datChi",
       defaultComponentPrefixes="parameter",
@@ -108,7 +108,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-
-
 end AbsorptionIndirect;

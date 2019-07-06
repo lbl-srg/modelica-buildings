@@ -82,11 +82,11 @@ model AbsorptionIndirectSteam
     startTime=0)
     "Evaporator setpoint water temperature"
      annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Blocks.Sources.Pulse pulse(period=3600/2)
+    Modelica.Blocks.Sources.Pulse pulse(period=3600/2)
      annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.5)
+    Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.5)
      annotation (Placement(transformation(extent={{-54,0},{-34,20}})));
-  Modelica.Blocks.Sources.Constant TGenEnt(k=273.15 + 105)
+    Modelica.Blocks.Sources.Constant TGenEnt(k=273.15 + 105)
      annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
   connect(absIndSte.port_b1, res1.port_a)
