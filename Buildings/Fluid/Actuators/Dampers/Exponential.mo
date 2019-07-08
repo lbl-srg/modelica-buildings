@@ -18,7 +18,7 @@ protected
     "Pressure drop of fully open damper at nominal flow rate";
   parameter Real kResSqu(unit="kg.m", fixed=false)
     "Resistance coefficient for fixed resistance element";
-initial algorithm
+initial equation
   assert(abs(dp_nominal) > Modelica.Constants.eps or not dp_nominalIncludesDamper,
     "dp_nominal cannot be zero when dp_nominalIncludesDamper is true.");
   assert(kResSqu >= 0,
@@ -26,7 +26,7 @@ initial algorithm
           + "\n  dp_nominal = "       + String(dp_nominal)
           + "\n  dpDamOpe_nominal = " + String(dpDamOpe_nominal));
   if not casePreInd then
-    kResSqu := if dp_nominal < Modelica.Constants.eps then 0
+    kResSqu = if dp_nominal < Modelica.Constants.eps then 0
     elseif dp_nominalIncludesDamper then
       m_flow_nominal^2 / (dp_nominal - dpDamOpe_nominal)
     else m_flow_nominal^2 / dp_nominal;
