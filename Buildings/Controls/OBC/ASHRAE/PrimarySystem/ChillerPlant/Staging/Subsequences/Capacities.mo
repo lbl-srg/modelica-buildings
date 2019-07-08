@@ -79,7 +79,8 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   final parameter Real larGai = 10
   "Large gain generate number much larger than the highest stage capacity";
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor cap(final outOfRangeValue=
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor cap(
+    allowOutOfRange=true,                              final outOfRangeValue=
         small, final nin=nSta)
     "Extracts the nominal capacity at the current stage"
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
@@ -94,7 +95,7 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
   Buildings.Controls.OBC.CDL.Routing.RealExtractor upCapMin(
     final nin=nSta,
     final allowOutOfRange=true,
-    final outOfRangeValue=-1)
+    final outOfRangeValue=small)
     "Extracts minimal capacity of the next higher stage"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
@@ -171,12 +172,13 @@ equation
           270,20}}, color={0,0,127}));
   connect(u, cap.index) annotation (Line(points={{-280,120},{-110,120},{-110,
           138}}, color={255,127,0}));
-  connect(uDown, dowCap.index) annotation (Line(points={{-280,0},{-184,0},{-184,
-          2},{-90,2},{-90,68}}, color={255,127,0}));
-  connect(uUp, upCap.index) annotation (Line(points={{-280,60},{-130,60},{-130,
-          48},{30,48},{30,68}}, color={255,127,0}));
-  connect(uUp, upCapMin.index) annotation (Line(points={{-280,60},{-130,60},{
-          -130,-52},{30,-52},{30,-42}}, color={255,127,0}));
+  connect(uDown, dowCap.index) annotation (Line(points={{-280,0},{-160,0},{-160,
+          20},{-90,20},{-90,68}},
+                                color={255,127,0}));
+  connect(uUp, upCap.index) annotation (Line(points={{-280,60},{-120,60},{-120,48},
+          {30,48},{30,68}},     color={255,127,0}));
+  connect(uUp, upCapMin.index) annotation (Line(points={{-280,60},{-120,60},{-120,
+          -52},{30,-52},{30,-42}},      color={255,127,0}));
   connect(cap.y, yNom) annotation (Line(points={{-99,150},{220,150},{220,100},{
           270,100}}, color={0,0,127}));
   connect(capMin.y, swi1.u1) annotation (Line(points={{41,-90},{80,-90},{80,8},
@@ -210,9 +212,27 @@ equation
           extent={{-260,-240},{260,240}})),
 Documentation(info="<html>
 <p>
-Based on the current chiller stage and nominal stage capacities returns the
-nominal capacity of the current and one lower stage for the purpose of
-calculating the operative part load ratio (OPLR).
+Based on the current chiller stage and nominal stage capacities returns:
+</p>
+<ul>
+<li>
+The design capacities of the current, first available higher and lower stage
+</li>
+<li>
+The minimal capacity of the current and first higher stage
+</li>
+</ul>
+<p>
+for the purpose of calculating the operative and staging part load ratios, 
+OPLR and SPLR, respectively.
+</p>
+<p>
+If operating at the lowest available chiller stage, the minimal capacity 
+of that stage is returned as the design capacity of stage 0. If operating at 
+the highest stage, the design and minimal stage down conditionals are set to 
+a value significantly larger than the design capacity of the highest stage.
+This ensures numerical stability and satisfies the staging down conditionals.
+[fixme: Milica to revise this once integrated with other subsequences.]
 </p>
 </html>",
 revisions="<html>

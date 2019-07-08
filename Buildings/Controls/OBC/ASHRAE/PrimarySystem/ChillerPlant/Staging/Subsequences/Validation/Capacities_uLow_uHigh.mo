@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model Capacities_uStaAva
-  "Validate stage capacities sequence for stage availability inputs"
+model Capacities_uLow_uHigh
+  "Validate stage capacities sequence for lowest and highest available stages"
 
   parameter Integer nSta = 3
   "Highest chiller stage";
@@ -309,7 +309,7 @@ protected
 
 equation
   connect(stage3.y, staCap3tft.u) annotation (Line(points={{-359,430},{-330,430},
-          {-330,290},{-322,290}}, color={255,127,0}));
+          {-330,293},{-321,293}}, color={255,127,0}));
   connect(staCap3tft.yStaNom, absErrorSta3tft[1].u1) annotation (Line(points={{-299,
           297},{-240,297},{-240,310},{-222,310}}, color={0,0,127}));
   connect(staCap3tft.yStaDowNom, absErrorSta3tft[2].u1) annotation (Line(points=
@@ -324,7 +324,7 @@ equation
           {-350,284},{-322,284}}, color={255,0,255}));
 
   connect(stage2.y, staCap2tft.u) annotation (Line(points={{-179,430},{-150,430},
-          {-150,290},{-142,290}}, color={255,127,0}));
+          {-150,293},{-141,293}}, color={255,127,0}));
   connect(staCap2tft.yStaNom, absErrorSta2tft[1].u1) annotation (Line(points={{-119,
           297},{-60,297},{-60,310},{-42,310}}, color={0,0,127}));
   connect(staCap2tft.yStaDowNom, absErrorSta2tft[2].u1) annotation (Line(points=
@@ -336,7 +336,7 @@ equation
   connect(staCap2tft.yStaUpMin, absErrorSta2tft[5].u1) annotation (Line(points={
           {-119,285},{-60,285},{-60,310},{-42,310}}, color={0,0,127}));
   connect(stage1.y, staCap1tft.u) annotation (Line(points={{-359,380},{-340,380},
-          {-340,130},{-322,130}}, color={255,127,0}));
+          {-340,133},{-321,133}}, color={255,127,0}));
   connect(staCap1tft.yStaNom, absErrorSta1tft[1].u1) annotation (Line(points={{-299,
           137},{-240,137},{-240,150},{-222,150}}, color={0,0,127}));
   connect(staCap1tft.yStaDowNom, absErrorSta1tft[2].u1) annotation (Line(points=
@@ -348,7 +348,7 @@ equation
   connect(staCap1tft.yStaUpMin, absErrorSta1tft[5].u1) annotation (Line(points={
           {-299,125},{-240,125},{-240,150},{-222,150}}, color={0,0,127}));
   connect(stage0.y, staCap0tft.u) annotation (Line(points={{-179,380},{-160,380},
-          {-160,130},{-142,130}}, color={255,127,0}));
+          {-160,133},{-141,133}}, color={255,127,0}));
   connect(staCap0tft.yStaNom, absErrorSta0tft[1].u1) annotation (Line(points={{-119,
           137},{-60,137},{-60,150},{-42,150}}, color={0,0,127}));
   connect(staCap0tft.yStaDowNom, absErrorSta0tft[2].u1) annotation (Line(points=
@@ -406,7 +406,7 @@ equation
   connect(minStaUnload4[2].y, absErrorSta2tft[2].u2) annotation (Line(points={{-79,
           200},{-34,200},{-34,290},{-30,290},{-30,298}}, color={0,0,127}));
   connect(stage4.y, staCap3ttf.u) annotation (Line(points={{41,430},{70,430},{
-          70,290},{78,290}}, color={255,127,0}));
+          70,293},{79,293}}, color={255,127,0}));
   connect(staCap3ttf.yStaNom, absErrorSta3ttf[1].u1) annotation (Line(points={{101,
           297},{160,297},{160,310},{178,310}}, color={0,0,127}));
   connect(staCap3ttf.yStaDowNom, absErrorSta3ttf[2].u1) annotation (Line(points=
@@ -420,7 +420,7 @@ equation
   connect(ttf.y, staCap3ttf.uStaAva) annotation (Line(points={{41,220},{50,220},
           {50,284},{78,284}}, color={255,0,255}));
   connect(stage5.y, staCap2ttf.u) annotation (Line(points={{221,430},{250,430},
-          {250,290},{258,290}}, color={255,127,0}));
+          {250,293},{259,293}}, color={255,127,0}));
   connect(staCap2ttf.yStaNom, absErrorSta2ttf[1].u1) annotation (Line(points={{281,
           297},{340,297},{340,310},{358,310}}, color={0,0,127}));
   connect(staCap2ttf.yStaDowNom, absErrorSta2ttf[2].u1) annotation (Line(points=
@@ -432,7 +432,7 @@ equation
   connect(staCap2ttf.yStaUpMin, absErrorSta2ttf[5].u1) annotation (Line(points={
           {281,285},{340,285},{340,310},{358,310}}, color={0,0,127}));
   connect(stage6.y, staCap1ttf.u) annotation (Line(points={{41,380},{60,380},{
-          60,130},{78,130}}, color={255,127,0}));
+          60,133},{79,133}}, color={255,127,0}));
   connect(staCap1ttf.yStaNom, absErrorSta1ttf[1].u1) annotation (Line(points={{101,
           137},{160,137},{160,150},{178,150}}, color={0,0,127}));
   connect(staCap1ttf.yStaDowNom, absErrorSta1ttf[2].u1) annotation (Line(points=
@@ -444,7 +444,7 @@ equation
   connect(staCap1ttf.yStaUpMin, absErrorSta1ttf[5].u1) annotation (Line(points={
           {101,125},{160,125},{160,150},{178,150}}, color={0,0,127}));
   connect(stage7.y, staCap0ttf.u) annotation (Line(points={{221,380},{240,380},
-          {240,130},{258,130}}, color={255,127,0}));
+          {240,133},{259,133}}, color={255,127,0}));
   connect(staCap0ttf.yStaNom, absErrorSta0ttf[1].u1) annotation (Line(points={{281,
           137},{340,137},{340,150},{358,150}}, color={0,0,127}));
   connect(staCap0ttf.yStaDowNom, absErrorSta0ttf[2].u1) annotation (Line(points=
@@ -502,7 +502,7 @@ equation
   connect(minStaUnload2[5].y, absErrorSta2ttf[5].u2) annotation (Line(points={{321,
           200},{378,200},{378,290},{370,290},{370,298}}, color={0,0,127}));
   connect(stage3.y, staCap3fft.u) annotation (Line(points={{-359,430},{-330,430},
-          {-330,-50},{-322,-50}}, color={255,127,0}));
+          {-330,-47},{-321,-47}}, color={255,127,0}));
   connect(staCap3fft.yStaNom, absErrorSta3fft[1].u1) annotation (Line(points={{-299,
           -43},{-240,-43},{-240,-30},{-222,-30}}, color={0,0,127}));
   connect(staCap3fft.yStaDowNom, absErrorSta3fft[2].u1) annotation (Line(points=
@@ -516,7 +516,7 @@ equation
   connect(fft.y, staCap3fft.uStaAva) annotation (Line(points={{-359,-120},{-350,
           -120},{-350,-56},{-322,-56}}, color={255,0,255}));
   connect(stage2.y, staCap2fft.u) annotation (Line(points={{-179,430},{-150,430},
-          {-150,-50},{-142,-50}}, color={255,127,0}));
+          {-150,-47},{-141,-47}}, color={255,127,0}));
   connect(staCap2fft.yStaNom, absErrorSta2fft[1].u1) annotation (Line(points={{-119,
           -43},{-60,-43},{-60,-30},{-42,-30}}, color={0,0,127}));
   connect(staCap2fft.yStaDowNom, absErrorSta2fft[2].u1) annotation (Line(points=
@@ -528,7 +528,7 @@ equation
   connect(staCap2fft.yStaUpMin, absErrorSta2fft[5].u1) annotation (Line(points={
           {-119,-55},{-60,-55},{-60,-30},{-42,-30}}, color={0,0,127}));
   connect(stage1.y, staCap1fft.u) annotation (Line(points={{-359,380},{-340,380},
-          {-340,-210},{-322,-210}}, color={255,127,0}));
+          {-340,-207},{-321,-207}}, color={255,127,0}));
   connect(staCap1fft.yStaNom, absErrorSta1fft[1].u1) annotation (Line(points={{-299,
           -203},{-240,-203},{-240,-190},{-222,-190}}, color={0,0,127}));
   connect(staCap1fft.yStaDowNom, absErrorSta1fft[2].u1) annotation (Line(points=
@@ -540,7 +540,7 @@ equation
   connect(staCap1fft.yStaUpMin, absErrorSta1fft[5].u1) annotation (Line(points={
           {-299,-215},{-240,-215},{-240,-190},{-222,-190}}, color={0,0,127}));
   connect(stage0.y, staCap0fft.u) annotation (Line(points={{-179,380},{-160,380},
-          {-160,-210},{-142,-210}}, color={255,127,0}));
+          {-160,-207},{-141,-207}}, color={255,127,0}));
   connect(staCap0fft.yStaNom, absErrorSta0fft[1].u1) annotation (Line(points={{-119,
           -203},{-60,-203},{-60,-190},{-42,-190}}, color={0,0,127}));
   connect(staCap0fft.yStaDowNom, absErrorSta0fft[2].u1) annotation (Line(points=
@@ -626,4 +626,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-400,-340},{400,460}})));
-end Capacities_uStaAva;
+end Capacities_uLow_uHigh;

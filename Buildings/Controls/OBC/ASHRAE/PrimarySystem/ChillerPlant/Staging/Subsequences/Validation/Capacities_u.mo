@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model Capacities_uSta
+model Capacities_u
   "Validate stage capacities sequence for chiller stage inputs"
 
   parameter Integer nSta = 2
@@ -185,4 +185,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Capacities_uSta;
+end Capacities_u;
