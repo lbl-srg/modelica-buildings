@@ -90,7 +90,7 @@ equation
     Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // Optional characteristic linearization
   if char_linear_pro then
-    // Guard againts y_actual that can be negative within the solver tolerance.
+    // Guard against y_actual that can be negative within the solver tolerance.
     y_char_linear = if linearized then sqrt(abs(y_actual)) else y_actual;
     k = y_char_linear * (kTotMax - kTotMin) + kTotMin;
     kDam = if kFixed > Modelica.Constants.eps then
