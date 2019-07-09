@@ -68,10 +68,12 @@ def _setEnvironmentVariables(var, value):
         os.environ[var] = value
 
 
-def _runUnitTests(batch, tool, package, path, n_pro, show_gui, check_jmodelica):
+def _runUnitTests(batch, tool, package, path, n_pro, show_gui, check_jmodelica, comp_tool):
     import buildingspy.development.regressiontest as u
 
-    ut = u.Tester(tool=tool, check_jmodelica=check_jmodelica)
+    ut = u.Tester(tool=tool,
+                  check_jmodelica=check_jmodelica,
+                  comp_tool=comp_tool)
     ut.batchMode(batch)
     ut.setLibraryRoot(path)
     if package is not None:
@@ -94,7 +96,7 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui, check_jmodelica):
     # (For buildingspy.__version__ >= 2)
     if not batch:
         try:
-            if tool == 'dymola' or check_jmodelica:
+            if (tool == 'dymola' or check_jmodelica) and comp_tool == 'funnel':
                 ut.report()
         except AttributeError:
             pass
@@ -135,7 +137,6 @@ if __name__ == '__main__':
     unit_test_group.add_argument("-p", "--path",
                                  default=".",
                                  help="Path where top-level package.mo of the library is located")
-
     unit_test_group.add_argument("-n", "--number-of-processors",
                                  type=int,
                                  default=multiprocessing.cpu_count(),
@@ -146,6 +147,11 @@ if __name__ == '__main__':
     unit_test_group.add_argument("--check-jmodelica",
                                  help='Check JModelica simulation results against reference points',
                                  action="store_true")
+    unit_test_group.add_argument('--comp-tool',
+                                 metavar='funnel',
+                                 default='funnel',
+                                 choices=['funnel', 'legacy'],
+                                 help="Comparison tool for validation against reference points")
 
     html_group = parser.add_argument_group(
         "arguments to check html syntax only")
@@ -200,7 +206,8 @@ if __name__ == '__main__':
                            path=args.path,
                            n_pro=args.number_of_processors,
                            show_gui=args.show_gui,
-                           check_jmodelica=True  # args.check_jmodelica,
+                           check_jmodelica=True,  # args.check_jmodelica,
+                           comp_tool=args.comp_tool,
                            )
     exit(retVal)
 
