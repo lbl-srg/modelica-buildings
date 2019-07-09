@@ -38,13 +38,13 @@ block Configurator "Configures chiller staging"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesCap[nSta](
     final unit="W",
-    final quantity="Power") "Stage design capacities vector"
+    final quantity="Power") "Design stage capacities"
     annotation (Placement(transformation(extent={{220,50},{240,70}}),
       iconTransformation(extent={{100,60},{120,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinCap[nSta](
     final unit="W",
-    final quantity="Power") "Unload stage capacities vector"
+    final quantity="Power") "Unload stage capacities"
     annotation (Placement(transformation(extent={{220,10},{240,30}}),
       iconTransformation(extent={{100,20},{120,40}})));
 

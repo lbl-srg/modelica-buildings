@@ -1,14 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
-block Capacities "Returns nominal and minimal capacities for calculating all operating part load ratios"
+block Capacities
+  "Returns nominal and minimal stage capacities required for calculating operating and stage part load ratios"
 
   parameter Integer nSta = 3
     "Total number of stages";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLow "Current stage is the lowest stage"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLow
+    "Current stage is the lowest stage"
     annotation (Placement(transformation(extent={{-300,-120},{-260,-80}}),
         iconTransformation(extent={{-120,-100},{-100,-80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigh "Current stage is the highest stage"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigh
+    "Current stage is the highest stage"
     annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
         iconTransformation(extent={{-120,-80},{-100,-60}})));
 
@@ -16,21 +19,20 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     final min=0,
     final max=nSta) "Chiller stage"
     annotation (Placement(transformation(extent={{-300,
-            100},{-260,140}}), iconTransformation(extent={{-120,20},{-100,40}})));
+        100},{-260,140}}), iconTransformation(extent={{-120,20},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp(
     final min=0,
     final max=nSta)
     "Next higher available stage"
     annotation (Placement(transformation(extent={{
-      -300,40},{-260,80}}), iconTransformation(extent={{-120,0},{-100,20}})));
+        -300,40},{-260,80}}), iconTransformation(extent={{-120,0},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDown(
     final min=0,
     final max=nSta) "Next lower available stage"
     annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
       iconTransformation(extent={{-120,-20},{-100,0}})));
-
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uNomCap[nSta](
     final quantity="Power",
@@ -47,47 +49,53 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
       Placement(transformation(extent={{-300,-240},{-260,-200}}),
         iconTransformation(extent={{-120,60},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yNom(final unit="W", final
-      quantity="Power") "Nominal capacity of the current stage" annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yNom(
+      final unit="W",
+      final quantity="Power") "Nominal capacity of the current stage" annotation (
       Placement(transformation(extent={{260,90},{280,110}}), iconTransformation(
           extent={{100,60},{120,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowNom(final unit="W",
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowNom(
+      final unit="W",
       final quantity="Power") "Nominal capacity of the first stage down"
-    annotation (Placement(transformation(extent={{260,10},{280,30}}),
+      annotation (Placement(transformation(extent={{260,10},{280,30}}),
         iconTransformation(extent={{100,-20},{120,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpNom(final unit="W",
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpNom(
+      final unit="W",
       final quantity="Power") "Nominal capacity of the next higher stage"
-    annotation (Placement(transformation(extent={{260,50},{280,70}}),
+      annotation (Placement(transformation(extent={{260,50},{280,70}}),
         iconTransformation(extent={{100,20},{120,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMin(final unit="W", final
-      quantity="Power") "Minimum capacity of the current stage" annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMin(
+      final unit="W",
+      final quantity="Power") "Minimum capacity of the current stage" annotation (
       Placement(transformation(extent={{260,-30},{280,-10}}),
         iconTransformation(extent={{100,-80},{120,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(final unit="W",
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(
+      final unit="W",
       final quantity="Power") "Minimum capacity of the next higher stage"
-    annotation (Placement(transformation(extent={{260,-70},{280,-50}}),
+      annotation (Placement(transformation(extent={{260,-70},{280,-50}}),
         iconTransformation(extent={{100,-60},{120,-40}})));
 
-//protected
+protected
   final parameter Real small = 0.001
   "Small number to avoid division with zero";
 
   final parameter Real larGai = 10
-  "Large gain generate number much larger than the highest stage capacity";
+  "Large gain";
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor cap(
-    allowOutOfRange=true,                              final outOfRangeValue=
-        small, final nin=nSta)
+    final nin=nSta,
+    final outOfRangeValue=small,
+    final allowOutOfRange=true)
     "Extracts the nominal capacity at the current stage"
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dowCap(
-    final outOfRangeValue=small,
     final nin=nSta,
+    final outOfRangeValue=small,
     final allowOutOfRange=true)
     "Extracts the nominal capacity of one stage lower than the current stage"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
@@ -126,8 +134,9 @@ block Capacities "Returns nominal and minimal capacities for calculating all ope
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=larGai)
-    "To make a very large and unachievable staging up capacity if already the highest available stage"
+    "To make a very large and unachievable staging up capacity if already at the highest available stage"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
+
 equation
   connect(swi2.y, yUpNom) annotation (Line(points={{221,70},{250,70},{250,60},{
           270,60}}, color={0,0,127}));
@@ -154,31 +163,27 @@ equation
   connect(uNomCap, upCap.u) annotation (Line(points={{-280,200},{-20,200},{-20,
           80},{18,80}}, color={0,0,127}));
   connect(uLow, swi1.u2) annotation (Line(points={{-280,-100},{-140,-100},{-140,
-          0},{98,0}},
-               color={255,0,255}));
+          0},{98,0}},color={255,0,255}));
   connect(uHigh, swi2.u2) annotation (Line(points={{-280,-160},{160,-160},{160,
-          70},{198,70}},
-                     color={255,0,255}));
+          70},{198,70}}, color={255,0,255}));
   connect(uHigh, swi4.u2) annotation (Line(points={{-280,-160},{160,-160},{160,
-          -90},{198,-90}},
-                      color={255,0,255}));
+          -90},{198,-90}}, color={255,0,255}));
   connect(cap.y, gai.u) annotation (Line(points={{-99,150},{-70,150},{-70,120},
           {-62,120}}, color={0,0,127}));
   connect(gai.y, swi2.u1) annotation (Line(points={{-39,120},{80,120},{80,90},{
-          160,90},{160,78},{198,78}},          color={0,0,127}));
+          160,90},{160,78},{198,78}}, color={0,0,127}));
   connect(gai.y, swi4.u1) annotation (Line(points={{-39,120},{60,120},{60,-82},
-          {198,-82}},                color={0,0,127}));
+          {198,-82}}, color={0,0,127}));
   connect(swi1.y, yDowNom) annotation (Line(points={{121,0},{200,0},{200,20},{
           270,20}}, color={0,0,127}));
   connect(u, cap.index) annotation (Line(points={{-280,120},{-110,120},{-110,
           138}}, color={255,127,0}));
   connect(uDown, dowCap.index) annotation (Line(points={{-280,0},{-160,0},{-160,
-          20},{-90,20},{-90,68}},
-                                color={255,127,0}));
+          20},{-90,20},{-90,68}}, color={255,127,0}));
   connect(uUp, upCap.index) annotation (Line(points={{-280,60},{-120,60},{-120,48},
-          {30,48},{30,68}},     color={255,127,0}));
+          {30,48},{30,68}}, color={255,127,0}));
   connect(uUp, upCapMin.index) annotation (Line(points={{-280,60},{-120,60},{-120,
-          -52},{30,-52},{30,-42}},      color={255,127,0}));
+          -52},{30,-52},{30,-42}}, color={255,127,0}));
   connect(cap.y, yNom) annotation (Line(points={{-99,150},{220,150},{220,100},{
           270,100}}, color={0,0,127}));
   connect(capMin.y, swi1.u1) annotation (Line(points={{41,-90},{80,-90},{80,8},
@@ -223,7 +228,7 @@ The minimal capacity of the current and first higher stage
 </li>
 </ul>
 <p>
-for the purpose of calculating the operative and staging part load ratios, 
+for the purpose of calculating the operating and stage part load ratios, 
 OPLR and SPLR, respectively.
 </p>
 <p>
