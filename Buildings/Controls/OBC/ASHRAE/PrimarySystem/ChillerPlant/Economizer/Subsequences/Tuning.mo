@@ -220,8 +220,6 @@ equation
           color={255,0,255}));
   connect(and5.y, lat.u) annotation (Line(points={{-59,-170},{-52,-170},{-52,
           -150},{-41,-150}}, color={255,0,255}));
-  connect(not1.y, lat.u0) annotation (Line(points={{-119,-60},{-50,-60},{-50,
-          -156},{-41,-156}}, color={255,0,255}));
   connect(lat.y, and4.u2) annotation (Line(points={{-19,-150},{-10,-150},{-10,
           -138},{-2,-138}},color={255,0,255}));
   connect(and1.y, triSam1.trigger)
@@ -229,6 +227,8 @@ equation
           color={255,0,255}));
   connect(greThr.y, and1.u3) annotation (Line(points={{81,-100},{90,-100},{90,
           -80},{20,-80},{20,-58},{38,-58}}, color={255,0,255}));
+  connect(not1.y, lat.clr) annotation (Line(points={{-119,-60},{-48,-60},{-48,
+          -156},{-41,-156}}, color={255,0,255}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(

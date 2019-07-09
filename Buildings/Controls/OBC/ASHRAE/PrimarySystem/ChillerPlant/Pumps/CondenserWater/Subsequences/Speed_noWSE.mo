@@ -2,10 +2,10 @@
 block Speed_noWSE
   "Sequence for operating condenser water pumps for plants without waterside economizer"
 
-  parameter Integer num = 2
+  parameter Integer nChi = 2
     "Total number of chiller";
-  parameter Real conWatPumSpeSet[num+1] = {0, 0.5, 0.75}
-    "Condenser water pump speed setpoint, according to number of operating chillers";
+  parameter Real conWatPumSpeSet[nChi+1] = {0, 0.5, 0.75}
+    "Vector of condenser water pump speed setpoint, the size should be total number of chiller plus one. number of operating pumps matchs number of operating chillers";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeChiNum
     "Number of operating chillers"
@@ -21,12 +21,12 @@ block Speed_noWSE
       iconTransformation(extent={{100,50},{120,70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[num + 1](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[nChi + 1](
     final k=conWatPumSpeSet)
     "Condenser water pump speed when different number of pumps are operating"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumSpe(
-    final nin=num + 1)
+    final nin=nChi + 1)
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt

@@ -2,12 +2,12 @@
 block Speed_haveWSE
   "Sequence for operating condenser water pumps for plants with waterside economizer"
 
-  parameter Integer staNum = 3
+  parameter Integer nSta = 3
     "Total number of stages, stage zero should be seen as one stage";
-  parameter Real conWatPumSpeSet[2*staNum] = {0, 0.5, 0.75, 0.6, 0.75, 0.9}
+  parameter Real conWatPumSpeSet[2*nSta] = {0, 0.5, 0.75, 0.6, 0.75, 0.9}
     "Condenser water pump speed setpoint, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage"));
-  parameter Real conWatPumOnSet[2*staNum] = {0,1,1,2,2,2}
+  parameter Real conWatPumOnSet[2*nSta] = {0,1,1,2,2,2}
     "Number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage"));
 
@@ -30,10 +30,10 @@ block Speed_haveWSE
 
 protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumOn(
-    final nin=2*staNum) "Number of condenser water pump should be on"
+    final nin=2*nSta) "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumSpe(
-    final nin=2*staNum)
+    final nin=2*nSta)
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{30,60},{50,80}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
@@ -44,11 +44,11 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[2*staNum](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[2*nSta](
     final k=conWatPumSpeSet)
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[2*staNum](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[2*nSta](
     final k=conWatPumOnSet)
     "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
@@ -188,6 +188,14 @@ or 100% speed if design flow cannot be achieved.</td>
 </tr>
 </table>
 <br/>
+
+<p>
+Note that in current implementation, it assumes that waterside economizer would be
+enabled in any chiller stage. For example, it would have stage 1 and stage 1 
+plus economizer, stage 2 and stage 2 plus economizer, stage 3 and stage 3 plus economizer, 
+etc.
+</p>
+
 </html>", revisions="<html>
 <ul>
 <li>

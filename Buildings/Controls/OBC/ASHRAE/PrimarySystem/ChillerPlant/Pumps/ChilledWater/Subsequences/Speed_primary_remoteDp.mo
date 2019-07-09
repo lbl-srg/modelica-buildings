@@ -192,19 +192,23 @@ according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Pha
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
 section 5.2.6 Primary chilled water pumps, part 5.2.6.5 and 5.2.6.6.
 </p>
-<p>
-1. When any chilled water pump is proven on, <code>uChiWatPum</code> = true, 
+<ol>
+<li>
+When any chilled water pump is proven on, <code>uChiWatPum</code> = true, 
 pump speed will be controlled by a reverse acting PID loop maintaining the
 differential pressure signal at a setpoint <code>dpChiWatSet</code>. All pumps
 receive the same speed signal. PID loop output shall be mapped from minimum
 pump speed (<code>minPumSpe</code>) at 0% to maximum pump speed
 (<code>maxPumSpe</code>) at 100%.
-</p>
-<p>
-2. Where multiple differential pressure sensors exist, a PID loop shall run for
+</li>
+<li>
+Where multiple differential pressure sensors exist, a PID loop shall run for
 each sensor. Chilled water pumps shall be controlled to the high signal output
 of all DP sensor loops.
-</p>
+</li>
+</ol>
+
+
 </html>", revisions="<html>
 <ul>
 <li>
