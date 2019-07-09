@@ -1,6 +1,5 @@
 compareVars :=
   {
     "movMea.u",
-    "movMea.y",
-    "movMea.yDiscrete"
+    "movMea.y"
   };
