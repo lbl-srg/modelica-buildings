@@ -102,8 +102,8 @@ protected
     final k={true,false,true,false}) "Stage availability array"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava3[4](final k={false,
-        false,false,false})          "Stage availability array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava3[4](final k={true,
+        false,true,false})           "Stage availability array"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava6[4](
