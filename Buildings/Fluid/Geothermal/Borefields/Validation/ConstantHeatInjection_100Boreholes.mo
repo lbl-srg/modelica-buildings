@@ -80,7 +80,7 @@ equation
                                       color={0,127,255}));
   connect(hea.u, heaRat.y) annotation (Line(points={{-52,-14},{-60,-14},{-60,20},
           {-67,20}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6, StopTime=31536000000),
+  annotation (experiment(Tolerance=1e-6, StopTime=31536.0E+06),
   __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Validation/ConstantHeatInjection_100Boreholes.mos"
         "Simulate and Plot"),
@@ -98,6 +98,12 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFa
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 24, 2019, by Michael Wetter:<br/>
+Changed <code>StopTime</code> from integer to floating point.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1163\">issue 1163</a>.
+</li>
 <li>
 May 27, 2019, by Massimo Cimmino:<br/>
 First implementation.
