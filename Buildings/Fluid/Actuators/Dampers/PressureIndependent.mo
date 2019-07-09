@@ -83,12 +83,13 @@ equation
   dp_lim = min(dp_1 + 0.5 * m_tol / c_regul,
     dp_0 - dp_small);
   m_flow_lim = y_internal * m_flow_nominal + m_tol;
+  // basicFlowFunction_m_flow and basicFlowFunction_dp are not strict inverse outside the
+  // turbulent flow region: we assume the leakage flow regime to be turbulent for all flow
+  // rate values.
   dp_0 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
       m_flow=m_flow_lim,
       k=kTot_0,
       m_flow_turbulent=y_min * m_flow_nominal);
-  // basicFlowFunction_m_flow and basicFlowFunction_dp are not strict inverse outside the
-  // turbulent flow region.
   dp_1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=y_internal * m_flow_nominal,
     k=kTot_1,
