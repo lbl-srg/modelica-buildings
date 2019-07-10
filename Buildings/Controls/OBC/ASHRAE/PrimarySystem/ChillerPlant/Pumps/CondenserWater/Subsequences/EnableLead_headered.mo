@@ -2,7 +2,10 @@
 block EnableLead_headered
   "Sequence for enabling lead pump of plants with headered condenser water pumps"
 
- Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal
+ parameter Boolean haveWSE = true
+    "Flag of waterside economizer: true=have WSE, false=no WSE";
+
+ Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal if haveWSE
     "WSE condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -17,31 +20,38 @@ block EnableLead_headered
 
 protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta "Lead pump status"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
     "Logical false"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true)
     "Logical true"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=false) if
+       not haveWSE
+    "Logical false"
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
 equation
   connect(con1.y, leaPumSta.u3)
-    annotation (Line(points={{-19,-40},{0,-40},{0,-8},{18,-8}},
+    annotation (Line(points={{1,-60},{20,-60},{20,-8},{38,-8}},
       color={255,0,255}));
   connect(con.y, leaPumSta.u1)
-    annotation (Line(points={{-19,40},{0,40},{0,8},{18,8}}, color={255,0,255}));
+    annotation (Line(points={{1,40},{20,40},{20,8},{38,8}}, color={255,0,255}));
   connect(leaPumSta.y, yLeaPum)
-    annotation (Line(points={{41,0},{72,0},{72,0},{110,0}}, color={255,0,255}));
+    annotation (Line(points={{61,0},{110,0}}, color={255,0,255}));
   connect(or2.y, leaPumSta.u2)
-    annotation (Line(points={{-19,0},{18,0}}, color={255,0,255}));
+    annotation (Line(points={{1,0},{38,0}}, color={255,0,255}));
   connect(uWseConIsoVal, or2.u2)
-    annotation (Line(points={{-120,-20},{-60,-20},{-60,-8},{-42,-8}},
+    annotation (Line(points={{-120,-20},{-40,-20},{-40,-8},{-22,-8}},
       color={255,0,255}));
   connect(uChiConIsoVal, or2.u1)
-    annotation (Line(points={{-120,20},{-60,20},{-60,0},{-42,0}},
+    annotation (Line(points={{-120,20},{-40,20},{-40,0},{-22,0}},
+      color={255,0,255}));
+  connect(con2.y, or2.u2)
+    annotation (Line(points={{-59,-60},{-40,-60},{-40,-8},{-22,-8}},
       color={255,0,255}));
 
 annotation (

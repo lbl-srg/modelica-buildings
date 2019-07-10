@@ -27,19 +27,19 @@ block Controller "Condenser water pump controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage"
-    annotation (Placement(transformation(extent={{-160,50},{-120,90}}),
+    annotation (Placement(transformation(extent={{-160,30},{-120,70}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if haveWSE
     "Water side economizer status: true = ON, false = OFF"
-    annotation (Placement(transformation(extent={{-160,-50},{-120,-10}}),
+    annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiOn
     "Lead chiller status: true=lead chiller proven on"
-    annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
+    annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaConWatReq
     "Status indicating if chiller is requesting condenser water"
-    annotation (Placement(transformation(extent={{-160,-10},{-120,30}}),
+    annotation (Placement(transformation(extent={{-160,-30},{-120,10}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe(
     final min=0,
@@ -66,7 +66,7 @@ block Controller "Condenser water pump controller"
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered
-    enaLeaHeaPum if isHeadered
+    enaLeaHeaPum(final haveWSE=haveWSE) if isHeadered
     "Enable lead pumps for plants with headered condenser water pump"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_dedicated
@@ -112,16 +112,19 @@ protected
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt "Add inputs"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=1)
+    "Integer constant"
+    annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
 
 equation
   connect(con.y, curOpeChi.u)
     annotation (Line(points={{-79,100},{-62,100}}, color={0,0,127}));
-  connect(uChiSta, curOpeChi.index)
-    annotation (Line(points={{-140,70},{-50,70},{-50,88}}, color={255,127,0}));
   connect(curOpeChi.y, greEquThr.u)
     annotation (Line(points={{-39,100},{-22,100}}, color={0,0,127}));
   connect(uWSE, enaLeaHeaPum.uWseConIsoVal)
-    annotation (Line(points={{-140,-30},{10,-30},{10,76},{38,76}},
+    annotation (Line(points={{-140,-40},{10,-40},{10,76},{38,76}},
       color={255,0,255}));
   connect(greEquThr.y, enaLeaHeaPum.uChiConIsoVal)
     annotation (Line(points={{1,100},{20,100},{20,84},{38,84}},
@@ -130,16 +133,13 @@ equation
     annotation (Line(points={{1,100},{20,100},{20,48},{38,48}},
       color={255,0,255}));
   connect(enaLeaDedPum.uLeaChiOn, uLeaChiOn)
-    annotation (Line(points={{38,40},{-140,40}}, color={255,0,255}));
+    annotation (Line(points={{38,40},{-80,40},{-80,20},{-140,20}}, color={255,0,255}));
   connect(enaLeaDedPum.uLeaConWatReq, uLeaConWatReq)
-    annotation (Line(points={{38,32},{-100,32},{-100,10},{-140,10}},
+    annotation (Line(points={{38,32},{-60,32},{-60,-10},{-140,-10}},
       color={255,0,255}));
   connect(uWSE, pumSpeWitWse.uWSE)
-    annotation (Line(points={{-140,-30},{10,-30},{10,-44},{38,-44}},
+    annotation (Line(points={{-140,-40},{10,-40},{10,-44},{38,-44}},
       color={255,0,255}));
-  connect(uChiSta, pumSpeWitWse.uChiSta)
-    annotation (Line(points={{-140,70},{-50,70},{-50,-36},{38,-36}},
-      color={255,127,0}));
   connect(curOpeChi.y, reaToInt.u)
     annotation (Line(points={{-39,100},{-30,100},{-30,0},{-22,0}},
       color={0,0,127}));
@@ -176,6 +176,17 @@ equation
     annotation (Line(points={{21,-80},{38,-80}}, color={255,0,255}));
   connect(not1.y, yPumSpeChe)
     annotation (Line(points={{61,-80},{130,-80}}, color={255,0,255}));
+  connect(uChiSta, pumSpeWitWse.uChiSta)
+    annotation (Line(points={{-140,50},{-100,50},{-100,-36},{38,-36}},
+      color={255,127,0}));
+  connect(uChiSta, addInt.u2)
+    annotation (Line(points={{-140,50},{-100,50},{-100,54},{-82,54}},
+      color={255,127,0}));
+  connect(conInt.y, addInt.u1)
+    annotation (Line(points={{-89,70},{-86,70},{-86,66},{-82,66}},
+      color={255,127,0}));
+  connect(addInt.y, curOpeChi.index)
+    annotation (Line(points={{-59,60},{-50,60},{-50,88}}, color={255,127,0}));
 
 annotation (
   defaultComponentName="conWatPumCon",
