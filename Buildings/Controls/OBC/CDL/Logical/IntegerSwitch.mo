@@ -19,7 +19,7 @@ equation
 defaultComponentName="intSwi",
 Documentation(info="<html>
 <p>
-A block that is a switch between two integer signals.
+A block to switch between two integer signals.
 </p>
 <p>
 If the input signal <code>u2</code> is <code>true</code>,
