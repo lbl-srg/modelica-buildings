@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "capReq.y",
+    "capReq.VChiWat_flow",
+    "capReq.TChiWatRet",
+    "capReq.TChiWatSupSet"
+  };
