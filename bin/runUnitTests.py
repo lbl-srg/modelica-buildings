@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #######################################################
 # Script that runs all unit tests or, optionally,
 # only checks the html syntax or the validity of
@@ -27,6 +28,9 @@
 # MWetter@lbl.gov                            2011-02-23
 # TSNouidui@lbl.gov                          2017-04-11
 #######################################################
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
 
 def _validate_experiment_setup(path):
@@ -44,9 +48,10 @@ def _validate_html(path):
     n_msg = len(errMsg)
     for i in range(n_msg):
         if i == 0:
-            print "The following malformed html syntax has been found:\n%s" % errMsg[i]
+            print(
+                "The following malformed html syntax has been found:\n{}".format(errMsg[i]))
         else:
-            print errMsg[i]
+            print(errMsg[i])
 
     if n_msg == 0:
         return 0
@@ -59,7 +64,7 @@ def _setEnvironmentVariables(var, value):
     '''
     import os
     import platform
-    if os.environ.has_key(var):
+    if var in os.environ:
         if platform.system() == "Windows":
             os.environ[var] = value + ";" + os.environ[var]
         else:
