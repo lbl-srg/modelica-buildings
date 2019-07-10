@@ -36,4 +36,4 @@ test-dymola:
 	(cd $(ROOT)/Buildings && python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
 
 test-jmodelica:
-	(cd $(ROOT)/Buildings && python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool jmodelica)
+	(cd $(ROOT)/Buildings && python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool jmodelica --skip-verification)
