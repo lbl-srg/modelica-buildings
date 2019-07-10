@@ -377,7 +377,7 @@ equation
   connect(sta.uDown, PLRs.uDown) annotation (Line(points={{-119,51},{-96,51},{
           -96,-24},{-81,-24}},
                            color={255,127,0}));
-  connect(conf.yNomCap, cap.uNomCap) annotation (Line(points={{-169,117},{-148,
+  connect(conf.yNomCap,cap.uDesCap)  annotation (Line(points={{-169,117},{-148,
           117},{-148,-61},{-141,-61}}, color={0,0,127}));
   connect(conf.yMinCap, cap.uMinCap) annotation (Line(points={{-169,115},{-146,
           115},{-146,-63},{-141,-63}}, color={0,0,127}));
@@ -385,8 +385,8 @@ equation
           20},{-152,20},{-152,-69},{-141,-69}}, color={255,127,0}));
   connect(sta.uDown, cap.uDown) annotation (Line(points={{-119,51},{-112,51},{
           -112,22},{-154,22},{-154,-71},{-141,-71}}, color={255,127,0}));
-  connect(sta.yHig, cap.uHigh) annotation (Line(points={{-119,47},{-114,47},{
-          -114,10},{-156,10},{-156,-77},{-141,-77}}, color={255,0,255}));
+  connect(sta.yHig, cap.uHig) annotation (Line(points={{-119,47},{-114,47},{-114,
+          10},{-156,10},{-156,-77},{-141,-77}}, color={255,0,255}));
   connect(sta.yLow, cap.uLow) annotation (Line(points={{-119,45},{-116,45},{
           -116,12},{-158,12},{-158,-79},{-141,-79}}, color={255,0,255}));
   connect(sta.yHig, staUp.uHigSta) annotation (Line(points={{-119,47},{12,47},{

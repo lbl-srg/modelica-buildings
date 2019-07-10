@@ -7,7 +7,7 @@ block CapacityRequirement
   parameter Modelica.SIunits.SpecificHeatCapacity watSpeHea = 4184
   "Specific heat capacity of water";
 
-  parameter Modelica.SIunits.Time avePer = 5*60
+  parameter Modelica.SIunits.Time avePer = 300
   "Period for the rolling average";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
@@ -77,31 +77,26 @@ equation
   connect(TChiWatRet, add2.u2) annotation (Line(points={{-160,20},{-130,20},{-130,
           44},{-122,44}},color={0,0,127}));
   connect(add2.u1, TChiWatSupSet) annotation (Line(points={{-122,56},{-130,56},{
-          -130,80},{-160,80}},
-                          color={0,0,127}));
+          -130,80},{-160,80}}, color={0,0,127}));
   connect(add2.y, pro.u1) annotation (Line(points={{-99,50},{-70,50},{-70,6},{
-          18,6}},
-               color={0,0,127}));
+          18,6}}, color={0,0,127}));
   connect(pro.y, movMea.u)
     annotation (Line(points={{41,0},{58,0}}, color={0,0,127}));
   connect(speHeaCap.y, pro1.u2) annotation (Line(points={{-99,-70},{-90,-70},{
-          -90,-56},{-82,-56}},
-                           color={0,0,127}));
+          -90,-56},{-82,-56}}, color={0,0,127}));
   connect(pro1.y, pro2.u2) annotation (Line(points={{-59,-50},{-50,-50},{-50,
-          -16},{-22,-16}},
-                     color={0,0,127}));
+          -16},{-22,-16}}, color={0,0,127}));
   connect(pro.u2, pro2.y) annotation (Line(points={{18,-6},{10,-6},{10,-10},{1,
           -10}}, color={0,0,127}));
   connect(pro1.u1, density.y) annotation (Line(points={{-82,-44},{-90,-44},{-90,
           -30},{-99,-30}}, color={0,0,127}));
   connect(VChiWat_flow, pro2.u1) annotation (Line(points={{-160,-60},{-130,-60},
-          {-130,-4},{-22,-4}},                    color={0,0,127}));
+          {-130,-4},{-22,-4}}, color={0,0,127}));
   connect(max.u1, minLim.y) annotation (Line(points={{98,6},{90,6},{90,50},{81,
           50}}, color={0,0,127}));
   connect(movMea.y, max.u2) annotation (Line(points={{81,0},{90,0},{90,-6},{98,
-          -6}},             color={0,0,127}));
-  connect(max.y, y) annotation (Line(points={{121,0},{150,0}},
-        color={0,0,127}));
+          -6}}, color={0,0,127}));
+  connect(max.y, y) annotation (Line(points={{121,0},{150,0}}, color={0,0,127}));
   annotation (defaultComponentName = "capReq",
         Icon(graphics={
         Rectangle(

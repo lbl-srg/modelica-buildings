@@ -1,50 +1,34 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
 model Capacities_u
-  "Validate stage capacities sequence for chiller stage inputs"
-
-  parameter Integer nSta = 2
-  "Highest chiller stage";
-
-  parameter Modelica.SIunits.Power staNomCap[nSta] = {5e5, 5e5}
-    "Nominal capacity at all chiller stages, starting with stage 0";
-
-  parameter Modelica.SIunits.Power minStaUnlCap[nSta] = {0.2*staNomCap[1], 0.2*staNomCap[2]}
-    "Nominal part load ratio for at all chiller stages, starting with stage 0";
-
-  parameter Real small = 0.001
-  "Small number to avoid division with zero";
-
-  parameter Real large = staNomCap[end]*nSta*10
-  "Large number for numerical consistency";
+  "Validate stage capacities subsequence for chiller stage inputs"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap0(final nSta=3)
-                     "Nominal capacitites at the current and stage one lower"
+    "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap1(final nSta=3)
-                     "Nominal capacitites at the current and stage one lower"
+    "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap2(final nSta=3)
-                     "Nominal capacitites at the current and stage one lower"
+    "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
-  Capacities
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities
     staCap3(final nSta=3)
-                     "Nominal capacitites at the current and stage one lower"
+    "Nominal capacitites at the current and stage one lower"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
+
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desStaCap[3](final k={
-        2e5,1e6,1.5e6})
-                   "Design stage capacities"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desStaCap[3](
+    final k={2e5,1e6,1.5e6}) "Design stage capacities"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaCap[3](final k={
-        4e4,2e5,3e5})
-                  "Minimum stage capacities"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaCap[3](
+    final k={4e4,2e5,3e5}) "Minimum stage capacities"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(final k=0)
@@ -59,34 +43,42 @@ protected
     "Chiller stage"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  CDL.Logical.Sources.Constant con(final k=true) "Boolean signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true)
+    "Boolean signal"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-  CDL.Integers.Sources.Constant                        stage3(final k=3)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage3(final k=3)
     "Chiller stage"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
-  CDL.Integers.Sources.Constant                        stage4(final k=3)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage4(final k=3)
     "Chiller stage"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  CDL.Integers.Sources.Constant                        stage5(final k=3)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage5(final k=3)
     "Chiller stage"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  CDL.Integers.Sources.Constant                        stage6(final k=3)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage6(final k=3)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  CDL.Integers.Sources.Constant                        stage7(final k=1)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage7(final k=1)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  CDL.Logical.Sources.Constant con1(final k=false) "Boolean signal"
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
+    "Boolean signal"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
 equation
   connect(stage0.y, staCap0.u)
     annotation (Line(points={{-119,30},{-110,30},{-110,13},{-101,13}},
-                                                                   color={255,127,0}));
+    color={255,127,0}));
   connect(stage1.y, staCap1.u)
     annotation (Line(points={{-39,30},{-30,30},{-30,13},{-21,13}},
-                                                               color={255,127,0}));
+    color={255,127,0}));
   connect(stage2.y, staCap2.u)
-    annotation (Line(points={{41,30},{50,30},{50,13},{59,13}},         color={255,127,0}));
+    annotation (Line(points={{41,30},{50,30},{50,13},{59,13}}, color={255,127,0}));
   connect(stage3.y, staCap3.u) annotation (Line(points={{121,30},{130,30},{130,13},
           {139,13}}, color={255,127,0}));
   connect(stage0.y, staCap0.uDown) annotation (Line(points={{-119,30},{-110,30},
@@ -121,19 +113,19 @@ equation
           110},{134,19},{139,19}}, color={0,0,127}));
   connect(staCap3.uMinCap, minStaCap.y) annotation (Line(points={{139,17},{132,17},
           {132,70},{-119,70}}, color={0,0,127}));
-  connect(con1.y, staCap1.uHigh) annotation (Line(points={{-119,-50},{-28,-50},{
-          -28,3},{-21,3}}, color={255,0,255}));
+  connect(con1.y, staCap1.uHig) annotation (Line(points={{-119,-50},{-28,-50},{-28,
+          3},{-21,3}}, color={255,0,255}));
   connect(con.y, staCap1.uLow) annotation (Line(points={{-119,-90},{-26,-90},{-26,
           1},{-21,1}}, color={255,0,255}));
-  connect(staCap0.uHigh, con1.y) annotation (Line(points={{-101,3},{-110,3},{-110,
+  connect(staCap0.uHig, con1.y) annotation (Line(points={{-101,3},{-110,3},{-110,
           -50},{-119,-50}}, color={255,0,255}));
   connect(staCap0.uLow, con.y) annotation (Line(points={{-101,1},{-108,1},{-108,
           -90},{-119,-90}}, color={255,0,255}));
-  connect(con1.y, staCap2.uHigh) annotation (Line(points={{-119,-50},{52,-50},{52,
+  connect(con1.y, staCap2.uHig) annotation (Line(points={{-119,-50},{52,-50},{52,
           3},{59,3}}, color={255,0,255}));
   connect(con1.y, staCap2.uLow) annotation (Line(points={{-119,-50},{54,-50},{54,
           1},{59,1}}, color={255,0,255}));
-  connect(con.y, staCap3.uHigh) annotation (Line(points={{-119,-90},{132,-90},{132,
+  connect(con.y, staCap3.uHig) annotation (Line(points={{-119,-90},{132,-90},{132,
           3},{139,3}}, color={255,0,255}));
   connect(con1.y, staCap3.uLow) annotation (Line(points={{-119,-50},{134,-50},{134,
           1},{139,1}}, color={255,0,255}));
@@ -150,7 +142,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacit
 </html>", revisions="<html>
 <ul>
 <li>
-October 13, by Milica Grahovac:<br/>
+July 10, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
