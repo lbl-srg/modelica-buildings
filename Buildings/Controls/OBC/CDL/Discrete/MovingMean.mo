@@ -22,7 +22,7 @@ protected
 
 initial algorithm
   t0 := time;
-  y := 0;
+  y := u;
 
 algorithm
   sampleTrigger := sample(t0, samplePeriod);
