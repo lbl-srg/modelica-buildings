@@ -15,7 +15,7 @@ protected
     final amplitude=0.1,
     final freqHz=1/2100,
     final offset=0.45)
-                      "Operating part load ratio of the next stage up"
+    "Operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUpMin(

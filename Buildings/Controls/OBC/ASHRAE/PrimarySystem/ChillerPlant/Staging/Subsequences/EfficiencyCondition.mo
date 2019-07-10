@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 block EfficiencyCondition
   "Efficiency condition used in staging up and down"
 
-  parameter Modelica.SIunits.Time delayStaCha = 15*60
+  parameter Modelica.SIunits.Time delayStaCha = 300
   "Enable delay";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplr(final unit="1")
@@ -19,7 +19,7 @@ block EfficiencyCondition
     annotation (Placement(transformation(extent={{80,-10},{100,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-//protected
+protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=delayStaCha, delayOnInit=true)
     "Delays a true signal"

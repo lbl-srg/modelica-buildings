@@ -20,7 +20,6 @@ protected
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 
 equation
-
   connect(oplr.y, effCon.uOplr) annotation (Line(points={{-19,30},{-10,30},{-10,
           15},{-1,15}}, color={0,0,127}));
   connect(splrUp.y, effCon.uSplrUp) annotation (Line(points={{-19,-10},{-10,-10},

@@ -3,10 +3,10 @@ block FailsafeCondition
   "Failsafe condition used in staging up and down"
 
   parameter Modelica.SIunits.Time delayStaCha = 15*60
-  "Enable delay";
+    "Enable delay";
 
   parameter Modelica.SIunits.TemperatureDifference TDif = 1
-  "Offset between the chilled water supply temperature and its setpoint";
+    "Offset between the chilled water supply temperature and its setpoint";
 
   parameter Modelica.SIunits.TemperatureDifference TDifHyst = 1
     "Hysteresis deadband for temperature";
@@ -52,9 +52,8 @@ block FailsafeCondition
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
-    annotation (Placement(transformation(
-      extent={{-180,-60},{-140,-20}}),   iconTransformation(extent={{-120,-40},{
-            -100,-20}})));
+    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
+      iconTransformation(extent={{-120,-40},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Failsafe condition for chiller staging"
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
@@ -78,9 +77,10 @@ block FailsafeCondition
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-//protected
+protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=delayStaCha, delayOnInit=true)
+    final delayTime=delayStaCha,
+    final delayOnInit=true)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -95,8 +95,10 @@ block FailsafeCondition
     final k2=1) "Adder for temperatures"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k1=1, final k2=-1)
-                "Adder for Diferetial pressures"
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(
+    final k1=1,
+    final k2=-1)
+    "Adder for Diferetial pressures"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
@@ -109,23 +111,23 @@ equation
   connect(add1.y, hysdpSup.u)
     annotation (Line(points={{-79,-90},{-62,-90}}, color={0,0,127}));
   connect(dpChiWatPumSet, add1.u1) annotation (Line(points={{-160,-80},{-120,-80},
-          {-120,-84},{-102,-84}},   color={0,0,127}));
+          {-120,-84},{-102,-84}}, color={0,0,127}));
   connect(dpChiWatPum, add1.u2) annotation (Line(points={{-160,-120},{-120,-120},
-          {-120,-96},{-102,-96}},   color={0,0,127}));
+          {-120,-96},{-102,-96}}, color={0,0,127}));
   connect(hysTSup.y, or1.u1)
     annotation (Line(points={{-39,-10},{18,-10}}, color={255,0,255}));
   connect(add0.y, hysTSup.u)
     annotation (Line(points={{-79,-10},{-62,-10}}, color={0,0,127}));
   connect(TChiWatSupSet, add0.u1) annotation (Line(points={{-160,0},{-120,0},{-120,
-          -4},{-102,-4}},         color={0,0,127}));
+          -4},{-102,-4}}, color={0,0,127}));
   connect(TChiWatSup, add0.u2) annotation (Line(points={{-160,-40},{-120,-40},{-120,
           -16},{-102,-16}}, color={0,0,127}));
   connect(add2.y, hysOplr.u)
     annotation (Line(points={{-79,90},{-62,90}}, color={0,0,127}));
   connect(uOplrUp, add2.u1) annotation (Line(points={{-160,100},{-120,100},{-120,
-          96},{-102,96}},   color={0,0,127}));
+          96},{-102,96}}, color={0,0,127}));
   connect(uOplrUpMin, add2.u2) annotation (Line(points={{-160,60},{-120,60},{-120,
-          84},{-102,84}},   color={0,0,127}));
+          84},{-102,84}}, color={0,0,127}));
   connect(hysdpSup.y, or1.u2) annotation (Line(points={{-39,-90},{10,-90},{10,-18},
           {18,-18}}, color={255,0,255}));
   connect(or1.y, and2.u2) annotation (Line(points={{41,-10},{50,-10},{50,-8},{58,
@@ -145,7 +147,7 @@ equation
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
           textString="%name")}),
-                          Diagram(coordinateSystem(preserveAspectRatio=false,
+        Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-140,-140},{140,140}})),
 Documentation(info="<html>
 <p>
