@@ -73,6 +73,7 @@ model Configurator_uChiAva "Validate chiller staging configurator sequence"
         "Stage configurator"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[3](
     final k={true,true,true})
     "Chiller availability array"
@@ -98,7 +99,8 @@ model Configurator_uChiAva "Validate chiller staging configurator sequence"
     "Chiller availability array"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva2[3](final k={false,false,true})
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva2[3](
+    final k={false,false,true})
     "Chiller availability array"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 

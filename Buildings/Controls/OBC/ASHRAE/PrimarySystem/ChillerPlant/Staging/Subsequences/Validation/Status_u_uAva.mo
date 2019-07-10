@@ -12,7 +12,7 @@ model Status_u_uAva "Validates chiller stage status model"
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}})
-    "Tests chiller stage status at zero current stage"
+    "Tests chiller stage status at the first stage"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status sta2(
@@ -33,7 +33,7 @@ model Status_u_uAva "Validates chiller stage status model"
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}})
-    "Tests for out of range current stage"
+    "Tests chiller stage status at the highest stage"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status sta6(
@@ -54,7 +54,7 @@ model Status_u_uAva "Validates chiller stage status model"
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}})
-    "Tests for out of range current stage"
+    "Tests chiller stage status at zero current stage"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
 
 protected
@@ -62,7 +62,7 @@ protected
     "Chiller stage"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u1(final k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u1(final k=1)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
 
@@ -74,7 +74,7 @@ protected
     "Chiller stage"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u4(final k=5)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u4(final k=4)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 
@@ -82,11 +82,7 @@ protected
     "Chiller stage"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u6(final k=3)
-    "Chiller stage"
-    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u7(final k=-1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant u7(final k=0)
     "Chiller stage"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 
@@ -102,13 +98,24 @@ protected
     final k={true,false,true,false}) "Stage availability array"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava3[4](final k={true,
-        false,true,false})           "Stage availability array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava3[4](
+    final k={true,false,true,false})           "Stage availability array"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava6[4](
     final k={true,true,false,false}) "Stage availability array"
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Type converter"
+    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Type converter"
+    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
+
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
+    final samplePeriod=1,
+    final y_start=3)
+    annotation (Placement(transformation(extent={{50,-160},{70,-140}})));
 
 equation
   connect(ava.y, sta.uAva) annotation (Line(points={{-119,150},{-80,150},{-80,136},
@@ -133,8 +140,6 @@ equation
           -56}}, color={255,127,0}));
   connect(ava6.y, sta7.uAva) annotation (Line(points={{41,-110},{80,-110},{80,-124},
           {118,-124}}, color={255,0,255}));
-  connect(u6.y, sta7.u) annotation (Line(points={{41,-150},{80,-150},{80,-136},{
-          118,-136}}, color={255,127,0}));
   connect(u7.y, sta5.u) annotation (Line(points={{-119,-150},{-80,-150},{-80,
           -136},{-42,-136}},
                        color={255,127,0}));
@@ -145,6 +150,14 @@ equation
                              color={255,0,255}));
   connect(ava3.y, sta6.uAva) annotation (Line(points={{41,70},{60,70},{60,-44},{
           118,-44}}, color={255,0,255}));
+  connect(sta7.y, intToRea.u) annotation (Line(points={{141,-121},{148,-121},{148,
+          -170},{10,-170},{10,-150},{18,-150}}, color={255,127,0}));
+  connect(intToRea.y, uniDel.u)
+    annotation (Line(points={{41,-150},{48,-150}}, color={0,0,127}));
+  connect(uniDel.y, reaToInt.u)
+    annotation (Line(points={{71,-150},{78,-150}}, color={0,0,127}));
+  connect(reaToInt.y, sta7.u) annotation (Line(points={{101,-150},{110,-150},{110,
+          -136},{118,-136}}, color={255,127,0}));
 annotation (
  experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Status_u_uAva.mos"
