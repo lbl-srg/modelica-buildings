@@ -5,6 +5,9 @@ block EfficiencyCondition
   parameter Modelica.SIunits.Time delayStaCha = 300
   "Enable delay";
 
+  parameter Real hysSig = 0.05
+    "Signal hysteresis deadband";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplr(final unit="1")
     "Operating part load ratio of the current stage" annotation (Placement(
         transformation(extent={{-140,0},{-100,40}}), iconTransformation(
@@ -12,8 +15,8 @@ block EfficiencyCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSplrUp(final unit="1")
     "Staging part load ratio of the next stage up" annotation (Placement(
-        transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent={{-120,
-            -60},{-100,-40}})));
+        transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-120,-60},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Efficiency condition for chiller staging"
@@ -29,7 +32,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
     final uLow=0,
-    final uHigh=0.05)
+    final uHigh=hysSig)
     "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
@@ -63,7 +66,8 @@ equation
           extent={{-100,-60},{80,60}})),
 Documentation(info="<html>
 <p>
-Efficiency condition used in staging up and down, according to 2019-01-07 RP 1711 Task 2 document, section 5.2.4.14.
+Efficiency condition used in staging up and down, implemented according to 
+section 5.2.4.14.
 </p>
 </html>",
 revisions="<html>

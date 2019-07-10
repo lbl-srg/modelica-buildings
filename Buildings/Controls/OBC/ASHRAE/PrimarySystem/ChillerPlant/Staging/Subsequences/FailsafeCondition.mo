@@ -9,7 +9,10 @@ block FailsafeCondition
     "Offset between the chilled water supply temperature and its setpoint";
 
   parameter Modelica.SIunits.TemperatureDifference TDifHyst = 1
-    "Hysteresis deadband for temperature";
+    "Temperature hysteresis deadband";
+
+  parameter Real hysSig = 0.05
+    "Signal hysteresis deadband";
 
   parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
     "Offset between the chilled water pump Diferential static pressure and its setpoint";
@@ -59,9 +62,10 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
     final uLow=0,
-    final uHigh=0.05)
+    final uHigh=hysSig)
     "Checks if the operating part load ratio of the next stage up exceeds the required minimum"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
@@ -77,7 +81,6 @@ block FailsafeCondition
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=delayStaCha,
     final delayOnInit=true)
@@ -151,7 +154,8 @@ equation
           extent={{-140,-140},{140,140}})),
 Documentation(info="<html>
 <p>
-Failsafe condition used in staging up and down, according to 2019-01-07 RP 1711 Task 2 document, section 5.2.4.14.
+Failsafe condition used in staging up and down,
+implemented according to section 5.2.4.14.
 </p>
 </html>",
 revisions="<html>
