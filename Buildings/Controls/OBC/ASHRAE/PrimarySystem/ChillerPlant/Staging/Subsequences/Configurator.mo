@@ -70,16 +70,16 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumChi(
     final K=staMat)
-    "Returns the total chiller count per stage vector "
+    "Outputs the total chiller count per stage vector"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumAvaChi(
     final K=staMat)
-    "Returns the available chiller count per stage vector"
+    "Outputs the available chiller count per stage vector"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nChi](
-    final k=fill(1, nChi)) "Case with all chillers available "
+    final k=fill(1, nChi)) "Mocks a case with all chillers available"
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
@@ -88,12 +88,12 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2[nSta](
     final k2=fill(-1, nSta))
-    "Subtracts count of available stage chillers from the design stage chiller count"
+    "Subtracts count of available chillers from the design count, at each stage"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[nSta](
     final threshold=fill(0.5, nSta))
-    "Checks if the number of chillers available in each stage equals the design number of chillers"
+    "Checks if the count of available chillers in each stage equals the design count"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiStaMat[nSta,nChi](
@@ -133,7 +133,9 @@ protected
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Chillers are not staged in a recommended order. If possible, please stage any positive displacement machines first, any variable speed centrifugal next and any constant speed centrifugal last.")
+    final message="Chillers are not staged in a recommended order. 
+    If possible, please stage any positive displacement machines first, 
+    any variable speed centrifugal next and any constant speed centrifugal last.")
     "Staging type order assertion"
     annotation (Placement(transformation(extent={{180,-120},{200,-100}})));
 

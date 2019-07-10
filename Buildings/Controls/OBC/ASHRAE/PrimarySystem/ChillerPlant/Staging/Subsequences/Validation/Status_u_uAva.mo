@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model Status_u_uAva "Validates chiller stage status model"
+model Status_u_uAva "Validates chiller stage status subsequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status sta(
     final nSta=4,

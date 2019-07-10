@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Validation;
-model Configurator_uChiAva "Validate chiller staging configurator sequence"
+model Configurator_uChiAva "Validate chiller staging configurator subsequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator conf(
     final nSta=4,
