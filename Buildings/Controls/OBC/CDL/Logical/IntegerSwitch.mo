@@ -45,18 +45,18 @@ First implementation.
           borderPattern=BorderPattern.Raised),
         Line(
           points={{12,0},{100,0}},
-          color={255,0,255}),
+          color={244,125,35}),
         Line(
           points={{-100,0},{-40,0}},
           color={255,0,255}),
         Line(
           points={{-100,-80},{-40,-80},{-40,-80}},
-          color={255,0,255}),
+          color={244,125,35}),
         Line(points={{-40,12},{-40,-10}}, color={255,0,255}),
-        Line(points={{-100,80},{-40,80}}, color={255,0,255}),
+        Line(points={{-100,80},{-40,80}}, color={244,125,35}),
         Line(
           points={{-40,80},{8,2}},
-          color={255,0,255},
+          color={244,125,35},
           thickness=1),
         Ellipse(lineColor={0,0,127},
           pattern=LinePattern.None,
