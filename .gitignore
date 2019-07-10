@@ -23,7 +23,10 @@ stop
 stop.
 Thumbs.db
 # Ignore files created by the unit tests.
-simulator.log
+simulator*.log
+comparison*.log
+unitTests*.log
+funnel_comp
 
 # Files in top-level directory
 #####################################
