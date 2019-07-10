@@ -29,15 +29,16 @@ protected
   String pytPatBuildings "PYTHONPATH of Buildings library";
   String pytPat "Value of PYTHONPATH environment variable";
   Boolean havePytPat "true if PYTHONPATH is already set by the user";
-  String filNam = "modelica://Buildings/legal.html"
-    "Name to a file of the Buildings library";
-  String buiLibFil "Absolute path to filNam";
+  package P
+    constant String filNam = "modelica://Buildings/legal.html"
+        "Name to a file of the Buildings library";
+    constant String buiLibFil = Modelica.Utilities.Files.loadResource(uri=filNam) "Absolute path to filNam";
+  end P;
   String searchString = "legal.html" "String to be replaced";
 algorithm
  // Get the directory to Buildings/Resources/Python-Sources
- buiLibFil := Modelica.Utilities.Files.loadResource(uri=filNam);
  pytPatBuildings := Modelica.Utilities.Strings.replace(
-   string=buiLibFil,
+   string=P.buiLibFil,
    searchString=searchString,
    replaceString="Resources/Python-Sources");
 
