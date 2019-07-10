@@ -27,6 +27,7 @@ simulator*.log
 comparison*.log
 unitTests*.log
 funnel_comp
+statistics.json
 
 # Files in top-level directory
 #####################################
