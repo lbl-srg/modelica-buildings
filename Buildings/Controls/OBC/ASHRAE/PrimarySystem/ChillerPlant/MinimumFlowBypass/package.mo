@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
-package Economizer "Waterside economizer (WSE) sequences"
+package MinimumFlowBypass "Sequences for controlling chilled water minimum flow bypass valve"
 
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains waterside economizer (WSE) control sequences.
-The implementation is based on section 5.2.3. in ASHRAE RP-1711, Draft 4.
+This package contains chilled water minimum flow bypass valve control sequences.
+The implementation is based on section 5.2.8. in ASHRAE RP-1711, Draft 4.
 </p>
 </html>"),
 Icon(graphics={
@@ -42,4 +42,4 @@ Icon(graphics={
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}));
-end Economizer;
+end MinimumFlowBypass;
