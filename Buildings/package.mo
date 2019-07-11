@@ -206,11 +206,6 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
         </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.IntegerSwitch
-        </td>
-        <td valign=\"top\">Block that outputs one of two integer input signals based on a boolean input signal.
-        </td>
-        </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiOr
         </td>
         <td valign=\"top\">Block that outputs true boolean signal if and only if any element of the boolean input vector is true.
@@ -231,14 +226,19 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Block that outputs the product of a gain matrix with the input signal vector.
         </td>
         </tr>
-    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
-        </td>
-        <td valign=\"top\">Block that extracts a scalar signal out of a signal vector dependent on an Integer-valued input.
-        </td>
-        </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
         </td>
         <td valign=\"top\">Block that outputs whether its Integer input changed its value, and whether it increased or decreased.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.IntegerSwitch
+        </td>
+        <td valign=\"top\">Block that outputs one of two integer input signals based on a boolean input signal.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
+        </td>
+        <td valign=\"top\">Block that extracts a scalar signal out of a signal vector dependent on an Integer-valued input.
         </td>
         </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Utilities.SunRiseSet
@@ -6700,7 +6700,7 @@ Buildings.Media.Air.enthalpyOfNonCondensingGas</a> and its derivative.
 </li>
 <li>
 In <code>Buildings.Media.PerfectGases.MoistAir</code>, fixed
-bug in implementation of <code>Buildings.Media.PerfectGases.MoistAir.T_phX</code>. 
+bug in implementation of <code>Buildings.Media.PerfectGases.MoistAir.T_phX</code>.
 In the previous version, it computed the inverse of its parent class,
 which gave slightly different results.
 </li>
@@ -6726,7 +6726,7 @@ Added model
 Buildings.Fluid.Storage.ExpansionVessel</a>.
 </li>
 <li>
-Added Wrapper function <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</code> 
+Added Wrapper function <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</code>
 for <a href=\"modelica://Modelica.Math.Matrices.solve\">
 Modelica.Math.Matrices.solve</a>. This is currently needed since
 <a href=\"modelica://Modelica.Math.Matrices.solve\">
@@ -6743,9 +6743,9 @@ the outside,
 the whole thickness of the water volume was used
 instead of only half the thickness.
 <li>
-In <code>Buildings.Media.ConstantPropertyLiquidWater</code>, added the option to specify 
-a compressibility. This can help reducing the size of the coupled nonlinear system of 
-equations, at the expense of introducing stiffness. This change required to change 
+In <code>Buildings.Media.ConstantPropertyLiquidWater</code>, added the option to specify
+a compressibility. This can help reducing the size of the coupled nonlinear system of
+equations, at the expense of introducing stiffness. This change required to change
 the inheritance tree of the medium. Its base class is now
 <code>Buildings.Media.Interfaces.PartialSimpleMedium</code>,
 which contains the equation for the compressibility. The default setting will model
