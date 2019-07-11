@@ -19,7 +19,9 @@ protected
   Integer counter(start=0, fixed=true)
       "Number of samples used for averaging calculation";
   Integer index(start=0, fixed=true) "Index of the vector ySample";
-  discrete Real ySample[n](start=vector(zeros(n,1)), fixed=true)
+  discrete Real ySample[n](
+    start=vector(zeros(n,1)),
+    each fixed=true)
       "Vector of samples to be averaged";
 
 initial equation
@@ -87,12 +89,12 @@ algorithm
 Documentation(info="<html>
 <p>
 Block that outputs the sampled moving mean value of an input signal.
-At each sampling instant, the block outputs the average value of the past <i>n</i> 
-samples including the current sample. 
+At each sampling instant, the block outputs the average value of the past <i>n</i>
+samples including the current sample.
 </p>
 <p>
-At the first sample, the block outputs the first sampled input. At the next 
-sample, it outputs the average of the past two samples, then the past three 
+At the first sample, the block outputs the first sampled input. At the next
+sample, it outputs the average of the past two samples, then the past three
 samples and so on up to <i>n</i> samples.
 </p>
 </html>",
