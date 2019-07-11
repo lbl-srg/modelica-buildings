@@ -46,9 +46,11 @@ protected
   parameter Modelica.SIunits.PressureDifference dpTot_nominal(start=dp_nominal_pos, displayUnit="Pa")
     "Pressure drop of fully open damper plus fixed resistance at nominal flow rate";
   parameter Real kL = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+    y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)^2
+    "Loss coefficient at the lower limit of the exponential characteristics";
   parameter Real kU = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU);
+    y=yU, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)^2
+    "Loss coefficient at the upper limit of the exponential characteristics";
   parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
   parameter Real[3] cL={
