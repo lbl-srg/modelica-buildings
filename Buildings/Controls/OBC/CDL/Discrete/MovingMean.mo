@@ -1,8 +1,9 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block MovingMean "Discrete moving mean of a sampled input signal"
-  parameter Integer n(min=2) "Number of samples over which the input is averaged";
+  parameter Integer n(min=2)
+    "Number of samples over which the input is averaged";
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
-      "Sampling period of component";
+    "Sampling period of component";
 
   Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -20,17 +21,17 @@ protected
   Real ySample[n](start=vector(zeros(n,1)), fixed=true)
       "Vector of samples to be averaged";
 
-initial algorithm
-  t0 := time;
-  y := u;
+initial equation
+  t0 = time;
+  y = u;
 
 algorithm
   sampleTrigger := sample(t0, samplePeriod);
   when sampleTrigger then
     index := mod(iSample, n) + 1;
-    ySample[index] := u;
+    ySample[index] :=u;
     counter := if counter == n then n else pre(counter) + 1;
-    y := sum(ySample) / counter;
+    y := sum(ySample)/counter;
     iSample := iSample + 1;
   end when;
 
