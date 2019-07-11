@@ -34,7 +34,6 @@ CUR_DIR=`pwd`
 PAR_DIR=`dirname ${CUR_DIR}`
 DOCKER_PYTHONPATH=`echo ${PYTHONPATH//${PAR_DIR}/\/mnt\/shared}`
 
-
 cur_dir=`pwd`
 bas_nam=`basename ${cur_dir}`
 sha_dir=`dirname ${cur_dir}`
@@ -58,7 +57,6 @@ done
 # --user=${UID} \
 
 docker run \
-  --user=${UID} \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
