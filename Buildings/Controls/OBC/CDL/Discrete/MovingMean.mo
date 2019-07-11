@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block MovingMean "Discrete moving mean of a sampled input signal"
+
   parameter Integer n(min=2)
     "Number of samples over which the input is averaged";
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
@@ -18,19 +19,21 @@ protected
   Integer counter(start=0, fixed=true)
       "Number of samples used for averaging calculation";
   Integer index(start=0, fixed=true) "Index of the vector ySample";
-  Real ySample[n](start=vector(zeros(n,1)), fixed=true)
+  discrete Real ySample[n](start=vector(zeros(n,1)), fixed=true)
       "Vector of samples to be averaged";
 
 initial equation
   t0 = time;
   y = u;
 
+equation
+  sampleTrigger =  sample(t0, samplePeriod);
+
 algorithm
-  sampleTrigger := sample(t0, samplePeriod);
   when sampleTrigger then
     index := mod(iSample, n) + 1;
-    ySample[index] :=u;
-    counter := if counter == n then n else pre(counter) + 1;
+    ySample[index] := u;
+    counter := if counter == n then n else counter + 1;
     y := sum(ySample)/counter;
     iSample := iSample + 1;
   end when;
@@ -83,7 +86,7 @@ algorithm
        Line(points={{60,-32},{60,-58}}, color={217,67,180},smooth=Smooth.Bezier)}),
 Documentation(info="<html>
 <p>
-This block outputs the discrete moving mean values of an input signal.
+Block that outputs the sampled moving mean value of an input signal.
 At each sampling instant, the block outputs the average value of the past <i>n</i> 
 samples including the current sample. 
 </p>
