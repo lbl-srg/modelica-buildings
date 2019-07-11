@@ -134,18 +134,18 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Boolean use_constant_density=true
     "Set to true to use constant density for flow friction"
     annotation (Dialog(tab="Advanced"));
-  parameter Real a=-1.51 "Coefficient a for damper characteristics"
+  parameter Real a(unit="1") = -1.51 "Coefficient a for damper characteristics"
     annotation (Dialog(tab="Damper coefficients"));
-  parameter Real b=0.105*90 "Coefficient b for damper characteristics"
+  parameter Real b(unit="1") = 0.105*90 "Coefficient b for damper characteristics"
     annotation (Dialog(tab="Damper coefficients"));
-  parameter Real yL=15/90 "Lower value for damper curve"
+  parameter Real yL(unit="1") = 15/90 "Lower value for damper curve"
     annotation (Dialog(tab="Damper coefficients"));
-  parameter Real yU=55/90 "Upper value for damper curve"
+  parameter Real yU(unit="1") = 55/90 "Upper value for damper curve"
     annotation (Dialog(tab="Damper coefficients"));
-  parameter Real k0=1E6
+  parameter Real k0(min=0, unit="1") = 1E6
     "Loss coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
     annotation (Dialog(tab="Damper coefficients"));
-  parameter Real k1=0.45
+  parameter Real k1(min=0, unit="1") = 0.45
     "Loss coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
     annotation (Dialog(tab="Damper coefficients"));
 
