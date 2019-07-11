@@ -24,7 +24,7 @@ equation
     defaultComponentName="swi",
     Documentation(info="<html>
 <p>
-Block that switches between two real signals and produces one of it at its output.
+Block that outputs one of two real input signals based on a boolean input signal.
 </p>
 <p>
 If the input signal <code>u2</code> is <code>true</code>,
