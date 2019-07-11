@@ -23,14 +23,12 @@ model PumpParallel "Example that tests the model pump parallels"
     annotation (Placement(transformation(extent={{-18,30},{2,50}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop dp2(
-    from_dp=true,
     redeclare package Medium = MediumW,
     dp_nominal=3000,
     m_flow_nominal=6000/3600*1.2)
     "Pressure drop"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp1(
-    from_dp=true,
     m_flow_nominal=6000/3600*1.2,
     dp_nominal=300,
     redeclare package Medium = MediumW)
@@ -73,14 +71,12 @@ model PumpParallel "Example that tests the model pump parallels"
     annotation (Placement(transformation(extent={{-18,-50},{2,-30}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop dp3(
-    from_dp=true,
     m_flow_nominal=6000/3600*1.2,
     dp_nominal=300,
     redeclare package Medium = MediumW)
     "Pressure drop"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp4(
-    from_dp=true,
     redeclare package Medium = MediumW,
     dp_nominal=3000,
     m_flow_nominal=6000/3600*1.2)
@@ -122,6 +118,11 @@ At steady-state, all flow models have the same mass flow rate and pressure diffe
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 11, 2019, by Michael Wetter:<br/>
+Removed <code>from_dp=true</code> for all resistance models
+as otherwise the model fails to simulate in JModelica.
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Removed <code>each</code>.
