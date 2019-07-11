@@ -130,9 +130,38 @@ its class name ends with the string <code>Beta</code>.
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
     <div class=\"release-summary\">
-    <p>
-    Version 6.0.0 is ... xxx
-    </p>
+   <p>
+   Version 6.0.0 is a major new release that
+   contains various new packages, new models and improvements to existing models.
+   The library has been tested with Dymola 2019FD01 and with JModelica (revision 12903).
+   </p>
+   <p>
+     The following major changes have been done:
+   <ul>
+   <li>
+     Various new packages have been added, such as:
+     <ul>
+       <li>
+         A package for simulating occupancy and occupancy that resulted from IEA EBC Annex 66.
+       </li>
+       <li>
+         A package with models for geothermal borefields.
+       </li>
+       <li>
+         A package with blocks for control of shades and of outdoor lights.
+       </li>
+       <li>
+         A package with blocks that allow generating time series and scatter plots,
+         and writing these plots to one or several html files.
+       </li>
+       <li>
+         A package with blocks for for unit conversion.
+       </li>
+     </ul>
+   <li>
+     Various new control blocks have been added to <code>Buildings.Controls.OBC.CDL</code>.
+   </li>
+   </ul>
     </div>
     <!-- New libraries -->
     <p>
@@ -587,14 +616,6 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     </table>
-    <p>
-    Note:
-    </p>
-    <ul>
-    <li>
-    xxx
-    </li>
-    </ul>
     </html>"));
     end Version_6_0_0;
 
@@ -6695,7 +6716,7 @@ Buildings.Media.Air.enthalpyOfNonCondensingGas</a> and its derivative.
 </li>
 <li>
 In <code>Buildings.Media.PerfectGases.MoistAir</code>, fixed
-bug in implementation of <code>Buildings.Media.PerfectGases.MoistAir.T_phX</code>. 
+bug in implementation of <code>Buildings.Media.PerfectGases.MoistAir.T_phX</code>.
 In the previous version, it computed the inverse of its parent class,
 which gave slightly different results.
 </li>
@@ -6721,7 +6742,7 @@ Added model
 Buildings.Fluid.Storage.ExpansionVessel</a>.
 </li>
 <li>
-Added Wrapper function <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</code> 
+Added Wrapper function <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</code>
 for <a href=\"modelica://Modelica.Math.Matrices.solve\">
 Modelica.Math.Matrices.solve</a>. This is currently needed since
 <a href=\"modelica://Modelica.Math.Matrices.solve\">
@@ -6738,9 +6759,9 @@ the outside,
 the whole thickness of the water volume was used
 instead of only half the thickness.
 <li>
-In <code>Buildings.Media.ConstantPropertyLiquidWater</code>, added the option to specify 
-a compressibility. This can help reducing the size of the coupled nonlinear system of 
-equations, at the expense of introducing stiffness. This change required to change 
+In <code>Buildings.Media.ConstantPropertyLiquidWater</code>, added the option to specify
+a compressibility. This can help reducing the size of the coupled nonlinear system of
+equations, at the expense of introducing stiffness. This change required to change
 the inheritance tree of the medium. Its base class is now
 <code>Buildings.Media.Interfaces.PartialSimpleMedium</code>,
 which contains the equation for the compressibility. The default setting will model
@@ -7065,7 +7086,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (xxx)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (July 15, 2019)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_1_0\">Version 5.1.0</a> (June 14, 2018)
@@ -7284,7 +7305,7 @@ The following people have directly contributed to the implementation of the Buil
     Documentation(info="<html>
 <h4>License</h4>
 <p>
-Modelica Buildings Library. Copyright (c) 1998-2018
+Modelica Buildings Library. Copyright (c) 1998-2019
 Modelica Association,
 International Building Performance Simulation Association (IBPSA),
 The Regents of the University of California, through Lawrence Berkeley National Laboratory
@@ -7531,8 +7552,8 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="6.0.0",
-versionDate="2018-06-14",
-dateModified="2018-06-14",
+versionDate="2019-07-15",
+dateModified="2019-07-15",
 uses(Modelica(version="3.2.2")),
 conversion(
   from(version={"5.0.0", "5.0.1", "5.1.0"},
