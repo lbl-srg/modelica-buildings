@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.CDL.Discrete.Examples;
 model MovingMean "Validation model for the MovingMean block"
-  Continuous.Sources.Sine sin(freqHz=1/8,
+  Continuous.Sources.Sine sin(
+    freqHz=1/8,
     phase=0.5235987755983,
     startTime=-0.5) "Example input signal"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -10,6 +11,7 @@ model MovingMean "Validation model for the MovingMean block"
 equation
 connect(sin.y, movMea.u)
   annotation (Line(points={{-39,10},{-2,10}}, color={0,0,127}));
+
   annotation (
   experiment(StartTime=-0.5, StopTime=15.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Examples/MovingMean.mos"
