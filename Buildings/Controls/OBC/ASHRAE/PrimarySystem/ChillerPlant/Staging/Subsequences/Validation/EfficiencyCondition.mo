@@ -15,7 +15,8 @@ protected
     final freqHz=1/2100) "Operating part load ratio of the current stage"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant splrUp(final k=0.8)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant splrUp(
+    final k=0.8)
     "Staging part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 

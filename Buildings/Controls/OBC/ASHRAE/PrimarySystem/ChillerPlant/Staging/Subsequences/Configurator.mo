@@ -32,19 +32,19 @@ block Configurator "Configures chiller staging"
       iconTransformation(extent={{100,-80},{120,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yTyp[nSta](
-    final max=nSta) "Chiller stage types vector"
+    final max=fill(nSta, nSta)) "Chiller stage types vector"
     annotation (Placement(transformation(extent={{220,-90},{240,-70}}),
       iconTransformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesCap[nSta](
-    final unit="W",
-    final quantity="Power") "Design stage capacities"
+    final unit=fill("W", nSta),
+    final quantity=fill("Power", nSta)) "Stage design capacities vector"
     annotation (Placement(transformation(extent={{220,50},{240,70}}),
       iconTransformation(extent={{100,60},{120,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinCap[nSta](
-    final unit="W",
-    final quantity="Power") "Unload stage capacities"
+    final unit=fill("W", nSta),
+    final quantity=fill("Power", nSta)) "Unload stage capacities vector"
     annotation (Placement(transformation(extent={{220,10},{240,30}}),
       iconTransformation(extent={{100,20},{120,40}})));
 
@@ -61,7 +61,7 @@ protected
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staDesCaps(
-    final K=staMat) "Matrix gain for Design capacities"
+    final K=staMat) "Matrix gain for design capacities"
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps(
@@ -70,16 +70,16 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumChi(
     final K=staMat)
-    "Returns the total chiller count per stage vector "
+    "Outputs the total chiller count per stage vector"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumAvaChi(
     final K=staMat)
-    "Returns the available chiller count per stage vector"
+    "Outputs the available chiller count per stage vector"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nChi](
-    final k=fill(1, nChi)) "Case with all chillers available "
+    final k=fill(1, nChi)) "Mocks a case with all chillers available"
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
@@ -88,19 +88,19 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2[nSta](
     final k2=fill(-1, nSta))
-    "Subtracts count of available stage chillers from the design stage chiller count"
+    "Subtracts count of available chillers from the design count, at each stage"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[nSta](
     final threshold=fill(0.5, nSta))
-    "Checks if the number of chillers available in each stage equals the design number of chillers"
+    "Checks if the count of available chillers in each stage equals the design count"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiStaMat[nSta,nChi](
     final k=staMat) "Staging matrix"
     annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
 
-  CDL.Continuous.Sources.Constant staType[nSta,nChi](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staType[nSta,nChi](
     final k=chiTypMat) "Chiller stage type matrix"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
 
@@ -110,7 +110,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
     final nRow=nSta,
-    final nCol=nChi) "Row-wise matrix maximum "
+    final nCol=nChi) "Row-wise matrix maximum"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[nSta]
@@ -133,12 +133,14 @@ protected
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Chillers are not staged according to G36 recommendation. If possible, please stage any positive displacement machines first, any variable speed centrifugal next and any constant speed centrifugal last.")
+    final message="Chillers are not staged in a recommended order. 
+    If possible, please stage any positive displacement machines first, 
+    any variable speed centrifugal next and any constant speed centrifugal last.")
     "Staging type order assertion"
     annotation (Placement(transformation(extent={{180,-120},{200,-100}})));
 
-  CDL.Logical.MultiAnd mulAnd(
-    final nu=nSta) "Logical and for a vector input"
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
+    final nu=nSta) "Logical and with a vector input"
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
 
 equation
@@ -204,18 +206,23 @@ equation
 Documentation(info="<html>
 <p>
 Given the staging matrix input parameter <code>staMat</code> the staging configurator calculates:
+</p>
 <ul>
 <li>
-Stage availability vector <code>yAva</code> according to the chiller availability <code>uChiAva</code> input vector based on RP-1711 Draft 4 section 5.2.4.9.
+Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code> 
+input vector according to RP-1711 Draft 4 section 5.2.4.9.
 </li>
 <li>
-Design stage capacity vector <code>yDesCap</code> according to the design chiller capacity vector input parameter <code>chiDesCap</code> based on RP-1711 Draft 4 section 3.1.1.4., 2.
+Design stage capacity vector <code>yDesCap</code> from the design chiller capacity vector 
+input parameter <code>chiDesCap</code> according to RP-1711 Draft 4 section 3.1.1.4., 2.
 </li>
 <li>
-Minimum stage capacity vector <code>yMinCap</code> according to the chiller capacity vector input parameter <code>chiMinCap</code> based on RP-1711 Draft 4 section 3.1.1.5.
+Minimum stage capacity vector <code>yMinCap</code> from the chiller capacity vector input 
+parameter <code>chiMinCap</code> according to RP-1711 Draft 4 section 3.1.1.5.
 </li>
 <li>
-Stage type vector <code>yTyp</code> according to the chiller type vector input parameter <code>uChiTyp</code> based on RP-1711 Draft 4 section 5.2.4.10.
+Stage type vector <code>yTyp</code> from the chiller type vector input parameter 
+<code>uChiTyp</code> according to RP-1711 Draft 4 section 5.2.4.10.
 </li>
 </ul>
 </html>",
