@@ -265,7 +265,8 @@ equation
         Line(points={{114,-60},{70,-60},{84,-52}}, color={0,127,127}),
         Line(points={{70,-60},{82,-68}}, color={0,127,127})}),
 defaultComponentName="actBea",
-Diagram(coordinateSystem(
+Diagram(graphics,
+        coordinateSystem(
           preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
 Documentation(info="<html>
 <p>

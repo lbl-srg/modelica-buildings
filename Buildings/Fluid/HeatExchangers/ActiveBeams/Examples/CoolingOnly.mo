@@ -103,11 +103,13 @@ equation
     annotation (Line(points={{-2,66},{12,66},{26,66}}, color={0,127,255}));
   connect(pum.m_flow_in, conPID.y) annotation (Line(points={{-24,74},{-40,74},{
           -40,-10},{-49,-10}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,120}})),experiment(Tolerance=1e-6, StopTime=172800),
             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/CoolingOnly.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}})),
+    Icon(graphics,
+         coordinateSystem(extent={{-120,-120},{120,120}})),
      Documentation(info="<html>
 <p>
 This example tests the implementation of <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling\">

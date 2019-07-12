@@ -14,7 +14,8 @@ record PropertyCoefficients
   Real a_cp[nTot] "Polynomial coefficients for specific heat capacity";
   Real a_lambda[nTot] "Polynomial coefficients for thermal conductivity";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

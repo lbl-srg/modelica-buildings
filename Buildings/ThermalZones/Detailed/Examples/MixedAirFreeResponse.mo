@@ -154,7 +154,8 @@ equation
       smooth=Smooth.None));
   connect(TSoi.port, roo.surf_conBou) annotation (Line(points={{140,-10},{128,-10},
           {72,-10},{72,24}}, color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {200,200}})),        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/MixedAirFreeResponse.mos"
         "Simulate and plot"),
     Documentation(info="<html>

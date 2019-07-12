@@ -67,7 +67,8 @@ equation
     annotation (Line(points={{40,0},{60,0}},     color={0,127,255}));
   connect(senHum.port_b, sin.ports[1]) annotation (Line(points={{80,0},{92,0},{
           100,0},{100,1.11022e-15}},              color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}})),
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/SprayAirWasher_X.mos"
         "Simulate and plot"),

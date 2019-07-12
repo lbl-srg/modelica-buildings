@@ -86,7 +86,7 @@ algorithm
           extent={{-86,-16},{90,-58}},
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="%samplePeriod")}),                         Diagram(
+          textString="%samplePeriod")}),                         Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>

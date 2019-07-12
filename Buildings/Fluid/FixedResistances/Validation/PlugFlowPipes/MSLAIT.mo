@@ -434,7 +434,8 @@ equation
   connect(col1.port_b, prescribedTemperature.port) annotation (Line(points={{
           112,46},{214,46},{214,-142},{94,-142}}, color={191,0,0}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{
             220,200}})),
     experiment(
       StopTime=603900,

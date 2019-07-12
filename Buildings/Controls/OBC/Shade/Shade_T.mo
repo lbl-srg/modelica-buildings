@@ -80,7 +80,8 @@ equation
         Line(points={{-49,-29},{-49,-49}}, color={192,192,192}),
         Rectangle(extent={{2,-49},{91,-92}}, lineColor={192,192,192}),
         Line(points={{41,-29},{41,-49}}, color={192,192,192})}),
-    Diagram(coordinateSystem(
+    Diagram(graphics,
+            coordinateSystem(
         preserveAspectRatio=false,
         extent={{-80,-80},{80,80}},
         initialScale=0.05)),

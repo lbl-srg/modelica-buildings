@@ -116,6 +116,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,
             100}})));
 end TemperatureDryBulb;

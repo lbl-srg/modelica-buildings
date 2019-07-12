@@ -134,6 +134,7 @@ First implementation.
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end PartialTwoPortVector;

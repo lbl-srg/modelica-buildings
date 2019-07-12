@@ -57,8 +57,9 @@ equation
   connect(trigger, con.trigger)
     annotation (Line(points={{-60,-100},{-60,-100},{
           -60,-40},{-78,-40},{-78,28}},color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
-            {100,80}})),                                         Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
+            {100,80}})),                                         Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})),
     __Dymola_Commands,
     Documentation(info="<html>

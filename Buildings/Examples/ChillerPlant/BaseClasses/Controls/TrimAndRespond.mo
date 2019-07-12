@@ -8,31 +8,31 @@ block TrimAndRespond "Trim and respond logic"
 
   Modelica.Blocks.Logical.GreaterEqualThreshold incY(threshold=0)
     "Outputs true if y needs to be increased"
-    annotation (extent=[-20, 98; 0, 118], Placement(transformation(extent={{-20,
-            50},{0,70}})));
-  Modelica.Blocks.Logical.Switch swi annotation (extent=[100, 110; 120, 130],
-      Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (extent={{-20, 98},{ 0, 118}}, Placement(transformation(extent={{-20,98},
+            {0,118}}, rotation=0)));
+  Modelica.Blocks.Logical.Switch swi annotation (extent={{100, 110},{ 120, 130}},
+      Placement(transformation(extent={{100,110},{120,130}}, rotation=0)));
   Sampler sam(samplePeriod=samplePeriod) "Sampler"
-    annotation (extent=[-60, 90; -40, 110], Placement(transformation(extent={{-60,
-            50},{-40,70}})));
+    annotation (extent={{-60, 90},{ -40, 110}}, Placement(transformation(extent={{-60,90},
+            {-40,110}}, rotation=0)));
 
   Modelica.Blocks.Sources.Constant conYDec(k=yDec) "y decrease"
-    annotation (extent=[26, 90; 46, 110], Placement(transformation(extent={{20,30},
-            {40,50}})));
+    annotation (extent={{26, 90},{ 46, 110}}, Placement(transformation(extent={{26,90},
+            {46,110}}, rotation=0)));
   Modelica.Blocks.Sources.Constant conYInc(k=yInc) "y increase"
-    annotation (extent=[-20, 124; 0, 144], Placement(transformation(extent={{20,70},
-            {40,90}})));
+    annotation (extent={{-20, 124},{ 0, 144}}, Placement(transformation(extent={{-20,124},
+            {0,144}}, rotation=0)));
   UnitDelay uniDel1(
     y_start=yEqu0,
     samplePeriod=samplePeriod,
     startTime=samplePeriod)
-                   annotation (extent=[-52, -40; -32, -20], Placement(
-        transformation(extent={{-60,-16},{-40,4}})));
-  Modelica.Blocks.Math.Add add annotation (extent=[-20, -20; 0, 0], Placement(
-        transformation(extent={{-20,-10},{0,10}})));
+                   annotation (extent={{-52, -40},{ -32, -20}}, Placement(
+        transformation(extent={{-52,-40},{-32,-20}}, rotation=0)));
+  Modelica.Blocks.Math.Add add annotation (extent={{-20, -20},{ 0, 0}}, Placement(
+        transformation(extent={{-20,-20},{0,0}}, rotation=0)));
   Modelica.Blocks.Nonlinear.Limiter lim(uMax=1, uMin=0) "State limiter"
-    annotation (extent=[20, -20; 40, 0], Placement(transformation(extent={{20,-10},
-            {40,10}})));
+    annotation (extent={{20, -20},{ 40, 0}}, Placement(transformation(extent={{20,-20},
+            {40,0}}, rotation=0)));
 
   // The UnitDelay and Sampler is reimplemented to avoid in Dymola 2016 the translation warning
   //   The initial conditions for variables of type Boolean are not fully specified.

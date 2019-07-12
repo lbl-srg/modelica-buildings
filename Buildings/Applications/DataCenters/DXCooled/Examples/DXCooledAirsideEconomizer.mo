@@ -262,7 +262,7 @@ equation
       points={{-240,70},{-172,70}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.port_b, roo.airPorts[1])
@@ -295,7 +295,7 @@ equation
       points={{-240,70},{-240,-40},{-60,-40},{-60,-57},{-21,-57}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(cooModCon.y, sigCha.u)
@@ -326,7 +326,8 @@ equation
     annotation (Line(
       points={{-39,-10},{-28,-10},{-28,-52},{-21,-52}},
       color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false,
     extent={{-280,-200},{320,220}})),
     __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
@@ -381,5 +382,6 @@ First implementation.
       StartTime=11880000,
       StopTime=12600000,
       Tolerance=1e-06),
-    Icon(coordinateSystem(extent={{-100, -100},{100, 100}})));
+    Icon(graphics,
+         coordinateSystem(extent={{-100, -100},{100, 100}})));
 end DXCooledAirsideEconomizer;

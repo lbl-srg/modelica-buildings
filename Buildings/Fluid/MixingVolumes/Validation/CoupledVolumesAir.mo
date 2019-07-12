@@ -4,7 +4,8 @@ model CoupledVolumesAir
   extends Buildings.Fluid.MixingVolumes.Validation.CoupledVolumesWater(
     redeclare package Medium = Buildings.Media.Air);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

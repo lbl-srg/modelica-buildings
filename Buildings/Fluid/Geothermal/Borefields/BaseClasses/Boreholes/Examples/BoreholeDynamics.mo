@@ -289,7 +289,7 @@ equation
   connect(prescribedTemperature3.T, prescribedTemperature1.T) annotation (Line(
         points={{-72,-90},{-80,-90},{-80,30},{-72,30}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=15000),
-  Diagram(
+  Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-160},{120,120}})),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/Examples/BoreholeDynamics.mos"

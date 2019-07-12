@@ -122,6 +122,7 @@ equation
 experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/GasConvection.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-140},{100,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true, extent={{-100,-140},{100,
             100}})));
 end GasConvection;

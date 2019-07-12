@@ -74,7 +74,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,160}}),
                       graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})),
+    Icon(graphics,
+         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})),
     Documentation(revisions="<html>
 <ul>
 <li>

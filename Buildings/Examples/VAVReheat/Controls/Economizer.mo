@@ -98,7 +98,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(max.y, extractor.u[Integer(OperationModes.occupied)]) annotation (
@@ -144,7 +144,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(yOATMix.TRet, TRet) annotation (Line(
@@ -156,7 +156,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(yOATMix.TMix, TMix) annotation (Line(
@@ -192,7 +192,8 @@ equation
   connect(extractor.y, yOA) annotation (Line(points={{141,0},{160,0},{160,80},{
           210,80}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}}), graphics={

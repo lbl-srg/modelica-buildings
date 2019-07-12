@@ -159,7 +159,8 @@ equation
           16}}, color={0,0,127}));
   connect(chaSwi.y, add.u2) annotation (Line(points={{81,-30},{90,-30},{90,4},{98,
           4}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -120},{220,120}})),
     experiment(Tolerance=1e-06, StopTime=432000),
     __Dymola_Commands(file=

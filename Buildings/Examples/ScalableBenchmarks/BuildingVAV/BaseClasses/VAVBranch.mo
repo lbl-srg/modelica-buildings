@@ -161,7 +161,8 @@ equation
           -40,80},{-120,80}}, color={0,0,127}));
   connect(TRooCooSet, con.TRooCooSet) annotation (Line(points={{-120,40},{-44,
           40},{-44,4},{-2,4}}, color={0,0,127}));
-annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+annotation (Diagram(graphics,
+                    coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={
         Rectangle(

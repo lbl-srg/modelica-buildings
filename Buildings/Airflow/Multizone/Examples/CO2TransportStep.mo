@@ -44,7 +44,8 @@ equation
       points={{68,10},{68,-30},{90,-30},{90,-20}},
       color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-150},{300,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true, extent={{-200,-150},{300,
             250}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/CO2TransportStep.mos"
         "Simulate and plot"),

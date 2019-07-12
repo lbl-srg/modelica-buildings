@@ -235,6 +235,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-580,-260},{780,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-580,-260},{780,
             400}})));
 end HeatingCoolingHotWater3ClustersBaseCase;

@@ -313,7 +313,8 @@ equation
   connect(vol.C_flow, C_flow) annotation (Line(points={{12,-206},{16,-206},{16,-220},
           {-260,-220}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
             240}})),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,240}}),
                     graphics={

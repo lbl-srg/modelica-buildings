@@ -772,7 +772,8 @@ equation
       Line(points={{299,-23},{18,-23},{18,51.6667},{-79.5833,51.6667}}, color={
           0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-260,-220},{460,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false,extent={{-260,-220},{460,
             200}})),
         Icon(coordinateSystem(preserveAspectRatio=false,extent={{-200,-200},{200,
             200}}), graphics={

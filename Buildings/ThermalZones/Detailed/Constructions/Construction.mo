@@ -5,9 +5,9 @@ model Construction "Model for an opaque construction that has no window"
 
   annotation (
 defaultComponentName="conOpa",
-Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
-            {300,300}})),
-                          Icon(coordinateSystem(preserveAspectRatio=true,
+Diagram(graphics,
+        coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
+            {300,300}})), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-300,-300},{300,300}}), graphics={
         Rectangle(
           extent={{-290,202},{298,198}},

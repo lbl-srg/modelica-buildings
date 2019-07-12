@@ -346,7 +346,7 @@ equation
       points={{-340,-70},{-328,-70},{-328,-20}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(chiWSE.port_b1, TCWRet.port_a)
@@ -522,7 +522,8 @@ equation
           -236,-32}}, color={0,0,127}));
   connect(gai1.u, senRelPre.p_rel)
     annotation (Line(points={{-198,-60},{8,-60},{8,-87}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{160,220}})),
     Documentation(info="<html>
 <p>

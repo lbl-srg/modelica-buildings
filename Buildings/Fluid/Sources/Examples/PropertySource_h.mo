@@ -82,7 +82,8 @@ equation
           8},{-62,8}}, color={0,0,127}));
   connect(ramp.y, bouC.m_flow_in) annotation (Line(points={{-79,70},{-72,70},{-72,
           -32},{-62,-32}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

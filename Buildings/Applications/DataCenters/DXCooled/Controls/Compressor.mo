@@ -87,7 +87,8 @@ equation
           extent={{128,114},{-128,166}},
           lineColor={0,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This model implements a PI controller to maintain the supply air temperature at its setpoint by adjusting the compressor's speed.

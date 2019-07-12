@@ -352,7 +352,8 @@ equation
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowAIT.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-120,-160},{160,160}})),
+    Diagram(graphics,
+            coordinateSystem(extent={{-120,-160},{160,160}})),
     Documentation(info="<html>
 <p>
 The example contains

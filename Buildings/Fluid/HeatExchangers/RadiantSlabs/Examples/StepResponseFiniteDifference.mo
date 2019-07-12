@@ -5,7 +5,8 @@ model StepResponseFiniteDifference "Model that tests the radiant slab"
     sla(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference));
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/StepResponseFiniteDifference.mos"
         "Simulate and plot"),
-          Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-120},
+          Diagram(graphics,
+                  coordinateSystem(preserveAspectRatio=false,extent={{-100,-120},
             {100,100}})),
 Documentation(info="<html>
 <p>

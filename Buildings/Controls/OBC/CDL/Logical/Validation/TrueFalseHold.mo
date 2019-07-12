@@ -122,7 +122,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
+    Diagram(graphics,
+            coordinateSystem(extent={{-160,-100},{160,100}})),
     Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

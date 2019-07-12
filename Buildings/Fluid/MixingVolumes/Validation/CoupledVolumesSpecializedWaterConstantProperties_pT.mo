@@ -5,7 +5,8 @@ model CoupledVolumesSpecializedWaterConstantProperties_pT
     redeclare package Medium =
         Buildings.Media.Specialized.Water.ConstantProperties_pT);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

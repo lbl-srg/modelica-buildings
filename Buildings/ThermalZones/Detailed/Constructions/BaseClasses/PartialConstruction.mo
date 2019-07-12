@@ -71,7 +71,8 @@ equation
       points={{52,200},{302,200}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
             {300,300}})), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-300,-300},{300,300}}), graphics={
         Rectangle(

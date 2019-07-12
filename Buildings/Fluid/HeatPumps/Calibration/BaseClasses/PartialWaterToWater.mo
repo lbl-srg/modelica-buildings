@@ -100,8 +100,9 @@ equation
 
   connect(isOn.y, heaPum.stage) annotation (Line(points={{-37.4,-10},{-24,-10},
           {-24,3},{-12,3}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,
-            -100},{100,100}})),                                  Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false, extent={{-140,
+            -100},{100,100}})),                                  Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,
             100}})),                                 preferredView="info",Documentation(info="<HTML>
 <p>

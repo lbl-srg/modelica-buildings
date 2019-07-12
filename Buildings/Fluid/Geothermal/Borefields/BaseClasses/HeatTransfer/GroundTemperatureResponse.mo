@@ -181,7 +181,7 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
             textString="%name")}),
-  Diagram(
+  Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(info="<html>
 <p>

@@ -323,6 +323,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{460,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{460,
             140}})));
 end IdealSystem3Clusters;

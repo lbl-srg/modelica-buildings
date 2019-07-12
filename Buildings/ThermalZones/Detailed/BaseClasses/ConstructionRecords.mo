@@ -47,8 +47,10 @@ record ConstructionRecords "Data records for construction data"
   parameter Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3 dummyGlaSys
     "Dummy construction to assign a parameter to the instance"
     annotation (HideResult=true);
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
-            {100,100}})),       Icon(coordinateSystem(preserveAspectRatio=true,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
+            {100,100}})),       Icon(graphics,
+                                     coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-200},{100,100}})),
 Documentation(
 info="<html>

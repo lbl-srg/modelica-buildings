@@ -159,5 +159,6 @@ January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul></html>"),
-    Diagram(coordinateSystem(extent={{-20,-160},{180,180}}, preserveAspectRatio=false)));
+    Diagram(graphics,
+            coordinateSystem(extent={{-20,-160},{180,180}}, preserveAspectRatio=false)));
 end WSEControl;

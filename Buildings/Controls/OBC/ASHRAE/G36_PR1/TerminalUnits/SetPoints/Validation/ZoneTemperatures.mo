@@ -135,7 +135,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-140,-120},{120,120}})),
+    Diagram(graphics,
+            coordinateSystem(extent={{-140,-120},{120,120}})),
     Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

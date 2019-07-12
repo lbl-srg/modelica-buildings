@@ -75,7 +75,7 @@ equation
       points={{-60,80},{-36,80}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
 
@@ -165,5 +165,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-160,-160},{120,140}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-160,-160},{120,140}})));
 end ChillerDXHeatingEconomizer;

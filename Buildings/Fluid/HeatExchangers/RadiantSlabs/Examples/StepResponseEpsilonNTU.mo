@@ -139,7 +139,8 @@ equation
 
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/StepResponseEpsilonNTU.mos"
         "Simulate and plot"),
-          Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-120},
+          Diagram(graphics,
+                  coordinateSystem(preserveAspectRatio=false,extent={{-100,-120},
             {100,100}})),
 Documentation(info="<html>
 <p>

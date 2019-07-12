@@ -218,6 +218,7 @@ First implementation.
         Line(points={{-14,100},{54,-16}}, color={255,255,0}),
         Line(points={{2,100},{66,-10}}, color={255,255,0}),
         Line(points={{16,100},{76,-4}}, color={255,255,0})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{180,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{180,
             160}})));
 end ProjectedShadowLength;

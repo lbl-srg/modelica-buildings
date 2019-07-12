@@ -155,5 +155,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-140},{100,100}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-100,-140},{100,100}})));
 end TransportWaterAir;

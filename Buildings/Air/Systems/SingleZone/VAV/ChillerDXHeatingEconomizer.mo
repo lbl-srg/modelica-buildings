@@ -270,7 +270,7 @@ equation
       points={{-180,40},{-140,40},{-140,40.2}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(senTMixAir.port_b, fanSup.port_a)
@@ -296,7 +296,7 @@ equation
       points={{-180,40},{-180,-208},{160,-208},{160,-170},{150,-170}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
 
@@ -588,7 +588,7 @@ equation
         Line(points={{200,80},{132,80},{132,46}},   color={0,0,127}),
         Line(points={{124,-54},{132,-54},{132,-4}}, color={0,0,127}),
         Line(points={{92,-136},{86,-136},{86,-4}},  color={0,0,127})}),
-                                                                 Diagram(
+                                                                 Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},{200,160}})),
       Documentation(info="<html>
 <p>

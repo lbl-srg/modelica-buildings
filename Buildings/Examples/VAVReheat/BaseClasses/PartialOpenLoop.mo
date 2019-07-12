@@ -826,7 +826,8 @@ equation
       points={{98,-52},{80,-52},{80,-112}},
       color={28,108,200},
       thickness=0.5));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-380,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-380,
             -400},{1420,600}})), Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model

@@ -197,7 +197,8 @@ equation
   connect(y1.y, dam4.y) annotation (Line(points={{-39,100},{30,100},{30,-80},{
           50,-80},{50,-88}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true,
         extent={{-120,-120},{120,120}})),
 experiment(StopTime=1, Tolerance=1e-06),
 __Dymola_Commands(file=
@@ -224,5 +225,6 @@ This is for
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
+    Icon(graphics,
+         coordinateSystem(extent={{-120,-120},{120,120}})));
 end FlowControlled_dpSystem;

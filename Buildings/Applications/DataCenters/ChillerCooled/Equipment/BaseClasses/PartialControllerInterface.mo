@@ -104,9 +104,11 @@ partial model PartialControllerInterface
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-100,-100})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false,
                   extent={{-100,-80}, {100,80}})),
-             Diagram(coordinateSystem(preserveAspectRatio=false,
+             Diagram(graphics,
+                     coordinateSystem(preserveAspectRatio=false,
                  extent={{-100,-80},{100,80}})),
     __Dymola_Commands,
     Documentation(info="<html>

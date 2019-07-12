@@ -151,7 +151,8 @@ equation
   experiment(Tolerance=1e-6, StopTime=1.0),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Validation/ThreeWayValveParameterization.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-100,-140},{140,140}})),
+    Diagram(graphics,
+            coordinateSystem(extent={{-100,-140},{140,140}})),
     Documentation(info="<html>
 <p>
 This model test the parameterization of three-way valves.

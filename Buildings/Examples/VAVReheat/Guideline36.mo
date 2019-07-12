@@ -303,7 +303,8 @@ equation
   connect(yFreHeaCoi.y, swiFreSta.u1) annotation (Line(points={{21,-182},{40,-182},
           {40,-184},{58,-184}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
             640}})),
     Documentation(info="<html>
 <p>

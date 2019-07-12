@@ -298,7 +298,8 @@ equation
       points={{252,-50},{240,-50},{240,4},{223.8,4}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{460,200}})),
     Documentation(info="<html>
 This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>

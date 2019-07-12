@@ -51,6 +51,7 @@ First implementation.
           extent={{-78,-62},{86,68}},
           lineColor={0,0,0},
           textString="[  ] max()")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}})));
 end MatrixMax;

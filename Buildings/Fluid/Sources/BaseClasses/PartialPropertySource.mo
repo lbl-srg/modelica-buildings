@@ -127,6 +127,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/881\">#881</a>.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}})));
 end PartialPropertySource;

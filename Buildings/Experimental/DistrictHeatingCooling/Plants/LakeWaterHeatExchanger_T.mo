@@ -284,8 +284,10 @@ protected
             {48,94},{58,94}}, color={0,0,127}));
     connect(product.y, y) annotation (Line(points={{81,100},{88,100},{88,100},{88,
             100},{110,100}}, color={0,0,127}));
-    annotation (Diagram(coordinateSystem(extent={{-100,0},{100,200}},
-            preserveAspectRatio=false)), Icon(coordinateSystem(extent={{-100,0},{100,
+    annotation (Diagram(graphics,
+                        coordinateSystem(extent={{-100,0},{100,200}},
+            preserveAspectRatio=false)), Icon(graphics,
+                                              coordinateSystem(extent={{-100,0},{100,
               200}})));
   end Controller;
 equation
@@ -334,7 +336,8 @@ equation
           136},{-80,160},{-120,160}}, color={0,0,127}));
   annotation (
   defaultComponentName="hex",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+  Diagram(graphics,
+          coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             300}})),            Icon(coordinateSystem(extent={{-100,-100},{100,300}},
                    preserveAspectRatio=false), graphics={
                                 Rectangle(

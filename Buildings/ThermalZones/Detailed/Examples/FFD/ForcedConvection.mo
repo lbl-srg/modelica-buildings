@@ -52,7 +52,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{200,200}})),
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{200,200}})),
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/ForcedConvection.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-06, StopTime=120),

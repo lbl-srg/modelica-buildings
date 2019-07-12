@@ -454,7 +454,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(eas.weaBus, weaBus) annotation (Line(
@@ -703,7 +703,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(out.ports[1], senRelPre.port_b) annotation (Line(
@@ -732,7 +732,8 @@ equation
       points={{-39,-28},{68,-28},{68,-16},{142.4,-16}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},
             {400,500}},
         initialScale=0.1)),     Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-160,-100},{400,500}}), graphics={

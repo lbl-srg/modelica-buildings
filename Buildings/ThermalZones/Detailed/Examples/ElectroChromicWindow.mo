@@ -223,14 +223,14 @@ equation
       points={{150,20},{136,20},{136,21.9},{99.9,21.9}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, weaDat1.weaBus) annotation (Line(
       points={{150,20},{150,20},{196,20},{196,114},{160,114}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(roo.heaPorAir, TRooAir.port)
@@ -259,7 +259,8 @@ equation
   connect(gai.y, roo.qGai_flow) annotation (Line(points={{-19,-10},{34,-10},{34,
           12},{60.4,12}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false,
     extent={{-140,-140},{220,160}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ElectroChromicWindow.mos"

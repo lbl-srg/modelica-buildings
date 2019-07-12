@@ -75,5 +75,6 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-Diagram(coordinateSystem(preserveAspectRatio=false)));
+Diagram(graphics,
+        coordinateSystem(preserveAspectRatio=false)));
 end Change;

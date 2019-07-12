@@ -109,7 +109,8 @@ equation
           -4.41},{12,-4},{16,-4},{16,-16}},color={0,127,255}));
   connect(senTem3.port_b, bou.ports[4]) annotation (Line(points={{28,-16},{32,-16},
           {32,-21},{-40,-21}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
             experiment(StopTime=100000, Tolerance=1e-6),
     __Dymola_Commands(file=

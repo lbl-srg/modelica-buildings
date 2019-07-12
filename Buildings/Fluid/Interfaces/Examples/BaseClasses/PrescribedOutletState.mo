@@ -145,7 +145,8 @@ equation
           -90},{-10,-90}}, color={0,127,255}));
   connect(steSta.port_b, sin.ports[4]) annotation (Line(points={{10,-90},{54,-90},
           {54,3},{90,3}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -120},{120,160}})),
     Documentation(info="<html>
 <p>

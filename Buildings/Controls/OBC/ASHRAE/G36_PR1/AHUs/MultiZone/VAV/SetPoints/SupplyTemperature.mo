@@ -262,7 +262,8 @@ annotation (
           extent={{-124,146},{96,108}},
           lineColor={0,0,255},
           textString="%name")}),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,120}})),
+  Diagram(graphics,
+          coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,120}})),
   Documentation(info="<html>
 <p>
 Block that outputs the supply air temperature setpoint and the coil valve control

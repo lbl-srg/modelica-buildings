@@ -37,7 +37,8 @@ equation
     annotation (Line(points={{-20,-10},{-2,-10},{-2,2}},   color={0,127,255}));
   connect(vol.ports[2], vol1.ports[1]) annotation (Line(points={{2,2},{2,-10},{
           40,-10},{40,2}},       color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

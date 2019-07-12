@@ -99,7 +99,8 @@ equation
     annotation (Line(points={{21,-10},{38,-10}}, color={0,0,127}));
   connect(TSetZon.y, setPoiVAV.TZonSet)
     annotation (Line(points={{-59,-10},{-2,-10}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-100,-100},{140,100}})), Icon(
+  annotation (Diagram(graphics,
+                      coordinateSystem(extent={{-100,-100},{140,100}})), Icon(graphics,
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/SingleZoneVAVSupply_u.mos"

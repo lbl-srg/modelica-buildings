@@ -9,7 +9,8 @@ model SingleCircuitMultipleCircuitFiniteDifference
 
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/SingleCircuitMultipleCircuitFiniteDifference.mos"
         "Simulate and plot"),
-          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-160},
+          Diagram(graphics,
+                  coordinateSystem(preserveAspectRatio=true, extent={{-140,-160},
             {160,160}})),
 Documentation(info="<html>
 <p>

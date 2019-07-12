@@ -84,7 +84,8 @@ equation
     annotation (Line(points={{-140,0},{-76,0},{-10,0}}, color={0,127,255}));
   connect(conHea.mAir_flow, senFloAir.m_flow) annotation (Line(points={{-12,4},
           {-46,4},{-90,4},{-90,-49}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -120},{140,120}})), defaultComponentName="beaCooHea",Icon(
         coordinateSystem(extent={{-140,-120},{140,120}}),             graphics={
         Rectangle(

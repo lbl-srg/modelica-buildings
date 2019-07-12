@@ -87,7 +87,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           fillColor=DynamicSelect({235,235,235}, if activate > 0.5 then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid,
-          visible=activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)}),  Diagram(
+          visible=activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)}),  Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

@@ -259,7 +259,8 @@ equation
           {120,90},{120,64},{198,64}}, color={0,0,127}));
   connect(mean.y, assEqu.u1) annotation (Line(points={{171,80},{180,80},{180,76},
           {198,76}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{240,160}})),
                       Documentation(info="<html>
   <p>Test Case 11 of the VDI 6007 Part 1: Calculation of heat load

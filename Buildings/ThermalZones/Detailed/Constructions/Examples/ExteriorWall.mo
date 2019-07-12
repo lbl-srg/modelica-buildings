@@ -77,7 +77,8 @@ equation
 experiment(Tolerance=1e-6, StopTime=1209600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Constructions/Examples/ExteriorWall.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
             100}})),
     Documentation(info="<html>
 <p>

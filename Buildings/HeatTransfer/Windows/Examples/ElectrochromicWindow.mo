@@ -12,7 +12,8 @@ model ElectrochromicWindow "Electrochromic window"
 equation
   connect(uWin.y, winRad.uSta) annotation (Line(points={{-59,-70},{-18,-70},{
           114.8,-70},{114.8,-21.6}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{340,200}})),
 experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/ElectrochromicWindow.mos"

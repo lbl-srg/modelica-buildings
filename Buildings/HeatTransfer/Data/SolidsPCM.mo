@@ -8,9 +8,9 @@ package SolidsPCM
                                                                final phasechange=true);
 
     annotation (
-defaultComponentPrefixes="parameter",
-defaultComponentName="datSolPCM",
-Documentation(info=
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSolPCM",
+      Documentation(info=
      "<html>
 <p>
 Generic record for phase change materials.
@@ -42,9 +42,10 @@ First implementation.
       TLiq=273.15+27,
       LHea=38900) "Wallboard with 20% of microencapsulated paraffin"
     annotation (
-defaultComponentPrefixes="parameter",
-defaultComponentName="datSolPCM",
-Documentation(info="<html>
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="datSolPCM",
+    Documentation(info=
+                   "<html>
 <p>
 This material record is for PCM treated wallboard. The data source is Feustel (1995).
 </p>
@@ -73,9 +74,10 @@ First implementation.
       TLiq=273.15+26,
       LHea=58300) "Wallboard with 30% of microencapsulated paraffin"
         annotation (
-defaultComponentPrefixes="parameter",
-defaultComponentName="datSolPCM",
-Documentation(info="<html>
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="datSolPCM",
+    Documentation(info=
+                   "<html>
 <p>
 This material record is for PCM treated wallboard. The data source is Feustel (1995).
 </p>
@@ -104,7 +106,7 @@ First implementation.
       TSol=273.15+22.99,
       TLiq=273.15+23.01,
       LHea=28696) "Micronal PCM SmartBoard 23"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSolPCM");
 
@@ -116,7 +118,7 @@ First implementation.
       TSol=273.15+25.99,
       TLiq=273.15+26.01,
       LHea=28696) "Micronal PCM SmartBoard 26"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSolPCM");
 

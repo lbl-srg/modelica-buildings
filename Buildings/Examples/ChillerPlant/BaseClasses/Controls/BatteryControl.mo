@@ -222,5 +222,6 @@ First implementation.
           smooth=Smooth.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(extent={{-160,-160},{160,160}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-160,-160},{160,160}})));
 end BatteryControl;

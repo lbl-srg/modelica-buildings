@@ -157,7 +157,7 @@ equation
       points={{-36,80},{80,80},{80,56},{119,56}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
@@ -165,7 +165,7 @@ equation
       points={{-36,80},{80,80},{80,53},{119,53}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
@@ -196,5 +196,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-160,-160},{180,140}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-160,-160},{180,140}})));
 end SingleZoneVAV;

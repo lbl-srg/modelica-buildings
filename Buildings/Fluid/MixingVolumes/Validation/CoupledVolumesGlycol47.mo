@@ -4,7 +4,8 @@ model CoupledVolumesGlycol47
   extends Buildings.Fluid.MixingVolumes.Validation.CoupledVolumesWater(
     redeclare package Medium = Modelica.Media.Incompressible.Examples.Glycol47);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

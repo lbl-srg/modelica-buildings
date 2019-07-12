@@ -133,7 +133,8 @@ annotation (
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},{80,80}})),
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},{80,80}})),
  Documentation(info="<html>
 <p>
 Control sequence for actuated exhaust damper <code>yExhDamPos</code>

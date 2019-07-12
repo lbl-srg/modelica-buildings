@@ -190,7 +190,8 @@ equation
   connect(add3Mass.u1, intMasFloOut.y)
     annotation (Line(points={{84,-122},{80,-122},{80,-100},{71,-100}},
                                                             color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -280},{180,120}})),           Documentation(info="<html>
 <p>
 This model verifies if mass and energy are conserved,

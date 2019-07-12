@@ -62,7 +62,8 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-                Diagram(coordinateSystem( preserveAspectRatio=false)),
+                Diagram(graphics,
+                        coordinateSystem( preserveAspectRatio=false)),
             experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/UnitConversions/Validation/From_cfm.mos"
     "Simulate and plot"),

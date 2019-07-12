@@ -63,7 +63,8 @@ equation
   tauRev = time - time_out_rev;
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={

@@ -404,7 +404,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true,
             extent={{-240,-160},{100,100}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System2.mos"

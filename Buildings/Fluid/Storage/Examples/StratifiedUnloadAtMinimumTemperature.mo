@@ -168,7 +168,7 @@ equation
     annotation (Line(points={{-80,40},{-52,40}}, color={0,0,127}));
   connect(onOffMid.u, TMid.T)
     annotation (Line(points={{-52,80},{-80,80}}, color={0,0,127}));
-  annotation (Diagram(
+  annotation (Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-140},{260,140}})),
        __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedUnloadAtMinimumTemperature.mos"

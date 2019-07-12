@@ -100,7 +100,6 @@ model System7
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mRadVal_flow_nominal,-mBoi_flow_nominal},
-
     dp_nominal={200,-200,-50}) "Splitter of boiler loop bypass" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -425,7 +424,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, TOut.T) annotation (Line(
@@ -433,7 +432,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TOut.port, theCon.port_a) annotation (Line(
@@ -681,7 +680,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-460,-360},{240,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false,extent={{-460,-360},{240,
             100}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System7.mos"

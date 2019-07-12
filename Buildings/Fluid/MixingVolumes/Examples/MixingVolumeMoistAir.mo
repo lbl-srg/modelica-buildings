@@ -159,7 +159,8 @@ equation
     annotation (Line(points={{98,76},{52,76},{0,76},{0,11}}, color={0,0,127}));
   connect(senLatEnt1.H_flow, add.u2) annotation (Line(points={{60,11},{60,11},{
           60,62},{60,64},{98,64}}, color={0,0,127}));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+    annotation (Diagram(graphics,
+                        coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -160},{180,160}})),
 experiment(StopTime=600,
            Tolerance=1E-6),

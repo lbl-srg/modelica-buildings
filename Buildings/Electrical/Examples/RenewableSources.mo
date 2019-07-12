@@ -408,7 +408,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.winSpe, winTur.vWin) annotation (Line(
@@ -416,7 +416,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaDat.weaBus, pv5.weaBus) annotation (Line(
@@ -603,6 +603,7 @@ experiment(
             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/Examples/RenewableSources.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{320,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{320,
             100}})));
 end RenewableSources;

@@ -160,5 +160,6 @@ experiment(
       StartTime=0,
       StopTime=21600,
       Tolerance=1e-06),
-    Diagram(coordinateSystem(extent={{-100,-160},{100,100}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-100,-160},{100,100}})));
 end IntegratedPrimaryPlantSide;

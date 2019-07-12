@@ -179,7 +179,8 @@ equation
   connect(beaCooHea.heaPor, prescribedTemperature.port) annotation (Line(points=
          {{0,28},{0,28},{0,-10},{0,-40},{50,-40},{50,-150},{-40,-150}}, color={191,
           0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -180},{120,120}})),experiment(Tolerance=1e-6, StopTime=5000),
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Validation/NumberOfBeams.mos"
         "Simulate and plot"),

@@ -131,7 +131,8 @@ equation
   connect(cooMod, fmcMod.u)
     annotation (Line(points={{-120,40},{-102,40},{-82,
           40}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,80}})),    Documentation(info="<html>
 <p>This model describes a simple cooling tower speed controller for
 a chilled water system with integrated waterside economizers.

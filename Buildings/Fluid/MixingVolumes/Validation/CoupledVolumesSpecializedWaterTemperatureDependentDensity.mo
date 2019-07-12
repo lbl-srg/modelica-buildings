@@ -5,7 +5,8 @@ model CoupledVolumesSpecializedWaterTemperatureDependentDensity
     redeclare package Medium =
         Buildings.Media.Specialized.Water.TemperatureDependentDensity);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

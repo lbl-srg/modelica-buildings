@@ -192,7 +192,8 @@ protected
             -116,-20},{-110,-20},{-110,-6},{-102,-6}}, color={0,0,127}));
     connect(TEvaIn, sou2.T_in) annotation (Line(points={{152,-46},{152,-46},{
             104,-46}}, color={0,0,127}));
-    annotation (Diagram(coordinateSystem(extent={{-120,-100},{140,100}})), Icon(
+    annotation (Diagram(graphics,
+                        coordinateSystem(extent={{-120,-100},{140,100}})), Icon(graphics,
           coordinateSystem(extent={{-120,-100},{140,100}})));
   end Chiller;
 equation

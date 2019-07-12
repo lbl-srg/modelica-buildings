@@ -62,7 +62,8 @@ equation
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-100},{80,100}})),
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-80,-100},{80,100}})),
 Documentation(info="<html>
 <p>
 This example validates

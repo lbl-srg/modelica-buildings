@@ -47,6 +47,7 @@ package Shade "Shading control sequences"
         Rectangle(
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0)}), Diagram(coordinateSystem(extent={{-100,-100},{
+          radius=25.0)}), Diagram(graphics,
+                                  coordinateSystem(extent={{-100,-100},{
           100,100}})));
 end Shade;

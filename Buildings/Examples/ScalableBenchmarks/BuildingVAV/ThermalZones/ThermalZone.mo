@@ -339,7 +339,7 @@ equation
           lineColor={117,148,176},
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere)}),
-      Diagram(
+      Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{280,180}})),
       Documentation(info="<html>
 <p>

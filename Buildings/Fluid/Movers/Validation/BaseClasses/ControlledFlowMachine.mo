@@ -194,9 +194,11 @@ equation
       points={{80,-60},{102,-60},{102,27},{122,27}},
       color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,
             160}})),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,160}})),
+    Icon(graphics,
+         coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,160}})),
     Documentation(info="<html>
 This example demonstrates the use of the flow model with four different configuration.
 At steady-state, all flow models have the same mass flow rate and pressure difference.

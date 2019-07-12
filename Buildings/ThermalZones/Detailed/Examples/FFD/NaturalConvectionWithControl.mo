@@ -45,7 +45,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{
             220,120}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/NaturalConvectionWithControl.mos"

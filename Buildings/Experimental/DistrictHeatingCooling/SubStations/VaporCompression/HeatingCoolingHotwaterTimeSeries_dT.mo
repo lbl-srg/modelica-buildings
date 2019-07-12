@@ -752,6 +752,7 @@ First implementation.
         smooth=Smooth.None,
         fillPattern=FillPattern.Solid,
         fillColor={95,95,95})}),
-    Diagram(coordinateSystem(extent={{-280,-460},{280,460}},
+    Diagram(graphics,
+            coordinateSystem(extent={{-280,-460},{280,460}},
           preserveAspectRatio=false)));
 end HeatingCoolingHotwaterTimeSeries_dT;

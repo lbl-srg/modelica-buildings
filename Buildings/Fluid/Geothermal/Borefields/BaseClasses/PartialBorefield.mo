@@ -267,7 +267,8 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),Documentation(info="<html>
 <p>
 This model simulates a borefield containing one or multiple boreholes

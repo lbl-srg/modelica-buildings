@@ -64,7 +64,7 @@ initial equation
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
+          fillPattern=FillPattern.Solid)}),                      Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

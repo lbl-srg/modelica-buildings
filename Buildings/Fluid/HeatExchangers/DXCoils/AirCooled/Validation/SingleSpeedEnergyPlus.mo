@@ -313,7 +313,8 @@ equation
       points={{11,15},{20,15},{20,32},{-48,32},{-48,84},{-42,84}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -140},{160,140}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Validation/SingleSpeedEnergyPlus.mos"
         "Simulate and plot"),

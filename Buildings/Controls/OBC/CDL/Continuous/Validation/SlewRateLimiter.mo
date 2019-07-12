@@ -134,7 +134,8 @@ First implementation.
 </ul>
 
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-140},{100,140}})),
+    Diagram(graphics,
+            coordinateSystem(extent={{-100,-140},{100,140}})),
     Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

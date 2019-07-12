@@ -219,6 +219,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{
             300,140}})));
 end IdealSmallSystem;

@@ -50,7 +50,7 @@ partial model PartialInternalResistances
           color={0,0,0},
           origin={50,0},
           rotation=-90,
-          thickness=0.5)}),                                      Diagram(
+          thickness=0.5)}),                                      Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(info="<html>
 <p>

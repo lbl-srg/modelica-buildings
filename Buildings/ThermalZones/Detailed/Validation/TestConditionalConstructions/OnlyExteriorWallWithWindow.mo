@@ -18,7 +18,8 @@ model OnlyExteriorWallWithWindow "Test model for room model"
                  each azi=Buildings.Types.Azimuth.W)));
    annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/TestConditionalConstructions/OnlyExteriorWallWithWindow.mos"
         "Simulate and plot"),
-   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+   Diagram(graphics,
+           coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),
     experiment(
       Tolerance=1e-06, StopTime=86400),

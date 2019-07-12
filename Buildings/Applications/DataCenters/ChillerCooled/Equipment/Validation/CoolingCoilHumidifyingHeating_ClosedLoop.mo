@@ -80,7 +80,8 @@ equation
           {30,60},{30,29},{45,29}}, color={0,0,127}));
   connect(ahu.port_b1, temSenWat2.port_a) annotation (Line(points={{66,36},{80,
           36},{80,50},{96,50}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -100},{260,160}})),
 experiment(Tolerance=1E-6, StopTime=2400),
 __Dymola_Commands(file=

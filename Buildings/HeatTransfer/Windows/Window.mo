@@ -245,7 +245,8 @@ equation
           160,-20},{200,-20}}, color={191,0,0}));
   connect(capGla.portUns, glaUns_b) annotation (Line(points={{150,44},{156,44},{
           156,20},{200,20}}, color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-200,
             -200},{200,200}})),               Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-200,-200},{200,200}}),                                           graphics={
         Polygon(

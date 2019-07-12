@@ -526,7 +526,8 @@ annotation (Icon(graphics={Rectangle(
           extent={{24,-62},{96,-96}},
           lineColor={0,0,127},
           textString="yZonPreResReq")}),
-    Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
+    Diagram(graphics,
+            coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
 <p>
 Controller for terminal box of VAV system with reheat according to ASHRAE

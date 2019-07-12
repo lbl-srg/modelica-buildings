@@ -133,7 +133,8 @@ equation
       points={{161,70},{180,70},{180,6},{198,6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{240,100}})),
     experiment(StopTime=21600),
     Documentation(info="<html>

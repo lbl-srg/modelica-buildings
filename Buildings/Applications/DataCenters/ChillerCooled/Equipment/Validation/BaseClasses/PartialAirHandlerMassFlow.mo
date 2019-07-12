@@ -106,9 +106,11 @@ equation
     annotation (Line(points={{-20,20},{-30,20},{-40,20}}, color={0,127,255}));
   connect(temSenWat2.port_b, sin_1.ports[1])
     annotation (Line(points={{108,60},{119,60},{130,60}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -100},{200,180}})),
-            Diagram(coordinateSystem(preserveAspectRatio=false,
+            Diagram(graphics,
+                    coordinateSystem(preserveAspectRatio=false,
              extent={{-120,-100},{200,180}})),
     Documentation(revisions="<html>
 <ul>

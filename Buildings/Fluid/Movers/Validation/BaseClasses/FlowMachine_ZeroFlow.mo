@@ -88,9 +88,11 @@ equation
       points={{78,80},{100,80},{100,-39},{-68,-39}},
       color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
+    Icon(graphics,
+         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
     Documentation(info="<html>
 <p>

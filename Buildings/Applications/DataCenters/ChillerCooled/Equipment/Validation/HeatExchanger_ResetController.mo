@@ -205,5 +205,6 @@ experiment(
       StartTime=0,
       StopTime=3600,
       Tolerance=1e-06),
-    Diagram(coordinateSystem(extent={{-100,-200},{100,100}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-100,-200},{100,100}})));
 end HeatExchanger_ResetController;

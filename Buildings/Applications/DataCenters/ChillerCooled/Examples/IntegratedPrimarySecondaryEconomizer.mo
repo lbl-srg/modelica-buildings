@@ -176,7 +176,8 @@ equation
           32},{-114,26},{-106,26}}, color={0,0,127}));
   connect(priPumSpe.y, chiWSE.yPum) annotation (Line(points={{-83,32},{-20,32},
           {-20,26.5},{-1.5,26.5}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{300,220}})),
   __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimarySecondaryEconomizer.mos"

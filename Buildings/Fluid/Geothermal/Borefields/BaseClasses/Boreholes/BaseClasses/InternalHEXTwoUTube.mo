@@ -195,7 +195,8 @@ equation
   connect(intRes2UTub.port_wall, port_wall) annotation (Line(points={{0,0},{6,0},
           {6,20},{20,20},{20,100},{0,100}}, color={191,0,0}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, initialScale=0.1)),
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, initialScale=0.1)),
     Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
         graphics={
         Rectangle(

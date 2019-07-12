@@ -221,7 +221,7 @@ Icon(graphics={Rectangle(
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
-        Diagram(
+        Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-200},{200,200}},
         initialScale=0.05)),

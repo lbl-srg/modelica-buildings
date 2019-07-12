@@ -159,7 +159,8 @@ annotation (
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
-   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{120,
+   Diagram(graphics,
+           coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{120,
             100}})),
  Documentation(info="<html>
 <p>

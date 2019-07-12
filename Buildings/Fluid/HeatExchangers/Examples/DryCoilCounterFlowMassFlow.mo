@@ -52,7 +52,8 @@ equation
       points={{40,24},{32,24},{32,24},{20,24}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowMassFlow.mos"

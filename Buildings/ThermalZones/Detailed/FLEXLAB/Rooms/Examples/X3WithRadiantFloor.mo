@@ -938,7 +938,8 @@ equation
       points={{184,-80},{184,-26},{98.2,-26},{98.2,30}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-300,
             -300},{300,300}})),           __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3WithRadiantFloor.mos"
         "Simulate and plot"),

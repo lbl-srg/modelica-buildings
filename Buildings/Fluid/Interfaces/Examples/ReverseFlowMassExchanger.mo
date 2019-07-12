@@ -267,7 +267,8 @@ equation
 experiment(Tolerance=1e-6, StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-200},{200,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true, extent={{-400,-200},{200,
             200}})),
     Documentation(info="<html>
 <p>

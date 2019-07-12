@@ -198,7 +198,8 @@ equation
       points={{159,157},{155.5,157},{155.5,160},{151,160}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}})),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/Initialization/MixedAir.mos"
         "Simulate and plot"),

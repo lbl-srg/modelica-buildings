@@ -56,7 +56,8 @@ equation
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/BaseClasses/Examples/InfraredRadiationExchange.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-160,-220},{120,120}})),
+    Diagram(graphics,
+            coordinateSystem(extent={{-160,-220},{120,120}})),
     Documentation(info="<html>
 <p>
 Test model for the infrared radiation exchange.

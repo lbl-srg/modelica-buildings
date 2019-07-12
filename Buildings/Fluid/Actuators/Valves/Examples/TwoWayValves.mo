@@ -139,6 +139,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-100},{100,120}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,120}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-100,-100},{100,120}})),
+    Icon(graphics,
+         coordinateSystem(extent={{-100,-100},{100,120}})));
 end TwoWayValves;

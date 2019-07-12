@@ -106,7 +106,7 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Line(points={{-88,66},{-112,8}}, pattern=LinePattern.None),
-        Line(points={{-88,66},{-124,-56}}, color={0,0,0})}),     Diagram(
+        Line(points={{-88,66},{-124,-56}}, color={0,0,0})}),     Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>

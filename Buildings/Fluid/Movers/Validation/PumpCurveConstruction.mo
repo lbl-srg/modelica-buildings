@@ -193,5 +193,6 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{100,120}},
           preserveAspectRatio=false), graphics),
-    Icon(coordinateSystem(extent={{-100,-100},{100,120}})));
+    Icon(graphics,
+         coordinateSystem(extent={{-100,-100},{100,120}})));
 end PumpCurveConstruction;

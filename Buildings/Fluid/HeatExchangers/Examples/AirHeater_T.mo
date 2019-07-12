@@ -72,6 +72,8 @@ First implementation.
     experiment(
       StopTime=172800,
       Tolerance=1e-08),
-    Diagram(coordinateSystem(extent={{-100,-100},{120,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{120,100}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-100,-100},{120,100}})),
+    Icon(graphics,
+         coordinateSystem(extent={{-100,-100},{120,100}})));
 end AirHeater_T;

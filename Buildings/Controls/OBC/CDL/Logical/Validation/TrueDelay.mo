@@ -196,5 +196,6 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(extent={{-100,-180},{100,180}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-100,-180},{100,180}})));
 end TrueDelay;

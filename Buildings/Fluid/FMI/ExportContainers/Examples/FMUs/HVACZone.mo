@@ -220,7 +220,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut,weaBus. TDryBul)
@@ -248,7 +248,7 @@ equation
         Text(
           extent={{-24,-132},{26,-152}},
           lineColor={0,0,127},
-          textString="TOut")}),                                  Diagram(
+          textString="TOut")}),                                  Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>

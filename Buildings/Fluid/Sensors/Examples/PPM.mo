@@ -126,7 +126,8 @@ equation
 experiment(Tolerance=1e-6, StopTime=3),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/PPM.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{180,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{180,
             180}})),
     Documentation(info="<html>
 <p>

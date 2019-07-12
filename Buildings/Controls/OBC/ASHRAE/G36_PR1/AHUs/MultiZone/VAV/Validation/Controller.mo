@@ -199,7 +199,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Diagram(coordinateSystem(extent={{-180,-160},{120,180}})),
+Diagram(graphics,
+        coordinateSystem(extent={{-180,-160},{120,180}})),
     Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

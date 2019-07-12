@@ -76,7 +76,8 @@ equation
       points={{21,110},{50,110},{50,62}},
       color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
     Documentation(info="<html>
 <p>

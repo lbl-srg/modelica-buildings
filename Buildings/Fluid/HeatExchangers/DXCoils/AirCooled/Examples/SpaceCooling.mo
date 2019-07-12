@@ -243,7 +243,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
@@ -346,7 +346,8 @@ public
         color={0,0,127},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(extent={{-180,-160},{120,100}},
-            preserveAspectRatio=true), graphics), Icon(coordinateSystem(extent={{-180,
+            preserveAspectRatio=true), graphics), Icon(graphics,
+                                                       coordinateSystem(extent={{-180,
               -160},{120,100}})));
   end SimpleRoom;
 equation

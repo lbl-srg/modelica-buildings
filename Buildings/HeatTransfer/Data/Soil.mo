@@ -5,18 +5,16 @@ package Soil
   record Generic "Thermal properties of solids with heat storage"
       extends Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties;
     annotation (
-defaultComponentPrefixes="parameter",
-defaultComponentName="datSoi",
-Documentation(info=
-"<html>
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSoi",
+      Documentation(info="<html>
 <p>
 Generic record for solid materials used as soil.
 The material is characterized by its
 thermal conductivity, mass density and specific
 heat capacity.
 </p>
-</html>", revisions=
-"<html>
+</html>", revisions="<html>
 <ul>
 <li>
 April 24, 2011, by Pierre Vigouroux:<br/>
@@ -30,7 +28,7 @@ First implementation.
       k=1.9,
       d=1920,
       c=790) "Granite (k=1.9)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSoi");
 
@@ -38,7 +36,7 @@ First implementation.
       k=3.1,
       d=2000,
       c=840) "Concrete (k=3.1)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSoi");
 
@@ -47,7 +45,7 @@ First implementation.
       k=2.3,
       d=1140,
       c=1200) "Basalt (k=2.3)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSoi");
 
@@ -56,7 +54,7 @@ First implementation.
       k=2.7,
       d=2500,
       c=1090) "Marble (k=2.7)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSoi");
 
@@ -64,7 +62,7 @@ First implementation.
       k=2.8,
       d=540,
       c=1210) "Sandstone (k=2.8)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSoi");
 

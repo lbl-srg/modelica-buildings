@@ -141,7 +141,8 @@ equation
   connect(roo.ports[3], oriChiBot.port_a) annotation (Line(
       points={{32.6667,-60},{32.6667,-72},{70,-72},{70,-59}},
       color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {140,100}})),
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ChimneyShaftWithVolume.mos"
         "Simulate and plot"),

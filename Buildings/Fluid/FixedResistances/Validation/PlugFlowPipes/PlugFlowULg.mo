@@ -1,4 +1,4 @@
-within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes;
+﻿within Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes;
 model PlugFlowULg "Validation against data from Université de Liège"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
@@ -217,5 +217,6 @@ put boundary condition in K.
     experiment(StopTime=875, Tolerance=1e-006),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowULg.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-260,-120},{260,120}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-260,-120},{260,120}})));
 end PlugFlowULg;

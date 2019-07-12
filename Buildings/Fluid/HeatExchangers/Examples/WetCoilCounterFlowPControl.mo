@@ -165,7 +165,8 @@ equation
       points={{21,100},{40,100},{40,72}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilCounterFlowPControl.mos"

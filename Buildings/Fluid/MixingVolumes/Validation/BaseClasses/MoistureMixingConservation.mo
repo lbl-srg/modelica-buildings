@@ -153,7 +153,8 @@ equation
       points={{120,20},{140,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-260},{160,100}})),
     Documentation(info="<html>
 <p>

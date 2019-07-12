@@ -231,7 +231,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, TOut.T) annotation (Line(
@@ -239,7 +239,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TOut.port, theCon.port_a) annotation (Line(
@@ -318,7 +318,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-220},{100,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false,extent={{-240,-220},{100,
             100}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ScrollWaterToWater_OneRoomRadiator.mos"

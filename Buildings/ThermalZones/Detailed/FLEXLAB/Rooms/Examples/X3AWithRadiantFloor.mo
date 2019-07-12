@@ -495,7 +495,8 @@ equation
       points={{-208,4},{-208,14},{-93.8,14},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-300,
             -210},{200,200}})),
           Documentation(info = "<html>
           <p>

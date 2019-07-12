@@ -110,5 +110,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-120,-120},{120,120}})));
 end ConstantHeatInjection_100Boreholes;

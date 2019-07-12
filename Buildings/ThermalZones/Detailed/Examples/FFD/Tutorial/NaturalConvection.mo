@@ -93,7 +93,8 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-80,-140},{180,80}},
+  annotation (Diagram(graphics,
+                      coordinateSystem(extent={{-80,-140},{180,80}},
           preserveAspectRatio=false)),
           __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),

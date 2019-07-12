@@ -157,6 +157,7 @@ September, 2015 by Marcus Fuchs:<br/>
 First implementation.</li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end PlugFlowHeatLoss;

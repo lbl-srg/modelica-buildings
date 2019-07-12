@@ -212,6 +212,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-120},{
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-280,-120},{
             140,140}})));
 end HeatingCoolingHotWaterSmall;

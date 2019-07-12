@@ -20,7 +20,8 @@ equation
           -26,-30},{-26,-82},{-12,-82}}, color={0,0,127}));
   connect(setHeaCooUnl.y[2], steSta.X_wSet) annotation (Line(points={{-39,-30},{
           -26,-30},{-26,-86},{-12,-86}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -120},{120,160}})),
     experiment(Tolerance=1e-6, StopTime=1200),
 __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/PrescribedOutlet.mos"

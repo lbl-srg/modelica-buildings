@@ -69,7 +69,8 @@ equation
       points={{101.9,1.9},{188,1.9},{188,150},{180,150}},
       color={255,204,51},
       thickness=0.5));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {200,200}})),        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/RoomCapacityMultiplier.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -213,5 +213,6 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(extent={{-160,-180},{160,180}})));
+    Diagram(graphics,
+            coordinateSystem(extent={{-160,-180},{160,180}})));
 end OperationMode;

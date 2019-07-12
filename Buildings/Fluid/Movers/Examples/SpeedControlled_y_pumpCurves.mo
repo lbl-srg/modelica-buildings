@@ -156,7 +156,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
             160}})),
 experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/SpeedControlled_y_pumpCurves.mos"

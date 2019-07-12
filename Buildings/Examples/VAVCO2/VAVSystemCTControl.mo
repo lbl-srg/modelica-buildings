@@ -166,10 +166,10 @@ equation
       points={{-19,70},{-2,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dp32.y, fan32.dp_in) annotation (Line(points={{101,90},{129.84,90},{
-          129.84,-0.4}}, color={0,0,127}));
+  connect(dp32.y, fan32.dp_in) annotation (Line(points={{101,90},{130,90},{130,
+          -0.4}},        color={0,0,127}));
   connect(dp56.y, fan56.dp_in) annotation (Line(points={{101,60},{112,60},{112,
-          -40},{130.16,-40},{130.16,-60.4}}, color={0,0,127}));
+          -40},{130,-40},{130,-60.4}},       color={0,0,127}));
   connect(hys.u, pSet.y) annotation (Line(points={{-2,130},{-12,130},{-12,70},{
           -19,70}}, color={0,0,127}));
   connect(hys.y, switch1.u2) annotation (Line(points={{21,130},{30,130},{30,110},
@@ -182,7 +182,8 @@ equation
           {78,90}}, color={0,0,127}));
   connect(switch1.y, dp56.u) annotation (Line(points={{61,110},{68,110},{68,110},
           {68,60},{78,60}}, color={0,0,127}));
-   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+   annotation (Diagram(graphics,
+                       coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{350,150}})),
 Documentation(info="<html>
 <p>

@@ -107,5 +107,6 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             120,100}}), graphics),
-    Icon(coordinateSystem(extent={{-100,-100},{120,100}})));
+    Icon(graphics,
+         coordinateSystem(extent={{-100,-100},{120,100}})));
 end LinearInput;

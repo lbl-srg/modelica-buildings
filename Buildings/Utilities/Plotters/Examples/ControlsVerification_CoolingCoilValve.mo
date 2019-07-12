@@ -237,5 +237,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})));
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})));
 end ControlsVerification_CoolingCoilValve;

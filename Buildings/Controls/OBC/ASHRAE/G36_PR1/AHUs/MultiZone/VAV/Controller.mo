@@ -705,7 +705,8 @@ equation
   connect(VOut_flow_normalized.u1, VOut_flow) annotation (Line(points={{18,-4},
           {-160,-4},{-160,-60},{-210,-60}},color={0,0,127}));
 annotation (defaultComponentName="conAHU",
-    Diagram(coordinateSystem(extent={{-200,-260},{200,280}}, initialScale=0.2)),
+    Diagram(graphics,
+            coordinateSystem(extent={{-200,-260},{200,280}}, initialScale=0.2)),
     Icon(coordinateSystem(extent={{-200,-260},{200,280}}, initialScale=0.2),
         graphics={Rectangle(
           extent={{200,280},{-200,-260}},

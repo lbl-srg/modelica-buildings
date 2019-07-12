@@ -131,7 +131,8 @@ equation
           {-190,110},{-190,182.444},{-172,182.444}}, color={255,127,0}));
   connect(cooModCon.y, CWPumCon.cooMod) annotation (Line(points={{-193,110},{
           -190,110},{-190,75},{-174,75}}, color={255,127,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{300,220}})),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimaryLoadSideEconomizer.mos"

@@ -83,7 +83,8 @@ equation
       points={{-59,130},{10,130},{10,70},{50,70},{50,62}},
       color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
 experiment(Tolerance=1e-06, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/SpeedControlled_y_linear.mos"

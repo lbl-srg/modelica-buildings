@@ -76,7 +76,9 @@ First implementation.
     experiment(
       StopTime=172800,
       Tolerance=1e-8),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{120,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{120,
             100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{120,100}})));
+    Icon(graphics,
+         coordinateSystem(extent={{-100,-100},{120,100}})));
 end WaterCooler_T;

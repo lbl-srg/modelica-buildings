@@ -284,6 +284,7 @@ for a discussion and validation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-140,-140},{140,120}},
+    Diagram(graphics,
+            coordinateSystem(extent={{-140,-140},{140,120}},
           preserveAspectRatio=false)));
 end Pump_Nrpm_stratos;

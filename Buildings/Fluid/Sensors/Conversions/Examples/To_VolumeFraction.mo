@@ -142,7 +142,8 @@ equation
 experiment(Tolerance=1e-8, StopTime=36000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}})),
+  Diagram(graphics,
+          coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}})),
     Documentation(info="<html>
 This example demonstrates the modeling of a room with one person and CO<sub>2</sub> control.
 The room has a volume of <i>4*4*2.7 m<sup>3</sup></i>, and the CO<sub>2</sub> inflow is from

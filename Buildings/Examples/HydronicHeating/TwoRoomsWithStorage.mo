@@ -935,7 +935,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, weaDat.weaBus) annotation (Line(
@@ -1016,7 +1016,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TRoo1.T, cooCon.TRoo) annotation (Line(
@@ -1130,7 +1130,8 @@ equation
   connect(T4.outPort, off.inPort[1]) annotation (Line(points={{661.5,-10},{680,
           -10},{680,20},{420,20},{420,-10},{439,-10}},
                                                 color={0,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false,extent={{-120,
             -260},{700,600}})),
 Documentation(info="<html>
 <p>

@@ -187,8 +187,8 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={98,180})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
-      = MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
+        MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -200,8 +200,8 @@ partial model DataCenter
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,0})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -444,7 +444,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(wseCon.TWetBul, weaBus.TWetBul) annotation (Line(
@@ -452,7 +452,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cooTow.TAir, weaBus.TWetBul) annotation (Line(
@@ -460,7 +460,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TCHWEntChi.port_a, wse.port_b2)
@@ -584,7 +584,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-300},{400,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false,extent={{-400,-300},{400,
             300}})),
 Documentation(info="<HTML>
 <p>

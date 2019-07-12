@@ -2,8 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4N
 model DY
   "IEEE 4 node test feeder model with balanced load and D - Y connection (step down)"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
-    (
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4(
     final line1_use_Z_y=false,
     final line2_use_Z_y=true,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta

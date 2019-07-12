@@ -104,5 +104,6 @@ First implementation.
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Sources/Examples/PVSimple.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
+    Icon(graphics,
+         coordinateSystem(extent={{-140,-100},{100,140}})));
 end PVSimple;

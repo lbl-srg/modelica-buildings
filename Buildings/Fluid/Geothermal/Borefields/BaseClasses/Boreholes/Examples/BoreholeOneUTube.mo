@@ -12,7 +12,8 @@ model BoreholeOneUTube "Test for the single U-tube borehole model"
     __Dymola_Commands( file=
           "Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/Examples/BoreholeOneUTube.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
+    Diagram(graphics,
+            coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
 <p>

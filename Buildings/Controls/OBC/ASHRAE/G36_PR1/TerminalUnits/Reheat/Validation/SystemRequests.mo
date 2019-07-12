@@ -108,7 +108,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+  Diagram(graphics,
+          coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,120}}), graphics={
         Ellipse(lineColor = {75,138,73},

@@ -8,7 +8,8 @@ annotation (
   experiment(StopTime=604800, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ScalableBenchmarks/BuildingVAV/Examples/TwoFloor_TwoZone.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),
+  Diagram(graphics,
+          coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),
   Documentation(info="<html>
 <p>
 The model demonstrates the scalability of model

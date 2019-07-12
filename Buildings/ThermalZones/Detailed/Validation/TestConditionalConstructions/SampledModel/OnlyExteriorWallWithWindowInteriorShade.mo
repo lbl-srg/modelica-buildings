@@ -5,7 +5,8 @@ model OnlyExteriorWallWithWindowInteriorShade "Test model with sampleModel = tru
   annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/TestConditionalConstructions/SampledModel/OnlyExteriorWallWithWindowInteriorShade.mos"
                    "Simulate and plot"),
-Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})),
+Diagram(graphics,
+        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})),
 experiment(Tolerance=1e-06, StopTime=86400),
 Documentation(info="<html>
 <p>

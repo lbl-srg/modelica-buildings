@@ -75,7 +75,8 @@ equation
       points={{-59,-70},{56,-70},{56,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-100,-120},{120,100}},
+  annotation (Diagram(graphics,
+                      coordinateSystem(extent={{-100,-120},{120,100}},
           preserveAspectRatio=true)),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/EvaporationFlowReversal.mos"
         "Simulate and plot"),

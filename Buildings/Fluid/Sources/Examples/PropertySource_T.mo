@@ -106,7 +106,8 @@ equation
     annotation (Line(points={{10,40},{20,40}}, color={0,127,255}));
   connect(proSouXi.port_b, senTemXi.port_a)
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

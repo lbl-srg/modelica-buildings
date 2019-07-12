@@ -420,7 +420,8 @@ equation
     annotation (Line(points={{-34,-30},{-26,-30}}, color={0,127,255}));
   connect(TConOut.port_a, varSpeDX.portCon_b)
     annotation (Line(points={{-6,-30},{-6,0}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -140},{160,140}})),
              __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/WaterCooled/Validation/VariableSpeedEnergyPlusPartLoad.mos"

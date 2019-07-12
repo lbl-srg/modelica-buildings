@@ -14,7 +14,8 @@ model OnlyPartition "Test model for room model"
 
    annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/TestConditionalConstructions/OnlyPartition.mos"
         "Simulate and plot"),
-   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+   Diagram(graphics,
+           coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),
     experiment(
       StopTime=86400,

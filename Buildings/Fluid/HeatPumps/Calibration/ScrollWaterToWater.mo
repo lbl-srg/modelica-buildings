@@ -43,7 +43,8 @@ model ScrollWaterToWater
   parameter Modelica.SIunits.TemperatureDifference dTSup(min = 0) = 10.0
     "Superheating at compressor suction";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},
             {100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,100}}),
       graphics={Text(extent={{-88,92},{-64,90}},

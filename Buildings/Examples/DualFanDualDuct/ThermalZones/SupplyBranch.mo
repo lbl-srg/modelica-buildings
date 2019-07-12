@@ -183,14 +183,14 @@ equation
       points={{-42,14},{-80,14},{-80,-40},{-100,-40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(con.TRooSetCoo, controlBus.TRooSetCoo) annotation (Line(
       points={{-42,10},{-80,10},{-80,-40},{-100,-40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(senMasFlo.port_b, TSup.port_a) annotation (Line(
@@ -203,7 +203,8 @@ equation
       smooth=Smooth.None));
   connect(con.yFan, yFan) annotation (Line(points={{-42,2},{-82,2},{-82,0},{
           -120,0}}, color={255,0,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={
         Rectangle(

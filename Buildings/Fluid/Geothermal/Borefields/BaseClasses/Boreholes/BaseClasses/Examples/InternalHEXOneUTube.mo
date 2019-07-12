@@ -81,7 +81,8 @@ equation
           {20,-66}}, color={0,0,127}));
   connect(fixedTemperature.port, intHex.port_wall)
     annotation (Line(points={{-2,40},{0,40},{0,10}}, color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=100000, Tolerance=1e-6),
     __Dymola_Commands(file=

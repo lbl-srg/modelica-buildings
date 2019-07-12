@@ -141,7 +141,8 @@ equation
           extent={{-90,96},{96,68}},
           lineColor={0,0,255},
           textString="%trueHoldDuration")}),
-        Diagram(coordinateSystem(
+        Diagram(graphics,
+                coordinateSystem(
           preserveAspectRatio=false, extent={{-180,-120},{160,140}})),
 Documentation(info="<html>
 <p>

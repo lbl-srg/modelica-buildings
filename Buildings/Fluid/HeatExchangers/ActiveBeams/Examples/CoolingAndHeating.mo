@@ -139,10 +139,12 @@ equation
           {12,100},{20,100},{20,66},{26,66}}, color={0,127,255}));
   connect(pumHea.ports[1], beaCooHea.watHea_a)
     annotation (Line(points={{0,60},{13,60},{26,60}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+  annotation (Diagram(graphics,
+                      coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,120}})),experiment(Tolerance=1e-6, StopTime=172800),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/CoolingAndHeating.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}})),
+    Icon(graphics,
+         coordinateSystem(extent={{-120,-120},{120,120}})),
      Documentation(info="<html>
 <p>
 This example tests the implementation of

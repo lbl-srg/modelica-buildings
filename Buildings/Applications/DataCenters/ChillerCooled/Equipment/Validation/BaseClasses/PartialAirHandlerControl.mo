@@ -134,8 +134,9 @@ equation
     annotation (Line(points={{-46,10},{-50,10},{-54,10}}, color={0,127,255}));
   connect(temSenWat2.port_b, res_1.port_a)
     annotation (Line(points={{116,50},{120,50},{124,50}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
-            -100},{220,120}})),                                  Diagram(
+  annotation (Icon(graphics,
+                   coordinateSystem(preserveAspectRatio=false, extent={{-160,
+            -100},{220,120}})),                                  Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{220,
             120}})),
     Documentation(info="<html>
