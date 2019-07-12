@@ -62,7 +62,6 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
     final uLow=0,
     final uHigh=hysSig)
@@ -81,6 +80,7 @@ protected
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=delayStaCha,
     final delayOnInit=true)
