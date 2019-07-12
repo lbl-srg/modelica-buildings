@@ -62,7 +62,7 @@ model FlowControlled_dpSystem
     from_dp=true,
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal/2,
-    dp_nominal=0,
+    dpExp_nominal=0,
     dp_nominalIncludesDamper=false)
                            "Damper"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
@@ -78,7 +78,7 @@ model FlowControlled_dpSystem
     from_dp=true,
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal/2,
-    dp_nominal=0,
+    dpExp_nominal=0,
     dp_nominalIncludesDamper=false)
                            "Damper"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
@@ -87,7 +87,7 @@ model FlowControlled_dpSystem
     from_dp=true,
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal/2,
-    dp_nominal=0,
+    dpExp_nominal=0,
     dp_nominalIncludesDamper=false)
                            "Damper"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
@@ -96,7 +96,7 @@ model FlowControlled_dpSystem
     from_dp=true,
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal/2,
-    dp_nominal=0,
+    dpExp_nominal=0,
     dp_nominalIncludesDamper=false)
                            "Damper"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));

@@ -96,7 +96,7 @@ model SimpleHouse
     annotation (Placement(transformation(extent={{80,170},{60,190}})));
   Actuators.Dampers.Exponential vavDam(
     redeclare package Medium = MediumAir,
-    dp_nominal=dpAir_nominal,
+    dpExp_nominal=dpAir_nominal,
     from_dp=true,
     m_flow_nominal=mAir_flow_nominal) "Damper" annotation (Placement(
         transformation(

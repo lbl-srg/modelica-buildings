@@ -7,11 +7,14 @@ model PressureIndependent
     final linearized=false,
     final from_dp=true,
     final dp_nominalIncludesDamper=true,
-    final dpTot_nominal=dp_nominal+dpFixed_nominal,
+    final dpExp_nominal=dpDam_nominal+dpFixed_nominal,
     final k1=2 * rho_default * (A / kDam_1)^2,
     final k0=2 * rho_default * (A / kDam_0)^2);
+  parameter Modelica.SIunits.PressureDifference dpDam_nominal(displayUnit="Pa", min=0)
+    "Pressure drop of fully open damper at nominal conditions"
+     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
-    "Pressure drop of duct and other resistances that are in series"
+    "Pressure drop of duct and other resistances that are in series, at nominal conditions"
      annotation(Dialog(group = "Nominal condition"));
   parameter Real l(min=1e-10, max=1, unit="1") = 0.0001
     "Damper leakage, l=k(y=0)/k(y=1)";
@@ -21,13 +24,13 @@ model PressureIndependent
   parameter Modelica.SIunits.MassFlowRate m_tol = 2E-2 * m_flow_nominal
     "Tolerance on mass flow rate for sizing the transition regions"
     annotation(Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.PressureDifference dp_small(displayUnit="Pa") = 1E-2 * dpTot_nominal
+  parameter Modelica.SIunits.PressureDifference dp_small(displayUnit="Pa") = 1E-2 * dp_nominal_pos
     "Pressure drop for sizing the transition regions"
     annotation(Dialog(tab="Advanced"));
 protected
   parameter Real y_min = 2E-2
     "Minimum value of control signal before zeroing the opening.";
-  parameter Real kDam_1 = m_flow_nominal / sqrt(dp_nominal_pos)
+  parameter Real kDam_1 = m_flow_nominal / sqrt(abs(dpDam_nominal))
     "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   parameter Real kTot_1 = if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kResSqu + 1 / kDam_1^2)) else kDam_1

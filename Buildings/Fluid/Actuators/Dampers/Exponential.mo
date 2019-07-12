@@ -2,12 +2,15 @@ within Buildings.Fluid.Actuators.Dampers;
 model Exponential
   "Damper model with exponential characteristics and optional fixed flow resistance"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
-    dp(nominal=if dp_nominalIncludesDamper then dp_nominal else dp_nominal + dpDamOpe_nominal),
+    dp(nominal=if dp_nominalIncludesDamper then dpExp_nominal else dpExp_nominal + dpDamOpe_nominal),
     final kFixed=sqrt(kResSqu),
     final char_linear_pro=char_linear,
-    dpTot_nominal=if dp_nominalIncludesDamper then dp_nominal else dp_nominal + dpDamOpe_nominal);
+    final dp_nominal=if dp_nominalIncludesDamper then dpExp_nominal else dpExp_nominal + dpDamOpe_nominal);
+  parameter Modelica.SIunits.PressureDifference dpExp_nominal(displayUnit="Pa")
+    "Pressure drop at nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Boolean dp_nominalIncludesDamper = true
-    "Set to true if dp_nominal includes the pressure loss of the open damper"
+    "Set to true if dpExp_nominal includes the pressure loss of the open damper"
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean char_linear = false
     "Set to true to linearize the flow characteristics of damper plus fixed resistance"
@@ -19,17 +22,17 @@ protected
   parameter Real kResSqu(unit="kg.m", fixed=false)
     "Resistance coefficient for fixed resistance element";
 initial equation
-  assert(abs(dp_nominal) > Modelica.Constants.eps or not dp_nominalIncludesDamper,
-    "dp_nominal cannot be zero when dp_nominalIncludesDamper is true.");
+  assert(abs(dpExp_nominal) > Modelica.Constants.eps or not dp_nominalIncludesDamper,
+    "dpExp_nominal cannot be zero when dp_nominalIncludesDamper is true.");
   assert(kResSqu >= 0,
-         "Wrong parameters in damper model: dp_nominal < dpDamOpe_nominal"
-          + "\n  dp_nominal = "       + String(dp_nominal)
+         "Wrong parameters in damper model: dpExp_nominal < dpDamOpe_nominal"
+          + "\n  dpExp_nominal = " + String(dpExp_nominal)
           + "\n  dpDamOpe_nominal = " + String(dpDamOpe_nominal));
   if not casePreInd then
-    kResSqu = if dp_nominal < Modelica.Constants.eps then 0
+    kResSqu = if dpExp_nominal < Modelica.Constants.eps then 0
     elseif dp_nominalIncludesDamper then
-      m_flow_nominal^2 / (dp_nominal - dpDamOpe_nominal)
-    else m_flow_nominal^2 / dp_nominal;
+      m_flow_nominal^2 / (dpExp_nominal - dpDamOpe_nominal)
+    else m_flow_nominal^2 / dpExp_nominal;
   end if;
 annotation (
 defaultComponentName="dam",

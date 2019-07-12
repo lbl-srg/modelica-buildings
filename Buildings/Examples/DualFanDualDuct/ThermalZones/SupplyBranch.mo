@@ -37,7 +37,7 @@ model SupplyBranch "Supply branch of a dual duct system"
   Buildings.Fluid.Actuators.Dampers.Exponential vavHot(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAirHot_flow_nominal,
-    dp_nominal(displayUnit="Pa") = 40,
+    dpExp_nominal(displayUnit="Pa") = 40,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
     y_start=0)                          "VAV damper for hot deck" annotation (
@@ -48,7 +48,7 @@ model SupplyBranch "Supply branch of a dual duct system"
   Buildings.Fluid.Actuators.Dampers.Exponential vavCol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAirCol_flow_nominal,
-    dp_nominal(displayUnit="Pa") = 40,
+    dpExp_nominal(displayUnit="Pa") = 40,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
     y_start=0)                          "VAV damper for cold deck" annotation (

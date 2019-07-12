@@ -454,7 +454,7 @@ model TwoRoomsWithStorage
   CoolingControl cooCon "Controller for cooling"
     annotation (Placement(transformation(extent={{100,530},{120,550}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damSupByp(
-dp_nominal=0, dp_nominalIncludesDamper=false, 
+dpExp_nominal=0, dp_nominalIncludesDamper=false, 
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     use_inputFilter=false)
@@ -562,14 +562,14 @@ Changed controller to output setpoint for supply air temperature for cooling coi
 </html>"));
   end CoolingControl;
   Buildings.Fluid.Actuators.Dampers.Exponential damHex(
-dp_nominal=0, dp_nominalIncludesDamper=false, 
+dpExp_nominal=0, dp_nominalIncludesDamper=false, 
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     use_inputFilter=false)
     "Supply air damper that closes the heat recovery"
     annotation (Placement(transformation(extent={{120,490},{140,510}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRetByp(
-dp_nominal=0, dp_nominalIncludesDamper=false, 
+dpExp_nominal=0, dp_nominalIncludesDamper=false, 
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     use_inputFilter=false)

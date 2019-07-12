@@ -143,7 +143,7 @@ model MixingBox
 
   Fluid.Actuators.Dampers.Exponential damOut(
     redeclare package Medium = Medium,
-    dp_nominal=dpOut_nominal,
+    dpExp_nominal=dpOut_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
@@ -169,7 +169,7 @@ model MixingBox
   Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
     m_flow_nominal=mExh_flow_nominal,
-    dp_nominal=dpExh_nominal,
+    dpExp_nominal=dpExh_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,
@@ -194,7 +194,7 @@ model MixingBox
   Fluid.Actuators.Dampers.Exponential damRet(
     redeclare package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
-    dp_nominal=dpRec_nominal,
+    dpExp_nominal=dpRec_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
     linearized=linearized,

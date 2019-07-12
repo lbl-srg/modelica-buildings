@@ -17,7 +17,7 @@ model VAVBranch "Supply branch of a VAV system"
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
-    dp_nominal=20,
+    dpDam_nominal=20,
     v_nominal=4,
     dpFixed_nominal=220)                 "VAV box for room" annotation (
       Placement(transformation(

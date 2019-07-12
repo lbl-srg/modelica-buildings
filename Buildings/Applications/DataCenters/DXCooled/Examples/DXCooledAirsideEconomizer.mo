@@ -161,13 +161,13 @@ model DXCooledAirsideEconomizer
     "Cooling mode controller"
     annotation (Placement(transformation(extent={{-170,60},{-150,80}})));
   Buildings.Fluid.Actuators.Dampers.Exponential dam1(
-dp_nominal=0, dp_nominalIncludesDamper=false, 
+dpExp_nominal=0, dp_nominalIncludesDamper=false, 
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal)
     "Open only when free cooling mode is activated"
     annotation (Placement(transformation(extent={{-20,2},{0,22}})));
   Buildings.Fluid.Actuators.Dampers.Exponential dam2(
-dp_nominal=0, dp_nominalIncludesDamper=false, 
+dpExp_nominal=0, dp_nominalIncludesDamper=false, 
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
     y_start=0) "Open when mechanical cooling is activated"

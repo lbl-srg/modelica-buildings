@@ -56,7 +56,7 @@ model MixingBoxMinimumFlow
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOutMin_flow_nominal,
-    dp_nominal=dpOutMin_nominal,
+    dpExp_nominal=dpOutMin_nominal,
     final use_inputFilter=false) "Damper for minimum outside air intake"
     annotation (Placement(transformation(extent={{48,32},{68,52}})));
 protected

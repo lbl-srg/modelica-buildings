@@ -12,7 +12,7 @@ model RoomVAV "Model for CO2 emitted by people"
   Buildings.Fluid.Actuators.Dampers.Exponential vav(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=1E2,
+    dpExp_nominal=1E2,
     from_dp=false) annotation (Placement(transformation(
      extent={{-10,-10},{10,10}},
         rotation=270,

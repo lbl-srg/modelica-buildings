@@ -43,8 +43,6 @@ partial model PartialDamperExponential
   Real k
     "Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
-  parameter Modelica.SIunits.PressureDifference dpTot_nominal(start=dp_nominal_pos, displayUnit="Pa")
-    "Pressure drop of fully open damper plus fixed resistance at nominal flow rate";
   parameter Real kL = Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=yL, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)^2
     "Loss coefficient at the lower limit of the exponential characteristics";
@@ -113,12 +111,12 @@ equation
           m_flow=homotopy(
             actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
               dp=dp, k=k, m_flow_turbulent=m_flow_turbulent),
-            simplified=m_flow_nominal_pos*dp/dpTot_nominal);
+            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
         else
           dp=homotopy(
             actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
               m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent),
-            simplified=dpTot_nominal*m_flow/m_flow_nominal_pos);
+            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
         end if;  // from_dp
       else // do not use homotopy
         if from_dp then

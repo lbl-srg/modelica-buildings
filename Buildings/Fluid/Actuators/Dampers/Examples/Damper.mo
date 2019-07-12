@@ -27,7 +27,7 @@ model Damper
   PressureIndependent preInd(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=5,
+    dpDam_nominal=5,
     use_inputFilter=false,
     v_nominal=3) "A damper with a mass flow proportional to the input signal"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
@@ -35,13 +35,13 @@ model Damper
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     use_inputFilter=false,
-    dp_nominal=0,
+    dpExp_nominal=0,
     dp_nominalIncludesDamper=false)
     "A damper with quadratic relationship between m_flow and dp"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
   PressureIndependent preIndDpFixed_nominal(
     m_flow_nominal=1,
-    dp_nominal=5,
+    dpDam_nominal=5,
     use_inputFilter=false,
     v_nominal=3,
     dpFixed_nominal=20,
@@ -64,7 +64,7 @@ model Damper
   PressureIndependent preInd0(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=5,
+    dpDam_nominal=5,
     use_inputFilter=false,
     v_nominal=3) "A damper with a mass flow proportional to the input signal"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
@@ -73,7 +73,7 @@ model Damper
   PressureIndependent preInd1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=5,
+    dpDam_nominal=5,
     use_inputFilter=false,
     v_nominal=3) "A damper with a mass flow proportional to the input signal"
     annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
@@ -85,7 +85,7 @@ model Damper
     use_inputFilter=false,
     linearized=false,
     char_linear=true,
-    dp_nominal=0,
+    dpExp_nominal=0,
     dp_nominalIncludesDamper=false)
     "A damper with quadratic relationship between m_flow and dp and linearized characteristic"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
@@ -94,7 +94,7 @@ model Damper
     m_flow_nominal=1,
     use_inputFilter=false,
     v_nominal=3,
-    dp_nominal=5,
+    dpDam_nominal=5,
     l=0.02,
     dpFixed_nominal=100)
             "A damper with a mass flow proportional to the input signal"
