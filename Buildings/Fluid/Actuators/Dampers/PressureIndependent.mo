@@ -196,29 +196,30 @@ Documentation(info="<html>
 Model for an air damper with ideal pressure independent flow control and exponential characteristics.
 </p>
 <p>
-The input control signal <code>y</code> is the required fractional mass flow rate
+The input control signal <code>y</code> is the demanded fractional mass flow rate
 (<code>m_flow_setpoint/m_flow_nominal</code>).
 </p>
 <p>
-When the model is exposed to a pressure drop whithin the controllable range, the flow rate is equal
-to the setpoint within a 1% tolerance.
+When the model is exposed to a pressure drop within the controllable range, the flow rate is equal
+to the setpoint with a maximum error approximately equal to 2% of the nominal value.
 </p>
 <h4>Main equations</h4>
 <p>
 First the boundaries of the controllable range <code>dp_0</code> and <code>dp_1</code> are computed based
-on the required mass flow rate and the flow coefficient of the damper
+on the demanded mass flow rate and the flow coefficient of the damper
 in a fully closed and fully open position.
 </p>
+Then an intermediary pressure drop value <code>dp_lim</code> is computed to keep the error on the
+flow rate due to regularization close to 2% of the nominal flow rate value.
 <p>
 Three flow domains are then considered depending on the actual pressure drop at the damper's boundaries:
 </p>
 <ol>
 <li>
-Between <code>dp_0</code> and <code>dp_1</code> (controllable domain): an ideal flow control is considered and
+Between <code>dp_1</code> and <code>dp_lim</code>: an ideal flow control is considered and
 the mass flow rate is computed as the setpoint <code>y*m_flow_nominal</code> plus a regularization term so that
 the derivative <code>d(m_flow)/d(dp)</code> is not zeroed (which may introduce singularities, for instance when
-connecting this component with a fixed mass flow source). The regularization term is such that the error on the
-computed flow rate is less than 1% of its nominal value.
+connecting this component with a fixed mass flow source).
 </li>
 <li>
 Above <code>dp_0</code> (leakage domain): the flow rate is computed using the loss coefficient <code>k0</code>
