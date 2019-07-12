@@ -10,8 +10,8 @@ model PumpParallel "Example that tests the model pump parallels"
   parameter Real thr2=thr1*m_flow_nominal "Threshold for shutoff valves in parallel 2";
 
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y pumPar1(
-    num=numPum,
     redeclare package Medium = MediumW,
+    num=numPum,
     dpValve_nominal=6000,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
     m_flow_nominal=m_flow_nominal,
@@ -28,28 +28,32 @@ model PumpParallel "Example that tests the model pump parallels"
     m_flow_nominal=6000/3600*1.2)
     "Pressure drop"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
+
   Buildings.Fluid.FixedResistances.PressureDrop dp1(
+    redeclare package Medium = MediumW,
     m_flow_nominal=6000/3600*1.2,
-    dp_nominal=300,
-    redeclare package Medium = MediumW)
+    dp_nominal=300)
     "Pressure drop"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+
   Buildings.Fluid.Sources.Boundary_pT sou(
+    redeclare package Medium = MediumW,
     use_p_in=false,
     nPorts=2,
-    redeclare package Medium = MediumW,
     p=101325,
     T=293.15)
     "Source"
     annotation (Placement(transformation(extent={{-96,28},{-76,48}})));
+
   Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = MediumW,
     use_p_in=false,
     nPorts=2,
-    redeclare package Medium = MediumW,
     p=101325,
     T=293.15)
     "Sink"
     annotation (Placement(transformation(extent={{102,30},{82,50}})));
+
   Modelica.Blocks.Sources.Pulse y[numPum](
     each amplitude=1,
     each width=50,
@@ -58,9 +62,10 @@ model PumpParallel "Example that tests the model pump parallels"
     each startTime=0)
     "Input signal"
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
+
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m pumPar2(
-    num=numPum,
     redeclare package Medium = MediumW,
+    num=numPum,
     dpValve_nominal=6000,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
     m_flow_nominal=m_flow_nominal,
@@ -71,17 +76,19 @@ model PumpParallel "Example that tests the model pump parallels"
     annotation (Placement(transformation(extent={{-18,-50},{2,-30}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop dp3(
+    redeclare package Medium = MediumW,
     m_flow_nominal=6000/3600*1.2,
-    dp_nominal=300,
-    redeclare package Medium = MediumW)
+    dp_nominal=300)
     "Pressure drop"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+
   Buildings.Fluid.FixedResistances.PressureDrop dp4(
     redeclare package Medium = MediumW,
     dp_nominal=3000,
     m_flow_nominal=6000/3600*1.2)
     "Pressure drop"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+
 equation
   connect(dp2.port_a, pumPar1.port_b)
     annotation (Line(points={{20,40},{2,40}}, color={0,127,255}));
@@ -108,6 +115,7 @@ equation
           {-20,-36}}, color={0,0,127}));
   connect(dp2.port_b, sin.ports[2])
     annotation (Line(points={{40,40},{82,40},{82,38}}, color={0,127,255}));
+
   annotation (    __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/PumpParallel.mos"
         "Simulate and plot"),
