@@ -44,10 +44,10 @@ The other resistance corresponds to a damper whose loss coefficient is an expone
 of the opening angle.
 </p>
 <p>
-If <code>dp_nominalIncludesDamper=true</code>, then the parameter <code>dp_nominal</code>
+If <code>dp_nominalIncludesDamper=true</code>, then the parameter <code>dpExp_nominal</code>
 is equal to the pressure drop of the damper plus the fixed flow resistance at the nominal
 flow rate.
-If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
+If <code>dp_nominalIncludesDamper=false</code>, then <code>dpExp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
 <p>
@@ -94,7 +94,7 @@ is used to compute the mass flow rate versus pressure
 drop relation as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  m&#775; = sign(&Delta;p) k(y)  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 with regularization near the origin.
@@ -190,7 +190,7 @@ First implementation.
         Text(
           extent={{-110,-34},{12,-100}},
           lineColor={0,0,255},
-          textString="dp_nominal=%dp_nominal"),
+          textString="dpExp_nominal=%dp_nominal"),
         Text(
           extent={{-102,-76},{10,-122}},
           lineColor={0,0,255},

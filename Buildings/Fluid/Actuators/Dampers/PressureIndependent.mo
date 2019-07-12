@@ -209,10 +209,12 @@ First the boundaries of the controllable range <code>dp_0</code> and <code>dp_1<
 on the demanded mass flow rate and the flow coefficient of the damper
 in a fully closed and fully open position.
 </p>
+<p>
 Then an intermediary pressure drop value <code>dp_lim</code> is computed to keep the error on the
 flow rate due to regularization close to 2% of the nominal flow rate value.
+</p>
 <p>
-Three flow domains are then considered depending on the actual pressure drop at the damper's boundaries:
+Three main flow domains are then considered depending on the actual pressure drop at the damper's boundaries:
 </p>
 <ol>
 <li>
@@ -231,8 +233,14 @@ corresponding to the fully open position.
 </li>
 </ol>
 <p>
-In the transition intervals between these domains, a quintic spline interpolation is used so that the relationship
+In the transition intervals between those domains, a quintic spline interpolation is used so that the relationship
 between the flow rate and the pressure drop is C<sup>2</sup>.
+</p>
+<p>
+The example 
+<a href=Buildings.Fluid.Actuators.Dampers.Examples.Damper>
+Buildings.Fluid.Actuators.Dampers.Examples.Damper</a> (see <code>preIndCha</code>)
+provides the typical flow characteristics that is thus obtained (also illustrated in the figure hereunder).
 </p>
 <p align=\"left\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/Dampers/PressureIndependent.png\"/>

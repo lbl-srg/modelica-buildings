@@ -53,8 +53,8 @@ plotExpression(apply(Damper[end].preInd1.m_flow/Damper[end].preInd1.m_flow_nomin
 createPlot(
     id=4,
     position={264, 242, 592, 427},
-    x="preIndChar.m_flow",
-    y={"preIndChar.dp", "preIndChar.dp_0", "preIndChar.dp_1", "preIndChar.dp_lim"},
+    x="preIndCha.m_flow",
+    y={"preIndCha.dp", "preIndCha.dp_0", "preIndCha.dp_1", "preIndCha.dp_lim"},
     autoscale = true,
     autoerase = true,
     autoreplot = true,

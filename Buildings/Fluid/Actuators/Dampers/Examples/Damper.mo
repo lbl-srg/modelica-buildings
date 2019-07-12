@@ -89,15 +89,14 @@ model Damper
     dp_nominalIncludesDamper=false)
     "A damper with quadratic relationship between m_flow and dp and linearized characteristic"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
-  PressureIndependent preIndChar(
+  PressureIndependent preIndCha(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     use_inputFilter=false,
     v_nominal=3,
     dpDam_nominal=5,
     l=0.02,
-    dpFixed_nominal=100)
-            "A damper with a mass flow proportional to the input signal"
+    dpFixed_nominal=100) "A damper with a mass flow proportional to the input signal"
     annotation (Placement(transformation(extent={{30,-170},{50,-150}})));
   Sources.Boundary_pT                 sou1(
     redeclare package Medium = Medium,
@@ -155,12 +154,12 @@ equation
                                      color={0,127,255}));
   connect(sou.ports[4], res.port_a) annotation (Line(points={{-42,-3},{-20,-3},{-20,80},{30,80}},
                              color={0,127,255}));
-  connect(preIndChar.port_b, sin.ports[7])
+  connect(preIndCha.port_b, sin.ports[7])
     annotation (Line(points={{50,-160},{68,-160},{68,-3.42857},{82,-3.42857}}, color={0,127,255}));
-  connect(sou1.ports[1],preIndChar. port_a) annotation (Line(points={{-40,-160},{30,-160}}, color={0,127,255}));
+  connect(sou1.ports[1], preIndCha.port_a) annotation (Line(points={{-40,-160},{30,-160}}, color={0,127,255}));
   connect(sou1.p_in, pSouVar1.y) annotation (Line(points={{-62,-152},{-66,-152},{-70,-152},{-79,-152}},
                                                                                   color={0,0,127}));
-  connect(yCst01.y, preIndChar.y) annotation (Line(points={{11,-140},{40,-140},{40,-148}}, color={0,0,127}));
+  connect(yCst01.y, preIndCha.y) annotation (Line(points={{11,-140},{40,-140},{40,-148}}, color={0,0,127}));
     annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),
@@ -176,6 +175,13 @@ The control signal of the dampers is a ramp from 0 (fully closed damper) to 1 (f
 In the second set of tests a variable pressure drop is applied at the damper (and optional fixed resistance) boundaries
 from negative (reverse flow) to positive values.
 The control signal of the dampers is constant, either equal to 0 or 1.
+</p>
+<p>
+In the last test case, a variable pressure drop is applied at the damper (and optional fixed resistance) boundaries
+from zero to a value leading to a fully closed damper position for the demanded flow rate (0.1 of the nominal value).
+That example illustrates the typical flow characteristics obtained with the model 
+<a href=Buildings.Fluid.Actuators.Dampers.PressureIndependent>
+Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
 </p>
 </html>", revisions="<html>
 <ul>
