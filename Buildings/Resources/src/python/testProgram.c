@@ -1,5 +1,8 @@
-#include "testProgram.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "testProgram.h"
 void ModelicaFormatError(const char* string, const char* fmt, const char* val){
   fprintf(stderr, string, fmt, val);
   fprintf(stderr, "\n");
@@ -7,6 +10,7 @@ void ModelicaFormatError(const char* string, const char* fmt, const char* val){
 }
 
 int main(int nArgs, char ** args){
+  const char *pypath = getenv("PYTHONPATH");
   const char * moduleName = "testFunctions";
   const char * functionName = "r1_r1PassPythonObject";
   size_t nDblWri = 1;
@@ -30,17 +34,20 @@ int main(int nArgs, char ** args){
   ptr->isInitialized = 0;
 
   for(i=0; i < 3  ; i++){
-    printf("Calling with i = %d.\n", i);
-    pythonExchangeValuesNoModelica(moduleName,
-                         functionName,
-                         dblValWri, nDblWri,
-                         dblValRea, nDblRea,
-                         intValWri, nIntWri,
-                         intValRea, nIntRea,
-                         strValWri, nStrWri,
-	                       ModelicaFormatError,
-                         ptr,
-                         1);
+    printf("Calling pythonExchangeValuesNoModelica with i = %d.\n", i);
+    pythonExchangeValuesNoModelica(
+      moduleName,
+      functionName,
+      pypath,
+      dblValWri, nDblWri,
+      dblValRea, nDblRea,
+      intValWri, nIntWri,
+      intValRea, nIntRea,
+      strValWri, nStrWri,
+      ModelicaFormatError,
+      ptr,
+      1
+    );
   }
   return 0;
 }

@@ -25,30 +25,35 @@ function exchange "Function that communicates with Python"
   output Real    dblRea[max(1, nDblRea)] "Double values returned by Python";
   output Integer intRea[max(1, nIntRea)] "Integer values returned by Python";
 protected
-  String pytPat "Value of PYTHONPATH environment variable";
+  String pytPatOld "Old value of PYTHONPATH environment variable";
   String pytPatBuildings "PYTHONPATH of Buildings library";
+  String pytPat "Value of PYTHONPATH environment variable";
   Boolean havePytPat "true if PYTHONPATH is already set by the user";
-//--  String filNam = "file://Utilities/IO/Python27/UsersGuide/package.mo"
-//--    "Name to a file of the Buildings library";
+  package P
+    constant String filNam = "modelica://Buildings/legal.html"
+        "Name to a file of the Buildings library";
+    constant String buiLibFil = Modelica.Utilities.Files.loadResource(uri=filNam) "Absolute path to filNam";
+  end P;
+  String searchString = "legal.html" "String to be replaced";
 algorithm
  // Get the directory to Buildings/Resources/Python-Sources
-//-- The lines below do not work in Dymola 2014 due to an issue with the loadResource
-//-- (ticket #15168). This will be fixed in future versions.
-//-- pytPatBuildings := Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(uri=filNam);
-//-- pytPatBuildings := Modelica.Utilities.Strings.replace(
-//--   string=pytPatBuildings,
-//--   searchString=filNam,
-//--   replaceString="Resources/Python-Sources");
- // The next line is a temporary fix for the above problem
- pytPatBuildings := "Resources/Python-Sources";
+ pytPatBuildings := Modelica.Utilities.Strings.replace(
+   string=P.buiLibFil,
+   searchString=searchString,
+   replaceString="Resources/Python-Sources");
+
  // Update the PYTHONPATH variable
- (pytPat, havePytPat) :=Modelica.Utilities.System.getEnvironmentVariable("PYTHONPATH");
+ (pytPatOld, havePytPat) :=Modelica.Utilities.System.getEnvironmentVariable("PYTHONPATH");
  if havePytPat then
-   Modelica.Utilities.System.setEnvironmentVariable(name="PYTHONPATH",
-      content=pytPat + ":" + pytPatBuildings);
+   if Modelica.Utilities.Strings.find(pytPatOld, pytPatBuildings) == 0 then
+     // The new python path is not yet in the environment variable, add it.
+     pytPat:=pytPatOld + ":" + pytPatBuildings;
+   else
+     // The new python path is already in the variable.
+     pytPat:=pytPatOld;
+   end if;
  else
-   Modelica.Utilities.System.setEnvironmentVariable(name="PYTHONPATH",
-      content=pytPatBuildings);
+   pytPat := pytPatBuildings;
  end if;
  // Call the exchange function
  (dblRea, intRea) :=BaseClasses.exchange(
@@ -56,6 +61,7 @@ algorithm
     functionName=functionName,
     pytObj=pytObj,
     passPythonObject=passPythonObject,
+    pythonPath=pytPat,
     dblWri=dblWri,
     intWri=intWri,
     strWri=strWri,
@@ -64,17 +70,6 @@ algorithm
     nIntWri=nIntWri,
     nIntRea=nIntRea,
     nStrWri=nStrWri);
-
- // Change the PYTHONPATH back to what it was so that the function has no
- // side effects.
- if havePytPat then
-   Modelica.Utilities.System.setEnvironmentVariable(name="PYTHONPATH",
-      content=pytPat);
- else
-   Modelica.Utilities.System.setEnvironmentVariable(name="PYTHONPATH",
-      content="");
- end if;
-
   annotation (Documentation(info="<html>
 <p>
 This function is a wrapper for
@@ -95,6 +90,16 @@ for examples.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 14, 2019, by Antoine Gautier and Michael Wetter:<br/>
+Refactored for setting <code>PYTHONPATH</code> correctly independent of working directory.
+</li>
+<li>
+April 24, 2019, by Michael Wetter:<br/>
+Refactored for getting <code>PYTHONPATH</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1421\">#1421</a>.
+</li>
 <li>
 May 2, 2013, by Michael Wetter:<br/>
 First implementation.
