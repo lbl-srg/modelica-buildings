@@ -106,7 +106,7 @@ model System2
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Buildings.Fluid.Sources.FixedBoundary sinWat(nPorts=1, redeclare package Medium =
+  Buildings.Fluid.Sources.Boundary_pT sinWat(nPorts=1, redeclare package Medium =
         MediumW) "Sink for water circuit"
     annotation (Placement(transformation(extent={{-80,-76},{-60,-56}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(

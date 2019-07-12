@@ -28,8 +28,8 @@ added to the library.
 </html>", info="<html>
 <p>
 This is a model of a generic resistive load. This model is an extension of the base load model
-<a href=\"Buildings.Electrical.Interfaces.PartialLoad\">
-Buildings.Electrical.Interfaces.PartialLoad</a>.
+<a href=\"Buildings.Electrical.Interfaces.Load\">
+Buildings.Electrical.Interfaces.Load</a>.
 </p>
 </html>"));
 end ResistiveLoad;

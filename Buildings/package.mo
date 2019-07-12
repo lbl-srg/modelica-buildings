@@ -183,7 +183,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Utilities.IO.Files
     </td>
-    <td valign=\"top\">Package with blocks to write CSV files or combi time table files.
+    <td valign=\"top\">Package with blocks to write CSV files, JSON files or combi time table files.
     </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Utilities.Plotters
@@ -206,14 +206,34 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MultiOr
+        </td>
+        <td valign=\"top\">Block that outputs true boolean signal if and only if any element of the boolean input vector is true.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixMin
+        </td>
+        <td valign=\"top\">Block that outputs vector of row- or column-wise minimum values.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixMax
+        </td>
+        <td valign=\"top\">Block that outputs vector of row- or column-wise maximum values.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.MatrixGain
         </td>
-        <td valign=\"top\">Output the product of a gain matrix with the input signal vector.
+        <td valign=\"top\">Block that outputs the product of a gain matrix with the input signal vector.
+        </td>
+        </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.MovingMean
+        </td>
+        <td valign=\"top\">Block that outputs the discrete moving mean of a sampled input signal.
         </td>
         </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
         </td>
-        <td valign=\"top\">Extract scalar signal out of signal vector dependent on Integer-valued input.
+        <td valign=\"top\">Block that extracts a scalar signal out of a signal vector dependent on an Integer-valued input.
         </td>
         </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change
@@ -243,7 +263,13 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Added Bessel, exponential integral, factorial, falling factorial and binomial functions.
         </td>
-        </tr>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.X_pTphi
+        </td>
+        <td valign=\"top\">Added function to compute humidity mass fraction for given pressure, temperature
+                         and relative humidity.
+        </td>
+    </tr>
     </table>
     <!-- Backward compatible changes -->
     <p>
@@ -287,6 +313,17 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1270\">issue 1270</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                           Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                           Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
+        </td>
+        <td valign=\"top\">Changed model so that the volume is no longer fixed at compilation time.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1411\">issue 1411</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
         </td>
     </tr>
@@ -299,6 +336,14 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">IBPSA, issue 1045</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python27</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Python27.Functions.exchange<br/>
+        </td>
+        <td valign=\"top\">Refactored setting the <code>PYTHONPATH</code> environment variable.<br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1421\">issue 1421</a>.
+    </td>
     </table>
     <!-- Non-backward compatible changes to existing components -->
     <p>
@@ -437,6 +482,15 @@ its class name ends with the string <code>Beta</code>.
                            For Dymola, a conversion script makes this change.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Sources.FixedBoundary
+        </td>
+        <td valign=\"top\">This model is now obsolete and will be removed in future releases.
+                           The model has been renamed model to
+                           <code>Buildings.Obsolete.Fluid.Sources.FixedBoundary</code>.
+                           Use <code>Buildings.Fluid.Sources.Boundary_pT</code> instead.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Media</b>
         </td>
     </tr>
@@ -467,6 +521,22 @@ its class name ends with the string <code>Beta</code>.
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
+        </td>
+        <td valign=\"top\">Corrected implementation that causes wrong output at initial stage.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Toggle
+        </td>
+        <td valign=\"top\">Corrected implementation that causes wrong output at initial stage.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+        </td>
+    </tr>
+
     <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
         </td>
     </tr>
@@ -485,6 +555,17 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Corrected missing propagation of initial conditions.<br/>
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1016\">IBPSA, #1016</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
+        </td>
+        <td valign=\"top\">Propagated parameter <code>mSenFac</code> which
+                           increased the thermal capacity of the room air, such as
+                           to account for furniture.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1405\">issue 1405</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -509,12 +590,13 @@ its class name ends with the string <code>Beta</code>.
     units are wrong or errors in documentation):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Corrected wrong time in the documentation of the parameters.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1409\">issue 1409</a>.
         </td>
     </tr>
     </table>
@@ -3030,8 +3112,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        <code>ThermodynamicState</code> record. Setting the start value for
                        <code>T</code> is required to avoid an error due to
                        conflicting start values when translating
-                       <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
-                       Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+                       <code>Buildings.Examples.VAVReheat.ClosedLoop</code> in pedantic mode.
     </td>
 </tr>
 
@@ -3751,8 +3832,7 @@ have been fixed:
         Documentation(info="<html>
 <p>
 Version 1.5 build 3 is a maintenance release that corrects an error in
-<a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
-Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
+<code>Buildings.Fluid.MassExchangers.HumidifierPrescribed</code>.
 It is fully compatible with version 1.5 build 2.
 </p>
 <!-- Errors that have been fixed -->
@@ -6321,8 +6401,7 @@ solar irradiation and sky temperature.
 </li>
 <li>
 Added package
-<a href=\"modelica://Buildings.Utilities.IO.WeatherData\">
-Buildings.Utilities.IO.WeatherData</a>
+<code>Buildings.Utilities.IO.WeatherData</code>
 with models to read weather data in the TMY3 format.
 </li>
 <li>
@@ -6355,8 +6434,7 @@ With the new implementation, the energy and moisture balance is exact.
 In
 <a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
 Buildings.Fluid.Interfaces.ConservationEquation</a> and in
-<a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium\">
-Buildings.Media.Interfaces.PartialSimpleMedium</a>, set
+<code>Buildings.Media.Interfaces.PartialSimpleMedium</code>, set
 nominal attribute for medium to provide consistent normalization.
 Without this change, Dymola 7.4 uses different values for the nominal attribute
 based on the value of <code>Advanced.OutputModelicaCodeWithJacobians=true/false;</code>
@@ -6366,8 +6444,7 @@ Buildings.Examples.HydronicHeating</a>.
 </li>
 <li>
 Fixed bug in energy balance of
-<a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
-Buildings.Fluid.Chillers.Carnot</a>.
+<code>Buildings.Fluid.Chillers.Carnot</code>.
 </li>
 <li>
 Fixed bug in efficiency curves in package
@@ -6484,8 +6561,7 @@ that can lead to wrong simulation results):
 Added the following heat exchanger models
 <ul>
 <li>
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
+<code>Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</code>
 for a sensible heat exchanger that uses the <code>epsilon-NTU</code>
 relations to compute the heat transfer.
 </li>
@@ -6555,8 +6631,7 @@ of nonlinear equations.
 </li>
 <li>
 Changed
-<a href=\"modelica://Buildings.Media.PerfectGases.MoistAir.T_phX\">
-Buildings.Media.PerfectGases.MoistAir.T_phX</a> (and by inheritance all
+<code>Buildings.Media.PerfectGases.MoistAir.T_phX</code> (and by inheritance all
 other moist air medium models) to first compute <code>T</code>
 in closed form assuming no saturation. Then, a check is done to determine
 whether the state is in the fog region. If the state is in the fog region,
@@ -6566,8 +6641,7 @@ time in models that frequently call <code>T_phX</code>.
 </li>
 <li>
 Added package
-<a href=\"modelica://Buildings.Media.GasesConstantDensity\">
-Buildings.Media.GasesConstantDensity</a> which contains medium models
+<code>Buildings.Media.GasesConstantDensity</code> which contains medium models
 for dry air and moist air.
 The use of a constant density avoids having pressure as a state variable in mixing volumes. Hence, fast transients
 introduced by a change in pressure are avoided.
@@ -6608,9 +6682,7 @@ medium to be initialized to <code>reference_X</code>, ignoring the value of <cod
 </li>
 <li>
 Renamed <code>Buildings.Media.PerfectGases.MoistAirNonSaturated</code>
-to
-<a href=\"modelica://Buildings.Media.PerfectGases.MoistAirUnsaturated\">
-Buildings.Media.PerfectGases.MoistAirUnsaturated</a>
+to <code>Buildings.Media.PerfectGases.MoistAirUnsaturated</code>
 and <code>Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid</code>
 to
 <a href=\"modelica://Buildings.Media.Air\">
@@ -6627,8 +6699,7 @@ Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>.
 </li>
 <li>
 Fixed bug regarding temperature offset in
-<a href=\"modelica://Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX\">
-Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX</a>.
+<code>Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX</code>.
 </li>
 <li>
 Added implementation of function
@@ -6636,11 +6707,9 @@ Added implementation of function
 Buildings.Media.Air.enthalpyOfNonCondensingGas</a> and its derivative.
 </li>
 <li>
-In <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
-Buildings.Media.PerfectGases.MoistAir</a>, fixed
-bug in implementation of <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir.T_phX\">
-Buildings.Media.PerfectGases.MoistAir.T_phX</a>. In the
-previous version, it computed the inverse of its parent class,
+In <code>Buildings.Media.PerfectGases.MoistAir</code>, fixed
+bug in implementation of <code>Buildings.Media.PerfectGases.MoistAir.T_phX</code>. 
+In the previous version, it computed the inverse of its parent class,
 which gave slightly different results.
 </li>
 <li>
@@ -6651,10 +6720,8 @@ and added parameter that deactivates the interface. Deactivating
 the interface is sometimes useful during debugging.
 </li>
 <li>
-In <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
-Buildings.Media.GasesPTDecoupled.MoistAir</a> and in
-<a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
-Buildings.Media.PerfectGases.MoistAir</a>, added function
+In <code>Buildings.Media.GasesPTDecoupled.MoistAir</code> and in
+<code>Buildings.Media.PerfectGases.MoistAir</code>, added function
 <code>enthalpyOfNonCondensingGas</code> and its derivative.
 <li>
 In <a href=\"modelica://Buildings.Media\">
@@ -6667,9 +6734,8 @@ Added model
 Buildings.Fluid.Storage.ExpansionVessel</a>.
 </li>
 <li>
-Added Wrapper function <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.solve\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</a> for
-<a href=\"modelica://Modelica.Math.Matrices.solve\">
+Added Wrapper function <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</code> 
+for <a href=\"modelica://Modelica.Math.Matrices.solve\">
 Modelica.Math.Matrices.solve</a>. This is currently needed since
 <a href=\"modelica://Modelica.Math.Matrices.solve\">
 Modelica.Math.Matrices.solve</a> does not specify a
@@ -6685,13 +6751,11 @@ the outside,
 the whole thickness of the water volume was used
 instead of only half the thickness.
 <li>
-In <a href=\"Buildings.Media.ConstantPropertyLiquidWater\">
-Buildings.Media.ConstantPropertyLiquidWater</a>, added the option to specify a compressibility.
-This can help reducing the size of the coupled nonlinear system of equations, at
-the expense of introducing stiffness. This change required to change the inheritance
-tree of the medium. Its base class is now
-<a href=\"Buildings.Media.Interfaces.PartialSimpleMedium\">
-Buildings.Media.Interfaces.PartialSimpleMedium</a>,
+In <code>Buildings.Media.ConstantPropertyLiquidWater</code>, added the option to specify 
+a compressibility. This can help reducing the size of the coupled nonlinear system of 
+equations, at the expense of introducing stiffness. This change required to change 
+the inheritance tree of the medium. Its base class is now
+<code>Buildings.Media.Interfaces.PartialSimpleMedium</code>,
 which contains the equation for the compressibility. The default setting will model
 the flow as incompressible.
 </li>
@@ -6716,8 +6780,7 @@ in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 The new models are better suited than the existing fan model
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachinePolynomial\">
-Buildings.Fluid.Movers.FlowMachinePolynomial</a> for zero flow rate.
+<code>Buildings.Fluid.Movers.FlowMachinePolynomial</code> for zero flow rate.
 </li>
 <li>
 Added an optional mixing volume to <a href=\"modelica://Buildings.Fluid.BaseClasses.PartialThreeWayResistance\">
@@ -6768,14 +6831,11 @@ Updated license to Modelica License 2.
 </li>
 <li>
 Replaced
-<a href=\"modelica://Buildings.Utilities.Psychrometrics.HumidityRatioPressure.mo\">
-Buildings.Utilities.Psychrometrics.HumidityRatioPressure.mo</a>
+<code>Buildings.Utilities.Psychrometrics.HumidityRatioPressure</code>
 by
-<a href=\"modelica://Buildings.Utilities.Psychrometrics.HumidityRatio_pWat.mo\">
-Buildings.Utilities.Psychrometrics.HumidityRatio_pWat.mo</a>
+<code>Buildings.Utilities.Psychrometrics.HumidityRatio_pWat</code>
 and
-<a href=\"modelica://Buildings.Utilities.Psychrometrics.VaporPressure_X.mo\">
-Buildings.Utilities.Psychrometrics.VaporPressure_X.mo</a>
+<code>Buildings.Utilities.Psychrometrics.VaporPressure_X</code>
 because the old model used <code>RealInput</code> ports, which are obsolete
 in Modelica 3.0.
 </li>
@@ -6803,8 +6863,7 @@ Buildings.Utilities.Math.Functions</a>.
 </li>
 <li>
 Fixed sign error in
-<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.Stratifier\">
-Buildings.Fluid.Storage.BaseClasses.Stratifier</a>
+<code>Buildings.Fluid.Storage.BaseClasses.Stratifier</code>
 which caused a wrong energy balance in
 <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
 Buildings.Fluid.Storage.StratifiedEnhanced</a>.
@@ -6812,11 +6871,9 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 <li>
 Renamed
 <code>Buildings.Fluid.HeatExchangers.HeaterCoolerIdeal</code> to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
-Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a>
+<code>Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</code>
 to have the same nomenclatures as is used for
-<a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
-Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>
+<code>Buildings.Fluid.MassExchangers.HumidifierPrescribed</code>
 </li>
 <li>
 In
@@ -6840,8 +6897,7 @@ child classes.
 </li>
 <li>
 Added models for chiller
-(<a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
-Buildings.Fluid.Chillers.Carnot</a>),
+(<code>Buildings.Fluid.Chillers.Carnot</code>),
 for occupancy
 (<a href=\"modelica://Buildings.Controls.SetPoints.OccupancySchedule\">
 Buildings.Controls.SetPoints.OccupancySchedule</a>) and for
@@ -6875,10 +6931,8 @@ Buildings.Fluid.Examples</a> to the example directory in the package of the
 individual model.
 </li>
 <li>
-Renamed package <a href=\"modelica://Buildings.Utilites.Controls\">
-Buildings.Utilites.Controls</a> to
-<a href=\"modelica://Buildings.Utilites.Diagnostics\">
-Buildings.Utilites.Diagnostics</a>.
+Renamed package <code>Buildings.Utilites.Controls</code> to
+<code>Buildings.Utilites.Diagnostics</code>.
 </li>
 <li>
 Introduced packages
@@ -6915,7 +6969,7 @@ See <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
 </li>
 <li>
-Added package <a href=\"modelica://Buildings.Utilities.Reports\">Buildings.Utilities.Reports</a>.
+Added package <code>Buildings.Utilities.Reports</code>.
 The package contains models that facilitate reporting.
 </li>
 </ul>
@@ -6940,15 +6994,13 @@ The package contains a motor model for valves and dampers.
 <li>
 The package <a href=\"modelica://Buildings.Media\">Buildings.Media</a> has been reorganized and
 the new medium model
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
-Buildings.Media.GasesPTDecoupled.MoistAir</a>
+<code>Buildings.Media.GasesPTDecoupled.MoistAir</code>
 has been added.
 <br/>
 In addition, this package now contains a bug fix that is needed for Modelica 2.2.1 and 2.2.2.
 The bugs are fixed by using a new
 base class
-<a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleIdealGasMedium\">
-Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</a>
+<code>Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</code>
  (that fixes the bugs) instead of
 <a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>.
@@ -7312,6 +7364,48 @@ such enhancements or derivative works thereof, in binary and source code form.
 <p>
 Note: The license is a revised 3 clause BSD license with an ADDED paragraph
 at the end that makes it easy to accept improvements.
+</p>
+<h4>Third Party License</h4>
+<p>
+To parse weather file, the function <code>getTimeSpan.c</code> uses
+third party code that uses the following license:
+</p>
+<p>
+Copyright (c) 2011 The NetBSD Foundation, Inc.<br/>
+All rights reserved.
+</p>
+<p>
+This code is derived from software contributed to The NetBSD Foundation
+by Christos Zoulas.
+</p>
+<p>
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+</p>
+<ol>
+<li>
+  Redistributions of source code must retain the above copyright
+  notice, this list of conditions and the following disclaimer.
+</li>
+<li>
+  Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+</li>
+</ol>
+<p>
+THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
+''AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
 </p>
 </html>"));
   end License;

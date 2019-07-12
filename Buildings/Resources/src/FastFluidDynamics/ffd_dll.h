@@ -30,11 +30,11 @@
 /* Windows*/
 #ifdef _MSC_VER
 __declspec(dllexport)
-extern int ffd_dll(CosimulationData *cosim);
+extern void *ffd_dll(CosimulationData *cosim);
 /* Linux*/
 #else
 #include <pthread.h>
-int ffd_dll(CosimulationData *cosim);
+void *ffd_dll(CosimulationData *cosim);
 #endif
 
 

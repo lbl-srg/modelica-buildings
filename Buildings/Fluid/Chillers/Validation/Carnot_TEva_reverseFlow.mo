@@ -49,21 +49,20 @@ model Carnot_TEva_reverseFlow
     use_m_flow_in=true,
     T=295.15)
     annotation (Placement(transformation(extent={{60,-16},{40,4}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium1,
     nPorts=1)
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={80,30})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(nPorts=1,
+  Buildings.Fluid.Sources.Boundary_pT sin2(nPorts=1,
     redeclare package Medium = Medium2)
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-40,-30})));
-  Modelica.Blocks.Sources.Constant
-                               TEvaLvg(k=273.15 + 10)
+  Modelica.Blocks.Sources.Constant TEvaLvg(k=273.15 + 10)
     "Control signal for evaporator leaving temperature"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Modelica.Blocks.Math.Gain mCon_flow(k=-1/cp1_default/dTEva_nominal)
@@ -132,6 +131,11 @@ This example checks the correct behavior if a mass flow rate attains zero.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 November 25, 2015, by Michael Wetter:<br/>
 First implementation.

@@ -1017,7 +1017,6 @@ Proc. of the 2014 ASHRAE/IBPSA-USA Building Simulation Conference, Atlanta, GA, 
 </p>
 </html>"));
   end CFD;
-
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
@@ -1050,7 +1049,7 @@ Both models have the option of modeling electrochromic windows.
 The window properties are specified in a record
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">Buildings.HeatTransfer.Data.GlazingSystems</a>
 which contains for the glass layer the record
-<a href=\"modelica//Buildings.HeatTransfer.Data.Glasses\">Buildings.HeatTransfer.Data.Glasses</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Data.Glasses\">Buildings.HeatTransfer.Data.Glasses</a>.
 If any glass layer has multiple properties, then the glass is assumed to be controllable,
 and the room model will have an input connector
 <code>uWin</code> that is used for the control input signal of the glass.

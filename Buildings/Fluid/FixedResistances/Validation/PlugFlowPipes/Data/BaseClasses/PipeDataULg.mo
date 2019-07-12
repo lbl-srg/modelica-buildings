@@ -43,7 +43,7 @@ the mass flow rate is set to <i>1.245</i> kg/s.</p>
 
 <h4>Test bench schematic</h4>
 <p><img alt=\"Schematic of test rig at ULg\"
-src=\"modelica://Buildings/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
+src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/Validation/PlugFlowPipes/ULgTestBench.png\" border=\"1\"/></p>
 <p>Notice: length are approximate</p>
 
 <h4>Pipe characteristics</h4>
