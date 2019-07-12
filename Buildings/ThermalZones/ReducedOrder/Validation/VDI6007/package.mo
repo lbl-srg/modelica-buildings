@@ -1,6 +1,5 @@
 within Buildings.ThermalZones.ReducedOrder.Validation;
-package VDI6007
-  "Validation according to VDI 6007-1"
+package VDI6007 "Validation according to VDI 6007-1"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>

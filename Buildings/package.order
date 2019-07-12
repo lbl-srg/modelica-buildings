@@ -4,7 +4,7 @@ Airflow
 Applications
 BoundaryConditions
 Controls
-DistrictEnergySystem
+DistrictHeatingCooling
 Electrical
 Fluid
 HeatTransfer

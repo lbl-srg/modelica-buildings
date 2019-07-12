@@ -7,10 +7,10 @@ function smoothHeaviside
   output Real y "Result";
 algorithm
  y := Buildings.Utilities.Math.Functions.regStep(
-   y1=  1,
-   y2=  0,
-   x=  x,
-   x_small=  delta);
+   y1 = 1,
+   y2 = 0,
+   x = x,
+   x_small = delta);
  annotation (smoothOrder = 1,
  Documentation(info="<html>
 <p>

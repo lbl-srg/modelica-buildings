@@ -11,8 +11,7 @@ protected
   replaceable TwoPortRL line(
     R=R/3,
     L=L/3,
-    mode=modelMode) constrainedby
-    Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC(
+    mode=modelMode) constrainedby Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC(
       useHeatPort=true,
       M=M,
       T_ref=T_ref) "Model of the line"

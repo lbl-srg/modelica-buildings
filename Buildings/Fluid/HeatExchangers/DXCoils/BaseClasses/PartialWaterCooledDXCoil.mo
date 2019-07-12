@@ -149,8 +149,7 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
 
   // Components
   replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil eva
-   constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
+   constrainedby Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
     redeclare final package Medium = MediumEva,
     final use_mCon_flow=true,
     final dp_nominal=dpEva_nominal,
