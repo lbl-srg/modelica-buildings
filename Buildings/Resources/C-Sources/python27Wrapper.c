@@ -6,6 +6,7 @@
  * The arguments are as follows:
  * moduleName - Name of the Python module.
  * functionName - Name of the Python function.
+ * pythonPath   - Value of the PYTHONPATH environment variable
  * dblValWri    - Double values to write.
  * nDblWri      - Number of doubles to write.
  * dblValRea    - Double values to read.
@@ -21,6 +22,7 @@
 
 void pythonExchangeValues(const char * moduleName,
                           const char * functionName,
+                          const char * pythonPath,
                           const double * dblValWri, size_t nDblWri,
                           double * dblValRea, size_t nDblRea,
                           const int * intValWri, size_t nIntWri,
@@ -32,6 +34,7 @@ void pythonExchangeValues(const char * moduleName,
   pythonExchangeValuesNoModelica(
    moduleName,
    functionName,
+   pythonPath,
    dblValWri, nDblWri,
    dblValRea, nDblRea,
    intValWri, nIntWri,

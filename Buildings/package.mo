@@ -331,6 +331,14 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">IBPSA, issue 1045</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python27</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Python27.Functions.exchange<br/>
+        </td>
+        <td valign=\"top\">Refactored setting the <code>PYTHONPATH</code> environment variable.<br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1421\">issue 1421</a>.
+    </td>
     </table>
     <!-- Non-backward compatible changes to existing components -->
     <p>
