@@ -55,7 +55,7 @@
   },
   {
      "jmodelica": {
-       "simulate": false
+       "rtol": 1E-8
   },
   "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   }
