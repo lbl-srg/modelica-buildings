@@ -226,6 +226,11 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Block that outputs the product of a gain matrix with the input signal vector.
         </td>
         </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.MovingMean
+        </td>
+        <td valign=\"top\">Block that outputs the discrete moving mean of a sampled input signal.
+        </td>
+        </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
         </td>
         <td valign=\"top\">Block that extracts a scalar signal out of a signal vector dependent on an Integer-valued input.
@@ -351,6 +356,14 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">IBPSA, issue 1045</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python27</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Python27.Functions.exchange<br/>
+        </td>
+        <td valign=\"top\">Refactored setting the <code>PYTHONPATH</code> environment variable.<br/>
+                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1421\">issue 1421</a>.
+    </td>
     </table>
     <!-- Non-backward compatible changes to existing components -->
     <p>
