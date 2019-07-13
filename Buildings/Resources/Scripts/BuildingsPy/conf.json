@@ -49,7 +49,7 @@
   },
   {
      "jmodelica": {
-       "simulate": false
+     "rtol": 1E-6
   },
   "model_name": "Buildings.Examples.VAVCO2.VAVSystemCTControl"
   },
