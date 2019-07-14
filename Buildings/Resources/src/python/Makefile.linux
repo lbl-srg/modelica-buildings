@@ -6,6 +6,15 @@ ARCH = $(shell getconf LONG_BIT)
 # Makefile to compile Python interface
 # Michael Wetter (MWetter@lbl.gov) October 24, 2012
 
+# Python directories
+# PYTHONHOME must be defined before running the make file.
+# For instance:
+#   export PYTHONHOME=$HOME/miniconda3/envs/python2
+ifndef PYTHONHOME
+$(error PYTHONHOME is not set)
+endif
+PYTHONInc=$(PYTHONHOME)/include/python2.7
+PYTHONLib=$(PYTHONHOME)/lib
 
 # Directory where executable will be copied to
 BINDIR = ../../Library/linux$(ARCH)
@@ -14,10 +23,8 @@ BINDIR = ../../Library/linux$(ARCH)
 ## Compilation flags
 CC = gcc
 
-CC_FLAGS_32 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I/usr/include/python2.7 -lpython2.7 -lm -m32
-CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I/usr/include/python2.7 -lpython2.7 -lm -m64
-
-
+CC_FLAGS_32 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython2.7 -lm -m32
+CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython2.7 -lm -m64
 
 SRCS = pythonInterpreter.c
 OBJS = pythonInterpreter.o

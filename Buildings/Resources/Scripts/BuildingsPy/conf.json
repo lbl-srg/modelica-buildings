@@ -49,20 +49,14 @@
   },
   {
      "jmodelica": {
-       "simulate": false
+     "rtol": 1E-6
   },
   "model_name": "Buildings.Examples.VAVCO2.VAVSystemCTControl"
   },
   {
      "jmodelica": {
-       "simulate": false
+       "rtol": 1E-8
   },
   "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
-  },
-  {
-     "jmodelica": {
-       "simulate": false
-  },
-  "model_name": "Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.PumpParallel"
   }
 ]
