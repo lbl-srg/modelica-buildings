@@ -103,4 +103,3 @@ docker run \
   cd /mnt/shared/${bas_nam} && \
   /usr/local/JModelica/bin/jm_ipython.sh ${arg_lis}"
 exit $?
-#  export PYTHONPATH=\"Buildings/Resources/Python-Sources\" && \
