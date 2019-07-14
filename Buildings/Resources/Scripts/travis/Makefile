@@ -38,5 +38,5 @@ test-dymola:
 
 test-jmodelica:
 	(cd $(ROOT)/Buildings && \
-		export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  python ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool jmodelica)
