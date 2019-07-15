@@ -10,5 +10,9 @@ compareVars :=
     "preInd0.y",
     "preInd0.y_actual",
     "preInd1.y",
-    "preInd1.y_actual"
+    "preInd1.y_actual",
+    "preIndCha.dp",
+    "preIndCha.dp_0",
+    "preIndCha.dp_1",
+    "preIndCha.dp_lim"
   };
