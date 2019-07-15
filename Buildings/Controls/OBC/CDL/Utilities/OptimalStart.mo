@@ -53,7 +53,7 @@ block OptimalStart
     displayUnit="h") "Optimal start time of HVAC system"
     annotation (Placement(transformation(extent={{300,-10},{320,10}}),
                     iconTransformation(extent={{100,-10},{120,10}})));
-  Discrete.TriggeredSampler triSam
+  Discrete.TriggeredSampler triSam(y_start=1)
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
   Logical.FallingEdge falEdg
     "Get the timing when the zone temperature reaches setpoint"
@@ -95,25 +95,10 @@ block OptimalStart
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Continuous.Min min
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Discrete.TriggeredSampler triSam3(y_start=maxOptTim)
+  Discrete.MovingMean movMea(n=3, samplePeriod=86400)
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  Discrete.TriggeredSampler triSam4(y_start=maxOptTim)
+  Continuous.Gain gai(k=1/3600)
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
-  Discrete.TriggeredSampler triSam5(y_start=maxOptTim)
-    annotation (Placement(transformation(extent={{160,120},{180,140}})));
-  Continuous.MultiSum mulSum(k=fill(1, 3), nin=3)
-    annotation (Placement(transformation(extent={{192,90},{212,110}})));
-  Logical.Sources.SampleTrigger samTri(period(displayUnit="h") = 259200,
-      startTime(displayUnit="h") = occupancy[1])
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Logical.Sources.SampleTrigger samTri1(period(displayUnit="h") = 259200,
-      startTime(displayUnit="h") = occupancy[1] + 24*3600)
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Logical.Sources.SampleTrigger samTri2(period(displayUnit="h") = 259200,
-      startTime(displayUnit="h") = occupancy[1] + 48*3600)
-    annotation (Placement(transformation(extent={{140,50},{160,70}})));
-  Continuous.Gain gai(k=1/3)
-    annotation (Placement(transformation(extent={{220,90},{240,110}})));
 equation
   connect(mod.y, greEqu.u1) annotation (Line(points={{-179,100.2},{-169.5,100.2},
           {-169.5,100},{-162,100}},
@@ -140,7 +125,7 @@ equation
     annotation (Line(points={{1,80},{50,80},{50,118.2}},   color={255,0,255}));
   connect(tim.u, truHol.y)
     annotation (Line(points={{-2,130},{-19,130}},  color={255,0,255}));
-  connect(lesEqu.y, lat1.u0) annotation (Line(points={{-99,130},{-94,130},{-94,
+  connect(lesEqu.y, lat1.clr) annotation (Line(points={{-99,130},{-94,130},{-94,
           124},{-81,124}}, color={255,0,255}));
   connect(lat.y, lat1.u) annotation (Line(points={{-99,50},{-88,50},{-88,130},{
           -81,130}}, color={255,0,255}));
@@ -164,7 +149,7 @@ equation
           -290,-36},{-282,-36}}, color={0,0,127}));
   connect(TZon, add1.u1) annotation (Line(points={{-320,80},{-294,80},{-294,26},
           {-288,26},{-288,-24},{-282,-24}}, color={0,0,127}));
-  connect(or1.y, lat.u0) annotation (Line(points={{-139,10},{-130,10},{-130,44},
+  connect(or1.y, lat.clr) annotation (Line(points={{-139,10},{-130,10},{-130,44},
           {-121,44}}, color={255,0,255}));
   connect(add.y, div.u1) annotation (Line(points={{-259,20},{-250,20},{-250,-64},
           {-202,-64}}, color={0,0,127}));
@@ -191,27 +176,11 @@ equation
           {-62,-76}}, color={0,0,127}));
   connect(min.y, tOpt) annotation (Line(points={{-39,-70},{-20,-70},{-20,0},{
           310,0}}, color={0,0,127}));
-  connect(triSam3.y, mulSum.u[1]) annotation (Line(points={{101,130},{104,130},
-          {104,101.333},{190,101.333}}, color={0,0,127}));
-  connect(triSam4.y, mulSum.u[2]) annotation (Line(points={{141,130},{142,130},
-          {142,100},{190,100}}, color={0,0,127}));
-  connect(triSam5.y, mulSum.u[3]) annotation (Line(points={{181,130},{184,130},
-          {184,98.6667},{190,98.6667}}, color={0,0,127}));
-  connect(samTri.y, triSam3.trigger)
-    annotation (Line(points={{81,60},{90,60},{90,118.2}}, color={255,0,255}));
-  connect(samTri1.y, triSam4.trigger) annotation (Line(points={{121,60},{130,60},
-          {130,118.2}}, color={255,0,255}));
-  connect(samTri2.y, triSam5.trigger) annotation (Line(points={{161,60},{170,60},
-          {170,118.2}}, color={255,0,255}));
-  connect(mulSum.y, gai.u)
-    annotation (Line(points={{213,100},{218,100}}, color={0,0,127}));
-  connect(triSam.y, triSam3.u)
+  connect(triSam.y, movMea.u)
     annotation (Line(points={{61,130},{78,130}}, color={0,0,127}));
-  connect(triSam.y, triSam4.u) annotation (Line(points={{61,130},{70,130},{70,
-          148},{112,148},{112,130},{118,130}}, color={0,0,127}));
-  connect(triSam.y, triSam5.u) annotation (Line(points={{61,130},{66,130},{66,
-          150},{146,150},{146,130},{158,130}}, color={0,0,127}));
-  connect(gai.y, div1.u2) annotation (Line(points={{241,100},{250,100},{250,
-          -136},{-222,-136},{-222,-116},{-202,-116}}, color={0,0,127}));
+  connect(movMea.y, gai.u)
+    annotation (Line(points={{101,130},{118,130}}, color={0,0,127}));
+  connect(gai.y, div1.u2) annotation (Line(points={{141,130},{148,130},{148,
+          -140},{-220,-140},{-220,-116},{-202,-116}}, color={0,0,127}));
   annotation (            Diagram(coordinateSystem(extent={{-300,-200},{300,200}})));
 end OptimalStart;
