@@ -62,7 +62,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.PressureDrop fil(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = MediumA,
-    dp_nominal=200 + 200 + 100,
+    dp_nominal=200 + 200 + 200 + 100,
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Filter"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
@@ -71,9 +71,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium2 = MediumW,
     allowFlowReversal2=false,
     dp2_nominal=6000,
-    m1_flow_nominal=mAirOut_flow_nominal,
+    m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=mWatPre_flow_nominal,
-    dp1_nominal=200,
+    dp1_nominal=0,
     Q_flow_nominal=mAirOut_flow_nominal*1006*(TMixHea_nominal - TSupCol_nominal),
     T_a1_nominal=281.65,
     T_a2_nominal=323.15,
@@ -1202,6 +1202,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 11, 2019, by Michael Wetter:<br/>
+Changed wrong assignment of air-side nominal flow rate of preheat coil.
+Moved air-side flow resistance of preheat coil to filter model to reduce
+the dimension of the nonlinear equations.
+</li>
 <li>
 November 17, 2017, by Michael Wetter:<br/>
 Enabled filters at fan control signal. This avoids a sharp change in fan speed,
