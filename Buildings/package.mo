@@ -130,9 +130,38 @@ its class name ends with the string <code>Beta</code>.
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
     <div class=\"release-summary\">
-    <p>
-    Version 6.0.0 is ... xxx
-    </p>
+   <p>
+   Version 6.0.0 is a major new release that
+   contains various new packages, new models and improvements to existing models.
+   The library has been tested with Dymola 2019FD01 and with JModelica (revision 12903).
+   </p>
+   <p>
+     The following major changes have been done:
+   <ul>
+   <li>
+     Various new packages have been added, such as:
+     <ul>
+       <li>
+         A package for simulating occupancy and occupancy that resulted from IEA EBC Annex 66.
+       </li>
+       <li>
+         A package with models for geothermal borefields.
+       </li>
+       <li>
+         A package with blocks for control of shades and of outdoor lights.
+       </li>
+       <li>
+         A package with blocks that allow generating time series and scatter plots,
+         and writing these plots to one or several html files.
+       </li>
+       <li>
+         A package with blocks for for unit conversion.
+       </li>
+     </ul>
+   <li>
+     Various new control blocks have been added to <code>Buildings.Controls.OBC.CDL</code>.
+   </li>
+   </ul>
     </div>
     <!-- New libraries -->
     <p>
@@ -605,14 +634,6 @@ its class name ends with the string <code>Beta</code>.
         </td>
     </tr>
     </table>
-    <p>
-    Note:
-    </p>
-    <ul>
-    <li>
-    xxx
-    </li>
-    </ul>
     </html>"));
     end Version_6_0_0;
 
@@ -7083,7 +7104,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (xxx)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (July 15, 2019)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_1_0\">Version 5.1.0</a> (June 14, 2018)
@@ -7302,7 +7323,7 @@ The following people have directly contributed to the implementation of the Buil
     Documentation(info="<html>
 <h4>License</h4>
 <p>
-Modelica Buildings Library. Copyright (c) 1998-2018
+Modelica Buildings Library. Copyright (c) 1998-2019
 Modelica Association,
 International Building Performance Simulation Association (IBPSA),
 The Regents of the University of California, through Lawrence Berkeley National Laboratory
@@ -7549,8 +7570,8 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="6.0.0",
-versionDate="2018-06-14",
-dateModified="2018-06-14",
+versionDate="2019-07-15",
+dateModified="2019-07-15",
 uses(Modelica(version="3.2.2")),
 conversion(
   from(version={"5.0.0", "5.0.1", "5.1.0"},
