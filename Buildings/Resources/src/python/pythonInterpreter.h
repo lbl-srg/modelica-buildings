@@ -21,12 +21,21 @@
 /* Modified: Thierry S. Nouidui, LBNL, 3/26/2013 to suport cross compilation*/
 /* svn-id=$Id: exchangeValues.c 2877 2011-09-11 00:46:02Z mwetter $*/
 /*////////////////////////////////////////////////////////////////////////////*/
+#define _GNU_SOURCE
 #include <stddef.h>  /* stddef defines size_t */
+#include <stdio.h> /* for asprintf */
+#include <stdlib.h> /* for putenv */
 
 #ifdef __APPLE__
 #include <Python/Python.h>
 #else
+#ifdef _DEBUG
+#undef _DEBUG
 #include <Python.h>
+#define _DEBUG
+#else
+#include <Python.h>
+#endif
 #endif
 
 #include "pythonObjectStructure.h"
@@ -72,6 +81,7 @@ to not export all symbols but only the needed ones */
 /*  have_memory           - Set to 0 for false, and 1 for true.*/
 LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * moduleName,
                           const char * functionName,
+                          const char * pythonPath,
                           const double * dblValWri, size_t nDblWri,
                           double * dblValRea, size_t nDblRea,
                           const int * intValWri, size_t nIntWri,
