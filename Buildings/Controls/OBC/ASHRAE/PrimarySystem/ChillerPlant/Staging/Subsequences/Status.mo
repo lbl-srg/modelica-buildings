@@ -347,7 +347,8 @@ equation
           90,-100},{170,-100},{170,-78},{178,-78}}, color={255,127,0}));
   connect(intSwi3.y, yUp)
     annotation (Line(points={{381,80},{450,80}}, color={255,127,0}));
-  annotation (Icon(graphics={
+  annotation (defaultComponentName = "sta",
+        Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
