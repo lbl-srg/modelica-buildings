@@ -1,30 +1,30 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block LogicalSwitch "Switch between two boolean signals"
+block IntegerSwitch "Switch between two integer signals"
 
-  Interfaces.BooleanInput u1
-    "Boolean input signal"
+  Interfaces.IntegerInput u1
+    "Integer input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
   Interfaces.BooleanInput u2
     "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.BooleanInput u3
-    "Boolean input signal"
+  Interfaces.IntegerInput u3
+    "Integer input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Interfaces.BooleanOutput y
-    "Booelan output signal"
+  Interfaces.IntegerOutput y
+  "Integer output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   y = if u2 then u1 else u3;
 
   annotation (
-defaultComponentName="logSwi",
+defaultComponentName="intSwi",
 Documentation(info="<html>
 <p>
-Block that outputs one of two boolean input signals based on a boolean input signal.
+Block that outputs one of two integer input signals based on a boolean input signal.
 </p>
 <p>
 If the input signal <code>u2</code> is <code>true</code>,
@@ -34,16 +34,16 @@ Otherwise, it outputs <code>y = u3</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 3, 2017, by Michael Wetter:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
+July 10, 2019, by Milica Grahovac:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),
-         Icon(coordinateSystem(
+      Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
-          graphics={                     Rectangle(
+          graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -51,18 +51,18 @@ Modelica Standard Library.
           borderPattern=BorderPattern.Raised),
         Line(
           points={{12,0},{100,0}},
-          color={255,0,255}),
+          color={244,125,35}),
         Line(
           points={{-100,0},{-40,0}},
           color={255,0,255}),
         Line(
           points={{-100,-80},{-40,-80},{-40,-80}},
-          color={255,0,255}),
+          color={244,125,35}),
         Line(points={{-40,12},{-40,-10}}, color={255,0,255}),
-        Line(points={{-100,80},{-40,80}}, color={255,0,255}),
+        Line(points={{-100,80},{-40,80}}, color={244,125,35}),
         Line(
           points={{-40,80},{8,2}},
-          color={255,0,255},
+          color={244,125,35},
           thickness=1),
         Ellipse(lineColor={0,0,127},
           pattern=LinePattern.None,
@@ -75,29 +75,8 @@ Modelica Standard Library.
           fillColor=DynamicSelect({235,235,235}, if u2 then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-71,74},{-85,88}},
-          lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-71,-74},{-85,-88}},
-          lineColor=DynamicSelect({235,235,235}, if u3 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u3 then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
           textString="%name")}));
-end LogicalSwitch;
+end IntegerSwitch;

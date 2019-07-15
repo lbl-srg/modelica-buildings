@@ -6,6 +6,7 @@ function exchange "Function that communicates with Python"
   input BaseClasses.PythonObject pytObj "Memory that holds the Python object";
   input Boolean passPythonObject
     "Set to true if the Python function returns and receives an object, see User's Guide";
+  input String pythonPath "Value of PYTHONPATH environment variable";
 
   input Real    dblWri[max(1, nDblWri)] "Double values to write";
   input Integer intWri[max(1, nIntWri)] "Integer values to write";
@@ -26,6 +27,7 @@ function exchange "Function that communicates with Python"
   output Integer intRea[max(1, nIntRea)] "Integer values returned by Python";
 
   external "C" pythonExchangeValues(moduleName, functionName,
+                                    pythonPath,
                                     dblWri, nDblWri,
                                     dblRea, nDblRea,
                                     intWri, nIntWri,
