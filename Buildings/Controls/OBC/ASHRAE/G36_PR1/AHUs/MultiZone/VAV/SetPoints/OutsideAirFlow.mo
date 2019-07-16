@@ -669,7 +669,7 @@ annotation (
           lineColor={0,0,255},
           textString="%name")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-280},{240,280}}), graphics={Rectangle(
-          extent={{-182,280},{238,100}},
+          extent={{-178,278},{238,100}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
