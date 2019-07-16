@@ -4,7 +4,7 @@ model Speed_noWSE
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed_noWSE
     conPumSpe(
-    num=2,
+    nChi=2,
     conWatPumSpeSet={0,0.5,0.75})  "Condenser water pump speed"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

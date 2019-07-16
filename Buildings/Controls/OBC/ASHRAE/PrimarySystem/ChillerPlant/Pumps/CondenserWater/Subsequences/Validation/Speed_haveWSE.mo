@@ -4,7 +4,6 @@ model Speed_haveWSE
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed_haveWSE
     conPumSpe(
-    staNum=3,
     conWatPumSpeSet={0,0.5,0.75,0.6,0.75,0.9},
     conWatPumOnSet={0,1,1,2,2,2}) "Condenser water pump speed"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "enaLeaConPum.uLeaChiEna",
+    "enaLeaConPum.uLeaChiOn",
+    "enaLeaConPum.uLeaConWatReq",
+    "enaLeaConPum.yLeaPum",
+    "disLeaConPum.uLeaChiEna",
+    "disLeaConPum.uLeaChiOn",
+    "disLeaConPum.uLeaConWatReq",
+    "disLeaConPum.yLeaPum"
+  };
