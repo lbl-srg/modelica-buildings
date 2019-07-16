@@ -47,8 +47,8 @@ equation
     annotation (Line(points={{1,0},{18,0}}, color={255,0,255}));
   connect(add.y, hysOplr.u)
     annotation (Line(points={{-39,0},{-22,0}}, color={0,0,127}));
-  connect(uOplr, add.u1) annotation (Line(points={{-120,20},{-80,20},{-80,6},{-62,
-          6}}, color={0,0,127}));
+  connect(uOplr, add.u1) annotation (
+    Line(points={{-120,20},{-80,20},{-80,6},{-62,6}}, color={0,0,127}));
   connect(uSplrUp, add.u2) annotation (Line(points={{-120,-20},{-80,-20},{-80,-6},
           {-62,-6}}, color={0,0,127}));
   annotation (defaultComponentName = "effCon",
@@ -66,8 +66,8 @@ equation
           extent={{-100,-60},{80,60}})),
 Documentation(info="<html>
 <p>
-Efficiency condition used in staging up and down, implemented according to 
-section 5.2.4.14.
+Efficiency condition used in staging up and down, 
+implemented according to the specification provided in the tables in section 5.2.4.14.
 </p>
 </html>",
 revisions="<html>

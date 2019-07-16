@@ -155,7 +155,7 @@ equation
 Documentation(info="<html>
 <p>
 Failsafe condition used in staging up and down,
-implemented according to section 5.2.4.14.
+implemented according to the specification provided in the tables in section 5.2.4.14.
 </p>
 </html>",
 revisions="<html>
