@@ -13,6 +13,7 @@ model OutsideAirFlow
     peaSysPop=20)
     "Block to output minimum outdoor airflow rate for system with multiple zones "
     annotation (Placement(transformation(extent={{54,0},{94,40}})));
+
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutsideAirFlow
     outAirSet_MulZon1(
     numZon=numZon,
@@ -24,30 +25,36 @@ model OutsideAirFlow
     have_winSen=false)
     "Block to output minimum outdoor airflow rate for system with multiple zones "
     annotation (Placement(transformation(extent={{54,-60},{94,-20}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat[numZon](
     k={0.1,0.12,0.2,0.09,0.1})
     "Measured primary flow rate in each zone at VAV box"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc1(
     height=2,
     duration=3600)
     "Occupant number in zone 1"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc2(
     duration=3600,
     height=3)
     "Occupant number in zone 2"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc3(
     duration=3600,
     height=3,
     startTime=900) "Occupant number in zone 3"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc4(
     duration=3600,
     startTime=900,
     height=2) "Occupant number in zone 4"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc5(
     duration=3600,
     startTime=0,
@@ -60,19 +67,23 @@ protected
     k=fill(false,numZon))
     "Status of windows in each zone"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(
     k=true) "Status of supply fan"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon[numZon](
-    each height=6,
-    each offset=273.15 + 17,
-    each duration=3600) "Measured zone temperature"
+    height=fill(6,numZon),
+    offset=fill(273.15 + 17,numZon),
+    duration=fill(3600,numZon)) "Measured zone temperature"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis[numZon](
-    each height=4,
-    each duration=3600,
-    each offset=273.15 + 18) "Terminal unit discharge air temperature"
+    height=fill(4,numZon),
+    duration=fill(3600,numZon),
+    offset=fill(273.15 + 18,numZon)) "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
