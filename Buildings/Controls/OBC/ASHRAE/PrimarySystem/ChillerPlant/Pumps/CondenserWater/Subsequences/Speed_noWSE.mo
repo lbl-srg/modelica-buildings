@@ -88,7 +88,11 @@ section 5.2.9 Condenser water pumps, part 5.2.9.4.
 </p>
 <p>
 The number of operating condenser water pumps shall match the number of 
-operating chillers. Fixme: the running speed shall be defined per TAB.
+operating chillers. 
+</p>
+<p>
+<b>Fixme: in this implementation, the pump speed is assumed to be defined per TAB. 
+It should be further confirmed.</b>
 </p>
 </html>", revisions="<html>
 <ul>

@@ -190,10 +190,12 @@ or 100% speed if design flow cannot be achieved.</td>
 <br/>
 
 <p>
-Note that in current implementation, it assumes that waterside economizer would be
+<b>
+Fixme: note that in this implementation, it assumes that waterside economizer would be
 enabled in any chiller stage. For example, it would have stage 1 and stage 1 
 plus economizer, stage 2 and stage 2 plus economizer, stage 3 and stage 3 plus economizer, 
 etc.
+</b>
 </p>
 
 </html>", revisions="<html>
