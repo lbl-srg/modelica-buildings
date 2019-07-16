@@ -59,54 +59,77 @@ model Controller "Validate chiller water pump control sequence"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 
 equation
-  connect(conInt.y, heaNoLoc.uPumPri) annotation (Line(points={{-19,140},{-4,140},
-          {-4,139},{39,139}},          color={255,127,0}));
-  connect(con[1].y, heaNoLoc.uChiWatPum[1]) annotation (Line(points={{-19,100},
-          {4,100},{4,136.333},{39,136.333}},         color={255,0,255}));
-  connect(con[2].y, heaNoLoc.uChiWatPum[2]) annotation (Line(points={{-19,100},{
-          4,100},{4,137},{39,137}},          color={255,0,255}));
-  connect(chiWatFlo.y, heaNoLoc.VChiWat_flow) annotation (Line(points={{-19,20},
-          {8,20},{8,127},{39,127}},         color={0,0,127}));
-  connect(con[1].y, heaNoLoc.uChiIsoVal[1]) annotation (Line(points={{-19,100},{
-          4,100},{4,129},{39,129}},          color={255,0,255}));
-  connect(remPreSen1.y, heaNoLoc.dpChiWat_remote[1]) annotation (Line(points={{-19,-20},
-          {12,-20},{12,123},{39,123}},        color={0,0,127}));
-  connect(remPreSen2.y, heaNoLoc.dpChiWat_remote[2]) annotation (Line(points={{-19,-60},
-          {12,-60},{12,123},{39,123}},            color={0,0,127}));
-  connect(difPreSet.y, heaNoLoc.dpChiWatSet) annotation (Line(points={{-19,-140},
-          {16,-140},{16,121},{39,121}},      color={0,0,127}));
-  connect(con1.y, heaNoLoc.uChiWatPum[3]) annotation (Line(points={{-19,60},{0,
-          60},{0,137.667},{39,137.667}},      color={255,0,255}));
-  connect(con1.y, heaNoLoc.uChiIsoVal[2]) annotation (Line(points={{-19,60},{0,60},
-          {0,129},{39,129}},          color={255,0,255}));
-  connect(conInt.y, dedNoLoc.uPumPri) annotation (Line(points={{-19,140},{-4,140},
-          {-4,89},{39,89}},            color={255,127,0}));
-  connect(con[1].y, dedNoLoc.uChiWatPum[1]) annotation (Line(points={{-19,100},
-          {4,100},{4,86.3333},{39,86.3333}},         color={255,0,255}));
-  connect(con[2].y, dedNoLoc.uChiWatPum[2]) annotation (Line(points={{-19,100},{
-          4,100},{4,87},{39,87}},            color={255,0,255}));
-  connect(con1.y, dedNoLoc.uChiWatPum[3]) annotation (Line(points={{-19,60},{0,
-          60},{0,87.6667},{39,87.6667}},      color={255,0,255}));
-  connect(con[1].y, dedNoLoc.uLeaChiEna) annotation (Line(points={{-19,100},{4,100},
-          {4,85},{39,85}},             color={255,0,255}));
-  connect(con[1].y, dedNoLoc.uLeaChiOn) annotation (Line(points={{-19,100},{4,100},
-          {4,83},{39,83}},             color={255,0,255}));
-  connect(con[1].y, dedNoLoc.uLeaChiWatReq) annotation (Line(points={{-19,100},{
-          4,100},{4,81},{39,81}},            color={255,0,255}));
-  connect(chiWatFlo.y, dedNoLoc.VChiWat_flow) annotation (Line(points={{-19,20},
-          {8,20},{8,77},{39,77}},         color={0,0,127}));
-  connect(remPreSen1.y, dedNoLoc.dpChiWat_remote[1]) annotation (Line(points={{-19,-20},
-          {12,-20},{12,73},{39,73}},        color={0,0,127}));
-  connect(remPreSen2.y, dedNoLoc.dpChiWat_remote[2]) annotation (Line(points={{-19,-60},
-          {12,-60},{12,73},{39,73}},            color={0,0,127}));
-  connect(difPreSet.y, dedNoLoc.dpChiWatSet) annotation (Line(points={{-19,-140},
-          {16,-140},{16,71},{39,71}},      color={0,0,127}));
-  connect(conInt.y, dedLoc.uPumPri) annotation (Line(points={{-19,140},{-4,140},
-          {-4,9},{39,9}},       color={255,127,0}));
-  connect(con[1].y, dedLoc.uChiWatPum[1]) annotation (Line(points={{-19,100},{4,
-          100},{4,6.33333},{39,6.33333}},      color={255,0,255}));
-  connect(con[2].y, dedLoc.uChiWatPum[2]) annotation (Line(points={{-19,100},{4,
-          100},{4,7},{39,7}},        color={255,0,255}));
+  connect(conInt.y, heaNoLoc.uPumPri)
+    annotation (Line(points={{-19,140},{-4,140},{-4,139},{39,139}},
+      color={255,127,0}));
+  connect(con[1].y, heaNoLoc.uChiWatPum[1])
+    annotation (Line(points={{-19,100},{4,100},{4,136.333},{39,136.333}},
+      color={255,0,255}));
+  connect(con[2].y, heaNoLoc.uChiWatPum[2])
+    annotation (Line(points={{-19,100},{4,100},{4,137},{39,137}},
+      color={255,0,255}));
+  connect(chiWatFlo.y, heaNoLoc.VChiWat_flow)
+    annotation (Line(points={{-19,20},{8,20},{8,127},{39,127}},
+      color={0,0,127}));
+  connect(con[1].y, heaNoLoc.uChiIsoVal[1])
+    annotation (Line(points={{-19,100},{4,100},{4,129},{39,129}},
+      color={255,0,255}));
+  connect(remPreSen1.y, heaNoLoc.dpChiWat_remote[1])
+    annotation (Line(points={{-19,-20},{12,-20},{12,123},{39,123}},
+      color={0,0,127}));
+  connect(remPreSen2.y, heaNoLoc.dpChiWat_remote[2])
+    annotation (Line(points={{-19,-60},{12,-60},{12,123},{39,123}},
+      color={0,0,127}));
+  connect(difPreSet.y, heaNoLoc.dpChiWatSet)
+    annotation (Line(points={{-19,-140},{16,-140},{16,121},{39,121}},
+      color={0,0,127}));
+  connect(con1.y, heaNoLoc.uChiWatPum[3])
+    annotation (Line(points={{-19,60},{0,60},{0,137.667},{39,137.667}},
+      color={255,0,255}));
+  connect(con1.y, heaNoLoc.uChiIsoVal[2])
+    annotation (Line(points={{-19,60},{0,60},{0,129},{39,129}},
+      color={255,0,255}));
+  connect(conInt.y, dedNoLoc.uPumPri)
+    annotation (Line(points={{-19,140},{-4,140},{-4,89},{39,89}},
+      color={255,127,0}));
+  connect(con[1].y, dedNoLoc.uChiWatPum[1])
+    annotation (Line(points={{-19,100},{4,100},{4,86.3333},{39,86.3333}},
+      color={255,0,255}));
+  connect(con[2].y, dedNoLoc.uChiWatPum[2])
+    annotation (Line(points={{-19,100},{4,100},{4,87},{39,87}},
+      color={255,0,255}));
+  connect(con1.y, dedNoLoc.uChiWatPum[3])
+    annotation (Line(points={{-19,60},{0,60},{0,87.6667},{39,87.6667}},
+      color={255,0,255}));
+  connect(con[1].y, dedNoLoc.uLeaChiEna)
+    annotation (Line(points={{-19,100},{4,100},{4,85},{39,85}},
+      color={255,0,255}));
+  connect(con[1].y, dedNoLoc.uLeaChiOn)
+    annotation (Line(points={{-19,100},{4,100},{4,83},{39,83}},
+      color={255,0,255}));
+  connect(con[1].y, dedNoLoc.uLeaChiWatReq)
+    annotation (Line(points={{-19,100},{4,100},{4,81},{39,81}},
+      color={255,0,255}));
+  connect(chiWatFlo.y, dedNoLoc.VChiWat_flow)
+    annotation (Line(points={{-19,20},{8,20},{8,77},{39,77}},
+      color={0,0,127}));
+  connect(remPreSen1.y, dedNoLoc.dpChiWat_remote[1])
+    annotation (Line(points={{-19,-20},{12,-20},{12,73},{39,73}},
+      color={0,0,127}));
+  connect(remPreSen2.y, dedNoLoc.dpChiWat_remote[2])
+    annotation (Line(points={{-19,-60},{12,-60},{12,73},{39,73}},
+      color={0,0,127}));
+  connect(difPreSet.y, dedNoLoc.dpChiWatSet)
+    annotation (Line(points={{-19,-140},{16,-140},{16,71},{39,71}},
+      color={0,0,127}));
+  connect(conInt.y, dedLoc.uPumPri)
+    annotation (Line(points={{-19,140},{-4,140},{-4,9},{39,9}},
+      color={255,127,0}));
+  connect(con[1].y, dedLoc.uChiWatPum[1])
+    annotation (Line(points={{-19,100},{4,100},{4,6.33333},{39,6.33333}},
+      color={255,0,255}));
+  connect(con[2].y, dedLoc.uChiWatPum[2])
+    annotation (Line(points={{-19,100},{4,100},{4,7},{39,7}}, color={255,0,255}));
   connect(con1.y, dedLoc.uChiWatPum[3])
     annotation (Line(points={{-19,60},{0,60},{0,7.66667},{39,7.66667}},
       color={255,0,255}));

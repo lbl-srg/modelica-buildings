@@ -20,12 +20,6 @@ block Controller
   parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(final min=1e-6)=0.5
     "Total plant design chilled water flow rate"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Time offTimThr=180
-    "Threshold to check lead chiller off time"
-    annotation (Dialog(group="Enable dedicate lead pump", enable=not isHeadered));
-  parameter Modelica.SIunits.PressureDifference minLocDp=5*6894.75
-    "Minimum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=haveLocalSensor));
   parameter Modelica.SIunits.PressureDifference maxLocDp=15*6894.75
     "Maximum chilled water loop local differential pressure setpoint"
     annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=haveLocalSensor));
@@ -42,6 +36,10 @@ block Controller
     enable=
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  final parameter Modelica.SIunits.PressureDifference minLocDp=5*6894.75
+    "Minimum chilled water loop local differential pressure setpoint"
+    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=haveLocalSensor));
   final parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
@@ -70,7 +68,7 @@ block Controller
     annotation (Placement(transformation(extent={{-320,0},{-280,40}}),
       iconTransformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
-    unit="m3/s")
+    final unit="m3/s")
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
       iconTransformation(extent={{-120,-40},{-100,-20}})));
@@ -105,11 +103,11 @@ block Controller
       iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_dedicated
-    enaDedLeaPum(final offTimThr=offTimThr) if not isHeadered
+    enaDedLeaPum if not isHeadered
     "Enable lead pump of dedicated pumps"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_headered
-    enaHeaLeaPum(nChi=nChi) if isHeadered
+    enaHeaLeaPum(final nChi=nChi) if isHeadered
     "Enable lead pump of headered pumps"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP

@@ -128,9 +128,8 @@ equation
   connect(chiWatFloRat.y, add2.u1)
     annotation (Line(points={{-99,80},{-90,80},{-90,46},{-82,46}}, color={0,0,127}));
   connect(chiWatFloRat.y, add1.u2)
-    annotation (Line(points={{-99,80},{-90,80},{-90,60},{-100,60},{-100,-86},{
-          -82,-86}},
-                  color={0,0,127}));
+    annotation (Line(points={{-99,80},{-90,80},{-90,60},{-100,60},{-100,-86},
+      {-82,-86}}, color={0,0,127}));
   connect(greEquThr.y, enaNexLag.u2)
     annotation (Line(points={{61,40},{98,40}}, color={255,0,255}));
   connect(con.y, enaNexLag.u1)

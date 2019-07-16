@@ -3,7 +3,7 @@ model Speed_primary_localDp
   "Validate sequence of controlling chilled water pump speed for primary-only plants with local DP sensor is hardwired to the plant controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_localDp
-    chiPumSpe(final nSen=nSen, final nPum=nPum)
+    chiPumSpe(nSen=nSen, nPum=nPum)
     "Chilled water pump speed control based local pressure difference sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -12,11 +12,12 @@ protected
     "Total number of remote differential pressure sensors";
   parameter Integer nPum=2 "Total number of chilled water pumps";
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumSta[nPum](
-    each final width=0.95,
-    each final period=10,
-    each final startTime=1) "Pump status"
+    final width=fill(0.95, nPum),
+    final period=fill(10, nPum),
+    final startTime=fill(1, nPum)) "Pump status"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant difPreSet(final k=8.5*6894.75)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant difPreSet(
+    final k=8.5*6894.75)
     "Pressure difference setpoint"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine remPreSen1(

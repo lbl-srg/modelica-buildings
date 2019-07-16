@@ -12,7 +12,7 @@ model EnableLag_primary_dP
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
-    each final k=true) "Constant true"
+    final k=fill(true, 2)) "Constant true"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=false)
     "Constant false"
