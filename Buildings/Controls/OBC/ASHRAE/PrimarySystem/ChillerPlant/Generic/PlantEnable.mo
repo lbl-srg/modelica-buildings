@@ -288,9 +288,8 @@ equation
   connect(not4.y, mulAnd.u[4])
     annotation (Line(points={{1,100},{20,100},{20,164.75},{38,164.75}},
       color={255,0,255}));
-  connect(and2.y, lat.clr)
-    annotation (Line(points={{61,80},{80,80},{80,164},{99,164}}, color={255,0,255}));
-
+  connect(and2.y, lat.clr) annotation (Line(points={{61,80},{80,80},{80,164},{
+          99,164}}, color={255,0,255}));
 annotation (
   defaultComponentName = "plaEna",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},{200,240}})),
