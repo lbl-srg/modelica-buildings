@@ -155,7 +155,7 @@ its class name ends with the string <code>Beta</code>.
          and writing these plots to one or several html files.
        </li>
        <li>
-         A package with blocks for for unit conversion.
+         A package with blocks for unit conversion.
        </li>
      </ul>
    <li>
