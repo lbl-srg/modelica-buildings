@@ -4,9 +4,14 @@ model Controller "Validation controller model"
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
     numZon=2,
     AFlo={50,50},
+    controllerTypeMinOut=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    controllerTypeFre=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    controllerTypeFanSpe=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     minZonPriFlo={(50*3/3600)*6,(50*3/3600)*6},
     VPriSysMax_flow=0.7*(50*3/3600)*6*2,
-    have_occSen=true) "Multiple zone AHU controller"
+    have_occSen=true,
+    controllerTypeTSup=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+                      "Multiple zone AHU controller"
     annotation (Placement(transformation(extent={{22,48},{102,152}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(
     final k=273.15 + 24)
