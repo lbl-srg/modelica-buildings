@@ -28,7 +28,8 @@ model ActuatorSignal
   // Classes used to implement the filtered opening
 protected
   parameter Boolean casePreInd = false
-    "In case of PressureIndependent the model I/O is modified.";
+    "In case of PressureIndependent the model I/O is modified"
+    annotation(Evaluate=true);
   Modelica.Blocks.Interfaces.RealOutput y_internal(unit="1")
     "Output connector for internal use (= y_actual if not casePreInd)";
   Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter

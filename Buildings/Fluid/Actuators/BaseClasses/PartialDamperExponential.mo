@@ -19,22 +19,22 @@ partial model PartialDamperExponential
   parameter Real ReC = 4000 "Reynolds number where transition to turbulent starts"
     annotation(Dialog(enable=not use_deltaM));
   parameter Real a(unit="1") = -1.51 "Coefficient a for damper characteristics"
-  annotation(Dialog(tab="Damper coefficients"));
+    annotation(Dialog(tab="Damper coefficients"));
   parameter Real b(unit="1") = 0.105*90 "Coefficient b for damper characteristics"
-  annotation(Dialog(tab="Damper coefficients"));
+    annotation(Dialog(tab="Damper coefficients"));
   parameter Real yL(unit="1") = 15/90 "Lower value for damper curve"
-  annotation(Dialog(tab="Damper coefficients"));
+    annotation(Dialog(tab="Damper coefficients"));
   parameter Real yU(unit="1") = 55/90 "Upper value for damper curve"
-  annotation(Dialog(tab="Damper coefficients"));
+    annotation(Dialog(tab="Damper coefficients"));
   parameter Real k0(min=0, unit="1") = 1E6
     "Loss coefficient for y=0, k0 = pressure drop divided by dynamic pressure"
-  annotation(Dialog(tab="Damper coefficients"));
+    annotation(Dialog(tab="Damper coefficients"));
   parameter Real k1(min=0, unit="1") = 0.45
     "Loss coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
-  annotation(Dialog(tab="Damper coefficients"));
+    annotation(Dialog(tab="Damper coefficients"));
   parameter Boolean use_constant_density = true
     "Set to true to use constant density for flow friction"
-    annotation (Evaluate=true, Dialog(tab="Advanced"));
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   Medium.Density rho "Medium density";
   parameter Real kFixed
     "Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
@@ -63,7 +63,8 @@ protected
     "Polynomial coefficients for curve fit for y > yu";
   parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
   parameter Boolean char_linear_pro = false
-    "If char_linear_pro then the flow characteristic is linearized";
+    "If char_linear_pro then the flow characteristic is linearized"
+    annotation(Evaluate=true);
   parameter Real kDamMax =  (2 * rho_default / k1)^0.5 * A
     "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   parameter Real kTotMax = if kFixed > Modelica.Constants.eps then

@@ -14,7 +14,7 @@ model Exponential
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean char_linear = false
     "Set to true to linearize the flow characteristics of damper plus fixed resistance"
-    annotation(Dialog(tab="Advanced"));
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 protected
   parameter Modelica.SIunits.PressureDifference dpDamOpe_nominal(displayUnit="Pa")=
      k1*m_flow_nominal^2/2/Medium.density(sta_default)/A^2
