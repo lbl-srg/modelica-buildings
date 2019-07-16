@@ -29,7 +29,7 @@ equation
     annotation (Line(points={{21,0},{38,0}}, color={255,127,0}));
 
 annotation (
-  experiment(StopTime=3600.0, Tolerance=1e-06),
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/Speed_noWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
