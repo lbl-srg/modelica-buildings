@@ -1,7 +1,6 @@
 within Buildings.Utilities.Plotters.Examples;
 model SingleZoneVAV
   "Various plots for a single zone VAV system"
-  import Buildings;
   extends
     Buildings.Air.Systems.SingleZone.VAV.Examples.ChillerDXHeatingEconomizer;
 
