@@ -35,7 +35,7 @@ equation
     annotation (Line(points={{21,-20},{40,-20},{40,-4},{58,-4}}, color={255,0,255}));
 
 annotation (
-  experiment(StopTime=3600.0, Tolerance=1e-06),
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/Speed_haveWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
