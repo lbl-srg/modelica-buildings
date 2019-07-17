@@ -171,8 +171,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Logical.Timer timer
     "Timer since the control mode changed"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
-  Modelica.Blocks.Logical.LessEqualThreshold thr(threshold=60)
-    "Threshold to measure 60 seconds"
+  Modelica.Blocks.Logical.LessEqualThreshold thr(threshold=120)
+    "Skip the first 120 seconds of the day for comparison with reference values"
     annotation (Placement(transformation(extent={{100,120},{120,140}})));
   Modelica.Blocks.Logical.Change cha
     "Outputs true if the input changes"

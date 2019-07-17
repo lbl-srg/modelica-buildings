@@ -27,8 +27,9 @@ model ForcedConvection "Ventilation with forced convection in an empty room"
                                annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={110,10})));
-  Fluid.Sources.FixedBoundary bouOut(nPorts=1, redeclare package Medium =
-        MediumA)
+  Buildings.Fluid.Sources.Boundary_pT bouOut(
+    nPorts=1,
+    redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Fluid.Sources.MassFlowSource_T bounIn(
     nPorts=1,

@@ -1,8 +1,7 @@
 within Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial;
 model MixedConvection "Tutorial for Mixed Convection case"
   extends Modelica.Icons.Example;
-  package MediumA =
-      Buildings.Media.Air (
+  package MediumA = Buildings.Media.Air (
         T_default=283.15) "Medium model";
   parameter Integer nConExtWin=0 "Number of constructions with a window";
   parameter Integer nConBou=0
@@ -20,8 +19,9 @@ model MixedConvection "Tutorial for Mixed Convection case"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-      TDryBul=293.15)
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+    Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    TDryBul=293.15)
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
   Buildings.ThermalZones.Detailed.CFD roo(
     redeclare package Medium = MediumA,
@@ -62,9 +62,13 @@ model MixedConvection "Tutorial for Mixed Convection case"
     nPorts=1,
     redeclare package Medium = MediumA,
     m_flow=0.1,
-    T=283.15) annotation (Placement(transformation(extent={{40,-54},{60,-34}})));
-  Fluid.Sources.FixedBoundary bouOut(nPorts=1,redeclare package Medium =
-        MediumA)
+    T=283.15)
+    "Mass flow boundary condition"
+    annotation (Placement(transformation(extent={{40,-54},{60,-34}})));
+  Buildings.Fluid.Sources.Boundary_pT bouOut(
+    nPorts=1,
+    redeclare package Medium = MediumA)
+    "Pressure boundary condition"
     annotation (Placement(transformation(extent={{40,-84},{60,-64}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1]) annotation (Line(
@@ -121,7 +125,7 @@ equation
       points={{60,-74},{74,-74},{74,-26},{85,-26}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (preferredView="info", Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 This tutorial gives step by step instructions on building and simulating a mixed convection model.
 The model tests the coupled simulation of
@@ -192,7 +196,7 @@ This model provides inlet air for the <code>roo</code>.
 Name it as <code>bouIn</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">Buildings.Fluid.Sources.FixedBoundary</a>.
+<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>.
 This model is the outdoor environment to which the outlet of <code>roo</code> is connected.
 Name it as <code>bouOut</code>.
 </li>

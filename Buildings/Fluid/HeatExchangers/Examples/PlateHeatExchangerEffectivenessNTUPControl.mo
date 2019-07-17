@@ -130,8 +130,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
 Documentation(info="<html>
 <p>
 This model demonstrates the use of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTUPControl\">
-Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTUPControl</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</a>.
 The valve on the water-side is regulated to track a setpoint temperature
 for the water outlet.
 </p>

@@ -23,19 +23,23 @@ block Supply "Supply air set point for single zone VAV system"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(min=0, max=1, unit="1")
     "Heating control signal"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,90},{-100,130}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(min=0, max=1, unit="1")
     "Cooling control signal"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSet(unit="K", displayUnit="degC")
     "Average of heating and cooling setpoints for zone temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(unit="K", displayUnit="degC")
     "Zone temperature"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
     "Outdoor air temperature"
@@ -43,11 +47,12 @@ block Supply "Supply air set point for single zone VAV system"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(unit="K", displayUnit="degC")
     "Temperature setpoint for heating coil and for economizer"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupCoo(unit="K", displayUnit="degC")
     "Cooling supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+    annotation (Placement(transformation(extent={{100,20},{120,40}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(min=0, max=1, unit="1") "Fan speed"
@@ -56,68 +61,66 @@ block Supply "Supply air set point for single zone VAV system"
 protected
   Buildings.Controls.OBC.CDL.Continuous.Line TSetCooHig
     "Table to compute the setpoint for cooling for uCoo = 0...1"
-    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+    annotation (Placement(transformation(extent={{0,130},{20,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Line offSetTSetHea
     "Table to compute the setpoint offset for heating for uCoo = 0...1"
-    annotation (Placement(transformation(extent={{0,140},{20,160}})));
+    annotation (Placement(transformation(extent={{0,170},{20,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addTHe "Adder for heating setpoint calculation"
-    annotation (Placement(transformation(extent={{60,160},{80,180}})));
+    annotation (Placement(transformation(extent={{60,190},{80,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Line offSetTSetCoo
     "Table to compute the setpoint offset for cooling for uHea = 0...1"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addTSupCoo "Adder for cooling setpoint calculation"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
-
+    annotation (Placement(transformation(extent={{60,110},{80,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dT(final k2=-1) "Difference zone minus outdoor temperature"
     annotation (Placement(transformation(extent={{-70,-128},{-50,-108}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter yMed(
-    p=yCooMax - (yMin - yCooMax)/(0.56 - 5.6)*5.6,
-    k=(yMin - yCooMax)/(0.56 - 5.6)) "Fan speed at medium cooling load"
+    final p=yCooMax - (yMin - yCooMax)/(0.56 - 5.6)*5.6,
+    final k=(yMin - yCooMax)/(0.56 - 5.6)) "Fan speed at medium cooling load"
     annotation (Placement(transformation(extent={{-30,-128},{-10,-108}})));
-  Buildings.Controls.SetPoints.Table yHea(final table=[0.5,yMin; 1,yHeaMax])
-    "Fan speed for heating"
-    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter yMedLim(
     final uMax=yCooMax,
     final uMin=yMin) "Limiter for yMed"
     annotation (Placement(transformation(extent={{0,-128},{20,-108}})));
-  Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(uMax=24 + 273.15, uMin=21 + 273.15)
+  Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
+    final uMax=24 + 273.15,
+    final uMin=21 + 273.15)
     "Limiter that outputs the dead band value for the supply air temperature"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Line TSetHeaHig
     "Block to compute the setpoint for heating for uHea = 0...1"
-    annotation (Placement(transformation(extent={{2,180},{22,200}})));
+    annotation (Placement(transformation(extent={{2,210},{22,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con0(
     final k=0) "Contant that outputs zero"
-    annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
+    annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con25(
     final k=0.25) "Contant that outputs 0.25"
-    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
+    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con05(
     final k=0.5) "Contant that outputs 0.5"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con75(
     final k=0.75) "Contant that outputs 0.75"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conTSupSetMax(
     final k=TSupSetMax) "Constant that outputs TSupSetMax"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conTSupSetMin(
     final k=TSupSetMin) "Constant that outputs TSupSetMin"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Add TDeaTSupSetMin(
     final k2=-1) "Outputs TDea-TSupSetMin"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addTDea(
     final p=-1.1,
     final k=-1)
     "Adds constant offset"
-    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
+    annotation (Placement(transformation(extent={{10,0},{30,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add TSupSetMaxTDea(
     final k2=-1) "Outputs TSupSetMax-TDea"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-
-protected
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Line yHea "Fan speed for heating"
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin050(
     final limitBelow=true,
     final limitAbove=true)
@@ -158,7 +161,6 @@ protected
     final p=-yMin, k=1)
     "Subtract yMin so that all control signals can be added"
     annotation (Placement(transformation(extent={{36,-128},{56,-108}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Add addHeaCoo(
     final k1=1,
     final k2=1)
@@ -169,33 +171,46 @@ protected
     final k2=1)
     "Offset of control signal (relative to heating signal) for cooling"
     annotation (Placement(transformation(extent={{40,-202},{60,-182}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant  con7(final k=0.5)
+    "Contant that outputs 0.5"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe(final k=yMin)
+    "Contant that outputs minimum fan speed"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(final k=1)
+    "Contant that outputs 1"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxHeaSpe(final k=yHeaMax)
+    "Contant that outputs maximum fan speed for heating"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+
 equation
   connect(offSetTSetHea.u, uCoo)
-    annotation (Line(points={{-2,150},{-2,150},{-32,150},{-32,52},{-94,52},
-      {-94,40},{-120,40}}, color={0,0,127}));
+    annotation (Line(points={{-2,180},{-32,180},{-32,82},{-94,82},{-94,70},{-120,
+          70}},            color={0,0,127}));
   connect(offSetTSetHea.y, addTHe.u2)
-    annotation (Line(points={{21,150},{21,150},{40,150},{40,164},{58,164}},
+    annotation (Line(points={{21,180},{40,180},{40,194},{58,194}},
       color={0,0,127}));
   connect(addTHe.y, TSupHeaEco)
-    annotation (Line(points={{81,170},{92,170},{92,60},{110,60}},
+    annotation (Line(points={{81,200},{92,200},{92,90},{110,90}},
       color={0,0,127}));
   connect(TSetCooHig.y, addTSupCoo.u1)
-    annotation (Line(points={{21,110},{40,110},{40,96},{58,96}},
+    annotation (Line(points={{21,140},{40,140},{40,126},{58,126}},
       color={0,0,127}));
   connect(offSetTSetCoo.y, addTSupCoo.u2)
-    annotation (Line(points={{21,70},{40,70},{40,84},{58,84}},
+    annotation (Line(points={{21,100},{40,100},{40,114},{58,114}},
       color={0,0,127}));
   connect(TSetCooHig.u, uCoo)
-    annotation (Line(points={{-2,110},{-32,110},{-32,52},{-94,52},{-94,40},{-120,
-          40}},                     color={0,0,127}));
+    annotation (Line(points={{-2,140},{-32,140},{-32,82},{-94,82},{-94,70},{-120,
+          70}},                     color={0,0,127}));
   connect(offSetTSetCoo.u, uHea)
-    annotation (Line(points={{-2,70},{-88,70},{-88,80},{-120,80}},
+    annotation (Line(points={{-2,100},{-88,100},{-88,110},{-120,110}},
                            color={0,0,127}));
   connect(addTSupCoo.y, TSupCoo)
-    annotation (Line(points={{81,90},{81,90},{84,90},{84,0},{110,0}},
+    annotation (Line(points={{81,120},{84,120},{84,30},{110,30}},
       color={0,0,127}));
   connect(dT.u1, TZon)
-    annotation (Line(points={{-72,-112},{-86,-112},{-86,-40},{-120,-40}},
+    annotation (Line(points={{-72,-112},{-86,-112},{-86,-10},{-120,-10}},
       color={0,0,127}));
   connect(dT.u2, TOut)
     annotation (Line(points={{-72,-124},{-88,-124},{-88,-80},{-120,-80}},
@@ -206,93 +221,87 @@ equation
   connect(yMedLim.u, yMed.y)
     annotation (Line(points={{-2,-118},{-9,-118}},   color={0,0,127}));
   connect(TDea.u, TZonSet)
-    annotation (Line(points={{-82,0},{-82,0},{-120,0}},  color={0,0,127}));
+    annotation (Line(points={{-82,30},{-120,30}},        color={0,0,127}));
   connect(TDea.y, TSetHeaHig.f1)
-    annotation (Line(points={{-59,0},{-52,0},{-52,194},{0,194}},
+    annotation (Line(points={{-59,30},{-52,30},{-52,224},{0,224}},
       color={0,0,127}));
   connect(con05.y, TSetHeaHig.x2)
-    annotation (Line(points={{-59,120},{-46,120},{-46,186},{0,186}},
+    annotation (Line(points={{-59,150},{-46,150},{-46,216},{0,216}},
       color={0,0,127}));
   connect(conTSupSetMax.y, TSetHeaHig.f2)
-    annotation (Line(points={{-59,30},{-40,30},{-40,182},{0,182}},
+    annotation (Line(points={{-59,60},{-40,60},{-40,212},{0,212}},
       color={0,0,127}));
   connect(uHea, TSetHeaHig.u)
-    annotation (Line(points={{-120,80},{-88,80},{-88,72},{-36,72},{-36,190},{0,190}},
+    annotation (Line(points={{-120,110},{-88,110},{-88,102},{-36,102},{-36,220},
+          {0,220}},
                 color={0,0,127}));
   connect(TSetHeaHig.y, addTHe.u1)
-    annotation (Line(points={{23,190},{40,190},{40,176},{58,176}},
+    annotation (Line(points={{23,220},{40,220},{40,206},{58,206}},
       color={0,0,127}));
   connect(con0.y, offSetTSetHea.x1)
-    annotation (Line(points={{-59,190},{-56,190},{-56,158},{-2,158}},
+    annotation (Line(points={{-59,220},{-56,220},{-56,188},{-2,188}},
       color={0,0,127}));
   connect(con25.y, offSetTSetHea.x2)
-    annotation (Line(points={{-59,150},{-34,150},{-34,146},{-2,146}},
+    annotation (Line(points={{-59,180},{-34,180},{-34,176},{-2,176}},
       color={0,0,127}));
   connect(con0.y, offSetTSetHea.f1)
-    annotation (Line(points={{-59,190},{-56,190},{-56,154},{-2,154}},
-      color={0,0,127}));
-  connect(yHea.u, uHea)
-    annotation (Line(points={{-22,-60},{-88,-60},{-88,80},{-120,80}},
+    annotation (Line(points={{-59,220},{-56,220},{-56,184},{-2,184}},
       color={0,0,127}));
   connect(TDea.y, TDeaTSupSetMin.u1)
-    annotation (Line(points={{-59,0},{-40,0},{-40,-14},{-22,-14}},
+    annotation (Line(points={{-59,30},{-40,30},{-40,16},{-22,16}},
       color={0,0,127}));
   connect(conTSupSetMin.y, TDeaTSupSetMin.u2)
-    annotation (Line(points={{-59,-30},{-40,-30},{-40,-26},{-22,-26}},
+    annotation (Line(points={{-59,0},{-40,0},{-40,4},{-22,4}},
       color={0,0,127}));
   connect(TDeaTSupSetMin.y, addTDea.u)
-    annotation (Line(points={{1,-20},{-2,-20},{8,-20}}, color={0,0,127}));
+    annotation (Line(points={{1,10},{8,10}},            color={0,0,127}));
   connect(addTDea.y, offSetTSetHea.f2)
-    annotation (Line(points={{31,-20},{34,-20},{34,40},{-14,40},{-14,142},{-2,142}},
+    annotation (Line(points={{31,10},{34,10},{34,70},{-14,70},{-14,172},{-2,172}},
       color={0,0,127}));
   connect(TSetCooHig.x1, con05.y)
-    annotation (Line(points={{-2,118},{-30,118},{-30,120},{-59,120}},
+    annotation (Line(points={{-2,148},{-30,148},{-30,150},{-59,150}},
       color={0,0,127}));
   connect(TSetCooHig.f1, TDea.y)
-    annotation (Line(points={{-2,114},{-52,114},{-52,0},{-59,0}},
+    annotation (Line(points={{-2,144},{-52,144},{-52,30},{-59,30}},
       color={0,0,127}));
   connect(TSetCooHig.x2, con75.y)
-    annotation (Line(points={{-2,106},{-44,106},{-44,90},{-59,90}},
+    annotation (Line(points={{-2,136},{-44,136},{-44,120},{-59,120}},
       color={0,0,127}));
   connect(TSetCooHig.f2, conTSupSetMin.y)
-    annotation (Line(points={{-2,102},{-50,102},{-50,-30},{-59,-30}},
+    annotation (Line(points={{-2,132},{-50,132},{-50,0},{-59,0}},
       color={0,0,127}));
   connect(offSetTSetCoo.f1, con0.y)
-    annotation (Line(points={{-2,74},{-56,74},{-56,190},{-59,190}},
+    annotation (Line(points={{-2,104},{-56,104},{-56,220},{-59,220}},
       color={0,0,127}));
   connect(offSetTSetCoo.x1, con0.y)
-    annotation (Line(points={{-2,78},{-56,78},{-56,190},{-59,190}},
+    annotation (Line(points={{-2,108},{-56,108},{-56,220},{-59,220}},
       color={0,0,127}));
   connect(offSetTSetCoo.x2, con05.y)
-    annotation (Line(points={{-2,66},{-46,66},{-46,120},{-59,120}},
+    annotation (Line(points={{-2,96},{-46,96},{-46,150},{-59,150}},
       color={0,0,127}));
   connect(TSupSetMaxTDea.u1, conTSupSetMax.y)
-    annotation (Line(points={{-22,26},{-40,26},{-40,30},{-59,30}},
+    annotation (Line(points={{-22,56},{-40,56},{-40,60},{-59,60}},
       color={0,0,127}));
   connect(TDea.y, TSupSetMaxTDea.u2)
-    annotation (Line(points={{-59,0},{-40,0},{-40,14},{-22,14}},
+    annotation (Line(points={{-59,30},{-40,30},{-40,44},{-22,44}},
       color={0,0,127}));
   connect(TSupSetMaxTDea.y, offSetTSetCoo.f2)
-    annotation (Line(points={{1,20},{10,20},{10,50},{-10,50},{-10,62},{-2,62}},
+    annotation (Line(points={{1,50},{10,50},{10,80},{-10,80},{-10,92},{-2,92}},
       color={0,0,127}));
-
-  connect(uCoo, lin050.u) annotation (Line(points={{-120,40},{-94,40},{-94,-154},
-          {-38,-154},{-38,-192},{-22,-192}}, color={0,0,127}));
+  connect(uCoo, lin050.u) annotation (Line(points={{-120,70},{-94,70},{-94,-146},
+          {-38,-146},{-38,-192},{-22,-192}}, color={0,0,127}));
   connect(dY075.u1, con4.y)
     annotation (Line(points={{-38,-278},{-55,-278}}, color={0,0,127}));
   connect(lin075.x2, con2.y) annotation (Line(points={{32,-288},{24,-288},{24,-310},
           {21,-310}}, color={0,0,127}));
   connect(lin075.x1, con5.y)
     annotation (Line(points={{32,-276},{21,-276}}, color={0,0,127}));
-  connect(uCoo, lin075.u) annotation (Line(points={{-120,40},{-90,40},{-90,-260},
-          {24,-260},{24,-284},{32,-284}}, color={0,0,127}));
+  connect(uCoo, lin075.u) annotation (Line(points={{-120,70},{-90,70},{-90,-252},
+          {24,-252},{24,-284},{32,-284}}, color={0,0,127}));
   connect(yMedLim.y, yOffSet.u)
     annotation (Line(points={{21,-118},{34,-118}}, color={0,0,127}));
   connect(dY075.u2, yOffSet.y) annotation (Line(points={{-38,-290},{-42,-290},{-42,
           -160},{70,-160},{70,-118},{57,-118}}, color={0,0,127}));
-  connect(addHeaCoo.u1, yHea.y) annotation (Line(points={{58,-54},{20,-54},{20,
-          -60},{1,-60}},
-                    color={0,0,127}));
   connect(offCoo.u1, lin050.y) annotation (Line(points={{38,-186},{20,-186},{20,
           -192},{1,-192}}, color={0,0,127}));
   connect(offCoo.u2, lin075.y) annotation (Line(points={{38,-198},{34,-198},{34,
@@ -313,8 +322,21 @@ equation
           -292},{32,-292}}, color={0,0,127}));
   connect(con6.y, lin075.f1) annotation (Line(points={{21,-340},{24,-340},{24,-280},
           {32,-280}}, color={0,0,127}));
-  connect(TSetHeaHig.x1, con0.y) annotation (Line(points={{0,198},{-56,198},{-56,
-          190},{-59,190}}, color={0,0,127}));
+  connect(TSetHeaHig.x1, con0.y) annotation (Line(points={{0,228},{-56,228},{-56,
+          220},{-59,220}}, color={0,0,127}));
+  connect(con7.y, yHea.x1) annotation (Line(points={{-19,-30},{0,-30},{0,-42},{18,
+          -42}}, color={0,0,127}));
+  connect(minSpe.y, yHea.f1) annotation (Line(points={{-59,-30},{-50,-30},{-50,-46},
+          {18,-46}}, color={0,0,127}));
+  connect(uHea, yHea.u) annotation (Line(points={{-120,110},{-88,110},{-88,-50},
+          {18,-50}}, color={0,0,127}));
+  connect(conOne.y, yHea.x2) annotation (Line(points={{-59,-70},{-50,-70},{-50,-54},
+          {18,-54}}, color={0,0,127}));
+  connect(maxHeaSpe.y, yHea.f2) annotation (Line(points={{-19,-70},{0,-70},{0,-58},
+          {18,-58}}, color={0,0,127}));
+  connect(yHea.y, addHeaCoo.u1) annotation (Line(points={{41,-50},{50,-50},{50,-54},
+          {58,-54}}, color={0,0,127}));
+
 annotation (
   defaultComponentName = "setPoiVAV",
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -426,7 +448,7 @@ annotation (
           textString="TZonSet")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-100,-360},{100,220}}), graphics={
+        extent={{-100,-360},{100,280}}), graphics={
         Rectangle(
           extent={{-82,-152},{84,-248}},
           lineColor={0,0,0},
@@ -456,7 +478,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="0.5 < yCoo < 0.75"),
         Rectangle(
-          extent={{-80,-46},{16,-80}},
+          extent={{-84,-14},{46,-86}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
@@ -512,7 +534,7 @@ The figure below shows the sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAVSingleZoneTSupSet.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAVTSupSet.png\"/>
 </p>
 <p>
 The output <code>TSupCoo</code> is to be used to control the cooling coil,
@@ -526,6 +548,11 @@ based on the same temperature sensors and control loops.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2019, by Jianjun Hu:<br/>
+Used line block to avoid use block that is not in CDL. 
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1389\">issue 1389</a>.
+</li>
 <li>
 March 25, 2018, by Michael Wetter:<br/>
 Revised implementation of fan speed control signal calculation
