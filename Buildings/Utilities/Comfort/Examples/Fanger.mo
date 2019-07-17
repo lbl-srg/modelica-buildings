@@ -11,9 +11,9 @@ model Fanger "Test of Comfort Model"
   Modelica.Blocks.Sources.Constant ICl(k=0.9) "Clothing insulation"
     annotation (Placement(transformation(extent={{-14,-90},{ 6,-70}})));
   Modelica.Blocks.Sources.Constant vAir(k=0.05) "Air velocity"
-    annotation (Placement(transformation(extent={{-80,-56},{ -60,-36}})));
+    annotation (Placement(transformation(extent={{-80,-56},{-60,-36}})));
   Modelica.Blocks.Sources.Constant M(k=60) "Metabolic heat generated"
-    annotation (Placement(transformation(extent={{-80,-86},{ -60,-66}})));
+    annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
   Modelica.Blocks.Sources.Ramp TAir(
     duration=1,
     height=10,

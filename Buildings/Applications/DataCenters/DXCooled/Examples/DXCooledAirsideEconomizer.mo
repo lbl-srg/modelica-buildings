@@ -381,5 +381,5 @@ First implementation.
       StartTime=11880000,
       StopTime=12600000,
       Tolerance=1e-06),
-    Icon(coordinateSystem(extent={{-100, -100},{100, 100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end DXCooledAirsideEconomizer;

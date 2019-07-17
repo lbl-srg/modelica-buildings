@@ -10,14 +10,14 @@ block TrimAndRespond "Trim and respond logic"
     "Outputs true if y needs to be increased"
     annotation (extent={{-20, 98},{ 0, 118}}, Placement(transformation(extent={{-20,
             50},{0,70}})));
-  Modelica.Blocks.Logical.Switch swi annotation (extent={{100, 110},{ 120, 130}},
+  Modelica.Blocks.Logical.Switch swi annotation (extent={{100,110},{120,130}},
       Placement(transformation(extent={{60,50},{80,70}})));
   Sampler sam(samplePeriod=samplePeriod) "Sampler"
-    annotation (extent={{-60, 90},{ -40, 110}}, Placement(transformation(extent={{-60,
+    annotation (extent={{-60,90},{-40,110}}, Placement(transformation(extent={{-60,
             50},{-40,70}})));
 
   Modelica.Blocks.Sources.Constant conYDec(k=yDec) "y decrease"
-    annotation (extent={{26, 90},{ 46, 110}}, Placement(transformation(extent={{20,30},
+    annotation (extent={{26,90},{46,110}}, Placement(transformation(extent={{20,30},
             {40,50}})));
   Modelica.Blocks.Sources.Constant conYInc(k=yInc) "y increase"
     annotation (extent={{-20, 124},{ 0, 144}}, Placement(transformation(extent={{20,70},
@@ -26,7 +26,7 @@ block TrimAndRespond "Trim and respond logic"
     y_start=yEqu0,
     samplePeriod=samplePeriod,
     startTime=samplePeriod)
-                   annotation (extent={{-52, -40},{ -32, -20}}, Placement(
+                   annotation (extent={{-52,-40},{-32,-20}}, Placement(
         transformation(extent={{-60,-16},{-40,4}})));
   Modelica.Blocks.Math.Add add annotation (extent={{-20, -20},{ 0, 0}}, Placement(
         transformation(extent={{-20,-10},{0,10}})));
