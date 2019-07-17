@@ -17,7 +17,7 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
-  parameter Integer verbosity(min=0, max=2) = 0 "Verbosity (0: no output to console, 2: all output)"
+  parameter Integer verbosity(min=0, max=2) = 2 "Verbosity (0: no output to console, 2: all output)"
     annotation(Dialog(tab="Debug"));
 
   parameter Integer nFluPor
@@ -133,6 +133,9 @@ protected
 
 initial equation
   assert(0 <= verbosity and verbosity < 3, "Invalid value for parameter 'verbosity' in '" + getInstanceName() + "'.");
+  if usePrecompiledFMU then
+    assert(Modelica.Utilities.Strings.length(fmuName) > 1, "If usePrecompiledFMU = true, must set parameter fmuName");
+  end if;
   startTime =  time;
   (AFlo, V, mSenFac) =  Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
     adapter = adapter,
@@ -142,6 +145,9 @@ initial equation
   assert(mSenFac > 0.9999, "mSenFac must be bigger or equal than one.");
 
 equation
+  if usePrecompiledFMU then // For JModelica, this must be in the equation section rather than the initial equation section
+    assert(Modelica.Utilities.Strings.length(fmuName) > 1, "If usePrecompiledFMU = true, must set parameter fmuName");
+  end if;
   // The 'not initial()' triggers one sample when the continuous time simulation starts.
   // This is required for the correct event handling. Otherwise the regression tests will fail.
   when {initial(), not initial(), time >= pre(tNext)} then
