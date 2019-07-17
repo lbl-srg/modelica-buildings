@@ -8,9 +8,9 @@ block RequestCounter "Count the number of actuators that have request"
   parameter Real uTri "Value to trigger a request from actuator";
   Modelica.Blocks.Interfaces.IntegerOutput nInc
     "Number of actuators requesting control signal increase"
-    annotation (extent={{100,-10},{120,10}});
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput uAct[nAct] "Input signal from actuators"
-    annotation (extent={{-140,-20},{-100,20}});
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 algorithm
   nInc := 0;
   for i in 1:nAct loop
