@@ -15,6 +15,6 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Move
 This example demonstrates the use of the flow model with four different configurations.
 At steady-state, all flow models have the same mass flow rate and pressure difference.
 </html>"),
-Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,160}})));
+Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160, 160}})));
 
 end ControlledFlowMachineDynamic;

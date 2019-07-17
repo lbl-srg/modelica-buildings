@@ -24,7 +24,7 @@ equation
       points={{-80,10},{-60,10}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaDat.weaBus, incAng.weaBus) annotation (Line(
@@ -41,7 +41,7 @@ equation
       points={{-60,10},{-40,10},{-40,30},{-22,30}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (experiment(Tolerance=1e-6, StopTime=86400),
