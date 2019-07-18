@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation;
-model FiniteLineSource_Integrand_BoreholeLength
+model FiniteLineSource_Integrand_Length
   "Test case for finite line source integrand function"
   extends Modelica.Icons.Example;
 
@@ -62,7 +62,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Integrand_BoreholeLength.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Integrand_Length.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StartTime=0.01, StopTime=500.0),
     Documentation(info="<html>
@@ -78,4 +78,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FiniteLineSource_Integrand_BoreholeLength;
+end FiniteLineSource_Integrand_Length;
