@@ -511,7 +511,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
     annotation (Placement(transformation(extent={{200,80},{220,100}}),
-      iconTransformation(extent={{200,-80},{220,-60}})));
+      iconTransformation(extent={{200,-110},{220,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
     final min=0,
@@ -519,21 +519,21 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final unit="1")
     "Control signal for heating"
     annotation (Placement(transformation(extent={{200,30},{220,50}}),
-      iconTransformation(extent={{200,-140},{220,-120}})));
+      iconTransformation(extent={{200,-200},{220,-180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
     final min=0,
     final max=1,
     final unit="1") "Control signal for cooling"
     annotation (Placement(transformation(extent={{200,-14},{220,6}}),
-      iconTransformation(extent={{200,-200},{220,-180}})));
+      iconTransformation(extent={{200,-240},{220,-220}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFanSpe(
     final min=0,
     final max=1,
     final unit="1") "Supply fan speed"
     annotation (Placement(transformation(extent={{200,120},{220,140}}),
-      iconTransformation(extent={{200,112},{220,132}})));
+      iconTransformation(extent={{200,180},{220,200}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
@@ -547,12 +547,12 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final max=1,
     final unit="1") "Outdoor air damper position"
     annotation (Placement(transformation(extent={{200,-160},{220,-140}}),
-      iconTransformation(extent={{200,50},{220,70}})));
+      iconTransformation(extent={{200,30},{220,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySupFan
     "Supply fan status, true if fan should be on"
     annotation (Placement(transformation(extent={{200,170},{220,190}}),
-      iconTransformation(extent={{200,170},{220,190}})));
+      iconTransformation(extent={{200,220},{220,240}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Average TZonSetPoiAve
     "Average of all zone set points"
@@ -777,7 +777,7 @@ annotation (defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-200,-260},{200,280}}, initialScale=0.2)),
     Icon(coordinateSystem(extent={{-200,-260},{200,280}}, initialScale=0.2),
         graphics={Rectangle(
-          extent={{200,280},{-200,-260}},
+          extent={{200,280},{-200,-280}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
