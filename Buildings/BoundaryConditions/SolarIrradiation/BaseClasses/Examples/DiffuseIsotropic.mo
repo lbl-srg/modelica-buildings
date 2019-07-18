@@ -15,21 +15,21 @@ equation
       points={{-40,10},{-1,10}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.HGloHor, HDifTilIso.HGloHor) annotation (Line(
       points={{-1,10},{24,10},{24,14},{38,14}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, HDifTilIso.HDifHor) annotation (Line(
       points={{-1,10},{24,10},{24,6},{38,6}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
