@@ -5,14 +5,12 @@ block To_BtuPerHour "Block that converts power from watt to British thermal unit
     final unit = "W",
     final quantity = "Power")
     "Power in watt"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity = "Power")
     "Power in British thermal units per hour"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   constant Real k = 1./0.2930711 "Multiplier";

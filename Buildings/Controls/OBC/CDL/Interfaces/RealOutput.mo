@@ -3,6 +3,7 @@ connector RealOutput = output Real "'output Real' as connector" annotation (
   defaultComponentName="y",
   Icon(
     coordinateSystem(preserveAspectRatio=true,
+      initialScale=0.2,
       extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(
@@ -12,6 +13,7 @@ connector RealOutput = output Real "'output Real' as connector" annotation (
       points={{-100,50},{0,0},{-100,-50}})}),
   Diagram(
     coordinateSystem(preserveAspectRatio=true,
+      initialScale=0.2,
       extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(

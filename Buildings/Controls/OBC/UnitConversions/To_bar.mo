@@ -5,15 +5,13 @@ block To_bar "Block that converts pressure from pascal to bar"
     final unit = "Pa",
     final quantity = "Pressure")
     "Pressure in pascal"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit = "bar",
     final quantity = "Pressure")
     "Pressure in bar"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   constant Real k = 1./100000. "Multiplier";

@@ -4,11 +4,11 @@ block Toggle "Toggles output value whenever its input turns true"
   parameter Boolean pre_y_start=false "Start value of pre(y) if clr=false";
 
   Interfaces.BooleanInput u "Toggle input"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanInput clr "Clear input"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Interfaces.BooleanOutput y "Output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   Integer scenario "Scenario index";

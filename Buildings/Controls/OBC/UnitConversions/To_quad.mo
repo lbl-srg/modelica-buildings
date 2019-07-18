@@ -5,14 +5,12 @@ block To_quad "Block that converts work from joule to quads"
     final unit = "J",
     final quantity = "Work")
     "Work in joule"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity = "Work")
     "Work in quads"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   constant Real k = 1./1055.56e15 "Multiplier";

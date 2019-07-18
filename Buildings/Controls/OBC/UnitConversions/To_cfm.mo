@@ -5,14 +5,12 @@ block To_cfm "Block that converts volume flow from cubic meters per second to cu
     final unit = "m3/s",
     final quantity = "VolumeFlowRate")
     "Volume flow in cubic meters per second"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity = "VolumeFlowRate")
     "Volume flow in cubic feet per minute"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   constant Real k = 1./0.000471947 "Multiplier";

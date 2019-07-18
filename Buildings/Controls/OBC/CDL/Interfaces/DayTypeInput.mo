@@ -4,6 +4,7 @@ annotation (
   defaultComponentName="u",
   Icon(
     coordinateSystem(preserveAspectRatio=true,
+      initialScale=0.2,
       extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(
