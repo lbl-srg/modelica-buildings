@@ -47,7 +47,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cutoff"
-    annotation (Placement(transformation(extent={{-240,120},{-220,140}})));
+    annotation (Placement(transformation(extent={{-240,118},{-220,138}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
@@ -106,8 +106,7 @@ equation
   connect(hOutCut1.y, enaDis1.hOutCut)
     annotation (Line(points={{-19,50},{10,50},{10,-26},{79,-26}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
-    annotation (Line(points={{-219,130},{-180,130},{-180,66},{-130,66},{-130,
-          -24},{-81,-24}},
+    annotation (Line(points={{-219,128},{-180,128},{-180,66},{-130,66},{-130,-24},{-81,-24}},
     color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
     annotation (Line(points={{61,90},{70,90},{70,-20},{79,-20},{79,-20}}, color={0,0,127}));
