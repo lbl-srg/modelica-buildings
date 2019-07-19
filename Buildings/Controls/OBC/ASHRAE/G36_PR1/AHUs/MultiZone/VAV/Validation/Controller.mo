@@ -4,6 +4,7 @@ model Controller "Validation controller model"
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
     numZon=2,
     AFlo={50,50},
+    have_perZonRehBox=false,
     controllerTypeMinOut=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     controllerTypeFre=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     controllerTypeFanSpe=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -12,7 +13,7 @@ model Controller "Validation controller model"
     have_occSen=true,
     controllerTypeTSup=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
                       "Multiple zone AHU controller"
-    annotation (Placement(transformation(extent={{22,48},{102,152}})));
+    annotation (Placement(transformation(extent={{20,48},{100,152}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(
     final k=273.15 + 24)
     "Cooling on setpoint"
@@ -20,7 +21,7 @@ model Controller "Validation controller model"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(
     final k=273.15 + 20)
     "Heating on setpoint"
-    annotation (Placement(transformation(extent={{-170,133},{-150,153}})));
+    annotation (Placement(transformation(extent={{-220,131},{-200,151}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
     final k=297.15)
     "Outdoor temperature high limit cutoff"
@@ -38,34 +39,34 @@ model Controller "Validation controller model"
     each height=4,
     each duration=3600,
     each offset=273.15 + 18) "Terminal unit discharge air temperature"
-    annotation (Placement(transformation(extent={{-170,60},{-150,80}})));
+    annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc1(
     height=2,
     duration=3600)
     "Occupant number in zone 1"
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+    annotation (Placement(transformation(extent={{-170,20},{-150,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc2(
     duration=3600,
     height=3)
     "Occupant number in zone 2"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     height=4,
     duration=3600,
     offset=273.15 + 14) "AHU supply air temperature"
-    annotation (Placement(transformation(extent={{-170,20},{-150,40}})));
+    annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
     duration=1800,
     offset=0.02,
     height=0.0168)
     "Measured outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-170,-20},{-150,0}})));
+    annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo1(
     height=1.5,
     offset=1,
     duration=3600)
     "Ramp signal for generating VAV box flow rate"
-    annotation (Placement(transformation(extent={{-170,-60},{-150,-40}})));
+    annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo2(
     offset=1,
     height=0.5,
@@ -83,7 +84,7 @@ model Controller "Validation controller model"
     amplitude=5,
     offset=18 + 273.15,
     freqHz=1/3600) "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-170,100},{-150,120}})));
+    annotation (Placement(transformation(extent={{-220,100},{-200,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine ducStaPre(
     offset=200,
     amplitude=150,
@@ -93,12 +94,12 @@ model Controller "Validation controller model"
     offset=3,
     amplitude=2,
     freqHz=1/9600) "Duct static pressure setpoint reset requests"
-    annotation (Placement(transformation(extent={{-170,-150},{-150,-130}})));
+    annotation (Placement(transformation(extent={{-220,-150},{-200,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
     amplitude=6,
     freqHz=1/9600)
     "Maximum supply temperature setpoint reset"
-    annotation (Placement(transformation(extent={{-170,-110},{-150,-90}})));
+    annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
@@ -113,76 +114,82 @@ model Controller "Validation controller model"
     annotation (Placement(transformation(extent={{-94,-150},{-74,-130}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger ducPreResReq "Convert real to integer"
     annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger maxSupResReq "Convert real to integer"
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger maxSupResReq
+    "Convert real to integer"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 
+  CDL.Conversions.RealToInteger occConv1 "Convert real to integer"
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+  CDL.Conversions.RealToInteger occConv2 "Convert real to integer"
+    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 equation
   connect(sine.y,abs1. u)
-    annotation (Line(points={{-149,-140},{-132,-140}}, color={0,0,127}));
+    annotation (Line(points={{-199,-140},{-132,-140}}, color={0,0,127}));
   connect(abs1.y,round2. u)
     annotation (Line(points={{-109,-140},{-96,-140}}, color={0,0,127}));
   connect(round2.y, ducPreResReq.u)
     annotation (Line(points={{-73,-140},{-62,-140}}, color={0,0,127}));
   connect(sine1.y, abs.u)
-    annotation (Line(points={{-149,-100},{-132,-100}}, color={0,0,127}));
+    annotation (Line(points={{-199,-100},{-132,-100}}, color={0,0,127}));
   connect(abs.y,round1. u)
     annotation (Line(points={{-109,-100},{-96,-100}}, color={0,0,127}));
   connect(round1.y, maxSupResReq.u)
     annotation (Line(points={{-73,-100},{-62,-100}}, color={0,0,127}));
   connect(TSetRooCooOn.y, conAHU.TZonCooSet)
-    annotation (Line(points={{-79,143.5},{-20,143.5},{-20,146.222},{20,146.222}},
+    annotation (Line(points={{-79,143.5},{-20,143.5},{-20,146.222},{18,146.222}},
       color={0,0,127}));
   connect(TZon.y, conAHU.TZon)
-    annotation (Line(points={{-79,110},{-50,110},{-50,134.667},{20,134.667}},
+    annotation (Line(points={{-79,110},{-50,110},{-50,134.667},{18,134.667}},
       color={0,0,127}));
   connect(TOutCut.y, conAHU.TOutCut)
-    annotation (Line(points={{-79,70},{-26,70},{-26,119.259},{20,119.259}},
+    annotation (Line(points={{-79,70},{-26,70},{-26,119.259},{18,119.259}},
       color={0,0,127}));
   connect(TSup.y, conAHU.TSup)
-    annotation (Line(points={{-149,30},{-140,30},{-140,54},{-60,54},{-60,
-          105.778},{20,105.778}},   color={0,0,127}));
-  connect(numOfOcc1.y, conAHU.nOcc[1])
-    annotation (Line(points={{-99,30},{-92,30},{-92,50},{-20,50},{-20,97.1111},
-          {20,97.1111}},
-                     color={0,0,127}));
-  connect(numOfOcc2.y, conAHU.nOcc[2])
-    annotation (Line(points={{-59,30},{-18,30},{-18,99.037},{20,99.037}},
-      color={0,0,127}));
+    annotation (Line(points={{-199,30},{-180,30},{-180,52},{-60,52},{-60,
+          105.778},{18,105.778}},   color={0,0,127}));
   connect(VOut_flow.y, conAHU.VOut_flow)
-    annotation (Line(points={{-149,-10},{-140,-10},{-140,12},{-34,12},{-34,
-          94.2222},{20,94.2222}},
+    annotation (Line(points={{-199,-10},{-180,-10},{-180,10},{-34,10},{-34,
+          94.2222},{18,94.2222}},
                       color={0,0,127}));
   connect(ducStaPre.y, conAHU.ducStaPre)
-    annotation (Line(points={{-79,-10},{-30,-10},{-30,90.3704},{20,90.3704}},
+    annotation (Line(points={{-79,-10},{-30,-10},{-30,90.3704},{18,90.3704}},
       color={0,0,127}));
   connect(vavBoxFlo1.y, conAHU.VDis_flow[1])
-    annotation (Line(points={{-149,-50},{-140,-50},{-140,-30},{-40,-30},{-40,
-          83.6296},{20,83.6296}},  color={0,0,127}));
+    annotation (Line(points={{-199,-50},{-140,-50},{-140,-30},{-40,-30},{-40,
+          83.6296},{18,83.6296}},  color={0,0,127}));
   connect(vavBoxFlo2.y, conAHU.VDis_flow[2])
     annotation (Line(points={{-109,-50},{-100,-50},{-100,-26},{-44,-26},{-44,
-          85.5556},{20,85.5556}},  color={0,0,127}));
+          85.5556},{18,85.5556}},  color={0,0,127}));
   connect(TMixMea.y, conAHU.TMix)
-    annotation (Line(points={{-59,-50},{-22,-50},{-22,80.7407},{20,80.7407}},
+    annotation (Line(points={{-59,-50},{-22,-50},{-22,80.7407},{18,80.7407}},
       color={0,0,127}));
   connect(opeMod.y, conAHU.uOpeMod)
-    annotation (Line(points={{69,10},{80,10},{80,30},{0,30},{0,73.037},{20,
+    annotation (Line(points={{69,10},{80,10},{80,30},{0,30},{0,73.037},{18,
           73.037}}, color={255,127,0}));
   connect(maxSupResReq.y, conAHU.uZonTemResReq)
-    annotation (Line(points={{-39,-100},{-16,-100},{-16,63.4074},{20,63.4074}},
+    annotation (Line(points={{-39,-100},{-16,-100},{-16,63.4074},{18,63.4074}},
       color={255,127,0}));
   connect(ducPreResReq.y, conAHU.uZonPreResReq)
-    annotation (Line(points={{-39,-140},{-12,-140},{-12,57.6296},{20,57.6296}},
+    annotation (Line(points={{-39,-140},{-12,-140},{-12,57.6296},{18,57.6296}},
       color={255,127,0}));
   connect(TOut.y, conAHU.TOut)
-    annotation (Line(points={{-149,110},{-140,110},{-140,126},{-60,126},{-60,
-          138.519},{20,138.519}},  color={0,0,127}));
+    annotation (Line(points={{-199,110},{-180,110},{-180,126},{-60,126},{-60,
+          138.519},{18,138.519}},  color={0,0,127}));
   connect(TDis.y, conAHU.TDis)
-    annotation (Line(points={{-149,70},{-140,70},{-140,92},{-40,92},{-40,
-          126.963},{20,126.963}},  color={0,0,127}));
+    annotation (Line(points={{-199,70},{-180,70},{-180,92},{-40,92},{-40,
+          126.963},{18,126.963}},  color={0,0,127}));
   connect(TSetRooHeaOn.y, conAHU.TZonHeaSet)
-    annotation (Line(points={{-149,143},{-140,143},{-140,160},{-20,160},{-20,
-          150.074},{20,150.074}},  color={0,0,127}));
+    annotation (Line(points={{-199,141},{-180,141},{-180,160},{-20,160},{-20,
+          150.074},{18,150.074}},  color={0,0,127}));
 
+  connect(numOfOcc1.y, occConv1.u)
+    annotation (Line(points={{-149,30},{-142,30}}, color={0,0,127}));
+  connect(numOfOcc2.y, occConv2.u)
+    annotation (Line(points={{-79,30},{-72,30}}, color={0,0,127}));
+  connect(occConv1.y, conAHU.nOcc[1]) annotation (Line(points={{-119,30},{-110,
+          30},{-110,50},{-48,50},{-48,97.1111},{18,97.1111}}, color={255,127,0}));
+  connect(occConv2.y, conAHU.nOcc[2]) annotation (Line(points={{-49,30},{-46,30},
+          {-46,99.037},{18,99.037}}, color={255,127,0}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Validation/Controller.mos"
     "Simulate and plot"),
@@ -204,8 +211,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Diagram(coordinateSystem(extent={{-180,-160},{120,180}})),
-    Icon(graphics={
+Diagram(coordinateSystem(extent={{-240,-180},{240,180}})),
+    Icon(coordinateSystem(extent={{-240,-180},{240,180}}),
+         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,

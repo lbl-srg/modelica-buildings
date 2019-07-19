@@ -575,7 +575,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final peaSysPop=peaSysPop,
     final have_winSen=have_winSen)
     "Controller for minimum outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-38,50},{-18,70}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyFan
     supFan(
@@ -678,10 +678,11 @@ equation
           -40.625},{139.375,-40.625}}, color={0,0,127}));
   connect(eco.TOutCut, TOutCut) annotation (Line(points={{139.375,-41.875},{-74,
           -41.875},{-74,0},{-210,0}}, color={0,0,127}));
-  connect(eco.hOut, hOut) annotation (Line(points={{139.375,-43.125},{-78,
-          -43.125},{-78,-32},{-210,-32}}, color={0,0,127}));
-  connect(eco.hOutCut, hOutCut) annotation (Line(points={{139.375,-45},{-94,-45},
-          {-94,-44},{-210,-44}}, color={0,0,127}));
+  connect(eco.hOut, hOut) annotation (Line(points={{139.375,-43.125},{-80,
+          -43.125},{-80,-32},{-210,-32}}, color={0,0,127}));
+  connect(eco.hOutCut, hOutCut) annotation (Line(points={{139.375,-45},{-100,
+          -45},{-100,-44},{-210,-44}},
+                                 color={0,0,127}));
   connect(eco.uOpeMod, uOpeMod) annotation (Line(points={{139.375,-56.875},{60,
           -56.875},{60,-100},{-210,-100}}, color={255,127,0}));
   connect(supTemSetPoi.TSupSet, TSupSet)
@@ -704,25 +705,25 @@ equation
     annotation (Line(points={{-162,122},{-210,122}},
       color={0,0,127}));
   connect(eco.VOutMinSet_flow_normalized, outAirSetPoi.VOutMinSet_flow)
-    annotation (Line(points={{139.375,-50},{-4,-50},{-4,60},{-17,60}},
+    annotation (Line(points={{139.375,-50},{-4,-50},{-4,60},{-19,60}},
       color={0,0,127}));
   connect(outAirSetPoi.nOcc, nOcc)
-    annotation (Line(points={{-39,68},{-128,68},{-128,100},{-210,100}},
+    annotation (Line(points={{-41,68},{-128,68},{-128,100},{-210,100}},
       color={0,0,127}));
   connect(outAirSetPoi.TZon, TZon)
-    annotation (Line(points={{-39,65},{-132,65},{-132,80},{-210,80}},
+    annotation (Line(points={{-41,65},{-132,65},{-132,80},{-210,80}},
       color={0,0,127}));
   connect(outAirSetPoi.TDis, TDis)
-    annotation (Line(points={{-39,62},{-210,62}},
+    annotation (Line(points={{-41,62},{-210,62}},
       color={0,0,127}));
   connect(supFan.ySupFan, outAirSetPoi.uSupFan)
-    annotation (Line(points={{-139,137},{-84,137},{-84,56},{-39,56}},
+    annotation (Line(points={{-139,137},{-84,137},{-84,56},{-41,56}},
       color={255,0,255}));
   connect(supTemSetPoi.TZonSetAve, TZonSetPoiAve.y)
     annotation (Line(points={{-1,98},{-20,98},{-20,220.2},{-139,220.2}},
       color={0,0,127}));
   connect(outAirSetPoi.VDis_flow, VDis_flow)
-    annotation (Line(points={{-39,51},{-184,51},{-184,140},{-210,140}},
+    annotation (Line(points={{-41,51},{-184,51},{-184,140},{-210,140}},
       color={0,0,127}));
   connect(supFan.VDis_flow, VDis_flow)
     annotation (Line(points={{-162,133},{-184,133},{-184,140},{-210,140}},
@@ -731,13 +732,13 @@ equation
     annotation (Line(points={{-139,137},{180,137},{180,180},{210,180}},
       color={255,0,255}));
   connect(outAirSetPoi.uOpeMod, uOpeMod)
-    annotation (Line(points={{-39,54},{-120,54},{-120,-100},{-210,-100}},
+    annotation (Line(points={{-41,54},{-120,54},{-120,-100},{-210,-100}},
       color={255,127,0}));
   connect(TZonSetPoiAve.u2, TZonCooSet)
     annotation (Line(points={{-162,214},{-180,214},{-180,210},{-210,210}},
       color={0,0,127}));
   connect(eco.TMix, TMix)
-    annotation (Line(points={{139.375,-51.875},{-12,-51.875},{-12,-80},{-210,
+    annotation (Line(points={{139.375,-51.875},{-10,-51.875},{-10,-80},{-210,
           -80}},color={0,0,127}));
   connect(TSup, val.TSup)
     annotation (Line(points={{-210,30},{79,30}},
@@ -755,7 +756,7 @@ equation
     annotation (Line(points={{101,26},{180,26},{180,-4},{210,-4}},
       color={0,0,127}));
   connect(outAirSetPoi.uWin, uWin)
-    annotation (Line(points={{-39,58},{-120,58},{-120,189},{-211,189}},
+    annotation (Line(points={{-41,58},{-120,58},{-120,189},{-211,189}},
       color={255,0,255}));
   connect(supTemSetPoi.TSupSet, val.TSupSet)
     annotation (Line(points={{21,90},{40,90},{40,35},{79,35}},
@@ -764,12 +765,12 @@ equation
     annotation (Line(points={{-210,230},{-180,230},{-180,226},{-162,226}},
       color={0,0,127}));
   connect(eco.uFreProSta, uFreProSta)
-    annotation (Line(points={{139.375,-59.375},
-          {66,-59.375},{66,-180},{-210,-180}}, color={255,127,0}));
+    annotation (Line(points={{139.375,-59.375},{70,-59.375},{70,-180},{-210,
+          -180}},                              color={255,127,0}));
   connect(eco.VOut_flow_normalized, VOut_flow_normalized.y) annotation (Line(
         points={{139.375,-48.75},{60,-48.75},{60,-10},{41,-10}}, color={0,0,127}));
   connect(outAirSetPoi.VDesOutMin_flow_nominal, VOut_flow_normalized.u2)
-    annotation (Line(points={{-17,65},{0,65},{0,-16},{18,-16}},     color={0,0,127}));
+    annotation (Line(points={{-19,65},{0,65},{0,-16},{18,-16}},     color={0,0,127}));
   connect(VOut_flow_normalized.u1, VOut_flow) annotation (Line(points={{18,-4},
           {-160,-4},{-160,-60},{-210,-60}},color={0,0,127}));
 

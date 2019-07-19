@@ -4,7 +4,8 @@ model Controller_options "Validation controller model"
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
     numZon=2,
     AFlo={50,50},
-    have_winSen=true,
+    have_winSen=false,
+    have_perZonRehBox=true,
     controllerTypeMinOut=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     controllerTypeFre=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     controllerTypeFanSpe=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -13,77 +14,60 @@ model Controller_options "Validation controller model"
     have_occSen=true,
     controllerTypeTSup=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
                       "Multiple zone AHU controller"
-    annotation (Placement(transformation(extent={{-100,216},{-20,320}})));
+    annotation (Placement(transformation(extent={{-100,256},{-20,360}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(
     final k=273.15 + 24)
     "Cooling on setpoint"
-    annotation (Placement(transformation(extent={{-220,380},{-200,400}})));
+    annotation (Placement(transformation(extent={{-220,420},{-200,440}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(
     final k=273.15 + 20)
     "Heating on setpoint"
-    annotation (Placement(transformation(extent={{-300,380},{-280,400}})));
+    annotation (Placement(transformation(extent={{-300,420},{-280,440}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
     final k=297.15) "Outdoor temperature high limit cutoff"
-    annotation (Placement(transformation(extent={{-220,290},{-200,310}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
-    "AHU operation mode is occupied"
-    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
+    annotation (Placement(transformation(extent={{-220,330},{-200,350}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon[2](
     each height=6,
     each offset=273.15 + 17,
     each duration=3600) "Measured zone temperature"
-    annotation (Placement(transformation(extent={{-220,330},{-200,350}})));
+    annotation (Placement(transformation(extent={{-220,370},{-200,390}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis[2](
     each height=4,
     each duration=3600,
     each offset=273.15 + 18) "Terminal unit discharge air temperature"
-    annotation (Placement(transformation(extent={{-300,290},{-280,310}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc1(
-    height=2,
-    duration=3600)
-    "Occupant number in zone 1"
-    annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc2(
-    duration=3600,
-    height=3)
-    "Occupant number in zone 2"
-    annotation (Placement(transformation(extent={{-200,190},{-180,210}})));
+    annotation (Placement(transformation(extent={{-300,330},{-280,350}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
     height=4,
     duration=3600,
     offset=273.15 + 14) "AHU supply air temperature"
-    annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
+    annotation (Placement(transformation(extent={{-300,290},{-280,310}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
     duration=1800,
     offset=0.02,
     height=0.0168)
     "Measured outdoor airflow rate"
-    annotation (Placement(transformation(extent={{-300,150},{-280,170}})));
+    annotation (Placement(transformation(extent={{-300,190},{-280,210}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo1(
     height=1.5,
     offset=1,
     duration=3600)
     "Ramp signal for generating VAV box flow rate"
-    annotation (Placement(transformation(extent={{-300,110},{-280,130}})));
+    annotation (Placement(transformation(extent={{-300,150},{-280,170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo2(
     offset=1,
     height=0.5,
     duration=3600)
     "Ramp signal for generating VAV box flow rate"
-    annotation (Placement(transformation(extent={{-250,110},{-230,130}})));
+    annotation (Placement(transformation(extent={{-250,150},{-230,170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TMixMea(
     height=4,
@@ -91,19 +75,19 @@ model Controller_options "Validation controller model"
     offset=273.15 + 2,
     startTime=0)
     "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-200,110},{-180,130}})));
+    annotation (Placement(transformation(extent={{-200,150},{-180,170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
     amplitude=5,
     offset=18 + 273.15,
     freqHz=1/3600) "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-300,330},{-280,350}})));
+    annotation (Placement(transformation(extent={{-300,370},{-280,390}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine ducStaPre(
     offset=200,
     amplitude=150,
     freqHz=1/3600) "Duct static pressure"
-    annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
+    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
     offset=3,
@@ -143,78 +127,107 @@ model Controller_options "Validation controller model"
 
   CDL.Logical.Sources.Constant winSta[2](final k={true,true})
     "Window status for each zone"
-    annotation (Placement(transformation(extent={{-260,220},{-240,240}})));
+    annotation (Placement(transformation(extent={{40,360},{60,380}})));
+  CDL.Continuous.Sources.Ramp                        numOfOcc1(height=2,
+      duration=3600)
+    "Occupant number in zone 1"
+    annotation (Placement(transformation(extent={{-240,280},{-220,300}})));
+  CDL.Conversions.RealToInteger occConv1 "Convert real to integer"
+    annotation (Placement(transformation(extent={{-210,280},{-190,300}})));
+  CDL.Continuous.Sources.Ramp                        numOfOcc2(duration=3600,
+      height=3)
+    "Occupant number in zone 2"
+    annotation (Placement(transformation(extent={{-240,240},{-220,260}})));
+  CDL.Conversions.RealToInteger occConv2 "Convert real to integer"
+    annotation (Placement(transformation(extent={{-210,240},{-190,260}})));
+protected
+  CDL.Continuous.Sources.Ramp                        ram(duration=3600, height=6)
+              "Ramp signal for generating operation mode"
+    annotation (Placement(transformation(extent={{-300,100},{-280,120}})));
+  CDL.Continuous.Abs                        abs2
+    "Block generates absolute value of input"
+    annotation (Placement(transformation(extent={{-260,100},{-240,120}})));
+  CDL.Continuous.Round                        round3(n=0)
+    "Round real number to given digits"
+    annotation (Placement(transformation(extent={{-220,100},{-200,120}})));
+  CDL.Conversions.RealToInteger                        reaToInt2
+    "Convert real to integer"
+    annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
 equation
-  connect(sine.y,abs1. u)
-    annotation (Line(points={{-279,30},{-262,30}},     color={0,0,127}));
-  connect(abs1.y,round2. u)
-    annotation (Line(points={{-239,30},{-222,30}},    color={0,0,127}));
-  connect(round2.y, ducPreResReq.u)
-    annotation (Line(points={{-199,30},{-182,30}},   color={0,0,127}));
-  connect(sine1.y, abs.u)
-    annotation (Line(points={{-279,70},{-262,70}},     color={0,0,127}));
-  connect(abs.y,round1. u)
-    annotation (Line(points={{-239,70},{-222,70}},    color={0,0,127}));
-  connect(round1.y, maxSupResReq.u)
-    annotation (Line(points={{-199,70},{-182,70}},   color={0,0,127}));
   connect(TZon.y, conAHU.TZon)
-    annotation (Line(points={{-199,340},{-170,340},{-170,302.667},{-102,302.667}},
+    annotation (Line(points={{-199,380},{-170,380},{-170,342.667},{-102,342.667}},
       color={0,0,127}));
   connect(TOutCut.y, conAHU.TOutCut)
-    annotation (Line(points={{-199,300},{-148,300},{-148,287.259},{-102,287.259}},
+    annotation (Line(points={{-199,340},{-148,340},{-148,327.259},{-102,327.259}},
       color={0,0,127}));
   connect(TSup.y, conAHU.TSup)
-    annotation (Line(points={{-279,260},{-260,260},{-260,273.778},{-102,273.778}},
+    annotation (Line(points={{-279,300},{-260,300},{-260,313.778},{-102,313.778}},
                                     color={0,0,127}));
-  connect(numOfOcc1.y, conAHU.nOcc[1])
-    annotation (Line(points={{-199,230},{-170,230},{-170,265.111},{-102,265.111}},
-                     color={0,0,127}));
-  connect(numOfOcc2.y, conAHU.nOcc[2])
-    annotation (Line(points={{-179,200},{-138,200},{-138,267.037},{-102,267.037}},
-      color={0,0,127}));
   connect(VOut_flow.y, conAHU.VOut_flow)
-    annotation (Line(points={{-279,160},{-260,160},{-260,182},{-154,182},{-154,
-          262.222},{-102,262.222}},
+    annotation (Line(points={{-279,200},{-260,200},{-260,222},{-154,222},{-154,
+          302.222},{-102,302.222}},
                       color={0,0,127}));
   connect(ducStaPre.y, conAHU.ducStaPre)
-    annotation (Line(points={{-199,160},{-150,160},{-150,258.37},{-102,258.37}},
+    annotation (Line(points={{-199,200},{-150,200},{-150,298.37},{-102,298.37}},
       color={0,0,127}));
   connect(vavBoxFlo1.y, conAHU.VDis_flow[1])
-    annotation (Line(points={{-279,120},{-260,120},{-260,140},{-160,140},{-160,
-          251.63},{-102,251.63}},  color={0,0,127}));
+    annotation (Line(points={{-279,160},{-260,160},{-260,180},{-160,180},{-160,
+          291.63},{-102,291.63}},  color={0,0,127}));
   connect(vavBoxFlo2.y, conAHU.VDis_flow[2])
-    annotation (Line(points={{-229,120},{-218,120},{-218,138},{-166,138},{-166,
-          253.556},{-102,253.556}},color={0,0,127}));
+    annotation (Line(points={{-229,160},{-218,160},{-218,178},{-166,178},{-166,
+          293.556},{-102,293.556}},color={0,0,127}));
   connect(TMixMea.y, conAHU.TMix)
-    annotation (Line(points={{-179,120},{-142,120},{-142,248.741},{-102,248.741}},
+    annotation (Line(points={{-179,160},{-142,160},{-142,288.741},{-102,288.741}},
       color={0,0,127}));
-  connect(opeMod.y, conAHU.uOpeMod)
-    annotation (Line(points={{-59,180},{-40,180},{-40,200},{-120,200},{-120,
-          241.037},{-102,241.037}},
-                    color={255,127,0}));
   connect(maxSupResReq.y, conAHU.uZonTemResReq)
-    annotation (Line(points={{-159,70},{-134,70},{-134,231.407},{-102,231.407}},
+    annotation (Line(points={{-159,70},{-120,70},{-120,271.407},{-102,271.407}},
       color={255,127,0}));
   connect(ducPreResReq.y, conAHU.uZonPreResReq)
-    annotation (Line(points={{-159,30},{-130,30},{-130,225.63},{-102,225.63}},
+    annotation (Line(points={{-159,30},{-112,30},{-112,265.63},{-102,265.63}},
       color={255,127,0}));
   connect(TOut.y, conAHU.TOut)
-    annotation (Line(points={{-279,340},{-260,340},{-260,360},{-164,360},{-164,
-          306.519},{-102,306.519}},color={0,0,127}));
+    annotation (Line(points={{-279,380},{-260,380},{-260,400},{-164,400},{-164,
+          346.519},{-102,346.519}},color={0,0,127}));
   connect(TDis.y, conAHU.TDis)
-    annotation (Line(points={{-279,300},{-260,300},{-260,280},{-160,280},{-160,
-          294.963},{-102,294.963}},color={0,0,127}));
+    annotation (Line(points={{-279,340},{-260,340},{-260,320},{-160,320},{-160,
+          334.963},{-102,334.963}},color={0,0,127}));
   connect(TSetRooHeaOn.y, conAHU.TZonHeaSet)
-    annotation (Line(points={{-279,390},{-260,390},{-260,370},{-140,370},{-140,
-          318.074},{-102,318.074}},color={0,0,127}));
+    annotation (Line(points={{-279,430},{-260,430},{-260,410},{-140,410},{-140,
+          358.074},{-102,358.074}},color={0,0,127}));
 
-  connect(TSetRooCooOn.y, conAHU.TZonCooSet) annotation (Line(points={{-199,390},
-          {-160,390},{-160,314.222},{-102,314.222}}, color={0,0,127}));
-  connect(winSta.y, conAHU.uWin) annotation (Line(points={{-239,230},{-230,230},
-          {-230,269.926},{-102,269.926}},                       color={255,0,
-          255}));
+  connect(TSetRooCooOn.y, conAHU.TZonCooSet) annotation (Line(points={{-199,430},
+          {-160,430},{-160,354.222},{-102,354.222}}, color={0,0,127}));
+  connect(ram.y, abs2.u)
+    annotation (Line(points={{-279,110},{-262,110}}, color={0,0,127}));
+  connect(abs2.y, round3.u)
+    annotation (Line(points={{-239,110},{-222,110}}, color={0,0,127}));
+  connect(round3.y, reaToInt2.u)
+    annotation (Line(points={{-199,110},{-182,110}}, color={0,0,127}));
+  connect(reaToInt2.y, conAHU.uOpeMod) annotation (Line(points={{-159,110},{
+          -128,110},{-128,281.037},{-102,281.037}},
+                                               color={255,127,0}));
+  connect(sine1.y, abs.u)
+    annotation (Line(points={{-279,70},{-262,70}}, color={0,0,127}));
+  connect(abs.y, round1.u)
+    annotation (Line(points={{-239,70},{-222,70}}, color={0,0,127}));
+  connect(round1.y, maxSupResReq.u)
+    annotation (Line(points={{-199,70},{-182,70},{-182,70}}, color={0,0,127}));
+  connect(round2.y, ducPreResReq.u)
+    annotation (Line(points={{-199,30},{-182,30}}, color={0,0,127}));
+  connect(abs1.y, round2.u)
+    annotation (Line(points={{-239,30},{-222,30}}, color={0,0,127}));
+  connect(sine.y, abs1.u)
+    annotation (Line(points={{-279,30},{-262,30}}, color={0,0,127}));
+  connect(numOfOcc2.y, occConv2.u)
+    annotation (Line(points={{-219,250},{-212,250}}, color={0,0,127}));
+  connect(numOfOcc1.y, occConv1.u)
+    annotation (Line(points={{-219,290},{-212,290}}, color={0,0,127}));
+  connect(occConv1.y, conAHU.nOcc[1]) annotation (Line(points={{-189,290},{-180,
+          290},{-180,305.111},{-102,305.111}}, color={255,127,0}));
+  connect(occConv2.y, conAHU.nOcc[2]) annotation (Line(points={{-189,250},{-180,
+          250},{-180,307.037},{-102,307.037}}, color={255,127,0}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Validation/Controller.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Validation/Controller_options.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -234,8 +247,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Diagram(coordinateSystem(extent={{-320,-380},{320,420}})),
-    Icon(graphics={
+Diagram(coordinateSystem(extent={{-320,-460},{320,460}})),
+    Icon(coordinateSystem(extent={{-320,-460},{320,460}}),
+         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
