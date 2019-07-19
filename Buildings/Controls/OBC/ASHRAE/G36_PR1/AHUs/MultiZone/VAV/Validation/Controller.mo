@@ -189,8 +189,7 @@ equation
   connect(occConv1.y, conAHU.nOcc[1]) annotation (Line(points={{-119,30},{-110,
           30},{-110,50},{-48,50},{-48,98.9167},{18,98.9167}}, color={255,127,0}));
   connect(occConv2.y, conAHU.nOcc[2]) annotation (Line(points={{-49,30},{-46,30},
-          {-46,101.083},{18,101.083}},
-                                     color={255,127,0}));
+          {-46,101.083},{18,101.083}}, color={255,127,0}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Validation/Controller.mos"
     "Simulate and plot"),
@@ -213,8 +212,7 @@ First implementation.
 </ul>
 </html>"),
 Diagram(coordinateSystem(extent={{-240,-180},{240,180}})),
-    Icon(coordinateSystem(extent={{-240,-180},{240,180}}),
-         graphics={
+    Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,

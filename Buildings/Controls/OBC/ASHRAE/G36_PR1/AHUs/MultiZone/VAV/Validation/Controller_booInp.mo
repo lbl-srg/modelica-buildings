@@ -512,11 +512,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 12, 2019, by Michael Wetter:<br/>
-Removed wrong use of <code>each</code>.
-</li>
-<li>
-October 30, 2017, by Jianjun Hu:<br/>
+July 19, 2019, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
