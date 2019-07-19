@@ -36,6 +36,12 @@ block PartialExchange
     "Names of fluid ports as declared in the CFD input file";
   parameter Boolean verbose=false "Set to true for verbose output";
   parameter Modelica.SIunits.Density rho_start "Density at initial state";
+  parameter Boolean haveSource
+    "Flag, true if the model has at least one source";
+  parameter Integer nSou(min=0)
+    "Number of sources that are connected to CFD output";
+  parameter String sourceName[:]
+    "Names of sources as declared in the CFD input file";
 
   CFDThread CFDThre = CFDThread()
    "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";

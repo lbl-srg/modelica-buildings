@@ -20,6 +20,12 @@ function cfdStartCosimulation "Start the coupled simulation with CFD"
   input Integer nConExtWin(min=0) "number of exterior construction with window";
   input Integer nXi(min=0) "Number of independent species";
   input Integer nC(min=0) "Number of trace substances";
+  input Boolean haveSource
+    "Flag, true if the model has at least one source";
+  input Integer nSou(min=0)
+    "Number of sources that are connected to CFD output";
+  input String sourceName[nSou]
+    "Names of sources as declared in the CFD input file";
   input Modelica.SIunits.Density rho_start "Density at initial state";
   output Integer retVal
     "Return value of the function (0 indicates CFD successfully started.)";
@@ -39,6 +45,9 @@ external"C" retVal = cfdStartCosimulation(
     nConExtWin,
     nXi,
     nC,
+    haveSource,
+    nSou,
+    sourceName,
     rho_start) annotation (Include="#include <cfdStartCosimulation.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");

@@ -28,6 +28,12 @@ block CFDExchange "Block that exchanges data with the CFD code"
     input Integer nXi
       "Number of independent species concentration of the inflowing medium";
     input Integer nC "Number of trace substances of the inflowing medium";
+    input Boolean haveSource
+      "Flag, true if the model has at least one source";
+    input Integer nSou(min=0)
+      "Number of sources that are connected to CFD output";
+    input String sourceName[nSou]
+      "Names of sources as declared in the CFD input file";
     input Modelica.SIunits.Density rho_start "Density at initial state";
   protected
     Integer coSimFlag=0;
@@ -57,6 +63,9 @@ block CFDExchange "Block that exchanges data with the CFD code"
         nConExtWin,
         nXi,
         nC,
+        haveSource,
+        nSou,
+        sourceName,
         rho_start);
     assert(coSimFlag < 0.5, "Could not start the cosimulation.");
 
@@ -113,6 +122,9 @@ initial equation
     nPorts=nPorts,
     nXi=nXi,
     nC=nC,
+    haveSource=haveSource,
+    nSou=nSou,
+    sourceName=sourceName,
     rho_start=rho_start,
     verbose=verbose);
 
