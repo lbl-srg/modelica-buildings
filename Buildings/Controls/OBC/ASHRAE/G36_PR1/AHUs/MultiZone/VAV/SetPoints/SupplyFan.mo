@@ -119,6 +119,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     y_reset=yFanMin) "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
@@ -387,8 +388,9 @@ ASHRAE guideline G36, PART5.N.1 (Supply fan control).
 <li>Supply fan shall run when system is in the Cool-down, Setup, or Occupied mode</li>
 <li>If there are any VAV-reheat boxes on perimeter zones, supply fan shall also
 run when system is in Setback or Warmup mode;</li>
-<li>If the AHU does not serve dual duct boxes (<code>have_duaDucBox=true</code>) or the AHU
-does not have airflow measurement station (<code>have_airFloMeaSta=false</code>),
+<li>If the AHU does not serve dual duct boxes  
+that do not have hot-duct inlet airflow sensors (<code>have_duaDucBox=true</code>) 
+or the AHU does not have airflow measurement station (<code>have_airFloMeaSta=false</code>),
 sum the current airflow rate from the VAV boxes and output to a software point.</li>
 </ul>
 <h4>Static pressure setpoint reset</h4>
