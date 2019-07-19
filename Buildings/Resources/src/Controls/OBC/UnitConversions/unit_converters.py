@@ -465,8 +465,7 @@ class UnitConversionsModeler(object):
             file.write(\
             "    final quantity = \""+x['modelica_quantity']+"\")\n"\
             "    \""+x['quantity'].capitalize()+" in " + from_unit +"\"\n"\
-            "    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),\n"\
-            "      iconTransformation(extent={{-140,-20},{-100,20}})));\n"\
+            "    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));\n"\
             "\n"\
             "  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(\n")
             if to_unit_symbol not in self.custom_units:
@@ -475,8 +474,7 @@ class UnitConversionsModeler(object):
             file.write(\
             "    final quantity = \""+x['modelica_quantity']+"\")\n"\
             "    \""+x['quantity'].capitalize() +" in " + to_unit +"\"\n"\
-            "    annotation (Placement(transformation(extent={{100,-10},{120,10}}),\n"\
-            "      iconTransformation(extent={{100,-10},{120,10}})));\n"\
+            "    annotation (Placement(transformation(extent={{100,-20},{140,20}})));\n"\
             "\n"\
             "protected\n")
             if int(eval(x['adder'])) != 0:
@@ -773,7 +771,7 @@ end """+self.package_name+""";
             "          pattern=LinePattern.None,\n"\
             "          fillPattern=FillPattern.Solid,\n"\
             "          points={{-58.0,46.0},{42.0,-14.0},{-58.0,-74.0},{-58.0,46.0}})}));\n"\
-            "end Validation;"\
+            "end Validation;\n"\
             )
         else:
             msg = 'Make sure to update the package.order.'
