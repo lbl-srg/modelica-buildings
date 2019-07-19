@@ -1,5 +1,6 @@
 CFDAirHeatMassBalance
 CFDExchange
+PartialExchange
 CFDFluidInterface
 CFDSurfaceInterface
 CFDThread
