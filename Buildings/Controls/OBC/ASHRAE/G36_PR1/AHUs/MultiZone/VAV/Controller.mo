@@ -454,7 +454,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Placement(transformation(extent={{-220,-70},{-200,-50}}),
       iconTransformation(extent={{-220,-30},{-200,-10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc[numZon] if have_occSen
+  CDL.Interfaces.IntegerInput                     nOcc[numZon] if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}}),
       iconTransformation(extent={{-220,-10},{-200,10}})));
