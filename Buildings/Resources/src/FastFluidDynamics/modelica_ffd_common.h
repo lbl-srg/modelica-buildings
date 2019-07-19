@@ -33,6 +33,9 @@ typedef struct {
                  /* 1: fixed temperature,*/
                  /* 2: fixed heat flow rate through the surface*/
   char **sensorName; /* *sensorName[nSen]: Name of sensor in FFD*/
+  int Sou; /* 1: have internal source ; 0: no internal source*/
+  int nSou; /* Number of internal sources*/
+  char **souName; /* *souName[nSou]: Name of internal heat sources*/	
 } ParameterSharedData;
 
 typedef struct {
@@ -54,6 +57,7 @@ typedef struct {
   REAL **XiPor; /* XiPor[nPorts][Medium.nXi]: species concentration of inflowing medium at the port*/
              /* First Medium.nXi elements are for port 1*/
   REAL **CPor; /* CPor[nPorts][Medium.nC]: the trace substances of the inflowing medium*/
+	REAL *sourceHeat; /* sourceHeat[nSou]: the internal source heat gain*/	
 }ModelicaSharedData;
 
 typedef struct {
