@@ -5,7 +5,9 @@ block Feedback "Output difference between commanded and feedback input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealInput u2 "Connector of Real input signal 2"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));

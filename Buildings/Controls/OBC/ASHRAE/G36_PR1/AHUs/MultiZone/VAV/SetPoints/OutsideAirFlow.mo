@@ -63,64 +63,64 @@ block OutsideAirFlow
     each final unit="1") if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
-      iconTransformation(extent={{-120,70},{-100,90}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow[numZon](
     each min=0,
     each final unit="m3/s",
     each quantity="VolumeFlowRate")
     "Primary airflow rate to the ventilation zone from the air handler, including outdoor air and recirculated air"
     annotation (Placement(transformation(extent={{-220,-272},{-180,-232}}),
-      iconTransformation(extent={{-120,-100},{-100,-80}})));
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](
     each final unit="K",
     each displayUnit="degC",
     each quantity="ThermodynamicTemperature") "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
-      iconTransformation(extent={{-120,40},{-100,60}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis[numZon](
     each final unit="K",
     each displayUnit="degC",
     each quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
-      iconTransformation(extent={{-120,10},{-100,30}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-220,-232},{-180,-192}}),
-    iconTransformation(extent={{-120,-70},{-100,-50}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status, true if on, false if off"
     annotation (Placement(transformation(extent={{-220,-202},{-180,-162}}),
-    iconTransformation(extent={{-120,-50},{-100,-30}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin[numZon] if
        have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-220,-40},{-180,0}}),
-      iconTransformation(extent={{-120,-30},{-100,-10}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDesOutMin_flow_nominal(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{240,90},{280,130}}),
-      iconTransformation(extent={{100,40},{120,60}})));
+        iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDesUncOutMin_flow_nominal(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Design uncorrected minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{240,160},{280,200}}),
-      iconTransformation(extent={{100,70},{120,90}})));
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{240,-120},{280,-80}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinSet_flow_normalized(
     final unit="1")
     "Effective minimum outdoor airflow setpoint, normalized by VDesOutMin_flow_nominal"
-    annotation (Placement(transformation(extent={{240,-190},{278,-152}}),
-        iconTransformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{240,-190},{280,-150}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Add breZon[numZon] "Breathing zone airflow"
@@ -317,83 +317,83 @@ protected
 
 equation
   connect(breZonAre.y, breZon.u1)
-    annotation (Line(points={{-149,120},{-140,120},{-140,110},{-60,110},
-      {-60,66},{-42,66}}, color={0,0,127}));
+    annotation (Line(points={{-148,120},{-140,120},{-140,110},{-60,110},{-60,66},
+          {-42,66}},      color={0,0,127}));
   connect(gai.y, swi.u1)
-    annotation (Line(points={{-139,80},{-128,80},{-128,68},{-102,68}},
+    annotation (Line(points={{-138,80},{-128,80},{-128,68},{-102,68}},
       color={0,0,127}));
   connect(breZonPop.y, swi.u3)
-    annotation (Line(points={{-79,0},{-60,0},{-60,20},{-110,20},{-110,52},
-      {-102,52}}, color={0,0,127}));
+    annotation (Line(points={{-78,0},{-60,0},{-60,20},{-110,20},{-110,52},{-102,
+          52}},   color={0,0,127}));
   connect(gai.u, nOcc)
     annotation (Line(points={{-162,80},{-200,80}}, color={0,0,127}));
  connect(swi.y, breZon.u2)
-    annotation (Line(points={{-79,60},{-60,60},{-60,54},{-42,54}},
+    annotation (Line(points={{-78,60},{-60,60},{-60,54},{-42,54}},
       color={0,0,127}));
   connect(disEffCoo.y, swi1.u1)
-    annotation (Line(points={{-99,-72},{-92,-72},{-92,-102},{-82,-102}},
+    annotation (Line(points={{-98,-72},{-92,-72},{-92,-102},{-82,-102}},
       color={0,0,127}));
   connect(disEffHea.y, swi1.u3)
-    annotation (Line(points={{-99,-140},{-92,-140},{-92,-118},{-82,-118}},
+    annotation (Line(points={{-98,-140},{-92,-140},{-92,-118},{-82,-118}},
       color={0,0,127}));
   connect(breZon.y, zonOutAirRate.u1)
-    annotation (Line(points={{-19,60},{0,60},{0,56},{18,56}},
+    annotation (Line(points={{-18,60},{0,60},{0,56},{18,56}},
       color={0,0,127}));
   connect(swi1.y, zonOutAirRate.u2)
-    annotation (Line(points={{-59,-110},{-50,-110},{-50,44},{18,44}},
+    annotation (Line(points={{-58,-110},{-50,-110},{-50,44},{18,44}},
       color={0,0,127}));
   connect(uWin, swi2.u2)
     annotation (Line(points={{-200,-20},{18,-20}},
       color={255,0,255}));
   connect(zerOutAir.y, swi2.u1)
-    annotation (Line(points={{-19,-40},{0,-40},{0,-28},{18,-28}},
+    annotation (Line(points={{-18,-40},{0,-40},{0,-28},{18,-28}},
       color={0,0,127}));
   connect(zonOutAirRate.y, swi2.u3)
-    annotation (Line(points={{41,50},{60,50},{60,0},{0,0},{0,-12},{18,-12}},
+    annotation (Line(points={{42,50},{60,50},{60,0},{0,0},{0,-12},{18,-12}},
       color={0,0,127}));
   connect(swi2.y, swi3.u3)
-    annotation (Line(points={{41,-20},{48,-20},{48,-74},{58,-74}},
+    annotation (Line(points={{42,-20},{48,-20},{48,-74},{58,-74}},
       color={0,0,127}));
   connect(zerOutAir.y, swi3.u1)
-    annotation (Line(points={{-19,-40},{0,-40},{0,-90},{58,-90}},
+    annotation (Line(points={{-18,-40},{0,-40},{0,-90},{58,-90}},
       color={0,0,127}));
   connect(swi3.y, priOutAirFra.u1)
-    annotation (Line(points={{81,-82},{90,-82},{90,-108},{-8,-108},{-8,-216},
-      {-2,-216}}, color={0,0,127}));
+    annotation (Line(points={{82,-82},{90,-82},{90,-108},{-8,-108},{-8,-216},{-2,
+          -216}}, color={0,0,127}));
   connect(swi3.y,sysUncOutAir.u)
-    annotation (Line(points={{81,-82},{98,-82}}, color={0,0,127}));
+    annotation (Line(points={{82,-82},{98,-82}}, color={0,0,127}));
   connect(breZonAre.y, desBreZon.u2)
-    annotation (Line(points={{-149,120},{-140,120},{-140,120},{-140,120},
-      {-140,144},{-122,144}},   color={0,0,127}));
+    annotation (Line(points={{-148,120},{-140,120},{-140,120},{-140,120},{-140,144},
+          {-122,144}},          color={0,0,127}));
   connect(desBreZonPer.y, desBreZon.u1)
-    annotation (Line(points={{-147,190},{-140,190},{-140,156},{-122,156}},
+    annotation (Line(points={{-146,190},{-140,190},{-140,156},{-122,156}},
       color={0,0,127}));
   connect(desDisEff.y, desZonOutAirRate.u2)
-    annotation (Line(points={{-99,190},{-88,190},{-88,164},{-62,164}},
+    annotation (Line(points={{-98,190},{-88,190},{-88,164},{-62,164}},
       color={0,0,127}));
   connect(desBreZon.y, desZonOutAirRate.u1)
-    annotation (Line(points={{-99,150},{-80,150},{-80,176},{-62,176}},
+    annotation (Line(points={{-98,150},{-80,150},{-80,176},{-62,176}},
       color={0,0,127}));
   connect(desZonOutAirRate.y, desZonPriOutAirRate.u1)
-    annotation (Line(points={{-39,170},{-30,170},{-30,176},{-22,176}},
+    annotation (Line(points={{-38,170},{-30,170},{-30,176},{-22,176}},
       color={0,0,127}));
   connect(minZonFlo.y, desZonPriOutAirRate.u2)
-    annotation (Line(points={{-39,130}, {-30,130},{-30,164},{-22,164}},
+    annotation (Line(points={{-38,130},{-30,130},{-30,164},{-22,164}},
       color={0,0,127}));
   connect(desZonPopulation.y, sumDesZonPop.u)
-    annotation (Line(points={{-147,230},{-142,230}},
+    annotation (Line(points={{-146,230},{-142,230}},
       color={0,0,127}));
   connect(desBreZonPer.y, sumDesBreZonPop.u)
-    annotation (Line(points={{-147,190},{-140,190},{-140,210},{-62,210}},
+    annotation (Line(points={{-146,190},{-140,190},{-140,210},{-62,210}},
       color={0,0,127}));
   connect(breZonAre.y, sumDesBreZonAre.u)
-    annotation (Line(points={{-149,120},{-140,120},{-140,110},{-22,110}},
+    annotation (Line(points={{-148,120},{-140,120},{-140,110},{-22,110}},
       color={0,0,127}));
   connect(desZonPriOutAirRate.y, zonVenEff.u2)
-    annotation (Line(points={{1,170}, {60,170},{60,144},{98,144}},
+    annotation (Line(points={{2,170},{60,170},{60,144},{98,144}},
       color={0,0,127}));
   connect(swi.u2, occSen.y)
-    annotation (Line(points={{-102,60},{-120,60},{-120,0},{-139,0}},
+    annotation (Line(points={{-102,60},{-120,60},{-120,0},{-138,0}},
       color={255,0,255}));
   connect(TDis, add2.u2)
     annotation (Line(points={{-200,-130},{-172,-130},{-172,-116},{-162,-116}},
@@ -402,154 +402,159 @@ equation
     annotation (Line(points={{-200,-90},{-172,-90},{-172,-104},{-162,-104}},
       color={0,0,127}));
   connect(add2.y, hys.u)
-    annotation (Line(points={{-139,-110},{-122,-110}},
+    annotation (Line(points={{-138,-110},{-122,-110}},
       color={0,0,127}));
   connect(hys.y, swi1.u2)
-    annotation (Line(points={{-99,-110},{-82,-110}}, color={255,0,255}));
+    annotation (Line(points={{-98,-110},{-82,-110}}, color={255,0,255}));
   connect(max.y, priOutAirFra.u2)
-    annotation (Line(points={{-19,-232},{-12,-232},{-12,-228},{-2,-228}},
+    annotation (Line(points={{-18,-232},{-12,-232},{-12,-228},{-2,-228}},
       color={0,0,127}));
   connect(max.y, sysPriAirRate.u)
-    annotation (Line(points={{-19,-232},{-12,-232},{-12,-142},{-2,-142}},
+    annotation (Line(points={{-18,-232},{-12,-232},{-12,-142},{-2,-142}},
       color={0,0,127}));
   connect(priOutAirFra.y, maxPriOutAirFra.u)
-    annotation (Line(points={{21,-222},{38,-222}}, color={0,0,127}));
+    annotation (Line(points={{22,-222},{38,-222}}, color={0,0,127}));
   connect(sysPriAirRate.y, outAirFra.u2)
-    annotation (Line(points={{21,-142},{30,-142},{30,-148},{38,-148}},
+    annotation (Line(points={{22,-142},{30,-142},{30,-148},{38,-148}},
       color={0,0,127}));
   connect(maxPriOutAirFra.y, sysVenEff.u2)
-    annotation (Line(points={{61,-222},{80,-222},{80,-202},{60,-202},
-      {60,-186},{78,-186}}, color={0,0,127}));
+    annotation (Line(points={{62,-222},{80,-222},{80,-202},{60,-202},{60,-186},{
+          78,-186}},        color={0,0,127}));
   connect(sumDesZonPop.y, occDivFra.u2)
-    annotation (Line(points={{-119,230},{-112,230},{-112,248},{-100,248}},
+    annotation (Line(points={{-118,230},{-112,230},{-112,248},{-100,248}},
       color={0,0,127}));
   connect(peaSysPopulation.y, occDivFra.u1)
-    annotation (Line(points={{-147,260},{-100,260}},
+    annotation (Line(points={{-146,260},{-100,260}},
       color={0,0,127}));
   connect(sumDesBreZonPop.y, pro.u2)
-    annotation (Line(points={{-39,210},{-30,210},{-30,244},{-22,244}},
+    annotation (Line(points={{-38,210},{-30,210},{-30,244},{-22,244}},
       color={0,0,127}));
   connect(pro.y, unCorOutAirInk.u1)
-    annotation (Line(points={{1,250},{10,250},{10,226.2},{18,226.2}},
+    annotation (Line(points={{2,250},{10,250},{10,226.2},{18,226.2}},
       color={0,0,127}));
   connect(sumDesBreZonAre.y, unCorOutAirInk.u2)
-    annotation (Line(points={{1,110},{10,110},{10,214.8},{18,214.8}},
+    annotation (Line(points={{2,110},{10,110},{10,214.8},{18,214.8}},
       color={0,0,127}));
   connect(unCorOutAirInk.y, aveOutAirFra.u1)
-    annotation (Line(points={{41,220.5},{50,220.5},{50,196},{58,196}},
+    annotation (Line(points={{42,220.5},{50,220.5},{50,196},{58,196}},
       color={0,0,127}));
   connect(VPriSysMax_floww.y, aveOutAirFra.u2)
-    annotation (Line(points={{41,150},{50,150},{50,184},{58,184}},
+    annotation (Line(points={{42,150},{50,150},{50,184},{58,184}},
       color={0,0,127}));
   connect(aveOutAirFra.y, addPar1.u)
-    annotation (Line(points={{81,190},{88,190},{98,190}},  color={0,0,127}));
+    annotation (Line(points={{82,190},{82,190},{98,190}},  color={0,0,127}));
   connect(zonVenEff.y, desSysVenEff.u)
-    annotation (Line(points={{121,150},{138,150}},color={0,0,127}));
+    annotation (Line(points={{122,150},{138,150}},color={0,0,127}));
   connect(unCorOutAirInk.y, desOutAirInt.u1)
-    annotation (Line(points={{41,220.5},{180,220.5},{180,128},{120,128},
-      {120,116},{138,116}},color={0,0,127}));
+    annotation (Line(points={{42,220.5},{180,220.5},{180,128},{120,128},{120,116},
+          {138,116}},      color={0,0,127}));
   connect(desSysVenEff.y, desOutAirInt.u2)
-    annotation (Line(points={{161,150},{168,150},{168,134},{114,134},{114,104},
-      {138,104}}, color={0,0,127}));
+    annotation (Line(points={{162,150},{168,150},{168,134},{114,134},{114,104},{
+          138,104}},
+                  color={0,0,127}));
   connect(min1.y, effMinOutAirInt.u1)
-    annotation (Line(points={{161,-82},{168,-82},{168,-112},{132,-112},
-      {132,-134},{140,-134}}, color={0,0,127}));
+    annotation (Line(points={{162,-82},{168,-82},{168,-112},{132,-112},{132,-134},
+          {140,-134}},        color={0,0,127}));
   connect(sysUncOutAir.y, min1.u2)
-    annotation (Line(points={{121,-82},{128,-82},{128,-88},{138,-88}},
+    annotation (Line(points={{122,-82},{128,-82},{128,-88},{138,-88}},
       color={0,0,127}));
   connect(min1.y, outAirFra.u1)
-    annotation (Line(points={{161,-82},{168,-82},{168,-112},{26,-112},{26,-136},
-      {38,-136}}, color={0,0,127}));
+    annotation (Line(points={{162,-82},{168,-82},{168,-112},{26,-112},{26,-136},
+          {38,-136}},
+                  color={0,0,127}));
   connect(unCorOutAirInk.y, min1.u1)
-    annotation (Line(points={{41,220.5},{180,220.5},{180,80},{128,80},{128,-76},
-      {138,-76}}, color={0,0,127}));
+    annotation (Line(points={{42,220.5},{180,220.5},{180,80},{128,80},{128,-76},
+          {138,-76}},
+                  color={0,0,127}));
   connect(desOutAirInt.y, min.u1)
-    annotation (Line(points={{161,110},{176,110},{176,-94},{186,-94}},
+    annotation (Line(points={{162,110},{176,110},{176,-94},{186,-94}},
       color={0,0,127}));
   connect(unCorOutAirInk.y, VDesUncOutMin_flow_nominal)
-    annotation (Line(points={{41,220.5},{180,220.5},{180,180},{260,180}},
+    annotation (Line(points={{42,220.5},{180,220.5},{180,180},{260,180}},
       color={0,0,127}));
   connect(desOutAirInt.y, VDesOutMin_flow_nominal)
-    annotation (Line(points={{161,110},{260,110}},
+    annotation (Line(points={{162,110},{260,110}},
       color={0,0,127}));
   connect(occDivFra.y, pro.u1)
-    annotation (Line(points={{-77,254},{-52,254},{-52,256},{-22,256}},
+    annotation (Line(points={{-76,254},{-52,254},{-52,256},{-22,256}},
       color={0,0,127}));
   connect(not1.y, booRep.u)
-    annotation (Line(points={{-99,-182},{-82,-182}},
+    annotation (Line(points={{-98,-182},{-82,-182}},
       color={255,0,255}));
   connect(booRep.y, swi3.u2)
-    annotation (Line(points={{-59,-182},{-40,-182},{-40,-82},{58,-82}},
+    annotation (Line(points={{-58,-182},{-40,-182},{-40,-82},{58,-82}},
       color={255,0,255}));
   connect(addPar1.y, reaRep.u)
-    annotation (Line(points={{121,190},{130,190},{138,190}},
+    annotation (Line(points={{122,190},{122,190},{138,190}},
       color={0,0,127}));
   connect(reaRep.y, zonVenEff.u1)
-    annotation (Line(points={{161,190},{170,190},{170,170},{80,170},{80,156},{98,156}},
+    annotation (Line(points={{162,190},{170,190},{170,170},{80,170},{80,156},{98,
+          156}},
       color={0,0,127}));
   connect(uOpeMod, intEqu1.u1)
     annotation (Line(points={{-200,-212},{-132,-212}}, color={255,127,0}));
   connect(occMod.y, intEqu1.u2)
-    annotation (Line(points={{-149,-232},{-140,-232},{-140,-220},{-132,-220}},
+    annotation (Line(points={{-148,-232},{-140,-232},{-140,-220},{-132,-220}},
       color={255,127,0}));
   connect(not1.u, and1.y)
-    annotation (Line(points={{-122,-182},{-139,-182}}, color={255,0,255}));
+    annotation (Line(points={{-122,-182},{-138,-182}}, color={255,0,255}));
   connect(uSupFan, and1.u1)
     annotation (Line(points={{-200,-182},{-162,-182}}, color={255,0,255}));
   connect(intEqu1.y, and1.u2)
-    annotation (Line(points={{-109,-212},{-100,-212},{-100,-196},{-170,-196},
-      {-170,-190},{-162,-190}}, color={255,0,255}));
+    annotation (Line(points={{-108,-212},{-100,-212},{-100,-196},{-170,-196},{-170,
+          -190},{-162,-190}},   color={255,0,255}));
   connect(max.u2, VDis_flow)
     annotation (Line(points={{-42,-226},{-130,-226},{-130,-252},{-200,-252}},
       color={0,0,127}));
   connect(reaRepDivZer.y, max.u1)
-    annotation (Line(points={{-59,-262},{-50,-262},{-50,-238},{-42,-238}},
+    annotation (Line(points={{-58,-262},{-50,-262},{-50,-238},{-42,-238}},
       color={0,0,127}));
   connect(gaiDivZer.y, reaRepDivZer.u)
-    annotation (Line(points={{-99,-262},{-82,-262}}, color={0,0,127}));
+    annotation (Line(points={{-98,-262},{-82,-262}}, color={0,0,127}));
   connect(gaiDivZer.u, unCorOutAirInk.y)
-    annotation (Line(points={{-122,-262},{-140,-262},{-140,-280},{180,-280},
-      {180,220.5},{41,220.5}}, color={0,0,127}));
+    annotation (Line(points={{-122,-262},{-140,-262},{-140,-280},{180,-280},{180,
+          220.5},{42,220.5}},  color={0,0,127}));
   connect(sysVenEff.y, swi4.u1)
-    annotation (Line(points={{101,-180},{120,-180},{120,-174},{138,-174}},
+    annotation (Line(points={{102,-180},{120,-180},{120,-174},{138,-174}},
       color={0,0,127}));
   connect(swi4.y, effMinOutAirInt.u2)
-    annotation (Line(points={{161,-182},{172,-182},{172,-162},{134,-162},
-      {134,-146},{140,-146}},  color={0,0,127}));
+    annotation (Line(points={{162,-182},{172,-182},{172,-162},{134,-162},{134,-146},
+          {140,-146}},         color={0,0,127}));
   connect(outAirFra.y, addPar.u)
-    annotation (Line(points={{61,-142},{80,-142},{80,-160},{0,-160},{0,-182},
-      {18,-182}}, color={0,0,127}));
+    annotation (Line(points={{62,-142},{80,-142},{80,-160},{0,-160},{0,-182},{18,
+          -182}}, color={0,0,127}));
   connect(addPar.y, sysVenEff.u1)
-    annotation (Line(points={{41,-182},{60,-182},{60,-174},{78,-174}},
+    annotation (Line(points={{42,-182},{60,-182},{60,-174},{78,-174}},
       color={0,0,127}));
   connect(greEquThr.y, swi4.u2)
-    annotation (Line(points={{121,-142},{128,-142},{128,-182},{138,-182}},
+    annotation (Line(points={{122,-142},{128,-142},{128,-182},{138,-182}},
       color={255,0,255}));
   connect(conOne.y, swi4.u3)
-    annotation (Line(points={{121,-222},{130,-222},{130,-190},{138,-190}},
+    annotation (Line(points={{122,-222},{130,-222},{130,-190},{138,-190}},
       color={0,0,127}));
   connect(sysVenEff.y, greEquThr.u)
-    annotation (Line(points={{101,-180},{120,-180},{120,-160},{86,-160},
-      {86,-142},{98,-142}}, color={0,0,127}));
+    annotation (Line(points={{102,-180},{120,-180},{120,-160},{86,-160},{86,-142},
+          {98,-142}},       color={0,0,127}));
   connect(zerOcc.y, swi.u1)
-    annotation (Line(points={{-139,40},{-128,40},{-128,68},{-102,68}},
+    annotation (Line(points={{-138,40},{-128,40},{-128,68},{-102,68}},
       color={0,0,127}));
   connect(cloWin.y, swi2.u2)
-    annotation (Line(points={{-139,-40},{-120,-40},{-120,-20},{18,-20}},
+    annotation (Line(points={{-138,-40},{-120,-40},{-120,-20},{18,-20}},
       color={255,0,255}));
   connect(VOutMinSet_flow, min.y)
-    annotation (Line(points={{260,-100},{209,-100}}, color={0,0,127}));
+    annotation (Line(points={{260,-100},{210,-100}}, color={0,0,127}));
   connect(effMinOutAirInt.y, min.u2)
-    annotation (Line(points={{163,-140},{178,-140},{178,-106},{186,-106}},
+    annotation (Line(points={{164,-140},{178,-140},{178,-106},{186,-106}},
       color={0,0,127}));
   connect(norVOutMin.u1, min.y)
-    annotation (Line(points={{197.8,-164.4},{188,-164.4},{188,-128},
-      {220,-128},{220,-100},{209,-100}}, color={0,0,127}));
+    annotation (Line(points={{197.8,-164.4},{188,-164.4},{188,-128},{220,-128},{
+          220,-100},{210,-100}},         color={0,0,127}));
   connect(desOutAirInt.y, norVOutMin.u2)
-    annotation (Line(points={{161,110},{176,110},{176,-178},{186,-178},
-      {186,-177.6},{197.8,-177.6}}, color={0,0,127}));
+    annotation (Line(points={{162,110},{176,110},{176,-178},{186,-178},{186,-177.6},
+          {197.8,-177.6}},          color={0,0,127}));
   connect(norVOutMin.y, VOutMinSet_flow_normalized)
-    annotation (Line(points={{223.1,-171},{259,-171}}, color={0,0,127}));
+    annotation (Line(points={{224.2,-171},{242,-171},{242,-170},{260,-170}},
+                                                       color={0,0,127}));
 
 annotation (
   defaultComponentName="outAirSetPoi",

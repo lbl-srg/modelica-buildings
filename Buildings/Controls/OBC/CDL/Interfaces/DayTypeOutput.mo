@@ -35,6 +35,12 @@ Buildings.Controls.OBC.CDL.Types.Day</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+July 19, 2019, by Jianjun Hu:<br/>
+On both icon and diagram layer, added the initialScale.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1375\">issue 1375</a>.
+</li>
+<li>
 March 1, 2019, by Michael Wetter:<br/>
 On the icon layer, changed connector size and added the connector name.<br/>
 This is for
