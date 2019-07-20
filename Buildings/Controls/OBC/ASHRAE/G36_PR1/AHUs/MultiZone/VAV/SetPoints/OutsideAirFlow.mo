@@ -6,7 +6,7 @@ block OutsideAirFlow
     "Total number of zones that the system serves";
 
   parameter Real VOutPerAre_flow[numZon](
-    final unit = "m3/(s.m2)")=fill(3e-4, numZon)
+    final unit = fill("m3/(s.m2)", numZon))=fill(3e-4, numZon)
     "Outdoor air rate per unit area"
     annotation(Dialog(group="Nominal condition"));
 

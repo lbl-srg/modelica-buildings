@@ -12,7 +12,7 @@ model Controller "Validation controller model"
     VPriSysMax_flow=0.7*(50*3/3600)*6*2,
     have_occSen=true,
     controllerTypeTSup=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
-                      "Multiple zone AHU controller"
+    "Multiple zone AHU controller"
     annotation (Placement(transformation(extent={{20,48},{100,152}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(
     final k=273.15 + 24)
