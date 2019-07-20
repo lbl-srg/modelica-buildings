@@ -78,7 +78,6 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
 	if(cosim->para->Sou){
 		for(j=0; j<cosim->para->nSou; j++) {
 			cosim->modelica->sourceHeat[j] = (REAL) u[i+j];
-			fprintf(f, "sourceHeat: %f\n",cosim->modelica->sourceHeat[j]);
 		}	
   }
 	i = i + cosim->para->nSou;

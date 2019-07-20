@@ -10,11 +10,16 @@ partial model PartialRoom "Partial model for a room"
   parameter Integer nConExt=0
     "Number of exterior constructions withour a window";
   parameter Integer nConPar=0 "Number of partition constructions";
+  parameter Integer nSou=0
+    "Number of sources that are connected to CFD input";
+
   Buildings.ThermalZones.Detailed.CFD roo(
     redeclare package Medium = MediumA,
     nConBou=nConBou,
     nSurBou=nSurBou,
     nConExt=nConExt,
+    nSou=nSou,
+    haveSource=false,
     sensorName={"Occupied zone air temperature","Velocity"},
     useCFD=true,
     nConPar=nConPar,
@@ -53,7 +58,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{20,50},{20,48},{44,48}},
+      points={{1,50},{20,50},{20,48},{44.4,48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(

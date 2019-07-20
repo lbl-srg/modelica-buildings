@@ -12,7 +12,10 @@ model CFD
     final sensorName=sensorName,
     final portName=portName,
     final uSha_fixed=uSha_fixed,
-    final p_start=p_start));
+    final p_start=p_start,
+    final haveSource=haveSource,
+    final nSou=nSou,
+    final sourceName=sourceName));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -41,10 +44,18 @@ model CFD
     annotation (Dialog(group = "CFD",
         loadSelector(caption=
             "Select CFD input file")));
+  parameter Integer nSou(min=0)
+    "Number of sources that are connected to CFD input";
+  parameter String sourceName[nSou]
+    "Names of sources as declared in the CFD input file";
+  parameter Boolean haveSource
+    "Flag, true if the model has at least one source";
+
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
        haveSensor "Sensor for output from CFD"
     annotation (Placement(transformation(
      extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220,130}})));
+
 protected
   final parameter String absCfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam)
     "Absolute path to the CFD file";
@@ -53,10 +64,16 @@ protected
     "Flag, true if the model has at least one sensor";
   final parameter Integer nSen(min=0) = size(sensorName, 1)
     "Number of sensors that are connected to CFD output";
+
   Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed) if
        haveShade "Constant signal for shade"
     annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
 
+public
+  Modelica.Blocks.Interfaces.RealInput QIntSou[nSou](each unit="W") if haveSource
+    "Internal source heat gain into room" annotation (Placement(transformation(
+          extent={{-300,-130},{-260,-90}}), iconTransformation(extent={{-232,164},
+            {-200,196}})));
 equation
   connect(air.yCFD, yCFD) annotation (Line(
       points={{61,-142.5},{61,-206},{440,-206},{440,120},{470,120}},
@@ -91,6 +108,16 @@ equation
       points={{39.6,-120},{28,-120},{28,180},{-239,180}},
       color={0,0,127},
       smooth=Smooth.None));
+
+  // Connections to internal heat sources
+  if haveSource then
+    for i in 1:nSou loop
+      connect(QIntSou[i], air.QIntSou[i]) annotation (Line(points={{-280,-110},{
+              -212,-110},{-212,-202},{-18,-202},{-18,-140.9},{39,-140.9}},
+                                            color={0,0,127}));
+    end for;
+  end if;
+
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}}),
                                graphics={Rectangle(
@@ -116,7 +143,11 @@ equation
         Text(
           extent={{-114,-134},{-36,-116}},
           lineColor={0,0,0},
-          textString="surface")}),
+          textString="surface"),
+        Text(
+          extent={{-218,198},{-142,166}},
+          lineColor={0,0,127},
+          textString="s")}),
     Documentation(info="<html>
 <p>
 Room model that computes the room air flow using computational fluid dynamics (CFD). The CFD simulation is coupled to the thermal simulation of the room
@@ -163,5 +194,5 @@ First Implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-220},{460,
-            200}}), graphics));
+            200}})));
 end CFD;
