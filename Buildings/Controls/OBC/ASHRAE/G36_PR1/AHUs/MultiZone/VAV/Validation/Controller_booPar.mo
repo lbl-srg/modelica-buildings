@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Validation;
-model Controller_booInp
-  "Validation multizone controller model for boolean inputs"
+model Controller_booPar
+  "Validates multizone controller model for boolean parameter values"
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
     numZon=2,
@@ -119,30 +119,26 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
     final duration=1800,
     final offset=0.02,
-    final height=0.0168)
-    "Measured outdoor airflow rate"
+    final height=0.0168) "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-460,-18},{-440,2}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo1(
     final height=1.5,
     final offset=1,
-    final duration=3600)
-    "Ramp signal for generating VAV box flow rate"
+    final duration=3600) "Ramp signal for generating VAV box flow rate"
     annotation (Placement(transformation(extent={{-460,-70},{-440,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo2(
     final offset=1,
     final height=0.5,
-    final duration=3600)
-    "Ramp signal for generating VAV box flow rate"
+    final duration=3600) "Ramp signal for generating VAV box flow rate"
     annotation (Placement(transformation(extent={{-420,-100},{-400,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TMixMea(
     final height=4,
     final duration=1,
     final offset=273.15 + 2,
-    final startTime=0)
-    "Measured mixed air temperature"
+    final startTime=0) "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-360,-100},{-340,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
@@ -194,14 +190,12 @@ protected
     annotation (Placement(transformation(extent={{-340,-180},{-320,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta[2](
-    final k={true,false})
-    "Window status for each zone"
+    final k={true,false}) "Window status for each zone"
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc1(
     final height=2,
-    final duration=3600)
-    "Occupant number in zone 1"
+    final duration=3600) "Occupant number in zone 1"
     annotation (Placement(transformation(extent={{-460,80},{-440,100}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger occConv1
@@ -210,8 +204,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc2(
     final duration=3600,
-    final height=3)
-    "Occupant number in zone 2"
+    final height=3) "Occupant number in zone 2"
     annotation (Placement(transformation(extent={{-460,40},{-440,60}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger occConv2
@@ -235,8 +228,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
     final duration=3600,
-    final height=6)
-    "Ramp signal for generating operation mode"
+    final height=6) "Ramp signal for generating operation mode"
     annotation (Placement(transformation(extent={{-460,-140},{-440,-120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Abs abs2
@@ -279,8 +271,7 @@ equation
       color={0,0,127}));
   connect(vavBoxFlo1.y, conAHU.VDis_flow[1])
     annotation (Line(points={{-439,-60},{-420,-60},{-420,-30},{-302,-30},{-302,84},
-          {-282,84},{-282,83.75},{-262,83.75}},
-                                   color={0,0,127}));
+          {-282,84},{-282,83.75},{-262,83.75}},color={0,0,127}));
   connect(vavBoxFlo2.y, conAHU.VDis_flow[2])
     annotation (Line(points={{-399,-90},{-380,-90},{-380,-60},{-304,-60},{-304,
           86},{-284,86},{-284,85.9167},{-262,85.9167}},
@@ -303,7 +294,6 @@ equation
   connect(TSetRooHeaOn.y, conAHU.TZonHeaSet)
     annotation (Line(points={{-439,310},{-280,310},{-280,158.5},{-262,158.5}},
                                    color={0,0,127}));
-
   connect(TSetRooCooOn.y, conAHU.TZonCooSet) annotation (Line(points={{-399,290},
           {-284,290},{-284,154.167},{-262,154.167}}, color={0,0,127}));
   connect(ram.y, abs2.u)
@@ -501,7 +491,7 @@ equation
           354,108.667},{460,108.667}},
                                    color={0,0,127}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Validation/Controller_booInp.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Validation/Controller_booPar.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -528,4 +518,4 @@ Diagram(coordinateSystem(extent={{-520,-240},{560,340}})),
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end Controller_booInp;
+end Controller_booPar;
