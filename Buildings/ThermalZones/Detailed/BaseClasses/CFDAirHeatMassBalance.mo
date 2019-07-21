@@ -41,7 +41,7 @@ model CFDAirHeatMassBalance
   parameter String sourceName[nSou]
     "Names of sources as declared in the CFD input file";
 
-  CFDExchange cfd(
+  replaceable CFDExchange cfd(
     final cfdFilNam=cfdFilNam,
     final startTime=startTime,
     final activateInterface=useCFD,
