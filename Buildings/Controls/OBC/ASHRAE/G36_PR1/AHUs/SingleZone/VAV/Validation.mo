@@ -22,8 +22,8 @@ package Validation "Collection of validation models"
       annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
       each duration=86400,
-      each height=15,
-      each offset=273.15 + 15)
+      each height=14,
+      each offset=273.15 + 14)
                            "Measured zone temperature"
       annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
     Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
@@ -31,7 +31,7 @@ package Validation "Collection of validation models"
       annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
       each height=4,
-      each offset=273.15 + 14,
+      each offset=273.15 + 21,
       each duration=86400)     "AHU supply air temperature"
       annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
     Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booWin(period=86400/2,
@@ -57,17 +57,21 @@ package Validation "Collection of validation models"
             {6,-70},{-99,-70}}, color={0,0,127}));
     connect(TZon.y, controller.TRet) annotation (Line(points={{-99,50},{-30,50},
             {-30,44},{18,44}}, color={0,0,127}));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+    annotation (experiment(StopTime=86400, Interval=300, Tolerance=1e-06),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/Controller.mos"
+      "Simulate and plot"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
               -120},{120,120}}),                                  graphics={
           Ellipse(lineColor = {75,138,73},
                   fillColor={255,255,255},
                   fillPattern = FillPattern.Solid,
                   extent={{-120,-120},{120,120}}),
-          Polygon(lineColor = {0,0,255},
-                  fillColor = {75,138,73},
-                  pattern = LinePattern.None,
-                  fillPattern = FillPattern.Solid,
-                  points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
+                                             Polygon(
+            lineColor={0,0,255},
+            fillColor={75,138,73},
+            pattern=LinePattern.None,
+            fillPattern=FillPattern.Solid,
+            points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),        Diagram(
           coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
               120}})),
   Documentation(info="<html>
@@ -83,8 +87,7 @@ October 24, 2018, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-      experiment(StopTime=86400, Interval=300));
+</html>"));
   end Controller;
 
   model ModeAndSetPoints
