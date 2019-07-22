@@ -454,7 +454,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     annotation (Placement(transformation(extent={{-220,-90},{-200,-70}}),
       iconTransformation(extent={{-220,-30},{-200,-10}})));
 
-  CDL.Interfaces.IntegerInput                     nOcc[numZon] if have_occSen
+  CDL.Interfaces.IntegerInput nOcc[numZon] if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-220,70},{-200,90}}),
       iconTransformation(extent={{-220,-10},{-200,10}})));
@@ -677,13 +677,11 @@ equation
   connect(TOut, eco.TOut) annotation (Line(points={{-210,146},{-60,146},{-60,
           -60.625},{139.375,-60.625}}, color={0,0,127}));
   connect(eco.TOutCut, TOutCut) annotation (Line(points={{139.375,-61.875},{-74,
-          -61.875},{-74,-20},{-210,-20}},
-                                      color={0,0,127}));
+          -61.875},{-74,-20},{-210,-20}},  color={0,0,127}));
   connect(eco.hOut, hOut) annotation (Line(points={{139.375,-63.125},{-80,
           -63.125},{-80,-52},{-210,-52}}, color={0,0,127}));
   connect(eco.hOutCut, hOutCut) annotation (Line(points={{139.375,-65},{-100,
-          -65},{-100,-64},{-210,-64}},
-                                 color={0,0,127}));
+          -65},{-100,-64},{-210,-64}}, color={0,0,127}));
   connect(eco.uOpeMod, uOpeMod) annotation (Line(points={{139.375,-76.875},{60,
           -76.875},{60,-120},{-210,-120}}, color={255,127,0}));
   connect(supTemSetPoi.TSupSet, TSupSet)
@@ -740,8 +738,7 @@ equation
       color={0,0,127}));
   connect(eco.TMix, TMix)
     annotation (Line(points={{139.375,-71.875},{-10,-71.875},{-10,-100},{-210,
-          -100}},
-                color={0,0,127}));
+          -100}}, color={0,0,127}));
   connect(TSup, val.TSup)
     annotation (Line(points={{-210,10},{79,10}},
       color={0,0,127}));
@@ -768,14 +765,13 @@ equation
       color={0,0,127}));
   connect(eco.uFreProSta, uFreProSta)
     annotation (Line(points={{139.375,-79.375},{70,-79.375},{70,-200},{-210,
-          -200}},                              color={255,127,0}));
+          -200}}, color={255,127,0}));
   connect(eco.VOut_flow_normalized, VOut_flow_normalized.y) annotation (Line(
         points={{139.375,-68.75},{60,-68.75},{60,-30},{41,-30}}, color={0,0,127}));
   connect(outAirSetPoi.VDesOutMin_flow_nominal, VOut_flow_normalized.u2)
-    annotation (Line(points={{-19,45},{0,45},{0,-36},{18,-36}},     color={0,0,127}));
+    annotation (Line(points={{-19,45},{0,45},{0,-36},{18,-36}}, color={0,0,127}));
   connect(VOut_flow_normalized.u1, VOut_flow) annotation (Line(points={{18,-24},
-          {-160,-24},{-160,-80},{-210,-80}},
-                                           color={0,0,127}));
+          {-160,-24},{-160,-80},{-210,-80}}, color={0,0,127}));
 
 annotation (defaultComponentName="conAHU",
     Diagram(coordinateSystem(extent={{-200,-240},{200,240}}, initialScale=0.2)),
