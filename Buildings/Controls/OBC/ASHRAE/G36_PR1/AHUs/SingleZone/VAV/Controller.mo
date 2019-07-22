@@ -223,8 +223,9 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     yMin=yMin,
     yCooMax=yCooMax)
     annotation (Placement(transformation(extent={{40,180},{60,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID cooPI(                                                                     reset=
-        Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+  Buildings.Controls.OBC.CDL.Continuous.LimPID cooPI(
+    reverseAction=true,
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     controllerType=controllerTypeCoo,
     k=kCoo,
     Ti=TiCoo,
@@ -232,8 +233,8 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     yMax=1,
     yMin=0)
     annotation (Placement(transformation(extent={{-30,160},{-10,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID heaPI(                                                                     reset=
-        Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+  Buildings.Controls.OBC.CDL.Continuous.LimPID heaPI(
+    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     controllerType=controllerTypeHea,
     k=kHea,
     Ti=TiHea,
