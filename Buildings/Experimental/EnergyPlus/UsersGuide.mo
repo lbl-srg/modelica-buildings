@@ -8,8 +8,8 @@ Documentation(info="<html>
 <p>
 This user guide describes how to use the EnergyPlus building envelope model.
 For each thermal zone, an instance of
-<a href=\"modelica://Buildings.Experimental.EnergyPlus.ThermalZone\"</a>
-Buildings.Experimental.EnergyPlus.ThermalZone</a> need to be made.
+<a href=\"modelica://Buildings.Experimental.EnergyPlus.ThermalZone\">
+Buildings.Experimental.EnergyPlus.ThermalZone</a> needs to be made.
 This instance allows to specify the name of the EnergyPlus input data (idf) file
 and the name of the thermal zone, as specified in the idf file.
 These names will then be used to connect the Modelica zone model with the
