@@ -147,7 +147,7 @@ block OutsideAirFlow
     annotation (Placement(transformation(extent={{240,-190},{278,-152}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
 
-//protected
+protected
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[numZon] if have_occSen
     "Type converter"
     annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
