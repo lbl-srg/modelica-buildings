@@ -5,8 +5,11 @@ package SignalExchange "External Signal Exchange Package"
 
   annotation (Documentation(info="<html>
 <p>
-Package to allow overwriting of control signals by external programs and
-reading of measurement signals by external programs.
+Package with blocks that can be used
+to identify and activate control signal overwrites, and
+to identify and read sensor signals. This package is used
+by the Building Optimization Performance Test software
+<a href=\"https://github.com/ibpsa/project1-boptest\">BOPTEST</a>.
 </p>
 </html>", Icon(graphics={Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,
               0,0},
