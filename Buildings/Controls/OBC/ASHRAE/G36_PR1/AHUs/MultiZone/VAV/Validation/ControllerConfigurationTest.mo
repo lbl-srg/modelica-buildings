@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Validation;
-model Controller_booPar
+model ControllerConfigurationTest
   "Validates multizone controller model for boolean parameter values"
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
@@ -494,7 +494,7 @@ equation
           354,108.667},{460,108.667}},
                                    color={0,0,127}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Validation/Controller_booPar.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Validation/ControllerConfigurationTest.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -523,4 +523,4 @@ Diagram(coordinateSystem(extent={{-520,-240},{560,340}})),
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end Controller_booPar;
+end ControllerConfigurationTest;
