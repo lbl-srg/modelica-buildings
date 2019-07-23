@@ -13,9 +13,10 @@ model FloorOpenLoop "Open loop model of one floor"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
-  Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
+  replaceable Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
     redeclare package Medium = Medium,
-    use_windPressure=false)
+    use_windPressure=false) constrainedby
+    Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
     "One floor of the office building"
     annotation (Placement(transformation(extent={{28,-8},{84,52}})));
   Fluid.Sources.MassFlowSource_WeatherData bou[4](
@@ -53,7 +54,7 @@ equation
   connect(out.ports[1], res.port_a)
     annotation (Line(points={{-8,-54},{6,-54}},color={0,127,255}));
   connect(res.port_b, flo.portsCor[1])
-    annotation (Line(points={{26,-54},{60,-54},{60,4},{52,4},{52,6.6}},
+    annotation (Line(points={{26,-54},{60,-54},{60,4},{43,4},{43,2}},
                                                         color={0,127,255}));
   connect(weaBus, out.weaBus) annotation (Line(
       points={{-40,50},{-40,-53.8},{-28,-53.8}},
@@ -63,13 +64,14 @@ equation
           -20},{-2,-20},{4,-20}},
                              color={0,127,255}));
   connect(res1[1].port_b, flo.portsWes[1])
-    annotation (Line(points={{24,-20},{40,-20},{40,6.6}}, color={0,127,255}));
+    annotation (Line(points={{24,-20},{36.2,-20},{36.2,2}},
+                                                          color={0,127,255}));
   connect(res1[2].port_b, flo.portsNor[1]) annotation (Line(points={{24,-20},{46,
-          -20},{46,14.6},{52,14.6}}, color={0,127,255}));
+          -20},{46,8.8},{43,8.8}},   color={0,127,255}));
   connect(res1[3].port_b, flo.portsSou[1])
-    annotation (Line(points={{24,-20},{52,-20},{52,-1.4}}, color={0,127,255}));
-  connect(res1[4].port_b, flo.portsEas[1]) annotation (Line(points={{24,-20},{76.4,
-          -20},{76.4,5.6}}, color={0,127,255}));
+    annotation (Line(points={{24,-20},{43,-20},{43,-5.2}}, color={0,127,255}));
+  connect(res1[4].port_b, flo.portsEas[1]) annotation (Line(points={{24,-20},{50,
+          -20},{50,2}},     color={0,127,255}));
   connect(weaBus, bou[1].weaBus) annotation (Line(
       points={{-40,50},{-40,-19.8},{-28,-19.8}},
       color={255,204,51},

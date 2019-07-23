@@ -16,7 +16,6 @@ partial model PartialOpenLoop
   parameter Modelica.SIunits.Volume VRooEas=AFloEas*flo.hRoo "Room volume east";
   parameter Modelica.SIunits.Volume VRooWes=AFloWes*flo.hRoo "Room volume west";
 
-
   parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
   parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
   parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
