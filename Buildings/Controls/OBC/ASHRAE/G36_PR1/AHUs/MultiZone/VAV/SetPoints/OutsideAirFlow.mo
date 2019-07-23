@@ -77,8 +77,7 @@ block OutsideAirFlow
     "Peak system population"
     annotation(Dialog(group="Nominal condition"));
 
-  CDL.Interfaces.IntegerInput                     nOcc[numZon] if
-                                    have_occSen
+  CDL.Interfaces.IntegerInput nOcc[numZon] if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
