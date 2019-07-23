@@ -644,49 +644,64 @@ space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code>
 </ul>
 
 <h4>Step 4: Outdoor air fraction for each zone <code>priOutAirFra</code> </h4>
+<p>
 The zone outdoor air fraction:
+</p>
 <pre>
     priOutAirFra = zonOutAirRate/VDis_flow
 </pre>
+<p>
 where, <code>VDis_flow</code> is measured from zone VAV box.
 For design purpose, the design zone outdoor air fraction <code>desZonPriOutAirRate</code>
 is found by
+</p>
 <pre>
     desZonPriOutAirRate = desZonOutAirRate/minZonFlo
 </pre>
+<p>
 where <code>minZonFlo</code> is the minimum expected zone primary flow rate and
 <code>desZonOutAirRate</code> is required design zone outdoor airflow rate.
-
+</p>
 <h4>Step 5: Occupancy diversity fraction <code>occDivFra</code></h4>
+<p>
 For actual system operation, the system population equals the sum of zone population,
 so <code>occDivFra=1</code>. It has no impact on the calculation of uncorrected
 outdoor airflow <code>sysUncOutAir</code>.
 For design purpose, find <code>occDivFra</code> based on the peak system population
 <code>peaSysPopulation</code> and the sum of design population <code>desZonPopulation</code>
 for all zones:
+</p>
 <pre>
     occDivFra = peaSysPopulation/sum(desZonPopulation)
 </pre>
 
 <h4>Step 6: Uncorrected outdoor airflow <code>unCorOutAirInk</code>,
 <code>sysUncOutAir</code></h4>
+<p>
+Compute the uncorrected outdoor airflow rate as
+</p>
 <pre>
     unCorOutAirInk = occDivFra*sum(breZonPop)+sum(breZonAre)
 </pre>
 
 <h4>Step 7: System primary airflow <code>sysPriAirRate</code></h4>
+<p>
 The system primary airflow equals to the sum of discharge airflow rate measured
 from each VAV box <code>VDis_flow</code>.
 For design purpose, a highest expected system primary airflow <code>VPriSysMax_floww</code>
 should be applied. It usually is usually estimated with load-diversity factor,
 e.g. 0.7. (Stanke, 2010)
-
+</p>
 <h4>Step 8: Outdoor air fraction</h4>
-The average outdoor air fraction should be found as following:
+<p>
+The average outdoor air fraction is
+</p>
 <pre>
     outAirFra = sysUncOutAir/sysPriAirRate
 </pre>
-For design purpose, it should be found as:
+<p>
+For design purpose, use
+</p>
 <pre>
     aveOutAirFra = unCorOutAirInk/VPriSysMax_floww
 </pre>
@@ -695,27 +710,36 @@ For design purpose, it should be found as:
 <pre>
     zonVenEff[i] = 1 + aveOutAirFra + desZonPriOutAirRate[i]
 </pre>
+<p>
 where the <code>desZonPriOutAirRate</code> is design zone outdoor airflow fraction.
-
+</p>
 <h4>Step 10: System ventilation efficiency</h4>
+<p>
 In actual system operation, the system ventilation efficiency <code>sysVenEff</code>:
+</p>
 <pre>
     sysVenEff = 1 + outAirFra + MAX(priOutAirFra[i])
 </pre>
+<p>
 Design system ventilation efficiency <code>desSysVenEff</code>:
+</p>
 <pre>
     desSysVenEff = MIN(zonVenEff[i])
 </pre>
 
 <h4>Step 11: Minimum required system outdoor air intake flow </h4>
+<p>
 The minimum required system outdoor air intake flow should be the uncorrected
 outdoor air intake <code>sysUncOutAir</code> divided by the system ventilation
 efficiency <code>sysVenEff</code>, but should not be larger than the design
 outdoor air rate <code>desOutAirInt</code>.
+</p>
 <pre>
     effMinOutAirInt = MIN(sysUncOutAir/sysVenEff, desOutAirInt)
 </pre>
+<p>
 where the design outdoor air rate <code>desOutAirInt</code> should be:
+</p>
 <pre>
     desOutAirInt = unCorOutAirInk/desSysVenEff
 </pre>
