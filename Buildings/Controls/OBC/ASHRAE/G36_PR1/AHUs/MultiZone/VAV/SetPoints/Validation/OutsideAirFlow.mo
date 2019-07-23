@@ -69,13 +69,13 @@ model OutsideAirFlow
     have_occSen=true,
     have_winSen=false)
     "Block to output minimum outdoor airflow rate for system with multiple zones "
-    annotation (Placement(transformation(extent={{120,68},{160,108}})));
+    annotation (Placement(transformation(extent={{0,-232},{40,-192}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat[numZon](
     k={0.1,0.12,0.2,0.09,0.1})
     "Measured primary flow rate in each zone at VAV box"
-    annotation (Placement(transformation(extent={{-50,-200},{-30,-180}})));
+    annotation (Placement(transformation(extent={{-120,-270},{-100,-250}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc1(
     height=2,
@@ -162,7 +162,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeMod1(
     final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)
     "AHU operation mode is Occupied"
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+    annotation (Placement(transformation(extent={{-118,-234},{-98,-214}})));
 
 equation
   connect(winSta.y, outAirSet_MulZon.uWin)
@@ -173,7 +173,7 @@ equation
     annotation (Line(points={{-99,-120},{-26,-120},{-26,82},{-2,82}},
       color={255,0,255}));
   connect(zonPriFloRat.y,outAirSet_MulZon.VDis_flow)
-    annotation (Line(points={{-29,-190},{-10,-190},{-10,72},{-2,72}},
+    annotation (Line(points={{-99,-260},{-10,-260},{-10,72},{-2,72}},
       color={0,0, 127}));
   connect(TZon.y, outAirSet_MulZon.TZon)
     annotation (Line(points={{-99,110},{-60,110},{-60,100},{-2,100}},
@@ -184,8 +184,8 @@ equation
   connect(opeMod.y, outAirSet_MulZon.uOpeMod)
     annotation (Line(points={{-99,-190},{-70,-190},{-70,78},{-2,78}},
       color={255,127,0}));
-  connect(zonPriFloRat.y, outAirSet_MulZon4.VDis_flow) annotation (Line(points={{-29,
-          -190},{-10,-190},{-10,-168},{-2,-168}},      color={0,0,127}));
+  connect(zonPriFloRat.y, outAirSet_MulZon4.VDis_flow) annotation (Line(points={{-99,
+          -260},{-10,-260},{-10,-168},{-2,-168}},      color={0,0,127}));
   connect(opeMod.y, outAirSet_MulZon4.uOpeMod) annotation (Line(points={{-99,
           -190},{-70,-190},{-70,-162},{-2,-162}},
                                             color={255,127,0}));
@@ -226,10 +226,10 @@ equation
   connect(supFan.y, outAirSet_MulZon2.uSupFan) annotation (Line(points={{-99,
           -120},{-26,-120},{-26,-38},{-2,-38}},
                                           color={255,0,255}));
-  connect(zonPriFloRat.y, outAirSet_MulZon2.VDis_flow) annotation (Line(points={{-29,
-          -190},{-10,-190},{-10,-48},{-2,-48}},      color={0,0,127}));
-  connect(zonPriFloRat.y, outAirSet_MulZon1.VDis_flow) annotation (Line(points={{-29,
-          -190},{-10,-190},{-10,12},{-2,12}},      color={0,0,127}));
+  connect(zonPriFloRat.y, outAirSet_MulZon2.VDis_flow) annotation (Line(points={{-99,
+          -260},{-10,-260},{-10,-48},{-2,-48}},      color={0,0,127}));
+  connect(zonPriFloRat.y, outAirSet_MulZon1.VDis_flow) annotation (Line(points={{-99,
+          -260},{-10,-260},{-10,12},{-2,12}},      color={0,0,127}));
   connect(TZon.y, outAirSet_MulZon3.TZon) annotation (Line(points={{-99,110},{
           -60,110},{-60,-80},{-2,-80}},
                                     color={0,0,127}));
@@ -241,21 +241,21 @@ equation
           -120},{-26,-120},{-26,-98},{-2,-98}},
                                           color={255,0,255}));
   connect(TZon.y, outAirSet_MulZon5.TZon) annotation (Line(points={{-99,110},{-60,
-          110},{-60,126},{106,126},{106,98},{118,98}},   color={0,0,127}));
-  connect(TDis.y, outAirSet_MulZon5.TDis) annotation (Line(points={{-99,80},{-82,
-          80},{-82,122},{100,122},{100,92},{118,92}}, color={0,0,127}));
+          110},{-60,-202},{-2,-202}},                    color={0,0,127}));
+  connect(TDis.y, outAirSet_MulZon5.TDis) annotation (Line(points={{-99,80},{-40,
+          80},{-40,-208},{-2,-208}},                  color={0,0,127}));
   connect(supFan.y, outAirSet_MulZon5.uSupFan) annotation (Line(points={{-99,-120},
-          {-50,-120},{-50,-116},{60,-116},{60,80},{118,80}}, color={255,0,255}));
-  connect(outAirSet_MulZon5.uOpeMod, opeMod1.y) annotation (Line(points={{118,76},
-          {108,76},{108,50},{101,50}}, color={255,127,0}));
-  connect(zonPriFloRat.y, outAirSet_MulZon5.VDis_flow) annotation (Line(points={{-29,
-          -190},{112,-190},{112,70},{118,70}},      color={0,0,127}));
+          {-26,-120},{-26,-220},{-2,-220}},                  color={255,0,255}));
+  connect(outAirSet_MulZon5.uOpeMod, opeMod1.y) annotation (Line(points={{-2,-224},
+          {-97,-224}},                 color={255,127,0}));
+  connect(zonPriFloRat.y, outAirSet_MulZon5.VDis_flow) annotation (Line(points={{-99,
+          -260},{-10,-260},{-10,-230},{-2,-230}},   color={0,0,127}));
   connect(opeMod.y, outAirSet_MulZon3.uOpeMod) annotation (Line(points={{-99,
           -190},{-70,-190},{-70,-102},{-2,-102}}, color={255,127,0}));
   connect(TDis.y, outAirSet_MulZon3.TDis) annotation (Line(points={{-99,80},{
           -40,80},{-40,-86},{-2,-86}}, color={0,0,127}));
-  connect(zonPriFloRat.y, outAirSet_MulZon3.VDis_flow) annotation (Line(points=
-          {{-29,-190},{-10,-190},{-10,-108},{-2,-108}}, color={0,0,127}));
+  connect(zonPriFloRat.y, outAirSet_MulZon3.VDis_flow) annotation (Line(points={{-99,
+          -260},{-10,-260},{-10,-108},{-2,-108}},       color={0,0,127}));
   connect(numOfOcc1.y, reaToInt.u) annotation (Line(points={{-119,210},{-110,
           210},{-110,170},{-102,170}}, color={0,0,127}));
   connect(numOfOcc2.y, reaToInt1.u) annotation (Line(points={{-79,210},{-68,210},
@@ -267,26 +267,27 @@ equation
   connect(numOfOcc5.y, reaToInt4.u) annotation (Line(points={{41,210},{50,210},
           {50,170},{58,170}}, color={0,0,127}));
   connect(reaToInt.y, outAirSet_MulZon5.nOcc[1]) annotation (Line(points={{-79,170},
-          {-72,170},{-72,140},{110,140},{110,104},{118,104}}, color={255,127,0}));
+          {-72,170},{-72,-196},{-2,-196}},                    color={255,127,0}));
   connect(reaToInt1.y, outAirSet_MulZon5.nOcc[2]) annotation (Line(points={{-39,170},
-          {-32,170},{-32,140},{110,140},{110,104},{118,104}},      color={255,127,
+          {-32,170},{-32,140},{-72,140},{-72,-196},{-2,-196}},     color={255,127,
           0}));
   connect(reaToInt3.y, outAirSet_MulZon5.nOcc[4]) annotation (Line(points={{41,170},
-          {46,170},{46,140},{110,140},{110,104},{118,104}}, color={255,127,0}));
+          {46,170},{46,140},{-72,140},{-72,-196},{-2,-196}},color={255,127,0}));
   connect(reaToInt4.y, outAirSet_MulZon5.nOcc[5]) annotation (Line(points={{81,170},
-          {88,170},{88,140},{110,140},{110,104},{118,104}}, color={255,127,0}));
+          {88,170},{88,140},{-72,140},{-72,-196},{-2,-196}},color={255,127,0}));
   connect(reaToInt.y, outAirSet_MulZon.nOcc[1]) annotation (Line(points={{-79,170},
-          {-70,170},{-70,106},{-2,106}}, color={255,127,0}));
+          {-72,170},{-72,106},{-2,106}}, color={255,127,0}));
   connect(reaToInt1.y, outAirSet_MulZon.nOcc[2]) annotation (Line(points={{-39,170},
-          {-30,170},{-30,106},{-2,106}}, color={255,127,0}));
+          {-32,170},{-32,140},{-72,140},{-72,106},{-2,106}},
+                                         color={255,127,0}));
   connect(reaToInt2.y, outAirSet_MulZon.nOcc[3]) annotation (Line(points={{1,170},
-          {8,170},{8,132},{-20,132},{-20,106},{-2,106}}, color={255,127,0}));
+          {6,170},{6,140},{-72,140},{-72,106},{-2,106}}, color={255,127,0}));
   connect(reaToInt3.y, outAirSet_MulZon.nOcc[4]) annotation (Line(points={{41,170},
-          {48,170},{48,132},{-20,132},{-20,106},{-2,106}}, color={255,127,0}));
+          {46,170},{46,140},{-72,140},{-72,106},{-2,106}}, color={255,127,0}));
   connect(reaToInt4.y, outAirSet_MulZon.nOcc[5]) annotation (Line(points={{81,170},
-          {90,170},{90,132},{-20,132},{-20,106},{-2,106}}, color={255,127,0}));
+          {88,170},{88,140},{-72,140},{-72,106},{-2,106}}, color={255,127,0}));
   connect(reaToInt2.y, outAirSet_MulZon5.nOcc[3]) annotation (Line(points={{1,170},
-          {6,170},{6,140},{110,140},{110,104},{118,104}}, color={255,127,0}));
+          {6,170},{6,140},{-72,140},{-72,-196},{-2,-196}},color={255,127,0}));
   annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/SetPoints/Validation/OutsideAirFlow.mos"
@@ -313,7 +314,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -323,5 +325,5 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(extent={{-180,-220},{180,240}})));
+    Diagram(coordinateSystem(extent={{-180,-300},{180,240}})));
 end OutsideAirFlow;
