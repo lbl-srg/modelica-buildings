@@ -37,15 +37,15 @@ model Controller "Single zone VAV AHU economizer control sequence"
           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real uMin(
-    final min=0,
-    final max=1,
-    final unit="1") = 0
-    "Lower limit of controller output uTSup at which the dampers are at their limits";
+    final min=0.1,
+    final max=0.9,
+    final unit="1") = 0.1
+    "Lower limit of controller output at which the dampers are at their limits";
   parameter Real uMax(
-    final min=0,
+    final min=0.1,
     final max=1,
-    final unit="1") = 1
-    "Upper limit of controller output uTSup at which the dampers are at their limits";
+    final unit="1") = 0.9
+    "Upper limit of controller output at which the dampers are at their limits";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeFre=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -285,7 +285,7 @@ protected
 
 public
   CDL.Interfaces.RealOutput yHeaCoi "Heating coil control signal"
-    annotation (Placement(transformation(extent={{100,30},{120,50}}),
+    annotation (Placement(transformation(extent={{160,92},{180,112}}),
         iconTransformation(extent={{100,30},{120,50}})));
 equation
   connect(uSupFan, enaDis.uSupFan)
@@ -355,8 +355,9 @@ equation
     annotation (Line(points={{-130,-40},{-80,-40},{-80,-10},{20,-10},{20,0},{39,0}},
       color={255,0,255}));
 
-  connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{61,14},{66,14},{66,40},
-          {110,40}},  color={0,0,127}));
+  connect(mod.yHeaCoi, yHeaCoi) annotation (Line(points={{61,14},{66,14},{66,
+          102},{170,102}},
+                      color={0,0,127}));
 annotation (defaultComponentName = "conEco",
         Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
