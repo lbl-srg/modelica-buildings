@@ -7,10 +7,10 @@ model ASHRAE2006
     cooCoi(show_T=true));
 
   Modelica.Blocks.Sources.Constant TSupSetHea(y(
-      final quantity="ThermodynamicTemperature",
-      final unit="K",
-      displayUnit="degC",
-      min=0), k=273.15 + 10) "Supply air temperature setpoint for heating"
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC",
+    min=0), k=273.15 + 10) "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-180,-172},{-160,-152}})));
   Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
         yFanMin)
@@ -58,7 +58,7 @@ model ASHRAE2006
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.02,
     Ti=300)
-           "Controller for heating coil"
+    "Controller for heating coil"
     annotation (Placement(transformation(extent={{-80,-212},{-60,-192}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
     reverseAction=true,

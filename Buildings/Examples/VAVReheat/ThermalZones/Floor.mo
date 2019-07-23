@@ -1,7 +1,38 @@
 within Buildings.Examples.VAVReheat.ThermalZones;
 model Floor "Model of a floor of the building"
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium model for air" annotation (choicesAllMatching=true);
+//   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+//     "Medium model for air" annotation (choicesAllMatching=true);
+
+  extends Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor;
+
+//   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
+//       redeclare package Medium = Medium) "Fluid inlets and outlets"
+//     annotation (Placement(transformation(extent={{70,-42},{110,-26}})));
+//   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsEas[2](
+//       redeclare package Medium = Medium) "Fluid inlets and outlets"
+//     annotation (Placement(transformation(extent={{314,28},{354,44}})));
+//   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsNor[2](
+//       redeclare package Medium = Medium) "Fluid inlets and outlets"
+//     annotation (Placement(transformation(extent={{70,118},{110,134}})));
+//   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsWes[2](
+//       redeclare package Medium = Medium) "Fluid inlets and outlets"
+//     annotation (Placement(transformation(extent={{-50,38},{-10,54}})));
+//   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsCor[2](
+//       redeclare package Medium = Medium) "Fluid inlets and outlets"
+//     annotation (Placement(transformation(extent={{70,38},{110,54}})));
+//
+//   Modelica.Blocks.Interfaces.RealOutput p_rel
+//     "Relative pressure signal of building static pressure" annotation (
+//       Placement(transformation(
+//         extent={{-10,-10},{10,10}},
+//         rotation=180,
+//         origin={-170,220})));
+//
+//   Modelica.Blocks.Interfaces.RealOutput TRooAir[5](
+//     each unit="K",
+//     each displayUnit="degC") "Room air temperatures"
+//     annotation (Placement(transformation(extent={{380,150},{400,170}}),
+//         iconTransformation(extent={{380,150},{400,170}})));
 
   parameter Boolean use_windPressure=true
     "Set to true to enable wind pressure";
@@ -247,21 +278,7 @@ model Floor "Model of a floor of the building"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final sampleModel=sampleModel) "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{70,-42},{110,-26}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsEas[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{314,28},{354,44}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsNor[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{70,118},{110,134}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsWes[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{-50,38},{-10,54}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsCor[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{70,38},{110,54}})));
+
   Modelica.Blocks.Math.MatrixGain gai(K=20*[0.4; 0.4; 0.2])
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
@@ -313,11 +330,7 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{294,218},{314,238}})));
   Modelica.Blocks.Routing.Multiplex5 multiplex5_1
     annotation (Placement(transformation(extent={{340,280},{360,300}})));
-  Modelica.Blocks.Interfaces.RealOutput TRooAir[5](
-    each unit="K",
-    each displayUnit="degC") "Room air temperatures"
-    annotation (Placement(transformation(extent={{380,150},{400,170}}),
-        iconTransformation(extent={{380,150},{400,170}})));
+
   Airflow.Multizone.DoorDiscretizedOpen opeSouCor(redeclare package Medium =
         Medium, wOpe=10,
     forceErrorControlOnFlow=false)
@@ -358,12 +371,7 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{60,240},{40,260}})));
   Buildings.Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-58,240},{-38,260}})));
-  Modelica.Blocks.Interfaces.RealOutput p_rel
-    "Relative pressure signal of building static pressure" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-170,220})));
+
 
   Modelica.Blocks.Math.Gain gaiIntNor[3](each k=kIntNor)
     "Gain for internal heat gain amplification for north zone"
@@ -548,37 +556,37 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sou.ports[1], portsSou[1]) annotation (Line(
-      points={{149,-37.2},{114,-37.2},{114,-34},{80,-34}},
+      points={{149,-37.2},{114,-37.2},{114,-36},{80,-36}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], portsSou[2]) annotation (Line(
-      points={{149,-35.6},{124,-35.6},{124,-34},{100,-34}},
+      points={{149,-35.6},{124,-35.6},{124,-36},{100,-36}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.ports[1], portsEas[1]) annotation (Line(
-      points={{309,62.8},{300,62.8},{300,36},{324,36}},
+      points={{309,62.8},{300,62.8},{300,36},{320,36}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(eas.ports[2], portsEas[2]) annotation (Line(
-      points={{309,64.4},{300,64.4},{300,36},{344,36}},
+      points={{309,64.4},{300,64.4},{300,36},{340,36}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(nor.ports[1], portsNor[1]) annotation (Line(
-      points={{149,122.8},{114,122.8},{114,126},{80,126}},
+      points={{149,122.8},{114,122.8},{114,124},{80,124}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(nor.ports[2], portsNor[2]) annotation (Line(
-      points={{149,124.4},{124,124.4},{124,126},{100,126}},
+      points={{149,124.4},{124,124.4},{124,124},{100,124}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.ports[1], portsWes[1]) annotation (Line(
-      points={{17,42.8},{-12,42.8},{-12,46},{-40,46}},
+      points={{17,42.8},{-12,42.8},{-12,44},{-40,44}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.ports[2], portsWes[2]) annotation (Line(
-      points={{17,44.4},{-2,44.4},{-2,46},{-20,46}},
+      points={{17,44.4},{-2,44.4},{-2,44},{-20,44}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cor.ports[1], portsCor[1]) annotation (Line(

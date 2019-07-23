@@ -390,11 +390,12 @@ partial model PartialOpenLoop
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-330,170},{-310,190}}),
         iconTransformation(extent={{-360,170},{-340,190}})));
-  ThermalZones.Floor flo(
+  replaceable ThermalZones.Floor flo(
     redeclare final package Medium = MediumA,
     final lat=lat,
     final use_windPressure=use_windPressure,
-    final sampleModel=sampleModel)
+    final sampleModel=sampleModel) constrainedby
+    Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
     "Model of a floor of the building that is served by this VAV system"
     annotation (Placement(transformation(extent={{772,396},{1100,616}})));
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir(u(each unit="K", each
@@ -659,24 +660,24 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,364},{874,364},{874,472},{898,472},{898,449.533},{
-          924.286,449.533}},
+      points={{640,10},{640,364},{874,364},{874,472},{898,472},{898,432.667},{
+          871.571,432.667}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{822,10},{822,350},{900,350},{900,420.2},{924.286,420.2}},
+      points={{822,10},{822,350},{900,350},{900,406.267},{871.571,406.267}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{1002,10},{1002,368},{1067.2,368},{1067.2,445.867}},
+      points={{1002,10},{1002,368},{912.571,368},{912.571,432.667}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1152,10},{1152,446},{924.286,446},{924.286,478.867}},
+      points={{1152,10},{1152,446},{871.571,446},{871.571,457.6}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1342,0},{1342,394},{854,394},{854,449.533}},
+      points={{1162,0},{1342,0},{1342,394},{831.743,394},{831.743,432.667}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
@@ -685,18 +686,18 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(flo.TRooAir, min.u) annotation (Line(
-      points={{1094.14,491.333},{1164.7,491.333},{1164.7,450},{1198,450}},
+      points={{930.143,432.667},{1164.7,432.667},{1164.7,450},{1198,450}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(flo.TRooAir, ave.u) annotation (Line(
-      points={{1094.14,491.333},{1166,491.333},{1166,420},{1198,420}},
+      points={{930.143,432.667},{1166,432.667},{1166,420},{1198,420}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TRooAir.u, flo.TRooAir) annotation (Line(
-      points={{488,170},{480,170},{480,538},{1164,538},{1164,491.333},{1094.14,
-          491.333}},
+      points={{488,170},{480,170},{480,538},{1164,538},{1164,432.667},{930.143,
+          432.667}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -749,25 +750,25 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(VSupCor_flow.port_b, flo.portsCor[1]) annotation (Line(
-      points={{580,140},{580,372},{866,372},{866,480},{912.571,480},{912.571,
-          449.533}},
+      points={{580,140},{580,372},{866,372},{866,480},{859.857,480},{859.857,
+          432.667}},
       color={0,127,255},
       thickness=0.5));
 
   connect(VSupSou_flow.port_b, flo.portsSou[1]) annotation (Line(
-      points={{760,140},{760,356},{912.571,356},{912.571,420.2}},
+      points={{760,140},{760,356},{859.857,356},{859.857,406.267}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupEas_flow.port_b, flo.portsEas[1]) annotation (Line(
-      points={{940,138},{940,376},{1055.49,376},{1055.49,445.867}},
+      points={{940,138},{940,376},{900.857,376},{900.857,432.667}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupNor_flow.port_b, flo.portsNor[1]) annotation (Line(
-      points={{1100,142},{1100,498},{912.571,498},{912.571,478.867}},
+      points={{1100,142},{1100,498},{859.857,498},{859.857,457.6}},
       color={0,127,255},
       thickness=0.5));
   connect(VSupWes_flow.port_b, flo.portsWes[1]) annotation (Line(
-      points={{1300,138},{1300,384},{842.286,384},{842.286,449.533}},
+      points={{1300,138},{1300,384},{820.029,384},{820.029,432.667}},
       color={0,127,255},
       thickness=0.5));
   connect(VOut1.port_b, eco.port_Out) annotation (Line(
@@ -796,10 +797,10 @@ equation
       points={{210,-52},{230,-52},{230,-110}},
       color={28,108,200},
       thickness=0.5));
-  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{121,-210},{
-          124,-210},{124,-130}}, color={0,0,127}));
-  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{
-          222,-248},{222,-130}}, color={0,0,127}));
+  connect(gaiHeaCoi.y, souHea.m_flow_in) annotation (Line(points={{121,-210},{124,
+          -210},{124,-132}},     color={0,0,127}));
+  connect(gaiCooCoi.y, souCoo.m_flow_in) annotation (Line(points={{121,-248},{222,
+          -248},{222,-132}},     color={0,0,127}));
   connect(dpDisSupFan.port_b, amb.ports[3]) annotation (Line(
       points={{320,10},{320,14},{-88,14},{-88,-47.9333},{-114,-47.9333}},
       color={0,0,0},
