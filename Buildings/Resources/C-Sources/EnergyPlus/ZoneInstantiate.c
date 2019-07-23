@@ -119,7 +119,13 @@ void ZoneInstantiate(
   double outputValues[ZONE_N_PAR_OUT];
 
   writeFormatLog(2, "Entered ZoneInstantiate for zone %s.", zone->name);
-
+  /* Fixme: Here, in Dymola, zone->ptrBui is NULL for FMUZoneAdapterZones2, but it was not NULL
+     when leaving ZoneAllocate */
+  /* if (zone->ptrBui->nZon == 1)
+    ModelicaFormatError("*** Entering loadFMU_setupExperiment_enterInitializationMode, ptrBui=%p", zone->ptrBui);// with nZon=%d", zone->ptrBui->nZon); */
+  if (zone->ptrBui == NULL){
+    ModelicaError("Pointer zone->ptrBui is NULL in ZoneInstantiate.");
+  }
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
        This section is only executed once if the 'initial equation' section is called multiple times.
