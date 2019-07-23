@@ -71,7 +71,6 @@ model OutsideAirFlow
     "Block to output minimum outdoor airflow rate for system with multiple zones "
     annotation (Placement(transformation(extent={{0,-232},{40,-192}})));
 
-protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat[numZon](
     k={0.1,0.12,0.2,0.09,0.1})
     "Measured primary flow rate in each zone at VAV box"
