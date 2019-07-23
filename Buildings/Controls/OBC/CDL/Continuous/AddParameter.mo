@@ -61,9 +61,7 @@ Modelica Standard Library.
         Ellipse(lineColor={0,0,127}, extent={{-12,-52},{88,48}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(extent={{-2,-24},{74,44}},
-          textString="+",
-          lineColor={0,0,0})}),
+        Text(extent={{-2,-22},{74,46}},  textString="+")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={Rectangle(
             extent={{-100,-100},{100,100}},
