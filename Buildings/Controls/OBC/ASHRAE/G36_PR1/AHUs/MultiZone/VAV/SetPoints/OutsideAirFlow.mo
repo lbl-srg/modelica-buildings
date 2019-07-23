@@ -587,7 +587,7 @@ The calculation is done using the steps below.
 <ol>
 <li>
 <p>
-Compute the minimum breathing zone outdoor airflow required <code>breZon</code>
+Compute the required breathing zone outdoor airflow <code>breZon</code>
 using the following components.
 </p>
 <ul>
@@ -620,7 +620,7 @@ effectiveness <code>zonDisEffHea</code> or Cool-air effectiveness
 </li>
 <li>
 <p>
-Compute the minimum required zone outdoor airflow <code>zonOutAirRate</code>.
+Compute the required zone outdoor airflow <code>zonOutAirRate</code>.
 For each zone in any mode other than occupied mode and for zones that have
 window switches and the window is open, set <code>zonOutAirRate = 0</code>.
 Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code>
