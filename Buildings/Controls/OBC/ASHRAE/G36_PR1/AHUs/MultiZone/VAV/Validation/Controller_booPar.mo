@@ -501,6 +501,8 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller</a>.
+It tests the controller for different configurations of the Boolean parameters, such as
+for controllers with occupancy sensors, with window status sensors, with single or dual duct boxes etc.
 </p>
 </html>", revisions="<html>
 <ul>
