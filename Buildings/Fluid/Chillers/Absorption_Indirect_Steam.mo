@@ -26,22 +26,30 @@ model Absorption_Indirect_Steam
    "Performance data"
     annotation (choicesAllMatching= true,
        Placement(transformation(extent={{48,66},{68,86}})));
-  final parameter Modelica.SIunits.HeatFlowRate
+  parameter Modelica.SIunits.HeatFlowRate
      QEva_heatflow_nominal= per.QEva_flow_nominal
     "Nominal heat flow at the evaporator"
       annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal= per.mCon_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal= per.mCon_flow_nominal
    "Nominal mass flow at Condenser"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal= per.mEva_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal= per.mEva_flow_nominal
    "Nominal mass flow at Evaorator"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.HeatFlowRate Q_flow_small = -QEva_heatflow_nominal*1E-9
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_small = -QEva_heatflow_nominal*1E-9
     "Small value for heat flow rate or power, used to avoid division by zero";
 
   BaseClasses.AbsorptionIndirect absBlo(per=per)
    "Absorption indirect chiller equations block"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+
+   Modelica.SIunits.SpecificEnthalpy hEvaSet=
+      Medium2.specificEnthalpy_pTX(
+       p=port_b2.p,
+       T=TEvaSet,
+       X=cat( 1,port_b2.Xi_outflow,{1 - sum(port_b2.Xi_outflow)}))
+    "Chilled water setpoint enthalpy";
+
   Modelica.Blocks.Interfaces.BooleanInput on
    "Chiller turn On/off inout signal "
     annotation (Placement(transformation(extent=
@@ -58,6 +66,8 @@ model Absorption_Indirect_Steam
         deltaX = Q_flow_small/100))
    "Setpoint heat flow rate of the evaporator"
     annotation (Placement(transformation(extent={{-138,-30},{-118,-10}})));
+
+  /*
   Modelica.Blocks.Sources.RealExpression hEvaSet(final y=
         Medium2.specificEnthalpy_pTX(
         p = port_b2.p,
@@ -65,7 +75,8 @@ model Absorption_Indirect_Steam
         X = cat(1,
               port_b2.Xi_outflow,{1 - sum(port_b2.Xi_outflow)})))
    "Chilled water setpoint enthalpy"
-    annotation (Placement(transformation(extent={{-138,-64},{-118,-44}})));
+   annotation (Placement(transformation(extent={{-138,-64},{-118,-44}})));
+   */
   Modelica.Blocks.Sources.RealExpression mEvaFlo(y=vol2.ports[1].m_flow)
    "Evaporator water mass flow rate"
     annotation (Placement(transformation(extent={{-138,-80},{-118,-60}})));

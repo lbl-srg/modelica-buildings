@@ -1,7 +1,7 @@
 within Buildings.Fluid.Chillers.BaseClasses;
 block AbsorptionIndirect
   "Absorption indirect chiller performance curve method"
-  extends ModelicaReference.Icons.Package;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter  Buildings.Fluid.Chillers.Data.AbsorptionIndirect.Generic per
     "Performance data"
@@ -169,10 +169,8 @@ equation
 
     annotation (Placement(transformation(extent={{
             100,-48},{120,-28}}), iconTransformation(extent={{100,-50},{120,-30}})),
-              Icon(coordinateSystem(preserveAspectRatio=false), graphics={ Text(
-          extent={{-152,100},{148,140}},
-          lineColor={0,0,255},
-          textString="%name")}),Diagram(coordinateSystem(preserveAspectRatio=false)),
+              Icon(coordinateSystem(preserveAspectRatio=false)),
+                                Diagram(coordinateSystem(preserveAspectRatio=false)),
   defaultComponentName="absInd",
   Documentation(info="<html>
 <p>
