@@ -1,23 +1,25 @@
 within Buildings.Fluid.Chillers.Examples;
 model AbsorptionIndirectSteam
-  "Test model for absorption indirect steam chiller"
+                             "Test model for absorption indirect steam chiller"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Water "Medium model";
+
+  package Medium = Buildings.Media.Water
+   "Medium model";
   parameter Data.AbsorptionIndirect.EnergyPlusAbsorptionChiller per
    "Performance data"
     annotation (Placement(transformation(extent={{20,82},{40,102}})));
-
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=per.mEva_flow_nominal
    "Evaporator nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=per.mCon_flow_nominal
    "Condenser nominal mass flow rate";
-  Chillers.Absorption_Indirect_Steam  absIndSte(  redeclare package Medium1 = Medium,
-                                         redeclare package Medium2 = Medium,
-                                         per=per,
-                                         energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-                                         massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-                                         dp1_nominal=200,
-                                         dp2_nominal=200)
+  Chillers.Absorption_Indirect_Steam  absIndSte(
+     redeclare package Medium1 = Medium,
+     redeclare package Medium2 = Medium,
+     per=per,
+     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+     dp1_nominal=200,
+     dp2_nominal=200)
     "Absorption Indirect Chiller model"
       annotation (Placement(transformation(extent={{12,0},{32,20}})));
     Sources.MassFlowSource_T conPum(
@@ -86,8 +88,6 @@ model AbsorptionIndirectSteam
      annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
     Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.5)
      annotation (Placement(transformation(extent={{-54,0},{-34,20}})));
-    Modelica.Blocks.Sources.Constant TGenEnt(k=273.15 + 105)
-     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
   connect(absIndSte.port_b1, res1.port_a)
     annotation (Line(
@@ -111,10 +111,10 @@ equation
     annotation (Line(points={{-20,-82},{12,-82},{12,4}},
                               color={0,127,255}));
   connect(absIndSte.TEvaSet, TEvaSet.y)
-    annotation (Line(points={{10.9,1.1},{-14,1.1},{-14,-30},{-39,-30}},
+    annotation (Line(points={{10.9,1.1},{-6,1.1},{-6,-30},{-39,-30}},
                                      color={0,0,127}));
   connect(conPum.ports[1], absIndSte.port_a1)
-    annotation (Line(points={{-36,90},{12,90},{12,16}},
+    annotation (Line(points={{-36,90},{-20,90},{-20,16},{12,16}},
                                      color={0,127,255}));
   connect(greaterThreshold.u,pulse. y)
     annotation (Line(
@@ -124,9 +124,6 @@ equation
   connect(absIndSte.on, greaterThreshold.y)
     annotation (Line(points={{10.9,10.1},{-33,10.1},{-33,10}},
                                 color={255,0,255}));
-  connect(TGenEnt.y, absIndSte.TGenEnt)
-    annotation (Line(points={{-39,50},{-8,50},{-8,17.9},{10.7,17.9}},
-                                 color={0,0,127}));
   annotation (
 experiment(Tolerance=1e-6, StopTime=14400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/AbsorptionIndirectSteam.mos"

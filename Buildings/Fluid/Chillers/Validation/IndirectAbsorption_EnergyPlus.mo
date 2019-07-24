@@ -122,7 +122,7 @@ model IndirectAbsorption_EnergyPlus
         offset=0,startTime=0)
         "EnergyPlus: entering water temperature at the evaporator"
          annotation (Placement(transformation(extent={{66,-90},{86,-70}})));
-      Modelica.Blocks.Sources.TimeTable absChiMod (table=[0,0; 600,0; 1200,0; 1800,
+      Modelica.Blocks.Sources.TimeTable absChiMod( table=[0,0; 600,0; 1200,0; 1800,
         0; 2400,0; 3000,0; 3600,0; 4200,0; 4800,0; 5400,0; 6000,0; 6600,0; 7200,
         0; 7800,0; 8400,0; 9000,0; 9600,0; 10200,0; 10800,0; 11400,0; 12000,0; 12600,
         0; 13200,0; 13800,0; 14400,0; 15000,0; 15600,0; 16200,0; 16800,0; 17400,
@@ -359,8 +359,6 @@ model IndirectAbsorption_EnergyPlus
          annotation (Placement(transformation(extent={{-112,-90},{-92,-70}})));
       Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=1)
          annotation (Placement(transformation(extent={{-52,10},{-32,-10}})));
-      Modelica.Blocks.Sources.Constant TGenEnt(k=273.15 + 105)
-        annotation (Placement(transformation(extent={{-20,40},{0,60}})));
       Modelica.Blocks.Sources.TimeTable TConEnt(table=[0,283; 600,283; 1200,283;
         1800,283; 2400,283; 3000,283; 3600,283; 4200,283; 4800,283; 5400,283; 6000,
         283; 6600,283; 7200,283; 7800,283; 8400,283; 9000,283; 9600,283; 10200,283;
@@ -421,8 +419,6 @@ equation
     annotation (Line(points={{-99,0},{-54,0}}, color={0,0,127}));
   connect(absChi.on, realToBoolean.y) annotation (Line(points={{30.9,0.1},{0,
           0.1},{0,0},{-31,0}}, color={255,0,255}));
-  connect(absChi.TGenEnt, TGenEnt.y) annotation (Line(points={{30.7,7.9},{16,
-          7.9},{16,50},{1,50}}, color={0,0,127}));
   connect(conPum.T_in, TConEnt.y) annotation (Line(points={{-56.6,81.8},{-78,81.8},
           {-78,84},{-99,84}}, color={0,0,127}));
   connect(evaPum.T_in, TEvaEnt.y) annotation (Line(points={{104.4,-44.8},{108,-44.8},
