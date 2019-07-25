@@ -138,7 +138,8 @@ void setValueReferences(FMUBuilding* fmuBui){
   const fmi2_value_reference_t* vrl = fmi2_import_get_value_referece_list(vl);
   size_t nv = fmi2_import_get_variable_list_size(vl);
 
-  writeFormatLog(2, "Searching for variable reference.");
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Searching for variable reference.");
   /* Set value references for the parameters by assigning the values obtained from the FMU */
   for(iZon = 0; iZon < fmuBui->nZon; iZon++){
     zone = (FMUZone*) fmuBui->zones[iZon];
@@ -179,7 +180,8 @@ void generateFMU(
   int retVal;
   struct stat st = {0};
 
-  writeFormatLog(2, "Entered generateFMU with FMUPath = %s.", FMUPath);
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Entered generateFMU with FMUPath = %s.", FMUPath);
 
   if (usePrecompiledFMU){
     ModelicaFormatMessage("Using pre-compiled FMU %s", precompiledFMUPath);
@@ -227,7 +229,8 @@ void generateFMU(
   }
 
   /* Copy or generate the FMU */
-  writeFormatLog(3, "Executing %s", fulCmd);
+  if (3 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Executing %s", fulCmd);
 
   retVal = system(fulCmd);
   /* Check if generated FMU indeed exists */
@@ -245,7 +248,8 @@ void generateFMU(
 void setEnergyPlusDebugLevel(FMUBuilding* bui){
     fmi2Status status;
 
-    writeFormatLog(2, "Setting debug logging.");
+    if (2 <= FMU_EP_VERBOSITY)
+      ModelicaFormatMessage("Setting debug logging.");
   	status = fmi2_import_set_debug_logging(
         bui->fmu,
         fmi2_true, /* Logging on */
@@ -276,7 +280,8 @@ void importEnergyPlusFMU(FMUBuilding* bui){
 
   bui->context = fmi_import_allocate_context(callbacks);
 
-  writeFormatLog(2, "Getting fmi version.");
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Getting fmi version.");
   version = fmi_import_get_fmi_version(bui->context, FMUPath, tmpPath);
 
   if (version != fmi_version_2_0_enu){
@@ -284,7 +289,8 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     FMUPath, fmi_version_to_string(version));
   }
 
-  writeFormatLog(2, "Parsing xml file.");
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Parsing xml file.");
   bui->fmu = fmi2_import_parse_xml(bui->context, tmpPath, 0);
 	if(!bui->fmu) {
 		ModelicaFormatError("Error parsing XML for %s.", FMUPath);
@@ -309,7 +315,8 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   callBackFunctions.freeMemory = free;
   callBackFunctions.componentEnvironment = bui->fmu;
 
-  writeFormatLog(2, "Loading dllfmu.");
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Loading dllfmu.");
 
   jm_status = fmi2_import_create_dllfmu(bui->fmu, fmukind, &callBackFunctions);
   if (jm_status == jm_status_error) {
@@ -319,12 +326,14 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     bui->dllfmu_created = fmi2_true;
   }
 
-  writeFormatLog(2, "Instantiating fmu.");
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Instantiating fmu.");
 
   /* Instantiate EnergyPlus */
   jm_status = fmi2_import_instantiate(bui->fmu, bui->name, fmi2_model_exchange, NULL, visible);
 
-  writeFormatLog(2, "Returned from instantiating fmu.");
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Returned from instantiating fmu.");
   if(jm_status == jm_status_error){
     ModelicaFormatError("Failed to instantiate building FMU with name %s.",  bui->name);
   }
@@ -336,7 +345,8 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   */
   char* modelicaBuildingsJsonFile;
 
-  writeFormatLog(2, "Entered ZoneAllocateAndInstantiateBuilding.");
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Entered ZoneAllocateAndInstantiateBuilding.");
 
   /* Write the model structure to the FMU Resources folder so that EnergyPlus can
      read it and set up the data structure.
