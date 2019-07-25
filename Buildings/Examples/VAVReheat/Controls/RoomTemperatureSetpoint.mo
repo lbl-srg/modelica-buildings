@@ -30,21 +30,21 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(setPoiHea.y, controlBus.TRooSetHea) annotation (Line(
       points={{-59,80},{20,80},{20,60}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(setPoiCoo.y, controlBus.TRooSetCoo) annotation (Line(
       points={{-59,40},{20,40},{20,60}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   annotation (                                Icon(graphics={

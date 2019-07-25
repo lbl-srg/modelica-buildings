@@ -42,7 +42,7 @@ model RoomVAV "Model for CO2 emitted by people"
         origin={-10,-60})));
   Modelica.Fluid.Interfaces.FluidPort_a portRoo1(
     redeclare package Medium = Medium) "Fluid port"
-    annotation (Placement(transformation(extent=[-170,-10; -150,10])));
+    annotation (Placement(transformation(extent={{-170,-10},{-150,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a portSup(
     redeclare package Medium = Medium) "Fluid port"
     annotation (Placement(transformation(extent={{-10,150},{10,170}})));
@@ -51,11 +51,11 @@ model RoomVAV "Model for CO2 emitted by people"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
   Modelica.Fluid.Interfaces.FluidPort_a portRoo2(
     redeclare package Medium = Medium) "Fluid port"
-    annotation (Placement(transformation(extent=[150,-10; 170,10])));
+    annotation (Placement(transformation(extent={{150,-10},{170,10}})));
   Modelica.Blocks.Interfaces.RealOutput yDam "Damper control signal"
-    annotation (Placement(transformation(extent=[160,70; 180,90])));
+    annotation (Placement(transformation(extent={{160,70},{180,90}})));
   Modelica.Blocks.Interfaces.RealInput nPeo "Number of people"
-    annotation (Placement(transformation(extent=[-198,-80; -158,-40])));
+    annotation (Placement(transformation(extent={{-198,-80},{-158,-40}})));
   Modelica.Blocks.Math.Gain gaiCO2(k=8.18E-6) "CO2 emission per person"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Fluid.Sensors.Conversions.To_VolumeFraction volFraCO2(
@@ -65,12 +65,12 @@ model RoomVAV "Model for CO2 emitted by people"
   DamperControl con(Kp=1) "Damper controller"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Modelica.Blocks.Math.Gain peoDen(k=2.5/VRoo) "People density per m2"
-    annotation (Placement(transformation(extent=[-120,-120; -100,-100])));
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
 
   Modelica.Blocks.Sources.RealExpression vavACH(
     y=vav.m_flow*3600/VRoo/1.2)
     "VAV box air change per hour"
-    annotation (Placement(transformation(extent=[-124,34; -100,54])));
+    annotation (Placement(transformation(extent={{-124,34},{-100,54}})));
   Buildings.Fluid.FixedResistances.PressureDrop dpPle(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
