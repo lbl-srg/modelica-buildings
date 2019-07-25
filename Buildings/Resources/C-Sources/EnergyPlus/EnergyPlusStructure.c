@@ -107,7 +107,8 @@ char* fmuModeToString(FMUMode mode){
 
 /* Wrapper to set fmu mode indicator and log the mode change for debugging */
 void setFMUMode(FMUBuilding* bui, FMUMode mode){
-  writeFormatLog(2, "Switching %s to mode %s", bui->name, fmuModeToString(mode));
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Switching %s to mode %s\n", bui->name, fmuModeToString(mode));
   bui->mode = mode;
 }
 /*
@@ -236,7 +237,8 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
   /* Prefix for temporary directory */
   const char* pre = "tmp-eplus-\0";
 
-  writeFormatLog(2, "Entered getEnergyPlusTemporaryDirectory.");
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Entered getEnergyPlusTemporaryDirectory.");
   /* Current directory */
   curDir = malloc(lenCurDir * sizeof(char));
   if (curDir == NULL)

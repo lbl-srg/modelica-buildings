@@ -70,30 +70,37 @@ void* ZoneAllocate(
   }
   else{
     if (FMU_EP_VERBOSITY != verbosity){
-        ModelicaFormatMessage(
-          "Warning: Thermal zones declare different verbosity. Check parameter verbosity. Using highest declared value.");
+        ModelicaFormatMessage("Warning: Thermal zones declare different verbosity. Check parameter verbosity. Using highest declared value.\n");
     }
     if (verbosity > FMU_EP_VERBOSITY){
       FMU_EP_VERBOSITY = verbosity;
     }
   }
 
-  writeFormatLog(1, "Entered ZoneAllocate for building %s", idfName);
-  writeFormatLog(0, "Buildings library root is at %s", buildingsLibraryRoot);
+  if (1 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Entered ZoneAllocate for building %s\n", idfName);
 
-  writeFormatLog(1, "Allocating memory for zone %s.", zoneName);
+  if (0 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Buildings library root is at %s\n", buildingsLibraryRoot);
+
+  if (1 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Allocating memory for zone %s.\n", zoneName);
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
   setPointerIfAlreadyInstanciated(modelicaInstanceName, &zone);
   if (zone != NULL){
-    writeFormatLog(1, "*** ZoneAllocate called more than once for %s.", modelicaInstanceName);
+    if (1 <= FMU_EP_VERBOSITY)
+      ModelicaFormatMessage("*** ZoneAllocate called more than once for %s.\n", modelicaInstanceName);
     /* Return pointer to this zone */
     return (void*) zone;
   }
-  writeFormatLog(1, "*** First call for this instance %s.", modelicaInstanceName);
+  if (1 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("*** First call for this instance %s.\n", modelicaInstanceName);
 
   /* ********************************************************************** */
   /* Initialize the zone */
-  writeFormatLog(1, "*** Initializing memory for zone for %s.", modelicaInstanceName);
+
+  if (1 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("*** Initializing memory for zone for %s.\n", modelicaInstanceName);
 
   zone = (FMUZone*) malloc(sizeof(FMUZone));
   if ( zone == NULL )
@@ -204,7 +211,9 @@ void* ZoneAllocate(
   */
   zone->isInstantiated = fmi2False;
   zone->isInitialized = fmi2False;
-  writeFormatLog(1, "Exiting allocation for %s", modelicaInstanceName);
+
+  if (1 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("Exiting allocation for %s\n", modelicaInstanceName);
   /* Return a pointer to this zone */
   return (void*) zone;
 }
