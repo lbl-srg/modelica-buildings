@@ -18,14 +18,16 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     /* The call to fmi2_import_terminate causes a seg fault if
        fmi2_import_create_dllfmu was not successful */
     if (ptrBui->dllfmu_created){
-      writeFormatLog(2, "fmi2_import_terminate: terminating EnergyPlus.");
+      if (2 <= FMU_EP_VERBOSITY)
+        ModelicaFormatMessage("fmi2_import_terminate: terminating EnergyPlus.\n");
       status = fmi2_import_terminate(ptrBui->fmu);
       if (status != fmi2OK){
         ModelicaFormatMessage("fmi2Terminate returned with non-OK status for building %s.", ptrBui->name);
       }
     }
     if (ptrBui->fmu != NULL){
-      writeFormatLog(2, "fmi2_import_destroy_dllfmu: destroying dll fmu.");
+      if (2 <= FMU_EP_VERBOSITY)
+        ModelicaFormatMessage("fmi2_import_destroy_dllfmu: destroying dll fmu.\n");
       fmi2_import_destroy_dllfmu(ptrBui->fmu);
       fmi2_import_free(ptrBui->fmu);
     }
@@ -45,27 +47,28 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 }
 
 void ZoneFree(void* object){
-  writeLog(2, "*** Entered ZoneFree.");
+  writeLog(2, "*** Entered ZoneFree.\n");
   if ( object != NULL ){
-    FMUZone* zone = (FMUZone*) object;
+//--    FMUZone* zone = (FMUZone*) object;
     /* Free the memory for the zone name in the structure
        of the FMU for this building. We simply remove one
        name, which may not be for this zone. But this does not matter
        as anyway all zones will be deconstructed by Modelica. */
-    free(zone->ptrBui->zoneNames[zone->ptrBui->nZon - 1]);
+//--    free(zone->ptrBui->zoneNames[zone->ptrBui->nZon - 1]);
     /* free(zone->ptrBui->zones[zone->ptrBui->nZon - 1]); */
-    zone->ptrBui->nZon--;
+//--    zone->ptrBui->nZon--;
     /* Check if the building FMU can be freed. */
-    if (zone->ptrBui->nZon == 0){
+//--    if (zone->ptrBui->nZon == 0){
       /* There is no more zone that uses this building FMU. */
-      FMUBuildingFree(zone->ptrBui);
-      decrementBuildings_nFMU();
-      if (getBuildings_nFMU() == 0){
-       free(Buildings_FMUS);
-      }
-    }
-    free(zone);
-    writeLog(2, "*** Freed zone.");
+//--      FMUBuildingFree(zone->ptrBui);
+//--      decrementBuildings_nFMU();
+//--      if (getBuildings_nFMU() == 0){
+//--       free(Buildings_FMUS);
+//--      }
+//--    }
+//--    free(zone);
+    writeLog(2, "*** Freed zone.\n");
   }
-  writeLog(2, "*** Leaving ZoneFree.");
+
+  writeLog(2, "*** Leaving ZoneFree.\n");
 }
