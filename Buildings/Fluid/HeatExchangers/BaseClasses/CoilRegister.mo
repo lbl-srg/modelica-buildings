@@ -246,7 +246,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-extent=[-20,80; 0,100],    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+extent={{-20,80},{ 0,100}},    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},

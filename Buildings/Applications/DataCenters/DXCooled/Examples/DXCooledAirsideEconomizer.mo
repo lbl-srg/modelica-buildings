@@ -262,7 +262,7 @@ equation
       points={{-240,70},{-172,70}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.port_b, roo.airPorts[1])
@@ -295,7 +295,7 @@ equation
       points={{-240,70},{-240,-40},{-60,-40},{-60,-57},{-21,-57}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(cooModCon.y, sigCha.u)
@@ -355,8 +355,8 @@ a deadband of 1 Kelvin and a waiting time of 120 s are used.
 </p>
 <p>
 A demonstration on how to switch among these three cooling modes is shown in
-<a href=\"modelica://Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode\">
-Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.DXCooled.Controls.Validation.CoolingMode\">
+Buildings.Applications.DataCenters.DXCooled.Controls.Validation.CoolingMode</a>.
 </p>
 <h5>Supply air temperature control</h5>
 <p>
@@ -381,5 +381,5 @@ First implementation.
       StartTime=11880000,
       StopTime=12600000,
       Tolerance=1e-06),
-    Icon(coordinateSystem(extent={{-100, -100},{100, 100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end DXCooledAirsideEconomizer;

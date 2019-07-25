@@ -290,7 +290,7 @@ protected
     use_m_flow_in=true,
     use_T_in=true) "Mass flow source"
     annotation (Placement(transformation(extent={{-40,218},{-20,238}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium,
     nPorts=1)
     annotation (Placement(
@@ -314,7 +314,7 @@ protected
   Modelica.Blocks.Math.Add PHotWatAct "Power consumption for heating"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sinHotWat(
+  Buildings.Fluid.Sources.Boundary_pT sinHotWat(
     redeclare package Medium = Medium,
     nPorts=1) "Pressure source" annotation (Placement(transformation(
           extent={{10,-10},{-10,10}}, origin={62,-74})));
@@ -331,7 +331,7 @@ protected
     "Gain for hot water"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  Buildings.Fluid.Sources.Boundary_pT sin2(
     redeclare package Medium = Medium,
     nPorts=1)
     annotation (Placement(

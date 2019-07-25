@@ -234,7 +234,7 @@ model ChillerDXHeatingEconomizer
     "Air cooled chiller"
     annotation (Placement(transformation(extent={{110,-158},{90,-178}})));
 
-  Buildings.Fluid.Sources.FixedBoundary bouPreChi(
+  Buildings.Fluid.Sources.Boundary_pT bouPreChi(
     redeclare package Medium = MediumW, nPorts=1)
     "Pressure boundary condition for chilled water loop"
     annotation (Placement(transformation(extent={{50,-172},{70,-152}})));
@@ -270,7 +270,7 @@ equation
       points={{-180,40},{-140,40},{-140,40.2}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(senTMixAir.port_b, fanSup.port_a)
@@ -296,7 +296,7 @@ equation
       points={{-180,40},{-180,-208},{160,-208},{160,-170},{150,-170}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
 

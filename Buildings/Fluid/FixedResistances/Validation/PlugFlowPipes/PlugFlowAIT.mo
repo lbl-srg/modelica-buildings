@@ -219,7 +219,7 @@ model PlugFlowAIT
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
-  Fluid.Sources.FixedBoundary ExcludedBranch(redeclare package Medium = Medium,
+  Buildings.Fluid.Sources.Boundary_pT ExcludedBranch(redeclare package Medium = Medium,
       nPorts=1) "Mass flow sink for excluded branch"
                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -406,6 +406,11 @@ R=1/(0.208)+1/(2 &nbsp; lambda_g &nbsp; Modelica.Constants.pi) &nbsp; log(1/0.18
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>July 4, 2016 by Bram van der Heijde:<br/>Added parameters to test the
 influence of allowFlowReversal and the presence of explicit volumes in the pipe.
 </li>

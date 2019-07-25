@@ -468,7 +468,7 @@ equation
   connect(or1.y, lat.u)
     annotation (Line(points={{101,-10},{139,-10}},
       color={255,0,255}));
-  connect(falEdg.y, lat.u0)
+  connect(falEdg.y, lat.clr)
     annotation (Line(points={{201,-50},{220,-50},{220,-30},{120,-30},{120,-16},
       {139,-16}}, color={255,0,255}));
   connect(lat.y, booToRea3.u)
@@ -502,9 +502,9 @@ equation
     annotation (Line(points={{161,-250},{178,-250}}, color={255,0,255}));
   connect(or4.y, lat2.u)
     annotation (Line(points={{101,-210},{139,-210}}, color={255,0,255}));
-  connect(falEdg1.y, lat2.u0)
+  connect(falEdg1.y, lat2.clr)
     annotation (Line(points={{201,-250},{220,-250},{220,-228},{130,-228},
-      {130,-216},{139,-216}},  color={255,0,255}));
+      {130,-216},{139,-216}}, color={255,0,255}));
   connect(lat2.y, booToRea6.u)
     annotation (Line(points={{161,-210},{198,-210}},
       color={255,0,255}));
@@ -617,7 +617,7 @@ equation
     annotation (Line(points={{61,-110},{139,-110}}, color={255,0,255}));
   connect(addPar1.y, hys10.u)
     annotation (Line(points={{21,-150},{38,-150}}, color={0,0,127}));
-  connect(hys10.y, lat1.u0)
+  connect(hys10.y, lat1.clr)
     annotation (Line(points={{61,-150},{80,-150},{80,-116},{139,-116}},
       color={255,0,255}));
   connect(maxWarTim.y, addPar3.u)
@@ -733,12 +733,12 @@ equation
   connect(hys5.y, not4.u)
     annotation (Line(points={{121,150},{128,150},{128,130},{138,130}},
       color={255,0,255}));
-  connect(not4.y, lat3.u0)
-    annotation (Line(points={{161,130},{170,130},{170,110},{-8,110},{-8,84},{-1,84}},
-      color={255,0,255}));
-  connect(not3.y, lat4.u0)
-    annotation (Line(points={{161,170},{174,170},{174,106},{-12,106},{-12,54},{-1,54}},
-      color={255,0,255}));
+  connect(not4.y, lat3.clr)
+    annotation (Line(points={{161,130},{170,130},{170,110},{-8,110},{-8,84},
+      {-1,84}}, color={255,0,255}));
+  connect(not3.y, lat4.clr)
+    annotation (Line(points={{161,170},{174,170},{174,106},{-12,106},{-12,54},
+      {-1,54}}, color={255,0,255}));
   connect(lat1.y, not5.u)
     annotation (Line(points={{161,-110},{180,-110},{180,-150},{198,-150}},
       color={255,0,255}));

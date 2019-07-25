@@ -12,8 +12,8 @@ model ExchangeWithPassPythonObject
   Real yR2[1] "Real function value";
 
 
-algorithm
-  yR1 :=Buildings.Utilities.IO.Python27.Functions.exchange(
+equation
+  yR1 = Buildings.Utilities.IO.Python27.Functions.exchange(
     moduleName="testFunctions",
     functionName="r1_r1PassPythonObject",
     dblWri={2.0},
@@ -30,7 +30,7 @@ algorithm
 
   // Invoke the same function with the same Python object.
   // Hence, pytObj is reused.
-  yR2 :=Buildings.Utilities.IO.Python27.Functions.exchange(
+  yR2 = Buildings.Utilities.IO.Python27.Functions.exchange(
     moduleName="testFunctions",
     functionName="r1_r1PassPythonObject",
     dblWri=yR1,

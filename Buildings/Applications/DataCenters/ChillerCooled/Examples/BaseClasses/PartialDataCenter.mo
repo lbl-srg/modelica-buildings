@@ -346,7 +346,7 @@ equation
       points={{-340,-70},{-328,-70},{-328,-20}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(chiWSE.port_b1, TCWRet.port_a)
