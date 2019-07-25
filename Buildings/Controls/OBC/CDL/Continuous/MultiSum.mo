@@ -31,7 +31,7 @@ equation
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="%k"), Text(
-          extent={{-82,84},{82,-52}},
+          extent={{-82,90},{82,-46}},
           lineColor={0,0,0},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,

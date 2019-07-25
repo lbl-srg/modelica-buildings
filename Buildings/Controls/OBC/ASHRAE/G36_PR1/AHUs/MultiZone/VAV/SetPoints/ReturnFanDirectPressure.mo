@@ -24,11 +24,11 @@ block ReturnFanDirectPressure
     displayUnit="Pa")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
     "Fan on/off signal, true if fan is on"
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
      final unit="Pa",
      displayUnit="Pa",
@@ -152,8 +152,7 @@ equation
   connect(movMea.y, conErr.u1)
     annotation (Line(points={{-108,90},{-100,90}}, color={0,0,127}));
   connect(dpBuiSetPoi.y, conErr.u2)
-    annotation (Line(points={{-108,60},{-100,60},{-100,84}},
-                                                           color={0,0,127}));
+    annotation (Line(points={{-108,60},{-88,60},{-88,78}}, color={0,0,127}));
   connect(conErr.y, gaiNor.u)
     annotation (Line(points={{-76,90},{-68,90}}, color={0,0,127}));
   connect(gaiNor.y, conP.u_s)

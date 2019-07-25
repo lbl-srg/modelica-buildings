@@ -15,10 +15,10 @@ block ExhaustDamper
     displayUnit="Pa")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-120,-50},{-80,-10}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDamPos(
      final unit="1",
      min=0,
