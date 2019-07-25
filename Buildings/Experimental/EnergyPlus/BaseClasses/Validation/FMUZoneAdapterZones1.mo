@@ -17,52 +17,52 @@ model FMUZoneAdapterZones1
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     final nFluPor=2) "Adapter to EnergyPlus"
-    annotation (Placement(transformation(extent={{20,24},{40,44}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Sources.RealExpression X_w(y=0.01) "Zone absolute humidity"
-    annotation (Placement(transformation(extent={{-88,44},{-68,64}})));
+    annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
   Modelica.Blocks.Sources.RealExpression mIn_flow(y=0) "Inlet mass flow rate"
-    annotation (Placement(transformation(extent={{-88,24},{-68,44}})));
+    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   Modelica.Blocks.Math.Gain mOut_flow(k=-1) "Outlet mass flow rate"
-    annotation (Placement(transformation(extent={{-48,0},{-28,20}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Blocks.Sources.RealExpression TIn[2](
     each y=293.15) "Inlet temperature"
-    annotation (Placement(transformation(extent={{-88,-20},{-68,0}})));
+    annotation (Placement(transformation(extent={{-90,-28},{-70,-8}})));
   Modelica.Blocks.Sources.RealExpression QGaiRad_flow(
     y=0) "Radiative heat gain for the zone"
-    annotation (Placement(transformation(extent={{-88,-46},{-68,-26}})));
+    annotation (Placement(transformation(extent={{-88,-50},{-68,-30}})));
   Modelica.Blocks.Continuous.Integrator TZonCor(
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
     y(final unit="K", displayUnit="degC")) "Zone air temperature"
-    annotation (Placement(transformation(extent={{58,26},{78,46}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
-  connect(X_w.y, fmuZonCor.X_w) annotation (Line(points={{-67,54},{0,54},{0,38},
-          {18,38}},   color={0,0,127}));
-  connect(fmuZonCor.m_flow[1], mIn_flow.y) annotation (Line(points={{18,33},{-24,
-          33},{-24,34},{-67,34}},   color={0,0,127}));
-  connect(mOut_flow.u, mIn_flow.y) annotation (Line(points={{-50,10},{-60,10},{
-          -60,34},{-67,34}},color={0,0,127}));
-  connect(mOut_flow.y, fmuZonCor.m_flow[2]) annotation (Line(points={{-27,10},{
-          -10,10},{-10,35},{18,35}},
-                                   color={0,0,127}));
-  connect(TIn.y, fmuZonCor.TInlet) annotation (Line(points={{-67,-10},{6,-10},{
-          6,30},{18,30}}, color={0,0,127}));
-  connect(fmuZonCor.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{18,26},
-          {10,26},{10,-36},{-67,-36}},   color={0,0,127}));
+  connect(X_w.y, fmuZonCor.X_w) annotation (Line(points={{-69,50},{0,50},{0,34},
+          {18,34}},   color={0,0,127}));
+  connect(fmuZonCor.m_flow[1], mIn_flow.y) annotation (Line(points={{18,29},{-4,
+          29},{-4,10},{-69,10}},    color={0,0,127}));
+  connect(mOut_flow.u, mIn_flow.y) annotation (Line(points={{-42,30},{-60,30},{-60,
+          10},{-69,10}},    color={0,0,127}));
+  connect(mOut_flow.y, fmuZonCor.m_flow[2]) annotation (Line(points={{-19,30},{-10,
+          30},{-10,31},{18,31}},   color={0,0,127}));
+  connect(TIn.y, fmuZonCor.TInlet) annotation (Line(points={{-69,-18},{6,-18},{6,
+          26},{18,26}},   color={0,0,127}));
+  connect(fmuZonCor.QGaiRad_flow, QGaiRad_flow.y) annotation (Line(points={{18,22},
+          {10,22},{10,-40},{-67,-40}},   color={0,0,127}));
   connect(TZonCor.y, fmuZonCor.T)
-    annotation (Line(points={{79,36},{88,36},{88,60},{8,60},{8,42},{18,42}},
+    annotation (Line(points={{81,30},{88,30},{88,60},{8,60},{8,38},{18,38}},
                                                              color={0,0,127}));
   connect(fmuZonCor.QCon_flow, TZonCor.u)
-    annotation (Line(points={{41,36},{56,36}},  color={0,0,127}));
+    annotation (Line(points={{41,32},{48,32},{48,30},{58,30}},
+                                                color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Validation model that communicates with an FMU that emulates simple thermal zones.
 All thermal zones are identical.
 </p>
 <p>
-This test is done to validate the FMI API, using a FMU that is generated from JModelica
-rather than EnergyPlus.
+This test is done to validate the FMI API, using an FMU 2.0 for Model Exchange, compiled
+for Linux 64 bit by JModelica.
 </p>
 </html>", revisions="<html>
 <ul><li>
