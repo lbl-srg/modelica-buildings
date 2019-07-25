@@ -82,12 +82,12 @@ First implementation.
 
   record EnergyPlusAbsorptionChiller =
     Buildings.Fluid.Chillers.Data.AbsorptionIndirect.Generic (
-     QEva_flow_nominal=-10000,
+     QEva_flow_nominal=-8200,
      P_nominal=150,
      PLRMax=1,
      PLRMin=0.15,
-     mEva_flow_nominal=0.2,
-     mCon_flow_nominal=1.1,
+     mEva_flow_nominal=0.247,
+     mCon_flow_nominal=1.09,
      capFunEva={0.690571,0.065571,-0.00289,0},
      capFunCon={0.245507,0.023614,0.0000278,0.000013},
      GenHIR={0.18892,0.968044,1.119202,-0.5034},

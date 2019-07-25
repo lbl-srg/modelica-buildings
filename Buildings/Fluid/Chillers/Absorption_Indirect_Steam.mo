@@ -33,8 +33,7 @@ model Absorption_Indirect_Steam
    "Nominal mass flow at Evaorator"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate Q_flow_small = -per.QEva_flow_nominal*1E-9
-    "Small value for heat flow rate or power, used to avoid division by zero";
-
+   "Small value for heat flow rate or power, used to avoid division by zero";
   BaseClasses.AbsorptionIndirect absBlo(per=per)
    "Absorption indirect chiller equations block"
     annotation (Placement(transformation(extent={{-98,-4},{-78,16}})));
@@ -44,6 +43,7 @@ model Absorption_Indirect_Steam
        T=TEvaSet,
        X=cat( 1,port_b2.Xi_outflow,{1 - sum(port_b2.Xi_outflow)}))
     "Chilled water setpoint enthalpy";
+
   Modelica.Blocks.Interfaces.BooleanInput on
    "Chiller turn On/off inout signal "
     annotation (Placement(transformation(extent={{-168,-8},{-140,20}}),
@@ -68,7 +68,7 @@ model Absorption_Indirect_Steam
     annotation (Placement(transformation(extent={{100,-16},{120,4}}),
         iconTransformation(extent={{100,10},{120,30}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow "Evaporator heat flow "
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
+    annotation (Placement(transformation(extent={{100,-46},{120,-26}}),
         iconTransformation(extent={{100,-96},{120,-76}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow "Condenser heat flow "
     annotation (Placement(transformation(extent={{100,18},{120,38}}),
@@ -83,6 +83,9 @@ model Absorption_Indirect_Steam
   Modelica.Blocks.Sources.RealExpression TConLvg(y=vol1.heatPort.T)
     "Condenser leaving water temperature"
     annotation (Placement(transformation(extent={{-138,20},{-118,40}})));
+  Modelica.Blocks.Interfaces.RealOutput mSte "Generator steam mass flow rate "
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
+        iconTransformation(extent={{100,10},{120,30}})));
 protected
   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate for the condenser"
@@ -105,14 +108,14 @@ equation
     annotation (Line(points={{-77,14},{90,14},
           {90,28},{110,28}}, color={0,0,127}));
   connect(absBlo.QEva_flow, preHeaFloEva.Q_flow)
-    annotation (Line(points={{-77,0.2},
-          {-68,0.2},{-68,-42},{-55,-42}}, color={0,0,127}));
+    annotation (Line(points={{-77,-1.4},{-68,-1.4},{-68,-42},{-55,-42}},
+                                          color={0,0,127}));
   connect(preHeaFloEva.port, vol2.heatPort)
     annotation (Line(points={{-35,-42},{ -16,-42},{-16,-60},{12,-60}},
                                   color={191,0,0}));
   connect(absBlo.QEva_flow, QEva_flow)
-    annotation (Line(points={{-77,0.2},{-68,0.2},
-          {-68,-20},{110,-20}}, color={0,0,127}));
+    annotation (Line(points={{-77,-1.4},{-68,-1.4},{-68,-36},{110,-36}},
+                                color={0,0,127}));
   connect(absBlo.QGen_flow, QGen_flow)
     annotation (Line(points={{-77,6},{90,6},{
           90,-6},{110,-6}}, color={0,0,127}));
@@ -130,6 +133,22 @@ equation
                                     color={0,0,127}));
   connect(absBlo.P, P)
     annotation (Line(points={{-77,9.8},{-77,10},{110,10}}, color={0,0,127}));
+    /*
+     QEva_flow_nominal=-10000,
+   P_nominal=150,
+   PLRMax=1,
+   PLRMin=0.15,
+   mEva_flow_nominal=0.4,
+   mCon_flow_nominal=1.1,
+   capFunEva={0.690571,0.065571,-0.00289,0},
+   capFunCon={0.245507,0.023614,0.0000278,0.000013},
+   GenHIR={0.18892,0.968044,1.119202,-0.5034},
+   EIRP={1,0,0},
+   GenConT={0.712019,-0.00478,0.000864,-0.000013},
+   GenEvaT={0.995571,0.046821,-0.01099,0.000608});
+   */
+  connect(absBlo.mSte, mSte) annotation (Line(points={{-77,3},{-58,3},{-58,-20},
+          {110,-20}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                    graphics={
         Rectangle(
@@ -172,7 +191,7 @@ equation
         Line(points={{-22,-66},{-56,-66}}, color={238,46,47}),
         Line(points={{-24,76},{-56,76}}, color={238,46,47}),
         Line(points={{-40,76}}, color={238,46,47})}),
-                                          Diagram(coordinateSystem(extent={{-100,
+                                          Diagram(coordinateSystem(extent={{-140,
             -100},{100,100}})),
             defaultComponentName="absChi",
     Documentation(info="<html>

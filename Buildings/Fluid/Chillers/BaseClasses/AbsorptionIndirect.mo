@@ -8,6 +8,9 @@ block AbsorptionIndirect
      annotation (choicesAllMatching = true,Placement(transformation(extent={{56,74},{76,94}})));
   parameter Modelica.SIunits.HeatFlowRate Q_flow_small = - per.QEva_flow_nominal*1E-9
     "Small value for heat flow rate or power, used to avoid division by zero";
+  parameter Modelica.SIunits.Enthalpy hfg = 2201 "Latent heat of steam at 2 bar absolute pressure";
+  parameter Modelica.SIunits.Temperature TSubCoo = 2 "Sub cooling temperature difference";
+  parameter Modelica.SIunits.SpecificHeatCapacity cpWat=4187 "Specific heat of water";
 
   Modelica.SIunits.Efficiency GenHIR(nominal=1)
    "Ratio of the generator heat input to chiller operating capacity";
@@ -17,15 +20,14 @@ block AbsorptionIndirect
     "Evaporator capacity factor function of temperature curve";
   Real capFunCon(min=0,nominal=1)
    "Condenser capacity factor function of temperature curve";
-  Real GenConT
+  Real GenConT( min=0,nominal=1)
    "Heat input modifier based on the generator input temperature";
-  Real GenEvaT
+  Real GenEvaT(min=0,nominal=1)
    "Heat input modifier based on the evaporator outlet temperature";
   Real PLR(min=0, nominal=1, unit="1")
    "Part load ratio";
   Real CR(min=0, nominal=1, unit="1")
    "Cycling ratio";
-
   Modelica.SIunits.HeatFlowRate QEva_flow_ava
    "Cooling capacity available at the Evaporator";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConEnt_degC
@@ -60,17 +62,20 @@ block AbsorptionIndirect
             50},{120,70}}), iconTransformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(final unit="W")
     "Evaporator heat flow rate" annotation (Placement(transformation(extent={{100,
-            -70},{120,-50}}), iconTransformation(extent={{100,-68},{120,-48}})));
+            -70},{120,-50}}), iconTransformation(extent={{100,-84},{120,-64}})));
   Modelica.Blocks.Interfaces.RealOutput QGen_flow(final unit="W")
-    "Generator heat flow rate" annotation (Placement(transformation(extent={{100,
-            -30},{120,-10}}), iconTransformation(extent={{100,-10},{120,10}})));
+    "Generator heat flow rate" annotation (Placement(transformation(extent={{100,-10},
+            {120,10}}),       iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
    " Chiller pumping power"
-    annotation (Placement(transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{100,28},
+    annotation (Placement(transformation(extent={{100,22},{120,42}}), iconTransformation(extent={{100,28},
             {120,48}})));
-
+  Modelica.Blocks.Interfaces.RealOutput mSte(final unit="kg/s")
+    "Generator steam mass flow rate"
+    annotation (Placement(transformation(
+          extent={{100,-38},{120,-18}}), iconTransformation(extent={{100,-40},{
+            120,-20}})));
 initial equation
-
   assert(per.QEva_flow_nominal < 0,
   "Parameter QEva_flow_nominal must be lesser than zero.");
   assert(Q_flow_small > 0,
@@ -97,9 +102,9 @@ equation
     QEva_flow_ava = per.QEva_flow_nominal*capFunEva*capFunCon;
 
     QEva_flow = Buildings.Utilities.Math.Functions.smoothMax(
-      x1=QEvaFloSet,
-      x2=QEva_flow_ava,
-      deltaX=Q_flow_small/100);
+          x1 = QEvaFloSet,
+          x2 = QEva_flow_ava,
+          deltaX = Q_flow_small/100);
     PLR = Buildings.Utilities.Math.Functions.smoothMin(
                                   x1 =  QEvaFloSet/(QEva_flow_ava - Q_flow_small),
                                   x2 =  per.PLRMax,
@@ -126,21 +131,24 @@ equation
 
     QCon_flow = -QEva_flow + QGen_flow + P;
 
+    mSte= QGen_flow/(hfg+ cpWat *TSubCoo);
+
   else
 
    capFunEva =0;
    capFunCon =0;
    QEva_flow_ava=0;
-    QEva_flow = 0;
+   QEva_flow = 0;
    PLR =0;
    GenHIR =0;
    GenConT =0;
    GenEvaT =0;
    EIRP=0;
    CR =0;
-    QGen_flow = 0;
+   QGen_flow = 0;
    P=0;
-    QCon_flow = 0;
+   QCon_flow = 0;
+   mSte  =0;
 
   end if;
 

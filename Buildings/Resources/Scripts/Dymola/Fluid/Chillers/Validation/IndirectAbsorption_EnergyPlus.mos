@@ -1,7 +1,7 @@
-simulateModel("Buildings.Fluid.Chillers.Validation.IndirectAbsorption_EnergyPlus", method="dassl", tolerance=1e-6, stopTime=151200, resultFile="IndirectAbsorption_EnergyPlus");
+simulateModel("Buildings.Fluid.Chillers.Validation.IndirectAbsorption_EnergyPlus", method="dassl", tolerance=1e-6,startTime=100000, stopTime=151200, resultFile="IndirectAbsorption_EnergyPlus");
 createPlot(id = 1,
    position = {60, 10, 640, 480},
-   y = {"absChi.QCon", "absChi.QEva", "QConEP.y", "QEvaEP.y"},
+   y = {"absChi.QCon_flow", "absChi.QEva_flow", "absChi.QGen_flow","QConEP.y", "QEvaEP.y","QGenEP.y"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,

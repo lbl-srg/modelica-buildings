@@ -45,6 +45,17 @@ model Absorption_Indirect_HotWater
   final parameter Modelica.SIunits.HeatFlowRate Q_flow_small = -QEva_heatflow_nominal*1E-9
     "Small value for heat flow rate or power, used to avoid division by zero";
 
+  /*
+  hot water flow rate
+  parameter Modelica.SIunits.SpecificHeatCapacity cpWat=
+    Medium1.specificHeatCapacityCp(Medium.setState_pTX(
+      p = Medium1.p,
+      T = Medium1.T,
+      X = Medium1.X));
+  */
+
+
+
   BaseClasses.AbsorptionIndirect absBlo(per=per)
    "Absorption indirect chiller equations block"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
@@ -145,7 +156,7 @@ equation
     annotation (Line(points={{-153,61},{-110,61},{-110,38.8},{-101,38.8}},
                                     color={0,0,127}));
   connect(TConEnt.y,absBlo. TConEnt)
-    annotation (Line(points={{-117,34},{-110,34},{-110,33},{-101,33}},
+    annotation (Line(points={{-117,34},{-110,34},{-110,33.4},{-101,33.4}},
                                     color={0,0,127}));
   connect(TEvaLvg.y,absBlo. TEvaLvg)
     annotation (Line(points={{-117,-38},{-110,-38},{-110,22.6},{-101,22.6}},
@@ -154,7 +165,7 @@ equation
     annotation (Line(points={{-117,-20},{-114,-20},{-114,26.6},{-101,26.6}},
                                     color={0,0,127}));
   connect(TConLvg.y, absBlo.TConLvg)
-    annotation (Line(points={{-117,50},{-112,50}, {-112,36},{-101,36}},
+    annotation (Line(points={{-117,50},{-112,50},{-112,37.2},{-101,37.2}},
                                     color={0,0,127}));
   annotation (Icon(graphics={
         Rectangle(
