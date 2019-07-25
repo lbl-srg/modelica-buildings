@@ -28,15 +28,15 @@ model MixingVolumeAdiabaticCooling
       /(if abs(volExa.heatPort.T - 20) < 1E-5 then 1 else (volExa.heatPort.T - 20)))
     "Relative error in the temperature difference"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Sources.FixedBoundary bou(redeclare package Medium = Medium, nPorts=2)
+  Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=2)
     "Fixed pressure boundary condition"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
+
 equation
   connect(volSim.mWat_flow, mWatFlo.y) annotation (Line(points={{18,28},{18,28},
           {-16,28},{-16,80},{-39,80}}, color={0,0,127}));
   connect(volExa.mWat_flow, mWatFlo.y) annotation (Line(points={{18,-20},{18,
-          -20},{-16,-20},{-16,80},{-39,80}},
-                                        color={0,0,127}));
+          -20},{-16,-20},{-16,80},{-39,80}}, color={0,0,127}));
   connect(bou.ports[1], volSim.ports[1])
     annotation (Line(points={{70,2},{30,2},{30,10}}, color={0,127,255}));
   connect(bou.ports[2], volExa.ports[1]) annotation (Line(points={{70,-2},{66,-2},
@@ -56,6 +56,11 @@ two options is less than <i>0.1%</i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 2, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed temperature connection that is no longer needed.<br/>

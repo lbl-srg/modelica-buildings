@@ -104,7 +104,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(theCon1.port_b, vol1.heatPort) annotation (Line(points={{50,120},{50,120},
@@ -113,7 +113,7 @@ equation
           {60,40},{80,40}}, color={191,0,0}));
   connect(TAirOut.T, weaBus.TDryBul) annotation (Line(points={{-32,120},{-40,120},
           {-40,140},{120,140}}, color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TAirOut.port, theCon1.port_a)
@@ -191,11 +191,11 @@ This example demonstrates how to export a model
 that contains two thermal zones with convective heat input from the
 HVAC system only. The thermal zones are connected to an adaptor so that
 they can be coupled
-to an air-based HVAC system. The thermal zone is
+to an air-based HVAC system.
+The thermal zone is
 taken from
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3
-</a>.
+Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </p>
 <p>
 The example extends from
