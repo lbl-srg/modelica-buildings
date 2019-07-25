@@ -692,13 +692,17 @@ is according to ASHRAE Guidline 36 (G36), PART5.N.3.a, PART5.B.2.b,
 PART3.1-D.2.a.
 The calculation is done using the steps below.
 </p>
-
-<h4>Step 1: Minimum breathing zone outdoor airflow required <code>breZon</code></h4>
+<ol>
+<li>
+<p>
+Compute the required breathing zone outdoor airflow <code>breZon</code>
+using the following components.
+</p>
 <ul>
-<li>The area component of the breathing zone outdoor airflow:
+<li>The area component of the breathing zone outdoor airflow,
 <code>breZonAre = AFlo*VOutPerAre_flow</code>.
 </li>
-<li>The population component of the breathing zone outdoor airflow:
+<li>The population component of the breathing zone outdoor airflow,
 <code>breZonPop = occCou*VOutPerPer_flow</code>.
 </li>
 </ul>
@@ -706,127 +710,175 @@ The calculation is done using the steps below.
 The number of occupant <code>occCou</code> in each zone can be retrieved
 directly from occupancy sensor <code>nOcc</code> if the sensor exists
 (<code>have_occSen=true</code>), or using the default occupant density
-<code>occDen</code> to find it <code>AFlo*occDen</code>. The occupant
+<code>occDen</code> and computing <code>AFlo*occDen</code>. The occupant
 density can be found from Table 6.2.2.1 in ASHRAE Standard 62.1-2013.
-For design purpose, use design zone population <code>desZonPop</code> to find
-out the minimum requirement at the ventilation-design condition.
+For design purpose, use the design zone population <code>desZonPop</code> to determine
+the minimum requirement at the ventilation-design condition.
 </p>
-
-<h4>Step 2: Zone air-distribution effectiveness <code>zonDisEff</code></h4>
+</li>
+<li>
 <p>
+Compute the zone air-distribution effectiveness <code>zonDisEff</code>.
 Table 6.2.2.2 in ASHRAE 62.1-2013 lists some typical values for setting the
 effectiveness. Depending on difference between zone space temperature
 <code>TZon</code> and discharge air temperature (after the reheat coil) <code>TDis</code>, Warm-air
 effectiveness <code>zonDisEffHea</code> or Cool-air effectiveness
 <code>zonDisEffCoo</code> should be applied.
 </p>
-
-<h4>Step 3: Minimum required zone outdoor airflow <code>zonOutAirRate</code></h4>
-<p>For each zone in any mode other than occupied mode and for zones that have
-window switches and the window is open, <code>zonOutAirRate</code> shall be
-zero.
+</li>
+<li>
+<p>
+Compute the required zone outdoor airflow <code>zonOutAirRate</code>.
+For each zone in any mode other than occupied mode and for zones that have
+window switches and the window is open, set <code>zonOutAirRate = 0</code>.
 Otherwise, the required zone outdoor airflow <code>zonOutAirRate</code>
 shall be calculated as follows:
 </p>
-<i>If the zone is populated, or if there is no occupancy sensor:</i>
 <ul>
 <li>
-If discharge air temperature at the terminal unit is less than or equal to
-zone space temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffCoo</code>.
-</li>
-<li>
-If discharge air temperature at the terminal unit is greater than zone space
-temperature: <code>zonOutAirRate = (breZonAre+breZonPop)/disEffHea</code>
-</li>
-</ul>
-<i>If the zone has an occupancy sensor and is unpopulated:</i>
+If the zone is populated, or if there is no occupancy sensor:
 <ul>
 <li>
-If discharge air temperature at the terminal unit is less than or equal to
-zone space temperature: <code>zonOutAirRate = breZonAre/disEffCoo</code>
+If the discharge air temperature at the terminal unit is less than or equal to
+the zone space temperature, set <code>zonOutAirRate = (breZonAre+breZonPop)/disEffCoo</code>.
 </li>
 <li>
-If discharge air temperature at the terminal unit is greater than zone
-space temperature: <code>zonOutAirRate = breZonAre/disEffHea</code>
+If the discharge air temperature at the terminal unit is greater than zone space
+temperature, set <code>zonOutAirRate = (breZonAre+breZonPop)/disEffHea</code>.
 </li>
 </ul>
+</li>
+<li>
+If the zone has an occupancy sensor and is unpopulated:
+<ul>
+<li>
+If the discharge air temperature at the terminal unit is less than or equal to
+the zone space temperature, set <code>zonOutAirRate = breZonAre/disEffCoo</code>.
+</li>
+<li>
+If the discharge air temperature at the terminal unit is greater than zone
+space temperature, set <code>zonOutAirRate = breZonAre/disEffHea</code>.
+</li>
+</ul>
+</li>
+</ul>
+</li>
 
-<h4>Step 4: Outdoor air fraction for each zone <code>priOutAirFra</code> </h4>
-The zone outdoor air fraction:
+<li>
+<p>
+Compute the outdoor air fraction for each zone <code>priOutAirFra</code> as follows.
+Set the zone outdoor air fraction to
+</p>
 <pre>
     priOutAirFra = zonOutAirRate/VDis_flow
 </pre>
-where, <code>VDis_flow</code> is measured from zone VAV box.
+<p>
+where, <code>VDis_flow</code> is the measured discharge air flow rate from the zone VAV box.
 For design purpose, the design zone outdoor air fraction <code>desZonPriOutAirRate</code>
-is found by
+is
+</p>
 <pre>
     desZonPriOutAirRate = desZonOutAirRate/minZonFlo
 </pre>
+<p>
 where <code>minZonFlo</code> is the minimum expected zone primary flow rate and
-<code>desZonOutAirRate</code> is required design zone outdoor airflow rate.
-
-<h4>Step 5: Occupancy diversity fraction <code>occDivFra</code></h4>
-For actual system operation, the system population equals the sum of zone population,
-so <code>occDivFra=1</code>. It has no impact on the calculation of uncorrected
+<code>desZonOutAirRate</code> is the required design zone outdoor airflow rate.
+</p>
+</li>
+<li>
+<p>
+Compute the occupancy diversity fraction <code>occDivFra</code>.
+During system operation, the system population equals the sum of the zone population,
+so <code>occDivFra=1</code>. It has no impact on the calculation of the uncorrected
 outdoor airflow <code>sysUncOutAir</code>.
-For design purpose, find <code>occDivFra</code> based on the peak system population
-<code>peaSysPopulation</code> and the sum of design population <code>desZonPopulation</code>
-for all zones:
+For design purpose, compute for all zones
+</p>
 <pre>
     occDivFra = peaSysPopulation/sum(desZonPopulation)
 </pre>
-
-<h4>Step 6: Uncorrected outdoor airflow <code>unCorOutAirInk</code>,
-<code>sysUncOutAir</code></h4>
+<p>
+where
+<code>peaSysPopulation</code> is the peak system population and
+<code>desZonPopulation</code> is the sum of the design population.
+</p>
+</li>
+<li>
+<p>
+Compute the uncorrected outdoor airflow rate <code>unCorOutAirInk</code>,
+<code>sysUncOutAir</code> as
+</p>
 <pre>
-    unCorOutAirInk = occDivFra*sum(breZonPop)+sum(breZonAre)
+    unCorOutAirInk = occDivFra*sum(breZonPop)+sum(breZonAre).
 </pre>
-
-<h4>Step 7: System primary airflow <code>sysPriAirRate</code></h4>
-The system primary airflow equals to the sum of discharge airflow rate measured
+</li>
+<li>
+<p>
+Compute the system primary airflow <code>sysPriAirRate</code>,
+which is equal to the sum of the discharge airflow rate measured
 from each VAV box <code>VDis_flow</code>.
-For design purpose, a highest expected system primary airflow <code>VPriSysMax_floww</code>
-should be applied. It usually is usually estimated with load-diversity factor,
-e.g. 0.7. (Stanke, 2010)
-
-<h4>Step 8: Outdoor air fraction</h4>
-The average outdoor air fraction should be found as following:
+For design purpose, a highest expected system primary airflow <code>VPriSysMax_flow</code>
+should be applied. It usually is estimated with a load-diversity factor of <i>0.7</i>. (Stanke, 2010)
+</p>
+</li>
+<li>
+<p>
+Compute the outdoor air fraction as
+</p>
 <pre>
-    outAirFra = sysUncOutAir/sysPriAirRate
+    outAirFra = sysUncOutAir/sysPriAirRate.
 </pre>
-For design purpose, it should be found as:
+<p>
+For design purpose, use
+</p>
 <pre>
-    aveOutAirFra = unCorOutAirInk/VPriSysMax_floww
+    aveOutAirFra = unCorOutAirInk/VPriSysMax_flow.
 </pre>
-
-<h4>Step 9: Zone ventilation efficiency <code>zonVenEff</code> (for design purpose)</h4>
+</li>
+<li>
+<p>
+Compute the zone ventilation efficiency <code>zonVenEff</code>, for design purpose, as
+</p>
 <pre>
     zonVenEff[i] = 1 + aveOutAirFra + desZonPriOutAirRate[i]
 </pre>
-where the <code>desZonPriOutAirRate</code> is design zone outdoor airflow fraction.
-
-<h4>Step 10: System ventilation efficiency</h4>
-In actual system operation, the system ventilation efficiency <code>sysVenEff</code>:
+<p>
+where the <code>desZonPriOutAirRate</code> is the design zone outdoor airflow fraction.
+</p>
+</li>
+<li>
+<p>
+Compute the system ventilation efficiency.
+During system operation, the system ventilation efficiency <code>sysVenEff</code> is
+</p>
 <pre>
     sysVenEff = 1 + outAirFra + MAX(priOutAirFra[i])
 </pre>
-Design system ventilation efficiency <code>desSysVenEff</code>:
+<p>
+The design system ventilation efficiency <code>desSysVenEff</code> is
+</p>
 <pre>
-    desSysVenEff = MIN(zonVenEff[i])
+    desSysVenEff = min(zonVenEff[i]).
 </pre>
-
-<h4>Step 11: Minimum required system outdoor air intake flow </h4>
+</li>
+<li>
+<p>
+Compute the minimum required system outdoor air intake flow rate.
 The minimum required system outdoor air intake flow should be the uncorrected
 outdoor air intake <code>sysUncOutAir</code> divided by the system ventilation
-efficiency <code>sysVenEff</code>, but should not be larger than the design
-outdoor air rate <code>desOutAirInt</code>.
+efficiency <code>sysVenEff</code>, but it should not be larger than the design
+outdoor air rate <code>desOutAirInt</code>. Hence,
+</p>
 <pre>
-    effMinOutAirInt = MIN(sysUncOutAir/sysVenEff, desOutAirInt)
+    effMinOutAirInt = MIN(sysUncOutAir/sysVenEff, desOutAirInt),
 </pre>
-where the design outdoor air rate <code>desOutAirInt</code> should be:
+<p>
+where the design outdoor air rate <code>desOutAirInt</code> is
+</p>
 <pre>
-    desOutAirInt = unCorOutAirInk/desSysVenEff
+    desOutAirInt = unCorOutAirInk/desSysVenEff.
 </pre>
+</li>
+</ol>
 
 <h4>References</h4>
 <p>
@@ -840,6 +892,10 @@ Stanke, D., 2010. <i>Dynamic Reset for Multiple-Zone Systems.</i> ASHRAE Journal
 
 </html>", revisions="<html>
 <ul>
+<li>
+July 23, 2019, by Michael Wetter:<br/>
+Improved documentation.
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Added missing <code>each</code>.
