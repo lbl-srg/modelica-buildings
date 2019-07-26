@@ -7,10 +7,9 @@ block Ramp "Generate ramp signal"
   parameter Modelica.SIunits.Time startTime=0
     "Output = offset for time < startTime";
 
-  Interfaces.RealOutput y
-    "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+  Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 equation
   y = offset + (if time < startTime then 0 else if time < (startTime +
     duration) then (time - startTime)*height/duration else height);

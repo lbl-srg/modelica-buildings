@@ -465,8 +465,7 @@ class UnitConversionsModeler(object):
             file.write(\
             "    final quantity = \""+x['modelica_quantity']+"\")\n"\
             "    \""+x['quantity'].capitalize()+" in " + from_unit +"\"\n"\
-            "    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),\n"\
-            "      iconTransformation(extent={{-140,-20},{-100,20}})));\n"\
+            "    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));\n"\
             "\n"\
             "  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(\n")
             if to_unit_symbol not in self.custom_units:
@@ -475,8 +474,7 @@ class UnitConversionsModeler(object):
             file.write(\
             "    final quantity = \""+x['modelica_quantity']+"\")\n"\
             "    \""+x['quantity'].capitalize() +" in " + to_unit +"\"\n"\
-            "    annotation (Placement(transformation(extent={{100,-10},{120,10}}),\n"\
-            "      iconTransformation(extent={{100,-10},{120,10}})));\n"\
+            "    annotation (Placement(transformation(extent={{100,-20},{140,20}})));\n"\
             "\n"\
             "protected\n")
             if int(eval(x['adder'])) != 0:
@@ -500,9 +498,9 @@ class UnitConversionsModeler(object):
             file.write(\
             "equation\n"\
             "  connect(u, conv.u)\n"\
-            "    annotation (Line(points={{-60,0},{-12,0}}, color={0,0,127}));\n"\
+            "    annotation (Line(points={{-120,0},{-12,0}},color={0,0,127}));\n"\
             "  connect(conv.y, y)\n"\
-            "    annotation (Line(points={{11,0},{50,0}}, color={0,0,127}));\n"\
+            "    annotation (Line(points={{12,0},{120,0}},color={0,0,127}));\n"\
             "  annotation (\n"\
             "      defaultComponentName = \"" + model_name[0].lower() + model_name[1:]  + "\",\n"\
             "    Icon(graphics={\n"\
@@ -682,17 +680,17 @@ end """+self.package_name+""";
             "\n"\
             "equation\n"\
             "  connect(result.y, add.u2)\n"\
-            "    annotation (Line(points={{1,20},{10,20},{10,44},{18,44}}, color={0,0,127}));\n"\
+            "    annotation (Line(points={{2,20},{10,20},{10,44},{18,44}}, color={0,0,127}));\n"\
             "  connect(result1.y, add1.u2)\n"\
-            "    annotation (Line(points={{1,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));\n"\
+            "    annotation (Line(points={{2,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));\n"\
             "  connect(value1.y,"+to_lower(model_name)+"1.u)\n"\
-            "    annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));\n"\
+            "    annotation (Line(points={{-38,-30},{-22,-30}}, color={0,0,127}));\n"\
             "  connect("+to_lower(model_name)+"1.y, add1.u1)\n"\
-            "    annotation (Line(points={{1,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));\n"\
+            "    annotation (Line(points={{2,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));\n"\
             "  connect("+to_lower(model_name)+".y, add.u1)\n"\
-            "    annotation (Line(points={{1,50},{10,50},{10,56},{18,56}}, color={0,0,127}));\n"\
+            "    annotation (Line(points={{2,50},{10,50},{10,56},{18,56}}, color={0,0,127}));\n"\
             "  connect(value.y,"+to_lower(model_name)+".u)\n"\
-            "    annotation (Line(points={{-39,50}, {-22,50}}, color={0,0,127}));\n"\
+            "    annotation (Line(points={{-38,50}, {-22,50}}, color={0,0,127}));\n"\
             "  annotation (Icon(graphics={\n"\
             "        Ellipse(lineColor = {75,138,73},\n"\
             "                fillColor={255,255,255},\n"\
@@ -773,7 +771,7 @@ end """+self.package_name+""";
             "          pattern=LinePattern.None,\n"\
             "          fillPattern=FillPattern.Solid,\n"\
             "          points={{-58.0,46.0},{42.0,-14.0},{-58.0,-74.0},{-58.0,46.0}})}));\n"\
-            "end Validation;"\
+            "end Validation;\n"\
             )
         else:
             msg = 'Make sure to update the package.order.'
