@@ -47,7 +47,8 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
   saveAppend(buffer, "    \"zones\": [\n", size);
   for(iZon = 0; iZon < bui->nZon; iZon++){
     /* Write zone name */
-    ModelicaFormatMessage("Writing zone data %s.", zones[iZon]->name);
+    if (1 <= FMU_EP_VERBOSITY)
+      ModelicaFormatMessage("Writing zone data %s.\n", zones[iZon]->name);
     saveAppend(buffer, "        { \"name\": \"", size);
     saveAppend(buffer, zones[iZon]->name, size);
     if (iZon < (bui->nZon) - 1)
@@ -181,10 +182,10 @@ void generateFMU(
   struct stat st = {0};
 
   if (2 <= FMU_EP_VERBOSITY)
-    ModelicaFormatMessage("Entered generateFMU with FMUPath = %s.", FMUPath);
+    ModelicaFormatMessage("Entered generateFMU with FMUPath = %s.\n", FMUPath);
 
   if (usePrecompiledFMU){
-    ModelicaFormatMessage("Using pre-compiled FMU %s", precompiledFMUPath);
+    ModelicaFormatMessage("Using pre-compiled FMU %s\n", precompiledFMUPath);
 
     if( access( precompiledFMUPath, F_OK ) == -1 ) {
       ModelicaFormatError("Requested to use fmu '%s' which does not exist.", precompiledFMUPath);
@@ -230,7 +231,7 @@ void generateFMU(
 
   /* Copy or generate the FMU */
   if (2 <= FMU_EP_VERBOSITY)
-    ModelicaFormatMessage("Executing %s", fulCmd);
+    ModelicaFormatMessage("Executing %s\n", fulCmd);
 
   retVal = system(fulCmd);
   /* Check if generated FMU indeed exists */
@@ -346,7 +347,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   char* modelicaBuildingsJsonFile;
 
   if (2 <= FMU_EP_VERBOSITY)
-    ModelicaFormatMessage("Entered ZoneAllocateAndInstantiateBuilding.");
+    ModelicaFormatMessage("Entered ZoneAllocateAndInstantiateBuilding.\n");
 
   /* Write the model structure to the FMU Resources folder so that EnergyPlus can
      read it and set up the data structure.

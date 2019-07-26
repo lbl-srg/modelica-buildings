@@ -124,11 +124,11 @@ void saveAppendJSONElements(char* *buffer, const char* values[], size_t n, size_
 
 void setFMUMode(FMUBuilding* bui, FMUMode mode);
 
-void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char** fmuAbsPat);
+void getSimulationFMUName(const char* idfName, const char* tmpDir, char** fmuAbsPat);
 
-char* getIDFNameWithoutExtension(const char* idfName);
+char* getFileNameWithoutExtension(const char* idfName);
 
-void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam);
+void getSimulationTemporaryDirectory(const char* idfName, char** dirNam);
 
 void incrementBuildings_nFMU();
 void decrementBuildings_nFMU();
@@ -150,6 +150,6 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(
   const char* buildingsLibraryRoot);
 
 FMUBuilding* getBuildingsFMU(size_t iFMU);
-void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam);
+void getSimulationTemporaryDirectory(const char* idfName, char** dirNam);
 
 #endif

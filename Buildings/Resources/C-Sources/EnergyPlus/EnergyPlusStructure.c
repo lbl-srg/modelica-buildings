@@ -164,7 +164,7 @@ void saveAppendJSONElements(
   }
 
 
-void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char* *fmuAbsPat){
+void getSimulationFMUName(const char* idfName, const char* tmpDir, char* *fmuAbsPat){
   size_t lenIDF = strlen(idfName);
   size_t lenTMP = strlen(tmpDir);
   size_t iniLen = 100;
@@ -178,7 +178,7 @@ void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char* *fmuAbs
 
   saveAppend(fmuAbsPat, tmpDir, &iniLen);
   saveAppend(fmuAbsPat, SEPARATOR, &iniLen);
-  idfNamNoExt = getIDFNameWithoutExtension(idfName);
+  idfNamNoExt = getFileNameWithoutExtension(idfName);
   saveAppend(fmuAbsPat, idfNamNoExt, &iniLen);
   saveAppend(fmuAbsPat, ".fmu", &iniLen);
   free(idfNamNoExt);
@@ -187,7 +187,7 @@ void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char* *fmuAbs
 }
 
 
-char * getIDFNameWithoutExtension(const char* idfName){
+char * getFileNameWithoutExtension(const char* idfName){
   char * namWitSla;
   char * nam;
   char * namOnl;
@@ -197,14 +197,14 @@ char * getIDFNameWithoutExtension(const char* idfName){
   namWitSla = strrchr(idfName, '/');
 
   if ( namWitSla == NULL )
-    ModelicaFormatError("Failed to parse idfName '%s'. Expected an absolute path with slash '%s'?", idfName, "/");
+    ModelicaFormatError("Failed to parse file name '%s'. Expected an absolute path with slash '%s'?", idfName, "/");
 
   /* Remove the first slash */
   nam = namWitSla + 1;
   /* Get the extension */
   ext = strrchr(nam, '.');
   if ( ext == NULL )
-    ModelicaFormatError("Failed to parse idfName '%s'. Expected a file extension such as '.idf'?", idfName);
+    ModelicaFormatError("Failed to parse file name '%s'. Expected a file extension such as '.idf'?", idfName);
 
   /* Get the file name without extension */
   lenNam = strlen(nam) - strlen(ext);
@@ -219,7 +219,7 @@ char * getIDFNameWithoutExtension(const char* idfName){
   return namOnl;
 }
 
-void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
+void getSimulationTemporaryDirectory(const char* idfName, char** dirNam){
   /* Return the absolute name of the temporary directory to be used for EnergyPlus
      in the form "/mnt/xxx/tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"
   */
@@ -235,14 +235,14 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
 
 
   /* Prefix for temporary directory */
-  const char* pre = "tmp-eplus-\0";
+  const char* pre = "tmp-simulation-\0";
 
   if (2 <= FMU_EP_VERBOSITY)
-    ModelicaFormatMessage("Entered getEnergyPlusTemporaryDirectory.");
+    ModelicaFormatMessage("Entered getSimulationTemporaryDirectory.\n");
   /* Current directory */
   curDir = malloc(lenCurDir * sizeof(char));
   if (curDir == NULL)
-    ModelicaError("Failed to allocate memory for current working directory in getEnergyPlusTemporaryDirectory.");
+    ModelicaError("Failed to allocate memory for current working directory in getSimulationTemporaryDirectory.");
 
   memset(curDir, '\0', lenCurDir);
 
@@ -254,7 +254,7 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
       }
       curDir = realloc(curDir, lenCurDir * sizeof(char));
       if (curDir == NULL)
-        ModelicaError("Failed to reallocate memory for current working directory in getEnergyPlusTemporaryDirectory.");
+        ModelicaError("Failed to reallocate memory for current working directory in getSimulationTemporaryDirectory.");
       memset(curDir, '\0', lenCurDir);
     }
     else{ /* Other error than insufficient length */
@@ -262,7 +262,7 @@ void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam){
     }
   }
 
-  namOnl = getIDFNameWithoutExtension(idfName);
+  namOnl = getFileNameWithoutExtension(idfName);
   lenNam = strlen(namOnl);
   lenCur = strlen(curDir);
   lenSep = 1;
@@ -394,10 +394,18 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* 
   strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
 
   /* Assign the fmu name */
-  Buildings_FMUS[nFMU]->name = (char*) malloc((strlen(idfName)+1) * sizeof(char));
-  if ( Buildings_FMUS[nFMU]->name == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate fmu name.");
-  strcpy(Buildings_FMUS[nFMU]->name, idfName);
+  if (usePrecompiledFMU){
+    Buildings_FMUS[nFMU]->name = (char*) malloc((strlen(fmuName)+1) * sizeof(char));
+    if ( Buildings_FMUS[nFMU]->name == NULL )
+      ModelicaError("Not enough memory in ZoneAllocate.c. to allocate fmu name.");
+    strcpy(Buildings_FMUS[nFMU]->name, fmuName);
+  }
+  else{
+    Buildings_FMUS[nFMU]->name = (char*) malloc((strlen(idfName)+1) * sizeof(char));
+    if ( Buildings_FMUS[nFMU]->name == NULL )
+      ModelicaError("Not enough memory in ZoneAllocate.c. to allocate fmu name.");
+    strcpy(Buildings_FMUS[nFMU]->name, idfName);
+  }
 
   /* Assign the weather name */
   Buildings_FMUS[nFMU]->weather = (char*) malloc((strlen(weaName)+1) * sizeof(char));
@@ -423,10 +431,9 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* 
   if ( Buildings_FMUS[nFMU]->zones== NULL )
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zones.");
 
-  getEnergyPlusTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
-
-  getEnergyPlusFMUName(idfName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
   if (usePrecompiledFMU){
+    getSimulationTemporaryDirectory(fmuName, &(Buildings_FMUS[nFMU]->tmpDir));
+    getSimulationFMUName(fmuName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
     Buildings_FMUS[nFMU]->usePrecompiledFMU = usePrecompiledFMU;
     /* Copy name of precompiled FMU */
     Buildings_FMUS[nFMU]->precompiledFMUAbsPat = malloc((strlen(fmuName)+1) * sizeof(char));
@@ -438,9 +445,12 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* 
   }
   else{
     /* Use actual EnergyPlus */
+    getSimulationTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
+    getSimulationFMUName(idfName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
     Buildings_FMUS[nFMU]->usePrecompiledFMU = usePrecompiledFMU;
     Buildings_FMUS[nFMU]->precompiledFMUAbsPat = NULL;
   }
+
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir);
 
