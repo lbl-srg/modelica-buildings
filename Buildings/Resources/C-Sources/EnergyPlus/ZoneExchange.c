@@ -86,7 +86,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUZone* zone, double tim
   }
   if (terminateSimulation){
     ModelicaFormatError(
-      "Unexpected value for terminateSimulation in ZoneExchange at t = %.2f for FMU with name %s and zone %s",
+      "FMU requested to terminate simulation at t = %.2f for FMU with name %s and zone %s",
       time, zone->ptrBui->name, zone->name);
   }
   /* Enter the FMU into event mode */
