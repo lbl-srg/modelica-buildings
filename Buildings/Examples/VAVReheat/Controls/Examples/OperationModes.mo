@@ -91,14 +91,14 @@ equation
       points={{120,120},{166,120},{166,60},{-50,60},{-50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TCoiHea.y, controlBus.TCoiHeaOut) annotation (Line(
       points={{-139,-30},{-78,-30},{-78,40},{-50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(controlBus.controlMode, mode.u) annotation (Line(
@@ -106,7 +106,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(modSel.y, switch1.u2) annotation (Line(
@@ -117,7 +117,7 @@ equation
       points={{-139,-70},{-72,-70},{-72,40},{-50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cap.port, temperatureSensor1.port) annotation (Line(
@@ -128,7 +128,7 @@ equation
       points={{120,152},{166,152},{166,60},{-50,60},{-50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRooSetHea.y, PID.u_s)
@@ -168,21 +168,21 @@ equation
       points={{-139,96},{-50,96},{-50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRooSetHea.y, controlBus.TRooSetHea) annotation (Line(
       points={{-139,50},{-100,50},{-100,40},{-50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(occSch.occupied, controlBus.occupied) annotation (Line(
       points={{-139,84},{-50,84},{-50,40}},
       color={255,0,255},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,

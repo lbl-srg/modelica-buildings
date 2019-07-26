@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Heat pump calibration'
-copyright = u'2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory)'
+copyright = u'2012-2019, The Regents of the University of California (through Lawrence Berkeley National Laboratory)'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -216,6 +216,13 @@ html_favicon = os.path.join("..", "..", "..", "..", "..", "..", \
 #html_static_path = [os.path.join("..", "..", "..", "..", "..", "..", \
 #                         "Documentation", "userGuide", "source", "_static")]
 html_static_path = ["_static"]
+
+html_css_files = [
+    'bootstrap.css',
+    'bootstrap-theme.css',
+    'bootstrap_custom.css',
+    'custom.css',
+    'custom-sphinx.css' ]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.

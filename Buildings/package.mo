@@ -139,9 +139,13 @@ its class name ends with the string <code>Beta</code>.
     The following <b style=\"color:blue\">new libraries</b> have been added:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Utilities.IO.SignalExchange
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Package with blocks that can be used
+                          to identify and activate control signal overwrites, and
+                          to identify and read sensor signals. This package is used
+                          by the Building Optimization Performance Test software
+                          <a href=\"https://github.com/ibpsa/project1-boptest\">BOPTEST</a>.
         </td>
         </tr>
     </table>

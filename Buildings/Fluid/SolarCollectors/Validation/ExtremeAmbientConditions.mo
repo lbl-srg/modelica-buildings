@@ -96,52 +96,52 @@ equation
       points={{0,0},{20,0},{20,-30.4}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TAmb.y, weaBus.TDryBul) annotation (Line(points={{-59,80},{-59,80},{0,
           80},{0,0}}, color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(HSol.y, weaBus.HDifHor) annotation (Line(points={{-59,50},{-28,50},{
           -28,0},{0,0}},
                      color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(HSol.y, weaBus.HGloHor) annotation (Line(points={{-59,50},{-28,50},{
           -28,0},{0,0}},
                      color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(const.y, weaBus.solZen) annotation (Line(points={{-59,12},{-28,12},{-28,
           0},{0,0}}, color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(const.y, weaBus.cloTim) annotation (Line(points={{-59,12},{-28,12},{-28,
           0},{0,0}}, color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(solTim.y, weaBus.solTim) annotation (Line(points={{-59,-20},{-28,-20},
           {-28,0},{0,0}}, color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(HSol.y, weaBus.HDirNor) annotation (Line(points={{-59,50},{-28,50},{
           -28,0},{0,0}},
                      color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(solEn.weaBus, weaBus) annotation (Line(
       points={{20,-70.4},{16,-70.4},{16,-70},{12,-70},{12,0},{0,0}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   annotation (
