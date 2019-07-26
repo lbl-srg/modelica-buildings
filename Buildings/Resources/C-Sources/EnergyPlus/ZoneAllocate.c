@@ -170,7 +170,7 @@ void* ZoneAllocate(
         if (strcmp(idfName, fmu->name) == 0){
           /* This is the same FMU as before. */
           if (! zoneIsUnique(fmu, zoneName)){
-            ModelicaFormatError("Modelica model specifies zone %s twice for the FMU %s. Each zone must only be specified once.",
+            ModelicaFormatError("Modelica model specifies zone %s twice for the building %s. Each zone must only be specified once per building.",
             zoneName, fmu->name);
           }
           if (strlen(fmuName) > 0 && strcmp(fmuName, fmu->precompiledFMUAbsPat) != 0){
