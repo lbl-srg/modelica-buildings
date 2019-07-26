@@ -434,7 +434,7 @@ block Controller "Multizone AHU controller that composes subsequences for contro
     final quantity="VolumeFlowRate")
     "Measured outdoor volumetric airflow rate"
     annotation (Placement(transformation(extent={{-240,-120},{-200,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc[numZon] if have_occSen
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nOcc[numZon] if have_occSen
     "Number of occupants"
     annotation (Placement(transformation(extent={{-240,70},{-200,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[numZon](
@@ -670,7 +670,7 @@ equation
       color={0,0,127}));
   connect(outAirSetPoi.nOcc, nOcc)
     annotation (Line(points={{-42,49},{-128,49},{-128,90},{-220,90}},
-      color={0,0,127}));
+      color={255,127,0}));
   connect(outAirSetPoi.TZon, TZon)
     annotation (Line(points={{-42,43},{-132,43},{-132,70},{-220,70}},
       color={0,0,127}));
