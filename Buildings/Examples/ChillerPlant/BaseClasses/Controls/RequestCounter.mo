@@ -1,16 +1,16 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 block RequestCounter "Count the number of actuators that have request"
   extends Modelica.Blocks.Icons.Block annotation (Icon(Text(
-        extent=[-48, 48; 54, -32],
+        extent={{-48,48},{54,-32}},
         style(color=3, rgbcolor={0,0,255}),
-        string="max")));
+        textString="max")));
   parameter Integer nAct "Number of actuators";
   parameter Real uTri "Value to trigger a request from actuator";
   Modelica.Blocks.Interfaces.IntegerOutput nInc
     "Number of actuators requesting control signal increase"
-    annotation (extent=[100, -10; 120, 10]);
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput uAct[nAct] "Input signal from actuators"
-    annotation (extent=[-140, -20; -100, 20]);
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 algorithm
   nInc := 0;
   for i in 1:nAct loop

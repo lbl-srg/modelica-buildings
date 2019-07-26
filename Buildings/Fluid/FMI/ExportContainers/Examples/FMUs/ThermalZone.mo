@@ -80,7 +80,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(theCon.port_b,vol. heatPort)
@@ -91,7 +91,7 @@ equation
                                                             color={191,0,0}));
   connect(TAirOut.T, weaBus.TDryBul) annotation (Line(points={{-32,120},{-40,120},
           {-40,160},{-10,160}}, color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TAirOut.port, theCon.port_a)
