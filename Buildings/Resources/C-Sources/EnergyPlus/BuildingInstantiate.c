@@ -229,7 +229,7 @@ void generateFMU(
   }
 
   /* Copy or generate the FMU */
-  if (3 <= FMU_EP_VERBOSITY)
+  if (2 <= FMU_EP_VERBOSITY)
     ModelicaFormatMessage("Executing %s", fulCmd);
 
   retVal = system(fulCmd);
