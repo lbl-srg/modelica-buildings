@@ -21,7 +21,7 @@ model OneZoneWithControl "Validation model for one zone"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     usePrecompiledFMU=true,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
-    zoneName="Core_NZ",
+    zoneName="Core_ZN",
     nPorts = 2) "South zone"
     annotation (Placement(transformation(extent={{20,20},{60,60}})));
   Fluid.FixedResistances.PressureDrop duc(

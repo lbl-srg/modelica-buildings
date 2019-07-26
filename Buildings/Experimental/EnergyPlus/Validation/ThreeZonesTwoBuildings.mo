@@ -24,7 +24,7 @@ model ThreeZonesTwoBuildings
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     usePrecompiledFMU=true,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
-    zoneName="Core_NZ") "Thermal zone"
+    zoneName="Core_ZN") "Thermal zone"
     annotation (Placement(transformation(extent={{20,40},{60,80}})));
   ThermalZone zon2(
     redeclare package Medium = Medium,
@@ -33,7 +33,7 @@ model ThreeZonesTwoBuildings
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     usePrecompiledFMU=true,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
-    zoneName="Core_NZ") "Thermal zone"
+    zoneName="Core_ZN") "Thermal zone"
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
   ThermalZone zon3(
     redeclare package Medium = Medium,
