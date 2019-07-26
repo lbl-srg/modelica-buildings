@@ -22,7 +22,7 @@ equation
       points={{10,10},{-20,10}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.TDewPoi, TBlaSky.TDewPoi) annotation (Line(
@@ -42,7 +42,7 @@ equation
       points={{10,10},{24,10},{24,22},{38,22}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.TDewPoi, TBlaSkyIrr.TDewPoi) annotation (Line(
@@ -61,7 +61,7 @@ equation
       points={{10,10},{24,10},{24,-18},{38,-18}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
