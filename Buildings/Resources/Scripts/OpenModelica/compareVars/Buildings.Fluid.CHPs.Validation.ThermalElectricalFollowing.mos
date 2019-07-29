@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "dPEleNet.u1",
+    "dPEleNet.u2",
+    "dQGen.u1",
+    "dQGen.u2",
+    "dQWat.u1",
+    "dQWat.u2",
+    "dQLos.u1",
+    "dQLos.u2",
+    "dTWatOut.u1",
+    "dTWatOut.u2",
+    "dTEng.u1",
+    "dTEng.u2"
+  };
