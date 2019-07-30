@@ -134,17 +134,15 @@ void cfdSendStopCommand(void *thread) {
     free(cosim->ffd->temHea);
   }
 
-	if(cosim->para->nSou>0){
-		for(i=0; i<cosim->para->nSou; i++) {
-			if (cosim->para->souName[i] != NULL){
-				free(cosim->para->souName[i]);
-			}
-		}
-	}
-	if (cosim->modelica->sourceHeat != NULL){
-		free(cosim->modelica->sourceHeat);
-	}	
-	
+  if(cosim->para->nSou>0){
+    if (cosim->para->souName != NULL){
+      free(cosim->para->souName);
+    }
+    if (cosim->modelica->sourceHeat != NULL){
+      free(cosim->modelica->sourceHeat);
+    }
+  }
+
   if (cosim->para != NULL){
     free(cosim->para);
   }

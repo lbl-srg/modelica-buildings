@@ -75,12 +75,12 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   cosim->modelica->latentHeat = u[i];
   i++;
 
-	if(cosim->para->Sou){
-		for(j=0; j<cosim->para->nSou; j++) {
-			cosim->modelica->sourceHeat[j] = (REAL) u[i+j];
-		}	
+  if(cosim->para->nSou>0){
+    for(j=0; j<cosim->para->nSou; j++) {
+      cosim->modelica->sourceHeat[j] = u[i+j];
+    }
   }
-	i = i + cosim->para->nSou;
+  i = i + cosim->para->nSou;
 	
   cosim->modelica->p = u[i];
   i++;

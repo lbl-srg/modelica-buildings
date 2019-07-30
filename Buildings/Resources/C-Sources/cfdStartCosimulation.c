@@ -68,14 +68,15 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 
   cosim->para->Sou = haveSource;	
   cosim->para->nSou = nSou;
-  cosim->para->souName = (char**) malloc(nSou*sizeof(char *));
-	cosim->modelica->sourceHeat = (REAL *) malloc(nSou*sizeof(REAL));
-	if(cosim->para->Sou){
-		for(i=0; i<nSou; i++) {
-			cosim->para->souName[i] = (char *)malloc(sizeof(char)*(strlen(sourceName[i])+1));
-			strcpy(cosim->para->souName[i], sourceName[i]);
-		}
-	}	
+
+  if(cosim->para->nSou>0){
+    cosim->para->souName = (char**) malloc(nSou*sizeof(char *));
+    cosim->modelica->sourceHeat = (REAL *) malloc(nSou*sizeof(REAL));
+    for(i=0; i<nSou; i++) {
+      cosim->para->souName[i] = (char *)malloc(sizeof(char)*(strlen(sourceName[i])+1));
+      strcpy(cosim->para->souName[i], sourceName[i]);
+    }
+  }
 	
   nBou = nSur + nPorts;
 
