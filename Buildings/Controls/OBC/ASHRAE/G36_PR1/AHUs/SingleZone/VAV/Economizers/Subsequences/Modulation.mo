@@ -130,7 +130,7 @@ protected
     annotation (Placement(transformation(extent={{-20,48},{0,68}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMinLimSig(final k=0)
     "Minimum control loop signal for the heating coil"
-    annotation (Placement(transformation(extent={{-20,4},{0,24}})));
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 public
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
@@ -139,13 +139,10 @@ public
         transformation(extent={{120,30},{140,50}}), iconTransformation(extent={{
             100,30},{120,50}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMinHeaCoi(final k=0)
-    "Minimal control loop signal for the heating coil"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMaxHeaCoi(final k=1)
+    "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-20,86},{0,106}})));
 equation
-  connect(TSup, uTSup.u_m)
-    annotation (Line(points={{-140,110},{-108,110},{-108,58},{-70,58},{-70,68}},
-                                                             color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
     annotation (Line(points={{81,-40},{94,-40},{94,-40},{106,-40},{106,-40},{130,
           -40}},                                                               color={0,0,127}));
@@ -158,18 +155,8 @@ equation
           {56,0}},      color={0,0,127}));
   connect(uTSup.y, outDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,-40},
           {58,-40}}, color={0,0,127}));
-  connect(uRetDamPosMax,retDamPos. f1)
-    annotation (Line(points={{-140,40},{36,40},{36,4},{56,4}},     color={0,0,127}));
-  connect(uOutDamPosMin, outDamPos.f1)
-    annotation (Line(points={{-140,-70},{32,-70},{32,-36},{58,-36}},               color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1)
     annotation (Line(points={{1,-86},{28,-86},{28,-32},{58,-32}},          color={0,0,127}));
-  connect(THeaSupSet, uTSup.u_s)
-    annotation (Line(points={{-140,80},{-82,80}},           color={0,0,127}));
-  connect(uRetDamPosMin,retDamPos. f2)
-    annotation (Line(points={{-140,0},{-112,0},{-112,-8},{56,-8}}, color={0,0,127}));
-  connect(uOutDamPosMax, outDamPos.f2) annotation (Line(points={{-140,-40},{-42,
-          -40},{-42,-48},{58,-48}},    color={0,0,127}));
   connect(retDamMaxLimSig.y, outDamPos.x2)
     annotation (Line(points={{1,-32},{24,-32},{24,-44},{58,-44}},
                                                                 color={0,0,127}));
@@ -181,14 +168,26 @@ equation
           40},{104,40},{130,40}}, color={0,0,127}));
   connect(HeaCoi.u, retDamPos.u)
     annotation (Line(points={{56,40},{40,40},{40,0},{56,0}}, color={0,0,127}));
-  connect(uMinHeaCoi.y, HeaCoi.x1) annotation (Line(points={{1,96},{44,96},{44,48},
-          {56,48}}, color={0,0,127}));
-  connect(heaCoiMaxLimSig.y, HeaCoi.f1) annotation (Line(points={{1,58},{42,58},
-          {42,44},{56,44}}, color={0,0,127}));
-  connect(heaCoiMinLimSig.y, HeaCoi.f2) annotation (Line(points={{1,14},{24,14},
-          {24,32},{56,32}}, color={0,0,127}));
-  connect(outDamMinLimSig.y, HeaCoi.x2) annotation (Line(points={{1,-86},{28,-86},
-          {28,36},{56,36}}, color={0,0,127}));
+  connect(THeaSupSet, uTSup.u_s)
+    annotation (Line(points={{-140,80},{-82,80}}, color={0,0,127}));
+  connect(TSup, uTSup.u_m) annotation (Line(points={{-140,110},{-106,110},{-106,
+          60},{-70,60},{-70,68}}, color={0,0,127}));
+  connect(heaCoiMinLimSig.y, HeaCoi.f1) annotation (Line(points={{1,20},{28,20},
+          {28,44},{56,44}}, color={0,0,127}));
+  connect(heaCoiMaxLimSig.y, HeaCoi.f2) annotation (Line(points={{1,58},{32,58},
+          {32,32},{56,32}}, color={0,0,127}));
+  connect(retDamMaxLimSig.y, HeaCoi.x1) annotation (Line(points={{1,-32},{24,-32},
+          {24,48},{56,48}}, color={0,0,127}));
+  connect(uMaxHeaCoi.y, HeaCoi.x2) annotation (Line(points={{1,96},{46,96},{46,36},
+          {56,36}}, color={0,0,127}));
+  connect(uOutDamPosMax, outDamPos.f1) annotation (Line(points={{-140,-40},{-98,
+          -40},{-98,-56},{46,-56},{46,-36},{58,-36}}, color={0,0,127}));
+  connect(uOutDamPosMin, outDamPos.f2) annotation (Line(points={{-140,-70},{-94,
+          -70},{-94,-48},{58,-48}}, color={0,0,127}));
+  connect(uRetDamPosMin, retDamPos.f1)
+    annotation (Line(points={{-140,0},{34,0},{34,4},{56,4}}, color={0,0,127}));
+  connect(uRetDamPosMax, retDamPos.f2) annotation (Line(points={{-140,40},{-98,40},
+          {-98,-8},{56,-8}}, color={0,0,127}));
   annotation (
     defaultComponentName = "mod",
     Icon(graphics={
@@ -282,6 +281,10 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/Eco
 
 </html>", revisions="<html>
 <ul>
+<li>
+July 29, 2019, by Kun Zhang:<br/>
+Reimplemented economizer modulation control sequence.
+</li>
 <li>
 October 31, 2018, by David Blum:<br/>
 Added heating coil output.  Addresses issue #1272.
