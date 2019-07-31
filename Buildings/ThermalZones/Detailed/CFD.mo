@@ -46,7 +46,7 @@ model CFD
             "Select CFD input file")));
   parameter Integer nSou(min=0)
     "Number of sources that are connected to CFD input";
-  parameter String sourceName[nSou]
+  parameter String sourceName[nSou]=fill("",nSou)
     "Names of sources as declared in the CFD input file";
   parameter Boolean haveSource
     "Flag, true if the model has at least one source";
