@@ -17,16 +17,16 @@ model Modulation_TSup
     final height=4,
     final offset=TSupSet - 2) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(final k=0.1)
     "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(final k=0.9)
     "Maximum outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMin(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMin(final k=0.1)
     "Minimum return air damper position"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMax(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMax(final k=0.9)
     "Maximum return air damper position"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
@@ -72,6 +72,10 @@ control signals.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 29, 2019, by Kun Zhang:<br/>
+Modified inputs for better representation of results plotting.
+</li>
 <li>
 October 31, 2018, by David Blum:<br/>
 Added heating coil output.  See issue#1272.
