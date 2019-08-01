@@ -154,7 +154,7 @@ equation
     points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
     color={255,204,51},
     thickness=0.5), Text(
-    string="%second",
+    textString="%second",
     index=1,
     extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul)
@@ -162,7 +162,7 @@ equation
     points={{-83,6},{-83,-2},{-38,-2},{-38,-10},{-26,-10}},
     color={255,204,51},
     thickness=0.5), Text(
-    string="%first",
+    textString="%first",
     index=-1,
     extent={{-6,3},{-6,3}}));
   connect(intGai.y[1], perRad.Q_flow)
@@ -239,7 +239,7 @@ equation
     points={{-83,6},{-58,6},{-58,2},{-32,2},{-32,-4},{-26,-4}},
     color={255,204,51},
     thickness=0.5), Text(
-    string="%first",
+    textString="%first",
     index=-1,
     extent={{-6,3},{-6,3}}));
   connect(macConv.port, thermalZoneThreeElements.intGainsConv)
