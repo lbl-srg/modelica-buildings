@@ -28,25 +28,25 @@ block Configurator "Configures chiller staging"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAva[nSta]
     "Stage availability status vector"
-    annotation (Placement(transformation(extent={{220,-50},{240,-30}}),
-      iconTransformation(extent={{100,-80},{120,-60}})));
+    annotation (Placement(transformation(extent={{220,-60},{260,-20}}),
+        iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yTyp[nSta](
     final max=fill(nSta, nSta)) "Chiller stage types vector"
-    annotation (Placement(transformation(extent={{220,-90},{240,-70}}),
-      iconTransformation(extent={{100,-40},{120,-20}})));
+    annotation (Placement(transformation(extent={{220,-100},{260,-60}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesCap[nSta](
     final unit=fill("W", nSta),
     final quantity=fill("Power", nSta)) "Stage design capacities vector"
-    annotation (Placement(transformation(extent={{220,50},{240,70}}),
-      iconTransformation(extent={{100,60},{120,80}})));
+    annotation (Placement(transformation(extent={{220,40},{260,80}}),
+        iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinCap[nSta](
     final unit=fill("W", nSta),
     final quantity=fill("Power", nSta)) "Unload stage capacities vector"
-    annotation (Placement(transformation(extent={{220,10},{240,30}}),
-      iconTransformation(extent={{100,20},{120,40}})));
+    annotation (Placement(transformation(extent={{220,0},{260,40}}),
+        iconTransformation(extent={{100,20},{140,60}})));
 
 protected
   final parameter Integer chiTypMat[nSta, nChi] = {chiTyp[i] for i in 1:nChi, j in 1:nSta}
@@ -98,24 +98,24 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiStaMat[nSta,nChi](
     final k=staMat) "Staging matrix"
-    annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
+    annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staType[nSta,nChi](
     final k=chiTypMat) "Chiller stage type matrix"
-    annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
+    annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nChi]
     "Element-wise product"
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
     final nRow=nSta,
     final nCol=nChi) "Row-wise matrix maximum"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[nSta]
     "Type converter"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sort sort(
     final nin=nSta) "Vector sort"
@@ -144,52 +144,52 @@ protected
     annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
 
 equation
-  connect(chiDesCaps.y, staDesCaps.u) annotation (Line(points={{-179,150},{-142,
+  connect(chiDesCaps.y, staDesCaps.u) annotation (Line(points={{-178,150},{-142,
           150}}, color={0,0,127}));
-  connect(chiMinCaps.y, staMinCaps.u) annotation (Line(points={{-179,110},{-142,
+  connect(chiMinCaps.y, staMinCaps.u) annotation (Line(points={{-178,110},{-142,
           110}}, color={0,0,127}));
   connect(uChiAva, booToRea.u)
     annotation (Line(points={{-240,0},{-202,0}}, color={255,0,255}));
   connect(booToRea.y, sumNumAvaChi.u)
-    annotation (Line(points={{-179,0},{-142,0}}, color={0,0,127}));
-  connect(sumNumChi.y, add2.u1) annotation (Line(points={{-119,60},{-100,60},{-100,
+    annotation (Line(points={{-178,0},{-142,0}}, color={0,0,127}));
+  connect(sumNumChi.y, add2.u1) annotation (Line(points={{-118,60},{-100,60},{-100,
           36},{-82,36}}, color={0,0,127}));
-  connect(sumNumAvaChi.y, add2.u2) annotation (Line(points={{-119,0},{-100.5,0},
+  connect(sumNumAvaChi.y, add2.u2) annotation (Line(points={{-118,0},{-100.5,0},
           {-100.5,24},{-82,24}}, color={0,0,127}));
   connect(add2.y,lesThr. u)
-    annotation (Line(points={{-59,30},{-42,30}}, color={0,0,127}));
-  connect(lesThr.y, yAva) annotation (Line(points={{-19,30},{60,30},{60,-40},{230,
+    annotation (Line(points={{-58,30},{-42,30}}, color={0,0,127}));
+  connect(lesThr.y, yAva) annotation (Line(points={{-18,30},{60,30},{60,-40},{240,
           -40}},color={255,0,255}));
-  connect(chiStaMat.y,pro. u2) annotation (Line(points={{-179,-130},{-160,-130},
-          {-160,-96},{-142,-96}},   color={0,0,127}));
+  connect(chiStaMat.y,pro. u2) annotation (Line(points={{-178,-120},{-160,-120},
+          {-160,-86},{-142,-86}},   color={0,0,127}));
   connect(pro.y,matMax. u)
-    annotation (Line(points={{-119,-90},{-102,-90}}, color={0,0,127}));
+    annotation (Line(points={{-118,-80},{-102,-80}}, color={0,0,127}));
   connect(matMax.y,reaToInt. u)
-    annotation (Line(points={{-79,-90},{-62,-90}}, color={0,0,127}));
-  connect(reaToInt.y, yTyp) annotation (Line(points={{-39,-90},{90,-90},{90,-80},
-          {230,-80}}, color={255,127,0}));
-  connect(reaToInt.y, intToRea1.u) annotation (Line(points={{-39,-90},{-28,-90},
+    annotation (Line(points={{-78,-80},{-62,-80}}, color={0,0,127}));
+  connect(reaToInt.y, yTyp) annotation (Line(points={{-38,-80},{240,-80}},
+                      color={255,127,0}));
+  connect(reaToInt.y, intToRea1.u) annotation (Line(points={{-38,-80},{-28,-80},
           {-28,-130},{-22,-130}},color={255,127,0}));
   connect(intToRea1.y, sort.u)
-    annotation (Line(points={{1,-130},{18,-130}},  color={0,0,127}));
+    annotation (Line(points={{2,-130},{18,-130}},  color={0,0,127}));
   connect(sort.y, reaToInt1.u)
-    annotation (Line(points={{41,-130},{58,-130}},   color={0,0,127}));
-  connect(reaToInt.y,intEqu. u1) annotation (Line(points={{-39,-90},{90,-90},{90,
+    annotation (Line(points={{42,-130},{58,-130}},   color={0,0,127}));
+  connect(reaToInt.y,intEqu. u1) annotation (Line(points={{-38,-80},{90,-80},{90,
           -110},{98,-110}},      color={255,127,0}));
-  connect(reaToInt1.y,intEqu. u2) annotation (Line(points={{81,-130},{90,-130},{
+  connect(reaToInt1.y,intEqu. u2) annotation (Line(points={{82,-130},{90,-130},{
           90,-118},{98,-118}},    color={255,127,0}));
   connect(mulAnd.y, assMes.u)
-    annotation (Line(points={{161.7,-110},{178,-110}},color={255,0,255}));
-  connect(intEqu.y, mulAnd.u) annotation (Line(points={{121,-110},{138,-110}},
+    annotation (Line(points={{162,-110},{178,-110}},  color={255,0,255}));
+  connect(intEqu.y, mulAnd.u) annotation (Line(points={{122,-110},{138,-110}},
     color={255,0,255}));
-  connect(staType.y, pro.u1) annotation (Line(points={{-179,-70},{-160,-70},{-160,
-          -84},{-142,-84}},color={0,0,127}));
-  connect(staDesCaps.y, yDesCap) annotation (Line(points={{-119,150},{100,150},{
-          100,60},{230,60}}, color={0,0,127}));
-  connect(staMinCaps.y, yMinCap) annotation (Line(points={{-119,110},{80,110},{80,
-          20},{230,20}}, color={0,0,127}));
+  connect(staType.y, pro.u1) annotation (Line(points={{-178,-60},{-160,-60},{-160,
+          -74},{-142,-74}},color={0,0,127}));
+  connect(staDesCaps.y, yDesCap) annotation (Line(points={{-118,150},{100,150},{
+          100,60},{240,60}}, color={0,0,127}));
+  connect(staMinCaps.y, yMinCap) annotation (Line(points={{-118,110},{80,110},{80,
+          20},{240,20}}, color={0,0,127}));
   connect(oneVec.y, sumNumChi.u)
-    annotation (Line(points={{-179,60},{-142,60}}, color={0,0,127}));
+    annotation (Line(points={{-178,60},{-142,60}}, color={0,0,127}));
   annotation (defaultComponentName = "conf",
         Icon(graphics={
         Rectangle(

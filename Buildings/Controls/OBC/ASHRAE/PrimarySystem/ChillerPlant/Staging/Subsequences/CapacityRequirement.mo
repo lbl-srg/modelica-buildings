@@ -16,33 +16,33 @@ block CapacityRequirement
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "Stage change process status, true = on, false = off"
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
-      iconTransformation(extent={{-120,80},{-100,100}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,10},{-140,50}}),
-    iconTransformation(extent={{-120,20},{-100,40}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-180,-50},{-140,-10}}),
-      iconTransformation(extent={{-120,-40},{-100,-20}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-180,-130},{-140,-90}}),
-      iconTransformation(extent={{-120,-100},{-100,-80}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity="Power",
     final unit="W") "Chilled water cooling capacity requirement"
-    annotation (Placement(transformation(extent={{140,100},{160,120}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{140,90},{180,130}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
@@ -100,40 +100,40 @@ equation
           -6},{-122,-6}},color={0,0,127}));
   connect(add2.u1, TChiWatSupSet) annotation (Line(points={{-122,6},{-130,6},{-130,
           30},{-160,30}}, color={0,0,127}));
-  connect(add2.y, pro.u1) annotation (Line(points={{-99,0},{10,0},{10,-44},{18,-44}},
+  connect(add2.y, pro.u1) annotation (Line(points={{-98,0},{10,0},{10,-44},{18,-44}},
                   color={0,0,127}));
   connect(pro.y, movMea.u)
-    annotation (Line(points={{41,-50},{58,-50}}, color={0,0,127}));
-  connect(speHeaCap.y, pro1.u2) annotation (Line(points={{-99,-130},{-90,-130},{
+    annotation (Line(points={{42,-50},{58,-50}}, color={0,0,127}));
+  connect(speHeaCap.y, pro1.u2) annotation (Line(points={{-98,-130},{-90,-130},{
           -90,-106},{-82,-106}}, color={0,0,127}));
-  connect(pro1.y, pro2.u2) annotation (Line(points={{-59,-100},{-50,-100},{-50,-66},
+  connect(pro1.y, pro2.u2) annotation (Line(points={{-58,-100},{-50,-100},{-50,-66},
           {-22,-66}}, color={0,0,127}));
-  connect(pro.u2, pro2.y) annotation (Line(points={{18,-56},{10,-56},{10,-60},{1,
+  connect(pro.u2, pro2.y) annotation (Line(points={{18,-56},{10,-56},{10,-60},{2,
           -60}}, color={0,0,127}));
   connect(pro1.u1, density.y) annotation (Line(points={{-82,-94},{-90,-94},{-90,
-          -80},{-99,-80}}, color={0,0,127}));
+          -80},{-98,-80}}, color={0,0,127}));
   connect(VChiWat_flow, pro2.u1) annotation (Line(points={{-160,-110},{-130,-110},
           {-130,-54},{-22,-54}}, color={0,0,127}));
-  connect(max.u1, minLim.y) annotation (Line(points={{98,-44},{90,-44},{90,0},{81,
+  connect(max.u1, minLim.y) annotation (Line(points={{98,-44},{90,-44},{90,0},{82,
           0}},  color={0,0,127}));
-  connect(movMea.y, max.u2) annotation (Line(points={{81,-50},{90,-50},{90,-56},
+  connect(movMea.y, max.u2) annotation (Line(points={{82,-50},{90,-50},{90,-56},
           {98,-56}}, color={0,0,127}));
-  connect(max.y, triSam.u) annotation (Line(points={{121,-50},{128,-50},{128,30},
+  connect(max.y, triSam.u) annotation (Line(points={{122,-50},{128,-50},{128,30},
           {-60,30},{-60,110},{-42,110}}, color={0,0,127}));
   connect(chaPro, edg.u)
     annotation (Line(points={{-160,90},{-122,90}}, color={255,0,255}));
-  connect(edg.y, triSam.trigger) annotation (Line(points={{-99,90},{-30,90},{-30,
+  connect(edg.y, triSam.trigger) annotation (Line(points={{-98,90},{-30,90},{-30,
           98.2}}, color={255,0,255}));
-  connect(triSam.y, swi.u1) annotation (Line(points={{-19,110},{10,110},{10,118},
+  connect(triSam.y, swi.u1) annotation (Line(points={{-18,110},{10,110},{10,118},
           {38,118}}, color={0,0,127}));
-  connect(max.y, swi.u3) annotation (Line(points={{121,-50},{128,-50},{128,80},{
+  connect(max.y, swi.u3) annotation (Line(points={{122,-50},{128,-50},{128,80},{
           28,80},{28,102},{38,102}}, color={0,0,127}));
   connect(swi.y, y)
-    annotation (Line(points={{61,110},{150,110}}, color={0,0,127}));
-  connect(truFalHol.y, swi.u2) annotation (Line(points={{-19,60},{20,60},{20,110},
+    annotation (Line(points={{62,110},{160,110}}, color={0,0,127}));
+  connect(truFalHol.y, swi.u2) annotation (Line(points={{-18,60},{20,60},{20,110},
           {38,110}}, color={255,0,255}));
   connect(chaPro, truFalHol.u) annotation (Line(points={{-160,90},{-130,90},{-130,
-          60},{-41,60}}, color={255,0,255}));
+          60},{-42,60}}, color={255,0,255}));
   annotation (defaultComponentName = "capReq",
         Icon(graphics={
         Rectangle(
