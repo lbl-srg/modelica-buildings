@@ -1,13 +1,13 @@
 compareVars :=
   {
-    "chiWatPlaRes.triRes.y",
-    "chiWatPlaRes.yChiWatPlaRes",
-    "chiWatPlaRes.uStaCha",
-    "chiWatPlaRes.triSam.y",
-    "chiWatPlaRes.truHol.y",
-    "chiWatPlaRes1.triRes.y",
-    "chiWatPlaRes1.yChiWatPlaRes",
-    "chiWatPlaRes1.TChiWatSupResReq",
-    "chiWatPlaRes1.uStaCha",
-    "chiWatPlaRes1.triRes.uDevSta"
+    "plaRes.triRes.y",
+    "plaRes.yChiWatPlaRes",
+    "plaRes.uStaCha",
+    "plaRes.triSam.y",
+    "plaRes.truHol.y",
+    "devRes.triRes.y",
+    "devRes.yChiWatPlaRes",
+    "devRes.TChiWatSupResReq",
+    "devRes.uStaCha",
+    "devRes.triRes.uDevSta"
   };
