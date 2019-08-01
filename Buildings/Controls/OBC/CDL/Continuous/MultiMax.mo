@@ -6,8 +6,8 @@ block MultiMax "Output the maximum element of the input vector"
   Interfaces.RealInput u[nin] "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
   Interfaces.RealOutput y "Connector of Real output signals"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 equation
   y = max(u);
 

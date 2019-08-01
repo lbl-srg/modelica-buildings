@@ -5,15 +5,13 @@ block To_degC "Block that converts temperature from kelvin to degree Celsius"
     final unit = "K",
     final quantity = "ThermodynamicTemperature")
     "Temperature in kelvin"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit = "degC",
     final quantity = "ThermodynamicTemperature")
     "Temperature in degree Celsius"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   constant Real k = 1. "Multiplier";
@@ -26,9 +24,9 @@ protected
 
 equation
   connect(u, conv.u)
-    annotation (Line(points={{-60,0},{-12,0}}, color={0,0,127}));
+    annotation (Line(points={{-120,0},{-12,0}},color={0,0,127}));
   connect(conv.y, y)
-    annotation (Line(points={{11,0},{50,0}}, color={0,0,127}));
+    annotation (Line(points={{12,0},{120,0}},color={0,0,127}));
   annotation (
       defaultComponentName = "to_degC",
     Icon(graphics={

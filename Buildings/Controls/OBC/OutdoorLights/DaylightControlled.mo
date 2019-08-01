@@ -8,7 +8,7 @@ block DaylightControlled "Controlling the outdoor lighting based on whether the 
     final min = 0,
     final max = 1,
     unit="1") "Output true if lights should be on"
-   annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+   annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   CDL.Utilities.SunRiseSet sunRiseSet(
@@ -22,12 +22,12 @@ protected
    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
-  connect(sunRiseSet.sunUp, not1.u) annotation (Line(points={{-59,-6},{-34,-6},{
+  connect(sunRiseSet.sunUp, not1.u) annotation (Line(points={{-58,-6},{-34,-6},{
           -34,0},{-22,0}}, color={255,0,255}));
   connect(not1.y, booToRea.u)
-    annotation (Line(points={{1,0},{38,0}}, color={255,0,255}));
+    annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
   connect(booToRea.y, y)
-    annotation (Line(points={{61,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
 annotation (
 defaultComponentName="dayCon",
 Documentation(

@@ -33,37 +33,37 @@ block OutsideAirFlow
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
        have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
-      iconTransformation(extent={{-120,70},{-100,90}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     displayUnit="degC",
     quantity="ThermodynamicTemperature") "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
-      iconTransformation(extent={{-120,30},{-100,50}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
     displayUnit="degC",
     quantity="ThermodynamicTemperature") "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-      iconTransformation(extent={{-120,-10},{-100,10}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
-    iconTransformation(extent={{-120,-90},{-100,-70}})));
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status, true if on, false if off"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-      iconTransformation(extent={{-120,-70},{-100,-50}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
-      iconTransformation(extent={{-120,-50},{-100,-30}})));
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VOutMinSet_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Effective minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Add breZon "Breathing zone airflow"
@@ -138,44 +138,44 @@ protected
 
 equation
   connect(breZonAre.y, breZon.u1)
-    annotation (Line(points={{-39,100},{-30,100},{-30,86},{-22,86}},
+    annotation (Line(points={{-38,100},{-30,100},{-30,86},{-22,86}},
       color={0,0,127}));
   connect(gai.y, swi.u1)
-    annotation (Line(points={{-139,160},{-70,160},{-70,56},{-62,56}},
+    annotation (Line(points={{-138,160},{-70,160},{-70,56},{-62,56}},
       color={0,0,127}));
   connect(breZonPop.y, swi.u3)
-    annotation (Line(points={{-79,30},{-70,30},{-70,40},{-62,40}},
+    annotation (Line(points={{-78,30},{-70,30},{-70,40},{-62,40}},
       color={0,0,127}));
   connect(swi.y, breZon.u2)
-    annotation (Line(points={{-39,48},{-30,48},{-30,74},{-22,74}},
+    annotation (Line(points={{-38,48},{-30,48},{-30,74},{-22,74}},
       color={0,0,127}));
   connect(disEffCoo.y, swi1.u1)
-    annotation (Line(points={{-79,-20},{-60,-20},{-60,-52},{-42,-52}},
+    annotation (Line(points={{-78,-20},{-60,-20},{-60,-52},{-42,-52}},
       color={0,0,127}));
   connect(disEffHea.y, swi1.u3)
-    annotation (Line(points={{-79,-90},{-60,-90},{-60,-68},{-42,-68}},
+    annotation (Line(points={{-78,-90},{-60,-90},{-60,-68},{-42,-68}},
       color={0,0,127}));
   connect(breZon.y, zonOutAirRate.u1)
-    annotation (Line(points={{1,80},{10,80},{10,36},{18,36}},
+    annotation (Line(points={{2,80},{10,80},{10,36},{18,36}},
       color={0,0,127}));
   connect(swi1.y, zonOutAirRate.u2)
-    annotation (Line(points={{-19,-60},{10,-60},{10,24},{18,24}},
+    annotation (Line(points={{-18,-60},{10,-60},{10,24},{18,24}},
       color={0,0,127}));
   connect(uWin, swi2.u2)
     annotation (Line(points={{-220,10},{-190,10},{78,10}}, color={255,0,255}));
   connect(zerOutAir.y, swi2.u1)
-    annotation (Line(points={{41,-30},{60,-30},{60,2},{78,2}},
+    annotation (Line(points={{42,-30},{60,-30},{60,2},{78,2}},
       color={0,0,127}));
   connect(zonOutAirRate.y, swi2.u3)
-    annotation (Line(points={{41,30},{60,30},{60,18},{78,18}},
+    annotation (Line(points={{42,30},{60,30},{60,18},{78,18}},
       color={0,0,127}));
   connect(swi.u2, occSen.y)
-    annotation (Line(points={{-62,48},{-76,48},{-76,50},{-139,50}},
+    annotation (Line(points={{-62,48},{-76,48},{-76,50},{-138,50}},
       color={255,0,255}));
   connect(nOcc, gai.u)
     annotation (Line(points={{-220,160},{-162,160}}, color={0,0,127}));
   connect(swi3.y, VOutMinSet_flow)
-    annotation (Line(points={{161,10},{180,10},{180,0},{220,0}}, color={0,0,127}));
+    annotation (Line(points={{162,10},{180,10},{180,0},{220,0}}, color={0,0,127}));
   connect(TZon, add2.u1)
     annotation (Line(points={{-220,-40},{-200,-40},{-180,-40},{-180,-54},
       {-162,-54}}, color={0,0,127}));
@@ -183,29 +183,29 @@ equation
     annotation (Line(points={{-220,-80},{-180,-80},{-180,-66}, {-162,-66}},
       color={0,0,127}));
   connect(add2.y, hys.u)
-    annotation (Line(points={{-139,-60},{-102,-60},{-102,-60}},
+    annotation (Line(points={{-138,-60},{-102,-60},{-102,-60}},
         color={0,0,127}));
   connect(hys.y, swi1.u2)
-    annotation (Line(points={{-79,-60},{-42,-60},{-42,-60}},
+    annotation (Line(points={{-78,-60},{-42,-60},{-42,-60}},
         color={255,0,255}));
   connect(swi2.y, swi3.u3)
-    annotation (Line(points={{101,10},{120,10},{120,2},{138,2}}, color={0,0,127}));
+    annotation (Line(points={{102,10},{120,10},{120,2},{138,2}}, color={0,0,127}));
   connect(zerOutAir.y, swi3.u1)
-    annotation (Line(points={{41,-30},{110,-30},{110,18},{138,18}}, color={0,0,127}));
+    annotation (Line(points={{42,-30},{110,-30},{110,18},{138,18}}, color={0,0,127}));
   connect(and1.y, not1.u)
-    annotation (Line(points={{-39,-120},{-30.5,-120},{-22,-120}}, color={255,0,255}));
+    annotation (Line(points={{-38,-120},{-38,-120},{-22,-120}},   color={255,0,255}));
   connect(not1.y, swi3.u2)
-    annotation (Line(points={{1,-120},{130,-120},{130,10},{138,10}}, color={255,0,255}));
+    annotation (Line(points={{2,-120},{130,-120},{130,10},{138,10}}, color={255,0,255}));
   connect(uSupFan, and1.u1)
     annotation (Line(points={{-220,-120},{-62,-120}}, color={255,0,255}));
   connect(intEqu1.y, and1.u2)
-    annotation (Line(points={{-119,-150},{-90,-150},{-90,-128},{-62,-128}}, color={255,0,255}));
+    annotation (Line(points={{-118,-150},{-90,-150},{-90,-128},{-62,-128}}, color={255,0,255}));
   connect(uOpeMod, intEqu1.u1)
     annotation (Line(points={{-220,-150},{-142,-150},{-142,-150}}, color={255,127,0}));
   connect(occMod.y, intEqu1.u2)
-    annotation (Line(points={{-159,-170},{-150,-170},{-150,-158},{-142,-158}}, color={255,127,0}));
+    annotation (Line(points={{-158,-170},{-150,-170},{-150,-158},{-142,-158}}, color={255,127,0}));
   connect(swi.u1, zerOcc.y)
-    annotation (Line(points={{-62,56},{-70,56},{-70,90},{-139,90}}, color={0,0,127}));
+    annotation (Line(points={{-62,56},{-70,56},{-70,90},{-138,90}}, color={0,0,127}));
 
 annotation (
 defaultComponentName="outAirSetPoi",
