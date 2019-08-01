@@ -9,11 +9,12 @@ block TrueFalseHold "Block that holds an output signal for at least a specified 
 
   Interfaces.BooleanInput u "Boolean input signal"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.BooleanOutput y "Boolean output signal"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
 protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay onDel1(
     delayTime=falseHoldDuration)
@@ -55,7 +56,7 @@ equation
   connect(outputTrue.outPort[1], toFalse.inPort)
     annotation (Line(points={{20.5,20},{28,20},{36,20}}, color={0,0,0}));
   connect(outputTrue.active, y)
-    annotation (Line(points={{10,9},{10,0},{170,0}},  color={255,0,255}));
+    annotation (Line(points={{10,9},{10,0},{180,0}},  color={255,0,255}));
   connect(outputFalse.outPort[1], toTrue.inPort)
     annotation (Line(points={{-39.5,20},{-32,20},{-24,20}}, color={0,0,0}));
   connect(toFalse.outPort, outputFalse.inPort[1]) annotation (Line(points={{41.5,20},
@@ -64,9 +65,9 @@ equation
     annotation (Line(points={{10,9},{10,0},{10,-60},{18,-60}},
                                                          color={255,0,255}));
   connect(notU.y, and2.u2)
-    annotation (Line(points={{-119,70},{140,70},{140,-80},{48,-80},{48,-68},{58,
+    annotation (Line(points={{-118,70},{140,70},{140,-80},{48,-80},{48,-68},{58,
           -68}},                                   color={255,0,255}));
-  connect(and2.y, toFalse.condition) annotation (Line(points={{81,-60},{100,-60},
+  connect(and2.y, toFalse.condition) annotation (Line(points={{82,-60},{100,-60},
           {100,-20},{40,-20},{40,8}},color={255,0,255}));
   connect(outputFalse.active,onDel1. u) annotation (Line(points={{-50,9},{-50,0},
           {-140,0},{-140,-30},{-102,-30}},
@@ -74,7 +75,7 @@ equation
   connect(u, and1.u2) annotation (Line(points={{-200,0},{-160,0},{-160,-50},{
           -60,-50},{-60,-38},{-52,-38},{-52,-38}},
         color={255,0,255}));
-  connect(and1.y, toTrue.condition) annotation (Line(points={{-29,-30},{-20,-30},
+  connect(and1.y, toTrue.condition) annotation (Line(points={{-28,-30},{-20,-30},
           {-20,8}},                   color={255,0,255}));
   connect(u, toTrue1.condition) annotation (Line(points={{-200,0},{-160,0},{-160,
           52},{-60,52},{-60,100}},
@@ -97,11 +98,11 @@ equation
           0}},
         color={255,0,255}));
   connect(notU.y, toFalse1.condition)
-    annotation (Line(points={{-119,70},{-80,70},{-80,78}},color={255,0,255}));
+    annotation (Line(points={{-118,70},{-80,70},{-80,78}},color={255,0,255}));
   connect(onDel1.y, and1.u1)
-    annotation (Line(points={{-79,-30},{-52,-30}}, color={255,0,255}));
+    annotation (Line(points={{-78,-30},{-52,-30}}, color={255,0,255}));
   connect(onDel2.y, and2.u1)
-    annotation (Line(points={{41,-60},{41,-60},{58,-60}}, color={255,0,255}));
+    annotation (Line(points={{42,-60},{42,-60},{58,-60}}, color={255,0,255}));
   annotation (defaultComponentName="truFalHol",
           Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
