@@ -304,7 +304,7 @@ equation
     connect(weaBus, amb[iFlo].weaBus)
       annotation (Line(points={{-324,170},{-300,170},{-300,120},{-340,120},{-340,39.14},
         {-320,39.14}}, color={255,204,51}, thickness=0.5),
-        Text(string="%first", index=-1, extent={{-6,3},{-6,3}}));
+        Text(textString="%first", index=-1, extent={{-6,3},{-6,3}}));
     connect(senRetFlo[iFlo].V_flow, conFanRet[iFlo].u_m)
       annotation (Line(points={{20,134.8},{20,150.6},{21,150.6}},
         color={0,0,127}, pattern=LinePattern.Dash));
@@ -340,7 +340,7 @@ equation
     connect(controlBus[iFlo], fan_dP_On_Off[iFlo].controlBus)
       annotation (Line(points={{-68,54},{-68,54},{-68,-1.4},{-67.2,-1.4}},
         color={255,204,51}, thickness=0.5),
-        Text(string="%first", index=-1, extent={{-6,3},{-6,3}}));
+        Text(textString="%first", index=-1, extent={{-6,3},{-6,3}}));
     connect(min1[iFlo].y, controlBus[iFlo].TRooMin)
       annotation (Line(points={{120.6,100},{130,100},{130,6},{-67.95,6},{-67.95,54.05}},
         color={0,0,127}, pattern=LinePattern.Dash));
@@ -353,19 +353,19 @@ equation
     connect(TSetHea.y[1], controlBus[iFlo].TRooSetHea)
       annotation (Line(points={{-117.4,36},{-92,36},{-92,54.05},{-67.95,54.05}},
         color={255,204,51}, thickness=0.5),
-        Text(string="%second", index=1, extent={{6,3},{6,3}}));
+        Text(textString="%second", index=1, extent={{6,3},{6,3}}));
     connect(TSetCoo1.y[1], controlBus[iFlo].TRooSetCoo)
       annotation (Line(points={{-117.4,16},{-92,16},{-92,54.05},{-67.95,54.05}},
         color={255,204,51}, thickness=0.5),
-        Text(string="%second", index=1, extent={{6,3},{6,3}}));
+        Text(textString="%second", index=1, extent={{6,3},{6,3}}));
     connect(occSch.tNexOcc, controlBus[iFlo].dTNexOcc)
       annotation (Line(points={{-115.4,79.6},{-92,79.6},{-92,54.05},{-67.95,54.05}},
         color={255,204,57}, thickness=0.5),
-        Text(string="%second", index=1, extent={{6,3},{6,3}}));
+        Text(textString="%second", index=1, extent={{6,3},{6,3}}));
     connect(occSch.occupied, controlBus[iFlo].occupied)
       annotation (Line(points={{-115.4,72.4},{-92,72.4},{-92,54.05},{-67.95,54.05}},
         color={255,204,51}, thickness=0.5),
-        Text(string="%second", index=1, extent={{6,3},{6,3}}));
+        Text(textString="%second", index=1, extent={{6,3},{6,3}}));
     connect(eco[iFlo].port_Exh, amb[iFlo].ports[1])
       annotation (Line(points={{-262,40},{-278,40},{-278,40.4},{-306,40.4}},
         color={0,127,255}, thickness=0.5));
@@ -431,13 +431,13 @@ equation
       connect(vavTer[iZon, iFlo].TRooHeaSet, controlBus[iFlo].TRooSetHea) annotation (Line(
         points={{50,30},{-68,30},{-68,30},{-67.95,30},{-67.95,54.05}}, color={0,
           0,127}), Text(
-        string="%second",
+        textString="%second",
         index=1,
         extent={{6,3},{6,3}}));
       connect(vavTer[iZon, iFlo].TRooCooSet, controlBus[iFlo].TRooSetCoo) annotation (Line(
         points={{50,26},{-68,26},{-68,28},{-67.95,28},{-67.95,54.05}}, color={0,
           0,127}), Text(
-        string="%second",
+        textString="%second",
         index=1,
         extent={{6,3},{6,3}}));
     end for;
@@ -449,7 +449,7 @@ equation
   connect(weaBus.TDryBul, TOut.u)
     annotation (Line(points={{-324,170},{-326,170},{-334,170},{-334,146},{-329.2,146}},
       color={255,204,51}, thickness=0.5),
-      Text(string="%first", index=-1, extent={{-6,3},{-6,3}}));
+      Text(textString="%first", index=-1, extent={{-6,3},{-6,3}}));
   connect(weaBus, buiZon.weaBus)
     annotation (Line(points={{-324,170},{-324,170},{-44,170},{-44,80},{51.6,80}},
       color={255,204,51}, thickness=0.5));

@@ -83,7 +83,7 @@ block LimPID
       rotation=270)));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of actuator output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add addP(
     k1=revAct*wp,
@@ -210,37 +210,37 @@ equation
     annotation (Line(points={{-120,0},{-96,0},{-96,-42},{-82,-42}},
       color={0,0,127}));
   connect(addP.y, P.u)
-    annotation (Line(points={{-59,50},{-42,50}}, color={0,0,127}));
+    annotation (Line(points={{-58,50},{-42,50}}, color={0,0,127}));
   connect(addD.y, D.u)
-    annotation (Line(points={{-59,0},{-42,0}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
   connect(addI.y, I.u)
     annotation (Line(points={{-59,-50},{-42,-50}},
       color={0,0,127}));
   connect(P.y, addPID.u1)
-    annotation (Line(points={{-19,50},{-10,50},{-10,8},{-2,8}},
+    annotation (Line(points={{-18,50},{-10,50},{-10,8},{-2,8}},
       color={0,0,127}));
   connect(D.y, addPID.u2)
-    annotation (Line(points={{-19,0},{-2,0}}, color={0,0,127}));
+    annotation (Line(points={{-18,0},{-2,0}}, color={0,0,127}));
   connect(I.y, addPID.u3)
-    annotation (Line(points={{-19,-50},{-10,-50},{-10,-8},{-2,-8}},
+    annotation (Line(points={{-18,-50},{-10,-50},{-10,-8},{-2,-8}},
       color={0,0,127}));
   connect(addPID.y, gainPID.u)
     annotation (Line(points={{21,0},{28,0}}, color={0,0,127}));
   connect(gainPID.y, addSat.u2)
-    annotation (Line(points={{51,0},{60,0},{60,-20},{74,-20},{74,-38}},
+    annotation (Line(points={{52,0},{60,0},{60,-20},{74,-20},{74,-38}},
       color={0,0,127}));
   connect(gainPID.y, limiter.u)
-    annotation (Line(points={{51,0},{68,0}}, color={0,0,127}));
+    annotation (Line(points={{52,0},{68,0}}, color={0,0,127}));
   connect(limiter.y, addSat.u1)
     annotation (Line(points={{91,0},{94,0},{94,-20},{86,-20},{86,-38}},
       color={0,0,127}));
   connect(limiter.y, y)
-    annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{91,0},{120,0}}, color={0,0,127}));
   connect(addSat.y, gainTrack.u)
-    annotation (Line(points={{80,-61},{80,-70},{62,-70}},
+    annotation (Line(points={{80,-62},{80,-70},{62,-70}},
       color={0,0,127}));
   connect(gainTrack.y, addI.u3)
-    annotation (Line(points={{39,-70},{-88,-70},{-88,-58},{-82,-58}},
+    annotation (Line(points={{38,-70},{-88,-70},{-88,-58},{-82,-58}},
       color={0,0,127}));
   connect(u_m, addP.u2)
     annotation (Line(points={{0,-120},{0,-92},{-92,-92},{-92,44},{-82,44}},

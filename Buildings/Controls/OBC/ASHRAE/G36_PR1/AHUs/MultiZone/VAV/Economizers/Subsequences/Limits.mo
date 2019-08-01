@@ -66,55 +66,55 @@ block Limits
    final unit="1")
     "Measured outdoor volumetric airflow rate, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
-      iconTransformation(extent={{-120,70},{-100,90}})));
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow_normalized(
     final unit="1")
     "Effective minimum outdoor airflow setpoint, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
-        iconTransformation(extent={{-120,40},{-100,60}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
     annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
-      iconTransformation(extent={{-120,-60},{-100,-40}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta
     "Freeze protection status signal"
     annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
-      iconTransformation(extent={{-120,-90},{-100,-70}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status signal"
     annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
-      iconTransformation(extent={{-120,-10},{-100,10}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMin(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") "Minimum outdoor air damper position limit"
-    annotation (Placement(transformation(extent={{180,70},{200,90}}),
-      iconTransformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{180,80},{220,120}}),
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPosMax(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") "Maximum outdoor air damper position limit"
-    annotation (Placement(transformation(extent={{180,30},{200,50}}),
-      iconTransformation(extent={{100,60},{120,80}})));
+    annotation (Placement(transformation(extent={{180,30},{220,70}}),
+        iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMin(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
     final unit="1") "Minimum return air damper position limit"
-    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMax(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
     final unit="1") "Maximum return air damper position limit"
-    annotation (Placement(transformation(extent={{180,-50},{200,-30}}),
-      iconTransformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{180,-70},{220,-30}}),
+        iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1")
     "Physical maximum return air damper position limit. Required as an input for the economizer enable disable sequence"
-    annotation (Placement(transformation(extent={{180,-90},{200,-70}}),
-      iconTransformation(extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{180,-110},{220,-70}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID damLimCon(
     final controllerType=controllerType,
@@ -193,54 +193,54 @@ protected
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
 equation
-  connect(minRetDam.y, yRetDamPosMax) annotation (Line(points={{141,110},{150,110},
-          {150,-40},{190,-40}},               color={0,0,127}));
-  connect(retDamPosMinSwitch.y, minRetDam.f2) annotation (Line(points={{61,-20},
-          {61,-18},{61,-20},{100,-20},{100,102},{118,102}}, color={0,0,127}));
-  connect(sigFraForOutDam.y, minRetDam.x1) annotation (Line(points={{-39,210},{
-          -30,210},{-30,118},{118,118}}, color={0,0,127}));
-  connect(maxSigLim.y, minRetDam.x2) annotation (Line(points={{1,210},{8,210},{
-          8,106},{118,106}}, color={0,0,127}));
+  connect(minRetDam.y, yRetDamPosMax) annotation (Line(points={{142,110},{150,110},
+          {150,-50},{200,-50}},               color={0,0,127}));
+  connect(retDamPosMinSwitch.y, minRetDam.f2) annotation (Line(points={{62,-20},
+          {62,-18},{62,-20},{100,-20},{100,102},{118,102}}, color={0,0,127}));
+  connect(sigFraForOutDam.y, minRetDam.x1) annotation (Line(points={{-38,210},{-30,
+          210},{-30,118},{118,118}},     color={0,0,127}));
+  connect(maxSigLim.y, minRetDam.x2) annotation (Line(points={{2,210},{8,210},{8,
+          106},{118,106}},   color={0,0,127}));
   connect(VOut_flow_normalized, damLimCon.u_m) annotation (Line(points={{-200,170},
           {-130,170},{-130,178}}, color={0,0,127}));
   connect(VOutMinSet_flow_normalized, damLimCon.u_s) annotation (Line(points={{-200,
           220},{-160,220},{-160,190},{-142,190}}, color={0,0,127}));
-  connect(damLimCon.y, minRetDam.u) annotation (Line(points={{-119,190},{-80,
-          190},{-80,110},{118,110}}, color={0,0,127}));
-  connect(outDamPosMaxSwitch.y, minOutDam.f2) annotation (Line(points={{61,20},
-          {110,20},{110,142},{118,142}},color={0,0,127}));
-  connect(minSigLim.y, minOutDam.x1) annotation (Line(points={{-79,210},{-70,
-          210},{-70,182},{104,182},{104,158},{118,158}}, color={0,0,127}));
-  connect(sigFraForOutDam.y, minOutDam.x2) annotation (Line(points={{-39,210},{
-          -39,210},{-30,210},{-30,146},{118,146}}, color={0,0,127}));
-  connect(damLimCon.y, minOutDam.u) annotation (Line(points={{-119,190},{-80,
-          190},{-80,150},{118,150}}, color={0,0,127}));
-  connect(outDamPosMaxSwitch.y, yOutDamPosMax) annotation (Line(points={{61,20},
-          {110,20},{110,40},{190,40}}, color={0,0,127}));
-  connect(minOutDam.y, yOutDamPosMin) annotation (Line(points={{141,150},{160,
-          150},{160,80},{190,80}}, color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, retDamPosMinSwitch.u1) annotation (Line(points={{-139,
+  connect(damLimCon.y, minRetDam.u) annotation (Line(points={{-118,190},{-80,190},
+          {-80,110},{118,110}},      color={0,0,127}));
+  connect(outDamPosMaxSwitch.y, minOutDam.f2) annotation (Line(points={{62,20},{
+          110,20},{110,142},{118,142}}, color={0,0,127}));
+  connect(minSigLim.y, minOutDam.x1) annotation (Line(points={{-78,210},{-70,210},
+          {-70,182},{104,182},{104,158},{118,158}},      color={0,0,127}));
+  connect(sigFraForOutDam.y, minOutDam.x2) annotation (Line(points={{-38,210},{-38,
+          210},{-30,210},{-30,146},{118,146}},     color={0,0,127}));
+  connect(damLimCon.y, minOutDam.u) annotation (Line(points={{-118,190},{-80,190},
+          {-80,150},{118,150}},      color={0,0,127}));
+  connect(outDamPosMaxSwitch.y, yOutDamPosMax) annotation (Line(points={{62,20},
+          {110,20},{110,50},{200,50}}, color={0,0,127}));
+  connect(minOutDam.y, yOutDamPosMin) annotation (Line(points={{142,150},{160,150},
+          {160,100},{200,100}},    color={0,0,127}));
+  connect(retDamPhyPosMaxSig.y, retDamPosMinSwitch.u1) annotation (Line(points={{-138,
           -40},{-60,-40},{-60,-12},{38,-12}},   color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, minRetDam.f1) annotation (Line(points={{-139,-40},
+  connect(retDamPhyPosMaxSig.y, minRetDam.f1) annotation (Line(points={{-138,-40},
           {-60,-40},{-60,114},{118,114}}, color={0,0,127}));
-  connect(retDamPhyPosMinSig.y, retDamPosMinSwitch.u3) annotation (Line(points=
-          {{-139,0},{-120,0},{-120,-28},{38,-28}},color={0,0,127}));
-  connect(outDamPhyPosMaxSig.y, outDamPosMaxSwitch.u3) annotation (Line(points=
-          {{-139,40},{-120,40},{-120,12},{38,12}},color={0,0,127}));
-  connect(outDamPhyPosMinSig.y, outDamPosMaxSwitch.u1) annotation (Line(points=
-          {{-139,80},{0,80},{0,28},{38,28}},color={0,0,127}));
-  connect(outDamPhyPosMinSig.y, minOutDam.f1) annotation (Line(points={{-139,80},
+  connect(retDamPhyPosMinSig.y, retDamPosMinSwitch.u3) annotation (Line(points={{-138,0},
+          {-120,0},{-120,-28},{38,-28}},          color={0,0,127}));
+  connect(outDamPhyPosMaxSig.y, outDamPosMaxSwitch.u3) annotation (Line(points={{-138,40},
+          {-120,40},{-120,12},{38,12}},           color={0,0,127}));
+  connect(outDamPhyPosMinSig.y, outDamPosMaxSwitch.u1) annotation (Line(points={{-138,80},
+          {0,80},{0,28},{38,28}},           color={0,0,127}));
+  connect(outDamPhyPosMinSig.y, minOutDam.f1) annotation (Line(points={{-138,80},
           {0,80},{0,154},{118,154}}, color={0,0,127}));
   connect(and1.y, not1.u)
-    annotation (Line(points={{-18.3,-90},{-10,-90}}, color={255,0,255}));
-  connect(not1.y, retDamPosMinSwitch.u2) annotation (Line(points={{13,-90},{20,
-          -90},{20,-20},{38,-20}}, color={255,0,255}));
-  connect(not1.y, outDamPosMaxSwitch.u2) annotation (Line(points={{13,-90},{20,
-          -90},{20,20},{38,20}}, color={255,0,255}));
-  connect(retDamPosMinSwitch.y, yRetDamPosMin) annotation (Line(points={{61,-20},
-          {100,-20},{100,0},{190,0}}, color={0,0,127}));
-  connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax) annotation (Line(points={{-139,
-          -40},{40,-40},{40,-80},{190,-80}}, color={0,0,127}));
+    annotation (Line(points={{-18,-90},{-10,-90}},   color={255,0,255}));
+  connect(not1.y, retDamPosMinSwitch.u2) annotation (Line(points={{14,-90},{20,-90},
+          {20,-20},{38,-20}},      color={255,0,255}));
+  connect(not1.y, outDamPosMaxSwitch.u2) annotation (Line(points={{14,-90},{20,-90},
+          {20,20},{38,20}},      color={255,0,255}));
+  connect(retDamPosMinSwitch.y, yRetDamPosMin) annotation (Line(points={{62,-20},
+          {100,-20},{100,0},{200,0}}, color={0,0,127}));
+  connect(retDamPhyPosMaxSig.y, yRetDamPhyPosMax) annotation (Line(points={{-138,
+          -40},{40,-40},{40,-90},{200,-90}}, color={0,0,127}));
   connect(and1.u[1], uSupFan)
     annotation (Line(points={{-42,-85.3333},{-160,-85.3333},{-160,-100},{-200,
           -100}},
@@ -248,16 +248,16 @@ equation
   connect(uOpeMod, intEqu.u1)
     annotation (Line(points={{-200,-180},{-122,-180}}, color={255,127,0}));
   connect(conInt1.y, intEqu.u2)
-    annotation (Line(points={{-139,-200},{-130,-200},{-130,-188},{-122,-188}},
+    annotation (Line(points={{-138,-200},{-130,-200},{-130,-188},{-122,-188}},
       color={255,127,0}));
   connect(intLesEqu.y, and1.u[2])
-    annotation (Line(points={{-99,-140},{-94,-140},{-94,-90},{-42,-90}},
+    annotation (Line(points={{-98,-140},{-94,-140},{-94,-90},{-42,-90}},
       color={255,0,255}));
   connect(intEqu.y, and1.u[3])
-    annotation (Line(points={{-99,-180},{-60,-180},{-60,-94.6667},{-42,-94.6667}},
+    annotation (Line(points={{-98,-180},{-60,-180},{-60,-94.6667},{-42,-94.6667}},
                        color={255,0,255}));
   connect(conInt.y, intLesEqu.u2)
-    annotation (Line(points={{-139,-160},{-130,-160},{-130,-148},{-122,-148}},
+    annotation (Line(points={{-138,-160},{-130,-160},{-130,-148},{-122,-148}},
       color={255,127,0}));
   connect(uFreProSta, intLesEqu.u1)
     annotation (Line(points={{-200,-140},{-122,-140}}, color={255,127,0}));

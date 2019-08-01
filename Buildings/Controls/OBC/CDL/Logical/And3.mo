@@ -12,7 +12,7 @@ block And3 "Logical 'and3': y = u1 and u2 and u3"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = u1 and u2 and u3;

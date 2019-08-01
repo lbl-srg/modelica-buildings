@@ -65,12 +65,10 @@ block Status
       iconTransformation(extent={{100,0},{120,20}})));
 
 protected
-  CDL.Logical.IntegerSwitch                 intSwi2
-                                                 "Switch"
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2 "Switch"
     annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
 
-  CDL.Logical.IntegerSwitch                 intSwi3
-                                                 "Switch"
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi3 "Switch"
     annotation (Placement(transformation(extent={{360,70},{380,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
@@ -183,8 +181,7 @@ protected
     "If the current stage is the highest available the input value equals the number of stages + 1"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
-  CDL.Logical.IntegerSwitch                 intSwi
-                                                "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi "Logical switch"
     annotation (Placement(transformation(extent={{180,100},{200,120}})));
 
   Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(
@@ -192,8 +189,7 @@ protected
     "If the current stage is the lowest available the input value equals 0"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
 
-  CDL.Logical.IntegerSwitch                 intSwi1
-                                                 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1 "Logical switch"
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaAva(
@@ -220,7 +216,7 @@ protected
     final nu=nSta) "Logical or"
     annotation (Placement(transformation(extent={{-380,-140},{-360,-120}})));
 
-  CDL.Integers.Sources.Constant                          conInt(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=0) "Zero"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
@@ -351,7 +347,8 @@ equation
           90,-100},{170,-100},{170,-78},{178,-78}}, color={255,127,0}));
   connect(intSwi3.y, yUp)
     annotation (Line(points={{381,80},{450,80}}, color={255,127,0}));
-  annotation (Icon(graphics={
+  annotation (defaultComponentName = "sta",
+        Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},

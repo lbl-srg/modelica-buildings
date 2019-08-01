@@ -15,7 +15,7 @@ model Occupancy "Model for occupancy"
             16,4;
             18,0],
     timeScale=3600) "Office with double occupancy"
-    annotation (Placement(transformation(extent=[-60,10; -40,30])));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
   Modelica.Blocks.Sources.CombiTimeTable office2(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -30,7 +30,7 @@ model Occupancy "Model for occupancy"
             16,6;
             18,0],
     timeScale=3600) "Office with double occupancy"
-    annotation (Placement(transformation(extent=[-60,-30; -40,-10])));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable cla1(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -46,7 +46,7 @@ model Occupancy "Model for occupancy"
             16,20;
             18,0],
     timeScale=3600) "Class room"
-    annotation (Placement(transformation(extent=[-60,80; -40,100])));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
   Modelica.Blocks.Sources.CombiTimeTable cla2(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -63,7 +63,7 @@ model Occupancy "Model for occupancy"
             16,25;
             18,0],
     timeScale=3600) "Class room"
-    annotation (Placement(transformation(extent=[-60,50; -40,70])));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
   Modelica.Blocks.Sources.CombiTimeTable smaRoo1(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -78,7 +78,7 @@ model Occupancy "Model for occupancy"
             16,0.5;
             18,0],
     timeScale=3600) "Small rooms"
-    annotation (Placement(transformation(extent=[-60,-70; -40,-50])));
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
   Modelica.Blocks.Sources.CombiTimeTable smaRoo2(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -94,29 +94,29 @@ model Occupancy "Model for occupancy"
             16,0.2;
             18,0],
     timeScale=3600) "Small rooms"
-    annotation (Placement(transformation(extent=[-60,-100; -40,-80])));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 
   Modelica.Blocks.Interfaces.RealOutput y1[2]
     "Connector of Real output signals"
-    annotation (Placement(transformation(extent=[100,60; 120,80])));
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Interfaces.RealOutput y2[2]
     "Connector of Real output signals"
-    annotation (Placement(transformation(extent=[100,-10; 120,10])));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput y3[2]
     "Connector of Real output signals"
-    annotation (Placement(transformation(extent=[100,-80; 120,-60])));
+    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
   Modelica.Blocks.Math.Gain sca1(k=2) "Scaling for occupancy"
-    annotation (Placement(transformation(extent=[20,80; 40,100])));
+    annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Modelica.Blocks.Math.Gain sca2(k=3) "Scaling for occupancy"
-    annotation (Placement(transformation(extent=[20,10; 40,30])));
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Math.Gain sca3(k=3) "Scaling for occupancy"
-    annotation (Placement(transformation(extent=[20,-70; 40,-50])));
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Modelica.Blocks.Math.Gain sca4(k=2) "Scaling for occupancy"
-    annotation (Placement(transformation(extent=[20,50; 40,70])));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Modelica.Blocks.Math.Gain sca5(k=3) "Scaling for occupancy"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Modelica.Blocks.Math.Gain sca6(k=3) "Scaling for occupancy"
-    annotation (Placement(transformation(extent=[20,-100; 40,-80])));
+    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Modelica.Blocks.Routing.Multiplex2 mul1(
     final n1=1,
     final n2=1)

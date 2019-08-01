@@ -9,7 +9,7 @@ block AddParameter "Output the sum of an input plus a parameter"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = k*u + p;
@@ -61,7 +61,7 @@ Modelica Standard Library.
         Ellipse(lineColor={0,0,127}, extent={{-12,-52},{88,48}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(extent={{2,-28},{78,40}},   textString="+")}),
+        Text(extent={{-2,-22},{74,46}},  textString="+")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={Rectangle(
             extent={{-100,-100},{100,100}},

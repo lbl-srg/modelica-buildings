@@ -3,10 +3,10 @@ connector BooleanInput = input Boolean "'input Boolean' as connector"
   annotation (
   defaultComponentName="u",
   Icon(graphics={Polygon(
-        points={{-100,100},{100,0},{-100,-100},{-100,100}},
         lineColor={255,0,255},
         fillColor={255,0,255},
-        fillPattern=FillPattern.Solid)},
+        fillPattern=FillPattern.Solid,
+        points={{0,50},{100,0},{0,-50}})},
       coordinateSystem(
       extent={{-100,-100},{100,100}},
       preserveAspectRatio=true,
@@ -28,6 +28,12 @@ Connector with one input signal of type Boolean.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2019, by Michael Wetter:<br/>
+On the icon layer, changed connector size and added the connector name.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/1375\">issue 1375</a>.
+</li>
 <li>
 January 6, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

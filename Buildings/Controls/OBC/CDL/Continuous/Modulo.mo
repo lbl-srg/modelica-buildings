@@ -3,16 +3,13 @@ block Modulo
   "Output the remainder of first input divided by second input (~=0)"
 
   Interfaces.RealInput u1 "Connector of Real input signal 1"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
   Interfaces.RealInput u2 "Connector of Real input signal 2"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-8},{120,12}}),
-        iconTransformation(extent={{100,-8},{120,12}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = mod(u1,u2);

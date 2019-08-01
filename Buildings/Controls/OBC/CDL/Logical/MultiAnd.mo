@@ -9,7 +9,7 @@ block MultiAnd
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
 
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-17},{134,17}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   Boolean uTemp[nu] "Temporary variable";
