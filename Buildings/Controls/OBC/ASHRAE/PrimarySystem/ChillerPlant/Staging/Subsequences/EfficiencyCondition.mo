@@ -2,26 +2,25 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 block EfficiencyCondition
   "Efficiency condition used in staging up and down"
 
-  parameter Modelica.SIunits.Time delayStaCha = 300
-  "Enable delay";
+  parameter Modelica.SIunits.Time delayStaCha = 300  "Enable delay";
 
   parameter Real hysSig = 0.05
     "Signal hysteresis deadband";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplr(final unit="1")
-    "Operating part load ratio of the current stage" annotation (Placement(
-        transformation(extent={{-140,0},{-100,40}}), iconTransformation(
-          extent={{-120,40},{-100,60}})));
+    "Operating part load ratio of the current stage"
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+        iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSplrUp(final unit="1")
-    "Staging part load ratio of the next stage up" annotation (Placement(
-        transformation(extent={{-140,-40},{-100,0}}),
-        iconTransformation(extent={{-120,-60},{-100,-40}})));
+    "Staging part load ratio of the next stage up"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Efficiency condition for chiller staging"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{80,-20},{120,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
@@ -42,16 +41,18 @@ protected
 
 equation
   connect(truDel.y, y)
-    annotation (Line(points={{41,0},{90,0}}, color={255,0,255}));
+    annotation (Line(points={{42,0},{100,0}},color={255,0,255}));
   connect(hysOplr.y, truDel.u)
-    annotation (Line(points={{1,0},{18,0}}, color={255,0,255}));
+    annotation (Line(points={{2,0},{18,0}}, color={255,0,255}));
   connect(add.y, hysOplr.u)
-    annotation (Line(points={{-39,0},{-22,0}}, color={0,0,127}));
-  connect(uOplr, add.u1) annotation (
-    Line(points={{-120,20},{-80,20},{-80,6},{-62,6}}, color={0,0,127}));
-  connect(uSplrUp, add.u2) annotation (Line(points={{-120,-20},{-80,-20},{-80,-6},
-          {-62,-6}}, color={0,0,127}));
-  annotation (defaultComponentName = "effCon",
+    annotation (Line(points={{-38,0},{-22,0}}, color={0,0,127}));
+  connect(uOplr, add.u1)
+    annotation (Line(points={{-120,20},{-80,20},{-80,6},{-62,6}}, color={0,0,127}));
+  connect(uSplrUp, add.u2)
+    annotation (Line(points={{-120,-20},{-80,-20},{-80,-6},{-62,-6}},
+      color={0,0,127}));
+
+annotation (defaultComponentName = "effCon",
         Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

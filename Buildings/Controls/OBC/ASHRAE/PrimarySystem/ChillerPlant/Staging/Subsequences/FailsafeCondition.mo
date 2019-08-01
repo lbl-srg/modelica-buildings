@@ -21,46 +21,46 @@ block FailsafeCondition
     final unit="1")
     "Operating part load ratio of the next higher stage"
     annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrUpMin(
     final unit="1")
     "Minimum operating part load ratio at the next stage up"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
-        iconTransformation(extent={{-120,30},{-100,50}})));
+        iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-      iconTransformation(extent={{-120,-80},{-100,-60}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water pump Diferential static pressure"
     annotation (Placement(
-    transformation(extent={{-180,-140},{-140,-100}}), iconTransformation(
-     extent={{-120,-100},{-100,-80}})));
+    transformation(extent={{-180,-140},{-140,-100}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
-    iconTransformation(extent={{-120,-20},{-100,0}})));
+        iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
-      iconTransformation(extent={{-120,-40},{-100,-20}})));
+        iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Failsafe condition for chiller staging"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
     final uLow=0,
@@ -109,37 +109,38 @@ protected
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 equation
-  connect(hysOplr.y, and2.u1) annotation (Line(points={{-39,90},{10,90},{10,10},
-          {50,10},{50,0},{58,0}}, color={255,0,255}));
+  connect(hysOplr.y, and2.u1) annotation (Line(points={{-38,90},{0,90},{0,20},{50,
+          20},{50,0},{58,0}},     color={255,0,255}));
   connect(add1.y, hysdpSup.u)
-    annotation (Line(points={{-79,-90},{-62,-90}}, color={0,0,127}));
+    annotation (Line(points={{-78,-90},{-62,-90}}, color={0,0,127}));
   connect(dpChiWatPumSet, add1.u1) annotation (Line(points={{-160,-80},{-120,-80},
           {-120,-84},{-102,-84}}, color={0,0,127}));
   connect(dpChiWatPum, add1.u2) annotation (Line(points={{-160,-120},{-120,-120},
           {-120,-96},{-102,-96}}, color={0,0,127}));
   connect(hysTSup.y, or1.u1)
-    annotation (Line(points={{-39,-10},{18,-10}}, color={255,0,255}));
+    annotation (Line(points={{-38,-10},{18,-10}}, color={255,0,255}));
   connect(add0.y, hysTSup.u)
-    annotation (Line(points={{-79,-10},{-62,-10}}, color={0,0,127}));
+    annotation (Line(points={{-78,-10},{-62,-10}}, color={0,0,127}));
   connect(TChiWatSupSet, add0.u1) annotation (Line(points={{-160,0},{-120,0},{-120,
           -4},{-102,-4}}, color={0,0,127}));
   connect(TChiWatSup, add0.u2) annotation (Line(points={{-160,-40},{-120,-40},{-120,
           -16},{-102,-16}}, color={0,0,127}));
   connect(add2.y, hysOplr.u)
-    annotation (Line(points={{-79,90},{-62,90}}, color={0,0,127}));
+    annotation (Line(points={{-78,90},{-62,90}}, color={0,0,127}));
   connect(uOplrUp, add2.u1) annotation (Line(points={{-160,100},{-120,100},{-120,
           96},{-102,96}}, color={0,0,127}));
   connect(uOplrUpMin, add2.u2) annotation (Line(points={{-160,60},{-120,60},{-120,
           84},{-102,84}}, color={0,0,127}));
-  connect(hysdpSup.y, or1.u2) annotation (Line(points={{-39,-90},{10,-90},{10,-18},
+  connect(hysdpSup.y, or1.u2) annotation (Line(points={{-38,-90},{0,-90},{0,-18},
           {18,-18}}, color={255,0,255}));
-  connect(or1.y, and2.u2) annotation (Line(points={{41,-10},{50,-10},{50,-8},{58,
+  connect(or1.y, and2.u2) annotation (Line(points={{42,-10},{50,-10},{50,-8},{58,
           -8}}, color={255,0,255}));
   connect(and2.y, truDel.u)
-    annotation (Line(points={{81,0},{98,0}}, color={255,0,255}));
+    annotation (Line(points={{82,0},{98,0}}, color={255,0,255}));
   connect(truDel.y, y)
-    annotation (Line(points={{121,0},{150,0}}, color={255,0,255}));
-  annotation (defaultComponentName = "faiSafCon",
+    annotation (Line(points={{122,0},{160,0}}, color={255,0,255}));
+
+annotation (defaultComponentName = "faiSafCon",
         Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

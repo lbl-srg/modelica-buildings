@@ -21,10 +21,10 @@ protected
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 
 equation
-  connect(oplr.y, effCon.uOplr) annotation (Line(points={{-19,30},{-10,30},{-10,
-          15},{-1,15}}, color={0,0,127}));
-  connect(splrUp.y, effCon.uSplrUp) annotation (Line(points={{-19,-10},{-10,-10},
-          {-10,5},{-1,5}}, color={0,0,127}));
+  connect(oplr.y, effCon.uOplr) annotation (Line(points={{-18,30},{-10,30},{-10,
+          15},{-2,15}}, color={0,0,127}));
+  connect(splrUp.y, effCon.uSplrUp) annotation (Line(points={{-18,-10},{-10,-10},
+          {-10,5},{-2,5}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/EfficiencyCondition.mos"
