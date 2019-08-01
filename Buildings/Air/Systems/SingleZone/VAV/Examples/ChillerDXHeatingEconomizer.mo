@@ -91,8 +91,8 @@ equation
           -60,-4},{-79,-4}},                                color={255,0,255}));
   connect(con.TSetSupChi, hvac.TSetChi) annotation (Line(points={{-79,-8},{-70,
           -8},{-70,-15},{-42,-15}},           color={0,0,127}));
-  connect(con.TMix, hvac.TMixAir) annotation (Line(points={{-102,2},{-112,2},{
-          -112,-40},{10,-40},{10,-4},{1,-4}},             color={0,0,127}));
+  connect(con.TMix, hvac.TMix) annotation (Line(points={{-102,2},{-112,2},{-112,
+          -40},{10,-40},{10,-4},{1,-4}}, color={0,0,127}));
 
   connect(hvac.supplyAir, zon.supplyAir) annotation (Line(points={{0,8},{10,8},
           {10,2},{40,2}},          color={0,127,255}));

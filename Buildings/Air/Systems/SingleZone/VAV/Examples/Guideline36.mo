@@ -16,14 +16,6 @@ model Guideline36
     TSupSetMax=313.15,
     TSupSetMin=285.15)
     annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
-  Controls.Continuous.LimPID conCooVal(
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    final yMax=1,
-    final yMin=0,
-    final reverseAction=true,
-    final k=1)
-    "Cooling coil valve controller"
-    annotation (Placement(transformation(extent={{-70,-42},{-50,-22}})));
   Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(uLow=-1,
       uHigh=0)
     "Hysteresis with delay to switch on cooling"
@@ -45,23 +37,16 @@ protected
     "Set point for chiller temperature"
     annotation (Placement(transformation(extent={{-72,-80},{-52,-60}})));
 equation
-  connect(controller.yFan, hvac.uFan) annotation (Line(points={{-79,12},{-60,12},
-          {-60,18},{-42,18}}, color={0,0,127}));
-  connect(controller.yHeaCoi, hvac.uHea) annotation (Line(points={{-79,8},{-58,
-          8},{-58,12},{-42,12}},
+  connect(controller.yFan, hvac.uFan) annotation (Line(points={{-79,8},{-62,8},
+          {-62,18},{-42,18}}, color={0,0,127}));
+  connect(controller.yHeaCoi, hvac.uHea) annotation (Line(points={{-79,-9.8},{
+          -60,-9.8},{-60,12},{-42,12}},
                               color={0,0,127}));
-  connect(controller.yOutDamPos, hvac.uEco) annotation (Line(points={{-79,0},{
-          -60,0},{-60,-2},{-42,-2}},
+  connect(controller.yOutDamPos, hvac.uEco) annotation (Line(points={{-79,-21},
+          {-56,-21},{-56,-2},{-42,-2}},
                                  color={0,0,127}));
-  connect(controller.TSupCoo, conCooVal.u_s) annotation (Line(points={{-79,16},
-          {-76,16},{-76,-32},{-72,-32}},color={0,0,127}));
-  connect(hvac.TSup, conCooVal.u_m) annotation (Line(points={{1,-8},{10,-8},{10,
-          -48},{-60,-48},{-60,-44}}, color={0,0,127}));
-  connect(conCooVal.y, hvac.uCooVal) annotation (Line(points={{-49,-32},{-50,
-          -32},{-50,5},{-42,5}},
-                            color={0,0,127}));
   connect(TSetSupChiConst.y, hvac.TSetChi) annotation (Line(points={{-51,-70},{
-          -46,-70},{-46,-15},{-42,-15}},
+          -46,-70},{-46,-16},{-42,-16},{-42,-15}},
                                      color={0,0,127}));
   connect(errTRooCoo.y, hysChiPla.u)
     annotation (Line(points={{-91,-110},{-74,-110}}, color={0,0,127}));
@@ -70,7 +55,7 @@ equation
   connect(hysChiPla.y, hvac.chiOn) annotation (Line(points={{-51,-110},{-48,
           -110},{-48,-10},{-42,-10}}, color={255,0,255}));
   connect(weaBus.TDryBul, controller.TOut) annotation (Line(
-      points={{-36,80},{-36,60},{-140,60},{-140,20},{-122,20}},
+      points={{-36,80},{-36,60},{-140,60},{-140,19.8},{-122,19.8}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -79,12 +64,10 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(zon.TRooAir, controller.TZon) annotation (Line(points={{81,0},{110,0},
           {110,-152},{-134,-152},{-134,12},{-122,12}}, color={0,0,127}));
-  connect(hvac.TRetAir, controller.TRet) annotation (Line(points={{1,-6},{12,-6},
-          {12,-52},{-132,-52},{-132,4},{-122,4}}, color={0,0,127}));
   connect(hvac.TSup, controller.TSup) annotation (Line(points={{1,-8},{10,-8},{
-          10,-48},{-130,-48},{-130,0},{-122,0}}, color={0,0,127}));
-  connect(hvac.TMixAir, controller.TMix) annotation (Line(points={{1,-4},{14,-4},
-          {14,-46},{-128,-46},{-128,-4},{-122,-4}}, color={0,0,127}));
+          10,-50},{-130,-50},{-130,0},{-122,0}}, color={0,0,127}));
+  connect(hvac.TMix, controller.TMix) annotation (Line(points={{1,-4},{14,-4},{
+          14,-46},{-128,-46},{-128,-4},{-122,-4}}, color={0,0,127}));
   connect(occSch.tNexOcc, controller.tNexOcc) annotation (Line(points={{-159,56},
           {-150,56},{-150,16},{-122,16}}, color={0,0,127}));
   connect(controller.uOcc, occSch.occupied) annotation (Line(points={{-122,8},{
@@ -92,14 +75,18 @@ equation
   connect(uWin.y, controller.uWin) annotation (Line(points={{-159,-50},{-148,
           -50},{-148,-12},{-122,-12}}, color={255,0,255}));
   connect(occSch.occupied, occPer.u) annotation (Line(points={{-159,44},{-152,
-          44},{-152,-2},{-200,-2},{-200,-80},{-182,-80}}, color={255,0,255}));
+          44},{-152,0},{-190,0},{-190,-80},{-182,-80}},   color={255,0,255}));
   connect(occPer.y, ppl.u)
     annotation (Line(points={{-159,-80},{-155.2,-80}}, color={0,0,127}));
   connect(ppl.y, controller.nOcc) annotation (Line(points={{-141.4,-80},{-138,
           -80},{-138,-8},{-122,-8}}, color={0,0,127}));
-  connect(controller.TZonCooSet, errTRooCoo.u2) annotation (Line(points={{-79,
-          -4},{-72,-4},{-72,-12},{-78,-12},{-78,-132},{-100,-132},{-100,-118}},
+  connect(controller.TZonCooSet, errTRooCoo.u2) annotation (Line(points={{-79,-4},
+          {-76,-4},{-76,-132},{-100,-132},{-100,-118}},
         color={0,0,127}));
+  connect(hvac.uCooVal, controller.yCooCoi) annotation (Line(points={{-42,5},{
+          -48,5},{-48,4},{-58,4},{-58,-16},{-79,-16}}, color={0,0,127}));
+  connect(hvac.TRet, controller.TCut) annotation (Line(points={{1,-6},{12,-6},{
+          12,-48},{-132,-48},{-132,4},{-122,4}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-160,-160},{120,140}})), Icon(
         coordinateSystem(extent={{-160,-160},{120,140}})),
     experiment(
