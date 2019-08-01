@@ -342,10 +342,9 @@ equation
   connect(mod.yOutDamPos, outDamMaxFre.u1)
     annotation (Line(points={{42,8},{90,8},{90,-44},{98,-44}}, color={0,0,127}));
   connect(freProTMix.yFrePro, retDamMinFre.u1)
-    annotation (Line(points={{82,-13},{86,-13},{86,56},{98,56}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{82,-13},{86,-13},{86,56},{98,56}}, color={0,0,127}));
   connect(freProTMix.yFreProInv, outDamMaxFre.u2)
-    annotation (Line(points={{82,-7},{86,-7},{86,-56},{98,-56}},   color={0,0,127}));
+    annotation (Line(points={{82,-7},{88,-7},{88,-56},{98,-56}}, color={0,0,127}));
   connect(TMix, freProTMix.TMix)
     annotation (Line(points={{-160,-60},{40,-60},{40,-10},{58,-10}},
       color={0,0,127}));
