@@ -39,6 +39,25 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     annotation (Dialog(group="Heating loop signal",
       enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.P
+    "Type of controller"
+    annotation(Dialog(group="Cooling coil loop signal"));
+  parameter Real kCooCoi(final unit="1/K")=1.0
+    "Gain for cooling coil control loop signal"
+    annotation(Dialog(group="Cooling coil loop signal"));
+
+  parameter Modelica.SIunits.Time TiCooCoil=900
+    "Time constant of integrator block for cooling coil control loop signal"
+    annotation(Dialog(group="Cooling coil loop signal",
+    enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.SIunits.Time TdCooCoil=0.1
+    "Time constant of derivative block for cooling coil control loop signal"
+    annotation (Dialog(group="Cooling coil loop signal",
+      enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+          or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Temperature TSupSetMax
     "Maximum supply air temperature for heating"
     annotation (Evaluate=true,
@@ -392,16 +411,6 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     final unit="1") "Heating coil control signal"
     annotation (Placement(transformation(extent={{200,-70},{220,-50}}),
         iconTransformation(extent={{200,-68},{220,-48}})));
-  CDL.Continuous.LimPID cooCoiPI(
-    reverseAction=true,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    controllerType=controllerTypeCoo,
-    k=kCoo,
-    Ti=TiCoo,
-    Td=TdCoo,
-    yMax=1,
-    yMin=0) "Cooling coil control singal"
-    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
@@ -425,6 +434,9 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
         iconTransformation(extent={{-240,-218},{-200,-178}})));
+  CoolingCoil coolingCoil(controllerTypeCooCoi=controllerTypeCooCoi, kCooCoi=
+        kCooCoi)
+    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 equation
   connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-161,198},{-190,
           198},{-190,200},{-220,200}},      color={0,0,127}));
@@ -517,22 +529,24 @@ equation
           {-220,-200}}, color={0,0,127}));
   connect(conEco.yHeaCoi, yHeaCoi) annotation (Line(points={{139,-34},{174,-34},
           {174,-60},{210,-60}}, color={0,0,127}));
-  connect(setPoiVAV.TSupCoo, cooCoiPI.u_s) annotation (Line(points={{61,190},{74,
-          190},{74,-100},{118,-100}}, color={0,0,127}));
-  connect(cooCoiPI.y, yCooCoi) annotation (Line(points={{141,-100},{176,-100},{176,
-          -120},{210,-120}}, color={0,0,127}));
   connect(modSetPoi.yOpeMod, conEco.uOpeMod) annotation (Line(points={{-139,187},
           {-120,187},{-120,-46},{117,-46}}, color={255,127,0}));
-  connect(TSup, cooCoiPI.u_m) annotation (Line(points={{-220,40},{-160,40},{-160,
-          -140},{130,-140},{130,-112}}, color={0,0,127}));
-  connect(switch.y, cooCoiPI.trigger) annotation (Line(points={{-59,-230},{-36,-230},
-          {-36,-128},{122,-128},{122,-112}}, color={255,0,255}));
   connect(modSetPoi.TZonHeaSet, TZonHeaSet) annotation (Line(points={{-139,193},
           {-126,193},{-126,100},{142,100},{142,60},{210,60}}, color={0,0,127}));
   connect(modSetPoi.TZonCooSet, TZonCooSet) annotation (Line(points={{-139,197},
           {-110,197},{-110,108},{160,108},{160,0},{210,0}}, color={0,0,127}));
   connect(heaPI.u_m, cooPI.u_m) annotation (Line(points={{-20,198},{-20,180},{-46,
           180},{-46,132},{-20,132},{-20,150}}, color={0,0,127}));
+  connect(coolingCoil.yCooCoi, yCooCoi)
+    annotation (Line(points={{141,-120},{210,-120}}, color={0,0,127}));
+  connect(switch.y, coolingCoil.uSupFan) annotation (Line(points={{-59,-230},{110,
+          -230},{110,-128},{118,-128}}, color={255,0,255}));
+  connect(zonSta.yZonSta, coolingCoil.uZonSta) annotation (Line(points={{61,140},
+          {80,140},{80,-112},{118,-112}}, color={255,127,0}));
+  connect(coolingCoil.TSupCoo, TSupCoo) annotation (Line(points={{118,-118},{74,
+          -118},{74,190},{136,190},{136,180},{210,180}}, color={0,0,127}));
+  connect(coolingCoil.TSup, TSup) annotation (Line(points={{118,-122},{-4,-122},
+          {-4,40},{-220,40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -240},{200,240}}), graphics={
                            Rectangle(

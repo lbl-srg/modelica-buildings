@@ -1,6 +1,7 @@
 Controller
 ModeAndSetPoints
 ZoneState
+CoolingCoil
 Economizers
 SetPoints
 Validation

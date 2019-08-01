@@ -10,9 +10,9 @@ model Guideline36
     have_occSen=false,
     yHeaMax=1,
     AFlo=48,
-    yMin=0.1,
     VOutMin_flow=6e-3,
     VOutDes_flow=0.625,
+    yMin=0.1,
     TSupSetMax=313.15,
     TSupSetMin=285.15)
     annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
