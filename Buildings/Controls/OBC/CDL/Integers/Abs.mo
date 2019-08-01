@@ -5,7 +5,7 @@ block Abs "Output the absolute value of the input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.IntegerOutput y "Connector of Integer output signals"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = if u >= 0 then u else -u;
