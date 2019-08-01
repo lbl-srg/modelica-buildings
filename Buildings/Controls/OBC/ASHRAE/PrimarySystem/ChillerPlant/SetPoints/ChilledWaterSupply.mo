@@ -29,15 +29,15 @@ block ChilledWaterSupply
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water pump differential static pressure setpoint"
-    annotation (Placement(transformation(extent={{80,40},{100,60}}),
-      iconTransformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{80,30},{120,70}}),
+      iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}}),
-      iconTransformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{80,-70},{120,-30}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Line chiWatPumPre
@@ -74,28 +74,28 @@ protected
 
 equation
   connect(zerRes.y, chiWatPumPre.x1)
-    annotation (Line(points={{-39,90},{20,90},{20,58},{38,58}},
+    annotation (Line(points={{-38,90},{20,90},{20,58},{38,58}},
       color={0,0,127}));
   connect(minChiWatPumPre.y, chiWatPumPre.f1)
-    annotation (Line(points={{1,70},{14,70},{14,54},{38,54}},
+    annotation (Line(points={{2,70},{14,70},{14,54},{38,54}},
       color={0,0,127}));
   connect(halRes.y, chiWatPumPre.x2)
-    annotation (Line(points={{-39,0},{20,0},{20,46},{38,46}},
+    annotation (Line(points={{-38,0},{20,0},{20,46},{38,46}},
       color={0,0,127}));
   connect(maxChiWatPumPre.y, chiWatPumPre.f2)
-    annotation (Line(points={{1,28},{14,28},{14,42},{38,42}},
+    annotation (Line(points={{2,28},{14,28},{14,42},{38,42}},
       color={0,0,127}));
   connect(halRes.y, chiWatTem.x1)
-    annotation (Line(points={{-39,0},{20,0},{20,-42},{38,-42}},
+    annotation (Line(points={{-38,0},{20,0},{20,-42},{38,-42}},
       color={0,0,127}));
   connect(maxChiWatTem.y, chiWatTem.f1)
-    annotation (Line(points={{1,-30},{14,-30},{14,-46},{38,-46}},
+    annotation (Line(points={{2,-30},{14,-30},{14,-46},{38,-46}},
       color={0,0,127}));
   connect(oneRes.y, chiWatTem.x2)
-    annotation (Line(points={{-39,-90},{14,-90},{14,-54},{38,-54}},
+    annotation (Line(points={{-38,-90},{14,-90},{14,-54},{38,-54}},
       color={0,0,127}));
   connect(minChiWatTem.y, chiWatTem.f2)
-    annotation (Line(points={{1,-70},{20,-70},{20,-58},{38,-58}},
+    annotation (Line(points={{2,-70},{20,-70},{20,-58},{38,-58}},
       color={0,0,127}));
   connect(uChiWatPlaRes, chiWatPumPre.u)
     annotation (Line(points={{-100,0},{-70,0},{-70,50},{38,50}},
@@ -104,9 +104,9 @@ equation
     annotation (Line(points={{-100,0},{-70,0},{-70,-50},{38,-50}},
       color={0,0,127}));
   connect(chiWatPumPre.y, dpChiWatPumSet)
-    annotation (Line(points={{61,50},{90,50}}, color={0,0,127}));
+    annotation (Line(points={{62,50},{100,50}},color={0,0,127}));
   connect(chiWatTem.y, TChiWatSupSet)
-    annotation (Line(points={{61,-50},{90,-50}}, color={0,0,127}));
+    annotation (Line(points={{62,-50},{100,-50}},color={0,0,127}));
 
 annotation (
   defaultComponentName="chiWatSupSet",
