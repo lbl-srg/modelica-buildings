@@ -55,8 +55,8 @@ block Speed_primary_localDp
     final min=0,
     final max=1,
     final unit="1") "Chilled water pump speed"
-    annotation (Placement(transformation(extent={{140,110},{160,130}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{140,100},{180,140}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID conPID1(
     final controllerType=controllerType,
@@ -139,82 +139,82 @@ protected
 
 equation
   connect(conPID.y, maxRemDP.u)
-    annotation (Line(points={{21,-20},{38,-20}}, color={0,0,127}));
+    annotation (Line(points={{22,-20},{38,-20}}, color={0,0,127}));
   connect(booRep.y, conPID.trigger)
-    annotation (Line(points={{-19,-60},{2,-60},{2,-32}}, color={255,0,255}));
+    annotation (Line(points={{-18,-60},{2,-60},{2,-32}}, color={255,0,255}));
   connect(dpChiWatSet, reaRep.u)
     annotation (Line(points={{-160,-120},{-122,-120}}, color={0,0,127}));
   connect(maxRemDP.y, locDpSet.u)
-    annotation (Line(points={{61,-20},{98,-20}}, color={0,0,127}));
+    annotation (Line(points={{62,-20},{98,-20}}, color={0,0,127}));
   connect(zer.y, locDpSet.x1)
-    annotation (Line(points={{81,20},{90,20},{90,-12},{98,-12}}, color={0,0,127}));
+    annotation (Line(points={{82,20},{90,20},{90,-12},{98,-12}}, color={0,0,127}));
   connect(locDp_min.y, locDpSet.f1)
-    annotation (Line(points={{61,-60},{70,-60},{70,-16},{98,-16}},
+    annotation (Line(points={{62,-60},{70,-60},{70,-16},{98,-16}},
       color={0,0,127}));
   connect(one.y, locDpSet.x2)
-    annotation (Line(points={{-99,20},{40,20},{40,0},{80,0},{80,-24},{98,-24}},
+    annotation (Line(points={{-98,20},{40,20},{40,0},{80,0},{80,-24},{98,-24}},
       color={0,0,127}));
   connect(locDp_max.y, locDpSet.f2)
-    annotation (Line(points={{61,-120},{80,-120},{80,-28},{98,-28}},
+    annotation (Line(points={{62,-120},{80,-120},{80,-28},{98,-28}},
       color={0,0,127}));
   connect(zer.y, pumSpe.x1)
-    annotation (Line(points={{81,20},{90,20},{90,68},{98,68}}, color={0,0,127}));
+    annotation (Line(points={{82,20},{90,20},{90,68},{98,68}}, color={0,0,127}));
   connect(pumSpe_min.y, pumSpe.f1)
-    annotation (Line(points={{61,100},{70,100},{70,64},{98,64}}, color={0,0,127}));
+    annotation (Line(points={{62,100},{70,100},{70,64},{98,64}}, color={0,0,127}));
   connect(conPID1.y, pumSpe.u)
-    annotation (Line(points={{-19,60},{98,60}}, color={0,0,127}));
+    annotation (Line(points={{-18,60},{98,60}}, color={0,0,127}));
   connect(one.y, pumSpe.x2)
-    annotation (Line(points={{-99,20},{40,20},{40,56},{98,56}},color={0,0,127}));
+    annotation (Line(points={{-98,20},{40,20},{40,56},{98,56}},color={0,0,127}));
   connect(pumSpe_max.y, pumSpe.f2)
-    annotation (Line(points={{1,100},{20,100},{20,52},{98,52}}, color={0,0,127}));
+    annotation (Line(points={{2,100},{20,100},{20,52},{98,52}}, color={0,0,127}));
   connect(uChiWatPum, not2.u)
     annotation (Line(points={{-160,-20},{-122,-20}},
       color={255,0,255}));
   connect(not2.y, mulAnd.u)
-    annotation (Line(points={{-99,-20},{-80,-20},{-80,-40},{-130,-40},
+    annotation (Line(points={{-98,-20},{-80,-20},{-80,-40},{-130,-40},
       {-130,-60},{-122,-60}}, color={255,0,255}));
   connect(dpChiWat_remote, div.u1)
     annotation (Line(points={{-160,-90},{-80,-90},{-80,-94},{-42,-94}},
       color={0,0,127}));
   connect(reaRep.y, div.u2)
-    annotation (Line(points={{-99,-120},{-80,-120},{-80,-106},{-42,-106}},
+    annotation (Line(points={{-98,-120},{-80,-120},{-80,-106},{-42,-106}},
       color={0,0,127}));
   connect(locDpSet.y, div1.u2)
-    annotation (Line(points={{121,-20},{130,-20},{130,40},{-120,40},{-120,74},
+    annotation (Line(points={{122,-20},{130,-20},{130,40},{-120,40},{-120,74},
       {-102,74}}, color={0,0,127}));
   connect(dpChiWat_local, div1.u1)
     annotation (Line(points={{-160,100},{-120,100},{-120,86},{-102,86}},
       color={0,0,127}));
   connect(mulAnd.y, pumOn.u)
-    annotation (Line(points={{-98.3,-60},{-82,-60}}, color={255,0,255}));
+    annotation (Line(points={{-98,-60},{-82,-60}}, color={255,0,255}));
   connect(pumOn.y, booRep.u)
-    annotation (Line(points={{-59,-60},{-42,-60}},
+    annotation (Line(points={{-58,-60},{-42,-60}},
       color={255,0,255}));
   connect(pumOn.y, conPID1.trigger)
-    annotation (Line(points={{-59,-60},{-50,-60},{-50,-20},{-38,-20},{-38,48}},
+    annotation (Line(points={{-58,-60},{-50,-60},{-50,-20},{-38,-20},{-38,48}},
       color={255,0,255}));
   connect(one.y, reaRep1.u)
-    annotation (Line(points={{-99,20},{-90,20},{-90,0},{-82,0}}, color={0,0,127}));
+    annotation (Line(points={{-98,20},{-90,20},{-90,0},{-82,0}}, color={0,0,127}));
   connect(reaRep1.y, conPID.u_s)
-    annotation (Line(points={{-59,0},{-20,0},{-20,-20},{-2,-20}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{-20,0},{-20,-20},{-2,-20}}, color={0,0,127}));
   connect(div.y, conPID.u_m)
-    annotation (Line(points={{-19,-100},{10,-100},{10,-32}}, color={0,0,127}));
+    annotation (Line(points={{-18,-100},{10,-100},{10,-32}}, color={0,0,127}));
   connect(one.y, conPID1.u_s)
-    annotation (Line(points={{-99,20},{-90,20},{-90,60},{-42,60}}, color={0,0,127}));
+    annotation (Line(points={{-98,20},{-90,20},{-90,60},{-42,60}}, color={0,0,127}));
   connect(div1.y, conPID1.u_m)
-    annotation (Line(points={{-79,80},{-60,80},{-60,32},{-30,32},{-30,48}},
+    annotation (Line(points={{-78,80},{-60,80},{-60,32},{-30,32},{-30,48}},
       color={0,0,127}));
   connect(pumSpe.y, swi.u1)
-    annotation (Line(points={{121,60},{130,60},{130,100},{80,100},{80,128},
-      {98,128}}, color={0,0,127}));
+    annotation (Line(points={{122,60},{130,60},{130,100},{80,100},{80,128},{98,128}},
+      color={0,0,127}));
   connect(pumOn.y, swi.u2)
-    annotation (Line(points={{-59,-60},{-50,-60},{-50,120},{98,120}},
+    annotation (Line(points={{-58,-60},{-50,-60},{-50,120},{98,120}},
       color={255,0,255}));
   connect(zer.y, swi.u3)
-    annotation (Line(points={{81,20},{90,20},{90,112},{98,112}},
+    annotation (Line(points={{82,20},{90,20},{90,112},{98,112}},
       color={0,0,127}));
   connect(swi.y, yChiWatPumSpe)
-    annotation (Line(points={{121,120},{150,120}}, color={0,0,127}));
+    annotation (Line(points={{122,120},{160,120}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="chiPumSpe",
@@ -260,7 +260,7 @@ annotation (
 Block that control speed of enabled chilled water pumps for primary-only plants where
 the remote pressure differential (DP) sensor(s) is not hardwired to the plant controller,
 but a local DP sensor is hardwired to the plant controller, 
-according to ASHRAE RP-1711 (Draft 4 on January 7, 2019), 
+according to ASHRAE RP-1711 (Draft 6 on July 25, 2019), 
 section 5.2.6 Primary chilled water pumps, part 5.2.6.7, 5.2.6.8 and 5.2.6.9.
 </p>
 <ol>
@@ -288,7 +288,7 @@ from each of the remote loops.
 </html>", revisions="<html>
 <ul>
 <li>
-January 28, 2019, by Jianjun Hu:<br/>
+August 1, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

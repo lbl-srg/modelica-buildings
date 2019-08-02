@@ -7,20 +7,17 @@ block EnableLead_dedicated
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna
     "Lead chiller enabling status"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiOn
     "Lead chiller status"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq
     "Status indicating if chiller is requesting chilled water"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
     "Lead pump status"
-    annotation (Placement(transformation(extent={{100,70},{120,90}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta(
     final pre_y_start=true)
@@ -29,51 +26,51 @@ block EnableLead_dedicated
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Count the total time of the chiller is off"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
     final threshold=offTimThr)
     "Check if the chiller has been OFF for more than 3 minutes"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
 equation
   connect(uLeaChiWatReq, not1.u)
     annotation (Line(points={{-120,-80},{-82,-80}}, color={255,0,255}));
   connect(uLeaChiEna, leaPumSta.u)
-    annotation (Line(points={{-120,80},{59,80}}, color={255,0,255}));
+    annotation (Line(points={{-120,80},{58,80}}, color={255,0,255}));
   connect(leaPumSta.y, yLeaPum)
-    annotation (Line(points={{81,80},{110,80}}, color={255,0,255}));
+    annotation (Line(points={{82,80},{120,80}}, color={255,0,255}));
   connect(uLeaChiOn, not2.u)
-    annotation (Line(points={{-120,-20},{-82,-20}}, color={255,0,255}));
+    annotation (Line(points={{-120,0},{-82,0}}, color={255,0,255}));
   connect(not2.y, tim.u)
-    annotation (Line(points={{-59,-20},{-42,-20}}, color={255,0,255}));
+    annotation (Line(points={{-58,0},{-42,0}}, color={255,0,255}));
   connect(tim.y, greEquThr.u)
-    annotation (Line(points={{-19,-20},{-2,-20}}, color={0,0,127}));
+    annotation (Line(points={{-18,0},{-2,0}}, color={0,0,127}));
   connect(greEquThr.y, or2.u1)
-    annotation (Line(points={{21,-20},{38,-20}}, color={255,0,255}));
+    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
   connect(not1.y, or2.u2)
-    annotation (Line(points={{-59,-80},{30,-80},{30,-28},{38,-28}},
+    annotation (Line(points={{-58,-80},{30,-80},{30,-8},{38,-8}},
       color={255,0,255}));
   connect(uLeaChiEna, not3.u)
-    annotation (Line(points={{-120,80},{-80,80},{-80,40},{-62,40}},
+    annotation (Line(points={{-120,80},{-80,80},{-80,50},{-62,50}},
       color={255,0,255}));
   connect(not3.y, and2.u1)
-    annotation (Line(points={{-39,40},{-20,40},{-20,40},{-2,40}},
+    annotation (Line(points={{-38,50},{-2,50}},
       color={255,0,255}));
   connect(or2.y, and2.u2)
-    annotation (Line(points={{61,-20},{80,-20},{80,20},{-20,20},{-20,32},
-      {-2,32}}, color={255,0,255}));
+    annotation (Line(points={{62,0},{80,0},{80,20},{-20,20},{-20,42},{-2,42}},
+      color={255,0,255}));
   connect(and2.y, leaPumSta.clr)
-    annotation (Line(points={{21,40},{40,40},{40,74},{59,74}}, color={255,0,255}));
+    annotation (Line(points={{22,50},{40,50},{40,74},{58,74}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaLeaChiPum",
@@ -111,10 +108,10 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that enable and disable leading primary chilled water pump, for plants
-with headered primary chilled water pumps, 
+with headered primary chilled water pumps and parallel chillers, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
-section 5.2.6 Primary chilled water pumps, part 5.2.6.3.
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+section 5.2.6 Primary chilled water pumps, part 5.2.6.5.
 </p>
 <p>
 The lead primary chilled water pump should be enabled when lead chiller is commanded 
@@ -126,7 +123,7 @@ chiller is disabled and either the lead chiller has been proven off (<code>uLeaC
 </html>", revisions="<html>
 <ul>
 <li>
-January 28, 2019, by Jianjun Hu:<br/>
+August 1, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

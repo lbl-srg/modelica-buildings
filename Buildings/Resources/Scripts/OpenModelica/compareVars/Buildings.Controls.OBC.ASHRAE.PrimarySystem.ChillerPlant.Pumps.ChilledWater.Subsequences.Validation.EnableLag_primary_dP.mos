@@ -5,5 +5,9 @@ compareVars :=
     "enaLagChiPum.hys.y",
     "enaLagChiPum.yNexLagPum",
     "enaLagChiPum.hys1.y",
-    "enaLagChiPum.yLasLagPum"
+    "enaLagChiPum.yLasLagPum",
+    "enaLagChiPum.tim.y",
+    "enaLagChiPum.tim1.y",
+    "nexLagPumTri.y",
+    "lasLagPumTri.y"
   };

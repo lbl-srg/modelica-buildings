@@ -5,12 +5,10 @@ block EnableLead_headered
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi]
     "Chilled water isolation valve status"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
     "Lead pump status"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta "Lead pump status"
@@ -30,18 +28,18 @@ protected
 
 equation
   connect(con.y,leaPumSta. u1)
-    annotation (Line(points={{-19,40},{30,40},{30,8},{38,8}},color={255,0,255}));
+    annotation (Line(points={{-18,40},{30,40},{30,8},{38,8}},color={255,0,255}));
   connect(con1.y,leaPumSta. u3)
-    annotation (Line(points={{-19,-40},{30,-40},{30,-8},{38,-8}},
+    annotation (Line(points={{-18,-40},{30,-40},{30,-8},{38,-8}},
       color={255,0,255}));
   connect(leaPumSta.y, yLeaPum)
-    annotation (Line(points={{61,0},{110,0}}, color={255,0,255}));
+    annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
   connect(not2.y, leaPumSta.u2)
-    annotation (Line(points={{21,0},{38,0}}, color={255,0,255}));
+    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
   connect(mulAnd.y, not2.u)
-    annotation (Line(points={{-18.3,0},{-2,0}}, color={255,0,255}));
+    annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
   connect(not1.y, mulAnd.u)
-    annotation (Line(points={{-59,0},{-42,0}},  color={255,0,255}));
+    annotation (Line(points={{-58,0},{-42,0}}, color={255,0,255}));
   connect(uChiIsoVal, not1.u)
     annotation (Line(points={{-120,0},{-82,0}}, color={255,0,255}));
 
@@ -71,9 +69,9 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that enable and disable leading primary chilled water pump, for plants
-with headered primary chilled water pumps, 
+with headered primary chilled water pumps and parallel chillers, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
 section 5.2.6 Primary chilled water pumps, part 5.2.6.1 and section 5.2.6.2.
 </p>
 <ol>
@@ -89,7 +87,7 @@ when chiller CHW isolation valves are commanded closed.
 </html>", revisions="<html>
 <ul>
 <li>
-January 28, 2019, by Jianjun Hu:<br/>
+August 1, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
