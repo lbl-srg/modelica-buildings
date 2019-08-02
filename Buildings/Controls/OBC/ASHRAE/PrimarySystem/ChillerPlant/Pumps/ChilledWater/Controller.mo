@@ -44,9 +44,9 @@ block Controller
     "Pump index, {1,2,...,n}";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum]
-    "Chilled water pump lead-lag order" annotation (Placement(transformation(
-          extent={{-320,210},{-280,250}}), iconTransformation(extent={{-140,70},
-            {-100,110}})));
+    "Chilled water pump lead-lag order"
+      annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pumps operating status"
     annotation (Placement(transformation(extent={{-320,120},{-280,160}}),
