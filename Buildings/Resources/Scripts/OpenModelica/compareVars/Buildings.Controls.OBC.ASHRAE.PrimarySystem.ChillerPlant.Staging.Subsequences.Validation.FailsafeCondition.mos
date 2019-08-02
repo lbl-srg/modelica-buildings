@@ -19,5 +19,12 @@ compareVars :=
     "faiSafCon1.hysOplr.y",
     "faiSafCon1.hysdpSup.y",
     "faiSafCon1.hysTSup.y",
-    "faiSafCon1.y"
+    "faiSafCon1.y",
+    "faiSafCon2.uOplrUp",
+    "faiSafCon2.uOplrUpMin",
+    "faiSafCon2.TChiWatSup",
+    "faiSafCon2.TChiWatSupSet",
+    "faiSafCon2.hysOplr.y",
+    "faiSafCon2.hysTSup.y",
+    "faiSafCon2.y"
   };

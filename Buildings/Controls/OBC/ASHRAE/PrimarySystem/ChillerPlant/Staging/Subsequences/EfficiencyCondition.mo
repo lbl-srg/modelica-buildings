@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 block EfficiencyCondition
   "Efficiency condition used in staging up and down"
 
-  parameter Modelica.SIunits.Time delayStaCha = 300  "Enable delay";
+  parameter Modelica.SIunits.Time delayStaCha = 900  "Enable delay";
 
   parameter Real hysSig = 0.05
     "Signal hysteresis deadband";
@@ -68,7 +68,8 @@ annotation (defaultComponentName = "effCon",
 Documentation(info="<html>
 <p>
 Efficiency condition used in staging up and down, 
-implemented according to the specification provided in the tables in section 5.2.4.14.
+implemented according to the specification provided in the tables in section 
+5.2.4.14., July draft.
 </p>
 </html>",
 revisions="<html>

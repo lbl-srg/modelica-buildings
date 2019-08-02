@@ -2,20 +2,26 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 block FailsafeCondition
   "Failsafe condition used in staging up and down"
 
-  parameter Modelica.SIunits.Time delayStaCha = 15*60
+  parameter Boolean serChi = false
+    "Series chillers plant";
+
+  parameter Modelica.SIunits.Time delayStaCha = 900
     "Enable delay";
 
   parameter Modelica.SIunits.TemperatureDifference TDif = 1
     "Offset between the chilled water supply temperature and its setpoint";
 
-  parameter Modelica.SIunits.TemperatureDifference TDifHyst = 1
+  parameter Modelica.SIunits.TemperatureDifference TDifHys = 1
     "Temperature hysteresis deadband";
 
   parameter Real hysSig = 0.05
     "Signal hysteresis deadband";
 
   parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
-    "Offset between the chilled water pump Diferential static pressure and its setpoint";
+    "Offset between the chilled water differential pressure and its setpoint";
+
+  parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
+    "Pressure difference hysteresis deadband";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrUp(
     final unit="1")
@@ -31,15 +37,15 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
-    final quantity="PressureDifference")
-    "Chilled water pump differential static pressure setpoint"
+    final quantity="PressureDifference") if not serChi
+    "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
-    final quantity="PressureDifference")
-    "Chilled water pump Diferential static pressure"
+    final quantity="PressureDifference") if not serChi
+    "Chilled water differential pressure"
     annotation (Placement(
     transformation(extent={{-180,-140},{-140,-100}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -70,15 +76,20 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(
     final uLow=dpDif,
-    final uHigh=dpDif + dpDif/4)
+    final uHigh=dpDif + dpDifHys) if not serChi
     "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
     final uLow=TDif,
-    final uHigh=TDif + TDifHyst)
+    final uHigh=TDif + TDifHys)
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false) if serChi
+    "Virtual signal for series chiller plants"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
@@ -100,7 +111,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Add add1(
     final k1=1,
-    final k2=-1)
+    final k2=-1) if not serChi
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
@@ -140,6 +151,8 @@ equation
   connect(truDel.y, y)
     annotation (Line(points={{122,0},{160,0}}, color={255,0,255}));
 
+  connect(con.y, or1.u2) annotation (Line(points={{-18,-50},{-10,-50},{-10,-18},
+          {18,-18}}, color={255,0,255}));
 annotation (defaultComponentName = "faiSafCon",
         Icon(graphics={
         Rectangle(
@@ -156,7 +169,8 @@ annotation (defaultComponentName = "faiSafCon",
 Documentation(info="<html>
 <p>
 Failsafe condition used in staging up and down,
-implemented according to the specification provided in the tables in section 5.2.4.14.
+implemented according to the specification provided in the tables in section 
+5.2.4.14., July draft.
 </p>
 </html>",
 revisions="<html>
