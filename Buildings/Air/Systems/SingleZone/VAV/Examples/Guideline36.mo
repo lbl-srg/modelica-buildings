@@ -55,7 +55,7 @@ equation
   connect(hysChiPla.y, hvac.chiOn) annotation (Line(points={{-51,-110},{-48,
           -110},{-48,-10},{-42,-10}}, color={255,0,255}));
   connect(weaBus.TDryBul, controller.TOut) annotation (Line(
-      points={{-36,80},{-36,60},{-140,60},{-140,19.8},{-122,19.8}},
+      points={{-36,80},{-36,60},{-140,60},{-140,20},{-122,20}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -90,7 +90,7 @@ equation
   annotation (Diagram(coordinateSystem(extent={{-160,-160},{120,140}})), Icon(
         coordinateSystem(extent={{-160,-160},{120,140}})),
     experiment(
-      StopTime=31536000,
+      StopTime=864000,
       Interval=600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"));
