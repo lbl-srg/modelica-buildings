@@ -279,7 +279,6 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
                   "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-48,150},{-28,170}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID heaPI(
-    reverseAction=true,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final controllerType=controllerTypeHea,
     final k=kHea,
