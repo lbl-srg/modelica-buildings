@@ -595,7 +595,7 @@ It is implemented according to the ASHRAE Guideline 36, Part 5.18.
 revisions="<html>
 <ul>
 <li>
-August 2, 2019, by David Blum & Kun Zhang:<br/>
+August 3, 2019, by David Blum & Kun Zhang:<br/>
 First implementation.
 </li>
 </ul>

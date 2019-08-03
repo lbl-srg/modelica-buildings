@@ -96,11 +96,7 @@ economizer.  See documentation for the specific models for more information.
 </html>", revisions="<html>
 <ul>
 <li>
-June 21, 2017, by Michael Wetter:<br/>
-Refactored implementation.
-</li>
-<li>
-June 1, 2017, by David Blum:<br/>
+July 29, 2019, by David Blum:<br/>
 First implementation.
 </li>
 </ul>

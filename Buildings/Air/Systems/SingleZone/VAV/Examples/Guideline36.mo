@@ -1,6 +1,6 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples;
 model Guideline36
-  "Variable air volume flow system with single themal zone"
+  "Variable air volume flow system with single themal zone and ASHRAE Guideline 36 sequence control"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialOpenLoop(hvac(QHea_flow_nominal=10000,
         QCoo_flow_nominal=-12000));
@@ -93,5 +93,19 @@ equation
       StopTime=864000,
       Interval=600,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"));
+      __Dymola_Algorithm="Radau"),
+      Documentation(info="<html>
+<p>
+Implementation of <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop</a>
+with ASHRAE Guideline 36 sequences.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 29, 2019, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Guideline36;

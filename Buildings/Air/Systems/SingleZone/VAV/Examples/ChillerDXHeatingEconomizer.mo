@@ -1,6 +1,6 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples;
 model ChillerDXHeatingEconomizer
-  "Example for SingleZoneVAV with a dry cooling coil, air-cooled chiller, electric heating coil, variable speed fan, and mixing box with economizer."
+  "Variable air volume flow system with single themal zone and conventional control"
   extends Modelica.Icons.Example;
 
   package MediumA = Buildings.Media.Air "Buildings library air media package";
@@ -110,8 +110,8 @@ equation
       points={{46,18},{42,18},{42,80},{-36,80}},
       color={255,204,51},
       thickness=0.5));
-  connect(con.TSup, hvac.TSup) annotation (Line(points={{-102,-9},{-108,-9},{
-          -108,-32},{4,-32},{4,-7},{1,-7}},
+  connect(con.TSup, hvac.TSup) annotation (Line(points={{-102,-9},{-108,-9},{-108,
+          -32},{4,-32},{4,-8},{1,-8}},
         color={0,0,127}));
   connect(con.TRoo, zon.TRooAir) annotation (Line(points={{-102,-6},{-110,-6},{
           -110,-36},{6,-36},{6,-22},{90,-22},{90,0},{81,0}},      color={0,0,
@@ -149,12 +149,17 @@ equation
         "Simulate and plot"),
      Documentation(info="<html>
 <p>
-The thermal zone is based on the BESTEST Case 600 envelope, while the HVAC
-system is based on a conventional VAV system with air cooled chiller and
-economizer.  See documentation for the specific models for more information.
+Implementation of <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop</a>
+with conventional single-maximum sequences.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 29, 2019, by David Blum:<br/>
+Update to using <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop</a>.
+</li>
 <li>
 June 21, 2017, by Michael Wetter:<br/>
 Refactored implementation.
