@@ -90,10 +90,13 @@ equation
   annotation (Diagram(coordinateSystem(extent={{-160,-160},{120,140}})), Icon(
         coordinateSystem(extent={{-160,-160},{120,140}})),
     experiment(
-      StopTime=864000,
-      Interval=600,
+      StartTime=103680000,
+      StopTime=104544000,
+      Interval=3600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/Guideline36.mos"
+        "Simulate and plot"),
       Documentation(info="<html>
 <p>
 Implementation of <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop\">

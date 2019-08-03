@@ -50,5 +50,7 @@ equation
       StopTime=28000,
       Interval=600,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"));
+      __Dymola_Algorithm="Radau"),
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/CoolingCoil.mos"
+    "Simulate and plot"));
 end CoolingCoil;
