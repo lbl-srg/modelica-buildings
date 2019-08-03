@@ -60,7 +60,9 @@ equation
           44,-4.66667},{58,-4.66667}}, color={255,127,0}));
   connect(sumInt.y, yZonSta)
     annotation (Line(points={{81.7,0},{110,0}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+        defaultComponentName="zonSta",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},

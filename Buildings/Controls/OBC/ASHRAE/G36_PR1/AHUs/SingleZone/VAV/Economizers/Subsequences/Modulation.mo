@@ -100,37 +100,37 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final yMax=1,
     final yMin=0)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
       final k=uMin) "Minimal control loop signal for the outdoor air damper"
-    annotation (Placement(transformation(extent={{-20,-96},{0,-76}})));
+    annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
       final k=uMax) "Maximal control loop signal for the return air damper"
-    annotation (Placement(transformation(extent={{-20,-42},{0,-22}})));
+    annotation (Placement(transformation(extent={{-60,-34},{-40,-14}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+    annotation (Placement(transformation(extent={{24,-50},{44,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Line retDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
-    annotation (Placement(transformation(extent={{58,-10},{78,10}})));
+    annotation (Placement(transformation(extent={{22,-10},{42,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line HeaCoi(final limitBelow=true,
       final limitAbove=true)
     "Heating coil signal is linearly proportional to the control signal between signal limits"
-    annotation (Placement(transformation(extent={{58,30},{78,50}})));
+    annotation (Placement(transformation(extent={{22,30},{42,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMaxLimSig(final k=1)
     "Maximal control loop signal for the heating coil"
-    annotation (Placement(transformation(extent={{-20,48},{0,68}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMinLimSig(final k=0)
     "Minimum control loop signal for the heating coil"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 public
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
@@ -141,53 +141,66 @@ public
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMaxHeaCoi(final k=1)
     "Maximal control loop signal for the heating coil"
-    annotation (Placement(transformation(extent={{-20,86},{0,106}})));
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+  CDL.Logical.Switch enaDis "Enable or disable the heating coil"
+    annotation (Placement(transformation(extent={{76,30},{96,50}})));
+  CDL.Continuous.Sources.Constant Off(final k=0) "Off signal for heating coil"
+    annotation (Placement(transformation(extent={{6,-90},{26,-70}})));
 equation
-  connect(outDamPos.y, yOutDamPos)
-    annotation (Line(points={{81,-40},{94,-40},{94,-40},{106,-40},{106,-40},{130,
-          -40}},                                                               color={0,0,127}));
-  connect(retDamPos.y, yRetDamPos)
-    annotation (Line(points={{79,0},{92,0},{92,0},{104,0},{104,0},{130,0}},
-                                                                   color={0,0,127}));
   connect(retDamMaxLimSig.y,retDamPos. x2)
-    annotation (Line(points={{1,-32},{24,-32},{24,-4},{56,-4}},                     color={0,0,127}));
-  connect(uTSup.y, retDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,0},
-          {56,0}},      color={0,0,127}));
-  connect(uTSup.y, outDamPos.u) annotation (Line(points={{-59,80},{40,80},{40,-40},
-          {58,-40}}, color={0,0,127}));
+    annotation (Line(points={{-39,-24},{-12,-24},{-12,-4},{20,-4}},                 color={0,0,127}));
+  connect(uTSup.y, retDamPos.u) annotation (Line(points={{-79,80},{4,80},{4,0},
+          {20,0}},      color={0,0,127}));
+  connect(uTSup.y, outDamPos.u) annotation (Line(points={{-79,80},{4,80},{4,-40},
+          {22,-40}}, color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1)
-    annotation (Line(points={{1,-86},{28,-86},{28,-32},{58,-32}},          color={0,0,127}));
+    annotation (Line(points={{-39,-78},{-8,-78},{-8,-32},{22,-32}},        color={0,0,127}));
   connect(retDamMaxLimSig.y, outDamPos.x2)
-    annotation (Line(points={{1,-32},{24,-32},{24,-44},{58,-44}},
+    annotation (Line(points={{-39,-24},{-12,-24},{-12,-44},{22,-44}},
                                                                 color={0,0,127}));
   connect(outDamMinLimSig.y, retDamPos.x1)
-    annotation (Line(points={{1,-86},{28,-86},{28,8},{56,8}},   color={0,0,127}));
-  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-78,-110},
-          {-78,68}},       color={255,0,255}));
-  connect(HeaCoi.y, yHeaCoi) annotation (Line(points={{79,40},{92,40},{92,40},{104,
-          40},{104,40},{130,40}}, color={0,0,127}));
+    annotation (Line(points={{-39,-78},{-8,-78},{-8,8},{20,8}}, color={0,0,127}));
   connect(HeaCoi.u, retDamPos.u)
-    annotation (Line(points={{56,40},{40,40},{40,0},{56,0}}, color={0,0,127}));
+    annotation (Line(points={{20,40},{4,40},{4,0},{20,0}},   color={0,0,127}));
   connect(THeaSupSet, uTSup.u_s)
-    annotation (Line(points={{-140,80},{-82,80}}, color={0,0,127}));
-  connect(TSup, uTSup.u_m) annotation (Line(points={{-140,110},{-106,110},{-106,
-          60},{-70,60},{-70,68}}, color={0,0,127}));
-  connect(heaCoiMinLimSig.y, HeaCoi.f1) annotation (Line(points={{1,20},{28,20},
-          {28,44},{56,44}}, color={0,0,127}));
-  connect(heaCoiMaxLimSig.y, HeaCoi.f2) annotation (Line(points={{1,58},{32,58},
-          {32,32},{56,32}}, color={0,0,127}));
-  connect(retDamMaxLimSig.y, HeaCoi.x1) annotation (Line(points={{1,-32},{24,-32},
-          {24,48},{56,48}}, color={0,0,127}));
-  connect(uMaxHeaCoi.y, HeaCoi.x2) annotation (Line(points={{1,96},{46,96},{46,36},
-          {56,36}}, color={0,0,127}));
-  connect(uOutDamPosMax, outDamPos.f1) annotation (Line(points={{-140,-40},{-98,
-          -40},{-98,-56},{46,-56},{46,-36},{58,-36}}, color={0,0,127}));
-  connect(uOutDamPosMin, outDamPos.f2) annotation (Line(points={{-140,-70},{-94,
-          -70},{-94,-48},{58,-48}}, color={0,0,127}));
+    annotation (Line(points={{-140,80},{-102,80}},color={0,0,127}));
+  connect(TSup, uTSup.u_m) annotation (Line(points={{-140,110},{-108,110},{-108,
+          60},{-90,60},{-90,68}}, color={0,0,127}));
+  connect(heaCoiMinLimSig.y, HeaCoi.f1) annotation (Line(points={{-39,20},{-8,
+          20},{-8,44},{20,44}},
+                            color={0,0,127}));
+  connect(heaCoiMaxLimSig.y, HeaCoi.f2) annotation (Line(points={{-39,60},{-4,
+          60},{-4,32},{20,32}},
+                            color={0,0,127}));
+  connect(retDamMaxLimSig.y, HeaCoi.x1) annotation (Line(points={{-39,-24},{-12,
+          -24},{-12,48},{20,48}},
+                            color={0,0,127}));
+  connect(uMaxHeaCoi.y, HeaCoi.x2) annotation (Line(points={{-39,100},{10,100},
+          {10,36},{20,36}},
+                    color={0,0,127}));
+  connect(uOutDamPosMin, outDamPos.f2) annotation (Line(points={{-140,-70},{-92,
+          -70},{-92,-48},{22,-48}}, color={0,0,127}));
   connect(uRetDamPosMin, retDamPos.f1)
-    annotation (Line(points={{-140,0},{34,0},{34,4},{56,4}}, color={0,0,127}));
-  connect(uRetDamPosMax, retDamPos.f2) annotation (Line(points={{-140,40},{-98,40},
-          {-98,-8},{56,-8}}, color={0,0,127}));
+    annotation (Line(points={{-140,0},{-2,0},{-2,4},{20,4}}, color={0,0,127}));
+  connect(uRetDamPosMax, retDamPos.f2) annotation (Line(points={{-140,40},{-92,
+          40},{-92,-8},{20,-8}},
+                             color={0,0,127}));
+  connect(Off.y, enaDis.u3) annotation (Line(points={{27,-80},{62,-80},{62,32},
+          {74,32}}, color={0,0,127}));
+  connect(uSupFan, enaDis.u2) annotation (Line(points={{-140,-110},{56,-110},{
+          56,40},{74,40}}, color={255,0,255}));
+  connect(HeaCoi.y, enaDis.u1) annotation (Line(points={{43,40},{50,40},{50,48},
+          {74,48}}, color={0,0,127}));
+  connect(enaDis.y, yHeaCoi)
+    annotation (Line(points={{97,40},{130,40}}, color={0,0,127}));
+  connect(uOutDamPosMax, outDamPos.f1) annotation (Line(points={{-140,-40},{-2,
+          -40},{-2,-36},{22,-36}}, color={0,0,127}));
+  connect(retDamPos.y, yRetDamPos)
+    annotation (Line(points={{43,0},{130,0}}, color={0,0,127}));
+  connect(outDamPos.y, yOutDamPos)
+    annotation (Line(points={{45,-40},{130,-40}}, color={0,0,127}));
+  connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-98,
+          -110},{-98,68}}, color={255,0,255}));
   annotation (
     defaultComponentName = "mod",
     Icon(graphics={
@@ -217,24 +230,24 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}}), graphics={
         Rectangle(
-          extent={{-118,118},{18,-118}},
+          extent={{-18,118},{118,-118}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{22,118},{118,-118}},
+          extent={{-116,118},{-20,-118}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
                                    Text(
-          extent={{-102,128},{-58,88}},
+          extent={{-104,128},{-60,88}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 supply air temperature
 control loop"),                    Text(
-          extent={{56,128},{100,88}},
+          extent={{32,128},{76,88}},
           lineColor={0,0,0},
           fontSize=12,
           horizontalAlignment=TextAlignment.Left,

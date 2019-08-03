@@ -74,12 +74,18 @@ equation
           {-120,-80}}, color={255,0,255}));
   connect(and2.y, switch.u2) annotation (Line(points={{61,-30},{64,-30},{64,0},{
           70,0}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="cooCoi",
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
+        fillPattern=FillPattern.Solid),
+        Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255})}),
+        Diagram(coordinateSystem(
           preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

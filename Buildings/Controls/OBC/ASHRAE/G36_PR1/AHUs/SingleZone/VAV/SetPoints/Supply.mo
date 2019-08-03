@@ -23,23 +23,28 @@ block Supply "Supply air set point for single zone VAV system"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(min=0, max=1, unit="1")
     "Heating control signal"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(min=0, max=1, unit="1")
     "Cooling control signal"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSet(unit="K", displayUnit="degC")
     "Average of heating and cooling setpoints for zone temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(unit="K", displayUnit="degC")
     "Zone temperature"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(unit="K", displayUnit="degC")
     "Temperature setpoint for heating coil and for economizer"
@@ -53,6 +58,12 @@ block Supply "Supply air set point for single zone VAV system"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(min=0, max=1, unit="1") "Fan speed"
   annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
+    "Supply fan on/off status"
+    annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch the fan on/off"
+    annotation (Placement(transformation(extent={{66,-70},{86,-50}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Line TSetCooHig
     "Table to compute the setpoint for cooling for uCoo = 0...1"
@@ -163,12 +174,14 @@ protected
     final k1=1,
     final k2=1)
     "Add heating control signal and offset due to cooling"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{32,-70},{52,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add offCoo(
     final k1=1,
     final k2=1)
     "Offset of control signal (relative to heating signal) for cooling"
     annotation (Placement(transformation(extent={{40,-202},{60,-182}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Off(final k=0) "Fan off signal"
+    annotation (Placement(transformation(extent={{36,-30},{56,-10}})));
 equation
   connect(offSetTSetHea.u, uCoo)
     annotation (Line(points={{-2,150},{-2,150},{-32,150},{-32,52},{-94,52},
@@ -290,17 +303,14 @@ equation
     annotation (Line(points={{21,-118},{34,-118}}, color={0,0,127}));
   connect(dY075.u2, yOffSet.y) annotation (Line(points={{-38,-290},{-42,-290},{-42,
           -160},{70,-160},{70,-118},{57,-118}}, color={0,0,127}));
-  connect(addHeaCoo.u1, yHea.y) annotation (Line(points={{58,-54},{20,-54},{20,
-          -60},{1,-60}},
-                    color={0,0,127}));
+  connect(addHeaCoo.u1, yHea.y) annotation (Line(points={{30,-54},{20,-54},{20,-60},
+          {1,-60}}, color={0,0,127}));
   connect(offCoo.u1, lin050.y) annotation (Line(points={{38,-186},{20,-186},{20,
           -192},{1,-192}}, color={0,0,127}));
   connect(offCoo.u2, lin075.y) annotation (Line(points={{38,-198},{34,-198},{34,
           -256},{60,-256},{60,-284},{55,-284}}, color={0,0,127}));
-  connect(offCoo.y, addHeaCoo.u2) annotation (Line(points={{61,-192},{90,-192},{
-          90,-92},{48,-92},{48,-66},{58,-66}}, color={0,0,127}));
-  connect(addHeaCoo.y, y) annotation (Line(points={{81,-60},{90,-60},{90,-60},{110,
-          -60}}, color={0,0,127}));
+  connect(offCoo.y, addHeaCoo.u2) annotation (Line(points={{61,-192},{64,-192},{
+          64,-94},{22,-94},{22,-66},{30,-66}}, color={0,0,127}));
   connect(lin050.x2, con1.y) annotation (Line(points={{-22,-196},{-44,-196},{-44,
           -170},{-59,-170}}, color={0,0,127}));
   connect(con025.y, lin050.x1) annotation (Line(points={{-59,-202},{-52,-202},{-52,
@@ -315,6 +325,14 @@ equation
           {32,-280}}, color={0,0,127}));
   connect(TSetHeaHig.x1, con0.y) annotation (Line(points={{0,198},{-56,198},{-56,
           190},{-59,190}}, color={0,0,127}));
+  connect(swi.y, y)
+    annotation (Line(points={{87,-60},{110,-60}}, color={0,0,127}));
+  connect(addHeaCoo.y, swi.u1) annotation (Line(points={{53,-60},{56,-60},{56,-52},
+          {64,-52}}, color={0,0,127}));
+  connect(uFan, swi.u2) annotation (Line(points={{-120,-120},{-94,-120},{-94,-84},
+          {58,-84},{58,-60},{64,-60}}, color={255,0,255}));
+  connect(Off.y, swi.u3) annotation (Line(points={{57,-20},{60,-20},{60,-68},{64,
+          -68}}, color={0,0,127}));
 annotation (
   defaultComponentName = "setPoiVAV",
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -364,13 +382,13 @@ annotation (
       fillColor={95,95,95},
       fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,90},{-72,68}},
+          extent={{-100,106},{-74,84}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uHea"),
         Text(
-          extent={{-96,50},{-70,28}},
+          extent={{-98,70},{-72,48}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -394,13 +412,13 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="y"),
         Text(
-          extent={{-96,-30},{-70,-52}},
+          extent={{-98,-10},{-72,-32}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
-          extent={{-98,-68},{-72,-90}},
+          extent={{-100,-48},{-74,-70}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -412,18 +430,24 @@ annotation (
       fillColor={95,95,95},
       fillPattern=FillPattern.Solid),
     Text(
-      extent={{-88,68},{-47,48}},
+      extent={{-86,66},{-47,48}},
       lineColor={0,0,0},
           textString="y"),
         Line(points={{-46,44},{-28,20},{18,20},{28,36},{38,36},{50,54}}, color={
               0,0,0}),
         Line(points={{18,20},{38,20},{50,54},{28,54},{18,20}}, color={0,0,0}),
         Text(
-          extent={{-96,12},{-70,-10}},
+          extent={{-98,32},{-72,10}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="TZonSet")}),
+          textString="TZonSet"),
+        Text(
+          extent={{-100,-82},{-74,-104}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uFan")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-360},{100,220}}), graphics={
@@ -467,7 +491,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           textString="heating"),
         Text(
-          extent={{-82,-98},{88,-90}},
+          extent={{-82,-96},{88,-88}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -526,6 +550,10 @@ based on the same temperature sensors and control loops.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+Aug 01, 2019, by Kun Zhang:<br/>
+Added a swtich to the fan control.
+</li>
 <li>
 March 25, 2018, by Michael Wetter:<br/>
 Revised implementation of fan speed control signal calculation
