@@ -241,7 +241,11 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     "Physically fixed minimum position of the return air damper"
     annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
 
-  ModeAndSetPoints modSetPoi
+  ModeAndSetPoints modSetPoi(
+    TZonHeaOn=TZonHeaOn,
+    TZonHeaOff=TZonHeaOff,
+    TZonCooOn=TZonCooOn,
+    TZonCooOff=TZonCooOff)
     "Output zone setpoint with operation mode selection"
     annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc
