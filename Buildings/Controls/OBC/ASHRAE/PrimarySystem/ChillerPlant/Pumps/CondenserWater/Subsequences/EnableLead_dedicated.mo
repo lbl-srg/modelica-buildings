@@ -19,8 +19,8 @@ block EnableLead_dedicated
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
     "Lead pump status"
-    annotation (Placement(transformation(extent={{100,60},{120,80}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,50},{140,90}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
@@ -47,30 +47,30 @@ equation
   connect(uLeaConWatReq, not1.u)
     annotation (Line(points={{-120,-80},{-82,-80}}, color={255,0,255}));
   connect(uLeaChiEna, leaPumSta.u)
-    annotation (Line(points={{-120,70},{59,70}}, color={255,0,255}));
+    annotation (Line(points={{-120,70},{58,70}}, color={255,0,255}));
   connect(leaPumSta.y, yLeaPum)
-    annotation (Line(points={{81,70},{110,70}}, color={255,0,255}));
+    annotation (Line(points={{82,70},{120,70}}, color={255,0,255}));
   connect(uLeaChiOn, not2.u)
     annotation (Line(points={{-120,-20},{-82,-20}}, color={255,0,255}));
   connect(not2.y, tim.u)
-    annotation (Line(points={{-59,-20},{-42,-20}}, color={255,0,255}));
+    annotation (Line(points={{-58,-20},{-42,-20}}, color={255,0,255}));
   connect(tim.y, greEquThr.u)
-    annotation (Line(points={{-19,-20},{-2,-20}}, color={0,0,127}));
+    annotation (Line(points={{-18,-20},{-2,-20}}, color={0,0,127}));
   connect(greEquThr.y, or2.u1)
-    annotation (Line(points={{21,-20},{38,-20}}, color={255,0,255}));
+    annotation (Line(points={{22,-20},{38,-20}}, color={255,0,255}));
   connect(not1.y, or2.u2)
-    annotation (Line(points={{-59,-80},{30,-80},{30,-28},{38,-28}},
+    annotation (Line(points={{-58,-80},{30,-80},{30,-28},{38,-28}},
       color={255,0,255}));
   connect(or2.y, and2.u2)
-    annotation (Line(points={{61,-20},{80,-20},{80,20},{-20,20},{-20,32},
-      {-2,32}}, color={255,0,255}));
+    annotation (Line(points={{62,-20},{80,-20},{80,20},{-20,20},{-20,32},{-2,32}},
+      color={255,0,255}));
   connect(uLeaChiEna, not3.u)
     annotation (Line(points={{-120,70},{-80,70},{-80,40},{-62,40}},
       color={255,0,255}));
   connect(not3.y, and2.u1)
-    annotation (Line(points={{-39,40},{-2,40}}, color={255,0,255}));
+    annotation (Line(points={{-38,40},{-2,40}}, color={255,0,255}));
   connect(and2.y, leaPumSta.clr)
-    annotation (Line(points={{21,40},{40,40},{40,64},{59,64}}, color={255,0,255}));
+    annotation (Line(points={{22,40},{40,40},{40,64},{58,64}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaLeaConPum",
@@ -110,8 +110,8 @@ annotation (
 Block that enable and disable lead condenser water pump, for plants
 with dedicated condenser water pumps, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
-section 5.2.9 Condenser water pumps, part 5.2.9.3.
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+section 5.2.9 Condenser water pumps, part 5.2.9.4.
 </p>
 <p>
 The lead condenser water pump should be enabled when lead chiller is commanded 

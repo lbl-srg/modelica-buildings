@@ -15,8 +15,8 @@ block EnableLead_headered
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
     "Lead pump status"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta "Lead pump status"
@@ -36,14 +36,14 @@ protected
 
 equation
   connect(con1.y, leaPumSta.u3)
-    annotation (Line(points={{1,-60},{20,-60},{20,-8},{38,-8}},
+    annotation (Line(points={{2,-60},{20,-60},{20,-8},{38,-8}},
       color={255,0,255}));
   connect(con.y, leaPumSta.u1)
-    annotation (Line(points={{1,40},{20,40},{20,8},{38,8}}, color={255,0,255}));
+    annotation (Line(points={{2,40},{20,40},{20,8},{38,8}}, color={255,0,255}));
   connect(leaPumSta.y, yLeaPum)
-    annotation (Line(points={{61,0},{110,0}}, color={255,0,255}));
+    annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
   connect(or2.y, leaPumSta.u2)
-    annotation (Line(points={{1,0},{38,0}}, color={255,0,255}));
+    annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
   connect(uWseConIsoVal, or2.u2)
     annotation (Line(points={{-120,-20},{-40,-20},{-40,-8},{-22,-8}},
       color={255,0,255}));
@@ -51,7 +51,7 @@ equation
     annotation (Line(points={{-120,20},{-40,20},{-40,0},{-22,0}},
       color={255,0,255}));
   connect(con2.y, or2.u2)
-    annotation (Line(points={{-59,-60},{-40,-60},{-40,-8},{-22,-8}},
+    annotation (Line(points={{-58,-60},{-40,-60},{-40,-8},{-22,-8}},
       color={255,0,255}));
 
 annotation (
@@ -87,8 +87,8 @@ annotation (
 Block that enable and disable lead condenser water pump, for plants
 with headered condenser water pumps, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
-section 5.2.9 Condenser water pumps, part 5.2.9.1 and section 5.2.9.2.
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+section 5.2.9 Condenser water pumps, part 5.2.9.1-3.
 </p>
 <ol>
 <li>

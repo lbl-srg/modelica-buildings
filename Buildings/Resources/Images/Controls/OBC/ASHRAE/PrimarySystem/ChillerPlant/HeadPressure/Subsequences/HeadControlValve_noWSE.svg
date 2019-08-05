@@ -14,7 +14,7 @@
    viewBox="0 0 110.01737 51.307714"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.4 (unknown)"
+   inkscape:version="0.92.4 (f8dce91, 2019-08-02)"
    sodipodi:docname="HeadControlValve_noWSE.svg"
    inkscape:export-filename="/home/jianjun/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Subsequences/HeadControlValve_noWSE.png"
    inkscape:export-xdpi="200"
@@ -91,7 +91,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4.1913431"
-     inkscape:cx="227.0345"
+     inkscape:cx="182.8959"
      inkscape:cy="10.235947"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -100,10 +100,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="3791"
-     inkscape:window-height="1980"
-     inkscape:window-x="49"
-     inkscape:window-y="24"
+     inkscape:window-width="3789"
+     inkscape:window-height="1949"
+     inkscape:window-x="51"
+     inkscape:window-y="27"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -119,7 +119,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -317,24 +317,23 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.41998506px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.06049971px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="70.493599"
-       y="82.858536"
+       x="67.8423"
+       y="80.207237"
        id="text1310-1-8"><tspan
          sodipodi:role="line"
          id="tspan920"
-         x="70.493599"
-         y="82.858536">yHeaPreConVal</tspan></text>
+         x="67.8423"
+         y="80.207237">yHeaPreConVal</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.01696968px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05042365px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="71.949448"
-       y="85.720802"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.01697159px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05042365px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="69.298149"
+       y="83.069504"
        id="text1310-1-0"><tspan
          sodipodi:role="line"
-         id="tspan922"
-         x="71.949448"
-         y="85.720802"
-         style="stroke-width:0.05042365px">(yConWatPumSpe)</tspan></text>
+         id="tspan916"
+         x="69.298149"
+         y="83.069504">(yConWatPumSpeSet)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.07592082px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05189814px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -347,20 +346,14 @@
          y="75.831337">(desConWatPumSpe)</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.96548486px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.04913684px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.96550133px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.04913684px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        x="93.299438"
        y="89.755882"
        id="text1356-1-6"><tspan
          sodipodi:role="line"
-         id="tspan1038"
-         x="93.299438"
-         y="89.755882"
-         style="stroke-width:0.04913684px">(Condenser water</tspan><tspan
+         id="tspan918">(Condenser water pump </tspan><tspan
          sodipodi:role="line"
-         id="tspan1040"
-         x="93.299438"
-         y="92.212738"
-         style="stroke-width:0.04913684px">pump speed)</tspan></text>
+         id="tspan921">speed setpoint)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.26292634px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05657323px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"

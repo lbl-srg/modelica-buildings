@@ -74,11 +74,11 @@ block Controller "Head pressure controller"
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{100,10},{120,30}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpeSet(
     final min=0,
     final max=1,
     final unit="1") if not ((not hasWSE) and fixSpePum)
-    "Condenser water pump speed"
+    "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
 
@@ -141,26 +141,25 @@ equation
     annotation (Line(points={{-120,-80},{-40,-80},{-40,-92},{-22,-92}},
       color={0,0,127}));
   connect(con.y, swi.u3)
-    annotation (Line(points={{-59,-120},{-40,-120},{-40,-108},{-22,-108}},
+    annotation (Line(points={{-58,-120},{-40,-120},{-40,-108},{-22,-108}},
       color={0,0,127}));
   connect(swi.y, noWSE.uHeaPreCon)
-    annotation (Line(points={{1,-100},{20,-100},{20,60},{38,60}}, color={0,0,127}));
+    annotation (Line(points={{2,-100},{20,-100},{20,60},{38,60}}, color={0,0,127}));
   connect(swi.y, withWSE.uHeaPreCon)
-    annotation (Line(points={{1,-100},{20,-100},{20,-22},{38,-22}}, color={0,0,127}));
+    annotation (Line(points={{2,-100},{20,-100},{20,-22},{38,-22}}, color={0,0,127}));
   connect(noWSE.yMaxTowSpeSet, yMaxTowSpeSet)
     annotation (Line(points={{61,58},{80,58},{80,80},{110,80}}, color={0,0,127}));
   connect(withWSE.yHeaPreConVal, yHeaPreConVal)
     annotation (Line(points={{61,-36},{90,-36},{90,20},{110,20}}, color={0,0,127}));
   connect(withWSE.yMaxTowSpeSet, yMaxTowSpeSet)
     annotation (Line(points={{61,-24},{80,-24},{80,80},{110,80}}, color={0,0,127}));
-  connect(withWSE.yConWatPumSpe, yConWatPumSpe)
-    annotation (Line(points={{61,-30},{70,-30},{70,-40},{110,-40}},
-      color={0,0,127}));
+  connect(withWSE.yConWatPumSpeSet, yConWatPumSpeSet)
+    annotation (Line(points={{61,-30},{70,-30},{70,-40},{110,-40}}, color={0,0,127}));
   connect(desConWatPumSpe, noWSE.desConWatPumSpe)
     annotation (Line(points={{-120,20},{0,20},{0,52},{38,52}}, color={0,0,127}));
   connect(desConWatPumSpe, withWSE.desConWatPumSpe)
     annotation (Line(points={{-120,20},{0,20},{0,-26},{38,-26}}, color={0,0,127}));
-  connect(noWSE.yConWatPumSpe, yConWatPumSpe)
+  connect(noWSE.yConWatPumSpeSet, yConWatPumSpeSet)
     annotation (Line(points={{61,44},{70,44},{70,-40},{110,-40}}, color={0,0,127}));
   connect(noWSE.yHeaPreConVal, yHeaPreConVal)
     annotation (Line(points={{61,46},{90,46},{90,20},{110,20}}, color={0,0,127}));
@@ -216,7 +215,7 @@ will be used for controlling maximum cooling tower speed setpoint
 <code>yMaxTowSpeSet</code> and, whether the plant has constant speed condenser
 water pump or not, resetting head pressure control valve position
 <code>yHeaPreConVal</code> when <code>fixSpePum</code>=true, or resetting condenser
-water pump speed <code>yConWatPumSpe</code> when <code>fixSpePum</code>=false. See
+water pump speed <code>yConWatPumSpeSet</code> when <code>fixSpePum</code>=false. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_noWSE\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_noWSE</a>
 for a description.
@@ -224,7 +223,7 @@ for a description.
 <li>
 If the chiller plant has waterside economizer, block <code>withWSE</code>
 will be used for specifying <code>yMaxTowSpeSet</code>, <code>yHeaPreConVal</code> and
-condenser water pump speed <code>yConWatPumSpe</code>. See
+condenser water pump speed <code>yConWatPumSpeSet</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_hasWSE\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Setpoints_hasWSE</a>
 for a description.

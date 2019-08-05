@@ -1,11 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation;
-model Speed_haveWSE
-  "Validate sequence for controlling condenser water pump of plants with waterside economizer"
+model Speed
+  "Validate sequence for generating design speed of condenser water pump at current stage"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed_haveWSE
-    conPumSpe(
-    conWatPumSpeSet={0,0.5,0.75,0.6,0.75,0.9},
-    conWatPumOnSet={0,1,1,2,2,2}) "Condenser water pump speed"
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed
+    conPumSpe(conWatPumSpeSet={0,0.5,0.75,0.6,0.75,0.9}, conWatPumOnSet={0,1,1,2,
+        2,2}) "Condenser water pump speed"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 protected
@@ -26,23 +25,23 @@ protected
 
 equation
   connect(ramp.y, round.u)
-    annotation (Line(points={{-59,20},{-42,20}}, color={0,0,127}));
+    annotation (Line(points={{-58,20},{-42,20}}, color={0,0,127}));
   connect(round.y, reaToInt.u)
-    annotation (Line(points={{-19,20},{-2,20}}, color={0,0,127}));
+    annotation (Line(points={{-18,20},{-2,20}}, color={0,0,127}));
   connect(reaToInt.y, conPumSpe.uChiSta)
-    annotation (Line(points={{21,20},{40,20},{40,4},{58,4}}, color={255,127,0}));
+    annotation (Line(points={{22,20},{40,20},{40,4},{58,4}}, color={255,127,0}));
   connect(wseSta.y, conPumSpe.uWSE)
-    annotation (Line(points={{21,-20},{40,-20},{40,-4},{58,-4}}, color={255,0,255}));
+    annotation (Line(points={{22,-20},{40,-20},{40,-4},{58,-4}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/Speed_haveWSE.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/CondenserWater/Subsequences/Validation/Speed.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed_haveWSE\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed_haveWSE</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -62,4 +61,4 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Speed_haveWSE;
+end Speed;
