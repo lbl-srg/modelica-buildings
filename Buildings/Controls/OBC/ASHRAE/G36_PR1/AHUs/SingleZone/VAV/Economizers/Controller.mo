@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers;
-model Controller "Single zone VAV AHU economizer control sequence"
+block Controller "Single zone VAV AHU economizer control sequence"
 
   parameter Boolean use_enthalpy = false
     "Set to true if enthalpy measurement is used in addition to temperature measurement";
@@ -342,11 +342,11 @@ equation
   connect(mod.yOutDamPos, outDamMaxFre.u1)
     annotation (Line(points={{42,8},{90,8},{90,-44},{98,-44}}, color={0,0,127}));
   connect(freProTMix.yFrePro, retDamMinFre.u1)
-    annotation (Line(points={{81,-4},{86,-4},{86,56},{98,56}}, color={0,0,127}));
+    annotation (Line(points={{82,-13},{86,-13},{86,56},{98,56}}, color={0,0,127}));
   connect(freProTMix.yFreProInv, outDamMaxFre.u2)
-    annotation (Line(points={{81,-16},{86,-16},{86,-56},{98,-56}}, color={0,0,127}));
+    annotation (Line(points={{82,-7},{88,-7},{88,-56},{98,-56}}, color={0,0,127}));
   connect(TMix, freProTMix.TMix)
-    annotation (Line(points={{-160,-60},{40,-60},{40,-10},{59,-10}},
+    annotation (Line(points={{-160,-60},{40,-60},{40,-10},{58,-10}},
       color={0,0,127}));
   connect(freProSta.y, enaDis.uFreProSta)
     annotation (Line(points={{-118,-170},{-60,-170},{-60,-32},{-22,-32}},

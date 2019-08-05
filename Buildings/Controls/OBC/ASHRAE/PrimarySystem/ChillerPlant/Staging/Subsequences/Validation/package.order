@@ -2,4 +2,6 @@ Capacities_u
 Capacities_uLow_uHig
 CapacityRequirement
 Configurator_uChiAva
+EfficiencyCondition
+FailsafeCondition
 Status_u_uAva
