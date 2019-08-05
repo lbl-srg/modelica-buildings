@@ -30,10 +30,6 @@ protected
     "Chiller stage"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(final k=2)
-    "Chiller stage"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage2(final k=2)
     "Chiller stage"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -41,10 +37,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true)
     "Boolean signal"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage5(final k=2)
-    "Chiller stage"
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage6(final k=3)
     "Chiller stage"
@@ -59,49 +51,55 @@ protected
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 equation
   connect(stage0.y, staCap0.u)
-    annotation (Line(points={{-79,30},{-70,30},{-70,13},{-61,13}},
-    color={255,127,0}));
-  connect(stage1.y, staCap1.u)
-    annotation (Line(points={{1,30},{10,30},{10,13},{19,13}},
+    annotation (Line(points={{-78,30},{-70,30},{-70,16},{-62,16}},
     color={255,127,0}));
   connect(stage2.y, staCap2.u)
-    annotation (Line(points={{81,30},{90,30},{90,13},{99,13}}, color={255,127,0}));
-  connect(stage0.y, staCap1.uDown) annotation (Line(points={{-79,30},{-30,30},{-30,
-          9},{19,9}},      color={255,127,0}));
-  connect(stage6.y, staCap1.uUp) annotation (Line(points={{1,-10},{10,-10},{10,11},
-          {19,11}},      color={255,127,0}));
-  connect(stage1.y, staCap2.uDown) annotation (Line(points={{1,30},{50,30},{50,9},
-          {99,9}},    color={255,127,0}));
-  connect(staCap2.uUp, stage5.y) annotation (Line(points={{99,11},{90,11},{90,-10},
-          {81,-10}}, color={255,127,0}));
-  connect(desStaCap.y, staCap0.uDesCap) annotation (Line(points={{-79,110},{-66,
-          110},{-66,19},{-61,19}},   color={0,0,127}));
-  connect(minStaCap.y, staCap0.uMinCap) annotation (Line(points={{-79,70},{-68,70},
-          {-68,17},{-61,17}},       color={0,0,127}));
-  connect(desStaCap.y, staCap1.uDesCap) annotation (Line(points={{-79,110},{16,110},
-          {16,19},{19,19}},        color={0,0,127}));
-  connect(minStaCap.y, staCap1.uMinCap) annotation (Line(points={{-79,70},{14,70},
-          {14,17},{19,17}},       color={0,0,127}));
-  connect(desStaCap.y, staCap2.uDesCap) annotation (Line(points={{-79,110},{94,110},
-          {94,19},{99,19}},      color={0,0,127}));
-  connect(minStaCap.y, staCap2.uMinCap) annotation (Line(points={{-79,70},{92,70},
-          {92,17},{99,17}}, color={0,0,127}));
-  connect(con1.y, staCap1.uHig) annotation (Line(points={{-79,-50},{12,-50},{12,
-          3},{19,3}}, color={255,0,255}));
-  connect(con.y, staCap1.uLow) annotation (Line(points={{-79,-90},{14,-90},{14,1},
-          {19,1}},     color={255,0,255}));
-  connect(staCap0.uUp, stage0.y) annotation (Line(points={{-61,11},{-70,11},{-70,
-          30},{-79,30}}, color={255,127,0}));
-  connect(stage7.y, staCap0.uDown) annotation (Line(points={{-79,-10},{-70,-10},
-          {-70,9},{-61,9}}, color={255,127,0}));
-  connect(con1.y, staCap0.uLow) annotation (Line(points={{-79,-50},{-66,-50},{-66,
-          1},{-61,1}}, color={255,0,255}));
-  connect(con.y, staCap0.uHig) annotation (Line(points={{-79,-90},{-68,-90},{-68,
-          3},{-61,3}}, color={255,0,255}));
-  connect(con.y, staCap2.uHig) annotation (Line(points={{-79,-90},{92,-90},{92,3},
-          {99,3}}, color={255,0,255}));
-  connect(con.y, staCap2.uLow) annotation (Line(points={{-79,-90},{94,-90},{94,1},
-          {99,1}}, color={255,0,255}));
+    annotation (Line(points={{82,30},{90,30},{90,16},{98,16}}, color={255,127,0}));
+  connect(stage0.y, staCap1.uDown) annotation (Line(points={{-78,30},{-20,30},{
+          -20,10},{18,10}},color={255,127,0}));
+  connect(stage6.y, staCap1.uUp) annotation (Line(points={{2,-10},{10,-10},{10,
+          13},{18,13}},  color={255,127,0}));
+  connect(desStaCap.y, staCap0.uDesCap) annotation (Line(points={{-78,110},{-66,
+          110},{-66,19},{-62,19}},   color={0,0,127}));
+  connect(minStaCap.y, staCap0.uMinCap) annotation (Line(points={{-78,70},{-68,
+          70},{-68,1},{-62,1}},     color={0,0,127}));
+  connect(desStaCap.y, staCap1.uDesCap) annotation (Line(points={{-78,110},{16,
+          110},{16,19},{18,19}},   color={0,0,127}));
+  connect(minStaCap.y, staCap1.uMinCap) annotation (Line(points={{-78,70},{14,
+          70},{14,1},{18,1}},     color={0,0,127}));
+  connect(desStaCap.y, staCap2.uDesCap) annotation (Line(points={{-78,110},{94,
+          110},{94,19},{98,19}}, color={0,0,127}));
+  connect(minStaCap.y, staCap2.uMinCap) annotation (Line(points={{-78,70},{92,
+          70},{92,1},{98,1}},
+                            color={0,0,127}));
+  connect(con1.y, staCap1.uHig) annotation (Line(points={{-78,-50},{12,-50},{12,
+          7},{18,7}}, color={255,0,255}));
+  connect(con.y, staCap1.uLow) annotation (Line(points={{-78,-90},{14,-90},{14,
+          4},{18,4}},  color={255,0,255}));
+  connect(staCap0.uUp, stage0.y) annotation (Line(points={{-62,13},{-70,13},{
+          -70,30},{-78,30}},
+                         color={255,127,0}));
+  connect(stage7.y, staCap0.uDown) annotation (Line(points={{-78,-10},{-70,-10},
+          {-70,10},{-62,10}},
+                            color={255,127,0}));
+  connect(con1.y, staCap0.uLow) annotation (Line(points={{-78,-50},{-66,-50},{
+          -66,4},{-62,4}},
+                       color={255,0,255}));
+  connect(con.y, staCap0.uHig) annotation (Line(points={{-78,-90},{-68,-90},{
+          -68,7},{-62,7}},
+                       color={255,0,255}));
+  connect(con.y, staCap2.uHig) annotation (Line(points={{-78,-90},{92,-90},{92,
+          7},{98,7}},
+                   color={255,0,255}));
+  connect(con.y, staCap2.uLow) annotation (Line(points={{-78,-90},{94,-90},{94,
+          4},{98,4}},
+                   color={255,0,255}));
+  connect(stage2.y, staCap2.uUp) annotation (Line(points={{82,30},{90,30},{90,
+          13},{98,13}}, color={255,127,0}));
+  connect(stage2.y, staCap2.uDown) annotation (Line(points={{82,30},{90,30},{90,
+          10},{98,10}}, color={255,127,0}));
+  connect(stage0.y, staCap1.u) annotation (Line(points={{-78,30},{0,30},{0,16},
+          {18,16}}, color={255,127,0}));
 annotation (
  experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Capacities_uLow_uHig.mos"

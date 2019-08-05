@@ -91,30 +91,30 @@ protected
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
 equation
-  connect(TCWSupSet.y, capReq.TChiWatSupSet) annotation (Line(points={{-119,20},
-          {-90,20},{-90,13},{-81,13}}, color={0,0,127}));
-  connect(TChiWatRet.y, capReq.TChiWatRet) annotation (Line(points={{-119,-20},{
-          -100,-20},{-100,7},{-81,7}}, color={0,0,127}));
-  connect(chiWatFlow.y, capReq.VChiWat_flow) annotation (Line(points={{-119,-60},
-          {-88,-60},{-88,1},{-81,1}},color={0,0,127}));
-  connect(chaPro.y, capReq.chaPro) annotation (Line(points={{-119,70},{-86,70},{
-          -86,19},{-81,19}}, color={255,0,255}));
-  connect(TCWSupSet1.y, capReq1.TChiWatSupSet) annotation (Line(points={{-19,20},
-          {10,20},{10,13},{19,13}}, color={0,0,127}));
-  connect(TChiWatRet1.y, capReq1.TChiWatRet) annotation (Line(points={{-19,-20},
-          {0,-20},{0,7},{19,7}}, color={0,0,127}));
-  connect(chiWatFlow1.y, capReq1.VChiWat_flow) annotation (Line(points={{-19,-60},
-          {12,-60},{12,1},{19,1}}, color={0,0,127}));
-  connect(chaPro1.y, capReq1.chaPro) annotation (Line(points={{-19,70},{14,70},{
-          14,19},{19,19}}, color={255,0,255}));
-  connect(TCWSupSet2.y, capReq2.TChiWatSupSet) annotation (Line(points={{81,20},
-          {110,20},{110,13},{119,13}}, color={0,0,127}));
-  connect(TChiWatRet2.y, capReq2.TChiWatRet) annotation (Line(points={{81,-20},{
-          100,-20},{100,7},{119,7}}, color={0,0,127}));
-  connect(chiWatFlow2.y, capReq2.VChiWat_flow) annotation (Line(points={{81,-60},
-          {112,-60},{112,1},{119,1}}, color={0,0,127}));
-  connect(chaPro2.y, capReq2.chaPro) annotation (Line(points={{81,70},{114,70},{
-          114,19},{119,19}}, color={255,0,255}));
+  connect(TCWSupSet.y, capReq.TChiWatSupSet) annotation (Line(points={{-118,20},
+          {-90,20},{-90,13},{-82,13}}, color={0,0,127}));
+  connect(TChiWatRet.y, capReq.TChiWatRet) annotation (Line(points={{-118,-20},
+          {-100,-20},{-100,7},{-82,7}},color={0,0,127}));
+  connect(chiWatFlow.y, capReq.VChiWat_flow) annotation (Line(points={{-118,-60},
+          {-88,-60},{-88,2},{-82,2}},color={0,0,127}));
+  connect(chaPro.y, capReq.chaPro) annotation (Line(points={{-118,70},{-86,70},
+          {-86,18},{-82,18}},color={255,0,255}));
+  connect(TCWSupSet1.y, capReq1.TChiWatSupSet) annotation (Line(points={{-18,20},
+          {10,20},{10,13},{18,13}}, color={0,0,127}));
+  connect(TChiWatRet1.y, capReq1.TChiWatRet) annotation (Line(points={{-18,-20},
+          {0,-20},{0,7},{18,7}}, color={0,0,127}));
+  connect(chiWatFlow1.y, capReq1.VChiWat_flow) annotation (Line(points={{-18,-60},
+          {12,-60},{12,2},{18,2}}, color={0,0,127}));
+  connect(chaPro1.y, capReq1.chaPro) annotation (Line(points={{-18,70},{14,70},
+          {14,18},{18,18}},color={255,0,255}));
+  connect(TCWSupSet2.y, capReq2.TChiWatSupSet) annotation (Line(points={{82,20},
+          {110,20},{110,13},{118,13}}, color={0,0,127}));
+  connect(TChiWatRet2.y, capReq2.TChiWatRet) annotation (Line(points={{82,-20},
+          {100,-20},{100,7},{118,7}},color={0,0,127}));
+  connect(chiWatFlow2.y, capReq2.VChiWat_flow) annotation (Line(points={{82,-60},
+          {112,-60},{112,2},{118,2}}, color={0,0,127}));
+  connect(chaPro2.y, capReq2.chaPro) annotation (Line(points={{82,70},{114,70},
+          {114,18},{118,18}},color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/CapacityRequirement.mos"
     "Simulate and plot"),

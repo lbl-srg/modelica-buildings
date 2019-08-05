@@ -8,12 +8,12 @@ block Capacities
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLow
     "Current stage is the lowest stage"
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHig
     "Current stage is the highest stage"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
@@ -207,20 +207,32 @@ Based on the current chiller stage and nominal stage capacities returns:
 The design capacities of the current, first available higher and lower stage
 </li>
 <li>
-The minimal capacity of the current and first higher stage
+The minimal capacity of the current and first available higher stage
 </li>
 </ul>
 <p>
-for the purpose of calculating the operating and stage part load ratios, 
-OPLR and SPLR, respectively.
+for the purpose of calculating the operative and stage part load ratios, 
+OPLR and SPLR (up and down), respectively.
 </p>
 <p>
+[fixme: Milica to revise this once integrated with other subsequences.] For numerical reasons:
+</p>
+<ul>
+<li>
 If operating at the lowest available chiller stage, the minimal capacity 
-of that stage is returned as the design capacity of stage 0. If operating at 
-the highest stage, the design and minimal stage down conditionals are set to 
+of that stage is returned as the stage down design capacity. 
+</li>
+<li>
+If operating at the stage 0, the minimal and nominal capacity 
+of that stage, as well as the stage down nominal capacity
+equals a small value, to avoid downstream division 0.
+</li>
+<li>
+If operating at the highest stage, the design and minimal stage up conditionals are set to 
 a value significantly larger than the design capacity of the highest stage.
 This ensures numerical stability and satisfies the staging down conditionals.
-[fixme: Milica to revise this once integrated with other subsequences.]
+</li>
+</ul>
 </p>
 </html>",
 revisions="<html>

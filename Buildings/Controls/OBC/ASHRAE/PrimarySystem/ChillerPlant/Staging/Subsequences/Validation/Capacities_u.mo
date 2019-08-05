@@ -128,27 +128,27 @@ equation
   connect(staCap3.uMinCap, minStaCap.y) annotation (Line(points={{138,1},{132,1},
           {132,70},{-118,70}}, color={0,0,127}));
   connect(con1.y, staCap1.uHig) annotation (Line(points={{-118,-50},{-28,-50},{
-          -28,4},{-22,4}},
+          -28,7},{-22,7}},
                        color={255,0,255}));
   connect(con.y, staCap1.uLow) annotation (Line(points={{-118,-90},{-26,-90},{
-          -26,7},{-22,7}},
+          -26,4},{-22,4}},
                        color={255,0,255}));
-  connect(staCap0.uHig, con1.y) annotation (Line(points={{-102,4},{-110,4},{
+  connect(staCap0.uHig, con1.y) annotation (Line(points={{-102,7},{-110,7},{
           -110,-50},{-118,-50}},
                             color={255,0,255}));
-  connect(staCap0.uLow, con.y) annotation (Line(points={{-102,7},{-108,7},{-108,
+  connect(staCap0.uLow, con.y) annotation (Line(points={{-102,4},{-108,4},{-108,
           -90},{-118,-90}}, color={255,0,255}));
   connect(con1.y, staCap2.uHig) annotation (Line(points={{-118,-50},{52,-50},{
-          52,4},{58,4}},
+          52,7},{58,7}},
                       color={255,0,255}));
   connect(con1.y, staCap2.uLow) annotation (Line(points={{-118,-50},{54,-50},{
-          54,7},{58,7}},
+          54,4},{58,4}},
                       color={255,0,255}));
   connect(con.y, staCap3.uHig) annotation (Line(points={{-118,-90},{132,-90},{
-          132,4},{138,4}},
+          132,7},{138,7}},
                        color={255,0,255}));
   connect(con1.y, staCap3.uLow) annotation (Line(points={{-118,-50},{134,-50},{
-          134,7},{138,7}},
+          134,4},{138,4}},
                        color={255,0,255}));
 annotation (
  experiment(StopTime=10.0, Tolerance=1e-06),
