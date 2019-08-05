@@ -211,7 +211,7 @@ The minimal capacity of the current and first available higher stage
 </li>
 </ul>
 <p>
-for the purpose of calculating the operative and stage part load ratios, 
+for the purpose of calculating the operative and stage part load ratios,
 OPLR and SPLR (up and down), respectively.
 </p>
 <p>
@@ -219,21 +219,20 @@ OPLR and SPLR (up and down), respectively.
 </p>
 <ul>
 <li>
-If operating at the lowest available chiller stage, the minimal capacity 
-of that stage is returned as the stage down design capacity. 
+If operating at the lowest available chiller stage, the minimal capacity
+of that stage is returned as the stage down design capacity.
 </li>
 <li>
-If operating at the stage 0, the minimal and nominal capacity 
+If operating at the stage 0, the minimal and nominal capacity
 of that stage, as well as the stage down nominal capacity
 equals a small value, to avoid downstream division 0.
 </li>
 <li>
-If operating at the highest stage, the design and minimal stage up conditionals are set to 
+If operating at the highest stage, the design and minimal stage up conditionals are set to
 a value significantly larger than the design capacity of the highest stage.
 This ensures numerical stability and satisfies the staging down conditionals.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>
