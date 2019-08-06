@@ -4,15 +4,20 @@ model Controller "Validate condenser water pump control sequence"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     heaHavWse
     "Pump speed control for plant with headered condenser water pump and have waterside economizer"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
     dedHavWse(isHeadered=false)
     "Pump speed control for plant with dedicated condenser water pump and have waterside economizer"
-    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller
-    heaNoWse(haveWSE=false)
+    heaNoWse(
+    haveWSE=false,
+    totChiSta=4,
+    staVec={0,1,2,3},
+    conWatPumSpeSet={0,0.5,0.5,0.75},
+    conWatPumOnSet={0,1,1,2})
     "Pump speed control for plant with headered condenser water pump and without waterside economizer"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
@@ -20,73 +25,124 @@ model Controller "Validate condenser water pump control sequence"
     final amplitude=0.2,
     final period=900,
     final offset=0.3) "Measured pump speed"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
     final duration=3600,
     final height=2.4) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+    annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Round round1(final n=0)
     "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+    annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger chiSta
     "Convert real to integer"
+    annotation (Placement(transformation(extent={{-10,80},{10,100}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold chiOn "Chiller status"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold leaChiOn
-    "Lead chiller status"
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(final period=1800)
     "Waterside economizer status"
-    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch meaPumSpe "Measured pump speed"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero pump speed"
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+    "Zero pump speed"
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch pumSpeSet "Pump speed setpoint"
+    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pumSpeSetVal(
+    final amplitude=0.2,
+    final period=900,
+    final offset=0.3,
+    final startTime=100) "Pump speed setpoint"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false) "Logical false"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=3600) "Output boolean pulse"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
+    final integerTrue=2) "Convert boolean to integer"
+    annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt "Add two integer inputs"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
 equation
   connect(ramp1.y,round1. u)
-    annotation (Line(points={{-69,60},{-52,60}}, color={0,0,127}));
+    annotation (Line(points={{-68,90},{-52,90}}, color={0,0,127}));
   connect(round1.y, chiSta.u)
-    annotation (Line(points={{-29,60},{-12,60}}, color={0,0,127}));
-  connect(chiSta.y, leaChiOn.u)
-    annotation (Line(points={{11,60},{20,60},{20,40},{-20,40},{-20,20},{-12,20}},
+    annotation (Line(points={{-28,90},{-12,90}}, color={0,0,127}));
+  connect(chiSta.y, chiOn.u)
+    annotation (Line(points={{12,90},{20,90},{20,76},{-20,76},{-20,60},{-12,60}},
       color={255,127,0}));
   connect(chiSta.y, heaHavWse.uChiSta)
-    annotation (Line(points={{11,60},{20,60},{20,78},{58,78}}, color={255,127,0}));
+    annotation (Line(points={{12,90},{20,90},{20,100},{58,100}}, color={255,127,0}));
   connect(chiSta.y, dedHavWse.uChiSta)
-    annotation (Line(points={{11,60},{20,60},{20,28},{58,28}}, color={255,127,0}));
-  connect(chiSta.y, heaNoWse.uChiSta)
-    annotation (Line(points={{11,60},{20,60},{20,-52},{58,-52}}, color={255,127,0}));
-  connect(leaChiOn.y, heaHavWse.uLeaChiOn)
-    annotation (Line(points={{11,20},{26,20},{26,74},{58,74}}, color={255,0,255}));
-  connect(leaChiOn.y, dedHavWse.uLeaChiOn)
-    annotation (Line(points={{11,20},{26,20},{26,24},{58,24}}, color={255,0,255}));
-  connect(leaChiOn.y, heaNoWse.uLeaChiOn)
-    annotation (Line(points={{11,20},{26,20},{26,-56},{58,-56}}, color={255,0,255}));
-  connect(leaChiOn.y, heaHavWse.uLeaConWatReq)
-    annotation (Line(points={{11,20},{26,20},{26,70},{58,70}}, color={255,0,255}));
-  connect(leaChiOn.y, dedHavWse.uLeaConWatReq)
-    annotation (Line(points={{11,20},{58,20}}, color={255,0,255}));
-  connect(leaChiOn.y, heaNoWse.uLeaConWatReq)
-    annotation (Line(points={{11,20},{26,20},{26,-60},{58,-60}}, color={255,0,255}));
+    annotation (Line(points={{12,90},{20,90},{20,70},{58,70}}, color={255,127,0}));
   connect(wseSta.y, heaHavWse.uWSE)
-    annotation (Line(points={{11,-20},{32,-20},{32,66},{58,66}}, color={255,0,255}));
+    annotation (Line(points={{12,20},{32,20},{32,96},{58,96}}, color={255,0,255}));
   connect(wseSta.y, dedHavWse.uWSE)
-    annotation (Line(points={{11,-20},{32,-20},{32,16},{58,16}}, color={255,0,255}));
+    annotation (Line(points={{12,20},{32,20},{32,66},{58,66}}, color={255,0,255}));
   connect(heaHavWse.yLeaPum, meaPumSpe.u2)
-    annotation (Line(points={{81,79},{90,79},{90,0},{-40,0},{-40,-80},{-12,-80}},
+    annotation (Line(points={{82,109},{90,109},{90,36},{-40,36},{-40,-40},{-12,-40}},
       color={255,0,255}));
   connect(pumSpe.y, meaPumSpe.u1)
-    annotation (Line(points={{-59,-60},{-20,-60},{-20,-72},{-12,-72}},
+    annotation (Line(points={{-58,-30},{-20,-30},{-20,-32},{-12,-32}},
       color={0,0,127}));
   connect(zer.y, meaPumSpe.u3)
-    annotation (Line(points={{-59,-100},{-20,-100},{-20,-88},{-12,-88}},
+    annotation (Line(points={{-58,-60},{-30,-60},{-30,-48},{-12,-48}},
       color={0,0,127}));
   connect(meaPumSpe.y, heaHavWse.uConWatPumSpe)
-    annotation (Line(points={{11,-80},{40,-80},{40,62},{58,62}}, color={0,0,127}));
+    annotation (Line(points={{12,-40},{46,-40},{46,91},{58,91}}, color={0,0,127}));
   connect(meaPumSpe.y, dedHavWse.uConWatPumSpe)
-    annotation (Line(points={{11,-80},{40,-80},{40,12},{58,12}}, color={0,0,127}));
+    annotation (Line(points={{12,-40},{46,-40},{46,61},{58,61}}, color={0,0,127}));
   connect(meaPumSpe.y, heaNoWse.uConWatPumSpe)
-    annotation (Line(points={{11,-80},{40,-80},{40,-68},{58,-68}}, color={0,0,127}));
+    annotation (Line(points={{12,-40},{46,-40},{46,-69},{58,-69}}, color={0,0,127}));
+  connect(pumSpeSet.u2, heaHavWse.yLeaPum)
+    annotation (Line(points={{-12,-10},{-40,-10},{-40,36},{90,36},{90,109},
+      {82,109}}, color={255,0,255}));
+  connect(pumSpeSetVal.y, pumSpeSet.u1)
+    annotation (Line(points={{-58,10},{-20,10},{-20,-2},{-12,-2}}, color={0,0,127}));
+  connect(zer.y, pumSpeSet.u3)
+    annotation (Line(points={{-58,-60},{-30,-60},{-30,-18},{-12,-18}},
+      color={0,0,127}));
+  connect(pumSpeSet.y, heaHavWse.uConWatPumSpeSet)
+    annotation (Line(points={{12,-10},{40,-10},{40,93},{58,93}}, color={0,0,127}));
+  connect(pumSpeSet.y, dedHavWse.uConWatPumSpeSet)
+    annotation (Line(points={{12,-10},{40,-10},{40,63},{58,63}}, color={0,0,127}));
+  connect(pumSpeSet.y, heaNoWse.uConWatPumSpeSet)
+    annotation (Line(points={{12,-10},{40,-10},{40,-67},{58,-67}}, color={0,0,127}));
+  connect(chiOn.y, heaHavWse.uLeaChiOn)
+    annotation (Line(points={{12,60},{26,60},{26,106},{58,106}}, color={255,0,255}));
+  connect(chiOn.y, heaHavWse.uLeaConWatReq)
+    annotation (Line(points={{12,60},{26,60},{26,103},{58,103}}, color={255,0,255}));
+  connect(chiOn.y, dedHavWse.uLeaChiOn)
+    annotation (Line(points={{12,60},{26,60},{26,76},{58,76}}, color={255,0,255}));
+  connect(chiOn.y, dedHavWse.uLeaConWatReq)
+    annotation (Line(points={{12,60},{26,60},{26,73},{58,73}}, color={255,0,255}));
+  connect(chiOn.y, heaNoWse.uLeaChiOn)
+    annotation (Line(points={{12,60},{26,60},{26,-54},{58,-54}}, color={255,0,255}));
+  connect(chiOn.y, heaNoWse.uLeaConWatReq)
+    annotation (Line(points={{12,60},{26,60},{26,-57},{58,-57}}, color={255,0,255}));
+  connect(chiOn.y, heaHavWse.uChi[1])
+    annotation (Line(points={{12,60},{26,60},{26,109},{58,109}}, color={255,0,255}));
+  connect(chiOn.y, dedHavWse.uChi[1])
+    annotation (Line(points={{12,60},{26,60},{26,79},{58,79}}, color={255,0,255}));
+  connect(chiOn.y, heaNoWse.uChi[1])
+    annotation (Line(points={{12,60},{26,60},{26,-51},{58,-51}}, color={255,0,255}));
+  connect(fal.y, heaHavWse.uChi[2])
+    annotation (Line(points={{-58,40},{28,40},{28,109},{58,109}}, color={255,0,255}));
+  connect(fal.y, dedHavWse.uChi[2])
+    annotation (Line(points={{-58,40},{28,40},{28,79},{58,79}}, color={255,0,255}));
+  connect(fal.y, heaNoWse.uChi[2])
+    annotation (Line(points={{-58,40},{28,40},{28,-51},{58,-51}}, color={255,0,255}));
+  connect(booPul.y, booToInt.u)
+    annotation (Line(points={{-58,-100},{-52,-100}}, color={255,0,255}));
+  connect(booToInt.y, addInt.u2)
+    annotation (Line(points={{-28,-100},{-20,-100},{-20,-106},{-12,-106}},
+      color={255,127,0}));
+  connect(chiSta.y, addInt.u1)
+    annotation (Line(points={{12,90},{20,90},{20,-80},{-20,-80},{-20,-94},
+      {-12,-94}}, color={255,127,0}));
+  connect(addInt.y, heaNoWse.uChiSta)
+    annotation (Line(points={{12,-100},{26,-100},{26,-60},{58,-60}}, color={255,127,0}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
@@ -101,7 +157,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Co
 </html>", revisions="<html>
 <ul>
 <li>
-April 4, 2019, by Jianjun Hu:<br/>
+August 4, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

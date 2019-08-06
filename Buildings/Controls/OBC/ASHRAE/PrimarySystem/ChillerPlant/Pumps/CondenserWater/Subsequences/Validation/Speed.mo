@@ -46,7 +46,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Su
 </html>", revisions="<html>
 <ul>
 <li>
-Arpil 4, 2019, by Jianjun Hu:<br/>
+August 4, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

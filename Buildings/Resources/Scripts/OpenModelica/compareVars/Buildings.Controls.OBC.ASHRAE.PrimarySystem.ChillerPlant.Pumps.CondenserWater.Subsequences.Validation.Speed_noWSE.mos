@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "conPumSpe.uOpeChiNum",
-    "conPumSpe.yConWatPumNum",
-    "conPumSpe.yConWatPumSpeSet"
-  };

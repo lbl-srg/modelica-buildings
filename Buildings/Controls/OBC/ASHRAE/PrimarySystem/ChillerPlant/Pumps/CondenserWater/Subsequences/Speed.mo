@@ -2,6 +2,8 @@
 block Speed
   "Output design speed of condenser water pumps at current stage"
 
+  parameter Boolean haveWSE = true
+    "Flag to indicate if the plant has water side economiser";
   parameter Integer totChiSta = 6
     "Total number of stages, include the stage like chiller stage 0 plus WSE";
   parameter Real staVec[totChiSta] = {0, 0.5, 1, 1.5, 2, 2.5}
@@ -17,7 +19,7 @@ block Speed
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if haveWSE
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -54,7 +56,8 @@ protected
     "Chiller stage vector, element value like 0.5 means stage 0 plus WSE"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
-    final realTrue=0.5) "Convert boolean input to real output"
+    final realTrue=0.5) if haveWSE
+    "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add two real inputs"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
@@ -72,7 +75,10 @@ protected
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
     final nin=totChiSta) "Current stage index"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(final k=0) if not haveWSE
+    "Constant zero"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
 equation
   connect(con1.y,conWatPumSpe. u)
@@ -104,13 +110,15 @@ equation
   connect(greEquThr.y, booToInt.u)
     annotation (Line(points={{62,80},{78,80}}, color={255,0,255}));
   connect(mulSumInt.y, conWatPumSpe.index)
-    annotation (Line(points={{-38,-10},{90,-10},{90,8}}, color={255,127,0}));
+    annotation (Line(points={{-38,0},{90,0},{90,8}}, color={255,127,0}));
   connect(mulSumInt.y, conWatPumOn.index)
-    annotation (Line(points={{-38,-10},{-20,-10},{-20,-70},{50,-70},{50,-52}},
+    annotation (Line(points={{-38,0},{-20,0},{-20,-70},{50,-70},{50,-52}},
       color={255,127,0}));
   connect(booToInt.y, mulSumInt.u)
-    annotation (Line(points={{102,80},{120,80},{120,40},{-80,40},{-80,-10},
-      {-62,-10}}, color={255,127,0}));
+    annotation (Line(points={{102,80},{120,80},{120,40},{-80,40},{-80,0},{-62,0}},
+      color={255,127,0}));
+  connect(con4.y, add2.u2)
+    annotation (Line(points={{-98,0},{-90,0},{-90,54},{-82,54}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="conPumSpe",
@@ -155,13 +163,11 @@ Central Plants and Hydronic Systems (Draft 6 on July 25, 2019),
 section 5.2.9 Condenser water pumps, part 5.2.9.6. This sequence is for plants
 have variable speed condenser water pumps.
 </p>
-
 <p>
 The number of operating condenser water pumps <code>yConWatPumNum</code> and design
 condenser water pump speed <code>yDesConWatPumSpe</code> shall be set by chiller 
 stage per the table below.
 </p>
-
 <table summary=\"summary\" border=\"1\">
 <tr>
 <th>Chiller stage </th> 
@@ -201,7 +207,10 @@ or 100% speed if design flow cannot be achieved.</td>
 </tr>
 </table>
 <br/>
-
+<p>
+Note that this sequence is for plants with variable speed condenser water pumps and
+the pumps are equally sized.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

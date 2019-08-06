@@ -2,18 +2,19 @@ compareVars :=
   {
     "chiSta.y",
     "wseSta.y",
-    "leaChiOn.y",
+    "chiOn.y",
     "meaPumSpe.y",
+    "pumSpeSet.y",
     "heaHavWse.yLeaPum",
-    "heaHavWse.yConWatPumSpeSet",
+    "heaHavWse.yDesConWatPumSpe",
     "heaHavWse.yConWatPumNum",
     "heaHavWse.yPumSpeChe",
     "dedHavWse.yLeaPum",
-    "dedHavWse.yConWatPumSpeSet",
+    "dedHavWse.yDesConWatPumSpe",
     "dedHavWse.yConWatPumNum",
     "dedHavWse.yPumSpeChe",
     "heaNoWse.yLeaPum",
-    "heaNoWse.yConWatPumSpeSet",
+    "heaNoWse.yDesConWatPumSpe",
     "heaNoWse.yConWatPumNum",
     "heaNoWse.yPumSpeChe"
   };

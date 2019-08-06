@@ -20,9 +20,9 @@ protected
 
 equation
   connect(chiConWatIsoVal.y, enaLeaConPum.uChiConIsoVal)
-    annotation (Line(points={{1,30},{20,30},{20,4},{38,4}}, color={255,0,255}));
+    annotation (Line(points={{2,30},{20,30},{20,4},{38,4}}, color={255,0,255}));
   connect(WSEConWatIsoVal.y, enaLeaConPum.uWseConIsoVal)
-    annotation (Line(points={{1,-30},{20,-30},{20,-4},{38,-4}}, color={255,0,255}));
+    annotation (Line(points={{2,-30},{20,-30},{20,-4},{38,-4}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
@@ -37,7 +37,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Su
 </html>", revisions="<html>
 <ul>
 <li>
-Arpil 4, 2019, by Jianjun Hu:<br/>
+August 4, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

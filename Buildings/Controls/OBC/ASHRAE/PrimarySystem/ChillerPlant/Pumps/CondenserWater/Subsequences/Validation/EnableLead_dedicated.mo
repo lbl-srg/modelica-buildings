@@ -25,22 +25,22 @@ protected
 
 equation
   connect(booPul.y,enaLeaConPum. uLeaChiEna)
-    annotation (Line(points={{1,50},{20,50},{20,28},{38,28}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,28},{38,28}}, color={255,0,255}));
   connect(booPul.y,enaLeaConPum. uLeaChiOn)
-    annotation (Line(points={{1,50},{20,50},{20,20},{38,20}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,20},{38,20}}, color={255,0,255}));
   connect(booPul.y,disLeaConPum. uLeaChiEna)
-    annotation (Line(points={{1,50},{20,50},{20,-12},{38,-12}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,-12},{38,-12}}, color={255,0,255}));
   connect(booPul.y,disLeaConPum. uLeaChiOn)
-    annotation (Line(points={{1,50},{20,50},{20,-20},{38,-20}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,-20},{38,-20}}, color={255,0,255}));
   connect(booPul.y, lat.u)
-    annotation (Line(points={{1,50},{20,50},{20,-20},{-40,-20},{-40,-40},
-      {-21,-40}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,-20},{-40,-20},{-40,-40},{-22,-40}},
+                  color={255,0,255}));
   connect(booPul.y, enaLeaConPum.uLeaConWatReq)
-    annotation (Line(points={{1,50},{20,50},{20,12},{38,12}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,12},{38,12}}, color={255,0,255}));
   connect(lat.y,disLeaConPum. uLeaConWatReq)
-    annotation (Line(points={{1,-40},{20,-40},{20,-28},{38,-28}}, color={255,0,255}));
+    annotation (Line(points={{2,-40},{20,-40},{20,-28},{38,-28}}, color={255,0,255}));
   connect(con.y, lat.clr)
-    annotation (Line(points={{-39,-60},{-30,-60},{-30,-46},{-21,-46}},
+    annotation (Line(points={{-38,-60},{-30,-60},{-30,-46},{-22,-46}},
       color={255,0,255}));
 
 annotation (
@@ -56,7 +56,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Su
 </html>", revisions="<html>
 <ul>
 <li>
-Arpil 4, 2019, by Jianjun Hu:<br/>
+August 4, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
