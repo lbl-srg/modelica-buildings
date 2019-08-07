@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "temRoo.T",
+    "rad.sta_a.T",
+    "rad.sta_b.T",
+    "heaPum.equFit.TConLvg",
+    "heaPum.equFit.TConEnt",
+    "heaPum.QCon_flow"
+  };
