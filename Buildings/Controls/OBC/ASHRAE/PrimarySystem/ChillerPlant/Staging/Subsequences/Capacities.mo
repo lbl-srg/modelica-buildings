@@ -35,14 +35,14 @@ block Capacities
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDesCap[nSta](
-    final quantity="Power",
-    final unit="W") "Design stage capacities"
+    final quantity=fill("Power", nSta),
+    final unit=fill("W", nSta)) "Design stage capacities"
     annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinCap[nSta](
-    final quantity="Power",
-    final unit="W") "Unload stage capacities"
+    final quantity=fill("Power", nSta),
+    final unit=fill("W", nSta)) "Unload stage capacities"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
 
@@ -54,7 +54,7 @@ block Capacities
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowNom(
     final unit="W",
-    final quantity="Power") "Nominal capacity of the first stage down"
+    final quantity="Power")  "Nominal capacity of the first stage down"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
