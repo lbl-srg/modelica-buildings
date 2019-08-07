@@ -5,5 +5,5 @@ compareVars :=
     "fixPumSpe.yHeaPreConVal",
     "varPumSpe.uHeaPreCon",
     "varPumSpe.yMaxTowSpeSet",
-    "varPumSpe.yConWatPumSpe"
+    "varPumSpe.yConWatPumSpeSet"
   };
