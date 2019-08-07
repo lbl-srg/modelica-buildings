@@ -36,9 +36,6 @@ partial model PartialOpenLoop
   Modelica.Blocks.Continuous.Integrator EPum "Total pump energy"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
-  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{-46,70},{-26,90}})));
-
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-60,80},{-36,80}},

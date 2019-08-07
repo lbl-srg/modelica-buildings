@@ -87,8 +87,7 @@ equation
           -48,5},{-48,4},{-58,4},{-58,-16},{-79,-16}}, color={0,0,127}));
   connect(hvac.TRet, controller.TCut) annotation (Line(points={{1,-6},{12,-6},{
           12,-48},{-132,-48},{-132,4},{-122,4}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-160,-160},{120,140}})), Icon(
-        coordinateSystem(extent={{-160,-160},{120,140}})),
+  annotation (Diagram(coordinateSystem(extent={{-200,-160},{120,100}})),
     experiment(
       StartTime=103680000,
       StopTime=104544000,
