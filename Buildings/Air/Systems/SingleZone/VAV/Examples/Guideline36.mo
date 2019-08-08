@@ -7,7 +7,7 @@ model Guideline36
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
   Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller controller(
-    have_occSen=false,
+    have_occSen=true,
     yHeaMax=1,
     AFlo=48,
     VOutMin_flow=6e-3,
@@ -58,7 +58,7 @@ equation
       points={{-30,80},{-30,60},{-140,60},{-140,20},{-122,20}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));

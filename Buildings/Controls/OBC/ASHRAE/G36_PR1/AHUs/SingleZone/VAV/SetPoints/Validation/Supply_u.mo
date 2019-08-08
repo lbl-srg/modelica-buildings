@@ -55,8 +55,7 @@ model Supply_u "Validation model for control input"
   CDL.Continuous.Sources.Constant TZon1(k=273.15 + 23)
     "Zone air temperature"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  CDL.Logical.Sources.Constant fanStatus(k=true)
-    "Fan is on"
+  CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 equation
   connect(TZon.y, setPoiVAV.TZon) annotation (Line(
@@ -103,8 +102,8 @@ equation
       points={{-59,-70},{-20,-70},{-20,-32},{-2,-32}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(fanStatus.y, setPoiVAV.uFan) annotation (Line(points={{-59,-100},{-6,
-          -100},{-6,40},{-2,40}}, color={255,0,255}));
+  connect(fanSta.y, setPoiVAV.uFan) annotation (Line(points={{-59,-100},{-6,-100},
+          {-6,40},{-2,40}}, color={255,0,255}));
   connect(setPoiVAV1.uFan, setPoiVAV.uFan) annotation (Line(points={{-2,0},{-6,
           0},{-6,40},{-2,40}}, color={255,0,255}));
   connect(setPoiVAV2.uFan, setPoiVAV.uFan) annotation (Line(points={{-2,-40},{
@@ -134,7 +133,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(coordinateSystem(extent={{-100,-120},{100,100}}),
+         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -143,5 +143,6 @@ First implementation.
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(coordinateSystem(extent={{-100,-120},{100,100}})));
 end Supply_u;

@@ -69,7 +69,7 @@ equation
           -110,-36},{-110,-9},{-102,-9}}, color={0,0,127}));
   connect(con.TOut, weaBus.TDryBul) annotation (Line(points={{-102,-2},{-108,-2},
           {-108,60},{-30,60},{-30,80}}, color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));

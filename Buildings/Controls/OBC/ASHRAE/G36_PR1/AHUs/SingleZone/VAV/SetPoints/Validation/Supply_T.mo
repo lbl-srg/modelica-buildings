@@ -34,8 +34,7 @@ model Supply_T
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSet(
     k=273.15 + 22) "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  CDL.Logical.Sources.Constant fanStatus(k=true)
-    "Fan is on"
+  CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 equation
   connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-59,50},{-31.5,50},
@@ -53,8 +52,8 @@ equation
           -59,-50}}, color={0,0,127}));
   connect(TZonSet.y,setPoiVAV.TZonSet)  annotation (Line(points={{-59,20},{-40,
           20},{-40,2},{-2,2}}, color={0,0,127}));
-  connect(fanStatus.y, setPoiVAV.uFan) annotation (Line(points={{-59,-90},{-10,
-          -90},{-10,-10},{-2,-10}}, color={255,0,255}));
+  connect(fanSta.y, setPoiVAV.uFan) annotation (Line(points={{-59,-90},{-10,-90},
+          {-10,-10},{-2,-10}}, color={255,0,255}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Validation/Supply_T.mos"
@@ -76,7 +75,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(coordinateSystem(extent={{-100,-120},{100,100}}),
+         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -85,5 +85,6 @@ First implementation.
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(coordinateSystem(extent={{-100,-120},{100,100}})));
 end Supply_T;

@@ -343,7 +343,8 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     "Measured mixed air temperature, used for freeze protection if use_TMix is true"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
         iconTransformation(extent={{-240,-20},{-200,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") "Number of occupants"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
+       have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
         iconTransformation(extent={{-240,-60},{-200,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin
@@ -464,29 +465,29 @@ equation
           {117,-26}}, color={0,0,127}));
   connect(conEco.TSup, TSup) annotation (Line(points={{117,-34},{-4,-34},{-4,40},
           {-220,40}},     color={0,0,127}));
-  connect(setPoiVAV.TSupHeaEco, conEco.THeaSupSet) annotation (Line(points={{61,196},
+  connect(setPoiVAV.TSupHeaEco, conEco.THeaSupSet) annotation (Line(points={{62,196},
           {92,196},{92,-36},{117,-36}},       color={0,0,127}));
-  connect(setPoiVAV.y, conEco.uSupFanSpe) annotation (Line(points={{61,184},{86,
+  connect(setPoiVAV.y, conEco.uSupFanSpe) annotation (Line(points={{62,184},{86,
           184},{86,-40},{117,-40}},
                                   color={0,0,127}));
   connect(TMix, conEco.TMix) annotation (Line(points={{-220,0},{0,0},{0,-42},{117,
           -42}},          color={0,0,127}));
-  connect(setPoiVAV.TSupHeaEco, TSupHeaEco) annotation (Line(points={{61,196},{160,
+  connect(setPoiVAV.TSupHeaEco, TSupHeaEco) annotation (Line(points={{62,196},{160,
           196},{160,240},{210,240}},      color={0,0,127}));
-  connect(setPoiVAV.TSupCoo, TSupCoo) annotation (Line(points={{61,190},{136,190},
+  connect(setPoiVAV.TSupCoo, TSupCoo) annotation (Line(points={{62,190},{136,190},
           {136,180},{210,180}},      color={0,0,127}));
-  connect(setPoiVAV.y, yFan) annotation (Line(points={{61,184},{120,184},{120,120},
+  connect(setPoiVAV.y, yFan) annotation (Line(points={{62,184},{120,184},{120,120},
           {210,120}},      color={0,0,127}));
   connect(conEco.yRetDamPos, yRetDamPos) annotation (Line(points={{139,-38},{168,
           -38},{168,-240},{210,-240}},   color={0,0,127}));
   connect(conEco.yOutDamPos, yOutDamPos) annotation (Line(points={{139,-42},{160,
           -42},{160,-180},{210,-180}}, color={0,0,127}));
-  connect(outAirSetPoi.TDis, TSup) annotation (Line(points={{39,50},{-4,50},{-4,
+  connect(outAirSetPoi.TDis, TSup) annotation (Line(points={{38,47},{-4,47},{-4,
           40},{-220,40}},      color={0,0,127}));
-  connect(outAirSetPoi.uOpeMod, conEco.uOpeMod) annotation (Line(points={{39,42},
-          {-120,42},{-120,-46},{117,-46}},    color={255,127,0}));
+  connect(outAirSetPoi.uOpeMod, conEco.uOpeMod) annotation (Line(points={{38,41},
+          {-120,41},{-120,-46},{117,-46}},    color={255,127,0}));
   connect(conEco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow) annotation (
-      Line(points={{117,-38},{108,-38},{108,50},{61,50}},
+      Line(points={{117,-38},{108,-38},{108,50},{62,50}},
                                                        color={0,0,127}));
   connect(TOut, setPoiVAV.TOut) annotation (Line(points={{-220,240},{10,240},{10,
           184},{38,184}},    color={0,0,127}));
@@ -507,7 +508,7 @@ equation
           197},{-102,196}},              color={0,0,127}));
   connect(modSetPoi.TZonCooSet, cooPI.u_s) annotation (Line(points={{-159,197},{
           -114,197},{-114,160},{-50,160}},color={0,0,127}));
-  connect(outAirSetPoi.uWin, uWin) annotation (Line(points={{39,46},{8,46},{8,-80},
+  connect(outAirSetPoi.uWin, uWin) annotation (Line(points={{38,54},{8,54},{8,-80},
           {-220,-80}},      color={255,0,255}));
   connect(modSetPoi.uOcc, uOcc) annotation (Line(points={{-181,186.025},{-184,186.025},
           {-184,120},{-220,120}},          color={255,0,255}));
@@ -517,10 +518,10 @@ equation
           132},{-38,132},{-38,148}}, color={0,0,127}));
   connect(setPoiVAV.TZon, cooPI.u_m) annotation (Line(points={{38,188},{4,188},{
           4,132},{-38,132},{-38,148}},  color={0,0,127}));
-  connect(outAirSetPoi.TZon, cooPI.u_m)   annotation (Line(points={{39,54},{-38,
-          54},{-38,148}},                                                                       color={0,0,127}));
+  connect(outAirSetPoi.TZon, cooPI.u_m)   annotation (Line(points={{38,50},{-38,
+          50},{-38,148}},                                                                       color={0,0,127}));
   connect(nOcc, outAirSetPoi.nOcc) annotation (Line(points={{-220,-40},{4,-40},{
-          4,58},{39,58}},  color={0,0,127}));
+          4,58},{38,58}},  color={0,0,127}));
   connect(uFreProSta, conEco.uFreProSta) annotation (Line(points={{-220,-240},{-180,
           -240},{-180,-180},{40,-180},{40,-50},{117,-50}},
                                    color={255,127,0}));
@@ -547,7 +548,7 @@ equation
   connect(cooCoi.TSup, TSup) annotation (Line(points={{118,-122},{-4,-122},{-4,40},
           {-220,40}}, color={0,0,127}));
   connect(switch.y, outAirSetPoi.uSupFan) annotation (Line(points={{-59,-230},{-20,
-          -230},{-20,44},{39,44}}, color={255,0,255}));
+          -230},{-20,44},{38,44}}, color={255,0,255}));
   connect(switch.y, conEco.uSupFan) annotation (Line(points={{-59,-230},{60,-230},
           {60,-44},{117,-44}}, color={255,0,255}));
   connect(switch.y, setPoiVAV.uFan) annotation (Line(points={{-59,-230},{28,-230},
