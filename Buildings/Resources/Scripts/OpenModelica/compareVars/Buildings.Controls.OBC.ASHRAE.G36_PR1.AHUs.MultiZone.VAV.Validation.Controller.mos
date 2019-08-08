@@ -3,6 +3,8 @@ compareVars :=
     "conAHU.ducStaPre",
     "conAHU.supFan.staPreSetRes.y",
     "conAHU.ySupFanSpe",
+    "conAHU.ySupFan",
+    "conAHU.uOpeMod",
     "conAHU.TSup",
     "conAHU.TSupSet",
     "conAHU.TOut",

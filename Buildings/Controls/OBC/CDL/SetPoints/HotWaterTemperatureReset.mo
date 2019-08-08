@@ -18,7 +18,7 @@ block HotWaterTemperatureReset
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC", min=200) "Zone setpoint temperature"
-    annotation (Placement(transformation(extent={{-139,-80},{-99,-40}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Interfaces.RealInput TOut(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
@@ -30,13 +30,13 @@ block HotWaterTemperatureReset
     final unit = "K",
     displayUnit = "degC",
     min=200) "Setpoint for supply temperature"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,40},{140,80}})));
   Interfaces.RealOutput TRet(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit = "degC",
     min=200) "Setpoint for return temperature"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 protected
   parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal

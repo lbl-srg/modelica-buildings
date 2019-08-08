@@ -2,18 +2,15 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block Feedback "Output difference between commanded and feedback input"
 
   Interfaces.RealInput u1 "Connector of Real input signal 1"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealInput u2 "Connector of Real input signal 2"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-        iconTransformation(
-        extent={{-20,-20},{20,20}},
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,-120})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = u1 - u2;

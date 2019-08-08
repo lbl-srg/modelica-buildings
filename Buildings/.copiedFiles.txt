@@ -582,7 +582,7 @@ Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFa
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Erfint.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Integrand.mo
-Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Integrand_BoreholeLength.mo
+Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Integrand_Length.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/GFunction_100boreholes.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/GFunction_1borehole_5meters.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/GFunction_SmallScaleValidation.mo
@@ -1601,7 +1601,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatT
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Erfint.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Integrand.mos
-Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Integrand_BoreholeLength.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Integrand_Length.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/GFunction_100boreholes.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/GFunction_1borehole_5meters.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/GFunction_SmallScaleValidation.mos
@@ -1805,6 +1805,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Diagnostics/Validation/CheckEqualit
 Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/CSVReader.mos
 Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/CSVWriter.mos
 Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/JSONWriter.mos
+Buildings/Resources/Scripts/Dymola/Utilities/IO/SignalExchange/Examples/FirstOrder.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Average.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/BesselJ0.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/BesselJ1.mos
@@ -2010,6 +2011,20 @@ Buildings/Utilities/IO/Files/Examples/package.order
 Buildings/Utilities/IO/Files/JSONWriter.mo
 Buildings/Utilities/IO/Files/package.mo
 Buildings/Utilities/IO/Files/package.order
+Buildings/Utilities/IO/SignalExchange/Examples/BaseClasses/ExportedModel.mo
+Buildings/Utilities/IO/SignalExchange/Examples/BaseClasses/OriginalModel.mo
+Buildings/Utilities/IO/SignalExchange/Examples/BaseClasses/package.mo
+Buildings/Utilities/IO/SignalExchange/Examples/BaseClasses/package.order
+Buildings/Utilities/IO/SignalExchange/Examples/FirstOrder.mo
+Buildings/Utilities/IO/SignalExchange/Examples/package.mo
+Buildings/Utilities/IO/SignalExchange/Examples/package.order
+Buildings/Utilities/IO/SignalExchange/Overwrite.mo
+Buildings/Utilities/IO/SignalExchange/Read.mo
+Buildings/Utilities/IO/SignalExchange/SignalTypes/SignalsForKPIs.mo
+Buildings/Utilities/IO/SignalExchange/SignalTypes/package.mo
+Buildings/Utilities/IO/SignalExchange/SignalTypes/package.order
+Buildings/Utilities/IO/SignalExchange/package.mo
+Buildings/Utilities/IO/SignalExchange/package.order
 Buildings/Utilities/IO/package.mo
 Buildings/Utilities/IO/package.order
 Buildings/Utilities/Math/Average.mo
