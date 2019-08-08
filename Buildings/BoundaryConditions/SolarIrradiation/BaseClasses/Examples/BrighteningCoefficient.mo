@@ -42,35 +42,35 @@ equation
       points={{-70,70},{-50,70}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.HGloHor, skyCle.HGloHor) annotation (Line(
       points={{-50,70},{20,70},{20,36},{38,36}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyCle.HDifHor) annotation (Line(
       points={{-50,70},{20,70},{20,30},{38,30}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyBri.HDifHor) annotation (Line(
       points={{-50,70},{20,70},{20,-34},{38,-34}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, zen.weaBus) annotation (Line(
       points={{-50,70},{-50,70},{-50,28},{-50,28},{-50,-10},{-40,-10}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (

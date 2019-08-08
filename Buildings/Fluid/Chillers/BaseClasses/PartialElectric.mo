@@ -35,15 +35,15 @@ partial model PartialElectric
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
 
-  Real capFunT(min=0, nominal=1, start=1, unit="1")
+  Real capFunT(min=0, unit="1")
     "Cooling capacity factor function of temperature curve";
-  Modelica.SIunits.Efficiency EIRFunT(nominal=1, start=1)
+  Modelica.SIunits.Efficiency EIRFunT
     "Power input to cooling capacity ratio function of temperature curve";
-  Modelica.SIunits.Efficiency EIRFunPLR(nominal=1, start=1)
+  Modelica.SIunits.Efficiency EIRFunPLR
     "Power input to cooling capacity ratio function of part load ratio";
-  Real PLR1(min=0, nominal=1, start=1, unit="1") "Part load ratio";
-  Real PLR2(min=0, nominal=1, start=1, unit="1") "Part load ratio";
-  Real CR(min=0, nominal=1,  start=1, unit="1") "Cycling ratio";
+  Real PLR1(min=0, unit="1") "Part load ratio";
+  Real PLR2(min=0, unit="1") "Part load ratio";
+  Real CR(min=0, unit="1") "Cycling ratio";
 
 protected
   Modelica.SIunits.HeatFlowRate QEva_flow_ava(nominal=QEva_flow_nominal,start=QEva_flow_nominal)
@@ -329,6 +329,12 @@ The function value needs to be assigned to <code>EIRFunPLR</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 28, 2019, by Michael Wetter:<br/>
+Removed <code>start</code> values and removed
+<code>nominal=1</code> for performance curves.<br/>
+This is for issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1465\">1465</a>.
+</li>
 <li>
 March 12, 2015, by Michael Wetter:<br/>
 Refactored model to make it once continuously differentiable.

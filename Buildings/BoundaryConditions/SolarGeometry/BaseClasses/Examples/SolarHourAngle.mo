@@ -16,7 +16,7 @@ equation
           1.13798e-15},{-52,0},{-44,0}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
@@ -24,7 +24,7 @@ equation
           1.22125e-15},{-23,6.66134e-16},{-2,6.66134e-16}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (experiment(Tolerance=1e-6, StopTime=86400),

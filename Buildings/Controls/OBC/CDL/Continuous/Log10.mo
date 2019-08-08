@@ -5,7 +5,7 @@ block Log10 "Output the base 10 logarithm of the input (input > 0 required)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = Modelica.Math.log10(u);

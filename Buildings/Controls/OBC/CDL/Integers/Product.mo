@@ -8,7 +8,7 @@ block Product "Output product of the two inputs"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Interfaces.IntegerOutput y "Connector of Integer output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = u1 * u2;

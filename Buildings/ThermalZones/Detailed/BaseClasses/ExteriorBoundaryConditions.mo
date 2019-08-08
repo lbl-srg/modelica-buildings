@@ -105,21 +105,21 @@ equation
       points={{102,180},{244,180},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(skyRadExc.TOut, weaBus.TDryBul) annotation (Line(
       points={{-136,252},{244,252},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(skyRadExc.TBlaSky, weaBus.TBlaSky) annotation (Line(
       points={{-136,268},{244,268},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   for i in 1:nCon loop
@@ -128,7 +128,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDifTil[i].weaBus, weaBus) annotation (Line(
@@ -136,7 +136,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
    end for;
@@ -160,14 +160,14 @@ equation
       points={{182,230},{244,230},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(repConExt1.u, weaBus.winSpe) annotation (Line(
       points={{132,210},{244,210},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(repConExt1.y, conOpa.v) annotation (Line(

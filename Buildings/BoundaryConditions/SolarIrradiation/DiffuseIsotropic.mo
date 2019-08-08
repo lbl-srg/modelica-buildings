@@ -28,14 +28,14 @@ equation
       points={{-100,5.55112e-16},{-51.5,5.55112e-16},{-51.5,4},{-22,4}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, HDifTilIso.HDifHor) annotation (Line(
       points={{-100,5.55112e-16},{-51.5,5.55112e-16},{-51.5,-4},{-22,-4}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
 

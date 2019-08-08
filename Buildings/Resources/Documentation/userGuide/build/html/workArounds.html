@@ -2,40 +2,26 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>3. Work-Arounds &#8212; Buildings Library User Guide</title>
-    
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
-    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,8 +33,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-  </head>
-  <body role="document">
+  </head><body>
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container-fluid">
@@ -189,21 +174,21 @@
 <div class="section" id="avoiding-step-changes">
 <h2>3.1. Avoiding step changes<a class="headerlink" href="#avoiding-step-changes" title="Permalink to this headline">¶</a></h2>
 <p>All flow machines (fans and pumps) have a boolean parameter
-<code class="docutils literal"><span class="pre">filteredSpeed</span></code>, and all actuators have a boolean parameter
-<code class="docutils literal"><span class="pre">filteredOpening</span></code>.
-If set to <code class="docutils literal"><span class="pre">true</span></code>, which is the default setting, then the control input signal is sent to
+<code class="docutils literal notranslate"><span class="pre">filteredSpeed</span></code>, and all actuators have a boolean parameter
+<code class="docutils literal notranslate"><span class="pre">filteredOpening</span></code>.
+If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, which is the default setting, then the control input signal is sent to
 a <a class="reference internal" href="glossary.html#term-2nd-order-low-pass-filter"><span class="xref std std-term">2nd order low pass filter</span></a> that changes a step signal to a smooth signal.
 This typically improves the robustness of the simulation.</p>
 <p>To see the effect of the filter, consider the model below
-in which <code class="docutils literal"><span class="pre">fanS</span></code> is configured with
-<code class="docutils literal"><span class="pre">filteredSpeed=false</span></code>, and <code class="docutils literal"><span class="pre">fanC</span></code> is configured with
-<code class="docutils literal"><span class="pre">filteredSpeed=true</span></code>.
+in which <code class="docutils literal notranslate"><span class="pre">fanS</span></code> is configured with
+<code class="docutils literal notranslate"><span class="pre">filteredSpeed=false</span></code>, and <code class="docutils literal notranslate"><span class="pre">fanC</span></code> is configured with
+<code class="docutils literal notranslate"><span class="pre">filteredSpeed=true</span></code>.
 Both fans are connected to a step input signal.
-The configuration of <code class="docutils literal"><span class="pre">fanS</span></code> causes the fan speed to instantly change from 0 to 1. In large system models, this can lead to high computing time or to convergence problems. The <code class="docutils literal"><span class="pre">fanC</span></code> avoids this problem because the speed of the fan varies continuously, thereby making it easier for the solver to compute a solution. In this model, we set the parameter
-<code class="docutils literal"><span class="pre">raiseTime=30</span></code> seconds.</p>
+The configuration of <code class="docutils literal notranslate"><span class="pre">fanS</span></code> causes the fan speed to instantly change from 0 to 1. In large system models, this can lead to high computing time or to convergence problems. The <code class="docutils literal notranslate"><span class="pre">fanC</span></code> avoids this problem because the speed of the fan varies continuously, thereby making it easier for the solver to compute a solution. In this model, we set the parameter
+<code class="docutils literal notranslate"><span class="pre">raiseTime=30</span></code> seconds.</p>
 <div class="figure" id="id2">
 <span id="figurefilteredresponse"></span><img alt="_images/fanStepSchematics.png" src="_images/fanStepSchematics.png" />
-<p class="caption"><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Schematic diagram of fans that are configured with <code class="docutils literal"><span class="pre">filteredSpeed=false</span></code> (<code class="docutils literal"><span class="pre">fanS</span></code>) and <code class="docutils literal"><span class="pre">filteredSpeed=true</span></code> (<code class="docutils literal"><span class="pre">fanC</span></code>).</span></p>
+<p class="caption"><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Schematic diagram of fans that are configured with <code class="docutils literal notranslate"><span class="pre">filteredSpeed=false</span></code> (<code class="docutils literal notranslate"><span class="pre">fanS</span></code>) and <code class="docutils literal notranslate"><span class="pre">filteredSpeed=true</span></code> (<code class="docutils literal notranslate"><span class="pre">fanC</span></code>).</span></p>
 </div>
 <div class="figure" id="id3">
 <img alt="_images/fanStepResponse.png" src="_images/fanStepResponse.png" />
@@ -211,25 +196,25 @@ The configuration of <code class="docutils literal"><span class="pre">fanS</span
 </div>
 <p>For fans and pumps, the dynamics introduced by the filter can be thought of as approximating
 the rotational inertia of the fan rotor and the inertia of the fluid in the duct or piping network.
-The default value is <code class="docutils literal"><span class="pre">raiseTime=30</span></code> seconds.</p>
+The default value is <code class="docutils literal notranslate"><span class="pre">raiseTime=30</span></code> seconds.</p>
 <p>For actuators, the raise time approximates the travel time of the valve lift.
-The default value is <code class="docutils literal"><span class="pre">raiseTime=120</span></code> seconds.</p>
+The default value is <code class="docutils literal notranslate"><span class="pre">raiseTime=120</span></code> seconds.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When changing <code class="docutils literal"><span class="pre">filteredSpeed</span></code> (or <code class="docutils literal"><span class="pre">filteredOpening</span></code>),
-or when changing the value of <code class="docutils literal"><span class="pre">raiseTime</span></code>, the dynamic
+<p class="last">When changing <code class="docutils literal notranslate"><span class="pre">filteredSpeed</span></code> (or <code class="docutils literal notranslate"><span class="pre">filteredOpening</span></code>),
+or when changing the value of <code class="docutils literal notranslate"><span class="pre">raiseTime</span></code>, the dynamic
 response of the closed loop control changes. Therefore,
 control gains may need to be retuned to ensure satisfactory
 closed loop control performance.</p>
 </div>
 <p>For further information, see the
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers_UsersGuide.html">User&#8217;s Guide of the flow machine package</a>, and the
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html">User&#8217;s Guide of the actuator package</a>.</p>
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers_UsersGuide.html">User’s Guide of the flow machine package</a>, and the
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html">User’s Guide of the actuator package</a>.</p>
 </div>
 <div class="section" id="breaking-algebraic-loops">
 <h2>3.2. Breaking algebraic loops<a class="headerlink" href="#breaking-algebraic-loops" title="Permalink to this headline">¶</a></h2>
 <p>In fluid flow systems, flow junctions where mass flow rates separate and mix can couple non-linear systems of equations. This leads to larger systems of coupled equations that need to be solved, which often causes larger computing time and can sometimes cause convergence problems.
-To decouple these systems of equations, in the model of a flow splitter or mixer (model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">Buildings.Fluid.FixedResistances.PressureDrop</a>), or in models for fans or pumps (such as the model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y">Buildings.Fluid.Movers.SpeedControlled_y</a>), the parameter <code class="docutils literal"><span class="pre">dynamicBalance</span></code> can be set to <code class="docutils literal"><span class="pre">true</span></code>. This adds a control volume at the fluid junction that can decouple the system of equations.</p>
+To decouple these systems of equations, in the model of a flow splitter or mixer (model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">Buildings.Fluid.FixedResistances.PressureDrop</a>), or in models for fans or pumps (such as the model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y">Buildings.Fluid.Movers.SpeedControlled_y</a>), the parameter <code class="docutils literal notranslate"><span class="pre">dynamicBalance</span></code> can be set to <code class="docutils literal notranslate"><span class="pre">true</span></code>. This adds a control volume at the fluid junction that can decouple the system of equations.</p>
 </div>
 <div class="section" id="reducing-nonlinear-equations-of-serially-connected-flow-resistances">
 <h2>3.3. Reducing nonlinear equations of serially connected flow resistances<a class="headerlink" href="#reducing-nonlinear-equations-of-serially-connected-flow-resistances" title="Permalink to this headline">¶</a></h2>
@@ -238,8 +223,8 @@ then computing the pressure drop due to flow friction in the
 individual components can lead to coupled nonlinear systems of equations.
 While this is no problem for small models, the iterative solution can lead to higher computing time, particularly in large models where other equations may
 be part of the residual function.</p>
-<p>For illustration, consider the simple system shown below in which the flow resistances <code class="docutils literal"><span class="pre">res1</span></code> and <code class="docutils literal"><span class="pre">res2</span></code> compute the mass flow rate as
-<span class="math">\(\dot m = k \, \sqrt{\Delta p}\)</span> if the parameter <code class="docutils literal"><span class="pre">from_dp</span></code> is set to <code class="docutils literal"><span class="pre">true</span></code>, or otherwise compute the pressure drop between their inlet and outlet as <span class="math">\(\Delta p = (\dot m / k)^2\)</span>. (Both formulations are implemented using <a class="reference internal" href="glossary.html#term-regularization"><span class="xref std std-term">regularization</span></a> near zero.)</p>
+<p>For illustration, consider the simple system shown below in which the flow resistances <code class="docutils literal notranslate"><span class="pre">res1</span></code> and <code class="docutils literal notranslate"><span class="pre">res2</span></code> compute the mass flow rate as
+<span class="math notranslate nohighlight">\(\dot m = k \, \sqrt{\Delta p}\)</span> if the parameter <code class="docutils literal notranslate"><span class="pre">from_dp</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, or otherwise compute the pressure drop between their inlet and outlet as <span class="math notranslate nohighlight">\(\Delta p = (\dot m / k)^2\)</span>. (Both formulations are implemented using <a class="reference internal" href="glossary.html#term-regularization"><span class="xref std std-term">regularization</span></a> near zero.)</p>
 <div class="figure" id="id4">
 <img alt="_images/resistancesSeries.png" src="_images/resistancesSeries.png" />
 <p class="caption"><span class="caption-number">Fig. 3.3 </span><span class="caption-text">Schematic diagram of two flow resistances in series that connect a source and a volume.</span></p>
@@ -248,8 +233,8 @@ be part of the residual function.</p>
 To avoid a nonlinear equation, use any of the measures below.</p>
 <blockquote>
 <div><ul class="simple">
-<li>Set the parameter <code class="docutils literal"><span class="pre">res2(dp_nominal=0)</span></code>, and add the pressure drop to the parameter <code class="docutils literal"><span class="pre">dp_nominal</span></code> of the model <code class="docutils literal"><span class="pre">res1</span></code>. This will eliminate the equation that computes the flow friction in <code class="docutils literal"><span class="pre">res2</span></code>, thereby avoiding a nonlinear equation. The same applies if there are multiple components in series, such as a pre-heat coil, a heating coil and a cooling coil.</li>
-<li>Set <code class="docutils literal"><span class="pre">from_dp=false</span></code> in all components, which is the default setting. This will cause Modelica to use a function that computes the pressure drop as a function of the mass flow rate. Therefore, a code translator is likely to generate an equation that solves for the mass flow rate, and it then uses the mass flow rate to compute the pressure drop of the components that are connected in series.</li>
+<li>Set the parameter <code class="docutils literal notranslate"><span class="pre">res2(dp_nominal=0)</span></code>, and add the pressure drop to the parameter <code class="docutils literal notranslate"><span class="pre">dp_nominal</span></code> of the model <code class="docutils literal notranslate"><span class="pre">res1</span></code>. This will eliminate the equation that computes the flow friction in <code class="docutils literal notranslate"><span class="pre">res2</span></code>, thereby avoiding a nonlinear equation. The same applies if there are multiple components in series, such as a pre-heat coil, a heating coil and a cooling coil.</li>
+<li>Set <code class="docutils literal notranslate"><span class="pre">from_dp=false</span></code> in all components, which is the default setting. This will cause Modelica to use a function that computes the pressure drop as a function of the mass flow rate. Therefore, a code translator is likely to generate an equation that solves for the mass flow rate, and it then uses the mass flow rate to compute the pressure drop of the components that are connected in series.</li>
 </ul>
 </div></blockquote>
 <p>Control valves also allow lumping the pressure drop into the model of the valve. Consider the situation where a fixed flow resistance is in series with a control valve as shown below.</p>
@@ -258,7 +243,7 @@ To avoid a nonlinear equation, use any of the measures below.</p>
 <p class="caption"><span class="caption-number">Fig. 3.4 </span><span class="caption-text">Schematic diagram of a fixed flow resistance and a valve in series  that connect a source and a volume.</span></p>
 </div>
 <p>Suppose the parameters are</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">FixedResistances</span><span class="o">.</span><span class="n">PressureDrop</span> <span class="n">res</span><span class="p">(</span>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">FixedResistances</span><span class="o">.</span><span class="n">PressureDrop</span> <span class="n">res</span><span class="p">(</span>
   <span class="kr">redeclare</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
   <span class="n">dp_nominal</span><span class="o">=</span><span class="mi">10000</span><span class="p">);</span>
@@ -275,7 +260,7 @@ To avoid a nonlinear equation, use any of the measures below.</p>
 <p class="caption"><span class="caption-number">Fig. 3.5 </span><span class="caption-text">Schematic diagram of a valve that connects a source and a volume.</span></p>
 </div>
 <p>If the valve is configured as</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Actuators</span><span class="o">.</span><span class="n">Valves</span><span class="o">.</span><span class="n">TwoWayLinear</span> <span class="n">val</span><span class="p">(</span>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Actuators</span><span class="o">.</span><span class="n">Valves</span><span class="o">.</span><span class="n">TwoWayLinear</span> <span class="n">val</span><span class="p">(</span>
   <span class="kr">redeclare</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
   <span class="n">dpValve_nominal</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
@@ -283,15 +268,15 @@ To avoid a nonlinear equation, use any of the measures below.</p>
 </pre></div>
 </div>
 <p>then the valve will compute the composite flow coefficient
-<span class="math">\(\bar k\)</span> as</p>
-<div class="math">
+<span class="math notranslate nohighlight">\(\bar k\)</span> as</p>
+<div class="math notranslate nohighlight">
 \[\bar k = \frac{1}{\sqrt{1/k_v(y) + 1/k_f}}\]</div>
-<p>where <span class="math">\(k_v(y) = \dot m(y)/\sqrt{\Delta p}\)</span> is the flow coefficient of the valve at the lift <span class="math">\(y\)</span>, and
-<span class="math">\(k_f\)</span> is equal to the ratio <code class="docutils literal"><span class="pre">m_flow_nominal/sqrt(dpFixed_nominal)</span></code>.
-The valve model then computes the pressure drop using <span class="math">\(\bar k\)</span> and the same equations as described above for the fixed resistances.
+<p>where <span class="math notranslate nohighlight">\(k_v(y) = \dot m(y)/\sqrt{\Delta p}\)</span> is the flow coefficient of the valve at the lift <span class="math notranslate nohighlight">\(y\)</span>, and
+<span class="math notranslate nohighlight">\(k_f\)</span> is equal to the ratio <code class="docutils literal notranslate"><span class="pre">m_flow_nominal/sqrt(dpFixed_nominal)</span></code>.
+The valve model then computes the pressure drop using <span class="math notranslate nohighlight">\(\bar k\)</span> and the same equations as described above for the fixed resistances.
 Thus, the composite model has the same <a class="reference internal" href="glossary.html#term-valve-authority"><span class="xref std std-term">valve authority</span></a> and mass flow rate, but a nonlinear equation can be avoided.</p>
 <p>For more details, see the
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html">User&#8217;s Guide of the actuator package</a>.</p>
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html">User’s Guide of the actuator package</a>.</p>
 </div>
 <div class="section" id="prescribed-mass-flow-rate">
 <h2>3.4. Prescribed mass flow rate<a class="headerlink" href="#prescribed-mass-flow-rate" title="Permalink to this headline">¶</a></h2>
@@ -300,7 +285,7 @@ Thus, the composite model has the same <a class="reference internal" href="gloss
 <div class="section" id="avoiding-overspecified-initialization-problems">
 <h2>3.5. Avoiding overspecified initialization problems<a class="headerlink" href="#avoiding-overspecified-initialization-problems" title="Permalink to this headline">¶</a></h2>
 <p>If in thermofluid flow systems, Dymola fails to translate a model with the error message:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">The</span> <span class="n">initialization</span> <span class="n">problem</span> <span class="ow">is</span> <span class="n">overspecified</span> <span class="k">for</span> <span class="n">variables</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">The</span> <span class="n">initialization</span> <span class="n">problem</span> <span class="ow">is</span> <span class="n">overspecified</span> <span class="k">for</span> <span class="n">variables</span>
 <span class="n">of</span> <span class="n">element</span> <span class="nb">type</span> <span class="n">Real</span>
 <span class="n">The</span> <span class="n">initial</span> <span class="n">equation</span>
 <span class="o">...</span>
@@ -309,7 +294,7 @@ Thus, the composite model has the same <a class="reference internal" href="gloss
 </pre></div>
 </div>
 <p>then the initialization problem is overspecified. To avoid this, set</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">energyDynamics</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Types</span><span class="o">.</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">DynamicsFreeInitial</span><span class="p">;</span>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">energyDynamics</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Types</span><span class="o">.</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">DynamicsFreeInitial</span><span class="p">;</span>
 <span class="n">massDynamics</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Types</span><span class="o">.</span><span class="n">Dynamics</span><span class="o">.</span><span class="n">DynamicsFreeInitial</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -334,8 +319,8 @@ See also the section <a class="reference internal" href="bestPractice.html#refer
       
     </p>
     <p>
-        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+        &copy; Copyright 2012-2019, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.<br/>
     </p>
   </div>
 </footer>

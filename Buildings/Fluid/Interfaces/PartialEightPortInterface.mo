@@ -45,7 +45,7 @@ partial model PartialEightPortInterface
     "Mass flow rate from port_a3 to port_b3 (m3_flow > 0 is design flow direction)";
   Modelica.SIunits.Pressure dp3(displayUnit="Pa")
     "Pressure difference between port_a3 and port_b3";
-  Medium2.MassFlowRate m4_flow = port_a4.m_flow
+  Medium4.MassFlowRate m4_flow = port_a4.m_flow
     "Mass flow rate from port_a4 to port_b4 (m4_flow > 0 is design flow direction)";
   Modelica.SIunits.Pressure dp4(displayUnit="Pa")
     "Pressure difference between port_a4 and port_b4";
@@ -125,16 +125,23 @@ equation
   preferredView="info",
     Documentation(info="<html>
 <p>
-This component defines the interface for models that transport four fluid streams between eight ports. 
-It is similar to <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>, 
+This component defines the interface for models that transport four fluid streams between eight ports.
+It is similar to <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>,
 but it has eight ports instead of two. </p>
 <p>
-The model is used by other models in this package that add heat transfer, 
-mass transfer and pressure drop equations. 
+The model is used by other models in this package that add heat transfer,
+mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>July 2014, by Damien Picard:<br/>First implementation. </li>
+<li>
+July 12, 2019, by Michael Wetter:<br/>
+Corrected wrong medium in declaration of <code>m4_flow</code>.
+</li>
+<li>
+July 2014, by Damien Picard:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

@@ -1,0 +1,46 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Validation.ControllerConfigurationTest", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="MultizoneControllerConfigurationTest");
+
+createPlot(id=1, position={10, 15, 390, 750}, subPlot=1, y={"conAHU.ducStaPre","conAHU.supFan.staPreSetRes.y"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 15, 390, 750}, subPlot=2, y={"conAHU.ySupFanSpe"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={10, 15, 390, 750}, subPlot=3, y={"conAHU.ySupFan"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={10, 15, 390, 750}, subPlot=4, y={"conAHU.uOpeMod"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={410, 15, 390, 750}, subPlot=1, y={"conAHU.TSup","conAHU.TSupSet","conAHU.TOut"}, range={0.0, 0.05, -0.2, 0.6000000000000001}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=2, position={410, 15, 390, 750}, subPlot=2, y={"conAHU.eco.uTSup"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={410, 15, 390, 750}, subPlot=3, y={"conAHU.yHea","conAHU.yCoo"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={810, 15, 390, 300}, subPlot=1, y={"conAHU.yOutDamPos","conAHU.yRetDamPos"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=4, position={20, 25, 390, 750}, subPlot=1, y={"conAHU1.ducStaPre","conAHU1.supFan.staPreSetRes.y"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=4, position={20, 25, 390, 750}, subPlot=2, y={"conAHU1.ySupFanSpe"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={20, 25, 390, 750}, subPlot=3, y={"conAHU1.ySupFan"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={20, 25, 390, 750}, subPlot=4, y={"conAHU1.uOpeMod"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=5, position={420, 25, 390, 750}, subPlot=1, y={"conAHU1.TSup","conAHU1.TSupSet","conAHU1.TOut"}, range={0.0, 0.05, -0.2, 0.6000000000000001}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=5, position={420, 25, 390, 750}, subPlot=2, y={"conAHU1.eco.uTSup"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=5, position={420, 25, 390, 750}, subPlot=3, y={"conAHU1.yHea","conAHU1.yCoo"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=6, position={820, 25, 390, 300}, subPlot=1, y={"conAHU1.yOutDamPos","conAHU1.yRetDamPos"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=7, position={30, 35, 390, 750}, subPlot=1, y={"conAHU2.ducStaPre","conAHU2.supFan.staPreSetRes.y"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=7, position={30, 35, 390, 750}, subPlot=2, y={"conAHU2.ySupFanSpe"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=7, position={30, 35, 390, 750}, subPlot=3, y={"conAHU2.ySupFan"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=7, position={30, 35, 390, 750}, subPlot=4, y={"conAHU2.uOpeMod"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=8, position={430, 35, 390, 750}, subPlot=1, y={"conAHU2.TSup","conAHU2.TSupSet","conAHU2.TOut"}, range={0.0, 0.05, -0.2, 0.6000000000000001}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=8, position={430, 35, 390, 750}, subPlot=2, y={"conAHU2.eco.uTSup"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=8, position={430, 35, 390, 750}, subPlot=3, y={"conAHU2.yHea","conAHU2.yCoo"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=9, position={830, 35, 390, 300}, subPlot=1, y={"conAHU2.yOutDamPos","conAHU2.yRetDamPos"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=10, position={40, 45, 390, 750}, subPlot=1, y={"conAHU3.ducStaPre","conAHU3.supFan.staPreSetRes.y"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=10, position={40, 45, 390, 750}, subPlot=2, y={"conAHU3.ySupFanSpe"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=10, position={40, 45, 390, 750}, subPlot=3, y={"conAHU3.ySupFan"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=10, position={40, 45, 390, 750}, subPlot=4, y={"conAHU3.uOpeMod"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=11, position={440, 45, 390, 750}, subPlot=1, y={"conAHU3.TSup","conAHU3.TSupSet","conAHU3.TOut"}, range={0.0, 0.05, -0.2, 0.6000000000000001}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=11, position={440, 45, 390, 750}, subPlot=2, y={"conAHU3.eco.uTSup"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=11, position={440, 45, 390, 750}, subPlot=3, y={"conAHU3.yHea","conAHU3.yCoo"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=12, position={840, 45, 390, 300}, subPlot=1, y={"conAHU3.yOutDamPos","conAHU3.yRetDamPos"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=13, position={50, 55, 390, 750}, subPlot=1, y={"conAHU4.ducStaPre","conAHU4.supFan.staPreSetRes.y"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=13, position={50, 55, 390, 750}, subPlot=2, y={"conAHU4.ySupFanSpe"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=13, position={50, 55, 390, 750}, subPlot=3, y={"conAHU4.ySupFan"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=13, position={50, 55, 390, 750}, subPlot=4, y={"conAHU4.uOpeMod"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=14, position={450, 55, 390, 750}, subPlot=1, y={"conAHU4.TSup","conAHU4.TSupSet","conAHU4.TOut"}, range={0.0, 0.05, -0.2, 0.6000000000000001}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=14, position={450, 55, 390, 750}, subPlot=2, y={"conAHU4.eco.uTSup"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200}});
+createPlot(id=14, position={450, 55, 390, 750}, subPlot=3, y={"conAHU4.yHea","conAHU4.yCoo"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=15, position={850, 55, 390, 300}, subPlot=1, y={"conAHU4.yOutDamPos","conAHU4.yRetDamPos"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
