@@ -288,6 +288,6 @@ equation
   First implementation.
   </li>
   </ul>
-</html>"),
+  </html>"),
     Diagram(coordinateSystem(extent={{-140,-100},{100,100}})));
 end EquationFitWaterToWater;

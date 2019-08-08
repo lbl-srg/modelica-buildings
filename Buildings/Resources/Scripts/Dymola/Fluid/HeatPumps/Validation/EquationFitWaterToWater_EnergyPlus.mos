@@ -8,6 +8,4 @@ createPlot(id = 1,
    grid = true,
    color = true,
    leftTitleType = 1,
-   filename = "EquationFitWaterToWater_EnergyPlus.mat",
    bottomTitleType = 1);
-

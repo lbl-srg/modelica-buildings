@@ -4,8 +4,8 @@ block DOE2Method
 
   parameter  Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per
    "Performance data"
-     annotation (choicesAllMatching = true,Placement(transformation
-        (extent={{80,80},{100,100}})));
+     annotation (choicesAllMatching = true,Placement(transformation(
+         extent={{80,80},{100,100}})));
   parameter Real SF
    "Load scale factor for heatpump";
   final parameter Modelica.SIunits.HeatFlowRate QCon_heatflow_nominal = -QEva_heatflow_nominal + P_nominal
@@ -191,18 +191,18 @@ equation
 
   else
 
-     CapFT = 0;
-     EIRFT = 0;
-     EIRFPLR= 0;
-     QEva_flow_ava = 0;
-     QCon_flow_ava = 0;
-     PLR1 = 0;
-     PLR2 = 0;
-     CR   = 0;
-     QCon_flow = 0;
-     QEva_flow = 0;
-     P    = 0;
-     COP = 0;
+      CapFT = 0;
+      EIRFT = 0;
+      EIRFPLR= 0;
+      QEva_flow_ava = 0;
+      QCon_flow_ava = 0;
+      PLR1 = 0;
+      PLR2 = 0;
+      CR   = 0;
+      QCon_flow = 0;
+      QEva_flow = 0;
+      P    = 0;
+      COP = 0;
   end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
@@ -223,9 +223,10 @@ equation
   CapFT = capFunT<sub>1</sub>+ capFunT<sub>2</sub>T<sub>Eva,Lvg</sub>+
   capFunT<sub>3</sub>T<sup>2</sup><sub>Eva,Lvg</sub>+ capFunT<sub>4</sub>T<sub>Con,Ent</sub>+capFunT<sub>5</sub>T<sup>2</sup><sub>Con,Ent</sub>
   +capFunT<sub>6</sub>T<sub>Con,Ent</sub>T<sub>Eva,Lvg</sub>
-
+  <p>
   where the performance curve coefficients from <i>capFunT<sub>1</sub> to capFunT<sub>6</sub> </i>
   are stored in the data record <code>per</code>.
+  </p>
   </li>
   <li>
   The second function is <code>EIRFT</code> the electric input to capacity output ratio function of temperature bi-quadratic curve
@@ -233,8 +234,10 @@ equation
   EIRFT = EIRFunT<sub>1</sub>+ EIRFunT<sub>2</sub>T<sub>Eva,Lvg</sub>+
   EIRFunT<sub>3</sub>T<sup>2</sup><sub>Eva,Lvg</sub>+ EIRFunT<sub>4</sub>T<sub>Con,Ent</sub>+EIRFunT<sub>5</sub>T<sup>2</sup><sub>Con,Ent</sub>
   +EIRFunT<sub>6</sub>T<sub>Con,Ent</sub>T<sub>Eva,Lvg</sub>
+  <p> 
   where the performance curve coefficients from <i>EIRFunT<sub>1</sub> to EIRFunT<sub>6</sub> </i>
   are stored in the data record <code>per</code>.
+  </p>
   </li>
   <li>
   The third performance function is <code>EIRFPLR</code> the electric input to capacity output ratio function of part load ratio bi-cubic curve
@@ -243,6 +246,7 @@ equation
   <p>
   where the performance curve coefficients from <i>EIRFunPLR<sub>1</sub> to EIRFunPLR<sub>3</sub> </i>
   are stored in the data record <code>per</code>.
+  </p>
   </li>
   </ol>
   <p>
