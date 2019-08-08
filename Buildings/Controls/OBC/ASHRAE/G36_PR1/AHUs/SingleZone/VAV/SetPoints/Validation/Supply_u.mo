@@ -52,7 +52,7 @@ model Supply_u "Validation model for control input"
     "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  CDL.Continuous.Sources.Constant TZon1(k=273.15 + 23)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon1(k=273.15 + 23)
     "Zone air temperature"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"

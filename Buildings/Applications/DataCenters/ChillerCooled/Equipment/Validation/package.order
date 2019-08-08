@@ -3,6 +3,7 @@ CoolingCoilHumidifyingHeating_OpenLoop
 ElectricChillerParallel
 ElectricHeater
 HeatExchanger
+HeatExchanger_ResetController
 IntegratedPrimaryLoadSide
 IntegratedPrimaryPlantSide
 IntegratedPrimarySecondary

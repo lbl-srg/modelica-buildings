@@ -2,39 +2,25 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Compressor models &#8212; Buildings Library User Guide</title>
-    
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
-    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -46,8 +32,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
 
-  </head>
-  <body role="document">
+  </head><body>
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container-fluid">
@@ -153,7 +138,7 @@
 <dl class="class">
 <dt id="PythonModel.compressors.ReciprocatingCompressor">
 <em class="property">class </em><code class="descclassname">PythonModel.compressors.</code><code class="descname">ReciprocatingCompressor</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Object for reciprocating compressor model based on Jin (2002):
 H. Jin. Parameter estimation based models of water source heat pumps.
 PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
@@ -162,12 +147,12 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>pisDis</strong> &#8211; Piston displacement (m3/s).</li>
-<li><strong>cleFac</strong> &#8211; Clearance factor (-).</li>
-<li><strong>etaEle</strong> &#8211; Electro-mechanical efficiency (-).</li>
-<li><strong>PLos</strong> &#8211; Constant part of the power losses (W).</li>
-<li><strong>pDro</strong> &#8211; Pressure drop at compressor suction and discharge (Pa).</li>
-<li><strong>dTSup</strong> &#8211; Degree of superheating (K).</li>
+<li><strong>pisDis</strong> – Piston displacement (m3/s).</li>
+<li><strong>cleFac</strong> – Clearance factor (-).</li>
+<li><strong>etaEle</strong> – Electro-mechanical efficiency (-).</li>
+<li><strong>PLos</strong> – Constant part of the power losses (W).</li>
+<li><strong>pDro</strong> – Pressure drop at compressor suction and discharge (Pa).</li>
+<li><strong>dTSup</strong> – Degree of superheating (K).</li>
 </ul>
 </td>
 </tr>
@@ -181,7 +166,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pCon</strong> &#8211; Condensing pressure (Pa).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pCon</strong> – Condensing pressure (Pa).</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Discharge pressure (Pa).</td>
 </tr>
@@ -189,7 +174,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_DischargePressure</span><span class="p">(</span><span class="mf">1.879e6</span><span class="p">)</span>
 <span class="go">&#39;1978290.0&#39;</span>
 </pre></div>
@@ -207,11 +192,11 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>vSuv</strong> &#8211; Suction specific volume (m3/kg).</li>
-<li><strong>ref</strong> &#8211; Refrigerant model.</li>
-<li><strong>pDis</strong> &#8211; Discharge pressure (Pa).</li>
-<li><strong>pSuc</strong> &#8211; Suction pressure (Pa).</li>
-<li><strong>TSuc</strong> &#8211; Suction temperature (K).</li>
+<li><strong>vSuv</strong> – Suction specific volume (m3/kg).</li>
+<li><strong>ref</strong> – Refrigerant model.</li>
+<li><strong>pDis</strong> – Discharge pressure (Pa).</li>
+<li><strong>pSuc</strong> – Suction pressure (Pa).</li>
+<li><strong>TSuc</strong> – Suction temperature (K).</li>
 </ul>
 </td>
 </tr>
@@ -222,7 +207,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">0.0288</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1978290.0</span><span class="p">,</span> <span class="mf">983710.0</span><span class="p">,</span> <span class="mf">292.97</span><span class="p">)</span>
@@ -242,11 +227,11 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>vSuv</strong> &#8211; Suction specific volume (m3/kg).</li>
-<li><strong>ref</strong> &#8211; Refrigerant model.</li>
-<li><strong>pDis</strong> &#8211; Discharge pressure (Pa).</li>
-<li><strong>pSuc</strong> &#8211; Suction pressure (Pa).</li>
-<li><strong>TSuc</strong> &#8211; Suction temperature (K).</li>
+<li><strong>vSuv</strong> – Suction specific volume (m3/kg).</li>
+<li><strong>ref</strong> – Refrigerant model.</li>
+<li><strong>pDis</strong> – Discharge pressure (Pa).</li>
+<li><strong>pSuc</strong> – Suction pressure (Pa).</li>
+<li><strong>TSuc</strong> – Suction temperature (K).</li>
 </ul>
 </td>
 </tr>
@@ -257,7 +242,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.8f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_RefrigerantMassFlowRate</span><span class="p">(</span><span class="mf">0.0288</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1978290.0</span><span class="p">,</span> <span class="mf">983710.0</span><span class="p">,</span> <span class="mf">292.97</span><span class="p">)</span>
@@ -276,7 +261,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pEva</strong> &#8211; Evaporating pressure (Pa).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pEva</strong> – Evaporating pressure (Pa).</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Suction pressure (Pa).</td>
 </tr>
@@ -284,7 +269,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionPressure</span><span class="p">(</span><span class="mf">1.083e6</span><span class="p">)</span>
 <span class="go">&#39;983710.0&#39;</span>
 </pre></div>
@@ -301,7 +286,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>TEva</strong> &#8211; Evaporating temperature (K).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>TEva</strong> – Evaporating temperature (K).</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Suction temperature (K).</td>
 </tr>
@@ -309,7 +294,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionTemperature</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
 <span class="go">&#39;292.97&#39;</span>
 </pre></div>
@@ -327,14 +312,14 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>Q_nominal</strong> &#8211; Nominal heat pump capacity (W).</li>
-<li><strong>P_nominal</strong> &#8211; Nominal power input (W).</li>
-<li><strong>TSou_nominal</strong> &#8211; Source-side water temperature at
+<li><strong>Q_nominal</strong> – Nominal heat pump capacity (W).</li>
+<li><strong>P_nominal</strong> – Nominal power input (W).</li>
+<li><strong>TSou_nominal</strong> – Source-side water temperature at
 nominal conditions (K).</li>
-<li><strong>TLoa_nominal</strong> &#8211; Load-side water temperature at
+<li><strong>TLoa_nominal</strong> – Load-side water temperature at
 nominal conditions (K).</li>
-<li><strong>ref</strong> &#8211; Refrigerant model.</li>
-<li><strong>CoolingMode</strong> &#8211; Boolean, True if heat pump is in cooling mode.</li>
+<li><strong>ref</strong> – Refrigerant model.</li>
+<li><strong>CoolingMode</strong> – Boolean, True if heat pump is in cooling mode.</li>
 </ul>
 </td>
 </tr>
@@ -364,7 +349,7 @@ routine.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor&#39;</span>
 </pre></div>
@@ -388,12 +373,12 @@ routine.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>pisDis</strong> &#8211; Piston displacement (m3/s).</li>
-<li><strong>cleFac</strong> &#8211; Clearance factor (-).</li>
-<li><strong>etaEle</strong> &#8211; Electro-mechanical efficiency (-).</li>
-<li><strong>PLos</strong> &#8211; Constant part of the power losses (W).</li>
-<li><strong>pDro</strong> &#8211; Pressure drop at compressor suction and discharge (Pa).</li>
-<li><strong>dTSup</strong> &#8211; Degree of superheating (K).</li>
+<li><strong>pisDis</strong> – Piston displacement (m3/s).</li>
+<li><strong>cleFac</strong> – Clearance factor (-).</li>
+<li><strong>etaEle</strong> – Electro-mechanical efficiency (-).</li>
+<li><strong>PLos</strong> – Constant part of the power losses (W).</li>
+<li><strong>pDro</strong> – Pressure drop at compressor suction and discharge (Pa).</li>
+<li><strong>dTSup</strong> – Degree of superheating (K).</li>
 </ul>
 </td>
 </tr>
@@ -406,7 +391,7 @@ routine.</p>
 <dl class="class">
 <dt id="PythonModel.compressors.ScrollCompressor">
 <em class="property">class </em><code class="descclassname">PythonModel.compressors.</code><code class="descname">ScrollCompressor</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Object for scroll compressor model based on Jin (2002):
 H. Jin. Parameter estimation based models of water source heat pumps.
 PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
@@ -415,12 +400,12 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>volRat</strong> &#8211; Volume ratio (-).</li>
-<li><strong>v_flow</strong> &#8211; Nominal Volume flow rate (m3/s).</li>
-<li><strong>leaCoe</strong> &#8211; LEakage coefficient (kg/s).</li>
-<li><strong>etaEle</strong> &#8211; Electro-mechanical efficiency (-).</li>
-<li><strong>PLos</strong> &#8211; Constant part of the power losses (W).</li>
-<li><strong>dTSup</strong> &#8211; Degree of superheating (K).</li>
+<li><strong>volRat</strong> – Volume ratio (-).</li>
+<li><strong>v_flow</strong> – Nominal Volume flow rate (m3/s).</li>
+<li><strong>leaCoe</strong> – LEakage coefficient (kg/s).</li>
+<li><strong>etaEle</strong> – Electro-mechanical efficiency (-).</li>
+<li><strong>PLos</strong> – Constant part of the power losses (W).</li>
+<li><strong>dTSup</strong> – Degree of superheating (K).</li>
 </ul>
 </td>
 </tr>
@@ -434,7 +419,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pCon</strong> &#8211; Condensing pressure (Pa).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pCon</strong> – Condensing pressure (Pa).</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Discharge pressure (Pa).</td>
 </tr>
@@ -442,7 +427,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_DischargePressure</span><span class="p">(</span><span class="mf">1.879e6</span><span class="p">)</span>
 <span class="go">&#39;1879000.0&#39;</span>
 </pre></div>
@@ -460,11 +445,11 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>vSuv</strong> &#8211; Suction specific volume (m3/kg).</li>
-<li><strong>ref</strong> &#8211; Refrigerant model.</li>
-<li><strong>pDis</strong> &#8211; Discharge pressure (Pa).</li>
-<li><strong>pSuc</strong> &#8211; Suction pressure (Pa).</li>
-<li><strong>TSuc</strong> &#8211; Suction temperature (K).</li>
+<li><strong>vSuv</strong> – Suction specific volume (m3/kg).</li>
+<li><strong>ref</strong> – Refrigerant model.</li>
+<li><strong>pDis</strong> – Discharge pressure (Pa).</li>
+<li><strong>pSuc</strong> – Suction pressure (Pa).</li>
+<li><strong>TSuc</strong> – Suction temperature (K).</li>
 </ul>
 </td>
 </tr>
@@ -475,7 +460,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1.879e6</span><span class="p">,</span> <span class="mf">1.083e6</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
@@ -495,10 +480,10 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>vSuv</strong> &#8211; Suction specific volume (m3/kg).</li>
-<li><strong>pDis</strong> &#8211; Discharge pressure (Pa).</li>
-<li><strong>pSuc</strong> &#8211; Suction pressure (Pa).</li>
-<li><strong>TSuc</strong> &#8211; Suction temperature (K).</li>
+<li><strong>vSuv</strong> – Suction specific volume (m3/kg).</li>
+<li><strong>pDis</strong> – Discharge pressure (Pa).</li>
+<li><strong>pSuc</strong> – Suction pressure (Pa).</li>
+<li><strong>TSuc</strong> – Suction temperature (K).</li>
 </ul>
 </td>
 </tr>
@@ -509,7 +494,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_RefrigerantMassFlowRate</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">1.879e6</span><span class="p">,</span> <span class="mf">1.083e6</span><span class="p">)</span>
 <span class="go">&#39;0.107687&#39;</span>
 </pre></div>
@@ -526,7 +511,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pEva</strong> &#8211; Evaporating pressure (Pa).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pEva</strong> – Evaporating pressure (Pa).</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Suction pressure (Pa).</td>
 </tr>
@@ -534,7 +519,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionPressure</span><span class="p">(</span><span class="mf">1.083e6</span><span class="p">)</span>
 <span class="go">&#39;1083000.0&#39;</span>
 </pre></div>
@@ -551,7 +536,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>TEva</strong> &#8211; Evaporating temperature (K).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>TEva</strong> – Evaporating temperature (K).</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Suction temperature (K).</td>
 </tr>
@@ -559,7 +544,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionTemperature</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
 <span class="go">&#39;289.64&#39;</span>
 </pre></div>
@@ -577,14 +562,14 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>Q_nominal</strong> &#8211; Nominal heat pump capacity (W).</li>
-<li><strong>P_nominal</strong> &#8211; Nominal power input (W).</li>
-<li><strong>TSou_nominal</strong> &#8211; Source-side water temperature at
+<li><strong>Q_nominal</strong> – Nominal heat pump capacity (W).</li>
+<li><strong>P_nominal</strong> – Nominal power input (W).</li>
+<li><strong>TSou_nominal</strong> – Source-side water temperature at
 nominal conditions (K).</li>
-<li><strong>TLoa_nominal</strong> &#8211; Load-side water temperature at
+<li><strong>TLoa_nominal</strong> – Load-side water temperature at
 nominal conditions (K).</li>
-<li><strong>ref</strong> &#8211; Refrigerant model.</li>
-<li><strong>CoolingMode</strong> &#8211; Boolean, True if heat pump is in cooling mode.</li>
+<li><strong>ref</strong> – Refrigerant model.</li>
+<li><strong>CoolingMode</strong> – Boolean, True if heat pump is in cooling mode.</li>
 </ul>
 </td>
 </tr>
@@ -614,7 +599,7 @@ routine.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Buildings.Fluid.HeatPumps.Compressors.ScrollCompressor&#39;</span>
 </pre></div>
@@ -638,12 +623,12 @@ routine.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>volRat</strong> &#8211; Volume ratio (-).</li>
-<li><strong>v_flow</strong> &#8211; Nominal Volume flow rate (m3/s).</li>
-<li><strong>leaCoe</strong> &#8211; LEakage coefficient (kg/s).</li>
-<li><strong>etaEle</strong> &#8211; Electro-mechanical efficiency (-).</li>
-<li><strong>PLos</strong> &#8211; Constant part of the power losses (W).</li>
-<li><strong>dTSup</strong> &#8211; Degree of superheating (K).</li>
+<li><strong>volRat</strong> – Volume ratio (-).</li>
+<li><strong>v_flow</strong> – Nominal Volume flow rate (m3/s).</li>
+<li><strong>leaCoe</strong> – LEakage coefficient (kg/s).</li>
+<li><strong>etaEle</strong> – Electro-mechanical efficiency (-).</li>
+<li><strong>PLos</strong> – Constant part of the power losses (W).</li>
+<li><strong>dTSup</strong> – Degree of superheating (K).</li>
 </ul>
 </td>
 </tr>
@@ -660,8 +645,8 @@ routine.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>simulator</strong> &#8211; Simulator object (BuildinsPy)</li>
-<li><strong>suffix</strong> &#8211; String to add at the end of parameter names.</li>
+<li><strong>simulator</strong> – Simulator object (BuildinsPy)</li>
+<li><strong>suffix</strong> – String to add at the end of parameter names.</li>
 </ul>
 </td>
 </tr>
@@ -692,8 +677,8 @@ routine.</p>
       
     </p>
     <p>
-        &copy; Copyright 2012-2018, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+        &copy; Copyright 2012-2019, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.<br/>
     </p>
   </div>
 </footer>

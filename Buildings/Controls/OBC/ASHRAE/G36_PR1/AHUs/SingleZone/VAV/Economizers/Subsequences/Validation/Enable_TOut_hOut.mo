@@ -200,26 +200,23 @@ equation
           horizontalAlignment=TextAlignment.Left,
           textString="Example high limit cutoff conditions:
                       ASHRAE 90.1-2013:
-                      Device Type: Fixed Drybulb, Fixed Drybulb + Fixed Differential Drybulb, Fixed Enthalpy + Fixed Drybulb, 
+                      Device Type: Fixed Drybulb, Fixed Drybulb + Fixed Differential Drybulb, Fixed Enthalpy + Fixed Drybulb,
                       TOut > 75 degF [24 degC]
                       hOut > 28 Btu/lb [65.1 kJ/kg]"),
         Text(
-          extent={{-82,-80},{42,-108}},
+          extent={{-82,-82},{0,-96}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests temperature hysteresis"),
         Text(
-          extent={{80,-80},{208,-108}},
+          extent={{80,-80},{156,-96}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests enthalpy hysteresis"),
         Text(
-          extent={{220,-86},{348,-114}},
+          extent={{208,-82},{260,-100}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="No enthalpy
 sensor"),
         Text(

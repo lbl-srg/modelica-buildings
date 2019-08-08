@@ -4,15 +4,12 @@ block Modulation "Outdoor and return air damper position modulation sequence for
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
-
   parameter Real k(final unit="1/K") = 1 "Gain of controller";
-
   parameter Modelica.SIunits.Time Ti=300
     "Time constant of modulation controller integrator block"
     annotation (Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Modelica.SIunits.Time Td=0.1
     "Time constant of derivative block for cooling control loop signal"
     annotation (Dialog(
@@ -37,24 +34,22 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,90},{-120,130}}),
-      iconTransformation(extent={{-120,90},{-100,110}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
-      iconTransformation(extent={{-120,60},{-100,80}})));
-
-  CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
+        iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
-      iconTransformation(extent={{-120,-110},{-100,-90}})));
-
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum economizer damper position limit as returned by the damper position limits sequence"
     annotation (Placement(transformation(extent={{-160,-90},{-120,-50}}),
-      iconTransformation(extent={{-120,-80},{-100,-60}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMax(
     final min=0,
     final max=1,
@@ -62,22 +57,21 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     "Maximum economizer damper position limit as returned by the economizer enable-disable sequence.
     If the economizer is disabled, this value equals uOutDamPosMin"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
-      iconTransformation(extent={{-120,-50},{-100,-30}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMin(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-      iconTransformation(extent={{-120,-10},{-100,10}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMax(
     final min=0,
     final max=1,
     final unit="1")
     "Maximum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
-      iconTransformation(extent={{-120,20},{-100,40}})));
-
+        iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
@@ -242,14 +236,12 @@ equation
                                    Text(
           extent={{-104,128},{-60,88}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 supply air temperature
 control loop"),                    Text(
           extent={{32,128},{76,88}},
           lineColor={0,0,0},
-          fontSize=12,
           horizontalAlignment=TextAlignment.Left,
           textString="Damper position
 assignments and heating coil signal")}),
@@ -281,7 +273,7 @@ modulation sequence assuming a well configured controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the single zone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconModulationControlDiagramSingleZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/EconModulationControlDiagram.png\"/>
 </p>
 <p>
 Single zone AHU economizer modulation control chart:
@@ -289,7 +281,7 @@ Single zone AHU economizer modulation control chart:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the single zone AHU modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconModulationControlChartSingleZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/EconModulationControlChart.png\"/>
 </p>
 
 </html>", revisions="<html>

@@ -15,7 +15,7 @@ block OnOffController "On-off controller"
 
   Interfaces.BooleanOutput y
     "Connector of Real output signal used as actuator signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
   pre(y) = pre_y_start;

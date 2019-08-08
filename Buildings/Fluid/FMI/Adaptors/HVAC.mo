@@ -3,8 +3,9 @@ model HVAC
   "Adaptor for connecting an HVAC system to signal ports which then can be exposed at an FMI interface"
 
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
-     annotation (choicesAllMatching=true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
   // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones
@@ -329,6 +330,11 @@ for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 September 13, 2017, by Michael Wetter:<br/>
 Removed erroneous <code>each</code>.

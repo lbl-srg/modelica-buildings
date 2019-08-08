@@ -15,17 +15,17 @@ block ExhaustDamper
     displayUnit="Pa")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}}),
-      iconTransformation(extent={{-120,50},{-100,70}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-120,-50},{-80,-10}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDamPos(
      final unit="1",
      min=0,
      max=1)
     "Exhaust damper control signal (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{80,-20},{120,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
     delta=300)
@@ -69,25 +69,25 @@ equation
   connect(uSupFan, swi.u2)
     annotation (Line(points={{-100,-30},{38,-30}}, color={255,0,255}));
   connect(zerDam.y, swi.u3)
-    annotation (Line(points={{-39,-60},{20,-60},{20,-38},{38,-38}},
+    annotation (Line(points={{-38,-60},{20,-60},{20,-38},{38,-38}},
       color={0,0,127}));
   connect(swi.y, yExhDamPos)
-    annotation (Line(points={{61,-30},{72,-30},{72,0},{90,0}},
+    annotation (Line(points={{62,-30},{72,-30},{72,0},{100,0}},
       color={0,0,127}));
   connect(dpBui, movMea.u)
     annotation (Line(points={{-100,60},{-62,60}}, color={0,0,127}));
   connect(movMea.y, conErr.u1)
-    annotation (Line(points={{-39,60},{-32,60}}, color={0,0,127}));
+    annotation (Line(points={{-38,60},{-32,60}}, color={0,0,127}));
   connect(conErr.y, gaiNor.u)
-    annotation (Line(points={{-9,60},{-2,60}},color={0,0,127}));
+    annotation (Line(points={{-8,60},{-2,60}},color={0,0,127}));
   connect(gaiNor.y, conP.u_s)
-    annotation (Line(points={{21,60},{38,60}}, color={0,0,127}));
+    annotation (Line(points={{22,60},{38,60}}, color={0,0,127}));
   connect(dpBuiSetPoi1.y, conErr.u2)
-    annotation (Line(points={{-39,20},{-20,20},{-20,48}}, color={0,0,127}));
+    annotation (Line(points={{-38,20},{-20,20},{-20,48}}, color={0,0,127}));
   connect(zer1.y, conP.u_m)
-    annotation (Line(points={{21,20},{50,20},{50,48}}, color={0,0,127}));
+    annotation (Line(points={{22,20},{50,20},{50,48}}, color={0,0,127}));
   connect(conP.y, swi.u1)
-    annotation (Line(points={{61,60},{66,60},{66,0},{20,0},{20,-22},{38,-22}},
+    annotation (Line(points={{62,60},{66,60},{66,0},{20,0},{20,-22},{38,-22}},
       color={0,0,127}));
 
 annotation (

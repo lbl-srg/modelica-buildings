@@ -90,7 +90,7 @@ equation
     annotation (Line(points={{-139,30},{-120,30},{-120,-6},{-120,-6.2},{-110,-6.2},{-101,-6.2}},
     color={0,0,127}));
   connect(VOutMinSetSig.y, damLim2.VOutMinSet_flow)
-    annotation (Line(points={{-139,70},{-10,70},{-10,-3},{6,-3},{19,-3}}, color={0,0,127}));
+    annotation (Line(points={{-139,70},{-10,70},{-10,-3},{19,-3}},  color={0,0,127}));
   connect(fanStatus1.y, damLim1.uSupFan)
     annotation (Line(points={{-139,-30},{-130,-30},{-130,-12},{-130,-12},{-102,-12},{-101,-12}},
     color={255,0,255}));
@@ -103,7 +103,7 @@ equation
   connect(freProSta2.y,damLim2. uFreProSta)
     annotation (Line(points={{-19,-90},{10,-90},{10,-18},{19,-18}}, color={255,127,0}));
   connect(operationMode2.y,damLim2. uOpeMod)
-    annotation (Line(points={{-19,-60},{0,-60},{0,-58},{0,-15},{10,-15},{19,-15}},
+    annotation (Line(points={{-19,-60},{0,-60},{0,-15},{19,-15}},
       color={255,127,0}));
   connect(fanStatus3.y,damLim3. uSupFan)
     annotation (Line(points={{101,-30},{102,-30},{110,-30},{110,-12},{139,-12}},
@@ -111,13 +111,13 @@ equation
   connect(freProSta3.y,damLim3. uFreProSta)
     annotation (Line(points={{101,-90},{130,-90},{130,-18},{139,-18}},color={255,127,0}));
   connect(operationMode3.y,damLim3. uOpeMod)
-    annotation (Line(points={{101,-60},{120,-60},{120,-16},{120,-15},{130,-15},{139,-15}},
+    annotation (Line(points={{101,-60},{120,-60},{120,-15},{139,-15}},
     color={255,127,0}));
   connect(VOutMinSetSig.y, damLim3.VOutMinSet_flow)
-    annotation (Line(points={{-139,70},{130,70},{130,40},{130,-3},{134,-3},{139,-3}},
+    annotation (Line(points={{-139,70},{130,70},{130,-3},{139,-3}},
     color={0,0,127}));
   connect(VOutMinSetSig.y, damLim1.VOutMinSet_flow)
-    annotation (Line(points={{-139,70},{-110,70},{-110,14},{-110,-3},{-104,-3},{-101,-3}},
+    annotation (Line(points={{-139,70},{-110,70},{-110,-3},{-101,-3}},
     color={0,0,127}));
   connect(SupFanSpeSig.y, damLim2.uSupFanSpe)
     annotation (Line(points={{-139,30},{-20,30},{-20,-6},{0,-6},{0,-6.2},{19,-6.2}},
@@ -141,31 +141,28 @@ equation
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}}), graphics={
         Text(
-          extent={{-160,112},{-126,100}},
+          extent={{-160,110},{-130,100}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=16,
           textString="Fan status"),
         Text(
-          extent={{-40,112},{-6,100}},
+          extent={{-40,110},{4,98}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=16,
           textString="Operation mode"),
         Text(
-          extent={{80,112},{114,100}},
+          extent={{80,112},{146,96}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=16,
           textString="Freeze protection stage")}),
 Documentation(info="<html>
 <p>

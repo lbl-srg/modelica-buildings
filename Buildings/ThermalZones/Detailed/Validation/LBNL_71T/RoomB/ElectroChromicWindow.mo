@@ -40,7 +40,7 @@ model ElectroChromicWindow
     hRoo=3.37,
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
-    each conBou(opa(T(each start = T_start))),
+    conBou(opa(T(each start = T_start))),
     lat=0.65484753534827,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                                                "Room model"
@@ -227,14 +227,14 @@ equation
       points={{142,22},{136,22},{136,21.9},{99.9,21.9}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, weaDat1.weaBus) annotation (Line(
       points={{142,22},{142,20},{196,20},{196,114},{160,114}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(qRadGai_flow.y, multiplex3_1.u1[1]) annotation (Line(points={{-73,26},
@@ -274,6 +274,10 @@ The model represents the middle test cell (RoomB) of the window test facility 71
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 13, 2019, by Michael Wetter:<br/>
+Removed wrong <code>each</code>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 Updated example to avoid dynamically selected states and overspecified initial conditions.<br/>

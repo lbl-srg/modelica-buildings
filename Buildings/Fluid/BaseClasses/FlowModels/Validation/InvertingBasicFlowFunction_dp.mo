@@ -8,7 +8,7 @@ model InvertingBasicFlowFunction_dp
     "Nominal mass flow rate";
 
  Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
- Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure difference";
+ Modelica.SIunits.PressureDifference dp(displayUnit="Pa", start=0) "Pressure difference";
 equation
   m_flow = 4*(time-0.5);
   m_flow = FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_nominal*0.3);
@@ -32,6 +32,10 @@ after the symbolic manipulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2019, by Michael Wetter:<br/>
+Added start value to avoid warning in JModelica.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

@@ -51,31 +51,31 @@ block SupplyTemperature
     quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
-      iconTransformation(extent={{-120,30},{-100,50}})));
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetAve(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
-      iconTransformation(extent={{-120,70},{-100,90}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan
     "Supply fan status"
     annotation (Placement(transformation(extent={{-180,-50},{-140,-10}}),
-      iconTransformation(extent={{-120,-10},{-100,10}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "System operation mode"
     annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
-      iconTransformation(extent={{-120,-90},{-100,-70}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uZonTemResReq
     "Zone cooling supply air temperature reset request"
     annotation (Placement( transformation(extent={{-180,0},{-140,40}}),
-      iconTransformation(extent={{-120,-50},{-100,-30}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Setpoint for supply air temperature"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond maxSupTemRes(
     final delTim=delTim,
@@ -145,30 +145,30 @@ protected
 
 equation
   connect(minOutTem.y, lin.x1)
-    annotation (Line(points={{-19,70},{0,70},{0,58},{18,58}},
+    annotation (Line(points={{-18,70},{0,70},{0,58},{18,58}},
       color={0,0,127}));
   connect(TOut, lin.u)
     annotation (Line(points={{-160,60},{-100,60},{-100,50},{18,50}},
       color={0,0,127}));
   connect(maxOutTem.y, lin.x2)
-    annotation (Line(points={{-19,30},{0,30},{0,46},{18,46}},
+    annotation (Line(points={{-18,30},{0,30},{0,46},{18,46}},
       color={0,0,127}));
   connect(minSupTem.y, lin.f2)
-    annotation (Line(points={{-79,-10},{10,-10},{10,42},{18,42}},
+    annotation (Line(points={{-78,-10},{10,-10},{10,42},{18,42}},
       color={0,0,127}));
   connect(and1.y, swi1.u2)
-    annotation (Line(points={{41,-90},{60,-90},{60,-50},{78,-50}},
+    annotation (Line(points={{42,-90},{60,-90},{60,-50},{78,-50}},
       color={255,0,255}));
   connect(TSupWarUpSetBac.y, swi1.u1)
-    annotation (Line(points={{41,-120},{68,-120},{68,-42},{78,-42}},
+    annotation (Line(points={{42,-120},{68,-120},{68,-42},{78,-42}},
       color={0,0,127}));
   connect(and2.y, swi2.u2)
-    annotation (Line(points={{-19,-50},{18,-50}},color={255,0,255}));
+    annotation (Line(points={{-18,-50},{18,-50}},color={255,0,255}));
   connect(minSupTem.y, swi2.u1)
-    annotation (Line(points={{-79,-10},{0,-10},{0,-42},{18,-42}},
+    annotation (Line(points={{-78,-10},{0,-10},{0,-42},{18,-42}},
       color={0,0,127}));
   connect(swi2.y, swi1.u3)
-    annotation (Line(points={{41,-50},{50,-50},{50,-58},{78,-58}},
+    annotation (Line(points={{42,-50},{50,-50},{50,-58},{78,-58}},
       color={0,0,127}));
   connect(TZonSetAve, TDea.u)
     annotation (Line(points={{-160,90},{-102,90}},
@@ -177,21 +177,21 @@ equation
     annotation (Line(points={{-160,-30},{-120,-30},{-120,10},{-60,10},{-60,0},
       {78,0}}, color={255,0,255}));
   connect(swi1.y, swi3.u1)
-    annotation (Line(points={{101,-50},{110,-50},{110,-20},{68,-20},{68,8},{78,8}},
+    annotation (Line(points={{102,-50},{110,-50},{110,-20},{68,-20},{68,8},{78,8}},
       color={0,0,127}));
   connect(TDea.y, swi3.u3)
-    annotation (Line(points={{-79,90},{60,90},{60,-8},{78,-8}},
+    annotation (Line(points={{-78,90},{60,90},{60,-8},{78,-8}},
       color={0,0,127}));
   connect(intLesThr1.y, and1.u1)
-    annotation (Line(points={{-19,-90},{18,-90}},
+    annotation (Line(points={{-18,-90},{18,-90}},
       color={255,0,255}));
   connect(intGreThr1.y, and1.u2)
-    annotation (Line(points={{-19,-120},{0,-120},{0,-98},{18,-98}},
+    annotation (Line(points={{-18,-120},{0,-120},{0,-98},{18,-98}},
       color={255,0,255}));
   connect(intLesThr.y, and2.u1)
-    annotation (Line(points={{-79,-50},{-42,-50}},color={255,0,255}));
+    annotation (Line(points={{-78,-50},{-42,-50}},color={255,0,255}));
   connect(intGreThr.y, and2.u2)
-    annotation (Line(points={{-79,-80},{-60,-80},{-60,-58},{-42,-58}},
+    annotation (Line(points={{-78,-80},{-60,-80},{-60,-58},{-42,-58}},
       color={255,0,255}));
   connect(uOpeMod, intLesThr.u)
     annotation (Line(points={{-160,-100},{-120,-100},{-120,-50},{-102,-50}},
@@ -206,7 +206,7 @@ equation
     annotation (Line(points={{-160,-100},{-120,-100},{-120,-120},{-42,-120}},
       color={255,127,0}));
   connect(lin.y, swi2.u3)
-    annotation (Line(points={{41,50},{50,50},{50,-30},{8,-30},{8,-58},{18,-58}},
+    annotation (Line(points={{42,50},{50,50},{50,-30},{8,-30},{8,-58},{18,-58}},
       color={0,0,127}));
   connect(uZonTemResReq, maxSupTemRes.numOfReq)
     annotation (Line(points={{-160,20},{-112,20},{-112,22},{-102,22}},
@@ -218,7 +218,7 @@ equation
     annotation (Line(points={{-79,30},{-60,30},{-60,54},{18,54}},
       color={0,0,127}));
   connect(swi3.y, TSupSet)
-    annotation (Line(points={{101,0},{150,0}},   color={0,0,127}));
+    annotation (Line(points={{102,0},{160,0}},   color={0,0,127}));
 
 annotation (
   defaultComponentName = "conTSupSet",
@@ -301,8 +301,8 @@ cooling savings from economizer operation.
 <p>
 The <code>TSupSet</code> shall be reset from <code>TSupSetMin</code> when the outdoor
 air temperature is <code>TOutMax</code> and above, proportionally up to
-<code>TMax</code> when the outdoor air temperature is <code>TOutMin</code> and
-below. The <code>TMax</code> shall be reset using trim and respond logic between
+maximum supply temperature when the outdoor air temperature is <code>TOutMin</code> and
+below. The maximum supply temperature shall be reset using trim and respond logic between
 <code>TSupSetDes</code> and <code>TSupSetMax</code>. Parameters suggested for the
 trim and respond logic are shown in the table below. They require adjustment
 during the commissioning and tuning phase.
@@ -312,7 +312,7 @@ during the commissioning and tuning phase.
 <tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
 <tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
 <tr><td>SP0</td><td><code>iniSet</code></td><td>Initial setpoint</td></tr>
-<tr><td>SPmin</td><td><code>TSupSetMin</code></td><td>Minimum setpoint</td></tr>
+<tr><td>SPmin</td><td><code>TSupSetDes</code></td><td>Minimum setpoint</td></tr>
 <tr><td>SPmax</td><td><code>TSupSetMax</code></td><td>Maximum setpoint</td></tr>
 <tr><td>Td</td><td><code>delTim</code></td><td>Delay timer</td></tr>
 <tr><td>T</td><td><code>samplePeriod</code></td><td>Time step</td></tr>
@@ -326,7 +326,7 @@ during the commissioning and tuning phase.
 
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAVMultiZoneSupTempSet.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAVSupTempSet.png\"/>
 </p>
 
 <h4>During Setup and Cool-down modes (<code>uOpeMod=2</code>, <code>uOpeMod=3</code>)</h4>

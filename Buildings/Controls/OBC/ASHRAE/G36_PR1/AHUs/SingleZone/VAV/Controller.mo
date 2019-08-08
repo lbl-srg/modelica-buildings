@@ -313,7 +313,6 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     final TFreSet=TFreSet,
     final VOutMin_flow=VOutMin_flow,
     final VOutDes_flow=VOutDes_flow,
-    final minVOutMinFansSpePos=minVOutMinFansSpePos,
     final yDam_VOutMin_maxSpe=yDam_VOutMin_maxSpe,
     final yDam_VOutDes_minSpe=yDam_VOutDes_minSpe,
     final yDam_VOutDes_maxSpe=yDam_VOutDes_maxSpe,
@@ -459,7 +458,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
 equation
   connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-181,198},{-198,
           198},{-198,200},{-220,200}},      color={0,0,127}));
-  connect(ave.y, setPoiVAV.TZonSet) annotation (Line(points={{-79,190.2},{-14,190.2},
+  connect(ave.y, setPoiVAV.TZonSet) annotation (Line(points={{-78,190},{-14,190},
           {-14,192},{38,192}},         color={0,0,127}));
   connect(TCut, conEco.TCut) annotation (Line(points={{-220,80},{-90,80},{-90,-26},
           {117,-26}}, color={0,0,127}));
@@ -485,7 +484,7 @@ equation
   connect(outAirSetPoi.TDis, TSup) annotation (Line(points={{38,47},{-4,47},{-4,
           40},{-220,40}},      color={0,0,127}));
   connect(outAirSetPoi.uOpeMod, conEco.uOpeMod) annotation (Line(points={{38,41},
-          {-120,41},{-120,-46},{117,-46}},    color={255,127,0}));
+          {-120,41},{-120,-46},{116,-46}},    color={255,127,0}));
   connect(conEco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow) annotation (
       Line(points={{117,-38},{108,-38},{108,50},{62,50}},
                                                        color={0,0,127}));
@@ -494,12 +493,12 @@ equation
   connect(conEco.TOut, setPoiVAV.TOut) annotation (Line(points={{117,-24},{10,-24},
           {10,184},{38,184}},      color={0,0,127}));
   connect(zonSta.yZonSta, conEco.uZonSta) annotation (Line(points={{61,140},{80,
-          140},{80,-48},{117,-48}}, color={255,127,0}));
-  connect(conInt.y, intEqu.u2) annotation (Line(points={{-139,-230},{-130,-230},
+          140},{80,-48},{116,-48}}, color={255,127,0}));
+  connect(conInt.y, intEqu.u2) annotation (Line(points={{-138,-230},{-130,-230},
           {-130,-238},{-112,-238}},color={255,127,0}));
   connect(intEqu.u1, conEco.uOpeMod) annotation (Line(points={{-112,-230},{-120,
-          -230},{-120,-46},{117,-46}},                      color={255,127,0}));
-  connect(intEqu.y, switch.u) annotation (Line(points={{-89,-230},{-82,-230}}, color={255,0,255}));
+          -230},{-120,-46},{116,-46}},                      color={255,127,0}));
+  connect(intEqu.y, switch.u) annotation (Line(points={{-88,-230},{-82,-230}}, color={255,0,255}));
   connect(modSetPoi.TZonHeaSet, ave.u2) annotation (Line(points={{-159,193},{-134,
           193},{-134,184},{-102,184}},     color={0,0,127}));
   connect(modSetPoi.TZonHeaSet, heaPI.u_s) annotation (Line(points={{-159,193},{
@@ -523,7 +522,7 @@ equation
   connect(nOcc, outAirSetPoi.nOcc) annotation (Line(points={{-220,-40},{4,-40},{
           4,58},{38,58}},  color={0,0,127}));
   connect(uFreProSta, conEco.uFreProSta) annotation (Line(points={{-220,-240},{-180,
-          -240},{-180,-180},{40,-180},{40,-50},{117,-50}},
+          -240},{-180,-180},{40,-180},{40,-50},{116,-50}},
                                    color={255,127,0}));
   connect(conEco.hOut, hOut) annotation (Line(points={{117,-30},{100,-30},{100,-120},
           {-220,-120}}, color={0,0,127}));
@@ -534,12 +533,12 @@ equation
   connect(conEco.yHeaCoi, yHeaCoi) annotation (Line(points={{139,-34},{174,-34},
           {174,-60},{210,-60}}, color={0,0,127}));
   connect(modSetPoi.yOpeMod, conEco.uOpeMod) annotation (Line(points={{-159,187},
-          {-152,187},{-152,-46},{117,-46}}, color={255,127,0}));
+          {-152,187},{-152,-46},{116,-46}}, color={255,127,0}));
   connect(modSetPoi.TZonHeaSet, TZonHeaSet) annotation (Line(points={{-159,193},
           {-140,193},{-140,100},{146,100},{146,60},{210,60}}, color={0,0,127}));
   connect(cooCoi.yCooCoi, yCooCoi)
     annotation (Line(points={{141,-120},{210,-120}}, color={0,0,127}));
-  connect(switch.y, cooCoi.uSupFan) annotation (Line(points={{-59,-230},{110,-230},
+  connect(switch.y, cooCoi.uSupFan) annotation (Line(points={{-58,-230},{110,-230},
           {110,-128},{118,-128}}, color={255,0,255}));
   connect(zonSta.yZonSta, cooCoi.uZonSta) annotation (Line(points={{61,140},{80,
           140},{80,-112},{118,-112}}, color={255,127,0}));
@@ -547,23 +546,23 @@ equation
           {74,190},{136,190},{136,180},{210,180}}, color={0,0,127}));
   connect(cooCoi.TSup, TSup) annotation (Line(points={{118,-122},{-4,-122},{-4,40},
           {-220,40}}, color={0,0,127}));
-  connect(switch.y, outAirSetPoi.uSupFan) annotation (Line(points={{-59,-230},{-20,
+  connect(switch.y, outAirSetPoi.uSupFan) annotation (Line(points={{-58,-230},{-20,
           -230},{-20,44},{38,44}}, color={255,0,255}));
-  connect(switch.y, conEco.uSupFan) annotation (Line(points={{-59,-230},{60,-230},
+  connect(switch.y, conEco.uSupFan) annotation (Line(points={{-58,-230},{60,-230},
           {60,-44},{117,-44}}, color={255,0,255}));
-  connect(switch.y, setPoiVAV.uFan) annotation (Line(points={{-59,-230},{28,-230},
+  connect(switch.y, setPoiVAV.uFan) annotation (Line(points={{-58,-230},{28,-230},
           {28,180},{38,180}}, color={255,0,255}));
-  connect(heaPI.y, setPoiVAV.uHea) annotation (Line(points={{-27,210},{-12,210},
+  connect(heaPI.y, setPoiVAV.uHea) annotation (Line(points={{-26,210},{-12,210},
           {-12,200},{38,200}}, color={0,0,127}));
-  connect(heaPI.y, zonSta.uHea) annotation (Line(points={{-27,210},{-12,210},{-12,
+  connect(heaPI.y, zonSta.uHea) annotation (Line(points={{-26,210},{-12,210},{-12,
           144},{38,144}}, color={0,0,127}));
-  connect(cooPI.y, setPoiVAV.uCoo) annotation (Line(points={{-27,160},{-12,160},
+  connect(cooPI.y, setPoiVAV.uCoo) annotation (Line(points={{-26,160},{-12,160},
           {-12,196},{38,196}}, color={0,0,127}));
-  connect(cooPI.y, zonSta.uCoo) annotation (Line(points={{-27,160},{-12,160},{-12,
+  connect(cooPI.y, zonSta.uCoo) annotation (Line(points={{-26,160},{-12,160},{-12,
           136},{38,136}}, color={0,0,127}));
-  connect(switch.y, heaPI.trigger) annotation (Line(points={{-59,-230},{-46,-230},
+  connect(switch.y, heaPI.trigger) annotation (Line(points={{-58,-230},{-46,-230},
           {-46,72},{-58,72},{-58,182},{-46,182},{-46,198}}, color={255,0,255}));
-  connect(switch.y, cooPI.trigger) annotation (Line(points={{-59,-230},{-46,-230},
+  connect(switch.y, cooPI.trigger) annotation (Line(points={{-58,-230},{-46,-230},
           {-46,148}}, color={255,0,255}));
   connect(modSetPoi.TZonCooSet, TZonCooSet) annotation (Line(points={{-159,197},
           {-114,197},{-114,108},{120,108},{120,0},{210,0}}, color={0,0,127}));

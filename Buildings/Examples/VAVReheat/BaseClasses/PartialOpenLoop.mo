@@ -145,7 +145,7 @@ partial model PartialOpenLoop
     "Sensor for return fan flow rate"
     annotation (Placement(transformation(extent={{360,130},{340,150}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sinHea(
+  Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     p=300000,
     T=318.15,
@@ -153,7 +153,7 @@ partial model PartialOpenLoop
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,-122})));
-  Buildings.Fluid.Sources.FixedBoundary sinCoo(
+  Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
     T=285.15,

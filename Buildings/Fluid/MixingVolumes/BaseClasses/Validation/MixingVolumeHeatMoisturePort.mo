@@ -3,7 +3,7 @@ model MixingVolumeHeatMoisturePort
   "Validation model for setting the initialization of the pressure for model with moisture port"
   extends Buildings.Fluid.MixingVolumes.BaseClasses.Validation.MixingVolumeHeatPortWater(
     redeclare package Medium = Buildings.Media.Air,
-    redeclare each Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatMoisturePort vol);
+    redeclare Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatMoisturePort vol);
 
   Modelica.Blocks.Sources.Constant const[nEle](each k=0) "Zero input signal"
     annotation (Placement(transformation(extent={{-60,28},{-40,48}})));
@@ -17,6 +17,12 @@ and not overdetermined.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 3, 2019 by Michael Wetter:<br/>
+Removed erroneous <code>each</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1068\">Buildings, issue 1068</a>.
+</li>
 <li>
 October 23, 2017 by Michael Wetter:<br/>
 First implementation for

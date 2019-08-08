@@ -124,7 +124,7 @@ equation
   connect(TSupSig1.y, economizer1.TSup)
     annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.THeaSupSet)
-    annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}},
+    annotation (Line(points={{-59,50},{-54,50},{-54,-16},{20,-16},{20,-28},{99,-28}},
     color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-59,-80},{20,-80},{20,-36},{99,-36}}, color={255,0,255}));
@@ -144,7 +144,7 @@ equation
   connect(VOutMinSetSig.y, economizer1.VOutMinSet_flow)
     annotation (Line(points={{-19,90},{14,90},{14,-30},{99,-30},{99,-30}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer.uSupFanSpe)
-    annotation (Line(points={{-19,50},{-20,50},{10,50},{-2,50},{-2,8},{19,8}}, color={0,0,127}));
+    annotation (Line(points={{-19,50},{-2,50},{-2,8},{19,8}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer1.uSupFanSpe)
     annotation (Line(points={{-19,50},{78,50},{78,-32},{99,-32}}, color={0,0,127}));
   annotation (
@@ -169,25 +169,22 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-128,-130},{-44,-158}},
+          extent={{-128,-132},{-22,-154}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=9,
           textString="Enable both damper limit
 and modulation control loops"),
         Text(
-          extent={{100,4},{136,-16}},
+          extent={{100,6},{154,-16}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=8,
           textString="Validate damper modulation
 (example without
 enthalpy measurement)"),
         Text(
-          extent={{20,40},{56,20}},
+          extent={{20,42},{84,22}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=8,
           textString="Economizer fully enabled -
 validate damper position limits")}),
 Documentation(info="<html>

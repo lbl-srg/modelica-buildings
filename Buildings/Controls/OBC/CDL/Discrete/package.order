@@ -1,5 +1,6 @@
 DayType
 FirstOrderHold
+MovingMean
 Sampler
 TriggeredMax
 TriggeredSampler

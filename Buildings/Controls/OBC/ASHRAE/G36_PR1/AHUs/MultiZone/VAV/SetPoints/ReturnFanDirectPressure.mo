@@ -26,23 +26,23 @@ block ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Fan on/off signal, true if fan is on" annotation (Placement(transformation(
-          extent={{-180,-110},{-140,-70}}), iconTransformation(extent={{-140,-80},
-            {-100,-40}})));
+    "Fan on/off signal, true if fan is on"
+    annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
      final unit="Pa",
      displayUnit="Pa",
      min=0)
     "Return fan discharge static pressure setpoint"
-    annotation (Placement(transformation(extent={{120,-90},{140,-70}}),
-      iconTransformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{120,-110},{160,-70}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDam(
      final unit="1",
      min=0,
      max=1)
     "Exhaust damper control signal (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{120,70},{140,90}}),
-      iconTransformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{120,0},{160,40}}),
+        iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Feedback conErr(
      u1(final unit="Pa", displayUnit="Pa"),
@@ -108,56 +108,57 @@ equation
   connect(swi.u2, uFan)
     annotation (Line(points={{78,-90},{-160,-90}}, color={255,0,255}));
   connect(swi.u3, zer.y)
-    annotation (Line(points={{78,-98},{60,-98},{60,-110},{21,-110}}, color={0,0,127}));
+    annotation (Line(points={{78,-98},{60,-98},{60,-110},{22,-110}}, color={0,0,127}));
   connect(zer1.y, linExhAirDam.x1)
-    annotation (Line(points={{-47,52},{30,52},{30,98},{58,98}},  color={0,0,127}));
+    annotation (Line(points={{-46,52},{30,52},{30,98},{58,98}},  color={0,0,127}));
   connect(zer1.y, linExhAirDam.f1)
-    annotation (Line(points={{-47,52},{30,52},{30,94},{58,94}},  color={0,0,127}));
+    annotation (Line(points={{-46,52},{30,52},{30,94},{58,94}},  color={0,0,127}));
   connect(con.y, linExhAirDam.x2)
-    annotation (Line(points={{21,70},{40,70},{40,86},{58,86}}, color={0,0,127}));
+    annotation (Line(points={{22,70},{40,70},{40,86},{58,86}}, color={0,0,127}));
   connect(one.y, linExhAirDam.f2)
-    annotation (Line(points={{21,36},{46,36},{46,82},{58,82}}, color={0,0,127}));
+    annotation (Line(points={{22,36},{46,36},{46,82},{58,82}}, color={0,0,127}));
   connect(con.y, linRetFanStaPre.x1)
-    annotation (Line(points={{21,70},{40,70},{40,-32},{58,-32}}, color={0,0,127}));
+    annotation (Line(points={{22,70},{40,70},{40,-32},{58,-32}}, color={0,0,127}));
   connect(one.y, linRetFanStaPre.x2)
-    annotation (Line(points={{21,36},{46,36},{46,-44},{58,-44}}, color={0,0,127}));
+    annotation (Line(points={{22,36},{46,36},{46,-44},{58,-44}}, color={0,0,127}));
   connect(retFanDisPreMin.y, linRetFanStaPre.f1)
-    annotation (Line(points={{21,-20},{30,-20},{30,-36},{58,-36}},
+    annotation (Line(points={{22,-20},{30,-20},{30,-36},{58,-36}},
       color={0,0,127}));
   connect(retFanDisPreMax.y, linRetFanStaPre.f2)
-    annotation (Line(points={{21,-70},{30,-70},{30,-48},{58,-48}},
+    annotation (Line(points={{22,-70},{30,-70},{30,-48},{58,-48}},
       color={0,0,127}));
   connect(linRetFanStaPre.y, swi.u1)
-    annotation (Line(points={{81,-40},{100,-40},{100,-60},{60,-60},{60,-82},
-      {78,-82}}, color={0,0,127}));
-  connect(uFan, swi1.u2) annotation (Line(points={{-160,-90},{-100,-90},{-100,20},
-          {78,20}}, color={255,0,255}));
+    annotation (Line(points={{82,-40},{100,-40},{100,-60},{60,-60},{60,-82},{78,
+          -82}}, color={0,0,127}));
+  connect(uFan, swi1.u2)
+    annotation (Line(points={{-160,-90},{-100,-90},{-100,20},{78,20}},
+      color={255,0,255}));
   connect(linExhAirDam.y, swi1.u1)
-    annotation (Line(points={{81,90},{100,90},{100,70},{60,70},{60,28},{78,28}},
+    annotation (Line(points={{82,90},{100,90},{100,70},{60,70},{60,28},{78,28}},
       color={0,0,127}));
   connect(swi1.y, yExhDam)
-    annotation (Line(points={{101,20},{108,20},{108,80},{130,80}},
+    annotation (Line(points={{102,20},{140,20}},
       color={0,0,127}));
   connect(zer1.y, swi1.u3)
-    annotation (Line(points={{-47,52},{30,52},{30,12},{78,12}},
+    annotation (Line(points={{-46,52},{30,52},{30,12},{78,12}},
       color={0,0,127}));
   connect(swi.y, dpDisSet)
-    annotation (Line(points={{101,-90},{106,-90},{106,-80},{130,-80}},
+    annotation (Line(points={{102,-90},{140,-90}},
       color={0,0,127}));
   connect(conP.y, linExhAirDam.u)
-    annotation (Line(points={{-15,90},{58,90}}, color={0,0,127}));
+    annotation (Line(points={{-14,90},{58,90}}, color={0,0,127}));
   connect(conP.y, linRetFanStaPre.u)
-    annotation (Line(points={{-15,90},{-10,90},{-10,-40},{58,-40}}, color={0,0,127}));
+    annotation (Line(points={{-14,90},{-10,90},{-10,-40},{58,-40}}, color={0,0,127}));
   connect(movMea.y, conErr.u1)
-    annotation (Line(points={{-109,90},{-100,90}}, color={0,0,127}));
+    annotation (Line(points={{-108,90},{-100,90}}, color={0,0,127}));
   connect(dpBuiSetPoi.y, conErr.u2)
-    annotation (Line(points={{-109,60},{-88,60},{-88,78}}, color={0,0,127}));
+    annotation (Line(points={{-108,60},{-88,60},{-88,78}}, color={0,0,127}));
   connect(conErr.y, gaiNor.u)
-    annotation (Line(points={{-77,90},{-68,90}}, color={0,0,127}));
+    annotation (Line(points={{-76,90},{-68,90}}, color={0,0,127}));
   connect(gaiNor.y, conP.u_s)
-    annotation (Line(points={{-45,90},{-38,90}}, color={0,0,127}));
+    annotation (Line(points={{-44,90},{-38,90}}, color={0,0,127}));
   connect(conP.u_m, zer1.y)
-    annotation (Line(points={{-26,78},{-26,52},{-47,52}}, color={0,0,127}));
+    annotation (Line(points={{-26,78},{-26,52},{-46,52}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="buiPreCon",
@@ -264,7 +265,7 @@ to <code>dpDisMax</code>. The <code>dpDisMin</code> and
 </ol>
 <p align=\"center\">
 <img alt=\"Image of return fan control for multi zone AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/ReturnFanControlWithPressure.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/ReturnFanControlWithPressure.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

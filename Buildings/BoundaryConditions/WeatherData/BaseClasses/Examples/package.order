@@ -10,8 +10,12 @@ CheckWindSpeed
 ConvertRadiation
 ConvertRelativeHumidity
 ConvertTime
+ConvertTimeNegativeStart
+ConvertTimePositiveStart
 EquationOfTime
 GetAbsolutePath
 GetHeaderElement
+GetTimeSpanTMY3
+GetTimeSpanTMY3_NonzeroStart
 LocalCivilTime
 SolarTime

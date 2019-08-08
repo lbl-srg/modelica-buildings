@@ -212,6 +212,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
+
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
 
@@ -226,14 +227,17 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   constant Modelica.SIunits.HeatFlux solCon = 1367.7 "Solar constant";
 
 protected
+  final parameter Modelica.SIunits.Time[2] timeSpan=
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, "tab1")
+  "Start time, end time of weather data";
+
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
     final tableName="tab1",
     final fileName=filNam,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
-        28,29,30,8})
-                   "Data reader"
+        28,29,30,8}) "Data reader"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDryBul "Check dry bulb temperature "
@@ -262,8 +266,7 @@ protected
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
   BaseClasses.CheckWindSpeed cheWinSpe "Check the wind speed"
     annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
-  BaseClasses.CheckIRRadiation
-                             cheHorRad
+  BaseClasses.CheckIRRadiation cheHorRad
     "Check the horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
   BaseClasses.CheckWindDirection cheWinDir "Check the wind direction"
@@ -291,10 +294,15 @@ protected
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns=9:11) "Data reader"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1(
+    final weaDatStaTim = timeSpan[1],
+    final weaDatEndTim = timeSpan[2])
     "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-110,180},{-90,200}})));
-  BaseClasses.ConvertTime conTim "Convert simulation time to calendar time"
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
+    final weaDatStaTim = timeSpan[1],
+    final weaDatEndTim = timeSpan[2])
+    "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   BaseClasses.EquationOfTime eqnTim "Equation of time"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
@@ -672,61 +680,61 @@ equation
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
       points={{181,70},{220,70},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTotSkyCov.nOut, weaBus.nTot) annotation (Line(
       points={{181,-30},{220,-30},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, weaBus.nOpa) annotation (Line(
       points={{181,-150},{220,-150},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheGloHorRad.HOut, weaBus.HGloHor) annotation (Line(
       points={{181,190},{220,190},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDifHorRad.HOut, weaBus.HDifHor) annotation (Line(
       points={{181,150},{220,150},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDirNorRad.HOut, weaBus.HDirNor) annotation (Line(
       points={{181,230},{220,230},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheCeiHei.ceiHeiOut, weaBus.celHei) annotation (Line(
       points={{181,-110},{220,-110},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinSpe.winSpeOut, weaBus.winSpe) annotation (Line(
       points={{181,-70},{220,-70},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheHorRad.HOut, weaBus.HHorIR) annotation (Line(
       points={{181,110},{220,110},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinDir.nOut, weaBus.winDir) annotation (Line(
       points={{181,-270},{280,-270},{280,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, TBlaSkyCom.nOpa) annotation (Line(
@@ -738,7 +746,7 @@ equation
   connect(modTim.y, weaBus.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(modTim.y, add.u2) annotation (Line(
@@ -775,7 +783,7 @@ equation
       points={{-59,-130},{-20,-130},{-20,0},{284,0},{284,0},{300,
           0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
@@ -793,7 +801,7 @@ equation
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
       points={{181,-230},{280,-230},{280,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TBlaSkyCom.TDewPoi, cheTemDewPoi.TOut) annotation (Line(
@@ -814,13 +822,13 @@ equation
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
       points={{181,30},{280,30},{280,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTemDryBul.TOut, weaBus.TDryBul) annotation (Line(
       points={{181,-190},{280,-190},{280,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(decAng.decAng, zenAng.decAng)
@@ -849,7 +857,7 @@ equation
   connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
       points={{265,-56},{280,-56},{280,0},{292,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTemDryBul.TOut, tWetBul_TDryBulXi.TDryBul) annotation (Line(
@@ -961,7 +969,7 @@ as obtained from the EnergyPlus web site at
 <a href=\"http://energyplus.net/weather\">
 http://energyplus.net/weather</a>. These
 data, which are in the EnergyPlus format, need to be converted as described
-in the next paragraph.
+below.
 </p>
 <!-- ============================================== -->
 <h4>Output to weaBus</h4>
@@ -1452,9 +1460,31 @@ and allows the following configurations:
   </td>
 </tr>
 </table>
+<!-- ============================================== -->
+<h4>Length of weather data and simulation period</h4>
 <p>
-<b>Notes</b>
+If weather data span a year, which is the default for TMY3 data, or multiple years,
+then this model can be used for simulations that span multiple years. The simulation
+start time needs to be set to the clock time of the respective start time. For example,
+to start at January 2 at 10am, set start time to <code>t=(24+10)*3600</code> seconds.
+For this computation, the used date and time (here January 2, 10 am) must be expressed in the same time zone
+as the one that is used to define the TMY3 file. This is usually the local (winter) time zone.
+The parameter `timZon` represents the TMY3 file time zone, expressed in seconds compared to UTC.
 </p>
+<p>
+Moreover, weather data need not span a whole year, or it can span across New Year.
+In this case, the simulation cannot exceed the time of the weather data file. Otherwise,
+the simulation stops with an error.
+</p>
+<p>
+As weather data have one entry at the start of the time interval, the end time of the weather
+data file is computed as the last time entry plus the average time increment of the file.
+For example, an hourly weather data file has 8760 entries, starting on January 1 at 0:00.
+The last entry in the file will be for December 31 at 23:00. As the time increment is 1 hour,
+the model assumes the weather file to end at December 31 at 23:00 plus 1 hour, e.g., at January 1 at 0:00.
+</p>
+<!-- ============================================== -->
+<h4>Notes</h4>
 <ol>
 <li>
 <p>
@@ -1521,9 +1551,15 @@ midnight at December 31 as the value for <i>t=0</i>. Rather, the
 value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1.
 To maintain a data record with <i>8760</i> hours, the weather data record from
 midnight at December 31 is deleted.
-These changes in the weather data file are done in the Java program that converts
+These changes in the weather data file are done in the Java program
+<code>Buildings/Resources/bin/ConvertWeatherData.jar</code> that converts
 EnergyPlus weather data file to Modelica weather data files, and which is described
-below.
+above.
+The length of the weather data is calculated as the
+end time stamp minus start time stamp plus average increment, where the
+average increment is equal to the end time stamp minus start time stamp divided
+by the number of rows minus 1.
+This only works correctly for weather files with equidistant time stamps.
 </p>
 <h5>Time shift for solar radiation data</h5>
 <p>
@@ -1554,6 +1590,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 5, 2019, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/842\">#842</a>.
+</li>
 <li>
 September 20, 2018, by Michael Wetter:<br/>
 Corrected documentation.<br/>

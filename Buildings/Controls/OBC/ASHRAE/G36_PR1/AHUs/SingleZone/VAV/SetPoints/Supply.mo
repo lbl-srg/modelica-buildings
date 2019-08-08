@@ -224,10 +224,10 @@ equation
     annotation (Line(points={{-72,-124},{-88,-124},{-88,-80},{-120,-80}},
       color={0,0,127}));
   connect(dT.y, yMed.u)
-    annotation (Line(points={{-49,-118},{-32,-118}},
+    annotation (Line(points={{-48,-118},{-32,-118}},
       color={0,0,127}));
   connect(yMedLim.u, yMed.y)
-    annotation (Line(points={{-2,-118},{-9,-118}},   color={0,0,127}));
+    annotation (Line(points={{-2,-118},{-8,-118}},   color={0,0,127}));
   connect(TDea.u, TZonSet)
     annotation (Line(points={{-82,30},{-120,30}},        color={0,0,127}));
   connect(TDea.y, TSetHeaHig.f1)
@@ -299,34 +299,34 @@ equation
   connect(uCoo, lin050.u) annotation (Line(points={{-120,70},{-94,70},{-94,-146},
           {-38,-146},{-38,-192},{-22,-192}}, color={0,0,127}));
   connect(dY075.u1, con4.y)
-    annotation (Line(points={{-38,-278},{-55,-278}}, color={0,0,127}));
+    annotation (Line(points={{-38,-278},{-54,-278}}, color={0,0,127}));
   connect(lin075.x2, con2.y) annotation (Line(points={{32,-288},{24,-288},{24,-310},
-          {21,-310}}, color={0,0,127}));
+          {22,-310}}, color={0,0,127}));
   connect(lin075.x1, con5.y)
     annotation (Line(points={{32,-276},{21,-276}}, color={0,0,127}));
   connect(uCoo, lin075.u) annotation (Line(points={{-120,70},{-90,70},{-90,-252},
           {24,-252},{24,-284},{32,-284}}, color={0,0,127}));
   connect(yMedLim.y, yOffSet.u)
-    annotation (Line(points={{21,-118},{34,-118}}, color={0,0,127}));
+    annotation (Line(points={{22,-118},{34,-118}}, color={0,0,127}));
   connect(dY075.u2, yOffSet.y) annotation (Line(points={{-38,-290},{-42,-290},{-42,
           -160},{70,-160},{70,-118},{57,-118}}, color={0,0,127}));
   connect(offCoo.u1, lin050.y) annotation (Line(points={{38,-186},{20,-186},{20,
-          -192},{1,-192}}, color={0,0,127}));
+          -192},{2,-192}}, color={0,0,127}));
   connect(offCoo.u2, lin075.y) annotation (Line(points={{38,-198},{34,-198},{34,
           -256},{60,-256},{60,-284},{55,-284}}, color={0,0,127}));
   connect(offCoo.y, addHeaCoo.u2) annotation (Line(points={{61,-192},{90,-192},{
           90,-96},{28,-96},{28,-52},{36,-52}}, color={0,0,127}));
   connect(lin050.x2, con1.y) annotation (Line(points={{-22,-196},{-44,-196},{-44,
-          -170},{-59,-170}}, color={0,0,127}));
-  connect(con025.y, lin050.x1) annotation (Line(points={{-59,-202},{-52,-202},{-52,
+          -170},{-58,-170}}, color={0,0,127}));
+  connect(con025.y, lin050.x1) annotation (Line(points={{-58,-202},{-52,-202},{-52,
           -184},{-22,-184}}, color={0,0,127}));
   connect(lin050.f2, yOffSet.y) annotation (Line(points={{-22,-200},{-32,-200},{
-          -32,-160},{70,-160},{70,-118},{57,-118}}, color={0,0,127}));
-  connect(con3.y, lin050.f1) annotation (Line(points={{-59,-232},{-28,-232},{-28,
+          -32,-160},{70,-160},{70,-118},{58,-118}}, color={0,0,127}));
+  connect(con3.y, lin050.f1) annotation (Line(points={{-58,-232},{-28,-232},{-28,
           -188},{-22,-188}}, color={0,0,127}));
-  connect(dY075.y, lin075.f2) annotation (Line(points={{-15,-284},{-8,-284},{-8,
+  connect(dY075.y, lin075.f2) annotation (Line(points={{-14,-284},{-8,-284},{-8,
           -292},{32,-292}}, color={0,0,127}));
-  connect(con6.y, lin075.f1) annotation (Line(points={{21,-340},{24,-340},{24,-280},
+  connect(con6.y, lin075.f1) annotation (Line(points={{22,-340},{24,-340},{24,-280},
           {32,-280}}, color={0,0,127}));
   connect(TSetHeaHig.x1, con0.y) annotation (Line(points={{0,228},{-56,228},{-56,
           220},{-59,220}}, color={0,0,127}));

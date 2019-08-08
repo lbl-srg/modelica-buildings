@@ -4,24 +4,29 @@ block TrueDelay
 
   parameter Modelica.SIunits.Time delayTime "Delay time";
 
+  parameter Boolean delayOnInit = false
+    "Set to true to delay initial true input";
+
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   parameter Modelica.SIunits.Time t_past(fixed=false)
      "Time before simulation started";
    Modelica.SIunits.Time t_next;
+
 initial equation
   t_past = time - 1000;
   pre(u) = false;
   pre(t_next) = time - 1000;
+
 equation
   when initial() then
-    t_next = t_past;
-    y = u;
+    t_next = if not delayOnInit then t_past else time + delayTime;
+    y = if not (delayOnInit and delayTime > 0) then u else false;
   elsewhen u then
     t_next = time + delayTime;
     y = if delayTime > 0 then false else true;
@@ -71,14 +76,15 @@ Block that delays a signal when it becomes <code>true</code>.
 </p>
 <p>
 A rising edge of the Boolean input <code>u</code> gives a delayed output.
-A falling edge of the input is immediately given to the output.
+A falling edge of the input is immediately given to the output. If 
+<code>delayOnInit = true</code>, then a <code>true</code> input signal
+at the start time is also delayed, otherwise the input signal is
+produced immediately at the output.
 </p>
-
 <p>
-Simulation results of a typical example with a delay time of 0.1 s
-is shown in the next figure.
+Simulation results of a typical example with a delay time of <i>0.1</i> second
+is shown below.
 </p>
-
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueDelay1.png\"
      alt=\"OnDelay1.png\" />
@@ -89,6 +95,10 @@ is shown in the next figure.
 
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2019, by Milica Grahovac:<br/>
+Added boolean input to enable delay of an initial true input.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

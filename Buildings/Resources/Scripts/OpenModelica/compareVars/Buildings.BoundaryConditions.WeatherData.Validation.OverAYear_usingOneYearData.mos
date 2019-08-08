@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "weaDat.weaBus.TDryBul",
+    "weaDat.weaBus.TDryBul"
+  };

@@ -21,7 +21,7 @@ partial model PartialAirHeatMassBalance
     annotation (Placement(transformation(extent={{-280,180},{-240,220}}),
         iconTransformation(extent={{-256,192},{-240,208}})));
   Modelica.Blocks.Interfaces.RealInput QRadAbs_flow[NConExtWin](
-  final unit="W") if
+  each final unit="W") if
      haveShade
     "Total net radiation that is absorbed by the shade (positive if absorbed)"
     annotation (Placement(transformation(extent={{-280,70},{-240,110}}),
@@ -35,8 +35,8 @@ partial model PartialAirHeatMassBalance
     annotation (Placement(transformation(extent={{-280,-180},{-240,-140}})));
 
   Modelica.Blocks.Interfaces.RealOutput TSha[NConExtWin](
-   final unit="K",
-   final quantity="ThermodynamicTemperature") if
+   each final unit="K",
+   each final quantity="ThermodynamicTemperature") if
       haveShade "Shade temperature"
     annotation (Placement(transformation(extent={{-240,50},{-260,70}})));
 
@@ -172,6 +172,10 @@ This is a partial model that is used to implement the heat and mass balance of t
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Added missing <code>each</code>.
+</li>
 <li>
 May 2, 2016, by Michael Wetter:<br/>
 Refactored implementation of latent heat gain.

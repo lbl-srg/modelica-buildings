@@ -174,7 +174,7 @@ model System3
         origin={-50,-150})));
 //----------------------------------------------------------------------------//
 
-  Buildings.Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
+  Buildings.Fluid.Sources.Boundary_pT preSou(redeclare package Medium = MediumW,
       nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{92,-320},{72,-300}})));
@@ -414,8 +414,8 @@ to model the boiler.
 </p>
 <p>
 Note that we also made an instance of
-<a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
-Buildings.Fluid.Sources.FixedBoundary</a>,
+<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
+Buildings.Fluid.Sources.Boundary_pT</a>,
 which we called <code>preSou</code>.
 This is required to set a pressure reference in the water loop, which is a closed system.
 For medium models that expand with increasing temperature,

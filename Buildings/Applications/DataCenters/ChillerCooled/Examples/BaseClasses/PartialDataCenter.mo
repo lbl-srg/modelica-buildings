@@ -68,7 +68,7 @@ partial model PartialDataCenter
     dp1_wse_nominal=dp1_wse_nominal,
     dp2_chi_nominal=dp2_chi_nominal,
     dp2_wse_nominal=dp2_wse_nominal,
-    redeclare
+    redeclare each
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi,
     use_inputFilter=false,
@@ -284,7 +284,7 @@ partial model PartialDataCenter
   Modelica.Blocks.Sources.Constant phiAirRetSet(k=0.5)
     "Return air relative humidity setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
-  Modelica.Blocks.Math.Gain gai1(each k=1/dpSetPoi) "Gain effect"
+  Modelica.Blocks.Math.Gain gai1(k=1/dpSetPoi) "Gain effect"
     annotation (Placement(transformation(extent={{-200,-70},{-220,-50}})));
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
@@ -346,7 +346,7 @@ equation
       points={{-340,-70},{-328,-70},{-328,-20}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(chiWSE.port_b1, TCWRet.port_a)
@@ -538,8 +538,12 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </html>", revisions="<html>
 <ul>
 <li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong <code>each</code>.
+</li>
+<li>
 December 1, 2017, by Yangyang Fu:<br/>
-Used scaled differential pressure to control the speed of pumps. This can avoid retuning gains 
+Used scaled differential pressure to control the speed of pumps. This can avoid retuning gains
 in PID when changing the differential pressure setpoint.
 </li>
 <li>

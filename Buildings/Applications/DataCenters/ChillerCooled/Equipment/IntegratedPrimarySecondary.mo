@@ -1,7 +1,8 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model IntegratedPrimarySecondary
   "Integrated waterside economizer on the load side in a primary-secondary chilled water system"
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE(
     final numVal=5,
     final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_chi_nominal,
       m2_flow_wse_nominal,numChi*m2_flow_chi_nominal},
@@ -66,7 +67,8 @@ model IntegratedPrimarySecondary
   Modelica.Blocks.Interfaces.RealInput yPum[numPum](
       each final unit = "1",
       each min = 0,
-      each max = 1) "Prescribed speed signal for primary pumps"
+      each max = 1)
+    "Prescribed normalized flowrate for primary pumps: 1 - nominal flowrate, 0 - no flowrate"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-130,-50},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput yVal5(
@@ -104,10 +106,10 @@ model IntegratedPrimarySecondary
     final rhoStd=rhoStd[5],
     final y_start=yVal5_start,
     final l=lVal5)
-    "Shutoff valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
+    "Bypass valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m pum(
-    redeclare each final package Medium = Medium2,
+    redeclare final package Medium = Medium2,
     final p_start=p2_start,
     final T_start=T2_start,
     final X_start=X2_start,
@@ -166,8 +168,8 @@ equation
   connect(senTem.port_b, val5.port_b)
     annotation (Line(points={{8,24},{2,24},{2,
           0},{30,0},{30,-20},{40,-20}}, color={0,127,255}));
-  connect(yPum, pum.u) annotation (Line(points={{-120,-40},{-96,-40},{-40,-40},{
-          -40,-6},{16,-6},{16,-16},{12,-16}}, color={0,0,127}));
+  connect(yPum, pum.u) annotation (Line(points={{-120,-44},{-96,-44},{-40,-44},
+          {-40,-6},{16,-6},{16,-16},{12,-16}},color={0,0,127}));
   connect(pum.port_a, val5.port_b)
     annotation (Line(points={{10,-20},{25,-20},{40,-20}}, color={0,127,255}));
   connect(pum.P, powPum) annotation (Line(points={{-11,-16},{-14,-16},{-14,50},
@@ -264,9 +266,13 @@ Otherwise, V5 is off.
 </html>", revisions="<html>
 <ul>
 <li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong <code>each</code>.
+</li>
+<li>
 December 1, 2017, by Yangyang Fu:<br/>
-Changed the input connector <code>m_flow_in</code> into <code>yPum</code> to 
-avoid multipling mass flowrate twice in the <code>pum</code>. This is for 
+Changed the input connector <code>m_flow_in</code> into <code>yPum</code> to
+avoid multipling mass flowrate twice in the <code>pum</code>. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1080\">#1080</a>.
 </li>
 <li>

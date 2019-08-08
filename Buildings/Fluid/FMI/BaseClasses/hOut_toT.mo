@@ -3,8 +3,9 @@ block hOut_toT "Conversion from h to T"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
-     annotation (choicesAllMatching=true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
   Modelica.Blocks.Interfaces.RealInput h(final unit="J/kg") "Specific enthalpy"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
@@ -32,8 +33,13 @@ equation
       h=h,
       X=Xi_internal);
 
-  annotation (Documentation(revisions="<html>
+annotation (Documentation(revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 April 28, 2016, by Thierry S. Nouidui:<br/>
 First implementation.

@@ -214,8 +214,8 @@ where <i>m(t)</i> is the mass of the control volume,
 <li>
 If a system model sets the pressure, such as if the volume is connected
 to a model that sets the pressure, e.g.,
-<a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
-Buildings.Fluid.Sources.FixedBoundary</a>,
+<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
+Buildings.Fluid.Sources.Boundary_pT</a>,
 then due to the connection between the models, the
 pressure of the volume is the same as the pressure of the
 model for the boundary condition.

@@ -36,9 +36,10 @@ model PartialWaterToWater
     "De-multiplex"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sin2(redeclare final package Medium =
-        Medium2, nPorts=1) "Boundary condition" annotation (Placement(
-        transformation(extent={{-10,-10},{10,10}}, origin={-50,-40})));
+  Buildings.Fluid.Sources.Boundary_pT sin2(
+    redeclare final package Medium = Medium2,
+    nPorts=1) "Boundary condition"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-50,-40})));
   Modelica.Fluid.Sources.MassFlowSource_T Sou(
     redeclare final package Medium = Medium2,
     nPorts=1,
@@ -46,9 +47,10 @@ model PartialWaterToWater
     use_T_in=true)
     "Mass flow source"
     annotation (Placement(transformation(extent={{60,-16},{40,4}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(redeclare final package Medium =
-        Medium1, nPorts=1) "Pressure boundary condition" annotation (Placement(
-        transformation(extent={{10,-10},{-10,10}}, origin={50,30})));
+  Buildings.Fluid.Sources.Boundary_pT sin1(
+    redeclare final package Medium = Medium1,
+    nPorts=1) "Pressure boundary condition"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}}, origin={50,30})));
 
   Modelica.Fluid.Sources.MassFlowSource_T loa(
     redeclare final package Medium = Medium1,
@@ -110,6 +112,11 @@ Source and load temperatures and flow rates are read from an external time table
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 October 31, 2016, by Massimo Cimmino:<br/>
 First implementation.
