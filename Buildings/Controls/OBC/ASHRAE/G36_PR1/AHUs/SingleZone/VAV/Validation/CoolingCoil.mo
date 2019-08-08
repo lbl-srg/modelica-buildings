@@ -49,8 +49,21 @@ equation
     experiment(
       StopTime=28000,
       Interval=600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/CoolingCoil.mos"
-    "Simulate and plot"));
+    "Simulate and plot"),
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.CoolingCoil\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.CoolingCoil</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 30, 2018, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CoolingCoil;

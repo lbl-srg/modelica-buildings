@@ -584,8 +584,8 @@ equation
           preserveAspectRatio=false, extent={{-200,-240},{200,240}})),
 Documentation(info="<html>
 <p>
-Block for single zone VAV control. It outputs supply fan speed, supply air temperature 
-setpoints for heating, economizer and cooling, zone air heating and cooling setpoints, 
+Block for single zone VAV control. It outputs supply fan speed, supply air temperature
+setpoints for heating, economizer and cooling, zone air heating and cooling setpoints,
 outdoor and return air damper positions, valve positions of heating and cooling coils.
 </p>
 <p>
@@ -606,8 +606,8 @@ for more detailed description.
 <h4>Supply air temperature setpoints</h4>
 <p>
 The supply air temperature setpoints control sequences are implemented based on PART5.18.4.
-They are implemented in the same control block as the supply fan speed control. The supply air temperature setpoint 
-for heating and economizer is the same; while the supply air temperature setpoint for cooling has 
+They are implemented in the same control block as the supply fan speed control. The supply air temperature setpoint
+for heating and economizer is the same; while the supply air temperature setpoint for cooling has
 a separate control loop. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply</a>
@@ -616,7 +616,7 @@ for more detailed description.
 <h4>Economizer control</h4>
 <p>
 The Economizer control block outputs outdoor and return air damper position, i.e. <code>yOutDamPos</code> and
-<code>yRetDamPos</code>, as well as control signal for heating coil <code>yHeaCoi</code>. 
+<code>yRetDamPos</code>, as well as control signal for heating coil <code>yHeaCoi</code>.
 Optionally, there is also an override for freeze protection, which is not part of G36.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller\">
@@ -625,7 +625,7 @@ for more detailed description.
 </p>
 <h4>Minimum outdoor airflow</h4>
 <p>
-Control sequences are implemented to compute the minimum outdoor airflow 
+Control sequences are implemented to compute the minimum outdoor airflow
 setpoint, which is used as an input for the economizer control. More detailed
 information can be found at
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow\">
@@ -633,7 +633,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFl
 </p>
 <h4>Zone air heating and cooling setpoints</h4>
 <p>
-Zone air heating and cooling setpoints as well as system operation modes are detailed at 
+Zone air heating and cooling setpoints as well as system operation modes are detailed at
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints</a>.
 </p>
@@ -641,7 +641,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints</a>.
 revisions="<html>
 <ul>
 <li>
-August 3, 2019, by David Blum & Kun Zhang:<br/>
+August 3, 2019, by David Blum &amp; Kun Zhang:<br/>
 First implementation.
 </li>
 </ul>
