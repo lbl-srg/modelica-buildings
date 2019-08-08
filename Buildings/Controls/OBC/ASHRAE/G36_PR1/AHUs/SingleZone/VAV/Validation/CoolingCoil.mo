@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Validation;
 model CoolingCoil "Validation of cooling coil model"
   final parameter Modelica.SIunits.Temperature TSupSet=291.15
     "Supply air temperature setpoint";
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.CoolingCoil
-    coolingCoil(controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.CoolingCoil cooCoi(
+      controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
       kCooCoi=1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   CDL.Continuous.Sources.Ramp                        TSup(
@@ -21,18 +21,18 @@ model CoolingCoil "Validation of cooling coil model"
                                                                "Zone state"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   CDL.Conversions.RealToInteger reaToInt
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{-48,60},{-28,80}})));
 equation
-  connect(TSup.y, coolingCoil.TSup) annotation (Line(points={{-59,-10},{-36,-10},
-          {-36,-2},{-12,-2}}, color={0,0,127}));
-  connect(TSupSetSig.y, coolingCoil.TSupCoo) annotation (Line(points={{-59,30},{
-          -36,30},{-36,2},{-12,2}}, color={0,0,127}));
-  connect(fanStatus.y, coolingCoil.uSupFan) annotation (Line(points={{-59,-50},{
-          -20,-50},{-20,-8},{-12,-8}}, color={255,0,255}));
+  connect(TSup.y, cooCoi.TSup) annotation (Line(points={{-59,-10},{-36,-10},{-36,
+          -2},{-12,-2}}, color={0,0,127}));
+  connect(TSupSetSig.y, cooCoi.TSupCoo) annotation (Line(points={{-59,30},{-36,
+          30},{-36,2},{-12,2}}, color={0,0,127}));
+  connect(fanStatus.y, cooCoi.uSupFan) annotation (Line(points={{-59,-50},{-20,
+          -50},{-20,-8},{-12,-8}}, color={255,0,255}));
   connect(zonSta.y, reaToInt.u)
-    annotation (Line(points={{-59,70},{-42,70}}, color={0,0,127}));
-  connect(reaToInt.y, coolingCoil.uZonSta) annotation (Line(points={{-19,70},{-14,
-          70},{-14,46},{-20,46},{-20,8},{-12,8}}, color={255,127,0}));
+    annotation (Line(points={{-59,70},{-50,70}}, color={0,0,127}));
+  connect(reaToInt.y, cooCoi.uZonSta) annotation (Line(points={{-27,70},{-20,70},
+          {-20,8},{-12,8}}, color={255,127,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                    Ellipse(
