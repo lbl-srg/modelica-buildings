@@ -201,7 +201,7 @@ primary-secondary systems serving differential pressure controlled pumps.
 The outputs include supply temperature setpoint <code>TChiWatSupSet</code> 
 and pump differential pressure setpoint <code>dpChiWatPumSet</code>, according 
 to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.5.1.
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.5.2.
 </p>
 <p>
 Chilled water supply temperature setpoint <code>TChiWatSupSet</code> and pump

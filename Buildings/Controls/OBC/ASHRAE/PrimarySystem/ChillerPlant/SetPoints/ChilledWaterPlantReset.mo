@@ -166,7 +166,7 @@ Documentation(info="<html>
 <p>
 Block that output chilled water plant reset <code>yChiWatPlaRes</code> according
 to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), section 5.2.5.1.
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.5.2.
 </p>
 <p>
 Following implementation is for plants with primary-only and primary-secondary 
