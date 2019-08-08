@@ -4,12 +4,12 @@ model ChilledWaterSupply
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply
     chiWatSupSet(
-    dpChiWatPumMin=60,
-    dpChiWatPumMax=150,
-    TChiWatSupMin=280.15,
-    TChiWatSupMax=291.15) "Generate setpoint for chilled water supply control"
+    final dpChiWatPumMin=60,
+    final dpChiWatPumMax=150,
+    final TChiWatSupMin=280.15,
+    final TChiWatSupMax=291.15) "Generate setpoint for chilled water supply control"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(duration=3600)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(final duration=3600)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation

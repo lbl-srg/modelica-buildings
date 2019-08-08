@@ -42,8 +42,8 @@ block ChilledWaterPlantReset
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatPlaRes(
-    final min=0,
-    final max=1,
+    final min=minSet,
+    final max=maxSet,
     final unit="1") "Chilled water plant reset"
     annotation (Placement(transformation(extent={{120,-60},{160,-20}}),
       iconTransformation(extent={{100,-20},{140,20}})));

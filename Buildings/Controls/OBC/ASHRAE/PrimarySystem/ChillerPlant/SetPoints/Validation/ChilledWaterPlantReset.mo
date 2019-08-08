@@ -10,12 +10,14 @@ model ChilledWaterPlantReset
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uChiWatPum[2](
-    k={true,false}) "Plant status"
+    final k={true,false}) "Plant status"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=2700, width=0.3)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final period=2700,
+    final width=0.3)
     "Generate pulse signal of type Boolean"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
@@ -23,7 +25,7 @@ model ChilledWaterPlantReset
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between two Real signals"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
     "Zero request when device is OFF"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
@@ -33,18 +35,18 @@ model ChilledWaterPlantReset
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(nout=2)
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    table=[0,0;150,1; 300,2; 450,3; 600,4; 750,5; 900,6;
-           1050,5; 1200,4; 1350,3; 1500,2; 1650,1; 1800,0])
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    final table=[0,0;150,1; 300,2; 450,3; 600,4; 750,5; 900,6;
+                 1050,5; 1200,4; 1350,3; 1500,2; 1650,1; 1800,0])
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin2(
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    table=[0,0;150,1; 300,2; 450,3; 600,4; 750,5; 900,6;
-           1050,5; 1200,4; 1350,3; 1500,2; 1650,1; 1800,0])
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    final table=[0,0;150,1; 300,2; 450,3; 600,4; 750,5; 900,6;
+                 1050,5; 1200,4; 1350,3; 1500,2; 1650,1; 1800,0])
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(period=3600)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(final period=3600)
     "Generate pulse signal of type Boolean"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 

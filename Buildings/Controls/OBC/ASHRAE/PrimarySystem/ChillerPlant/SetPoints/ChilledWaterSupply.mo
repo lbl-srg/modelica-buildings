@@ -17,10 +17,13 @@ block ChilledWaterSupply
     final min=TChiWatSupMin,
     displayUnit="K") = 288.706
     "Maximum chilled water supply temperature, default 60 degF";
+  parameter Real minSet = 0 "Minimum plant reset value";
+  parameter Real maxSet = 1 "Maximum plant reset value";
+  parameter Real halSet = 0.5 "Half plant reset value";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatPlaRes(
-    final min = 0,
-    final max = 1,
+    final min = minSet,
+    final max = maxSet,
     final unit = "1")
     "Chilled water plant reset"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
@@ -44,13 +47,13 @@ protected
     "Chilled water pump differential pressure setpoint"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerRes(
-    final k=0) "Zero plant reset"
+    final k=minSet) "Minimum plant reset"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant halRes(
-    final k=0.5) "Half one plant reset"
+    final k=halSet) "Half one plant reset"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneRes(
-    final k=1) "One plant reset"
+    final k=maxSet) "Maximum plant reset"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minChiWatPumPre(
     final k=dpChiWatPumMin)
