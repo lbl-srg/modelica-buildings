@@ -14,7 +14,7 @@ model ChilledWaterSupply
 
 equation
   connect(ram.y, chiWatSupSet.uChiWatPlaRes)
-    annotation (Line(points={{-19,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{-18,0},{18,0}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),

@@ -34,7 +34,7 @@ block ChilledWaterPlantReset
     annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaCha
-    "Plant staging staus, indicate if plant is in the staging process"
+    "Plant staging status that indicates if the plant is in the staging process"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]

@@ -16,7 +16,7 @@ model ChilledWaterPlantReset
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=2700, width=0.3)
-                      "Generate pulse signal of type Boolean"
+    "Generate pulse signal of type Boolean"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
@@ -45,6 +45,7 @@ model ChilledWaterPlantReset
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(period=3600)
+    "Generate pulse signal of type Boolean"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
 equation
@@ -74,9 +75,9 @@ equation
   connect(swi.y, reaToInt3.u)
      annotation (Line(points={{-18,-50},{-2,-50}}, color={0,0,127}));
   connect(booPul1.y, plaRes.uStaCha)
-    annotation (Line(points={{22,20},{48,20},{48,64},{58,64}}, color={255,0,255}));
+    annotation (Line(points={{22,20},{50,20},{50,64},{58,64}}, color={255,0,255}));
   connect(booPul1.y, devRes.uStaCha)
-    annotation (Line(points={{22,20},{48,20},{48,-36},{58,-36}}, color={255,0,255}));
+    annotation (Line(points={{22,20},{50,20},{50,-36},{58,-36}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=9000.0, Tolerance=1e-06),

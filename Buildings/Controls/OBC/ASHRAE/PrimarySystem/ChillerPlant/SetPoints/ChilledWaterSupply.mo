@@ -1,6 +1,6 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints;
 block ChilledWaterSupply
-  "Sequences to generate setpoints of chilled water supply temperaturea and the pump differential static pressure"
+  "Sequences to generate setpoints of chilled water supply temperature and the pump differential static pressure"
 
   parameter Modelica.SIunits.PressureDifference dpChiWatPumMin(
     final min=0,
