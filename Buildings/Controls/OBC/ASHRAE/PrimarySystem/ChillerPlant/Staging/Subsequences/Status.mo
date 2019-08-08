@@ -23,46 +23,46 @@ block Status
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAva[nSta](
     final start = fill(true, nSta)) "Stage availability status"
     annotation (Placement(transformation(extent={{-460,-100},{-420,-60}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
     final max=nSta) "Current chiller stage index"
     annotation (Placement(transformation(extent={{-460,60},{-420,100}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHig
     "If true current stage is the highest available stage"
-    annotation (Placement(transformation(extent={{440,30},{460,50}}),
-        iconTransformation(extent={{100,-40},{120,-20}})));
+    annotation (Placement(transformation(extent={{440,20},{480,60}}),
+        iconTransformation(extent={{100,10},{140,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLow
     "If true current stage is the lowest available stage"
-    annotation (Placement(transformation(extent={{440,-90},{460,-70}}),
-        iconTransformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{440,-100},{480,-60}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chillers index for the current stage"
-    annotation (Placement(transformation(extent={{440,150},{460,170}}),
-        iconTransformation(extent={{100,-90},{120,-70}})));
+    annotation (Placement(transformation(extent={{440,140},{480,180}}),
+        iconTransformation(extent={{100,70},{140,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(
     final min=0,
     final max=nSta) "Current stage index"
-    annotation (Placement(transformation(extent={{440,-170},{460,-150}}),
-        iconTransformation(extent={{100,80},{120,100}})));
+    annotation (Placement(transformation(extent={{440,-180},{480,-140}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yUp(
     final min=0,
     final max=nSta) "Next available stage up index"
-    annotation (Placement(transformation(extent={{440,70},{460,90}}),
-      iconTransformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{440,60},{480,100}}),
+        iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yDown(
     final min=0,
     final max=nSta) "Next available stage down index"
-    annotation (Placement(transformation(extent={{440,-50},{460,-30}}),
-      iconTransformation(extent={{100,0},{120,20}})));
+    annotation (Placement(transformation(extent={{440,-60},{480,-20}}),
+        iconTransformation(extent={{100,-50},{140,-10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2 "Switch"
@@ -226,127 +226,127 @@ protected
 
 equation
   connect(intRep.y, intRep1.u)
-    annotation (Line(points={{-279,240},{-182,240}}, color={255,127,0}));
+    annotation (Line(points={{-278,240},{-182,240}}, color={255,127,0}));
   connect(intRep1.y, intEqu1.u1)
-    annotation (Line(points={{-159,240},{-122,240}},   color={255,127,0}));
+    annotation (Line(points={{-158,240},{-122,240}},   color={255,127,0}));
   connect(matMax.y, chiInSta.u)
-    annotation (Line(points={{81,220},{98,220}},  color={0,0,127}));
-  connect(staIndMatr.y, intEqu1.u2) annotation (Line(points={{-159,190},{-140,
-          190},{-140,232},{-122,232}}, color={255,127,0}));
+    annotation (Line(points={{82,220},{98,220}},  color={0,0,127}));
+  connect(staIndMatr.y, intEqu1.u2) annotation (Line(points={{-158,190},{-140,190},
+          {-140,232},{-122,232}},      color={255,127,0}));
   connect(chiInSta.y, yChi)
-    annotation (Line(points={{121,220},{200,220},{200,160},{450,160}},
+    annotation (Line(points={{122,220},{200,220},{200,160},{460,160}},
           color={255,0,255}));
   connect(proInt.y, intToRea.u)
-    annotation (Line(points={{1,220},{18,220}}, color={255,127,0}));
+    annotation (Line(points={{2,220},{18,220}}, color={255,127,0}));
   connect(intToRea.y, matMax.u)
-    annotation (Line(points={{41,220},{58,220}}, color={0,0,127}));
-  connect(booToInt.y, proInt.u1) annotation (Line(points={{-59,240},{-40,240},{
-          -40,226},{-22,226}},color={255,127,0}));
+    annotation (Line(points={{42,220},{58,220}}, color={0,0,127}));
+  connect(booToInt.y, proInt.u1) annotation (Line(points={{-58,240},{-40,240},{-40,
+          226},{-22,226}},    color={255,127,0}));
   connect(intEqu1.y, booToInt.u)
-    annotation (Line(points={{-99,240},{-82,240}}, color={255,0,255}));
-  connect(chiStaMatr.y, proInt.u2) annotation (Line(points={{-79,190},{-40,190},
+    annotation (Line(points={{-98,240},{-82,240}}, color={255,0,255}));
+  connect(chiStaMatr.y, proInt.u2) annotation (Line(points={{-78,190},{-40,190},
           {-40,214},{-22,214}}, color={255,127,0}));
-  connect(staIndx.y, intGre.u1) annotation (Line(points={{-219,130},{-200,130},
-          {-200,90},{-182,90}}, color={255,127,0}));
-  connect(intRep.y, intGre.u2) annotation (Line(points={{-279,240},{-260,240},{
-          -260,82},{-182,82}},
+  connect(staIndx.y, intGre.u1) annotation (Line(points={{-218,130},{-200,130},{
+          -200,90},{-182,90}},  color={255,127,0}));
+  connect(intRep.y, intGre.u2) annotation (Line(points={{-278,240},{-260,240},{-260,
+          82},{-182,82}},
                  color={255,127,0}));
-  connect(intGre.y, and2.u1) annotation (Line(points={{-159,90},{-150,90},{-150,
+  connect(intGre.y, and2.u1) annotation (Line(points={{-158,90},{-150,90},{-150,
           80},{-142,80}},color={255,0,255}));
   connect(uAva, and2.u2) annotation (Line(points={{-440,-80},{-280,-80},{-280,
           72},{-142,72}}, color={255,0,255}));
-  connect(staIndx.y, proInt1.u1) annotation (Line(points={{-219,130},{-70,130},
-          {-70,116},{-62,116}}, color={255,127,0}));
-  connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-79,80},{-70,80},{
-          -70,104},{-62,104}}, color={255,127,0}));
+  connect(staIndx.y, proInt1.u1) annotation (Line(points={{-218,130},{-70,130},{
+          -70,116},{-62,116}},  color={255,127,0}));
+  connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-78,80},{-70,80},{-70,
+          104},{-62,104}},     color={255,127,0}));
   connect(proInt1.y, intToRea1.u)
-    annotation (Line(points={{-39,110},{-22,110}}, color={255,127,0}));
-  connect(intToRea1.y, multiMin.u) annotation (Line(points={{1,110},{18,110}},
+    annotation (Line(points={{-38,110},{-22,110}}, color={255,127,0}));
+  connect(intToRea1.y, multiMin.u) annotation (Line(points={{2,110},{18,110}},
           color={0,0,127}));
-  connect(intRep.y, intLes.u2) annotation (Line(points={{-279,240},{-260,240},{
-          -260,-78},{-182,-78}}, color={255,127,0}));
-  connect(staIndx.y, intLes.u1) annotation (Line(points={{-219,130},{-200,130},
-          {-200,-70},{-182,-70}}, color={255,127,0}));
+  connect(intRep.y, intLes.u2) annotation (Line(points={{-278,240},{-260,240},{-260,
+          -78},{-182,-78}},      color={255,127,0}));
+  connect(staIndx.y, intLes.u1) annotation (Line(points={{-218,130},{-200,130},{
+          -200,-70},{-182,-70}},  color={255,127,0}));
   connect(uAva, and1.u2) annotation (Line(points={{-440,-80},{-280,-80},{-280,
           -98},{-142,-98}}, color={255,0,255}));
-  connect(intLes.y, and1.u1) annotation (Line(points={{-159,-70},{-150,-70},{
-          -150,-90},{-142,-90}}, color={255,0,255}));
+  connect(intLes.y, and1.u1) annotation (Line(points={{-158,-70},{-150,-70},{-150,
+          -90},{-142,-90}},      color={255,0,255}));
   connect(proInt2.y, intToRea3.u)
-    annotation (Line(points={{-39,-70},{-22,-70}}, color={255,127,0}));
-  connect(intToRea3.y, multiMax.u) annotation (Line(points={{1,-70},{18,-70}},
+    annotation (Line(points={{-38,-70},{-22,-70}}, color={255,127,0}));
+  connect(intToRea3.y, multiMax.u) annotation (Line(points={{2,-70},{18,-70}},
     color={0,0,127}));
-  connect(staIndx.y, proInt2.u1) annotation (Line(points={{-219,130},{-200,130},
+  connect(staIndx.y, proInt2.u1) annotation (Line(points={{-218,130},{-200,130},
           {-200,-40},{-70,-40},{-70,-64},{-62,-64}}, color={255,127,0}));
-  connect(booToInt2.y, proInt2.u2) annotation (Line(points={{-79,-90},{-70,-90},
+  connect(booToInt2.y, proInt2.u2) annotation (Line(points={{-78,-90},{-70,-90},
           {-70,-76},{-62,-76}}, color={255,127,0}));
   connect(multiMax.y, reaToInt1.u)
-    annotation (Line(points={{41,-70},{58,-70}}, color={0,0,127}));
+    annotation (Line(points={{42,-70},{58,-70}}, color={0,0,127}));
   connect(multiMin.y, reaToInt.u)
-    annotation (Line(points={{41,110},{58,110}}, color={0,0,127}));
+    annotation (Line(points={{42,110},{58,110}}, color={0,0,127}));
   connect(reaToInt.y, intGreThr.u)
-    annotation (Line(points={{81,110},{98,110}}, color={255,127,0}));
+    annotation (Line(points={{82,110},{98,110}}, color={255,127,0}));
   connect(intGreThr.y, intSwi.u2)
-    annotation (Line(points={{121,110},{178,110}}, color={255,0,255}));
-  connect(intGreThr.y, yHig) annotation (Line(points={{121,110},{140,110},{140,
-          40},{450,40}}, color={255,0,255}));
+    annotation (Line(points={{122,110},{178,110}}, color={255,0,255}));
+  connect(intGreThr.y, yHig) annotation (Line(points={{122,110},{140,110},{140,40},
+          {460,40}},     color={255,0,255}));
   connect(reaToInt1.y, intLesEquThr.u)
-    annotation (Line(points={{81,-70},{98,-70}}, color={255,127,0}));
+    annotation (Line(points={{82,-70},{98,-70}}, color={255,127,0}));
   connect(intLesEquThr.y, intSwi1.u2)
-    annotation (Line(points={{121,-70},{178,-70}}, color={255,0,255}));
-  connect(intLesEquThr.y, yLow) annotation (Line(points={{121,-70},{140,-70},{
-          140,-90},{340,-90},{340,-80},{450,-80}}, color={255,0,255}));
+    annotation (Line(points={{122,-70},{178,-70}}, color={255,0,255}));
+  connect(intLesEquThr.y, yLow) annotation (Line(points={{122,-70},{140,-70},{140,
+          -90},{340,-90},{340,-80},{460,-80}},     color={255,0,255}));
   connect(uAva, booToRea.u) annotation (Line(points={{-440,-80},{-280,-80},{
           -280,-150},{-242,-150}}, color={255,0,255}));
   connect(and2.y, booToInt1.u)
-    annotation (Line(points={{-119,80},{-102,80}}, color={255,0,255}));
-  connect(lesThr.y, intSwi2.u2) annotation (Line(points={{-139,-150},{0,-150},{
-          0,-210},{98,-210}}, color={255,0,255}));
+    annotation (Line(points={{-118,80},{-102,80}}, color={255,0,255}));
+  connect(lesThr.y, intSwi2.u2) annotation (Line(points={{-138,-150},{0,-150},{0,
+          -210},{98,-210}},   color={255,0,255}));
   connect(intGreThr.y, and4.u1)
-    annotation (Line(points={{121,110},{150,110},{
-          150,80},{218,80}},      color={255,0,255}));
+    annotation (Line(points={{122,110},{140,110},{140,80},{218,80}},
+                                  color={255,0,255}));
   connect(lesThr.y, and4.u2)
-    annotation (Line(points={{-139,-150},{210,-150},{
-          210,72},{218,72}},                                   color={255,0,255}));
+    annotation (Line(points={{-138,-150},{210,-150},{210,72},{218,72}},
+                                                               color={255,0,255}));
   connect(and4.y, intSwi3.u2)
-    annotation (Line(points={{241,80},{358,80}}, color={255,0,255}));
+    annotation (Line(points={{242,80},{358,80}}, color={255,0,255}));
   connect(yUp, yUp)
-    annotation (Line(points={{450,80},{450,80}}, color={255,127,0}));
+    annotation (Line(points={{460,80},{460,80}}, color={255,127,0}));
   connect(uAva, mulOr.u) annotation (Line(points={{-440,-80},{-400,-80},{-400,-130},
           {-392,-130},{-392,-130},{-382,-130}}, color={255,0,255}));
   connect(mulOr.y, cheStaAva1.u)
-    annotation (Line(points={{-358.3,-130},{-342,-130}}, color={255,0,255}));
+    annotation (Line(points={{-358,-130},{-342,-130}},   color={255,0,255}));
   connect(booToRea.y, extStaAva.u)
-    annotation (Line(points={{-219,-150},{-202,-150}}, color={0,0,127}));
+    annotation (Line(points={{-218,-150},{-202,-150}}, color={0,0,127}));
   connect(extStaAva.y, lesThr.u)
-    annotation (Line(points={{-179,-150},{-162,-150}}, color={0,0,127}));
+    annotation (Line(points={{-178,-150},{-162,-150}}, color={0,0,127}));
   connect(and1.y, booToInt2.u)
-    annotation (Line(points={{-119,-90},{-102,-90}}, color={255,0,255}));
+    annotation (Line(points={{-118,-90},{-102,-90}}, color={255,0,255}));
   connect(u, intRep.u) annotation (Line(points={{-440,80},{-320,80},{-320,240},
           {-302,240}}, color={255,127,0}));
   connect(u, extStaAva.index) annotation (Line(points={{-440,80},{-300,80},{
           -300,-180},{-190,-180},{-190,-162}}, color={255,127,0}));
-  connect(conInt.y, intSwi1.u1) annotation (Line(points={{121,-30},{160,-30},{
-          160,-62},{178,-62}}, color={255,127,0}));
-  connect(intSwi1.y, yDown) annotation (Line(points={{201,-70},{320,-70},{320,
-          -40},{450,-40}}, color={255,127,0}));
-  connect(intSwi1.y, intSwi2.u1) annotation (Line(points={{201,-70},{220,-70},{
-          220,-160},{80,-160},{80,-202},{98,-202}}, color={255,127,0}));
-  connect(intSwi2.y, y) annotation (Line(points={{121,-210},{380,-210},{380,
-          -160},{450,-160}}, color={255,127,0}));
-  connect(intSwi2.y, intSwi3.u1) annotation (Line(points={{121,-210},{350,-210},
+  connect(conInt.y, intSwi1.u1) annotation (Line(points={{122,-30},{160,-30},{160,
+          -62},{178,-62}},     color={255,127,0}));
+  connect(intSwi1.y, yDown) annotation (Line(points={{202,-70},{320,-70},{320,-40},
+          {460,-40}},      color={255,127,0}));
+  connect(intSwi1.y, intSwi2.u1) annotation (Line(points={{202,-70},{220,-70},{220,
+          -160},{80,-160},{80,-202},{98,-202}},     color={255,127,0}));
+  connect(intSwi2.y, y) annotation (Line(points={{122,-210},{380,-210},{380,-160},
+          {460,-160}},       color={255,127,0}));
+  connect(intSwi2.y, intSwi3.u1) annotation (Line(points={{122,-210},{350,-210},
           {350,88},{358,88}}, color={255,127,0}));
   connect(u, intSwi2.u3) annotation (Line(points={{-440,80},{-300,80},{-300,
           -218},{98,-218}}, color={255,127,0}));
-  connect(intSwi.y, intSwi3.u3) annotation (Line(points={{201,110},{340,110},{
-          340,72},{358,72}}, color={255,127,0}));
+  connect(intSwi.y, intSwi3.u3) annotation (Line(points={{202,110},{340,110},{340,
+          72},{358,72}},     color={255,127,0}));
   connect(u, intSwi.u1) annotation (Line(points={{-440,80},{-300,80},{-300,160},
           {160,160},{160,118},{178,118}}, color={255,127,0}));
-  connect(reaToInt.y, intSwi.u3) annotation (Line(points={{81,110},{90,110},{90,
-          90},{170,90},{170,102},{178,102}}, color={255,127,0}));
-  connect(reaToInt1.y, intSwi1.u3) annotation (Line(points={{81,-70},{90,-70},{
-          90,-100},{170,-100},{170,-78},{178,-78}}, color={255,127,0}));
+  connect(reaToInt.y, intSwi.u3) annotation (Line(points={{82,110},{90,110},{90,
+          90},{160,90},{160,102},{178,102}}, color={255,127,0}));
+  connect(reaToInt1.y, intSwi1.u3) annotation (Line(points={{82,-70},{90,-70},{90,
+          -100},{170,-100},{170,-78},{178,-78}},    color={255,127,0}));
   connect(intSwi3.y, yUp)
-    annotation (Line(points={{381,80},{450,80}}, color={255,127,0}));
+    annotation (Line(points={{382,80},{460,80}}, color={255,127,0}));
   annotation (defaultComponentName = "sta",
         Icon(graphics={
         Rectangle(

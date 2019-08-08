@@ -5,7 +5,7 @@ annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains control sequences for primary HVAC systems. They are
-developed according to ASHRAE RP-1711, Draft 4, January 7 2019.
+developed according to ASHRAE RP-1711, Draft 4, January 7 2019 and Draft 5, March 26 2019.
 </p>
 </html>"),
 Icon(graphics={
