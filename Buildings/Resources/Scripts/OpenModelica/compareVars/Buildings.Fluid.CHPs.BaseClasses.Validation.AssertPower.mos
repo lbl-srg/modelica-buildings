@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "assPow.assMesP.u",
+    "assPow.assMesDP.u"
+  };

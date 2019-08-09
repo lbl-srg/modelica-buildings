@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.EngineConVol", method="dassl", stopTime=1500, tolerance=1e-06, resultFile="EngineConVol");
+createPlot(id=1, position={400, 0, 500, 400}, y={"eng.TEng"}, grid=true, colors={{28,108,200}});
+

@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.AssertWatMas", method="dassl", stopTime=900, tolerance=1e-06, resultFile="AssertWatMas");
+createPlot(id=1, position={400, 0, 500, 400}, y={"assWatMas.assMes.u"}, grid=true, colors={{28,108,200}});

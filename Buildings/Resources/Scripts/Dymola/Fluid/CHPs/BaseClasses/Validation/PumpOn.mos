@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.PumpOn", method="dassl", stopTime=600, tolerance=1e-06, resultFile="PumpOn");
+createPlot(id=1, position={400, 0, 500, 400}, y={"actMod"}, grid=true, colors={{28,108,200}});
