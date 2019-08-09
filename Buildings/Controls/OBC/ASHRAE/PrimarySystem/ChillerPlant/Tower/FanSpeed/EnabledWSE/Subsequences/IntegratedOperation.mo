@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences;
 block IntegratedOperation
   "Tower fan speed control when the waterside economizer is enabled and the chillers are running"
 
@@ -23,8 +23,8 @@ block IntegratedOperation
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
-    each final unit="W",
-    each final quantity="Power") "Current load of each chiller"
+    final unit=fill("W", nChi),
+    final quantity=fill("Power", nChi)) "Current load of each chiller"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
@@ -47,7 +47,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
-    each final k=0) "Zero constant"
+    final k=fill(0, nChi)) "Zero constant"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID loaCon(
     final controllerType=conTyp,
@@ -74,10 +74,6 @@ protected
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nChi) "Logical or"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Check if WSE is enabled and any chiller is running"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Not in the integrated operation"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin
     "Output the value of the input x along a line specified by two points"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
@@ -104,9 +100,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer intOpeTim
     "Count the time after plant switching from WSE-only mode to integrated operation mode"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(final
-      threshold=600)           "Check if it is 10 minutes after mode switch"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
+    final threshold=600)   "Check if it is 10 minutes after mode switch"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg "Output true when input becomes false"
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
 equation
   connect(uChi, swi.u2)
@@ -127,18 +127,9 @@ equation
     annotation (Line(points={{62,100},{78,100}}, color={0,0,127}));
   connect(div1.y, loaCon.u_m)
     annotation (Line(points={{62,60},{90,60},{90,88}}, color={0,0,127}));
-  connect(mulOr.y, and2.u1)
-    annotation (Line(points={{-98,20},{-62,20}},   color={255,0,255}));
-  connect(uWSE, and2.u2)
-    annotation (Line(points={{-180,0},{-80,0},{-80,12},{-62,12}}, color={255,0,255}));
-  connect(and2.y, not1.u)
-    annotation (Line(points={{-38,20},{-22,20}}, color={255,0,255}));
-  connect(not1.y, loaCon.trigger)
-    annotation (Line(points={{2,20},{82,20},{82,88}}, color={255,0,255}));
   connect(loaCon.y, lin.u)
-    annotation (Line(points={{102,100},{120,100},{120,0},{40,0},{40,-40},{58,
-          -40}},
-      color={0,0,127}));
+    annotation (Line(points={{102,100},{120,100},{120,0},{40,0},{40,-40},
+      {58,-40}}, color={0,0,127}));
   connect(zer1.y, lin.x1)
     annotation (Line(points={{22,-20},{30,-20},{30,-32},{58,-32}}, color={0,0,127}));
   connect(minTowSpe.y, lin.f1)
@@ -148,9 +139,9 @@ equation
   connect(one.y, lin.x2)
     annotation (Line(points={{-18,-60},{-10,-60},{-10,-44},{58,-44}}, color={0,0,127}));
   connect(mulOr.y, edg.u)
-    annotation (Line(points={{-98,20},{-90,20},{-90,-140},{-62,-140}},   color={255,0,255}));
+    annotation (Line(points={{-98,20},{-90,20},{-90,-140},{-62,-140}}, color={255,0,255}));
   connect(uWSE, and1.u1)
-    annotation (Line(points={{-180,0},{-80,0},{-80,-120},{-2,-120}}, color={255,0,255}));
+    annotation (Line(points={{-180,0},{-70,0},{-70,-120},{-2,-120}}, color={255,0,255}));
   connect(edg.y, and1.u2)
     annotation (Line(points={{-38,-140},{-20,-140},{-20,-128},{-2,-128}}, color={255,0,255}));
   connect(and1.y, lat.u)
@@ -179,6 +170,18 @@ equation
   connect(uChi, mulOr.u)
     annotation (Line(points={{-180,100},{-140,100},{-140,20},{-122,20}},
       color={255,0,255}));
+  connect(lat.y, falEdg.u)
+    annotation (Line(points={{62,-120},{70,-120},{70,-80},{-140,-80},{-140,-60},
+      {-122,-60}}, color={255,0,255}));
+  connect(mulOr.y, and3.u1)
+    annotation (Line(points={{-98,20},{-90,20},{-90,28},{-62,28}}, color={255,0,255}));
+  connect(falEdg.y, and3.u2)
+    annotation (Line(points={{-98,-60},{-80,-60},{-80,20},{-62,20}},
+      color={255,0,255}));
+  connect(uWSE, and3.u3)
+    annotation (Line(points={{-180,0},{-70,0},{-70,12},{-62,12}}, color={255,0,255}));
+  connect(and3.y, loaCon.trigger)
+    annotation (Line(points={{-38,20},{82,20},{82,88}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="wseTowSpeIntOpe",
@@ -193,6 +196,44 @@ annotation (
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
           textString="%name")}),
-                          Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-160,-160},{160,160}})));
+  Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-160,-160},{160,160}})),
+Documentation(info="<html>
+<p>
+Block that output cooling tower fan speed <code>yTowSpe</code> when both waterside 
+economizer and chillers are enabled, i.e. integrated operation. This is implemented 
+according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, 
+item 4.a.
+</p>
+<p>
+When the waterside economizer is enabled (<code>uWSE=true</code>) and chillers
+are running (<code>uChi=true</code>):
+</p>
+<ol>
+<li>
+Fan speed shall be equal to waterside economizer tower maximum speed.
+</li>
+<li>
+The waterside economizer tower maximum speed shall be reset by a direct acting PID
+loop maintaining the chiller load at the sum of minimum cyclining load for the operating
+chillers. Map the tower maximum speed from minimum speed <code>minSpe</code> at
+0% loop output to 100% speed at 100% loop output. Bias the loop to launch from 
+100% output.
+</li>
+<li>
+When starting integrated operation after previously operating with only the waterside
+economizer, hold the tower maximum speed at 100% for 10 minutes to give the chiller
+time to get up to speed and produce at lease minimum cyclining load, then enable 
+the loop.
+</li>
+</ol>
+</html>", revisions="<html>
+<ul>
+<li>
+August 9, 2019, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end IntegratedOperation;
