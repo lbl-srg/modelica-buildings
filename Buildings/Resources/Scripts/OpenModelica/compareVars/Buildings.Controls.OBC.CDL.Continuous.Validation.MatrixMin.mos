@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "matMin.y[1]",
+    "matMin.y[2]",
+    "matMin.y[3]",
+    "matMin1.y[1]",
+    "matMin1.y[2]",
+    "matMin1.y[3]",
+    "matMin2.y[1]",
+    "matMin2.y[2]"
+  };

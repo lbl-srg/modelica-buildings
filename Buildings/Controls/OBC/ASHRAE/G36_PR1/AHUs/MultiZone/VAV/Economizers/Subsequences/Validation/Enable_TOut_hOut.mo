@@ -141,8 +141,8 @@ equation
   connect(outDamPosMax.y, enaDis2.uOutDamPosMax)
     annotation (Line(points={{-219,-70},{178,-70},{178,-32},{219,-32}}, color={0,0,127}));
   connect(outDamPosMin.y, enaDis2.uOutDamPosMin)
-    annotation (Line(points={{-219,-110},{-180,-110},{-180,-70},{188,-70},{188,-38},{188,-34},{219,-34}},
-      color={0,0,127}));
+    annotation (Line(points={{-219,-110},{-180,-110},{-180,-70},{188,-70},
+      {188,-34},{219,-34}}, color={0,0,127}));
   connect(retDamPhyPosMax.y, enaDis2.uRetDamPhyPosMax)
     annotation (Line(points={{-139,-110},{192,-110},{192,-36},{219,-36}}, color={0,0,127}));
   connect(retDamPosMax.y, enaDis2.uRetDamPosMax)
@@ -158,7 +158,8 @@ equation
   connect(supFanSta.y, enaDis2.uSupFan)
     annotation (Line(points={{-179,-32},{-160,-32},{-160,-12},{140,-12},{140,-28},{219,-28}},
     color={255,0,255}));
-  annotation (
+
+annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/Economizers/Subsequences/Validation/Enable_TOut_hOut.mos"
     "Simulate and plot"),
@@ -184,22 +185,19 @@ equation
                       TOut > 75 degF [24 degC]
                       hOut > 28 Btu/lb [65.1 kJ/kg]"),
         Text(
-          extent={{-82,-40},{42,-68}},
+          extent={{-82,-40},{14,-66}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests temperature hysteresis"),
         Text(
-          extent={{80,-40},{208,-68}},
+          extent={{80,-40},{166,-66}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests enthalpy hysteresis"),
         Text(
-          extent={{220,-46},{348,-74}},
+          extent={{204,-46},{272,-68}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="No enthalpy
 sensor")}),
 Documentation(info="<html>

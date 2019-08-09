@@ -75,7 +75,8 @@ equation
           preserveAspectRatio=false)),
    Documentation(info="<html>
 <p>
-This block outputs the zone state.  
+This block outputs the zone state.
+</p>
 <ul>
 <li>
 The zone state is heating if the heating control signal is nonzero.
@@ -87,7 +88,6 @@ The zone state is cooling if the cooling control signal is nonzero.
 The zone state is deadband otherwise.
 </li>
 </ul>
-</p>
 </html>",revisions="<html>
 <ul>
 <li>

@@ -3,7 +3,8 @@ block IndexMassFraction
   "Computes the index of a substance in the mass fraction vector Xi"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-      annotation (choicesAllMatching = true);
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
   parameter String substanceName="" "Name of species substance";
 
 protected
@@ -35,6 +36,11 @@ to obtain the water vapor concentration, or to measure any other mass fraction.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Revised the model and added the parameter <code>substanceName</code>.

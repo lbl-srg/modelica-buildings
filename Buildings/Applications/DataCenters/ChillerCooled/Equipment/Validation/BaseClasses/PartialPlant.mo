@@ -17,14 +17,8 @@ partial model PartialPlant
   parameter Modelica.SIunits.PressureDifference dpCW_nominal = 40000
     "Nominal pressure";
   parameter Integer numChi=1 "Number of chillers";
-  parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPum(
-    each pressure=
-          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-          V_flow=mCHW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
-          dp=dpCHW_nominal*{1.2,1.1,1.0,0.6})) "Pump performance data"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = MediumCW)
     "Sink on medium 1 side"
     annotation (Placement(
@@ -47,8 +41,8 @@ partial model PartialPlant
     offset=0,
     startTime=0)
     "Condenser inlet temperature"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+  Buildings.Fluid.Sources.Boundary_pT sin2(
     nPorts=1,
     redeclare package Medium = MediumCHW)
     "Sink on medium 2 side"
@@ -63,20 +57,23 @@ partial model PartialPlant
   Modelica.Blocks.Sources.Constant TSet(
     k(unit="K",displayUnit="degC")=273.15+15.56)
     "Leaving chilled water temperature setpoint"
-    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort TSup(
-    redeclare package Medium = MediumCHW,
-    m_flow_nominal=mCHW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TSup1(redeclare package Medium =
+        MediumCHW, m_flow_nominal=mCHW_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-40,-54},{-60,-34}})));
+  Modelica.Blocks.Sources.BooleanStep onChi(startTime=7200)
+    "On and off signal for the chiller"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Modelica.Blocks.Sources.BooleanStep onWSE(startTime=14400, startValue=true)
+    "On and off signal for the WSE"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 equation
   connect(TCon_in.y,sou1. T_in)
-    annotation (Line(points={{-69,0},{-72,0},{-62,0}},
+    annotation (Line(points={{-79,0},{-62,0}},
       color={0,0,127}));
-  connect(sin2.ports[1], TSup.port_b)
-    annotation (Line(points={{-70,-70},{-68,-70},{-68,-70},{-64,-70},{-64,-44},
-          {-60,-44}},
-      color={0,127,255}));
+  connect(sin2.ports[1], TSup1.port_b) annotation (Line(points={{-70,-70},{-68,
+          -70},{-68,-70},{-64,-70},{-64,-44},{-60,-44}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This is a partial model for the examples in

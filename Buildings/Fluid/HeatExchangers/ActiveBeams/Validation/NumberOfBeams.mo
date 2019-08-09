@@ -8,7 +8,7 @@ model NumberOfBeams
 
   parameter Integer nBeams(min=1) = 10 "Number of beams";
 
-  Buildings.Fluid.Sources.FixedBoundary sin_1(
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = MediumW,
     nPorts=2) "Sink for chilled water"
     annotation (Placement(transformation(extent={{80,70},{60,90}})));
@@ -19,11 +19,11 @@ model NumberOfBeams
     m_flow=0.0792,
     T=285.85) "Source for air"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Buildings.Fluid.Sources.FixedBoundary sin_3(
+  Buildings.Fluid.Sources.Boundary_pT sin_3(
     redeclare package Medium = MediumA,
     nPorts=2)
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Fluid.Sources.FixedBoundary sou_1(
+  Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = MediumW,
     nPorts=2,
     T=288.15) "Source for chilled water"
@@ -36,11 +36,11 @@ model NumberOfBeams
     use_inputFilter=false,
     nominalValuesDefineDefaultPressureCurve=true) "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Fluid.Sources.FixedBoundary sou_2(
+  Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = MediumW,
     nPorts=2,
     T=320.95) "Source for hot water" annotation (Placement(transformation(extent={{-120,28},{-100,48}})));
-  Buildings.Fluid.Sources.FixedBoundary sin_2(
+  Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = MediumW,
     nPorts=2) "Sink for hot water"
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
@@ -198,6 +198,11 @@ one with
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 June 14, 2016, by Michael Wetter:<br/>
 Revised implementation.

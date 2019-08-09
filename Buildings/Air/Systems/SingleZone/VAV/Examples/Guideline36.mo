@@ -7,7 +7,7 @@ model Guideline36
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
   Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller controller(
-    have_occSen=false,
+    have_occSen=true,
     yHeaMax=1,
     AFlo=48,
     VOutMin_flow=6e-3,
@@ -55,10 +55,10 @@ equation
   connect(hysChiPla.y, hvac.chiOn) annotation (Line(points={{-51,-110},{-48,
           -110},{-48,-10},{-42,-10}}, color={255,0,255}));
   connect(weaBus.TDryBul, controller.TOut) annotation (Line(
-      points={{-36,80},{-36,60},{-140,60},{-140,20},{-122,20}},
+      points={{-30,80},{-30,60},{-140,60},{-140,20},{-122,20}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
@@ -87,14 +87,12 @@ equation
           -48,5},{-48,4},{-58,4},{-58,-16},{-79,-16}}, color={0,0,127}));
   connect(hvac.TRet, controller.TCut) annotation (Line(points={{1,-6},{12,-6},{
           12,-48},{-132,-48},{-132,4},{-122,4}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-160,-160},{120,140}})), Icon(
-        coordinateSystem(extent={{-160,-160},{120,140}})),
+  annotation (Diagram(coordinateSystem(extent={{-200,-160},{120,100}})),
     experiment(
       StartTime=103680000,
       StopTime=104544000,
       Interval=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/Guideline36.mos"
         "Simulate and plot"),
       Documentation(info="<html>

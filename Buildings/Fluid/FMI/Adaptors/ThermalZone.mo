@@ -2,8 +2,10 @@ within Buildings.Fluid.FMI.Adaptors;
 model ThermalZone
   "Adaptor for connecting a thermal zone to signal ports which then can be exposed at an FMI interface"
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium model within the source" annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
   // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones
@@ -132,7 +134,8 @@ First implementation.
 
     replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
-     annotation (choicesAllMatching=true);
+     annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
     Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi](each final unit="kg/kg") if
       Medium.nXi > 0 "Water vapor concentration in kg/kg total air"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -160,7 +163,12 @@ First implementation.
   X_w_internal = sum(Xi_internal);
   connect( X_w, X_w_internal)
   annotation (Documentation(revisions="<html>
-<ul>
+  <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Removed wrong usage of <code>each</code> keyword.
@@ -375,6 +383,11 @@ for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 June 29, 2016, by Michael Wetter:<br/>
 Revised implementation and documentation.

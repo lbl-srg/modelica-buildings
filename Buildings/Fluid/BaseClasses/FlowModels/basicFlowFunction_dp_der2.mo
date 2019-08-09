@@ -30,7 +30,7 @@ algorithm
                      + (-3.375 + 3.125*dpNormSq)*dpNorm/dp_turbulent*dp_der^2);
 
  annotation (smoothOrder=0,
- Inline=true,
+ Inline=false,
 Documentation(info="<html>
 <p>
 Function that implements the second order derivative of
@@ -41,6 +41,11 @@ with respect to the mass flow rate.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 4, 2019, by Michael Wetter:<br/>
+Set `Inline=false`.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1070\">#1070</a>.
+</li>
 <li>
 May 1, 2017, by Filip Jorissen:<br/>
 Revised implementation such that

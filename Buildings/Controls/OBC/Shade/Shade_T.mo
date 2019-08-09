@@ -9,16 +9,14 @@ block Shade_T "Shade controller with temperature as input"
 
   CDL.Interfaces.RealInput T(final unit = "K")
     "Measured temperature"
-    annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
-    iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   CDL.Interfaces.RealOutput y(
     final min = 0,
     final max = 1,
     unit="1")
     "Control signal"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}}),
-    iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   CDL.Continuous.Hysteresis hys(
@@ -31,14 +29,15 @@ protected
 
 equation
   connect(T, hys.u)
-    annotation (Line(points={{-100,0},{-42,0}}, color={0,0,127}));
+    annotation (Line(points={{-120,0},{-42,0}}, color={0,0,127}));
   connect(hys.y, booToRea.u)
-    annotation (Line(points={{-19,0},{18,0}},
+    annotation (Line(points={{-18,0},{18,0}},
                                             color={255,0,255}));
-  connect(booToRea.y, y) annotation (Line(points={{41,0},{90,0}}, color={0,0,127}));
+  connect(booToRea.y, y) annotation (Line(points={{42,0},{120,0}},color={0,0,127}));
   annotation (
         defaultComponentName = "shaT",
-        Icon(graphics={
+        Icon(coordinateSystem(extent={{-100,-80},{100,100}}),
+             graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
@@ -82,7 +81,7 @@ equation
         Line(points={{41,-29},{41,-49}}, color={192,192,192})}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-80,-80},{80,80}},
+        extent={{-100,-100},{100,100}},
         initialScale=0.05)),
 Documentation(info="<html>
 <p>

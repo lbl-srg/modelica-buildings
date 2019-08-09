@@ -181,7 +181,8 @@ protected
   parameter Real splitFactorSolRad[dimension, nOrientations]=
     BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin)
     "Share of each wall surface area that is non-zero, for each orientation separately";
-  Modelica.Thermal.HeatTransfer.Components.Convection convExtWall if ATotExt > 0
+  Modelica.Thermal.HeatTransfer.Components.Convection convExtWall(dT(start=0)) if
+                                                                     ATotExt > 0
     "Convective heat transfer of exterior walls"
     annotation (Placement(transformation(extent={{-114,-30},{-94,-50}})));
   Modelica.Blocks.Sources.Constant alphaExtWallConst(
@@ -468,6 +469,10 @@ The image below shows the RC-network of this model.
   </html>",
 revisions="<html>
   <ul>
+  <li>
+  January 25, 2019, by Michael Wetter:<br/>
+  Added start value to avoid warning in JModelica.
+  </li>
   <li>
   September 26, 2016, by Moritz Lauster:<br/>
   Added conditional statements to solar radiation part.<br/>

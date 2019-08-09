@@ -3,7 +3,8 @@ model GasConvection
   "Model for heat convection through gas in a window assembly"
   extends Modelica.Thermal.HeatTransfer.Interfaces.Element1D(
      port_a(T(start=293.15)),
-     port_b(T(start=293.15)));
+     port_b(T(start=293.15)),
+     dT(start=0));
   extends Buildings.BaseClasses.BaseIcon;
   parameter Buildings.HeatTransfer.Data.Gases.Generic gas
     "Thermophysical properties of gas fill"

@@ -34,7 +34,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     T=295.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection theConWall
+  Modelica.Thermal.HeatTransfer.Components.Convection theConWall(
+    dT(start=0))
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
@@ -170,8 +171,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Logical.Timer timer
     "Timer since the control mode changed"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
-  Modelica.Blocks.Logical.LessEqualThreshold thr(threshold=60)
-    "Threshold to measure 60 seconds"
+  Modelica.Blocks.Logical.LessEqualThreshold thr(threshold=120)
+    "Skip the first 120 seconds of the day for comparison with reference values"
     annotation (Placement(transformation(extent={{100,120},{120,140}})));
   Modelica.Blocks.Logical.Change cha
     "Outputs true if the input changes"
@@ -277,6 +278,10 @@ equation
   floor heating.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  January 25, 2019, by Michael Wetter:<br/>
+  Added start value to avoid warning in JModelica.
+  </li>
   <li>
   July 7, 2016, by Moritz Lauster:<br/>
   Added automatic check against validation thresholds and changes threshold to hysteresis.

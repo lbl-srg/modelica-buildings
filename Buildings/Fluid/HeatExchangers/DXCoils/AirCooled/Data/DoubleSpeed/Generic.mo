@@ -8,9 +8,9 @@ record Generic "Generic data record for DoubleSpeed DXCoils"
     Documentation(info="<html>
 <p>
 This record is used as a template for performance data
-for the double speed air-cooled DX coils
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.DoubleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.DoubleSpeed</a>.
+for the air-cooled DX coils
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</a> with double speed.
 </p>
 </html>",
         revisions="<html>

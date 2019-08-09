@@ -33,7 +33,7 @@ block Enable
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
-    iconTransformation(extent={{-120,90},{-100,110}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
@@ -89,22 +89,22 @@ block Enable
     final max=1,
     final unit="1")
     "Maximum outdoor air damper position"
-    annotation (Placement(transformation(extent={{180,-150},{200,-130}}),
-      iconTransformation(extent={{100,28},{140,68}})));
+    annotation (Placement(transformation(extent={{180,-160},{220,-120}}),
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMin(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
     final unit="1")
     "Minimum return air damper position"
-    annotation (Placement(transformation(extent={{180,-250},{200,-230}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+    annotation (Placement(transformation(extent={{180,-260},{220,-220}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPosMax(
     final min=retDamPhyPosMin,
     final max=retDamPhyPosMax,
     final unit="1")
     "Maximum return air damper position"
-     annotation (Placement(transformation(
-      extent={{180,-220},{200,-200}}), iconTransformation(extent={{100,-40},{140,0}})));
+     annotation (Placement(transformation(extent={{180,-230},{220,-190}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.And3 andEnaDis
     "Logical and that checks freeze protection stage and zone state"
@@ -194,7 +194,7 @@ protected
     annotation (Placement(transformation(extent={{18,244},{38,264}})));
 equation
   connect(outDamSwitch.y, yOutDamPosMax)
-    annotation (Line(points={{61,-140},{61,-140},{190,-140}}, color={0,0,127}));
+    annotation (Line(points={{62,-140},{200,-140}},           color={0,0,127}));
   connect(TOut, add1.u1)
     annotation (Line(points={{-200,270},{-160,270},{-160,260},{-142,260}},color={0,0,127}));
   connect(TCut, add1.u2) annotation (Line(points={{-200,240},{-160,240},{-160,248},
@@ -216,15 +216,15 @@ equation
     annotation (Line(points={{-39,180},{16,180}},
     color={255,0,255}));
   connect(uOutDamPosMin, outDamSwitch.u1)
-    annotation (Line(points={{-200,-160},{-120,-160},{-60,-160},{-60,-132},{38,-132}},
+    annotation (Line(points={{-200,-160},{-60,-160},{-60,-132},{38,-132}},
     color={0,0,127}));
   connect(uOutDamPosMax, outDamSwitch.u3)
     annotation (Line(points={{-200,-130},{-80,-130},{-80,-148},{38,-148}}, color={0,0,127}));
   connect(andEnaDis.y, not2.u)
-    annotation (Line(points={{61,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}},
+    annotation (Line(points={{62,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}},
     color={255,0,255}));
   connect(minRetDamSwitch.y, yRetDamPosMin)
-    annotation (Line(points={{61,-240},{100,-240},{146,-240},{190,-240}}, color={0,0,127}));
+    annotation (Line(points={{62,-240},{200,-240}},  color={0,0,127}));
   connect(truFalHol.y, and1.u1)
     annotation (Line(points={{145,224},{164,224},{164,130},{-26,130},{-26,110},{
           2,110}},
@@ -234,27 +234,27 @@ equation
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{2,102}},  color={255,0,255}));
   connect(retDamPhyPosMaxSig.y, minRetDamSwitch.u1)
-    annotation (Line(points={{-119,-210},{-4,-210},{-4,-232},{38,-232}}, color={0,0,127}));
+    annotation (Line(points={{-118,-210},{-4,-210},{-4,-232},{38,-232}}, color={0,0,127}));
   connect(retDamPhyPosMinSig.y, minRetDamSwitch.u3)
-    annotation (Line(points={{-119,-248},{0,-248},{38,-248}}, color={0,0,127}));
+    annotation (Line(points={{-118,-248},{38,-248}},  color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, yRetDamPosMax)
-    annotation (Line(points={{-119,-210},{190,-210}}, color={0,0,127}));
+    annotation (Line(points={{-118,-210},{200,-210}}, color={0,0,127}));
   connect(not2.y, minRetDamSwitch.u2)
-    annotation (Line(points={{11,-60},{16,-60},{16,-240},{38,-240}}, color={255,0,255}));
+    annotation (Line(points={{12,-60},{16,-60},{16,-240},{38,-240}}, color={255,0,255}));
   connect(not2.y, outDamSwitch.u2)
-    annotation (Line(points={{11,-60},{28,-60},{28,-140},{38,-140}}, color={255,0,255}));
+    annotation (Line(points={{12,-60},{28,-60},{28,-140},{38,-140}}, color={255,0,255}));
   connect(conInt.y,intEqu. u2)
-    annotation (Line(points={{-99,40},{-92,40},{-92,52},{-82,52}}, color={255,127,0}));
+    annotation (Line(points={{-98,40},{-92,40},{-92,52},{-82,52}}, color={255,127,0}));
   connect(conInt1.y,intEqu1. u2)
-    annotation (Line(points={{-99,-20},{-90,-20},{-90,-8},{-82,-8}}, color={255,127,0}));
+    annotation (Line(points={{-98,-20},{-90,-20},{-90,-8},{-82,-8}}, color={255,127,0}));
   connect(intEqu1.y,not3. u)
-    annotation (Line(points={{-59,0},{-46,0}}, color={255,0,255}));
+    annotation (Line(points={{-58,0},{-46,0}}, color={255,0,255}));
   connect(uZonSta, intEqu1.u1)
     annotation (Line(points={{-200,-10},{-140,-10},{-140,0},{-82,0}}, color={255,127,0}));
   connect(uFreProSta, intEqu.u1)
     annotation (Line(points={{-200,50},{-140,50},{-140,60},{-82,60}}, color={255,127,0}));
   connect(intEqu.y, andEnaDis.u2)
-    annotation (Line(points={{-59,60},{-10,60},{-10,40},{38,40}}, color={255,0,255}));
+    annotation (Line(points={{-58,60},{-10,60},{-10,40},{38,40}}, color={255,0,255}));
   connect(not3.y, andEnaDis.u3)
     annotation (Line(points={{-23,0},{8,0},{8,32},{38,32}}, color={255,0,255}));
   connect(TRet, add3.u2) annotation (Line(points={{-200,210},{-160,210},{-160,204},
@@ -393,7 +393,7 @@ The following state machine chart illustrates the transitions between enabling a
 </p>
 <p align=\"center\">
 <img alt=\"Image of economizer enable-disable state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/EconEnableDisableStateMachineChartSingleZone.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/EconEnableDisableStateMachineChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

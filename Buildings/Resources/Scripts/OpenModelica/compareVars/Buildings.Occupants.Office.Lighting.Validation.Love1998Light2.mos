@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "lig.ill",
+    "lig.occ",
+    "lig.p",
+    "lig.on"
+  };

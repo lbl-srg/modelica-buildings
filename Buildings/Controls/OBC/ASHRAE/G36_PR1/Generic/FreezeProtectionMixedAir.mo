@@ -8,36 +8,31 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
 
   parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
 
-parameter Modelica.SIunits.Time Td=0.1
+  parameter Modelica.SIunits.Time Td=0.1
   "Time constant of derivative block"
   annotation (Dialog(
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
         or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-
   parameter Modelica.SIunits.Temperature TFreSet = 279.15
     "Lower limit for mixed air temperature for freeze protection";
-
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Mixed air temperature measurement"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-    iconTransformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFrePro(
     final unit="1",
     final min=0,
     final max=1) "Freeze protection control signal, 0 if no frost, 1 if TMix below TFreSet"
-    annotation (Placement(transformation(
-    extent={{100,-40},{120,-20}}), iconTransformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFreProInv(
     final unit="1",
     final min=0,
     final max=1) "Inverse freeze protection control signal, 1 if no frost, 0 if TMix below TFreSet"
-    annotation (Placement(transformation(extent={{100,20},{120,40}}),
-      iconTransformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,10},{140,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID con(
     final controllerType=controllerType,
@@ -59,14 +54,14 @@ protected
 
 equation
   connect(con.u_s, setPoi.y)
-    annotation (Line(points={{-22,30},{-39,30}}, color={0,0,127}));
+    annotation (Line(points={{-22,30},{-38,30}}, color={0,0,127}));
   connect(yOut.y, yFreProInv)
-    annotation (Line(points={{81,30},{110,30}}, color={0,0,127}));
+    annotation (Line(points={{82,30},{120,30}}, color={0,0,127}));
   connect(TMix, con.u_m)
     annotation (Line(points={{-120,0},{-10,0},{-10,18}}, color={0,0,127}));
-  connect(con.y, yFrePro) annotation (Line(points={{1,30},{30,30},{30,-30},{110,
+  connect(con.y, yFrePro) annotation (Line(points={{2,30},{30,30},{30,-30},{120,
           -30}}, color={0,0,127}));
-  connect(con.y, yOut.u) annotation (Line(points={{1,30},{30,30},{30,30},{58,30}},
+  connect(con.y, yOut.u) annotation (Line(points={{2,30},{30,30},{30,30},{58,30}},
         color={0,0,127}));
   annotation (Dialog(
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI

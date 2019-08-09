@@ -1,4 +1,4 @@
-last-generated=2018-06-24
+last-generated=2019-01-25
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -32,9 +32,7 @@ statistics-fmu-dependencies=
     "QGaiSenCon_flow": [
       "zero.k"
     ],
-    "TOut": [
-      "weaDat.pAtm"
-    ],
+    "TOut": [],
     "der(fan.filter.x[1])": [],
     "der(fan.filter.x[2])": [
       "fan.riseTime",
@@ -101,13 +99,9 @@ statistics-fmu-dependencies=
     "weaBus.HDirNor": [],
     "weaBus.HGloHor": [],
     "weaBus.HHorIR": [],
-    "weaBus.TBlaSky": [
-      "weaDat.pAtm"
-    ],
+    "weaBus.TBlaSky": [],
     "weaBus.TDewPoi": [],
-    "weaBus.TDryBul": [
-      "weaDat.pAtm"
-    ],
+    "weaBus.TDryBul": [],
     "weaBus.celHei": [],
     "weaBus.cloTim": [],
     "weaBus.lat": [],

@@ -5,7 +5,8 @@ block InletToAir
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-    annotation (choicesAllMatching = true);
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
@@ -170,6 +171,11 @@ for its usage.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 June 28, 2016, by Michael Wetter:<br/>
 Revised implementation to allow flow out of the

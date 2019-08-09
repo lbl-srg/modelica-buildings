@@ -5,7 +5,7 @@ block SampleTrigger "Generate sample trigger signal"
   parameter Modelica.SIunits.Time startTime=0
     "Time instant of first sample trigger";
   Interfaces.BooleanOutput y  "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = sample(startTime, period);

@@ -59,11 +59,12 @@ package Air
     Modelica.SIunits.TemperatureDifference dT(start=T_default-reference_T)
       "Temperature difference used to compute enthalpy";
   equation
-    assert(T >= 200.0 and T <= 423.15, "
-Temperature T is not in the allowed range
-200.0 K <= (T ="
-               + String(T) + " K) <= 423.15 K
-required from medium model \""     + mediumName + "\".");
+    assert(T >= 200.0, "
+In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of -73.15 degC (200 Kelvin)
+as required from medium model \"" + mediumName + "\".");
+    assert(T <= 423.15, "
+In "   + getInstanceName() + ": Temperature T exceeded its maximum allowed value of 150 degC (423.15 Kelvin)
+as required from medium model \"" + mediumName + "\".");
 
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
@@ -530,11 +531,18 @@ end setState_pTX;
 redeclare function extends setState_psX
     "Return the thermodynamic state as function of p, s and composition X or Xi"
   protected
-    Modelica.SIunits.MassFraction[2] X_int=
-      if size(X, 1) == nX then X else cat(1, X, {1 - sum(X)}) "Mass fraction";
+    Modelica.SIunits.MassFraction[2] X_int "Mass fraction";
     Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
     Modelica.SIunits.Temperature T "Temperature";
 algorithm
+    if size(X, 1) == nX then
+      X_int:=X;
+    else
+      X_int :=cat(
+        1,
+        X,
+        {1 - sum(X)});
+    end if;
    Y := massToMoleFractions(
          X_int, {steam.MM,dryair.MM});
     // The next line is obtained from symbolic solving the
@@ -961,6 +969,19 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 11, 2019 by Michael Wetter:<br/>
+Reforulated assignment of <code>X_int</code> in <code>setState_psX</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1079\">#1079</a>.
+</li>
+<li>
+October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
+Now printing different messages if temperature is above or below its limit,
+and adding instance name as JModelica does not print the full instance name in the assertion.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
+</li>
 <li>
 November 4, 2016, by Michael Wetter:<br/>
 Set default value for <code>dT.start</code> in base properties.<br/>

@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Sources;
 model Generator "Model of a generator"
   extends Buildings.Electrical.Interfaces.Source(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_p terminal);
+    redeclare replaceable Interfaces.Terminal_p terminal);
   parameter Modelica.SIunits.Frequency f(start=60) "Frequency of the source";
   parameter Modelica.SIunits.Angle phiGen(displayUnit="deg") = 0
     "Phase shift of the source";
@@ -87,6 +87,10 @@ Buildings.Electrical.AC.UsersGuide</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2019, by Michael Wetter:<br/>
+Added <code>replaceable</code> for terminal.
+</li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Revised model.

@@ -1,0 +1,2 @@
+simulateModel("Buildings.Occupants.Office.Occupancy.Validation.Wang2005Occupancy", stopTime=36000, method="Cvode", tolerance=1E-6, resultFile="Wang2005Occupancy");
+createPlot(id=1, position={33, 24, 1372, 721}, y={"occ.occ"}, range={0.0, 4000.0, 270.0, 310.0}, grid=true, colors={{28,108,200}});

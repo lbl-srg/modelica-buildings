@@ -28,13 +28,13 @@ partial model PartialElectric
     m_flow=mEva_flow_nominal,
     T=291.15)
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium1,
     nPorts=1)                           annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={70,40})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  Buildings.Fluid.Sources.Boundary_pT sin2(
     redeclare package Medium = Medium2,
     nPorts=1)                           annotation (Placement(
         transformation(

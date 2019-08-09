@@ -1,12 +1,21 @@
 compareVars :=
   {
-    "onDelay.u",
-    "onDelay.y",
+    "onDelay0.u",
+    "onDelay0.y",
     "onDelay1.y",
     "onDelay2.y",
     "onDelay3.y",
     "onDelay4.y",
     "onDelay5.y",
     "onDelay6.y",
-    "onDelay7.y"
+    "onDelay7.y",
+    "onDelay00.u",
+    "onDelay00.y",
+    "onDelay11.y",
+    "onDelay22.y",
+    "onDelay33.y",
+    "onDelay44.y",
+    "onDelay55.y",
+    "onDelay66.y",
+    "onDelay77.y"
   };

@@ -106,7 +106,7 @@ protected
     dp1_nominal=dp_nominal) "Heat pump for heating"
     annotation (Placement(transformation(extent={{-52,-16},{-32,4}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sinHea(
+  Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumSin,
     nPorts=1) "Pressure source" annotation (Placement(transformation(
           extent={{-10,10},{10,-10}}, origin={-70,-20})));
@@ -133,7 +133,7 @@ protected
     nPorts=1) "Mass flow source"
     annotation (Placement(transformation(extent={{-8,10},{12,30}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sinCoo(
+  Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumSin,
     nPorts=1) "Pressure source"
     annotation (Placement(transformation(

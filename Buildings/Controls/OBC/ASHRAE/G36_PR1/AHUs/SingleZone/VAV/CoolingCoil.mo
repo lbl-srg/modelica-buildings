@@ -89,8 +89,7 @@ equation
           preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-This block outputs the cooling coil control signal.  
-<ul>
+This block outputs the cooling coil control signal.
 </p>
 </html>",revisions="<html>
 <ul>

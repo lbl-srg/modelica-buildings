@@ -3,11 +3,25 @@ partial model PartialFourPortParallel
   "Partial model with four ports for components with parallel flow"
 
   replaceable package Medium1 =
-      Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
   replaceable package Medium2 =
-      Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
 
   parameter Boolean allowFlowReversal1 = true
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
@@ -62,6 +76,11 @@ except for the following: </p>
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 July 8, 2018, by Filip Jorissen:<br/>
 Added nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.

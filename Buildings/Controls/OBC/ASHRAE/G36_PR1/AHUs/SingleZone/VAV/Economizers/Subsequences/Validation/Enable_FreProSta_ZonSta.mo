@@ -66,7 +66,7 @@ equation
   connect(TOutCut.y, enaDis1.TCut)
     annotation (Line(points={{-19,110},{32,110},{32,-22},{81,-22}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
-    annotation (Line(points={{-19,150},{32,150},{32,-20},{81,-20}}, color={0,0,127}));
+    annotation (Line(points={{-19,150},{34,150},{34,-20},{81,-20}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, enaDis.hOut)
     annotation (Line(points={{-79,110},{-60,110},{-60,54},{81,54}}, color={0,0,127}));
   connect(hOutCut.y, enaDis.hCut)
@@ -117,13 +117,11 @@ equation
           extent={{80,42},{164,14}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests zone state disable condition"),
         Text(
-          extent={{80,-36},{174,-64}},
+          extent={{80,-40},{178,-58}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Tests freeze protection disable condition")}),
     Documentation(info="<html>
 <p>

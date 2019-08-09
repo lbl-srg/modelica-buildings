@@ -5,9 +5,9 @@ model WetCoilDiscretized
   // function is known. Otherwise, checkModel(...) will fail
   extends DryCoilDiscretized(
     redeclare replaceable package Medium2 =
-        Modelica.Media.Interfaces.PartialCondensingGases,
-    each hexReg(redeclare final
-        Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent ele[nPipPar, nPipSeg]),
+      Modelica.Media.Interfaces.PartialCondensingGases,
+    hexReg(
+      redeclare final Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent ele[nPipPar, nPipSeg]),
     temSen_1(m_flow_nominal=m1_flow_nominal),
     temSen_2(m_flow_nominal=m2_flow_nominal));
 
@@ -56,6 +56,10 @@ Modelica.Media.Air.MoistAir</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Corrected wrong use of <code>each</code>.
+</li>
 <li>
 April 14, 2017, by David Blum:<br/>
 Added heat of condensation to coil surface heat balance

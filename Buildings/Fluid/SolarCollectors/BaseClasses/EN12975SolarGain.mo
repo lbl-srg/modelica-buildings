@@ -23,7 +23,8 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     annotation(Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
-    unit="W/m2", quantity="RadiantEnergyFluenceRate")
+    unit="W/m2",
+    quantity="RadiantEnergyFluenceRate")
     "Diffuse solar irradiation on a tilted surfce from the sky"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput incAng(
@@ -32,16 +33,17 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     displayUnit="deg") "Incidence angle of the sun beam on a tilted surface"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput HDirTil(
-    unit="W/m2", quantity="RadiantEnergyFluenceRate")
+    unit="W/m2",
+    quantity="RadiantEnergyFluenceRate")
     "Direct solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](each final unit="W")
     "Solar heat gain"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
-     unit="K",
-     displayUnit="degC",
-     quantity="ThermodynamicTemperature")
+     each final unit="K",
+     each displayUnit="degC",
+     each final quantity="ThermodynamicTemperature")
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
 protected
@@ -144,6 +146,10 @@ equation
     </html>",
     revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Added missing <code>each</code>.
+</li>
 <li>
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>

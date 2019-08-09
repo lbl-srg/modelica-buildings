@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Validation;
 model ZoneState "Validation models of determining zone state"
-  import Buildings;
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState zonSta
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uCoo(
@@ -20,7 +19,9 @@ equation
           -50,4},{-2,4}}, color={0,0,127}));
   connect(uCoo.y, zonSta.uCoo) annotation (Line(points={{-79,-30},{-50,-30},{
           -50,-4},{-2,-4}}, color={0,0,127}));
-  annotation (
+  annotation (experiment(StopTime=86400, Interval=300, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/ZoneState.mos"
+    "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                    Ellipse(
           lineColor={75,138,73},
@@ -33,8 +34,18 @@ equation
           fillPattern=FillPattern.Solid,
           points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    experiment(
-      StopTime=3,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 24, 2018, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ZoneState;

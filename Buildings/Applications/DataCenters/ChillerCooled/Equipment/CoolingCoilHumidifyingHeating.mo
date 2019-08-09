@@ -4,7 +4,7 @@ model CoolingCoilHumidifyingHeating
     redeclare Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage watVal(
       final R=R,
       final delta0=delta0),
-    redeclare Buildings.Fluid.Movers.SpeedControlled_y fan);
+    redeclare final Buildings.Fluid.Movers.SpeedControlled_y fan);
 
   // Parameters for water-side valve
   parameter Real R=50 "Rangeability, R=50...100 typically"
@@ -249,8 +249,8 @@ equation
     Buildings.Applications.DataCenters.ChillerCooled.Controls.Reheat.</a></p>
     <p>The humidfier is an adiabatic spray air washer with a prescribed outlet water vapor mass fraction
     in kg/kg total air. During the humidification, the enthalpy remains constant.
-    Details can be found in <a href=\"modelica://Buildings.Fluid.MassExchangers.SprayAirWasher_X\">
-    Buildings.Fluid.MassExchangers.SprayAirWasher_X.</a> The humidifer can be turned off
+    Details can be found in <a href=\"modelica://Buildings.Fluid.Humidifiers.SprayAirWasher_X\">
+    Buildings.Fluid.Humidifiers.SprayAirWasher_X</a>. The humidifer can be turned off
     when the prescribed mass fraction
     is smaller than the current state at the outlet, for example, <code>XSet=0</code>.
     </p>

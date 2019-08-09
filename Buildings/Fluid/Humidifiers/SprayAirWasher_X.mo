@@ -2,6 +2,8 @@ within Buildings.Fluid.Humidifiers;
 model SprayAirWasher_X
   "Spray air washer with leaving water mass fraction as input"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
+    redeclare replaceable package Medium =
+        Modelica.Media.Interfaces.PartialCondensingGases,
     outCon(
       final T_start=293.15,
       final X_start=X_start,
@@ -190,6 +192,13 @@ is adiabatic.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 14, 2018, by Michael Wetter:<br/>
+Restricted base class for medium to one that implements
+the function <code>enthalpyOfLiquid</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1057\">#1057</a>.
+</li>
 <li>
 May 3, 2017, by Michael Wetter:<br/>
 First implementation.

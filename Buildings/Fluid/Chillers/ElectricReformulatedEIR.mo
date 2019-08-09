@@ -41,9 +41,9 @@ equation
     // we constrain its return value to be non-negative. This prevents the solver to pick the
     // unrealistic solution.
     capFunT = Buildings.Utilities.Math.Functions.smoothMax(
-      x1=  1E-6,
-      x2=  Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConLvg_degC),
-      deltaX=  1E-7);
+      x1 = 1E-6,
+      x2 = Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConLvg_degC),
+      deltaX = 1E-7);
 /*    assert(capFunT > 0.1, "Error: Received capFunT = " + String(capFunT)  + ".\n"
            + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
            + "Temperatures are TConLvg_degC = " + String(TConLvg_degC) + " degC\n"
@@ -147,8 +147,8 @@ condenser leaving and evaporator leaving fluid temperature.
 
 <p>
 These curves are stored in the data record <code>per</code> and are available from
-<a href=\"Buildings.Fluid.Chillers.Data.ElectricReformulatedEIRChiller\">
-Buildings.Fluid.Chillers.Data.ElectricReformulatedEIRChiller</a>.
+<a href=\"Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR\">
+Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR</a>.
 Additional performance curves can be developed using
 two available techniques (Hydeman and Gillespie, 2002). The first technique is called the
 Least-squares Linear Regression method and is used when sufficient performance data exist
