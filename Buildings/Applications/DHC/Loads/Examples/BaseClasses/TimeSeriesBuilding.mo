@@ -16,7 +16,7 @@ model TimeSeriesBuilding
     columns={2,3},
     tableName="csv",
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/DistrictHeatingCooling/Loads/Examples/Resources/Loads.csv"),
+        "modelica://Buildings/Applications/DHC/Loads/Examples/Resources/Loads.csv"),
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments) "Reader for test.csv"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 

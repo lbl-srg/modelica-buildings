@@ -125,6 +125,6 @@ equation
   </html>"),
   Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{120,80}})),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/DistrictHeatingCooling/Loads/Examples/CouplingTimeSeries.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingTimeSeries.mos"
         "Simulate and plot"));
 end CouplingTimeSeries;
