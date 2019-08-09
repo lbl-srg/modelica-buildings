@@ -1,4 +1,4 @@
-within Buildings;
+within Buildings.Applications;
 package DistrictHeatingCooling "Models for district heating and cooling systems"
   extends Modelica.Icons.VariantsPackage;
 
