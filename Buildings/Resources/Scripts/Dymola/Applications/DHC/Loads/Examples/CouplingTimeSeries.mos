@@ -1,0 +1,98 @@
+removePlots(true);
+simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries",
+    method="cvode", tolerance=1e-6, numberOfIntervals=500,
+    stopTime=800000.0,
+    resultFile="CouplingTimeSeries");
+createPlot(
+    id=1,
+    position={10, 20, 670, 900},
+    y={"bui.maxTSet.y", "bui.minTSet.y", "bui.heaPorHea[1].T", "bui.heaPorHea[2].T", "bui.heaPorCoo[1].T"},
+    autoscale=true,
+    // autoerase=true,
+    // autoreplot=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    y={"bui.Q_flowHeaReq[1]", "bui.Q_flowHeaReq[2]", "bui.heaPorHea[1].Q_flow", "bui.heaPorHea[2].Q_flow"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=1,
+    y={"bui.Q_flowCooReq[1]", "bui.heaPorCoo[1].Q_flow"},
+    grid=true,
+    subPlot=3
+);
+createPlot(
+    id=2,
+    position={700, 20, 670, 900},
+    y={"supHea.T", "couHea.vol.T", "bui.minTSet.y"},
+    autoscale=true,
+    // autoerase=true,
+    // autoreplot=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    y={"couHea.m_flow", "couHea.m_flow_nominal"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=2,
+    y={"couHea.heaPorLoa[1].Q_flow", "couHea.heaPorLoa[2].Q_flow"},
+    grid=true,
+    subPlot=3
+);
+plotExpression(apply(-1*CouplingTimeSeries[end].couHea.Q_flow_nominal), false, "-1*couHea.Q_flow_nominal", 2);
+createPlot(
+    id=3,
+    position={1300, 20, 670, 900},
+    y={"supCoo.T", "couCoo.vol.T", "bui.maxTSet.y"},
+    autoscale=true,
+    // autoerase=true,
+    // autoreplot=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    y={"couCoo.m_flow", "couCoo.m_flow_nominal"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=3,
+    y={"couCoo.heaPorLoa[1].Q_flow", "couCoo.Q_flow_nominal"},
+    grid=true,
+    subPlot=3
+);
+
+createPlot(
+    id=4,
+    position={650, 260, 650, 400},
+    x="couHea.frac_Q_flow",
+    y={"couHea.vol.T", "couHea.T_b_nominal", "couHea.vol.ports[1].m_flow", "couHea.vol.m_flow_nominal"},
+    autoscale=true,
+    // autoerase=true,
+    // autoreplot=true,
+    grid=true,
+    colors={{238,46,47}, {238,46,47}, {0,140,72}, {0,140,72}},
+    patterns={LinePattern.None, LinePattern.Solid, LinePattern.None, LinePattern.Solid},
+    markers={MarkerStyle.Dot, MarkerStyle.None, MarkerStyle.Dot, MarkerStyle.None},
+    axes={1, 1, 2, 2}
+);
+createPlot(
+    id=5,
+    position={1300, 260, 650, 400},
+    x="couCoo.frac_Q_flow",
+    y={"couCoo.vol.T", "couCoo.T_b_nominal", "couCoo.vol.ports[1].m_flow", "couCoo.vol.m_flow_nominal"},
+    autoscale=true,
+    // autoerase=true,
+    // autoreplot=true,
+    grid=true,
+    colors={{28,108,200}, {28,108,200}, {0,140,72}, {0,140,72}},
+    patterns={LinePattern.None, LinePattern.Solid, LinePattern.None, LinePattern.Solid},
+    markers={MarkerStyle.Dot, MarkerStyle.None, MarkerStyle.Dot, MarkerStyle.None},
+    axes={1, 1, 2, 2}
+);
