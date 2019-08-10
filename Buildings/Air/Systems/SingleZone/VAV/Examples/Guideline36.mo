@@ -52,8 +52,8 @@ equation
     annotation (Line(points={{-91,-110},{-74,-110}}, color={0,0,127}));
   connect(zon.TRooAir, errTRooCoo.u1) annotation (Line(points={{81,0},{110,0},{
           110,-152},{-134,-152},{-134,-110},{-108,-110}}, color={0,0,127}));
-  connect(hysChiPla.y, hvac.chiOn) annotation (Line(points={{-51,-110},{-48,
-          -110},{-48,-10},{-42,-10}}, color={255,0,255}));
+  connect(hysChiPla.y, hvac.chiOn) annotation (Line(points={{-50,-110},{-48,-110},
+          {-48,-10},{-42,-10}},       color={255,0,255}));
   connect(weaBus.TDryBul, controller.TOut) annotation (Line(
       points={{-30,80},{-30,60},{-140,60},{-140,20},{-122,20}},
       color={255,204,51},
@@ -89,8 +89,8 @@ equation
           12,-48},{-132,-48},{-132,4},{-122,4}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-200,-160},{120,100}})),
     experiment(
-      StartTime=103680000,
-      StopTime=104544000,
+      StartTime=0,
+      StopTime=864000,
       Interval=3600,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/Guideline36.mos"
