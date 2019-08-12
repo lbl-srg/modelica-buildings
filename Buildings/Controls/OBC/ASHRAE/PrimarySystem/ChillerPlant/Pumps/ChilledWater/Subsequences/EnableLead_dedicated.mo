@@ -1,6 +1,6 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLead_dedicated
-  "Sequence for enabling lead pump of plants with dedicated primary chilled water pumps"
+  "Sequence to enable or disable the lead pump of plants with dedicated primary chilled water pumps"
 
   final parameter Modelica.SIunits.Time offTimThr = 180
     "Threshold to check lead chiller off time";
@@ -31,7 +31,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim "Count the total time of the chiller is off"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim "Measures chiller OFF time"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
     final threshold=offTimThr)

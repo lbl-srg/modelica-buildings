@@ -2,6 +2,8 @@
 block EnableLag_primary_dP
   "Sequences for enabling lag pump for primary-only plants using differential pressure pump speed control"
   parameter Integer nPum = 2 "Total number of pumps";
+  parameter Modelica.SIunits.Time timPer = 600
+    "Delay time period for enabling and disabling lag pumps";
   parameter Integer nPum_nominal(final max = nPum, final min = 0) = 1
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
@@ -73,11 +75,11 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1) "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=10*60)
+    final threshold=timPer)
     "Check if the time is greater than 10 minutes"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
-    final threshold=10*60)
+    final threshold=timPer)
     "Check if the time is greater than 10 minutes"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch enaNexLag

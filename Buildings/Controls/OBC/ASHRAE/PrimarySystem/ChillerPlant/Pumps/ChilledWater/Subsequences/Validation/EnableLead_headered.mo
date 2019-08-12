@@ -4,7 +4,7 @@ model EnableLead_headered
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_headered
     enaLeaChiPum(nChi=3)
-    "Enable lead chilled water pump based on status of chilled water isolation valve status"
+    "Enable lead chilled water pump based on the status of chilled water isolation valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
@@ -23,12 +23,12 @@ protected
 
 equation
   connect(isoVal.y, enaLeaChiPum.uChiIsoVal[3])
-    annotation (Line(points={{1,60},{20,60},{20,1.33333},{38,1.33333}},
+    annotation (Line(points={{2,60},{20,60},{20,1.33333},{38,1.33333}},
       color={255,0,255}));
   connect(isoVal1.y, enaLeaChiPum.uChiIsoVal[2])
-    annotation (Line(points={{1,0},{38,0}}, color={255,0,255}));
+    annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
   connect(isoVal2.y, enaLeaChiPum.uChiIsoVal[1])
-    annotation (Line(points={{1,-60},{20,-60},{20,-1.33333},{38,-1.33333}},
+    annotation (Line(points={{2,-60},{20,-60},{20,-1.33333},{38,-1.33333}},
       color={255,0,255}));
 
 annotation (
