@@ -1,6 +1,6 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences;
 block EnableLag_primary_dP
-  "Sequences for enabling lag pump for primary-only plants using differential pressure pump speed control"
+  "Sequences for enabling and disabling lag pumps for primary-only plants using differential pressure pump speed control"
   parameter Integer nPum = 2 "Total number of pumps";
   parameter Modelica.SIunits.Time timPer = 600
     "Delay time period for enabling and disabling lag pumps";
