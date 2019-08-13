@@ -19,7 +19,7 @@ equation
           -50,4},{-2,4}}, color={0,0,127}));
   connect(uCoo.y, zonSta.uCoo) annotation (Line(points={{-79,-30},{-50,-30},{
           -50,-4},{-2,-4}}, color={0,0,127}));
-  annotation (experiment(StopTime=86400, Interval=300, Tolerance=1e-06),
+  annotation (experiment(StopTime=3, Interval=300, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/ZoneState.mos"
     "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
