@@ -69,7 +69,7 @@ typedef struct FMUBuilding
   fmi_import_context_t* context;
   const char* GUID;
   char* buildingsLibraryRoot; /* Root directory of Buildings library */
-  fmi2Byte* name;
+  fmi2Byte* name; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
   fmi2Byte* idd;
   fmi2Integer nZon; /* Number of zones that use this FMU */

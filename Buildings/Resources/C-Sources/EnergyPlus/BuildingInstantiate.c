@@ -366,6 +366,9 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   }
 
   importEnergyPlusFMU(bui);
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("FMU for building %s is at %p.\n", bui->name, bui->fmu);
+
   setEnergyPlusDebugLevel(bui);
   /* Set the value references for all parameters, inputs and outputs */
   setValueReferences(bui);
