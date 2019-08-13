@@ -67,6 +67,10 @@ the cooling loop signal (from 0 to +1).")
     "Average zone set point"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
+  Controls.OBC.CDL.Logical.Sources.Constant
+                                 fanSta(k=true) "Fan is on"
+      annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
 equation
   connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-59,-70},{-46,-70},{
           -46,-18},{-2,-18}},
@@ -99,6 +103,8 @@ equation
     annotation (Line(points={{21,-10},{38,-10}}, color={0,0,127}));
   connect(TSetZon.y, setPoiVAV.TZonSet)
     annotation (Line(points={{-59,-10},{-2,-10}}, color={0,0,127}));
+  connect(fanSta.y, setPoiVAV.uFan)
+    annotation (Line(points={{-18,-50},{-10,-50},{-10,-20},{-2,-20}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{140,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(Tolerance=1e-6, StopTime=1.0),
