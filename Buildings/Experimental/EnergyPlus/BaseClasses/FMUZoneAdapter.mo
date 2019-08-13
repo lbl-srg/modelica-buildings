@@ -89,9 +89,10 @@ protected
   constant String modelicaInstanceName = getInstanceName()
     "Name of this instance";
   constant String buildingsLibraryRoot = Modelica.Utilities.Strings.replace(
-    string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("file://Buildings/package.mo")),
-    searchString="/package.mo",
-    replaceString="") "Root directory of the Buildings library (used to find the spawn executable";
+    string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html")),
+    searchString="Buildings/legal.html",
+    replaceString="Buildings") "Root directory of the Buildings library (used to find the spawn executable";
+
 
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass adapter=
     Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass(
