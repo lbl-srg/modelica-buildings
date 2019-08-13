@@ -11,7 +11,7 @@ model ThreeZonesTwoBuildings
   // fixme: Change RefBldgSmallOfficeNew2004_Chicago.idf to RefBldgSmallOfficeNew2004_Chicago2.idf to enable two buildings.
   // See
   parameter String idfName2=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago2.idf")
     "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
