@@ -22,7 +22,7 @@ model ThreeZonesTwoBuildings
     idfName=idfName1,
     weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    usePrecompiledFMU=true,
+    usePrecompiledFMU=false,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     zoneName="Core_ZN") "Thermal zone"
     annotation (Placement(transformation(extent={{20,40},{60,80}})));
@@ -31,7 +31,7 @@ model ThreeZonesTwoBuildings
     idfName=idfName2,
     weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    usePrecompiledFMU=true,
+    usePrecompiledFMU=false,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
     zoneName="Core_ZN") "Thermal zone"
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
@@ -40,7 +40,7 @@ model ThreeZonesTwoBuildings
     idfName=idfName2,
     weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    usePrecompiledFMU=true,
+    usePrecompiledFMU=false,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
     zoneName="South_ZN") "Thermal zone"
     annotation (Placement(transformation(extent={{20,-84},{60,-44}})));
