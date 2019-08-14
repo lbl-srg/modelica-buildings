@@ -2,11 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.E
 block Controller "Tower fan control when waterside economizer is enabled"
 
   parameter Integer nChi=2 "Total number of chillers";
+  parameter Real minSpe=0.1 "Minimum tower fan speed";
+  parameter Real maxTowSpe=1 "Maximum tower fan speed";
   parameter Modelica.SIunits.HeatFlowRate minUnLTon[nChi]={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
-    annotation (Dialog(tab="Integrated operation"));
-  parameter Real minSpe=0.1
-    "Allowed minimum value of waterside economizer tower maximum speed"
     annotation (Dialog(tab="Integrated operation"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -19,10 +18,6 @@ block Controller "Tower fan control when waterside economizer is enabled"
   parameter Modelica.SIunits.Time TdIntOpe=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Integrated operation", group="Controller"));
-  parameter Real minTowSpe=0.1 "Minimum tower fan speed"
-    annotation (Dialog(tab="WSE-only"));
-  parameter Real maxTowSpe=1 "Maximum tower fan speed"
-    annotation (Dialog(tab="WSE-only"));
   parameter Real fanSpeChe=0.005 "Lower threshold value to check fan speed"
     annotation (Dialog(tab="WSE-only"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PID
@@ -87,8 +82,8 @@ protected
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences.WSEOperation
     wseOpe(
-    final minTowSpe=minTowSpe,
-    final maxTowSpe=maxTowSpe,
+    final minSpe=minSpe,
+    final maxSpe=maxSpe,
     final fanSpeChe=fanSpeChe,
     final chiWatCon=chiWatCon,
     final k=kWSE,

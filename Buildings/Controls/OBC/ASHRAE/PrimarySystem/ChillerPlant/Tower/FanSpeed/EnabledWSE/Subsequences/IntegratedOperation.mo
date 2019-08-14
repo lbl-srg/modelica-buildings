@@ -6,7 +6,7 @@ block IntegratedOperation
   parameter Modelica.SIunits.HeatFlowRate minUnLTon[nChi]={1e4, 1e4}
     "Minimum cyclining load below which chiller will begin cycling";
   parameter Real minSpe = 0.1
-    "Allowed minimum value of waterside economizer tower maximum speed";
+    "Minimum cooling tower fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -14,9 +14,13 @@ block IntegratedOperation
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Load controller"));
   parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
-    annotation (Dialog(group="Load controller"));
+    annotation (Dialog(group="Load controller",
+                       enable=conTyp==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                              conTyp==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
-    annotation (Dialog(group="Load controller"));
+    annotation (Dialog(group="Load controller",
+                       enable=conTyp==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                              conTyp==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
@@ -91,22 +95,25 @@ protected
     annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if it is switch from WSE only mode to integrated operation mode"
-    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
+    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Switch fanSpe "Logical switch"
     annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Timer intOpeTim
     "Count the time after plant switching from WSE-only mode to integrated operation mode"
-    annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
+    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
     final threshold=600)   "Check if it is 10 minutes after mode switch"
-    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
+    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg "Output true when input becomes false"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
+    "Breaks algebraic loops by an infinitesimal small time delay"
+    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
 
 equation
   connect(uChi, swi.u2)
@@ -141,20 +148,17 @@ equation
   connect(mulOr.y, edg.u)
     annotation (Line(points={{-98,20},{-90,20},{-90,-140},{-62,-140}}, color={255,0,255}));
   connect(uWSE, and1.u1)
-    annotation (Line(points={{-180,0},{-70,0},{-70,-120},{-2,-120}}, color={255,0,255}));
+    annotation (Line(points={{-180,0},{-70,0},{-70,-110},{-2,-110}}, color={255,0,255}));
   connect(edg.y, and1.u2)
-    annotation (Line(points={{-38,-140},{-20,-140},{-20,-128},{-2,-128}}, color={255,0,255}));
+    annotation (Line(points={{-38,-140},{-20,-140},{-20,-118},{-2,-118}}, color={255,0,255}));
   connect(and1.y, lat.u)
-    annotation (Line(points={{22,-120},{38,-120}}, color={255,0,255}));
+    annotation (Line(points={{22,-110},{38,-110}}, color={255,0,255}));
   connect(lat.y, intOpeTim.u)
-    annotation (Line(points={{62,-120},{78,-120}}, color={255,0,255}));
+    annotation (Line(points={{62,-110},{78,-110}}, color={255,0,255}));
   connect(intOpeTim.y, greEquThr.u)
-    annotation (Line(points={{102,-120},{118,-120}}, color={0,0,127}));
-  connect(greEquThr.y, lat.u0)
-    annotation (Line(points={{141,-120},{150,-120},{150,-140},{30,-140},
-      {30,-126},{39,-126}}, color={255,0,255}));
+    annotation (Line(points={{102,-110},{118,-110}}, color={0,0,127}));
   connect(lat.y, fanSpe.u2)
-    annotation (Line(points={{62,-120},{70,-120},{70,-80},{118,-80}}, color={255,0,255}));
+    annotation (Line(points={{62,-110},{70,-110},{70,-80},{118,-80}}, color={255,0,255}));
   connect(lin.y, fanSpe.u3)
     annotation (Line(points={{82,-40},{100,-40},{100,-88},{118,-88}}, color={0,0,127}));
   connect(maxTowSpe.y, fanSpe.u1)
@@ -171,7 +175,7 @@ equation
     annotation (Line(points={{-180,100},{-140,100},{-140,20},{-122,20}},
       color={255,0,255}));
   connect(lat.y, falEdg.u)
-    annotation (Line(points={{62,-120},{70,-120},{70,-80},{-140,-80},{-140,-60},
+    annotation (Line(points={{62,-110},{70,-110},{70,-80},{-140,-80},{-140,-60},
       {-122,-60}}, color={255,0,255}));
   connect(mulOr.y, and3.u1)
     annotation (Line(points={{-98,20},{-90,20},{-90,28},{-62,28}}, color={255,0,255}));
@@ -182,6 +186,12 @@ equation
     annotation (Line(points={{-180,0},{-70,0},{-70,12},{-62,12}}, color={255,0,255}));
   connect(and3.y, loaCon.trigger)
     annotation (Line(points={{-38,20},{82,20},{82,88}}, color={255,0,255}));
+  connect(pre.y, lat.clr)
+    annotation (Line(points={{22,-140},{30,-140},{30,-116},{38,-116}},
+      color={255,0,255}));
+  connect(greEquThr.y, pre.u)
+    annotation (Line(points={{142,-110},{150,-110},{150,-156},{-10,-156},
+      {-10,-140},{-2,-140}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="wseTowSpeIntOpe",
@@ -195,7 +205,57 @@ annotation (
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Rectangle(
+          extent={{-40,10},{40,-10}},
+          lineColor={28,108,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-20,80},{20,80},{0,10},{-20,80}},
+          lineColor={28,108,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{0,-10},{-20,-80},{20,-80},{0,-10}},
+          lineColor={28,108,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,-40},{80,-46}},
+          lineColor={200,200,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,-56},{80,-68}},
+          lineColor={200,200,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{44,-46},{48,-56}},
+          lineColor={200,200,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{72,-46},{76,-56}},
+          lineColor={200,200,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,-80},{76,-94}},
+          lineColor={200,200,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{76,-78},{78,-96}},
+          lineColor={200,200,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,-78},{80,-96}},
+          lineColor={200,200,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid)}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-160},{160,160}})),
 Documentation(info="<html>
