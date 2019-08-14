@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "heaPum.QCon",
-    "heaPum.QEva",
+    "heaPum.QCon_flow",
+    "heaPum.QEva_flow",
     "QConEP.y",
     "QEvaEP.y"
   };
