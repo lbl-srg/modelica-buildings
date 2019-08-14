@@ -27,22 +27,22 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,90},{-120,130}}),
-      iconTransformation(extent={{-120,90},{-100,110}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSupSet(
     final unit="K",
     final quantity = "ThermodynamicTemperature") "Supply air temperature heating setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
-      iconTransformation(extent={{-120,60},{-100,80}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
-      iconTransformation(extent={{-120,-110},{-100,-90}})));
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum economizer damper position limit as returned by the damper position limits sequence"
     annotation (Placement(transformation(extent={{-160,-90},{-120,-50}}),
-      iconTransformation(extent={{-120,-80},{-100,-60}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMax(
     final min=0,
     final max=1,
@@ -50,33 +50,33 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     "Maximum economizer damper position limit as returned by the economizer enable-disable sequence.
     If the economizer is disabled, this value equals uOutDamPosMin"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
-      iconTransformation(extent={{-120,-50},{-100,-30}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMin(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-      iconTransformation(extent={{-120,-10},{-100,10}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMax(
     final min=0,
     final max=1,
     final unit="1")
     "Maximum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
-      iconTransformation(extent={{-120,20},{-100,40}})));
+        iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1") "Economizer damper position"
-    annotation (Placement(transformation(extent={{120,-30},{140,-10}}),
-      iconTransformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{120,-40},{160,0}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1") "Return air damper position"
-    annotation (Placement(transformation(extent={{120,10},{140,30}}),
-      iconTransformation(extent={{100,10},{120,30}})));
+    annotation (Placement(transformation(extent={{120,0},{160,40}}),
+        iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID uTSup(
     final controllerType=controllerType,
@@ -112,22 +112,22 @@ equation
     annotation (Line(points={{-140,110},{-108,110},{-108,58},{-70,58},{-70,68}},
       color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
-    annotation (Line(points={{81,-20},{130,-20}}, color={0,0,127}));
+    annotation (Line(points={{82,-20},{140,-20}}, color={0,0,127}));
   connect(retDamPos.y, yRetDamPos)
-    annotation (Line(points={{79,20},{130,20}}, color={0,0,127}));
+    annotation (Line(points={{80,20},{140,20}}, color={0,0,127}));
   connect(retDamMaxLimSig.y,retDamPos. x2)
-    annotation (Line(points={{1,30},{30,30},{30,16},{56,16}}, color={0,0,127}));
+    annotation (Line(points={{2,30},{30,30},{30,16},{56,16}}, color={0,0,127}));
   connect(uTSup.y, retDamPos.u)
-    annotation (Line(points={{-59,80},{40,80},{40,20},{56,20}}, color={0,0,127}));
+    annotation (Line(points={{-58,80},{40,80},{40,20},{56,20}}, color={0,0,127}));
   connect(uTSup.y, outDamPos.u)
-    annotation (Line(points={{-59,80},{40,80},{40,-20},{58,-20}}, color={0,0,127}));
+    annotation (Line(points={{-58,80},{40,80},{40,-20},{58,-20}}, color={0,0,127}));
   connect(uRetDamPosMax,retDamPos. f1)
     annotation (Line(points={{-140,40},{-112,40},{-112,48},{48,48},{48,24},
       {56,24}},  color={0,0,127}));
   connect(uOutDamPosMin, outDamPos.f1)
     annotation (Line(points={{-140,-70},{28,-70},{28,-16},{58,-16}},  color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1)
-    annotation (Line(points={{1,-12},{58,-12}}, color={0,0,127}));
+    annotation (Line(points={{2,-12},{58,-12}}, color={0,0,127}));
   connect(THeaSupSet, uTSup.u_s)
     annotation (Line(points={{-140,80},{-82,80}}, color={0,0,127}));
   connect(uRetDamPosMin,retDamPos. f2)
@@ -136,9 +136,9 @@ equation
   connect(uOutDamPosMax, outDamPos.f2)
     annotation (Line(points={{-140,-40},{40,-40},{40,-28},{58,-28}}, color={0,0,127}));
   connect(retDamMaxLimSig.y, outDamPos.x2)
-    annotation (Line(points={{1,30},{30,30},{30,-24},{58,-24}}, color={0,0,127}));
+    annotation (Line(points={{2,30},{30,30},{30,-24},{58,-24}}, color={0,0,127}));
   connect(outDamMinLimSig.y, retDamPos.x1)
-    annotation (Line(points={{1,-12},{24,-12},{24,28},{56,28}}, color={0,0,127}));
+    annotation (Line(points={{2,-12},{24,-12},{24,28},{56,28}}, color={0,0,127}));
   connect(uSupFan, uTSup.trigger)
     annotation (Line(points={{-140,-110},{-78,-110},{-78,68}},  color={255,0,255}));
 
