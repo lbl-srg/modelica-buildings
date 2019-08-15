@@ -175,6 +175,7 @@ void generateFMU(
   const char* buildingsLibraryRoot){
   /* Generate the FMU */
   char* cmd;
+  char* cmdFla;
   char* testFMU;
   char* fulCmd;
   size_t len;
@@ -203,12 +204,13 @@ void generateFMU(
     strcat(fulCmd, FMUPath);
   }
   else{
-    if( access( modelicaBuildingsJsonFile, F_OK ) == -1 ) {
+    if( access(modelicaBuildingsJsonFile, F_OK ) == -1 ) {
       ModelicaFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
     }
-    cmd = "/Resources/bin/spawn-linux64/bin/spawn -c ";
-
-    len = strlen(buildingsLibraryRoot) + strlen(cmd) + strlen(modelicaBuildingsJsonFile) + 1;
+    cmd = "/Resources/bin/spawn-linux64/bin/spawn";
+    cmdFla = "-c"; /* Flag for command */
+    /* The + 1 are for spaces and for the end of line character */
+    len = strlen(buildingsLibraryRoot) + strlen(cmd) + 1 + strlen(cmdFla) + 1 + strlen(modelicaBuildingsJsonFile) + 1;
     fulCmd = malloc(len * sizeof(char));
     if (fulCmd == NULL){
       ModelicaFormatError("Failed to allocate memory in generateFMU().");
@@ -216,6 +218,18 @@ void generateFMU(
     memset(fulCmd, '\0', len);
     strcpy(fulCmd, buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
     strcat(fulCmd, cmd);
+    /* Check if the executable exists */
+    if( access(fulCmd, F_OK ) == -1 ) {
+      ModelicaFormatError("Executable '%s' does not exist.", fulCmd);
+    }
+    /* Make sure the file is executable */
+    if( access(fulCmd, X_OK ) == -1 ) {
+      ModelicaFormatError("File '%s' exists, but fails to be executable.", fulCmd);
+    }
+    /* Continue building the command line */
+    strcat(fulCmd, " ");
+    strcat(fulCmd, cmdFla);
+    strcat(fulCmd, " ");
     strcat(fulCmd, modelicaBuildingsJsonFile);
   }
 
@@ -236,7 +250,7 @@ void generateFMU(
   retVal = system(fulCmd);
   /* Check if generated FMU indeed exists */
   if( access( FMUPath, F_OK ) == -1 ) {
-    ModelicaFormatError("Attempt to generate fmu '%s' failed.", FMUPath);
+    ModelicaFormatError("Executing '%s' failed to generate fmu '%s'.", fulCmd, FMUPath);
   }
   if (retVal != 0){
     fprintf(stdout, "*** Warning: Generating FMU returned value %d, but FMU exists.\n", retVal);
