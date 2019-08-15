@@ -7342,7 +7342,7 @@ The development of the Buildings library is organized by<br/>
  <li>by the Assistant Secretary for
   Energy Efficiency and Renewable Energy, Office of Building
   Technologies of the U.S. Department of Energy, under
-  contract No. DE-AC02-05CH11231, and
+  contracts No. DE-AC02-05CH11231 and DE-EE0007688, and
  </li>
  <li>
   by the California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, award number 500-10-052.
