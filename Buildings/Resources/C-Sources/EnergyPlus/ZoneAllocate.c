@@ -77,29 +77,29 @@ void* ZoneAllocate(
     }
   }
 
-  if (1 <= FMU_EP_VERBOSITY)
+  if (2 <= FMU_EP_VERBOSITY)
     ModelicaFormatMessage("Entered ZoneAllocate for building %s\n", idfName);
 
-  if (0 <= FMU_EP_VERBOSITY)
+  if (2 <= FMU_EP_VERBOSITY)
     ModelicaFormatMessage("Buildings library root is at %s\n", buildingsLibraryRoot);
 
-  if (1 <= FMU_EP_VERBOSITY)
+  if (2 <= FMU_EP_VERBOSITY)
     ModelicaFormatMessage("Allocating memory for zone %s.\n", zoneName);
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
   setPointerIfAlreadyInstanciated(modelicaInstanceName, &zone);
   if (zone != NULL){
-    if (1 <= FMU_EP_VERBOSITY)
+    if (2 <= FMU_EP_VERBOSITY)
       ModelicaFormatMessage("*** ZoneAllocate called more than once for %s.\n", modelicaInstanceName);
     /* Return pointer to this zone */
     return (void*) zone;
   }
-  if (1 <= FMU_EP_VERBOSITY)
+  if (2 <= FMU_EP_VERBOSITY)
     ModelicaFormatMessage("*** First call for this instance %s.\n", modelicaInstanceName);
 
   /* ********************************************************************** */
   /* Initialize the zone */
 
-  if (1 <= FMU_EP_VERBOSITY)
+  if (2 <= FMU_EP_VERBOSITY)
     ModelicaFormatMessage("*** Initializing memory for zone for %s.\n", modelicaInstanceName);
 
   zone = (FMUZone*) malloc(sizeof(FMUZone));
@@ -159,7 +159,7 @@ void* ZoneAllocate(
   if (nFMU == 0){
     /* No FMUs exist. Instantiate an FMU and */
     /* assign this fmu pointer to the zone that will invoke its setXXX and getXXX */
-    if (1 <= FMU_EP_VERBOSITY)
+    if (2 <= FMU_EP_VERBOSITY)
       ModelicaFormatMessage("*** nFMU == 0, allocating building structure while instantiating %s.\n", zone->name);
     zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, usePrecompiledFMU, fmuName, buildingsLibraryRoot);
     /*zone->index = 1;*/
@@ -169,24 +169,28 @@ void* ZoneAllocate(
       zone->ptrBui = NULL;
       for(i = 0; i < nFMU; i++){
         FMUBuilding* fmu = getBuildingsFMU(i);
-        if (1 <= FMU_EP_VERBOSITY)
+        if (2 <= FMU_EP_VERBOSITY)
           ModelicaFormatMessage("*** Testing idf name %s in FMU %s.\n", idfName, fmu->name);
 
         if ((usePrecompiledFMU && strcmp(fmuName, fmu->name) == 0) ||
           (! usePrecompiledFMU && strcmp(idfName, fmu->name) == 0)){
 
-          if (1 <= FMU_EP_VERBOSITY)
+          if (2 <= FMU_EP_VERBOSITY)
             ModelicaMessage("*** Found a match.\n");
           /* This is the same FMU as before. */
           if (! zoneIsUnique(fmu, zoneName)){
             ModelicaFormatError("Modelica model specifies zone %s twice for the building %s. Each zone must only be specified once per building.",
             zoneName, fmu->name);
           }
-          if (strlen(fmuName) > 0 && strcmp(fmuName, fmu->precompiledFMUAbsPat) != 0){
-            ModelicaFormatError("Modelica model specifies two different FMU names for the same building, Check parameter fmuName = %s and fmuName = %s.",
-              fmuName, fmu->precompiledFMUAbsPat);
+
+          if (usePrecompiledFMU){
+            if (strlen(fmuName) > 0 && strcmp(fmuName, fmu->precompiledFMUAbsPat) != 0){
+              ModelicaFormatError("Modelica model specifies two different FMU names for the same building, Check parameter fmuName = %s and fmuName = %s.",
+                fmuName, fmu->precompiledFMUAbsPat);
+            }
           }
 
+          ModelicaMessage("Assigning zone->ptrBui = fmu");
           zone->ptrBui = fmu;
           /* Increment size of vector that contains the zone names. */
           fmu->zoneNames = realloc(fmu->zoneNames, (fmu->nZon + 1) * sizeof(char*));
@@ -209,7 +213,16 @@ void* ZoneAllocate(
       /* Check if we found an FMU */
       if (zone->ptrBui == NULL){
         /* Did not find an FMU. */
-        zone->ptrBui = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, usePrecompiledFMU, fmuName, buildingsLibraryRoot);
+        i = ZoneAllocateBuildingDataStructure(idfName, weaName, iddName, zoneName, zone, usePrecompiledFMU, fmuName, buildingsLibraryRoot);
+        zone->ptrBui = Buildings_FMUS[i];
+
+        if (2 <= FMU_EP_VERBOSITY){
+          for(i = 0; i < getBuildings_nFMU(); i++){
+             ModelicaFormatMessage("ZoneAllocate: Building %s is at pointer %p", Buildings_FMUS[i]->name, Buildings_FMUS[i]);
+          }
+          ModelicaFormatMessage("Zone ptr is at %p\n", zone->ptrBui);
+        }
+
       }
   }
 
@@ -221,7 +234,7 @@ void* ZoneAllocate(
   zone->isInstantiated = fmi2False;
   zone->isInitialized = fmi2False;
 
-  if (1 <= FMU_EP_VERBOSITY)
+  if (2 <= FMU_EP_VERBOSITY)
     ModelicaFormatMessage("Exiting allocation for %s\n", modelicaInstanceName);
   /* Return a pointer to this zone */
   return (void*) zone;

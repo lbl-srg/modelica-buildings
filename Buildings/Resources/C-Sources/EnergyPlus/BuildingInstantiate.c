@@ -236,7 +236,7 @@ void generateFMU(
   retVal = system(fulCmd);
   /* Check if generated FMU indeed exists */
   if( access( FMUPath, F_OK ) == -1 ) {
-    ModelicaFormatError("Attempt to generated fmu '%s' failed.", FMUPath);
+    ModelicaFormatError("Attempt to generate fmu '%s' failed.", FMUPath);
   }
   if (retVal != 0){
     fprintf(stdout, "*** Warning: Generating FMU returned value %d, but FMU exists.\n", retVal);

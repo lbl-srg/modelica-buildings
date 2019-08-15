@@ -357,14 +357,16 @@ void createDirectory(const char* dirName){
 }
 
 
-FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
+size_t ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
   const char* iddName, const char* zoneName, FMUZone* zone,
   int usePrecompiledFMU, const char* fmuName,
   const char* buildingsLibraryRoot){
+  int i;
   /* Allocate memory */
 
   const size_t nFMU = getBuildings_nFMU();
-  writeLog(2, "Allocating data structure for building.");
+  if (2 <= FMU_EP_VERBOSITY)
+    ModelicaFormatMessage("ZoneAllocateBuildingDataStructure: Allocating data structure for building %s", idfName);
 
   if (nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
@@ -458,10 +460,17 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(const char* idfName, const char* 
   Buildings_FMUS[nFMU]->zones[0] = zone;
 
   incrementBuildings_nFMU();
-  /* ModelicaMessage("*** Leaving instantiateEnergyPlusFMU."); */
 
-  /* Return the pointer to the FMU for this EnergyPlus instance */
-  return Buildings_FMUS[nFMU];
+  if (2 <= FMU_EP_VERBOSITY){
+    ModelicaFormatMessage("ZoneAllocateBuildingDataStructure: Allocated data structure for building %s, nFMU = %d, ptr = %p",
+      idfName, getBuildings_nFMU(), Buildings_FMUS[nFMU]);
+    for(i = 0; i < getBuildings_nFMU(); i++){
+      ModelicaFormatMessage("Building %s is at pointer %p", Buildings_FMUS[i]->name, Buildings_FMUS[i]);
+    }
+  }
+
+  /* Return the number of the FMU that contains this zone */
+  return nFMU;
 }
 
 FMUBuilding* getBuildingsFMU(size_t iFMU){

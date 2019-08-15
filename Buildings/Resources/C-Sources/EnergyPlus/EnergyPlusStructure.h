@@ -141,7 +141,7 @@ void buildVariableNames(
   char** *ptrVarNames,
   char** *ptrFullNames);
 
-FMUBuilding* ZoneAllocateBuildingDataStructure(
+size_t ZoneAllocateBuildingDataStructure(
   const char* idfName, const char* weaName,
   const char* iddName,
   const char* zoneName, FMUZone* zone,
