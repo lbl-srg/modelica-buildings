@@ -1,22 +1,11 @@
 within Buildings.Fluid.HeatPumps;
 model DOE2WaterToWater "Water source heat pump_Performance curve"
- extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-      dp2_nominal=200,
-      dp1_nominal=200,
-      show_T=true,
-      T1_start = 273.15+25,
-      T2_start = 273.15+5,
-      m1_flow_nominal= mCon_flow_nominal,
-      m2_flow_nominal= mEva_flow_nominal,
-      redeclare final Buildings.Fluid.MixingVolumes.MixingVolume
-    vol2(
-      V=m2_flow_nominal*tau2/rho2_nominal,
-      nPorts=2,
-      final prescribedHeatFlowRate=true),
-    vol1(
-      V=m1_flow_nominal*tau1/rho1_nominal,
-      nPorts=2,
-      final prescribedHeatFlowRate=true));
+   extends Buildings.Fluid.HeatPumps.BaseClasses.PartialHeatpumpPerformanceCurve(
+     QCon_flow_nominal=-QEva_heatflow_nominal + P_nominal,
+     mCon_flow_nominal=per.mCon_flow_nominal*SF,
+     mEva_flow_nominal= per.mEva_flow_nominal*SF,
+     Q_flow_small=QCon_flow_nominal*1E-9*SF,
+     SF=SF);
 
    parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per
    "Performance data"
@@ -29,10 +18,6 @@ model DOE2WaterToWater "Water source heat pump_Performance curve"
    "Nominal power of the compressor"
     annotation (Dialog(group="Nominal condition"));
    final parameter Modelica.SIunits.HeatFlowRate
-     QCon_heatflow_nominal = -QEva_heatflow_nominal + P_nominal
-   "Nominal heat flow at the condenser"
-    annotation (Dialog(group="Nominal condition"));
-   final parameter Modelica.SIunits.HeatFlowRate
      QEva_heatflow_nominal= per.QEva_flow_nominal*SF
    "Nominal heat flow at the evaporator"
     annotation (Dialog(group="Nominal condition"));
@@ -40,30 +25,6 @@ model DOE2WaterToWater "Water source heat pump_Performance curve"
      COP_nominal=per.COP_nominal
    "Reference coefficient  of performance"
     annotation (Dialog(group="Nominal condition"));
-   final parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal= per.mCon_flow_nominal*SF
-   "Nominal mass flow at the condenser"
-    annotation (Dialog(group="Nominal condition"));
-   final parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal= per.mEva_flow_nominal*SF
-   "Nominal mass flow at the evaorator"
-    annotation (Dialog(group="Nominal condition"));
-   final parameter Modelica.SIunits.HeatFlowRate Q_flow_small = QCon_heatflow_nominal*1E-9
-   "Small value for heat flow rate or power, used to avoid division by zero";
-   Modelica.Blocks.Interfaces.IntegerInput uMod
-   "HeatPump control signal, Heating=+1, Off=0, Cooling=-1"
-    annotation (Placement(transformation(extent={{-192,-16},{-160,16}}),
-        iconTransformation(extent={{-118,-14},{-92,12}})));
-   Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
-   "Set point for leaving cooled water temperature"
-    annotation (Placement(transformation(extent={{-188,-94},{-160,-66}}),
-       iconTransformation(extent={{-118,-104},{-92,-78}})));
-   Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
-   "Set point for leaving heating water temperature"
-    annotation (Placement(transformation(extent={{-184,68},{-160,92}}),
-          iconTransformation(extent={{-116,78},{-92,102}})));
-   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W")
-   "Condenser heat flow rate"
-    annotation (Placement(transformation(extent={{100,10},{120,30}}),iconTransformation(
-     extent={{100,80},{120,100}})));
    Modelica.Blocks.Interfaces.RealOutput QEva_flow(final unit="W")
    "Evaporator heat flow rate"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}}),iconTransformation(
@@ -75,42 +36,7 @@ model DOE2WaterToWater "Water source heat pump_Performance curve"
    BaseClasses.DOE2Method doe2(per=per,
                                SF=SF)
    "DOE2 method which describes the water to water heat pump performance"
-    annotation (Placement(transformation(extent={{-108,-10},{-88,10}})));
-   Modelica.Blocks.Sources.RealExpression QConFloSet(final y=
-        Buildings.Utilities.Math.Functions.smoothMax(
-        x1=m1_flow*(hConSet - inStream(port_a1.h_outflow)),
-        x2=Q_flow_small,
-        deltaX=Q_flow_small/10))
-  "Setpoint heat flow rate at the condenser"
-   annotation (Placement(transformation(extent={{-156,4},{-136,24}})));
-   Modelica.Blocks.Sources.RealExpression QEvaFloSet(final y=
-        Buildings.Utilities.Math.Functions.smoothMin(
-        x1=m2_flow*(hEvaSet - inStream(port_a2.h_outflow)),
-        x2=-Q_flow_small,
-        deltaX=Q_flow_small/100))
-  "Setpoint heat flow rate of the evaporator"
-   annotation (Placement(transformation(extent={{-156,-26},{-136,-6}})));
-   Modelica.Blocks.Sources.RealExpression TConEnt(y=Medium1.temperature(
-        Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow))))
-  "Condenser entering water temperature"
-   annotation (Placement(transformation(extent={{-156,42},
-          {-136,62}})));
-   Modelica.Blocks.Sources.RealExpression TEvaEnt(y=Medium2.temperature(
-        Medium2.setState_phX(port_a2.p, inStream(port_a2.h_outflow))))
-  "Evaporator entering water temperature"
-   annotation (Placement(transformation(extent={{-156,-64},{-136,-44}})));
-   Modelica.Blocks.Sources.RealExpression TConLvg(y=vol1.heatPort.T)
-   "Condenser leaving water temperature"
-    annotation (Placement(transformation(extent={{-156,28},{-136,48}})));
-   Modelica.Blocks.Sources.RealExpression TEvaLvg(y=vol2.heatPort.T)
-   "Evaporator leaving water temperature"
-    annotation (Placement(transformation(extent={{-156,-50},{-136,-30}})));
-   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
-   "Prescribed condenser heat flow rate"
-    annotation (Placement(transformation(extent={{-41,24},{-21,44}})));
-   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
-   "Prescribed evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{-41,-50},{-21,-30}})));
+    annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
    Modelica.SIunits.SpecificEnthalpy hEvaSet=
       Medium2.specificEnthalpy_pTX(
        p=port_b2.p,
@@ -125,45 +51,40 @@ model DOE2WaterToWater "Water source heat pump_Performance curve"
        X=cat( 1, port_b1.Xi_outflow,
               {1 - sum(port_b1.Xi_outflow)}))
    "Heating water setpoint enthalpy";
-
+   Modelica.Blocks.Sources.RealExpression TEvaLvg(y=vol2.heatPort.T)
+   "Evaporator leaving water temperature"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 equation
-  connect(preHeaFloCon.port,vol1.heatPort)
-  annotation (Line(points={{-21,34},{-16,34},{-16,60},{-10,60}}, color={191,0,0}));
-  connect(preHeaFloEva.port,vol2.heatPort)
-  annotation (Line(points={{-21,-40},{-2,-40},{-2,-60},{12,-60}},color={191,0,0}));
   connect(port_a2, port_a2)
   annotation (Line(points={{100,-60},{105,-60},{105,-60},{100,-60}},color={0,127,255}));
-  connect(uMod,doe2. uMod)
-  annotation (Line(points={{-176,0},{-144,0},{-144,-0.2},{-109,-0.2}},color={255,127,0}));
-  connect(TConSet,doe2. TConSet)
-  annotation (Line(points={{-172,80},{-114,80},{-114,10},{-109,10}},color={0,0,127}));
-  connect(QConFloSet.y,doe2. QConFloSet)
-  annotation (Line(points={{-135,14},{-120,14},{-120,2.2},{-109,2.2}},color={0,0,127}));
-  connect(QEvaFloSet.y,doe2. QEvaFloSet)
-  annotation (Line(points={{-135,-16},{-120,-16},{-120,-2.6},{-109,-2.6}},color={0,0,127}));
-  connect(TEvaLvg.y,doe2. TEvaLvg)
-  annotation (Line(points={{-135,-40},{-118,-40},{-118,-5},{-109,-5}},color={0,0,127}));
-  connect(doe2.TEvaEnt, TEvaEnt.y)
-  annotation (Line(points={{-109,-7.4},{-116,-7.4},{-116,-54},{-135,-54}},color={0,0,127}));
-  connect(doe2.TEvaSet, TEvaSet)
-  annotation (Line(points={{-109,-10},{-114,-10},{-114,-80},{-174,-80}},color={0,0,127}));
-  connect(doe2.QCon_flow, preHeaFloCon.Q_flow)
-  annotation (Line(points={{-87,4},{-58,4},{-58,34},{-41,34}}, color={0,0,127}));
   connect(doe2.QCon_flow, QCon_flow)
-  annotation (Line(points={{-87,4},{86,4},{86,20},{110,20}}, color={0,0,127}));
+  annotation (Line(points={{19,4},{86,4},{86,20},{110,20}},  color={0,0,127}));
   connect(doe2.P, P)
-  annotation (Line(points={{-87,0},{110,0}}, color={0,0,127}));
-  connect(doe2.QEva_flow, preHeaFloEva.Q_flow)
-  annotation (Line(points={{-87,-4},{-58,-4},{-58,-40},{-41,-40}}, color={0,0,127}));
+  annotation (Line(points={{19,0},{110,0}},  color={0,0,127}));
   connect(doe2.QEva_flow, QEva_flow)
-  annotation (Line(points={{-87,-4},{86,-4},{86,-20},{110,-20}}, color={0,0,127}));
-  connect(TConLvg.y,doe2. TConLvg)
-  annotation (Line(points={{-135,38},{-118,38},{-118,4.8},{-109,4.8}},color={0,0,127}));
-  connect(TConEnt.y,doe2. TConEnt)
-  annotation (Line(points={{-135,52},{-116,52},{-116,7.4},{-109,7.4}},color={0,0,127}));
+  annotation (Line(points={{19,-4},{86,-4},{86,-20},{110,-20}},  color={0,0,127}));
+  connect(TConEnt.y, doe2.TConEnt) annotation (Line(points={{-57,40},{-22,40},{-22,
+          7.4},{-3,7.4}}, color={0,0,127}));
+  connect(QConFloSet.y, doe2.QConFloSet) annotation (Line(points={{-57,24},{-40,
+          24},{-40,2.2},{-3,2.2}}, color={0,0,127}));
+  connect(QEvaFloSet.y, doe2.QEvaFloSet) annotation (Line(points={{-57,-24},{-40,
+          -24},{-40,-2.6},{-3,-2.6}}, color={0,0,127}));
+  connect(TEvaLvg.y, doe2.TEvaLvg) annotation (Line(points={{-59,-40},{-22,-40},
+          {-22,-6},{-3,-6}}, color={0,0,127}));
+  connect(TEvaSet, doe2.TEvaSet) annotation (Line(points={{-120,-90},{-18,-90},{
+          -18,-10},{-3,-10}}, color={0,0,127}));
+  connect(TConSet, doe2.TConSet) annotation (Line(points={{-120,90},{-18,90},{-18,
+          10},{-3,10}}, color={0,0,127}));
+  connect(doe2.QCon_flow, preHeaFloCon.Q_flow)
+    annotation (Line(points={{19,4},{72,4},{72,22},{59,22}}, color={0,0,127}));
+  connect(doe2.QEva_flow, preHeaFloEva.Q_flow) annotation (Line(points={{19,-4},
+          {72,-4},{72,-20},{59,-20}}, color={0,0,127}));
+  connect(uMod, doe2.uMod) annotation (Line(points={{-120,0},{-62,0},{-62,-0.2},
+          {-3,-0.2}}, color={255,127,0}));
   annotation (Dialog(group="Nominal condition"),
                choicesAllMatching=true,Placement(transformation(extent={{48,66},{68,86}})),
-              Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
+              Icon(coordinateSystem(preserveAspectRatio=false,extent={{-120,-100},
+            {100,100}}),
                    graphics={
         Rectangle(
           extent={{-92,96},{94,-94}},
@@ -305,5 +226,5 @@ Documentation(info="<html>
   </li>
   </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-160,-100},{100,100}})));
+    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
 end DOE2WaterToWater;

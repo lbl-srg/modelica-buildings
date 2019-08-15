@@ -2,19 +2,18 @@ within Buildings.Fluid.HeatPumps.BaseClasses;
 block EquationFitMethod "EquationFit method to predict heatpump performance"
   extends Modelica.Blocks.Icons.Block;
 
-    parameter Data.EquationFitWaterToWater.Generic_EquationFit per
-    "Performance data"
-       annotation (choicesAllMatching = true,Placement(transformation
-                   (extent={{78,80},{98,100}})));
-    parameter Real SF
-    "Load scale factor for heatpump";
-    final parameter Modelica.SIunits.HeatFlowRate Q_flow_small = per.QCon_heatflow_nominal*1E-9*SF
+  parameter Data.EquationFitWaterToWater.Generic per "Performance data"
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{78,80},
+            {98,100}})));
+    parameter Real scaling_factor
+    "Scaling factor for heat pump capacity";
+    parameter Modelica.SIunits.HeatFlowRate Q_flow_small = per.QCon_flow_nominal*1E-9*scaling_factor
     "Small value for heat flow rate or power, used to avoid division by zero";
 
     Modelica.Blocks.Interfaces.RealInput TEvaSet(final unit="K", displayUnit="degC")
     "Set point for leaving chilled water temperature"
        annotation (Placement(transformation(extent={{-124,-112},{-100,-88}}),
-          iconTransformation(extent={{-122,-114},{-104,-96}})));
+          iconTransformation(extent={{-118,-108},{-100,-90}})));
     Modelica.Blocks.Interfaces.RealInput TConSet(final unit="K", displayUnit="degC")
     "Set point for leaving heating water temperature"
        annotation (Placement(transformation(extent={{-122,88},{-100,110}}),
@@ -23,38 +22,30 @@ block EquationFitMethod "EquationFit method to predict heatpump performance"
     "HeatPump control input signal, Heating mode= 1, Off=0, Cooling mode=-1"
        annotation (Placement(transformation(extent={{-124,-12},{-100,12}}),
           iconTransformation(extent={{-122,-12},{-104,6}})));
-    Modelica.Blocks.Interfaces.RealInput TConLvg(final unit="K", displayUnit="degC")
-    "Condenser leaving water temperature"
-       annotation (Placement(transformation(extent={{-122,68},{-100,90}}),
-          iconTransformation(extent={{-120,66},{-100,86}})));
     Modelica.Blocks.Interfaces.RealInput TConEnt(final unit="K", displayUnit="degC")
     "Condenser entering water temperature"
-       annotation (Placement(transformation(extent={{-124,48},{-100,72}}),
-          iconTransformation(extent={{-120,46},{-100,66}})));
-    Modelica.Blocks.Interfaces.RealInput TEvaLvg(final unit="K", displayUnit="degC")
-    "Evaporator leaving water temperature"
-       annotation (Placement(transformation(extent={{-124,-72},{-100,-48}}),
-          iconTransformation(extent={{-122,-74},{-104,-56}})));
+       annotation (Placement(transformation(extent={{-124,58},{-100,82}}),
+          iconTransformation(extent={{-120,58},{-100,78}})));
     Modelica.Blocks.Interfaces.RealInput TEvaEnt(final unit="K", displayUnit="degC")
     "Evaporator entering water temperature"
-       annotation (Placement(transformation(extent={{-124,-92},{-100,-68}}),
-          iconTransformation(extent={{-122,-94},{-104,-76}})));
+       annotation (Placement(transformation(extent={{-124,-82},{-100,-58}}),
+          iconTransformation(extent={{-118,-84},{-100,-66}})));
     Modelica.Blocks.Interfaces.RealInput m1_flow(final unit="kg/s")
     "Volume 1 massflow rate "
        annotation (Placement(transformation(extent={{-124,8},{-100,32}}),
-          iconTransformation(extent={{-120,26},{-100,46}})));
+          iconTransformation(extent={{-120,10},{-100,30}})));
     Modelica.Blocks.Interfaces.RealInput m2_flow(final unit="kg/s")
     "Volume2 mass flow rate"
        annotation (Placement(transformation(extent={{-124,-32},{-100,-8}}),
-          iconTransformation(extent={{-122,-52},{-104,-34}})));
-    Modelica.Blocks.Interfaces.RealInput QConFloSet(final unit="W")
-    "Condenser setpoint heat flow rate"
-       annotation (Placement(transformation(extent={{-124,28},{-100,52}}),
-          iconTransformation(extent={{-120,6},{-100,26}})));
-    Modelica.Blocks.Interfaces.RealInput QEvaFloSet(final unit="W")
-    "Evaporator setpoint heat flow rate"
-       annotation (Placement(transformation(extent={{-124,-52},{-100,-28}}),
-          iconTransformation(extent={{-122,-32},{-104,-14}})));
+          iconTransformation(extent={{-118,-36},{-100,-18}})));
+    Modelica.Blocks.Interfaces.RealInput QCon_flow_set(final unit="W")
+    "Condenser setpoint heat flow rate" annotation (Placement(transformation(
+          extent={{-124,34},{-100,58}}), iconTransformation(extent={{-120,34},{-100,
+            54}})));
+    Modelica.Blocks.Interfaces.RealInput QEva_flow_set(final unit="W")
+    "Evaporator setpoint heat flow rate" annotation (Placement(transformation(
+          extent={{-124,-58},{-100,-34}}), iconTransformation(extent={{-118,-60},
+            {-100,-42}})));
     Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W")
     "Condenser heat flow rate "
        annotation (Placement(transformation(extent={{100,30},{120,50}}),
@@ -87,10 +78,10 @@ protected
     Real x2[5] "Normalized inlet variables";
 
 initial equation
-   assert(per.QCon_heatflow_nominal> 0,
-   "Parameter QCon_heatflow_nominal must be larger than zero.");
-   assert(per.QEva_heatflow_nominal< 0,
-   "Parameter QEva_heatflow_nominal must be lesser than zero.");
+   assert(per.QCon_flow_nominal> 0,
+   "Parameter QCon_flow_nominal must be larger than zero.");
+   assert(per.QEva_flow_nominal< 0,
+   "Parameter QEva_flow_nominal must be lesser than zero.");
    assert(Q_flow_small > 0,
    "Parameter Q_flow_small must be larger than zero.");
 
@@ -99,49 +90,49 @@ equation
 
       A1=per.HLRC;
       x1={1,TConEnt/per.TRefHeaCon,TEvaEnt/per.TRefHeaEva,
-      m1_flow/per.mCon_flow_nominal*SF,m2_flow/per.mEva_flow_nominal*SF};
+      m1_flow/per.mCon_flow_nominal*scaling_factor,m2_flow/per.mEva_flow_nominal*scaling_factor};
 
-      A2= per.PHC;
+      A2= per.PCH;
       x2={1,TConEnt/per.TRefHeaCon,TEvaEnt/per.TRefHeaEva,
-      m1_flow/per.mCon_flow_nominal*SF,m2_flow/per.mEva_flow_nominal*SF};
+      m1_flow/per.mCon_flow_nominal*scaling_factor,m2_flow/per.mEva_flow_nominal*scaling_factor};
 
       HLR  = sum( A1.*x1);
       CLR  = 0;
       PRH =  sum( A2.*x2);
       PRC = 0;
-      QCon_flow_ava= HLR *(per.QCon_heatflow_nominal*SF);
+      QCon_flow_ava= HLR *(per.QCon_flow_nominal*scaling_factor);
       QEva_flow_ava = 0;
 
-      QCon_flow = Buildings.Utilities.Math.Functions.smoothMin(
-                            x1=QConFloSet,
-                            x2=QCon_flow_ava,
-                            deltaX=Q_flow_small/10);
+      QCon_flow =Buildings.Utilities.Math.Functions.smoothMin(
+      x1=QCon_flow_set,
+      x2=QCon_flow_ava,
+      deltaX=Q_flow_small/10);
 
-      P = PRH * (per.PCon_nominal_HD*SF);
+      P = PRH * (per.PCon_nominal*scaling_factor);
       QEva_flow= -(QCon_flow -P);
 
     elseif (uMod==-1) then
 
       A1= per.CLRC;
       x1={1,TConEnt/per.TRefCooCon,TEvaEnt/per.TRefCooEva,
-      m1_flow/per.mCon_flow_nominal*SF,m2_flow/per.mEva_flow_nominal*SF};
+      m1_flow/per.mCon_flow_nominal*scaling_factor,m2_flow/per.mEva_flow_nominal*scaling_factor};
 
       A2= per.PCC;
       x2={1,TConEnt/per.TRefCooCon,TEvaEnt/per.TRefCooEva,
-      m1_flow/per.mCon_flow_nominal*SF,m2_flow/per.mEva_flow_nominal*SF};
+      m1_flow/per.mCon_flow_nominal*scaling_factor,m2_flow/per.mEva_flow_nominal*scaling_factor};
 
       HLR  = 0;
       CLR  = sum(A1.*x1);
       PRH  =  0;
       PRC  = sum(A2.*x2);
       QCon_flow_ava = 0;
-      QEva_flow_ava = CLR* (per.QEva_heatflow_nominal*SF);
+      QEva_flow_ava = CLR* (per.QEva_flow_nominal*scaling_factor);
 
-      QEva_flow = Buildings.Utilities.Math.Functions.smoothMax(
-                            x1=QEvaFloSet,
-                            x2=QEva_flow_ava,
-                            deltaX=Q_flow_small/10);
-      P = PRC * (per.PEva_nominal_CD*SF);
+      QEva_flow =Buildings.Utilities.Math.Functions.smoothMax(
+      x1=QEva_flow_set,
+      x2=QEva_flow_ava,
+      deltaX=Q_flow_small/10);
+      P = PRC * (per.PEva_nominal*scaling_factor);
       QCon_flow = -QEva_flow + P;
 
     else

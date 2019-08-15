@@ -30,12 +30,12 @@ block DOE2Method
         iconTransformation(extent={{-120,-12},{-100,8}})));
   Modelica.Blocks.Interfaces.RealInput TConEnt(final unit="K", displayUnit="degC")
    "Condenser entering water temperature"
-    annotation (Placement(transformation(extent={{-124,48},{-100,72}}),
+    annotation (Placement(transformation(extent={{-124,56},{-100,80}}),
         iconTransformation(extent={{-120,64},{-100,84}})));
   Modelica.Blocks.Interfaces.RealInput TEvaLvg(final unit="K", displayUnit="degC")
    "Evaporator leaving water temperature"
-    annotation (Placement(transformation(extent={{-124,-72},{-100,-48}}),
-        iconTransformation(extent={{-120,-60},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-124,-82},{-100,-58}}),
+        iconTransformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealInput QConFloSet(final unit="W")
    "Condenser setpoint heat flow rate"
     annotation (Placement(transformation(extent={{-124,28},{-100,52}}),
@@ -44,14 +44,17 @@ block DOE2Method
    "Evaporator setpoint heat flow rate"
     annotation (Placement(transformation(extent={{-124,-52},{-100,-28}}),
         iconTransformation(extent={{-120,-36},{-100,-16}})));
+  /*
   Modelica.Blocks.Interfaces.RealInput TConLvg(final unit="K", displayUnit="degC")
    "Condenser leaving water temperature"
     annotation (Placement(transformation(extent={{-124,66},{-100,90}}),
-        iconTransformation(extent={{-120,38},{-100,58}})));
+    iconTransformation(extent={{-120,38},{-100,58}})));
+  
   Modelica.Blocks.Interfaces.RealInput TEvaEnt(final unit="K", displayUnit="degC")
    "Evaporator entering water temperature"
     annotation (Placement(transformation(extent={{-124,-92},{-100,-68}}),
-        iconTransformation(extent={{-120,-84},{-100,-64}})));
+    iconTransformation(extent={{-120,-84},{-100,-64}})));
+  */
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W")
    "Condenser heat flow rate "
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
@@ -124,7 +127,7 @@ equation
       QEva_flow_ava = 0;
 
       PLR1 = Buildings.Utilities.Math.Functions.smoothMax(
-                              x1 =  QConFloSet/(QCon_flow_ava - Q_flow_small),
+                              x1 =  QConFloSet/(QCon_flow_ava + Q_flow_small),
                               x2 =  per.PLRMax,
                           deltaX =  per.PLRMax/100);
 

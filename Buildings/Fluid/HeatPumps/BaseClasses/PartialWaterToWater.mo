@@ -55,7 +55,6 @@ partial model PartialWaterToWater
   parameter Real dTHys(unit="K",min=0) = 5
     "Hysteresis interval width"
     annotation(Dialog(enable=enable_temperature_protection, group="Temperature protection"));
-
   Modelica.Blocks.Interfaces.BooleanOutput errLowPre if enable_temperature_protection
     "if true, compressor disabled since evaporator temperature is above upper bound";
   Modelica.Blocks.Interfaces.BooleanOutput errHigPre if enable_temperature_protection

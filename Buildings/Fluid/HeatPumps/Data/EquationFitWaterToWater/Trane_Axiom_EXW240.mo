@@ -1,21 +1,19 @@
 within Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater;
 record Trane_Axiom_EXW240 =
- Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater.Generic_EquationFit (
+ Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater.Generic (
     TRefHeaCon=53 + 273.15,
     TRefHeaEva=18 + 273.15,
     TRefCooCon=28 + 273.15,
     TRefCooEva=12 + 273.15,
-    QCon_heatflow_nominal=77000.00,
-    QEva_heatflow_nominal=-55680.00,
-    VCon_nominal=0.001893,
+    QCon_flow_nominal=77000.00,
+    QEva_flow_nominal=-55680.00,
     mCon_flow_nominal=1000*0.001893,
-    VEva_nominal=0.001893,
     mEva_flow_nominal=1000*0.001893,
-    PCon_nominal_HD=18000,
-    PEva_nominal_CD=14244.44,
+    PH_nominal=18000,
+    PC_nominal=14244.44,
     HLRC={-4.23,-1.24,6.28,0.01,0.08},
     CLRC={-5.79235417,9.83800467,-3.19795605,0.32498894,0.043752306918433},
-    PHC={-5.55,5.08,1.01,-0.04,0.00},
+    PCH={-5.55,5.08,1.01,-0.04,0.00},
     PCC={-6.37109639,1.27560526,5.81780490,0.03132874,-0.082990443216406})
     "Water source HeatPump Trane_Axiom_EXW240"
 annotation (

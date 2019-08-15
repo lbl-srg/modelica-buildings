@@ -12,7 +12,7 @@ model EquationFitWaterToWater_Static "example"
 
     Buildings.Fluid.HeatPumps.EquationFitWaterToWater heaPum(
       per=per,
-      SF=1,
+      scaling_factor=1,
       redeclare package Medium1 = Medium,
       redeclare package Medium2 = Medium,
       show_T=true,
@@ -101,13 +101,13 @@ equation
   connect(res1.port_b,heaVol. ports[1])
   annotation (Line(points={{88,68},{98,68}},color={0,127,255}));
   connect(TEvaSet.y, heaPum.TEvaSet)
-  annotation (Line(points={{2,-30},{22,-30},{22,-9},{36.1667,-9}}, color={0,0,127}));
+  annotation (Line(points={{2,-30},{22,-30},{22,-9},{34.5455,-9}}, color={0,0,127}));
   connect(evaPum.ports[1], heaPum.port_a2)
   annotation (Line(points={{76,-20},{56,-20},{56,-6},{54,-6}},color={0,127,255}));
   connect(heaPum.port_a1, conPum.ports[1])
-  annotation (Line(points={{37.3333,6},{30,6},{30,70},{-40,70}}, color={0,127,255}));
+  annotation (Line(points={{35.8182,6},{30,6},{30,70},{-40,70}}, color={0,127,255}));
   connect(TConSet.y, heaPum.TConSet)
-  annotation (Line(points={{2,30},{22,30},{22,9},{36.1667,9}},color={0,0,127}));
+  annotation (Line(points={{2,30},{22,30},{22,9},{34.5455,9}},color={0,0,127}));
   connect(res1.port_a, heaPum.port_b1)
   annotation (Line(points={{68,68},{54,68},{54,6}}, color={0,127,255}));
   connect(TConEnt.y, conPum.T_in)
@@ -115,11 +115,11 @@ equation
   connect(uMod.y, reaToInt.u)
   annotation (Line(points={{-86,0},{-62,0}}, color={0,0,127}));
   connect(reaToInt.y, heaPum.uMod)
-  annotation (Line(points={{-39,0},{36.1667,0}},color={255,127,0}));
+  annotation (Line(points={{-39,0},{34.5455,0}},color={255,127,0}));
   connect(cooVol.ports[1], res2.port_b)
   annotation (Line(points={{-40,-70},{6,-70}}, color={0,127,255}));
   connect(heaPum.port_b2, res2.port_a)
-  annotation (Line(points={{37.3333,-6},{32,-6},{32,-70},{26,-70}}, color={0,127,255}));
+  annotation (Line(points={{35.8182,-6},{32,-6},{32,-70},{26,-70}}, color={0,127,255}));
   connect(TEvaEnt.y, evaPum.T_in)
   annotation (Line(points={{82,-70},{112,-70},{112,-24},{98,-24}},  color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

@@ -16,7 +16,7 @@ model EquationFitWaterToWater_Dynamic "example"
 
   EquationFitWaterToWater heaPum(
     per=per,
-    SF=1,
+    scaling_factor=1,
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     show_T=true,
@@ -108,17 +108,17 @@ model EquationFitWaterToWater_Dynamic "example"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
 equation
   connect(heaPum.port_a1,conPum. ports[1])
-  annotation (Line(points={{35.3333,6},{24,6},{24,70},{-20,70}}, color={0,127,255}));
+  annotation (Line(points={{33.8182,6},{24,6},{24,70},{-20,70}}, color={0,127,255}));
   connect(TConEnt.y, conPum.T_in)
   annotation (Line(points={{-58,66},{-42,66}}, color={0,0,127}));
   connect(cooVol.ports[1],res2. port_a)
   annotation (Line(points={{-40,-70},{-22,-70}}, color={0,127,255}));
   connect(res2.port_b, heaPum.port_b2)
-  annotation (Line(points={{-2,-70},{24,-70},{24,-6},{35.3333,-6}},color={0,127,255}));
+  annotation (Line(points={{-2,-70},{24,-70},{24,-6},{33.8182,-6}},color={0,127,255}));
   connect(TConSet.y, heaPum.TConSet)
-  annotation (Line(points={{2,30},{16,30},{16,9},{34.1667,9}}, color={0,0,127}));
+  annotation (Line(points={{2,30},{16,30},{16,9},{32.5455,9}}, color={0,0,127}));
   connect(TEvaSet.y, heaPum.TEvaSet)
-  annotation (Line(points={{2,-30},{16,-30},{16,-9},{34.1667,-9}},color={0,0,127}));
+  annotation (Line(points={{2,-30},{16,-30},{16,-9},{32.5455,-9}},color={0,0,127}));
   connect(res1.port_a, heaPum.port_b1)
   annotation (Line(points={{60,70},{52,70},{52,6}}, color={0,127,255}));
   connect(res1.port_b,heaVol. ports[1])
@@ -130,9 +130,9 @@ equation
   connect(uMod.y, reaToInt.u)
   annotation (Line(points={{-58,0},{-46,0}}, color={0,0,127}));
   connect(reaToInt.y, heaPum.uMod)
-  annotation (Line(points={{-23,0},{34.1667,0}}, color={255,127,0}));
+  annotation (Line(points={{-23,0},{32.5455,0}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}}), 
+        extent={{-100,-100},{100,100}}),
         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
