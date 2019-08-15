@@ -226,5 +226,10 @@ Documentation(info="<html>
   </li>
   </ul>
 </html>"),
+<<<<<<< HEAD
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
 end DOE2WaterToWater;
+=======
+    Diagram(coordinateSystem(extent={{-160,-100},{100,100}})));
+end DOE2WaterToWater;
+>>>>>>> a0a6e3243ce88d6fc208f457a4eb852b9e13e4c4

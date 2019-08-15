@@ -8,4 +8,8 @@ createPlot(id = 1,
    grid = true,
    color = true,
    leftTitleType = 1,
+<<<<<<< HEAD
    bottomTitleType = 1);
+=======
+   bottomTitleType = 1);
+>>>>>>> a0a6e3243ce88d6fc208f457a4eb852b9e13e4c4

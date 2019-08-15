@@ -194,18 +194,18 @@ equation
 
   else
 
-     CapFT = 0;
-     EIRFT = 0;
-     EIRFPLR= 0;
-     QEva_flow_ava = 0;
-     QCon_flow_ava = 0;
-     PLR1 = 0;
-     PLR2 = 0;
-     CR   = 0;
-     QCon_flow = 0;
-     QEva_flow = 0;
-     P    = 0;
-     COP = 0;
+      CapFT = 0;
+      EIRFT = 0;
+      EIRFPLR= 0;
+      QEva_flow_ava = 0;
+      QCon_flow_ava = 0;
+      PLR1 = 0;
+      PLR2 = 0;
+      CR   = 0;
+      QCon_flow = 0;
+      QEva_flow = 0;
+      P    = 0;
+      COP = 0;
   end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),

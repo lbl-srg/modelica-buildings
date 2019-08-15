@@ -220,6 +220,12 @@ equation
   First implementation.
   </li>
   </ul>
+<<<<<<< HEAD
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
 end EquationFitWaterToWater;
+=======
+  </html>"),
+    Diagram(coordinateSystem(extent={{-140,-100},{100,100}})));
+end EquationFitWaterToWater;
+>>>>>>> a0a6e3243ce88d6fc208f457a4eb852b9e13e4c4
