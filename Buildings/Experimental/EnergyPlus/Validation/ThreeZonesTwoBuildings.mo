@@ -42,7 +42,7 @@ model ThreeZonesTwoBuildings
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     usePrecompiledFMU=false,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
-    zoneName="South_ZN") "Thermal zone"
+    zoneName="Perimeter_ZN_1") "Thermal zone"
     annotation (Placement(transformation(extent={{20,-84},{60,-44}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
