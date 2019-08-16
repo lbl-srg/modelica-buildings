@@ -92,7 +92,7 @@ equation
       x1={1,TConEnt/per.TRefHeaCon,TEvaEnt/per.TRefHeaEva,
       m1_flow/per.mCon_flow_nominal*scaling_factor,m2_flow/per.mEva_flow_nominal*scaling_factor};
 
-      A2= per.PCH;
+      A2= per.PHC;
       x2={1,TConEnt/per.TRefHeaCon,TEvaEnt/per.TRefHeaEva,
       m1_flow/per.mCon_flow_nominal*scaling_factor,m2_flow/per.mEva_flow_nominal*scaling_factor};
 
@@ -108,7 +108,7 @@ equation
       x2=QCon_flow_ava,
       deltaX=Q_flow_small/10);
 
-      P = PRH * (per.PCon_nominal*scaling_factor);
+      P = PRH * (per.PH_nominal*scaling_factor);
       QEva_flow= -(QCon_flow -P);
 
     elseif (uMod==-1) then
@@ -132,7 +132,7 @@ equation
       x1=QEva_flow_set,
       x2=QEva_flow_ava,
       deltaX=Q_flow_small/10);
-      P = PRC * (per.PEva_nominal*scaling_factor);
+      P = PRC * (per.PC_nominal*scaling_factor);
       QCon_flow = -QEva_flow + P;
 
     else
