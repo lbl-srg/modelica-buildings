@@ -123,6 +123,8 @@ protected
     final unit="W/K")
     "Derivative dQCon_flow / dT";
 
+  Integer counter "Counter, used to force one more execution right after the initialization";
+
   function round
     input Real u;
     input Real accuracy;
@@ -138,6 +140,7 @@ initial equation
     assert(Modelica.Utilities.Strings.length(fmuName) > 1, "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
   startTime =  time;
+  counter = 0;
   (AFlo, V, mSenFac) =  Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
     adapter = adapter,
     startTime = time);
@@ -151,7 +154,8 @@ equation
   end if;
   // The 'not initial()' triggers one sample when the continuous time simulation starts.
   // This is required for the correct event handling. Otherwise the regression tests will fail.
-  when {initial(), not initial(), time >= pre(tNext)} then
+ // when {initial(), not initial(), time >= pre(tNext)} then
+  when {initial(), pre(counter) == 1, time >= pre(tNext)} then
   // Initialization of output variables.
     TRooLast = T;
     dtLast = time-pre(tLast);
@@ -170,6 +174,7 @@ equation
       AFlo,
       round(time, 1E-3));
     tLast = time;
+    counter = pre(counter) + 1;
   end when;
   QCon_flow = QConLast_flow + (T-TRooLast) * dQCon_flow;
   annotation (

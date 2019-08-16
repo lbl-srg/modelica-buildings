@@ -1,5 +1,7 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses;
 function initialize "Initialization"
+  extends Modelica.Icons.Function;
+
   input Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass
     adapter "External object";
   input Modelica.SIunits.Time startTime "Start time of the simulation";

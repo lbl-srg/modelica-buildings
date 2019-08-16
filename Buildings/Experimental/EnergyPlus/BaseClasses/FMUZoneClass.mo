@@ -3,6 +3,8 @@ class FMUZoneClass "Class used to couple the FMU"
 extends ExternalObject;
   function constructor
     "Construct to connect to a thermal zone in EnergyPlus"
+    extends Modelica.Icons.Function;
+
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
     input String iddName "Name of the IDD file";
@@ -50,6 +52,8 @@ First implementation.
   end constructor;
 
   function destructor "Release storage"
+    extends Modelica.Icons.Function;
+
     input FMUZoneClass adapter;
     external "C" ZoneFree(adapter)
         annotation (
