@@ -250,7 +250,7 @@ void getSimulationTemporaryDirectory(const char* idfName, char** dirNam){
     if ( errno == ERANGE){
       lenCurDir += incLenCurDir;
       if (lenCurDir > maxLenCurDir){
-        ModelicaFormatError("Temporary directories with names longer than %u characters are not supported in EnergyPlusStructure.c unless you change maxLenCurDir.", maxLenCurDir);
+        ModelicaFormatError("Temporary directories with names longer than %lu characters are not supported in EnergyPlusStructure.c unless you change maxLenCurDir.", maxLenCurDir);
       }
       curDir = realloc(curDir, lenCurDir * sizeof(char));
       if (curDir == NULL)

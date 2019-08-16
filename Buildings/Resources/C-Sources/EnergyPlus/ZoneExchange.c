@@ -243,6 +243,9 @@ void ZoneExchange(
   /* Assign output values, which are of the order below
      const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
   */
+  /* Check for what seems to be an error, possibly due to unstable simulation */
+  if (outputValues[0] > 100. || outputValues[0] < -50.)
+    ModelicaFormatError("Radiative temperature is %.2f degC in zone %s", outputValues[0], zone->modelicaInstanceName);
 
   *TRad = outputValues[0] + 273.15;
   *QConSen_flow = outputValues[1];

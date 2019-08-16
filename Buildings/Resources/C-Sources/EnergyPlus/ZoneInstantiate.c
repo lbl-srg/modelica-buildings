@@ -123,15 +123,14 @@ void ZoneInstantiate(
   double outputValues[ZONE_N_PAR_OUT];
 
   if (2 <= FMU_EP_VERBOSITY){
-    ModelicaFormatMessage("Entered ZoneInstantiate for zone %s.\n", zone->name);
-    ModelicaFormatMessage("FMU for this zone is at %p.\n", zone->ptrBui->fmu);
+    ModelicaFormatMessage("Entered ZoneInstantiate for zone %s.\n", zone->modelicaInstanceName);
   }
   /* Fixme: Here, in Dymola, zone->ptrBui is NULL for FMUZoneAdapterZones2, but it was not NULL
      when leaving ZoneAllocate */
   /* if (zone->ptrBui->nZon == 1)
     ModelicaFormatError("*** Entering loadFMU_setupExperiment_enterInitializationMode, ptrBui=%p", zone->ptrBui);// with nZon=%d", zone->ptrBui->nZon); */
   if (zone->ptrBui == NULL){
-    ModelicaError("Pointer zone->ptrBui is NULL in ZoneInstantiate.");
+    ModelicaFormatError("Pointer zone->ptrBui is NULL in ZoneInstantiate for zone %s.", zone->modelicaInstanceName);
   }
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
@@ -143,7 +142,7 @@ void ZoneInstantiate(
     */
     loadFMU_setupExperiment_enterInitializationMode(zone, startTime);
     if (2 <= FMU_EP_VERBOSITY)
-      ModelicaFormatMessage("FMU for zone %s is now allocated at %p.\n", zone->name, zone->ptrBui->fmu);
+      ModelicaFormatMessage("FMU for zone %s is now allocated at %p.\n", zone->modelicaInstanceName, zone->ptrBui->fmu);
 
   }
 

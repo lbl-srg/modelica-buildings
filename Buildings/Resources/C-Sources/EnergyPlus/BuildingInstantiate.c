@@ -101,6 +101,7 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
 
 void setValueReference(
   const char* fmuNam,
+  const char* inpSrcNam,
   fmi2_import_variable_list_t* varLis,
   const fmi2_value_reference_t varValRef[],
   size_t nVar,
@@ -124,7 +125,7 @@ void setValueReference(
       }
     }
     if (iFMI == nVar){
-      ModelicaFormatError("Failed to find variable %s in %s.", modNames[iMod], fmuNam);
+      ModelicaFormatError("Failed to find variable %s in %s. Make sure it exists in %s.", modNames[iMod], fmuNam, inpSrcNam);
       }
     }
  }
@@ -146,18 +147,21 @@ void setValueReferences(FMUBuilding* fmuBui){
     zone = (FMUZone*) fmuBui->zones[iZon];
     setValueReference(
       fmuBui->fmuAbsPat,
+      fmuBui->name,
       vl, vrl, nv,
       zone->parOutVarNames,
       ZONE_N_PAR_OUT,
       &(zone->parOutValReferences));
    setValueReference(
       fmuBui->fmuAbsPat,
+      fmuBui->name,
       vl, vrl, nv,
       zone->inpVarNames,
       ZONE_N_INP,
       &(zone->inpValReferences));
    setValueReference(
      fmuBui->fmuAbsPat,
+     fmuBui->name,
      vl, vrl, nv,
      zone->outVarNames,
      ZONE_N_OUT,
