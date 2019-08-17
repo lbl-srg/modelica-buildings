@@ -13,7 +13,7 @@ block TimeTable
     "Time scale of first table column. Set to 3600 if time in table is in hours";
 
   Interfaces.RealOutput y[nout] "Output of the table"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   final parameter Integer nout=size(table, 2)-1
@@ -42,7 +42,7 @@ protected
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 
 equation
-  connect(tab.y, y) annotation (Line(points={{9,0},{110,0}}, color={0,0,127}));
+  connect(tab.y, y) annotation (Line(points={{9,0},{120,0}}, color={0,0,127}));
 
 annotation (
 Documentation(info="<html>

@@ -11,6 +11,7 @@ algorithm
   phi :=p/saturationPressure(T)*X_w/(X_w +
     Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-X_w));
   annotation (
+    inverse(X_w=X_pTphi(p,T,phi)),
     smoothOrder=1,
     Documentation(info="<html>
 <p>
@@ -24,6 +25,11 @@ total air, and not dry air.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 4, 2019 by Filip Jorissen:<br/>
+Added inverse annotation
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1110\">#1110</a>.
+</li>
 <li>
 November 17, 2014 by Michael Wetter:<br/>
 Removed test that constrains the saturation pressure to be

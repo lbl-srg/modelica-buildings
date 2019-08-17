@@ -22,37 +22,45 @@ protected
   parameter Boolean canRepeatWeatherFile = abs(mod(lenWea, 365*24*3600)) < 1E-2
     "=true, if the weather file can be repeated, since it has the length of a year or a multiple of it";
 
-  Modelica.SIunits.Time tNext "Start time of next period";
-  function getNextTime "Function that computes the next time when a switch needs to happen"
-    input Modelica.SIunits.Time modelTime "Model time";
-    input Modelica.SIunits.Time lengthWeather "Length of weather data";
-    output Modelica.SIunits.Time t "Next time when switch needs to happen";
-  algorithm
-    t := integer(modelTime/lengthWeather)*lengthWeather + lengthWeather;
-  end getNextTime;
-initial equation
-  tNext = getNextTime(modTim, lenWea);
+  discrete Modelica.SIunits.Time tNext(start=0, fixed=true) "Start time of next period";
 
 equation
-  when modTim > pre(tNext) then
+  when {initial(), canRepeatWeatherFile and modTim > pre(tNext)} then
     // simulation time stamp went over the end time of the weather file
     //(last time stamp of the weather file + average increment)
-    tNext = if canRepeatWeatherFile then getNextTime(modTim, lenWea) else integer(Modelica.Constants.inf);
+    tNext = if canRepeatWeatherFile then integer(modTim/lenWea)*lenWea + lenWea else time;
   end when;
-  calTim = if canRepeatWeatherFile then modTim - (tNext - lenWea) else modTim;
+  calTim = if canRepeatWeatherFile then modTim - tNext + lenWea else modTim;
+
   assert(canRepeatWeatherFile or (time - weaDatEndTim) < shiftSolarRad,
-    "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.",
+    "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
+    Based on the provided weather file the following start time " + String(weaDatStaTim) +
+    " and end time " + String(weaDatEndTim) + " (last time stamp + average increment) for the weather data were determined",
     AssertionLevel.error);
 
   annotation (
     defaultComponentName="conTim",
     Documentation(info="<html>
 <p>
-This component converts the simulation time to calendar time in a scale of 1 year (365 days), 
+This component converts the simulation time to calendar time in a scale of 1 year (365 days),
 or a multiple of it, if this is the length of the weather file.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 12, 2019, by Michael Wetter:<br/>
+Reformulated model to avoid having to evaluate the weather file during compilation
+(as it determined the structural parameter <code>lenWea</code>). The new formulation
+allows inclusion of the weather file in JModelica-generated FMUs, and it works with
+Dymola as well.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1147\">#1147</a>.
+</li>
+<li>
+May 21, 2019, by Michael Wetter:<br/>
+Corrected code to avoid wrong type conversion.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1142\">#1142</a>.
+</li>
 <li>
 March 4, 2019, by Michael Wetter:<br/>
 Refactored implementation to correctly account for negative start times.<br/>

@@ -10,8 +10,7 @@ block Average "Output the average of its two inputs"
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-8},{120,12}}),
-        iconTransformation(extent={{100,-8},{120,12}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = 0.5*(u1 + u2);

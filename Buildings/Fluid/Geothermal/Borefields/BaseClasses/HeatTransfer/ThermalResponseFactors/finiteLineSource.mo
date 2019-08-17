@@ -18,7 +18,7 @@ function finiteLineSource
 protected
   Real lowBou(unit="m-1") "Lower bound of integration";
   // Upper bound is infinite
-  Real uppBou(unit="m-1") = 100.0 "Upper bound of integration";
+  Real uppBou(unit="m-1") = max(100.0, 10.0/dis) "Upper bound of integration";
   Modelica.SIunits.Distance disMin
     "Minimum distance between sources and receiving line";
   Modelica.SIunits.Time timTre "Time treshold for evaluation of the solution";
@@ -117,6 +117,13 @@ The integral is solved numerically, with the integrand defined in
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 17, 2019, by Massimo Cimmino:<br/>
+Modified the upper bound of integration to avoid underestimating the value of
+the integral.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1107\">Buildings, issue 1107</a>.
+</li>
 <li>
 March 22, 2018 by Massimo Cimmino:<br/>
 First implementation.

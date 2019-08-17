@@ -3,9 +3,11 @@ And3
 Change
 Edge
 FallingEdge
+IntegerSwitch
 Latch
 LogicalSwitch
 MultiAnd
+MultiOr
 Nand
 Nor
 Not

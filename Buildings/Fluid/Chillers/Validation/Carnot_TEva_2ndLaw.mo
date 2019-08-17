@@ -75,7 +75,7 @@ protected
       m_flow=m1_flow_nominal)
                      "Mass flow rate source"
       annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-    Buildings.Fluid.Sources.FixedBoundary sin1(redeclare package Medium = Medium2, nPorts=1)
+    Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium2, nPorts=1)
       "Pressure source" annotation (Placement(transformation(extent={{-10,-10},{
               10,10}}, origin={-88,-50})));
     Buildings.Fluid.Chillers.Carnot_TEva chi(
@@ -121,7 +121,7 @@ protected
       m_flow_nominal=m1_flow_nominal,
       tau=0) "Entropy flow rate sensor"
       annotation (Placement(transformation(extent={{38,-20},{58,0}})));
-    Buildings.Fluid.Sources.FixedBoundary sin2(redeclare package Medium = Medium2, nPorts=1)
+    Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = Medium2, nPorts=1)
       "Pressure source" annotation (Placement(transformation(extent={{10,-10},{-10,
               10}}, origin={88,-10})));
     Modelica.Blocks.Math.Add SIn_flow
@@ -225,6 +225,11 @@ despite of a very small temperature lift.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 January 9, 2017, by Michael Wetter:<br/>
 Renamed internal protected class <code>Chiller</code> to be upper-case.

@@ -46,14 +46,14 @@ model Carnot_y "Test model for chiller based on Carnot_y efficiency"
     m_flow=m2_flow_nominal,
     T=291.15)
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+  Buildings.Fluid.Sources.Boundary_pT sin1(
     nPorts=1,
     redeclare package Medium = Medium1)
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={70,40})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  Buildings.Fluid.Sources.Boundary_pT sin2(
     nPorts=1,
     redeclare package Medium = Medium2)
     annotation (Placement(
@@ -112,6 +112,11 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 November 25, 2015 by Michael Wetter:<br/>
 Changed sign of <code>dTEva_nominal</code> to be consistent.

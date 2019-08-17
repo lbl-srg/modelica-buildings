@@ -7,17 +7,20 @@
 #include <stdio.h>
 
 void prependString(const char* fileName, const char* string){
+  char *origString;
+  FILE *fOut;
+  long fsize;
   /* read original file contents */
   FILE *fr = fopen(fileName, "r");
   if(fseek(fr, 0, SEEK_END)!=0)
     ModelicaFormatError("The file %s could not be read.", fileName);
-  long fsize = ftell(fr);
+  fsize = ftell(fr);
   if (fsize==-1)
     ModelicaFormatError("The file %s could not be read.", fileName);
   if(fseek(fr, 0, SEEK_SET)!=0)
     ModelicaFormatError("The file %s could not be read.", fileName);
 
-  char *origString = malloc(fsize + 1);
+  origString = malloc(fsize + 1);
   if ( origString == NULL ){
     /* not enough memory is available: file too large */
     ModelicaError("Not enough memory in fileWriterInit.c for prepending string.");
@@ -29,7 +32,7 @@ void prependString(const char* fileName, const char* string){
   origString[fsize] = '\0';
 
   /* write new contents */
-  FILE *fOut = fopen(fileName, "w");
+  fOut = fopen(fileName, "w");
   /* prepended string */
   if (fputs(string, fOut)==EOF)
     ModelicaFormatError("The file %s could not be written.", fileName);
@@ -48,20 +51,13 @@ void fileWriterFree(void* ptrFileWriter){
   /* If this FileWriter writes in a CombiTimeTable format, prepend the required header
   now that we know how many lines have been written. */
   if (ID->isCombiTimeTable){
-    char buf[255];
-    sprintf(buf,"#1\ndouble csv(%i,%i)\n",ID->numRows,ID->numColumns);
+    char* buf;
+    asprintf(&buf,"#1\ndouble csv(%i,%i)\n",ID->numRows,ID->numColumns);
     prependString(ID->fileWriterName, buf);
-  }
-
-  if ( FileWriterNames_n > 0 ){
-    FileWriterNames_n--;
-    free(FileWriterNames[FileWriterNames_n]);
-    if ( FileWriterNames_n == 0 ){
-      free(FileWriterNames);
+    free(buf);
     }
-  }
-  free(ID->fileWriterName);
-  free(ID->instanceName);
-  free(ID);
+
+  freeBase(ptrFileWriter);
+
   return;
 }

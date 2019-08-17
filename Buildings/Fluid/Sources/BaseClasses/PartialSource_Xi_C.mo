@@ -72,7 +72,7 @@ equation
   end for;
 
 
-  annotation (defaultComponentName="boundary",
+  annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},

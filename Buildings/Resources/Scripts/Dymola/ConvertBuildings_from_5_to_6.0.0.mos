@@ -5,6 +5,11 @@ clear
 
 convertClear();
 
+convertClass("Buildings.Fluid.Sources.FixedBoundary",
+             "Buildings.Obsolete.Fluid.Sources.FixedBoundary");
+
+convertModifiers("Buildings.Controls.OBC.CDL.Logical.Toggle", {"pre_u_start"}, fill("",0), true);
+
 convertModifiers("Buildings.Airflow.Multizone.MediumColumnDynamic", {"allowFlowReversal"}, fill("",0), true);
 convertModifiers("Buildings.Airflow.Multizone.MediumColumn", {"allowFlowReversal"}, fill("",0), true);
 convertModifiers("Buildings.Airflow.Multizone.EffectiveAirLeakageArea", {"allowFlowReversal"}, fill("",0), true);
@@ -25,8 +30,8 @@ convertClass("Buildings.Utilities.Reports.printRealArray",
 convertClass("Buildings.Utilities.Reports.Examples.Printer",
              "Buildings.Utilities.IO.Files.Examples.Printer");
 
-convertClass("Buildings.Controls.OBC.CDL.ExtractSignal",
-             "Buildings.Controls.OBC.CDL.RealExtractSignal");
+convertClass("Buildings.Controls.OBC.CDL.Routing.ExtractSignal",
+             "Buildings.Controls.OBC.CDL.Routing.RealExtractSignal");
 
 convertElement("Buildings.Controls.OBC.CDL.Continuous.MultiMax", "yMax", "y");
 convertElement("Buildings.Controls.OBC.CDL.Continuous.MultiMin", "yMin", "y");
