@@ -4,7 +4,7 @@ block IntegerReplicator "Integer signal replicator"
   Interfaces.IntegerInput u "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.IntegerOutput y[nout] "Connector of Integer output signals"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = fill(u, nout);

@@ -4,11 +4,9 @@ block TrueHoldWithReset "Block that holds a true signal for at least a requested
   parameter Modelica.SIunits.Time duration "Time duration of the true output signal hold";
 
   Interfaces.BooleanInput u "Boolean input signal"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanOutput y "Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
@@ -33,7 +31,7 @@ protected
 equation
   connect(initialStep.outPort[1], toOutputTrue.inPort)
     annotation (Line(points={{-59.5,60},{-44,60}}, color={0,0,0}));
-  connect(outputTrue.active, y) annotation (Line(points={{0,49},{0,0},{110,0}},
+  connect(outputTrue.active, y) annotation (Line(points={{0,49},{0,0},{120,0}},
                                                    color={255,0,255}));
   connect(toOutputTrue.condition, u)
     annotation (Line(points={{-40,48},{-40,0},{-120,0}}, color={255,0,255}));
@@ -47,7 +45,7 @@ equation
     annotation (Line(points={{10.5,60},{36,60}}, color={0,0,0}));
 
   connect(onDelay.y, toInitial.condition)
-    annotation (Line(points={{31,20},{40,20},{40,48}}, color={255,0,255}));
+    annotation (Line(points={{32,20},{40,20},{40,48}}, color={255,0,255}));
   annotation (
   defaultComponentName = "truHol",
   Icon(graphics={    Rectangle(

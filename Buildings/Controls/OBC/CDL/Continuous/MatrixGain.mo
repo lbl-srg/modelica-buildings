@@ -10,7 +10,7 @@ block MatrixGain
       transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y[nout] "Connector of Real output signals"
     annotation (Placement(
-      transformation(extent={{100,-10},{120,10}})));
+      transformation(extent={{100,-20},{140,20}})));
 
 protected
   parameter Integer nin=size(K, 2) "Number of inputs";

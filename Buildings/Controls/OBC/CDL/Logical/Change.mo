@@ -8,7 +8,7 @@ block Change
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
   pre(u) = pre_u_start;
