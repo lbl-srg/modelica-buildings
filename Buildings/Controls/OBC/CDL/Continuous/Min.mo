@@ -8,7 +8,7 @@ block Min "Pass through the smallest signal"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = min(u1, u2);
