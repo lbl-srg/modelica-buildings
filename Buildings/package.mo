@@ -7695,7 +7695,7 @@ preferredView="info",
 version="6.1.0",
 versionDate="2019-07-15",
 dateModified="2019-07-15",
-uses(Modelica(version="3.2.2")),
+uses(Modelica(version="3.2.3")),
 conversion(
   from(version={"5.0.0", "5.0.1", "5.1.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_5_to_6.0.0.mos")),
