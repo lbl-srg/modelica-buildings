@@ -1,7 +1,11 @@
 Capacities_u
 Capacities_uLow_uHig
 CapacityRequirement
+Change
 Configurator_uChiAva
+Down
 EfficiencyCondition
 FailsafeCondition
 Status_u_uAva
+PartLoadRatios_u_uTyp
+Up
