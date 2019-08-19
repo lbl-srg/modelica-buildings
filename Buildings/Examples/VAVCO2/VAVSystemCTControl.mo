@@ -71,40 +71,42 @@ Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Mediu
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for supply fan"
-            annotation (Placement(transformation(extent={{0,60},{20,80}})));
+            annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan32(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100})),
+    use_inputFilter=false,
     init=Modelica.Blocks.Types.Init.InitialState,
     m_flow_nominal=mMIT_flow,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=true)
-    annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    annotation (Placement(transformation(extent={{130,-18},{146,-2}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan56(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={2.676,11.05}, dp={600,100})),
+    use_inputFilter=false,
     init=Modelica.Blocks.Types.Init.InitialState,
     m_flow_nominal=mMIT_flow,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=true)
-    annotation (Placement(transformation(extent={{138,-78},{122,-62}})));
-  Modelica.Blocks.Sources.Pulse pSet(
-    amplitude=120,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    annotation (Placement(transformation(extent={{148,-78},{132,-62}})));
+  Modelica.Blocks.Sources.BooleanPulse onSig(
     period=86400,
     startTime=6*3600,
-    width=50)         "Pressure setpoint (0 during night, 120 during day)"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    width=50) "On/off signal for plant"
+    annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
   Modelica.Blocks.Math.Gain dp32(k=150) "Gain for fan"
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+    annotation (Placement(transformation(extent={{90,100},{110,120}})));
   Modelica.Blocks.Math.Gain dp56(k=60) "Gain for fan"
-    annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Modelica.Blocks.Logical.GreaterThreshold hys(threshold=0.1)
-    "Hysteresis to separate the on and off signals"
-    annotation (Placement(transformation(extent={{0,120},{20,140}})));
+    annotation (Placement(transformation(extent={{90,70},{110,90}})));
   Modelica.Blocks.Logical.Switch switch1
-    annotation (Placement(transformation(extent={{40,100},{60,120}})));
+    annotation (Placement(transformation(extent={{20,100},{40,120}})));
   Modelica.Blocks.Sources.Constant off(k=0) "Off signal"
-    annotation (Placement(transformation(extent={{-60,92},{-40,112}})));
+    annotation (Placement(transformation(extent={{-90,92},{-70,112}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=120)
+    "Boolean to real conversion, outputs static pressure set point"
+    annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
+  Controls.OBC.CDL.Continuous.SlewRateLimiter ramLim(raisingSlewRate=1/120)
+    "Ramp limiter for fan control signal"
+    annotation (Placement(transformation(extent={{50,100},{70,120}})));
 equation
   connect(PAtm.y, bouIn.p_in) annotation (Line(
       points={{-59,-40},{-50,-40},{-50,-56},{-40,-56}},
@@ -113,7 +115,7 @@ equation
       thickness=0.5));
   connect(roo.p_rel, conSupFan.u_m)
                               annotation (Line(
-      points={{312.6,-23.0769},{320,-23.0769},{320,40},{10,40},{10,58}},
+      points={{312.6,-23.0769},{320,-23.0769},{320,40},{-10,40},{-10,58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(yDam.y, mixBox.y) annotation (Line(
@@ -131,7 +133,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(res31.port_b, fan32.port_a) annotation (Line(
-      points={{80,-10},{122,-10}},
+      points={{80,-10},{130,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res57.port_b, mixBox.port_Ret) annotation (Line(
@@ -151,37 +153,37 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan56.port_b, res57.port_a) annotation (Line(
-      points={{122,-70},{80,-70}},
+      points={{132,-70},{80,-70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan32.port_b, res33.port_a) annotation (Line(
-      points={{138,-10},{160,-10}},
+      points={{146,-10},{160,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan56.port_a, roo.port_bExh) annotation (Line(
-      points={{138,-70},{157,-70},{157,-83.3846},{206,-83.3846}},
+      points={{148,-70},{157,-70},{157,-83.3846},{206,-83.3846}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pSet.y, conSupFan.u_s) annotation (Line(
-      points={{-19,70},{-2,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dp32.y, fan32.dp_in) annotation (Line(points={{101,90},{129.84,90},{
-          129.84,-0.4}}, color={0,0,127}));
-  connect(dp56.y, fan56.dp_in) annotation (Line(points={{101,60},{112,60},{112,
-          -40},{130.16,-40},{130.16,-60.4}}, color={0,0,127}));
-  connect(hys.u, pSet.y) annotation (Line(points={{-2,130},{-12,130},{-12,70},{
-          -19,70}}, color={0,0,127}));
-  connect(hys.y, switch1.u2) annotation (Line(points={{21,130},{30,130},{30,110},
-          {38,110}}, color={255,0,255}));
-  connect(switch1.u1, conSupFan.y) annotation (Line(points={{38,118},{28,118},{
-          28,70},{21,70}}, color={0,0,127}));
+  connect(dp32.y, fan32.dp_in) annotation (Line(points={{111,110},{138,110},{138,
+          -0.4}},        color={0,0,127}));
+  connect(dp56.y, fan56.dp_in) annotation (Line(points={{111,80},{120,80},{120,-40},
+          {140,-40},{140,-60.4}},            color={0,0,127}));
+  connect(switch1.u1, conSupFan.y) annotation (Line(points={{18,118},{12,118},{12,
+          70},{1,70}},     color={0,0,127}));
   connect(off.y, switch1.u3)
-    annotation (Line(points={{-39,102},{-20,102},{38,102}}, color={0,0,127}));
-  connect(switch1.y, dp32.u) annotation (Line(points={{61,110},{68,110},{68,90},
-          {78,90}}, color={0,0,127}));
-  connect(switch1.y, dp56.u) annotation (Line(points={{61,110},{68,110},{68,110},
-          {68,60},{78,60}}, color={0,0,127}));
+    annotation (Line(points={{-69,102},{18,102}},           color={0,0,127}));
+  connect(conSupFan.u_s, booToRea.y)
+    annotation (Line(points={{-22,70},{-29,70}}, color={0,0,127}));
+  connect(onSig.y, booToRea.u)
+    annotation (Line(points={{-69,70},{-52,70}}, color={255,0,255}));
+  connect(onSig.y, switch1.u2) annotation (Line(points={{-69,70},{-60,70},{-60,110},
+          {18,110}}, color={255,0,255}));
+  connect(switch1.y, ramLim.u)
+    annotation (Line(points={{41,110},{48,110}}, color={0,0,127}));
+  connect(dp32.u, ramLim.y)
+    annotation (Line(points={{88,110},{71,110}}, color={0,0,127}));
+  connect(dp56.u, ramLim.y) annotation (Line(points={{88,80},{80,80},{80,110},{
+          71,110}}, color={0,0,127}));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{350,150}})),
 Documentation(info="<html>
@@ -210,6 +212,12 @@ of the supply fan and pressure raise of the return fan is arbitrary.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 12, 2019, by Michael Wetter:<br/>
+Simplified computation of on/off signal.
+Used slew rate limiter for fan control signal rather than 2nd order filter,
+as this reduces computing time in JModelica by a factor of two.
+</li>
 <li>
 January 20, 2017, by Michael Wetter:<br/>
 Changed the fan control so that they have a control signal of exactly zero if the setpoint for the

@@ -6,21 +6,22 @@ block TDewPoi_TDryBulPhi
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
   Interfaces.RealInput phi(final min=0, final max=1, unit="1")
     "Relative air humidity"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealInput p(final quantity="Pressure",
                          final unit="Pa",
                          final min = 0) "Pressure"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Interfaces.RealOutput TDewPoi(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    final min=100) "Dew point temperature"    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    final min=100) "Dew point temperature"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
