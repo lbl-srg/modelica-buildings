@@ -17,10 +17,10 @@ model ModeAndSetPoints
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{-90,72},{-70,92}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(each freqHz=1/
-        28800, each amplitude=0.5) "Heating setpoint adjustment"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(freqHz=1/
+        28800, amplitude=0.5) "Heating setpoint adjustment"
     annotation (Placement(transformation(extent={{-46,0},{-26,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(each freqHz=1/
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(freqHz=1/
         28800) "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-46,40},{-26,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon1(

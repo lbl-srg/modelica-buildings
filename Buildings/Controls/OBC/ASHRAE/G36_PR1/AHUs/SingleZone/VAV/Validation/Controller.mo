@@ -17,9 +17,9 @@ model Controller "Validation controller model"
     VOutDes_flow=0.25) "Validate the heating case"
     annotation (Placement(transformation(extent={{20,74},{60,122}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
-    each duration=86400,
-    each height=6,
-    each offset=273.15 + 16)
+    duration=86400,
+    height=6,
+    offset=273.15 + 16)
                          "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,68},{-160,88}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{4,20})
@@ -58,9 +58,9 @@ model Controller "Validation controller model"
          + 28) "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,-6},{-160,14}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon1(
-    each duration=86400,
-    each height=-3,
-    each offset=273.15 + 26)
+    duration=86400,
+    height=-3,
+    offset=273.15 + 26)
                          "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller conVAV2(

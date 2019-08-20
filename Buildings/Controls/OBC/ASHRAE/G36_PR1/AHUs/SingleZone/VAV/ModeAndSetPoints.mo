@@ -90,8 +90,8 @@ block ModeAndSetPoints
     annotation (Evaluate=true, Dialog(tab="Setpoint adjust"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
-    each final unit="K",
-    each quantity="ThermodynamicTemperature")
+    final unit="K",
+    quantity="ThermodynamicTemperature")
     "Measured zone temperatures"
     annotation (Placement(transformation(extent={{-180,60},{-140,100.5}}),
       iconTransformation(extent={{-120,40},{-100,60}})));
@@ -102,14 +102,14 @@ block ModeAndSetPoints
     annotation (Placement(transformation(extent={{-180,120},{-140,160}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj(
-    each final unit="K",
-    each quantity="ThermodynamicTemperature") if (cooAdj or sinAdj)
+    final unit="K",
+    quantity="ThermodynamicTemperature") if (cooAdj or sinAdj)
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},origin={-160,-40}),
                         iconTransformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
-    each final unit="K",
-    each quantity="ThermodynamicTemperature") if heaAdj
+    final unit="K",
+    quantity="ThermodynamicTemperature") if heaAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},origin={-160,-70}), iconTransformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
@@ -125,13 +125,13 @@ block ModeAndSetPoints
     annotation (Placement(transformation(extent={{-180,-170},{-140,-130}}),
       iconTransformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
-    each final unit="K",
-    each quantity="ThermodynamicTemperature") "Cooling setpoint temperature"
+    final unit="K",
+    quantity="ThermodynamicTemperature") "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{140,90},{160,110}}),
       iconTransformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
-    each final unit="K",
-    each quantity="ThermodynamicTemperature") "Heating setpoint temperature"
+    final unit="K",
+    quantity="ThermodynamicTemperature") "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{140,50},{160,70}}),
       iconTransformation(extent={{100,20},{120,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod
@@ -140,32 +140,32 @@ block ModeAndSetPoints
       iconTransformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures TZonSet(
-    each final have_occSen=have_occSen,
-    each final have_winSen=have_winSen,
-    each final cooAdj=cooAdj,
-    each final heaAdj=heaAdj,
-    each final sinAdj=sinAdj,
-    each final ignDemLim=ignDemLim,
-    each final TZonCooOnMax=TZonCooOnMax,
-    each final TZonCooOnMin=TZonCooOnMin,
-    each final TZonHeaOnMax=TZonHeaOnMax,
-    each final TZonHeaOnMin=TZonHeaOnMin,
-    each final TZonCooSetWinOpe=TZonCooSetWinOpe,
-    each final TZonHeaSetWinOpe=TZonHeaSetWinOpe,
-    each final incTSetDem_1=incTSetDem_1,
-    each final incTSetDem_2=incTSetDem_2,
-    each final incTSetDem_3=incTSetDem_3,
-    each final decTSetDem_1=decTSetDem_1,
-    each final decTSetDem_2=decTSetDem_2,
-    each final decTSetDem_3=decTSetDem_3)
+    final have_occSen=have_occSen,
+    final have_winSen=have_winSen,
+    final cooAdj=cooAdj,
+    final heaAdj=heaAdj,
+    final sinAdj=sinAdj,
+    final ignDemLim=ignDemLim,
+    final TZonCooOnMax=TZonCooOnMax,
+    final TZonCooOnMin=TZonCooOnMin,
+    final TZonHeaOnMax=TZonHeaOnMax,
+    final TZonHeaOnMin=TZonHeaOnMin,
+    final TZonCooSetWinOpe=TZonCooSetWinOpe,
+    final TZonHeaSetWinOpe=TZonHeaSetWinOpe,
+    final incTSetDem_1=incTSetDem_1,
+    final incTSetDem_2=incTSetDem_2,
+    final incTSetDem_3=incTSetDem_3,
+    final decTSetDem_1=decTSetDem_1,
+    final decTSetDem_2=decTSetDem_2,
+    final decTSetDem_3=decTSetDem_3)
     "Zone set point temperature"
     annotation (Placement(transformation(extent={{60,-62},{100,-22}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(
-    each k=cooDemLimLevCon)
+    k=cooDemLimLevCon)
     "Cooling demand limit level"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant heaDemLimLev(
-    each k=heaDemLimLevCon) "Heating demand limit level"
+    k=heaDemLimLevCon) "Heating demand limit level"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(
     final k=TZonHeaOn)
@@ -192,11 +192,11 @@ block ModeAndSetPoints
     "Operation mode selector"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tCooDowHeaUp(
-    each final k=warCooTim)
+    final k=warCooTim)
     "Cool down and heat up time (assumed as constant)"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cloWin(
-    each k=false) if not have_winSen
+    k=false) if not have_winSen
     "Closed window status"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 
@@ -307,7 +307,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures</
 <h4>Usage</h4>
 <p>
 This version is for a single zone only to be used in the Single Zone VAV sequence.
-For multizone systems, use 
+For multizone systems, use
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.ModeAndSetPoints</a>.
 </p>

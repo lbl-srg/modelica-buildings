@@ -14,7 +14,8 @@ model Guideline36
     VOutDes_flow=0.625,
     yMin=0.1,
     TSupSetMax=313.15,
-    TSupSetMin=285.15)
+    TSupSetMin=285.15,
+    yDam_VOutMin_maxSpe=0.15)
     annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
   Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(uLow=-1,
       uHigh=0)
