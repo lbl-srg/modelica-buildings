@@ -137,13 +137,11 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
 
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaTyp(
-    final nin=nSta, outOfRangeValue=-1)
-    "Extract stage type"
-    annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extCurTyp(
+    final nin=nSta, outOfRangeValue=-1) "Extract current stage type"
+    annotation (Placement(transformation(extent={{-160,290},{-140,310}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(final k=1)
-    "Constant integer"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(final k=1) "Stage 1"
     annotation (Placement(transformation(extent={{-300,140},{-280,160}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger curStaTyp "Current stage chiller type"
@@ -152,14 +150,14 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staUpTyp "Stage up chiller type"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaTyp1(nin=nSta,
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extUpTyp(nin=nSta,
       outOfRangeValue=-1)
-    "Extract stage type"
+    "Extract stage type for the first higher available stage"
     annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaTyp2(nin=nSta,
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extDowTyp(nin=nSta,
       outOfRangeValue=-1)
-    "Extract stage type"
+    "Extract stage type for the first lower available stage"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staDowTyp1 "Stage down chiller type"
@@ -168,12 +166,14 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staTyp1(final k=3)
-    "Constant speed centrifugal chiller stage type"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conSpeCenTyp(final k=
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal)
+    "Stage type with any constant speed centrifugal chillers "
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant staTyp2(final k=1)
-    "Positive displacemen chiller stage type"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant posDisTyp(final k=
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement)
+    "Stage type with none but positive displacement chillers"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
@@ -297,7 +297,7 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
-    annotation (Placement(transformation(extent={{-240,220},{-220,240}})));
+    annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta](final min=fill(1, nSta), final max=
         fill(3, nSta)) "Nominal chiller stage types" annotation (Placement(
@@ -313,30 +313,30 @@ equation
           -44},{-242,-44}}, color={0,0,127}));
   connect(uCapNom, opePlrSta.u2) annotation (Line(points={{-360,-50},{-290,-50},
           {-290,-56},{-242,-56}}, color={0,0,127}));
-  connect(extStaTyp.y, curStaTyp.u)
-    annotation (Line(points={{-158,300},{-122,300}}, color={0,0,127}));
-  connect(extStaTyp1.y, staUpTyp.u)
+  connect(extCurTyp.y, curStaTyp.u)
+    annotation (Line(points={{-138,300},{-122,300}}, color={0,0,127}));
+  connect(extUpTyp.y, staUpTyp.u)
     annotation (Line(points={{-138,210},{-122,210}}, color={0,0,127}));
-  connect(extStaTyp2.y, staDowTyp1.u)
+  connect(extDowTyp.y, staDowTyp1.u)
     annotation (Line(points={{-138,130},{-122,130}}, color={0,0,127}));
   connect(staUpTyp.y, intEqu.u1) annotation (Line(points={{-98,210},{-60,210},{-60,
           170},{18,170}},  color={255,127,0}));
-  connect(intEqu.u2, staTyp1.y) annotation (Line(points={{18,162},{-32,162},{-32,
-          140},{-38,140}}, color={255,127,0}));
+  connect(intEqu.u2, conSpeCenTyp.y) annotation (Line(points={{18,162},{-30,162},
+          {-30,140},{-38,140}}, color={255,127,0}));
   connect(opePlrSta.y, y) annotation (Line(points={{-218,-50},{-40,-50},{-40,-40},
           {350,-40}}, color={0,0,127}));
   connect(curStaTyp.y, intEqu1.u1) annotation (Line(points={{-98,300},{-80,300},
           {-80,110},{18,110}},  color={255,127,0}));
-  connect(staTyp2.y, intEqu1.u2) annotation (Line(points={{-38,80},{-30,80},{-30,
-          102},{18,102}},  color={255,127,0}));
+  connect(posDisTyp.y, intEqu1.u2) annotation (Line(points={{-38,80},{-30,80},{-30,
+          102},{18,102}}, color={255,127,0}));
   connect(intEqu1.y, swi1.u2) annotation (Line(points={{42,110},{100,110},{100,70},
           {118,70}},color={255,0,255}));
   connect(staDowTyp1.y, intEqu2.u1) annotation (Line(points={{-98,130},{-90,130},
           {-90,30},{-22,30}}, color={255,127,0}));
   connect(swi1.y, swi.u3) annotation (Line(points={{142,70},{150,70},{150,142},{
           158,142}}, color={0,0,127}));
-  connect(staTyp2.y, intEqu2.u2) annotation (Line(points={{-38,80},{-30,80},{-30,
-          22},{-22,22}},          color={255,127,0}));
+  connect(posDisTyp.y, intEqu2.u2) annotation (Line(points={{-38,80},{-30,80},{-30,
+          22},{-22,22}}, color={255,127,0}));
   connect(swi3.y, swi2.u3) annotation (Line(points={{42,-230},{50,-230},{50,-188},
           {58,-188}}, color={0,0,127}));
   connect(intEqu2.y, swi3.u2) annotation (Line(points={{2,30},{10,30},{10,-230},
@@ -411,10 +411,10 @@ equation
           {-60,-222},{18,-222}}, color={0,0,127}));
   connect(conSpeCenTypMult.y, swi2.u1) annotation (Line(points={{-158,-30},{0,-30},
           {0,-172},{58,-172}}, color={0,0,127}));
-  connect(staTyp1.y, intEqu3.u2) annotation (Line(points={{-38,140},{-32,140},{-32,
-          242},{18,242}},  color={255,127,0}));
-  connect(curStaTyp.y, intEqu3.u1) annotation (Line(points={{-98,300},{-32,300},
-          {-32,250},{18,250}}, color={255,127,0}));
+  connect(conSpeCenTyp.y, intEqu3.u2) annotation (Line(points={{-38,140},{-30,140},
+          {-30,242},{18,242}}, color={255,127,0}));
+  connect(curStaTyp.y, intEqu3.u1) annotation (Line(points={{-98,300},{-30,300},
+          {-30,250},{18,250}}, color={255,127,0}));
   connect(intEqu3.y, swi2.u2) annotation (Line(points={{42,250},{50,250},{50,-180},
           {58,-180}},color={255,0,255}));
   connect(uCapMin, minOpePlr.u1) annotation (Line(points={{-360,-220},{-280,-220},
@@ -429,12 +429,12 @@ equation
     annotation (Line(points={{282,320},{298,320}}, color={255,0,255}));
   connect(intEqu.y, swi.u2) annotation (Line(points={{42,170},{120,170},{120,150},
           {158,150}}, color={255,0,255}));
-  connect(intToRea.y, extStaTyp.u)
-    annotation (Line(points={{-278,300},{-182,300}}, color={0,0,127}));
-  connect(intToRea.y, extStaTyp1.u) annotation (Line(points={{-278,300},{-260,300},
-          {-260,210},{-162,210}}, color={0,0,127}));
-  connect(intToRea.y, extStaTyp2.u) annotation (Line(points={{-278,300},{-260,300},
-          {-260,210},{-200,210},{-200,130},{-162,130}}, color={0,0,127}));
+  connect(intToRea.y,extCurTyp. u)
+    annotation (Line(points={{-278,300},{-162,300}}, color={0,0,127}));
+  connect(intToRea.y, extUpTyp.u) annotation (Line(points={{-278,300},{-200,300},
+          {-200,210},{-162,210}}, color={0,0,127}));
+  connect(intToRea.y, extDowTyp.u) annotation (Line(points={{-278,300},{-200,300},
+          {-200,130},{-162,130}}, color={0,0,127}));
   connect(const4.y, swi3.u3) annotation (Line(points={{-18,-250},{0,-250},{0,-238},
           {18,-238}}, color={0,0,127}));
   connect(const3.y, swi1.u3) annotation (Line(points={{92,30},{100,30},{100,62},
@@ -456,25 +456,25 @@ equation
   connect(intEqu4.y, swi4.u2) annotation (Line(points={{-158,10},{-10,10},{-10,-160},
           {118,-160}}, color={255,0,255}));
   connect(one.y, maxInt.u2) annotation (Line(points={{-278,150},{-270,150},{-270,
-          224},{-242,224}},      color={255,127,0}));
-  connect(u, maxInt.u1) annotation (Line(points={{-360,240},{-270,240},{-270,
-          236},{-242,236}}, color={255,127,0}));
-  connect(maxInt.y, extStaTyp.index) annotation (Line(points={{-218,230},{-170,230},
-          {-170,288}},      color={255,127,0}));
+          264},{-242,264}}, color={255,127,0}));
+  connect(u, maxInt.u1) annotation (Line(points={{-360,240},{-280,240},{-280,276},
+          {-242,276}},      color={255,127,0}));
+  connect(maxInt.y,extCurTyp. index) annotation (Line(points={{-218,270},{-150,270},
+          {-150,288}},      color={255,127,0}));
   connect(uTyp, intToRea.u) annotation (Line(points={{-360,300},{-302,300},{-302,
           300}}, color={255,127,0}));
   connect(one.y, maxIntUp.u2) annotation (Line(points={{-278,150},{-260,150},{-260,
-          164},{-242,164}},      color={255,127,0}));
+          164},{-242,164}}, color={255,127,0}));
   connect(uUp, maxIntUp.u1) annotation (Line(points={{-360,180},{-280,180},{
           -280,176},{-242,176}}, color={255,127,0}));
-  connect(maxIntUp.y, extStaTyp1.index) annotation (Line(points={{-218,170},{-150,
-          170},{-150,198}},      color={255,127,0}));
+  connect(maxIntUp.y, extUpTyp.index) annotation (Line(points={{-218,170},{-150,
+          170},{-150,198}}, color={255,127,0}));
   connect(one.y, maxIntDown.u1) annotation (Line(points={{-278,150},{-270,150},{
-          -270,116},{-242,116}},  color={255,127,0}));
-  connect(uDown, maxIntDown.u2) annotation (Line(points={{-360,120},{-288,120},
-          {-288,104},{-242,104}}, color={255,127,0}));
-  connect(maxIntDown.y, extStaTyp2.index) annotation (Line(points={{-218,110},{-150,
-          110},{-150,118}},      color={255,127,0}));
+          -270,116},{-242,116}}, color={255,127,0}));
+  connect(uDown, maxIntDown.u2) annotation (Line(points={{-360,120},{-290,120},{
+          -290,104},{-242,104}},  color={255,127,0}));
+  connect(maxIntDown.y, extDowTyp.index) annotation (Line(points={{-218,110},{-150,
+          110},{-150,118}}, color={255,127,0}));
   annotation (defaultComponentName = "PLRs",
         Icon(graphics={
         Rectangle(
@@ -519,21 +519,36 @@ First higher available stage minimal OPLR (<code>yUpMin</code>).
 </ul>
 <p>
 SPLRup (<code>yStaUp</code>) or SPLRdown (<code>yStaDown</code>) value depends on the stage type (<code>staTyp</code>), which is based on the 
-type of chillers staged in either the current or the next available lower stage:
+type of chillers staged in either the current, next available stage up or down: <br/>
 </p>
-<ul>
-<li>
-For a stage with all positive displacement chillers, SPLRup and SPLRdown equals <code>posDisMult</code>.
-</li>
-<li>
-For a stage with any variable speed centrifugal and no constant speed centrifugal chillers SPLRup and SPLRdown is calculated 
-using lift variables (<code>uLif</code>, <code>uLifMin</code>, <code>uLifMax</code>), 
-between the minimum <code>varSpeStaMin</code> and maximum <code>varSpeStaMax</code> limits.
-</li>
-<li>
-For a stage with any constant speed centrifugal chillers, SPLRup and SPLRdown equals <code>conSpeCenMult</code>.
-</li>
-</ul>
+
+<table summary=\"summary\" border=\"1\">
+<tr>
+<th> Row: Stage/<br/>Column: Stage Type</th>
+<th> Any Constant Speed Centrifugal</th>
+<th> All Positive Displacement</th>
+<th> Any Variable Speed and no Constant Speed Centrifugal </th>
+</tr>
+<tr>
+<td align=\"center\">Up</td>
+<td align=\"center\"><code><code>yStaUp=conSpeCenMult</code></td>
+<td align=\"center\"><code><code> N/A </code></td>
+<td align=\"center\"><code><code> N/A </code></td>
+</tr>
+<tr>
+<td align=\"center\">Current</td>
+<td align=\"center\"><code><code>yStaDown=conSpeCenMult</code></td>
+<td align=\"center\"><code><code>yStaUp=posDisMult</code></td>
+<td align=\"center\"><code><code>yStaUp=f(uLif, uLifMin, uLifMax)</code></td>
+</tr>
+<tr>
+<td align=\"center\">Down</td>
+<td align=\"center\"><code><code> N/A </code></td>
+<td align=\"center\"><code><code>yStaDown=posDisMult</code></td>
+<td align=\"center\"><code><code>yStaDown=f(uLif, uLifMin, uLifMax)</code></td>
+</tr>
+</table>
+
 </html>",
 revisions="<html>
 <ul>
