@@ -16,7 +16,7 @@ block Configurator "Configures chiller staging"
   parameter Integer chiTyp[nChi]={
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal}
-    "Chiller type";
+    "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal";
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
     "Staging matrix with stage as row index and chiller as column index";
@@ -250,21 +250,39 @@ Given the staging matrix input parameter <code>staMat</code> the staging configu
 <ul>
 <li>
 Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code> 
-input vector according to RP-1711 July Draft section 5.2.4.12
+input vector according to RP-1711 July Draft section 5.2.4.12<br/>
 </li>
 <li>
 Design stage capacity vector <code>yDesCap</code> from the design chiller capacity vector 
 input parameter <code>chiDesCap</code> according to section 3.1.1.4.2., July Draft.
 The chillers need to be tagged in order of ascending chiller capacity, as prescribed by 
-3.1.1.4.2 in July Draft, otherwise an error is thrown. 
+3.1.1.4.2 in July Draft, otherwise an error is thrown.<br/>
 </li>
 <li>
 Minimum stage capacity vector <code>yMinCap</code> from the chiller minimum cycling load input 
-parameter <code>chiMinCap</code> according to section 3.1.1.5., July Draft.
+parameter <code>chiMinCap</code> according to section 3.1.1.5., July Draft.<br/>
 </li>
 <li>
 Stage type vector <code>yTyp</code> from the chiller type vector input parameter 
-<code>uChiTyp</code> according to section 5.2.4.13, July Draft.
+<code>uChiTyp</code>, as listed in section 5.2.4.13, July Draft. Chiller types are defined in 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes</a>.<br/>
+Stage type is, based on the chiller types in that stage:<br/>
+<ul>
+<li>
+Positive displacement, for a stage with all positive displacement chillers<\br>
+</li>
+<li>
+Variable speed centirfugal, for plants with any variable speed chillers and no constant speed chillers
+</li>
+<li>
+Constant speed centirfugal, for plants with any constant speed centrifugal chillers<br/>
+</li>
+</ul>
+This stage type is used in the 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios</a>
+subsequence to determine the stage up and down part load ratios.
 </li>
 </ul>
 </html>",

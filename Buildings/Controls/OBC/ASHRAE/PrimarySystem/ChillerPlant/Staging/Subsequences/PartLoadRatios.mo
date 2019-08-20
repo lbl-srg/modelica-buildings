@@ -492,32 +492,36 @@ equation
           textString="PLR")}),   Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-340,-600},{340,400}})),
-Documentation(info="<html>
+        Documentation(info="<html>
 <p>
-Operating part load ratio (OPLR) is a ratio of the capacity requirement
-to a current nominal (<code>y</code>) and minimal (<code>yMin</code>), as well as to
-the next higher nominal (<code>yUp</code>) and minimal (<code>yUpMin</code>) stage capacity.
+Calculates operative part load ratios (OPLR) per sections 5.2.4.5., 9., 10. and 
+stage part load ratios (SPLR) per section 5.2.4.5.13.
 </p>
 <p>
+Operative part load ratio (OPLR) is a ratio of the current capacity requirement
+to a given design or minimal stage capacity, such as:
+</p>
+<ul>
+<li>
+Current stage design OPLR (<code>y</code>)
+</li>
+<li>
+Current stage minimal OPLR (<code>yMin</code>)
+</li>
+<li>
+First higher available stage nominal OPLR (<code>yUp</code>)
+</li>
+<li>
+First higher available stage minimal OPLR (<code>yUpMin</code>)
+</li>
+</ul>
+<p>
 Stage part load ratio (SPLR up, <code>yStaUp</code>, and SPLR down, <code>yStaDown</code>) 
-definition depends on the stage type (<code>staTyp</code>). 
+definition depends on the stage type (<code>staTyp</code>). *mg add link to configuration sequencee, treat 0.45 and 0.9 as parameters, expose them 
+and explain they can be set to have any variable speed stage type behave as a 80% or 90% by setting these so *mg
 It is used in deciding whether to stage up or down when compared with OPLRs of the current 
 and first stage down, respectively.
 </p>
-<p>
-*mg move all below to stage definition preprocessing sequence
-Set stage type to: 
-<ul>
-<li>
-1: Positive displacement - if the stage has more than one positive displacement chiller
-</li>
-<li>
-2: Variable speed centrifugal - if the stage contains any variable speed centrifugal chillers
-</li>
-<li>
-3: Constant speed centrifugal - if the stage contains any constant speed centrifugal chillers
-</li>
-</ul>
 <p>
 If more than one condition applies for a single stage, use the determination with the highest integer.
 </p>
