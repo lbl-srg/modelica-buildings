@@ -267,16 +267,16 @@ Stage type vector <code>yTyp</code> from the chiller type vector input parameter
 <code>uChiTyp</code>, as listed in section 5.2.4.13, July Draft. Chiller types are defined in 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes</a>.<br/>
-Stage type is, based on the chiller types in that stage:<br/>
+Stage type is, based on the chiller types in that stage and in the recommended staging order:<br/>
 <ul>
 <li>
-Positive displacement, for a stage with all positive displacement chillers<\br>
+Positive displacement, for any stage with only positive displacement chiller(s)<\br>
 </li>
 <li>
-Variable speed centirfugal, for plants with any variable speed chillers and no constant speed chillers
+Variable speed centirfugal, for any stage with any variable speed chiller(s) and no constant speed chiller(s)
 </li>
 <li>
-Constant speed centirfugal, for plants with any constant speed centrifugal chillers<br/>
+Constant speed centirfugal, for any stage with any constant speed centrifugal chiller(s)<br/>
 </li>
 </ul>
 This stage type is used in the 

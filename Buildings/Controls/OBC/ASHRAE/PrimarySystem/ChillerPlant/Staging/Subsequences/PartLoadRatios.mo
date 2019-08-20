@@ -14,9 +14,22 @@ block PartLoadRatios
   parameter Real conSpeCenMult(unit = "1", min = 0, max = 1)=0.9
   "Constant speed centrifugal chiller type staging multiplier";
 
+  parameter Real varSpeStaMin(unit = "1", min = 0.1, max = 1)=0.45
+  "Minimum stage up or down part load ratio for variable speed centrifugal stage types";
+
+  parameter Real varSpeStaMax(unit = "1", min = varSpeStaMin, max = 1)=0.9
+  "Maximum stage up or down part load ratio for variable speed centrifugal stage types";
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(final min=0, final max=
         nSta) "Chiller stage" annotation (Placement(transformation(extent={{-380,
             220},{-340,260}}), iconTransformation(extent={{-120,-110},{-100,-90}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp(final min=0, final max=nSta) annotation (
+      Placement(transformation(extent={{-380,160},{-340,200}}),
+        iconTransformation(extent={{-120,-130},{-100,-110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDown(final min=0, final max=nSta) annotation (
+      Placement(transformation(extent={{-380,100},{-340,140}}),
+        iconTransformation(extent={{-120,-150},{-100,-130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapNom(final unit="W",
       final quantity="Power") "Nominal capacity of the next higher stage"
@@ -245,7 +258,7 @@ block PartLoadRatios
     "Unlisted chiller type got selected"
     annotation (Placement(transformation(extent={{300,360},{320,380}})));
 
-  CDL.Continuous.GreaterThreshold                     greThr(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold                     greThr(
     final threshold=-0.5)
     "Less than threshold"
     annotation (Placement(transformation(extent={{260,360},{280,380}})));
@@ -255,7 +268,7 @@ block PartLoadRatios
     "Unlisted chiller type got selected"
     annotation (Placement(transformation(extent={{300,310},{320,330}})));
 
-  CDL.Continuous.GreaterThreshold                     greThr1(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold                     greThr1(
     final threshold=-0.5) "Less than threshold"
     annotation (Placement(transformation(extent={{260,310},{280,330}})));
 
@@ -270,35 +283,30 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
     annotation (Placement(transformation(extent={{20,240},{40,260}})));
 
-  CDL.Conversions.IntegerToReal intToRea[nSta]
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nSta]
     annotation (Placement(transformation(extent={{-300,290},{-280,310}})));
 
-  CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Logical.Switch swi4
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
 
-  CDL.Continuous.Sources.Constant const5(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const5(k=1)
     "If staging from 1 to 0 staging down part load ratio is 1"
     annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
 
-  CDL.Integers.Equal intEqu4
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
 
-  CDL.Integers.Max maxInt
+  Buildings.Controls.OBC.CDL.Integers.Max maxInt
     annotation (Placement(transformation(extent={{-240,220},{-220,240}})));
 
-  CDL.Interfaces.IntegerInput uTyp[nSta](final min=fill(1, nSta), final max=
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta](final min=fill(1, nSta), final max=
         fill(3, nSta)) "Nominal chiller stage types" annotation (Placement(
         transformation(extent={{-380,280},{-340,320}}), iconTransformation(
           extent={{-120,-80},{-100,-60}})));
-  CDL.Integers.Max maxIntUp
+  Buildings.Controls.OBC.CDL.Integers.Max maxIntUp
     annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
-  CDL.Interfaces.IntegerInput uUp(final min=0, final max=nSta) annotation (
-      Placement(transformation(extent={{-380,160},{-340,200}}),
-        iconTransformation(extent={{-120,-130},{-100,-110}})));
-  CDL.Interfaces.IntegerInput uDown(final min=0, final max=nSta) annotation (
-      Placement(transformation(extent={{-380,100},{-340,140}}),
-        iconTransformation(extent={{-120,-150},{-100,-130}})));
-  CDL.Integers.Max maxIntDown
+
+  Buildings.Controls.OBC.CDL.Integers.Max maxIntDown
     annotation (Placement(transformation(extent={{-240,100},{-220,120}})));
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-360,0},{-260,0},{-260,
@@ -373,15 +381,14 @@ equation
           {58,-494}},
         color={0,0,127}));
   connect(uLif, mult3.u2) annotation (Line(points={{-360,-480},{-300,-480},{-300,
-          -580},{40,-580},{40,-506},{58,-506}},                         color={0,
+          -580},{40,-580},{40,-506},{58,-506}}, color={0,
           0,127}));
   connect(mult3.y, add3.u2) annotation (Line(points={{82,-500},{90,-500},{90,-478},
-          {118,-478}},       color={0,0,127}));
+          {118,-478}}, color={0,0,127}));
   connect(mult2.y, add3.u1) annotation (Line(points={{22,-430},{100,-430},{100,-466},
           {118,-466}}, color={0,0,127}));
   connect(cheStaTyp.u,greThr. y)
-    annotation (Line(points={{298,370},{282,370}},
-                                              color={255,0,255}));
+    annotation (Line(points={{298,370},{282,370}}, color={255,0,255}));
   connect(swi.y,greThr. u) annotation (Line(points={{182,150},{190,150},{190,370},
           {258,370}},      color={0,0,127}));
   connect(swi3.y,greThr1. u) annotation (Line(points={{42,-230},{200,-230},{200,
@@ -389,12 +396,11 @@ equation
   connect(uLifMax, add2.u1) annotation (Line(points={{-360,-360},{-260,-360},{-260,
           -388},{-140,-388},{-140,-404},{-122,-404}}, color={0,0,127}));
   connect(uCapReq, opePlrDow.u1) annotation (Line(points={{-360,0},{-280,0},{-280,
-          -74},{-242,-74}},
-                       color={0,0,127}));
+          -74},{-242,-74}}, color={0,0,127}));
   connect(uDowCapNom, opePlrDow.u2) annotation (Line(points={{-360,-100},{-280,
           -100},{-280,-86},{-242,-86}}, color={0,0,127}));
   connect(opePlrDow.y, yDow) annotation (Line(points={{-218,-80},{350,-80}},
-                      color={0,0,127}));
+           color={0,0,127}));
   connect(minOpePlr.y, yMin) annotation (Line(points={{-218,-230},{-80,-230},{-80,
           -200},{350,-200}},                       color={0,0,127}));
   connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-158,-30},{60,-30},
@@ -408,8 +414,7 @@ equation
   connect(staTyp1.y, intEqu3.u2) annotation (Line(points={{-38,140},{-32,140},{-32,
           242},{18,242}},  color={255,127,0}));
   connect(curStaTyp.y, intEqu3.u1) annotation (Line(points={{-98,300},{-32,300},
-          {-32,250},{18,250}},
-                           color={255,127,0}));
+          {-32,250},{18,250}}, color={255,127,0}));
   connect(intEqu3.y, swi2.u2) annotation (Line(points={{42,250},{50,250},{50,-180},
           {58,-180}},color={255,0,255}));
   connect(uCapMin, minOpePlr.u1) annotation (Line(points={{-360,-220},{-280,-220},
@@ -433,14 +438,11 @@ equation
   connect(const4.y, swi3.u3) annotation (Line(points={{-18,-250},{0,-250},{0,-238},
           {18,-238}}, color={0,0,127}));
   connect(const3.y, swi1.u3) annotation (Line(points={{92,30},{100,30},{100,62},
-          {118,62}},
-                color={0,0,127}));
+          {118,62}}, color={0,0,127}));
   connect(add3.y, swi3.u3) annotation (Line(points={{142,-472},{150,-472},{150,-260},
-          {10,-260},{10,-238},{18,-238}},
-                                        color={0,0,127}));
+          {10,-260},{10,-238},{18,-238}}, color={0,0,127}));
   connect(add3.y, swi1.u3) annotation (Line(points={{142,-472},{150,-472},{150,20},
-          {110,20},{110,62},{118,62}},
-                                    color={0,0,127}));
+          {110,20},{110,62},{118,62}}, color={0,0,127}));
   connect(swi4.y, yStaDow)
     annotation (Line(points={{142,-160},{350,-160}}, color={0,0,127}));
   connect(swi2.y, swi4.u3) annotation (Line(points={{82,-180},{100,-180},{100,-168},
@@ -495,7 +497,7 @@ equation
         Documentation(info="<html>
 <p>
 Calculates operative part load ratios (OPLR) per sections 5.2.4.5., 9., 10. and 
-stage part load ratios (SPLR) per section 5.2.4.5.13.
+stage part load ratios (SPLR, up or down) per section 5.2.4.5.13 (July Draft).
 </p>
 <p>
 Operative part load ratio (OPLR) is a ratio of the current capacity requirement
@@ -503,31 +505,35 @@ to a given design or minimal stage capacity, such as:
 </p>
 <ul>
 <li>
-Current stage design OPLR (<code>y</code>)
+Current stage design OPLR (<code>y</code>).
 </li>
 <li>
-Current stage minimal OPLR (<code>yMin</code>)
+Current stage minimal OPLR (<code>yMin</code>).
 </li>
 <li>
-First higher available stage nominal OPLR (<code>yUp</code>)
+First higher available stage nominal OPLR (<code>yUp</code>).
 </li>
 <li>
-First higher available stage minimal OPLR (<code>yUpMin</code>)
+First higher available stage minimal OPLR (<code>yUpMin</code>).
 </li>
 </ul>
 <p>
-Stage part load ratio (SPLR up, <code>yStaUp</code>, and SPLR down, <code>yStaDown</code>) 
-definition depends on the stage type (<code>staTyp</code>). *mg add link to configuration sequencee, treat 0.45 and 0.9 as parameters, expose them 
-and explain they can be set to have any variable speed stage type behave as a 80% or 90% by setting these so *mg
-It is used in deciding whether to stage up or down when compared with OPLRs of the current 
-and first stage down, respectively.
+SPLRup (<code>yStaUp</code>) or SPLRdown (<code>yStaDown</code>) value depends on the stage type (<code>staTyp</code>), which is based on the 
+type of chillers staged in either the current or the next available lower stage:
 </p>
-<p>
-If more than one condition applies for a single stage, use the determination with the highest integer.
-</p>
-<p>
-Recomended staging order based on determined stage type: positive displacement, variable speed centrifugal, constant speed centrifugal
-</p>
+<ul>
+<li>
+For a stage with all positive displacement chillers, SPLRup and SPLRdown equals <code>posDisMult</code>.
+</li>
+<li>
+For a stage with any variable speed centrifugal and no constant speed centrifugal chillers SPLRup and SPLRdown is calculated 
+using lift variables (<code>uLif</code>, <code>uLifMin</code>, <code>uLifMax</code>), 
+between the minimum <code>varSpeStaMin</code> and maximum <code>varSpeStaMax</code> limits.
+</li>
+<li>
+For a stage with any constant speed centrifugal chillers, SPLRup and SPLRdown equals <code>conSpeCenMult</code>.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>
