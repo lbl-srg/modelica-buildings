@@ -192,7 +192,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Modelica.SIunits.VolumeFlowRate VOutDes_flow=2.0
     "Calculated design outdoor airflow rate"
     annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real minVOutMinFansSpePos(
+  parameter Real yDam_VOutMin_minSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.4
@@ -205,7 +205,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
     annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
   parameter Real yDam_VOutDes_minSpe(
-    final min=minVOutMinFansSpePos,
+    final min=yDam_VOutMin_minSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"

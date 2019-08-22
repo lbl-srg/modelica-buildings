@@ -2,20 +2,22 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples;
 model Guideline36
   "Variable air volume flow system with single themal zone and ASHRAE Guideline 36 sequence control"
   extends Modelica.Icons.Example;
-  extends BaseClasses.PartialOpenLoop(hvac(QHea_flow_nominal=10000,
-        QCoo_flow_nominal=-12000));
+  extends BaseClasses.PartialOpenLoop;
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
   Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller controller(
+    TZonHeaOff=288.15,
+    TZonCooOn=298.15,
+    controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    kCoo=1,
     have_occSen=true,
-    yHeaMax=1,
+    yHeaMax=0.2,
     AFlo=48,
-    VOutMin_flow=6e-3,
-    VOutDes_flow=0.625,
+    VOutMin_flow=0.0144,
+    VOutDes_flow=0.025,
     yMin=0.1,
     TSupSetMax=313.15,
-    TSupSetMin=285.15,
-    yDam_VOutMin_maxSpe=0.15)
+    TSupSetMin=285.15)
     annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
   Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(uLow=-1,
       uHigh=0)

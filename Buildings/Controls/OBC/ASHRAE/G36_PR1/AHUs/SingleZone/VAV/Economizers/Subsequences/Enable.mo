@@ -33,7 +33,7 @@ block Enable
     final quantity = "ThermodynamicTemperature")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-220,250},{-180,290}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-120,84},{-100,104}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy
@@ -44,7 +44,7 @@ block Enable
       quantity="ThermodynamicTemperature")
     "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-220,220},{-180,260}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
+        iconTransformation(extent={{-120,68},{-100,88}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     final quantity = "ThermodynamicTemperature") if use_fixed_plus_differential_drybulb
@@ -200,20 +200,20 @@ equation
   connect(TCut, add1.u2) annotation (Line(points={{-200,240},{-160,240},{-160,248},
           {-142,248}}, color={0,0,127}));
   connect(add1.y, hysOutTem.u)
-    annotation (Line(points={{-119,254},{-102,254}}, color={0,0,127}));
+    annotation (Line(points={{-118,254},{-102,254}}, color={0,0,127}));
   connect(hOut, add2.u1)
     annotation (Line(points={{-200,180},{-160,180},{-160,166},{-142,166}},color={0,0,127}));
   connect(hCut, add2.u2) annotation (Line(points={{-200,150},{-160,150},{-160,154},
           {-142,154}}, color={0,0,127}));
   connect(add2.y, hysOutEnt.u)
-    annotation (Line(points={{-119,160},{-100,160}}, color={0,0,127}));
+    annotation (Line(points={{-118,160},{-100,160}}, color={0,0,127}));
   connect(hysOutTem.y, nor1.u1)
-    annotation (Line(points={{-79,254},{-14,254},{-14,188},{16,188}},
+    annotation (Line(points={{-78,254},{-14,254},{-14,188},{16,188}},
     color={255,0,255}));
   connect(hysOutEnt.y, nor1.u2)
-    annotation (Line(points={{-77,160},{-14,160},{-14,180},{16,180}},   color={255,0,255}));
+    annotation (Line(points={{-76,160},{-14,160},{-14,180},{16,180}},   color={255,0,255}));
   connect(entSubst.y, nor1.u2)
-    annotation (Line(points={{-39,180},{16,180}},
+    annotation (Line(points={{-38,180},{16,180}},
     color={255,0,255}));
   connect(uOutDamPosMin, outDamSwitch.u1)
     annotation (Line(points={{-200,-160},{-60,-160},{-60,-132},{38,-132}},
@@ -226,11 +226,11 @@ equation
   connect(minRetDamSwitch.y, yRetDamPosMin)
     annotation (Line(points={{62,-240},{200,-240}},  color={0,0,127}));
   connect(truFalHol.y, and1.u1)
-    annotation (Line(points={{145,224},{164,224},{164,130},{-26,130},{-26,110},{
-          2,110}},
+    annotation (Line(points={{146,224},{164,224},{164,130},{-26,130},{-26,110},
+          {2,110}},
     color={255,0,255}));
   connect(and1.y, andEnaDis.u1)
-    annotation (Line(points={{25,110},{30,110},{30,48},{38,48}},          color={255,0,255}));
+    annotation (Line(points={{26,110},{30,110},{30,48},{38,48}},          color={255,0,255}));
   connect(uSupFan, and1.u2)
     annotation (Line(points={{-200,110},{-102,110},{-102,102},{2,102}},  color={255,0,255}));
   connect(retDamPhyPosMaxSig.y, minRetDamSwitch.u1)
@@ -256,25 +256,30 @@ equation
   connect(intEqu.y, andEnaDis.u2)
     annotation (Line(points={{-58,60},{-10,60},{-10,40},{38,40}}, color={255,0,255}));
   connect(not3.y, andEnaDis.u3)
-    annotation (Line(points={{-23,0},{8,0},{8,32},{38,32}}, color={255,0,255}));
+    annotation (Line(points={{-22,0},{8,0},{8,32},{38,32}}, color={255,0,255}));
   connect(TRet, add3.u2) annotation (Line(points={{-200,210},{-160,210},{-160,204},
           {-142,204}}, color={0,0,127}));
   connect(TOut, add3.u1) annotation (Line(points={{-200,270},{-160,270},{-160,260},
           {-152,260},{-152,216},{-142,216}}, color={0,0,127}));
   connect(add3.y, hysCutTem.u)
-    annotation (Line(points={{-119,210},{-102,210}}, color={0,0,127}));
-  connect(hysCutTem.y, nor2.u2) annotation (Line(points={{-79,210},{-38,210},{-38,
-          246},{16,246}}, color={255,0,255}));
-  connect(nor2.u1, hysOutTem.y) annotation (Line(points={{16,254},{-79,254}},
+    annotation (Line(points={{-118,210},{-102,210}}, color={0,0,127}));
+  connect(hysCutTem.y, nor2.u2) annotation (Line(points={{-78,210},{-38,210},{
+          -38,246},{16,246}},
+                          color={255,0,255}));
+  connect(nor2.u1, hysOutTem.y) annotation (Line(points={{16,254},{-78,254}},
                       color={255,0,255}));
-  connect(nor2.y, xor.u1) annotation (Line(points={{39,254},{56,254},{56,252},{72,
-          252}}, color={255,0,255}));
-  connect(entSubst1.y, xor.u1) annotation (Line(points={{39,222},{54,222},{54,252},
-          {72,252}}, color={255,0,255}));
-  connect(nor1.y, xor.u2) annotation (Line(points={{39,188},{62,188},{62,244},{72,
-          244}}, color={255,0,255}));
-  connect(xor.y, truFalHol.u) annotation (Line(points={{95,252},{106,252},{106,224},
-          {123,224}}, color={255,0,255}));
+  connect(nor2.y, xor.u1) annotation (Line(points={{40,254},{56,254},{56,252},{
+          72,252}},
+                 color={255,0,255}));
+  connect(entSubst1.y, xor.u1) annotation (Line(points={{40,222},{54,222},{54,
+          252},{72,252}},
+                     color={255,0,255}));
+  connect(nor1.y, xor.u2) annotation (Line(points={{40,188},{62,188},{62,244},{
+          72,244}},
+                 color={255,0,255}));
+  connect(xor.y, truFalHol.u) annotation (Line(points={{96,252},{106,252},{106,
+          224},{122,224}},
+                      color={255,0,255}));
     annotation (
     Icon(graphics={
         Rectangle(
