@@ -87,9 +87,10 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     start=0)
     "Convective sensible heat to be added to zone air if T = TRooLast";
 
-protected
   constant String modelicaInstanceName = getInstanceName()
-    "Name of this instance";
+    "Name of this instance"
+    annotation(HideResult=true);
+protected
   constant String buildingsLibraryRoot = Modelica.Utilities.Strings.replace(
     string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html")),
     searchString="Buildings/legal.html",

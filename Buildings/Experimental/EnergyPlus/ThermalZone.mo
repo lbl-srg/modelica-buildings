@@ -121,11 +121,16 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
 
 protected
+  constant String modelicaInstanceName = getInstanceName()
+    "Name of this instance"
+    annotation(HideResult=true);
+
   constant Modelica.SIunits.SpecificEnergy h_fg=
     Medium.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     V*3/3600 "Nominal mass flow rate (used for regularization)";
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
+    final modelicaInstanceName=modelicaInstanceName,
     final idfName=idfName,
     final weaName=weaName,
     final zoneName=zoneName,
