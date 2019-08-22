@@ -14,7 +14,7 @@
 
 void setVariables(FMUBuilding* bui, const char* zoneName, fmi2ValueReference vr[],  fmi2Real values[], size_t n){
     fmi2_status_t status;
-    if (2 <= FMU_EP_VERBOSITY)
+    if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaFormatMessage("fmi2_import_set_real: Setting real variables in EnergyPlus for zone %s, mode = %s.\n",
         zoneName, fmuModeToString(bui->mode));
     status = fmi2_import_set_real(bui->fmu, vr, n, values);
@@ -25,7 +25,7 @@ void setVariables(FMUBuilding* bui, const char* zoneName, fmi2ValueReference vr[
 
 void getVariables(FMUBuilding* bui, const char* zoneName, fmi2ValueReference vr[], fmi2Real values[], size_t n){
     fmi2_status_t status;
-    if (2 <= FMU_EP_VERBOSITY)
+    if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for zone %s, mode = %s.\n",
         zoneName, fmuModeToString(bui->mode));
     status = fmi2_import_get_real(bui->fmu, vr, n, values);
@@ -54,7 +54,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUZone* zone, double tim
   fmi2Boolean enterEventMode;
   fmi2Boolean terminateSimulation;
 
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("fmi2_import_enter_continuous_time_mode: ************ Setting EnergyPlus to continuous time mode at t = %.2f\n", time);
   status = fmi2_import_enter_continuous_time_mode(zone->ptrBui->fmu);
   if ( status != fmi2OK ) {
@@ -63,7 +63,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUZone* zone, double tim
   }
   setFMUMode(zone->ptrBui, continuousTimeMode);
 
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("fmi2_import_set_time: Setting time in EnergyPlus to %.2f.\n", time);
   zone->ptrBui->time = time;
   status = fmi2_import_set_time(zone->ptrBui->fmu, time);
@@ -72,7 +72,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUZone* zone, double tim
       zone->ptrBui->name, fmi2_status_to_string(status));
   }
 
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("fmi2_import_completed_integrator_step: Calling completed integrator step at t = %.2f\n", time);
   status = fmi2_import_completed_integrator_step(zone->ptrBui->fmu, fmi2_true, &enterEventMode, &terminateSimulation);
   if ( status != fmi2OK ) {
@@ -90,7 +90,7 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUZone* zone, double tim
       time, zone->ptrBui->name, zone->name);
   }
   /* Enter the FMU into event mode */
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("fmi2_import_enter_event_mode: Enter event mode in ZoneExchange for FMU %s\n", zone->ptrBui->name);
   status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
   if (status != fmi2_status_ok){
@@ -133,7 +133,7 @@ void ZoneExchange(
   /* Time need to be guarded against rounding error */
   /* *tNext = round((floor(time/3600.0)+1) * 3600.0); */
 
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, zone = %s.\n",
       time, initialCall, fmuModeToString(zone->ptrBui->mode), zone->name);
 
@@ -145,12 +145,12 @@ void ZoneExchange(
 
   if (initialCall){
     zone->isInitialized = true; /* Set to true as it will be initialized right below */
-    if (2 <= FMU_EP_VERBOSITY)
+    if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaFormatMessage("Initial call for zone %s with time = %.f\n", zone->name, time);
   }
   else
   {
-    if (2 <= FMU_EP_VERBOSITY)
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
       ModelicaFormatMessage("Did not enter initialization mode for zone %s., isInitialized = %d\n",
         zone->name, zone->isInitialized);
   }
@@ -158,7 +158,7 @@ void ZoneExchange(
   /* Get out of the initialization mode if this zone is no longer in the initial call
      but the FMU is still in initializationMode */
   if ((!initialCall) && zone->ptrBui->mode == initializationMode){
-    if (2 <= FMU_EP_VERBOSITY)
+    if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaFormatMessage("fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for zone = %s.\n", zone->name);
     status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
     if( status != fmi2_status_ok ){
@@ -187,7 +187,7 @@ void ZoneExchange(
   /* Forward difference for QConSen_flow */
   inputValues[0] = T - 273.15 + dT;
 
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Input to fmu: TAir = %.2f; \t QGaiRad_flow = %.2f\n", inputValues[0], inputValues[4]);
 /*
   if (zone->ptrBui->mode == eventMode){
@@ -218,19 +218,19 @@ void ZoneExchange(
   *dQConSen_flow = (QConSenPer_flow-outputValues[1])/dT;
 
     /*
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("After time step: TRad = %.2f; \t QCon = %.2f;\t QLat = %.2f\n", *TRad, *QConSen_flow,
     *QLat_flow);
 */
   /* Get next event time, unless FMU is in initialization mode */
   if (zone->ptrBui->mode == initializationMode){
-    if (2 <= FMU_EP_VERBOSITY)
+    if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaFormatMessage("Returning current time %.0f as tNext due to initializationMode for zone = %s\n",
     zone->ptrBui->time, zone->name);
     *tNext = zone->ptrBui->time; /* Return start time for next event time */
   }
   else{
-    if (2 <= FMU_EP_VERBOSITY)
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
       ModelicaFormatMessage("Calling do_event_iteration after setting inputs for zone = %s\n", zone->name);
     *tNext = do_event_iteration(zone);
     /* After the event iteration, we must get the output. Otherwise, we get the
@@ -252,7 +252,7 @@ void ZoneExchange(
   *QLat_flow = outputValues[2];
   *QPeo_flow = outputValues[3];
 
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Returning from ZoneExchange with nextEventTime = %.2f, TRad_degC = %.2f, zone = %s, mode = %s, ptr=%p, nZon=%d \n",
     *tNext, outputValues[0], zone->name, fmuModeToString(zone->ptrBui->mode), zone, zone->ptrBui->nZon);
 
@@ -268,7 +268,7 @@ double do_event_iteration(FMUZone* zone){
   fmi2Status status;
   double tNext;
 
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Entered do_event_iteration for zone %s, mode = %s\n",
       zone->name, fmuModeToString(zone->ptrBui->mode));
   /* Enter event mode if the FMU is in Continuous time mode
@@ -277,7 +277,7 @@ double do_event_iteration(FMUZone* zone){
     ModelicaFormatError("********* FMU is in unexpected mode in do_event_iteration at t=%.2f, zone = %s, mode = %s. Contact support.",
       zone->ptrBui->time, zone->name, fmuModeToString(zone->ptrBui->mode));
     /*
-      if (2 <= FMU_EP_VERBOSITY)
+      if (FMU_EP_VERBOSITY >= TIMESTEP)
       ModelicaFormatMessage("fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s\n", zone->ptrBui->name);
     status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
     if (status != fmi2_status_ok){
@@ -289,7 +289,7 @@ double do_event_iteration(FMUZone* zone){
   }
 /* *****************************************************************************
   if (zone->ptrBui->mode != initializationMode){
-    if (2 <= FMU_EP_VERBOSITY)
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
       ModelicaFormatMessage("fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s\n", zone->ptrBui->name);
     status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
     if (status != fmi2_status_ok){
@@ -310,7 +310,7 @@ double do_event_iteration(FMUZone* zone){
   eventInfo.terminateSimulation     = fmi2_false;
   while (eventInfo.newDiscreteStatesNeeded && !eventInfo.terminateSimulation && i < nMax) {
     i++;
-    if (2 <= FMU_EP_VERBOSITY)
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
       ModelicaFormatMessage("fmi2_import_new_discrete_states: Doing event iteration with i = %d, zone = %s\n", i, zone->name);
     status = fmi2_import_new_discrete_states(zone->ptrBui->fmu, &eventInfo);
   }
@@ -335,7 +335,7 @@ double do_event_iteration(FMUZone* zone){
   }
   else{
     tNext = eventInfo.nextEventTime;
-    if (2 <= FMU_EP_VERBOSITY)
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
       ModelicaFormatMessage("Requested next event time at %.2f: %.2f;\t zone = %s\n",
         zone->ptrBui->time, tNext, zone->name);
     if (tNext <= zone->ptrBui->time + 1E-6){
@@ -346,7 +346,7 @@ double do_event_iteration(FMUZone* zone){
 
   /* THIS WAS WRONG: if newDiscreteStatesNeeded is false, the FMU is in continuous time mode
   setFMUMode(zone->ptrBui, continuousTimeMode); */
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Exiting do_event_iteration for zone %s, mode = %s with tNext = %.2f\n",
       zone->name, fmuModeToString(zone->ptrBui->mode), tNext);
   return tNext;

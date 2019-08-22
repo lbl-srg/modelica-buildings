@@ -107,7 +107,7 @@ char* fmuModeToString(FMUMode mode){
 
 /* Wrapper to set fmu mode indicator and log the mode change for debugging */
 void setFMUMode(FMUBuilding* bui, FMUMode mode){
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Switching %s to mode %s\n", bui->name, fmuModeToString(mode));
   bui->mode = mode;
 }
@@ -237,7 +237,7 @@ void getSimulationTemporaryDirectory(const char* idfName, char** dirNam){
   /* Prefix for temporary directory */
   const char* pre = "tmp-simulation-\0";
 
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Entered getSimulationTemporaryDirectory.\n");
   /* Current directory */
   curDir = malloc(lenCurDir * sizeof(char));
@@ -365,7 +365,7 @@ size_t ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaNam
   /* Allocate memory */
 
   const size_t nFMU = getBuildings_nFMU();
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("ZoneAllocateBuildingDataStructure: Allocating data structure for building %s", idfName);
 
   if (nFMU == 0)
@@ -461,7 +461,7 @@ size_t ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaNam
 
   incrementBuildings_nFMU();
 
-  if (2 <= FMU_EP_VERBOSITY){
+  if (FMU_EP_VERBOSITY >= MEDIUM){
     ModelicaFormatMessage("ZoneAllocateBuildingDataStructure: Allocated data structure for building %s, nFMU = %d, ptr = %p",
       idfName, getBuildings_nFMU(), Buildings_FMUS[nFMU]);
     for(i = 0; i < getBuildings_nFMU(); i++){

@@ -13,14 +13,14 @@
 void FMUBuildingFree(FMUBuilding* ptrBui){
   fmi2Status status;
   const char * log = NULL;
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaMessage("Entered FMUBuildingFree.");
 
   if ( ptrBui != NULL ){
     /* The call to fmi2_import_terminate causes a seg fault if
        fmi2_import_create_dllfmu was not successful */
     if (ptrBui->dllfmu_created){
-      if (2 <= FMU_EP_VERBOSITY)
+      if (FMU_EP_VERBOSITY >= MEDIUM)
         ModelicaMessage("fmi2_import_terminate: terminating EnergyPlus.\n");
       status = fmi2_import_terminate(ptrBui->fmu);
       if (status != fmi2OK){
@@ -28,7 +28,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
       }
     }
     if (ptrBui->fmu != NULL){
-      if (2 <= FMU_EP_VERBOSITY)
+      if (FMU_EP_VERBOSITY >= MEDIUM)
         ModelicaMessage("fmi2_import_destroy_dllfmu: destroying dll fmu.");
       fmi2_import_destroy_dllfmu(ptrBui->fmu);
       fmi2_import_free(ptrBui->fmu);
@@ -56,7 +56,7 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 }
 
 void ZoneFree(void* object){
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaMessage("Entered ZoneFree.");
   if ( object != NULL ){
     FMUZone* zone = (FMUZone*) object;
@@ -84,6 +84,6 @@ void ZoneFree(void* object){
     }
     free(zone);
   }
-  if (2 <= FMU_EP_VERBOSITY)
+  if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaMessage("Leaving ZoneFree.");
 }

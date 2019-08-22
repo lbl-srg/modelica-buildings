@@ -16,7 +16,9 @@ extends ExternalObject;
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
     input String buildingsLibraryRoot "Root directory of the Buildings library (used to find the spawn executable)";
-    input Integer verbosity(min=0, max=2) "Verbosity (0: no output to console, 2: all output)";
+    input Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity
+    "Verbosity of EnergyPlus output"
+    annotation(Dialog(tab="Debug"));
     output FMUZoneClass adapter;
     external "C" adapter = ZoneAllocate(
       idfName,

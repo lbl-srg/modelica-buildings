@@ -17,7 +17,9 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
-  parameter Integer verbosity(min=0, max=2) = 2 "Verbosity (0: no output to console, 2: all output)"
+  parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=
+    Buildings.Experimental.EnergyPlus.Types.Verbosity.TimeStep
+    "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 
   parameter Integer nFluPor
@@ -135,7 +137,6 @@ protected
   end round;
 
 initial equation
-  assert(0 <= verbosity and verbosity < 3, "Invalid value for parameter 'verbosity' in '" + getInstanceName() + "'.");
   if usePrecompiledFMU then
     assert(Modelica.Utilities.Strings.length(fmuName) > 1, "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;

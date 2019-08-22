@@ -66,8 +66,11 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
-  parameter Integer verbosity(min=0, max=2) = 2 "Verbosity (0: no output to console, 2: all output)"
+  parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=
+    Buildings.Experimental.EnergyPlus.Types.Verbosity.Medium
+    "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
+
 
   final parameter Modelica.SIunits.Volume V = fmuZon.V "Zone volume";
   final parameter Modelica.SIunits.Area AFlo = fmuZon.AFlo "Floor area";
