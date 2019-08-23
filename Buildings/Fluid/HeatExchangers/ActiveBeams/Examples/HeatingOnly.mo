@@ -6,7 +6,7 @@ model HeatingOnly
 
   package MediumW = Buildings.Media.Water "Medium model for water";
 
-  Buildings.Fluid.Sources.FixedBoundary sin_1(
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink for chilled water"
     annotation (Placement(transformation(extent={{100,90},{80,110}})));
@@ -17,7 +17,7 @@ model HeatingOnly
     nPorts=1,
     T=285.85) "Source for air"
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
-  Buildings.Fluid.Sources.FixedBoundary bou(
+  Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = MediumA,
     nPorts=1) "Sink for air"
     annotation (Placement(transformation(extent={{100,-110},{80,-90}})));
@@ -41,7 +41,7 @@ model HeatingOnly
     k=0.1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI) "Controller"
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
-  Buildings.Fluid.Sources.FixedBoundary sou_1(
+  Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = MediumW,
     T=288.15,
     nPorts=1) "Soure chilled water"
@@ -57,7 +57,7 @@ model HeatingOnly
     nPorts=1,
     T=320.95) "Source for heating"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Fluid.Sources.FixedBoundary sin_2(
+  Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink for hot water"
     annotation (Placement(transformation(extent={{100,50},{80,70}})));
@@ -131,6 +131,11 @@ that regulates the water flow rate in the active beam.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 June 14, 2016, by Michael Wetter:<br/>
 Revised implementation.

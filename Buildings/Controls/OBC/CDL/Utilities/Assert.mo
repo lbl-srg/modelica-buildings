@@ -6,8 +6,7 @@ block Assert
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Boolean input that triggers assert when it becomes false"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
 equation
   assert(u, message, AssertionLevel.warning);

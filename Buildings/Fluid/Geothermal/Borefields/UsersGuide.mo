@@ -222,7 +222,7 @@ D. Picard, L. Helsen.
 <i>Advanced Hybrid Model for Borefield Heat
 Exchanger Performance Evaluation; an Implementation in Modelica</i>
 Proc. of the 10th Intertional ModelicaConference, p. 857-866. Lund, Sweden. March 2014.
-<a href=\"https://www.doi.org/10.3384/ecp14096857\">doi:10.3384/ecp14096857</a>.
+<a href=\"https://lirias.kuleuven.be/retrieve/270880\">https://lirias.kuleuven.be/retrieve/270880</a>.
 </p>
 </html>"));
 

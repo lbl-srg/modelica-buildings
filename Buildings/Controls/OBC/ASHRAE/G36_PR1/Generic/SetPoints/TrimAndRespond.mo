@@ -14,16 +14,16 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput numOfReq
     "Number of requests from zones/systems"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta
     "On/Off status of the associated device"
     annotation (Placement(transformation(extent={{-240,110},{-200,150}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Setpoint that have been reset"
-    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{200,-20},{240,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim(
     final delayTime=delTim + samplePeriod)
@@ -108,106 +108,107 @@ protected
 
 equation
   connect(numIgnReqCon.y, difReqIgnReq.u1)
-    annotation (Line(points={{-119,-50},{-100,-50},{-100,-64},{-82,-64}},
+    annotation (Line(points={{-118,-50},{-100,-50},{-100,-64},{-82,-64}},
       color={0,0,127}));
   connect(difReqIgnReq.y, greThr.u)
-    annotation (Line(points={{-59,-70},{-40,-70},{-40,-90},{18,-90}},
+    annotation (Line(points={{-58,-70},{-40,-70},{-40,-90},{18,-90}},
       color={0,0,127}));
   connect(pro.y, minInp.u1)
-    annotation (Line(points={{1,-130},{20,-130},{20,-124},{38,-124}},
+    annotation (Line(points={{2,-130},{20,-130},{20,-124},{38,-124}},
       color={0,0,127}));
   connect(maxResCon.y, minInp.u2)
-    annotation (Line(points={{1,-170},{20,-170},{20,-136},{38,-136}},
+    annotation (Line(points={{2,-170},{20,-170},{20,-136},{38,-136}},
       color={0,0,127}));
   connect(minInp.y, add2.u2)
-    annotation (Line(points={{61,-130},{70,-130},{70,-122},{78,-122}},
+    annotation (Line(points={{62,-130},{70,-130},{70,-122},{78,-122}},
       color={0,0,127}));
   connect(triAmoCon.y, add2.u1)
-    annotation (Line(points={{-59,-110},{78,-110}},
+    annotation (Line(points={{-58,-110},{78,-110}},
       color={0,0,127}));
   connect(add2.y, netRes.u1)
-    annotation (Line(points={{101,-116},{120,-116},{120,-78},{138,-78}},
+    annotation (Line(points={{102,-116},{120,-116},{120,-78},{138,-78}},
       color={0,0,127}));
   connect(iniSetCon.y, swi.u3)
-    annotation (Line(points={{-59,150},{108,150},{108,138},{158,138}},
+    annotation (Line(points={{-58,150},{108,150},{108,138},{158,138}},
       color={0,0,127}));
   connect(swi.y, y)
-    annotation (Line(points={{181,130},{190,130},{190,0},{210,0}},
+    annotation (Line(points={{182,130},{190,130},{190,0},{220,0}},
       color={0,0,127}));
   connect(maxSetCon.y, min1.u2)
-    annotation (Line(points={{1,30},{10,30},{10,54},{18,54}},
+    annotation (Line(points={{2,30},{10,30},{10,54},{18,54}},
       color={0,0,127}));
   connect(add1.y, min1.u1)
-    annotation (Line(points={{1,60},{10,60},{10,66},{18,66}},
+    annotation (Line(points={{2,60},{10,60},{10,66},{18,66}},
       color={0,0,127}));
   connect(uniDel.y, add1.u1)
-    annotation (Line(points={{-59,60},{-40,60},{-40,66},{-22,66}},
+    annotation (Line(points={{-58,60},{-40,60},{-40,66},{-22,66}},
       color={0,0,127}));
   connect(netRes.y, add1.u2)
-    annotation (Line(points={{161,-70},{180,-70},{180,-6},{-40,-6},{-40,54},{-22,54}},
+    annotation (Line(points={{162,-70},{180,-70},{180,-6},{-40,-6},{-40,54},{-22,
+          54}},
       color={0,0,127}));
   connect(sampler.y, difReqIgnReq.u2)
-    annotation (Line(points={{-119,-90},{-100,-90},{-100,-76},{-82,-76}},
+    annotation (Line(points={{-118,-90},{-100,-90},{-100,-76},{-82,-76}},
       color={0,0,127}));
   connect(triAmoCon.y, swi1.u1)
-    annotation (Line(points={{-59,-110},{-20,-110},{-20,-22},{78,-22}},
+    annotation (Line(points={{-58,-110},{-20,-110},{-20,-22},{78,-22}},
       color={0,0,127}));
   connect(zerTri.y, swi1.u3)
-    annotation (Line(points={{41,-50},{60,-50},{60,-38},{78,-38}},
+    annotation (Line(points={{42,-50},{60,-50},{60,-38},{78,-38}},
       color={0,0,127}));
   connect(swi1.y, netRes.u3)
-    annotation (Line(points={{101,-30},{120,-30},{120,-62},{138,-62}},
+    annotation (Line(points={{102,-30},{120,-30},{120,-62},{138,-62}},
       color={0,0,127}));
   connect(greThr.y, and2.u2)
-    annotation (Line(points={{41,-90},{60,-90},{60,-78},{78,-78}},
+    annotation (Line(points={{42,-90},{60,-90},{60,-78},{78,-78}},
       color={255,0,255}));
   connect(and2.y, netRes.u2)
-    annotation (Line(points={{101,-70},{138,-70}},
+    annotation (Line(points={{102,-70},{138,-70}},
       color={255,0,255}));
   connect(iniSetCon.y, swi2.u1)
-    annotation (Line(points={{-59,150},{108,150},{108,108},{118,108}},
+    annotation (Line(points={{-58,150},{108,150},{108,108},{118,108}},
       color={0,0,127}));
   connect(swi2.y, swi.u1)
-    annotation (Line(points={{141,100},{150,100},{150,122},{158,122}},
+    annotation (Line(points={{142,100},{150,100},{150,122},{158,122}},
       color={0,0,127}));
   connect(swi2.y, uniDel.u)
-    annotation (Line(points={{141,100},{150,100},{150,120},{-100,120},{-100,60},
+    annotation (Line(points={{142,100},{150,100},{150,120},{-100,120},{-100,60},
           {-82,60}},
                  color={0,0,127}));
   connect(uDevSta, not1.u)
     annotation (Line(points={{-220,130},{-190,130},{-190,90},{-82,90}},
       color={255,0,255}));
   connect(not1.y, swi2.u2)
-    annotation (Line(points={{-59,90},{30,90},{30,100},{118,100}},
+    annotation (Line(points={{-58,90},{30,90},{30,100},{118,100}},
       color={255,0,255}));
   connect(min1.y, maxInp.u1)
-    annotation (Line(points={{41,60},{50,60},{50,66},{58,66}},
+    annotation (Line(points={{42,60},{50,60},{50,66},{58,66}},
       color={0,0,127}));
   connect(minSetCon.y, maxInp.u2)
-    annotation (Line(points={{41,30},{50,30},{50,54},{58,54}},
+    annotation (Line(points={{42,30},{50,30},{50,54},{58,54}},
       color={0,0,127}));
   connect(numOfReq, intToRea.u)
     annotation (Line(points={{-220,-90},{-182,-90}}, color={255,127,0}));
   connect(intToRea.y, sampler.u)
-    annotation (Line(points={{-159,-90},{-142,-90}}, color={0,0,127}));
+    annotation (Line(points={{-158,-90},{-142,-90}}, color={0,0,127}));
   connect(resAmoCon.y, pro.u2)
-    annotation (Line(points={{-59,-150},{-50,-150},{-50,-136},{-22,-136}},
+    annotation (Line(points={{-58,-150},{-50,-150},{-50,-136},{-22,-136}},
       color={0,0,127}));
   connect(difReqIgnReq.y, pro.u1)
-    annotation (Line(points={{-59,-70},{-40,-70},{-40,-124},{-22,-124}},
+    annotation (Line(points={{-58,-70},{-40,-70},{-40,-124},{-22,-124}},
       color={0,0,127}));
   connect(uDevSta, tim.u)
     annotation (Line(points={{-220,130},{-182,130}}, color={255,0,255}));
   connect(tim.y, swi.u2)
-    annotation (Line(points={{-159,130},{158,130}}, color={255,0,255}));
+    annotation (Line(points={{-158,130},{158,130}}, color={255,0,255}));
   connect(tim.y, swi1.u2)
-    annotation (Line(points={{-159,130},{-120,130},{-120,-30},{78,-30}},
+    annotation (Line(points={{-158,130},{-120,130},{-120,-30},{78,-30}},
       color={255,0,255}));
   connect(and2.u1, tim.y)
-    annotation (Line(points={{78,-70},{6,-70},{6,-30},{-120,-30},{-120,130},
-      {-159,130}}, color={255,0,255}));
+    annotation (Line(points={{78,-70},{6,-70},{6,-30},{-120,-30},{-120,130},{-158,
+          130}},   color={255,0,255}));
 
-  connect(maxInp.y, swi2.u3) annotation (Line(points={{81,60},{108,60},{108,92},
+  connect(maxInp.y, swi2.u3) annotation (Line(points={{82,60},{108,60},{108,92},
           {118,92}}, color={0,0,127}));
 annotation (
   defaultComponentName = "triRes",

@@ -42,7 +42,7 @@ partial model PartialBorefield
 
   // General parameters of borefield
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat "Borefield data"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   // Temperature gradient in undisturbed soil
   parameter Modelica.SIunits.Temperature TExt0_start=283.15
@@ -73,15 +73,12 @@ partial model PartialBorefield
     "Set to false to remove the dynamics of the filling material."
     annotation (Dialog(tab="Dynamics"));
 
-  Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
-    redeclare final package Medium = Medium,
-    final k=borFieDat.conDat.nBor) "Division of flow rate"
-    annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
-
-  Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul(
-    redeclare final package Medium = Medium,
-    final k=borFieDat.conDat.nBor) "Mass flow multiplier"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput TBorAve(final quantity="ThermodynamicTemperature",
+                                                final unit="K",
+                                                displayUnit = "degC",
+                                                start=TExt0_start)
+    "Average borehole wall temperature in the borefield"
+    annotation (Placement(transformation(extent={{100,34},{120,54}})));
 
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
     final tLoaAgg=tLoaAgg,
@@ -113,12 +110,26 @@ partial model PartialBorefield
     final TGro_start=TGro_start) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
-  Modelica.Blocks.Math.Gain gaiQ_flow(k=borFieDat.conDat.nBor)
-    "Gain to multiply the heat extracted by one borehole by the number of boreholes"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 protected
   parameter Modelica.SIunits.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
+
+  Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
+    redeclare final package Medium = Medium,
+    final k=borFieDat.conDat.nBor) "Division of flow rate"
+    annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
+
+  Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul(
+    redeclare final package Medium = Medium,
+    final k=borFieDat.conDat.nBor) "Mass flow multiplier"
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+
+  Modelica.Blocks.Math.Gain gaiQ_flow(k=borFieDat.conDat.nBor)
+    "Gain to multiply the heat extracted by one borehole by the number of boreholes"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+  Buildings.Utilities.Math.Average AveTBor(nin=nSeg)
+    "Average temperature of all the borehole segments"
+    annotation (Placement(transformation(extent={{50,34},{70,54}})));
 
   Modelica.Blocks.Sources.Constant TSoiUnd[nSeg](
     k = TExt_start,
@@ -135,7 +146,7 @@ protected
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature TemBorWal[nSeg]
     "Borewall temperature"
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+    annotation (Placement(transformation(extent={{50,6},{70,26}})));
 
   Modelica.Blocks.Math.Add TSoiDis[nSeg](each final k1=1, each final k2=1)
     "Addition of undisturbed soil temperature and change of soil temperature"
@@ -180,9 +191,14 @@ equation
   connect(gaiQ_flow.y, groTemRes.QBor_flow)
     annotation (Line(points={{1,80},{19,80}}, color={0,0,127}));
   connect(TSoiDis.y, TemBorWal.T)
-    annotation (Line(points={{31,30},{38,30}}, color={0,0,127}));
-  connect(QBorHol.port_b, TemBorWal.port) annotation (Line(points={{6.66134e-16,
-          0},{0,0},{0,10},{80,10},{80,30},{60,30}}, color={191,0,0}));
+    annotation (Line(points={{31,30},{36,30},{36,16},{48,16}},
+                                               color={0,0,127}));
+  connect(QBorHol.port_b, TemBorWal.port) annotation (Line(points={{4.44089e-16,
+          0},{0,0},{0,4},{80,4},{80,16},{70,16}},   color={191,0,0}));
+  connect(TSoiDis.y, AveTBor.u) annotation (Line(points={{31,30},{36,30},{36,44},
+          {48,44}}, color={0,0,127}));
+  connect(AveTBor.y, TBorAve)
+    annotation (Line(points={{71,44},{110,44}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -268,12 +284,29 @@ between each pipe and the borehole wall.
 </p>
 <p>
 The thermal interaction between the borehole wall and the surrounding soil
-is modeled using <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>,
+is modeled using
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>,
 which uses a cell-shifting load aggregation technique to calculate the borehole wall
 temperature after calculating and/or read (from a previous calculation) the borefield's thermal response factor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2019, by Massimo Cimmino:<br/>
+Converted instances that are not of interest to user to be <code>protected</code>.
+</li>
+<li>
+June 4, 2019, by Massimo Cimmino:<br/>
+Added an output for the average borehole wall temperature.
+See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1107\">#1107</a>.
+</li>
+<li>
+April 11, 2019, by Filip Jorissen:<br/>
+Added <code>choicesAllMatching</code> for <code>borFieDat</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1117\">#1117</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to water and glycolWater.

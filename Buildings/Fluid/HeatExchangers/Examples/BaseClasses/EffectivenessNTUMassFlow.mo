@@ -19,25 +19,24 @@ partial model EffectivenessNTUMassFlow
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=m1_flow_nominal*4200/
       1000*(T_a1_nominal - T_b1_nominal)/(T_b2_nominal - T_a2_nominal)
     "Nominal mass flow rate medium 2";
-  Sources.MassFlowSource_T sin_2(
+  Buildings.Fluid.Sources.MassFlowSource_T sin_2(
     redeclare package Medium = Medium2,
     T=T_a2_nominal,
     use_m_flow_in=true) "Sink for air"
     annotation (Placement(transformation(extent={{0,14},{20,34}})));
-  Sources.Boundary_pT sou_2(
+  Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     T=T_a2_nominal,
     X={0.02,1 - 0.02},
     use_T_in=true,
     use_X_in=true) "Source for air"
-    annotation (Placement(transformation(
-          extent={{138,14},{118,34}})));
-  Sources.MassFlowSource_T sin_1(
+    annotation (Placement(transformation(extent={{138,14},{118,34}})));
+  Buildings.Fluid.Sources.MassFlowSource_T sin_1(
     redeclare package Medium = Medium1,
     T=T_a1_nominal,
     use_m_flow_in=true) "Sink for water"
     annotation (Placement(transformation(extent={{140,50},{120,70}})));
-  Sources.Boundary_pT sou_1(
+  Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     use_T_in=false,
     T=T_a1_nominal) "Source for water"

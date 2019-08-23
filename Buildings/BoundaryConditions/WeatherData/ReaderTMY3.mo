@@ -680,61 +680,61 @@ equation
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
       points={{181,70},{220,70},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTotSkyCov.nOut, weaBus.nTot) annotation (Line(
       points={{181,-30},{220,-30},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, weaBus.nOpa) annotation (Line(
       points={{181,-150},{220,-150},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheGloHorRad.HOut, weaBus.HGloHor) annotation (Line(
       points={{181,190},{220,190},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDifHorRad.HOut, weaBus.HDifHor) annotation (Line(
       points={{181,150},{220,150},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDirNorRad.HOut, weaBus.HDirNor) annotation (Line(
       points={{181,230},{220,230},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheCeiHei.ceiHeiOut, weaBus.celHei) annotation (Line(
       points={{181,-110},{220,-110},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinSpe.winSpeOut, weaBus.winSpe) annotation (Line(
       points={{181,-70},{220,-70},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheHorRad.HOut, weaBus.HHorIR) annotation (Line(
       points={{181,110},{220,110},{220,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinDir.nOut, weaBus.winDir) annotation (Line(
       points={{181,-270},{280,-270},{280,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, TBlaSkyCom.nOpa) annotation (Line(
@@ -746,7 +746,7 @@ equation
   connect(modTim.y, weaBus.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(modTim.y, add.u2) annotation (Line(
@@ -783,7 +783,7 @@ equation
       points={{-59,-130},{-20,-130},{-20,0},{284,0},{284,0},{300,
           0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
@@ -801,7 +801,7 @@ equation
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
       points={{181,-230},{280,-230},{280,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TBlaSkyCom.TDewPoi, cheTemDewPoi.TOut) annotation (Line(
@@ -822,13 +822,13 @@ equation
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
       points={{181,30},{280,30},{280,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTemDryBul.TOut, weaBus.TDryBul) annotation (Line(
       points={{181,-190},{280,-190},{280,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(decAng.decAng, zenAng.decAng)
@@ -857,7 +857,7 @@ equation
   connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
       points={{265,-56},{280,-56},{280,0},{292,0},{300,0}},
       color={0,0,127}), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTemDryBul.TOut, tWetBul_TDryBulXi.TDryBul) annotation (Line(
@@ -1555,8 +1555,11 @@ These changes in the weather data file are done in the Java program
 <code>Buildings/Resources/bin/ConvertWeatherData.jar</code> that converts
 EnergyPlus weather data file to Modelica weather data files, and which is described
 above.
-The length of the weather data is calculated as 
-= end time stamp - start time stamp + average increment.
+The length of the weather data is calculated as the
+end time stamp minus start time stamp plus average increment, where the
+average increment is equal to the end time stamp minus start time stamp divided
+by the number of rows minus 1.
+This only works correctly for weather files with equidistant time stamps.
 </p>
 <h5>Time shift for solar radiation data</h5>
 <p>

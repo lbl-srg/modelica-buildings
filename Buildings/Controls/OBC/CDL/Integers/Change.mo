@@ -7,15 +7,13 @@ block Change
   Interfaces.IntegerInput u "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Interfaces.BooleanOutput up
     "Connector of Boolean output signal indicating input increase"
-    annotation (Placement(transformation(extent={{100,50},{120,70}}),
-      iconTransformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,40},{140,80}})));
   Interfaces.BooleanOutput down
     "Connector of Boolean output signal indicating input decrease"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
-      iconTransformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 protected
   Integer u_start = 0 "Initial value of input";

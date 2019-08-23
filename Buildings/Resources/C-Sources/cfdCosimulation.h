@@ -20,10 +20,10 @@
 
 #if defined(_MSC_VER) || defined(__WIN32__) /* Windows */
 #include <windows.h>
-#define sleep(x) Sleep(1000*x)
 #else /* Linux*/
 #include <dlfcn.h>  /*For load shared library*/
 #include <unistd.h> /*For Linux function*/
+#define Sleep(x) sleep(x/1000)
 #endif
 
 #ifndef _MODELICA_FFD_COMMON_H
@@ -33,7 +33,6 @@
 #endif
 
 CosimulationData *cosim;
-char msg[1000];
 
 /*declare the ffd_dll function in DLL*/
-int ffd_dll(CosimulationData *cosim);
+void *ffd_dll(CosimulationData *cosim);

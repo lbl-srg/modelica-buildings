@@ -131,7 +131,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(t6.outPort, morWarUp.inPort[1]) annotation (Line(
@@ -152,7 +152,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TRooSetHea.y, TRooMinErrHea.u1)
@@ -178,7 +178,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(occ.outPort[1], t4.inPort) annotation (Line(
@@ -206,7 +206,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(booleanExpression.y, and1.u2) annotation (Line(
@@ -230,7 +230,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(morPreCoo.outPort[1], t7.inPort) annotation (Line(
@@ -270,7 +270,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(t8.outPort, occ.inPort[3]) annotation (Line(
@@ -310,7 +310,7 @@ equation
       points={{-173.1,140},{-158,140}},
       color={255,127,0},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(yFan, or1.y)
