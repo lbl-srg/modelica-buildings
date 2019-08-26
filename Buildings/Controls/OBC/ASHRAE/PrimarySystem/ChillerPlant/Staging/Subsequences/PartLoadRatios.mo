@@ -3,36 +3,59 @@ block PartLoadRatios
   "Operating and staging part load ratios with chiller type reset"
 
   parameter Boolean anyVsdCen = true
-  "Plant contains at least one variable speed centrifugal chiller";
+    "Plant contains at least one variable speed centrifugal chiller";
 
   parameter Integer nSta = 3
     "Total number of stages";
 
-  parameter Real posDisMult(unit = "1", min = 0, max = 1)=0.8
-  "Positive displacement chiller type staging multiplier";
+  parameter Real posDisMult(
+    final unit = "1",
+    final min = 0,
+    final max = 1)=0.8
+    "Positive displacement chiller type staging multiplier";
 
-  parameter Real conSpeCenMult(unit = "1", min = 0, max = 1)=0.9
-  "Constant speed centrifugal chiller type staging multiplier";
+  parameter Real conSpeCenMult(
+    final unit = "1",
+    final min = 0,
+    final max = 1)=0.9
+    "Constant speed centrifugal chiller type staging multiplier";
 
-  parameter Real varSpeStaMin(unit = "1", min = 0.1, max = 1)=0.45
-  "Minimum stage up or down part load ratio for variable speed centrifugal stage types";
+  parameter Real varSpeStaMin(
+    final unit = "1",
+    final min = 0.1,
+    final max = 1)=0.45
+    "Minimum stage up or down part load ratio for variable speed centrifugal stage types";
 
-  parameter Real varSpeStaMax(unit = "1", min = varSpeStaMin, max = 1)=0.9
-  "Maximum stage up or down part load ratio for variable speed centrifugal stage types";
+  parameter Real varSpeStaMax(
+    final unit = "1",
+    final min = varSpeStaMin,
+    final max = 1)=0.9
+    "Maximum stage up or down part load ratio for variable speed centrifugal stage types";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(final min=0, final max=
-        nSta) "Chiller stage" annotation (Placement(transformation(extent={{-380,
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
+    final min=0,
+    final max=nSta) "Chiller stage"
+    annotation (Placement(transformation(extent={{-380,
             220},{-340,260}}), iconTransformation(extent={{-120,-110},{-100,-90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp(final min=0, final max=nSta) annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp(
+    final min=0,
+    final max=nSta) "Next available stage up"
+    annotation (
       Placement(transformation(extent={{-380,160},{-340,200}}),
         iconTransformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDown(final min=0, final max=nSta) annotation (
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDown(
+    final min=0,
+    final max=nSta) "Next available stage down"
+    annotation (
       Placement(transformation(extent={{-380,100},{-340,140}}),
         iconTransformation(extent={{-120,-150},{-100,-130}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapNom(final unit="W",
-      final quantity="Power") "Nominal capacity of the next higher stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapNom(
+    final unit="W",
+    final quantity="Power")
+    "Nominal capacity of the next higher stage"
     annotation (Placement(transformation(extent={{-380,-180},{-340,-140}}),
         iconTransformation(extent={{-120,80},{-100,100}})));
 
@@ -43,18 +66,24 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-380,-20},{-340,20}}),
     iconTransformation(extent={{-120,120},{-100,140}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapNom(final unit="W",
-      final quantity="Power") "Nominal capacity of the current stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapNom(
+    final unit="W",
+    final quantity="Power")
+    "Nominal capacity of the current stage"
     annotation (Placement(transformation(extent={{-380,-70},{-340,-30}}),
         iconTransformation(extent={{-120,100},{-100,120}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapMin(final unit="W",
-      final quantity="Power") "Minimal capacity of the next higher stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapMin(
+    final unit="W",
+    final quantity="Power")
+    "Minimal capacity of the next higher stage"
     annotation (Placement(transformation(extent={{-380,-300},{-340,-260}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDowCapNom(final unit="W",
-      final quantity="Power") "Nominal capacity of the next lower stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDowCapNom(
+    final unit="W",
+    final quantity="Power")
+    "Nominal capacity of the next lower stage"
     annotation (Placement(transformation(extent={{-380,-120},{-340,-80}}),
         iconTransformation(extent={{-120,60},{-100,80}})));
 
@@ -79,13 +108,16 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-380,-500},{-340,-460}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapMin(final unit="W",
-      final quantity="Power") "Minimal capacity of the current stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapMin(
+    final unit="W",
+    final quantity="Power")
+    "Minimal capacity of the current stage"
     annotation (Placement(transformation(extent={{-380,-240},{-340,-200}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUp(
-    final unit="1", final min=0)
+    final unit="1",
+    final min=0)
     "Operating part load ratio of the next higher stage"
     annotation (Placement(transformation(extent={{340,-130},{360,-110}}),
     iconTransformation(extent={{100,40},{120,60}})));
@@ -108,19 +140,22 @@ block PartLoadRatios
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="1",
-    final min = 0) "Operating part load ratio of the current stage"
+    final min = 0)
+    "Operating part load ratio of the current stage"
     annotation (Placement(transformation(extent={{340,-50},{360,-30}}),
                             iconTransformation(extent={{100,60},{120,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaDow(
     final unit="1",
-    final min = 0) "Staging down part load ratio"
+    final min = 0)
+    "Staging down part load ratio"
     annotation (Placement(transformation(extent={{340,-170},{360,-150}}),
                     iconTransformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaUp(
     final unit="1",
-    final min = 0) "Staging up part load ratio"
+    final min = 0)
+    "Staging up part load ratio"
     annotation (Placement(transformation(extent={{340,-10},{360,10}}),
                     iconTransformation(extent={{100,-20},{120,0}})));
 
@@ -128,9 +163,8 @@ block PartLoadRatios
     final unit="1",
     final min=0)
     "Minimum operating part load ratio at the next stage up"
-    annotation (Placement(
-        transformation(extent={{340,-250},{360,-230}}), iconTransformation(extent={
-            {100,-80},{120,-60}})));
+    annotation (Placement(transformation(extent={{340,-250},{360,-230}}),
+    iconTransformation(extent={{100,-80},{120,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
     "Calculates operating part load ratio at the current stage"
@@ -138,10 +172,12 @@ block PartLoadRatios
 
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extCurTyp(
-    final nin=nSta, outOfRangeValue=-1) "Extract current stage type"
+    final nin=nSta,
+    final outOfRangeValue=-1) "Extract current stage type"
     annotation (Placement(transformation(extent={{-160,290},{-140,310}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(final k=1) "Stage 1"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
+    final k=1) "Stage 1"
     annotation (Placement(transformation(extent={{-300,140},{-280,160}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger curStaTyp "Current stage chiller type"
@@ -150,33 +186,36 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staUpTyp "Stage up chiller type"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extUpTyp(nin=nSta,
-      outOfRangeValue=-1)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extUpTyp(
+    final nin=nSta,
+    final outOfRangeValue=-1)
     "Extract stage type for the first higher available stage"
     annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extDowTyp(nin=nSta,
-      outOfRangeValue=-1)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extDowTyp(
+    final nin=nSta,
+    final outOfRangeValue=-1)
     "Extract stage type for the first lower available stage"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger staDowTyp1 "Stage down chiller type"
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger staDowTyp1
+    "Stage down chiller type"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conSpeCenTyp(final k=
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conSpeCenTyp(
+    final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal)
     "Stage type with any constant speed centrifugal chillers "
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant posDisTyp(final k=
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant posDisTyp(
+    final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement)
     "Stage type with none but positive displacement chillers"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Equality"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant posDisTypMult(
@@ -189,19 +228,19 @@ block PartLoadRatios
     "Constant speed centrifugal chiller type SPLR multiplier"
     annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{20,-240},{40,-220}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Logical equality"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2 "Logical equality"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division minOpePlrUp
@@ -212,10 +251,12 @@ block PartLoadRatios
     "Calculates operating part load ratio at the next stage up"
     annotation (Placement(transformation(extent={{-240,-150},{-220,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0.9) if anyVsdCen "Constant"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(
+    final k=0.9) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{-240,-360},{-220,-340}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(k2=-1) if anyVsdCen "Subtract"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+    final k2=-1) if anyVsdCen "Subtract"
     annotation (Placement(transformation(extent={{-120,-420},{-100,-400}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division div if anyVsdCen
@@ -224,10 +265,12 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(k=0.4) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{-240,-480},{-220,-460}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const2(k=1.4) if anyVsdCen "Constant"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const2(
+    final k=1.4) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{-240,-560},{-220,-540}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1) if anyVsdCen "Subtract"
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(
+    final k2=-1) if anyVsdCen "Subtract"
     annotation (Placement(transformation(extent={{-120,-500},{-100,-480}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product mult0 if anyVsdCen "Multiplier"
@@ -245,11 +288,13 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Continuous.Add add3 if anyVsdCen "Subtract"
     annotation (Placement(transformation(extent={{120,-482},{140,-462}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const3(k=-1) if not anyVsdCen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const3(
+    final k=-1) if not anyVsdCen
     "Constant"
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const4(k=-1) if not anyVsdCen
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const4(
+    final k=-1) if not anyVsdCen
     "Constant"
     annotation (Placement(transformation(extent={{-40,-260},{-20,-240}})));
 
@@ -258,7 +303,7 @@ block PartLoadRatios
     "Unlisted chiller type got selected"
     annotation (Placement(transformation(extent={{300,360},{320,380}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold                     greThr(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final threshold=-0.5)
     "Less than threshold"
     annotation (Placement(transformation(extent={{260,360},{280,380}})));
@@ -268,7 +313,7 @@ block PartLoadRatios
     "Unlisted chiller type got selected"
     annotation (Placement(transformation(extent={{300,310},{320,330}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold                     greThr1(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final threshold=-0.5) "Less than threshold"
     annotation (Placement(transformation(extent={{260,310},{280,330}})));
 
@@ -289,7 +334,8 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Logical.Switch swi4
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const5(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const5(
+    final k=1)
     "If staging from 1 to 0 staging down part load ratio is 1"
     annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
 
@@ -299,15 +345,32 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
     annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta](final min=fill(1, nSta), final max=
-        fill(3, nSta)) "Nominal chiller stage types" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta](
+    final min=fill(1, nSta),
+    final max=fill(3, nSta)) "Nominal chiller stage types" annotation (Placement(
         transformation(extent={{-380,280},{-340,320}}), iconTransformation(
           extent={{-120,-80},{-100,-60}})));
+
   Buildings.Controls.OBC.CDL.Integers.Max maxIntUp
     annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
 
   Buildings.Controls.OBC.CDL.Integers.Max maxIntDown
     annotation (Placement(transformation(extent={{-240,100},{-220,120}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Max max
+    annotation (Placement(transformation(extent={{180,-420},{200,-400}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Min min
+    annotation (Placement(transformation(extent={{220,-380},{240,-360}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxLim(
+    final k=varSpeStaMax) if anyVsdCen "Constant"
+    annotation (Placement(transformation(extent={{120,-360},{140,-340}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLim(
+    final k=varSpeStaMin) if anyVsdCen "Constant"
+    annotation (Placement(transformation(extent={{120,-420},{140,-400}})));
+
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-360,0},{-260,0},{-260,
           -44},{-242,-44}}, color={0,0,127}));
@@ -355,7 +418,7 @@ equation
           {-100,-280},{200,-280},{200,-240},{350,-240}},color={0,0,127}));
   connect(uLifMin, add2.u2) annotation (Line(points={{-360,-420},{-240,-420},{-240,
           -416},{-122,-416}}, color={0,0,127}));
-  connect(const.y, div.u1) annotation (Line(points={{-218,-350},{-100,-350},{-100,
+  connect(const.y, div.u1) annotation (Line(points={{-218,-350},{-80,-350},{-80,
           -354},{-62,-354}}, color={0,0,127}));
   connect(add2.y, div.u2) annotation (Line(points={{-98,-410},{-80,-410},{-80,-366},
           {-62,-366}}, color={0,0,127}));
@@ -405,8 +468,9 @@ equation
           -200},{350,-200}},                       color={0,0,127}));
   connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-158,-30},{60,-30},
           {60,158},{158,158}}, color={0,0,127}));
-  connect(posDisTypMult.y, swi1.u1) annotation (Line(points={{-158,-110},{-60,-110},
-          {-60,60},{0,60},{0,78},{118,78}},   color={0,0,127}));
+  connect(posDisTypMult.y, swi1.u1) annotation (Line(points={{-158,-110},{-60,
+          -110},{-60,60},{0,60},{0,78},{118,78}},
+                                              color={0,0,127}));
   connect(posDisTypMult.y, swi3.u1) annotation (Line(points={{-158,-110},{-60,-110},
           {-60,-222},{18,-222}}, color={0,0,127}));
   connect(conSpeCenTypMult.y, swi2.u1) annotation (Line(points={{-158,-30},{0,-30},
@@ -439,10 +503,6 @@ equation
           {18,-238}}, color={0,0,127}));
   connect(const3.y, swi1.u3) annotation (Line(points={{92,30},{100,30},{100,62},
           {118,62}}, color={0,0,127}));
-  connect(add3.y, swi3.u3) annotation (Line(points={{142,-472},{150,-472},{150,-260},
-          {10,-260},{10,-238},{18,-238}}, color={0,0,127}));
-  connect(add3.y, swi1.u3) annotation (Line(points={{142,-472},{150,-472},{150,20},
-          {110,20},{110,62},{118,62}}, color={0,0,127}));
   connect(swi4.y, yStaDow)
     annotation (Line(points={{142,-160},{350,-160}}, color={0,0,127}));
   connect(swi2.y, swi4.u3) annotation (Line(points={{82,-180},{100,-180},{100,-168},
@@ -453,7 +513,7 @@ equation
           12},{-240,12},{-240,2},{-182,2}}, color={255,127,0}));
   connect(one.y, intEqu4.u1) annotation (Line(points={{-278,150},{-270,150},{-270,
           20},{-220,20},{-220,10},{-182,10}}, color={255,127,0}));
-  connect(intEqu4.y, swi4.u2) annotation (Line(points={{-158,10},{-10,10},{-10,-160},
+  connect(intEqu4.y, swi4.u2) annotation (Line(points={{-158,10},{-20,10},{-20,-160},
           {118,-160}}, color={255,0,255}));
   connect(one.y, maxInt.u2) annotation (Line(points={{-278,150},{-270,150},{-270,
           264},{-242,264}}, color={255,127,0}));
@@ -475,6 +535,14 @@ equation
           -290,104},{-242,104}},  color={255,127,0}));
   connect(maxIntDown.y, extDowTyp.index) annotation (Line(points={{-218,110},{-150,
           110},{-150,118}}, color={255,127,0}));
+  connect(add3.y, max.u2) annotation (Line(points={{142,-472},{160,-472},{160,-416},
+          {178,-416}}, color={0,0,127}));
+  connect(minLim.y, max.u1) annotation (Line(points={{142,-410},{160,-410},{160,
+          -404},{178,-404}}, color={0,0,127}));
+  connect(max.y, min.u2) annotation (Line(points={{202,-410},{210,-410},{210,-376},
+          {218,-376}}, color={0,0,127}));
+  connect(maxLim.y, min.u1) annotation (Line(points={{142,-350},{180,-350},{180,
+          -364},{218,-364}}, color={0,0,127}));
   annotation (defaultComponentName = "PLRs",
         Icon(graphics={
         Rectangle(

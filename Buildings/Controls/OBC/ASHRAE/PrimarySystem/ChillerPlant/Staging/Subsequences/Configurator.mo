@@ -14,8 +14,8 @@ block Configurator "Configures chiller staging"
     "Chiller minimum cycling loads vector";
 
   parameter Integer chiTyp[nChi]={
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal}
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal}
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal";
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
@@ -265,8 +265,8 @@ parameter <code>chiMinCap</code> according to section 3.1.1.5., July Draft.<br/>
 <li>
 Stage type vector <code>yTyp</code> from the chiller type vector input parameter 
 <code>uChiTyp</code>, as listed in section 5.2.4.13, July Draft. Chiller types are defined in 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes</a>.<br/>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes</a>.<br/>
 Stage type is, based on the chiller types in that stage and in the recommended staging order:<br/>
 <ul>
 <li>

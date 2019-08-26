@@ -5,9 +5,9 @@ model Configurator_uChiAva "Validate chiller staging configurator subsequence"
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,0,1},{0,1,1},{1,1,1}},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal},
     final chiDesCap={1e6,1.5e6,2e6},
     final chiMinCap={2e5,3e5,4e5})
         "Stage configurator"
@@ -17,9 +17,9 @@ model Configurator_uChiAva "Validate chiller staging configurator subsequence"
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,0,1},{0,1,1},{1,1,1}},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal},
     final chiDesCap={1e6,1.5e6,2e6},
     final chiMinCap={2e5,3e5,4e5})
         "Stage configurator"
@@ -29,9 +29,9 @@ model Configurator_uChiAva "Validate chiller staging configurator subsequence"
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,0,1},{0,1,1},{1,1,1}},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal},
     final chiDesCap={1e6,1.5e6,2e6},
     final chiMinCap={2e5,3e5,4e5})
         "Stage configurator"
@@ -41,9 +41,9 @@ model Configurator_uChiAva "Validate chiller staging configurator subsequence"
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,0,1},{0,1,1},{1,1,1}},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal},
     final chiDesCap={1e6,1.5e6,2e6},
     final chiMinCap={2e5,3e5,4e5})
         "Stage configurator"
@@ -53,9 +53,9 @@ model Configurator_uChiAva "Validate chiller staging configurator subsequence"
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,0,1},{0,1,1},{1,1,1}},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal},
     final chiDesCap={1e6,1.5e6,2e6},
     final chiMinCap={2e5,3e5,4e5})
         "Stage configurator"
@@ -65,9 +65,9 @@ model Configurator_uChiAva "Validate chiller staging configurator subsequence"
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{1,0,1},{0,1,1},{1,1,1}},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.variableSpeedCentrifugal,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerTypes.constantSpeedCentrifugal},
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal},
     final chiDesCap={1e6,1.5e6,2e6},
     final chiMinCap={2e5,3e5,4e5})
         "Stage configurator"
