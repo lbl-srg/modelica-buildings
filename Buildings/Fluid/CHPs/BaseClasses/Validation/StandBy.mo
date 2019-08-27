@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model StandBy "Validate model StandBy"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   Modelica.Blocks.Sources.Constant mWat_flow(k=0.5) "Water flow rate"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.BooleanTable avaSig(table={300,600,900,1260})
@@ -18,7 +16,6 @@ model StandBy "Validate model StandBy"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Fluid.CHPs.BaseClasses.StandBy staBy "Stand-by operating mode"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-
 protected
   Modelica.StateGraph.InitialStep off(nIn=2)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -27,14 +24,12 @@ protected
   Modelica.StateGraph.TransitionWithSignal transition3(enableTimer=true,
       waitTime=60)
     annotation (Placement(transformation(extent={{72,0},{92,20}})));
-
   Modelica.StateGraph.Transition transition1(condition=avaSig.y)
     annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
   Modelica.StateGraph.Transition transition2(condition=runSig.y)
     annotation (Placement(transformation(extent={{12,0},{32,20}})));
   Modelica.StateGraph.Transition transition4(condition=not avaSig.y)
     annotation (Placement(transformation(extent={{-30,-40},{-50,-20}})));
-
   Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=mWat_flow.y >
         per.mWatMin)       "Check if water flow rate is higher than the minimum"
     annotation (Placement(transformation(extent={{42,-22},{70,-6}})));
@@ -46,7 +41,6 @@ equation
   else
     actMod = CHPs.BaseClasses.Types.Mode.PumpOn;
   end if;
-
   connect(pumOn.outPort, transition3.inPort)
     annotation (Line(points={{60.3333,10},{78,10}}, color={0,0,0}));
   connect(transition1.inPort, off.outPort[1])

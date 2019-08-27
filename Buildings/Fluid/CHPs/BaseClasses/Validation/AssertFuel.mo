@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model AssertFuel "Validate model AssertFuel"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   CHPs.BaseClasses.AssertFuel assFue(per=per)
     "Assert if fuel flow is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -13,7 +11,6 @@ model AssertFuel "Validate model AssertFuel"
                                           "Fuel flow rate"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
-
   connect(mFue_flow.y[1], assFue.mFue_flow)
     annotation (Line(points={{-39,0},{38,0}}, color={0,0,127}));
 annotation (

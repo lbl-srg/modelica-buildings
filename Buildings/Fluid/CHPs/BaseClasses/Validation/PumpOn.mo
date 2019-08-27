@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model PumpOn "Validate model PumpOn"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   Controls.OBC.CDL.Continuous.Sources.TimeTable
                                     mWat_flow(table=[0,0; 120,0; 121,0.05; 240,0.05;
         241,0.5; 600,0.5], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
@@ -13,7 +11,6 @@ model PumpOn "Validate model PumpOn"
   Buildings.Fluid.CHPs.BaseClasses.PumpOn pumOn
     "Operating mode in which the water pump starts to run"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-
 protected
   Modelica.StateGraph.InitialStep off(nIn=1)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -33,7 +30,6 @@ protected
     condition=true,
     enableTimer=true,
     waitTime=120) annotation (Placement(transformation(extent={{72,0},{92,20}})));
-
   Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=mWat_flow.y[1]
          > per.mWatMin)    "Check if water flow rate is higher than the minimum"
     annotation (Placement(transformation(extent={{-18,-20},{10,-4}})));
@@ -45,7 +41,6 @@ equation
   else
     actMod = CHPs.BaseClasses.Types.Mode.WarmUp;
   end if;
-
   connect(off.outPort[1], transition1.inPort)
     annotation (Line(points={{-59.5,10},{-42,10}}, color={0,0,0}));
   connect(pumOn.inPort, transition1.outPort)

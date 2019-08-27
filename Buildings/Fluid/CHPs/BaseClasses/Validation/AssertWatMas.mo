@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model AssertWatMas "Validate model AssertWatMas"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   CHPs.BaseClasses.AssertWatMas assWatMas(per=per)
     "Assert if water mass flow is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -16,7 +14,6 @@ model AssertWatMas "Validate model AssertWatMas"
     "Flag is true when electricity/heat demand larger than zero"
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
 equation
-
   connect(runSig.y, assWatMas.runSig) annotation (Line(points={{-39,16},{-0.5,16},
           {-0.5,4},{38,4}}, color={255,0,255}));
   connect(mWat_flow.y[1], assWatMas.mWat_flow) annotation (Line(points={{-39,

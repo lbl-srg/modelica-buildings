@@ -4,7 +4,6 @@ model CoolDown "Cool-down operating mode"
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{-148,-148},{-128,-128}})));
-
   Modelica.StateGraph.Interfaces.Step_in inPort1
     annotation (Placement(transformation(extent={{-170,70},{-150,50}})));
   Modelica.Blocks.Interfaces.BooleanOutput y
@@ -13,13 +12,11 @@ model CoolDown "Cool-down operating mode"
         iconTransformation(extent={{150,-60},{170,-40}})));
   Modelica.StateGraph.StepWithSignal coolDownState(nIn=2)
     annotation (Placement(transformation(extent={{-16,-16},{16,16}})));
-
 protected
   Modelica.Blocks.Logical.Timer timer
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Logical.GreaterEqualThreshold timeDel(threshold=per.timeDelayCool)
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-
 equation
   connect(coolDownState.active, timer.u)
     annotation (Line(points={{0,-17.6},{0,-50},{18,-50}}, color={255,0,255}));

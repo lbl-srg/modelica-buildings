@@ -4,31 +4,32 @@ model AssertWatTem
   extends Modelica.Blocks.Icons.Block;
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
-    annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
+    annotation (Placement(transformation(extent={{-78,-98},{-62,-82}})));
 
-  Modelica.Blocks.Interfaces.RealInput TWat(unit="K")
-    "Water outlet temperature" annotation (Placement(transformation(extent={{-140,
-            -20},{-100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TWat(unit="K")
+    "Water outlet temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message="Water temperature is higher than the maximum!")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    final message="Water temperature is higher than the maximum!")
     "Assert function for checking water temperature"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
 protected
-  Modelica.Blocks.Logical.LessEqualThreshold
-                                        lessEqualThreshold(
-                                                      threshold=per.TWatMax)
+  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
+    final threshold=per.TWatMax) "Check if input is less equal than threshold value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-
-  connect(lessEqualThreshold.u, TWat)
+  connect(lesEquThr.u, TWat)
     annotation (Line(points={{-12,0},{-120,0}}, color={0,0,127}));
-  connect(lessEqualThreshold.y, assMes.u)
-    annotation (Line(points={{11,0},{78,0}}, color={255,0,255}));
-  annotation (
-    defaultComponentName="assWatTem",
-    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
+  connect(lesEquThr.y, assMes.u)
+    annotation (Line(points={{12,0},{78,0}}, color={255,0,255}));
+
+annotation (
+  defaultComponentName="assWatTem",
+  Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -56,7 +57,7 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 The model sends a warning message if the water temperature is higher than the maximum defined by the manufacturer.  
 </p>

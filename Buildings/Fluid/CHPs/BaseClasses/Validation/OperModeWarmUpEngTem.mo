@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model OperModeWarmUpEngTem "Validate model OperModeWarmUpEngTem"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   Buildings.Fluid.CHPs.BaseClasses.OperModeWarmUpEngTem opeModWarUpEngTem(per=per)
     "Energy conversion during warm-up by engine temperature"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));

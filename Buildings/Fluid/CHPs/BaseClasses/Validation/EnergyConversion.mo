@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model EnergyConversion "Validate model EnergyConversion"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   Controls.OBC.CDL.Continuous.Sources.TimeTable
                                     mWat_flow(table=[0,0; 300,0.4; 2700,0; 3000,
         0], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
@@ -35,7 +33,6 @@ model EnergyConversion "Validate model EnergyConversion"
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-80,-81},{-60,-61}})));
-
 equation
   connect(con.opeMod, eneCon.opeMod) annotation (Line(points={{21,84},{40,84},{40,
           -14},{58,-14}},

@@ -4,7 +4,6 @@ model WaterInternalControl "Internal controller for water flow rate"
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   CHPs.BaseClasses.Interfaces.ModeTypeInput opeMod "Operation mode" annotation (
      Placement(transformation(extent={{-140,40},{-100,80}}), iconTransformation(
           extent={{-140,40},{-100,80}})));
@@ -18,7 +17,6 @@ model WaterInternalControl "Internal controller for water flow rate"
     "Water flow rate set point" annotation (Placement(
         transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={
             {100,-10},{120,10}})));
-
 protected
   Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=opeMod ==CHPs.BaseClasses.Types.Mode.WarmUp
          and not per.warmUpByTimeDelay)
@@ -43,7 +41,7 @@ protected
 equation
   connect(switch.y, mWatIntCon.u1)
     annotation (Line(points={{-9,8},{18,8}}, color={0,0,127}));
-  connect(PMax.y, switch.u1) annotation (Line(points={{-59,60},{-40,60},{-40,16},
+  connect(PMax.y, switch.u1) annotation (Line(points={{-58,60},{-40,60},{-40,16},
           {-32,16}}, color={0,0,127}));
   connect(mWatIntCon.u2, TWatIn) annotation (Line(points={{18,-4},{0,-4},{0,-60},
           {-120,-60}}, color={0,0,127}));
@@ -53,7 +51,7 @@ equation
     annotation (Line(points={{41,2},{50,2},{50,22},{58,22}}, color={0,0,127}));
   connect(switch1.y, mWatSet) annotation (Line(points={{81,30},{90,30},{90,0},{110,
           0}}, color={0,0,127}));
-  connect(const.y, switch1.u1) annotation (Line(points={{41,60},{50,60},{50,38},
+  connect(const.y, switch1.u1) annotation (Line(points={{42,60},{50,60},{50,38},
           {58,38}}, color={0,0,127}));
   connect(booleanExpression.y, switch.u2)
     annotation (Line(points={{-59,8},{-32,8}}, color={255,0,255}));

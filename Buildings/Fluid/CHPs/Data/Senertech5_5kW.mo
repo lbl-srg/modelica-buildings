@@ -23,7 +23,6 @@ record Senertech5_5kW "SENERTECH5_5kW"
     PStaBy=0,
     PCooDow=0,
     LHVFue=47.614e6);
-
   annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",

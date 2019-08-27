@@ -1,8 +1,6 @@
 within Buildings.Fluid.CHPs.Validation;
 model ElectricalFollowing "Validate model ElectricalFollowing"
-
 package Medium = Buildings.Media.Water;
-
   Modelica.Blocks.Sources.BooleanTable avaSig(startValue=true, table={172800})
     "Plant availability signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
@@ -2009,7 +2007,6 @@ package Medium = Buildings.Media.Water;
     timeScale=1)
     "Validation data for heat generation"
     annotation (Placement(transformation(extent={{106,28},{120,42}})));
-
   Fluid.Sources.MassFlowSource_T cooWat(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
@@ -3199,7 +3196,6 @@ package Medium = Buildings.Media.Water;
     timeScale=1)
     "Validation data for engine temperature"
     annotation (Placement(transformation(extent={{106,-90},{120,-76}})));
-
   Controls.OBC.CDL.Continuous.Sources.TimeTable
                                     PEleNetVal(table=[0,0; 60,0; 120,0; 180,0; 240,
         0; 300,0; 360,0; 420,0; 480,0; 540,0; 600,0; 660,0; 720,0; 780,0; 840,0;
@@ -7005,7 +7001,6 @@ package Medium = Buildings.Media.Water;
     timeScale=1) "Room temperature"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
-
   connect(eleFol.port_b, sin.ports[1]) annotation (Line(points={{38,10},{50,10},
           {50,-6},{60,-6}}, color={0,127,255}));
   connect(avaSig.y, eleFol.avaSig) annotation (Line(points={{-59,80},{-20,80},{-20,
@@ -7024,28 +7019,34 @@ equation
           {160.55,-46.8},{164.6,-46.8}},      color={0,0,127}));
   connect(dTEng.u1, TEng.y) annotation (Line(points={{164.6,-74.8},{160,-74.8},{
           160,-75},{155.1,-75}},  color={0,0,127}));
-  connect(PEleDem.y[1], eleFol.PEleDem) annotation (Line(points={{-59,40},{-40,40},
-          {-40,14},{16,14}}, color={0,0,127}));
-  connect(TWatIn.y[1], cooWat.T_in) annotation (Line(points={{-59,-40},{-40,-40},
+  connect(PEleDem.y[1], eleFol.PEleDem) annotation (Line(points={{-58,40},{-40,
+          40},{-40,14},{16,14}},
+                             color={0,0,127}));
+  connect(TWatIn.y[1], cooWat.T_in) annotation (Line(points={{-58,-40},{-40,-40},
           {-40,-4},{-22,-4}}, color={0,0,127}));
-  connect(PEleNetVal.y[1], dPEleNet.u2) annotation (Line(points={{120.7,65},{142.35,
-          65},{142.35,64.8},{164.6,64.8}}, color={0,0,127}));
-  connect(QGenVal.y[1], dQGen.u2) annotation (Line(points={{120.7,35},{143.35,35},
-          {143.35,34.8},{164.6,34.8}}, color={0,0,127}));
-  connect(QWatVal.y[1], dQWat.u2) annotation (Line(points={{120.7,5},{142.35,5},
+  connect(PEleNetVal.y[1], dPEleNet.u2) annotation (Line(points={{121.4,65},{
+          142.35,65},{142.35,64.8},{164.6,64.8}},
+                                           color={0,0,127}));
+  connect(QGenVal.y[1], dQGen.u2) annotation (Line(points={{121.4,35},{143.35,
+          35},{143.35,34.8},{164.6,34.8}},
+                                       color={0,0,127}));
+  connect(QWatVal.y[1], dQWat.u2) annotation (Line(points={{121.4,5},{142.35,5},
           {142.35,4.8},{164.6,4.8}}, color={0,0,127}));
-  connect(QLosVal.y[1], dQLos.u2) annotation (Line(points={{120.7,-25},{142.35,-25},
-          {142.35,-25.2},{164.6,-25.2}}, color={0,0,127}));
-  connect(TWatOutVal.y[1], dTWatOut.u2) annotation (Line(points={{120.7,-55},{143.35,
-          -55},{143.35,-55.2},{164.6,-55.2}}, color={0,0,127}));
-  connect(TEngVal.y[1], dTEng.u2) annotation (Line(points={{120.7,-83},{142.35,-83},
-          {142.35,-83.2},{164.6,-83.2}}, color={0,0,127}));
+  connect(QLosVal.y[1], dQLos.u2) annotation (Line(points={{121.4,-25},{142.35,
+          -25},{142.35,-25.2},{164.6,-25.2}},
+                                         color={0,0,127}));
+  connect(TWatOutVal.y[1], dTWatOut.u2) annotation (Line(points={{121.4,-55},{
+          143.35,-55},{143.35,-55.2},{164.6,-55.2}},
+                                              color={0,0,127}));
+  connect(TEngVal.y[1], dTEng.u2) annotation (Line(points={{121.4,-83},{142.35,
+          -83},{142.35,-83.2},{164.6,-83.2}},
+                                         color={0,0,127}));
   connect(mWat_flow.y[1], cooWat.m_flow_in)
-    annotation (Line(points={{-59,0},{-22,0}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{-22,0}}, color={0,0,127}));
   connect(prescribedTemperature.port, eleFol.TRoo) annotation (Line(points={{-20,-80},
           {12,-80},{12,7},{17,7}},          color={191,0,0}));
   connect(TRoo.y[1], prescribedTemperature.T)
-    annotation (Line(points={{-59,-80},{-42,-80}}, color={0,0,127}));
+    annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
   annotation (
     experiment(StopTime=10000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Validation/ElectricalFollowing.mos"

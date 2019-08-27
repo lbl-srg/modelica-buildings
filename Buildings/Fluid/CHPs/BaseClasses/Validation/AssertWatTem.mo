@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model AssertWatTem "Validate model AssertWatTem"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   CHPs.BaseClasses.AssertWatTem assWatTem(per=per)
     "Assert if water temperature is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -13,7 +11,6 @@ model AssertWatTem "Validate model AssertWatTem"
                           "Water temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
-
   connect(TWat.y[1], assWatTem.TWat)
     annotation (Line(points={{-39,0},{38,0}}, color={0,0,127}));
 annotation (

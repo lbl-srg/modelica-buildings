@@ -1,10 +1,8 @@
 within Buildings.Fluid.CHPs.BaseClasses;
 model PumpOn "Operating mode in which the water pump starts to run"
   extends Modelica.StateGraph.PartialCompositeStep;
-
   Modelica.StateGraph.Step pumpOnState
     annotation (Placement(transformation(extent={{-16,-14},{12,14}})));
-
 equation
   connect(inPort, pumpOnState.inPort[1])
     annotation (Line(points={{-160,0},{-17.4,0}}, color={0,0,0}));

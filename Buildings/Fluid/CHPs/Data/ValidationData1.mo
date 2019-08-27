@@ -25,7 +25,6 @@ record ValidationData1 "Validation data set 1"
     PStaBy=100,
     PCooDow=200,
     LHVFue=47.614e6);
-
   annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",

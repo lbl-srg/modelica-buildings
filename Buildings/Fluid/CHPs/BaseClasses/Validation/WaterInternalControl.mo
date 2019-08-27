@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model WaterInternalControl "Validate model WaterInternalControl"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   Controls.OBC.CDL.Continuous.Sources.TimeTable
                                     mWat_flow(table=[0,0; 300,0.4; 2700,0; 3000,
         0], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
@@ -34,11 +32,9 @@ model WaterInternalControl "Validate model WaterInternalControl"
   Buildings.Fluid.CHPs.BaseClasses.WaterInternalControl conWat(per=per)
     "Internal controller for water flow rate"
     annotation (Placement(transformation(extent={{50,-2},{70,18}})));
-
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-80,-81},{-60,-61}})));
-
 equation
   connect(avaSig.y, con.avaSig)
     annotation (Line(points={{-59,90},{-1,90}}, color={255,0,255}));

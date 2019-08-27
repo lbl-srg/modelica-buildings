@@ -4,7 +4,6 @@ model OperModeWarmUpEngTem "Energy conversion during warm-up by engine temperatu
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s") "Water flow rate"
     annotation (Placement(transformation(extent={{-138,220},{-98,260}}),
         iconTransformation(extent={{-120,48},{-100,68}})));
@@ -30,7 +29,6 @@ model OperModeWarmUpEngTem "Energy conversion during warm-up by engine temperatu
     "Heat generation within the engine" annotation (Placement(transformation(
           extent={{540,144},{560,164}}), iconTransformation(extent={{100,-70},{120,
             -50}})));
-
 protected
   Buildings.Utilities.Math.SmoothMax smoothMax(deltaX=0.5)
     "Prevent nagative value if room temperature exceeds engine nominal temperature"

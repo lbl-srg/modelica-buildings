@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model CoolDown "Validate model CoolDown"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
   Buildings.Fluid.CHPs.BaseClasses.CoolDown cooDow(per=per) "Cool-down mode"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -36,7 +34,6 @@ equation
   else
     actMod = CHPs.BaseClasses.Types.Mode.Off;
   end if;
-
   connect(transition4.outPort, norm.inPort[1]) annotation (Line(points={{-41.5,-30},
           {-90,-30},{-90,30.5},{-81,30.5}}, color={0,0,0}));
   connect(transition1.inPort, norm.outPort[1]) annotation (Line(points={{-44,50},

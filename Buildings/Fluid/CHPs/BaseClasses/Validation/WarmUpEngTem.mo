@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model WarmUpEngTem "Validate model WarmUp if warm-up by engine temperature"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   Modelica.Blocks.Sources.Ramp TEng(
     height=200,
     duration=360,
@@ -16,7 +14,6 @@ model WarmUpEngTem "Validate model WarmUp if warm-up by engine temperature"
   CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
   Buildings.Fluid.CHPs.BaseClasses.WarmUp warUp(per=per) "Warm-up mode"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
 protected
   Modelica.StateGraph.InitialStep off(nIn=2, nOut=2) "Off mode"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
@@ -24,7 +21,6 @@ protected
     annotation (Placement(transformation(extent={{-80,-81},{-60,-61}})));
   Modelica.StateGraph.TransitionWithSignal transition2
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
-
   Modelica.StateGraph.Transition transition1(condition=runSig.y)
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Modelica.StateGraph.Transition transition4(condition=not runSig.y)
@@ -43,7 +39,6 @@ equation
   else
     actMod = CHPs.BaseClasses.Types.Mode.Normal;
   end if;
-
   connect(transition4.outPort, off.inPort[1]) annotation (Line(points={{-41.5,-30},
           {-90,-30},{-90,30.5},{-81,30.5}}, color={0,0,0}));
   connect(transition1.inPort, off.outPort[1]) annotation (Line(points={{-44,30},

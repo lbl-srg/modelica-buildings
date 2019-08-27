@@ -1,69 +1,79 @@
 within Buildings.Fluid.CHPs.BaseClasses;
 model AssertPower "Assert if electric power is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
+
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
-    annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
+    annotation (Placement(transformation(extent={{-78,-98},{-62,-82}})));
 
-  Modelica.Blocks.Interfaces.RealInput PEleDem(unit="W") "Electric power demand"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleDem(unit="W")
+    "Electric power demand"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Logical.Nor nor
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Modelica.Blocks.Logical.Nand nand
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Modelica.Blocks.Sources.BooleanExpression cheDPLim(y=per.dPEleLim)
+  Buildings.Controls.OBC.CDL.Logical.Nor nor "Logical Nor"
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Nand nand "Logical Nand"
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+  Modelica.Blocks.Sources.BooleanExpression cheDPLim(
+    final y=per.dPEleLim)
     "Check if dP is limited"
-    annotation (Placement(transformation(extent={{-60,-68},{-40,-48}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMesP(message="Electric power is outside boundaries!")
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesP(
+    final message="Electric power is outside boundaries!")
     "Assert function for checking power"
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMesDP(message="Power rate of change is outside boundaries!")
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesDP(
+    final message="Power rate of change is outside boundaries!")
     "Assert function for checking power rate"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Derivative derivative(initType=
-        Buildings.Controls.OBC.CDL.Types.Init.InitialState, x_start=0)
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Blocks.Math.Abs abs1
-    annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=per.dPEleMax)
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=per.PEleMax)
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=per.PEleMin)
-    annotation (Placement(transformation(extent={{-60,32},{-40,52}})));
+  Buildings.Controls.OBC.CDL.Continuous.Derivative derivative(
+    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
+    final x_start=0)
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Abs abs1
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greaterThreshold(
+    final threshold=per.dPEleMax)
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greaterThreshold1(
+    final threshold=per.PEleMax)
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold(
+    final threshold=per.PEleMin)
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
 equation
-
   connect(abs1.u, derivative.y)
-    annotation (Line(points={{-32,-30},{-39,-30}}, color={0,0,127}));
+    annotation (Line(points={{-42,-40},{-58,-40}}, color={0,0,127}));
   connect(greaterThreshold.u, abs1.y)
-    annotation (Line(points={{-2,-30},{-9,-30}}, color={0,0,127}));
-  connect(greaterThreshold1.u, PEleDem) annotation (Line(points={{-62,70},{-90,70},
-          {-90,0},{-120,0}}, color={0,0,127}));
-  connect(lessThreshold.u, PEleDem) annotation (Line(points={{-62,42},{-90,42},{-90,
-          0},{-120,0}}, color={0,0,127}));
-  connect(derivative.u, PEleDem) annotation (Line(points={{-62,-30},{-90,-30},{-90,
-          0},{-120,0}}, color={0,0,127}));
-  connect(nor.u1, greaterThreshold1.y) annotation (Line(points={{38,50},{-30,50},
-          {-30,70},{-39,70}}, color={255,0,255}));
-  connect(nor.u2, lessThreshold.y) annotation (Line(points={{38,42},{-39,42}},
-                         color={255,0,255}));
-  connect(greaterThreshold.y, nand.u1) annotation (Line(points={{21,-30},{24,-30},
-          {24,-50},{38,-50}}, color={255,0,255}));
+    annotation (Line(points={{-2,-40},{-18,-40}},color={0,0,127}));
+  connect(greaterThreshold1.u, PEleDem)
+    annotation (Line(points={{-62,60},{-90,60},{-90,0},{-120,0}}, color={0,0,127}));
+  connect(lessThreshold.u, PEleDem)
+    annotation (Line(points={{-62,20},{-90,20},{-90,0},{-120,0}},
+      color={0,0,127}));
+  connect(derivative.u, PEleDem)
+    annotation (Line(points={{-82,-40},{-90,-40},{-90,0},{-120,0}}, color={0,0,127}));
+  connect(nor.u1, greaterThreshold1.y)
+    annotation (Line(points={{38,40},{0,40},{0,60},{-38,60}}, color={255,0,255}));
+  connect(nor.u2, lessThreshold.y)
+    annotation (Line(points={{38,32},{0,32},{0,20},{-38,20}}, color={255,0,255}));
+  connect(greaterThreshold.y, nand.u1)
+    annotation (Line(points={{22,-40},{38,-40}}, color={255,0,255}));
   connect(nor.y, assMesP.u)
-    annotation (Line(points={{61,50},{78,50}}, color={255,0,255}));
+    annotation (Line(points={{62,40},{78,40}}, color={255,0,255}));
   connect(nand.y, assMesDP.u)
-    annotation (Line(points={{61,-50},{78,-50}}, color={255,0,255}));
-
+    annotation (Line(points={{62,-40},{78,-40}}, color={255,0,255}));
   connect(cheDPLim.y, nand.u2)
-    annotation (Line(points={{-39,-58},{38,-58}}, color={255,0,255}));
-  annotation (
-    defaultComponentName="assPow",
-    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
+    annotation (Line(points={{21,-70},{30,-70},{30,-48},{38,-48}},
+      color={255,0,255}));
+
+annotation (
+  defaultComponentName="assPow",
+  Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -91,7 +101,7 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 The model sends a warning message if the power demand is outside the boundaries defined by the manufacturer. 
 Limits can be specified for the minimal and maximal electric power and for the maximal power rate of change. 

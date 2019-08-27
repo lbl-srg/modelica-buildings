@@ -1,7 +1,5 @@
 within Buildings.Fluid.CHPs;
 model ThermalElectricalFollowing
-
-
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   redeclare package Medium = Buildings.Media.Water;
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per annotation (
@@ -11,7 +9,6 @@ model ThermalElectricalFollowing
   parameter Modelica.SIunits.Time waitTime=60
     "Wait time before transition from pump-on mode fires"
     annotation (Dialog(tab="Dynamics"));
-
   Modelica.Blocks.Interfaces.BooleanInput avaSig annotation (Placement(
         transformation(extent={{-140,120},{-100,160}}), iconTransformation(
           extent={{-140,60},{-100,100}})));
@@ -49,7 +46,6 @@ model ThermalElectricalFollowing
     "Heat transfer to the water control volume" annotation (Placement(
         transformation(extent={{100,8},{120,28}}), iconTransformation(extent={{100,
             -90},{120,-70}})));
-
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-68,-97},{-48,-77}})));
   Modelica.Blocks.Sources.RealExpression TWatOut(y=eleFol.vol.T)
@@ -71,8 +67,6 @@ model ThermalElectricalFollowing
     annotation (Placement(transformation(extent={{-40,38},{-20,58}})));
   Modelica.Blocks.Logical.Switch PEleDem "Electric power demand"
     annotation (Placement(transformation(extent={{-6,102},{14,82}})));
-
-
   Modelica.Blocks.Logical.Switch switch1
     "Check if there is a need for heat generation"
     annotation (Placement(transformation(extent={{-10,22},{10,42}})));

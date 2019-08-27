@@ -6,22 +6,21 @@ model EngineConVol "Heat exchange within the engine control volume"
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
   replaceable package Medium = Buildings.Media.Water "Medium model";
   parameter Modelica.SIunits.Temperature TEngIni "Initial engine temperature";
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TRoo
     "Heat port for room temperature" annotation (Placement(transformation(
-          extent={{-116,50},{-96,70}}), iconTransformation(extent={{-120,50},{-100,
-            70}})));
+          extent={{-110,50},{-90,70}}), iconTransformation(extent={{-110,48},{
+            -90,68}})));
   Modelica.Blocks.Interfaces.RealInput QGen(unit="W")
     "Heat generation within the engine" annotation (Placement(transformation(
           extent={{-140,-20},{-100,20}}), iconTransformation(extent={{-120,-10},
             {-100,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a QWat
-    "Heat transfer to water side" annotation (Placement(transformation(extent={{
-            -116,-70},{-96,-50}}), iconTransformation(extent={{-120,-70},{-100,-50}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TWat
+    "Water volume temperature"    annotation (Placement(transformation(extent={{-110,
+            -70},{-90,-50}}),      iconTransformation(extent={{-110,-70},{-90,
+            -50}})));
   Modelica.Blocks.Interfaces.RealOutput TEng(unit="K") "Engine temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-
 protected
   constant Modelica.SIunits.Density rhoWat=1000 "Water density";
   constant Modelica.SIunits.SpecificHeatCapacity cWat=4180
@@ -38,30 +37,29 @@ protected
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow QGen1
     "Heat generation within the engine"
-    annotation (Placement(transformation(extent={{-18,-10},{2,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TEng_1
     "Engine temperature" annotation (Placement(visible=true, transformation(
-        origin={78,0},
+        origin={80,0},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-
 equation
   connect(MCeng.port, UAhx.port_b) annotation (Line(points={{50,0},{20,0},{20,-60},
           {0,-60}}, color={191,0,0}));
   connect(QGen, QGen1.Q_flow)
-    annotation (Line(points={{-120,0},{-18,0}}, color={0,0,127}));
+    annotation (Line(points={{-120,0},{-20,0}}, color={0,0,127}));
   connect(UAlos.port_b, MCeng.port)
     annotation (Line(points={{0,60},{20,60},{20,0},{50,0}}, color={191,0,0}));
   connect(TEng_1.port, MCeng.port)
-    annotation (Line(points={{68,0},{50,0}}, color={191,0,0}));
+    annotation (Line(points={{70,0},{50,0}}, color={191,0,0}));
   connect(UAlos.port_a, TRoo)
-    annotation (Line(points={{-20,60},{-106,60}}, color={191,0,0}));
-  connect(UAhx.port_a, QWat)
-    annotation (Line(points={{-20,-60},{-106,-60}}, color={191,0,0}));
+    annotation (Line(points={{-20,60},{-100,60}}, color={191,0,0}));
+  connect(UAhx.port_a,TWat)
+    annotation (Line(points={{-20,-60},{-100,-60}}, color={191,0,0}));
   connect(QGen1.port, MCeng.port)
-    annotation (Line(points={{2,0},{50,0}}, color={191,0,0}));
+    annotation (Line(points={{0,0},{50,0}}, color={191,0,0}));
   connect(TEng_1.T, TEng)
-    annotation (Line(points={{88,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{90,0},{110,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="eng",
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

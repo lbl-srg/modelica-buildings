@@ -1,16 +1,13 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model WarmUpTimDel "Validate model WarmUp if warm-up by time delay"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
    Modelica.Blocks.Sources.BooleanTable runSig(table={300,330,600})
   "Plant run signal"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
   Buildings.Fluid.CHPs.BaseClasses.WarmUp warUp(per=per) "Warm-up mode"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
 protected
   Modelica.Blocks.Sources.Constant TEng(k=273.15 + 100) "Engine temperature"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -30,7 +27,6 @@ protected
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
   Modelica.StateGraph.Transition transition5(condition=false, waitTime=0)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-
 equation
   if off.active then
     actMod = CHPs.BaseClasses.Types.Mode.Off;
@@ -39,7 +35,6 @@ equation
   else
     actMod = CHPs.BaseClasses.Types.Mode.Normal;
   end if;
-
   connect(transition4.outPort, off.inPort[1]) annotation (Line(points={{-41.5,-30},
           {-90,-30},{-90,30.5},{-81,30.5}}, color={0,0,0}));
   connect(transition1.inPort, off.outPort[1])

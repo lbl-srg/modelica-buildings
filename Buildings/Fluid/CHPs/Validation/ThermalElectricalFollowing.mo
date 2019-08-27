@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.Validation;
 model ThermalElectricalFollowing
   "Validate model ThermalElectricalFollowing"
-
 package Medium = Buildings.Media.Water;
-
   Modelica.Blocks.Sources.BooleanTable avaSig(startValue=true, table={172800})
     "Plant availability signal"
     annotation (Placement(transformation(extent={{-80,76},{-60,96}})));
@@ -793,7 +791,6 @@ package Medium = Buildings.Media.Water;
     offset={273.15},
     timeScale=1)                                "Water inlet temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
   Fluid.Sources.MassFlowSource_T cooWat(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
@@ -1214,7 +1211,6 @@ package Medium = Buildings.Media.Water;
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     timeScale=1)          "Water flow rate"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-
   Controls.OBC.CDL.Continuous.Sources.TimeTable
                                     PEleNetVal(table=[0,0; 60,0; 120,0; 180,0; 240,
         0; 300,0; 360,0; 420,0; 480,0; 540,0; 600,0; 660,0; 720,0; 780,0; 840,0;
@@ -7418,7 +7414,6 @@ protected
     "Signal for thermal following (false if electrical following)"
     annotation (Placement(transformation(extent={{-80,-66},{-48,-46}})));
 equation
-
   connect(theEleFol.port_b, sin.ports[1]) annotation (Line(points={{60,10},{78,10}},
                             color={0,127,255}));
   connect(avaSig.y, theEleFol.avaSig) annotation (Line(points={{-59,86},{30,86},

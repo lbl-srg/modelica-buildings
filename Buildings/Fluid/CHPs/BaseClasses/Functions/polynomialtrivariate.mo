@@ -1,18 +1,15 @@
 within Buildings.Fluid.CHPs.BaseClasses.Functions;
 function polynomialtrivariate
  extends Modelica.Icons.Function;
-
  input Real x1 "Independent variable";
  input Real x2 "Independent variable";
  input Real x3 "Independent variable";
  input Real a[27] "Coefficients";
  output Real y "Result";
-
 protected
  Real x1Sq = x1^2;
  Real x2Sq = x2^2;
  Real x3Sq = x3^2;
-
 algorithm
   y := a[1] + a[2]*x1Sq + a[3]*x1
             + a[4]*x2Sq + a[5]*x2
@@ -68,6 +65,5 @@ First implementation.
 </ul>
 </html>"),
 smoothOrder=999);
-
   annotation ();
 end polynomialtrivariate;

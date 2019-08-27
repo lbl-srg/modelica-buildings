@@ -15,11 +15,9 @@ block EfficiencyCurve "Efficiency curve described by a 2nd order polynomial,
   Modelica.Blocks.Interfaces.RealOutput eta(unit="1") "Efficiency" annotation (
       Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(
           extent={{100,-10},{120,10}})));
-
 protected
   Real y(unit="1") "Efficiency";
   constant Real etaSma=0.01 "Value for eta if y is zero";
-
 equation
   y = CHPs.BaseClasses.Functions.polynomialtrivariate(
     a=a,
@@ -27,13 +25,11 @@ equation
     x2=mWat_flow,
     x3=TWatIn - 273.15)
     "Efficiency calculated as a function of power, water flow rate and water inlet temperature";
-
   eta = Buildings.Utilities.Math.Functions.smoothMax(
     x1=y,
     x2=etaSma,
     deltaX=etaSma/2)
     "Corrected efficiency, ensuring that efficiency is not zero";
-
   annotation (
     defaultComponentName="effCur",
     Documentation(info="<html>

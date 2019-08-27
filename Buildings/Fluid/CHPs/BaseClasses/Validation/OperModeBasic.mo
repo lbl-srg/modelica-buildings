@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model OperModeBasic "Validate model OperModeBasic"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   Buildings.Fluid.CHPs.BaseClasses.OperModeBasic opeModBas(per=per)
     "Energy conversion for a typical CHP operation"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -19,7 +17,6 @@ model OperModeBasic "Validate model OperModeBasic"
   Controls.OBC.CDL.Continuous.Sources.Constant TWatIn(k=273.15 + 15)
     "Water inlet temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-
 equation
   connect(TWatIn.y, opeModBas.TWatIn) annotation (Line(points={{-39,-30},{0,-30},
           {0,4},{39,4}}, color={0,0,127}));

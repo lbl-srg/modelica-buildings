@@ -4,7 +4,6 @@ model FilterPower "Constraints for electric power"
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   Modelica.Blocks.Interfaces.RealInput PEleDem(unit="W")
     "Electric power demand" annotation (Placement(transformation(extent={{-140,-20},
             {-100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -12,11 +11,9 @@ model FilterPower "Constraints for electric power"
     "Electric power demand after applied constraints" annotation (Placement(
         transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={
             {100,-10},{120,10}})));
-
   CHPs.BaseClasses.AssertPower assPow(per=per)
     "Assert if electric power is outside boundaries"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-
 protected
   Modelica.Blocks.Nonlinear.VariableLimiter PLim "Power limiter"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));

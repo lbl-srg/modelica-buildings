@@ -1,9 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model PowerConsumption "Validate model PowerConsumption"
-
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-
   Controls.OBC.CDL.Continuous.Sources.TimeTable
                                     mWat_flow(table=[0,0; 300,0.4; 2700,0; 3000,
         0], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
@@ -24,11 +22,9 @@ model PowerConsumption "Validate model PowerConsumption"
   Buildings.Fluid.CHPs.BaseClasses.PowerConsumption powCon(per=per)
     "Internal controller for water flow rate"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-62,-99},{-42,-79}})));
-
 equation
   connect(avaSig.y, con.avaSig)
     annotation (Line(points={{-59,80},{-40,80},{-40,6},{-11,6}},

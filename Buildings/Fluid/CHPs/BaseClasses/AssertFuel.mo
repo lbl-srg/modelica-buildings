@@ -4,46 +4,53 @@ model AssertFuel "Assert if fuel flow is outside boundaries"
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
-    annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
+    annotation (Placement(transformation(extent={{-78,-78},{-62,-62}})));
+  parameter Real fueLowHys = 0.1
+    "Hysteresis value for fuel flow rate check";
 
-  Modelica.Blocks.Interfaces.RealInput mFue_flow(unit="kg/s") "Fuel flow rate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mFue_flow(unit="kg/s") "Fuel flow rate"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Logical.Nand nand
+  Buildings.Controls.OBC.CDL.Logical.Nand nand
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Blocks.Sources.BooleanExpression cheDmLim(y=per.dmFueLim)
+  Modelica.Blocks.Sources.BooleanExpression cheDmLim(
+    final y=per.dmFueLim)
     "Check if dmFue is limited"
-    annotation (Placement(transformation(extent={{-60,-18},{-40,2}})));
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message="Fuel flow rate of change is outside boundaries!")
     "Assert function for checking fuel flow rate"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=per.dmFueMax - fueLowHys,
+    final uHigh=per.dmFueMax + fueLowHys)
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Derivative derivative(initType=
-        Buildings.Controls.OBC.CDL.Types.Init.InitialState, x_start=0)
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Modelica.Blocks.Math.Abs abs1
-    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=per.dmFueMax)
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
-equation
+  Buildings.Controls.OBC.CDL.Continuous.Derivative derivative(
+    final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
+    final x_start=0)
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Abs abs1
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
+equation
   connect(abs1.u, derivative.y)
-    annotation (Line(points={{-32,20},{-39,20}}, color={0,0,127}));
-  connect(greaterThreshold.u, abs1.y)
-    annotation (Line(points={{-2,20},{-9,20}}, color={0,0,127}));
-  connect(derivative.u, mFue_flow) annotation (Line(points={{-62,20},{-80,20},{-80,
-          0},{-120,0}}, color={0,0,127}));
-  connect(greaterThreshold.y, nand.u1) annotation (Line(points={{21,20},{30,20},{
-          30,0},{38,0}}, color={255,0,255}));
+    annotation (Line(points={{-42,0},{-58,0}}, color={0,0,127}));
+  connect(derivative.u, mFue_flow)
+    annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
   connect(cheDmLim.y, nand.u2)
-    annotation (Line(points={{-39,-8},{38,-8}}, color={255,0,255}));
+    annotation (Line(points={{21,-30},{30,-30},{30,-8},{38,-8}}, color={255,0,255}));
   connect(nand.y, assMes.u)
-    annotation (Line(points={{61,0},{78,0}}, color={255,0,255}));
-  annotation (
-   defaultComponentName="assFue",
-   Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
+    annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
+  connect(abs1.y, hys.u)
+    annotation (Line(points={{-18,0},{-2,0}}, color={0,0,127}));
+  connect(hys.y, nand.u1)
+    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
+
+annotation (
+  defaultComponentName="assFue",
+  Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -71,7 +78,7 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-          Documentation(info="<html>
+   Documentation(info="<html>
 <p>
 Model sends a warning message if the fuel flow is outside the boundaries defined by the manufacturer. 
 Limits can be specified for the maximal mass flow rate of change. 

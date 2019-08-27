@@ -4,7 +4,6 @@ model WarmUp "Warm-up operating mode"
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{-148,-148},{-128,-128}})));
-
   Modelica.StateGraph.Interfaces.Step_in inPort1
     annotation (Placement(transformation(extent={{-170,-70},{-150,-90}})));
   Modelica.Blocks.Interfaces.RealInput TEng(unit="K") "Engine temperature"
@@ -40,7 +39,7 @@ protected
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Modelica.Blocks.Sources.Constant const(k=per.TEngNom)
     "Nominal engine temperature"
-    annotation (Placement(transformation(extent={{-44,-136},{-24,-116}})));
+    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
 equation
   connect(warmUpState.active, timer.u) annotation (Line(points={{-24,-17.6},{-24,
           -30},{-2,-30}}, color={255,0,255}));
@@ -70,8 +69,9 @@ equation
     annotation (Line(points={{21,-110},{38,-110}}, color={0,0,127}));
   connect(TEng, add.u1) annotation (Line(points={{-160,80},{-60,80},{-60,-104},{
           -2,-104}}, color={0,0,127}));
-  connect(const.y, add.u2) annotation (Line(points={{-23,-126},{-14,-126},{-14,-116},
-          {-2,-116}}, color={0,0,127}));
+  connect(const.y, add.u2) annotation (Line(points={{-19,-130},{-10,-130},{-10,
+          -116},{-2,-116}},
+                      color={0,0,127}));
   annotation (defaultComponentName="warUp", Documentation(info="<html>
 <p>
 The model defines the warm-up operating mode. 
