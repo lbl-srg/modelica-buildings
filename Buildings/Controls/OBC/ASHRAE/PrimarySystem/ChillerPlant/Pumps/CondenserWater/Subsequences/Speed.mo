@@ -65,8 +65,8 @@ protected
     final nout=totChiSta) "Replicate real input"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1[totChiSta](
-    final k1=fill(-1, totChiSta), k2=fill(1, totChiSta))
-                                  "Add two real inputs"
+    final k1=fill(-1, totChiSta),
+    final k2=fill(1, totChiSta)) "Add two real inputs"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[totChiSta](
     final threshold=fill(-0.1, totChiSta))  "Check current stage"

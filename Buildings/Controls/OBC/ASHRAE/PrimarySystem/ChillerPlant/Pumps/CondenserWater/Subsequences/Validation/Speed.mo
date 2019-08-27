@@ -3,8 +3,9 @@ model Speed
   "Validate sequence for generating design speed of condenser water pump at current stage"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed
-    conPumSpe(conWatPumSpeSet={0,0.5,0.75,0.6,0.75,0.9}, conWatPumOnSet={0,1,1,2,
-        2,2}) "Condenser water pump speed"
+    conPumSpe(
+    final conWatPumSpeSet={0,0.5,0.75,0.6,0.75,0.9},
+    final conWatPumOnSet={0,1,1,2,2,2}) "Condenser water pump speed"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 protected
