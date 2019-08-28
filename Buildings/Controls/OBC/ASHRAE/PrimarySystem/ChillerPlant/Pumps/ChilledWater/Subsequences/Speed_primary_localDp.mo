@@ -52,8 +52,8 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatPumSpe(
-    final min=0,
-    final max=1,
+    final min=minPumSpe,
+    final max=maxPumSpe,
     final unit="1") "Chilled water pump speed"
     annotation (Placement(transformation(extent={{140,100},{180,140}}),
       iconTransformation(extent={{100,-20},{140,20}})));

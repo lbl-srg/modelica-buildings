@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater;
 block Controller
-  "Sequences for control chilled water pump in primary-only plant system"
+  "Sequences to control chilled water pumps in primary-only plant system"
 
   parameter Boolean isHeadered = true
     "Flag of headered chilled water pumps design: true=headered, false=dedicated";
@@ -14,7 +14,7 @@ block Controller
     "Total number of remote differential pressure sensors";
   parameter Real minPumSpe=0.1 "Minimum pump speed";
   parameter Real maxPumSpe=1 "Maximum pump speed";
-  parameter Integer nPum_nominal=1
+  parameter Integer nPum_nominal(final max=nPum, final min=1)=nPum
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(final min=1e-6)=0.5
@@ -232,9 +232,8 @@ equation
   connect(enaDedLeaPum.uLeaChiEna, uLeaChiEna)
     annotation (Line(points={{-202,118},{-240,118},{-240,110},{-300,110}},
       color={255,0,255}));
-  connect(enaDedLeaPum.uLeaChiOn, uLeaChiOn)
-    annotation (Line(points={{-202,110},{-230,110},{-230,80},{-300,80}},
-      color={255,0,255}));
+  connect(enaDedLeaPum.uLeaChiSta, uLeaChiOn) annotation (Line(points={{-202,110},
+          {-230,110},{-230,80},{-300,80}}, color={255,0,255}));
   connect(enaDedLeaPum.uLeaChiWatReq, uLeaChiWatReq)
     annotation (Line(points={{-202,102},{-220,102},{-220,50},{-300,50}},
       color={255,0,255}));
@@ -350,15 +349,13 @@ equation
       {178,-98}},  color={255,0,255}));
   connect(lasLagPumSta.y, pumSta.u1)
     annotation (Line(points={{142,-90},{178,-90}}, color={255,0,255}));
-  connect(enaDedLeaPum.yLeaPum, booRep.u)
+  connect(enaDedLeaPum.yUp, booRep.u)
     annotation (Line(points={{-178,110},{-2,110}}, color={255,0,255}));
-  connect(enaHeaLeaPum.yLeaPum, booRep.u)
-    annotation (Line(points={{-178,70},{-20,70},{-20,110},{-2,110}},
-      color={255,0,255}));
-  connect(enaLagChiPum.yNexLagPum, booRep1.u)
-    annotation (Line(points={{-178,4},{-120,4},{-120,30},{-42,30}},
-      color={255,0,255}));
-  connect(enaLagChiPum.yLasLagPum, booRep2.u)
+  connect(enaHeaLeaPum.yLea, booRep.u)
+    annotation (Line(points={{-178,70},{-20,70},{-20,110},{-2,110}}, color={255,0,255}));
+  connect(enaLagChiPum.yUp, booRep1.u)
+    annotation (Line(points={{-178,4},{-120,4},{-120,30},{-42,30}}, color={255,0,255}));
+  connect(enaLagChiPum.yDown, booRep2.u)
     annotation (Line(points={{-178,-4},{-120,-4},{-120,-10},{-42,-10}},
       color={255,0,255}));
   connect(booRep2.y, remPum.u2)
@@ -477,8 +474,8 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-Primary chilled water pump control sequence per ASHRAE RP-1711, Draft 4, section 5.2.6. It 
-consists:
+Primary chilled water pump control sequence per ASHRAE RP-1711, Draft 6 (July 25, 2019), 
+section 5.2.6. It consists:
 </p>
 <ul>
 <li>

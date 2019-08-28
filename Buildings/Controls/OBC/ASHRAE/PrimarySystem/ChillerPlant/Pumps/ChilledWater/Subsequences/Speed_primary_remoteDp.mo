@@ -38,8 +38,8 @@ block Speed_primary_remoteDp
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatPumSpe(
-    final min=0,
-    final max=1,
+    final min=minPumSpe,
+    final max=maxPumSpe,
     final unit="1") "Chilled water pump speed"
     annotation (Placement(transformation(extent={{120,80},{160,120}}),
       iconTransformation(extent={{100,-10},{120,10}})));
@@ -186,11 +186,11 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>
 <p>
-Block that enable and disable leading primary chilled water pump, for plants
-with headered primary chilled water pumps, 
+Block that output chilled water pump speed setpoint for primary-only plants where
+the remote pressure differential sensor is hardwired to the plant controller, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
-section 5.2.6 Primary chilled water pumps, part 5.2.6.5 and 5.2.6.6.
+section 5.2.6 Primary chilled water pumps, part 5.2.6.7 and 5.2.6.8.
 </p>
 <ol>
 <li>
@@ -203,7 +203,7 @@ pump speed (<code>minPumSpe</code>) at 0% to maximum pump speed
 </li>
 <li>
 Where multiple differential pressure sensors exist, a PID loop shall run for
-each sensor. Chilled water pumps shall be controlled to the high signal output
+each sensor. Chilled water pumps shall be controlled to the maximum signal output
 of all DP sensor loops.
 </li>
 </ol>

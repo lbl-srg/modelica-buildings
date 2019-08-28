@@ -1,20 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation;
 model Speed_primary_remoteDp
-  "Validate sequence of controlling chilled water pump speed for primary-only plants with remote DP sensor is hardwired to the plant controller"
+  "Validate sequence of controlling chilled water pump speed for primary-only plants with remote DP sensor hardwired to the plant controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_remoteDp
-    chiPumSpe(nSen=nSen, nPum=nPum)
+    chiPumSpe(nSen=2, nPum=2)
     "Chilled water pump speed control based remote pressure difference sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
-  parameter Integer nSen=2
-    "Total number of remote differential pressure sensors";
-  parameter Integer nPum=2 "Total number of chilled water pumps";
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumSta[nPum](
-    final width=fill(0.95, nPum),
-    final period=fill(10, nPum),
-    final startTime=fill(1, nPum)) "Pump status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumSta[2](
+    final width=fill(0.95, 2),
+    final period=fill(10, 2),
+    final startTime=fill(1, 2)) "Pump status"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant difPreSet(
     final k=8.5*6894.75)
@@ -34,15 +31,16 @@ protected
 
 equation
   connect(difPreSet.y, chiPumSpe.dpChiWatSet)
-    annotation (Line(points={{-39,-80},{-20,-80},{-20,-8},{18,-8}},
+    annotation (Line(points={{-38,-80},{-20,-80},{-20,-8},{18,-8}},
       color={0,0,127}));
   connect(pumSta.y, chiPumSpe.uChiWatPum)
-    annotation (Line(points={{-39,40},{-20,40},{-20,8},{18,8}},
+    annotation (Line(points={{-38,40},{-20,40},{-20,8},{18,8}},
       color={255,0,255}));
   connect(remPreSen1.y, chiPumSpe.dpChiWat[1])
-    annotation (Line(points={{-39,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{-38,0},{-10,0},{-10,-1},{18,-1}},
+                                              color={0,0,127}));
   connect(remPreSen2.y, chiPumSpe.dpChiWat[2])
-    annotation (Line(points={{-39,-40},{-28,-40},{-28,0},{18,0}},
+    annotation (Line(points={{-38,-40},{-28,-40},{-28,1},{18,1}},
       color={0,0,127}));
 
 annotation (

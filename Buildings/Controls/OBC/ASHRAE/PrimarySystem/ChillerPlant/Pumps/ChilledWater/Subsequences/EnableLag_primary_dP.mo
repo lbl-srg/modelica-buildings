@@ -4,7 +4,12 @@ block EnableLag_primary_dP
   parameter Integer nPum = 2 "Total number of pumps";
   parameter Modelica.SIunits.Time timPer = 600
     "Delay time period for enabling and disabling lag pumps";
-  parameter Integer nPum_nominal(final max = nPum, final min = 0) = 1
+  parameter Real staCon = -0.03 "Constant used in the staging equation"
+    annotation (Dialog(tab="Advanced"));
+  parameter Real floHys = 0.01
+    "Constant value used in hysteresis for checking relative flow rate"
+    annotation (Dialog(tab="Advanced"));
+  parameter Integer nPum_nominal(final max = nPum, final min = 1) = nPum
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.VolumeFlowRate VChiWat_flow_nominal(final min=1e-6)=0.5
@@ -20,23 +25,23 @@ block EnableLag_primary_dP
     "Chilled water pump status"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
       iconTransformation(extent={{-140,-58},{-100,-18}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yNexLagPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
     "Next lag pump status"
     annotation (Placement(transformation(extent={{140,20},{180,60}}),
       iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLasLagPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDown
     "Last lag pump status"
     annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=-0.01,
-    final uHigh=0.01)
+    final uLow=(-1)*floHys,
+    final uHigh=floHys)
     "Check if condition for enabling next lag pump is satisfied"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=-0.01,
-    final uHigh=0.01)
+    final uLow=(-1)*floHys,
+    final uHigh=floHys)
     "Check if condition for disabling last lag pump is satisfied"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain chiWatFloRat(
@@ -44,11 +49,11 @@ block EnableLag_primary_dP
     "Chiller water flow ratio"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-0.03,
+    final p=staCon,
     final k=1/nPum_nominal) "Add parameter"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=-0.03,
+    final p=staCon,
     final k=1/nPum_nominal) "Add parameter"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Count time"
@@ -151,9 +156,9 @@ equation
     annotation (Line(points={{62,120},{90,120},{90,48},{98,48}}, color={255,0,255}));
   connect(con.y, shuLasLag.u3)
     annotation (Line(points={{62,120},{90,120},{90,-88},{98,-88}}, color={255,0,255}));
-  connect(shuLasLag.y, yLasLagPum)
+  connect(shuLasLag.y, yDown)
     annotation (Line(points={{122,-80},{160,-80}}, color={255,0,255}));
-  connect(enaNexLag.y, yNexLagPum)
+  connect(enaNexLag.y, yUp)
     annotation (Line(points={{122,40},{160,40}}, color={255,0,255}));
   connect(con1.y, enaNexLag.u3)
     annotation (Line(points={{62,-40},{80,-40},{80,32},{98,32}},
@@ -220,23 +225,23 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uChiWatPum"),
         Text(
-          extent={{34,54},{98,30}},
+          extent={{64,48},{98,34}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="yNexLagPum"),
+          textString="yUp"),
         Text(
-          extent={{32,-26},{96,-50}},
+          extent={{62,-26},{96,-50}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="yLasLagPum")}),
+          textString="yDown")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),
   Documentation(info="<html>
 <p>
-Block that enable and disable leading primary chilled water pump, for plants
+Block that enable and disable lag primary chilled water pump, for plants
 with headered primary chilled water pumps, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
-section 5.2.6 Primary chilled water pumps, part 5.2.6.4.
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+section 5.2.6 Primary chilled water pumps, part 5.2.6.6.
 </p>
 <p>
 Chilled water pump shall be staged as a function of chilled water flow ratio (CHWFR), 

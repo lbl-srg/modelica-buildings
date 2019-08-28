@@ -6,8 +6,7 @@ block EnableLead_headered
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi]
     "Chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
-    "Lead pump status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -32,7 +31,7 @@ equation
   connect(con1.y,leaPumSta. u3)
     annotation (Line(points={{-18,-40},{30,-40},{30,-8},{38,-8}},
       color={255,0,255}));
-  connect(leaPumSta.y, yLeaPum)
+  connect(leaPumSta.y, yLea)
     annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
   connect(not2.y, leaPumSta.u2)
     annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
@@ -72,7 +71,7 @@ Block that enable and disable leading primary chilled water pump, for plants
 with headered primary chilled water pumps and parallel chillers, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
-section 5.2.6 Primary chilled water pumps, part 5.2.6.1 and section 5.2.6.2.
+section 5.2.6 Primary chilled water pumps, part 1 and 2.
 </p>
 <ol>
 <li>

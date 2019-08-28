@@ -8,16 +8,15 @@ block EnableLead_dedicated
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna
     "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiOn
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta
     "Lead chiller status"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq
     "Status indicating if chiller is requesting chilled water"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
-    "Lead pump status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp "Lead pump status"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta(
     final pre_y_start=true)
@@ -47,9 +46,9 @@ equation
     annotation (Line(points={{-120,-80},{-82,-80}}, color={255,0,255}));
   connect(uLeaChiEna, leaPumSta.u)
     annotation (Line(points={{-120,80},{58,80}}, color={255,0,255}));
-  connect(leaPumSta.y, yLeaPum)
+  connect(leaPumSta.y, yUp)
     annotation (Line(points={{82,80},{120,80}}, color={255,0,255}));
-  connect(uLeaChiOn, not2.u)
+  connect(uLeaChiSta, not2.u)
     annotation (Line(points={{-120,0},{-82,0}}, color={255,0,255}));
   connect(not2.y, tim.u)
     annotation (Line(points={{-58,0},{-42,0}}, color={255,0,255}));
@@ -86,10 +85,10 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uLeaChiEna"),
         Text(
-          extent={{42,12},{96,-10}},
+          extent={{62,10},{98,-6}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="yLeaPum"),
+          textString="yUp"),
         Text(
           extent={{-100,150},{100,110}},
           lineColor={0,0,255},

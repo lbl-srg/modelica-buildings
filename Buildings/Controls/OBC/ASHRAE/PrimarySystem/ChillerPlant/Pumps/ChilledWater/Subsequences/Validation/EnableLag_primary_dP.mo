@@ -5,7 +5,6 @@ model EnableLag_primary_dP
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP
     enaLagChiPum(
     final nPum=3,
-    final nPum_nominal=3,
     final VChiWat_flow_nominal=0.5)
     "Enable lag pump for primary-only plants using differential pressure pump speed control"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
@@ -19,7 +18,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
     final k=fill(true, 2)) "Constant true"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
     "Constant false"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
@@ -46,11 +45,11 @@ equation
       color={0,0,127}));
   connect(sin1.y, nexLagPumTri.u)
     annotation (Line(points={{2,60},{38,60}}, color={0,0,127}));
-  connect(enaLagChiPum.yNexLagPum, nexLagPumTri.trigger)
+  connect(enaLagChiPum.yUp, nexLagPumTri.trigger)
     annotation (Line(points={{2,24},{50,24},{50,48.2}}, color={255,0,255}));
   connect(sin1.y, lasLagPumTri.u)
     annotation (Line(points={{2,60},{20,60},{20,0},{38,0}}, color={0,0,127}));
-  connect(enaLagChiPum.yLasLagPum, lasLagPumTri.trigger)
+  connect(enaLagChiPum.yDown, lasLagPumTri.trigger)
     annotation (Line(points={{2,16},{10,16},{10,-20},{50,-20},{50,-11.8}},
       color={255,0,255}));
 

@@ -26,17 +26,17 @@ protected
 equation
   connect(booPul.y, enaLeaChiPum.uLeaChiEna)
     annotation (Line(points={{2,50},{20,50},{20,28},{38,28}}, color={255,0,255}));
-  connect(booPul.y, enaLeaChiPum.uLeaChiOn)
+  connect(booPul.y, enaLeaChiPum.uLeaChiSta)
     annotation (Line(points={{2,50},{20,50},{20,20},{38,20}}, color={255,0,255}));
   connect(booPul.y, enaLeaChiPum.uLeaChiWatReq)
     annotation (Line(points={{2,50},{20,50},{20,12},{38,12}}, color={255,0,255}));
   connect(booPul.y, disLeaChiPum.uLeaChiEna)
     annotation (Line(points={{2,50},{20,50},{20,-12},{38,-12}}, color={255,0,255}));
-  connect(booPul.y, disLeaChiPum.uLeaChiOn)
+  connect(booPul.y, disLeaChiPum.uLeaChiSta)
     annotation (Line(points={{2,50},{20,50},{20,-20},{38,-20}}, color={255,0,255}));
   connect(booPul.y, lat.u)
-    annotation (Line(points={{2,50},{20,50},{20,-20},{-40,-20},{-40,-40},{-22,
-          -40}},  color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,-20},{-40,-20},{-40,-40},
+      {-22,-40}},  color={255,0,255}));
   connect(lat.y, disLeaChiPum.uLeaChiWatReq)
     annotation (Line(points={{2,-40},{20,-40},{20,-28},{38,-28}},
       color={255,0,255}));
