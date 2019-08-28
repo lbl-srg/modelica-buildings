@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Capacities
-  "Returns nominal and minimal stage capacities required for calculating operating and stage part load ratios"
+  "Returns design and minimal stage capacities required for calculating operating and stage part load ratios"
 
   parameter Integer nSta = 3
     "Total number of stages";
@@ -23,8 +23,7 @@ block Capacities
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp(
     final min=0,
-    final max=nSta)
-    "Next higher available stage"
+    final max=nSta) "Next higher available stage"
     annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
 
@@ -46,21 +45,21 @@ block Capacities
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yNom(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDes(
     final unit="W",
-    final quantity="Power") "Nominal capacity of the current stage"
+    final quantity="Power") "Design capacity of the current stage"
     annotation (Placement(transformation(extent={{200,130},{240,170}}),
         iconTransformation(extent={{100,60},{140,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowNom(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowDes(
     final unit="W",
-    final quantity="Power")  "Nominal capacity of the first stage down"
+    final quantity="Power") "Design capacity of the first stage down"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpNom(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpDes(
     final unit="W",
-    final quantity="Power") "Nominal capacity of the next higher stage"
+    final quantity="Power") "Design capacity of the next higher stage"
     annotation (Placement(transformation(extent={{200,40},{240,80}}),
         iconTransformation(extent={{100,20},{140,60}})));
 
@@ -87,14 +86,14 @@ protected
     final nin=nSta,
     final outOfRangeValue=small,
     final allowOutOfRange=true)
-    "Extracts the nominal capacity at the current stage"
+    "Extracts the design capacity at the current stage"
     annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dowCap(
     final nin=nSta,
     final outOfRangeValue=small,
     final allowOutOfRange=true)
-    "Extracts the nominal capacity of one stage lower than the current stage"
+    "Extracts the design capacity of one stage lower than the current stage"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor upCapMin(
@@ -108,7 +107,7 @@ protected
     final nin=nSta,
     final allowOutOfRange=true,
     final outOfRangeValue=small)
-    "Extracts the nominal capacity of the next stage"
+    "Extracts the design capacity of the next stage"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor capMin(
@@ -125,7 +124,7 @@ protected
     annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
-    "Outputs minimum current stage capacity as nominal stage down capacity if operating in the lowest available stage"
+    "Outputs minimum current stage capacity as design stage down capacity if operating in the lowest available stage"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=larGai)
@@ -133,7 +132,7 @@ protected
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
 
 equation
-  connect(swi2.y, yUpNom) annotation (Line(points={{182,60},{220,60}}, color={0,0,127}));
+  connect(swi2.y, yUpDes) annotation (Line(points={{182,60},{220,60}}, color={0,0,127}));
   connect(upCap.y, swi2.u3) annotation (
     Line(points={{22,80},{80,80},{80,52},{158,52}}, color={0,0,127}));
   connect(yMin, yMin)
@@ -167,7 +166,7 @@ equation
           {158,68}}, color={0,0,127}));
   connect(gai.y, swi4.u1) annotation (Line(points={{-38,120},{60,120},{60,-82},{
           158,-82}}, color={0,0,127}));
-  connect(swi1.y, yDowNom) annotation (Line(points={{122,20},{220,20}}, color={0,0,127}));
+  connect(swi1.y, yDowDes) annotation (Line(points={{122,20},{220,20}}, color={0,0,127}));
   connect(u, cap.index) annotation (Line(points={{-220,120},{-90,120},{-90,138}},
                  color={255,127,0}));
   connect(uDown, dowCap.index) annotation (Line(points={{-220,0},{-90,0},{-90,68}},
@@ -176,7 +175,7 @@ equation
           color={255,127,0}));
   connect(uUp, upCapMin.index) annotation (Line(points={{-220,60},{-60,60},{-60,
           -50},{10,-50},{10,-42}}, color={255,127,0}));
-  connect(cap.y, yNom) annotation (Line(points={{-78,150},{220,150}},
+  connect(cap.y, yDes) annotation (Line(points={{-78,150},{220,150}},
           color={0,0,127}));
   connect(capMin.y, swi1.u1) annotation (Line(points={{22,-70},{80,-70},{80,28},
           {98,28}},color={0,0,127}));
@@ -200,7 +199,7 @@ annotation (defaultComponentName = "cap",
           extent={{-200,-200},{200,200}})),
 Documentation(info="<html>
 <p>
-Based on the current chiller stage and nominal stage capacities returns:
+Based on the current chiller stage and design stage capacities returns:
 </p>
 <ul>
 <li>
@@ -223,8 +222,8 @@ If operating at the lowest available chiller stage, the minimal capacity
 of that stage is returned as the stage down design capacity.
 </li>
 <li>
-If operating at the stage 0, the minimal and nominal capacity
-of that stage, as well as the stage down nominal capacity
+If operating at the stage 0, the minimal and design capacity
+of that stage, as well as the stage down design capacity
 equals a small value, to avoid downstream division 0.
 </li>
 <li>
