@@ -4,7 +4,7 @@ block Controller
 
   parameter Boolean isHeadered = true
     "Flag of headered chilled water pumps design: true=headered, false=dedicated";
-  parameter Boolean haveLocalSensor = false
+  parameter Boolean hasLocalSensor = false
     "Flag of local DP sensor: true=local DP sensor hardwired to controller";
   parameter Integer nPum = 2
     "Total number of chilled water pumps";
@@ -22,7 +22,7 @@ block Controller
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.PressureDifference maxLocDp=15*6894.75
     "Maximum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=haveLocalSensor));
+    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=hasLocalSensor));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -39,7 +39,7 @@ block Controller
 
   final parameter Modelica.SIunits.PressureDifference minLocDp=5*6894.75
     "Minimum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=haveLocalSensor));
+    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=hasLocalSensor));
   final parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
@@ -55,7 +55,7 @@ block Controller
     "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiOn if not isHeadered
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta if not isHeadered
     "Lead chiller status"
     annotation (Placement(transformation(extent={{-320,60},{-280,100}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
@@ -74,7 +74,7 @@ block Controller
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
-    final quantity="PressureDifference") if haveLocalSensor
+    final quantity="PressureDifference") if hasLocalSensor
     "Chilled water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-180},{-280,-140}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -128,7 +128,7 @@ block Controller
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    final Td=Td) if haveLocalSensor
+    final Td=Td) if hasLocalSensor
     "Chilled water pump speed control with local DP sensor"
     annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_remoteDp
@@ -140,7 +140,7 @@ block Controller
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    final Td=Td) if not haveLocalSensor
+    final Td=Td) if not hasLocalSensor
     "Chilled water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta[nPum] "Lead pump status"
@@ -232,8 +232,9 @@ equation
   connect(enaDedLeaPum.uLeaChiEna, uLeaChiEna)
     annotation (Line(points={{-202,118},{-240,118},{-240,110},{-300,110}},
       color={255,0,255}));
-  connect(enaDedLeaPum.uLeaChiSta, uLeaChiOn) annotation (Line(points={{-202,110},
-          {-230,110},{-230,80},{-300,80}}, color={255,0,255}));
+  connect(enaDedLeaPum.uLeaChiSta, uLeaChiSta)
+    annotation (Line(points={{-202,110},{-230,110},{-230,80},{-300,80}},
+      color={255,0,255}));
   connect(enaDedLeaPum.uLeaChiWatReq, uLeaChiWatReq)
     annotation (Line(points={{-202,102},{-220,102},{-220,50},{-300,50}},
       color={255,0,255}));
@@ -349,7 +350,7 @@ equation
       {178,-98}},  color={255,0,255}));
   connect(lasLagPumSta.y, pumSta.u1)
     annotation (Line(points={{142,-90},{178,-90}}, color={255,0,255}));
-  connect(enaDedLeaPum.yUp, booRep.u)
+  connect(enaDedLeaPum.yLea, booRep.u)
     annotation (Line(points={{-178,110},{-2,110}}, color={255,0,255}));
   connect(enaHeaLeaPum.yLea, booRep.u)
     annotation (Line(points={{-178,70},{-20,70},{-20,110},{-2,110}}, color={255,0,255}));

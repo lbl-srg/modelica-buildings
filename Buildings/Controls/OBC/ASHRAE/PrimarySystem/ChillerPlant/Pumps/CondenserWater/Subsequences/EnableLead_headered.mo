@@ -2,10 +2,10 @@
 block EnableLead_headered
   "Sequence for enabling lead pump of plants with headered condenser water pumps"
 
- parameter Boolean haveWSE = true
+ parameter Boolean hasWSE = true
     "Flag of waterside economizer: true=have WSE, false=no WSE";
 
- Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal if haveWSE
+ Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal if hasWSE
     "WSE condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -13,10 +13,9 @@ block EnableLead_headered
     "Chiller condenser water isolation valve status"
       annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
-    "Lead pump status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta "Lead pump status"
@@ -30,7 +29,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=false) if
-       not haveWSE
+       not hasWSE
     "Logical false"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
@@ -40,7 +39,7 @@ equation
       color={255,0,255}));
   connect(con.y, leaPumSta.u1)
     annotation (Line(points={{2,40},{20,40},{20,8},{38,8}}, color={255,0,255}));
-  connect(leaPumSta.y, yLeaPum)
+  connect(leaPumSta.y, yLea)
     annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
   connect(or2.y, leaPumSta.u2)
     annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
@@ -88,7 +87,7 @@ Block that enable and disable lead condenser water pump, for plants
 with headered condenser water pumps, 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
-section 5.2.9 Condenser water pumps, part 5.2.9.1-3.
+section 5.2.9 Condenser water pumps, part 5.2.9.2-3.
 </p>
 <ol>
 <li>

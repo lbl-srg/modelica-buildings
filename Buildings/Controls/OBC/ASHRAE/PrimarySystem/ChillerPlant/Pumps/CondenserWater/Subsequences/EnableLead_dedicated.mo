@@ -3,13 +3,13 @@ block EnableLead_dedicated
   "Sequence for enabling lead pump of plants with dedicated condenser water pumps"
 
   final parameter Modelica.SIunits.Time offTimThr = 180
-    "Threshold to check lead chiller off time";
+    "Threshold to check lead chiller OFF time";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna
     "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiOn
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta
     "Lead chiller status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -17,10 +17,9 @@ block EnableLead_dedicated
     "Status indicating if chiller is requesting condenser water"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
-    "Lead pump status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
     annotation (Placement(transformation(extent={{100,50},{140,90}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
@@ -32,7 +31,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch leaPumSta
     "Lead pump status"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim "Count the total time of the chiller is off"
+  Buildings.Controls.OBC.CDL.Logical.Timer tim "Count the total time of the chiller is OFF"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
     final threshold=offTimThr)
@@ -48,9 +47,9 @@ equation
     annotation (Line(points={{-120,-80},{-82,-80}}, color={255,0,255}));
   connect(uLeaChiEna, leaPumSta.u)
     annotation (Line(points={{-120,70},{58,70}}, color={255,0,255}));
-  connect(leaPumSta.y, yLeaPum)
+  connect(leaPumSta.y, yLea)
     annotation (Line(points={{82,70},{120,70}}, color={255,0,255}));
-  connect(uLeaChiOn, not2.u)
+  connect(uLeaChiSta, not2.u)
     annotation (Line(points={{-120,-20},{-82,-20}}, color={255,0,255}));
   connect(not2.y, tim.u)
     annotation (Line(points={{-58,-20},{-42,-20}}, color={255,0,255}));
@@ -117,7 +116,7 @@ section 5.2.9 Condenser water pumps, part 5.2.9.4.
 The lead condenser water pump should be enabled when lead chiller is commanded 
 to run (<code>uLeaChiEna</code> = true). It should be disabled when the lead 
 chiller is disabled and either the lead chiller has been proven off 
-(<code>uLeaChiOn</code> = false) for <code>offTimThr</code>, i.e. 3 minutes or 
+(<code>uLeaChiSta</code> = false) for <code>offTimThr</code>, i.e. 3 minutes or 
 is not requesting condenser water flow (<code>uLeaConWatReq</code> = false).
 </p>
 </html>", revisions="<html>

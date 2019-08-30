@@ -19,7 +19,7 @@ model Controller "Validate chiller water pump control sequence"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller
     dedLoc(
     isHeadered=false,
-    haveLocalSensor=true,
+    hasLocalSensor=true,
     nPum=3,
     nPum_nominal=3)
     "Pump speed control for plant with dedicated primary chilled water pump and with local DP sensor"
@@ -126,13 +126,13 @@ equation
     annotation (Line(points={{-18,-130},{0,-130},{0,-33},{38,-33}}, color={255,0,255}));
   connect(con.y, dedNoLoc.uLeaChiEna)
     annotation (Line(points={{-18,60},{4,60},{4,75},{38,75}}, color={255,0,255}));
-  connect(con.y, dedNoLoc.uLeaChiOn)
+  connect(con.y, dedNoLoc.uLeaChiSta)
     annotation (Line(points={{-18,60},{4,60},{4,73},{38,73}}, color={255,0,255}));
   connect(con.y, dedNoLoc.uLeaChiWatReq)
     annotation (Line(points={{-18,60},{4,60},{4,71},{38,71}}, color={255,0,255}));
   connect(con.y, dedLoc.uLeaChiEna)
     annotation (Line(points={{-18,60},{4,60},{4,-35},{38,-35}}, color={255,0,255}));
-  connect(con.y, dedLoc.uLeaChiOn)
+  connect(con.y, dedLoc.uLeaChiSta)
     annotation (Line(points={{-18,60},{4,60},{4,-37},{38,-37}}, color={255,0,255}));
   connect(con.y, dedLoc.uLeaChiWatReq)
     annotation (Line(points={{-18,60},{4,60},{4,-39},{38,-39}}, color={255,0,255}));

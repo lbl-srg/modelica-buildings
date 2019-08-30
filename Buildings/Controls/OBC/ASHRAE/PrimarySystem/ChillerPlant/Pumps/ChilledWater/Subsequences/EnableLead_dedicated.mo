@@ -14,7 +14,7 @@ block EnableLead_dedicated
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq
     "Status indicating if chiller is requesting chilled water"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp "Lead pump status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -46,7 +46,7 @@ equation
     annotation (Line(points={{-120,-80},{-82,-80}}, color={255,0,255}));
   connect(uLeaChiEna, leaPumSta.u)
     annotation (Line(points={{-120,80},{58,80}}, color={255,0,255}));
-  connect(leaPumSta.y, yUp)
+  connect(leaPumSta.y, yLea)
     annotation (Line(points={{82,80},{120,80}}, color={255,0,255}));
   connect(uLeaChiSta, not2.u)
     annotation (Line(points={{-120,0},{-82,0}}, color={255,0,255}));
@@ -115,7 +115,7 @@ section 5.2.6 Primary chilled water pumps, part 5.2.6.5.
 <p>
 The lead primary chilled water pump should be enabled when lead chiller is commanded 
 to run (<code>uLeaChiEna</code> = true). It should be disabled when the lead 
-chiller is disabled and either the lead chiller has been proven off (<code>uLeaChiOn</code> 
+chiller is disabled and either the lead chiller has been proven off (<code>uLeaChiSta</code> 
 = false) for 3 minutes or is not requesting chilled water flow 
 (<code>uLeaChiWatReq</code> = false).
 </p>
