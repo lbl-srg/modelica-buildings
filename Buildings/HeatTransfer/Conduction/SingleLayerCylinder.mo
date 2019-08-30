@@ -63,7 +63,6 @@ initial equation
   for i in 2:nSta+1 loop
      r[i]= r[i-1] + ( r_b - r_a)  * (1-griFac)/(1-griFac^(nSta)) * griFac^(i-2);
   end for;
-  assert(abs(r[nSta+1]-r_b) < 1E-10, "Error: Wrong computation of radius. r[nSta+1]=" + String(r[nSta+1]));
 
   // Radii to the center of the domain
   for i in 1:nSta loop
@@ -208,6 +207,12 @@ and not the variable <code>T[1]</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 27, 2019, by Michael Wetter:<br/>
+Removed assertion on geometry.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1529\">issue 1529</a>.
+</li>
 <li>
 March 9, 2012, by Michael Wetter:<br/>
 Removed protected variable <code>der_T</code> as it is not required.
