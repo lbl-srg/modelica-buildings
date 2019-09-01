@@ -20,9 +20,9 @@ model EquationFitWaterToWater_OneRoomRadiator "Example of one room equipped with
   parameter Modelica.SIunits.MassFlowRate mRadVal_flow_nominal=
     Q_flow_nominal/4200/(TConSup_nominal-TRadRet_nominal)
     "Radiator nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal = per.mCon_flow_nominal*SF
+  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal = per.mCon_flow_nominal*scaling_factor
     "Condenser nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal = per.mEva_flow_nominal*SF
+  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal = per.mEva_flow_nominal*scaling_factor
     "Evaporator nominal mass flow rate";
   parameter Modelica.SIunits.Volume V=6*10*3
     "Room volume";
@@ -33,7 +33,7 @@ model EquationFitWaterToWater_OneRoomRadiator "Example of one room equipped with
   parameter Data.EquationFitWaterToWater.Trane_Axiom_EXW240 per
     "HeatPump performance data"
     annotation (Placement(transformation(extent={{112,-100},{132,-80}})));
-  parameter Real SF=0.5
+  parameter Real scaling_factor=0.5
    "Load scale factor for the heatpump";
   parameter Boolean show_T=true
    "= true, if actual temperature at port is computed";
@@ -224,7 +224,7 @@ model EquationFitWaterToWater_OneRoomRadiator "Example of one room equipped with
     show_T=true,
     m1_flow_nominal=mCon_flow_nominal,
     m2_flow_nominal=mEva_flow_nominal,
-    SF=SF)
+    scaling_factor=scaling_factor)
     "Heat pump"
     annotation (Placement(transformation(extent={{10,-318},{-10,-298}})));
   Sources.Boundary_pT sou(
@@ -438,27 +438,27 @@ equation
    annotation (Line(points={{60,-284},{60,
           -296},{72,-296}}, color={0,127,255}));
   connect(heaPum.port_a1, temRet.port_b)
-   annotation (Line(points={{6.66667,-302},
-          {60,-302},{60,-284}}, color={0,127,255}));
+   annotation (Line(points={{8.18182,-302},{60,-302},{60,-284}},
+                                color={0,127,255}));
   connect(heaPum.port_b2, sin.ports[1])
-   annotation (Line(points={{6.66667,-314},
-          {38,-314},{38,-340},{70,-340}},color={0,127,255}));
+   annotation (Line(points={{8.18182,-314},{38,-314},{38,-340},{70,-340}},
+                                         color={0,127,255}));
   connect(heaPum.port_a2, pumEva.port_b)
    annotation (Line(points={{-10,-314},{-34,-314}}, color={0,127,255}));
   connect(booToReaRad1.y, pumEva.m_flow_in)
    annotation (Line(points={{-119,-280},
           {-76,-280},{-76,-324},{-46,-324}}, color={0,0,127}));
   connect(heaPumCon.y, heaPum.uMod)
-   annotation (Line(points={{-119,-360},{94,-360},{94,-308},{7.83333,-308}},
+   annotation (Line(points={{-119,-360},{94,-360},{94,-308},{9.45455,-308}},
                                      color={255,127,0}));
   connect(heaPum.TEvaSet, TEvaSet.y)
    annotation (Line(
-      points={{7.83333,-317},{20,-317},{20,-354},{161,-354}},
+      points={{9.45455,-317},{20,-317},{20,-354},{161,-354}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(heaPum.TConSet, TConSet.y)
    annotation (Line(
-      points={{7.83333,-299},{12,-299},{12,-300},{18,-300},{18,-252},{158,-252}},
+      points={{9.45455,-299},{12,-299},{12,-300},{18,-300},{18,-252},{158,-252}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(valRad.port_2, pumRad.port_a)

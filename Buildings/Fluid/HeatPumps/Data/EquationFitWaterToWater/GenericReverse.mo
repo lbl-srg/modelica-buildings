@@ -1,18 +1,18 @@
 within Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater;
-record Generic
+record GenericReverse
   "Generic data record for water to water heatpump equation fit method"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal
+  parameter Modelica.SIunits.HeatFlowRate QHeaLoa_flow_nominal
    "Nominal condenser heating capacity"
     annotation (Dialog(group="Nominal conditions heating mode"));
-  parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
+  parameter Modelica.SIunits.HeatFlowRate QCooLoa_flow_nominal(max=0)
    "Nominal evaporator cooling capacity_negative number"
     annotation (Dialog(group="Nominal conditions cooling mode"));
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal
    "Nominal condenser mass flow rate"
     annotation (Dialog(group="Nominal conditions heating mode"));
-  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal
    "Nominal evaporator mass flow rate"
     annotation (Dialog(group="Nominal conditions cooling mode"));
   parameter Modelica.SIunits.Power P_nominal_hea
@@ -75,4 +75,4 @@ Documentation(info =        "<html>
   </li>
   </ul>
 </html>"));
-end Generic;
+end GenericReverse;

@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.BaseClasses;
-partial model PartialHeatpumpWithPerformanceCurves
-  "Partial model for water to water heat pumps e"
+partial model PartialHeatpumpPerformanceCurves
+  "Partial model for water to water heat pumps"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
         dp2_nominal=200,
         dp1_nominal=200,
@@ -10,12 +10,12 @@ partial model PartialHeatpumpWithPerformanceCurves
         m1_flow_nominal= mCon_flow_nominal,
         m2_flow_nominal= mEva_flow_nominal,
       redeclare final Buildings.Fluid.MixingVolumes.MixingVolume
-      vol2( V=m2_flow_nominal*tau2/rho2_nominal,
-            nPorts=2,
-            final prescribedHeatFlowRate=true),
-      vol1( V=m1_flow_nominal*tau1/rho1_nominal,
-            nPorts=2,
-            final prescribedHeatFlowRate=true));
+        vol2( V=m2_flow_nominal*tau2/rho2_nominal,
+              nPorts=2,
+              final prescribedHeatFlowRate=true),
+        vol1( V=m1_flow_nominal*tau1/rho1_nominal,
+              nPorts=2,
+              final prescribedHeatFlowRate=true));
 
   parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal
   "Heating load nominal capacity_Heating mode";
@@ -52,31 +52,17 @@ partial model PartialHeatpumpWithPerformanceCurves
   "Condenser heat flow rate"
    annotation (Placement(transformation(extent={{100,10},{120,30}}),
         iconTransformation(extent={{100,78},{120,98}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
-  "Prescribed condenser heat flow rate"
-   annotation (Placement(transformation(extent={{59,12},{39,32}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
-  "Prescribed evaporator heat flow rate"
-   annotation (Placement(transformation(extent={{59,-30},{39,-10}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    "Prescribed heating heat flow rate"
+    annotation (Placement(transformation(extent={{59,12},{39,32}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preCooFlo
+    "Prescribed cooling flow rate"
+    annotation (Placement(transformation(extent={{59,-30},{39,-10}})));
   Modelica.Blocks.Sources.RealExpression TConEnt(y=Medium1.temperature(
                                                  Medium1.setState_phX(port_a1.p,
                                                  inStream(port_a1.h_outflow))))
   "Condenser entering water temperature"
    annotation (Placement(transformation(extent={{-78,30},{-58,50}})));
-   Modelica.Blocks.Sources.RealExpression QCon_flow_set(final y=
-        Buildings.Utilities.Math.Functions.smoothMax(
-        x1=m1_flow*(hConSet - inStream(port_a1.h_outflow)),
-        x2=Q_flow_small,
-        deltaX=Q_flow_small/10))
-   "Setpoint heat flow rate of the condenser"
-    annotation (Placement(transformation(extent={{-78,14},{-58,34}})));
-   Modelica.Blocks.Sources.RealExpression QEva_flow_set(final y=
-        Buildings.Utilities.Math.Functions.smoothMin(
-        x1=m2_flow*(hEvaSet - inStream(port_a2.h_outflow)),
-        x2=-Q_flow_small,
-        deltaX=Q_flow_small/100))
-   "Setpoint heat flow rate of the evaporator"
-    annotation (Placement(transformation(extent={{-78,-34},{-58,-14}})));
    Modelica.SIunits.SpecificEnthalpy hEvaSet=
       Medium2.specificEnthalpy_pTX(
        p=port_b2.p,
@@ -92,11 +78,25 @@ partial model PartialHeatpumpWithPerformanceCurves
               {1 - sum(port_b1.Xi_outflow)}))
   "Heating water setpoint enthalpy";
 
+   Modelica.Blocks.Sources.RealExpression QCon_flow_set(final y=
+        Buildings.Utilities.Math.Functions.smoothMax(
+        x1=m1_flow*(hConSet - inStream(port_a1.h_outflow)),
+        x2=Q_flow_small,
+        deltaX=Q_flow_small/10))
+   "Setpoint heat flow rate of the condenser"
+    annotation (Placement(transformation(extent={{-78,14},{-58,34}})));
+   Modelica.Blocks.Sources.RealExpression QEva_flow_set(final y=
+        Buildings.Utilities.Math.Functions.smoothMin(
+        x1=m2_flow*(hEvaSet - inStream(port_a2.h_outflow)),
+        x2=-Q_flow_small,
+        deltaX=Q_flow_small/100))
+   "Setpoint heat flow rate of the evaporator"
+    annotation (Placement(transformation(extent={{-78,-34},{-58,-14}})));
 equation
-  connect(preHeaFloCon.port,vol1.heatPort)
-  annotation (Line(points={{39,22},{-14,22},{-14,60},{-10,60}}, color={191,0,0}));
-  connect(preHeaFloEva.port, vol2.heatPort)
-  annotation (Line(points={{39,-20},{20,-20},{20,-60},{12,-60}}, color={191,0,0}));
+  connect(preHeaFlo.port, vol1.heatPort) annotation (Line(points={{39,22},{-14,
+          22},{-14,60},{-10,60}}, color={191,0,0}));
+  connect(preCooFlo.port, vol2.heatPort) annotation (Line(points={{39,-20},{20,
+          -20},{20,-60},{12,-60}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-120,-100},
             {100,100}}),       graphics={
         Rectangle(
@@ -230,4 +230,4 @@ equation
   </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
-end PartialHeatpumpWithPerformanceCurves;
+end PartialHeatpumpPerformanceCurves;

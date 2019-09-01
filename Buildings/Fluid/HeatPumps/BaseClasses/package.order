@@ -1,4 +1,5 @@
 DOE2Method
-EquationFitMethod
 PartialWaterToWater
-PartialHeatpumpWithPerformanceCurves
+PartialHeatpumpPerformanceCurves
+EquationFitMethod
+EquationFitMethodReverse

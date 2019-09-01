@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.Examples;
-model EquationFitWaterToWater "example"
+model EquationFitWaterToWaterEtaPL "example"
  package Medium = Buildings.Media.Water "Medium model";
 
     parameter Data.EquationFitWaterToWater.Trane_Axiom_EXW240 per
@@ -19,7 +19,8 @@ model EquationFitWaterToWater "example"
       dp1_nominal=200,
       dp2_nominal=200,
       scaling_factor=1,
-      per=per)
+      per=per,
+      a={0.3,0.5})
     "Water to Water heatpump"
      annotation (Placement(transformation(extent={{28,-10},{48,10}})));
     Modelica.Blocks.Math.RealToInteger reaToInt
@@ -146,7 +147,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
              __Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/EquationFitWaterToWater.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/EquationFitWaterToWaterEtaPL.mos"
         "Simulate and plot"),
          experiment(Tolerance=1e-6, StopTime=14400),
 Documentation(info="<html>
@@ -164,4 +165,4 @@ First implementation.
  </li>
  </ul>
  </html>"));
-end EquationFitWaterToWater;
+end EquationFitWaterToWaterEtaPL;
