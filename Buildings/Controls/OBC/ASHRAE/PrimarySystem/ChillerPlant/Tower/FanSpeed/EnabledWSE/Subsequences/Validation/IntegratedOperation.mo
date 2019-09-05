@@ -14,18 +14,19 @@ model IntegratedOperation
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Logical.Not chiSta "First chiller status"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiSta1(final k=false) "Second chiller status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiSta1(final k=false)
+    "Second chiller status"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
     final amplitude=0.2*1e4,
     final freqHz=1/1200,
     final offset=1.1*1e4,
-    final startTime=180)
+    final startTime=180) "Chiller load"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
 equation

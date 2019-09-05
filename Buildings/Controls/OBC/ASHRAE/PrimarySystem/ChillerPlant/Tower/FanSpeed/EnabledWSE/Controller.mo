@@ -1,9 +1,9 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE;
 block Controller "Tower fan control when waterside economizer is enabled"
 
   parameter Integer nChi=2 "Total number of chillers";
   parameter Real minSpe=0.1 "Minimum tower fan speed";
-  parameter Real maxTowSpe=1 "Maximum tower fan speed";
+  parameter Real maxSpe=1 "Maximum tower fan speed";
   parameter Modelica.SIunits.HeatFlowRate minUnLTon[nChi]={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="Integrated operation"));
@@ -14,24 +14,33 @@ block Controller "Tower fan control when waterside economizer is enabled"
     annotation (Dialog(tab="Integrated operation", group="Controller"));
   parameter Modelica.SIunits.Time TiIntOpe=0.5
     "Time constant of integrator block"
-    annotation (Dialog(tab="Integrated operation", group="Controller"));
+    annotation (Dialog(tab="Integrated operation", group="Controller",
+                       enable=intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                              intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time TdIntOpe=0.1
     "Time constant of derivative block"
-    annotation (Dialog(tab="Integrated operation", group="Controller"));
+    annotation (Dialog(tab="Integrated operation", group="Controller",
+                       enable=intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                              intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real fanSpeChe=0.005 "Lower threshold value to check fan speed"
     annotation (Dialog(tab="WSE-only"));
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PID
-    "Type of controller" annotation (Dialog(tab="WSE-only", group="Controller"));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(tab="WSE-only", group="Controller"));
   parameter Real kWSE=1 "Gain of controller"
     annotation (Dialog(tab="WSE-only", group="Controller"));
   parameter Modelica.SIunits.Time TiWSE=0.5 "Time constant of integrator block"
-    annotation (Dialog(tab="WSE-only", group="Controller"));
+    annotation (Dialog(tab="WSE-only", group="Controller",
+                       enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                              chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time TdWSE=0.1 "Time constant of derivative block"
-    annotation (Dialog(tab="WSE-only", group="Controller"));
+    annotation (Dialog(tab="WSE-only", group="Controller",
+                       enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                              chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
-    each final unit="W",
-    each final quantity="Power") "Current load of each chiller"
+    final unit=fill("W",nChi),
+    final quantity=fill("Power",nChi)) "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -141,6 +150,66 @@ annotation (
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),                     Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+          textString="%name"),
+        Polygon(
+          points={{-20,80},{20,80},{0,10},{-20,80}},
+          lineColor={28,108,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-40,10},{40,-10}},
+          lineColor={28,108,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{0,-10},{-20,-80},{20,-80},{0,-10}},
+          lineColor={28,108,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,-80},{76,-94}},
+          lineColor={200,200,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{76,-78},{78,-96}},
+          lineColor={200,200,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,-78},{80,-96}},
+          lineColor={200,200,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid)}),
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
+  Documentation(info="<html>
+<p>
+Block that output cooling tower fan speed <code>yTowSpe</code> when waterside 
+economizer is enabled. This is implemented 
+according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, 
+item 4. It includes two subsequences:
+</p>
+<ul>
+<li>
+When waterside economizer is enabled and chillers are running, see 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences.IntegratedOperation\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences.IntegratedOperation</a>
+for a description.
+</li>
+<li>
+When waterside economizer is running alone, see 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences.WSEOperation\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences.WSEOperation</a>
+for a description.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+August 9, 2019, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Controller;

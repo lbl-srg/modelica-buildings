@@ -5,8 +5,7 @@ block WSEOperation
   parameter Real minSpe=0.1 "Minimum tower fan speed";
   parameter Real maxSpe=1 "Maximum tower fan speed";
   parameter Real fanSpeChe = 0.005 "Lower threshold value to check fan speed";
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Chilled water controller"));
   parameter Real k=1 "Gain of controller"
@@ -46,7 +45,7 @@ block WSEOperation
     annotation (Placement(transformation(extent={{140,40},{180,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-//protected
+protected
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim
