@@ -3,7 +3,7 @@ model IntegratedOperation
   "Validation sequence of controlling tower fan speed when both chillers and waterside economizer are enabled"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences.IntegratedOperation
-    intOpe(final nChi=nChi, final minUnLTon=minUnLTon)
+    intOpe(final nChi=2, final minUnLTon={1e4,1e4})
     "Tower fan speed control when chiller and waterside economizer are running"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(final k=true) "WSE status"
@@ -22,28 +22,23 @@ model IntegratedOperation
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
-    final amplitude=0.2*minUnLTon[1],
+    final amplitude=0.2*1e4,
     final freqHz=1/1200,
-    final offset=1.1*minUnLTon[1],
+    final offset=1.1*1e4,
     final startTime=180)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
-protected
-  parameter Integer nChi=2 "Total number of chillers";
-  parameter Modelica.SIunits.HeatFlowRate minUnLTon[nChi]={1e4,1e4}
-    "Minimum cyclining load below which chiller will begin cycling";
 
 equation
   connect(booPul.y, chiSta.u)
     annotation (Line(points={{-58,80},{-42,80}}, color={255,0,255}));
   connect(chiSta.y, intOpe.uChi[1])
-    annotation (Line(points={{-18,80},{60,80},{60,-22},{68,-22}}, color={255,0,255}));
+    annotation (Line(points={{-18,80},{60,80},{60,-23},{68,-23}}, color={255,0,255}));
   connect(chiSta1.y, intOpe.uChi[2])
-    annotation (Line(points={{-18,50},{60,50},{60,-22},{68,-22}}, color={255,0,255}));
+    annotation (Line(points={{-18,50},{60,50},{60,-21},{68,-21}}, color={255,0,255}));
   connect(wseSta.y, intOpe.uWSE)
     annotation (Line(points={{42,-80},{60,-80},{60,-38},{68,-38}}, color={255,0,255}));
   connect(con.y, intOpe.chiLoa[2])
-    annotation (Line(points={{-58,-60},{40,-60},{40,-30},{68,-30}}, color={0,0,127}));
+    annotation (Line(points={{-58,-60},{40,-60},{40,-29},{68,-29}}, color={0,0,127}));
   connect(chiSta.y, swi.u2)
     annotation (Line(points={{-18,80},{60,80},{60,0},{-20,0},{-20,-30},
       {-2,-30}}, color={255,0,255}));
@@ -52,7 +47,7 @@ equation
   connect(sin.y, swi.u1)
     annotation (Line(points={{-58,0},{-40,0},{-40,-22},{-2,-22}}, color={0,0,127}));
   connect(swi.y, intOpe.chiLoa[1])
-    annotation (Line(points={{22,-30},{68,-30}}, color={0,0,127}));
+    annotation (Line(points={{22,-30},{46,-30},{46,-31},{68,-31}}, color={0,0,127}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Tower/FanSpeed/EnabledWSE/Subsequences/Validation/IntegratedOperation.mos"
