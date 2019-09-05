@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Validation;
 model Controller
-  "Validation sequence of controlling tower fan speed when waterside economizer is running alone"
+  "Validation sequence of controlling tower fan speed when waterside economizer is enabled"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Controller
     wseOpe "Tower fan speed control when waterside economizer is enabled"
@@ -49,8 +49,7 @@ model Controller
     final offset=1.1*1e4,
     final startTime=180) "Chiller load"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    final width=0.05,
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(final width=0.5,
     final period=3600) "Boolean pulse"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Controls.OBC.CDL.Logical.Not chiSta1 "First chiller status"

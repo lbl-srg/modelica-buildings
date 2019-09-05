@@ -1,10 +1,10 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences;
 block CoupledSpeed
   "Sequence of defining cooling tower fan speed when the plant is close coupled"
 
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
-  parameter Real minTowSpe = 0.1 "Minimum cooling tower fan speed";
+  parameter Real minSpe = 0.1 "Minimum cooling tower fan speed";
   parameter Real pumSpeChe = 0.005
     "Lower threshold value to check if condenser water pump is proven on";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
@@ -36,15 +36,15 @@ block CoupledSpeed
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-    each final min=0,
-    each final max=1,
-    each final unit="1") "Current condenser water pump speed"
+    final min=fill(0, nConWatPum),
+    final max=fill(1, nConWatPum),
+    final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
-    each final min=0,
-    each final max=1,
-    each final unit="1")
+    final min=fill(0, nChi),
+    final max=fill(1, nChi),
+    final unit=fill("1", nChi))
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -73,8 +73,8 @@ protected
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=yMin) "Condenser water return temperature controller"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe(
-    final k=minTowSpe) "Minimum tower speed"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe(
+    final k=minSpe) "Minimum tower speed"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Line CWRTSpd
     "Fan speed calculated based on return water temperature control loop"
@@ -85,16 +85,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "Constant one"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis proOn[nConWatPum](
-    each final uLow=pumSpeChe,
-    each final uHigh=pumSpeChe + 0.005)
+    final uLow=fill(pumSpeChe, nConWatPum),
+    final uHigh=fill(pumSpeChe + 0.005, nConWatPum))
     "Check if the condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(final nu=nConWatPum)
     "Check if there is any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not noProOn
-    "No condenser water pump is proven on "
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin fanSpe(final nin=3)
     "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
@@ -109,29 +106,24 @@ equation
     annotation (Line(points={{-120,40},{-62,40}}, color={0,0,127}));
   connect(conPID.y, CWRTSpd.u)
     annotation (Line(points={{-38,40},{58,40}}, color={0,0,127}));
-  connect(zer.y, CWRTSpd.x1) annotation (Line(points={{22,80},{40,80},{40,48},{
-          58,48}},
-                color={0,0,127}));
-  connect(minSpe.y, CWRTSpd.f1) annotation (Line(points={{-38,80},{-20,80},{-20,
-          44},{58,44}}, color={0,0,127}));
-  connect(one.y, CWRTSpd.x2) annotation (Line(points={{22,20},{40,20},{40,36},{
-          58,36}},
-                color={0,0,127}));
-  connect(one.y, CWRTSpd.f2) annotation (Line(points={{22,20},{40,20},{40,32},{
-          58,32}},
-                color={0,0,127}));
+  connect(zer.y, CWRTSpd.x1)
+    annotation (Line(points={{22,80},{40,80},{40,48},{58,48}}, color={0,0,127}));
+  connect(minTowSpe.y, CWRTSpd.f1)
+    annotation (Line(points={{-38,80},{-20,80},{-20,44},{58,44}}, color={0,0,127}));
+  connect(one.y, CWRTSpd.x2)
+    annotation (Line(points={{22,20},{40,20},{40,36},{58,36}},
+      color={0,0,127}));
+  connect(one.y, CWRTSpd.f2)
+    annotation (Line(points={{22,20},{40,20},{40,32},{58,32}},
+      color={0,0,127}));
   connect(uConWatPumSpe, proOn.u)
     annotation (Line(points={{-120,-20},{-82,-20}}, color={0,0,127}));
-  connect(anyProOn.y, noProOn.u)
-    annotation (Line(points={{-18,-20},{-2,-20}},   color={255,0,255}));
-  connect(noProOn.y, conPID.trigger)
-    annotation (Line(points={{22,-20},{40,-20},{40,0},{-58,0},{-58,28}},
-      color={255,0,255}));
   connect(proOn.y, anyProOn.u)
     annotation (Line(points={{-58,-20},{-42,-20}}, color={255,0,255}));
-  connect(CWRTSpd.y, fanSpe.u[1]) annotation (Line(points={{82,40},{90,40},{90,
-          -40},{40,-40},{40,-58.6667},{58,-58.6667}},
-                                                 color={0,0,127}));
+  connect(CWRTSpd.y, fanSpe.u[1])
+    annotation (Line(points={{82,40},{90,40},{90,-40},{40,-40},{40,-58.6667},{
+          58,-58.6667}},
+                      color={0,0,127}));
   connect(fanSpe.y, yTowSpe)
     annotation (Line(points={{82,-60},{120,-60}}, color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
@@ -141,6 +133,9 @@ equation
       color={0,0,127}));
   connect(uMaxTowSpeSet, maxSpe.u)
     annotation (Line(points={{-120,-60},{-82,-60}}, color={0,0,127}));
+  connect(anyProOn.y, conPID.trigger)
+    annotation (Line(points={{-18,-20},{0,-20},{0,0},{-58,0},{-58,28}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="couTowSpe",
@@ -154,5 +149,52 @@ annotation (
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name"),
+        Polygon(
+          points={{-20,80},{20,80},{0,10},{-20,80}},
+          lineColor={28,108,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-40,10},{40,-10}},
+          lineColor={28,108,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{0,-10},{-20,-80},{20,-80},{0,-10}},
+          lineColor={28,108,200},
+          fillColor={240,240,240},
+          fillPattern=FillPattern.Solid)}),
+Documentation(info="<html>
+<p>
+Block that output cooling tower fan speed <code>yTowSpe</code> based on the control
+of condenser water return temperature for the plant that is closed coupled. 
+This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for 
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
+2019), section 5.2.12.2, item 2.e-f.
+</p>
+<ul>
+<li>
+When any condenser water pump is proven on (non-zero <code>uConWatPumSpe</code>),
+condenser water return temperature <code>TConWatRet</code> shall be maintained at 
+setpoint <code>TConWatRetSet</code> by a direct acting PID loop. The loop output 
+shall be mapped to the variable tower speed. Map the tower speed from minimum tower
+speed <code>minSpe</code> at 0% loop output to 100% speed at 100% loop output.
+</li>
+<li>
+The output tower speed <code>yTowSpe</code> shall be the lowest value of tower speed
+from loop mapping, maximum cooling tower speed setpoint from each chiller head 
+pressure control loop <code>uMaxTowSpeSet</code>, and tower maximum speed that reset 
+based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall
+receive the same speed signal.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+August 9, 2019, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CoupledSpeed;
