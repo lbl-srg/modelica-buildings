@@ -211,7 +211,8 @@ protected
     final fanSpeChe=speChe,
     final minTowSpe=minTowSpe) "Enable cooling tower"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences.CoupledSpeed couTowSpe(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences.Coupled
+    couTowSpe(
     final nChi=nChi,
     final nConWatPum=nConWatPum,
     final minTowSpe=minTowSpe,
@@ -224,7 +225,8 @@ protected
     final yMin=yCouPlaMin) if closeCoupledPlant
     "Tower fan speed control when the plant is closed coupled"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences.LessCoupledSpeed lesCouTowSpe(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences.LessCoupled
+    lesCouTowSpe(
     final nChi=nChi,
     final nConWatPum=nConWatPum,
     final desTemDif=desTemDif,

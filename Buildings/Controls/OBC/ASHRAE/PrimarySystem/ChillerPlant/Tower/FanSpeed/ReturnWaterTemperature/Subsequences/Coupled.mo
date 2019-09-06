@@ -1,5 +1,5 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences;
-block CoupledSpeed
+block Coupled
   "Sequence of defining cooling tower fan speed when the plant is close coupled"
 
   parameter Integer nChi = 2 "Total number of chillers";
@@ -27,39 +27,39 @@ block CoupledSpeed
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature"
-    annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
     final min=fill(0, nConWatPum),
     final max=fill(1, nConWatPum),
     final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput plrTowMaxSpe(
     final min=0,
     final max=1,
     final unit="1")
     "Tower maximum speed that reset based on plant partial load ratio"
-    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowSpe(
     final min=0,
     final max=1,
     final unit="1") "Cooling tower fan speed"
-    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+    annotation (Placement(transformation(extent={{100,-90},{140,-50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -72,75 +72,90 @@ protected
     final yMin=yMin,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=yMin) "Condenser water return temperature controller"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe(
     final k=minSpe) "Minimum tower speed"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Line CWRTSpd
     "Fan speed calculated based on return water temperature control loop"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=0) "Zero constant"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "Constant one"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis proOn[nConWatPum](
     final uLow=fill(pumSpeChe, nConWatPum),
     final uHigh=fill(pumSpeChe + 0.005, nConWatPum))
     "Check if the condenser water pump is proven on"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(final nu=nConWatPum)
     "Check if there is any condenser water pump is proven on"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin fanSpe(final nin=3)
     "Cooling tower fan speed"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin maxSpe(final nin=nChi)
     "Lowest value of the maximum cooling tower speed from each chiller head pressure control loop"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi     "Logical switch"
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
+    final k=0) "Zero constant"
+    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
 
 equation
   connect(TConWatRet, conPID.u_m)
-    annotation (Line(points={{-120,10},{-50,10},{-50,28}}, color={0,0,127}));
+    annotation (Line(points={{-120,30},{-50,30},{-50,48}}, color={0,0,127}));
   connect(TConWatRetSet, conPID.u_s)
-    annotation (Line(points={{-120,40},{-62,40}}, color={0,0,127}));
+    annotation (Line(points={{-120,60},{-62,60}}, color={0,0,127}));
   connect(conPID.y, CWRTSpd.u)
-    annotation (Line(points={{-38,40},{58,40}}, color={0,0,127}));
+    annotation (Line(points={{-38,60},{58,60}}, color={0,0,127}));
   connect(zer.y, CWRTSpd.x1)
-    annotation (Line(points={{22,80},{40,80},{40,48},{58,48}}, color={0,0,127}));
+    annotation (Line(points={{22,100},{40,100},{40,68},{58,68}}, color={0,0,127}));
   connect(minTowSpe.y, CWRTSpd.f1)
-    annotation (Line(points={{-38,80},{-20,80},{-20,44},{58,44}}, color={0,0,127}));
+    annotation (Line(points={{-38,100},{-20,100},{-20,64},{58,64}}, color={0,0,127}));
   connect(one.y, CWRTSpd.x2)
-    annotation (Line(points={{22,20},{40,20},{40,36},{58,36}},
+    annotation (Line(points={{22,40},{40,40},{40,56},{58,56}},
       color={0,0,127}));
   connect(one.y, CWRTSpd.f2)
-    annotation (Line(points={{22,20},{40,20},{40,32},{58,32}},
+    annotation (Line(points={{22,40},{40,40},{40,52},{58,52}},
       color={0,0,127}));
   connect(uConWatPumSpe, proOn.u)
-    annotation (Line(points={{-120,-20},{-82,-20}}, color={0,0,127}));
+    annotation (Line(points={{-120,0},{-82,0}}, color={0,0,127}));
   connect(proOn.y, anyProOn.u)
-    annotation (Line(points={{-58,-20},{-42,-20}}, color={255,0,255}));
+    annotation (Line(points={{-58,0},{-42,0}}, color={255,0,255}));
   connect(CWRTSpd.y, fanSpe.u[1])
-    annotation (Line(points={{82,40},{90,40},{90,-40},{40,-40},{40,-58.6667},{
-          58,-58.6667}},
-                      color={0,0,127}));
-  connect(fanSpe.y, yTowSpe)
-    annotation (Line(points={{82,-60},{120,-60}}, color={0,0,127}));
+    annotation (Line(points={{82,60},{90,60},{90,-20},{0,-20},{0,-38.6667},{18,
+          -38.6667}},
+      color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
-    annotation (Line(points={{-58,-60},{58,-60}}, color={0,0,127}));
+    annotation (Line(points={{-58,-40},{18,-40}}, color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
-    annotation (Line(points={{-120,-90},{40,-90},{40,-61.3333},{58,-61.3333}},
+    annotation (Line(points={{-120,-70},{-40,-70},{-40,-41.3333},{18,-41.3333}},
       color={0,0,127}));
   connect(uMaxTowSpeSet, maxSpe.u)
-    annotation (Line(points={{-120,-60},{-82,-60}}, color={0,0,127}));
+    annotation (Line(points={{-120,-40},{-82,-40}}, color={0,0,127}));
   connect(anyProOn.y, conPID.trigger)
-    annotation (Line(points={{-18,-20},{0,-20},{0,0},{-58,0},{-58,28}},
+    annotation (Line(points={{-18,0},{-10,0},{-10,20},{-58,20},{-58,48}},
       color={255,0,255}));
+  connect(swi.y, yTowSpe)
+    annotation (Line(points={{82,-70},{120,-70}}, color={0,0,127}));
+  connect(anyProOn.y, swi.u2)
+    annotation (Line(points={{-18,0},{-10,0},{-10,-70},{58,-70}},
+      color={255,0,255}));
+  connect(fanSpe.y, swi.u1)
+    annotation (Line(points={{42,-40},{50,-40},{50,-62},{58,-62}},
+      color={0,0,127}));
+  connect(zer1.y, swi.u3)
+    annotation (Line(points={{42,-100},{50,-100},{50,-78},{58,-78}},
+      color={0,0,127}));
 
 annotation (
   defaultComponentName="couTowSpe",
-  Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Icon(graphics={
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+         graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -175,7 +190,7 @@ HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 2
 </p>
 <ul>
 <li>
-When any condenser water pump is proven on (non-zero <code>uConWatPumSpe</code>),
+When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0),
 condenser water return temperature <code>TConWatRet</code> shall be maintained at 
 setpoint <code>TConWatRetSet</code> by a direct acting PID loop. The loop output 
 shall be mapped to the variable tower speed. Map the tower speed from minimum tower
@@ -197,4 +212,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CoupledSpeed;
+end Coupled;
