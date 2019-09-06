@@ -45,7 +45,7 @@ model LessCoupled
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine conSup(
     final amplitude=2,
     final freqHz=1/1800,
-    final offset=273.15 + 32) "Condenser water supply temperature"
+    final offset=273.15 + 29) "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram2(
     final height=3,

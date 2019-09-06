@@ -182,7 +182,7 @@ annotation (
           fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
-Block that output cooling tower fan speed <code>yTowSpe</code> based on the control
+Block that outputs cooling tower fan speed <code>yTowSpe</code> based on the control
 of condenser water return temperature for the plant that is closed coupled. 
 This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for 
 HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
