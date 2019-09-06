@@ -123,7 +123,7 @@ equation
   connect(wseOpe.TChiWatSupSet, TChiWatSupSet)
     annotation (Line(points={{-42,-68},{-60,-68},{-60,-90},{-120,-90}}, color={0,0,127}));
   connect(mulOr.y, swi.u2)
-    annotation (Line(points={{-18,40},{-2,40}},   color={255,0,255}));
+    annotation (Line(points={{-18,40},{-2,40}}, color={255,0,255}));
   connect(intOpe.yTowSpe, swi.u1)
     annotation (Line(points={{-18,80},{-10,80},{-10,48},{-2,48}}, color={0,0,127}));
   connect(wseOpe.yTowSpe, swi.u3)

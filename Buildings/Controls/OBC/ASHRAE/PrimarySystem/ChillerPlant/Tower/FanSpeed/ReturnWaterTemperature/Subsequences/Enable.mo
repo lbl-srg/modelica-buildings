@@ -4,7 +4,7 @@ block Enable "Sequence for enabling and disabling tower fan"
   parameter Integer nChi=2 "Total number of chillers";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Real fanSpeChe = 0.005 "Lower threshold value to check fan speed";
-  parameter Real minTowSpe = 0.1 "Minimum tower fan speed";
+  parameter Real minSpe = 0.1 "Minimum tower fan speed";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
     final min=fill(0, nChi),
@@ -121,8 +121,8 @@ protected
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant enaFan(final k=true) "Enable tower fan"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe[nChi](
-    final k=fill(minTowSpe, nChi))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe[nChi](
+    final k=fill(minSpe, nChi))
     "Minimum tower speed"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one[nChi](
@@ -149,7 +149,7 @@ protected
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
 
 equation
-  connect(minSpe.y, feedback.u2)
+  connect(minTowSpe.y, feedback.u2)
     annotation (Line(points={{-118,80},{-60,80},{-60,148}}, color={0,0,127}));
   connect(feedback.y, hys.u)
     annotation (Line(points={{-48,160},{-42,160}}, color={0,0,127}));
@@ -172,7 +172,7 @@ equation
     annotation (Line(points={{102,160},{118,160}}, color={0,0,127}));
   connect(uTowSpe, feedback1.u1)
     annotation (Line(points={{-200,120},{-92,120}}, color={0,0,127}));
-  connect(minSpe[1].y, feedback1.u2)
+  connect(minTowSpe[1].y, feedback1.u2)
     annotation (Line(points={{-118,80},{-80,80},{-80,108}},color={0,0,127}));
   connect(feedback1.y, hys2.u)
     annotation (Line(points={{-68,120},{-42,120}}, color={0,0,127}));
@@ -287,10 +287,10 @@ HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 2
 <ul>
 <li>
 Any enabled chiller’s head pressure control maximum tower fan speed <code>uMaxTowSpeSet</code> 
-has equaled tower minimum speed <code>minTowSpe</code> for 5 minutes, or
+has equaled tower minimum speed <code>minSpe</code> for 5 minutes, or
 </li>
 <li>
-Tower fans <code>uTowSpe</code> have been at minimum speed <code>minTowSpe</code> for 
+Tower fans <code>uTowSpe</code> have been at minimum speed <code>minSpe</code> for 
 5 minutes and tower temperature <code>TTow</code> drops below setpoint 
 <code>TTowSet</code> minus 1 &deg;F. 
 </li>
@@ -308,7 +308,7 @@ by 1 &deg;F, and
 </li>
 <li>
 All enabled chillers’ head pressure control maximum tower fan speed <code>uMaxTowSpeSet</code> 
-are greater than tower minimum speed <code>minTowSpe</code>.
+are greater than tower minimum speed <code>minSpe</code>.
 </li>
 </ul>
 <p>
