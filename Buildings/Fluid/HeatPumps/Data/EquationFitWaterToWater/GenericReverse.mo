@@ -3,60 +3,56 @@ record GenericReverse
   "Generic data record for water to water heatpump equation fit method"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.HeatFlowRate QHeaLoa_flow_nominal
-   "Nominal condenser heating capacity"
-    annotation (Dialog(group="Nominal conditions heating mode"));
-  parameter Modelica.SIunits.HeatFlowRate QCooLoa_flow_nominal(max=0)
-   "Nominal evaporator cooling capacity_negative number"
-    annotation (Dialog(group="Nominal conditions cooling mode"));
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal
+   "Nominal heating capacity"
+    annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=0)
+   "Nominal cooling capacity_negative number"
+    annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
   parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal
-   "Nominal condenser mass flow rate"
-    annotation (Dialog(group="Nominal conditions heating mode"));
+   "Nominal mass flow rate at load heat exchanger side"
+    annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
   parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal
-   "Nominal evaporator mass flow rate"
-    annotation (Dialog(group="Nominal conditions cooling mode"));
+   "Nominal mass flow rate at source heat exchanger side"
+    annotation (Dialog(group="Nominal conditions at source heat exchanger side"));
   parameter Modelica.SIunits.Power P_nominal_hea
-   "Nominal compressor power heating mode"
-    annotation (Dialog(group="Nominal conditions heating mode"));
+   "Nominal compressor power in heating mode"
+    annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
   parameter Modelica.SIunits.Power P_nominal_coo
-   "Nominal compressor power cooling mode"
-    annotation (Dialog(group="Nominal conditions cooling mode"));
+   "Nominal compressor power in cooling mode"
+    annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
   parameter Real LRCH[nLRH]
    "Load ratio coefficients in heating mode"
-    annotation (Dialog(group="Equation fit heating mode load coefficients"));
+    annotation (Dialog(group="Heating mode performance coefficients"));
   parameter Real LRCC[nLRC]
    "Load ratio coefficients in cooling mode"
-    annotation (Dialog(group="Equation fit cooling load coefficients"));
+    annotation (Dialog(group="Cooling mode performance coefficients"));
   parameter Real PRCH[nPRH]
    "Power ratio coefficients in heating mode"
-    annotation (Dialog(group="Equation fit heating power coefficients"));
+    annotation (Dialog(group="Heating mode performance coefficients"));
   parameter Real PRCC[nPRC]
    "Power ratio coefficients in cooling mode"
-    annotation (Dialog(group="Equation fit cooling power coefficients"));
-  parameter Modelica.SIunits.Temperature TRefHeaCon
-   "Reference temperature in heating mode used to normalize the condenser inlet water temperature"
-    annotation (Dialog(group="Refrence condition"));
-  parameter Modelica.SIunits.Temperature TRefHeaEva
-   "Reference temperature in heating mode used to normalize the evaporator inlet water temperature"
-    annotation (Dialog(group="Refrence condition"));
-  parameter Modelica.SIunits.Temperature TRefCooCon
-   "Reference temperature in cooling mode used to normalize the condenser inlet water temperature"
-    annotation (Dialog(group="Refrence condition"));
-  parameter Modelica.SIunits.Temperature TRefCooEva
-   "Reference temperature in cooling mode used to normalize the evaporator inlet water temperature"
-    annotation (Dialog(group="Refrence condition"));
+    annotation (Dialog(group="Cooling mode performance coefficients"));
+  parameter Modelica.SIunits.Temperature TRefHeaLoa
+   "Reference temperature in heating mode used to normalize the Load heat exchanger inlet water temperature"
+    annotation (Dialog(group="Refrence conditions"));
+  parameter Modelica.SIunits.Temperature TRefHeaSou
+   "Reference temperature in heating mode used to normalize the source heat exchanger inlet water temperature"
+    annotation (Dialog(group="Refrence conditions"));
+  parameter Modelica.SIunits.Temperature TRefCooSou
+   "Reference temperature in cooling mode used to normalize the source heat exchanger inlet water temperature"
+    annotation (Dialog(group="Refrence conditions"));
+  parameter Modelica.SIunits.Temperature TRefCooLoa
+   "Reference temperature in cooling mode used to normalize the load heat exchanger inlet water temperature"
+    annotation (Dialog(group="Refrence conditions"));
   constant Integer nLRC= 5
-   "Number of coefficients for cooling load ratio CLR"
-    annotation (Dialog(group="Equation fit cooling mode load coefficients"));
+   "Number of coefficients for cooling load ratio CLR";
   constant Integer nLRH=5
-   "Number of coefficients for heating load ratio HLR"
-    annotation (Dialog(group="Equation fit heating mode load coefficients"));
+   "Number of coefficients for heating load ratio HLR";
   constant Integer nPRC= 5
-  "Number of coefficients for power ratio in cooling mode"
-    annotation (Dialog(group="Equation fit cooling mode power coefficients"));
+  "Number of coefficients for power ratio in cooling mode";
   constant Integer nPRH=5
-   "Number of coefficients for power ratio in heating mode"
-    annotation (Dialog(group="Equation fit heating mode power coefficients"));
+   "Number of coefficients for power ratio in heating mode";
 
 annotation (
 defaultComponentName="datPer",
@@ -64,8 +60,8 @@ defaultComponentPrefixes="parameter",
 Documentation(info =        "<html>
   <p>This record is used as a template for performance data
   for the heatpump model
-  <a href=\"Buildings.Fluid.HeatPumps.EquationFitWaterToWater\">
-  Buildings.Fluid.HeatPumps.EquationFitWaterToWater</a>.
+  <a href=\"Buildings.Fluid.HeatPumps.EquationFitWaterToWaterReverse\">
+Buildings.Fluid.HeatPumps.EquationFitWaterToWaterReverse</a>.
   </p>
   </html>",revisions="<html>
   <ul>

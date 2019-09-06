@@ -1,12 +1,12 @@
 within Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater;
 record Trane_Axiom_EXW240_Reverse =
  Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater.GenericReverse (
-    TRefHeaCon=53 + 273.15,
-    TRefHeaEva=18 + 273.15,
-    TRefCooCon=28 + 273.15,
-    TRefCooEva=12 + 273.15,
-    QHeaLoa_flow_nominal=77000.00,
-    QCooLoa_flow_nominal=-55680.00,
+    TRefHeaLoa=53 + 273.15,
+    TRefHeaSou=18 + 273.15,
+    TRefCooSou=28 + 273.15,
+    TRefCooLoa=12 + 273.15,
+    QHea_flow_nominal=77000.00,
+    QCoo_flow_nominal=-55680.00,
     mSou_flow_nominal=1000*0.001893,
     mLoa_flow_nominal=1000*0.001893,
     P_nominal_hea=18000,

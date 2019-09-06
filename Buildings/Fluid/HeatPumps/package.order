@@ -4,10 +4,10 @@ DOE2WaterToWater
 EquationFitWaterToWater
 ReciprocatingWaterToWater
 ScrollWaterToWater
+EquationFitWaterToWaterReverse
 Calibration
 Compressors
 Data
 Examples
 Validation
 BaseClasses
-EquationFitWaterToWaterReverse

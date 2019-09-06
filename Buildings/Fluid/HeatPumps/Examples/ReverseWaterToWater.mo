@@ -1,15 +1,16 @@
 within Buildings.Fluid.HeatPumps.Examples;
-model ReverseWaterToWater "example"
+model ReverseWaterToWater "Test model for reverse heat pump based on performance curves"
  package Medium = Buildings.Media.Water "Medium model";
 
     parameter Data.EquationFitWaterToWater.Trane_Axiom_EXW240_Reverse per
     "HeatPump performance data"
      annotation (Placement(transformation(extent={{28,68},{48,88}})));
     parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.mSou_flow_nominal
-    "Evaporator nominal mass flow rate";
+    "Source heat exchanger nominal mass flow rate";
     parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.mLoa_flow_nominal
-    "Condenser nominal mass flow rate";
-    parameter Boolean reverseCycle=true;
+    "Load heat exchanger nominal mass flow rate";
+    parameter Boolean reverseCycle=true
+    "= true, if reversing the heatpump to cooling mode is required";
 
     EquationFitWaterToWaterReverse heaPum(
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -87,7 +88,8 @@ model ReverseWaterToWater "example"
     height=20,
     duration(displayUnit="h") = 14400,
     offset=40 + 273.15,
-    startTime=0) "Heating load side setpoint water temperature"
+    startTime=0)
+    "Heating load side setpoint water temperature"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
     Controls.OBC.CDL.Continuous.Sources.Ramp uMod(
       height=2,
@@ -96,7 +98,6 @@ model ReverseWaterToWater "example"
       startTime=0)
     "HeatPump operational mode input signal"
      annotation (Placement(transformation(extent={{-94,-10},{-74,10}})));
-
     Controls.OBC.CDL.Continuous.Sources.Ramp TCooSet(
     height=4,
     duration(displayUnit="h") = 14400,
@@ -152,9 +153,9 @@ equation
          experiment(Tolerance=1e-6, StopTime=14400),
 Documentation(info="<html>
   <p>
-  Example that simulates the performance of <a href=\"modelica://Buildings.Fluid.HeatPumps.ReverseWaterToWater\">
-  Buildings.Fluid.HeatPumps.EquationFitWaterToWater </a> based on the equation fit method.
-  The heat pump takes as an input the condenser or the evaporator leaving water temperature and an integer input to
+  Example that simulates the performance of <a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitWaterToWaterReverse\">
+  Buildings.Fluid.HeatPumps.EquationFitWaterToWaterReverse </a> based on the equation fit method.
+  The heat pump takes as an input the heating or the chilled leaving water temperature and an integer input to
   specify the heat pump operational mode.
   </p>
   </html>", revisions="<html>

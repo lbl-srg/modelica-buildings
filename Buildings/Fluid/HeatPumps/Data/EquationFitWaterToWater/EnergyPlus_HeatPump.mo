@@ -1,12 +1,12 @@
 within Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater;
 record EnergyPlus_HeatPump =
  Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater.GenericReverse (
-    TRefHeaCon= 10 + 273.15,
-    TRefHeaEva= 10 + 273.15,
-    TRefCooCon= 10 + 273.15,
-    TRefCooEva= 10 + 273.15,
-    QHeaLoa_flow_nominal= 39040.92,
-    QCooLoa_flow_nominal=-39890.91,
+    TRefHeaLoa= 10 + 273.15,
+    TRefHeaSou= 10 + 273.15,
+    TRefCooSou= 10 + 273.15,
+    TRefCooLoa= 10 + 273.15,
+    QHea_flow_nominal= 39040.92,
+    QCoo_flow_nominal=-39890.91,
     mLoa_flow_nominal=1.89,
     mSou_flow_nominal=1.89,
     P_nominal_hea=5130,

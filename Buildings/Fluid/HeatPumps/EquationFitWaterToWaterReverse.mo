@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatPumps;
 model EquationFitWaterToWaterReverse
-  "Model for a water to water heat pump implementing the performance curves method"
-   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
+  "Model for a reverse water to water heatpump implementing the performance curves method"
+  extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
         dp2_nominal=200,
         dp1_nominal=200,
         show_T=true,
@@ -18,46 +18,60 @@ model EquationFitWaterToWaterReverse
               final prescribedHeatFlowRate=true));
 
   parameter Data.EquationFitWaterToWater.GenericReverse per
-   "Performance data"
+  "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{78,80},
             {98,100}})));
   parameter Boolean reverseCycle=true
-   "= true, if reversing the heatpump to cooling mode is required"
+  "= true, if reversing the heatpump to cooling mode is required"
     annotation(Dialog(tab="General", group="Reverse Cycle"));
   parameter Real a[:] = {1}
-   "Coefficients for efficiency curve (need p(a=a, PLR=1)=1)"
+  "Coefficients for efficiency curve (need p(a=a, PLR=1)=1)"
     annotation (Dialog(group="Efficiency"));
-  parameter Modelica.SIunits.HeatFlowRate QHeaLoa_flow_nominal=per.QHeaLoa_flow_nominal*scaling_factor
-  "Heating load nominal capacity_Heating mode";
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal=per.QHea_flow_nominal*scaling_factor
+  "Heating nominal capacity";
   parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.mLoa_flow_nominal*scaling_factor
-  "Heating load mass flow rate nominal capacity";
+  "Load heat exchanger mass flow rate nominal capacity";
   parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.mSou_flow_nominal*scaling_factor
-  "Cooling load mass flow rate nominal capacity";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_small = QHeaLoa_flow_nominal*scaling_factor*1E-9
+  "Source heat exchanger mass flow rate nominal capacity";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_small = QHea_flow_nominal*scaling_factor*1E-9
   "Small value for heat flow rate or power, used to avoid division by zero";
   parameter Real scaling_factor
-  "Scaling factor for heat pump capacity";
+  "Scaling factor for heatpump capacity";
 
-  BaseClasses.EquationFitMethodReverse equFit(a=a,
-                                              per=per,
-                                              scaling_factor=scaling_factor,
-                                              reverseCycle=reverseCycle)
-  "EquationFit method which describes the water to water heat pump performance"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
+  "Compressor Power "
+   annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-12},{120,8}})));
+  Modelica.Blocks.Interfaces.RealOutput QSou_flow(final unit="W")
+  "Heat flow rate at the source heat exchanger side"
+   annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
+  Modelica.Blocks.Interfaces.RealOutput QLoa_flow(final unit="W")
+  "Heat flow rate at the load heat exchanger side"
+   annotation (Placement(transformation(extent={{100,10},{120,30}}),
+        iconTransformation(extent={{100,80},{120,100}})));
   Modelica.Blocks.Interfaces.RealInput THeaLoaSet(final unit="K", displayUnit="degC")
-    "Set point for leaving heating water temperature" annotation (Placement(
+  "Set point for leaving heating water temperature"
+    annotation (Placement(
         transformation(extent={{-140,70},{-100,110}}), iconTransformation(
           extent={{-128,76},{-100,104}})));
   Modelica.Blocks.Interfaces.RealInput TCooLoaSet(final unit="K", displayUnit="degC") if
-                                                     reverseCycle
-    "Set point for leaving chilled water temperature" annotation (Placement(
+                                                  reverseCycle
+  "Set point for leaving chilled water temperature"
+    annotation (Placement(
         transformation(extent={{-140,-108},{-100,-68}}), iconTransformation(
           extent={{-128,-104},{-100,-76}})));
+  BaseClasses.EquationFitMethodReverse equFit(per=per,
+                                              a=a,
+                                              scaling_factor=scaling_factor,
+                                              reverseCycle=reverseCycle)
+  "EquationFit method which describes the reverse water to water heatpump performance"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.RealExpression mLoa_flow(y=vol1.ports[1].m_flow)
-    "Load water mass flow rate"
+  "Load water mass flow rate"
     annotation (Placement(transformation(extent={{-78,-2},{-58,18}})));
   Modelica.Blocks.Sources.RealExpression mSou_flow(y=vol2.ports[1].m_flow)
-    "Source water mass flow rate"
+  "Source water mass flow rate"
     annotation (Placement(transformation(extent={{-78,-20},{-58,0}})));
   Modelica.SIunits.SpecificEnthalpy hCooSet= Medium1.specificEnthalpy_pTX(
               p=port_b1.p,
@@ -78,50 +92,38 @@ model EquationFitWaterToWaterReverse
                                                       inStream(port_a2.h_outflow))))
   "Source side entering water temperature"
    annotation (Placement(transformation(extent={{-78,-50},{-58,-30}})));
-   Modelica.Blocks.Sources.RealExpression QHeaLoa_flow_set(final y=
-        Buildings.Utilities.Math.Functions.smoothMax(
-                x1=m1_flow*(hHeaSet - inStream(port_a1.h_outflow)),
-                x2=Q_flow_small,
-                deltaX=Q_flow_small/10))
-  "Heating load setpoint heat flow rate"
-   annotation (Placement(transformation(extent={{-78,12},{-58,32}})));
-   Modelica.Blocks.Sources.RealExpression QCooLoa_flow_set(final y=
-        Buildings.Utilities.Math.Functions.smoothMin(
-                x1=m1_flow*(hCooSet-inStream(port_a1.h_outflow)),
-                x2=-Q_flow_small,
-                deltaX=Q_flow_small/10)) if reverseCycle
-  "Setpoint cooling flow rate for the load"
-   annotation (Placement(transformation(extent={{-78,-36},{-58,-16}})));
-  Controls.OBC.CDL.Utilities.Assert aleMes(message="uMod cannot be -1 when reverseCycle is false.")
-    "generate alert message"
-   annotation (Placement(transformation(extent={{32,34},{52,54}})));
-  Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
-  "Compressor Power "
-   annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-12},{120,8}})));
-  Modelica.Blocks.Interfaces.RealOutput QSou_flow(final unit="W")
-    "Source heat flow rate"
-   annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
-        iconTransformation(extent={{100,-100},{120,-80}})));
-  Modelica.Blocks.Interfaces.RealOutput QLoa_flow(final unit="W")
-    "Load heat flow rate"
-   annotation (Placement(transformation(extent={{100,10},{120,30}}),
-        iconTransformation(extent={{100,80},{120,100}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaFloLoa
-    "Prescribed load side heat flow rate"
-   annotation (Placement(transformation(extent={{59,12},{39,32}})));
   Modelica.Blocks.Sources.RealExpression TLoaEnt(y=Medium1.temperature(
                                                  Medium1.setState_phX(port_a1.p,
                                                  inStream(port_a1.h_outflow))))
-    "Load side entering water temperature"
+  "Load side entering water temperature"
    annotation (Placement(transformation(extent={{-78,30},{-58,50}})));
+  Modelica.Blocks.Sources.RealExpression QHea_flow_set(final y=
+                                  Buildings.Utilities.Math.Functions.smoothMax(
+                                        x1=m1_flow*(hHeaSet - inStream(port_a1.h_outflow)),
+                                        x2=Q_flow_small,
+                                        deltaX=Q_flow_small/10))
+  "Heating load setpoint heat flow rate"
+    annotation (Placement(transformation(extent={{-78,12},{-58,32}})));
+  Modelica.Blocks.Sources.RealExpression QCoo_flow_set(final y=
+                                  Buildings.Utilities.Math.Functions.smoothMin(
+                                        x1=m1_flow*(hCooSet - inStream(port_a1.h_outflow)),
+                                        x2=-Q_flow_small,
+                                        deltaX=Q_flow_small/10)) if reverseCycle
+  "Setpoint cooling flow rate for the load"
+    annotation (Placement(transformation(extent={{-78,-36},{-58,-16}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaFloLoa
+  "Prescribed load side heat flow rate"
+   annotation (Placement(transformation(extent={{59,12},{39,32}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloSou
-    "Prescribed source side heat flow rate"
+  "Prescribed source side heat flow rate"
    annotation (Placement(transformation(extent={{59,-42},{39,-22}})));
   Modelica.Blocks.Interfaces.IntegerInput uMod
   "HeatPump control input signal,Heating mode= 1, Off=0, Cooling mode=-1"
    annotation (Placement(transformation(extent={{-124,-12},{-100,12}}),
           iconTransformation(extent={{-120,-10},{-100,10}})));
+  Controls.OBC.CDL.Utilities.Assert aleMes(message="uMod cannot be -1 when reverseCycle is false.")
+  "generate alert message"
+   annotation (Placement(transformation(extent={{32,34},{52,54}})));
 equation
   connect(equFit.QSou_flow,QSou_flow)
   annotation (Line(points={{11,-4},{92,-4},{92,-20},{110,-20}}, color={0,0,127}));
@@ -138,15 +140,13 @@ equation
   connect(TSouEnt.y,equFit.TSouEnt)
   annotation (Line(points={{-57,-40},{-32,-40},{-32,-6.8},{-11,-6.8}},
                                     color={0,0,127}));
-  connect(QHeaLoa_flow_set.y, equFit.QHeaLoa_flow_set)
-  annotation (Line(points={{-57,22},{-40,22},{-40,4.8},{-11,4.8}},
-                                                  color={0,0,127}));
+  connect(QHea_flow_set.y, equFit.QHea_flow_set) annotation (Line(points={{-57,22},{-40,
+          22},{-40,4.8},{-11,4.8}}, color={0,0,127}));
   connect(TLoaEnt.y,equFit.TLoaEnt)
   annotation (Line(points={{-57,40},{-32,40},{-32,7.2},{-11,7.2}},
                                 color={0,0,127}));
-  connect(QCooLoa_flow_set.y, equFit.QCooLoa_flow_set)
-  annotation (Line(points={{-57,-26},{-40,-26},{-40,-4.6},{-11,-4.6}},
-                                                      color={0,0,127}));
+  connect(QCoo_flow_set.y, equFit.QCoo_flow_set) annotation (Line(points={{-57,-26},{-40,
+          -26},{-40,-4.6},{-11,-4.6}}, color={0,0,127}));
   connect(equFit.P, P)
   annotation (Line(points={{11,0},{110,0}},color={0,0,127}));
   connect(TCooLoaSet, equFit.TCooLoaSet)
@@ -262,40 +262,64 @@ equation
           preserveAspectRatio=false)),
   defaultComponentName="heaPum",
   Documentation(info="<html>
+ <p>
+  Model for a reverse water to water heatpump using the equation fit method as described
+  in the EnergyPlus9.0.1 engineering reference documentation section 16.6.1: Water to water heatpump model. The model is based on J.Hui (2002), S.Arun. (2004) and C.Tang (2005).
+  </p>
+  <h4>Theory of operation</h4>
   <p>
-  Model for a water to water heat pump using the equation fit model as described
-  in the EnergyPlus9.0.1 engineering reference documentation section 16.6.1: Water to water heat pump model. The model is based on J.Hui (2002), S.Arun. (2004) and C.Tang (2005).
+  The reverse heatpump is a mechanical reverse cycle device that is used to transfer heat from one medium to another where
+  the function of the two heat exchangers can be reversed, so they each must function as evaporator or condenser.
   </p>
   <p>
-  The model uses four non-dimensional equations or curves stated in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod\">
-  Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethod</a> to predict the heat pump performance in either cooling or
-  heating modes. The methodology involved using the generalized least square method to create a set of performance
-  coefficients for the heating and cooling load ratios <code>HLRC</code>, <code>CLRC</code> and for the compressor power ratios <code>PHC</code>, <code>PCC</code> for heating and cooling modes respectively from the catalog data at indicated reference conditions. These respective coefficients
-  and indicated reference conditions are used in the model to simulate the heat pump performance.
-  The variables include load side inlet temperature, source side inlet temperature,
-  load side water flow rate and source side water flow rate. Source and load sides are terms which
-  separates between thermal source and building load sides within the heat pump. For ex. when the control integer signal <code>uMod</code>= 1,
-  the heat pump is controlled to meet the condenser outlet temperature i.e. supply heating temperature to the building,
-  the source side is the evaporator and the load side is the condenser.
-  Likewise, in case of <code>uMod</code>=-1, the heat pump is controlled to meet the evaporator leaving water temperature,
-  accordingly, the source side is the condenser and the load side is the evaporator.
+  Source and load are terms which identify the two heat exchangers of the heatpump. The load heat exchanger is connected to the building thermal loads,
+  while the source heat exchanger extracts or rejects heat from/to the water, based on the heatpump operational heating or cooling mode.
+  </p>
+  <p>
+  The model uses four non-dimensional curves stated in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethodReverse\">
+  Buildings.Fluid.HeatPumps.BaseClasses.EquationFitMethodReverse</a> to predict the heatpump performance.
+  </p>
+  <p>
+  The indicated equation fit method is using the generalized least square technique to create a set of performance
+  coefficients for thermal load ratios <code>HLRC</code>, <code>CLRC</code> and for the compressor power ratios <code>PHC</code>,
+  <code>PCC</code> for heating and cooling modes respectively from the catalog data at indicated reference conditions.
+  </p>
+  <p>
+  The model takes two input signals
+  <ul>
+  <li>
+  The set point for either the leaving heating water temperature or the leaving chilled water temperature
+  which is met if the heatpump has sufficient capacity.
+  </li>
+  <li>
+  The integer input <code>uMod</code> which controls the heatpump operational mode.
+  </li>
+  </ul>
+  </p>
+  <p>
+  Hence, when the integer signal <code>uMod</code>= 1,
+  the heatpump is controlled to meet the heating water set point temperature,
+  the source heat exchanger operates as the evaporator and the load heat exchanger operates as the condenser.
+  Likewise, in case of <code>uMod</code>=-1, the heatpump is controlled to meet the chilled water temperature,
+  accordingly, the source heat exchanger operates as condenser and the load heat exchanger operates as the evaporator.
   </p>
   <p>
   The heating and cooling performance coefficients are stored in the data record <code>per</code> and are available from <a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater\">
   Buildings.Fluid.HeatPumps.Data.EquationFitWaterToWater</a>.
   </p>
   <p>
-  The model takes as input signals; the set point for either the leaving water temperature for the
-  condenser or the evaporator which is met if the heat pump has sufficient capacity and the integer input <code>uMod</code> which identifies the heat pump operational mode.
-  </p>
-  <p>
   The electric power only includes the power for the compressor, but not any power for pumps or fans.
+  </p>
+  <h4>Options</h4>
+  <p>
+  The user can determine if the heatpump operates on the reverse cycle mode(heating or cooling mode) if the Boolean parameter <code>reverseCycle</code>
+  set to true, otherwise, the heatpump operates only on the heating mode.
   </p>
   <h4>References</h4>
   <p>
   C.Tang
    <i>
-  Equation fit based models of water source heat pumps.
+  Equation fit based models of water source heatpumps.
   </i>
   Master Thesis. Oklahoma State University, Oklahoma, USA. 2005.
   </p>

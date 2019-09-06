@@ -15,7 +15,7 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
     "Type of mass balance: dynamic (3 initialization options) or steady state";
 
     EquationFitWaterToWaterReverse
-                            heaPum(
+     heaPum(a={1},
       per=perEP,
       scaling_factor=1,
       redeclare package Medium1 = Medium,
@@ -32,7 +32,7 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
       homotopyInitialization=true,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    reverseCycle=true)
+      reverseCycle=true)
       "Water to Water HeatPump"
        annotation (Placement(transformation(extent={{32,-10},{52,10}})));
     Sources.MassFlowSource_T conPum(
@@ -2380,11 +2380,11 @@ model EquationFitWaterToWater_EnergyPlus "Validation with EnergyPlus model"
         2413.8; 85620,2414.1; 85680,2414.5; 85740,2414.8; 85800,2415.2; 85860,
         2415.5; 85920,2415.8; 85980,2416.2; 86040,2416.5; 86100,2416.9; 86160,
         2417.2; 86220,2417.6; 86280,2417.9; 86340,2418.3; 86400,2418.7])
-                 "EnergyPlus results: Compressor Power"
+        "EnergyPlus results: Compressor Power"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 equation
   connect(heaPum.port_a1, conPum.ports[1])
-  annotation (Line(points={{33.8182,6},{24,6},{24,83},{-28,83}},color={0,127,255}));
+  annotation (Line(points={{32,6},{24,6},{24,83},{-28,83}},     color={0,127,255}));
   connect(TSouEnt.y, evaPum.T_in)
   annotation (Line(points={{101,-14},{112,-14},{112,-44.8},{102.4,-44.8}},
                                                                          color={0,0,127}));
@@ -2399,9 +2399,9 @@ equation
   connect(heaPumMod.y, reaToInt.u)
   annotation (Line(points={{-79,0},{-62,0}},color={0,0,127}));
   connect(heaPum.uMod, reaToInt.y)
-  annotation (Line(points={{32.5455,0},{-39,0}},color={255,127,0}));
+  annotation (Line(points={{31,0},{-39,0}},     color={255,127,0}));
   connect(heaPum.port_b2, res2.port_a)
-  annotation (Line(points={{33.8182,-6},{26,-6},{26,-82},{10,-82}},
+  annotation (Line(points={{32,-6},{26,-6},{26,-82},{10,-82}},
                 color={0,127,255}));
   connect(res2.port_b, cooVol.ports[1])
   annotation (Line(points={{-10,-82},{-28,-82}}, color={0,127,255}));
@@ -2409,11 +2409,10 @@ equation
           42},{-70,72.6},{-56.6,72.6}}, color={0,0,127}));
   connect(evaPum.m_flow_in, mEva_flow.y) annotation (Line(points={{102.4,-49.6},
           {118,-49.6},{118,22},{101,22}}, color={0,0,127}));
-  connect(THeaSet.y, heaPum.THeaLoaSet) annotation (Line(points={{1,30},{12,30},
-          {12,9},{32.5455,9}},               color={0,0,127}));
-  connect(TCooSet.y, heaPum.TCooLoaSet) annotation (Line(points={{1,-30},{12,
-          -30},{12,-9},{32.5455,-9}},
-                                 color={0,0,127}));
+  connect(THeaSet.y, heaPum.THeaLoaSet) annotation (Line(points={{1,30},{12,30},{12,9},
+          {30.6,9}},                         color={0,0,127}));
+  connect(TCooSet.y, heaPum.TCooLoaSet) annotation (Line(points={{1,-30},{12,-30},{12,
+          -9},{30.6,-9}},        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},
             {120,100}}),
                graphics={
@@ -2435,23 +2434,8 @@ equation
 Documentation(info="<html>
   <p>
   This model validates the model
-  <a href=\"Buildings.Fluid.HeatPumps.EquationFitWaterToWater\">
-  Buildings.Fluid.HeatPumps.EquationFitWaterToWater</a>.
-  A slight difference in results between the condenser heating capacity <code><i>Q<sub>Con_flow</sub></i> and </code><code> <i>Q<sub>ConEP</sub></i></code>
-  and the evaporator cooling capacity <code><i>Q<sub>Eva_flow</sub></i></code>
-  and <code><i>Q<sub>EvaEP</sub></i></code> is noticed. This difference occurs only within the source side i.e
-  condenser in the cooling mode and evaporator in the heating mode.
-  </p>
-  <p>
-  This is due to the fact that Energyplus model switch between two values of nominal flow rate for the evaporator
-  and the condenser depending on the operational mode. Hence, in case of <code>uMod</code>=-1 cooling mode, the evaporator implements
-  a nominal flow rate value differs from the evaporator nominal flow rate in case of <code>uMod</code>=1 heating mode. likewise, for
-  the condenser, two nominal flow rate values are implemented.
-  </P>
-  <P>
-  While the heatpump model considers the condenser and evaporator nominal water mass flow rate
-  as only two parameters during the simulation interval.
-  </p>
+  <a href=\"Buildings.Fluid.HeatPumps.EquationFitWaterToWaterReverse\">
+  Buildings.Fluid.HeatPumps.EquationFitWaterToWaterReverse</a>.
   <p>
   The EnergyPlus results were generated using the example file <code>GSHPSimple-GLHE.idf</code>
   from EnergyPlus 9.1, with a nominal cooling capacity of <i>39890</i> Watts  and nominal heating capacity of <i>39040</i> Watts.
