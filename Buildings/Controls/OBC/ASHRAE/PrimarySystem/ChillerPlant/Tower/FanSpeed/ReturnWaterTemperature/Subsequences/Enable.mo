@@ -34,7 +34,7 @@ block Enable "Sequence for enabling and disabling tower fan"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uConWatPumNum
-    "Number of enabling condenser water pumps"
+    "Number of enabled condenser water pumps"
     annotation (Placement(transformation(extent={{-220,-180},{-180,-140}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTow
@@ -90,13 +90,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nu=nTowCel)
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
-    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1 "Count the time when all tower cells are off"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1 "Count the time when all tower cells are off"
+    annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
     final threshold=60)
     "Check if the tower has been off for 1 minute"
-    annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
+    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback feedback3 "Input difference"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
@@ -109,11 +109,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And3 and3 "Check if tower fans should be enabled"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
-    annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+    "Check integer number equality"
+    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=0) "Zero constant"
-    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or1 "Disable tower fans"
-    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant disFan(final k=false) "Disable tower fan"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
@@ -142,6 +141,12 @@ protected
     final threshold=300)
     "Threshold time"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2 "Logical switch"
+    annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant disFan1(
+    final k=false)
+    "Disable tower fan when no condenser water pump is ON"
+    annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
 
 equation
   connect(minSpe.y, feedback.u2)
@@ -186,22 +191,22 @@ equation
     annotation (Line(points={{102,80},{110,80},{110,112},{118,112}},
       color={255,0,255}));
   connect(mulOr1.y, not3.u)
-    annotation (Line(points={{-118,-120},{-102,-120}}, color={255,0,255}));
+    annotation (Line(points={{-118,-120},{-62,-120}},  color={255,0,255}));
   connect(not3.y, tim1.u)
-    annotation (Line(points={{-78,-120},{-62,-120}}, color={255,0,255}));
+    annotation (Line(points={{-38,-120},{-22,-120}}, color={255,0,255}));
   connect(tim1.y, greEquThr1.u)
-    annotation (Line(points={{-38,-120},{-22,-120}}, color={0,0,127}));
+    annotation (Line(points={{2,-120},{18,-120}}, color={0,0,127}));
   connect(TTow, feedback3.u1)
     annotation (Line(points={{-200,0},{-80,0},{-80,-60},{-42,-60}},
       color={0,0,127}));
   connect(feedback3.y, hys4.u)
-    annotation (Line(points={{-18,-60},{18,-60}},                 color={0,0,127}));
+    annotation (Line(points={{-18,-60},{18,-60}},  color={0,0,127}));
   connect(mulAnd.y, and3.u1)
     annotation (Line(points={{42,-30},{60,-30},{60,-52},{78,-52}}, color={255,0,255}));
   connect(hys4.y, and3.u2)
     annotation (Line(points={{42,-60},{78,-60}},  color={255,0,255}));
   connect(greEquThr1.y, and3.u3)
-    annotation (Line(points={{2,-120},{60,-120},{60,-68},{78,-68}}, color={255,0,255}));
+    annotation (Line(points={{42,-120},{60,-120},{60,-68},{78,-68}},color={255,0,255}));
   connect(not1.y, mulOr.u)
     annotation (Line(points={{22,160},{38,160}}, color={255,0,255}));
   connect(hys.y, mulAnd.u)
@@ -209,15 +214,10 @@ equation
   connect(uTowSta, mulOr1.u)
     annotation (Line(points={{-200,-120},{-142,-120}}, color={255,0,255}));
   connect(uConWatPumNum, intEqu.u1)
-    annotation (Line(points={{-200,-160},{-102,-160}}, color={255,127,0}));
+    annotation (Line(points={{-200,-160},{-82,-160}},  color={255,127,0}));
   connect(conInt.y, intEqu.u2)
-    annotation (Line(points={{-138,-180},{-120,-180},{-120,-168},{-102,-168}},
+    annotation (Line(points={{-118,-180},{-100,-180},{-100,-168},{-82,-168}},
       color={255,127,0}));
-  connect(and3.y, or1.u1)
-    annotation (Line(points={{102,-60},{118,-60}}, color={255,0,255}));
-  connect(intEqu.y, or1.u2)
-    annotation (Line(points={{-78,-160},{110,-160},{110,-68},{118,-68}},
-      color={255,0,255}));
   connect(or2.y, logSwi.u2)
     annotation (Line(points={{142,120},{160,120},{160,80},{120,80},{120,40},
       {138,40}}, color={255,0,255}));
@@ -228,12 +228,6 @@ equation
   connect(logSwi1.y, logSwi.u3)
     annotation (Line(points={{162,0},{170,0},{170,20},{120,20},{120,32},{138,32}},
       color={255,0,255}));
-  connect(mulOr1.y, logSwi1.u3)
-    annotation (Line(points={{-118,-120},{-110,-120},{-110,-8},{138,-8}},
-      color={255,0,255}));
-  connect(or1.y, logSwi1.u2)
-    annotation (Line(points={{142,-60},{160,-60},{160,-20},{120,-20},{120,0},
-      {138,0}}, color={255,0,255}));
   connect(logSwi.y, yTow)
     annotation (Line(points={{162,40},{200,40}}, color={255,0,255}));
   connect(TTowSet, addPar1.u)
@@ -251,6 +245,20 @@ equation
       color={0,0,127}));
   connect(greEquThr2.y, and2.u1)
     annotation (Line(points={{62,80},{78,80}}, color={255,0,255}));
+  connect(and3.y, logSwi1.u2)
+    annotation (Line(points={{102,-60},{120,-60},{120,0},{138,0}}, color={255,0,255}));
+  connect(mulOr1.y, logSwi2.u3)
+    annotation (Line(points={{-118,-120},{-100,-120},{-100,-138},{138,-138}},
+      color={255,0,255}));
+  connect(disFan1.y, logSwi2.u1)
+    annotation (Line(points={{102,-120},{130,-120},{130,-122},{138,-122}},
+      color={255,0,255}));
+  connect(intEqu.y, logSwi2.u2)
+    annotation (Line(points={{-58,-160},{120,-160},{120,-130},{138,-130}},
+      color={255,0,255}));
+  connect(logSwi2.y, logSwi1.u3)
+    annotation (Line(points={{162,-130},{170,-130},{170,-20},{132,-20},{132,-8},
+      {138,-8}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaTow",
@@ -271,10 +279,10 @@ Documentation(info="<html>
 Block that outputs signal <code>yTow</code> for enabling and disabling cooling tower 
 fan. This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for 
 HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019), section 5.2.12.2, item 2.j-k.
+2019), section 5.2.12.2, item 2.j-l.
 </p>
 <p>
-Disable the tower fans if either:
+1. Disable the tower fans if either:
 </p>
 <ul>
 <li>
@@ -288,7 +296,7 @@ Tower fans <code>uTowSpe</code> have been at minimum speed <code>minTowSpe</code
 </li>
 </ul>
 <p>
-Enable the tower fans if:
+2. Enable the tower fans if:
 </p>
 <ul>
 <li>
@@ -303,6 +311,10 @@ All enabled chillers’ head pressure control maximum tower fan speed <code>uMax
 are greater than tower minimum speed <code>minTowSpe</code>.
 </li>
 </ul>
+<p>
+3. When all condenser water pumps are commanded OFF, disable the PID loop and
+stop all tower fans.
+</p>
 <p>
 Note that the tower temperature <code>TTow</code> could be condenser water return 
 temperature or condenser water supply temperature, depending on whether the fan 
