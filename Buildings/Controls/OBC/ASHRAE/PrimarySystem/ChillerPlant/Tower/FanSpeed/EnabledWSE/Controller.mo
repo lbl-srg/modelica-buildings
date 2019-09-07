@@ -184,7 +184,7 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
-Block that output cooling tower fan speed <code>yTowSpe</code> when waterside 
+Block that outputs cooling tower fan speed <code>yTowSpe</code> when waterside 
 economizer is enabled. This is implemented 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, 
