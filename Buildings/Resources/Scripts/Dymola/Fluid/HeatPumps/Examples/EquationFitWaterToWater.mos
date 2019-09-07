@@ -1,0 +1,22 @@
+simulateModel("Buildings.Fluid.HeatPumps.Examples.EquationFitWaterToWater", method="dassl",
+ tolerance=1e-6, stopTime=14400, resultFile="EquationFitWaterToWater");
+createPlot(id = 1,
+   position = {60, 10, 600, 450},
+   y = {"heaPum.QCon_flow", "heaPum.QEva_flow"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+createPlot(id = 2,
+   position = {670, 10, 600, 450},
+   y = {"heaPum.sta_a1.T", "heaPum.sta_a2.T","heaPum.sta_b1.T", "heaPum.sta_b2.T"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);

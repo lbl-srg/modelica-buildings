@@ -8731,7 +8731,9 @@ Chiller:Electric:EIR,
 annotation(preferredView="info",
  Documentation(info="<html>
 <p>
-Package with performance data for chillers.
+Package with performance data for both the EIR chiller model <a href=\"Buildings.Fluid.Chillers.ElectricEIR\">
+  Buildings.Fluid.Chillers.ElectricEIR</a> and DOE2 heatpump <a href=\"Buildings.Fluid.HeatPumps.DOE2WaterToWater\">
+  Buildings.Fluid.HeatPumps.DOE2WaterToWater</a>.
 </p>
 </html>", revisions="<html>
 <p>
