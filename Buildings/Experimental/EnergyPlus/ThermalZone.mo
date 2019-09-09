@@ -111,24 +111,6 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
           extent={{200,-50},{220,-30}}), iconTransformation(extent={{200,90},{
             220,110}})));
 
-  Modelica.Blocks.Math.Gain gaiCO2(
-    u(final unit="W"),
-    k=3.82E-8
-      *Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
-      /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM) if
-       use_C_flow
-    "CO2 emission in kg/s per Watt heat released by people"
-    annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
-
-protected
-  constant String modelicaInstanceName = getInstanceName()
-    "Name of this instance"
-    annotation(HideResult=true);
-
-  constant Modelica.SIunits.SpecificEnergy h_fg=
-    Medium.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    V*3/3600 "Nominal mass flow rate (used for regularization)";
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
     final modelicaInstanceName=modelicaInstanceName,
     final idfName=idfName,
@@ -139,6 +121,16 @@ protected
     final fmuName=fmuName,
     final verbosity=verbosity) "FMU zone adapter"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
+
+protected
+  constant String modelicaInstanceName = getInstanceName()
+    "Name of this instance"
+    annotation(HideResult=true);
+
+  constant Modelica.SIunits.SpecificEnergy h_fg=
+    Medium.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+    V*3/3600 "Nominal mass flow rate (used for regularization)";
 
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
@@ -200,6 +192,15 @@ protected
                                             caseSensitive=false))
     then 1 else 0 for i in 1:Medium.nC}
     "Vector with zero everywhere except where CO2 is";
+
+  Modelica.Blocks.Math.Gain gaiCO2(
+    u(final unit="W"),
+    k=3.82E-8
+      *Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
+      /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM) if
+       use_C_flow
+    "CO2 emission in kg/s per Watt heat released by people"
+    annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
 
   Modelica.Blocks.Math.Add CTot_flow[Medium.nC](
     each final k1=1,

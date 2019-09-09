@@ -62,7 +62,6 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Radiative temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
         iconTransformation(extent={{100,50},{120,70}})));
-  Real TRad_degC(final unit="degC") = TRad-273.15 "Radiative temperature in degC";
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W")
     "Convective sensible heat to be added to zone air" annotation (Placement(
         transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{
@@ -76,16 +75,6 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Total heat gain from people, to be used for optional computation of CO2 released"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
-
-  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
-  //Modelica.SIunits.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
- // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
-//  Modelica.SIunits.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
-
-  discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
-    fixed=false,
-    start=0)
-    "Convective sensible heat to be added to zone air if T = TRooLast";
 
   constant String modelicaInstanceName = getInstanceName()
     "Name of this instance"
@@ -112,6 +101,11 @@ protected
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
 
+  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
+  //Modelica.SIunits.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
+ // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
+ //  Modelica.SIunits.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
+
   discrete Modelica.SIunits.Time tLast(fixed=true, start=startTime) "Last time of data exchange";
   discrete Modelica.SIunits.Time dtLast "Time step since the last synchronization";
 
@@ -126,6 +120,10 @@ protected
     final unit="W/K")
     "Derivative dQCon_flow / dT";
 
+  discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
+    fixed=false,
+    start=0)
+    "Convective sensible heat to be added to zone air if T = TRooLast";
   Integer counter "Counter, used to force one more execution right after the initialization";
 
   function round
