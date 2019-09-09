@@ -177,25 +177,7 @@ block Controller
     final unit="1") "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{160,190},{200,230}}),
       iconTransformation(extent={{200,60},{240,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTow
-    "Tower fan status: true=enable fans; false=disable all fans"
-    annotation (Placement(transformation(extent={{160,0},{200,40}}),
-      iconTransformation(extent={{200,-100},{240,-60}})));
 
-//protected
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nChi) "Multiple logical or"
-    annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 if hasWSE "Logical not"
-    annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain parLoaRat(
-    final k=1/desCap) "Plant partial load ratio"
-    annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line plrTowMaxSpe
-    "Tower maximum speed resetted by partial load ratio"
-    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences.Setpoint conWatRetSet(
     final nChi=nChi,
     final LIFT_min=LIFT_min,
@@ -245,6 +227,21 @@ block Controller
     final ySupConMin=ySupConMin) if not closeCoupledPlant
     "Tower fan speed control when the plant is not closed coupled"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=nChi) "Multiple logical or"
+    annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1 if hasWSE "Logical not"
+    annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
+    annotation (Placement(transformation(extent={{-20,200},{0,220}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain parLoaRat(
+    final k=1/desCap) "Plant partial load ratio"
+    annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
+  Buildings.Controls.OBC.CDL.Continuous.Line plrTowMaxSpe
+    "Tower maximum speed resetted by partial load ratio"
+    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
@@ -331,19 +328,19 @@ equation
     annotation (Line(points={{38,14},{-110,14},{-110,-30},{-180,-30}},
       color={255,0,255}));
   connect(conWatRetSet.TConWatRetSet, couTowSpe.TConWatRetSet)
-    annotation (Line(points={{62,-70},{80,-70},{80,-100},{26,-100},{26,-122},
-      {38,-122}}, color={0,0,127}));
+    annotation (Line(points={{62,-70},{80,-70},{80,-100},{26,-100},{26,-120},
+      {38,-120}}, color={0,0,127}));
   connect(couTowSpe.TConWatRet, TConWatRet)
-    annotation (Line(points={{38,-126},{-100,-126},{-100,-160},{-180,-160}},
+    annotation (Line(points={{38,-124},{-100,-124},{-100,-160},{-180,-160}},
       color={0,0,127}));
   connect(couTowSpe.uConWatPumSpe, uConWatPumSpe)
-    annotation (Line(points={{38,-130},{-80,-130},{-80,-200},{-180,-200}},
+    annotation (Line(points={{38,-128},{-80,-128},{-80,-200},{-180,-200}},
       color={0,0,127}));
   connect(uMaxTowSpeSet, couTowSpe.uMaxTowSpeSet)
-    annotation (Line(points={{-180,40},{-120,40},{-120,-134},{38,-134}},
+    annotation (Line(points={{-180,40},{-120,40},{-120,-132},{38,-132}},
       color={0,0,127}));
   connect(plrTowMaxSpe.y, couTowSpe.plrTowMaxSpe)
-    annotation (Line(points={{2,110},{20,110},{20,-138},{38,-138}},
+    annotation (Line(points={{2,110},{20,110},{20,-140},{38,-140}},
       color={0,0,127}));
   connect(conWatRetSet.TConWatRetSet, lesCouTowSpe.TConWatRetSet)
     annotation (Line(points={{62,-70},{80,-70},{80,-100},{26,-100},{26,-200},{38,-200}},
@@ -358,7 +355,7 @@ equation
     annotation (Line(points={{38,-212},{-40,-212},{-40,-280},{-180,-280}},
       color={0,0,127}));
   connect(uMaxTowSpeSet, lesCouTowSpe.uMaxTowSpeSet)
-    annotation (Line(points={{-180,40},{-120,40},{-120,-216},{38,-216}},
+    annotation (Line(points={{-180,40},{-120,40},{-120,-215},{38,-215}},
       color={0,0,127}));
   connect(plrTowMaxSpe.y, lesCouTowSpe.plrTowMaxSpe)
     annotation (Line(points={{2,110},{20,110},{20,-220},{38,-220}},
@@ -374,8 +371,6 @@ equation
   connect(zer1.y, swi.u3)
     annotation (Line(points={{62,-20},{80,-20},{80,-8},{118,-8}},
       color={0,0,127}));
-  connect(enaTow.yTow, yTow)
-    annotation (Line(points={{62,20},{180,20}}, color={255,0,255}));
   connect(tru.y, and2.u2)
     annotation (Line(points={{-58,170},{-40,170},{-40,202},{-22,202}},
       color={255,0,255}));
@@ -411,6 +406,12 @@ equation
   connect(TConWatRet, enaTow.TTow)
     annotation (Line(points={{-180,-160},{-100,-160},{-100,18},{38,18}},
       color={0,0,127}));
+  connect(uChi, couTowSpe.uChi)
+    annotation (Line(points={{-180,210},{-140,210},{-140,-136},{38,-136}},
+      color={255,0,255}));
+  connect(uChi, lesCouTowSpe.uChi)
+    annotation (Line(points={{-180,210},{-140,210},{-140,-217},{38,-217}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="towFanSpe",

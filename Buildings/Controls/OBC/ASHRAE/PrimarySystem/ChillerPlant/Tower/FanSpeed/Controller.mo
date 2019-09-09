@@ -202,10 +202,6 @@ block Controller "Tower fan speed control"
     final unit="1") "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTow
-    "Tower fan status: true=enable fans; false=disable all fans"
-    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Controller
@@ -265,8 +261,8 @@ protected
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation
-  connect(fanSpeWse.yTowSpe, fanSpeRetTem.uTowSpeWSE) annotation (Line(points={{-19,50},
-          {0,50},{0,-22},{19,-22}},  color={0,0,127}));
+  connect(fanSpeWse.yTowSpe, fanSpeRetTem.uTowSpeWSE) annotation (Line(points={{-18,50},
+          {0,50},{0,-22},{18,-22}},  color={0,0,127}));
   connect(fanSpeWse.chiLoa, chiLoa) annotation (Line(points={{-42,60},{-60,60},{
           -60,140},{-120,140}}, color={0,0,127}));
   connect(fanSpeWse.uChi, uChi) annotation (Line(points={{-42,56},{-64,56},{-64,
@@ -280,35 +276,33 @@ equation
   connect(fanSpeWse.TChiWatSupSet, TChiWatSupSet)
     annotation (Line(points={{-42,40},{-120,40}}, color={0,0,127}));
   connect(uChi, fanSpeRetTem.uChi) annotation (Line(points={{-120,120},{-64,120},
-          {-64,-25},{19,-25}}, color={255,0,255}));
+          {-64,-25},{18,-25}}, color={255,0,255}));
   connect(uWSE, fanSpeRetTem.uWSE) annotation (Line(points={{-120,100},{-68,100},
-          {-68,-28},{19,-28}}, color={255,0,255}));
-  connect(fanSpeRetTem.reqPlaCap, reqPlaCap) annotation (Line(points={{19,-31},{
-          -76,-31},{-76,0},{-120,0}},   color={0,0,127}));
-  connect(fanSpeRetTem.uMaxTowSpeSet, uMaxTowSpeSet) annotation (Line(points={{19,-34},
+          {-68,-28},{18,-28}}, color={255,0,255}));
+  connect(fanSpeRetTem.reqPlaCap, reqPlaCap) annotation (Line(points={{18,-31},
+          {-76,-31},{-76,0},{-120,0}},  color={0,0,127}));
+  connect(fanSpeRetTem.uMaxTowSpeSet, uMaxTowSpeSet) annotation (Line(points={{18,-34},
           {-80,-34},{-80,-20},{-120,-20}},  color={0,0,127}));
-  connect(uTowSpe, fanSpeRetTem.uTowSpe) annotation (Line(points={{-120,80},{-72,
-          80},{-72,-37},{19,-37}},  color={0,0,127}));
-  connect(fanSpeRetTem.uTowSta, uTowSta) annotation (Line(points={{19,-40},{-68,
+  connect(uTowSpe, fanSpeRetTem.uTowSpe) annotation (Line(points={{-120,80},{
+          -72,80},{-72,-37},{18,-37}},
+                                    color={0,0,127}));
+  connect(fanSpeRetTem.uTowSta, uTowSta) annotation (Line(points={{18,-40},{-68,
           -40},{-68,-60},{-120,-60}}, color={255,0,255}));
   connect(fanSpeRetTem.uConWatPumNum, uConWatPumNum) annotation (Line(points={{19,-43},
           {-64,-43},{-64,-80},{-120,-80}},      color={255,127,0}));
   connect(TChiWatSupSet, fanSpeRetTem.TChiWatSupSet) annotation (Line(points={{-120,40},
-          {-60,40},{-60,-46},{19,-46}},     color={0,0,127}));
-  connect(fanSpeRetTem.uPla, uPla) annotation (Line(points={{19,-49},{-60,-49},{
-          -60,-100},{-120,-100}}, color={255,0,255}));
-  connect(fanSpeRetTem.TConWatRet, TConWatRet) annotation (Line(points={{19,-52},
+          {-60,40},{-60,-46},{18,-46}},     color={0,0,127}));
+  connect(fanSpeRetTem.uPla, uPla) annotation (Line(points={{18,-49},{-60,-49},
+          {-60,-100},{-120,-100}},color={255,0,255}));
+  connect(fanSpeRetTem.TConWatRet, TConWatRet) annotation (Line(points={{18,-52},
           {-56,-52},{-56,-120},{-120,-120}}, color={0,0,127}));
-  connect(fanSpeRetTem.uConWatPumSpe, uConWatPumSpe) annotation (Line(points={{19,-55},
+  connect(fanSpeRetTem.uConWatPumSpe, uConWatPumSpe) annotation (Line(points={{18,-55},
           {-52,-55},{-52,-140},{-120,-140}},      color={0,0,127}));
-  connect(fanSpeRetTem.TConWatSup, TConWatSup) annotation (Line(points={{19,-58},
+  connect(fanSpeRetTem.TConWatSup, TConWatSup) annotation (Line(points={{18,-58},
           {-48,-58},{-48,-160},{-120,-160}}, color={0,0,127}));
-  connect(fanSpeRetTem.yTowSpe, yTowSpe) annotation (Line(points={{61,-32},{80,
+  connect(fanSpeRetTem.yTowSpe, yTowSpe) annotation (Line(points={{62,-32},{80,
           -32},{80,-20},{120,-20}},
                                color={0,0,127}));
-  connect(fanSpeRetTem.yTow, yTow) annotation (Line(points={{61,-48},{80,-48},{
-          80,-60},{120,-60}},
-                           color={255,0,255}));
 
 annotation (
   defaultComponentName="towFanSpe",
