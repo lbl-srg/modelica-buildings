@@ -182,7 +182,7 @@ block Controller
     annotation (Placement(transformation(extent={{160,0},{200,40}}),
       iconTransformation(extent={{200,-100},{240,-60}})));
 
-protected
+//protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nu=nChi) "Multiple logical or"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));

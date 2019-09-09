@@ -53,7 +53,7 @@ block Coupled
     final max=1,
     final unit="1")
     "Tower maximum speed that reset based on plant partial load ratio"
-    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowSpe(
     final min=0,
@@ -132,7 +132,7 @@ equation
   connect(maxSpe.y, fanSpe.u[2])
     annotation (Line(points={{-58,-40},{18,-40}}, color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
-    annotation (Line(points={{-120,-70},{-40,-70},{-40,-41.3333},{18,-41.3333}},
+    annotation (Line(points={{-120,-80},{-40,-80},{-40,-41.3333},{18,-41.3333}},
       color={0,0,127}));
   connect(uMaxTowSpeSet, maxSpe.u)
     annotation (Line(points={{-120,-40},{-82,-40}}, color={0,0,127}));
