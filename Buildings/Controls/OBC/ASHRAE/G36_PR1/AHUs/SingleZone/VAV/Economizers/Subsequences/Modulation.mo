@@ -142,34 +142,34 @@ protected
     annotation (Placement(transformation(extent={{6,-90},{26,-70}})));
 equation
   connect(retDamMaxLimSig.y,retDamPos. x2)
-    annotation (Line(points={{-39,-24},{-12,-24},{-12,-4},{20,-4}},                 color={0,0,127}));
-  connect(uTSup.y, retDamPos.u) annotation (Line(points={{-79,80},{4,80},{4,0},
+    annotation (Line(points={{-38,-24},{-12,-24},{-12,-4},{20,-4}},                 color={0,0,127}));
+  connect(uTSup.y, retDamPos.u) annotation (Line(points={{-78,80},{4,80},{4,0},
           {20,0}},      color={0,0,127}));
-  connect(uTSup.y, outDamPos.u) annotation (Line(points={{-79,80},{4,80},{4,-40},
+  connect(uTSup.y, outDamPos.u) annotation (Line(points={{-78,80},{4,80},{4,-40},
           {22,-40}}, color={0,0,127}));
   connect(outDamMinLimSig.y, outDamPos.x1)
-    annotation (Line(points={{-39,-78},{-8,-78},{-8,-32},{22,-32}},        color={0,0,127}));
+    annotation (Line(points={{-38,-78},{-8,-78},{-8,-32},{22,-32}},        color={0,0,127}));
   connect(retDamMaxLimSig.y, outDamPos.x2)
-    annotation (Line(points={{-39,-24},{-12,-24},{-12,-44},{22,-44}},
+    annotation (Line(points={{-38,-24},{-12,-24},{-12,-44},{22,-44}},
                                                                 color={0,0,127}));
   connect(outDamMinLimSig.y, retDamPos.x1)
-    annotation (Line(points={{-39,-78},{-8,-78},{-8,8},{20,8}}, color={0,0,127}));
+    annotation (Line(points={{-38,-78},{-8,-78},{-8,8},{20,8}}, color={0,0,127}));
   connect(HeaCoi.u, retDamPos.u)
     annotation (Line(points={{20,40},{4,40},{4,0},{20,0}},   color={0,0,127}));
   connect(THeaSupSet, uTSup.u_s)
     annotation (Line(points={{-140,80},{-102,80}},color={0,0,127}));
   connect(TSup, uTSup.u_m) annotation (Line(points={{-140,110},{-108,110},{-108,
           60},{-90,60},{-90,68}}, color={0,0,127}));
-  connect(heaCoiMinLimSig.y, HeaCoi.f1) annotation (Line(points={{-39,20},{-8,
+  connect(heaCoiMinLimSig.y, HeaCoi.f1) annotation (Line(points={{-38,20},{-8,
           20},{-8,44},{20,44}},
                             color={0,0,127}));
-  connect(heaCoiMaxLimSig.y, HeaCoi.f2) annotation (Line(points={{-39,60},{-4,
+  connect(heaCoiMaxLimSig.y, HeaCoi.f2) annotation (Line(points={{-38,60},{-4,
           60},{-4,32},{20,32}},
                             color={0,0,127}));
-  connect(retDamMaxLimSig.y, HeaCoi.x1) annotation (Line(points={{-39,-24},{-12,
+  connect(retDamMaxLimSig.y, HeaCoi.x1) annotation (Line(points={{-38,-24},{-12,
           -24},{-12,48},{20,48}},
                             color={0,0,127}));
-  connect(uMaxHeaCoi.y, HeaCoi.x2) annotation (Line(points={{-39,100},{10,100},
+  connect(uMaxHeaCoi.y, HeaCoi.x2) annotation (Line(points={{-38,100},{10,100},
           {10,36},{20,36}},
                     color={0,0,127}));
   connect(uOutDamPosMin, outDamPos.f2) annotation (Line(points={{-140,-70},{-92,
@@ -179,20 +179,20 @@ equation
   connect(uRetDamPosMax, retDamPos.f2) annotation (Line(points={{-140,40},{-92,
           40},{-92,-8},{20,-8}},
                              color={0,0,127}));
-  connect(Off.y, enaDis.u3) annotation (Line(points={{27,-80},{62,-80},{62,32},
+  connect(Off.y, enaDis.u3) annotation (Line(points={{28,-80},{62,-80},{62,32},
           {74,32}}, color={0,0,127}));
   connect(uSupFan, enaDis.u2) annotation (Line(points={{-140,-110},{56,-110},{
           56,40},{74,40}}, color={255,0,255}));
-  connect(HeaCoi.y, enaDis.u1) annotation (Line(points={{43,40},{50,40},{50,48},
+  connect(HeaCoi.y, enaDis.u1) annotation (Line(points={{44,40},{50,40},{50,48},
           {74,48}}, color={0,0,127}));
   connect(enaDis.y, yHeaCoi)
-    annotation (Line(points={{97,40},{130,40}}, color={0,0,127}));
+    annotation (Line(points={{98,40},{130,40}}, color={0,0,127}));
   connect(uOutDamPosMax, outDamPos.f1) annotation (Line(points={{-140,-40},{-2,
           -40},{-2,-36},{22,-36}}, color={0,0,127}));
   connect(retDamPos.y, yRetDamPos)
-    annotation (Line(points={{43,0},{130,0}}, color={0,0,127}));
+    annotation (Line(points={{44,0},{130,0}}, color={0,0,127}));
   connect(outDamPos.y, yOutDamPos)
-    annotation (Line(points={{45,-40},{130,-40}}, color={0,0,127}));
+    annotation (Line(points={{46,-40},{130,-40}}, color={0,0,127}));
   connect(uSupFan, uTSup.trigger) annotation (Line(points={{-140,-110},{-98,
           -110},{-98,68}}, color={255,0,255}));
   annotation (
@@ -252,7 +252,7 @@ the outdoor and return air damper positions based on the single zone VAV AHU
 supply air temperature control loop signal. Economizer dampers are modulated
 based on the calculated heating supply air temperature setpoint.
 The implementation is in line with ASHRAE
-Guidline 36 (G36), PART5.P.3.b. Damper positions are linearly mapped to
+Guidline 36 (G36), PART 5.P.3.b. Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
 composite single zone VAV AHU economizer control sequence. Damper position
 limits, which are the inputs to the sequence, are the outputs of
@@ -283,7 +283,6 @@ Single zone AHU economizer modulation control chart:
 <img alt=\"Image of the single zone AHU modulation sequence expected performance\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/EconModulationControlChart.png\"/>
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>
@@ -292,11 +291,11 @@ Reimplemented economizer modulation control sequence.
 </li>
 <li>
 October 31, 2018, by David Blum:<br/>
-Added heating coil output.  Addresses issue #1272.
+Added heating coil output.
 </li>
 <li>
 October 19, 2017, by Jianjun Hu:<br/>
-Changed name of controller output limit from yMin/yMax to uMin/uMax.
+Changed name of controller output limit from <code>yMin</code> and <code>yMax</code> to <code>uMin</code> and <code>uMax</code>.
 </li>
 <li>
 July 07, 2017, by Milica Grahovac:<br/>

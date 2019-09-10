@@ -5,34 +5,42 @@ model CoolingCoil "Validation of cooling coil model"
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.CoolingCoil cooCoi(
       controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
       kCooCoi=1)
+      "Cooling coil controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  CDL.Continuous.Sources.Ramp                        TSup(
+  CDL.Continuous.Sources.Ramp TSup(
     final height=4,
     final offset=TSupSet - 2,
-    final duration=3600*8)    "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Sources.Constant                        TSupSetSig(final k=
-        TSupSet)     "Supply air temperature setpoint"
+    final duration=3600*8)
+    "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  CDL.Continuous.Sources.Constant TSupSetSig(
+    final k=TSupSet)
+    "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   CDL.Logical.Sources.Constant fanStatus(k=true)
     "Fan is on"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  CDL.Continuous.Sources.Pulse zonSta(               offset=2, period=3600*2)
-                                                               "Zone state"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  CDL.Continuous.Sources.Pulse zonSta(
+    offset=2,
+    period=3600*2)
+    "Zone state"
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   CDL.Conversions.RealToInteger reaToInt
-    annotation (Placement(transformation(extent={{-48,60},{-28,80}})));
+    "Real to integer conversion"
+    annotation (Placement(transformation(extent={{-48,-30},{-28,-10}})));
 equation
-  connect(TSup.y, cooCoi.TSup) annotation (Line(points={{-59,-10},{-36,-10},{-36,
-          -2},{-12,-2}}, color={0,0,127}));
-  connect(TSupSetSig.y, cooCoi.TSupCoo) annotation (Line(points={{-59,30},{-36,
-          30},{-36,2},{-12,2}}, color={0,0,127}));
-  connect(fanStatus.y, cooCoi.uSupFan) annotation (Line(points={{-59,-50},{-20,
-          -50},{-20,-8},{-12,-8}}, color={255,0,255}));
+  connect(TSup.y, cooCoi.TSup) annotation (Line(points={{-58,30},{-40,30},{-40,4},
+          {-12,4}},      color={0,0,127}));
+  connect(TSupSetSig.y, cooCoi.TSupCoo) annotation (Line(points={{-58,70},{-36,70},
+          {-36,8},{-12,8}},     color={0,0,127}));
+  connect(fanStatus.y, cooCoi.uSupFan) annotation (Line(points={{-58,-50},{-20,-50},
+          {-20,-8},{-12,-8}},      color={255,0,255}));
   connect(zonSta.y, reaToInt.u)
-    annotation (Line(points={{-59,70},{-50,70}}, color={0,0,127}));
-  connect(reaToInt.y, cooCoi.uZonSta) annotation (Line(points={{-27,70},{-20,70},
-          {-20,8},{-12,8}}, color={255,127,0}));
+    annotation (Line(points={{-58,-20},{-50,-20}},
+                                                 color={0,0,127}));
+  connect(reaToInt.y, cooCoi.uZonSta) annotation (Line(points={{-26,-20},{-24,-20},
+          {-24,-4},{-12,-4}},
+                            color={255,127,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                    Ellipse(

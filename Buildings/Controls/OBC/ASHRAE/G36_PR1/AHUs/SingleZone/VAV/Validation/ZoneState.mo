@@ -7,17 +7,17 @@ model ZoneState "Validation models of determining zone state"
     offset=0,
     startTime=1,
     amplitude=1) "Cooling control signal"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uHea(
     period=2,
     offset=0,
     amplitude=1,
     startTime=2) "Heating control signal"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(uHea.y, zonSta.uHea) annotation (Line(points={{-79,30},{-50,30},{
-          -50,4},{-2,4}}, color={0,0,127}));
-  connect(uCoo.y, zonSta.uCoo) annotation (Line(points={{-79,-30},{-50,-30},{
+  connect(uHea.y, zonSta.uHea) annotation (Line(points={{-58,30},{-50,30},{-50,
+          4},{-2,4}},     color={0,0,127}));
+  connect(uCoo.y, zonSta.uCoo) annotation (Line(points={{-58,-30},{-50,-30},{
           -50,-4},{-2,-4}}, color={0,0,127}));
   annotation (experiment(StopTime=3, Interval=300, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/ZoneState.mos"

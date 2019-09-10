@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Validation;
-model Controller "Validation controller model"
+model Controller "Validation of the top-level controller"
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller conVAV(
     kHea=1,
     yHeaMax=1,
@@ -19,8 +19,7 @@ model Controller "Validation controller model"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
     duration=86400,
     height=6,
-    offset=273.15 + 16)
-                         "Measured zone temperature"
+    offset=273.15 + 16)  "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,68},{-160,88}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{4,20})
     "Occupancy schedule"
@@ -60,8 +59,7 @@ model Controller "Validation controller model"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon1(
     duration=86400,
     height=-3,
-    offset=273.15 + 26)
-                         "Measured zone temperature"
+    offset=273.15 + 26)  "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller conVAV2(
     kCoo=1,
@@ -80,8 +78,8 @@ model Controller "Validation controller model"
     VOutMin_flow=6e-3,
     VOutDes_flow=0.25) "Validate the cooling case"
     annotation (Placement(transformation(extent={{20,-48},{60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut2(final k=273.15 +
-        22)    "Outdoor air dry bulb temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut2(
+    final k=273.15 + 22) "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller conVAV3(
     kCoo=1,
@@ -100,8 +98,9 @@ model Controller "Validation controller model"
     VOutMin_flow=6e-3,
     VOutDes_flow=0.25) "Validate the cooling case"
     annotation (Placement(transformation(extent={{20,-108},{60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut3(final k=273.15 +
-        16)    "Outdoor air dry bulb temperature"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut3(
+    final k=273.15 + 16)
+    "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,-148},{-160,-128}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
@@ -115,70 +114,99 @@ protected
     offset=273.15 + 24) "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
 equation
-  connect(TZon.y, conVAV.TZon) annotation (Line(points={{-159,78},{-30,78},{-30,
-          114},{18,114}}, color={0,0,127}));
-  connect(occSch.occupied, conVAV.uOcc) annotation (Line(points={{-99,48},{-74,48},
-          {-74,110},{18,110}}, color={255,0,255}));
-  connect(occSch.tNexOcc, conVAV.tNexOcc) annotation (Line(points={{-99,60},{-78,
-          60},{-78,118},{18,118}}, color={0,0,127}));
-  connect(TCut.y, conVAV.TCut) annotation (Line(points={{-99,24},{-52,24},{-52,106},
-          {18,106}}, color={0,0,127}));
-  connect(win.y, conVAV.uWin) annotation (Line(points={{-99,-120},{0,-120},{0,90},
-          {18,90}}, color={255,0,255}));
-  connect(nOcc.y, conVAV.nOcc) annotation (Line(points={{-99,-24},{-8,-24},{-8,94},
-          {18,94}}, color={0,0,127}));
+  connect(TZon.y, conVAV.TZon) annotation (Line(points={{-158,78},{-30,78},{-30,
+          112.769},{18,112.769}},
+                          color={0,0,127}));
+  connect(occSch.occupied, conVAV.uOcc) annotation (Line(points={{-99,48},{-74,
+          48},{-74,109.077},{18,109.077}},
+                               color={255,0,255}));
+  connect(occSch.tNexOcc, conVAV.tNexOcc) annotation (Line(points={{-99,60},{
+          -78,60},{-78,116.462},{18,116.462}},
+                                   color={0,0,127}));
+  connect(TCut.y, conVAV.TCut) annotation (Line(points={{-98,24},{-52,24},{-52,
+          105.385},{18,105.385}},
+                     color={0,0,127}));
+  connect(win.y, conVAV.uWin) annotation (Line(points={{-98,-120},{0,-120},{0,
+          90.6154},{18,90.6154}},
+                    color={255,0,255}));
+  connect(nOcc.y, conVAV.nOcc) annotation (Line(points={{-98,-24},{-8,-24},{-8,94.3077},
+          {18,94.3077}},
+                    color={0,0,127}));
   connect(TOut.y, conVAV.TOut)
-    annotation (Line(points={{-159,122},{18,122}}, color={0,0,127}));
-  connect(TSup.y, conVAV.TSup) annotation (Line(points={{-159,40},{-140,40},{-140,
-          102},{18,102}}, color={0,0,127}));
-  connect(win.y, conVAV1.uWin) annotation (Line(points={{-99,-120},{0,-120},{0,28},
-          {18,28}}, color={255,0,255}));
-  connect(nOcc.y, conVAV1.nOcc) annotation (Line(points={{-99,-24},{-20,-24},{-20,
-          32},{18,32}}, color={0,0,127}));
-  connect(occSch.tNexOcc, conVAV1.tNexOcc) annotation (Line(points={{-99,60},{-20,
-          60},{-20,56},{18,56}}, color={0,0,127}));
+    annotation (Line(points={{-158,122},{-70,122},{-70,120.154},{18,120.154}},
+                                                   color={0,0,127}));
+  connect(TSup.y, conVAV.TSup) annotation (Line(points={{-158,40},{-140,40},{
+          -140,101.692},{18,101.692}},
+                          color={0,0,127}));
+  connect(win.y, conVAV1.uWin) annotation (Line(points={{-98,-120},{0,-120},{0,
+          28.6154},{18,28.6154}},
+                    color={255,0,255}));
+  connect(nOcc.y, conVAV1.nOcc) annotation (Line(points={{-98,-24},{-8,-24},{-8,
+          32},{6,32},{6,32.3077},{18,32.3077}},
+                        color={0,0,127}));
+  connect(occSch.tNexOcc, conVAV1.tNexOcc) annotation (Line(points={{-99,60},{
+          -20,60},{-20,54.4615},{18,54.4615}},
+                                 color={0,0,127}));
   connect(occSch.occupied, conVAV1.uOcc)
-    annotation (Line(points={{-99,48},{18,48}}, color={255,0,255}));
+    annotation (Line(points={{-99,48},{-40,48},{-40,47.0769},{18,47.0769}},
+                                                color={255,0,255}));
   connect(TOut1.y, conVAV1.TOut)
-    annotation (Line(points={{-159,4},{6,4},{6,60},{18,60}}, color={0,0,127}));
-  connect(TZon1.y, conVAV1.TZon) annotation (Line(points={{-159,-40},{-70,-40},{
-          -70,52},{18,52}}, color={0,0,127}));
-  connect(TSup1.y, conVAV1.TSup) annotation (Line(points={{-159,-70},{-84,-70},{
-          -84,40},{18,40}}, color={0,0,127}));
-  connect(TCut.y, conVAV1.TCut) annotation (Line(points={{-99,24},{-52,24},{-52,
-          44},{18,44}}, color={0,0,127}));
-  connect(win.y,conVAV2. uWin) annotation (Line(points={{-99,-120},{0,-120},{0,-32},
-          {18,-32}},           color={255,0,255}));
-  connect(TSup1.y,conVAV2. TSup) annotation (Line(points={{-159,-70},{-84,-70},{
-          -84,-20},{18,-20}}, color={0,0,127}));
+    annotation (Line(points={{-158,4},{6,4},{6,58.1538},{18,58.1538}},
+                                                             color={0,0,127}));
+  connect(TZon1.y, conVAV1.TZon) annotation (Line(points={{-158,-40},{-70,-40},
+          {-70,50.7692},{18,50.7692}},
+                            color={0,0,127}));
+  connect(TSup1.y, conVAV1.TSup) annotation (Line(points={{-158,-70},{-84,-70},{
+          -84,39.6923},{18,39.6923}},
+                            color={0,0,127}));
+  connect(TCut.y, conVAV1.TCut) annotation (Line(points={{-98,24},{-52,24},{-52,
+          43.3846},{18,43.3846}},
+                        color={0,0,127}));
+  connect(win.y,conVAV2. uWin) annotation (Line(points={{-98,-120},{0,-120},{0,
+          -31.3846},{18,-31.3846}},
+                               color={255,0,255}));
+  connect(TSup1.y,conVAV2. TSup) annotation (Line(points={{-158,-70},{-84,-70},{
+          -84,-20.3077},{18,-20.3077}},
+                              color={0,0,127}));
   connect(occSch.occupied,conVAV2. uOcc) annotation (Line(points={{-99,48},{-74,
-          48},{-74,-12},{18,-12}},                     color={255,0,255}));
+          48},{-74,-12.9231},{18,-12.9231}},           color={255,0,255}));
   connect(occSch.tNexOcc,conVAV2. tNexOcc) annotation (Line(points={{-99,60},{-78,
-          60},{-78,-4},{18,-4}},       color={0,0,127}));
-  connect(TCut.y,conVAV2. TCut) annotation (Line(points={{-99,24},{-52,24},{-52,
-          -16},{18,-16}},                     color={0,0,127}));
-  connect(nOcc.y,conVAV2. nOcc) annotation (Line(points={{-99,-24},{-20,-24},{-20,
-          -28},{18,-28}},                           color={0,0,127}));
-  connect(TZon1.y, conVAV2.TZon) annotation (Line(points={{-159,-40},{-70,-40},{
-          -70,-8},{18,-8}}, color={0,0,127}));
-  connect(TOut2.y, conVAV2.TOut) annotation (Line(points={{-159,-100},{-40,-100},
-          {-40,0},{18,0}}, color={0,0,127}));
-  connect(win.y, conVAV3.uWin) annotation (Line(points={{-99,-120},{0,-120},{0,-92},
-          {18,-92}}, color={255,0,255}));
+          60},{-78,-5.53846},{18,-5.53846}},
+                                       color={0,0,127}));
+  connect(TCut.y,conVAV2. TCut) annotation (Line(points={{-98,24},{-52,24},{-52,
+          -16.6154},{18,-16.6154}},           color={0,0,127}));
+  connect(nOcc.y,conVAV2. nOcc) annotation (Line(points={{-98,-24},{-8,-24},{-8,
+          -28},{6,-28},{6,-27.6923},{18,-27.6923}}, color={0,0,127}));
+  connect(TZon1.y, conVAV2.TZon) annotation (Line(points={{-158,-40},{-70,-40},{
+          -70,-9.23077},{18,-9.23077}},
+                            color={0,0,127}));
+  connect(TOut2.y, conVAV2.TOut) annotation (Line(points={{-158,-100},{-40,-100},
+          {-40,-1.84615},{18,-1.84615}},
+                           color={0,0,127}));
+  connect(win.y, conVAV3.uWin) annotation (Line(points={{-98,-120},{0,-120},{0,
+          -91.3846},{18,-91.3846}},
+                     color={255,0,255}));
   connect(occSch.occupied, conVAV3.uOcc) annotation (Line(points={{-99,48},{-74,
-          48},{-74,-72},{18,-72}}, color={255,0,255}));
-  connect(TCut.y, conVAV3.TCut) annotation (Line(points={{-99,24},{-52,24},{-52,
-          -76},{18,-76}}, color={0,0,127}));
-  connect(TSup1.y, conVAV3.TSup) annotation (Line(points={{-159,-70},{-84,-70},{
-          -84,-80},{18,-80}}, color={0,0,127}));
-  connect(nOcc.y, conVAV3.nOcc) annotation (Line(points={{-99,-24},{-20,-24},{-20,
-          -88},{18,-88}}, color={0,0,127}));
-  connect(TZon1.y, conVAV3.TZon) annotation (Line(points={{-159,-40},{-70,-40},{
-          -70,-68},{18,-68}}, color={0,0,127}));
-  connect(occSch.tNexOcc, conVAV3.tNexOcc) annotation (Line(points={{-99,60},{-78,
-          60},{-78,-64},{18,-64}}, color={0,0,127}));
-  connect(TOut3.y, conVAV3.TOut) annotation (Line(points={{-159,-138},{8,-138},{
-          8,-60},{18,-60}}, color={0,0,127}));
+          48},{-74,-72.9231},{18,-72.9231}},
+                                   color={255,0,255}));
+  connect(TCut.y, conVAV3.TCut) annotation (Line(points={{-98,24},{-52,24},{-52,
+          -76.6154},{18,-76.6154}},
+                          color={0,0,127}));
+  connect(TSup1.y, conVAV3.TSup) annotation (Line(points={{-158,-70},{-84,-70},{
+          -84,-80.3077},{18,-80.3077}},
+                              color={0,0,127}));
+  connect(nOcc.y, conVAV3.nOcc) annotation (Line(points={{-98,-24},{-8,-24},{-8,
+          -87.6923},{18,-87.6923}},
+                          color={0,0,127}));
+  connect(TZon1.y, conVAV3.TZon) annotation (Line(points={{-158,-40},{-70,-40},
+          {-70,-69.2308},{18,-69.2308}},
+                              color={0,0,127}));
+  connect(occSch.tNexOcc, conVAV3.tNexOcc) annotation (Line(points={{-99,60},{
+          -78,60},{-78,-65.5385},{18,-65.5385}},
+                                   color={0,0,127}));
+  connect(TOut3.y, conVAV3.TOut) annotation (Line(points={{-158,-138},{8,-138},
+          {8,-61.8462},{18,-61.8462}},
+                            color={0,0,127}));
   annotation (experiment(StopTime=86400, Interval=300, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Validation/Controller.mos"
     "Simulate and plot"),

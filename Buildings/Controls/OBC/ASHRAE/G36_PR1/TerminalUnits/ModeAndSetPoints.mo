@@ -348,8 +348,8 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures</
 </p>
 <h4>Usage</h4>
 <p>
-This version is for a multizone system to be used in the MultiZone VAV sequence.
-For single zone systems, use 
+This version is to be used in the multi-zone VAV sequence.
+For single zone VAV systems, use 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints</a>.
 </p>

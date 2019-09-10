@@ -99,31 +99,31 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.4
-    "OA damper position to supply minimum outdoor airflow at minimum fan speed"
+    "Outdoor air damper position to supply minimum outdoor airflow at minimum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutMin_maxSpe(
     final min=outDamPhyPosMin,
     final max=outDamPhyPosMax,
     final unit="1") = 0.3
-    "OA damper position to supply minimum outdoor airflow at maximum fan speed"
+    "Outdoor air damper position to supply minimum outdoor airflow at maximum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_minSpe(
     final min=yDam_VOutMin_minSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.9
-    "OA damper position to supply design outdoor airflow at minimum fan speed"
+    "Outdoor air damper position to supply design outdoor airflow at minimum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real yDam_VOutDes_maxSpe(
     final min=yDam_VOutMin_maxSpe,
     final max=outDamPhyPosMax,
     final unit="1") = 0.8
-    "OA damper position to supply design outdoor airflow at maximum fan speed"
+    "Outdoor air damper position to supply design outdoor airflow at maximum fan speed"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
     final unit="1") = 1
-    "Physically fixed maximum position of the outdoor air (OA) damper"
+    "Physically fixed maximum position of the outdoor air damper"
     annotation(Evaluate=true, Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhyPosMin(
     final min=0,
@@ -159,13 +159,13 @@ block Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
-    "Outdoor air (OA) temperature"
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}}),
       iconTransformation(extent={{-120,84},{-100,104}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
     final unit="K",
     final quantity="ThermodynamicTemperature")
-    "OA temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
+    "Outdoor air temperature high limit cutoff. For differential dry bulb temeprature condition use return air temperature measurement"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}}),
         iconTransformation(extent={{-120,68},{-100,88}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
@@ -183,7 +183,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(final unit="J/kg",
       final quantity="SpecificEnergy") if
                                         use_enthalpy
-    "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
+    "Outdoor air enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
@@ -307,18 +307,20 @@ equation
   connect(uFreProSta, enaDis.uFreProSta)
     annotation (Line(points={{-151,-119},{-60,-119},{-60,-30},{-21,-30}},color={255,127,0}));
   connect(TRet, enaDis.TRet)
-                            annotation (Line(points={{-150,100},{-70,100},{-70,
+                            annotation (Line(points={{-150,100},{-28,100},{-28,
           -24},{-21,-24}},
                      color={0,0,127}));
-  connect(hCut, enaDis.hCut) annotation (Line(points={{-150,60},{-66,60},{-66,
+  connect(hCut, enaDis.hCut) annotation (Line(points={{-150,60},{-40,60},{-40,
           -28},{-21,-28}},
                      color={0,0,127}));
   connect(hOut, enaDis.hOut)
-    annotation (Line(points={{-150,80},{-64,80},{-64,-26},{-21,-26}},  color={0,0,127}));
-  connect(TCut, enaDis.TCut) annotation (Line(points={{-150,120},{-62,120},{-62,
-          -22},{-21,-22}},color={0,0,127}));
+    annotation (Line(points={{-150,80},{-36,80},{-36,-26},{-21,-26}},  color={0,0,127}));
+  connect(TCut, enaDis.TCut) annotation (Line(points={{-150,120},{-26,120},{-26,
+          -22.2},{-21,-22.2}},
+                          color={0,0,127}));
   connect(TOut, enaDis.TOut)
-    annotation (Line(points={{-150,140},{-80,140},{-80,-22},{-22,-22}},color={0,0,127}));
+    annotation (Line(points={{-150,140},{-24,140},{-24,-20.6},{-21,-20.6}},
+                                                                       color={0,0,127}));
   connect(uSupFan, damLim.uSupFan)
     annotation (Line(points={{-150,-60},{-124,-60},{-124,10},{-102,10}},
                                                                       color={255,0,255}));
@@ -329,7 +331,7 @@ equation
     annotation (Line(points={{-151,-119},{-110,-119},{-110,6},{-102,6}},
       color={255,127,0}));
   connect(damLim.yOutDamPosMax, enaDis.uOutDamPosMax)
-    annotation (Line(points={{-78,16},{-28,16},{-28,-36},{-21,-36}},
+    annotation (Line(points={{-78,16},{-30,16},{-30,-36},{-21,-36}},
                                                                   color={0,0,127}));
   connect(enaDis.yOutDamPosMax, mod.uOutDamPosMax)
     annotation (Line(points={{2,-24},{10,-24},{10,6},{18,6}}, color={0,0,127}));
@@ -350,9 +352,9 @@ equation
   connect(retDamMinFre.u1, noTMix.y)
     annotation (Line(points={{98,56},{82,56}}, color={0,0,127}));
   connect(retDamMinFre.y, yRetDamPos)
-    annotation (Line(points={{122,50},{122,40},{150,40}},          color={0,0,127}));
+    annotation (Line(points={{122,50},{126,50},{126,40},{150,40}}, color={0,0,127}));
   connect(outDamMaxFre.y, yOutDamPos)
-    annotation (Line(points={{122,-50},{122,-40},{150,-40}},           color={0,0,127}));
+    annotation (Line(points={{122,-50},{126,-50},{126,-40},{150,-40}}, color={0,0,127}));
   connect(mod.yRetDamPos, retDamMinFre.u2)
     annotation (Line(points={{41,10},{92,10},{92,44},{98,44}},    color={0,0,127}));
   connect(mod.yOutDamPos, outDamMaxFre.u1)
@@ -460,7 +462,7 @@ Added fixed plus differential dry bulb temperature high limit cut off.
 </li>
 <li>
 October 31, 2018, by David Blum:<br/>
-Added heating coil output.  See issue#1272.
+Added heating coil output.
 </li>
 <li>
 June 28, 2017, by Milica Grahovac:<br/>

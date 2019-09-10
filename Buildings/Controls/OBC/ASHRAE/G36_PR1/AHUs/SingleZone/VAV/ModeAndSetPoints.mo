@@ -163,10 +163,10 @@ block ModeAndSetPoints
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cooDemLimLev(
     k=cooDemLimLevCon)
     "Cooling demand limit level"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant heaDemLimLev(
     k=heaDemLimLevCon) "Heating demand limit level"
-    annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
+    annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(
     final k=TZonHeaOn)
     "Heating on setpoint"
@@ -192,47 +192,46 @@ block ModeAndSetPoints
     "Operation mode selector"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tCooDowHeaUp(
-    final k=warCooTim)
-    "Cool down and heat up time (assumed as constant)"
+    final k=warCooTim) "Cool down and heat up time (simplified as constant)"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cloWin(
     k=false) if not have_winSen
     "Closed window status"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
 equation
   connect(TZonSet.uCooDemLimLev,cooDemLimLev. y)
-    annotation (Line(points={{58,-56},{36,-56},{36,-90},{-39,-90}},
+    annotation (Line(points={{58,-56},{36,-56},{36,-90},{22,-90}},
       color={255,127,0}));
   connect(heaDemLimLev.y,TZonSet. uHeaDemLimLev)
-    annotation (Line(points={{-39,-150},{40,-150},{40,-60},{58,-60}},
+    annotation (Line(points={{22,-150},{40,-150},{40,-60},{58,-60}},
       color={255,127,0}));
   connect(TSetRooCooOn.y,opeModSel.TZonCooSetOcc)
-    annotation (Line(points={{-79,160},{-52,160},{-52,-4.6},{-31,-4.6}},
+    annotation (Line(points={{-78,160},{-52,160},{-52,-2},{-32,-2}},
       color={0,0,127}));
   connect(opeModSel.TZonHeaSetOcc,TSetRooHeaOn. y)
-    annotation (Line(points={{-31,-2.2},{-50,-2.2},{-50,120},{-79,120}},
+    annotation (Line(points={{-32,0},{-50,0},{-50,120},{-78,120}},
       color={0,0,127}));
   connect(opeModSel.TZonHeaSetUno,TSetRooHeaOff. y)
-    annotation (Line(points={{-31,-6.8},{-54,-6.8},{-54,80},{-79,80}},
+    annotation (Line(points={{-32,-7},{-54,-7},{-54,80},{-78,80}},
       color={0,0,127}));
   connect(opeModSel.TZonCooSetUno,TSetRooCooOff. y)
-    annotation (Line(points={{-31,-9},{-56,-9},{-56,40},{-79,40}},
+    annotation (Line(points={{-32,-9},{-56,-9},{-56,40},{-78,40}},
       color={0,0,127}));
   connect(TZonSet.TZonCooSet, TZonCooSet)
-    annotation (Line(points={{102,-42},{112,-42},{112,100},{150,100}},
+    annotation (Line(points={{102,-34},{112,-34},{112,100},{150,100}},
       color={0,0,127}));
   connect(TZonSet.TZonHeaSet, TZonHeaSet)
-    annotation (Line(points={{102,-50},{120,-50},{120,60},{150,60}},
+    annotation (Line(points={{102,-42},{120,-42},{120,60},{150,60}},
       color={0,0,127}));
   connect(opeModSel.yOpeMod, yOpeMod)
-    annotation (Line(points={{-9,0},{0,0},{0,-72},{128,-72},{128,0},{150,0}},
+    annotation (Line(points={{-8,0},{0,0},{0,-72},{128,-72},{128,0},{150,0}},
       color={255,127,0}));
   connect(setAdj, TZonSet.setAdj)
-    annotation (Line(points={{-160,-40},{58,-40}},
+    annotation (Line(points={{-160,-40},{-52,-40},{-52,-45},{58,-45}},
       color={0,0,127}));
   connect(heaSetAdj, TZonSet.heaSetAdj)
-    annotation (Line(points={{-160,-70},{-52,-70},{-52,-44},{58,-44}},
+    annotation (Line(points={{-160,-70},{-52,-70},{-52,-49},{58,-49}},
       color={0,0,127}));
   connect(TZonSet.uOccSen, uOccSen)
     annotation (Line(points={{74,-64},{74,-110},{-160,-110}},
@@ -241,32 +240,32 @@ equation
     annotation (Line(points={{86,-64},{86,-120},{-92,-120},{-92,-150},{-160,-150}},
       color={255,0,255}));
   connect(uOcc, opeModSel.uOcc)
-    annotation (Line(points={{-160,20.25},{-120,20.25},{-120,9},{-31,9}},
+    annotation (Line(points={{-160,20.25},{-120,20.25},{-120,9},{-32,9}},
       color={255,0,255}));
   connect(tNexOcc, opeModSel.tNexOcc)
-    annotation (Line(points={{-160,140},{-124,140},{-124,6.6},{-31,6.6}},
+    annotation (Line(points={{-160,140},{-124,140},{-124,7},{-32,7}},
       color={0,0,127}));
 
-  connect(opeModSel.yOpeMod, TZonSet.uOpeMod) annotation (Line(points={{-9,0},{
-          22,0},{22,-52},{58,-52}}, color={255,127,0}));
-  connect(TSetRooCooOn.y, TZonSet.TZonCooSetOcc) annotation (Line(points={{-79,
-          160},{52,160},{52,-24},{58,-24}}, color={0,0,127}));
-  connect(TSetRooHeaOn.y, TZonSet.TZonHeaSetOcc) annotation (Line(points={{-79,
-          120},{48,120},{48,-28},{58,-28}}, color={0,0,127}));
-  connect(TSetRooHeaOff.y, TZonSet.TZonHeaSetUno) annotation (Line(points={{-79,
-          80},{44,80},{44,-36},{58,-36}}, color={0,0,127}));
-  connect(TSetRooCooOff.y, TZonSet.TZonCooSetUno) annotation (Line(points={{-79,
-          40},{40,40},{40,-32},{58,-32}}, color={0,0,127}));
+  connect(opeModSel.yOpeMod, TZonSet.uOpeMod) annotation (Line(points={{-8,0},{
+          22,0},{22,-24},{58,-24}}, color={255,127,0}));
+  connect(TSetRooCooOn.y, TZonSet.TZonCooSetOcc) annotation (Line(points={{-78,160},
+          {52,160},{52,-29},{58,-29}},      color={0,0,127}));
+  connect(TSetRooHeaOn.y, TZonSet.TZonHeaSetOcc) annotation (Line(points={{-78,120},
+          {48,120},{48,-37.2},{58,-37.2}},  color={0,0,127}));
+  connect(TSetRooHeaOff.y, TZonSet.TZonHeaSetUno) annotation (Line(points={{-78,80},
+          {44,80},{44,-41},{58,-41}},     color={0,0,127}));
+  connect(TSetRooCooOff.y, TZonSet.TZonCooSetUno) annotation (Line(points={{-78,40},
+          {40,40},{40,-33.2},{58,-33.2}}, color={0,0,127}));
   connect(uWinSta, opeModSel.uWinSta[1]) annotation (Line(points={{-160,-150},{
-          -92,-150},{-92,-120},{-20,-120},{-20,-11}}, color={255,0,255}));
-  connect(cloWin.y, opeModSel.uWinSta[1]) annotation (Line(points={{-99,-90},{
-          -80,-90},{-80,-50},{-20,-50},{-20,-11}}, color={255,0,255}));
-  connect(opeModSel.TZon[1], TZon) annotation (Line(points={{-31,0},{-128,0},{
-          -128,80.25},{-160,80.25}}, color={0,0,127}));
-  connect(tCooDowHeaUp.y, opeModSel.cooDowTim[1]) annotation (Line(points={{-79,
-          -20},{-60,-20},{-60,4.4},{-31,4.4}}, color={0,0,127}));
-  connect(opeModSel.warUpTim[1], tCooDowHeaUp.y) annotation (Line(points={{-31,
-          2.2},{-60,2.2},{-60,-20},{-79,-20}}, color={0,0,127}));
+          -92,-150},{-92,-120},{-20,-120},{-20,-12}}, color={255,0,255}));
+  connect(cloWin.y, opeModSel.uWinSta[1]) annotation (Line(points={{-78,-90},{
+          -20,-90},{-20,-12}},                     color={255,0,255}));
+  connect(opeModSel.TZon[1], TZon) annotation (Line(points={{-32,-5},{-128,-5},
+          {-128,80.25},{-160,80.25}},color={0,0,127}));
+  connect(tCooDowHeaUp.y, opeModSel.cooDowTim[1]) annotation (Line(points={{-78,-20},
+          {-60,-20},{-60,5},{-32,5}},          color={0,0,127}));
+  connect(opeModSel.warUpTim[1], tCooDowHeaUp.y) annotation (Line(points={{-32,3},
+          {-60,3},{-60,-20},{-78,-20}},        color={0,0,127}));
 annotation (defaultComponentName="modSetPoi",
   Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
   Icon(graphics={Text(
@@ -280,27 +279,29 @@ annotation (defaultComponentName="modSetPoi",
         fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
-Block that outputs zone setpoint temperature (<code>TZonCooSet</code>, <code>TZonHeaSet</code>)
+Block that outputs the zone setpoint temperature (<code>TZonCooSet</code>, <code>TZonHeaSet</code>)
 and system operation mode (<code>yOpeMod</code>). When operation mode is in freeze
 protection setback mode, it also outputs a level 3 freeze protection alarm
 <code>yFreProSta</code>. The sequences are implemented according to ASHRAE
 Guideline 36, Part 5.B.3 and 5.C.6.
 </p>
-<p>The sequence consists of two subsequences.</p>
+<p>The sequence consists of the following two subsequences.</p>
 <h4>Operation mode selector</h4>
 <p>
-The subsequence outputs 7 types system operation mode (occupied, warmup,
+The subsequence outputs one of seven types of system operation mode (occupied, warmup,
 cool-down, setback, freeze protection setback, setup, unoccupied) according
-to current time, the time to next occupied hours <code>tNexOcc</code>,
-current zone temperature <code>TZon</code>. See
+to current time, the time to next occupied hours <code>tNexOcc</code> and
+current zone temperature <code>TZon</code>.
+See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode</a>.
 </p>
 <h4>Zone setpoint temperature reset</h4>
 <p>
-This sequence is implemented according to Part 5.B.3. It sets zone setpoint
-according to the global giving setpoint, local setpoint adjustments, demand
-limits adjustment, window status and occupancy stataus. See
+This sequence is implemented according to Part 5.B.3. It sets the zone temperature setpoint
+according to the globally specified setpoints, the local setpoint adjustments, the demand
+limits adjustment, the window status and the occupancy status.
+See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures</a>.
 </p>

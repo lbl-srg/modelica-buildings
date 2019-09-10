@@ -35,19 +35,19 @@ model Modulation_TSup
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
   connect(TSupSetSig.y, mod.THeaSupSet)
-    annotation (Line(points={{1,70},{10,70},{10,48},{10,37},{39,37}},color={0,0,127}));
+    annotation (Line(points={{2,70},{10,70},{10,48},{10,36},{38,36}},color={0,0,127}));
   connect(TSup.y,mod.TSup)
-    annotation (Line(points={{-39,70},{-30,70},{-30,40},{39,40}},color={0,0,127}));
+    annotation (Line(points={{-38,70},{-30,70},{-30,38},{38,38}},color={0,0,127}));
   connect(RetDamPosMax.y, mod.uRetDamPosMax)
-    annotation (Line(points={{-59,-40},{-20,-40},{-20,33},{39,33}}, color={0,0,127}));
+    annotation (Line(points={{-58,-40},{-20,-40},{-20,32},{38,32}}, color={0,0,127}));
   connect(RetDamPosMin.y, mod.uRetDamPosMin)
-    annotation (Line(points={{-59,-70},{-10,-70},{-10,30},{39,30}}, color={0,0,127}));
+    annotation (Line(points={{-58,-70},{-10,-70},{-10,30},{38,30}}, color={0,0,127}));
   connect(outDamPosMax.y, mod.uOutDamPosMax)
-    annotation (Line(points={{-59,20},{-30,20},{-30,26},{39,26}},  color={0,0,127}));
+    annotation (Line(points={{-58,20},{-30,20},{-30,26},{38,26}},  color={0,0,127}));
   connect(outDamPosMin.y, mod.uOutDamPosMin)
-    annotation (Line(points={{-59,-10},{-26,-10},{-26,23},{39,23}},  color={0,0,127}));
+    annotation (Line(points={{-58,-10},{-26,-10},{-26,24},{38,24}},  color={0,0,127}));
   connect(mod.uSupFan, fanStatus.y)
-    annotation (Line(points={{39,20},{32,20},{32,0},{21,0}}, color={255,0,255}));
+    annotation (Line(points={{38,21},{32,21},{32,0},{22,0}}, color={255,0,255}));
   annotation (
   experiment(StopTime=900.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/Validation/Modulation_TSup.mos"
@@ -78,7 +78,7 @@ Modified inputs for better representation of results plotting.
 </li>
 <li>
 October 31, 2018, by David Blum:<br/>
-Added heating coil output.  See issue#1272.
+Added heating coil output.
 </li>
 <li>
 July 07, 2017, by Milica Grahovac:<br/>

@@ -20,22 +20,24 @@ model Guideline36
     TZonCooOn=298.15,
     TSupSetMax=323.15,
     TSupSetMin=285.15)
+    "VAV controller"
     annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
-  Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(uLow=-1,
-      uHigh=0)
+  Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
+    uLow=-1,
+    uHigh=0)
     "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{-72,-120},{-52,-100}})));
   Modelica.Blocks.Math.Feedback errTRooCoo
     "Control error on room temperature for cooling"
     annotation (Placement(transformation(extent={{-110,-120},{-90,-100}})));
-  Controls.SetPoints.OccupancySchedule           occSch(occupancy=3600*{8,18})
+  Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
-  Modelica.Blocks.Sources.BooleanConstant uWin(k=false)
+  Modelica.Blocks.Sources.BooleanConstant uWin(k=false) "Window opening signal"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
-  Modelica.Blocks.Math.BooleanToReal occPer
+  Modelica.Blocks.Math.BooleanToReal occPer "Conversion to number of occupants"
     annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
-  Modelica.Blocks.Math.Gain ppl(k=2)
+  Modelica.Blocks.Math.Gain ppl(k=2) "Gain for number of occupants"
     annotation (Placement(transformation(extent={{-154,-86},{-142,-74}})));
 protected
   Modelica.Blocks.Sources.Constant TSetSupChiConst(final k=TSupChi_nominal)
@@ -104,7 +106,7 @@ equation
 <p>
 Implementation of <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop</a>
-with ASHRAE Guideline 36 sequences.
+with ASHRAE Guideline 36 control sequence.
 </p>
 </html>", revisions="<html>
 <ul>

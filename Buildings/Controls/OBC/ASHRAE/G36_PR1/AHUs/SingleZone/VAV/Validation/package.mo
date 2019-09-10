@@ -1,10 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV;
 package Validation "Collection of validation models"
 
-
-
-
-
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},

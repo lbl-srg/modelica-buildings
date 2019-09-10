@@ -43,8 +43,6 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
 equation
-
-
   connect(TSetRooHea.y[1], con.TSetRooHea)
     annotation (Line(points={{-119,50},{-110,50},{-110,10},{-102,10}},
                                                    color={0,0,127}));
@@ -86,7 +84,7 @@ equation
 <p>
 Implementation of <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop</a>
-with conventional single-maximum sequences.
+with conventional single-maximum control sequence.
 </p>
 </html>", revisions="<html>
 <ul>

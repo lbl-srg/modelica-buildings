@@ -137,7 +137,7 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
 
   Modelica.Blocks.Math.Gain eff(k=1/etaHea_nominal)
-    annotation (Placement(transformation(extent={{120,90},{140,110}})));
+    annotation (Placement(transformation(extent={{120,110},{140,130}})));
 
   Buildings.Fluid.Sources.Outside out(
     nPorts=3,
@@ -244,8 +244,8 @@ model ChillerDXHeatingEconomizer
     final m_flow_nominal = mChiEva_flow_nominal) "Ideal valve"
     annotation (Placement(transformation(extent={{70,0},{90,20}})));
 
-  Modelica.Blocks.Math.BooleanToReal booleanToInteger(
-    final realTrue=mChiEva_flow_nominal)
+  Modelica.Blocks.Math.BooleanToReal booToInt(final realTrue=
+        mChiEva_flow_nominal) "Boolean to integer conversion"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
   IdealValve ideEco(
@@ -269,8 +269,8 @@ equation
     annotation (Line(points={{-10,40},{10,40}},  color={0,127,255}));
   connect(fanSup.P, PFan) annotation (Line(points={{-9,49},{-6,49},{-6,140},{210,
           140}},             color={0,0,127}));
-  connect(eff.y, QHea_flow) annotation (Line(points={{141,100},{160,100},{160,120},
-          {210,120}}, color={0,0,127}));
+  connect(eff.y, QHea_flow) annotation (Line(points={{141,120},{210,120}},
+                      color={0,0,127}));
   connect(weaBus, out.weaBus) annotation (Line(
       points={{-180,40},{-140,40},{-140,40.2}},
       color={255,204,51},
@@ -280,8 +280,8 @@ equation
       extent={{-6,3},{-6,3}}));
   connect(senTMixAir.port_b, fanSup.port_a)
     annotation (Line(points={{-40,40},{-30,40}},          color={0,127,255}));
-  connect(heaCoi.Q_flow, eff.u) annotation (Line(points={{73,46},{80,46},{80,92},
-          {118,92},{118,100}},                    color={0,0,127}));
+  connect(heaCoi.Q_flow, eff.u) annotation (Line(points={{73,46},{80,46},{80,
+          120},{118,120}},                        color={0,0,127}));
   connect(heaCoi.port_b, cooCoi.port_a2)
     annotation (Line(points={{72,40},{90,40}}, color={0,127,255}));
   connect(cooCoi.port_b2, senTSup.port_a)
@@ -425,10 +425,10 @@ protected
             fillPattern=FillPattern.Solid)}));
   end IdealValve;
 equation
-  connect(booleanToInteger.y, pumChiWat.m_flow_in)
+  connect(booToInt.y, pumChiWat.m_flow_in)
     annotation (Line(points={{81,-90},{108,-90}}, color={0,0,127}));
-  connect(booleanToInteger.u, chiOn) annotation (Line(points={{58,-90},{40,-90},
-          {40,-140},{-220,-140}}, color={255,0,255}));
+  connect(booToInt.u, chiOn) annotation (Line(points={{58,-90},{40,-90},{40,-140},
+          {-220,-140}}, color={255,0,255}));
   connect(chiOn, chi.on) annotation (Line(points={{-220,-140},{40,-140},{40,-188},
           {120,-188},{120,-171},{112,-171}}, color={255,0,255}));
   connect(gaiFan.u, uFan)
