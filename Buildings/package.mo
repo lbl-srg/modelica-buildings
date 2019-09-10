@@ -176,7 +176,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond
         </td>
-        <td valign=\"top\">Added assertions and corrected implementation when response amount is negative.<br/>
+        <td valign=\"top\">Added assertions and corrected implementation when respond amount is negative.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1530\">#1503</a>.
         </td>
     </tr>

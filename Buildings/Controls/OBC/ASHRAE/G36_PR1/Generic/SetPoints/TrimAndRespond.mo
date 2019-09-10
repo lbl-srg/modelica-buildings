@@ -41,15 +41,15 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   Buildings.Controls.OBC.CDL.Continuous.Product pro
     "Products of net requests and respond amount value"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product of trim and response amount"
+  Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product of trim and respond amount"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2 "Product of response and maximum amount"
+  Buildings.Controls.OBC.CDL.Continuous.Product pro2 "Product of respond and maximum amount"
     annotation (Placement(transformation(extent={{-160,-180},{-140,-160}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
     final samplePeriod=samplePeriod,
     final y_start=iniSet)
     "Output the input signal with a unit delay"
-    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
+    annotation (Placement(transformation(extent={{-100,96},{-80,116}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,180},{180,160}})));
@@ -126,11 +126,11 @@ protected
     "Reset setpoint should not be lower than the minimum setpoint"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Trim amount and Response amount must have opposite signs.")
+    final message="Trim amount 'triAmo' and respond amount 'resAmo' must have opposite signs.")
     "Generate alarm message"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    final message="Response amount and Maximum response amount must have same signs.")
+    final message="Respond amount 'resAmo' and maximum respond amount 'maxRes' must have same sign.")
     "Generate alarm message"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute value of real input"
@@ -167,7 +167,7 @@ equation
     annotation (Line(points={{-18,100},{-10,100},{-10,106},{-2,106}},
       color={0,0,127}));
   connect(uniDel.y, add1.u1)
-    annotation (Line(points={{-78,100},{-60,100},{-60,106},{-42,106}},
+    annotation (Line(points={{-78,106},{-42,106}},
       color={0,0,127}));
   connect(sampler.y, difReqIgnReq.u2)
     annotation (Line(points={{-138,-50},{-120,-50},{-120,-36},{-102,-36}},
@@ -191,8 +191,8 @@ equation
     annotation (Line(points={{122,140},{140,140},{140,162},{158,162}},
       color={0,0,127}));
   connect(swi2.y, uniDel.u)
-    annotation (Line(points={{122,140},{140,140},{140,160},{-120,160},
-      {-120,100},{-102,100}}, color={0,0,127}));
+    annotation (Line(points={{122,140},{140,140},{140,160},{-120,160},{-120,106},
+          {-102,106}},        color={0,0,127}));
   connect(uDevSta, not1.u)
     annotation (Line(points={{-240,170},{-210,170},{-210,140},{-102,140}},
       color={255,0,255}));
@@ -263,8 +263,8 @@ equation
   connect(greEquThr1.y, swi3.u2)
     annotation (Line(points={{42,-150},{118,-150}}, color={255,0,255}));
   connect(netRes.y, add1.u2)
-    annotation (Line(points={{182,-30},{200,-30},{200,40},{-60,40},{-60,94},
-      {-42,94}}, color={0,0,127}));
+    annotation (Line(points={{182,-30},{200,-30},{200,36},{-60,36},{-60,94},{-42,
+          94}},  color={0,0,127}));
   connect(swi1.y, netRes.u3)
     annotation (Line(points={{142,10},{150,10},{150,-22},{158,-22}}, color={0,0,127}));
   connect(minInp.y, gai.u)
@@ -298,7 +298,7 @@ annotation (
             220}}),
            graphics={
         Rectangle(
-          extent={{-218,18},{218,-218}},
+          extent={{-218,28},{218,-218}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
