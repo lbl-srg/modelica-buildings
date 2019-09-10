@@ -895,7 +895,7 @@ annotation (
    Documentation(info="<html>
 <p>
 This block outputs VAV system operation mode. It is implemented according to
-ASHRAE guideline G36, PART5.C.6 (zone group operating modes).
+ASHRAE guideline G36, PART 5.C.6 (zone group operating modes).
 The block has the modes listed below.
 </p>
 <h4>Occupied Mode</h4>

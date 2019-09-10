@@ -357,20 +357,20 @@ heating"),                           Text(
     Documentation(info="<html>
 <p>
 This is a single zone VAV AHU economizer enable/disable sequence
-based on ASHRAE G36 PART5.5 and PART5.A.17. Additional
+based on ASHRAE G36 PART 5.5 and PART 5.A.17. Additional
 conditions included in the sequence are:
 </p>
 <ul>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a> (PART5.9),
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.FreezeProtectionStages</a> (PART 5.9),
 </li>
 <li>
-Supply fan status <code>TSupFan</code> (PART5.4.d),
+Supply fan status <code>TSupFan</code> (PART 5.4.d),
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a> (PART5.3.b).
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a> (PART 5.3.b).
 </li>
 </ul>
 <p>

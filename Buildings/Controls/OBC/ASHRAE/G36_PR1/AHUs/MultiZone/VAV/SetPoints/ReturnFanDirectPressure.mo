@@ -218,7 +218,7 @@ annotation (
 <p>
 Setpoint for return fan discharge pressure and exhaust air damper
 for a multi zone VAV AHU according to ASHRAE guideline G36,
-PART5.N.10 (return fan control with direct building pressure).
+PART 5.N.10 (return fan control with direct building pressure).
 </p>
 <ol>
 <li>
