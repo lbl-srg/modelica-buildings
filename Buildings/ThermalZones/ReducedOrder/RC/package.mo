@@ -105,21 +105,21 @@ package RC
   Instead of using Stefan&apos;s Law for radiation exchange
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
-  Q = &epsilon; &sigma; (T<sub>1<sup>4</sup></sub> - T<sub>2<sup>4</sup></sub>)
+  Q = &epsilon; &sigma; (T<sub>1<sup>4</sup></sub> - T<sub>2<sup>4</sup></sub>),
   </p>
-  <p>,
+  <p>
   the models use a linearized approach
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
-  Q = &alpha; <sub>rad</sub> (T<sub>1</sub> - T<sub>2</sub>),
+  Q = h <sub>rad</sub> (T<sub>1</sub> - T<sub>2</sub>),
   </p>
   <p>
   where
   the radiative heat transfer coefficient
-  <i>&alpha;<sub>rad</sub></i> is often set to
+  <i>h<sub>rad</sub></i> is often set to
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
-  &alpha;<sub>rad</sub> = 4 &epsilon; &sigma; T<sub>m<sup>3</sup></sub>
+  h<sub>rad</sub> = 4 &epsilon; &sigma; T<sub>m<sup>3</sup></sub>
   </p>
   <p>
   where <i>T<sub>m</sub></i>
