@@ -2,11 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subseque
 block CapacityRequirement
   "Cooling capacity requirement"
 
-  parameter Modelica.SIunits.Density watDen = 1000 "Water density";
-
-  parameter Modelica.SIunits.SpecificHeatCapacity watSpeHea = 4184
-  "Specific heat capacity of water";
-
   parameter Modelica.SIunits.Time avePer = 300
   "Time period for the rolling average";
 
@@ -45,6 +40,11 @@ block CapacityRequirement
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
+  final constant Modelica.SIunits.Density watDen = 1000 "Water density";
+
+  final constant Modelica.SIunits.SpecificHeatCapacity watSpeHea = 4184
+  "Specific heat capacity of water";
+
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
 
