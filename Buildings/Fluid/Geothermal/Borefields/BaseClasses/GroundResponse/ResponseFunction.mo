@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.GroundResponse;
-model Response
+model ResponseFunction
 
   parameter Integer nSeg
     "Number of segments to use in vertical discretization of the boreholes";
@@ -30,26 +30,9 @@ model Response
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-initial equation
-  if steadyStateInitial then
-    for i in 1:nSeg loop
-      der(TBorWal[i]) = 0;
-    end for;
-  else
-    for i in 1:nSeg loop
-      TBorWal[i] = TExt_start[i];
-    end for;
-  end if;
-
 equation
-  for i in 1:nSeg loop
-    der(TBorWal[i]) * C = G * (TBorWal[i] - TExt_start[i]) + QBor_flow[i];
-  end for;
-
-// equation
-//   TBorWal = Buildings.Fluid.Geothermal.Borefields.BaseClasses.GroundResponse.Functions.GroundResponse(
-//      C, G, steadyStateInitial, QBor_flow, TExt_start);
-
+   TBorWal = Buildings.Fluid.Geothermal.Borefields.BaseClasses.GroundResponse.Functions.GroundResponse(
+      C, G, steadyStateInitial, QBor_flow, TExt_start);
 
 annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -83,4 +66,4 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           fillColor={0,127,255},
             textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=
            false)));
-end Response;
+end ResponseFunction;
