@@ -139,14 +139,13 @@ This block predicts <code>y</code> based on current plant load
 and ambient wet bulb temperature with resepect to the design conditions, as described in
 ASHRAE RP-1711, July Draft, section 5.2.3.1.
 </p>
-
 <p>
 The block calculates the predicted WSE output temperature <code>y</code> as a sum of these
 three components:
 </p>
 <ul>
 <li>
-Current outoor air wet bulb temperature <code>TOutWet</code>;
+Current outoor air wet bulb temperature <code>TOutWet</code>.
 </li>
 <li>
 Predicted heat exchanger approach at current part load flow, which equals 
@@ -154,7 +153,7 @@ the product of the design heat exchanger approach <code>heaExcAppDes</code> and 
 lesser of 1 and predicted heat exchanger part load ratio (PLRHX). PRLHX is a ratio
 of the current chilled water flow rate for primary-only plants or the current secondary chilled water 
 flow rate for primary-secondary plants, <code>VChiWat_flow</code>, 
-divided by design HX chilled water flow rate <code>VHeaExcDes_flow</code>;
+divided by design HX chilled water flow rate <code>VHeaExcDes_flow</code>.
 </li>
 <li>
 Predicted cooling tower approach, which is a sum of the:
