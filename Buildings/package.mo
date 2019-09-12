@@ -195,12 +195,33 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-     <tr><td colspan=\"2\"><b>xxx</b>
+     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Improved the controller implementation. <br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1265\">issue #1265</a>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable
+        </td>
+        <td valign=\"top\">Added the option to allow fixed plus differential dry bulb temperature cutoff.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Modulation
+        </td>
+        <td valign=\"top\">Added heating coil control sequences.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply
+        </td>
+        <td valign=\"top\">Added a switch for fan control.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState
+        </td>
+        <td valign=\"top\">Improved the implementation.
         </td>
     </tr>
     </table>
