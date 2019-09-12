@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="194.38454mm"
+   height="119.46667mm"
+   viewBox="0 0 194.38454 119.46668"
+   version="1.1"
+   id="svg629"
+   inkscape:version="0.92.4 (unknown)"
+   sodipodi:docname="EconEnableDisableStateMachineChart.svg"
+   inkscape:export-filename="/home/kun/Documents/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/EconEnableDisableStateMachineChart.svg.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs623">
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5553-0-3-8">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt"
+         id="path4485-1-8"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5381-6-6-6">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt"
+         id="path4488-0-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="146.36388"
+     inkscape:cy="233.02841"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1875"
+     inkscape:window-height="1176"
+     inkscape:window-x="45"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata626">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(214.38278,-26.354016)">
+    <path
+       style="fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -153.2442,38.493033 v 0"
+       id="path6094-1"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="opacity:0;fill:#333333;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -141.30517,59.380983 v 0"
+       id="path7626-8"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:0.38240287;marker-end:url(#marker5381-6-6-6)"
+       id="path4499-2-3"
+       d="M -113.93058,41.203937 V 129.41842" />
+    <path
+       d="m -122.29502,132.82205 c -12.87301,-45.135821 3.17852,-93.557053 3.17852,-93.557053"
+       id="path4503-4-3"
+       style="fill:none;stroke:#000000;stroke-width:0.44988376px;marker-end:url(#marker5553-0-3-8)"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.38666677px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-121.97805"
+       y="140.90327"
+       id="text4487-8-5-2"><tspan
+         sodipodi:role="line"
+         id="tspan4485-5-1-8"
+         x="-121.97805"
+         y="140.90327"
+         style="font-size:4.23333311px;line-height:1.25;fill:#000000;stroke-width:0.26458332">Disable</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.38666677px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-123.83989"
+       y="33.460945"
+       id="text4487-8-5-3-4"><tspan
+         sodipodi:role="line"
+         x="-123.83989"
+         y="33.460945"
+         style="font-size:4.23333311px;line-height:1.25;fill:#000000;stroke-width:0.26458332"
+         id="tspan8823-5">Enable </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.38666677px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-116.66908"
+       y="41.320751"
+       id="text4487-4-1-0-3-0"><tspan
+         sodipodi:role="line"
+         id="tspan4485-8-3-3-4-0"
+         x="-116.66908"
+         y="42.200489"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332" /><tspan
+         sodipodi:role="line"
+         x="-116.66908"
+         y="45.383759"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6753-2-7-0"> </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.38666677px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-214.37038"
+       y="42.617279"
+       id="text4487-4-1-0-3-4-2"><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="42.617279"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6753-2-7-8-5">Fixed or differential dry bulb temperature</tspan><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="45.360676"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan39" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="48.543945"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6882-6">TOut &lt;= TCut or TOut &lt;= TRet</tspan><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="54.470612"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6884-3">Optional AND</tspan><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="60.397278"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6886-9">Fixed or differential enthalpy</tspan><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="66.323944"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6888-4">hOut &lt;= hCut or hOut &lt;= hRet</tspan><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="72.25061"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan41">OR</tspan><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="78.177277"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan3941">Fixed and differential dry bulb</tspan><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="84.103943"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan43">TOut &lt;= TCut and TOut &lt;= TRet</tspan><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan65" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan67" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan69" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan71" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan73" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan61" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan63" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan55" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan59" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan45" /><tspan
+         sodipodi:role="line"
+         x="-214.37038"
+         y="86.847343"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan47" /></text>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0359631;stroke-opacity:0.66666667"
+       id="path4497-0-4-6"
+       d="m -119.10569,38.694701 c -4.00319,-0.454064 -7.26301,-1.764147 -8.96251,-3.601922 -0.8068,-0.872444 -1.04825,-1.447906 -1.04825,-2.498509 0,-1.03993 0.23507,-1.610947 1.01717,-2.470938 1.61671,-1.777568 4.56676,-3.013655 8.49433,-3.559236 1.73306,-0.24073 4.51748,-0.25733 6.23632,-0.03716 3.39622,0.43496 6.04856,1.359607 7.86186,2.740879 2.35634,1.794665 2.66871,3.988367 0.84416,5.92845 -1.60147,1.703125 -4.82647,2.995757 -8.63008,3.459162 -1.55455,0.189368 -4.3245,0.208028 -5.81338,0.03895 z" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.04162443;stroke-opacity:0.66666667"
+       id="path4497-0-4-6-1"
+       d="m -117.28685,145.67394 c -4.91858,-0.49507 -8.92381,-1.92345 -11.01193,-3.9272 -0.99127,-0.95123 -1.28793,-1.57866 -1.28793,-2.72414 0,-1.13384 0.28881,-1.75643 1.24975,-2.69408 1.9864,-1.9381 5.61103,-3.28581 10.43669,-3.88066 2.12935,-0.26247 5.55046,-0.28057 7.66236,-0.0406 4.17281,0.47424 7.43165,1.4824 9.65959,2.9884 2.895147,1.95674 3.278942,4.34855 1.037193,6.46384 -1.967683,1.85693 -5.930123,3.26629 -10.603483,3.77155 -1.91002,0.20647 -5.31336,0.22681 -7.14271,0.0425 z" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-203.94296"
+       y="78.168182"
+       id="text51"><tspan
+         sodipodi:role="line"
+         id="tspan49"
+         x="-203.94296"
+         y="87.531952"
+         style="stroke-width:0.26458332" /><tspan
+         sodipodi:role="line"
+         x="-203.94296"
+         y="100.76112"
+         style="stroke-width:0.26458332"
+         id="tspan53" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.38666677px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-107.55672"
+       y="43.766792"
+       id="text4487-4-1-0-3-4-2-3"><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="43.766792"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6753-2-7-8-5-6">Fixed or differential dry bulb temperature</tspan><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="46.510189"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan39-7" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="49.693459"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6882-6-5">TOut &gt; TCut or TOut &gt; TRet</tspan><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="55.620125"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6884-3-3">Optional OR</tspan><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="61.546791"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6886-9-5">Fixed or differential enthalpy</tspan><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="67.473457"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6888-4-6">hOut &gt; hCut or hOut &gt; hRet</tspan><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="73.400124"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan41-2">OR</tspan><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="79.32679"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan3943">Fixed and differential dry bulb</tspan><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="85.253456"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan43-9">TOut &gt; TCut and TOut &gt; TRet</tspan><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan65-1" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan67-2" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan69-7" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan71-0" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan73-9" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan61-3" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan63-6" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan55-0" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan59-6" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan45-2" /><tspan
+         sodipodi:role="line"
+         x="-107.55672"
+         y="87.996857"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan47-6" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.38666677px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-214.33655"
+       y="97.534157"
+       id="text4487-4-1-0-3-4-1-9-1"><tspan
+         sodipodi:role="line"
+         x="-214.33655"
+         y="98.413895"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6888-9-0-8" /><tspan
+         sodipodi:role="line"
+         x="-214.33655"
+         y="101.59717"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan179">AND</tspan><tspan
+         sodipodi:role="line"
+         x="-214.33655"
+         y="107.52383"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan183">uFreProSta = 0</tspan><tspan
+         sodipodi:role="line"
+         x="-214.33655"
+         y="110.26723"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan3945" /><tspan
+         sodipodi:role="line"
+         x="-214.33655"
+         y="110.26723"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan3947" /><tspan
+         sodipodi:role="line"
+         x="-214.33655"
+         y="113.4505"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan185">AND</tspan><tspan
+         sodipodi:role="line"
+         x="-214.33655"
+         y="119.37717"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan181">uSupFan = true</tspan><tspan
+         sodipodi:role="line"
+         x="-214.33655"
+         y="125.30383"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6936-9-9">AND</tspan><tspan
+         sodipodi:role="line"
+         x="-214.33655"
+         y="131.2305"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6938-3-2">uZonSta != heating</tspan><tspan
+         sodipodi:role="line"
+         x="-214.33655"
+         y="133.97389"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6940-7-0" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.38666677px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-107.12505"
+       y="93.269653"
+       id="text4487-4-1-0-3-4-1-9-1-2"><tspan
+         sodipodi:role="line"
+         x="-107.12505"
+         y="94.149391"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6888-9-0-8-3" /><tspan
+         sodipodi:role="line"
+         x="-107.12505"
+         y="97.332664"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan179-7">OR</tspan><tspan
+         sodipodi:role="line"
+         x="-107.12505"
+         y="100.07606"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan3935" /><tspan
+         sodipodi:role="line"
+         x="-107.12505"
+         y="103.25933"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan183-5">uFreProSta != 0</tspan><tspan
+         sodipodi:role="line"
+         x="-107.12505"
+         y="109.186"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan181-2">OR</tspan><tspan
+         sodipodi:role="line"
+         x="-107.12505"
+         y="115.11266"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan3939">uSupFan = false</tspan><tspan
+         sodipodi:role="line"
+         x="-107.12505"
+         y="121.03933"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6936-9-9-2">OR</tspan><tspan
+         sodipodi:role="line"
+         x="-107.12505"
+         y="126.966"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6938-3-2-8">uZonSta = heating</tspan><tspan
+         sodipodi:role="line"
+         x="-107.12505"
+         y="129.7094"
+         style="font-size:4.23333311px;line-height:1.39999998;fill:#000000;stroke-width:0.26458332"
+         id="tspan6940-7-0-9" /></text>
+  </g>
+</svg>
