@@ -497,7 +497,7 @@ A non-zero value also represent a more realistic situation, as most valves have 
 <li>
 <p>
 For the bypass between the valve and the radiator, we note that the
-mass flow rate is equal to <code>mRad_flow_nomial - mRadVal_flow_nominal</code>.
+mass flow rate is equal to <code>mRad_flow_nominal - mRadVal_flow_nominal</code>.
 This is a fixed bypass that is used to allow the valve to work across
 its full range.
 We decided to lump the pressure drop of this bypass, and the pressure drop of the
