@@ -157,7 +157,7 @@ protected
 
 equation
   connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,-100},
-          {-150,-100},{-150,-95},{-142,-95}},   color={0,0,127}));
+          {-150,-100},{-150,-95},{-142,-95}}, color={0,0,127}));
   connect(TOutWet, wseTOut.TOutWet)
     annotation (Line(points={{-200,100},{-120,100},{-120,58},{-102,58}},
     color={0,0,127}));
@@ -171,10 +171,10 @@ equation
     annotation (Line(points={{-200,60},{-140,60},{-140,-4},{-102,-4}},
           color={0,0,127}));
   connect(truFalHol.y, pre.u)
-    annotation (Line(points={{162,30},{170,30},{170,-30},{130,-30},{130,-50},{138,
-          -50}},color={255,0,255}));
-  connect(truFalHol.y, y) annotation (Line(points={{162,30},{170,30},{170,0},{190,
-          0}},     color={255,0,255}));
+    annotation (Line(points={{162,30},{170,30},{170,-30},{130,-30},{130,-50},{138,-50}},
+          color={255,0,255}));
+  connect(truFalHol.y, y) annotation (
+    Line(points={{162,30},{170,30},{170,0},{190,0}}, color={255,0,255}));
   connect(enaTWet.y, and2.u1)
     annotation (Line(points={{42,50},{98,50}}, color={255,0,255}));
   connect(truFalHol.u, and2.y)
@@ -182,14 +182,15 @@ equation
     color={255,0,255}));
   connect(timer.y, enaTChiWatRet.u)
     annotation (Line(points={{42,-10},{58,-10}}, color={0,0,127}));
-  connect(TChiWatRetDow, add1.u2) annotation (Line(points={{-200,20},{-160,20},{
-          -160,-16},{-102,-16}},color={0,0,127}));
+  connect(TChiWatRetDow, add1.u2)
+    annotation (Line(points={{-200,20},{-160,20},{-160,-16},{-102,-16}},
+    color={0,0,127}));
   connect(add1.y, hys.u)
     annotation (Line(points={{-78,-10},{-62,-10}},color={0,0,127}));
   connect(hys.y, not1.u)
     annotation (Line(points={{-38,-10},{-22,-10}}, color={255,0,255}));
   connect(not1.y, timer.u)
-    annotation (Line(points={{2,-10},{18,-10}},    color={255,0,255}));
+    annotation (Line(points={{2,-10},{18,-10}}, color={255,0,255}));
   connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{82,-10},{90,-10},{
           90,42},{98,42}}, color={255,0,255}));
   connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,-90},{-110,-90},
