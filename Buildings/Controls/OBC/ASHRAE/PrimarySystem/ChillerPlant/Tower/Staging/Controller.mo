@@ -109,26 +109,31 @@ protected
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
-  connect(enaTowCel.yEnaCel, towCelStaPro.uEnaCel) annotation (Line(points={{-39,113},
-          {-14,113},{-14,-14},{-2,-14}},      color={255,0,255}));
-  connect(enaTowCel.uWSE, uWSE) annotation (Line(points={{-61,117},{-92.5,117},{
-          -92.5,100},{-120,100}}, color={255,0,255}));
-  connect(enaTowCel.uChiSta, uChiSta) annotation (Line(points={{-61,119},{-80,119},
-          {-80,130},{-120,130}}, color={255,127,0}));
-  connect(enaTowCel.uTowSta, uTowSta) annotation (Line(points={{-61,115},{-90,115},
-          {-90,70},{-120,70}}, color={255,0,255}));
-  connect(enaTowCel.uTowCelPri, uTowCelPri) annotation (Line(points={{-61,113},{
-          -88,113},{-88,40},{-120,40}}, color={255,127,0}));
-  connect(enaTowCel.uStaUp, uStaUp) annotation (Line(points={{-61,107},{-86,107},
+  connect(enaTowCel.yEnaCel, towCelStaPro.uEnaCel) annotation (Line(points={{-38,115},
+          {-14,115},{-14,-14},{-2,-14}},      color={255,0,255}));
+  connect(enaTowCel.uWSE, uWSE) annotation (Line(points={{-62,117},{-92.5,117},
+          {-92.5,100},{-120,100}},color={255,0,255}));
+  connect(enaTowCel.uChiSta, uChiSta) annotation (Line(points={{-62,119},{-80,
+          119},{-80,130},{-120,130}},
+                                 color={255,127,0}));
+  connect(enaTowCel.uTowSta, uTowSta) annotation (Line(points={{-62,115},{-90,
+          115},{-90,70},{-120,70}},
+                               color={255,0,255}));
+  connect(enaTowCel.uTowCelPri, uTowCelPri) annotation (Line(points={{-62,113},
+          {-88,113},{-88,40},{-120,40}},color={255,127,0}));
+  connect(enaTowCel.uStaUp, uStaUp) annotation (Line(points={{-62,107},{-86,107},
           {-86,10},{-120,10}}, color={255,0,255}));
-  connect(enaTowCel.uTowStaUp, uTowStaUp) annotation (Line(points={{-61,105},{-84,
-          105},{-84,-20},{-120,-20}}, color={255,0,255}));
-  connect(enaTowCel.uStaDow, uStaDow) annotation (Line(points={{-61,103},{-82,103},
-          {-82,-50},{-120,-50}}, color={255,0,255}));
-  connect(enaTowCel.uTowStaDow, uTowStaDow) annotation (Line(points={{-61,101},{
-          -80,101},{-80,-80},{-120,-80}}, color={255,0,255}));
-  connect(enaTowCel.yEnaCelInd, enaCel.u) annotation (Line(points={{-39,105},{-26,
-          105},{-26,80},{-78,80},{-78,50},{-62,50}}, color={0,0,127}));
+  connect(enaTowCel.uTowStaUp, uTowStaUp) annotation (Line(points={{-62,105},{
+          -84,105},{-84,-20},{-120,-20}},
+                                      color={255,0,255}));
+  connect(enaTowCel.uStaDow, uStaDow) annotation (Line(points={{-62,103},{-82,
+          103},{-82,-50},{-120,-50}},
+                                 color={255,0,255}));
+  connect(enaTowCel.uTowStaDow, uTowStaDow) annotation (Line(points={{-62,101},
+          {-80,101},{-80,-80},{-120,-80}},color={255,0,255}));
+  connect(enaTowCel.yEnaCelInd, enaCel.u) annotation (Line(points={{-38,105},{
+          -26,105},{-26,80},{-78,80},{-78,50},{-62,50}},
+                                                     color={0,0,127}));
   connect(enaCel.y, towCelStaPro.uCelInd) annotation (Line(points={{-38,50},{
           -26,50},{-26,-2},{-2,-2}},
                                    color={255,127,0}));
@@ -138,16 +143,18 @@ equation
           70},{-90,-18},{-2,-18}}, color={255,0,255}));
   connect(booRep1.y, logSwi1.u2)
     annotation (Line(points={{22,50},{58,50}}, color={255,0,255}));
-  connect(enaTowCel.yDisCel, booRep1.u) annotation (Line(points={{-39,109},{-20,
-          109},{-20,50},{-2,50}}, color={255,0,255}));
-  connect(enaTowCel.yTowSta, logSwi1.u1) annotation (Line(points={{-39,119},{50,
-          119},{50,58},{58,58}}, color={255,0,255}));
-  connect(towCelStaPro.yTowSta, logSwi1.u3) annotation (Line(points={{21,-19},{30,
-          -19},{30,42},{58,42}}, color={255,0,255}));
+  connect(enaTowCel.yDisCel, booRep1.u) annotation (Line(points={{-38,110},{-20,
+          110},{-20,50},{-2,50}}, color={255,0,255}));
+  connect(enaTowCel.yTarTowSta, logSwi1.u1) annotation (Line(points={{-38,119},
+          {50,119},{50,58},{58,58}}, color={255,0,255}));
+  connect(towCelStaPro.yTowSta, logSwi1.u3) annotation (Line(points={{22,-19},{
+          30,-19},{30,42},{58,42}},
+                                 color={255,0,255}));
   connect(logSwi1.y, yTowSta)
     annotation (Line(points={{82,50},{120,50}}, color={255,0,255}));
-  connect(enaTowCel.yDisCelInd, disCel.u) annotation (Line(points={{-39,101},{-30,
-          101},{-30,0},{-76,0},{-76,-80},{-62,-80}}, color={0,0,127}));
+  connect(enaTowCel.yDisCelInd, disCel.u) annotation (Line(points={{-38,101},{
+          -30,101},{-30,0},{-76,0},{-76,-80},{-62,-80}},
+                                                     color={0,0,127}));
   connect(disCel.y, intEqu.u1) annotation (Line(points={{-38,-80},{-30,-80},{
           -30,-100},{-22,-100}},
                              color={255,127,0}));
@@ -166,7 +173,7 @@ equation
   connect(booRep1.y, swi1.u2) annotation (Line(points={{22,50},{40,50},{40,0},{
           58,0}},    color={255,0,255}));
   connect(towCelStaPro.yIsoVal, swi1.u3)
-    annotation (Line(points={{21,-10},{40,-10},{40,-8},{58,-8}}, color={0,0,127}));
+    annotation (Line(points={{22,-10},{40,-10},{40,-8},{58,-8}}, color={0,0,127}));
   connect(swi1.y, yIsoVal)
     annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
 

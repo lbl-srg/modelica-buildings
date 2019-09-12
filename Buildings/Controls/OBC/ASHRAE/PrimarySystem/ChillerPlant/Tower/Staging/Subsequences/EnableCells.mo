@@ -41,16 +41,16 @@ block EnableCells "Sequence for identifying enabing and disabling cells"
     "Cooling tower stage-down command"
     annotation (Placement(transformation(extent={{-520,-500},{-480,-460}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowSta[nTowCel]
-    "Cooling tower enabling status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTarTowSta[nTowCel]
+    "New array of cooling tower enabling status to be achieved"
     annotation (Placement(transformation(extent={{480,410},{520,450}}),
       iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaCel
-    "Enabling cell status: true=start to enable cell"
+    "If ture, indicate that it should start enabling new cells"
     annotation (Placement(transformation(extent={{480,360},{522,402}}),
       iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDisCel
-    "Disabling cell status: true=start to disable cell"
+    "If ture, indicate that it should start disabling existing cells"
     annotation (Placement(transformation(extent={{480,130},{520,170}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yEnaCelInd[nTowCel]
@@ -99,7 +99,7 @@ protected
     "Check next enable cell"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nTowCel](
-    each final k=true) "Logical true"
+    final k=fill(true, nTowCel)) "Logical true"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1(
     final nout=nTowCel) "Replicate integer input"
@@ -120,7 +120,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4[nTowCel] "Check next enable cell"
     annotation (Placement(transformation(extent={{-80,-300},{-60,-280}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nTowCel](
-    each final k=false) "Logical false"
+    final k=fill(false, nTowCel)) "Logical false"
     annotation (Placement(transformation(extent={{-80,-340},{-60,-320}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3[nTowCel] "Logical or"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
@@ -151,7 +151,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Output true when input becomes true"
     annotation (Placement(transformation(extent={{-220,390},{-200,410}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg2 "Output true when input becomes false"
-    annotation (Placement(transformation(extent={{-220,420},{-200,440}})));
+    annotation (Placement(transformation(extent={{-220,170},{-200,190}})));
   Buildings.Controls.OBC.CDL.Integers.Change cha1 "Check if number of condenser water pump is changed"
     annotation (Placement(transformation(extent={{-220,470},{-200,490}})));
   Buildings.Controls.OBC.CDL.Logical.And and9 "Logical and"
@@ -248,7 +248,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi1[nTowCel] "Logical switch"
     annotation (Placement(transformation(extent={{300,-110},{320,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3[nTowCel](
-    each final k=0) "Constant zero"
+    final k=fill(0, nTowCel)) "Constant zero"
     annotation (Placement(transformation(extent={{220,-410},{240,-390}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1[nTowCel]
     "Convert integer input to real output"
@@ -617,7 +617,7 @@ equation
   connect(uWSE, edg.u) annotation (Line(points={{-500,360},{-440,360},{-440,340},
           {-280,340},{-280,400},{-222,400}}, color={255,0,255}));
   connect(uWSE, falEdg2.u) annotation (Line(points={{-500,360},{-440,360},{-440,
-          340},{-280,340},{-280,430},{-222,430}}, color={255,0,255}));
+          340},{-280,340},{-280,180},{-222,180}}, color={255,0,255}));
   connect(uChiSta, cha1.u) annotation (Line(points={{-500,460},{-440,460},{-440,
           480},{-222,480}}, color={255,127,0}));
   connect(edg.y, and9.u1)
@@ -645,12 +645,10 @@ equation
     annotation (Line(points={{-18,280},{38,280}}, color={255,0,255}));
   connect(edg1.y, lat3.u0) annotation (Line(points={{-39,-20},{20,-20},{20,274},
           {39,274}}, color={255,0,255}));
-  connect(falEdg2.y, and12.u1) annotation (Line(points={{-198,430},{-60,430},{
-          -60,170},{-42,170}},
-                           color={255,0,255}));
-  connect(falEdg2.y, and11.u1) annotation (Line(points={{-198,430},{-60,430},{
-          -60,60},{-42,60}},
-                         color={255,0,255}));
+  connect(falEdg2.y, and12.u1) annotation (Line(points={{-198,180},{-80,180},{-80,
+          170},{-42,170}}, color={255,0,255}));
+  connect(falEdg2.y, and11.u1) annotation (Line(points={{-198,180},{-80,180},{-80,
+          60},{-42,60}}, color={255,0,255}));
   connect(intEqu6.y, and12.u2) annotation (Line(points={{-118,140},{-100,140},{
           -100,162},{-42,162}},
                            color={255,0,255}));
@@ -855,7 +853,7 @@ equation
   connect(uTowSta, logSwi19.u3) annotation (Line(points={{-500,300},{-440,300},{
           -440,-80},{-40,-80},{-40,-60},{390,-60},{390,82},{398,82}}, color={255,
           0,255}));
-  connect(logSwi7.y, yTowSta)
+  connect(logSwi7.y, yTarTowSta)
     annotation (Line(points={{422,430},{500,430}}, color={255,0,255}));
   connect(booToRea.y, mulSum.u)
     annotation (Line(points={{-398,300},{-382,300}}, color={0,0,127}));
@@ -1025,7 +1023,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{-42,-160},{172,-202}},
+          extent={{-78,-152},{172,-204}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
