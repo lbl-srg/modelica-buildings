@@ -6,7 +6,7 @@ block EnableLag_primary_dP
     "Delay time period for enabling and disabling lag pumps";
   parameter Real staCon = -0.03 "Constant used in the staging equation"
     annotation (Dialog(tab="Advanced"));
-  parameter Real floHys = 0.01
+  parameter Real relFloHys = 0.01
     "Constant value used in hysteresis for checking relative flow rate"
     annotation (Dialog(tab="Advanced"));
   parameter Integer nPum_nominal(final max = nPum, final min = 1) = nPum
@@ -36,13 +36,13 @@ block EnableLag_primary_dP
       iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=(-1)*floHys,
-    final uHigh=floHys)
+    final uLow=(-1)*relFloHys,
+    final uHigh=relFloHys)
     "Check if condition for enabling next lag pump is satisfied"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=(-1)*floHys,
-    final uHigh=floHys)
+    final uLow=(-1)*relFloHys,
+    final uHigh=relFloHys)
     "Check if condition for disabling last lag pump is satisfied"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain chiWatFloRat(

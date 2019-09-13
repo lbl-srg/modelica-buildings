@@ -1,21 +1,21 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences;
 block EnableLead_headered
   "Sequence for enabling lead pump of plants with headered condenser water pumps"
-
- parameter Boolean hasWSE = true
+  parameter Boolean hasWSE = true
     "Flag of waterside economizer: true=have WSE, false=no WSE";
+  parameter Integer nChi=2 "Total number of chiller";
 
- Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseConIsoVal if hasWSE
     "WSE condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
     "Chiller condenser water isolation valve status"
-      annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea "Lead pump status"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta "Lead pump status"
@@ -32,6 +32,9 @@ protected
        not hasWSE
     "Logical false"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nChi)
+    "Check if there is any chiller enabled"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
 equation
   connect(con1.y, leaPumSta.u3)
@@ -46,11 +49,14 @@ equation
   connect(uWseConIsoVal, or2.u2)
     annotation (Line(points={{-120,-20},{-40,-20},{-40,-8},{-22,-8}},
       color={255,0,255}));
-  connect(uChiConIsoVal, or2.u1)
-    annotation (Line(points={{-120,20},{-40,20},{-40,0},{-22,0}},
-      color={255,0,255}));
   connect(con2.y, or2.u2)
     annotation (Line(points={{-58,-60},{-40,-60},{-40,-8},{-22,-8}},
+      color={255,0,255}));
+  connect(uChiConIsoVal, mulOr.u)
+    annotation (Line(points={{-120,20},{-102,20},{-102,20},{-82,20}},
+      color={255,0,255}));
+  connect(mulOr.y, or2.u1)
+    annotation (Line(points={{-58,20},{-40,20},{-40,0},{-22,0}},
       color={255,0,255}));
 
 annotation (

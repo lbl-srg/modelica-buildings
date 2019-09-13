@@ -8,9 +8,10 @@ model EnableLead_headered
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiConWatIsoVal(
-    final period=3600,
-    final startTime=300) "Chiller condenser water isolation valve status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiConWatIsoVal[2](
+    final period=fill(3600, 2),
+    final startTime=fill(300, 2))
+    "Chiller condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse WSEConWatIsoVal(
@@ -19,10 +20,10 @@ protected
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation
-  connect(chiConWatIsoVal.y, enaLeaConPum.uChiConIsoVal)
-    annotation (Line(points={{2,30},{20,30},{20,4},{38,4}}, color={255,0,255}));
   connect(WSEConWatIsoVal.y, enaLeaConPum.uWseConIsoVal)
     annotation (Line(points={{2,-30},{20,-30},{20,-4},{38,-4}}, color={255,0,255}));
+  connect(chiConWatIsoVal.y, enaLeaConPum.uChiConIsoVal)
+    annotation (Line(points={{2,30},{20,30},{20,4},{38,4}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),

@@ -38,7 +38,7 @@ equation
       color={255,0,255}));
   connect(remPreSen1.y, chiPumSpe.dpChiWat[1])
     annotation (Line(points={{-38,0},{-10,0},{-10,-1},{18,-1}},
-                                              color={0,0,127}));
+      color={0,0,127}));
   connect(remPreSen2.y, chiPumSpe.dpChiWat[2])
     annotation (Line(points={{-38,-40},{-28,-40},{-28,1},{18,1}},
       color={0,0,127}));

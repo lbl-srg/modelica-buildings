@@ -18,12 +18,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
     "Logical false"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] "Logical not"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nu=nChi) "Multiple logical and"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nChi)
+    "Check if there is any chiller enabled"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
   connect(con.y,leaPumSta. u1)
@@ -33,14 +30,11 @@ equation
       color={255,0,255}));
   connect(leaPumSta.y, yLea)
     annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
-  connect(not2.y, leaPumSta.u2)
-    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
-  connect(mulAnd.y, not2.u)
-    annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
-  connect(not1.y, mulAnd.u)
-    annotation (Line(points={{-58,0},{-42,0}}, color={255,0,255}));
-  connect(uChiIsoVal, not1.u)
-    annotation (Line(points={{-120,0},{-82,0}}, color={255,0,255}));
+  connect(uChiIsoVal, mulOr.u)
+    annotation (Line(points={{-120,0},{-82,0},{-82,0},{-42,0}},
+      color={255,0,255}));
+  connect(mulOr.y, leaPumSta.u2)
+    annotation (Line(points={{-18,0},{38,0}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaLeaChiPum",

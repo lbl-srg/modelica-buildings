@@ -23,22 +23,26 @@ block Controller "Condenser water pump controller"
   parameter Real uHigh = 0.015 "if y=false and u>uHigh, switch to y=true"
     annotation (Dialog(group="Speed equality check"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiEnaSta[nChi]
-    "Chiller enabling status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
+    "Chiller condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-160,120},{-120,160}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+      iconTransformation(extent={{-140,80},{-100,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna
+    "Lead chiller enabling status: true=lead chiller is enabled"
+    annotation (Placement(transformation(extent={{-160,90},{-120,130}}),
+      iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta
     "Lead chiller status: true=lead chiller proven on"
-    annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
+      iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaConWatReq
     "Status indicating if chiller is requesting condenser water"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
@@ -73,9 +77,6 @@ block Controller "Condenser water pump controller"
       iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=nChi)
-    "Check if there is any chiller enabled"
-    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered
     enaLeaHeaPum(final hasWSE=hasWSE) if isHeadered
     "Enable lead pumps for plants with headered condenser water pump"
@@ -127,7 +128,7 @@ equation
     annotation (Line(points={{-140,-50},{6,-50},{6,126},{18,126}},
       color={255,0,255}));
   connect(enaLeaDedPum.uLeaChiSta, uLeaChiSta)
-    annotation (Line(points={{18,70},{-80,70},{-80,100},{-140,100}}, color={255,0,255}));
+    annotation (Line(points={{18,70},{-100,70},{-100,80},{-140,80}}, color={255,0,255}));
   connect(enaLeaDedPum.uLeaConWatReq, uLeaConWatReq)
     annotation (Line(points={{18,62},{-80,62},{-80,40},{-140,40}},
       color={255,0,255}));
@@ -180,19 +181,17 @@ equation
   connect(uConWatPumSpeSet, speDif.u1)
     annotation (Line(points={{-140,-80},{-100,-80},{-100,-110},{-82,-110}},
       color={0,0,127}));
-  connect(mulOr.y, enaLeaHeaPum.uChiConIsoVal)
-    annotation (Line(points={{-38,140},{0,140},{0,134},{18,134}},
-      color={255,0,255}));
-  connect(mulOr.y, enaLeaDedPum.uLeaChiEna)
-    annotation (Line(points={{-38,140},{0,140},{0,78},{18,78}}, color={255,0,255}));
-  connect(uChiEnaSta, mulOr.u)
-    annotation (Line(points={{-140,140},{-100,140},{-100,140},{-62,140}},
-      color={255,0,255}));
   connect(con.y, enaLeaHeaPum.uWseConIsoVal)
     annotation (Line(points={{-38,100},{-20,100},{-20,126},{18,126}},
       color={255,0,255}));
   connect(con.y, pumSpe.uWSE)
     annotation (Line(points={{-38,100},{-20,100},{-20,-54},{18,-54}},
+      color={255,0,255}));
+  connect(uLeaChiEna, enaLeaDedPum.uLeaChiEna)
+    annotation (Line(points={{-140,110},{-80,110},{-80,78},{18,78}},
+      color={255,0,255}));
+  connect(enaLeaHeaPum.uChiConIsoVal, uChiConIsoVal)
+    annotation (Line(points={{18,134},{-40,134},{-40,140},{-140,140}},
       color={255,0,255}));
 
 annotation (
