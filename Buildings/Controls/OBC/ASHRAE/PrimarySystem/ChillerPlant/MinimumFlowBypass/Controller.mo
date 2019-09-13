@@ -18,9 +18,11 @@ block Controller
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Controller"));
   parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
-    annotation (Dialog(group="Controller"));
+    annotation (Dialog(group="Controller", enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                                                  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.SIunits.Time Td=0 "Time constant of derivative block"
-    annotation (Dialog(group="Controller"));
+    annotation (Dialog(group="Controller", enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                                                  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yMax=1 "Upper limit of output"
     annotation (Dialog(group="Controller"));
   parameter Real yMin=0.1 "Lower limit of output"
@@ -126,31 +128,31 @@ equation
     annotation (Line(points={{-21,-8},{-46,-8},{-46,30},{-120,30}},
       color={255,0,255}));
   connect(minFlo.y, mulSum.u)
-    annotation (Line(points={{1,-100},{18,-100}}, color={0,0,127}));
+    annotation (Line(points={{2,-100},{18,-100}}, color={0,0,127}));
   connect(VChiWat_flow, div1.u1)
     annotation (Line(points={{-120,90},{-20,90},{-20,46},{18,46}}, color={0,0,127}));
   connect(minBypSet.yChiWatMinFloSet, div.u1)
     annotation (Line(points={{1,-14},{18,-14}},  color={0,0,127}));
   connect(mulSum.y, div1.u2)
-    annotation (Line(points={{41,-100},{60,-100},{60,-70},{8,-70},{8,34},{18,34}},
+    annotation (Line(points={{42,-100},{60,-100},{60,-70},{8,-70},{8,34},{18,34}},
       color={0,0,127}));
   connect(mulSum.y, div.u2)
-    annotation (Line(points={{41,-100},{60,-100},{60,-70},{8,-70},{8,-26},
-      {18,-26}}, color={0,0,127}));
+    annotation (Line(points={{42,-100},{60,-100},{60,-70},{8,-70},{8,-26},{18,-26}},
+                 color={0,0,127}));
   connect(div1.y, valPos.u_m)
-    annotation (Line(points={{41,40},{50,40},{50,68}}, color={0,0,127}));
+    annotation (Line(points={{42,40},{50,40},{50,68}}, color={0,0,127}));
   connect(div.y, valPos.u_s)
-    annotation (Line(points={{41,-20},{60,-20},{60,10},{0,10},{0,80},{38,80}},
+    annotation (Line(points={{42,-20},{60,-20},{60,10},{0,10},{0,80},{38,80}},
       color={0,0,127}));
   connect(uChiWatPum, swi.u2)
     annotation (Line(points={{-120,130},{38,130}}, color={255,0,255}));
   connect(valPos.y, swi.u1)
-    annotation (Line(points={{61,80},{80,80},{80,100},{20,100},{20,138},{38,138}},
+    annotation (Line(points={{62,80},{80,80},{80,100},{20,100},{20,138},{38,138}},
       color={0,0,127}));
   connect(opeVal.y, swi.u3)
-    annotation (Line(points={{-19,110},{0,110},{0,122},{38,122}}, color={0,0,127}));
+    annotation (Line(points={{-18,110},{0,110},{0,122},{38,122}}, color={0,0,127}));
   connect(swi.y, yValPos)
-    annotation (Line(points={{61,130},{110,130}}, color={0,0,127}));
+    annotation (Line(points={{62,130},{110,130}}, color={0,0,127}));
   connect(uChiWatPum, valPos.trigger)
     annotation (Line(points={{-120,130},{10,130},{10,60},{42,60},{42,68}},
       color={255,0,255}));
