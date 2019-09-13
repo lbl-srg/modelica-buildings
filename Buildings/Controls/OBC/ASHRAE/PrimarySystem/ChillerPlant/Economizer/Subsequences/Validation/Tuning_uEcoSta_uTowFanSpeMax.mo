@@ -18,8 +18,7 @@ model Tuning_uEcoSta_uTowFanSpeMax
     "Tests tuning parameter remains constant despite of a dip in tower fan speed due to the prolonged WSE on status"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning wseTun4(antWinGai
-      =10)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning wseTun4
     "Tests anti-windup"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 
@@ -112,31 +111,27 @@ protected
 
 equation
   connect(ecoSta.y,wseTun.uWseSta)  annotation (Line(points={{-98,210},{-70,210},
-          {-70,175},{-42,175}},
-                            color={255,0,255}));
+          {-70,175},{-42,175}}, color={255,0,255}));
   connect(maxTowFanSig1.y, min1.u1) annotation (Line(points={{42,170},{50,170},{
-          50,156},{58,156}},
-                        color={0,0,127}));
+          50,156},{58,156}}, color={0,0,127}));
   connect(cooTowFanSta1.y, min1.u2) annotation (Line(points={{42,128},{48,128},{
-          48,144},{58,144}},
-                        color={0,0,127}));
+          48,144},{58,144}}, color={0,0,127}));
   connect(min1.y, wseTun1.uTowFanSpeMax) annotation (Line(points={{82,150},{90,150},
-          {90,165},{98,165}},   color={0,0,127}));
+          {90,165},{98,165}}, color={0,0,127}));
   connect(ecoSta1.y,wseTun1.uWseSta)  annotation (Line(points={{42,210},{70,210},
-          {70,175},{98,175}},
-                            color={255,0,255}));
+          {70,175},{98,175}}, color={255,0,255}));
   connect(ecoSta2.y,wseTun2.uWseSta)  annotation (Line(points={{-98,110},{-70,110},
-          {-70,75},{-42,75}},   color={255,0,255}));
+          {-70,75},{-42,75}}, color={255,0,255}));
   connect(maxTowFanSpeSig2.y, wseTun2.uTowFanSpeMax) annotation (Line(points={{-98,50},
-          {-70,50},{-70,65},{-42,65}},             color={0,0,127}));
+          {-70,50},{-70,65},{-42,65}}, color={0,0,127}));
   connect(maxTowFanSpeSig0.y, wseTun.uTowFanSpeMax) annotation (Line(points={{-98,150},
           {-70,150},{-70,165},{-42,165}},  color={0,0,127}));
   connect(ecoSta3.y,wseTun3.uWseSta)  annotation (Line(points={{42,90},{70,90},{
-          70,55},{98,55}},    color={255,0,255}));
+          70,55},{98,55}},  color={255,0,255}));
   connect(wseTun3.uTowFanSpeMax, maxTowFanSpeSig3.y) annotation (Line(points={{98,45},
-          {70,45},{70,40},{42,40}},            color={0,0,127}));
-  connect(maxTowFanSpeSig1.y, wseTun4.uTowFanSpeMax) annotation (Line(points={{42,
-          -170},{80,-170},{80,-95},{98,-95}}, color={0,0,127}));
+          {70,45},{70,40},{42,40}}, color={0,0,127}));
+  connect(maxTowFanSpeSig1.y, wseTun4.uTowFanSpeMax) annotation (Line(points={{42,-170},
+          {80,-170},{80,-95},{98,-95}}, color={0,0,127}));
   connect(con.y, tim.u)
     annotation (Line(points={{-98,-80},{-82,-80}}, color={255,0,255}));
   connect(tim.y, greThr1.u)
