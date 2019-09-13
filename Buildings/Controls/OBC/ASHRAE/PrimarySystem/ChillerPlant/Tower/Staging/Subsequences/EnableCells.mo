@@ -1,28 +1,32 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences;
 block EnableCells "Sequence for identifying enabing and disabling cells"
 
+  parameter Boolean hasWSE = true
+    "Flag to indicate if the plant has waterside economizer";
   parameter Integer nTowCel = 4
     "Total number of cooling tower cells";
-  parameter Integer nSta = 3
+  parameter Integer totChiSta = 6
     "Total number of stages, stage zero should be counted as one stage";
-  parameter Real towCelOnSet[2*nSta] = {0,2,2,4,4,4}
-    "Number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
+  parameter Real staVec[totChiSta] = {0, 0.5, 1, 1.5, 2, 2.5}
+    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE";
+  parameter Real towCelOnSet[totChiSta] = {0,2,2,4,4,4}
+    "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage"
-    annotation (Placement(transformation(extent={{-520,440},{-480,480}}),
+    annotation (Placement(transformation(extent={{-520,460},{-480,500}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
     "Water side economizer status: true = ON, false = OFF"
-    annotation (Placement(transformation(extent={{-520,340},{-480,380}}),
+    annotation (Placement(transformation(extent={{-520,320},{-480,360}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
-    "Cooling tower operating status: true=running tower cell"
-    annotation (Placement(transformation(extent={{-520,280},{-480,320}}),
+    "Current cooling tower operating status: true=running tower cell"
+    annotation (Placement(transformation(extent={{-520,140},{-480,180}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTowCelPri[nTowCel]
-    "Cooling tower cell enabling priority"
+    "Enable priority of cooling tower cells"
     annotation (Placement(transformation(extent={{-520,-160},{-480,-120}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
@@ -30,7 +34,7 @@ block EnableCells "Sequence for identifying enabing and disabling cells"
     annotation (Placement(transformation(extent={{-520,-380},{-480,-340}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowStaUp
-    "Cooling tower stage-up command"
+    "Cooling tower stage-up command from plant staging process"
     annotation (Placement(transformation(extent={{-520,-420},{-480,-380}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow
@@ -38,7 +42,7 @@ block EnableCells "Sequence for identifying enabing and disabling cells"
     annotation (Placement(transformation(extent={{-520,-460},{-480,-420}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowStaDow
-    "Cooling tower stage-down command"
+    "Cooling tower stage-down command from plant staging process"
     annotation (Placement(transformation(extent={{-520,-500},{-480,-460}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTarTowSta[nTowCel]
@@ -54,11 +58,11 @@ block EnableCells "Sequence for identifying enabing and disabling cells"
     annotation (Placement(transformation(extent={{480,130},{520,170}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yEnaCelInd[nTowCel]
-    "Enabling cell index array, non-zero elements indicate enabling cells"
+    "Non-zero elements indicate the cells to be enabled"
     annotation (Placement(transformation(extent={{480,-120},{520,-80}}),
       iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDisCelInd[nTowCel]
-    "Disabling cell index, non-zero elements indicate disabling cells"
+    "Non-zero elements indicate the cells to be disabled"
     annotation (Placement(transformation(extent={{480,-230},{520,-190}}),
       iconTransformation(extent={{100,-110},{140,-70}})));
 
@@ -67,10 +71,10 @@ protected
     "Tower cell index, {1,2,...,n}";
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nTowCel]
     "Convert boolean input to real output"
-    annotation (Placement(transformation(extent={{-420,290},{-400,310}})));
+    annotation (Placement(transformation(extent={{-420,150},{-400,170}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(final nin=nTowCel)
     "Total number of running tower cells"
-    annotation (Placement(transformation(extent={{-380,290},{-360,310}})));
+    annotation (Placement(transformation(extent={{-380,150},{-360,170}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-440,-370},{-420,-350}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
@@ -271,37 +275,12 @@ protected
     annotation (Placement(transformation(extent={{400,-268},{420,-248}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi8[nTowCel] "Logical switch"
     annotation (Placement(transformation(extent={{400,-220},{420,-200}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor towCelOn(
-    final nin=2*nSta) "Number of tower cells shoud be on in current stage"
-    annotation (Placement(transformation(extent={{-320,450},{-300,470}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=1,
-    final k=2)
-    "Double current stage number"
-    annotation (Placement(transformation(extent={{-420,410},{-400,430}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{-280,450},{-260,470}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[2*nSta](
-    final k=towCelOnSet) "Number of tower cells shoud be on"
-    annotation (Placement(transformation(extent={{-360,450},{-340,470}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger pumSpeSta
-    "Convert real number to integer"
-    annotation (Placement(transformation(extent={{-340,350},{-320,370}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
-    "Convert integer to real number"
-    annotation (Placement(transformation(extent={{-420,450},{-400,470}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1,
-    final k=1)
-    "Current stage plus WSE on status"
-    annotation (Placement(transformation(extent={{-380,410},{-360,430}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
-    "Check if it should consider WSE"
-    annotation (Placement(transformation(extent={{-380,350},{-360,370}})));
+    annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{-340,290},{-320,310}})));
+    annotation (Placement(transformation(extent={{-340,150},{-320,170}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nTowCel](
     final k=twoCelInd)
     "Tower cell array index"
@@ -420,35 +399,49 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Check if it is time to disable cell"
     annotation (Placement(transformation(extent={{452,140},{472,160}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    "Convert integer input to real"
+    annotation (Placement(transformation(extent={{-440,450},{-420,470}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
+    "Convert boolean input to real output"
+    annotation (Placement(transformation(extent={{-440,350},{-420,370}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
+    final k=false) if not hasWSE
+    "Constant false"
+    annotation (Placement(transformation(extent={{-460,290},{-440,310}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add real inputs"
+    annotation (Placement(transformation(extent={{-400,430},{-380,450}})));
+  Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(
+    final nout=totChiSta) "Replicate real input"
+    annotation (Placement(transformation(extent={{-360,430},{-340,450}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4[totChiSta](
+    final k=staVec) "Stage indicator array"
+    annotation (Placement(transformation(extent={{-360,390},{-340,410}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add4[totChiSta](
+    final k1=fill(1, totChiSta),
+    final k2=fill(-1,totChiSta)) "Sum of real inputs"
+    annotation (Placement(transformation(extent={{-320,410},{-300,430}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[totChiSta](
+    final threshold=fill(-0.1,totChiSta)) "Check stage indicator"
+    annotation (Placement(transformation(extent={{-380,310},{-360,330}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totChiSta]
+    "Convert boolean input to integer"
+    annotation (Placement(transformation(extent={{-340,310},{-320,330}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
+    final nin=totChiSta) "Sun of input vector "
+    annotation (Placement(transformation(extent={{-300,310},{-280,330}})));
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor celOnNum(
+    final nin=totChiSta)
+    "Number of cells should be enabled at current stage"
+    annotation (Placement(transformation(extent={{-340,250},{-320,270}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5[totChiSta](
+    final k=towCelOnSet)
+    "Number of enabling cells at each stage"
+    annotation (Placement(transformation(extent={{-380,250},{-360,270}})));
 
 equation
-  connect(con2.y, towCelOn.u)
-    annotation (Line(points={{-338,460},{-322,460}}, color={0,0,127}));
-  connect(uWSE,swi. u2)
-    annotation (Line(points={{-500,360},{-382,360}},color={255,0,255}));
-  connect(addPar.y,swi. u1)
-    annotation (Line(points={{-358,420},{-340,420},{-340,390},{-400,390},{-400,
-          368},{-382,368}},
-                   color={0,0,127}));
-  connect(swi.y,pumSpeSta. u)
-    annotation (Line(points={{-358,360},{-342,360}}, color={0,0,127}));
-  connect(uChiSta,intToRea. u)
-    annotation (Line(points={{-500,460},{-422,460}}, color={255,127,0}));
-  connect(intToRea.y,addPar1. u)
-    annotation (Line(points={{-398,460},{-380,460},{-380,440},{-440,440},{-440,
-          420},{-422,420}},
-                   color={0,0,127}));
-  connect(addPar1.y,addPar. u)
-    annotation (Line(points={{-398,420},{-382,420}}, color={0,0,127}));
-  connect(addPar1.y,swi. u3)
-    annotation (Line(points={{-398,420},{-390,420},{-390,352},{-382,352}},
-      color={0,0,127}));
-  connect(towCelOn.y, reaToInt.u)
-    annotation (Line(points={{-298,460},{-282,460}}, color={0,0,127}));
-  connect(pumSpeSta.y, towCelOn.index)
-    annotation (Line(points={{-318,360},{-310,360},{-310,448}}, color={255,127,0}));
   connect(uTowSta, booToRea.u)
-    annotation (Line(points={{-500,300},{-422,300}}, color={255,0,255}));
+    annotation (Line(points={{-500,160},{-422,160}}, color={255,0,255}));
   connect(uStaUp, and2.u1)
     annotation (Line(points={{-500,-360},{-442,-360}}, color={255,0,255}));
   connect(uTowStaUp, and2.u2)
@@ -460,12 +453,12 @@ equation
     annotation (Line(points={{-500,-480},{-460,-480},{-460,-448},{-442,-448}},
       color={255,0,255}));
   connect(mulSum.y, reaToInt1.u)
-    annotation (Line(points={{-358,300},{-342,300}}, color={0,0,127}));
+    annotation (Line(points={{-358,160},{-342,160}}, color={0,0,127}));
   connect(reaToInt.y, addInt.u1)
-    annotation (Line(points={{-258,460},{-240,460},{-240,366},{-222,366}},
+    annotation (Line(points={{-278,260},{-250,260},{-250,366},{-222,366}},
       color={255,127,0}));
   connect(reaToInt1.y, addInt.u2)
-    annotation (Line(points={{-318,300},{-240,300},{-240,354},{-222,354}},
+    annotation (Line(points={{-318,160},{-240,160},{-240,354},{-222,354}},
       color={255,127,0}));
   connect(uTowCelPri, intToRea2.u)
     annotation (Line(points={{-500,-140},{-422,-140}}, color={255,127,0}));
@@ -475,7 +468,7 @@ equation
   connect(addInt.y, intEqu.u1)
     annotation (Line(points={{-198,360},{-142,360}}, color={255,127,0}));
   connect(mulSum.y, addPar2.u)
-    annotation (Line(points={{-358,300},{-350,300},{-350,-160},{-342,-160}},
+    annotation (Line(points={{-358,160},{-350,160},{-350,-160},{-342,-160}},
       color={0,0,127}));
   connect(addPar2.y, reaToInt2.u)
     annotation (Line(points={{-318,-160},{-302,-160}}, color={0,0,127}));
@@ -499,10 +492,10 @@ equation
     annotation (Line(points={{-58,-100},{-20,-100},{-20,-132},{-2,-132}},
       color={255,0,255}));
   connect(uTowSta, logSwi.u3)
-    annotation (Line(points={{-500,300},{-440,300},{-440,-80},{-40,-80},{-40,-148},
-      {-2,-148}}, color={255,0,255}));
+    annotation (Line(points={{-500,160},{-440,160},{-440,-80},{-40,-80},
+      {-40,-148},{-2,-148}}, color={255,0,255}));
   connect(mulSum.y, addPar3.u)
-    annotation (Line(points={{-358,300},{-350,300},{-350,-210},{-342,-210}},
+    annotation (Line(points={{-358,160},{-350,160},{-350,-210},{-342,-210}},
       color={0,0,127}));
   connect(addPar3.y, reaToInt5.u)
     annotation (Line(points={{-318,-210},{-302,-210}}, color={0,0,127}));
@@ -526,9 +519,9 @@ equation
   connect(con.y, logSwi1.u1)
     annotation (Line(points={{-58,-100},{-20,-100},{-20,-182},{-2,-182}},
       color={255,0,255}));
-  connect(uTowSta, logSwi1.u3) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, logSwi1.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-198},{-2,-198}}, color={255,0,255}));
-  connect(mulSum.y, reaToInt6.u) annotation (Line(points={{-358,300},{-350,300},
+  connect(mulSum.y, reaToInt6.u) annotation (Line(points={{-358,160},{-350,160},
           {-350,-260},{-302,-260}}, color={0,0,127}));
   connect(reaToInt6.y, nexTowCel3.index) annotation (Line(points={{-278,-260},{
           -230,-260},{-230,-252}},
@@ -545,9 +538,8 @@ equation
     annotation (Line(points={{-58,-240},{-2,-240}}, color={255,0,255}));
   connect(intToRea2.y, nexTowCel3.u) annotation (Line(points={{-398,-140},{-380,
           -140},{-380,-240},{-242,-240}}, color={0,0,127}));
-  connect(mulSum.y, addPar5.u) annotation (Line(points={{-358,300},{-350,300},{
-          -350,-310},{-342,-310}},
-                              color={0,0,127}));
+  connect(mulSum.y, addPar5.u) annotation (Line(points={{-358,160},{-350,160},{-350,
+          -310},{-342,-310}}, color={0,0,127}));
   connect(addPar5.y, reaToInt7.u)
     annotation (Line(points={{-318,-310},{-302,-310}}, color={0,0,127}));
   connect(reaToInt7.y, nexTowCel2.index) annotation (Line(points={{-278,-310},{
@@ -565,9 +557,9 @@ equation
           {-100,-298},{-82,-298}},color={255,127,0}));
   connect(intEqu4.y, logSwi2.u2)
     annotation (Line(points={{-58,-290},{-2,-290}}, color={255,0,255}));
-  connect(uTowSta, logSwi3.u3) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, logSwi3.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-248},{-2,-248}}, color={255,0,255}));
-  connect(uTowSta, logSwi2.u3) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, logSwi2.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-298},{-2,-298}}, color={255,0,255}));
   connect(con1.y, logSwi3.u1) annotation (Line(points={{-58,-330},{-20,-330},{
           -20,-232},{-2,-232}},
@@ -575,7 +567,7 @@ equation
   connect(con1.y, logSwi2.u1) annotation (Line(points={{-58,-330},{-20,-330},{
           -20,-282},{-2,-282}},
                             color={255,0,255}));
-  connect(uTowSta, or3.u1) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, or3.u1) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-112},{78,-112}}, color={255,0,255}));
   connect(logSwi.y, or3.u2) annotation (Line(points={{22,-140},{40,-140},{40,
           -120},{78,-120}},
@@ -583,12 +575,12 @@ equation
   connect(logSwi1.y, or3.u3) annotation (Line(points={{22,-190},{60,-190},{60,
           -128},{78,-128}},
                       color={255,0,255}));
-  connect(uTowSta, or2.u1) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, or2.u1) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{78,-80}}, color={255,0,255}));
   connect(logSwi.y, or2.u2) annotation (Line(points={{22,-140},{40,-140},{40,
           -88},{78,-88}},
                      color={255,0,255}));
-  connect(uTowSta, and7.u2) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, and7.u2) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-310},{78,-310}}, color={255,0,255}));
   connect(logSwi3.y, and7.u1) annotation (Line(points={{22,-240},{60,-240},{60,
           -302},{78,-302}},
@@ -596,7 +588,7 @@ equation
   connect(logSwi2.y, and7.u3) annotation (Line(points={{22,-290},{40,-290},{40,
           -318},{78,-318}},
                       color={255,0,255}));
-  connect(uTowSta, and8.u2) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, and8.u2) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-268},{78,-268}}, color={255,0,255}));
   connect(logSwi3.y, and8.u1) annotation (Line(points={{22,-240},{60,-240},{60,
           -260},{78,-260}},
@@ -614,12 +606,12 @@ equation
   connect(conInt4.y, intEqu7.u2) annotation (Line(points={{-198,10},{-160,10},{
           -160,22},{-142,22}},
                           color={255,127,0}));
-  connect(uWSE, edg.u) annotation (Line(points={{-500,360},{-440,360},{-440,340},
-          {-280,340},{-280,400},{-222,400}}, color={255,0,255}));
-  connect(uWSE, falEdg2.u) annotation (Line(points={{-500,360},{-440,360},{-440,
-          340},{-280,340},{-280,180},{-222,180}}, color={255,0,255}));
-  connect(uChiSta, cha1.u) annotation (Line(points={{-500,460},{-440,460},{-440,
-          480},{-222,480}}, color={255,127,0}));
+  connect(uWSE, edg.u) annotation (Line(points={{-500,340},{-260,340},{-260,400},
+          {-222,400}},                       color={255,0,255}));
+  connect(uWSE, falEdg2.u) annotation (Line(points={{-500,340},{-260,340},{-260,
+          180},{-222,180}},                       color={255,0,255}));
+  connect(uChiSta, cha1.u) annotation (Line(points={{-500,480},{-222,480}},
+                            color={255,127,0}));
   connect(edg.y, and9.u1)
     annotation (Line(points={{-198,400},{-42,400}}, color={255,0,255}));
   connect(intEqu.y, and9.u2) annotation (Line(points={{-118,360},{-100,360},{
@@ -633,8 +625,8 @@ equation
           {-180,-28},{-142,-28}}, color={255,127,0}));
   connect(intEqu8.y, edg1.u)
     annotation (Line(points={{-118,-20},{-62,-20}},color={255,0,255}));
-  connect(edg1.y, lat2.u0) annotation (Line(points={{-39,-20},{20,-20},{20,394},
-          {39,394}}, color={255,0,255}));
+  connect(edg1.y, lat2.clr) annotation (Line(points={{-38,-20},{20,-20},{20,394},
+          {38,394}}, color={255,0,255}));
   connect(intEqu5.y, and10.u2) annotation (Line(points={{-118,250},{-100,250},{
           -100,272},{-42,272}},
                            color={255,0,255}));
@@ -643,8 +635,8 @@ equation
                       color={255,0,255}));
   connect(and10.y, lat3.u)
     annotation (Line(points={{-18,280},{38,280}}, color={255,0,255}));
-  connect(edg1.y, lat3.u0) annotation (Line(points={{-39,-20},{20,-20},{20,274},
-          {39,274}}, color={255,0,255}));
+  connect(edg1.y, lat3.clr) annotation (Line(points={{-38,-20},{20,-20},{20,274},
+          {38,274}}, color={255,0,255}));
   connect(falEdg2.y, and12.u1) annotation (Line(points={{-198,180},{-80,180},{-80,
           170},{-42,170}}, color={255,0,255}));
   connect(falEdg2.y, and11.u1) annotation (Line(points={{-198,180},{-80,180},{-80,
@@ -659,10 +651,10 @@ equation
     annotation (Line(points={{-18,170},{38,170}}, color={255,0,255}));
   connect(and11.y, lat5.u)
     annotation (Line(points={{-18,60},{38,60}}, color={255,0,255}));
-  connect(edg1.y, lat4.u0) annotation (Line(points={{-39,-20},{20,-20},{20,164},
-          {39,164}}, color={255,0,255}));
-  connect(edg1.y, lat5.u0) annotation (Line(points={{-39,-20},{20,-20},{20,54},{
-          39,54}}, color={255,0,255}));
+  connect(edg1.y, lat4.clr) annotation (Line(points={{-38,-20},{20,-20},{20,164},
+          {38,164}}, color={255,0,255}));
+  connect(edg1.y, lat5.clr) annotation (Line(points={{-38,-20},{20,-20},{20,54},
+          {38,54}},color={255,0,255}));
   connect(cha1.up, and13.u1) annotation (Line(points={{-198,486},{10,486},{10,
           430},{38,430}},
                      color={255,0,255}));
@@ -671,8 +663,8 @@ equation
                           color={255,0,255}));
   connect(and13.y, lat6.u)
     annotation (Line(points={{62,430},{98,430}},  color={255,0,255}));
-  connect(edg1.y, lat6.u0) annotation (Line(points={{-39,-20},{80,-20},{80,424},
-          {99,424}},  color={255,0,255}));
+  connect(edg1.y, lat6.clr) annotation (Line(points={{-38,-20},{80,-20},{80,424},
+          {98,424}},  color={255,0,255}));
   connect(cha1.up, and14.u1) annotation (Line(points={{-198,486},{10,486},{10,
           310},{38,310}},
                      color={255,0,255}));
@@ -681,8 +673,8 @@ equation
                           color={255,0,255}));
   connect(and14.y, lat7.u)
     annotation (Line(points={{62,310},{98,310}},  color={255,0,255}));
-  connect(edg1.y, lat7.u0) annotation (Line(points={{-39,-20},{80,-20},{80,304},
-          {99,304}},  color={255,0,255}));
+  connect(edg1.y, lat7.clr) annotation (Line(points={{-38,-20},{80,-20},{80,304},
+          {98,304}},  color={255,0,255}));
   connect(cha1.down, and15.u1) annotation (Line(points={{-198,474},{0,474},{0,
           200},{38,200}}, color={255,0,255}));
   connect(intEqu6.y, and15.u2) annotation (Line(points={{-118,140},{-100,140},{
@@ -690,8 +682,8 @@ equation
                           color={255,0,255}));
   connect(and15.y, lat8.u)
     annotation (Line(points={{62,200},{98,200}},  color={255,0,255}));
-  connect(edg1.y, lat8.u0) annotation (Line(points={{-39,-20},{80,-20},{80,194},
-          {99,194}},  color={255,0,255}));
+  connect(edg1.y, lat8.clr) annotation (Line(points={{-38,-20},{80,-20},{80,194},
+          {98,194}},  color={255,0,255}));
   connect(intEqu7.y, and16.u2) annotation (Line(points={{-118,30},{-100,30},{
           -100,82},{38,82}},
                         color={255,0,255}));
@@ -700,8 +692,8 @@ equation
                     color={255,0,255}));
   connect(and16.y, lat9.u)
     annotation (Line(points={{62,90},{98,90}},  color={255,0,255}));
-  connect(edg1.y, lat9.u0) annotation (Line(points={{-39,-20},{80,-20},{80,84},{
-          99,84}},   color={255,0,255}));
+  connect(edg1.y, lat9.clr) annotation (Line(points={{-38,-20},{80,-20},{80,84},
+          {98,84}},  color={255,0,255}));
   connect(and2.y, booRep1.u)
     annotation (Line(points={{-418,-360},{-342,-360}}, color={255,0,255}));
   connect(booRep1.y, logSwi4.u2) annotation (Line(points={{-318,-360},{240,-360},
@@ -709,7 +701,7 @@ equation
   connect(or2.y, logSwi4.u1) annotation (Line(points={{102,-80},{200,-80},{200,
           458},{278,458}},
                       color={255,0,255}));
-  connect(uTowSta, logSwi4.u3) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, logSwi4.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,442},{278,442}}, color={255,0,
           255}));
   connect(lat6.y, booRep3.u)
@@ -726,7 +718,7 @@ equation
   connect(or2.y, logSwi6.u1) annotation (Line(points={{102,-80},{200,-80},{200,
           408},{278,408}},
                       color={255,0,255}));
-  connect(uTowSta, logSwi6.u3) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, logSwi6.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,392},{278,392}}, color={255,0,
           255}));
   connect(logSwi6.y, logSwi5.u3) annotation (Line(points={{302,400},{320,400},{
@@ -751,13 +743,13 @@ equation
   connect(or3.y, logSwi9.u1) annotation (Line(points={{102,-120},{206,-120},{
           206,338},{278,338}},
                            color={255,0,255}));
-  connect(uTowSta, logSwi9.u3) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, logSwi9.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,322},{278,322}}, color={255,0,
           255}));
   connect(or3.y, logSwi8.u1) annotation (Line(points={{102,-120},{206,-120},{
           206,288},{278,288}},
                            color={255,0,255}));
-  connect(uTowSta, logSwi8.u3) annotation (Line(points={{-500,300},{-440,300},{-440,
+  connect(uTowSta, logSwi8.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,272},{278,272}}, color={255,0,
           255}));
   connect(booRep7.y, logSwi8.u2)
@@ -802,7 +794,7 @@ equation
   connect(and8.y, logSwi13.u1) annotation (Line(points={{102,-260},{212,-260},{
           212,228},{278,228}},
                            color={255,0,255}));
-  connect(uTowSta, logSwi13.u3) annotation (Line(points={{-500,300},{-440,300},{
+  connect(uTowSta, logSwi13.u3) annotation (Line(points={{-500,160},{-440,160},{
           -440,-80},{-40,-80},{-40,-60},{180,-60},{180,212},{278,212}}, color={255,
           0,255}));
   connect(and8.y, logSwi12.u1) annotation (Line(points={{102,-260},{212,-260},{
@@ -810,7 +802,7 @@ equation
                            color={255,0,255}));
   connect(booRep11.y, logSwi12.u2)
     annotation (Line(points={{162,170},{278,170}}, color={255,0,255}));
-  connect(uTowSta, logSwi12.u3) annotation (Line(points={{-500,300},{-440,300},{
+  connect(uTowSta, logSwi12.u3) annotation (Line(points={{-500,160},{-440,160},{
           -440,-80},{-40,-80},{-40,-60},{180,-60},{180,162},{278,162}}, color={255,
           0,255}));
   connect(lat5.y, booRep14.u)
@@ -838,25 +830,25 @@ equation
   connect(and7.y, logSwi17.u1) annotation (Line(points={{102,-310},{220,-310},{
           220,118},{278,118}},
                            color={255,0,255}));
-  connect(uTowSta, logSwi17.u3) annotation (Line(points={{-500,300},{-440,300},{
+  connect(uTowSta, logSwi17.u3) annotation (Line(points={{-500,160},{-440,160},{
           -440,-80},{-40,-80},{-40,-60},{180,-60},{180,102},{278,102}}, color={255,
           0,255}));
   connect(and7.y, logSwi16.u1) annotation (Line(points={{102,-310},{220,-310},{
           220,68},{278,68}},
                          color={255,0,255}));
-  connect(uTowSta, logSwi16.u3) annotation (Line(points={{-500,300},{-440,300},{
+  connect(uTowSta, logSwi16.u3) annotation (Line(points={{-500,160},{-440,160},{
           -440,-80},{-40,-80},{-40,-60},{180,-60},{180,52},{278,52}}, color={255,
           0,255}));
   connect(booRep9.y, logSwi19.u2) annotation (Line(points={{-18,30},{380,30},{
           380,90},{398,90}},
                          color={255,0,255}));
-  connect(uTowSta, logSwi19.u3) annotation (Line(points={{-500,300},{-440,300},{
+  connect(uTowSta, logSwi19.u3) annotation (Line(points={{-500,160},{-440,160},{
           -440,-80},{-40,-80},{-40,-60},{390,-60},{390,82},{398,82}}, color={255,
           0,255}));
   connect(logSwi7.y, yTarTowSta)
     annotation (Line(points={{422,430},{500,430}}, color={255,0,255}));
   connect(booToRea.y, mulSum.u)
-    annotation (Line(points={{-398,300},{-382,300}}, color={0,0,127}));
+    annotation (Line(points={{-398,160},{-382,160}}, color={0,0,127}));
   connect(conInt.y, intToRea1.u) annotation (Line(points={{-398,-100},{-360,
           -100},{-360,-50},{-322,-50}},
                                   color={255,127,0}));
@@ -928,66 +920,110 @@ equation
   connect(swi6.y, swi8.u1) annotation (Line(points={{322,-210},{330,-210},{330,
           -202},{398,-202}},
                        color={0,0,127}));
-  connect(swi7.y, swi8.u3) annotation (Line(points={{422,-258},{440,-258},{440,
-          -230},{388,-230},{388,-218},{398,-218}},
-                                             color={0,0,127}));
-  connect(con3.y, swi4.u3) annotation (Line(points={{242,-400},{270,-400},{270,
-          -180},{360,-180},{360,-156},{398,-156}},
-                                             color={0,0,127}));
-  connect(booRep9.y, swi7.u2) annotation (Line(points={{-18,30},{230,30},{230,
-          -10},{380,-10},{380,-258},{398,-258}},
-                                            color={255,0,255}));
+  connect(swi7.y, swi8.u3)
+    annotation (Line(points={{422,-258},{440,-258},{440,-230},{388,-230},
+      {388,-218},{398,-218}}, color={0,0,127}));
+  connect(con3.y, swi4.u3)
+    annotation (Line(points={{242,-400},{270,-400},{270,-180},{360,-180},
+      {360,-156},{398,-156}}, color={0,0,127}));
+  connect(booRep9.y, swi7.u2)
+    annotation (Line(points={{-18,30},{230,30},{230,-10},{380,-10},{380,-258},
+      {398,-258}}, color={255,0,255}));
   connect(add1.y, swi7.u1)
     annotation (Line(points={{362,-250},{398,-250}}, color={0,0,127}));
-  connect(con3.y, swi7.u3) annotation (Line(points={{242,-400},{380,-400},{380,
-          -266},{398,-266}},
-                       color={0,0,127}));
+  connect(con3.y, swi7.u3)
+    annotation (Line(points={{242,-400},{380,-400},{380,-266},{398,-266}},
+      color={0,0,127}));
   connect(swi8.y, yDisCelInd)
     annotation (Line(points={{422,-210},{500,-210}}, color={0,0,127}));
-
-  connect(lat6.y, logSwi20.u2) annotation (Line(points={{122,430},{130,430},{
-          130,380},{398,380}},
-                           color={255,0,255}));
-  connect(and2.y, logSwi20.u1) annotation (Line(points={{-418,-360},{-380,-360},
-          {-380,-380},{234,-380},{234,388},{398,388}}, color={255,0,255}));
-  connect(lat2.y, logSwi20.u3) annotation (Line(points={{62,400},{100,400},{100,
-          372},{398,372}}, color={255,0,255}));
-  connect(lat7.y, logSwi21.u2) annotation (Line(points={{122,310},{130,310},{
-          130,260},{398,260}},
-                           color={255,0,255}));
-  connect(and2.y, logSwi21.u1) annotation (Line(points={{-418,-360},{-380,-360},
-          {-380,-380},{234,-380},{234,268},{398,268}}, color={255,0,255}));
-  connect(lat3.y, logSwi21.u3) annotation (Line(points={{62,280},{100,280},{100,
-          252},{398,252}}, color={255,0,255}));
+  connect(lat6.y, logSwi20.u2)
+    annotation (Line(points={{122,430},{130,430},{130,380},{398,380}},
+       color={255,0,255}));
+  connect(and2.y, logSwi20.u1)
+    annotation (Line(points={{-418,-360},{-380,-360},{-380,-380},{234,-380},
+      {234,388},{398,388}}, color={255,0,255}));
+  connect(lat2.y, logSwi20.u3)
+    annotation (Line(points={{62,400},{100,400},{100,372},{398,372}},
+      color={255,0,255}));
+  connect(lat7.y, logSwi21.u2)
+    annotation (Line(points={{122,310},{130,310},{130,260},{398,260}},
+      color={255,0,255}));
+  connect(and2.y, logSwi21.u1)
+    annotation (Line(points={{-418,-360},{-380,-360},{-380,-380},{234,-380},
+      {234,268},{398,268}}, color={255,0,255}));
+  connect(lat3.y, logSwi21.u3)
+    annotation (Line(points={{62,280},{100,280},{100,252},{398,252}},
+      color={255,0,255}));
   connect(logSwi20.y, or1.u1)
     annotation (Line(points={{422,380},{450,380}}, color={255,0,255}));
-  connect(logSwi21.y, or1.u2) annotation (Line(points={{422,260},{430,260},{430,
-          372},{450,372}}, color={255,0,255}));
+  connect(logSwi21.y, or1.u2)
+    annotation (Line(points={{422,260},{430,260},{430,372},{450,372}},
+      color={255,0,255}));
   connect(or1.y, yEnaCel)
     annotation (Line(points={{474,380},{482,380},{482,381},{501,381}},
-                                                   color={255,0,255}));
-  connect(lat8.y, logSwi22.u2) annotation (Line(points={{122,200},{130,200},{
-          130,150},{398,150}},
-                           color={255,0,255}));
-  connect(and1.y, logSwi22.u1) annotation (Line(points={{-418,-440},{-380,-440},
-          {-380,-460},{254,-460},{254,158},{398,158}}, color={255,0,255}));
-  connect(lat4.y, logSwi22.u3) annotation (Line(points={{62,170},{100,170},{100,
-          142},{398,142}}, color={255,0,255}));
-  connect(lat9.y, logSwi23.u2) annotation (Line(points={{122,90},{130,90},{130,
-          40},{398,40}},
-                     color={255,0,255}));
-  connect(and1.y, logSwi23.u1) annotation (Line(points={{-418,-440},{-380,-440},
-          {-380,-460},{254,-460},{254,48},{398,48}}, color={255,0,255}));
-  connect(lat5.y, logSwi23.u3) annotation (Line(points={{62,60},{100,60},{100,
-          32},{398,32}},
-                     color={255,0,255}));
+      color={255,0,255}));
+  connect(lat8.y, logSwi22.u2)
+    annotation (Line(points={{122,200},{130,200},{130,150},{398,150}},
+      color={255,0,255}));
+  connect(and1.y, logSwi22.u1)
+    annotation (Line(points={{-418,-440},{-380,-440},{-380,-460},{254,-460},
+      {254,158},{398,158}}, color={255,0,255}));
+  connect(lat4.y, logSwi22.u3)
+    annotation (Line(points={{62,170},{100,170},{100,142},{398,142}},
+      color={255,0,255}));
+  connect(lat9.y, logSwi23.u2)
+    annotation (Line(points={{122,90},{130,90},{130,40},{398,40}}, color={255,0,255}));
+  connect(and1.y, logSwi23.u1)
+    annotation (Line(points={{-418,-440},{-380,-440},{-380,-460},{254,-460},
+      {254,48},{398,48}}, color={255,0,255}));
+  connect(lat5.y, logSwi23.u3)
+    annotation (Line(points={{62,60},{100,60},{100,32},{398,32}}, color={255,0,255}));
   connect(logSwi22.y, or4.u1)
     annotation (Line(points={{422,150},{450,150}}, color={255,0,255}));
-  connect(logSwi23.y, or4.u2) annotation (Line(points={{422,40},{430,40},{430,
-          142},{450,142}},
-                      color={255,0,255}));
+  connect(logSwi23.y, or4.u2)
+    annotation (Line(points={{422,40},{430,40},{430,142},{450,142}},
+      color={255,0,255}));
   connect(or4.y, yDisCel)
     annotation (Line(points={{474,150},{500,150}}, color={255,0,255}));
+  connect(uChiSta, intToRea.u)
+    annotation (Line(points={{-500,480},{-460,480},{-460,460},{-442,460}},
+      color={255,127,0}));
+  connect(uWSE, booToRea1.u)
+    annotation (Line(points={{-500,340},{-460,340},{-460,360},{-442,360}},
+      color={255,0,255}));
+  connect(con2.y, booToRea1.u)
+    annotation (Line(points={{-438,300},{-420,300},{-420,328},{-460,328},
+      {-460,360},{-442,360}}, color={255,0,255}));
+  connect(booToRea1.y, add3.u2)
+    annotation (Line(points={{-418,360},{-410,360},{-410,434},{-402,434}},
+      color={0,0,127}));
+  connect(intToRea.y, add3.u1)
+    annotation (Line(points={{-418,460},{-410,460},{-410,446},{-402,446}},
+      color={0,0,127}));
+  connect(add3.y, reaRep.u)
+    annotation (Line(points={{-378,440},{-362,440}}, color={0,0,127}));
+  connect(reaRep.y, add4.u1)
+    annotation (Line(points={{-338,440},{-330,440},{-330,426},{-322,426}},
+      color={0,0,127}));
+  connect(con4.y, add4.u2)
+    annotation (Line(points={{-338,400},{-330,400},{-330,414},{-322,414}},
+      color={0,0,127}));
+  connect(greEquThr.y, booToInt.u)
+    annotation (Line(points={{-358,320},{-342,320}}, color={255,0,255}));
+  connect(add4.y, greEquThr.u)
+    annotation (Line(points={{-298,420},{-290,420},{-290,360},{-400,360},
+      {-400,320},{-382,320}}, color={0,0,127}));
+  connect(con5.y, celOnNum.u)
+    annotation (Line(points={{-358,260},{-342,260}}, color={0,0,127}));
+  connect(mulSumInt.y, celOnNum.index)
+    annotation (Line(points={{-278,320},{-270,320},{-270,290},{-350,290},
+      {-350,240},{-330,240},{-330,248}}, color={255,127,0}));
+  connect(celOnNum.y, reaToInt.u)
+    annotation (Line(points={{-318,260},{-302,260}}, color={0,0,127}));
+  connect(booToInt.y, mulSumInt.u)
+    annotation (Line(points={{-318,320},{-310,320},{-310,320},{-302,320}},
+      color={255,127,0}));
+
 annotation (
   defaultComponentName="enaTowCel",
   Icon(graphics={
@@ -1173,12 +1209,12 @@ means cell 2 and 3 will be disabled."),
           textString="Identify cells to be disabled, i.e. {0,2,3,0} 
 means cell 2 and 3 will be enabled."),
           Rectangle(
-          extent={{-458,496},{-262,342}},
+          extent={{-458,498},{-262,242}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{-414,500},{-292,480}},
+          extent={{-434,502},{-312,482}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -1187,62 +1223,58 @@ means cell 2 and 3 will be enabled."),
           textString="Identify total number of operation cells")}),
   Documentation(info="<html>
 <p>
-Block that enable and disable leading primary chilled water pump, for plants
-with headered primary chilled water pumps, 
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
-section 5.2.9 Condenser water pumps, part 5.2.9.5.
+This block outputs vector of enabling tower cells according to current plant stage 
+and generates boolean output to indicate if new cells should be enabled or existing
+operating cells should be disabled. It is implemented according to 
+ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+section 5.2.12.1, item 2 which specifies number of enabled cooling tower cells according to
+plant stage.
 </p>
 
 <p>
-The number of operating condenser water pumps <code>yConWatPumNum</code> and 
-condenser water pump speed <code>yConWatPumSpeSet</code> shall be set by chiller 
-stage per the table below.
+The number of enabled tower cells shall be set by chiller stage per the table below.
+Note that the table would need to be edited by the system design team for each plant 
+based on the condenser water flow per stage, number of towers in the plant, and 
+tower minimum flow requirements.
 </p>
 
 <table summary=\"summary\" border=\"1\">
 <tr>
 <th>Chiller stage </th> 
-<th>Number of pump ON</th>  
-<th>Pump speed setpoint</th>
+<th>Number of enabled cells </th>  
 </tr>
 <tr>
 <td align=\"center\">0</td>
 <td align=\"center\">0</td>
-<td align=\"left\">N/A, Off</td>
 </tr>
 <tr>
 <td align=\"center\">0+WSE</td>
-<td align=\"center\">1</td>
-<td align=\"left\">Per TAB to provide design flow through HX</td>
+<td align=\"center\">2</td>
 </tr>
 <tr>
 <td align=\"center\">1</td>
-<td align=\"center\">1</td>
-<td align=\"left\">Per TAB to provide design flow through chiller</td>
+<td align=\"center\">2</td>
 </tr>
 <tr>
 <td align=\"center\">1+WSE</td>
-<td align=\"center\">2</td>
-<td align=\"left\">Per TAB to provide at least design flow through both chiller and WSE</td>
+<td align=\"center\">4</td>
 </tr>
 <tr>
 <td align=\"center\">2</td>
-<td align=\"center\">2</td>
-<td align=\"left\">Per TAB to provide at least design flow through both chillers</td>
+<td align=\"center\">4</td>
 </tr>
 <tr>
 <td align=\"center\">2+WSE</td>
-<td align=\"center\">2</td>
-<td align=\"left\">Per TAB to provide at least design flow through both chillers and WSE, 
-or 100% speed if design flow cannot be achieved.</td>
+<td align=\"center\">4</td>
 </tr>
 </table>
 <br/>
+
 </html>", revisions="<html>
 <ul>
 <li>
-January 28, 2019, by Jianjun Hu:<br/>
+September 12, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
