@@ -28,7 +28,7 @@ block Tuning
     final min=-0.2,
     final start=initTunPar)
     "Tuning parameter for the waterside economizer outlet temperature prediction"
-    annotation (Placement(transformation(extent={{200,30},{220,50}}),
+    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -51,7 +51,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
     final k1=-1,
     final k2=1) "Add"
-    annotation (Placement(transformation(extent={{160,30},{180,50}})));
+    annotation (Placement(transformation(extent={{160,50},{180,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim1 "Timer"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
@@ -128,10 +128,10 @@ protected
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
-    annotation (Placement(transformation(extent={{120,80},{140,100}})));
+    annotation (Placement(transformation(extent={{120,100},{140,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product"
-    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
+    annotation (Placement(transformation(extent={{120,20},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final threshold=wseOnTimDec) "Greater than"
@@ -143,12 +143,15 @@ protected
     "Holds true signal for a shor period of time to catch the falling edge"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
+    final uMax=0.5,
+    final uMin=-0.2) "Limiter"
+    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+
 equation
   connect(uWseSta, tim.u)
     annotation (Line(points={{-220,120},{-180,120},{-180,150},{-162,150}},
           color={255,0,255}));
-  connect(add2.y, y)
-    annotation (Line(points={{182,40},{210,40}}, color={0,0,127}));
   connect(uWseSta, tim1.u) annotation (Line(points={{-220,120},{-180,120},{-180,
           50},{-162,50}},color={255,0,255}));
   connect(lesThr.y, truHol1.u)
@@ -198,14 +201,14 @@ equation
           {-62,-136}}, color={255,0,255}));
   connect(tim1.y, lesThr.u)
     annotation (Line(points={{-138,50},{-122,50}}, color={0,0,127}));
-  connect(pro1.y, add2.u2) annotation (Line(points={{142,-10},{150,-10},{150,34},
-          {158,34}}, color={0,0,127}));
+  connect(pro1.y, add2.u2) annotation (Line(points={{142,30},{150,30},{150,54},{
+          158,54}},  color={0,0,127}));
   connect(and1.y, disCou1.trigger)
     annotation (Line(points={{2,10},{28,10}}, color={255,0,255}));
-  connect(intToRea1.y, pro1.u2) annotation (Line(points={{82,10},{90,10},{90,-16},
-          {118,-16}}, color={0,0,127}));
-  connect(tunStep.y, pro1.u1) annotation (Line(points={{82,80},{100,80},{100,-4},
-          {118,-4}}, color={0,0,127}));
+  connect(intToRea1.y, pro1.u2) annotation (Line(points={{82,10},{90,10},{90,24},
+          {118,24}},  color={0,0,127}));
+  connect(tunStep.y, pro1.u1) annotation (Line(points={{82,80},{100,80},{100,36},
+          {118,36}}, color={0,0,127}));
   connect(intToRea.u, disCou.y)
     annotation (Line(points={{58,150},{42,150}}, color={255,127,0}));
   connect(and2.y, disCou.trigger)
@@ -214,21 +217,25 @@ equation
           {30,120},{30,138}}, color={255,0,255}));
   connect(con.y, disCou1.reset) annotation (Line(points={{2,80},{20,80},{20,-10},
           {40,-10},{40,-2}}, color={255,0,255}));
-  connect(y, y) annotation (Line(points={{210,40},{210,40}}, color={0,0,127}));
-  connect(pro.y, add2.u1) annotation (Line(points={{142,90},{150,90},{150,46},{158,
-          46}}, color={0,0,127}));
+  connect(y, y) annotation (Line(points={{210,0},{210,0}},   color={0,0,127}));
+  connect(pro.y, add2.u1) annotation (Line(points={{142,110},{150,110},{150,66},
+          {158,66}}, color={0,0,127}));
   connect(disCou1.y, intToRea1.u)
     annotation (Line(points={{52,10},{58,10}}, color={255,127,0}));
-  connect(tunStep.y, pro.u2) annotation (Line(points={{82,80},{100,80},{100,84},
-          {118,84}}, color={0,0,127}));
-  connect(intToRea.y, pro.u1) annotation (Line(points={{82,150},{110,150},{110,96},
-          {118,96}}, color={0,0,127}));
+  connect(tunStep.y, pro.u2) annotation (Line(points={{82,80},{100,80},{100,104},
+          {118,104}},color={0,0,127}));
+  connect(intToRea.y, pro.u1) annotation (Line(points={{82,150},{110,150},{110,116},
+          {118,116}},color={0,0,127}));
   connect(truHol.y, and2.u1)
     annotation (Line(points={{-58,150},{-22,150}}, color={255,0,255}));
   connect(greThr1.y, truHol.u)
     annotation (Line(points={{-98,150},{-82,150}}, color={255,0,255}));
   connect(tim.y, greThr1.u)
     annotation (Line(points={{-138,150},{-122,150}}, color={0,0,127}));
+  connect(lim.y, y)
+    annotation (Line(points={{182,0},{210,0}}, color={0,0,127}));
+  connect(add2.y, lim.u) annotation (Line(points={{182,60},{190,60},{190,20},{150,
+          20},{150,0},{158,0}}, color={0,0,127}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(
@@ -262,8 +269,8 @@ below 100% speed while the WSE was enabled.
 </li>
 </ul>
 <p>
-Note that <code>step</code> initializes at 0 upon first plant start up,
-shall not be reinitialized at plant enable/disable and it is limited between -0.2 and 0.5.
+<code>y</code> initializes at 0 upon first plant start up,
+it does not get reinitialized at plant enable/disable and it is limited between -0.2 and 0.5.
 </p>
 </html>",
 revisions="<html>
