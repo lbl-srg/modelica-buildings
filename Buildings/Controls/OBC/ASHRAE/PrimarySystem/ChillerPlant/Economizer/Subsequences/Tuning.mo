@@ -153,7 +153,7 @@ block Tuning
     final uMin=-0.2) "Limiter"
     annotation (Placement(transformation(extent={{240,30},{260,50}})));
 
-  CDL.Continuous.IntegratorWithReset intWitRes(k=antWinGai, reset=Buildings.Controls.OBC.CDL.Types.Reset.Input)
+  CDL.Continuous.IntegratorWithReset intWitRes(k=antWinGai, reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     annotation (Placement(transformation(extent={{240,-80},{260,-60}})));
 equation
   connect(uWseSta, tim.u)
