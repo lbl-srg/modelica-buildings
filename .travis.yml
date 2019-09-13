@@ -1,6 +1,11 @@
 dist: trusty
 sudo: false
 
+# blocklist
+branches:
+  except:
+  - issue1129_energyPlus_zone_fmiSignature
+
 language: python
 python:
   - "2.7"
