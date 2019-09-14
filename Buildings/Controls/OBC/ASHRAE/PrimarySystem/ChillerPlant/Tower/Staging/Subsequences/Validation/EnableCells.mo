@@ -93,46 +93,50 @@ equation
     annotation (Line(points={{-118,50},{-102,50}}, color={255,0,255}));
   connect(towStaUp.y, enaTowCel.uTowStaUp)
     annotation (Line(points={{-78,50},{8,50},{8,145},{18,145}}, color={255,0,255}));
-  connect(con1.y, enaTowCel.uStaDow) annotation (Line(points={{-78,20},{12,20},{
-          12,143},{18,143}},    color={255,0,255}));
-  connect(con1.y, enaTowCel.uTowStaDow) annotation (Line(points={{-78,20},{12,20},
-          {12,141},{18,141}},        color={255,0,255}));
-  connect(enaTowCel.yTarTowSta, truDel.u) annotation (Line(points={{42,159},{50,
-          159},{50,180},{58,180}},  color={255,0,255}));
+  connect(con1.y, enaTowCel.uStaDow)
+    annotation (Line(points={{-78,20},{12,20},{12,143},{18,143}}, color={255,0,255}));
+  connect(con1.y, enaTowCel.uTowStaDow)
+    annotation (Line(points={{-78,20},{12,20},{12,141},{18,141}}, color={255,0,255}));
+  connect(enaTowCel.yTarTowSta, truDel.u)
+    annotation (Line(points={{42,159},{50,159},{50,180},{58,180}},
+      color={255,0,255}));
   connect(truDel.y, pre.u)
     annotation (Line(points={{82,180},{98,180}}, color={255,0,255}));
-  connect(pre.y, enaTowCel.uTowSta) annotation (Line(points={{122,180},{140,180},
-          {140,120},{-4,120},{-4,155},{18,155}}, color={255,0,255}));
+  connect(pre.y, enaTowCel.uTowSta)
+    annotation (Line(points={{122,180},{140,180},{140,120},{-4,120},{-4,155},
+      {18,155}}, color={255,0,255}));
   connect(booPul2.y, staDow.u)
     annotation (Line(points={{-118,-150},{-102,-150}}, color={255,0,255}));
   connect(booPul3.y, towStaDow.u)
     annotation (Line(points={{-118,-190},{-102,-190}}, color={255,0,255}));
-  connect(chiSta1.y, disTowCel.uChiSta) annotation (Line(points={{-18,-20},{4,-20},
-          {4,-41},{18,-41}}, color={255,127,0}));
-  connect(wseSta1.y, disTowCel.uWSE) annotation (Line(points={{-78,-40},{0,-40},
-          {0,-43},{18,-43}}, color={255,0,255}));
-  connect(enaPri1.y, disTowCel.uTowCelPri) annotation (Line(points={{-78,-70},{0,
-          -70},{0,-47},{18,-47}}, color={255,127,0}));
-  connect(con2.y, disTowCel.uStaUp) annotation (Line(points={{-78,-110},{4,-110},
-          {4,-53},{18,-53}}, color={255,0,255}));
-  connect(con2.y, disTowCel.uTowStaUp) annotation (Line(points={{-78,-110},{4,-110},
-          {4,-55},{18,-55}}, color={255,0,255}));
-  connect(staDow.y, disTowCel.uStaDow) annotation (Line(points={{-78,-150},{8,-150},
-          {8,-57},{18,-57}}, color={255,0,255}));
-  connect(towStaDow.y, disTowCel.uTowStaDow) annotation (Line(points={{-78,-190},
-          {12,-190},{12,-59},{18,-59}}, color={255,0,255}));
-  connect(disTowCel.yTarTowSta, not1.u) annotation (Line(points={{42,-41},{50,-41},
-          {50,-20},{58,-20}}, color={255,0,255}));
+  connect(chiSta1.y, disTowCel.uChiSta)
+    annotation (Line(points={{-18,-20},{4,-20},{4,-41},{18,-41}}, color={255,127,0}));
+  connect(wseSta1.y, disTowCel.uWSE)
+    annotation (Line(points={{-78,-40},{0,-40},{0,-43},{18,-43}}, color={255,0,255}));
+  connect(enaPri1.y, disTowCel.uTowCelPri)
+    annotation (Line(points={{-78,-70},{0,-70},{0,-47},{18,-47}}, color={255,127,0}));
+  connect(con2.y, disTowCel.uStaUp)
+    annotation (Line(points={{-78,-110},{4,-110},{4,-53},{18,-53}}, color={255,0,255}));
+  connect(con2.y, disTowCel.uTowStaUp)
+    annotation (Line(points={{-78,-110},{4,-110},{4,-55},{18,-55}}, color={255,0,255}));
+  connect(staDow.y, disTowCel.uStaDow)
+    annotation (Line(points={{-78,-150},{8,-150},{8,-57},{18,-57}}, color={255,0,255}));
+  connect(towStaDow.y, disTowCel.uTowStaDow)
+    annotation (Line(points={{-78,-190},{12,-190},{12,-59},{18,-59}}, color={255,0,255}));
+  connect(disTowCel.yTarTowSta, not1.u)
+    annotation (Line(points={{42,-41},{50,-41},{50,-20},{58,-20}}, color={255,0,255}));
   connect(not1.y, truDel1.u)
     annotation (Line(points={{82,-20},{98,-20}}, color={255,0,255}));
   connect(truDel1.y, not2.u)
     annotation (Line(points={{122,-20},{138,-20}}, color={255,0,255}));
   connect(not2.y, pre1.u)
     annotation (Line(points={{162,-20},{178,-20}}, color={255,0,255}));
-  connect(pre1.y, disTowCel.uTowSta) annotation (Line(points={{202,-20},{210,-20},
-          {210,-80},{-10,-80},{-10,-45},{18,-45}}, color={255,0,255}));
-  connect(booPul3.y, chiSta1.u) annotation (Line(points={{-118,-190},{-110,-190},
-          {-110,-170},{-60,-170},{-60,-20},{-42,-20}}, color={255,0,255}));
+  connect(pre1.y, disTowCel.uTowSta)
+    annotation (Line(points={{202,-20},{210,-20},{210,-80},{-10,-80},{-10,-45},
+      {18,-45}}, color={255,0,255}));
+  connect(booPul3.y, chiSta1.u)
+    annotation (Line(points={{-118,-190},{-110,-190},{-110,-170},{-60,-170},
+      {-60,-20},{-42,-20}}, color={255,0,255}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Tower/Staging/Subsequences/Validation/EnableCells.mos"
