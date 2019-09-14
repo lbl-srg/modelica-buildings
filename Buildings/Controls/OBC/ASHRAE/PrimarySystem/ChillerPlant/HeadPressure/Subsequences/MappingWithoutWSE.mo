@@ -40,10 +40,10 @@ block MappingWithoutWSE
     final max=1) if fixSpePum "Head pressure control valve position"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpeSet(
     final unit="1",
     final min=0,
-    final max=1) if not fixSpePum "Condenser water pump speed"
+    final max=1) if not fixSpePum "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
 
@@ -93,24 +93,24 @@ protected
 
 equation
   connect(zer.y, maxCooTowSpeSet.x1)
-    annotation (Line(points={{21,80},{30,80},{30,68},{38,68}},color={0,0,127}));
+    annotation (Line(points={{22,80},{30,80},{30,68},{38,68}},color={0,0,127}));
   connect(one.y, maxCooTowSpeSet.f1)
-    annotation (Line(points={{-19,80},{-10,80},{-10,64},{38,64}}, color={0,0,127}));
+    annotation (Line(points={{-18,80},{-10,80},{-10,64},{38,64}}, color={0,0,127}));
   connect(hal.y, maxCooTowSpeSet.x2)
-    annotation (Line(points={{-19,40},{-10,40},{-10,56},{38,56}}, color={0,0,127}));
+    annotation (Line(points={{-18,40},{-10,40},{-10,56},{38,56}}, color={0,0,127}));
   connect(hpTowMaxSpe.y, maxCooTowSpeSet.f2)
-    annotation (Line(points={{21,40},{30,40},{30,52},{38,52}},color={0,0,127}));
+    annotation (Line(points={{22,40},{30,40},{30,52},{38,52}},color={0,0,127}));
   connect(uHeaPreCon, maxCooTowSpeSet.u)
     annotation (Line(points={{-120,60},{38,60}}, color={0,0,127}));
   connect(hal1.y, lin.x1)
-    annotation (Line(points={{21,0},{30,0},{30,-12},{38,-12}}, color={0,0,127}));
+    annotation (Line(points={{22,0},{30,0},{30,-12},{38,-12}}, color={0,0,127}));
   connect(fulOpeVal.y, lin.f1)
-    annotation (Line(points={{-19,0},{-10,0},{-10,-16},{38,-16}}, color={0,0,127}));
+    annotation (Line(points={{-18,0},{-10,0},{-10,-16},{38,-16}}, color={0,0,127}));
   connect(minValPos.y, lin.f2)
-    annotation (Line(points={{21,-50},{30,-50},{30,-28},{38,-28}},
+    annotation (Line(points={{22,-50},{30,-50},{30,-28},{38,-28}},
       color={0,0,127}));
   connect(one2.y, lin.x2)
-    annotation (Line(points={{-59,-40},{-50,-40},{-50,-24},{38,-24}},
+    annotation (Line(points={{-58,-40},{-50,-40},{-50,-24},{38,-24}},
       color={0,0,127}));
   connect(uHeaPreCon, lin.u)
     annotation (Line(points={{-120,60},{-60,60},{-60,-20},{38,-20}},
@@ -118,31 +118,31 @@ equation
   connect(uHeaPreEna, swi.u2)
     annotation (Line(points={{-120,-80},{58,-80}}, color={255,0,255}));
   connect(lin.y, swi.u1)
-    annotation (Line(points={{61,-20},{80,-20},{80,-40},{40,-40},{40,-72},
+    annotation (Line(points={{62,-20},{80,-20},{80,-40},{40,-40},{40,-72},
       {58,-72}}, color={0,0,127}));
   connect(zer2.y, swi.u3)
-    annotation (Line(points={{-19,-100},{40,-100},{40,-88},{58,-88}},
+    annotation (Line(points={{-18,-100},{40,-100},{40,-88},{58,-88}},
       color={0,0,127}));
-  connect(swi.y, yConWatPumSpe)
-    annotation (Line(points={{81,-80},{110,-80}}, color={0,0,127}));
+  connect(swi.y, yConWatPumSpeSet)
+    annotation (Line(points={{82,-80},{110,-80}}, color={0,0,127}));
   connect(desConWatPumSpe, lin.f1)
     annotation (Line(points={{-120,0},{-80,0},{-80,-16},{38,-16}},
       color={0,0,127}));
   connect(minPumSpe.y, lin.f2)
-    annotation (Line(points={{-19,-50},{-10,-50},{-10,-28},{38,-28}},
+    annotation (Line(points={{-18,-50},{-10,-50},{-10,-28},{38,-28}},
       color={0,0,127}));
   connect(swi.y, yHeaPreConVal)
-    annotation (Line(points={{81,-80},{90,-80},{90,-40},{110,-40}}, color={0,0,127}));
+    annotation (Line(points={{82,-80},{90,-80},{90,-40},{110,-40}}, color={0,0,127}));
   connect(uHeaPreEna, swi1.u2)
     annotation (Line(points={{-120,-80},{-90,-80},{-90,100},{58,100}},
       color={255,0,255}));
   connect(maxCooTowSpeSet.y, swi1.u1)
-    annotation (Line(points={{61,60},{70,60},{70,80},{40,80},{40,108},
-      {58,108}}, color={0,0,127}));
+    annotation (Line(points={{62,60},{70,60},{70,80},{40,80},{40,108},{58,108}},
+      color={0,0,127}));
   connect(swi1.y, yMaxTowSpeSet)
-    annotation (Line(points={{81,100},{110,100}}, color={0,0,127}));
+    annotation (Line(points={{82,100},{110,100}}, color={0,0,127}));
   connect(one.y, swi1.u3)
-    annotation (Line(points={{-19,80},{-10,80},{-10,92},{58,92}}, color={0,0,127}));
+    annotation (Line(points={{-18,80},{-10,80},{-10,92},{58,92}}, color={0,0,127}));
 
 annotation (
   defaultComponentName= "heaPreConEqu",
@@ -188,7 +188,7 @@ annotation (
 <p>
 Block that resets maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code>,
 controls head pressure control valve position <code>yHeaPreConVal</code> or 
-condenser water pump speed <code>yConWatPumSpe</code>
+condenser water pump speed <code>yConWatPumSpeSet</code>
 for plants without water side economizers. The development follows
 ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 4 on January 7, 2019), 
@@ -213,7 +213,7 @@ valve position <code>yHeaPreConVal</code> from 100% open to
 <li>
 If the plant has variable speed condenser water pumps (<code>fixSpePum</code>=false), then: 
 when <code>uHeaPreCon</code> changes from 50% to 100%, reset condenser water pump 
-speed <code>yConWatPumSpe</code> from design speed for the stage <code>desConWatPumSpe</code> to 
+speed <code>yConWatPumSpeSet</code> from design speed for the stage <code>desConWatPumSpe</code> to 
 minimum speed <code>minConWatPumSpe</code>. When the pumps are dedicated, speed
 reset shall be independent for each chiller.
 </li>

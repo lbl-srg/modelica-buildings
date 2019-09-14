@@ -2,10 +2,10 @@ compareVars :=
   {
     "witWSE.uHeaPreCon",
     "witWSE.yMaxTowSpeSet",
-    "witWSE.yConWatPumSpe",
+    "witWSE.yConWatPumSpeSet",
     "witWSE.yHeaPreConVal",
     "noWSE.uHeaPreCon",
     "noWSE.yMaxTowSpeSet",
-    "noWSE.yConWatPumSpe",
+    "noWSE.yConWatPumSpeSet",
     "noWSE.yHeaPreConVal"
   };

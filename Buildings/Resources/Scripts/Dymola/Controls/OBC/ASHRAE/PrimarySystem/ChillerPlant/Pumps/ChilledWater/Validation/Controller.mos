@@ -1,0 +1,16 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Validation.Controller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="chiPumCon");
+
+createPlot(id=1, position={20, 10, 700, 1100}, subPlot=1, y={"heaNoLoc.uChiIsoVal[1]", "heaNoLoc.uChiIsoVal[2]", "heaNoLoc.enaHeaLeaPum.yLea"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 1100}, subPlot=2, y={"heaNoLoc.enaLagChiPum.yUp", "heaNoLoc.enaLagChiPum.yDown"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 1100}, subPlot=3, y={"heaNoLoc.yChiWatPum[1]", "heaNoLoc.yChiWatPum[2]", "heaNoLoc.yChiWatPum[3]"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 1100}, subPlot=4, y={"heaNoLoc.yPumSpe[1]", "heaNoLoc.yPumSpe[2]", "heaNoLoc.yPumSpe[3]"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}});
+
+createPlot(id=2, position={730, 10, 700, 1100}, subPlot=1, y={"dedNoLoc.uLeaChiEna", "dedNoLoc.uLeaChiSta", "dedNoLoc.uLeaChiWatReq", "dedNoLoc.enaDedLeaPum.yLea"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={730, 10, 700, 1100}, subPlot=2, y={"dedNoLoc.enaLagChiPum.yUp", "dedNoLoc.enaLagChiPum.yDown"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=2, position={730, 10, 700, 1100}, subPlot=3, y={"dedNoLoc.yChiWatPum[1]", "dedNoLoc.yChiWatPum[2]", "dedNoLoc.yChiWatPum[3]"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={730, 10, 700, 1100}, subPlot=4, y={"dedNoLoc.yPumSpe[1]", "dedNoLoc.yPumSpe[2]", "dedNoLoc.yPumSpe[3]"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}});
+
+createPlot(id=3, position={1440, 10, 700, 1100}, subPlot=1, y={"dedNoLoc.uLeaChiEna", "dedNoLoc.uLeaChiSta", "dedNoLoc.uLeaChiWatReq", "dedNoLoc.enaDedLeaPum.yLea"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=3, position={1440, 10, 700, 1100}, subPlot=2, y={"dedLoc.enaLagChiPum.yUp", "dedLoc.enaLagChiPum.yDown"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=3, position={1440, 10, 700, 1100}, subPlot=3, y={"dedLoc.yChiWatPum[1]", "dedLoc.yChiWatPum[2]", "dedLoc.yChiWatPum[3]"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=3, position={1440, 10, 700, 1100}, subPlot=4, y={"dedLoc.yPumSpe[1]", "dedLoc.yPumSpe[2]", "dedLoc.yPumSpe[3]"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47},{0,140,72}});
