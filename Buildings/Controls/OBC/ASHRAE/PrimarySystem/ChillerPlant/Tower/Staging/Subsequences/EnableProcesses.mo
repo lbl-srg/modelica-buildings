@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences;
 block EnableProcesses "Sequence for process of enabling cells"
 
   parameter Integer nTowCel = 4
@@ -15,9 +15,9 @@ block EnableProcesses "Sequence for process of enabling cells"
     annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
-    each final unit="1",
-    each final min=0,
-    each final max=1) "Cooling tower cells isolation valve position"
+    final unit=fill("1", nTowCel),
+    final min=fill(0, nTowCel),
+    final max=fill(1, nTowCel)) "Cooling tower cells isolation valve position"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaCel
@@ -29,9 +29,9 @@ block EnableProcesses "Sequence for process of enabling cells"
     annotation (Placement(transformation(extent={{-180,-210},{-140,-170}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoVal[nTowCel](
-    each final unit="1",
-    each final min=0,
-    each final max=1) "Cooling tower cells isolation valve position"
+    final unit=fill("1", nTowCel),
+    final min=fill(0, nTowCel),
+    final max=fill(1, nTowCel)) "Cooling tower cells isolation valve position"
     annotation (Placement(transformation(extent={{140,40},{180,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowSta[nTowCel]
@@ -80,12 +80,12 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3[nTowCel](
-    each final uLow=0.025,
-    each final uHigh=0.05) "Check if isolation valve is enabled"
+    final uLow=fill(0.025, nTowCel),
+    final uHigh=fill(0.05, nTowCel)) "Check if isolation valve is enabled"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4[nTowCel](
-    each final uLow=0.925,
-    each final uHigh=0.975) "Check if isolation valve is open more than 95%"
+    final uLow=fill(0.925, nTowCel),
+    final uHigh=fill(0.975, nTowCel)) "Check if isolation valve is open more than 95%"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3[nTowCel] "Logical not"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
@@ -114,7 +114,7 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nTowCel](
-    each final k=true)  "Logical false"
+    final k=fill(true, nTowCel))  "Logical false"
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nTowCel]
     "Check next disabling cell"
@@ -192,9 +192,8 @@ equation
     annotation (Line(points={{42,-100},{50,-100},{50,-88},{58,-88}},
       color={255,0,255}));
   connect(mulAnd1.y, and5.u1)
-    annotation (Line(points={{102,-20},{120,-20},{120,-50},{50,-50},{50,-80},{
-          58,-80}},
-                 color={255,0,255}));
+    annotation (Line(points={{102,-20},{120,-20},{120,-50},{50,-50},{50,-80},
+      {58,-80}}, color={255,0,255}));
   connect(uIsoVal, hys4.u)
     annotation (Line(points={{-160,40},{-120,40},{-120,-80},{-102,-80}}, color={0,0,127}));
   connect(uIsoVal, hys3.u)
@@ -207,9 +206,8 @@ equation
   connect(and5.y, booRep1.u)
     annotation (Line(points={{82,-80},{98,-80}}, color={255,0,255}));
   connect(booRep1.y, and1.u1)
-    annotation (Line(points={{122,-80},{130,-80},{130,-130},{0,-130},{0,-160},{
-          18,-160}},
-                  color={255,0,255}));
+    annotation (Line(points={{122,-80},{130,-80},{130,-130},{0,-130},{0,-160},
+      {18,-160}}, color={255,0,255}));
   connect(and1.y, logSwi1.u2)
     annotation (Line(points={{42,-160},{78,-160}}, color={255,0,255}));
   connect(con1.y, logSwi1.u1)
@@ -246,5 +244,32 @@ have been fully open")}), Icon(graphics={
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}),
+Documentation(info="<html>
+<p>
+This block outputs vector of cells to be enabled. These enabling cells should be 
+enabled only when their supply isolation valves have been proven fully open. 
+It is implemented according to 
+ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+section 5.2.12.1, item 5 which specifies the process of enabling tower fan cells.
+</p>
+<p>
+When tower fan cells need to be enabled, <code>uEnaCel=true</code>, the supply
+isolation valves of the enabling cells, which are denoted by <code>uCelInd</code>,
+should be turned on with moving time (nominal valve timing) 
+<code>chaTowCelIsoTim</code>.
+</p>
+<p>
+Once the enabling supply isolation valves have been fully open, then enable
+the additional fans <code>uCelInd</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 12, 2019, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EnableProcesses;
