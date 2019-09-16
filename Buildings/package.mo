@@ -126,12 +126,12 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-    class Version_6_1_0 "Version 6.1.0"
+    class Version_7_0_0 "Version 7.0.0"
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
     <div class=\"release-summary\">
     <p>
-    Version 6.1.0 is a minor release that contains the changes described below.
+    Version 7.0.0 is a minor release that contains the changes described below.
     </p>
     </div>
     <!-- New libraries -->
@@ -171,12 +171,13 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Added assertions and corrected implementation when respond amount is negative.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1530\">#1503</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>xxx</b>
@@ -222,6 +223,29 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState
         </td>
         <td valign=\"top\">Improved the implementation.
+     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">
+                           Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.TwoElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.TwoElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007<br/>
+                           Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007<br/>
+                           Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow
+
+        </td>
+        <td valign=\"top\">Renamed convection coefficient from <code>alpha*</code> to <code>hCon*</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1168\">IBPSA, #1168</a>.
         </td>
     </tr>
     </table>
@@ -265,7 +289,7 @@ its class name ends with the string <code>Beta</code>.
     </li>
     </ul>
     </html>"));
-  end Version_6_1_0;
+  end Version_7_0_0;
 
     class Version_6_0_0 "Version 6.0.0"
       extends Modelica.Icons.ReleaseNotes;
@@ -7245,7 +7269,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_1_0\">Version 6.1.0</a> (xxx, 2019)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a> (xxx, 2019)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (July 15, 2019)
@@ -7713,13 +7737,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="6.1.0",
+version="7.0.0",
 versionDate="2019-07-15",
 dateModified="2019-07-15",
 uses(Modelica(version="3.2.3")),
 conversion(
-  from(version={"5.0.0", "5.0.1", "5.1.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_5_to_6.0.0.mos")),
+  from(version={"6.0.0"},
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_6_to_7.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
