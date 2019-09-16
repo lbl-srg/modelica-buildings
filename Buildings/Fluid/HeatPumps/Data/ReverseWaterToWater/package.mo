@@ -1,11 +1,11 @@
 within Buildings.Fluid.HeatPumps.Data;
-package ReverseWaterToWater "Package with model parameters for reverse water to water heatpump"
+package ReverseWaterToWater "Package with model parameters for reverse water to water heat pump"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation(preferredView="info",
  Documentation(info="<html>
 <p>
-Package with performance data for reverse water to water heatpump model
+Package with performance data for reverse water to water heat pump model
 <a href=\"Buildings.Fluid.HeatPumps.ReverseWaterToWater\">
    Buildings.Fluid.HeatPumps.ReverseWaterToWater</a>.
 </p>

@@ -3,8 +3,8 @@ model ReverseWaterToWater_EnergyPlus
   "Validation with EnergyPlus model"
  package Medium = Buildings.Media.Water "Medium model";
 
-    parameter Data.ReverseWaterToWater.EnergyPlus_Heatpump perEP
-    "EnergyPlus HeatPump performance"
+    parameter Data.ReverseWaterToWater.EnergyPlus perEP
+    "EnergyPlus heat pump performance"
      annotation (Placement(transformation(extent={{80,-88},{100,-68}})));
     parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=perEP.mSou_flow_nominal
     "Source heat exchanger nominal mass flow rate";
@@ -34,7 +34,7 @@ model ReverseWaterToWater_EnergyPlus
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       reverseCycle=true)
-     "Water to Water HeatPump"
+     "Water to Water heat pump"
       annotation (Placement(transformation(extent={{32,-10},{52,10}})));
     Sources.MassFlowSource_T conPum(
       use_m_flow_in=true,
@@ -943,7 +943,7 @@ model ReverseWaterToWater_EnergyPlus
         85380,-1; 85440,-1; 85500,-1; 85560,-1; 85620,-1; 85680,-1; 85740,-1;
         85800,-1; 85860,-1; 85920,-1; 85980,-1; 86040,-1; 86100,-1; 86160,-1;
         86220,-1; 86280,-1; 86340,-1; 86400,-1])
-     "EnergyPlus HeatPump mode control signal"
+     "EnergyPlus heat pump mode control signal"
       annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
     Modelica.Blocks.Sources.TimeTable THeaSet(table=[0,328.438; 60,328.438;
         120,328.438; 180,328.439; 240,328.44; 300,328.44; 360,328.441; 420,

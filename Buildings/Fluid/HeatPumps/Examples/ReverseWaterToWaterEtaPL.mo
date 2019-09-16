@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatPumps.Examples;
 model ReverseWaterToWaterEtaPL
-  "Test model of the reverse heatpump implementing the part load efficiency curve"
+  "Test model of the reverse heat pump implementing the part load efficiency curve"
  package Medium = Buildings.Media.Water "Medium model";
- extends Examples.ReverseWaterToWater(heaPum(a={0.3,0.7}));
+ extends Buildings.Fluid.HeatPumps.Examples.ReverseWaterToWater(heaPum(a={0.3,0.7}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{120,100}}), graphics={
         Ellipse(lineColor = {75,138,73},

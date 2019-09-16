@@ -15,13 +15,13 @@ record Trane_Axiom_EXW240 =
     LRCC={-5.79235417,9.83800467,-3.19795605,0.32498894,0.043752306918433},
     PRCH={-5.55,5.08,1.01,-0.04,0.00},
     PRCC={-6.37109639,1.27560526,5.81780490,0.03132874,-0.082990443216406})
-   "Reverse heatpump_Trane_Axiom_EXW240"
+   "Reverse heat pump Trane Axiom EXW240"
 annotation (
-  defaultComponentName="dataHP",
+  defaultComponentName="datHP",
   defaultComponentPrefixes="parameter",
   Documentation(info =   "<html>
   <p>
-  Performance data for reverse heatpump model.
+Performance data for reverse heat pump model.
 This data corresponds to the following<a href=\"https://www.trane.com/content/dam/Trane/Commercial/global/products-systems/equipment/unitary/water-source-heat-pumps/water-to-water-wshp/WSHP-PRC022E-EN_08152017.pdf\"> https://www.trane.com/wshp.pdf</a> catalog data.
 </p>
 <pre>

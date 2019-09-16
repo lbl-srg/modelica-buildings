@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater;
 record Generic
-  "Generic data record for reverse water to water heatpump implementing the equation fit method"
+  "Generic data record for reverse water to water heat pump implementing the equation fit method"
   extends Modelica.Icons.Record;
 
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal
@@ -59,7 +59,7 @@ defaultComponentName="datPer",
 defaultComponentPrefixes="parameter",
 Documentation(info =        "<html>
   <p>This record is used as a template for performance data
-  for the heatpump model
+  for the heat pump model
   <a href=\"Buildings.Fluid.HeatPumps.ReverseWaterToWater\">
   Buildings.Fluid.HeatPumps.ReverseWaterToWater</a>.
   </p>
