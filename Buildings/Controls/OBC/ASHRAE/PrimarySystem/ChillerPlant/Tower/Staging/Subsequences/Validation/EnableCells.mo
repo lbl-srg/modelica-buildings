@@ -33,11 +33,6 @@ model EnableCells
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=false) "Stage down"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel[4](
-    final delayTime=fill(50, 4))
-    annotation (Placement(transformation(extent={{60,170},{80,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre[4]
-    annotation (Placement(transformation(extent={{100,170},{120,190}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger chiSta1
     "Chiller stage "
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
@@ -61,15 +56,26 @@ model EnableCells
     final width=0.18, final period=3600) "Boolean pulse"
     annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[4](
-    delayTime=fill(50, 4))
+    delayTime=fill(50, 4)) "Delay true input"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[4](
-    final pre_u_start=fill(true,4))
+    final pre_u_start=fill(true,4)) "Break algebraic loop"
     annotation (Placement(transformation(extent={{180,-30},{200,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[4] "Logical not"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2[4] "Logical not"
     annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel[4](
+    final samplePeriod=fill(5, 4)) "Delay input"
+    annotation (Placement(transformation(extent={{100,170},{120,190}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[4]
+    "Convert boolean input to real"
+    annotation (Placement(transformation(extent={{60,170},{80,190}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[4](
+    final threshold=fill(0.5, 4)) "Convert real to boolean"
+    annotation (Placement(transformation(extent={{140,170},{160,190}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2[4] "Break algebraic loop"
+    annotation (Placement(transformation(extent={{180,170},{200,190}})));
 
 equation
   connect(booPul.y, staUp.u)
@@ -97,14 +103,6 @@ equation
     annotation (Line(points={{-78,20},{12,20},{12,143},{18,143}}, color={255,0,255}));
   connect(con1.y, enaTowCel.uTowStaDow)
     annotation (Line(points={{-78,20},{12,20},{12,141},{18,141}}, color={255,0,255}));
-  connect(enaTowCel.yTarTowSta, truDel.u)
-    annotation (Line(points={{42,159},{50,159},{50,180},{58,180}},
-      color={255,0,255}));
-  connect(truDel.y, pre.u)
-    annotation (Line(points={{82,180},{98,180}}, color={255,0,255}));
-  connect(pre.y, enaTowCel.uTowSta)
-    annotation (Line(points={{122,180},{140,180},{140,120},{-4,120},{-4,155},
-      {18,155}}, color={255,0,255}));
   connect(booPul2.y, staDow.u)
     annotation (Line(points={{-118,-150},{-102,-150}}, color={255,0,255}));
   connect(booPul3.y, towStaDow.u)
@@ -137,6 +135,18 @@ equation
   connect(booPul3.y, chiSta1.u)
     annotation (Line(points={{-118,-190},{-110,-190},{-110,-170},{-60,-170},
       {-60,-20},{-42,-20}}, color={255,0,255}));
+  connect(booToRea.y, uniDel.u)
+    annotation (Line(points={{82,180},{98,180}}, color={0,0,127}));
+  connect(uniDel.y, greEquThr.u)
+    annotation (Line(points={{122,180},{138,180}}, color={0,0,127}));
+  connect(greEquThr.y, pre2.u)
+    annotation (Line(points={{162,180},{178,180}}, color={255,0,255}));
+  connect(enaTowCel.yTarTowSta, booToRea.u)
+    annotation (Line(points={{42,159},{50,159},{50,180},{58,180}},
+      color={255,0,255}));
+  connect(pre2.y, enaTowCel.uTowSta)
+    annotation (Line(points={{202,180},{210,180},{210,120},{-4,120},
+      {-4,155},{18,155}}, color={255,0,255}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Tower/Staging/Subsequences/Validation/EnableCells.mos"

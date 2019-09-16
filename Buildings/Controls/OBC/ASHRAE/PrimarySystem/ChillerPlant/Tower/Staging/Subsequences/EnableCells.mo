@@ -519,13 +519,13 @@ equation
   connect(con.y, logSwi1.u1)
     annotation (Line(points={{-58,-100},{-20,-100},{-20,-182},{-2,-182}},
       color={255,0,255}));
-  connect(uTowSta, logSwi1.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
-          -80},{-40,-80},{-40,-198},{-2,-198}}, color={255,0,255}));
+  connect(uTowSta, logSwi1.u3)
+    annotation (Line(points={{-500,160},{-440,160},{-440,-80},{-40,-80},
+      {-40,-198},{-2,-198}}, color={255,0,255}));
   connect(mulSum.y, reaToInt6.u) annotation (Line(points={{-358,160},{-350,160},
           {-350,-260},{-302,-260}}, color={0,0,127}));
   connect(reaToInt6.y, nexTowCel3.index) annotation (Line(points={{-278,-260},{
-          -230,-260},{-230,-252}},
-                              color={255,127,0}));
+          -230,-260},{-230,-252}}, color={255,127,0}));
   connect(nexTowCel3.y, reaToInt8.u)
     annotation (Line(points={{-218,-240},{-182,-240}}, color={0,0,127}));
   connect(reaToInt8.y, intRep3.u)
@@ -543,8 +543,7 @@ equation
   connect(addPar5.y, reaToInt7.u)
     annotation (Line(points={{-318,-310},{-302,-310}}, color={0,0,127}));
   connect(reaToInt7.y, nexTowCel2.index) annotation (Line(points={{-278,-310},{
-          -230,-310},{-230,-302}},
-                              color={255,127,0}));
+          -230,-310},{-230,-302}}, color={255,127,0}));
   connect(intToRea2.y, nexTowCel2.u) annotation (Line(points={{-398,-140},{-380,
           -140},{-380,-290},{-242,-290}}, color={0,0,127}));
   connect(nexTowCel2.y, reaToInt9.u)
@@ -562,37 +561,29 @@ equation
   connect(uTowSta, logSwi2.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-298},{-2,-298}}, color={255,0,255}));
   connect(con1.y, logSwi3.u1) annotation (Line(points={{-58,-330},{-20,-330},{
-          -20,-232},{-2,-232}},
-                            color={255,0,255}));
+          -20,-232},{-2,-232}}, color={255,0,255}));
   connect(con1.y, logSwi2.u1) annotation (Line(points={{-58,-330},{-20,-330},{
-          -20,-282},{-2,-282}},
-                            color={255,0,255}));
+          -20,-282},{-2,-282}}, color={255,0,255}));
   connect(uTowSta, or3.u1) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-112},{78,-112}}, color={255,0,255}));
   connect(logSwi.y, or3.u2) annotation (Line(points={{22,-140},{40,-140},{40,
-          -120},{78,-120}},
-                      color={255,0,255}));
+          -120},{78,-120}}, color={255,0,255}));
   connect(logSwi1.y, or3.u3) annotation (Line(points={{22,-190},{60,-190},{60,
-          -128},{78,-128}},
-                      color={255,0,255}));
+          -128},{78,-128}}, color={255,0,255}));
   connect(uTowSta, or2.u1) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{78,-80}}, color={255,0,255}));
   connect(logSwi.y, or2.u2) annotation (Line(points={{22,-140},{40,-140},{40,
-          -88},{78,-88}},
-                     color={255,0,255}));
+          -88},{78,-88}}, color={255,0,255}));
   connect(uTowSta, and7.u2) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-310},{78,-310}}, color={255,0,255}));
   connect(logSwi3.y, and7.u1) annotation (Line(points={{22,-240},{60,-240},{60,
-          -302},{78,-302}},
-                      color={255,0,255}));
+          -302},{78,-302}}, color={255,0,255}));
   connect(logSwi2.y, and7.u3) annotation (Line(points={{22,-290},{40,-290},{40,
-          -318},{78,-318}},
-                      color={255,0,255}));
+          -318},{78,-318}}, color={255,0,255}));
   connect(uTowSta, and8.u2) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-268},{78,-268}}, color={255,0,255}));
   connect(logSwi3.y, and8.u1) annotation (Line(points={{22,-240},{60,-240},{60,
-          -260},{78,-260}},
-                      color={255,0,255}));
+          -260},{78,-260}}, color={255,0,255}));
   connect(addInt.y, intEqu5.u1) annotation (Line(points={{-198,360},{-180,360},
           {-180,250},{-142,250}},color={255,127,0}));
   connect(conInt2.y, intEqu5.u2) annotation (Line(points={{-198,230},{-160,230},
@@ -604,19 +595,17 @@ equation
   connect(addInt.y, intEqu7.u1) annotation (Line(points={{-198,360},{-180,360},
           {-180,30},{-142,30}},color={255,127,0}));
   connect(conInt4.y, intEqu7.u2) annotation (Line(points={{-198,10},{-160,10},{
-          -160,22},{-142,22}},
-                          color={255,127,0}));
+          -160,22},{-142,22}}, color={255,127,0}));
   connect(uWSE, edg.u) annotation (Line(points={{-500,340},{-260,340},{-260,400},
-          {-222,400}},                       color={255,0,255}));
+          {-222,400}}, color={255,0,255}));
   connect(uWSE, falEdg2.u) annotation (Line(points={{-500,340},{-260,340},{-260,
-          180},{-222,180}},                       color={255,0,255}));
+          180},{-222,180}}, color={255,0,255}));
   connect(uChiSta, cha1.u) annotation (Line(points={{-500,480},{-222,480}},
-                            color={255,127,0}));
+          color={255,127,0}));
   connect(edg.y, and9.u1)
     annotation (Line(points={{-198,400},{-42,400}}, color={255,0,255}));
   connect(intEqu.y, and9.u2) annotation (Line(points={{-118,360},{-100,360},{
-          -100,392},{-42,392}},
-                           color={255,0,255}));
+          -100,392},{-42,392}}, color={255,0,255}));
   connect(and9.y, lat2.u)
     annotation (Line(points={{-18,400},{38,400}}, color={255,0,255}));
   connect(addInt.y, intEqu8.u1) annotation (Line(points={{-198,360},{-180,360},
@@ -628,11 +617,9 @@ equation
   connect(edg1.y, lat2.clr) annotation (Line(points={{-38,-20},{20,-20},{20,394},
           {38,394}}, color={255,0,255}));
   connect(intEqu5.y, and10.u2) annotation (Line(points={{-118,250},{-100,250},{
-          -100,272},{-42,272}},
-                           color={255,0,255}));
+          -100,272},{-42,272}}, color={255,0,255}));
   connect(edg.y, and10.u1) annotation (Line(points={{-198,400},{-80,400},{-80,
-          280},{-42,280}},
-                      color={255,0,255}));
+          280},{-42,280}}, color={255,0,255}));
   connect(and10.y, lat3.u)
     annotation (Line(points={{-18,280},{38,280}}, color={255,0,255}));
   connect(edg1.y, lat3.clr) annotation (Line(points={{-38,-20},{20,-20},{20,274},
@@ -642,11 +629,9 @@ equation
   connect(falEdg2.y, and11.u1) annotation (Line(points={{-198,180},{-80,180},{-80,
           60},{-42,60}}, color={255,0,255}));
   connect(intEqu6.y, and12.u2) annotation (Line(points={{-118,140},{-100,140},{
-          -100,162},{-42,162}},
-                           color={255,0,255}));
+          -100,162},{-42,162}}, color={255,0,255}));
   connect(intEqu7.y, and11.u2) annotation (Line(points={{-118,30},{-100,30},{
-          -100,52},{-42,52}},
-                         color={255,0,255}));
+          -100,52},{-42,52}}, color={255,0,255}));
   connect(and12.y, lat4.u)
     annotation (Line(points={{-18,170},{38,170}}, color={255,0,255}));
   connect(and11.y, lat5.u)
@@ -656,21 +641,17 @@ equation
   connect(edg1.y, lat5.clr) annotation (Line(points={{-38,-20},{20,-20},{20,54},
           {38,54}},color={255,0,255}));
   connect(cha1.up, and13.u1) annotation (Line(points={{-198,486},{10,486},{10,
-          430},{38,430}},
-                     color={255,0,255}));
+          430},{38,430}}, color={255,0,255}));
   connect(intEqu.y, and13.u2) annotation (Line(points={{-118,360},{-100,360},{
-          -100,422},{38,422}},
-                          color={255,0,255}));
+          -100,422},{38,422}}, color={255,0,255}));
   connect(and13.y, lat6.u)
     annotation (Line(points={{62,430},{98,430}},  color={255,0,255}));
   connect(edg1.y, lat6.clr) annotation (Line(points={{-38,-20},{80,-20},{80,424},
           {98,424}},  color={255,0,255}));
   connect(cha1.up, and14.u1) annotation (Line(points={{-198,486},{10,486},{10,
-          310},{38,310}},
-                     color={255,0,255}));
+          310},{38,310}}, color={255,0,255}));
   connect(intEqu5.y, and14.u2) annotation (Line(points={{-118,250},{-100,250},{
-          -100,302},{38,302}},
-                          color={255,0,255}));
+          -100,302},{38,302}}, color={255,0,255}));
   connect(and14.y, lat7.u)
     annotation (Line(points={{62,310},{98,310}},  color={255,0,255}));
   connect(edg1.y, lat7.clr) annotation (Line(points={{-38,-20},{80,-20},{80,304},
@@ -678,18 +659,15 @@ equation
   connect(cha1.down, and15.u1) annotation (Line(points={{-198,474},{0,474},{0,
           200},{38,200}}, color={255,0,255}));
   connect(intEqu6.y, and15.u2) annotation (Line(points={{-118,140},{-100,140},{
-          -100,192},{38,192}},
-                          color={255,0,255}));
+          -100,192},{38,192}}, color={255,0,255}));
   connect(and15.y, lat8.u)
     annotation (Line(points={{62,200},{98,200}},  color={255,0,255}));
   connect(edg1.y, lat8.clr) annotation (Line(points={{-38,-20},{80,-20},{80,194},
           {98,194}},  color={255,0,255}));
   connect(intEqu7.y, and16.u2) annotation (Line(points={{-118,30},{-100,30},{
-          -100,82},{38,82}},
-                        color={255,0,255}));
+          -100,82},{38,82}}, color={255,0,255}));
   connect(cha1.down, and16.u1) annotation (Line(points={{-198,474},{0,474},{0,
-          90},{38,90}},
-                    color={255,0,255}));
+          90},{38,90}}, color={255,0,255}));
   connect(and16.y, lat9.u)
     annotation (Line(points={{62,90},{98,90}},  color={255,0,255}));
   connect(edg1.y, lat9.clr) annotation (Line(points={{-38,-20},{80,-20},{80,84},
@@ -699,8 +677,7 @@ equation
   connect(booRep1.y, logSwi4.u2) annotation (Line(points={{-318,-360},{240,-360},
           {240,450},{278,450}}, color={255,0,255}));
   connect(or2.y, logSwi4.u1) annotation (Line(points={{102,-80},{200,-80},{200,
-          458},{278,458}},
-                      color={255,0,255}));
+          458},{278,458}}, color={255,0,255}));
   connect(uTowSta, logSwi4.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,442},{278,442}}, color={255,0,
           255}));
@@ -709,29 +686,24 @@ equation
   connect(booRep3.y, logSwi5.u2)
     annotation (Line(points={{162,430},{338,430}}, color={255,0,255}));
   connect(logSwi4.y, logSwi5.u1) annotation (Line(points={{302,450},{320,450},{
-          320,438},{338,438}},
-                           color={255,0,255}));
+          320,438},{338,438}}, color={255,0,255}));
   connect(lat2.y, booRep4.u)
     annotation (Line(points={{62,400},{138,400}}, color={255,0,255}));
   connect(booRep4.y, logSwi6.u2)
     annotation (Line(points={{162,400},{278,400}}, color={255,0,255}));
   connect(or2.y, logSwi6.u1) annotation (Line(points={{102,-80},{200,-80},{200,
-          408},{278,408}},
-                      color={255,0,255}));
+          408},{278,408}}, color={255,0,255}));
   connect(uTowSta, logSwi6.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,392},{278,392}}, color={255,0,
           255}));
   connect(logSwi6.y, logSwi5.u3) annotation (Line(points={{302,400},{320,400},{
-          320,422},{338,422}},
-                           color={255,0,255}));
+          320,422},{338,422}}, color={255,0,255}));
   connect(logSwi5.y, logSwi7.u1) annotation (Line(points={{362,430},{370,430},{
-          370,438},{398,438}},
-                           color={255,0,255}));
+          370,438},{398,438}}, color={255,0,255}));
   connect(intEqu.y, booRep5.u)
     annotation (Line(points={{-118,360},{-42,360}},color={255,0,255}));
   connect(booRep5.y, logSwi7.u2) annotation (Line(points={{-18,360},{380,360},{
-          380,430},{398,430}},
-                           color={255,0,255}));
+          380,430},{398,430}}, color={255,0,255}));
   connect(lat7.y, booRep6.u)
     annotation (Line(points={{122,310},{138,310}}, color={255,0,255}));
   connect(lat3.y, booRep7.u)
@@ -741,14 +713,12 @@ equation
   connect(booRep1.y, logSwi9.u2) annotation (Line(points={{-318,-360},{240,-360},
           {240,330},{278,330}}, color={255,0,255}));
   connect(or3.y, logSwi9.u1) annotation (Line(points={{102,-120},{206,-120},{
-          206,338},{278,338}},
-                           color={255,0,255}));
+          206,338},{278,338}}, color={255,0,255}));
   connect(uTowSta, logSwi9.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,322},{278,322}}, color={255,0,
           255}));
   connect(or3.y, logSwi8.u1) annotation (Line(points={{102,-120},{206,-120},{
-          206,288},{278,288}},
-                           color={255,0,255}));
+          206,288},{278,288}}, color={255,0,255}));
   connect(uTowSta, logSwi8.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,272},{278,272}}, color={255,0,
           255}));
@@ -789,17 +759,14 @@ equation
   connect(and1.y, booRep12.u)
     annotation (Line(points={{-418,-440},{-342,-440}}, color={255,0,255}));
   connect(booRep12.y, logSwi13.u2) annotation (Line(points={{-318,-440},{260,
-          -440},{260,220},{278,220}},
-                                color={255,0,255}));
+          -440},{260,220},{278,220}}, color={255,0,255}));
   connect(and8.y, logSwi13.u1) annotation (Line(points={{102,-260},{212,-260},{
-          212,228},{278,228}},
-                           color={255,0,255}));
+          212,228},{278,228}}, color={255,0,255}));
   connect(uTowSta, logSwi13.u3) annotation (Line(points={{-500,160},{-440,160},{
           -440,-80},{-40,-80},{-40,-60},{180,-60},{180,212},{278,212}}, color={255,
           0,255}));
   connect(and8.y, logSwi12.u1) annotation (Line(points={{102,-260},{212,-260},{
-          212,178},{278,178}},
-                           color={255,0,255}));
+          212,178},{278,178}}, color={255,0,255}));
   connect(booRep11.y, logSwi12.u2)
     annotation (Line(points={{162,170},{278,170}}, color={255,0,255}));
   connect(uTowSta, logSwi12.u3) annotation (Line(points={{-500,160},{-440,160},{
@@ -814,34 +781,27 @@ equation
   connect(booRep13.y, logSwi18.u2)
     annotation (Line(points={{162,90},{338,90}}, color={255,0,255}));
   connect(logSwi16.y, logSwi18.u3) annotation (Line(points={{302,60},{320,60},{
-          320,82},{338,82}},
-                         color={255,0,255}));
+          320,82},{338,82}}, color={255,0,255}));
   connect(logSwi17.y, logSwi18.u1) annotation (Line(points={{302,110},{320,110},
           {320,98},{338,98}}, color={255,0,255}));
   connect(logSwi18.y, logSwi19.u1) annotation (Line(points={{362,90},{370,90},{
-          370,98},{398,98}},
-                         color={255,0,255}));
+          370,98},{398,98}}, color={255,0,255}));
   connect(logSwi19.y, logSwi15.u3) annotation (Line(points={{422,90},{440,90},{
-          440,200},{390,200},{390,212},{398,212}},
-                                               color={255,0,255}));
+          440,200},{390,200},{390,212},{398,212}}, color={255,0,255}));
   connect(booRep12.y, logSwi17.u2) annotation (Line(points={{-318,-440},{260,
-          -440},{260,110},{278,110}},
-                                color={255,0,255}));
+          -440},{260,110},{278,110}}, color={255,0,255}));
   connect(and7.y, logSwi17.u1) annotation (Line(points={{102,-310},{220,-310},{
-          220,118},{278,118}},
-                           color={255,0,255}));
+          220,118},{278,118}}, color={255,0,255}));
   connect(uTowSta, logSwi17.u3) annotation (Line(points={{-500,160},{-440,160},{
           -440,-80},{-40,-80},{-40,-60},{180,-60},{180,102},{278,102}}, color={255,
           0,255}));
   connect(and7.y, logSwi16.u1) annotation (Line(points={{102,-310},{220,-310},{
-          220,68},{278,68}},
-                         color={255,0,255}));
+          220,68},{278,68}}, color={255,0,255}));
   connect(uTowSta, logSwi16.u3) annotation (Line(points={{-500,160},{-440,160},{
           -440,-80},{-40,-80},{-40,-60},{180,-60},{180,52},{278,52}}, color={255,
           0,255}));
   connect(booRep9.y, logSwi19.u2) annotation (Line(points={{-18,30},{380,30},{
-          380,90},{398,90}},
-                         color={255,0,255}));
+          380,90},{398,90}}, color={255,0,255}));
   connect(uTowSta, logSwi19.u3) annotation (Line(points={{-500,160},{-440,160},{
           -440,-80},{-40,-80},{-40,-60},{390,-60},{390,82},{398,82}}, color={255,
           0,255}));
@@ -850,17 +810,13 @@ equation
   connect(booToRea.y, mulSum.u)
     annotation (Line(points={{-398,160},{-382,160}}, color={0,0,127}));
   connect(conInt.y, intToRea1.u) annotation (Line(points={{-398,-100},{-360,
-          -100},{-360,-50},{-322,-50}},
-                                  color={255,127,0}));
+          -100},{-360,-50},{-322,-50}}, color={255,127,0}));
   connect(intEqu1.y, swi1.u2) annotation (Line(points={{-58,-140},{-10,-140},{
-          -10,-100},{298,-100}},
-                             color={255,0,255}));
+          -10,-100},{298,-100}}, color={255,0,255}));
   connect(intToRea1.y, swi1.u1) annotation (Line(points={{-298,-50},{280,-50},{
-          280,-92},{298,-92}},
-                           color={0,0,127}));
+          280,-92},{298,-92}},  color={0,0,127}));
   connect(con3.y, swi1.u3) annotation (Line(points={{242,-400},{270,-400},{270,
-          -108},{298,-108}},
-                       color={0,0,127}));
+          -108},{298,-108}}, color={0,0,127}));
   connect(intEqu2.y, swi2.u2) annotation (Line(points={{-58,-190},{-10,-190},{
           -10,-160},{298,-160}},
                              color={255,0,255}));

@@ -29,9 +29,9 @@ model EnableProcesses
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[4]
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel[4](
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[4](
     final samplePeriod=fill(5,4))
-    "Output signal with a unit delay"
+    "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{120,10},{140,30}})));
 
 equation
@@ -53,9 +53,9 @@ equation
     annotation (Line(points={{-58,-20},{-50,-20},{-50,16},{78,16}}, color={255,0,255}));
   connect(con3.y, towCelStaPro.uTowSta)
     annotation (Line(points={{-58,-60},{60,-60},{60,12},{78,12}}, color={255,0,255}));
-  connect(towCelStaPro.yIsoVal, uniDel.u)
+  connect(towCelStaPro.yIsoVal, zerOrdHol.u)
     annotation (Line(points={{102,20},{118,20}}, color={0,0,127}));
-  connect(uniDel.y, towCelStaPro.uIsoVal)
+  connect(zerOrdHol.y, towCelStaPro.uIsoVal)
     annotation (Line(points={{142,20},{150,20},{150,0},{70,0},{70,24},{78,24}},
       color={0,0,127}));
 

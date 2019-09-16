@@ -3,7 +3,7 @@ block EnableProcesses "Sequence for process of enabling cells"
 
   parameter Integer nTowCel = 4
     "Total number of cooling tower cells";
-  parameter Modelica.SIunits.Time chaTowCelIsoTim = 300
+  parameter Modelica.SIunits.Time chaTowCelIsoTim = 90
     "Time to slowly change isolation valve";
   parameter Real iniValPos = 0
     "Initial valve position, if it needs to turn on tower cell, the value should be 0";
@@ -148,9 +148,8 @@ equation
   connect(lin1.y, reaRep.u)
     annotation (Line(points={{42,160},{58,160}}, color={0,0,127}));
   connect(reaRep.y, swi2.u1)
-    annotation (Line(points={{82,160},{100,160},{100,120},{20,120},{20,98},{38,
-          98}},
-      color={0,0,127}));
+    annotation (Line(points={{82,160},{100,160},{100,120},{20,120},{20,98},
+      {38,98}}, color={0,0,127}));
   connect(swi2.y, swi.u1)
     annotation (Line(points={{62,90},{80,90},{80,68},{98,68}}, color={0,0,127}));
   connect(uIsoVal, swi2.u3)
@@ -162,7 +161,7 @@ equation
     annotation (Line(points={{-38,10},{40,10},{40,60},{98,60}},
       color={255,0,255}));
   connect(uIsoVal, swi.u3)
-    annotation (Line(points={{-160,40},{80,40},{80,52},{98,52}},
+    annotation (Line(points={{-160,40},{20,40},{20,52},{98,52}},
       color={0,0,127}));
   connect(swi.y, yIsoVal)
     annotation (Line(points={{122,60},{160,60}},   color={0,0,127}));

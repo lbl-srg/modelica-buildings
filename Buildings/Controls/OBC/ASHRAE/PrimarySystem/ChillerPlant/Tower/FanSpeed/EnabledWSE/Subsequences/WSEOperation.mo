@@ -164,8 +164,9 @@ equation
     annotation (Line(points={{-160,-40},{-120,-40},{-120,-150},{-50,-150},{-50,-132}},
       color={0,0,127}));
   connect(lat.y, chiWatTemCon.trigger)
-    annotation (Line(points={{62,60},{74,60},{74,-80},{-70,-80},{-70,-132},
-      {-58,-132}}, color={255,0,255}));
+    annotation (Line(points={{62,60},{74,60},{74,-80},{-70,-80},{-70,-140},{-58,
+          -140},{-58,-132}},
+                   color={255,0,255}));
   connect(zer.y, lin.x1)
     annotation (Line(points={{62,-100},{80,-100},{80,-112},{98,-112}}, color={0,0,127}));
   connect(chiWatTemCon.y, lin.u)

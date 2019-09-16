@@ -176,7 +176,7 @@ block Controller
     final max=1,
     final unit="1") "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{160,190},{200,230}}),
-      iconTransformation(extent={{200,60},{240,100}})));
+      iconTransformation(extent={{200,-20},{240,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences.Setpoint conWatRetSet(
     final nChi=nChi,
