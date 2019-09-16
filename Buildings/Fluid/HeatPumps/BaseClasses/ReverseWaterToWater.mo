@@ -219,7 +219,6 @@ equation
   <ul>
   <li>
   The heating mode is energized when the integer input signal <code>uMod</code>=1 and the governing equations are
-  </li>
   <p align=\"center\" style=\"font-style:italic;\">
   HLR = HLRC<sub>1</sub>+ HLRC<sub>2</sub> T<sub>Loa,Ent</sub>/T<sub>RefHeaLoa</sub>+
   HLRC<sub>3</sub> T<sub>Sou,Ent</sub>/T<sub>RefHeaSou</sub>+ HLRC<sub>4</sub> m&#775;<sub>Loa,Ent</sub>/m&#775;<sub>Loa,nominal</sub>+
@@ -229,6 +228,7 @@ equation
   PRH= PHC<sub>1</sub>+ PHC<sub>2</sub> T<sub>Loa,Ent</sub>/T<sub>RefHeaLoa</sub>+
   PHC<sub>3</sub> T<sub>Sou,Ent</sub>/T<sub>RefHeaSou</sub>+ PHC<sub>4</sub>  m&#775;<sub>Loa,Ent</sub>/m&#775;<sub>Loa,nominal</sub>+
   PHC<sub>5</sub> m&#775;<sub>Sou,Ent</sub>/m&#775;<sub>Sou,nominal</sub>
+  </li>
   </ul>
   <p>
   where the heating load ratio <code>HLR</code>=Q&#775;<sub>Loa_flow</sub>/Q&#775;<sub>Hea,nominal</sub> ,
@@ -240,7 +240,6 @@ equation
   <ul>
   <li>
   The cooling mode is energized when the integer input signal <code>uMod</code>=-1 and the governing equations  are
-  </li>
   <p align=\"center\" style=\"font-style:italic;\">
   CLR = CLRC<sub>1</sub>+ CLRC<sub>2</sub> T<sub>Loa,Ent</sub>/T<sub>RefCooLoa</sub>+
   CLRC<sub>3</sub> T<sub>Sou,Ent</sub>/T<sub>RefCooSou</sub>+ CLRC<sub>4</sub> m&#775;<sub>LoaEnt</sub>/m&#775;<sub>Loa,nominal</sub>+
@@ -250,6 +249,7 @@ equation
   PRC = PCC<sub>1</sub>+ PCC<sub>2</sub>.T<sub>Loa,Ent</sub>/T<sub>TRefCooLoa</sub>+
    PCC<sub>3</sub> T<sub>Sou,Ent</sub>/T<sub>RefCooSou</sub>+ PCC<sub>4</sub> m&#775;<sub>Loa,Ent</sub>/m&#775;<sub>Loa,nominal</sub>
    + PCC<sub>5</sub> m&#775;<sub>Sou,Ent</sub>/m&#775;<sub>Sou,nominal</sub>
+   </li>
    </ul>
    <p>
   where the cooling load ratio <code>CLR</code>= Q&#775;<sub>Loa_flow</sub>/Q&#775;<sub>Coo,nominal</sub>,
@@ -261,10 +261,10 @@ equation
    <li>
   The change in the performance due to heatpump part-load is taken into account by evaluating the part-load efficiency <code>etaPL</code>
   as a polynomial function of the form
-  </li>
 
   <p align=\"center\" style=\"font-style:italic;\">
     &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> PLR + a<sub>3</sub> PLR<sup>2</sup> + ...
+    </li>
     </ul>
     <p>
   where the coefficients <i>a<sub>i</sub></i> are declared by the parameter <code>a</code>, and PLR is the part-load ratio.
