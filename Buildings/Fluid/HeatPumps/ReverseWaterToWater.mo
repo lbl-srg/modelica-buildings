@@ -12,8 +12,8 @@ model ReverseWaterToWater
 
   parameter Data.ReverseWaterToWater.Generic per
    "Performance data"
-    annotation (choicesAllMatching=true, Placement(transformation(extent={{78,80},
-            {98,100}})));
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{70,72},
+            {90,92}})));
   parameter Boolean reverseCycle=true
   "= true, if the heat pump can be reversed to also operate in cooling mode"
     annotation(Evaluate=true);
@@ -27,7 +27,7 @@ model ReverseWaterToWater
    annotation(Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.IntegerInput uMod
-   "Control input signal, heating mode=1, off=0, cooling mode=-1"
+   "Control input signal, cooling mode=-1, off=0, heating mode=+1"
     annotation (Placement(transformation(extent={{-124,-12},{-100,12}}),
           iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput THeaLoaSet(
@@ -288,8 +288,7 @@ equation
   defaultComponentName="heaPum",
   Documentation(info="<html>
 <p>
-Model for a reverse water to water heat pump using the equation fit method as described
-in the EnergyPlus 9.0.1 Engineering Reference, Section 16.6.1: Water to water heat pump model. The model is based on C.Tang (2005).
+Model for a reverse water to water heat pump using the equation fit method.
 </p>
 <h4>Theory of operation</h4>
 <p>
@@ -301,33 +300,33 @@ Source and load are terms which identify the two heat exchangers of the heat pum
 while the source heat exchanger extracts or rejects heat from/to the water, based on the heat pump operational heating or cooling mode.
 </p>
 <p>
-The model uses four non-dimensional curves stated in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.ReverseWaterToWater\">
+The model is based on the model described in the EnergyPlus 9.0.1 Engineering Reference, Section 16.6.1: Water to water heat pump model
+and the model based on C.Tang (2005).
+It uses four non-dimensional curves described in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.ReverseWaterToWater\">
 Buildings.Fluid.HeatPumps.BaseClasses.ReverseWaterToWater</a> to predict the heat pump performance.
 </p>
 <p>
-The indicated equation fit method is using the generalized least square technique to create a set of performance
-coefficients for thermal load ratios <code>HLRC</code>, <code>CLRC</code> and for the compressor power ratios <code>PHC</code>,
-<code>PCC</code> for heating and cooling modes respectively from the catalog data at indicated reference conditions.
-</p>
-<p>
-The model takes two input signals
+The model takes the following control signals:
 </p>
 <ul>
 <li>
-The set point for either the leaving heating water temperature or the leaving chilled water temperature
-which is met if the heat pump has sufficient capacity.
+The integer input <code>uMod</code> which controls the heat pump operational mode.
+If <code>reverseCycle = true</code> the signal can take on the values <i>-1</i>
+for cooling mode,
+<i>0</i> for off and
+<i>+1</i> for heating mode.<br/>
+If <code>reverseCycle = false</code> and <code>uMod = -1</code>, the model stops with an error message.
 </li>
 <li>
-The integer input <code>uMod</code> which controls the heat pump operational mode.
+The input <code>THeaLoaSet</code> is the set point for the leaving water temperature at port <code>port_b1</code>
+if <code>uMod = 1</code>. For other values of <code>uMod</code>, this input is ignored.
+</li>
+<li>
+If <code>reverseCycle = true</code>, the input connector <code>TCooLoaSet</code> is enable.
+This input is the set point for the leaving water temperature at port <code>port_b1</code>
+if <code>uMod = -1</code>. For other values of <code>uMod</code>, this input is ignored.
 </li>
 </ul>
-<p>
-Hence, when the integer signal <code>uMod</code>= 1,
-the heat pump is controlled to meet the heating water set point temperature,
-the source heat exchanger operates as the evaporator and the load heat exchanger operates as the condenser.
-Likewise, in case of <code>uMod</code>=-1, the heat pump is controlled to meet the chilled water set point temperature,
-accordingly, the source heat exchanger operates as condenser and the load heat exchanger operates as the evaporator.
-</p>
 <p>
 The heating and cooling performance coefficients are stored in the data record <code>per</code> and are available from
 <a href=\"Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater\">
@@ -339,7 +338,7 @@ of this component.
 </p>
 <h4>Options</h4>
 <p>
-Set <code>reverseCycle = true</code> to allow operation as a reverse cycle, and <code>reverseCycle = true</code>
+Set <code>reverseCycle = true</code> to allow operation as a reverse cycle, and <code>reverseCycle = false</code>
 to use in heating mode only.
 </p>
 <h4>References</h4>
