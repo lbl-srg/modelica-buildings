@@ -111,10 +111,10 @@ equation
   if (uMod==1) then
     A1=per.LRCH;
     x1={1,TLoaEnt/per.TRefHeaLoa,TSouEnt/per.TRefHeaSou,
-    m1_flow/(per.mLoa_flow_nominal*scaling_factor),m2_flow/(per.mSou_flow_nominal*scaling_factor)};
+    m1_flow/(per.mLoa_flow*scaling_factor),m2_flow/(per.mSou_flow*scaling_factor)};
     A2= per.PRCH;
     x2={1,TLoaEnt/per.TRefHeaLoa,TSouEnt/per.TRefHeaSou,
-    m1_flow/(per.mLoa_flow_nominal*scaling_factor),m2_flow/(per.mSou_flow_nominal*scaling_factor)};
+    m1_flow/(per.mLoa_flow*scaling_factor),m2_flow/(per.mSou_flow*scaling_factor)};
     LRH = sum( A1.*x1);
     LRC = 0;
     PRH =  sum( A2.*x2);
@@ -129,15 +129,15 @@ equation
     x1=QHea_flow_set,
     x2=QHea_flow_ava,
     deltaX=Q_flow_small/10);
-    P = etaPL*PRH*PLR*(per.P_nominal_hea*scaling_factor);
+    P = etaPL*PRH*PLR*(per.PHea*scaling_factor);
     QSou_flow = -(QLoa_flow -P);
   elseif (uMod==-1) and reverseCycle then
     A1= per.LRCC;
     x1={1,TLoaEnt/per.TRefCooLoa,TSouEnt/per.TRefCooSou,
-    m1_flow/(per.mLoa_flow_nominal*scaling_factor),m2_flow/(per.mSou_flow_nominal*scaling_factor)};
+    m1_flow/(per.mLoa_flow*scaling_factor),m2_flow/(per.mSou_flow*scaling_factor)};
     A2= per.PRCC;
     x2={1,TLoaEnt/per.TRefCooLoa,TSouEnt/per.TRefCooSou,
-    m1_flow/(per.mLoa_flow_nominal*scaling_factor),m2_flow/(per.mSou_flow_nominal*scaling_factor)};
+    m1_flow/(per.mLoa_flow*scaling_factor),m2_flow/(per.mSou_flow*scaling_factor)};
     LRH  = 0;
     LRC  = sum(A1.*x1);
     PRH  =  0;
@@ -153,7 +153,7 @@ equation
     x2=1,
     deltaX=1/100);
 
-    P = PRC*etaPL*PLR*(per.P_nominal_coo*scaling_factor);
+    P = PRC*etaPL*PLR*(per.PCoo*scaling_factor);
     QSou_flow = -QLoa_flow + P;
   else
     A1={0,0,0,0,0};

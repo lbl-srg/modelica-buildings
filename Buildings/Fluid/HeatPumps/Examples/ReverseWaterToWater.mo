@@ -5,9 +5,9 @@ model ReverseWaterToWater "Test model for reverse heat pump based on performance
     parameter Data.ReverseWaterToWater.Trane_Axiom_EXW240 per
      "Reverse heat pump performance data"
      annotation (Placement(transformation(extent={{28,68},{48,88}})));
-    parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.mSou_flow_nominal
+    parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.mSou_flow
      "Source heat exchanger nominal mass flow rate";
-    parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.mLoa_flow_nominal
+    parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.mLoa_flow
      "Load heat exchanger nominal mass flow rate";
     parameter Boolean reverseCycle=true
      "= true, if reversing the heat pump to cooling mode is required";

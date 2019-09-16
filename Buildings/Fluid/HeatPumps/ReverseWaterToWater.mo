@@ -3,8 +3,8 @@ model ReverseWaterToWater
   "Model for a reverse water to water heat pump based on the equation fit method"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
           show_T=true,
-          m1_flow_nominal=per.mLoa_flow_nominal*scaling_factor,
-          m2_flow_nominal=per.mSou_flow_nominal*scaling_factor,
+          m1_flow_nominal=per.mLoa_flow*scaling_factor,
+          m2_flow_nominal=per.mSou_flow*scaling_factor,
        redeclare final Buildings.Fluid.MixingVolumes.MixingVolume
           vol1(final prescribedHeatFlowRate=true),
        redeclare final Buildings.Fluid.MixingVolumes.MixingVolume

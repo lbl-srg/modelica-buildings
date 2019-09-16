@@ -3,22 +3,22 @@ record Generic
   "Generic data record for reverse water to water heat pump implementing the equation fit method"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
    "Nominal heating capacity"
     annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=0)
    "Nominal cooling capacity_negative number"
     annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mLoa_flow
    "Nominal mass flow rate at load heat exchanger side"
     annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate mSou_flow
    "Nominal mass flow rate at source heat exchanger side"
     annotation (Dialog(group="Nominal conditions at source heat exchanger side"));
-  parameter Modelica.SIunits.Power P_nominal_hea
+  parameter Modelica.SIunits.Power PHea
    "Nominal compressor power in heating mode"
     annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-  parameter Modelica.SIunits.Power P_nominal_coo
+  parameter Modelica.SIunits.Power PCoo
    "Nominal compressor power in cooling mode"
     annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
   parameter Real LRCH[nLRH]
