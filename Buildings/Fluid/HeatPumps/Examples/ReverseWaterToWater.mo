@@ -27,6 +27,7 @@ model ReverseWaterToWater "Test model for reverse heat pump based on performance
      "Water to Water heat pump"
      annotation (Placement(transformation(extent={{30,-10},{50,10}})));
     Modelica.Blocks.Math.RealToInteger reaToInt
+      "Real to integer conversion"
      annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
     Sources.MassFlowSource_T loaPum(
       use_m_flow_in=false,

@@ -50,8 +50,9 @@ block ReverseWaterToWater
    "Setpoint heating flow rate for the load heat exchanger"
     annotation (Placement(transformation(
         extent={{-124,42},{-100,66}}), iconTransformation(extent={{-120,38},{-100,58}})));
-  Modelica.Blocks.Interfaces.RealInput QCoo_flow_set(final unit="W")
-   "Setpoint cooling flow rate for the load heat exchanger"
+  Modelica.Blocks.Interfaces.RealInput QCoo_flow_set(final unit="W") if
+       reverseCycle
+    "Setpoint cooling flow rate for the load heat exchanger"
     annotation (Placement(transformation(
         extent={{-124,-66},{-100,-42}}), iconTransformation(extent={{-120,-56},{-100,
           -36}})));
@@ -90,6 +91,9 @@ protected
   Real A2[5] "Compressor power ratio coefficients";
   Real x2[5] "Normalized inlet variables";
 
+  Modelica.Blocks.Interfaces.RealInput QCoo_flow_set_internal(final unit= "W")
+   "Needed to connect the conditional connector";
+
 initial equation
   assert(per.QHea_flow_nominal> 0,
    "Parameter QheaLoa_flow_nominal must be larger than zero.");
@@ -99,6 +103,11 @@ initial equation
    "Parameter Q_flow_small must be larger than zero.");
 
 equation
+  connect(QCoo_flow_set_internal, QCoo_flow_set);
+  if not reverseCycle then
+    QCoo_flow_set_internal = 0;
+  end if;
+
   if (uMod==1) then
     A1=per.LRCH;
     x1={1,TLoaEnt/per.TRefHeaLoa,TSouEnt/per.TRefHeaSou,
@@ -136,11 +145,11 @@ equation
     QHea_flow_ava = 0;
     QCoo_flow_ava = LRC* (per.QCoo_flow_nominal*scaling_factor);
     QLoa_flow =Buildings.Utilities.Math.Functions.smoothMax(
-    x1=QCoo_flow_set,
+    x1=QCoo_flow_set_internal,
     x2=QCoo_flow_ava,
     deltaX=Q_flow_small/10);
     PLR =Buildings.Utilities.Math.Functions.smoothMin(
-    x1=QCoo_flow_set/(QCoo_flow_ava - Q_flow_small),
+    x1=QCoo_flow_set_internal/(QCoo_flow_ava - Q_flow_small),
     x2=1,
     deltaX=1/100);
 
