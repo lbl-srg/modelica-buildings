@@ -21,16 +21,16 @@ record Generic
   parameter Modelica.SIunits.Power PCoo
    "Nominal compressor power in cooling mode"
     annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-  parameter Real LRCH[nLRH]
+  parameter Real LRCH[5]
    "Load ratio coefficients in heating mode"
     annotation (Dialog(group="Heating mode performance coefficients"));
-  parameter Real LRCC[nLRC]
+  parameter Real LRCC[5]
    "Load ratio coefficients in cooling mode"
     annotation (Dialog(group="Cooling mode performance coefficients"));
-  parameter Real PRCH[nPRH]
+  parameter Real PRCH[5]
    "Power ratio coefficients in heating mode"
     annotation (Dialog(group="Heating mode performance coefficients"));
-  parameter Real PRCC[nPRC]
+  parameter Real PRCC[5]
    "Power ratio coefficients in cooling mode"
     annotation (Dialog(group="Cooling mode performance coefficients"));
   parameter Modelica.SIunits.Temperature TRefHeaLoa
@@ -45,14 +45,6 @@ record Generic
   parameter Modelica.SIunits.Temperature TRefCooLoa
    "Reference temperature in cooling mode used to normalize the load heat exchanger inlet water temperature"
     annotation (Dialog(group="Refrence conditions"));
-  constant Integer nLRC= 5
-   "Number of coefficients for cooling load ratio CLR";
-  constant Integer nLRH=5
-   "Number of coefficients for heating load ratio HLR";
-  constant Integer nPRC= 5
-  "Number of coefficients for power ratio in cooling mode";
-  constant Integer nPRH=5
-   "Number of coefficients for power ratio in heating mode";
 
 annotation (
 defaultComponentName="datPer",

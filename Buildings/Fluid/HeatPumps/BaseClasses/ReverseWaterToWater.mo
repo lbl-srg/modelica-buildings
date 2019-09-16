@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.BaseClasses;
 block ReverseWaterToWater
-  "EquationFit method to predict the reverse heat pump performance"
+  "Equation fit method to compute the performance of the reverse heat pump"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Data.ReverseWaterToWater.Generic per
@@ -11,63 +11,77 @@ block ReverseWaterToWater
    "Scaling factor for heat pump capacity";
 
   parameter Boolean reverseCycle=true
-   "= true, if reversing the heat pump to cooling mode is required"
+  "= true, if the heat pump can be reversed to also operate in cooling mode"
     annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
   parameter Real a[:] = {1}
    "Coefficients for efficiency curve"
     annotation (Dialog(group="Efficiency"));
+
   final parameter Boolean evaluate_etaPL=
    not ((size(a, 1) == 1 and abs(a[1] - 1)  < Modelica.Constants.eps))
    "Flag, true if etaPL should be computed as it depends on PLR"
     annotation(Evaluate=true);
 
-  Real etaPL(final unit = "1")=
-  if evaluate_etaPL
-    then Buildings.Utilities.Math.Functions.polynomial(a=a, x=PLR)
-  else 1
-   "Efficiency due to part load";
   Modelica.Blocks.Interfaces.IntegerInput uMod
-   "heat pump control input signal, heating mode= 1, off=0, cooling mode=-1"
+   "Control input signal, cooling mode= -1, off=0, heating mode=+1"
     annotation (Placement(transformation(extent={{-124,-12},{-100,12}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealInput TLoaEnt(final unit="K", displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealInput TLoaEnt(
+    final unit="K",
+    displayUnit="degC")
    "Load entering water temperature"
     annotation (Placement(transformation(extent={{-124,68},{-100,92}}),
         iconTransformation(extent={{-120,62},{-100,82}})));
-  Modelica.Blocks.Interfaces.RealInput TSouEnt(final unit="K", displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealInput TSouEnt(
+    final unit="K",
+    displayUnit="degC")
    "Source entering water temperature"
     annotation (Placement(transformation(extent={{-124,-92},{-100,-68}}),
         iconTransformation(extent={{-120,-78},{-100,-58}})));
+
   Modelica.Blocks.Interfaces.RealInput m1_flow(final unit="kg/s")
    "Volume 1 mass flow rate "
     annotation (Placement(transformation(extent={{-124,16},{-100,40}}),
         iconTransformation(extent={{-120,12},{-100,32}})));
+
   Modelica.Blocks.Interfaces.RealInput m2_flow(final unit="kg/s")
    "Volume2 mass flow rate"
     annotation (Placement(transformation(extent={{-124,-42},{-100,-18}}),
         iconTransformation(extent={{-120,-34},{-100,-14}})));
+
   Modelica.Blocks.Interfaces.RealInput QHea_flow_set(final unit="W")
    "Setpoint heating flow rate for the load heat exchanger"
     annotation (Placement(transformation(
         extent={{-124,42},{-100,66}}), iconTransformation(extent={{-120,38},{-100,58}})));
+
   Modelica.Blocks.Interfaces.RealInput QCoo_flow_set(final unit="W") if
        reverseCycle
     "Setpoint cooling flow rate for the load heat exchanger"
     annotation (Placement(transformation(
         extent={{-124,-66},{-100,-42}}), iconTransformation(extent={{-120,-56},{-100,
           -36}})));
+
   Modelica.Blocks.Interfaces.RealOutput QLoa_flow(final unit="W")
    "Load heat flow rate"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
         iconTransformation(extent={{100,30},{120,50}})));
+
   Modelica.Blocks.Interfaces.RealOutput QSou_flow(final unit="W")
    "Source heat flow rate"
     annotation (Placement(transformation(extent={{100,-48},{120,-28}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
+
   Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
    "Compressor power"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
+
+  Real etaPL(final unit = "1")=
+    if evaluate_etaPL
+      then Buildings.Utilities.Math.Functions.polynomial(a=a, x=PLR)
+    else 1
+     "Efficiency due to part load";
+
   Modelica.SIunits.Efficiency LRH
    "Load ratio in heating mode";
   Modelica.SIunits.Efficiency LRC
@@ -110,34 +124,46 @@ equation
 
   if (uMod==1) then
     A1=per.LRCH;
-    x1={1,TLoaEnt/per.TRefHeaLoa,TSouEnt/per.TRefHeaSou,
-    m1_flow/(per.mLoa_flow*scaling_factor),m2_flow/(per.mSou_flow*scaling_factor)};
+    x1={1,
+        TLoaEnt/per.TRefHeaLoa,
+        TSouEnt/per.TRefHeaSou,
+        m1_flow/(per.mLoa_flow*scaling_factor),
+        m2_flow/(per.mSou_flow*scaling_factor)};
     A2= per.PRCH;
-    x2={1,TLoaEnt/per.TRefHeaLoa,TSouEnt/per.TRefHeaSou,
-    m1_flow/(per.mLoa_flow*scaling_factor),m2_flow/(per.mSou_flow*scaling_factor)};
+    x2={1,
+        TLoaEnt/per.TRefHeaLoa,
+        TSouEnt/per.TRefHeaSou,
+        m1_flow/(per.mLoa_flow*scaling_factor),
+        m2_flow/(per.mSou_flow*scaling_factor)};
     LRH = sum( A1.*x1);
     LRC = 0;
     PRH =  sum( A2.*x2);
     PRC = 0;
     PLR =Buildings.Utilities.Math.Functions.smoothMin(
-    x1=QHea_flow_set/(QHea_flow_ava + Q_flow_small),
-    x2=1,
-    deltaX=1/100);
+      x1=QHea_flow_set/(QHea_flow_ava + Q_flow_small),
+      x2=1,
+      deltaX=1/100);
     QHea_flow_ava = LRH *(per.QHea_flow_nominal*scaling_factor);
     QCoo_flow_ava = 0;
     QLoa_flow   =Buildings.Utilities.Math.Functions.smoothMin(
-    x1=QHea_flow_set,
-    x2=QHea_flow_ava,
-    deltaX=Q_flow_small/10);
-    P = etaPL*PRH*PLR*(per.PHea*scaling_factor);
+      x1=QHea_flow_set,
+      x2=QHea_flow_ava,
+      deltaX=Q_flow_small/10);
+      P = etaPL*PRH*PLR*(per.PHea*scaling_factor);
     QSou_flow = -(QLoa_flow -P);
-  elseif (uMod==-1) and reverseCycle then
+  elseif (uMod==-1) then
     A1= per.LRCC;
-    x1={1,TLoaEnt/per.TRefCooLoa,TSouEnt/per.TRefCooSou,
-    m1_flow/(per.mLoa_flow*scaling_factor),m2_flow/(per.mSou_flow*scaling_factor)};
+    x1={1,
+        TLoaEnt/per.TRefCooLoa,
+        TSouEnt/per.TRefCooSou,
+        m1_flow/(per.mLoa_flow*scaling_factor),
+        m2_flow/(per.mSou_flow*scaling_factor)};
     A2= per.PRCC;
-    x2={1,TLoaEnt/per.TRefCooLoa,TSouEnt/per.TRefCooSou,
-    m1_flow/(per.mLoa_flow*scaling_factor),m2_flow/(per.mSou_flow*scaling_factor)};
+    x2={1,
+        TLoaEnt/per.TRefCooLoa,
+        TSouEnt/per.TRefCooSou,
+        m1_flow/(per.mLoa_flow*scaling_factor),
+        m2_flow/(per.mSou_flow*scaling_factor)};
     LRH  = 0;
     LRC  = sum(A1.*x1);
     PRH  =  0;
@@ -145,13 +171,13 @@ equation
     QHea_flow_ava = 0;
     QCoo_flow_ava = LRC* (per.QCoo_flow_nominal*scaling_factor);
     QLoa_flow =Buildings.Utilities.Math.Functions.smoothMax(
-    x1=QCoo_flow_set_internal,
-    x2=QCoo_flow_ava,
-    deltaX=Q_flow_small/10);
+      x1=QCoo_flow_set_internal,
+      x2=QCoo_flow_ava,
+      deltaX=Q_flow_small/10);
     PLR =Buildings.Utilities.Math.Functions.smoothMin(
-    x1=QCoo_flow_set_internal/(QCoo_flow_ava - Q_flow_small),
-    x2=1,
-    deltaX=1/100);
+      x1=QCoo_flow_set_internal/(QCoo_flow_ava - Q_flow_small),
+      x2=1,
+      deltaX=1/100);
 
     P = PRC*etaPL*PLR*(per.PCoo*scaling_factor);
     QSou_flow = -QLoa_flow + P;
