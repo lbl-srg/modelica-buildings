@@ -2431,7 +2431,7 @@ equation
                  __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReverseWaterToWater_EnergyPlus.mos"
         "Simulate and plot"),
     experiment(
-      Tolerance=1e-6, StopTime=172800),
+      Tolerance=1e-6, StopTime=86400),
 Documentation(info="<html>
   <p>
   This model validates the model
