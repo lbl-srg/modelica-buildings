@@ -1,0 +1,64 @@
+//  Conversion script for Buildings library
+//  from: Version 6
+//  to:   Version 7.0.0
+clear
+
+convertClear();
+
+//refactoring of alpha to hCon or hRad
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaWin",
+    "hConWin");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaExt",
+    "hConExt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaExtWallConst",
+    "hConExtWall_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaWinConst",
+    "hConWin_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaFloor",
+    "hConFloor");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements",
+    "alphaFloorConst",
+    "hConFloor_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaInt",
+    "hConInt");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.TwoElements",
+    "alphaIntWall",
+    "hConIntWall");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaRoof",
+    "hConRoof");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.FourElements",
+    "alphaRoofConst",
+    "hConRoof_const");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007",
+    "alphaWallOut",
+    "hConWallOut");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007",
+    "alphaRad",
+    "hRad");
+convertElement(
+    "IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow",
+    "alphaWinOut",
+    "hConWinOut");
