@@ -123,13 +123,13 @@ equation
   end if;
 
   if (uMod==1) then
-    A1=per.LRCH;
+    A1=per.coeLoaRatHea;
     x1={1,
         TLoaEnt/per.TRefHeaLoa,
         TSouEnt/per.TRefHeaSou,
         m1_flow/(per.mLoa_flow*scaling_factor),
         m2_flow/(per.mSou_flow*scaling_factor)};
-    A2= per.PRCH;
+    A2= per.coePowRatHea;
     x2={1,
         TLoaEnt/per.TRefHeaLoa,
         TSouEnt/per.TRefHeaSou,
@@ -152,13 +152,13 @@ equation
       P = etaPL*PRH*PLR*(per.PHea*scaling_factor);
     QSou_flow = -(QLoa_flow -P);
   elseif (uMod==-1) then
-    A1= per.LRCC;
+    A1= per.coeLoaRatCoo;
     x1={1,
         TLoaEnt/per.TRefCooLoa,
         TSouEnt/per.TRefCooSou,
         m1_flow/(per.mLoa_flow*scaling_factor),
         m2_flow/(per.mSou_flow*scaling_factor)};
-    A2= per.PRCC;
+    A2= per.coePowRatCoo;
     x2={1,
         TLoaEnt/per.TRefCooLoa,
         TSouEnt/per.TRefCooSou,
