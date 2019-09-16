@@ -194,12 +194,8 @@ equation
     annotation (Line(points={{-54,-80},{-58,-80}}, color={255,0,255}));
   connect(lesThr.u, uMod) annotation (Line(points={{-82,-80},{-88,-80},{-88,0},{
           -112,0}}, color={255,127,0}));
-  annotation (Placement(transformation(extent={{-138,22},{-118,42}})),
-               Dialog(tab="General", group="Reverse Cycle"),
-               Placement(transformation(extent={{-124,-12},{-100,12}}),
-          iconTransformation(extent={{-120,-10},{-100,10}})),
-              Icon(coordinateSystem(preserveAspectRatio=false),
-                               graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false),
+     graphics={
         Ellipse(
           extent={{32,12},{68,-22}},
           lineColor={0,0,0},
