@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps;
 model ReverseWaterToWater
-  "Model for a reverse water to water heat pump based on the equation fit method"
+  "Model for a reverse heat pump based on the equation fit method"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
           show_T=true,
           final m1_flow_nominal=per.hea.mLoa_flow*scaling_factor,
@@ -260,10 +260,14 @@ equation
   defaultComponentName="heaPum",
   Documentation(info="<html>
 <p>
-Model for a reverse water to water heat pump using the equation fit method.
+Model for a reverse heat pump using the equation fit method.
 </p>
 <p>
 This reverse heat pump can be operated either in heating mode or in cooling mode.
+It typically is used for a water to water heat pump, but if the performance data
+<code>per</code> are set up for other media, such as glycol, it can also be used for
+such applications. If used with air, it does not model latent heat exchange or frost
+build up.
 The heat exchanger at medium 1 is to be connected to the building load,
 and the other heat exchanger to the heat source or sink, such as
 a geothermal loop.
@@ -289,7 +293,7 @@ If <code>per.reverseCycle = true</code> the signal can take on the values
 If <code>per.reverseCycle = false</code> and <code>uMod = -1</code>, the model stops with an error message.
 </li>
 <li>
-The input <code>TSet</code> is the set point for the leaving water temperature at port <code>port_b1</code>.
+The input <code>TSet</code> is the set point for the leaving fluid temperature at port <code>port_b1</code>.
 </li>
 </ul>
 <p>
@@ -343,7 +347,7 @@ Q&#775; = min(Q&#775;<sub>ava</sub> , Q&#775;<sub>set</sub>),
 </p>
 <p>
 where <i>Q&#775;<sub>set</sub></i> is the heat required to meet the temperature setpoint
-for the water leaving on the load side.
+for the leaving fluid on the load side.
 </li>
 <li>
 If <code>uMod = -1</code>, the heat pump is in cooling mode, and the governing equations are as above, but
