@@ -9,7 +9,7 @@ block Controller
   parameter Boolean closeCoupledPlant=true "Flag to indicate if the plant is close coupled";
   parameter Modelica.SIunits.HeatFlowRate desCap = 1e6 "Plant design capacity";
   parameter Real minSpe=0.1 "Minimum tower fan speed";
-  parameter Real LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
+  parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi]={303.15, 303.15}
     "Design condenser water return temperature (condenser leaving) of each chiller"

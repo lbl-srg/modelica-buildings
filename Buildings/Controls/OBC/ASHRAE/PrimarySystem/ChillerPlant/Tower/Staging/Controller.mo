@@ -20,7 +20,7 @@ block Controller "Sequence of staging cooling tower cells"
   parameter Real endValPos=1
     "Ending valve position, if it needs to turn on tower cell, the value should be 1"
     annotation (Dialog(group="Enable cell isolation valve"));
-  parameter Real fallDelay = 1
+  parameter Modelica.SIunits.Time fallDelay = 1
     "Fan cells stage off delay time, so it can trige the cell disable output"
     annotation (Dialog(tab="Advanced"));
 

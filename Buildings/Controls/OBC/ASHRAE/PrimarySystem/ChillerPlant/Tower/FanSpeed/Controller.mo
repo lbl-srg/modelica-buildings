@@ -14,10 +14,7 @@ block Controller "Tower fan speed control"
     annotation (Dialog(enable=hasWSE));
   parameter Modelica.SIunits.HeatFlowRate minUnLTon[nChi]={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
-    annotation (Dialog(tab="WSE Enabled", group="Integrated",enable=hasWSE));
-//   parameter Real minSpe=0.1
-//     "Allowed minimum value of waterside economizer tower maximum speed"
-//     annotation (Dialog(tab="WSE Enabled", group="Integrated",enable=hasWSE));
+    annotation (Dialog(tab="WSE Enabled", group="Integrated", enable=hasWSE));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -50,7 +47,8 @@ block Controller "Tower fan speed control"
     annotation (Dialog(tab="WSE Enabled", group="WSE-only",
                        enable=hasWSE and (chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                           chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
+
+  parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
   parameter Modelica.SIunits.Time iniPlaTim=600
     "Time to hold return temperature to initial setpoint after plant being enabled"
