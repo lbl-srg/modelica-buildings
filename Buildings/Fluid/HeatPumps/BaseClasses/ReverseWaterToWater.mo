@@ -89,9 +89,19 @@ initial equation
 equation
   if (uMod == 0) then
     xNor=fill(0, 5);
-  else
-    xNor={1,TLoaEnt/per.hea.TRefLoa,TSouEnt/per.hea.TRefSou,mLoa_flow/(per.mLoa_flow
-      *scaling_factor),mSou_flow/(per.mSou_flow*scaling_factor)};
+  elseif (uMod == -1) then
+    xNor={ 1,
+           TLoaEnt/per.coo.TRefLoa,
+           TSouEnt/per.coo.TRefSou,
+           mLoa_flow/(per.mLoa_flow*scaling_factor),
+           mSou_flow/(per.mSou_flow*scaling_factor)};
+  else // uMod == +1
+      xNor={ 1,
+           TLoaEnt/per.hea.TRefLoa,
+           TSouEnt/per.hea.TRefSou,
+           mLoa_flow/(per.mLoa_flow*scaling_factor),
+           mSou_flow/(per.mSou_flow*scaling_factor)};
+
   end if;
 
   if (uMod==1) then
