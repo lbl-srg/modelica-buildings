@@ -73,7 +73,7 @@ block Controller "Cooling tower controller"
     "Lowest chilled water supply temperature oc each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of coupled plant controller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control",
                        enable=closeCoupledPlant));
