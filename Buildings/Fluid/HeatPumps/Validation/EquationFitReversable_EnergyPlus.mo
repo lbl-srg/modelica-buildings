@@ -1,17 +1,17 @@
 within Buildings.Fluid.HeatPumps.Validation;
-model ReverseWaterToWater_EnergyPlus
+model EquationFitReversable_EnergyPlus
   "Validation with EnergyPlus model"
 
    package Medium = Buildings.Media.Water "Medium model";
 
-   parameter Data.ReverseWaterToWater.EnergyPlus perEP
+   parameter Data.EquationFitReversable.EnergyPlus perEP
    "EnergyPlus heat pump performance"
     annotation (Placement(transformation(extent={{80,-88},{100,-68}})));
    parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=perEP.hea.mSou_flow
    "Source heat exchanger nominal mass flow rate";
    parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=perEP.hea.mLoa_flow
    "Load heat exchanger nominal mass flow rate";
-   Buildings.Fluid.HeatPumps.ReverseWaterToWater heaPum(
+   Buildings.Fluid.HeatPumps.EquationFitReversable heaPum(
      redeclare package Medium1 = Medium,
      redeclare package Medium2 = Medium,
      per=perEP,
@@ -2406,15 +2406,15 @@ equation
                 points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
-                 __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReverseWaterToWater_EnergyPlus.mos"
+                 __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/EquationFitReversable_EnergyPlus.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=86400),
 Documentation(info="<html>
 <p>
 This model implements a comparative model validation of the model
-<a href=\"Buildings.Fluid.HeatPumps.ReverseWaterToWater\">
-Buildings.Fluid.HeatPumps.ReverseWaterToWater</a>
+<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversable\">
+Buildings.Fluid.HeatPumps.EquationFitReversable</a>
 against results obtained using EnergyPlus 9.1.
 <p>
 The EnergyPlus results were generated using the example file <code>GSHPSimple-GLHE.idf</code>
@@ -2433,4 +2433,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ReverseWaterToWater_EnergyPlus;
+end EquationFitReversable_EnergyPlus;

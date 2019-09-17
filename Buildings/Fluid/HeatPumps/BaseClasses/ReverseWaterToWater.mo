@@ -3,7 +3,7 @@ block ReverseWaterToWater
   "Equation fit method to compute the performance of the reverse heat pump"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Data.ReverseWaterToWater.Generic per
+  parameter Data.EquationFitReversable.Generic per
    "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,72},
           {80,92}})));
@@ -144,8 +144,8 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
 Block that implements the equation fit method for the reverse heat pump model
-<a href=\"Buildings.Fluid.HeatPumps.ReverseWaterToWater\">
-Buildings.Fluid.HeatPumps.ReverseWaterToWater</a>.
+<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversable\">
+Buildings.Fluid.HeatPumps.EquationFitReversable</a>.
 </p>
 </html>",
 revisions="<html>

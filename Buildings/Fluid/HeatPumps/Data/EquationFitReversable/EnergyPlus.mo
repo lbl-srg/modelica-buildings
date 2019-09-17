@@ -1,6 +1,6 @@
-within Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater;
+within Buildings.Fluid.HeatPumps.Data.EquationFitReversable;
 record EnergyPlus =
- Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater.Generic (
+ Buildings.Fluid.HeatPumps.Data.EquationFitReversable.Generic (
     dpHeaSou_nominal = 30000,
     dpHeaLoa_nominal = 30000,
     hea(

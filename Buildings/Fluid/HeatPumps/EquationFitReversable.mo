@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps;
-model ReverseWaterToWater
-  "Model for a reverse heat pump based on the equation fit method"
+model EquationFitReversable
+  "Model for a reversable heat pump based on the equation fit method"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
           show_T=true,
           final m1_flow_nominal=per.hea.mLoa_flow*scaling_factor,
@@ -12,7 +12,7 @@ model ReverseWaterToWater
        redeclare final Buildings.Fluid.MixingVolumes.MixingVolume
           vol2(final prescribedHeatFlowRate=true));
 
-  parameter Data.ReverseWaterToWater.Generic per
+  parameter Data.EquationFitReversable.Generic per
    "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{50,72},
             {70,92}})));
@@ -277,8 +277,6 @@ and in cooling mode it operates as an evaporator.
 <p>
 The model is based on the model described in the EnergyPlus 9.1.0 Engineering Reference, Section 16.6.1: Water to water heat pump model
 and the model based on C.Tang (2005).
-It uses four non-dimensional curves described in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.ReverseWaterToWater\">
-Buildings.Fluid.HeatPumps.BaseClasses.ReverseWaterToWater</a> to predict the heat pump performance.
 </p>
 <p>
 The model takes the following control signals:
@@ -298,8 +296,8 @@ The input <code>TSet</code> is the set point for the leaving fluid temperature a
 </ul>
 <p>
 The heating and cooling performance coefficients are stored in the data record <code>per</code> and are available from
-<a href=\"Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater\">
-Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater</a>.
+<a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitReversable\">
+Buildings.Fluid.HeatPumps.Data.EquationFitReversable</a>.
 </p>
 <p>
 The electric power only includes the power for the compressor, but not any power for pumps, as the pumps must be modeled outside
@@ -322,8 +320,8 @@ Q&#775;<sub>ava</sub> =
  ( &alpha;<sub>1</sub>
  + &alpha;<sub>2</sub> T<sub>loa,ent</sub>/T<sub>RefHeaLoa</sub>
  + &alpha;<sub>3</sub> T<sub>sou,ent</sub>/T<sub>RefHeaSou</sub>
- + &alpha;<sub>4</sub> m&#775;<sub>loa,ent</sub>/m&#775;<sub>loa,0</sub>
- + &alpha;<sub>5</sub> m&#775;<sub>sou,ent</sub>/m&#775;<sub>sou,0</sub> ) &nbsp; Q&#775;<sub>0</sub> &nbsp; s,
+ + &alpha;<sub>4</sub> m&#775;<sub>loa,ent</sub>/(m&#775;<sub>loa,0</sub> &nbsp; s)
+ + &alpha;<sub>5</sub> m&#775;<sub>sou,ent</sub>/(m&#775;<sub>sou,0</sub> &nbsp; s) ) &nbsp; Q&#775;<sub>0</sub> &nbsp; s,
 </p>
 <p>
 where <i>Q&#775;<sub>0</sub></i> is the design capacity as specified by the parameter
@@ -334,8 +332,8 @@ The corresponding power consumption is
   ( &beta;<sub>1</sub>
   + &beta;<sub>2</sub> T<sub>loa,ent</sub>/T<sub>RefHeaLoa</sub>
   + &beta;<sub>3</sub> T<sub>sou,ent</sub>/T<sub>RefHeaSou</sub>
-  + &beta;<sub>4</sub>  m&#775;<sub>loa,ent</sub>/m&#775;<sub>loa,0</sub>
-  + &beta;<sub>5</sub> m&#775;<sub>sou,ent</sub>/m&#775;<sub>sou,0</sub> ) &nbsp; P<sub>0</sub> &nbsp; s,
+  + &beta;<sub>4</sub> m&#775;<sub>loa,ent</sub>/(m&#775;<sub>loa,0</sub> &nbsp; s)
+  + &beta;<sub>5</sub> m&#775;<sub>sou,ent</sub>/(m&#775;<sub>sou,0</sub> &nbsp; s) &nbsp; P<sub>0</sub> &nbsp; s,
 </p>
 <p>
 where <i>P<sub>0</sub></i> is the design power consumption as specified by the parameter
@@ -383,4 +381,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ReverseWaterToWater;
+end EquationFitReversable;

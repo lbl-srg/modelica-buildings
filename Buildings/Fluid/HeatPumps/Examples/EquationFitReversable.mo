@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatPumps.Examples;
-model ReverseWaterToWater "Test model for reverse heat pump based on performance curves"
+model EquationFitReversable "Test model for reverse heat pump based on performance curves"
  package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Data.ReverseWaterToWater.Trane_Axiom_EXW240 per
+  parameter Data.EquationFitReversable.Trane_Axiom_EXW240 per
    "Reverse heat pump performance data"
    annotation (Placement(transformation(extent={{28,68},{48,88}})));
   parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
@@ -10,7 +10,7 @@ model ReverseWaterToWater "Test model for reverse heat pump based on performance
   parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.hea.mLoa_flow
    "Load heat exchanger nominal mass flow rate";
 
-  Buildings.Fluid.HeatPumps.ReverseWaterToWater heaPum(
+  Buildings.Fluid.HeatPumps.EquationFitReversable heaPum(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -138,14 +138,14 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
              __Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ReverseWaterToWater.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/EquationFitReversable.mos"
         "Simulate and plot"),
          experiment(Tolerance=1e-6, StopTime=14400),
 Documentation(info="<html>
 <p>
 Example that simulates the performance of
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ReverseWaterToWater\">
-Buildings.Fluid.HeatPumps.ReverseWaterToWater</a> based on the equation fit method.
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversable\">
+Buildings.Fluid.HeatPumps.EquationFitReversable</a> based on the equation fit method.
 The heat pump takes as an input the set point for the heating or the chilled leaving
 water temperature and an integer input to
 specify the heat pump operational mode.
@@ -162,4 +162,4 @@ First implementation.
  </li>
  </ul>
  </html>"));
-end ReverseWaterToWater;
+end EquationFitReversable;

@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater;
+within Buildings.Fluid.HeatPumps.Data.EquationFitReversable;
 record Generic
   "Generic data record for reverse water to water heat pump implementing the equation fit method"
   extends Modelica.Icons.Record;
@@ -47,8 +47,8 @@ protected
     annotation (Documentation(info="<html>
 <p>
 Performance data for the heating or cooling mode of the reverse heat pump
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ReverseWaterToWater\">
-Buildings.Fluid.HeatPumps.ReverseWaterToWater</a>.
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversable\">
+Buildings.Fluid.HeatPumps.EquationFitReversable</a>.
 </p>
 </html>"));
   end HeatingCoolingData;
@@ -60,8 +60,8 @@ Documentation(info="<html>
 <p>
 This record is used as a template for performance data
 for the heat pump model
-<a href=\"Buildings.Fluid.HeatPumps.ReverseWaterToWater\">
-Buildings.Fluid.HeatPumps.ReverseWaterToWater</a>.
+<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversable\">
+Buildings.Fluid.HeatPumps.EquationFitReversable</a>.
 </p>
 </html>",  revisions="<html>
 <ul>

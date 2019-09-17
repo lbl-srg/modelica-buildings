@@ -1,6 +1,6 @@
-within Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater;
+within Buildings.Fluid.HeatPumps.Data.EquationFitReversable;
 record Trane_Axiom_EXW240 =
- Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater.Generic (
+ Buildings.Fluid.HeatPumps.Data.EquationFitReversable.Generic (
     dpHeaSou_nominal = 33530,
     dpHeaLoa_nominal = 32460,
     hea(
