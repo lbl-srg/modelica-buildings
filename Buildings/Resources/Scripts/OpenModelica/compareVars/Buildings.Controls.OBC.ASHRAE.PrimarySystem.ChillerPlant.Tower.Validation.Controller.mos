@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "towCon.uChi[1]",
+    "towCon.uWSE",
+    "towCon.TChiWatSup",
+    "towCon.TChiWatSupSet",
+    "towCon.uTowSta[1]",
+    "towCon.uTowSta[2]",
+    "towCon.uTowSta[3]",
+    "towCon.uTowSta[4]",
+    "towCon.yTowSpe[1]",
+    "towCon.yTowSpe[2]",
+    "towCon.yTowSpe[3]",
+    "towCon.yTowSpe[4]",
+    "towCon.yMakUp"
+  };
