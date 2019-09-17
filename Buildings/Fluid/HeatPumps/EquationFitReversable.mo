@@ -260,10 +260,11 @@ equation
   defaultComponentName="heaPum",
   Documentation(info="<html>
 <p>
-Model for a reverse heat pump using the equation fit method.
+Model for a reversable heat pump using the equation fit method and that takes as an
+input the set point for the leaving fluid temperature.
 </p>
 <p>
-This reverse heat pump can be operated either in heating mode or in cooling mode.
+This reversable heat pump can be operated either in heating mode or in cooling mode.
 It typically is used for a water to water heat pump, but if the performance data
 <code>per</code> are set up for other media, such as glycol, it can also be used for
 such applications. If used with air, it does not model latent heat exchange or frost
