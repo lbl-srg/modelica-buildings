@@ -347,6 +347,7 @@ Q&#775; = min(Q&#775;<sub>ava</sub> , Q&#775;<sub>set</sub>),
 <p>
 where <i>Q&#775;<sub>set</sub></i> is the heat required to meet the temperature setpoint
 for the leaving fluid on the load side.
+</p>
 </li>
 <li>
 If <code>uMod = -1</code>, the heat pump is in cooling mode, and the governing equations are as above, but
@@ -355,7 +356,7 @@ replaced with <i>max(&middot; &middot;)</i>.
 </li>
 <li>
 If <code>uMod = 0</code>, the model sets <i>Q&#775; = 0</i> and <i>P = 0</i>.
-</li>.
+</li>
 </ul>
 <p>
 The coefficient of performance COP is computed as
@@ -365,7 +366,7 @@ COP = Q&#775; &frasl; P.
 <h4>References</h4>
 <p>
 C. Tang
- <i>
+<i>
 Equation fit based models of water source heat pumps.
 </i>
 Master Thesis. Oklahoma State University, Oklahoma, USA. 2005.
