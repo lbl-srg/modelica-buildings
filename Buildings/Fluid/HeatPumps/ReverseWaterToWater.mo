@@ -51,6 +51,8 @@ model ReverseWaterToWater
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
         iconTransformation(extent={{100,-40},{120,-20}})));
 
+  output Real PLR(min=0, nominal=1, unit="1") = equFit.PLR
+   "Part load ratio";
 protected
   constant Modelica.SIunits.SpecificEnergy h1_default=
      Medium1.specificEnthalpy_pTX(
@@ -226,11 +228,10 @@ equation
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
-        Line(points={{0,-70},{0,-90},{-100,-90}},color={0,0,255}),
         Line(points={{0,68},{0,90},{-100,90}},   color={0,0,255}),
         Line(points={{112,-6}}, color={28,108,200}),
         Line(points={{2,68},{2,90},{100,90},{102,86}}, color={28,108,200}),
-        Line(points={{64,0},{108,0}}, color={28,108,200}),
+        Line(points={{70,0},{108,0}}, color={28,108,200}),
         Line(points={{2,-90}}, color={28,108,200}),
         Line(points={{2,-70},{2,-90},{106,-90}}, color={28,108,200}),
         Line(points={{24,-18},{6,-18},{6,-52}}, color={238,46,47}),
@@ -249,7 +250,9 @@ equation
           rotation=90),
         Ellipse(extent={{22,2},{28,10}}, lineColor={255,0,0}),
         Ellipse(extent={{22,-22},{28,-14}}, lineColor={255,0,0}),
-        Line(points={{32,-4},{26,-4},{26,-4}}, color={255,0,0})}),
+        Line(points={{32,-4},{26,-4},{26,-4}}, color={255,0,0}),
+        Line(points={{70,-30},{108,-30}},
+                                      color={28,108,200})}),
         Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false)),
   defaultComponentName="heaPum",
