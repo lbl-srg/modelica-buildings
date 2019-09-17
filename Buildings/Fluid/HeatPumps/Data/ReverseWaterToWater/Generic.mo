@@ -3,48 +3,35 @@ record Generic
   "Generic data record for reverse water to water heat pump implementing the equation fit method"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
-   "Nominal heating capacity"
-    annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=0)
-   "Nominal cooling capacity_negative number"
-    annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
   parameter Modelica.SIunits.MassFlowRate mLoa_flow
-   "Nominal mass flow rate at load heat exchanger side"
-    annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
+   "Nominal mass flow rate at load heat exchanger side";
   parameter Modelica.SIunits.MassFlowRate mSou_flow
-   "Nominal mass flow rate at source heat exchanger side"
-    annotation (Dialog(group="Nominal conditions at source heat exchanger side"));
-  parameter Modelica.SIunits.Power PHea
-   "Nominal compressor power in heating mode"
-    annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-  parameter Modelica.SIunits.Power PCoo
-   "Nominal compressor power in cooling mode"
-    annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
-  parameter Real coeLoaRatHea[5]
-   "Load ratio coefficients in heating mode"
-    annotation (Dialog(group="Heating mode performance coefficients"));
-  parameter Real coeLoaRatCoo[5]
-   "Load ratio coefficients in cooling mode"
-    annotation (Dialog(group="Cooling mode performance coefficients"));
-  parameter Real coePowRatHea[5]
-   "Power ratio coefficients in heating mode"
-    annotation (Dialog(group="Heating mode performance coefficients"));
-  parameter Real coePowRatCoo[5]
-   "Power ratio coefficients in cooling mode"
-    annotation (Dialog(group="Cooling mode performance coefficients"));
-  parameter Modelica.SIunits.Temperature TRefHeaLoa
-   "Reference temperature in heating mode used to normalize the Load heat exchanger inlet water temperature"
-    annotation (Dialog(group="Refrence conditions"));
-  parameter Modelica.SIunits.Temperature TRefHeaSou
-   "Reference temperature in heating mode used to normalize the source heat exchanger inlet water temperature"
-    annotation (Dialog(group="Refrence conditions"));
-  parameter Modelica.SIunits.Temperature TRefCooSou
-   "Reference temperature in cooling mode used to normalize the source heat exchanger inlet water temperature"
-    annotation (Dialog(group="Refrence conditions"));
-  parameter Modelica.SIunits.Temperature TRefCooLoa
-   "Reference temperature in cooling mode used to normalize the load heat exchanger inlet water temperature"
-    annotation (Dialog(group="Refrence conditions"));
+   "Nominal mass flow rate at source heat exchanger side";
+
+  parameter HeatingCoolingData hea "Performance data for heating mode";
+  parameter HeatingCoolingData coo "Performance data for cooling model";
+
+protected
+  record HeatingCoolingData "Record for performance data that are used for heating and cooling separately"
+    parameter Modelica.SIunits.HeatFlowRate Q_flow
+     "Nominal capacity"
+      annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
+    parameter Modelica.SIunits.Power P
+    "Nominal compressor power"
+      annotation (Dialog(group="Nominal conditions at load heat exchanger side"));
+    parameter Real coeQ[5]
+     "Load ratio coefficients"
+      annotation (Dialog(group="Performance coefficients"));
+    parameter Real coeP[5]
+     "Power ratio coefficients"
+      annotation (Dialog(group="Electrical power performance coefficients"));
+    parameter Modelica.SIunits.Temperature TRefLoa
+     "Reference temperature used to normalize the load heat exchanger inlet water temperature"
+      annotation (Dialog(group="Reference conditions"));
+    parameter Modelica.SIunits.Temperature TRefSou
+     "Reference temperature used to normalize the source heat exchanger inlet water temperature"
+      annotation (Dialog(group="Reference conditions"));
+  end HeatingCoolingData;
 
 annotation (
 defaultComponentName="datPer",

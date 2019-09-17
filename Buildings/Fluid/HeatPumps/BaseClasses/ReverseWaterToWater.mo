@@ -82,23 +82,17 @@ block ReverseWaterToWater
     else 1
      "Efficiency due to part load";
 
-  Modelica.SIunits.Efficiency LRH
-   "Load ratio in heating mode";
-  Modelica.SIunits.Efficiency LRC
-   "Load ratio in cooling mode";
-  Modelica.SIunits.Efficiency PRH
-   "Power ratio in heating mode";
-  Modelica.SIunits.Efficiency PRC
-   "Power ratio in cooling mode";
-  Modelica.SIunits.HeatFlowRate QHea_flow_ava
-   "Heating capacity available";
-  Modelica.SIunits.HeatFlowRate QCoo_flow_ava
-   "Cooling capacity available";
+  Modelica.SIunits.Efficiency QRel_flow
+   "Thermal load ratio";
+  Modelica.SIunits.Efficiency PRel
+   "Power ratio";
+  Modelica.SIunits.HeatFlowRate Q_flow_ava
+   "Heat (or cooling) capacity available";
   Real PLR(min=0, nominal=1, unit="1")
    "Part load ratio";
 
 protected
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_small = per.QHea_flow_nominal*1E-9*scaling_factor
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_small = per.hea.Q_flow*1E-9*scaling_factor
    "Small value for heat flow rate or power, used to avoid division by zero";
   Real A1[5] "Thermal load ratio coefficients";
   Real x1[5] "Normalized inlet variables";
@@ -109,9 +103,9 @@ protected
    "Needed to connect the conditional connector";
 
 initial equation
-  assert(per.QHea_flow_nominal> 0,
+  assert(per.hea.Q_flow> 0,
    "Parameter QheaLoa_flow_nominal must be larger than zero.");
-  assert(per.QCoo_flow_nominal< 0,
+  assert(per.coo.Q_flow< 0,
    "Parameter QCooLoa_flow_nominal must be lesser than zero.");
   assert(Q_flow_small > 0,
    "Parameter Q_flow_small must be larger than zero.");
@@ -123,76 +117,67 @@ equation
   end if;
 
   if (uMod==1) then
-    A1=per.coeLoaRatHea;
+    A1=per.hea.coeQ;
     x1={1,
-        TLoaEnt/per.TRefHeaLoa,
-        TSouEnt/per.TRefHeaSou,
+        TLoaEnt/per.hea.TRefLoa,
+        TSouEnt/per.hea.TRefSou,
         m1_flow/(per.mLoa_flow*scaling_factor),
         m2_flow/(per.mSou_flow*scaling_factor)};
-    A2= per.coePowRatHea;
+    A2= per.hea.coeP;
     x2={1,
-        TLoaEnt/per.TRefHeaLoa,
-        TSouEnt/per.TRefHeaSou,
+        TLoaEnt/per.hea.TRefLoa,
+        TSouEnt/per.hea.TRefSou,
         m1_flow/(per.mLoa_flow*scaling_factor),
         m2_flow/(per.mSou_flow*scaling_factor)};
-    LRH = sum( A1.*x1);
-    LRC = 0;
-    PRH =  sum( A2.*x2);
-    PRC = 0;
+    QRel_flow = sum( A1.*x1);
+    PRel =  sum( A2.*x2);
     PLR =Buildings.Utilities.Math.Functions.smoothMin(
-      x1=QHea_flow_set/(QHea_flow_ava + Q_flow_small),
+      x1=QHea_flow_set/(Q_flow_ava + Q_flow_small),
       x2=1,
       deltaX=1/100);
-    QHea_flow_ava = LRH *(per.QHea_flow_nominal*scaling_factor);
-    QCoo_flow_ava = 0;
+    Q_flow_ava = QRel_flow *(per.hea.Q_flow*scaling_factor);
     QLoa_flow   =Buildings.Utilities.Math.Functions.smoothMin(
       x1=QHea_flow_set,
-      x2=QHea_flow_ava,
+      x2=Q_flow_ava,
       deltaX=Q_flow_small/10);
-      P = etaPL*PRH*PLR*(per.PHea*scaling_factor);
+      P = etaPL*PRel*PLR*per.hea.P*scaling_factor; // fixme: Is this multiplication by etaPL correct?
     QSou_flow = -(QLoa_flow -P);
   elseif (uMod==-1) then
-    A1= per.coeLoaRatCoo;
+    A1= per.coo.coeQ;
     x1={1,
-        TLoaEnt/per.TRefCooLoa,
-        TSouEnt/per.TRefCooSou,
+        TLoaEnt/per.coo.TRefLoa,
+        TSouEnt/per.coo.TRefSou,
         m1_flow/(per.mLoa_flow*scaling_factor),
         m2_flow/(per.mSou_flow*scaling_factor)};
-    A2= per.coePowRatCoo;
+    A2= per.coo.coeP;
     x2={1,
-        TLoaEnt/per.TRefCooLoa,
-        TSouEnt/per.TRefCooSou,
+        TLoaEnt/per.coo.TRefLoa,
+        TSouEnt/per.coo.TRefSou,
         m1_flow/(per.mLoa_flow*scaling_factor),
         m2_flow/(per.mSou_flow*scaling_factor)};
-    LRH  = 0;
-    LRC  = sum(A1.*x1);
-    PRH  =  0;
-    PRC  = sum(A2.*x2);
-    QHea_flow_ava = 0;
-    QCoo_flow_ava = LRC* (per.QCoo_flow_nominal*scaling_factor);
+    QRel_flow  = sum(A1.*x1);
+    PRel  = sum(A2.*x2);
+    Q_flow_ava = QRel_flow*per.coo.Q_flow*scaling_factor;
     QLoa_flow =Buildings.Utilities.Math.Functions.smoothMax(
       x1=QCoo_flow_set_internal,
-      x2=QCoo_flow_ava,
+      x2=Q_flow_ava,
       deltaX=Q_flow_small/10);
     PLR =Buildings.Utilities.Math.Functions.smoothMin(
-      x1=QCoo_flow_set_internal/(QCoo_flow_ava - Q_flow_small),
+      x1=QCoo_flow_set_internal/(Q_flow_ava - Q_flow_small),
       x2=1,
       deltaX=1/100);
 
-    P = PRC*etaPL*PLR*(per.PCoo*scaling_factor);
+    P = PRel*etaPL*PLR*per.coo.P*scaling_factor; // fixme: Is this multiplication by etaPL correct?
     QSou_flow = -QLoa_flow + P;
   else
     A1={0,0,0,0,0};
     x1={0,0,0,0,0};
     A2={0,0,0,0,0};
     x2={0,0,0,0,0};
-    LRH= 0;
-    LRC=0;
-    PRH =0;
-    PRC = 0;
+    QRel_flow=0;
+    PRel = 0;
     P = 0;
-    QHea_flow_ava = 0;
-    QCoo_flow_ava = 0;
+    Q_flow_ava = 0;
     QLoa_flow   = 0;
     QSou_flow   = 0;
     PLR=0;
@@ -202,9 +187,9 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
   defaultComponentName="equFit",
   Documentation(info="<html>
 <p>
-The block describes the equation fit method implemented at the reverse heat pump model
+Block that implements the equation fit method for the reverse heat pump model
 <a href=\"Buildings.Fluid.HeatPumps.ReverseWaterToWater\">
- Buildings.Fluid.HeatPumps.ReverseWaterToWater</a>.
+Buildings.Fluid.HeatPumps.ReverseWaterToWater</a>.
 </p>
 <p>
 The following five functions are implemented to predict the thermal capacity and power consumption for the two operational modes
@@ -212,53 +197,46 @@ of the reverse heat pump as
 </p>
 <ul>
 <li>
-The heating mode is energized when the integer input signal <code>uMod</code>=1 and the governing equations are
+If <code>uMod = 1</code>, the heat pump is in heating mode, and the governing equations are the linear functions
 <p align=\"center\" style=\"font-style:italic;\">
-HLR = HLRC<sub>1</sub>+ HLRC<sub>2</sub> T<sub>Loa,Ent</sub>/T<sub>RefHeaLoa</sub>+
-HLRC<sub>3</sub> T<sub>Sou,Ent</sub>/T<sub>RefHeaSou</sub>+ HLRC<sub>4</sub> m&#775;<sub>Loa,Ent</sub>/m&#775;<sub>Loa,nominal</sub>+
-HLRC<sub>5</sub> m&#775;<sub>Sou,Ent</sub>/m&#775;<sub>Sou,nominal</sub>
+QRel_flow =
+    hea.coeQ<sub>1</sub>
+ + hea.coeQ<sub>2</sub> T<sub>loa,ent</sub>/T<sub>RefHeaLoa</sub>
+ + hea.coeQ<sub>3</sub> T<sub>sou,ent</sub>/T<sub>RefHeaSou</sub>
+ + hea.coeQ<sub>4</sub> m&#775;<sub>loa,ent</sub>/m&#775;<sub>loa,nominal</sub>
+ + hea.coeQ<sub>5</sub> m&#775;<sub>sou,ent</sub>/m&#775;<sub>sou,nominal</sub>
+</p>
+<p>
+where <i>QRel_flow</i> is the relative heat provided and
 <p align=\"center\" style=\"font-style:italic;\">
-PRH= PHC<sub>1</sub>+ PHC<sub>2</sub> T<sub>Loa,Ent</sub>/T<sub>RefHeaLoa</sub>+
-PHC<sub>3</sub> T<sub>Sou,Ent</sub>/T<sub>RefHeaSou</sub>+ PHC<sub>4</sub>  m&#775;<sub>Loa,Ent</sub>/m&#775;<sub>Loa,nominal</sub>+
-PHC<sub>5</sub> m&#775;<sub>Sou,Ent</sub>/m&#775;<sub>Sou,nominal</sub>
+  PRel=
+    hea.coeP<sub>1</sub>
+  + hea.coeP<sub>2</sub> T<sub>loa,ent</sub>/T<sub>RefHeaLoa</sub>
+  + hea.coeP<sub>3</sub> T<sub>sou,ent</sub>/T<sub>RefHeaSou</sub>
+  + hea.coeP<sub>4</sub>  m&#775;<sub>loa,ent</sub>/m&#775;<sub>loa,nominal</sub>
+  + hea.coeP<sub>5</sub> m&#775;<sub>sou,ent</sub>/m&#775;<sub>sou,nominal</sub>
+</p>
+<p>
+where <code>PRel</code> is the relative power consumption, prior to applying an optional correction for the part load efficiency.
+</p>
 </li>
+<li>
+If <code>uMod = -1</code>, the heat pump is in cooling mode, and the governing equations are as above, but
+with <i>coo.coeQ</i> and <i>coo.coeP</i> used instead of <i>hea.coeQ</i> and <i>hea.coeP</i>.
+</li>
+<li>
+If <code>uMod = 0</code>, the model sets <i>QRel_flow = 0</i> and <i>PRel = 0</i>
+</li>.
 </ul>
 <p>
-where the heating load ratio <code>HLR</code>=Q&#775;<sub>Loa_flow</sub>/Q&#775;<sub>Hea,nominal</sub> ,
-the compressor power ratio in heating mode <code>PRH</code>= P/P<sub>nominal_hea</sub> and the performance coefficients
-<i>HLRC<sub>1</sub> to HLRC<sub>5</sub> </i>, <i>PHC<sub>1</sub> to PHC<sub>5</sub> </i>
-are stored in the data record <code>per</code> at <a href=\"Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater\">
-Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater</a>.
-</p>
-<ul>
-<li>
-The cooling mode is energized when the integer input signal <code>uMod</code>=-1 and the governing equations  are
-<p align=\"center\" style=\"font-style:italic;\">
-CLR = CLRC<sub>1</sub>+ CLRC<sub>2</sub> T<sub>Loa,Ent</sub>/T<sub>RefCooLoa</sub>+
-CLRC<sub>3</sub> T<sub>Sou,Ent</sub>/T<sub>RefCooSou</sub>+ CLRC<sub>4</sub> m&#775;<sub>LoaEnt</sub>/m&#775;<sub>Loa,nominal</sub>+
-CLRC<sub>5</sub> m&#775;<sub>Sou,Ent</sub>/m&#775;<sub>Sou,nominal</sub>
-<p align=\"center\" style=\"font-style:italic;\">
-PRC = PCC<sub>1</sub>+ PCC<sub>2</sub>.T<sub>Loa,Ent</sub>/T<sub>TRefCooLoa</sub>+
- PCC<sub>3</sub> T<sub>Sou,Ent</sub>/T<sub>RefCooSou</sub>+ PCC<sub>4</sub> m&#775;<sub>Loa,Ent</sub>/m&#775;<sub>Loa,nominal</sub>
- + PCC<sub>5</sub> m&#775;<sub>Sou,Ent</sub>/m&#775;<sub>Sou,nominal</sub>
- </li>
- </ul>
- <p>
-where the cooling load ratio <code>CLR</code>= Q&#775;<sub>Loa_flow</sub>/Q&#775;<sub>Coo,nominal</sub>,
-the compressor power ratio in cooling mode <code>PRC</code> =P/P<sub>nominal_coo</sub> and the performance coefficients <i>CLRC<sub>1</sub> to CLRC<sub>5</sub> </i> , <i>PCC<sub>1</sub> to PCC<sub>5</sub> </i>
-are stored in the data record <code>per</code> at <a href=\"Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater\">
-Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater</a>.
- </p>
- <ul>
- <li>
-The change in the performance due to heat pump part-load is taken into account by evaluating the part-load efficiency <code>etaPL</code>
+The change in the performance due to heat pump part-load can be taken into account by evaluating the part-load efficiency <code>etaPL</code>
 as a polynomial function of the form
 <p align=\"center\" style=\"font-style:italic;\">
   &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> PLR + a<sub>3</sub> PLR<sup>2</sup> + ...
   </li>
   </ul>
   <p>
-where the coefficients <i>a<sub>i</sub></i> are declared by the parameter <code>a</code>, and PLR is the part-load ratio.
+where the coefficients <i>a<sub>i</sub></i> are declared by the parameter <code>a</code> and PLR is the part-load ratio.
  </p>
 </html>",
 revisions="<html>

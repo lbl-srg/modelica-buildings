@@ -22,7 +22,7 @@ model ReverseWaterToWater
   parameter Real a[:] = {1}
    "Coefficients for efficiency curve (need p(a=a, PLR=1)=1)"
     annotation (Dialog(group="Efficiency"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_small = per.QHea_flow_nominal*scaling_factor*1E-9
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_small = per.hea.Q_flow*scaling_factor*1E-9
    "Small value for heat flow rate or power, used to avoid division by zero"
    annotation(Dialog(tab="Advanced"));
 
