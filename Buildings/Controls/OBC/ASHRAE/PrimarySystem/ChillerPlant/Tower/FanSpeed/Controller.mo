@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed;
 block Controller "Tower fan speed control"
 
   parameter Integer nChi=2 "Total number of chillers";
@@ -210,7 +210,6 @@ block Controller "Tower fan speed control"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Controller
     fanSpeRetTem(
     final nChi=nChi,
@@ -335,6 +334,40 @@ annotation (
           extent={{-120,248},{100,210}},
           lineColor={0,0,255},
           textString="%name")}),
-                          Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-180},{100,160}})));
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,160}})),
+Documentation(info="<html>
+<p>
+Block that outputs cooling tower fan speed <code>yTowSpe</code>. This is implemented 
+according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, item
+1, 2, and 4. 
+These sections specifies sequences to control tower fan speed in the mode
+when waterside economizer (if the plant does have it) is enabled or disabled, for
+maintaining condenser water return temperature at its setpoint.
+It includes two subsequences:
+</p>
+<ul>
+<li>
+Sequence of controlling tower fan speed when waterside economizer is enabled, see
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Controller</a>
+for a description.
+</li>
+<li>
+Sequence of controlling tower fan speed to maintain condenser water return temperature
+at its setpoint. This control would be disabled if the waterside economizer is
+enabled. see
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Controller</a>
+for a description.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+September 14, 2019, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Controller;

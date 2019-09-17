@@ -1,5 +1,5 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE;
-block Controller "Tower fan control when waterside economizer is enabled"
+block Controller "Tower fan speed control when waterside economizer is enabled"
 
   parameter Integer nChi=2 "Total number of chillers";
   parameter Real minSpe=0.1 "Minimum tower fan speed";

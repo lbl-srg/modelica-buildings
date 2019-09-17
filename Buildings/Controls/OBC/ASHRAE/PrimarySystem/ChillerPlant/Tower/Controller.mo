@@ -251,13 +251,13 @@ protected
 
 equation
   connect(towSta.yTowSta, yTowSta)
-    annotation (Line(points={{1,-40},{40,-40},{40,0},{120,0}}, color={255,0,255}));
+    annotation (Line(points={{2,-40},{40,-40},{40,0},{120,0}}, color={255,0,255}));
   connect(towSta.yIsoVal, yIsoVal)
-    annotation (Line(points={{1,-49},{40,-49},{40,-80},{120,-80}}, color={0,0,127}));
+    annotation (Line(points={{2,-49},{40,-49},{40,-80},{120,-80}}, color={0,0,127}));
   connect(towSta.yTowSta, swi.u2)
-    annotation (Line(points={{1,-40},{58,-40}}, color={255,0,255}));
+    annotation (Line(points={{2,-40},{58,-40}}, color={255,0,255}));
   connect(towFanSpe.yTowSpe, reaRep.u)
-    annotation (Line(points={{1,20},{18,20}}, color={0,0,127}));
+    annotation (Line(points={{2,20},{18,20}}, color={0,0,127}));
   connect(reaRep.y, swi.u1)
     annotation (Line(points={{42,20},{50,20},{50,-32},{58,-32}}, color={0,0,127}));
   connect(zer.y, swi.u3)
@@ -265,56 +265,57 @@ equation
   connect(swi.y, yTowSpe)
     annotation (Line(points={{82,-40},{120,-40}}, color={0,0,127}));
   connect(towFanSpe.chiLoa, chiLoa)
-    annotation (Line(points={{-21,38},{-40,38},{-40,220},{-120,220}}, color={0,0,127}));
+    annotation (Line(points={{-22,39},{-40,39},{-40,220},{-120,220}}, color={0,0,127}));
   connect(towFanSpe.uChi, uChi)
-    annotation (Line(points={{-21,36},{-44,36},{-44,200},{-120,200}}, color={255,0,255}));
+    annotation (Line(points={{-22,36},{-44,36},{-44,200},{-120,200}}, color={255,0,255}));
   connect(towFanSpe.uWSE, uWSE)
-    annotation (Line(points={{-21,34},{-48,34},{-48,180},{-120,180}}, color={255,0,255}));
+    annotation (Line(points={{-22,33},{-48,33},{-48,180},{-120,180}}, color={255,0,255}));
   connect(towFanSpe.uTowSpe, uTowSpe)
-    annotation (Line(points={{-21,30},{-52,30},{-52,160},{-120,160}}, color={0,0,127}));
+    annotation (Line(points={{-22,30},{-52,30},{-52,160},{-120,160}}, color={0,0,127}));
   connect(towFanSpe.TChiWatSup, TChiWatSup)
-    annotation (Line(points={{-21,28},{-56,28},{-56,140},{-120,140}}, color={0,0,127}));
+    annotation (Line(points={{-22,27},{-56,27},{-56,140},{-120,140}}, color={0,0,127}));
   connect(towFanSpe.TChiWatSupSet, TChiWatSupSet)
-    annotation (Line(points={{-21,26},{-60,26},{-60,120},{-120,120}}, color={0,0,127}));
+    annotation (Line(points={{-22,24},{-60,24},{-60,120},{-120,120}}, color={0,0,127}));
   connect(towFanSpe.reqPlaCap, reqPlaCap)
-    annotation (Line(points={{-21,22},{-64,22},{-64,100},{-120,100}}, color={0,0,127}));
+    annotation (Line(points={{-22,21},{-64,21},{-64,100},{-120,100}}, color={0,0,127}));
   connect(towFanSpe.uMaxTowSpeSet, uMaxTowSpeSet)
-    annotation (Line(points={{-21,20},{-68,20},{-68,80},{-120,80}}, color={0,0,127}));
+    annotation (Line(points={{-22,18},{-68,18},{-68,80},{-120,80}}, color={0,0,127}));
   connect(towFanSpe.uTowSta, uTowSta)
-    annotation (Line(points={{-21,14},{-76,14},{-76,40},{-120,40}}, color={255,0,255}));
+    annotation (Line(points={{-22,15},{-76,15},{-76,40},{-120,40}}, color={255,0,255}));
   connect(towFanSpe.uConWatPumNum, uConWatPumNum)
     annotation (Line(points={{-21,12},{-80,12},{-80,20},{-120,20}}, color={255,127,0}));
   connect(towFanSpe.uPla, uPla)
-    annotation (Line(points={{-21,10},{-80,10},{-80,0},{-120,0}}, color={255,0,255}));
+    annotation (Line(points={{-22,9},{-80,9},{-80,0},{-120,0}},   color={255,0,255}));
   connect(towFanSpe.TConWatRet, TConWatRet)
-    annotation (Line(points={{-21,6},{-76,6},{-76,-20},{-120,-20}}, color={0,0,127}));
+    annotation (Line(points={{-22,6},{-76,6},{-76,-20},{-120,-20}}, color={0,0,127}));
   connect(towFanSpe.uConWatPumSpe, uConWatPumSpe)
-    annotation (Line(points={{-21,4},{-72,4},{-72,-40},{-120,-40}}, color={0,0,127}));
+    annotation (Line(points={{-22,3},{-72,3},{-72,-40},{-120,-40}}, color={0,0,127}));
   connect(towFanSpe.TConWatSup, TConWatSup)
-    annotation (Line(points={{-21,2},{-68,2},{-68,-60},{-120,-60}}, color={0,0,127}));
+    annotation (Line(points={{-22,1},{-68,1},{-68,-60},{-120,-60}}, color={0,0,127}));
   connect(towSta.uChiSta, uChiSta)
-    annotation (Line(points={{-21,-31},{-64,-31},{-64,-100},{-120,-100}}, color={255,127,0}));
+    annotation (Line(points={{-22,-31},{-64,-31},{-64,-100},{-120,-100}}, color={255,127,0}));
   connect(uWSE, towSta.uWSE)
-    annotation (Line(points={{-120,180},{-48,180},{-48,-33},{-21,-33}}, color={255,0,255}));
+    annotation (Line(points={{-120,180},{-48,180},{-48,-33},{-22,-33}}, color={255,0,255}));
   connect(uTowSta, towSta.uTowSta)
-    annotation (Line(points={{-120,40},{-76,40},{-76,14},{-60,14},{-60,-35},{-21,-35}},
+    annotation (Line(points={{-120,40},{-76,40},{-76,14},{-60,14},{-60,-35},{
+          -22,-35}},
       color={255,0,255}));
   connect(towSta.uTowCelPri, uTowCelPri)
-    annotation (Line(points={{-21,-37},{-60,-37},{-60,-120},{-120,-120}}, color={255,127,0}));
+    annotation (Line(points={{-22,-37},{-60,-37},{-60,-120},{-120,-120}}, color={255,127,0}));
   connect(towSta.uStaUp, uStaUp)
-    annotation (Line(points={{-21,-40},{-56,-40},{-56,-140},{-120,-140}}, color={255,0,255}));
+    annotation (Line(points={{-22,-40},{-56,-40},{-56,-140},{-120,-140}}, color={255,0,255}));
   connect(towSta.uTowStaUp, uTowStaUp)
-    annotation (Line(points={{-21,-43},{-52,-43},{-52,-160},{-120,-160}}, color={255,0,255}));
+    annotation (Line(points={{-22,-43},{-52,-43},{-52,-160},{-120,-160}}, color={255,0,255}));
   connect(towSta.uStaDow, uStaDow)
-    annotation (Line(points={{-21,-45},{-48,-45},{-48,-180},{-120,-180}}, color={255,0,255}));
+    annotation (Line(points={{-22,-45},{-48,-45},{-48,-180},{-120,-180}}, color={255,0,255}));
   connect(towSta.uTowStaDow, uTowStaDow)
-    annotation (Line(points={{-21,-47},{-44,-47},{-44,-200},{-120,-200}}, color={255,0,255}));
+    annotation (Line(points={{-22,-47},{-44,-47},{-44,-200},{-120,-200}}, color={255,0,255}));
   connect(towSta.uIsoVal, uIsoVal)
-    annotation (Line(points={{-21,-49},{-40,-49},{-40,-220},{-120,-220}}, color={0,0,127}));
+    annotation (Line(points={{-22,-49},{-40,-49},{-40,-220},{-120,-220}}, color={0,0,127}));
   connect(makUpWat.watLev, watLev)
     annotation (Line(points={{-22,-240},{-120,-240}}, color={0,0,127}));
   connect(makUpWat.yMakUp, yMakUp)
-    annotation (Line(points={{1,-240},{120,-240}}, color={255,0,255}));
+    annotation (Line(points={{2,-240},{120,-240}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="towCon",
