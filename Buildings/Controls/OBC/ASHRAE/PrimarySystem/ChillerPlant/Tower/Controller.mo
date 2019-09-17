@@ -315,7 +315,7 @@ protected
     final chaTowCelIsoTim=chaTowCelIsoTim,
     final iniValPos=iniValPos,
     final endValPos=endValPos,
-    fallDelay=fallDelay)  "Staging tower cells"
+    final fallDelay=fallDelay)  "Staging tower cells"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.Controller towFanSpe(
     final nChi=nChi,
