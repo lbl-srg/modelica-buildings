@@ -29,7 +29,7 @@ model EquationFitReversable
   Modelica.Blocks.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
-   "Set point for leaving water temperature at port b1"
+   "Set point for leaving fluid temperature at port b1"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
           iconTransformation(extent={{-128,76},{-100,104}})));
 
@@ -64,10 +64,10 @@ protected
   "Default enthalpy for Medium 1";
 
   Modelica.Blocks.Sources.RealExpression mLoa_flow(y=port_a1.m_flow)
-   "Load water mass flow rate"
+   "Load-side mass flow rate"
     annotation (Placement(transformation(extent={{-80,16},{-60,36}})));
   Modelica.Blocks.Sources.RealExpression mSou_flow(y=port_a2.m_flow)
-   "Source water mass flow rate"
+   "Source-side mass flow rate"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.SIunits.SpecificEnthalpy hSet=
     if uMod == 0
@@ -86,14 +86,14 @@ protected
       Medium2.setState_phX(port_a2.p,
                            inStream(port_a2.h_outflow),
                            inStream(port_a2.Xi_outflow))))
-   "Source side entering water temperature"
+   "Source side entering fluid temperature"
     annotation (Placement(transformation(extent={{-80,-36},{-60,-16}})));
   Modelica.Blocks.Sources.RealExpression TLoaEnt(
     final y=Medium1.temperature(
       Medium1.setState_phX(port_a1.p,
                           inStream(port_a1.h_outflow),
                           inStream(port_a1.Xi_outflow))))
-   "Load side entering water temperature"
+   "Load side entering fluid temperature"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_set(
     final y= if (uMod == 0)
@@ -104,7 +104,7 @@ protected
    "Required heat flow rate to meet set point"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  BaseClasses.ReverseWaterToWater equFit(final per=per,
+  BaseClasses.EquationFitReversable equFit(final per=per,
                                          final scaling_factor=scaling_factor)
    "Performance model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

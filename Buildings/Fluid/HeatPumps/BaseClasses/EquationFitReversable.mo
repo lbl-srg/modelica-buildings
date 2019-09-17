@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.BaseClasses;
-block ReverseWaterToWater
-  "Equation fit method to compute the performance of the reverse heat pump"
+block EquationFitReversable
+  "Equation fit method to compute the performance of the reversable heat pump"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Data.EquationFitReversable.Generic per
@@ -17,13 +17,13 @@ block ReverseWaterToWater
   Modelica.Blocks.Interfaces.RealInput TLoaEnt(
     final unit="K",
     displayUnit="degC")
-   "Load entering water temperature"
+   "Load entering fluid temperature"
     annotation (Placement(transformation(extent={{-124,16},{-100,40}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput TSouEnt(
     final unit="K",
     displayUnit="degC")
-   "Source entering water temperature"
+   "Source entering fluid temperature"
     annotation (Placement(transformation(extent={{-124,-72},{-100,-48}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
 
@@ -160,4 +160,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ReverseWaterToWater;
+end EquationFitReversable;
