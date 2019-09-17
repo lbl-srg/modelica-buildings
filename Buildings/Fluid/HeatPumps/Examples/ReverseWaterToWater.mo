@@ -13,22 +13,19 @@ model ReverseWaterToWater "Test model for reverse heat pump based on performance
      "= true, if reversing the heat pump to cooling mode is required";
 
     Buildings.Fluid.HeatPumps.ReverseWaterToWater heaPum(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       redeclare package Medium1 = Medium,
       redeclare package Medium2 = Medium,
-      show_T=true,
-    dp1_nominal=6000,
-    dp2_nominal=6000,
-    T1_start=281.4,
-      per=per,
-      scaling_factor=1,
-      reverseCycle=true)
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      dp1_nominal=6000,
+      dp2_nominal=6000,
+      T1_start=281.4,
+      per=per)
      "Water to Water heat pump"
      annotation (Placement(transformation(extent={{30,-10},{50,10}})));
     Modelica.Blocks.Math.RealToInteger reaToInt
       "Real to integer conversion"
-     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
+     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
     Sources.MassFlowSource_T loaPum(
       use_m_flow_in=false,
       m_flow=mLoa_flow_nominal,
@@ -39,7 +36,7 @@ model ReverseWaterToWater "Test model for reverse heat pump based on performance
      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-32,70})));
+        origin={-30,80})));
     Sources.MassFlowSource_T souPum(
       m_flow=mSou_flow_nominal,
       nPorts=1,
@@ -56,7 +53,7 @@ model ReverseWaterToWater "Test model for reverse heat pump based on performance
       offset=20 + 273.15,
       startTime=0)
      "Load side entering water temperature"
-     annotation (Placement(transformation(extent={{-94,56},{-74,76}})));
+     annotation (Placement(transformation(extent={{-80,66},{-60,86}})));
     Controls.OBC.CDL.Continuous.Sources.Ramp TSouEnt(
       height=4,
       duration(displayUnit="h") = 14400,
@@ -71,49 +68,62 @@ model ReverseWaterToWater "Test model for reverse heat pump based on performance
     Modelica.Fluid.Sources.FixedBoundary souVol(
        redeclare package Medium = Medium, nPorts=1)
      "Volume for source side"
-     annotation (Placement(transformation(extent={{-74,-80},{-54,-60}})));
+     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
     Controls.OBC.CDL.Continuous.Sources.Ramp THeaLoaSet(
     height=20,
     duration(displayUnit="h") = 14400,
     offset=40 + 273.15,
     startTime=0)
      "Heating load side setpoint water temperature"
-     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
     Controls.OBC.CDL.Continuous.Sources.Ramp uMod(
       height=2,
       duration(displayUnit="h") = 14400,
       offset=-1,
       startTime=0)
      "heat pump operational mode input signal"
-     annotation (Placement(transformation(extent={{-94,-10},{-74,10}})));
+     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
     Controls.OBC.CDL.Continuous.Sources.Ramp TCooSet(
     height=4,
     duration(displayUnit="h") = 14400,
     offset=6 + 273.15,
     startTime=0) if   reverseCycle
      "Cooling load setpoint water temperature"
-     annotation (Placement(transformation(extent={{-20,-38},{0,-18}})));
+     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+  Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=-1)
+    "Integer threshold"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Controls.OBC.CDL.Logical.Switch swi "Switch for set point temperature"
+    annotation (Placement(transformation(extent={{-8,0},{12,20}})));
 equation
     connect(heaPum.port_a1,loaPum. ports[1])
-     annotation (Line(points={{30,6},{22,6},{22,70},{-22,70}},color={0,127,255}));
+     annotation (Line(points={{30,6},{22,6},{22,80},{-20,80}},color={0,127,255}));
     connect(TSouEnt.y,souPum. T_in)
      annotation (Line(points={{82,-70},{92,-70},{92,-10},{82,-10}},color={0,0,127}));
     connect(souPum.ports[1], heaPum.port_a2)
      annotation (Line(points={{60,-6},{50,-6}},color={0,127,255}));
     connect(uMod.y, reaToInt.u)
-     annotation (Line(points={{-72,0},{-50,0}},color={0,0,127}));
+     annotation (Line(points={{-78,10},{-72,10}},
+                                               color={0,0,127}));
     connect(reaToInt.y, heaPum.uMod)
-     annotation (Line(points={{-27,0},{29,0}},color={255,127,0}));
+     annotation (Line(points={{-49,10},{-46,10},{-46,-40},{20,-40},{20,0},{29,0}},
+                                              color={255,127,0}));
     connect(loaPum.T_in,TLoaEnt. y)
-     annotation (Line(points={{-44,66},{-72,66}},color={0,0,127}));
-    connect(THeaLoaSet.y, heaPum.THeaLoaSet)
-     annotation (Line(points={{2,30},{10,30},{10,9},{28.6,9}},color={0,0,127}));
-    connect(TCooSet.y, heaPum.TCooLoaSet)
-     annotation (Line(points={{2,-28},{12,-28},{12,-9},{28.6,-9}}, color={0,0,127}));
+     annotation (Line(points={{-42,76},{-58,76}},color={0,0,127}));
   connect(heaPum.port_b1, loaVol.ports[1]) annotation (Line(points={{50,6},{60,
           6},{60,70},{80,70}}, color={0,127,255}));
   connect(heaPum.port_b2, souVol.ports[1]) annotation (Line(points={{30,-6},{22,
-          -6},{22,-70},{-54,-70}}, color={0,127,255}));
+          -6},{22,-70},{-50,-70}}, color={0,127,255}));
+  connect(swi.u2,intGreThr. y)
+    annotation (Line(points={{-10,10},{-18,10}}, color={255,0,255}));
+  connect(intGreThr.u, reaToInt.y)
+    annotation (Line(points={{-42,10},{-49,10}}, color={255,127,0}));
+  connect(THeaLoaSet.y, swi.u1) annotation (Line(points={{-18,40},{-14,40},{-14,
+          18},{-10,18}}, color={0,0,127}));
+  connect(TCooSet.y, swi.u3) annotation (Line(points={{-18,-20},{-14,-20},{-14,2},
+          {-10,2}}, color={0,0,127}));
+  connect(swi.y, heaPum.TSet) annotation (Line(points={{14,10},{20,10},{20,9},{28.6,
+          9}}, color={0,0,127}));
      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{120,100}}), graphics={
         Ellipse(lineColor = {75,138,73},

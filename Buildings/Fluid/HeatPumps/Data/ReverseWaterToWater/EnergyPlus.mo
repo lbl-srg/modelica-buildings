@@ -28,4 +28,15 @@ This data corresponds to the EnergyPlus example file <code>GSHPSimple-GLHE.idf</
 from EnergyPlus 9.1, with a nominal cooling capacity of <i>39890</i> Watts and
 nominal heating capacity of <i>39040</i> Watt.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 16, 2019 by Michael Wetter:<br/>
+Refactored implementation.
+</li>
+<li>
+June 19, 2019 by Hagar Elarga:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));

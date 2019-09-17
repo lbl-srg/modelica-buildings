@@ -16,24 +16,18 @@ model ReverseWaterToWater_EnergyPlus
     "Type of mass balance: dynamic (3 initialization options) or steady state";
 
     ReverseWaterToWater heaPum(
-      a={1},
-      per=perEP,
-      scaling_factor=1,
       redeclare package Medium1 = Medium,
       redeclare package Medium2 = Medium,
-      allowFlowReversal1=true,
-      allowFlowReversal2=true,
+      per=perEP,
       m1_flow_nominal=1.89,
       m2_flow_nominal=1.89,
-      show_T=true,
-      dp1_nominal=200,
-      dp2_nominal=200,
+      dp1_nominal=6000,
+      dp2_nominal=6000,
       tau1=30,
       tau2=30,
       homotopyInitialization=true,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      reverseCycle=true)
+      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
      "Water to Water heat pump"
       annotation (Placement(transformation(extent={{32,-10},{52,10}})));
     Sources.MassFlowSource_T conPum(
@@ -57,27 +51,13 @@ model ReverseWaterToWater_EnergyPlus
       annotation (Placement(transformation(extent={{-12,-12},{12,12}},rotation=180,
         origin={88,-40})));
     Modelica.Fluid.Sources.FixedBoundary cooVol(
-      redeclare package Medium = Medium,
-      nPorts=1)
+      redeclare package Medium = Medium, nPorts=1)
      "Volume for cooling load"
-      annotation (Placement(transformation(extent={{-48,-92},{-28,-72}})));
+      annotation (Placement(transformation(extent={{-48,-90},{-28,-70}})));
     Modelica.Fluid.Sources.FixedBoundary heaVol(
-      nPorts=1,
-      redeclare package Medium = Medium)
+      redeclare package Medium = Medium, nPorts=1)
      "Volume for heating load"
       annotation (Placement(transformation(extent={{118,74},{98,94}})));
-    FixedResistances.PressureDrop res1(
-      redeclare package Medium = Medium,
-      m_flow_nominal=mLoa_flow_nominal,
-      dp_nominal=6000)
-     "Flow resistance"
-      annotation (Placement(transformation(extent={{64,74},{84,94}})));
-    FixedResistances.PressureDrop res2(
-      redeclare package Medium = Medium,
-      m_flow_nominal=mSou_flow_nominal,
-      dp_nominal=6000)
-     "Flow resistance"
-      annotation (Placement(transformation(extent={{10,-92},{-10,-72}})));
     Modelica.Blocks.Sources.TimeTable TLoaEnt(table=[0,327.92436; 60,327.92436;
         120,327.92385; 180,327.92341; 240,327.9229; 300,327.92243; 360,
         327.92205; 420,327.92164; 480,327.92121; 540,327.92082; 600,327.92052;
@@ -944,7 +924,7 @@ model ReverseWaterToWater_EnergyPlus
         85800,-1; 85860,-1; 85920,-1; 85980,-1; 86040,-1; 86100,-1; 86160,-1;
         86220,-1; 86280,-1; 86340,-1; 86400,-1])
      "EnergyPlus heat pump mode control signal"
-      annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+      annotation (Placement(transformation(extent={{-110,0},{-90,20}})));
     Modelica.Blocks.Sources.TimeTable THeaSet(table=[0,328.438; 60,328.438;
         120,328.438; 180,328.439; 240,328.44; 300,328.44; 360,328.441; 420,
         328.441; 480,328.442; 540,328.442; 600,328.443; 660,328.443; 720,
@@ -1262,7 +1242,7 @@ model ReverseWaterToWater_EnergyPlus
         279.041; 86100,279.041; 86160,279.041; 86220,279.041; 86280,279.041;
         86340,279.041; 86400,279.041])
      "EnergyPlus: leaving water temperature at the load side in heating mode"
-      annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+      annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
     Modelica.Blocks.Sources.TimeTable QEvaEP(table=[0,-2656.8; 60,-2656.8;
         120,-2662.8; 180,-2668; 240,-2674.1; 300,-2679.6; 360,-2684; 420,-2688.9;
         480,-2694; 540,-2698.5; 600,-2702.1; 660,-2706.1; 720,-2710.1; 780,-2713.1;
@@ -2125,9 +2105,9 @@ model ReverseWaterToWater_EnergyPlus
         offset=0,
         startTime=0)
      "EnergyPlus: leaving water temperature at the load side in cooling mode"
-      annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+      annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
     Modelica.Blocks.Math.RealToInteger reaToInt
-      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+      annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
     Modelica.Blocks.Sources.Constant mCon_flow(k=1.89)
       annotation (Placement(transformation(extent={{-110,32},{-90,52}})));
     Modelica.Blocks.Sources.Constant mEva_flow(k=1.89)
@@ -2384,6 +2364,11 @@ model ReverseWaterToWater_EnergyPlus
         2417.2; 86220,2417.6; 86280,2417.9; 86340,2418.3; 86400,2418.7])
         "EnergyPlus results: Compressor Power"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  Controls.OBC.CDL.Logical.Switch swi "Switch for set point temperature"
+    annotation (Placement(transformation(extent={{-8,0},{12,20}})));
+  Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(threshold=-1)
+    "Integer threshold"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 equation
   connect(heaPum.port_a1, conPum.ports[1])
   annotation (Line(points={{32,6},{24,6},{24,83},{-28,83}},color={0,127,255}));
@@ -2391,29 +2376,32 @@ equation
   annotation (Line(points={{101,-14},{112,-14},{112,-44.8},{102.4,-44.8}},color={0,0,127}));
   connect(evaPum.ports[1], heaPum.port_a2)
   annotation (Line(points={{76,-40},{58,-40},{58,-6},{52,-6}}, color={0,127,255}));
-  connect(res1.port_a, heaPum.port_b1)
-  annotation (Line(points={{64,84},{58,84},{58,6},{52,6}}, color={0,127,255}));
   connect(TLoaEnt.y, conPum.T_in)
   annotation (Line(points={{-89,78},{-60,78},{-60,77.8},{-56.6,77.8}},color={0,0,127}));
-  connect(res1.port_b, heaVol.ports[1])
-  annotation (Line(points={{84,84},{98,84}}, color={0,127,255}));
   connect(heaPumMod.y, reaToInt.u)
-  annotation (Line(points={{-79,0},{-62,0}},color={0,0,127}));
+  annotation (Line(points={{-89,10},{-82,10}},
+                                            color={0,0,127}));
   connect(heaPum.uMod, reaToInt.y)
-  annotation (Line(points={{31,0},{-39,0}},color={255,127,0}));
-  connect(heaPum.port_b2, res2.port_a)
-  annotation (Line(points={{32,-6},{26,-6},{26,-82},{10,-82}},
-                color={0,127,255}));
-  connect(res2.port_b, cooVol.ports[1])
-  annotation (Line(points={{-10,-82},{-28,-82}}, color={0,127,255}));
+  annotation (Line(points={{31,0},{20,0},{20,-48},{-52,-48},{-52,10},{-59,10}},
+                                           color={255,127,0}));
   connect(mCon_flow.y, conPum.m_flow_in) annotation (Line(points={{-89,42},{-70,
           42},{-70,72.6},{-56.6,72.6}}, color={0,0,127}));
   connect(evaPum.m_flow_in, mEva_flow.y) annotation (Line(points={{102.4,-49.6},
           {118,-49.6},{118,22},{101,22}}, color={0,0,127}));
-  connect(THeaSet.y, heaPum.THeaLoaSet) annotation (Line(points={{1,30},{12,30},{12,9},
-          {30.6,9}},color={0,0,127}));
-  connect(TCooSet.y, heaPum.TCooLoaSet) annotation (Line(points={{1,-30},{12,-30},{12,
-          -9},{30.6,-9}},color={0,0,127}));
+  connect(swi.u2, intGreThr.y)
+    annotation (Line(points={{-10,10},{-18,10}}, color={255,0,255}));
+  connect(intGreThr.u, reaToInt.y)
+    annotation (Line(points={{-42,10},{-59,10}}, color={255,127,0}));
+  connect(heaPum.TSet, swi.y) annotation (Line(points={{30.6,9},{21.3,9},{21.3,10},
+          {14,10}}, color={0,0,127}));
+  connect(THeaSet.y, swi.u1) annotation (Line(points={{-19,40},{-16,40},{-16,18},
+          {-10,18}}, color={0,0,127}));
+  connect(TCooSet.y, swi.u3) annotation (Line(points={{-19,-20},{-16,-20},{-16,2},
+          {-10,2}}, color={0,0,127}));
+  connect(cooVol.ports[1], heaPum.port_b2) annotation (Line(points={{-28,-80},{26,
+          -80},{26,-6},{32,-6}}, color={0,127,255}));
+  connect(heaPum.port_b1, heaVol.ports[1]) annotation (Line(points={{52,6},{60,6},
+          {60,84},{98,84}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},
             {120,100}}),
                graphics={

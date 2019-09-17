@@ -9,7 +9,11 @@ record Generic
    "Nominal mass flow rate at source heat exchanger side";
 
   parameter HeatingCoolingData hea "Performance data for heating mode";
-  parameter HeatingCoolingData coo "Performance data for cooling model";
+  parameter HeatingCoolingData coo "Performance data for cooling mode (set coo.P = 0 to disable operation in cooling mode)";
+
+  final parameter Boolean reverseCycle=coo.P > Modelica.Constants.eps
+  "= true, if the heat pump can be reversed to also operate in cooling mode"
+    annotation(Evaluate=true);
 
 protected
   record HeatingCoolingData "Record for performance data that are used for heating and cooling separately"
@@ -43,11 +47,15 @@ Documentation(info =        "<html>
   Buildings.Fluid.HeatPumps.ReverseWaterToWater</a>.
   </p>
   </html>",revisions="<html>
-  <ul>
-  <li>
-  June 19, 2019 by Hagar Elarga:<br/>
-  First implementation.
-  </li>
-  </ul>
+<ul>
+<li>
+September 16, 2019 by Michael Wetter:<br/>
+Refactored implementation.
+</li>
+<li>
+June 19, 2019 by Hagar Elarga:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Generic;

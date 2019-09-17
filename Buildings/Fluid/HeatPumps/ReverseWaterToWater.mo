@@ -14,14 +14,8 @@ model ReverseWaterToWater
    "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{70,72},
             {90,92}})));
-  parameter Boolean reverseCycle=true
-  "= true, if the heat pump can be reversed to also operate in cooling mode"
-    annotation(Evaluate=true);
   parameter Real scaling_factor = 1
    "Scaling factor for heat pump capacity";
-  parameter Real a[:] = {1}
-   "Coefficients for efficiency curve (need p(a=a, PLR=1)=1)"
-    annotation (Dialog(group="Efficiency"));
   parameter Modelica.SIunits.HeatFlowRate Q_flow_small = per.hea.Q_flow*scaling_factor*1E-9
    "Small value for heat flow rate or power, used to avoid division by zero"
    annotation(Dialog(tab="Advanced"));
@@ -30,36 +24,32 @@ model ReverseWaterToWater
    "Control input signal, cooling mode=-1, off=0, heating mode=+1"
     annotation (Placement(transformation(extent={{-124,-12},{-100,12}}),
           iconTransformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealInput THeaLoaSet(
+  Modelica.Blocks.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
-   "Set point for leaving heating water temperature if uMod = 1"
+   "Set point for leaving water temperature at port b1"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
           iconTransformation(extent={{-128,76},{-100,104}})));
-  Modelica.Blocks.Interfaces.RealInput TCooLoaSet(
-    final unit="K",
-    displayUnit="degC") if reverseCycle
-   "Set point for leaving chilled water temperature if uMod = -1"
-    annotation (Placement(transformation(extent={{-140,-108},{-100,-68}}),
-          iconTransformation(extent={{-128,-104},{-100,-76}})));
+
   Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
    "Compressor power "
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-12},{120,8}})));
   Modelica.Blocks.Interfaces.RealOutput QSou_flow(final unit="W")
    "Heat flow rate at the source heat exchanger"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
+    annotation (Placement(transformation(extent={{100,-98},{120,-78}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
   Modelica.Blocks.Interfaces.RealOutput QLoa_flow(final unit="W")
    "Heat flow rate at the load heat exchanger"
-    annotation (Placement(transformation(extent={{100,10},{120,30}}),
+    annotation (Placement(transformation(extent={{100,78},{120,98}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  BaseClasses.ReverseWaterToWater equFit(final a=a,
-                                         final per=per,
-                                         final scaling_factor=scaling_factor,
-                                         final reverseCycle=reverseCycle)
-   "Performance model"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  Modelica.Blocks.Interfaces.RealOutput COP(
+    final min=0,
+    final unit="1")
+    "Coefficient of performance, assuming useful heat is at load side (at Medium 1)"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
+        iconTransformation(extent={{100,-40},{120,-20}})));
 
 protected
   constant Modelica.SIunits.SpecificEnergy h1_default=
@@ -71,69 +61,50 @@ protected
 
   Modelica.Blocks.Sources.RealExpression mLoa_flow(y=port_a1.m_flow)
    "Load water mass flow rate"
-    annotation (Placement(transformation(extent={{-78,-2},{-58,18}})));
+    annotation (Placement(transformation(extent={{-80,16},{-60,36}})));
   Modelica.Blocks.Sources.RealExpression mSou_flow(y=port_a2.m_flow)
    "Source water mass flow rate"
-    annotation (Placement(transformation(extent={{-78,-20},{-58,0}})));
-  Modelica.SIunits.SpecificEnthalpy hCooSet=
-    if (reverseCycle and uMod == -1)
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  Modelica.SIunits.SpecificEnthalpy hSet=
+    if uMod == 0
     then
+      h1_default
+    else
       Medium1.specificEnthalpy_pTX(
               p=port_b1.p,
-              T=TCooSet_internal,
+              T=TSet,
               X=cat(1,
                     port_b1.Xi_outflow,
                     {1 - sum(port_b1.Xi_outflow)}))
-    else h1_default
-   "Chilled water setpoint enthalpy";
-  Modelica.SIunits.SpecificEnthalpy hHeaSet=
-    if uMod == 1
-    then
-      Medium1.specificEnthalpy_pTX(
-              p=port_b1.p,
-              T=THeaLoaSet,
-              X=cat(1,
-                    port_b1.Xi_outflow,
-                    {1 - sum(port_b1.Xi_outflow)}))
-    else h1_default
-   "Heating water setpoint enthalpy";
+   "Enthalpy corresponding to set point";
   Modelica.Blocks.Sources.RealExpression TSouEnt(
     final y=Medium2.temperature(
       Medium2.setState_phX(port_a2.p,
                            inStream(port_a2.h_outflow),
                            inStream(port_a2.Xi_outflow))))
    "Source side entering water temperature"
-    annotation (Placement(transformation(extent={{-78,-50},{-58,-30}})));
+    annotation (Placement(transformation(extent={{-80,-36},{-60,-16}})));
   Modelica.Blocks.Sources.RealExpression TLoaEnt(
     final y=Medium1.temperature(
       Medium1.setState_phX(port_a1.p,
                           inStream(port_a1.h_outflow),
                           inStream(port_a1.Xi_outflow))))
    "Load side entering water temperature"
-    annotation (Placement(transformation(extent={{-78,30},{-58,50}})));
-  Modelica.Blocks.Sources.RealExpression QHea_flow_set(
-    final y= if (uMod == 1)
+    annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
+  Modelica.Blocks.Sources.RealExpression Q_flow_set(
+    final y= if (uMod == 0)
       then
-        Buildings.Utilities.Math.Functions.smoothMax(
-          x1=m1_flow*(hHeaSet - inStream(port_a1.h_outflow)),
-          x2=Q_flow_small,
-          deltaX=Q_flow_small/10)
+        0
       else
-        0)
-   "Heating load setpoint heat flow rate"
-    annotation (Placement(transformation(extent={{-78,12},{-58,32}})));
-  Modelica.Blocks.Sources.RealExpression QCoo_flow_set(
-    final y= if (uMod == -1)
-             then
-               Buildings.Utilities.Math.Functions.smoothMin(
-                 x1=m1_flow*(hCooSet - inStream(port_a1.h_outflow)),
-                 x2=-Q_flow_small,
-                 deltaX=Q_flow_small/10)
-             else
-               0) if
-      reverseCycle
-   "Setpoint cooling flow rate for the load"
-    annotation (Placement(transformation(extent={{-78,-36},{-58,-16}})));
+        m1_flow*(hSet - inStream(port_a1.h_outflow)))
+   "Required heat flow rate to meet set point"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+
+  BaseClasses.ReverseWaterToWater equFit(final per=per,
+                                         final scaling_factor=scaling_factor)
+   "Performance model"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloLoa
    "Prescribed load side heat flow rate"
     annotation (Placement(transformation(extent={{59,10},{39,30}})));
@@ -143,48 +114,40 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.LessThreshold lesThr(
     final threshold=0) if
-       not reverseCycle
+       not per.reverseCycle
     "Indicator, outputs true if in cooling mode"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(
     message="uMod cannot be -1 if reverseCycle is false.") if
-         not reverseCycle
+         not per.reverseCycle
     "Generate alert message if control input is not valid"
     annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
-  Modelica.Blocks.Interfaces.RealInput TCooSet_internal(final unit= "K")
-   "Needed to connect the conditional connector";
+
 
 equation
-  connect(TCooLoaSet, TCooSet_internal);
-  if not reverseCycle then
-    TCooSet_internal = Medium1.T_default;
-  end if;
-
   connect(equFit.QSou_flow,QSou_flow)
-  annotation (Line(points={{11,-4},{92,-4},{92,-20},{110,-20}}, color={0,0,127}));
-  connect(mSou_flow.y, equFit.m2_flow)
-  annotation (Line(points={{-57,-10},{-54,-10},{-54,-2.4},{-11,-2.4}},color={0,0,127}));
-  connect(mLoa_flow.y, equFit.m1_flow)
-  annotation (Line(points={{-57,8},{-54,8},{-54,2.2},{-11,2.2}},color={0,0,127}));
+  annotation (Line(points={{11,-2},{32,-2},{32,-88},{110,-88}}, color={0,0,127}));
+  connect(mSou_flow.y, equFit.mSou_flow) annotation (Line(points={{-59,-10},{-54,
+          -10},{-54,-3},{-11,-3}}, color={0,0,127}));
+  connect(mLoa_flow.y, equFit.mLoa_flow) annotation (Line(points={{-59,26},{-48,
+          26},{-48,6},{-11,6}}, color={0,0,127}));
   connect(equFit.QLoa_flow,QLoa_flow)
-  annotation (Line(points={{11,4},{92,4},{92,20},{110,20}},color={0,0,127}));
+  annotation (Line(points={{11,6},{92,6},{92,88},{110,88}},color={0,0,127}));
   connect(equFit.QLoa_flow,preHeaFloLoa.Q_flow)
-  annotation (Line(points={{11,4},{72,4},{72,20},{59,20}},color={0,0,127}));
+  annotation (Line(points={{11,6},{72,6},{72,20},{59,20}},color={0,0,127}));
   connect(TSouEnt.y,equFit.TSouEnt)
-  annotation (Line(points={{-57,-40},{-32,-40},{-32,-6.8},{-11,-6.8}},color={0,0,127}));
-  connect(QHea_flow_set.y, equFit.QHea_flow_set)
-  annotation (Line(points={{-57,22},{-40,22},{-40,4.8},{-11,4.8}}, color={0,0,127}));
+  annotation (Line(points={{-59,-26},{-50,-26},{-50,-6},{-11,-6}},    color={0,0,127}));
   connect(TLoaEnt.y,equFit.TLoaEnt)
-  annotation (Line(points={{-57,40},{-32,40},{-32,7.2},{-11,7.2}},color={0,0,127}));
-  connect(QCoo_flow_set.y, equFit.QCoo_flow_set)
-  annotation (Line(points={{-57,-26},{-40,-26},{-40,-4.6},{-11,-4.6}}, color={0,0,127}));
+  annotation (Line(points={{-59,8},{-54,8},{-54,3},{-11,3}},      color={0,0,127}));
   connect(equFit.P, P)
-  annotation (Line(points={{11,0},{110,0}},color={0,0,127}));
+  annotation (Line(points={{11,2},{60,2},{60,0},{110,0}},
+                                           color={0,0,127}));
   connect(uMod, equFit.uMod)
   annotation (Line(points={{-112,0},{-11,0}}, color={255,127,0}));
   connect(equFit.QSou_flow, preHeaFloSou.Q_flow)
-  annotation (Line(points={{11,-4},{72,-4},{72,-60},{59,-60}}, color={0,0,127}));
+  annotation (Line(points={{11,-2},{32,-2},{32,-44},{74,-44},{74,-60},{59,-60}},
+                                                               color={0,0,127}));
   connect(vol1.heatPort, preHeaFloLoa.port)
   annotation (Line(points={{-10,60},{-14,60},{-14,20},{39,20}}, color={191,0,0}));
   connect(vol2.heatPort, preHeaFloSou.port)
@@ -194,6 +157,10 @@ equation
     annotation (Line(points={{-54,-80},{-58,-80}}, color={255,0,255}));
   connect(lesThr.u, uMod) annotation (Line(points={{-82,-80},{-88,-80},{-88,0},{
           -112,0}}, color={255,127,0}));
+  connect(equFit.Q_flow_set, Q_flow_set.y) annotation (Line(points={{-11,9},{-44,
+          9},{-44,40},{-59,40}}, color={0,0,127}));
+  connect(equFit.COP, COP) annotation (Line(points={{11,-6},{36,-6},{36,-40},{
+          110,-40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
      graphics={
         Ellipse(
@@ -274,7 +241,7 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{0,11},{-21,-12},{17,-12},{0,11}},
+          points={{-1,12},{-17,-14},{15,-12},{-1,12}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -290,17 +257,16 @@ equation
 <p>
 Model for a reverse water to water heat pump using the equation fit method.
 </p>
-<h4>Theory of operation</h4>
 <p>
-The reverse heat pump is a mechanical reverse cycle device that is used to transfer heat from one medium to another where
-the function of the two heat exchangers can be reversed, e.g., each can operate as evaporator or condenser.
+This reverse heat pump can be operated either in heating mode or in cooling mode.
+The heat exchanger at medium 1 is to be connected to the building load,
+and the other heat exchanger to the heat source or sink, such as
+a geothermal loop.
+If in heating mode, the heat exchanger at medium 1 operates as a condenser,
+and in cooling mode it operates as an evaporator.
 </p>
 <p>
-Source and load are terms which identify the two heat exchangers of the heat pump. The load heat exchanger is connected to the building thermal loads,
-while the source heat exchanger extracts or rejects heat from/to the water, based on the heat pump operational heating or cooling mode.
-</p>
-<p>
-The model is based on the model described in the EnergyPlus 9.0.1 Engineering Reference, Section 16.6.1: Water to water heat pump model
+The model is based on the model described in the EnergyPlus 9.1.0 Engineering Reference, Section 16.6.1: Water to water heat pump model
 and the model based on C.Tang (2005).
 It uses four non-dimensional curves described in <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.ReverseWaterToWater\">
 Buildings.Fluid.HeatPumps.BaseClasses.ReverseWaterToWater</a> to predict the heat pump performance.
@@ -311,20 +277,14 @@ The model takes the following control signals:
 <ul>
 <li>
 The integer input <code>uMod</code> which controls the heat pump operational mode.
-If <code>reverseCycle = true</code> the signal can take on the values <i>-1</i>
-for cooling mode,
+If <code>per.reverseCycle = true</code> the signal can take on the values
+<i>-1</i> for cooling mode,
 <i>0</i> for off and
 <i>+1</i> for heating mode.<br/>
-If <code>reverseCycle = false</code> and <code>uMod = -1</code>, the model stops with an error message.
+If <code>per.reverseCycle = false</code> and <code>uMod = -1</code>, the model stops with an error message.
 </li>
 <li>
-The input <code>THeaLoaSet</code> is the set point for the leaving water temperature at port <code>port_b1</code>
-if <code>uMod = 1</code>. For other values of <code>uMod</code>, this input is ignored.
-</li>
-<li>
-If <code>reverseCycle = true</code>, the input connector <code>TCooLoaSet</code> is enable.
-This input is the set point for the leaving water temperature at port <code>port_b1</code>
-if <code>uMod = -1</code>. For other values of <code>uMod</code>, this input is ignored.
+The input <code>TSet</code> is the set point for the leaving water temperature at port <code>port_b1</code>.
 </li>
 </ul>
 <p>
@@ -336,10 +296,63 @@ Buildings.Fluid.HeatPumps.Data.ReverseWaterToWater</a>.
 The electric power only includes the power for the compressor, but not any power for pumps, as the pumps must be modeled outside
 of this component.
 </p>
-<h4>Options</h4>
+<h4>Main equations</h4>
 <p>
-Set <code>reverseCycle = true</code> to allow operation as a reverse cycle, and <code>reverseCycle = false</code>
-to use in heating mode only.
+The performance of the heat pump is computed as follows:
+Let <i>&alpha;</i> be the set of heat load performance coefficients determined by the data
+record <code>per.hea.coeQ</code> and let
+<i>&beta;</i> be the set of electrical power performance coefficients determined by the data
+record <code>hea.coeP</code>.
+Then, the performance is computed as
+</p>
+<ul>
+<li>
+If <code>uMod = 1</code>, the heat pump is in heating mode and the load side available heat is
+<p align=\"center\" style=\"font-style:italic;\">
+Q&#775;<sub>ava</sub> =
+ ( &alpha;<sub>1</sub>
+ + &alpha;<sub>2</sub> T<sub>loa,ent</sub>/T<sub>RefHeaLoa</sub>
+ + &alpha;<sub>3</sub> T<sub>sou,ent</sub>/T<sub>RefHeaSou</sub>
+ + &alpha;<sub>4</sub> m&#775;<sub>loa,ent</sub>/m&#775;<sub>loa,0</sub>
+ + &alpha;<sub>5</sub> m&#775;<sub>sou,ent</sub>/m&#775;<sub>sou,0</sub> ) &nbsp; Q&#775;<sub>0</sub> &nbsp; s,
+</p>
+<p>
+where <i>Q&#775;<sub>0</sub></i> is the design capacity as specified by the parameter
+<code>per.hea.Q_flow</code> and <i>s</i> is the scaling factor specified by the parameter <code>scaling_factor</code>.
+The corresponding power consumption is
+<p align=\"center\" style=\"font-style:italic;\">
+  P=
+  ( &beta;<sub>1</sub>
+  + &beta;<sub>2</sub> T<sub>loa,ent</sub>/T<sub>RefHeaLoa</sub>
+  + &beta;<sub>3</sub> T<sub>sou,ent</sub>/T<sub>RefHeaSou</sub>
+  + &beta;<sub>4</sub>  m&#775;<sub>loa,ent</sub>/m&#775;<sub>loa,0</sub>
+  + &beta;<sub>5</sub> m&#775;<sub>sou,ent</sub>/m&#775;<sub>sou,0</sub> ) &nbsp; P<sub>0</sub> &nbsp; s,
+</p>
+<p>
+where <i>P<sub>0</sub></i> is the design power consumption as specified by the parameter
+<code>per.hea.P</code>.
+The actual heat provided at the load side is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+Q&#775; = min(Q&#775;<sub>ava</sub> , Q&#775;<sub>set</sub>),
+</p>
+<p>
+where <i>Q&#775;<sub>set</sub></i> is the heat required to meet the temperature setpoint
+for the water leaving on the load side.
+</li>
+<li>
+If <code>uMod = -1</code>, the heat pump is in cooling mode, and the governing equations are as above, but
+with <code>per.coo</code> rather than <code>per.hea</code> used for the performance data, and the <i>min(&middot; &middot;)</i> function
+replaced with <i>max(&middot; &middot;)</i>.
+</li>
+<li>
+If <code>uMod = 0</code>, the model sets <i>Q&#775; = 0</i> and <i>P = 0</i>.
+</li>.
+</ul>
+<p>
+The coefficient of performance COP is computed as
+<p align=\"center\" style=\"font-style:italic;\">
+COP = Q&#775; &frasl; P.
 </p>
 <h4>References</h4>
 <p>
@@ -351,6 +364,10 @@ Master Thesis. Oklahoma State University, Oklahoma, USA. 2005.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2019 by Michael Wetter:<br/>
+Refactored implementation.
+</li>
 <li>
 September 2, 2019, by Hagar Elarga:<br/>
 First implementation.

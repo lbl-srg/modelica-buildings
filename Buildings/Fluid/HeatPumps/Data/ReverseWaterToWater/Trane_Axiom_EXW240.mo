@@ -41,6 +41,10 @@ catalog data.
 revisions="<html>
 <ul>
 <li>
+September 16, 2019 by Michael Wetter:<br/>
+Refactored implementation.
+</li>
+<li>
 June 19, 2019 by Hagar Elarga:<br/>
 First implementation.
 </li>
