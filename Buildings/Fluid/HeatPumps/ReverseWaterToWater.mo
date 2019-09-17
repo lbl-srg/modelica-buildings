@@ -3,8 +3,10 @@ model ReverseWaterToWater
   "Model for a reverse water to water heat pump based on the equation fit method"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
           show_T=true,
-          m1_flow_nominal=per.mLoa_flow*scaling_factor,
-          m2_flow_nominal=per.mSou_flow*scaling_factor,
+          final m1_flow_nominal=per.hea.mLoa_flow*scaling_factor,
+          final m2_flow_nominal=per.hea.mSou_flow*scaling_factor,
+          final dp1_nominal = per.dpHeaLoa_nominal,
+          final dp2_nominal = per.dpHeaSou_nominal,
        redeclare final Buildings.Fluid.MixingVolumes.MixingVolume
           vol1(final prescribedHeatFlowRate=true),
        redeclare final Buildings.Fluid.MixingVolumes.MixingVolume
@@ -12,8 +14,8 @@ model ReverseWaterToWater
 
   parameter Data.ReverseWaterToWater.Generic per
    "Performance data"
-    annotation (choicesAllMatching=true, Placement(transformation(extent={{70,72},
-            {90,92}})));
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{50,72},
+            {70,92}})));
   parameter Real scaling_factor = 1
    "Scaling factor for heat pump capacity";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_small = per.hea.Q_flow*scaling_factor*1E-9
@@ -135,9 +137,9 @@ equation
   connect(mLoa_flow.y, equFit.mLoa_flow) annotation (Line(points={{-59,26},{-48,
           26},{-48,6},{-11,6}}, color={0,0,127}));
   connect(equFit.QLoa_flow,QLoa_flow)
-  annotation (Line(points={{11,6},{92,6},{92,88},{110,88}},color={0,0,127}));
+  annotation (Line(points={{11,6},{80,6},{80,88},{110,88}},color={0,0,127}));
   connect(equFit.QLoa_flow,preHeaFloLoa.Q_flow)
-  annotation (Line(points={{11,6},{72,6},{72,20},{59,20}},color={0,0,127}));
+  annotation (Line(points={{11,6},{80,6},{80,20},{59,20}},color={0,0,127}));
   connect(TSouEnt.y,equFit.TSouEnt)
   annotation (Line(points={{-59,-26},{-50,-26},{-50,-6},{-11,-6}},    color={0,0,127}));
   connect(TLoaEnt.y,equFit.TLoaEnt)

@@ -93,14 +93,14 @@ equation
     xNor={ 1,
            TLoaEnt/per.coo.TRefLoa,
            TSouEnt/per.coo.TRefSou,
-           mLoa_flow/(per.mLoa_flow*scaling_factor),
-           mSou_flow/(per.mSou_flow*scaling_factor)};
+           mLoa_flow/(per.coo.mLoa_flow*scaling_factor),
+           mSou_flow/(per.coo.mSou_flow*scaling_factor)};
   else // uMod == +1
       xNor={ 1,
            TLoaEnt/per.hea.TRefLoa,
            TSouEnt/per.hea.TRefSou,
-           mLoa_flow/(per.mLoa_flow*scaling_factor),
-           mSou_flow/(per.mSou_flow*scaling_factor)};
+           mLoa_flow/(per.hea.mLoa_flow*scaling_factor),
+           mSou_flow/(per.hea.mSou_flow*scaling_factor)};
 
   end if;
 

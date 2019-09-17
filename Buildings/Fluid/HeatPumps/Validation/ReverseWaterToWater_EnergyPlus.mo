@@ -6,9 +6,9 @@ model ReverseWaterToWater_EnergyPlus
     parameter Data.ReverseWaterToWater.EnergyPlus perEP
     "EnergyPlus heat pump performance"
      annotation (Placement(transformation(extent={{80,-88},{100,-68}})));
-    parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=perEP.mSou_flow
+    parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=perEP.hea.mSou_flow
     "Source heat exchanger nominal mass flow rate";
-    parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=perEP.mLoa_flow
+    parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=perEP.hea.mLoa_flow
     "Load heat exchanger nominal mass flow rate";
     parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state";
@@ -19,13 +19,6 @@ model ReverseWaterToWater_EnergyPlus
       redeclare package Medium1 = Medium,
       redeclare package Medium2 = Medium,
       per=perEP,
-      m1_flow_nominal=1.89,
-      m2_flow_nominal=1.89,
-      dp1_nominal=6000,
-      dp2_nominal=6000,
-      tau1=30,
-      tau2=30,
-      homotopyInitialization=true,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
      "Water to Water heat pump"
