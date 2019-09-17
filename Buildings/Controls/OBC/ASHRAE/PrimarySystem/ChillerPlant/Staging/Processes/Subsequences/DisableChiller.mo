@@ -11,7 +11,7 @@ block DisableChiller "Sequence for disabling chiller"
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow "Indicate if there is stage-down command"
     annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaChiWatIsoVal
     "Status of chiller chilled water isolation valve control: true=enabled valve is fully open"
     annotation (Placement(transformation(extent={{-240,90},{-200,130}}),
@@ -50,7 +50,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1[nChi] "Logical and"
     annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nChi](
-    each final k=true) "True constant"
+    final k=fill(true, nChi)) "True constant"
     annotation (Placement(transformation(extent={{-40,220},{-20,240}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr3(
     final threshold=proOnTim)
@@ -60,7 +60,7 @@ protected
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nChi](
-    each final threshold=0.5)
+    final threshold=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
@@ -69,7 +69,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and3[nChi] "Logical and"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nChi](
-    each final k=false) "False constant"
+    final k=fill(false, nChi)) "False constant"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nChi]
     "Logical switch"
@@ -105,33 +105,33 @@ protected
     annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1(final nout=nChi)
     "Replicate integer input"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+    annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nChi]
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{-100,-250},{-80,-230}})));
+    annotation (Placement(transformation(extent={{-160,-250},{-140,-230}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
     "Convert boolean input to real output"
-    annotation (Placement(transformation(extent={{-100,-220},{-80,-200}})));
+    annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1[nChi]
     "Record the old chiller chilled water isolation valve status"
-    annotation (Placement(transformation(extent={{-20,-220},{0,-200}})));
+    annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep5(final nout=nChi)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
+    annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1[nChi](
-    each final threshold=0.5)
+    final threshold=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
   Buildings.Controls.OBC.CDL.Logical.And and4[nChi] "Logical and"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[nChi](
-    each final k=false)
+    final k=fill(false, nChi))
     "False constant"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nChi]
@@ -144,6 +144,12 @@ protected
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi5[nChi]
+    "Logical switch"
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi6[nChi]
+    "Logical switch"
+    annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
 
 equation
   connect(uNexEnaChi,intRep. u)
@@ -160,7 +166,7 @@ equation
   connect(intEqu.y,and1. u1)
     annotation (Line(points={{-78,200},{-42,200}},  color={255,0,255}));
   connect(booRep.y,and1. u2)
-    annotation (Line(points={{-78,140},{-60,140},{-60,192},{-42,192}},
+    annotation (Line(points={{-78,140},{-70,140},{-70,192},{-42,192}},
       color={255,0,255}));
   connect(and1.y,logSwi. u2)
     annotation (Line(points={{-18,200},{98,200}}, color={255,0,255}));
@@ -197,7 +203,7 @@ equation
     annotation (Line(points={{62,0},{80,0},{80,-22},{98,-22}},
       color={255,0,255}));
   connect(uChi,logSwi1. u3)
-    annotation (Line(points={{-220,80},{-160,80},{-160,-48},{80,-48},{80,-38},
+    annotation (Line(points={{-220,80},{-170,80},{-170,-48},{80,-48},{80,-38},
       {98,-38}},  color={255,0,255}));
   connect(booRep3.y,logSwi2. u2)
     annotation (Line(points={{102,30},{158,30}},   color={255,0,255}));
@@ -214,9 +220,9 @@ equation
     annotation (Line(points={{-138,170},{-110,170},{-110,192},{-102,192}},
       color={255,127,0}));
   connect(uNexDisChi,intRep1. u)
-    annotation (Line(points={{-220,-70},{-142,-70}},  color={255,127,0}));
+    annotation (Line(points={{-220,-70},{-162,-70}},  color={255,127,0}));
   connect(intRep1.y,intEqu1. u1)
-    annotation (Line(points={{-118,-70},{-102,-70}}, color={255,127,0}));
+    annotation (Line(points={{-138,-70},{-102,-70}}, color={255,127,0}));
   connect(conInt.y,intEqu1. u2)
     annotation (Line(points={{-138,170},{-110,170},{-110,-78},{-102,-78}},
       color={255,127,0}));
@@ -226,24 +232,22 @@ equation
   connect(not1.y, booRep3.u)
     annotation (Line(points={{2,30},{78,30}}, color={255,0,255}));
   connect(uStaDow, booRep4.u)
-    annotation (Line(points={{-220,140},{-180,140},{-180,-160},{-102,-160}},
+    annotation (Line(points={{-220,140},{-180,140},{-180,-160},{-162,-160}},
       color={255,0,255}));
   connect(uChi, booToRea1.u)
-    annotation (Line(points={{-220,80},{-160,80},{-160,-210},{-102,-210}},
+    annotation (Line(points={{-220,80},{-170,80},{-170,-210},{-162,-210}},
       color={255,0,255}));
   connect(uStaDow, edg1.u)
-    annotation (Line(points={{-220,140},{-180,140},{-180,-240},{-102,-240}},
+    annotation (Line(points={{-220,140},{-180,140},{-180,-240},{-162,-240}},
       color={255,0,255}));
   connect(booToRea1.y, triSam1.u)
-    annotation (Line(points={{-78,-210},{-22,-210}}, color={0,0,127}));
+    annotation (Line(points={{-138,-210},{-82,-210}},color={0,0,127}));
   connect(edg1.y, booRep5.u)
-    annotation (Line(points={{-78,-240},{-62,-240}}, color={255,0,255}));
-  connect(booRep5.y, triSam1.trigger)
-    annotation (Line(points={{-38,-240},{-10,-240},{-10,-221.8}}, color={255,0,255}));
+    annotation (Line(points={{-138,-240},{-122,-240}}, color={255,0,255}));
   connect(triSam1.y, greEquThr1.u)
-    annotation (Line(points={{2,-210},{38,-210}}, color={0,0,127}));
+    annotation (Line(points={{-58,-210},{38,-210}}, color={0,0,127}));
   connect(booRep4.y, and4.u2)
-    annotation (Line(points={{-78,-160},{0,-160},{0,-188},{38,-188}},
+    annotation (Line(points={{-138,-160},{0,-160},{0,-188},{38,-188}},
       color={255,0,255}));
   connect(intEqu1.y, and4.u1)
     annotation (Line(points={{-78,-70},{20,-70},{20,-180},{38,-180}},
@@ -260,17 +264,35 @@ equation
     annotation (Line(points={{-220,-120},{38,-120}}, color={255,0,255}));
   connect(booRep6.y, logSwi4.u2)
     annotation (Line(points={{62,-120},{158,-120}}, color={255,0,255}));
-  connect(logSwi3.y, logSwi4.u3)
-    annotation (Line(points={{122,-180},{140,-180},{140,-128},{158,-128}},
-      color={255,0,255}));
   connect(logSwi4.y, yChi)
     annotation (Line(points={{182,-120},{220,-120}}, color={255,0,255}));
-  connect(logSwi2.y, logSwi4.u1)
-    annotation (Line(points={{182,30},{190,30},{190,-100},{140,-100},{140,-112},
-          {158,-112}},
-                   color={255,0,255}));
   connect(greEquThr3.y, yReaDemLim)
     annotation (Line(points={{-38,-30},{-30,-30},{-30,-60},{220,-60}},
+      color={255,0,255}));
+  connect(booRep.y, logSwi5.u2)
+    annotation (Line(points={{-78,140},{-70,140},{-70,-90},{98,-90}},
+      color={255,0,255}));
+  connect(uChi, logSwi5.u3)
+    annotation (Line(points={{-220,80},{-170,80},{-170,-98},{98,-98}},
+      color={255,0,255}));
+  connect(logSwi2.y, logSwi5.u1)
+    annotation (Line(points={{182,30},{190,30},{190,-70},{80,-70},{80,-82},
+      {98,-82}}, color={255,0,255}));
+  connect(logSwi5.y, logSwi4.u1)
+    annotation (Line(points={{122,-90},{140,-90},{140,-112},{158,-112}},
+      color={255,0,255}));
+  connect(booRep5.y, triSam1.trigger)
+    annotation (Line(points={{-98,-240},{-70,-240},{-70,-221.8}}, color={255,0,255}));
+  connect(booRep4.y, logSwi6.u2)
+    annotation (Line(points={{-138,-160},{0,-160},{0,-240},{98,-240}}, color={255,0,255}));
+  connect(logSwi3.y, logSwi6.u1)
+    annotation (Line(points={{122,-180},{130,-180},{130,-220},{80,-220},
+      {80,-232},{98,-232}}, color={255,0,255}));
+  connect(uChi, logSwi6.u3)
+    annotation (Line(points={{-220,80},{-170,80},{-170,-180},{-40,-180},
+      {-40,-248},{98,-248}}, color={255,0,255}));
+  connect(logSwi6.y, logSwi4.u3)
+    annotation (Line(points={{122,-240},{140,-240},{140,-128},{158,-128}},
       color={255,0,255}));
 
 annotation (
@@ -297,7 +319,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{114,74},{184,54}},
+          extent={{100,188},{170,168}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -305,7 +327,7 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Enable small chiller"),
           Text(
-          extent={{116,-78},{186,-96}},
+          extent={{100,-38},{170,-56}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -313,24 +335,19 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Disable large chiller"),
           Text(
-          extent={{-152,-190},{190,-260}},
+          extent={{-164,-244},{190,-286}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Disable chiller when 
-the down-process does 
-not require any other 
-chiller being enabled"),
+          textString="Disable chiller when the down-process does not require any other chiller being enabled"),
           Text(
-          extent={{-100,264},{190,210}},
+          extent={{-134,262},{176,242}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Disable chiller when 
-the down-process requires
-small chiller being enabled")}));
+          textString="Disable chiller when the down-process requires small chiller being enabled")}));
 end DisableChiller;

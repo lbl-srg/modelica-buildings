@@ -109,17 +109,17 @@ protected
   final parameter Real endValPos=1
     "Ending valve position, if it needs to turn on chiller, the value should be 1"
     annotation (Dialog(group="Chilled water isolation valve"));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Processes.Subsequences.ReduceDemand
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand
     chiDemRed(
     final nChi=nChi,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim) "Reduce chiller demand"
     annotation (Placement(transformation(extent={{0,160},{20,180}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Processes.Subsequences.ResetMinBypass
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypRes(final aftByPasSetTim=aftByPasSetTim, final minFloDif=minFloDif)
     "Slowly change the minimum flow bypass setpoint"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Processes.Subsequences.EnableHeadControl
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableHeadControl
     enaHeaCon(
     final nChi=nChi,
     final thrTimEnb=thrTimEnb,
@@ -127,14 +127,14 @@ protected
     final heaStaCha=heaStaCha)
     "Enable head pressure control of the chiller being enabled"
     annotation (Placement(transformation(extent={{0,-26},{20,-6}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Processes.Subsequences.EnableChiIsoVal
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableChiIsoVal
     enaChiIsoVal(
     final nChi=nChi,
     final chaChiWatIsoTim=chaChiWatIsoTim,
     final iniValPos=iniValPos,
     final endValPos=endValPos) "Enable chiller chilled water isolation valve "
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Processes.Subsequences.DisableChiller
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DisableChiller
     disChi(final nChi=nChi, final proOnTim=proOnTim) "Disable last chiller"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
@@ -170,7 +170,7 @@ equation
     annotation (Line(points={{-78,70},{-60,70},{-60,59},{-1,59}},
       color={255,0,255}));
   connect(chiDemRed.yChiDemRed, minBypSet.uUpsDevSta)
-    annotation (Line(points={{21,166},{30,166},{30,80},{-20,80},{-20,54},{-2,54}},
+    annotation (Line(points={{21,166},{30,166},{30,80},{-20,80},{-20,56},{-1,56}},
       color={255,0,255}));
   connect(minBypSet.uSta, uSta)
     annotation (Line(points={{-2,50},{-180,50}}, color={255,127,0}));
@@ -229,8 +229,9 @@ equation
           -160},{-80,-170},{-180,-170}}, color={255,127,0}));
   connect(uStaDow, and2.u1)
     annotation (Line(points={{-180,190},{-102,190}}, color={255,0,255}));
-  connect(and2.y, chiDemRed.uDemLim) annotation (Line(points={{-79,190},{-40,190},
-          {-40,176},{-2,176}}, color={255,0,255}));
+  connect(and2.y, chiDemRed.uDemLim) annotation (Line(points={{-78,190},{-40,
+          190},{-40,176},{-2,176}},
+                               color={255,0,255}));
   connect(uOnOff, booRep4.u)
     annotation (Line(points={{-180,20},{58,20}}, color={255,0,255}));
   connect(booRep4.y, chiDem.u2) annotation (Line(points={{82,20},{120,20},{120,
@@ -260,15 +261,17 @@ equation
   connect(chiWatIsoVal.y, yChiWatIsoVal)
     annotation (Line(points={{162,-70},{190,-70}}, color={0,0,127}));
   connect(disChi.yChi, yChi)
-    annotation (Line(points={{21,-150},{190,-150}}, color={255,0,255}));
-  connect(disChi.yReaDemLim, not1.u) annotation (Line(points={{21,-158},{40,-158},
-          {40,-180},{58,-180}}, color={255,0,255}));
+    annotation (Line(points={{22,-150},{190,-150}}, color={255,0,255}));
+  connect(disChi.yReaDemLim, not1.u) annotation (Line(points={{22,-158},{40,
+          -158},{40,-180},{58,-180}},
+                                color={255,0,255}));
   connect(not1.y, and2.u2) annotation (Line(points={{82,-180},{100,-180},{100,
           -200},{-120,-200},{-120,182},{-102,182}},
                                               color={255,0,255}));
 
-  connect(disChi.yReaDemLim, yReaDemLim) annotation (Line(points={{21,-158},{120,
-          -158},{120,-180},{190,-180}}, color={255,0,255}));
+  connect(disChi.yReaDemLim, yReaDemLim) annotation (Line(points={{22,-158},{
+          120,-158},{120,-180},{190,-180}},
+                                        color={255,0,255}));
 annotation (
   defaultComponentName="staDow",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-200},{180,220}})),

@@ -102,7 +102,7 @@ protected
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Processes.Subsequences.EnableChiIsoVal
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableChiIsoVal
     disChiIsoVal(
     final nChi=nChi,
     final iniValPos=1,
@@ -120,7 +120,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Logical.And and5 "Logical and"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Processes.Subsequences.EnableHeadControl
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableHeadControl
     disHeaCon(final nChi=nChi, final heaStaCha=false)
     "Disable head pressure control of the chiller being disabled"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
@@ -132,7 +132,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false)
     "False constant"
     annotation (Placement(transformation(extent={{-60,-146},{-40,-126}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Processes.Subsequences.ResetMinBypass
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypSet1(
     final aftByPasSetTim=aftByPasSetTim,
     final minFloDif=minFloDif)
@@ -163,7 +163,7 @@ protected
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi5 "Logical switch"
     annotation (Placement(transformation(extent={{160,-240},{180,-220}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Processes.Subsequences.EnableChiller
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableChiller
     enaChi(final nChi=nChi, final proOnTim=proOnTim) "Enable next chiller"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
 
@@ -184,9 +184,9 @@ equation
   connect(uChiWatIsoVal,disChiIsoVal. uChiWatIsoVal)
     annotation (Line(points={{-220,-6},{98,-6}}, color={0,0,127}));
   connect(and4.y,disChiIsoVal. yUpsDevSta)
-    annotation (Line(points={{41,40},{60,40},{60,-14},{98,-14}},  color={255,0,255}));
+    annotation (Line(points={{42,40},{60,40},{60,-14},{98,-14}},  color={255,0,255}));
   connect(con2.y,disChiIsoVal. uStaCha)
-    annotation (Line(points={{-79,-30},{20,-30},{20,-18},{98,-18}}, color={255,0,255}));
+    annotation (Line(points={{-78,-30},{20,-30},{20,-18},{98,-18}}, color={255,0,255}));
   connect(uConWatReq, booToRea2.u)
     annotation (Line(points={{-220,-70},{-162,-70}},   color={255,0,255}));
   connect(booToRea2.y, curDisChi1.u)
@@ -202,9 +202,10 @@ equation
     annotation (Line(points={{121,-4},{160,-4},{160,10},{-40,10},{-40,-78},
       {-22,-78}}, color={255,0,255}));
   connect(con2.y, disHeaCon.uStaCha)
-    annotation (Line(points={{-79,-30},{20,-30},{20,-66},{78,-66}}, color={255,0,255}));
-  connect(and5.y, disHeaCon.uUpsDevSta) annotation (Line(points={{1,-70},{40,-70},
-          {40,-62},{78,-62}},   color={255,0,255}));
+    annotation (Line(points={{-78,-30},{20,-30},{20,-66},{78,-66}}, color={255,0,255}));
+  connect(and5.y, disHeaCon.uUpsDevSta) annotation (Line(points={{2,-70},{40,
+          -70},{40,-62},{78,-62}},
+                                color={255,0,255}));
   connect(uNexDisChi, disHeaCon.uNexChaChi)
     annotation (Line(points={{-220,70},{-180,70},{-180,-90},{40,-90},{40,-74},{78,
           -74}},            color={255,127,0}));
@@ -223,13 +224,14 @@ equation
     annotation (Line(points={{-220,-150},{-20,-150},{-20,-128},{78,-128}},
       color={255,127,0}));
   connect(disHeaCon.yEnaHeaCon, minBypSet.uUpsDevSta)
-    annotation (Line(points={{101,-64},{120,-64},{120,-104},{40,-104},{40,-124},
-          {78,-124}},       color={255,0,255}));
+    annotation (Line(points={{101,-64},{120,-64},{120,-104},{40,-104},{40,-122},
+          {79,-122}},       color={255,0,255}));
   connect(disHeaCon.yEnaHeaCon, minBypSet1.uUpsDevSta)
     annotation (Line(points={{101,-64},{120,-64},{120,-104},{40,-104},{40,-172},
           {78,-172}},       color={255,0,255}));
-  connect(con2.y, minBypSet1.uStaCha) annotation (Line(points={{-79,-30},{20,-30},
-          {20,-176},{78,-176}}, color={255,0,255}));
+  connect(con2.y, minBypSet1.uStaCha) annotation (Line(points={{-78,-30},{20,
+          -30},{20,-176},{78,-176}},
+                                color={255,0,255}));
   connect(minBypSet.yChiWatBypSet, minBypSet1.VBypas_setpoint)
     annotation (Line(points={{101,-128},{120,-128},{120,-148},{60,-148},{60,-188},
           {78,-188}},       color={0,0,127}));
