@@ -1,12 +1,21 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
-model YorkCalc
-  "Test model for cooling tower using the York performance correlation"
+model Merkel "Test model for cooling tower using the Merkel theory"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-    redeclare CoolingTowers.YorkCalc tow(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      m_flow_nominal=mWat_flow_nominal),
+    redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
+      m2_flow_nominal=mWat_flow_nominal,
+      TAirInWB_nominal=273.15 + 25.55,
+      TWatIn_nominal=273.15 + 35,
+      configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+      PFan_nominal=4800,
+      Q_flow_nominal=mWat_flow_nominal*4180*5.56,
+      m1_flow_nominal=mAir_flow_nominal,
+      show_T=false),
     onOffController(bandwidth=2));
+
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 0.8
+    "Design air flow rate"
+      annotation (Dialog(group="Nominal condition"));
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"
@@ -40,7 +49,7 @@ equation
             {140,100}}),
                       graphics),
 experiment(StartTime=15552000, Tolerance=1e-06, StopTime=15724800),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/YorkCalc.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/Merkel.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-180},{100,
             100}})),
@@ -60,4 +69,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end YorkCalc;
+end Merkel;
