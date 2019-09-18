@@ -244,12 +244,22 @@ its class name ends with the string <code>Beta</code>.
     units are wrong or errors in documentation):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Fluid.Sources.Boundary_pT<br/>
+                           Buildings.Fluid.Sources.Boundary_ph<br/>
+                           Buildings.Fluid.Sources.MassFlowSource_T<br/>
+                           Buildings.Fluid.Sources.MassFlowSource_h
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Refactored handling of mass fractions which was needed to handle media such as
+                           <a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents\">
+                           Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents</a> and
+                           <a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas\">
+                           Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas</a>.<br/>
+                           Prior to this change, use of these media led to a translation error.<br/>
+                           This is for
+                           <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
         </td>
     </tr>
     </table>
@@ -262,7 +272,7 @@ its class name ends with the string <code>Beta</code>.
     </li>
     </ul>
     </html>"));
-  end Version_7_0_0;
+    end Version_7_0_0;
 
     class Version_6_0_0 "Version 6.0.0"
       extends Modelica.Icons.ReleaseNotes;
