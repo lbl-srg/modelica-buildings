@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block DisableChiller "Sequence for disabling chiller"
 
   parameter Integer nChi = 2 "Total number of chillers";
@@ -65,12 +65,12 @@ protected
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
     "Logical switch"
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Logical.And and3[nChi] "Logical and"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nChi](
     final k=fill(false, nChi)) "False constant"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
@@ -143,7 +143,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep6(
     final nout=nChi)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+    annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi5[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
@@ -198,17 +198,18 @@ equation
   connect(booRep2.y,and3. u1)
     annotation (Line(points={{2,-30},{38,-30}}, color={255,0,255}));
   connect(and3.y,logSwi1. u2)
-    annotation (Line(points={{62,-30},{98,-30}}, color={255,0,255}));
+    annotation (Line(points={{62,-30},{80,-30},{80,-10},{98,-10}},
+      color={255,0,255}));
   connect(con1.y,logSwi1. u1)
-    annotation (Line(points={{62,0},{80,0},{80,-22},{98,-22}},
+    annotation (Line(points={{62,10},{80,10},{80,-2},{98,-2}},
       color={255,0,255}));
   connect(uChi,logSwi1. u3)
-    annotation (Line(points={{-220,80},{-170,80},{-170,-48},{80,-48},{80,-38},
-      {98,-38}},  color={255,0,255}));
+    annotation (Line(points={{-220,80},{-170,80},{-170,-48},{90,-48},{90,-18},{98,
+          -18}},  color={255,0,255}));
   connect(booRep3.y,logSwi2. u2)
     annotation (Line(points={{102,30},{158,30}},   color={255,0,255}));
   connect(logSwi1.y,logSwi2. u3)
-    annotation (Line(points={{122,-30},{140,-30},{140,22},{158,22}},
+    annotation (Line(points={{122,-10},{140,-10},{140,22},{158,22}},
       color={255,0,255}));
   connect(logSwi.y,logSwi2. u1)
     annotation (Line(points={{122,200},{140,200},{140,38},{158,38}},
@@ -255,20 +256,17 @@ equation
   connect(and4.y, logSwi3.u2)
     annotation (Line(points={{62,-180},{98,-180}}, color={255,0,255}));
   connect(con2.y, logSwi3.u1)
-    annotation (Line(points={{62,-150},{80,-150},{80,-172},{98,-172}},
+    annotation (Line(points={{62,-150},{72,-150},{72,-172},{98,-172}},
       color={255,0,255}));
   connect(greEquThr1.y, logSwi3.u3)
     annotation (Line(points={{62,-210},{80,-210},{80,-188},{98,-188}},
       color={255,0,255}));
   connect(uOnOff, booRep6.u)
-    annotation (Line(points={{-220,-120},{38,-120}}, color={255,0,255}));
+    annotation (Line(points={{-220,-120},{98,-120}}, color={255,0,255}));
   connect(booRep6.y, logSwi4.u2)
-    annotation (Line(points={{62,-120},{158,-120}}, color={255,0,255}));
+    annotation (Line(points={{122,-120},{158,-120}},color={255,0,255}));
   connect(logSwi4.y, yChi)
     annotation (Line(points={{182,-120},{220,-120}}, color={255,0,255}));
-  connect(greEquThr3.y, yReaDemLim)
-    annotation (Line(points={{-38,-30},{-30,-30},{-30,-60},{220,-60}},
-      color={255,0,255}));
   connect(booRep.y, logSwi5.u2)
     annotation (Line(points={{-78,140},{-70,140},{-70,-90},{98,-90}},
       color={255,0,255}));
@@ -276,8 +274,8 @@ equation
     annotation (Line(points={{-220,80},{-170,80},{-170,-98},{98,-98}},
       color={255,0,255}));
   connect(logSwi2.y, logSwi5.u1)
-    annotation (Line(points={{182,30},{190,30},{190,-70},{80,-70},{80,-82},
-      {98,-82}}, color={255,0,255}));
+    annotation (Line(points={{182,30},{190,30},{190,-70},{80,-70},{80,-82},{98,-82}},
+      color={255,0,255}));
   connect(logSwi5.y, logSwi4.u1)
     annotation (Line(points={{122,-90},{140,-90},{140,-112},{158,-112}},
       color={255,0,255}));
@@ -294,6 +292,9 @@ equation
   connect(logSwi6.y, logSwi4.u3)
     annotation (Line(points={{122,-240},{140,-240},{140,-128},{158,-128}},
       color={255,0,255}));
+  connect(greEquThr3.y, yReaDemLim)
+    annotation (Line(points={{-38,-30},{-30,-30},{-30,-60},{220,-60}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="disChi",
@@ -305,8 +306,8 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}}),
+          textString="%name")}),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}}),
         graphics={
           Rectangle(
           extent={{-198,-142},{198,-258}},
@@ -327,7 +328,7 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Enable small chiller"),
           Text(
-          extent={{100,-38},{170,-56}},
+          extent={{102,-18},{172,-36}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -343,11 +344,48 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Disable chiller when the down-process does not require any other chiller being enabled"),
           Text(
-          extent={{-134,262},{176,242}},
+          extent={{-144,278},{166,258}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Disable chiller when the down-process requires small chiller being enabled")}));
+          textString="Disable chiller when the down-process requires small chiller being enabled")}),
+Documentation(info="<html>
+<p>
+Block that controlles chiller when there is staging down command <code>uStaDow=true</code>.
+
+This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.4.16,
+item 1.e and f. These two sections specify how to start the smaller chiller and shut
+off larger chiller when the stage change requires large chiller off and small chill on.
+In other stage change, when it does not require chiller on/off, the chiller will then
+be shut off as specified in section 5.2.4.16, item 2.
+</p>
+<p>
+When the stage-down process requires a smaller chiller being staged on and a larger
+chiller being staged off:
+</p>
+<ul>
+<li>
+Start the smaller chiller after its chilled water isolation valve is fully open (
+<code>uEnaChiWatIsoVal</code> becomes true).
+</li>
+<li>
+Wait 5 minutes (<code>proOnTim</code>) for the newly enabled chiller to prove that 
+it is operating correctly, then shut off the larger chiller and release the demand limit.
+</li>
+</ul>
+<p>
+If staging-down from any other stage that does not require one chiller off and another
+chiller on, then shut off the last stage chiller.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 15, 2019, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end DisableChiller;
