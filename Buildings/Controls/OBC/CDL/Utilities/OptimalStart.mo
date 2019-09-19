@@ -9,12 +9,12 @@ block OptimalStart
     "Maximum optimal start time";
   parameter Modelica.SIunits.Time minOptTim = 900
     "Minimum optimal start time";
-  parameter Modelica.SIunits.Time tOpt_start = maxOptTim
+  parameter Modelica.SIunits.Time tOptIni = minOptTim
     "Initial optimal start time";
-
-  // parameter Modelica.SIunits.TemperatureSlope temSloHeaIni = 1/3600
-   // "Initial temperature slope for heating";
+  parameter Modelica.SIunits.TemperatureSlope temSloHeaIni = 1/3600
+    "Initial temperature slope for heating";
   // Modelica.SIunits.TemperatureSlope temSloCoo "Temperature slope for cooling";
+  parameter Real n = 3 "Number of days for averaging the temperature slopes";
   Interfaces.RealInput TZon(
     final quantity = "ThermodynamicTemperature",
     final unit = "K",
@@ -71,7 +71,7 @@ block OptimalStart
   Logical.TrueHoldWithReset truHol(duration(displayUnit="h") = occupancy[2] -
       occupancy[1])
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
-  Continuous.Add add1(k1=+1, k2=-1)
+  Continuous.Add add1(k1=-1, k2=+1)
     annotation (Placement(transformation(extent={{-280,-40},{-260,-20}})));
   Continuous.LessEqual lesEqu
     annotation (Placement(transformation(extent={{-126,20},{-106,40}})));
@@ -94,8 +94,8 @@ block OptimalStart
     annotation (Placement(transformation(extent={{222,-30},{242,-10}})));
   Continuous.Min min
     annotation (Placement(transformation(extent={{264,-10},{284,10}})));
-  Discrete.MovingMean movMea(n=3, samplePeriod=86400)
-    annotation (Placement(transformation(extent={{180,120},{200,140}})));
+  Discrete.MovingMean movMea(n=n, samplePeriod=86400)
+    annotation (Placement(transformation(extent={{226,120},{246,140}})));
   Interfaces.BooleanOutput Warmup "Warm-up mode" annotation (Placement(
         transformation(extent={{300,-50},{320,-30}}), iconTransformation(extent=
            {{100,-50},{120,-30}})));
@@ -114,33 +114,36 @@ block OptimalStart
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Discrete.TriggeredSampler triSam3(y_start=minOptTim)
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Discrete.MovingMean movMea1(n=3, samplePeriod=86400)
+  Discrete.MovingMean movMea1(n=n, samplePeriod=86400)
     annotation (Placement(transformation(extent={{180,-140},{200,-120}})));
   Logical.FallingEdge falEdg1
     "Get the timing when the zone temperature reaches setpoint"
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
   Logical.Not not1
     annotation (Placement(transformation(extent={{-200,130},{-180,150}})));
-  Logical.Not not2
-    annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
   Continuous.Division temSloHea "Calculate temperature slope for heating"
-    annotation (Placement(transformation(extent={{144,120},{164,140}})));
-  Continuous.Division temSloCoo "Calculate temperature slope for cooling"
+    annotation (Placement(transformation(extent={{80,120},{100,140}})));
+  Continuous.Division tOptCoo "Calculate optimal start time for heating"
     annotation (Placement(transformation(extent={{220,-140},{240,-120}})));
   Continuous.Division tOptHea "Calculate optimal start time for heating"
-    annotation (Placement(transformation(extent={{220,120},{240,140}})));
-  Logical.Switch swi
-    annotation (Placement(transformation(extent={{104,114},{124,134}})));
-  Continuous.Sources.Constant tOptMin(k=minOptTim) "Minimum optimal start time"
-    annotation (Placement(transformation(extent={{62,146},{82,166}})));
+    annotation (Placement(transformation(extent={{266,120},{286,140}})));
   Continuous.Sources.Constant tOptMin1(k=minOptTim)
                                                    "Minimum optimal start time"
     annotation (Placement(transformation(extent={{72,-110},{92,-90}})));
   Logical.Switch swi1
     annotation (Placement(transformation(extent={{108,-142},{128,-122}})));
-  Continuous.Division temSloCoo1
-                                "Calculate temperature slope for cooling"
+  Continuous.Division temSloCoo "Calculate temperature slope for cooling"
     annotation (Placement(transformation(extent={{144,-140},{164,-120}})));
+  Discrete.TriggeredSampler triSam4(y_start=temSloHeaIni)
+    annotation (Placement(transformation(extent={{116,120},{136,140}})));
+  Continuous.LessEqual lesEqu1
+    annotation (Placement(transformation(extent={{162,120},{182,140}})));
+  Continuous.Sources.Constant casCoo(k=0)
+    annotation (Placement(transformation(extent={{106,150},{126,170}})));
+  Logical.Switch swi2
+    annotation (Placement(transformation(extent={{196,120},{216,140}})));
+  Continuous.Sources.Constant temSloHeaDef(k=temSloHeaIni)
+    annotation (Placement(transformation(extent={{156,154},{176,174}})));
 equation
   connect(mod.y, greEqu.u1) annotation (Line(points={{-179,0.2},{-169.5,0.2},{
           -169.5,0},{-162,0}},
@@ -219,59 +222,64 @@ equation
   connect(lat2.y, latCoo.u) annotation (Line(points={{-105,-134},{-92,-134},{
           -92,-140},{-81,-140}},
                        color={255,0,255}));
-  connect(preCoo.y, not2.u)
-    annotation (Line(points={{-219,-140},{-202,-140}},
-                                                     color={255,0,255}));
   connect(preHea.y, not1.u)
     annotation (Line(points={{-219,140},{-202,140}},
                                                    color={255,0,255}));
   connect(not1.y, lat.clr) annotation (Line(points={{-179,140},{-127,140}},
                       color={255,0,255}));
-  connect(not2.y, lat2.clr) annotation (Line(points={{-179,-140},{-127,-140}},
-                            color={255,0,255}));
   connect(latHea.y, Warmup) annotation (Line(points={{-59,130},{-50,130},{-50,
           -40},{310,-40}}, color={255,0,255}));
   connect(latCoo.y, Cooldown) annotation (Line(points={{-59,-140},{-50,-140},{
           -50,-180},{280,-180},{280,-80},{310,-80}}, color={255,0,255}));
   connect(add.y, temSloHea.u1) annotation (Line(points={{-259,20},{-254,20},{-254,
-          180},{132,180},{132,136},{142,136}},      color={0,0,127}));
-  connect(temSloCoo.u1, add1.y) annotation (Line(points={{218,-124},{210,-124},
-          {210,-166},{160,-166},{160,-186},{-254,-186},{-254,-30},{-259,-30}},
-                                                         color={0,0,127}));
-  connect(temSloHea.y, movMea.u)
-    annotation (Line(points={{165,130},{178,130}}, color={0,0,127}));
+          180},{66,180},{66,136},{78,136}},         color={0,0,127}));
+  connect(tOptCoo.u1, add1.y) annotation (Line(points={{218,-124},{210,-124},{210,
+          -186},{-254,-186},{-254,-30},{-259,-30}}, color={0,0,127}));
   connect(greEqu.y, triSam2.trigger) annotation (Line(points={{-139,0},{-60,0},
           {-60,-48},{130,-48},{130,-31.8}},color={255,0,255}));
   connect(add.y, tOptHea.u1) annotation (Line(points={{-259,20},{-254,20},{-254,
-          180},{210,180},{210,136},{218,136}}, color={0,0,127}));
-  connect(movMea.y, tOptHea.u2) annotation (Line(points={{201,130},{208,130},{208,
-          124},{218,124}}, color={0,0,127}));
-  connect(triSam2.u, temSloCoo.y) annotation (Line(points={{118,-20},{100,-20},
-          {100,-60},{260,-60},{260,-130},{241,-130}},color={0,0,127}));
-  connect(swi.y, temSloHea.u2)
-    annotation (Line(points={{125,124},{142,124}}, color={0,0,127}));
-  connect(tOptMin.y, swi.u1) annotation (Line(points={{83,156},{92,156},{92,132},
-          {102,132}}, color={0,0,127}));
-  connect(triSam.y, swi.u3) annotation (Line(points={{61,130},{68,130},{68,116},
-          {102,116}}, color={0,0,127}));
-  connect(tOptHea.y, triSam1.u) annotation (Line(points={{241,130},{262,130},{262,
-          80},{90,80},{90,60},{118,60}}, color={0,0,127}));
-  connect(swi.u2, Warmup) annotation (Line(points={{102,124},{80,124},{80,80},{
-          -50,80},{-50,-40},{310,-40}}, color={255,0,255}));
-  connect(movMea1.y, temSloCoo.u2) annotation (Line(points={{201,-130},{208,
-          -130},{208,-136},{218,-136}}, color={0,0,127}));
+          180},{256,180},{256,136},{264,136}}, color={0,0,127}));
+  connect(movMea.y, tOptHea.u2) annotation (Line(points={{247,130},{254,130},{254,
+          124},{264,124}}, color={0,0,127}));
+  connect(triSam2.u, tOptCoo.y) annotation (Line(points={{118,-20},{100,-20},{100,
+          -60},{260,-60},{260,-130},{241,-130}}, color={0,0,127}));
+  connect(tOptHea.y, triSam1.u) annotation (Line(points={{287,130},{294,130},{294,
+          80},{104,80},{104,60},{118,60}},
+                                         color={0,0,127}));
+  connect(movMea1.y, tOptCoo.u2) annotation (Line(points={{201,-130},{208,-130},
+          {208,-136},{218,-136}}, color={0,0,127}));
   connect(tOptMin1.y, swi1.u1) annotation (Line(points={{93,-100},{98,-100},{98,
           -124},{106,-124}}, color={0,0,127}));
   connect(swi1.u2, Cooldown) annotation (Line(points={{106,-132},{82,-132},{82,
           -180},{280,-180},{280,-80},{310,-80}}, color={255,0,255}));
   connect(triSam3.y, swi1.u3) annotation (Line(points={{61,-130},{70,-130},{70,
           -140},{106,-140}}, color={0,0,127}));
-  connect(temSloCoo1.y, movMea1.u)
+  connect(temSloCoo.y, movMea1.u)
     annotation (Line(points={{165,-130},{178,-130}}, color={0,0,127}));
-  connect(temSloCoo1.u1, add1.y) annotation (Line(points={{142,-124},{134,-124},
-          {134,-186},{-254,-186},{-254,-30},{-259,-30}}, color={0,0,127}));
-  connect(swi1.y, temSloCoo1.u2) annotation (Line(points={{129,-132},{136,-132},
-          {136,-136},{142,-136}}, color={0,0,127}));
+  connect(temSloCoo.u1, add1.y) annotation (Line(points={{142,-124},{134,-124},{
+          134,-186},{-254,-186},{-254,-30},{-259,-30}}, color={0,0,127}));
+  connect(swi1.y, temSloCoo.u2) annotation (Line(points={{129,-132},{136,-132},{
+          136,-136},{142,-136}}, color={0,0,127}));
+  connect(triSam.y, temSloHea.u2) annotation (Line(points={{61,130},{68,130},{68,
+          124},{78,124}}, color={0,0,127}));
+  connect(preCoo.y, lat2.clr) annotation (Line(points={{-219,-140},{-173.5,-140},
+          {-173.5,-140},{-127,-140}}, color={255,0,255}));
+  connect(temSloHea.y, triSam4.u)
+    annotation (Line(points={{101,130},{114,130}}, color={0,0,127}));
+  connect(triSam4.trigger, triSam1.trigger) annotation (Line(points={{126,118.2},
+          {126,100},{64,100},{64,0},{130,0},{130,48.2}}, color={255,0,255}));
+  connect(triSam4.y, lesEqu1.u1)
+    annotation (Line(points={{137,130},{160,130}}, color={0,0,127}));
+  connect(casCoo.y, lesEqu1.u2) annotation (Line(points={{127,160},{152,160},{152,
+          122},{160,122}}, color={0,0,127}));
+  connect(lesEqu1.y, swi2.u2)
+    annotation (Line(points={{183,130},{194,130}}, color={255,0,255}));
+  connect(swi2.y, movMea.u)
+    annotation (Line(points={{217,130},{224,130}}, color={0,0,127}));
+  connect(temSloHeaDef.y, swi2.u1) annotation (Line(points={{177,164},{184,164},
+          {184,138},{194,138}}, color={0,0,127}));
+  connect(triSam4.y, swi2.u3) annotation (Line(points={{137,130},{144,130},{144,
+          102},{188,102},{188,122},{194,122}}, color={0,0,127}));
   annotation (            Diagram(coordinateSystem(extent={{-300,-200},{300,200}}),
         graphics={
         Rectangle(
@@ -286,7 +294,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Heating mode"),
         Rectangle(
-          extent={{-92,-100},{170,-194}},
+          extent={{-94,-100},{168,-194}},
           lineColor={175,175,175},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
