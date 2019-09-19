@@ -23,7 +23,6 @@ model OneZone "Validation model for one zone"
     weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Core_ZN",
-    usePrecompiledFMU=true,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     nPorts = 2) "Thermal zone (core zone of the office building with 5 zones)"
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
@@ -83,6 +82,7 @@ First implementation.
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/Validation/OneZone.mos"
         "Simulate and plot"),
 experiment(
-      StopTime=86400,
-      Tolerance=1e-06));
+      StopTime=432000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end OneZone;
