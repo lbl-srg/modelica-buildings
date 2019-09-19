@@ -66,7 +66,7 @@
 ! ***GENERAL SIMULATION PARAMETERS***
 ! Number of Zones: 6
 
-  Version,9.0;
+  Version,9.2;
 
   SimulationControl,
     NO,                     !- Do Zone Sizing Calculation
@@ -100,6 +100,8 @@
     Yes,                     !- Use Weather File Rain Indicators
     Yes,                     !- Use Weather File Snow Indicators
     ;                        !- Treat Weather as Actual
+
+  Timestep, 4; ! Number of time steps per hour
 
 ! ***HOLIDAYS & DAYLIGHT SAVINGS***
 
@@ -233,8 +235,6 @@
     AverageOverDaysInFrequency,  !- Calculation Method
     7,                       !- Calculation Frequency
     15000;                   !- Maximum Figures in Shadow Overlap Calculations
-
-  Timestep,60;
 
 ! WeatherFileName=USA_IL_Chicago-OHare_TMY2.epw
 
