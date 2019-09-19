@@ -9,11 +9,24 @@ model Merkel "Cooling tower model based on merkel theory"
   import cha =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
- parameter Modelica.SIunits.MassFlowRate m1_flow_nominal "Nominal mass flow rate of medium 1";
- parameter Modelica.SIunits.MassFlowRate m2_flow_nominal "Nominal mass flow rate of medium 2";
- parameter  Modelica.SIunits.Temperature TAirInWB_nominal "Nominal outdoor wetbulb temperature";
- parameter  Modelica.SIunits.Temperature TWatIn_nominal "Nominal water inlet temperature";
-
+ parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
+   "Nominal mass flow rate of medium 1"
+   annotation (Dialog(group="Nominal condition"));
+ parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
+   "Nominal mass flow rate of medium 2"
+   annotation (Dialog(group="Nominal condition"));
+ parameter  Modelica.SIunits.Temperature TAirInWB_nominal
+   "Nominal outdoor wetbulb temperature"
+   annotation (Dialog(group="Nominal condition"));
+ parameter  Modelica.SIunits.Temperature TWatIn_nominal
+   "Nominal water inlet temperature"
+   annotation (Dialog(group="Nominal condition"));
+ parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)
+   "Nominal heat transfer,positive"
+   annotation (Dialog(group="Nominal condition"));
+ parameter Modelica.SIunits.Power PFan_nominal(min=0)
+   "Fan power"
+   annotation (Dialog(group="Nominal condition"));
 
  final parameter  Modelica.SIunits.Temperature T_a1_nominal = TAirInWB_nominal
     "Nominal temperature at port a1"
@@ -22,29 +35,22 @@ model Merkel "Cooling tower model based on merkel theory"
     "Nominal temperature at port a2"
     annotation (Dialog(group="Nominal condition"));
 
-
  parameter con configuration "Heat exchanger configuration"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true,Dialog(group="Nominal condition"));
 
-
-  parameter Correlations.corUAMerkel UACor
-    "UA correction curves"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
-
-  parameter Modelica.SIunits.Power PFan_nominal(min=0)
-    "Fan power";
-
-  parameter Real yMin(min=0.01, max=1) = 0.3
+ parameter Real yMin(min=0.01, max=1) = 0.3
     "Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)";
-  parameter Real fraFreCon(min=0, max=1) = 0.125
+ parameter Real fraFreCon(min=0, max=1) = 0.125
     "Fraction of tower capacity in free convection regime";
-  parameter cha.fan fanRelPow(
+ parameter cha.fan fanRelPow(
        r_V = {0, 0.1,   0.3,   0.6,   1},
        r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)
-    "Nominal heat transfer,positive" annotation (Dialog(group="Nominal condition"));
+ parameter Correlations.corUAMerkel UACor
+    "UA correction curves"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+
   final parameter Modelica.SIunits.ThermalConductance UA_nominal(fixed=false)
     "Thermal conductance at nominal flow, used to compute heat capacity";
   final parameter Real eps_nominal(fixed=false)
@@ -95,7 +101,10 @@ model Merkel "Cooling tower model based on merkel theory"
 
 protected
   final package Air = Buildings.Media.Air "Package of medium air";
-  parameter Real delta=1E-3 "Parameter used for smoothing";
+  final parameter Real NTU_nominal(min=0, fixed=false)
+    "Nominal number of transfer units";
+  final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)](each fixed=false)
+    "Coefficients for fan relative power consumption as a function of control signal";
   final parameter Air.ThermodynamicState sta1_default = Air.setState_pTX(
      T=TAirInWB_nominal,
      p=Air.p_default,
@@ -104,6 +113,8 @@ protected
      T=TWatIn_nominal,
      p=Medium.p_default,
      X=Medium.X_default[1:Medium.nXi]) "Default state for medium 2";
+
+  parameter Real delta=1E-3 "Parameter used for smoothing";
   parameter Modelica.SIunits.SpecificHeatCapacity cpe_nominal(fixed=false)
     "Specific heat capacity of the equivalent medium on medium 1 side";
   parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal(fixed=false)
@@ -118,11 +129,6 @@ protected
     "Minimal capacity flow rate at nominal condition";
   parameter Modelica.SIunits.ThermalConductance CMax_flow_nominal(fixed=false)
     "Maximum capacity flow rate at nominal condition";
-
-  final parameter Real NTU_nominal(min=0, fixed=false)
-    "Nominal number of transfer units";
-
-
   parameter Real Z_nominal(
     min=0,
     max=1,
@@ -133,14 +139,9 @@ protected
     "Nominal temperature at port b2";
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
+
   flo flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
-
-
-  final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)](each fixed=false)
-    "Coefficients for fan relative power consumption as a function of control signal";
-//  Modelica.Blocks.Interfaces.RealInput Tb1_internal
-//    "Needed to connect to conditional connector";
   Real FRAirAct "Actual air flow ratio";
   Real FRWatAct "Actual water flow ratio";
   Real UA_FAir "UA correction factor as function of air flow ratio";
@@ -153,7 +154,6 @@ protected
 initial equation
   cp1_nominal = Air.specificHeatCapacityCp(sta1_default);
   cp2_nominal = Medium.specificHeatCapacityCp(sta2_default);
-
   cpe_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.cpe(T_a1_nominal,T_b1_nominal);
 
   // Heat transferred from fluid 1 to 2 at nominal condition
@@ -192,16 +192,13 @@ initial equation
     assert(configuration >= con.ParallelFlow and configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
-  // The equation sorter of Dymola 7.3 does not guarantee that the above assert is tested prior to the
-  // function call on the next line. Thus, we add the test on eps_nominal to avoid an error in ntu_epsilonZ
-  // for invalid input arguments
+
   NTU_nominal = if (eps_nominal > 0 and eps_nominal < 1) then
     Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
     eps=eps_nominal,
     Z=Z_nominal,
     flowRegime=Integer(flowRegime_nominal)) else 0;
   UA_nominal = NTU_nominal*CMin_flow_nominal;
-
 
   // Initialize fan power
   // Derivatives for spline that interpolates the fan relative power
@@ -337,10 +334,8 @@ equation
     delta=delta);
   // QMax_flow is maximum heat transfer into medium air: positive means heating
     QMax_flow = CMin_flow*(Ta2 - Ta1);
-
-      TAppAct=Tb2-TAir;
-      TAirHT=TAir;
-
+    TAppAct=Tb2-TAir;
+    TAirHT=TAir;
     eps*QMax_flow = C1_flow*(Tb1 - Ta1);
 
   // Power consumption
@@ -350,7 +345,7 @@ equation
         x=y-yMin+yMin/20,
         deltax=yMin/20);
 
-cpe = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.cpe(Ta1,Tb1);
+  cpe = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.cpe(Ta1,Tb1);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
