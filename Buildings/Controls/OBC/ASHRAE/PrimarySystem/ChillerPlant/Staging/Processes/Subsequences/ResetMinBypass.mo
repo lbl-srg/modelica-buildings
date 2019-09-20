@@ -6,30 +6,30 @@ block ResetMinBypass
   parameter Modelica.SIunits.VolumeFlowRate minFloDif = 0.01
     "Minimum flow rate difference to check if bybass flow achieves setpoint";
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
+    "Status of resetting status of device before reset minimum bypass flow setpoint"
+    annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaCha
+    "Indicate if there is stage change"
+    annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VBypas_flow(
     final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Measured bypass flow rate"
+    final quantity="VolumeFlowRate") "Measured bypass flow rate"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VBypas_setpoint(
     final min=0,
     final unit="m3/s",
-    quantity="VolumeFlowRate") "Bypass flow setpoint"
+    final quantity="VolumeFlowRate") "Bypass flow setpoint"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaCha
-    "Indicate if there is stage change"
-    annotation (Placement(transformation(extent={{-200,30},{-160,70}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
-    "Status of resetting status of device before reset minimum bypass flow setpoint"
-    annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMinBypRes
     "Minimum chilled water flow bypass setpoint reset status"
-    annotation (Placement(transformation(extent={{160,70},{180,90}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{160,60},{200,100}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Feedback floDif
@@ -67,7 +67,7 @@ equation
   connect(uUpsDevSta, and2.u1)
     annotation (Line(points={{-180,80},{-62,80}}, color={255,0,255}));
   connect(uStaCha, and2.u2)
-    annotation (Line(points={{-180,50},{-120,50},{-120,72},{-62,72}},
+    annotation (Line(points={{-180,40},{-120,40},{-120,72},{-62,72}},
       color={255,0,255}));
   connect(VBypas_flow, floDif.u1)
     annotation (Line(points={{-180,-40},{-142,-40}}, color={0,0,127}));
@@ -88,15 +88,15 @@ equation
     annotation (Line(points={{-38,80},{40,80},{40,88},{118,88}},
       color={255,0,255}));
   connect(and1.y,yMinBypRes)
-    annotation (Line(points={{142,80},{170,80}}, color={255,0,255}));
+    annotation (Line(points={{142,80},{180,80}}, color={255,0,255}));
   connect(hys.y, edg.u)
     annotation (Line(points={{-38,-40},{-30,-40},{-30,0},{-22,0}},
       color={255,0,255}));
   connect(uStaCha, not1.u)
-    annotation (Line(points={{-180,50},{-120,50},{-120,30},{-102,30}},
+    annotation (Line(points={{-180,40},{-120,40},{-120,30},{-102,30}},
       color={255,0,255}));
-  connect(not1.y, lat.u0)
-    annotation (Line(points={{-79,30},{-20,30},{-20,24},{39,24}},
+  connect(not1.y, lat.clr)
+    annotation (Line(points={{-78,30},{-20,30},{-20,24},{38,24}},
       color={255,0,255}));
   connect(edg.y, lat.u)
     annotation (Line(points={{2,0},{20,0},{20,30},{38,30}},
@@ -121,16 +121,6 @@ annotation (
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-96,88},{-36,74}},
-          lineColor={255,0,255},
-          pattern=LinePattern.Dash,
-          textString="uUpsDevSta"),
-        Text(
-          extent={{-96,48},{-58,34}},
-          lineColor={255,0,255},
-          pattern=LinePattern.Dash,
-          textString="uStaCha"),
-        Text(
           extent={{32,8},{98,-8}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
@@ -144,20 +134,35 @@ annotation (
           extent={{-98,-72},{-16,-86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VBypas_setpoint")}),
+          textString="VBypas_setpoint"),
+        Text(
+          extent={{-96,48},{-58,34}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uStaCha"),
+      Text(
+        extent={{-100,100},{100,-100}},
+        lineColor={0,0,0},
+        textString="S"),
+        Text(
+          extent={{-96,88},{-36,74}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uUpsDevSta")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-100},{160,100}})),
   Documentation(info="<html>
 <p>
 Block that generates minimum bypass flow reset status when there is 
-stage-up command.
+stage-change command.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 4 on January 7, 
-2019), section 5.2.4.18, part 5.2.4.18.2 and part 5.2.4.18.3.
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
+2019), section 5.2.4.15, item 2.
 </p>
 <p>
-When there is stage-up command (<code>uStaUp</code> = true) and the operating chillers 
-have reduced the demand (<code>uChiDemRed</code> = true), 
+When there is stage-change command (<code>uStaCha</code> = true) and the upstream
+device has finished its adjustment process (<code>uUpsDevSta</code> = true), 
+like in the stage-up process the operating chillers have reduced the demand, 
 check if the minimum bypass flow rate <code>VBypas_flow</code> has achieved 
 its new set point <code>VBypas_setpoint</code>. 
 After new setpoint is achieved, wait for 1 minute (<code>byPasSetTim</code>) to 
@@ -167,7 +172,7 @@ allow loop to stabilize. It will then set <code>yMinBypRes</code> to true.
 revisions="<html>
 <ul>
 <li>
-January 31, 2019, by Jianjun Hu:<br/>
+September 17, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

@@ -12,15 +12,15 @@ block EnableChiIsoVal
     "Ending valve position, if it needs to turn on chiller, the value should be 1";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
-    each final unit="1",
-    each final min=0,
-    each final max=1) "Chilled water isolation valve position"
+    final unit=fill("1", nChi),
+    final min=fill(0, nChi),
+    final max=fill(1, nChi)) "Chilled water isolation valve position"
     annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput yUpsDevSta
     "Status of resetting status of device before enabling or disabling isolation valve"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexChaChi
     "Index of next chiller that should change status"
     annotation (Placement(transformation(extent={{-200,-10},{-160,30}}),
@@ -30,18 +30,15 @@ block EnableChiIsoVal
     annotation (Placement(transformation(extent={{-200,-198},{-160,-158}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatIsoVal[nChi](
-    each final unit="1",
-    each final min=0,
-    each final max=1) "Chiller chilled water isolation valve position"
-    annotation (Placement(transformation(extent={{180,-50},{200,-30}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    final unit=fill("1", nChi),
+    final min=fill(0, nChi),
+    final max=fill(1, nChi)) "Chiller chilled water isolation valve position"
+    annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaChiWatIsoVal
-    "Status of chiller chilled water isolation valve control: true=enabled valve is fully open"
-    annotation (Placement(transformation(extent={{180,130},{200,150}}),
-      iconTransformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
-    final k=chiInd) "Chiller index array"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    "Status of chilled water isolation valve control: true=enabled valve is fully open"
+    annotation (Placement(transformation(extent={{180,120},{220,160}}),
+      iconTransformation(extent={{100,40},{140,80}})));
 
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}
@@ -76,7 +73,8 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{20,-150},{40,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Check if it is time to change isolation valve position"
     annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-40,-210},{-20,-190}})));
@@ -101,12 +99,12 @@ protected
     "Replicate real input"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3[nChi](
-    each final uLow=0.025,
-    each final uHigh=0.05) "Check if isolation valve is enabled"
+    final uLow=fill(0.025, nChi),
+    final uHigh=fill(0.05, nChi)) "Check if isolation valve is enabled"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4[nChi](
-    each final uLow=0.925,
-    each final uHigh=0.975) "Check if isolation valve is open more than 95%"
+    final uLow=fill(0.925, nChi),
+    final uHigh=fill(0.975, nChi)) "Check if isolation valve is open more than 95%"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3[nChi] "Logical not"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
@@ -125,10 +123,13 @@ protected
     "Check if the isolation valve has been fully open"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
-    each final uLow=chaChiWatIsoTim - 1,
-    each final uHigh=chaChiWatIsoTim + 1)
+    final uLow=chaChiWatIsoTim - 1,
+    final uHigh=chaChiWatIsoTim + 1)
     "Check if it has past the target time of open CHW isolation valve "
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
+    final k=chiInd) "Chiller index array"
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
 equation
   connect(uChiWatIsoVal, triSam.u)
@@ -158,8 +159,8 @@ equation
   connect(uStaCha, not1.u)
     annotation (Line(points={{-180,-178},{-80,-178},{-80,-200},{-42,-200}},
       color={255,0,255}));
-  connect(not1.y, lat.u0)
-    annotation (Line(points={{-19,-200},{0,-200},{0,-176},{19,-176}},
+  connect(not1.y, lat.clr)
+    annotation (Line(points={{-18,-200},{0,-200},{0,-176},{18,-176}},
       color={255,0,255}));
   connect(lat.y, booRep1.u)
     annotation (Line(points={{42,-170},{58,-170}}, color={255,0,255}));
@@ -167,16 +168,16 @@ equation
     annotation (Line(points={{82,-170},{100,-170},{100,-40},{118,-40}},
       color={255,0,255}));
   connect(swi.y, yChiWatIsoVal)
-    annotation (Line(points={{142,-40},{190,-40}}, color={0,0,127}));
+    annotation (Line(points={{142,-40},{200,-40}}, color={0,0,127}));
   connect(booRep.y, triSam.trigger)
-    annotation (Line(points={{42,-140},{60,-140},{60,-120},{-70,-120},{-70,
-          -111.8}},  color={255,0,255}));
+    annotation (Line(points={{42,-140},{60,-140},{60,-120},{-70,-120},
+      {-70,-111.8}},  color={255,0,255}));
   connect(and2.y, booRep.u)
     annotation (Line(points={{-18,-170},{0,-170},{0,-140},{18,-140}},
       color={255,0,255}));
   connect(booRep1.y, not2.u)
-    annotation (Line(points={{82,-170},{100,-170},{100,-110},{-40,-110},{-40,
-          -80},{-22,-80}},  color={255,0,255}));
+    annotation (Line(points={{82,-170},{100,-170},{100,-110},{-40,-110},
+      {-40,-80},{-22,-80}},  color={255,0,255}));
   connect(not2.y, swi1.u2)
     annotation (Line(points={{2,-80},{20,-80},{20,-60},{58,-60}},
       color={255,0,255}));
@@ -201,11 +202,11 @@ equation
   connect(lin1.y, reaRep.u)
     annotation (Line(points={{62,80},{78,80}}, color={0,0,127}));
   connect(lat.y, tim.u)
-    annotation (Line(points={{42,-170},{50,-170},{50,-220},{-120,-220},{-120,80},
-          {-102,80}},       color={255,0,255}));
+    annotation (Line(points={{42,-170},{50,-170},{50,-220},{-120,-220},
+      {-120,80},{-102,80}},  color={255,0,255}));
   connect(reaRep.y, swi2.u1)
     annotation (Line(points={{102,80},{120,80},{120,50},{40,50},{40,18},{58,18}},
-                color={0,0,127}));
+      color={0,0,127}));
   connect(triSam.y, swi2.u3)
     annotation (Line(points={{-58,-100},{40,-100},{40,2},{58,2}},
       color={0,0,127}));
@@ -240,20 +241,21 @@ equation
       color={0,0,127}));
   connect(mulAnd1.y, and5.u1)
     annotation (Line(points={{102,220},{120,220},{120,148},{138,148}},
-                                                     color={255,0,255}));
+      color={255,0,255}));
   connect(and5.y, yEnaChiWatIsoVal)
-    annotation (Line(points={{162,140},{190,140}}, color={255,0,255}));
+    annotation (Line(points={{162,140},{200,140}}, color={255,0,255}));
   connect(or2.y, mulAnd1.u)
     annotation (Line(points={{62,220},{78,220}}, color={255,0,255}));
   connect(conInt.y, intEqu.u2)
     annotation (Line(points={{-58,-20},{-40,-20},{-40,2},{-22,2}},
       color={255,127,0}));
+  connect(hys5.y, and5.u3)
+    annotation (Line(points={{102,120},{120,120},{120,132},{138,132}},
+      color={255,0,255}));
+  connect(yUpsDevSta, and5.u2)
+    annotation (Line(points={{-180,-140},{-130,-140},{-130,140},{138,140}},
+      color={255,0,255}));
 
-  connect(hys5.y, and5.u3) annotation (Line(points={{102,120},{120,120},{120,
-          132},{138,132}},
-                      color={255,0,255}));
-  connect(yUpsDevSta, and5.u2) annotation (Line(points={{-180,-140},{-130,-140},
-          {-130,140},{138,140}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaChiIsoVal",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -283,52 +285,64 @@ have been fully open")}),
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-100,-74},{-64,-86}},
+          extent={{-96,-74},{-60,-86}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uStaCha"),
         Text(
-          extent={{-98,-32},{-48,-46}},
+          extent={{-96,-42},{-46,-56}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yUpsDevSta"),
         Text(
-          extent={{-98,86},{-50,74}},
+          extent={{-96,86},{-48,74}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uNexEnaChi"),
         Text(
-          extent={{-98,46},{-44,34}},
+          extent={{-96,58},{-42,46}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
-          extent={{42,8},{96,-4}},
-          lineColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="yChiWatIsoVal"),
-        Text(
-          extent={{32,68},{96,52}},
+          extent={{32,70},{96,54}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="yEnaChiWatIsoVal")}),
+          textString="yEnaChiWatIsoVal"),
+        Polygon(
+          points={{-60,40},{-60,-40},{0,0},{-60,40}},
+          lineColor={200,200,200},
+          fillColor={207,207,207},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{60,40},{60,-40},{0,0},{60,40}},
+          lineColor={200,200,200},
+          fillColor={207,207,207},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{44,-54},{98,-66}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yChiWatIsoVal")}),
  Documentation(info="<html>
 <p>
 Block updates chiller chilled water isolation valve enabling status when 
 there is stage-up command. It will also generate status to indicate if the 
 valve reset process has finished.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 4 on January 7, 
-2019), section 5.2.4.18, part 5.2.4.18.5.
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
+2019), section 5.2.4.15, item 5, which specifies when and how the isolation
+valve should be controlled when it is chiller staging-up process.
 </p>
 <p>
 When there is stage-up command (<code>uStaUp</code>=true) and next chiller 
 head pressure control has been enabled (<code>yEnaHeaCon</code>=true),
 the chilled water isolation valve of next enabling chiller indicated 
-by <code>uNexEnaChi</code> will be enabled. The valve will open slowly. 
+by <code>uNexEnaChi</code> will be enabled. The valve should open slowly and the valve
+time should be determined in the field. 
 For example, this could be accomplished by resetting the valve position X /seconds, 
 where X = (1 - 0) / <code>turOnChiWatIsoTim</code>.  It will generate 
-array <code>yChiWatIsoVal</code> which indicates chiller chilled water isolation 
+array <code>yChiWatIsoVal</code> which indicates chilled water isolation 
 valve position setpoint. <code>yEnaChiWatIsoVal</code> will be true when the 
 enabled valves are fully open. 
 </p>

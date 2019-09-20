@@ -8,7 +8,7 @@ block DisableChiller "Sequence for disabling chiller"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexEnaChi
     "Index of next enabling chiller"
     annotation (Placement(transformation(extent={{-240,180},{-200,220}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow "Indicate if there is stage-down command"
     annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
@@ -27,7 +27,7 @@ block DisableChiller "Sequence for disabling chiller"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexDisChi
     "Next disabling chiller when there is any stage up that need one chiller on and another off"
     annotation (Placement(transformation(extent={{-240,-90},{-200,-50}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller enabling status"
     annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
@@ -204,8 +204,8 @@ equation
     annotation (Line(points={{62,10},{80,10},{80,-2},{98,-2}},
       color={255,0,255}));
   connect(uChi,logSwi1. u3)
-    annotation (Line(points={{-220,80},{-170,80},{-170,-48},{90,-48},{90,-18},{98,
-          -18}},  color={255,0,255}));
+    annotation (Line(points={{-220,80},{-170,80},{-170,-48},{90,-48},{90,-18},
+      {98,-18}},  color={255,0,255}));
   connect(booRep3.y,logSwi2. u2)
     annotation (Line(points={{102,30},{158,30}},   color={255,0,255}));
   connect(logSwi1.y,logSwi2. u3)
@@ -306,7 +306,59 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Rectangle(
+          extent={{-60,0},{60,-80}},
+          lineColor={200,200,200},
+          fillColor={207,207,207},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-52,20},{-40,0}},
+          lineColor={200,200,200},
+          fillColor={207,207,207},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,20},{52,0}},
+          lineColor={200,200,200},
+          fillColor={207,207,207},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,60},{60,20}},
+          lineColor={200,200,200},
+          fillColor={207,207,207},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-98,98},{-44,82}},
+          lineColor={255,127,0},
+          textString="uNexEnaChi"),
+        Text(
+          extent={{-98,70},{-52,56}},
+          lineColor={255,0,255},
+          textString="uStaDow"),
+        Text(
+          extent={{-96,30},{-24,10}},
+          lineColor={255,0,255},
+          textString="uEnaChiWatIsoVal"),
+        Text(
+          extent={{-100,-14},{-78,-24}},
+          lineColor={255,0,255},
+          textString="uChi"),
+        Text(
+          extent={{-98,-52},{-70,-64}},
+          lineColor={255,0,255},
+          textString="uOnOff"),
+        Text(
+          extent={{-98,-80},{-44,-96}},
+          lineColor={255,127,0},
+          textString="uNexDisChi"),
+        Text(
+          extent={{74,6},{98,-6}},
+          lineColor={255,0,255},
+          textString="yChi"),
+        Text(
+          extent={{44,-72},{96,-84}},
+          lineColor={255,0,255},
+          textString="yReaDemLim")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}}),
         graphics={
           Rectangle(

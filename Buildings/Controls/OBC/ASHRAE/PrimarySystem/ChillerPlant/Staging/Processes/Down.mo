@@ -25,9 +25,6 @@ block Down
   parameter Modelica.SIunits.Time chaChiWatIsoTim=300
     "Time to slowly change isolation valve"
     annotation (Dialog(group="Chilled water isolation valve"));
-  parameter Modelica.SIunits.Time thrTimEnb=10
-    "Threshold time to enable head pressure control after condenser water pump being reset"
-    annotation (Dialog(group="Head pressure control"));
   parameter Modelica.SIunits.Time waiTim=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Head pressure control"));
@@ -180,7 +177,6 @@ protected
     final aftByPasSetTim=aftByPasSetTim,
     final minFloDif=minFloDif,
     final byPasSetTim=byPasSetTim,
-    final thrTimEnb=thrTimEnb,
     final waiTim=waiTim,
     final chaChiWatIsoTim=chaChiWatIsoTim,
     final proOnTim=proOnTim) "Start stage-down process"
@@ -232,8 +228,8 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableHeadControl
     disHeaCon(
     final nChi=nChi,
-    final thrTimEnb=thrTimEnb,
-    final waiTim=waiTim,
+    final thrTimEnb=0,
+    final waiTim=0,
     final heaStaCha=false)
     "Disable head pressure control of the chiller being disabled"
     annotation (Placement(transformation(extent={{260,-110},{280,-90}})));
@@ -324,8 +320,8 @@ equation
     annotation (Line(points={{122,20},{198,20}},  color={255,0,255}));
   connect(nexChi.yLasDisChi, disChiIsoVal.uNexChaChi) annotation (Line(points={{41,286},
           {80,286},{80,68},{258,68}},                 color={255,127,0}));
-  connect(and1.y, disChiIsoVal.yUpsDevSta) annotation (Line(points={{222,20},{
-          240,20},{240,56},{258,56}}, color={255,0,255}));
+  connect(and1.y, disChiIsoVal.yUpsDevSta) annotation (Line(points={{222,20},{240,
+          20},{240,55},{258,55}},     color={255,0,255}));
   connect(nexChi.yOnOff, booRep4.u) annotation (Line(points={{41,290},{60,290},{
           60,80},{98,80}},            color={255,0,255}));
   connect(booRep4.y, swi.u2)
@@ -334,8 +330,8 @@ equation
           140,72},{198,72}},   color={0,0,127}));
   connect(staDow.yChiWatIsoVal, swi.u1) annotation (Line(points={{141,230},{156,
           230},{156,88},{198,88}},  color={0,0,127}));
-  connect(swi.y, disChiIsoVal.uChiWatIsoVal) annotation (Line(points={{222,80},
-          {240,80},{240,64},{258,64}}, color={0,0,127}));
+  connect(swi.y, disChiIsoVal.uChiWatIsoVal) annotation (Line(points={{222,80},{
+          240,80},{240,65},{258,65}},  color={0,0,127}));
   connect(uConWatReq, booToRea2.u)
     annotation (Line(points={{-240,-130},{-182,-130}},
                                                      color={255,0,255}));
@@ -345,7 +341,7 @@ equation
     annotation (Line(points={{2,-130},{18,-130}},    color={0,0,127}));
   connect(logSwi2.y, and5.u1) annotation (Line(points={{122,20},{130,20},{130,-20},
           {70,-20},{70,-122},{98,-122}},       color={255,0,255}));
-  connect(disChiIsoVal.yEnaChiWatIsoVal, and5.u2) annotation (Line(points={{281,66},
+  connect(disChiIsoVal.yEnaChiWatIsoVal, and5.u2) annotation (Line(points={{282,66},
           {300,66},{300,-28},{90,-28},{90,-130},{98,-130}},      color={255,0,
           255}));
   connect(lesEquThr1.y, and5.u3) annotation (Line(points={{42,-130},{72,-130},{72,
@@ -374,15 +370,15 @@ equation
   connect(logSwi.y, disHeaCon.uChiHeaCon) annotation (Line(points={{222,-70},{
           240,-70},{240,-108},{258,-108}},
                                 color={255,0,255}));
-  connect(disHeaCon.yEnaHeaCon, enaNexCWP.uUpDevSta) annotation (Line(points={{281,-94},
+  connect(disHeaCon.yEnaHeaCon, enaNexCWP.uUpDevSta) annotation (Line(points={{282,-94},
           {300,-94},{300,-140},{140,-140},{140,-182},{158,-182}},color={255,0,255}));
   connect(con.y, enaNexCWP.uStaUp) annotation (Line(points={{-78,320},{-60,320},
           {-60,-188},{158,-188}},color={255,0,255}));
   connect(uSta, enaNexCWP.uSta) annotation (Line(points={{-240,170},{-120,170},{
           -120,-198},{158,-198}},
                                 color={255,127,0}));
-  connect(enaNexCWP.ySta, conWatPumCon.uChiSta) annotation (Line(points={{181,
-          -190},{200,-190},{200,-211},{218,-211}},
+  connect(enaNexCWP.ySta, conWatPumCon.uChiSta) annotation (Line(points={{182,-190},
+          {200,-190},{200,-211},{218,-211}},
                                        color={255,127,0}));
   connect(mulOr.y, conWatPumCon.uLeaChiOn) annotation (Line(points={{1.7,-220},{
           180,-220},{180,-206},{218,-206}},
@@ -409,8 +405,9 @@ equation
   connect(staDow.yChi, yChi) annotation (Line(points={{141,226},{240,226},{240,220},
           {330,220}}, color={255,0,255}));
   connect(disChiIsoVal.yChiWatIsoVal, yChiWatIsoVal)
-    annotation (Line(points={{281,60},{330,60}}, color={0,0,127}));
-  connect(disHeaCon.yChiHeaCon, yChiHeaCon) annotation (Line(points={{281,-106},
+    annotation (Line(points={{282,54},{306,54},{306,60},{330,60}},
+                                                 color={0,0,127}));
+  connect(disHeaCon.yChiHeaCon, yChiHeaCon) annotation (Line(points={{282,-106},
           {310,-106},{310,-100},{330,-100}}, color={255,0,255}));
   connect(conWatPumCon.yConWatPumSpeSet, yConWatPumSpeSet) annotation (Line(
         points={{241,-207},{300,-207},{300,-190},{330,-190}}, color={0,0,127}));
@@ -461,10 +458,11 @@ equation
 
   connect(lat.y, y)
     annotation (Line(points={{-98,380},{330,380}}, color={255,0,255}));
-  connect(disHeaCon.yEnaHeaCon, yTowStaDow) annotation (Line(points={{281,-94},{
-          300,-94},{300,-140},{330,-140}}, color={255,0,255}));
-  connect(disHeaCon.yEnaHeaCon, and2.u2) annotation (Line(points={{281,-94},{300,
-          -94},{300,-140},{140,-140},{140,-268},{258,-268}}, color={255,0,255}));
+  connect(disHeaCon.yEnaHeaCon, yTowStaDow) annotation (Line(points={{282,-94},
+          {300,-94},{300,-140},{330,-140}},color={255,0,255}));
+  connect(disHeaCon.yEnaHeaCon, and2.u2) annotation (Line(points={{282,-94},{
+          300,-94},{300,-140},{140,-140},{140,-268},{258,-268}},
+                                                             color={255,0,255}));
   connect(conWatPumCon.yPumSpeChe, and2.u1) annotation (Line(points={{242,-219},
           {250,-219},{250,-260},{258,-260}}, color={255,0,255}));
   connect(and2.y, minBypSet.uUpsDevSta) annotation (Line(points={{282,-260},{300,

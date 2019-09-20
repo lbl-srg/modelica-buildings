@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block EnableChiller "Sequence for enabling chiller"
 
   parameter Integer nChi = 2 "Total number of chillers";
@@ -8,13 +8,13 @@ block EnableChiller "Sequence for enabling chiller"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexEnaChi
     "Index of next enabling chiller"
     annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
-    "Indicate if there is stage-up command" annotation (Placement(
-        transformation(extent={{-240,40},{-200,80}}), iconTransformation(extent=
-           {{-140,40},{-100,80}})));
+    "Indicate if there is stage-up command"
+    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaChiWatIsoVal
-    "Status of chiller chilled water isolation valve control: true=enabled valve is fully open"
+    "Status of chilled water isolation valve control: true=enabled valve is fully open"
     annotation (Placement(transformation(extent={{-240,10},{-200,50}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -28,15 +28,15 @@ block EnableChiller "Sequence for enabling chiller"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexDisChi
     "Next disabling chiller when there is any stage up that need one chiller on and another off"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller enabling status"
-    annotation (Placement(transformation(extent={{200,-60},{220,-40}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yNewChi
+    annotation (Placement(transformation(extent={{200,-70},{240,-30}}),
+      iconTransformation(extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yNewChiEna
     "Newly enabled chiller has been proven on by more than 5 minutes"
-    annotation (Placement(transformation(extent={{200,-170},{220,-150}}),
-        iconTransformation(extent={{100,-90},{120,-70}})));
+    annotation (Placement(transformation(extent={{200,-180},{240,-140}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}
@@ -51,7 +51,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1[nChi] "Logical and"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nChi](
-    each final k=true) "True constant"
+    final k=fill(true, nChi)) "True constant"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr3(
     final threshold=proOnTim)
@@ -61,7 +61,7 @@ protected
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nChi](
-    each final threshold=0.5)
+    final threshold=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
@@ -70,7 +70,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and3[nChi] "Logical and"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nChi](
-    each final k=false) "False constant"
+    final k=fill(false, nChi)) "False constant"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nChi]
     "Logical switch"
@@ -87,7 +87,7 @@ protected
     "Count the time after new chiller has been enabled"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
-    "Record the old chiller chilled water isolation valve status"
+    "Record the old chiller status"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=nChi)
     "Replicate boolean input"
@@ -180,7 +180,7 @@ equation
     annotation (Line(points={{122,120},{140,120},{140,-42},{158,-42}},
       color={255,0,255}));
   connect(logSwi2.y,yChi)
-    annotation (Line(points={{182,-50},{210,-50}}, color={255,0,255}));
+    annotation (Line(points={{182,-50},{220,-50}}, color={255,0,255}));
   connect(not2.y,or2. u1)
     annotation (Line(points={{-138,-50},{38,-50}},color={255,0,255}));
   connect(greEquThr3.y,not1. u)
@@ -204,8 +204,8 @@ equation
   connect(intEqu1.y, and3.u2)
     annotation (Line(points={{-78,-150},{20,-150},{20,-118},{38,-118}},
       color={255,0,255}));
-  connect(greEquThr3.y, yNewChi)
-    annotation (Line(points={{-38,-110},{-30,-110},{-30,-160},{210,-160}},
+  connect(greEquThr3.y, yNewChiEna)
+    annotation (Line(points={{-38,-110},{-30,-110},{-30,-160},{220,-160}},
       color={255,0,255}));
 
 annotation (
@@ -218,7 +218,67 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),                                 Diagram(
+          textString="%name"),
+        Rectangle(
+          extent={{-60,60},{60,20}},
+          lineColor={200,200,200},
+          fillColor={207,207,207},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-52,20},{-40,0}},
+          lineColor={200,200,200},
+          fillColor={207,207,207},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,20},{52,0}},
+          lineColor={200,200,200},
+          fillColor={207,207,207},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,0},{60,-80}},
+          lineColor={200,200,200},
+          fillColor={207,207,207},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-98,96},{-50,84}},
+          lineColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="uNexEnaChi"),
+        Text(
+          extent={{-98,-84},{-50,-96}},
+          lineColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="uNexDisChi"),
+        Text(
+          extent={{-100,66},{-68,56}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uStaUp"),
+        Text(
+          extent={{-98,26},{-34,14}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uEnaChiWatIsoVal"),
+        Text(
+          extent={{-100,-14},{-78,-24}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uChi"),
+        Text(
+          extent={{-98,-54},{-72,-66}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uOnOff"),
+        Text(
+          extent={{74,86},{100,76}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yChi"),
+        Text(
+          extent={{60,-72},{98,-84}},
+          lineColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yNewChiEna")}),                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}}),
         graphics={
           Rectangle(
@@ -232,22 +292,92 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{-4,12},{196,-24}},
+          extent={{68,62},{148,54}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Find next chiller when 
-there is no chiller needs 
-to be disabled"),
+          textString="Output new chiller status array:"),
           Text(
-          extent={{116,-112},{194,-120}},
+          extent={{46,-76},{124,-84}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable 
-small chiller")}));
+small chiller"),
+          Text(
+          extent={{70,52},{204,36}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Left,
+          textString="1. When the stage change does not require one chiller off and another 
+chiller on."),
+          Text(
+          extent={{70,42},{282,20}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Left,
+          textString="2. When the stage change does require one chiller off and another chiller on, 
+but the enabled chiller has not yet finished starting."),
+          Text(
+          extent={{36,-132},{116,-140}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Output new chiller status array:"),
+          Text(
+          extent={{36,-138},{248,-160}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Left,
+          textString="When the stage change does require one chiller off and another chiller on, 
+          and the enabled chiller has finished starting.")}),
+Documentation(info="<html>
+<p>
+Block that controlles chiller when there is staging up command <code>uStaUp=true</code>.
+
+This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.4.15,
+item 6 and item 7.a. These sections specify when the next chiller should be enabled
+and when the running smaller chiller should be diabled.
+</p>
+<p>
+When the stage-up process does not requires a smaller chiller being staged off and
+a larger chiller being staged on (<code>uOnOff=false</code>):
+</p>
+<ul>
+<li>
+Start the next stage chiller after the chilled water isolation valve is fully open
+<code>uEnaChiWatIsoVal=true</code>.
+</li>
+</ul>
+<p>
+For any stage change during which a smaller chiller is diabled and a larger chiller
+is enabled (<code>uOnOff=true</code>):
+</p>
+<ul>
+<li>
+Wait 5 minutes (<code>proOnTim</code>) for the newly enabled chiller to prove that is 
+operating correctly <code>yNewChiEna=true</code>, then shut off the smaller chiller.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+September 15, 2019, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EnableChiller;

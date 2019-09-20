@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block EnableCWPump
-  "Start the next condenser water pump and/or change condenser water pump speed"
+  "Generate staging index for condenser water pump control"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpDevSta
     "Status of resetting status of device before enabling or disabling condenser water pump"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
     "Indicate if there is stage-up command"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
@@ -15,13 +15,13 @@ block EnableCWPump
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
-    "Current stage index"
+    "Current chiller stage index, does not include stages like X + WSE"
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta
-    "Stage for enabling condenser water pumps"
-    annotation (Placement(transformation(extent={{120,30},{140,50}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    "Stage for  condenser water pumps control"
+    annotation (Placement(transformation(extent={{120,20},{160,60}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
@@ -66,44 +66,47 @@ equation
       color={0,0,127}));
   connect(intToRea.y, swi1.u1)
     annotation (Line(points={{-78,-80},{-50,-80},{-50,88},{-2,88}},
-                color={0,0,127}));
+      color={0,0,127}));
   connect(intToRea.y, addPar.u)
     annotation (Line(points={{-78,-80},{-50,-80},{-50,60},{-42,60}},
       color={0,0,127}));
-  connect(uUpDevSta, and1.u1) annotation (Line(points={{-140,80},{-110,80},{-110,
-          0},{-82,0}}, color={255,0,255}));
-  connect(uStaDow, and1.u2) annotation (Line(points={{-140,-40},{-100,-40},{-100,
-          -8},{-82,-8}}, color={255,0,255}));
-  connect(addPar1.y, swi2.u3) annotation (Line(points={{-18,-20},{-10,-20},{-10,
-          -8},{-2,-8}}, color={0,0,127}));
-  connect(intToRea.y, addPar1.u) annotation (Line(points={{-78,-80},{-50,-80},{
-          -50,-20},{-42,-20}},
-                           color={0,0,127}));
+  connect(uUpDevSta, and1.u1)
+    annotation (Line(points={{-140,80},{-110,80},{-110,0},{-82,0}},
+      color={255,0,255}));
+  connect(uStaDow, and1.u2)
+    annotation (Line(points={{-140,-40},{-100,-40},{-100,-8},{-82,-8}},
+      color={255,0,255}));
+  connect(addPar1.y, swi2.u3)
+    annotation (Line(points={{-18,-20},{-10,-20},{-10,-8},{-2,-8}},
+      color={0,0,127}));
+  connect(intToRea.y, addPar1.u)
+    annotation (Line(points={{-78,-80},{-50,-80},{-50,-20},{-42,-20}},
+      color={0,0,127}));
   connect(and1.y, swi2.u2)
     annotation (Line(points={{-58,0},{-2,0}}, color={255,0,255}));
-  connect(intToRea.y, swi2.u1) annotation (Line(points={{-78,-80},{-50,-80},{
-          -50,8},{-2,8}},
-                      color={0,0,127}));
+  connect(intToRea.y, swi2.u1)
+    annotation (Line(points={{-78,-80},{-50,-80},{-50,8},{-2,8}},
+      color={0,0,127}));
   connect(uStaUp, swi.u2)
     annotation (Line(points={{-140,40},{38,40}}, color={255,0,255}));
-  connect(swi1.y, swi.u1) annotation (Line(points={{22,80},{30,80},{30,48},{38,
-          48}},
-        color={0,0,127}));
+  connect(swi1.y, swi.u1)
+    annotation (Line(points={{22,80},{30,80},{30,48},{38,48}},
+      color={0,0,127}));
   connect(uStaDow, swi3.u2)
     annotation (Line(points={{-140,-40},{38,-40}}, color={255,0,255}));
-  connect(swi2.y, swi3.u1) annotation (Line(points={{22,0},{30,0},{30,-32},{38,
-          -32}},
-        color={0,0,127}));
-  connect(intToRea.y, swi3.u3) annotation (Line(points={{-78,-80},{-50,-80},{
-          -50,-48},{38,-48}},
-                          color={0,0,127}));
-  connect(swi3.y, swi.u3) annotation (Line(points={{62,-40},{70,-40},{70,20},{
-          30,20},{30,32},{38,32}},
-                                color={0,0,127}));
+  connect(swi2.y, swi3.u1)
+    annotation (Line(points={{22,0},{30,0},{30,-32},{38,-32}},
+      color={0,0,127}));
+  connect(intToRea.y, swi3.u3)
+    annotation (Line(points={{-78,-80},{-50,-80},{-50,-48},{38,-48}},
+      color={0,0,127}));
+  connect(swi3.y, swi.u3)
+    annotation (Line(points={{62,-40},{70,-40},{70,20},{30,20},{30,32},{38,32}},
+      color={0,0,127}));
   connect(swi.y, reaToInt.u)
     annotation (Line(points={{62,40},{78,40}}, color={0,0,127}));
   connect(reaToInt.y, ySta)
-    annotation (Line(points={{102,40},{130,40}}, color={255,127,0}));
+    annotation (Line(points={{102,40},{140,40}}, color={255,127,0}));
 
 annotation (
   defaultComponentName="enaNexCWP",
@@ -134,7 +137,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uStaUp"),
         Text(
-          extent={{76,8},{98,-4}},
+          extent={{76,-4},{98,-16}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="ySta"),
@@ -142,10 +145,19 @@ annotation (
           extent={{-98,-12},{-60,-24}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uStaDow")}),
+          textString="uStaDow"),
+                 Ellipse(
+        extent={{-60,60},{60,-60}},
+        lineColor={0,0,0},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid), Polygon(
+        points={{0,60},{0,-60},{60,0},{0,60}},
+        lineColor={0,0,0},
+        fillColor={238,46,47},
+        fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-This block generates stage signal as input to condenser water pump block. 
+This block generates stage signal as input for condenser water pump control. 
 </p>
 <ul>
 <li>
@@ -154,14 +166,16 @@ current stage.
 </li>
 <li>
 When there is stage up command (<code>uStaUp</code> = true) which means current 
-stage has changed up to new stage,  and the minimum bypass flow has not been 
-reset (<code>uMinBypSet</code> = false), it outputs previous stage 
+stage has changed up to new stage,  and the minimum bypass 
+flow has not been reset (<code>uMinBypSet</code> = false), the stage index for 
+condenser water pump control will still be the old stage 
 (<code>ySta</code> = <code>uSta</code> - 1).
 </li>
 <li>
 When there is stage up command (<code>uStaUp</code> = true)  and the minimum 
 bypass flow has been reset (<code>uMinBypSet</code> = true), it outputs 
-current stage so to enable new condenser water pump for current stage.
+current stage for enabling condenser water pump control, which would be
+enabling new pumps or changing pump speed.
 </li>
 </ul>
 </html>",

@@ -19,9 +19,6 @@ block DownStart "Sequence starting stage-down process"
     annotation (Dialog(group="Reset minimum bypass"));
   parameter Modelica.SIunits.Time byPasSetTim=300
     annotation (Dialog(group="Reset minimum bypass"));
-  parameter Modelica.SIunits.Time thrTimEnb=10
-    "Threshold time to enable head pressure control after condenser water pump being reset"
-    annotation (Dialog(group="Head pressure control"));
   parameter Modelica.SIunits.Time waiTim=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Head pressure control"));
@@ -122,7 +119,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableHeadControl
     enaHeaCon(
     final nChi=nChi,
-    final thrTimEnb=thrTimEnb,
+    final thrTimEnb=0,
     final waiTim=waiTim,
     final heaStaCha=heaStaCha)
     "Enable head pressure control of the chiller being enabled"
@@ -205,28 +202,29 @@ equation
     annotation (Line(points={{-180,-20},{-60,-20},{-60,-92},{-2,-92}},
       color={255,127,0}));
   connect(enaChiIsoVal.uChiWatIsoVal, uChiWatIsoVal)
-    annotation (Line(points={{-2,-96},{-100,-96},{-100,-80},{-180,-80}},
+    annotation (Line(points={{-2,-95},{-100,-95},{-100,-80},{-180,-80}},
       color={0,0,127}));
   connect(enaHeaCon.yEnaHeaCon, enaChiIsoVal.yUpsDevSta)
-    annotation (Line(points={{21,-10},{30,-10},{30,-60},{-20,-60},{-20,-104},{-2,-104}},
+    annotation (Line(points={{22,-10},{30,-10},{30,-60},{-20,-60},{-20,-105},{
+          -2,-105}},
       color={255,0,255}));
   connect(uStaDow, enaChiIsoVal.uStaCha)
     annotation (Line(points={{-180,190},{-140,190},{-140,-108},{-2,-108}},
       color={255,0,255}));
   connect(uNexEnaChi, disChi.uNexEnaChi)
-    annotation (Line(points={{-180,-20},{-60,-20},{-60,-140},{-2,-140}},
+    annotation (Line(points={{-180,-20},{-60,-20},{-60,-141},{-2,-141}},
       color={255,127,0}));
   connect(uStaDow, disChi.uStaDow) annotation (Line(points={{-180,190},{-140,190},
           {-140,-144},{-2,-144}}, color={255,0,255}));
   connect(enaChiIsoVal.yEnaChiWatIsoVal, disChi.uEnaChiWatIsoVal) annotation (
-      Line(points={{21,-94},{30,-94},{30,-120},{-20,-120},{-20,-148},{-2,-148}},
+      Line(points={{22,-94},{30,-94},{30,-120},{-20,-120},{-20,-148},{-2,-148}},
         color={255,0,255}));
   connect(uChi, disChi.uChi) annotation (Line(points={{-180,120},{-40,120},{-40,
           -152},{-2,-152}}, color={255,0,255}));
   connect(uOnOff, disChi.uOnOff) annotation (Line(points={{-180,20},{-80,20},{-80,
           -156},{-2,-156}}, color={255,0,255}));
-  connect(disChi.uNexDisChi, uNexDisChi) annotation (Line(points={{-2,-160},{-80,
-          -160},{-80,-170},{-180,-170}}, color={255,127,0}));
+  connect(disChi.uNexDisChi, uNexDisChi) annotation (Line(points={{-2,-159},{-80,
+          -159},{-80,-170},{-180,-170}}, color={255,127,0}));
   connect(uStaDow, and2.u1)
     annotation (Line(points={{-180,190},{-102,190}}, color={255,0,255}));
   connect(and2.y, chiDemRed.uDemLim) annotation (Line(points={{-78,190},{-40,
@@ -244,14 +242,14 @@ equation
   connect(booRep4.y, heaPreCon.u2) annotation (Line(points={{82,20},{120,20},{
           120,-20},{138,-20}},
                            color={255,0,255}));
-  connect(enaHeaCon.yChiHeaCon, heaPreCon.u1) annotation (Line(points={{21,-22},
+  connect(enaHeaCon.yChiHeaCon, heaPreCon.u1) annotation (Line(points={{22,-22},
           {80,-22},{80,-12},{138,-12}}, color={255,0,255}));
   connect(uChiHeaCon, heaPreCon.u3) annotation (Line(points={{-180,-50},{80,-50},
           {80,-28},{138,-28}},  color={255,0,255}));
   connect(booRep4.y, chiWatIsoVal.u2) annotation (Line(points={{82,20},{120,20},
           {120,-70},{138,-70}}, color={255,0,255}));
-  connect(enaChiIsoVal.yChiWatIsoVal, chiWatIsoVal.u1) annotation (Line(points={
-          {21,-100},{60,-100},{60,-62},{138,-62}}, color={0,0,127}));
+  connect(enaChiIsoVal.yChiWatIsoVal, chiWatIsoVal.u1) annotation (Line(points={{22,-106},
+          {60,-106},{60,-62},{138,-62}},           color={0,0,127}));
   connect(uChiWatIsoVal, chiWatIsoVal.u3) annotation (Line(points={{-180,-80},{-100,
           -80},{-100,-78},{138,-78}}, color={0,0,127}));
   connect(chiDem.y, yChiDem)
