@@ -269,7 +269,7 @@ there is stage change command (<code>uStaCha=true</code>). It also generates sta
 to indicate if the head pressure control status change process has finished.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
 HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019): stage-up: section 5.2.4.15, item 4 for stage-up and section 5.2.4.16, item 1.a.
+2019):
 </p>
 <p>
 In stage-up process, section 5.2.4.15, item 4: 

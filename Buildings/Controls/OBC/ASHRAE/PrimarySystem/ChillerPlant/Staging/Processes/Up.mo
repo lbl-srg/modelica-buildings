@@ -264,7 +264,7 @@ equation
   connect(lat.y, minBypSet.uStaCha) annotation (Line(points={{-118,210},{-100,
           210},{-100,134},{58,134}},
                                color={255,0,255}));
-  connect(minBypSet.VBypas_flow, VBypas_flow) annotation (Line(points={{58,126},
+  connect(minBypSet.VChiWat_flow, VBypas_flow) annotation (Line(points={{58,126},
           {-156,126},{-156,100},{-260,100}}, color={0,0,127}));
   connect(lat.y, minBypSet1.uStaUp) annotation (Line(points={{-118,210},{-100,210},
           {-100,99},{-1,99}},color={255,0,255}));
@@ -275,8 +275,8 @@ equation
           {-32,166},{-32,96},{-1,96}},       color={255,0,255}));
   connect(con.y, minBypSet1.uStaDow) annotation (Line(points={{-178,60},{-32,60},
           {-32,81},{-1,81}}, color={255,0,255}));
-  connect(minBypSet1.yChiWatBypSet, minBypSet.VBypas_setpoint) annotation (Line(
-        points={{21,90},{40,90},{40,122},{58,122}}, color={0,0,127}));
+  connect(minBypSet1.yChiWatBypSet, minBypSet.VMinChiWat_setpoint) annotation (
+      Line(points={{21,90},{40,90},{40,122},{58,122}}, color={0,0,127}));
   connect(minBypSet.yMinBypRes, enaNexCWP.uUpDevSta) annotation (Line(points={{82,130},
           {96,130},{96,60},{-28,60},{-28,28},{-2,28}},         color={255,0,255}));
   connect(lat.y, enaNexCWP.uStaUp) annotation (Line(points={{-118,210},{-100,
@@ -336,9 +336,8 @@ equation
   connect(uSta, endUp.uSta) annotation (Line(points={{-260,20},{-104,20},{-104,
           -229},{59,-229}},
                       color={255,127,0}));
-  connect(VBypas_flow, endUp.VBypas_flow) annotation (Line(points={{-260,100},{
-          -156,100},{-156,-231},{59,-231}},
-                                       color={0,0,127}));
+  connect(VBypas_flow, endUp.VChiWat_flow) annotation (Line(points={{-260,100},
+          {-156,100},{-156,-231},{59,-231}}, color={0,0,127}));
 
   connect(uConWatReq, mulOr1.u) annotation (Line(points={{-260,-20},{-164,-20},
           {-164,-40},{-82,-40}},            color={255,0,255}));
@@ -380,7 +379,7 @@ equation
     annotation (Line(points={{222,-90},{250,-90}}, color={255,0,255}));
   connect(enaChiIsoVal.yEnaChiWatIsoVal, swi1.u2) annotation (Line(points={{82,-144},
           {100,-144},{100,90},{198,90}}, color={255,0,255}));
-  connect(endUp.yChiWatBypSet, swi1.u1) annotation (Line(points={{81,-223},{180,
+  connect(endUp.yChiWatMinSet, swi1.u1) annotation (Line(points={{81,-223},{180,
           -223},{180,98},{198,98}}, color={0,0,127}));
   connect(minBypSet1.yChiWatBypSet, swi1.u3) annotation (Line(points={{21,90},{40,
           90},{40,82},{198,82}}, color={0,0,127}));

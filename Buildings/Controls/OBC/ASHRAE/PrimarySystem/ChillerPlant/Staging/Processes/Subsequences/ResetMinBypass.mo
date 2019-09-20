@@ -1,31 +1,32 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block ResetMinBypass
-  "Sequence for reset minimum chilled water bypass flow setpoint"
+  "Sequence for reset minimum chilled water flow setpoint"
 
-  parameter Modelica.SIunits.Time aftByPasSetTim = 60;
+  parameter Modelica.SIunits.Time aftByPasSetTim = 60
+    "Time after setpoint achieved";
   parameter Modelica.SIunits.VolumeFlowRate minFloDif = 0.01
-    "Minimum flow rate difference to check if bybass flow achieves setpoint";
+    "Minimum flow rate difference to check if flow achieves setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
-    "Status of resetting status of device before reset minimum bypass flow setpoint"
+    "Status of resetting status of device before reset minimum flow setpoint"
     annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaCha
     "Indicate if there is stage change"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VBypas_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") "Measured bypass flow rate"
+    final quantity="VolumeFlowRate") "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VBypas_setpoint(
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinChiWat_setpoint(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate") "Bypass flow setpoint"
+    final quantity="VolumeFlowRate") "Minimum chiller water flow setpoint"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMinBypRes
     "Minimum chilled water flow bypass setpoint reset status"
     annotation (Placement(transformation(extent={{160,60},{200,100}}),
@@ -33,14 +34,14 @@ block ResetMinBypass
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Feedback floDif
-    "Bypass flow rate difference"
+    "Flow rate difference"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute value of input"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=minFloDif-0.005,
     final uHigh=minFloDif+0.005)
-    "Check if bypass achieves setpoint"
+    "Check if chiller water flow reached setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
@@ -69,11 +70,10 @@ equation
   connect(uStaCha, and2.u2)
     annotation (Line(points={{-180,40},{-120,40},{-120,72},{-62,72}},
       color={255,0,255}));
-  connect(VBypas_flow, floDif.u1)
+  connect(VChiWat_flow, floDif.u1)
     annotation (Line(points={{-180,-40},{-142,-40}}, color={0,0,127}));
-  connect(VBypas_setpoint, floDif.u2)
-    annotation (Line(points={{-180,-80},{-130,-80},{-130,-52}},
-      color={0,0,127}));
+  connect(VMinChiWat_setpoint, floDif.u2)
+    annotation (Line(points={{-180,-80},{-130,-80},{-130,-52}}, color={0,0,127}));
   connect(floDif.y, abs.u)
     annotation (Line(points={{-118,-40},{-102,-40}}, color={0,0,127}));
   connect(abs.y, hys.u)
@@ -129,12 +129,12 @@ annotation (
           extent={{-98,-34},{-38,-48}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VBypas_flow"),
+          textString="VChiWat_flow"),
         Text(
           extent={{-98,-72},{-16,-86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VBypas_setpoint"),
+          textString="VMinChiWat_setpoint"),
         Text(
           extent={{-96,48},{-58,34}},
           lineColor={255,0,255},
@@ -163,8 +163,8 @@ HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 2
 When there is stage-change command (<code>uStaCha</code> = true) and the upstream
 device has finished its adjustment process (<code>uUpsDevSta</code> = true), 
 like in the stage-up process the operating chillers have reduced the demand, 
-check if the minimum bypass flow rate <code>VBypas_flow</code> has achieved 
-its new set point <code>VBypas_setpoint</code>. 
+check if the minimum chilled water flow rate <code>VChiWat_flow</code> has achieved 
+its new set point <code>VMinChiWat_setpoint</code>. 
 After new setpoint is achieved, wait for 1 minute (<code>byPasSetTim</code>) to 
 allow loop to stabilize. It will then set <code>yMinBypRes</code> to true.
 </p>

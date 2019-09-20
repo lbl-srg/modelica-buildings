@@ -44,10 +44,6 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     annotation (Placement(transformation(extent={{160,30},{200,70}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
-
-
-
-
 protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
     "Triggered sampler to sample current chiller demand"
