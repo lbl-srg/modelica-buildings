@@ -1,6 +1,6 @@
 within Buildings.Experimental.EnergyPlus.Examples;
 package VAVReheatRefBldgSmallOffice "Package with VAV models for small office buildings"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
