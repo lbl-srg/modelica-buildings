@@ -294,7 +294,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Heating mode"),
         Rectangle(
-          extent={{-94,-100},{168,-194}},
+          extent={{4,-96},{266,-190}},
           lineColor={175,175,175},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
