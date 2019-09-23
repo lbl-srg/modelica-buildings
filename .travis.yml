@@ -60,4 +60,4 @@ install:
 
 # Execute tests
 script:
-  - (chmod a+x Buildings/Resources/bin/spawn-linux64/bin/spawn; cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
+  - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
