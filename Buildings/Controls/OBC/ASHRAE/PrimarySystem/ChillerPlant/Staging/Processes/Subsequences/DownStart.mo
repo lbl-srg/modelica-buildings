@@ -175,15 +175,15 @@ equation
   connect(chiDemRed.uChi, uChi)
     annotation (Line(points={{-22,161},{-40,161},{-40,120},{-180,120}},color={255,0,255}));
   connect(con3.y, minChiWatSet.uStaUp)
-    annotation (Line(points={{-78,70},{-60,70},{-60,59},{-1,59}}, color={255,0,255}));
+    annotation (Line(points={{-78,70},{-60,70},{-60,59},{-2,59}}, color={255,0,255}));
   connect(chiDemRed.yChiDemRed, minChiWatSet.uUpsDevSta)
-    annotation (Line(points={{2,166},{20,166},{20,80},{-20,80},{-20,56},
-      {-1,56}}, color={255,0,255}));
+    annotation (Line(points={{2,166},{20,166},{20,80},{-20,80},{-20,57},{-2,57}},
+                color={255,0,255}));
   connect(minChiWatSet.uStaDow, uStaDow)
-    annotation (Line(points={{-1,41},{-140,41},{-140,210},{-180,210}},
+    annotation (Line(points={{-2,41},{-140,41},{-140,210},{-180,210}},
       color={255,0,255}));
   connect(minChiWatSet.uOnOff, uOnOff)
-    annotation (Line(points={{-1,43},{-110,43},{-110,20},{-180,20}},
+    annotation (Line(points={{-2,43},{-110,43},{-110,20},{-180,20}},
       color={255,0,255}));
   connect(chiDemRed.yChiDemRed, minBypRes.uUpsDevSta)
     annotation (Line(points={{2,166},{20,166},{20,108},{58,108}},
@@ -296,19 +296,19 @@ equation
     annotation (Line(points={{-180,20},{-110,20},{-110,165},{-22,165}},
       color={255,0,255}));
   connect(uChi, minChiWatSet.uChi)
-    annotation (Line(points={{-180,120},{-40,120},{-40,53},{-1,53}},
+    annotation (Line(points={{-180,120},{-40,120},{-40,54},{-2,54}},
       color={255,0,255}));
   connect(uNexEnaChi, minChiWatSet.nexEnaChi)
-    annotation (Line(points={{-180,-20},{-60,-20},{-60,50},{-1,50}},
+    annotation (Line(points={{-180,-20},{-60,-20},{-60,51},{-2,51}},
       color={255,127,0}));
   connect(uNexDisChi, minChiWatSet.nexDisChi)
-    annotation (Line(points={{-180,-170},{-80,-170},{-80,48},{-1,48}},
+    annotation (Line(points={{-180,-170},{-80,-170},{-80,49},{-2,49}},
       color={255,127,0}));
-  connect(enaChiIsoVal.yEnaChiWatIsoVal, minChiWatSet.uEnaNexChi)
-    annotation (Line(points={{22,-94},{40,-94},{40,30},{-20,30},{-20,45},
-      {-1,45}}, color={255,0,255}));
+  connect(enaChiIsoVal.yEnaChiWatIsoVal, minChiWatSet.uSubCha) annotation (Line(
+        points={{22,-94},{40,-94},{40,30},{-20,30},{-20,46},{-2,46}}, color={
+          255,0,255}));
   connect(minChiWatSet.yChiWatMinFloSet, minBypRes.VMinChiWat_setpoint)
-    annotation (Line(points={{21,50},{40,50},{40,92},{58,92}}, color={0,0,127}));
+    annotation (Line(points={{22,50},{40,50},{40,92},{58,92}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="staStaDow",

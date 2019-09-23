@@ -31,51 +31,51 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum
     "Maximum status feedback of all the chilled water pumps: true means at least one pump is proven on"
     annotation (Placement(transformation(extent={{-140,110},{-100,150}}),
-      iconTransformation(extent={{-120,80},{-100,100}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Measured chilled water flow rate through chillers"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
-      iconTransformation(extent={{-120,60},{-100,80}})));
+      iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp "Stage up logical signal"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-      iconTransformation(extent={{-120,40},{-100,60}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
     "During chiller stage changing process, resetting status of device before reset minimum flow setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
-      iconTransformation(extent={{-120,20},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaNexChi
+      iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSubCha
     "Status to indicate that it starts to enable another chiller. This input is used when the stage change needs chiller on/off"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-120,0},{-100,20}})));
+        iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
     "Indicate if the stage change requires one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
-      iconTransformation(extent={{-120,-20},{-100,0}})));
+      iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller status: true=ON"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-      iconTransformation(extent={{-120,-40},{-100,-20}})));
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next chiller to be enabled"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
-      iconTransformation(extent={{-120,-60},{-100,-40}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisChi
     "Index of next chiller to be disabled"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
-      iconTransformation(extent={{-120,-80},{-100,-60}})));
+      iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow "Stage down logical signal"
     annotation (Placement(transformation(extent={{-140,-170},{-100,-130}}),
-      iconTransformation(extent={{-120,-100},{-100,-80}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValPos(
     final min=0,
     final max=1,
     final unit="1") "Chilled water minimum flow bypass valve position"
-    annotation (Placement(transformation(extent={{100,120},{120,140}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,110},{140,150}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID valPos(
     final controllerType=controllerType,
@@ -116,29 +116,29 @@ protected
 
 equation
   connect(uStaUp, minBypSet.uStaUp)
-    annotation (Line(points={{-120,60},{-40,60},{-40,-5},{-21,-5}},
+    annotation (Line(points={{-120,60},{-40,60},{-40,-5},{-22,-5}},
       color={255,0,255}));
   connect(uOnOff, minBypSet.uOnOff)
-    annotation (Line(points={{-120,-30},{-60,-30},{-60,-21},{-21,-21}},
+    annotation (Line(points={{-120,-30},{-60,-30},{-60,-21},{-22,-21}},
       color={255,0,255}));
   connect(uStaDow, minBypSet.uStaDow)
-    annotation (Line(points={{-120,-150},{-40,-150},{-40,-23},{-21,-23}},
+    annotation (Line(points={{-120,-150},{-40,-150},{-40,-23},{-22,-23}},
       color={255,0,255}));
   connect(minBypSet.uUpsDevSta, uUpsDevSta)
-    annotation (Line(points={{-21,-8},{-46,-8},{-46,30},{-120,30}},
+    annotation (Line(points={{-22,-7},{-46,-7},{-46,30},{-120,30}},
       color={255,0,255}));
   connect(minFlo.y, mulSum.u)
     annotation (Line(points={{2,-100},{18,-100}}, color={0,0,127}));
   connect(VChiWat_flow, div1.u1)
     annotation (Line(points={{-120,90},{-20,90},{-20,46},{18,46}}, color={0,0,127}));
   connect(minBypSet.yChiWatMinFloSet, div.u1)
-    annotation (Line(points={{1,-14},{18,-14}},  color={0,0,127}));
+    annotation (Line(points={{2,-14},{18,-14}},  color={0,0,127}));
   connect(mulSum.y, div1.u2)
     annotation (Line(points={{42,-100},{60,-100},{60,-70},{8,-70},{8,34},{18,34}},
       color={0,0,127}));
   connect(mulSum.y, div.u2)
     annotation (Line(points={{42,-100},{60,-100},{60,-70},{8,-70},{8,-26},{18,-26}},
-                 color={0,0,127}));
+      color={0,0,127}));
   connect(div1.y, valPos.u_m)
     annotation (Line(points={{42,40},{50,40},{50,68}}, color={0,0,127}));
   connect(div.y, valPos.u_s)
@@ -152,21 +152,21 @@ equation
   connect(opeVal.y, swi.u3)
     annotation (Line(points={{-18,110},{0,110},{0,122},{38,122}}, color={0,0,127}));
   connect(swi.y, yValPos)
-    annotation (Line(points={{62,130},{110,130}}, color={0,0,127}));
+    annotation (Line(points={{62,130},{120,130}}, color={0,0,127}));
   connect(uChiWatPum, valPos.trigger)
     annotation (Line(points={{-120,130},{10,130},{10,60},{42,60},{42,68}},
       color={255,0,255}));
   connect(nexEnaChi, minBypSet.nexEnaChi)
-    annotation (Line(points={{-120,-90},{-50,-90},{-50,-14},{-21,-14}},
+    annotation (Line(points={{-120,-90},{-50,-90},{-50,-13},{-22,-13}},
       color={255,127,0}));
   connect(minBypSet.nexDisChi, nexDisChi)
-    annotation (Line(points={{-21,-16},{-46,-16},{-46,-120},{-120,-120}},
+    annotation (Line(points={{-22,-15},{-46,-15},{-46,-120},{-120,-120}},
       color={255,127,0}));
   connect(minBypSet.uChi, uChi)
-    annotation (Line(points={{-21,-11},{-54,-11},{-54,-60},{-120,-60}},
+    annotation (Line(points={{-22,-10},{-54,-10},{-54,-60},{-120,-60}},
       color={255,0,255}));
-  connect(uEnaNexChi, minBypSet.uEnaNexChi)
-    annotation (Line(points={{-120,0},{-60,0},{-60,-19},{-21,-19}},
+  connect(uSubCha, minBypSet.uSubCha)
+    annotation (Line(points={{-120,0},{-60,0},{-60,-18},{-22,-18}},
       color={255,0,255}));
 
 annotation (
@@ -183,16 +183,62 @@ annotation (
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent={{-80,60},{82,-60}},
+          extent={{-60,40},{80,-40}},
           lineColor={28,108,200},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Polygon(
-          points={{-80,60},{-14,4},{-80,-60},{-80,60}},
+          points={{-60,40},{-20,0},{-60,-40},{-60,40}},
           lineColor={175,175,175},
           fillColor={175,175,175},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-102,54},{-68,44}},
+          lineColor={255,0,255},
+          textString="uStaUp"),
+        Text(
+          extent={{-102,36},{-50,26}},
+          lineColor={255,0,255},
+          textString="uUpsDevSta"),
+        Text(
+          extent={{-100,-24},{-76,-34}},
+          lineColor={255,0,255},
+          textString="uChi"),
+        Text(
+          extent={{-98,-44},{-56,-56}},
+          lineColor={255,127,0},
+          textString="nexEnaChi"),
+        Text(
+          extent={{-100,-64},{-56,-74}},
+          lineColor={255,127,0},
+          textString="nexDisChi"),
+        Text(
+          extent={{-104,-4},{-66,-14}},
+          lineColor={255,0,255},
+          textString="uOnOff"),
+        Text(
+          extent={{-100,16},{-60,6}},
+          lineColor={255,0,255},
+          textString="uSubCha"),
+        Text(
+          extent={{-100,-84},{-60,-94}},
+          lineColor={255,0,255},
+          textString="uStaDow"),
+        Text(
+          extent={{-98,98},{-54,84}},
+          lineColor={255,0,255},
+          textString="uChiWatPum"),
+        Text(
+          extent={{-98,74},{-54,64}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VChiWat_flow"),
+        Text(
+          extent={{68,6},{102,-4}},
+          lineColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yValPos")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-160},{100,160}})),
   Documentation(info="<html>
