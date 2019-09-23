@@ -60,4 +60,4 @@ install:
 
 # Execute tests
 script:
-  - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
+  - (chmod a+x Buildings/Resources/src/EnergyPlus/spawn; cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
