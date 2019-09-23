@@ -60,4 +60,4 @@ install:
 
 # Execute tests
 script:
-  - (chmod a+x Buildings/Resources/src/EnergyPlus/spawn; cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG; echo `pwd`; ls; cat /home/travis/build/lbl-srg/modelica-buildings/Buildings/simulator-jmodelica.log)
+  - (chmod a+x Buildings/Resources/bin/spawn-linux64/bin/spawn; cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
