@@ -558,7 +558,7 @@ The figure below shows the sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAVTSupSet.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/VAVTSupSet.png\"/>
 </p>
 <p>
 The output <code>TSupCoo</code> is to be used to control the cooling coil,

@@ -363,7 +363,7 @@ their corresponding maximum and minimum physical or at commissioning fixed limit
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits state machine chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/EconDamperLimitsStateMachineChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/EconDamperLimitsStateMachineChart.png\"/>
 </p>
 <p>
 If limit modulation is enabled, the outdoor air damper position <code>yOutDamPosMin</code> is computed as
@@ -414,7 +414,7 @@ The chart below illustrates the OA damper position limit calculation:
 </p>
 <p align=\"center\">
 <img alt=\"Image of damper position limits control chart\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/EconDamperLimitsControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/EconDamperLimitsControlChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
