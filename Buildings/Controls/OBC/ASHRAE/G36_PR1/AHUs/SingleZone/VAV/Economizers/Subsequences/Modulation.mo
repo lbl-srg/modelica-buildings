@@ -268,12 +268,15 @@ positions. Return and outdoor damper are not interlocked. When the economizer is
 the damper positions are set to the minimum outdoor air damper position limits.
 </p>
 <p>
-The control charts below show the input-output structure and an economizer damper
-modulation sequence assuming a well configured controller. Control diagram:
+The figures below show the input-output structure and an economizer damper
+modulation sequence assuming a well configured controller. 
+</p>
+<p>
+Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the single zone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/EconModulationControlDiagram.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/ModulationControlDiagram.png\"/>
 </p>
 <p>
 Single zone AHU economizer modulation control chart:
@@ -281,7 +284,7 @@ Single zone AHU economizer modulation control chart:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the single zone AHU modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/EconModulationControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/ModulationControlChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
