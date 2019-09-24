@@ -1,6 +1,5 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
-block EnableChiIsoVal
-  "Sequence of enable or disable chilled water isolation valve"
+block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
 
   parameter Integer nChi = 2
     "Total number of chiller, which is also the total number of chilled water isolation valve";
@@ -11,20 +10,20 @@ block EnableChiIsoVal
   parameter Real endValPos = 1
     "Ending valve position, if it needs to turn on chiller, the value should be 1";
 
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexChaChi
+    "Index of next chiller that should change status"
+    annotation (Placement(transformation(extent={{-200,-10},{-160,30}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final unit=fill("1", nChi),
     final min=fill(0, nChi),
     final max=fill(1, nChi)) "Chilled water isolation valve position"
     annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput yUpsDevSta
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
     "Status of resetting status of device before enabling or disabling isolation valve"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexChaChi
-    "Index of next chiller that should change status"
-    annotation (Placement(transformation(extent={{-200,-10},{-160,30}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaCha
     "Indicate if there is a stage up or stage down command"
     annotation (Placement(transformation(extent={{-200,-198},{-160,-158}}),
@@ -147,7 +146,7 @@ equation
     annotation (Line(points={{22,50},{30,50},{30,72},{38,72}}, color={0,0,127}));
   connect(tim.y, lin1.u)
     annotation (Line(points={{-78,80},{38,80}}, color={0,0,127}));
-  connect(yUpsDevSta, edg.u)
+  connect(uUpsDevSta, edg.u)
     annotation (Line(points={{-180,-140},{-102,-140}}, color={255,0,255}));
   connect(uStaCha, and2.u2)
     annotation (Line(points={{-180,-178},{-42,-178}}, color={255,0,255}));
@@ -193,7 +192,7 @@ equation
   connect(swi2.y, swi.u1)
     annotation (Line(points={{82,10},{100,10},{100,-32},{118,-32}},
       color={0,0,127}));
-  connect(uNexChaChi, intRep.u)
+  connect(nexChaChi, intRep.u)
     annotation (Line(points={{-180,10},{-82,10}}, color={255,127,0}));
   connect(intRep.y, intEqu.u1)
     annotation (Line(points={{-58,10},{-22,10}}, color={255,127,0}));
@@ -252,7 +251,7 @@ equation
   connect(hys5.y, and5.u3)
     annotation (Line(points={{102,120},{120,120},{120,132},{138,132}},
       color={255,0,255}));
-  connect(yUpsDevSta, and5.u2)
+  connect(uUpsDevSta, and5.u2)
     annotation (Line(points={{-180,-140},{-130,-140},{-130,140},{138,140}},
       color={255,0,255}));
 
@@ -293,12 +292,12 @@ have been fully open")}),
           extent={{-96,-42},{-46,-56}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="yUpsDevSta"),
+          textString="uUpsDevSta"),
         Text(
           extent={{-96,86},{-48,74}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="uNexEnaChi"),
+          textString="nexChaChi"),
         Text(
           extent={{-96,58},{-42,46}},
           lineColor={0,0,127},
@@ -354,4 +353,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EnableChiIsoVal;
+end CHWIsoVal;

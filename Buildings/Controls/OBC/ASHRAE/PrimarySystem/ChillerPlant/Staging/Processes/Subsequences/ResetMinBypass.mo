@@ -121,22 +121,22 @@ annotation (
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{32,8},{98,-8}},
+          extent={{50,8},{98,-8}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yMinBypRes"),
         Text(
-          extent={{-98,-34},{-38,-48}},
+          extent={{-98,-32},{-50,-46}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
-          extent={{-98,-72},{-16,-86}},
+          extent={{-98,-72},{-30,-88}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VMinChiWat_setpoint"),
         Text(
-          extent={{-96,48},{-58,34}},
+          extent={{-98,46},{-66,36}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uStaCha"),
@@ -145,7 +145,7 @@ annotation (
         lineColor={0,0,0},
         textString="S"),
         Text(
-          extent={{-96,88},{-36,74}},
+          extent={{-98,88},{-52,76}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uUpsDevSta")}),

@@ -64,7 +64,7 @@ block DownStart "Sequence for starting stage-down process"
     "Indicate if the stage require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexEnaChi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next enabling chiller"
     annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
@@ -78,7 +78,7 @@ block DownStart "Sequence for starting stage-down process"
     final unit=fill("1", nChi)) "Chilled water isolation valve position"
     annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexDisChi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisChi
     "Next disabling chiller when there is any stage up that need one chiller on and another off"
     annotation (Placement(transformation(extent={{-200,-190},{-160,-150}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
@@ -124,7 +124,7 @@ protected
     minBypRes(final aftByPasSetTim=aftByPasSetTim, final minFloDif=minFloDif)
     "Slowly change the minimum flow bypass setpoint"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableHeadControl
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl
     enaHeaCon(
     final nChi=nChi,
     final thrTimEnb=0,
@@ -132,7 +132,7 @@ protected
     final heaStaCha=true)
     "Enable head pressure control of the chiller being enabled"
     annotation (Placement(transformation(extent={{0,-26},{20,-6}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableChiIsoVal
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal
     enaChiIsoVal(
     final nChi=nChi,
     final chaChiWatIsoTim=chaChiWatIsoTim,
@@ -176,9 +176,6 @@ equation
     annotation (Line(points={{-22,161},{-40,161},{-40,120},{-180,120}},color={255,0,255}));
   connect(con3.y, minChiWatSet.uStaUp)
     annotation (Line(points={{-78,70},{-60,70},{-60,59},{-2,59}}, color={255,0,255}));
-  connect(chiDemRed.yChiDemRed, minChiWatSet.uUpsDevSta)
-    annotation (Line(points={{2,166},{20,166},{20,80},{-20,80},{-20,57},{-2,57}},
-                color={255,0,255}));
   connect(minChiWatSet.uStaDow, uStaDow)
     annotation (Line(points={{-2,41},{-140,41},{-140,210},{-180,210}},
       color={255,0,255}));
@@ -199,24 +196,24 @@ equation
   connect(uStaDow, enaHeaCon.uStaCha)
     annotation (Line(points={{-180,210},{-140,210},{-140,-12},{-2,-12}},
       color={255,0,255}));
-  connect(enaHeaCon.uNexChaChi,uNexEnaChi)
+  connect(enaHeaCon.nexChaChi, nexEnaChi)
     annotation (Line(points={{-2,-20},{-180,-20}}, color={255,127,0}));
   connect(enaHeaCon.uChiHeaCon, uChiHeaCon)
     annotation (Line(points={{-2,-24},{-20,-24},{-20,-50},{-180,-50}},
       color={255,0,255}));
-  connect(uNexEnaChi, enaChiIsoVal.uNexChaChi)
+  connect(nexEnaChi, enaChiIsoVal.nexChaChi)
     annotation (Line(points={{-180,-20},{-60,-20},{-60,-92},{-2,-92}},
       color={255,127,0}));
   connect(enaChiIsoVal.uChiWatIsoVal, uChiWatIsoVal)
     annotation (Line(points={{-2,-95},{-100,-95},{-100,-100},{-180,-100}},
       color={0,0,127}));
-  connect(enaHeaCon.yEnaHeaCon, enaChiIsoVal.yUpsDevSta)
+  connect(enaHeaCon.yEnaHeaCon,enaChiIsoVal.uUpsDevSta)
     annotation (Line(points={{22,-10},{30,-10},{30,-60},{-20,-60},{-20,-105},
       {-2,-105}}, color={255,0,255}));
   connect(uStaDow, enaChiIsoVal.uStaCha)
     annotation (Line(points={{-180,210},{-140,210},{-140,-108},{-2,-108}},
       color={255,0,255}));
-  connect(uNexEnaChi, disChi.uNexEnaChi)
+  connect(nexEnaChi, disChi.nexEnaChi)
     annotation (Line(points={{-180,-20},{-60,-20},{-60,-141},{-2,-141}},
       color={255,127,0}));
   connect(uStaDow, disChi.uStaDow)
@@ -231,7 +228,7 @@ equation
   connect(uOnOff, disChi.uOnOff)
     annotation (Line(points={{-180,20},{-110,20},{-110,-156},{-2,-156}},
       color={255,0,255}));
-  connect(disChi.uNexDisChi, uNexDisChi)
+  connect(disChi.nexDisChi, nexDisChi)
     annotation (Line(points={{-2,-159},{-80,-159},{-80,-170},{-180,-170}},
       color={255,127,0}));
   connect(uStaDow, and2.u1)
@@ -298,17 +295,20 @@ equation
   connect(uChi, minChiWatSet.uChi)
     annotation (Line(points={{-180,120},{-40,120},{-40,54},{-2,54}},
       color={255,0,255}));
-  connect(uNexEnaChi, minChiWatSet.nexEnaChi)
+  connect(nexEnaChi, minChiWatSet.nexEnaChi)
     annotation (Line(points={{-180,-20},{-60,-20},{-60,51},{-2,51}},
       color={255,127,0}));
-  connect(uNexDisChi, minChiWatSet.nexDisChi)
+  connect(nexDisChi, minChiWatSet.nexDisChi)
     annotation (Line(points={{-180,-170},{-80,-170},{-80,49},{-2,49}},
       color={255,127,0}));
-  connect(enaChiIsoVal.yEnaChiWatIsoVal, minChiWatSet.uSubCha) annotation (Line(
-        points={{22,-94},{40,-94},{40,30},{-20,30},{-20,46},{-2,46}}, color={
-          255,0,255}));
   connect(minChiWatSet.yChiWatMinFloSet, minBypRes.VMinChiWat_setpoint)
     annotation (Line(points={{22,50},{40,50},{40,92},{58,92}}, color={0,0,127}));
+  connect(chiDemRed.yChiDemRed, minChiWatSet.uSubCha)
+    annotation (Line(points={{2,166},{20,166},{20,80},{-20,80},{-20,46},{-2,46}},
+      color={255,0,255}));
+  connect(con3.y, minChiWatSet.uUpsDevSta)
+    annotation (Line(points={{-78,70},{-60,70},{-60,57},{-2,57}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="staStaDow",
@@ -342,7 +342,7 @@ annotation (
           extent={{-98,-84},{-58,-96}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="uNexDisChi"),
+          textString="nexDisChi"),
         Text(
           extent={{-98,-62},{-46,-76}},
           lineColor={0,0,127},
@@ -382,7 +382,7 @@ annotation (
           extent={{-98,-22},{-54,-34}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="uNexEnaChi"),
+          textString="nexEnaChi"),
         Text(
           extent={{-98,-44},{-52,-54}},
           lineColor={255,0,255},
@@ -451,8 +451,8 @@ for more decriptions.
 <li>
 Enable head pressure control for the chiller being enabled. Wait 30 seconds (<code>waiTim</code>). 
 It is implemented in block <code>enaHeaCon</code>, see
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableHeadControl\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableHeadControl</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl</a>
 for more decriptions.
 </li>
 <li>
@@ -460,8 +460,8 @@ Slowly open chilled water isolation valve of the smaller chiller being enabled.
 Determine valve timing <code>chaChiWatIsoTim</code> in the field as that required 
 to prevent nuisance trips. 
 It is implemented in block <code>enaChiIsoVal</code>, see
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableChiIsoVal\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableChiIsoVal</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal</a>
 for more decriptions.
 </li>
 <li>

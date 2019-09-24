@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processe
 block EnableCWPump
   "Generate staging index for condenser water pump control"
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpDevSta
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
     "Status of resetting status of device before enabling or disabling condenser water pump"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
@@ -19,7 +19,7 @@ block EnableCWPump
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta
-    "Stage for  condenser water pumps control"
+    "Stage for condenser water pumps control"
     annotation (Placement(transformation(extent={{120,20},{160,60}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -54,7 +54,7 @@ protected
 equation
   connect(uSta, intToRea.u)
     annotation (Line(points={{-140,-80},{-102,-80}}, color={255,127,0}));
-  connect(uUpDevSta, and2.u1)
+  connect(uUpsDevSta, and2.u1)
     annotation (Line(points={{-140,80},{-82,80}}, color={255,0,255}));
   connect(uStaUp, and2.u2)
     annotation (Line(points={{-140,40},{-100,40},{-100,72},{-82,72}},
@@ -70,7 +70,7 @@ equation
   connect(intToRea.y, addPar.u)
     annotation (Line(points={{-78,-80},{-50,-80},{-50,60},{-42,60}},
       color={0,0,127}));
-  connect(uUpDevSta, and1.u1)
+  connect(uUpsDevSta, and1.u1)
     annotation (Line(points={{-140,80},{-110,80},{-110,0},{-82,0}},
       color={255,0,255}));
   connect(uStaDow, and1.u2)
@@ -130,7 +130,7 @@ annotation (
           extent={{-98,88},{-50,72}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uMinBypRes"),
+          textString="uUpsDevSta"),
         Text(
           extent={{-98,28},{-64,16}},
           lineColor={255,0,255},
@@ -161,21 +161,40 @@ This block generates stage signal as input for condenser water pump control.
 </p>
 <ul>
 <li>
-When there is no stage up command (<code>uStaUp</code> = false), it outputs 
-current stage.
+When there is no stage change command (<code>uStaUp=false</code>, 
+<code>uStaDow=false</code>), it outputs current stage.
 </li>
 <li>
-When there is stage up command (<code>uStaUp</code> = true) which means current 
-stage has changed up to new stage,  and the minimum bypass 
-flow has not been reset (<code>uMinBypSet</code> = false), the stage index for 
-condenser water pump control will still be the old stage 
+When there is stage up command (<code>uStaUp=true</code>, <code>uStaDow=false</code>)
+which means current stage <code>uSta</code> has changed up to new stage,
+<ol>
+<li>
+When the minimum bypass flow has not been reset (<code>uUpsDevSta=false</code>),
+the stage index for condenser water pump control should still be the old stage 
 (<code>ySta</code> = <code>uSta</code> - 1).
 </li>
 <li>
-When there is stage up command (<code>uStaUp</code> = true)  and the minimum 
-bypass flow has been reset (<code>uMinBypSet</code> = true), it outputs 
-current stage for enabling condenser water pump control, which would be
-enabling new pumps or changing pump speed.
+When the minimum bypass flow has been reset (<code>uUpsDevSta=true</code>),
+the stage index for condenser water pump control should be the current stage 
+<code>uSta</code>.
+</li>
+</ol>
+</li>
+<li>
+When there is stage down command (<code>uStaUp=false</code>, <code>uStaDow=true</code>)
+which means current stage <code>uSta</code> has changed down to new stage,
+<ol>
+<li>
+When the head pressure control of the chiller being shut off has not been disabled 
+(<code>uUpsDevSta=false</code>), the stage index for condenser water pump control 
+should still be the old stage (<code>ySta</code> = <code>uSta</code> + 1).
+</li>
+<li>
+When the head pressure control of the chiller being shut off has been disabled 
+(<code>uUpsDevSta=true</code>), the stage index for condenser water pump control 
+should be the current stage <code>uSta</code>.
+</li>
+</ol>
 </li>
 </ul>
 </html>",

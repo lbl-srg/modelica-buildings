@@ -5,7 +5,7 @@ block EnableChiller "Sequence for enabling chiller"
   parameter Modelica.SIunits.Time proOnTim = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexEnaChi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next enabling chiller"
     annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
@@ -25,10 +25,10 @@ block EnableChiller "Sequence for enabling chiller"
     "Indicate if the stage require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-240,-70},{-200,-30}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexDisChi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisChi
     "Next disabling chiller when there is any stage up that need one chiller on and another off"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller enabling status"
     annotation (Placement(transformation(extent={{200,-70},{240,-30}}),
@@ -116,7 +116,7 @@ protected
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 
 equation
-  connect(uNexEnaChi,intRep. u)
+  connect(nexEnaChi, intRep.u)
     annotation (Line(points={{-220,120},{-162,120}}, color={255,127,0}));
   connect(intRep.y,intEqu. u1)
     annotation (Line(points={{-138,120},{-102,120}}, color={255,127,0}));
@@ -194,7 +194,7 @@ equation
   connect(conInt.y,intEqu. u2)
     annotation (Line(points={{-138,90},{-110,90},{-110,112},{-102,112}},
       color={255,127,0}));
-  connect(uNexDisChi, intRep1.u)
+  connect(nexDisChi, intRep1.u)
     annotation (Line(points={{-220,-150},{-162,-150}}, color={255,127,0}));
   connect(intRep1.y, intEqu1.u1)
     annotation (Line(points={{-138,-150},{-102,-150}}, color={255,127,0}));
@@ -243,12 +243,12 @@ annotation (
           extent={{-98,96},{-50,84}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="uNexEnaChi"),
+          textString="nexEnaChi"),
         Text(
           extent={{-98,-84},{-50,-96}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="uNexDisChi"),
+          textString="nexDisChi"),
         Text(
           extent={{-100,66},{-68,56}},
           lineColor={255,0,255},

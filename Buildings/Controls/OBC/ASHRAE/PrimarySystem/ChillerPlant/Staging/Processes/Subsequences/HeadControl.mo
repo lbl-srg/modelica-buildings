@@ -1,6 +1,6 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
-block EnableHeadControl
-  "Sequences for enabling head pressure control for the chiller being enabled"
+block HeadControl
+  "Sequences for enabling or disabling head pressure control for the chiller being enabled or disabled"
 
   parameter Integer nChi=2 "Total number of chiller";
   parameter Modelica.SIunits.Time thrTimEnb=10
@@ -10,7 +10,7 @@ block EnableHeadControl
   parameter Boolean heaStaCha = true
     "Flag to indicate if next head pressure control should be ON or OFF: true = in stage-up process";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexChaChi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexChaChi
     "Index of next enabling or disabling chiller"
     annotation (Placement(transformation(extent={{-180,-30},{-140,10}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -167,7 +167,7 @@ equation
   connect(lat.y, not2.u)
     annotation (Line(points={{-38,80},{-30,80},{-30,-60},{-22,-60}},
       color={255,0,255}));
-  connect(uNexChaChi, intRep.u)
+  connect(nexChaChi, intRep.u)
     annotation (Line(points={{-160,-10},{-122,-10}}, color={255,127,0}));
   connect(intRep.y, intEqu.u1)
     annotation (Line(points={{-98,-10},{-62,-10}}, color={255,127,0}));
@@ -226,7 +226,7 @@ annotation (
           extent={{-98,-34},{-54,-46}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="uNexChaChi"),
+          textString="nexChaChi"),
         Text(
           extent={{-98,88},{-46,74}},
           lineColor={255,0,255},
@@ -321,4 +321,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EnableHeadControl;
+end HeadControl;

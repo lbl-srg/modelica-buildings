@@ -1,9 +1,9 @@
 DisableChiller
 DownStart
 EnableCWPump
-EnableChiIsoVal
+CHWIsoVal
 EnableChiller
-EnableHeadControl
+HeadControl
 NextChiller
 ReduceDemand
 ResetMinBypass

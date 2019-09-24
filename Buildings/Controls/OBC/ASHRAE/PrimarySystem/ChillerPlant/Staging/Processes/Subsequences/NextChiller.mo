@@ -37,23 +37,23 @@ block NextChiller
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNexEnaChi
     "Next enabling chiller index"
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
-      iconTransformation(extent={{100,80},{120,100}})));
+      iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yDisSmaChi
     "Smaller chiller to be disabled in staging-up process"
     annotation (Placement(transformation(extent={{200,40},{240,80}}),
-      iconTransformation(extent={{100,30},{120,50}})));
+      iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOnOff
     "Indicate if the stage require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLasDisChi
     "Disable last chiller when it is in stage-down process"
     annotation (Placement(transformation(extent={{200,-60},{240,-20}}),
-      iconTransformation(extent={{100,-50},{120,-30}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yEnaSmaChi
     "Smaller chiller to be enabled in stage-down process"
     annotation (Placement(transformation(extent={{200,-180},{240,-140}}),
-      iconTransformation(extent={{100,-100},{120,-80}})));
+      iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nChi]
