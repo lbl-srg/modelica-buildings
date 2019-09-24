@@ -3,16 +3,16 @@ block NextChiller
   "Sequence for selecting next chiller to be enabled or disabled"
 
   parameter Integer nChi = 2 "Total number of chillers";
-  parameter Boolean havePonChi = false
+  parameter Boolean havePonyChiller = false
     "Flag to indicate if there is pony chiller";
   parameter Integer totChiSta = 3
     "Total number of stages that do not have waterside economizer being enabled, zero stage should be seem as one stage";
-  parameter Integer upOnOffSta[totChiSta] = {0,0,0}
-    "Index of stage when staging up to the stage, need to turn off small chiller. When no stage chang need the change, set it to zeros"
-    annotation (Dialog(enable=havePonChi));
-  parameter Integer dowOnOffSta[totChiSta] = {0,0,0}
-    "Index of stage when staging down to the stage, need to turn on small chiller. When no stage chang need the change, set it to zeros"
-    annotation (Dialog(enable=havePonChi));
+  parameter Boolean upOnOffSta[totChiSta] = {false,false,false}
+    "Flag the stage when staging up to the stage, need to turn off small chiller"
+    annotation (Dialog(enable=havePonyChiller));
+  parameter Boolean dowOnOffSta[totChiSta] = {false,false,false}
+    "Flag the stage when staging down to the stage, need to turn on small chiller"
+    annotation (Dialog(enable=havePonyChiller));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiPri[nChi]
     "Chiller enabling priority"
@@ -28,12 +28,12 @@ block NextChiller
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow
     "Stage down status: true=stage-down"
-    annotation (Placement(transformation(extent={{-242,-80},{-202,-40}}),
+    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage index, does not include stages like X + WSE"
     annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNexEnaChi
     "Next enabling chiller index"
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
@@ -55,6 +55,24 @@ block NextChiller
     annotation (Placement(transformation(extent={{200,-180},{240,-140}}),
       iconTransformation(extent={{100,-110},{140,-70}})));
 
+  CDL.Conversions.BooleanToReal booToRea1[totChiSta]
+    "Convert boolean input to real output"
+    annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
+  CDL.Routing.RealExtractor extIndSig(nin=totChiSta)
+    "Identify stage that need chiller on-off"
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+  CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=0.5)
+    "Check if the stage change needs one chiller off and one chiller on"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  CDL.Conversions.BooleanToReal booToRea2[totChiSta]
+    "Convert boolean input to real output"
+    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
+  CDL.Routing.RealExtractor extIndSig1(nin=totChiSta)
+    "Identify stage that need chiller on-off"
+    annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
+  CDL.Continuous.GreaterEqualThreshold greEquThr1(threshold=0.5)
+    "Check if the stage change needs one chiller off and one chiller on"
+    annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
 protected
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nChi]
     "Convert integer to real number"
@@ -82,9 +100,6 @@ protected
     final p=1, final k=1)
     "Next chiller in the prority array"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu[totChiSta]
-    "Check if the stage change needs one chiller off and one chiller on"
-    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Logical.And  and2 "Logical and"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor disSmaChi(
@@ -101,11 +116,8 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor nexDisChi(final nin=nChi)
     "Disable last chiller"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[totChiSta]
-    "Check if the stage change needs one chiller off and one chiller on"
-    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
-    annotation (Placement(transformation(extent={{-40,-170},{-20,-150}})));
+    annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor enaSmaChi(final nin=nChi)
@@ -120,10 +132,6 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt7
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{160,-170},{180,-150}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[totChiSta](
-    final k=upOnOffSta)
-    "Stage index that when staging up to the stage, need to turn off small chiller"
-    annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
@@ -133,26 +141,21 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt4
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[totChiSta](
+  CDL.Logical.Sources.Constant                         conInt1[totChiSta](
     final k=dowOnOffSta)
     "Stage index that when staging down to the stage, need to turn on small chiller"
-    annotation (Placement(transformation(extent={{-180,-210},{-160,-190}})));
+    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt5
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
-    final nout=totChiSta)
-    "Replicate integer input"
-    annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nu=totChiSta)
-    "Check if the stage change needs one chiller off and one chiller on"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nu=totChiSta)
-    "Check if the stage change needs one chiller off and one chiller on"
-    annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
 
+  CDL.Logical.Sources.Constant                         conInt2
+                                                             [totChiSta](final k=
+        upOnOffSta)
+    "Stage index that when staging up to the stage, need to turn off small chiller"
+    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
 equation
   connect(uChiPri,intToRea. u)
     annotation (Line(points={{-220,200},{-62,200}}, color={255,127,0}));
@@ -177,7 +180,7 @@ equation
   connect(reaToInt1.y, yNexEnaChi)
     annotation (Line(points={{122,200},{220,200}}, color={255,127,0}));
   connect(uStaDow, swi1.u2)
-    annotation (Line(points={{-222,-60},{-42,-60}}, color={255,0,255}));
+    annotation (Line(points={{-220,-60},{-42,-60}}, color={255,0,255}));
   connect(uStaUp, and2.u1)
     annotation (Line(points={{-220,130},{-120,130},{-120,60},{-42,60}},
       color={255,0,255}));
@@ -210,7 +213,7 @@ equation
   connect(reaToInt4.y, nexDisChi.index)
     annotation (Line(points={{42,-60},{70,-60},{70,-52}}, color={255,127,0}));
   connect(uStaDow, and1.u1)
-    annotation (Line(points={{-222,-60},{-120,-60},{-120,-160},{-42,-160}},
+    annotation (Line(points={{-220,-60},{-120,-60},{-120,-160},{18,-160}},
       color={255,0,255}));
   connect(mulSum.y, swi1.u1)
     annotation (Line(points={{-118,160},{-100,160},{-100,-52},{-42,-52}},
@@ -231,7 +234,7 @@ equation
     annotation (Line(points={{-38,200},{0,200},{0,-100},{58,-100}},
       color={0,0,127}));
   connect(and1.y, swi2.u2)
-    annotation (Line(points={{-18,-160},{118,-160}},
+    annotation (Line(points={{42,-160},{118,-160}},
       color={255,0,255}));
   connect(enaSmaChi.y, swi2.u1)
     annotation (Line(points={{82,-100},{100,-100},{100,-152},{118,-152}},
@@ -248,40 +251,34 @@ equation
   connect(reaToInt7.y, yEnaSmaChi)
     annotation (Line(points={{182,-160},{220,-160}}, color={255,127,0}));
   connect(and1.y, or2.u2)
-    annotation (Line(points={{-18,-160},{90,-160},{90,-8},{158,-8}},
+    annotation (Line(points={{42,-160},{90,-160},{90,-8},{158,-8}},
       color={255,0,255}));
   connect(and2.y, or2.u1)
     annotation (Line(points={{-18,60},{20,60},{20,0},{158,0}},
       color={255,0,255}));
   connect(or2.y, yOnOff)
     annotation (Line(points={{182,0},{220,0}}, color={255,0,255}));
-  connect(uSta, intRep.u)
-    annotation (Line(points={{-220,-20},{-182,-20}}, color={255,127,0}));
-  connect(intRep.y, intEqu1.u1)
-    annotation (Line(points={{-158,-20},{-150,-20},{-150,-180},{-142,-180}},
-      color={255,127,0}));
-  connect(conInt.y, intEqu.u1)
-    annotation (Line(points={{-158,40},{-150,40},{-150,20},{-142,20}},
-      color={255,127,0}));
-  connect(intRep.y, intEqu.u2)
-    annotation (Line(points={{-158,-20},{-150,-20},{-150,12},{-142,12}},
-      color={255,127,0}));
-  connect(intEqu.y, mulOr.u)
-    annotation (Line(points={{-118,20},{-100,20},{-100,20},{-82,20}},
-      color={255,0,255}));
-  connect(mulOr.y, and2.u2)
-    annotation (Line(points={{-58,20},{-50,20},{-50,52},{-42,52}},
-      color={255,0,255}));
-  connect(intEqu1.y, mulOr1.u)
-    annotation (Line(points={{-118,-180},{-100,-180},{-100,-180},{-82,-180}},
-      color={255,0,255}));
-  connect(mulOr1.y, and1.u2)
-    annotation (Line(points={{-58,-180},{-50,-180},{-50,-168},{-42,-168}},
-      color={255,0,255}));
-  connect(conInt1.y, intEqu1.u2)
-    annotation (Line(points={{-158,-200},{-150,-200},{-150,-188},{-142,-188}},
-      color={255,127,0}));
 
+  connect(conInt2.y, booToRea1.u) annotation (Line(points={{-158,70},{-150,70},{
+          -150,52},{-190,52},{-190,30},{-182,30}}, color={255,0,255}));
+  connect(booToRea1.y, extIndSig.u) annotation (Line(points={{-158,30},{-150,30},
+          {-150,30},{-142,30}}, color={0,0,127}));
+  connect(extIndSig.y, greEquThr.u)
+    annotation (Line(points={{-118,30},{-82,30}}, color={0,0,127}));
+  connect(greEquThr.y, and2.u2) annotation (Line(points={{-58,30},{-50,30},{-50,
+          52},{-42,52}}, color={255,0,255}));
+  connect(uChiSta, extIndSig.index) annotation (Line(points={{-220,-20},{-130,-20},
+          {-130,18},{-130,18}}, color={255,127,0}));
+  connect(conInt1.y, booToRea2.u)
+    annotation (Line(points={{-138,-180},{-122,-180}}, color={255,0,255}));
+  connect(booToRea2.y, extIndSig1.u)
+    annotation (Line(points={{-98,-180},{-82,-180}}, color={0,0,127}));
+  connect(extIndSig1.y, greEquThr1.u)
+    annotation (Line(points={{-58,-180},{-42,-180}}, color={0,0,127}));
+  connect(uChiSta, extIndSig1.index) annotation (Line(points={{-220,-20},{-180,-20},
+          {-180,-200},{-70,-200},{-70,-192}}, color={255,127,0}));
+  connect(greEquThr1.y, and1.u2) annotation (Line(points={{-18,-180},{0,-180},{0,
+          -168},{18,-168}}, color={255,0,255}));
 annotation (
   defaultComponentName="nexChi",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -306,7 +303,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uChiEna"),
         Text(
-          extent={{-100,8},{-58,-4}},
+          extent={{-102,8},{-60,-4}},
           lineColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uStaUp"),
@@ -321,10 +318,10 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uStaDow"),
         Text(
-          extent={{-100,-32},{-76,-46}},
+          extent={{-98,-32},{-64,-46}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="uSta"),
+          textString="uChiSta"),
         Text(
           extent={{50,52},{98,32}},
           lineColor={255,127,0},

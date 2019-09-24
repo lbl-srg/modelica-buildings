@@ -8,7 +8,7 @@ block HeadControl
   parameter Modelica.SIunits.Time waiTim = 30
     "Waiting time after enabling next head pressure control";
   parameter Boolean heaStaCha = true
-    "Flag to indicate if next head pressure control should be ON or OFF: true = in stage-up process";
+    "Flag to indicate if head pressure control of next chiller should be ON or OFF: true = in stage-up process so it should be ON";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexChaChi
     "Index of next enabling or disabling chiller"

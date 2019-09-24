@@ -3,19 +3,19 @@ block Controller "Condenser water pump controller"
 
   parameter Boolean isHeadered = true
     "Flag of headered condenser water pumps design: true=headered, false=dedicated";
-  parameter Boolean hasWSE = true
+  parameter Boolean haveWSE = true
     "Flag of waterside economizer: true=have WSE, false=no WSE";
   parameter Integer nChi=2 "Total number of chiller";
-  parameter Integer totChiSta=6
+  parameter Integer totSta=6
     "Total number of stages, including the stages with a WSE, if applicable"
     annotation (Dialog(group="Stage design speed"));
-  parameter Real staVec[totChiSta]={0,0.5,1,1.5,2,2.5}
+  parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(group="Stage design speed"));
-  parameter Real desConWatPumSpe[totChiSta]={0,0.5,0.75,0.6,0.75,0.9}
+  parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
     "Design condenser water pump speed setpoints, the size should be doule of total stage numbers"
     annotation (Dialog(group="Stage design speed"));
-  parameter Real desConWatPumNum[totChiSta]={0,1,1,2,2,2}
+  parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, the size should be doule of total stage numbers"
     annotation (Dialog(group="Stage design speed"));
   parameter Real uLow = 0.005 "if y=true and u<uLow, switch to y=false"
@@ -40,10 +40,10 @@ block Controller "Condenser water pump controller"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
-    "Current chiller stage"
+    "Current chiller stage that does not include WSE"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if haveWSE
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -78,7 +78,7 @@ block Controller "Condenser water pump controller"
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered
-    enaLeaHeaPum(final hasWSE=hasWSE) if isHeadered
+    enaLeaHeaPum(final haveWSE=haveWSE) if isHeadered
     "Enable lead pumps for plants with headered condenser water pump"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_dedicated
@@ -87,8 +87,8 @@ protected
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Speed
     pumSpe(
-    final hasWSE=hasWSE,
-    final totChiSta=totChiSta,
+    final haveWSE=haveWSE,
+    final totSta=totSta,
     final staVec=staVec,
     final desConWatPumSpe=desConWatPumSpe,
     final desConWatPumNum=desConWatPumNum)
@@ -119,7 +119,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false) if
-       not hasWSE
+       not haveWSE
     "Logical true"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 

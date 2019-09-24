@@ -4,7 +4,7 @@ block Controller
 
   parameter Boolean isHeadered = true
     "Flag of headered chilled water pumps design: true=headered, false=dedicated";
-  parameter Boolean hasLocalSensor = false
+  parameter Boolean haveLocalSensor = false
     "Flag of local DP sensor: true=local DP sensor hardwired to controller";
   parameter Integer nPum = 2
     "Total number of chilled water pumps";
@@ -22,7 +22,7 @@ block Controller
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.PressureDifference maxLocDp=15*6894.75
     "Maximum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=hasLocalSensor));
+    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=haveLocalSensor));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -39,7 +39,7 @@ block Controller
 
   final parameter Modelica.SIunits.PressureDifference minLocDp=5*6894.75
     "Minimum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=hasLocalSensor));
+    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=haveLocalSensor));
   final parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
@@ -74,7 +74,7 @@ block Controller
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
-    final quantity="PressureDifference") if hasLocalSensor
+    final quantity="PressureDifference") if haveLocalSensor
     "Chilled water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-180},{-280,-140}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -128,7 +128,7 @@ block Controller
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    final Td=Td) if hasLocalSensor
+    final Td=Td) if haveLocalSensor
     "Chilled water pump speed control with local DP sensor"
     annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_remoteDp
@@ -140,7 +140,7 @@ block Controller
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    final Td=Td) if not hasLocalSensor
+    final Td=Td) if not haveLocalSensor
     "Chilled water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta[nPum] "Lead pump status"

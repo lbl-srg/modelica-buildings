@@ -287,8 +287,8 @@ equation
           -140,294},{18,294}},    color={255,0,255}));
   connect(con.y, nexChi.uStaUp) annotation (Line(points={{-78,320},{-60,320},{
           -60,290},{18,290}},     color={255,0,255}));
-  connect(uSta, nexChi.uSta) annotation (Line(points={{-240,170},{-120,170},{-120,
-          286},{18,286}},        color={255,127,0}));
+  connect(uSta, nexChi.uChiSta) annotation (Line(points={{-240,170},{-120,170},
+          {-120,286},{18,286}}, color={255,127,0}));
   connect(nexChi.yOnOff, staDow.uOnOff) annotation (Line(points={{41,290},{60,
           290},{60,229},{118,229}},         color={255,0,255}));
   connect(nexChi.yEnaSmaChi, staDow.nexEnaChi) annotation (Line(points={{41,281},
@@ -375,12 +375,10 @@ equation
         color={255,0,255}));
   connect(con.y, enaNexCWP.uStaUp) annotation (Line(points={{-78,320},{-60,320},
           {-60,-188},{158,-188}},color={255,0,255}));
-  connect(uSta, enaNexCWP.uSta) annotation (Line(points={{-240,170},{-120,170},{
-          -120,-198},{158,-198}},
-                                color={255,127,0}));
-  connect(enaNexCWP.ySta, conWatPumCon.uChiSta) annotation (Line(points={{182,-190},
-          {200,-190},{200,-211},{218,-211}},
-                                       color={255,127,0}));
+  connect(uSta, enaNexCWP.uChiSta) annotation (Line(points={{-240,170},{-120,
+          170},{-120,-198},{158,-198}}, color={255,127,0}));
+  connect(enaNexCWP.yChiSta, conWatPumCon.uChiSta) annotation (Line(points={{
+          182,-190},{200,-190},{200,-211},{218,-211}}, color={255,127,0}));
   connect(mulOr.y, conWatPumCon.uLeaChiOn) annotation (Line(points={{1.7,-220},{
           180,-220},{180,-206},{218,-206}},
                                       color={255,0,255}));

@@ -14,11 +14,11 @@ block EnableCWPump
     "Indicate if there is stage-down command"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage index, does not include stages like X + WSE"
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiSta
     "Stage for condenser water pumps control"
     annotation (Placement(transformation(extent={{120,20},{160,60}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -52,7 +52,7 @@ protected
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
 
 equation
-  connect(uSta, intToRea.u)
+  connect(uChiSta, intToRea.u)
     annotation (Line(points={{-140,-80},{-102,-80}}, color={255,127,0}));
   connect(uUpsDevSta, and2.u1)
     annotation (Line(points={{-140,80},{-82,80}}, color={255,0,255}));
@@ -105,7 +105,7 @@ equation
       color={0,0,127}));
   connect(swi.y, reaToInt.u)
     annotation (Line(points={{62,40},{78,40}}, color={0,0,127}));
-  connect(reaToInt.y, ySta)
+  connect(reaToInt.y, yChiSta)
     annotation (Line(points={{102,40},{140,40}}, color={255,127,0}));
 
 annotation (
@@ -122,10 +122,10 @@ annotation (
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,-74},{-76,-86}},
+          extent={{-98,-74},{-64,-86}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="uSta"),
+          textString="uChiSta"),
         Text(
           extent={{-98,88},{-50,72}},
           lineColor={255,0,255},
@@ -137,10 +137,10 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uStaUp"),
         Text(
-          extent={{76,-4},{98,-16}},
+          extent={{68,8},{98,-8}},
           lineColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="ySta"),
+          textString="yChiSta"),
         Text(
           extent={{-98,-12},{-60,-24}},
           lineColor={255,0,255},
@@ -166,33 +166,33 @@ When there is no stage change command (<code>uStaUp=false</code>,
 </li>
 <li>
 When there is stage up command (<code>uStaUp=true</code>, <code>uStaDow=false</code>)
-which means current stage <code>uSta</code> has changed up to new stage,
+which means current stage <code>uChiSta</code> has changed up to new stage,
 <ol>
 <li>
 When the minimum bypass flow has not been reset (<code>uUpsDevSta=false</code>),
 the stage index for condenser water pump control should still be the old stage 
-(<code>ySta</code> = <code>uSta</code> - 1).
+(<code>yChiSta</code> = <code>uChiSta</code> - 1).
 </li>
 <li>
 When the minimum bypass flow has been reset (<code>uUpsDevSta=true</code>),
 the stage index for condenser water pump control should be the current stage 
-<code>uSta</code>.
+<code>uChiSta</code>.
 </li>
 </ol>
 </li>
 <li>
 When there is stage down command (<code>uStaUp=false</code>, <code>uStaDow=true</code>)
-which means current stage <code>uSta</code> has changed down to new stage,
+which means current stage <code>uChiSta</code> has changed down to new stage,
 <ol>
 <li>
 When the head pressure control of the chiller being shut off has not been disabled 
 (<code>uUpsDevSta=false</code>), the stage index for condenser water pump control 
-should still be the old stage (<code>ySta</code> = <code>uSta</code> + 1).
+should still be the old stage (<code>yChiSta</code> = <code>uChiSta</code> + 1).
 </li>
 <li>
 When the head pressure control of the chiller being shut off has been disabled 
 (<code>uUpsDevSta=true</code>), the stage index for condenser water pump control 
-should be the current stage <code>uSta</code>.
+should be the current stage <code>uChiSta</code>.
 </li>
 </ol>
 </li>
