@@ -201,7 +201,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
         </td>
-        <td valign=\"top\">Improved the controller implementation. <br/>
+        <td valign=\"top\">Added cooling coil control and the controller validation model.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1265\">issue #1265</a>
         </td>
     </tr>
@@ -222,7 +222,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState
         </td>
-        <td valign=\"top\">Improved the implementation.
+        <td valign=\"top\">Improved the implementation to avoid issues when heating and cooling controls occur at the same time.
      <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
@@ -289,7 +289,7 @@ its class name ends with the string <code>Beta</code>.
     </li>
     </ul>
     </html>"));
-  end Version_7_0_0;
+    end Version_7_0_0;
 
     class Version_6_0_0 "Version 6.0.0"
       extends Modelica.Icons.ReleaseNotes;
