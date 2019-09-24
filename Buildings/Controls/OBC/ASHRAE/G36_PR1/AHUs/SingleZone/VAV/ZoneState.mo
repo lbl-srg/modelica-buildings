@@ -5,86 +5,84 @@ block ZoneState "Select the zone state"
   parameter Real uHigh(final unit = "1") = 0.05
     "Hysteresis parameter uHigh for heating and cooling control signals to avoid chattering";
   CDL.Interfaces.RealInput uHea "Heating control signal"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
   CDL.Interfaces.RealInput uCoo "Cooling control signal"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
 protected
   CDL.Conversions.BooleanToInteger booToIntHea(integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.heating)
     "Convert Boolean to Integer number"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-protected
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
   CDL.Conversions.BooleanToInteger booToIntCoo(integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
     "Convert Boolean to Integer number"
-    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-public
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   CDL.Logical.Nor nor
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-protected
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   CDL.Conversions.BooleanToInteger booToIntDea(integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband)
     "Convert Boolean to Integer number"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-public
-  CDL.Integers.MultiSum                        sumInt(final nin=3) "Sum of inputs"
-    annotation (Placement(transformation(extent={{72,-10},{92,10}})));
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
+  CDL.Integers.MultiSum sumInt(final nin=3) "Sum of inputs"
+    annotation (Placement(transformation(extent={{116,-10},{136,10}})));
   CDL.Interfaces.IntegerOutput yZonSta "Zone state"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
   CDL.Logical.And and1
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{-72,30},{-52,50}})));
   CDL.Continuous.Hysteresis greThr(uLow=uLow, uHigh=uHigh)
     "Check if it is in heating mode"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   CDL.Continuous.Hysteresis greThr1(uLow=uLow, uHigh=uHigh)
     "Check if it is in cooling mode"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-44,-50},{-24,-30}})));
   CDL.Continuous.Add add1(k2=-1)
-    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-  CDL.Continuous.GreaterThreshold greThr2
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
   CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+  CDL.Continuous.Hysteresis greThr3(uLow=-0.01, uHigh=0.01)
+    "Check if it is in heating mode"
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
+    annotation (Placement(transformation(extent={{-44,0},{-24,20}})));
 equation
   connect(nor.y, booToIntDea.u)
-    annotation (Line(points={{22,-70},{38,-70}},
-                                              color={255,0,255}));
-  connect(booToIntHea.y, sumInt.u[1]) annotation (Line(points={{62,40},{68,40},{
-          68,4.66667},{70,4.66667}}, color={255,127,0}));
-  connect(booToIntCoo.y, sumInt.u[2]) annotation (Line(points={{62,-40},{64,-40},
-          {64,0},{70,0}},color={255,127,0}));
-  connect(booToIntDea.y, sumInt.u[3]) annotation (Line(points={{62,-70},{68,-70},
-          {68,-4.66667},{70,-4.66667}},color={255,127,0}));
+    annotation (Line(points={{62,-70},{78,-70}}, color={255,0,255}));
+  connect(booToIntHea.y, sumInt.u[1]) annotation (Line(points={{22,40},{68,40},
+          {68,4.66667},{114,4.66667}}, color={255,127,0}));
+  connect(booToIntCoo.y, sumInt.u[2]) annotation (Line(points={{62,-20},{80,-20},
+          {80,0},{114,0}}, color={255,127,0}));
   connect(sumInt.y, yZonSta)
-    annotation (Line(points={{94,0},{110,0}},   color={255,127,0}));
-  connect(booToIntHea.u, and1.y)
-    annotation (Line(points={{38,40},{22,40}}, color={255,0,255}));
-  connect(nor.u1, and1.y) annotation (Line(points={{-2,-70},{-10,-70},{-10,-20},
-          {26,-20},{26,40},{22,40}},
-                                 color={255,0,255}));
+    annotation (Line(points={{138,0},{150,0}}, color={255,127,0}));
   connect(greThr.y, and1.u1)
-    annotation (Line(points={{-38,40},{-2,40}}, color={255,0,255}));
+    annotation (Line(points={{-98,70},{-76,70},{-76,40},{-74,40}}, color={255,0,255}));
   connect(uHea, greThr.u)
-    annotation (Line(points={{-120,40},{-62,40}}, color={0,0,127}));
+    annotation (Line(points={{-160,40},{-136,40},{-136,70},{-122,70}}, color={0,0,127}));
   connect(uCoo, greThr1.u)
-    annotation (Line(points={{-120,-40},{-62,-40}}, color={0,0,127}));
-  connect(greThr1.y, nor.u2) annotation (Line(points={{-38,-40},{-20,-40},{-20,-78},
-          {-2,-78}},      color={255,0,255}));
-  connect(uCoo, add1.u2) annotation (Line(points={{-120,-40},{-94,-40},{-94,4},{
-          -92,4}}, color={0,0,127}));
-  connect(uHea, add1.u1) annotation (Line(points={{-120,40},{-94,40},{-94,16},{-92,
-          16}}, color={0,0,127}));
-  connect(add1.y, greThr2.u)
-    annotation (Line(points={{-68,10},{-62,10}}, color={0,0,127}));
-  connect(greThr2.y, and1.u2) annotation (Line(points={{-38,10},{-34,10},{-34,32},
-          {-2,32}}, color={255,0,255}));
+    annotation (Line(points={{-160,-40},{-46,-40}}, color={0,0,127}));
+  connect(uCoo, add1.u2) annotation (Line(points={{-160,-40},{-136,-40},{-136,4},
+          {-132,4}}, color={0,0,127}));
+  connect(uHea, add1.u1) annotation (Line(points={{-160,40},{-136,40},{-136,16},
+          {-132,16}}, color={0,0,127}));
   connect(and2.y, booToIntCoo.u)
-    annotation (Line(points={{22,-40},{38,-40}}, color={255,0,255}));
-  connect(greThr1.y, and2.u2) annotation (Line(points={{-38,-40},{-20,-40},{-20,
-          -48},{-2,-48}}, color={255,0,255}));
-  connect(greThr2.y, not1.u)
-    annotation (Line(points={{-38,10},{-32,10}}, color={255,0,255}));
-  connect(and2.u1, not1.y) annotation (Line(points={{-2,-40},{-4,-40},{-4,10},{-8,
-          10}},                     color={255,0,255}));
+    annotation (Line(points={{12,-20},{38,-20}}, color={255,0,255}));
+  connect(greThr1.y, and2.u2) annotation (Line(points={{-22,-40},{-20,-40},{-20,
+          -28},{-12,-28}}, color={255,0,255}));
+  connect(add1.y, greThr3.u)
+    annotation (Line(points={{-108,10},{-102,10}}, color={0,0,127}));
+  connect(and1.y, booToIntHea.u)
+    annotation (Line(points={{-50,40},{-2,40}}, color={255,0,255}));
+  connect(and1.y, not1.u) annotation (Line(points={{-50,40},{-48,40},{-48,10},{
+          -46,10}}, color={255,0,255}));
+  connect(greThr3.y, and1.u2) annotation (Line(points={{-78,10},{-76,10},{-76,
+          32},{-74,32}}, color={255,0,255}));
+  connect(not1.y, and2.u1) annotation (Line(points={{-22,10},{-20,10},{-20,-20},
+          {-12,-20}}, color={255,0,255}));
+  connect(and2.y, nor.u2) annotation (Line(points={{12,-20},{20,-20},{20,-78},{
+          38,-78}}, color={255,0,255}));
+  connect(booToIntDea.y, sumInt.u[3]) annotation (Line(points={{102,-70},{108,
+          -70},{108,-4.66667},{114,-4.66667}}, color={255,127,0}));
+  connect(and1.y, nor.u1) annotation (Line(points={{-50,40},{-10,40},{-10,0},{
+          26,0},{26,-70},{38,-70}}, color={255,0,255}));
   annotation (
         defaultComponentName="zonSta",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -96,8 +94,8 @@ equation
       Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255})}),           Diagram(coordinateSystem(
-          preserveAspectRatio=false)),
+        lineColor={0,0,255})}), Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-140,-100},{140,100}})),
    Documentation(info="<html>
 <p>
 This block outputs the zone state.
@@ -117,7 +115,7 @@ The zone state is deadband otherwise.
 <ul>
 <li>
 September 11, 2019, by Kun Zhang:<br/>
-Improved the implementation.
+Improved the implementation to avoid issues when heating and cooling controls occur at the same time.
 </li>
 <li>
 October 24, 2018, by David Blum:<br/>
