@@ -99,7 +99,7 @@ equation
           preserveAspectRatio=false, extent={{-140,-100},{140,100}})),
    Documentation(info="<html>
 <p>
-Block that outputs the zone state. It first checks if the zone is in heating state; 
+Block that outputs the zone state. It first checks if the zone is in heating state;
 if not, then checks if the zone is in cooling state; otherwise it is in deadband state.
 </p>
 <p>
@@ -111,20 +111,15 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a>.
 The logic of the block is described as follows.
 </p>
 <p>
-The zone state is heating when both of the following two conditions satisfy: 
-<ul>
-<li>
-the heating control signal <code>uHea</code> becomes greater than the parameter <code>uHigh</code>; 
-</li>
-<li>
-the delta between <code>uHea</code> and the cooling control signal <code>uCoo</code> becomes greater than 
-the parameter <code>uLow</code>, which can be written as <code>(uHea-uCoo)>uLow</code>. 
-</li>
-</ul>
+The zone state is heating when both of the following two conditions satisfy:
+the heating control signal <code>uHea</code> becomes greater than the parameter <code>uHigh</code>;
+and the delta between <code>uHea</code> and the cooling control signal <code>uCoo</code> becomes greater than
+the parameter <code>uLow</code>, i.e., when <code>(uHea-uCoo)>uLow</code>. The second condition is
+used to avoid errors when <code>uHea>0</code> and <code>uCoo>0</code> at the same time.
 </p>
 <p>
 The zone state is not heating when either of the following conditions satisfies: <code>uHea</code> becomes less than the parameter
-<code>uLow</code> or <code>(uHea-uCoo)</code> becomes less than <code>-uLow</code>. The parameters 
+<code>uLow</code> or <code>(uHea-uCoo)</code> becomes less than <code>-uLow</code>. The parameters
 <code>uHigh</code> and <code>uLow</code> are hysteresis parameters to avoid chattering, which apply in the same way
 for the cooling state checking.
 </p>
