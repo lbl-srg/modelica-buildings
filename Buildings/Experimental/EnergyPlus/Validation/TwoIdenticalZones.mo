@@ -136,7 +136,10 @@ equation
           30},{-17.3333,30},{-17.3333,70.8}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-Model with two identical thermal zones that validates that they yield the same result.
+Model with two identical thermal zones that validates that they yield the same indoor air temperatures and humidity,
+and that these results are close to the values computed by EnergyPlus 9.1.
+</p>
+<p>
 Each zone has a floor area of <i>900</i> m<sup>2</sup>,
 the same door and two windows on the south side.
 The internal gains for lighting, people and equipment are identical.
