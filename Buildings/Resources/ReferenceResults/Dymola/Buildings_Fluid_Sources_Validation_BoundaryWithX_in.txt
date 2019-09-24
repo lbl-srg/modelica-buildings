@@ -1,0 +1,28 @@
+last-generated=2019-09-13
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+bouMoiAir.p=[1.01325e+05, 1.01325e+05]
+bouProFluGas.p=[1.01325e+05, 1.01325e+05]
+bouNatGas.p=[1.01325e+05, 1.01325e+05]
+bouMoiAirCO2.p=[1.01325e+05, 1.01325e+05]
+time=[0e+00, 1e+00]
+bouNatGas.T=[2.931499938964844e+02, 2.931499938964844e+02]
+bouMoiAirCO2.T=[2.931499938964844e+02, 2.931499938964844e+02]
+bouMoiAir.T=[2.931499938964844e+02, 2.931499938964844e+02]
+bouProFluGas.T=[2.931499938964844e+02, 2.931499938964844e+02]
+bouMoiAir.Xi[1]=[0.015, 0.015]
+bouMoiAirCO2.Xi[1]=[0.015, 0.015]
+bouProFluGas.Xi[1]=[5e-01, 5e-01]
+bouProFluGas.Xi[4]=[3.00000011920929e-01, 3.00000011920929e-01]
+bouProFluGas.Xi[5]=[0e+00, 0e+00]
+bouProFluGas.Xi[2]=[2.000000029802322e-01, 2.000000029802322e-01]
+bouProFluGas.Xi[3]=[0e+00, 0e+00]
+bouNatGas.Xi[1]=[5e-01, 5e-01]
+bouNatGas.Xi[2]=[2.000000029802322e-01, 2.000000029802322e-01]
+bouNatGas.Xi[3]=[0e+00, 0e+00]
+bouNatGas.Xi[5]=[0e+00, 0e+00]
+bouNatGas.Xi[4]=[3.00000011920929e-01, 3.00000011920929e-01]
