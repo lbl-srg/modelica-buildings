@@ -40,7 +40,7 @@ protected
     annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
   CDL.Logical.And and2
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  CDL.Continuous.Hysteresis greThr3(uLow=-0.01, uHigh=0.01)
+  CDL.Continuous.Hysteresis greThr3(uLow=-uLow, uHigh=uLow)
     "Check if it is in heating mode"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   CDL.Logical.Not not1
@@ -99,23 +99,41 @@ equation
           preserveAspectRatio=false, extent={{-140,-100},{140,100}})),
    Documentation(info="<html>
 <p>
-This block outputs the zone state.
+Block that outputs the zone state. It first checks if the zone is in heating state; 
+if not, then checks if the zone is in cooling state; otherwise it is in deadband state.
 </p>
-<ul>
-<li>
-The zone state is heating if the heating control signal is nonzero.
-</li>
-<li>
-The zone state is cooling if the cooling control signal is nonzero.
-</li>
-<li>
-The zone state is deadband otherwise.
-</li>
-</ul>
 <p>
 These states are defined in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a>.
+</p>
+<p>
+The logic of the block is described as follows.
+</p>
+<p>
+The zone state is heating when both of the following two conditions satisfy: 
+<ul>
+<li>
+the heating control signal <code>uHea</code> becomes greater than the parameter <code>uHigh</code>; 
+</li>
+<li>
+the delta between <code>uHea</code> and the cooling control signal <code>uCoo</code> becomes greater than 
+the parameter <code>uLow</code>, which can be written as <code>(uHea-uCoo)>uLow</code>. 
+</li>
+</ul>
+</p>
+<p>
+The zone state is not heating when either of the following conditions satisfies: <code>uHea</code> becomes less than the parameter
+<code>uLow</code> or <code>(uHea-uCoo)</code> becomes less than <code>-uLow</code>. The parameters 
+<code>uHigh</code> and <code>uLow</code> are hysteresis parameters to avoid chattering, which apply in the same way
+for the cooling state checking.
+</p>
+<p>
+The zone state is cooling when the zone state is not heating and the cooling control signal <code>uCoo</code> becomes
+greater than <code>uHigh</code>. When <code>uCoo</code> becomes less than <code>uLow</code>, then the zone state is not cooling.
+</p>
+<p>
+The zone state is deadband when it is neither in heating state nor in cooling state.
 </p>
 </html>",revisions="<html>
 <ul>
