@@ -112,6 +112,11 @@ The zone state is cooling if the cooling control signal is nonzero.
 The zone state is deadband otherwise.
 </li>
 </ul>
+<p>
+These states are defined in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a>.
+</p>
 </html>",revisions="<html>
 <ul>
 <li>
