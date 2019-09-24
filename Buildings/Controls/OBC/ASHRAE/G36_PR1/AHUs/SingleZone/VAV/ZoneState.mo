@@ -10,6 +10,9 @@ block ZoneState "Select the zone state"
   CDL.Interfaces.RealInput uCoo "Cooling control signal"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
+  CDL.Interfaces.IntegerOutput yZonSta "Zone state"
+    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 protected
   CDL.Conversions.BooleanToInteger booToIntHea(integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.heating)
     "Convert Boolean to Integer number"
@@ -24,9 +27,7 @@ protected
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   CDL.Integers.MultiSum sumInt(final nin=3) "Sum of inputs"
     annotation (Placement(transformation(extent={{116,-10},{136,10}})));
-  CDL.Interfaces.IntegerOutput yZonSta "Zone state"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+
   CDL.Logical.And and1
     annotation (Placement(transformation(extent={{-72,30},{-52,50}})));
   CDL.Continuous.Hysteresis greThr(uLow=uLow, uHigh=uHigh)
