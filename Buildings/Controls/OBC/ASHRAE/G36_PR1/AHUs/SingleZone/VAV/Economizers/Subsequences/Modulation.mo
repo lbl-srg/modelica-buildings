@@ -273,7 +273,7 @@ modulation sequence assuming a well configured controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the single zone AHU modulation sequence control diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/EconModulationControlDiagram.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/EconModulationControlDiagram.png\"/>
 </p>
 <p>
 Single zone AHU economizer modulation control chart:
@@ -281,7 +281,7 @@ Single zone AHU economizer modulation control chart:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the single zone AHU modulation sequence expected performance\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/EconModulationControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/Economizers/Subsequences/EconModulationControlChart.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
