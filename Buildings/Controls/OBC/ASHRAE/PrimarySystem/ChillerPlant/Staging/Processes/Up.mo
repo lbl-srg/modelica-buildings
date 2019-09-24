@@ -49,9 +49,11 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, the size should be doule of total stage numbers"
     annotation (Dialog(group="Enable condenser water pump"));
-  parameter Real uLow=0.005 "if y=true and u<uLow, switch to y=false"
+  parameter Real uLow=0.005
+    "Low limit of hysteresis to check if speed setpoint has been achieved"
     annotation (Dialog(group="Enable condenser water pump"));
-  parameter Real uHigh=0.015 "if y=false and u>uHigh, switch to y=true"
+  parameter Real uHigh=0.015
+    "Upper limit of hysteresis to check if speed setpoint has been achieved"
     annotation (Dialog(group="Enable condenser water pump"));
   parameter Modelica.SIunits.Time thrTimEnb=10
     "Threshold time to enable head pressure control after condenser water pump being reset"
@@ -139,7 +141,9 @@ block Up "Sequence for control devices when there is stage-up command"
     "Indicate if it is in stage-up process: true=in stage-up process"
     annotation (Placement(transformation(extent={{240,190},{280,230}}),
       iconTransformation(extent={{100,170},{140,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi]
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
+    final quantity=fill("HeatFlowRate", nChi),
+    final unit=fill("W", nChi))
     "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{240,150},{280,190}}),
       iconTransformation(extent={{100,130},{140,170}})));
@@ -154,7 +158,7 @@ block Up "Sequence for control devices when there is stage-up command"
     "Tower stage up status: true=stage up cooling tower"
     annotation (Placement(transformation(extent={{240,30},{280,70}}),
       iconTransformation(extent={{100,50},{140,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaConWatPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPum
     "Lead condenser water pump status"
     annotation (Placement(transformation(extent={{240,0},{280,40}}),
       iconTransformation(extent={{100,10},{140,50}})));
@@ -186,15 +190,6 @@ block Up "Sequence for control devices when there is stage-up command"
       iconTransformation(extent={{100,-210},{140,-170}})));
 
 protected
-  final parameter Boolean heaStaCha=true
-    "Flag to indicate if next head pressure control should be ON or OFF: true = in stage-up process"
-    annotation (Dialog(group="Enable head pressure control"));
-  final parameter Real iniValPos=0
-    "Initial valve position, if it is in stage-up process, the value should be 0"
-    annotation (Dialog(group="Enable CHW isolation valve"));
-  final parameter Real endValPos=1
-    "Ending valve position, if it is in stage-up process, the value should be 1"
-    annotation (Dialog(group="Enable CHW isolation valve"));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller
     nexChi(
     final nChi=nChi,
@@ -246,15 +241,15 @@ protected
     final nChi=nChi,
     final thrTimEnb=thrTimEnb,
     final waiTim=waiTim,
-    final heaStaCha=heaStaCha)
+    final heaStaCha=true)
     "Enabling head pressure control for next enabling chiller"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal
     enaChiIsoVal(
     final nChi=nChi,
     final chaChiWatIsoTim=chaChiWatIsoTim,
-    final iniValPos=iniValPos,
-    final endValPos=endValPos)
+    final iniValPos=0,
+    final endValPos=1)
     "Enable chilled water isolation valve for next enabling chiller"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.UpEnd
@@ -420,9 +415,8 @@ equation
   connect(chiDemRed.yChiDem, yChiDem)
     annotation (Line(points={{-58,174},{100,174},{100,170},{260,170}},
       color={0,0,127}));
-  connect(conWatPumCon.yLeaPum, yLeaConWatPum)
-    annotation (Line(points={{82,-1},{120,-1},{120,20},{260,20}},
-      color={255,0,255}));
+  connect(conWatPumCon.yLeaPum, yLeaPum)
+    annotation (Line(points={{82,-1},{120,-1},{120,20},{260,20}}, color={255,0,255}));
   connect(endUp.yChi, yChi)
     annotation (Line(points={{82,-211},{220,-211},{220,-200},{260,-200}},
       color={255,0,255}));
@@ -560,7 +554,7 @@ annotation (
         fillPattern=FillPattern.Solid,
         borderPattern=BorderPattern.Raised),
         Text(
-          extent={{-120,240},{120,200}},
+          extent={{-120,260},{120,200}},
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
@@ -643,9 +637,9 @@ annotation (
           lineColor={255,0,255},
           textString="yTowStaUp"),
         Text(
-          extent={{32,40},{96,26}},
+          extent={{58,38},{96,26}},
           lineColor={255,0,255},
-          textString="yLeaConWatPum"),
+          textString="yLeaPum"),
         Text(
           extent={{48,-82},{96,-96}},
           lineColor={255,0,255},

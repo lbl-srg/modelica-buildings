@@ -18,9 +18,11 @@ block Controller "Condenser water pump controller"
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, the size should be doule of total stage numbers"
     annotation (Dialog(group="Stage design speed"));
-  parameter Real uLow = 0.005 "if y=true and u<uLow, switch to y=false"
+  parameter Real uLow = 0.005
+    "Low limit of hysteresis to check if speed setpoint has been achieved"
     annotation (Dialog(group="Speed equality check"));
-  parameter Real uHigh = 0.015 "if y=false and u>uHigh, switch to y=true"
+  parameter Real uHigh = 0.015
+    "Upper limit of hysteresis to check if speed setpoint has been achieved"
     annotation (Dialog(group="Speed equality check"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]

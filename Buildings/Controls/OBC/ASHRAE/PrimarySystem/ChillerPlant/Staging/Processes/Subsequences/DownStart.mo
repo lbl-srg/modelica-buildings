@@ -108,12 +108,6 @@ block DownStart "Sequence for starting stage-down process"
       iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
-  final parameter Real iniValPos=0
-    "Initial valve position, if it needs to turn on chiller, the value should be 0"
-    annotation (Dialog(group="Chilled water isolation valve"));
-  final parameter Real endValPos=1
-    "Ending valve position, if it needs to turn on chiller, the value should be 1"
-    annotation (Dialog(group="Chilled water isolation valve"));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand
     chiDemRed(
     final nChi=nChi,
@@ -136,8 +130,8 @@ protected
     enaChiIsoVal(
     final nChi=nChi,
     final chaChiWatIsoTim=chaChiWatIsoTim,
-    final iniValPos=iniValPos,
-    final endValPos=endValPos) "Enable chiller chilled water isolation valve "
+    final iniValPos=0,
+    final endValPos=1) "Enable chiller chilled water isolation valve "
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DisableChiller
     disChi(final nChi=nChi, final proOnTim=proOnTim) "Disable last chiller"

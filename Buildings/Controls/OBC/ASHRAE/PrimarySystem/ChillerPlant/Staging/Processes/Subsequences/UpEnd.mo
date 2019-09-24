@@ -101,12 +101,6 @@ block UpEnd "Sequence for ending stage-up process"
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}
     "Chiller index, {1,2,...,n}";
-  final parameter Real iniValPos=1
-    "Initial valve position, if it needs to turn off chiller, the value should be 1"
-    annotation (Dialog(group="Chilled water isolation valve"));
-  final parameter Real endValPos=0
-    "Ending valve position, if it needs to turn off chiller, the value should be 0"
-    annotation (Dialog(group="Chilled water isolation valve"));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
@@ -120,8 +114,8 @@ protected
     disChiIsoVal(
     final nChi=nChi,
     final chaChiWatIsoTim=chaChiWatIsoTim,
-    final iniValPos=iniValPos,
-    final endValPos=endValPos)
+    final iniValPos=1,
+    final endValPos=0)
     "Disable isolation valve of the chiller being disabled"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
