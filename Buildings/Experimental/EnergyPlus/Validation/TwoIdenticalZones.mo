@@ -152,9 +152,9 @@ First implementation.
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/Validation/TwoIdenticalZones.mos"
         "Simulate and plot"),
 experiment(
-      StopTime=31536000,
+      StopTime=1209600,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      __Dymola_Algorithm="Cvode"),
     Diagram(coordinateSystem(extent={{-200,-160},{200,160}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end TwoIdenticalZones;

@@ -1,6 +1,6 @@
 old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
 Hidden.AvoidDoubleComputation=true;
-simulateModel("Buildings.Experimental.EnergyPlus.Validation.TwoIdenticalZones", stopTime=432000, method="Cvode", tolerance=1e-06, resultFile="TwoIdenticalZones");
+simulateModel("Buildings.Experimental.EnergyPlus.Validation.TwoIdenticalZones", stopTime=1209600, method="Cvode", tolerance=1e-06, resultFile="TwoIdenticalZones");
 Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
 createPlot(id=7, position={36, 23, 1252, 1087}, y={"zon1.TAir", "zon2.TAir", "zon1.fmuZon.TRad", "zon2.fmuZon.TRad", "TAirEnePlu.y"}, range={0.0, 440000.0, 15.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, displayUnits={"degC", "degC", "degC", "degC", "degC"});
 createPlot(id=7, position={36, 23, 1252, 214}, y={"zon1.fmuZon.QCon_flow", "zon2.fmuZon.QCon_flow"}, range={0.0, 440000.0, -10000.0, 20000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
