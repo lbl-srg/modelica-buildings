@@ -62,7 +62,7 @@ block Supply "Supply air set point for single zone VAV system"
   CDL.Interfaces.BooleanInput uFan "Supply fan status" annotation (Placement(
         transformation(extent={{-140,-160},{-100,-120}}), iconTransformation(
           extent={{-140,-120},{-100,-80}})));
-  CDL.Logical.Switch switch
+  CDL.Logical.Switch switch "Switch to assign control signal"
     annotation (Placement(transformation(extent={{72,-30},{92,-10}})));
   CDL.Continuous.Sources.Constant fanOff(k=0) "Fan off status"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
