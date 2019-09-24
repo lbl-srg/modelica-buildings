@@ -15,20 +15,21 @@ model OneZoneWithControl "Validation model for one zone"
     "Nominal mass flow rate";
 
   ThermalZone zon(
+    redeclare package Medium = Medium,
     idfName=idfName,
     weaName=weaName,
-    redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Perimeter_ZN_1",
+    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
+    zoneName="Core_ZN",
     nPorts = 2) "South zone"
     annotation (Placement(transformation(extent={{20,20},{60,60}})));
   Fluid.FixedResistances.PressureDrop duc(
+    redeclare package Medium = Medium,
     allowFlowReversal=false,
     linearized=true,
     from_dp=true,
     dp_nominal=100,
-    m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium)
+    m_flow_nominal=m_flow_nominal)
     "Duct resistance (to decouple room and outside pressure)"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
   Fluid.Sources.MassFlowSource_T bou(
@@ -44,7 +45,7 @@ model OneZoneWithControl "Validation model for one zone"
     "Boundary condition"
     annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TSet(
-    amplitude=4,
+    amplitude=6,
     period=86400,
     offset=273.15 + 16,
     startTime=6*3600,
@@ -79,7 +80,7 @@ model OneZoneWithControl "Validation model for one zone"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 equation
   connect(TSet.y, conPID.u_s)
-    annotation (Line(points={{-59,-70},{-52,-70}},color={0,0,127}));
+    annotation (Line(points={{-58,-70},{-52,-70}},color={0,0,127}));
   connect(conPID.u_m, zon.TAir) annotation (Line(points={{-40,-82},{-40,-92},{90,
           -92},{90,53.8},{61,53.8}}, color={0,0,127}));
   connect(bou.ports[1],hea. port_a)
@@ -91,8 +92,8 @@ equation
   connect(hea.port_b, zon.ports[2])
     annotation (Line(points={{38,-40},{42,-40},{42,20.8}}, color={0,127,255}));
   connect(conPID.y, addPar.u)
-    annotation (Line(points={{-29,-70},{-22,-70}}, color={0,0,127}));
-  connect(addPar.y,hea. TSet) annotation (Line(points={{1,-70},{10,-70},{10,-32},
+    annotation (Line(points={{-28,-70},{-22,-70}}, color={0,0,127}));
+  connect(addPar.y,hea. TSet) annotation (Line(points={{2,-70},{10,-70},{10,-32},
           {16,-32}}, color={0,0,127}));
   connect(gai.u[1],nPer. y)
     annotation (Line(points={{-42,50},{-59,50}},         color={0,0,127}));
@@ -102,7 +103,11 @@ equation
           -92},{-90,-92},{-90,-36},{-62,-36}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-Simple test case for one buildings with one thermal zone.
+Simple test case for one building with one thermal zone
+in which the room air temperature is controlled with a PI controller.
+The control output is used to compute the set point for the supply air
+temperature, which is met by the heating coil.
+The setpoint for the room air temperature changes between day and night.
 </p>
 </html>", revisions="<html>
 <ul><li>

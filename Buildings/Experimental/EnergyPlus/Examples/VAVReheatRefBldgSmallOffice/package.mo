@@ -1,10 +1,11 @@
 within Buildings.Experimental.EnergyPlus.Examples;
-package VAVReheatRefBldgSmallOffice "fixme: add brief description"
-  extends Modelica.Icons.Package;
+package VAVReheatRefBldgSmallOffice "Package with VAV models for small office buildings"
+  extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains variable air volume flow models
+for office buildings.
 </p>
 </html>"));
 end VAVReheatRefBldgSmallOffice;

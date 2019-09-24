@@ -58,6 +58,20 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     "Nominal value of zone air trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
+  parameter Boolean usePrecompiledFMU = false
+    "Set to true to use pre-compiled FMU with name specified by fmuName"
+    annotation(Dialog(tab="Debug"));
+
+  parameter String fmuName=""
+    "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
+    annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
+
+  parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=
+    Buildings.Experimental.EnergyPlus.Types.Verbosity.Quiet
+    "Verbosity of EnergyPlus output"
+    annotation(Dialog(tab="Debug"));
+
+
   final parameter Modelica.SIunits.Volume V = fmuZon.V "Zone volume";
   final parameter Modelica.SIunits.Area AFlo = fmuZon.AFlo "Floor area";
   final parameter Real mSenFac(min=1)=fmuZon.mSenFac
@@ -97,26 +111,26 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
           extent={{200,-50},{220,-30}}), iconTransformation(extent={{200,90},{
             220,110}})));
 
-  Modelica.Blocks.Math.Gain gaiCO2(
-    u(final unit="W"),
-    k=3.82E-8
-      *Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
-      /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM) if
-       use_C_flow
-    "CO2 emission in kg/s per Watt heat released by people"
-    annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
+  Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
+    final modelicaInstanceName=modelicaInstanceName,
+    final idfName=idfName,
+    final weaName=weaName,
+    final zoneName=zoneName,
+    final nFluPor=nPorts,
+    final usePrecompiledFMU=usePrecompiledFMU,
+    final fmuName=fmuName,
+    final verbosity=verbosity) "FMU zone adapter"
+    annotation (Placement(transformation(extent={{80,100},{100,120}})));
 
 protected
+  constant String modelicaInstanceName = getInstanceName()
+    "Name of this instance"
+    annotation(HideResult=true);
+
   constant Modelica.SIunits.SpecificEnergy h_fg=
     Medium.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     V*3/3600 "Nominal mass flow rate (used for regularization)";
-  Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
-    final idfName=idfName,
-    final weaName=weaName,
-    final zoneName=zoneName,
-    final nFluPor=nPorts) "FMU zone adapter"
-    annotation (Placement(transformation(extent={{80,104},{100,124}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
@@ -179,6 +193,15 @@ protected
     then 1 else 0 for i in 1:Medium.nC}
     "Vector with zero everywhere except where CO2 is";
 
+  Modelica.Blocks.Math.Gain gaiCO2(
+    u(final unit="W"),
+    k=3.82E-8
+      *Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
+      /Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM) if
+       use_C_flow
+    "CO2 emission in kg/s per Watt heat released by people"
+    annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
+
   Modelica.Blocks.Math.Add CTot_flow[Medium.nC](
     each final k1=1,
     each final k2=1) if use_C_flow
@@ -215,25 +238,23 @@ equation
     annotation (Line(points={{20,0},{0,0}}, color={191,0,0}));
   connect(senTAir.T, TAir)
     annotation (Line(points={{40,0},{210,0}}, color={0,0,127}));
-  connect(fmuZon.TRad, TRad) annotation (Line(points={{101,120},{126,120},{126,
-          -40},{210,-40}},
-                      color={0,0,127}));
-  connect(fmuZon.T, senTAir.T) annotation (Line(points={{78,124},{52,124},{52,0},
+  connect(fmuZon.TRad, TRad) annotation (Line(points={{101,116},{126,116},{126,-40},
+          {210,-40}}, color={0,0,127}));
+  connect(fmuZon.T, senTAir.T) annotation (Line(points={{78,118},{52,118},{52,0},
           {40,0}}, color={0,0,127}));
-  connect(vol.X_w, fmuZon.X_w) annotation (Line(points={{12,-60},{60,-60},{60,
-          120},{78,120}},
-                     color={0,0,127}));
+  connect(vol.X_w, fmuZon.X_w) annotation (Line(points={{12,-60},{60,-60},{60,114},
+          {78,114}}, color={0,0,127}));
   connect(heaGai.QRad_flow, fmuZon.QGaiRad_flow)
-    annotation (Line(points={{-158,106},{-40,106},{-40,108},{78,108}},
+    annotation (Line(points={{-158,106},{-40,106},{-40,102},{78,102}},
                                                    color={0,0,127}));
   connect(heaGai.QCon_flow, QConTot_flow.u1) annotation (Line(points={{-158,100},
           {-132,100},{-132,56},{-122,56}}, color={0,0,127}));
-  connect(fmuZon.QCon_flow, QConTot_flow.u2) annotation (Line(points={{101,116},
-          {120,116},{120,80},{-128,80},{-128,44},{-122,44}}, color={0,0,127}));
+  connect(fmuZon.QCon_flow, QConTot_flow.u2) annotation (Line(points={{101,112},
+          {120,112},{120,80},{-128,80},{-128,44},{-122,44}}, color={0,0,127}));
   connect(heaGai.QLat_flow, QConLat_flow.u1) annotation (Line(points={{-158,94},
           {-142,94},{-142,26},{-122,26}}, color={0,0,127}));
-  connect(fmuZon.QLat_flow, QConLat_flow.u2) annotation (Line(points={{101,112},
-          {114,112},{114,76},{-146,76},{-146,14},{-122,14}}, color={0,0,127}));
+  connect(fmuZon.QLat_flow, QConLat_flow.u2) annotation (Line(points={{101,108},
+          {114,108},{114,76},{-146,76},{-146,14},{-122,14}}, color={0,0,127}));
   connect(QGaiSenLat_flow.u1, QConTot_flow.y) annotation (Line(points={{-82,46},
           {-90,46},{-90,50},{-99,50}}, color={0,0,127}));
   connect(QGaiSenLat_flow.u2, QConLat_flow.y) annotation (Line(points={{-82,34},
@@ -246,8 +267,8 @@ equation
           {-90,0},{-82,0}}, color={0,0,127}));
   connect(mWat_flow.y, vol.mWat_flow) annotation (Line(points={{-59,0},{-50,0},{
           -50,-48},{-12,-48}}, color={0,0,127}));
-  connect(fmuZon.QPeo_flow, gaiCO2.u) annotation (Line(points={{101,108},{108,
-          108},{108,-190},{-172,-190},{-172,-140},{-162,-140}}, color={0,0,127}));
+  connect(fmuZon.QPeo_flow, gaiCO2.u) annotation (Line(points={{101,104},{108,104},
+          {108,-190},{-172,-190},{-172,-140},{-162,-140}},      color={0,0,127}));
   connect(CTot_flow.y, vol.C_flow) annotation (Line(points={{-39,-120},{-26,-120},
           {-26,-62},{-12,-62}}, color={0,0,127}));
   connect(C_flow, CTot_flow.u1) annotation (Line(points={{-220,-120},{-160,-120},
@@ -255,8 +276,8 @@ equation
   for i in 1:nPorts loop
     connect(ports[i], senMasFlo[i].port_a)
     annotation (Line(points={{0,-150},{0,-110}}, color={0,127,255}));
-    connect(fmuZon.m_flow[i], senMasFlo[i].m_flow) annotation (Line(points={{78,116},
-            {66,116},{66,-100},{11,-100}},
+    connect(fmuZon.m_flow[i], senMasFlo[i].m_flow) annotation (Line(points={{78,110},
+            {66,110},{66,-100},{11,-100}},
                                      color={0,0,127}));
     connect(senMasFlo[i].port_b, vol.ports[i]) annotation (Line(points={{
             5.55112e-16,-90},{0,-90},{0,-66}},
@@ -266,8 +287,8 @@ equation
     annotation (Line(points={{-122,-140},{-139,-140}}, color={0,0,127}));
   connect(matrixGain.y, CTot_flow.u2) annotation (Line(points={{-99,-140},{-80,-140},
           {-80,-126},{-62,-126}}, color={0,0,127}));
-  connect(fmuZon.TInlet, TAirIn.y) annotation (Line(points={{78,112},{41,112}},
-                                color={0,0,127}));
+  connect(fmuZon.TInlet, TAirIn.y) annotation (Line(points={{78,106},{48,106},{48,
+          112},{41,112}},       color={0,0,127}));
   annotation (
   defaultComponentName="zon",
    Icon(coordinateSystem(preserveAspectRatio=false,
@@ -285,11 +306,16 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere),
           Bitmap(extent={{62,-190},{164,-88}},
-          fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png"),
+          fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png",
+          visible=not usePrecompiledFMU),
+          Bitmap(extent={{62,-190},{164,-88}},
+          fileName="modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png",
+          visible=usePrecompiledFMU),
         Text(
           extent={{-144,162},{-40,132}},
           lineColor={0,0,0},
-          textString="%idfName"),
+          textString="%idfName",
+          visible=not usePrecompiledFMU),
         Text(
           extent={{-142,130},{-38,100}},
           lineColor={0,0,0},

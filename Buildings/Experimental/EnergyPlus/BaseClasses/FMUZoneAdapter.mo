@@ -7,41 +7,55 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   final parameter String iddName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/EnergyPlus-9-0-1/Energy+.idd")
     "Name of the Energyplus IDD file";
-//  final parameter String epLibName=Modelica.Utilities.Files.loadResource(
-//    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/EnergyPlus-9-0-1/lib/libepfmi.so")
-//    "Name of the EnergyPlus FMI library";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter Boolean usePrecompiledFMU = false
+    "Set to true to use pre-compiled FMU with name specified by fmuName"
+    annotation(Dialog(tab="Debug"));
+
+  parameter String fmuName=""
+    "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
+    annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
+
+  parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=
+    Buildings.Experimental.EnergyPlus.Types.Verbosity.TimeStep
+    "Verbosity of EnergyPlus output"
+    annotation(Dialog(tab="Debug"));
+
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
+
+ // parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps, start=0.1)
+ //   "Sample period of component";
 
   final parameter Modelica.SIunits.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.SIunits.Volume V(fixed=false) "Zone volume";
   final parameter Real mSenFac(fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
+
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
     displayUnit="degC")
     "Zone air temperature" annotation (
-      Placement(transformation(extent={{-140,80},{-100,120}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+      Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput X_w(final unit="kg/kg")
     "Zone air mass fraction in kg/kg total air" annotation (Placement(
-        transformation(extent={{-140,40},{-100,80}}), iconTransformation(extent=
-           {{-140,40},{-100,80}})));
+        transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},
+            {-100,60}})));
   Modelica.Blocks.Interfaces.RealInput m_flow[nFluPor](
      each final unit = "kg/s")
      "Mass flow rate" annotation (
-      Placement(transformation(extent={{-140,0},{-100,40}})));
+      Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput TInlet[nFluPor](
     each final unit="K",
     each displayUnit="degC") "Air inlet temperatures"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput QGaiRad_flow(
     final unit="W") "Radiative heat gain"
                           annotation (Placement(
-        transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
+        transformation(extent={{-140,-100},{-100,-60}}),iconTransformation(
+          extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput TRad(
     final unit="K",
     displayUnit="degC")
@@ -62,24 +76,37 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
 
-  Modelica.SIunits.Time tNext(start=t0-1, fixed=true) "Next sampling time";
-  Modelica.SIunits.Time tNextEP(start=t0-1, fixed=true) "Next sampling time requested from EnergyPlus";
- // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
-//  Modelica.SIunits.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
-
+  constant String modelicaInstanceName = getInstanceName()
+    "Name of this instance"
+    annotation(HideResult=true);
 protected
+  constant String buildingsLibraryRoot = Modelica.Utilities.Strings.replace(
+    string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html")),
+    searchString="Buildings/legal.html",
+    replaceString="Buildings") "Root directory of the Buildings library (used to find the spawn executable";
+
+
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass adapter=
     Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass(
       idfName=idfName,
       weaName=weaName,
       iddName=iddName,
-      zoneName=zoneName)
+      zoneName=zoneName,
+      modelicaInstanceName=modelicaInstanceName,
+      usePrecompiledFMU=usePrecompiledFMU,
+      fmuName=fmuName,
+      buildingsLibraryRoot=buildingsLibraryRoot,
+      verbosity=verbosity)
     "Class to communicate with EnergyPlus";
-//      epLibName=epLibName,
 
-  parameter Modelica.SIunits.Time t0(fixed=false) "Simulation start time";
+  parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
 
-  discrete Modelica.SIunits.Time tLast(fixed=true, start=t0) "Last time of data exchange";
+  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
+  //Modelica.SIunits.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
+ // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
+ //  Modelica.SIunits.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
+
+  discrete Modelica.SIunits.Time tLast(fixed=true, start=startTime) "Last time of data exchange";
   discrete Modelica.SIunits.Time dtLast "Time step since the last synchronization";
 
   discrete Modelica.SIunits.MassFlowRate mInlet_flow
@@ -89,13 +116,15 @@ protected
 
   discrete Modelica.SIunits.Temperature TRooLast
      "Room air temperature at last sampling";
+  discrete Real dQCon_flow(
+    final unit="W/K")
+    "Derivative dQCon_flow / dT";
+
   discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
     fixed=false,
     start=0)
     "Convective sensible heat to be added to zone air if T = TRooLast";
-  discrete Real dQCon_flow(
-    final unit="W/K")
-    "Derivative dQCon_flow / dT";
+  Integer counter "Counter for number of calls to EnergyPlus during time steps";
 
   function round
     input Real u;
@@ -107,51 +136,50 @@ protected
   end round;
 
 initial equation
-  t0 = time;
-  (AFlo, V, mSenFac) = Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
+  if usePrecompiledFMU then
+    assert(Modelica.Utilities.Strings.length(fmuName) > 1, "If usePrecompiledFMU = true, must set parameter fmuName");
+  end if;
+  startTime =  time;
+  counter = 0;
+  (AFlo, V, mSenFac) =  Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
     adapter = adapter,
-    t0 = time);
-  //TRooLast = T;
-
-  // Initialization of output variables.
+    startTime = time);
+  assert(AFlo > 0, "Floor area must not be zero.");
+  assert(V > 0, "Volume must not be zero.");
+  assert(mSenFac > 0.9999, "mSenFac must be bigger or equal than one.");
 
 equation
-  when {initial(), time >= pre(tNext)} then
+  if usePrecompiledFMU then // For JModelica, this must be in the equation section rather than the initial equation section
+    assert(Modelica.Utilities.Strings.length(fmuName) > 1, "If usePrecompiledFMU = true, must set parameter fmuName");
+  end if;
+  // The 'not initial()' triggers one sample when the continuous time simulation starts.
+  // This is required for the correct event handling. Otherwise the regression tests will fail.
+ // when {initial(), not initial(), time >= pre(tNext)} then
+  when {initial(), time >= pre(tNext), not initial()} then
+  // Initialization of output variables.
     TRooLast = T;
     dtLast = time-pre(tLast);
   //  Modelica.Utilities.Streams.print("time = " + String(time) + "\t pre(tLast) = " + String(pre(tLast)) + "\t dtLast = " + String(dtLast));
-    mInlet_flow =  sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
-    TAveInlet = sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor)/max(1E-10, mInlet_flow);
-    (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNextEP) =
+    mInlet_flow =  0;//sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
+    TAveInlet = 293.15;//sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor)/max(1E-10, mInlet_flow);
+    (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)  =
       Buildings.Experimental.EnergyPlus.BaseClasses.exchange(
       adapter,
+      initial(),
       T,
       X_w,
       mInlet_flow,
       TAveInlet,
       QGaiRad_flow,
+      AFlo,
       round(time, 1E-3));
-
-    // Guard against division by zero in first call
-    //dtMax = min(tNextEP-time, round(dTMax * V * 1.2 *1006/max(1, abs(QCon_flow))/60)*60);
-    //    if dT_dt > dT_dtMax then
-//      dtMax = max(60, pre(dtMax)/10);
-//    elseif dT_dt < dT_dtMax/2 then
-//      dtMax = min(10 * pre(dtMax), 1800);
-//    else
-//      dtMax = pre(dtMax);
-//   end if;
-
-    //tNext = roundToMinute(min(tNextEP, time+dtMax));
-    //tNext = roundToMinute(min(tNextEP, time+60));
-   //fixme assert(abs(tNextEP-pre(tNext)) > 59 or time < t0+1, "EnergyPlus requested a time step that is smaller than one minute which is beyond its capability. Contact support.");
-
-    tNext = round(tNextEP, 60);
-    //Modelica.Utilities.Streams.print("Time = " + String(time) + "\t tNextEP = " + String(tNextEP) + "\t tNext = " + String(tNext));
     tLast = time;
+    counter = pre(counter) + 1;
   end when;
   QCon_flow = QConLast_flow + (T-TRooLast) * dQCon_flow;
-  annotation (Icon(graphics={Bitmap(extent={{-90,-86},{84,88}}, fileName=
+  annotation (
+  defaultComponentName="fmuZon",
+  Icon(graphics={Bitmap(extent={{-92,-82},{82,92}}, fileName=
             "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png")}),
       Documentation(info="<html>
 <p>

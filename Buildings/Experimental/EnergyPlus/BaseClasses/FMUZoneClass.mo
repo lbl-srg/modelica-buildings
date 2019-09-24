@@ -10,23 +10,37 @@ extends ExternalObject;
     input String iddName "Name of the IDD file";
     //    input String epLibName "Name of the Energyplus FMI library";
     input String zoneName "Name of the thermal zone";
+    input String modelicaInstanceName
+      "Name of the Modelica instance";
+    input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
+    input String fmuName
+      "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
+    input String buildingsLibraryRoot "Root directory of the Buildings library (used to find the spawn executable)";
+    input Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity
+    "Verbosity of EnergyPlus output"
+    annotation(Dialog(tab="Debug"));
     output FMUZoneClass adapter;
-    external "C" adapter = FMUZoneInit(
+    external "C" adapter = ZoneAllocate(
       idfName,
       weaName,
       iddName,
-      zoneName)
+      zoneName,
+      modelicaInstanceName,
+      usePrecompiledFMU,
+      fmuName,
+      buildingsLibraryRoot,
+      verbosity)
         annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-          Include="#include \"FMUZoneInit.c\"",
-          Library={"epfmi-9.0.1", "dl"});
+          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
+          Include="#include \"ZoneAllocate.c\"",
+          Library={"fmilib_shared", "dl"});
           // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
     annotation (Documentation(info="<html>
 <p>
 The function <code>constructor</code> is a C function that is called by a Modelica simulator
 exactly once during the initialization.
-The function returns the object <code>FMUBuildingAdapter</code> that
+The function returns the object <code>adapter</code> that
 will be used to store the data structure needed to communicate with EnergyPlus.
 </p>
 </html>", revisions="<html>
@@ -43,10 +57,10 @@ First implementation.
     extends Modelica.Icons.Function;
 
     input FMUZoneClass adapter;
-    external "C" FMUZoneFree(adapter)
+    external "C" ZoneFree(adapter)
         annotation (
-          IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-          Include="#include \"FMUZoneFree.c\"");
+          IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
+          Include="#include \"ZoneFree.c\"");
 
   annotation(Documentation(info="<html>
 <p>
