@@ -20,30 +20,29 @@ protected
   CDL.Conversions.BooleanToInteger booToIntCoo(integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  CDL.Logical.Nor nor
+  CDL.Logical.Nor nor "In deadband state"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   CDL.Conversions.BooleanToInteger booToIntDea(integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   CDL.Integers.MultiSum sumInt(final nin=3) "Sum of inputs"
     annotation (Placement(transformation(extent={{116,-10},{136,10}})));
-
-  CDL.Logical.And and1
+  CDL.Logical.And and1 "In heating state if both conditions are true"
     annotation (Placement(transformation(extent={{-72,30},{-52,50}})));
   CDL.Continuous.Hysteresis greThr(uLow=uLow, uHigh=uHigh)
-    "Check if it is in heating mode"
+    "Check if it is in heating state"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   CDL.Continuous.Hysteresis greThr1(uLow=uLow, uHigh=uHigh)
-    "Check if it is in cooling mode"
+    "Check if it is in cooling state"
     annotation (Placement(transformation(extent={{-44,-50},{-24,-30}})));
   CDL.Continuous.Add add1(k2=-1)
     annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
-  CDL.Logical.And and2
+  CDL.Logical.And and2 "In cooling state if both inputs are true"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  CDL.Continuous.Hysteresis greThr3(uLow=-0.01, uHigh=0.01)
-    "Check if it is in heating mode"
+  CDL.Continuous.Hysteresis greThr3(uLow=-uLow, uHigh=uLow)
+    "Check if heating control signal is bigger than cooling control signal"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  CDL.Logical.Not not1
+  CDL.Logical.Not not1 "Not in heating state"
     annotation (Placement(transformation(extent={{-44,0},{-24,20}})));
 equation
   connect(nor.y, booToIntDea.u)
@@ -99,23 +98,36 @@ equation
           preserveAspectRatio=false, extent={{-140,-100},{140,100}})),
    Documentation(info="<html>
 <p>
-This block outputs the zone state.
+Block that outputs the zone state. It first checks if the zone is in heating state;
+if not, then checks if the zone is in cooling state; otherwise it is in deadband state.
 </p>
-<ul>
-<li>
-The zone state is heating if the heating control signal is nonzero.
-</li>
-<li>
-The zone state is cooling if the cooling control signal is nonzero.
-</li>
-<li>
-The zone state is deadband otherwise.
-</li>
-</ul>
 <p>
 These states are defined in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a>.
+</p>
+<p>
+The logic of the block is described as follows.
+</p>
+<p>
+The zone state is heating when both of the following two conditions satisfy:
+the heating control signal <code>uHea</code> becomes greater than the parameter <code>uHigh</code>;
+and the delta between <code>uHea</code> and the cooling control signal <code>uCoo</code> becomes greater than
+the parameter <code>uLow</code>, i.e., when <code>(uHea-uCoo)>uLow</code>. The second condition is
+used to avoid errors when <code>uHea>0</code> and <code>uCoo>0</code> at the same time.
+</p>
+<p>
+The zone state is not heating when either of the following conditions satisfies: <code>uHea</code> becomes less than the parameter
+<code>uLow</code> or <code>(uHea-uCoo)</code> becomes less than <code>-uLow</code>. The parameters
+<code>uHigh</code> and <code>uLow</code> are hysteresis parameters to avoid chattering, which apply in the same way
+for the cooling state checking.
+</p>
+<p>
+The zone state is cooling when the zone state is not heating and the cooling control signal <code>uCoo</code> becomes
+greater than <code>uHigh</code>. When <code>uCoo</code> becomes less than <code>uLow</code>, then the zone state is not cooling.
+</p>
+<p>
+The zone state is deadband when it is neither in heating state nor in cooling state.
 </p>
 </html>",revisions="<html>
 <ul>

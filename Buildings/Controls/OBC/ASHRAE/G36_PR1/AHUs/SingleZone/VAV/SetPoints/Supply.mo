@@ -179,7 +179,7 @@ protected
     final k2=1)
     "Offset of control signal (relative to heating signal) for cooling"
     annotation (Placement(transformation(extent={{40,-202},{60,-182}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant  con7(final k=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con7(final k=0.5)
     "Contant that outputs 0.5"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSpe(final k=yMin)
@@ -558,7 +558,7 @@ The figure below shows the sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/VAVTSupSet.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Supply.png\"/>
 </p>
 <p>
 The output <code>TSupCoo</code> is to be used to control the cooling coil,
