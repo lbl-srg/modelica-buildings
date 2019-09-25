@@ -29,7 +29,7 @@ block DownStart "Sequence for starting stage-down process"
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Head pressure control"));
   parameter Modelica.SIunits.Time chaChiWatIsoTim=300
-    "Time to slowly change isolation valve"
+    "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
   parameter Modelica.SIunits.Time proOnTim=300
     "Enabled chiller operation time to indicate if it is proven on"

@@ -9,7 +9,7 @@ block UpEnd "Sequence for ending stage-up process"
     "Threshold time to check if newly enabled chiller being operated by more than 5 minutes"
     annotation (Dialog(group="Enable next chiller"));
   parameter Modelica.SIunits.Time chaChiWatIsoTim=300
-    "Time to slowly change isolation valve"
+    "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
   parameter Modelica.SIunits.Time byPasSetTim=300
     "Time to slowly reset minimum by-pass flow"

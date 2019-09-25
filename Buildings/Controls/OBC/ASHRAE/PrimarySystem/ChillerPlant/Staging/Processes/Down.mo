@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes;
 block Down
   "Sequence for controlling devices when there is a stage-down command"
 
@@ -34,7 +34,7 @@ block Down
     "Enabled chiller operation time to indicate if it is proven on"
     annotation (Dialog(group="Disable last chiller", enable=havePonyChiller));
   parameter Modelica.SIunits.Time chaChiWatIsoTim=300
-    "Time to slowly change isolation valve"
+    "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Disable CHW isolation valve"));
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
@@ -123,11 +123,11 @@ block Down
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
     "Chiller condenser water isolation valve status"
-    annotation (Placement(transformation(extent={{-320,-210},{-280,-170}}),
+    annotation (Placement(transformation(extent={{-320,-200},{-280,-160}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if haveWSE
     "Water side economizer status: true = ON, false = OFF"
-    annotation (Placement(transformation(extent={{-320,-270},{-280,-230}}),
+    annotation (Placement(transformation(extent={{-320,-260},{-280,-220}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpeSet(
     final min=0,
@@ -250,7 +250,7 @@ protected
     final uLow=uLow,
     final uHigh=uHigh)
     "Enabling next condenser water pump or change pump speed"
-    annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
+    annotation (Placement(transformation(extent={{160,-192},{180,-172}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint
     minChiWatFlo(
     final nChi=nChi,
@@ -260,9 +260,7 @@ protected
     final minFloSet=minFloSet) "Minimum chilled water flow setpoint"
     annotation (Placement(transformation(extent={{180,-340},{200,-320}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
-    minBypSet1(
-    final aftByPasSetTim=aftByPasSetTim,
-    final minFloDif=minFloDif)
+    minBypSet(final aftByPasSetTim=aftByPasSetTim, final minFloDif=minFloDif)
     "Check if minium bypass has been reset"
     annotation (Placement(transformation(extent={{180,-380},{200,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)
@@ -309,9 +307,9 @@ protected
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr  mulOr(final nu=nChi) "Multiple or"
-    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
+    annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nu=nChi) "Multiple or"
-    annotation (Placement(transformation(extent={{-80,-240},{-60,-220}})));
+    annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-240,370},{-220,390}})));
@@ -445,22 +443,22 @@ equation
     annotation (Line(points={{-300,170},{-180,170},{-180,-168},{98,-168}},
       color={255,127,0}));
   connect(disNexCWP.yChiSta, conWatPumCon.uChiSta)
-    annotation (Line(points={{122,-160},{140,-160},{140,-191},{158,-191}},
+    annotation (Line(points={{122,-160},{140,-160},{140,-183},{158,-183}},
       color={255,127,0}));
   connect(mulOr1.y, conWatPumCon.uLeaConWatReq)
-    annotation (Line(points={{-58,-230},{126,-230},{126,-188},{158,-188}},
+    annotation (Line(points={{-58,-220},{126,-220},{126,-180},{158,-180}},
       color={255,0,255}));
   connect(uChi, mulOr.u)
-    annotation (Line(points={{-300,230},{-200,230},{-200,-200},{-82,-200}},
+    annotation (Line(points={{-300,230},{-200,230},{-200,-190},{-82,-190}},
       color={255,0,255}));
   connect(uConWatReq, mulOr1.u)
-    annotation (Line(points={{-300,-130},{-250,-130},{-250,-230},{-82,-230}},
+    annotation (Line(points={{-300,-130},{-250,-130},{-250,-220},{-82,-220}},
       color={255,0,255}));
   connect(conWatPumCon.uWSE, uWSE)
-    annotation (Line(points={{158,-194},{134,-194},{134,-250},{-300,-250}},
+    annotation (Line(points={{158,-186},{134,-186},{134,-240},{-300,-240}},
       color={255,0,255}));
   connect(conWatPumCon.uConWatPumSpe, uConWatPumSpe)
-    annotation (Line(points={{158,-199},{150,-199},{150,-310},{-300,-310}},
+    annotation (Line(points={{158,-191},{150,-191},{150,-310},{-300,-310}},
       color={0,0,127}));
   connect(con.y, minChiWatFlo.uStaUp)
     annotation (Line(points={{-138,260},{-120,260},{-120,-321},{178,-321}},
@@ -481,10 +479,10 @@ equation
     annotation (Line(points={{-300,380},{-242,380}}, color={255,0,255}));
   connect(edg.y, lat.u)
     annotation (Line(points={{-218,380},{-182,380}}, color={255,0,255}));
-  connect(lat.y, minBypSet1.uStaCha)
+  connect(lat.y, minBypSet.uStaCha)
     annotation (Line(points={{-158,380},{-140,380},{-140,360},{-260,360},
-      {-260,-366},{178,-366}},color={255,0,255}));
-  connect(VChiWat_flow, minBypSet1.VChiWat_flow)
+      {-260,-366},{178,-366}}, color={255,0,255}));
+  connect(VChiWat_flow, minBypSet.VChiWat_flow)
     annotation (Line(points={{-300,200},{-170,200},{-170,-374},{178,-374}},
       color={0,0,127}));
   connect(VChiWat_flow, dowSta.VChiWat_flow)
@@ -523,31 +521,31 @@ equation
     annotation (Line(points={{222,-94},{240,-94},{240,-140},{80,-140},{80,-268},
       {198,-268}},   color={255,0,255}));
   connect(conWatPumCon.yPumSpeChe, and2.u1)
-    annotation (Line(points={{182,-199},{190,-199},{190,-260},{198,-260}},
+    annotation (Line(points={{182,-191},{190,-191},{190,-260},{198,-260}},
       color={255,0,255}));
   connect(and2.y, minChiWatFlo.uUpsDevSta)
     annotation (Line(points={{222,-260},{240,-260},{240,-300},{160,-300},
       {160,-323},{178,-323}}, color={255,0,255}));
-  connect(and2.y, minBypSet1.uUpsDevSta)
+  connect(and2.y, minBypSet.uUpsDevSta)
     annotation (Line(points={{222,-260},{240,-260},{240,-300},{160,-300},
       {160,-362},{178,-362}}, color={255,0,255}));
   connect(dowSta.minOPLR, minOPLR)
     annotation (Line(points={{58,237},{40,237},{40,310},{-300,310}},
       color={0,0,127}));
   connect(conWatPumCon.uChiConIsoVal, uChiConIsoVal)
-    annotation (Line(points={{158,-180},{-140,-180},{-140,-190},{-300,-190}},
+    annotation (Line(points={{158,-172},{-140,-172},{-140,-180},{-300,-180}},
       color={255,0,255}));
   connect(mulOr.y, conWatPumCon.uLeaChiEna)
-    annotation (Line(points={{-58,-200},{120,-200},{120,-183},{158,-183}},
+    annotation (Line(points={{-58,-190},{120,-190},{120,-175},{158,-175}},
       color={255,0,255}));
   connect(mulOr.y, conWatPumCon.uLeaChiSta)
-    annotation (Line(points={{-58,-200},{120,-200},{120,-185},{158,-185}},
+    annotation (Line(points={{-58,-190},{120,-190},{120,-177},{158,-177}},
       color={255,0,255}));
   connect(conWatPumCon.yDesConWatPumSpe, yDesConWatPumSpe)
-    annotation (Line(points={{182,-187},{220,-187},{220,-190},{300,-190}},
+    annotation (Line(points={{182,-179},{220,-179},{220,-190},{300,-190}},
       color={0,0,127}));
   connect(conWatPumCon.uConWatPumSpeSet, uConWatPumSpeSet)
-    annotation (Line(points={{158,-197},{142,-197},{142,-280},{-300,-280}},
+    annotation (Line(points={{158,-189},{142,-189},{142,-280},{-300,-280}},
       color={0,0,127}));
   connect(uChi, minChiWatFlo.uChi)
     annotation (Line(points={{-300,230},{-200,230},{-200,-326},{178,-326}},
@@ -563,19 +561,19 @@ equation
       color={255,0,255}));
   connect(minChiWatFlo.yChiWatMinFloSet, yChiWatMinFloSet)
     annotation (Line(points={{202,-330},{300,-330}}, color={0,0,127}));
-  connect(minChiWatFlo.yChiWatMinFloSet, minBypSet1.VMinChiWat_setpoint)
+  connect(minChiWatFlo.yChiWatMinFloSet, minBypSet.VMinChiWat_setpoint)
     annotation (Line(points={{202,-330},{220,-330},{220,-348},{170,-348},
       {170,-378},{178,-378}}, color={0,0,127}));
-  connect(minBypSet1.yMinBypRes, edg1.u)
+  connect(minBypSet.yMinBypRes, edg1.u)
     annotation (Line(points={{202,-370},{218,-370}}, color={255,0,255}));
   connect(edg1.y, lat.clr)
     annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},
       {-190,374},{-182,374}}, color={255,0,255}));
   connect(conWatPumCon.yConWatPumNum, yConWatPumNum)
-    annotation (Line(points={{182,-193},{220,-193},{220,-230},{300,-230}},
+    annotation (Line(points={{182,-185},{220,-185},{220,-230},{300,-230}},
       color={255,127,0}));
   connect(conWatPumCon.yLeaPum, yLeaPum)
-    annotation (Line(points={{182,-181},{220,-181},{220,-150},{300,-150}},
+    annotation (Line(points={{182,-173},{220,-173},{220,-150},{300,-150}},
       color={255,0,255}));
   connect(disHeaCon.yEnaHeaCon, yTowStaDow)
     annotation (Line(points={{222,-94},{240,-94},{240,-60},{300,-60}},
@@ -717,5 +715,122 @@ annotation (
           extent={{28,-180},{98,-194}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yChiWatMinFloSet")}));
+          textString="yChiWatMinFloSet")}),
+Documentation(info="<html>
+<p>
+Block that controls devices when there is a stage-down command. This sequence is for
+water-cooled primary-only parallel chiller plants with headered chilled water pumps
+and headered condenser water pumps, or air-cooled primary-only parallel chiller
+plants with headered chilled water pumps.
+This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
+HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
+2019), section 5.2.4.16, which specifies the step-by-step control of
+devices during chiller staging down process.
+</p>
+<ol>
+<li>
+Identify the chiller(s) that should be enabled (and disabled, if <code>havePonyChiller=true</code>). 
+This is implemented in block <code>nexChi</code>. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.NextChiller</a>
+for more decriptions.
+</li>
+<li>
+Start the staging down process,
+<ul>
+<li>
+For any stage change during which a smaller chiller is enabled and a larger chller
+is disabled:
+<ol type=\"i\">
+<li>
+Command operating chillers to reduce demand to 75% (<code>chiDemRedFac</code>) of 
+their current load (<code>uChiLoa</code>) or a percentage equal to current stage 
+minimum cycling operative partial load ratio <code>minOPLR</code>, whichever is greater. 
+Wait until actual demand &lt; 80% of current load up to a maximum of 5 minutes 
+(<code>holChiDemTim</code>) before proceeding.
+</li>
+<li>
+Slowly change the minimum flow bypass setpoint to the one that includes both 
+chillers are enabled. After new setpoint is achieved, wait 1 minute 
+(<code>aftByPasSetTim</code>) to allow loop stabilize.
+</li>
+<li>
+Enable head pressure control for the chiller being enabled. Wait 30 seconds (<code>waiTim</code>).
+</li>
+<li>
+Slowly (<code>chaChiWatIsoTim</code>) open chilled water isolation valve of the smaller 
+chiller being enabled. The valve timing should be determind in the field.
+</li>
+<li>
+Start the smaller chiller after its chilled water isolation valve is fully open.
+</li>
+<li>
+Wait 5 minutes (<code>proOnTim</code>) for the newly enabled chiller to prove that 
+it is operating correctly, then shut off the larger chiller and release the 
+demand limit.
+</li>
+</ol>
+</li>
+<li>
+If staging down from any other stage, shut off the last stage chiller.
+</li>
+</ul>
+These are implemented in block <code>dowSta</code>. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart</a>
+for more decriptions.
+</li>
+<li>
+When the controller of the chiller being shut off indicates no request for chilled
+water flow (<code>uChiWatReq=false</code>), slowly (<code>chaChiWatIsoTim</code>) 
+close the chiller's chilled water isolation valve to avoid a sudden change in flow 
+through other operating chillers.
+This is implemented in block <code>disChiIsoVal</code>. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal</a>
+for more decriptions.
+</li>
+
+<li>
+When the controller of the chiller being shut off indicates no request for condenser
+water flow (<code>uConWatReq=false</code>), disable the chiller's head pressure control 
+loop.
+This is implemented in block <code>disHeaCon</code>. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl</a>
+for more decriptions.
+</li>
+
+<li>
+When the condenser water head pressure control valve is fully closed, shut off
+the last lag condenser water pump or change the pump speed to that required of 
+the new stage.
+Block <code>disNexCWP</code> identifies chiller stage for the condenser water pump
+control
+(<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableCWPump\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableCWPump</a>)
+and block <code>conWatPumCon</code> checks if the condenser water pumps have been reset
+(<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller</a>).
+</li>
+
+<li>
+Change the chilled water minimum flow setpoint to that appropriate for the new
+stage.
+The minimum flow setpoint is reset in block <code>minChiWatFlo</code>
+(<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint</a>).
+Block <code>minBypSet</code> checks if the new setpoint is achieved
+(<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass</a>).
+</li>
+</ol>
+</html>", revisions="<html>
+<ul>
+<li>
+September 23, 2019, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Down;

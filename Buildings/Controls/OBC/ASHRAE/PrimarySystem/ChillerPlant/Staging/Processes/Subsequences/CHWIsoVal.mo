@@ -4,7 +4,7 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
   parameter Integer nChi = 2
     "Total number of chiller, which is also the total number of chilled water isolation valve";
   parameter Modelica.SIunits.Time chaChiWatIsoTim = 300
-    "Time to slowly change isolation valve";
+    "Time to slowly change isolation valve, should be determined in the field";
   parameter Real iniValPos = 0
     "Initial valve position, if it needs to turn on chiller, the value should be 0";
   parameter Real endValPos = 1

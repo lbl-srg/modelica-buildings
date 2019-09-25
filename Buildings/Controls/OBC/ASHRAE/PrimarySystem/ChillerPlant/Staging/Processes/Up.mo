@@ -62,7 +62,7 @@ block Up "Sequence for control devices when there is stage-up command"
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Enable head pressure control"));
   parameter Modelica.SIunits.Time chaChiWatIsoTim=300
-    "Time to slowly change isolation valve"
+    "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Enable CHW isolation valve"));
   parameter Modelica.SIunits.Time proOnTim=300
     "Threshold time to check if newly enabled chiller being operated by more than 5 minutes"
@@ -294,10 +294,6 @@ protected
     annotation (Placement(transformation(extent={{120,-250},{140,-230}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=false) if not haveWSE
-    "False constant"
-    annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
 
 equation
   connect(chiDemRed.yChiDemRed, minBypSet.uUpsDevSta)
@@ -538,9 +534,6 @@ equation
   connect(edg1.y, lat.clr)
     annotation (Line(points={{142,-240},{160,-240},{160,-200},{-160,-200},
       {-160,204},{-142,204}}, color={255,0,255}));
-  connect(con2.y, conWatPumCon.uWSE)
-    annotation (Line(points={{-178,-180},{-4,-180},{-4,-14},{58,-14}},
-      color={255,0,255}));
 
 annotation (
   defaultComponentName="upProCon",
@@ -749,7 +742,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subse
 for more decriptions.
 </li>
 <li>
-End the stage-up process, 
+End the staging up process, 
 <ul>
 <li>
 If the stage change does not require one chiller enabled and another chiller disabled, 
@@ -766,7 +759,7 @@ to the one for the new stage.
 Release the demand limit, which marks the end of the staging process.
 </li>
 </ul>
-This is implemented in block <code>endUp</code>. See
+These are implemented in block <code>endUp</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.UpEnd\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.UpEnd</a>
 for more decriptions.

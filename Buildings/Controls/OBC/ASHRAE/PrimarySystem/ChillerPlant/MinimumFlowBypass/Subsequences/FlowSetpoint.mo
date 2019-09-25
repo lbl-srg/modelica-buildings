@@ -3,7 +3,7 @@ block FlowSetpoint "Chilled water minimum flow setpoint"
 
   parameter Integer nChi = 3
     "Total number of chillers";
-  parameter Boolean isParallelChiller = true
+  parameter Boolean isParallelChiller=true
     "Flag: true means that the plant has parallel chillers";
   parameter Modelica.SIunits.Time byPasSetTim = 300
     "Time constant for resetting minimum bypass flow";
@@ -91,13 +91,13 @@ protected
     "Minimum chilled water flow through each chiller"
     annotation (Placement(transformation(extent={{-340,190},{-320,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxFlo[nChi](
-    final k=maxFloSet) if isParallelChiller
+    final k=maxFloSet)
     "Maximum chilled water flow through each chiller"
     annotation (Placement(transformation(extent={{-340,150},{-320,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
     each final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-340,110},{-320,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division floRat[nChi] if isParallelChiller
+  Buildings.Controls.OBC.CDL.Continuous.Division floRat[nChi]
     "Flow rate ratio through each chiller"
     annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiRat(final nin=nChi) if
@@ -593,6 +593,9 @@ equation
   connect(multiMax6.y, byPasSet1.u1)
     annotation (Line(points={{-98,-120},{40,-120},{40,180},{380,180},{380,148},
       {398,148}}, color={0,0,127}));
+  connect(multiMax1.y, oneLeSet.f1)
+    annotation (Line(points={{-98,-160},{60,-160},{60,-136},{98,-136}},
+      color={0,0,127}));
 
 annotation (
   defaultComponentName="minChiFloSet",
