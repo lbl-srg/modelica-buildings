@@ -289,9 +289,9 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   jm_callbacks* callbacks;
   fmi_version_enu_t version;
   fmi2_fmu_kind_enu_t fmukind;
-	jm_status_enu_t jm_status;
+  jm_status_enu_t jm_status;
 
-	const char* tmpPath = bui->tmpDir;
+  const char* tmpPath = bui->tmpDir;
   const char* FMUPath = bui->fmuAbsPat;
 
     /* Set callback functions */
@@ -318,12 +318,10 @@ void importEnergyPlusFMU(FMUBuilding* bui){
 	/* modelName = fmi2_import_get_model_name(bui->fmu); */
 	bui->GUID = fmi2_import_get_GUID(bui->fmu);
 
-	if(fmi2_import_get_fmu_kind(bui->fmu) != fmi2_fmu_kind_cs) {
-		fmukind = fmi2_fmu_kind_me;
-	}
-	else{
-		ModelicaFormatError("Unxepected FMU kind for %s, require ME.", FMUPath);
-	}
+  fmukind = fmi2_import_get_fmu_kind(bui->fmu);
+  if(fmukind != fmi2_fmu_kind_me){
+    ModelicaFormatError("Unxepected FMU kind for %s, require ME.", FMUPath);
+  }
 
   /* Get model statistics
   fmi2_import_collect_model_counts(bui->fmu, &mc);
