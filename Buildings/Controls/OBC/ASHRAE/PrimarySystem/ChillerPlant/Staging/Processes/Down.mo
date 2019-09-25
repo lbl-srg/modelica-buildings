@@ -325,207 +325,265 @@ protected
     annotation (Placement(transformation(extent={{220,-380},{240,-360}})));
 
 equation
-  connect(nexChi.uChiPri, uChiPri) annotation (Line(points={{-42,298},{-200,298},
-          {-200,340},{-300,340}},      color={255,127,0}));
-  connect(uChi, nexChi.uChiEna) annotation (Line(points={{-300,230},{-200,230},{
-          -200,294},{-42,294}},   color={255,0,255}));
-  connect(con.y, nexChi.uStaUp) annotation (Line(points={{-138,260},{-120,260},{
-          -120,290},{-42,290}},   color={255,0,255}));
-  connect(uChiSta, nexChi.uChiSta) annotation (Line(points={{-300,170},{-180,170},
-          {-180,286},{-42,286}},color={255,127,0}));
-  connect(nexChi.yOnOff,dowSta. uOnOff) annotation (Line(points={{-18,290},{0,290},
-          {0,229},{58,229}},                color={255,0,255}));
-  connect(nexChi.yEnaSmaChi,dowSta. nexEnaChi) annotation (Line(points={{-18,281},
-          {30,281},{30,227},{58,227}},  color={255,127,0}));
-  connect(dowSta.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,225},{-100,
-          225},{-100,140},{-300,140}},      color={255,0,255}));
-  connect(dowSta.uChiWatIsoVal, uChiWatIsoVal) annotation (Line(points={{58,223},
-          {-60,223},{-60,110},{-300,110}},        color={0,0,127}));
-  connect(nexChi.yLasDisChi,dowSta. nexDisChi) annotation (Line(points={{-18,286},
-          {20,286},{20,221},{58,221}},  color={255,127,0}));
+  connect(nexChi.uChiPri, uChiPri)
+    annotation (Line(points={{-42,298},{-200,298},{-200,340},{-300,340}},
+      color={255,127,0}));
+  connect(uChi, nexChi.uChiEna)
+    annotation (Line(points={{-300,230},{-200,230},{-200,294},{-42,294}},
+      color={255,0,255}));
+  connect(con.y, nexChi.uStaUp)
+    annotation (Line(points={{-138,260},{-120,260},{-120,290},{-42,290}},
+      color={255,0,255}));
+  connect(uChiSta, nexChi.uChiSta)
+    annotation (Line(points={{-300,170},{-180,170},{-180,286},{-42,286}},
+      color={255,127,0}));
+  connect(nexChi.yOnOff,dowSta. uOnOff)
+    annotation (Line(points={{-18,290},{0,290},{0,229},{58,229}},
+      color={255,0,255}));
+  connect(nexChi.yEnaSmaChi,dowSta. nexEnaChi)
+    annotation (Line(points={{-18,281},{30,281},{30,227},{58,227}},
+      color={255,127,0}));
+  connect(dowSta.uChiHeaCon, uChiHeaCon)
+    annotation (Line(points={{58,225},{-100,225},{-100,140},{-300,140}},
+      color={255,0,255}));
+  connect(dowSta.uChiWatIsoVal, uChiWatIsoVal)
+    annotation (Line(points={{58,223},{-60,223},{-60,110},{-300,110}},
+      color={0,0,127}));
+  connect(nexChi.yLasDisChi,dowSta. nexDisChi)
+    annotation (Line(points={{-18,286},{20,286},{20,221},{58,221}},
+      color={255,127,0}));
   connect(uChiWatReq, booToRea1.u)
     annotation (Line(points={{-300,-10},{-242,-10}}, color={255,0,255}));
   connect(booToRea1.y, curDisChi.u)
-    annotation (Line(points={{-218,-10},{-82,-10}},  color={0,0,127}));
+    annotation (Line(points={{-218,-10},{-82,-10}}, color={0,0,127}));
   connect(curDisChi.y, lesEquThr.u)
-    annotation (Line(points={{-58,-10},{-42,-10}},   color={0,0,127}));
-  connect(nexChi.yOnOff, logSwi2.u2) annotation (Line(points={{-18,290},{0,290},
-          {0,20},{58,20}},            color={255,0,255}));
-  connect(dowSta.yReaDemLim, and4.u1) annotation (Line(points={{82,221},{92,221},
-          {92,100},{-60,100},{-60,30},{-42,30}},            color={255,0,255}));
-  connect(and4.y, logSwi2.u1) annotation (Line(points={{-18,30},{40,30},{40,28},
-          {58,28}},            color={255,0,255}));
-  connect(nexChi.yLasDisChi, curDisChi.index) annotation (Line(points={{-18,286},
-          {20,286},{20,120},{-140,120},{-140,-30},{-70,-30},{-70,-22}},
-        color={255,127,0}));
-  connect(lesEquThr.y, and1.u2) annotation (Line(points={{-18,-10},{120,-10},{120,
-          12},{138,12}},      color={255,0,255}));
+    annotation (Line(points={{-58,-10},{-42,-10}}, color={0,0,127}));
+  connect(nexChi.yOnOff, logSwi2.u2)
+    annotation (Line(points={{-18,290},{0,290},{0,20},{58,20}},
+      color={255,0,255}));
+  connect(dowSta.yReaDemLim, and4.u1)
+    annotation (Line(points={{82,221},{92,221},{92,100},{-60,100},{-60,30},{-42,30}},
+      color={255,0,255}));
+  connect(and4.y, logSwi2.u1)
+    annotation (Line(points={{-18,30},{40,30},{40,28},{58,28}},
+      color={255,0,255}));
+  connect(nexChi.yLasDisChi, curDisChi.index)
+    annotation (Line(points={{-18,286},{20,286},{20,120},{-140,120},{-140,-30},
+      {-70,-30},{-70,-22}}, color={255,127,0}));
+  connect(lesEquThr.y, and1.u2)
+    annotation (Line(points={{-18,-10},{120,-10},{120,12},{138,12}},
+      color={255,0,255}));
   connect(logSwi2.y, and1.u1)
-    annotation (Line(points={{82,20},{138,20}},   color={255,0,255}));
-  connect(nexChi.yLasDisChi, disChiIsoVal.nexChaChi) annotation (Line(points={{-18,286},
-          {20,286},{20,68},{196,68}},         color={255,127,0}));
-  connect(and1.y,disChiIsoVal.uUpsDevSta)  annotation (Line(points={{162,20},{180,
-          20},{180,55},{196,55}},     color={255,0,255}));
-  connect(nexChi.yOnOff, booRep4.u) annotation (Line(points={{-18,290},{0,290},{
-          0,80},{38,80}},             color={255,0,255}));
+    annotation (Line(points={{82,20},{138,20}}, color={255,0,255}));
+  connect(nexChi.yLasDisChi, disChiIsoVal.nexChaChi)
+    annotation (Line(points={{-18,286},{20,286},{20,68},{196,68}},
+      color={255,127,0}));
+  connect(and1.y,disChiIsoVal.uUpsDevSta)
+    annotation (Line(points={{162,20},{180,20},{180,55},{196,55}},
+      color={255,0,255}));
+  connect(nexChi.yOnOff, booRep4.u)
+    annotation (Line(points={{-18,290},{0,290},{0,80},{38,80}}, color={255,0,255}));
   connect(booRep4.y, swi.u2)
-    annotation (Line(points={{62,80},{138,80}},   color={255,0,255}));
-  connect(uChiWatIsoVal, swi.u3) annotation (Line(points={{-300,110},{80,110},{80,
-          72},{138,72}},       color={0,0,127}));
-  connect(dowSta.yChiWatIsoVal, swi.u1) annotation (Line(points={{82,230},{96,230},
-          {96,88},{138,88}},        color={0,0,127}));
-  connect(swi.y, disChiIsoVal.uChiWatIsoVal) annotation (Line(points={{162,80},{
-          180,80},{180,65},{196,65}},  color={0,0,127}));
+    annotation (Line(points={{62,80},{138,80}}, color={255,0,255}));
+  connect(uChiWatIsoVal, swi.u3)
+    annotation (Line(points={{-300,110},{80,110},{80,72},{138,72}},
+      color={0,0,127}));
+  connect(dowSta.yChiWatIsoVal, swi.u1)
+    annotation (Line(points={{82,230},{96,230},{96,88},{138,88}},
+      color={0,0,127}));
+  connect(swi.y, disChiIsoVal.uChiWatIsoVal)
+    annotation (Line(points={{162,80},{180,80},{180,65},{196,65}},
+      color={0,0,127}));
   connect(uConWatReq, booToRea2.u)
-    annotation (Line(points={{-300,-130},{-242,-130}},
-                                                     color={255,0,255}));
+    annotation (Line(points={{-300,-130},{-242,-130}}, color={255,0,255}));
   connect(booToRea2.y, curDisChi1.u)
     annotation (Line(points={{-218,-130},{-82,-130}},color={0,0,127}));
   connect(curDisChi1.y, lesEquThr1.u)
     annotation (Line(points={{-58,-130},{-42,-130}}, color={0,0,127}));
-  connect(logSwi2.y, and5.u1) annotation (Line(points={{82,20},{90,20},{90,-20},
-          {10,-20},{10,-112},{58,-112}},       color={255,0,255}));
-  connect(disChiIsoVal.yEnaChiWatIsoVal, and5.u2) annotation (Line(points={{220,66},
-          {240,66},{240,-28},{40,-28},{40,-120},{58,-120}},      color={255,0,
-          255}));
-  connect(lesEquThr1.y, and5.u3) annotation (Line(points={{-18,-130},{40,-130},{
-          40,-128},{58,-128}},   color={255,0,255}));
-  connect(uChi,dowSta. uChi) annotation (Line(points={{-300,230},{-200,230},{-200,
-          233},{58,233}},       color={255,0,255}));
-  connect(nexChi.yLasDisChi, curDisChi1.index) annotation (Line(points={{-18,286},
-          {20,286},{20,120},{-140,120},{-140,-152},{-70,-152},{-70,-142}},
-        color={255,127,0}));
-  connect(nexChi.yOnOff, booRep1.u) annotation (Line(points={{-18,290},{0,290},{
-          0,-70},{58,-70}},         color={255,0,255}));
+  connect(logSwi2.y, and5.u1)
+    annotation (Line(points={{82,20},{90,20},{90,-20},{10,-20},{10,-112},{58,-112}},
+      color={255,0,255}));
+  connect(disChiIsoVal.yEnaChiWatIsoVal, and5.u2)
+    annotation (Line(points={{220,66},{240,66},{240,-28},{40,-28},{40,-120},
+      {58,-120}}, color={255,0,255}));
+  connect(lesEquThr1.y, and5.u3)
+    annotation (Line(points={{-18,-130},{40,-130},{40,-128},{58,-128}},
+      color={255,0,255}));
+  connect(uChi,dowSta. uChi)
+    annotation (Line(points={{-300,230},{-200,230},{-200,233},{58,233}},
+      color={255,0,255}));
+  connect(nexChi.yLasDisChi, curDisChi1.index)
+    annotation (Line(points={{-18,286},{20,286},{20,120},{-140,120},{-140,-152},
+      {-70,-152},{-70,-142}}, color={255,127,0}));
+  connect(nexChi.yOnOff, booRep1.u)
+    annotation (Line(points={{-18,290},{0,290},{0,-70},{58,-70}},
+      color={255,0,255}));
   connect(booRep1.y, logSwi.u2)
-    annotation (Line(points={{82,-70},{138,-70}},
-                                                color={255,0,255}));
-  connect(uChiHeaCon, logSwi.u3) annotation (Line(points={{-300,140},{-100,140},
-          {-100,-90},{120,-90},{120,-78},{138,-78}},
-                                            color={255,0,255}));
-  connect(dowSta.yChiHeaCon, logSwi.u1) annotation (Line(points={{82,235},{100,235},
-          {100,-62},{138,-62}},   color={255,0,255}));
-  connect(and5.y, disHeaCon.uUpsDevSta) annotation (Line(points={{82,-120},{160,
-          -120},{160,-92},{198,-92}},
-                                 color={255,0,255}));
-  connect(nexChi.yLasDisChi, disHeaCon.nexChaChi) annotation (Line(points={{-18,286},
-          {20,286},{20,-104},{198,-104}},      color={255,127,0}));
-  connect(logSwi.y, disHeaCon.uChiHeaCon) annotation (Line(points={{162,-70},{180,
-          -70},{180,-108},{198,-108}},
-                                color={255,0,255}));
-  connect(disHeaCon.yEnaHeaCon,disNexCWP. uUpsDevSta) annotation (Line(points={{222,-94},
-          {240,-94},{240,-140},{80,-140},{80,-152},{98,-152}},
-        color={255,0,255}));
-  connect(con.y,disNexCWP. uStaUp) annotation (Line(points={{-138,260},{-120,260},
-          {-120,-158},{98,-158}},color={255,0,255}));
-  connect(uChiSta, disNexCWP.uChiSta) annotation (Line(points={{-300,170},{-180,
-          170},{-180,-168},{98,-168}},  color={255,127,0}));
-  connect(disNexCWP.yChiSta, conWatPumCon.uChiSta) annotation (Line(points={{122,
-          -160},{140,-160},{140,-191},{158,-191}},     color={255,127,0}));
-  connect(mulOr1.y, conWatPumCon.uLeaConWatReq) annotation (Line(points={{-58,-230},
-          {126,-230},{126,-188},{158,-188}},  color={255,0,255}));
-  connect(uChi, mulOr.u) annotation (Line(points={{-300,230},{-200,230},{-200,-200},
-          {-82,-200}},                        color={255,0,255}));
-  connect(uConWatReq, mulOr1.u) annotation (Line(points={{-300,-130},{-250,-130},
-          {-250,-230},{-82,-230}},            color={255,0,255}));
-  connect(conWatPumCon.uWSE, uWSE) annotation (Line(points={{158,-194},{134,-194},
-          {134,-250},{-300,-250}}, color={255,0,255}));
-  connect(conWatPumCon.uConWatPumSpe, uConWatPumSpe) annotation (Line(points={{158,
-          -199},{150,-199},{150,-310},{-300,-310}}, color={0,0,127}));
-  connect(con.y, minChiWatFlo.uStaUp) annotation (Line(points={{-138,260},{-120,
-          260},{-120,-321},{178,-321}}, color={255,0,255}));
-  connect(nexChi.yOnOff, minChiWatFlo.uOnOff) annotation (Line(points={{-18,290},
-          {0,290},{0,-337},{178,-337}}, color={255,0,255}));
-  connect(dowSta.yChiDem, yChiDem) annotation (Line(points={{82,239},{179.5,239},
-          {179.5,260},{300,260}}, color={0,0,127}));
-  connect(dowSta.yChi, yChi) annotation (Line(points={{82,225},{180,225},{180,200},
-          {300,200}}, color={255,0,255}));
+    annotation (Line(points={{82,-70},{138,-70}}, color={255,0,255}));
+  connect(uChiHeaCon, logSwi.u3)
+    annotation (Line(points={{-300,140},{-100,140},{-100,-90},{120,-90},
+      {120,-78},{138,-78}}, color={255,0,255}));
+  connect(dowSta.yChiHeaCon, logSwi.u1)
+    annotation (Line(points={{82,235},{100,235},{100,-62},{138,-62}},
+      color={255,0,255}));
+  connect(and5.y, disHeaCon.uUpsDevSta)
+    annotation (Line(points={{82,-120},{160,-120},{160,-92},{198,-92}},
+      color={255,0,255}));
+  connect(nexChi.yLasDisChi, disHeaCon.nexChaChi)
+    annotation (Line(points={{-18,286},{20,286},{20,-104},{198,-104}},
+      color={255,127,0}));
+  connect(logSwi.y, disHeaCon.uChiHeaCon)
+    annotation (Line(points={{162,-70},{180,-70},{180,-108},{198,-108}},
+      color={255,0,255}));
+  connect(disHeaCon.yEnaHeaCon,disNexCWP. uUpsDevSta)
+    annotation (Line(points={{222,-94},{240,-94},{240,-140},{80,-140},{80,-152},
+      {98,-152}}, color={255,0,255}));
+  connect(con.y,disNexCWP. uStaUp)
+    annotation (Line(points={{-138,260},{-120,260},{-120,-158},{98,-158}},
+      color={255,0,255}));
+  connect(uChiSta, disNexCWP.uChiSta)
+    annotation (Line(points={{-300,170},{-180,170},{-180,-168},{98,-168}},
+      color={255,127,0}));
+  connect(disNexCWP.yChiSta, conWatPumCon.uChiSta)
+    annotation (Line(points={{122,-160},{140,-160},{140,-191},{158,-191}},
+      color={255,127,0}));
+  connect(mulOr1.y, conWatPumCon.uLeaConWatReq)
+    annotation (Line(points={{-58,-230},{126,-230},{126,-188},{158,-188}},
+      color={255,0,255}));
+  connect(uChi, mulOr.u)
+    annotation (Line(points={{-300,230},{-200,230},{-200,-200},{-82,-200}},
+      color={255,0,255}));
+  connect(uConWatReq, mulOr1.u)
+    annotation (Line(points={{-300,-130},{-250,-130},{-250,-230},{-82,-230}},
+      color={255,0,255}));
+  connect(conWatPumCon.uWSE, uWSE)
+    annotation (Line(points={{158,-194},{134,-194},{134,-250},{-300,-250}},
+      color={255,0,255}));
+  connect(conWatPumCon.uConWatPumSpe, uConWatPumSpe)
+    annotation (Line(points={{158,-199},{150,-199},{150,-310},{-300,-310}},
+      color={0,0,127}));
+  connect(con.y, minChiWatFlo.uStaUp)
+    annotation (Line(points={{-138,260},{-120,260},{-120,-321},{178,-321}},
+      color={255,0,255}));
+  connect(nexChi.yOnOff, minChiWatFlo.uOnOff)
+    annotation (Line(points={{-18,290},{0,290},{0,-337},{178,-337}},
+      color={255,0,255}));
+  connect(dowSta.yChiDem, yChiDem)
+    annotation (Line(points={{82,239},{179.5,239},{179.5,260},{300,260}},
+      color={0,0,127}));
+  connect(dowSta.yChi, yChi)
+    annotation (Line(points={{82,225},{180,225},{180,200},{300,200}},
+      color={255,0,255}));
   connect(disChiIsoVal.yChiWatIsoVal, yChiWatIsoVal)
     annotation (Line(points={{220,54},{260,54},{260,50},{300,50}},
-                                                 color={0,0,127}));
+      color={0,0,127}));
   connect(uStaDow, edg.u)
     annotation (Line(points={{-300,380},{-242,380}}, color={255,0,255}));
   connect(edg.y, lat.u)
     annotation (Line(points={{-218,380},{-182,380}}, color={255,0,255}));
-  connect(lat.y, minBypSet1.uStaCha) annotation (Line(points={{-158,380},{-140,380},
-          {-140,360},{-260,360},{-260,-366},{178,-366}},color={255,0,255}));
-  connect(VChiWat_flow, minBypSet1.VChiWat_flow) annotation (Line(points={{-300,
-          200},{-170,200},{-170,-374},{178,-374}}, color={0,0,127}));
-  connect(VChiWat_flow, dowSta.VChiWat_flow) annotation (Line(points={{-300,200},
-          {-170,200},{-170,231},{58,231}},  color={0,0,127}));
-  connect(uChiLoa,dowSta. uChiLoa) annotation (Line(points={{-300,260},{-170,260},
-          {-170,235},{58,235}},  color={0,0,127}));
-  connect(lat.y,dowSta. uStaDow) annotation (Line(points={{-158,380},{-140,380},
-          {-140,360},{-260,360},{-260,239},{58,239}},
-                                                 color={255,0,255}));
-  connect(lat.y, nexChi.uStaDow) annotation (Line(points={{-158,380},{-140,380},
-          {-140,360},{-260,360},{-260,282},{-42,282}},
-                                                color={255,0,255}));
-  connect(lat.y, disChiIsoVal.uStaCha) annotation (Line(points={{-158,380},{-140,
-          380},{-140,360},{-260,360},{-260,52},{196,52}},
-                                                    color={255,0,255}));
-  connect(lat.y, and4.u2) annotation (Line(points={{-158,380},{-140,380},{-140,360},
-          {-260,360},{-260,22},{-42,22}},color={255,0,255}));
-  connect(lat.y, logSwi2.u3) annotation (Line(points={{-158,380},{-140,380},{-140,
-          360},{-260,360},{-260,12},{58,12}},
-                                         color={255,0,255}));
-  connect(lat.y, disHeaCon.uStaCha) annotation (Line(points={{-158,380},{-140,380},
-          {-140,360},{-260,360},{-260,-96},{198,-96}},color={255,0,255}));
-  connect(lat.y, minChiWatFlo.uStaDow) annotation (Line(points={{-158,380},{-140,
-          380},{-140,360},{-260,360},{-260,-339},{178,-339}}, color={255,0,255}));
-  connect(lat.y,disNexCWP. uStaDow) annotation (Line(points={{-158,380},{-140,380},
-          {-140,360},{-260,360},{-260,-162},{98,-162}}, color={255,0,255}));
-
+  connect(lat.y, minBypSet1.uStaCha)
+    annotation (Line(points={{-158,380},{-140,380},{-140,360},{-260,360},
+      {-260,-366},{178,-366}},color={255,0,255}));
+  connect(VChiWat_flow, minBypSet1.VChiWat_flow)
+    annotation (Line(points={{-300,200},{-170,200},{-170,-374},{178,-374}},
+      color={0,0,127}));
+  connect(VChiWat_flow, dowSta.VChiWat_flow)
+    annotation (Line(points={{-300,200},{-170,200},{-170,231},{58,231}},
+      color={0,0,127}));
+  connect(uChiLoa,dowSta. uChiLoa)
+    annotation (Line(points={{-300,260},{-170,260},{-170,235},{58,235}},
+      color={0,0,127}));
+  connect(lat.y,dowSta. uStaDow)
+    annotation (Line(points={{-158,380},{-140,380},{-140,360},{-260,360},
+      {-260,239},{58,239}}, color={255,0,255}));
+  connect(lat.y, nexChi.uStaDow)
+    annotation (Line(points={{-158,380},{-140,380},{-140,360},{-260,360},
+      {-260,282},{-42,282}}, color={255,0,255}));
+  connect(lat.y, disChiIsoVal.uStaCha)
+    annotation (Line(points={{-158,380},{-140,380},{-140,360},{-260,360},
+      {-260,52},{196,52}}, color={255,0,255}));
+  connect(lat.y, and4.u2)
+    annotation (Line(points={{-158,380},{-140,380},{-140,360},{-260,360},
+      {-260,22},{-42,22}}, color={255,0,255}));
+  connect(lat.y, logSwi2.u3)
+    annotation (Line(points={{-158,380},{-140,380},{-140,360},{-260,360},
+      {-260,12},{58,12}}, color={255,0,255}));
+  connect(lat.y, disHeaCon.uStaCha)
+    annotation (Line(points={{-158,380},{-140,380},{-140,360},{-260,360},
+      {-260,-96},{198,-96}},color={255,0,255}));
+  connect(lat.y, minChiWatFlo.uStaDow)
+    annotation (Line(points={{-158,380},{-140,380},{-140,360},{-260,360},
+      {-260,-339},{178,-339}}, color={255,0,255}));
+  connect(lat.y,disNexCWP. uStaDow)
+    annotation (Line(points={{-158,380},{-140,380},{-140,360},{-260,360},
+      {-260,-162},{98,-162}}, color={255,0,255}));
   connect(lat.y, yStaPro)
     annotation (Line(points={{-158,380},{300,380}},color={255,0,255}));
-  connect(disHeaCon.yEnaHeaCon, and2.u2) annotation (Line(points={{222,-94},{240,
-          -94},{240,-140},{80,-140},{80,-268},{198,-268}},   color={255,0,255}));
-  connect(conWatPumCon.yPumSpeChe, and2.u1) annotation (Line(points={{182,-199},
-          {190,-199},{190,-260},{198,-260}}, color={255,0,255}));
-  connect(and2.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{222,-260},{
-          240,-260},{240,-300},{160,-300},{160,-323},{178,-323}}, color={255,0,255}));
-  connect(and2.y, minBypSet1.uUpsDevSta) annotation (Line(points={{222,-260},{240,
-          -260},{240,-300},{160,-300},{160,-362},{178,-362}}, color={255,0,255}));
-  connect(dowSta.minOPLR, minOPLR) annotation (Line(points={{58,237},{40,237},{40,
-          310},{-300,310}},      color={0,0,127}));
-  connect(conWatPumCon.uChiConIsoVal, uChiConIsoVal) annotation (Line(points={{158,
-          -180},{-140,-180},{-140,-190},{-300,-190}},
-                                                    color={255,0,255}));
-  connect(mulOr.y, conWatPumCon.uLeaChiEna) annotation (Line(points={{-58,-200},
-          {120,-200},{120,-183},{158,-183}},
-                                        color={255,0,255}));
-  connect(mulOr.y, conWatPumCon.uLeaChiSta) annotation (Line(points={{-58,-200},
-          {120,-200},{120,-185},{158,-185}},
-                                        color={255,0,255}));
-  connect(conWatPumCon.yDesConWatPumSpe, yDesConWatPumSpe) annotation (Line(
-        points={{182,-187},{220,-187},{220,-190},{300,-190}}, color={0,0,127}));
-  connect(conWatPumCon.uConWatPumSpeSet, uConWatPumSpeSet) annotation (Line(
-        points={{158,-197},{142,-197},{142,-280},{-300,-280}}, color={0,0,127}));
-  connect(uChi, minChiWatFlo.uChi) annotation (Line(points={{-300,230},{-200,230},
-          {-200,-326},{178,-326}}, color={255,0,255}));
-  connect(nexChi.yLasDisChi, minChiWatFlo.nexDisChi) annotation (Line(points={{-18,
-          286},{20,286},{20,-331},{178,-331}}, color={255,127,0}));
-  connect(nexChi.yEnaSmaChi, minChiWatFlo.nexEnaChi) annotation (Line(points={{-18,
-          281},{30,281},{30,-329},{178,-329}}, color={255,127,0}));
-  connect(con.y, minChiWatFlo.uSubCha) annotation (Line(points={{-138,260},{-120,
-          260},{-120,-334},{178,-334}}, color={255,0,255}));
+  connect(disHeaCon.yEnaHeaCon, and2.u2)
+    annotation (Line(points={{222,-94},{240,-94},{240,-140},{80,-140},{80,-268},
+      {198,-268}},   color={255,0,255}));
+  connect(conWatPumCon.yPumSpeChe, and2.u1)
+    annotation (Line(points={{182,-199},{190,-199},{190,-260},{198,-260}},
+      color={255,0,255}));
+  connect(and2.y, minChiWatFlo.uUpsDevSta)
+    annotation (Line(points={{222,-260},{240,-260},{240,-300},{160,-300},
+      {160,-323},{178,-323}}, color={255,0,255}));
+  connect(and2.y, minBypSet1.uUpsDevSta)
+    annotation (Line(points={{222,-260},{240,-260},{240,-300},{160,-300},
+      {160,-362},{178,-362}}, color={255,0,255}));
+  connect(dowSta.minOPLR, minOPLR)
+    annotation (Line(points={{58,237},{40,237},{40,310},{-300,310}},
+      color={0,0,127}));
+  connect(conWatPumCon.uChiConIsoVal, uChiConIsoVal)
+    annotation (Line(points={{158,-180},{-140,-180},{-140,-190},{-300,-190}},
+      color={255,0,255}));
+  connect(mulOr.y, conWatPumCon.uLeaChiEna)
+    annotation (Line(points={{-58,-200},{120,-200},{120,-183},{158,-183}},
+      color={255,0,255}));
+  connect(mulOr.y, conWatPumCon.uLeaChiSta)
+    annotation (Line(points={{-58,-200},{120,-200},{120,-185},{158,-185}},
+      color={255,0,255}));
+  connect(conWatPumCon.yDesConWatPumSpe, yDesConWatPumSpe)
+    annotation (Line(points={{182,-187},{220,-187},{220,-190},{300,-190}},
+      color={0,0,127}));
+  connect(conWatPumCon.uConWatPumSpeSet, uConWatPumSpeSet)
+    annotation (Line(points={{158,-197},{142,-197},{142,-280},{-300,-280}},
+      color={0,0,127}));
+  connect(uChi, minChiWatFlo.uChi)
+    annotation (Line(points={{-300,230},{-200,230},{-200,-326},{178,-326}},
+      color={255,0,255}));
+  connect(nexChi.yLasDisChi, minChiWatFlo.nexDisChi)
+    annotation (Line(points={{-18,286},{20,286},{20,-331},{178,-331}},
+      color={255,127,0}));
+  connect(nexChi.yEnaSmaChi, minChiWatFlo.nexEnaChi)
+    annotation (Line(points={{-18,281},{30,281},{30,-329},{178,-329}},
+      color={255,127,0}));
+  connect(con.y, minChiWatFlo.uSubCha)
+    annotation (Line(points={{-138,260},{-120,260},{-120,-334},{178,-334}},
+      color={255,0,255}));
   connect(minChiWatFlo.yChiWatMinFloSet, yChiWatMinFloSet)
     annotation (Line(points={{202,-330},{300,-330}}, color={0,0,127}));
   connect(minChiWatFlo.yChiWatMinFloSet, minBypSet1.VMinChiWat_setpoint)
-    annotation (Line(points={{202,-330},{220,-330},{220,-348},{170,-348},{170,-378},
-          {178,-378}}, color={0,0,127}));
-  connect(minBypSet1.yMinBypRes, edg1.u) annotation (Line(points={{202,-370},{218,
-          -370}},                       color={255,0,255}));
-  connect(edg1.y, lat.clr) annotation (Line(points={{242,-370},{260,-370},{260,-390},
-          {-190,-390},{-190,374},{-182,374}}, color={255,0,255}));
-  connect(conWatPumCon.yConWatPumNum, yConWatPumNum) annotation (Line(points={{182,
-          -193},{220,-193},{220,-230},{300,-230}}, color={255,127,0}));
-  connect(conWatPumCon.yLeaPum, yLeaPum) annotation (Line(points={{182,-181},{220,
-          -181},{220,-150},{300,-150}}, color={255,0,255}));
-  connect(disHeaCon.yEnaHeaCon, yTowStaDow) annotation (Line(points={{222,-94},{
-          240,-94},{240,-60},{300,-60}}, color={255,0,255}));
-  connect(disHeaCon.yChiHeaCon, yChiHeaCon) annotation (Line(points={{222,-106},
-          {260,-106},{260,-110},{300,-110}}, color={255,0,255}));
+    annotation (Line(points={{202,-330},{220,-330},{220,-348},{170,-348},
+      {170,-378},{178,-378}}, color={0,0,127}));
+  connect(minBypSet1.yMinBypRes, edg1.u)
+    annotation (Line(points={{202,-370},{218,-370}}, color={255,0,255}));
+  connect(edg1.y, lat.clr)
+    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},
+      {-190,374},{-182,374}}, color={255,0,255}));
+  connect(conWatPumCon.yConWatPumNum, yConWatPumNum)
+    annotation (Line(points={{182,-193},{220,-193},{220,-230},{300,-230}},
+      color={255,127,0}));
+  connect(conWatPumCon.yLeaPum, yLeaPum)
+    annotation (Line(points={{182,-181},{220,-181},{220,-150},{300,-150}},
+      color={255,0,255}));
+  connect(disHeaCon.yEnaHeaCon, yTowStaDow)
+    annotation (Line(points={{222,-94},{240,-94},{240,-60},{300,-60}},
+      color={255,0,255}));
+  connect(disHeaCon.yChiHeaCon, yChiHeaCon)
+    annotation (Line(points={{222,-106},{260,-106},{260,-110},{300,-110}},
+      color={255,0,255}));
+
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
