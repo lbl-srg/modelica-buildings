@@ -20,30 +20,29 @@ protected
   CDL.Conversions.BooleanToInteger booToIntCoo(integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  CDL.Logical.Nor nor
+  CDL.Logical.Nor nor "In deadband state"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   CDL.Conversions.BooleanToInteger booToIntDea(integerTrue=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband)
     "Convert Boolean to Integer number"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   CDL.Integers.MultiSum sumInt(final nin=3) "Sum of inputs"
     annotation (Placement(transformation(extent={{116,-10},{136,10}})));
-
-  CDL.Logical.And and1
+  CDL.Logical.And and1 "In heating state if both conditions are true"
     annotation (Placement(transformation(extent={{-72,30},{-52,50}})));
   CDL.Continuous.Hysteresis greThr(uLow=uLow, uHigh=uHigh)
-    "Check if it is in heating mode"
+    "Check if it is in heating state"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   CDL.Continuous.Hysteresis greThr1(uLow=uLow, uHigh=uHigh)
-    "Check if it is in cooling mode"
+    "Check if it is in cooling state"
     annotation (Placement(transformation(extent={{-44,-50},{-24,-30}})));
   CDL.Continuous.Add add1(k2=-1)
     annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
-  CDL.Logical.And and2
+  CDL.Logical.And and2 "In cooling state if both inputs are true"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   CDL.Continuous.Hysteresis greThr3(uLow=-uLow, uHigh=uLow)
-    "Check if it is in heating mode"
+    "Check if heating control signal is bigger than cooling control signal"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  CDL.Logical.Not not1
+  CDL.Logical.Not not1 "Not in heating state"
     annotation (Placement(transformation(extent={{-44,0},{-24,20}})));
 equation
   connect(nor.y, booToIntDea.u)

@@ -33,6 +33,7 @@ model Enable_TOut_hOut
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
 
   Enable enaDis4(use_enthalpy=false, use_fixed_plus_differential_drybulb=true)
+    "Test fixed and differential dry bulb"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
   CDL.Logical.TriggeredTrapezoid TRet(
     final rising=1000,
@@ -89,10 +90,9 @@ protected
     final startTime=10,
     final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-
-  CDL.Logical.Sources.Pulse                        booPul2(final startTime=10,
-      final period=2000)
-                       "Boolean pulse signal"
+  CDL.Logical.Sources.Pulse booPul2(
+    final startTime=10,
+    final period=2000) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-90,106},{-70,126}})));
 equation
   connect(TOutCut.y, enaDis.TCut) annotation (Line(points={{-138,50},{-112,50},

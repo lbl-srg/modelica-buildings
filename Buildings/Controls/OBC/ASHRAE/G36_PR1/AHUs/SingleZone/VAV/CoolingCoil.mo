@@ -23,6 +23,7 @@ model CoolingCoil "Controller for cooling coil valve"
     "Logical block to check if zone is in cooling state"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   CDL.Integers.Sources.Constant conInt(final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
+    "Cooling state value"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   CDL.Continuous.LimPID cooCoiPI(
     reverseAction=true,
@@ -32,12 +33,11 @@ model CoolingCoil "Controller for cooling coil valve"
     controllerType=controllerTypeCooCoi,
     k=kCooCoi,
     Ti=TiCooCoi,
-    Td=TdCooCoi)
-            "Cooling coil control singal"
+    Td=TdCooCoi) "Cooling coil control signal"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  CDL.Logical.Switch switch
+  CDL.Logical.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
-  CDL.Continuous.Sources.Constant const(k=0)
+  CDL.Continuous.Sources.Constant const(k=0) "Cooling off mode"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   CDL.Interfaces.IntegerInput uZonSta "Zone state"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
@@ -49,7 +49,7 @@ model CoolingCoil "Controller for cooling coil valve"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   CDL.Interfaces.RealOutput yCooCoi "Cooling coil control signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  CDL.Logical.And and2
+  CDL.Logical.And and2 "Conditions for cooling state"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 equation
   connect(const.y, switch.u3) annotation (Line(points={{62,-20},{66,-20},{66,-8},
