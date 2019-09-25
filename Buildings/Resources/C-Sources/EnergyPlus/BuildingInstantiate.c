@@ -319,7 +319,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
 	bui->GUID = fmi2_import_get_GUID(bui->fmu);
 
   fmukind = fmi2_import_get_fmu_kind(bui->fmu);
-	if(fmukind != fmi2_fmu_kind_me){
+  if(fmukind != fmi2_fmu_kind_me){
 		ModelicaFormatError("Unxepected FMU kind for %s, require ME.", FMUPath);
 	}
 
