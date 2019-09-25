@@ -48,7 +48,7 @@ static char* SEPARATOR = "/";
 typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
 
 static int FMU_EP_VERBOSITY = 1; /* Verbosity */
-enum verbosity {QUIET = 1, MEDIUM = 2, TIMESTEP = 3};
+enum verbosity {QUIET = 4, MEDIUM = 5, TIMESTEP = 6};
 
 void writeFormatLog(unsigned int level, const char *fmt, ...);
 

@@ -67,7 +67,7 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
   parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=
-    Buildings.Experimental.EnergyPlus.Types.Verbosity.Quiet
+    Buildings.Experimental.EnergyPlus.Types.Verbosity.Warning
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 
