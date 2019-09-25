@@ -1124,6 +1124,16 @@ Buildings/Fluid/Sources/Outside_CpLowRise.mo
 Buildings/Fluid/Sources/PropertySource_T.mo
 Buildings/Fluid/Sources/PropertySource_h.mo
 Buildings/Fluid/Sources/TraceSubstancesFlowSource.mo
+Buildings/Fluid/Sources/Validation/BaseClasses/BoundarySystem.mo
+Buildings/Fluid/Sources/Validation/BaseClasses/BoundarySystemWithX_in.mo
+Buildings/Fluid/Sources/Validation/BaseClasses/BoundarySystemWithXi_in.mo
+Buildings/Fluid/Sources/Validation/BaseClasses/package.mo
+Buildings/Fluid/Sources/Validation/BaseClasses/package.order
+Buildings/Fluid/Sources/Validation/Boundary.mo
+Buildings/Fluid/Sources/Validation/BoundaryWithX_in.mo
+Buildings/Fluid/Sources/Validation/BoundaryWithXi_in.mo
+Buildings/Fluid/Sources/Validation/package.mo
+Buildings/Fluid/Sources/Validation/package.order
 Buildings/Fluid/Sources/package.mo
 Buildings/Fluid/Sources/package.order
 Buildings/Fluid/Storage/BaseClasses/Buoyancy.mo
@@ -1759,6 +1769,9 @@ Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_CpLowRise.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/PropertySource_T.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/PropertySource_h.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowSource.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sources/Validation/Boundary.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sources/Validation/BoundaryWithX_in.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sources/Validation/BoundaryWithXi_in.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/ExpansionVessel.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/Stratified.mos

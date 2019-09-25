@@ -5,7 +5,7 @@ model TwoElements
 
   parameter Modelica.SIunits.Area AInt "Area of interior walls"
     annotation(Dialog(group="Interior walls"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaInt
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hConInt
     "Convective coefficient of heat transfer of interior walls (indoor)"
     annotation(Dialog(group="Interior walls"));
   parameter Integer nInt(min = 1) "Number of RC-elements of interior walls"
@@ -38,19 +38,19 @@ protected
                                                                      AInt > 0
     "Convective heat transfer of interior walls"
     annotation (Placement(transformation(extent={{148,-30},{128,-50}})));
-  Modelica.Blocks.Sources.Constant alphaIntWall(k=AInt*alphaInt) if AInt > 0
+  Modelica.Blocks.Sources.Constant hConIntWall(k=AInt*hConInt) if AInt > 0
     "Coefficient of convective heat transfer for interior walls"
     annotation (Placement(transformation(
-    extent={{5,-5},{-5,5}},
-    rotation=-90,
-    origin={138,-61})));
+      extent={{5,-5},{-5,5}},
+      rotation=-90,
+      origin={138,-61})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallIntWall(
-    final G=min(ATotExt, AInt)*alphaRad, dT(start=0)) if
+    final G=min(ATotExt, AInt)*hRad, dT(start=0)) if
                                              ATotExt > 0 and AInt > 0
     "Resistor between exterior walls and interior walls"
     annotation (Placement(transformation(extent={{138,-116},{158,-96}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntWallWin(
-    final G=min(ATotWin, AInt)*alphaRad, dT(start=0)) if
+    final G=min(ATotWin, AInt)*hRad, dT(start=0)) if
                                              ATotWin > 0 and AInt > 0
     "Resistor between interior walls and windows"
     annotation (Placement(transformation(extent={{74,-118},{94,-98}})));
@@ -102,9 +102,9 @@ equation
     {-116,40}},
     color={191,0,0},
     smooth=Smooth.None));
-  connect(alphaIntWall.y, convIntWall.Gc)
-    annotation (Line(points={{138,-55.5},{138,-53.75},{138,-50}},
-    color={0,0,127}));
+  connect(hConIntWall.y, convIntWall.Gc)
+    annotation (Line(points={{138,-55.5},{138,-50},{138,-50}},
+                                                         color={0,0,127}));
   connect(intWallRC.port_a, intWallIndoorSurface)
     annotation (Line(points={{182,-40},{168,-40},{168,-82},{-120,-82},{-120,-180}},
     color={191,0,0}));
@@ -128,6 +128,11 @@ equation
     textString="Interior Walls")}), Documentation(revisions="<html>
   <ul>
   <li>
+  July 11, 2019, by Katharina Brinkmann:<br/>
+  Renamed <code>alphaInt</code> to <code>hConInt</code>,
+  <code>alphaIntWall</code> to <code>hConIntWall</code>
+  </li>
+  <li>
   January 25, 2019, by Michael Wetter:<br/>
   Added start value to avoid warning in JModelica.
   </li>
@@ -136,7 +141,7 @@ equation
   First implementation.
   </li>
   </ul>
-  </html>", info="<html>
+</html>",   info="<html>
   <p>This model distinguishes between internal
   thermal masses and exterior walls. While exterior walls contribute to heat
   transfer to the ambient, adiabatic conditions apply to internal masses.
