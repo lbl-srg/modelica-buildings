@@ -375,10 +375,10 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates</a> (PART 5.3.b).
 </ul>
 <p>
 The economizer is disabled whenever the outdoor air conditions
-exceed the economizer high limit setpoint plus the hysteresis low limit cutoff 
+exceed the economizer high limit cutoff setpoint plus the hysteresis low limit parameter
 (<code>TOutHigLimCutLow</code> or <code>hOutHigLimCutLow</code>) as shown in the figure.
 And the economizer is enabled whenever the outdoor air conditions are below the economizer
-low limit setpoint plus the hysteresis high limit cutoff (<code>TOutHigLimCutHig</code> or 
+high limit cutoff setpoint plus the hysteresis high limit parameter (<code>TOutHigLimCutHig</code> or 
 <code>hOutHigLimCutHig</code>). This sequence allows for all device types listed in
 ASHRAE 90.1-2013 and Title 24-2013.
 </p>
