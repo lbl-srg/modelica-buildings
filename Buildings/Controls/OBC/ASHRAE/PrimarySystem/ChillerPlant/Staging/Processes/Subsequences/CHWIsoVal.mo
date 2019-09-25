@@ -1,7 +1,7 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
 
-  parameter Integer nChi = 2
+  parameter Integer nChi
     "Total number of chiller, which is also the total number of chilled water isolation valve";
   parameter Modelica.SIunits.Time chaChiWatIsoTim = 300
     "Time to slowly change isolation valve, should be determined in the field";
@@ -325,25 +325,40 @@ have been fully open")}),
           textString="yChiWatIsoVal")}),
  Documentation(info="<html>
 <p>
-Block updates chiller chilled water isolation valve enabling status when 
-there is stage-up command. It will also generate status to indicate if the 
-valve reset process has finished.
+Block updates chiller chilled water isolation valve enabling-disabling status when 
+there is stage change command (<code>uStaCha=true</code>). It will also generate 
+status to indicate if the valve reset process has finished.
 This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
 HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft 6 on July 25, 
-2019), section 5.2.4.15, item 5, which specifies when and how the isolation
-valve should be controlled when it is chiller staging-up process.
+2019), section 5.2.4.15, item 5 and section 5.2.4.16, item 3, which specifies when 
+and how the isolation valve should be controlled when it is in stage changing process.
+</p>
+<ul>
+<li>
+When there is stage up command (<code>uStaCha=true</code>) and next chiller 
+head pressure control has been enabled (<code>uUpsDevSta=true</code>),
+the chilled water isolation valve of next enabling chiller indicated 
+by <code>nexChaChi</code> will be enabled (<code>iniValPos=0</code>, 
+<code>endValPos=1</code>). 
+</li>
+<li>
+When there is stage down command (<code>uStaCha=true</code>) and the disabling chiller 
+(<code>nexChaChi</code>) has been shut off (<code>uUpsDevSta=true</code>),
+the chiller's isolation valve will be disabled (<code>iniValPos=1</code>, 
+<code>endValPos=0</code>). 
+</li>
+</ul>
+<p>
+The valve should open or close slowly. For example, this could be accomplished by 
+resetting the valve position X /seconds, where X = (<code>endValPos</code> - 
+<code>iniValPos</code>) / <code>chaChiWatIsoTim</code>.
+The valve time <code>chaChiWatIsoTim</code> should be determined in the field. 
 </p>
 <p>
-When there is stage-up command (<code>uStaUp</code>=true) and next chiller 
-head pressure control has been enabled (<code>yEnaHeaCon</code>=true),
-the chilled water isolation valve of next enabling chiller indicated 
-by <code>uNexEnaChi</code> will be enabled. The valve should open slowly and the valve
-time should be determined in the field. 
-For example, this could be accomplished by resetting the valve position X /seconds, 
-where X = (1 - 0) / <code>turOnChiWatIsoTim</code>.  It will generate 
-array <code>yChiWatIsoVal</code> which indicates chilled water isolation 
-valve position setpoint. <code>yEnaChiWatIsoVal</code> will be true when the 
-enabled valves are fully open. 
+This sequence will generate array <code>yChiWatIsoVal</code> which indicates 
+chilled water isolation valve position setpoint. <code>yEnaChiWatIsoVal</code> 
+will be true when all the enabled valves are fully open and all the disabled valves
+are fully closed. 
 </p>
 </html>", revisions="<html>
 <ul>

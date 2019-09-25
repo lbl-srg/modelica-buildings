@@ -1,7 +1,7 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block DownStart "Sequence for starting stage-down process"
 
-  parameter Integer nChi = 2 "Total number of chillers";
+  parameter Integer nChi "Total number of chillers";
   parameter Boolean isParallelChiller=true
     "Flag: true means that the plant has parallel chillers";
   parameter Real chiDemRedFac=0.75
@@ -10,7 +10,7 @@ block DownStart "Sequence for starting stage-down process"
   parameter Modelica.SIunits.Time holChiDemTim=300
     "Time of actual demand less than center percentage of currnet load"
     annotation (Dialog(group="Demand limit"));
-  parameter Modelica.SIunits.Time byPasSetTim=300
+  parameter Modelica.SIunits.Time byPasSetTim
     "Time constant for resetting minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]={0.0089,0.0089}

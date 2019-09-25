@@ -1,7 +1,7 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block DisableChiller "Sequence for disabling chiller"
 
-  parameter Integer nChi = 2 "Total number of chillers";
+  parameter Integer nChi "Total number of chillers";
   parameter Modelica.SIunits.Time proOnTim = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
