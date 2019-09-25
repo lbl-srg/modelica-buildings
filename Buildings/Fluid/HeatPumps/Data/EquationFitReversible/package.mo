@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.Data;
-package EquationFitReversable "Package with model parameters for reverse heat pumps using the equation fit model"
+package EquationFitReversible "Package with model parameters for reverse heat pumps using the equation fit model"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation(preferredView="info",
@@ -18,4 +18,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EquationFitReversable;
+end EquationFitReversible;

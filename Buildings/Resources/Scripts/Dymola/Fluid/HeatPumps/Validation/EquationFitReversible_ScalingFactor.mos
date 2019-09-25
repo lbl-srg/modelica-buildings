@@ -1,0 +1,23 @@
+simulateModel("Buildings.Fluid.HeatPumps.Validation.EquationFitReversible_ScalingFactor", method="CVode", tolerance=1e-6, stopTime=5000, resultFile="EquationFitReversible_ScalingFactor");
+createPlot(id = 1,
+   position = {60, 10, 640, 480},
+   y = {"heaPum1.QLoa_flow", "heaPum.QLoa_flow"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+createPlot(id = 1,
+   position = {60, 490, 640, 480},
+   subPlot2,
+   y = {"capErr.y"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+
