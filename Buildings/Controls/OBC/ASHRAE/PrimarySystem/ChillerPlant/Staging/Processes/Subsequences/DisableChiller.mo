@@ -1,5 +1,5 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
-block DisableChiller "Sequence for disabling chiller"
+block DisableChiller "Sequence for disabling chiller in stage-down process"
 
   parameter Integer nChi "Total number of chillers";
   parameter Modelica.SIunits.Time proOnTim = 300
@@ -20,21 +20,21 @@ block DisableChiller "Sequence for disabling chiller"
     "Chiller status: true=ON"
      annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
        iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisChi
+    "Next disabling chiller when there is any stage up that need one chiller on and another off"
+    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
     "Indicate if the stage require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisChi
-    "Next disabling chiller when there is any stage up that need one chiller on and another off"
-    annotation (Placement(transformation(extent={{-240,-90},{-200,-50}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller enabling status"
     annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yReaDemLim
     "Release demand limit"
-    annotation (Placement(transformation(extent={{200,-80},{240,-40}}),
+    annotation (Placement(transformation(extent={{200,-70},{240,-30}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
@@ -55,25 +55,25 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr3(
     final threshold=proOnTim)
     "Check the newly enabled chiller being operated by more than 5 minutes"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert boolean input to real output"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nChi](
     final threshold=fill(0.5, nChi))
     "Convert real input to boolean output"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
     "Logical switch"
-    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+    annotation (Placement(transformation(extent={{100,0},{120,20}})));
   Buildings.Controls.OBC.CDL.Logical.And and3[nChi] "Logical and"
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nChi](
     final k=fill(false, nChi)) "False constant"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nChi]
     "Logical switch"
-    annotation (Placement(transformation(extent={{160,20},{180,40}})));
+    annotation (Placement(transformation(extent={{160,40},{180,60}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(final nout=nChi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
@@ -82,33 +82,33 @@ protected
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Count the time after new chiller has been enabled"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
     "Record the old chiller chilled water isolation valve status"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=nChi)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(final nout=nChi)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep3(final nout=nChi)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
     final k=chiInd) "Chiller index array"
     annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep1(final nout=nChi)
     "Replicate integer input"
-    annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
+    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nChi]
     "Check next enabling isolation valve"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
@@ -150,6 +150,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi6[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi7 "Logical switch"
+    annotation (Placement(transformation(extent={{160,-62},{180,-42}})));
 
 equation
   connect(nexEnaChi, intRep.u)
@@ -173,65 +175,66 @@ equation
   connect(con.y,logSwi. u1)
     annotation (Line(points={{-18,230},{0,230},{0,208},{98,208}}, color={255,0,255}));
   connect(tim.y,greEquThr3. u)
-    annotation (Line(points={{-78,-30},{-62,-30}}, color={0,0,127}));
+    annotation (Line(points={{-78,0},{-62,0}}, color={0,0,127}));
   connect(uChi,booToRea. u)
-    annotation (Line(points={{-220,80},{-102,80}}, color={255,0,255}));
+    annotation (Line(points={{-220,80},{-170,80},{-170,100},{-102,100}},
+      color={255,0,255}));
   connect(and2.y,edg. u)
-    annotation (Line(points={{-138,140},{-120,140},{-120,50},{-102,50}},
+    annotation (Line(points={{-138,140},{-120,140},{-120,70},{-102,70}},
       color={255,0,255}));
   connect(booToRea.y,triSam. u)
-    annotation (Line(points={{-78,80},{-22,80}},color={0,0,127}));
+    annotation (Line(points={{-78,100},{-22,100}}, color={0,0,127}));
   connect(edg.y,booRep1. u)
-    annotation (Line(points={{-78,50},{-62,50}}, color={255,0,255}));
+    annotation (Line(points={{-78,70},{-62,70}}, color={255,0,255}));
   connect(booRep1.y,triSam. trigger)
-    annotation (Line(points={{-38,50},{-10,50},{-10,68.2}}, color={255,0,255}));
+    annotation (Line(points={{-38,70},{-10,70},{-10,88.2}}, color={255,0,255}));
   connect(triSam.y,greEquThr. u)
-    annotation (Line(points={{2,80},{18,80}}, color={0,0,127}));
+    annotation (Line(points={{2,100},{18,100}}, color={0,0,127}));
   connect(greEquThr.y,logSwi. u3)
-    annotation (Line(points={{42,80},{60,80},{60,192},{98,192}},
+    annotation (Line(points={{42,100},{60,100},{60,192},{98,192}},
       color={255,0,255}));
   connect(and2.y,tim. u)
-    annotation (Line(points={{-138,140},{-120,140},{-120,-30},{-102,-30}},
+    annotation (Line(points={{-138,140},{-120,140},{-120,0},{-102,0}},
       color={255,0,255}));
   connect(greEquThr3.y,booRep2. u)
-    annotation (Line(points={{-38,-30},{-22,-30}}, color={255,0,255}));
+    annotation (Line(points={{-38,0},{-22,0}}, color={255,0,255}));
   connect(booRep2.y,and3. u1)
-    annotation (Line(points={{2,-30},{38,-30}}, color={255,0,255}));
+    annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
   connect(and3.y,logSwi1. u2)
-    annotation (Line(points={{62,-30},{80,-30},{80,-10},{98,-10}},
+    annotation (Line(points={{62,0},{80,0},{80,10},{98,10}},
       color={255,0,255}));
   connect(con1.y,logSwi1. u1)
-    annotation (Line(points={{62,10},{80,10},{80,-2},{98,-2}},
+    annotation (Line(points={{62,30},{80,30},{80,18},{98,18}},
       color={255,0,255}));
   connect(uChi,logSwi1. u3)
-    annotation (Line(points={{-220,80},{-170,80},{-170,-48},{90,-48},{90,-18},
-      {98,-18}},  color={255,0,255}));
+    annotation (Line(points={{-220,80},{-170,80},{-170,-20},{90,-20},{90,2},
+      {98,2}}, color={255,0,255}));
   connect(booRep3.y,logSwi2. u2)
-    annotation (Line(points={{102,30},{158,30}},   color={255,0,255}));
+    annotation (Line(points={{102,50},{158,50}}, color={255,0,255}));
   connect(logSwi1.y,logSwi2. u3)
-    annotation (Line(points={{122,-10},{140,-10},{140,22},{158,22}},
+    annotation (Line(points={{122,10},{140,10},{140,42},{158,42}},
       color={255,0,255}));
   connect(logSwi.y,logSwi2. u1)
-    annotation (Line(points={{122,200},{140,200},{140,38},{158,38}},
+    annotation (Line(points={{122,200},{140,200},{140,58},{158,58}},
       color={255,0,255}));
   connect(greEquThr3.y,not1. u)
-    annotation (Line(points={{-38,-30},{-30,-30},{-30,30},{-22,30}},
+    annotation (Line(points={{-38,0},{-30,0},{-30,50},{-22,50}},
       color={255,0,255}));
   connect(conInt.y,intEqu. u2)
     annotation (Line(points={{-138,170},{-110,170},{-110,192},{-102,192}},
       color={255,127,0}));
   connect(nexDisChi, intRep1.u)
-    annotation (Line(points={{-220,-70},{-162,-70}}, color={255,127,0}));
+    annotation (Line(points={{-220,-80},{-162,-80}}, color={255,127,0}));
   connect(intRep1.y,intEqu1. u1)
-    annotation (Line(points={{-138,-70},{-102,-70}}, color={255,127,0}));
+    annotation (Line(points={{-138,-80},{-102,-80}}, color={255,127,0}));
   connect(conInt.y,intEqu1. u2)
-    annotation (Line(points={{-138,170},{-110,170},{-110,-78},{-102,-78}},
+    annotation (Line(points={{-138,170},{-110,170},{-110,-88},{-102,-88}},
       color={255,127,0}));
   connect(intEqu1.y,and3. u2)
-    annotation (Line(points={{-78,-70},{20,-70},{20,-38},{38,-38}},
+    annotation (Line(points={{-78,-80},{10,-80},{10,-8},{38,-8}},
       color={255,0,255}));
   connect(not1.y, booRep3.u)
-    annotation (Line(points={{2,30},{78,30}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{78,50}}, color={255,0,255}));
   connect(uStaDow, booRep4.u)
     annotation (Line(points={{-220,140},{-180,140},{-180,-160},{-162,-160}},
       color={255,0,255}));
@@ -251,7 +254,7 @@ equation
     annotation (Line(points={{-138,-160},{0,-160},{0,-188},{38,-188}},
       color={255,0,255}));
   connect(intEqu1.y, and4.u1)
-    annotation (Line(points={{-78,-70},{20,-70},{20,-180},{38,-180}},
+    annotation (Line(points={{-78,-80},{10,-80},{10,-180},{38,-180}},
       color={255,0,255}));
   connect(and4.y, logSwi3.u2)
     annotation (Line(points={{62,-180},{98,-180}}, color={255,0,255}));
@@ -274,7 +277,7 @@ equation
     annotation (Line(points={{-220,80},{-170,80},{-170,-98},{98,-98}},
       color={255,0,255}));
   connect(logSwi2.y, logSwi5.u1)
-    annotation (Line(points={{182,30},{190,30},{190,-70},{80,-70},{80,-82},{98,-82}},
+    annotation (Line(points={{182,50},{190,50},{190,-28},{60,-28},{60,-82},{98,-82}},
       color={255,0,255}));
   connect(logSwi5.y, logSwi4.u1)
     annotation (Line(points={{122,-90},{140,-90},{140,-112},{158,-112}},
@@ -292,8 +295,17 @@ equation
   connect(logSwi6.y, logSwi4.u3)
     annotation (Line(points={{122,-240},{140,-240},{140,-128},{158,-128}},
       color={255,0,255}));
-  connect(greEquThr3.y, yReaDemLim)
-    annotation (Line(points={{-38,-30},{-30,-30},{-30,-60},{220,-60}},
+  connect(uOnOff, logSwi7.u2)
+    annotation (Line(points={{-220,-120},{80,-120},{80,-52},{158,-52}},
+      color={255,0,255}));
+  connect(greEquThr3.y, logSwi7.u1)
+    annotation (Line(points={{-38,0},{-30,0},{-30,-44},{158,-44}},
+      color={255,0,255}));
+  connect(uStaDow, logSwi7.u3)
+    annotation (Line(points={{-220,140},{-180,140},{-180,-60},{158,-60}},
+      color={255,0,255}));
+  connect(logSwi7.y, yReaDemLim)
+    annotation (Line(points={{182,-52},{202,-52},{202,-50},{220,-50}},
       color={255,0,255}));
 
 annotation (
@@ -344,11 +356,11 @@ annotation (
           lineColor={255,0,255},
           textString="uChi"),
         Text(
-          extent={{-98,-52},{-70,-64}},
+          extent={{-98,-82},{-70,-94}},
           lineColor={255,0,255},
           textString="uOnOff"),
         Text(
-          extent={{-98,-80},{-44,-96}},
+          extent={{-98,-40},{-44,-56}},
           lineColor={255,127,0},
           textString="nexDisChi"),
         Text(
@@ -380,7 +392,7 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Enable small chiller"),
           Text(
-          extent={{102,-18},{172,-36}},
+          extent={{102,-6},{172,-24}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
