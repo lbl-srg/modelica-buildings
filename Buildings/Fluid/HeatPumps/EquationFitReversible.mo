@@ -265,6 +265,8 @@ This reversable heat pump can be operated either in heating mode or in cooling m
 It typically is used for a water to water heat pump, but if the performance data
 <code>per</code> are set up for other media, such as glycol, it can also be used for
 such applications.
+Note that if used with air, the results will only be valid if there is no
+humidity condensation or frost build up.
 The heat exchanger at medium 1 is to be connected to the building load,
 and the other heat exchanger to the heat source or sink, such as
 a geothermal loop.
@@ -357,7 +359,7 @@ If <code>uMod = 0</code>, the model sets <i>Q&#775; = 0</i> and <i>P = 0</i>.
 <p>
 The coefficient of performance COP is computed as
 <p align=\"center\" style=\"font-style:italic;\">
-COP = Q&#775; &frasl; P
+COP = Q&#775; &frasl; P.
 </p>
 <h4>References</h4>
 <p>
