@@ -20,10 +20,10 @@ model EquationFitReversible_CoolingClosedLoop
     per=per,
     scaling_factor=1)
    "Water to Water heat pump"
-   annotation (Placement(transformation(extent={{-4,-10},{16,10}})));
+   annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Modelica.Blocks.Math.RealToInteger reaToInt
    "Real to integer conversion"
-   annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+   annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Sources.MassFlowSource_T souPum(
     redeclare package Medium = Medium,
     m_flow=mSou_flow_nominal,
@@ -38,7 +38,7 @@ model EquationFitReversible_CoolingClosedLoop
      redeclare package Medium = Medium,
      nPorts=1)
    "Volume for source side"
-   annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+   annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse uMod(
     amplitude=1,
     width=0.5,
@@ -46,7 +46,7 @@ model EquationFitReversible_CoolingClosedLoop
     offset=-1,
     startTime=0)
    "heat pump operational mode input signal"
-   annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+   annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse pulse(
     amplitude=1,
     width=0.7,
@@ -61,7 +61,7 @@ model EquationFitReversible_CoolingClosedLoop
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   HeatTransfer.Sources.PrescribedHeatFlow heaFlo
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+    annotation (Placement(transformation(extent={{50,70},{70,90}})));
   Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -83,7 +83,7 @@ model EquationFitReversible_CoolingClosedLoop
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={70,8})));
+        origin={80,-12})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TSouEnt(
     amplitude=3,
     width=0.7,
@@ -93,6 +93,7 @@ model EquationFitReversible_CoolingClosedLoop
     "Source side entering water temperature"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TLoaSet(
+    y(final unit="K", displayUnit="degC"),
     amplitude=1,
     width=0.7,
     period=200,
@@ -106,39 +107,47 @@ model EquationFitReversible_CoolingClosedLoop
     "Pressure source"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-30,-30})));
+        rotation=0,
+        origin={-60,10})));
 equation
   connect(souPum.ports[1], heaPum.port_a2)
-   annotation (Line(points={{40,-50},{20,-50},{20,-6},{16,-6}},color={0,127,255}));
+   annotation (Line(points={{40,-50},{20,-50},{20,-26}},       color={0,127,255}));
   connect(uMod.y, reaToInt.u)
-   annotation (Line(points={{-68,0},{-62,0}},color={0,0,127}));
+   annotation (Line(points={{-68,-20},{-62,-20}},
+                                             color={0,0,127}));
   connect(reaToInt.y, heaPum.uMod)
-   annotation (Line(points={{-39,0},{-5,0}},color={255,127,0}));
+   annotation (Line(points={{-39,-20},{-1,-20}},
+                                            color={255,127,0}));
   connect(heaPum.port_b2, souVol.ports[1])
-   annotation (Line(points={{-4,-6},{-16,-6},{-16,-70},{-20,-70}},color={0,127,255}));
+   annotation (Line(points={{0,-26},{-16,-26},{-16,-50},{-50,-50}},
+                                                                  color={0,127,255}));
   connect(pulse.y,m_flow. u)
    annotation (Line(points={{-68,80},{-42,80}},color={0,0,127}));
   connect(m_flow.y,Q_flow. u)
    annotation (Line(points={{-19,80},{18,80}},color={0,0,127}));
   connect(heaFlo.port, vol.heatPort)
-   annotation (Line(points={{80,80},{80,18},{70,18}},color={191,0,0}));
+   annotation (Line(points={{70,80},{80,80},{80,-2}},color={191,0,0}));
   connect(pum.port_a, vol.ports[1])
-   annotation (Line(points={{20,50},{58,50},{58,10},{60,10}},color={0,127,255}));
+   annotation (Line(points={{20,50},{58,50},{58,-10},{70,-10}},
+                                                             color={0,127,255}));
   connect(vol.ports[2], heaPum.port_b1)
-   annotation (Line(points={{60,6},{16,6}}, color={0,127,255}));
+   annotation (Line(points={{70,-14},{20,-14}},
+                                            color={0,127,255}));
   connect(pum.port_b, heaPum.port_a1)
-   annotation (Line(points={{0,50},{-20,50},{-20,6},{-4,6}},color={0,127,255}));
+   annotation (Line(points={{0,50},{-20,50},{-20,-14},{0,-14}},
+                                                            color={0,127,255}));
   connect(m_flow.y, pum.m_flow_in)
    annotation (Line(points={{-19,80},{10,80},{10,62}},color={0,0,127}));
   connect(Q_flow.y, heaFlo.Q_flow)
-   annotation (Line(points={{41,80},{60,80}}, color={0,0,127}));
+   annotation (Line(points={{41,80},{50,80}}, color={0,0,127}));
   connect(souPum.T_in, TSouEnt.y)
    annotation (Line(points={{62,-54},{68,-54},{68,-80},{42,-80}},color={0,0,127}));
   connect(TLoaSet.y, heaPum.TSet)
-   annotation (Line(points={{-68,40},{-26,40},{-26,9},{-5.4,9}},color={0,0,127}));
+   annotation (Line(points={{-68,40},{-26,40},{-26,-11},{-1.4,-11}},
+                                                                color={0,0,127}));
   connect(heaPum.port_a1, pre.ports[1])
-   annotation (Line(points={{-4,6},{-30,6},{-30,-20}}, color={0,127,255}));
+   annotation (Line(points={{0,-14},{-32,-14},{-32,10},{-50,10}},
+                                                       color={0,127,255}));
      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{120,100}}), graphics={
         Ellipse(lineColor = {75,138,73},
