@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatPumps.Validation;
-model EquationFitReversibleMethod
+within Buildings.Fluid.HeatPumps.BaseClasses.Validation;
+model EquationFitReversible
   "Validation of the equation fit method implemented in the reversible heat pump model"
 
    package Medium = Buildings.Media.Water "Medium model";
@@ -16,50 +16,56 @@ model EquationFitReversibleMethod
     per=per,
     scaling_factor=1)
     "Performance model for equation fit"
-    annotation (Placement(transformation(extent={{46,-10},{66,10}})));
+    annotation (Placement(transformation(extent={{46,-20},{66,0}})));
   Modelica.Blocks.Math.RealToInteger reaToInt
     "Real to integer conversion"
-    annotation (Placement(transformation(extent={{-4,-10},{16,10}})));
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Modelica.Blocks.Sources.Sine uMod(amplitude=1, freqHz=1/2600)
     "Heat pump operates in heating mode"
-    annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Sine Q_flow_set(amplitude=5000, freqHz=1/2600)
     "Set point for heat flow rate"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Controls.OBC.CDL.Continuous.Sources.Constant mLoa_flow(k=1.89)
     "Mass flow rate entering load heat exchanger side"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Controls.OBC.CDL.Continuous.Sources.Sine TLoaEnt(
     amplitude=10,
     freqHz=1/2600,
     offset=25 + 273.15,
     startTime=0) "Load side entering water temperature"
-    annotation (Placement(transformation(extent={{-62,20},{-42,40}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Controls.OBC.CDL.Continuous.Sources.Constant mSou_flow(k=1.89)
     "Mass flow rate entering source heat exchanger side"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Controls.OBC.CDL.Continuous.Sources.Sine TSouEnt(
     amplitude=5,
     freqHz=1/2600,
     offset=15 + 273.15,
     startTime=0) "Source side entering water temperature"
-    annotation (Placement(transformation(extent={{-62,-42},{-42,-22}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 equation
   connect(reaToInt.u,uMod. y)
-    annotation (Line(points={{-6,0},{-61,0}},color={0,0,127}));
+    annotation (Line(points={{-22,-10},{-39,-10}},
+                                             color={0,0,127}));
   connect(reaToInt.y, equFit.uMod)
-    annotation (Line(points={{17,0},{45,0}},color={255,127,0}));
+    annotation (Line(points={{1,-10},{45,-10}},
+                                            color={255,127,0}));
   connect(Q_flow_set.y, equFit.Q_flow_set)
-    annotation (Line(points={{21,80},{40,80},{40,9},{45,9}}, color={0,0,127}));
+    annotation (Line(points={{-39,80},{40,80},{40,-1},{45,-1}},
+                                                             color={0,0,127}));
   connect(mLoa_flow.y, equFit.mLoa_flow)
-    annotation (Line(points={{2,50},{34,50},
-          {34,6},{45,6}}, color={0,0,127}));
+    annotation (Line(points={{-38,50},{34,50},{34,-4},{45,-4}},
+                          color={0,0,127}));
   connect(TLoaEnt.y, equFit.TLoaEnt)
-    annotation (Line(points={{-40,30},{24,30},{24,3},{45,3}}, color={0,0,127}));
+    annotation (Line(points={{-38,20},{24,20},{24,-7},{45,-7}},
+                                                              color={0,0,127}));
   connect(mSou_flow.y, equFit.mSou_flow)
-    annotation (Line(points={{2,-50},{36,-50},{36,-8},{45,-8}}, color={0,0,127}));
+    annotation (Line(points={{-38,-70},{36,-70},{36,-18},{45,-18}},
+                                                                color={0,0,127}));
   connect(TSouEnt.y, equFit.TSouEnt)
-    annotation (Line(points={{-40,-32},{30,-32},{30,-4},{45,-4}}, color={0,0,127}));
+    annotation (Line(points={{-38,-40},{30,-40},{30,-14},{45,-14}},
+                                                                  color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -100},{100,100}}),
                graphics={
@@ -75,7 +81,7 @@ equation
         Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
-                 __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/EquationFitReversibleMethod.mos"
+                 __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/BaseClasses/Validation/EquationFitReversible.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6, StopTime=86400),
@@ -95,4 +101,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EquationFitReversibleMethod;
+end EquationFitReversible;

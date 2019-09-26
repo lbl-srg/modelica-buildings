@@ -6,7 +6,6 @@ Carnot_y_etaCar
 Carnot_y_etaPL
 EquationFitReversible_EnergyPlus
 EquationFitReversible_ScalingFactor
-EquationFitReversibleMethod
 ReciprocatingWaterToWater_Dynamic
 ReciprocatingWaterToWater_ScalingFactor
 ReciprocatingWaterToWater_Static
