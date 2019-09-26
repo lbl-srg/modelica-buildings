@@ -124,7 +124,7 @@ protected
     fixed=false,
     start=0)
     "Convective sensible heat to be added to zone air if T = TRooLast";
-  Integer counter "Counter, used to force one more execution right after the initialization";
+  Integer counter "Counter for number of calls to EnergyPlus during time steps";
 
   function round
     input Real u;
@@ -155,7 +155,7 @@ equation
   // The 'not initial()' triggers one sample when the continuous time simulation starts.
   // This is required for the correct event handling. Otherwise the regression tests will fail.
  // when {initial(), not initial(), time >= pre(tNext)} then
-  when {initial(), pre(counter) == 1, time >= pre(tNext)} then
+  when {initial(), time >= pre(tNext), not initial()} then
   // Initialization of output variables.
     TRooLast = T;
     dtLast = time-pre(tLast);

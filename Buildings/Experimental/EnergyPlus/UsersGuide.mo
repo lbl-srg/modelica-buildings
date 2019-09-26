@@ -3,7 +3,6 @@ package UsersGuide "EnergyPlus package user's guide"
   extends Modelica.Icons.Information;
   annotation (preferredView="info",
 Documentation(info="<html>
-
 <h4>Overview</h4>
 <p>
 This user guide describes how to use the EnergyPlus building envelope model.
@@ -17,6 +16,7 @@ EnergyPlus zone.
 </p>
 <p>
 The following conventions are made:
+</p>
 <ul>
 <li>
 All zones in the idf file must have a zone model in Modelica. Otherwise
@@ -36,12 +36,15 @@ The coupling time step is determined by EnergyPlus based on the zone time step,
 as declared in the idf file.
 </li>
 </ul>
-</p>
 <h4>Note for Dymola</h4>
 <p>
 For Dymola 2019FD01 and Dymola 2020, only one thermal zone can be in EnergyPlus.
 For Dymola 2020x, this limitation will be corrected if the flag
-<code>Hidden.AvoidDoubleComputation=true</code>
+</p>
+<pre>
+Hidden.AvoidDoubleComputation=true
+</pre>
+<p>
 is set in the Dymola command line window.
 For Dymola 2021, this flag will be set to <code>true</code> by default.
 </p>

@@ -1,0 +1,12 @@
+old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
+Hidden.AvoidDoubleComputation=true;
+simulateModel("Buildings.Experimental.EnergyPlus.Validation.TwoIdenticalZones", stopTime=1209600, method="Cvode", tolerance=1e-06, resultFile="TwoIdenticalZones");
+Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
+createPlot(id=1, position={15, 15, 542, 347}, y=fill("", 0), range={0.0, 1.0, 0.0, 1.0}, grid=true);
+createPlot(id=7, position={36, 23, 1252, 1087}, y={"zon1.TAir", "zon2.TAir", "zon1.fmuZon.TRad", "zon2.fmuZon.TRad", "TAirEnePlu.y"}, range={0.0, 1250000.0, 10.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, displayUnits={"degC", "degC", "degC", "degC", "degC"});
+createPlot(id=7, position={36, 23, 1252, 214}, y={"relHumEnePlu.y", "senRelHum.phi"}, range={0.0, 1250000.0, 0.0, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=7, position={36, 23, 1252, 215}, y={"zon1.fmuZon.QCon_flow", "zon2.fmuZon.QCon_flow"}, range={0.0, 1250000.0, -10000.0, 20000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=7, position={36, 23, 1252, 214}, y={"zon1.fmuZon.QLat_flow", "zon2.fmuZon.QLat_flow"}, range={0.0, 1250000.0, -2.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=7, position={36, 23, 1252, 214}, y={"zon1.fmuZon.QPeo_flow", "zon2.fmuZon.QPeo_flow"}, range={0.0, 1250000.0, -2.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}});
+createPlot(id=8, position={1349, 37, 542, 654}, y={"zon1.fmuZon.AFlo", "zon2.fmuZon.AFlo"}, range={0.0, 1400000.0, 800.0, 1000.0}, grid=true, colors={{28,108,200}, {0,140,72}});
+createPlot(id=8, position={1349, 37, 542, 325}, y={"zon1.fmuZon.V", "zon2.V"}, range={0.0, 1400000.0, 2400.0, 3200.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

@@ -15,7 +15,13 @@ model FloorOpenLoop "Open loop model of one floor"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
     redeclare package Medium = Medium,
-    use_windPressure=false)
+    use_windPressure=false,
+    nor(T_start=275.15),
+    wes(T_start=275.15),
+    eas(T_start=275.15),
+    sou(T_start=275.15),
+    cor(T_start=275.15),
+    att(T_start=291.15))
     "One floor of the office building"
     annotation (Placement(transformation(extent={{28,-8},{84,52}})));
   Fluid.Sources.MassFlowSource_WeatherData bou[4](
