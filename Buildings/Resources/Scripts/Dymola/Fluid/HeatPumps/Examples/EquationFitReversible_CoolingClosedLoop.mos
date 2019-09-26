@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatPumps.Examples.EquationFitReversible_CoolingClosedLoop", method="CVode", tolerance=1e-6, stopTime=1000, resultFile="EquationFitReversible_CoolingClosedLoop");
+simulateModel("Buildings.Fluid.HeatPumps.Examples.EquationFitReversible_CoolingClosedLoop", method="CVode", tolerance=1e-6, stopTime=1200, resultFile="EquationFitReversible_CoolingClosedLoop");
 createPlot(id = 1,
    position = {60, 10, 600, 450},
    y = {"heaPum.QSou_flow", "heaPum.QLoa_flow"},
@@ -41,4 +41,3 @@ createPlot(id = 2,
    color = true,
    leftTitleType = 1,
    bottomTitleType = 1);
-
