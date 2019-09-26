@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps;
-model EquationFitReversable
+model EquationFitReversible
   "Model for a reversable heat pump based on the equation fit method"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
           show_T=true,
@@ -12,7 +12,7 @@ model EquationFitReversable
        redeclare final Buildings.Fluid.MixingVolumes.MixingVolume
           vol2(final prescribedHeatFlowRate=true));
 
-  parameter Data.EquationFitReversable.Generic per
+  parameter Data.EquationFitReversible.Generic per
    "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{50,72},
             {70,92}})));
@@ -101,10 +101,10 @@ protected
         0
       else
         m1_flow*(hSet - inStream(port_a1.h_outflow)))
-   "Required heat flow rate to meet set point"
+    "Required heat flow rate to meet set point"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  BaseClasses.EquationFitReversable equFit(final per=per,
+  BaseClasses.EquationFitReversible equFit(final per=per,
                                          final scaling_factor=scaling_factor)
    "Performance model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -128,43 +128,40 @@ protected
     "Generate alert message if control input is not valid"
     annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
 
-
 equation
   connect(equFit.QSou_flow,QSou_flow)
-  annotation (Line(points={{11,-2},{32,-2},{32,-88},{110,-88}}, color={0,0,127}));
-  connect(mSou_flow.y, equFit.mSou_flow) annotation (Line(points={{-59,-10},{-54,
-          -10},{-54,-3},{-11,-3}}, color={0,0,127}));
-  connect(mLoa_flow.y, equFit.mLoa_flow) annotation (Line(points={{-59,26},{-48,
-          26},{-48,6},{-11,6}}, color={0,0,127}));
+    annotation (Line(points={{11,-2},{32,-2},{32,-88},{110,-88}}, color={0,0,127}));
+  connect(mSou_flow.y, equFit.mSou_flow)
+    annotation (Line(points={{-59,-10},{-54,-10},{-54,-8},{-11,-8}},color={0,0,127}));
+  connect(mLoa_flow.y, equFit.mLoa_flow)
+    annotation (Line(points={{-59,26},{-48,26},{-48,6},{-11,6}}, color={0,0,127}));
   connect(equFit.QLoa_flow,QLoa_flow)
-  annotation (Line(points={{11,6},{80,6},{80,88},{110,88}},color={0,0,127}));
+    annotation (Line(points={{11,6},{80,6},{80,88},{110,88}},color={0,0,127}));
   connect(equFit.QLoa_flow,preHeaFloLoa.Q_flow)
-  annotation (Line(points={{11,6},{80,6},{80,20},{59,20}},color={0,0,127}));
+    annotation (Line(points={{11,6},{80,6},{80,20},{59,20}},color={0,0,127}));
   connect(TSouEnt.y,equFit.TSouEnt)
-  annotation (Line(points={{-59,-26},{-50,-26},{-50,-6},{-11,-6}},    color={0,0,127}));
+    annotation (Line(points={{-59,-26},{-50,-26},{-50,-4},{-11,-4}},color={0,0,127}));
   connect(TLoaEnt.y,equFit.TLoaEnt)
-  annotation (Line(points={{-59,8},{-54,8},{-54,3},{-11,3}},      color={0,0,127}));
+    annotation (Line(points={{-59,8},{-54,8},{-54,3},{-11,3}},color={0,0,127}));
   connect(equFit.P, P)
-  annotation (Line(points={{11,2},{60,2},{60,0},{110,0}},
-                                           color={0,0,127}));
+    annotation (Line(points={{11,2},{60,2},{60,0},{110,0}},color={0,0,127}));
   connect(uMod, equFit.uMod)
-  annotation (Line(points={{-112,0},{-11,0}}, color={255,127,0}));
+    annotation (Line(points={{-112,0},{-11,0}}, color={255,127,0}));
   connect(equFit.QSou_flow, preHeaFloSou.Q_flow)
-  annotation (Line(points={{11,-2},{32,-2},{32,-44},{74,-44},{74,-60},{59,-60}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{11,-2},{32,-2},{32,-44},{74,-44},{74,-60},{59,-60}},
+                                color={0,0,127}));
   connect(vol1.heatPort, preHeaFloLoa.port)
-  annotation (Line(points={{-10,60},{-14,60},{-14,20},{39,20}}, color={191,0,0}));
+    annotation (Line(points={{-10,60},{-14,60},{-14,20},{39,20}}, color={191,0,0}));
   connect(vol2.heatPort, preHeaFloSou.port)
-  annotation (Line(points={{12,-60},{39,-60}},                   color={191,0,0}));
-
+    annotation (Line(points={{12,-60},{39,-60}},color={191,0,0}));
   connect(aleMes.u, lesThr.y)
     annotation (Line(points={{-54,-80},{-58,-80}}, color={255,0,255}));
   connect(lesThr.u, uMod) annotation (Line(points={{-82,-80},{-88,-80},{-88,0},{
           -112,0}}, color={255,127,0}));
-  connect(equFit.Q_flow_set, Q_flow_set.y) annotation (Line(points={{-11,9},{-44,
-          9},{-44,40},{-59,40}}, color={0,0,127}));
-  connect(equFit.COP, COP) annotation (Line(points={{11,-6},{36,-6},{36,-40},{
-          110,-40}}, color={0,0,127}));
+  connect(equFit.Q_flow_set, Q_flow_set.y)
+    annotation (Line(points={{-11,9},{-44,9},{-44,40},{-59,40}},color={0,0,127}));
+  connect(equFit.COP, COP)
+    annotation (Line(points={{11,-6},{36,-6},{36,-40},{110,-40}},color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false),
      graphics={
         Ellipse(
@@ -267,8 +264,7 @@ input the set point for the leaving fluid temperature.
 This reversable heat pump can be operated either in heating mode or in cooling mode.
 It typically is used for a water to water heat pump, but if the performance data
 <code>per</code> are set up for other media, such as glycol, it can also be used for
-such applications. If used with air, it does not model latent heat exchange or frost
-build up.
+such applications.
 The heat exchanger at medium 1 is to be connected to the building load,
 and the other heat exchanger to the heat source or sink, such as
 a geothermal loop.
@@ -297,8 +293,8 @@ The input <code>TSet</code> is the set point for the leaving fluid temperature a
 </ul>
 <p>
 The heating and cooling performance coefficients are stored in the data record <code>per</code> and are available from
-<a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitReversable\">
-Buildings.Fluid.HeatPumps.Data.EquationFitReversable</a>.
+<a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitReversible\">
+Buildings.Fluid.HeatPumps.Data.EquationFitReversible</a>.
 </p>
 <p>
 The electric power only includes the power for the compressor, but not any power for pumps, as the pumps must be modeled outside
@@ -361,7 +357,7 @@ If <code>uMod = 0</code>, the model sets <i>Q&#775; = 0</i> and <i>P = 0</i>.
 <p>
 The coefficient of performance COP is computed as
 <p align=\"center\" style=\"font-style:italic;\">
-COP = Q&#775; &frasl; P.
+COP = Q&#775; &frasl; P
 </p>
 <h4>References</h4>
 <p>
@@ -383,4 +379,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EquationFitReversable;
+end EquationFitReversible;

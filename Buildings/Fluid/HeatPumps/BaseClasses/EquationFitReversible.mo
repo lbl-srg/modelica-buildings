@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatPumps.BaseClasses;
-block EquationFitReversable
+block EquationFitReversible
   "Equation fit method to compute the performance of the reversable heat pump"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Data.EquationFitReversable.Generic per
+  parameter Data.EquationFitReversible.Generic per
    "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,72},
           {80,92}})));
@@ -18,23 +18,23 @@ block EquationFitReversable
     final unit="K",
     displayUnit="degC")
    "Load entering fluid temperature"
-    annotation (Placement(transformation(extent={{-124,16},{-100,40}}),
+    annotation (Placement(transformation(extent={{-124,18},{-100,42}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput TSouEnt(
     final unit="K",
     displayUnit="degC")
    "Source entering fluid temperature"
-    annotation (Placement(transformation(extent={{-124,-72},{-100,-48}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-124,-52},{-100,-28}}),
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
 
   Modelica.Blocks.Interfaces.RealInput mLoa_flow(final unit="kg/s")
-    "Mass flow rate at load side" annotation (Placement(transformation(extent={{
-            -124,46},{-100,70}}), iconTransformation(extent={{-120,50},{-100,70}})));
+    "Mass flow rate at load side" annotation (Placement(transformation(extent={{-124,48},
+            {-100,72}}),          iconTransformation(extent={{-120,50},{-100,70}})));
 
   Modelica.Blocks.Interfaces.RealInput mSou_flow(final unit="kg/s")
-    "Mass flow rate at source side" annotation (Placement(transformation(extent=
-           {{-124,-44},{-100,-20}}), iconTransformation(extent={{-120,-40},{-100,
-            -20}})));
+    "Mass flow rate at source side" annotation (Placement(transformation(extent={{-124,
+            -92},{-100,-68}}),       iconTransformation(extent={{-120,-90},{
+            -100,-70}})));
 
   Modelica.Blocks.Interfaces.RealInput Q_flow_set(final unit="W")
     "Required heat to meet set point" annotation (Placement(transformation(
@@ -144,8 +144,8 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
 Block that implements the equation fit method for the reverse heat pump model
-<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversable\">
-Buildings.Fluid.HeatPumps.EquationFitReversable</a>.
+<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
+Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
 </p>
 </html>",
 revisions="<html>
@@ -160,4 +160,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EquationFitReversable;
+end EquationFitReversible;
