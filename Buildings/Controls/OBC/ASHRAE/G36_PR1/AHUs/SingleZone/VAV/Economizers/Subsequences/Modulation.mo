@@ -96,6 +96,12 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
+    final min=0,
+    final max=1,
+    final unit="1") "Heating coil control signal" annotation (Placement(
+        transformation(extent={{120,30},{140,50}}), iconTransformation(extent={{
+            100,30},{120,50}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
       final k=uMin) "Minimal control loop signal for the outdoor air damper"
@@ -125,14 +131,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMinLimSig(final k=0)
     "Minimum control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-public
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
-    final min=0,
-    final max=1,
-    final unit="1") "Heating coil control signal" annotation (Placement(
-        transformation(extent={{120,30},{140,50}}), iconTransformation(extent={{
-            100,30},{120,50}})));
-protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMaxHeaCoi(final k=1)
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
