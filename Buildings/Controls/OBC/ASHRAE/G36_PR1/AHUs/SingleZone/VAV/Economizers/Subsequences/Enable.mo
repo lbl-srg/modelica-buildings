@@ -52,8 +52,7 @@ block Enable
     annotation (Placement(transformation(extent={{-220,190},{-180,230}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(final unit="J/kg",
-      final quantity="SpecificEnergy") if
-                                        use_enthalpy
+      final quantity="SpecificEnergy") if use_enthalpy
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
         iconTransformation(extent={{-120,10},{-100,30}})));
