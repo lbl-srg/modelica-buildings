@@ -15,14 +15,16 @@ model EquationFitReversibleMethod
   BaseClasses.EquationFitReversible equFit(
     per=per,
     scaling_factor=1)
+    "Performance model for equation fit"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
   Modelica.Blocks.Math.RealToInteger reaToInt
     "Real to integer conversion"
     annotation (Placement(transformation(extent={{-4,-10},{16,10}})));
-  Modelica.Blocks.Sources.Sine  uMod(amplitude=1, freqHz=1/2600)
-                 "Heat pump operates in heating mode"
+  Modelica.Blocks.Sources.Sine uMod(amplitude=1, freqHz=1/2600)
+    "Heat pump operates in heating mode"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
-  Modelica.Blocks.Sources.Sine sine(amplitude=5000, freqHz=1/2600)
+  Modelica.Blocks.Sources.Sine Q_flow_set(amplitude=5000, freqHz=1/2600)
+    "Set point for heat flow rate"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Controls.OBC.CDL.Continuous.Sources.Constant mLoa_flow(k=1.89)
     "Mass flow rate entering load heat exchanger side"
@@ -47,7 +49,7 @@ equation
     annotation (Line(points={{-6,0},{-61,0}},color={0,0,127}));
   connect(reaToInt.y, equFit.uMod)
     annotation (Line(points={{17,0},{45,0}},color={255,127,0}));
-  connect(sine.y, equFit.Q_flow_set)
+  connect(Q_flow_set.y, equFit.Q_flow_set)
     annotation (Line(points={{21,80},{40,80},{40,9},{45,9}}, color={0,0,127}));
   connect(mLoa_flow.y, equFit.mLoa_flow)
     annotation (Line(points={{2,50},{34,50},
@@ -83,7 +85,7 @@ This model implements a validation of the block
 <a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.BaseClasses.EquationFitReversible</a>
 that applies the equation fit method used for <a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
-Buildings.Fluid.HeatPumps.EquationFitReversible</a> model.
+Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
 </p>
 </html>", revisions="<html>
 <ul>
