@@ -45,8 +45,6 @@ model EquationFitReversible_EnergyPlus "Validation with EnergyPlus model"
     "Volume for heating load"
       annotation (Placement(transformation(extent={{80,-4},{60,16}})));
 
-  Modelica.Blocks.Math.RealToInteger reaToInt "Real to integer conversion"
-      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
@@ -57,17 +55,17 @@ model EquationFitReversible_EnergyPlus "Validation with EnergyPlus model"
     "Reader for \"GSHPSimple-GLHE-ReverseHeatPump.IDF\" energy plus example results"
       annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
-  Modelica.Blocks.Sources.Constant uMod(k=1)
+  Controls.OBC.CDL.Integers.Sources.Constant uMod(k=1)
     "Heat pump operational mode"
-      annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.UnitConversions.From_degC TLoaEnt
     "Block that converts entering water temperature of the load side"
       annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.UnitConversions.From_degC TSouEnt
     "Block that converts entering water temperature of the source side"
       annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC TSetCoo
-    "Block that converts set point cooling water temperature "
+  Buildings.Controls.OBC.UnitConversions.From_degC TSetHea
+    "Block that converts set point for leaving heating water temperature "
       annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Modelica.Blocks.Sources.RealExpression QSou_flow_EP(y=datRea.y[9])
     "EnergyPlus results: source side heat flow rate"
@@ -83,29 +81,27 @@ equation
     annotation (Line(points={{30,6},{20,6},{20,74},{-1.77636e-15,74}},color={0,127,255}));
   connect(souPum.ports[1], heaPum.port_a2)
     annotation (Line(points={{60,-20},{50,-20},{50,-6}},color={0,127,255}));
-  connect(heaPum.uMod, reaToInt.y)
-    annotation (Line(points={{29,0},{-39,0}},color={255,127,0}));
   connect(cooVol.ports[1], heaPum.port_b2)
     annotation (Line(points={{0,-20},{20,-20},{20,-6},{30,-6}}, color={0,127,255}));
   connect(heaPum.port_b1, heaVol.ports[1])
     annotation (Line(points={{50,6},{60,6}},                 color={0,127,255}));
-  connect(reaToInt.u, uMod.y)
-    annotation (Line(points={{-62,0},{-79,0}}, color={0,0,127}));
   connect(loaPum.T_in, TLoaEnt.y)
     annotation (Line(points={{-22,70},{-38,70}}, color={0,0,127}));
   connect(TSouEnt.y, souPum.T_in)
     annotation (Line(points={{-38,-40},{92,-40},{92,-24},{82,-24}}, color={0,0,127}));
-  connect(TSetCoo.y, heaPum.TSet) annotation (Line(points={{-38,40},{8,40},{8,9},
+  connect(TSetHea.y, heaPum.TSet) annotation (Line(points={{-38,40},{8,40},{8,9},
           {28.6,9}},    color={0,0,127}));
   connect(datRea.y[12], TLoaEnt.u)
     annotation (Line(points={{-79,70},{-62,70}}, color={0,0,127}));
-  connect(datRea.y[11], TSetCoo.u)
+  connect(datRea.y[11],TSetHea. u)
     annotation (Line(points={{-79,70},{-70,70},{-70,40},{-62,40}}, color={0,0,127}));
   connect(datRea.y[14], TSouEnt.u)
     annotation (Line(points={{-79,70},{-70,70},{-70,-40},{-62,-40}},
                                color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{120,100}}),
+  connect(heaPum.uMod, uMod.y)
+    annotation (Line(points={{29,0},{-38,0}}, color={255,127,0}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),
                graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
@@ -117,8 +113,7 @@ equation
                 fillPattern = FillPattern.Solid,
                 points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
         Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
                  __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/EquationFitReversible_EnergyPlus.mos"
         "Simulate and plot"),
     experiment(
