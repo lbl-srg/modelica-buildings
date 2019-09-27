@@ -229,7 +229,7 @@ Icon(graphics={Rectangle(
 <p>
 This atomic sequence sets the minimum outdoor airflow setpoint for compliance
 with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation
-is according to ASHRAE Guidline 36 (G36), PART5.P.4.b, PART5.B.2.b, PART3.1-D.2.a.
+is according to ASHRAE Guidline 36 (G36), PART 5.P.4.b, PART 5.B.2.b, PART3.1-D.2.a.
 </p>
 
 <h4>Step 1: Minimum breathing zone outdoor airflow required <code>breZon</code></h4>

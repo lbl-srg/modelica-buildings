@@ -34,22 +34,29 @@ model Supply_T
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSet(
     k=273.15 + 22) "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  CDL.Logical.Sources.Constant fanSta(k=true) "Fan is on"
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 equation
-  connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-59,50},{-31.5,50},
-          {-31.5,4},{-2,4}},color={0,0,127}));
-  connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-59,-10},{-32,-10},{
-          -32,-4},{-2,-4}}, color={0,0,127}));
-  connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-59,-50},{-28,-50},{
-          -28,-8},{-2,-8}}, color={0,0,127}));
-  connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-59,80},{-59,80},{
-          -20,80},{-20,8},{-2,8}},
+  connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-58,50},{-31.5,50},
+          {-31.5,5},{-2,5}},color={0,0,127}));
+  connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-58,-10},{-32,-10},
+          {-32,-1.66667},{-2,-1.66667}},
+                            color={0,0,127}));
+  connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-58,-50},{-28,-50},
+          {-28,-5},{-2,-5}},color={0,0,127}));
+  connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-58,80},{-58,80},{
+          -20,80},{-20,8.33333},{-2,8.33333}},
                                color={0,0,127}));
-  connect(dT.u1, TZon.y) annotation (Line(points={{-2,-34},{-32,-34},{-32,-10},{
-          -59,-10}}, color={0,0,127}));
-  connect(dT.u2, TOut.y) annotation (Line(points={{-2,-46},{-28,-46},{-28,-50},{
-          -59,-50}}, color={0,0,127}));
-  connect(TZonSet.y,setPoiVAV.TZonSet)  annotation (Line(points={{-59,20},{-40,
-          20},{-40,0},{-2,0}}, color={0,0,127}));
+  connect(dT.u1, TZon.y) annotation (Line(points={{-2,-34},{-32,-34},{-32,-10},
+          {-58,-10}},color={0,0,127}));
+  connect(dT.u2, TOut.y) annotation (Line(points={{-2,-46},{-28,-46},{-28,-50},
+          {-58,-50}},color={0,0,127}));
+  connect(TZonSet.y,setPoiVAV.TZonSet)  annotation (Line(points={{-58,20},{-40,
+          20},{-40,1.66667},{-2,1.66667}},
+                               color={0,0,127}));
+  connect(fanSta.y, setPoiVAV.uFan) annotation (Line(points={{-58,-90},{-10,-90},
+          {-10,-8.33333},{-2,-8.33333}},
+                               color={255,0,255}));
   annotation (
   experiment(StopTime=1.0, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Validation/Supply_T.mos"
@@ -61,7 +68,7 @@ This example validates
 Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply</a>
 for a change in temperature difference between zone air and outdoor air.
 Hence, this model validates whether the adjustment of the fan speed for medium
-cooling load is correct implemented.
+cooling load is correctly implemented.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -71,7 +78,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
+    Icon(coordinateSystem(extent={{-100,-120},{100,100}}),
+         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -80,5 +88,6 @@ First implementation.
                 fillColor = {75,138,73},
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(coordinateSystem(extent={{-100,-120},{100,100}})));
 end Supply_T;

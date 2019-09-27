@@ -821,7 +821,7 @@ the boiler plant reset requests <code>yHeaPlaReq</code>.
 </ul>
 <p>
 The calculations are according to ASHRAE
-Guideline 36 (G36), PART5.E.9, in the steps shown below.
+Guideline 36 (G36), PART 5.E.9, in the steps shown below.
 </p>
 <h4>a. Cooling SAT reset requests <code>yZonTemResReq</code></h4>
 <ol>
