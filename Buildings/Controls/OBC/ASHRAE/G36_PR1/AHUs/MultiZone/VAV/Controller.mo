@@ -753,14 +753,14 @@ Documentation(info="<html>
 Block that is applied for multizone VAV AHU control. It outputs the supply fan status
 and the operation speed, outdoor and return air damper position, supply air
 temperature setpoint and the valve position of the cooling and heating coils.
-It is implemented according to the ASHRAE Guideline 36, PART5.N.
+It is implemented according to the ASHRAE Guideline 36, PART 5.N.
 </p>
 <p>
 The sequence consists of five subsequences.
 </p>
 <h4>Supply fan speed control</h4>
 <p>
-The fan speed control is implemented according to PART5.N.1. It outputs
+The fan speed control is implemented according to PART 5.N.1. It outputs
 the boolean signal <code>ySupFan</code> to turn on or off the supply fan.
 In addition, based on the pressure reset request <code>uZonPreResReq</code>
 from the VAV zones controller, the
@@ -796,7 +796,7 @@ for more detailed description.
 </p>
 <h4>Supply air temperature setpoint</h4>
 <p>
-Based on PART5.N.2, the sequence first sets the maximum supply air temperature
+Based on PART 5.N.2, the sequence first sets the maximum supply air temperature
 based on reset requests collected from each zone <code>uZonTemResReq</code>. The
 outdoor temperature <code>TOut</code> and operation mode <code>uOpeMod</code> are used
 along with the maximum supply air temperature, for computing the supply air temperature
