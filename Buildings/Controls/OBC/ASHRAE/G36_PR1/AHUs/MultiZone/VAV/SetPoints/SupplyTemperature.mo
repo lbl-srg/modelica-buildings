@@ -267,7 +267,7 @@ annotation (
 <p>
 Block that outputs the supply air temperature setpoint and the coil valve control
 inputs for VAV system with multiple zones, implemented according to the ASHRAE
-Guideline G36, PART5.N.2 (Supply air temperature control).
+Guideline G36, PART 5.N.2 (Supply air temperature control).
 </p>
 <p>
 The control loop is enabled when the supply air fan <code>uSupFan</code> is proven on,

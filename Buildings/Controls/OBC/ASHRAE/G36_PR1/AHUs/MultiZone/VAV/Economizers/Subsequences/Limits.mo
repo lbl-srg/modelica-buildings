@@ -339,7 +339,7 @@ control loop")}),
 <p>
 This block models the multi zone VAV AHU minimum outdoor air control with a single
 common damper for minimum outdoor air and economizer functions based on outdoor airflow
-measurement, designed in line with ASHRAE Guidline 36 (G36), PART5.N.6.c.
+measurement, designed in line with ASHRAE Guidline 36 (G36), PART 5.N.6.c.
 </p>
 <p>
 The controller is enabled when the supply fan is proven on (<code>uSupFan=true</code>),
