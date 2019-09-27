@@ -381,7 +381,7 @@ annotation (
   Documentation(info="<html>
 <p>
 Supply fan control for a multi zone VAV AHU according to
-ASHRAE guideline G36, PART5.N.1 (Supply fan control).
+ASHRAE guideline G36, PART 5.N.1 (Supply fan control).
 </p>
 <h4>Supply fan start/stop</h4>
 <ul>

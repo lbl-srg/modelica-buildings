@@ -345,7 +345,7 @@ not a part of G36",
 <p>
 Multi zone VAV AHU economizer control sequence that calculates
 outdoor and return air damper positions based on ASHRAE
-Guidline 36, PART5 sections: N.2.c, N.5, N.6.c, N.7, A.17, N.12.
+Guidline 36, PART 5 sections: N.2.c, N.5, N.6.c, N.7, A.17, N.12.
 </p>
 <p>
 The sequence consists of three subsequences.
