@@ -84,7 +84,7 @@ equation
                  __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/BaseClasses/Validation/EquationFitReversible.mos"
         "Simulate and plot"),
     experiment(
-      Tolerance=1e-6, StopTime=86400),
+      Tolerance=1e-6, StopTime=2600),
 Documentation(info="<html>
 <p>
 This model implements a validation of the block
