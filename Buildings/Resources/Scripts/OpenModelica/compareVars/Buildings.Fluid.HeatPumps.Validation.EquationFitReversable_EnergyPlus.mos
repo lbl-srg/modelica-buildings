@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "heaPum.QLoa_flow",
-    "heaPum.QSou_flow",
-    "QConEP.y",
-    "QEvaEP.y",
-    "heaPum.P",
-    "comPEP.y"
-  };
