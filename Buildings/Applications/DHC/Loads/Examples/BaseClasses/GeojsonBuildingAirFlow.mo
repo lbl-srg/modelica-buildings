@@ -55,17 +55,17 @@ model GeojsonBuildingAirFlow "Building model of type RC based on Urbanopt GeoJSO
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1[nCooLoa](k=-Q_flowCoo_nominal)
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_Office
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Office
     b5a6b99ec37f4de7f94020090_Office annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_Floor
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Floor
     b5a6b99ec37f4de7f94020090_Floor annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_Storage
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Storage
     b5a6b99ec37f4de7f94020090_Storage annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_Meeting
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Meeting
     b5a6b99ec37f4de7f94020090_Meeting annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_Restroom
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Restroom
     b5a6b99ec37f4de7f94020090_Restroom annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_ICT
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.ICT
     b5a6b99ec37f4de7f94020090_ICT annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max annotation (Placement(transformation(extent={{160,-100},{180,-80}})));

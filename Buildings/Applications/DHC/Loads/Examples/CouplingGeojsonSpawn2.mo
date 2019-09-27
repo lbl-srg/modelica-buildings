@@ -1,17 +1,11 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingGeojsonAirFlow "Example illustrating the coupling of a multizone RC model to a fluid loop"
+model CouplingGeojsonSpawn2 "Example illustrating the coupling of a multizone RC model to a fluid loop"
   import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Fluid in the pipes";
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
-    computeWetBulbTemperature=false,
-    filNam=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
-    "Weather data reader"
-    annotation (Placement(transformation(extent={{110,-30},{90,-10}})));
 
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonBuildingAirFlow bui
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawnBuilding2
+                                                                        bui
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
@@ -87,11 +81,6 @@ model CouplingGeojsonAirFlow "Example illustrating the coupling of a multizone R
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 equation
-  connect(weaDat.weaBus, bui.weaBus)
-  annotation (Line(
-      points={{90,-20},{50.1,-20}},
-      color={255,204,51},
-      thickness=0.5));
   connect(supHea.m_flow_in, m_flowHeaVal.y)
     annotation (Line(points={{-44,38},{-66,38},{-66,44},{-79,44}}, color={0,0,127}));
   connect(THeaInlVal.y, supHea.T_in) annotation (Line(points={{-79,24},{-66,24},{-66,34},{-44,34}}, color={0,0,127}));
@@ -112,10 +101,13 @@ equation
   connect(bui.m_flowHeaLoa, couHea.m_flow2)
     annotation (Line(points={{61,-27},{82,-27},{82,52},{-10,52},{-10,38},{-2,38}}, color={0,0,127}));
   connect(bui.m_flowCooLoa, couCoo.m_flow2)
-    annotation (Line(points={{61,-33},{82,-33},{82,-112},{-10,-112},{-10,-98},{-2,-98}}, color={0,0,127}));
+    annotation (Line(points={{61,-33},{82,-33},{82,-114},{-10,-114},{-10,-98},{-2,-98}}, color={0,0,127}));
   connect(bui.fraLatCooReq, couCoo.fraLat)
-    annotation (Line(points={{61,-31},{84,-31},{84,-114},{-12,-114},{-12,-94},{-2,-94}}, color={0,0,127}));
+    annotation (Line(points={{61,-31},{84,-31},{84,-118},{-12,-118},{-12,-94},{-2,-94}}, color={0,0,127}));
   annotation (
+  experiment(
+      StopTime=86400,
+      Tolerance=1e-06),
   Documentation(info="<html>
   <p>
   This example illustrates the use of
@@ -129,6 +121,5 @@ equation
   </html>"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}})),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingGeojsonAirFlow.mos"
-        "Simulate and plot"));
-end CouplingGeojsonAirFlow;
+    __Dymola_Commands);
+end CouplingGeojsonSpawn2;

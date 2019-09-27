@@ -34,26 +34,26 @@ model GeojsonBuilding "Building model of type RC based on Urbanopt GeoJSON expor
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1[nCooLoa](k=-Q_flowCoo_nominal)
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_Office
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Office
     b5a6b99ec37f4de7f94020090_Office annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_Floor
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Floor
     b5a6b99ec37f4de7f94020090_Floor annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_Storage
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Storage
     b5a6b99ec37f4de7f94020090_Storage annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_Meeting
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Meeting
     b5a6b99ec37f4de7f94020090_Meeting annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_Restroom
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Restroom
     b5a6b99ec37f4de7f94020090_Restroom annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090_ICT
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.ICT
     b5a6b99ec37f4de7f94020090_ICT annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 equation
-  connect(from_degC1.y,conPIDMinT. u_s) annotation (Line(points={{-79,130},{-62,130}}, color={0,0,127}));
-  connect(conPIDMinT.y,gai. u) annotation (Line(points={{-39,130},{-22,130}}, color={0,0,127}));
-  connect(from_degC2.y,conPIDMax. u_s) annotation (Line(points={{-79,-130},{-62,-130}}, color={0,0,127}));
-  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-119,-130},{-102,-130}}, color={0,0,127}));
-  connect(conPIDMax.y,gai1. u) annotation (Line(points={{-39,-130},{-22,-130}}, color={0,0,127}));
+  connect(from_degC1.y,conPIDMinT. u_s) annotation (Line(points={{-78,130},{-62,130}}, color={0,0,127}));
+  connect(conPIDMinT.y,gai. u) annotation (Line(points={{-38,130},{-22,130}}, color={0,0,127}));
+  connect(from_degC2.y,conPIDMax. u_s) annotation (Line(points={{-78,-130},{-62,-130}}, color={0,0,127}));
+  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
+  connect(conPIDMax.y,gai1. u) annotation (Line(points={{-38,-130},{-22,-130}}, color={0,0,127}));
   connect(minTSet.y, from_degC1.u)
-    annotation (Line(points={{-119,130},{-110,130},{-110,130},{-102,130}}, color={0,0,127}));
+    annotation (Line(points={{-118,130},{-110,130},{-110,130},{-102,130}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_Floor.TAir, conPIDMinT[2].u_m)
     annotation (Line(points={{-39,-10},{-30,-10},{-30,100},{-50,100},{-50,118}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_Meeting.TAir, conPIDMinT[4].u_m)
@@ -70,8 +70,8 @@ equation
     annotation (Line(points={{41,-10},{50,-10},{50,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_ICT.TAir, conPIDMax[6].u_m)
     annotation (Line(points={{121,-10},{130,-10},{130,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
-  connect(gai1.y, Q_flowCooReq) annotation (Line(points={{1,-130},{152,-130},{152,-192},{310,-192}}, color={0,0,127}));
-  connect(gai.y, Q_flowHeaReq) annotation (Line(points={{1,130},{152,130},{152,200},{310,200}}, color={0,0,127}));
+  connect(gai1.y, Q_flowCooReq) annotation (Line(points={{2,-130},{152,-130},{152,-192},{310,-192}}, color={0,0,127}));
+  connect(gai.y, Q_flowHeaReq) annotation (Line(points={{2,130},{152,130},{152,200},{310,200}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_Office.TAir, conPIDMinT[1].u_m)
     annotation (Line(points={{-79,-10},{-70,-10},{-70,100},{-50,100},{-50,118}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_Office.TAir, conPIDMax[1].u_m)
@@ -81,7 +81,7 @@ equation
   connect(b5a6b99ec37f4de7f94020090_Storage.TAir, conPIDMinT[3].u_m)
     annotation (Line(points={{1,-10},{10,-10},{10,100},{-50,100},{-50,118}}, color={0,0,127}));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Office.weaBus) annotation (Line(
-      points={{1,300},{9,300},{9,20.3398},{-100,20.3398},{-100,-10}},
+      points={{1,300},{9,300},{9,20.3398},{-96,20.3398},{-96,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -89,7 +89,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Floor.weaBus) annotation (Line(
-      points={{1,300},{10,300},{10,20},{-60,20},{-60,-10}},
+      points={{1,300},{10,300},{10,20},{-56,20},{-56,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -97,7 +97,7 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Storage.weaBus) annotation (Line(
-      points={{1,300},{11,300},{11,20},{-20,20},{-20,-10}},
+      points={{1,300},{11,300},{11,20},{-16,20},{-16,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -105,7 +105,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Meeting.weaBus) annotation (Line(
-      points={{1,300},{10,300},{10,20},{20,20},{20,-10}},
+      points={{1,300},{10,300},{10,20},{24,20},{24,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -113,7 +113,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Restroom.weaBus) annotation (Line(
-      points={{1,300},{9,300},{9,19},{60,19},{60,-10}},
+      points={{1,300},{9,300},{9,19},{64,19},{64,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -121,7 +121,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus, b5a6b99ec37f4de7f94020090_ICT.weaBus) annotation (Line(
-      points={{1,300},{10,300},{10,20},{100,20},{100,-10}},
+      points={{1,300},{10,300},{10,20},{104,20},{104,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

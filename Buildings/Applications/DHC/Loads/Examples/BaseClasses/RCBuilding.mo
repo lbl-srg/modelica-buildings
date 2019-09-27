@@ -266,22 +266,22 @@ equation
           {120,24},{120,108},{-50,108},{-50,118}},        color={0,0,127}));
   connect(thermalZoneOneElement.TAir, conPIDMax.u_m) annotation (Line(points={{93,
           24},{120,24},{120,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
-  connect(from_degC2.y, conPIDMax.u_s) annotation (Line(points={{-79,-130},{-62,-130}}, color={0,0,127}));
-  connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-119,-130},{-102,-130}}, color={0,0,127}));
-  connect(minTSet.y, from_degC1.u) annotation (Line(points={{-119,130},{-102,130}}, color={0,0,127}));
-  connect(from_degC1.y, conPIDMinT.u_s) annotation (Line(points={{-79,130},{-62,130}}, color={0,0,127}));
-  connect(conPIDMinT.y, gai.u) annotation (Line(points={{-39,130},{-22,130}}, color={0,0,127}));
-  connect(conPIDMax.y, gai1.u) annotation (Line(points={{-39,-130},{-22,-130}}, color={0,0,127}));
+  connect(from_degC2.y, conPIDMax.u_s) annotation (Line(points={{-78,-130},{-62,-130}}, color={0,0,127}));
+  connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
+  connect(minTSet.y, from_degC1.u) annotation (Line(points={{-118,130},{-102,130}}, color={0,0,127}));
+  connect(from_degC1.y, conPIDMinT.u_s) annotation (Line(points={{-78,130},{-62,130}}, color={0,0,127}));
+  connect(conPIDMinT.y, gai.u) annotation (Line(points={{-38,130},{-22,130}}, color={0,0,127}));
+  connect(conPIDMax.y, gai1.u) annotation (Line(points={{-38,-130},{-22,-130}}, color={0,0,127}));
   connect(from_degC1.y, heaLoaO[1].TSet)
-    annotation (Line(points={{-79,130},{-70,130},{-70,108},{-178,108}},     color={0,0,127}));
+    annotation (Line(points={{-78,130},{-70,130},{-70,108},{-178,108}},     color={0,0,127}));
   connect(sin.y, heaLoaO[1].Q_flowReq)
-    annotation (Line(points={{11,180},{39.5,180},{39.5,100},{-178,100}},
+    annotation (Line(points={{12,180},{39.5,180},{39.5,100},{-178,100}},
                                                                        color={0,0,127}));
-  connect(gai.y, Q_flowHeaReq[1]) annotation (Line(points={{1,130},{150,130},{150,195},{310,195}},
+  connect(gai.y, Q_flowHeaReq[1]) annotation (Line(points={{2,130},{150,130},{150,195},{310,195}},
                                                                                                  color={0,0,127}));
   connect(gai1.y, Q_flowCooReq[1])
-    annotation (Line(points={{1,-130},{152,-130},{152,-192},{310,-192}}, color={0,0,127}));
-  connect(sin.y, Q_flowHeaReq[2]) annotation (Line(points={{11,180},{158,180},{158,205},{310,205}}, color={0,0,127}));
+    annotation (Line(points={{2,-130},{152,-130},{152,-192},{310,-192}}, color={0,0,127}));
+  connect(sin.y, Q_flowHeaReq[2]) annotation (Line(points={{12,180},{158,180},{158,205},{310,205}}, color={0,0,127}));
   connect(thermalZoneOneElement.intGainsConv, heaFloCooLoaH[1].port_b)
     annotation (Line(points={{92,12},{98,12},{98,-150},{-260,-150}}, color={191,0,0}));
   connect(thermalZoneOneElement.intGainsConv, heaFloHeaLoaH[1].port_b)

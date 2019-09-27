@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model GeojsonExportRaw "Multizone RC model"
+model GeojsonRCRawExport "Multizone RC model"
   import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Fluid in the pipes";
@@ -45,6 +45,5 @@ equation
   </html>"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}})),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingGeojsonExport.mos"
-        "Simulate and plot"));
-end GeojsonExportRaw;
+    __Dymola_Commands);
+end GeojsonRCRawExport;

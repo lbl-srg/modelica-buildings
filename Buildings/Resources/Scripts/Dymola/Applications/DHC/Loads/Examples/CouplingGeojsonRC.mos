@@ -1,8 +1,8 @@
 removePlots(true);
-simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingGeojsonAirFlow",
+simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingGeojsonRC",
     method="cvode", tolerance=1e-6, numberOfIntervals=500,
     stopTime=800000.0,
-    resultFile="CouplingGeojsonAirFlow");
+    resultFile="CouplingGeojsonRC");
 createPlot(
     id=1,
     position={10, 20, 670, 900},
@@ -45,7 +45,7 @@ createPlot(
     grid=true,
     subPlot=3
 );
-plotExpression(apply(-1*sum(CouplingGeojsonAirFlow[end].couHea.Q_flow_nominal)), false, "Q_flow_nominal", 2);
+plotExpression(apply(-1*sum(CouplingGeojson[end].couHea.Q_flow_nominal)), false, "Q_flow_nominal", 2);
 createPlot(
     id=3,
     position={1300, 20, 670, 900},
@@ -67,7 +67,7 @@ createPlot(
     grid=true,
     subPlot=3
 );
-plotExpression(apply(sum(CouplingGeojsonAirFlow[end].couCoo.Q_flow_nominal)), false, "Q_flow_nominal", 3);
+plotExpression(apply(sum(CouplingGeojson[end].couCoo.Q_flow_nominal)), false, "Q_flow_nominal", 3);
 createPlot(
     id=4,
     position={650, 260, 650, 400},

@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingGeojson "Example illustrating the coupling of a multizone RC model to a fluid loop"
+model CouplingGeojsonRC "Example illustrating the coupling of a multizone RC model to a fluid loop"
   import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Fluid in the pipes";
@@ -129,6 +129,6 @@ equation
   </html>"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}})),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingGeojson.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingGeojsonRC.mos"
         "Simulate and plot"));
-end CouplingGeojson;
+end CouplingGeojsonRC;
