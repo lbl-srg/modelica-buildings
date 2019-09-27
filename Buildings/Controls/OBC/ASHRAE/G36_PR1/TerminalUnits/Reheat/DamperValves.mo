@@ -766,7 +766,7 @@ in heating state")}),
   Documentation(info="<html>
 <p>
 This sequence sets the damper and valve position for VAV reheat terminal unit.
-The implementation is according to ASHRAE Guideline 36 (G36), PART5.E.6. The
+The implementation is according to ASHRAE Guideline 36 (G36), PART 5.E.6. The
 calculation is done following the steps below.
 </p>
 <ol>
