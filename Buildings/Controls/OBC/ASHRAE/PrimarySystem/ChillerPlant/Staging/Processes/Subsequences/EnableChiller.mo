@@ -1,7 +1,7 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block EnableChiller "Sequence for enabling chiller"
 
-  parameter Integer nChi = 2 "Total number of chillers";
+  parameter Integer nChi "Total number of chillers";
   parameter Modelica.SIunits.Time proOnTim = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
@@ -35,13 +35,14 @@ block EnableChiller "Sequence for enabling chiller"
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yNewChiEna
     "Newly enabled chiller has been proven on by more than 5 minutes"
-    annotation (Placement(transformation(extent={{200,-180},{240,-140}}),
+    annotation (Placement(transformation(extent={{200,-190},{240,-150}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}
     "Chiller index, {1,2,...,n}";
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nChi]
+    "Logical switch"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
@@ -114,6 +115,14 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nChi]
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nChi]
+    "Logical switch"
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator  booRep4(final nout=nChi)
+    "Replicate boolean input"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4 "Logical switch"
+    annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
 
 equation
   connect(nexEnaChi, intRep.u)
@@ -140,9 +149,6 @@ equation
     annotation (Line(points={{-78,-110},{-62,-110}}, color={0,0,127}));
   connect(uChi,booToRea. u)
     annotation (Line(points={{-220,0},{-162,0}}, color={255,0,255}));
-  connect(and2.y,edg. u)
-    annotation (Line(points={{-138,60},{-120,60},{-120,-20},{-102,-20}},
-      color={255,0,255}));
   connect(booToRea.y,triSam. u)
     annotation (Line(points={{-138,0},{-22,0}}, color={0,0,127}));
   connect(edg.y,booRep1. u)
@@ -151,9 +157,6 @@ equation
     annotation (Line(points={{-38,-20},{-10,-20},{-10,-11.8}}, color={255,0,255}));
   connect(triSam.y,greEquThr. u)
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
-  connect(greEquThr.y,logSwi. u3)
-    annotation (Line(points={{42,0},{60,0},{60,112},{98,112}},
-      color={255,0,255}));
   connect(and2.y,tim. u)
     annotation (Line(points={{-138,60},{-120,60},{-120,-110},{-102,-110}},
       color={255,0,255}));
@@ -204,9 +207,33 @@ equation
   connect(intEqu1.y, and3.u2)
     annotation (Line(points={{-78,-150},{20,-150},{20,-118},{38,-118}},
       color={255,0,255}));
-  connect(greEquThr3.y, yNewChiEna)
-    annotation (Line(points={{-38,-110},{-30,-110},{-30,-160},{220,-160}},
+  connect(uStaUp, edg.u)
+    annotation (Line(points={{-220,60},{-190,60},{-190,-20},{-102,-20}},
       color={255,0,255}));
+  connect(uStaUp, booRep4.u)
+    annotation (Line(points={{-220,60},{-190,60},{-190,40},{-42,40}},
+      color={255,0,255}));
+  connect(booRep4.y, logSwi3.u2)
+    annotation (Line(points={{-18,40},{58,40}}, color={255,0,255}));
+  connect(uChi, logSwi3.u3)
+    annotation (Line(points={{-220,0},{-180,0},{-180,20},{40,20},{40,32},
+      {58,32}}, color={255,0,255}));
+  connect(greEquThr.y, logSwi3.u1)
+    annotation (Line(points={{42,0},{50,0},{50,48},{58,48}}, color={255,0,255}));
+  connect(logSwi3.y, logSwi.u3)
+    annotation (Line(points={{82,40},{90,40},{90,112},{98,112}},
+      color={255,0,255}));
+  connect(not2.y, logSwi4.u2)
+    annotation (Line(points={{-138,-50},{-130,-50},{-130,-170},{158,-170}},
+      color={255,0,255}));
+  connect(and2.y, logSwi4.u1)
+    annotation (Line(points={{-138,60},{-120,60},{-120,-162},{158,-162}},
+      color={255,0,255}));
+  connect(greEquThr3.y, logSwi4.u3)
+    annotation (Line(points={{-38,-110},{-30,-110},{-30,-178},{158,-178}},
+      color={255,0,255}));
+  connect(logSwi4.y, yNewChiEna)
+    annotation (Line(points={{182,-170},{220,-170}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaChi",
@@ -292,7 +319,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{68,62},{148,54}},
+          extent={{68,104},{148,96}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -309,7 +336,7 @@ annotation (
           textString="Disable 
 small chiller"),
           Text(
-          extent={{70,52},{204,36}},
+          extent={{70,94},{204,78}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -318,7 +345,7 @@ small chiller"),
           textString="1. When the stage change does not require one chiller off and another 
 chiller on."),
           Text(
-          extent={{70,42},{282,20}},
+          extent={{70,84},{282,62}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,

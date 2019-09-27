@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation.EnableCWPump", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="CWPumSta");
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=1, y={"staUpInd.uUpsDevSta","staUpInd.uStaUp","staUpInd.uStaDow"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=2, y={"staUpInd.uChiSta"}, range={0.0, 3600, 0, 3}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=3, y={"staUpInd.yChiSta"}, range={0.0, 3600, 0, 3}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=1, y={"staDowInd.uUpsDevSta","staDowInd.uStaUp","staDowInd.uStaDow"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=2, y={"staDowInd.uChiSta"}, range={0.0, 3600, 0, 3}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=3, y={"staDowInd.yChiSta"}, range={0.0, 3600, 0, 3}, grid=true, colors={{28,108,200}});
