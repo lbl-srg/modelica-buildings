@@ -1,25 +1,30 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block LogicalSwitch "Logical Switch"
+block LogicalSwitch "Switch between two boolean signals"
 
-  Interfaces.BooleanInput u1 "Connector of first Boolean input signal"
+  Interfaces.BooleanInput u1
+    "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Interfaces.BooleanInput u2 "Connector of second Boolean input signal"
+  Interfaces.BooleanInput u2
+    "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.BooleanInput u3 "Connector of third Boolean input signal"
+  Interfaces.BooleanInput u3
+    "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Interfaces.BooleanOutput y
+    "Booelan output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = if u2 then u1 else u3;
+
   annotation (
 defaultComponentName="logSwi",
 Documentation(info="<html>
 <p>
-Block that is a logical switch.
+Block that outputs one of two boolean input signals based on a boolean input signal.
 </p>
 <p>
 If the input signal <code>u2</code> is <code>true</code>,

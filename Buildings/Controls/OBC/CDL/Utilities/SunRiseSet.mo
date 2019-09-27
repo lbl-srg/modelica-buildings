@@ -8,17 +8,14 @@ block SunRiseSet "Next sunrise and sunset time"
     final quantity="Time",
     final unit="s",
     displayUnit="h") "Time of next sunrise"
-    annotation (Placement(transformation(extent={{100,50},{120,70}}),
-                    iconTransformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,40},{140,80}})));
   Interfaces.RealOutput nextSunSet(
     final quantity="Time",
     final unit="s",
     displayUnit="h") "Time of next sunset"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-                    iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Interfaces.BooleanOutput sunUp "Output true if the sun is up"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
-                    iconTransformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 protected
   constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Intermediate constant";
   constant Real k2 = 2*Modelica.Constants.pi/365.25 "Intermediate constant";

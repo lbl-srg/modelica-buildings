@@ -223,14 +223,14 @@ equation
       points={{150,20},{136,20},{136,21.9},{99.9,21.9}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, weaDat1.weaBus) annotation (Line(
       points={{150,20},{150,20},{196,20},{196,114},{160,114}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(roo.heaPorAir, TRooAir.port)

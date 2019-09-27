@@ -4,7 +4,7 @@ block IntegratorWithReset "Output the integral of the input signal"
   Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   parameter Real k(unit="1")=1 "Integrator gain";
 

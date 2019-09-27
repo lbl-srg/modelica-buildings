@@ -8,10 +8,10 @@ block LinearPiecewiseTwo "A two-pieces linear piecewise function"
   parameter Real y11 "y[1] at u = x1";
   parameter Real y20 "y[2] at u = x1";
   parameter Real y21 "y[2] at u = x2";
-  Modelica.Blocks.Interfaces.RealInput u "Set point" annotation (extent=[-190,
-        80; -150, 120], Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.RealInput u "Set point" annotation (
+  extent={{-190,80},{-150,120}}, Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y[2] "Connectors of Real output signal"
-    annotation (extent=[148, -10; 168, 10], Placement(transformation(extent={{
+    annotation (Placement(transformation(extent={{
             100,-12},{120,8}})));
   Buildings.Controls.SetPoints.Table y1Tab(table=[x0, y10; x1, y11; x2, y11])
     "Table for y[1]"

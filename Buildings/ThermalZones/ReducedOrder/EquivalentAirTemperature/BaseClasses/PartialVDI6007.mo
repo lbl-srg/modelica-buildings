@@ -11,9 +11,9 @@ partial model PartialVDI6007
     "Weight factor of the ground (0 if not considered)";
   parameter Modelica.SIunits.Temperature TGro
     "Temperature of the ground in contact with floor plate";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWallOut
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hConWallOut
     "Exterior walls convective coefficient of heat transfer (outdoor)";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hRad
     "Coefficient of heat transfer for linearized radiation";
   parameter Boolean withLongwave=true
     "Set to true to include longwave radiation exchange"
@@ -70,8 +70,8 @@ initial equation
    irrelevant.", level=AssertionLevel.warning);
 
 equation
-  delTEqLW=(TBlaSky-TDryBul)*alphaRad/(alphaRad+alphaWallOut);
-  delTEqSW=HSol*aExt/(alphaRad+alphaWallOut);
+  delTEqLW=(TBlaSky - TDryBul)*hRad/(hRad + hConWallOut);
+  delTEqSW=HSol*aExt/(hRad + hConWallOut);
   if withLongwave then
     TEqWin=TDryBul.+delTEqLWWin*(ones(n)-sunblind);
     TEqWall=TDryBul.+delTEqLW.+delTEqSW;
@@ -120,6 +120,11 @@ equation
   revisions="<html>
   <ul>
   <li>
+  July 11, 2019, by Katharina Brinkmann:<br/>
+  Renamed <code>alphaRad</code> to <code>hRad</code>,
+  <code>alphaWinOut</code> to <code>hConWallOut</code>
+  </li>
+  <li>
   September 26, 2016, by Moritz Lauster:<br/>
   Removed deprecated parameters and values
   0.93 and <code>eExt</code>.<br/>
@@ -134,8 +139,7 @@ equation
   </li>
   <li>
   September 2015, by Moritz Lauster:<br/>
-  Got rid of cardinality
-  and used assert for warnings.<br/>
+  Got rid of cardinality and used assert for warnings.<br/>
   Adapted to Annex 60 requirements.
   </li>
   <li>
@@ -143,5 +147,5 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"));
+</html>"));
 end PartialVDI6007;
