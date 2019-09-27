@@ -1,7 +1,7 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block ReduceDemand "Sequence for reducing operating chiller demand"
 
-  parameter Integer nChi = 2 "Total number of chillers in the plant";
+  parameter Integer nChi "Total number of chillers in the plant";
   parameter Real chiDemRedFac = 0.75
     "Demand reducing factor of current operating chillers";
   parameter Modelica.SIunits.Time holChiDemTim = 300

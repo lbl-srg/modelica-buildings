@@ -3,10 +3,14 @@ model ReduceDemand
   "Validate sequence of reducing chiller demand when there is stage up command"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand
-    chiDemRed
+    chiDemRed(
+    final nChi=2)
+    "Reduce operaing chiller load as the first step of stage up process"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand
-    chiDemRed1
+    chiDemRed1(
+    final nChi=2)
+    "Reduce operaing chiller load as the first step of stage down process when it requires another chiller on"
     annotation (Placement(transformation(extent={{200,50},{220,70}})));
 
 protected
@@ -76,7 +80,7 @@ equation
     annotation (Line(points={{-198,100},{-180,100},{-180,119},{-102,119}},
       color={255,0,255}));
   connect(chiDemRed.yChiDem[1], zerOrdHol.u)
-    annotation (Line(points={{-78,114},{-70,114},{-70,100},{-62,100}},
+    annotation (Line(points={{-78,113},{-70,113},{-70,100},{-62,100}},
       color={0,0,127}));
   connect(limDem.y, swi.u2)
     annotation (Line(points={{-198,100},{-180,100},{-180,60},{-162,60}},
@@ -88,10 +92,10 @@ equation
     annotation (Line(points={{-38,100},{-30,100},{-30,80},{-170,80},{-170,68},
       {-162,68}}, color={0,0,127}));
   connect(swi.y, chiDemRed.uChiLoa[1])
-    annotation (Line(points={{-138,60},{-130,60},{-130,115},{-102,115}},
+    annotation (Line(points={{-138,60},{-130,60},{-130,114},{-102,114}},
       color={0,0,127}));
   connect(zerLoa.y, chiDemRed.uChiLoa[2])
-    annotation (Line(points={{-238,20},{-126,20},{-126,115},{-102,115}},
+    annotation (Line(points={{-238,20},{-126,20},{-126,116},{-102,116}},
       color={0,0,127}));
   connect(minOPLR.y, chiDemRed.minOPLR)
     annotation (Line(points={{-238,-20},{-122,-20},{-122,111},{-102,111}},
@@ -103,10 +107,10 @@ equation
     annotation (Line(points={{-238,-100},{-114,-100},{-114,105},{-102,105}},
       color={255,0,255}));
   connect(chiOn.y, chiDemRed.uChi[1])
-    annotation (Line(points={{-238,-140},{-110,-140},{-110,101},{-102,101}},
+    annotation (Line(points={{-238,-140},{-110,-140},{-110,100},{-102,100}},
       color={255,0,255}));
   connect(onOff.y, chiDemRed.uChi[2])
-    annotation (Line(points={{-238,-100},{-106,-100},{-106,101},{-102,101}},
+    annotation (Line(points={{-238,-100},{-106,-100},{-106,102},{-102,102}},
       color={255,0,255}));
   connect(booPul1.y, limDem1.u)
     annotation (Line(points={{62,100},{78,100}}, color={255,0,255}));
