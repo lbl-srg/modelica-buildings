@@ -15,10 +15,10 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Boolean isHeadered=true
     "Flag: true=headered condenser water pumps";
   parameter Boolean upOnOffSta[totChiSta] = {false,false,false}
-    "Flag the stage when staging up to the stage, need to turn off small chiller"
+    "Flag of the stage when staging up to it, need to turn off small chiller, the array size should be total numble of non-WSE stage plus 1"
     annotation (Dialog(group="Next chiller", enable=havePonyChiller));
   parameter Boolean dowOnOffSta[totChiSta] = {false,false,false}
-    "Flag the stage when staging down to the stage, need to turn on small chiller"
+    "Flag of the stage when staging down to it, need to turn on small chiller, the array size should be total numble of non-WSE stage plus 1"
     annotation (Dialog(group="Next chiller", enable=havePonyChiller));
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"

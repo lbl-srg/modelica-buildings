@@ -3,3 +3,4 @@ DisableChiller
 EnableCWPump
 EnableChiller
 HeadControl
+NextChiller
