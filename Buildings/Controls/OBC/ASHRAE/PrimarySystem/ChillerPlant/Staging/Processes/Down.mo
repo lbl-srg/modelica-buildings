@@ -61,6 +61,10 @@ block Down
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.Time aftByPasSetTim=60
+    "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
+    annotation (Dialog(group="Reset bypass"));
+  parameter Real relFloDif=0.025
+    "Hysteresis to check if flow achieves setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Modelica.SIunits.VolumeFlowRate minFloDif=0.01
     "Minimum flow rate difference to check if bybass flow achieves setpoint"
@@ -213,7 +217,7 @@ protected
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet,
     final aftByPasSetTim=aftByPasSetTim,
-    final minFloDif=minFloDif,
+    final relFloDif=relFloDif,
     final byPasSetTim=byPasSetTim,
     final waiTim=waiTim,
     final chaChiWatIsoTim=chaChiWatIsoTim,
@@ -260,7 +264,9 @@ protected
     final minFloSet=minFloSet) "Minimum chilled water flow setpoint"
     annotation (Placement(transformation(extent={{180,-340},{200,-320}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
-    minBypSet(final aftByPasSetTim=aftByPasSetTim, final minFloDif=minFloDif)
+    minBypSet(
+    final aftByPasSetTim=aftByPasSetTim,
+    final relFloDif=relFloDif)
     "Check if minium bypass has been reset"
     annotation (Placement(transformation(extent={{180,-380},{200,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)

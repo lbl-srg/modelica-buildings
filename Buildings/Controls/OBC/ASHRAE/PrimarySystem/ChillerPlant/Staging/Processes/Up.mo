@@ -36,9 +36,10 @@ block Up "Sequence for control devices when there is stage-up command"
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.Time aftByPasSetTim=60
+    "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
-  parameter Modelica.SIunits.VolumeFlowRate minFloDif=0.01
-    "Minimum flow rate difference to check if bybass flow achieves setpoint"
+  parameter Real relFloDif=0.025
+    "Hysteresis to check if flow achieves setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
@@ -216,7 +217,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypSet(
     final aftByPasSetTim=aftByPasSetTim,
-    final minFloDif=minFloDif)
+    final relFloDif=relFloDif)
     "Check if minium bypass has been reset"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableCWPump
@@ -262,7 +263,7 @@ protected
     final minFloSet=minFloSet,
     final byPasSetTim=byPasSetTim,
     final aftByPasSetTim=aftByPasSetTim,
-    final minFloDif=minFloDif) "End stage-up process"
+    final relFloDif=relFloDif) "End stage-up process"
     annotation (Placement(transformation(extent={{60,-230},{80,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)
     "False constant"

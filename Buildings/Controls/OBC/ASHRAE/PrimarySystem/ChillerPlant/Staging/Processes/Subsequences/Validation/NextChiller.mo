@@ -37,7 +37,7 @@ model NextChiller
     final upOnOffSta={false,false,true,false,true},
     final dowOnOffSta={false,true,false,true,false})
     "Identify chillers being disabled in stage down process"
-    annotation (Placement(transformation(extent={{200,-130},{220,-110}})));
+    annotation (Placement(transformation(extent={{240,-130},{260,-110}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
@@ -116,28 +116,28 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
     final width=0.15,
     final period=120) "Boolean pulse"
-    annotation (Placement(transformation(extent={{20,-310},{40,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Not staDow3 "Stage down command"
     annotation (Placement(transformation(extent={{60,-310},{80,-290}})));
+  Buildings.Controls.OBC.CDL.Logical.Not staDow3 "Stage down command"
+    annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn3(
     final k=true) "Operating chiller one"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+    annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta3(
     final k=3) "Stage three"
-    annotation (Placement(transformation(extent={{20,-270},{40,-250}})));
+    annotation (Placement(transformation(extent={{60,-270},{80,-250}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaPri3[3](
     final k={2,1,3})
     "Chiller enabling priority"
-    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOff3(
     final k=false) "Chiller off status"
-    annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
+    annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta3(
     final k=2) "Stage two"
-    annotation (Placement(transformation(extent={{20,-230},{40,-210}})));
+    annotation (Placement(transformation(extent={{60,-230},{80,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staUp3(
     final k=false) "Stage up status"
-    annotation (Placement(transformation(extent={{60,-200},{80,-180}})));
+    annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Stage index"
@@ -151,9 +151,9 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta2 "Stage index"
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Logical switch"
-    annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta3 "Stage index"
     annotation (Placement(transformation(extent={{140,-250},{160,-230}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta3 "Stage index"
+    annotation (Placement(transformation(extent={{180,-250},{200,-230}})));
 
 equation
   connect(booPul.y, staUp.u)
@@ -251,7 +251,8 @@ equation
       color={255,0,255}));
   connect(chiOn2.y, nexEnaDisChi1.uChiEna[3])
     annotation (Line(points={{-198,-120},{-140,-120},{-140,-114.667},{-82,
-          -114.667}},  color={255,0,255}));
+          -114.667}},
+      color={255,0,255}));
   connect(staUp2.y, nexEnaDisChi1.uStaUp)
     annotation (Line(points={{-198,-190},{-128,-190},{-128,-120},{-82,-120}},
       color={255,0,255}));
@@ -259,38 +260,38 @@ equation
     annotation (Line(points={{-198,-300},{-96,-300},{-96,-128},{-82,-128}},
       color={255,0,255}));
   connect(booPul3.y, staDow3.u)
-    annotation (Line(points={{42,-300},{58,-300}}, color={255,0,255}));
+    annotation (Line(points={{82,-300},{98,-300}}, color={255,0,255}));
   connect(swi3.y, sta3.u)
-    annotation (Line(points={{122,-240},{138,-240}}, color={0,0,127}));
+    annotation (Line(points={{162,-240},{178,-240}}, color={0,0,127}));
   connect(enaPri3.y, nexDisChi.uChiPri)
-    annotation (Line(points={{82,-80},{140,-80},{140,-112},{198,-112}},
+    annotation (Line(points={{122,-80},{180,-80},{180,-112},{238,-112}},
       color={255,127,0}));
   connect(sta3.y, nexDisChi.uChiSta)
-    annotation (Line(points={{162,-240},{180,-240},{180,-124},{198,-124}},
+    annotation (Line(points={{202,-240},{220,-240},{220,-124},{238,-124}},
       color={255,127,0}));
   connect(staDow3.y, swi3.u2)
-    annotation (Line(points={{82,-300},{90,-300},{90,-240},{98,-240}},
+    annotation (Line(points={{122,-300},{130,-300},{130,-240},{138,-240}},
       color={255,0,255}));
   connect(upSta3.y, swi3.u3)
-    annotation (Line(points={{42,-260},{60,-260},{60,-248},{98,-248}},
+    annotation (Line(points={{82,-260},{100,-260},{100,-248},{138,-248}},
       color={0,0,127}));
   connect(dowSta3.y, swi3.u1)
-    annotation (Line(points={{42,-220},{60,-220},{60,-232},{98,-232}},
+    annotation (Line(points={{82,-220},{100,-220},{100,-232},{138,-232}},
       color={0,0,127}));
   connect(staUp3.y, nexDisChi.uStaUp)
-    annotation (Line(points={{82,-190},{152,-190},{152,-120},{198,-120}},
+    annotation (Line(points={{122,-190},{192,-190},{192,-120},{238,-120}},
       color={255,0,255}));
   connect(staDow3.y, nexDisChi.uStaDow)
-    annotation (Line(points={{82,-300},{184,-300},{184,-128},{198,-128}},
+    annotation (Line(points={{122,-300},{224,-300},{224,-128},{238,-128}},
       color={255,0,255}));
   connect(chiOn3.y, nexDisChi.uChiEna[1])
-    annotation (Line(points={{82,-120},{148,-120},{148,-117.333},{198,-117.333}},
+    annotation (Line(points={{122,-120},{188,-120},{188,-117.333},{238,-117.333}},
       color={255,0,255}));
   connect(chiOn3.y, nexDisChi.uChiEna[2])
-    annotation (Line(points={{82,-120},{144,-120},{144,-116},{198,-116}},
+    annotation (Line(points={{122,-120},{184,-120},{184,-116},{238,-116}},
       color={255,0,255}));
   connect(chiOff3.y, nexDisChi.uChiEna[3])
-    annotation (Line(points={{82,-150},{140,-150},{140,-114.667},{198,-114.667}},
+    annotation (Line(points={{122,-150},{180,-150},{180,-114.667},{238,-114.667}},
       color={255,0,255}));
 
 annotation (

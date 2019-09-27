@@ -22,8 +22,8 @@ block DownStart "Sequence for starting stage-down process"
   parameter Modelica.SIunits.Time aftByPasSetTim=60
     "Time after setpoint achieved"
     annotation (Dialog(group="Reset bypass"));
-  parameter Modelica.SIunits.VolumeFlowRate minFloDif=0.01
-    "Minimum flow rate difference to check if bybass flow achieves setpoint"
+  parameter Real relFloDif=0.025
+    "Hysteresis to check if flow achieves setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Modelica.SIunits.Time waiTim=30
     "Waiting time after enabling next head pressure control"
@@ -115,7 +115,9 @@ protected
     final holChiDemTim=holChiDemTim) "Reduce chiller demand"
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
-    minBypRes(final aftByPasSetTim=aftByPasSetTim, final minFloDif=minFloDif)
+    minBypRes(
+    final aftByPasSetTim=aftByPasSetTim,
+    final relFloDif=relFloDif)
     "Slowly change the minimum flow bypass setpoint"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl
@@ -220,10 +222,10 @@ equation
     annotation (Line(points={{-180,120},{-40,120},{-40,-152},{-2,-152}},
       color={255,0,255}));
   connect(uOnOff, disChi.uOnOff)
-    annotation (Line(points={{-180,20},{-110,20},{-110,-156},{-2,-156}},
+    annotation (Line(points={{-180,20},{-110,20},{-110,-159},{-2,-159}},
       color={255,0,255}));
   connect(disChi.nexDisChi, nexDisChi)
-    annotation (Line(points={{-2,-159},{-80,-159},{-80,-170},{-180,-170}},
+    annotation (Line(points={{-2,-155},{-80,-155},{-80,-170},{-180,-170}},
       color={255,127,0}));
   connect(uStaDow, and2.u1)
     annotation (Line(points={{-180,210},{-140,210},{-140,200},{-102,200}},

@@ -4,3 +4,5 @@ EnableCWPump
 EnableChiller
 HeadControl
 NextChiller
+ReduceDemand
+ResetMinBypass

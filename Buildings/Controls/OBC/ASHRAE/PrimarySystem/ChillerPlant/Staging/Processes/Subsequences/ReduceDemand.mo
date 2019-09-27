@@ -22,18 +22,18 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     final unit="1")
     "Current stage minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
-        iconTransformation(extent={{-140,-10},{-100,30}})));
+      iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow "Stage down status: true=stage-down"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
     "Indicate if the stage require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller status: true=ON"
-     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
-       iconTransformation(extent={{-140,-110},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
     final quantity=fill("HeatFlowRate", nChi),
     final unit=fill("W", nChi)) "Chiller demand setpoint"
@@ -45,7 +45,8 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
       iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi](
+    final y_start=fill(1e-6,nChi))
     "Triggered sampler to sample current chiller demand"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(

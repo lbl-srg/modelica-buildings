@@ -23,8 +23,8 @@ block UpEnd "Sequence for ending stage-up process"
   parameter Modelica.SIunits.Time aftByPasSetTim=60
     "Time after minimum bypass flow being resetted to new setpoint"
     annotation (Dialog(group="Reset bypass"));
-  parameter Modelica.SIunits.VolumeFlowRate minFloDif=0.01
-    "Minimum flow rate difference to check if bybass flow achieves setpoint"
+  parameter Real relFloDif=0.025
+    "Hysteresis to check if flow achieves setpoint"
     annotation (Dialog(group="Reset bypass"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
@@ -152,9 +152,9 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypSet(
     final aftByPasSetTim=aftByPasSetTim,
-    final minFloDif=minFloDif)
+    final relFloDif=relFloDif)
     "Check if minimum bypass flow has been resetted"
-    annotation (Placement(transformation(extent={{82,-190},{102,-170}})));
+    annotation (Placement(transformation(extent={{82,-188},{102,-168}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor  curDisChi(final nin=nChi)
@@ -237,13 +237,15 @@ equation
     annotation (Line(points={{-138,-150},{0,-150},{0,-139},{78,-139}},
       color={255,0,255}));
   connect(disHeaCon.yEnaHeaCon, minBypSet.uUpsDevSta)
-    annotation (Line(points={{102,-64},{120,-64},{120,-104},{40,-104},{40,-172},
-      {80,-172}}, color={255,0,255}));
+    annotation (Line(points={{102,-64},{120,-64},{120,-104},{40,-104},{40,-170},
+          {80,-170}},
+                  color={255,0,255}));
   connect(con2.y, minBypSet.uStaCha)
-    annotation (Line(points={{-58,-30},{20,-30},{20,-176},{80,-176}},
+    annotation (Line(points={{-58,-30},{20,-30},{20,-174},{80,-174}},
       color={255,0,255}));
   connect(minBypSet.VChiWat_flow, VChiWat_flow)
-    annotation (Line(points={{80,-184},{-220,-184}}, color={0,0,127}));
+    annotation (Line(points={{80,-182},{-70,-182},{-70,-184},{-220,-184}},
+                                                     color={0,0,127}));
   connect(not2.y, booRep4.u)
     annotation (Line(points={{-138,100},{-130,100},{-130,60},{-62,60}},
       color={255,0,255}));
@@ -275,7 +277,7 @@ equation
     annotation (Line(points={{-58,-30},{20,-30},{20,-152},{158,-152}},
       color={255,0,255}));
   connect(minBypSet.yMinBypRes, logSwi4.u3)
-    annotation (Line(points={{104,-180},{120,-180},{120,-168},{158,-168}},
+    annotation (Line(points={{104,-178},{120,-178},{120,-168},{158,-168}},
       color={255,0,255}));
   connect(not2.y, chiWatByp.u2)
     annotation (Line(points={{-138,100},{-130,100},{-130,-110},{158,-110}},
@@ -339,8 +341,8 @@ equation
     annotation (Line(points={{102,-130},{120,-130},{120,-118},{158,-118}},
       color={0,0,127}));
   connect(minChiWatSet.yChiWatMinFloSet, minBypSet.VMinChiWat_setpoint)
-    annotation (Line(points={{102,-130},{120,-130},{120,-146},{60,-146},
-      {60,-188},{80,-188}}, color={0,0,127}));
+    annotation (Line(points={{102,-130},{120,-130},{120,-146},{60,-146},{60,-186},
+          {80,-186}},       color={0,0,127}));
   connect(con3.y, minChiWatSet.uUpsDevSta)
     annotation (Line(points={{-138,-150},{0,-150},{0,-123},{78,-123}},
       color={255,0,255}));
