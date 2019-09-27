@@ -137,10 +137,10 @@ annotation (
  Documentation(info="<html>
 <p>
 Control sequence for actuated exhaust damper <code>yExhDamPos</code>
-without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART5.N.8.
-(for multi zone VAV AHU), PART5.P.6 and PART3.2B.3 (for single zone VAV AHU).
+without fans. It is implemented according to ASHRAE Guidline 35 (G36), PART 5.N.8.
+(for multi zone VAV AHU), PART 5.P.6 and PART3.2B.3 (for single zone VAV AHU).
 </p>
-<h4>Multi zone VAV AHU: Control of actuated exhaust dampers without fans (PART5.N.8)</h4>
+<h4>Multi zone VAV AHU: Control of actuated exhaust dampers without fans (PART 5.N.8)</h4>
 <ol>
 <li>The exhaust damper is enabled when the associated supply fan is proven on
 <code>uSupFan = true</code>, and disabled otherwise.</li>

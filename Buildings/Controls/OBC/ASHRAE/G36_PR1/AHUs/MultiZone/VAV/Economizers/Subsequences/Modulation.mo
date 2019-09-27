@@ -212,7 +212,7 @@ damper position")}),
 This is a multi zone VAV AHU economizer modulation block. It calculates
 the outdoor and return air damper positions based on the supply air temperature
 control loop signal. The implementation is in line with ASHRAE
-Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
+Guidline 36 (G36), PART 5.N.2.c. Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
 composite multi zone VAV AHU economizer control sequence. Damper position
 limits, which are the inputs to the sequence, are the outputs of

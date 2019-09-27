@@ -163,11 +163,11 @@ annotation (
  Documentation(info="<html>
 <p>
 Control sequence for exhaust dampers without fans. It is implemented according
-to ASHRAE Guidline 35 (G36), PART5.N.8.(for multi zone VAV AHU), PART5.P.6
+to ASHRAE Guidline 35 (G36), PART 5.N.8.(for multi zone VAV AHU), PART 5.P.6
 and PART3.2B.3 (for single zone VAV AHU).
 </p>
 
-<h4>Single zone VAV AHU: Control of actuated exhaust dampers without fans (PART5.P.6)</h4>
+<h4>Single zone VAV AHU: Control of actuated exhaust dampers without fans (PART 5.P.6)</h4>
 <ol>
 <li>Exhaust damper position setpoints (PART3.2B.3)
 <ul>
@@ -199,7 +199,7 @@ The control sequence is as follows:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the exhaust damper control chart for single zone AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/ExhaustDamperControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/ExhaustDamper.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
