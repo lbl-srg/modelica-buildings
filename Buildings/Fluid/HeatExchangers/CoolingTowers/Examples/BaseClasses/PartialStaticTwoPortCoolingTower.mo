@@ -13,11 +13,11 @@ partial model PartialStaticTwoPortCoolingTower
      constrainedby
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
     redeclare final package Medium = Medium_W,
-    m_flow_nominal=mWat_flow_nominal,
     dp_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     show_T=true) "Cooling tower"
     annotation (Placement(transformation(extent={{24,-60},{44,-40}})));
+
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
@@ -107,8 +107,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch1.y, pum.m_flow_in) annotation (Line(
-      points={{41,-190},{70,-190},{70,-240},{-100,-240},{-100,-30},{-30.2,-30},
-          {-30.2,-38}},
+      points={{41,-190},{70,-190},{70,-240},{-100,-240},{-100,-30},{-30,-30},{-30,
+          -38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(exp.ports[1], vol.ports[3]) annotation (Line(

@@ -3,7 +3,10 @@ partial model CoolingTower "Base class for cooling towers"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
 
-  Modelica.Blocks.Interfaces.RealOutput TLvg "Leaving water temperature"
+  Modelica.Blocks.Interfaces.RealOutput TLvg(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Modelica.SIunits.HeatFlowRate Q_flow = QWat_flow.y
     "Heat input into water circuit";
