@@ -2,7 +2,7 @@
 block HeadControl
   "Sequences for enabling or disabling head pressure control for the chiller being enabled or disabled"
 
-  parameter Integer nChi=2 "Total number of chiller";
+  parameter Integer nChi "Total number of chiller";
   parameter Modelica.SIunits.Time thrTimEnb=10
     "Threshold time to enable head pressure control after condenser water pump being reset";
   parameter Modelica.SIunits.Time waiTim = 30
@@ -47,7 +47,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr2(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final threshold=thrTimEnb)
     "Check if it is 10 seconds after condenser water pump achieves its new setpoint"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
@@ -66,7 +66,7 @@ protected
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr1(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final threshold=thrTimEnb + waiTim)
     "Check if it is 10 seconds after condenser water pump achieves its new setpoint and have waited another 30 seconds"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
@@ -117,7 +117,7 @@ equation
     annotation (Line(points={{-160,120},{-122,120}}, color={255,0,255}));
   connect(lat.y, tim.u)
     annotation (Line(points={{-38,80},{-22,80}}, color={255,0,255}));
-  connect(tim.y, greEquThr2.u)
+  connect(tim.y, greThr.u)
     annotation (Line(points={{2,80},{38,80}}, color={0,0,127}));
   connect(uChiHeaCon, booToRea.u)
     annotation (Line(points={{-160,-90},{-122,-90}}, color={255,0,255}));
@@ -131,9 +131,6 @@ equation
     annotation (Line(points={{-160,72},{-122,72}}, color={255,0,255}));
   connect(and2.y, lat.u)
     annotation (Line(points={{-98,80},{-62,80}}, color={255,0,255}));
-  connect(and2.y, booRep.u)
-    annotation (Line(points={{-98,80},{-80,80},{-80,-120},{-62,-120}},
-      color={255,0,255}));
   connect(uStaCha, not1.u)
     annotation (Line(points={{-160,72},{-130,72},{-130,40},{-122,40}},
       color={255,0,255}));
@@ -143,12 +140,12 @@ equation
   connect(booRep.y, triSam.trigger)
     annotation (Line(points={{-38,-120},{-10,-120},{-10,-101.8}},
       color={255,0,255}));
-  connect(tim.y, greEquThr1.u)
+  connect(tim.y, greThr1.u)
     annotation (Line(points={{2,80},{20,80},{20,120},{38,120}}, color={0,0,127}));
   connect(booRep1.y, swi.u2)
     annotation (Line(points={{102,80},{120,80},{120,-10},{138,-10}},
       color={255,0,255}));
-  connect(greEquThr2.y, booRep1.u)
+  connect(greThr.y, booRep1.u)
     annotation (Line(points={{62,80},{78,80}}, color={255,0,255}));
   connect(swi.y, greEquThr.u)
     annotation (Line(points={{162,-10},{178,-10}}, color={0,0,127}));
@@ -188,7 +185,7 @@ equation
   connect(con.y, logSwi.u3)
     annotation (Line(points={{-38,20},{-20,20},{-20,22},{-2,22}},
       color={255,0,255}));
-  connect(greEquThr2.y, logSwi.u2)
+  connect(greThr.y, logSwi.u2)
     annotation (Line(points={{62,80},{70,80},{70,60},{-10,60},{-10,30},{-2,30}},
       color={255,0,255}));
   connect(logSwi.y, booRep3.u)
@@ -204,10 +201,13 @@ equation
   connect(uUpsDevSta, and1.u2)
     annotation (Line(points={{-160,120},{-130,120},{-130,104},{120,104},
       {120,112},{138,112}}, color={255,0,255}));
-  connect(greEquThr1.y, and1.u1)
+  connect(greThr1.y, and1.u1)
     annotation (Line(points={{62,120},{138,120}}, color={255,0,255}));
   connect(and1.y, yEnaHeaCon)
     annotation (Line(points={{162,120},{240,120}}, color={255,0,255}));
+  connect(and2.y, booRep.u)
+    annotation (Line(points={{-98,80},{-80,80},{-80,-120},{-62,-120}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="enaHeaCon",
@@ -308,7 +308,7 @@ being disabled, section 5.2.4.16, item 1.c:
 </p>
 <ul>
 <li>
-After minimum flow bypass setpoint has been changed, enable head pressure control for
+After minimum flow bypass has been changed, enable head pressure control for
 the chiller being enabled. Wait 30 seconds.
 (<code>thrTimEnb=0</code> and <code>waiTim=30</code>).
 </li>
