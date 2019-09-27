@@ -1,80 +1,24 @@
 within Buildings.Experimental.EnergyPlus.Validation;
 model TwoIdenticalZones "Validation model with two identical zones"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air "Medium model";
 
-  parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/TwoIdenticalZones.idf")
-    "Name of the IDF file";
-  parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
-    "Name of the weather file";
+  inner Building building(
+    idfName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/TwoIdenticalZones.idf"),
+    weaName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+  energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Building level declarations"
+    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
 
-  Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
-    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
-  Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
-  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    "Multiplex to combine signals into a vector"
-    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  ThermalZone zon1(
-    redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Thermal Zone 1",
-    nPorts=3) "Thermal zone (core zone of the office building with 5 zones)"
-    annotation (Placement(transformation(extent={{-40,70},{0,110}})));
-  ThermalZone zon2(
-    redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Thermal Zone 2",
-    nPorts=2)   "Thermal zone (core zone of the office building with 5 zones)"
-    annotation (Placement(transformation(extent={{-40,-30},{0,10}})));
+  Zone zon1(zoneName="Thermal Zone 1")
+    "Thermal zone 1 (core zone of the office building with 5 zones)"
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+  Zone zon2(zoneName="Thermal Zone 1")
+    "Thermal zone 2 (core zone of the office building with 5 zones)"
+    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
 
-//  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=weaName)
-//    "Weather data reader"
-//    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-
-  Fluid.FixedResistances.PressureDrop duc(
-    redeclare package Medium = Medium,
-    allowFlowReversal=false,
-    linearized=true,
-    from_dp=true,
-    dp_nominal=100,
-    m_flow_nominal=47*6/3600*1.2)
-    "Duct resistance (to decouple room and outside pressure)"
-    annotation (Placement(transformation(extent={{-50,50},{-70,70}})));
-  Fluid.Sources.MassFlowSource_T bou1(
-    redeclare package Medium = Medium,
-    nPorts=1,
-    m_flow=0,
-    T=293.15) "Boundary condition"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Fluid.Sources.Boundary_pT freshAir(
-    redeclare package Medium = Medium,
-    nPorts=2)
-    "Boundary condition"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
-    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Fluid.FixedResistances.PressureDrop duc1(
-    redeclare package Medium = Medium,
-    allowFlowReversal=false,
-    linearized=true,
-    from_dp=true,
-    dp_nominal=100,
-    m_flow_nominal=47*6/3600*1.2)
-    "Duct resistance (to decouple room and outside pressure)"
-    annotation (Placement(transformation(extent={{-50,-50},{-70,-30}})));
-  Fluid.Sources.MassFlowSource_T bou2(
-    redeclare package Medium = Medium,
-    nPorts=1,
-    m_flow=0,
-    T=293.15) "Boundary condition"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+  // Models for cross validation
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/TwoIdenticalZones.dat"),
@@ -92,48 +36,100 @@ model TwoIdenticalZones "Validation model with two identical zones"
   Controls.OBC.CDL.Continuous.Gain relHumEnePlu(k=0.01)
     "Relative humidity in the room computed by EnergyPlus"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  Fluid.Sensors.RelativeHumidity senRelHum(redeclare package Medium = Medium)
-    "Relative humidity in the room as computed by Modelica"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
+
+  model Zone "Model of a thermal zone"
+    extends Modelica.Blocks.Icons.Block;
+
+    package Medium = Buildings.Media.Air "Medium model";
+
+    parameter String zoneName = "" "Name of the thermal zone";
+
+    Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
+      annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
+    Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
+      annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
+    Modelica.Blocks.Routing.Multiplex3 multiplex3_1
+      "Multiplex to combine signals into a vector"
+      annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+    ThermalZone zon(
+      redeclare package Medium = Medium,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      zoneName=zoneName,
+      nPorts=3) "Thermal zone (core zone of the office building with 5 zones)"
+      annotation (Placement(transformation(extent={{-18,6},{22,46}})));
+    Fluid.FixedResistances.PressureDrop duc(
+      redeclare package Medium = Medium,
+      allowFlowReversal=false,
+      linearized=true,
+      from_dp=true,
+      dp_nominal=100,
+      m_flow_nominal=47*6/3600*1.2)
+      "Duct resistance (to decouple room and outside pressure)"
+      annotation (Placement(transformation(extent={{-30,-60},{-50,-40}})));
+    Fluid.Sources.MassFlowSource_T bou(
+      redeclare package Medium = Medium,
+      m_flow=0,
+      T=293.15,
+      nPorts=1) "Mass flow rate boundary condition"
+      annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    Fluid.Sources.Boundary_pT freshAir(redeclare package Medium = Medium, nPorts=1)
+      "Pressure boundary condition"
+      annotation (Placement(transformation(extent={{-82,-60},{-62,-40}})));
+    Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
+      annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
+    Fluid.Sensors.RelativeHumidity senRelHum(redeclare package Medium = Medium)
+      "Relative humidity in the room as computed by Modelica"
+      annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
+    Modelica.Blocks.Interfaces.RealOutput TAir(
+      final unit="K",
+      displayUnit="degC")
+      "Air temperature of the zone"
+      annotation (Placement(transformation(extent={{100,30},{120,50}})));
+    Modelica.Blocks.Interfaces.RealOutput TRad(
+      final unit="K",
+      displayUnit="degC")
+      "Radiative temperature of the zone"
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    Modelica.Blocks.Interfaces.RealOutput phi(final unit="1")
+     "Relative humidity of zone air"
+      annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+  equation
+    connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
+        points={{-69,70},{-62,70},{-62,47},{-52,47}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(qConGai_flow.y,multiplex3_1. u2[1]) annotation (Line(
+        points={{-69,40},{-52,40}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(zon.qGai_flow, multiplex3_1.y) annotation (Line(points={{-20,36},{
+            -24,36},{-24,40},{-29,40}},
+                                    color={0,0,127}));
+    connect(multiplex3_1.u3[1],qLatGai_flow. y) annotation (Line(points={{-52,33},
+            {-62,33},{-62,10},{-69,10}},  color={0,0,127}));
+    connect(freshAir.ports[1],duc. port_b)
+      annotation (Line(points={{-62,-50},{-50,-50}}, color={0,127,255}));
+    connect(zon.TAir, TAir) annotation (Line(points={{23,39.8},{58.5,39.8},{
+            58.5,40},{110,40}},
+                       color={0,0,127}));
+    connect(zon.TRad, TRad) annotation (Line(points={{23,36},{60,36},{60,0},{
+            110,0}},
+          color={0,0,127}));
+    connect(senRelHum.phi, phi)
+      annotation (Line(points={{71,-40},{110,-40}}, color={0,0,127}));
+    connect(duc.port_a, zon.ports[1]) annotation (Line(points={{-30,-50},{
+            -0.666667,-50},{-0.666667,6.8}}, color={0,127,255}));
+    connect(bou.ports[1], zon.ports[2])
+      annotation (Line(points={{-60,-80},{2,-80},{2,6.8}}, color={0,127,255}));
+    connect(senRelHum.port, zon.ports[3]) annotation (Line(points={{60,-50},{60,
+            -60},{4.66667,-60},{4.66667,6.8}}, color={0,127,255}));
+  end Zone;
+
 equation
-  connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
-      points={{-159,130},{-152,130},{-152,107},{-142,107}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(qConGai_flow.y,multiplex3_1. u2[1]) annotation (Line(
-      points={{-159,100},{-142,100}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(zon1.qGai_flow, multiplex3_1.y)
-    annotation (Line(points={{-42,100},{-119,100}},
-                                                color={0,0,127}));
-  connect(multiplex3_1.u3[1], qLatGai_flow.y) annotation (Line(points={{-142,93},
-          {-152,93},{-152,70},{-159,70}},
-                                        color={0,0,127}));
-  connect(freshAir.ports[1], duc.port_b)
-    annotation (Line(points={{-80,-18},{-76,-18},{-76,60},{-70,60}},
-                                                   color={0,127,255}));
-  connect(duc.port_a, zon1.ports[1])
-    annotation (Line(points={{-50,60},{-22.6667,60},{-22.6667,70.8}},
-                                                         color={0,127,255}));
-  connect(bou1.ports[1], zon1.ports[2])
-    annotation (Line(points={{-80,30},{-20,30},{-20,70.8}},
-                                                        color={0,127,255}));
-  connect(duc1.port_a,zon2. ports[1]) annotation (Line(points={{-50,-40},{-22,-40},
-          {-22,-29.2}},color={0,127,255}));
-  connect(bou2.ports[1],zon2. ports[2]) annotation (Line(points={{-80,-70},{-18,
-          -70},{-18,-29.2}}, color={0,127,255}));
-  connect(zon2.qGai_flow, multiplex3_1.y) annotation (Line(points={{-42,0},{-110,
-          0},{-110,100},{-119,100}},
-                                   color={0,0,127}));
-  connect(duc1.port_b, freshAir.ports[2]) annotation (Line(points={{-70,-40},{-76,
-          -40},{-76,-22},{-80,-22}}, color={0,127,255}));
   connect(TAirEnePlu.u, datRea.y[3])
     annotation (Line(points={{98,130},{61,130}}, color={0,0,127}));
   connect(relHumEnePlu.u, datRea.y[4]) annotation (Line(points={{98,90},{80,90},
           {80,130},{61,130}}, color={0,0,127}));
-  connect(senRelHum.port, zon1.ports[3]) annotation (Line(points={{110,40},{110,
-          30},{-17.3333,30},{-17.3333,70.8}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 Model with two identical thermal zones that validates that they yield the same indoor air temperatures and humidity,
