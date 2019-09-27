@@ -683,7 +683,7 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-280},{240,280
  <p>
 This atomic sequence sets the minimum outdoor airflow setpoint for compliance
 with the ventilation rate procedure of ASHRAE 62.1-2013. The implementation
-is according to ASHRAE Guidline 36 (G36), PART5.N.3.a, PART5.B.2.b,
+is according to ASHRAE Guidline 36 (G36), PART 5.N.3.a, PART 5.B.2.b,
 PART3.1-D.2.a.
 The calculation is done using the steps below.
 </p>

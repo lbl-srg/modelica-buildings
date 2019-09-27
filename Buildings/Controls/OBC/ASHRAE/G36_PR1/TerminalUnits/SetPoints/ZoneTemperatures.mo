@@ -1281,7 +1281,7 @@ adjustment")}),
   Documentation(info="<html>
 <p>
 This sequence sets the thermal zone cooling and heating setpoints. The implementation
-is according to the ASHRAE Guideline 36 (G36), PART5.B.3. The calculation is done
+is according to the ASHRAE Guideline 36 (G36), PART 5.B.3. The calculation is done
 following the steps below.
 </p>
 <h4>Each zone shall have separate occupied and unoccupied heating and cooling

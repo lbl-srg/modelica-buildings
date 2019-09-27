@@ -204,7 +204,7 @@ annotation (
 <p>
 Block that outputs the supply temperature control loop signal,
 and the coil valve postions for VAV system with multiple zones,
-implemented according to the ASHRAE Guideline G36, PART5.N.2
+implemented according to the ASHRAE Guideline G36, PART 5.N.2
 (Supply air temperature control).
 </p>
 <p>

@@ -323,7 +323,7 @@ on request number")}),
    Documentation(info="<html>
 <p>
 This block implements the trim and respond logic according to ASHRAE guideline G36,
-PART5.A.15 (trim and respond setpoint reset logic).
+PART 5.A.15 (trim and respond setpoint reset logic).
 </p>
 <p>
 The trim and respond logic shall reset setpoint within the range <code>minSet</code> to

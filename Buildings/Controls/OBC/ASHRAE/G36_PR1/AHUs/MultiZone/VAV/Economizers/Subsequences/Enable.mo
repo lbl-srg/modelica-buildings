@@ -340,9 +340,9 @@ with delays"),                   Text(
 Documentation(info="<html>
 <p>
 This is a multi zone VAV AHU economizer enable/disable sequence
-based on ASHRAE G36 PART5.N.7 and PART5.A.17. Additional
+based on ASHRAE G36 PART 5.N.7 and PART 5.A.17. Additional
 conditions included in the sequence are: freeze protection (freeze protection
-stage 0-3, see PART5.N.12), supply fan status (on or off, see PART5.N.5).
+stage 0-3, see PART 5.N.12), supply fan status (on or off, see PART 5.N.5).
 </p>
 <p>
 The economizer is disabled whenever the outdoor air conditions
@@ -373,7 +373,7 @@ The following state machine chart illustrates the transitions between enabling a
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/EconEnableDisableStateMachineChart.png\"/>
 </p>
 <p>
-After the disable signal is activated, the following procedure is applied, per PART5.N.7.d, in order to
+After the disable signal is activated, the following procedure is applied, per PART 5.N.7.d, in order to
 prevent pressure fluctuations in the HVAC system:
 </p>
 <ul>
