@@ -155,12 +155,14 @@ its class name ends with the string <code>Beta</code>.
     to <b style=\"color:blue\">existing</b> libraries:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.EquationFitReversible
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Heat pump model that can be reversed between heating and cooling mode,
+                           that takes as a set point the leaving fluid temperature, and that computes
+                           its performance based on an equation fit.
         </td>
         </tr>
     </table>
