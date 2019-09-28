@@ -23,19 +23,17 @@ model OptimalStart
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(optimalStartConstantTemperatureGradient.TSetZonHea, TSetHea.y)
-    annotation (Line(points={{-2,-54},{-20,-54},{-20,-20},{-39,-20}}, color={0,
+    annotation (Line(points={{-2,-54},{-20,-54},{-20,-20},{-38,-20}}, color={0,
           0,127}));
   connect(optimalStartConstantTemperatureGradient.TSetZonCoo, TSetCoo.y)
-    annotation (Line(points={{-2,-58},{-20,-58},{-20,-60},{-39,-60}}, color={0,
+    annotation (Line(points={{-2,-58},{-20,-58},{-20,-60},{-38,-60}}, color={0,
           0,127}));
   connect(optimalStartConstantTemperatureGradient.TZon, TZon.y) annotation (
-      Line(points={{-2,-50},{-18,-50},{-18,30},{-39,30}}, color={0,0,127}));
-  connect(TZon.y, optimalStart.TZon) annotation (Line(points={{-39,30},{-22,30},
+      Line(points={{-2,-50},{-18,-50},{-18,30},{-38,30}}, color={0,0,127}));
+  connect(TZon.y, optimalStart.TZon) annotation (Line(points={{-38,30},{-22,30},
           {-22,18},{-2,18}}, color={0,0,127}));
-  connect(TSetHea.y, optimalStart.TSetZonHea) annotation (Line(points={{-39,-20},
-          {-22,-20},{-22,10},{-2,10}}, color={0,0,127}));
-  connect(TSetCoo.y, optimalStart.TSetZonCoo) annotation (Line(points={{-39,-60},
-          {-28,-60},{-28,2},{-2,2}}, color={0,0,127}));
+  connect(TSetHea.y, optimalStart.TSetZon) annotation (Line(points={{-38,-20},{
+          -22,-20},{-22,10},{-2,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end OptimalStart;
