@@ -1,6 +1,4 @@
 Assert
 OptimalStart
-OptimalStartConstantTemperatureGradient
-OptimalStartAdaptiveTemperatureGradient
 SunRiseSet
 Validation
