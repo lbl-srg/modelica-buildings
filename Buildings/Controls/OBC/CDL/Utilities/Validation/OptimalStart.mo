@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Utilities.Validation;
 model OptimalStart
   extends Modelica.Icons.Example;
-  Continuous.Sources.Constant TSetHea(k=22 + 273.15)
+  Continuous.Sources.Constant TSetHea(k=21 + 273.15)
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Continuous.Sources.Constant TSetCoo(k=24 + 273.15)
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
@@ -30,10 +30,12 @@ equation
           0,127}));
   connect(optimalStartConstantTemperatureGradient.TZon, TZon.y) annotation (
       Line(points={{-2,-50},{-18,-50},{-18,30},{-38,30}}, color={0,0,127}));
-  connect(TZon.y, optimalStart.TZon) annotation (Line(points={{-38,30},{-22,30},
-          {-22,18},{-2,18}}, color={0,0,127}));
-  connect(TSetHea.y, optimalStart.TSetZon) annotation (Line(points={{-38,-20},{
-          -22,-20},{-22,10},{-2,10}}, color={0,0,127}));
+  connect(TSetCoo.y, optimalStart.TSetZonCool) annotation (Line(points={{-38,
+          -60},{-20,-60},{-20,2},{-2,2}}, color={0,0,127}));
+  connect(TSetHea.y, optimalStart.TSetZonHea) annotation (Line(points={{-38,-20},
+          {-20,-20},{-20,18},{-2,18}}, color={0,0,127}));
+  connect(TZon.y, optimalStart.TZon) annotation (Line(points={{-38,30},{-20,30},
+          {-20,10},{-2,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end OptimalStart;
