@@ -262,7 +262,7 @@ equation
   // FOR DEVELOPMENT ONLY
   frac_Q_flow = abs(heaFloToSou.Q_flow / sum(Q_flow_nominal));
   // FOR DEVELOPMENT ONLY
-  connect(m_flowReqSum.y, m_flowReq) annotation (Line(points={{71,110},{110,110}}, color={0,0,127}));
+  connect(m_flowReqSum.y, m_flowReq) annotation (Line(points={{72,110},{110,110}}, color={0,0,127}));
   connect(port_a,T1InlMes. port_a) annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(T1InlMes.port_b, m_flow1Mes.port_a) annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
   connect(preDro.port_a, m_flow1Mes.port_b) annotation (Line(points={{0,0},{-20,0}}, color={0,127,255}));
@@ -270,7 +270,7 @@ equation
   connect(UAAct.y, heaFloEff.UA) annotation (Line(points={{-79,200},{-20,200},{-20,184},{-12,184}},color={0,0,127}));
   connect(heaPorLoa,T2Mes. port) annotation (Line(points={{100,240},{100,150},{68,150}}, color={191,0,0}));
   connect(Q_flowSum.y, heaFloToSou.Q_flow)
-    annotation (Line(points={{71,70},{80,70},{80,34}}, color={0,0,127}));
+    annotation (Line(points={{72,70},{80,70},{80,34}}, color={0,0,127}));
   connect(heaPorLoa, heaFloSenToLoa.port) annotation (Line(points={{100,240},{70,240}}, color={191,0,0}));
   connect(T2Mes.T,heaFloEffCon.T2Inl)
     annotation (Line(points={{48,150},{-66,150},{-66,168},{-62,168}}, color={0,0,127}));
@@ -284,7 +284,7 @@ equation
   connect(m_flowAct.y, heaFloEff.m_flow1)
     annotation (Line(points={{-79,220},{-24,220},{-24,180},{-12,180}},color={0,0,127}));
   connect(T1InlVec.y, heaFloEff.T1Inl)
-    annotation (Line(points={{-70,61},{-70,99},{-24,99},{-24,176},{-12,176}},color={0,0,127}));
+    annotation (Line(points={{-70,62},{-70,99},{-24,99},{-24,176},{-12,176}},color={0,0,127}));
   connect(T2Mes.T, heaFloEff.T2Inl) annotation (Line(points={{48,150},{-16,150},{-16,168},{-12,168}},
                                                                                                    color={0,0,127}));
   connect(m_flow2, heaFloEff.m_flow2)
@@ -294,14 +294,14 @@ equation
   connect(heaFloEffCon.m_flow1, m_flowReqSum.u)
     annotation (Line(points={{-39,181},{-34,181},{-34,110},{48,110}},          color={0,0,127}));
   connect(T1InlVec.y, heaFloEffCon.T1Inl)
-    annotation (Line(points={{-70,61},{-70,99},{-74,99},{-74,176},{-62,176}}, color={0,0,127}));
+    annotation (Line(points={{-70,62},{-70,99},{-74,99},{-74,176},{-62,176}}, color={0,0,127}));
   connect(m_flow2, heaFloEffCon.m_flow2)
     annotation (Line(points={{-120,120},{-70,120},{-70,172},{-62,172}}, color={0,0,127}));
   if cooMod then
     connect(fraLat, addPar.u) annotation (Line(points={{-120,70},{-42,70}}, color={0,0,127}));
-    connect(addPar.y, div.u2) annotation (Line(points={{-19,70},{-12,70},{-12,64},{18,64}}, color={0,0,127}));
+    connect(addPar.y, div.u2) annotation (Line(points={{-18,70},{-12,70},{-12,64},{18,64}}, color={0,0,127}));
     connect(heaFloEff.Q_flow, div.u1) annotation (Line(points={{11,176},{14,176},{14,76},{18,76}}, color={0,0,127}));
-    connect(div.y, Q_flowSum.u) annotation (Line(points={{41,70},{48,70}}, color={0,0,127}));
+    connect(div.y, Q_flowSum.u) annotation (Line(points={{42,70},{48,70}}, color={0,0,127}));
   else
     connect(heaFloEff.Q_flow, Q_flowSum.u);
   end if;
