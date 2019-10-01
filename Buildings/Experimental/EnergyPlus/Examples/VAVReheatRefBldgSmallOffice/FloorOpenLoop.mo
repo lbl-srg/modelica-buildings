@@ -9,7 +9,7 @@ model FloorOpenLoop "Open loop model of one floor"
     "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of the weather file";
 
   final parameter Modelica.SIunits.Area AFlo=flo.AFlo "Floor area west";
@@ -110,7 +110,8 @@ equation
         "Simulate and plot"),
 experiment(
       StopTime=172800,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Radau"),
 Documentation(info="<html>
 <p>
 Test case of one floor of the small office DOE reference building.
