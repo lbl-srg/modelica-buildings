@@ -98,7 +98,8 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
             220,110}})));
 
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
-    final modelicaInstanceName=modelicaInstanceName,
+    final modelicaNameBuilding=modelicaNameBuilding,
+    final modelicaNameThermalZone=modelicaNameThermalZone,
     final idfName=idfName,
     final weaName=weaName,
     final zoneName=zoneName,
@@ -110,9 +111,9 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
 
 protected
   constant String modelicaNameBuilding = building.modelicaNameBuilding
-    "Name of this instance"
+    "Name of the building to which this thermal zone belongs to"
     annotation(HideResult=true);
-  constant String modelicaInstanceName = getInstanceName()
+  constant String modelicaNameThermalZone = getInstanceName()
     "Name of this instance"
     annotation(HideResult=true);
 
@@ -429,7 +430,7 @@ to species in Modelica or converted to emitted mass flow rate.)
 <ul>
 <li>
 April 04, 2018, by Thierry S. Nouidui:<br/>
-Added additional parameters for parametrizing 
+Added additional parameters for parametrizing
 the EnergyPlus model.
 </li>
 <li>

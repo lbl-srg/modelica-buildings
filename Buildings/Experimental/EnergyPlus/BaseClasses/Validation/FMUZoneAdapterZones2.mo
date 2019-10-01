@@ -2,6 +2,9 @@ within Buildings.Experimental.EnergyPlus.BaseClasses.Validation;
 model FMUZoneAdapterZones2
   "Validation model for the class and functions that instantiate and communicate with an FMU for Model Exchange"
   extends Modelica.Icons.Example;
+
+  constant String modelicaNameBuilding=getInstanceName() "Name of the building";
+
   parameter String idfName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
@@ -11,6 +14,7 @@ model FMUZoneAdapterZones2
   parameter Modelica.SIunits.HeatCapacity CZon = 6*6*2.7*1.2*1006 "Heat capacity of zone air";
 
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonCor(
+    modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,
     final zoneName="Core_ZN",
@@ -37,6 +41,7 @@ model FMUZoneAdapterZones2
     y(final unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonSou(
+    modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,
     final zoneName="South_ZN",

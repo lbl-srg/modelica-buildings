@@ -21,7 +21,7 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
   saveAppend(buffer, "  \"EnergyPlus\": {\n", size);
   /* idf name */
   saveAppend(buffer, "    \"idf\": \"", size);
-  saveAppend(buffer, bui->name, size);
+  saveAppend(buffer, bui->idfName, size);
   saveAppend(buffer, "\",\n", size);
 
   /* idd file */
@@ -147,21 +147,21 @@ void setValueReferences(FMUBuilding* fmuBui){
     zone = (FMUZone*) fmuBui->zones[iZon];
     setValueReference(
       fmuBui->fmuAbsPat,
-      fmuBui->name,
+      fmuBui->idfName,
       vl, vrl, nv,
       zone->parOutVarNames,
       ZONE_N_PAR_OUT,
       &(zone->parOutValReferences));
    setValueReference(
       fmuBui->fmuAbsPat,
-      fmuBui->name,
+      fmuBui->idfName,
       vl, vrl, nv,
       zone->inpVarNames,
       ZONE_N_INP,
       &(zone->inpValReferences));
    setValueReference(
      fmuBui->fmuAbsPat,
-     fmuBui->name,
+     fmuBui->idfName,
      vl, vrl, nv,
      zone->outVarNames,
      ZONE_N_OUT,
@@ -347,12 +347,12 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     ModelicaFormatMessage("Instantiating fmu.");
 
   /* Instantiate EnergyPlus */
-  jm_status = fmi2_import_instantiate(bui->fmu, bui->name, fmi2_model_exchange, NULL, visible);
+  jm_status = fmi2_import_instantiate(bui->fmu, bui->modelicaNameBuilding, fmi2_model_exchange, NULL, visible);
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Returned from instantiating fmu.");
   if(jm_status == jm_status_error){
-    ModelicaFormatError("Failed to instantiate building FMU with name %s.",  bui->name);
+    ModelicaFormatError("Failed to instantiate building FMU with name %s.",  bui->modelicaNameBuilding);
   }
 }
 
@@ -382,8 +382,9 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   }
 
   importEnergyPlusFMU(bui);
+
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("FMU for building %s is at %p.\n", bui->name, bui->fmu);
+    ModelicaFormatMessage("FMU for building %s is at %p.\n", bui->modelicaNameBuilding, bui->fmu);
 
   setEnergyPlusDebugLevel(bui);
   /* Set the value references for all parameters, inputs and outputs */

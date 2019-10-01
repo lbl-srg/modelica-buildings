@@ -9,7 +9,7 @@ model FloorOpenLoop "Open loop model of one floor"
     "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
     "Name of the weather file";
 
   final parameter Modelica.SIunits.Area AFlo=flo.AFlo "Floor area west";
@@ -23,8 +23,10 @@ model FloorOpenLoop "Open loop model of one floor"
     "Building-level declarations"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=weaName)
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    "Name of the weather file";
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
@@ -106,7 +108,7 @@ equation
       points={{-40,50},{-40,-20},{-28,-20},{-28,-19.8}},
       color={255,204,51},
       thickness=0.5));
-  annotation (
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/FloorOpenLoop.mos"
         "Simulate and plot"),
 experiment(

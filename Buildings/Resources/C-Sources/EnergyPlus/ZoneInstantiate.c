@@ -48,7 +48,7 @@ void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
     parValues);
   if (status != fmi2OK ){
     ModelicaFormatError("Failed to set parameters for building %s, zone %s.",
-    zone->ptrBui->name, zone->name);
+    zone->ptrBui->modelicaNameBuilding, zone->modelicaNameThermalZone);
   }
   return;
 }
@@ -57,15 +57,17 @@ void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("fmi2_import_get_real: Getting parameters from EnergyPlus zone %s.\n", zone->name);
+    ModelicaFormatMessage(
+      "fmi2_import_get_real: Getting parameters from EnergyPlus zone %s.\n",
+      zone->modelicaNameThermalZone);
+
   status = fmi2_import_get_real(
     zone->ptrBui->fmu,
     zone->parOutValReferences,
     ZONE_N_PAR_OUT,
     parValues);
   if (status != fmi2OK ){
-    ModelicaFormatError("Failed to get parameters for building %s, zone %s.",
-    zone->ptrBui->name, zone->name);
+    ModelicaFormatError("Failed to get parameters for zone %s.", zone->modelicaNameThermalZone);
   }
   return;
 }
@@ -102,7 +104,7 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUZone* zone, double start
   status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
   if( status != fmi2_status_ok ){
     ModelicaFormatError("Failed to enter initialization mode for FMU with name %s for zone %s.",
-    zone->ptrBui->fmuAbsPat, zone->name);
+    zone->ptrBui->fmuAbsPat, zone->modelicaNameThermalZone);
   }
   setFMUMode(zone->ptrBui, initializationMode);
 
@@ -123,14 +125,14 @@ void ZoneInstantiate(
   double outputValues[ZONE_N_PAR_OUT];
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    ModelicaFormatMessage("Entered ZoneInstantiate for zone %s.\n", zone->modelicaInstanceName);
+    ModelicaFormatMessage("Entered ZoneInstantiate for zone %s.\n", zone->modelicaNameThermalZone);
   }
   /* Fixme: Here, in Dymola, zone->ptrBui is NULL for FMUZoneAdapterZones2, but it was not NULL
      when leaving ZoneAllocate */
   /* if (zone->ptrBui->nZon == 1)
     ModelicaFormatError("*** Entering loadFMU_setupExperiment_enterInitializationMode, ptrBui=%p", zone->ptrBui);// with nZon=%d", zone->ptrBui->nZon); */
   if (zone->ptrBui == NULL){
-    ModelicaFormatError("Pointer zone->ptrBui is NULL in ZoneInstantiate for zone %s.", zone->modelicaInstanceName);
+    ModelicaFormatError("Pointer zone->ptrBui is NULL in ZoneInstantiate for zone %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.Experimental.EnergyPlus.UsersGuide.", zone->modelicaNameThermalZone);
   }
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
@@ -142,7 +144,7 @@ void ZoneInstantiate(
     */
     loadFMU_setupExperiment_enterInitializationMode(zone, startTime);
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("FMU for zone %s is now allocated at %p.\n", zone->modelicaInstanceName, zone->ptrBui->fmu);
+      ModelicaFormatMessage("FMU for zone %s is now allocated at %p.\n", zone->modelicaNameThermalZone, zone->ptrBui->fmu);
 
   }
 

@@ -14,7 +14,7 @@ model TwoIdenticalZones "Validation model with two identical zones"
   Zone zon1(zoneName="Thermal Zone 1")
     "Thermal zone 1 (core zone of the office building with 5 zones)"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Zone zon2(zoneName="Thermal Zone 1")
+  Zone zon2(zoneName="Thermal Zone 2")
     "Thermal zone 2 (core zone of the office building with 5 zones)"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
 
