@@ -4,7 +4,10 @@ model DownStart "Validate sequence of start staging down process"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart
     staStaDow(
     final nChi=2,
-    final byPasSetTim=300)
+    final byPasSetTim=300,
+    final minFloSet={1,1},
+    final maxFloSet={1.5,1.5},
+    final chaChiWatIsoTim=300)
     "Chiller stage down when the process does not require one chiller on and another chiller off"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart
@@ -12,7 +15,8 @@ model DownStart "Validate sequence of start staging down process"
     final nChi=2,
     final byPasSetTim=300,
     final minFloSet={1,1},
-    final maxFloSet={1.5,1.5})
+    final maxFloSet={1.5,1.5},
+    final chaChiWatIsoTim=300)
     "Chiller stage down when the process does require one chiller on and another chiller off"
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler demLimRel
@@ -405,5 +409,40 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-340,-320},{340,320}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-340,-300},{340,300}}),
+        graphics={
+          Rectangle(
+          extent={{-58,298},{338,-298}},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+          Rectangle(
+          extent={{-338,298},{-62,-298}},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{-322,288},{-274,280}},
+          lineColor={0,0,127},
+          textString="Stage down:"),
+        Text(
+          extent={{-314,276},{-154,266}},
+          lineColor={0,0,127},
+          textString="from stage 2 which has chiller one and two enabled, "),
+        Text(
+          extent={{-316,264},{-214,250}},
+          lineColor={0,0,127},
+          textString="to stage 1 which only has chiller 1."),
+        Text(
+          extent={{-36,264},{154,248}},
+          lineColor={0,0,127},
+          textString="to stage 1 which only has small chiller enabled (chiller 1)."),
+        Text(
+          extent={{-34,276},{154,266}},
+          lineColor={0,0,127},
+          textString="from stage 2 which only has large chiller enabled (chiller 2), "),
+        Text(
+          extent={{-44,288},{4,280}},
+          lineColor={0,0,127},
+          textString="Stage down:")}));
 end DownStart;

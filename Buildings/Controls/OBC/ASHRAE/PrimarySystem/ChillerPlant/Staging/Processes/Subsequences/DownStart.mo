@@ -8,15 +8,15 @@ block DownStart "Sequence for starting stage-down process"
     "Demand reducing factor of current operating chillers"
     annotation (Dialog(group="Demand limit"));
   parameter Modelica.SIunits.Time holChiDemTim=300
-    "Time of actual demand less than center percentage of currnet load"
+    "Maximum time to wait for the actual demand less than percentage of currnet load"
     annotation (Dialog(group="Demand limit"));
   parameter Modelica.SIunits.Time byPasSetTim
     "Time constant for resetting minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]={0.0089,0.0089}
+  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
     "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]={0.025,0.025}
+  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.Time aftByPasSetTim=60
@@ -28,7 +28,7 @@ block DownStart "Sequence for starting stage-down process"
   parameter Modelica.SIunits.Time waiTim=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Head pressure control"));
-  parameter Modelica.SIunits.Time chaChiWatIsoTim=300
+  parameter Modelica.SIunits.Time chaChiWatIsoTim
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
   parameter Modelica.SIunits.Time proOnTim=300

@@ -8,16 +8,16 @@ block UpEnd "Sequence for ending stage-up process"
   parameter Modelica.SIunits.Time proOnTim = 300
     "Threshold time to check if newly enabled chiller being operated by more than 5 minutes"
     annotation (Dialog(group="Enable next chiller"));
-  parameter Modelica.SIunits.Time chaChiWatIsoTim=300
+  parameter Modelica.SIunits.Time chaChiWatIsoTim
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
-  parameter Modelica.SIunits.Time byPasSetTim=300
+  parameter Modelica.SIunits.Time byPasSetTim
     "Time to slowly reset minimum by-pass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]={0.0089,0.0089}
+  parameter Modelica.SIunits.VolumeFlowRate minFloSet[nChi]
     "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]={0.025,0.025}
+  parameter Modelica.SIunits.VolumeFlowRate maxFloSet[nChi]
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Modelica.SIunits.Time aftByPasSetTim=60
@@ -72,7 +72,7 @@ block UpEnd "Sequence for ending stage-up process"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final unit="m3/s")
     "Measured chilled water flow rate"
-    annotation (Placement(transformation(extent={{-240,-204},{-200,-164}}),
+    annotation (Placement(transformation(extent={{-240,-210},{-200,-170}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller enabling status"
@@ -244,7 +244,7 @@ equation
     annotation (Line(points={{-58,-30},{20,-30},{20,-174},{80,-174}},
       color={255,0,255}));
   connect(minBypSet.VChiWat_flow, VChiWat_flow)
-    annotation (Line(points={{80,-182},{-70,-182},{-70,-184},{-220,-184}},
+    annotation (Line(points={{80,-182},{40,-182},{40,-190},{-220,-190}},
                                                      color={0,0,127}));
   connect(not2.y, booRep4.u)
     annotation (Line(points={{-138,100},{-130,100},{-130,60},{-62,60}},
@@ -283,8 +283,8 @@ equation
     annotation (Line(points={{-138,100},{-130,100},{-130,-110},{158,-110}},
       color={255,0,255}));
   connect(VChiWat_flow, chiWatByp.u1)
-    annotation (Line(points={{-220,-184},{40,-184},{40,-200},{140,-200},
-      {140,-102},{158,-102}}, color={0,0,127}));
+    annotation (Line(points={{-220,-190},{40,-190},{40,-200},{140,-200},{140,-102},
+          {158,-102}},        color={0,0,127}));
   connect(chiWatByp.y,yChiWatMinSet)
     annotation (Line(points={{182,-110},{220,-110}}, color={0,0,127}));
   connect(not2.y, logSwi5.u2)
