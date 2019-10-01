@@ -142,7 +142,8 @@ The internal gains for lighting, people and equipment are identical.
 The zones are detached and do not shade each other.
 </p>
 </html>", revisions="<html>
-<ul><li>
+<ul>
+<li>
 September 23, 2019, by Michael Wetter and Yanfei Li:<br/>
 First implementation.
 </li>

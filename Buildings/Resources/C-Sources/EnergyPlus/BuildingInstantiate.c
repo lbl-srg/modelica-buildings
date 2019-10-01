@@ -213,8 +213,9 @@ void generateFMU(
     }
     cmd = "/Resources/bin/spawn-linux64/bin/spawn";
     cmdFla = "-c"; /* Flag for command */
-    /* The + 1 are for spaces and for the end of line character */
-    len = strlen(buildingsLibraryRoot) + strlen(cmd) + 1 + strlen(cmdFla) + 1 + strlen(modelicaBuildingsJsonFile) + 1;
+    /* The + 1 are for spaces, the quotes around the file name (needed if the Modelica name has array brackets) and
+       the end of line character */
+    len = strlen(buildingsLibraryRoot) + strlen(cmd) + 1 + strlen(cmdFla) + 1 + 1 + strlen(modelicaBuildingsJsonFile) + 1 + 1;
     fulCmd = malloc(len * sizeof(char));
     if (fulCmd == NULL){
       ModelicaFormatError("Failed to allocate memory in generateFMU().");
@@ -233,8 +234,9 @@ void generateFMU(
     /* Continue building the command line */
     strcat(fulCmd, " ");
     strcat(fulCmd, cmdFla);
-    strcat(fulCmd, " ");
+    strcat(fulCmd, " \"");
     strcat(fulCmd, modelicaBuildingsJsonFile);
+    strcat(fulCmd, "\"");
   }
 
 
@@ -309,7 +311,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Parsing xml file.");
+    ModelicaFormatMessage("Parsing xml file %s", tmpPath);
   bui->fmu = fmi2_import_parse_xml(bui->context, tmpPath, 0);
 	if(!bui->fmu) {
 		ModelicaFormatError("Error parsing XML for %s.", FMUPath);
@@ -347,7 +349,12 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     ModelicaFormatMessage("Instantiating fmu.");
 
   /* Instantiate EnergyPlus */
-  jm_status = fmi2_import_instantiate(bui->fmu, bui->modelicaNameBuilding, fmi2_model_exchange, NULL, visible);
+  jm_status = fmi2_import_instantiate(
+    bui->fmu,
+    bui->modelicaNameBuilding,
+    fmi2_model_exchange,
+    NULL,
+    visible);
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Returned from instantiating fmu.");

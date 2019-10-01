@@ -163,10 +163,31 @@ void saveAppendJSONElements(
       }
   }
 
+/* Replace all characters 'find' with 'replace' in string 'str' */
+void replaceChar(char *str, char find, char replace){
+  char *s;
+  while ((s = strchr (str, find)) != NULL)
+  {
+    *s = replace;
+  }
+}
 
 void getSimulationFMUName(const char* modelicaNameBuilding, const char* tmpDir, char* *fmuAbsPat){
   size_t iniLen = 100;
 
+  /*
+  const size_t lenNam = strlen(modelicaNameBuilding);
+  char* newModNam;
+
+  newModNam = malloc(lenNam * sizeof(char));
+  if (newModNam == NULL){
+    ModelicaFormatError("Failed to allocate memory for new Modelica name.");
+  }
+  Replace special characters in FMU name
+  strcpy(newModNam, modelicaNameBuilding);
+  replaceChar(newModNam, '[', '_');
+  replaceChar(newModNam, ']', '_');
+  */
   *fmuAbsPat = malloc(iniLen * sizeof(char));
   if (*fmuAbsPat == NULL){
     ModelicaFormatError("Failed to allocate memory for FMU name for %s.", modelicaNameBuilding);
@@ -177,6 +198,10 @@ void getSimulationFMUName(const char* modelicaNameBuilding, const char* tmpDir, 
   saveAppend(fmuAbsPat, SEPARATOR, &iniLen);
   saveAppend(fmuAbsPat, modelicaNameBuilding, &iniLen);
   saveAppend(fmuAbsPat, ".fmu", &iniLen);
+  /* Replace special characters that are introduced if arrays of models are used.
+     Such array notation cause currently runtime errors when loading an FMU. */
+  replaceChar(*fmuAbsPat, '[', '_');
+  replaceChar(*fmuAbsPat, ']', '_');
 
   return;
 }
@@ -270,6 +295,10 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
   strcat(*dirNam, "/");
   strcat(*dirNam, pre);
   strcat(*dirNam, modelicaNameBuilding);
+  /* Replace special characters that are introduced if arrays of models are used.
+     Such array notation cause currently runtime errors when loading an FMU. */
+  replaceChar(*dirNam, '[', '_');
+  replaceChar(*dirNam, ']', '_');
   free(curDir);
   return;
 }
