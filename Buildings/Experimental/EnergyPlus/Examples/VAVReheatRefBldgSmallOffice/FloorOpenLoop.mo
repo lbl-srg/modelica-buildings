@@ -18,7 +18,8 @@ model FloorOpenLoop "Open loop model of one floor"
 
   inner Buildings.Experimental.EnergyPlus.Building building(
     idfName=idfName,
-    weaName=weaName)
+    weaName=weaName,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Building-level declarations"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -111,7 +112,7 @@ equation
 experiment(
       StopTime=172800,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      __Dymola_Algorithm="Cvode"),
 Documentation(info="<html>
 <p>
 Test case of one floor of the small office DOE reference building.
