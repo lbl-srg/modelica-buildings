@@ -7,11 +7,19 @@ model ThreeZonesTwoBuildings
   model OneZoneBuilding "Model with a building with one zone"
     extends Buildings.Experimental.EnergyPlus.Validation.OneZone;
     extends Modelica.Blocks.Icons.Block;
+    annotation (Icon(graphics={Text(
+            extent={{-78,48},{82,-32}},
+            lineColor={0,0,0},
+            textString="1 zone")}));
   end OneZoneBuilding;
 
   model TwoZoneBuilding "Model with a building with two zones"
     extends Buildings.Experimental.EnergyPlus.Validation.TwoIdenticalZones;
     extends Modelica.Blocks.Icons.Block;
+    annotation (Icon(graphics={Text(
+            extent={{-82,44},{78,-36}},
+            lineColor={0,0,0},
+            textString="2 zones")}));
   end TwoZoneBuilding;
 
   OneZoneBuilding zon1 "Building with one thermal zone"
