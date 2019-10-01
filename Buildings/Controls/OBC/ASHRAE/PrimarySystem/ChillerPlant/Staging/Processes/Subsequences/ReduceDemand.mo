@@ -5,7 +5,7 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
   parameter Real chiDemRedFac = 0.75
     "Demand reducing factor of current operating chillers";
   parameter Modelica.SIunits.Time holChiDemTim = 300
-    "Time of actual demand less than percentage of currnet load";
+    "Maximum time to wait for the actual demand less than percentage of currnet load";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDemLim
     "Demand limit: true=limit chiller demand"
@@ -66,19 +66,15 @@ protected
     final uLow=fill(chiDemRedFac + 0.05 - 0.01, nChi),
     final uHigh=fill(chiDemRedFac + 0.05 + 0.01, nChi))
     "Check if actual demand has already reduced at instant when receiving stage change signal"
-    annotation (Placement(transformation(extent={{-40,-170},{-20,-150}})));
+    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div[nChi]
     "Output result of first input divided by second input"
-    annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
+    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] "Logical not"
-    annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nu=nChi)
-    "Output true when elements of input vector are true"
-    annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=holChiDemTim)
-    "Wait a giving time before proceeding"
-    annotation (Placement(transformation(extent={{80,-170},{100,-150}})));
+    "Current chillers demand have been lower than 80%"
+    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
@@ -107,6 +103,19 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Product pro[nChi]
     "Percentage of the current load"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nChi](
+    final p=fill(1e-6, nChi),
+    final k=fill(1, nChi))
+    "Add a small value to avoid potentially zero denominator"
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer tim
+    "Count the time demand limit"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr3(
+    final threshold=holChiDemTim) "Check if the demand limit has been 5 minutes"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
+    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
 
 equation
   connect(booRep.y, triSam.trigger)
@@ -121,25 +130,18 @@ equation
   connect(con.y, swi.u3)
     annotation (Line(points={{-118,-160},{-100,-160},{-100,-118},{-82,-118}},
       color={0,0,127}));
-  connect(triSam.y, swi.u1)
-    annotation (Line(points={{22,130},{40,130},{40,-60},{-100,-60},{-100,-102},
-      {-82,-102}},
-      color={0,0,127}));
   connect(swi.y, div.u2)
-    annotation (Line(points={{-58,-110},{-40,-110},{-40,-116},{-22,-116}},
+    annotation (Line(points={{-58,-110},{-50,-110},{-50,-116},{-42,-116}},
       color={0,0,127}));
   connect(uChiLoa, div.u1)
-    annotation (Line(points={{-180,130},{-140,130},{-140,-80},{-40,-80},
-      {-40,-104},{-22,-104}}, color={0,0,127}));
+    annotation (Line(points={{-180,130},{-140,130},{-140,-80},{-50,-80},
+      {-50,-104},{-42,-104}}, color={0,0,127}));
   connect(div.y, hys.u)
-    annotation (Line(points={{2,-110},{20,-110},{20,-130},{-60,-130},{-60,-160},
-      {-42,-160}}, color={0,0,127}));
+    annotation (Line(points={{-18,-110},{-2,-110}}, color={0,0,127}));
   connect(hys.y, not1.u)
-    annotation (Line(points={{-18,-160},{-2,-160}}, color={255,0,255}));
+    annotation (Line(points={{22,-110},{38,-110}},  color={255,0,255}));
   connect(not1.y, mulAnd.u)
-    annotation (Line(points={{22,-160},{38,-160}}, color={255,0,255}));
-  connect(mulAnd.y, truDel.u)
-    annotation (Line(points={{62,-160},{78,-160}},   color={255,0,255}));
+    annotation (Line(points={{62,-110},{78,-110}}, color={255,0,255}));
   connect(swi4.y,yChiDem)
     annotation (Line(points={{142,90},{180,90}}, color={0,0,127}));
   connect(uDemLim, edg.u)
@@ -155,15 +157,12 @@ equation
   connect(uDemLim, and2.u1)
     annotation (Line(points={{-180,160},{-120,160},{-120,50},{118,50}},
       color={255,0,255}));
-  connect(truDel.y, and2.u2)
-    annotation (Line(points={{102,-160},{110,-160},{110,42},{118,42}},
-      color={255,0,255}));
   connect(and2.y, yChiDemRed)
     annotation (Line(points={{142,50},{180,50}}, color={255,0,255}));
   connect(uStaDow, and1.u1)
     annotation (Line(points={{-180,0},{-102,0}}, color={255,0,255}));
   connect(uOnOff, and1.u2)
-    annotation (Line(points={{-180,-40},{-120,-40},{-120,-8},{-102,-8}},
+    annotation (Line(points={{-180,-40},{-130,-40},{-130,-8},{-102,-8}},
       color={255,0,255}));
   connect(minOPLR, swi1.u1)
     annotation (Line(points={{-180,40},{-60,40},{-60,8},{-42,8}},
@@ -189,6 +188,25 @@ equation
   connect(pro.y, swi4.u1)
     annotation (Line(points={{102,130},{110,130},{110,98},{118,98}},
       color={0,0,127}));
+  connect(triSam.y, addPar.u)
+    annotation (Line(points={{22,130},{40,130},{40,-20},{58,-20}},
+      color={0,0,127}));
+  connect(addPar.y, swi.u1)
+    annotation (Line(points={{82,-20},{100,-20},{100,-52},{-100,-52},{-100,-102},
+      {-82,-102}}, color={0,0,127}));
+  connect(uDemLim, tim.u)
+    annotation (Line(points={{-180,160},{-120,160},{-120,-70},{-42,-70}},
+      color={255,0,255}));
+  connect(tim.y, greEquThr3.u)
+    annotation (Line(points={{-18,-70},{-2,-70}}, color={0,0,127}));
+  connect(greEquThr3.y, or2.u1)
+    annotation (Line(points={{22,-70},{118,-70}}, color={255,0,255}));
+  connect(mulAnd.y, or2.u2)
+    annotation (Line(points={{102,-110},{110,-110},{110,-78},{118,-78}},
+      color={255,0,255}));
+  connect(or2.y, and2.u2)
+    annotation (Line(points={{142,-70},{150,-70},{150,0},{100,0},{100,42},
+      {118,42}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="chiDemRed",

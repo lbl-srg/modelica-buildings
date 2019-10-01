@@ -95,7 +95,7 @@ protected
     "Maximum chilled water flow through each chiller"
     annotation (Placement(transformation(extent={{-340,150},{-320,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
-    each final k=0) "Constant zero"
+    final k=fill(0,nChi)) "Constant zero"
     annotation (Placement(transformation(extent={{-340,110},{-320,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Division floRat[nChi]
     "Flow rate ratio through each chiller"
@@ -113,9 +113,11 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2 if isParallelChiller
     "Sum of maximum chilled water flow rate setpoint of operating chillers after one chiller being enabled"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](final k=chiInd) "Chiller index vector"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
+    final k=chiInd) "Chiller index vector"
     annotation (Placement(transformation(extent={{-400,-40},{-380,-20}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(final nout=nChi) "Replicate integer input"
+  Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(
+    final nout=nChi) "Replicate integer input"
     annotation (Placement(transformation(extent={{-400,-80},{-380,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi] "Check equality of two integer inputs"
     annotation (Placement(transformation(extent={{-320,-40},{-300,-20}})));
@@ -400,9 +402,6 @@ equation
     annotation (Line(points={{-98,90},{-80,90},{-80,76},{-62,76}}, color={0,0,127}));
   connect(add2.y, pro1.u2)
     annotation (Line(points={{-98,50},{-80,50},{-80,64},{-62,64}}, color={0,0,127}));
-  connect(minFlo.y, nexChiRat.u)
-    annotation (Line(points={{-318,200},{-300,200},{-300,90},{-222,90}},
-      color={0,0,127}));
   connect(maxFlo.y, nexChiMaxFlo.u)
     annotation (Line(points={{-318,160},{-290,160},{-290,50},{-222,50}},
       color={0,0,127}));
@@ -595,6 +594,9 @@ equation
       {398,148}}, color={0,0,127}));
   connect(multiMax1.y, oneLeSet.f1)
     annotation (Line(points={{-98,-160},{60,-160},{60,-136},{98,-136}},
+      color={0,0,127}));
+  connect(floRat.y, nexChiRat.u)
+    annotation (Line(points={{-258,180},{-250,180},{-250,90},{-222,90}},
       color={0,0,127}));
 
 annotation (

@@ -85,26 +85,26 @@ block DownStart "Sequence for starting stage-down process"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
     final quantity=fill("HeatFlowRate", nChi),
     final unit=fill("W", nChi)) "Chiller demand setpoint"
-    annotation (Placement(transformation(extent={{180,130},{200,150}}),
+    annotation (Placement(transformation(extent={{180,120},{220,160}}),
       iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiHeaCon[nChi]
     "Chiller head pressure control enabling status"
-    annotation (Placement(transformation(extent={{180,-30},{200,-10}}),
+    annotation (Placement(transformation(extent={{180,-40},{220,0}}),
       iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
     "Chiller chilled water isolation valve position"
-    annotation (Placement(transformation(extent={{180,-80},{200,-60}}),
+    annotation (Placement(transformation(extent={{180,-90},{220,-50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller enabling status"
-    annotation (Placement(transformation(extent={{180,-150},{200,-130}}),
+    annotation (Placement(transformation(extent={{180,-120},{220,-80}}),
       iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yReaDemLim
     "Release demand limit"
-    annotation (Placement(transformation(extent={{180,-180},{200,-160}}),
+    annotation (Placement(transformation(extent={{180,-160},{220,-120}}),
       iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
@@ -163,6 +163,9 @@ protected
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoSta(
+    final pre_u_start=true) "Break algebraic loop"
+    annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
 
 equation
   connect(chiDemRed.uChiLoa, uChiLoa)
@@ -204,8 +207,8 @@ equation
     annotation (Line(points={{-2,-95},{-100,-95},{-100,-100},{-180,-100}},
       color={0,0,127}));
   connect(enaHeaCon.yEnaHeaCon,enaChiIsoVal.uUpsDevSta)
-    annotation (Line(points={{22,-10},{40,-10},{40,-60},{-20,-60},{-20,-105},{-2,
-          -105}}, color={255,0,255}));
+    annotation (Line(points={{22,-10},{40,-10},{40,-60},{-20,-60},{-20,-105},
+      {-2,-105}}, color={255,0,255}));
   connect(uStaDow, enaChiIsoVal.uStaCha)
     annotation (Line(points={{-180,210},{-140,210},{-140,-108},{-2,-108}},
       color={255,0,255}));
@@ -263,21 +266,19 @@ equation
     annotation (Line(points={{-180,-100},{-100,-100},{-100,-78},{138,-78}},
       color={0,0,127}));
   connect(chiDem.y, yChiDem)
-    annotation (Line(points={{162,140},{190,140}}, color={0,0,127}));
+    annotation (Line(points={{162,140},{200,140}}, color={0,0,127}));
   connect(heaPreCon.y, yChiHeaCon)
-    annotation (Line(points={{162,-20},{190,-20}}, color={255,0,255}));
+    annotation (Line(points={{162,-20},{200,-20}}, color={255,0,255}));
   connect(chiWatIsoVal.y, yChiWatIsoVal)
-    annotation (Line(points={{162,-70},{190,-70}}, color={0,0,127}));
+    annotation (Line(points={{162,-70},{200,-70}}, color={0,0,127}));
   connect(disChi.yChi, yChi)
-    annotation (Line(points={{22,-140},{190,-140}}, color={255,0,255}));
+    annotation (Line(points={{22,-140},{80,-140},{80,-100},{200,-100}},
+      color={255,0,255}));
   connect(disChi.yReaDemLim, not1.u)
     annotation (Line(points={{22,-148},{40,-148},{40,-170},{58,-170}},
      color={255,0,255}));
-  connect(not1.y, and2.u2)
-    annotation (Line(points={{82,-170},{100,-170},{100,-190},{-120,-190},
-      {-120,192},{-102,192}}, color={255,0,255}));
   connect(disChi.yReaDemLim, yReaDemLim)
-    annotation (Line(points={{22,-148},{120,-148},{120,-170},{190,-170}},
+    annotation (Line(points={{22,-148},{100,-148},{100,-140},{200,-140}},
       color={255,0,255}));
   connect(minOPLR, chiDemRed.minOPLR)
     annotation (Line(points={{-180,180},{-110,180},{-110,171},{-22,171}},
@@ -305,6 +306,11 @@ equation
   connect(con3.y, minChiWatSet.uUpsDevSta)
     annotation (Line(points={{-78,70},{-60,70},{-60,57},{-2,57}},
       color={255,0,255}));
+  connect(not1.y, chiTwoSta.u)
+    annotation (Line(points={{82,-170},{98,-170}}, color={255,0,255}));
+  connect(chiTwoSta.y, and2.u2)
+    annotation (Line(points={{122,-170},{140,-170},{140,-190},{-120,-190},
+      {-120,192},{-102,192}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="staStaDow",

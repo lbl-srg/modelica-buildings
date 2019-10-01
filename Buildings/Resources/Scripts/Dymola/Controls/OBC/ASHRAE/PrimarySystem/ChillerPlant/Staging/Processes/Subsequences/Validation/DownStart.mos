@@ -1,32 +1,18 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation.DownStart", method="Cvode", stopTime=120, tolerance=1e-06, resultFile="staDowSta");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation.DownStart", method="Cvode", stopTime=1200, tolerance=1e-06, resultFile="staDowSta");
 
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=1, y={"staStaDow.uStaDow"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=2, y={"staStaDow.uChiLoa[1]","staStaDow.uChiLoa[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=3, y={"staStaDow.yChiDem[1]","staStaDow.yChiDem[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=4, y={"staStaDow.yChiHeaCon[1]","staStaDow.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=5, y={"staStaDow.yChiWatIsoVal[1]","staStaDow.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=6, y={"staStaDow.yChi[1]","staStaDow.yChi[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=7, y={"staStaDow.yReaDemLim"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
 
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=1, y={"staStaDow1.uStaDow"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=2, y={"staStaDow1.uChiLoa[1]","staStaDow1.uChiLoa[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=3, y={"staStaDow1.yChiDem[1]","staStaDow1.yChiDem[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=4, y={"staStaDow1.yChiHeaCon[1]","staStaDow1.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=5, y={"staStaDow1.yChiWatIsoVal[1]","staStaDow1.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=6, y={"staStaDow1.yChi[1]","staStaDow1.yChi[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=7, y={"demLimRel.y"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
 
-
-
-
-
-
-createPlot(id=1, position={20, 10, 650, 1200}, subPlot=1, y={"nexEnaDisChi.uChiEna[1]","nexEnaDisChi.uChiEna[2]","nexEnaDisChi.uChiEna[3]","nexEnaDisChi.uStaUp"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
-createPlot(id=1, position={20, 10, 650, 1200}, subPlot=2, y={"nexEnaDisChi.uChiSta"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={20, 10, 650, 1200}, subPlot=3, y={"nexEnaDisChi.yNexEnaChi","nexEnaDisChi.yDisSmaChi"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 650, 1200}, subPlot=4, y={"nexEnaDisChi.yOnOff"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={20, 10, 650, 1200}, subPlot=5, y={"nexEnaDisChi.yLasDisChi","nexEnaDisChi.yEnaSmaChi"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-
-createPlot(id=2, position={680, 10, 650, 1200}, subPlot=1, y={"nexEnaChi.uChiEna[1]","nexEnaChi.uChiEna[2]","nexEnaChi.uChiEna[3]","nexEnaChi.uStaUp"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
-createPlot(id=2, position={680, 10, 650, 1200}, subPlot=2, y={"nexEnaChi.uChiSta"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={680, 10, 650, 1200}, subPlot=3, y={"nexEnaChi.yNexEnaChi","nexEnaChi.yDisSmaChi"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={680, 10, 650, 1200}, subPlot=4, y={"nexEnaChi.yOnOff"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={680, 10, 650, 1200}, subPlot=5, y={"nexEnaChi.yLasDisChi","nexEnaChi.yEnaSmaChi"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-
-createPlot(id=3, position={1340, 10, 650, 1200}, subPlot=1, y={"nexEnaDisChi1.uChiEna[1]","nexEnaDisChi1.uChiEna[2]","nexEnaDisChi1.uChiEna[3]","nexEnaDisChi1.uStaUp"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
-createPlot(id=3, position={1340, 10, 650, 1200}, subPlot=2, y={"nexEnaDisChi1.uChiSta"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=3, position={1340, 10, 650, 1200}, subPlot=3, y={"nexEnaDisChi1.yNexEnaChi","nexEnaDisChi1.yDisSmaChi"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=3, position={1340, 10, 650, 1200}, subPlot=4, y={"nexEnaDisChi1.yOnOff"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=3, position={1340, 10, 650, 1200}, subPlot=5, y={"nexEnaDisChi1.yLasDisChi","nexEnaDisChi1.yEnaSmaChi"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-
-createPlot(id=4, position={2000, 10, 650, 1200}, subPlot=1, y={"nexDisChi.uChiEna[1]","nexDisChi.uChiEna[2]","nexDisChi.uChiEna[3]","nexDisChi.uStaUp"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
-createPlot(id=4, position={2000, 10, 650, 1200}, subPlot=2, y={"nexDisChi.uChiSta"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=4, position={2000, 10, 650, 1200}, subPlot=3, y={"nexDisChi.yNexEnaChi","nexDisChi.yDisSmaChi"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=4, position={2000, 10, 650, 1200}, subPlot=4, y={"nexDisChi.yOnOff"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=4, position={2000, 10, 650, 1200}, subPlot=5, y={"nexDisChi.yLasDisChi","nexDisChi.yEnaSmaChi"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});

@@ -38,59 +38,56 @@ protected
     final uLow=0.95 -relFloDif,
     final uHigh=0.95 + relFloDif)
     "Check if chiller water flow reached setpoint"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and1 "Logical and"
     annotation (Placement(transformation(extent={{120,70},{140,90}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Time after achiving setpoint"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
     final threshold=aftByPasSetTim)
     "Check if it is 1 minute after new setpoint achieved"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div
     "Measured flow rate divided by its setpoint"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p=1e-6, final k=1)
     "Add a small positive to avoid zero output"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+    "Rising edge, output true at the moment when input turns from false to true"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg2
+    "Rising edge, output true at the moment when input turns from false to true"
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
 equation
   connect(uUpsDevSta, and2.u1)
-    annotation (Line(points={{-180,80},{-62,80}}, color={255,0,255}));
+    annotation (Line(points={{-180,80},{-82,80}}, color={255,0,255}));
   connect(uStaCha, and2.u2)
-    annotation (Line(points={{-180,40},{-120,40},{-120,72},{-62,72}},
+    annotation (Line(points={{-180,40},{-140,40},{-140,72},{-82,72}},
       color={255,0,255}));
   connect(tim.y, greEquThr.u)
     annotation (Line(points={{42,-40},{58,-40}}, color={0,0,127}));
   connect(and2.y, and1.u1)
-    annotation (Line(points={{-38,80},{40,80},{40,88},{118,88}},
+    annotation (Line(points={{-58,80},{-50,80},{-50,88},{118,88}},
       color={255,0,255}));
   connect(and1.y,yMinBypRes)
     annotation (Line(points={{142,80},{180,80}}, color={255,0,255}));
   connect(uStaCha, not1.u)
-    annotation (Line(points={{-180,40},{-120,40},{-120,30},{-102,30}},
-      color={255,0,255}));
-  connect(not1.y, lat.clr)
-    annotation (Line(points={{-78,30},{0,30},{0,24},{58,24}},
-      color={255,0,255}));
-  connect(edg.y, lat.u)
-    annotation (Line(points={{42,0},{50,0},{50,30},{58,30}},
+    annotation (Line(points={{-180,40},{-140,40},{-140,20},{-122,20}},
       color={255,0,255}));
   connect(lat.y, and1.u2)
-    annotation (Line(points={{82,30},{90,30},{90,80},{118,80}},
+    annotation (Line(points={{82,40},{90,40},{90,80},{118,80}},
       color={255,0,255}));
   connect(greEquThr.y, and1.u3)
     annotation (Line(points={{82,-40},{100,-40},{100,72},{118,72}},
@@ -98,20 +95,30 @@ equation
   connect(VMinChiWat_setpoint, addPar.u)
     annotation (Line(points={{-180,-80},{-142,-80}}, color={0,0,127}));
   connect(VChiWat_flow, div.u1)
-    annotation (Line(points={{-180,-20},{-120,-20},{-120,-34},{-102,-34}},
-      color={0,0,127}));
-  connect(addPar.y, div.u2)
-    annotation (Line(points={{-118,-80},{-110,-80},{-110,-46},{-102,-46}},
+    annotation (Line(points={{-180,-20},{-140,-20},{-140,-34},{-122,-34}},
       color={0,0,127}));
   connect(div.y, hys.u)
-    annotation (Line(points={{-78,-40},{-62,-40}}, color={0,0,127}));
-  connect(hys.y, tim.u)
-    annotation (Line(points={{-38,-40},{18,-40}}, color={255,0,255}));
-  connect(hys.y, not2.u)
-    annotation (Line(points={{-38,-40},{-30,-40},{-30,0},{-22,0}},
+    annotation (Line(points={{-98,-40},{-82,-40}}, color={0,0,127}));
+  connect(not1.y, edg1.u)
+    annotation (Line(points={{-98,20},{-82,20}}, color={255,0,255}));
+  connect(edg1.y, lat.clr)
+    annotation (Line(points={{-58,20},{40,20},{40,34},{58,34}},
       color={255,0,255}));
-  connect(not2.y, edg.u)
-    annotation (Line(points={{2,0},{18,0}}, color={255,0,255}));
+  connect(hys.y, and3.u1)
+    annotation (Line(points={{-58,-40},{-42,-40}}, color={255,0,255}));
+  connect(and2.y, and3.u2)
+    annotation (Line(points={{-58,80},{-50,80},{-50,-48},{-42,-48}},
+      color={255,0,255}));
+  connect(and3.y, tim.u)
+    annotation (Line(points={{-18,-40},{18,-40}}, color={255,0,255}));
+  connect(addPar.y, div.u2)
+    annotation (Line(points={{-118,-80},{-100,-80},{-100,-60},{-140,-60},
+      {-140,-46},{-122,-46}}, color={0,0,127}));
+  connect(and3.y, edg2.u)
+    annotation (Line(points={{-18,-40},{-10,-40},{-10,40},{-2,40}},
+      color={255,0,255}));
+  connect(edg2.y, lat.u)
+    annotation (Line(points={{22,40},{58,40}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="minBypRes",

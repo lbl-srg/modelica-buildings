@@ -42,7 +42,7 @@ protected
     "Chiller index, {1,2,...,n}";
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
-  Buildings.Controls.OBC.CDL.Logical.And                        and2
+  Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=nChi)
     "Replicate boolean input"
