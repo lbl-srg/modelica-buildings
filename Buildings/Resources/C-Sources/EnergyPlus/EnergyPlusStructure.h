@@ -81,9 +81,11 @@ typedef struct FMUBuilding
   char* fmuAbsPat; /* Absolute name of the fmu */
   bool usePrecompiledFMU; /* if true, a pre-compiled FMU will be used (for debugging) */
   char* precompiledFMUAbsPat; /* Name of pre-compiled FMU (if usePrecompiledFMU = true, otherwise set the NULL) */
+  char* modelHash; /* Hash code of the model definition used to create the FMU (except the FMU path) */
   fmi2Boolean dllfmu_created; /* Flag to indicate if dll fmu functions were successfully created */
   fmi2Real time; /* Time that is set in the building fmu */
   FMUMode mode; /* Mode that the FMU is in */
+  size_t iFMU; /* Number of this FMU */
 } FMUBuilding;
 
 /*#define ZONE_N_PAR_INP 1 Number of parameter value references to be set in EnergyPlus per zone*/

@@ -334,7 +334,7 @@ double do_event_iteration(FMUZone* zone){
     i++;
     if (FMU_EP_VERBOSITY >= TIMESTEP)
       ModelicaFormatMessage(
-        "fmi2_import_new_discrete_states: Doing event iteration with i = %d, zone = %s\n",
+        "fmi2_import_new_discrete_states: Doing event iteration with i = %lu, zone = %s\n",
         i,
         zone->modelicaNameThermalZone);
     status = fmi2_import_new_discrete_states(zone->ptrBui->fmu, &eventInfo);

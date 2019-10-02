@@ -11,8 +11,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include "../cryptographicsHash.c"
 
-void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer, size_t* size){
+void buildJSONModelStructureForEnergyPlus(
+  const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
   int iZon;
   FMUZone** zones = (FMUZone**)bui->zones;
 
@@ -34,15 +36,8 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
   saveAppend(buffer, bui->weather, size);
   saveAppend(buffer, "\"\n", size);
   saveAppend(buffer, "  },\n", size);
-  /* fmu */
-  saveAppend(buffer, "  \"fmu\": {\n", size);
-  saveAppend(buffer, "      \"name\": \"", size);
-  saveAppend(buffer, bui->fmuAbsPat, size);
-  saveAppend(buffer, "\",\n", size);
-  saveAppend(buffer, "      \"version\": \"2.0\",\n", size);
-  saveAppend(buffer, "      \"kind\"   : \"ME\"\n", size);
-  saveAppend(buffer, "  },\n", size);
 
+  /* model information */
   saveAppend(buffer, "  \"model\": {\n", size);
   saveAppend(buffer, "    \"zones\": [\n", size);
   for(iZon = 0; iZon < bui->nZon; iZon++){
@@ -56,13 +51,28 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
     else
       saveAppend(buffer, "\" }\n", size);
   }
-  /* Close json array */
-  saveAppend(buffer, "    ]\n  }\n}\n", size);
+  /* Close json array for zones */
+  saveAppend(buffer, "    ]\n  },\n", size);
+
+  *modelHash = cryptographicsHash(*buffer);
+
+    /* fmu */
+  saveAppend(buffer, "  \"fmu\": {\n", size);
+  saveAppend(buffer, "      \"name\": \"", size);
+  saveAppend(buffer, bui->fmuAbsPat, size);
+  saveAppend(buffer, "\",\n", size);
+  saveAppend(buffer, "      \"version\": \"2.0\",\n", size);
+  saveAppend(buffer, "      \"kind\"   : \"ME\"\n", size);
+  saveAppend(buffer, "  }\n", size);
+
+  /* Close json structure */
+  saveAppend(buffer, "}\n", size);
+
   return;
 }
 
 
-void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBuildingsJsonFile){
+void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBuildingsJsonFile, char** modelHash){
   char * buffer;
   size_t size;
   size_t lenNam;
@@ -78,7 +88,7 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   memset(buffer, '\0', size + 1);
 
   /* Build the json structure */
-  buildJSONModelStructureForEnergyPlus(bui, &buffer, &size);
+  buildJSONModelStructureForEnergyPlus(bui, &buffer, &size, modelHash);
 
   /* Write to file */
   /* Build the file name */
@@ -296,7 +306,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   const char* tmpPath = bui->tmpDir;
   const char* FMUPath = bui->fmuAbsPat;
 
-    /* Set callback functions */
+  /* Set callback functions */
   callbacks = jm_get_default_callbacks();
 
   bui->context = fmi_import_allocate_context(callbacks);
@@ -363,6 +373,25 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   }
 }
 
+void setReusableFMU(FMUBuilding* bui){
+  int iBui;
+  FMUBuilding* ptrBui;
+
+  for(iBui = 0; iBui < getBuildings_nFMU(); iBui++){
+    ptrBui = (FMUBuilding*)(getBuildingsFMU(iBui));
+    if ((iBui != bui->iFMU) && (ptrBui->modelHash != NULL)){
+      if (strcmp(bui->modelHash, ptrBui->modelHash) == 0 ){
+        /* Check if the FMU indeed was generated */
+        if( access( ptrBui->fmuAbsPat, F_OK ) != -1 ) {
+          /* We can use the same FMU as will be used for building iBui */
+          bui->usePrecompiledFMU = true;
+          bui->precompiledFMUAbsPat = ptrBui->fmuAbsPat;
+        }
+      }
+    }
+  }
+}
+
 void generateAndInstantiateBuilding(FMUBuilding* bui){
   /* This is the first call for this idf file.
      Allocate memory and load the fmu.
@@ -375,7 +404,10 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   /* Write the model structure to the FMU Resources folder so that EnergyPlus can
      read it and set up the data structure.
   */
-  writeModelStructureForEnergyPlus(bui, &modelicaBuildingsJsonFile);
+  writeModelStructureForEnergyPlus(bui, &modelicaBuildingsJsonFile, &(bui->modelHash));
+
+  setReusableFMU(bui);
+
   generateFMU(
       bui->usePrecompiledFMU,
       bui->precompiledFMUAbsPat,

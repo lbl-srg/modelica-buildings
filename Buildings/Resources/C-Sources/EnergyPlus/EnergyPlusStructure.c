@@ -454,6 +454,11 @@ size_t ZoneAllocateBuildingDataStructure(
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate IDD name.");
   strcpy(Buildings_FMUS[nFMU]->idd, iddName);
 
+  /* Set the model hash to null */
+  Buildings_FMUS[nFMU]->modelHash = NULL;
+  /* Set the number of this FMU */
+  Buildings_FMUS[nFMU]->iFMU = nFMU;
+
   /* Assign the zone name */
   Buildings_FMUS[nFMU]->zoneNames[0] = malloc((strlen(ptrZone->modelicaNameThermalZone)+1) * sizeof(char));
   if ( Buildings_FMUS[nFMU]->zoneNames[0] == NULL )
