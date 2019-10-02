@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "bui[1].zon1.TAir",
+    "bui[1].zon2.TAir",
+    "bui[1].TAirEnePlu.y",
+    "bui[2].zon1.TAir",
+    "bui[2].zon2.TAir",
+    "bui[2].TAirEnePlu.y"
+  };

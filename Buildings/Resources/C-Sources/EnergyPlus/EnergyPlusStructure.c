@@ -108,7 +108,7 @@ char* fmuModeToString(FMUMode mode){
 /* Wrapper to set fmu mode indicator and log the mode change for debugging */
 void setFMUMode(FMUBuilding* bui, FMUMode mode){
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Switching %s to mode %s\n", bui->name, fmuModeToString(mode));
+    ModelicaFormatMessage("Switching %s to mode %s\n", bui->modelicaNameBuilding, fmuModeToString(mode));
   bui->mode = mode;
 }
 /*
@@ -163,25 +163,45 @@ void saveAppendJSONElements(
       }
   }
 
+/* Replace all characters 'find' with 'replace' in string 'str' */
+void replaceChar(char *str, char find, char replace){
+  char *s;
+  while ((s = strchr (str, find)) != NULL)
+  {
+    *s = replace;
+  }
+}
 
-void getSimulationFMUName(const char* idfName, const char* tmpDir, char* *fmuAbsPat){
-  size_t lenIDF = strlen(idfName);
-  size_t lenTMP = strlen(tmpDir);
+void getSimulationFMUName(const char* modelicaNameBuilding, const char* tmpDir, char* *fmuAbsPat){
   size_t iniLen = 100;
-  char * idfNamNoExt;
 
+  /*
+  const size_t lenNam = strlen(modelicaNameBuilding);
+  char* newModNam;
+
+  newModNam = malloc(lenNam * sizeof(char));
+  if (newModNam == NULL){
+    ModelicaFormatError("Failed to allocate memory for new Modelica name.");
+  }
+  Replace special characters in FMU name
+  strcpy(newModNam, modelicaNameBuilding);
+  replaceChar(newModNam, '[', '_');
+  replaceChar(newModNam, ']', '_');
+  */
   *fmuAbsPat = malloc(iniLen * sizeof(char));
   if (*fmuAbsPat == NULL){
-    ModelicaFormatError("Failed to allocate memory for FMU name for %s.", idfName);
+    ModelicaFormatError("Failed to allocate memory for FMU name for %s.", modelicaNameBuilding);
   }
   memset(*fmuAbsPat, '\0', iniLen);
 
   saveAppend(fmuAbsPat, tmpDir, &iniLen);
   saveAppend(fmuAbsPat, SEPARATOR, &iniLen);
-  idfNamNoExt = getFileNameWithoutExtension(idfName);
-  saveAppend(fmuAbsPat, idfNamNoExt, &iniLen);
+  saveAppend(fmuAbsPat, modelicaNameBuilding, &iniLen);
   saveAppend(fmuAbsPat, ".fmu", &iniLen);
-  free(idfNamNoExt);
+  /* Replace special characters that are introduced if arrays of models are used.
+     Such array notation cause currently runtime errors when loading an FMU. */
+  replaceChar(*fmuAbsPat, '[', '_');
+  replaceChar(*fmuAbsPat, ']', '_');
 
   return;
 }
@@ -219,9 +239,9 @@ char * getFileNameWithoutExtension(const char* idfName){
   return namOnl;
 }
 
-void getSimulationTemporaryDirectory(const char* idfName, char** dirNam){
+void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** dirNam){
   /* Return the absolute name of the temporary directory to be used for EnergyPlus
-     in the form "/mnt/xxx/tmp-eplus-ValidationRefBldgSmallOfficeNew2004_Chicago"
+     in the form "/mnt/xxx/tmp-eplus-mod.nam.bui"
   */
   size_t lenNam;
   size_t lenPre;
@@ -262,8 +282,7 @@ void getSimulationTemporaryDirectory(const char* idfName, char** dirNam){
     }
   }
 
-  namOnl = getFileNameWithoutExtension(idfName);
-  lenNam = strlen(namOnl);
+  lenNam = strlen(modelicaNameBuilding);
   lenCur = strlen(curDir);
   lenSep = 1;
   lenPre = strlen(pre);
@@ -275,8 +294,11 @@ void getSimulationTemporaryDirectory(const char* idfName, char** dirNam){
   strncpy(*dirNam, curDir, lenCur);
   strcat(*dirNam, "/");
   strcat(*dirNam, pre);
-  strcat(*dirNam, namOnl);
-  free(namOnl);
+  strcat(*dirNam, modelicaNameBuilding);
+  /* Replace special characters that are introduced if arrays of models are used.
+     Such array notation cause currently runtime errors when loading an FMU. */
+  replaceChar(*dirNam, '[', '_');
+  replaceChar(*dirNam, ']', '_');
   free(curDir);
   return;
 }
@@ -357,16 +379,21 @@ void createDirectory(const char* dirName){
 }
 
 
-size_t ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaName,
-  const char* iddName, const char* zoneName, FMUZone* zone,
-  int usePrecompiledFMU, const char* fmuName,
+size_t ZoneAllocateBuildingDataStructure(
+  const char* modelicaNameBuilding,
+  const char* idfName,
+  const char* weaName,
+  const char* iddName,
+  FMUZone* ptrZone,
+  int usePrecompiledFMU,
+  const char* fmuName,
   const char* buildingsLibraryRoot){
   int i;
   /* Allocate memory */
 
   const size_t nFMU = getBuildings_nFMU();
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("ZoneAllocateBuildingDataStructure: Allocating data structure for building %s", idfName);
+    ModelicaFormatMessage("ZoneAllocateBuildingDataStructure: Allocating data structure for building %s", modelicaNameBuilding);
 
   if (nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
@@ -389,24 +416,30 @@ size_t ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaNam
   if ( Buildings_FMUS[nFMU]->zoneNames == NULL )
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate array for Buildings_FMUS[0]->zoneNames.");
 
+  /* Assign the modelica name for this building */
+  Buildings_FMUS[nFMU]->modelicaNameBuilding = (char*) malloc((strlen(modelicaNameBuilding)+1) * sizeof(char));
+  if ( Buildings_FMUS[nFMU]->modelicaNameBuilding == NULL )
+    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate modelicaNameBuilding.");
+  strcpy(Buildings_FMUS[nFMU]->modelicaNameBuilding, modelicaNameBuilding);
+
   /* Assign the Buildings library root */
   Buildings_FMUS[nFMU]->buildingsLibraryRoot = (char*) malloc((strlen(buildingsLibraryRoot)+1) * sizeof(char));
   if ( Buildings_FMUS[nFMU]->buildingsLibraryRoot == NULL )
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate buildingsLibraryRoot.");
   strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
 
-  /* Assign the fmu name */
+  /* Assign the idfName name */
   if (usePrecompiledFMU){
-    Buildings_FMUS[nFMU]->name = (char*) malloc((strlen(fmuName)+1) * sizeof(char));
-    if ( Buildings_FMUS[nFMU]->name == NULL )
+    Buildings_FMUS[nFMU]->idfName = (char*) malloc((strlen(fmuName)+1) * sizeof(char));
+    if ( Buildings_FMUS[nFMU]->idfName == NULL )
       ModelicaError("Not enough memory in ZoneAllocate.c. to allocate fmu name.");
-    strcpy(Buildings_FMUS[nFMU]->name, fmuName);
+    strcpy(Buildings_FMUS[nFMU]->idfName, fmuName);
   }
   else{
-    Buildings_FMUS[nFMU]->name = (char*) malloc((strlen(idfName)+1) * sizeof(char));
-    if ( Buildings_FMUS[nFMU]->name == NULL )
+    Buildings_FMUS[nFMU]->idfName = (char*) malloc((strlen(idfName)+1) * sizeof(char));
+    if ( Buildings_FMUS[nFMU]->idfName == NULL )
       ModelicaError("Not enough memory in ZoneAllocate.c. to allocate fmu name.");
-    strcpy(Buildings_FMUS[nFMU]->name, idfName);
+    strcpy(Buildings_FMUS[nFMU]->idfName, idfName);
   }
 
   /* Assign the weather name */
@@ -422,10 +455,13 @@ size_t ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaNam
   strcpy(Buildings_FMUS[nFMU]->idd, iddName);
 
   /* Assign the zone name */
-  Buildings_FMUS[nFMU]->zoneNames[0] = malloc((strlen(zoneName)+1) * sizeof(char));
+  Buildings_FMUS[nFMU]->zoneNames[0] = malloc((strlen(ptrZone->modelicaNameThermalZone)+1) * sizeof(char));
   if ( Buildings_FMUS[nFMU]->zoneNames[0] == NULL )
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zone name.");
-  strcpy(Buildings_FMUS[nFMU]->zoneNames[0], zoneName);
+  /* Below, we copy to name of the zone in the idf file.
+     This will be used later to make sure each zone is refernced only once
+     in a Modelica parameter */
+  strcpy(Buildings_FMUS[nFMU]->zoneNames[0], ptrZone->name);
 
   Buildings_FMUS[nFMU]->nZon = 1;
 
@@ -433,9 +469,9 @@ size_t ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaNam
   if ( Buildings_FMUS[nFMU]->zones== NULL )
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zones.");
 
+  getSimulationTemporaryDirectory(modelicaNameBuilding, &(Buildings_FMUS[nFMU]->tmpDir));
+  getSimulationFMUName(modelicaNameBuilding, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
   if (usePrecompiledFMU){
-    getSimulationTemporaryDirectory(fmuName, &(Buildings_FMUS[nFMU]->tmpDir));
-    getSimulationFMUName(fmuName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
     Buildings_FMUS[nFMU]->usePrecompiledFMU = usePrecompiledFMU;
     /* Copy name of precompiled FMU */
     Buildings_FMUS[nFMU]->precompiledFMUAbsPat = malloc((strlen(fmuName)+1) * sizeof(char));
@@ -447,8 +483,6 @@ size_t ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaNam
   }
   else{
     /* Use actual EnergyPlus */
-    getSimulationTemporaryDirectory(idfName, &(Buildings_FMUS[nFMU]->tmpDir));
-    getSimulationFMUName(idfName, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
     Buildings_FMUS[nFMU]->usePrecompiledFMU = usePrecompiledFMU;
     Buildings_FMUS[nFMU]->precompiledFMUAbsPat = NULL;
   }
@@ -457,15 +491,15 @@ size_t ZoneAllocateBuildingDataStructure(const char* idfName, const char* weaNam
   createDirectory(Buildings_FMUS[nFMU]->tmpDir);
 
   /* Assign the zone */
-  Buildings_FMUS[nFMU]->zones[0] = zone;
+  Buildings_FMUS[nFMU]->zones[0] = ptrZone;
 
   incrementBuildings_nFMU();
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
     ModelicaFormatMessage("ZoneAllocateBuildingDataStructure: Allocated data structure for building %s, nFMU = %d, ptr = %p",
-      idfName, getBuildings_nFMU(), Buildings_FMUS[nFMU]);
+      modelicaNameBuilding, getBuildings_nFMU(), Buildings_FMUS[nFMU]);
     for(i = 0; i < getBuildings_nFMU(); i++){
-      ModelicaFormatMessage("Building %s is at pointer %p", Buildings_FMUS[i]->name, Buildings_FMUS[i]);
+      ModelicaFormatMessage("Building %s is at pointer %p", modelicaNameBuilding, Buildings_FMUS[i]);
     }
   }
 

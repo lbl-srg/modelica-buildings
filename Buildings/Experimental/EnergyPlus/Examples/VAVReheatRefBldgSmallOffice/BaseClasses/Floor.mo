@@ -6,14 +6,8 @@ model Floor "Model of a floor of the building"
   parameter Boolean use_windPressure=true
     "Set to true to enable wind pressure";
 
- parameter Real kIntNor(min=0, max=1) = 1
+  parameter Real kIntNor(min=0, max=1) = 1
     "Gain factor to scale internal heat gain in north zone";
- parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
-    "Name of the IDF file";
-  parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
-    "Name of the weather file";
 
   final parameter Modelica.SIunits.Area AFloCor=cor.AFlo "Floor area corridor";
   final parameter Modelica.SIunits.Area AFloSou=sou.AFlo "Floor area south";
@@ -25,49 +19,31 @@ model Floor "Model of a floor of the building"
   ThermalZone sou(
     redeclare package Medium = Medium,
     nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
     zoneName="Perimeter_ZN_1") "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
   ThermalZone eas(
     redeclare package Medium = Medium,
     nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
     zoneName="Perimeter_ZN_2") "East zone"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
   ThermalZone nor(
     redeclare package Medium = Medium,
     nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
     zoneName="Perimeter_ZN_3") "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
   ThermalZone wes(
     redeclare package Medium = Medium,
     nPorts=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
     zoneName="Perimeter_ZN_4") "West zone"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
   ThermalZone cor(
     redeclare package Medium = Medium,
     nPorts=11,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    idfName=idfName,
-    weaName=weaName,
     zoneName="Core_ZN") "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
 
   ThermalZone att(
     redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Attic") "Attic zone"
     annotation (Placement(transformation(extent={{310,400},{350,440}})));
 
@@ -161,25 +137,29 @@ model Floor "Model of a floor of the building"
     each displayUnit="degC") "Room air temperatures"
     annotation (Placement(transformation(extent={{380,150},{400,170}}),
         iconTransformation(extent={{380,150},{400,170}})));
-  Airflow.Multizone.DoorDiscretizedOpen opeSouCor(redeclare package Medium =
-        Medium, wOpe=10,
+  Airflow.Multizone.DoorDiscretizedOpen opeSouCor(
+    redeclare package Medium = Medium,
+    wOpe=10,
     forceErrorControlOnFlow=false)
-                         "Opening between perimeter1 and core"
+    "Opening between perimeter1 and core"
     annotation (Placement(transformation(extent={{84,0},{104,20}})));
-  Airflow.Multizone.DoorDiscretizedOpen opeEasCor(redeclare package Medium =
-        Medium, wOpe=10,
+  Airflow.Multizone.DoorDiscretizedOpen opeEasCor(
+    redeclare package Medium = Medium,
+    wOpe=10,
     forceErrorControlOnFlow=false)
-                         "Opening between perimeter2 and core"
+    "Opening between perimeter2 and core"
     annotation (Placement(transformation(extent={{250,38},{270,58}})));
-  Airflow.Multizone.DoorDiscretizedOpen opeNorCor(redeclare package Medium =
-        Medium, wOpe=10,
+  Airflow.Multizone.DoorDiscretizedOpen opeNorCor(
+    redeclare package Medium = Medium,
+    wOpe=10,
     forceErrorControlOnFlow=false)
-                         "Opening between perimeter3 and core"
+    "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{80,74},{100,94}})));
-  Airflow.Multizone.DoorDiscretizedOpen opeWesCor(redeclare package Medium =
-        Medium, wOpe=10,
+  Airflow.Multizone.DoorDiscretizedOpen opeWesCor(
+    redeclare package Medium = Medium,
+    wOpe=10,
     forceErrorControlOnFlow=false)
-                         "Opening between perimeter3 and core"
+    "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
     table=[0,0.05;
