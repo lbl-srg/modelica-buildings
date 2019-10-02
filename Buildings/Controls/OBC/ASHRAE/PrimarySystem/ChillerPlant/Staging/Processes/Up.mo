@@ -371,31 +371,31 @@ equation
     annotation (Line(points={{-118,210},{-100,210},{-100,-158},{58,-158}},
       color={255,0,255}));
   connect(nexChi.yNexEnaChi, endUp.nexEnaChi)
-    annotation (Line(points={{-58,239},{-36,239},{-36,-210},{58,-210}},
+    annotation (Line(points={{-58,239},{-36,239},{-36,-208},{58,-208}},
       color={255,127,0}));
   connect(lat.y, endUp.uStaUp)
-    annotation (Line(points={{-118,210},{-100,210},{-100,-212},{58,-212}},
+    annotation (Line(points={{-118,210},{-100,210},{-100,-210},{58,-210}},
       color={255,0,255}));
   connect(enaChiIsoVal.yEnaChiWatIsoVal, endUp.uEnaChiWatIsoVal)
-    annotation (Line(points={{82,-144},{100,-144},{100,-180},{40,-180},
-      {40,-214},{58,-214}}, color={255,0,255}));
+    annotation (Line(points={{82,-144},{100,-144},{100,-180},{40,-180},{40,-212},
+          {58,-212}},       color={255,0,255}));
   connect(uChi, endUp.uChi)
-    annotation (Line(points={{-260,130},{-220,130},{-220,-216},{58,-216}},
+    annotation (Line(points={{-260,130},{-220,130},{-220,-214},{58,-214}},
       color={255,0,255}));
   connect(endUp.uChiWatReq, uChiWatReq)
-    annotation (Line(points={{58,-222},{-44,-222},{-44,-220},{-260,-220}},
+    annotation (Line(points={{58,-220},{-44,-220},{-44,-220},{-260,-220}},
       color={255,0,255}));
   connect(endUp.uChiWatIsoVal, uChiWatIsoVal)
-    annotation (Line(points={{58,-224},{-96,-224},{-96,-160},{-260,-160}},
+    annotation (Line(points={{58,-222},{-96,-222},{-96,-160},{-260,-160}},
       color={0,0,127}));
   connect(uConWatReq, endUp.uConWatReq)
-    annotation (Line(points={{-260,-10},{-164,-10},{-164,-226},{58,-226}},
+    annotation (Line(points={{-260,-10},{-164,-10},{-164,-224},{58,-224}},
       color={255,0,255}));
   connect(uChiHeaCon, endUp.uChiHeaCon)
-    annotation (Line(points={{-260,-130},{-48,-130},{-48,-228},{58,-228}},
+    annotation (Line(points={{-260,-130},{-48,-130},{-48,-226},{58,-226}},
       color={255,0,255}));
   connect(VChiWat_flow, endUp.VChiWat_flow)
-    annotation (Line(points={{-260,100},{-156,100},{-156,-230},{58,-230}},
+    annotation (Line(points={{-260,100},{-156,100},{-156,-228},{58,-228}},
       color={0,0,127}));
   connect(uConWatReq, mulOr1.u)
     annotation (Line(points={{-260,-10},{-164,-10},{-164,-20},{-82,-20}},
@@ -456,13 +456,13 @@ equation
     annotation (Line(points={{-178,80},{-96,80},{-96,222},{-82,222}},
       color={255,0,255}));
   connect(nexChi.yDisSmaChi, endUp.nexDisChi)
-    annotation (Line(points={{-58,234},{-40,234},{-40,-220},{58,-220}},
+    annotation (Line(points={{-58,234},{-40,234},{-40,-218},{58,-218}},
       color={255,127,0}));
   connect(nexChi.yOnOff, minChiWatFlo.uOnOff)
     annotation (Line(points={{-58,230},{-44,230},{-44,93},{-2,93}},
       color={255,0,255}));
   connect(nexChi.yOnOff, endUp.uOnOff)
-    annotation (Line(points={{-58,230},{-44,230},{-44,-218},{58,-218}},
+    annotation (Line(points={{-58,230},{-44,230},{-44,-216},{58,-216}},
       color={255,0,255}));
   connect(con.y, enaNexCWP.uStaDow)
     annotation (Line(points={{-178,80},{-96,80},{-96,38},{-2,38}},
@@ -535,6 +535,9 @@ equation
   connect(edg1.y, lat.clr)
     annotation (Line(points={{142,-240},{160,-240},{160,-200},{-160,-200},
       {-160,204},{-142,204}}, color={255,0,255}));
+  connect(minChiWatFlo.yChiWatMinFloSet, endUp.VMinChiWat_setpoint)
+    annotation (Line(points={{22,100},{40,100},{40,82},{-92,82},{-92,-230},
+      {58,-230}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="upProCon",
