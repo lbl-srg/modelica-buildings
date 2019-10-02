@@ -57,6 +57,8 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
       free(ptrBui->zones);
     if (ptrBui->tmpDir != NULL)
       free(ptrBui->tmpDir);
+    if (ptrBui->modelHash != NULL)
+      free(ptrBui->modelHash);
     free(ptrBui);
   }
 }

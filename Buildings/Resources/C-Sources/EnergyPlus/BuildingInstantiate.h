@@ -7,6 +7,7 @@
 #define Buildings_BuildingInstantiate_h
 
 #include "EnergyPlusStructure.h"
+#include "../cryptographicsHash.h"
 
 #include <stdio.h>
 #include <unistd.h>
