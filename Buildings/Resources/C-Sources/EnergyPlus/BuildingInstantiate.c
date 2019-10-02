@@ -200,8 +200,6 @@ void generateFMU(
     ModelicaFormatMessage("Entered generateFMU with FMUPath = %s.\n", FMUPath);
 
   if (usePrecompiledFMU){
-    ModelicaFormatMessage("Using pre-compiled FMU %s\n", precompiledFMUPath);
-
     if( access( precompiledFMUPath, F_OK ) == -1 ) {
       ModelicaFormatError("Requested to use fmu '%s' which does not exist.", precompiledFMUPath);
     }
@@ -400,6 +398,9 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Entered ZoneAllocateAndInstantiateBuilding.\n");
+
+  if (bui->usePrecompiledFMU)
+    ModelicaFormatMessage("Using pre-compiled FMU %s\n", precompiledFMUPath);
 
   /* Write the model structure to the FMU Resources folder so that EnergyPlus can
      read it and set up the data structure.
