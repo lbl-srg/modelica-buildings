@@ -54,7 +54,7 @@ void buildJSONModelStructureForEnergyPlus(
   /* Close json array for zones */
   saveAppend(buffer, "    ]\n  },\n", size);
 
-  *modelHash = cryptographicsHash(*buffer);
+  *modelHash = (char*)(cryptographicsHash(*buffer));
 
     /* fmu */
   saveAppend(buffer, "  \"fmu\": {\n", size);
@@ -400,7 +400,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
     ModelicaFormatMessage("Entered ZoneAllocateAndInstantiateBuilding.\n");
 
   if (bui->usePrecompiledFMU)
-    ModelicaFormatMessage("Using pre-compiled FMU %s\n", precompiledFMUPath);
+    ModelicaFormatMessage("Using pre-compiled FMU %s\n", bui->precompiledFMUAbsPat);
 
   /* Write the model structure to the FMU Resources folder so that EnergyPlus can
      read it and set up the data structure.
