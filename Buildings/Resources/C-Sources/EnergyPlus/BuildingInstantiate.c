@@ -405,6 +405,8 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   if(jm_status == jm_status_error){
     ModelicaFormatError("Failed to instantiate building FMU with name %s.",  bui->modelicaNameBuilding);
   }
+  /* Set the debug level in the FMU */
+  setFMUDebugLevel(bui);
 }
 
 void setReusableFMU(FMUBuilding* bui){
@@ -424,8 +426,6 @@ void setReusableFMU(FMUBuilding* bui){
       }
     }
   }
-  /* Set the debug level in the FMU */
-  setFMUDebugLevel(bui);
 }
 
 void generateAndInstantiateBuilding(FMUBuilding* bui){
