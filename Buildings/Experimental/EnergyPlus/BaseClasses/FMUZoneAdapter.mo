@@ -25,7 +25,7 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
   parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=
-    Buildings.Experimental.EnergyPlus.Types.Verbosity.TimeStep
+    Buildings.Experimental.EnergyPlus.Types.Verbosity.Warning
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 

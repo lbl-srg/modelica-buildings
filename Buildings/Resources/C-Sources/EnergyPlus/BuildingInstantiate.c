@@ -270,23 +270,59 @@ void generateFMU(
     fprintf(stdout, "*** Warning: Generating FMU returned value %d, but FMU exists.\n", retVal);
 /*    ModelicaFormatError("Generating FMU failed using command '%s', return value %d.", fulCmd, retVal);*/
   }
-
   free(fulCmd);
 }
 
-void setEnergyPlusDebugLevel(FMUBuilding* bui){
-    fmi2Status status;
 
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("Setting debug logging.");
-  	status = fmi2_import_set_debug_logging(
-        bui->fmu,
-        fmi2_true, /* Logging on */
-        0,         /* nCategories */
-        0);        /* Which categories to log */
-    if( status != fmi2_status_ok ){
-      ModelicaFormatError("Failed to set debug logging for FMU with name %s.",  bui->fmuAbsPat);
+/* Set the categories to be logged.
+   Note that EnergyPlus has the following levels:
+      <Category name="logLevel1" description="logLevel1 - fatal error" />
+		  <Category name="logLevel2" description="logLevel2 - error" />
+		  <Category name="logLevel3" description="logLevel3 - warning" />
+		  <Category name="logLevel4" description="logLevel4 - info" />
+		  <Category name="logLevel5" description="logLevel5 - verbose" />
+		  <Category name="logLevel6" description="logLevel6 - debug" />
+   FMU_EP_VERBOSITY is 1, 2, 3 up to and including 6
+*/
+void setFMUDebugLevel(FMUBuilding* bui){
+  fmi2_string_t* categories;
+  size_t i;
+  fmi2Status status;
+
+  /* Get the number of log categories defined in the XML */
+  const size_t nCat = fmi2_import_get_log_categories_num(bui->fmu);
+  if (nCat < FMU_EP_VERBOSITY){
+    ModelicaFormatError("FMU %s specified %u categories, but require at least %u categories.",
+      bui->fmuAbsPat, nCat, FMU_EP_VERBOSITY);
+  }
+
+  /* Get the log categories that we need */
+  categories = NULL;
+  categories = (fmi2_string_t*)malloc(FMU_EP_VERBOSITY * sizeof(fmi2_string_t));
+  if (categories == NULL){
+    ModelicaFormatError("Failed to allocate memory for error categories for FMU %s", bui->fmuAbsPat);
+  }
+  /* Assign the categories as specified in modelDescription.xml */
+  for(i=0; i < FMU_EP_VERBOSITY; i++){
+    categories[i] = fmi2_import_get_log_category(bui->fmu, i);
+  }
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("Setting debug logging.");
+  status = fmi2_import_set_debug_logging(
+    bui->fmu,
+    fmi2_true,        /* Logging on */
+    (size_t)FMU_EP_VERBOSITY, /* nCategories */
+    categories);        /* Which categories to log */
+  if( status != fmi2_status_ok ){
+    ModelicaMessage("Log categories:");
+    for(i = 0; i < FMU_EP_VERBOSITY; i++){
+      ModelicaFormatMessage("  Category[%u] = '%s'", i, categories[i]);
     }
+    ModelicaFormatError("fmi2SetDebugLogging returned '%s' for FMU with name %s. Verbosity = %u", fmi2_status_to_string(status), bui->fmuAbsPat, FMU_EP_VERBOSITY);
+  }
+  /* Free storage */
+  free(categories);
 }
 
 /* Import the EnergyPlus FMU
@@ -369,6 +405,8 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   if(jm_status == jm_status_error){
     ModelicaFormatError("Failed to instantiate building FMU with name %s.",  bui->modelicaNameBuilding);
   }
+  /* Set the debug level in the FMU */
+  setFMUDebugLevel(bui);
 }
 
 void setReusableFMU(FMUBuilding* bui){
@@ -426,7 +464,6 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("FMU for building %s is at %p.\n", bui->modelicaNameBuilding, bui->fmu);
 
-  setEnergyPlusDebugLevel(bui);
   /* Set the value references for all parameters, inputs and outputs */
   setValueReferences(bui);
 
