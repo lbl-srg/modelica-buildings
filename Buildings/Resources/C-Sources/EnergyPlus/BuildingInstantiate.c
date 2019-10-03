@@ -274,7 +274,7 @@ void generateFMU(
 		  <Category name="logLevel6" description="logLevel6 - debug" />
    FMU_EP_VERBOSITY is 1, 2, 3 up to and including 6
 */
-void setEnergyPlusDebugLevel(FMUBuilding* bui){
+void setFMUDebugLevel(FMUBuilding* bui){
   fmi2_string_t* categories;
   size_t i;
   fmi2Status status;
@@ -379,8 +379,6 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     bui->dllfmu_created = fmi2_true;
   }
 
-  setEnergyPlusDebugLevel(bui);
-
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Instantiating fmu.");
 
@@ -392,6 +390,8 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   if(jm_status == jm_status_error){
     ModelicaFormatError("Failed to instantiate building FMU with name %s.",  bui->name);
   }
+  /* Set the debug level in the FMU */
+  setFMUDebugLevel(bui);
 }
 
 void generateAndInstantiateBuilding(FMUBuilding* bui){
