@@ -5,13 +5,15 @@ extends ExternalObject;
     "Construct to connect to a thermal zone in EnergyPlus"
     extends Modelica.Icons.Function;
 
+    input String modelicaNameBuilding
+      "Name of this building";
+    input String modelicaNameThermalZone
+      "Name of this thermal zone";
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
     input String iddName "Name of the IDD file";
     //    input String epLibName "Name of the Energyplus FMI library";
     input String zoneName "Name of the thermal zone";
-    input String modelicaInstanceName
-      "Name of the Modelica instance";
     input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
@@ -21,11 +23,12 @@ extends ExternalObject;
     annotation(Dialog(tab="Debug"));
     output FMUZoneClass adapter;
     external "C" adapter = ZoneAllocate(
+      modelicaNameBuilding,
+      modelicaNameThermalZone,
       idfName,
       weaName,
       iddName,
       zoneName,
-      modelicaInstanceName,
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,

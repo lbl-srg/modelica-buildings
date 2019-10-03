@@ -4,13 +4,29 @@ model FloorOpenLoop "Open loop model of one floor"
 
   replaceable package Medium = Buildings.Media.Air "Medium for air"
     annotation (__Dymola_choicesAllMatching=true);
+
+  parameter String idfName=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "Name of the IDF file";
+  parameter String weaName = Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
+    "Name of the weather file";
+
   final parameter Modelica.SIunits.Area AFlo=flo.AFlo "Floor area west";
   final parameter Modelica.SIunits.MassFlowRate mOut_flow = 2
     "Outside air infiltration for each room";
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  inner Buildings.Experimental.EnergyPlus.Building building(
+    idfName=idfName,
+    weaName=weaName,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Building-level declarations"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    "Name of the weather file";
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
@@ -92,12 +108,13 @@ equation
       points={{-40,50},{-40,-20},{-28,-20},{-28,-19.8}},
       color={255,204,51},
       thickness=0.5));
-  annotation (
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/FloorOpenLoop.mos"
         "Simulate and plot"),
 experiment(
       StopTime=172800,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
 Documentation(info="<html>
 <p>
 Test case of one floor of the small office DOE reference building.

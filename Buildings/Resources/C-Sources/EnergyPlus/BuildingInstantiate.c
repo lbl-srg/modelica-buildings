@@ -11,8 +11,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include "../cryptographicsHash.c"
 
-void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer, size_t* size){
+void buildJSONModelStructureForEnergyPlus(
+  const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
   int iZon;
   FMUZone** zones = (FMUZone**)bui->zones;
 
@@ -21,7 +23,7 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
   saveAppend(buffer, "  \"EnergyPlus\": {\n", size);
   /* idf name */
   saveAppend(buffer, "    \"idf\": \"", size);
-  saveAppend(buffer, bui->name, size);
+  saveAppend(buffer, bui->idfName, size);
   saveAppend(buffer, "\",\n", size);
 
   /* idd file */
@@ -34,15 +36,8 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
   saveAppend(buffer, bui->weather, size);
   saveAppend(buffer, "\"\n", size);
   saveAppend(buffer, "  },\n", size);
-  /* fmu */
-  saveAppend(buffer, "  \"fmu\": {\n", size);
-  saveAppend(buffer, "      \"name\": \"", size);
-  saveAppend(buffer, bui->fmuAbsPat, size);
-  saveAppend(buffer, "\",\n", size);
-  saveAppend(buffer, "      \"version\": \"2.0\",\n", size);
-  saveAppend(buffer, "      \"kind\"   : \"ME\"\n", size);
-  saveAppend(buffer, "  },\n", size);
 
+  /* model information */
   saveAppend(buffer, "  \"model\": {\n", size);
   saveAppend(buffer, "    \"zones\": [\n", size);
   for(iZon = 0; iZon < bui->nZon; iZon++){
@@ -56,13 +51,28 @@ void buildJSONModelStructureForEnergyPlus(const FMUBuilding* bui, char* *buffer,
     else
       saveAppend(buffer, "\" }\n", size);
   }
-  /* Close json array */
-  saveAppend(buffer, "    ]\n  }\n}\n", size);
+  /* Close json array for zones */
+  saveAppend(buffer, "    ]\n  },\n", size);
+
+  *modelHash = (char*)(cryptographicsHash(*buffer));
+
+    /* fmu */
+  saveAppend(buffer, "  \"fmu\": {\n", size);
+  saveAppend(buffer, "      \"name\": \"", size);
+  saveAppend(buffer, bui->fmuAbsPat, size);
+  saveAppend(buffer, "\",\n", size);
+  saveAppend(buffer, "      \"version\": \"2.0\",\n", size);
+  saveAppend(buffer, "      \"kind\"   : \"ME\"\n", size);
+  saveAppend(buffer, "  }\n", size);
+
+  /* Close json structure */
+  saveAppend(buffer, "}\n", size);
+
   return;
 }
 
 
-void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBuildingsJsonFile){
+void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBuildingsJsonFile, char** modelHash){
   char * buffer;
   size_t size;
   size_t lenNam;
@@ -78,7 +88,7 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   memset(buffer, '\0', size + 1);
 
   /* Build the json structure */
-  buildJSONModelStructureForEnergyPlus(bui, &buffer, &size);
+  buildJSONModelStructureForEnergyPlus(bui, &buffer, &size, modelHash);
 
   /* Write to file */
   /* Build the file name */
@@ -147,21 +157,21 @@ void setValueReferences(FMUBuilding* fmuBui){
     zone = (FMUZone*) fmuBui->zones[iZon];
     setValueReference(
       fmuBui->fmuAbsPat,
-      fmuBui->name,
+      fmuBui->idfName,
       vl, vrl, nv,
       zone->parOutVarNames,
       ZONE_N_PAR_OUT,
       &(zone->parOutValReferences));
    setValueReference(
       fmuBui->fmuAbsPat,
-      fmuBui->name,
+      fmuBui->idfName,
       vl, vrl, nv,
       zone->inpVarNames,
       ZONE_N_INP,
       &(zone->inpValReferences));
    setValueReference(
      fmuBui->fmuAbsPat,
-     fmuBui->name,
+     fmuBui->idfName,
      vl, vrl, nv,
      zone->outVarNames,
      ZONE_N_OUT,
@@ -190,8 +200,6 @@ void generateFMU(
     ModelicaFormatMessage("Entered generateFMU with FMUPath = %s.\n", FMUPath);
 
   if (usePrecompiledFMU){
-    ModelicaFormatMessage("Using pre-compiled FMU %s\n", precompiledFMUPath);
-
     if( access( precompiledFMUPath, F_OK ) == -1 ) {
       ModelicaFormatError("Requested to use fmu '%s' which does not exist.", precompiledFMUPath);
     }
@@ -213,8 +221,9 @@ void generateFMU(
     }
     cmd = "/Resources/bin/spawn-linux64/bin/spawn";
     cmdFla = "-c"; /* Flag for command */
-    /* The + 1 are for spaces and for the end of line character */
-    len = strlen(buildingsLibraryRoot) + strlen(cmd) + 1 + strlen(cmdFla) + 1 + strlen(modelicaBuildingsJsonFile) + 1;
+    /* The + 1 are for spaces, the quotes around the file name (needed if the Modelica name has array brackets) and
+       the end of line character */
+    len = strlen(buildingsLibraryRoot) + strlen(cmd) + 1 + strlen(cmdFla) + 1 + 1 + strlen(modelicaBuildingsJsonFile) + 1 + 1;
     fulCmd = malloc(len * sizeof(char));
     if (fulCmd == NULL){
       ModelicaFormatError("Failed to allocate memory in generateFMU().");
@@ -233,8 +242,9 @@ void generateFMU(
     /* Continue building the command line */
     strcat(fulCmd, " ");
     strcat(fulCmd, cmdFla);
-    strcat(fulCmd, " ");
+    strcat(fulCmd, " \"");
     strcat(fulCmd, modelicaBuildingsJsonFile);
+    strcat(fulCmd, "\"");
   }
 
 
@@ -330,7 +340,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   const char* tmpPath = bui->tmpDir;
   const char* FMUPath = bui->fmuAbsPat;
 
-    /* Set callback functions */
+  /* Set callback functions */
   callbacks = jm_get_default_callbacks();
 
   bui->context = fmi_import_allocate_context(callbacks);
@@ -345,7 +355,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
   }
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Parsing xml file.");
+    ModelicaFormatMessage("Parsing xml file %s", tmpPath);
   bui->fmu = fmi2_import_parse_xml(bui->context, tmpPath, 0);
 	if(!bui->fmu) {
 		ModelicaFormatError("Error parsing XML for %s.", FMUPath);
@@ -383,12 +393,36 @@ void importEnergyPlusFMU(FMUBuilding* bui){
     ModelicaFormatMessage("Instantiating fmu.");
 
   /* Instantiate EnergyPlus */
-  jm_status = fmi2_import_instantiate(bui->fmu, bui->name, fmi2_model_exchange, NULL, visible);
+  jm_status = fmi2_import_instantiate(
+    bui->fmu,
+    bui->modelicaNameBuilding,
+    fmi2_model_exchange,
+    NULL,
+    visible);
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Returned from instantiating fmu.");
   if(jm_status == jm_status_error){
-    ModelicaFormatError("Failed to instantiate building FMU with name %s.",  bui->name);
+    ModelicaFormatError("Failed to instantiate building FMU with name %s.",  bui->modelicaNameBuilding);
+  }
+}
+
+void setReusableFMU(FMUBuilding* bui){
+  int iBui;
+  FMUBuilding* ptrBui;
+
+  for(iBui = 0; iBui < getBuildings_nFMU(); iBui++){
+    ptrBui = (FMUBuilding*)(getBuildingsFMU(iBui));
+    if ((iBui != bui->iFMU) && (ptrBui->modelHash != NULL)){
+      if (strcmp(bui->modelHash, ptrBui->modelHash) == 0 ){
+        /* Check if the FMU indeed was generated */
+        if( access( ptrBui->fmuAbsPat, F_OK ) != -1 ) {
+          /* We can use the same FMU as will be used for building iBui */
+          bui->usePrecompiledFMU = true;
+          bui->precompiledFMUAbsPat = ptrBui->fmuAbsPat;
+        }
+      }
+    }
   }
   /* Set the debug level in the FMU */
   setFMUDebugLevel(bui);
@@ -403,10 +437,16 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Entered ZoneAllocateAndInstantiateBuilding.\n");
 
+  if (bui->usePrecompiledFMU)
+    ModelicaFormatMessage("Using pre-compiled FMU %s\n", bui->precompiledFMUAbsPat);
+
   /* Write the model structure to the FMU Resources folder so that EnergyPlus can
      read it and set up the data structure.
   */
-  writeModelStructureForEnergyPlus(bui, &modelicaBuildingsJsonFile);
+  writeModelStructureForEnergyPlus(bui, &modelicaBuildingsJsonFile, &(bui->modelHash));
+
+  setReusableFMU(bui);
+
   generateFMU(
       bui->usePrecompiledFMU,
       bui->precompiledFMUAbsPat,
@@ -420,8 +460,9 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
   }
 
   importEnergyPlusFMU(bui);
+
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("FMU for building %s is at %p.\n", bui->name, bui->fmu);
+    ModelicaFormatMessage("FMU for building %s is at %p.\n", bui->modelicaNameBuilding, bui->fmu);
 
   /* Set the value references for all parameters, inputs and outputs */
   setValueReferences(bui);

@@ -24,12 +24,16 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
         ModelicaMessage("fmi2_import_terminate: terminating EnergyPlus.\n");
       status = fmi2_import_terminate(ptrBui->fmu);
       if (status != fmi2OK){
-        ModelicaFormatMessage("fmi2Terminate returned with non-OK status for building %s.", ptrBui->name);
+        ModelicaFormatMessage(
+          "fmi2Terminate returned with non-OK status for building %s.",
+          ptrBui->modelicaNameBuilding);
       }
     }
     if (ptrBui->fmu != NULL){
       if (FMU_EP_VERBOSITY >= MEDIUM)
-        ModelicaMessage("fmi2_import_destroy_dllfmu: destroying dll fmu.");
+        ModelicaFormatMessage(
+          "fmi2_import_destroy_dllfmu: destroying dll fmu. for %s",
+          ptrBui->modelicaNameBuilding);
       fmi2_import_destroy_dllfmu(ptrBui->fmu);
       fmi2_import_free(ptrBui->fmu);
     }
@@ -39,8 +43,10 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
 
     if (ptrBui->buildingsLibraryRoot != NULL)
       free(ptrBui->buildingsLibraryRoot);
-    if (ptrBui->name != NULL)
-      free(ptrBui->name);
+    if (ptrBui->modelicaNameBuilding != NULL)
+      free(ptrBui->modelicaNameBuilding);
+    if (ptrBui->idfName != NULL)
+      free(ptrBui->idfName);
     if (ptrBui->weather != NULL)
       free(ptrBui->weather);
     if (ptrBui->idd != NULL)
@@ -51,6 +57,8 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
       free(ptrBui->zones);
     if (ptrBui->tmpDir != NULL)
       free(ptrBui->tmpDir);
+    if (ptrBui->modelHash != NULL)
+      free(ptrBui->modelHash);
     free(ptrBui);
   }
 }
