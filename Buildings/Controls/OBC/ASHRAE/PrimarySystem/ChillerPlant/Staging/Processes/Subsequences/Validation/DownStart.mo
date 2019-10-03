@@ -57,8 +57,7 @@ protected
     "Chiller head pressure control"
     annotation (Placement(transformation(extent={{-320,-150},{-300,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiIsoVal[2](
-    final k=fill(1,2))
-    "Chilled water isolation valve"
+    final k=fill(1,2)) "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{-320,-190},{-300,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nexDisChi(
     final k=2) "Next disable chiller"

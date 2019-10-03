@@ -22,9 +22,6 @@ block DownStart "Sequence for starting stage-down process"
   parameter Modelica.SIunits.Time aftByPasSetTim=60
     "Time after setpoint achieved"
     annotation (Dialog(group="Reset bypass"));
-  parameter Real relFloDif=0.025
-    "Hysteresis to check if flow achieves setpoint"
-    annotation (Dialog(group="Reset bypass"));
   parameter Modelica.SIunits.Time waiTim=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Head pressure control"));
@@ -34,6 +31,9 @@ block DownStart "Sequence for starting stage-down process"
   parameter Modelica.SIunits.Time proOnTim=300
     "Enabled chiller operation time to indicate if it is proven on"
     annotation (Dialog(group="Disable last chiller"));
+  parameter Real floEqu=0.95
+    "Hysteresis to check if flow achieves setpoint, flow rate relative to its setpoint"
+    annotation (Dialog(tab="Advanced", group="Reset bypass"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow
     "Stage down status: true=stage-down"
@@ -117,7 +117,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypRes(
     final aftByPasSetTim=aftByPasSetTim,
-    final relFloDif=relFloDif)
+    final floEqu=floEqu)
     "Slowly change the minimum flow bypass setpoint"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl
@@ -163,8 +163,8 @@ protected
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoSta(
-    final pre_u_start=true) "Break algebraic loop"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre(final pre_u_start=true)
+    "Break algebraic loop"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
 
 equation
@@ -306,9 +306,9 @@ equation
   connect(con3.y, minChiWatSet.uUpsDevSta)
     annotation (Line(points={{-78,70},{-60,70},{-60,57},{-2,57}},
       color={255,0,255}));
-  connect(not1.y, chiTwoSta.u)
+  connect(not1.y, pre.u)
     annotation (Line(points={{82,-170},{98,-170}}, color={255,0,255}));
-  connect(chiTwoSta.y, and2.u2)
+  connect(pre.y, and2.u2)
     annotation (Line(points={{122,-170},{140,-170},{140,-190},{-120,-190},
       {-120,192},{-102,192}}, color={255,0,255}));
 

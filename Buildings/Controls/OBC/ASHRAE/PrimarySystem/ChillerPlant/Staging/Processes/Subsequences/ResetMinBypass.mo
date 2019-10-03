@@ -4,7 +4,7 @@ block ResetMinBypass
 
   parameter Modelica.SIunits.Time aftByPasSetTim = 60
     "Time after setpoint achieved";
-  parameter Real relFloDif=0.025
+  parameter Real floEqu=0.95
     "Hysteresis to check if flow achieves setpoint"
     annotation (Dialog(tab="Advanced"));
 
@@ -35,8 +35,8 @@ block ResetMinBypass
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0.95 -relFloDif,
-    final uHigh=0.95 + relFloDif)
+    final uLow=floEqu -0.025,
+    final uHigh=floEqu + 0.025)
     "Check if chiller water flow reached setpoint"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and1 "Logical and"

@@ -24,7 +24,7 @@ block Up "Sequence for control devices when there is stage-up command"
     "Demand reducing factor of current operating chillers"
     annotation (Dialog(group="Limit chiller demand"));
   parameter Modelica.SIunits.Time holChiDemTim=300
-    "Time of actual demand less than center percentage of currnet load"
+    "Maximum time to wait for the actual demand less than percentage of currnet load"
     annotation (Dialog(group="Limit chiller demand"));
   parameter Modelica.SIunits.Time byPasSetTim=300
     "Time to reset minimum by-pass flow"
@@ -38,9 +38,6 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Modelica.SIunits.Time aftByPasSetTim=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
-  parameter Real relFloDif=0.025
-    "Hysteresis to check if flow achieves setpoint"
-    annotation (Dialog(group="Reset bypass"));
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(group="Enable condenser water pump"));
@@ -49,12 +46,6 @@ block Up "Sequence for control devices when there is stage-up command"
     annotation (Dialog(group="Enable condenser water pump"));
   parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, the size should be doule of total stage numbers"
-    annotation (Dialog(group="Enable condenser water pump"));
-  parameter Real uLow=0.005
-    "Low limit of hysteresis to check if speed setpoint has been achieved"
-    annotation (Dialog(group="Enable condenser water pump"));
-  parameter Real uHigh=0.015
-    "Upper limit of hysteresis to check if speed setpoint has been achieved"
     annotation (Dialog(group="Enable condenser water pump"));
   parameter Modelica.SIunits.Time thrTimEnb=10
     "Threshold time to enable head pressure control after condenser water pump being reset"
@@ -68,6 +59,12 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Modelica.SIunits.Time proOnTim=300
     "Threshold time to check if newly enabled chiller being operated by more than 5 minutes"
     annotation (Dialog(group="Enable next chiller",enable=havePonyChiller));
+  parameter Real relSpeDif = 0.05
+    "Hysteresis to check if speed setpoint has been achieved, relative error to the setpoint"
+    annotation (Dialog(tab="Advanced", group="Enable condenser water pump"));
+  parameter Real floEqu=0.95
+    "Hysteresis to check if flow achieves setpoint, flow rate relative to its setpoint"
+    annotation (Dialog(tab="Advanced", group="Reset bypass"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiPri[nChi]
     "Chiller enabling priority"
@@ -217,7 +214,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypSet(
     final aftByPasSetTim=aftByPasSetTim,
-    final relFloDif=relFloDif)
+    final floEqu=floEqu)
     "Check if minium bypass has been reset"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableCWPump
@@ -233,8 +230,7 @@ protected
     final staVec=staVec,
     final desConWatPumSpe=desConWatPumSpe,
     final desConWatPumNum=desConWatPumNum,
-    final uLow=uLow,
-    final uHigh=uHigh)
+    final relSpeDif=relSpeDif)
     "Enabling next condenser water pump or change pump speed"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl
@@ -263,7 +259,7 @@ protected
     final minFloSet=minFloSet,
     final byPasSetTim=byPasSetTim,
     final aftByPasSetTim=aftByPasSetTim,
-    final relFloDif=relFloDif) "End stage-up process"
+    final floEqu=floEqu) "End stage-up process"
     annotation (Placement(transformation(extent={{60,-230},{80,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)
     "False constant"

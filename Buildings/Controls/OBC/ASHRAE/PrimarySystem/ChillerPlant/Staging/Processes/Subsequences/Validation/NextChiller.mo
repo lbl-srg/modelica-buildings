@@ -101,8 +101,7 @@ protected
     final k=4) "Stage four"
     annotation (Placement(transformation(extent={{-260,-270},{-240,-250}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaPri2[3](
-    final k={2,3,1})
-    "Chiller enabling priority"
+    final k={2,3,1}) "Chiller enabling priority"
     annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOff2(
     final k=false) "Chiller off status"

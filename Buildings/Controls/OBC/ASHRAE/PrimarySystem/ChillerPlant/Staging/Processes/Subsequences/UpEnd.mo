@@ -1,7 +1,7 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block UpEnd "Sequence for ending stage-up process"
 
-  parameter Integer nChi = 2 "Total number of chillers";
+  parameter Integer nChi "Total number of chillers";
   parameter Boolean isParallelChiller=true
     "Flag: true means that the plant has parallel chillers";
 
@@ -23,9 +23,9 @@ block UpEnd "Sequence for ending stage-up process"
   parameter Modelica.SIunits.Time aftByPasSetTim=60
     "Time after minimum bypass flow being resetted to new setpoint"
     annotation (Dialog(group="Reset bypass"));
-  parameter Real relFloDif=0.025
-    "Hysteresis to check if flow achieves setpoint"
-    annotation (Dialog(group="Reset bypass"));
+  parameter Real floEqu=0.95
+    "Hysteresis to check if flow achieves setpoint, flow rate relative to its setpoint"
+    annotation (Dialog(tab="Advanced", group="Reset bypass"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next enabling chiller"
@@ -157,7 +157,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypSet(
     final aftByPasSetTim=aftByPasSetTim,
-    final relFloDif=relFloDif)
+    final floEqu=floEqu)
     "Check if minimum bypass flow has been resetted"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
