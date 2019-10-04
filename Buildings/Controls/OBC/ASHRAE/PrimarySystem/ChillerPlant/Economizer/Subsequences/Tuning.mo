@@ -176,7 +176,7 @@ equation
   connect(booToRea.y, triSam2.u) annotation (Line(points={{-78,-80},{-62,-80}},
           color={0,0,127}));
   connect(uWseSta, falEdg.u) annotation (Line(points={{-342,120},{-240,120},{-240,
-          100},{-182,100}},      color={255,0,255}));
+          100},{-182,100}}, color={255,0,255}));
   connect(falEdg.y, and2.u2) annotation (Line(points={{-158,100},{-100,100},{-100,
           142},{-82,142}}, color={255,0,255}));
   connect(uWseSta, falEdg1.u) annotation (Line(points={{-342,120},{-240,120},{-240,
