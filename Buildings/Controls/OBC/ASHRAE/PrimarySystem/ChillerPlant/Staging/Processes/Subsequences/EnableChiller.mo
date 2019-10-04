@@ -28,7 +28,7 @@ block EnableChiller "Sequence for enabling chiller"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexDisChi
     "Next disabling chiller when there is any stage up that need one chiller on and another off"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller enabling status"
     annotation (Placement(transformation(extent={{200,-70},{240,-30}}),
@@ -36,7 +36,7 @@ block EnableChiller "Sequence for enabling chiller"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yNewChiEna
     "Newly enabled chiller has been proven on by more than 5 minutes"
     annotation (Placement(transformation(extent={{200,-190},{240,-150}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+      iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}

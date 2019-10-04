@@ -1,32 +1,16 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Validation.Down", method="Cvode", stopTime=1200, tolerance=1e-06, resultFile="dowPro");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Validation.Down", method="Cvode", stopTime=1500, tolerance=1e-06, resultFile="dowPro");
 
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=1, y={"dowProCon.uStaDow","dowProCon.uChi[1]","dowProCon.uChi[2]","dowProCon.yStaPro"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=2, y={"dowProCon.uChiLoa[1]","dowProCon.uChiLoa[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=3, y={"dowProCon.yChiWatIsoVal[1]","dowProCon.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=4, y={"dowProCon.yChiHeaCon[1]","dowProCon.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=5, y={"dowProCon.yChiWatMinFloSet"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=6, y={"dowProCon.yDesConWatPumSpe","dowProCon.yConWatPumNum"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=1, y={"staStaDow.uStaDow"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=2, y={"staStaDow.uChiLoa[1]","staStaDow.uChiLoa[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=3, y={"staStaDow.yChiDem[1]","staStaDow.yChiDem[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=4, y={"staStaDow.yChiHeaCon[1]","staStaDow.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=5, y={"staStaDow.yChiWatIsoVal[1]","staStaDow.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=6, y={"staStaDow.yChi[1]","staStaDow.yChi[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=7, y={"staStaDow.yReaDemLim"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-
-createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=1, y={"staStaDow1.uStaDow"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=2, y={"staStaDow1.uChiLoa[1]","staStaDow1.uChiLoa[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=3, y={"staStaDow1.yChiDem[1]","staStaDow1.yChiDem[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=4, y={"staStaDow1.yChiHeaCon[1]","staStaDow1.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=5, y={"staStaDow1.yChiWatIsoVal[1]","staStaDow1.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=6, y={"staStaDow1.yChi[1]","staStaDow1.yChi[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=7, y={"demLimRel.y"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=1, y={"dowProCon1.uStaDow","dowProCon1.uChi[1]","dowProCon1.uChi[2]","dowProCon1.yStaPro"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=2, y={"dowProCon1.uChiLoa[1]","dowProCon1.uChiLoa[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=3, y={"dowProCon1.yChiWatIsoVal[1]","dowProCon1.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=4, y={"dowProCon1.yChiHeaCon[1]","dowProCon1.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=5, y={"dowProCon1.yChiWatMinFloSet"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={1230, 10, 1200, 1400}, subPlot=6, y={"dowProCon1.yDesConWatPumSpe","dowProCon1.yConWatPumNum"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 

@@ -23,8 +23,8 @@ block UpEnd "Sequence for ending stage-up process"
   parameter Modelica.SIunits.Time aftByPasSetTim=60
     "Time after minimum bypass flow being resetted to new setpoint"
     annotation (Dialog(group="Reset bypass"));
-  parameter Real floEqu=0.95
-    "Hysteresis to check if flow achieves setpoint, flow rate relative to its setpoint"
+  parameter Real relFloDif=0.05
+    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
     annotation (Dialog(tab="Advanced", group="Reset bypass"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
@@ -157,7 +157,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypSet(
     final aftByPasSetTim=aftByPasSetTim,
-    final floEqu=floEqu)
+    final relFloDif=relFloDif)
     "Check if minimum bypass flow has been resetted"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"

@@ -19,7 +19,7 @@ block Controller "Condenser water pump controller"
     "Design number of condenser water pumps that should be ON, the size should be doule of total stage numbers"
     annotation (Dialog(group="Stage design speed"));
   parameter Real relSpeDif = 0.05
-    "Hysteresis to check if speed setpoint has been achieved, relative error to the setpoint"
+    "Relative error to the setpoint for checking if it has achieved speed setpoint"
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
@@ -206,8 +206,7 @@ equation
       color={0,0,127}));
   connect(abs.y, div.u1)
     annotation (Line(points={{-38,-80},{-30,-80},{-30,-100},{-60,-100},{-60,-114},
-          {-42,-114}},
-                   color={0,0,127}));
+      {-42,-114}}, color={0,0,127}));
   connect(div.y, hys.u)
     annotation (Line(points={{-18,-120},{-2,-120}}, color={0,0,127}));
 

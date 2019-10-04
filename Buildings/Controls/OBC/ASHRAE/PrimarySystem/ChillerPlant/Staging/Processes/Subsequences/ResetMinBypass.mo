@@ -4,8 +4,8 @@ block ResetMinBypass
 
   parameter Modelica.SIunits.Time aftByPasSetTim = 60
     "Time after setpoint achieved";
-  parameter Real floEqu=0.95
-    "Hysteresis to check if flow achieves setpoint"
+  parameter Real relFloDif=0.05
+    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
@@ -35,28 +35,28 @@ block ResetMinBypass
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=floEqu -0.025,
-    final uHigh=floEqu + 0.025)
-    "Check if chiller water flow reached setpoint"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    final uLow=relFloDif - 0.01,
+    final uHigh=relFloDif + 0.01)
+    "Check if chiller water flow rate is different from its setpoint"
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and1 "Logical and"
     annotation (Placement(transformation(extent={{120,70},{140,90}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Time after achiving setpoint"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
     final threshold=aftByPasSetTim)
     "Check if it is 1 minute after new setpoint achieved"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div
-    "Measured flow rate divided by its setpoint"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
+    "Flow rate error divided by its setpoint"
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p=1e-6, final k=1)
     "Add a small positive to avoid zero output"
@@ -65,10 +65,16 @@ protected
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg2
     "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute value"
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Feedback floDif "Checkout the flow rate difference"
+    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
 equation
   connect(uUpsDevSta, and2.u1)
@@ -77,9 +83,9 @@ equation
     annotation (Line(points={{-180,40},{-140,40},{-140,72},{-82,72}},
       color={255,0,255}));
   connect(tim.y, greEquThr.u)
-    annotation (Line(points={{42,-40},{58,-40}}, color={0,0,127}));
+    annotation (Line(points={{62,-20},{78,-20}}, color={0,0,127}));
   connect(and2.y, and1.u1)
-    annotation (Line(points={{-58,80},{-50,80},{-50,88},{118,88}},
+    annotation (Line(points={{-58,80},{-10,80},{-10,88},{118,88}},
       color={255,0,255}));
   connect(and1.y,yMinBypRes)
     annotation (Line(points={{142,80},{180,80}}, color={255,0,255}));
@@ -87,38 +93,48 @@ equation
     annotation (Line(points={{-180,40},{-140,40},{-140,20},{-122,20}},
       color={255,0,255}));
   connect(lat.y, and1.u2)
-    annotation (Line(points={{82,40},{90,40},{90,80},{118,80}},
+    annotation (Line(points={{102,40},{108,40},{108,80},{118,80}},
       color={255,0,255}));
   connect(greEquThr.y, and1.u3)
-    annotation (Line(points={{82,-40},{100,-40},{100,72},{118,72}},
+    annotation (Line(points={{102,-20},{114,-20},{114,72},{118,72}},
       color={255,0,255}));
   connect(VMinChiWat_setpoint, addPar.u)
     annotation (Line(points={{-180,-80},{-142,-80}}, color={0,0,127}));
-  connect(VChiWat_flow, div.u1)
-    annotation (Line(points={{-180,-20},{-140,-20},{-140,-34},{-122,-34}},
-      color={0,0,127}));
   connect(div.y, hys.u)
-    annotation (Line(points={{-98,-40},{-82,-40}}, color={0,0,127}));
+    annotation (Line(points={{-78,-60},{-62,-60}}, color={0,0,127}));
   connect(not1.y, edg1.u)
     annotation (Line(points={{-98,20},{-82,20}}, color={255,0,255}));
   connect(edg1.y, lat.clr)
-    annotation (Line(points={{-58,20},{40,20},{40,34},{58,34}},
-      color={255,0,255}));
-  connect(hys.y, and3.u1)
-    annotation (Line(points={{-58,-40},{-42,-40}}, color={255,0,255}));
-  connect(and2.y, and3.u2)
-    annotation (Line(points={{-58,80},{-50,80},{-50,-48},{-42,-48}},
+    annotation (Line(points={{-58,20},{70,20},{70,34},{78,34}},
       color={255,0,255}));
   connect(and3.y, tim.u)
-    annotation (Line(points={{-18,-40},{18,-40}}, color={255,0,255}));
+    annotation (Line(points={{22,-20},{38,-20}},  color={255,0,255}));
   connect(addPar.y, div.u2)
-    annotation (Line(points={{-118,-80},{-100,-80},{-100,-60},{-140,-60},
-      {-140,-46},{-122,-46}}, color={0,0,127}));
+    annotation (Line(points={{-118,-80},{-110,-80},{-110,-66},{-102,-66}},
+      color={0,0,127}));
   connect(and3.y, edg2.u)
-    annotation (Line(points={{-18,-40},{-10,-40},{-10,40},{-2,40}},
+    annotation (Line(points={{22,-20},{30,-20},{30,40},{38,40}},
       color={255,0,255}));
   connect(edg2.y, lat.u)
-    annotation (Line(points={{22,40},{58,40}}, color={255,0,255}));
+    annotation (Line(points={{62,40},{78,40}}, color={255,0,255}));
+  connect(VChiWat_flow, floDif.u1)
+    annotation (Line(points={{-180,-20},{-152,-20}}, color={0,0,127}));
+  connect(VMinChiWat_setpoint, floDif.u2)
+    annotation (Line(points={{-180,-80},{-150,-80},{-150,-40},{-140,-40},
+      {-140,-32}}, color={0,0,127}));
+  connect(floDif.y, abs.u)
+    annotation (Line(points={{-128,-20},{-122,-20}}, color={0,0,127}));
+  connect(abs.y, div.u1)
+    annotation (Line(points={{-98,-20},{-90,-20},{-90,-40},{-110,-40},{-110,-54},
+      {-102,-54}}, color={0,0,127}));
+  connect(hys.y, not2.u)
+    annotation (Line(points={{-38,-60},{-22,-60}}, color={255,0,255}));
+  connect(and2.y, and3.u1)
+    annotation (Line(points={{-58,80},{-10,80},{-10,-20},{-2,-20}},
+      color={255,0,255}));
+  connect(not2.y, and3.u2)
+    annotation (Line(points={{2,-60},{10,-60},{10,-40},{-10,-40},{-10,-28},
+      {-2,-28}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="minBypRes",

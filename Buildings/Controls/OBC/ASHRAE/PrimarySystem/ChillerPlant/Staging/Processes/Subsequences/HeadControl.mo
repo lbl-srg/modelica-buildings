@@ -28,7 +28,7 @@ block HeadControl
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiHeaCon[nChi]
     "Chiller head pressure control enabling status"
-    annotation (Placement(transformation(extent={{220,-30},{260,10}}),
+    annotation (Placement(transformation(extent={{220,-80},{260,-40}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaHeaCon
     "Status of heat pressure control: true=enabled head pressure control"
@@ -59,13 +59,13 @@ protected
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(final nout=nChi)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
-    annotation (Placement(transformation(extent={{140,-20},{160,0}})));
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final threshold=thrTimEnb + waiTim)
     "Check if it is 10 seconds after condenser water pump achieves its new setpoint and have waited another 30 seconds"
@@ -76,14 +76,14 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nChi](
     final threshold=fill(0.5, nChi))
     "Convert real input to boolean output"
-    annotation (Placement(transformation(extent={{180,-20},{200,0}})));
+    annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1[nChi] "Logical switch"
-    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep2(final nout=nChi)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerReplicator intRep(final nout=nChi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
@@ -111,6 +111,12 @@ protected
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
+    "Logical switch"
+    annotation (Placement(transformation(extent={{180,-70},{200,-50}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep4(final nout=nChi)
+    "Replicate boolean input"
+    annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
 
 equation
   connect(uUpsDevSta, edg.u)
@@ -138,43 +144,41 @@ equation
     annotation (Line(points={{-98,40},{-70,40},{-70,74},{-62,74}},
       color={255,0,255}));
   connect(booRep.y, triSam.trigger)
-    annotation (Line(points={{-38,-120},{-10,-120},{-10,-101.8}},
+    annotation (Line(points={{-38,-110},{-10,-110},{-10,-101.8}},
       color={255,0,255}));
   connect(tim.y, greThr1.u)
     annotation (Line(points={{2,80},{20,80},{20,120},{38,120}}, color={0,0,127}));
   connect(booRep1.y, swi.u2)
-    annotation (Line(points={{102,80},{120,80},{120,-10},{138,-10}},
+    annotation (Line(points={{102,80},{120,80},{120,0},{138,0}},
       color={255,0,255}));
   connect(greThr.y, booRep1.u)
     annotation (Line(points={{62,80},{78,80}}, color={255,0,255}));
   connect(swi.y, greEquThr.u)
-    annotation (Line(points={{162,-10},{178,-10}}, color={0,0,127}));
-  connect(greEquThr.y, yChiHeaCon)
-    annotation (Line(points={{202,-10},{240,-10}}, color={255,0,255}));
+    annotation (Line(points={{162,0},{178,0}},     color={0,0,127}));
   connect(not2.y, booRep2.u)
-    annotation (Line(points={{2,-60},{18,-60}}, color={255,0,255}));
+    annotation (Line(points={{2,-40},{18,-40}}, color={255,0,255}));
   connect(booRep2.y, swi1.u2)
-    annotation (Line(points={{42,-60},{78,-60}}, color={255,0,255}));
+    annotation (Line(points={{42,-40},{78,-40}}, color={255,0,255}));
   connect(triSam.y, swi1.u3)
-    annotation (Line(points={{2,-90},{60,-90},{60,-68},{78,-68}},
+    annotation (Line(points={{2,-90},{60,-90},{60,-48},{78,-48}},
       color={0,0,127}));
   connect(swi1.y, swi.u3)
-    annotation (Line(points={{102,-60},{120,-60},{120,-18},{138,-18}},
+    annotation (Line(points={{102,-40},{120,-40},{120,-8},{138,-8}},
       color={0,0,127}));
   connect(lat.y, not2.u)
-    annotation (Line(points={{-38,80},{-30,80},{-30,-60},{-22,-60}},
+    annotation (Line(points={{-38,80},{-30,80},{-30,-40},{-22,-40}},
       color={255,0,255}));
   connect(nexChaChi, intRep.u)
     annotation (Line(points={{-160,-10},{-122,-10}}, color={255,127,0}));
   connect(intRep.y, intEqu.u1)
     annotation (Line(points={{-98,-10},{-62,-10}}, color={255,127,0}));
   connect(booToRea.y, swi1.u1)
-    annotation (Line(points={{-98,-90},{-60,-90},{-60,-40},{50,-40},{50,-52},
-      {78,-52}}, color={0,0,127}));
+    annotation (Line(points={{-98,-90},{-60,-90},{-60,-60},{50,-60},{50,-32},
+      {78,-32}}, color={0,0,127}));
   connect(intEqu.y, swi2.u2)
     annotation (Line(points={{-38,-10},{78,-10}}, color={255,0,255}));
   connect(swi2.y, swi.u1)
-    annotation (Line(points={{102,-10},{110,-10},{110,-2},{138,-2}},
+    annotation (Line(points={{102,-10},{110,-10},{110,8},{138,8}},
       color={0,0,127}));
   connect(triSam.y, swi2.u3)
     annotation (Line(points={{2,-90},{60,-90},{60,-18},{78,-18}},
@@ -206,8 +210,22 @@ equation
   connect(and1.y, yEnaHeaCon)
     annotation (Line(points={{162,120},{240,120}}, color={255,0,255}));
   connect(and2.y, booRep.u)
-    annotation (Line(points={{-98,80},{-80,80},{-80,-120},{-62,-120}},
+    annotation (Line(points={{-98,80},{-80,80},{-80,-110},{-62,-110}},
       color={255,0,255}));
+  connect(uStaCha, booRep4.u)
+    annotation (Line(points={{-160,72},{-130,72},{-130,-130},{78,-130}},
+      color={255,0,255}));
+  connect(uChiHeaCon, logSwi1.u3)
+    annotation (Line(points={{-160,-90},{-126,-90},{-126,-68},{178,-68}},
+      color={255,0,255}));
+  connect(booRep4.y, logSwi1.u2)
+    annotation (Line(points={{102,-130},{120,-130},{120,-60},{178,-60}},
+      color={255,0,255}));
+  connect(greEquThr.y, logSwi1.u1)
+    annotation (Line(points={{202,0},{210,0},{210,-30},{160,-30},{160,-52},
+      {178,-52}}, color={255,0,255}));
+  connect(logSwi1.y, yChiHeaCon)
+    annotation (Line(points={{202,-60},{240,-60}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="enaHeaCon",
