@@ -8,43 +8,31 @@
   {
     "jmodelica": {
       "simulate": false
-  },
+    },
   "model_name": "Buildings.Fluid.Examples.FlowSystem.Basic"
   },
   {
     "jmodelica": {
       "simulate": false
-  },
+    },
   "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified1"
   },
   {
     "jmodelica": {
       "simulate": false
-  },
+    },
   "model_name": "Buildings.Fluid.Examples.FlowSystem.Simplified2"
   },
   {
      "jmodelica": {
-       "simulate": false
-  },
-  "model_name": "Buildings.Utilities.IO.Python27.Examples.KalmanFilter"
-  },
-  {
-     "jmodelica": {
-       "simulate": false
-  },
-  "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
-  },
-  {
-     "jmodelica": {
      "rtol": 1E-6
-  },
+    },
   "model_name": "Buildings.Examples.VAVCO2.VAVSystemCTControl"
   },
   {
      "jmodelica": {
        "rtol": 1E-8
-  },
+   },
   "model_name": "Buildings.Examples.DualFanDualDuct.ClosedLoop"
   }
 ]
