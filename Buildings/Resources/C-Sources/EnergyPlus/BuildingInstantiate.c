@@ -82,9 +82,7 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   /* Initial size which will grow as needed */
   size = 1024;
 
-  buffer = (char*)malloc((size+1) * sizeof(char));
-  if ( buffer == NULL)
-    ModelicaFormatError("Failed to allocate memory for json buffer.");
+  mallocString(size+1, "Failed to allocate memory for json buffer.", &buffer);
   memset(buffer, '\0', size + 1);
 
   /* Build the json structure */
@@ -93,9 +91,8 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   /* Write to file */
   /* Build the file name */
   lenNam = strlen(bui->tmpDir) + strlen(SEPARATOR) + strlen(MOD_BUI_JSON);
-  *modelicaBuildingsJsonFile = malloc((lenNam+1) * sizeof(char));
-  if (modelicaBuildingsJsonFile == NULL)
-    ModelicaFormatError("Failed to allocate memory for name of '%s' file.", MOD_BUI_JSON);
+
+  mallocString(lenNam+1, "Failed to allocate memory for json file name.", modelicaBuildingsJsonFile);
   memset(*modelicaBuildingsJsonFile, '\0', lenNam+1);
   strcpy(*modelicaBuildingsJsonFile, bui->tmpDir);
   strcat(*modelicaBuildingsJsonFile, SEPARATOR);
@@ -205,10 +202,8 @@ void generateFMU(
     }
     cmd = "cp -p ";
     len = strlen(cmd) + strlen(FMUPath) + 1 + strlen(precompiledFMUPath) + 1;
-    fulCmd = malloc(len * sizeof(char));
-    if (fulCmd == NULL){
-      ModelicaFormatError("Failed to allocate memory in generateFMU().");
-    }
+    mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd);
+
     memset(fulCmd, '\0', len);
     strcpy(fulCmd, cmd);
     strcat(fulCmd, precompiledFMUPath);
@@ -224,10 +219,8 @@ void generateFMU(
     /* The + 1 are for spaces, the quotes around the file name (needed if the Modelica name has array brackets) and
        the end of line character */
     len = strlen(buildingsLibraryRoot) + strlen(cmd) + 1 + strlen(cmdFla) + 1 + 1 + strlen(modelicaBuildingsJsonFile) + 1 + 1;
-    fulCmd = malloc(len * sizeof(char));
-    if (fulCmd == NULL){
-      ModelicaFormatError("Failed to allocate memory in generateFMU().");
-    }
+
+    mallocString(len, "Failed to allocate memory in generateFMU().", &fulCmd);
     memset(fulCmd, '\0', len);
     strcpy(fulCmd, buildingsLibraryRoot); /* This is for example /mtn/shared/Buildings */
     strcat(fulCmd, cmd);
