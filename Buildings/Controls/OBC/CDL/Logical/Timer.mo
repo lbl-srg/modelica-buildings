@@ -3,10 +3,14 @@ block Timer
   "Timer measuring the time from the time instant where the Boolean input became true"
 
   parameter Boolean reset = true
-    "Set to true for reseting timer to zero when input becomes false";
+    "Set to true for reseting timer to zero when input becomes false, set to false when need to find accumulated time which can be reset by another boolean input";
 
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.BooleanInput u0 if not reset
+    "Connector of Boolean for resetting output to zero"
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -14,23 +18,36 @@ protected
   discrete Modelica.SIunits.Time entryTime
     "Time instant when u became true";
   discrete Real yAcc "Accumulated time up to last change to true";
+  Interfaces.BooleanInput u0_internal
+    "Internal connector";
 
 initial equation
   pre(entryTime) = 0;
   yAcc = 0;
 equation
-  when u then
+  connect(u0, u0_internal);
+  if reset then
+    u0_internal = false;
+  end if;
+
+  when u and (not u0_internal) then
     entryTime = time;
   end when;
 
-  when (not u) then
+  when u0_internal then
+    yAcc = 0;
+  elsewhen (not u) then
     yAcc = pre(y);
   end when;
 
   if reset then
     y = if u then time - entryTime else 0.0;
   else
-    y = if u then yAcc + (time - entryTime) else yAcc;
+    if u0_internal then
+      y = 0;
+    else
+      y = if u then yAcc + (time - entryTime) else yAcc;
+    end if;
   end if;
 
 annotation (
@@ -38,7 +55,7 @@ annotation (
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
-        graphics={                       Rectangle(
+        graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -76,14 +93,14 @@ annotation (
 Block that represents a timer.
 </p>
 <p>
-When the Boolean input <code>u</code> becomes true, the timer is 
+When the Boolean input <code>u</code> becomes true, the timer is
 started and the output <code>y</code> is the time from the time instant where
-<code>u</code> became true. 
+<code>u</code> became true.
 </p>
 <ul>
 <li>
-If parameter <code>reset</code> is true, once the input becomes false, 
-the timer is stopped and the output is reset to zero. 
+If parameter <code>reset</code> is true, once the input becomes false,
+the timer is stopped and the output is reset to zero.
 </li>
 <li>
 If parameter <code>reset</code> is false, once the input becomes false,
@@ -92,6 +109,11 @@ the timer will not fully stopped but hold the accumulated true input time.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 23, 2018, by Jianjun Hu:<br/>
+Added conditional boolean input for resetting output.  This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>
+</li>
 <li>
 July 18, 2018, by Jianjun Hu:<br/>
 Update implementation to output accumulated true input time.  This is for
