@@ -7,6 +7,7 @@
 #define Buildings_ZoneAllocate_h
 
 #include "EnergyPlusStructure.h"
+#include "EnergyPlusUtil.h"
 
 /* Create the structure and return a pointer to its address. */
 void* ZoneAllocate(

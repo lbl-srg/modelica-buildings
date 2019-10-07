@@ -108,15 +108,11 @@ void* ZoneAllocate(
   if ( zone == NULL )
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zone.");
   /* Assign the zone name */
-  zone->name = malloc((strlen(zoneName)+1) * sizeof(char));
-  if ( zone->name == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zone name.");
+  mallocString(strlen(zoneName)+1, "Not enough memory in ZoneAllocate.c. to allocate zone name.", &(zone->name));
   strcpy(zone->name, zoneName);
 
   /* Assign the Modelica instance name */
-  zone->modelicaNameThermalZone = malloc((strlen(modelicaNameThermalZone)+1) * sizeof(char));
-  if ( zone->modelicaNameThermalZone == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate Modelica instance name.");
+  mallocString(strlen(modelicaNameThermalZone)+1, "Not enough memory in ZoneAllocate.c. to allocate Modelica instance name.", &(zone->modelicaNameThermalZone));
   strcpy(zone->modelicaNameThermalZone, modelicaNameThermalZone);
   /* Assign structural data */
   buildVariableNames(
@@ -217,9 +213,7 @@ void* ZoneAllocate(
             ModelicaError("Not enough memory in ZoneAllocate.c. to allocate memory for bld->zoneNames.");
           }
           /* Add storage for new zone name, and copy the zone name */
-          fmu->zoneNames[fmu->nZon] = malloc((strlen(zoneName)+1) * sizeof(char));
-          if ( fmu->zoneNames[fmu->nZon] == NULL )
-            ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zone name.");
+          mallocString((strlen(zoneName)+1), "Not enough memory in ZoneAllocate.c. to allocate zone name.", &(fmu->zoneNames[fmu->nZon]));
           fmu->zones[fmu->nZon] = zone;
           strcpy(fmu->zoneNames[fmu->nZon], zoneName);
           /* Increment the count of zones to this building. */

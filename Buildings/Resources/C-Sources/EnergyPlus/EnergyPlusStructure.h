@@ -5,6 +5,8 @@
 #ifndef Buildings_EnergyPlusStructure_h /* Not needed since it is only a typedef; added for safety */
 #define Buildings_EnergyPlusStructure_h
 
+#include "EnergyPlusUtil.h"
+
 #include <stdlib.h>
 #include <stddef.h>  /* stddef defines size_t */
 #include <string.h>

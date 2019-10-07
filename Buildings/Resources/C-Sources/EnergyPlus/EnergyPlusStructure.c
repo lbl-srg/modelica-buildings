@@ -6,6 +6,8 @@
 
 #include "EnergyPlusStructure.h"
 
+#include "EnergyPlusUtil.c"
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -38,9 +40,7 @@ void writeLog(unsigned int level, const char* msg)
     if (level <= FMU_EP_VERBOSITY){
       const char* prefix = "*** Log: ";
       char* m;
-      m = (char*)malloc( (strlen(msg)+strlen(prefix)+1) * sizeof(char));
-      if (m == NULL)
-        ModelicaError("Failed to allocate string array in writeLog.\n");
+      mallocString((strlen(msg)+strlen(prefix)+1), "Failed to allocate string array in writeLog.", &m);
       strcpy(m, prefix);
       strcat(m, msg);
       fprintf(stdout, "%s\n", m);
@@ -188,10 +188,7 @@ void getSimulationFMUName(const char* modelicaNameBuilding, const char* tmpDir, 
   replaceChar(newModNam, '[', '_');
   replaceChar(newModNam, ']', '_');
   */
-  *fmuAbsPat = malloc(iniLen * sizeof(char));
-  if (*fmuAbsPat == NULL){
-    ModelicaFormatError("Failed to allocate memory for FMU name for %s.", modelicaNameBuilding);
-  }
+  mallocString(iniLen, "Failed to allocate memory for FMU name.", fmuAbsPat);
   memset(*fmuAbsPat, '\0', iniLen);
 
   saveAppend(fmuAbsPat, tmpDir, &iniLen);
@@ -229,9 +226,8 @@ char * getFileNameWithoutExtension(const char* idfName){
   /* Get the file name without extension */
   lenNam = strlen(nam) - strlen(ext);
 
-  namOnl = malloc((lenNam+1) * sizeof(char));
-  if ( namOnl == NULL )
-    ModelicaFormatError("Failed to allocate memory for temporary directory name in ZoneInstantiate.c.");
+  mallocString(lenNam+1, "Failed to allocate memory for temporary directory name in ZoneInstantiate.c", &namOnl);
+
   memset(namOnl, '\0', lenNam+1);
   /* Copy nam to namOnl */
   strncpy(namOnl, nam, lenNam);
@@ -260,10 +256,7 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Entered getSimulationTemporaryDirectory.\n");
   /* Current directory */
-  curDir = malloc(lenCurDir * sizeof(char));
-  if (curDir == NULL)
-    ModelicaError("Failed to allocate memory for current working directory in getSimulationTemporaryDirectory.");
-
+  mallocString(lenCurDir, "Failed to allocate memory for current working directory in getSimulationTemporaryDirectory.", &curDir);
   memset(curDir, '\0', lenCurDir);
 
   while ( getcwd(curDir, lenCurDir) == NULL ){
@@ -287,9 +280,7 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
   lenSep = 1;
   lenPre = strlen(pre);
 
-  *dirNam = malloc((lenCur+lenSep+lenPre+lenNam+1) * sizeof(char));
-  if ( *dirNam == NULL )
-    ModelicaFormatError("Failed to allocate memory for temporary directory name in ZoneInstantiate.c.");
+  mallocString((lenCur+lenSep+lenPre+lenNam+1), "Failed to allocate memory for temporary directory name in ZoneInstantiate.c.", dirNam);
   memset(*dirNam, '\0', (lenCur+lenSep+lenPre+lenNam+1));
   strncpy(*dirNam, curDir, lenCur);
   strcat(*dirNam, "/");
@@ -331,9 +322,7 @@ void buildVariableNames(
         ModelicaError("Failed to allocate memory for ptrVarNames in ZoneInstantiate.c.");
 
     for (i=0; i<nVar; i++){
-      (*ptrVarNames)[i] = (char*)malloc( (len+1) * sizeof(char));
-      if ( (*ptrVarNames)[i] == NULL)
-        ModelicaError("Failed to allocate memory for ptrVarNames[i] in ZoneInstantiate.c.");
+      mallocString(len+1, "Failed to allocate memory for ptrVarNames[i] in ZoneInstantiate.c.", &((*ptrVarNames)[i]));
     }
     /* Copy the string */
     for (i=0; i<nVar; i++){
@@ -353,9 +342,7 @@ void buildVariableNames(
       ModelicaError("Failed to allocate memory for ptrFullNames in ZoneInstantiate.c.");
 
     for (i=0; i<nVar; i++){
-      (*ptrFullNames)[i] = (char*)malloc(( len + 1 ) * sizeof(char));
-      if ( (*ptrFullNames)[i] == NULL)
-        ModelicaError("Failed to allocate memory for ptrFullNames[i] in ZoneInstantiate.c.");
+      mallocString(len+1, "Failed to allocate memory for ptrFullNames[i] in ZoneInstantiate.c.", &((*ptrFullNames)[i]));
     }
     /* Copy the string */
     for (i=0; i<nVar; i++){
@@ -417,41 +404,29 @@ size_t ZoneAllocateBuildingDataStructure(
     ModelicaError("Not enough memory in ZoneAllocate.c. to allocate array for Buildings_FMUS[0]->zoneNames.");
 
   /* Assign the modelica name for this building */
-  Buildings_FMUS[nFMU]->modelicaNameBuilding = (char*) malloc((strlen(modelicaNameBuilding)+1) * sizeof(char));
-  if ( Buildings_FMUS[nFMU]->modelicaNameBuilding == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate modelicaNameBuilding.");
+  mallocString((strlen(modelicaNameBuilding)+1), "Not enough memory in ZoneAllocate.c. to allocate modelicaNameBuilding.", &(Buildings_FMUS[nFMU]->modelicaNameBuilding));
   strcpy(Buildings_FMUS[nFMU]->modelicaNameBuilding, modelicaNameBuilding);
 
   /* Assign the Buildings library root */
-  Buildings_FMUS[nFMU]->buildingsLibraryRoot = (char*) malloc((strlen(buildingsLibraryRoot)+1) * sizeof(char));
-  if ( Buildings_FMUS[nFMU]->buildingsLibraryRoot == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate buildingsLibraryRoot.");
+  mallocString((strlen(buildingsLibraryRoot)+1), "Not enough memory in ZoneAllocate.c. to allocate buildingsLibraryRoot.", &(Buildings_FMUS[nFMU]->buildingsLibraryRoot));
   strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
 
   /* Assign the idfName name */
   if (usePrecompiledFMU){
-    Buildings_FMUS[nFMU]->idfName = (char*) malloc((strlen(fmuName)+1) * sizeof(char));
-    if ( Buildings_FMUS[nFMU]->idfName == NULL )
-      ModelicaError("Not enough memory in ZoneAllocate.c. to allocate fmu name.");
+    mallocString((strlen(fmuName)+1), "Not enough memory in ZoneAllocate.c. to allocate idfName.", &(Buildings_FMUS[nFMU]->idfName));
     strcpy(Buildings_FMUS[nFMU]->idfName, fmuName);
   }
   else{
-    Buildings_FMUS[nFMU]->idfName = (char*) malloc((strlen(idfName)+1) * sizeof(char));
-    if ( Buildings_FMUS[nFMU]->idfName == NULL )
-      ModelicaError("Not enough memory in ZoneAllocate.c. to allocate fmu name.");
+    mallocString((strlen(idfName)+1), "Not enough memory in ZoneAllocate.c. to allocate idfName.", &(Buildings_FMUS[nFMU]->idfName));
     strcpy(Buildings_FMUS[nFMU]->idfName, idfName);
   }
 
   /* Assign the weather name */
-  Buildings_FMUS[nFMU]->weather = (char*) malloc((strlen(weaName)+1) * sizeof(char));
-  if ( Buildings_FMUS[nFMU]->weather == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate weather name.");
+  mallocString((strlen(weaName)+1), "Not enough memory in ZoneAllocate.c. to allocate weather.", &(Buildings_FMUS[nFMU]->weather));
   strcpy(Buildings_FMUS[nFMU]->weather, weaName);
 
   /* Assign the idd name */
-  Buildings_FMUS[nFMU]->idd = (char*) malloc((strlen(iddName)+1) * sizeof(char));
-  if ( Buildings_FMUS[nFMU]->idd == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate IDD name.");
+  mallocString((strlen(iddName)+1), "Not enough memory in ZoneAllocate.c. to allocate idd.", &(Buildings_FMUS[nFMU]->idd));
   strcpy(Buildings_FMUS[nFMU]->idd, iddName);
 
   /* Set the model hash to null */
@@ -460,9 +435,7 @@ size_t ZoneAllocateBuildingDataStructure(
   Buildings_FMUS[nFMU]->iFMU = nFMU;
 
   /* Assign the zone name */
-  Buildings_FMUS[nFMU]->zoneNames[0] = malloc((strlen(ptrZone->modelicaNameThermalZone)+1) * sizeof(char));
-  if ( Buildings_FMUS[nFMU]->zoneNames[0] == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zone name.");
+  mallocString((strlen(ptrZone->modelicaNameThermalZone)+1), "Not enough memory in ZoneAllocate.c. to zone name.", &(Buildings_FMUS[nFMU]->zoneNames[0]));
   /* Below, we copy to name of the zone in the idf file.
      This will be used later to make sure each zone is refernced only once
      in a Modelica parameter */
@@ -479,10 +452,7 @@ size_t ZoneAllocateBuildingDataStructure(
   if (usePrecompiledFMU){
     Buildings_FMUS[nFMU]->usePrecompiledFMU = usePrecompiledFMU;
     /* Copy name of precompiled FMU */
-    Buildings_FMUS[nFMU]->precompiledFMUAbsPat = malloc((strlen(fmuName)+1) * sizeof(char));
-    if (Buildings_FMUS[nFMU]->precompiledFMUAbsPat == NULL){
-     ModelicaFormatError("Failed to allocate memory for FMU name for %s.", idfName);
-    }
+    mallocString(strlen(fmuName)+1, "Not enough memory to allocate memory for FMU name.", &(Buildings_FMUS[nFMU]->precompiledFMUAbsPat));
     memset(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, '\0', strlen(fmuName)+1);
     strcpy(Buildings_FMUS[nFMU]->precompiledFMUAbsPat, fmuName);
   }
