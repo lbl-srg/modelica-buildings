@@ -2,7 +2,6 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model IntegratedPrimaryLoadSide
   "Integrated water-side economizer on the load side in a primary-only chilled water system"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialIntegratedPrimary(
-    final numVal=6,
     final m_flow_nominal={m1_flow_chi_nominal,m2_flow_chi_nominal,m1_flow_wse_nominal,
       m2_flow_chi_nominal,numChi*m2_flow_chi_nominal,m2_flow_wse_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
@@ -47,7 +46,7 @@ model IntegratedPrimaryLoadSide
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
   Modelica.Blocks.Interfaces.RealInput yPum[numPum](
-    final unit = "1",
+    each final unit = "1",
     each min=0,
     each max=1)
     "Constant normalized rotational speed"
@@ -60,7 +59,7 @@ model IntegratedPrimaryLoadSide
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y pum(
-    redeclare each final package Medium = Medium2,
+    redeclare final package Medium = Medium2,
     final p_start=p2_start,
     final T_start=T2_start,
     final X_start=X2_start,
@@ -90,7 +89,7 @@ model IntegratedPrimaryLoadSide
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
     final linearizeFlowResistance=linearizeFlowResistance2)
-    "Identical pumps"
+    "Pumps"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
 
 equation
@@ -108,6 +107,10 @@ equation
                                       color={0,0,127}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong use of <code>each</code>.
+</li>
 <li>
 July 1, 2017, by Yangyang Fu:<br/>
 First implementation.

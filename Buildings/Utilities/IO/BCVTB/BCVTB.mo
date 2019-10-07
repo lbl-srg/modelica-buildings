@@ -38,7 +38,7 @@ model BCVTB
 protected
   parameter Integer socketFD(fixed=false)
     "Socket file descripter, or a negative value if an error occurred";
-  parameter Real _uStart[nDblWri](fixed=false)
+  parameter Real _uStart[nDblWri](each fixed=false)
     "Initial input signal, used during first data transfer with BCVTB";
   constant Integer flaWri=0;
   Real uRInt[nDblWri] "Value of integral";

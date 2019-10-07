@@ -1,0 +1,3 @@
+simulateModel("Buildings.Utilities.Plotters.Examples.ControlsVerification_CoolingCoilValve", method="cvode", startTime =0, stopTime = 315710, tolerance=1e-6, resultFile="ControlsVerification_CoolingCoilValve");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, bottomTitle = "Input trends", axes = {1,1,1,2,2}, y={"cooValSta.TSup", "cooValSta.TSupSet", "cooValSta.TOut", "cooValSta.uFanFee", "cooValSta.uFanSta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,002,254},{0,140,72},{216,191,216}, {0,0,127}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, bottomTitle = "Simulated and trended output", axes = {1,1}, y={"percConv.y", "cooValSta.yCooVal"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{50,205,50}});

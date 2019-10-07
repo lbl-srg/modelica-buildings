@@ -10,7 +10,7 @@ block BooleanToInteger "Convert Boolean to Integer signal"
 
   Interfaces.IntegerOutput y
     "Connector of Integer output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = if u then integerTrue else integerFalse;

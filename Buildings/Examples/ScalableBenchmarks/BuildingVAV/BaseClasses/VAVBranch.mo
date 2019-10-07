@@ -57,7 +57,7 @@ model VAVBranch "Supply branch of a VAV system"
     dp_nominal(displayUnit="Pa") = 20)  "VAV box for room"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90, origin={50,104})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU terHea(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU terHea(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,
@@ -71,7 +71,7 @@ model VAVBranch "Supply branch of a VAV system"
     T_a2_nominal=355.35) "Heat exchanger of terminal box"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={56,44})));
-  Buildings.Fluid.Sources.FixedBoundary sinTer(
+  Buildings.Fluid.Sources.Boundary_pT sinTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 3E5,
     nPorts=1) "Sink for terminal box "
@@ -103,7 +103,7 @@ model VAVBranch "Supply branch of a VAV system"
     dpFixed_nominal=6000,
     dpValve_nominal=6000) "Valve at reaheat coil"
     annotation (Placement(transformation(extent={{82,34},{102,14}})));
-  Buildings.Fluid.Sources.FixedBoundary souTer(
+  Buildings.Fluid.Sources.Boundary_pT souTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 3E5 + 12000,
     nPorts=1,

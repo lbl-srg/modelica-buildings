@@ -33,8 +33,9 @@ model ExteriorBoundaryConditionsWithWindow
        haveOverhangOrSideFins "Shade due to overhang or side fins"
     annotation (Placement(transformation(extent={{140,100},{120,120}})));
 
-  Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1) if
-       haveShade
+  Modelica.Blocks.Interfaces.RealInput uSha[nCon](
+    each min=0,
+    each max=1) if haveShade
     "Control signal for the shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
         iconTransformation(extent={{-340,80},{-300,120}})));
@@ -179,7 +180,7 @@ equation
       points={{222,-70},{244,-70},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(repConExtWinVWin.y,conExtWin. vWin) annotation (Line(
@@ -190,7 +191,7 @@ equation
       points={{142,-12},{192,-12},{192,-14},{244,-14},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(HTotConExtWinFra.y, solHeaGaiConWin.Q_flow) annotation (Line(
@@ -218,7 +219,7 @@ equation
       points={{-136,-268},{244,-268},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(skyRadExcWin.TBlaSky, weaBus.TBlaSky)
@@ -226,7 +227,7 @@ equation
       points={{-136,-252},{244,-252},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(skyRadExcWin.port, fra) annotation (Line(
@@ -245,7 +246,7 @@ equation
       points={{222,-102},{244,-102},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   for i in 1:nCon loop
@@ -254,7 +255,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   end for;
@@ -338,6 +339,10 @@ the model
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Added missing <code>each</code>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error

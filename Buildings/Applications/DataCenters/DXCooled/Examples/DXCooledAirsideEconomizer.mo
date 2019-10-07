@@ -15,7 +15,7 @@ model DXCooledAirsideEconomizer
       y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FreeCooling)
       then 1 else 0));
 
-  replaceable package Medium = Buildings.Media.Air;
+  replaceable package Medium = Buildings.Media.Air "Medium model";
 
   // Air temperatures at design conditions
   parameter Modelica.SIunits.Temperature TASup_nominal = 286.15
@@ -168,8 +168,7 @@ model DXCooledAirsideEconomizer
   Buildings.Fluid.Actuators.Dampers.Exponential dam2(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
-    y_start=0)
-    "open when mechanical cooling is activated"
+    y_start=0) "Open when mechanical cooling is activated"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemMixAir(
     redeclare package Medium = Medium,
@@ -263,7 +262,7 @@ equation
       points={{-240,70},{-172,70}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.port_b, roo.airPorts[1])
@@ -296,7 +295,7 @@ equation
       points={{-240,70},{-240,-40},{-60,-40},{-60,-57},{-21,-57}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(cooModCon.y, sigCha.u)
@@ -328,7 +327,7 @@ equation
       points={{-39,-10},{-28,-10},{-28,-52},{-21,-52}},
       color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-280,-200},{220,220}})),
+    extent={{-280,-200},{320,220}})),
     __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Examples/DXCooledAirsideEconomizer.mos"
         "Simulate and plot"),
@@ -356,8 +355,8 @@ a deadband of 1 Kelvin and a waiting time of 120 s are used.
 </p>
 <p>
 A demonstration on how to switch among these three cooling modes is shown in
-<a href=\"modelica://Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode\">
-Buildings.Applications.DataCenters.Examples.BaseClasses.CoolingMode</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.DXCooled.Controls.Validation.CoolingMode\">
+Buildings.Applications.DataCenters.DXCooled.Controls.Validation.CoolingMode</a>.
 </p>
 <h5>Supply air temperature control</h5>
 <p>
@@ -381,5 +380,6 @@ First implementation.
     experiment(
       StartTime=11880000,
       StopTime=12600000,
-      Tolerance=1e-06));
+      Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end DXCooledAirsideEconomizer;

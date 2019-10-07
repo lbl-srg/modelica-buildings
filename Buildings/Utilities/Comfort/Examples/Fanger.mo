@@ -9,11 +9,11 @@ model Fanger "Test of Comfort Model"
                                             annotation (
       Placement(transformation(extent={{70,-40},{90,-20}})));
   Modelica.Blocks.Sources.Constant ICl(k=0.9) "Clothing insulation"
-    annotation (Placement(transformation(extent=[-14,-90; 6,-70])));
+    annotation (Placement(transformation(extent={{-14,-90},{ 6,-70}})));
   Modelica.Blocks.Sources.Constant vAir(k=0.05) "Air velocity"
-    annotation (Placement(transformation(extent=[-80,-56; -60,-36])));
+    annotation (Placement(transformation(extent={{-80,-56},{-60,-36}})));
   Modelica.Blocks.Sources.Constant M(k=60) "Metabolic heat generated"
-    annotation (Placement(transformation(extent=[-80,-86; -60,-66])));
+    annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
   Modelica.Blocks.Sources.Ramp TAir(
     duration=1,
     height=10,
@@ -21,9 +21,9 @@ model Fanger "Test of Comfort Model"
                         annotation (Placement(
         transformation(extent={{-80,50},{-60,70}})));
   Modelica.Blocks.Sources.Constant TRad(k=273.15 + 22) "Radiation temperature"
-    annotation (Placement(transformation(extent=[-80,-26; -60,-6])));
+    annotation (Placement(transformation(extent={{-80,-26},{ -60,-6}})));
   Modelica.Blocks.Sources.Constant pAtm(k=101325)
-    annotation (Placement(transformation(extent=[0,68; 20,88])));
+    annotation (Placement(transformation(extent={{0,68},{ 20,88}})));
   Modelica.Blocks.Sources.Constant phi(k=0.5) "Relative humidity"
     annotation (Placement(transformation(extent={{-20,
             30},{0,50}})));

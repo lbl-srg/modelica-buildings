@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "conAHU.ducStaPre",
+    "conAHU.supFan.staPreSetRes.y",
+    "conAHU.ySupFanSpe",
+    "conAHU.ySupFan",
+    "conAHU.uOpeMod",
+    "conAHU.TSup",
+    "conAHU.TSupSet",
+    "conAHU.TOut",
+    "conAHU.eco.uTSup",
+    "conAHU.yHea",
+    "conAHU.yCoo",
+    "conAHU.yOutDamPos",
+    "conAHU.yRetDamPos"
+  };

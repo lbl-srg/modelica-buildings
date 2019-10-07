@@ -5,5 +5,8 @@ compareVars :=
     "trimRespondLogic.y",
     "trimRespondLogic1.uDevSta",
     "trimRespondLogic1.numOfReq",
-    "trimRespondLogic1.y"
+    "trimRespondLogic1.y",
+    "trimRespondLogic2.uDevSta",
+    "trimRespondLogic2.numOfReq",
+    "trimRespondLogic2.y"
   };

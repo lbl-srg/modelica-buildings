@@ -78,8 +78,8 @@ protected
   Boolean firstDaySampling(fixed=true, start=true)
     "=true if the day is sampled the first time";
 initial equation
-  hourSampleStart = integer(time/3600)*3600;
-  daySampleStart  = integer(time/(3600*24))*3600*24;
+  hourSampleStart = integer(time/3600)*3600 - offset;
+  daySampleStart  = integer(time/(3600*24))*3600*24 - offset;
 
   hour = integer(floor(rem(unixTimeStamp,3600*24)/3600));
   daysSinceEpoch = integer(floor(unixTimeStamp/3600/24));
@@ -170,7 +170,8 @@ initial algorithm
     if zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef >= lastYear then
       "Could not initialize date in the CalendarTime block.
    You selected a custom time=0 reference.
-   The maximum value for yearRef is then " + String(lastYear) + " but your value is " + String(yearRef) + "."
+   The maximum value for yearRef is then " + String(lastYear) +
+   " but your value is " + String(yearRef) + "."
     else
        "Could not initialize date in the CalendarTime block.
        Possibly your startTime is too large.");
@@ -180,7 +181,8 @@ initial algorithm
   year :=0;
   for i in 1:size(timeStampsNewYear,1) loop
     // may be reformulated using break if JModelica fixes bug
-    if unixTimeStamp < timeStampsNewYear[i] and (if i == 1 then true else unixTimeStamp >= timeStampsNewYear[i-1]) then
+    if unixTimeStamp < timeStampsNewYear[i]
+      and (if i == 1 then true else unixTimeStamp >= timeStampsNewYear[i-1]) then
       yearIndex :=i - 1;
       year :=firstYear + i - 2;
     end if;
@@ -256,6 +258,11 @@ equation
     defaultComponentName="calTim",
   Documentation(revisions="<html>
 <ul>
+<li>
+February 14, 2019, by Damien Picard:<br/>
+Fix bug when non-zero offset by substracting the offset from hourSampleStart and daySampleStart
+(see <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1099\">#1099</a>).
+</li>
 <li>
 August 3, 2016, by Filip Jorissen:<br/>
 First implementation.

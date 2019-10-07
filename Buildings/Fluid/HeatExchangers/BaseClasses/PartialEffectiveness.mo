@@ -6,15 +6,29 @@ partial model PartialEffectiveness
     prescribedHeatFlowRate2=true,
     show_T=false);
 
-  Medium1.Temperature T_in1 "Inlet temperature medium 1";
-  Medium2.Temperature T_in2 "Inlet temperature medium 2";
-  Modelica.SIunits.ThermalConductance C1_flow
+  Medium1.Temperature T_in1 = if allowFlowReversal1 then
+    fra_a1 * Medium1.temperature(state_a1_inflow) + fra_b1 * Medium1.temperature(state_b1_inflow) else
+    Medium1.temperature(state_a1_inflow)
+    "Inlet temperature medium 1";
+  Medium2.Temperature T_in2 = if allowFlowReversal2 then
+    fra_a2 * Medium2.temperature(state_a2_inflow) + fra_b2 * Medium2.temperature(state_b2_inflow) else
+    Medium2.temperature(state_a2_inflow)
+    "Inlet temperature medium 2";
+  Modelica.SIunits.ThermalConductance C1_flow = abs(m1_flow)*
+    ( if allowFlowReversal1 then
+           fra_a1 * Medium1.specificHeatCapacityCp(state_a1_inflow) +
+           fra_b1 * Medium1.specificHeatCapacityCp(state_b1_inflow) else
+        Medium1.specificHeatCapacityCp(state_a1_inflow))
     "Heat capacity flow rate medium 1";
-  Modelica.SIunits.ThermalConductance C2_flow
+  Modelica.SIunits.ThermalConductance C2_flow = abs(m2_flow)*
+    ( if allowFlowReversal2 then
+           fra_a2 * Medium2.specificHeatCapacityCp(state_a2_inflow) +
+           fra_b2 * Medium2.specificHeatCapacityCp(state_b2_inflow) else
+        Medium2.specificHeatCapacityCp(state_a2_inflow))
     "Heat capacity flow rate medium 2";
-  Modelica.SIunits.ThermalConductance CMin_flow(min=0)
+  Modelica.SIunits.ThermalConductance CMin_flow(min=0) = min(C1_flow, C2_flow)
     "Minimum heat capacity flow rate";
-  Modelica.SIunits.HeatFlowRate QMax_flow
+  Modelica.SIunits.HeatFlowRate QMax_flow = CMin_flow*(T_in2 - T_in1)
     "Maximum heat flow rate into medium 1";
 protected
   parameter Real delta=1E-3 "Parameter used for smoothing";
@@ -25,13 +39,29 @@ protected
     "Specific heat capacity of medium 2 at default medium state";
   parameter Modelica.SIunits.ThermalConductance CMin_flow_small(fixed=false)
     "Small value for smoothing of minimum heat capacity flow rate";
-  Real fra_a1(min=0, max=1)
+  Real fra_a1(min=0, max=1) = if allowFlowReversal1
+    then Modelica.Fluid.Utilities.regStep(
+      m1_flow,
+      1,
+      0,
+      m1_flow_small)
+    else 1
     "Fraction of incoming state taken from port a2 (used to avoid excessive calls to regStep)";
-  Real fra_b1(min=0, max=1)
+  Real fra_b1(min=0, max=1) = if allowFlowReversal1
+    then 1-fra_a1
+    else 0
     "Fraction of incoming state taken from port b2 (used to avoid excessive calls to regStep)";
-  Real fra_a2(min=0, max=1)
+  Real fra_a2(min=0, max=1) = if allowFlowReversal2
+    then Modelica.Fluid.Utilities.regStep(
+      m2_flow,
+      1,
+      0,
+      m2_flow_small)
+    else 1
     "Fraction of incoming state taken from port a2 (used to avoid excessive calls to regStep)";
-  Real fra_b2(min=0, max=1)
+  Real fra_b2(min=0, max=1) = if allowFlowReversal2
+    then 1-fra_a2
+    else 0
     "Fraction of incoming state taken from port b2 (used to avoid excessive calls to regStep)";
 initial equation
   cp1_default = Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
@@ -43,53 +73,6 @@ initial equation
     Medium2.T_default,
     Medium2.X_default));
   CMin_flow_small = min(m1_flow_small*cp1_default, m2_flow_small*cp2_default);
-equation
-  if allowFlowReversal2 then
-    fra_a2 = Modelica.Fluid.Utilities.regStep(
-      m2_flow,
-      1,
-      0,
-      m2_flow_small);
-    fra_b2 = 1-fra_a2;
-  else
-    fra_a2 = 1;
-    fra_b2 = 0;
-  end if;
-  if allowFlowReversal1 then
-    fra_a1 = Modelica.Fluid.Utilities.regStep(
-      m1_flow,
-      1,
-      0,
-      m1_flow_small);
-    fra_b1 = 1-fra_a1;
-  else
-    fra_a1 = 1;
-    fra_b1 = 0;
-  end if;
-
-  /////////////////////////////////////////////////////////
-  // Definitions for heat transfer effectiveness model
-  T_in1 = if allowFlowReversal1 then
-    fra_a1 * Medium1.temperature(state_a1_inflow) + fra_b1 * Medium1.temperature(state_b1_inflow) else
-    Medium1.temperature(state_a1_inflow);
-  T_in2 = if allowFlowReversal2 then
-    fra_a2 * Medium2.temperature(state_a2_inflow) + fra_b2 * Medium2.temperature(state_b2_inflow) else
-    Medium2.temperature(state_a2_inflow);
-
-  C1_flow = abs(m1_flow)*
-    ( if allowFlowReversal1 then
-           fra_a1 * Medium1.specificHeatCapacityCp(state_a1_inflow) +
-           fra_b1 * Medium1.specificHeatCapacityCp(state_b1_inflow) else
-        Medium1.specificHeatCapacityCp(state_a1_inflow));
-  C2_flow = abs(m2_flow)*
-    ( if allowFlowReversal2 then
-           fra_a2 * Medium2.specificHeatCapacityCp(state_a2_inflow) +
-           fra_b2 * Medium2.specificHeatCapacityCp(state_b2_inflow) else
-        Medium2.specificHeatCapacityCp(state_a2_inflow));
-  CMin_flow = min(C1_flow, C2_flow);
-
-  // QMax_flow is maximum heat transfer into medium 1
-  QMax_flow = CMin_flow*(T_in2 - T_in1);
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -122,6 +105,17 @@ and <code>QMax_flow &gt; 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 21, 2019, by Filip Jorissen:<br/>
+Revised implementation of all equations
+such that a binding equation is used. 
+I.e. we set the variable value at the variable definition
+instead of using the equation section.
+This allows overwriting the equation
+when extending the model.<br/>
+See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1102\">#1102</a>.
+</li>
 <li>
 April 30, 2018, by Filip Jorissen:<br/>
 Set <code>prescribedHeatFlowRate1=true</code> and 

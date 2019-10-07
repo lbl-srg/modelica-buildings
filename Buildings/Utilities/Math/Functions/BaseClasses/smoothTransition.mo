@@ -24,10 +24,7 @@ protected
 
 algorithm
  aX:= abs(x);
- y := a + aX*(b + aX*(c + aX*(d + aX*(e + aX*f))));
- if x < 0 then
-    y := -y;
- end if;
+ y := (if x >= 0 then 1 else -1) * (a + aX*(b + aX*(c + aX*(d + aX*(e + aX*f)))));
 annotation(smoothOrder=2,
   derivative(order=1,
           zeroDerivative=delta,
@@ -68,6 +65,11 @@ Buildings.Utilities.Math.Functions.BaseClasses.der_2__smoothTransition</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 12, 2018, by David Blum:<br/>
+Change if-statement to if-expression.  
+For issue <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1019\">#1019</a>.
+</li>
 <li>
 August 11, 2015, by Michael Wetter:<br/>
 First implementation.

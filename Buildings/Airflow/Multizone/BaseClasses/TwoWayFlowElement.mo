@@ -3,14 +3,16 @@ partial model TwoWayFlowElement "Flow resistance that uses the power law"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
-    final allowFlowReversal1=false,
-    final allowFlowReversal2=false,
+    final allowFlowReversal1=true,
+    final allowFlowReversal2=true,
     final m1_flow_nominal=10/3600*1.2,
     final m2_flow_nominal=m1_flow_nominal);
   extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Modelica.SIunits.Velocity vZer=0.001
     "Minimum velocity to prevent zero flow. Recommended: 0.001";
@@ -130,6 +132,22 @@ for doors that can be open or closed as a function of an input signal.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
+September 13, 2018, by Michael Wetter:<br/>
+Set <code>allowFlowReversal=true</code> as the flow can be slightly negative
+due to the regularization, in which case the <code>m_flow(min=0)</code>
+that is set in the base class
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPort\">
+Buildings.Fluid.Interfaces.PartialFourPort</a>
+is violated.<br/>
+See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/937\">#937</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Removed start values for inflowing density

@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.CDL.Continuous;
 block HysteresisWithHold
   "Hysteresis block that optionally allows to specify a hold time"
 
-  parameter Real uLow "if y=true and u<=uLow, switch to y=false";
-  parameter Real uHigh "if y=false and u>=uHigh, switch to y=true";
+  parameter Real uLow "if y=true and u<uLow, switch to y=false";
+  parameter Real uHigh "if y=false and u>uHigh, switch to y=true";
 
   parameter Modelica.SIunits.Time trueHoldDuration
     "true hold duration";
@@ -15,8 +15,7 @@ block HysteresisWithHold
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.BooleanOutput y "Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   Continuous.Hysteresis hysteresis(
@@ -35,9 +34,9 @@ equation
     annotation (Line(points={{-120,0},{-100,0},{-42,0}}, color={0,0,127}));
 
   connect(hysteresis.y, truFalHol.u)
-    annotation (Line(points={{-19,0},{39,0}}, color={255,0,255}));
+    annotation (Line(points={{-18,0},{39,0}}, color={255,0,255}));
   connect(truFalHol.y, y)
-    annotation (Line(points={{61,0},{110,0}}, color={255,0,255}));
+    annotation (Line(points={{61,0},{120,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="hysWitHol",
   Icon(graphics={

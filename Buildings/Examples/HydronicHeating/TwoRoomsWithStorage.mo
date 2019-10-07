@@ -417,7 +417,7 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Sources.Constant TOutSwi(k=16 + 293.15)
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
-  Buildings.Fluid.Sources.FixedBoundary bou(nPorts=1, redeclare package Medium = MediumW)
+  Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = MediumW)
     "Fixed boundary condition, needed to provide a pressure in the system"
     annotation (Placement(transformation(extent={{-82,-180},{-62,-160}})));
   Modelica.Blocks.Math.Gain gain(k=1/dp_nominal)
@@ -935,7 +935,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, weaDat.weaBus) annotation (Line(
@@ -1016,7 +1016,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TRoo1.T, cooCon.TRoo) annotation (Line(

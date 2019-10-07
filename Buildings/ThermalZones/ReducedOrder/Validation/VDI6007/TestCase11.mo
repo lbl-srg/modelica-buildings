@@ -3,21 +3,21 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   extends Modelica.Icons.Example;
 
   RC.TwoElements thermalZoneTwoElements(
-    alphaExt=2.7,
-    alphaWin=2.7,
+    hConExt=2.7,
+    hConWin=2.7,
     gWin=1,
     nExt=1,
     nInt=1,
     ratioWinConRad=0,
     AInt=75.5,
     RWin=0.00000001,
-    alphaRad=5,
+    hRad=5,
     RExt={0.00436791293674},
     RExtRem=0.03895919557,
     CExt={1600848.94},
     RInt={0.000595693407511},
     CInt={14836354.6282},
-    alphaInt=3,
+    hConInt=3,
     indoorPortIntWalls=true,
     VAir=0,
     nOrientations=1,
@@ -34,7 +34,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     T=295.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection theConWall
+  Modelica.Thermal.HeatTransfer.Components.Convection theConWall(
+    dT(start=0))
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
@@ -78,7 +79,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-98},{68,-78}})));
-  Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
+  Modelica.Blocks.Sources.Constant hConWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls"
     annotation (Placement(
     transformation(
@@ -170,8 +171,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Logical.Timer timer
     "Timer since the control mode changed"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
-  Modelica.Blocks.Logical.LessEqualThreshold thr(threshold=60)
-    "Threshold to measure 60 seconds"
+  Modelica.Blocks.Logical.LessEqualThreshold thr(threshold=120)
+    "Skip the first 120 seconds of the day for comparison with reference values"
     annotation (Placement(transformation(extent={{100,120},{120,140}})));
   Modelica.Blocks.Logical.Change cha
     "Outputs true if the input changes"
@@ -181,7 +182,7 @@ equation
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{44,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
-  connect(alphaWall.y, theConWall.Gc)
+  connect(hConWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(intGai.y[1], machinesRad.Q_flow)
     annotation (Line(points={{
@@ -277,6 +278,14 @@ equation
   floor heating.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 11, 2019, by Katharina Brinkmann:<br/>
+  Renamed <code>alphaWall</code> to <code>hConWall</code>
+  </li>
+  <li>
+  January 25, 2019, by Michael Wetter:<br/>
+  Added start value to avoid warning in JModelica.
+  </li>
   <li>
   July 7, 2016, by Moritz Lauster:<br/>
   Added automatic check against validation thresholds and changes threshold to hysteresis.

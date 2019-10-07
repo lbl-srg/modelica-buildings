@@ -18,9 +18,11 @@ model SingleLayer "Model for single layer heat conductance"
    each nominal=300)
     "Temperature at the states";
 
-  Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
+  Modelica.SIunits.HeatFlowRate Q_flow[nSta+1](each start=0)
     "Heat flow rates to each state";
-  Modelica.SIunits.SpecificInternalEnergy u[nSta](each nominal=270000)
+  Modelica.SIunits.SpecificInternalEnergy u[nSta](
+    each start=2.7E5,
+    each nominal=2.7E5)
     "Definition of specific internal energy";
 
   parameter Boolean stateAtSurface_a=true
@@ -108,9 +110,6 @@ protected
     "Derivatives dT/du at the support points (used for PCM)";
 
 initial equation
-  assert(abs(sum(RNod) - R) < 1E-10, "Error in computing resistances.");
-  assert(abs(sum(m) - A*material.x*material.d) < 1E-10, "Error in computing mass.");
-
   // The initialization is only done for materials that store energy.
     if not material.steadyState then
       if steadyStateInitial then
@@ -392,6 +391,12 @@ Buildings.HeatTransfer.Examples</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 27, 2019, by Michael Wetter:<br/>
+Removed assertion on geometry.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1529\">issue 1529</a>.
+</li>
 <li>
 November 22, 2016, by Thierry S. Nouidui:<br/>
 Fix bug in mass balance.

@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Examples;
 model WindTurbine "Example for the WindTurbine AC model"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.WindTurbine  tur(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.WindTurbine tur(
     table=[3.5, 0;
            5.5,   100;
            12, 900;
@@ -19,19 +19,22 @@ model WindTurbine "Example for the WindTurbine AC model"
     annotation (Placement(transformation(extent={{-52,36},{-32,56}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
     annotation (Placement(transformation(extent={{16,36},{36,56}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Resistive
-                                            res(P_nominal=-500, V_nominal=480)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Resistive res(
+    P_nominal=-500,
+    V_nominal=480)
     "Resistive line"
     annotation (Placement(transformation(extent={{-22,-30},{-2,-10}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sou(f=60, V=480)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sou(
+    f=60,
+    V=480)
     "Voltage source"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortResistance
-                                                  lin(R=0.1)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortResistance lin(
+    R=0.1)
     "Transmission line"
     annotation (Placement(transformation(extent={{-22,-10},{-2,10}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor
-                                                    sen "Generalized sensor"
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor sen
+    "Generalized sensor"
     annotation (Placement(transformation(extent={{8,-10},{28,10}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(

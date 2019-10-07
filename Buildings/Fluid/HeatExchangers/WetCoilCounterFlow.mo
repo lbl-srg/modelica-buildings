@@ -4,8 +4,8 @@ model WetCoilCounterFlow
   extends Buildings.Fluid.HeatExchangers.DryCoilCounterFlow(
     redeclare replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialCondensingGases,
-    redeclare final
-      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent ele[nEle]);
+    redeclare final model HexElement =
+      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent);
 
   Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
@@ -73,6 +73,11 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 19, 2018, by Kino:<br/>
+Changed model to use a replaceable model as this allows translation in OpenModelica.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1258\">#1258</a>.
+</li>
 <li>
 April 14, 2017, by David Blum:<br/>
 Added heat of condensation to coil surface heat balance

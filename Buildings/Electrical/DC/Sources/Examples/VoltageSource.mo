@@ -3,10 +3,10 @@ model VoltageSource "Example for the variable voltage source model"
   extends Modelica.Icons.Example;
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-92,-40},{-72,-20}})));
-  Buildings.Electrical.DC.Loads.Resistor    res(R=0.5, V_nominal=12)
+  Buildings.Electrical.DC.Loads.Resistor res(R=0.5, V_nominal=12)
     "Resistance"
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
-  Buildings.Electrical.DC.Sources.VoltageSource      sou "Voltage source"
+  Buildings.Electrical.DC.Sources.VoltageSource sou "Voltage source"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
   Buildings.Electrical.DC.Lines.TwoPortResistance lin(R=0.5)
     "Transmission line"

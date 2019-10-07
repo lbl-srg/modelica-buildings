@@ -9,6 +9,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
+    final mSenFac=mSenFac,
     final m_flow_nominal=m_flow_nominal,
     final homotopyInitialization=homotopyInitialization,
     final conMod=intConMod,
@@ -138,6 +139,12 @@ for detailed explanations.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 8, 2019, by Michael Wetter:<br/>
+Propagated parameter <code>mSenFac</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1405\">Buildings #1405</a>.
+</li>
 <li>
 September 8, 2017, by Michael Wetter:<br/>
 Enabled input connector <code>C_flow</code> to allow adding trace substances.<br/>

@@ -62,18 +62,18 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.PressureDrop fil(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = MediumA,
-    dp_nominal=200 + 200 + 100,
+    dp_nominal=200 + 200 + 200 + 100,
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Filter"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU preHeaCoi(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU preHeaCoi(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumW,
     allowFlowReversal2=false,
     dp2_nominal=6000,
-    m1_flow_nominal=mAirOut_flow_nominal,
+    m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=mWatPre_flow_nominal,
-    dp1_nominal=200,
+    dp1_nominal=0,
     Q_flow_nominal=mAirOut_flow_nominal*1006*(TMixHea_nominal - TSupCol_nominal),
     T_a1_nominal=281.65,
     T_a2_nominal=323.15,
@@ -116,7 +116,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
-  Buildings.Fluid.Sources.FixedBoundary sinHea(
+  Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     nPorts=2,
     p=300000,
@@ -124,7 +124,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={90,-220})));
-  Buildings.Fluid.Sources.FixedBoundary sinCoo(
+  Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
     T=285.15,
@@ -188,7 +188,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={380,-190})));
-  Buildings.Fluid.Sources.FixedBoundary souCoo(
+  Buildings.Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
     p=3E5 + 12000,
     nPorts=1,
@@ -212,7 +212,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint TSetRoo(THeaOff=
         289.15)
     annotation (Placement(transformation(extent={{-300,-276},{-280,-256}})));
-  Buildings.Fluid.Sources.FixedBoundary souHea(
+  Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 12000,
     T=318.15,
@@ -380,7 +380,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Demultiplex for room air temperature"
     annotation (Placement(transformation(extent={{498,120},{518,140}})));
 
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU          heaCoi(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU          heaCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=mWatHot_flow_nominal,
@@ -547,42 +547,42 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(occSch.tNexOcc, controlBus.dTNexOcc) annotation (Line(
       points={{-297,-204},{-240,-204},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut.y, controlBus.TOut) annotation (Line(
       points={{-279,148},{-240,148},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(occSch.occupied, controlBus.occupied) annotation (Line(
       points={{-297,-216},{-240,-216},{-240,-260}},
       color={255,0,255},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(min.y, controlBus.TRooMin) annotation (Line(
       points={{1221,450},{1248,450},{1248,-260},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(ave.y, controlBus.TRooAve) annotation (Line(
       points={{1221,420},{1248,420},{1248,-260},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
@@ -598,7 +598,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TSetRoo.controlBus, controlBus) annotation (Line(
@@ -616,7 +616,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(sou.controlBus, controlBus) annotation (Line(
@@ -625,7 +625,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(eas.controlBus, controlBus) annotation (Line(
@@ -634,7 +634,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(nor.controlBus, controlBus) annotation (Line(
@@ -643,7 +643,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(wes.controlBus, controlBus) annotation (Line(
@@ -652,7 +652,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(conEco.yOA, eco.y) annotation (Line(
@@ -1007,7 +1007,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(cooCoiCon.y, valCoo.y) annotation (Line(
@@ -1202,6 +1202,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 11, 2019, by Michael Wetter:<br/>
+Changed wrong assignment of air-side nominal flow rate of preheat coil.
+Moved air-side flow resistance of preheat coil to filter model to reduce
+the dimension of the nonlinear equations.
+</li>
 <li>
 November 17, 2017, by Michael Wetter:<br/>
 Enabled filters at fan control signal. This avoids a sharp change in fan speed,

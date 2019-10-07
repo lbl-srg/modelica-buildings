@@ -90,7 +90,7 @@ partial model PartialOpenLoop
 //    "Heating coil"
 //    annotation (Placement(transformation(extent={{118,-36},{98,-56}})));
 
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
@@ -145,7 +145,7 @@ partial model PartialOpenLoop
     "Sensor for return fan flow rate"
     annotation (Placement(transformation(extent={{360,130},{340,150}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sinHea(
+  Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     p=300000,
     T=318.15,
@@ -153,7 +153,7 @@ partial model PartialOpenLoop
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,-122})));
-  Buildings.Fluid.Sources.FixedBoundary sinCoo(
+  Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
     T=285.15,

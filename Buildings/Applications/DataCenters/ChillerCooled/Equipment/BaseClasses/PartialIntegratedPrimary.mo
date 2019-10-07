@@ -2,15 +2,15 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 model PartialIntegratedPrimary
   "Integrated water-side economizer for primary-only chilled water system"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE(
-    numVal=6);
+    final numVal=6);
 
   //Parameters for the valve used in free cooling mode
   parameter Real lVal5(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Shutoff valve"));
+    annotation(Dialog(group="Two-way valve"));
   parameter Real lVal6(min=1e-10,max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Shutoff valve"));
+    annotation(Dialog(group="Two-way valve"));
 
   parameter Real yVal5_start(min=0,max=1) = 0
     "Initial value of output:0-closed, 1-fully opened"
@@ -65,7 +65,7 @@ model PartialIntegratedPrimary
     final kFixed=0,
     final rhoStd=rhoStd[5],
     final y_start=yVal5_start)
-    "Shutoff valve: closed when fully mechanic cooling is activated;
+    "Bypass valve: closed when fully mechanic cooling is activated;
     open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
@@ -87,7 +87,7 @@ model PartialIntegratedPrimary
     final kFixed=0,
     final rhoStd=rhoStd[6],
     final y_start=yVal6_start)
-    "Shutoff valve: closed when free cooling mode is deactivated;
+    "Bypass valve: closed when free cooling mode is deactivated;
     open when free cooling is activated"
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 

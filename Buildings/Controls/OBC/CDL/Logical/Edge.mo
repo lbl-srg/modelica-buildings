@@ -7,7 +7,7 @@ block Edge "Output y is true, if the input u has a rising edge (y = edge(u))"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
   pre(u) = pre_u_start;
@@ -17,10 +17,7 @@ equation
   annotation (
     defaultComponentName="edg",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Text(
-          extent={{-90,40},{90,-40}},
-          lineColor={0,0,0},
-          textString="not"),
+            100}}), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

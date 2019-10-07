@@ -3,8 +3,8 @@ partial model PartialPlantParallel
   "Partial source plant model with associated valves"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallelInterface;
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ValvesParameters(
-    numVal = 2,
-    m_flow_nominal = {m1_flow_nominal,m2_flow_nominal},
+    final numVal = 2,
+    final m_flow_nominal = {m1_flow_nominal,m2_flow_nominal},
     rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
     final deltaM=deltaM1);
@@ -15,14 +15,14 @@ partial model PartialPlantParallel
     "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  // Shutoff valve parameters
+  // Isolation valve parameters
   parameter Real l[2](each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Shutoff valve"));
+    annotation(Dialog(group="Two-way valve"));
   parameter Real kFixed[2](each unit="", each min=0)=
     {m1_flow_nominal,m2_flow_nominal} ./ sqrt({dp1_nominal,  dp2_nominal})
     "Flow coefficient of fixed resistance that may be in series with valve 1, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-   annotation(Dialog(group="Shutoff valve"));
+   annotation(Dialog(group="Two-way valve"));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val2[num](
     redeclare each replaceable package Medium = Medium2,
@@ -43,7 +43,7 @@ partial model PartialPlantParallel
     each final linearized=linearizeFlowResistance2,
     each final rhoStd=rhoStd[2],
     each final dpValve_nominal=dpValve_nominal[2])
-    "Valves on medium 2 side for on/off use"
+    "Isolation valves on medium 2 side for on/off use"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -67,7 +67,7 @@ partial model PartialPlantParallel
     each final from_dp=from_dp1,
     each final linearized=linearizeFlowResistance1,
     each final rhoStd=rhoStd[1])
-    "Valves on medium 1 side for on/off use"
+    "Isolation valves on medium 1 side for on/off use"
     annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},

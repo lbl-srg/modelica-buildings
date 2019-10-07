@@ -2,17 +2,13 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment;
 model WatersideEconomizer "Waterside economizer"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallel(
     final num=1,
-    final numVal=2,
-    final m_flow_nominal={m1_flow_nominal,m2_flow_nominal},
-    rhoStd = {Medium1.density_pTX(101325, 273.15+4, Medium1.X_default),
-            Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
     val2(each final dpFixed_nominal=0),
     val1(each final dpFixed_nominal=dp1_nominal),
     kFixed={m1_flow_nominal/sqrt(dp1_nominal),0},
     final yValve_start={yValWSE_start});
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1,
-    redeclare package Medium=Medium2);
+    redeclare final package Medium=Medium2);
   extends
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
     final activate_ThrWayVal=use_controller);
@@ -44,7 +40,7 @@ model WatersideEconomizer "Waterside economizer"
         transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
           extent={{-140,-20},{-100,20}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger heaExc(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
     final use_controller=use_controller,
@@ -128,7 +124,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This module impliments a waterside economizer model that consists of a
-<a href=\"Modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger\">heat exchanger</a> and a shutoff valve on each medium side.
+<a href=\"Modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet\">heat exchanger</a> and a shutoff valve on each medium side.
 This waterside economizer model can be used in two different control scenarios:
 </p>
 <ol>

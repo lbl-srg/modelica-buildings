@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat;
 block DamperValves
   "Output signals for controlling VAV reheat box damper and valve position"
 
-  parameter Modelica.SIunits.TemperatureDifference dTDisMax=11
+  parameter Modelica.SIunits.TemperatureDifference dTDisZonSetMax=11
     "Zone maximum discharge air temperature above heating setpoint";
   parameter Modelica.SIunits.Temperature TDisMin=283.15
     "Lowest discharge air temperature";
@@ -27,8 +27,6 @@ block DamperValves
     annotation (Dialog(group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
-
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -61,104 +59,104 @@ block DamperValves
     final unit="1")
     "Heating control signal"
     annotation (Placement(transformation(extent={{-360,-180},{-320,-140}}),
-      iconTransformation(extent={{-120,-40},{-100,-20}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     min=0,
     max=1,
     final unit="1")
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-360,240},{-320,280}}),
-      iconTransformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMax(
+        iconTransformation(extent={{-140,70},{-100,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMax_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active cooling maximum airflow rate"
     annotation (Placement(transformation(extent={{-360,160},{-320,200}}),
-      iconTransformation(extent={{-120,80},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMin(
+        iconTransformation(extent={{-140,30},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActCooMin_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active cooling minimum airflow rate"
     annotation (Placement(transformation(extent={{-360,200},{-320,240}}),
-      iconTransformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActMin(
+        iconTransformation(extent={{-140,50},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActMin_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active minimum airflow rate"
     annotation (Placement(transformation(extent={{-360,30},{-320,70}}),
-      iconTransformation(extent={{-120,0},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActHeaMin(
+        iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActHeaMin_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active heating minimum airflow rate"
     annotation (Placement(transformation(extent={{-360,-320},{-320,-280}}),
-      iconTransformation(extent={{-120,20},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActHeaMax(
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VActHeaMax_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Active heating maximum airflow rate"
     annotation (Placement(transformation(extent={{-360,-350},{-320,-310}}),
-      iconTransformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis(
+        iconTransformation(extent={{-140,-112},{-100,-72}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-360,300},{-320,340}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={40,-130})));
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={40,-140})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Supply air temperature from central air handler"
     annotation (Placement(transformation(extent={{-360,-70},{-320,-30}}),
-      iconTransformation(extent={{-120,-80},{-100,-60}})));
+        iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-360,-100},{-320,-60}}),
-      iconTransformation(extent={{-120,-60},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
+        iconTransformation(extent={{-140,-30},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-360,-290},{-320,-250}}),
-      iconTransformation(extent={{-10,-10},{10,10}},origin={-110,-90})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-360,90},{-320,130}}),
-      iconTransformation(extent={{-10,-10},{10,10}},rotation=90,origin={-40,-130})));
+      iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-40,-140})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-360,-390},{-320,-350}}),
-      iconTransformation(extent={{-120,-120},{-100,-100}})));
+        iconTransformation(extent={{-140,-132},{-100,-92}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(min=0, max=1, final unit="1")
     "Damper position"
-    annotation (Placement(transformation(extent={{320,10},{340,30}}),
-      iconTransformation(extent={{100,30},{120,50}})));
+    annotation (Placement(transformation(extent={{320,0},{360,40}}),
+        iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaVal(min=0, max=1, final unit="1")
     "Reheater valve position"
-    annotation (Placement(transformation(extent={{320,-50},{340,-30}}),
-      iconTransformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDisSet(
+    annotation (Placement(transformation(extent={{320,-60},{360,-20}}),
+        iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDisSet_flow(
     min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Discharge airflow setpoint"
-    annotation (Placement(transformation(extent={{320,200},{340,220}}),
-      iconTransformation(extent={{100,70},{120,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisSet(
+    annotation (Placement(transformation(extent={{320,190},{360,230}}),
+        iconTransformation(extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDisHeaSet(
     final unit="K",
     quantity="ThermodynamicTemperature")
     "Discharge airflow setpoint temperature for heating"
-    annotation (Placement(transformation(extent={{320,-170},{340,-150}}),
-      iconTransformation(extent={{100,-90},{120,-70}})));
+    annotation (Placement(transformation(extent={{320,-180},{360,-140}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
@@ -174,7 +172,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Line lin
     "Active airflow setpoint for cooling"
     annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line conTDisSet
+  Buildings.Controls.OBC.CDL.Continuous.Line conTDisHeaSet
     "Discharge air temperature for heating"
     annotation (Placement(transformation(extent={{-120,-102},{-100,-82}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin3
@@ -246,14 +244,14 @@ protected
     final k=0.5) "Constant real value"
     annotation (Placement(transformation(extent={{-260,-360},{-240,-340}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=dTDisMax,
+    final p=dTDisZonSetMax,
     final k=1)
     "Maximum heating discharge temperature"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final k=1,
     final p=2.8)
-    "Zone temperature pluTSetZons 2.8 degC"
+    "Zone temperature pluTZonSets 2.8 degC"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
     final uHigh=0.05,
@@ -286,7 +284,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1)
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
-  CDL.Logical.TrueHoldWithReset truHol2(duration=600)
+  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol2(duration=600)
     "Check if the true input holds for certain time"
     annotation (Placement(transformation(extent={{-222,-240},{-202,-220}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(delayTime=600)
@@ -295,88 +293,91 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(delayTime=600)
     "Check if the true input holds for certain time"
     annotation (Placement(transformation(extent={{-240,200},{-220,220}})));
-
-  CDL.Integers.Equal isUno "Output true if the operation mode is unoccupied"
+  Buildings.Controls.OBC.CDL.Integers.Equal isUno "Output true if the operation mode is unoccupied"
     annotation (Placement(transformation(extent={{220,-342},{240,-322}})));
-  CDL.Integers.Sources.Constant unOcc(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant unOcc(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Constant signal for unoccupied mode"
     annotation (Placement(transformation(extent={{170,-342},{190,-322}})));
-  CDL.Logical.Switch watValPosUno "Output hot water valve position"
+  Buildings.Controls.OBC.CDL.Logical.Switch watValPosUno "Output hot water valve position"
     annotation (Placement(transformation(extent={{280,-50},{300,-30}})));
-  CDL.Logical.Switch damPosUno "Output damper position"
+  Buildings.Controls.OBC.CDL.Logical.Switch damPosUno "Output damper position"
     annotation (Placement(transformation(extent={{280,40},{300,60}})));
-  CDL.Logical.Not not5 "Negation of input signal"
+  Buildings.Controls.OBC.CDL.Logical.Not not5 "Negation of input signal"
     annotation (Placement(transformation(extent={{202,-282},{222,-262}})));
-
-  CDL.Continuous.Gain VDisSetNor(final k=1/V_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain VDisSet_flowNor(
+    final k=1/V_flow_nominal)
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,160},{260,180}})));
-  CDL.Continuous.Gain VDisNor(final k=1/V_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain VDis_flowNor(
+    final k=1/V_flow_nominal)
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{240,122},{260,142}})));
-  CDL.Continuous.Sources.Constant lowDisAirTem(final k=TDisMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowDisAirTem(
+    final k=TDisMin)
     "Lowest allowed discharge air temperature"
     annotation (Placement(transformation(extent={{-68,-128},{-48,-108}})));
-  CDL.Logical.Switch swi6
+  Buildings.Controls.OBC.CDL.Logical.Switch swi6
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
-  CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-68,-84},{-48,-64}})));
-  CDL.Logical.Not not3 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  CDL.Logical.Switch swi3
+  Buildings.Controls.OBC.CDL.Logical.Switch swi3
     "Output hot water valve position in case of low discharge air temperature"
     annotation (Placement(transformation(extent={{104,-102},{124,-82}})));
-  CDL.Logical.Not not6 "Negation of input signal"
+  Buildings.Controls.OBC.CDL.Logical.Not not6 "Negation of input signal"
     annotation (Placement(transformation(extent={{-40,-212},{-20,-192}})));
-  CDL.Logical.And and1
+  Buildings.Controls.OBC.CDL.Logical.And and1
     annotation (Placement(transformation(extent={{20,-76},{40,-56}})));
+
 equation
   connect(uCoo, lin.u)
     annotation (Line(points={{-340,260},{-162,260}}, color={0,0,127}));
   connect(conZer.y, lin.x1)
-    annotation (Line(points={{-259,290},{-240,290},{-240,268},{-162,268}},
+    annotation (Line(points={{-258,290},{-240,290},{-240,268},{-162,268}},
       color={0,0,127}));
-  connect(VActCooMin, lin.f1)
+  connect(VActCooMin_flow, lin.f1)
     annotation (Line(points={{-340,220},{-300,220},{-300,264},{-162,264}},
       color={0,0,127}));
   connect(conOne.y, lin.x2)
-    annotation (Line(points={{-199,290},{-180,290},{-180,256},{-162,256}},
+    annotation (Line(points={{-198,290},{-180,290},{-180,256},{-162,256}},
       color={0,0,127}));
-  connect(VActCooMax, lin.f2)
+  connect(VActCooMax_flow, lin.f2)
     annotation (Line(points={{-340,180},{-180,180},{-180,252},{-162,252}},
       color={0,0,127}));
   connect(uCoo, hys2.u)
     annotation (Line(points={{-340,260},{-290,260},{-290,210},{-282,210}},
       color={0,0,127}));
   connect(conZer1.y, swi.u3)
-    annotation (Line(points={{121,230},{130,230},{130,242},{138,242}},
+    annotation (Line(points={{122,230},{130,230},{130,242},{138,242}},
       color={0,0,127}));
-  connect(VActMin, swi1.u1)
+  connect(VActMin_flow, swi1.u1)
     annotation (Line(points={{-340,50},{30,50},{30,38},{130,38}},
       color={0,0,127}));
   connect(and2.y, swi1.u2)
-    annotation (Line(points={{-59,30},{130,30}}, color={255,0,255}));
+    annotation (Line(points={{-58,30},{130,30}}, color={255,0,255}));
   connect(conZer2.y, swi1.u3)
-    annotation (Line(points={{-59,-12},{-20,-12},{-20,22},{130,22}},
+    annotation (Line(points={{-58,-12},{-20,-12},{-20,22},{130,22}},
       color={0,0,127}));
   connect(uHea, hys3.u)
     annotation (Line(points={{-340,-160},{-280,-160},{-280,-230},{-262,-230}},
       color={0,0,127}));
-  connect(conZer3.y, conTDisSet.x1)
-    annotation (Line(points={{-239,-120},{-220,-120},{-220,-84},{-122,-84}},
+  connect(conZer3.y, conTDisHeaSet.x1)
+    annotation (Line(points={{-238,-120},{-220,-120},{-220,-84},{-122,-84}},
       color={0,0,127}));
-  connect(TSup, conTDisSet.f1)
+  connect(TSup, conTDisHeaSet.f1)
     annotation (Line(points={{-340,-50},{-160,-50},{-160,-88},{-122,-88}},
       color={0,0,127}));
-  connect(uHea, conTDisSet.u)
+  connect(uHea, conTDisHeaSet.u)
     annotation (Line(points={{-340,-160},{-140,-160},{-140,-92},{-122,-92}},
       color={0,0,127}));
-  connect(conHal.y, conTDisSet.x2)
-    annotation (Line(points={{-179,-120},{-160,-120},{-160,-96},{-122,-96}},
+  connect(conHal.y, conTDisHeaSet.x2)
+    annotation (Line(points={{-178,-120},{-160,-120},{-160,-96},{-122,-96}},
       color={0,0,127}));
-  connect(addPar.y, conTDisSet.f2)
-    annotation (Line(points={{-239,-80},{-136,-80},{-136,-100},{-122,-100}},
+  connect(addPar.y, conTDisHeaSet.f2)
+    annotation (Line(points={{-238,-80},{-136,-80},{-136,-100},{-122,-100}},
       color={0,0,127}));
   connect(THeaSet, addPar.u)
     annotation (Line(points={{-340,-80},{-262,-80}}, color={0,0,127}));
@@ -384,179 +385,174 @@ equation
     annotation (Line(points={{-340,-160},{-280,-160},{-280,-320},{-82,-320}},
       color={0,0,127}));
   connect(conHal1.y, lin3.x1)
-    annotation (Line(points={{-239,-350},{-200,-350},{-200,-312},{-82,-312}},
+    annotation (Line(points={{-238,-350},{-200,-350},{-200,-312},{-82,-312}},
       color={0,0,127}));
   connect(conOne2.y, lin3.x2)
-    annotation (Line(points={{-159,-350},{-140,-350},{-140,-324},{-82,-324}},
+    annotation (Line(points={{-158,-350},{-140,-350},{-140,-324},{-82,-324}},
       color={0,0,127}));
-  connect(VActHeaMax, lin3.f2)
+  connect(VActHeaMax_flow, lin3.f2)
     annotation (Line(points={{-340,-330},{-120,-330},{-120,-328},{-82,-328}},
       color={0,0,127}));
-  connect(VActHeaMin, lin3.f1)
+  connect(VActHeaMin_flow, lin3.f1)
     annotation (Line(points={{-340,-300},{-120,-300},{-120,-316},{-82,-316}},
       color={0,0,127}));
-  connect(TRoo, addPar1.u)
+  connect(TZon, addPar1.u)
     annotation (Line(points={{-340,-270},{-262,-270}}, color={0,0,127}));
   connect(lin3.y, swi2.u1)
-    annotation (Line(points={{-59,-320},{40,-320},{40,-262},{78,-262}},
+    annotation (Line(points={{-58,-320},{40,-320},{40,-262},{78,-262}},
       color={0,0,127}));
-  connect(VActHeaMin, swi2.u3)
+  connect(VActHeaMin_flow, swi2.u3)
     annotation (Line(points={{-340,-300},{60,-300},{60,-278},{78,-278}},
       color={0,0,127}));
   connect(TDis, hys4.u)
     annotation (Line(points={{-340,110},{-242,110}},
       color={0,0,127}));
   connect(swi2.y, swi4.u1)
-    annotation (Line(points={{101,-270},{112,-270},{112,-262},{138,-262}},
+    annotation (Line(points={{102,-270},{112,-270},{112,-262},{138,-262}},
       color={0,0,127}));
   connect(conZer6.y, swi4.u3)
-    annotation (Line(points={{101,-320},{120,-320},{120,-278},{138,-278}},
+    annotation (Line(points={{102,-320},{120,-320},{120,-278},{138,-278}},
       color={0,0,127}));
   connect(swi.y, mulSum.u[1])
-    annotation (Line(points={{161,250},{164,250},{164,214},{182,214},{182,
-          214.667},{198,214.667}},
+    annotation (Line(points={{162,250},{168,250},{168,211.333},{198,211.333}},
       color={0,0,127}));
   connect(swi1.y, mulSum.u[2])
-    annotation (Line(points={{153,30},{168,30},{168,210},{198,210}},
+    annotation (Line(points={{154,30},{168,30},{168,210},{198,210}},
       color={0,0,127}));
   connect(swi4.y, mulSum.u[3])
-    annotation (Line(points={{161,-270},{172,-270},{172,205.333},{198,205.333}},
+    annotation (Line(points={{162,-270},{172,-270},{172,208.667},{198,208.667}},
       color={0,0,127}));
-  connect(VActMin, swi5.u1)
+  connect(VActMin_flow, swi5.u1)
     annotation (Line(points={{-340,50},{30,50},{30,198},{58,198}},
       color={0,0,127}));
   connect(and4.y, swi5.u2)
-    annotation (Line(points={{-39,190},{58,190}},color={255,0,255}));
+    annotation (Line(points={{-38,190},{58,190}},color={255,0,255}));
   connect(lin.y, swi5.u3)
-    annotation (Line(points={{-139,260},{40,260},{40,182},{58,182}},
+    annotation (Line(points={{-138,260},{40,260},{40,182},{58,182}},
       color={0,0,127}));
   connect(swi5.y, swi.u1)
-    annotation (Line(points={{81,190},{94,190},{94,258},{138,258}},
+    annotation (Line(points={{82,190},{94,190},{94,258},{138,258}},
       color={0,0,127}));
   connect(hys4.y, not4.u)
-    annotation (Line(points={{-219,110},{-204,110}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-218,110},{-204,110}}, color={255,0,255}));
   connect(TSup, add2.u1)
     annotation (Line(points={{-340,-50},{-300,-50},{-300,160},{-176,160},
       {-176,186},{-162,186}}, color={0,0,127}));
-  connect(TRoo, add2.u2)
+  connect(TZon, add2.u2)
     annotation (Line(points={{-340,-270},{-296,-270},{-296,156},{-172,156},
       {-172,174},{-162,174}}, color={0,0,127}));
   connect(add2.y, hys6.u)
-    annotation (Line(points={{-139,180},{-122,180}}, color={0,0,127}));
+    annotation (Line(points={{-138,180},{-122,180}}, color={0,0,127}));
   connect(hys6.y, and4.u2)
-    annotation (Line(points={{-99,180},{-80,180},{-80,182},{-62,182}},
+    annotation (Line(points={{-98,180},{-80,180},{-80,182},{-62,182}},
       color={255,0,255}));
-  connect(conTDisSet.y, add1.u1)
-    annotation (Line(points={{-99,-92},{-80,-92},{-80,-240},{-140,-240},{-140,
-          -264},{-122,-264}},   color={0,0,127}));
+  connect(conTDisHeaSet.y, add1.u1)
+    annotation (Line(points={{-98,-92},{-80,-92},{-80,-240},{-140,-240},{-140,-264},
+          {-122,-264}},          color={0,0,127}));
   connect(addPar1.y, add1.u2)
-    annotation (Line(points={{-239,-270},{-140,-270},{-140,-276},{-122,-276}},
+    annotation (Line(points={{-238,-270},{-140,-270},{-140,-276},{-122,-276}},
       color={0,0,127}));
   connect(add1.y, hys7.u)
-    annotation (Line(points={{-99,-270},{-90,-270},{-90,-270},{-82,-270}},
+    annotation (Line(points={{-98,-270},{-90,-270},{-90,-270},{-82,-270}},
       color={0,0,127}));
-  connect(mulSum.y, VDisSet)
-    annotation (Line(points={{221.7,210},{330,210}}, color={0,0,127}));
-  connect(conTDisSet.y, TDisSet)
-    annotation (Line(points={{-99,-92},{-80,-92},{-80,-160},{330,-160}},
+  connect(mulSum.y, VDisSet_flow)
+    annotation (Line(points={{222,210},{340,210}},   color={0,0,127}));
+  connect(conTDisHeaSet.y, TDisHeaSet)
+    annotation (Line(points={{-98,-92},{-80,-92},{-80,-160},{340,-160}},
       color={0,0,127}));
   connect(hys3.y, truHol2.u)
-    annotation (Line(points={{-239,-230},{-223,-230}}, color={255,0,255}));
+    annotation (Line(points={{-238,-230},{-224,-230}}, color={255,0,255}));
   connect(truHol2.y, swi4.u2)
-    annotation (Line(points={{-201,-230},{120,-230},{120,-270},{138,-270}},
+    annotation (Line(points={{-200,-230},{120,-230},{120,-270},{138,-270}},
       color={255,0,255}));
   connect(hys2.y, truDel4.u)
-    annotation (Line(points={{-259,210},{-242,210}}, color={255,0,255}));
+    annotation (Line(points={{-258,210},{-242,210}}, color={255,0,255}));
   connect(truDel4.y, and4.u1)
-    annotation (Line(points={{-219,210},{-80,210},{-80,190},{-62,190}},
+    annotation (Line(points={{-218,210},{-80,210},{-80,190},{-62,190}},
       color={255,0,255}));
   connect(truDel4.y, swi.u2)
-    annotation (Line(points={{-219,210},{-20,210},{-20,250},{138,250}},
+    annotation (Line(points={{-218,210},{-20,210},{-20,250},{138,250}},
       color={255,0,255}));
   connect(truHol2.y, not2.u)
-    annotation (Line(points={{-201,-230},{-180,-230},{-180,-148},{-280,-148},{
-          -280,-10},{-222,-10}},
-                              color={255,0,255}));
+    annotation (Line(points={{-200,-230},{-180,-230},{-180,-148},{-280,-148},{-280,
+          -10},{-222,-10}},   color={255,0,255}));
   connect(truDel4.y, not1.u)
-    annotation (Line(points={{-219,210},{-200,210},{-200,164},{-304,164},
-      {-304,30},{-222,30}}, color={255,0,255}));
+    annotation (Line(points={{-218,210},{-200,210},{-200,164},{-304,164},{-304,30},
+          {-222,30}},       color={255,0,255}));
   connect(not1.y, and2.u1)
-    annotation (Line(points={{-199,30},{-82,30}}, color={255,0,255}));
+    annotation (Line(points={{-198,30},{-82,30}}, color={255,0,255}));
   connect(not2.y, and2.u2)
-    annotation (Line(points={{-199,-10},{-180,-10},{-180,22},{-82,22}},
+    annotation (Line(points={{-198,-10},{-180,-10},{-180,22},{-82,22}},
       color={255,0,255}));
   connect(conVal.u_m, TDis) annotation (Line(points={{44,-112},{44,-144},{-308,-144},
           {-308,110},{-340,110}}, color={0,0,127}));
   connect(hys7.y, swi2.u2)
-    annotation (Line(points={{-59,-270},{78,-270}}, color={255,0,255}));
+    annotation (Line(points={{-58,-270},{78,-270}}, color={255,0,255}));
 
   connect(unOcc.y, isUno.u1)
-    annotation (Line(points={{191,-332},{218,-332}}, color={255,127,0}));
+    annotation (Line(points={{192,-332},{218,-332}}, color={255,127,0}));
   connect(isUno.u2, uOpeMod) annotation (Line(points={{218,-340},{200,-340},{200,
           -370},{-340,-370}}, color={255,127,0}));
-  connect(isUno.y, watValPosUno.u2) annotation (Line(points={{241,-332},{266,-332},
+  connect(isUno.y, watValPosUno.u2) annotation (Line(points={{242,-332},{266,-332},
           {266,-40},{278,-40}}, color={255,0,255}));
-  connect(conZer2.y, watValPosUno.u1) annotation (Line(points={{-59,-12},{-20,-12},
-          {-20,-32},{278,-32}},
-                              color={0,0,127}));
+  connect(conZer2.y, watValPosUno.u1) annotation (Line(points={{-58,-12},{-20,-12},
+          {-20,-32},{278,-32}}, color={0,0,127}));
   connect(watValPosUno.y, yHeaVal)
-    annotation (Line(points={{301,-40},{330,-40}}, color={0,0,127}));
-  connect(conZer2.y, damPosUno.u1) annotation (Line(points={{-59,-12},{-20,-12},
+    annotation (Line(points={{302,-40},{340,-40}}, color={0,0,127}));
+  connect(conZer2.y, damPosUno.u1) annotation (Line(points={{-58,-12},{-20,-12},
           {-20,-32},{250,-32},{250,58},{278,58}},
                                              color={0,0,127}));
-  connect(conDam.y, damPosUno.u3) annotation (Line(points={{301,170},{310,170},{
+  connect(conDam.y, damPosUno.u3) annotation (Line(points={{302,170},{310,170},{
           310,76},{272,76},{272,42},{278,42}}, color={0,0,127}));
-  connect(damPosUno.y, yDam) annotation (Line(points={{301,50},{308,50},{308,20},
-          {330,20}}, color={0,0,127}));
-  connect(isUno.y, damPosUno.u2) annotation (Line(points={{241,-332},{266,-332},
+  connect(damPosUno.y, yDam) annotation (Line(points={{302,50},{308,50},{308,20},
+          {340,20}}, color={0,0,127}));
+  connect(isUno.y, damPosUno.u2) annotation (Line(points={{242,-332},{266,-332},
           {266,50},{278,50}}, color={255,0,255}));
-  connect(isUno.y, not5.u) annotation (Line(points={{241,-332},{266,-332},{266,
-          -300},{180,-300},{180,-272},{200,-272}},
+  connect(isUno.y, not5.u) annotation (Line(points={{242,-332},{266,-332},{266,-300},
+          {180,-300},{180,-272},{200,-272}},
                                        color={255,0,255}));
-  connect(not5.y, conDam.trigger) annotation (Line(points={{223,-272},{232,-272},
+  connect(not5.y, conDam.trigger) annotation (Line(points={{224,-272},{232,-272},
           {232,150},{282,150},{282,158}}, color={255,0,255}));
-  connect(mulSum.y, VDisSetNor.u) annotation (Line(points={{221.7,210},{230,210},
+  connect(mulSum.y, VDisSet_flowNor.u) annotation (Line(points={{222,210},{230,210},
           {230,170},{238,170}}, color={0,0,127}));
-  connect(VDisSetNor.y, conDam.u_s)
-    annotation (Line(points={{261,170},{278,170}}, color={0,0,127}));
-  connect(VDis, VDisNor.u) annotation (Line(points={{-340,320},{224,320},{224,132},
+  connect(VDisSet_flowNor.y, conDam.u_s)
+    annotation (Line(points={{262,170},{278,170}}, color={0,0,127}));
+  connect(VDis_flow, VDis_flowNor.u) annotation (Line(points={{-340,320},{224,320},{224,132},
           {238,132}}, color={0,0,127}));
-  connect(VDisNor.y, conDam.u_m)
-    annotation (Line(points={{261,132},{290,132},{290,158}}, color={0,0,127}));
-  connect(truHol2.y, or2.u2) annotation (Line(points={{-201,-230},{-88,-230},{
-          -88,-82},{-70,-82}}, color={255,0,255}));
+  connect(VDis_flowNor.y, conDam.u_m)
+    annotation (Line(points={{262,132},{290,132},{290,158}}, color={0,0,127}));
+  connect(truHol2.y, or2.u2) annotation (Line(points={{-200,-230},{-88,-230},{-88,
+          -82},{-70,-82}},     color={255,0,255}));
   connect(truDel3.y, not3.u)
-    annotation (Line(points={{-139,110},{-122,110}}, color={255,0,255}));
-  connect(not3.y, or2.u1) annotation (Line(points={{-99,110},{-88,110},{-88,-74},
+    annotation (Line(points={{-138,110},{-122,110}}, color={255,0,255}));
+  connect(not3.y, or2.u1) annotation (Line(points={{-98,110},{-88,110},{-88,-74},
           {-70,-74}}, color={255,0,255}));
-  connect(or2.y, swi6.u2) annotation (Line(points={{-47,-74},{-40,-74},{-40,
-          -100},{-32,-100}}, color={255,0,255}));
-  connect(conTDisSet.y, swi6.u1)
-    annotation (Line(points={{-99,-92},{-32,-92}}, color={0,0,127}));
-  connect(swi6.u3, lowDisAirTem.y) annotation (Line(points={{-32,-108},{-40,
-          -108},{-40,-118},{-47,-118}}, color={0,0,127}));
-  connect(swi3.y, watValPosUno.u3) annotation (Line(points={{125,-92},{200,-92},
+  connect(or2.y, swi6.u2) annotation (Line(points={{-46,-74},{-40,-74},{-40,-100},
+          {-32,-100}},       color={255,0,255}));
+  connect(conTDisHeaSet.y, swi6.u1)
+    annotation (Line(points={{-98,-92},{-32,-92}}, color={0,0,127}));
+  connect(swi6.u3, lowDisAirTem.y) annotation (Line(points={{-32,-108},{-40,-108},
+          {-40,-118},{-46,-118}},       color={0,0,127}));
+  connect(swi3.y, watValPosUno.u3) annotation (Line(points={{126,-92},{200,-92},
           {200,-48},{278,-48}},       color={0,0,127}));
-  connect(truHol2.y, not6.u) annotation (Line(points={{-201,-230},{-60,-230},{
-          -60,-202},{-42,-202}}, color={255,0,255}));
-  connect(not6.y, and1.u2) annotation (Line(points={{-19,-202},{-12,-202},{-12,
-          -200},{-4,-200},{-4,-74},{18,-74}},
-                    color={255,0,255}));
-  connect(and1.y, swi3.u2) annotation (Line(points={{41,-66},{64,-66},{64,-92},{
+  connect(truHol2.y, not6.u) annotation (Line(points={{-200,-230},{-60,-230},{-60,
+          -202},{-42,-202}},     color={255,0,255}));
+  connect(not6.y, and1.u2) annotation (Line(points={{-18,-202},{0,-202},{0,-74},
+          {18,-74}},color={255,0,255}));
+  connect(and1.y, swi3.u2) annotation (Line(points={{42,-66},{64,-66},{64,-92},{
           102,-92}},   color={255,0,255}));
   connect(conVal.y, swi3.u3)
-    annotation (Line(points={{55,-100},{102,-100}}, color={0,0,127}));
+    annotation (Line(points={{56,-100},{102,-100}}, color={0,0,127}));
   connect(swi3.u1, conZer2.y) annotation (Line(points={{102,-84},{76,-84},{76,-32},
-          {-20,-32},{-20,-12},{-59,-12}},    color={0,0,127}));
-  connect(not3.y, and1.u1) annotation (Line(points={{-99,110},{-2,110},{-2,-66},
-          {18,-66}},color={255,0,255}));
+          {-20,-32},{-20,-12},{-58,-12}},    color={0,0,127}));
+  connect(not3.y, and1.u1) annotation (Line(points={{-98,110},{0,110},{0,-66},{18,
+          -66}},    color={255,0,255}));
   connect(not4.y, truDel3.u)
-    annotation (Line(points={{-181,110},{-162,110}}, color={255,0,255}));
-  connect(not5.y, conVal.trigger) annotation (Line(points={{223,-272},{232,-272},
+    annotation (Line(points={{-180,110},{-162,110}}, color={255,0,255}));
+  connect(not5.y, conVal.trigger) annotation (Line(points={{224,-272},{232,-272},
           {232,-152},{36,-152},{36,-112}}, color={255,0,255}));
   connect(swi6.y, conVal.u_s)
-    annotation (Line(points={{-9,-100},{32,-100}}, color={0,0,127}));
+    annotation (Line(points={{-8,-100},{32,-100}}, color={0,0,127}));
 annotation (
   defaultComponentName="damVal",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-380},{320,380}}),
@@ -642,32 +638,32 @@ in heating state")}),
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,96},{-62,82}},
+          extent={{-98,58},{-62,44}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActCooMax"),
+          textString="VActCooMax_flow"),
         Text(
           extent={{-98,78},{-62,64}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActCooMin"),
+          textString="VActCooMin_flow"),
         Text(
-          extent={{-98,58},{-60,44}},
+          extent={{-98,-86},{-60,-100}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActHeaMax"),
+          textString="VActHeaMax_flow"),
         Text(
-          extent={{-98,36},{-62,24}},
+          extent={{-98,-64},{-62,-76}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActHeaMin"),
+          textString="VActHeaMin_flow"),
         Text(
-          extent={{-100,12},{-72,6}},
+          extent={{-98,34},{-70,28}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VActMin"),
+          textString="VActMin_flow"),
         Text(
-          extent={{-100,-8},{-80,-14}},
+          extent={{-100,92},{-80,86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uCoo"),
@@ -677,12 +673,12 @@ in heating state")}),
           pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
-          extent={{-98,-46},{-74,-52}},
+          extent={{-100,-8},{-76,-14}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="THeaSet"),
         Text(
-          extent={{-100,-66},{-80,-74}},
+          extent={{-100,14},{-80,6}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),
@@ -691,20 +687,20 @@ in heating state")}),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDis",
-          origin={-39.5,-99.5},
+          origin={-41.5,-109.5},
           rotation=90),
         Text(
-          extent={{-100,-88},{-80,-94}},
+          extent={{-100,-46},{-80,-52}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TRoo"),
+          textString="TZon"),
         Text(
           extent={{-11.5,4.5},{11.5,-4.5}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
-          origin={39.5,-99.5},
+          origin={39.5,-105.5},
           rotation=90,
-          textString="VDis"),
+          textString="VDis_flow"),
         Text(
           extent={{72,44},{98,34}},
           lineColor={0,0,127},
@@ -755,13 +751,13 @@ in heating state")}),
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="VDisSet"),
+          textString="VDisSet_flow"),
         Text(
           extent={{60,-74},{98,-86}},
           lineColor={0,0,127},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
-          textString="TDisSet"),
+          textString="TDisHeaSet"),
         Text(
           extent={{-98,-106},{-78,-112}},
           lineColor={0,0,127},
@@ -770,7 +766,7 @@ in heating state")}),
   Documentation(info="<html>
 <p>
 This sequence sets the damper and valve position for VAV reheat terminal unit.
-The implementation is according to ASHRAE Guideline 36 (G36), PART5.E.6. The
+The implementation is according to ASHRAE Guideline 36 (G36), PART 5.E.6. The
 calculation is done following the steps below.
 </p>
 <ol>
@@ -778,21 +774,21 @@ calculation is done following the steps below.
 <p>
 When the zone state is cooling (<code>uCoo>0</code>), then the cooling loop output
 <code>uCoo</code> shall be mapped to the airflow
-setpoint from the cooling minimum <code>VActCooMin</code> to the cooling maximum
-<code>VActCooMax</code> airflow setpoints. The hot water valve is closed (<code>yHeaVal=0</code>)
+setpoint from the cooling minimum <code>VActCooMin_flow</code> to the cooling maximum
+<code>VActCooMax_flow</code> airflow setpoints. The hot water valve is closed (<code>yHeaVal=0</code>)
 unless the discharge air temperature <code>TDis</code> is below the minimum
 setpoint (10 &deg;C).</p>
 </li>
 <li>
 <p>If supply air temperature <code>TSup</code> from the AHU is greater than
-room temperature <code>TRoo</code>, cooling supply airflow setpoint shall be
+room temperature <code>TZon</code>, cooling supply airflow setpoint shall be
 no higher than the minimum.
 </p>
 </li>
 <li>
 <p>
 When the zone state is Deadband (<code>uCoo=0</code> and <code>uHea=0</code>), then
-the active airflow setpoint shall be the minimum airflow setpoint <code>VActMin</code>.
+the active airflow setpoint shall be the minimum airflow setpoint <code>VActMin_flow</code>.
 Hot water valve is closed unless the discharge air temperature is below the minimum
 setpoint (10 &deg;C).
 </p>
@@ -805,13 +801,13 @@ as follows:</p>
 <ul>
 <li>From 0-50%, the heating loop output <code>uHea</code> shall reset the
 discharge temperature setpoint from current AHU SAT setpoint <code>TSup</code>
-to a maximum of <code>dTDisMax</code> above space temperature setpoint. The airflow
-setpoint shall be the heating minimum <code>VActHeaMin</code>.</li>
+to a maximum of <code>dTDisZonSetMax</code> above space temperature setpoint. The airflow
+setpoint shall be the heating minimum <code>VActHeaMin_flow</code>.</li>
 <li>From 50-100%, if the discharge air temperature <code>TDis</code> is
 greater than room temperature plus 2.8 Kelvin, the heating loop output <code>uHea</code>
 shall reset the airflow setpoint from the heating minimum airflow setpoint
-<code>VActHeaMin</code> to the heating maximum airflow setpoint
-<code>VActHeaMax</code>.</li>
+<code>VActHeaMin_flow</code> to the heating maximum airflow setpoint
+<code>VActHeaMax_flow</code>.</li>
 </ul>
 </li>
 <li>

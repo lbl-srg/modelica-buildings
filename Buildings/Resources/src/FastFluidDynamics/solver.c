@@ -10,8 +10,14 @@
 	*         Wangda Zuo
 	*         University of Miami
 	*         W.Zuo@miami.edu
+	*         Xu Han
+	*         University of Colorado Boulder
+	*         xuha3556@colorado.edu	
+	*         Tian Wei
+	*         University of Miami
+	*         W.tian@miami.edu	
 	*
-	* \date   8/3/2013
+	* \date   2/19/2019
 	*
 	*/
 
@@ -90,32 +96,6 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
           return flag;
         }
 
-        /* the data for coupled simulation*/
-        flag = read_cosim_data(para, var, BINDEX);
-        if(flag != 0) {
-          ffd_log("FFD_solver(): Could not read coupled simulation data.", FFD_ERROR);
-          return flag;
-        }
-
-        flag =  write_cosim_data(para, var);
-        if(flag != 0) {
-          ffd_log("FFD_solver(): Could not write coupled simulation data.", FFD_ERROR);
-          return flag;
-        }
-
-        sprintf(msg, "ffd_solver(): Synchronized data at t=%f[s]\n", para->mytime->t);
-        ffd_log(msg, FFD_NORMAL);
-
-        /* Set the next synchronization time*/
-        t_cosim += para->cosim->modelica->dt;
-        /* Reset all the averaged data to 0*/
-        flag = reset_time_averaged_data(para, var);
-        if(flag != 0) {
-          ffd_log("FFD_solver(): Could not reset averaged data.",
-            FFD_ERROR);
-          return flag;
-        }
-
         /*.......................................................................
         | Check if Modelica asks to stop the simulation
         .......................................................................*/
@@ -127,6 +107,45 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
                   "FFD time: %f[s], Modelica Time: %f[s].",
                   para->mytime->t, para->cosim->modelica->t);
           ffd_log(msg, FFD_NORMAL);
+        }
+				else{
+					/* the data for coupled simulation*/
+					flag = read_cosim_data(para, var, BINDEX);
+					if(flag != 0) {
+						ffd_log("FFD_solver(): Could not read coupled simulation data.", FFD_ERROR);
+						return flag;
+					}
+				}
+        /*.......................................................................
+        | Check if Modelica asks to stop the simulation
+        .......................................................................*/
+        if(para->cosim->para->flag==0) {
+          /* Stop the solver*/
+          next = 0;
+          sprintf(msg,
+                  "ffd_solver(): Received stop command from Modelica at "
+                  "FFD time: %f[s], Modelica Time: %f[s].",
+                  para->mytime->t, para->cosim->modelica->t);
+          ffd_log(msg, FFD_NORMAL);
+        }				
+				else{
+					flag =  write_cosim_data(para, var);
+					if(flag != 0) {
+						ffd_log("FFD_solver(): Could not write coupled simulation data.", FFD_ERROR);
+						return flag;
+					}
+
+        sprintf(msg, "ffd_solver(): Synchronized data at t=%f[s]\n", para->mytime->t);
+        ffd_log(msg, FFD_NORMAL);
+				}
+        /* Set the next synchronization time*/
+        t_cosim += para->cosim->modelica->dt;
+        /* Reset all the averaged data to 0*/
+        flag = reset_time_averaged_data(para, var);
+        if(flag != 0) {
+          ffd_log("FFD_solver(): Could not reset averaged data.",
+            FFD_ERROR);
+          return flag;
         }
 
         continue;

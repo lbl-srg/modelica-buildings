@@ -12,7 +12,7 @@ package PropyleneGlycolWater
     final lambda_const=thermalConductivity_TX_a(T = property_T, X_a = X_a),
     a_const=1484,
     final T_min=fusionTemperature_TX_a(T = property_T, X_a = X_a),
-    final T_max=Modelica.SIunits.Conversions.from_degC(100),
+    T_max=Modelica.SIunits.Conversions.from_degC(100),
     T0=273.15,
     MM_const=(X_a/simplePropyleneGlycolWaterConstants[1].molarMass + (1
          - X_a)/0.018015268)^(-1),
@@ -71,16 +71,21 @@ package PropyleneGlycolWater
       "Mass fraction as input signal connector";
 
   equation
-    assert(T >= T_min and T <= T_max, "
-Temperature T (= " + String(T) + " K) is not
-in the allowed range (" + String(T_min) + " K <= T <= " + String(T_max) + " K)
-required from medium model \"" + mediumName + "\".
-");
-    assert(X_a >= X_a_min and X_a <= X_a_max, "
-    Mass fraction X_a (= " + String(X_a) + " ) is not
-in the allowed range (" + String(X_a_min) + " <= X_a <= " + String(X_a_max) + " )
-required from medium model \"" + mediumName + "\".
-");
+  assert(T >= T_min, "
+In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of " + String(T_min-273.15)
+    + " degC (" + String(T_min) + " Kelvin)
+as required from medium model \"" + mediumName + "\".");
+  assert(T <= T_max, "
+In "   + getInstanceName() + ": Temperature T exceeded its maximum allowed value of " + String(T_max-273.15)
+    + " degC (" + String(T_max) + " Kelvin)
+as required from medium model \"" + mediumName + "\".");
+
+  assert(X_a >= X_a_min, "
+In "   + getInstanceName() + ": Mass fraction x_a exceeded its minimum allowed value of " + String(X_a_min) + "
+as required from medium model \"" + mediumName + "\".");
+  assert(X_a <= X_a_max, "
+In "   + getInstanceName() + ": Mass fraction x_a exceeded its maximum allowed value of " + String(X_a_max) + "
+as required from medium model \"" + mediumName + "\".");
 
     h = cp_const*(T-reference_T);
     u = h;
@@ -453,6 +458,13 @@ a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
+Now printing different messages if temperature or mass fraction is above or below its limit,
+and adding instance name as JModelica does not print the full instance name in the assertion.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
+</li>
 <li>
 March 16, 2018, by Massimo Cimmino:<br/>
 First implementation.

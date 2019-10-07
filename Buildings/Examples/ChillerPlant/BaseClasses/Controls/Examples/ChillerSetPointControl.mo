@@ -50,7 +50,7 @@ model ChillerSetPointControl
     m2_flow_nominal=mAir_flow_nominal,
     eps=1.0) "Cooling coil"
              annotation (Placement(transformation(extent={{86,-64},{106,-44}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(redeclare package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium1,
       nPorts=1) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={174,88})));
@@ -65,13 +65,13 @@ model ChillerSetPointControl
         extent={{-10,-10},{10,10}},
         origin={-170,30})));
   Buildings.Controls.Continuous.LimPID limPID(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseAction=true,
     y_start=1,
     yMin=0,
     k=10,
     Ti=0.01,
-    Td=10,
-    initType=Modelica.Blocks.Types.InitPID.SteadyState)
+    Td=10) "PI controller"
            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-130,30})));
@@ -106,7 +106,7 @@ model ChillerSetPointControl
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={170,-90})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(redeclare package Medium =
+  Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium =
         MediumAir, nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-30,-60})));
@@ -153,7 +153,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(gain.y, pum.m_flow_in) annotation (Line(
-      points={{107,-8},{116.4,-8},{116.4,-9.2},{122,-9.2}},
+      points={{107,-8},{116.4,-8},{116.4,-9},{122,-9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou2.T_in, sine.y) annotation (Line(
@@ -215,6 +215,10 @@ equation
       Tolerance=1e-6),
     Documentation(revisions="<html>
 <ul>
+<li>
+August 16, 2019, by Michael Wetter:<br/>
+Changed initialization of PI controller for Dymola 2020.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

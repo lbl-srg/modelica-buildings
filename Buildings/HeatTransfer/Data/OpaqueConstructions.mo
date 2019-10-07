@@ -8,12 +8,12 @@ package OpaqueConstructions
 
    parameter Buildings.HeatTransfer.Data.BaseClasses.Material material[nLay]
       "Layer by layer declaration of material, starting from outside to room-side"
-      annotation (choicesAllMatching=true, Evaluate=false, Placement(transformation(extent={{60,60},{80,80}})));
+      annotation (choicesAllMatching=true, Evaluate=true, Placement(transformation(extent={{60,60},{80,80}})));
    final parameter Real R(unit="m2.K/W")=sum(material[i].R for i in 1:nLay)
       "Thermal resistance per unit area";
-    parameter Integer nSta[nLay](each min=1) = {material[i].nSta for i in 1:nLay}
-      "Number of states (do not overwrite, used to work around Dymola 2017 bug)"
-      annotation (HideResult=true, Dialog(enable=false, tab="Advanced"));
+   final parameter Integer nSta[nLay](each min=1) = {material[i].nSta for i in 1:nLay}
+      "Number of states in each layer"
+      annotation (HideResult=true, Dialog(tab="Advanced"));
    parameter Modelica.SIunits.Emissivity absIR_a=0.9
       "Infrared absorptivity of surface a (usually outside-facing surface)";
    parameter Modelica.SIunits.Emissivity absIR_b=0.9
@@ -55,12 +55,13 @@ package OpaqueConstructions
       defaultComponentPrefixes="parameter",
       defaultComponentName="datOpaCon",
       Documentation(info="<html>
+<p>
 Generic record with material definitions for constructions
 with one or more layers of material.
 By convention, <code>layer[1]</code> is facing the outside, and the last
 layer is facing the room-side.
 This is the same convention as is used in EnergyPlus and in Window 6.
-
+</p>
 <p>
 The parameters <code>absIR_a</code> and <code>absIR_b</code>
 are used to compute infrared heat radiation (in the infrared spectrum).
@@ -77,6 +78,11 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 </html>",
   revisions="<html>
 <ul>
+<li>
+September 10, 2018, by Michael Wetter:<br/>
+Declared <code>nSta</code> to be <code>final</code>
+as the user is not supposed to change its value.
+</li>
 <li>
 January 05, 2017, by Thierry S. Nouidui:<br/>
 Added parameter <code>nSta</code> to avoid translation error

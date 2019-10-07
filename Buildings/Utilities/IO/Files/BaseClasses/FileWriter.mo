@@ -2,18 +2,24 @@ within Buildings.Utilities.IO.Files.BaseClasses;
 model FileWriter "Partial model for writing results to a .csv file"
   extends Modelica.Blocks.Icons.DiscreteBlock;
 
-  parameter Integer nin "Number of inputs"
+  parameter Integer nin
+    "Number of inputs"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter String fileName = getInstanceName() + ".csv" "File name, including extension";
-  parameter Modelica.SIunits.Time samplePeriod "Sample period";
-  parameter String delimiter = "\t" "Delimiter for csv file"
+  parameter String fileName = getInstanceName() + ".csv"
+    "File name, including extension";
+  parameter Modelica.SIunits.Time samplePeriod
+    "Sample period: equidistant interval for which the inputs are saved";
+  parameter String delimiter = "\t"
+    "Delimiter for csv file"
     annotation(Dialog(tab="Advanced"));
-
   parameter Boolean writeHeader = true
     "=true, to write header with variable names, otherwise no header will be written"
     annotation(Dialog(tab="Advanced"));
   parameter String[nin] headerNames = {"col"+String(i) for i in 1:nin}
     "Header names, indices by default"
+    annotation(Dialog(tab="Advanced"));
+  parameter Integer significantDigits(min=1,max=15) = 6
+    "Number of significant digits that are used for converting inputs into string format"
     annotation(Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that are saved"
@@ -58,11 +64,11 @@ equation
 
 algorithm
   when sampleTrigger then
-    str :=String(time) + delimiter;
+    str :=String(time,significantDigits=significantDigits) + delimiter;
     for i in 1:nin-1 loop
-      str :=str + String(u[i]) + delimiter;
+      str :=str + String(u[i],significantDigits=significantDigits) + delimiter;
     end for;
-    str :=str + String(u[nin]) + "\n";
+    str :=str + String(u[nin],significantDigits=significantDigits) + "\n";
     writeLine(filWri, str, 0);
   end when;
 
@@ -84,6 +90,16 @@ algorithm
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+October 8, 2018 by Filip Jorissen:<br/>
+Added implementation for the parameter <code>significantDigits</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1041\">#1041</a>.
+</li>
+<li>
+September 6, 2018 by Filip Jorissen:<br/>
+Improved comment of <code>samplePeriod</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1010\">#1010</a>.
+</li>
 <li>
 May 10, 2018 by Filip Jorissen:<br/>
 First implementation.

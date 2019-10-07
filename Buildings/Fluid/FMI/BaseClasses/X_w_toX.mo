@@ -3,8 +3,9 @@ block X_w_toX "Conversion from Xi to X"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
-     annotation (choicesAllMatching=true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
   Modelica.Blocks.Interfaces.RealInput X_w(final unit="kg/kg") if
         Medium.nXi > 0 "Water mass fraction per total air mass"
      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -24,7 +25,12 @@ equation
   // Assign vector to output connector
  X = if Medium.nX == 1 then ones(Medium.nX) else cat(1, {X_w_internal}, {1-X_w_internal});
   annotation (Documentation(revisions="<html>
-<ul>
+  <ul>
+  <li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 March 17, 2017, by Michael Wetter:<br/>
 Changed assignment of <code>X</code>.<br/>

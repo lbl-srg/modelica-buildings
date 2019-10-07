@@ -27,6 +27,9 @@ Limiter
 Line
 Log
 Log10
+MatrixGain
+MatrixMax
+MatrixMin
 Max
 Min
 Modulo

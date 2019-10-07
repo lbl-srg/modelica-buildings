@@ -2,8 +2,15 @@ within Buildings.Fluid.Sensors;
 model RelativeTemperature "Ideal relative temperature sensor"
   extends Modelica.Icons.TranslationalSensor;
   replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the sensor"  annotation (
-      choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the sensor"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+              property_T=293.15,
+              X_a=0.40)
+              "Propylene glycol water, 40% mass fraction")));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 redeclare package Medium = Medium)
@@ -78,6 +85,11 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation, based on <code>Modelica.Fluid</code>.
