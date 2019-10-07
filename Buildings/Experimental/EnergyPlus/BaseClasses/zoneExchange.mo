@@ -1,5 +1,5 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses;
-function exchange "Exchange the values for the thermal zone"
+function zoneExchange "Exchange the values with the EnergyPlus thermal zone"
   extends Modelica.Icons.Function;
 
   input Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass
@@ -46,4 +46,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end exchange;
+end zoneExchange;

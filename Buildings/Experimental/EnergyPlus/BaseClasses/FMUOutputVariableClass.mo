@@ -1,19 +1,21 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses;
-class FMUZoneClass "Class used to couple the FMU to interact with a thermal zone"
+class FMUOutputVariableClass
+  "Class used to couple the FMU to retrieve output variables"
 extends ExternalObject;
   function constructor
-    "Construct to connect to a thermal zone in EnergyPlus"
+    "Construct to connect to an output variable in EnergyPlus"
     extends Modelica.Icons.Function;
 
     input String modelicaNameBuilding
-      "Name of this Modelica building instance that connects to this thermal zone";
-    input String modelicaNameThermalZone
-      "Name of the Modelica instance of this thermal zone";
+      "Name of this Modelica building instance that requests this output variable";
+    input String modelicaNameOutputVariable
+      "Name of the Modelica instance that requests this output variable";
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
     input String iddName "Name of the IDD file";
     //    input String epLibName "Name of the Energyplus FMI library";
-    input String zoneName "Name of the thermal zone";
+    input String outputKey "EnergyPlus key of the output variable";
+    input String outputName "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
     input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
@@ -21,21 +23,22 @@ extends ExternalObject;
     input Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
-    output FMUZoneClass adapter;
-    external "C" adapter = ZoneAllocate(
+    output FMUOutputVariableClass adapter;
+    external "C" adapter = OutputVariableAllocate(
       modelicaNameBuilding,
-      modelicaNameThermalZone,
+      modelicaNameOutputVariable,
       idfName,
       weaName,
       iddName,
-      zoneName,
+      outputKey,
+      outputName,
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
       verbosity)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"ZoneAllocate.c\"",
+          Include="#include \"OutputVariableAllocate.c\"",
           Library={"fmilib_shared", "dl"});
           // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
@@ -49,7 +52,7 @@ will be used to store the data structure needed to communicate with EnergyPlus.
 </html>", revisions="<html>
 <ul>
 <li>
-February 14, 2018, by Michael Wetter:<br/>
+October 7, 2019, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -59,11 +62,11 @@ First implementation.
   function destructor "Release storage"
     extends Modelica.Icons.Function;
 
-    input FMUZoneClass adapter;
-    external "C" ZoneFree(adapter)
+    input FMUOutputVariableClass adapter;
+    external "C" OutputVariableFree(adapter)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"ZoneFree.c\"");
+          Include="#include \"OututVariableFree.c\"");
 
   annotation(Documentation(info="<html>
 <p>
@@ -72,7 +75,7 @@ Destructor that frees the memory of the object.
 </html>", revisions="<html>
 <ul>
 <li>
-February 14, 2018, by Michael Wetter:<br/>
+October 7, 2019, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -90,18 +93,9 @@ of the data structure needed to communicate with the EnergyPlus FMU.
 revisions="<html>
 <ul>
 <li>
-April 04, 2018, by Thierry S. Nouidui:<br/>
-Added additional parameters for parametrizing
-the EnergyPlus model.
-</li>
-<li>
-March 21, 2018, by Thierry S. Nouidui:<br/>
-Revised implementation for efficiency.
-</li>
-<li>
-February 14, 2018, by Michael Wetter:<br/>
+October 7, 2019, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end FMUZoneClass;
+end FMUOutputVariableClass;

@@ -1,5 +1,10 @@
+FMUOutputVariableClass
 FMUZoneAdapter
 FMUZoneClass
-exchange
-initialize
+outputVariableExchange
+outputVariableInitialize
+zoneExchange
+zoneInitialize
+buildingsLibraryRoot
+iddName
 Validation
