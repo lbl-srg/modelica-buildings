@@ -115,22 +115,22 @@ equation
   connect(freProSta.y, economizer.uFreProSta)
     annotation (Line(points={{-59,-120},{0,-120},{0,-2},{19,-2}},color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
-    annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
-  connect(TOutCut1.y, economizer.TOutCut)
-    annotation (Line(points={{-99,70},{-90,70},{-8,70},{-8,20},{19,20}},color={0,0,127}));
+    annotation (Line(points={{-99,110},{-6,110},{-6,24},{19,24}},color={0,0,127}));
+  connect(TOutCut1.y,economizer.TCut)
+    annotation (Line(points={{-99,70},{-90,70},{-8,70},{-8,22},{19,22}},color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
-    annotation (Line(points={{-99,20},{-60,20},{-60,18},{19,18}}, color={0,0,127}));
-  connect(hOutCut.y, economizer.hOutCut)
-    annotation (Line(points={{-99,-20},{-60,-20},{-60,16},{19,16}}, color={0,0,127}));
+    annotation (Line(points={{-99,20},{-60,20},{-60,18},{-4,18},{19,18}},color={0,0,127}));
+  connect(hOutCut.y,economizer.hCut)
+    annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
   connect(TSup.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}},color={0,0,127}));
   connect(TSupSetSig.y, economizer.THeaSupSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
-  connect(TOutCut1.y, economizer1.TOutCut)
-    annotation (Line(points={{-99,70},{74,70},{74,0},{99,0}}, color={0,0,127}));
+  connect(TOutCut1.y,economizer1.TCut)
+    annotation (Line(points={{-99,70},{74,70},{74,2},{99,2}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer1.TOut)
-    annotation (Line(points={{-99,110},{80,110},{80,2},{99,2}}, color={0,0,127}));
-  connect(hOutCut.y, economizer1.hOutCut)
+    annotation (Line(points={{-99,110},{80,110},{80,4},{99,4}}, color={0,0,127}));
+  connect(hOutCut.y,economizer1.hCut)
     annotation (Line(points={{-99,-20},{-90,-20},{-90,-28},{76,-28},{76,-4},{99,-4}},
     color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer1.hOut)
@@ -165,9 +165,9 @@ equation
   connect(fanSta.y, economizer2.uSupFan)
     annotation (Line(points={{-19,-10},{-10,-10},{-10,-36},{179,-36}}, color={255,0,255}));
   connect(TOutBelowCutoff.y, economizer2.TOut)
-    annotation (Line(points={{-99,110},{164,110},{164,-18},{179,-18}}, color={0,0,127}));
-  connect(TOutCut1.y, economizer2.TOutCut)
-    annotation (Line(points={{-99,70},{162,70},{162,-20},{179,-20}}, color={0,0,127}));
+    annotation (Line(points={{-99,110},{164,110},{164,-16},{179,-16}}, color={0,0,127}));
+  connect(TOutCut1.y,economizer2.TCut)
+    annotation (Line(points={{-99,70},{162,70},{162,-18},{179,-18}}, color={0,0,127}));
   connect(TSup.y, economizer2.TSup)
     annotation (Line(points={{-59,90},{-52,90},{-52,-26},{179,-26}},
     color={0,0,127}));

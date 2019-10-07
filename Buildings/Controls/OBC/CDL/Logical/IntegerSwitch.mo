@@ -1,25 +1,30 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block IntegerSwitch "Integer Switch"
+block IntegerSwitch "Switch between two integer signals"
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u1 "Integer input signal in case the switch is on"
+  Interfaces.IntegerInput u1
+    "Integer input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2 "Boolean switch input signal, with true = on and false = off"
+  Interfaces.BooleanInput u2
+    "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u3 "Integer input signal in case the switch is off"
+  Interfaces.IntegerInput u3
+    "Integer input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y "Integer output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Interfaces.IntegerOutput y
+  "Integer output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = if u2 then u1 else u3;
+
   annotation (
 defaultComponentName="intSwi",
 Documentation(info="<html>
 <p>
-A block to switch between two integer signals.
+Block that outputs one of two integer input signals based on a boolean input signal.
 </p>
 <p>
 If the input signal <code>u2</code> is <code>true</code>,
@@ -34,10 +39,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-         Icon(coordinateSystem(
+      Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
-          graphics={                     Rectangle(
+          graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -67,27 +73,6 @@ First implementation.
           lineColor=DynamicSelect({235,235,235}, if u2 then {0,255,0}
                else {235,235,235}),
           fillColor=DynamicSelect({235,235,235}, if u2 then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-71,74},{-85,88}},
-          lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-71,-74},{-85,-88}},
-          lineColor=DynamicSelect({235,235,235}, if u3 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u3 then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
