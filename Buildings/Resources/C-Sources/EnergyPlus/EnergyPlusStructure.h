@@ -77,8 +77,11 @@ typedef struct FMUBuilding
   fmi2Byte* weather;
   fmi2Byte* idd;
   fmi2Integer nZon; /* Number of zones that use this FMU */
-  fmi2Byte** zoneNames; /* Names of zones in this FMU */
   void** zones; /* Pointers to all zones*/
+
+  fmi2Integer nOutputVariables; /* Number of output variables that this FMU has */
+  void** outputVariables /* Pointers to all output variables */
+
   char* tmpDir; /* Temporary directory used by EnergyPlus */
   char* fmuAbsPat; /* Absolute name of the fmu */
   bool usePrecompiledFMU; /* if true, a pre-compiled FMU will be used (for debugging) */
@@ -122,11 +125,32 @@ typedef struct FMUZone
                                 of the FMU */
 } FMUZone;
 
+
+typedef struct FMUOutputVariable
+{
+  /*int index;*/
+  FMUBuilding* ptrBui; /* Pointer to building with this output variable */
+  char* modelicaNameOutputVariable; /* Name of the Modelica instance of this zone */
+  char* name;      /* Name of this output variable in the idf file */
+  char* key;       /* Key of this output variable in the idf file */
+
+  char** outNames;
+
+  fmi2ValueReference* outValReferences; /* Value references of output variables*/
+
+  fmi2Byte** outVarName; /* Full name of output variables (used to get value reference). Array of size 1 */
+
+  fmi2Boolean isInstantiated; /* Flag set to true when the output variable has been completely instantiated */
+
+} FMUOutputVariable;
+
 void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, jm_string message);
 
 void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen);
 
 void saveAppendJSONElements(char* *buffer, const char* values[], size_t n, size_t* bufLen);
+
+void checkAndSetVerbosity(const int verbosity);
 
 void setFMUMode(FMUBuilding* bui, FMUMode mode);
 
@@ -147,17 +171,23 @@ void buildVariableNames(
   char** *ptrVarNames,
   char** *ptrFullNames);
 
-size_t ZoneAllocateBuildingDataStructure(
+size_t AllocateBuildingDataStructure(
   const char* modelicaNameBuilding,
   const char* idfName,
   const char* weaName,
   const char* iddName,
-  FMUZone* ptrZone,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot);
 
+void AddZoneToBuilding(FMUZone* ptrZone);
+void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar);
+
+
 FMUBuilding* getBuildingsFMU(size_t iFMU);
+
 void getSimulationTemporaryDirectory(const char* idfName, char** dirNam);
+
+void FMUBuildingFree(FMUBuilding* ptrBui);
 
 #endif

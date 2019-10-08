@@ -172,6 +172,22 @@ void replaceChar(char *str, char find, char replace){
   }
 }
 
+void checkAndSetVerbosity(const int verbosity){
+
+  if (getBuildings_nFMU() == 0){
+    FMU_EP_VERBOSITY = verbosity;
+  }
+  else{
+    if (FMU_EP_VERBOSITY != verbosity){
+        ModelicaFormatMessage("Warning: Modelica objects declare different verbosity. Check parameter verbosity. Using highest declared value.\n");
+    }
+    if (verbosity > FMU_EP_VERBOSITY){
+      FMU_EP_VERBOSITY = verbosity;
+    }
+  }
+}
+
+
 void getSimulationFMUName(const char* modelicaNameBuilding, const char* tmpDir, char* *fmuAbsPat){
   size_t iniLen = 100;
 
@@ -305,8 +321,8 @@ void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, 
 
 
 void buildVariableNames(
-  const char* zoneName,
-  const char** variableNames,
+  const char* firstPart,
+  const char** secondParts,
   const size_t nVar,
   char** *ptrVarNames,
   char** *ptrFullNames){
@@ -315,7 +331,7 @@ void buildVariableNames(
     /* Compute longest output plus zone name */
     len = 0;
     for (i=0; i<nVar; i++)
-      len = max(len, strlen(variableNames[i]));
+      len = max(len, strlen(secondParts[i]));
 
     *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
       if (*ptrVarNames == NULL)
@@ -327,14 +343,14 @@ void buildVariableNames(
     /* Copy the string */
     for (i=0; i<nVar; i++){
       memset((*ptrVarNames)[i], '\0', len+1);
-      strcpy((*ptrVarNames)[i], variableNames[i]);
+      strcpy((*ptrVarNames)[i], secondParts[i]);
     }
 
     /* Compute longest output plus zone name */
     len = 0;
     for (i=0; i<nVar; i++){
       /* Use +1 to account for the comma */
-      len = max(len, strlen(zoneName) + 1 + strlen(variableNames[i]));
+      len = max(len, strlen(firstPart) + 1 + strlen(secondParts[i]));
     }
 
     *ptrFullNames = (char**)malloc(nVar * sizeof(char*));
@@ -347,9 +363,9 @@ void buildVariableNames(
     /* Copy the string */
     for (i=0; i<nVar; i++){
       memset((*ptrFullNames)[i], '\0', len+1);
-      strcpy((*ptrFullNames)[i], zoneName);
+      strcpy((*ptrFullNames)[i], firstPart);
       strcat((*ptrFullNames)[i], "_");
-      strcat((*ptrFullNames)[i], variableNames[i]);
+      strcat((*ptrFullNames)[i], secondParts[i]);
     }
   return;
 }
@@ -366,15 +382,15 @@ void createDirectory(const char* dirName){
 }
 
 
-size_t ZoneAllocateBuildingDataStructure(
+size_t AllocateBuildingDataStructure(
   const char* modelicaNameBuilding,
   const char* idfName,
   const char* weaName,
   const char* iddName,
-  FMUZone* ptrZone,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot){
+
   int i;
   /* Allocate memory */
 
@@ -398,10 +414,6 @@ size_t ZoneAllocateBuildingDataStructure(
   Buildings_FMUS[nFMU]->GUID = NULL;
   /* Set flag that dll fmu functions are not yet created */
   Buildings_FMUS[nFMU]->dllfmu_created = fmi2_false;
-
-  Buildings_FMUS[nFMU]->zoneNames = malloc(sizeof(char*));
-  if ( Buildings_FMUS[nFMU]->zoneNames == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate array for Buildings_FMUS[0]->zoneNames.");
 
   /* Assign the modelica name for this building */
   mallocString((strlen(modelicaNameBuilding)+1), "Not enough memory in ZoneAllocate.c. to allocate modelicaNameBuilding.", &(Buildings_FMUS[nFMU]->modelicaNameBuilding));
@@ -434,19 +446,6 @@ size_t ZoneAllocateBuildingDataStructure(
   /* Set the number of this FMU */
   Buildings_FMUS[nFMU]->iFMU = nFMU;
 
-  /* Assign the zone name */
-  mallocString((strlen(ptrZone->modelicaNameThermalZone)+1), "Not enough memory in ZoneAllocate.c. to zone name.", &(Buildings_FMUS[nFMU]->zoneNames[0]));
-  /* Below, we copy to name of the zone in the idf file.
-     This will be used later to make sure each zone is refernced only once
-     in a Modelica parameter */
-  strcpy(Buildings_FMUS[nFMU]->zoneNames[0], ptrZone->name);
-
-  Buildings_FMUS[nFMU]->nZon = 1;
-
-  Buildings_FMUS[nFMU]->zones=malloc(sizeof(FMUZone *));
-  if ( Buildings_FMUS[nFMU]->zones== NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate zones.");
-
   getSimulationTemporaryDirectory(modelicaNameBuilding, &(Buildings_FMUS[nFMU]->tmpDir));
   getSimulationFMUName(modelicaNameBuilding, Buildings_FMUS[nFMU]->tmpDir, &(Buildings_FMUS[nFMU]->fmuAbsPat));
   if (usePrecompiledFMU){
@@ -462,24 +461,68 @@ size_t ZoneAllocateBuildingDataStructure(
     Buildings_FMUS[nFMU]->precompiledFMUAbsPat = NULL;
   }
 
+  /* Initialize thermal zone data */
+  Buildings_FMUS[nFMU]->nZon = 0;
+  Buildings_FMUS[nFMU]->zones = NULL;
+
+  /* Initialize output variable data */
+  Buildings_FMUS[nFMU]->nOutputVariables = 0;
+  Buildings_FMUS[nFMU]->outputVariables = NULL;
+
   /* Create the temporary directory */
   createDirectory(Buildings_FMUS[nFMU]->tmpDir);
 
-  /* Assign the zone */
-  Buildings_FMUS[nFMU]->zones[0] = ptrZone;
-
   incrementBuildings_nFMU();
 
-  if (FMU_EP_VERBOSITY >= MEDIUM){
-    ModelicaFormatMessage("ZoneAllocateBuildingDataStructure: Allocated data structure for building %s, nFMU = %d, ptr = %p",
-      modelicaNameBuilding, getBuildings_nFMU(), Buildings_FMUS[nFMU]);
-    for(i = 0; i < getBuildings_nFMU(); i++){
-      ModelicaFormatMessage("Building %s is at pointer %p", modelicaNameBuilding, Buildings_FMUS[i]);
+  return getBuildings_nFMU();
+}
+
+void AddZoneToBuilding(FMUZone* ptrZone){
+  FMUBuilding* fmu = ptrZone->ptrBui;
+  const size_t nZon = fmu->nZon;
+
+  if (nZon == 0){
+    fmu->zones=malloc(sizeof(FMUZone *));
+    if ( fmu->zones== NULL )
+      ModelicaError("Not enough memory in EnergyPlusDataStructure.c. to allocate zones.");
+  }
+  else{
+    /* We already have nZon > 0 zones */
+
+    /* Increment size of vector that contains the zones. */
+    fmu->zones = realloc(fmu->zones, (nZon + 1) * sizeof(FMUZone*));
+    if (fmu->zones == NULL){
+      ModelicaError("Not enough memory in EnergyPlusDataStructure.c. to allocate memory for bld->zones.");
     }
   }
+  /* Assign the zone */
+  fmu->zones[nZon] = ptrZone;
+  /* Increment the count of zones to this building. */
+  fmu->nZon++;
+}
 
-  /* Return the number of the FMU that contains this zone */
-  return nFMU;
+void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
+  FMUBuilding* fmu = ptrOutVar->ptrBui;
+  const size_t nOutputVariables = fmu->nOutputVariables;
+
+  if (nOutputVariables == 0){
+    fmu->outputVariables=malloc(sizeof(FMUOutputVariable *));
+    if ( fmu->outputVariables== NULL )
+      ModelicaError("Not enough memory in EnergyPlusDataStructure.c. to allocate output variables.");
+  }
+  else{
+    /* We already have nOutputVariables > 0 output variables. */
+
+    /* Increment size of vector that contains the output variables. */
+    fmu->outputVariables = realloc(fmu->outputVariables, (nOutputVariables + 1) * sizeof(FMUOutputVariable*));
+    if (fmu->outputVariables == NULL){
+      ModelicaError("Not enough memory in EnergyPlusStructure.c. to allocate memory for fmu->outputVariables.");
+    }
+  }
+  /* Assign the output variable */
+  fmu->outputVariables[nOutputVariables] = ptrOutVar;
+  /* Increment the count of output variables of this building. */
+  fmu->nOutputVariables++;
 }
 
 FMUBuilding* getBuildingsFMU(size_t iFMU){
@@ -500,4 +543,68 @@ void decrementBuildings_nFMU(){
 
 unsigned int getBuildings_nFMU(){
   return Buildings_nFMU;
+}
+
+void FMUBuildingFree(FMUBuilding* ptrBui){
+  fmi2Status status;
+  const char * log = NULL;
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaMessage("Entered FMUBuildingFree.");
+
+  if ( ptrBui != NULL ){
+    /* Make sure no thermal zone or output variable uses this building */
+    if (ptrBui->nZon > 0 || ptrBui->nOutputVariables > 0){
+      if (FMU_EP_VERBOSITY >= MEDIUM)
+        ModelicaMessage("Exiting FMUBuildingFree without changes as zones or outputs uses this building.");
+      return;
+    }
+
+    /* The call to fmi2_import_terminate causes a seg fault if
+       fmi2_import_create_dllfmu was not successful */
+    if (ptrBui->dllfmu_created){
+      if (FMU_EP_VERBOSITY >= MEDIUM)
+        ModelicaMessage("fmi2_import_terminate: terminating EnergyPlus.\n");
+      status = fmi2_import_terminate(ptrBui->fmu);
+      if (status != fmi2OK){
+        ModelicaFormatMessage(
+          "fmi2Terminate returned with non-OK status for building %s.",
+          ptrBui->modelicaNameBuilding);
+      }
+    }
+    if (ptrBui->fmu != NULL){
+      if (FMU_EP_VERBOSITY >= MEDIUM)
+        ModelicaFormatMessage(
+          "fmi2_import_destroy_dllfmu: destroying dll fmu. for %s",
+          ptrBui->modelicaNameBuilding);
+      fmi2_import_destroy_dllfmu(ptrBui->fmu);
+      fmi2_import_free(ptrBui->fmu);
+    }
+    if (ptrBui->context != NULL){
+      fmi_import_free_context(ptrBui->context);
+    }
+
+    if (ptrBui->buildingsLibraryRoot != NULL)
+      free(ptrBui->buildingsLibraryRoot);
+    if (ptrBui->modelicaNameBuilding != NULL)
+      free(ptrBui->modelicaNameBuilding);
+    if (ptrBui->idfName != NULL)
+      free(ptrBui->idfName);
+    if (ptrBui->weather != NULL)
+      free(ptrBui->weather);
+    if (ptrBui->idd != NULL)
+      free(ptrBui->idd);
+    if (ptrBui->zones != NULL)
+      free(ptrBui->zones);
+    if (ptrBui->outputVariables != NULL)
+      free(ptrBui->outputVariables);
+    if (ptrBui->tmpDir != NULL)
+      free(ptrBui->tmpDir);
+    if (ptrBui->modelHash != NULL)
+      free(ptrBui->modelHash);
+    free(ptrBui);
+  }
+  decrementBuildings_nFMU();
+  if (getBuildings_nFMU() == 0){
+    free(Buildings_FMUS);
+  }
 }
