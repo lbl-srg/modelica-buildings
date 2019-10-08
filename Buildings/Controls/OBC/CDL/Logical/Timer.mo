@@ -111,7 +111,7 @@ the timer will not fully stopped but hold the accumulated true input time.
 <ul>
 <li>
 July 23, 2018, by Jianjun Hu:<br/>
-Added conditional boolean input for resetting output.  This is for
+Added conditional boolean input for cumulative time measuring. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>
 </li>
 <li>

@@ -49,7 +49,7 @@ equation
       color={255,0,255}));
 
 annotation (
-  experiment(StopTime=10.0, Tolerance=1e-06),
+  experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Timer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
