@@ -257,12 +257,23 @@ its class name ends with the string <code>Beta</code>.
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.PVSimple<br/>
+                           Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented<br/>
+                           Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimple<br/>
+                           Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented<br/>
+                           Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple<br/>
+                           Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented<br/>
+                           Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented_N<br/>
+                           Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple_N<br/>
+                           Buildings.Electrical.Interfaces.PartialPV
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Corrected model so that reported power <code>P</code> also includes the DCAC conversion.
+                           Note that the power added to the elecrical system was correct, but the power reported in
+                           the output connector <code>P</code> did not include this conversion factor.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
         </td>
     </tr>
     </table>
