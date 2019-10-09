@@ -110,7 +110,8 @@ typedef struct FMUOutputVariable
   fmi2Byte** outVarName; /* Full name of output variables (used to get value reference). Array of size 1 */
 
   fmi2Boolean isInstantiated; /* Flag set to true when the output variable has been completely instantiated */
-
+  fmi2Boolean isInitialized; /* Flag set to true after the output variable has executed a get call in the initializion mode
+                                of the FMU */
 } FMUOutputVariable;
 
 void incrementBuildings_nFMU();

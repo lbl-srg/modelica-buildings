@@ -76,4 +76,6 @@ void buildVariableNames(
 
 void getSimulationTemporaryDirectory(const char* idfName, char** dirNam);
 
+void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double startTime);
+
 #endif

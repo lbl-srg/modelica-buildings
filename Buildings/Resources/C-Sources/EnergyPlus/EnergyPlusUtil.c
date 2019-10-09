@@ -558,3 +558,42 @@ void createDirectory(const char* dirName){
       ModelicaFormatError("Failed to create directory %s", dirName);
   }
 }
+
+
+void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double startTime){
+  fmi2_status_t status;
+
+  /* Instantiate the FMU for this building */
+  generateAndInstantiateBuilding(bui);
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_setup_experiment: Setting up experiment.\n");
+  bui->time = startTime;
+  setFMUMode(bui, instantiationMode);
+
+  /* This function can only be called once per building FMU */
+  status = fmi2_import_setup_experiment(
+      bui->fmu,    /* fmu */
+      fmi2False,            /* toleranceDefined */
+      0.0,                  /* tolerance */
+      startTime,            /* startTime */
+      fmi2False,            /* stopTimeDefined */
+      0);                   /* stopTime */
+  if( status != fmi2_status_ok ){
+    ModelicaFormatError("Failed to setup experiment for FMU with name %s.",  bui->fmuAbsPat);
+  }
+
+  /* Enter initialization mode, because getting parameters is only
+     allowed in the initialization mode, see FMU state diagram in standard */
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.\n",
+      bui->fmuAbsPat);
+  status = fmi2_import_enter_initialization_mode(bui->fmu);
+  if( status != fmi2_status_ok ){
+    ModelicaFormatError("Failed to enter initialization mode for FMU with name %s.",
+    bui->fmuAbsPat);
+  }
+  setFMUMode(bui, initializationMode);
+
+  return;
+}

@@ -187,6 +187,7 @@ void* OutputVariableAllocate(
      This behavior was observed when simulating Buildings.Experimental.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
   */
   outVar->isInstantiated = fmi2False;
+  outVar->isInitialized = fmi2False;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Exiting allocation for %s with output variable ptr at %p", modelicaNameOutputVariable, outVar);
