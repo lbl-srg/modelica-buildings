@@ -5,7 +5,7 @@
  */
 
 #include "ZoneAllocate.h"
-#include "EnergyPlusStructure.h"
+#include "EnergyPlusFMU.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -15,7 +15,7 @@ void checkForDoubleZoneDeclaration(const struct FMUBuilding* fmuBld, const char*
   int iZ;
   FMUZone** ptrZones = (FMUZone**)(fmuBld->zones);
   for(iZ = 0; iZ < fmuBld->nZon; iZ++){
-    FMUZone* zonToChe = (FMUZone*)(fmuBld->zones[iZ])
+    FMUZone* zonToChe = (FMUZone*)(fmuBld->zones[iZ]);
     if (!strcmp(zoneName, ptrZones[iZ]->name)){
       *doubleSpec = ptrZones[iZ]->modelicaNameThermalZone;
       break;

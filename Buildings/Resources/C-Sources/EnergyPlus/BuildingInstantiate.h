@@ -6,7 +6,7 @@
 #ifndef Buildings_BuildingInstantiate_h
 #define Buildings_BuildingInstantiate_h
 
-#include "EnergyPlusStructure.h"
+#include "EnergyPlusFMU.h"
 #include "EnergyPlusUtil.h"
 #include "../cryptographicsHash.h"
 

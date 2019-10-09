@@ -460,7 +460,7 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
     if ( errno == ERANGE){
       lenCurDir += incLenCurDir;
       if (lenCurDir > maxLenCurDir){
-        ModelicaFormatError("Temporary directories with names longer than %lu characters are not supported in EnergyPlusStructure.c unless you change maxLenCurDir.", maxLenCurDir);
+        ModelicaFormatError("Temporary directories with names longer than %lu characters are not supported in EnergyPlusFMU.c unless you change maxLenCurDir.", maxLenCurDir);
       }
       curDir = realloc(curDir, lenCurDir * sizeof(char));
       if (curDir == NULL)
@@ -468,7 +468,7 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
       memset(curDir, '\0', lenCurDir);
     }
     else{ /* Other error than insufficient length */
-      ModelicaFormatError("Unknown error when allocating memory for temporary directory in EnergyPlusStructure.c.");
+      ModelicaFormatError("Unknown error when allocating memory for temporary directory in EnergyPlusFMU.c.");
     }
   }
 

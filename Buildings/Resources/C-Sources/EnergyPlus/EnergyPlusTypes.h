@@ -1,26 +1,12 @@
 /*
- * A structure to store the data needed to communicate with EnergyPlus.
+ * Type definitions for EnergyPlus.
  */
 
-#ifndef Buildings_EnergyPlusStructure_h /* Not needed since it is only a typedef; added for safety */
-#define Buildings_EnergyPlusStructure_h
-
-#include "EnergyPlusUtil.h"
-
-#include <stdlib.h>
-#include <stddef.h>  /* stddef defines size_t */
-#include <string.h>
-#include <stdio.h>
-#include <execinfo.h>
-#include <sys/types.h> /* To create directory */
-#include <sys/stat.h>  /* To create directory */
-#include <unistd.h>    /* To use stat to check for directory */
-#include <errno.h>
-#include <stdbool.h>
+#ifndef Buildings_EnergyPlusTypes_h /* Not needed since it is only a typedef; added for safety */
+#define Buildings_EnergyPlusTypes_h
 
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
-#include <ModelicaUtilities.h>
 
 /* Use windows.h only for Windows */
 #ifdef _WIN32
@@ -49,7 +35,7 @@ typedef struct FMUBuilding
   void** zones; /* Pointers to all zones*/
 
   fmi2Integer nOutputVariables; /* Number of output variables that this FMU has */
-  void** outputVariables /* Pointers to all output variables */
+  void** outputVariables; /* Pointers to all output variables */
 
   char* tmpDir; /* Temporary directory used by EnergyPlus */
   char* fmuAbsPat; /* Absolute name of the fmu */
@@ -79,7 +65,6 @@ typedef struct FMUZone
   char** inpNames;
   char** outNames;
 
-  /* fmi2ValueReference* parInpValReferences; Value reference of parameter variables*/
   fmi2ValueReference* parOutValReferences; /* Value reference of parameter variables*/
   fmi2ValueReference* inpValReferences; /* Value reference of input variables*/
   fmi2ValueReference* outValReferences; /* Value references of output variables*/
@@ -113,26 +98,5 @@ typedef struct FMUOutputVariable
   fmi2Boolean isInitialized; /* Flag set to true after the output variable has executed a get call in the initializion mode
                                 of the FMU */
 } FMUOutputVariable;
-
-void incrementBuildings_nFMU();
-void decrementBuildings_nFMU();
-unsigned int getBuildings_nFMU();
-
-size_t AllocateBuildingDataStructure(
-  const char* modelicaNameBuilding,
-  const char* idfName,
-  const char* weaName,
-  const char* iddName,
-  int usePrecompiledFMU,
-  const char* fmuName,
-  const char* buildingsLibraryRoot);
-
-void AddZoneToBuilding(FMUZone* ptrZone);
-
-void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar);
-
-FMUBuilding* getBuildingsFMU(size_t iFMU);
-
-void FMUBuildingFree(FMUBuilding* ptrBui);
 
 #endif

@@ -5,7 +5,7 @@
  */
 
 #include "OutputVariableFree.h"
-#include "EnergyPlusStructure.c"
+#include "EnergyPlusFMU.c"
 
 #include <stdlib.h>
 

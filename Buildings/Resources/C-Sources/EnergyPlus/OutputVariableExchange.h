@@ -6,7 +6,7 @@
 #ifndef Buildings_OutputVariableExchange_h
 #define Buildings_OutputVariableExchange_h
 
-#include "EnergyPlusStructure.h"
+#include "EnergyPlusFMU.h"
 #include "OutputVariableInstantiate.h"
 #include "FMI2/fmi2_import_capi.h"
 

@@ -6,10 +6,18 @@
 #ifndef Buildings_EnergyPlusUtil_h
 #define Buildings_EnergyPlusUtil_h
 
-#include "EnergyPlusUtil.h"
+#include "EnergyPlusFMU.h"
 
 #include <stdio.h>
 #include <unistd.h>
+#include <execinfo.h>
+#include <sys/types.h> /* To create directory */
+#include <sys/stat.h>  /* To create directory */
+#include <unistd.h>    /* To use stat to check for directory */
+#include <errno.h>
+
+#include "fmilib.h"
+#include "FMI2/fmi2FunctionTypes.h"
 
 #ifndef max
   #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )

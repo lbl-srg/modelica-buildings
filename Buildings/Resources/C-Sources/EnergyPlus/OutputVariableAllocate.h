@@ -6,7 +6,7 @@
 #ifndef Buildings_OutputVariableAllocate_h
 #define Buildings_OutputVariableAllocate_h
 
-#include "EnergyPlusStructure.h"
+#include "EnergyPlusFMU.h"
 #include "EnergyPlusUtil.h"
 
 /* Create the structure and return a pointer to its address. */

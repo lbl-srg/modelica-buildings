@@ -4,7 +4,7 @@
  * Michael Wetter, LBNL                  2/14/2018
  */
 
-#include "EnergyPlusStructure.h"
+#include "EnergyPlusFMU.h"
 
 #include "EnergyPlusUtil.c"
 
@@ -150,7 +150,7 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
     /* Increment size of vector that contains the output variables. */
     fmu->outputVariables = realloc(fmu->outputVariables, (nOutputVariables + 1) * sizeof(FMUOutputVariable*));
     if (fmu->outputVariables == NULL){
-      ModelicaError("Not enough memory in EnergyPlusStructure.c. to allocate memory for fmu->outputVariables.");
+      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate memory for fmu->outputVariables.");
     }
   }
   /* Assign the output variable */

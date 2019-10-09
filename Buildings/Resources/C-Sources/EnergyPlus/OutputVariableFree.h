@@ -6,7 +6,7 @@
 #ifndef Buildings_OutputVariableFree_h
 #define Buildings_OutputVariableFree_h
 
-#include "EnergyPlusStructure.h"
+#include "EnergyPlusFMU.h"
 #include "FMI2/fmi2_import.h"
 
 void OutputVariableFree(void* object);

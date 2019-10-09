@@ -6,7 +6,7 @@
 #ifndef Buildings_OutputVariableInstantiate_h
 #define Buildings_OutputVariableInstantiate_h
 
-#include "EnergyPlusStructure.h"
+#include "EnergyPlusFMU.h"
 #include "BuildingInstantiate.h"
 
 #include <stdio.h>
