@@ -17,6 +17,4 @@ void OutputVariableExchange(
   double* y,
   double* tNext);
 
-double do_event_iteration(FMUOutputVariable* zone);
-
 #endif

@@ -28,6 +28,4 @@ void ZoneExchange(
   double* QPeo_flow,
   double* tNext);
 
-double do_event_iteration(FMUZone* zone);
-
 #endif
