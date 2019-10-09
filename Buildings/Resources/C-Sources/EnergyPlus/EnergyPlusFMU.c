@@ -95,8 +95,6 @@ size_t AllocateBuildingDataStructure(
   }
 
   /* Initialize thermal zone data */
-  ModelicaFormatMessage("xxx Setting nZon = 0 at %p and %p", Buildings_FMUS[nFMU], &(Buildings_FMUS[nFMU]->nZon));
-
   Buildings_FMUS[nFMU]->nZon = 0;
   Buildings_FMUS[nFMU]->zones = NULL;
 
@@ -112,13 +110,12 @@ size_t AllocateBuildingDataStructure(
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("AllocateBuildingDataStructure: Leaving allocating data structure for building %s", modelicaNameBuilding);
 
-  return getBuildings_nFMU();
+  return nFMU;
 }
 
 void AddZoneToBuilding(FMUZone* ptrZone){
   FMUBuilding* fmu = ptrZone->ptrBui;
   const size_t nZon = fmu->nZon;
-  ModelicaFormatMessage("xxx Getting nZon = %lu at %p and %p", nZon, fmu, &(fmu->nZon));
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("EnergyPlusFMU.c: Adding zone %lu with name %s", nZon, ptrZone->modelicaNameThermalZone);
