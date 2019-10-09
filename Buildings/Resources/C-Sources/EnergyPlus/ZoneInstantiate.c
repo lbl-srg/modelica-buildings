@@ -22,7 +22,7 @@ void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
       zone->modelicaNameThermalZone);
 
   status = fmi2_import_get_real(
-    bui->fmu,
+    zone->ptrBui->fmu,
     zone->parOutValReferences,
     ZONE_N_PAR_OUT,
     parValues);

@@ -25,23 +25,22 @@ size_t AllocateBuildingDataStructure(
   const char* fmuName,
   const char* buildingsLibraryRoot){
 
-  int i;
   /* Allocate memory */
 
   const size_t nFMU = getBuildings_nFMU();
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("ZoneAllocateBuildingDataStructure: Allocating data structure for building %s", modelicaNameBuilding);
+    ModelicaFormatMessage("AllocateBuildingDataStructure: Allocating data structure for building %lu with name %s", nFMU, modelicaNameBuilding);
 
   if (nFMU == 0)
     Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
   else
     Buildings_FMUS = realloc(Buildings_FMUS, (nFMU+1) * sizeof(struct FMUBuilding*));
   if ( Buildings_FMUS == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate array for Buildings_FMU.");
+    ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate array for Buildings_FMU.");
 
   Buildings_FMUS[nFMU] = malloc(sizeof(FMUBuilding));
   if ( Buildings_FMUS[nFMU] == NULL )
-    ModelicaError("Not enough memory in ZoneAllocate.c. to allocate array for Buildings_FMU[0].");
+    ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate array for Buildings_FMU[0].");
 
   Buildings_FMUS[nFMU]->fmu = NULL;
   Buildings_FMUS[nFMU]->context = NULL;
@@ -50,29 +49,29 @@ size_t AllocateBuildingDataStructure(
   Buildings_FMUS[nFMU]->dllfmu_created = fmi2_false;
 
   /* Assign the modelica name for this building */
-  mallocString((strlen(modelicaNameBuilding)+1), "Not enough memory in ZoneAllocate.c. to allocate modelicaNameBuilding.", &(Buildings_FMUS[nFMU]->modelicaNameBuilding));
+  mallocString((strlen(modelicaNameBuilding)+1), "Not enough memory in EnergyPlusFMU.c. to allocate modelicaNameBuilding.", &(Buildings_FMUS[nFMU]->modelicaNameBuilding));
   strcpy(Buildings_FMUS[nFMU]->modelicaNameBuilding, modelicaNameBuilding);
 
   /* Assign the Buildings library root */
-  mallocString((strlen(buildingsLibraryRoot)+1), "Not enough memory in ZoneAllocate.c. to allocate buildingsLibraryRoot.", &(Buildings_FMUS[nFMU]->buildingsLibraryRoot));
+  mallocString((strlen(buildingsLibraryRoot)+1), "Not enough memory in EnergyPlusFMU.c. to allocate buildingsLibraryRoot.", &(Buildings_FMUS[nFMU]->buildingsLibraryRoot));
   strcpy(Buildings_FMUS[nFMU]->buildingsLibraryRoot, buildingsLibraryRoot);
 
   /* Assign the idfName name */
   if (usePrecompiledFMU){
-    mallocString((strlen(fmuName)+1), "Not enough memory in ZoneAllocate.c. to allocate idfName.", &(Buildings_FMUS[nFMU]->idfName));
+    mallocString((strlen(fmuName)+1), "Not enough memory in EnergyPlusFMU.c. to allocate idfName.", &(Buildings_FMUS[nFMU]->idfName));
     strcpy(Buildings_FMUS[nFMU]->idfName, fmuName);
   }
   else{
-    mallocString((strlen(idfName)+1), "Not enough memory in ZoneAllocate.c. to allocate idfName.", &(Buildings_FMUS[nFMU]->idfName));
+    mallocString((strlen(idfName)+1), "Not enough memory in EnergyPlusFMU.c. to allocate idfName.", &(Buildings_FMUS[nFMU]->idfName));
     strcpy(Buildings_FMUS[nFMU]->idfName, idfName);
   }
 
   /* Assign the weather name */
-  mallocString((strlen(weaName)+1), "Not enough memory in ZoneAllocate.c. to allocate weather.", &(Buildings_FMUS[nFMU]->weather));
+  mallocString((strlen(weaName)+1), "Not enough memory in EnergyPlusFMU.c. to allocate weather.", &(Buildings_FMUS[nFMU]->weather));
   strcpy(Buildings_FMUS[nFMU]->weather, weaName);
 
   /* Assign the idd name */
-  mallocString((strlen(iddName)+1), "Not enough memory in ZoneAllocate.c. to allocate idd.", &(Buildings_FMUS[nFMU]->idd));
+  mallocString((strlen(iddName)+1), "Not enough memory in EnergyPlusFMU.c. to allocate idd.", &(Buildings_FMUS[nFMU]->idd));
   strcpy(Buildings_FMUS[nFMU]->idd, iddName);
 
   /* Set the model hash to null */
@@ -96,6 +95,8 @@ size_t AllocateBuildingDataStructure(
   }
 
   /* Initialize thermal zone data */
+  ModelicaFormatMessage("xxx Setting nZon = 0 at %p and %p", Buildings_FMUS[nFMU], &(Buildings_FMUS[nFMU]->nZon));
+
   Buildings_FMUS[nFMU]->nZon = 0;
   Buildings_FMUS[nFMU]->zones = NULL;
 
@@ -108,17 +109,24 @@ size_t AllocateBuildingDataStructure(
 
   incrementBuildings_nFMU();
 
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("AllocateBuildingDataStructure: Leaving allocating data structure for building %s", modelicaNameBuilding);
+
   return getBuildings_nFMU();
 }
 
 void AddZoneToBuilding(FMUZone* ptrZone){
   FMUBuilding* fmu = ptrZone->ptrBui;
   const size_t nZon = fmu->nZon;
+  ModelicaFormatMessage("xxx Getting nZon = %lu at %p and %p", nZon, fmu, &(fmu->nZon));
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("EnergyPlusFMU.c: Adding zone %lu with name %s", nZon, ptrZone->modelicaNameThermalZone);
 
   if (nZon == 0){
     fmu->zones=malloc(sizeof(FMUZone *));
     if ( fmu->zones== NULL )
-      ModelicaError("Not enough memory in EnergyPlusDataStructure.c. to allocate zones.");
+      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate zones.");
   }
   else{
     /* We already have nZon > 0 zones */
@@ -126,7 +134,7 @@ void AddZoneToBuilding(FMUZone* ptrZone){
     /* Increment size of vector that contains the zones. */
     fmu->zones = realloc(fmu->zones, (nZon + 1) * sizeof(FMUZone*));
     if (fmu->zones == NULL){
-      ModelicaError("Not enough memory in EnergyPlusDataStructure.c. to allocate memory for bld->zones.");
+      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate memory for bld->zones.");
     }
   }
   /* Assign the zone */
@@ -139,10 +147,13 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
   FMUBuilding* fmu = ptrOutVar->ptrBui;
   const size_t nOutputVariables = fmu->nOutputVariables;
 
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("EnergyPlusFMU.c: Adding output variable %d with name %s", nOutputVariables+1, ptrOutVar->modelicaNameOutputVariable);
+
   if (nOutputVariables == 0){
     fmu->outputVariables=malloc(sizeof(FMUOutputVariable *));
     if ( fmu->outputVariables== NULL )
-      ModelicaError("Not enough memory in EnergyPlusDataStructure.c. to allocate output variables.");
+      ModelicaError("Not enough memory in EnergyPlusFMU.c. to allocate output variables.");
   }
   else{
     /* We already have nOutputVariables > 0 output variables. */

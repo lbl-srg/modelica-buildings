@@ -195,6 +195,9 @@ void* ZoneAllocate(
       fmuName,
       buildingsLibraryRoot);
     zone->ptrBui = getBuildingsFMU(i);
+
+    ModelicaFormatMessage("xxx Got zone with building at %p and nZon at %p and value ", zone->ptrBui, &(zone->ptrBui->nZon), zone->ptrBui->nZon);
+
     AddZoneToBuilding(zone);
 
     if (FMU_EP_VERBOSITY >= MEDIUM){

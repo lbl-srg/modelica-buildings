@@ -5,7 +5,7 @@
 #ifndef Buildings_EnergyPlusFMU_h /* Not needed since it is only a typedef; added for safety */
 #define Buildings_EnergyPlusFMU_h
 
-#include "EnergyPlusUtil.h"
+#include "EnergyPlusTypes.h"
 
 #include <stdlib.h>
 #include <stddef.h>  /* stddef defines size_t */

@@ -6,7 +6,8 @@
 #ifndef Buildings_EnergyPlusUtil_h
 #define Buildings_EnergyPlusUtil_h
 
-#include "EnergyPlusFMU.h"
+#include "EnergyPlusTypes.h"
+#include "BuildingInstantiate.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -18,24 +19,6 @@
 
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
-
-#ifndef max
-  #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
-#endif
-
-static char* MOD_BUI_JSON = "ModelicaBuildingsEnergyPlus.json";
-
-#ifdef _WIN32
-static char* SEPARATOR = "\\";
-#else
-static char* SEPARATOR = "/";
-#endif
-
-
-typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
-
-static int FMU_EP_VERBOSITY = 1; /* Verbosity */
-enum verbosity {QUIET = 4, MEDIUM = 5, TIMESTEP = 6};
 
 void writeFormatLog(unsigned int level, const char *fmt, ...);
 

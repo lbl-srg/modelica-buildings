@@ -95,6 +95,19 @@ void mallocString(const size_t nChar, const char *error_message, char** str){
     ModelicaError(error_message);
 }
 
+char* fmuModeToString(FMUMode mode){
+  if (mode == instantiationMode)
+    return "instantiation";
+  if (mode == initializationMode)
+    return "initialization";
+  if (mode == eventMode)
+    return "event";
+  if (mode == continuousTimeMode)
+    return "continuous";
+  ModelicaFormatError("Unknown fmu mode %d", mode);
+  return "unknown error";
+}
+
 void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueReference vr[],  fmi2Real values[], size_t n){
     fmi2_status_t status;
     if (FMU_EP_VERBOSITY >= MEDIUM)
@@ -273,19 +286,6 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   return;
 }
 
-char* fmuModeToString(FMUMode mode){
-  if (mode == instantiationMode)
-    return "instantiation";
-  if (mode == initializationMode)
-    return "initialization";
-  if (mode == eventMode)
-    return "event";
-  if (mode == continuousTimeMode)
-    return "continuous";
-  ModelicaFormatError("Unknown fmu mode %d", mode);
-  return "unknown error";
-}
-
 /* Wrapper to set fmu mode indicator and log the mode change for debugging */
 void setFMUMode(FMUBuilding* bui, FMUMode mode){
   if (FMU_EP_VERBOSITY >= MEDIUM)
@@ -445,7 +445,6 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
   size_t lenCurDir = 256;
   const size_t incLenCurDir = 256;
   const size_t maxLenCurDir = 100000;
-
 
   /* Prefix for temporary directory */
   const char* pre = "tmp-simulation-\0";

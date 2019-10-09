@@ -5,6 +5,8 @@
 #ifndef Buildings_EnergyPlusTypes_h /* Not needed since it is only a typedef; added for safety */
 #define Buildings_EnergyPlusTypes_h
 
+#include <stdbool.h>
+
 #include "fmilib.h"
 #include "FMI2/fmi2FunctionTypes.h"
 
@@ -20,6 +22,22 @@
 #include <dlfcn.h>
 #endif
 
+#ifndef max
+  #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
+#endif
+
+static char* MOD_BUI_JSON = "ModelicaBuildingsEnergyPlus.json";
+
+#ifdef _WIN32
+static char* SEPARATOR = "\\";
+#else
+static char* SEPARATOR = "/";
+#endif
+
+typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
+
+static int FMU_EP_VERBOSITY = 1; /* Verbosity */
+enum verbosity {QUIET = 4, MEDIUM = 5, TIMESTEP = 6};
 
 typedef struct FMUBuilding
 {
