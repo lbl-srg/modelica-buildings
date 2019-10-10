@@ -39,8 +39,8 @@ protected
   final parameter Real initTunPar = 0
   "Initial value of the tuning parameter";
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(final k={-1*step,step,1},
-      nin=3)     "Multiple input sum"
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+    final k={-1*step,step,1}, nin=3) "Multiple input sum"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add2(
@@ -127,7 +127,7 @@ protected
     final threshold=wseOnTimDec) "Greater than"
     annotation (Placement(transformation(extent={{-220,140},{-200,160}})));
 
-  CDL.Integers.Max                                          maxInt
+  Buildings.Controls.OBC.CDL.Integers.Max maxInt
     "Greater or equal a threshold"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
@@ -167,7 +167,7 @@ equation
   connect(booToRea.y, triSam2.u) annotation (Line(points={{-78,-80},{-62,-80}},
           color={0,0,127}));
   connect(uWseSta, falEdg.u) annotation (Line(points={{-340,120},{-280,120},{-280,
-          100},{-222,100}},      color={255,0,255}));
+          100},{-222,100}}, color={255,0,255}));
   connect(falEdg.y, and2.u2) annotation (Line(points={{-198,100},{-150,100},{-150,
           142},{-142,142}},color={255,0,255}));
   connect(uWseSta, falEdg1.u) annotation (Line(points={{-340,120},{-280,120},{-280,
@@ -204,19 +204,16 @@ equation
   connect(tim1.y, lesThr.u)
     annotation (Line(points={{-238,50},{-222,50}}, color={0,0,127}));
   connect(and1.y, disCou1.trigger)
-    annotation (Line(points={{-118,10},{-102,10}},
-                                                 color={255,0,255}));
+    annotation (Line(points={{-118,10},{-102,10}}, color={255,0,255}));
   connect(intToRea.u, disCou.y)
     annotation (Line(points={{58,150},{-78,150}},color={255,127,0}));
   connect(and2.y, disCou.trigger)
-    annotation (Line(points={{-118,150},{-102,150}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-118,150},{-102,150}}, color={255,0,255}));
   connect(y, y) annotation (Line(points={{330,0},{330,0}},  color={0,0,127}));
   connect(disCou1.y, intToRea1.u)
-    annotation (Line(points={{-78,10},{58,10}},color={255,127,0}));
+    annotation (Line(points={{-78,10},{58,10}}, color={255,127,0}));
   connect(truHol.y, and2.u1)
-    annotation (Line(points={{-158,150},{-142,150}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-158,150},{-142,150}}, color={255,0,255}));
   connect(greThr1.y, truHol.u)
     annotation (Line(points={{-198,150},{-182,150}}, color={255,0,255}));
   connect(tim.y, greThr1.u)
