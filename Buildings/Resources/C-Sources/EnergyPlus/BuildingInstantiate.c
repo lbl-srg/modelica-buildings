@@ -42,8 +42,6 @@ void buildJSONModelStructureForEnergyPlus(
   saveAppend(buffer, "    \"zones\": [\n", size);
   for(iZon = 0; iZon < bui->nZon; iZon++){
     /* Write zone name */
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("Writing zone data %s.\n", zones[iZon]->name);
     saveAppend(buffer, "        { \"name\": \"", size);
     saveAppend(buffer, zones[iZon]->name, size);
     if (iZon < (bui->nZon) - 1)
@@ -52,7 +50,9 @@ void buildJSONModelStructureForEnergyPlus(
       saveAppend(buffer, "\" }\n", size);
   }
   /* Close json array for zones */
-  saveAppend(buffer, "    ]\n  },\n", size);
+  saveAppend(buffer, "    ]\n", size);
+  /* Close json object for model */
+  saveAppend(buffer, "  },\n", size);
 
   *modelHash = (char*)(cryptographicsHash(*buffer));
 
