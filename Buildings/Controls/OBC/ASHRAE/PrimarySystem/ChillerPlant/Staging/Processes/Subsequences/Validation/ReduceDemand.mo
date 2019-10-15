@@ -181,16 +181,6 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-280,-160},{280,160}}),
         graphics={
-          Rectangle(
-          extent={{2,158},{278,-158}},
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-          Rectangle(
-          extent={{-278,158},{-2,-158}},
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
         Text(
           extent={{-258,152},{-184,142}},
           lineColor={0,0,127},

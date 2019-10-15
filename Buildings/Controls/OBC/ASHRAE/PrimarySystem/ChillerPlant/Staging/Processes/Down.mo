@@ -117,7 +117,7 @@ block Down
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
     "Condenser water requst status for each chiller"
-    annotation (Placement(transformation(extent={{-320,-150},{-280,-110}}),
+    annotation (Placement(transformation(extent={{-320,-140},{-280,-100}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
     "Chiller condenser water isolation valve status"
@@ -293,14 +293,14 @@ protected
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nChi]
     "Convert boolean input to real output"
-    annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
+    annotation (Placement(transformation(extent={{-240,-130},{-220,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor curDisChi1(final nin=nChi)
     "Current disabling chiller"
-    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
+    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr1(
     final threshold=0.5)
     "Check if the disabled chiller is not requiring condenser water"
-    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
+    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and5 "Logical and"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(final nout=nChi)
@@ -328,14 +328,20 @@ protected
     "Break algebraic loop"
     annotation (Placement(transformation(extent={{160,-380},{180,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
-    "Logical latch, maintain ON signal until condition changes"
+    "Maintain ON signal when condenser water pump has been disabled"
     annotation (Placement(transformation(extent={{240,-270},{260,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
-    "Logical latch, maintain ON signal until condition changes"
+    "Maintain ON signal when chiller demand has been limited"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Buildings.Controls.OBC.CDL.Logical.Switch chiWatMinSet
     "Chilled water minimum flow set"
     annotation (Placement(transformation(extent={{200,-340},{220,-320}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat3
+    "Maintain ON signal when chilled water isolation valve has been disabled"
+    annotation (Placement(transformation(extent={{200,-40},{220,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat4
+    "Maintain ON signal when chiller head pressure control has been disabled"
+    annotation (Placement(transformation(extent={{200,-140},{220,-120}})));
 
 equation
   connect(nexChi.uChiPri, uChiPri)
@@ -402,26 +408,23 @@ equation
     annotation (Line(points={{162,80},{180,80},{180,65},{198,65}},
       color={0,0,127}));
   connect(uConWatReq, booToRea2.u)
-    annotation (Line(points={{-300,-130},{-242,-130}}, color={255,0,255}));
+    annotation (Line(points={{-300,-120},{-242,-120}}, color={255,0,255}));
   connect(booToRea2.y, curDisChi1.u)
-    annotation (Line(points={{-218,-130},{-82,-130}},color={0,0,127}));
+    annotation (Line(points={{-218,-120},{-82,-120}},color={0,0,127}));
   connect(curDisChi1.y, lesEquThr1.u)
-    annotation (Line(points={{-58,-130},{-42,-130}}, color={0,0,127}));
+    annotation (Line(points={{-58,-120},{-42,-120}}, color={0,0,127}));
   connect(logSwi2.y, and5.u1)
     annotation (Line(points={{82,20},{90,20},{90,-20},{10,-20},{10,-112},{58,-112}},
       color={255,0,255}));
-  connect(disChiIsoVal.yEnaChiWatIsoVal, and5.u2)
-    annotation (Line(points={{222,66},{240,66},{240,-30},{40,-30},{40,-120},
-      {58,-120}}, color={255,0,255}));
   connect(lesEquThr1.y, and5.u3)
-    annotation (Line(points={{-18,-130},{40,-130},{40,-128},{58,-128}},
+    annotation (Line(points={{-18,-120},{10,-120},{10,-128},{58,-128}},
       color={255,0,255}));
   connect(uChi,dowSta. uChi)
     annotation (Line(points={{-300,230},{-200,230},{-200,234},{58,234}},
       color={255,0,255}));
   connect(nexChi.yLasDisChi, curDisChi1.index)
-    annotation (Line(points={{-18,286},{20,286},{20,120},{-140,120},{-140,-152},
-      {-70,-152},{-70,-142}}, color={255,127,0}));
+    annotation (Line(points={{-18,286},{20,286},{20,120},{-140,120},{-140,-140},
+      {-70,-140},{-70,-132}}, color={255,127,0}));
   connect(nexChi.yOnOff, booRep1.u)
     annotation (Line(points={{-18,290},{0,290},{0,-70},{58,-70}},
       color={255,0,255}));
@@ -442,9 +445,6 @@ equation
   connect(logSwi.y, disHeaCon.uChiHeaCon)
     annotation (Line(points={{162,-70},{180,-70},{180,-108},{198,-108}},
       color={255,0,255}));
-  connect(disHeaCon.yEnaHeaCon,disNexCWP. uUpsDevSta)
-    annotation (Line(points={{222,-94},{240,-94},{240,-140},{80,-140},{80,-152},
-      {98,-152}}, color={255,0,255}));
   connect(con.y,disNexCWP. uStaUp)
     annotation (Line(points={{-138,260},{-120,260},{-120,-158},{98,-158}},
       color={255,0,255}));
@@ -461,7 +461,7 @@ equation
     annotation (Line(points={{-300,230},{-200,230},{-200,-190},{-82,-190}},
       color={255,0,255}));
   connect(uConWatReq, mulOr1.u)
-    annotation (Line(points={{-300,-130},{-250,-130},{-250,-220},{-82,-220}},
+    annotation (Line(points={{-300,-120},{-250,-120},{-250,-220},{-82,-220}},
       color={255,0,255}));
   connect(conWatPumCon.uWSE, uWSE)
     annotation (Line(points={{138,-186},{52,-186},{52,-240},{-300,-240}},
@@ -526,9 +526,6 @@ equation
       {-260,-162},{98,-162}}, color={255,0,255}));
   connect(lat.y, yStaPro)
     annotation (Line(points={{-158,380},{300,380}},color={255,0,255}));
-  connect(disHeaCon.yEnaHeaCon, and2.u2)
-    annotation (Line(points={{222,-94},{240,-94},{240,-140},{80,-140},{80,-248},
-      {198,-248}}, color={255,0,255}));
   connect(dowSta.minOPLR, minOPLR)
     annotation (Line(points={{58,238},{40,238},{40,310},{-300,310}},
       color={0,0,127}));
@@ -567,9 +564,6 @@ equation
       color={255,127,0}));
   connect(conWatPumCon.yLeaPum, yLeaPum)
     annotation (Line(points={{162,-173},{220,-173},{220,-150},{300,-150}},
-      color={255,0,255}));
-  connect(disHeaCon.yEnaHeaCon, yTowStaDow)
-    annotation (Line(points={{222,-94},{240,-94},{240,-60},{300,-60}},
       color={255,0,255}));
   connect(disHeaCon.yChiHeaCon, yChiHeaCon)
     annotation (Line(points={{222,-106},{260,-106},{260,-110},{300,-110}},
@@ -625,6 +619,30 @@ equation
   connect(edg1.y, dowSta.clr)
     annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
       {-190,230},{58,230}}, color={255,0,255}));
+  connect(disChiIsoVal.yEnaChiWatIsoVal, lat3.u)
+    annotation (Line(points={{222,66},{240,66},{240,0},{180,0},{180,-30},
+      {198,-30}}, color={255,0,255}));
+  connect(lat3.y, and5.u2)
+    annotation (Line(points={{222,-30},{240,-30},{240,-50},{40,-50},{40,-120},
+      {58,-120}}, color={255,0,255}));
+  connect(edg1.y, lat3.clr)
+    annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
+      {-190,-36},{198,-36}}, color={255,0,255}));
+  connect(disHeaCon.yEnaHeaCon, lat4.u)
+    annotation (Line(points={{222,-94},{240,-94},{240,-114},{180,-114},
+      {180,-130},{198,-130}}, color={255,0,255}));
+  connect(lat4.y, yTowStaDow)
+    annotation (Line(points={{222,-130},{250,-130},{250,-60},{300,-60}},
+      color={255,0,255}));
+  connect(lat4.y, disNexCWP.uUpsDevSta)
+    annotation (Line(points={{222,-130},{250,-130},{250,-142},{80,-142},{80,-152},
+      {98,-152}}, color={255,0,255}));
+  connect(lat4.y, and2.u2)
+    annotation (Line(points={{222,-130},{250,-130},{250,-142},{80,-142},{80,-248},
+      {198,-248}}, color={255,0,255}));
+  connect(edg1.y, lat4.clr)
+    annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
+      {-190,-136},{198,-136}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="dowProCon",
