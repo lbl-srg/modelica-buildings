@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "staStaDow1.uStaDow",
+    "staStaDow1.uChiLoa[1]",
+    "staStaDow1.uChiLoa[2]",
+    "staStaDow1.yChiDem[1]",
+    "staStaDow1.yChiDem[2]",
+    "staStaDow1.yChiHeaCon[1]",
+    "staStaDow1.yChiHeaCon[2]",
+    "staStaDow1.yChiWatIsoVal[1]",
+    "staStaDow1.yChiWatIsoVal[2]",
+    "staStaDow1.yChi[1]",
+    "staStaDow1.yChi[2]",
+    "demLimRel.y"
+  };

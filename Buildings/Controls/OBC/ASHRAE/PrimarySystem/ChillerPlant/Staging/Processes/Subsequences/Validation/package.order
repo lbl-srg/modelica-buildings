@@ -1,5 +1,6 @@
 CHWIsoVal
 DisableChiller
+DownStartWithOn
 DownStartWithoutOn
 EnableCWPump
 EnableChiller
@@ -7,6 +8,5 @@ HeadControl
 NextChiller
 ReduceDemand
 ResetMinBypass
-UpEndWithoutOff
 UpEndWithOff
-DownStartWithOn
+UpEndWithoutOff
