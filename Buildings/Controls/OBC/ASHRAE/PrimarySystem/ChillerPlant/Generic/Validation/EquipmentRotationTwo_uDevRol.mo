@@ -34,15 +34,15 @@ protected
       final period=1.5*60*60)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 equation
-  connect(leadLoad.y, leaLag.uLeaSta) annotation (Line(points={{-59,70},{-40,70},
+  connect(leadLoad.y, leaLag.uLeaSta) annotation (Line(points={{-58,70},{-40,70},
           {-40,46},{-22,46}}, color={255,0,255}));
-  connect(lagLoad.y, leaLag.uLagSta) annotation (Line(points={{-59,10},{-40,10},
+  connect(lagLoad.y, leaLag.uLagSta) annotation (Line(points={{-58,10},{-40,10},
           {-40,34},{-22,34}},       color={255,0,255}));
-  connect(leadLoad.y, leaSta.uLeaSta) annotation (Line(points={{-59,70},{30,70},
+  connect(leadLoad.y, leaSta.uLeaSta) annotation (Line(points={{-58,70},{30,70},
           {30,46},{38,46}}, color={255,0,255}));
-  connect(leadLoad.y, leaLag1.uLeaSta) annotation (Line(points={{-59,70},{10,70},
+  connect(leadLoad.y, leaLag1.uLeaSta) annotation (Line(points={{-58,70},{10,70},
           {10,-24},{18,-24}}, color={255,0,255}));
-  connect(lagLoad1.y, leaLag1.uLagSta) annotation (Line(points={{-59,-50},{-40,
+  connect(lagLoad1.y, leaLag1.uLagSta) annotation (Line(points={{-58,-50},{-40,
           -50},{-40,-36},{18,-36}}, color={255,0,255}));
           annotation (
    experiment(StopTime=10000.0, Tolerance=1e-06),
