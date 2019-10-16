@@ -15,7 +15,7 @@ model EnergyConversion "Energy conversion control volume"
     "Water inlet temperature" annotation (Placement(transformation(extent={{-140,0},
             {-100,40}}),     iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s") "Water flow rate"
-    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput TEng(unit="K") "Engine temperature"
     annotation (Placement(transformation(extent={{-138,-80},{-98,-40}}),
@@ -74,7 +74,7 @@ protected
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 equation
   connect(opeModBas.mWat_flow, mWat_flow) annotation (Line(points={{59,30},{-40,
-          30},{-40,-10},{-120,-10}}, color={0,0,127}));
+          30},{-40,-20},{-120,-20}}, color={0,0,127}));
   connect(opeModBas.TWatIn, TWatIn) annotation (Line(points={{59,24},{20,24},{
           20,20},{-120,20}},         color={0,0,127}));
   connect(opeModWarUpEngTem.TEng, TEng) annotation (Line(points={{59,-16},{40,
@@ -135,8 +135,8 @@ equation
                                                        color={0,0,127}));
   connect(assFue.mFue_flow, switch3.y) annotation (Line(points={{258,86},{250,86},
           {250,60},{241,60}}, color={0,0,127}));
-  connect(mWat_flow, opeModWarUpEngTem.mWat_flow) annotation (Line(points={{
-          -120,-10},{-40,-10},{-40,-4.2},{59,-4.2}}, color={0,0,127}));
+  connect(mWat_flow, opeModWarUpEngTem.mWat_flow) annotation (Line(points={{-120,
+          -20},{-40,-20},{-40,-4.2},{59,-4.2}},      color={0,0,127}));
   annotation (
     defaultComponentName="eneCon",
     Diagram(coordinateSystem(extent={{-100,-100},{280,160}})),
