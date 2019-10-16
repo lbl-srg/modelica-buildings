@@ -89,7 +89,7 @@ equation
       {-42,-32}},color={255,0,255}));
   connect(pre[2].y, chiOnOff.uChi[3])
     annotation (Line(points={{-18,80},{-10,80},{-10,40},{-112,40},{-112,79.3333},
-          {-82,79.3333}},            color={255,0,255}));
+          {-82,79.3333}}, color={255,0,255}));
   connect(chiTwo.y, chiOnOff.uChi[2])
     annotation (Line(points={{-18,-40},{-10,-40},{-10,-70},{-120,-70},{-120,78},
       {-82,78}}, color={255,0,255}));
@@ -134,7 +134,7 @@ equation
   connect(pre1[2].y, chiOff.uChi[3])
     annotation (Line(points={{162,80},{170,80},{170,40},{72,40},{72,79.3333},{
           100,79.3333}},
-                      color={255,0,255}));
+                       color={255,0,255}));
   connect(noUpDev.y, chiOff.uEnaChiWatIsoVal)
     annotation (Line(points={{42,20},{60,20},{60,82},{100,82}},
       color={255,0,255}));

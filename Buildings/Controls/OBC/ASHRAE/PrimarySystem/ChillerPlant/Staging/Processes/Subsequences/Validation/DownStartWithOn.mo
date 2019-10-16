@@ -81,8 +81,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch chiIsoVal1
     "Chilled water isolation valve one"
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(final
-      samplePeriod=10) "Output the input signal with a zero order hold"
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
+    final samplePeriod=10) "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{60,150},{80,170}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[2](
     final samplePeriod=fill(10,2))

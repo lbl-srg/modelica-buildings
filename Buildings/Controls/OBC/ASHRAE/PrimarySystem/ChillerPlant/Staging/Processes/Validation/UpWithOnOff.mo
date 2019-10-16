@@ -6,9 +6,9 @@ model UpWithOnOff
     final nChi=2,
     final totChiSta=3,
     final totSta=4,
-    havePonyChiller=true,
-    upOnOffSta={false,false,true},
-    dowOnOffSta={false,true,false},
+    final havePonyChiller=true,
+    final upOnOffSta={false,false,true},
+    final dowOnOffSta={false,true,false},
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},
@@ -64,19 +64,19 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(final k=false)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold conPumSpeSet(final
-      samplePeriod=10) "Design condenser water pump speed setpoint"
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold conPumSpeSet(
+    final samplePeriod=10) "Design condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold conPumSpe(final
-      samplePeriod=20) "Condenser water pump speed"
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold conPumSpe(
+    final samplePeriod=20) "Condenser water pump speed"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch loaTwo "Chiller load two"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer3[2](
     final k=fill(0,2)) "Constant zero"
     annotation (Placement(transformation(extent={{80,140},{100,160}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold chiTwoDem(final samplePeriod=10)
-    "Chiller two limited demand"
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold chiTwoDem(
+    final samplePeriod=10) "Chiller two limited demand"
     annotation (Placement(transformation(extent={{80,170},{100,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa3(final k=1000)
     "Chiller load"
@@ -86,11 +86,14 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold chiTwoDem1(
     final samplePeriod=10) "Limited chiller two demand"
     annotation (Placement(transformation(extent={{180,170},{200,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoSta(final pre_u_start=false) "Chiller two status"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoSta(
+    final pre_u_start=false) "Chiller two status"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOpe(final k=0) "Closed isolation valve"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOpe(
+    final k=0) "Closed isolation valve"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpe(final k=1) "Full open isolation valve"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpe(
+    final k=1) "Full open isolation valve"
     annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Switch IsoValOne "Logical switch"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
