@@ -10,7 +10,7 @@ function outputVariableExchange
   output Real y "Value of the EnergyPlus output variable";
   output Modelica.SIunits.Time tNext "Next time that the zone need to be invoked";
 
-  external "C" OutputVariableExchange(adapter, initialCall, y, tNext)
+  external "C" OutputVariableExchange(adapter, initialCall, tModel, y, tNext)
       annotation (
         IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
         Include="#include \"OutputVariableExchange.c\"");

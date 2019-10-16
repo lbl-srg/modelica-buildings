@@ -17,23 +17,22 @@ FMUOutputVariable* checkForDoubleOutputVariableDeclaration(
   int iOutVar;
   for(iOutVar = 0; iOutVar < fmuBld->nOutputVariables; iOutVar++){
     FMUOutputVariable* ptrOutVar = (FMUOutputVariable*)(fmuBld->outputVariables[iOutVar]);
-    if (!strcmp(outputVariable, ptrOutVar->outVarName[0])){
+    if (!strcmp(outVarName, ptrOutVar->outVarName)){
       return ptrOutVar;
     }
   }
   return NULL;
 }
 
-void setPointerIfAlreadyInstanciated(const char* modelicaNameOutputVariable, FMUOutputVariable** ptrFMUOutputVariable){
+void setOutputVariablePointerIfAlreadyInstanciated(const char* modelicaNameOutputVariable, FMUOutputVariable** ptrFMUOutputVariable){
   int iBui;
   int iOut;
   FMUBuilding* ptrBui;
-  FMUZone* ptrOutVar;
-  *ptrFMUZone = NULL;
+  FMUOutputVariable* ptrOutVar;
 
   for(iBui = 0; iBui < getBuildings_nFMU(); iBui++){
     ptrBui = getBuildingsFMU(iBui);
-    for(iOut = 0; iOut < ptrBui->nOut; iOut++){
+    for(iOut = 0; iOut < ptrBui->nOutputVariables; iOut++){
       ptrOutVar = (FMUOutputVariable*)(ptrBui->outputVariables[iOut]);
       if (strcmp(modelicaNameOutputVariable, ptrOutVar->modelicaNameOutputVariable) == 0){
         *ptrFMUOutputVariable = ptrOutVar;
@@ -61,11 +60,6 @@ void* OutputVariableAllocate(
   unsigned int i;
   FMUOutputVariable* outVar;
 
-  const char* outNames[1]; /* Although there is only one string, we use an array so we can reuse functions */
-  mallocString(strlen(outputName)+1, "Failed to allocate memory for outNames.", &outNames[0]);
-  strcpy(outNames[0], outputName);
-
-
   const size_t nFMU = getBuildings_nFMU();
   /* Name used to check for duplicate output variable entry in the same building */
   FMUOutputVariable* doubleOutVarSpec = NULL;
@@ -76,7 +70,7 @@ void* OutputVariableAllocate(
     ModelicaFormatMessage("Entered OutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
-  setPointerIfAlreadyInstanciated(modelicaNameOutputVariable, &outVar);
+  setOutputVariablePointerIfAlreadyInstanciated(modelicaNameOutputVariable, &outVar);
   if (outVar != NULL){
     if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaFormatMessage("*** OutputVariableAllocate called more than once for %s.\n", modelicaNameOutputVariable);
@@ -98,7 +92,7 @@ void* OutputVariableAllocate(
 
   /* Assign the Modelica instance name */
   mallocString(strlen(modelicaNameOutputVariable)+1, "Not enough memory in OutputVariableAllocate.c. to allocate Modelica instance name.", &(outVar->modelicaNameOutputVariable));
-  strcpy(zone->modelicaNameOutputVariable, modelicaNameOutputVariable);
+  strcpy(outVar->modelicaNameOutputVariable, modelicaNameOutputVariable);
 
   /* Assign the key and name */
   mallocString(strlen(outputKey)+1, "Not enough memory in OutputVariableAllocate.c. to allocate output key.", &(outVar->key));
@@ -108,12 +102,10 @@ void* OutputVariableAllocate(
   strcpy(outVar->name, outputName);
 
   /* Assign structural data */
-  buildVariableNames(
-    outVar->key,
-    outVar->name,
-    1,
-    &outVar->outNames,
-    &outVar->outVarNames);
+  buildVariableName(
+    (const char*)(outVar->key),
+    (const char*)(outVar->name),
+    outVar->outVarName);
 
   /* *************************************************************************** */
   /* Initialize the pointer for the FMU to which this output variable belongs to */
@@ -131,15 +123,14 @@ void* OutputVariableAllocate(
         ModelicaMessage("*** Found a match.\n");
       }
       /* This is the same FMU as before. */
-      /* In the call below, we use outVarNames[0] because it never has more than one element. */
-      doubleOutVarSpec = checkForDoubleOutputVariableDeclaration(fmu, outVar->outVarNames[0]);
+      doubleOutVarSpec = checkForDoubleOutputVariableDeclaration(fmu, outVar->outVarName);
 
       if (doubleOutVarSpec != NULL){
         /* This output variable has already been specified. We can just point to the same
            data structure */
         if (FMU_EP_VERBOSITY >= MEDIUM){
           ModelicaFormatMessage("Assigning outVar '%s' to previously used outvar at %p",
-          outVar->outVarNames[0],
+          outVar->outVarName,
           outVar);
         }
         /* Assign by reference */

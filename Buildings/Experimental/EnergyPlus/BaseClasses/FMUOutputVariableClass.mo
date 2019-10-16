@@ -66,7 +66,7 @@ First implementation.
     external "C" OutputVariableFree(adapter)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"OututVariableFree.c\"");
+          Include="#include \"OutputVariableFree.c\"");
 
   annotation(Documentation(info="<html>
 <p>

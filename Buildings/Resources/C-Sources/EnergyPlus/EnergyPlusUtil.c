@@ -7,6 +7,9 @@
 
 #include "EnergyPlusUtil.h"
 
+#ifndef Buildings_EnergyPlusUtil_c
+#define Buildings_EnergyPlusUtil_c
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -499,9 +502,32 @@ void fmilogger(jm_callbacks* c, jm_string module, jm_log_level_enu_t log_level, 
   }
 }
 
-void buildVariableNames(
+void buildVariableName(
   const char* firstPart,
-  const char** secondParts,
+  const char* secondPart,
+  char* ptrFullName){
+  size_t i;
+  size_t len;
+
+  len = strlen(firstPart) + 1 + strlen(secondPart);
+
+  mallocString(len+1, "Failed to allocate memory for ptrFullName in EnergyPlusUtil.c.", &ptrFullName);
+  /* Copy the string */
+  memset(ptrFullName, '\0', len+1);
+  strcpy(ptrFullName, firstPart);
+  strcat(ptrFullName, "_");
+  strcat(ptrFullName, secondPart);
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("Built variable name '%s'.\n", ptrFullName);
+
+  return;
+}
+
+
+void buildVariableNames(
+  const char* zoneName,
+  const char** variableNames,
   const size_t nVar,
   char** *ptrVarNames,
   char** *ptrFullNames){
@@ -510,41 +536,41 @@ void buildVariableNames(
     /* Compute longest output plus zone name */
     len = 0;
     for (i=0; i<nVar; i++)
-      len = max(len, strlen(secondParts[i]));
+      len = max(len, strlen(variableNames[i]));
 
     *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
       if (*ptrVarNames == NULL)
-        ModelicaError("Failed to allocate memory for ptrVarNames in EnergyPlusUtil.c.");
+        ModelicaError("Failed to allocate memory for ptrVarNames in ZoneInstantiate.c.");
 
     for (i=0; i<nVar; i++){
-      mallocString(len+1, "Failed to allocate memory for ptrVarNames[i] in EnergyPlusUtil.c.", &((*ptrVarNames)[i]));
+      mallocString(len+1, "Failed to allocate memory for ptrVarNames[i] in ZoneInstantiate.c.", &((*ptrVarNames)[i]));
     }
     /* Copy the string */
     for (i=0; i<nVar; i++){
       memset((*ptrVarNames)[i], '\0', len+1);
-      strcpy((*ptrVarNames)[i], secondParts[i]);
+      strcpy((*ptrVarNames)[i], variableNames[i]);
     }
 
     /* Compute longest output plus zone name */
     len = 0;
     for (i=0; i<nVar; i++){
       /* Use +1 to account for the comma */
-      len = max(len, strlen(firstPart) + 1 + strlen(secondParts[i]));
+      len = max(len, strlen(zoneName) + 1 + strlen(variableNames[i]));
     }
 
     *ptrFullNames = (char**)malloc(nVar * sizeof(char*));
     if (*ptrFullNames == NULL)
-      ModelicaError("Failed to allocate memory for ptrFullNames in EnergyPlusUtil.c.");
+      ModelicaError("Failed to allocate memory for ptrFullNames in ZoneInstantiate.c.");
 
     for (i=0; i<nVar; i++){
-      mallocString(len+1, "Failed to allocate memory for ptrFullNames[i] in EnergyPlusUtil.c.", &((*ptrFullNames)[i]));
+      mallocString(len+1, "Failed to allocate memory for ptrFullNames[i] in ZoneInstantiate.c.", &((*ptrFullNames)[i]));
     }
     /* Copy the string */
     for (i=0; i<nVar; i++){
       memset((*ptrFullNames)[i], '\0', len+1);
-      strcpy((*ptrFullNames)[i], firstPart);
+      strcpy((*ptrFullNames)[i], zoneName);
       strcat((*ptrFullNames)[i], "_");
-      strcat((*ptrFullNames)[i], secondParts[i]);
+      strcat((*ptrFullNames)[i], variableNames[i]);
     }
   return;
 }
@@ -596,3 +622,4 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
 
   return;
 }
+#endif

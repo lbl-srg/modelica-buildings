@@ -24,7 +24,7 @@ void checkForDoubleZoneDeclaration(const struct FMUBuilding* fmuBld, const char*
   return;
 }
 
-void setPointerIfAlreadyInstanciated(const char* modelicaNameThermalZone, FMUZone** ptrFMUZone){
+void setZonePointerIfAlreadyInstanciated(const char* modelicaNameThermalZone, FMUZone** ptrFMUZone){
   int iBui;
   int iZon;
   FMUBuilding* ptrBui;
@@ -77,7 +77,7 @@ void* ZoneAllocate(
     ModelicaFormatMessage("Buildings library root is at %s\n", buildingsLibraryRoot);
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
-  setPointerIfAlreadyInstanciated(modelicaNameThermalZone, &zone);
+  setZonePointerIfAlreadyInstanciated(modelicaNameThermalZone, &zone);
   if (zone != NULL){
     if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaFormatMessage("*** ZoneAllocate called more than once for %s.\n", modelicaNameThermalZone);
@@ -111,22 +111,22 @@ void* ZoneAllocate(
     zone->name,
     parOutNames,
     ZONE_N_PAR_OUT,
-    &zone->parOutNames,
-    &zone->parOutVarNames);
+    &(zone->parOutNames),
+    &(zone->parOutVarNames));
 
   buildVariableNames(
     zone->name,
     inpNames,
     ZONE_N_INP,
-    &zone->inpNames,
-    &zone->inpVarNames);
+    &(zone->inpNames),
+    &(zone->inpVarNames));
 
   buildVariableNames(
     zone->name,
     outNames,
     ZONE_N_OUT,
-    &zone->outNames,
-    &zone->outVarNames);
+    &(zone->outNames),
+    &(zone->outVarNames));
 
   zone->parOutValReferences = NULL;
   zone->parOutValReferences = (fmi2ValueReference*)malloc(ZONE_N_PAR_OUT * sizeof(fmi2ValueReference));

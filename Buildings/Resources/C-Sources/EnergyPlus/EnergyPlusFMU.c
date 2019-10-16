@@ -6,6 +6,9 @@
 
 #include "EnergyPlusFMU.h"
 
+#ifndef Buildings_EnergyPlusFMU_c
+#define Buildings_EnergyPlusFMU_c
+
 #include "EnergyPlusUtil.c"
 
 #include <stdlib.h>
@@ -250,3 +253,4 @@ void FMUBuildingFree(FMUBuilding* ptrBui){
     free(Buildings_FMUS);
   }
 }
+#endif

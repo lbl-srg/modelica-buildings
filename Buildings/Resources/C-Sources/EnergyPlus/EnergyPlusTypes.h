@@ -106,11 +106,9 @@ typedef struct FMUOutputVariable
   char* name;      /* Name of this output variable in the idf file */
   char* key;       /* Key of this output variable in the idf file */
 
-  char** outNames;
-
   fmi2ValueReference* outValReferences; /* Value references of output variables*/
 
-  fmi2Byte** outVarName; /* Full name of output variables (used to get value reference). Array of size 1 */
+  fmi2Byte* outVarName; /* Full name of output variable (used to get value reference). */
 
   fmi2Boolean isInstantiated; /* Flag set to true when the output variable has been completely instantiated */
   fmi2Boolean isInitialized; /* Flag set to true after the output variable has executed a get call in the initializion mode

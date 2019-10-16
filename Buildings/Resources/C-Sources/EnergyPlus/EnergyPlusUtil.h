@@ -58,15 +58,21 @@ char* getFileNameWithoutExtension(const char* idfName);
 
 void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** dirNam);
 
+void buildVariableName(
+  const char* firstPart,
+  const char* secondPart,
+  char* ptrFullName);
+
 void buildVariableNames(
   const char* firstPart,
   const char** secondParts,
   const size_t nVar,
   char** *ptrVarNames,
   char** *ptrFullNames);
-
 void getSimulationTemporaryDirectory(const char* idfName, char** dirNam);
 
 void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double startTime);
+
+void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const char* modelicaInstanceName, double time);
 
 #endif

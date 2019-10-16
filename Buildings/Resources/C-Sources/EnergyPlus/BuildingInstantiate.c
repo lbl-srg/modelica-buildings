@@ -6,6 +6,9 @@
  */
 
 #include "BuildingInstantiate.h"
+#ifndef Buildings_BuildingInstantiate_c
+#define Buildings_BuildingInstantiate_c
+
 #include "EnergyPlusFMU.h"
 
 #include <stdlib.h>
@@ -148,7 +151,7 @@ void setValueReferences(FMUBuilding* fmuBui){
   size_t nv = fmi2_import_get_variable_list_size(vl);
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Searching for variable reference.");
+    ModelicaFormatMessage("Setting variable references.");
   /* Set value references for the parameters by assigning the values obtained from the FMU */
   for(iZon = 0; iZon < fmuBui->nZon; iZon++){
     zone = (FMUZone*) fmuBui->zones[iZon];
@@ -462,3 +465,4 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
 
   return;
 }
+#endif
