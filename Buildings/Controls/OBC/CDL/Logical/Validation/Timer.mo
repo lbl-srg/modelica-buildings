@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model Timer "Validation model for the Timer block"
 
-
   Buildings.Controls.OBC.CDL.Logical.Timer resetTimer "Timer will reset"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.CDL.Logical.Timer accuTimer(
