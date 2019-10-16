@@ -1,5 +1,8 @@
 compareVars :=
   {
     "movMea.u",
-    "movMea.y"
+    "movMea.y",
+    "movMea1.y",
+    "sam.y",
+    "booPul.y"
   };
