@@ -42,7 +42,7 @@ model ElectroChromicWindow
     hRoo=3.37,
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
-    each conBou(opa(T(each start = T_start))),
+    conBou(opa(T(each start = T_start))),
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.65484753534827,
@@ -202,9 +202,10 @@ model ElectroChromicWindow
   Modelica.Blocks.Math.MatrixGain gai(K=120/AFlo*[0.4; 0.4; 0.2])
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Modelica.Blocks.Sources.Pulse nPer(period(displayUnit="d") = 86400, startTime(
-        displayUnit="h") = 25200,
-    amplitude=2)                  "Number of persons"
+  Modelica.Blocks.Sources.Pulse nPer(
+    period(displayUnit="d") = 86400,
+    startTime(displayUnit="h") = 25200,
+    amplitude=2) "Number of persons"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
 equation
@@ -222,14 +223,14 @@ equation
       points={{150,20},{136,20},{136,21.9},{99.9,21.9}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, weaDat1.weaBus) annotation (Line(
       points={{150,20},{150,20},{196,20},{196,114},{160,114}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(roo.heaPorAir, TRooAir.port)
@@ -271,6 +272,10 @@ and controls the window state based on room air temperature and solar irradiatio
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed wrong <code>each</code>.
+</li>
 <li>
 November 21, 2016, by Michael Wetter:<br/>
 Removed unused block <code>Infiltration</code> which also had an error due to a wrong instance name.<br/>

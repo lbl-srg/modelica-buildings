@@ -13,7 +13,8 @@ model DCLines
     V_nominal=50,
     mode=Types.CableMode.commercial,
     commercialCable=Transmission.LowVoltageCables.PvcAl16(),
-    l=L) "Transmission line"
+    l=L,
+    terminal_n(v(each start=0))) "Transmission line"
     annotation (Placement(transformation(extent={{-2,70},{18,90}})));
   Sources.ConstantVoltage E(V=50) "Voltage source"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));

@@ -47,7 +47,7 @@ model Window "Test model for the window"
         rotation=90,
         origin={312,68})));
   replaceable parameter
-    Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear         glaSys(
+    Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveExteriorShade=false,
     haveInteriorShade=true) constrainedby Data.GlazingSystems.Generic
@@ -107,7 +107,9 @@ model Window "Test model for the window"
     "Model for interior shade heat transfer"
     annotation (Placement(transformation(extent={{248,20},{228,40}})));
 protected
-  Modelica.Blocks.Math.Sum sumJ(nin=if glaSys.haveShade then 2 else 1)
+  Modelica.Blocks.Math.Sum sumJ(
+    nin=if glaSys.haveShade then 2 else 1,
+    u(each start=0))
     "Sum of radiosity fom glass to outside"
     annotation (Placement(transformation(extent={{260,60},{280,80}})));
 
@@ -161,7 +163,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(winRad.QTraDif_flow, HRoo.u) annotation (Line(
-      points={{121,-18},{140,-18},{140,-80},{40,-80},{40,-50},{58,-50}},
+      points={{121,-16},{140,-16},{140,-80},{40,-80},{40,-50},{58,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HRoo.y,winRad. HRoo) annotation (Line(
@@ -193,7 +195,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus, HDirTil.weaBus) annotation (Line(
@@ -201,7 +203,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDifTilIso.weaBus, weaBus) annotation (Line(
@@ -209,14 +211,14 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOuts.T, weaBus.TDryBul) annotation (Line(
       points={{-22,50},{-30,50},{-30,20},{20,20},{20,-10}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(uSha.y, winRad.uSha) annotation (Line(
@@ -233,7 +235,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.TDryBul, extCon.TOut) annotation (Line(
@@ -241,7 +243,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(uSha.y, shaSig.u) annotation (Line(

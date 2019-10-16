@@ -1,0 +1,2 @@
+simulateModel("Buildings.Utilities.IO.Files.Examples.JSONWriter", stopTime=2, method="Lsodar", tolerance=1e-06, resultFile="JSONWriter");
+createPlot(id=1, position={15, 10, 592, 427}, y={"ramp.startTime", "const.y", "cosine.y"}, range={0.0, 1.0, -1.5, 2.5}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});

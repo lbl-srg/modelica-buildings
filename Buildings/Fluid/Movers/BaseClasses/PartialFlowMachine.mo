@@ -4,6 +4,7 @@ partial model PartialFlowMachine
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    m_flow_nominal(final min=Modelica.Constants.small),
     show_T=false,
     port_a(
       h_outflow(start=h_outflow_start)),
@@ -341,6 +342,10 @@ protected
   end Extractor;
 
 initial equation
+  // Check incorrect value of m_flow_nominal
+  assert(m_flow_nominal >= Modelica.Constants.small, "In "+ getInstanceName()+
+  ": The value of parameter m_flow_nominal should be greater or equal than " +
+  String(Modelica.Constants.small) + " but it equals " + String(m_flow_nominal));
   // The control signal is dp or m_flow but the user did not provide a pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // Therefore, scaling the power using the speed is inaccurate.
@@ -360,6 +365,8 @@ initial equation
   // In addition, the user wants to use (V_flow, P) to compute the power.
   // This can lead to using a power that is less than the flow work. We avoid
   // this by ignoring the setting of per.use_powerCharacteristics.
+  // The comment is split into two parts since otherwise the JModelica C-compiler
+  // throws warnings.
   assert(nominalValuesDefineDefaultPressureCurve or
          (per.havePressureCurve or
            (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)) or
@@ -367,8 +374,8 @@ initial equation
 "*** Warning: You are using a flow or pressure controlled mover with the
              default pressure curve and you set use_powerCharacteristic = true.
              Since this can cause wrong power consumption, the model will overwrite
-             this setting and use instead use_powerCharacteristic = false.
-             Since this causes the efficiency curve to be used,
+             this setting and use instead use_powerCharacteristic = false." +
+             "Since this causes the efficiency curve to be used,
              make sure that the efficiency curves in the performance record per
              are correct or add the pressure curve of the mover.
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
@@ -518,6 +525,19 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 22, 2019, by Filip Jorissen:<br/>
+Split long assert output string into two strings to avoid compiler warnings
+in JModelica.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1081\">#1081</a>.
+</li>
+<li>
+January 8, 2019, by Filip Jorissen:<br/>
+Added assert for value of <code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/908\">#908</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>

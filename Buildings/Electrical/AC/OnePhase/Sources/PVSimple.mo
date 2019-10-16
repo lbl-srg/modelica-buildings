@@ -3,7 +3,7 @@ model PVSimple "Simple PV model"
   extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
   extends Buildings.Electrical.Interfaces.PartialPV(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_p terminal,
+    redeclare replaceable Interfaces.Terminal_p terminal,
     V_nominal(start = 110));
   parameter Boolean linearized=false
     "If =true, introduce a linearization in the load";
@@ -21,20 +21,20 @@ protected
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={12,0})));
+        origin={36,0})));
 equation
   connect(load.terminal, terminal) annotation (Line(
       points={{-40,0},{-100,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(solarPower.y, gain_DCAC.u) annotation (Line(
-      points={{70,0},{24,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(gain_DCAC.y, load.Pow) annotation (Line(
-      points={{1,0},{-20,0}},
+      points={{25,1.33227e-15},{2,1.33227e-15},{2,0},{-20,0}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(gain_DCAC.u, solarPower.y)
+    annotation (Line(points={{48,0},{70,0}}, color={0,0,127}));
+  connect(gain_DCAC.y, P) annotation (Line(points={{25,1.33227e-15},{20,1.33227e-15},
+          {20,70},{110,70}}, color={0,0,127}));
   annotation (
 defaultComponentName="pv",
 Documentation(info="<html>
@@ -72,6 +72,16 @@ Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 7, 2019, by Michael Wetter:<br/>
+Corrected model to include DC/AC conversion in output <code>P</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
+</li>
+<li>
+January 30, 2019, by Michael Wetter:<br/>
+Added <code>replaceable</code>.
+</li>
 <li>
 February 26, 2016, by Michael Wetter:<br/>
 In load, set <code>P_nominal = 0</code> as it is not used.

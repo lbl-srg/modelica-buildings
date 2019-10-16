@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "wseTun.uTowFanSpeMax",
+    "wseTun1.uTowFanSpeMax",
+    "wseTun2.uTowFanSpeMax",
+    "wseTun3.uTowFanSpeMax",
+    "wseTun.uWseSta",
+    "wseTun1.uWseSta",
+    "wseTun2.uWseSta",
+    "wseTun3.uWseSta",
+    "wseTun.y",
+    "wseTun1.y",
+    "wseTun2.y",
+    "wseTun3.y"
+  };

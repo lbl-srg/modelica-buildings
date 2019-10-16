@@ -20,7 +20,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)"
     annotation(Evaluate=true);
   parameter Real yFixed[nRea] "Fixed output, used if activateInterface=false"
-    annotation (Evaluate=true, Dialog(enable=not activateInterface));
+    annotation (Dialog(enable=not activateInterface));
   parameter Integer nSur(min=2) "Number of surfaces";
   parameter Integer nConExtWin(min=0)
     "number of exterior construction with window";
@@ -36,6 +36,9 @@ block CFDExchange "Block that exchanges data with the CFD code"
   parameter Boolean verbose=false "Set to true for verbose output";
   parameter Modelica.SIunits.Density rho_start "Density at initial state";
 
+  CFDThread CFDThre = CFDThread()
+   "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
+
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to CFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   discrete Modelica.Blocks.Interfaces.RealOutput y[nRea] "Outputs received from CFD"
@@ -44,6 +47,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
   Real uInt[nWri] "Value of integral";
   discrete Real uIntPre[nWri] "Value of integral at previous sampling instance";
   discrete Real uWri[nWri] "Value to be sent to the CFD interface";
+
 
 protected
   final parameter Integer nSen(min=0) = size(sensorName, 1)
@@ -304,7 +308,7 @@ algorithm
 
   when sampleTrigger then
     // Exchange data
-    if (activateInterface and (not terminal())) then
+    if activateInterface then
       (modTimRea,y,retVal) := exchange(
         flag=0,
         t=time,
@@ -327,38 +331,6 @@ algorithm
       "   Received: retVal = " + String(retVal));
   end when;
 
-  when terminal() then
-    assert(
-      rem(time - startTime, samplePeriod) < 0.00001,
-      "Warning: The simulation time is not a multiple of sampling time.",
-      level=AssertionLevel.warning);
-    if verbose then
-      Modelica.Utilities.Streams.print("CFDExchange:terminate at t=" + String(
-        time));
-    end if;
-    // Send the stopping singal to CFD
-    cfdSendStopCommand();
-
-    // Last exchange of data
-    if activateInterface then
-      (modTimRea,y,retVal) := exchange(
-        flag=0,
-        t=time,
-        dt=samplePeriod,
-        u=uWri,
-        nU=size(u, 1),
-        yFixed=yFixed,
-        nY=size(y, 1),
-        verbose=verbose);
-    else
-      modTimRea := time;
-      y := yFixed;
-      retVal := 0;
-    end if;
-    // Check if CFD has successfully stopped
-    assert(cfdReceiveFeedback() == 0, "Could not terminate the cosimulation.");
-
-  end when;
   annotation (
     Documentation(info="<html>
 <p>
@@ -372,6 +344,14 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+January 12, 2019, by Michael Wetter:<br/>
+Removed <code>Evaluate</code> statement as the model is used with
+<code>fixed=false</code> which causes a warning in JModelica.
+</li>
+<li>
+July 27, 2018, by Wei Tian and Xu Han:<br/>
+To fix the issue FFD fails in JModelica tests due to unsupported OS #612 at
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/612\">issue 612</a>.
 November 17, 2016, by Michael Wetter:<br/>
 Removed public parameter <code>uStart</code>, which is not needed and
 refactored model.<br/>

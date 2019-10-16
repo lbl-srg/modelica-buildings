@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "integerSwitch.u1",
+    "integerSwitch.u2",
+    "integerSwitch.u3",
+    "integerSwitch.y"
+  };

@@ -3,7 +3,8 @@ model ACDCConverter "AC DC converter"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(
+    redeclare replaceable Interfaces.Terminal_n terminal_n
+      constrainedby Interfaces.Terminal_n(
         i(start = zeros(PhaseSystem_n.n),
         each stateSelect = StateSelect.prefer)),
     redeclare DC.Interfaces.Terminal_p terminal_p(
@@ -21,7 +22,8 @@ protected
   PhaseSystem_p.Voltage v_dc "DC voltage";
   Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
     "Power transmitted at pin p (secondary)";
-  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
+  Modelica.SIunits.Power P_n[2](each start=0)=
+     PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
     "Power transmitted at pin n (primary)";
 equation
   //voltage relation
@@ -148,6 +150,10 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 30, 2019, by Michael Wetter:<br/>
+Added missing <code>replaceable</code> for the terminal.
+</li>
 <li>
 March 30, 2015, by Michael Wetter:<br/>
 Added missing <code>each</code>.

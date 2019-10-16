@@ -14,7 +14,7 @@ protected
   Modelica.SIunits.ThermalResistance prevT "Interpolated value of TStep at previous cell";
   Modelica.SIunits.ThermalResistance curT "Interpolated value of TStep at current cell";
   Integer curInt "Integer to select data interval";
-  Real[size(TStep[:,1], 1)] d(unit="K/J") "Derivatives at the support points";
+  Real[size(TStep[:,1], 1)] d(each unit="K/J") "Derivatives at the support points";
 
 algorithm
   d := Buildings.Utilities.Math.Functions.splineDerivatives(

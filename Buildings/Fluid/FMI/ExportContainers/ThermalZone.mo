@@ -1,8 +1,10 @@
 within Buildings.Fluid.FMI.ExportContainers;
 partial block ThermalZone
   "Partial block to export a model of a thermal zone as an FMU"
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium model" annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Integer nPorts(min=2) "Number of fluid ports";
 
@@ -136,10 +138,11 @@ the port <code>fluPor</code> (which is negative if it is an exhaust),
 <i>T<sub>air,zon</sub></i> is the zone air temperature.
 Note that without the <i>max(&middot;, &middot;)</i>, the energy
 balance would be wrong.
-Models in the package
+For example,
+models in the package
 <a href=\"modelica://Buildings.ThermalZones.Detailed\">
-Buildings.ThermalZones.Detailed</a>
-as well as the control volumes in
+Buildings.ThermalZones.Detailed</a> as well as
+the control volumes in
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>
 implement such a <i>max(&middot;, &middot;)</i> function.
@@ -173,6 +176,11 @@ that has signal flow.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 September 20, 2016, by Thierry S. Nouidui:<br/>
 Revised documentation to explain the rationale

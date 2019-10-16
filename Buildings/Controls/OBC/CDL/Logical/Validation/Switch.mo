@@ -20,12 +20,11 @@ model Switch "Validation model for the Switch block"
 equation
   connect(booPul.y, switch1.u2)
     annotation (Line(points={{-5,0},{10,0},{24,0}}, color={255,0,255}));
-  connect(ramp2.y, switch1.u3)
-    annotation (Line(points={{-5,-32},{8,-32},{8,-8},{24,-8}}, color={0,0,127}));
+  connect(ramp2.y, switch1.u3) annotation (Line(points={{-5,-32},{8,-32},{8,-8},
+          {24,-8}}, color={0,0,127}));
   connect(ramp1.y, switch1.u1)
     annotation (Line(points={{-5,32},{8,32},{8,8},{24,8}}, color={0,0,127}));
-
-annotation (
+  annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Switch.mos"
         "Simulate and plot"),

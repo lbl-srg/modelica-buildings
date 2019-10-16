@@ -3,8 +3,9 @@ partial block HVACZone
   "Partial block to export an HVAC system that has no radiative component and that serves multiple zones as an FMU"
 
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   // Set allowFlowReversal = true to get access to the states of the zone.
   Interfaces.Outlet fluPor[size(hvacAda.fluPor, 1)](
@@ -218,6 +219,11 @@ in models that are connected to <code>ports</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
 <li>
 April 15, 2016, by Michael Wetter:<br/>
 First implementation.

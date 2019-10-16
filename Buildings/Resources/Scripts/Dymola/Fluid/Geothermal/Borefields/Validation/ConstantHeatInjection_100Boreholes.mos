@@ -1,0 +1,8 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.Validation.ConstantHeatInjection_100Boreholes", startTime=0, method="Cvode", tolerance=1e-6, stopTime=31536.0E+06, resultFile="ConstantHeatInjection_100Boreholes");
+removePlots();
+createPlot(
+  id=1,
+  position={0, 0, 1268, 736},
+  y={"borHol.TBorAve"},
+  grid=true,
+  filename = "ConstantHeatInjection_100Boreholes.mat");

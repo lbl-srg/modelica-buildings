@@ -10,7 +10,9 @@ model CheckTemperature "Test model for CheckTemperature"
   Buildings.Utilities.Time.ModelTime modTim
     "Block that outputs the model time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim(
+    weaDatStaTim=0,
+    weaDatEndTim=31536000)
     "Block that converts time"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
@@ -37,13 +39,13 @@ equation
       points={{-39,10},{-22,10}},
       color={0,0,127}));
   connect(datRea.y[1], from_degC.u) annotation (Line(
-      points={{1,9.03448},{10,9.03448},{10,30},{17.8,30}},
+      points={{1,10},{10,10},{10,30},{17.8,30}},
       color={0,0,127}));
   connect(from_degC.y, cheTemDryBul.TIn) annotation (Line(
       points={{43.1,30},{58,30}},
       color={0,0,127}));
   connect(datRea.y[2], from_degC1.u) annotation (Line(
-      points={{1,9.10345},{10,9.10345},{10,-10},{17.8,-10}},
+      points={{1,10},{10,10},{10,-10},{17.8,-10}},
       color={0,0,127}));
   connect(from_degC1.y, cheTemDewPoi.TIn) annotation (Line(
       points={{43.1,-10},{58,-10}},

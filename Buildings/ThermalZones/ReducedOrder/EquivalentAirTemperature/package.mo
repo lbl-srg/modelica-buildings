@@ -20,20 +20,20 @@ Guideline VDI 6007 Part 1 (VDI, 2012). The influence of indoor temperatures
 via heat transfer through exterior walls is neglected. The exterior wall&apos;s
 outdoor surface is assumed to have the outdoor air temperature for calculation
 of radiative heat exchange with the ambient.</p>
-<p>The fundamental equation is: </p>
+<p>The fundamental equation is</p>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>EqAirExt</sub> = T
 <sub>AirAmb</sub>+&Delta;T<sub>EqLW</sub>+&Delta;T
-<sub>EqSW</sub>
+<sub>EqSW</sub>.
 </p>
 <p>
 The correction term for long-wave radiation is based on the black body sky
-temperature and dry bulb temperature.</p>
+temperature and dry bulb temperature, and it is calculated as</p>
 <p align=\"center\" style=\"font-style:italic;\">
 &Delta;T<sub>EqLW</sub> =
 (T<sub>BlaSky</sub>-T<sub>DryBul</sub>)
-&alpha;<sub>Rad</sub>/
-(&alpha;<sub>Rad</sub>+&alpha;<sub>Ext</sub>).
+h<sub>Rad</sub>/
+(h<sub>Rad</sub>+h<sub>Ext</sub>).
 </p>
 <p>
 The Guideline VDI 6007 Part 1 considers in
@@ -60,7 +60,7 @@ as
 </p>
 <p align=\"center\"  style=\"font-style:italic;\">
 &Delta;T<sub>EqSW</sub> = H<sub>Sol
-</sub>a<sub>Ext</sub>/(&alpha;<sub>Rad</sub>+&alpha;<sub>Ext</sub>).
+</sub>a<sub>Ext</sub>/(h<sub>Rad</sub>+h<sub>Ext</sub>).
 </p>
 <p>
 With the equations above, one equivalent air temperature per orientation
@@ -88,7 +88,8 @@ rooms.</p>
 Modelling long-wave radiation heat exchange for thermal network building
 simulations at urban scale using Modelica. <i>Proceedings of the 10th
 International Modelica Conference</i>, p. 125-133, Lund, Sweden. Mar. 10-12,
-2014. <a href=\"http://dx.doi.org/10.3384/ECP14096125\">doi:10.3384/ECP14096125</a></p>
+2014. <a href=\"http://www.ep.liu.se/ecp/096/013/ecp14096013.pdf\">
+http://www.ep.liu.se/ecp/096/013/ecp14096013.pdf</a></p>
 </html>"));
 end UsersGuide;
 

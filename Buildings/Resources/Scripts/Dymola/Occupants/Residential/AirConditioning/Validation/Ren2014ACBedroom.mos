@@ -1,0 +1,3 @@
+simulateModel("Buildings.Occupants.Residential.AirConditioning.Validation.Ren2014ACBedroom", stopTime=3600, method="Cvode", tolerance=1E-6, resultFile="Ren2014ACBedroom");
+createPlot(id=1, position={33, 24, 1372, 721}, y={"ac.TIn"}, range={0.0, 4000.0, 270.0, 310.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={33, 24, 1372, 358}, y={"ac.occ", "ac.on"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});

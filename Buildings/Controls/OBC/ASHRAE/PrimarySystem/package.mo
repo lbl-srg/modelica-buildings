@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE;
-package PrimarySystem "Package with control sequences for primary system"
+package PrimarySystem "Package with primary system control sequences"
 
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences for HVAC primary system control. They are
-developed according to ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL.
+This package contains control sequences for primary HVAC systems. They are
+developed according to ASHRAE RP-1711, Draft 4, January 7 2019 and Draft 5, March 26 2019.
 </p>
 </html>"),
 Icon(graphics={

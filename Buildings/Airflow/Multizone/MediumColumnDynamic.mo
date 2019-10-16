@@ -3,14 +3,12 @@ model MediumColumnDynamic
   "Vertical shaft with no friction and storage of heat and mass"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component" annotation (choicesAllMatching=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition, used only for steady-state model"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
@@ -24,12 +22,20 @@ model MediumColumnDynamic
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
+  parameter Modelica.SIunits.Volume V "Volume in medium shaft";
+
+  // Heat transfer through boundary
+  parameter Boolean use_HeatTransfer = false
+    "= true to use the HeatTransfer model"
+      annotation (Dialog(tab="Assumptions", group="Heat transfer"));
+
   // m_flow_nominal is not used by vol, since this component
   // can only be configured as a dynamic model.
+  // Therefore we set it to about 10 air changes per hour
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     final nPorts=2,
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=V/360,
     final V=V,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -56,12 +62,6 @@ model MediumColumnDynamic
     "Medium colum that connects to bottom port"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
-  parameter Modelica.SIunits.Volume V "Volume in medium shaft";
-
-  // Heat transfer through boundary
-  parameter Boolean use_HeatTransfer = false
-    "= true to use the HeatTransfer model"
-      annotation (Dialog(tab="Assumptions", group="Heat transfer"));
   replaceable model HeatTransfer =
       Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
     constrainedby
@@ -180,6 +180,17 @@ at the top of the column.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2019, by Jianjun Hu:<br/>
+Limited the media choice to moist air only.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+</li>
+<li>
+January 8, 2019, by Michael Wetter:<br/>
+Changed public parameter <code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/970\">#970</a>.
+</li>
 <li>
 May 1, 2018, by Filip Jorissen:<br/>
 Removed declaration of <code>allowFlowReversal</code>

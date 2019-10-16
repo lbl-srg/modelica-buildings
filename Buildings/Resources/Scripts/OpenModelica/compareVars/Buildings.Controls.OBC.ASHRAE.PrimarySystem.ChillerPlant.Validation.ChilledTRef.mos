@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "chillerdTRef.yPLR",
-    "chillerdTRef.dTRef",
-    "chillerdTRef_Sim.yPLR",
-    "chillerdTRef_Sim.dTRef"
-  };

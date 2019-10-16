@@ -106,25 +106,25 @@ equation
     annotation (Line(points={{-99,-60},{-48,-60},{-48,-32},{-2,-32},{-2,0},{19,0}},
     color={255,127,0}));
   connect(TOutBelowCutoff.y, economizer.TOut)
-    annotation (Line(points={{-99,110},{-6,110},{-6,22},{19,22}},color={0,0,127}));
-  connect(TOutCut1.y, economizer.TOutCut)
-    annotation (Line(points={{-99,70},{-10,70},{-10,20},{19,20}}, color={0,0,127}));
+    annotation (Line(points={{-99,110},{-6,110},{-6,24},{19,24}},color={0,0,127}));
+  connect(TOutCut1.y,economizer.TCut)
+    annotation (Line(points={{-99,70},{-10,70},{-10,22},{19,22}}, color={0,0,127}));
   connect(hOutBelowCutoff.y, economizer.hOut)
     annotation (Line(points={{-99,20},{-60,20},{-60,18},{19,18},{19,18}},color={0,0,127}));
-  connect(hOutCut.y, economizer.hOutCut)
+  connect(hOutCut.y,economizer.hCut)
     annotation (Line(points={{-99,-20},{-60,-20},{-60,2},{-60,16},{19,16}},color={0,0,127}));
   connect(TSupSetSig.y, economizer.THeaSupSet)
     annotation (Line(points={{-59,50},{-52,50},{-52,12},{19,12}},color={0,0,127}));
   connect(TSupSig.y, economizer.TSup)
     annotation (Line(points={{-59,90},{-50,90},{-50,14},{19,14}}, color={0,0,127}));
   connect(TOutBelowCutoff.y, economizer1.TOut)
-    annotation (Line(points={{-99,110},{90,110},{90,-18},{99,-18}}, color={0,0,127}));
-  connect(TOutCut1.y, economizer1.TOutCut)
-    annotation (Line(points={{-99,70},{88,70},{88,-20},{99,-20}}, color={0,0,127}));
+    annotation (Line(points={{-99,110},{90,110},{90,-16},{99,-16}}, color={0,0,127}));
+  connect(TOutCut1.y,economizer1.TCut)
+    annotation (Line(points={{-99,70},{88,70},{88,-18},{99,-18}}, color={0,0,127}));
   connect(TSupSig1.y, economizer1.TSup)
     annotation (Line(points={{61,90},{80,90},{80,-26},{99,-26}}, color={0,0,127}));
   connect(TSupSetSig.y, economizer1.THeaSupSet)
-    annotation (Line(points={{-59,50},{-54,50},{-54,-20},{20,-20},{20,-28},{99,-28}},
+    annotation (Line(points={{-59,50},{-54,50},{-54,-16},{20,-16},{20,-28},{99,-28}},
     color={0,0,127}));
   connect(fanSta.y, economizer1.uSupFan)
     annotation (Line(points={{-59,-80},{20,-80},{20,-36},{99,-36}}, color={255,0,255}));
@@ -133,7 +133,7 @@ equation
   connect(hOutBelowCutoff.y, economizer1.hOut)
     annotation (Line(points={{-99,20},{-64,20},{-64,-12},{24,-12},{24,-22},{99,-22}},
     color={0,0,127}));
-  connect(hOutCut.y, economizer1.hOutCut)
+  connect(hOutCut.y,economizer1.hCut)
     annotation (Line(points={{-99,-20},{-20,-20},{-20,-24},{99,-24}}, color={0,0,127}));
   connect(opeMod.y, economizer1.uOpeMod)
     annotation (Line(points={{-99,-100},{22,-100},{22,-38},{99,-38}}, color={255,127,0}));
@@ -144,7 +144,7 @@ equation
   connect(VOutMinSetSig.y, economizer1.VOutMinSet_flow)
     annotation (Line(points={{-19,90},{14,90},{14,-30},{99,-30},{99,-30}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer.uSupFanSpe)
-    annotation (Line(points={{-19,50},{-20,50},{10,50},{-2,50},{-2,8},{19,8}}, color={0,0,127}));
+    annotation (Line(points={{-19,50},{-2,50},{-2,8},{19,8}}, color={0,0,127}));
   connect(SupFanSpeSig.y, economizer1.uSupFanSpe)
     annotation (Line(points={{-19,50},{78,50},{78,-32},{99,-32}}, color={0,0,127}));
   annotation (
@@ -169,25 +169,22 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-128,-130},{-44,-158}},
+          extent={{-128,-132},{-22,-154}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=9,
           textString="Enable both damper limit
 and modulation control loops"),
         Text(
-          extent={{100,4},{136,-16}},
+          extent={{100,6},{154,-16}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=8,
           textString="Validate damper modulation
 (example without
 enthalpy measurement)"),
         Text(
-          extent={{20,40},{56,20}},
+          extent={{20,42},{84,22}},
           lineColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
-          fontSize=8,
           textString="Economizer fully enabled -
 validate damper position limits")}),
 Documentation(info="<html>

@@ -4,7 +4,7 @@ model PVSimpleOriented "Simple PV model with orientation"
   extends Buildings.Electrical.Interfaces.PartialPVOriented(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
       V_nominal(start = 110),
-      redeclare Interfaces.Terminal_p terminal,
+      redeclare replaceable Interfaces.Terminal_p terminal,
       redeclare replaceable Buildings.Electrical.AC.OnePhase.Sources.PVSimple panel(
         pf=pf,
         eta_DCAC=eta_DCAC,
@@ -19,7 +19,17 @@ defaultComponentName="pv",
         grid={1,1}), graphics={
         Line(points={{-90,0},{-59,0}}, color={0,0,0})}),
     Documentation(revisions="<html>
-    <ul>
+<ul>
+<li>
+October 7, 2019, by Michael Wetter:<br/>
+Corrected model to include DC/AC conversion in output <code>P</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
+</li>
+<li>
+January 30, 2019, by Michael Wetter:<br/>
+Added <code>replaceable</code>.
+</li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Revised model.

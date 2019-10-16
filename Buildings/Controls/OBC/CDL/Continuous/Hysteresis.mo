@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block Hysteresis "Transform Real to Boolean signal with Hysteresis"
 
-  parameter Real uLow "if y=true and u<=uLow, switch to y=false";
+  parameter Real uLow "if y=true and u<uLow, switch to y=false";
 
-  parameter Real uHigh "if y=false and u>=uHigh, switch to y=true";
+  parameter Real uHigh "if y=false and u>uHigh, switch to y=true";
 
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
@@ -11,7 +11,7 @@ block Hysteresis "Transform Real to Boolean signal with Hysteresis"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.BooleanOutput y "Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
   assert(uHigh > uLow, "Hysteresis limits wrong. uHigh must be larger than uLow");
