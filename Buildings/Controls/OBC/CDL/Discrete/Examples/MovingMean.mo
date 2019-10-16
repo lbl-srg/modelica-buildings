@@ -5,13 +5,34 @@ model MovingMean "Validation model for the MovingMean block"
     phase=0.5235987755983,
     startTime=-0.5) "Example input signal"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-    Buildings.Controls.OBC.CDL.Discrete.MovingMean movMea(n=4, samplePeriod=1)
-      "Discrete moving mean of the sampled input signal"
-  annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Buildings.Controls.OBC.CDL.Discrete.MovingMean movMea(n=4, samplePeriod=1,
+    startTime=-0.5,
+    use_trigger=false)
+    "Discrete moving mean of the sampled input signal"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Buildings.Controls.OBC.CDL.Discrete.MovingMean movMea1(
+    n=4,
+    samplePeriod=1,
+    startTime=-0.5)
+    "Triggered discrete moving mean of the sampled input signal"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  Logical.Sources.Pulse booPul(
+    width=0.5,
+    period=6,
+    startTime=-0.5)
+    "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=1)
+    "Sampling the input"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
 equation
-connect(sin.y, movMea.u)
-  annotation (Line(points={{-39,10},{-2,10}}, color={0,0,127}));
-
+  connect(sin.y, movMea.u) annotation (Line(points={{-38,10},{-2,10}}, color={0,0,127}));
+  connect(sin.y, movMea1.u) annotation (Line(points={{-38,10},{-20,10},{-20,-30},
+          {-2,-30}}, color={0,0,127}));
+  connect(booPul.y, movMea1.trigger) annotation (Line(points={{-38,-50},{10,-50},
+          {10,-41.8}}, color={255,0,255}));
+  connect(sin.y, sam.u) annotation (Line(points={{-38,10},{-20,10},{-20,50},{-2,
+          50}}, color={0,0,127}));
   annotation (
   experiment(StartTime=-0.5, StopTime=15.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Examples/MovingMean.mos"
@@ -19,13 +40,17 @@ connect(sin.y, movMea.u)
     Documentation(
     info="<html>
 <p>
-Validation test for the block
+Validation tests for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.MovingMean\">
 Buildings.Controls.OBC.CDL.Discrete.MovingMean</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 15, 2019 by Kun Zhang:<br/>
+Added a test case for the triggered moving mean.
+</li>
 <li>
 June 17, 2019 by Kun Zhang:<br/>
 First implementation.
