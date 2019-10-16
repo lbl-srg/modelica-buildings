@@ -2,15 +2,20 @@ within Buildings.Controls.OBC.CDL.Logical.Validation;
 model Timer "Validation model for the Timer block"
 
 
-  Buildings.Controls.OBC.CDL.Logical.Timer resetTimer(reset=true)
-    "Timer will reset"
+  Buildings.Controls.OBC.CDL.Logical.Timer resetTimer "Timer will reset"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer(reset=false)
+  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer(
+    final accumulate=true)
     "Reset timer based on boolean input"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer1(reset=false)
+  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer1(
+    final accumulate=true)
     "Reset timer based on boolean input"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer accuTimer2(
+    final accumulate=true)
+    "Reset timer based on boolean input"
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final width=0.1,
@@ -33,20 +38,23 @@ equation
   connect(booPul.y, accuTimer.u)
     annotation (Line(points={{-18,70},{0,70},{0,30},{18,30}},
       color={255,0,255}));
-  connect(booPul1.y, accuTimer.u0)
-    annotation (Line(points={{-18,30},{-6,30},{-6,22},{18,22}},
+  connect(booPul1.y, accuTimer.reset)
+    annotation (Line(points={{-18,30},{-10,30},{-10,22},{18,22}},color={255,0,255}));
+  connect(booPul.y,accuTimer2. u)
+    annotation (Line(points={{-18,70},{0,70},{0,-50},{18,-50}},
       color={255,0,255}));
-  connect(booPul.y, accuTimer1.u)
-    annotation (Line(points={{-18,70},{0,70},{0,-10},{18,-10}},
-      color={255,0,255}));
-  connect(accuTimer1.y, greEquThr.u)
-    annotation (Line(points={{42,-10},{60,-10},{60,-30},{-92,-30},{-92,-50},
-      {-82,-50}}, color={0,0,127}));
+  connect(accuTimer2.y, greEquThr.u)
+    annotation (Line(points={{42,-50},{60,-50},{60,-70},{-92,-70},{-92,-50},
+      {-82,-50}},  color={0,0,127}));
   connect(greEquThr.y, pre.u)
     annotation (Line(points={{-58,-50},{-42,-50}}, color={255,0,255}));
-  connect(pre.y, accuTimer1.u0)
-    annotation (Line(points={{-18,-50},{0,-50},{0,-18},{18,-18}},
+  connect(pre.y,accuTimer2. reset)
+    annotation (Line(points={{-18,-50},{-10,-50},{-10,-58},{18,-58}},
       color={255,0,255}));
+  connect(booPul.y, accuTimer1.u)
+    annotation (Line(points={{-18,70},{0,70},{0,-10},{18,-10}}, color={255,0,255}));
+  connect(booPul.y, accuTimer1.reset)
+    annotation (Line(points={{-18,70},{0,70},{0,-18},{18,-18}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),

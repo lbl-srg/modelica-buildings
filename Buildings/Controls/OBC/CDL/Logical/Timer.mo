@@ -2,12 +2,12 @@ within Buildings.Controls.OBC.CDL.Logical;
 block Timer
   "Timer measuring the time from the time instant where the Boolean input became true"
 
-  parameter Boolean reset = true
-    "Set to true for reseting timer to zero when input becomes false, set to false when need to find accumulated time which can be reset by another boolean input";
+  parameter Boolean accumulate = false
+    "Set to true when need to find accumulated time which can be reset by another boolean input";
 
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput u0 if not reset
+  Interfaces.BooleanInput reset if accumulate
     "Connector of Boolean for resetting output to zero"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -15,22 +15,22 @@ block Timer
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  discrete Modelica.SIunits.Time entryTime
-    "Time instant when u became true";
+  discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
   discrete Real yAcc "Accumulated time up to last change to true";
-  Interfaces.BooleanInput u0_internal
-    "Internal connector";
+  Interfaces.BooleanInput u0_internal(final start=false, final fixed=true) "Internal connector";
 
 initial equation
   pre(entryTime) = 0;
   yAcc = 0;
 equation
-  connect(u0, u0_internal);
-  if reset then
+  connect(reset, u0_internal);
+  if not accumulate then
     u0_internal = false;
   end if;
 
-  when u and (not u0_internal) then
+  when u and (not edge(u0_internal)) then
+    entryTime = time;
+  elsewhen u0_internal then
     entryTime = time;
   end when;
 
@@ -40,14 +40,10 @@ equation
     yAcc = pre(y);
   end when;
 
-  if reset then
+  if not accumulate then
     y = if u then time - entryTime else 0.0;
   else
-    if u0_internal then
-      y = 0;
-    else
-      y = if u then yAcc + (time - entryTime) else yAcc;
-    end if;
+    y = if u then yAcc + (time - entryTime) else yAcc;
   end if;
 
 annotation (
@@ -61,19 +57,19 @@ annotation (
           lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
-      Line(points={{-66,-70},{82,-70}},
+      Line(points={{-66,-60},{82,-60}},
         color={192,192,192}),
       Line(points={{-58,68},{-58,-80}},
         color={192,192,192}),
       Polygon(lineColor={192,192,192},
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
-        points={{90.0,-70.0},{68.0,-62.0},{68.0,-78.0},{90.0,-70.0}}),
+        points={{90,-60},{68,-52},{68,-68},{90,-60}}),
       Polygon(lineColor={192,192,192},
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
         points={{-58,90},{-66,68},{-50,68},{-58,90}}),
-      Line(points={{-56,-70},{-38,-70},{-38,-26},{40,-26},{40,-70},{68,-70}},
+      Line(points={{-56,-60},{-38,-60},{-38,-16},{40,-16},{40,-60},{68,-60}},
         color={255,0,255}),
       Line(points={{-58,0},{-40,0},{40,90},{40,0},{68,0}},
         color={0,0,127}),
@@ -87,7 +83,11 @@ annotation (
               235,235}),
           fillColor=DynamicSelect({235,235,235}, if u then {0,255,0} else {235,
               235,235}),
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-88,-58},{88,-98}},
+          lineColor={217,67,180},
+          textString="accumulate: %accumulate")}),
     Documentation(info="<html>
 <p>
 Block that represents a timer.
@@ -99,12 +99,13 @@ started and the output <code>y</code> is the time from the time instant where
 </p>
 <ul>
 <li>
-If parameter <code>reset</code> is true, once the input becomes false, 
+If parameter <code>accumulate</code> is false, once the input <code>u</code> becomes false, 
 the timer is stopped and the output is reset to zero. 
 </li>
 <li>
-If parameter <code>reset</code> is false, once the input becomes false,
-the timer will not fully stopped but hold the accumulated true input time.
+If parameter <code>accumulate</code> is true, once the input <code>u</code> becomes false,
+the timer will not fully stopped but hold the accumulated true input time. The
+accumulated time can be reset to zero when the input <code>reset</code> becomes true.
 </li>
 </ul>
 </html>", revisions="<html>
