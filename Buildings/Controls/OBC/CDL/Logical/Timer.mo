@@ -11,13 +11,17 @@ block Timer
     "Connector of Boolean for resetting output to zero"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.RealOutput y "Connector of Real output signal"
+  Interfaces.RealOutput y(
+    final quantity="Time",
+    final unit="s") "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
   discrete Real yAcc "Accumulated time up to last change to true";
-  Interfaces.BooleanInput u0_internal(final start=false, final fixed=true) "Internal connector";
+  Interfaces.BooleanInput u0_internal(
+    final start=false,
+    final fixed=true) "Internal connector";
 
 initial equation
   pre(entryTime) = 0;
