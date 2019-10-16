@@ -182,12 +182,17 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1530\">#1503</a>.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.TwoElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements<br/>
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Added option to also simulate moisture balance in room air volume.
+                           This can be enabled by setting the parameter <code>use_moisture_balance = true</code>.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">#1209</a>.
         </td>
     </tr>
     </table>
