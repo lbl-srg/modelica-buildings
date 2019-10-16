@@ -61,7 +61,7 @@ void getSimulationTemporaryDirectory(const char* modelicaNameBuilding, char** di
 void buildVariableName(
   const char* firstPart,
   const char* secondPart,
-  char* ptrFullName);
+  char* *ptrFullName);
 
 void buildVariableNames(
   const char* firstPart,

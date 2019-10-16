@@ -18,8 +18,9 @@
 
 void buildJSONModelStructureForEnergyPlus(
   const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
-  int iZon;
+  int i;
   FMUZone** zones = (FMUZone**)bui->zones;
+  FMUOutputVariable** outVars;
 
   saveAppend(buffer, "{\n", size);
   saveAppend(buffer, "  \"version\": \"0.1\",\n", size);
@@ -43,17 +44,51 @@ void buildJSONModelStructureForEnergyPlus(
   /* model information */
   saveAppend(buffer, "  \"model\": {\n", size);
   saveAppend(buffer, "    \"zones\": [\n", size);
-  for(iZon = 0; iZon < bui->nZon; iZon++){
-    /* Write zone name */
+  /* Write zone names */
+  for(i = 0; i < bui->nZon; i++){
     saveAppend(buffer, "        { \"name\": \"", size);
-    saveAppend(buffer, zones[iZon]->name, size);
-    if (iZon < (bui->nZon) - 1)
+    saveAppend(buffer, zones[i]->name, size);
+    if (i < (bui->nZon) - 1)
       saveAppend(buffer, "\" },\n", size);
     else
       saveAppend(buffer, "\" }\n", size);
   }
   /* Close json array for zones */
-  saveAppend(buffer, "    ]\n", size);
+  saveAppend(buffer, "    ]", size);
+  if (bui->nOutputVariables == 0){
+    /* There are no more other objects */
+    saveAppend(buffer, "\n", size);
+  }
+  else{
+    /* There are other objects that belong to "model" */
+    saveAppend(buffer, ",\n", size);
+  }
+  /* Write output names */
+  if (bui->nOutputVariables > 0){
+    outVars = (FMUOutputVariable**)bui->outputVariables;
+    saveAppend(buffer, "    \"outputVariables\": [\n", size);
+  }
+  for(i = 0; i < bui->nOutputVariables; i++){
+    saveAppend(buffer, "        {\n", size);
+    /* name */
+    saveAppend(buffer, "          \"name\": \"", size);
+    saveAppend(buffer, outVars[i]->name, size);
+    saveAppend(buffer, "\",\n", size);
+    /* key */
+    saveAppend(buffer, "          \"key\": \"", size);
+    saveAppend(buffer, outVars[i]->key, size);
+    saveAppend(buffer, "\",\n", size);
+    /* fmiName */
+    saveAppend(buffer, "          \"fmiName\": \"", size);
+    saveAppend(buffer, outVars[i]->outVarName, size);
+    saveAppend(buffer, "\"\n", size);
+    /* closing the outputVariables item */
+    saveAppend(buffer, "        }", size);
+    if (i < (bui->nOutputVariables) - 1)
+      saveAppend(buffer, ",\n", size);
+    else
+      saveAppend(buffer, "\n    ]\n", size);
+  }
   /* Close json object for model */
   saveAppend(buffer, "  },\n", size);
 

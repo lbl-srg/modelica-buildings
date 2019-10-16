@@ -58,7 +58,7 @@ void* OutputVariableAllocate(
   const int verbosity){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference can be obtained */
   unsigned int i;
-  FMUOutputVariable* outVar;
+  FMUOutputVariable* outVar = NULL;
 
   const size_t nFMU = getBuildings_nFMU();
   /* Name used to check for duplicate output variable entry in the same building */
@@ -105,7 +105,7 @@ void* OutputVariableAllocate(
   buildVariableName(
     (const char*)(outVar->key),
     (const char*)(outVar->name),
-    outVar->outVarName);
+    &(outVar->outVarName));
 
   /* *************************************************************************** */
   /* Initialize the pointer for the FMU to which this output variable belongs to */

@@ -3,8 +3,8 @@ model OneZoneOneOutputVariable
   "Validation model for one zone with one output variable"
   extends Buildings.Experimental.EnergyPlus.Validation.OneZone;
   OutputVariable out(
-    outputKey="This is the key",
-    outputName="This is the name")
+    outputKey="Core_ZN",
+    outputName="Zone Mean Air Temperature")
     "Block that reads output from EnergyPlus"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   annotation (Documentation(info="<html>
