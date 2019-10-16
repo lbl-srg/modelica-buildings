@@ -107,7 +107,7 @@ protected
     final width=0.5,
     final period=2*65*60)
     "Water side economizer enable/disable status"
-    annotation (Placement(transformation(extent={{18,-64},{38,-44}})));
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
 equation
   connect(ecoSta.y,wseTun.uWseSta)  annotation (Line(points={{-98,210},{-70,210},
@@ -138,8 +138,9 @@ equation
     annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
   connect(greThr1.y, logSwi.u2)
     annotation (Line(points={{-18,-80},{58,-80}}, color={255,0,255}));
-  connect(ecoSta5.y, logSwi.u1) annotation (Line(points={{40,-54},{50,-54},{50,-72},
-          {58,-72}}, color={255,0,255}));
+  connect(ecoSta5.y, logSwi.u1) annotation (Line(points={{42,-50},{50,-50},{50,
+          -72},{58,-72}},
+                     color={255,0,255}));
   connect(ecoSta4.y, logSwi.u3) annotation (Line(points={{42,-110},{50,-110},{50,
           -88},{58,-88}}, color={255,0,255}));
   connect(logSwi.y, wseTun4.uWseSta) annotation (Line(points={{82,-80},{90,-80},
@@ -178,7 +179,7 @@ Icon(graphics={
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-240},{140,240}}),
         graphics={
         Text(
-          extent={{-122,2},{-16,-10}},
+          extent={{-126,6},{-20,-6}},
           lineColor={0,0,127},
           textString="Tests tuning parameter decrease
 based on WSE enable duration
@@ -191,7 +192,7 @@ based on WSE enable duration
 prior to disable and cooling tower
 fan speed during WSE enable."),
         Text(
-          extent={{22,-206},{122,-216}},
+          extent={{-46,-208},{48,-214}},
           lineColor={0,0,127},
           textString="Tests anti-windup")}));
 end Tuning_uEcoSta_uTowFanSpeMax;

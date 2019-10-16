@@ -91,8 +91,8 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTunPar
     "Tuning parameter"
-    annotation (Placement(transformation(extent={{180,
-            -100},{200,-80}}), iconTransformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{180,-100},{200,-80}}),
+      iconTransformation(extent={{100,-60},{120,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold enaTChiWatRet(
     final threshold=delDis)

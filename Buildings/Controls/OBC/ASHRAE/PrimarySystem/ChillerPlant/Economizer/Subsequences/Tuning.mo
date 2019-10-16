@@ -2,17 +2,15 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subse
 block Tuning
   "Defines a tuning parameter for the temperature prediction downstream of WSE"
 
-  parameter Real step=0.02
-  "Tuning step";
+  parameter Real step=0.02 "Tuning step";
 
   parameter Modelica.SIunits.Time wseOnTimDec = 3600
-  "Economizer enable time needed to allow decrease of the tuning parameter";
+    "Economizer enable time needed to allow decrease of the tuning parameter";
 
   parameter Modelica.SIunits.Time wseOnTimInc = 1800
-  "Economizer enable time needed to allow increase of the tuning parameter";
+    "Economizer enable time needed to allow increase of the tuning parameter";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta
-    "WSE enable disable status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta "WSE enable disable status"
     annotation (Placement(transformation(extent={{-360,100},{-320,140}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
@@ -133,10 +131,10 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr1(
     final threshold=larInt) "Greater or equal a threshold"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre truHol
-    "Holds true signal for a shor period of time to catch the falling edge"
+    "Holds true signal for a short period of time to catch the falling edge"
     annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
@@ -149,6 +147,10 @@ protected
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Integrator with reset"
     annotation (Placement(transformation(extent={{240,0},{260,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre preRes
+    "Breaks algebraic loop for the counter and integrator reset"
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
 equation
   connect(uWseSta, tim.u)
@@ -229,23 +231,25 @@ equation
   connect(add2.y, intWitRes.u) annotation (Line(points={{222,30},{230,30},{230,10},
           {238,10}},  color={0,0,127}));
   connect(maxInt.y, intGreEquThr1.u)
-    annotation (Line(points={{-18,80},{-2,80}}, color={255,127,0}));
+    annotation (Line(points={{-18,80},{-12,80}},color={255,127,0}));
   connect(disCou.y, maxInt.u1) annotation (Line(points={{-78,150},{-60,150},{-60,
           86},{-42,86}}, color={255,127,0}));
   connect(disCou1.y, maxInt.u2) annotation (Line(points={{-78,10},{-60,10},{-60,
           74},{-42,74}}, color={255,127,0}));
-  connect(intGreEquThr1.y, disCou.reset) annotation (Line(points={{22,80},{40,80},
-          {40,120},{-90,120},{-90,138}}, color={255,0,255}));
-  connect(intGreEquThr1.y, disCou1.reset) annotation (Line(points={{22,80},{40,80},
-          {40,-10},{-90,-10},{-90,-2}}, color={255,0,255}));
-  connect(intGreEquThr1.y, intWitRes.trigger) annotation (Line(points={{22,80},{
-          40,80},{40,-10},{250,-10},{250,-2}}, color={255,0,255}));
   connect(intToRea.y, mulSum.u[1]) annotation (Line(points={{82,150},{100,150},
           {100,71.3333},{118,71.3333}},color={0,0,127}));
   connect(intToRea1.y, mulSum.u[2]) annotation (Line(points={{82,10},{100,10},{100,
           70},{118,70}}, color={0,0,127}));
   connect(intWitRes.y, mulSum.u[3]) annotation (Line(points={{262,10},{280,10},
           {280,-40},{100,-40},{100,68.6667},{118,68.6667}},color={0,0,127}));
+  connect(intGreEquThr1.y, preRes.u)
+    annotation (Line(points={{12,80},{18,80}}, color={255,0,255}));
+  connect(preRes.y, disCou.reset) annotation (Line(points={{42,80},{50,80},{50,
+          120},{-90,120},{-90,138}}, color={255,0,255}));
+  connect(preRes.y, disCou1.reset) annotation (Line(points={{42,80},{50,80},{50,
+          -10},{-90,-10},{-90,-2}}, color={255,0,255}));
+  connect(preRes.y, intWitRes.trigger) annotation (Line(points={{42,80},{50,80},
+          {50,-10},{250,-10},{250,-2}}, color={255,0,255}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(
