@@ -6,13 +6,15 @@ model ElectricalFollowing
 
   redeclare package Medium = Buildings.Media.Water;
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
-    annotation (choicesAllMatching=true, Placement(transformation(extent={{-78,-78},{-62,-62}})));
+    annotation (choicesAllMatching=true, Placement(transformation(
+      extent={{-80,-80},{-60,-60}})));
   parameter Modelica.SIunits.Temperature TEngIni = Medium.T_default "Initial engine temperature";
   parameter Modelica.SIunits.Time waitTime=60
     "Wait time before transition from pump-on mode fires"
     annotation (Dialog(tab="Dynamics"));
 
   Modelica.Blocks.Interfaces.BooleanInput avaSig
+    "True when the plant is available"
     annotation (Placement(transformation(extent={{-140,160},{-100,200}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput PEleDem(final unit="W")
@@ -104,8 +106,9 @@ protected
 equation
   connect(fil.PEle, hys.u) annotation (Line(points={{-69,150},{-60,150},{-60,162},
           {-52,162}},   color={0,0,127}));
-  connect(runSig.y, opeMod.runSig) annotation (Line(points={{11,170},{16,170},{16,
-          182},{29,182}}, color={255,0,255}));
+  connect(runSig.y, opeMod.runSig) annotation (Line(points={{11,170},{16,170},{
+          16,184},{28,184}},
+                          color={255,0,255}));
   connect(eneCon.QGen, eng.QGen) annotation (Line(points={{-29,84},{-20,84},{-20,
           50},{-1,50}}, color={0,0,127}));
   connect(conWat.PEle, fil.PEle) annotation (Line(points={{72,180},{60,180},{60,
@@ -114,10 +117,12 @@ equation
           100},{-74,86},{-52,86}}, color={0,0,127}));
   connect(eng.TEng, eneCon.TEng) annotation (Line(points={{21,50},{24,50},{24,70},
           {-70,70},{-70,82},{-52,82}}, color={0,0,127}));
-  connect(eng.TEng, opeMod.TEng) annotation (Line(points={{21,50},{24,50},{24,174},
-          {29,174}}, color={0,0,127}));
-  connect(mWat_flow.y, opeMod.mWat_flow) annotation (Line(points={{-79,100},{-74,
-          100},{-74,134},{20,134},{20,178},{29,178}}, color={0,0,127}));
+  connect(eng.TEng, opeMod.TEng) annotation (Line(points={{21,50},{24,50},{24,
+          172},{28,172}},
+                     color={0,0,127}));
+  connect(mWat_flow.y, opeMod.mWat_flow) annotation (Line(points={{-79,100},{
+          -74,100},{-74,134},{20,134},{20,176},{28,176}},
+                                                      color={0,0,127}));
   connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{-79,120},{64,120},{
           64,174},{72,174}},  color={0,0,127}));
   connect(eneCon.TWatIn, TWatIn.y) annotation (Line(points={{-52,90},{-66,90},{-66,
@@ -130,8 +135,9 @@ equation
           {56,126},{-60,126},{-60,98},{-52,98}}, color={0,127,0}));
   connect(fil.PEleDem, PEleDem) annotation (Line(points={{-92,150},{-120,150}},
           color={0,0,127}));
-  connect(opeMod.avaSig, avaSig) annotation (Line(points={{29,186},{-20,186},{-20,
-          180},{-120,180}}, color={255,0,255}));
+  connect(opeMod.avaSig, avaSig) annotation (Line(points={{28,188},{-20,188},{
+          -20,180},{-120,180}},
+                            color={255,0,255}));
   connect(runSig.u1, avaSig) annotation (Line(points={{-12,170},{-20,170},{-20,180},
           {-120,180}}, color={255,0,255}));
   connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{72,186},{56,186},

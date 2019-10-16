@@ -2,12 +2,17 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model AssertWatTem
   "Assert if water temperature is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
+
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
-    annotation (Placement(transformation(extent={{-78,-98},{-62,-82}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  parameter Modelica.SIunits.TemperatureDifference THys = 0.5
+    "Hysteresis value to check temperature difference"
+    annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TWat(unit="K")
-    "Water outlet temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TWat(
+    final unit="K",
+    final quantity="ThermodynamicTemperature") "Water outlet temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -17,15 +22,22 @@ model AssertWatTem
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(
-    final threshold=per.TWatMax) "Check if input is less equal than threshold value"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=per.TWatMax -THys,
+    final uHigh=per.TWatMax + THys)
+    "Check if water temperature is larger than the maximum temperature"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Check if water temperature is lower than the maximum temperature"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 equation
-  connect(lesEquThr.u, TWat)
-    annotation (Line(points={{-12,0},{-120,0}}, color={0,0,127}));
-  connect(lesEquThr.y, assMes.u)
-    annotation (Line(points={{12,0},{78,0}}, color={255,0,255}));
+  connect(hys.u, TWat)
+    annotation (Line(points={{-42,0},{-120,0}}, color={0,0,127}));
+  connect(hys.y, not1.u)
+    annotation (Line(points={{-18,0},{18,0}}, color={255,0,255}));
+  connect(not1.y, assMes.u)
+    annotation (Line(points={{42,0},{78,0}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="assWatTem",

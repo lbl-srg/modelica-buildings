@@ -4,43 +4,45 @@ model AssertFuel "Assert if fuel flow is outside boundaries"
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
-    annotation (Placement(transformation(extent={{-78,-78},{-62,-62}})));
-  parameter Real fueLowHys = 0.1
-    "Hysteresis value for fuel flow rate check";
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mFue_flow(unit="kg/s") "Fuel flow rate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mFue_flow(
+    final unit="kg/s") "Fuel flow rate"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Nand nand
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Blocks.Sources.BooleanExpression cheDmLim(
-    final y=per.dmFueLim)
-    "Check if dmFue is limited"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message="Fuel flow rate of change is outside boundaries!")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    final message="Fuel flow rate of change is outside boundaries!")
     "Assert function for checking fuel flow rate"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=per.dmFueMax - fueLowHys,
-    final uHigh=per.dmFueMax + fueLowHys)
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Derivative derivative(
+  Buildings.Controls.OBC.CDL.Logical.Nand nand
+    "Check if fuel flow rate is changing slowly"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheDmLim(
+    final k=per.dmFueLim)
+    "Check if change of fuel flow rate should be limited"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=0.99*per.dmFueMax,
+    final uHigh=1.01*per.dmFueMax)
+    "Check if fuel flow rate is changing too much"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Derivative floChaRat(
     final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
     final x_start=0)
+    "Fuel flow change rate"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1
+  Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
-  connect(abs1.u, derivative.y)
+  connect(abs1.u, floChaRat.y)
     annotation (Line(points={{-42,0},{-58,0}}, color={0,0,127}));
-  connect(derivative.u, mFue_flow)
+  connect(floChaRat.u, mFue_flow)
     annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
   connect(cheDmLim.y, nand.u2)
-    annotation (Line(points={{21,-30},{30,-30},{30,-8},{38,-8}}, color={255,0,255}));
+    annotation (Line(points={{22,-30},{30,-30},{30,-8},{38,-8}}, color={255,0,255}));
   connect(nand.y, assMes.u)
     annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
   connect(abs1.y, hys.u)
