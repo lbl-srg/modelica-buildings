@@ -138,70 +138,71 @@ protected
     "Standby status"
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
 equation
-  connect(greEquThr.y, and3.u1) annotation (Line(points={{-39,60},{-30,60},{-30,
+  connect(greEquThr.y, and3.u1) annotation (Line(points={{-38,60},{-30,60},{-30,
           38},{-22,38}},
                        color={255,0,255}));
-  connect(mulOr.y, booRep.u) annotation (Line(points={{41.7,30},{58,30}},
+  connect(mulOr.y, booRep.u) annotation (Line(points={{42,30},{58,30}},
                     color={255,0,255}));
   connect(not1.y,and3. u2)
-    annotation (Line(points={{-79,30},{-22,30}}, color={255,0,255}));
+    annotation (Line(points={{-78,30},{-22,30}}, color={255,0,255}));
   connect(tim.u0, falEdg1.y) annotation (Line(points={{-102,52},{-120,52},{-120,
-          100},{40,100},{40,70},{21,70}},
+          100},{40,100},{40,70},{22,70}},
                                         color={255,0,255}));
-  connect(pre.y, and3.u3) annotation (Line(points={{141,30},{160,30},{160,10},{-30,
-          10},{-30,22},{-22,22}},              color={255,0,255}));
+  connect(pre.y, and3.u3) annotation (Line(points={{142,30},{160,30},{160,10},{
+          -30,10},{-30,22},{-22,22}},          color={255,0,255}));
   connect(tim.y, greEquThr.u)
-    annotation (Line(points={{-79,60},{-62,60}}, color={0,0,127}));
-  connect(pre.y, falEdg1.u) annotation (Line(points={{141,30},{160,30},{160,90},
+    annotation (Line(points={{-78,60},{-62,60}}, color={0,0,127}));
+  connect(pre.y, falEdg1.u) annotation (Line(points={{142,30},{160,30},{160,90},
           {-20,90},{-20,70},{-2,70}},     color={255,0,255}));
-  connect(edg.y, triSam.trigger) annotation (Line(points={{-39,-130},{-30,-130},
+  connect(edg.y, triSam.trigger) annotation (Line(points={{-38,-130},{-30,-130},
           {-30,-101.8}},
                     color={255,0,255}));
-  connect(triSam.y, add2.u2) annotation (Line(points={{-19,-90},{0,-90},{0,-76},
+  connect(triSam.y, add2.u2) annotation (Line(points={{-18,-90},{0,-90},{0,-76},
           {18,-76}},  color={0,0,127}));
-  connect(add2.y, zerOrdHol.u) annotation (Line(points={{41,-70},{60,-70},{60,-50},
-          {78,-50}},        color={0,0,127}));
-  connect(zerOrdHol.y, triSam.u) annotation (Line(points={{101,-50},{112,-50},{112,
-          -20},{-60,-20},{-60,-90},{-42,-90}},         color={0,0,127}));
-  connect(add2.u1, con1.y) annotation (Line(points={{18,-64},{0,-64},{0,-50},{-19,
-          -50}},      color={0,0,127}));
-  connect(con2.y, mod.u2) annotation (Line(points={{81,-130},{88,-130},{88,-116},
+  connect(add2.y, zerOrdHol.u) annotation (Line(points={{42,-70},{60,-70},{60,
+          -50},{78,-50}},   color={0,0,127}));
+  connect(zerOrdHol.y, triSam.u) annotation (Line(points={{102,-50},{112,-50},{
+          112,-20},{-60,-20},{-60,-90},{-42,-90}},     color={0,0,127}));
+  connect(add2.u1, con1.y) annotation (Line(points={{18,-64},{0,-64},{0,-50},{
+          -18,-50}},  color={0,0,127}));
+  connect(con2.y, mod.u2) annotation (Line(points={{82,-130},{88,-130},{88,-116},
           {98,-116}},  color={0,0,127}));
-  connect(mod.y, lesThr.u) annotation (Line(points={{121,-110},{129.5,-110},{129.5,
-          -110},{138,-110}},        color={0,0,127}));
-  connect(add2.y, add1.u1) annotation (Line(points={{41,-70},{50,-70},{50,-84},{
-          58,-84}},   color={0,0,127}));
+  connect(mod.y, lesThr.u) annotation (Line(points={{122,-110},{129.5,-110},{
+          129.5,-110},{138,-110}},  color={0,0,127}));
+  connect(add2.y, add1.u1) annotation (Line(points={{42,-70},{50,-70},{50,-84},
+          {58,-84}},  color={0,0,127}));
   connect(add1.u2, con3.y) annotation (Line(points={{58,-96},{50,-96},{50,-110},
-          {41,-110}}, color={0,0,127}));
-  connect(add1.y, mod.u1) annotation (Line(points={{81,-90},{88,-90},{88,-104},{
-          98,-104}},   color={0,0,127}));
-  connect(booRep.y, edg.u) annotation (Line(points={{81,30},{92,30},{92,0},{-80,
+          {42,-110}}, color={0,0,127}));
+  connect(add1.y, mod.u1) annotation (Line(points={{82,-90},{88,-90},{88,-104},
+          {98,-104}},  color={0,0,127}));
+  connect(booRep.y, edg.u) annotation (Line(points={{82,30},{92,30},{92,0},{-80,
           0},{-80,-130},{-62,-130}},   color={255,0,255}));
-  connect(lesThr.y, pre.u) annotation (Line(points={{161,-110},{180,-110},{180,0},
-          {100,0},{100,30},{118,30}},     color={255,0,255}));
-  connect(lesThr.y, yDevRol) annotation (Line(points={{161,-110},{200,-110},{200,
-          0},{250,0}},                     color={255,0,255}));
-  connect(and3.y, mulOr.u) annotation (Line(points={{1,30},{18,30}},
+  connect(lesThr.y, pre.u) annotation (Line(points={{162,-110},{180,-110},{180,
+          0},{100,0},{100,30},{118,30}},  color={255,0,255}));
+  connect(lesThr.y, yDevRol) annotation (Line(points={{162,-110},{200,-110},{
+          200,0},{250,0}},                 color={255,0,255}));
+  connect(and3.y, mulOr.u) annotation (Line(points={{2,30},{18,30}},
                       color={255,0,255}));
-  connect(logSwi.y, tim.u) annotation (Line(points={{-119,-30},{-110,-30},{-110,
+  connect(logSwi.y, tim.u) annotation (Line(points={{-118,-30},{-110,-30},{-110,
           60},{-102,60}}, color={255,0,255}));
-  connect(logSwi.y, not1.u) annotation (Line(points={{-119,-30},{-110,-30},{-110,
-          30},{-102,30}},      color={255,0,255}));
+  connect(logSwi.y, not1.u) annotation (Line(points={{-118,-30},{-110,-30},{
+          -110,30},{-102,30}}, color={255,0,255}));
   connect(uLagSta, repLag.u)
     annotation (Line(points={{-240,-100},{-202,-100}}, color={255,0,255}));
   connect(uLeaSta, repLead.u)
     annotation (Line(points={{-240,0},{-202,0}}, color={255,0,255}));
-  connect(logSwi.u1, repLead.y) annotation (Line(points={{-142,-22},{-150,-22},{
-          -150,0},{-179,0}},  color={255,0,255}));
-  connect(logSwi.u3, repLag.y) annotation (Line(points={{-142,-38},{-160,-38},{-160,
-          -100},{-179,-100}},      color={255,0,255}));
-  connect(pre.y, logSwi.u2) annotation (Line(points={{141,30},{160,30},{160,120},
+  connect(logSwi.u1, repLead.y) annotation (Line(points={{-142,-22},{-150,-22},
+          {-150,0},{-178,0}}, color={255,0,255}));
+  connect(logSwi.u3, repLag.y) annotation (Line(points={{-142,-38},{-160,-38},{
+          -160,-100},{-178,-100}}, color={255,0,255}));
+  connect(pre.y, logSwi.u2) annotation (Line(points={{142,30},{160,30},{160,120},
           {-160,120},{-160,-30},{-142,-30}}, color={255,0,255}));
-  connect(logSwi.y, yDevSta) annotation (Line(points={{-119,-30},{-70,-30},{-70,
+  connect(logSwi.y, yDevSta) annotation (Line(points={{-118,-30},{-70,-30},{-70,
           -10},{220,-10},{220,-40},{250,-40}},
                                              color={255,0,255}));
-  connect(staSta.y, logSwi.u3) annotation (Line(points={{-179,-60},{-160,-60},{-160,
-          -38},{-142,-38}}, color={255,0,255}));
+  connect(staSta.y, logSwi.u3) annotation (Line(points={{-178,-60},{-160,-60},{
+          -160,-38},{-142,-38}},
+                            color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-220,-160},{240,160}})),
       defaultComponentName="equRot",
     Icon(graphics={

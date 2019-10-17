@@ -26,9 +26,7 @@ equation
 
   annotation (
     defaultComponentName="onCouInt",
-    Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}},
-        initialScale=0.06), graphics={
+    Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
