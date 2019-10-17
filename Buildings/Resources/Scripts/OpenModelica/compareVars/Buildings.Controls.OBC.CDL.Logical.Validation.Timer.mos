@@ -10,5 +10,8 @@ compareVars :=
     "accuTimer1.y",
     "accuTimer2.u",
     "accuTimer2.reset",
-    "accuTimer2.y"
+    "accuTimer2.y",
+    "accuTimer3.u",
+    "accuTimer3.reset",
+    "accuTimer3.y"
   };
