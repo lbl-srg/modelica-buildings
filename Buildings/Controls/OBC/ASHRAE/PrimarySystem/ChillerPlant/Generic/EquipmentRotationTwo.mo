@@ -103,6 +103,10 @@ block EquipmentRotationTwo
   Buildings.Controls.OBC.CDL.Logical.And or1[nDev] "Logical or"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
+  CDL.Interfaces.BooleanInput uDevSta[nDev] annotation (Placement(
+        transformation(extent={{-280,-152},{-260,-132}}),
+                                                        iconTransformation(
+          extent={{-140,-60},{-100,-20}})));
 equation
   connect(greEquThr.y, and3.u1) annotation (Line(points={{-38,30},{-20,30},{-20,
           -2},{-2,-2}},  color={255,0,255}));
