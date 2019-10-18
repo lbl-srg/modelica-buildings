@@ -104,24 +104,28 @@ protected
   constant Modelica.SIunits.SpecificHeatCapacity cWat=4180 "Water specific heat";
 
 equation
-  connect(fil.PEle, hys.u) annotation (Line(points={{-69,150},{-60,150},{-60,162},
-          {-52,162}},   color={0,0,127}));
+  connect(fil.PEle, hys.u) annotation (Line(points={{-68,150},{-60,150},{-60,
+          162},{-52,162}},
+                        color={0,0,127}));
   connect(runSig.y, opeMod.runSig) annotation (Line(points={{11,170},{16,170},{
-          16,184},{28,184}},
+          16,188},{28,188}},
                           color={255,0,255}));
-  connect(eneCon.QGen, eng.QGen) annotation (Line(points={{-29,84},{-20,84},{-20,
-          50},{-1,50}}, color={0,0,127}));
+  connect(eneCon.QGen, eng.QGen) annotation (Line(points={{-28,82},{-20,82},{
+          -20,50},{-2,50}},
+                        color={0,0,127}));
   connect(conWat.PEle, fil.PEle) annotation (Line(points={{72,180},{60,180},{60,
-          150},{-69,150}}, color={0,0,127}));
-  connect(mWat_flow.y, eneCon.mWat_flow) annotation (Line(points={{-79,100},{-74,
-          100},{-74,86},{-52,86}}, color={0,0,127}));
-  connect(eng.TEng, eneCon.TEng) annotation (Line(points={{21,50},{24,50},{24,70},
-          {-70,70},{-70,82},{-52,82}}, color={0,0,127}));
-  connect(eng.TEng, opeMod.TEng) annotation (Line(points={{21,50},{24,50},{24,
-          172},{28,172}},
+          150},{-68,150}}, color={0,0,127}));
+  connect(mWat_flow.y, eneCon.mWat_flow) annotation (Line(points={{-79,100},{
+          -74,100},{-74,85},{-52,85}},
+                                   color={0,0,127}));
+  connect(eng.TEng, eneCon.TEng) annotation (Line(points={{22,50},{24,50},{24,
+          70},{-70,70},{-70,81},{-52,81}},
+                                       color={0,0,127}));
+  connect(eng.TEng, opeMod.TEng) annotation (Line(points={{22,50},{24,50},{24,
+          178},{28,178}},
                      color={0,0,127}));
   connect(mWat_flow.y, opeMod.mWat_flow) annotation (Line(points={{-79,100},{
-          -74,100},{-74,134},{20,134},{20,176},{28,176}},
+          -74,100},{-74,134},{20,134},{20,182},{28,182}},
                                                       color={0,0,127}));
   connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{-79,120},{64,120},{
           64,174},{72,174}},  color={0,0,127}));
@@ -131,22 +135,24 @@ equation
           color={0,0,127}));
   connect(hys.y, runSig.u2) annotation (Line(points={{-29,162},{-12,162}},
           color={255,0,255}));
-  connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{51,180},{56,180},
-          {56,126},{-60,126},{-60,98},{-52,98}}, color={0,127,0}));
+  connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{51,180},{56,
+          180},{56,126},{-60,126},{-60,99},{-51,99}},
+                                                 color={0,127,0}));
   connect(fil.PEleDem, PEleDem) annotation (Line(points={{-92,150},{-120,150}},
           color={0,0,127}));
-  connect(opeMod.avaSig, avaSig) annotation (Line(points={{28,188},{-20,188},{
+  connect(opeMod.avaSig, avaSig) annotation (Line(points={{28,172},{-20,172},{
           -20,180},{-120,180}},
                             color={255,0,255}));
   connect(runSig.u1, avaSig) annotation (Line(points={{-12,170},{-20,170},{-20,180},
           {-120,180}}, color={255,0,255}));
-  connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{72,186},{56,186},
-          {56,180},{51,180}}, color={0,127,0}));
+  connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{72,186},{56,
+          186},{56,180},{51,180}},
+                              color={0,127,0}));
   connect(TWatOut.T, assWatTem.TWat) annotation (Line(points={{30,-50},{38,-50}},
           color={0,0,127}));
-  connect(eneCon.mFue_flow, mFue_flow) annotation (Line(points={{-29,92},{40,92},
+  connect(eneCon.mFue_flow, mFue_flow) annotation (Line(points={{-28,93},{40,93},
           {40,60},{120,60}}, color={0,0,127}));
-  connect(eneCon.PEleNet, PEleNet) annotation (Line(points={{-29,96},{40,96},{
+  connect(eneCon.PEleNet, PEleNet) annotation (Line(points={{-28,98},{40,98},{
           40,100},{120,100}},  color={0,0,127}));
   connect(mFue_flow, mFue_flow) annotation (Line(points={{120,60},{120,60}},
           color={0,0,127}));
@@ -154,8 +160,9 @@ equation
           {-20,-10},{-9,-10}},color={191,0,0}));
   connect(QWat1.Q_flow, QWat) annotation (Line(points={{-10,20},{120,20}},
           color={0,0,127}));
-  connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{70,140},{56,140},
-          {56,180},{51,180}}, color={0,127,0}));
+  connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{70,140},{56,
+          140},{56,180},{51,180}},
+                              color={0,127,0}));
   connect(powCon.PCon, PCon) annotation (Line(points={{93,140},{100,140},{100,
           138},{106,138},{106,140},{120,140}}, color={0,0,127}));
   connect(TRoo, QLos.port_b) annotation (Line(points={{-100,-40},{-90,-40}},
@@ -166,8 +173,9 @@ equation
           {-20,10}}, color={191,0,0}));
   connect(QWat1.port_a,eng.TWat) annotation (Line(points={{-20,30},{-20,44},
           {0,44}}, color={191,0,0}));
-  connect(fil.PEle, eneCon.PEle) annotation (Line(points={{-69,150},{-60,150},{-60,
-          130},{-70,130},{-70,94},{-52,94}}, color={0,0,127}));
+  connect(fil.PEle, eneCon.PEle) annotation (Line(points={{-68,150},{-60,150},{
+          -60,130},{-70,130},{-70,95},{-52,95}},
+                                             color={0,0,127}));
 
 annotation (
   defaultComponentName="eleFol",

@@ -1,62 +1,103 @@
 within Buildings.Fluid.CHPs.BaseClasses;
 model FilterPower "Constraints for electric power"
   extends Modelica.Blocks.Icons.Block;
+
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Interfaces.RealInput PEleDem(unit="W")
-    "Electric power demand" annotation (Placement(transformation(extent={{-140,-20},
-            {-100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle(unit="W")
-    "Electric power demand after applied constraints" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={
-            {100,-10},{120,10}})));
-  CHPs.BaseClasses.AssertPower assPow(per=per)
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PEleDem(final unit="W")
+    "Electric power demand"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle(final unit="W")
+    "Electric power demand after applied constraints"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Fluid.CHPs.BaseClasses.AssertPower assPow(final per=per)
     "Assert if electric power is outside boundaries"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+
 protected
   Modelica.Blocks.Nonlinear.VariableLimiter PLim "Power limiter"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMax(k=per.PEleMax)
-    "Maximum power"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMax(
+    final k=per.PEleMax) "Maximum power"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMin(k=per.PEleMin)
-    "Minimum power"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMin(
+    final k=per.PEleMin) "Minimum power"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter dPLim(raisingSlewRate=
-        per.dPEleMax, Td=1) "Power rate limiter"
-    annotation (Placement(transformation(extent={{10,20},{30,40}})));
-  Modelica.Blocks.Sources.BooleanExpression booExp(y=per.dPEleLim)
-    "Check if dP is limited"
-    annotation (Placement(transformation(extent={{12,-10},{32,10}})));
-  Modelica.Blocks.Logical.Switch switch
+  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter dPLim(
+    final raisingSlewRate=per.dPEleMax,
+    final Td=1) "Power rate limiter"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch switch
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant limDp(
+    final k=per.dPEleLim)
+    "Check if dP is limited"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+
 equation
   connect(PMax.y, PLim.limit1) annotation (Line(points={{-58,30},{-50,30},{-50,
-          8},{-42,8}},
-                    color={0,0,127}));
+          8},{-42,8}}, color={0,0,127}));
   connect(PMin.y, PLim.limit2) annotation (Line(points={{-58,-30},{-50,-30},{
-          -50,-8},{-42,-8}},
-                         color={0,0,127}));
-  connect(PLim.u, PEleDem)
-    annotation (Line(points={{-42,0},{-120,0}}, color={0,0,127}));
-  connect(booExp.y, switch.u2)
-    annotation (Line(points={{33,0},{58,0}}, color={255,0,255}));
-  connect(switch.y, PEle)
-    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  connect(dPLim.y, switch.u1)
-    annotation (Line(points={{32,30},{40,30},{40,8},{58,8}}, color={0,0,127}));
-  connect(PLim.y, dPLim.u)
-    annotation (Line(points={{-19,0},{0,0},{0,30},{8,30}},  color={0,0,127}));
-  connect(PLim.y, switch.u3)
-    annotation (Line(points={{-19,0},{0,0},{0,-8},{58,-8}}, color={0,0,127}));
+          -50,-8},{-42,-8}}, color={0,0,127}));
+  connect(PLim.u, PEleDem) annotation (Line(points={{-42,0},{-120,0}},
+          color={0,0,127}));
+  connect(switch.y, PEle) annotation (Line(points={{82,0},{120,0}},
+          color={0,0,127}));
+  connect(dPLim.y, switch.u1) annotation (Line(points={{22,30},{40,30},{40,8},
+          {58,8}}, color={0,0,127}));
+  connect(PLim.y, dPLim.u) annotation (Line(points={{-19,0},{-10,0},{-10,30},{-2,30}},
+          color={0,0,127}));
+  connect(PLim.y, switch.u3) annotation (Line(points={{-19,0},{-10,0},{-10,-8},
+          {58,-8}}, color={0,0,127}));
   connect(assPow.PEleDem, PEleDem) annotation (Line(points={{-42,-70},{-90,-70},
           {-90,0},{-120,0}}, color={0,0,127}));
-  annotation (
-    defaultComponentName="filPow",
-    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-    Documentation(info="<html>
+  connect(limDp.y, switch.u2) annotation (Line(points={{22,-30},{40,-30},{40,0},
+          {58,0}}, color={255,0,255}));
+
+annotation (
+  defaultComponentName="filPow",
+  Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
+  Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+        Text(
+          extent={{-86,-64},{-46,-44}},
+          lineColor={128,128,128},
+          textString="uMin"),
+        Text(
+          extent={{-34,76},{-9,56}},
+          lineColor={128,128,128},
+          textString="output"),
+        Text(
+          extent={{50,50},{90,70}},
+          lineColor={128,128,128},
+          textString="uMax"),
+        Text(
+          extent={{52,-8},{74,-20}},
+          lineColor={128,128,128},
+          textString="input"),
+    Line(points={{-90,0},{68,0}}, color={192,192,192}),
+    Line(
+      points={{-50,-70},{50,70}}),
+    Line(points={{0,-90},{0,68}}, color={192,192,192}),
+    Polygon(
+      points={{90,0},{68,-8},{68,8},{90,0}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Polygon(
+      points={{0,90},{-8,68},{8,68},{0,90}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+        Line(points={{50,70},{82,70}}, color={0,0,0}),
+        Line(points={{-82,-70},{-50,-70}}, color={0,0,0}),
+        Line(points={{-44,-70}}, color={0,0,0}),
+        Line(points={{-40,-70},{40,70}}, color={0,0,0})}),
+  Documentation(info="<html>
 <p>
 The model checks if the electric power and power rate are within the boundaries specified by the manufacturer. 
 The constraints are applied and a warning message is sent if the electric power is outside the boundaries. 

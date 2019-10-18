@@ -2,24 +2,32 @@ within Buildings.Fluid.CHPs.BaseClasses;
 block EfficiencyCurve "Efficiency curve described by a 2nd order polynomial, 
   function of 3 input variables"
   extends Modelica.Blocks.Icons.Block;
+
   parameter Real a[27] "Polynomial coefficients";
-  Modelica.Blocks.Interfaces.RealInput PNet(unit="W") "Electric power"
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PNet(
+    final unit="W") "Electric power"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s") "Water flow rate"
+      iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mWat_flow(
+    final unit="kg/s") "Water flow rate"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput TWatIn(unit="K")
-    "Water inlet temperature" annotation (Placement(transformation(extent={{-140,
-            -80},{-100,-40}}), iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput eta(unit="1") "Efficiency" annotation (
-      Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(
-          extent={{100,-10},{120,10}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatIn(
+    final unit="K") "Water inlet temperature"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput eta(
+    final unit="1") "Efficiency"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
+
 protected
   Real y(unit="1") "Efficiency";
   constant Real etaSma=0.01 "Value for eta if y is zero";
+
 equation
-  y = CHPs.BaseClasses.Functions.polynomialtrivariate(
+  y = Buildings.Fluid.CHPs.BaseClasses.Functions.polynomialtrivariate(
     a=a,
     x1=PNet,
     x2=mWat_flow,
@@ -30,10 +38,10 @@ equation
     x2=etaSma,
     deltaX=etaSma/2)
     "Corrected efficiency, ensuring that efficiency is not zero";
-  annotation (
-    defaultComponentName="effCur",
-    Documentation(info="<html>
-  
+
+annotation (
+  defaultComponentName="effCur",
+  Documentation(info="<html>
   <p>The block computes a 2nd order polynomial, a function of three input variables.
 The polynomial has the form
 <p align=\"center\" style=\"font-style:italic;\">
@@ -67,14 +75,24 @@ y = a<sub>1</sub>
 + a<sub>26</sub> x<sub>1</sub> x<sub>2</sub> x<sub>3</sub><sup>2</sup>
 + a<sub>27</sub> x<sub>1</sub> x<sub>2</sub> x<sub>3</sub>
 </p>
-  
 </html>", revisions="<html>
 <ul>
 <li>June 01, 2019, by Tea Zakula:<br/>First implementation. </li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+        Line(points={{-90,-76},{68,-76}},
+                                      color={192,192,192}),
+        Line(points={{-80,-80},{-79.2,-50.6},{-78.4,-37},{-77.6,-28},{-76.8,-21.3},
+              {-75.2,-11.4},{-72.8,-1.31},{-69.5,8.08},{-64.7,17.9},{-57.5,28},
+              {-47,38.1},{-31.8,48.1},{-10.1,58},{22.1,68},{68.7,78.1},{80,80}}),
+        Line(points={{-80,-80},{-80,68}}, color={192,192,192}),
+        Polygon(
+          points={{-80,90},{-88,68},{-72,68},{-80,90}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid)}),
     Icon(graphics={Text(
           extent={{-90,38},{90,-34}},
           lineColor={160,160,164},

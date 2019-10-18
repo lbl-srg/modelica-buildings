@@ -20,9 +20,8 @@ protected
     "Check if fuel flow rate is changing slowly"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheDmLim(
-    final k=per.dmFueLim)
-    "Check if change of fuel flow rate should be limited"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    final k=per.dmFueLim) "Check if change of fuel flow rate should be limited"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=0.99*per.dmFueMax,
     final uHigh=1.01*per.dmFueMax)
@@ -42,7 +41,7 @@ equation
   connect(floChaRat.u, mFue_flow)
     annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
   connect(cheDmLim.y, nand.u2)
-    annotation (Line(points={{22,-30},{30,-30},{30,-8},{38,-8}}, color={255,0,255}));
+    annotation (Line(points={{22,-40},{30,-40},{30,-8},{38,-8}}, color={255,0,255}));
   connect(nand.y, assMes.u)
     annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
   connect(abs1.y, hys.u)

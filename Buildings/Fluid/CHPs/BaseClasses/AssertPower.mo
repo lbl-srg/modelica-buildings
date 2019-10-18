@@ -14,16 +14,16 @@ model AssertPower "Assert if electric power is outside boundaries"
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesDP(
     final message="Power rate of change is outside boundaries!")
     "Assert function for checking power rate"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Nor nor
     "Check if the electric power demand is out of the power production range"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Nand nand "Logical Nand"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Modelica.Blocks.Sources.BooleanExpression cheDPLim(
-    final y=per.dPEleLim)
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cheDPLim(
+    final k=per.dPEleLim)
     "Check if dP is limited"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesP(
@@ -34,13 +34,13 @@ protected
     final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
     final x_start=0)
     "Power demand rate"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold maxRat(
     final threshold=per.dPEleMax)
     "Check if demand rate is more than the maximum rate"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(
     final uLow=0.99*per.PEleMax,
     final uHigh=1.01*per.PEleMax)
@@ -56,26 +56,26 @@ protected
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
-  connect(abs1.u, demRat.y) annotation (Line(points={{-42,-50},{-58,-50}},
+  connect(abs1.u, demRat.y) annotation (Line(points={{-42,-40},{-58,-40}},
           color={0,0,127}));
-  connect(maxRat.u, abs1.y) annotation (Line(points={{-2,-50},{-18,-50}},
+  connect(maxRat.u, abs1.y) annotation (Line(points={{-2,-40},{-18,-40}},
           color={0,0,127}));
   connect(maxPow.u, PEleDem) annotation (Line(points={{-62,40},{-90,40},{-90,0},
           {-120,0}}, color={0,0,127}));
   connect(minPow.u, PEleDem) annotation (Line(points={{-82,0},{-120,0}},
           color={0,0,127}));
-  connect(demRat.u, PEleDem) annotation (Line(points={{-82,-50},{-90,-50},{-90,0},
+  connect(demRat.u, PEleDem) annotation (Line(points={{-82,-40},{-90,-40},{-90,0},
           {-120,0}}, color={0,0,127}));
   connect(nor.u1, maxPow.y) annotation (Line(points={{38,20},{0,20},{0,40},{-38,
           40}}, color={255,0,255}));
-  connect(maxRat.y, nand.u1) annotation (Line(points={{22,-50},{38,-50}},
+  connect(maxRat.y, nand.u1) annotation (Line(points={{22,-40},{38,-40}},
           color={255,0,255}));
   connect(nor.y, assMesP.u) annotation (Line(points={{62,20},{78,20}},
           color={255,0,255}));
-  connect(nand.y, assMesDP.u) annotation (Line(points={{62,-50},{78,-50}},
+  connect(nand.y, assMesDP.u) annotation (Line(points={{62,-40},{78,-40}},
           color={255,0,255}));
-  connect(cheDPLim.y, nand.u2) annotation (Line(points={{21,-80},{30,-80},
-          {30,-58},{38,-58}}, color={255,0,255}));
+  connect(cheDPLim.y, nand.u2) annotation (Line(points={{22,-80},{30,-80},{30,-48},
+          {38,-48}}, color={255,0,255}));
   connect(nor.u2, not1.y) annotation (Line(points={{38,12},{0,12},{0,0},{-18,0}},
           color={255,0,255}));
   connect(not1.u, minPow.y) annotation (Line(points={{-42,0},{-58,0}},

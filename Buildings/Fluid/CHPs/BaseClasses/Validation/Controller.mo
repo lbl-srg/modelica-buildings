@@ -22,14 +22,15 @@ protected
   Modelica.Blocks.Sources.Constant TEng(k=273.15 + 100) "Engine temperature"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
-  connect(avaSig.y, con.avaSig) annotation (Line(points={{-19,70},{0,70},{0,18},
-          {18,18}}, color={255,0,255}));
+  connect(avaSig.y, con.avaSig) annotation (Line(points={{-19,70},{0,70},{0,2},
+          {18,2}},  color={255,0,255}));
   connect(runSig.y, con.runSig) annotation (Line(points={{-19,30},{-10,30},{-10,
-          14},{18,14}}, color={255,0,255}));
-  connect(TEng.y, con.TEng) annotation (Line(points={{-19,-70},{0,-70},{0,2},{
-          18,2}}, color={0,0,127}));
+          18},{18,18}}, color={255,0,255}));
+  connect(TEng.y, con.TEng) annotation (Line(points={{-19,-70},{0,-70},{0,8},{
+          18,8}}, color={0,0,127}));
   connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-18,-30},{
-          -10,-30},{-10,6},{18,6}}, color={0,0,127}));
+          -10,-30},{-10,12},{18,12}},
+                                    color={0,0,127}));
   annotation (
     experiment(StopTime=3000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/Controller.mos"

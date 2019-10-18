@@ -4,117 +4,135 @@ model Controller "Define current operation mode"
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
-    annotation (Placement(transformation(extent={{158,200},{178,220}})));
+    annotation (Placement(transformation(extent={{120,160},{140,180}})));
   parameter Modelica.SIunits.Time waitTime=60
     "Wait time before transition from pump-on mode fires"
     annotation (Dialog(tab="Dynamics"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput avaSig
-    "True when the plant is available"
-    annotation (Placement(transformation(extent={{-240,200},{-200,240}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput runSig
-    annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+    "True when plant should run"
+    annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mWat_flow(
     final unit="kg/s")
-    annotation (Placement(transformation(extent={{-240,70},{-200,110}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-300,30},{-260,70}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEng(
     final unit="K",
     final quantity="ThermodynamicTemperature")  "Engine temperature"
-    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
+    annotation (Placement(transformation(extent={{-300,0},{-260,40}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput avaSig
+    "True when the plant is available"
+    annotation (Placement(transformation(extent={{-300,-80},{-260,-40}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Fluid.CHPs.BaseClasses.Interfaces.ModeTypeOutput opeMod
     "Type of the operation mode"
-    annotation (Placement(transformation(extent={{200,-20},{240,20}}),
+    annotation (Placement(transformation(extent={{260,-20},{300,20}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo(k=per.mWatMin)
-    "Minimum water flow rate"
-    annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant con(k=0.001) "Constant value"
-    annotation (Placement(transformation(extent={{-180,160},{-160,180}})));
-  Controls.OBC.CDL.Continuous.Max max
-    annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
-  Controls.OBC.CDL.Continuous.Add add2(k1=-1)
-    "Flow rate difference between current rate and minimum rate"
-    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=0.01*per.mWatMin, uHigh=0.015
-        *per.mWatMin)
-    "Check if current flow rate is larger than the minimum flow rate"
-    annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-  Controls.OBC.CDL.Logical.And goSig
-    "Check if water flow rate is higher than the minimum when runSig = true"
-    annotation (Placement(transformation(extent={{-20,150},{0,170}})));
 protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo(
+    final k=per.mWatMin) "Minimum water flow rate"
+    annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=0.001) "Constant value"
+    annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max max
+    "Maximum between minimum flow rate and 0.001"
+    annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(
+    final k1=-1)
+    "Flow rate difference between current rate and minimum rate"
+    annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=0.01*per.mWatMin,
+    final uHigh=0.015*per.mWatMin)
+    "Check if current flow rate is larger than the minimum flow rate"
+    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
+  Buildings.Controls.OBC.CDL.Logical.And goSig
+    "Check if water flow rate is higher than the minimum when runSig = true"
+    annotation (Placement(transformation(extent={{-20,170},{0,190}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo1(
+    final k=0.95*per.mWatMin)
+    "Minimum water flow rate"
+    annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Max max1
+    "Maximum between minimum flow rate and 0.001"
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
+    "Flow rate difference between current rate and minimum rate"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    final uLow=0.01*per.mWatMin,
+    final uHigh=0.015*per.mWatMin)
+    "Check if current flow rate is smaller than the minimum flow rate"
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Or noGoSig
+    "Check if water flow rate is smaller than the minimum or if runSig = false"
+    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Plant is not running"
+    annotation (Placement(transformation(extent={{-220,110},{-200,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Plant is not running"
+    annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or1 "Plant is not available or should not run"
+    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Warm up mode is done and the plant could run"
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+  Buildings.Fluid.CHPs.BaseClasses.CoolDown cooDow "Plant is in cool-down mode"
+    annotation (Placement(transformation(extent={{120,-124},{140,-104}})));
+  Modelica.StateGraph.TransitionWithSignal transition3 "Plant should be off"
+    annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
+  Modelica.StateGraph.TransitionWithSignal transition5 "Plant should be off"
+    annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
+  Modelica.StateGraph.TransitionWithSignal transition9 "Run in cool-down mode"
+    annotation (Placement(transformation(extent={{70,-120},{90,-100}})));
+  Modelica.StateGraph.TransitionWithSignal transition7 "Run in warm-up mode"
+    annotation (Placement(transformation(extent={{130,-170},{150,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.And and3
+    "Plant could run and cool down mode is optional"
+    annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
+  Modelica.StateGraph.TransitionWithSignal transition10 "Plant should be off"
+    annotation (Placement(transformation(extent={{210,-130},{230,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    "Plant could run and cool down mode is optional"
+    annotation (Placement(transformation(extent={{180,-200},{200,-180}})));
   Buildings.Fluid.CHPs.BaseClasses.AssertWatMas assWatMas(
     final per=per)
     "Assert if water flow rate is outside boundaries"
-    annotation (Placement(transformation(extent={{120,106},{140,126}})));
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
   Buildings.Fluid.CHPs.BaseClasses.PumpOn pumpOn "Plant pump is on"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Modelica.StateGraph.Transition transition1(
-    final condition=avaSig) "Plant becomes available"
-    annotation (Placement(transformation(extent={{-110,20},{-90,40}})));
-  Modelica.StateGraph.Transition transition2(
-    final condition=runSig) "Run plant"
-    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Modelica.StateGraph.TransitionWithSignal transition1
+    "Plant becomes available"
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+  Modelica.StateGraph.TransitionWithSignal transition2 "Run plant"
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Modelica.StateGraph.Step normal(final nIn=1, final nOut=1)
-    annotation (Placement(transformation(extent={{140,20},{160,40}})));
-  Modelica.StateGraph.Transition transition8(
-    final condition=noGoSig.y)
-    annotation (Placement(transformation(extent={{170,20},{190,40}})));
-  Modelica.StateGraph.Transition transition7(
-    final condition=noGoSig.y)
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-      rotation=180, origin={-40,-60})));
+    "Plant is in normal mode"
+    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+  Modelica.StateGraph.TransitionWithSignal transition8 "Run in cool-down mode"
+    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
   Buildings.Fluid.CHPs.BaseClasses.StandBy standBy(
     final nResume=1) "Plant is in standby mode"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.StateGraph.Transition transition3(final condition=not avaSig)
-    annotation (Placement(transformation(extent={{-130,-10},{-150,10}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.CHPs.BaseClasses.WarmUp warmUp(final per=per)
-    annotation (Placement(transformation(extent={{48,20},{68,40}})));
-  Buildings.Fluid.CHPs.BaseClasses.CoolDown coolDown(final per=per)
-    annotation (Placement(transformation(extent={{-80,-90},{-100,-70}})));
-  Modelica.StateGraph.TransitionWithSignal transition9
-    annotation (Placement(transformation(extent={{-130,-90},{-150,-70}})));
-  Modelica.StateGraph.Transition transition10(
-    final condition=goSig.y and per.coolDownOptional)
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
-      rotation=180, origin={-40,-100})));
-  Modelica.StateGraph.TransitionWithSignal transition6
-    annotation (Placement(transformation(extent={{110,20},{130,40}})));
-  Modelica.StateGraph.InitialStep plantOff(final nIn=3)
-    "Plant off initial state"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    "Plant is in warm up mode"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Modelica.StateGraph.TransitionWithSignal transition6 "Run in normal mode"
+    annotation (Placement(transformation(extent={{130,-10},{150,10}})));
+  Modelica.StateGraph.InitialStep plantOff(final nIn=3) "Plant is off"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.StateGraph.TransitionWithSignal transition4(
     final enableTimer=true,
-    final waitTime=waitTime)
-    annotation (Placement(transformation(extent={{10,20},{30,40}})));
-  Modelica.StateGraph.Transition transition5(
-    final condition=not avaSig or not runSig)
-    annotation (Placement(transformation(extent={{-30,-30},{-50,-10}})));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression(
-    final y=goSig.y)
-    "Check if water flow rate is higher than the minimum"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression2(
-    final y=noGoSig.y)
-    annotation (Placement(transformation(extent={{-60,-150},{-80,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{-100,-130},{-120,-110}})));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression1(
-    final y=goSig.y)
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    annotation (Placement(transformation(extent={{100,-10},{120,-30}})));
-  Modelica.Blocks.Sources.BooleanExpression noGoSig(
-    final y=not runSig or (mWat_flow <(1 - 0.05)*per.mWatMin) or (mWat_flow < 0.001))
-    "Check if water flow rate is lower than the minimum or if runSig = false"
-    annotation (Placement(transformation(extent={{140,150},{180,190}})));
+    final waitTime=waitTime) "Run in warm-up mode"
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant optCooDow(
+    final k=per.coolDownOptional)
+    "Check if cool down mode is optional"
+    annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
 
 equation
   if plantOff.active then
@@ -131,98 +149,135 @@ equation
     actMod = CHPs.BaseClasses.Types.Mode.CoolDown;
   end if;
   opeMod = actMod;
-  connect(normal.outPort[1], transition8.inPort)
-    annotation (Line(points={{160.5,30},{176,30}}, color={0,0,0}));
-  connect(standBy.outPort, transition2.inPort)
-    annotation (Line(points={{-59.6667,30},{-44,30}},
-                                                    color={0,0,0}));
-  connect(TEng,warmUp.TEng)  annotation (Line(points={{-220,60},{30,60},{30,
-          35.3333},{47.3333,35.3333}},
+  connect(normal.outPort[1], transition8.inPort) annotation (Line(points={{180.5,
+          0},{196,0}}, color={0,0,0}));
+  connect(standBy.outPort, transition2.inPort) annotation (Line(points={{
+          -39.6667,0},{-24,0}}, color={0,0,0}));
+  connect(TEng,warmUp.TEng) annotation (Line(points={{-280,20},{50,20},{50,
+          5.33333},{59.3333,5.33333}},
                               color={0,0,127}));
-  connect(coolDown.outPort, transition9.inPort)
-    annotation (Line(points={{-100.333,-80},{-136,-80}},
-                                                      color={0,0,0}));
-  connect(transition1.outPort, standBy.inPort)
-    annotation (Line(points={{-98.5,30},{-80.6667,30}}, color={0,0,0}));
-  connect(transition8.outPort, coolDown.inPort) annotation (Line(points={{181.5,
-          30},{190,30},{190,-80},{-79.3333,-80}}, color={0,0,0}));
-  connect(transition7.outPort, coolDown.inPort1) annotation (Line(points={{-41.5,
-          -60},{-60,-60},{-60,-76},{-79.3333,-76}},
-                                              color={0,0,0}));
-  connect(standBy.suspend[1], transition3.inPort)
-    annotation (Line(points={{-75,19.6667},{-75,0},{-136,0}},  color={0,0,0}));
-  connect(transition10.outPort, warmUp.inPort1) annotation (Line(points={{-38.5,
-          -100},{30,-100},{30,24.6667},{47.3333,24.6667}},
-                                                    color={0,0,0}));
-  connect(warmUp.outPort, transition6.inPort)
-    annotation (Line(points={{68.3333,30},{116,30}}, color={0,0,0}));
-  connect(plantOff.outPort[1], transition1.inPort)
-    annotation (Line(points={{-119.5,30},{-104,30}},
-                                                   color={0,0,0}));
-  connect(transition2.outPort, pumpOn.inPort)
-    annotation (Line(points={{-38.5,30},{-20.6667,30}},
-                                                      color={0,0,0}));
-  connect(pumpOn.outPort, transition4.inPort)
-    annotation (Line(points={{0.33333,30},{16,30}}, color={0,0,0}));
-  connect(pumpOn.suspend[1], transition5.inPort)
-    annotation (Line(points={{-15,19.6667},{-15,-20},{-36,-20}},
-                                                            color={0,0,0}));
-  connect(transition4.outPort, warmUp.inPort)
-    annotation (Line(points={{21.5,30},{47.3333,30}}, color={0,0,0}));
-  connect(transition6.outPort, normal.inPort[1])
-    annotation (Line(points={{121.5,30},{139,30}}, color={0,0,0}));
-  connect(transition3.outPort, plantOff.inPort[1]) annotation (Line(points={{-141.5,
-          0},{-150,0},{-150,30.6667},{-141,30.6667}},color={0,0,0}));
-  connect(transition5.outPort, plantOff.inPort[2]) annotation (Line(points={{-41.5,
-          -20},{-150,-20},{-150,30},{-141,30}},
-                                           color={0,0,0}));
-  connect(transition9.outPort, plantOff.inPort[3]) annotation (Line(points={{-141.5,
-          -80},{-150,-80},{-150,29.3333},{-141,29.3333}},
-                                                     color={0,0,0}));
-  connect(runSig, assWatMas.runSig) annotation (Line(points={{-220,120},{118,
-          120}},                           color={255,0,255}));
-  connect(booleanExpression.y, transition4.condition)
-    annotation (Line(points={{1,-40},{20,-40},{20,18}},  color={255,0,255}));
-  connect(assWatMas.mWat_flow, mWat_flow)
-    annotation (Line(points={{118,112},{-180,112},{-180,90},{-220,90}},
-                                                    color={0,0,127}));
-  connect(and2.y, transition9.condition) annotation (Line(points={{-122,-120},{-140,
-          -120},{-140,-92}},   color={255,0,255}));
-  connect(coolDown.suspend[1], transition10.inPort) annotation (Line(points={{-85,
-          -90.3333},{-85,-100},{-44,-100}},color={0,0,0}));
-  connect(booleanExpression1.y, and1.u1) annotation (Line(points={{81,-40},{90,-40},
-          {90,-20},{98,-20}},        color={255,0,255}));
-  connect(warmUp.y, and1.u2) annotation (Line(points={{68.6667,24.8},{92,24.8},
-          {92,-12},{98,-12}},   color={255,0,255}));
-  connect(and1.y, transition6.condition) annotation (Line(points={{122,-20},{
-          130,-20},{130,0},{120,0},{120,18}},
-                                          color={255,0,255}));
-  connect(warmUp.suspend[1], transition7.inPort) annotation (Line(points={{53,
-          19.6667},{53,-60},{-36,-60}},
+  connect(transition1.outPort, standBy.inPort) annotation (Line(points={{-78.5,0},
+          {-60.6667,0}}, color={0,0,0}));
+  connect(warmUp.outPort, transition6.inPort) annotation (Line(points={{80.3333,
+          0},{136,0}},
+                    color={0,0,0}));
+  connect(plantOff.outPort[1], transition1.inPort) annotation (Line(points={{
+          -99.5,0},{-84,0}}, color={0,0,0}));
+  connect(transition2.outPort, pumpOn.inPort) annotation (Line(points={{-18.5,0},
+          {-0.66667,0}}, color={0,0,0}));
+  connect(pumpOn.outPort, transition4.inPort) annotation (Line(points={{20.3333,
+          0},{36,0}},
+                   color={0,0,0}));
+  connect(transition4.outPort, warmUp.inPort) annotation (Line(points={{41.5,0},
+          {59.3333,0}}, color={0,0,0}));
+  connect(transition6.outPort, normal.inPort[1]) annotation (Line(points={{141.5,
+          0},{159,0}}, color={0,0,0}));
+  connect(assWatMas.mWat_flow, mWat_flow) annotation (Line(points={{78,36},
+          {-110,36},{-110,50},{-280,50}}, color={0,0,127}));
+  connect(minWatFlo.y, max.u1) annotation (Line(points={{-158,200},{-150,200},{-150,
+          186},{-142,186}}, color={0,0,127}));
+  connect(con.y, max.u2) annotation (Line(points={{-158,160},{-150,160},{-150,174},
+          {-142,174}}, color={0,0,127}));
+  connect(max.y, add2.u1) annotation (Line(points={{-118,180},{-106,180},{-106,186},
+          {-102,186}},  color={0,0,127}));
+  connect(add2.y, hys.u) annotation (Line(points={{-78,180},{-62,180}},
+          color={0,0,127}));
+  connect(hys.y, goSig.u1) annotation (Line(points={{-38,180},{-22,180}},
+          color={255,0,255}));
+  connect(max1.y, add1.u1) annotation (Line(points={{-118,90},{-106,90},{-106,96},
+          {-102,96}}, color={0,0,127}));
+  connect(add1.y, hys1.u) annotation (Line(points={{-78,90},{-62,90}},
+          color={0,0,127}));
+  connect(mWat_flow, add2.u2) annotation (Line(points={{-280,50},{-110,50},{-110,
+          174},{-102,174}}, color={0,0,127}));
+  connect(mWat_flow, add1.u2) annotation (Line(points={{-280,50},{-110,50},{-110,
+          84},{-102,84}}, color={0,0,127}));
+  connect(runSig, goSig.u2) annotation (Line(points={{-280,140},{-30,140},{-30,172},
+          {-22,172}}, color={255,0,255}));
+  connect(runSig, not1.u) annotation (Line(points={{-280,140},{-240,140},{-240,120},
+          {-222,120}}, color={255,0,255}));
+  connect(not1.y, noGoSig.u2) annotation (Line(points={{-198,120},{-30,120},{-30,
+          82},{-22,82}}, color={255,0,255}));
+  connect(hys1.y, noGoSig.u1) annotation (Line(points={{-38,90},{-22,90}},
+          color={255,0,255}));
+  connect(runSig, assWatMas.runSig) annotation (Line(points={{-280,140},{-240,140},
+          {-240,44},{78,44}}, color={255,0,255}));
+  connect(avaSig, transition1.condition) annotation (Line(points={{-280,-60},{-220,
+          -60},{-220,-20},{-80,-20},{-80,-12}}, color={255,0,255}));
+  connect(runSig, transition2.condition) annotation (Line(points={{-280,140},{-240,
+          140},{-240,-24},{-20,-24},{-20,-12}}, color={255,0,255}));
+  connect(avaSig, not2.u) annotation (Line(points={{-280,-60},{-240,-60},{-240,-100},
+          {-222,-100}}, color={255,0,255}));
+  connect(not1.y, or1.u1) annotation (Line(points={{-198,120},{-190,120},{-190,-120},
+          {-182,-120}}, color={255,0,255}));
+  connect(not2.y, or1.u2) annotation (Line(points={{-198,-100},{-194,-100},{-194,
+          -128},{-182,-128}}, color={255,0,255}));
+  connect(minWatFlo1.y, max1.u2) annotation (Line(points={{-158,90},{-150,90},{-150,
+          84},{-142,84}}, color={0,0,127}));
+  connect(con.y, max1.u1) annotation (Line(points={{-158,160},{-150,160},{-150,96},
+          {-142,96}}, color={0,0,127}));
+  connect(goSig.y, transition4.condition) annotation (Line(points={{2,180},{20,180},
+          {20,60},{-140,60},{-140,-28},{40,-28},{40,-12}}, color={255,0,255}));
+  connect(warmUp.y, and1.u1) annotation (Line(points={{80.6667,-5.2},{90,-5.2},
+          {90,-20},{98,-20}}, color={255,0,255}));
+  connect(goSig.y, and1.u2) annotation (Line(points={{2,180},{20,180},{20,60},{-140,
+          60},{-140,-28},{98,-28}}, color={255,0,255}));
+  connect(and1.y, transition6.condition) annotation (Line(points={{122,-20},{140,
+          -20},{140,-12}}, color={255,0,255}));
+  connect(noGoSig.y, transition8.condition) annotation (Line(points={{2,90},{16,
+          90},{16,64},{-144,64},{-144,-32},{200,-32},{200,-12}}, color={255,0,255}));
+  connect(transition8.outPort, cooDow.inPort) annotation (Line(points={{201.5,0},
+          {220,0},{220,-80},{100,-80},{100,-114},{119.333,-114}},   color={0,0,0}));
+  connect(or1.y, transition5.condition) annotation (Line(points={{-158,-120},{20,
+          -120},{20,-112}}, color={255,0,255}));
+  connect(not2.y, transition3.condition) annotation (Line(points={{-198,-100},{-20,
+          -100},{-20,-92}}, color={255,0,255}));
+  connect(standBy.suspend[1], transition3.inPort) annotation (Line(points={{-55,
+          -10.3333},{-55,-80},{-24,-80}}, color={0,0,0}));
+  connect(pumpOn.suspend[1], transition5.inPort) annotation (Line(points={{5,
+          -10.3333},{5,-100},{16,-100}}, color={0,0,0}));
+  connect(warmUp.suspend[1], transition9.inPort) annotation (Line(points={{65,
+          -10.3333},{65,-110},{76,-110}},
+                                color={0,0,0}));
+  connect(noGoSig.y, transition9.condition) annotation (Line(points={{2,90},{16,
+          90},{16,64},{-144,64},{-144,-130},{80,-130},{80,-122}}, color={255,0,255}));
+  connect(transition9.outPort, cooDow.inPort1) annotation (Line(points={{81.5,
+          -110},{119.333,-110}}, color={0,0,0}));
+  connect(cooDow.suspend[1], transition7.inPort) annotation (Line(points={{125,
+          -124.333},{125,-160},{136,-160}},
+                                  color={0,0,0}));
+  connect(transition7.outPort, warmUp.inPort1)
+    annotation (Line(points={{141.5,-160},{160,-160},{160,-140},{50,-140},{50,
+          -5.33333},{59.3333,-5.33333}},
                                color={0,0,0}));
-  connect(and2.u2, booleanExpression2.y) annotation (Line(points={{-98,-128},{-90,
-          -128},{-90,-140},{-81,-140}}, color={255,0,255}));
-  connect(coolDown.y, and2.u1) annotation (Line(points={{-100.667,-83.3333},{
-          -110,-83.3333},{-110,-100},{-90,-100},{-90,-120},{-98,-120}},
-                                                                  color={255,0,255}));
-  connect(minWatFlo.y, max.u1) annotation (Line(points={{-158,200},{-150,200},{
-          -150,186},{-142,186}}, color={0,0,127}));
-  connect(con.y, max.u2) annotation (Line(points={{-158,170},{-150,170},{-150,
-          174},{-142,174}}, color={0,0,127}));
-  connect(max.y, add2.u1) annotation (Line(points={{-118,180},{-110,180},{-110,
-          166},{-102,166}}, color={0,0,127}));
-  connect(mWat_flow, add2.u2) annotation (Line(points={{-220,90},{-180,90},{
-          -180,154},{-102,154}}, color={0,0,127}));
-  connect(add2.y, hys.u)
-    annotation (Line(points={{-78,160},{-62,160}}, color={0,0,127}));
-  connect(hys.y, goSig.u1)
-    annotation (Line(points={{-38,160},{-22,160}}, color={255,0,255}));
-  connect(runSig, goSig.u2) annotation (Line(points={{-220,120},{-28,120},{-28,
-          152},{-22,152}}, color={255,0,255}));
-  annotation (
+  connect(and3.y, transition7.condition) annotation (Line(points={{102,-180},{140,
+          -180},{140,-172}}, color={255,0,255}));
+  connect(cooDow.y, and4.u1) annotation (Line(points={{140.667,-117.333},{170,
+          -117.333},{170,-190},{178,-190}},
+                                  color={255,0,255}));
+  connect(noGoSig.y, and4.u2) annotation (Line(points={{2,90},{16,90},{16,64},{-144,
+          64},{-144,-198},{178,-198}}, color={255,0,255}));
+  connect(cooDow.outPort, transition10.inPort) annotation (Line(points={{140.333,
+          -114},{180,-114},{180,-120},{216,-120}}, color={0,0,0}));
+  connect(and4.y, transition10.condition) annotation (Line(points={{202,-190},{220,
+          -190},{220,-132}}, color={255,0,255}));
+  connect(transition3.outPort, plantOff.inPort[1]) annotation (Line(points={{-18.5,
+          -80},{0,-80},{0,-50},{-130,-50},{-130,0.666667},{-121,0.666667}},
+          color={0,0,0}));
+  connect(transition5.outPort, plantOff.inPort[2]) annotation (Line(points={{21.5,
+          -100},{40,-100},{40,-50},{-130,-50},{-130,0},{-121,0}}, color={0,0,0}));
+  connect(transition10.outPort, plantOff.inPort[3]) annotation (Line(points={{221.5,
+          -120},{240,-120},{240,-50},{-130,-50},{-130,-0.666667},{-121,-0.666667}},
+          color={0,0,0}));
+  connect(goSig.y, and3.u2) annotation (Line(points={{2,180},{20,180},{20,60},{-140,
+          60},{-140,-188},{78,-188}}, color={255,0,255}));
+  connect(optCooDow.y, and3.u1) annotation (Line(points={{62,-160},{70,-160},{70,
+          -180},{78,-180}}, color={255,0,255}));
+
+annotation (
     defaultComponentName="conMai",
-    Diagram(coordinateSystem(extent={{-200,-240},{200,240}})),
-    Icon(coordinateSystem(extent={{-200,-240},{200,240}}), graphics={
+    Diagram(coordinateSystem(extent={{-260,-220},{260,220}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Polygon(
           points={{50,34},{50,-18},{90,8},{90,8},{50,34}},
           lineColor={28,108,200},
@@ -255,8 +310,9 @@ equation
           rotation=90)}),
     Documentation(info="<html>
 <p>  
-The CHP plant switches between six possible operating modes depending on the current mode, control signals and plant boundary conditions. 
-The regular transition between them is as follows:
+The CHP plant switches between six possible operating modes depending on the current mode, 
+control signals and plant boundary conditions. The regular transition between them 
+is as follows:
 </p>  
 <ul>
 <li>
@@ -281,80 +337,86 @@ cool-down mode
 off or stand-by mode
 </li>
 </ul>
- 
-
-
 <h4>Switching between operating modes</h4>
-
 <p>
 From the off mode
 </p>
 <ul>
 <li>
-The transition from the off to the stand-by mode will occur when the plant availability signal becomes true (<i>avaSig = true</i>). 
+The transition from the off to the stand-by mode will occur when the plant availability 
+signal <code>avaSig</code> becomes true. 
 </li>
 </ul>
-
 <p>
 From the stand-by mode
 </p>
 <ul>
 <li>
-The transition from the stand-by to the pump-on mode will occur when the plant running signal becomes true (<i>runSig = true</i>). 
+The transition from the stand-by to the pump-on mode will occur when the plant 
+running signal <code>runSig</code> becomes true. 
 </li>
 <li>
-If <i>avaSig</i> becomes false, the CHP will automatically transition to the off mode.
+If <code>runSig</code> becomes false, the CHP will automatically change to the off mode.
 </li>
 </ul>
-
 <p>
 From the pump-on mode
 </p>
 <ul>
 <li>
-The transition from the pump-on to stand-by mode will occur after the specified time delay and if the water flow rate is greater than the minimum. 
+The transition from the pump-on to stand-by mode will occur after the specified 
+time delay and if the water flow rate <code>mWat_flow</code> is greater than 
+the minimum <code>per.mWatMin<code>. 
 </li>
 <li>
-If <i>avaSig</i> becomes false or if <i>runSig</i> becomes false, the CHP will automatically transition to the off mode.
+If <code>avaSig</code> becomes false or if <code>runSig</code> becomes false, 
+the CHP will automatically change to the off mode.
 </li>
 </ul>
-
 <p>
 From the warm-up mode
 </p>
 <ul>
 <li>
-The transition from the warm-up mode to the normal operation will occur after the specified time delay (if <i>per.warmUpByTimeDelay = true</i>) 
-or when the engine temperature <i>TEng</i> becomes higher than the nominal temperature <i>per.TEngNom</i> (if <i>per.warmUpByTimeDelay = false</i>). 
+The transition from the warm-up mode to the normal operation will occur after the 
+specified time delay (if <code>per.warmUpByTimeDelay</code> is true) 
+or when the engine temperature <code>TEng</code> becomes higher than the 
+nominal temperature <code>per.TEngNom</code> (if <code>per.warmUpByTimeDelay</code> 
+is false). 
 </li>
 <li>
-If <i>runSig</i> becomes false or if the water flow rate becomes less than the minimum, the CHP will automatically transition to the cool-down mode.
+If <code>runSig</code> becomes false or if the water flow rate <code>mWat_flow</code> 
+becomes less than the minimum <code>per.mWatMin<code>, the CHP will automatically 
+change to the cool-down mode.
 </li>
 </ul>
-
 <p>
 From the normal mode
 </p>
 <ul>
 <li>
-The transition from the normal operation to the cool-down mode will occur when <i>runSig</i> becomes false or if the water flow rate becomes less than the minimum. 
+The transition from the normal operation to the cool-down mode will occur when 
+<code>runSig</code> becomes false or if the water flow rate <code>mWat_flow</code>
+becomes less than the minimum <code>per.mWatMin<code>. 
 </li>
 </ul>
-
 <p>
 From the cool-down mode
 </p>
 <ul>
 <li>
-The transition from the cool-down mode will occur after the specified time delay. If <i>avaSig</i> is true, the CHP will transition to the stand-by mode; else, it will transition to the off mode. 
+The transition from the cool-down mode will occur after the specified time delay. 
+If <code>avaSig</code> is true, the CHP will change to the stand-by mode; else, 
+it will change to the off mode. 
 </li>
 <li>
-If the CHP has the mandatory cool-down configuration (if <i>coolDownOptional = false</i>), the plant has to complete the cool-down period before it can be reactivated.
-If the CHP has the optional cool-down configuration (if <i>coolDownOptional = true</i>), the plant may imediatelly switch to the warm-up mode if it gets reactivated (<i>runSig</i> = true)
+If the CHP has the mandatory cool-down configuration (if <code>per.coolDownOptional</code> 
+is false), the plant has to complete the cool-down period before it can be reactivated.
+If the CHP has the optional cool-down configuration (if <code>per.coolDownOptional</code> 
+is true), the plant may imediatelly change to the warm-up mode if it gets reactivated 
+(<code>runSig</code> = true).
 </li>
 </ul>
-
-
 </html>", revisions="<html>
 <ul>
 <li>

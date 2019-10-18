@@ -41,16 +41,18 @@ protected
     "Nominal engine temperature"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
 equation
-  connect(warmUpState.active, timer.u) annotation (Line(points={{-24,-17.6},{-24,
-          -30},{-2,-30}}, color={255,0,255}));
+  connect(warmUpState.active, timer.u) annotation (Line(points={{-24,-17.6},{
+          -24,-30},{-2,-30}},
+                          color={255,0,255}));
   connect(timer.y, timeDel.u)
     annotation (Line(points={{21,-30},{38,-30}}, color={0,0,255}));
-  connect(inPort, warmUpState.inPort[1]) annotation (Line(points={{-160,0},{-88,
-          0},{-88,0.8},{-41.6,0.8}}, color={0,0,0}));
+  connect(inPort, warmUpState.inPort[1]) annotation (Line(points={{-160,0},{-80,
+          0},{-80,0.8},{-41.6,0.8}}, color={0,0,0}));
   connect(warmUpState.outPort[1], outPort)
     annotation (Line(points={{-7.2,0},{155,0}}, color={0,0,0}));
-  connect(inPort1, warmUpState.inPort[2]) annotation (Line(points={{-160,-80},{-130,
-          -80},{-130,0},{-74,0},{-74,-0.8},{-41.6,-0.8}}, color={0,0,0}));
+  connect(inPort1, warmUpState.inPort[2]) annotation (Line(points={{-160,-80},{
+          -120,-80},{-120,0},{-58,0},{-58,-0.8},{-41.6,-0.8}},
+                                                          color={0,0,0}));
   connect(xor.y, y)
     annotation (Line(points={{141,-76},{160,-76}}, color={255,0,255}));
   connect(timeDel.y, and1.u1) annotation (Line(points={{61,-30},{72,-30},{72,-50},
