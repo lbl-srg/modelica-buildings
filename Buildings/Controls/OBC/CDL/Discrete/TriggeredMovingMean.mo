@@ -122,8 +122,10 @@ sample, it outputs the average of the past two samples, then the past three
 samples and so on up to <i>n</i> samples.
 </p>
 <p>
-Note that the moving mean is calculated only when the trigger input signal is true. 
-When the trigger signal is false, the block outputs the last calculated moving mean value.
+The moving mean calculation of this block is the same as the block  <a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.MovingMean\">
+Buildings.Controls.OBC.CDL.Discrete.MovingMean</a> except that this block does the calculation 
+only when the trigger input signal is true. When the trigger signal is false, the block outputs 
+the last calculated moving mean value.
 </p>
 </html>",
 revisions="<html>
