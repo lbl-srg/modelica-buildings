@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
-block EquipmentRotationTwo
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation;
+block Two
   "Lead-lag or lead-standby equipment rotation for two devices or two groups of devices"
 
   parameter Boolean lag = true
@@ -12,7 +12,6 @@ block EquipmentRotationTwo
   parameter Modelica.SIunits.Time stagingRuntime(
     final displayUnit = "h") = 864000
     "Staging runtime for each device";
-
 
 //protected
   final parameter Integer nDev = 2
@@ -204,4 +203,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EquipmentRotationTwo;
+end Two;

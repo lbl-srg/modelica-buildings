@@ -1,6 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validation;
-model EquipmentRotationTwo_uDevRol
-  "Validate lead/lag and lead/standby switching"
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Validation;
+model Two_uDevRol "Validate lead/lag and lead/standby switching"
 
   parameter Boolean initRoles[2] = {true, false}
     "Sets initial roles: true = lead, false = lag or standby";
@@ -72,4 +71,4 @@ Icon(graphics={
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end EquipmentRotationTwo_uDevRol;
+end Two_uDevRol;
