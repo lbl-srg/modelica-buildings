@@ -112,35 +112,26 @@ equation
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-75,-6},{-89,8}},
-          lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
           textString="%name"),
-        Ellipse(
-          extent={{-52,56},{58,-54}},
-          lineColor={160,160,164},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{4,0},{-20,24}},
-          thickness=0.5),
-        Line(
-          points={{4,0},{30,0}},
-          thickness=0.5)}),
+      Line(points={{-66,-70},{82,-70}},
+        color={192,192,192}),
+      Line(points={{-58,68},{-58,-80}},
+        color={192,192,192}),
+      Polygon(lineColor={192,192,192},
+        fillColor={192,192,192},
+        fillPattern=FillPattern.Solid,
+        points={{90.0,-70.0},{68.0,-62.0},{68.0,-78.0},{90.0,-70.0}}),
+      Polygon(lineColor={192,192,192},
+        fillColor={192,192,192},
+        fillPattern=FillPattern.Solid,
+        points={{-58,90},{-66,68},{-50,68},{-58,90}}),
+      Line(points={{-56,-70},{-38,-70},{-38,-26},{40,-26},{40,-70},{68,-70}},
+        color={255,0,255}),
+      Line(points={{-58,0},{-40,0},{40,90},{40,0},{68,0}},
+        color={0,0,127})}),
   Documentation(info="<html>
 <p>
 This block rotates equipment, such as chillers, pumps or valves, in order 

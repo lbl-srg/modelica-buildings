@@ -210,28 +210,48 @@ equation
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
-                              Text(
-          extent={{-90,40},{90,-40}},
-          lineColor={0,0,0},
-          textString="equRot"),
         Ellipse(
-          extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
+          origin={-26.6667,38.6207},
+          lineColor={128,128,128},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          extent={{-53.3333,1.37927},{-13.3329,41.3792}}),
         Ellipse(
-          extent={{-75,-6},{-89,8}},
-          lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillPattern=FillPattern.Solid),
+          origin={93.3333,-81.3793},
+          lineColor={128,128,128},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          extent={{-53.3333,1.37927},{-13.3329,41.3792}}),
+        Ellipse(
+          origin={-26.6667,-81.3793},
+          lineColor={128,128,128},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-53.3333,1.37927},{-13.3329,41.3792}}),
+        Ellipse(
+          origin={93.333,38.6207},
+          lineColor={128,128,128},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-53.3333,1.37927},{-13.3329,41.3792}}),
+        Line(points={{-40,60},{0,60},{0,-60},{40,-60}}, color={128,128,128}),
+        Line(points={{-40,-60},{0,-60},{0,60},{40,60}}, color={128,128,128}),
         Text(
           extent={{-120,146},{100,108}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Ellipse(
+          origin={-26.667,-19.3793},
+          lineColor={128,128,128},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          extent={{-53.3333,1.37927},{-13.3329,41.3792}}),
+        Ellipse(
+          origin={93.333,-19.3793},
+          lineColor={128,128,128},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          extent={{-53.3333,1.37927},{-13.3329,41.3792}})}),
   Documentation(info="<html>
 <p>
 This block rotates equipment, such as chillers, pumps or valves, in order 

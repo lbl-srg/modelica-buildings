@@ -40,5 +40,9 @@ Icon(graphics={
           fillPattern=FillPattern.Solid,
           extent={{-53.3333,1.37927},{-13.3329,41.3792}}),
       Line(points={{-40,60},{0,60},{0,-60},{40,-60}}, color={128,128,128}),
-      Line(points={{-40,-60},{0,-60},{0,60},{40,60}}, color={128,128,128})}));
+      Line(points={{-40,-60},{0,-60},{0,60},{40,60}}, color={128,128,128}),
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100.0,-100.0},{100.0,100.0}},
+          radius=25.0)}));
 end EquipmentRotation;
