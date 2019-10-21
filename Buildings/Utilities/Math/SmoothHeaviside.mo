@@ -1,6 +1,6 @@
 within Buildings.Utilities.Math;
 block SmoothHeaviside
-  "Once continuously differentiable approximation to the Heaviside function"
+  "Twice continuously differentiable approximation to the Heaviside function"
   extends Modelica.Blocks.Interfaces.SISO;
  parameter Real delta "Width of transition interval";
 equation
@@ -48,7 +48,7 @@ equation
                                   color={192,192,192})}),
 Documentation(info="<html>
 <p>
-Once Lipschitz continuously differentiable approximation to the <i>Heaviside(.,.)</i> function.
+Twice Lipschitz continuously differentiable approximation to the <i>Heaviside(.,.)</i> function.
 See Example <a href=\"modelica://Buildings.Utilities.Math.Examples.SmoothHeaviside\">
 Buildings.Utilities.Math.Examples.SmoothHeaviside</a>.
 </p>
