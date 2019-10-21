@@ -2,7 +2,7 @@ within Buildings.Utilities.Math;
 block SmoothHeaviside
   "Twice continuously differentiable approximation to the Heaviside function"
   extends Modelica.Blocks.Interfaces.SISO;
- parameter Real delta "Width of transition interval";
+ parameter Real delta(min=Modelica.Constants.eps) "Width of transition interval";
 equation
   y = Buildings.Utilities.Math.Functions.smoothHeaviside(x=u, delta=delta);
   annotation (Icon(graphics={
@@ -55,6 +55,12 @@ Buildings.Utilities.Math.Examples.SmoothHeaviside</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 21, 2019:<br/>
+Added <code>delta.min</code> attribute to guard against division by zero.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
+</li>
 <li>
 July 17, 2015, by Marcus Fuchs:<br/>
 Add link to example.

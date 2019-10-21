@@ -3,7 +3,7 @@ function smoothHeaviside
   "Twice continuously differentiable approximation to the Heaviside function"
   extends Modelica.Icons.Function;
   input Real x "Argument";
-  input Real delta "Parameter used for scaling";
+  input Real delta(min=Modelica.Constants.eps) "Parameter used for scaling";
   output Real y "Result";
 protected
   Real dx=0.5*x/delta "Scaled input argument";
@@ -23,6 +23,12 @@ Buildings.Utilities.Math.Examples.SmoothHeaviside</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 21, 2019:<br/>
+Added <code>delta.min</code> attribute to guard against division by zero.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
+</li>
 <li>
 September 13, 2019, by Kristoff Six and Filip Jorissen:<br/>
 Once continuously differentiable replaced by twice continuously differentiable implementation. This is for
