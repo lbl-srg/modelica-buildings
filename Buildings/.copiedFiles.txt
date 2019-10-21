@@ -1868,6 +1868,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroP
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegStep.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mos
+Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothHeavisideDerivatives.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunction.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/TrapezoidalIntegration.mos
@@ -2114,6 +2115,7 @@ Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mo
 Buildings/Utilities/Math/Functions/Examples/RegStep.mo
 Buildings/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mo
+Buildings/Utilities/Math/Functions/Examples/SmoothHeavisideDerivatives.mo
 Buildings/Utilities/Math/Functions/Examples/SpliceFunction.mo
 Buildings/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/TrapezoidalIntegration.mo
