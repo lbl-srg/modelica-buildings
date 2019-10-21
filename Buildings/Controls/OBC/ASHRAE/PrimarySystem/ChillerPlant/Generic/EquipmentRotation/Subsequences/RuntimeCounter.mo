@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences;
-block RuntimeCounter "Equipment rotation signal based on runtime and status"
+block RuntimeCounter
+  "Equipment rotation signal based on runtime and status"
 
   parameter Boolean lag = true
     "true = lead/lag, false = lead/standby";
@@ -15,41 +16,48 @@ block RuntimeCounter "Equipment rotation signal based on runtime and status"
   CDL.Continuous.GreaterEqualThreshold                        greEquThr[nDev](final
       threshold=stagingRuntimes)
     "Staging runtime hysteresis"
-    annotation (Placement(transformation(extent={{-52,26},{-32,46}})));
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   CDL.Logical.Timer                        tim[nDev](final reset={false,false})
     "Measures time spent loaded at the current role (lead or lag)"
-    annotation (Placement(transformation(extent={{-132,26},{-112,46}})));
+    annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   CDL.Logical.And3                        and3[nDev] "Logical and"
-    annotation (Placement(transformation(extent={{-12,-14},{8,6}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   CDL.Logical.MultiOr                        mulOr(final nu=nDev)
                    "Array input or"
-    annotation (Placement(transformation(extent={{28,-14},{48,6}})));
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   CDL.Logical.Not                        not0[nDev] "Logical not"
-    annotation (Placement(transformation(extent={{28,-44},{48,-24}})));
+    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
   CDL.Logical.LogicalSwitch                        logSwi[nDev]
     "Switch"
-    annotation (Placement(transformation(extent={{98,-44},{118,-24}})));
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   CDL.Routing.BooleanReplicator                        booRep(final nout=nDev)
                      "Signal replicator"
-    annotation (Placement(transformation(extent={{58,-14},{78,6}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   CDL.Logical.Pre                        pre[nDev](final pre_u_start=initRoles)
                                  "Previous timestep"
-    annotation (Placement(transformation(extent={{138,-64},{158,-44}})));
+    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
   CDL.Logical.FallingEdge                        falEdg1[nDev]
     "Falling Edge"
-    annotation (Placement(transformation(extent={{28,26},{48,46}})));
+    annotation (Placement(transformation(extent={{30,30},{50,50}})));
   CDL.Logical.MultiAnd allOn(nu=2)
     "Outputs true if all devices are commanded enable"
-    annotation (Placement(transformation(extent={{-132,-4},{-112,16}})));
+    annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
   CDL.Logical.MultiOr anyOn(nu=2) "Checks if any device is commanded enable"
-    annotation (Placement(transformation(extent={{-172,-44},{-152,-24}})));
+    annotation (Placement(transformation(extent={{-170,-40},{-150,-20}})));
   CDL.Logical.Not allOff "Returns true if all devices are commanded disable"
-    annotation (Placement(transformation(extent={{-132,-44},{-112,-24}})));
+    annotation (Placement(transformation(extent={{-130,-40},{-110,-20}})));
   CDL.Routing.BooleanReplicator booRep1(nout=nDev)
-    annotation (Placement(transformation(extent={{-52,-14},{-32,6}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   CDL.Logical.Or equSig
     "Outputs true if either all devices are commanded enable or all devices are commanded disable"
-    annotation (Placement(transformation(extent={{-92,-14},{-72,6}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+  CDL.Interfaces.BooleanOutput yDevRolSet[nDev]
+    "Device role: true = lead, false = lag or standby" annotation (Placement(
+        transformation(extent={{200,-30},{220,-10}}), iconTransformation(extent={{100,-10},
+            {120,10}})));
+  CDL.Interfaces.BooleanInput uDevStaSet[nDev] "Device status setpoint"
+    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
@@ -58,53 +66,54 @@ protected
     "Staging runtimes array";
 
 equation
-  connect(greEquThr.y,and3. u1) annotation (Line(points={{-30,36},{-22,36},{-22,
-          4},{-14,4}},   color={255,0,255}));
-  connect(logSwi.u1,not0. y) annotation (Line(points={{96,-26},{68,-26},{68,-34},
-          {50,-34}},
+  connect(greEquThr.y,and3. u1) annotation (Line(points={{-28,40},{-20,40},{-20,
+          8},{-12,8}},   color={255,0,255}));
+  connect(logSwi.u1,not0. y) annotation (Line(points={{98,-22},{70,-22},{70,-30},
+          {52,-30}},
                  color={255,0,255}));
   connect(mulOr.u[1:2],and3. y)
-    annotation (Line(points={{26,-4},{10,-4}},color={255,0,255}));
-  connect(mulOr.y,booRep. u) annotation (Line(points={{50,-4},{56,-4}},
+    annotation (Line(points={{28,0},{12,0}},  color={255,0,255}));
+  connect(mulOr.y,booRep. u) annotation (Line(points={{52,0},{58,0}},
     color={255,0,255}));
-  connect(logSwi.u2,booRep. y) annotation (Line(points={{96,-34},{88,-34},{88,
-          -4},{80,-4}},
+  connect(logSwi.u2,booRep. y) annotation (Line(points={{98,-30},{90,-30},{90,0},
+          {82,0}},
                 color={255,0,255}));
-  connect(logSwi.y,pre. u) annotation (Line(points={{120,-34},{128,-34},{128,
-          -54},{136,-54}},
+  connect(logSwi.y,pre. u) annotation (Line(points={{122,-30},{130,-30},{130,-50},
+          {138,-50}},
                  color={255,0,255}));
-  connect(pre.y,not0. u) annotation (Line(points={{160,-54},{178,-54},{178,-74},
-          {8,-74},{8,-34},{26,-34}},   color={255,0,255}));
-  connect(pre.y,logSwi. u3) annotation (Line(points={{160,-54},{168,-54},{168,
-          -68},{88,-68},{88,-42},{96,-42}},
+  connect(pre.y,not0. u) annotation (Line(points={{162,-50},{180,-50},{180,-70},
+          {10,-70},{10,-30},{28,-30}}, color={255,0,255}));
+  connect(pre.y,logSwi. u3) annotation (Line(points={{162,-50},{170,-50},{170,-64},
+          {90,-64},{90,-38},{98,-38}},
                                      color={255,0,255}));
-  connect(tim.u0,falEdg1. y) annotation (Line(points={{-134,28},{-142,28},{-142,
-          66},{58,66},{58,36},{50,36}}, color={255,0,255}));
-  connect(pre.y,and3. u3) annotation (Line(points={{160,-54},{188,-54},{188,-80},
-          {-22,-80},{-22,-12},{-14,-12}},
-                                        color={255,0,255}));
+  connect(tim.u0,falEdg1. y) annotation (Line(points={{-132,32},{-140,32},{-140,
+          70},{60,70},{60,40},{52,40}}, color={255,0,255}));
+  connect(pre.y,and3. u3) annotation (Line(points={{162,-50},{190,-50},{190,-76},
+          {-20,-76},{-20,-8},{-12,-8}}, color={255,0,255}));
   connect(tim.y,greEquThr. u)
-    annotation (Line(points={{-110,36},{-54,36}},color={0,0,127}));
+    annotation (Line(points={{-108,40},{-52,40}},color={0,0,127}));
   connect(pre.y,falEdg1. u)
-    annotation (Line(points={{160,-54},{188,-54},{188,16},{8,16},{8,36},{26,36}},
+    annotation (Line(points={{162,-50},{190,-50},{190,20},{10,20},{10,40},{28,40}},
                 color={255,0,255}));
-  connect(logSwi.y, yDevRolSet) annotation (Line(points={{120,-34},{208,-34},{
-          208,-24},{238,-24}}, color={255,0,255}));
-  connect(logSwi1.y,tim. u) annotation (Line(points={{-190,-34},{-182,-34},{
-          -182,36},{-134,36}},                  color={255,0,255}));
-  connect(logSwi1.y, allOn.u[1:2]) annotation (Line(points={{-190,-34},{-182,
-          -34},{-182,6},{-134,6},{-134,2.5}}, color={255,0,255}));
+  connect(logSwi.y, yDevRolSet) annotation (Line(points={{122,-30},{162,-30},{162,
+          -20},{210,-20}}, color={255,0,255}));
   connect(booRep1.y, and3.u2)
-    annotation (Line(points={{-30,-4},{-14,-4}}, color={255,0,255}));
+    annotation (Line(points={{-28,0},{-12,0}}, color={255,0,255}));
   connect(anyOn.y, allOff.u)
-    annotation (Line(points={{-150,-34},{-134,-34}}, color={255,0,255}));
+    annotation (Line(points={{-148,-30},{-132,-30}}, color={255,0,255}));
   connect(booRep1.u, equSig.y)
-    annotation (Line(points={{-54,-4},{-70,-4}}, color={255,0,255}));
-  connect(allOff.y, equSig.u2) annotation (Line(points={{-110,-34},{-102,-34},{
-          -102,-12},{-94,-12}}, color={255,0,255}));
-  connect(allOn.y, equSig.u1) annotation (Line(points={{-110,6},{-102,6},{-102,
-          -4},{-94,-4}}, color={255,0,255}));
-  annotation (Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
+    annotation (Line(points={{-52,0},{-68,0}}, color={255,0,255}));
+  connect(allOff.y, equSig.u2) annotation (Line(points={{-108,-30},{-100,-30},{-100,
+          -8},{-92,-8}}, color={255,0,255}));
+  connect(allOn.y, equSig.u1) annotation (Line(points={{-108,10},{-100,10},{-100,
+          0},{-92,0}}, color={255,0,255}));
+  connect(uDevStaSet, tim.u) annotation (Line(points={{-220,0},{-176,0},{-176,40},
+          {-132,40}}, color={255,0,255}));
+  connect(uDevStaSet, allOn.u[1:2]) annotation (Line(points={{-220,0},{-172,0},{
+          -172,6.5},{-132,6.5}}, color={255,0,255}));
+  connect(uDevStaSet, anyOn.u[1:2]) annotation (Line(points={{-220,0},{-190,0},{
+          -190,-30},{-172,-30},{-172,-33.5}}, color={255,0,255}));
+  annotation (Diagram(coordinateSystem(extent={{-200,-120},{200,120}})),
       defaultComponentName="equRot",
     Icon(graphics={
         Rectangle(
