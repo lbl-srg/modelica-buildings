@@ -6,8 +6,8 @@ function smoothHeaviside
   input Real delta "Parameter used for scaling";
   output Real y "Result";
 protected
-  Real dx=0.5*x/delta;
-  Real xpow2=dx*dx;
+  Real dx=0.5*x/delta "Scaled input argument";
+  Real xpow2=dx*dx "=dx*dx";
 algorithm
   y := max(0, min(1, 0.5+dx*(1.875+xpow2*(-5+6*xpow2))));
 
@@ -16,7 +16,7 @@ algorithm
 <p>
 Twice Lipschitz continuously differentiable approximation to the
 <code>Heaviside(.,.)</code> function.<br/>
-Function is derived from a quintic polynomial going through (0,0) and (1,1), 
+Function is derived from a quintic polynomial going through <i>(0,0)</i> and <i>(1,1)</i>,
 with zero first and second order derivatives at those points.<br/>
 See Example <a href=\"modelica://Buildings.Utilities.Math.Examples.SmoothHeaviside\">
 Buildings.Utilities.Math.Examples.SmoothHeaviside</a>.
