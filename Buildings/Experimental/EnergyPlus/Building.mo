@@ -70,7 +70,9 @@ protected
     "Flag, true if weaName ends in .epw";
 initial equation
   if  weaFilEndsInEpw then
-    ModelicaError("Received 'weaName = " + weaName + "' in '" + modelicaNameBuilding + "'. Weather data file must end in '.mos'. Modelica will rename the file to '.epw' when it calls EnergyPlus.");
+    Modelica.Utilities.Streams.error(
+      "Received 'weaName = " + weaName + "' in '" + modelicaNameBuilding
+      + "'.\nWeather data file must end in '.mos'.\nModelica will rename the file to '.epw' when it calls EnergyPlus.");
   else
     assert(Modelica.Utilities.Strings.isEqual(".mos", weaFilExt),
       "Weather data file in '" + modelicaNameBuilding + "' must end in '.mos', received '" + weaName + "'.");
