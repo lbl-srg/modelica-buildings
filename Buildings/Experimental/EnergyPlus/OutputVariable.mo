@@ -5,8 +5,10 @@ model OutputVariable
 
   outer Buildings.Experimental.EnergyPlus.Building building "Building-level declarations";
 
-  parameter String outputKey "EnergyPlus key of the output variable";
-  parameter String outputName "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
+  parameter String key
+    "EnergyPlus key of the output variable";
+  parameter String name
+    "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
 
   discrete Modelica.Blocks.Interfaces.RealOutput y "Output received from EnergyPlus" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
@@ -41,19 +43,18 @@ protected
 
 
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUOutputVariableClass adapter=
-    Buildings.Experimental.EnergyPlus.BaseClasses.FMUOutputVariableClass(
-    modelicaNameBuilding=modelicaNameBuilding,
-    modelicaNameOutputVariable=modelicaNameOutputVariable,
-    idfName=idfName,
-    weaName=weaName,
-    iddName=Buildings.Experimental.EnergyPlus.BaseClasses.iddName,
-    outputKey=outputKey,
-    outputName=outputName,
-    usePrecompiledFMU=usePrecompiledFMU,
-    fmuName=fmuName,
-    buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-    verbosity=verbosity)
-    "Class to communicate with EnergyPlus";
+      Buildings.Experimental.EnergyPlus.BaseClasses.FMUOutputVariableClass(
+      modelicaNameBuilding=modelicaNameBuilding,
+      modelicaNameOutputVariable=modelicaNameOutputVariable,
+      idfName=idfName,
+      weaName=weaName,
+      iddName=Buildings.Experimental.EnergyPlus.BaseClasses.iddName,
+      outputKey=key,
+      outputName=name,
+      usePrecompiledFMU=usePrecompiledFMU,
+      fmuName=fmuName,
+      buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
+      verbosity=verbosity) "Class to communicate with EnergyPlus";
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
 
@@ -100,11 +101,11 @@ equation
         Text(
           extent={{-88,84},{80,50}},
           lineColor={0,0,255},
-          textString="%outputKey"),
+          textString="%key"),
         Text(
           extent={{-86,36},{80,2}},
           lineColor={0,0,255},
-          textString="%outputName")}),
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 Block that retrieves an output variable from EnergyPlus.
