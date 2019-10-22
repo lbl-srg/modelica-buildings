@@ -55,6 +55,7 @@ model Building
       "EnergyPlus weather data file name"
       annotation(Evaluate=true);
 
+protected
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam = weaName,
     final computeWetBulbTemperature=computeWetBulbTemperature) if
@@ -63,10 +64,17 @@ model Building
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   parameter Integer weaStrLen = Modelica.Utilities.Strings.length(weaName)
     "Length of weather data file";
+  parameter String weaFilExt = Modelica.Utilities.Strings.substring(string=weaName, startIndex=weaStrLen-3, endIndex=weaStrLen)
+    "Extension of weather data file";
+  Boolean weaFilEndsInEpw = Modelica.Utilities.Strings.isEqual(".epw", weaFilExt)
+    "Flag, true if weaName ends in .epw";
 initial equation
-  assert(Modelica.Utilities.Strings.isEqual(".mos",
-     Modelica.Utilities.Strings.substring(string=weaName, startIndex=weaStrLen-3, endIndex=weaStrLen)),
-     "Weather data file in '" + getInstanceName() + "' must end in '.mos', received '" + weaName + "'.");
+  if  weaFilEndsInEpw then
+    ModelicaError("Received 'weaName = " + weaName + "' in '" + modelicaNameBuilding + "'. Weather data file must end in '.mos'. Modelica will rename the file to '.epw' when it calls EnergyPlus.");
+  else
+    assert(Modelica.Utilities.Strings.isEqual(".mos", weaFilExt),
+      "Weather data file in '" + modelicaNameBuilding + "' must end in '.mos', received '" + weaName + "'.");
+  end if;
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{10,0},{100,0}},
