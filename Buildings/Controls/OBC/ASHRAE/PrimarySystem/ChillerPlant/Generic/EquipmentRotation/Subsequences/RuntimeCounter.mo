@@ -13,51 +13,20 @@ block RuntimeCounter
     final displayUnit = "h") = 864000
     "Staging runtime for each device";
 
-  CDL.Continuous.GreaterEqualThreshold                        greEquThr[nDev](final
-      threshold=stagingRuntimes)
-    "Staging runtime hysteresis"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  CDL.Logical.Timer                        tim[nDev](final reset={false,false})
-    "Measures time spent loaded at the current role (lead or lag)"
-    annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
-  CDL.Logical.And3                        and3[nDev] "Logical and"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  CDL.Logical.MultiOr                        mulOr(final nu=nDev)
-                   "Array input or"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  CDL.Logical.Not                        not0[nDev] "Logical not"
-    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
-  CDL.Logical.LogicalSwitch                        logSwi[nDev]
-    "Switch"
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
-  CDL.Routing.BooleanReplicator                        booRep(final nout=nDev)
-                     "Signal replicator"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  CDL.Logical.Pre                        pre[nDev](final pre_u_start=initRoles)
-                                 "Previous timestep"
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
-  CDL.Logical.FallingEdge                        falEdg1[nDev]
-    "Falling Edge"
-    annotation (Placement(transformation(extent={{30,30},{50,50}})));
-  CDL.Logical.MultiAnd allOn(nu=2)
-    "Outputs true if all devices are commanded enable"
-    annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
-  CDL.Logical.MultiOr anyOn(nu=2) "Checks if any device is commanded enable"
-    annotation (Placement(transformation(extent={{-170,-40},{-150,-20}})));
-  CDL.Logical.Not allOff "Returns true if all devices are commanded disable"
-    annotation (Placement(transformation(extent={{-130,-40},{-110,-20}})));
-  CDL.Routing.BooleanReplicator booRep1(nout=nDev)
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  CDL.Logical.Or equSig
-    "Outputs true if either all devices are commanded enable or all devices are commanded disable"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  CDL.Interfaces.BooleanOutput yDevRolSet[nDev]
-    "Device role: true = lead, false = lag or standby" annotation (Placement(
-        transformation(extent={{200,-30},{220,-10}}), iconTransformation(extent={{100,-10},
-            {120,10}})));
-  CDL.Interfaces.BooleanInput uDevStaSet[nDev] "Device status setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevStaSet[nDev] "Device status setpoint"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRolSet[nDev]
+    "Device role: true = lead, false = lag or standby"
+    annotation (Placement(transformation(extent={{200,50},{220,70}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPreDevRolSet[nDev]
+    "Device role in the previous step: true = lead, false = lag or standby"
+    annotation (Placement(transformation(extent={{200,-50},{220,-30}}),
+        iconTransformation(extent={{100,-70},{120,-50}})));
+
 protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
@@ -65,27 +34,75 @@ protected
   final parameter Modelica.SIunits.Time stagingRuntimes[nDev] = fill(stagingRuntime, nDev)
     "Staging runtimes array";
 
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nDev](
+    final threshold=stagingRuntimes) "Staging runtime hysteresis"
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[nDev](
+    final reset={false,false})
+    "Measures time spent loaded at the current role (lead or lag)"
+    annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev] "Logical and"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nu=nDev) "Array input or"
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not0[nDev] "Logical not"
+    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nDev] "Switch"
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=nDev) "Signal replicator"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[nDev](
+    final pre_u_start=initRoles) "Previous timestep"
+    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1[nDev] "Falling Edge"
+    annotation (Placement(transformation(extent={{30,30},{50,50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd allOn(
+    final nu=nDev) "Outputs true if all devices are commanded enable"
+    annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyOn(
+    final nu=nDev) "Checks if any device is commanded enable"
+    annotation (Placement(transformation(extent={{-170,-40},{-150,-20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not allOff "Returns true if all devices are commanded disable"
+    annotation (Placement(transformation(extent={{-130,-40},{-110,-20}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
+    final nout=nDev) "Booolean replicator"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or equSig
+    "Outputs true if either all devices are commanded enable or all devices are commanded disable"
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+
 equation
   connect(greEquThr.y,and3. u1) annotation (Line(points={{-28,40},{-20,40},{-20,
           8},{-12,8}},   color={255,0,255}));
   connect(logSwi.u1,not0. y) annotation (Line(points={{98,-22},{70,-22},{70,-30},
-          {52,-30}},
-                 color={255,0,255}));
+          {52,-30}}, color={255,0,255}));
   connect(mulOr.u[1:2],and3. y)
     annotation (Line(points={{28,0},{12,0}},  color={255,0,255}));
   connect(mulOr.y,booRep. u) annotation (Line(points={{52,0},{58,0}},
     color={255,0,255}));
   connect(logSwi.u2,booRep. y) annotation (Line(points={{98,-30},{90,-30},{90,0},
-          {82,0}},
-                color={255,0,255}));
+          {82,0}}, color={255,0,255}));
   connect(logSwi.y,pre. u) annotation (Line(points={{122,-30},{130,-30},{130,-50},
-          {138,-50}},
-                 color={255,0,255}));
+          {138,-50}}, color={255,0,255}));
   connect(pre.y,not0. u) annotation (Line(points={{162,-50},{180,-50},{180,-70},
           {10,-70},{10,-30},{28,-30}}, color={255,0,255}));
   connect(pre.y,logSwi. u3) annotation (Line(points={{162,-50},{170,-50},{170,-64},
-          {90,-64},{90,-38},{98,-38}},
-                                     color={255,0,255}));
+          {90,-64},{90,-38},{98,-38}}, color={255,0,255}));
   connect(tim.u0,falEdg1. y) annotation (Line(points={{-132,32},{-140,32},{-140,
           70},{60,70},{60,40},{52,40}}, color={255,0,255}));
   connect(pre.y,and3. u3) annotation (Line(points={{162,-50},{190,-50},{190,-76},
@@ -96,7 +113,7 @@ equation
     annotation (Line(points={{162,-50},{190,-50},{190,20},{10,20},{10,40},{28,40}},
                 color={255,0,255}));
   connect(logSwi.y, yDevRolSet) annotation (Line(points={{122,-30},{162,-30},{162,
-          -20},{210,-20}}, color={255,0,255}));
+          60},{210,60}},   color={255,0,255}));
   connect(booRep1.y, and3.u2)
     annotation (Line(points={{-28,0},{-12,0}}, color={255,0,255}));
   connect(anyOn.y, allOff.u)
@@ -107,14 +124,16 @@ equation
           -8},{-92,-8}}, color={255,0,255}));
   connect(allOn.y, equSig.u1) annotation (Line(points={{-108,10},{-100,10},{-100,
           0},{-92,0}}, color={255,0,255}));
-  connect(uDevStaSet, tim.u) annotation (Line(points={{-220,0},{-176,0},{-176,40},
+  connect(uDevStaSet, tim.u) annotation (Line(points={{-220,0},{-180,0},{-180,40},
           {-132,40}}, color={255,0,255}));
-  connect(uDevStaSet, allOn.u[1:2]) annotation (Line(points={{-220,0},{-172,0},{
-          -172,6.5},{-132,6.5}}, color={255,0,255}));
+  connect(uDevStaSet, allOn.u[1:2]) annotation (Line(points={{-220,0},{-180,0},{
+          -180,10},{-132,10},{-132,10}},  color={255,0,255}));
   connect(uDevStaSet, anyOn.u[1:2]) annotation (Line(points={{-220,0},{-190,0},{
-          -190,-30},{-172,-30},{-172,-33.5}}, color={255,0,255}));
+          -190,-30},{-172,-30},{-172,-30}},   color={255,0,255}));
+  connect(pre.y, yPreDevRolSet) annotation (Line(points={{162,-50},{190,-50},{190,
+          -40},{210,-40}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-200,-120},{200,120}})),
-      defaultComponentName="equRot",
+      defaultComponentName="runCou",
     Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
