@@ -7,8 +7,10 @@ model Building
     "Name of this instance"
     annotation(HideResult=true);
 
-  parameter String idfName="" "Name of the IDF file";
-  parameter String weaName="" "Name of the EnergyPlus weather file";
+  parameter String idfName "Name of the IDF file"
+    annotation(Evaluate=true);
+  parameter String weaName "Name of the EnergyPlus weather file (mos file)"
+    annotation(Evaluate=true);
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -31,6 +33,59 @@ model Building
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 
+  parameter Boolean showWeatherData = true
+    "Set to true to enable a connector with the weather data"
+    annotation(Dialog(tab="Advanced"));
+  parameter Boolean computeWetBulbTemperature=true
+    "If true, then this model computes the wet bulb temperature"
+    annotation(Dialog(tab="Advanced", enable=showWeatherData));
+
+  BoundaryConditions.WeatherData.Bus weaBus if
+        showWeatherData "Weather data bus"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
+  final parameter String epWeaName=
+      Modelica.Utilities.Strings.replace(
+          string=weaName,
+          searchString=".mos",
+          replaceString=".epw",
+          startIndex=weaStrLen-4,
+          replaceAll=false,
+          caseSensitive=true)
+      "EnergyPlus weather data file name"
+      annotation(Evaluate=true);
+
+protected
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    final filNam = weaName,
+    final computeWetBulbTemperature=computeWetBulbTemperature) if
+       showWeatherData
+      "Weather data reader"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  parameter Integer weaStrLen = Modelica.Utilities.Strings.length(weaName)
+    "Length of weather data file";
+  parameter String weaFilExt = Modelica.Utilities.Strings.substring(string=weaName, startIndex=weaStrLen-3, endIndex=weaStrLen)
+    "Extension of weather data file";
+  Boolean weaFilEndsInEpw = Modelica.Utilities.Strings.isEqual(".epw", weaFilExt)
+    "Flag, true if weaName ends in .epw";
+initial equation
+  if  weaFilEndsInEpw then
+    Modelica.Utilities.Streams.error(
+      "Received 'weaName = " + weaName + "' in '" + modelicaNameBuilding
+      + "'.\nWeather data file must end in '.mos'.\nModelica will rename the file to '.epw' when it calls EnergyPlus.");
+  else
+    assert(Modelica.Utilities.Strings.isEqual(".mos", weaFilExt),
+      "Weather data file in '" + modelicaNameBuilding + "' must end in '.mos', received '" + weaName + "'.");
+  end if;
+equation
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{10,0},{100,0}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
 annotation (
   defaultComponentName="building",
   defaultComponentPrefixes="inner",
@@ -75,5 +130,4 @@ to specify building-level parameters.",
         lineColor={255,255,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid)}));
-
 end Building;

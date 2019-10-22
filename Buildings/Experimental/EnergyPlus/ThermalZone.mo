@@ -124,7 +124,7 @@ protected
     V*3/3600 "Nominal mass flow rate (used for regularization)";
 
   final parameter String idfName=building.idfName "Name of the IDF file that contains this zone";
-  final parameter String weaName=building.weaName "Name of the EnergyPlus weather file";
+  final parameter String weaName=building.epWeaName "Name of the EnergyPlus weather file";
 
   final parameter Boolean usePrecompiledFMU = building.usePrecompiledFMU
     "Set to true to use pre-compiled FMU with name specified by fmuName"
