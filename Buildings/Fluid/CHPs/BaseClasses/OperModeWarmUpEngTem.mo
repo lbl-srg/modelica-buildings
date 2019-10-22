@@ -134,31 +134,28 @@ protected
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation
-  connect(QGroMax.y, mFueMax_flow.u2)
-    annotation (Line(points={{62,260},{80,260},{80,274},{98,274}},
-                                                 color={0,0,127}));
+  connect(QGroMax.y, mFueMax_flow.u2) annotation (Line(points={{62,260},{80,260},
+          {80,274},{98,274}}, color={0,0,127}));
   connect(const.y, mFueMax_flow.u1) annotation (Line(points={{62,300},{80,300},{
           80,286},{98,286}}, color={0,0,127}));
   connect(PEleMax.y, etaE.PNet) annotation (Line(points={{-58,280},{-40,280},{-40,
           246},{-22,246}}, color={0,0,127}));
-  connect(QGroMax.u1,PEleMax. y)
-    annotation (Line(points={{38,266},{-40,266},{-40,280},{-58,280}},
-                                                  color={0,0,127}));
+  connect(QGroMax.u1,PEleMax. y) annotation (Line(points={{38,266},{-40,266},
+          {-40,280},{-58,280}}, color={0,0,127}));
   connect(etaE.TWatIn, TWatIn) annotation (Line(points={{-22,234},{-80,234},{-80,
           200},{-120,200}}, color={0,0,127}));
-  connect(etaE.mWat_flow, mWat_flow)
-    annotation (Line(points={{-22,240},{-120,240}}, color={0,0,127}));
+  connect(etaE.mWat_flow, mWat_flow) annotation (Line(points={{-22,240},
+          {-120,240}}, color={0,0,127}));
   connect(etaE.eta, QGroMax.u2) annotation (Line(points={{2,240},{20,240},{20,254},
-          {38,254}},      color={0,0,127}));
-  connect(TEngNom.y, add1.u1)
-    annotation (Line(points={{-58,100},{-40,100},{-40,86},{-22,86}},
-                                                 color={0,0,127}));
+          {38,254}}, color={0,0,127}));
+  connect(TEngNom.y, add1.u1) annotation (Line(points={{-58,100},{-40,100},
+          {-40,86},{-22,86}}, color={0,0,127}));
   connect(add1.u2, TRoo) annotation (Line(points={{-22,74},{-40,74},{-40,40},{-120,
           40}}, color={0,0,127}));
-  connect(division.y, gain.u)
-    annotation (Line(points={{162,40},{198,40}}, color={0,0,127}));
+  connect(division.y, gain.u) annotation (Line(points={{162,40},{198,40}},
+          color={0,0,127}));
   connect(gain.y, add2.u1) annotation (Line(points={{222,40},{240,40},{240,6},{258,
-          6}},      color={0,0,127}));
+          6}}, color={0,0,127}));
   connect(add2.y, unlFueFloWarUp.u2) annotation (Line(points={{282,0},{300,0},{300,
           34},{318,34}}, color={0,0,127}));
   connect(fueFlo.y, groHea.u1) annotation (Line(points={{402,140},{420,140},{420,
@@ -169,51 +166,48 @@ equation
           280},{-58,280}}, color={0,0,127}));
   connect(etaQ.mWat_flow, mWat_flow) annotation (Line(points={{-22,190},{-60,190},
           {-60,240},{-120,240}}, color={0,0,127}));
-  connect(etaQ.TWatIn, TWatIn)
-    annotation (Line(points={{-22,184},{-80,184},{-80,200},{-120,200}},
-                                                    color={0,0,127}));
+  connect(etaQ.TWatIn, TWatIn) annotation (Line(points={{-22,184},{-80,184},
+          {-80,200},{-120,200}}, color={0,0,127}));
   connect(etaQ.eta, heaGen.u1) annotation (Line(points={{2,190},{480,190},{480,166},
           {498,166}}, color={0,0,127}));
-  connect(mFueMax_flow.y, maxFueFlo.u)
-    annotation (Line(points={{122,280},{318,280}}, color={0,0,127}));
+  connect(mFueMax_flow.y, maxFueFlo.u) annotation (Line(points={{122,280},
+          {318,280}}, color={0,0,127}));
   connect(unlFueFloWarUp.u1, mFueMax_flow.y) annotation (Line(points={{318,46},{
           300,46},{300,280},{122,280}}, color={0,0,127}));
   connect(maxFueFlo.y, fueFlo.u1) annotation (Line(points={{342,280},{360,280},{
           360,146},{378,146}}, color={0,0,127}));
   connect(unlFueFloWarUp.y, fueFlo.u2) annotation (Line(points={{342,40},{360,40},
           {360,134},{378,134}}, color={0,0,127}));
-  connect(division1.u1,powCoe. y)
-    annotation (Line(points={{198,96},{180,96},{180,120},{162,120}},
-                                                   color={0,0,127}));
+  connect(division1.u1,powCoe. y) annotation (Line(points={{198,96},{180,96},
+          {180,120},{162,120}}, color={0,0,127}));
   connect(division1.u2, division.y) annotation (Line(points={{198,84},{180,84},{
           180,40},{162,40}},  color={0,0,127}));
   connect(PEleNet1.u1, PEleMax.y) annotation (Line(points={{258,346},{-40,346},{
-          -40,280},{-58,280}},       color={0,0,127}));
-  connect(PEleNet1.y, PEleNet)
-    annotation (Line(points={{282,340},{560,340}}, color={0,0,127}));
-  connect(heaGen.y, QGen)
-    annotation (Line(points={{522,160},{560,160}}, color={0,0,127}));
+          -40,280},{-58,280}}, color={0,0,127}));
+  connect(PEleNet1.y, PEleNet) annotation (Line(points={{282,340},{560,340}},
+          color={0,0,127}));
+  connect(heaGen.y, QGen) annotation (Line(points={{522,160},{560,160}},
+          color={0,0,127}));
   connect(fueFlo.y, mFue_flow) annotation (Line(points={{402,140},{420,140},{420,
           300},{560,300}}, color={0,0,127}));
-  connect(airFloRat.y, mAir_flow)
-    annotation (Line(points={{521,240},{560,240}}, color={0,0,127}));
+  connect(airFloRat.y, mAir_flow) annotation (Line(points={{521,240},{560,240}},
+          color={0,0,127}));
   connect(min1.y, smoothMax.u2) annotation (Line(points={{42,40},{60,40},{60,54},
           {78,54}}, color={0,0,127}));
-  connect(add1.y, smoothMax.u1)
-    annotation (Line(points={{2,80},{20,80},{20,66},{78,66}},
-                                              color={0,0,127}));
+  connect(add1.y, smoothMax.u1) annotation (Line(points={{2,80},{20,80},{20,66},
+          {78,66}}, color={0,0,127}));
   connect(smoothMax.y, division.u1) annotation (Line(points={{101,60},{120,60},{
           120,46},{138,46}}, color={0,0,127}));
   connect(min2.y, smoothMax2.u2) annotation (Line(points={{42,-40},{60,-40},{60,
-          -6},{78,-6}},   color={0,0,127}));
+          -6},{78,-6}}, color={0,0,127}));
   connect(smoothMax2.y, division.u2) annotation (Line(points={{101,0},{120,0},{120,
-          34},{138,34}},      color={0,0,127}));
+          34},{138,34}}, color={0,0,127}));
   connect(temChe.u, add1.y) annotation (Line(points={{38,140},{20,140},{20,80},{
           2,80}}, color={0,0,127}));
   connect(division1.y, PEleNet1.u2) annotation (Line(points={{222,90},{240,90},{
           240,334},{258,334}},  color={0,0,127}));
-  connect(temChe.y, assMes.u)
-    annotation (Line(points={{62,140},{78,140}}, color={255,0,255}));
+  connect(temChe.y, assMes.u) annotation (Line(points={{62,140},{78,140}},
+          color={255,0,255}));
   connect(min2.y, add2.u2) annotation (Line(points={{42,-40},{240,-40},{240,-6},
           {258,-6}}, color={0,0,127}));
   connect(fueFlo.y, airFloRat.u) annotation (Line(points={{402,140},{420,140},{420,
@@ -224,20 +218,27 @@ equation
           -22,-6}}, color={0,0,127}));
   connect(TRoo, add.u1) annotation (Line(points={{-120,40},{-40,40},{-40,6},{-22,
           6}}, color={0,0,127}));
-  connect(add.y, smoothMax2.u1)
-    annotation (Line(points={{2,0},{60,0},{60,6},{78,6}}, color={0,0,127}));
-  annotation (
-    defaultComponentName="opeModWarUpEngTem",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{540,
-            380}})),
-    Documentation(info="<html>
+  connect(add.y, smoothMax2.u1) annotation (Line(points={{2,0},{60,0},{60,6},
+          {78,6}}, color={0,0,127}));
+
+annotation (
+  defaultComponentName="opeModWarUpEngTem",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{540,380}})),
+  Documentation(info="<html>
 <p>
-The model defines energy conversion for the warm-up mode that is dependent on the engine temperature (e.g. CHPs with Stirling engines). 
-The engine fuel flow rate is a function of the fuel flow rate at the maximum power output, as well as the difference between the nominal engine temperature and the actual engine temperature.   
-Energy conversion from fuel to the electric power and heat is modeled using system's part-load electrical and thermal efficiencies, based on the empirical data from the manufacturer. 
-The curves are described by a 2nd order polynomial, a function of the electric power, water flow rate and water inlet temperature. 
-The air flow rate is also modeled using a 2nd order polynomial, a function of the fuel flow rate. 
+The model defines energy conversion for the warm-up mode that is dependent on the 
+engine temperature (e.g. CHPs with Stirling engines). 
+The engine fuel flow rate is a function of the fuel flow rate at the maximum power 
+output, as well as the difference between the nominal engine temperature and the 
+actual engine temperature.   
+Energy conversion from fuel to the electric power and heat is modeled using 
+system's part-load electrical and thermal efficiencies, based on the empirical 
+data from the manufacturer. 
+The curves are described by a 2nd order polynomial, a function of the electric 
+power, water flow rate and water inlet temperature. 
+The air flow rate is also modeled using a 2nd order polynomial, a function of 
+the fuel flow rate. 
 </p>
 </html>", revisions="<html>
 <ul>

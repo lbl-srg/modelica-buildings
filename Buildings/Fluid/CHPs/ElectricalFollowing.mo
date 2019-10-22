@@ -127,11 +127,11 @@ equation
   connect(mWat_flow.y, opeMod.mWat_flow) annotation (Line(points={{-79,100},{
           -74,100},{-74,134},{20,134},{20,182},{28,182}},
                                                       color={0,0,127}));
-  connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{-79,120},{64,120},{
-          64,174},{72,174}},  color={0,0,127}));
+  connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{-79,120},{64,120},
+          {64,173},{72,173}}, color={0,0,127}));
   connect(eneCon.TWatIn, TWatIn.y) annotation (Line(points={{-52,90},{-66,90},{-66,
           120},{-79,120}}, color={0,0,127}));
-  connect(conWat.mWatSet, mWatSet) annotation (Line(points={{95,180},{120,180}},
+  connect(conWat.mWatSet, mWatSet) annotation (Line(points={{96,180},{120,180}},
           color={0,0,127}));
   connect(hys.y, runSig.u2) annotation (Line(points={{-29,162},{-12,162}},
           color={255,0,255}));
@@ -145,8 +145,8 @@ equation
                             color={255,0,255}));
   connect(runSig.u1, avaSig) annotation (Line(points={{-12,170},{-20,170},{-20,180},
           {-120,180}}, color={255,0,255}));
-  connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{72,186},{56,
-          186},{56,180},{51,180}},
+  connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{73,187},{56,
+          187},{56,180},{51,180}},
                               color={0,127,0}));
   connect(TWatOut.T, assWatTem.TWat) annotation (Line(points={{30,-50},{38,-50}},
           color={0,0,127}));
@@ -160,10 +160,10 @@ equation
           {-20,-10},{-9,-10}},color={191,0,0}));
   connect(QWat1.Q_flow, QWat) annotation (Line(points={{-10,20},{120,20}},
           color={0,0,127}));
-  connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{70,140},{56,
+  connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{71,140},{56,
           140},{56,180},{51,180}},
                               color={0,127,0}));
-  connect(powCon.PCon, PCon) annotation (Line(points={{93,140},{100,140},{100,
+  connect(powCon.PCon, PCon) annotation (Line(points={{94,140},{100,140},{100,
           138},{106,138},{106,140},{120,140}}, color={0,0,127}));
   connect(TRoo, QLos.port_b) annotation (Line(points={{-100,-40},{-90,-40}},
           color={191,0,0}));

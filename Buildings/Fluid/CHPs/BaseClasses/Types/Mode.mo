@@ -7,8 +7,8 @@ type Mode = enumeration(
     Normal "Normal operating mode",
     CoolDown "Cool down before going to stand-by or off mode")
   "Enumeration for mode types"
-     annotation (
-    Documentation(info="<html>
+annotation (
+  Documentation(info="<html>
 <p>
 Enumeration for the type of modes.
 The possible values are:

@@ -99,8 +99,10 @@ annotation (
         Line(points={{-40,-70},{40,70}}, color={0,0,0})}),
   Documentation(info="<html>
 <p>
-The model checks if the electric power and power rate are within the boundaries specified by the manufacturer. 
-The constraints are applied and a warning message is sent if the electric power is outside the boundaries. 
+The model checks if the electric power and power rate are within the boundaries 
+specified by the manufacturer. 
+The constraints are applied and a warning message is sent if the electric power 
+is outside the boundaries. 
 </p>
 </html>", revisions="<html>
 <ul>

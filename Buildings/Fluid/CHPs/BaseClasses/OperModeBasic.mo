@@ -8,7 +8,7 @@ model OperModeBasic "Energy conversion for a typical CHP operation"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PEle(
     final unit="W") "Electric power"
-    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
+    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mWat_flow(
     final unit="kg/s",
@@ -60,8 +60,8 @@ protected
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
 
 equation
-  connect(groHea.u1, PEle) annotation (Line(points={{18,106},{-70,106},{-70,120},
-          {-120,120}}, color={0,0,127}));
+  connect(groHea.u1, PEle) annotation (Line(points={{18,106},{-70,106},{-70,140},
+          {-120,140}}, color={0,0,127}));
   connect(heaGen.y, QGen) annotation (Line(points={{122,-10},{200,-10}},
           color={0,0,127}));
   connect(QGen, QGen) annotation (Line(points={{200,-10},{200,-10}},
@@ -78,10 +78,11 @@ equation
           color={0,0,127}));
   connect(etaE.TWatIn, TWatIn) annotation (Line(points={{-42,54},{-60,54},{-60,-46},
           {-120,-46}}, color={0,0,127}));
-  connect(etaE.PNet, PEle) annotation (Line(points={{-42,66},{-70,66},{-70,120},
-          {-120,120}}, color={0,0,127}));
-  connect(etaQ.PNet, PEle) annotation (Line(points={{-42,-34},{-70,-34},{-70,120},
-          {-120,120}},color={0,0,127}));
+  connect(etaE.PNet, PEle) annotation (Line(points={{-42,66},{-70,66},{-70,140},
+          {-120,140}}, color={0,0,127}));
+  connect(etaQ.PNet, PEle) annotation (Line(points={{-42,-34},{-70,-34},{-70,
+          140},{-120,140}},
+                      color={0,0,127}));
   connect(mWat_flow, etaE.mWat_flow) annotation (Line(points={{-120,60},{-42,60}},
           color={0,0,127}));
   connect(etaQ.mWat_flow, mWat_flow) annotation (Line(points={{-42,-40},{-80,-40},
@@ -91,8 +92,7 @@ equation
   connect(etaE.eta, groHea.u2) annotation (Line(points={{-18,60},{0,60},{0,94},
           {18,94}},color={0,0,127}));
   connect(etaQ.eta, heaGen.u2) annotation (Line(points={{-18,-40},{60,-40},{60,
-          -16},{98,-16}},
-                     color={0,0,127}));
+          -16},{98,-16}}, color={0,0,127}));
   connect(groHea.y, heaGen.u1) annotation (Line(points={{42,100},{60,100},{60,-4},
           {98,-4}}, color={0,0,127}));
 
@@ -102,10 +102,15 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{180,200}})),
   Documentation(info="<html>
 <p>
-The model defines energy conversion for a typical CHP operation that includes the normal mode and warm-up mode based on the time delay (CHPs with internal combustion engines). 
-Energy conversion from fuel to the electric power and heat is modeled using system's part-load electrical and thermal efficiencies, based on the empirical data from the manufacturer. 
-The curves are described by a 2nd order polynomial, a function of the electric power, water flow rate and water inlet temperature. 
-The air flow rate is also modeled using a 2nd order polynomial, a function of the fuel flow rate. 
+The model defines energy conversion for a typical CHP operation that includes the 
+normal mode and warm-up mode based on the time delay (CHPs with internal combustion engines). 
+Energy conversion from fuel to the electric power and heat is modeled using 
+system's part-load electrical and thermal efficiencies, based on the empirical 
+data from the manufacturer. 
+The curves are described by a 2nd order polynomial, a function of the electric 
+power, water flow rate and water inlet temperature. 
+The air flow rate is also modeled using a 2nd order polynomial, a function of 
+the fuel flow rate. 
 </p>
 </html>", revisions="<html>
 <ul>

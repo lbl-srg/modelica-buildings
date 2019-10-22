@@ -152,7 +152,8 @@ equation
   connect(normal.outPort[1], transition8.inPort) annotation (Line(points={{180.5,
           0},{196,0}}, color={0,0,0}));
   connect(standBy.outPort, transition2.inPort) annotation (Line(points={{
-          -39.6667,0},{-24,0}}, color={0,0,0}));
+          -39.6667,0},{-24,0}},
+                       color={0,0,0}));
   connect(TEng,warmUp.TEng) annotation (Line(points={{-280,20},{50,20},{50,
           5.33333},{59.3333,5.33333}},
                               color={0,0,127}));
