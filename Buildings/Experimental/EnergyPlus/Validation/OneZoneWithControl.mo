@@ -7,11 +7,12 @@ model OneZoneWithControl "Validation model for one zone"
     idfName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
     weaName = Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"))
+    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
+    showWeatherData=false)
     "Building model"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
   parameter Modelica.SIunits.Volume AFlo = 149.657+2*(113.45+67.3) "Floor area of the whole floor of the building";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = AFlo*2.7*3*1.2/3600
