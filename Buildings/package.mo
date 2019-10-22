@@ -192,7 +192,25 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Added option to also simulate moisture balance in room air volume.
                            This can be enabled by setting the parameter <code>use_moisture_balance = true</code>.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">#1209</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">IBPSA, #1209</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Files.CSVWriter<br/>
+                           Buildings.Utilities.IO.Files.CombiTimeTableWriter<br/>
+                           Buildings.Utilities.IO.Files.CombiTimeTableWriter
+        </td>
+        <td valign=\"top\">Revised to avoid overflow of string buffer in Dymola.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1219\">IBPSA, #1219</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Math.SmoothHeaviside<br/>
+                           Buildings.Utilities.Math.Functions.SmoothHeaviside<br/>
+        </td>
+        <td valign=\"top\">This function is now twice instead of only once Lipschitz continuously differentiable.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">IBPSA, #1202</a>.
         </td>
     </tr>
     </table>
