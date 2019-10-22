@@ -171,7 +171,7 @@ First implementation.
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/Validation/TwoIdenticalZones.mos"
         "Simulate and plot"),
 experiment(
-      StopTime=31536000,
+      StopTime=604800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Diagram(coordinateSystem(extent={{-200,-160},{200,160}})),
