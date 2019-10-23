@@ -2,13 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 block RuntimeCounter
   "Equipment rotation signal based on runtime and status"
 
-  parameter Boolean lag = true
-    "true = lead/lag, false = lead/standby";
-
-  parameter Boolean initRoles[nDev] = {true, false}
-    "Initial roles: true = lead, false = lag/standby"
-    annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
-
   parameter Modelica.SIunits.Time stagingRuntime(
     final displayUnit = "h") = 864000
     "Staging runtime for each device";
@@ -27,13 +20,6 @@ block RuntimeCounter
     annotation (Placement(transformation(extent={{200,-50},{220,-30}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
 
-protected
-  final parameter Integer nDev = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
-
-  final parameter Modelica.SIunits.Time stagingRuntimes[nDev] = fill(stagingRuntime, nDev)
-    "Staging runtimes array";
-
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nDev](
     final threshold=stagingRuntimes) "Staging runtime hysteresis"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
@@ -42,6 +28,17 @@ protected
     final reset={false,false})
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
+
+protected
+  final parameter Integer nDev = 2
+    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+
+  final parameter Boolean initRoles[nDev] = {true, false}
+    "Initial roles: true = lead, false = lag/standby"
+    annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
+
+  final parameter Modelica.SIunits.Time stagingRuntimes[nDev] = fill(stagingRuntime, nDev)
+    "Staging runtimes array";
 
   Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev] "Logical and"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

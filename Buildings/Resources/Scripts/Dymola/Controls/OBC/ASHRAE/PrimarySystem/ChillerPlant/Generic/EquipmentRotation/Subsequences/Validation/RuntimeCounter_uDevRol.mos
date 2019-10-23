@@ -1,0 +1,15 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.RuntimeCounter_uDevRol", method="Cvode", stopTime=100000, tolerance=1e-06, resultFile="RuntimeCounter_uDevRol");
+createPlot(id=1, subPlot=1, position={10, 10, 1200, 800}, y={"runCou.yDevRolSet[1]","runCou.yDevRolSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=2, position={10, 10, 1200, 800}, y={"logSwi[1].y","logSwi[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=3, position={10, 10, 1200, 800}, y={"runCou.tim[1].y","runCou.tim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=4, position={10, 10, 1200, 800}, y={"runCou.greEquThr[1].y","runCou.greEquThr[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=2, subPlot=1, position={20, 10, 1200, 800}, y={"runCou1.yDevRolSet[1]","runCou1.yDevRolSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=2, position={10, 10, 1200, 800}, y={"logSwi1[1].y","logSwi1[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=3, position={20, 10, 1200, 800}, y={"runCou1.tim[1].y","runCou1.tim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=4, position={20, 10, 1200, 800}, y={"runCou1.greEquThr[1].y","runCou1.greEquThr[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=3, subPlot=1, position={20, 10, 1200, 800}, y={"runCou2.yDevRolSet[1]","runCou2.yDevRolSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=2, position={10, 10, 1200, 800}, y={"logSwi2[1].y","logSwi2[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=3, position={20, 10, 1200, 800}, y={"runCou2.tim[1].y","runCou2.tim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=4, position={20, 10, 1200, 800}, y={"runCou2.greEquThr[1].y","runCou2.greEquThr[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});

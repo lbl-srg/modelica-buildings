@@ -13,40 +13,56 @@ block Scheduler
     final displayUnit = "h") = 864000
     "Staging runtime for each device";
 
-  CDL.Continuous.Sources.CalendarTime                        calTim(zerTim=
+  Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime calTim(zerTim=
         Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019, yearRef=2019)
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  CDL.Integers.Sources.Constant houOfDay(k=15)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay(k=15)
     "Hour of the day for rotating devices that run continuously"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  CDL.Integers.Sources.Constant weeDay(k=3) "Weekday"
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeDay(k=3) "Weekday"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  CDL.Integers.Equal                        intEqu1
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  CDL.Integers.Equal                        intEqu
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Logical.And and2
+
+  Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  CDL.Integers.Equal                        intEqu2
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  CDL.Integers.Sources.Constant dayCou(k=2)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant dayCou(k=2)
     "Number of days for scheduled rotation"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  CDL.Logical.Pre pre
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  CDL.Logical.Edge edg
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  CDL.Integers.OnCounter onCouInt
+
+  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  CDL.Integers.Equal                        intEqu3
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  CDL.Integers.Sources.Constant weeDay1(k=0) "Weekday"
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeDay1(k=0) "Weekday"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  CDL.Logical.Or and1
+
+  Buildings.Controls.OBC.CDL.Logical.Or and1
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  CDL.Interfaces.BooleanOutput yRot "Rotation trigger signal" annotation (
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot "Rotation trigger signal"
+    annotation (
       Placement(transformation(extent={{160,-20},{200,20}}), iconTransformation(
           extent={{100,-20},{140,20}})));
+
 protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
