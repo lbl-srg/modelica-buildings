@@ -299,6 +299,17 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings/Resources/Python-Sources/KalmanFilter.py<br/>
+                           Buildings.Utilities.IO.Python27.Examples.KalmanFilter
+        </td>
+        <td valign=\"top\">Changed the temporary file format from <code>pickle</code> to <code>json</code> as the former can trigger a
+                           segfault with JModelica simulation run in a subprocess.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1587\">Buildings, #1587</a>.
+        </td>
+    </tr>
     </table>
     <!-- Uncritical errors -->
     <p>
