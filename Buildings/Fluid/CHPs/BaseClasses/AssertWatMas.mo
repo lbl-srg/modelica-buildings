@@ -18,14 +18,13 @@ model AssertWatMas "Assert if water mass flow is outside boundaries"
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="Water flow rate is lower than the minimum!")
     "Assert function for checking water flow rate"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Nand nand "Logical Nand"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0.99*per.mWatMin,
-    final uHigh=1.01*per.mWatMin)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=0.99*per.mWatMin
+         - 2e-6, final uHigh=1.01*per.mWatMin - 1e-6)
     "Check if water flow rate is larger than minimum rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -37,7 +36,7 @@ equation
           color={0,0,127}));
   connect(nand.u1, runSig) annotation (Line(points={{18,0},{0,0},{0,40},{-120,40}},
           color={255,0,255}));
-  connect(nand.y, assMes.u) annotation (Line(points={{42,0},{78,0}},
+  connect(nand.y, assMes.u) annotation (Line(points={{42,0},{58,0}},
           color={255,0,255}));
   connect(nand.u2, not1.y) annotation (Line(points={{18,-8},{0,-8},{0,-40},{-18,
           -40}}, color={255,0,255}));

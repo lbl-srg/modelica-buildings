@@ -2,6 +2,7 @@ within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model AssertFuel "Validate model AssertFuel"
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
+    "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Fluid.CHPs.BaseClasses.AssertFuel assFue(final per=per)

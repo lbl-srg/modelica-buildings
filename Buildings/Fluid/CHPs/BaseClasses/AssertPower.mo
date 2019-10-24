@@ -11,6 +11,10 @@ model AssertPower "Assert if electric power is outside boundaries"
     "Electric power demand"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesP(
+    final message="Electric power is outside boundaries!")
+    "Generate warning when the electric power demand is out of the range"
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesDP(
     final message="Power rate of change is outside boundaries!")
     "Assert function for checking power rate"
@@ -26,10 +30,6 @@ protected
     final k=per.dPEleLim)
     "Check if dP is limited"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMesP(
-    final message="Electric power is outside boundaries!")
-    "Generate warning when the electric power demand is out of the range"
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Derivative demRat(
     final initType=Buildings.Controls.OBC.CDL.Types.Init.InitialState,
     final x_start=0)
@@ -42,17 +42,17 @@ protected
     "Check if demand rate is more than the maximum rate"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(
-    final uLow=0.99*per.PEleMax,
-    final uHigh=1.01*per.PEleMax)
+    final uLow=0.99*per.PEleMax - 2e-6,
+    final uHigh=1.01*per.PEleMax - 1e-6)
     "Check if the electric power demand is more than the maximum power production"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis minPow(
-    final uLow=0.99*per.PEleMin,
-    final uHigh=1.01*per.PEleMin)
+    final uLow=0.99*per.PEleMin - 2e-6,
+    final uHigh=1.01*per.PEleMin - 1e-6)
     "Check if the electric power demand is larger than the minimum power production"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
-    "If the electric demand is less than minimum production"
+    "Check if the electric power demand is less than the minimum power production"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
@@ -60,14 +60,8 @@ equation
           color={0,0,127}));
   connect(maxRat.u, abs1.y) annotation (Line(points={{-2,-40},{-18,-40}},
           color={0,0,127}));
-  connect(maxPow.u, PEleDem) annotation (Line(points={{-62,40},{-90,40},{-90,0},
-          {-120,0}}, color={0,0,127}));
-  connect(minPow.u, PEleDem) annotation (Line(points={{-82,0},{-120,0}},
-          color={0,0,127}));
   connect(demRat.u, PEleDem) annotation (Line(points={{-82,-40},{-90,-40},{-90,0},
           {-120,0}}, color={0,0,127}));
-  connect(nor.u1, maxPow.y) annotation (Line(points={{38,20},{0,20},{0,40},{-38,
-          40}}, color={255,0,255}));
   connect(maxRat.y, nand.u1) annotation (Line(points={{22,-40},{38,-40}},
           color={255,0,255}));
   connect(nor.y, assMesP.u) annotation (Line(points={{62,20},{78,20}},
@@ -76,9 +70,15 @@ equation
           color={255,0,255}));
   connect(cheDPLim.y, nand.u2) annotation (Line(points={{22,-80},{30,-80},{30,-48},
           {38,-48}}, color={255,0,255}));
-  connect(nor.u2, not1.y) annotation (Line(points={{38,12},{0,12},{0,0},{-18,0}},
+  connect(PEleDem, maxPow.u) annotation (Line(points={{-120,0},{-90,0},{-90,40},
+          {-42,40}}, color={0,0,127}));
+  connect(maxPow.y, nor.u1) annotation (Line(points={{-18,40},{0,40},{0,20},{38,
+          20}}, color={255,0,255}));
+  connect(PEleDem, minPow.u) annotation (Line(points={{-120,0},{-82,0}},
+          color={0,0,127}));
+  connect(minPow.y, not1.u) annotation (Line(points={{-58,0},{-42,0}},
           color={255,0,255}));
-  connect(not1.u, minPow.y) annotation (Line(points={{-42,0},{-58,0}},
+  connect(not1.y, nor.u2) annotation (Line(points={{-18,0},{0,0},{0,12},{38,12}},
           color={255,0,255}));
 
 annotation (

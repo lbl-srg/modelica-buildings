@@ -46,8 +46,8 @@ protected
     "Flow rate difference between current rate and minimum rate"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=0.01*per.mWatMin,
-    final uHigh=0.015*per.mWatMin)
+    final uLow=0.01*per.mWatMin - 2e-6,
+    final uHigh=0.015*per.mWatMin - 1e-6)
     "Check if current flow rate is larger than the minimum flow rate"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Logical.And goSig
@@ -64,8 +64,8 @@ protected
     "Flow rate difference between current rate and minimum rate"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
-    final uLow=0.01*per.mWatMin,
-    final uHigh=0.015*per.mWatMin)
+    final uLow=0.01*per.mWatMin - 2e-6,
+    final uHigh=0.015*per.mWatMin - 1e-6)
     "Check if current flow rate is smaller than the minimum flow rate"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Buildings.Controls.OBC.CDL.Logical.Or noGoSig
@@ -155,20 +155,18 @@ equation
           -39.6667,0},{-24,0}},
                        color={0,0,0}));
   connect(TEng,warmUp.TEng) annotation (Line(points={{-280,20},{50,20},{50,
-          5.33333},{59.3333,5.33333}},
+          2.13333},{52.1333,2.13333}},
                               color={0,0,127}));
   connect(transition1.outPort, standBy.inPort) annotation (Line(points={{-78.5,0},
           {-60.6667,0}}, color={0,0,0}));
   connect(warmUp.outPort, transition6.inPort) annotation (Line(points={{80.3333,
-          0},{136,0}},
-                    color={0,0,0}));
+          0},{136,0}}, color={0,0,0}));
   connect(plantOff.outPort[1], transition1.inPort) annotation (Line(points={{
           -99.5,0},{-84,0}}, color={0,0,0}));
   connect(transition2.outPort, pumpOn.inPort) annotation (Line(points={{-18.5,0},
           {-0.66667,0}}, color={0,0,0}));
   connect(pumpOn.outPort, transition4.inPort) annotation (Line(points={{20.3333,
-          0},{36,0}},
-                   color={0,0,0}));
+          0},{36,0}}, color={0,0,0}));
   connect(transition4.outPort, warmUp.inPort) annotation (Line(points={{41.5,0},
           {59.3333,0}}, color={0,0,0}));
   connect(transition6.outPort, normal.inPort[1]) annotation (Line(points={{141.5,
@@ -236,21 +234,22 @@ equation
   connect(standBy.suspend[1], transition3.inPort) annotation (Line(points={{-55,
           -10.3333},{-55,-80},{-24,-80}}, color={0,0,0}));
   connect(pumpOn.suspend[1], transition5.inPort) annotation (Line(points={{5,
-          -10.3333},{5,-100},{16,-100}}, color={0,0,0}));
+          -10.3333},{5,-100},{16,-100}},
+                               color={0,0,0}));
   connect(warmUp.suspend[1], transition9.inPort) annotation (Line(points={{65,
           -10.3333},{65,-110},{76,-110}},
                                 color={0,0,0}));
   connect(noGoSig.y, transition9.condition) annotation (Line(points={{2,90},{16,
           90},{16,64},{-144,64},{-144,-130},{80,-130},{80,-122}}, color={255,0,255}));
   connect(transition9.outPort, cooDow.inPort1) annotation (Line(points={{81.5,
-          -110},{119.333,-110}}, color={0,0,0}));
+          -110},{119.333,-110}},
+                           color={0,0,0}));
   connect(cooDow.suspend[1], transition7.inPort) annotation (Line(points={{125,
           -124.333},{125,-160},{136,-160}},
                                   color={0,0,0}));
-  connect(transition7.outPort, warmUp.inPort1)
-    annotation (Line(points={{141.5,-160},{160,-160},{160,-140},{50,-140},{50,
-          -5.33333},{59.3333,-5.33333}},
-                               color={0,0,0}));
+  connect(transition7.outPort, warmUp.inPort1) annotation (Line(points={{141.5,
+          -160},{160,-160},{160,-140},{50,-140},{50,-5.33333},{59.3333,-5.33333}},
+                                                                              color={0,0,0}));
   connect(and3.y, transition7.condition) annotation (Line(points={{102,-180},{140,
           -180},{140,-172}}, color={255,0,255}));
   connect(cooDow.y, and4.u1) annotation (Line(points={{140.667,-117.333},{170,

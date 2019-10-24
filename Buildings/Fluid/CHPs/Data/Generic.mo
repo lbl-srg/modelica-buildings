@@ -1,7 +1,7 @@
 within Buildings.Fluid.CHPs.Data;
 record Generic "Generic data"
   extends Modelica.Icons.Record;
-  parameter Real[27] coeEtaQ = {0}
+  parameter Real[27] coeEtaQ=fill(0,27)
     "Vector of coefficients used to calculate thermal efficiency of the engine. The independent variables are x1=PNetSs, x2=mWat, x3=TWat.
     Coefficients next to the terms have the following order:
     constant, x1^2, x1, x2^2, x2, x3^2, x3, 
@@ -10,17 +10,17 @@ record Generic "Generic data"
     x2^2*x3^2, x2*x3, x2*x3^2, x2^2*x3,
     x1^2*x2^2*x3^2,  x1^2*x2^2*x3,  x1^2*x2*x3^2,  x1*x2^2*x3^2,
     x1^2*x2*x3, x1*x2^2*x3,  x1*x2*x3^2,  x1*x2*x3";
-  parameter Real[27] coeEtaE = {0}
+  parameter Real[27] coeEtaE=fill(0,27)
     "Vector of coefficients used to calculate electrical conversion efficiency of the engine. 
     The independent varilables and order of the coefficients are the same as for the thermal efficiency";
   parameter Boolean coolingWaterControl=true
     "If true, then empirical correlation is used to calculte cooling water mass flow rate based on internal control";
-  parameter Real[6] coeMasWat = {0}
+  parameter Real[6] coeMasWat=fill(0,6)
     "Vector of coefficients used to calculate cooling water mass flow rate. Used if coolingWaterControl = true.
     The independent variables are x1=PNetSs,x2=TWat.
     Coefficients next to the terms have the following order:
     constant, x1, x1^2, x2, x2^2, x3^2, x1*x2";
-  parameter Real[3] coeMasAir = {0}
+  parameter Real[3] coeMasAir=fill(0,3)
     "Vector of coefficients used to calculate air mass flow rate.
     The independent variable is x1=mFue.
     Coefficients next to the terms have the following order:

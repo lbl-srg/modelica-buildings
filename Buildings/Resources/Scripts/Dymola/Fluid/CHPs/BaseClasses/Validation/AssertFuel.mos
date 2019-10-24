@@ -1,2 +1,3 @@
-simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.AssertFuel", method="dassl", stopTime=1200, tolerance=1e-06, resultFile="AssertFuel");
-createPlot(id=1, position={400, 0, 500, 400}, y={"assFue.assMes.u"}, grid=true, colors={{28,108,200}});
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.AssertFuel", method="cvode", stopTime=1200, tolerance=1e-06, resultFile="assFue");
+createPlot(id=1, position={20, 20, 900, 800}, subPlot=1, y={"assFue.assMes.u"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 800}, subPlot=2, y={"assFue.mFue_flow"}, grid=true, colors={{28,108,200}});

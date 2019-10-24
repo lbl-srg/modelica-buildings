@@ -1,37 +1,46 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model Controller "Validate model Controller"
+
   parameter Buildings.Fluid.CHPs.Data.ValidationData3 per
-    annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-  Modelica.Blocks.Sources.BooleanTable runSig(startValue=false, table={900,960,1200,
-        2200})
+    "CHP performance data"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
+  Modelica.Blocks.Sources.BooleanTable runSig(
+    startValue=false,
+    table={900,960,1200,2200})
     "Plant run signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Fluid.CHPs.BaseClasses.Controller con(per=per) "Main controller"
+  Buildings.Fluid.CHPs.BaseClasses.Controller con(final per=per) "Main controller"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Modelica.Blocks.Sources.BooleanTable avaSig(startValue=false, table={300,600,900})
-    "Plant availability signal"
+  Modelica.Blocks.Sources.BooleanTable avaSig(
+    final startValue=false,
+    table={300,600,900}) "Plant availability signal"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Controls.OBC.CDL.Continuous.Sources.TimeTable
-                                    mWat_flow(table=[0,0; 900,0.4; 1320,0; 1500,
-        0.4; 1900,0; 1960,0.4; 2200,0; 3000,0], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
+    table=[0,0; 900,0.4; 1320,0; 1500,0.4;
+           1900,0; 1960,0.4; 2200,0; 3000,0],
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Water flow rate"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-80,-81},{-60,-61}})));
-  Modelica.Blocks.Sources.Constant TEng(k=273.15 + 100) "Engine temperature"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TEng(
+    final k=273.15 + 100) "Engine temperature"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+
 equation
-  connect(avaSig.y, con.avaSig) annotation (Line(points={{-19,70},{0,70},{0,2},
+  connect(avaSig.y, con.avaSig) annotation (Line(points={{-19,70},{10,70},{10,2},
           {18,2}},  color={255,0,255}));
   connect(runSig.y, con.runSig) annotation (Line(points={{-19,30},{-10,30},{-10,
           18},{18,18}}, color={255,0,255}));
-  connect(TEng.y, con.TEng) annotation (Line(points={{-19,-70},{0,-70},{0,8},{
-          18,8}}, color={0,0,127}));
+  connect(TEng.y, con.TEng) annotation (Line(points={{-18,-70},{0,-70},{0,8},{18,
+          8}}, color={0,0,127}));
   connect(mWat_flow.y[1], con.mWat_flow) annotation (Line(points={{-18,-30},{
-          -10,-30},{-10,12},{18,12}},
-                                    color={0,0,127}));
-  annotation (
+          -10,-30},{-10,12},{18,12}}, color={0,0,127}));
+
+annotation (
     experiment(StopTime=3000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/Controller.mos"
         "Simulate and plot"),

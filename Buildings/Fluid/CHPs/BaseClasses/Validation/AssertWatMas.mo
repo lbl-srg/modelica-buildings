@@ -1,23 +1,30 @@
 within Buildings.Fluid.CHPs.BaseClasses.Validation;
 model AssertWatMas "Validate model AssertWatMas"
+
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
-    annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
-  CHPs.BaseClasses.AssertWatMas assWatMas(per=per)
+    "CHP performance data"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
+  Buildings.Fluid.CHPs.BaseClasses.AssertWatMas assWatMas(
+    final per=per)
     "Assert if water mass flow is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Controls.OBC.CDL.Continuous.Sources.TimeTable
-                                    mWat_flow(table=[0,0; 300,0.05; 360,0.5;
-        600,0.05; 900,0.05], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
+    table=[0,0; 300,0.05; 360,0.5;
+           600,0.05; 900,0.05],
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Water flow rate"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Sources.BooleanTable runSig(table={300,1000})
     "Flag is true when electricity/heat demand larger than zero"
-    annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+
 equation
-  connect(runSig.y, assWatMas.runSig) annotation (Line(points={{-39,16},{-0.5,16},
-          {-0.5,4},{38,4}}, color={255,0,255}));
-  connect(mWat_flow.y[1], assWatMas.mWat_flow) annotation (Line(points={{-39,
-          -20},{0,-20},{0,-4},{38,-4}}, color={0,0,127}));
+  connect(mWat_flow.y[1], assWatMas.mWat_flow) annotation (Line(points={{-38,-20},
+          {0,-20},{0,-4},{38,-4}}, color={0,0,127}));
+  connect(runSig.y, assWatMas.runSig) annotation (Line(points={{-39,20},{0,20},{
+          0,4},{38,4}}, color={255,0,255}));
+
 annotation (
   experiment(StopTime=900, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/AssertWatMas.mos"
