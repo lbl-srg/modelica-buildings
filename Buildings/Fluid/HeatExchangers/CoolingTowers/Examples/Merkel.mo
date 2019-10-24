@@ -55,8 +55,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
             100}})),
     Documentation(info="<html>
 This example illustrates the use of the cooling tower model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>.
 Heat is injected into the volume <code>vol</code>. An on/off controller
 switches the cooling loop water pump on or off based on the temperature of
 this volume.
@@ -64,7 +64,7 @@ The cooling tower outlet temperature is controlled to track a fixed temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-July 12, 2011, by Michael Wetter:<br/>
+October 22, 2019, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

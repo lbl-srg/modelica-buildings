@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
-model Merkel "Cooling tower model based on merkel theory"
+model Merkel "Cooling tower model based on Merkel's theory"
     extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
     final m_flow_nominal = m2_flow_nominal,
     final QWat_flow(y=-eps*QMax_flow));
@@ -47,7 +47,7 @@ model Merkel "Cooling tower model based on merkel theory"
        r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
- parameter Correlations.corUAMerkel UACor
+ parameter Correlations.CorUAMerkel UACor
     "UA correction curves"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
@@ -368,5 +368,38 @@ equation
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="Merkel")}),                                Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+October 22, 2019, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>Model for a steady-state or dynamic cooling tower with a variable speed fan
+ using Merkel's calculation method. Cooling tower performance is modeled using 
+the effectiveness-NTU relationships for various heat exchanger flow regimes. 
+</p>
+<h4>Comparison with the cooling tower model of EnergyPlus</h4>
+<p>This model is similar to the model CoolingTower:VariableSpeed:Merkel that is 
+implemented in the EnergyPlus building energy simulation program version 8.1.0. 
+The main differences are: 
+</p>
+<ol>
+<li>
+Not implemented are the basin heater power consumption and the make-up water usage. 
+</li>
+<li>
+The model has no built-in control to switch individual cells of the tower on or 
+off. To switch cells on or off, use multiple instances of this model, and use 
+your own control law to compute the input signal y. 
+</li>
+</ol>
+<h4>References</h4>
+<p>
+<a href=\"https://energyplus.net/sites/all/modules/custom/nrel_custom/pdfs/pdfs_v8.9.0/EngineeringReference.pdf\">
+EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. 
+</p>
+</html>"));
 end Merkel;
