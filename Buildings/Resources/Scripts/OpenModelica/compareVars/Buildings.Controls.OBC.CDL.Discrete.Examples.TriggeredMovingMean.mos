@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "triMovMea.u",
+    "triMovMea.y",
+    "booPul.y"
+  };
