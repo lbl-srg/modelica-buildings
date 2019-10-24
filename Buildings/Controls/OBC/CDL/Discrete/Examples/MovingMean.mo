@@ -5,12 +5,14 @@ model MovingMean "Validation model for the MovingMean block"
     phase=0.5235987755983,
     startTime=-0.5) "Example input signal"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.MovingMean movMea(n=4, samplePeriod=1,
+  Buildings.Controls.OBC.CDL.Discrete.MovingMean movMea(
+    n=4,
+    samplePeriod=1,
     startTime=-0.5,
     use_trigger=false)
     "Discrete moving mean of the sampled input signal"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.MovingMean movMea1(
+  Buildings.Controls.OBC.CDL.Discrete.MovingMean triMovMea(
     n=4,
     samplePeriod=1,
     startTime=-0.5)
@@ -27,9 +29,9 @@ model MovingMean "Validation model for the MovingMean block"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 equation
   connect(sin.y, movMea.u) annotation (Line(points={{-38,10},{-2,10}}, color={0,0,127}));
-  connect(sin.y, movMea1.u) annotation (Line(points={{-38,10},{-20,10},{-20,-30},
+  connect(sin.y, triMovMea.u) annotation (Line(points={{-38,10},{-20,10},{-20,-30},
           {-2,-30}}, color={0,0,127}));
-  connect(booPul.y, movMea1.trigger) annotation (Line(points={{-38,-50},{10,-50},
+  connect(booPul.y, triMovMea.trigger) annotation (Line(points={{-38,-50},{10,-50},
           {10,-41.8}}, color={255,0,255}));
   connect(sin.y, sam.u) annotation (Line(points={{-38,10},{-20,10},{-20,50},{-2,
           50}}, color={0,0,127}));
