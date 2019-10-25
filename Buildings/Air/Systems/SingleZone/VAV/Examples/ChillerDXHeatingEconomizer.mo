@@ -2,12 +2,7 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples;
 model ChillerDXHeatingEconomizer
   "Variable air volume flow system with single themal zone and conventional control"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop;
-
-  package MediumA = Buildings.Media.Air "Buildings library air media package";
-  package MediumW = Buildings.Media.Water "Buildings library air media package";
-
+  extends Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop;
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
