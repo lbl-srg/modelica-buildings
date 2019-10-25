@@ -12,6 +12,7 @@ model ChillerDXHeatingEconomizer
     "Design value for chiller leaving water temperature";
 
   ChillerDXHeatingEconomizerController con(
+    minAirFlo=0.1,
     minOAFra=0.2,
     kFan=4,
     kEco=4,
@@ -75,8 +76,8 @@ equation
           -148},{-120,-148},{-120,-6},{-102,-6}}, color={0,0,127}));
   annotation (
     experiment(
-      StopTime=504800,
-      Interval=3600,
+      StopTime=31536000,
+      Interval=3600.00288,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/ChillerDXHeatingEconomizer.mos"
         "Simulate and plot"),
