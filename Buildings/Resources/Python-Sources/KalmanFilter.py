@@ -23,17 +23,16 @@ def filter(u):
     # Science, TR 95-041,
     # http://www.cs.unc.edu/~welch/kalman/kalmanIntro.html
     # by Andrew D. Straw
+    import json
     import os
-    import pickle
 
-    temporaryFile = "tmp-kalman.pkl"
+    temporaryFile = "tmp-kalman.json"
 
     # Read past observations from file, if the file exists
     # Otherwise, create a new array
     if os.path.exists( temporaryFile ):
-        pkl_file = open(temporaryFile, 'rb')
-        d = pickle.load(pkl_file)
-        pkl_file.close()
+        with open(temporaryFile, 'r') as fh:
+            d = json.load(fh)
         xhat = d['xhat']
         P    = d['P']
     else:
@@ -54,8 +53,7 @@ def filter(u):
 
     # Store observations to file for use in next iteration
     d = {'xhat': xhat, 'P': P}
-    pkl_file = open(temporaryFile, 'wb')
-    pickle.dump(d, pkl_file)
-    pkl_file.close()
+    with open(temporaryFile, 'w') as fh:
+        json.dump(d, fh)
 
     return xhat
