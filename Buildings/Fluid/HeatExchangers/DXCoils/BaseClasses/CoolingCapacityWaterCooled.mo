@@ -79,7 +79,7 @@ if stage > 0 then
     //------------ Correction factor for flow rate outside of validity of data ---//
     corFacCon[iSta] =Buildings.Utilities.Math.Functions.smoothHeaviside(
        x=ffCon[iSta] - sta[iSta].perCur.ffConMin/4,
-       delta=sta[iSta].perCur.ffConMin/4);
+       delta=max(Modelica.Constants.eps, sta[iSta].perCur.ffConMin/4));
 
     Q_flow[iSta] = corFac[iSta]*corFacCon[iSta]*cap_T[iSta]*cap_FF[iSta]*cap_FFCon[iSta]*sta[iSta].nomVal.Q_flow_nominal;
     EIR[iSta]    = corFac[iSta]*corFacCon[iSta]*EIR_T[iSta]*EIR_FF[iSta]*EIR_FFCon[iSta]/sta[iSta].nomVal.COP_nominal;
@@ -149,6 +149,12 @@ revisions="<html>
 <li>
 February 17, 2017 by Yangyang Fu:<br/>
 First implementation.
+</li>
+<li>
+October 21, 2019, by Michael Wetter:<br/>
+Ensured that transition interval for computation of <code>corFac</code> is non-zero.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
 </li>
 </ul>
 
