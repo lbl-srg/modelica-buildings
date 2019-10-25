@@ -5,65 +5,79 @@ block Scheduler
   parameter Boolean lag = true
     "true = lead/lag, false = lead/standby";
 
+  parameter Boolean weeInt = true
+    "Set to true if rotation is scheduled in weekly intervals";
+
+  parameter Integer houOfDay = 2 "Rotation hour of the day";
+
+  parameter Integer weeCou = 1 if weeInt "Number of weeks";
+
+  parameter Integer weekday = 1 if weeInt
+    "Rotation weekday, 1 = Monday, 7 = Sunday";
+
+  parameter Integer dayCou = 1 if not weeInt "Number of days";
+
   parameter Boolean initRoles[nDev] = {true, false}
     "Initial roles: true = lead, false = lag/standby"
-    annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Initiation"));
 
   parameter Modelica.SIunits.Time stagingRuntime(
     final displayUnit = "h") = 864000
     "Staging runtime for each device";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime calTim(zerTim=
-        Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019, yearRef=2019)
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+    Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019, yearRef=2019)
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay(k=15)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay1(k=houOfDay)
     "Hour of the day for rotating devices that run continuously"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeDay(k=3) "Weekday"
-    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeDay(
+    final k=weekday) if weeInt "Weekday for the rotation"
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeCou1(
+    final k=weeCou) if weeInt "Number of weeks for scheduled rotation"
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant dayCou1(
+    final k=dayCou) if not weeInt "Number of days for scheduled rotation"
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal isWee
+    "Checks if current weekday is the rotation weekday"
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant dayCou(k=2)
-    "Number of days for scheduled rotation"
-    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+    annotation (Placement(transformation(extent={{120,10},{140,30}})));
 
   Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeDay1(k=0) "Weekday"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Or and1
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot "Rotation trigger signal"
-    annotation (
-      Placement(transformation(extent={{160,-20},{200,20}}), iconTransformation(
-          extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSig(k=true) "True signal"
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
 protected
+  final parameter Boolean dayInt = true if not weeInt
+    "True if rotation is scheduled in daily intervals";
+
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
@@ -71,41 +85,42 @@ protected
     "Staging runtimes array";
 
 equation
-  connect(dayCou.y, intEqu2.u2) annotation (Line(points={{-118,-80},{32,-80},{32,
-          -8},{38,-8}}, color={255,127,0}));
-  connect(calTim.hour, intEqu.u1) annotation (Line(points={{-119,76},{-106,76},{
-          -106,50},{-82,50}}, color={255,127,0}));
-  connect(houOfDay.y, intEqu.u2) annotation (Line(points={{-118,30},{-108,30},{-108,
-          42},{-82,42}}, color={255,127,0}));
-  connect(calTim.weekDay, intEqu1.u1) annotation (Line(points={{-119,64},{-112,64},
-          {-112,10},{-102,10}}, color={255,127,0}));
-  connect(weeDay.y, intEqu1.u2) annotation (Line(points={{-118,-10},{-106,-10},{
-          -106,2},{-102,2}}, color={255,127,0}));
-  connect(intEqu.y, and2.u1) annotation (Line(points={{-58,50},{-50,50},{-50,0},
-          {-32,0}}, color={255,0,255}));
+  connect(dayCou1.y, intEqu2.u2) annotation (Line(points={{-118,-90},{30,-90},{30,
+          12},{38,12}}, color={255,127,0}));
+  connect(calTim.hour, intEqu.u1) annotation (Line(points={{-119,96},{-106,96},{
+          -106,70},{-82,70}}, color={255,127,0}));
+  connect(houOfDay.y, intEqu.u2) annotation (Line(points={{-118,50},{-108,50},{-108,
+          62},{-82,62}}, color={255,127,0}));
+  connect(calTim.weekDay, isWee.u1) annotation (Line(points={{-119,84},{-110,84},
+          {-110,20},{-102,20}}, color={255,127,0}));
+  connect(weeDay.y, isWee.u2) annotation (Line(points={{-118,10},{-110,10},{-110,
+          12},{-102,12}}, color={255,127,0}));
+  connect(intEqu.y, and2.u1) annotation (Line(points={{-58,70},{-50,70},{-50,20},
+          {-32,20}},color={255,0,255}));
   connect(intEqu2.y, pre.u)
-    annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
+    annotation (Line(points={{62,20},{78,20}},
+                                             color={255,0,255}));
   connect(pre.y, edg.u)
-    annotation (Line(points={{102,0},{118,0}}, color={255,0,255}));
+    annotation (Line(points={{102,20},{118,20}},
+                                               color={255,0,255}));
   connect(and2.y, onCouInt.trigger)
-    annotation (Line(points={{-8,0},{-2,0}}, color={255,0,255}));
+    annotation (Line(points={{-8,20},{-2,20}},
+                                             color={255,0,255}));
   connect(onCouInt.y, intEqu2.u1)
-    annotation (Line(points={{22,0},{38,0}}, color={255,127,0}));
-  connect(pre.y, onCouInt.reset) annotation (Line(points={{102,0},{110,0},{110,-28},
-          {10,-28},{10,-12}}, color={255,0,255}));
-  connect(calTim.weekDay, intEqu3.u1) annotation (Line(points={{-119,64},{-110,64},
-          {-110,-30},{-102,-30}}, color={255,127,0}));
-  connect(weeDay1.y, intEqu3.u2) annotation (Line(points={{-118,-40},{-110,-40},
-          {-110,-38},{-102,-38}}, color={255,127,0}));
-  connect(intEqu1.y, and1.u1) annotation (Line(points={{-78,10},{-68,10},{-68,-20},
-          {-62,-20}}, color={255,0,255}));
-  connect(intEqu3.y, and1.u2) annotation (Line(points={{-78,-30},{-70,-30},{-70,
-          -28},{-62,-28}}, color={255,0,255}));
-  connect(and1.y, and2.u2) annotation (Line(points={{-38,-20},{-36,-20},{-36,-8},
-          {-32,-8}}, color={255,0,255}));
+    annotation (Line(points={{22,20},{38,20}},
+                                             color={255,127,0}));
+  connect(pre.y, onCouInt.reset) annotation (Line(points={{102,20},{110,20},{110,
+          -8},{10,-8},{10,8}},color={255,0,255}));
   connect(edg.y, yRot)
-    annotation (Line(points={{142,0},{180,0}}, color={255,0,255}));
-  annotation (Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
+    annotation (Line(points={{142,20},{150,20},{150,0},{180,0}},
+                                               color={255,0,255}));
+  connect(weeCou1.y, intEqu2.u2) annotation (Line(points={{-118,-60},{30,-60},{30,
+          12},{38,12}}, color={255,127,0}));
+  connect(isWee.y, and2.u2) annotation (Line(points={{-78,20},{-60,20},{-60,12},
+          {-32,12}}, color={255,0,255}));
+  connect(truSig.y, and2.u2) annotation (Line(points={{-78,-10},{-60,-10},{-60,12},
+          {-32,12}}, color={255,0,255}));
+  annotation (Diagram(coordinateSystem(extent={{-160,-120},{160,120}})),
       defaultComponentName="equRot",
     Icon(graphics={
         Rectangle(
