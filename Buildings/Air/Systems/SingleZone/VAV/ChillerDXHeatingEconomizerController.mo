@@ -9,7 +9,7 @@ model ChillerDXHeatingEconomizerController
     min=0,
     max=1,
     unit="1") = 0.2
-    "Minimum airflow rate of system"
+    "Minimum airflow fraction of system"
     annotation(Dialog(group="Air design"));
 
   parameter Modelica.SIunits.DimensionlessRatio minOAFra "Minimum outdoor air fraction of system"
@@ -40,7 +40,8 @@ model ChillerDXHeatingEconomizerController
   annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
-        origin={-120,-60})));
+        origin={-120,-80}), iconTransformation(extent={{-14,-14},{14,14}},
+          origin={-114,-58})));
 
   Modelica.Blocks.Interfaces.RealInput TSetRooCoo(
     final unit="K",
@@ -48,32 +49,41 @@ model ChillerDXHeatingEconomizerController
     "Zone cooling setpoint temperature" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
-        origin={-120,60})));
+        origin={-120,60}), iconTransformation(
+        extent={{14,-14},{-14,14}},
+        rotation=180,
+        origin={-114,56})));
   Modelica.Blocks.Interfaces.RealInput TSetRooHea(
     final unit="K",
     displayUnit="degC")
     "Zone heating setpoint temperature" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
-        origin={-120,100})));
+        origin={-120,100}), iconTransformation(
+        extent={{14,-14},{-14,14}},
+        rotation=180,
+        origin={-114,84})));
 
   Modelica.Blocks.Interfaces.RealInput TMix(
     final unit="K",
     displayUnit="degC")
     "Measured mixed air temperature"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+        iconTransformation(extent={{-128,14},{-100,42}})));
 
   Modelica.Blocks.Interfaces.RealInput TSup(
     final unit="K",
     displayUnit="degC")
     "Measured supply air temperature after the cooling coil"
-    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-140,-130},{-100,-90}}),
+        iconTransformation(extent={{-128,-100},{-100,-72}})));
 
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC")
     "Measured outside air temperature"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-128,-44},{-100,-16}})));
 
   Modelica.Blocks.Interfaces.RealOutput yHea(final unit="1") "Control signal for heating coil"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -102,11 +112,11 @@ model ChillerDXHeatingEconomizerController
     minAirFlo = minAirFlo,
     kHea = kHea,
     kFan = kFan) "Heating coil, cooling coil and fan controller"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{-38,84},{-18,104}})));
   BaseClasses.ControllerEconomizer conEco(
     final kEco = kEco)
     "Economizer control"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(
     uLow=-1,
@@ -116,7 +126,7 @@ model ChillerDXHeatingEconomizerController
 
   Modelica.Blocks.Math.Feedback errTRooCoo
     "Control error on room temperature for cooling"
-    annotation (Placement(transformation(extent={{-42,-70},{-22,-50}})));
+    annotation (Placement(transformation(extent={{-42,-96},{-22,-76}})));
   Controls.Continuous.LimPID conCooVal(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     final yMax=1,
@@ -126,6 +136,16 @@ model ChillerDXHeatingEconomizerController
     "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
+  Controls.OBC.CDL.Logical.Switch swi
+    "Switch the outdoor air fraction to 0 when in unoccupied mode"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+  Controls.OBC.CDL.Interfaces.BooleanInput           uOcc
+    "Current occupancy period, true if it is in occupant period"
+    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
+        iconTransformation(extent={{-156,-30},{-100,26}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
+    "Zero outside air fraction"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 protected
   Modelica.Blocks.Sources.Constant TSetSupChiConst(
     final k=TSupChi_nominal)
@@ -135,59 +155,66 @@ protected
   Modelica.Blocks.Sources.Constant conMinOAFra(
     final k=minOAFra)
     "Minimum outside air fraction"
-    annotation (Placement(transformation(extent={{-70,38},{-50,58}})));
+    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
 
   Modelica.Blocks.Sources.Constant TSetSupAirConst(
     final k=TSetSupAir)
     "Set point for supply air temperature"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
 equation
-  connect(conMinOAFra.y,conEco. minOAFra) annotation (Line(points={{-49,48},{
-          -26,48},{-1,48}},                 color={0,0,127}));
-  connect(TSetSupAirConst.y, conEco.TMixSet) annotation (Line(points={{-39,-20},
-          {-20,-20},{-20,58},{-1,58}}, color={0,0,127}));
-  connect(errTRooCoo.y, hysChiPla.u) annotation (Line(points={{-23,-60},{0,-60},
+  connect(TSetSupAirConst.y, conEco.TMixSet) annotation (Line(points={{-39,-50},
+          {-20,-50},{-20,78},{39,78}}, color={0,0,127}));
+  connect(errTRooCoo.y, hysChiPla.u) annotation (Line(points={{-23,-86},{0,-86},
           {0,-40},{38,-40}},                           color={0,0,127}));
   connect(TSetRooCoo, errTRooCoo.u2) annotation (Line(points={{-120,60},{-80,60},
-          {-80,-80},{-32,-80},{-32,-68}}, color={0,0,127}));
-  connect(errTRooCoo.u1, TRoo) annotation (Line(points={{-40,-60},{-74,-60},{
-          -120,-60}}, color={0,0,127}));
+          {-80,-100},{-32,-100},{-32,-94}},
+                                          color={0,0,127}));
   connect(TSetSupAirConst.y,conCooVal. u_s)
-    annotation (Line(points={{-39,-20},{-2,-20}},        color={0,0,127}));
-  connect(conSup.TSetRooHea, TSetRooHea) annotation (Line(points={{-41,86},{-88,
-          86},{-88,100},{-120,100}},
-                                   color={0,0,127}));
-  connect(conSup.TSetRooCoo, TSetRooCoo) annotation (Line(points={{-41,80},{-80,
-          80},{-80,60},{-120,60}}, color={0,0,127}));
-  connect(conSup.TRoo, TRoo) annotation (Line(points={{-41,74},{-74,74},{-74,
-          -60},{-120,-60}},
+    annotation (Line(points={{-39,-50},{-20,-50},{-20,-20},{-2,-20}},
+                                                         color={0,0,127}));
+  connect(conSup.TSetRooHea, TSetRooHea) annotation (Line(points={{-39,100},{
+          -120,100}},              color={0,0,127}));
+  connect(conSup.TSetRooCoo, TSetRooCoo) annotation (Line(points={{-39,94},{-80,
+          94},{-80,60},{-120,60}}, color={0,0,127}));
+  connect(conSup.TRoo, TRoo) annotation (Line(points={{-39,88},{-74,88},{-74,
+          -80},{-120,-80}},
                        color={0,0,127}));
-  connect(conSup.yHea, conEco.yHea) annotation (Line(points={{-19,76},{-10,76},
-          {-10,42},{-1,42}},color={0,0,127}));
-  connect(conEco.TMix, TMix) annotation (Line(points={{-1,55},{-40,55},{-40,20},
+  connect(conSup.yHea, conEco.yHea) annotation (Line(points={{-17,90},{-10,90},
+          {-10,62},{39,62}},color={0,0,127}));
+  connect(conEco.TMix, TMix) annotation (Line(points={{39,75},{-40,75},{-40,20},
           {-120,20}}, color={0,0,127}));
-  connect(conEco.TRet, TRoo) annotation (Line(points={{-1,52},{-34,52},{-34,12},
-          {-88,12},{-88,-60},{-120,-60}},     color={0,0,127}));
-  connect(conEco.TOut, TOut) annotation (Line(points={{-1,45},{-30,45},{-30,8},
-          {-94,8},{-94,-20},{-120,-20}},   color={0,0,127}));
-  connect(conSup.yHea, yHea) annotation (Line(points={{-19,76},{40,76},{40,60},
-          {80,60},{110,60}},
-                    color={0,0,127}));
-  connect(conSup.yFan, yFan) annotation (Line(points={{-19,84},{40,84},{40,90},
-          {40,90},{40,90},{110,90},{110,90}},
-                    color={0,0,127}));
-  connect(conEco.yOutAirFra, yOutAirFra) annotation (Line(points={{21,50},{80,50},
-          {80,30},{110,30}}, color={0,0,127}));
+  connect(conEco.TRet, TRoo) annotation (Line(points={{39,72},{-34,72},{-34,12},
+          {-88,12},{-88,-80},{-120,-80}},     color={0,0,127}));
+  connect(conEco.TOut, TOut) annotation (Line(points={{39,65},{-30,65},{-30,8},
+          {-94,8},{-94,-40},{-120,-40}},   color={0,0,127}));
+  connect(conSup.yHea, yHea) annotation (Line(points={{-17,90},{80,90},{80,60},
+          {110,60}},color={0,0,127}));
+  connect(conSup.yFan, yFan) annotation (Line(points={{-17,98},{40,98},{40,90},
+          {110,90}},color={0,0,127}));
+  connect(conEco.yOutAirFra, yOutAirFra) annotation (Line(points={{61,70},{80,
+          70},{80,30},{110,30}},
+                             color={0,0,127}));
   connect(conCooVal.y, yCooCoiVal)
     annotation (Line(points={{21,-20},{76,-20},{76,0},{110,0}},
                                               color={0,0,127}));
   connect(TSetSupChiConst.y, TSetSupChi)
     annotation (Line(points={{61,-80},{110,-80}}, color={0,0,127}));
   connect(conCooVal.u_m, TSup)
-    annotation (Line(points={{10,-32},{10,-90},{-120,-90}}, color={0,0,127}));
-  connect(hysChiPla.y, chiOn) annotation (Line(points={{61,-40},{80,-40},{110,
+    annotation (Line(points={{10,-32},{10,-110},{-120,-110}},
+                                                            color={0,0,127}));
+  connect(hysChiPla.y, chiOn) annotation (Line(points={{62,-40},{62,-40},{110,
           -40}},           color={255,0,255}));
+  connect(conMinOAFra.y, swi.u1) annotation (Line(points={{-49,40},{-42,40},{
+          -42,28},{-2,28}}, color={0,0,127}));
+  connect(uOcc, swi.u2) annotation (Line(points={{-120,-10},{-66,-10},{-66,0},{
+          -12,0},{-12,20},{-2,20}}, color={255,0,255}));
+  connect(swi.y, conEco.minOAFra) annotation (Line(points={{22,20},{30,20},{30,
+          68},{39,68}}, color={0,0,127}));
+  connect(TRoo, errTRooCoo.u1) annotation (Line(points={{-120,-80},{-80,-80},{
+          -80,-86},{-40,-86}}, color={0,0,127}));
+  connect(con.y, swi.u3) annotation (Line(points={{-38,-20},{-30,-20},{-30,-10},
+          {-6,-10},{-6,12},{-2,12}}, color={0,0,127}));
   annotation (Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
               {0,0,0})}), Documentation(info="<html>
 <p>
@@ -204,5 +231,6 @@ June 1, 2017, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-120},{100,120}})));
 end ChillerDXHeatingEconomizerController;
