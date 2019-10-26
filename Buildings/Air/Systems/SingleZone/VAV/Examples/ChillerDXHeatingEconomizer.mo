@@ -2,18 +2,13 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples;
 model ChillerDXHeatingEconomizer
   "Variable air volume flow system with single themal zone and conventional control"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop;
-
-  package MediumA = Buildings.Media.Air "Buildings library air media package";
-  package MediumW = Buildings.Media.Water "Buildings library air media package";
-
+  extends Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop;
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
   ChillerDXHeatingEconomizerController con(
     minAirFlo=0.1,
-    minOAFra=0.2,
+    minOAFra=0.2304,
     kFan=4,
     kEco=4,
     kHea=4,
@@ -31,7 +26,7 @@ model ChillerDXHeatingEconomizer
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
-    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
+    annotation (Placement(transformation(extent={{-152,40},{-132,60}})));
   Modelica.Blocks.Sources.CombiTimeTable TSetRooCoo(
     table=[
       0,       30 + 273.15;
@@ -41,14 +36,18 @@ model ChillerDXHeatingEconomizer
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Cooling setpoint for room temperature"
-    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
+    annotation (Placement(transformation(extent={{-152,10},{-132,30}})));
 
+  Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
+    "Occupancy schedule"
+    annotation (Placement(transformation(extent={{-152,-44},{-132,-24}})));
 equation
   connect(TSetRooHea.y[1], con.TSetRooHea)
-    annotation (Line(points={{-119,50},{-110,50},{-110,10},{-102,10}},
+    annotation (Line(points={{-131,50},{-110,50},{-110,8.4},{-101.4,8.4}},
                                                    color={0,0,127}));
   connect(TSetRooCoo.y[1], con.TSetRooCoo)
-    annotation (Line(points={{-119,20},{-116,20},{-116,6},{-102,6}},   color={0,0,127}));
+    annotation (Line(points={{-131,20},{-116,20},{-116,5.6},{-101.4,5.6}},
+                                                                       color={0,0,127}));
 
   connect(hvac.uFan, con.yFan) annotation (Line(points={{-42,18},{-60,18},{-60,9},
           {-79,9}}, color={0,0,127}));
@@ -63,21 +62,28 @@ equation
   connect(hvac.TSetChi, con.TSetSupChi) annotation (Line(points={{-42,-15},{-50,
           -15},{-50,-16},{-60,-16},{-60,-8},{-79,-8}}, color={0,0,127}));
   connect(hvac.TMix, con.TMix) annotation (Line(points={{1,-4},{8,-4},{8,-40},{
-          -114,-40},{-114,2},{-102,2}}, color={0,0,127}));
+          -114,-40},{-114,2.8},{-101.4,2.8}},
+                                        color={0,0,127}));
   connect(hvac.TSup, con.TSup) annotation (Line(points={{1,-8},{6,-8},{6,-36},{
-          -110,-36},{-110,-9},{-102,-9}}, color={0,0,127}));
-  connect(con.TOut, weaBus.TDryBul) annotation (Line(points={{-102,-2},{-108,-2},
-          {-108,60},{-30,60},{-30,80}}, color={0,0,127}), Text(
-      textString="%second",
-      index=1,
+          -110,-36},{-110,-8.6},{-101.4,-8.6}},
+                                          color={0,0,127}));
+  connect(zon.TRooAir, con.TRoo) annotation (Line(points={{81,0},{108,0},{108,
+          -148},{-120,-148},{-120,-5.8},{-101.4,-5.8}},
+                                                  color={0,0,127}));
+  connect(occSch.occupied, con.uOcc) annotation (Line(points={{-131,-40},{-128,
+          -40},{-128,-0.2},{-102.8,-0.2}}, color={255,0,255}));
+  connect(weaBus.TDryBul, con.TOut) annotation (Line(
+      points={{-30,80},{-30,40},{-106,40},{-106,-3},{-101.4,-3}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(zon.TRooAir, con.TRoo) annotation (Line(points={{81,0},{108,0},{108,
-          -148},{-120,-148},{-120,-6},{-102,-6}}, color={0,0,127}));
   annotation (
     experiment(
-      StopTime=31536000,
-      Interval=3600.00288,
+      StopTime=504800,
+      Interval=3600,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/ChillerDXHeatingEconomizer.mos"
         "Simulate and plot"),
