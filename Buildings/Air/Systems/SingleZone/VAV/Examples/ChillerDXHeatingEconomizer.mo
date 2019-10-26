@@ -2,13 +2,14 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples;
 model ChillerDXHeatingEconomizer
   "Variable air volume flow system with single themal zone and conventional control"
   extends Modelica.Icons.Example;
-  extends Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop;
+  extends Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop(hvac(
+        QCoo_flow_nominal=-10000));
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
   ChillerDXHeatingEconomizerController con(
     minAirFlo=0.1,
-    minOAFra=0.2304,
+    minOAFra=0.4,
     kFan=4,
     kEco=4,
     kHea=4,

@@ -2,7 +2,7 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples;
 model Guideline36
   "Variable air volume flow system with single themal zone and ASHRAE Guideline 36 sequence control"
   extends Modelica.Icons.Example;
-  extends BaseClasses.PartialOpenLoop;
+  extends BaseClasses.PartialOpenLoop(hvac(QCoo_flow_nominal=-10000));
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
   Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller controller(
