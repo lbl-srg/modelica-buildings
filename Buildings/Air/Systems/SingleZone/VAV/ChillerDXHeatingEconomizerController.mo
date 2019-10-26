@@ -180,8 +180,6 @@ equation
   connect(conSup.TRoo, TRoo) annotation (Line(points={{-39,88},{-74,88},{-74,
           -80},{-120,-80}},
                        color={0,0,127}));
-  connect(conSup.yHea, conEco.yHea) annotation (Line(points={{-17,90},{-10,90},
-          {-10,62},{39,62}},color={0,0,127}));
   connect(conEco.TMix, TMix) annotation (Line(points={{39,75},{-40,75},{-40,20},
           {-120,20}}, color={0,0,127}));
   connect(conEco.TRet, TRoo) annotation (Line(points={{39,72},{-34,72},{-34,12},
@@ -215,6 +213,8 @@ equation
           -80,-86},{-40,-86}}, color={0,0,127}));
   connect(con.y, swi.u3) annotation (Line(points={{-38,-20},{-30,-20},{-30,-10},
           {-6,-10},{-6,12},{-2,12}}, color={0,0,127}));
+  connect(hysChiPla.y, conEco.cooSta) annotation (Line(points={{62,-40},{62,52},
+          {34,52},{34,62},{39,62}}, color={255,0,255}));
   annotation (Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
               {0,0,0})}), Documentation(info="<html>
 <p>

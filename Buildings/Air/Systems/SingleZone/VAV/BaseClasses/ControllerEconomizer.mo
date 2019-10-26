@@ -23,9 +23,8 @@ model ControllerEconomizer "Controller for economizer"
     "Measured outside air temperature"
     annotation (Placement(
         transformation(extent={{-120,-60},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealInput yHea(final unit="1")
-    "Control signal for heating coil" annotation (Placement(transformation(
-          extent={{-120,-90},{-100,-70}})));
+  Modelica.Blocks.Interfaces.BooleanInput cooSta "Cooling status"
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Modelica.Blocks.Interfaces.RealInput TRet(
     final unit="K",
@@ -66,19 +65,12 @@ model ControllerEconomizer "Controller for economizer"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Modelica.Blocks.Math.Feedback feedback "Control error"
     annotation (Placement(transformation(extent={{-50,-38},{-30,-18}})));
-  Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold hysYHea(
-    trueHoldDuration=60*15,
-    uLow=0.05,
-    uHigh=0.15) "Hysteresis with delay for heating signal"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.HysteresisWithHold hysTMix(
     uLow=-0.5,
     uHigh=0.5,
     trueHoldDuration=60*15)
     "Hysteresis with delay for mixed air temperature"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Modelica.Blocks.Logical.Not not1
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
   Modelica.Blocks.Math.Feedback feedback1
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
@@ -113,8 +105,6 @@ equation
           50},{-110,50}}, color={0,0,127}));
   connect(Limiter.y, yOutAirFra)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  connect(hysYHea.u, yHea)
-    annotation (Line(points={{-82,-80},{-110,-80}}, color={0,0,127}));
   connect(feedback.y, hysTMix.u)
     annotation (Line(points={{-31,-28},{-28,-28},{-28,-50},{-22,-50}},
                                                    color={0,0,127}));
@@ -125,14 +115,12 @@ equation
     annotation (Line(points={{-60,22},{-60,-50},{-110,-50}}, color={0,0,127}));
   connect(feedback1.y, hysCooPot.u)
     annotation (Line(points={{-51,30},{-42,30}}, color={0,0,127}));
-  connect(hysCooPot.y, and1.u[1]) annotation (Line(points={{-19,30},{6,30},{6,
+  connect(hysCooPot.y, and1.u[1]) annotation (Line(points={{-18,30},{6,30},{6,
           -45.3333},{20,-45.3333}}, color={255,0,255}));
   connect(hysTMix.y, and1.u[2])
-    annotation (Line(points={{1,-50},{20,-50},{20,-50}}, color={255,0,255}));
-  connect(not1.y, and1.u[3]) annotation (Line(points={{-19,-80},{-19,-80},{6,
-          -80},{6,-54.6667},{20,-54.6667}}, color={255,0,255}));
-  connect(hysYHea.y, not1.u) annotation (Line(points={{-59,-80},{-42,-80},{-42,
-          -80}}, color={255,0,255}));
+    annotation (Line(points={{2,-50},{20,-50},{20,-50}}, color={255,0,255}));
+  connect(cooSta, and1.u[3]) annotation (Line(points={{-110,-80},{6,-80},{6,
+          -54.6667},{20,-54.6667}}, color={255,0,255}));
   annotation (    Documentation(info="<html>
 <p>
 Economizer controller.
