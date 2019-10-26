@@ -16,11 +16,15 @@ model Guideline36
     yMin=0.1,
     kHea=4,
     kMod=4,
-    have_occSen=true,
+    have_occSen=false,
     TZonHeaOff=288.15,
     TZonCooOn=298.15,
     TSupSetMax=343.15,
-    TSupSetMin=285.15)
+    TSupSetMin=286.15,
+    yDam_VOutMin_minSpe=0.2304,
+    yDam_VOutMin_maxSpe=0.02304,
+    yDam_VOutDes_minSpe=0.4,
+    yDam_VOutDes_maxSpe=0.04)
     "VAV controller"
     annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
@@ -106,8 +110,8 @@ equation
                                                  color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-200,-160},{120,100}})),
     experiment(
-      StopTime=31536000,
-      Interval=3600.00288,
+      StopTime=504800,
+      Interval=3600,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/Guideline36.mos"
         "Simulate and plot"),
