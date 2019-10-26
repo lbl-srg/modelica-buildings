@@ -140,6 +140,7 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{120,110},{140,130}})));
 
   Buildings.Fluid.Sources.Outside out(
+    C=fill(0.0004, 1),
     nPorts=3,
     redeclare package Medium = MediumA)
     "Boundary conditions for outside air"
@@ -264,6 +265,10 @@ model ChillerDXHeatingEconomizer
   Modelica.Blocks.Interfaces.RealOutput TRet(final unit="K", displayUnit="degC")
     "Return air temperature" annotation (Placement(transformation(extent={{200,
             -110},{220,-90}}), iconTransformation(extent={{200,-110},{220,-90}})));
+  Fluid.Sensors.TraceSubstancesTwoPort senTraSub(redeclare package Medium =
+        MediumA, m_flow_nominal=mAir_flow_nominal,
+    tau=0)
+    annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
 equation
   connect(fanSup.port_b, totalRes.port_a)
     annotation (Line(points={{-10,40},{10,40}},  color={0,127,255}));
@@ -449,14 +454,16 @@ equation
     annotation (Line(points={{-80.2,40},{-60,40}}, color={0,127,255}));
   connect(uEco, ideEco.y) annotation (Line(points={{-220,-60},{-148,-60},{-148,70},
           {-90,70},{-90,57}}, color={0,0,127}));
-  connect(senTRetAir.port_a, returnAir)
-    annotation (Line(points={{-20,-40},{200,-40}}, color={0,127,255}));
   connect(ideEco.port_3, senTRetAir.port_b) annotation (Line(points={{-90,36},{
           -90,-40},{-40,-40}}, color={0,127,255}));
   connect(senTRetAir.port_b, out.ports[3]) annotation (Line(points={{-40,-40},{
           -112,-40},{-112,36},{-120,36},{-120,37.3333}}, color={0,127,255}));
   connect(TRet, senTRetAir.T) annotation (Line(points={{210,-100},{174,-100},{
           174,-20},{-30,-20},{-30,-29}}, color={0,0,127}));
+  connect(senTRetAir.port_a, senTraSub.port_b)
+    annotation (Line(points={{-20,-40},{20,-40}}, color={0,127,255}));
+  connect(senTraSub.port_a, returnAir)
+    annotation (Line(points={{40,-40},{200,-40}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-240},
             {200,160}}), graphics={
         Rectangle(

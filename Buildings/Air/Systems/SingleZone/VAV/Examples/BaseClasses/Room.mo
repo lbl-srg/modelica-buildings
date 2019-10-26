@@ -148,6 +148,7 @@ model Room
 
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = MediumA,
+    use_C_flow=true,
     nPorts=5,
     hRoo=2.7,
     nConExtWin=nConExtWin,
@@ -202,6 +203,7 @@ model Room
 
   Fluid.Sources.MassFlowSource_WeatherData sinInf(
     redeclare package Medium = MediumA,
+    C=fill(0.0004, 1),
     nPorts=1,
     use_m_flow_in=true)
     "Sink model for air infiltration"
@@ -222,12 +224,23 @@ model Room
   Fluid.Sources.MassFlowSource_WeatherData souInf(
     redeclare package Medium = MediumA,
     use_m_flow_in=true,
+    C=fill(0.0004, 1),
     nPorts=1)   "Source model for air infiltration"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.InternalLoads intLoad
     "Internal loads"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
+  Modelica.Blocks.Sources.Constant CO2_flow_per(k=1.023e-5) "Latent heat gain"
+    annotation (Placement(transformation(extent={{-40,14},{-20,34}})));
+  Modelica.Blocks.Logical.GreaterThreshold greThr(threshold=0.1)
+    annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
+  Modelica.Blocks.Sources.Constant desOcc(k=2)
+    annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
+  Modelica.Blocks.Math.Product numOcc
+    annotation (Placement(transformation(extent={{10,150},{30,170}})));
+  Modelica.Blocks.Math.BooleanToReal booToRea
+    annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
 protected
   Modelica.Blocks.Math.Product pro1 "Product for internal gain"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
@@ -239,6 +252,9 @@ protected
   Modelica.Blocks.Math.Gain gaiInf(final k=-1) "Gain for infiltration"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
+protected
+  Modelica.Blocks.Math.Product pro4 "Product for internal gain"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 equation
   connect(mul.y, roo.qGai_flow) annotation (Line(
       points={{23.1,91},{28,91},{28,10.4},{31.92,10.4}},
@@ -319,6 +335,20 @@ equation
           -90,124},{-42,124}}, color={0,0,127}));
   connect(pro3.u2, intLoad.y[1]) annotation (Line(points={{-82,84},{-90,84},{-90,
           160},{-99,160}}, color={0,0,127}));
+  connect(CO2_flow_per.y, pro4.u2)
+    annotation (Line(points={{-19,24},{-2,24}}, color={0,0,127}));
+  connect(desOcc.y, numOcc.u1) annotation (Line(points={{-99,190},{0,190},{0,
+          166},{8,166}}, color={0,0,127}));
+  connect(greThr.y, booToRea.u)
+    annotation (Line(points={{-39,160},{-32,160}}, color={255,0,255}));
+  connect(booToRea.y, numOcc.u2) annotation (Line(points={{-9,160},{0,160},{0,
+          154},{8,154}}, color={0,0,127}));
+  connect(greThr.u, pro2.u2) annotation (Line(points={{-62,160},{-90,160},{-90,
+          64},{-42,64}}, color={0,0,127}));
+  connect(numOcc.y, pro4.u1) annotation (Line(points={{31,160},{40,160},{40,54},
+          {-12,54},{-12,36},{-2,36}}, color={0,0,127}));
+  connect(pro4.y, roo.C_flow[1]) annotation (Line(points={{21,30},{26,30},{26,
+          3.64},{31.92,3.64}}, color={0,0,127}));
 annotation (Documentation(info="<html>
 <p>
 This is a single zone model based on the envelope of the BESTEST Case 600

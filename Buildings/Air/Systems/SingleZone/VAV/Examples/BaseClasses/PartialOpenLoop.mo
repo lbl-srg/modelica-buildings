@@ -2,7 +2,7 @@ within Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses;
 partial model PartialOpenLoop
   "Partial model of a single zone variable air volume flow system and thermal zone"
 
-  package MediumA = Buildings.Media.Air "Buildings library air media package";
+  package MediumA = Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Buildings library air media package with CO2";
   package MediumW = Buildings.Media.Water "Buildings library air media package";
 
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
@@ -18,6 +18,7 @@ partial model PartialOpenLoop
     TSupChi_nominal=TSupChi_nominal)   "Single zone VAV system"
     annotation (Placement(transformation(extent={{-40,-20},{0,20}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.Room zon(
+    redeclare package MediumA = MediumA,
       mAir_flow_nominal=0.75,
       lat=weaDat.lat) "Thermal envelope of single zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
