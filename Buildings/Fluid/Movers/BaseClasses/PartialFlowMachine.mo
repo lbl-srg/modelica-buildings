@@ -469,23 +469,23 @@ equation
           visible=not use_inputFilter,
           points={{0,100},{0,40}}),
         Rectangle(
-          extent={{-100,16},{100,-14}},
+          extent={{-100,16},{100,-16}},
           lineColor={0,0,0},
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder),
         Ellipse(
-          extent={{-58,50},{54,-58}},
+          extent={{-58,58},{58,-58}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={0,100,199}),
         Polygon(
-          points={{0,50},{0,-56},{54,2},{0,50}},
+          points={{0,50},{0,-50},{54,0},{0,50}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255}),
         Ellipse(
-          extent={{4,14},{34,-16}},
+          extent={{4,16},{36,-16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -523,8 +523,13 @@ the enthalpy of the medium), but this setting does in some cases lead to simpler
 and more robust simulation, in particular if the mass flow is equal to zero.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+October 25, 2019, by Jianjun Hu:<br/>
+Improved icon graphics annotation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
+</li>
 <li>
 January 22, 2019, by Filip Jorissen:<br/>
 Split long assert output string into two strings to avoid compiler warnings
