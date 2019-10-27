@@ -219,8 +219,8 @@ block OperationMode "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys8[numZon](
     each pre_y_start=false,
-    each uLow=-0.1,
-    each uHigh=0.1)
+    each uLow=-0.5*bouLim,
+    each uHigh=0.5*bouLim)
     "Hysteresis that outputs if the zone temperature is lower then setpoint"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
@@ -251,8 +251,8 @@ block OperationMode "Block that outputs the operation mode"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys11[numZon](
     each pre_y_start=false,
-    each uLow=-0.1,
-    each uHigh=0.1)
+    each uLow=-0.5*bouLim,
+    each uHigh=0.5*bouLim)
     "Hysteresis that outputs if the zone temperature is higher than setpoint"
     annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
