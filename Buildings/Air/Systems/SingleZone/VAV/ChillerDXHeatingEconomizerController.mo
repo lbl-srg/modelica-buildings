@@ -120,8 +120,7 @@ model ChillerDXHeatingEconomizerController
 
   Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(
     uLow=-1,
-    uHigh=0)
-    "Hysteresis with delay to switch on cooling"
+    uHigh=0) "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
   Modelica.Blocks.Math.Feedback errTRooCoo
@@ -146,6 +145,14 @@ model ChillerDXHeatingEconomizerController
   Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
     "Zero outside air fraction"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  Controls.OBC.CDL.Logical.Switch swiFan "Switch fan on"
+    annotation (Placement(transformation(extent={{60,108},{80,128}})));
+  Controls.OBC.CDL.Continuous.Hysteresis hysHea(uLow=0.01, uHigh=0.05)
+    "Hysteresis for heating"
+    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
+  Modelica.Blocks.MathBoolean.Or orFan(nu=3)
+    "Switch fan on if heating, cooling, or occupied"
+    annotation (Placement(transformation(extent={{32,112},{44,124}})));
 protected
   Modelica.Blocks.Sources.Constant TSetSupChiConst(
     final k=TSupChi_nominal)
@@ -188,8 +195,6 @@ equation
           {-94,8},{-94,-40},{-120,-40}},   color={0,0,127}));
   connect(conSup.yHea, yHea) annotation (Line(points={{-17,90},{80,90},{80,60},
           {110,60}},color={0,0,127}));
-  connect(conSup.yFan, yFan) annotation (Line(points={{-17,98},{40,98},{40,90},
-          {110,90}},color={0,0,127}));
   connect(conEco.yOutAirFra, yOutAirFra) annotation (Line(points={{61,70},{80,
           70},{80,30},{110,30}},
                              color={0,0,127}));
@@ -215,6 +220,22 @@ equation
           {-6,-10},{-6,12},{-2,12}}, color={0,0,127}));
   connect(hysChiPla.y, conEco.cooSta) annotation (Line(points={{62,-40},{62,52},
           {34,52},{34,62},{39,62}}, color={255,0,255}));
+  connect(con.y, swiFan.u3) annotation (Line(points={{-38,-20},{-30,-20},{-30,
+          -10},{-6,-10},{-6,110},{58,110}}, color={0,0,127}));
+  connect(conSup.yFan, swiFan.u1) annotation (Line(points={{-17,98},{18,98},{18,
+          126},{58,126}}, color={0,0,127}));
+  connect(swiFan.y, yFan) annotation (Line(points={{82,118},{90,118},{90,90},{
+          110,90}}, color={0,0,127}));
+  connect(conSup.yHea, hysHea.u) annotation (Line(points={{-17,90},{-14,90},{
+          -14,114},{-30,114},{-30,130},{-22,130}}, color={0,0,127}));
+  connect(swiFan.u2, orFan.y)
+    annotation (Line(points={{58,118},{44.9,118}}, color={255,0,255}));
+  connect(hysHea.y, orFan.u[1]) annotation (Line(points={{2,130},{24,130},{24,
+          120.8},{32,120.8}}, color={255,0,255}));
+  connect(hysChiPla.y, orFan.u[2]) annotation (Line(points={{62,-40},{62,52},{
+          24,52},{24,118},{32,118}}, color={255,0,255}));
+  connect(uOcc, orFan.u[3]) annotation (Line(points={{-120,-10},{-66,-10},{-66,
+          0},{-12,0},{-12,115.2},{32,115.2}}, color={255,0,255}));
   annotation (Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
               {0,0,0})}), Documentation(info="<html>
 <p>
