@@ -80,6 +80,16 @@ model ControllerEconomizer "Controller for economizer"
     trueHoldDuration=60*15)
     "Hysteresis with delay to check for cooling potential of outside air"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(uLow=0.95,
+      uHigh=0.98)
+             "Hysteresis with delay to switch on cooling"
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+  Modelica.Blocks.Logical.Or or1 "Saturated ecnomizer or no economizer"
+    annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
+  Modelica.Blocks.Interfaces.BooleanOutput yCoiSta "Cooling coil status"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+  Modelica.Blocks.Logical.Not not1 "No economizer"
+    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 equation
   connect(Limiter.limit2, minOAFra) annotation (Line(points={{58,-8},{-20,-8},{
           -20,-8},{-94,-8},{-94,-20},{-110,-20},{-110,-20}},
@@ -121,6 +131,16 @@ equation
     annotation (Line(points={{2,-50},{20,-50},{20,-50}}, color={255,0,255}));
   connect(cooSta, and1.u[3]) annotation (Line(points={{-110,-80},{6,-80},{6,
           -54.6667},{20,-54.6667}}, color={255,0,255}));
+  connect(Limiter.y, hysChiPla.u) annotation (Line(points={{81,0},{90,0},{90,
+          -20},{52,-20},{52,-50},{58,-50}}, color={0,0,127}));
+  connect(or1.y, yCoiSta)
+    annotation (Line(points={{91,-80},{110,-80}}, color={255,0,255}));
+  connect(not1.y, or1.u2) annotation (Line(points={{61,-90},{64,-90},{64,-88},{
+          68,-88}}, color={255,0,255}));
+  connect(and1.y, not1.u) annotation (Line(points={{41.5,-50},{48,-50},{48,-70},
+          {30,-70},{30,-90},{38,-90}}, color={255,0,255}));
+  connect(hysChiPla.y, or1.u1) annotation (Line(points={{82,-50},{88,-50},{88,
+          -64},{62,-64},{62,-80},{68,-80}}, color={255,0,255}));
   annotation (    Documentation(info="<html>
 <p>
 Economizer controller.
