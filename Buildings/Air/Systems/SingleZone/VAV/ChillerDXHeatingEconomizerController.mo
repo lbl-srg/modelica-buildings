@@ -112,7 +112,7 @@ model ChillerDXHeatingEconomizerController
     minAirFlo = minAirFlo,
     kHea = kHea,
     kFan = kFan) "Heating coil, cooling coil and fan controller"
-    annotation (Placement(transformation(extent={{-38,84},{-18,104}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   BaseClasses.ControllerEconomizer conEco(
     final kEco = kEco)
     "Economizer control"
@@ -137,7 +137,7 @@ model ChillerDXHeatingEconomizerController
 
   Controls.OBC.CDL.Logical.Switch swi
     "Switch the outdoor air fraction to 0 when in unoccupied mode"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Controls.OBC.CDL.Interfaces.BooleanInput           uOcc
     "Current occupancy period, true if it is in occupant period"
     annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
@@ -146,15 +146,15 @@ model ChillerDXHeatingEconomizerController
     "Zero outside air fraction"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Controls.OBC.CDL.Logical.Switch swiFan "Switch fan on"
-    annotation (Placement(transformation(extent={{60,108},{80,128}})));
+    annotation (Placement(transformation(extent={{70,120},{90,140}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysHea(uLow=0.01, uHigh=0.05)
     "Hysteresis for heating"
-    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
+    annotation (Placement(transformation(extent={{-30,120},{-10,140}})));
   Modelica.Blocks.MathBoolean.Or orFan(nu=3)
     "Switch fan on if heating, cooling, or occupied"
-    annotation (Placement(transformation(extent={{32,112},{44,124}})));
+    annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Modelica.Blocks.Logical.And and1
-    annotation (Placement(transformation(extent={{70,-42},{90,-22}})));
+    annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
 protected
   Modelica.Blocks.Sources.Constant TSetSupChiConst(
     final k=TSupChi_nominal)
@@ -164,7 +164,7 @@ protected
   Modelica.Blocks.Sources.Constant conMinOAFra(
     final k=minOAFra)
     "Minimum outside air fraction"
-    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   Modelica.Blocks.Sources.Constant TSetSupAirConst(
     final k=TSetSupAir)
@@ -175,74 +175,83 @@ equation
   connect(errTRooCoo.y, hysChiPla.u) annotation (Line(points={{-23,-86},{0,-86},
           {0,-40},{28,-40}},                           color={0,0,127}));
   connect(TSetRooCoo, errTRooCoo.u2) annotation (Line(points={{-120,60},{-80,60},
-          {-80,-100},{-32,-100},{-32,-94}},
-                                          color={0,0,127}));
+          {-80,-98},{-32,-98},{-32,-94}}, color={0,0,127}));
   connect(TSetSupAirConst.y,conCooVal. u_s)
-    annotation (Line(points={{-39,-50},{-20,-50},{-20,-20},{-2,-20}},
+    annotation (Line(points={{-39,-50},{-10,-50},{-10,-20},{-2,-20}},
                                                          color={0,0,127}));
-  connect(conSup.TSetRooHea, TSetRooHea) annotation (Line(points={{-39,100},{
-          -120,100}},              color={0,0,127}));
-  connect(conSup.TSetRooCoo, TSetRooCoo) annotation (Line(points={{-39,94},{-80,
-          94},{-80,60},{-120,60}}, color={0,0,127}));
-  connect(conSup.TRoo, TRoo) annotation (Line(points={{-39,88},{-74,88},{-74,
+  connect(conSup.TSetRooHea, TSetRooHea) annotation (Line(points={{-61,96},{-80,
+          96},{-80,100},{-120,100}},
+                                   color={0,0,127}));
+  connect(conSup.TSetRooCoo, TSetRooCoo) annotation (Line(points={{-61,90},{-80,
+          90},{-80,60},{-120,60}}, color={0,0,127}));
+  connect(conSup.TRoo, TRoo) annotation (Line(points={{-61,84},{-74,84},{-74,
           -80},{-120,-80}},
                        color={0,0,127}));
-  connect(conEco.TMix, TMix) annotation (Line(points={{39,75},{-40,75},{-40,20},
-          {-120,20}}, color={0,0,127}));
-  connect(conEco.TRet, TRoo) annotation (Line(points={{39,72},{-34,72},{-34,12},
-          {-88,12},{-88,-80},{-120,-80}},     color={0,0,127}));
-  connect(conEco.TOut, TOut) annotation (Line(points={{39,65},{-30,65},{-30,8},
-          {-94,8},{-94,-40},{-120,-40}},   color={0,0,127}));
-  connect(conSup.yHea, yHea) annotation (Line(points={{-17,90},{80,90},{80,60},
+  connect(conEco.TMix, TMix) annotation (Line(points={{39,75},{-2,75},{-2,76},{
+          -26,76},{-26,20},{-120,20}},
+                      color={0,0,127}));
+  connect(conEco.TRet, TRoo) annotation (Line(points={{39,72},{-22,72},{-22,12},
+          {-86,12},{-86,-80},{-120,-80}},     color={0,0,127}));
+  connect(conEco.TOut, TOut) annotation (Line(points={{39,65},{4,65},{4,66},{
+          -18,66},{-18,8},{-92,8},{-92,-40},{-120,-40}},
+                                           color={0,0,127}));
+  connect(conSup.yHea, yHea) annotation (Line(points={{-39,86},{80,86},{80,60},
           {110,60}},color={0,0,127}));
   connect(conEco.yOutAirFra, yOutAirFra) annotation (Line(points={{61,70},{80,
           70},{80,30},{110,30}},
                              color={0,0,127}));
   connect(conCooVal.y, yCooCoiVal)
-    annotation (Line(points={{21,-20},{76,-20},{76,0},{110,0}},
+    annotation (Line(points={{21,-20},{40,-20},{40,0},{110,0}},
                                               color={0,0,127}));
   connect(TSetSupChiConst.y, TSetSupChi)
     annotation (Line(points={{61,-80},{110,-80}}, color={0,0,127}));
   connect(conCooVal.u_m, TSup)
     annotation (Line(points={{10,-32},{10,-110},{-120,-110}},
                                                             color={0,0,127}));
-  connect(conMinOAFra.y, swi.u1) annotation (Line(points={{-49,40},{-42,40},{
-          -42,28},{-2,28}}, color={0,0,127}));
-  connect(uOcc, swi.u2) annotation (Line(points={{-120,-10},{-66,-10},{-66,0},{
-          -12,0},{-12,20},{-2,20}}, color={255,0,255}));
-  connect(swi.y, conEco.minOAFra) annotation (Line(points={{22,20},{30,20},{30,
+  connect(conMinOAFra.y, swi.u1) annotation (Line(points={{-39,40},{-30,40},{
+          -30,38},{-2,38}}, color={0,0,127}));
+  connect(uOcc, swi.u2) annotation (Line(points={{-120,-10},{-68,-10},{-68,0},{
+          -14,0},{-14,30},{-2,30}}, color={255,0,255}));
+  connect(swi.y, conEco.minOAFra) annotation (Line(points={{22,30},{30,30},{30,
           68},{39,68}}, color={0,0,127}));
-  connect(TRoo, errTRooCoo.u1) annotation (Line(points={{-120,-80},{-80,-80},{
-          -80,-86},{-40,-86}}, color={0,0,127}));
+  connect(TRoo, errTRooCoo.u1) annotation (Line(points={{-120,-80},{-86,-80},{
+          -86,-86},{-40,-86}}, color={0,0,127}));
   connect(con.y, swi.u3) annotation (Line(points={{-38,-20},{-30,-20},{-30,-10},
-          {-6,-10},{-6,12},{-2,12}}, color={0,0,127}));
-  connect(hysChiPla.y, conEco.cooSta) annotation (Line(points={{52,-40},{52,52},
-          {34,52},{34,62},{39,62}}, color={255,0,255}));
+          {-6,-10},{-6,22},{-2,22}}, color={0,0,127}));
+  connect(hysChiPla.y, conEco.cooSta) annotation (Line(points={{52,-40},{60,-40},
+          {60,52},{24,52},{24,62},{39,62}},
+                                    color={255,0,255}));
   connect(con.y, swiFan.u3) annotation (Line(points={{-38,-20},{-30,-20},{-30,
-          -10},{-6,-10},{-6,110},{58,110}}, color={0,0,127}));
-  connect(conSup.yFan, swiFan.u1) annotation (Line(points={{-17,98},{18,98},{18,
-          126},{58,126}}, color={0,0,127}));
-  connect(swiFan.y, yFan) annotation (Line(points={{82,118},{90,118},{90,90},{
+          -10},{-6,-10},{-6,122},{68,122}}, color={0,0,127}));
+  connect(conSup.yFan, swiFan.u1) annotation (Line(points={{-39,94},{18,94},{18,
+          138},{68,138}}, color={0,0,127}));
+  connect(swiFan.y, yFan) annotation (Line(points={{92,130},{96,130},{96,90},{
           110,90}}, color={0,0,127}));
-  connect(conSup.yHea, hysHea.u) annotation (Line(points={{-17,90},{-14,90},{
-          -14,114},{-30,114},{-30,130},{-22,130}}, color={0,0,127}));
+  connect(conSup.yHea, hysHea.u) annotation (Line(points={{-39,86},{-34,86},{
+          -34,130},{-32,130}},                     color={0,0,127}));
   connect(swiFan.u2, orFan.y)
-    annotation (Line(points={{58,118},{44.9,118}}, color={255,0,255}));
-  connect(hysHea.y, orFan.u[1]) annotation (Line(points={{2,130},{24,130},{24,
-          120.8},{32,120.8}}, color={255,0,255}));
-  connect(hysChiPla.y, orFan.u[2]) annotation (Line(points={{52,-40},{52,52},{
-          24,52},{24,118},{32,118}}, color={255,0,255}));
-  connect(uOcc, orFan.u[3]) annotation (Line(points={{-120,-10},{-66,-10},{-66,
-          0},{-12,0},{-12,115.2},{32,115.2}}, color={255,0,255}));
-  connect(conEco.TMixSet, conCooVal.u_s) annotation (Line(points={{39,78},{-20,
-          78},{-20,-20},{-2,-20}}, color={0,0,127}));
+    annotation (Line(points={{68,130},{64,130},{64,110},{61.5,110}},
+                                                   color={255,0,255}));
+  connect(hysHea.y, orFan.u[1]) annotation (Line(points={{-8,130},{24,130},{24,
+          114.667},{40,114.667}},
+                              color={255,0,255}));
+  connect(hysChiPla.y, orFan.u[2]) annotation (Line(points={{52,-40},{60,-40},{
+          60,52},{24,52},{24,110},{40,110}},
+                                     color={255,0,255}));
+  connect(uOcc, orFan.u[3]) annotation (Line(points={{-120,-10},{-68,-10},{-68,
+          0},{-14,0},{-14,102},{14,102},{14,105.333},{40,105.333}},
+                                              color={255,0,255}));
+  connect(conEco.TMixSet, conCooVal.u_s) annotation (Line(points={{39,78},{-10,
+          78},{-10,-20},{-2,-20}}, color={0,0,127}));
   connect(hysChiPla.y, and1.u2)
-    annotation (Line(points={{52,-40},{68,-40}}, color={255,0,255}));
-  connect(and1.y, chiOn) annotation (Line(points={{91,-32},{94,-32},{94,-40},{
+    annotation (Line(points={{52,-40},{60,-40},{60,-38},{68,-38}},
+                                                 color={255,0,255}));
+  connect(and1.y, chiOn) annotation (Line(points={{91,-30},{96,-30},{96,-40},{
           110,-40}}, color={255,0,255}));
   connect(conEco.yCoiSta, and1.u1) annotation (Line(points={{61,62},{64,62},{64,
-          -32},{68,-32}}, color={255,0,255}));
-  annotation (Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
+          -30},{68,-30}}, color={255,0,255}));
+  annotation (Icon(coordinateSystem(extent={{-100,-120},{100,140}}),
+                   graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
               {0,0,0})}), Documentation(info="<html>
 <p>
 This is the controller for the VAV system with economizer, heating coil and cooling coil.
@@ -259,5 +268,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-120},{100,120}})));
+    Diagram(coordinateSystem(extent={{-100,-120},{100,140}})));
 end ChillerDXHeatingEconomizerController;
