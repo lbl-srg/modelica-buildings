@@ -182,12 +182,53 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1530\">#1503</a>.
         </td>
     </tr>
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime<br/>
+                           Buildings.Controls.OBC.CDL.Types.ZeroTime
+        </td>
+        <td valign=\"top\">Revised implementation such that the meaning of <code>time</code> is better explained
+                           and unix time stamps are correctly defined with respect to GMT.
+                           Added option unix time stamp GMT.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
-        <td valign=\"top\">xxx.
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.TwoElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements<br/>
+        </td>
+        <td valign=\"top\">Added option to also simulate moisture balance in room air volume.
+                           This can be enabled by setting the parameter <code>use_moisture_balance = true</code>.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">IBPSA, #1209</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Files.CSVWriter<br/>
+                           Buildings.Utilities.IO.Files.CombiTimeTableWriter<br/>
+                           Buildings.Utilities.IO.Files.CombiTimeTableWriter
+        </td>
+        <td valign=\"top\">Revised to avoid overflow of string buffer in Dymola.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1219\">IBPSA, #1219</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Math.SmoothHeaviside<br/>
+                           Buildings.Utilities.Math.Functions.SmoothHeaviside
+        </td>
+        <td valign=\"top\">This function is now twice instead of only once Lipschitz continuously differentiable.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">IBPSA, #1202</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Time.CalendarTime<br/>
+                           Buildings.Utilities.Time.Types.ZeroTime
+        </td>
+        <td valign=\"top\">Revised implementation such that the meaning of <code>time</code> is better explained
+                           and unix time stamps are correctly defined with respect to GMT.
+                           Added option unix time stamp GMT.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
         </td>
     </tr>
     </table>
@@ -274,6 +315,17 @@ its class name ends with the string <code>Beta</code>.
                            Note that the power added to the elecrical system was correct, but the power reported in
                            the output connector <code>P</code> did not include this conversion factor.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings/Resources/Python-Sources/KalmanFilter.py<br/>
+                           Buildings.Utilities.IO.Python27.Examples.KalmanFilter
+        </td>
+        <td valign=\"top\">Changed the temporary file format from <code>pickle</code> to <code>json</code> as the former can trigger a
+                           segfault with JModelica simulation run in a subprocess.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1587\">Buildings, #1587</a>.
         </td>
     </tr>
     </table>

@@ -72,13 +72,13 @@ equation
           points={{0,70},{40,70}}),
         Rectangle(
           visible=use_inputFilter,
-          extent={{-32,40},{32,100}},
+          extent={{-30,40},{30,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
           visible=use_inputFilter,
-          extent={{-32,100},{32,40}},
+          extent={{-30,100},{30,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
@@ -110,6 +110,11 @@ for a description of the filter.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 25, 2019, by Jianjun Hu:<br/>
+Improved icon graphics annotation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
+</li>
 <li>
 February 16, 2018, by Filip Jorissen:<br/>
 Propagated parameter <code>order</code>.<br/>
