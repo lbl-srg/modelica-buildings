@@ -27,12 +27,6 @@
      "jmodelica": {
        "simulate": false
   },
-  "model_name": "Buildings.Utilities.IO.Python27.Examples.KalmanFilter"
-  },
-  {
-     "jmodelica": {
-       "simulate": false
-  },
   "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
   },
   {
