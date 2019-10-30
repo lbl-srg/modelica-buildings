@@ -12,7 +12,7 @@ model WarmUp "Warm-up operating mode"
     final unit="K",
     final quantity="ThermodynamicTemperature") "Engine temperature"
     annotation (Placement(transformation(extent={{-170,90},{-150,110}}),
-      iconTransformation(extent={{-288,12},{-248,52}})));
+      iconTransformation(extent={{-190,80},{-150,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Transition signal"
     annotation (Placement(transformation(extent={{150,-50},{170,-30}}),
       iconTransformation(extent={{150,-88},{170,-68}})));
@@ -26,7 +26,7 @@ model WarmUp "Warm-up operating mode"
     "Check if it should change from warm-up mode to other modes"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Modelica.StateGraph.StepWithSignal warmUpState(nIn=2)
-    annotation (Placement(transformation(extent={{-40,-16},{-8,16}})));
+    annotation (Placement(transformation(extent={{-36,-16},{-4,16}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Timer timer
@@ -55,16 +55,17 @@ protected
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
 equation
-  connect(warmUpState.active, timer.u) annotation (Line(points={{-24,-17.6},{-24,
-          -70},{-2,-70}}, color={255,0,255}));
+  connect(warmUpState.active, timer.u) annotation (Line(points={{-20,-17.6},{
+          -20,-70},{-2,-70}},
+                          color={255,0,255}));
   connect(timer.y, timeDel.u) annotation (Line(points={{22,-70},{38,-70}},
           color={0,0,255}));
   connect(inPort, warmUpState.inPort[1]) annotation (Line(points={{-160,0},{-80,
-          0},{-80,0.8},{-41.6,0.8}}, color={0,0,0}));
-  connect(warmUpState.outPort[1], outPort) annotation (Line(points={{-7.2,0},
-          {155,0}}, color={0,0,0}));
-  connect(inPort1, warmUpState.inPort[2]) annotation (Line(points={{-160,-100},{
-          -120,-100},{-120,0},{-58,0},{-58,-0.8},{-41.6,-0.8}}, color={0,0,0}));
+          0},{-80,0.8},{-37.6,0.8}}, color={0,0,0}));
+  connect(warmUpState.outPort[1], outPort) annotation (Line(points={{-3.2,0},{
+          155,0}},  color={0,0,0}));
+  connect(inPort1, warmUpState.inPort[2]) annotation (Line(points={{-160,-100},
+          {-120,-100},{-120,0},{-58,0},{-58,-0.8},{-37.6,-0.8}},color={0,0,0}));
   connect(xor.y, y) annotation (Line(points={{142,-40},{160,-40}},
           color={255,0,255}));
   connect(and1.y, xor.u1) annotation (Line(points={{102,-40},{118,-40}},

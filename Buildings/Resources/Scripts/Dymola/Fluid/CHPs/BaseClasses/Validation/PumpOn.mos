@@ -1,2 +1,3 @@
-simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.PumpOn", method="dassl", stopTime=600, tolerance=1e-06, resultFile="PumpOn");
-createPlot(id=1, position={400, 0, 500, 400}, y={"actMod"}, grid=true, colors={{28,108,200}});
+simulateModel("Buildings.Fluid.CHPs.BaseClasses.Validation.PumpOn", method="cvode", stopTime=600, tolerance=1e-06, resultFile="pumOn");
+createPlot(id=1, position={20, 20, 900, 800}, subPlot=1, y={"actMod"}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 20, 900, 800}, subPlot=2, y={"transition2.condition"}, grid=true, colors={{28,108,200}});

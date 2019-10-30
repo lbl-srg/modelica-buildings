@@ -21,18 +21,18 @@ model WaterInternalControl "Internal controller for water flow rate"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mWatSet(
     final unit="kg/s",
     final quantity="MassFlowRate") "Water flow rate set point"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Modelica.Blocks.Sources.BooleanExpression warUpEngTem(
-    final y=opeMod == CHPs.BaseClasses.Types.Mode.WarmUp and
+    final y=opeMod == Buildings.Fluid.CHPs.BaseClasses.Types.Mode.WarmUp and
             not per.warmUpByTimeDelay)
     "Check if it is warm-up by engine temperature"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.BooleanExpression offStaBy(
-    final y=opeMod == CHPs.BaseClasses.Types.Mode.Off or
-            opeMod == CHPs.BaseClasses.Types.Mode.StandBy)
+    final y=opeMod == Buildings.Fluid.CHPs.BaseClasses.Types.Mode.Off or
+            opeMod == Buildings.Fluid.CHPs.BaseClasses.Types.Mode.StandBy)
     "Check if off mode or stand-by mode"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxElePow(
@@ -62,7 +62,7 @@ equation
   connect(mWatIntCon.y, watFloSet.u3) annotation (Line(points={{41,0},{50,0},
           {50,22},{58,22}}, color={0,0,127}));
   connect(watFloSet.y, mWatSet) annotation (Line(points={{82,30},{90,30},{90,0},
-          {110,0}}, color={0,0,127}));
+          {120,0}}, color={0,0,127}));
   connect(const.y, watFloSet.u1) annotation (Line(points={{42,60},{50,60},{50,38},
           {58,38}}, color={0,0,127}));
   connect(warUpEngTem.y, elePow.u2) annotation (Line(points={{-59,20},{-42,20}},

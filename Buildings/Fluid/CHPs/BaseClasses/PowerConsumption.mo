@@ -19,12 +19,12 @@ model PowerConsumption
 
 protected
   Modelica.Blocks.Sources.BooleanExpression staBy(
-    final y=opeMod == CHPs.BaseClasses.Types.Mode.StandBy)
+    final y=opeMod == Buildings.Fluid.CHPs.BaseClasses.Types.Mode.StandBy)
     "Check if the operation mode is StandBy"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
   Modelica.Blocks.Sources.BooleanExpression cooDow(
-    final y=opeMod == CHPs.BaseClasses.Types.Mode.StandBy or
-            opeMod == CHPs.BaseClasses.Types.Mode.CoolDown)
+    final y=opeMod == Buildings.Fluid.CHPs.BaseClasses.Types.Mode.StandBy or
+            opeMod == Buildings.Fluid.CHPs.BaseClasses.Types.Mode.CoolDown)
     "Check if stand-by mode or cool-down mode"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staByCon(
