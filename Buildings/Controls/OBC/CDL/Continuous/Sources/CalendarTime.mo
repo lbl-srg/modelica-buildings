@@ -46,15 +46,15 @@ protected
 equation
   connect(calTim.minute, minute) annotation (Line(points={{11,9},{55.5,9},{55.5,
           90},{110,90}}, color={0,0,127}));
-  connect(calTim.hour, hour) annotation (Line(points={{11,6.2},{60,6.2},{60,60},
+  connect(calTim.hour, hour) annotation (Line(points={{11,6.4},{60,6.4},{60,60},
           {110,60}}, color={255,127,0}));
-  connect(calTim.day, day) annotation (Line(points={{11,3.4},{64,3.4},{64,30},{110,
+  connect(calTim.day, day) annotation (Line(points={{11,3.8},{64,3.8},{64,30},{110,
           30}}, color={255,127,0}));
-  connect(calTim.month, month) annotation (Line(points={{11,0.6},{80,0.6},{80,0},
+  connect(calTim.month, month) annotation (Line(points={{11,1.2},{80,1.2},{80,0},
           {110,0}}, color={255,127,0}));
-  connect(calTim.year, year) annotation (Line(points={{11,-2.2},{64,-2.2},{64,-30},
+  connect(calTim.year, year) annotation (Line(points={{11,-1.4},{64,-1.4},{64,-30},
           {110,-30}}, color={255,127,0}));
-  connect(calTim.weekDay, weekDay) annotation (Line(points={{11,-5},{60,-5},{60,
+  connect(calTim.weekDay, weekDay) annotation (Line(points={{11,-4},{60,-4},{60,
           -60},{110,-60}}, color={255,127,0}));
   annotation (
     defaultComponentName="calTim",
@@ -80,13 +80,19 @@ The latter corresponds to a unix stamp of <i>0</i>.
 Note that when choosing the reference time equal to 0 at 1970,
 the actual simulation time must be within the 2010-2020 range.
 For example, <code>startTime = 1262304000</code> corresponds
-to the simulation starting on the 1st of January 2010
+to the simulation starting on the 1st of January 2010 local time
 when setting <code>zerTim = CDL.Types.ZeroTime.UnixTimeStamp</code>.
 This is within the 2010-2020 range and is therefore allowed.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 20, 2019, by Filip Jorissen:<br/>
+Revised implementation such that the meaning of <code>time</code> is better explained
+and unix time stamps are correctly defined with respect to GMT.
+(see <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">#1192</a>).
+</li>
 <li>
 March 14, 2017, by Michael Wetter:<br/>
 Refactored implementation.
