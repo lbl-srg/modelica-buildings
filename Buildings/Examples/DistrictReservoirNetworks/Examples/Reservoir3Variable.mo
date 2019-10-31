@@ -2,7 +2,8 @@ within Buildings.Examples.DistrictReservoirNetworks.Examples;
 model Reservoir3Variable
   "Reservoir network with optimized controller"
   extends Modelica.Icons.Example;
-  extends Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses.RN_BaseModel(
+  extends
+    Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses.RN_BaseModel(
   datDes(
       mDisPip_flow_nominal=69.5,
       RDisPip=250,
@@ -15,8 +16,9 @@ model Reservoir3Variable
     TMax=290.15,
     use_temperatureShift=false)
     annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiConMaiPum(final k=1.4*datDes.mDisPip_flow_nominal)
-    "Gain for flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiConMaiPum(
+    final k=1.4*datDes.mDisPip_flow_nominal)
+    "Gain for mass flow rate"
     annotation (Placement(transformation(extent={{18,-240},{38,-220}})));
   Modelica.Blocks.Sources.Constant massFlowMainPump(k(final unit="kg/s") = 0.5*
       datDes.mDisPip_flow_nominal)                    "Pump mass flow rate"
@@ -41,9 +43,9 @@ equation
   connect(conMaiPum.y, gaiConMaiPum.u)
     annotation (Line(points={{2,-230},{16,-230}}, color={0,0,127}));
   connect(pumpMainRLTN.m_flow_in, gaiConMaiPum.y) annotation (Line(points={{68,-370},
-          {50,-370},{50,-230},{40,-230}},       color={0,0,127}));
+          {50,-370},{50,-230},{39,-230}},       color={0,0,127}));
   connect(pumpBHS.m_flow_in, gaiConMaiPum.y)
-    annotation (Line(points={{50,-428},{50,-230},{40,-230}}, color={0,0,127}));
+    annotation (Line(points={{50,-428},{50,-230},{39,-230}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir3Variable.mos"

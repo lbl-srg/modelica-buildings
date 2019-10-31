@@ -224,15 +224,19 @@ model EnergyTransferStation
     final m_flow_nominal=gaiMFlow*mCooCon_flow_nominal)
     "Pump"
     annotation (Placement(transformation(extent={{-130,-350},{-110,-330}})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort
-    temperatureAfterFCHEXNetworkSide(redeclare package Medium = Medium,
-      allowFlowReversal=true)  annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort
+    senTem1(                         redeclare package Medium = Medium,
+      allowFlowReversal=true,
+    m_flow_nominal=gaiMFlow*mCooCon_flow_nominal)
+                               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,-340})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort
-    temperatureToFCHEXNetworkSide(redeclare package Medium = Medium,
-      allowFlowReversal=true)  annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort
+    senTem(                       redeclare package Medium = Medium,
+      allowFlowReversal=true,
+    m_flow_nominal=gaiMFlow*mCooCon_flow_nominal)
+                               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-172,-340})));
@@ -470,21 +474,18 @@ equation
   connect(pumChi.P, PCoo) annotation (Line(points={{-109,-331},{-80,-331},
           {-80,-224},{220,-224},{220,200},{290,200}},
                       color={0,0,127}));
-  connect(temperatureAfterFCHEXNetworkSide.port_b, volMix_a.ports[4])
-    annotation (Line(
+  connect(senTem1.port_b, volMix_a.ports[4]) annotation (Line(
       points={{0,-340},{0,-200},{-228,-200},{-228,10},{-257,10}},
       color={0,127,255},
       thickness=0.5));
   connect(deMul.y1[1], coolingLoadInPositive.u) annotation (Line(points={{-157,
           417},{-140,417},{-140,440},{-240,440},{-240,-394},{-182,-394}},
                   color={0,0,127}));
-  connect(temperatureToFCHEXNetworkSide.port_a, volMix_b.ports[4])
-    annotation (Line(points={{-182,-340},{-200,-340},{-200,-240},{260,
-          -240},{260,-146},{263,-146},{263,10}},               color={0,
-          127,255}));
-  connect(temperatureToFCHEXNetworkSide.port_b, pumChi.port_a)
-    annotation (Line(points={{-162,-340},{-130,-340}},
-                  color={0,127,255}));
+  connect(senTem.port_a, volMix_b.ports[4]) annotation (Line(points={{-182,-340},
+          {-200,-340},{-200,-240},{260,-240},{260,-146},{263,-146},{263,10}},
+        color={0,127,255}));
+  connect(senTem.port_b, pumChi.port_a)
+    annotation (Line(points={{-162,-340},{-130,-340}}, color={0,127,255}));
   connect(mPumHea_flow.y, m_flow_HPSH) annotation (Line(points={{21,330},
           {40,330},{40,360},{180,360},{180,-140},{284,-140}}, color={0,
           0,127}));
@@ -514,7 +515,7 @@ equation
           {46,231},{43,231}}, color={0,0,127}));
   connect(deMul.y2[1], assEqu2.u1) annotation (Line(points={{-157,410},{-100,410},
           {-100,266},{58,266}}, color={0,0,127}));
-  connect(temperatureAfterFCHEXNetworkSide.port_a, hex.port_b)
+  connect(senTem1.port_a, hex.port_b)
     annotation (Line(points={{-20,-340},{-40,-340}}, color={0,127,255}));
   connect(hex.port_a, pumChi.port_b) annotation (Line(points={{-60,-340},
           {-110,-340}}, color={0,127,255}));

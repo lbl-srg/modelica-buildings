@@ -15,21 +15,24 @@ model Bidirectional "Bidirectional network"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={0,-320})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Twp1(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Twp1(redeclare package Medium =
+        MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                     annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,-140})));
   Modelica.Blocks.Sources.RealExpression heatFromToBHF(y=4184*(Twp1.T - Tcp1.T)
         *massFlowRateInBHBeforeBHF.m_flow)        "in W"
     annotation (Placement(transformation(extent={{-10,-190},{10,-170}})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempBeforeProsumer3(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempBeforeProsumer3(redeclare
+      package Medium = MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                                    annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={-120,160})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempAfterProsumer3(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempAfterProsumer3(redeclare
+      package Medium = MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                                    annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={60,160})));
@@ -56,13 +59,15 @@ model Bidirectional "Bidirectional network"
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={160,80})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempBeforeProsumer2(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempBeforeProsumer2(redeclare
+      package Medium = MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                                    annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={-120,80})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempAfterProsumer2(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempAfterProsumer2(redeclare
+      package Medium = MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                                    annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={60,80})));
@@ -88,13 +93,15 @@ model Bidirectional "Bidirectional network"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-160,0})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempBeforeProsumer1(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempBeforeProsumer1(redeclare
+      package Medium = MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                                    annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={-120,0})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempAfterProsumer1(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempAfterProsumer1(redeclare
+      package Medium = MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                                    annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={60,0})));
@@ -104,13 +111,15 @@ model Bidirectional "Bidirectional network"
         extent={{-6,-6},{6,6}},
         rotation=0,
         origin={100,0})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Twp2(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Twp2(redeclare package Medium =
+        MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                     annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,-52})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Tcp1(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Tcp1(redeclare package Medium =
+        MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
         origin={160,-140})));
@@ -145,14 +154,18 @@ model Bidirectional "Bidirectional network"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={0,-86})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempBeforePlantPrimSide(
-      redeclare package Medium = MediumWater) annotation (Placement(
+  Fluid.Sensors.TemperatureTwoPort          tempBeforePlantPrimSide(
+      redeclare package Medium = MediumWater,
+    allowFlowReversal=false,                  m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                                    annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
         origin={60,-80})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempAfterPlantPrimSide(
-      redeclare package Medium = MediumWater) annotation (Placement(
+  Fluid.Sensors.TemperatureTwoPort          tempAfterPlantPrimSide(
+      redeclare package Medium = MediumWater,
+    allowFlowReversal=false,                  m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                                    annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
@@ -187,8 +200,10 @@ model Bidirectional "Bidirectional network"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-120})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempAfterPlantSecondSide(
-      redeclare package Medium = MediumWater) annotation (Placement(
+  Fluid.Sensors.TemperatureTwoPort          tempAfterPlantSecondSide(
+      redeclare package Medium = MediumWater,
+    allowFlowReversal=false,                  m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                                    annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
@@ -197,28 +212,33 @@ model Bidirectional "Bidirectional network"
         tempAfterPlantPrimSide.T - tempBeforePlantPrimSide.T)*
         massFlowRateThroughPrimSidePlant.m_flow) "in W"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Tcp2(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Tcp2(redeclare package Medium =
+        MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                     annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={160,-52})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Tcp3(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Tcp3(redeclare package Medium =
+        MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                     annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={160,28})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Twp3(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Twp3(redeclare package Medium =
+        MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                     annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,28})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Tcp4(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Tcp4(redeclare package Medium =
+        MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                     annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={160,110})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Twp4(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Twp4(redeclare package Medium =
+        MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                     annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,110})));
@@ -352,8 +372,6 @@ model Bidirectional "Bidirectional network"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-188,14})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-180,-320},{-160,-300}})));
   Networks.DistributionPipe distributionPipe2(
     redeclare package Medium = MediumWater,
     m_flow_nominal=18.29,

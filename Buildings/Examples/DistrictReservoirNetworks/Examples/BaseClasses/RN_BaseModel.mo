@@ -5,8 +5,9 @@ partial model RN_BaseModel
   DesignValues datDes "Design values"
     annotation (Placement(transformation(extent={{-240,222},{-220,242}})));
 
-  Buildings.Examples.DistrictReservoirNetworks.Agents.EnergyTransferStation proHos(redeclare package
-      Medium = MediumWater, filNam=Modelica.Utilities.Files.loadResource(
+  Buildings.Examples.DistrictReservoirNetworks.Agents.EnergyTransferStation proHos(redeclare
+      package Medium =
+               MediumWater, filNam=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissHospital_20190916.mos"))
     "Prosumer hospital"
     annotation (Placement(transformation(extent={{180,-54},{220,-14}})));
@@ -15,8 +16,11 @@ partial model RN_BaseModel
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-2,-440})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Tml1(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Tml1(redeclare package Medium =
+        MediumWater,
+    allowFlowReversal=false,
+                     m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)           annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-80,-300})));
@@ -47,13 +51,17 @@ partial model RN_BaseModel
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-72})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempBeforeProsumer3(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempBeforeProsumer3(redeclare
+      package Medium = MediumWater,
+    allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                          annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={120,-32})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempAfterProsumer3(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempAfterProsumer3(redeclare
+      package Medium = MediumWater,
+    allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                          annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=180,
         origin={120,-72})));
@@ -69,8 +77,9 @@ partial model RN_BaseModel
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={40,238})));
-  Buildings.Examples.DistrictReservoirNetworks.Agents.EnergyTransferStation proApa(redeclare package
-      Medium = MediumWater, filNam=Modelica.Utilities.Files.loadResource(
+  Buildings.Examples.DistrictReservoirNetworks.Agents.EnergyTransferStation proApa(redeclare
+      package Medium =
+               MediumWater, filNam=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissResidential_20190916.mos"))
     "Prosumer apartment"
     annotation (Placement(transformation(extent={{180,158},{220,198}})));
@@ -90,13 +99,17 @@ partial model RN_BaseModel
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,138})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempBeforeProsumer2(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempBeforeProsumer2(redeclare
+      package Medium = MediumWater,
+    allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                          annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={120,178})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempAfterProsumer2(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempAfterProsumer2(redeclare
+      package Medium = MediumWater,
+    allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                          annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=180,
         origin={120,138})));
@@ -118,8 +131,9 @@ partial model RN_BaseModel
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={80,-32})));
-  Buildings.Examples.DistrictReservoirNetworks.Agents.EnergyTransferStation proOff(redeclare package
-      Medium = MediumWater, filNam=Modelica.Utilities.Files.loadResource(
+  Buildings.Examples.DistrictReservoirNetworks.Agents.EnergyTransferStation proOff(redeclare
+      package Medium =
+               MediumWater, filNam=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissOffice_20190916.mos"))
     "Prosumer office"
     annotation (Placement(transformation(extent={{-180,-40},{-220,0}})));
@@ -139,13 +153,17 @@ partial model RN_BaseModel
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-80,-60})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempBeforeProsumer1(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempBeforeProsumer1(redeclare
+      package Medium = MediumWater,
+    allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                          annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
         origin={-120,-20})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempAfterProsumer1(redeclare
-      package Medium = MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          tempAfterProsumer1(redeclare
+      package Medium = MediumWater,
+    allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                          annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={-120,20})));
@@ -161,23 +179,33 @@ partial model RN_BaseModel
         extent={{6,6},{-6,-6}},
         rotation=-90,
         origin={-80,-20})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Tml2(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Tml2(redeclare package Medium =
+        MediumWater,
+    allowFlowReversal=false,
+                     m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)           annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-80,-94})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Tml4(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Tml4(redeclare package Medium =
+        MediumWater,
+    allowFlowReversal=false,
+    m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)           annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={80,118})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Tml5(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Tml5(redeclare package Medium =
+        MediumWater,
+    allowFlowReversal=false,
+    m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)           annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=270,
         origin={80,-100})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort Tml3(redeclare package Medium =
-        MediumWater) annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort          Tml3(redeclare package Medium =
+        MediumWater, m_flow_nominal=datDes.mDisPip_flow_nominal)
+                     annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={0,238})));
@@ -217,14 +245,18 @@ partial model RN_BaseModel
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-146,-240})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempBeforePlantPrimSide(
-      redeclare package Medium = MediumWater) annotation (Placement(
+  Fluid.Sensors.TemperatureTwoPort          tempBeforePlantPrimSide(
+      redeclare package Medium = MediumWater,
+    allowFlowReversal=false,                  m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                                    annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
         origin={-120,-270})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempAfterPlantPrimSide(
-      redeclare package Medium = MediumWater) annotation (Placement(
+  Fluid.Sensors.TemperatureTwoPort          tempAfterPlantPrimSide(
+      redeclare package Medium = MediumWater,
+    allowFlowReversal=false,                  m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                                    annotation (Placement(
         transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
@@ -257,8 +289,10 @@ partial model RN_BaseModel
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-180,-210})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort tempAfterPlantSecondSide(
-      redeclare package Medium = MediumWater) annotation (Placement(
+  Fluid.Sensors.TemperatureTwoPort          tempAfterPlantSecondSide(
+      redeclare package Medium = MediumWater,
+    allowFlowReversal=false,                  m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)                                    annotation (Placement(
         transformation(
         extent={{-6,6},{6,-6}},
         rotation=180,
@@ -345,8 +379,6 @@ partial model RN_BaseModel
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={130,-350})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-218,-362},{-198,-342}})));
   Networks.DistributionPipe res3(
     redeclare package Medium = MediumWater,
     final m_flow_nominal=datDes.mDisPip_flow_nominal,
