@@ -126,12 +126,12 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-    class Version_6_1_0 "Version 6.1.0"
+    class Version_7_0_0 "Version 7.0.0"
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
     <div class=\"release-summary\">
     <p>
-    Version 6.1.0 is a minor release that contains the changes described below.
+    Version 7.0.0 is a minor release that contains the changes described below.
     </p>
     </div>
     <!-- New libraries -->
@@ -155,12 +155,14 @@ its class name ends with the string <code>Beta</code>.
     to <b style=\"color:blue\">existing</b> libraries:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.EquationFitReversible
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Heat pump model that can be reversed between heating and cooling mode,
+                           that takes as a set point the leaving fluid temperature, and that computes
+                           its performance based on an equation fit.
         </td>
         </tr>
     </table>
@@ -171,20 +173,62 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond
         </td>
-        <td valign=\"top\">xxx.
-        </td>
-    </tr>
-    <tr><td colspan=\"2\"><b>xxx</b>
+        <td valign=\"top\">Added assertions and corrected implementation when respond amount is negative.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1530\">#1503</a>.
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime<br/>
+                           Buildings.Controls.OBC.CDL.Types.ZeroTime
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Revised implementation such that the meaning of <code>time</code> is better explained
+                           and unix time stamps are correctly defined with respect to GMT.
+                           Added option unix time stamp GMT.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.TwoElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements<br/>
+        </td>
+        <td valign=\"top\">Added option to also simulate moisture balance in room air volume.
+                           This can be enabled by setting the parameter <code>use_moisture_balance = true</code>.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1209\">IBPSA, #1209</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.IO.Files.CSVWriter<br/>
+                           Buildings.Utilities.IO.Files.CombiTimeTableWriter<br/>
+                           Buildings.Utilities.IO.Files.CombiTimeTableWriter
+        </td>
+        <td valign=\"top\">Revised to avoid overflow of string buffer in Dymola.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1219\">IBPSA, #1219</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Math.SmoothHeaviside<br/>
+                           Buildings.Utilities.Math.Functions.SmoothHeaviside
+        </td>
+        <td valign=\"top\">This function is now twice instead of only once Lipschitz continuously differentiable.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">IBPSA, #1202</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Utilities.Time.CalendarTime<br/>
+                           Buildings.Utilities.Time.Types.ZeroTime
+        </td>
+        <td valign=\"top\">Revised implementation such that the meaning of <code>time</code> is better explained
+                           and unix time stamps are correctly defined with respect to GMT.
+                           Added option unix time stamp GMT.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
         </td>
     </tr>
     </table>
@@ -195,12 +239,56 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">non-backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-     <tr><td colspan=\"2\"><b>xxx</b>
+     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Added cooling coil control and the controller validation model.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1265\">issue #1265</a>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable
+        </td>
+        <td valign=\"top\">Added the option to allow fixed plus differential dry bulb temperature cutoff.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Modulation
+        </td>
+        <td valign=\"top\">Added heating coil control sequences.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply
+        </td>
+        <td valign=\"top\">Added a switch for fan control.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState
+        </td>
+        <td valign=\"top\">Improved the implementation to avoid issues when heating and cooling controls occur at the same time.
+     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">
+                           Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.ThreeElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.TwoElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.TwoElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.FourElements<br/>
+                           Buildings.ThermalZones.ReducedOrder.RC.OneElement<br/>
+                           Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007<br/>
+                           Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007<br/>
+                           Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow
+
+        </td>
+        <td valign=\"top\">Renamed convection coefficient from <code>alpha*</code> to <code>hCon*</code>.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1168\">IBPSA, #1168</a>.
         </td>
     </tr>
     </table>
@@ -210,12 +298,34 @@ its class name ends with the string <code>Beta</code>.
     that can lead to wrong simulation results):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.PVSimple<br/>
+                           Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented<br/>
+                           Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimple<br/>
+                           Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented<br/>
+                           Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple<br/>
+                           Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented<br/>
+                           Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimpleOriented_N<br/>
+                           Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple_N<br/>
+                           Buildings.Electrical.Interfaces.PartialPV
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Corrected model so that reported power <code>P</code> also includes the DCAC conversion.
+                           Note that the power added to the elecrical system was correct, but the power reported in
+                           the output connector <code>P</code> did not include this conversion factor.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings/Resources/Python-Sources/KalmanFilter.py<br/>
+                           Buildings.Utilities.IO.Python27.Examples.KalmanFilter
+        </td>
+        <td valign=\"top\">Changed the temporary file format from <code>pickle</code> to <code>json</code> as the former can trigger a
+                           segfault with JModelica simulation run in a subprocess.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1587\">Buildings, #1587</a>.
         </td>
     </tr>
     </table>
@@ -226,12 +336,22 @@ its class name ends with the string <code>Beta</code>.
     units are wrong or errors in documentation):
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">xxx
+    <tr><td valign=\"top\">Buildings.Fluid.Sources.Boundary_pT<br/>
+                           Buildings.Fluid.Sources.Boundary_ph<br/>
+                           Buildings.Fluid.Sources.MassFlowSource_T<br/>
+                           Buildings.Fluid.Sources.MassFlowSource_h
         </td>
-        <td valign=\"top\">xxx.
+        <td valign=\"top\">Refactored handling of mass fractions which was needed to handle media such as
+                           <a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents\">
+                           Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents</a> and
+                           <a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas\">
+                           Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas</a>.<br/>
+                           Prior to this change, use of these media led to a translation error.<br/>
+                           This is for
+                           <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
         </td>
     </tr>
     </table>
@@ -244,7 +364,7 @@ its class name ends with the string <code>Beta</code>.
     </li>
     </ul>
     </html>"));
-  end Version_6_1_0;
+    end Version_7_0_0;
 
     class Version_6_0_0 "Version 6.0.0"
       extends Modelica.Icons.ReleaseNotes;
@@ -7224,7 +7344,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_1_0\">Version 6.1.0</a> (xxx, 2019)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_7_0_0\">Version 7.0.0</a> (xxx, 2019)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_6_0_0\">Version 6.0.0</a> (July 15, 2019)
@@ -7342,7 +7462,7 @@ The development of the Buildings library is organized by<br/>
  <li>by the Assistant Secretary for
   Energy Efficiency and Renewable Energy, Office of Building
   Technologies of the U.S. Department of Energy, under
-  contract No. DE-AC02-05CH11231, and
+  contracts No. DE-AC02-05CH11231 and DE-EE0007688, and
  </li>
  <li>
   by the California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, award number 500-10-052.
@@ -7692,13 +7812,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="6.1.0",
+version="7.0.0",
 versionDate="2019-07-15",
 dateModified="2019-07-15",
-uses(Modelica(version="3.2.2")),
+uses(Modelica(version="3.2.3")),
 conversion(
-  from(version={"5.0.0", "5.0.1", "5.1.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_5_to_6.0.0.mos")),
+  from(version={"6.0.0"},
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_6_to_7.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>

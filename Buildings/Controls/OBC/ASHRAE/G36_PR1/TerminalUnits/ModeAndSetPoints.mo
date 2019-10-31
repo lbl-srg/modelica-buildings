@@ -346,6 +346,13 @@ limits adjustment, window status and occupancy stataus. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures\">
 Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.ZoneTemperatures</a>.
 </p>
+<h4>Usage</h4>
+<p>
+This version is to be used in the multi-zone VAV sequence.
+For single zone VAV systems, use 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints\">
+Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

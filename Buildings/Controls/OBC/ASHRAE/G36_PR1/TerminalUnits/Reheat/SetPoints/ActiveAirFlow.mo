@@ -712,7 +712,7 @@ Documentation(info="<html>
 This atomic sequence sets the active maximum and minimum setpoints <code>VActCooMax_flow</code>,
 <code>VActCooMin_flow</code>, <code>VActMin_flow</code>, <code>VActHeaMin_flow</code>,
 <code>VActHeaMax_flow</code> for VAV reheat terminal unit according to ASHRAE
-Guideline 36 (G36), PART5.E.3-5.
+Guideline 36 (G36), PART 5.E.3-5.
 </p>
 <h4>1. Information provided by designer</h4>
 <p>According to G36 PART 3.1.B.2, following VAV box design information should be
