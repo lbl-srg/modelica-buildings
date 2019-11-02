@@ -104,49 +104,49 @@ model PlantEnable "Validation sequence for enabling and disabling chiller plant"
 
 equation
   connect(chiPlaReq.y[1], reaToInt.u)
-    annotation (Line(points={{-158,80},{-142,80}}, color={0,0,127}));
+    annotation (Line(points={{-159,80},{-142,80}}, color={0,0,127}));
   connect(reaToInt.y, enaPlaWse0.chiWatSupResReq)
-    annotation (Line(points={{-118,80},{-100,80},{-100,108},{-62,108}}, color={255,127,0}));
+    annotation (Line(points={{-119,80},{-100,80},{-100,108},{-62,108}}, color={255,127,0}));
   connect(outTem.y, enaPlaWse0.TOut)
-    annotation (Line(points={{-158,40},{-96,40},{-96,104},{-62,104}}, color={0,0,127}));
+    annotation (Line(points={{-159,40},{-96,40},{-96,104},{-62,104}}, color={0,0,127}));
   connect(chiSupTemSet.y, enaPlaWse0.TChiWatSupSet)
-    annotation (Line(points={{-158,-120},{-84,-120},{-84,92},{-62,92}},
+    annotation (Line(points={{-159,-120},{-84,-120},{-84,92},{-62,92}},
       color={0,0,127}));
   connect(reaToInt.y, enaPlaWse1.chiWatSupResReq)
-    annotation (Line(points={{-118,80},{-100,80},{-100,8},{-62,8}}, color={255,127,0}));
+    annotation (Line(points={{-119,80},{-100,80},{-100,8},{-62,8}}, color={255,127,0}));
   connect(outTem.y, enaPlaWse1.TOut)
-    annotation (Line(points={{-158,40},{-96,40},{-96,4},{-62,4}}, color={0,0,127}));
+    annotation (Line(points={{-159,40},{-96,40},{-96,4},{-62,4}}, color={0,0,127}));
   connect(chiSupTemSet.y, enaPlaWse1.TChiWatSupSet)
-    annotation (Line(points={{-158,-120},{-84,-120},{-84,-8},{-62,-8}},
+    annotation (Line(points={{-159,-120},{-84,-120},{-84,-8},{-62,-8}},
       color={0,0,127}));
   connect(chiPlaReq1.y[1], reaToInt1.u)
-    annotation (Line(points={{42,90},{58,90}}, color={0,0,127}));
+    annotation (Line(points={{41,90},{58,90}}, color={0,0,127}));
   connect(reaToInt1.y, disPlaSch.chiWatSupResReq)
-    annotation (Line(points={{82,90},{100,90},{100,98},{118,98}}, color={255,127,0}));
+    annotation (Line(points={{81,90},{100,90},{100,98},{118,98}}, color={255,127,0}));
   connect(conOutTem.y, disPlaSch.TOut)
-    annotation (Line(points={{82,60},{104,60},{104,94},{118,94}}, color={0,0,127}));
+    annotation (Line(points={{81,60},{104,60},{104,94},{118,94}}, color={0,0,127}));
   connect(chiPlaReq2.y[1], reaToInt2.u)
-    annotation (Line(points={{42,0},{58,0}}, color={0,0,127}));
+    annotation (Line(points={{41,0},{58,0}}, color={0,0,127}));
   connect(reaToInt2.y, disPlaReq.chiWatSupResReq)
-    annotation (Line(points={{82,0},{100,0},{100,8},{118,8}}, color={255,127,0}));
+    annotation (Line(points={{81,0},{100,0},{100,8},{118,8}}, color={255,127,0}));
   connect(conOutTem1.y, disPlaReq.TOut)
-    annotation (Line(points={{82,-30},{104,-30},{104,4},{118,4}}, color={0,0,127}));
+    annotation (Line(points={{81,-30},{104,-30},{104,4},{118,4}}, color={0,0,127}));
   connect(chiPlaReq3.y[1], reaToInt3.u)
-    annotation (Line(points={{42,-90},{58,-90}}, color={0,0,127}));
+    annotation (Line(points={{41,-90},{58,-90}}, color={0,0,127}));
   connect(reaToInt3.y, disPlaOutTem.chiWatSupResReq)
-    annotation (Line(points={{82,-90},{100,-90},{100,-82},{118,-82}}, color={255,127,0}));
+    annotation (Line(points={{81,-90},{100,-90},{100,-82},{118,-82}}, color={255,127,0}));
   connect(outTem1.y, disPlaOutTem.TOut)
-    annotation (Line(points={{82,-120},{104,-120},{104,-86},{118,-86}}, color={0,0,127}));
+    annotation (Line(points={{81,-120},{104,-120},{104,-86},{118,-86}}, color={0,0,127}));
   connect(ram.y, sam1.u)
-    annotation (Line(points={{-158,-80},{-142,-80}}, color={0,0,127}));
+    annotation (Line(points={{-159,-80},{-142,-80}}, color={0,0,127}));
   connect(TOutWetSig.y, enaPlaWse1.TOutWet)
-    annotation (Line(points={{-158,-40},{-92,-40},{-92,0},{-62,0}},   color={0,0,127}));
+    annotation (Line(points={{-159,-40},{-92,-40},{-92,0},{-62,0}},   color={0,0,127}));
   connect(sam1.y, enaPlaWse0.uTunPar)
-    annotation (Line(points={{-118,-80},{-88,-80},{-88,96},{-62,96}}, color={0,0,127}));
+    annotation (Line(points={{-119,-80},{-88,-80},{-88,96},{-62,96}}, color={0,0,127}));
   connect(sam1.y, enaPlaWse1.uTunPar)
-    annotation (Line(points={{-118,-80},{-88,-80},{-88,-4},{-62,-4}}, color={0,0,127}));
+    annotation (Line(points={{-119,-80},{-88,-80},{-88,-4},{-62,-4}}, color={0,0,127}));
   connect(TOutWetSig1.y, enaPlaWse0.TOutWet)
-    annotation (Line(points={{-158,0},{-92,0},{-92,100},{-62,100}}, color={0,0,127}));
+    annotation (Line(points={{-159,0},{-92,0},{-92,100},{-62,100}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=86400.0, Tolerance=1e-06),

@@ -1801,6 +1801,8 @@ Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoom
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElement.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomTwoElements.mos
+Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/RoomWithLatentGain.mos
+Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/RoomWithoutLatentGain.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase1.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase10.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase11.mos
@@ -1866,6 +1868,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroP
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegStep.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mos
+Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothHeavisideDerivatives.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunction.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/TrapezoidalIntegration.mos
@@ -1957,6 +1960,8 @@ Buildings/ThermalZones/ReducedOrder/SolarGain/BaseClasses/package.order
 Buildings/ThermalZones/ReducedOrder/SolarGain/CorrectionGDoublePane.mo
 Buildings/ThermalZones/ReducedOrder/SolarGain/package.mo
 Buildings/ThermalZones/ReducedOrder/SolarGain/package.order
+Buildings/ThermalZones/ReducedOrder/Validation/RoomWithLatentGain.mo
+Buildings/ThermalZones/ReducedOrder/Validation/RoomWithoutLatentGain.mo
 Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/VerifyDifferenceThreePeriods.mo
 Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/package.mo
 Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/package.order
@@ -2110,6 +2115,7 @@ Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mo
 Buildings/Utilities/Math/Functions/Examples/RegStep.mo
 Buildings/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mo
+Buildings/Utilities/Math/Functions/Examples/SmoothHeavisideDerivatives.mo
 Buildings/Utilities/Math/Functions/Examples/SpliceFunction.mo
 Buildings/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/TrapezoidalIntegration.mo
