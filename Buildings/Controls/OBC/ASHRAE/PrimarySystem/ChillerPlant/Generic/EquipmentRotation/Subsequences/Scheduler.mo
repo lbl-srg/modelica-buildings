@@ -2,6 +2,19 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 block Scheduler
   "Equipment rotation scheduler for equipment that runs continuously"
 
+
+  parameter Buildings.Controls.OBC.CDL.Types.ZeroTime zerTim = Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019
+    "Enumeration for choosing how reference time (time = 0) should be defined"
+    annotation(Dialog(group="Calendar"));
+
+  parameter Integer yearRef(min=firstYear, max=lastYear) = 2019
+    "Year when time = 0, used if zerTim=Custom"
+    annotation(Dialog(group="Calendar", enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom));
+
+  parameter Modelica.SIunits.Time offset = 0
+    "Offset that is added to 'time', may be used for computing time in different time zone"
+    annotation(Dialog(group="Calendar"));
+
   parameter Boolean weeInt = true
     "Rotation is scheduled in: true = weekly intervals; false = daily intervals";
 
@@ -17,12 +30,14 @@ block Scheduler
   parameter Integer dayCou = 1 "Number of days"
     annotation (Evaluate=true, Dialog(enable=not weeInt));
 
-  parameter Boolean initRoles[nDev] = {true, false}
-    "Initial roles: true = lead, false = lag/standby"
-    annotation (Evaluate=true, Dialog(tab="Advanced", group="Initiation"));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot "Rotation trigger signal"
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime calTim(zerTim=
-    Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019, yearRef=2019)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime calTim(
+    final zerTim=zerTim,
+    final yearRef=yearRef,
+    final offset=offset)
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay1(k=houOfDay)
@@ -63,20 +78,15 @@ block Scheduler
   Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot "Rotation trigger signal"
-    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSig(k=true) if  not weeInt
     "True signal"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
 protected
-  final parameter Boolean dayInt = true if not weeInt
-    "True if rotation is scheduled in daily intervals";
-
-  final parameter Integer nDev = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+  final constant Integer firstYear = 2010
+    "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
+  final constant Integer lastYear = firstYear + 11
+    "Last year that is supported (actual building automation system need to support a larger range)";
 
 equation
   connect(dayCou1.y, intEqu2.u2) annotation (Line(points={{-118,-90},{30,-90},{30,
@@ -110,7 +120,7 @@ equation
   connect(truSig.y, and2.u2) annotation (Line(points={{-78,-10},{-60,-10},{-60,12},
           {-32,12}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-120},{160,120}})),
-      defaultComponentName="equRot",
+      defaultComponentName="rotSch",
     Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
