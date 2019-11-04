@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "pumCon.yPumEva",
+    "pumCon.yPumCon"
+  };
