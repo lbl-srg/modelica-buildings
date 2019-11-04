@@ -1,6 +1,5 @@
 within Buildings.ThermalZones.ReducedOrder;
-package RC
-  "Package with reduced order thermal zones based on VDI 6007 Part 1"
+package RC "Package with reduced order thermal zones based on VDI 6007 Part 1"
   extends Modelica.Icons.VariantsPackage;
 
   package UsersGuide "User's Guide"
@@ -170,6 +169,17 @@ package RC
   </p>
   </li>
   </ul>
+  <h4>Modeling of latent heat gains</h4>
+  <p>
+  All zone models in <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC\">
+  Buildings.ThermalZones.ReducedOrder.RC</a> have a parameter <code>use_moisture_balance</code>.
+  If set to <code>true</code>, the input connector <code>QLat_flow</code> is enabled.
+  This input connector can be used to set the latent heat gain of the zone. The model assumes this
+  latent heat gain to be at <i>37</i>&circ;C, e.g., near the skin temperature.
+  For other latent sources that are near <i>20</i>&circ;C, this assumption of the temperature
+  leads to an error of around <i>2</i>%, which in most cases is considerably smaller than
+  the uncertainty of <code>QLat_flow</code>.
+  </p>
   <h4>Typical use and important parameter</h4>
   <p>
   The models in this package are typically used in combination with models from

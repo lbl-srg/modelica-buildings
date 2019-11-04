@@ -1,0 +1,21 @@
+simulateModel("Buildings.Fluid.HeatPumps.Validation.EquationFitReversible_EnergyPlus", method="CVode", tolerance=1e-6, stopTime=86400, resultFile="EquationFitReversible_EnergyPlus");
+createPlot(id = 1,
+   position = {60, 10, 640, 480},
+   y = {"heaPum.QLoa_flow", "heaPum.QSou_flow", "QLoa_flow_EP.y", "QSou_flow_EP.y"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
+createPlot(id = 2,
+   position = {710, 10, 640, 480},
+   y = {"heaPum.P", "P_EP.y"},
+   autoscale = true,
+   autoerase = true,
+   autoreplot = true,
+   grid = true,
+   color = true,
+   leftTitleType = 1,
+   bottomTitleType = 1);
