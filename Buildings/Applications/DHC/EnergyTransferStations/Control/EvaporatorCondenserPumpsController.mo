@@ -69,6 +69,9 @@ model EvaporatorCondenserPumpsController
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1.1)
   "10% constant extra flow to maintain the primary higher than the secondary flow rate"
     annotation (Placement(transformation(extent={{-96,60},{-76,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=1.1)
+  "10% constant extra flow to maintain the primary higher than the secondary flow rate"
+    annotation (Placement(transformation(extent={{-94,-62},{-74,-42}})));
   Buildings.Controls.Continuous.LimPID pumEva(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0.1,
@@ -80,9 +83,6 @@ model EvaporatorCondenserPumpsController
     annotation (Placement(transformation(extent={{24,-52},{44,-32}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro1
     annotation (Placement(transformation(extent={{-64,-48},{-44,-28}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=1.1)
-  "10% constant extra flow to maintain the primary higher than the secondary flow rate"
-    annotation (Placement(transformation(extent={{-94,-62},{-74,-42}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max
     annotation (Placement(transformation(extent={{-38,146},{-18,126}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1
@@ -212,12 +212,12 @@ src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStati
 </p>
 </li>
 <li>
-Maintain the heat pump flow rate between the minimum and maximum limit of the heat pump as advised by the manufacturer.
+Maintain the heat pump flow rate between the minimum and maximum limits of the heat pump as advised by the manufacturer.
 </li>
 <li>
-Maintain the hydraulic balance between the primary <code>pumEva</code>, <code>pumCon</code>
-, borefield pump <code>pumBor</code> and distrcit heat exchanger pump <code>pumDis</code>
-once the system is switched to reject heat to district network mode.
+Maintain the hydraulic balance between the pupms of <code>pumEva</code> or <code>pumCon</code> and
+borefield <code>pumBor</code> or distrcit heat exchanger <code>pumDis</code>
+once the system is switched to reject heat mode.
 </li>
 </ul>
 <p>

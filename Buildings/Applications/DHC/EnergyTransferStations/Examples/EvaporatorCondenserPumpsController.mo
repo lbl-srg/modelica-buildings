@@ -45,21 +45,19 @@ model EvaporatorCondenserPumpsController
     annotation (Placement(transformation(extent={{-40,-42},{-20,-22}})));
 equation
   connect(pumCon.reqHea, heaMod.y) annotation (Line(points={{88.6,10},{88,10},{88,
-          70},{81,70}},     color={255,0,255}));
+          70},{81,70}}, color={255,0,255}));
   connect(CooMod.y,pumCon.reqCoo)  annotation (Line(points={{81,-70},{88,-70},{
-          88,-9.8},{88.6,-9.8}},
-                              color={255,0,255}));
+          88,-9.8},{88.6,-9.8}},color={255,0,255}));
   connect(yPumMinLoa.y, pumCon.minConMasFlo) annotation (Line(points={{-18,30},
-          {-18,0.6},{89.2,0.6}},    color={0,0,127}));
+          {-18,0.6},{89.2,0.6}},color={0,0,127}));
   connect(mCon.y, pumCon.mCon) annotation (Line(points={{61,30},{68,30},{68,8.4},
           {89.2,8.4}}, color={0,0,127}));
   connect(mSecHea.y,pumCon.mSecHea)  annotation (Line(points={{23,30},{30,30},{30,
-          6.8},{89.2,6.8}},       color={0,0,127}));
+          6.8},{89.2,6.8}},color={0,0,127}));
   connect(mEva.y,pumCon.mEva)  annotation (Line(points={{61,-30},{68,-30},{68,-8},
-          {89.2,-8}},         color={0,0,127}));
+          {89.2,-8}},color={0,0,127}));
   connect(yPumMinSoa.y, pumCon.minEvaMasFlo)
-    annotation (Line(points={{-18,-32},{-18,-1},{89.2,-1}},
-                                                         color={0,0,127}));
+    annotation (Line(points={{-18,-32},{-18,-1},{89.2,-1}},color={0,0,127}));
   connect(mSecCoo.y, pumCon.mSecCoo) annotation (Line(points={{21,-30},{30,-30},
           {30,-6.8},{89.2,-6.8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
