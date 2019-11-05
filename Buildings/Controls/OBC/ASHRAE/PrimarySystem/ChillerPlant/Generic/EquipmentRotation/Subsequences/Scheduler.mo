@@ -2,34 +2,45 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 block Scheduler
   "Equipment rotation scheduler for equipment that runs continuously"
 
-  parameter Boolean lag = true
-    "true = lead/lag, false = lead/standby";
+  parameter Buildings.Controls.OBC.CDL.Types.ZeroTime zerTim = Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019
+    "Enumeration for choosing how reference time (time = 0) should be defined"
+    annotation(Dialog(group="Calendar"));
+
+  parameter Integer yearRef(min=firstYear, max=lastYear) = 2019
+    "Year when time = 0, used if zerTim=Custom"
+    annotation(Dialog(group="Calendar", enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom));
+
+  parameter Modelica.SIunits.Time offset = 0
+    "Offset that is added to 'time', may be used for computing time in different time zone"
+    annotation(Dialog(group="Calendar"));
 
   parameter Boolean weeInt = true
-    "Set to true if rotation is scheduled in weekly intervals";
+    "Rotation is scheduled in: true = weekly intervals; false = daily intervals";
 
-  parameter Integer houOfDay = 2 "Rotation hour of the day";
+  parameter Integer houOfDay = 2 "Rotation hour of the day: 0 = midnight; 23 = 11pm";
 
-  parameter Integer weeCou = 1 if weeInt "Number of weeks";
+  parameter Integer weeCou = 1 "Number of weeks"
+    annotation (Evaluate=true, Dialog(enable=weeInt));
 
-  parameter Integer weekday = 1 if weeInt
-    "Rotation weekday, 1 = Monday, 7 = Sunday";
+  parameter Integer weekday = 1
+    "Rotation weekday, 1 = Monday, 7 = Sunday"
+    annotation (Evaluate=true, Dialog(enable=weeInt));
 
-  parameter Integer dayCou = 1 if not weeInt "Number of days";
+  parameter Integer dayCou = 1 "Number of days"
+    annotation (Evaluate=true, Dialog(enable=not weeInt));
 
-  parameter Boolean initRoles[nDev] = {true, false}
-    "Initial roles: true = lead, false = lag/standby"
-    annotation (Evaluate=true, Dialog(tab="Advanced", group="Initiation"));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot "Rotation trigger signal"
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
-  parameter Modelica.SIunits.Time stagingRuntime(
-    final displayUnit = "h") = 864000
-    "Staging runtime for each device";
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime calTim(zerTim=
-    Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019, yearRef=2019)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime calTim(
+    final zerTim=zerTim,
+    final yearRef=yearRef,
+    final offset=offset)
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay1(k=houOfDay)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay1(
+    final k=houOfDay)
     "Hour of the day for rotating devices that run continuously"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
@@ -45,51 +56,45 @@ block Scheduler
     final k=dayCou) if not weeInt "Number of days for scheduled rotation"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Equal isWee
+  Buildings.Controls.OBC.CDL.Integers.Equal isWee if weeInt
     "Checks if current weekday is the rotation weekday"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Checks equality"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2 "Logical equal"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre
+  Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
+  Buildings.Controls.OBC.CDL.Logical.Edge edg "Rising edge"
     annotation (Placement(transformation(extent={{120,10},{140,30}})));
 
-  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt
+  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt "Integer counter"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot "Rotation trigger signal"
-    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSig(k=true) "True signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSig(
+    final k=true) if  not weeInt "True signal"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
 protected
-  final parameter Boolean dayInt = true if not weeInt
-    "True if rotation is scheduled in daily intervals";
+  final constant Integer firstYear = 2010
+    "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
 
-  final parameter Integer nDev = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
-
-  final parameter Modelica.SIunits.Time stagingRuntimes[nDev] = fill(stagingRuntime, nDev)
-    "Staging runtimes array";
+  final constant Integer lastYear = firstYear + 11
+    "Last year that is supported (actual building automation system need to support a larger range)";
 
 equation
   connect(dayCou1.y, intEqu2.u2) annotation (Line(points={{-118,-90},{30,-90},{30,
           12},{38,12}}, color={255,127,0}));
   connect(calTim.hour, intEqu.u1) annotation (Line(points={{-119,96},{-106,96},{
           -106,70},{-82,70}}, color={255,127,0}));
-  connect(houOfDay.y, intEqu.u2) annotation (Line(points={{-118,50},{-108,50},{-108,
+  connect(houOfDay1.y, intEqu.u2) annotation (Line(points={{-118,50},{-108,50},{-108,
           62},{-82,62}}, color={255,127,0}));
   connect(calTim.weekDay, isWee.u1) annotation (Line(points={{-119,84},{-110,84},
           {-110,20},{-102,20}}, color={255,127,0}));
@@ -98,22 +103,17 @@ equation
   connect(intEqu.y, and2.u1) annotation (Line(points={{-58,70},{-50,70},{-50,20},
           {-32,20}},color={255,0,255}));
   connect(intEqu2.y, pre.u)
-    annotation (Line(points={{62,20},{78,20}},
-                                             color={255,0,255}));
+    annotation (Line(points={{62,20},{78,20}}, color={255,0,255}));
   connect(pre.y, edg.u)
-    annotation (Line(points={{102,20},{118,20}},
-                                               color={255,0,255}));
+    annotation (Line(points={{102,20},{118,20}}, color={255,0,255}));
   connect(and2.y, onCouInt.trigger)
-    annotation (Line(points={{-8,20},{-2,20}},
-                                             color={255,0,255}));
+    annotation (Line(points={{-8,20},{-2,20}}, color={255,0,255}));
   connect(onCouInt.y, intEqu2.u1)
-    annotation (Line(points={{22,20},{38,20}},
-                                             color={255,127,0}));
+    annotation (Line(points={{22,20},{38,20}}, color={255,127,0}));
   connect(pre.y, onCouInt.reset) annotation (Line(points={{102,20},{110,20},{110,
           -8},{10,-8},{10,8}},color={255,0,255}));
   connect(edg.y, yRot)
-    annotation (Line(points={{142,20},{150,20},{150,0},{180,0}},
-                                               color={255,0,255}));
+    annotation (Line(points={{142,20},{150,20},{150,0},{180,0}}, color={255,0,255}));
   connect(weeCou1.y, intEqu2.u2) annotation (Line(points={{-118,-60},{30,-60},{30,
           12},{38,12}}, color={255,127,0}));
   connect(isWee.y, and2.u2) annotation (Line(points={{-78,20},{-60,20},{-60,12},
@@ -121,7 +121,7 @@ equation
   connect(truSig.y, and2.u2) annotation (Line(points={{-78,-10},{-60,-10},{-60,12},
           {-32,12}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-120},{160,120}})),
-      defaultComponentName="equRot",
+      defaultComponentName="rotSch",
     Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -159,19 +159,26 @@ equation
           thickness=0.5)}),
   Documentation(info="<html>
 <p>
-This block rotates equipment, such as chillers, pumps or valves, in order 
-to ensure equal wear and tear. It can be used for lead/lag and 
-lead/standby operation, as specified in &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
-Chapter 7, App B, 1.01, A.4.  The output vector <code>yDevRol<\code> indicates the lead/lag (or lead/standby) status
-of the devices, while the <code>yDevSta<\code> indicates the on/off status of each device. The index of
-output vectors and <code>initRoles<\code> parameter represents the physical device.
-Default initial lead role is assigned to the device associated
-with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
-for each device and switches the lead role to the next higher index
-as its <code>stagingRuntime<\code> expires. This block can be used for 2 devices. 
-If using more than 2 devices, see 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult</a>.
+This block outputs a signal to rotate the lead device for devices that run continuously at
+chosen time intervals. The user has options to select:
+
+<ul>
+<li>
+
+</li>
+
+<li>
+</li>
+
+<li>
+</li>
+
+<li>
+</li>
+</ul>
+
+
+
 </p>
 </html>", revisions="<html>
 <ul>

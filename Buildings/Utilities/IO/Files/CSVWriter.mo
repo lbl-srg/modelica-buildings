@@ -9,6 +9,10 @@ initial algorithm
     str := str + "time" + delimiter;
     for i in 1:nin-1 loop
       str := str + headerNames[i] + delimiter;
+      if mod(i+1,10)==0 then // write out buffer every 10 entries to avoid overflow
+        writeLine(filWri, str, 1);
+        str:="";
+      end if;
     end for;
     str := str + headerNames[nin] + "\n";
     writeLine(filWri, str, 1);
@@ -50,6 +54,11 @@ hence disregards the simulation tool output interval settings.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2019 by Filip Jorissen:<br/>
+Avoiding overflow of string buffer in dymola.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1219\">#1219</a>.
+</li>
 <li>
 July 7, 2018 by Filip Jorissen:<br/>
 First implementation.
