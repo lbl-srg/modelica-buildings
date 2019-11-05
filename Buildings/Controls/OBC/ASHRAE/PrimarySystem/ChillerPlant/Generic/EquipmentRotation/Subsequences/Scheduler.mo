@@ -39,6 +39,7 @@ block Scheduler
     final offset=offset)
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
+protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay1(
     final k=houOfDay)
     "Hour of the day for rotating devices that run continuously"
@@ -159,27 +160,26 @@ equation
           thickness=0.5)}),
   Documentation(info="<html>
 <p>
-This block outputs a signal to rotate the lead device for devices that run continuously at
-chosen time intervals. The user has options to select:
+This block outputs a signal to rotate the lead device at
+chosen time intervals for lead/standby configurations where a lead device runs continuously. 
+The implementation is based on RP 1711 5.1.2.4.2, except 5.1.2.4.2 a).
 
+The user needs to select the time of the day as an hour between 0 and 23 at which the rotation shall occur.
+The block implements two options to select the time interval for the equipment rotation:
+</p>
 <ul>
 <li>
-
+Each <code>dayCou</code> days;
 </li>
-
 <li>
-</li>
-
-<li>
-</li>
-
-<li>
+Each <code>weeCou</code> weeks on a <code>weekday</code> selected between 1 (Monday) and 7 (Sunday).
 </li>
 </ul>
 
-
-
+<p>
+To enable weekly intervals set the <code>weeInt</code> to true, otherwise a number of days can be used.
 </p>
+
 </html>", revisions="<html>
 <ul>
 <li>
