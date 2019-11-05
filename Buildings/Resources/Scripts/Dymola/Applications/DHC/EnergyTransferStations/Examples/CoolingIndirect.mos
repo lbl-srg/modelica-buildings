@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingIndirect", stopTime=86400, tolerance=0.001, resultFile="CoolingIndirect");
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingIndirect", stopTime=86400, numberOfIntervals=2000, tolerance=0.001, resultFile="CoolingIndirect");
 // Plot commands
 removePlots(false);
 createPlot(id=1, position={11, 19, 713, 564}, y={"TDisSup.T", "TDisRet.T", "TBuiSup.T", "TBuiRet.T"}, range={0.0, 24.0, 0.0, 20.0}, grid=true, bottomTitleType=0, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="h", displayUnits={"degC", "degC", "degC", "degC"});
