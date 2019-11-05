@@ -5,47 +5,55 @@ model LeadSwap_uDevSta
   parameter Modelica.SIunits.Temperature aveTWetBul = 288.15
     "Chilled water supply set temperature";
 
-  EquipmentRotationLeadSwap equRot
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeadSwap leaSwa
+    "Makes sure the new lead device is proven on before passing on the lead role"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  CDL.Logical.Sources.Pulse booPul(width=0.5, period=10)
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    width=0.5,
+    period=10)
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  CDL.Logical.Sources.Pulse booPul1(
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     width=0.5,
     period=12,
     startTime=0)
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  CDL.Logical.Not not2
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-equation
 
-  connect(booPul.y, equRot.uLeaStaSet[1]) annotation (Line(points={{-118,50},{
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+
+equation
+  connect(booPul.y,leaSwa. uLeaStaSet[1]) annotation (Line(points={{-118,50},{
           -60,50},{-60,4},{-42,4}}, color={255,0,255}));
   connect(booPul.y, not1.u) annotation (Line(points={{-118,50},{-110,50},{-110,
           30},{-102,30}}, color={255,0,255}));
-  connect(not1.y, equRot.uLeaStaSet[2]) annotation (Line(points={{-78,30},{-60,
+  connect(not1.y,leaSwa. uLeaStaSet[2]) annotation (Line(points={{-78,30},{-60,
           30},{-60,4},{-42,4}}, color={255,0,255}));
-  connect(booPul.y, equRot.uDevSta[1]) annotation (Line(points={{-118,50},{-60,
+  connect(booPul.y,leaSwa. uDevSta[1]) annotation (Line(points={{-118,50},{-60,
           50},{-60,-4},{-42,-4}}, color={255,0,255}));
   connect(booPul1.y, not2.u)
     annotation (Line(points={{-118,-10},{-102,-10}}, color={255,0,255}));
-  connect(not2.y, equRot.uDevSta[2]) annotation (Line(points={{-78,-10},{-60,
+  connect(not2.y,leaSwa. uDevSta[2]) annotation (Line(points={{-78,-10},{-60,
           -10},{-60,-4},{-42,-4}}, color={255,0,255}));
+
 annotation (
-  experiment(StopTime=10, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/Validation/PlantEnable.mos"
+  experiment(StopTime=180, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/LeadSwap_uDevSta.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeadSwap\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeadSwap</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 20, 2019, by Jianjun Hu:<br/>
+September 20, 2019, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

@@ -40,8 +40,8 @@ block LeadSwap
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
   CDL.Logical.Or or2[nDev]
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  CDL.Interfaces.BooleanOutput yLeaStaSet[nDev]
-    "Lead device status setpoint prior to lead swap delay" annotation (
+  CDL.Interfaces.BooleanOutput yDevStaSet[nDev] "Device status setpoint"
+                                                           annotation (
       Placement(transformation(extent={{220,50},{240,70}}), iconTransformation(
           extent={{100,-20},{140,20}})));
 protected
@@ -78,10 +78,10 @@ equation
           110}}, color={255,0,255}));
   connect(uLeaStaSet, or2.u2) annotation (Line(points={{-230,60},{-140,60},{-140,
           80},{30,80},{30,102},{38,102}}, color={255,0,255}));
-  connect(or2.y, yLeaStaSet) annotation (Line(points={{62,110},{140,110},{140,60},
+  connect(or2.y,yDevStaSet)  annotation (Line(points={{62,110},{140,110},{140,60},
           {230,60}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-220,-160},{220,180}})),
-      defaultComponentName="equRot",
+      defaultComponentName="leaSwa",
     Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

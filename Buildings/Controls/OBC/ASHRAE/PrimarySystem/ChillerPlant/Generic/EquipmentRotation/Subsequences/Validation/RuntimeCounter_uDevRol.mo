@@ -99,7 +99,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotati
 </html>", revisions="<html>
 <ul>
 <li>
-September 20, by Milica Grahovac:<br/>
+September 20, 2019, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
