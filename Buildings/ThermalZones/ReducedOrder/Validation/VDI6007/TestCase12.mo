@@ -2,9 +2,11 @@ within Buildings.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase12 "VDI 6007 Test Case 12 model"
   extends Modelica.Icons.Example;
 
-  package Medium = Modelica.Media.Air.SimpleAir "Medium model";
+  replaceable package Medium = Modelica.Media.Air.SimpleAir
+   constrainedby Modelica.Media.Interfaces.PartialMedium "Medium model";
 
   RC.TwoElements thermalZoneTwoElements(
+    redeclare final package Medium = Medium,
     hConExt=2.7,
     hConWin=2.7,
     gWin=1,
@@ -23,7 +25,6 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     nPorts=2,
     nOrientations=1,
     VAir=0.1,
-    redeclare final package Medium = Modelica.Media.Air.SimpleAir,
     AWin={0},
     ATransparent={7},
     AExt={10.5},
@@ -36,10 +37,10 @@ model TestCase12 "VDI 6007 Test Case 12 model"
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem(port(T(
     start=300)))
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{8,-6},{20,6}})));
+    annotation (Placement(transformation(extent={{-30,6},{-18,18}})));
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer"
-    annotation (Placement(transformation(extent={{36,6},{26,-4}})));
+    annotation (Placement(transformation(extent={{4,18},{-8,6}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     table=[0,0,0,0; 3600,0,0,0; 7200,0,0,0; 10800,0,0,0; 14400,0,0,0; 18000,0,0,
@@ -82,7 +83,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     transformation(
     extent={{-4,-4},{4,4}},
     rotation=90,
-    origin={30,-18})));
+    origin={-2,-4})));
   Modelica.Blocks.Sources.CombiTimeTable outdoorTemp(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     columns={2},
@@ -97,7 +98,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
         295.05; 82800,294.05; 86400,294.05])
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-28,-8},{-12,8}})));
+    annotation (Placement(transformation(extent={{-60,4},{-44,20}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
@@ -191,13 +192,14 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     annotation (Placement(transformation(extent={{62,46},{72,56}})));
 equation
   connect(theConWall.fluid, preTem.port)
-    annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
+    annotation (Line(points={{-8,12},{-18,12}},            color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
-    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{44,12},{4,12}},                color={191,0,0}));
   connect(hConWall.y, theConWall.Gc)
-    annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
+    annotation (Line(points={{-2,0.4},{-2,6}},               color={0,0,127}));
   connect(outdoorTemp.y[1], preTem.T)
-    annotation (Line(points={{-11.2,0},{6.8,0}}, color={0,0,127}));
+    annotation (Line(points={{-43.2,12},{-31.2,12}},
+                                                 color={0,0,127}));
   connect(perRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
     points={{68,-92},{68,-92},{98,-92},{98,24},{92,24}}, color={191,0,0}));
@@ -237,8 +239,8 @@ equation
   connect(gain.y, ventilationIn.m_flow_in)
     annotation (Line(points={{-47.3,-22},{-32,-22}}, color={0,0,127}));
   connect(outdoorTemp.y[1], ventilationIn.T_in)
-    annotation (Line(points={{-11.2,
-    0},{-4,0},{-4,-12},{-42,-12},{-42,-26},{-32,-26}}, color={0,0,127}));
+    annotation (Line(points={{-43.2,12},{-40,12},{-40,-26},{-32,-26}},
+                                                       color={0,0,127}));
   connect(gain.y, gain1.u)
     annotation (Line(points={{-47.3,-22},{-44,-22},{-44,
     -38},{-70,-38},{-70,-54},{-63.4,-54}}, color={0,0,127}));

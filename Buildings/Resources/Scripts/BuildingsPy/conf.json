@@ -25,7 +25,13 @@
   },
   {
      "jmodelica": {
-     "rtol": 1E-6
+       "simulate": false
+  },
+  "model_name": "Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
+  },
+  {
+     "jmodelica": {
+       "rtol": 1E-6
     },
   "model_name": "Buildings.Examples.VAVCO2.VAVSystemCTControl"
   },

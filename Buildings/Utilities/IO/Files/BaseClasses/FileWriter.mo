@@ -67,6 +67,10 @@ algorithm
     str :=String(time,significantDigits=significantDigits) + delimiter;
     for i in 1:nin-1 loop
       str :=str + String(u[i],significantDigits=significantDigits) + delimiter;
+      if mod(i+1,10)==0 then // write out buffer every 10 entries to avoid overflow
+        writeLine(filWri, str, 1); // not adding this one to row count
+        str:="";
+      end if;
     end for;
     str :=str + String(u[nin],significantDigits=significantDigits) + "\n";
     writeLine(filWri, str, 0);
@@ -90,6 +94,11 @@ algorithm
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+October 17, 2019 by Filip Jorissen:<br/>
+Avoiding overflow of string buffer in dymola.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1219\">#1219</a>.
+</li>
 <li>
 October 8, 2018 by Filip Jorissen:<br/>
 Added implementation for the parameter <code>significantDigits</code>.
