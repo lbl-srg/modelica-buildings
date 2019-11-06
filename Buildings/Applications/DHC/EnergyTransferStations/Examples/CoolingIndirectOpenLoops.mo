@@ -167,6 +167,6 @@ variable cooling load at the building. </p>
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Validation/CoolingIndirect.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/CoolingIndirectOpenLoops.mos"
         "Simulate and plot"));
 end CoolingIndirectOpenLoops;

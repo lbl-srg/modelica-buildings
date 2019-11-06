@@ -181,6 +181,6 @@ depending on the total building load.</p>
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/CoolingIndirect.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/CoolingIndirectClosedBuildingLoop.mos"
         "Simulate and plot"));
 end CoolingIndirectClosedBuildingLoop;
