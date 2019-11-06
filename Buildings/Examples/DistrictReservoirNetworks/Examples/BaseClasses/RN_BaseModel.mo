@@ -2,7 +2,7 @@
 partial model RN_BaseModel
   package MediumWater = Buildings.Media.Water "Medium model";
 
-  DesignValues datDes "Design values"
+  parameter DesignValues datDes "Design values"
     annotation (Placement(transformation(extent={{-240,222},{-220,242}})));
 
   Buildings.Examples.DistrictReservoirNetworks.Agents.EnergyTransferStation proHos(redeclare
