@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Examples;
-model CoolingIndirect
-  "Example model for indirect cooling energy transfer station"
+model CoolingIndirectClosedBuildingLoop
+  "Example model for indirect cooling energy transfer station that has a closed chilled water loop on the building side"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water;
@@ -171,7 +171,10 @@ equation
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{140,100}})),
     Documentation(info="<html>
-<p>This model provides an example for the indirect cooling energy transfer station model. The cooling load ramps up from zero and is modulated according to the QCoo table specification. The secondary (building) chilled water is varaible flow, with the mass flow rate being adjusted depending on the total building load.</p>
+<p>This model provides an example for the indirect cooling energy transfer station model. 
+The cooling load ramps up from zero and is modulated according to the QCoo table specification. 
+The secondary (building) chilled water is varaible flow, with the mass flow rate being adjusted 
+depending on the total building load.</p>
 </html>", revisions="<html>
 <ul>
 <li>November 1, 2019, by Kathryn Hinkelman:<br>First implementation. </li>
@@ -180,4 +183,4 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/CoolingIndirect.mos"
         "Simulate and plot"));
-end CoolingIndirect;
+end CoolingIndirectClosedBuildingLoop;

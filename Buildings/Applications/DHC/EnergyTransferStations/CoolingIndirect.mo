@@ -113,8 +113,8 @@ model CoolingIndirect
         rotation=180,
         origin={0,0})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(redeclare package Medium
-      = Medium, m_flow_nominal=m2_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(redeclare package Medium =
+        Medium, m_flow_nominal=m2_flow_nominal)
     "Building-side (secondary) return temperature"
     annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
     Buildings.Controls.Continuous.LimPID con(
