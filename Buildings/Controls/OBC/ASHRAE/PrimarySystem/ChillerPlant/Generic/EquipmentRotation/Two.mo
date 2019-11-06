@@ -51,9 +51,9 @@ block Two
         transformation(extent={{260,-50},{280,-30}}), iconTransformation(extent=
            {{100,-70},{120,-50}})));
   Subsequences.Scheduler equRot1
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-42,20},{-22,40}})));
   Subsequences.LeadSwap equRot2
-    annotation (Placement(transformation(extent={{-12,18},{8,38}})));
+    annotation (Placement(transformation(extent={{18,20},{38,40}})));
   Subsequences.RuntimeCounter runCou
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 equation
