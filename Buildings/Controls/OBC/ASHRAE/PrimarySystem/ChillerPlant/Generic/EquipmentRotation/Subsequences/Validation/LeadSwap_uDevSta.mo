@@ -27,18 +27,18 @@ model LeadSwap_uDevSta
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
 equation
-  connect(booPul.y,leaSwa. uLeaStaSet[1]) annotation (Line(points={{-118,50},{
-          -60,50},{-60,4},{-42,4}}, color={255,0,255}));
-  connect(booPul.y, not1.u) annotation (Line(points={{-118,50},{-110,50},{-110,
-          30},{-102,30}}, color={255,0,255}));
-  connect(not1.y,leaSwa. uLeaStaSet[2]) annotation (Line(points={{-78,30},{-60,
-          30},{-60,4},{-42,4}}, color={255,0,255}));
-  connect(booPul.y,leaSwa. uDevSta[1]) annotation (Line(points={{-118,50},{-60,
-          50},{-60,-4},{-42,-4}}, color={255,0,255}));
+  connect(booPul.y,leaSwa. uLeaStaSet[1]) annotation (
+    Line(points={{-118,50},{-60,50},{-60,4},{-42,4}}, color={255,0,255}));
+  connect(booPul.y, not1.u) annotation (
+    Line(points={{-118,50},{-110,50},{-110,30},{-102,30}}, color={255,0,255}));
+  connect(not1.y,leaSwa. uLeaStaSet[2]) annotation (
+    Line(points={{-78,30},{-60,30},{-60,4},{-42,4}}, color={255,0,255}));
+  connect(booPul.y,leaSwa. uDevSta[1]) annotation (
+    Line(points={{-118,50},{-60,50},{-60,-4},{-42,-4}}, color={255,0,255}));
   connect(booPul1.y, not2.u)
     annotation (Line(points={{-118,-10},{-102,-10}}, color={255,0,255}));
-  connect(not2.y,leaSwa. uDevSta[2]) annotation (Line(points={{-78,-10},{-60,
-          -10},{-60,-4},{-42,-4}}, color={255,0,255}));
+  connect(not2.y,leaSwa. uDevSta[2]) annotation (
+    Line(points={{-78,-10},{-60,-10},{-60,-4},{-42,-4}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=180, Tolerance=1e-06),
