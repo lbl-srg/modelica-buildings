@@ -98,8 +98,8 @@ model CoolingIndirectOpenLoops
     dp1_nominal(displayUnit="Pa") = 500,
     dp2_nominal(displayUnit="Pa") = 500,
     Q_flow_nominal=18514,
-    T_a1_nominal=278.15,
-    T_a2_nominal=289.15,
+    T_a1_nominal(displayUnit="K") = 278.15,
+    T_a2_nominal(displayUnit="K") = 289.15,
     dp_nominal(displayUnit="Pa") = 5000,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
@@ -114,6 +114,7 @@ model CoolingIndirectOpenLoops
     redeclare package Medium = Medium,
     m_flow_nominal=m2_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
+    nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=0) "Building-side (secondary) pump"
     annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
   Modelica.Blocks.Sources.Trapezoid tra(
@@ -153,10 +154,18 @@ equation
     annotation (Line(points={{-79,100},{-56,100},{-56,82}}, color={0,0,127}));
   connect(TBuiRetSig.y, souBui.T_in)
     annotation (Line(points={{44,-110},{56,-110},{56,-82}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
-    Documentation(info="<html>
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+    extent={{-100,-100},{100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+    extent={{-120,-140},{120,140}})),
+  __Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/CoolingIndirectOpenLoops.mos"
+    "Simulate and plot"),
+  experiment(
+    StartTime=0,
+    StopTime=86400,
+    Tolerance=1e-04),
+  Documentation(info="<html>
 <p>This model provides an example for the indirect cooling energy transfer station model.
 Both the district and building chilled water loops are open. The district supply temperature
 is modulating, while the modulating building return temperature mimics a theoretically 
@@ -165,8 +174,5 @@ variable cooling load at the building. </p>
 <ul>
 <li>November 1, 2019, by Kathryn Hinkelman:<br>First implementation. </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/CoolingIndirectOpenLoops.mos"
-        "Simulate and plot"));
+</html>"));
 end CoolingIndirectOpenLoops;

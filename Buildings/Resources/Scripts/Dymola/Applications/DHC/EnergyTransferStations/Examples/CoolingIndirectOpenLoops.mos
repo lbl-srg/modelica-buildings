@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingIndirectOpenLoops", stopTime=86400, method="dassl", resultFile="CoolingIndirectOpenLoops");
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingIndirectOpenLoops", tolerance=0.0001, stopTime=86400, method="dassl", resultFile="CoolingIndirectOpenLoops");
 // Plot commands
 createPlot(id=1, 
 	position={11, 19, 713, 564}, 

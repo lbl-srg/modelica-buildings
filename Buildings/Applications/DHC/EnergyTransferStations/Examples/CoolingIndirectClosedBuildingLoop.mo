@@ -33,8 +33,8 @@ model CoolingIndirectClosedBuildingLoop
     dp1_nominal(displayUnit="Pa") = 500,
     dp2_nominal(displayUnit="Pa") = 500,
     Q_flow_nominal=18514,
-    T_a1_nominal=278.15,
-    T_a2_nominal=289.15,
+    T_a1_nominal(displayUnit="K") = 278.15,
+    T_a2_nominal(displayUnit="K") = 289.15,
     dp_nominal(displayUnit="Pa") = 5000,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
@@ -69,6 +69,7 @@ public
   Buildings.Fluid.Movers.FlowControlled_m_flow pumBui(
     redeclare package Medium = Medium,
     m_flow_nominal=mBui_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=0) "Building-side (secondary) pump" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -167,10 +168,18 @@ equation
     annotation (Line(points={{0,60},{0,70}}, color={0,127,255}));
   connect(gai.u, QCoo.y[1]) annotation (Line(points={{-42,-10},{-70,-10},{-70,-40},
           {-99,-40}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{140,100}})),
-    Documentation(info="<html>
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+    extent={{-100,-100},{100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+      extent={{-140,-100},{140,100}})),
+  __Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/CoolingIndirectClosedBuildingLoop.mos"
+    "Simulate and plot"),
+  experiment(
+    StartTime=0,
+    StopTime=86400,
+    Tolerance=1e-03),
+  Documentation(info="<html>
 <p>This model provides an example for the indirect cooling energy transfer station model. 
 The cooling load ramps up from zero and is modulated according to the QCoo table specification. 
 The secondary (building) chilled water is varaible flow, with the mass flow rate being adjusted 
@@ -179,8 +188,5 @@ depending on the total building load.</p>
 <ul>
 <li>November 1, 2019, by Kathryn Hinkelman:<br>First implementation. </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/CoolingIndirectClosedBuildingLoop.mos"
-        "Simulate and plot"));
+</html>"));
 end CoolingIndirectClosedBuildingLoop;

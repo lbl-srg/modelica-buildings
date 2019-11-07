@@ -29,13 +29,13 @@ model CoolingIndirect
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0,start=10000)
     "Nominal heat transfer"
     annotation(Dialog(tab="Heat exchanger"));
-  parameter Modelica.SIunits.Temperature T_a1_nominal(min=0,max=100,start=5)
+  parameter Modelica.SIunits.Temperature T_a1_nominal(min=0+273,max=100+273,start=5+273)
     "Nominal temperature at port a1"
     annotation(Dialog(tab="Heat exchanger"));
-  parameter Modelica.SIunits.Temperature T_a2_nominal(min=0,max=100,start=7)
+  parameter Modelica.SIunits.Temperature T_a2_nominal(min=0+273,max=100+273,start=7+273)
     "Nominal temperature at port a2"
     annotation(Dialog(tab="Heat exchanger"));
-  parameter Modelica.SIunits.Efficiency eta(min=0,max=1,start=0.8)
+  parameter Modelica.SIunits.Efficiency eta(min=0,max=1)=0.8
     "Constant effectiveness"
     annotation(Dialog(tab="Heat exchanger"));
 

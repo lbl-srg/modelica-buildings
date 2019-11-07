@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingIndirectClosedBuildingLoop", stopTime=86400, numberOfIntervals=2000, tolerance=0.001, resultFile="CoolingIndirectClosedBuildingLoop");
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingIndirectClosedBuildingLoop", tolerance=0.001, stopTime=86400, numberOfIntervals=2000, resultFile="CoolingIndirectClosedBuildingLoop");
 // Plot commands
 createPlot(id=1, 
 	position={11, 19, 713, 564},	
