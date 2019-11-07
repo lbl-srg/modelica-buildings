@@ -1,18 +1,17 @@
 ''' Python module that is used for the example
     Buildings.Utilities.IO.Python27.Examples.SimpleRoom
 '''
+import os
+
 def doStep(dblInp, state):
 
     [Q[10], T[10], tim] = dblInp
     if state == None:
         # Initialize the state
-        state = {'tLast': tim, 'T': T[10], 'Q': Q[10]}
+        state = {'tLast': tim, 'Q': Q[10], 'T': T[10]}
     else:
         # Use the python object
         dt = tim - state['tLast']
-
-        
-
         # JModelica invokes the model twice during an event, in which case
         # dt is zero, or close to zero.
         # We don't evaluate the equations as this can cause chattering and in some
