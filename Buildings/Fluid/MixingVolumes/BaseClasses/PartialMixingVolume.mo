@@ -126,7 +126,8 @@ equation
   // asserts
   if not allowFlowReversal then
     assert(ports[1].m_flow > -m_flow_small,
-"Model has flow reversal, but the parameter allowFlowReversal is set to false.
+  "In " + getInstanceName() + ": Model has flow reversal,
+  but the parameter allowFlowReversal is set to false.
   m_flow_small    = " + String(m_flow_small) + "
   ports[1].m_flow = " + String(ports[1].m_flow) + "
 ");
@@ -297,6 +298,13 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 30, 2019 by Filip Jorissen:<br/>
+Added <code>getInstanceName()</code> to flow
+reversal check.
+This if or <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1228\">
+issue 1228</a>.
+</li>
 <li>
 October 19, 2017, by Michael Wetter:<br/>
 Changed initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>
