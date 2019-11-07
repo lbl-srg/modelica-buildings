@@ -23,8 +23,8 @@ for x in column_names:
 # Step-2.0 make timesteps, because energyplus timesteps is not in seconds
 # timestep size in EnergyPlus is 10 minutes = 600 seconds
 step_size = 600 # seconds
-tot_steps = int (365*24*3600 / step_size )
-
+tot_steps = int (7*24*3600 / step_size )
+print("steps {}".format(tot_steps))
 time_seconds=[]
 for y in range(tot_steps):
     time_seconds.append( y * step_size)
@@ -49,7 +49,7 @@ for i in range(tot_steps):
 # Step-4.0 making headdata together
 headdata=[]
 headdata.append("#1\n")
-headdata.append("double EnergyPlus(52560,5)\n")
+headdata.append("double EnergyPlus({},5)\n".format(tot_steps))
 headdata.append("#This file contains the results from the EnergyPlus simulation of TwoIdenticalZones.idf for Chicago\n")
 headdata.append("#Column 1: Time in seconds\n")
 headdata.append("#Column 2: Outdoor drybulb temperature in degC\n")
