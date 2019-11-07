@@ -160,7 +160,8 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean
         </td>
-        <td valign=\"top\">Triggered discrete moving mean of a sampled input signal.
+        <td valign=\"top\">Triggered discrete moving mean of an input signal.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue #1588</a>.
         </td>
         </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
@@ -308,6 +309,22 @@ its class name ends with the string <code>Beta</code>.
                            Prior to this change, use of these media led to a translation error.<br/>
                            This is for
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Obsolete components -->
+    <p>
+    The following components have become <b style=\"color:blue\">obsolete</b>:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Obsolete.Controls.OBC.CDL.Discrete.MovingMean
+        </td>
+        <td valign=\"top\">The block Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean replaced the original MovingMean block.<br/>
+                           This is for
+                           <a href=\"https://github.com/ibpsa/modelica-buildings/issues/1588\">issue #1588</a>.
         </td>
     </tr>
     </table>
