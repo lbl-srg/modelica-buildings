@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-data_file = "TwinZones_Clean.csv"
+data_file = "TwoIdenticalZones.csv"
 df = pd.read_csv(data_file, delimiter=',')
 
 column_names = ( df.columns.tolist() )
