@@ -97,19 +97,19 @@ annotation (
 Block that represents a timer.
 </p>
 <p>
-When the Boolean input <code>u</code> becomes true, the timer is 
+Each time the Boolean input <code>u</code> becomes true, the timer is
 started and the output <code>y</code> is the time from the time instant where
-<code>u</code> became true. 
+<code>u</code> became true. When the Boolean input <code>u</code> becomes false,
 </p>
 <ul>
 <li>
-If parameter <code>accumulate</code> is false, once the input <code>u</code> becomes false, 
+If parameter <code>accumulate</code> is false,
 the timer is stopped and the output is reset to zero. 
 </li>
 <li>
-If parameter <code>accumulate</code> is true, once the input <code>u</code> becomes false,
-the timer will not fully stopped but hold the accumulated true input time. The
-accumulated time can be reset to zero when the input <code>reset</code> becomes true.
+If parameter <code>accumulate</code> is true,
+the timer will hold the accumulated true input time. The
+accumulated time is reset to zero when the input <code>reset</code> becomes true.
 </li>
 </ul>
 </html>", revisions="<html>
@@ -121,7 +121,7 @@ Added conditional boolean input for cumulative time measuring. This is for
 </li>
 <li>
 July 18, 2018, by Jianjun Hu:<br/>
-Update implementation to output accumulated true input time.  This is for
+Updated implementation to output accumulated true input time.  This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>
 </li>
 <li>
