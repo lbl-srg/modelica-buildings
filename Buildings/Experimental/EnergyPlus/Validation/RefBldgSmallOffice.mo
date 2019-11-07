@@ -7,7 +7,7 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
     idfName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
     weaName = Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"))
     "Building model"
@@ -45,10 +45,6 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
     redeclare package Medium = Medium,
     zoneName="Perimeter_ZN_4") "Thermal zone"
     annotation (Placement(transformation(extent={{40,-156},{80,-116}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
-    "Weather data reader"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOffice.dat"),

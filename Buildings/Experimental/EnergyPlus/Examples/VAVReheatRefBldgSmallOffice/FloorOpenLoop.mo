@@ -9,7 +9,7 @@ model FloorOpenLoop "Open loop model of one floor"
     "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
+    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Name of the weather file";
 
   final parameter Modelica.SIunits.Area AFlo=flo.AFlo "Floor area west";
@@ -21,7 +21,7 @@ model FloorOpenLoop "Open loop model of one floor"
     weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Building-level declarations"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
@@ -64,10 +64,6 @@ model FloorOpenLoop "Open loop model of one floor"
     each linearized=true) "Small flow resistance for inlet"
     annotation (Placement(transformation(extent={{4,-30},{24,-10}})));
 equation
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-60,50},{-40,50}},
-      color={255,204,51},
-      thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
       points={{-40,50},{66,50},{66,22},{65,22}},
       color={255,204,51},
@@ -106,6 +102,10 @@ equation
       thickness=0.5));
   connect(weaBus, bou[4].weaBus) annotation (Line(
       points={{-40,50},{-40,-20},{-28,-20},{-28,-19.8}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(building.weaBus, weaBus) annotation (Line(
+      points={{-60,50},{-40,50}},
       color={255,204,51},
       thickness=0.5));
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})),
