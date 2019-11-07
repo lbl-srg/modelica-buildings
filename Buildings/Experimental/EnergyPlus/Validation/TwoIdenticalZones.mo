@@ -9,14 +9,14 @@ model TwoIdenticalZones "Validation model with two identical zones"
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
   energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Building level declarations"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
 
   Zone zon1(zoneName="Thermal Zone 1")
     "Thermal zone 1 (core zone of the office building with 5 zones)"
-    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Zone zon2(zoneName="Thermal Zone 2")
     "Thermal zone 2 (core zone of the office building with 5 zones)"
-    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 
   // Models for cross validation
   Modelica.Blocks.Sources.CombiTimeTable datRea(
@@ -28,14 +28,14 @@ model TwoIdenticalZones "Validation model with two identical zones"
     y(each unit="K", each displayUnit="degC"),
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     "Data reader with results from EnergyPlus"
-    annotation (Placement(transformation(extent={{40,120},{60,140}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Controls.OBC.UnitConversions.From_degC TAirEnePlu
     "Room air temperature computed by EnergyPlus"
-    annotation (Placement(transformation(extent={{100,120},{120,140}})));
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Controls.OBC.CDL.Continuous.Gain relHumEnePlu(k=0.01)
     "Relative humidity in the room computed by EnergyPlus"
-    annotation (Placement(transformation(extent={{100,80},{120,100}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
   model Zone "Model of a thermal zone"
     extends Modelica.Blocks.Icons.Block;
@@ -137,15 +137,15 @@ model TwoIdenticalZones "Validation model with two identical zones"
 
 equation
   connect(TAirEnePlu.u, datRea.y[3])
-    annotation (Line(points={{98,130},{61,130}}, color={0,0,127}));
-  connect(relHumEnePlu.u, datRea.y[4]) annotation (Line(points={{98,90},{80,90},
-          {80,130},{61,130}}, color={0,0,127}));
+    annotation (Line(points={{-2,70},{-39,70}},  color={0,0,127}));
+  connect(relHumEnePlu.u, datRea.y[4]) annotation (Line(points={{-2,30},{-20,30},
+          {-20,70},{-39,70}}, color={0,0,127}));
   connect(building.weaBus, zon1.weaBus) annotation (Line(
-      points={{-60,10},{-30,10},{-30,30},{-10,30}},
+      points={{-50,-50},{-20,-50},{-20,-30},{0,-30}},
       color={255,204,51},
       thickness=0.5));
   connect(building.weaBus, zon2.weaBus) annotation (Line(
-      points={{-60,10},{-30,10},{-30,-10},{-10,-10}},
+      points={{-50,-50},{-20,-50},{-20,-70},{0,-70}},
       color={255,204,51},
       thickness=0.5));
   annotation (Documentation(info="<html>
@@ -174,6 +174,24 @@ experiment(
       StopTime=604800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    Diagram(coordinateSystem(extent={{-200,-160},{200,160}})),
+    Diagram(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-74,-6},{80,-92}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-74,96},{80,10}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{-70,96},{-40,86}},
+          lineColor={0,0,255},
+          textString="EnergyPlus results"),
+        Text(
+          extent={{-70,-6},{-40,-16}},
+          lineColor={0,0,255},
+          textString="Spawn results")}),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end TwoIdenticalZones;
