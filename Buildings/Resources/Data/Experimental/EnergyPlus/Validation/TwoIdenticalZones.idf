@@ -17,7 +17,7 @@ SimulationControl,
     No,                      !- Do Zone Sizing Calculation
     No,                      !- Do System Sizing Calculation
     No,                      !- Do Plant Sizing Calculation
-    Yes,                     !- Run Simulation for Sizing Periods
+    No,                      !- Run Simulation for Sizing Periods
     Yes;                     !- Run Simulation for Weather File Run Periods
 
 
@@ -124,6 +124,23 @@ RunPeriod,
     Yes;                     !- Use Weather File Snow Indicators
 
 
+!-   ===========  ALL OBJECTS IN CLASS: SITE:GROUNDTEMPERATURE:BUILDINGSURFACE ===========
+
+Site:GroundTemperature:BuildingSurface,
+    18,                      !- January Ground Temperature {C}
+    18,                      !- February Ground Temperature {C}
+    18,                      !- March Ground Temperature {C}
+    18,                      !- April Ground Temperature {C}
+    18,                      !- May Ground Temperature {C}
+    18,                      !- June Ground Temperature {C}
+    18,                      !- July Ground Temperature {C}
+    18,                      !- August Ground Temperature {C}
+    18,                      !- September Ground Temperature {C}
+    18,                      !- October Ground Temperature {C}
+    18,                      !- November Ground Temperature {C}
+    18;                      !- December Ground Temperature {C}
+
+
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULETYPELIMITS ===========
 
 ScheduleTypeLimits,
@@ -138,13 +155,6 @@ ScheduleTypeLimits,
     0,                       !- Lower Limit Value
     1,                       !- Upper Limit Value
     CONTINUOUS;              !- Numeric Type
-
-ScheduleTypeLimits,
-    OnOff hvac_library,      !- Name
-    0,                       !- Lower Limit Value
-    1,                       !- Upper Limit Value
-    Discrete,                !- Numeric Type
-    availability;            !- Unit Type
 
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:DAY:INTERVAL ===========
@@ -293,57 +303,6 @@ Schedule:Day:Interval,
     0;                       !- Value Until Time 1
 
 Schedule:Day:Interval,
-    Medium Office Infil Quarter On Default Schedule,  !- Name
-    Fraction,                !- Schedule Type Limits Name
-    No,                      !- Interpolate to Timestep
-    06:00,                   !- Time 1 {hh:mm}
-    1,                       !- Value Until Time 1
-    22:00,                   !- Time 2 {hh:mm}
-    0.25,                    !- Value Until Time 2
-    24:00,                   !- Time 3 {hh:mm}
-    1;                       !- Value Until Time 3
-
-Schedule:Day:Interval,
-    Medium Office Infil Quarter On Rule 1 Day Schedule,  !- Name
-    Fraction,                !- Schedule Type Limits Name
-    No,                      !- Interpolate to Timestep
-    24:00,                   !- Time 1 {hh:mm}
-    1;                       !- Value Until Time 1
-
-Schedule:Day:Interval,
-    Medium Office Infil Quarter On Rule 2 Day Schedule,  !- Name
-    Fraction,                !- Schedule Type Limits Name
-    No,                      !- Interpolate to Timestep
-    06:00,                   !- Time 1 {hh:mm}
-    1,                       !- Value Until Time 1
-    18:00,                   !- Time 2 {hh:mm}
-    0.25,                    !- Value Until Time 2
-    24:00,                   !- Time 3 {hh:mm}
-    1;                       !- Value Until Time 3
-
-Schedule:Day:Interval,
-    Medium Office Infil Quarter On Summer Design Day,  !- Name
-    Fraction,                !- Schedule Type Limits Name
-    No,                      !- Interpolate to Timestep
-    06:00,                   !- Time 1 {hh:mm}
-    1,                       !- Value Until Time 1
-    22:00,                   !- Time 2 {hh:mm}
-    0.25,                    !- Value Until Time 2
-    24:00,                   !- Time 3 {hh:mm}
-    1;                       !- Value Until Time 3
-
-Schedule:Day:Interval,
-    Medium Office Infil Quarter On Winter Design Day,  !- Name
-    Fraction,                !- Schedule Type Limits Name
-    No,                      !- Interpolate to Timestep
-    06:00,                   !- Time 1 {hh:mm}
-    1,                       !- Value Until Time 1
-    18:00,                   !- Time 2 {hh:mm}
-    0.25,                    !- Value Until Time 2
-    24:00,                   !- Time 3 {hh:mm}
-    1;                       !- Value Until Time 3
-
-Schedule:Day:Interval,
     Office Bldg Light Default Schedule,  !- Name
     Fraction,                !- Schedule Type Limits Name
     No,                      !- Interpolate to Timestep
@@ -451,21 +410,6 @@ Schedule:Week:Daily,
     Medium Office Bldg Occ Default Schedule;  !- CustomDay2 Schedule:Day Name
 
 Schedule:Week:Daily,
-    Medium Office Infil Quarter On Week Rule - Jan1-Dec31,  !- Name
-    Medium Office Infil Quarter On Rule 1 Day Schedule,  !- Sunday Schedule:Day Name
-    Medium Office Infil Quarter On Default Schedule,  !- Monday Schedule:Day Name
-    Medium Office Infil Quarter On Default Schedule,  !- Tuesday Schedule:Day Name
-    Medium Office Infil Quarter On Default Schedule,  !- Wednesday Schedule:Day Name
-    Medium Office Infil Quarter On Default Schedule,  !- Thursday Schedule:Day Name
-    Medium Office Infil Quarter On Default Schedule,  !- Friday Schedule:Day Name
-    Medium Office Infil Quarter On Rule 2 Day Schedule,  !- Saturday Schedule:Day Name
-    Medium Office Infil Quarter On Default Schedule,  !- Holiday Schedule:Day Name
-    Medium Office Infil Quarter On Summer Design Day,  !- SummerDesignDay Schedule:Day Name
-    Medium Office Infil Quarter On Winter Design Day,  !- WinterDesignDay Schedule:Day Name
-    Medium Office Infil Quarter On Default Schedule,  !- CustomDay1 Schedule:Day Name
-    Medium Office Infil Quarter On Default Schedule;  !- CustomDay2 Schedule:Day Name
-
-Schedule:Week:Daily,
     Office Bldg Light Week Rule - Jan1-Dec31,  !- Name
     Office Bldg Light Rule 1 Day Schedule,  !- Sunday Schedule:Day Name
     Office Bldg Light Default Schedule,  !- Monday Schedule:Day Name
@@ -511,15 +455,6 @@ Schedule:Year,
     31;                      !- End Day 1
 
 Schedule:Year,
-    Medium Office Infil Quarter On,  !- Name
-    Fraction,                !- Schedule Type Limits Name
-    Medium Office Infil Quarter On Week Rule - Jan1-Dec31,  !- Schedule:Week Name 1
-    1,                       !- Start Month 1
-    1,                       !- Start Day 1
-    12,                      !- End Month 1
-    31;                      !- End Day 1
-
-Schedule:Year,
     Office Bldg Light,       !- Name
     Fraction,                !- Schedule Type Limits Name
     Office Bldg Light Week Rule - Jan1-Dec31,  !- Schedule:Week Name 1
@@ -532,28 +467,8 @@ Schedule:Year,
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:CONSTANT ===========
 
 Schedule:Constant,
-    Always On Discrete hvac_library,  !- Name
-    OnOff hvac_library,      !- Schedule Type Limits Name
-    1;                       !- Hourly Value
-
-Schedule:Constant,
-    Always On Discrete hvac_library 1,  !- Name
-    OnOff hvac_library,      !- Schedule Type Limits Name
-    1;                       !- Hourly Value
-
-Schedule:Constant,
-    Always On Discrete,      !- Name
-    ,                        !- Schedule Type Limits Name
-    1;                       !- Hourly Value
-
-Schedule:Constant,
-    Always Off Discrete,     !- Name
-    ,                        !- Schedule Type Limits Name
-    0;                       !- Hourly Value
-
-Schedule:Constant,
-    Always On Continuous,    !- Name
-    ,                        !- Schedule Type Limits Name
+    Infiltration Sched,      !- Name
+    Fraction,                !- Schedule Type Limits Name
     1;                       !- Hourly Value
 
 
@@ -703,9 +618,9 @@ Material,
     0.7;                     !- Visible Absorptance
 
 Material,
-    Wall Insulation [37],    !- Name
+    Wall Insulation [40],    !- Name
     MediumRough,             !- Roughness
-    0.0680999999999999,      !- Thickness {m}
+    0.0793999999999999,      !- Thickness {m}
     0.0432,                  !- Conductivity {W/m-K}
     91,                      !- Density {kg/m3}
     836.999999999999,        !- Specific Heat {J/kg-K}
@@ -784,10 +699,10 @@ Construction,
     Metal Decking;           !- Layer 3
 
 Construction,
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 4,  !- Name
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Name
     1IN Stucco,              !- Outside Layer
     8IN Concrete HW,         !- Layer 2
-    Wall Insulation [37],    !- Layer 3
+    Wall Insulation [40],    !- Layer 3
     1/2IN Gypsum;            !- Layer 4
 
 Construction,
@@ -804,36 +719,6 @@ Construction,
     MAT-CC05 4 HW CONCRETE,  !- Outside Layer
     CP02 CARPET PAD;         !- Layer 2
 
-Construction,
-    Interior Ceiling,        !- Name
-    M11 100mm lightweight concrete,  !- Outside Layer
-    F05 Ceiling air space resistance,  !- Layer 2
-    F16 Acoustic tile;       !- Layer 3
-
-Construction,
-    Interior Door,           !- Name
-    G05 25mm wood;           !- Outside Layer
-
-Construction,
-    Interior Floor,          !- Name
-    F16 Acoustic tile,       !- Outside Layer
-    F05 Ceiling air space resistance,  !- Layer 2
-    M11 100mm lightweight concrete;  !- Layer 3
-
-Construction,
-    Interior Partition,      !- Name
-    G05 25mm wood;           !- Outside Layer
-
-Construction,
-    Interior Wall,           !- Name
-    G01a 19mm gypsum board,  !- Outside Layer
-    F04 Wall air space resistance,  !- Layer 2
-    G01a 19mm gypsum board;  !- Layer 3
-
-Construction,
-    Interior Window,         !- Name
-    Clear 3mm;               !- Outside Layer
-
 
 !-   ===========  ALL OBJECTS IN CLASS: GLOBALGEOMETRYRULES ===========
 
@@ -849,19 +734,19 @@ GlobalGeometryRules,
 
 Zone,
     Thermal Zone 1,          !- Name
-    ,                        !- Direction of Relative North {deg}
-    ,                        !- X Origin {m}
-    ,                        !- Y Origin {m}
-    ,                        !- Z Origin {m}
+    -0,                      !- Direction of Relative North {deg}
+    0,                       !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
     ,                        !- Type
     1;                       !- Multiplier
 
 Zone,
     Thermal Zone 2,          !- Name
-    ,                        !- Direction of Relative North {deg}
-    ,                        !- X Origin {m}
-    ,                        !- Y Origin {m}
-    ,                        !- Z Origin {m}
+    -0,                      !- Direction of Relative North {deg}
+    0,                       !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
     ,                        !- Type
     1;                       !- Multiplier
 
@@ -890,17 +775,17 @@ BuildingSurface:Detailed,
     NoWind,                  !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
-    -130,                    !- Vertex 1 X-coordinate {m}
-    70,                      !- Vertex 1 Y-coordinate {m}
+    -28.956,                 !- Vertex 1 X-coordinate {m}
+    35.052,                  !- Vertex 1 Y-coordinate {m}
     0,                       !- Vertex 1 Z-coordinate {m}
-    -130,                    !- Vertex 2 X-coordinate {m}
-    40,                      !- Vertex 2 Y-coordinate {m}
+    -28.956,                 !- Vertex 2 X-coordinate {m}
+    10.668,                  !- Vertex 2 Y-coordinate {m}
     0,                       !- Vertex 2 Z-coordinate {m}
-    -160,                    !- Vertex 3 X-coordinate {m}
-    40,                      !- Vertex 3 Y-coordinate {m}
+    -53.34,                  !- Vertex 3 X-coordinate {m}
+    10.668,                  !- Vertex 3 Y-coordinate {m}
     0,                       !- Vertex 3 Z-coordinate {m}
-    -160,                    !- Vertex 4 X-coordinate {m}
-    70,                      !- Vertex 4 Y-coordinate {m}
+    -53.34,                  !- Vertex 4 X-coordinate {m}
+    35.052,                  !- Vertex 4 Y-coordinate {m}
     0;                       !- Vertex 4 Z-coordinate {m}
 
 BuildingSurface:Detailed,
@@ -914,47 +799,23 @@ BuildingSurface:Detailed,
     WindExposed,             !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
-    -160,                    !- Vertex 1 X-coordinate {m}
-    70,                      !- Vertex 1 Y-coordinate {m}
-    3.2,                     !- Vertex 1 Z-coordinate {m}
-    -160,                    !- Vertex 2 X-coordinate {m}
-    40,                      !- Vertex 2 Y-coordinate {m}
-    3.2,                     !- Vertex 2 Z-coordinate {m}
-    -130,                    !- Vertex 3 X-coordinate {m}
-    40,                      !- Vertex 3 Y-coordinate {m}
-    3.2,                     !- Vertex 3 Z-coordinate {m}
-    -130,                    !- Vertex 4 X-coordinate {m}
-    70,                      !- Vertex 4 Y-coordinate {m}
-    3.2;                     !- Vertex 4 Z-coordinate {m}
-
-BuildingSurface:Detailed,
-    Face 10,                 !- Name
-    Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 4,  !- Construction Name
-    Thermal Zone 1,          !- Zone Name
-    Outdoors,                !- Outside Boundary Condition
-    ,                        !- Outside Boundary Condition Object
-    SunExposed,              !- Sun Exposure
-    WindExposed,             !- Wind Exposure
-    ,                        !- View Factor to Ground
-    ,                        !- Number of Vertices
-    -160,                    !- Vertex 1 X-coordinate {m}
-    70,                      !- Vertex 1 Y-coordinate {m}
-    3.2,                     !- Vertex 1 Z-coordinate {m}
-    -130,                    !- Vertex 2 X-coordinate {m}
-    70,                      !- Vertex 2 Y-coordinate {m}
-    3.2,                     !- Vertex 2 Z-coordinate {m}
-    -130,                    !- Vertex 3 X-coordinate {m}
-    70,                      !- Vertex 3 Y-coordinate {m}
-    0,                       !- Vertex 3 Z-coordinate {m}
-    -160,                    !- Vertex 4 X-coordinate {m}
-    70,                      !- Vertex 4 Y-coordinate {m}
-    0;                       !- Vertex 4 Z-coordinate {m}
+    -28.956,                 !- Vertex 1 X-coordinate {m}
+    10.668,                  !- Vertex 1 Y-coordinate {m}
+    4.572,                   !- Vertex 1 Z-coordinate {m}
+    -28.956,                 !- Vertex 2 X-coordinate {m}
+    35.052,                  !- Vertex 2 Y-coordinate {m}
+    4.572,                   !- Vertex 2 Z-coordinate {m}
+    -53.34,                  !- Vertex 3 X-coordinate {m}
+    35.052,                  !- Vertex 3 Y-coordinate {m}
+    4.572,                   !- Vertex 3 Z-coordinate {m}
+    -53.34,                  !- Vertex 4 X-coordinate {m}
+    10.668,                  !- Vertex 4 Y-coordinate {m}
+    4.572;                   !- Vertex 4 Z-coordinate {m}
 
 BuildingSurface:Detailed,
     Face 2,                  !- Name
     Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 4,  !- Construction Name
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
@@ -962,23 +823,23 @@ BuildingSurface:Detailed,
     WindExposed,             !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
-    -130,                    !- Vertex 1 X-coordinate {m}
-    70,                      !- Vertex 1 Y-coordinate {m}
-    3.2,                     !- Vertex 1 Z-coordinate {m}
-    -130,                    !- Vertex 2 X-coordinate {m}
-    40,                      !- Vertex 2 Y-coordinate {m}
-    3.2,                     !- Vertex 2 Z-coordinate {m}
-    -130,                    !- Vertex 3 X-coordinate {m}
-    40,                      !- Vertex 3 Y-coordinate {m}
+    -28.956,                 !- Vertex 1 X-coordinate {m}
+    10.668,                  !- Vertex 1 Y-coordinate {m}
+    4.572,                   !- Vertex 1 Z-coordinate {m}
+    -28.956,                 !- Vertex 2 X-coordinate {m}
+    10.668,                  !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    -28.956,                 !- Vertex 3 X-coordinate {m}
+    35.052,                  !- Vertex 3 Y-coordinate {m}
     0,                       !- Vertex 3 Z-coordinate {m}
-    -130,                    !- Vertex 4 X-coordinate {m}
-    70,                      !- Vertex 4 Y-coordinate {m}
-    0;                       !- Vertex 4 Z-coordinate {m}
+    -28.956,                 !- Vertex 4 X-coordinate {m}
+    35.052,                  !- Vertex 4 Y-coordinate {m}
+    4.572;                   !- Vertex 4 Z-coordinate {m}
 
 BuildingSurface:Detailed,
     Face 3,                  !- Name
     Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 4,  !- Construction Name
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
@@ -986,23 +847,23 @@ BuildingSurface:Detailed,
     WindExposed,             !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
-    -130,                    !- Vertex 1 X-coordinate {m}
-    40,                      !- Vertex 1 Y-coordinate {m}
-    3.2,                     !- Vertex 1 Z-coordinate {m}
-    -160,                    !- Vertex 2 X-coordinate {m}
-    40,                      !- Vertex 2 Y-coordinate {m}
-    3.2,                     !- Vertex 2 Z-coordinate {m}
-    -160,                    !- Vertex 3 X-coordinate {m}
-    40,                      !- Vertex 3 Y-coordinate {m}
+    -53.34,                  !- Vertex 1 X-coordinate {m}
+    10.668,                  !- Vertex 1 Y-coordinate {m}
+    4.572,                   !- Vertex 1 Z-coordinate {m}
+    -53.34,                  !- Vertex 2 X-coordinate {m}
+    10.668,                  !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    -28.956,                 !- Vertex 3 X-coordinate {m}
+    10.668,                  !- Vertex 3 Y-coordinate {m}
     0,                       !- Vertex 3 Z-coordinate {m}
-    -130,                    !- Vertex 4 X-coordinate {m}
-    40,                      !- Vertex 4 Y-coordinate {m}
-    0;                       !- Vertex 4 Z-coordinate {m}
+    -28.956,                 !- Vertex 4 X-coordinate {m}
+    10.668,                  !- Vertex 4 Y-coordinate {m}
+    4.572;                   !- Vertex 4 Z-coordinate {m}
 
 BuildingSurface:Detailed,
-    Face 9,                  !- Name
+    Face 4,                  !- Name
     Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 4,  !- Construction Name
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
@@ -1010,21 +871,93 @@ BuildingSurface:Detailed,
     WindExposed,             !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
-    -160,                    !- Vertex 1 X-coordinate {m}
-    40,                      !- Vertex 1 Y-coordinate {m}
-    3.2,                     !- Vertex 1 Z-coordinate {m}
-    -160,                    !- Vertex 2 X-coordinate {m}
-    70,                      !- Vertex 2 Y-coordinate {m}
-    3.2,                     !- Vertex 2 Z-coordinate {m}
-    -160,                    !- Vertex 3 X-coordinate {m}
-    70,                      !- Vertex 3 Y-coordinate {m}
+    -53.34,                  !- Vertex 1 X-coordinate {m}
+    35.052,                  !- Vertex 1 Y-coordinate {m}
+    4.572,                   !- Vertex 1 Z-coordinate {m}
+    -53.34,                  !- Vertex 2 X-coordinate {m}
+    35.052,                  !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    -53.34,                  !- Vertex 3 X-coordinate {m}
+    10.668,                  !- Vertex 3 Y-coordinate {m}
     0,                       !- Vertex 3 Z-coordinate {m}
-    -160,                    !- Vertex 4 X-coordinate {m}
-    40,                      !- Vertex 4 Y-coordinate {m}
-    0;                       !- Vertex 4 Z-coordinate {m}
+    -53.34,                  !- Vertex 4 X-coordinate {m}
+    10.668,                  !- Vertex 4 Y-coordinate {m}
+    4.572;                   !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    Face 5,                  !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 1,          !- Zone Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    ,                        !- Number of Vertices
+    -28.956,                 !- Vertex 1 X-coordinate {m}
+    35.052,                  !- Vertex 1 Y-coordinate {m}
+    4.572,                   !- Vertex 1 Z-coordinate {m}
+    -28.956,                 !- Vertex 2 X-coordinate {m}
+    35.052,                  !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    -53.34,                  !- Vertex 3 X-coordinate {m}
+    35.052,                  !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    -53.34,                  !- Vertex 4 X-coordinate {m}
+    35.052,                  !- Vertex 4 Y-coordinate {m}
+    4.572;                   !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    Face 10,                 !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 2,          !- Zone Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    ,                        !- Number of Vertices
+    -1.524,                  !- Vertex 1 X-coordinate {m}
+    -15.24,                  !- Vertex 1 Y-coordinate {m}
+    4.572,                   !- Vertex 1 Z-coordinate {m}
+    -1.524,                  !- Vertex 2 X-coordinate {m}
+    -15.24,                  !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    -1.524,                  !- Vertex 3 X-coordinate {m}
+    -39.624,                 !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    -1.524,                  !- Vertex 4 X-coordinate {m}
+    -39.624,                 !- Vertex 4 Y-coordinate {m}
+    4.572;                   !- Vertex 4 Z-coordinate {m}
 
 BuildingSurface:Detailed,
     Face 11,                 !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 2,          !- Zone Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    ,                        !- Number of Vertices
+    22.86,                   !- Vertex 1 X-coordinate {m}
+    -15.24,                  !- Vertex 1 Y-coordinate {m}
+    4.572,                   !- Vertex 1 Z-coordinate {m}
+    22.86,                   !- Vertex 2 X-coordinate {m}
+    -15.24,                  !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    -1.524,                  !- Vertex 3 X-coordinate {m}
+    -15.24,                  !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    -1.524,                  !- Vertex 4 X-coordinate {m}
+    -15.24,                  !- Vertex 4 Y-coordinate {m}
+    4.572;                   !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    Face 6,                  !- Name
     Floor,                   !- Surface Type
     ExtSlabCarpet 4in ClimateZone 1-8,  !- Construction Name
     Thermal Zone 2,          !- Zone Name
@@ -1034,21 +967,21 @@ BuildingSurface:Detailed,
     NoWind,                  !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
-    -70,                     !- Vertex 1 X-coordinate {m}
-    10,                      !- Vertex 1 Y-coordinate {m}
+    22.86,                   !- Vertex 1 X-coordinate {m}
+    -15.24,                  !- Vertex 1 Y-coordinate {m}
     0,                       !- Vertex 1 Z-coordinate {m}
-    -70,                     !- Vertex 2 X-coordinate {m}
-    -20,                     !- Vertex 2 Y-coordinate {m}
+    22.86,                   !- Vertex 2 X-coordinate {m}
+    -39.624,                 !- Vertex 2 Y-coordinate {m}
     0,                       !- Vertex 2 Z-coordinate {m}
-    -100,                    !- Vertex 3 X-coordinate {m}
-    -20,                     !- Vertex 3 Y-coordinate {m}
+    -1.524,                  !- Vertex 3 X-coordinate {m}
+    -39.624,                 !- Vertex 3 Y-coordinate {m}
     0,                       !- Vertex 3 Z-coordinate {m}
-    -100,                    !- Vertex 4 X-coordinate {m}
-    10,                      !- Vertex 4 Y-coordinate {m}
+    -1.524,                  !- Vertex 4 X-coordinate {m}
+    -15.24,                  !- Vertex 4 Y-coordinate {m}
     0;                       !- Vertex 4 Z-coordinate {m}
 
 BuildingSurface:Detailed,
-    Face 12,                 !- Name
+    Face 7,                  !- Name
     Roof,                    !- Surface Type
     ASHRAE 189.1-2009 ExtRoof IEAD ClimateZone 2-5,  !- Construction Name
     Thermal Zone 2,          !- Zone Name
@@ -1058,23 +991,23 @@ BuildingSurface:Detailed,
     WindExposed,             !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
-    -100,                    !- Vertex 1 X-coordinate {m}
-    10,                      !- Vertex 1 Y-coordinate {m}
-    3.2,                     !- Vertex 1 Z-coordinate {m}
-    -100,                    !- Vertex 2 X-coordinate {m}
-    -20,                     !- Vertex 2 Y-coordinate {m}
-    3.2,                     !- Vertex 2 Z-coordinate {m}
-    -70,                     !- Vertex 3 X-coordinate {m}
-    -20,                     !- Vertex 3 Y-coordinate {m}
-    3.2,                     !- Vertex 3 Z-coordinate {m}
-    -70,                     !- Vertex 4 X-coordinate {m}
-    10,                      !- Vertex 4 Y-coordinate {m}
-    3.2;                     !- Vertex 4 Z-coordinate {m}
+    22.86,                   !- Vertex 1 X-coordinate {m}
+    -39.624,                 !- Vertex 1 Y-coordinate {m}
+    4.572,                   !- Vertex 1 Z-coordinate {m}
+    22.86,                   !- Vertex 2 X-coordinate {m}
+    -15.24,                  !- Vertex 2 Y-coordinate {m}
+    4.572,                   !- Vertex 2 Z-coordinate {m}
+    -1.524,                  !- Vertex 3 X-coordinate {m}
+    -15.24,                  !- Vertex 3 Y-coordinate {m}
+    4.572,                   !- Vertex 3 Z-coordinate {m}
+    -1.524,                  !- Vertex 4 X-coordinate {m}
+    -39.624,                 !- Vertex 4 Y-coordinate {m}
+    4.572;                   !- Vertex 4 Z-coordinate {m}
 
 BuildingSurface:Detailed,
-    Face 13,                 !- Name
+    Face 8,                  !- Name
     Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 4,  !- Construction Name
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 2,          !- Zone Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
@@ -1082,23 +1015,23 @@ BuildingSurface:Detailed,
     WindExposed,             !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
-    -70,                     !- Vertex 1 X-coordinate {m}
-    10,                      !- Vertex 1 Y-coordinate {m}
-    3.2,                     !- Vertex 1 Z-coordinate {m}
-    -70,                     !- Vertex 2 X-coordinate {m}
-    -20,                     !- Vertex 2 Y-coordinate {m}
-    3.2,                     !- Vertex 2 Z-coordinate {m}
-    -70,                     !- Vertex 3 X-coordinate {m}
-    -20,                     !- Vertex 3 Y-coordinate {m}
+    22.86,                   !- Vertex 1 X-coordinate {m}
+    -39.624,                 !- Vertex 1 Y-coordinate {m}
+    4.572,                   !- Vertex 1 Z-coordinate {m}
+    22.86,                   !- Vertex 2 X-coordinate {m}
+    -39.624,                 !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    22.86,                   !- Vertex 3 X-coordinate {m}
+    -15.24,                  !- Vertex 3 Y-coordinate {m}
     0,                       !- Vertex 3 Z-coordinate {m}
-    -70,                     !- Vertex 4 X-coordinate {m}
-    10,                      !- Vertex 4 Y-coordinate {m}
-    0;                       !- Vertex 4 Z-coordinate {m}
+    22.86,                   !- Vertex 4 X-coordinate {m}
+    -15.24,                  !- Vertex 4 Y-coordinate {m}
+    4.572;                   !- Vertex 4 Z-coordinate {m}
 
 BuildingSurface:Detailed,
-    Face 14,                 !- Name
+    Face 9,                  !- Name
     Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 4,  !- Construction Name
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
     Thermal Zone 2,          !- Zone Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
@@ -1106,72 +1039,24 @@ BuildingSurface:Detailed,
     WindExposed,             !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
-    -70,                     !- Vertex 1 X-coordinate {m}
-    -20,                     !- Vertex 1 Y-coordinate {m}
-    3.2,                     !- Vertex 1 Z-coordinate {m}
-    -100,                    !- Vertex 2 X-coordinate {m}
-    -20,                     !- Vertex 2 Y-coordinate {m}
-    3.2,                     !- Vertex 2 Z-coordinate {m}
-    -100,                    !- Vertex 3 X-coordinate {m}
-    -20,                     !- Vertex 3 Y-coordinate {m}
+    -1.524,                  !- Vertex 1 X-coordinate {m}
+    -39.624,                 !- Vertex 1 Y-coordinate {m}
+    4.572,                   !- Vertex 1 Z-coordinate {m}
+    -1.524,                  !- Vertex 2 X-coordinate {m}
+    -39.624,                 !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    22.86,                   !- Vertex 3 X-coordinate {m}
+    -39.624,                 !- Vertex 3 Y-coordinate {m}
     0,                       !- Vertex 3 Z-coordinate {m}
-    -70,                     !- Vertex 4 X-coordinate {m}
-    -20,                     !- Vertex 4 Y-coordinate {m}
-    0;                       !- Vertex 4 Z-coordinate {m}
-
-BuildingSurface:Detailed,
-    Face 20,                 !- Name
-    Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 4,  !- Construction Name
-    Thermal Zone 2,          !- Zone Name
-    Outdoors,                !- Outside Boundary Condition
-    ,                        !- Outside Boundary Condition Object
-    SunExposed,              !- Sun Exposure
-    WindExposed,             !- Wind Exposure
-    ,                        !- View Factor to Ground
-    ,                        !- Number of Vertices
-    -100,                    !- Vertex 1 X-coordinate {m}
-    -20,                     !- Vertex 1 Y-coordinate {m}
-    3.2,                     !- Vertex 1 Z-coordinate {m}
-    -100,                    !- Vertex 2 X-coordinate {m}
-    10,                      !- Vertex 2 Y-coordinate {m}
-    3.2,                     !- Vertex 2 Z-coordinate {m}
-    -100,                    !- Vertex 3 X-coordinate {m}
-    10,                      !- Vertex 3 Y-coordinate {m}
-    0,                       !- Vertex 3 Z-coordinate {m}
-    -100,                    !- Vertex 4 X-coordinate {m}
-    -20,                     !- Vertex 4 Y-coordinate {m}
-    0;                       !- Vertex 4 Z-coordinate {m}
-
-BuildingSurface:Detailed,
-    Face 21,                 !- Name
-    Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 4,  !- Construction Name
-    Thermal Zone 2,          !- Zone Name
-    Outdoors,                !- Outside Boundary Condition
-    ,                        !- Outside Boundary Condition Object
-    SunExposed,              !- Sun Exposure
-    WindExposed,             !- Wind Exposure
-    ,                        !- View Factor to Ground
-    ,                        !- Number of Vertices
-    -100,                    !- Vertex 1 X-coordinate {m}
-    10,                      !- Vertex 1 Y-coordinate {m}
-    3.2,                     !- Vertex 1 Z-coordinate {m}
-    -70,                     !- Vertex 2 X-coordinate {m}
-    10,                      !- Vertex 2 Y-coordinate {m}
-    3.2,                     !- Vertex 2 Z-coordinate {m}
-    -70,                     !- Vertex 3 X-coordinate {m}
-    10,                      !- Vertex 3 Y-coordinate {m}
-    0,                       !- Vertex 3 Z-coordinate {m}
-    -100,                    !- Vertex 4 X-coordinate {m}
-    10,                      !- Vertex 4 Y-coordinate {m}
-    0;                       !- Vertex 4 Z-coordinate {m}
+    22.86,                   !- Vertex 4 X-coordinate {m}
+    -39.624,                 !- Vertex 4 Y-coordinate {m}
+    4.572;                   !- Vertex 4 Z-coordinate {m}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: FENESTRATIONSURFACE:DETAILED ===========
 
 FenestrationSurface:Detailed,
-    Face 4,                  !- Name
+    Sub Surface 2,           !- Name
     Window,                  !- Surface Type
     ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
     Face 3,                  !- Building Surface Name
@@ -1180,21 +1065,21 @@ FenestrationSurface:Detailed,
     ,                        !- Frame and Divider Name
     ,                        !- Multiplier
     ,                        !- Number of Vertices
-    -155.3048,               !- Vertex 1 X-coordinate {m}
-    40,                      !- Vertex 1 Y-coordinate {m}
-    2.1336,                  !- Vertex 1 Z-coordinate {m}
-    -155.3048,               !- Vertex 2 X-coordinate {m}
-    40,                      !- Vertex 2 Y-coordinate {m}
-    0.9144,                  !- Vertex 2 Z-coordinate {m}
-    -154.6952,               !- Vertex 3 X-coordinate {m}
-    40,                      !- Vertex 3 Y-coordinate {m}
-    0.9144,                  !- Vertex 3 Z-coordinate {m}
-    -154.6952,               !- Vertex 4 X-coordinate {m}
-    40,                      !- Vertex 4 Y-coordinate {m}
-    2.1336;                  !- Vertex 4 Z-coordinate {m}
+    -38.7096,                !- Vertex 1 X-coordinate {m}
+    10.668,                  !- Vertex 1 Y-coordinate {m}
+    1.524,                   !- Vertex 1 Z-coordinate {m}
+    -38.7096,                !- Vertex 2 X-coordinate {m}
+    10.668,                  !- Vertex 2 Y-coordinate {m}
+    0.3048,                  !- Vertex 2 Z-coordinate {m}
+    -37.1856,                !- Vertex 3 X-coordinate {m}
+    10.668,                  !- Vertex 3 Y-coordinate {m}
+    0.3048,                  !- Vertex 3 Z-coordinate {m}
+    -37.1856,                !- Vertex 4 X-coordinate {m}
+    10.668,                  !- Vertex 4 Y-coordinate {m}
+    1.524;                   !- Vertex 4 Z-coordinate {m}
 
 FenestrationSurface:Detailed,
-    Face 5,                  !- Name
+    Sub Surface 3,           !- Name
     Window,                  !- Surface Type
     ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
     Face 3,                  !- Building Surface Name
@@ -1203,67 +1088,21 @@ FenestrationSurface:Detailed,
     ,                        !- Frame and Divider Name
     ,                        !- Multiplier
     ,                        !- Number of Vertices
-    -155.3048,               !- Vertex 1 X-coordinate {m}
-    40,                      !- Vertex 1 Y-coordinate {m}
-    2.1336,                  !- Vertex 1 Z-coordinate {m}
-    -155.3048,               !- Vertex 2 X-coordinate {m}
-    40,                      !- Vertex 2 Y-coordinate {m}
-    0.9144,                  !- Vertex 2 Z-coordinate {m}
-    -154.6952,               !- Vertex 3 X-coordinate {m}
-    40,                      !- Vertex 3 Y-coordinate {m}
-    0.9144,                  !- Vertex 3 Z-coordinate {m}
-    -154.6952,               !- Vertex 4 X-coordinate {m}
-    40,                      !- Vertex 4 Y-coordinate {m}
-    2.1336;                  !- Vertex 4 Z-coordinate {m}
+    -45.1104,                !- Vertex 1 X-coordinate {m}
+    10.668,                  !- Vertex 1 Y-coordinate {m}
+    1.524,                   !- Vertex 1 Z-coordinate {m}
+    -45.1104,                !- Vertex 2 X-coordinate {m}
+    10.668,                  !- Vertex 2 Y-coordinate {m}
+    0.3048,                  !- Vertex 2 Z-coordinate {m}
+    -43.5864,                !- Vertex 3 X-coordinate {m}
+    10.668,                  !- Vertex 3 Y-coordinate {m}
+    0.3048,                  !- Vertex 3 Z-coordinate {m}
+    -43.5864,                !- Vertex 4 X-coordinate {m}
+    10.668,                  !- Vertex 4 Y-coordinate {m}
+    1.524;                   !- Vertex 4 Z-coordinate {m}
 
 FenestrationSurface:Detailed,
-    Face 6,                  !- Name
-    Window,                  !- Surface Type
-    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
-    Face 3,                  !- Building Surface Name
-    ,                        !- Outside Boundary Condition Object
-    ,                        !- View Factor to Ground
-    ,                        !- Frame and Divider Name
-    ,                        !- Multiplier
-    ,                        !- Number of Vertices
-    -135.3048,               !- Vertex 1 X-coordinate {m}
-    40,                      !- Vertex 1 Y-coordinate {m}
-    2.1336,                  !- Vertex 1 Z-coordinate {m}
-    -135.3048,               !- Vertex 2 X-coordinate {m}
-    40,                      !- Vertex 2 Y-coordinate {m}
-    0.9144,                  !- Vertex 2 Z-coordinate {m}
-    -134.6952,               !- Vertex 3 X-coordinate {m}
-    40,                      !- Vertex 3 Y-coordinate {m}
-    0.9144,                  !- Vertex 3 Z-coordinate {m}
-    -134.6952,               !- Vertex 4 X-coordinate {m}
-    40,                      !- Vertex 4 Y-coordinate {m}
-    2.1336;                  !- Vertex 4 Z-coordinate {m}
-
-FenestrationSurface:Detailed,
-    Face 7,                  !- Name
-    Window,                  !- Surface Type
-    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
-    Face 3,                  !- Building Surface Name
-    ,                        !- Outside Boundary Condition Object
-    ,                        !- View Factor to Ground
-    ,                        !- Frame and Divider Name
-    ,                        !- Multiplier
-    ,                        !- Number of Vertices
-    -135.3048,               !- Vertex 1 X-coordinate {m}
-    40,                      !- Vertex 1 Y-coordinate {m}
-    2.1336,                  !- Vertex 1 Z-coordinate {m}
-    -135.3048,               !- Vertex 2 X-coordinate {m}
-    40,                      !- Vertex 2 Y-coordinate {m}
-    0.9144,                  !- Vertex 2 Z-coordinate {m}
-    -134.6952,               !- Vertex 3 X-coordinate {m}
-    40,                      !- Vertex 3 Y-coordinate {m}
-    0.9144,                  !- Vertex 3 Z-coordinate {m}
-    -134.6952,               !- Vertex 4 X-coordinate {m}
-    40,                      !- Vertex 4 Y-coordinate {m}
-    2.1336;                  !- Vertex 4 Z-coordinate {m}
-
-FenestrationSurface:Detailed,
-    Face 8,                  !- Name
+    Sub Surface 4,           !- Name
     Door,                    !- Surface Type
     Exterior Door,           !- Construction Name
     Face 3,                  !- Building Surface Name
@@ -1272,133 +1111,87 @@ FenestrationSurface:Detailed,
     ,                        !- Frame and Divider Name
     ,                        !- Multiplier
     ,                        !- Number of Vertices
-    -146,                    !- Vertex 1 X-coordinate {m}
-    40,                      !- Vertex 1 Y-coordinate {m}
-    2.2,                     !- Vertex 1 Z-coordinate {m}
-    -146,                    !- Vertex 2 X-coordinate {m}
-    40,                      !- Vertex 2 Y-coordinate {m}
+    -42.0624,                !- Vertex 1 X-coordinate {m}
+    10.668,                  !- Vertex 1 Y-coordinate {m}
+    2.4384,                  !- Vertex 1 Z-coordinate {m}
+    -42.0624,                !- Vertex 2 X-coordinate {m}
+    10.668,                  !- Vertex 2 Y-coordinate {m}
     0,                       !- Vertex 2 Z-coordinate {m}
-    -144,                    !- Vertex 3 X-coordinate {m}
-    40,                      !- Vertex 3 Y-coordinate {m}
+    -40.2336,                !- Vertex 3 X-coordinate {m}
+    10.668,                  !- Vertex 3 Y-coordinate {m}
     0,                       !- Vertex 3 Z-coordinate {m}
-    -144,                    !- Vertex 4 X-coordinate {m}
-    40,                      !- Vertex 4 Y-coordinate {m}
-    2.2;                     !- Vertex 4 Z-coordinate {m}
+    -40.2336,                !- Vertex 4 X-coordinate {m}
+    10.668,                  !- Vertex 4 Y-coordinate {m}
+    2.4384;                  !- Vertex 4 Z-coordinate {m}
 
 FenestrationSurface:Detailed,
-    Face 15,                 !- Name
-    Window,                  !- Surface Type
-    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
-    Face 14,                 !- Building Surface Name
-    ,                        !- Outside Boundary Condition Object
-    ,                        !- View Factor to Ground
-    ,                        !- Frame and Divider Name
-    ,                        !- Multiplier
-    ,                        !- Number of Vertices
-    -95.3048,                !- Vertex 1 X-coordinate {m}
-    -20,                     !- Vertex 1 Y-coordinate {m}
-    2.1336,                  !- Vertex 1 Z-coordinate {m}
-    -95.3048,                !- Vertex 2 X-coordinate {m}
-    -20,                     !- Vertex 2 Y-coordinate {m}
-    0.9144,                  !- Vertex 2 Z-coordinate {m}
-    -94.6952,                !- Vertex 3 X-coordinate {m}
-    -20,                     !- Vertex 3 Y-coordinate {m}
-    0.9144,                  !- Vertex 3 Z-coordinate {m}
-    -94.6952,                !- Vertex 4 X-coordinate {m}
-    -20,                     !- Vertex 4 Y-coordinate {m}
-    2.1336;                  !- Vertex 4 Z-coordinate {m}
-
-FenestrationSurface:Detailed,
-    Face 16,                 !- Name
-    Window,                  !- Surface Type
-    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
-    Face 14,                 !- Building Surface Name
-    ,                        !- Outside Boundary Condition Object
-    ,                        !- View Factor to Ground
-    ,                        !- Frame and Divider Name
-    ,                        !- Multiplier
-    ,                        !- Number of Vertices
-    -95.3048,                !- Vertex 1 X-coordinate {m}
-    -20,                     !- Vertex 1 Y-coordinate {m}
-    2.1336,                  !- Vertex 1 Z-coordinate {m}
-    -95.3048,                !- Vertex 2 X-coordinate {m}
-    -20,                     !- Vertex 2 Y-coordinate {m}
-    0.9144,                  !- Vertex 2 Z-coordinate {m}
-    -94.6952,                !- Vertex 3 X-coordinate {m}
-    -20,                     !- Vertex 3 Y-coordinate {m}
-    0.9144,                  !- Vertex 3 Z-coordinate {m}
-    -94.6952,                !- Vertex 4 X-coordinate {m}
-    -20,                     !- Vertex 4 Y-coordinate {m}
-    2.1336;                  !- Vertex 4 Z-coordinate {m}
-
-FenestrationSurface:Detailed,
-    Face 17,                 !- Name
-    Window,                  !- Surface Type
-    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
-    Face 14,                 !- Building Surface Name
-    ,                        !- Outside Boundary Condition Object
-    ,                        !- View Factor to Ground
-    ,                        !- Frame and Divider Name
-    ,                        !- Multiplier
-    ,                        !- Number of Vertices
-    -75.3048,                !- Vertex 1 X-coordinate {m}
-    -20,                     !- Vertex 1 Y-coordinate {m}
-    2.1336,                  !- Vertex 1 Z-coordinate {m}
-    -75.3048,                !- Vertex 2 X-coordinate {m}
-    -20,                     !- Vertex 2 Y-coordinate {m}
-    0.9144,                  !- Vertex 2 Z-coordinate {m}
-    -74.6952,                !- Vertex 3 X-coordinate {m}
-    -20,                     !- Vertex 3 Y-coordinate {m}
-    0.9144,                  !- Vertex 3 Z-coordinate {m}
-    -74.6952,                !- Vertex 4 X-coordinate {m}
-    -20,                     !- Vertex 4 Y-coordinate {m}
-    2.1336;                  !- Vertex 4 Z-coordinate {m}
-
-FenestrationSurface:Detailed,
-    Face 18,                 !- Name
-    Window,                  !- Surface Type
-    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
-    Face 14,                 !- Building Surface Name
-    ,                        !- Outside Boundary Condition Object
-    ,                        !- View Factor to Ground
-    ,                        !- Frame and Divider Name
-    ,                        !- Multiplier
-    ,                        !- Number of Vertices
-    -75.3048,                !- Vertex 1 X-coordinate {m}
-    -20,                     !- Vertex 1 Y-coordinate {m}
-    2.1336,                  !- Vertex 1 Z-coordinate {m}
-    -75.3048,                !- Vertex 2 X-coordinate {m}
-    -20,                     !- Vertex 2 Y-coordinate {m}
-    0.9144,                  !- Vertex 2 Z-coordinate {m}
-    -74.6952,                !- Vertex 3 X-coordinate {m}
-    -20,                     !- Vertex 3 Y-coordinate {m}
-    0.9144,                  !- Vertex 3 Z-coordinate {m}
-    -74.6952,                !- Vertex 4 X-coordinate {m}
-    -20,                     !- Vertex 4 Y-coordinate {m}
-    2.1336;                  !- Vertex 4 Z-coordinate {m}
-
-FenestrationSurface:Detailed,
-    Face 19,                 !- Name
+    Sub Surface 1,           !- Name
     Door,                    !- Surface Type
     Exterior Door,           !- Construction Name
-    Face 14,                 !- Building Surface Name
+    Face 9,                  !- Building Surface Name
     ,                        !- Outside Boundary Condition Object
     ,                        !- View Factor to Ground
     ,                        !- Frame and Divider Name
     ,                        !- Multiplier
     ,                        !- Number of Vertices
-    -86,                     !- Vertex 1 X-coordinate {m}
-    -20,                     !- Vertex 1 Y-coordinate {m}
-    2.2,                     !- Vertex 1 Z-coordinate {m}
-    -86,                     !- Vertex 2 X-coordinate {m}
-    -20,                     !- Vertex 2 Y-coordinate {m}
+    9.7536,                  !- Vertex 1 X-coordinate {m}
+    -39.624,                 !- Vertex 1 Y-coordinate {m}
+    2.4384,                  !- Vertex 1 Z-coordinate {m}
+    9.7536,                  !- Vertex 2 X-coordinate {m}
+    -39.624,                 !- Vertex 2 Y-coordinate {m}
     0,                       !- Vertex 2 Z-coordinate {m}
-    -84,                     !- Vertex 3 X-coordinate {m}
-    -20,                     !- Vertex 3 Y-coordinate {m}
+    11.5824,                 !- Vertex 3 X-coordinate {m}
+    -39.624,                 !- Vertex 3 Y-coordinate {m}
     0,                       !- Vertex 3 Z-coordinate {m}
-    -84,                     !- Vertex 4 X-coordinate {m}
-    -20,                     !- Vertex 4 Y-coordinate {m}
-    2.2;                     !- Vertex 4 Z-coordinate {m}
+    11.5824,                 !- Vertex 4 X-coordinate {m}
+    -39.624,                 !- Vertex 4 Y-coordinate {m}
+    2.4384;                  !- Vertex 4 Z-coordinate {m}
+
+FenestrationSurface:Detailed,
+    Sub Surface 5,           !- Name
+    Window,                  !- Surface Type
+    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
+    Face 9,                  !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    ,                        !- Multiplier
+    ,                        !- Number of Vertices
+    6.7056,                  !- Vertex 1 X-coordinate {m}
+    -39.624,                 !- Vertex 1 Y-coordinate {m}
+    1.524,                   !- Vertex 1 Z-coordinate {m}
+    6.7056,                  !- Vertex 2 X-coordinate {m}
+    -39.624,                 !- Vertex 2 Y-coordinate {m}
+    0.3048,                  !- Vertex 2 Z-coordinate {m}
+    8.2296,                  !- Vertex 3 X-coordinate {m}
+    -39.624,                 !- Vertex 3 Y-coordinate {m}
+    0.3048,                  !- Vertex 3 Z-coordinate {m}
+    8.2296,                  !- Vertex 4 X-coordinate {m}
+    -39.624,                 !- Vertex 4 Y-coordinate {m}
+    1.524;                   !- Vertex 4 Z-coordinate {m}
+
+FenestrationSurface:Detailed,
+    Sub Surface 6,           !- Name
+    Window,                  !- Surface Type
+    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
+    Face 9,                  !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    ,                        !- Multiplier
+    ,                        !- Number of Vertices
+    13.1064,                 !- Vertex 1 X-coordinate {m}
+    -39.624,                 !- Vertex 1 Y-coordinate {m}
+    1.524,                   !- Vertex 1 Z-coordinate {m}
+    13.1064,                 !- Vertex 2 X-coordinate {m}
+    -39.624,                 !- Vertex 2 Y-coordinate {m}
+    0.3048,                  !- Vertex 2 Z-coordinate {m}
+    14.6304,                 !- Vertex 3 X-coordinate {m}
+    -39.624,                 !- Vertex 3 Y-coordinate {m}
+    0.3048,                  !- Vertex 3 Z-coordinate {m}
+    14.6304,                 !- Vertex 4 X-coordinate {m}
+    -39.624,                 !- Vertex 4 Y-coordinate {m}
+    1.524;                   !- Vertex 4 Z-coordinate {m}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: PEOPLE ===========
@@ -1493,7 +1286,7 @@ ElectricEquipment,
 ZoneInfiltration:DesignFlowRate,
     189.1-2009 - Office - WholeBuilding - Md Office - CZ4-8 Infiltration,  !- Name
     Space Type 1,            !- Zone or ZoneList Name
-    Always On Discrete hvac_library,  !- Schedule Name
+    Infiltration Sched,      !- Schedule Name
     AirChanges/Hour,         !- Design Flow Rate Calculation Method
     ,                        !- Design Flow Rate {m3/s}
     ,                        !- Flow per Zone Floor Area {m3/s-m2}
@@ -1507,7 +1300,7 @@ ZoneInfiltration:DesignFlowRate,
 ZoneInfiltration:DesignFlowRate,
     189.1-2009 - Office - WholeBuilding - Md Office - CZ4-8 Infiltration 1,  !- Name
     Space Type 2,            !- Zone or ZoneList Name
-    Always On Discrete hvac_library 1,  !- Schedule Name
+    Infiltration Sched,      !- Schedule Name
     AirChanges/Hour,         !- Design Flow Rate Calculation Method
     ,                        !- Design Flow Rate {m3/s}
     ,                        !- Flow per Zone Floor Area {m3/s-m2}
@@ -1532,216 +1325,6 @@ OutdoorAir:Node,
     Model Outdoor Air Node;  !- Name
 
 
-!-   ===========  ALL OBJECTS IN CLASS: LIFECYCLECOST:PARAMETERS ===========
-
-LifeCycleCost:Parameters,
-    Life Cycle Cost Parameters,  !- Name
-    EndOfYear,               !- Discounting Convention
-    ConstantDollar,          !- Inflation Approach
-    0.03,                    !- Real Discount Rate
-    ,                        !- Nominal Discount Rate
-    ,                        !- Inflation
-    ,                        !- Base Date Month
-    2011,                    !- Base Date Year
-    ,                        !- Service Date Month
-    2011,                    !- Service Date Year
-    25,                      !- Length of Study Period in Years
-    ,                        !- Tax rate
-    None;                    !- Depreciation Method
-
-
-!-   ===========  ALL OBJECTS IN CLASS: LIFECYCLECOST:NONRECURRINGCOST ===========
-
-LifeCycleCost:NonrecurringCost,
-    Default Cost,            !- Name
-    Construction,            !- Category
-    0,                       !- Cost
-    ServicePeriod;           !- Start of Costs
-
-
-!-   ===========  ALL OBJECTS IN CLASS: LIFECYCLECOST:USEPRICEESCALATION ===========
-
-LifeCycleCost:UsePriceEscalation,
-    U.S. Avg  Commercial-Electricity,  !- LCC Price Escalation Name
-    Electricity,             !- Resource
-    2011,                    !- Escalation Start Year
-    January,                 !- Escalation Start Month
-    0.9838,                  !- Year 1 Escalation
-    0.9730,                  !- Year 2 Escalation
-    0.9632,                  !- Year 3 Escalation
-    0.9611,                  !- Year 4 Escalation
-    0.9571,                  !- Year 5 Escalation
-    0.9553,                  !- Year 6 Escalation
-    0.9539,                  !- Year 7 Escalation
-    0.9521,                  !- Year 8 Escalation
-    0.9546,                  !- Year 9 Escalation
-    0.9550,                  !- N11
-    0.9553,                  !- N12
-    0.9564,                  !- N13
-    0.9575,                  !- N14
-    0.9596,                  !- N15
-    0.9618,                  !- N16
-    0.9614,                  !- N17
-    0.9618,                  !- N18
-    0.9618,                  !- N19
-    0.9593,                  !- N20
-    0.9589,                  !- N21
-    0.9607,                  !- N22
-    0.9625,                  !- N23
-    0.9650,                  !- N24
-    0.9708,                  !- N25
-    0.9751,                  !- N26
-    0.9762,                  !- N27
-    0.9766,                  !- N28
-    0.9766,                  !- N29
-    0.9769,                  !- N30
-    0.9773;                  !- N31
-
-LifeCycleCost:UsePriceEscalation,
-    U.S. Avg  Commercial-Distillate Oil,  !- LCC Price Escalation Name
-    FuelOil#1,               !- Resource
-    2011,                    !- Escalation Start Year
-    January,                 !- Escalation Start Month
-    0.9714,                  !- Year 1 Escalation
-    0.9730,                  !- Year 2 Escalation
-    0.9942,                  !- Year 3 Escalation
-    1.0164,                  !- Year 4 Escalation
-    1.0541,                  !- Year 5 Escalation
-    1.0928,                  !- Year 6 Escalation
-    1.1267,                  !- Year 7 Escalation
-    1.1580,                  !- Year 8 Escalation
-    1.1792,                  !- Year 9 Escalation
-    1.1967,                  !- N11
-    1.2200,                  !- N12
-    1.2333,                  !- N13
-    1.2566,                  !- N14
-    1.2709,                  !- N15
-    1.2826,                  !- N16
-    1.2985,                  !- N17
-    1.3102,                  !- N18
-    1.3250,                  !- N19
-    1.3261,                  !- N20
-    1.3282,                  !- N21
-    1.3324,                  !- N22
-    1.3356,                  !- N23
-    1.3431,                  !- N24
-    1.3510,                  !- N25
-    1.3568,                  !- N26
-    1.3606,                  !- N27
-    1.3637,                  !- N28
-    1.3674,                  !- N29
-    1.3706,                  !- N30
-    1.3743;                  !- N31
-
-LifeCycleCost:UsePriceEscalation,
-    U.S. Avg  Commercial-Residual Oil,  !- LCC Price Escalation Name
-    FuelOil#2,               !- Resource
-    2011,                    !- Escalation Start Year
-    January,                 !- Escalation Start Month
-    0.8469,                  !- Year 1 Escalation
-    0.8257,                  !- Year 2 Escalation
-    0.8681,                  !- Year 3 Escalation
-    0.8988,                  !- Year 4 Escalation
-    0.9289,                  !- Year 5 Escalation
-    0.9604,                  !- Year 6 Escalation
-    0.9897,                  !- Year 7 Escalation
-    1.0075,                  !- Year 8 Escalation
-    1.0314,                  !- Year 9 Escalation
-    1.0554,                  !- N11
-    1.0861,                  !- N12
-    1.1278,                  !- N13
-    1.1497,                  !- N14
-    1.1620,                  !- N15
-    1.1743,                  !- N16
-    1.1852,                  !- N17
-    1.1948,                  !- N18
-    1.2037,                  !- N19
-    1.2071,                  !- N20
-    1.2119,                  !- N21
-    1.2139,                  !- N22
-    1.2194,                  !- N23
-    1.2276,                  !- N24
-    1.2365,                  !- N25
-    1.2420,                  !- N26
-    1.2461,                  !- N27
-    1.2509,                  !- N28
-    1.2550,                  !- N29
-    1.2591,                  !- N30
-    1.2638;                  !- N31
-
-LifeCycleCost:UsePriceEscalation,
-    U.S. Avg  Commercial-Natural gas,  !- LCC Price Escalation Name
-    NaturalGas,              !- Resource
-    2011,                    !- Escalation Start Year
-    January,                 !- Escalation Start Month
-    0.9823,                  !- Year 1 Escalation
-    0.9557,                  !- Year 2 Escalation
-    0.9279,                  !- Year 3 Escalation
-    0.9257,                  !- Year 4 Escalation
-    0.9346,                  !- Year 5 Escalation
-    0.9412,                  !- Year 6 Escalation
-    0.9512,                  !- Year 7 Escalation
-    0.9645,                  !- Year 8 Escalation
-    0.9856,                  !- Year 9 Escalation
-    1.0067,                  !- N11
-    1.0222,                  !- N12
-    1.0410,                  !- N13
-    1.0610,                  !- N14
-    1.0787,                  !- N15
-    1.0942,                  !- N16
-    1.1098,                  !- N17
-    1.1220,                  !- N18
-    1.1308,                  !- N19
-    1.1386,                  !- N20
-    1.1486,                  !- N21
-    1.1619,                  !- N22
-    1.1763,                  !- N23
-    1.1918,                  !- N24
-    1.2118,                  !- N25
-    1.2284,                  !- N26
-    1.2439,                  !- N27
-    1.2605,                  !- N28
-    1.2772,                  !- N29
-    1.2938,                  !- N30
-    1.3115;                  !- N31
-
-LifeCycleCost:UsePriceEscalation,
-    U.S. Avg  Commercial-Coal,  !- LCC Price Escalation Name
-    Coal,                    !- Resource
-    2011,                    !- Escalation Start Year
-    January,                 !- Escalation Start Month
-    0.9970,                  !- Year 1 Escalation
-    1.0089,                  !- Year 2 Escalation
-    1.0089,                  !- Year 3 Escalation
-    0.9941,                  !- Year 4 Escalation
-    0.9941,                  !- Year 5 Escalation
-    1.0000,                  !- Year 6 Escalation
-    1.0030,                  !- Year 7 Escalation
-    1.0059,                  !- Year 8 Escalation
-    1.0089,                  !- Year 9 Escalation
-    1.0119,                  !- N11
-    1.0148,                  !- N12
-    1.0178,                  !- N13
-    1.0208,                  !- N14
-    1.0267,                  !- N15
-    1.0297,                  !- N16
-    1.0356,                  !- N17
-    1.0415,                  !- N18
-    1.0534,                  !- N19
-    1.0564,                  !- N20
-    1.0593,                  !- N21
-    1.0653,                  !- N22
-    1.0712,                  !- N23
-    1.0742,                  !- N24
-    1.0801,                  !- N25
-    1.0831,                  !- N26
-    1.0831,                  !- N27
-    1.0861,                  !- N28
-    1.0890,                  !- N29
-    1.0920,                  !- N30
-    1.0950;                  !- N31
-
-
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLEDICTIONARY ===========
 
 Output:VariableDictionary,
@@ -1753,231 +1336,6 @@ Output:VariableDictionary,
 
 Output:Table:SummaryReports,
     AllSummary;              !- Report 1 Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:TABLE:MONTHLY ===========
-
-Output:Table:Monthly,
-    Building Energy Performance - Electricity,  !- Name
-    2,                       !- Digits After Decimal
-    InteriorLights:Electricity,  !- Variable or Meter 1 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 1
-    ExteriorLights:Electricity,  !- Variable or Meter 2 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 2
-    InteriorEquipment:Electricity,  !- Variable or Meter 3 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 3
-    ExteriorEquipment:Electricity,  !- Variable or Meter 4 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 4
-    Fans:Electricity,        !- Variable or Meter 5 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 5
-    Pumps:Electricity,       !- Variable or Meter 6 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 6
-    Heating:Electricity,     !- Variable or Meter 7 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 7
-    Cooling:Electricity,     !- Variable or Meter 8 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 8
-    HeatRejection:Electricity,  !- Variable or Meter 9 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 9
-    Humidifier:Electricity,  !- Variable or Meter 10 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 10
-    HeatRecovery:Electricity,!- Variable or Meter 11 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 11
-    WaterSystems:Electricity,!- Variable or Meter 12 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 12
-    Cogeneration:Electricity,!- Variable or Meter 13 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 13
-    Refrigeration:Electricity,  !- Variable or Meter 14 Name
-    SumOrAverage;            !- Aggregation Type for Variable or Meter 14
-
-Output:Table:Monthly,
-    Building Energy Performance - Natural Gas,  !- Name
-    2,                       !- Digits After Decimal
-    InteriorEquipment:Gas,   !- Variable or Meter 1 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 1
-    ExteriorEquipment:Gas,   !- Variable or Meter 2 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 2
-    Heating:Gas,             !- Variable or Meter 3 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 3
-    Cooling:Gas,             !- Variable or Meter 4 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 4
-    WaterSystems:Gas,        !- Variable or Meter 5 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 5
-    Cogeneration:Gas,        !- Variable or Meter 6 Name
-    SumOrAverage;            !- Aggregation Type for Variable or Meter 6
-
-Output:Table:Monthly,
-    Building Energy Performance - District Heating,  !- Name
-    2,                       !- Digits After Decimal
-    InteriorLights:DistrictHeating,  !- Variable or Meter 1 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 1
-    ExteriorLights:DistrictHeating,  !- Variable or Meter 2 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 2
-    InteriorEquipment:DistrictHeating,  !- Variable or Meter 3 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 3
-    ExteriorEquipment:DistrictHeating,  !- Variable or Meter 4 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 4
-    Fans:DistrictHeating,    !- Variable or Meter 5 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 5
-    Pumps:DistrictHeating,   !- Variable or Meter 6 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 6
-    Heating:DistrictHeating, !- Variable or Meter 7 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 7
-    Cooling:DistrictHeating, !- Variable or Meter 8 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 8
-    HeatRejection:DistrictHeating,  !- Variable or Meter 9 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 9
-    Humidifier:DistrictHeating,  !- Variable or Meter 10 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 10
-    HeatRecovery:DistrictHeating,  !- Variable or Meter 11 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 11
-    WaterSystems:DistrictHeating,  !- Variable or Meter 12 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 12
-    Cogeneration:DistrictHeating,  !- Variable or Meter 13 Name
-    SumOrAverage;            !- Aggregation Type for Variable or Meter 13
-
-Output:Table:Monthly,
-    Building Energy Performance - District Cooling,  !- Name
-    2,                       !- Digits After Decimal
-    InteriorLights:DistrictCooling,  !- Variable or Meter 1 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 1
-    ExteriorLights:DistrictCooling,  !- Variable or Meter 2 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 2
-    InteriorEquipment:DistrictCooling,  !- Variable or Meter 3 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 3
-    ExteriorEquipment:DistrictCooling,  !- Variable or Meter 4 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 4
-    Fans:DistrictCooling,    !- Variable or Meter 5 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 5
-    Pumps:DistrictCooling,   !- Variable or Meter 6 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 6
-    Heating:DistrictCooling, !- Variable or Meter 7 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 7
-    Cooling:DistrictCooling, !- Variable or Meter 8 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 8
-    HeatRejection:DistrictCooling,  !- Variable or Meter 9 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 9
-    Humidifier:DistrictCooling,  !- Variable or Meter 10 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 10
-    HeatRecovery:DistrictCooling,  !- Variable or Meter 11 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 11
-    WaterSystems:DistrictCooling,  !- Variable or Meter 12 Name
-    SumOrAverage,            !- Aggregation Type for Variable or Meter 12
-    Cogeneration:DistrictCooling,  !- Variable or Meter 13 Name
-    SumOrAverage;            !- Aggregation Type for Variable or Meter 13
-
-Output:Table:Monthly,
-    Building Energy Performance - Electricity Peak Demand,  !- Name
-    2,                       !- Digits After Decimal
-    Electricity:Facility,    !- Variable or Meter 1 Name
-    Maximum,                 !- Aggregation Type for Variable or Meter 1
-    InteriorLights:Electricity,  !- Variable or Meter 2 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 2
-    ExteriorLights:Electricity,  !- Variable or Meter 3 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 3
-    InteriorEquipment:Electricity,  !- Variable or Meter 4 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 4
-    ExteriorEquipment:Electricity,  !- Variable or Meter 5 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 5
-    Fans:Electricity,        !- Variable or Meter 6 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 6
-    Pumps:Electricity,       !- Variable or Meter 7 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 7
-    Heating:Electricity,     !- Variable or Meter 8 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 8
-    Cooling:Electricity,     !- Variable or Meter 9 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 9
-    HeatRejection:Electricity,  !- Variable or Meter 10 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 10
-    Humidifier:Electricity,  !- Variable or Meter 11 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 11
-    HeatRecovery:Electricity,!- Variable or Meter 12 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 12
-    WaterSystems:Electricity,!- Variable or Meter 13 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 13
-    Cogeneration:Electricity,!- Variable or Meter 14 Name
-    ValueWhenMaximumOrMinimum;  !- Aggregation Type for Variable or Meter 14
-
-Output:Table:Monthly,
-    Building Energy Performance - Natural Gas Peak Demand,  !- Name
-    2,                       !- Digits After Decimal
-    Gas:Facility,            !- Variable or Meter 1 Name
-    Maximum,                 !- Aggregation Type for Variable or Meter 1
-    InteriorEquipment:Gas,   !- Variable or Meter 2 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 2
-    ExteriorEquipment:Gas,   !- Variable or Meter 3 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 3
-    Heating:Gas,             !- Variable or Meter 4 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 4
-    Cooling:Gas,             !- Variable or Meter 5 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 5
-    WaterSystems:Gas,        !- Variable or Meter 6 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 6
-    Cogeneration:Gas,        !- Variable or Meter 7 Name
-    ValueWhenMaximumOrMinimum;  !- Aggregation Type for Variable or Meter 7
-
-Output:Table:Monthly,
-    Building Energy Performance - District Heating Peak Demand,  !- Name
-    2,                       !- Digits After Decimal
-    DistrictHeating:Facility,!- Variable or Meter 1 Name
-    Maximum,                 !- Aggregation Type for Variable or Meter 1
-    InteriorLights:DistrictHeating,  !- Variable or Meter 2 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 2
-    ExteriorLights:DistrictHeating,  !- Variable or Meter 3 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 3
-    InteriorEquipment:DistrictHeating,  !- Variable or Meter 4 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 4
-    ExteriorEquipment:DistrictHeating,  !- Variable or Meter 5 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 5
-    Fans:DistrictHeating,    !- Variable or Meter 6 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 6
-    Pumps:DistrictHeating,   !- Variable or Meter 7 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 7
-    Heating:DistrictHeating, !- Variable or Meter 8 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 8
-    Cooling:DistrictHeating, !- Variable or Meter 9 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 9
-    HeatRejection:DistrictHeating,  !- Variable or Meter 10 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 10
-    Humidifier:DistrictHeating,  !- Variable or Meter 11 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 11
-    HeatRecovery:DistrictHeating,  !- Variable or Meter 12 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 12
-    WaterSystems:DistrictHeating,  !- Variable or Meter 13 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 13
-    Cogeneration:DistrictHeating,  !- Variable or Meter 14 Name
-    ValueWhenMaximumOrMinimum;  !- Aggregation Type for Variable or Meter 14
-
-Output:Table:Monthly,
-    Building Energy Performance - District Cooling Peak Demand,  !- Name
-    2,                       !- Digits After Decimal
-    DistrictCooling:Facility,!- Variable or Meter 1 Name
-    Maximum,                 !- Aggregation Type for Variable or Meter 1
-    InteriorLights:DistrictCooling,  !- Variable or Meter 2 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 2
-    ExteriorLights:DistrictCooling,  !- Variable or Meter 3 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 3
-    InteriorEquipment:DistrictCooling,  !- Variable or Meter 4 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 4
-    ExteriorEquipment:DistrictCooling,  !- Variable or Meter 5 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 5
-    Fans:DistrictCooling,    !- Variable or Meter 6 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 6
-    Pumps:DistrictCooling,   !- Variable or Meter 7 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 7
-    Heating:DistrictCooling, !- Variable or Meter 8 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 8
-    Cooling:DistrictCooling, !- Variable or Meter 9 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 9
-    HeatRejection:DistrictCooling,  !- Variable or Meter 10 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 10
-    Humidifier:DistrictCooling,  !- Variable or Meter 11 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 11
-    HeatRecovery:DistrictCooling,  !- Variable or Meter 12 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 12
-    WaterSystems:DistrictCooling,  !- Variable or Meter 13 Name
-    ValueWhenMaximumOrMinimum,  !- Aggregation Type for Variable or Meter 13
-    Cogeneration:DistrictCooling,  !- Variable or Meter 14 Name
-    ValueWhenMaximumOrMinimum;  !- Aggregation Type for Variable or Meter 14
 
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUTCONTROL:TABLE:STYLE ===========
@@ -1997,17 +1355,33 @@ OutputControl:ReportingTolerances,
 
 Output:Variable,
     *,                       !- Key Value
-    Zone Mean Air Temperature,  !- Variable Name
-    Hourly;                  !- Reporting Frequency
+    Zone Air Relative Humidity,  !- Variable Name
+    Timestep;                !- Reporting Frequency
 
 Output:Variable,
     *,                       !- Key Value
-    Zone Air Relative Humidity,  !- Variable Name
-    Hourly;                  !- Reporting Frequency
+    Zone Air Temperature,    !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Site Outdoor Air Drybulb Temperature,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Site Outdoor Air Wetbulb Temperature,  !- Variable Name
+    Timestep;                !- Reporting Frequency
 
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:SQLITE ===========
 
 Output:SQLite,
     SimpleAndTabular;        !- Option Type
+
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:DIAGNOSTICS ===========
+
+Output:Diagnostics,
+    DisplayAllWarnings;      !- Key 1
 
