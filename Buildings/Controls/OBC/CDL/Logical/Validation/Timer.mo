@@ -82,11 +82,11 @@ Buildings.Controls.OBC.CDL.Logical.Timer</a>.
 <ul>
 <li>
 July 23, 2018, by Jianjun Hu:<br/>
-Update implementation to reset accumulate timer with boolean input.
+Updated implementation to reset accumulate timer with boolean input.
 </li>
 <li>
 July 18, 2018, by Jianjun Hu:<br/>
-Update implementation to include accumulate timer.
+Updated implementation to include accumulate timer.
 </li>
 <li>
 April 2, 2017, by Jianjun Hu:<br/>
