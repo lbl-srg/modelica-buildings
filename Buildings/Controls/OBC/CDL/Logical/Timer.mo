@@ -3,45 +3,46 @@ block Timer
   "Timer measuring the time from the time instant where the Boolean input became true"
 
   parameter Boolean accumulate = false
-    "Set to true when need to find accumulated time which can be reset by another boolean input";
+    "If true, accumulate time until Boolean input 'reset' becomes true, otherwise reset timer whenever u becomes true";
 
-  Interfaces.BooleanInput u "Connector of Boolean input signal"
+  Interfaces.BooleanInput u "Connector for signal that switches timer on if true, and off if false"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanInput reset if accumulate
-    "Connector of Boolean for resetting output to zero"
+    "Connector for signal that sets timer to zero if it switches to true"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Interfaces.RealOutput y(
     final quantity="Time",
-    final unit="s") "Connector of Real output signal"
+    final unit="s") "Timer output"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
-  discrete Real yAcc "Accumulated time up to last change to true";
-  Interfaces.BooleanInput u0_internal(
+  discrete Modelica.SIunits.Time yAcc "Accumulated time up to last change to true";
+  Interfaces.BooleanInput reset_internal(
     final start=false,
     final fixed=true) "Internal connector";
 
 initial equation
   pre(entryTime) = 0;
   yAcc = 0;
+
 equation
-  connect(reset, u0_internal);
+  connect(reset, reset_internal);
   if not accumulate then
-    u0_internal = false;
+    reset_internal = false;
   end if;
 
-  when u and (not edge(u0_internal)) then
+  when u and (not edge(reset_internal)) then
     entryTime = time;
-  elsewhen u0_internal then
+  elsewhen reset_internal then
     entryTime = time;
   end when;
 
-  when u0_internal then
+  when reset_internal then
     yAcc = 0;
   elsewhen (not u) then
-    yAcc = pre(y);
+    yAcc = pre(y); /* fixme: Is this branch needed? */
   end when;
 
   if not accumulate then
@@ -94,35 +95,32 @@ annotation (
           textString="accumulate: %accumulate")}),
     Documentation(info="<html>
 <p>
-Block that represents a timer.
+Timer with option to accumulate time until it is reset by an input signal.
 </p>
 <p>
-Each time the Boolean input <code>u</code> becomes true, the timer is
-started and the output <code>y</code> is the time from the time instant where
-<code>u</code> became true. When the Boolean input <code>u</code> becomes false,
+Each time the Boolean input <code>u</code> becomes true, the timer runs, otherwise
+it is dormant.
+If the parameter <code>accumulate</code> is <code>true</code>, the timer accumulates
+time.
+If <code>accumulate = false</code>, the timer starts at zero each time the
+input <code>u</code> becomes <code>true</code>.
 </p>
-<ul>
-<li>
-If parameter <code>accumulate</code> is false,
-the timer is stopped and the output is reset to zero. 
-</li>
-<li>
-If parameter <code>accumulate</code> is true,
-the timer will hold the accumulated true input time. The
-accumulated time is reset to zero when the input <code>reset</code> becomes true.
-</li>
-</ul>
 </html>", revisions="<html>
 <ul>
 <li>
+November 8, 2019, by Michael Wetter:<br/>
+Revised implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>.
+</li>
+<li>
 July 23, 2018, by Jianjun Hu:<br/>
 Added conditional boolean input for cumulative time measuring. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>.
 </li>
 <li>
 July 18, 2018, by Jianjun Hu:<br/>
 Updated implementation to output accumulated true input time.  This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
