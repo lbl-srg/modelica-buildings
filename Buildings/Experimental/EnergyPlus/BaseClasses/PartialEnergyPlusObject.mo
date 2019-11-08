@@ -46,7 +46,7 @@ initial equation
 
   annotation (
   Icon(graphics={
-          Bitmap(extent={{-18,-112},{84,-10}},
+          Bitmap(extent={{18,-110},{92,-36}},
           fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png",
           visible=not usePrecompiledFMU)}),
     Documentation(info="<html>
