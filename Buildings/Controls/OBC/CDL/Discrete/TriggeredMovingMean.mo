@@ -15,7 +15,7 @@ block TriggeredMovingMean
         rotation=90), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={0,-118})));
+        origin={0,-120})));
   Interfaces.RealOutput y "Discrete averaged signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -25,21 +25,21 @@ protected
   Integer counter(start=0, fixed=true)
       "Number of samples used for averaging calculation";
   Integer index(start=0, fixed=true) "Index of the vector ySample";
-  discrete Real ySample[n](
+  Real ySample[n](
     start=vector(zeros(n,1)),
     each fixed=true) "Vector of samples to be averaged";
 
 initial equation
   t0 = time;
-  y = u;
+  //y = u;
 
-algorithm
-  when trigger then
-    index := mod(iSample, n) + 1;
-    ySample[index] := u;
-    counter := if counter == n then n else counter + 1;
-    y := sum(ySample)/counter;
-    iSample := iSample + 1;
+equation
+  when {initial(), trigger} then
+    index =  mod(pre(iSample), n) + 1;
+    ySample =  {if (i == index) then u else pre(ySample[i]) for i in 1:n};
+    counter =  if pre(counter) == n then n else pre(counter) + 1;
+    y =  sum(ySample)/counter;
+    iSample = pre(iSample) + 1;
   end when;
 
   annotation (
@@ -101,7 +101,11 @@ algorithm
         Line(points={{-100,0},{-45,0}}, color={176,181,255}),
         Line(points={{45,0},{100,0}}, color={176,181,255}),
         Line(points={{-35,0},{28,-48}}, color={176,181,255}),
-        Line(points={{0,-100},{0,-26}}, color={255,0,255})}),
+        Line(points={{0,-100},{0,-26}}, color={255,0,255}),
+        Text(
+          extent={{56,92},{92,60}},
+          lineColor={28,108,200},
+          textString="%n")}),
 Documentation(info="<html>
 <p>
 Block that outputs the triggered moving mean value of an input signal. When the trigger
@@ -109,21 +113,17 @@ signal is rising (i.e., trigger changes to <code>true</code>), the block outputs
 the calculated moving mean value.
 </p>
 <p>
-Each time when the trigger signal is rising, the block takes an sample of the input and
-uses it in the moving mean calculation.
-</p>
-<p>
-The moving mean is calculated as follows: at the first triggered sample, the block outputs the first
-sampled input. At the next triggered sample, it outputs the average of the past two triggered samples,
-then the average of the past three triggered samples and so on up to <i>n</i> samples.
-</p>
-<p>
-Note that when the the block is not triggered, it outputs the last calculated moving mean value.
-The initial value before the trigger is ignored in the moving mean calculation.
+At the start of the simulation, and then at each time when the trigger signal
+is rising, the block takes a sample of the input, and uses it to compute the moving mean
+over the past <i>n</i> samples.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 7, 2019, by Michael Wetter:<br/>
+Reformulated model to use an <code>equation</code> rather than an <code>algorithm</code> section.
+</li>
 <li>
 October 16, 2019, by Kun Zhang:<br/>
 First implementation. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue 1588</a>.

@@ -29,13 +29,13 @@ equation
   connect(sin.y, triMovMea.u) annotation (Line(points={{-38,50},{-20,50},{-20,
           10},{-2,10}}, color={0,0,127}));
   connect(booPul.y, triMovMea.trigger) annotation (Line(points={{-38,-10},{10,
-          -10},{10,-1.8}}, color={255,0,255}));
+          -10},{10,-2}},   color={255,0,255}));
   connect(booPul.y, triMovMea1.trigger) annotation (Line(points={{-38,-10},{-10,
-          -10},{-10,30},{10,30},{10,58.2}}, color={255,0,255}));
+          -10},{-10,30},{10,30},{10,58}},   color={255,0,255}));
   connect(sin.y, triMovMea1.u) annotation (Line(points={{-38,50},{-20,50},{-20,
           70},{-2,70}}, color={0,0,127}));
   connect(booPul1.y, triMovMea2.trigger) annotation (Line(points={{-38,-70},{10,
-          -70},{10,-61.8}}, color={255,0,255}));
+          -70},{10,-62}},   color={255,0,255}));
   connect(sin.y, triMovMea2.u) annotation (Line(points={{-38,50},{-20,50},{-20,
           -50},{-2,-50}}, color={0,0,127}));
   annotation (
