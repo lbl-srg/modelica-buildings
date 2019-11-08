@@ -133,13 +133,17 @@ This model instantiates an FMU with the name <code>idfName</code> and
 writes at every EnergyPlus zone time step the value of the input <code>u</code>
 to an EnergyPlus schedule with name <code>name</code>.
 If <code>useSamplePeriod = true</code>, then the value <code>u</code> is
-also written at each multiple of <code>samplePeriod</code>.
+written at each multiple of <code>samplePeriod</code>, in addition to the EnergyPlus zone time step.
 </p>
 <p>
-The variable of the input <code>y</code> has Modelica SI units, as declared in
-<a href=\"modelica://Modelica.SIunits\">Modelica.SIunits</a>.
-For example, temperatures will be in Kelvin, and mass flow rates will be in
-<code>kg/s</code>.
+The parameter <code>unit</code> specifies the unit of the signal <code>u</code>.
+This unit is then converted internally to the units required by EnergyPlus before
+the value is sent to EnergyPlus.
+See <a href=\"modelica://Buildings.Experimental.EnergyPlus.Types.Units\">Buildings.Experimental.EnergyPlus.Types.Units</a>
+for the supported units.
+If the value of the parameter <code>unit</code> is left at its default value of
+<code>Buildings.Experimental.EnergyPlus.Types.Units.unspecified</code>, then
+the simulation will stop with an error.
 </p>
 </html>", revisions="<html>
 <ul>

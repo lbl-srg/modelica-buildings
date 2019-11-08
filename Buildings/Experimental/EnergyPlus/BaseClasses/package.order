@@ -1,8 +1,11 @@
 FMUOutputVariableClass
+FMUScheduleClass
 FMUZoneAdapter
 FMUZoneClass
 outputVariableExchange
 outputVariableInitialize
+scheduleExchange
+scheduleInitialize
 zoneExchange
 zoneInitialize
 buildingsLibraryRoot
