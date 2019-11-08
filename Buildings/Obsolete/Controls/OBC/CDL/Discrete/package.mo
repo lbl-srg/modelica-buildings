@@ -2,29 +2,6 @@ within Buildings.Obsolete.Controls.OBC.CDL;
 package Discrete "Package with discrete blocks"
 
   annotation (Documentation(info="<html>
-<p>
-This package contains discrete control blocks
-with fixed sample period.
-Every component of this package is structured in the following way:
-</p>
-<ol>
-<li> A component has continuous Real input and output signals.</li>
-<li> The input signals are sampled by the given sample period
-     defined via parameter <code>samplePeriod</code>.
-     The first sample instant is defined by the parameter <code>startTime</code>.
-</li>
-<li> The output signals are computed from the sampled input signals.
-</li>
-</ol>
-
-</html>",
-revisions="<html>
-<ul>
-<li>
-December 22, 2016, by Michael Wetter:<br/>
-Firt implementation, based on the blocks from the Modelica Standard Library.
-</li>
-</ul>
 </html>"), Icon(graphics={
         Rectangle(
           lineColor={200,200,200},

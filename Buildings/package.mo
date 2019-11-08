@@ -160,7 +160,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean
         </td>
-        <td valign=\"top\">Triggered discrete moving mean of an input signal.
+        <td valign=\"top\">A block that outputs triggered discrete moving mean of an input signal.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue #1588</a>.
         </td>
         </tr>
@@ -234,7 +234,13 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState
         </td>
         <td valign=\"top\">Improved the implementation to avoid issues when heating and cooling controls occur at the same time.
-     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.MovingMean
+        </td>
+        <td valign=\"top\">Became obsolete; please use Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean instead.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
     <tr><td valign=\"top\">
