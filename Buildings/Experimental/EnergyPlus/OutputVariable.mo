@@ -14,11 +14,6 @@ model OutputVariable
         transformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant String buildingsLibraryRoot = Modelica.Utilities.Strings.replace(
-    string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html")),
-    searchString="Buildings/legal.html",
-    replaceString="Buildings") "Root directory of the Buildings library (used to find the spawn executable";
-
   constant String modelicaNameBuilding = building.modelicaNameBuilding
     "Name of the building to which this output variable belongs to"
     annotation(HideResult=true);

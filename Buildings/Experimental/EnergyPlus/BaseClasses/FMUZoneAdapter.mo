@@ -2,6 +2,10 @@ within Buildings.Experimental.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
 
+  constant String buildingsLibraryRoot
+    "Root directory of the Buildings library (used to find the spawn executable"
+    annotation(HideResult=true);
+
   constant String modelicaNameBuilding
     "Name of the building to which this thermal zone belongs to"
     annotation(HideResult=true);
@@ -29,9 +33,6 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
 
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
-
- // parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps, start=0.1)
- //   "Sample period of component";
 
   final parameter Modelica.SIunits.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.SIunits.Volume V(fixed=false) "Zone volume";
