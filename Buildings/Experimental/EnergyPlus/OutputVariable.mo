@@ -95,9 +95,6 @@ equation
   annotation (
   defaultComponentName="out",
   Icon(graphics={
-          Bitmap(extent={{-18,-112},{84,-10}},
-          fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png",
-          visible=not usePrecompiledFMU),
         Text(
           extent={{-88,84},{80,50}},
           lineColor={0,0,255},
@@ -105,7 +102,10 @@ equation
         Text(
           extent={{-86,36},{80,2}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+          Bitmap(extent={{14,-108},{90,-32}},
+          fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png",
+          visible=not usePrecompiledFMU)}),
     Documentation(info="<html>
 <p>
 Block that retrieves an output variable from EnergyPlus.
