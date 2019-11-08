@@ -64,8 +64,7 @@ model MediumColumnDynamic
 
   replaceable model HeatTransfer =
       Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
-    constrainedby
-    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
+    constrainedby Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
     "Wall heat transfer"
       annotation (Dialog(tab="Assumptions", group="Heat transfer",enable=use_HeatTransfer),choicesAllMatching=true);
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer

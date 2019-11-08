@@ -187,8 +187,8 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={98,180})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
-      = MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
+        MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -200,8 +200,8 @@ partial model DataCenter
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,0})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},

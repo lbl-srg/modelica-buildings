@@ -3,8 +3,7 @@ model PropyleneGlycolWaterTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
   extends Modelica.Icons.Example;
   extends Buildings.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
-    redeclare package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater
-        (
+    redeclare package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (
       X_a=0.60,
       property_T=293.15));
   annotation (

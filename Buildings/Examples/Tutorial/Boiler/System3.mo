@@ -105,7 +105,6 @@ model System3
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mRadVal_flow_nominal,-mBoi_flow_nominal},
-
     dp_nominal={200,-200,-50}) "Splitter of boiler loop bypass" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

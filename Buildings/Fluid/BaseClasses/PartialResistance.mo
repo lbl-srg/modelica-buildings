@@ -53,7 +53,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
-          extent={{-100,40},{100,-42}},
+          extent={{-100,40},{100,-40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={192,192,192}),
@@ -64,7 +64,7 @@ equation
           fillColor={0,127,255}),
         Rectangle(
           visible=linearized,
-          extent={{-100,22},{100,-24}},
+          extent={{-100,22},{100,-22}},
           fillPattern=FillPattern.Backward,
           fillColor={0,128,255},
           pattern=LinePattern.None,
@@ -85,6 +85,11 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 25, 2019, by Jianjun Hu:<br/>
+Improved icon graphics annotation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Removed start value for pressure difference
