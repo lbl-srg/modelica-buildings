@@ -1,16 +1,13 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block TriggeredMovingMean
-  "Triggered discrete moving mean of a sampled input signal"
+  "Triggered discrete moving mean of an input signal"
 
-  parameter Integer n(min=2)
+  parameter Integer n(min=1)
     "Number of samples over which the input is averaged";
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
-    "Sampling period of component";
 
   Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput trigger
-    "Input signal that triggers the block"
+  Interfaces.BooleanInput trigger "Boolean signal that triggers the block"
     annotation (Placement(
         transformation(
         origin={0,-120},
@@ -24,25 +21,20 @@ block TriggeredMovingMean
 
 protected
   parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
-  Boolean sampleTrigger "Trigger samples at each sampling instant";
-  Integer iSample(start=0, fixed=true) "Sample numbering in the simulation";
+  Integer iSample(start=0, fixed=true) "Sample numbering in the calculation";
   Integer counter(start=0, fixed=true)
       "Number of samples used for averaging calculation";
   Integer index(start=0, fixed=true) "Index of the vector ySample";
   discrete Real ySample[n](
     start=vector(zeros(n,1)),
-    each fixed=true)
-      "Vector of samples to be averaged";
+    each fixed=true) "Vector of samples to be averaged";
 
 initial equation
   t0 = time;
   y = u;
 
-equation
-  sampleTrigger = sample(t0, samplePeriod);
-
 algorithm
-  when trigger and sampleTrigger then
+  when trigger then
     index := mod(iSample, n) + 1;
     ySample[index] := u;
     counter := if counter == n then n else counter + 1;
@@ -112,20 +104,22 @@ algorithm
         Line(points={{0,-100},{0,-26}}, color={255,0,255})}),
 Documentation(info="<html>
 <p>
-Block that outputs the sampled moving mean value of an input signal.
-At each sampling instant, the block outputs the average value of the past <i>n</i>
-samples including the current sample.
+Block that outputs the triggered moving mean value of an input signal. When the trigger
+signal is rising (i.e., trigger changes to <code>true</code>), the block outputs
+the calculated moving mean value.
 </p>
 <p>
-At the first sample, the block outputs the first sampled input. At the next
-sample, it outputs the average of the past two samples, then the past three
-samples and so on up to <i>n</i> samples.
+Each time when the trigger signal is rising, the block takes an sample of the input and
+uses it in the moving mean calculation.
 </p>
 <p>
-The moving mean calculation of this block is the same as the block  <a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.MovingMean\">
-Buildings.Controls.OBC.CDL.Discrete.MovingMean</a> except that this block does the calculation 
-only when the trigger input signal is true. When the trigger signal is false, the block outputs 
-the last calculated moving mean value.
+The moving mean is calculated as follows: at the first triggered sample, the block outputs the first
+sampled input. At the next triggered sample, it outputs the average of the past two triggered samples,
+then the average of the past three triggered samples and so on up to <i>n</i> samples.
+</p>
+<p>
+Note that when the the block is not triggered, it outputs the last calculated moving mean value.
+The initial value before the trigger is ignored in the moving mean calculation.
 </p>
 </html>",
 revisions="<html>

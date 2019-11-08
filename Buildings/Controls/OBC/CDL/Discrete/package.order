@@ -1,6 +1,5 @@
 DayType
 FirstOrderHold
-MovingMean
 Sampler
 TriggeredMax
 TriggeredMovingMean

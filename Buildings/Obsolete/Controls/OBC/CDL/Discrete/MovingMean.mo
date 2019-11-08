@@ -1,31 +1,20 @@
-within Buildings.Controls.OBC.CDL.Discrete;
+within Buildings.Obsolete.Controls.OBC.CDL.Discrete;
 block MovingMean "Discrete moving mean of a sampled input signal"
+
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
 
   parameter Integer n(min=2)
     "Number of samples over which the input is averaged";
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
     "Sampling period of component";
-  parameter Modelica.SIunits.Time startTime
-    "First sample time instant";
-  parameter Boolean use_trigger = true
-    "=true if using trigger input";
 
   Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput trigger if use_trigger <> false
-    "Optinal input signal that triggers the moving mean"
-    annotation (Placement(
-        transformation(
-        origin={0,-120},
-        extent={{-20,-20},{20,20}},
-        rotation=90), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-118})));
   Interfaces.RealOutput y "Discrete averaged signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
+  parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
   Boolean sampleTrigger "Trigger samples at each sampling instant";
   Integer iSample(start=0, fixed=true) "Sample numbering in the simulation";
   Integer counter(start=0, fixed=true)
@@ -35,21 +24,16 @@ protected
     start=vector(zeros(n,1)),
     each fixed=true)
       "Vector of samples to be averaged";
-  Interfaces.BooleanInput trigger_internal
-    "Needed to use conditional connector trigger";
 
 initial equation
+  t0 = time;
   y = u;
 
 equation
-  sampleTrigger = sample(startTime, samplePeriod);
-  connect(trigger, trigger_internal);
-  if use_trigger == false then
-    trigger_internal = true;
-  end if;
+  sampleTrigger =  sample(t0, samplePeriod);
 
 algorithm
-  when trigger_internal and sampleTrigger then
+  when sampleTrigger then
     index := mod(iSample, n) + 1;
     ySample[index] := u;
     counter := if counter == n then n else counter + 1;
@@ -114,17 +98,13 @@ At the first sample, the block outputs the first sampled input. At the next
 sample, it outputs the average of the past two samples, then the past three
 samples and so on up to <i>n</i> samples.
 </p>
-<p>
-If the boolean input trigger is used, the moving mean is calculated only when the
-trigger signal is true. When the trigger signal is false, the block outputs the last
-calculated moving mean value.
-</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-October 15, 2019, by Kun Zhang:<br/>
-Added the option for triggered discrete moving mean.
+November 7, 2019, by Kun Zhang:<br/>
+Moved this block to here because the block <a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean\">
+Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</a> is a better implementation.
 </li>
 <li>
 June 17, 2019, by Kun Zhang:<br/>
