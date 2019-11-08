@@ -43,6 +43,7 @@ algorithm
 
   annotation (
   defaultComponentName="movMea",
+  obsolete = "Obsolete model - use Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean instead",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
        graphics={
        Rectangle(
