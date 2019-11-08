@@ -1,8 +1,6 @@
 within Buildings.Experimental.EnergyPlus;
 model ThermalZone "Model to connect to an EnergyPlus thermal zone"
-  extends Modelica.Blocks.Icons.Block;
-
-  outer Buildings.Experimental.EnergyPlus.Building building "Building-level declarations";
+  extends Buildings.Experimental.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
 
   parameter String zoneName "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Integer nPorts=0 "Number of fluid ports (equals to 2 for one inlet and one outlet)" annotation (Evaluate=true,
@@ -98,6 +96,7 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
             220,110}})));
 
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZon(
+    final buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaNameThermalZone=modelicaNameThermalZone,
     final idfName=idfName,
@@ -110,9 +109,6 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
 
 protected
-  constant String modelicaNameBuilding = building.modelicaNameBuilding
-    "Name of the building to which this thermal zone belongs to"
-    annotation(HideResult=true);
   constant String modelicaNameThermalZone = getInstanceName()
     "Name of this instance"
     annotation(HideResult=true);
@@ -122,21 +118,6 @@ protected
 
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     V*3/3600 "Nominal mass flow rate (used for regularization)";
-
-  final parameter String idfName=building.idfName "Name of the IDF file that contains this zone";
-  final parameter String weaName=building.epWeaName "Name of the EnergyPlus weather file";
-
-  final parameter Boolean usePrecompiledFMU = building.usePrecompiledFMU
-    "Set to true to use pre-compiled FMU with name specified by fmuName"
-    annotation(Dialog(tab="Debug"));
-
-  final parameter String fmuName=building.fmuName
-    "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
-    annotation(Dialog(tab="Debug"));
-
-  final parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=building.verbosity
-    "Verbosity of EnergyPlus output"
-    annotation(Dialog(tab="Debug"));
 
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
@@ -311,10 +292,7 @@ equation
           lineColor={117,148,176},
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere),
-          Bitmap(extent={{62,-190},{164,-88}},
-          fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png",
-          visible=not usePrecompiledFMU),
-          Bitmap(extent={{62,-190},{164,-88}},
+        Bitmap(extent={{62,-190},{164,-88}},
           fileName="modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png",
           visible=usePrecompiledFMU),
         Text(

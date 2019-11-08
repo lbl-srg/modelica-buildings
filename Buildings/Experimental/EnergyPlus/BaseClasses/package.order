@@ -2,6 +2,7 @@ FMUOutputVariableClass
 FMUScheduleClass
 FMUZoneAdapter
 FMUZoneClass
+PartialEnergyPlusObject
 outputVariableExchange
 outputVariableInitialize
 scheduleExchange
