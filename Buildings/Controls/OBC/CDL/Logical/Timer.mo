@@ -42,7 +42,7 @@ equation
   when reset_internal then
     yAcc = 0;
   elsewhen (not u) then
-    yAcc = pre(y); /* fixme: Is this branch needed? */
+    yAcc = pre(y);
   end when;
 
   if not accumulate then
