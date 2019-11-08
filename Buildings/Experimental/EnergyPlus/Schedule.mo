@@ -54,7 +54,7 @@ protected
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUScheduleClass adapter=
       Buildings.Experimental.EnergyPlus.BaseClasses.FMUScheduleClass(
       modelicaNameBuilding=modelicaNameBuilding,
-      modelicaNameOutputVariable=modelicaNameOutputVariable,
+      modelicaNameSchedule=modelicaNameSchedule,
       idfName=idfName,
       weaName=weaName,
       iddName=Buildings.Experimental.EnergyPlus.BaseClasses.iddName,

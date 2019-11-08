@@ -16,6 +16,7 @@ class FMUScheduleClass
     input String weaName "Name of the weather file";
     input String iddName "Name of the IDD file";
     input String scheduleName "EnergyPlus name of the schedule";
+    input Buildings.Experimental.EnergyPlus.Types.Units unit "Unit of variable as used in Modelica";
     input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
