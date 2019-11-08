@@ -102,3 +102,14 @@ the pressure drop of the heating coil to zero, and
 to lump the pressure drop of the heating coil into the pressure drop model
 of the cooling coil.
 This often reduces the size of the system of nonlinear equations.
+
+Working process
+---------------
+
+The development of the library is managed through Github. Followings are the working 
+process of model development.
+
+1. create issue to specify the potential problem or what change should be done 
+to the library. Each issue should address only one problem.
+2. if the issue should be addressed, library manager creates a development 
+branch with the name in the form as `issue(#)_(changes)`
