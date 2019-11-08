@@ -1,6 +1,7 @@
 FMUOutputVariableClass
 FMUZoneAdapter
 FMUZoneClass
+PartialEnergyPlusObject
 outputVariableExchange
 outputVariableInitialize
 zoneExchange

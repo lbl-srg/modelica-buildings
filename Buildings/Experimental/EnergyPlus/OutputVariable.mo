@@ -1,9 +1,7 @@
 within Buildings.Experimental.EnergyPlus;
 model OutputVariable
   "Block to read an EnergyPlus output variable for use in Modelica"
-  extends Modelica.Blocks.Icons.Block;
-
-  outer Buildings.Experimental.EnergyPlus.Building building "Building-level declarations";
+  extends Buildings.Experimental.EnergyPlus.BaseClasses.PartialEnergyPlusObject;
 
   parameter String key
     "EnergyPlus key of the output variable";
@@ -14,29 +12,6 @@ model OutputVariable
         transformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant String modelicaNameBuilding = building.modelicaNameBuilding
-    "Name of the building to which this output variable belongs to"
-    annotation(HideResult=true);
-  constant String modelicaNameOutputVariable = getInstanceName()
-    "Name of this instance"
-    annotation(HideResult=true);
-
-  final parameter String idfName=building.idfName "Name of the IDF file that contains this zone";
-  final parameter String weaName=building.weaName "Name of the EnergyPlus weather file";
-
-  final parameter Boolean usePrecompiledFMU = building.usePrecompiledFMU
-    "Set to true to use pre-compiled FMU with name specified by fmuName"
-    annotation(Dialog(tab="Debug"));
-
-  final parameter String fmuName=building.fmuName
-    "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
-    annotation(Dialog(tab="Debug"));
-
-  final parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=building.verbosity
-    "Verbosity of EnergyPlus output"
-    annotation(Dialog(tab="Debug"));
-
-
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUOutputVariableClass adapter=
       Buildings.Experimental.EnergyPlus.BaseClasses.FMUOutputVariableClass(
       modelicaNameBuilding=modelicaNameBuilding,
@@ -51,30 +26,15 @@ protected
       buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
       verbosity=verbosity) "Class to communicate with EnergyPlus";
 
-  parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
-
-  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
-
   Integer counter "Counter for number of calls to EnergyPlus during time steps";
-
-  function round
-    input Real u;
-    input Real accuracy;
-    output Real y;
-
-  algorithm
-    y :=if (u > 0) then floor(u/accuracy + 0.5)*accuracy else ceil(u/accuracy - 0.5)*accuracy;
-  end round;
 
 initial equation
   assert(not usePrecompiledFMU, "Use of pre-compiled FMU is not supported for block OutputVariable.");
 
-  startTime =  time;
-  counter = 0;
   Buildings.Experimental.EnergyPlus.BaseClasses.outputVariableInitialize(
     adapter = adapter,
     startTime = time);
-
+  counter = 0;
 equation
   // The 'not initial()' triggers one sample when the continuous time simulation starts.
   // This is required for the correct event handling. Otherwise the regression tests will fail.
@@ -90,9 +50,6 @@ equation
   annotation (
   defaultComponentName="out",
   Icon(graphics={
-          Bitmap(extent={{-18,-112},{84,-10}},
-          fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png",
-          visible=not usePrecompiledFMU),
         Text(
           extent={{-88,84},{80,50}},
           lineColor={0,0,255},
