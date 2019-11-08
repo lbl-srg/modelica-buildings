@@ -57,10 +57,7 @@ equation
         Text(
           extent={{-86,36},{80,2}},
           lineColor={0,0,255},
-          textString="%name"),
-          Bitmap(extent={{14,-108},{90,-32}},
-          fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png",
-          visible=not usePrecompiledFMU)}),
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 Block that retrieves an output variable from EnergyPlus.
