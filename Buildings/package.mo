@@ -191,6 +191,12 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
+        </td>
+        <td valigh=\"top\">Added a boolean input to reset the accumulated timer.
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">#1221</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
@@ -576,10 +582,8 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
         </td>
-        <td valign=\"top\">Updated implementation to output cumulative time during which the input was <code>true</code>.<br/>
-                           The accumulated timer can be reset when boolean reset input becomes <code>true</code>.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>
-                           and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>.
+        <td valign=\"top\">Updated implementation to output accumulated time when input is <code>true</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueDelay
