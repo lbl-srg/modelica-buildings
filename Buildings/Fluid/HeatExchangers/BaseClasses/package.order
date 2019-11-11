@@ -1,5 +1,7 @@
 CoilHeader
 CoilRegister
+DryCalcs
+DryWetCalcsFuzzy_V2_0
 DuctManifoldFixedResistance
 DuctManifoldFlowDistributor
 DuctManifoldNoResistance
@@ -21,6 +23,9 @@ PipeManifoldFixedResistance
 PipeManifoldFlowDistributor
 PipeManifoldNoResistance
 RayleighNumber
+WetCalcs
+WetCalcsFuzzy
+determineWaterIndex
 dynamicViscosityWater
 epsilon_C
 epsilon_ntuZ
@@ -28,4 +33,5 @@ isobaricExpansionCoefficientWater
 lmtd
 ntu_epsilonZ
 prandtlNumberWater
+sigmoid
 Examples
