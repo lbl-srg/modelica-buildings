@@ -100,10 +100,10 @@ Timer with option to accumulate time until it is reset by an input signal.
 <p>
 Each time the Boolean input <code>u</code> becomes true, the timer runs, otherwise
 it is dormant.
-If the parameter <code>accumulate</code> is <code>true</code>, the timer accumulates
-time.
-If <code>accumulate = false</code>, the timer starts at zero each time the
-input <code>u</code> becomes <code>true</code>.
+If the parameter <code>accumulate</code> is <code>false</code>, the timer is set to zero each time the
+input <code>u</code> becomes <code>false</code>.
+If <code>accumulate = true</code>, an input <code>reset</code> is enabled, the timer accumulates time,
+and the timer is set to zero only when the value of the input <code>reset</code> becomes <code>true</code>.
 </p>
 </html>", revisions="<html>
 <ul>
