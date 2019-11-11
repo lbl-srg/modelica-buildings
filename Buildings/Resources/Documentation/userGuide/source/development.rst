@@ -110,16 +110,18 @@ The development of the library is managed through Github. Followings are the wor
 process.
 
 1. create issue to describe the potential problem or what change should be done
-to the library. Github will generate a number (#) to the issue. Note that each issue should
-address only one problem.
+   to the library. Github will generate a number (#) to the issue. Note that each issue should
+   address only one problem.
 2. create development branch,
+
   - if the issue is not part of a large development, the development branch
-  should be named as `issue(##)_(change)` and should be based on the `master` branch.
+    should be named as `issue(##)_(change)` and should be based on the `master` branch.
   - if the issue is part of a large development and it has a staging branch like
-  `issue(#)_(development)`, the development branch should be named as
-  `issue(#)_(##)_(change)` and should be based on the staging branch.
+    `issue(#)_(development)`, the development branch should be named as
+    `issue(#)_(##)_(change)` and should be based on the staging branch.
+
 3. fork `Buildings` library repository, make the change from the development branch
-and then submit a pull request to merge the changes to the development branch in
-`Building` repository.
+   and then submit a pull request to merge the changes to the development branch in
+   `Building` repository.
 4. in `Buildings` library repository, submit another pull request to merge the changes
-in development branch to `master` branch. Close the issue after the changes being merged.
+   in development branch to `master` branch. Close the issue after the changes being merged.
