@@ -109,31 +109,31 @@ Working process
 Followings are the working process of contributing.
 
 1. create issue to describe the potential problem or what change should be done
-   to the library. This will generate a number (`##`) to the issue. A good
+   to the library. This will generate a issue number (``##``). A good
    practice is that each issue should address only one problem.
 2. create development branch,
 
   - if the issue is not part of a large development, the development branch
-    should be named as `issue(##)_(change)` and should be based on the `master`
+    should be named as ``issue(##)_(change)`` and should be based on the ``master``
     branch.
   - if the issue is part of a large development and the development has a
-    staging branch like `issue(#)_(development)`, the development branch should
-    be named as `issue(#)_(##)_(change)` and should be based on the staging
+    staging branch like ``issue(#)_(development)``, the development branch should
+    be named as ``issue(#)_(##)_(change)`` and should be based on the staging
     branch.
 
 3. address the issue,
 
-  - fork `Buildings` library repository to your account, or pull the development
-    branch to your own `Buildings` library repository,
+  - fork ``Buildings`` library repository to your account, or pull the development
+    branch to your own ``Buildings`` library repository,
   - make the change from the development branch,
   - submit a pull request to merge the changes in the development branch of
-    your own `Buildings` library repository to the same development branch of
-    `Buildings` library repository,
+    your own ``Buildings`` library repository to the same development branch of
+    ``Buildings`` library repository,
   - merge the pull request.
 
-4. close the issue in `Buildings` library repository,
+4. close the issue in ``Buildings`` library repository,
 
   - submit another pull request to merge the development branch to
-    `master` branch,
+    ``master`` branch,
   - merge the pull request,
   - close the issue.
