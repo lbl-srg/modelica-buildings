@@ -30,8 +30,6 @@ protected
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
 
-  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
-
   function round
     input Real u;
     input Real accuracy;
