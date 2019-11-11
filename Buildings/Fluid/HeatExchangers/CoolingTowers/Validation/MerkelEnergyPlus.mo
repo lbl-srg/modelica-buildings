@@ -2,6 +2,8 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Validation;
 model MerkelEnergyPlus
   "Validation model for variable speed cooling tower based on Merkel's theory"
   extends Modelica.Icons.Example;
+  Merkel tow "Merkel-theory based cooling tower"
+    annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
