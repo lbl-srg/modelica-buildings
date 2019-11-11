@@ -124,8 +124,8 @@ partial model Carnot
 
   Real etaPL(final unit = "1")=
     if evaluate_etaPL
-      then 1
-    else Buildings.Utilities.Math.Functions.polynomial(a=a, x=yPL)
+      then Buildings.Utilities.Math.Functions.polynomial(a=a, x=yPL)
+      else 1
     "Efficiency due to part load (etaPL(yPL=1)=1)";
 
   Real COP(min=0, final unit="1") = etaCarnot_nominal_internal * COPCar * etaPL
@@ -157,8 +157,8 @@ protected
 
   // For Carnot_y, computing etaPL = f(yPL) introduces a nonlinear equation.
   // The parameter below avoids this if a = {1}.
-  final parameter Boolean evaluate_etaPL=
-    (size(a, 1) == 1 and abs(a[1] - 1)  < Modelica.Constants.eps)
+  final parameter Boolean evaluate_etaPL =
+    not ((size(a, 1) == 1 and abs(a[1] - 1)  < Modelica.Constants.eps))
     "Flag, true if etaPL should be computed as it depends on yPL"
     annotation(Evaluate=true);
 
@@ -381,6 +381,13 @@ and the part load ratio are set up.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 12, 2019, by Michael Wetter:<br/>
+Corrected value of <code>evaluate_etaPL</code> and how it is used.
+This correction only affects protected variables and does not affect the results.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1200\">
+#1200</a>.
+</li>
 <li>
 June 16, 2017, by Michael Wetter:<br/>
 Added temperature difference between fluids in condenser and evaporator
