@@ -22,7 +22,7 @@ block RuntimeCounter
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nDev](
     final threshold=stagingRuntimes) "Staging runtime hysteresis"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim[nDev](
     final reset={false,false})
@@ -48,7 +48,7 @@ protected
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not0[nDev] "Logical not"
-    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
+    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nDev] "Switch"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
@@ -77,17 +77,17 @@ protected
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep1(
     final nout=nDev) "Booolean replicator"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or equSig
     "Outputs true if either all devices are commanded enable or all devices are commanded disable"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
 equation
-  connect(greEquThr.y,and3. u1) annotation (Line(points={{-28,40},{-20,40},{-20,
+  connect(greEquThr.y,and3. u1) annotation (Line(points={{-38,40},{-20,40},{-20,
           8},{-12,8}},   color={255,0,255}));
-  connect(logSwi.u1,not0. y) annotation (Line(points={{98,-22},{70,-22},{70,-30},
-          {52,-30}}, color={255,0,255}));
+  connect(logSwi.u1,not0. y) annotation (Line(points={{98,-22},{70,-22},{70,-40},
+          {52,-40}}, color={255,0,255}));
   connect(mulOr.u[1:2],and3. y)
     annotation (Line(points={{28,0},{12,0}},  color={255,0,255}));
   connect(mulOr.y,booRep. u) annotation (Line(points={{52,0},{58,0}},
@@ -97,7 +97,7 @@ equation
   connect(logSwi.y,pre. u) annotation (Line(points={{122,-30},{130,-30},{130,-50},
           {138,-50}}, color={255,0,255}));
   connect(pre.y,not0. u) annotation (Line(points={{162,-50},{180,-50},{180,-70},
-          {10,-70},{10,-30},{28,-30}}, color={255,0,255}));
+          {20,-70},{20,-40},{28,-40}}, color={255,0,255}));
   connect(pre.y,logSwi. u3) annotation (Line(points={{162,-50},{170,-50},{170,-64},
           {90,-64},{90,-38},{98,-38}}, color={255,0,255}));
   connect(tim.u0,falEdg1. y) annotation (Line(points={{-132,32},{-140,32},{-140,
@@ -105,18 +105,19 @@ equation
   connect(pre.y,and3. u3) annotation (Line(points={{162,-50},{190,-50},{190,-76},
           {-20,-76},{-20,-8},{-12,-8}}, color={255,0,255}));
   connect(tim.y,greEquThr. u)
-    annotation (Line(points={{-108,40},{-52,40}},color={0,0,127}));
+    annotation (Line(points={{-108,40},{-62,40}},color={0,0,127}));
   connect(pre.y,falEdg1. u)
-    annotation (Line(points={{162,-50},{190,-50},{190,20},{10,20},{10,40},{28,40}},
-                color={255,0,255}));
-  connect(logSwi.y, yDevRolSet) annotation (Line(points={{122,-30},{162,-30},{162,
-          60},{210,60}},   color={255,0,255}));
+    annotation (Line(points={{162,-50},{190,-50},{190,20},{20,20},{20,40},{28,
+          40}}, color={255,0,255}));
+  connect(logSwi.y, yDevRolSet) annotation (Line(points={{122,-30},{160,-30},{
+          160,60},{210,60}},
+                           color={255,0,255}));
   connect(booRep1.y, and3.u2)
-    annotation (Line(points={{-28,0},{-12,0}}, color={255,0,255}));
+    annotation (Line(points={{-38,0},{-12,0}}, color={255,0,255}));
   connect(anyOn.y, allOff.u)
     annotation (Line(points={{-148,-30},{-132,-30}}, color={255,0,255}));
   connect(booRep1.u, equSig.y)
-    annotation (Line(points={{-52,0},{-68,0}}, color={255,0,255}));
+    annotation (Line(points={{-62,0},{-68,0}}, color={255,0,255}));
   connect(allOff.y, equSig.u2) annotation (Line(points={{-108,-30},{-100,-30},{-100,
           -8},{-92,-8}}, color={255,0,255}));
   connect(allOn.y, equSig.u1) annotation (Line(points={{-108,10},{-100,10},{-100,
