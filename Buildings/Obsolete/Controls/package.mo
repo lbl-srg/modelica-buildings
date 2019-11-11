@@ -1,11 +1,11 @@
 within Buildings.Obsolete;
-package Controls "Blocks and preconfigured control sequences"
+package Controls "Package with obsolete control sequences"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (
 Documentation(info="<html>
 <p>
-This package contains component models for controls.
+Package that contains obsolete component models for controls.
 </p>
 </html>"));
 end Controls;

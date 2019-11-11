@@ -1,7 +1,9 @@
 within Buildings.Obsolete.Controls.OBC.CDL;
-package Discrete "Package with discrete blocks"
+package Discrete "Package with obsolete discrete blocks"
 
   annotation (Documentation(info="<html>
+  <p>Package that contains obsolete models for discrete controls.
+  </p>
 </html>"), Icon(graphics={
         Rectangle(
           lineColor={200,200,200},

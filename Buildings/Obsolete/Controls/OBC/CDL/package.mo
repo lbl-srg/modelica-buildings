@@ -1,11 +1,11 @@
 within Buildings.Obsolete.Controls.OBC;
-package CDL "Package with blocks, examples and validation tests for control description language"
+package CDL "Package with obsolete blocks for control description language"
 
 annotation (
 Documentation(info="<html>
 <p>
-Package that has elementary input-output blocks
-that form the Control Description Language (CDL).
+Package that contains obsolete elementary input-output blocks that was part of
+the Control Description Language (CDL).
 </p>
 </html>"), Icon(graphics={
         Rectangle(
