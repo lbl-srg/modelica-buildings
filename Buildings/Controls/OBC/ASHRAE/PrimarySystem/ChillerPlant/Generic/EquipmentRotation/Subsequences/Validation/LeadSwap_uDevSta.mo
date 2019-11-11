@@ -75,8 +75,8 @@ equation
   connect(not2.y,leaSwa. uDevSta[2]) annotation (
     Line(points={{-138,30},{-120,30},{-120,46},{-42,46}},color={255,0,255}));
 
-  connect(booPul.y, leaSwa.uLeaRolSet[1]) annotation (Line(points={{-178,90},{-60,
-          90},{-60,54},{-42,54}},     color={255,0,255}));
+  connect(booPul.y, leaSwa.uLeaRolSet[1]) annotation (Line(points={{-178,90},{
+          -60,90},{-60,54},{-42,54}}, color={255,0,255}));
   connect(not1.y, leaSwa.uLeaRolSet[2]) annotation (Line(points={{-138,70},{-60,
           70},{-60,54},{-42,54}},  color={255,0,255}));
   connect(booPul2.y, not4.u) annotation (Line(points={{-178,-10},{-170,-10},{
@@ -84,26 +84,26 @@ equation
                      color={255,0,255}));
   connect(booPul4.y, not6.u) annotation (Line(points={{42,90},{50,90},{50,70},{58,
           70}},              color={255,0,255}));
-  connect(booPul4.y, leaSwa2.uDevSta[1]) annotation (Line(points={{42,90},{130,90},
-          {130,46},{178,46}},        color={255,0,255}));
+  connect(booPul4.y, leaSwa2.uDevSta[1]) annotation (Line(points={{42,90},{130,
+          90},{130,46},{178,46}},    color={255,0,255}));
   connect(booPul5.y,not5. u)
     annotation (Line(points={{42,30},{58,30}},       color={255,0,255}));
   connect(not5.y, leaSwa2.uDevSta[2]) annotation (Line(points={{82,30},{100,30},
           {100,46},{178,46}},          color={255,0,255}));
-  connect(booPul4.y, leaSwa2.uLeaRolSet[1]) annotation (Line(points={{42,90},{160,
-          90},{160,54},{178,54}},        color={255,0,255}));
-  connect(not6.y, leaSwa2.uLeaRolSet[2]) annotation (Line(points={{82,70},{160,70},
-          {160,54},{178,54}},            color={255,0,255}));
+  connect(booPul4.y, leaSwa2.uLeaRolSet[1]) annotation (Line(points={{42,90},{
+          160,90},{160,54},{178,54}},    color={255,0,255}));
+  connect(not6.y, leaSwa2.uLeaRolSet[2]) annotation (Line(points={{82,70},{160,
+          70},{160,54},{178,54}},        color={255,0,255}));
   connect(booPul6.y,not8. u) annotation (Line(points={{42,-30},{50,-30},{50,-50},
           {58,-50}},         color={255,0,255}));
   connect(booPul6.y,leaSwa3. uDevSta[1]) annotation (Line(points={{42,-30},{130,
           -30},{130,-74},{178,-74}}, color={255,0,255}));
   connect(booPul7.y,not7. u)
     annotation (Line(points={{42,-90},{58,-90}},     color={255,0,255}));
-  connect(not7.y,leaSwa3. uDevSta[2]) annotation (Line(points={{82,-90},{100,-90},
-          {100,-74},{178,-74}},        color={255,0,255}));
-  connect(booPul6.y,leaSwa3. uLeaRolSet[1]) annotation (Line(points={{42,-30},{160,
-          -30},{160,-66},{178,-66}},     color={255,0,255}));
+  connect(not7.y,leaSwa3. uDevSta[2]) annotation (Line(points={{82,-90},{100,
+          -90},{100,-74},{178,-74}},   color={255,0,255}));
+  connect(booPul6.y,leaSwa3. uLeaRolSet[1]) annotation (Line(points={{42,-30},{
+          160,-30},{160,-66},{178,-66}}, color={255,0,255}));
   connect(not8.y,leaSwa3. uLeaRolSet[2]) annotation (Line(points={{82,-50},{160,
           -50},{160,-66},{178,-66}},     color={255,0,255}));
   connect(booPul2.y, truFalHol.u) annotation (Line(points={{-178,-10},{-120,-10},

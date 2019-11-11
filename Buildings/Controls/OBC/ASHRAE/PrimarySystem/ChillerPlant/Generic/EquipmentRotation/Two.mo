@@ -51,11 +51,13 @@ block Two
         transformation(extent={{260,-50},{280,-30}}), iconTransformation(extent=
            {{100,-70},{120,-50}})));
   Subsequences.Scheduler equRot1
-    annotation (Placement(transformation(extent={{-42,20},{-22,40}})));
+    annotation (Placement(transformation(extent={{-240,118},{-220,138}})));
   Subsequences.LeadSwap equRot2
-    annotation (Placement(transformation(extent={{18,20},{38,40}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Subsequences.RuntimeCounter runCou
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Subsequences.Two rotTwo "mig if two"
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 equation
   connect(logSwi1.u1,repLead. y) annotation (Line(points={{-182,-32},{-190,-32},
           {-190,40},{-218,40}}, color={255,0,255}));
@@ -71,10 +73,14 @@ equation
           -200,-48},{-182,-48}},  color={255,0,255}));
   connect(logSwi1.y, runCou.uDevStaSet)
     annotation (Line(points={{-158,-40},{-42,-40}}, color={255,0,255}));
-  connect(runCou.yDevRolSet, yDevRolSet)
-    annotation (Line(points={{-19,-40},{270,-40}}, color={255,0,255}));
-  connect(runCou.yPreDevRolSet, logSwi1.u2) annotation (Line(points={{-19,-46},
-          {0,-46},{0,-60},{-190,-60},{-190,-40},{-182,-40}}, color={255,0,255}));
+  connect(equRot2.yDevStaSet, yDevStaSet) annotation (Line(points={{42,30},{200,
+          30},{200,40},{270,40}}, color={255,0,255}));
+  connect(runCou.yRot, rotTwo.uRot) annotation (Line(points={{-18,-40},{8,-40},
+          {8,-70},{38,-70}}, color={255,0,255}));
+  connect(rotTwo.yDevRolSet, yDevRolSet) annotation (Line(points={{61,-70},{162,
+          -70},{162,-40},{270,-40}}, color={255,0,255}));
+  connect(rotTwo.yTimRes, runCou.uTimRes) annotation (Line(points={{61,-76},{70,
+          -76},{70,-98},{-54,-98},{-54,-48},{-42,-48}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-260,-160},{260,160}})),
       defaultComponentName="equRot",
     Icon(graphics={
