@@ -193,7 +193,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
         </td>
-        <td valigh=\"top\">Added a boolean input to reset the accumulated timer.
+        <td valign=\"top\">Added a boolean input to reset the accumulated timer.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">#1221</a>.
         </td>
     </tr>
