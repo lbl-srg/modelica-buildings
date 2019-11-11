@@ -7,12 +7,12 @@ block Two
           extent={{-240,20},{-200,60}}), iconTransformation(extent={{-140,-20},{
             -100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRolSet[nDev]
-    "Device role: true = lead, false = lag or standby"
-    annotation (Placement(transformation(extent={{200,50},{220,70}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
+    "Device role: true = lead, false = lag or standby" annotation (Placement(
+        transformation(extent={{200,50},{220,70}}), iconTransformation(extent={
+            {100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPreDevRolSet[nDev]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPreDevRolSig[nDev]
     "Device roles in the previous time instance: true = lead; false = lag or standby"
     annotation (Placement(transformation(extent={{200,-50},{220,-30}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
@@ -48,14 +48,14 @@ equation
           -40},{-120,-10},{-102,-10}}, color={255,0,255}));
   connect(pre.y,logSwi. u3) annotation (Line(points={{42,-20},{50,-20},{50,-34},
           {-40,-34},{-40,-8},{-28,-8}},color={255,0,255}));
-  connect(logSwi.y, yDevRolSet) annotation (Line(points={{-4,0},{40,0},{40,60},{
-          210,60}},        color={255,0,255}));
+  connect(logSwi.y, yDevRol) annotation (Line(points={{-4,0},{40,0},{40,60},{
+          210,60}}, color={255,0,255}));
   connect(uRot, booRep.u)
     annotation (Line(points={{-220,40},{-102,40}}, color={255,0,255}));
   connect(booRep.y, logSwi.u2) annotation (Line(points={{-78,40},{-46,40},{-46,0},
           {-28,0}},    color={255,0,255}));
-  connect(pre.y,yPreDevRolSet)  annotation (Line(points={{42,-20},{140,-20},{140,
-          -40},{210,-40}}, color={255,0,255}));
+  connect(pre.y, yPreDevRolSig) annotation (Line(points={{42,-20},{140,-20},{
+          140,-40},{210,-40}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-200,-120},{200,120}})),
       defaultComponentName="rotTwo",
     Icon(graphics={

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation;
-block Controller
+block ControllerTwo
   "Lead-lag or lead-standby equipment rotation for two devices or two groups of devices"
 
   parameter Boolean lag = true
@@ -15,36 +15,44 @@ block Controller
 
   parameter Modelica.SIunits.Time stagingRuntime(
     final displayUnit = "h") = 864000
-    "Staging runtime for each device";
+    "Staging runtime for each device"
+    annotation (Evaluate=true, Dialog(enable=not continuous));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaStaSet
-    "Lead device status command/setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaStaSet if not continuous
+    "Lead device status setpoint"
     annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLagStaSet if lag
-    "Lag device status" annotation (Placement(transformation(extent={{-300,-60},
+    "Lag device status setpoint"
+                        annotation (Placement(transformation(extent={{-300,-60},
             {-260,-20}}), iconTransformation(extent={{-140,-80},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev] if continuous
+    "Device proven on status"
+    annotation (Placement(transformation(extent={{-300,70},{-260,110}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevStaSet[nDev]
     "Device status (index represents the physical device)" annotation (
       Placement(transformation(extent={{260,30},{280,50}}), iconTransformation(
           extent={{100,50},{120,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRolSet[nDev]
-    "Device role: true = lead, false = lag or standby"
-    annotation (Placement(transformation(extent={{260,-50},{280,-30}}),
-    iconTransformation(extent={{100,-70},{120,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
+    "Device role: true = lead, false = lag or standby" annotation (Placement(
+        transformation(extent={{260,-50},{280,-30}}), iconTransformation(extent
+          ={{100,-70},{120,-50}})));
 
 //protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
   final parameter Modelica.SIunits.Time stagingRuntimes[nDev] = fill(stagingRuntime, nDev)
-    "Staging runtimes array";
+    "Staging runtimes array"
+    annotation (Evaluate=true, Dialog(enable=not continuous));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(
-    final nout=nDev)
+    final nout=nDev) if continuous
     "Replicates lead signal"
     annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
 
@@ -53,37 +61,39 @@ block Controller
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] "Switch"
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] if continuous
+    "Switch"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staBySta[nDev](
-    final k=fill(false, nDev)) if not lag
+    final k=fill(false, nDev)) if not lag and not continuous
     "Standby status"
     annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler equRot1 if continuous
-    "mig_if_cont"
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
+    equRot1 if continuous
+    "Generates equipment rotation trigger based on a schedule"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwap leaSwa if continuous
-    "Lead role swap for continuously operating lead devices mig_if_cont"
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo
+    leaSwa if continuous
+    "Ensures no old lead device is switched off until the new lead device is proven on"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter runCou if not continuous
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
+    runCou if not continuous
     "Runtime counter"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two rotTwo
-    "mig if two"
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
+    rotTwo if not continuous
+    "Based on a rotation trigger sets device roles according to equipment rotation"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two rotTwoCon "mig_if_cont"
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
+    rotTwoCon if continuous
+    "Based on a rotation trigger sets device roles according to equipment rotation"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
-    "mig if cont operation"
-    annotation (Placement(transformation(extent={{-300,70},{-260,110}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
 equation
   connect(logSwi1.u1,repLead. y) annotation (Line(points={{-182,-32},{-190,-32},
@@ -98,27 +108,28 @@ equation
           {-140,80},{220,80},{220,40},{270,40}}, color={255,0,255}));
   connect(staBySta.y,logSwi1. u3) annotation (Line(points={{-218,-90},{-200,-90},{
           -200,-48},{-182,-48}},  color={255,0,255}));
-  connect(logSwi1.y, runCou.uDevStaSet)
-    annotation (Line(points={{-158,-40},{-42,-40}}, color={255,0,255}));
   connect(leaSwa.yDevStaSet, yDevStaSet) annotation (Line(points={{42,30},{200,30},
           {200,40},{270,40}}, color={255,0,255}));
   connect(runCou.yRot, rotTwo.uRot) annotation (Line(points={{-18,-40},{8,-40},{
           8,-70},{38,-70}}, color={255,0,255}));
-  connect(rotTwo.yDevRolSet, yDevRolSet) annotation (Line(points={{61,-70},{160,
-          -70},{160,-40},{270,-40}}, color={255,0,255}));
-  connect(rotTwo.yPreDevRolSet, runCou.uPreDevRolSig) annotation (Line(points={{
-          61,-76},{70,-76},{70,-100},{-60,-100},{-60,-48},{-42,-48}}, color={255,
-          0,255}));
-  connect(rotTwo.yPreDevRolSet, logSwi1.u2) annotation (Line(points={{61,-76},{70,
-          -76},{70,-110},{-190,-110},{-190,-40},{-182,-40}}, color={255,0,255}));
+  connect(rotTwo.yDevRol, yDevRol) annotation (Line(points={{61,-70},{160,-70},
+          {160,-40},{270,-40}}, color={255,0,255}));
+  connect(rotTwo.yPreDevRolSig, runCou.uPreDevRolSig) annotation (Line(points={
+          {61,-76},{70,-76},{70,-100},{-60,-100},{-60,-48},{-42,-48}}, color={
+          255,0,255}));
+  connect(rotTwo.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{61,-76},{
+          70,-76},{70,-110},{-190,-110},{-190,-40},{-182,-40}}, color={255,0,
+          255}));
   connect(equRot1.yRot, rotTwoCon.uRot)
     annotation (Line(points={{-58,30},{-42,30}}, color={255,0,255}));
   connect(uDevSta, leaSwa.uDevSta) annotation (Line(points={{-280,90},{10,90},{10,
           26},{18,26}}, color={255,0,255}));
-  connect(rotTwoCon.yDevRolSet, leaSwa.uDevRolSet) annotation (Line(points={{-19,
+  connect(rotTwoCon.yDevRol, leaSwa.uDevRolSet) annotation (Line(points={{-19,
           30},{0,30},{0,34},{18,34}}, color={255,0,255}));
-  connect(rotTwoCon.yDevRolSet, yDevRolSet) annotation (Line(points={{-19,30},{0,
-          30},{0,-20},{160,-20},{160,-40},{270,-40}}, color={255,0,255}));
+  connect(rotTwoCon.yDevRol, yDevRol) annotation (Line(points={{-19,30},{0,30},
+          {0,-20},{160,-20},{160,-40},{270,-40}}, color={255,0,255}));
+  connect(uDevSta, runCou.uDevSta) annotation (Line(points={{-280,90},{-100,90},
+          {-100,-40},{-42,-40}}, color={255,0,255}));
     annotation (Evaluate=true,
               Diagram(coordinateSystem(extent={{-260,-160},{260,160}})),
       defaultComponentName="equRot",
@@ -196,4 +207,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Controller;
+end ControllerTwo;

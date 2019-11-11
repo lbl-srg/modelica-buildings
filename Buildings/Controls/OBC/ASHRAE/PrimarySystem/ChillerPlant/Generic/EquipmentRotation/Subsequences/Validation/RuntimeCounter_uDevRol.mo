@@ -69,9 +69,9 @@ equation
                     color={255,0,255}));
   connect(repLag.y, logSwi.u3) annotation (Line(points={{-38,40},{-10,40},{-10,42},
           {-2,42}}, color={255,0,255}));
-  connect(logSwi.y, runCou.uDevStaSet)
+  connect(logSwi.y, runCou.uDevSta)
     annotation (Line(points={{22,50},{38,50}}, color={255,0,255}));
-  connect(logSwi1.y, runCou1.uDevStaSet)
+  connect(logSwi1.y, runCou1.uDevSta)
     annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
   connect(staSta.y,logSwi1. u3) annotation (Line(points={{-78,-10},{-40,-10},{-40,
           -8},{-2,-8}}, color={255,0,255}));
@@ -83,27 +83,28 @@ equation
           -42},{-2,-42}}, color={255,0,255}));
   connect(repLag1.y,logSwi2. u3) annotation (Line(points={{-38,-70},{-30,-70},{-30,
           -58},{-2,-58}}, color={255,0,255}));
-  connect(logSwi2.y, runCou2.uDevStaSet)
+  connect(logSwi2.y, runCou2.uDevSta)
     annotation (Line(points={{22,-50},{38,-50}}, color={255,0,255}));
   connect(runCou.yRot, rotTwo.uRot)
     annotation (Line(points={{62,50},{78,50}}, color={255,0,255}));
-  connect(rotTwo.yPreDevRolSet, runCou.uPreDevRolSig) annotation (Line(points={{
-          101,44},{108,44},{108,30},{30,30},{30,42},{38,42}}, color={255,0,255}));
-  connect(rotTwo.yPreDevRolSet, logSwi.u2) annotation (Line(points={{101,44},{108,
-          44},{108,30},{-20,30},{-20,50},{-2,50}}, color={255,0,255}));
+  connect(rotTwo.yPreDevRolSig, runCou.uPreDevRolSig) annotation (Line(points={
+          {101,44},{108,44},{108,30},{30,30},{30,42},{38,42}}, color={255,0,255}));
+  connect(rotTwo.yPreDevRolSig, logSwi.u2) annotation (Line(points={{101,44},{
+          108,44},{108,30},{-20,30},{-20,50},{-2,50}}, color={255,0,255}));
   connect(runCou1.yRot, rotTwo1.uRot)
     annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
   connect(runCou2.yRot, rotTwo2.uRot)
     annotation (Line(points={{62,-50},{78,-50}}, color={255,0,255}));
-  connect(rotTwo2.yPreDevRolSet, runCou2.uPreDevRolSig) annotation (Line(points=
-         {{101,-56},{110,-56},{110,-70},{30,-70},{30,-58},{38,-58}}, color={255,
+  connect(rotTwo2.yPreDevRolSig, runCou2.uPreDevRolSig) annotation (Line(points
+        ={{101,-56},{110,-56},{110,-70},{30,-70},{30,-58},{38,-58}}, color={255,
           0,255}));
-  connect(rotTwo2.yPreDevRolSet, logSwi2.u2) annotation (Line(points={{101,-56},
+  connect(rotTwo2.yPreDevRolSig, logSwi2.u2) annotation (Line(points={{101,-56},
           {110,-56},{110,-70},{-20,-70},{-20,-50},{-2,-50}}, color={255,0,255}));
-  connect(rotTwo1.yPreDevRolSet, runCou1.uPreDevRolSig) annotation (Line(points=
-         {{101,-6},{110,-6},{110,-20},{30,-20},{30,-8},{38,-8}}, color={255,0,255}));
-  connect(rotTwo1.yPreDevRolSet, logSwi1.u2) annotation (Line(points={{101,-6},{
-          110,-6},{110,-20},{-20,-20},{-20,0},{-2,0}}, color={255,0,255}));
+  connect(rotTwo1.yPreDevRolSig, runCou1.uPreDevRolSig) annotation (Line(points
+        ={{101,-6},{110,-6},{110,-20},{30,-20},{30,-8},{38,-8}}, color={255,0,
+          255}));
+  connect(rotTwo1.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{101,-6},
+          {110,-6},{110,-20},{-20,-20},{-20,0},{-2,0}}, color={255,0,255}));
           annotation (
    experiment(StopTime=10000.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/RuntimeCounter_uDevRol.mos"
@@ -132,5 +133,10 @@ Icon(graphics={
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}}),
+        graphics={Text(
+          extent={{-52,-104},{46,-114}},
+          lineColor={0,0,127},
+          textString="For simplicity this test assumes 
+the device status equals it's setpoint")}));
 end RuntimeCounter_uDevRol;

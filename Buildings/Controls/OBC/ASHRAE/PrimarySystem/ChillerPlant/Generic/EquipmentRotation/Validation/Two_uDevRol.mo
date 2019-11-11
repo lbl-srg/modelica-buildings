@@ -17,7 +17,7 @@ model Two_uDevRol "Validate lead/lag and lead/standby switching"
   EquipmentRotationTwo
     leaLag1(final stagingRuntime=5*60*60)
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Controller
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo
     equRot(lag=true)
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
 

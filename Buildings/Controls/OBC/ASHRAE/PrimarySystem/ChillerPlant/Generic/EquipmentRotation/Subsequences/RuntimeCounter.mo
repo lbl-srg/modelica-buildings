@@ -6,10 +6,9 @@ block RuntimeCounter
     final displayUnit = "h") = 864000
     "Staging runtime for each device";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevStaSet[nDev]
-    "Device status setpoint"
-    annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
+    "Device status" annotation (Placement(transformation(extent={{-240,20},{-200,
+            60}}), iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr[nDev](
     final threshold=stagingRuntimes) "Staging runtime hysteresis"
@@ -85,12 +84,12 @@ equation
                          color={255,0,255}));
   connect(allOn.y, equSig.u1) annotation (Line(points={{-78,10},{-58,10},{-58,0},
           {-42,0}},    color={255,0,255}));
-  connect(uDevStaSet, tim.u) annotation (Line(points={{-220,40},{-102,40}},
-                      color={255,0,255}));
-  connect(uDevStaSet, allOn.u[1:2]) annotation (Line(points={{-220,40},{-120,40},
-          {-120,10},{-102,10}},           color={255,0,255}));
-  connect(uDevStaSet, anyOn.u[1:2]) annotation (Line(points={{-220,40},{-160,40},
-          {-160,-30},{-142,-30}},             color={255,0,255}));
+  connect(uDevSta, tim.u)
+    annotation (Line(points={{-220,40},{-102,40}}, color={255,0,255}));
+  connect(uDevSta, allOn.u[1:2]) annotation (Line(points={{-220,40},{-120,40},{
+          -120,10},{-102,10}}, color={255,0,255}));
+  connect(uDevSta, anyOn.u[1:2]) annotation (Line(points={{-220,40},{-160,40},{
+          -160,-30},{-142,-30}}, color={255,0,255}));
   connect(mulOr.y, yRot)
     annotation (Line(points={{122,0},{220,0}}, color={255,0,255}));
   connect(uPreDevRolSig, falEdg1.u)

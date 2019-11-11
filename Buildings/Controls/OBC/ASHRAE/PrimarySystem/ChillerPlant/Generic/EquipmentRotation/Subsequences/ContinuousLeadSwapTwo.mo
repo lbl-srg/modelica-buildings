@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences;
-block ContinuousLeadSwap
-  "Ensures previous lead stays enabled until the new lead is proven on"
+block ContinuousLeadSwapTwo
+  "Ensures previous lead device remains enabled until the new lead device is proven on"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevRolSet[nDev]
     "Device role setpoint: true = lead, false = lag or standby"
@@ -66,4 +66,4 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-80,-80},{80,80}})));
-end ContinuousLeadSwap;
+end ContinuousLeadSwapTwo;
