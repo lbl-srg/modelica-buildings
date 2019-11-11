@@ -26,6 +26,8 @@ protected
       buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
       verbosity=verbosity) "Class to communicate with EnergyPlus";
 
+  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
+
   Integer counter "Counter for number of calls to EnergyPlus during time steps";
 
 initial equation
