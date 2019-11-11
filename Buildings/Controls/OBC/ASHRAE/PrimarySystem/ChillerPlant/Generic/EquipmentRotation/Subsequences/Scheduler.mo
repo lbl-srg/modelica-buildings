@@ -51,7 +51,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant weeCou1(
     final k=weeCou) if weeInt "Number of weeks for scheduled rotation"
-    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant dayCou1(
     final k=dayCou) if not weeInt "Number of days for scheduled rotation"
@@ -93,10 +93,11 @@ protected
 equation
   connect(dayCou1.y, intEqu2.u2) annotation (Line(points={{-118,-90},{30,-90},{30,
           12},{38,12}}, color={255,127,0}));
-  connect(calTim.hour, intEqu.u1) annotation (Line(points={{-119,96},{-106,96},{
-          -106,70},{-82,70}}, color={255,127,0}));
-  connect(houOfDay1.y, intEqu.u2) annotation (Line(points={{-118,50},{-108,50},{-108,
-          62},{-82,62}}, color={255,127,0}));
+  connect(calTim.hour, intEqu.u1) annotation (Line(points={{-119,96},{-100,96},
+          {-100,70},{-82,70}},color={255,127,0}));
+  connect(houOfDay1.y, intEqu.u2) annotation (Line(points={{-118,50},{-100,50},
+          {-100,62},{-82,62}},
+                         color={255,127,0}));
   connect(calTim.weekDay, isWee.u1) annotation (Line(points={{-119,84},{-110,84},
           {-110,20},{-102,20}}, color={255,127,0}));
   connect(weeDay.y, isWee.u2) annotation (Line(points={{-118,10},{-110,10},{-110,
@@ -115,8 +116,9 @@ equation
           -8},{10,-8},{10,8}},color={255,0,255}));
   connect(edg.y, yRot)
     annotation (Line(points={{142,20},{150,20},{150,0},{180,0}}, color={255,0,255}));
-  connect(weeCou1.y, intEqu2.u2) annotation (Line(points={{-118,-60},{30,-60},{30,
-          12},{38,12}}, color={255,127,0}));
+  connect(weeCou1.y, intEqu2.u2) annotation (Line(points={{-118,-50},{30,-50},{
+          30,12},{38,12}},
+                        color={255,127,0}));
   connect(isWee.y, and2.u2) annotation (Line(points={{-78,20},{-60,20},{-60,12},
           {-32,12}}, color={255,0,255}));
   connect(truSig.y, and2.u2) annotation (Line(points={{-78,-10},{-60,-10},{-60,12},

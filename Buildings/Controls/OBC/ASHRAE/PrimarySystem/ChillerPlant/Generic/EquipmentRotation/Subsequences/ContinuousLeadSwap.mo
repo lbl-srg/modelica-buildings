@@ -1,9 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences;
-block LeadSwap
+block ContinuousLeadSwap
   "Ensures previous lead stays enabled until the new lead is proven on"
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaRolSet[nDev]
-    "Lead role setpoint" annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevRolSet[nDev]
+    "Device role setpoint: true = lead, false = lag or standby"
+                         annotation (
       Placement(transformation(extent={{-100,20},{-80,40}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
@@ -30,7 +31,7 @@ protected
 equation
   connect(uDevSta, not1.u)
     annotation (Line(points={{-90,-10},{-42,-10}}, color={255,0,255}));
-  connect(uLeaRolSet, or1.u1)
+  connect(uDevRolSet, or1.u1)
     annotation (Line(points={{-90,30},{18,30}},color={255,0,255}));
   connect(not1[1].y, or1[2].u2)
     annotation (Line(points={{-18,-10},{0,-10},{0,22},{18,22}}, color={255,0,255}));
@@ -38,7 +39,7 @@ equation
           22},{18,22}}, color={255,0,255}));
   connect(or1.y, yDevStaSet)
     annotation (Line(points={{42,30},{90,30}}, color={255,0,255}));
-  annotation (defaultComponentName="runCou",
+  annotation (defaultComponentName="leaSwa",
     Icon(graphics={Rectangle(
     extent={{-100,-100},{100,100}},
     lineColor={0,0,127}, fillColor={255,255,255},
@@ -65,4 +66,4 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-80,-80},{80,80}})));
-end LeadSwap;
+end ContinuousLeadSwap;

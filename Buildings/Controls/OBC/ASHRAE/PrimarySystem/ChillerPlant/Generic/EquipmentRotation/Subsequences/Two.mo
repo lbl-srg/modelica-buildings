@@ -2,10 +2,6 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 block Two
   "Equipment rotation signal based on device runtime and current device status"
 
-  parameter Modelica.SIunits.Time stagingRuntime(
-    final displayUnit = "h") = 864000
-    "Staging runtime for each device";
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRot
     "Rising edge to rotate the equipment" annotation (Placement(transformation(
           extent={{-240,20},{-200,60}}), iconTransformation(extent={{-140,-20},{
@@ -16,10 +12,10 @@ block Two
     annotation (Placement(transformation(extent={{200,50},{220,70}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTimRes[nDev]
-    "Runtime counter timers reset signal" annotation (Placement(transformation(
-          extent={{200,-50},{220,-30}}), iconTransformation(extent={{100,-70},{120,
-            -50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPreDevRolSet[nDev]
+    "Device roles in the previous time instance: true = lead; false = lag or standby"
+    annotation (Placement(transformation(extent={{200,-50},{220,-30}}),
+        iconTransformation(extent={{100,-70},{120,-50}})));
 
 //protected
   final parameter Integer nDev = 2
@@ -29,43 +25,37 @@ block Two
     "Initial roles: true = lead, false = lag/standby"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
 
-  final parameter Modelica.SIunits.Time stagingRuntimes[nDev] = fill(stagingRuntime, nDev)
-    "Staging runtimes array";
-
   Buildings.Controls.OBC.CDL.Logical.Not not0[nDev] "Logical not"
-    annotation (Placement(transformation(extent={{-96,-20},{-76,0}})));
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nDev] "Switch"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre[nDev](
     final pre_u_start=initRoles) "Previous timestep"
-    annotation (Placement(transformation(extent={{14,-30},{34,-10}})));
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
-  CDL.Routing.BooleanReplicator                        booRep(final nout=nDev)
-                     "Signal replicator"
-    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
-  CDL.Logical.FallingEdge                        falEdg1[nDev] "Falling Edge"
-    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
+    final nout=nDev)
+    "Signal replicator"
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 equation
-  connect(logSwi.u1,not0. y) annotation (Line(points={{-28,8},{-56,8},{-56,-10},
-          {-74,-10}},color={255,0,255}));
-  connect(logSwi.y,pre. u) annotation (Line(points={{-4,0},{4,0},{4,-20},{12,-20}},
+  connect(logSwi.u1,not0. y) annotation (Line(points={{-28,8},{-60,8},{-60,-10},
+          {-78,-10}},color={255,0,255}));
+  connect(logSwi.y,pre. u) annotation (Line(points={{-4,0},{10,0},{10,-20},{18,-20}},
                       color={255,0,255}));
-  connect(pre.y,not0. u) annotation (Line(points={{36,-20},{54,-20},{54,-40},{-106,
-          -40},{-106,-10},{-98,-10}},  color={255,0,255}));
-  connect(pre.y,logSwi. u3) annotation (Line(points={{36,-20},{44,-20},{44,-34},
-          {-36,-34},{-36,-8},{-28,-8}},color={255,0,255}));
-  connect(logSwi.y, yDevRolSet) annotation (Line(points={{-4,0},{34,0},{34,60},{
+  connect(pre.y,not0. u) annotation (Line(points={{42,-20},{60,-20},{60,-40},{-120,
+          -40},{-120,-10},{-102,-10}}, color={255,0,255}));
+  connect(pre.y,logSwi. u3) annotation (Line(points={{42,-20},{50,-20},{50,-34},
+          {-40,-34},{-40,-8},{-28,-8}},color={255,0,255}));
+  connect(logSwi.y, yDevRolSet) annotation (Line(points={{-4,0},{40,0},{40,60},{
           210,60}},        color={255,0,255}));
   connect(uRot, booRep.u)
-    annotation (Line(points={{-220,40},{-142,40}}, color={255,0,255}));
-  connect(booRep.y, logSwi.u2) annotation (Line(points={{-118,40},{-46,40},{-46,
-          0},{-28,0}}, color={255,0,255}));
-  connect(falEdg1.y, yTimRes)
-    annotation (Line(points={{142,-40},{210,-40}}, color={255,0,255}));
-  connect(pre.y, falEdg1.u) annotation (Line(points={{36,-20},{80,-20},{80,-40},
-          {118,-40}}, color={255,0,255}));
+    annotation (Line(points={{-220,40},{-102,40}}, color={255,0,255}));
+  connect(booRep.y, logSwi.u2) annotation (Line(points={{-78,40},{-46,40},{-46,0},
+          {-28,0}},    color={255,0,255}));
+  connect(pre.y,yPreDevRolSet)  annotation (Line(points={{42,-20},{140,-20},{140,
+          -40},{210,-40}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-200,-120},{200,120}})),
       defaultComponentName="rotTwo",
     Icon(graphics={
@@ -117,8 +107,8 @@ with the first index in the input vector. The block measures the <code>stagingRu
 for each device and switches the lead role to the next higher index
 as its <code>stagingRuntime<\code> expires. This block can be used for 2 devices. 
 If using more than 2 devices, see 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Multiple\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Multiple</a>.
 </p>
 </html>", revisions="<html>
 <ul>

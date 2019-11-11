@@ -4,88 +4,106 @@ model RuntimeCounter_uDevRol
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter runCou(
     final stagingRuntime=7500)
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter runCou1(
     final stagingRuntime = 7200)
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter runCou2(
     final stagingRuntime=7200)
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2] "Switch"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[2] "Switch"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[2] "Switch"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
+  Two rotTwo annotation (Placement(transformation(extent={{80,40},{100,60}})));
+  Two rotTwo1 annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  Two rotTwo2
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 protected
   parameter Boolean initRoles[2] = {true, false}
     "Sets initial roles: true = lead, false = lag or standby";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staSta[2](
     final k=fill(false, 2)) "Standby status"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag1(final nout=2)
     "Replicates lag signal"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(final nout=2)
     "Replicates lag signal"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(final nout=2)
     "Replicates lead signal"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad(
     final width=0.8, final period=7200) "Lead device enable status"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(
     final width=0.2, final period=3600)
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad1(
     final width=0.2, final period=5400)
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
 equation
-  connect(leadLoad.y, repLead.u) annotation (Line(points={{-58,90},{-50,90},{-50,
-          70},{-42,70}}, color={255,0,255}));
-  connect(lagLoad.y, repLag.u) annotation (Line(points={{-58,30},{-50,30},{-50,40},
-          {-42,40}}, color={255,0,255}));
-  connect(repLead.y, logSwi.u1) annotation (Line(points={{-18,70},{0,70},{0,58},
-          {18,58}}, color={255,0,255}));
-  connect(repLag.y, logSwi.u3) annotation (Line(points={{-18,40},{10,40},{10,42},
-          {18,42}}, color={255,0,255}));
+  connect(leadLoad.y, repLead.u) annotation (Line(points={{-78,80},{-70,80},{-70,
+          70},{-62,70}}, color={255,0,255}));
+  connect(lagLoad.y, repLag.u) annotation (Line(points={{-78,30},{-70,30},{-70,40},
+          {-62,40}}, color={255,0,255}));
+  connect(repLead.y, logSwi.u1) annotation (Line(points={{-38,70},{-20,70},{-20,
+          58},{-2,58}},
+                    color={255,0,255}));
+  connect(repLag.y, logSwi.u3) annotation (Line(points={{-38,40},{-10,40},{-10,42},
+          {-2,42}}, color={255,0,255}));
   connect(logSwi.y, runCou.uDevStaSet)
-    annotation (Line(points={{42,50},{58,50}}, color={255,0,255}));
-  connect(runCou.yPreDevRolSet, logSwi.u2) annotation (Line(points={{81,44},{90,
-          44},{90,30},{10,30},{10,50},{18,50}}, color={255,0,255}));
+    annotation (Line(points={{22,50},{38,50}}, color={255,0,255}));
   connect(logSwi1.y, runCou1.uDevStaSet)
-    annotation (Line(points={{42,0},{58,0}}, color={255,0,255}));
-  connect(runCou1.yPreDevRolSet,logSwi1. u2) annotation (Line(points={{81,-6},{90,
-          -6},{90,-20},{12,-20},{12,0},{18,0}},   color={255,0,255}));
-  connect(staSta.y,logSwi1. u3) annotation (Line(points={{-58,-10},{-20,-10},{-20,
-          -8},{18,-8}}, color={255,0,255}));
-  connect(repLead.y,logSwi1. u1) annotation (Line(points={{-18,70},{-10,70},{-10,
-          8},{18,8}},   color={255,0,255}));
+    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
+  connect(staSta.y,logSwi1. u3) annotation (Line(points={{-78,-10},{-40,-10},{-40,
+          -8},{-2,-8}}, color={255,0,255}));
+  connect(repLead.y,logSwi1. u1) annotation (Line(points={{-38,70},{-30,70},{-30,
+          8},{-2,8}},   color={255,0,255}));
   connect(lagLoad1.y, repLag1.u)
-    annotation (Line(points={{-58,-70},{-42,-70}}, color={255,0,255}));
-  connect(repLead.y,logSwi2. u1) annotation (Line(points={{-18,70},{-10,70},{-10,
-          -42},{18,-42}}, color={255,0,255}));
-  connect(repLag1.y,logSwi2. u3) annotation (Line(points={{-18,-70},{-10,-70},{-10,
-          -58},{18,-58}}, color={255,0,255}));
+    annotation (Line(points={{-78,-70},{-62,-70}}, color={255,0,255}));
+  connect(repLead.y,logSwi2. u1) annotation (Line(points={{-38,70},{-30,70},{-30,
+          -42},{-2,-42}}, color={255,0,255}));
+  connect(repLag1.y,logSwi2. u3) annotation (Line(points={{-38,-70},{-30,-70},{-30,
+          -58},{-2,-58}}, color={255,0,255}));
   connect(logSwi2.y, runCou2.uDevStaSet)
-    annotation (Line(points={{42,-50},{58,-50}}, color={255,0,255}));
-  connect(runCou2.yPreDevRolSet,logSwi2. u2) annotation (Line(points={{81,-56},{
-          90,-56},{90,-70},{10,-70},{10,-50},{18,-50}}, color={255,0,255}));
+    annotation (Line(points={{22,-50},{38,-50}}, color={255,0,255}));
+  connect(runCou.yRot, rotTwo.uRot)
+    annotation (Line(points={{62,50},{78,50}}, color={255,0,255}));
+  connect(rotTwo.yPreDevRolSet, runCou.uPreDevRolSig) annotation (Line(points={{
+          101,44},{108,44},{108,30},{30,30},{30,42},{38,42}}, color={255,0,255}));
+  connect(rotTwo.yPreDevRolSet, logSwi.u2) annotation (Line(points={{101,44},{108,
+          44},{108,30},{-20,30},{-20,50},{-2,50}}, color={255,0,255}));
+  connect(runCou1.yRot, rotTwo1.uRot)
+    annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
+  connect(runCou2.yRot, rotTwo2.uRot)
+    annotation (Line(points={{62,-50},{78,-50}}, color={255,0,255}));
+  connect(rotTwo2.yPreDevRolSet, runCou2.uPreDevRolSig) annotation (Line(points=
+         {{101,-56},{110,-56},{110,-70},{30,-70},{30,-58},{38,-58}}, color={255,
+          0,255}));
+  connect(rotTwo2.yPreDevRolSet, logSwi2.u2) annotation (Line(points={{101,-56},
+          {110,-56},{110,-70},{-20,-70},{-20,-50},{-2,-50}}, color={255,0,255}));
+  connect(rotTwo1.yPreDevRolSet, runCou1.uPreDevRolSig) annotation (Line(points=
+         {{101,-6},{110,-6},{110,-20},{30,-20},{30,-8},{38,-8}}, color={255,0,255}));
+  connect(rotTwo1.yPreDevRolSet, logSwi1.u2) annotation (Line(points={{101,-6},{
+          110,-6},{110,-20},{-20,-20},{-20,0},{-2,0}}, color={255,0,255}));
           annotation (
    experiment(StopTime=10000.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/RuntimeCounter_uDevRol.mos"
@@ -114,5 +132,5 @@ Icon(graphics={
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})));
 end RuntimeCounter_uDevRol;

@@ -60,10 +60,12 @@ block RuntimeCounter
   CDL.Interfaces.BooleanOutput                        yRot "Rotation trigger signal"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  CDL.Interfaces.BooleanInput uTimRes[nDev]
-    "Runtime counter timers reset signal" annotation (Placement(transformation(
-          extent={{-240,-100},{-200,-60}}), iconTransformation(extent={{-140,
-            -100},{-100,-60}})));
+  CDL.Interfaces.BooleanInput uPreDevRolSig[nDev]
+    "Device roles in the previous time instance: true = lead; false = lag or standby"
+    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
+  CDL.Logical.FallingEdge                        falEdg1[nDev] "Falling Edge"
+    annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
 equation
   connect(greEquThr.y,and2. u1) annotation (Line(points={{22,40},{40,40},{40,0},
           {58,0}},       color={255,0,255}));
@@ -85,14 +87,16 @@ equation
           {-42,0}},    color={255,0,255}));
   connect(uDevStaSet, tim.u) annotation (Line(points={{-220,40},{-102,40}},
                       color={255,0,255}));
-  connect(uDevStaSet, allOn.u[1:2]) annotation (Line(points={{-220,40},{-180,40},
-          {-180,10},{-102,10}},           color={255,0,255}));
-  connect(uDevStaSet, anyOn.u[1:2]) annotation (Line(points={{-220,40},{-190,40},
-          {-190,-30},{-142,-30}},             color={255,0,255}));
+  connect(uDevStaSet, allOn.u[1:2]) annotation (Line(points={{-220,40},{-120,40},
+          {-120,10},{-102,10}},           color={255,0,255}));
+  connect(uDevStaSet, anyOn.u[1:2]) annotation (Line(points={{-220,40},{-160,40},
+          {-160,-30},{-142,-30}},             color={255,0,255}));
   connect(mulOr.y, yRot)
     annotation (Line(points={{122,0},{220,0}}, color={255,0,255}));
-  connect(uTimRes, tim.u0) annotation (Line(points={{-220,-80},{-186,-80},{-186,
-          32},{-102,32}}, color={255,0,255}));
+  connect(uPreDevRolSig, falEdg1.u)
+    annotation (Line(points={{-220,-80},{-182,-80}}, color={255,0,255}));
+  connect(falEdg1.y, tim.u0) annotation (Line(points={{-158,-80},{-150,-80},{
+          -150,32},{-102,32},{-102,32}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-200,-120},{200,120}})),
       defaultComponentName="runCou",
     Icon(graphics={
