@@ -1,14 +1,15 @@
 compareVars :=
   {
-    "mulAnd_1.u[1]",
-    "mulAnd_1.y",
-    "mulAnd_2.u[1]",
-    "mulAnd_2.u[2]",
-    "mulAnd_2.y",
-    "mulAnd_5.u[1]",
-    "mulAnd_5.u[2]",
-    "mulAnd_5.u[3]",
-    "mulAnd_5.u[4]",
-    "mulAnd_5.u[5]",
-    "mulAnd_5.y"
+    "mulAnd0.y",
+    "mulAnd1.u[1]",
+    "mulAnd1.y",
+    "mulAnd2.u[1]",
+    "mulAnd2.u[2]",
+    "mulAnd2.y",
+    "mulAnd5.u[1]",
+    "mulAnd5.u[2]",
+    "mulAnd5.u[3]",
+    "mulAnd5.u[4]",
+    "mulAnd5.u[5]",
+    "mulAnd5.y"
   };

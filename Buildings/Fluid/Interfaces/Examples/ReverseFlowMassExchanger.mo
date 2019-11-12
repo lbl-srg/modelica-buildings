@@ -41,7 +41,7 @@ package Medium = Buildings.Media.Air;
     dp2_nominal=0,
     epsL=0) "Mass exchanger with reverse flow"
     annotation (Placement(transformation(extent={{-30,30},{-50,50}})));
-  Buildings.Fluid.Sources.FixedBoundary sink2(
+  Buildings.Fluid.Sources.Boundary_pT sink2(
      redeclare package Medium = Medium,
      nPorts=2) "Fluid sink"
      annotation (Placement(
@@ -120,7 +120,7 @@ package Medium = Buildings.Media.Air;
                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-150,100})));
-  Buildings.Fluid.Sources.FixedBoundary sink1(
+  Sources.Boundary_pT sink1(
     redeclare package Medium = Medium,
     nPorts=2) "Fluid sink"
     annotation (Placement(
@@ -291,6 +291,11 @@ of stream connector. This bug will be corrected in future versions of Dymola.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 2, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,

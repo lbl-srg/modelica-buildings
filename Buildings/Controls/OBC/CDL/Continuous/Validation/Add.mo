@@ -14,10 +14,11 @@ model Add "Validation model for the add block"
     offset=-1) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
-  connect(ramp1.y, add1.u1) annotation (Line(points={{-39,20},{-26,20},{-26,6},
+  connect(ramp1.y, add1.u1) annotation (Line(points={{-38,20},{-26,20},{-26,6},
           {-12,6}},color={0,0,127}));
-  connect(ramp2.y, add1.u2) annotation (Line(points={{-39,-20},{-26,-20},{-26,-6},
-          {-12,-6}}, color={0,0,127}));
+  connect(ramp2.y, add1.u2) annotation (Line(points={{-38,-20},{-26,-20},{-26,
+          -6},{-12,-6}},
+                     color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Add.mos"

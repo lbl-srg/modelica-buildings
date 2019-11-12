@@ -10,7 +10,7 @@ model Abs "Validation model for the absolute block"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(ramp.y, abs1.u)
-    annotation (Line(points={{-39,0},{-26,0},{-12,0}}, color={0,0,127}));
+    annotation (Line(points={{-38,0},{-38,0},{-12,0}}, color={0,0,127}));
   annotation (
 experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Abs.mos"

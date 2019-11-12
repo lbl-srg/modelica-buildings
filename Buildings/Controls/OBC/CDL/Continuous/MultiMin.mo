@@ -3,11 +3,11 @@ block MultiMin "Output the minimum element of the input vector"
 
   parameter Integer nin(min=0) = 0 "Number of input connections"
     annotation (Dialog(connectorSizing=true), HideResult=true);
-  Interfaces.RealInput u[nin]
+  Interfaces.RealInput u[nin] "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
-  Interfaces.RealOutput y
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+  Interfaces.RealOutput y "Connector of Real output signals"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 equation
   y = min(u);
   annotation (Icon(coordinateSystem(

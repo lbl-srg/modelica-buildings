@@ -8,7 +8,7 @@ block Sampler "Ideal sampler of a continuous signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealOutput y "Continuous output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   parameter Modelica.SIunits.Time t0(fixed=false)

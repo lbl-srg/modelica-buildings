@@ -44,7 +44,7 @@ model CFD
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
        haveSensor "Sensor for output from CFD"
     annotation (Placement(transformation(
-     extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220, 130}})));
+     extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220,130}})));
 protected
   final parameter String absCfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam)
     "Absolute path to the CFD file";

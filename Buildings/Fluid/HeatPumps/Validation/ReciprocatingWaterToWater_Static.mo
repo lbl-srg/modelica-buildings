@@ -38,18 +38,12 @@ model ReciprocatingWaterToWater_Static
     "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Fluid.Sources.FixedBoundary sin2(
+  Buildings.Fluid.Sources.Boundary_pT sin2(
     redeclare package Medium = Medium2, nPorts=1) "Source side sink"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-70,-40})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-70,-40})));
+  Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium1, nPorts=1) "Load side sink"
-    annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        origin={58,20})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}}, origin={58,20})));
   Modelica.Fluid.Sources.MassFlowSource_T loa(
     redeclare package Medium = Medium1,
     m_flow=flowLoad,
@@ -123,6 +117,11 @@ evaporator and condenser sides.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2019, by Jianjun Hu:<br/>
+Replaced fluid source. This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+</li>
 <li>
 October 18, 2016, by Massimo Cimmino:<br/>
 First implementation.

@@ -49,19 +49,31 @@ equation
     Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
       Medium.singleState, true, X_in_internal, "Boundary_pT");
   end if;
-  connect(X_in[1:Medium.nXi], Xi_in_internal);
-  connect(X_in,X_in_internal);
-  connect(Xi_in, Xi_in_internal);
-  connect(C_in, C_in_internal);
 
-  connect(medium.Xi, Xi_in_internal);
-  if not use_X_in and not use_Xi_in then
+  // Assign Xi_in_internal and X_in_internal
+  // Note that at most one of X_in or Xi_in is present
+  connect(X_in, X_in_internal);
+  connect(Xi_in, Xi_in_internal);
+
+  if use_Xi_in then
+    // Must assign all components of X_in_internal, using Xi_in
+    X_in_internal[1:Medium.nXi] = Xi_in_internal[1:Medium.nXi];
+    // If reducedX = true, medium contains the equation sum(X) = 1.0
+    // Media with only one substance (e.g., water) have reducedX=true
+    // FlueGas and SimpleNaturalGas has reducedX = false
+    if Medium.reducedX then
+      X_in_internal[Medium.nX] = 1-sum(Xi_in_internal);
+    end if;
+  elseif use_X_in then
+    X_in_internal[1:Medium.nXi] = Xi_in_internal[1:Medium.nXi];
+  else
+    // No connector is used. Use parameter X.
+    X_in_internal = X;
     Xi_in_internal = X[1:Medium.nXi];
   end if;
-  if not use_X_in then
-    X_in_internal[1:Medium.nXi] = Xi_in_internal[1:Medium.nXi];
-    X_in_internal[Medium.nX] = 1-sum(X_in_internal[1:Medium.nXi]);
-  end if;
+
+  connect(C_in, C_in_internal);
+
   if not use_C_in then
     C_in_internal = C;
   end if;
@@ -72,7 +84,7 @@ equation
   end for;
 
 
-  annotation (defaultComponentName="boundary",
+  annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
@@ -107,6 +119,16 @@ Otherwise the parameter value is used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 19, 2019, by Michael Wetter:<br/>
+Refactored handling of mass fractions which was needed to handle media such as
+<a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents\">
+Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents</a> and
+<a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas\">
+Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
+</li>
 <li>
 February 13, 2018, by Michael Wetter:<br/>
 Corrected error in quantity assignment for <code>Xi_in</code>.
