@@ -14,6 +14,7 @@ model FMUZoneAdapterZones1
   parameter Modelica.SIunits.HeatCapacity CZon = 6*6*2.7*1.2*1006 "Heat capacity of zone air";
 
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonCor(
+    buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,
