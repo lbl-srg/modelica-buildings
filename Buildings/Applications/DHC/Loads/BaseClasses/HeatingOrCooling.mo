@@ -6,9 +6,6 @@ model HeatingOrCooling "Model for steady-state, sensible heat transfer between a
     final m_flow_nominal=m_flow1_nominal,
     port_a(h_outflow(start=h_outflow_start)),
     port_b(h_outflow(start=h_outflow_start)));
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    dp_nominal=0,
-    final computeFlowResistance=true);
   replaceable package Medium2 =
     Buildings.Media.Air
     "Load side medium"
@@ -20,6 +17,11 @@ model HeatingOrCooling "Model for steady-state, sensible heat transfer between a
           "Propylene glycol water, 40% mass fraction")));
   parameter Integer nLoa = 1
     "Number of connected loads";
+
+  parameter Modelica.SIunits.PressureDifference dp_nominal(
+    min=0, displayUnit="Pa") = 0
+    "Pressure drop at nominal conditions"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime[nLoa]=
     fill(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange, nLoa)
     "Heat exchanger flow regime";
@@ -98,8 +100,8 @@ model HeatingOrCooling "Model for steady-state, sensible heat transfer between a
     ratUAIntToUAExt .* UAExt_nominal
     "Internal thermal conductance at nominal conditions";
   // IO connectors
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput Q_flowReq[nLoa](quantity="HeatFlowRate")
-    "Heat flow rate required to meet the load temperature setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yReq[nLoa](final unit="1")
+    "Heating or cooling terminal control signal"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -112,44 +114,6 @@ model HeatingOrCooling "Model for steady-state, sensible heat transfer between a
     annotation(Placement(transformation(extent={{100,100},{120,120}}),
       iconTransformation(extent={{100,70},{120,90}})));
   // Building blocks
-  Buildings.Fluid.MixingVolumes.MixingVolume vol(
-    redeclare final package Medium = Medium,
-    V=m_flow_nominal*tau/rho_default,
-    final prescribedHeatFlowRate=true,
-    final allowFlowReversal=allowFlowReversal,
-    final mSenFac=1,
-    final m_flow_nominal = m_flow1_nominal,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start,
-    nPorts=2) "Volume for fluid stream"
-     annotation (Placement(transformation(extent={{59,0},{39,-20}})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDro(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow1_nominal,
-    final deltaM=deltaM,
-    final allowFlowReversal=allowFlowReversal,
-    final show_T=false,
-    final from_dp=from_dp,
-    final linearized=linearizeFlowResistance,
-    final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Flow resistance"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.HeatFlowControl heaFloEffCon[nLoa](
-    final Q_flow_nominal=Q_flow_nominal,
-    final m_flow1_nominal=m_flow1_i_nominal,
-    final m_flow2_nominal=m_flow2_nominal,
-    each final cp1_nominal=cp1_nominal,
-    final cp2_nominal=cp2_nominal,
-    final flowRegime=flowRegime,
-    each reverseAction=reverseAction)
-    annotation (Placement(transformation(extent={{-60,168},{-40,186}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum m_flowReqSum(nin=nLoa)
-    "Sum the mass flow rates of all loads"
-    annotation (Placement(transformation(extent={{50,100},{70,120}})));
   Buildings.Applications.DHC.Loads.BaseClasses.HeatFlowEffectiveness heaFloEff[nLoa](
     final m_flow1_nominal=m_flow1_i_nominal,
     final m_flow2_nominal=m_flow2_nominal,
@@ -158,10 +122,10 @@ model HeatingOrCooling "Model for steady-state, sensible heat transfer between a
     final flowRegime=flowRegime)
     annotation (Placement(transformation(extent={{-10,166},{10,186}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort T1InlMes(
-    redeclare package Medium = Medium,
+    redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Fluid.Sensors.MassFlowRate m_flow1Mes(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFlowRate m_flow1Mes(redeclare final package Medium = Medium)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Sources.RealExpression UAAct[nLoa](
     y=1 ./ (1 ./ (UAInt_nominal .*
@@ -178,16 +142,12 @@ model HeatingOrCooling "Model for steady-state, sensible heat transfer between a
     annotation (Placement(transformation(extent={{90,230},{110,250}}),
     conTransformation(extent={{-10,90},{10, 110}}),
       iconTransformation(extent={{-10,90},{10,110}})));
-  Modelica.Blocks.Sources.RealExpression m_flowAct[nLoa](
-    y=heaFloEffCon.m_flow1 /
-      Buildings.Utilities.Math.Functions.smoothMax(
-      m_flowReqSum.y,
-      m_flow_small,
-      m_flow_small) * m_flow1Mes.m_flow)
+  Modelica.Blocks.Sources.RealExpression m_flowAct[nLoa](y=yReq .* m_flow1_i_nominal*m_flow1Mes.m_flow/
+        Buildings.Utilities.Math.Functions.smoothMax(
+        m_flowReqSum.y,
+        m_flow_small,
+        m_flow_small))
     annotation (Placement(transformation(extent={{-100,210},{-80,230}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFloToSou
-    "Heat flow rate from load to source"
-    annotation (Placement(transformation(extent={{-10,-10}, {10,10}}, rotation=-90, origin={80,24})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flowSum(
     k=fill(-1, nLoa), nin=nLoa)
     "Sum of the heat flow rates for all loads"
@@ -232,6 +192,17 @@ model HeatingOrCooling "Model for steady-state, sensible heat transfer between a
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Division div[nLoa] if cooMod
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
+    redeclare final package Medium=Medium,
+    final dp_nominal=dp_nominal,
+    final m_flow_nominal=m_flow1_nominal,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final Q_flow_nominal=1)
+    "Heat exchange with water stream"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum m_flowReqSum(k=m_flow1_i_nominal, nin=nLoa)
+    "Total required water mass flow rate" annotation (Placement(transformation(extent={{40,100},{60,120}})));
 protected
   parameter Boolean cooMod = (T1_b_nominal > T1_a_nominal)
     "Cooling mode flag"
@@ -260,27 +231,15 @@ initial equation
   end for;
 equation
   // FOR DEVELOPMENT ONLY
-  frac_Q_flow = abs(heaFloToSou.Q_flow / sum(Q_flow_nominal));
+  frac_Q_flow = abs(heaCoo.Q_flow / sum(Q_flow_nominal));
   // FOR DEVELOPMENT ONLY
-  connect(m_flowReqSum.y, m_flowReq) annotation (Line(points={{72,110},{110,110}}, color={0,0,127}));
   connect(port_a,T1InlMes. port_a) annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(T1InlMes.port_b, m_flow1Mes.port_a) annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
-  connect(preDro.port_a, m_flow1Mes.port_b) annotation (Line(points={{0,0},{-20,0}}, color={0,127,255}));
   connect(T1InlMes.T, T1InlVec.u) annotation (Line(points={{-70,11},{-70,38}}, color={0,0,127}));
   connect(UAAct.y, heaFloEff.UA) annotation (Line(points={{-79,200},{-20,200},{-20,184},{-12,184}},color={0,0,127}));
   connect(heaPorLoa,T2Mes. port) annotation (Line(points={{100,240},{100,150},{68,150}}, color={191,0,0}));
-  connect(Q_flowSum.y, heaFloToSou.Q_flow)
-    annotation (Line(points={{72,70},{80,70},{80,34}}, color={0,0,127}));
   connect(heaPorLoa, heaFloSenToLoa.port) annotation (Line(points={{100,240},{70,240}}, color={191,0,0}));
-  connect(T2Mes.T,heaFloEffCon.T2Inl)
-    annotation (Line(points={{48,150},{-66,150},{-66,168},{-62,168}}, color={0,0,127}));
-  connect(UAAct.y, heaFloEffCon.UA)
-    annotation (Line(points={{-79,200},{-74,200},{-74,184},{-62,184}}, color={0,0,127}));
   connect(m_flowReq, m_flowReq) annotation (Line(points={{110,110},{110,110}}, color={0,0,127}));
-  connect(Q_flowReq, heaFloEffCon.Q_flowReq) annotation (Line(points={{-120,180},{-62,180}}, color={0,0,127}));
-  connect(heaFloToSou.port, vol.heatPort) annotation (Line(points={{80,14},{80,-10},{59,-10}}, color={191,0,0}));
-  connect(preDro.port_b, vol.ports[1]) annotation (Line(points={{20,0},{51,0}}, color={0,127,255}));
-  connect(vol.ports[2], port_b) annotation (Line(points={{47,0},{100,0}}, color={0,127,255}));
   connect(m_flowAct.y, heaFloEff.m_flow1)
     annotation (Line(points={{-79,220},{-24,220},{-24,180},{-12,180}},color={0,0,127}));
   connect(T1InlVec.y, heaFloEff.T1Inl)
@@ -291,12 +250,6 @@ equation
     annotation (Line(points={{-120,120},{-20,120},{-20,172},{-12,172}},color={0,0,127}));
   connect(heaFloEff.Q_flow, heaFloSenToLoa.Q_flow)
     annotation (Line(points={{11,176},{14,176},{14,240},{50,240}}, color={0,0,127}));
-  connect(heaFloEffCon.m_flow1, m_flowReqSum.u)
-    annotation (Line(points={{-39,181},{-34,181},{-34,110},{48,110}},          color={0,0,127}));
-  connect(T1InlVec.y, heaFloEffCon.T1Inl)
-    annotation (Line(points={{-70,62},{-70,99},{-74,99},{-74,176},{-62,176}}, color={0,0,127}));
-  connect(m_flow2, heaFloEffCon.m_flow2)
-    annotation (Line(points={{-120,120},{-70,120},{-70,172},{-62,172}}, color={0,0,127}));
   if cooMod then
     connect(fraLat, addPar.u) annotation (Line(points={{-120,70},{-42,70}}, color={0,0,127}));
     connect(addPar.y, div.u2) annotation (Line(points={{-18,70},{-12,70},{-12,64},{18,64}}, color={0,0,127}));
@@ -305,6 +258,13 @@ equation
   else
     connect(heaFloEff.Q_flow, Q_flowSum.u);
   end if;
+  connect(m_flow1Mes.port_b, heaCoo.port_a) annotation (Line(points={{-20,0},{40,0}}, color={0,127,255}));
+  connect(heaCoo.port_b, port_b) annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+  connect(Q_flowSum.y, heaCoo.u)
+    annotation (Line(points={{72,70},{80,70},{80,20},{20,20},{20,6},{38,6}}, color={0,0,127}));
+  connect(m_flowReq, m_flowReqSum.y) annotation (Line(points={{110,110},{62,110}}, color={0,0,127}));
+  connect(yReq, m_flowReqSum.u)
+    annotation (Line(points={{-120,180},{-74,180},{-74,110},{38,110}}, color={0,0,127}));
 annotation (
    Documentation(
 info="<html>
