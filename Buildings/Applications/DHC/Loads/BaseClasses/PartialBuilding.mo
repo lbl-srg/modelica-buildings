@@ -57,15 +57,13 @@ partial model PartialBuilding "Partial class for building model"
     "Heat port for heat transfer with the heating source"       annotation (
       Placement(transformation(extent={{-310,90},{-290,110}}),
         iconTransformation(extent={{-110,60},{-90,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flowCooReq[nCooLoa](
-    each quantity="HeatFlowRate", each unit="W")
-    "Cooling heat flow rate required to meet setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooReq[nCooLoa](each final unit="1")
+    "Cooling control signal"
     annotation (
       Placement(transformation(extent={{300,-202},{320,-182}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flowHeaReq[nHeaLoa](
-    each quantity="HeatFlowRate", each unit="W")
-    "Heating heat flow rate required to meet setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaReq[nHeaLoa](each final unit="1")
+    "Heating control signal"
     annotation (
       Placement(transformation(extent={{300,190},{320,210}}),iconTransformation(
           extent={{100,50},{120,70}})));
@@ -133,53 +131,43 @@ partial model PartialBuilding "Partial class for building model"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
 protected
   parameter Integer nHeaLoaH = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort
-                                                                       for el in heaLoaTyp})
+    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort     for el in heaLoaTyp})
     "Number of heating loads represented by a thermal model with heat port"
     annotation(Evaluate=true);
   parameter Integer heaLoaH_idx[nHeaLoaH] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort
-                                                                       for el in heaLoaTyp})
+    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort     for el in heaLoaTyp})
     "Indices of the input heat ports to be connected with models with heat port"
     annotation(Evaluate=true);
   parameter Integer nHeaLoaT = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT
-                                                                          for el in heaLoaTyp})
+    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT     for el in heaLoaTyp})
     "Number of heating loads represented by a prescribed temperature"
     annotation(Evaluate=true);
   parameter Integer heaLoaT_idx[nHeaLoaT] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT
-                                                                          for el in heaLoaTyp})
+    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT     for el in heaLoaTyp})
     "Indices of the input heat ports to be connected with models with prescribed temperature"
     annotation(Evaluate=true);
   parameter Integer nHeaLoaO = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.ODE
-                                                                  for el in heaLoaTyp})
+    {el==Buildings.Applications.DHC.Loads.Types.ModelType.ODE     for el in heaLoaTyp})
     "Number of heating loads represented by an ODE model"
     annotation(Evaluate=true);
   parameter Integer heaLoaO_idx[nHeaLoaO] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.ODE
-                                                                  for el in heaLoaTyp})
+    {el==Buildings.Applications.DHC.Loads.Types.ModelType.ODE     for el in heaLoaTyp})
     "Indices of the input heat ports to be connected with models with ODE"
     annotation(Evaluate=true);
   parameter Integer nCooLoaH = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort
-                                                                       for el in cooLoaTyp})
+    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort     for el in cooLoaTyp})
     "Number of cooling loads represented by a thermal model with heat port"
     annotation(Evaluate=true);
   parameter Integer cooLoaH_idx[nCooLoaH] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort
-                                                                       for el in cooLoaTyp})
+    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort     for el in cooLoaTyp})
     "Indices of the input heat ports to be connected with thermal models with heat port"
     annotation(Evaluate=true);
   parameter Integer nCooLoaT = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT
-                                                                          for el in cooLoaTyp})
+    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT     for el in cooLoaTyp})
     "Number of cooling loads represented by a prescribed temperature"
     annotation(Evaluate=true);
   parameter Integer cooLoaT_idx[nCooLoaT] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT
-                                                                          for el in cooLoaTyp})
+    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT     for el in cooLoaTyp})
     "Indices of the input heat ports to be connected with models with prescribed temperature"
     annotation(Evaluate=true);
   parameter Integer nCooLoaO = Modelica.Math.BooleanVectors.countTrue(
@@ -197,7 +185,7 @@ equation
     for i in 1:nHeaLoa loop
       if abs(m_flowHeaLoa_nominal[i]) < Modelica.Constants.eps then
         connect(defaults.y, m_flowHeaLoa[i])
-          annotation (Line(points={{281,0},{292,0},{292,100},{310,100}}, color={0,0,127}));
+          annotation (Line(points={{282,0},{292,0},{292,100},{310,100}}, color={0,0,127}));
       end if;
     end for;
   end if;
@@ -205,11 +193,11 @@ equation
     for i in 1:nCooLoa loop
       if abs(m_flowCooLoa_nominal[i]) < Modelica.Constants.eps then
         connect(defaults.y, m_flowCooLoa[i])
-          annotation (Line(points={{281,0},{292,0},{292,-112},{310,-112}}, color={0,0,127}));
+          annotation (Line(points={{282,0},{292,0},{292,-112},{310,-112}}, color={0,0,127}));
       end if;
       if not hasFraLat[i] then
         connect(defaults.y, fraLatCooReq[i])
-          annotation (Line(points={{281,0},{292,0},{292,-30},{310,-30}}, color={0,0,127}));
+          annotation (Line(points={{282,0},{292,0},{292,-30},{310,-30}}, color={0,0,127}));
       end if;
     end for;
   end if;
