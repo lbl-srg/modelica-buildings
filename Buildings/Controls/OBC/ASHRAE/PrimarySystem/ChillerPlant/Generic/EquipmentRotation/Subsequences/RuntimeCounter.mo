@@ -25,8 +25,7 @@ block RuntimeCounter
     "Staging runtime hysteresis"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim[nDev](
-    final reset={false,false})
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[nDev](accumulate=fill(true, nDev))
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
@@ -98,8 +97,8 @@ equation
     annotation (Line(points={{122,0},{220,0}}, color={255,0,255}));
   connect(uPreDevRolSig, falEdg1.u)
     annotation (Line(points={{-220,-80},{-182,-80}}, color={255,0,255}));
-  connect(falEdg1.y, tim.u0) annotation (Line(points={{-158,-80},{-150,-80},{
-          -150,32},{-102,32},{-102,32}}, color={255,0,255}));
+  connect(falEdg1.y, tim.reset) annotation (Line(points={{-158,-80},{-150,-80},
+          {-150,32},{-102,32}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-200,-120},{200,120}})),
       defaultComponentName="runCou",
     Icon(graphics={
