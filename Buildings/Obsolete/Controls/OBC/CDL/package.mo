@@ -4,7 +4,7 @@ package CDL "Package with obsolete blocks for control description language"
 annotation (
 Documentation(info="<html>
 <p>
-Package that contains obsolete elementary input-output blocks that was part of
+Package that contains obsolete elementary input-output blocks that were part of
 the Control Description Language (CDL).
 </p>
 </html>"), Icon(graphics={

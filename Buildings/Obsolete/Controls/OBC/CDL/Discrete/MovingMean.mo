@@ -1,6 +1,5 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Discrete;
 block MovingMean "Discrete moving mean of a sampled input signal"
-
   extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
 
   parameter Integer n(min=2)
@@ -43,7 +42,7 @@ algorithm
 
   annotation (
   defaultComponentName="movMea",
-  obsolete = "Obsolete model - use Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean instead",
+  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean instead",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
        graphics={
        Rectangle(
@@ -104,8 +103,12 @@ revisions="<html>
 <ul>
 <li>
 November 7, 2019, by Kun Zhang:<br/>
-Moved this block to here because the block <a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean\">
-Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</a> is a better implementation.
+Moved block to
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Discrete\">Buildings.Obsolete.Controls.OBC.CDL.Discrete</a>
+because it is replaced with
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean\">
+Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</a>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue 1588</a>.
 </li>
 <li>
 June 17, 2019, by Kun Zhang:<br/>

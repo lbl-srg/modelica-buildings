@@ -5,7 +5,7 @@ package OBC "Package with obsolete blocks and control sequences"
 annotation (
 Documentation(info="<html>
 <p>
-Package that contains obsolete components that was part of the
+Package that contains obsolete components that were part of the
 OpenBuildingControl (OBC) library.
 </p>
 </html>"));
