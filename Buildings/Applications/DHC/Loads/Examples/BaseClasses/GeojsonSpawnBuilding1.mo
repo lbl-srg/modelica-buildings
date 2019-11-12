@@ -26,8 +26,6 @@ model GeojsonSpawnBuilding1 "Spawn building model based on Urbanopt GeoJSON expo
     each yMin=0,
     each Ti=120) "PID controller for minimum temperature"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai[nHeaLoa](k=Q_flowHea_nominal)
-    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nCooLoa](k=fill(24, nCooLoa))
     "Maximum temperature setpoint" annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nCooLoa]
@@ -39,8 +37,6 @@ model GeojsonSpawnBuilding1 "Spawn building model based on Urbanopt GeoJSON expo
     each yMin=0,
     each Ti=120) "PID controller for maximum temperature"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1[nCooLoa](k=-Q_flowCoo_nominal)
-    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-74,-10},{-54,10}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
@@ -51,68 +47,42 @@ model GeojsonSpawnBuilding1 "Spawn building model based on Urbanopt GeoJSON expo
     annotation (Placement(transformation(extent={{-74,-50},{-54,-30}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znAttic(
     redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    usePrecompiledFMU=false,
-    fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     zoneName="Attic") "Thermal zone"
      annotation (Placement(transformation(extent={{24,80},{64,120}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znCore_ZN(
     redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    usePrecompiledFMU=false,
-    fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     zoneName="Core_ZN") "Thermal zone"
      annotation (Placement(transformation(extent={{24,40},{64,80}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_1(
     redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    usePrecompiledFMU=false,
-    fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     zoneName="Perimeter_ZN_1") "Thermal zone"
      annotation (Placement(transformation(extent={{24,0},{64,40}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_2(
     redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    usePrecompiledFMU=false,
-    fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     zoneName="Perimeter_ZN_2") "Thermal zone"
      annotation (Placement(transformation(extent={{24,-40},{64,0}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_3(
     redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    usePrecompiledFMU=false,
-    fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     zoneName="Perimeter_ZN_3") "Thermal zone"
      annotation (Placement(transformation(extent={{24,-80},{64,-40}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_4(
     redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    usePrecompiledFMU=false,
-    fmuName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     zoneName="Perimeter_ZN_4") "Thermal zone"
      annotation (Placement(transformation(extent={{24,-120},{64,-80}})));
+  inner Buildings.Experimental.EnergyPlus.Building building(idfName=idfName, weaName=weaName)
+    "Building outer component" annotation (Placement(transformation(extent={{26,198},{48,218}})));
 equation
   connect(from_degC1.y,conPIDMinT. u_s) annotation (Line(points={{-78,130},{-62,130}}, color={0,0,127}));
-  connect(conPIDMinT.y,gai. u) annotation (Line(points={{-38,130},{-22,130}}, color={0,0,127}));
   connect(from_degC2.y,conPIDMax. u_s) annotation (Line(points={{-78,-130},{-62,-130}}, color={0,0,127}));
   connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
-  connect(conPIDMax.y,gai1. u) annotation (Line(points={{-38,-130},{-22,-130}}, color={0,0,127}));
   connect(minTSet.y, from_degC1.u)
     annotation (Line(points={{-118,130},{-110,130},{-110,130},{-102,130}}, color={0,0,127}));
-  connect(gai1.y, Q_flowCooReq) annotation (Line(points={{2,-130},{152,-130},{152,-192},{310,-192}}, color={0,0,127}));
-  connect(gai.y, Q_flowHeaReq) annotation (Line(points={{2,130},{152,130},{152,200},{310,200}}, color={0,0,127}));
   connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
       points={{-53,40},{-40,40},{-40,7},{-30,7}},
       color={0,0,127},
@@ -187,6 +157,9 @@ equation
     annotation (Line(points={{-300,-95},{-128,-95},{-128,-60},{44,-60}}, color={191,0,0}));
   connect(heaPorCoo[6], znPerimeter_ZN_4.heaPorAir)
     annotation (Line(points={{-300,-91.6667},{-128,-91.6667},{-128,-100},{44,-100}}, color={191,0,0}));
+  connect(conPIDMax.y, yCooReq)
+    annotation (Line(points={{-38,-130},{134,-130},{134,-192},{310,-192}}, color={0,0,127}));
+  connect(conPIDMinT.y, yHeaReq) annotation (Line(points={{-38,130},{134,130},{134,200},{310,200}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>

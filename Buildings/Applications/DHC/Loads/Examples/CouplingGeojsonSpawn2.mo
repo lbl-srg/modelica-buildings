@@ -90,12 +90,12 @@ equation
     annotation (Line(points={{-79,-96},{-68,-96},{-68,-86},{-42,-86}}, color={0,0,127}));
   connect(supHea.ports[1], couHea.port_a) annotation (Line(points={{-22,30},{0,30}}, color={0,127,255}));
   connect(couHea.port_b, sinHea.ports[1]) annotation (Line(points={{20,30},{90,30}}, color={0,127,255}));
-  connect(bui.Q_flowHeaReq, couHea.Q_flowReq)
+  connect(bui.yHeaReq, couHea.yReq)
     annotation (Line(points={{61,-24},{80,-24},{80,0},{-10,0},{-10,22},{-2,22}}, color={0,0,127}));
   connect(bui.heaPorHea, couHea.heaPorLoa) annotation (Line(points={{40,-23},{10,-23},{10,20}}, color={191,0,0}));
   connect(supCoo.ports[1], couCoo.port_a) annotation (Line(points={{-20,-90},{0,-90}}, color={0,127,255}));
   connect(couCoo.port_b, sinCoo.ports[1]) annotation (Line(points={{20,-90},{90,-90}}, color={0,127,255}));
-  connect(bui.Q_flowCooReq, couCoo.Q_flowReq)
+  connect(bui.yCooReq, couCoo.yReq)
     annotation (Line(points={{61,-36},{80,-36},{80,-60},{-10,-60},{-10,-82},{-2,-82}}, color={0,0,127}));
   connect(bui.heaPorCoo, couCoo.heaPorLoa) annotation (Line(points={{40,-37},{10,-37},{10,-80}}, color={191,0,0}));
   connect(bui.m_flowHeaLoa, couHea.m_flow2)
@@ -120,6 +120,11 @@ equation
   </p>
   </html>"),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}}), graphics={Text(
+          extent={{-196,0},{-136,-40}},
+          lineColor={28,108,200},
+          fontSize=18,
+          textString="Model with multiple EnergyPlus thermal zones:
+can only be simulated with Dymola 2020x or JModelica.")}),
     __Dymola_Commands);
 end CouplingGeojsonSpawn2;

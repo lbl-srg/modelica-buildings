@@ -316,6 +316,11 @@ equation
   </p>
   </html>"),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-320,-360},{140,100}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-320,-360},{140,100}}), graphics={Text(
+          extent={{-496,-106},{-436,-146}},
+          lineColor={28,108,200},
+          fontSize=18,
+          textString="Model with multiple EnergyPlus thermal zones:
+can only be simulated with Dymola 2020x or JModelica.")}),
     __Dymola_Commands);
 end CouplingGeojsonSpawn1And2Loop;
