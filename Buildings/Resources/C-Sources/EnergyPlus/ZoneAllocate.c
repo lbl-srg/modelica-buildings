@@ -217,7 +217,7 @@ void* ZoneAllocate(
   zone->isInitialized = fmi2False;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Exiting allocation for %s with building ptr at %p", modelicaNameThermalZone, zone);
+    ModelicaFormatMessage("Exiting allocation for %s with zone ptr at %p and building ptr at %p", modelicaNameThermalZone, zone, zone->ptrBui);
   /* Return a pointer to this zone */
   return (void*) zone;
 }
