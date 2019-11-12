@@ -15,7 +15,7 @@ model CoolingIndirectClosedBuildingLoop
     Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
     "Specific heat capacity of medium 1";
 
-  Modelica.Blocks.Sources.Constant TSet(k=273 + 7)
+  Modelica.Blocks.Sources.Constant TSetCHWS(k=273 + 7)
     "Setpoint temperature for building chilled water supply"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Fluid.Sources.Boundary_pT sinDis(
@@ -136,8 +136,6 @@ public
     "Approach temperature of heat exchanger"
     annotation (Placement(transformation(extent={{96,10},{136,30}})));
 equation
-  connect(coo.TSetCHWS,TSet. y)
-    annotation (Line(points={{38,20},{-99,20}},color={0,0,127}));
   connect(coo.port_b2, pumBui.port_a)
     annotation (Line(points={{40,14},{0,14},{0,0}}, color={0,127,255}));
   connect(gai.y, pumBui.m_flow_in)
@@ -168,6 +166,8 @@ equation
     annotation (Line(points={{0,60},{0,70}}, color={0,127,255}));
   connect(gai.u, QCoo.y[1]) annotation (Line(points={{-42,-10},{-70,-10},{-70,-40},
           {-99,-40}}, color={0,0,127}));
+  connect(TSetCHWS.y, coo.TSet)
+    annotation (Line(points={{-99,20},{38,20}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,

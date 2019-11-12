@@ -10,7 +10,7 @@ model CoolingIndirectOpenLoops
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 0.5
     "Nominal mass flow rate of secondary (building) district cooling side";
 
-  Modelica.Blocks.Sources.Constant TSet(k=273 + 7)
+  Modelica.Blocks.Sources.Constant TSetCHWS(k=273 + 7)
     "Setpoint temperature for building chilled water supply"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Fluid.Sources.Boundary_pT sinDis(
@@ -138,8 +138,6 @@ equation
     annotation (Line(points={{60,-60},{60,-40}}, color={0,127,255}));
   connect(TBuiSup.port_b, sinBui.ports[1])
     annotation (Line(points={{-60,-40},{-60,-60}}, color={0,127,255}));
-  connect(TSet.y,coo.TSetCHWS)  annotation (Line(points={{-79,0},{-2,0}},
-                         color={0,0,127}));
   connect(coo.port_a1, TDisSup.port_b)
     annotation (Line(points={{0,6},{-60,6},{-60,20}}, color={0,127,255}));
   connect(coo.port_b1, TDisRet.port_a)
@@ -154,6 +152,8 @@ equation
     annotation (Line(points={{-79,100},{-56,100},{-56,82}}, color={0,0,127}));
   connect(TBuiRetSig.y, souBui.T_in)
     annotation (Line(points={{44,-110},{56,-110},{56,-82}}, color={0,0,127}));
+  connect(TSetCHWS.y, coo.TSet)
+    annotation (Line(points={{-79,0},{-2,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,

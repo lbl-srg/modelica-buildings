@@ -1,9 +1,8 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
 model CoolingIndirect
   "Indirect cooling energy transfer station for district energy systems"
-  extends Buildings.Fluid.Interfaces.PartialFourPort;
-
- package Medium = Buildings.Media.Water;
+  extends Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.PartialCooling;
+  extends Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.PartialControl;
 
  parameter Modelica.SIunits.SpecificHeatCapacity cp=
    Medium.specificHeatCapacityCp(
@@ -111,60 +110,40 @@ model CoolingIndirect
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={0,0})));
+        origin={30,0})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(redeclare package Medium =
         Medium, m_flow_nominal=m2_flow_nominal)
     "Building-side (secondary) return temperature"
-    annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
-    Buildings.Controls.Continuous.LimPID con(
-    controllerType=Modelica.Blocks.Types.SimpleController.PID,
-    final k=k,
-    Td=Td,
-    final yMax=yMax,
-    final yMin=yMin,
-    final Ti=Ti,
-    wp=wp,
-    wd=wd,
-    Ni=Ni,
-    Nd=Nd,
-    final initType=Modelica.Blocks.Types.InitPID.InitialOutput,
-    xi_start=xi_start,
-    xd_start=xd_start,
-    final y_start=0,
-    final reverseAction=reverseAction) "Controller"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
   Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening val(
     redeclare package Medium = Medium,
     m_flow_nominal=m1_flow_nominal,
     dpValve_nominal=dpValve_nominal,
     riseTime(displayUnit="s") = 60,
     y_start=0) "District-side (primary) control valve"
-    annotation (Placement(transformation(extent={{-70,70},{-50,50}})));
-  Modelica.Blocks.Interfaces.RealInput TSetCHWS
-    "Setpoint temperature for building chilled water supply"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-30,70},{-10,50}})));
 
 equation
-  connect(con.u_s,TSetCHWS)
-    annotation (Line(points={{-92,0},{-120,0}}, color={0,0,127}));
-  connect(hex.port_b2, TBuiRet.port_a) annotation (Line(points={{-10,-6},{-20,-6},
-          {-20,-60},{-50,-60}}, color={0,127,255}));
-  connect(port_a1, val.port_a)
-    annotation (Line(points={{-100,60},{-70,60}}, color={0,127,255}));
-  connect(con.y, val.y)
-    annotation (Line(points={{-69,0},{-60,0},{-60,48}}, color={0,0,127}));
-  connect(TBuiRet.T, con.u_m) annotation (Line(points={{-60,-49},{-60,-32},{-80,
-          -32},{-80,-12}}, color={0,0,127}));
 
-  connect(hex.port_b1, port_b1) annotation (Line(points={{10,6},{20,6},{20,60},
-          {100,60}}, color={0,127,255}));
-  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{20,-6},{20,
-          -60},{100,-60}}, color={0,127,255}));
-  connect(hex.port_a1, val.port_b) annotation (Line(points={{-10,6},{-20,6},{-20,
-          60},{-50,60}}, color={0,127,255}));
-  connect(TBuiRet.port_b, port_b2)
-    annotation (Line(points={{-70,-60},{-100,-60}}, color={0,127,255}));
+  connect(port_b2, TBuiRet.port_b)
+    annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
+  connect(TBuiRet.T, con.u_m)
+    annotation (Line(points={{-80,-49},{-80,-12}}, color={0,0,127}));
+  connect(TBuiRet.port_a, hex.port_b2) annotation (Line(points={{-70,-60},{0,
+          -60},{0,-6},{20,-6}},
+                              color={0,127,255}));
+  connect(hex.port_a2, port_a2) annotation (Line(points={{40,-6},{60,-6},{60,
+          -60},{100,-60}},
+                      color={0,127,255}));
+  connect(hex.port_b1, senTDisRet.port_a) annotation (Line(points={{40,6},{60,6},
+          {60,60},{70,60}}, color={0,127,255}));
+  connect(val.port_b, hex.port_a1) annotation (Line(points={{-10,60},{0,60},{0,
+          6},{20,6}},  color={0,127,255}));
+  connect(con.y, val.y)
+    annotation (Line(points={{-69,0},{-20,0},{-20,48}}, color={0,0,127}));
+  connect(senMasFlo.port_b, val.port_a)
+    annotation (Line(points={{-40,60},{-30,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-56},{100,-64}},
