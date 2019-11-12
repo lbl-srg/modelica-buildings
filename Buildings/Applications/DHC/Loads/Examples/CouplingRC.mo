@@ -101,16 +101,16 @@ equation
   connect(couCoo.port_b, sinCoo.ports[1]) annotation (Line(points={{20,-90},{90,-90}}, color={0,127,255}));
   connect(supCoo.ports[1], couCoo.port_a) annotation (Line(points={{-20,-90},{0,-90}}, color={0,127,255}));
   connect(couCoo.heaPorLoa, bui.heaPorCoo) annotation (Line(points={{10,-80},{10,-37},{40,-37}}, color={191,0,0}));
-  connect(bui.Q_flowHeaReq, couHea.Q_flowReq)
-    annotation (Line(points={{61,-24},{70,-24},{70,0},{-10,0},{-10,22},{-2,22}}, color={0,0,127}));
-  connect(bui.Q_flowCooReq, couCoo.Q_flowReq)
-    annotation (Line(points={{61,-36},{70,-36},{70,-60},{-12,-60},{-12,-82},{-2,-82}}, color={0,0,127}));
   connect(bui.fraLatCooReq, couCoo.fraLat)
     annotation (Line(points={{61,-31},{80,-31},{80,-120},{-14,-120},{-14,-94},{-2,-94}}, color={0,0,127}));
   connect(bui.m_flowCooLoa, couCoo.m_flow2)
     annotation (Line(points={{61,-33},{72,-33},{72,-114},{-10,-114},{-10,-98},{-2,-98}}, color={0,0,127}));
   connect(bui.m_flowHeaLoa, couHea.m_flow2)
     annotation (Line(points={{61,-27},{80,-27},{80,52},{-10,52},{-10,38},{-2,38}}, color={0,0,127}));
+  connect(bui.yHeaReq, couHea.yReq)
+    annotation (Line(points={{61,-24},{72,-24},{72,0},{-10,0},{-10,22},{-2,22}}, color={0,0,127}));
+  connect(bui.yCooReq, couCoo.yReq)
+    annotation (Line(points={{61,-36},{70,-36},{70,-60},{-14,-60},{-14,-82},{-2,-82}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

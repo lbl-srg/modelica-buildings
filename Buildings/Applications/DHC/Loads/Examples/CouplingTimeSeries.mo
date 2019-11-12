@@ -101,11 +101,11 @@ equation
     annotation (Line(points={{-79,-76},{-68,-76},{-68,-82},{-56,-82}}, color={0,0,127}));
   connect(TCooInlVal.y, supCoo.T_in)
     annotation (Line(points={{-79,-96},{-68,-96},{-68,-86},{-56,-86}}, color={0,0,127}));
-  connect(bui.Q_flowHeaReq, couHea.Q_flowReq)
+  connect(bui.yHeaReq, couHea.yReq)
     annotation (Line(points={{61,-24},{70,-24},{70,0},{-12,0},{-12,22},{-2,22}}, color={0,0,127}));
   connect(bui.m_flowHeaLoa, couHea.m_flow2)
     annotation (Line(points={{61,-27},{74,-27},{74,60},{-12,60},{-12,38},{-2,38}}, color={0,0,127}));
-  connect(bui.Q_flowCooReq, couCoo.Q_flowReq)
+  connect(bui.yCooReq, couCoo.yReq)
     annotation (Line(points={{61,-36},{70,-36},{70,-60},{-12,-60},{-12,-82},{-2,-82}}, color={0,0,127}));
   connect(bui.fraLatCooReq, couCoo.fraLat)
     annotation (Line(points={{61,-31},{80,-31},{80,-120},{-20,-120},{-20,-94},{-2,-94}}, color={0,0,127}));
