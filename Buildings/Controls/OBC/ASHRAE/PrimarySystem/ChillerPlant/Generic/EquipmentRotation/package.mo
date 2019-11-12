@@ -4,9 +4,10 @@ package EquipmentRotation "Equipment rotation sequences to maintain even wear"
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains waterside economizer (WSE) control sequences.
-The implementation is based on section 5.2.3. in ASHRAE RP-1711, Draft 4.
-</p>
+This package contains equipment staging and rotation sequences implemented based on ASHRAE RP1711.
+July draft, section 5.1.2. The control intent of these sequences is, where the device configuration allows for it, 
+to have the devices be lead/lag or lead/standby rotated to maintain even wear. Note that this package does not 
+deal with the chiller staging, which is provided in a separte package.
 </html>"),
 Icon(graphics={
         Rectangle(

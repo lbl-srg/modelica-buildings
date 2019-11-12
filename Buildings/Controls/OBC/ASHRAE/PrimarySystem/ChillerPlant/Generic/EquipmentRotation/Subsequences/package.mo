@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation;
-package Subsequences "Waterside economizer control subsequences"
+package Subsequences "Equipment rotation control subsequences"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains waterside economizer control subsequences.
+This package contains equipment staging and rotation control subsequences.
 </p>
 </html>"),
   Icon(graphics={

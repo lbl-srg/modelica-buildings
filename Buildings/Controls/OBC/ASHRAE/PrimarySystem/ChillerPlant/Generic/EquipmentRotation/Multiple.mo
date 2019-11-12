@@ -27,8 +27,8 @@ block Multiple "Defines lead-lag or lead-standby equipment rotation for any numb
     extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevStaSet[nDev]
-    "Device status setpoint (index represents the physical device)" annotation
-    (Placement(transformation(extent={{240,-50},{260,-30}}), iconTransformation(
+    "Device status setpoint (index represents the physical device)" annotation (
+     Placement(transformation(extent={{240,-50},{260,-30}}), iconTransformation(
           extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]

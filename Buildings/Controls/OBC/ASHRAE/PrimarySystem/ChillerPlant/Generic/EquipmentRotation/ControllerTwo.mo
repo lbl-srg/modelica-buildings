@@ -225,19 +225,48 @@ equation
         Line(points={{-40,-60},{0,-60},{0,60},{40,60}}, color={128,128,128})}),
   Documentation(info="<html>
 <p>
-This block rotates equipment, such as chillers, pumps or valves, in order 
-to ensure equal wear and tear. It can be used for lead/lag and 
-lead/standby operation, as specified in &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
-Chapter 7, App B, 1.01, A.4.  The output vector <code>yDevRol<\code> indicates the lead/lag (or lead/standby) status
-of the devices, while the <code>yDevSta<\code> indicates the on/off status of each device. The index of
-output vectors and <code>initRoles<\code> parameter represents the physical device.
-Default initial lead role is assigned to the device associated
-with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
-for each device and switches the lead role to the next higher index
-as its <code>stagingRuntime<\code> expires. This block can be used for 2 devices. 
-If using more than 2 devices, see 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult</a>.
+This controller block rotates equipment, such as chillers, pumps or valves, in order 
+to ensure equal wear and tear. It is intended to be used for lead/lag and 
+lead/standby operation of two devices or groups of devices. The implementation is 
+based on the specification from ASHRAE RP1711, July Draft, section 5.1.2.
+</p>
+<p>
+The controller takes as inputs the current device proven ON/OFF status vector <code>uDevSta<\code>,
+lead device status setpoint <code>uLeaStaSet<\code> and lag device status setpoint <code>uLagStaSet<\code>
+and implements two different rotation subsequences to generate the device status setpoints <code>yDevStaSet<\code>
+and device roles <code>yDevRol<\code> outputs:
+<ul>
+<li>
+To rotate lead/lag device configurations, and lead/standby device configurations where the lead does 
+not operate continuously, the controller uses 
+the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter</a> subsequence.
+In this subsequence the rotation signal is generated based on the staging runtime,
+defined as the time each the devices has spent in its current role. The implementation is based on section 
+5.1.2.3. and 5.1.2.4.1. of RP1711 July draft.
+</li>
+<li>
+To rotate lead/standby device configurations where the lead operates continuously the controller uses 
+the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler</a> subsequence.
+In this subsequence the rotation signal is generated based on the lifetime runtime, as the time since the device start-up. 
+Before a device is changed to standby, the new lead device must be proven on, as implemented by the 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo</a> subsequence. 
+The implementations are based on section 5.1.2.4.2. of RP1711 July draft. 
+</li>
+</ul>
+<p>
+The <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two</a> subsequence allocates
+the status setpoints <code>yDevStaSet<\code> to devices based on the rotation signal.
+</p>
+<p>
+The output vector <code>yDevRol<\code> indicates the role of each device, where true 
+represents a lead role and false represents a lag or a standby role. 
+</p>
+<p>
+The indices of both output vectors and the <code>uDevSta<\code> input vector represent physical devices.
 </p>
 </html>", revisions="<html>
 <ul>

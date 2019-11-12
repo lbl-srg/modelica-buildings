@@ -34,8 +34,8 @@ equation
     annotation (Line(points={{-90,20},{18,20}},color={255,0,255}));
   connect(not1[1].y, or1[2].u2)
     annotation (Line(points={{-18,-20},{0,-20},{0,12},{18,12}}, color={255,0,255}));
-  connect(not1[2].y, or1[1].u2) annotation (Line(points={{-18,-20},{-10,-20},{-10,
-          12},{18,12}}, color={255,0,255}));
+  connect(not1[2].y, or1[1].u2)
+    annotation (Line(points={{-18,-20},{-10,-20},{-10,12},{18,12}}, color={255,0,255}));
   connect(or1.y, yDevStaSet)
     annotation (Line(points={{42,20},{90,20}}, color={255,0,255}));
   annotation (defaultComponentName="leaSwa",
