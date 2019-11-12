@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090;
+within geojson_1.Loads.B5a6b99ec37f4de7f94020090;
 model Meeting
   "This is the simulation model of Meeting within building B5a6b99ec37f4de7f94020090 with traceable ID None"
 
@@ -21,16 +21,16 @@ model Meeting
   thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.DryAirNasa,
     VAir=521.8867414172162,
-    alphaExt=2.0490178828959125,
-    alphaWin=2.7000000000000006,
+    hConExt=2.0490178828959125,
+    hConWin=2.7000000000000006,
     gWin=0.6700000000000002,
     ratioWinConRad=0.030000000000000002,
     nExt=1,
     RExt={0.00014484269741541823},
     CExt={65319165.36689455},
-    alphaRad=5.000000000000001,
+    hRad=5.000000000000001,
     AInt=514.606606548608,
-    alphaInt=2.207073495341845,
+    hConInt=2.207073495341845,
     nInt=1,
     RInt={0.0001055947003212644},
     CInt={74230169.14357185},
@@ -52,9 +52,9 @@ model Meeting
     wfWin={0.45758467583140006, 0.0, 0.45758467583140006, 0.04241532416859994, 0.0, 0.04241532416859994},
     withLongwave=true,
     aExt=0.5,
-    alphaWallOut=20.0,
-    alphaRad=5.0,
-    alphaWinOut=20.0,
+    hConWallOut=20.0,
+    hRad=5.0,
+    hConWinOut=20.0,
     TGro=286.15) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[6]
@@ -86,7 +86,7 @@ model Meeting
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-16})));
-  Modelica.Blocks.Sources.Constant alphaWin(k=24.999999999999996*26.066501085450113)
+  Modelica.Blocks.Sources.Constant hConWin(k=24.999999999999996*26.066501085450113)
     "Outdoor coefficient of heat transfer for windows"
     annotation (Placement(
     transformation(
@@ -247,7 +247,7 @@ equation
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-11.6},{30,-4},{31,-4}}, color={0,0,127}));
-  connect(alphaWin.y, thermalConductorWin.Gc)
+  connect(hConWin.y, thermalConductorWin.Gc)
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));
   connect(weaBus.TBlaSky, eqAirTemp.TBlaSky)
     annotation (Line(

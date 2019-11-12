@@ -1,4 +1,4 @@
-within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a7229e737f4de77124f946d;
+within geojson_1.Loads.B5a7229e737f4de77124f946d;
 model Floor
   "This is the simulation model of Floor within building B5a7229e737f4de77124f946d with traceable ID None"
 
@@ -21,16 +21,16 @@ model Floor
   thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.DryAirNasa,
     VAir=2927.4144095232004,
-    alphaExt=2.1199708957531502,
-    alphaWin=2.7000000000000006,
+    hConExt=2.1199708957531502,
+    hConWin=2.7000000000000006,
     gWin=0.67,
     ratioWinConRad=0.03,
     nExt=1,
     RExt={4.026410540603804e-05},
     CExt={242423805.8616765},
-    alphaRad=5.0,
+    hRad=5.0,
     AInt=4371.912858316801,
-    alphaInt=2.4253954305799645,
+    hConInt=2.4253954305799645,
     nInt=1,
     RInt={1.6558289956160254e-05},
     CInt={463133947.3301717},
@@ -52,9 +52,9 @@ model Floor
     wfWin={0.42243575996725674, 0.0, 0.42243575996725674, 0.0775642400327433, 0.0, 0.0775642400327433},
     withLongwave=true,
     aExt=0.5,
-    alphaWallOut=20.0,
-    alphaRad=5.0,
-    alphaWinOut=20.0,
+    hConWallOut=20.0,
+    hRad=5.0,
+    hConWinOut=20.0,
     TGro=286.15) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[6]
@@ -86,7 +86,7 @@ model Floor
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-16})));
-  Modelica.Blocks.Sources.Constant alphaWin(k=25.0*111.07184763309877)
+  Modelica.Blocks.Sources.Constant hConWin(k=25.0*111.07184763309877)
     "Outdoor coefficient of heat transfer for windows"
     annotation (Placement(
     transformation(
@@ -247,7 +247,7 @@ equation
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-11.6},{30,-4},{31,-4}}, color={0,0,127}));
-  connect(alphaWin.y, thermalConductorWin.Gc)
+  connect(hConWin.y, thermalConductorWin.Gc)
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));
   connect(weaBus.TBlaSky, eqAirTemp.TBlaSky)
     annotation (Line(
