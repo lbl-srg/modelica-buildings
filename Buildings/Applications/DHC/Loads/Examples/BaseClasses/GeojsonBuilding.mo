@@ -70,8 +70,6 @@ equation
     annotation (Line(points={{41,-10},{50,-10},{50,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_ICT.TAir, conPIDMax[6].u_m)
     annotation (Line(points={{121,-10},{130,-10},{130,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
-  connect(gai1.y, Q_flowCooReq) annotation (Line(points={{2,-130},{152,-130},{152,-192},{310,-192}}, color={0,0,127}));
-  connect(gai.y, Q_flowHeaReq) annotation (Line(points={{2,130},{152,130},{152,200},{310,200}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_Office.TAir, conPIDMinT[1].u_m)
     annotation (Line(points={{-79,-10},{-70,-10},{-70,100},{-50,100},{-50,118}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_Office.TAir, conPIDMax[1].u_m)
@@ -152,6 +150,8 @@ equation
     annotation (Line(points={{70,0},{-160,0},{-160,-150},{-260,-150}}, color={191,0,0}));
   connect(b5a6b99ec37f4de7f94020090_ICT.port_a, heaFloCooLoaH[6].port_b)
     annotation (Line(points={{110,0},{-160,0},{-160,-150},{-260,-150}}, color={191,0,0}));
+  connect(gai1.y, yCooReq) annotation (Line(points={{2,-130},{154,-130},{154,-192},{310,-192}}, color={0,0,127}));
+  connect(gai.y, yHeaReq) annotation (Line(points={{2,130},{152,130},{152,200},{310,200}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>
