@@ -130,19 +130,14 @@ equation
         color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This block rotates equipment, such as chillers, pumps or valves, in order 
-to ensure equal wear and tear. It can be used for lead/lag and 
-lead/standby operation, as specified in &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
-Chapter 7, App B, 1.01, A.4.  The output vector <code>yDevRol<\code> indicates the lead/lag (or lead/standby) status
-of the devices, while the <code>yDevSta<\code> indicates the on/off status of each device. The index of
-output vectors and <code>initRoles<\code> parameter represents the physical device.
-Default initial lead role is assigned to the device associated
-with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
-for each device and switches the lead role to the next higher index
-as its <code>stagingRuntime<\code> expires. This block can be used for 2 devices. 
-If using more than 2 devices, see 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotationMult</a>.
+This subsequence generates a rotation trigger based on measuring the time each of the devices has spent in its current role. 
+The rotation trigger output <code>yRot<\code> is generated as the current lead device runtime in the role
+exceeds <code>stagingRuntime<\code> and the conditions are met such that the devices are not hot swapped. To
+avoid hot swapping the lead and lag/standby device need to be either both ON or both OFF for the rotation to occur. 
+</p>
+<p>
+<p>
+The implementation is based on section 5.1.2.3. and 5.1.2.4.1. of RP1711 July draft.
 </p>
 </html>", revisions="<html>
 <ul>

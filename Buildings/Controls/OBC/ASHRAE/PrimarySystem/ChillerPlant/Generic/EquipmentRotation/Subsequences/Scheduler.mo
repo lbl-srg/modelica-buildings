@@ -161,7 +161,7 @@ equation
           thickness=0.5)}),
   Documentation(info="<html>
 <p>
-This block outputs a signal to rotate the lead device at
+This block outputs generates a rotation trigger at
 chosen time intervals for lead/standby configurations where a lead device runs continuously. 
 The implementation is based on RP 1711 5.1.2.4.2, except 5.1.2.4.2 a).
 

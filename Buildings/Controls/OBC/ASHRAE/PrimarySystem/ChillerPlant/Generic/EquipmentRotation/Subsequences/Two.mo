@@ -4,9 +4,8 @@ block Two
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRot
     "Rising edge to rotate the equipment"
-    annotation (Placement(transformation(
-          extent={{-240,20},{-200,60}}), iconTransformation(extent={{-140,-20},{
-            -100,20}})));
+    annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
     "Device role: true = lead, false = lag or standby"
@@ -98,19 +97,12 @@ equation
         Line(points={{-40,-60},{0,-60},{0,60},{40,60}}, color={128,128,128})}),
   Documentation(info="<html>
 <p>
-This block rotates equipment, such as chillers, pumps or valves, in order 
-to ensure equal wear and tear. It can be used for lead/lag and 
-lead/standby operation, as specified in &quot;ASHRAE Fundamentals of Chilled Water Plant Design and Control SDL&quot;, 
-Chapter 7, App B, 1.01, A.4.  The output vector <code>yDevRol<\code> indicates the lead/lag (or lead/standby) status
-of the devices, while the <code>yDevSta<\code> indicates the on/off status of each device. The index of
-output vectors and <code>initRoles<\code> parameter represents the physical device.
-Default initial lead role is assigned to the device associated
-with the first index in the input vector. The block measures the <code>stagingRuntime<\code> 
-for each device and switches the lead role to the next higher index
-as its <code>stagingRuntime<\code> expires. This block can be used for 2 devices. 
-If using more than 2 devices, see 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Multiple\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Multiple</a>.
+This subsequence takes a rotation trigger signal <code>uRot<\code> as input to
+rotate the device roles for two devices or groups of devices. It outputs the current device roles <code>yDevRol<\code>
+vector and its previous time instance value <code>yPreDevRolSig<\code>, which is used
+as an input signal to any upstream subsequences in the 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo</a>.
 </p>
 </html>", revisions="<html>
 <ul>
