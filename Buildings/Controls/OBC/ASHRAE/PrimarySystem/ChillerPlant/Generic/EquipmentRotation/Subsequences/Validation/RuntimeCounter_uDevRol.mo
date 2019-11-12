@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 model RuntimeCounter_uDevRol
   "Validate lead/lag and lead/standby switching signal based on device runtime"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter runCou(
-    final stagingRuntime=7500)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter runCou(final
+      stagingRuntime=7500)
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter runCou1(
@@ -95,13 +95,13 @@ equation
     annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
   connect(runCou2.yRot, rotTwo2.uRot)
     annotation (Line(points={{62,-50},{78,-50}}, color={255,0,255}));
-  connect(rotTwo2.yPreDevRolSig, runCou2.uPreDevRolSig) annotation (Line(points
-        ={{101,-56},{110,-56},{110,-70},{30,-70},{30,-58},{38,-58}}, color={255,
+  connect(rotTwo2.yPreDevRolSig, runCou2.uPreDevRolSig) annotation (Line(points=
+         {{101,-56},{110,-56},{110,-70},{30,-70},{30,-58},{38,-58}}, color={255,
           0,255}));
   connect(rotTwo2.yPreDevRolSig, logSwi2.u2) annotation (Line(points={{101,-56},
           {110,-56},{110,-70},{-20,-70},{-20,-50},{-2,-50}}, color={255,0,255}));
-  connect(rotTwo1.yPreDevRolSig, runCou1.uPreDevRolSig) annotation (Line(points
-        ={{101,-6},{110,-6},{110,-20},{30,-20},{30,-8},{38,-8}}, color={255,0,
+  connect(rotTwo1.yPreDevRolSig, runCou1.uPreDevRolSig) annotation (Line(points=
+         {{101,-6},{110,-6},{110,-20},{30,-20},{30,-8},{38,-8}}, color={255,0,
           255}));
   connect(rotTwo1.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{101,-6},
           {110,-6},{110,-20},{-20,-20},{-20,0},{-2,0}}, color={255,0,255}));

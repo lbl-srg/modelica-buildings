@@ -14,7 +14,7 @@ block ControllerTwo
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Initiation"));
 
   parameter Modelica.SIunits.Time stagingRuntime(
-    final displayUnit = "h") = 864000
+    final displayUnit = "h") = 43200
     "Staging runtime for each device"
     annotation (Evaluate=true, Dialog(enable=not continuous));
 
@@ -29,6 +29,23 @@ block ControllerTwo
   parameter Modelica.SIunits.Time offset = 0
     "Offset that is added to 'time', may be used for computing time in different time zone"
     annotation(Evaluate=true, Dialog(group="Calendar", enable=continuous));
+
+  parameter Boolean weeInt = true
+    "Rotation is scheduled in: true = weekly intervals; false = daily intervals"
+    annotation(Dialog(group="Scheduler"));
+
+  parameter Integer houOfDay = 2 "Rotation hour of the day: 0 = midnight; 23 = 11pm"
+    annotation(Dialog(group="Scheduler"));
+
+  parameter Integer weeCou = 1 "Number of weeks"
+    annotation (Evaluate=true, Dialog(enable=weeInt, group="Scheduler"));
+
+  parameter Integer weekday = 1
+    "Rotation weekday, 1 = Monday, 7 = Sunday"
+    annotation (Evaluate=true, Dialog(enable=weeInt, group="Scheduler"));
+
+  parameter Integer dayCou = 1 "Number of days"
+    annotation (Evaluate=true, Dialog(enable=not weeInt, group="Scheduler"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaStaSet if not continuous
     "Lead device status setpoint"
@@ -59,10 +76,6 @@ block ControllerTwo
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
-  final parameter Modelica.SIunits.Time stagingRuntimes[nDev] = fill(stagingRuntime, nDev)
-    "Staging runtimes array"
-    annotation (Evaluate=true, Dialog(enable=not continuous));
-
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]"
     annotation (Evaluate=true, Dialog(enable=not continuous));
@@ -91,6 +104,11 @@ block ControllerTwo
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch(
+    final weeInt=weeInt,
+    final houOfDay=houOfDay,
+    final weeCou=weeCou,
+    final weekday=weekday,
+    final dayCou=dayCou,
     final zerTim=zerTim,
     final yearRef=yearRef,
     final offset=offset) if continuous
@@ -103,7 +121,8 @@ block ControllerTwo
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
-    runCou if not continuous
+    runCou(
+    final stagingRuntime=stagingRuntime) if not continuous
     "Runtime counter"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
@@ -151,7 +170,9 @@ equation
           0,-20},{160,-20},{160,-40},{270,-40}}, color={255,0,255}));
   connect(uDevSta, runCou.uDevSta) annotation (Line(points={{-280,90},{-100,90},
           {-100,-40},{-42,-40}}, color={255,0,255}));
-    annotation (Evaluate=true,
+    annotation(Dialog(group="Scheduler"),
+                Evaluate=true, Dialog(group="Scheduler"),
+                Evaluate=true,
               Diagram(coordinateSystem(extent={{-260,-160},{260,160}})),
       defaultComponentName="equRot",
     Icon(graphics={
