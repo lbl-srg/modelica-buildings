@@ -110,36 +110,38 @@ protected
     annotation (Placement(transformation(extent={{90,0},{110,20}})));
 
 equation
-  connect(constTowFanSig.y, wseSta.uTowFanSpeMax) annotation (Line(points={{-119,
+  connect(constTowFanSig.y, wseSta.uTowFanSpeMax) annotation (Line(points={{-118,
           -70},{-80,-70},{-80,2},{-72,2}}, color={0,0,127}));
-  connect(TOutWetSig.y, wseSta.TOutWet) annotation (Line(points={{-119,70},{-80,
+  connect(TOutWetSig.y, wseSta.TOutWet) annotation (Line(points={{-118,70},{-80,
           70},{-80,18},{-72,18}},color={0,0,127}));
-  connect(TChiWatRetSig.y, wseSta.TChiWatRet) annotation (Line(points={{-119,40},
+  connect(TChiWatRetSig.y, wseSta.TChiWatRet) annotation (Line(points={{-118,40},
           {-100,40},{-100,14},{-72,14}},color={0,0,127}));
-  connect(chiWatFlow.y, wseSta.VChiWat_flow) annotation (Line(points={{-119,-30},
+  connect(chiWatFlow.y, wseSta.VChiWat_flow) annotation (Line(points={{-118,-30},
           {-90,-30},{-90,6},{-72,6}},color={0,0,127}));
   connect(TChiWatRetDow.y,wseSta.TChiWatRetDow)
-    annotation (Line(points={{-119,10},{-72,10}},color={0,0,127}));
-  connect(constTowFanSig1.y, wseSta1.uTowFanSpeMax) annotation (Line(points={{-9,
-          -70},{30,-70},{30,2},{38,2}}, color={0,0,127}));
-  connect(TOutWetSig1.y, wseSta1.TOutWet) annotation (Line(points={{-9,70},{30,70},
-          {30,18},{38,18}}, color={0,0,127}));
-  connect(TChiWatRetSig1.y, wseSta1.TChiWatRet) annotation (Line(points={{-9,40},
+    annotation (Line(points={{-118,10},{-72,10}},color={0,0,127}));
+  connect(constTowFanSig1.y, wseSta1.uTowFanSpeMax) annotation (Line(points={{-8,-70},
+          {30,-70},{30,2},{38,2}},      color={0,0,127}));
+  connect(TOutWetSig1.y, wseSta1.TOutWet) annotation (Line(points={{-8,70},{30,
+          70},{30,18},{38,18}},
+                            color={0,0,127}));
+  connect(TChiWatRetSig1.y, wseSta1.TChiWatRet) annotation (Line(points={{-8,40},
           {10,40},{10,14},{38,14}}, color={0,0,127}));
-  connect(chiWatFlow1.y, wseSta1.VChiWat_flow) annotation (Line(points={{-9,-30},
+  connect(chiWatFlow1.y, wseSta1.VChiWat_flow) annotation (Line(points={{-8,-30},
           {20,-30},{20,6},{38,6}}, color={0,0,127}));
   connect(TChiWatRetDow1.y,wseSta1.TChiWatRetDow)
-    annotation (Line(points={{-9,10},{38,10}}, color={0,0,127}));
-  connect(constTowFanSig2.y, wseSta2.uTowFanSpeMax) annotation (Line(points={{
-          111,-70},{150,-70},{150,2},{158,2}}, color={0,0,127}));
-  connect(TOutWetSig2.y,wseSta2. TOutWet) annotation (Line(points={{111,70},{150,
-          70},{150,18},{158,18}},color={0,0,127}));
-  connect(TChiWatRetSig2.y,wseSta2. TChiWatRet) annotation (Line(points={{111,40},
+    annotation (Line(points={{-8,10},{38,10}}, color={0,0,127}));
+  connect(constTowFanSig2.y, wseSta2.uTowFanSpeMax) annotation (Line(points={{112,-70},
+          {150,-70},{150,2},{158,2}},          color={0,0,127}));
+  connect(TOutWetSig2.y,wseSta2. TOutWet) annotation (Line(points={{112,70},{
+          150,70},{150,18},{158,18}},
+                                 color={0,0,127}));
+  connect(TChiWatRetSig2.y,wseSta2. TChiWatRet) annotation (Line(points={{112,40},
           {130,40},{130,14},{158,14}},color={0,0,127}));
-  connect(chiWatFlow2.y,wseSta2. VChiWat_flow) annotation (Line(points={{111,-30},
+  connect(chiWatFlow2.y,wseSta2. VChiWat_flow) annotation (Line(points={{112,-30},
           {140,-30},{140,6},{158,6}}, color={0,0,127}));
   connect(wseSta2.TChiWatRetDow, TChiWatRetDow3.y)
-    annotation (Line(points={{158,10},{111,10}}, color={0,0,127}));
+    annotation (Line(points={{158,10},{112,10}}, color={0,0,127}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/Validation/Controller.mos"
