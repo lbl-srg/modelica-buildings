@@ -1,8 +1,11 @@
 within Buildings.Experimental.EnergyPlus.Types;
 type Verbosity = enumeration(
-    Quiet "No output",
-    Medium "Output mainly during initialization and shut-down",
-    TimeStep "Output at each time step") "Enumeration for the day types" annotation (
+    Fatal "Fatal errors",
+    Error "Errors",
+    Warning "Warnings",
+    Info "Information",
+    Verbose "Verbose, including calls in initialization and shut-down",
+    Debug "Output at each time step") "Enumeration for the day types" annotation (
     Documentation(info="<html>
 <p>
 Enumeration for the level of outputs written by EnergyPlus.
@@ -10,17 +13,30 @@ The possible values are:
 </p>
 <ol>
 <li>
-Quiet
+Fatal
 </li>
 <li>
-Medium
+Error
 </li>
 <li>
-TimeStep
+Warning
+</li>
+<li>
+Info
+</li>
+<li>
+Verbose
+</li>
+<li>
+Debug
 </li>
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+September 25, 2019, by Michael Wetter:<br/>
+Revised implementation.
+</li>
 <li>
 August 21, 2019, by Michael Wetter:<br/>
 First implementation.

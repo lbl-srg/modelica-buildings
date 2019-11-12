@@ -6,14 +6,36 @@ Documentation(info="<html>
 <h4>Overview</h4>
 <p>
 This user guide describes how to use the EnergyPlus building envelope model.
-For each thermal zone, an instance of
-<a href=\"modelica://Buildings.Experimental.EnergyPlus.ThermalZone\">
-Buildings.Experimental.EnergyPlus.ThermalZone</a> needs to be made.
-This instance allows to specify the name of the EnergyPlus input data (idf) file
-and the name of the thermal zone, as specified in the idf file.
-These names will then be used to connect the Modelica zone model with the
-EnergyPlus zone.
 </p>
+<p>
+To instanciate a building, proceed as follows:
+</p>
+<ol>
+<li>
+For each building, an instance of
+<a href=\"Buildings.Experimental.EnergyPlus.Building\">
+Buildings.Experimental.EnergyPlus.Building</a> needs to be made.
+This instance is automatically named <code>building</code> and this
+name must not be changed.
+This allows to specify building-level parameters such as the
+EnergyPlus input file name and weather file name.
+</li>
+<li>
+In the model that contains the instance <code>building</code>,
+or in any model instanciated by that model, instantiate
+for each thermal zone an instance of
+<a href=\"modelica://Buildings.Experimental.EnergyPlus.ThermalZone\">
+Buildings.Experimental.EnergyPlus.ThermalZone</a>.
+These thermal zones will automatically be assigned the name of the
+EnergyPlus input data file and weather file, as well as the other parameters
+that are declared in the instance <code>building</code>.
+In these instances, specify the name of the thermal zone, as it is entered
+in the EnergyPlus input data file, and also assign the medium of the thermal zone,
+as is done for any other fluid flow component.
+This instance will then connect the Modelica zone model with the
+EnergyPlus zone model.
+</li>
+</ol>
 <p>
 The following conventions are made:
 </p>
