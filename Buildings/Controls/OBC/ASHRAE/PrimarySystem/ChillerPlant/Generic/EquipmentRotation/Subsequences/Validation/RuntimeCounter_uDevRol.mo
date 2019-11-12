@@ -2,16 +2,16 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 model RuntimeCounter_uDevRol
   "Validate lead/lag and lead/standby switching signal based on device runtime"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter runCou(final
-      stagingRuntime=7500)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
+    runCou(final stagingRuntime=43200)
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter runCou1(
-    final stagingRuntime = 7200)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
+    runCou1(final stagingRuntime=18000)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter runCou2(
-    final stagingRuntime=7200)
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
+    runCou2(final stagingRuntime=14400)
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2] "Switch"
@@ -23,10 +23,18 @@ model RuntimeCounter_uDevRol
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[2] "Switch"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
-  Two rotTwo annotation (Placement(transformation(extent={{80,40},{100,60}})));
-  Two rotTwo1 annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Two rotTwo2
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
+    rotTwo "Equipment rotation signal based on device runtime and current device status"
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
+    rotTwo1 "Equipment rotation signal based on device runtime and current device status"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
+    rotTwo2 "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+
 protected
   parameter Boolean initRoles[2] = {true, false}
     "Sets initial roles: true = lead, false = lag or standby";
@@ -65,8 +73,7 @@ equation
   connect(lagLoad.y, repLag.u) annotation (Line(points={{-78,30},{-70,30},{-70,40},
           {-62,40}}, color={255,0,255}));
   connect(repLead.y, logSwi.u1) annotation (Line(points={{-38,70},{-20,70},{-20,
-          58},{-2,58}},
-                    color={255,0,255}));
+          58},{-2,58}},color={255,0,255}));
   connect(repLag.y, logSwi.u3) annotation (Line(points={{-38,40},{-10,40},{-10,42},
           {-2,42}}, color={255,0,255}));
   connect(logSwi.y, runCou.uDevSta)
@@ -138,5 +145,6 @@ Icon(graphics={
           extent={{-52,-104},{46,-114}},
           lineColor={0,0,127},
           textString="For simplicity this test assumes 
-the device status equals its setpoint (ideal device start-up)")}));
+the device ON/OFF status equals its setpoint 
+(there is no delay in starting or stopping devices).")}));
 end RuntimeCounter_uDevRol;

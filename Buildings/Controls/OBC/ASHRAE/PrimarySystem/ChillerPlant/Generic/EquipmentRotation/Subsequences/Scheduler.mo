@@ -29,7 +29,8 @@ block Scheduler
   parameter Integer dayCou = 1 "Number of days"
     annotation (Evaluate=true, Dialog(enable=not weeInt));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot "Rotation trigger signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRot
+    "Rotation trigger signal"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -96,8 +97,7 @@ equation
   connect(calTim.hour, intEqu.u1) annotation (Line(points={{-119,96},{-100,96},
           {-100,70},{-82,70}},color={255,127,0}));
   connect(houOfDay1.y, intEqu.u2) annotation (Line(points={{-118,50},{-100,50},
-          {-100,62},{-82,62}},
-                         color={255,127,0}));
+          {-100,62},{-82,62}}, color={255,127,0}));
   connect(calTim.weekDay, isWee.u1) annotation (Line(points={{-119,84},{-110,84},
           {-110,20},{-102,20}}, color={255,127,0}));
   connect(weeDay.y, isWee.u2) annotation (Line(points={{-118,10},{-110,10},{-110,
@@ -117,8 +117,7 @@ equation
   connect(edg.y, yRot)
     annotation (Line(points={{142,20},{150,20},{150,0},{180,0}}, color={255,0,255}));
   connect(weeCou1.y, intEqu2.u2) annotation (Line(points={{-118,-50},{30,-50},{
-          30,12},{38,12}},
-                        color={255,127,0}));
+          30,12},{38,12}}, color={255,127,0}));
   connect(isWee.y, and2.u2) annotation (Line(points={{-78,20},{-60,20},{-60,12},
           {-32,12}}, color={255,0,255}));
   connect(truSig.y, and2.u2) annotation (Line(points={{-78,-10},{-60,-10},{-60,12},

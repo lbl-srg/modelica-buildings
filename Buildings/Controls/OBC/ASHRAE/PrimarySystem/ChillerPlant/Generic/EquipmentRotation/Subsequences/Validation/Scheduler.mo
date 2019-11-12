@@ -14,8 +14,7 @@ model Scheduler
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch1(
     final weeCou=2,
-    final weekday=2)
-    "Equipment rotation happens bi-weekly on Tuesday at 2am"
+    final weekday=2) "Equipment rotation happens bi-weekly on Tuesday at 2am"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
@@ -54,7 +53,6 @@ model Scheduler
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
 equation
-
   connect(rotSch.yRot, truFalHol.u)
     annotation (Line(points={{-78,30},{-42,30}}, color={255,0,255}));
   connect(rotSch1.yRot, truFalHol1.u)

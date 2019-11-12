@@ -1,63 +1,71 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Validation;
-model ControllerTwo "Validate lead/lag and lead/standby switching"
+model ControllerTwo "Validates lead/lag and lead/standby equipment rotation controller for two devices or groups of devices"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo
-    leaLag(lag=true, stagingRuntime=43200)
-                                          "Lead/lag rotation"
+    leaLag(
+    final lag=true,
+    final stagingRuntime=43200) "Lead/lag rotation"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo
-    leaLag1(lag=true, stagingRuntime=54000)
-                                           "Lead/lag rotation"
+    leaLag1(
+    final lag=true,
+    final stagingRuntime=54000) "Lead/lag rotation"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo
-    leaSta(lag=false, stagingRuntime=43200)
-                                           "Lead/standby rotation"
+    leaSta(
+    final lag=false,
+    final stagingRuntime=43200) "Lead/standby rotation"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo
-    conLea(lag=false, continuous=true,
-    weeInt=false,
-    houOfDay=2,
-    weeCou=1,
-    weekday=6,
-    dayCou=3)
-    "Lead/standby rotation for continuously operating devices"
+    conLea(
+    final lag=false,
+    final continuous=true,
+    final weeInt=false,
+    final houOfDay=2,
+    final weeCou=1,
+    final weekday=6,
+    final dayCou=3) "Lead/standby rotation for continuously operating devices"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[2](
-    final delayTime={600,600}, final delayOnInit={true,true})
+    final delayTime={600,600},
+    final delayOnInit={true,true})
     "Emulates device start-up time"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel[2](final delayTime={600,
-        600}, final delayOnInit={true,true}) "Emulates device start-up time"
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel[2](
+    final delayTime={600,600},
+    final delayOnInit={true,true}) "Emulates device start-up time"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
-  CDL.Logical.Pre pre[2]
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[2] "Boolean pre"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  CDL.Logical.Pre pre1[2]
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[2] "Boolean pre"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-protected
+
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad(
-    final width=0.8, final period=7200)
-    "Lead device on/off status"
+    final width=0.8,
+    final period=7200) "Lead device ON/OFF status"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(
-    final width=0.2, final period=3600) "Lag device on/off status"
+    final width=0.2,
+    final period=3600) "Lag device ON/OFF status"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad1(
     final width=0.2,
-    final period=5400)
+    final period=5400) "Lag device ON/OFF status"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
 equation
   connect(conLea.yDevStaSet,truDel1. u) annotation (Line(points={{1,-54},{10,
-          -54},{10,-60},{18,-60}},
-                              color={255,0,255}));
+          -54},{10,-60},{18,-60}}, color={255,0,255}));
   connect(leadLoad.y, leaLag.uLeaStaSet) annotation (Line(points={{-78,70},{-50,
           70},{-50,76},{-22,76}}, color={255,0,255}));
   connect(lagLoad.y, leaLag.uLagStaSet) annotation (Line(points={{-78,30},{-40,30},

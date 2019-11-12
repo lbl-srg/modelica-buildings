@@ -3,12 +3,14 @@ block Two
   "Equipment rotation signal based on device runtime and current device status"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRot
-    "Rising edge to rotate the equipment" annotation (Placement(transformation(
+    "Rising edge to rotate the equipment"
+    annotation (Placement(transformation(
           extent={{-240,20},{-200,60}}), iconTransformation(extent={{-140,-20},{
             -100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
-    "Device role: true = lead, false = lag or standby" annotation (Placement(
+    "Device role: true = lead, false = lag or standby"
+    annotation (Placement(
         transformation(extent={{200,50},{220,70}}), iconTransformation(extent={
             {100,-10},{120,10}})));
 
@@ -17,7 +19,7 @@ block Two
     annotation (Placement(transformation(extent={{200,-50},{220,-30}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
 
-//protected
+protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
@@ -36,9 +38,9 @@ block Two
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator booRep(
-    final nout=nDev)
-    "Signal replicator"
+    final nout=nDev) "Signal replicator"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+
 equation
   connect(logSwi.u1,not0. y) annotation (Line(points={{-28,8},{-60,8},{-60,-10},
           {-78,-10}},color={255,0,255}));

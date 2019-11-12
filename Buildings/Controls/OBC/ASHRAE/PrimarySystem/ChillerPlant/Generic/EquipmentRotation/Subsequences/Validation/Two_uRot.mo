@@ -2,24 +2,24 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Equipmen
 model Two_uRot
   "Validation sequence for device role rotation for two devices or groups of devices"
 
-  parameter Modelica.SIunits.Temperature aveTWetBul = 288.15
-    "Chilled water supply set temperature";
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotation(period(
-        displayUnit="h") = 86400, startTime(displayUnit="s"))
-    "Rotation trigger"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotation1(period(
-        displayUnit="h") = 172800) "Rotation trigger"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two rotTwo
     "Rotates roles between two devices or groups of devices"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
+
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two rotTwo1
     "Rotates roles between two devices or groups of devices"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-equation
 
+protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotation(period(
+    final displayUnit="h") = 86400) "Rotation trigger"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotation1(period(
+    final displayUnit="h") = 172800) "Rotation trigger"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+
+equation
   connect(rotation.y, rotTwo.uRot)
     annotation (Line(points={{-18,30},{18,30}}, color={255,0,255}));
   connect(rotation1.y, rotTwo1.uRot)

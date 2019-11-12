@@ -1,15 +1,14 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences;
 block ContinuousLeadSwapTwo
-  "Ensures previous lead device remains enabled until the new lead device is proven on"
+  "Ensures that the previous lead device remains enabled until the new lead device is proven on"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevRolSet[nDev]
     "Device role setpoint: true = lead, false = standby"
-                         annotation (
-      Placement(transformation(extent={{-100,10},{-80,30}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
-    "Device status where: true = proven On; false = proven Off"
+    "Device status where: true = proven ON; false = proven OFF"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
@@ -18,15 +17,15 @@ block ContinuousLeadSwapTwo
     annotation (Placement(transformation(extent={{80,10},{100,30}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or1[nDev]
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not1[nDev]
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-
 protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+
+  Buildings.Controls.OBC.CDL.Logical.Or or1[nDev] "Logical or"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1[nDev] "Logical not"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
 equation
   connect(uDevSta, not1.u)

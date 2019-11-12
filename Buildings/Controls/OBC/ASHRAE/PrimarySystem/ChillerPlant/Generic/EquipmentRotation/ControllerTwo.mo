@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation;
 block ControllerTwo
-  "Lead-lag or lead-standby equipment rotation for two devices or two groups of devices"
+  "Lead/lag or lead/standby equipment rotation controller for two devices or two groups of devices"
 
   parameter Boolean lag = true
     "true = lead/lag; false = lead/standby";
@@ -27,14 +27,15 @@ block ControllerTwo
     annotation(Evaluate=true, Dialog(group="Calendar", enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom and continuous));
 
   parameter Modelica.SIunits.Time offset = 0
-    "Offset that is added to 'time', may be used for computing time in different time zone"
+    "Offset that is added to 'time', may be used for computing time in a different time zone"
     annotation(Evaluate=true, Dialog(group="Calendar", enable=continuous));
 
   parameter Boolean weeInt = true
     "Rotation is scheduled in: true = weekly intervals; false = daily intervals"
     annotation(Dialog(group="Scheduler"));
 
-  parameter Integer houOfDay = 2 "Rotation hour of the day: 0 = midnight; 23 = 11pm"
+  parameter Integer houOfDay = 2
+    "Rotation hour of the day: 0 = midnight; 23 = 11pm"
     annotation(Dialog(group="Scheduler"));
 
   parameter Integer weeCou = 1 "Number of weeks"
@@ -58,12 +59,12 @@ block ControllerTwo
             {-260,-20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
-    "Device proven on status, where each index corresponds a device"
+    "Device proven ON status, where each index represents a physical device"
     annotation (Placement(transformation(extent={{-300,70},{-260,110}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevStaSet[nDev]
-    "Device status (index represents the physical device)" annotation (
+    "Device status setpoint, where each index represents a physical device" annotation (
       Placement(transformation(extent={{260,30},{280,50}}), iconTransformation(
           extent={{100,50},{120,70}})));
 
@@ -71,36 +72,6 @@ block ControllerTwo
     "Device role: true = lead, false = lag or standby" annotation (Placement(
         transformation(extent={{260,-50},{280,-30}}), iconTransformation(extent=
            {{100,-70},{120,-50}})));
-
-//protected
-  final parameter Integer nDev = 2
-    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
-
-  final constant Integer firstYear = 2010
-    "First year that is supported, i.e. the first year in timeStampsNewYear[:]"
-    annotation (Evaluate=true, Dialog(enable=not continuous));
-
-  final constant Integer lastYear = firstYear + 11
-    "Last year that is supported (actual building automation system need to support a larger range)"
-    annotation (Evaluate=true, Dialog(enable=not continuous));
-
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLea(final nout=nDev) if
-       not continuous "Replicates lead signal"
-    annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
-
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
-    final nout=nDev) if lag
-    "Replicates lag signal"
-    annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
-
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] if not continuous
-    "Switch"
-    annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staBySta[nDev](
-    final k=fill(false, nDev)) if not lag and not continuous
-    "Standby status"
-    annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch(
@@ -115,32 +86,59 @@ block ControllerTwo
     "Generates equipment rotation trigger based on a schedule"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
+    runCou(final stagingRuntime=stagingRuntime) if not continuous
+    "Runtime counter"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+
+protected
+  final parameter Integer nDev = 2
+    "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
+
+  final constant Integer firstYear = 2010
+    "First year that is supported, i.e. the first year in timeStampsNewYear[:]"
+    annotation (Evaluate=true, Dialog(enable=not continuous));
+
+  final constant Integer lastYear = firstYear + 20
+    "Last year that is currently supported"
+    annotation (Evaluate=true, Dialog(enable=not continuous));
+
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo
     leaSwa if continuous
     "Ensures no old lead device is switched off until the new lead device is proven on"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
-    runCou(
-    final stagingRuntime=stagingRuntime) if not continuous
-    "Runtime counter"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
-    rotTwo if not continuous
-    "Based on a rotation trigger sets device roles according to equipment rotation"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
     rotTwoCon if continuous
     "Based on a rotation trigger sets device roles according to equipment rotation"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
+    rotTwo if not continuous
+    "Based on a rotation trigger sets device roles according to equipment rotation"
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLea(
+    final nout=nDev) if not continuous "Replicates lead signal"
+    annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
+    final nout=nDev) if lag "Replicates lag signal"
+    annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] if not continuous
+    "Switch"
+    annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staBySta[nDev](
+    final k=fill(false, nDev)) if not lag and not continuous "Standby status"
+    annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
+
 equation
   connect(logSwi1.u1, repLea.y) annotation (Line(points={{-182,-32},{-190,-32},{
           -190,40},{-218,40}}, color={255,0,255}));
   connect(logSwi1.u3,repLag. y) annotation (Line(points={{-182,-48},{-210,-48},{
-          -210,-40},{-218,-40}},  color={255,0,255}));
+          -210,-40},{-218,-40}}, color={255,0,255}));
   connect(uLeaStaSet, repLea.u)
     annotation (Line(points={{-280,40},{-242,40}}, color={255,0,255}));
   connect(uLagStaSet, repLag.u)
