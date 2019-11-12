@@ -39,6 +39,9 @@ block Scheduler
     final offset=offset)
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
+  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt "Integer counter"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+
 protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay1(
     final k=houOfDay)
@@ -75,9 +78,6 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Rising edge"
     annotation (Placement(transformation(extent={{120,10},{140,30}})));
-
-  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt "Integer counter"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSig(
     final k=true) if  not weeInt "True signal"

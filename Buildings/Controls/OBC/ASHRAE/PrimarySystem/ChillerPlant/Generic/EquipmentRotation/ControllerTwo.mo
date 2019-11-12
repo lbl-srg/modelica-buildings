@@ -11,12 +11,24 @@ block ControllerTwo
 
   parameter Boolean initRoles[nDev] = {true, false}
     "Initial roles: true = lead, false = lag/standby"
-    annotation (Evaluate=true,Dialog(tab="Advanced", group="Initiation"));
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Initiation"));
 
   parameter Modelica.SIunits.Time stagingRuntime(
     final displayUnit = "h") = 864000
     "Staging runtime for each device"
     annotation (Evaluate=true, Dialog(enable=not continuous));
+
+  parameter Buildings.Controls.OBC.CDL.Types.ZeroTime zerTim = Buildings.Controls.OBC.CDL.Types.ZeroTime.NY2019
+    "Enumeration for choosing how reference time (time = 0) should be defined"
+    annotation(Evaluate=true, Dialog(group="Calendar", enable=continuous));
+
+  parameter Integer yearRef(min=firstYear, max=lastYear) = 2019
+    "Year when time = 0, used if zerTim=Custom"
+    annotation(Evaluate=true, Dialog(group="Calendar", enable=zerTim==Buildings.Controls.OBC.CDL.Types.ZeroTime.Custom and continuous));
+
+  parameter Modelica.SIunits.Time offset = 0
+    "Offset that is added to 'time', may be used for computing time in different time zone"
+    annotation(Evaluate=true, Dialog(group="Calendar", enable=continuous));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaStaSet if not continuous
     "Lead device status setpoint"
@@ -25,13 +37,13 @@ block ControllerTwo
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLagStaSet if lag
     "Lag device status setpoint"
-                        annotation (Placement(transformation(extent={{-300,-60},
-            {-260,-20}}), iconTransformation(extent={{-140,-80},{-100,-40}})));
+     annotation (Placement(transformation(extent={{-300,-60},
+            {-260,-20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev] if continuous
-    "Device proven on status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
+    "Device proven on status, where each index corresponds a device"
     annotation (Placement(transformation(extent={{-300,70},{-260,110}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevStaSet[nDev]
     "Device status (index represents the physical device)" annotation (
@@ -40,8 +52,8 @@ block ControllerTwo
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
     "Device role: true = lead, false = lag or standby" annotation (Placement(
-        transformation(extent={{260,-50},{280,-30}}), iconTransformation(extent
-          ={{100,-70},{120,-50}})));
+        transformation(extent={{260,-50},{280,-30}}), iconTransformation(extent=
+           {{100,-70},{120,-50}})));
 
 //protected
   final parameter Integer nDev = 2
@@ -51,9 +63,16 @@ block ControllerTwo
     "Staging runtimes array"
     annotation (Evaluate=true, Dialog(enable=not continuous));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLead(
-    final nout=nDev) if continuous
-    "Replicates lead signal"
+  final constant Integer firstYear = 2010
+    "First year that is supported, i.e. the first year in timeStampsNewYear[:]"
+    annotation (Evaluate=true, Dialog(enable=not continuous));
+
+  final constant Integer lastYear = firstYear + 11
+    "Last year that is supported (actual building automation system need to support a larger range)"
+    annotation (Evaluate=true, Dialog(enable=not continuous));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLea(final nout=nDev) if
+       not continuous "Replicates lead signal"
     annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
@@ -61,7 +80,7 @@ block ControllerTwo
     "Replicates lag signal"
     annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] if continuous
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] if not continuous
     "Switch"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
 
@@ -71,7 +90,10 @@ block ControllerTwo
     annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
-    equRot1 if continuous
+    rotSch(
+    final zerTim=zerTim,
+    final yearRef=yearRef,
+    final offset=offset) if continuous
     "Generates equipment rotation trigger based on a schedule"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
@@ -96,11 +118,11 @@ block ControllerTwo
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
 equation
-  connect(logSwi1.u1,repLead. y) annotation (Line(points={{-182,-32},{-190,-32},
-          {-190,40},{-218,40}}, color={255,0,255}));
+  connect(logSwi1.u1, repLea.y) annotation (Line(points={{-182,-32},{-190,-32},{
+          -190,40},{-218,40}}, color={255,0,255}));
   connect(logSwi1.u3,repLag. y) annotation (Line(points={{-182,-48},{-210,-48},{
           -210,-40},{-218,-40}},  color={255,0,255}));
-  connect(uLeaStaSet, repLead.u)
+  connect(uLeaStaSet, repLea.u)
     annotation (Line(points={{-280,40},{-242,40}}, color={255,0,255}));
   connect(uLagStaSet, repLag.u)
     annotation (Line(points={{-280,-40},{-242,-40}}, color={255,0,255}));
@@ -112,22 +134,21 @@ equation
           {200,40},{270,40}}, color={255,0,255}));
   connect(runCou.yRot, rotTwo.uRot) annotation (Line(points={{-18,-40},{8,-40},{
           8,-70},{38,-70}}, color={255,0,255}));
-  connect(rotTwo.yDevRol, yDevRol) annotation (Line(points={{61,-70},{160,-70},
-          {160,-40},{270,-40}}, color={255,0,255}));
-  connect(rotTwo.yPreDevRolSig, runCou.uPreDevRolSig) annotation (Line(points={
-          {61,-76},{70,-76},{70,-100},{-60,-100},{-60,-48},{-42,-48}}, color={
-          255,0,255}));
-  connect(rotTwo.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{61,-76},{
-          70,-76},{70,-110},{-190,-110},{-190,-40},{-182,-40}}, color={255,0,
-          255}));
-  connect(equRot1.yRot, rotTwoCon.uRot)
+  connect(rotTwo.yDevRol, yDevRol) annotation (Line(points={{61,-70},{160,-70},{
+          160,-40},{270,-40}}, color={255,0,255}));
+  connect(rotTwo.yPreDevRolSig, runCou.uPreDevRolSig) annotation (Line(points={{
+          61,-76},{70,-76},{70,-100},{-60,-100},{-60,-48},{-42,-48}}, color={255,
+          0,255}));
+  connect(rotTwo.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{61,-76},{70,
+          -76},{70,-110},{-190,-110},{-190,-40},{-182,-40}}, color={255,0,255}));
+  connect(rotSch.yRot, rotTwoCon.uRot)
     annotation (Line(points={{-58,30},{-42,30}}, color={255,0,255}));
   connect(uDevSta, leaSwa.uDevSta) annotation (Line(points={{-280,90},{10,90},{10,
           26},{18,26}}, color={255,0,255}));
-  connect(rotTwoCon.yDevRol, leaSwa.uDevRolSet) annotation (Line(points={{-19,
-          30},{0,30},{0,34},{18,34}}, color={255,0,255}));
-  connect(rotTwoCon.yDevRol, yDevRol) annotation (Line(points={{-19,30},{0,30},
-          {0,-20},{160,-20},{160,-40},{270,-40}}, color={255,0,255}));
+  connect(rotTwoCon.yDevRol, leaSwa.uDevRolSet) annotation (Line(points={{-19,30},
+          {0,30},{0,34},{18,34}}, color={255,0,255}));
+  connect(rotTwoCon.yDevRol, yDevRol) annotation (Line(points={{-19,30},{0,30},{
+          0,-20},{160,-20},{160,-40},{270,-40}}, color={255,0,255}));
   connect(uDevSta, runCou.uDevSta) annotation (Line(points={{-280,90},{-100,90},
           {-100,-40},{-42,-40}}, color={255,0,255}));
     annotation (Evaluate=true,

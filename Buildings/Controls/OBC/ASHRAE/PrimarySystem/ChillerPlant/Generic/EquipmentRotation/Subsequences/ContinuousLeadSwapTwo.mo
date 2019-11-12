@@ -3,26 +3,26 @@ block ContinuousLeadSwapTwo
   "Ensures previous lead device remains enabled until the new lead device is proven on"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevRolSet[nDev]
-    "Device role setpoint: true = lead, false = lag or standby"
+    "Device role setpoint: true = lead, false = standby"
                          annotation (
-      Placement(transformation(extent={{-100,20},{-80,40}}),
+      Placement(transformation(extent={{-100,10},{-80,30}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
     "Device status where: true = proven On; false = proven Off"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}}),
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevStaSet[nDev]
     "Device status setpoint"
-    annotation (Placement(transformation(extent={{80,20},{100,40}}),
+    annotation (Placement(transformation(extent={{80,10},{100,30}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or1[nDev]
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1[nDev]
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
 protected
   final parameter Integer nDev = 2
@@ -30,15 +30,15 @@ protected
 
 equation
   connect(uDevSta, not1.u)
-    annotation (Line(points={{-90,-10},{-42,-10}}, color={255,0,255}));
+    annotation (Line(points={{-90,-20},{-42,-20}}, color={255,0,255}));
   connect(uDevRolSet, or1.u1)
-    annotation (Line(points={{-90,30},{18,30}},color={255,0,255}));
+    annotation (Line(points={{-90,20},{18,20}},color={255,0,255}));
   connect(not1[1].y, or1[2].u2)
-    annotation (Line(points={{-18,-10},{0,-10},{0,22},{18,22}}, color={255,0,255}));
-  connect(not1[2].y, or1[1].u2) annotation (Line(points={{-18,-10},{-10,-10},{-10,
-          22},{18,22}}, color={255,0,255}));
+    annotation (Line(points={{-18,-20},{0,-20},{0,12},{18,12}}, color={255,0,255}));
+  connect(not1[2].y, or1[1].u2) annotation (Line(points={{-18,-20},{-10,-20},{-10,
+          12},{18,12}}, color={255,0,255}));
   connect(or1.y, yDevStaSet)
-    annotation (Line(points={{42,30},{90,30}}, color={255,0,255}));
+    annotation (Line(points={{42,20},{90,20}}, color={255,0,255}));
   annotation (defaultComponentName="leaSwa",
     Icon(graphics={Rectangle(
     extent={{-100,-100},{100,100}},
@@ -65,5 +65,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-80,-80},{80,80}})));
+    Diagram(coordinateSystem(extent={{-80,-40},{80,40}})));
 end ContinuousLeadSwapTwo;

@@ -26,10 +26,10 @@ block Multiple "Defines lead-lag or lead-standby equipment rotation for any numb
     transformation(extent={{-260,-120},{-220,-80}}), iconTransformation(
     extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevSta[nDev]
-    "Device status (index represents the physical device)" annotation (
-      Placement(transformation(extent={{240,-50},{260,-30}}),
-      iconTransformation(extent={{100,50},{120,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevStaSet[nDev]
+    "Device status setpoint (index represents the physical device)" annotation
+    (Placement(transformation(extent={{240,-50},{260,-30}}), iconTransformation(
+          extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
     "Device role: true = lead, false = lag or standby"
@@ -196,9 +196,8 @@ equation
           -160,-100},{-178,-100}}, color={255,0,255}));
   connect(pre.y, logSwi.u2) annotation (Line(points={{142,30},{160,30},{160,120},
           {-160,120},{-160,-30},{-142,-30}}, color={255,0,255}));
-  connect(logSwi.y, yDevSta) annotation (Line(points={{-118,-30},{-70,-30},{-70,
-          -10},{220,-10},{220,-40},{250,-40}},
-                                             color={255,0,255}));
+  connect(logSwi.y, yDevStaSet) annotation (Line(points={{-118,-30},{-70,-30},{
+          -70,-10},{220,-10},{220,-40},{250,-40}}, color={255,0,255}));
   connect(staSta.y, logSwi.u3) annotation (Line(points={{-178,-60},{-160,-60},{
           -160,-38},{-142,-38}},
                             color={255,0,255}));

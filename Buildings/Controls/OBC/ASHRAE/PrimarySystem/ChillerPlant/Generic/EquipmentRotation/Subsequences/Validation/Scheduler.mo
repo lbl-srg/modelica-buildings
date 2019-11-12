@@ -35,22 +35,22 @@ model Scheduler
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=1800,
-    final falseHoldDuration=0)
+    final falseHoldDuration=0) "Holds the signal for visualization purposes"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
     final trueHoldDuration=1800,
-    final falseHoldDuration=0)
+    final falseHoldDuration=0) "Holds the signal for visualization purposes"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol2(
     final trueHoldDuration=1800,
-    final falseHoldDuration=0)
+    final falseHoldDuration=0) "Holds the signal for visualization purposes"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol3(
     final trueHoldDuration=1800,
-    final falseHoldDuration=0)
+    final falseHoldDuration=0) "Holds the signal for visualization purposes"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
 equation

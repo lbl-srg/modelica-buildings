@@ -138,5 +138,5 @@ Icon(graphics={
           extent={{-52,-104},{46,-114}},
           lineColor={0,0,127},
           textString="For simplicity this test assumes 
-the device status equals it's setpoint")}));
+the device status equals its setpoint (ideal device start-up)")}));
 end RuntimeCounter_uDevRol;

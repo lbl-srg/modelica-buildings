@@ -82,7 +82,7 @@ equation
   connect(allOff.y, equSig.u2) annotation (Line(points={{-78,-30},{-60,-30},{
           -60,-8},{-42,-8}},
                          color={255,0,255}));
-  connect(allOn.y, equSig.u1) annotation (Line(points={{-78,10},{-58,10},{-58,0},
+  connect(allOn.y, equSig.u1) annotation (Line(points={{-78,10},{-60,10},{-60,0},
           {-42,0}},    color={255,0,255}));
   connect(uDevSta, tim.u)
     annotation (Line(points={{-220,40},{-102,40}}, color={255,0,255}));
