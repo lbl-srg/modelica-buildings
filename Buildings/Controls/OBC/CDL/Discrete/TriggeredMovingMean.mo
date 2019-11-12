@@ -31,14 +31,13 @@ protected
 
 initial equation
   t0 = time;
-  //y = u;
 
 equation
   when {initial(), trigger} then
-    index =  mod(pre(iSample), n) + 1;
-    ySample =  {if (i == index) then u else pre(ySample[i]) for i in 1:n};
-    counter =  if pre(counter) == n then n else pre(counter) + 1;
-    y =  sum(ySample)/counter;
+    index = mod(pre(iSample), n) + 1;
+    ySample = {if (i == index) then u else pre(ySample[i]) for i in 1:n};
+    counter = if pre(counter) == n then n else pre(counter) + 1;
+    y = sum(ySample)/counter;
     iSample = pre(iSample) + 1;
   end when;
 
