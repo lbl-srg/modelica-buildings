@@ -107,14 +107,13 @@ equation
           textString="%n")}),
 Documentation(info="<html>
 <p>
-Block that outputs the triggered moving mean value of an input signal. When the trigger
-signal is rising (i.e., trigger changes to <code>true</code>), the block outputs
-the calculated moving mean value.
+Block that outputs the triggered moving mean value of an input signal.
 </p>
 <p>
-At the start of the simulation, and then at each time when the trigger signal
-is rising, the block takes a sample of the input, and uses it to compute the moving mean
-over the past <i>n</i> samples.
+At the start of the simulation, and whenever the trigger signal is rising
+(i.e., the trigger changes to <code>true</code>), the block samples
+the input, computes the moving mean value over the past <code>n</code> samples,
+and produces this value at its outut <code>y</code>.
 </p>
 </html>",
 revisions="<html>
