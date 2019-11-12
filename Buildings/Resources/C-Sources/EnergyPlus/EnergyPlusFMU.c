@@ -111,7 +111,8 @@ size_t AllocateBuildingDataStructure(
   incrementBuildings_nFMU();
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("AllocateBuildingDataStructure: Leaving allocating data structure for building %s", modelicaNameBuilding);
+    ModelicaFormatMessage("AllocateBuildingDataStructure: Leaving allocating data structure for building number %lu, name %s, ptr %p",
+      nFMU, modelicaNameBuilding, Buildings_FMUS[nFMU]);
 
   return nFMU;
 }
@@ -171,6 +172,8 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
 }
 
 FMUBuilding* getBuildingsFMU(size_t iFMU){
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("In getBuildingsFMU, returning pointer to building number %lu at %p", iFMU, Buildings_FMUS[iFMU]);
   return Buildings_FMUS[iFMU];
 }
 
