@@ -59,7 +59,7 @@ public
     final from_dp=false,
     final linearizeFlowResistance=true,
     final show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     final Q_flow_nominal=-1,
     final dp_nominal=100) "Aggregate building cooling load"
     annotation (Placement(transformation(extent={{40,-86},{60,-66}})));
@@ -68,6 +68,8 @@ public
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumBui(
     redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    allowFlowReversal=false,
     m_flow_nominal=mBui_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=0) "Building-side (secondary) pump" annotation (Placement(
