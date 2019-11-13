@@ -161,9 +161,9 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean
         </td>
         <td valign=\"top\">Block that outputs the triggered discrete moving mean of an input signal.
-                         This replaces <code>Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</code>, which
-                         has been moved to <code>Buildings.Obsolete</code>.<br/>
-                         This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue #1588</a>.
+                           This replaces <code>Buildings.Controls.OBC.CDL.Discrete.MovingMean</code>, which
+                           has been moved to <code>Buildings.Obsolete</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue #1588</a>.
         </td>
         </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
@@ -240,7 +240,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.MovingMean
         </td>
         <td valign=\"top\">This block became obsolete, use <code>Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</code> instead.<br/>
-                         For Dymola, a conversion script makes this change.
+                           For Dymola, a conversion script makes this change.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -332,9 +332,9 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Obsolete.Controls.OBC.CDL.Discrete.MovingMean
         </td>
         <td valign=\"top\">The block <code>Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</code>
-                         replaced the original <code>MovingMean</code> block.<br/>
-                         For Dymola, a conversion script makes this change.<br/>
-                         This is for <a href=\"https://github.com/ibpsa/modelica-buildings/issues/1588\">issue #1588</a>.
+                           replaced the original <code>MovingMean</code> block.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-buildings/issues/1588\">issue #1588</a>.
         </td>
     </tr>
     </table>

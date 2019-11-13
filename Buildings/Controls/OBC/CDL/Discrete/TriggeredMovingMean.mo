@@ -113,7 +113,7 @@ Block that outputs the triggered moving mean value of an input signal.
 At the start of the simulation, and whenever the trigger signal is rising
 (i.e., the trigger changes to <code>true</code>), the block samples
 the input, computes the moving mean value over the past <code>n</code> samples,
-and produces this value at its outut <code>y</code>.
+and produces this value at its output <code>y</code>.
 </p>
 </html>",
 revisions="<html>

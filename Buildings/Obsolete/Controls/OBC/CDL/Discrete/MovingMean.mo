@@ -7,9 +7,9 @@ block MovingMean "Discrete moving mean of a sampled input signal"
   parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
     "Sampling period of component";
 
-  Interfaces.RealInput u "Continuous input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y "Discrete averaged signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Discrete averaged signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
