@@ -1,20 +1,20 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses;
-function scheduleInitialize
-  "Initialization for an EnergyPlus schedule"
+function writerInitialize
+  "Initialization for an EnergyPlus actuator or schedule"
   extends Modelica.Icons.Function;
 
-  input Buildings.Experimental.EnergyPlus.BaseClasses.FMUScheduleClass
-    adapter "External object";
+  input Buildings.Experimental.EnergyPlus.BaseClasses.FMUWriterClass adapter
+    "External object";
   input Modelica.SIunits.Time startTime "Start time of the simulation";
 
-  external "C" ScheduleInstantiate(adapter, startTime)
+  external "C" WriterInstantiate(adapter, startTime)
  annotation (
    IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-   Include="#include \"ScheduleInstantiate.c\"");
+   Include="#include \"WriterInstantiate.c\"");
 
   annotation (Documentation(info="<html>
 <p>
-External function to initialize the EnergyPlus schedule.
+External function to initialize the EnergyPlus actuator or schedule.
 </p>
 </html>",
 revisions="<html>
@@ -25,4 +25,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end scheduleInitialize;
+end writerInitialize;

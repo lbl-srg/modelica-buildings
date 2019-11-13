@@ -1,6 +1,6 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses;
-class FMUScheduleClass
-  "Class used to couple the FMU to send values to schedules"
+class FMUWriterClass
+  "Class used to couple the FMU to send values to actuators and schedules"
   extends Modelica.Icons.BasesPackage;
   extends ExternalObject;
 
@@ -8,15 +8,19 @@ class FMUScheduleClass
     "Construct to connect to a schedule in EnergyPlus"
     extends Modelica.Icons.Function;
 
+    input Integer objectType "Set to 1 for Actuator and 2 for Schedule";
     input String modelicaNameBuilding
       "Name of this Modelica building instance that requests this output variable";
-    input String modelicaNameSchedule
+    input String modelicaNameWriter
       "Name of the Modelica instance that requests this output variable";
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
     input String iddName "Name of the IDD file";
-    input String scheduleName "EnergyPlus name of the schedule";
+    input String writerName "EnergyPlus name of the actuator or schedule";
     input Buildings.Experimental.EnergyPlus.Types.Units unit "Unit of variable as used in Modelica";
+    input String componentName "Actuated component unique name in the EnergyPlus idf file (not used for schedule)";
+    input String componentType "Actuated component type (not used for schedule)";
+    input String controlType   "Actuated component control type (not used for schedule)";
     input Boolean usePrecompiledFMU "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
@@ -24,21 +28,26 @@ class FMUScheduleClass
     input Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
-    output FMUScheduleClass adapter;
-    external "C" adapter = ScheduleAllocate(
+    output FMUWriterClass adapter;
+    external "C" adapter = WriterAllocate(
+      objectType,
       modelicaNameBuilding,
       modelicaNameSchedule,
       idfName,
       weaName,
       iddName,
-      scheduleName,
+      writerName,
+      unit,
+      componentName,
+      componentType,
+      controlType,
       usePrecompiledFMU,
       fmuName,
       buildingsLibraryRoot,
       verbosity)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
-          Include="#include \"ScheduleAllocate.c\"",
+          Include="#include \"WriterAllocate.c\"",
           Library={"fmilib_shared", "dl"});
           // dl provides dlsym to load EnergyPlus dll, which is needed by OpenModelica compiler
 
@@ -52,7 +61,7 @@ will be used to store the data structure needed to communicate with EnergyPlus.
 </html>", revisions="<html>
 <ul>
 <li>
-November 8, 2019, by Michael Wetter:<br/>
+November 13, 2019, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -62,7 +71,7 @@ First implementation.
   function destructor "Release storage"
     extends Modelica.Icons.Function;
 
-    input FMUScheduleClass adapter;
+    input FMUWriterClass adapter;
     external "C" ScheduleFree(adapter)
         annotation (
           IncludeDirectory="modelica://Buildings/Resources/C-Sources/EnergyPlus",
@@ -75,7 +84,7 @@ Destructor that frees the memory of the object.
 </html>", revisions="<html>
 <ul>
 <li>
-November 8, 2019, by Michael Wetter:<br/>
+November 13, 2019, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -93,9 +102,9 @@ of the data structure needed to communicate with the EnergyPlus FMU.
 revisions="<html>
 <ul>
 <li>
-November 8, 2019, by Michael Wetter:<br/>
+November 13, 2019, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end FMUScheduleClass;
+end FMUWriterClass;

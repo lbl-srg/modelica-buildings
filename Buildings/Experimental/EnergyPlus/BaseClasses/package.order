@@ -1,12 +1,13 @@
 FMUOutputVariableClass
-FMUScheduleClass
+FMUWriterClass
 FMUZoneAdapter
 FMUZoneClass
 PartialEnergyPlusObject
+Writer
 outputVariableExchange
 outputVariableInitialize
-scheduleExchange
-scheduleInitialize
+writerExchange
+writerInitialize
 zoneExchange
 zoneInitialize
 buildingsLibraryRoot
