@@ -220,6 +220,12 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1230\">IBPSA, #1230</a>.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector
+        </td>
+        <td valign=\"top\">In volume, set <code>prescribedHeatFlowRate=false</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1636\">#1636</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
