@@ -200,6 +200,20 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">
+                           Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayLinear<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayPolynomial<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayTable
+        </td>
+        <td valign=\"top\">Improved implementation to guard against control input that is negative.
+                           The new implementation constrains the input to be bigger than <i>0</i>.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1233\">IBPSA, #1233</a>.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.shaGFunction
         </td>
         <td valign=\"top\">Declared string as a constant due to JModelica's tigther type checking.<br/>

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Actuators.Valves;
 model TwoWayTable "Two way valve with table-specified flow characteristics"
   extends BaseClasses.PartialTwoWayValveKv(
-    phi=phiLooUp.y[1],
+    phi=max(0, phiLooUp.y[1]),
     final l = phiLooUp.table[1, 2]);
   parameter Data.Generic flowCharacteristics "Table with flow characteristics"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-80,
@@ -130,6 +130,14 @@ Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 9, 2019, by Filip Jorissen:<br/>
+Guarded the computation of <code>phi</code> using
+<code>max(0, . )</code> to avoid
+negative phi.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
+issue 1223</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Removed equality comparison for <code>Real</code> in the
