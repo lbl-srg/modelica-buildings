@@ -28,6 +28,9 @@ model PartialStratified
   parameter Medium.Temperature T_start=Medium.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
+  parameter Modelica.SIunits.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
+    "Initial temperature of the tank segments, with TFlu_start[1] being the top segment"
+    annotation(Dialog(tab = "Initialization"));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
@@ -67,7 +70,7 @@ model PartialStratified
     each energyDynamics=energyDynamics,
     each massDynamics=massDynamics,
     each p_start=p_start,
-    each T_start=T_start,
+    T_start=TFlu_start,
     each X_start=X_start,
     each C_start=C_start,
     each V=VTan/nSeg,
@@ -204,6 +207,14 @@ Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2019 by Jianjun Hu:<br/>
+Added parameter <code>TFlu_start</code> and changed the initial tank segments
+temperature to <code>TFlu_start</code> so each segment could have different
+temperature.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1246\">#1246</a>.
+</li>
 <li>
 June 7, 2018 by Filip Jorissen:<br/>
 Copied model from Buildings and update the model accordingly.

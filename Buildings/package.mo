@@ -199,7 +199,7 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Revised implementation such that the meaning of <code>time</code> is better explained
                            and unix time stamps are correctly defined with respect to GMT.
                            Added option unix time stamp GMT.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1232\">IBPSA, #1232</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
@@ -222,13 +222,21 @@ its class name ends with the string <code>Beta</code>.
         </td>
         <td valign=\"top\">Improved implementation to guard against control input that is negative.
                            The new implementation constrains the input to be bigger than <i>0</i>.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1233\">IBPSA, #1233</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1233\">IBPSA, #1233</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.shaGFunction
         </td>
         <td valign=\"top\">Declared string as a constant due to JModelica's tigther type checking.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1230\">IBPSA, #1230</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1230\">IBPSA, #1230</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
+                           Buildings.Fluid.Storage.StratifiedEnhanced<br/>
+                           Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+        </td>
+        <td valign=\"top\">Provided option to initialize the tank temperature at different values across the height of the tank.<br/>
+        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1246\">IBPSA, #1246</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector
