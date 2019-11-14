@@ -50,27 +50,27 @@ block ControllerTwo
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaStaSet if not continuous
     "Lead device status setpoint"
-    annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
+    annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLagStaSet if lag
     "Lag device status setpoint"
-     annotation (Placement(transformation(extent={{-300,-60},
-            {-260,-20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
+     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
+                          iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta[nDev]
     "Device proven ON status, where each index represents a physical device"
-    annotation (Placement(transformation(extent={{-300,70},{-260,110}}),
+    annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevStaSet[nDev]
     "Device status setpoint, where each index represents a physical device" annotation (
-      Placement(transformation(extent={{260,30},{280,50}}), iconTransformation(
+      Placement(transformation(extent={{160,10},{180,30}}), iconTransformation(
           extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
     "Device role: true = lead, false = lag or standby" annotation (Placement(
-        transformation(extent={{260,-50},{280,-30}}), iconTransformation(extent=
+        transformation(extent={{160,-30},{180,-10}}), iconTransformation(extent=
            {{100,-70},{120,-50}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
@@ -84,12 +84,12 @@ block ControllerTwo
     final yearRef=yearRef,
     final offset=offset) if continuous
     "Generates equipment rotation trigger based on a schedule"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
     runCou(final stagingRuntime=stagingRuntime) if not continuous
     "Runtime counter"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
 protected
   final parameter Integer nDev = 2
@@ -106,72 +106,76 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo
     leaSwa if continuous
     "Ensures no old lead device is switched off until the new lead device is proven on"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
     rotTwoCon if continuous
     "Based on a rotation trigger sets device roles according to equipment rotation"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
     rotTwo if not continuous
     "Based on a rotation trigger sets device roles according to equipment rotation"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLea(
     final nout=nDev) if not continuous "Replicates lead signal"
-    annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanReplicator repLag(
     final nout=nDev) if lag "Replicates lag signal"
-    annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] if not continuous
     "Switch"
-    annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
+    annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staBySta[nDev](
     final k=fill(false, nDev)) if not lag and not continuous "Standby status"
-    annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
 equation
-  connect(logSwi1.u1, repLea.y) annotation (Line(points={{-182,-32},{-190,-32},{
-          -190,40},{-218,40}}, color={255,0,255}));
-  connect(logSwi1.u3,repLag. y) annotation (Line(points={{-182,-48},{-210,-48},{
-          -210,-40},{-218,-40}}, color={255,0,255}));
+  connect(logSwi1.u1, repLea.y) annotation (Line(points={{-62,-24},{-80,-24},{-80,
+          -10},{-98,-10}},     color={255,0,255}));
+  connect(logSwi1.u3,repLag. y) annotation (Line(points={{-62,-40},{-98,-40}},
+                                 color={255,0,255}));
   connect(uLeaStaSet, repLea.u)
-    annotation (Line(points={{-280,40},{-242,40}}, color={255,0,255}));
+    annotation (Line(points={{-180,0},{-140,0},{-140,-10},{-122,-10}},
+                                                   color={255,0,255}));
   connect(uLagStaSet, repLag.u)
-    annotation (Line(points={{-280,-40},{-242,-40}}, color={255,0,255}));
-  connect(logSwi1.y, yDevStaSet) annotation (Line(points={{-158,-40},{-140,-40},
-          {-140,80},{220,80},{220,40},{270,40}}, color={255,0,255}));
-  connect(staBySta.y,logSwi1. u3) annotation (Line(points={{-218,-90},{-200,-90},{
-          -200,-48},{-182,-48}},  color={255,0,255}));
-  connect(leaSwa.yDevStaSet, yDevStaSet) annotation (Line(points={{42,30},{200,30},
-          {200,40},{270,40}}, color={255,0,255}));
-  connect(runCou.yRot, rotTwo.uRot) annotation (Line(points={{-18,-40},{8,-40},{
-          8,-70},{38,-70}}, color={255,0,255}));
-  connect(rotTwo.yDevRol, yDevRol) annotation (Line(points={{61,-70},{160,-70},{
-          160,-40},{270,-40}}, color={255,0,255}));
-  connect(rotTwo.yPreDevRolSig, runCou.uPreDevRolSig) annotation (Line(points={{
-          61,-76},{70,-76},{70,-100},{-60,-100},{-60,-48},{-42,-48}}, color={255,
+    annotation (Line(points={{-180,-80},{-140,-80},{-140,-40},{-122,-40}},
+                                                     color={255,0,255}));
+  connect(logSwi1.y, yDevStaSet) annotation (Line(points={{-38,-32},{-30,-32},{-30,
+          60},{140,60},{140,20},{170,20}},       color={255,0,255}));
+  connect(staBySta.y,logSwi1. u3) annotation (Line(points={{-98,-80},{-90,-80},{
+          -90,-40},{-62,-40}},    color={255,0,255}));
+  connect(leaSwa.yDevStaSet, yDevStaSet) annotation (Line(points={{122,30},{140,
+          30},{140,20},{170,20}},
+                              color={255,0,255}));
+  connect(runCou.yRot, rotTwo.uRot) annotation (Line(points={{62,-30},{98,-30}},
+                            color={255,0,255}));
+  connect(rotTwo.yDevRol, yDevRol) annotation (Line(points={{121,-30},{140,-30},
+          {140,-20},{170,-20}},color={255,0,255}));
+  connect(rotTwo.yPreDevRolSig, runCou.uPreDevRolSig) annotation (Line(points={{121,-36},
+          {140,-36},{140,-60},{20,-60},{20,-38},{38,-38}},            color={255,
           0,255}));
-  connect(rotTwo.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{61,-76},{70,
-          -76},{70,-110},{-190,-110},{-190,-40},{-182,-40}}, color={255,0,255}));
+  connect(rotTwo.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{121,-36},{
+          140,-36},{140,-60},{-80,-60},{-80,-32},{-62,-32}}, color={255,0,255}));
   connect(rotSch.yRot, rotTwoCon.uRot)
-    annotation (Line(points={{-58,30},{-42,30}}, color={255,0,255}));
-  connect(uDevSta, leaSwa.uDevSta) annotation (Line(points={{-280,90},{10,90},{10,
-          26},{18,26}}, color={255,0,255}));
-  connect(rotTwoCon.yDevRol, leaSwa.uDevRolSet) annotation (Line(points={{-19,30},
-          {0,30},{0,34},{18,34}}, color={255,0,255}));
-  connect(rotTwoCon.yDevRol, yDevRol) annotation (Line(points={{-19,30},{0,30},{
-          0,-20},{160,-20},{160,-40},{270,-40}}, color={255,0,255}));
-  connect(uDevSta, runCou.uDevSta) annotation (Line(points={{-280,90},{-100,90},
-          {-100,-40},{-42,-40}}, color={255,0,255}));
+    annotation (Line(points={{22,30},{38,30}},   color={255,0,255}));
+  connect(uDevSta, leaSwa.uDevSta) annotation (Line(points={{-180,80},{90,80},{90,
+          26},{98,26}}, color={255,0,255}));
+  connect(rotTwoCon.yDevRol, leaSwa.uDevRolSet) annotation (Line(points={{61,30},
+          {80,30},{80,34},{98,34}},
+                                  color={255,0,255}));
+  connect(rotTwoCon.yDevRol, yDevRol) annotation (Line(points={{61,30},{80,30},{
+          80,0},{140,0},{140,-20},{170,-20}},    color={255,0,255}));
+  connect(uDevSta, runCou.uDevSta) annotation (Line(points={{-180,80},{-20,80},{
+          -20,-30},{38,-30}},    color={255,0,255}));
     annotation(Dialog(group="Scheduler"),
                 Evaluate=true, Dialog(group="Scheduler"),
                 Evaluate=true,
-              Diagram(coordinateSystem(extent={{-260,-160},{260,160}})),
+              Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
       defaultComponentName="equRot",
     Icon(graphics={
         Rectangle(
@@ -231,10 +235,11 @@ lead/standby operation of two devices or groups of devices. The implementation i
 based on the specification from ASHRAE RP1711, July Draft, section 5.1.2.
 </p>
 <p>
-The controller takes as inputs the current device proven ON/OFF status vector <code>uDevSta<\code>,
-lead device status setpoint <code>uLeaStaSet<\code> and lag device status setpoint <code>uLagStaSet<\code>
-and implements two different rotation subsequences to generate the device status setpoints <code>yDevStaSet<\code>
-and device roles <code>yDevRol<\code> outputs:
+The controller takes as inputs the current device proven ON/OFF status vector <code>uDevSta</code>,
+lead device status setpoint <code>uLeaStaSet</code> and lag device status setpoint <code>uLagStaSet</code>.
+The controller implements two different rotation subsequences to generate the device status setpoints <code>yDevStaSet</code>
+and device roles <code>yDevRol</code> outputs:
+</p>
 <ul>
 <li>
 To rotate lead/lag device configurations, and lead/standby device configurations where the lead does 
@@ -259,14 +264,14 @@ The implementations are based on section 5.1.2.4.2. of RP1711 July draft.
 <p>
 The <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two</a> subsequence allocates
-the status setpoints <code>yDevStaSet<\code> to devices based on the rotation signal.
+the status setpoints <code>yDevStaSet</code> to devices based on the rotation signal.
 </p>
 <p>
-The output vector <code>yDevRol<\code> indicates the role of each device, where true 
+The output vector <code>yDevRol</code> indicates the role of each device, where true 
 represents a lead role and false represents a lag or a standby role. 
 </p>
 <p>
-The indices of both output vectors and the <code>uDevSta<\code> input vector represent physical devices.
+The indices of both output vectors and the <code>uDevSta</code> input vector represent physical devices.
 </p>
 </html>", revisions="<html>
 <ul>

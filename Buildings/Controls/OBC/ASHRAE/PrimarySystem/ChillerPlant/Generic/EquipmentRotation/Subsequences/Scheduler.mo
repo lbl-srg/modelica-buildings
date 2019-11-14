@@ -41,7 +41,7 @@ block Scheduler
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
   Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt "Integer counter"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant houOfDay1(
@@ -69,16 +69,16 @@ protected
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2 "Logical equal"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre"
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Rising edge"
-    annotation (Placement(transformation(extent={{120,10},{140,30}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSig(
     final k=true) if  not weeInt "True signal"
@@ -93,7 +93,7 @@ protected
 
 equation
   connect(dayCou1.y, intEqu2.u2) annotation (Line(points={{-118,-90},{30,-90},{30,
-          12},{38,12}}, color={255,127,0}));
+          -8},{38,-8}}, color={255,127,0}));
   connect(calTim.hour, intEqu.u1) annotation (Line(points={{-119,96},{-100,96},
           {-100,70},{-82,70}},color={255,127,0}));
   connect(houOfDay1.y, intEqu.u2) annotation (Line(points={{-118,50},{-100,50},
@@ -102,26 +102,26 @@ equation
           {-110,20},{-102,20}}, color={255,127,0}));
   connect(weeDay.y, isWee.u2) annotation (Line(points={{-118,10},{-110,10},{-110,
           12},{-102,12}}, color={255,127,0}));
-  connect(intEqu.y, and2.u1) annotation (Line(points={{-58,70},{-50,70},{-50,20},
-          {-32,20}},color={255,0,255}));
+  connect(intEqu.y, and2.u1) annotation (Line(points={{-58,70},{-50,70},{-50,0},
+          {-42,0}}, color={255,0,255}));
   connect(intEqu2.y, pre.u)
-    annotation (Line(points={{62,20},{78,20}}, color={255,0,255}));
+    annotation (Line(points={{62,0},{78,0}},   color={255,0,255}));
   connect(pre.y, edg.u)
-    annotation (Line(points={{102,20},{118,20}}, color={255,0,255}));
+    annotation (Line(points={{102,0},{118,0}},   color={255,0,255}));
   connect(and2.y, onCouInt.trigger)
-    annotation (Line(points={{-8,20},{-2,20}}, color={255,0,255}));
+    annotation (Line(points={{-18,0},{-2,0}},  color={255,0,255}));
   connect(onCouInt.y, intEqu2.u1)
-    annotation (Line(points={{22,20},{38,20}}, color={255,127,0}));
-  connect(pre.y, onCouInt.reset) annotation (Line(points={{102,20},{110,20},{110,
-          -8},{10,-8},{10,8}},color={255,0,255}));
+    annotation (Line(points={{22,0},{38,0}},   color={255,127,0}));
+  connect(pre.y, onCouInt.reset) annotation (Line(points={{102,0},{110,0},{110,-28},
+          {10,-28},{10,-12}}, color={255,0,255}));
   connect(edg.y, yRot)
-    annotation (Line(points={{142,20},{150,20},{150,0},{180,0}}, color={255,0,255}));
-  connect(weeCou1.y, intEqu2.u2) annotation (Line(points={{-118,-50},{30,-50},{
-          30,12},{38,12}}, color={255,127,0}));
-  connect(isWee.y, and2.u2) annotation (Line(points={{-78,20},{-60,20},{-60,12},
-          {-32,12}}, color={255,0,255}));
-  connect(truSig.y, and2.u2) annotation (Line(points={{-78,-10},{-60,-10},{-60,12},
-          {-32,12}}, color={255,0,255}));
+    annotation (Line(points={{142,0},{180,0}},                   color={255,0,255}));
+  connect(weeCou1.y, intEqu2.u2) annotation (Line(points={{-118,-50},{30,-50},{30,
+          -8},{38,-8}},    color={255,127,0}));
+  connect(isWee.y, and2.u2) annotation (Line(points={{-78,20},{-60,20},{-60,-8},
+          {-42,-8}}, color={255,0,255}));
+  connect(truSig.y, and2.u2) annotation (Line(points={{-78,-10},{-60,-10},{-60,-8},
+          {-42,-8}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-120},{160,120}})),
       defaultComponentName="rotSch",
     Icon(graphics={
@@ -173,10 +173,9 @@ The block implements two options to select the time interval for the equipment r
 Each <code>dayCou</code> days;
 </li>
 <li>
-Each <code>weeCou</code> weeks on a <code>weekday</code> selected between 1 (Monday) and 7 (Sunday).
+Each <code>weeCou</code> weeks on a <code>weekday</code> selected between 1 = Monday and 7 = Sunday.
 </li>
 </ul>
-
 <p>
 To enable weekly intervals set the <code>weeInt</code> to true, otherwise a number of days can be used.
 </p>

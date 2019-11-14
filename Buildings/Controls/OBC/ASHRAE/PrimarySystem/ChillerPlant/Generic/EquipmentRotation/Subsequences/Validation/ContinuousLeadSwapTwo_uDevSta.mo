@@ -33,48 +33,47 @@ protected
     final startTime=0) "Pulse signal"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Not"
-    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Not"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.5,
-    final period=10)
+    final period=10) "Pulse signal"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not4 "Not"
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(
     final width=0.5,
-    final period=11)
+    final period=11) "Pulse signal"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
     final width=0.5,
     final period=7,
-    final startTime=0)
+    final startTime=0) "Pulse signal"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul6(
+    final width=0.5,
+    final period=10) "Pulse signal"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul7(
+    final width=0.5,
+    final period=10,
+    final startTime=1) "Pulse signal"
+    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Not"
+    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Not"
+    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not4 "Not"
+    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Not"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not6 "Not"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul6(
-    final width=0.5,
-    final period=10)
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul7(
-    final width=0.5,
-    final period=10,
-    final startTime=1)
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not7 "Not"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));

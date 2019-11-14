@@ -85,7 +85,7 @@ equation
   connect(truDel1.y, pre.u)
     annotation (Line(points={{42,-60},{58,-60}}, color={255,0,255}));
   connect(pre.y, conLea.uDevSta) annotation (Line(points={{82,-60},{90,-60},{90,
-          -82},{-30,-82},{-30,-66},{-22,-66}}, color={255,0,255}));
+          -80},{-30,-80},{-30,-66},{-22,-66}}, color={255,0,255}));
   connect(truDel.y, pre1.u)
     annotation (Line(points={{42,-10},{58,-10}}, color={255,0,255}));
   connect(pre1.y, leaSta.uDevSta) annotation (Line(points={{82,-10},{90,-10},{

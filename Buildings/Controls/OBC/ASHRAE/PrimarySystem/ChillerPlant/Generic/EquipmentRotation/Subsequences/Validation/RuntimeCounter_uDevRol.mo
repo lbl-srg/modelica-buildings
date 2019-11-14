@@ -4,15 +4,34 @@ model RuntimeCounter_uDevRol
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
     runCou(final stagingRuntime=43200)
+    "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
     runCou1(final stagingRuntime=18000)
+    "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter
     runCou2(final stagingRuntime=14400)
+    "Equipment rotation signal based on device runtime and current device status"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
+    rotTwo "Updates device roles based on the equipment rotation signal"
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
+    rotTwo1 "Updates device roles based on the equipment rotation signal"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
+    rotTwo2 "Updates device roles based on the equipment rotation signal"
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+
+protected
+  parameter Boolean initRoles[2] = {true, false}
+    "Sets initial roles: true = lead, false = lag or standby";
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2] "Switch"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
@@ -22,22 +41,6 @@ model RuntimeCounter_uDevRol
 
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[2] "Switch"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
-    rotTwo "Equipment rotation signal based on device runtime and current device status"
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
-    rotTwo1 "Equipment rotation signal based on device runtime and current device status"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Two
-    rotTwo2 "Equipment rotation signal based on device runtime and current device status"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-
-protected
-  parameter Boolean initRoles[2] = {true, false}
-    "Sets initial roles: true = lead, false = lag or standby";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staSta[2](
     final k=fill(false, 2)) "Standby status"
@@ -56,15 +59,16 @@ protected
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse leadLoad(
-    final width=0.8, final period=7200) "Lead device enable status"
+    final width=0.8,
+    final period=7200) "Lead device enable status"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad(
-    final width=0.2, final period=3600)
+    final width=0.2, final period=3600) "Lag device enable status"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lagLoad1(
-    final width=0.2, final period=5400)
+    final width=0.2, final period=5400) "Lag device enable status"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
 equation
@@ -113,7 +117,7 @@ equation
   connect(rotTwo1.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{101,-6},
           {110,-6},{110,-20},{-20,-20},{-20,0},{-2,0}}, color={255,0,255}));
           annotation (
-   experiment(StopTime=10000.0, Tolerance=1e-06),
+   experiment(StopTime=100000.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/RuntimeCounter_uDevRol.mos"
     "Simulate and plot"),
   Documentation(info="<html>
