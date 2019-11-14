@@ -55,14 +55,10 @@ model CouplingGeojsonRC "Example illustrating the coupling of a multizone RC mod
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-90})));
-  Modelica.Blocks.Sources.RealExpression m_flowHeaVal(y=couHea.m_flowReq)
-    annotation (Placement(transformation(extent={{-100,34},{-80,54}})));
   Modelica.Blocks.Sources.RealExpression THeaInlVal(y=couHea.T1_a_nominal)
     annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
   Modelica.Blocks.Sources.RealExpression TCooInlVal(y=couCoo.T1_a_nominal)
     annotation (Placement(transformation(extent={{-100,-106},{-80,-86}})));
-  Modelica.Blocks.Sources.RealExpression m_flowCooVal(y=couCoo.m_flowReq)
-    annotation (Placement(transformation(extent={{-100,-86},{-80,-66}})));
   Buildings.Applications.DHC.Loads.BaseClasses.HeatingOrCooling couHea(
     redeclare package Medium = Medium,
     nLoa=bui.nHeaLoa,
@@ -92,29 +88,29 @@ equation
       points={{90,-20},{50.1,-20}},
       color={255,204,51},
       thickness=0.5));
-  connect(supHea.m_flow_in, m_flowHeaVal.y)
-    annotation (Line(points={{-44,38},{-66,38},{-66,44},{-79,44}}, color={0,0,127}));
   connect(THeaInlVal.y, supHea.T_in) annotation (Line(points={{-79,24},{-66,24},{-66,34},{-44,34}}, color={0,0,127}));
-  connect(m_flowCooVal.y, supCoo.m_flow_in)
-    annotation (Line(points={{-79,-76},{-68,-76},{-68,-82},{-42,-82}}, color={0,0,127}));
   connect(TCooInlVal.y, supCoo.T_in)
     annotation (Line(points={{-79,-96},{-68,-96},{-68,-86},{-42,-86}}, color={0,0,127}));
   connect(supHea.ports[1], couHea.port_a) annotation (Line(points={{-22,30},{0,30}}, color={0,127,255}));
   connect(couHea.port_b, sinHea.ports[1]) annotation (Line(points={{20,30},{90,30}}, color={0,127,255}));
-  connect(bui.yHeaReq, couHea.yReq)
+  connect(bui.yHea, couHea.yHeaCoo)
     annotation (Line(points={{61,-24},{80,-24},{80,0},{-10,0},{-10,22},{-2,22}}, color={0,0,127}));
-  connect(bui.heaPorHea, couHea.heaPorLoa) annotation (Line(points={{40,-23},{10,-23},{10,20}}, color={191,0,0}));
+  connect(bui.heaPorHea, couHea.heaPorLoa) annotation (Line(points={{40,-23},{20,-23},{20,25}}, color={191,0,0}));
   connect(supCoo.ports[1], couCoo.port_a) annotation (Line(points={{-20,-90},{0,-90}}, color={0,127,255}));
   connect(couCoo.port_b, sinCoo.ports[1]) annotation (Line(points={{20,-90},{90,-90}}, color={0,127,255}));
-  connect(bui.yCooReq, couCoo.yReq)
+  connect(bui.yCoo, couCoo.yHeaCoo)
     annotation (Line(points={{61,-36},{80,-36},{80,-60},{-10,-60},{-10,-82},{-2,-82}}, color={0,0,127}));
-  connect(bui.heaPorCoo, couCoo.heaPorLoa) annotation (Line(points={{40,-37},{10,-37},{10,-80}}, color={191,0,0}));
+  connect(bui.heaPorCoo, couCoo.heaPorLoa) annotation (Line(points={{40,-37},{20,-37},{20,-85}}, color={191,0,0}));
   connect(bui.m_flowHeaLoa, couHea.m_flow2)
     annotation (Line(points={{61,-27},{82,-27},{82,52},{-10,52},{-10,38},{-2,38}}, color={0,0,127}));
   connect(bui.m_flowCooLoa, couCoo.m_flow2)
     annotation (Line(points={{61,-33},{82,-33},{82,-114},{-10,-114},{-10,-98},{-2,-98}}, color={0,0,127}));
   connect(bui.fraLatCooReq, couCoo.fraLat)
     annotation (Line(points={{61,-31},{84,-31},{84,-118},{-12,-118},{-12,-94},{-2,-94}}, color={0,0,127}));
+  connect(couCoo.m_flow1Req, supCoo.m_flow_in)
+    annotation (Line(points={{22,-95},{26,-95},{26,-66},{-60,-66},{-60,-82},{-42,-82}}, color={0,0,127}));
+  connect(couHea.m_flow1Req, supHea.m_flow_in)
+    annotation (Line(points={{22,35},{32,35},{32,60},{-60,60},{-60,38},{-44,38}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

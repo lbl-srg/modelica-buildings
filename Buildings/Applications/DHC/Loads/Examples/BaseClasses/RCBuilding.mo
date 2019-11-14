@@ -31,14 +31,14 @@ model RCBuilding "Building model of type RC one element"
   Buildings.ThermalZones.ReducedOrder.RC.OneElement
                 thermalZoneOneElement(
     VAir=52.5,
-    alphaExt=2.7,
-    alphaWin=2.7,
+    hRad=4.999999999999999,
+    hConWin=2.7000000000000006,
     gWin=1,
     ratioWinConRad=0.09,
+    hConExt=2.0490178828959134,
     nExt=1,
     RExt={0.00331421908725},
     CExt={5259932.23},
-    alphaRad=5,
     RWin=0.01642857143,
     RExtRem=0.1265217391,
     nOrientations=2,
@@ -58,9 +58,9 @@ model RCBuilding "Building model of type RC one element"
     wfWin={0.5,0.5},
     withLongwave=true,
     aExt=0.7,
-    alphaWallOut=20,
-    alphaRad=5,
-    alphaWinOut=20,
+    hConWallOut=20.0,
+    hRad=5.0,
+    hConWinOut=20.0,
     TGro=285.15) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
@@ -139,10 +139,6 @@ model RCBuilding "Building model of type RC one element"
     yMin=0,
     Ti=120)             "PID controller for maximum temperature"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=Q_flowHea_nominal[1])
-    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=-Q_flowCoo_nominal[1])
-    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
     amplitude=500,
     freqHz=1/86400,
@@ -270,22 +266,19 @@ equation
   connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
   connect(minTSet.y, from_degC1.u) annotation (Line(points={{-118,130},{-102,130}}, color={0,0,127}));
   connect(from_degC1.y, conPIDMinT.u_s) annotation (Line(points={{-78,130},{-62,130}}, color={0,0,127}));
-  connect(conPIDMinT.y, gai.u) annotation (Line(points={{-38,130},{-22,130}}, color={0,0,127}));
-  connect(conPIDMax.y, gai1.u) annotation (Line(points={{-38,-130},{-22,-130}}, color={0,0,127}));
   connect(from_degC1.y, heaLoaO[1].TSet)
     annotation (Line(points={{-78,130},{-70,130},{-70,108},{-178,108}},     color={0,0,127}));
   connect(sin.y, heaLoaO[1].Q_flowReq)
     annotation (Line(points={{12,180},{39.5,180},{39.5,100},{-178,100}},
                                                                        color={0,0,127}));
-  connect(gai.y, Q_flowHeaReq[1]) annotation (Line(points={{2,130},{150,130},{150,195},{310,195}},
-                                                                                                 color={0,0,127}));
-  connect(gai1.y, Q_flowCooReq[1])
-    annotation (Line(points={{2,-130},{152,-130},{152,-192},{310,-192}}, color={0,0,127}));
-  connect(sin.y, Q_flowHeaReq[2]) annotation (Line(points={{12,180},{158,180},{158,205},{310,205}}, color={0,0,127}));
   connect(thermalZoneOneElement.intGainsConv, heaFloCooLoaH[1].port_b)
     annotation (Line(points={{92,12},{98,12},{98,-150},{-260,-150}}, color={191,0,0}));
   connect(thermalZoneOneElement.intGainsConv, heaFloHeaLoaH[1].port_b)
     annotation (Line(points={{92,12},{98,12},{98,150},{-260,150}}, color={191,0,0}));
+  connect(conPIDMax.y, yCoo[1])
+    annotation (Line(points={{-38,-130},{134,-130},{134,-192},{310,-192}}, color={0,0,127}));
+  connect(conPIDMinT.y, yHea[1]) annotation (Line(points={{-38,130},{132,130},{132,195},{310,195}}, color={0,0,127}));
+  connect(sin.y, yHea[2]) annotation (Line(points={{12,180},{158,180},{158,205},{310,205}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

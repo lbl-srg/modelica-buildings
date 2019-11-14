@@ -157,9 +157,9 @@ equation
     annotation (Line(points={{-300,-95},{-128,-95},{-128,-60},{44,-60}}, color={191,0,0}));
   connect(heaPorCoo[6], znPerimeter_ZN_4.heaPorAir)
     annotation (Line(points={{-300,-91.6667},{-128,-91.6667},{-128,-100},{44,-100}}, color={191,0,0}));
-  connect(conPIDMax.y, yCooReq)
+  connect(conPIDMax.y, yCoo)
     annotation (Line(points={{-38,-130},{134,-130},{134,-192},{310,-192}}, color={0,0,127}));
-  connect(conPIDMinT.y, yHeaReq) annotation (Line(points={{-38,130},{134,130},{134,200},{310,200}}, color={0,0,127}));
+  connect(conPIDMinT.y, yHea) annotation (Line(points={{-38,130},{134,130},{134,200},{310,200}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>

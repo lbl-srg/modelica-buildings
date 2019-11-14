@@ -57,13 +57,13 @@ partial model PartialBuilding "Partial class for building model"
     "Heat port for heat transfer with the heating source"       annotation (
       Placement(transformation(extent={{-310,90},{-290,110}}),
         iconTransformation(extent={{-110,60},{-90,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooReq[nCooLoa](each final unit="1")
-    "Cooling control signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo[nCooLoa](each final unit="1")
+    "Cooling control loop output"
     annotation (
       Placement(transformation(extent={{300,-202},{320,-182}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaReq[nHeaLoa](each final unit="1")
-    "Heating control signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea[nHeaLoa](each final unit="1")
+    "Heating control loop output"
     annotation (
       Placement(transformation(extent={{300,190},{320,210}}),iconTransformation(
           extent={{100,50},{120,70}})));

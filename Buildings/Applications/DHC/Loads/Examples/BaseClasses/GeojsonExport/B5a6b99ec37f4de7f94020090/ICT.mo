@@ -1,4 +1,4 @@
-within geojson_1.Loads.B5a6b99ec37f4de7f94020090;
+within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090;
 model ICT
   "This is the simulation model of ICT within building B5a6b99ec37f4de7f94020090 with traceable ID None"
 

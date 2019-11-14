@@ -39,8 +39,6 @@ model GeojsonBuildingAirFlow "Building model of type RC based on Urbanopt GeoJSO
     each yMin=0,
     each Ti=120) "PID controller for minimum temperature"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai[nHeaLoa](k=Q_flowHea_nominal)
-    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nCooLoa](k=fill(24, nCooLoa))
     "Maximum temperature setpoint" annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nCooLoa]
@@ -53,8 +51,6 @@ model GeojsonBuildingAirFlow "Building model of type RC based on Urbanopt GeoJSO
     each Ti=120)
     "PID controller for maximum temperature"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1[nCooLoa](k=-Q_flowCoo_nominal)
-    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Office
     b5a6b99ec37f4de7f94020090_Office annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Floor
@@ -78,13 +74,11 @@ model GeojsonBuildingAirFlow "Building model of type RC based on Urbanopt GeoJSO
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0.2)
     annotation (Placement(transformation(extent={{200,-42},{220,-20}})));
 equation
-  connect(from_degC1.y,conPIDMinT. u_s) annotation (Line(points={{-79,130},{-62,130}}, color={0,0,127}));
-  connect(conPIDMinT.y,gai. u) annotation (Line(points={{-39,130},{-22,130}}, color={0,0,127}));
-  connect(from_degC2.y,conPIDMax. u_s) annotation (Line(points={{-79,-130},{-62,-130}}, color={0,0,127}));
-  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-119,-130},{-102,-130}}, color={0,0,127}));
-  connect(conPIDMax.y,gai1. u) annotation (Line(points={{-39,-130},{-22,-130}}, color={0,0,127}));
+  connect(from_degC1.y,conPIDMinT. u_s) annotation (Line(points={{-78,130},{-62,130}}, color={0,0,127}));
+  connect(from_degC2.y,conPIDMax. u_s) annotation (Line(points={{-78,-130},{-62,-130}}, color={0,0,127}));
+  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
   connect(minTSet.y, from_degC1.u)
-    annotation (Line(points={{-119,130},{-110,130},{-110,130},{-102,130}}, color={0,0,127}));
+    annotation (Line(points={{-118,130},{-110,130},{-110,130},{-102,130}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_Floor.TAir, conPIDMinT[2].u_m)
     annotation (Line(points={{-39,-10},{-30,-10},{-30,100},{-50,100},{-50,118}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_Meeting.TAir, conPIDMinT[4].u_m)
@@ -101,8 +95,6 @@ equation
     annotation (Line(points={{41,-10},{50,-10},{50,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_ICT.TAir, conPIDMax[6].u_m)
     annotation (Line(points={{121,-10},{130,-10},{130,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
-  connect(gai1.y, Q_flowCooReq) annotation (Line(points={{1,-130},{152,-130},{152,-192},{310,-192}}, color={0,0,127}));
-  connect(gai.y, Q_flowHeaReq) annotation (Line(points={{1,130},{152,130},{152,200},{310,200}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_Office.TAir, conPIDMinT[1].u_m)
     annotation (Line(points={{-79,-10},{-70,-10},{-70,100},{-50,100},{-50,118}}, color={0,0,127}));
   connect(b5a6b99ec37f4de7f94020090_Office.TAir, conPIDMax[1].u_m)
@@ -112,7 +104,7 @@ equation
   connect(b5a6b99ec37f4de7f94020090_Storage.TAir, conPIDMinT[3].u_m)
     annotation (Line(points={{1,-10},{10,-10},{10,100},{-50,100},{-50,118}}, color={0,0,127}));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Office.weaBus) annotation (Line(
-      points={{1,300},{9,300},{9,20.3398},{-100,20.3398},{-100,-10}},
+      points={{1,300},{9,300},{9,20.3398},{-96,20.3398},{-96,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -120,7 +112,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Floor.weaBus) annotation (Line(
-      points={{1,300},{10,300},{10,20},{-60,20},{-60,-10}},
+      points={{1,300},{10,300},{10,20},{-56,20},{-56,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -128,7 +120,7 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Storage.weaBus) annotation (Line(
-      points={{1,300},{11,300},{11,20},{-20,20},{-20,-10}},
+      points={{1,300},{11,300},{11,20},{-16,20},{-16,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -136,7 +128,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Meeting.weaBus) annotation (Line(
-      points={{1,300},{10,300},{10,20},{20,20},{20,-10}},
+      points={{1,300},{10,300},{10,20},{24,20},{24,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -144,7 +136,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Restroom.weaBus) annotation (Line(
-      points={{1,300},{9,300},{9,19},{60,19},{60,-10}},
+      points={{1,300},{9,300},{9,19},{64,19},{64,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -152,7 +144,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus, b5a6b99ec37f4de7f94020090_ICT.weaBus) annotation (Line(
-      points={{1,300},{10,300},{10,20},{100,20},{100,-10}},
+      points={{1,300},{10,300},{10,20},{104,20},{104,-10.2}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -183,20 +175,22 @@ equation
     annotation (Line(points={{70,0},{-160,0},{-160,-150},{-260,-150}}, color={191,0,0}));
   connect(b5a6b99ec37f4de7f94020090_ICT.port_a, heaFloCooLoaH[6].port_b)
     annotation (Line(points={{110,0},{-160,0},{-160,-150},{-260,-150}}, color={191,0,0}));
-  connect(conPIDMinT[1].y, max.u1) annotation (Line(points={{-39,130},{152,130},{152,-84},{158,-84}}, color={0,0,127}));
+  connect(conPIDMinT[1].y, max.u1) annotation (Line(points={{-38,130},{152,130},{152,-84},{158,-84}}, color={0,0,127}));
   connect(conPIDMax[1].y, max.u2)
-    annotation (Line(points={{-39,-130},{152,-130},{152,-96},{158,-96}}, color={0,0,127}));
-  connect(max.y, lin.u) annotation (Line(points={{181,-90},{190,-90},{190,-90},{198,-90}}, color={0,0,127}));
+    annotation (Line(points={{-38,-130},{152,-130},{152,-96},{158,-96}}, color={0,0,127}));
+  connect(max.y, lin.u) annotation (Line(points={{182,-90},{190,-90},{190,-90},{198,-90}}, color={0,0,127}));
   connect(x1.y, lin.x1) annotation (Line(points={{181,-10},{190,-10},{190,-82},{198,-82}}, color={0,0,127}));
   connect(y1.y, lin.f1) annotation (Line(points={{181,-50},{186,-50},{186,-86},{198,-86}}, color={0,0,127}));
   connect(x2.y, lin.x2) annotation (Line(points={{181,-130},{186,-130},{186,-94},{198,-94}}, color={0,0,127}));
   connect(y2.y, lin.f2) annotation (Line(points={{181,-170},{190,-170},{190,-98},{198,-98}}, color={0,0,127}));
   connect(lin.y, m_flowHeaLoa[1])
-    annotation (Line(points={{221,-90},{240,-90},{240,91.6667},{310,91.6667}}, color={0,0,127}));
+    annotation (Line(points={{222,-90},{240,-90},{240,91.6667},{310,91.6667}}, color={0,0,127}));
   connect(lin.y, m_flowCooLoa[1])
-    annotation (Line(points={{221,-90},{240,-90},{240,-120.333},{310,-120.333}}, color={0,0,127}));
+    annotation (Line(points={{222,-90},{240,-90},{240,-120.333},{310,-120.333}}, color={0,0,127}));
   connect(con.y, fraLatCooReq[1])
-    annotation (Line(points={{221,-31},{261.5,-31},{261.5,-38.3333},{310,-38.3333}}, color={0,0,127}));
+    annotation (Line(points={{222,-31},{261.5,-31},{261.5,-38.3333},{310,-38.3333}}, color={0,0,127}));
+  connect(conPIDMinT.y, yHea) annotation (Line(points={{-38,130},{134,130},{134,200},{310,200}}, color={0,0,127}));
+  connect(conPIDMax.y, yCoo) annotation (Line(points={{-38,-130},{134,-130},{134,-192},{310,-192}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>

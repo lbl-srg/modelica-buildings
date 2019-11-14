@@ -1,4 +1,4 @@
-within geojson_1.Loads.B5a7229e737f4de77124f946d;
+within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a7229e737f4de77124f946d;
 model Floor
   "This is the simulation model of Floor within building B5a7229e737f4de77124f946d with traceable ID None"
 

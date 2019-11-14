@@ -61,14 +61,10 @@ model CouplingRC "Example illustrating the coupling of a RC building model to a 
     m_flow2_nominal=bui.m_flowHeaLoa_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nLoa=bui.nHeaLoa) annotation (Placement(transformation(extent={{0,40},{20,20}})));
-  Modelica.Blocks.Sources.RealExpression m_flowHeaVal(y=couHea.m_flowReq)
-    annotation (Placement(transformation(extent={{-100,34},{-80,54}})));
   Modelica.Blocks.Sources.RealExpression THeaInlVal(y=couHea.T1_a_nominal)
     annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
   Modelica.Blocks.Sources.RealExpression TCooInlVal(y=couCoo.T1_a_nominal)
     annotation (Placement(transformation(extent={{-100,-106},{-80,-86}})));
-  Modelica.Blocks.Sources.RealExpression m_flowCooVal(y=couCoo.m_flowReq)
-    annotation (Placement(transformation(extent={{-100,-86},{-80,-66}})));
   Buildings.Applications.DHC.Loads.BaseClasses.HeatingOrCooling couCoo(
     redeclare package Medium = Medium,
     flowRegime=bui.floRegCooLoa,
@@ -90,27 +86,27 @@ equation
   annotation (Line(points={{-22,30},{0,30}},                      color={0,127,255}));
   connect(couHea.port_b, sinHea.ports[1])
   annotation (Line(points={{20,30},{90,30}},                    color={0,127,255}));
-  connect(supHea.m_flow_in, m_flowHeaVal.y)
-    annotation (Line(points={{-44,38},{-66,38},{-66,44},{-79,44}}, color={0,0,127}));
   connect(THeaInlVal.y, supHea.T_in) annotation (Line(points={{-79,24},{-66,24},{-66,34},{-44,34}}, color={0,0,127}));
-  connect(m_flowCooVal.y, supCoo.m_flow_in)
-    annotation (Line(points={{-79,-76},{-68,-76},{-68,-82},{-42,-82}}, color={0,0,127}));
   connect(TCooInlVal.y, supCoo.T_in)
     annotation (Line(points={{-79,-96},{-68,-96},{-68,-86},{-42,-86}}, color={0,0,127}));
-  connect(couHea.heaPorLoa, bui.heaPorHea) annotation (Line(points={{10,20},{10,-23},{40,-23}}, color={191,0,0}));
+  connect(couHea.heaPorLoa, bui.heaPorHea) annotation (Line(points={{20,25},{20,-23},{40,-23}}, color={191,0,0}));
   connect(couCoo.port_b, sinCoo.ports[1]) annotation (Line(points={{20,-90},{90,-90}}, color={0,127,255}));
   connect(supCoo.ports[1], couCoo.port_a) annotation (Line(points={{-20,-90},{0,-90}}, color={0,127,255}));
-  connect(couCoo.heaPorLoa, bui.heaPorCoo) annotation (Line(points={{10,-80},{10,-37},{40,-37}}, color={191,0,0}));
+  connect(couCoo.heaPorLoa, bui.heaPorCoo) annotation (Line(points={{20,-85},{20,-37},{40,-37}}, color={191,0,0}));
   connect(bui.fraLatCooReq, couCoo.fraLat)
     annotation (Line(points={{61,-31},{80,-31},{80,-120},{-14,-120},{-14,-94},{-2,-94}}, color={0,0,127}));
   connect(bui.m_flowCooLoa, couCoo.m_flow2)
     annotation (Line(points={{61,-33},{72,-33},{72,-114},{-10,-114},{-10,-98},{-2,-98}}, color={0,0,127}));
   connect(bui.m_flowHeaLoa, couHea.m_flow2)
     annotation (Line(points={{61,-27},{80,-27},{80,52},{-10,52},{-10,38},{-2,38}}, color={0,0,127}));
-  connect(bui.yHeaReq, couHea.yReq)
+  connect(bui.yHea, couHea.yHeaCoo)
     annotation (Line(points={{61,-24},{72,-24},{72,0},{-10,0},{-10,22},{-2,22}}, color={0,0,127}));
-  connect(bui.yCooReq, couCoo.yReq)
+  connect(bui.yCoo, couCoo.yHeaCoo)
     annotation (Line(points={{61,-36},{70,-36},{70,-60},{-14,-60},{-14,-82},{-2,-82}}, color={0,0,127}));
+  connect(couCoo.m_flow1Req, supCoo.m_flow_in)
+    annotation (Line(points={{22,-95},{30,-95},{30,-66},{-60,-66},{-60,-82},{-42,-82}}, color={0,0,127}));
+  connect(couHea.m_flow1Req, supHea.m_flow_in)
+    annotation (Line(points={{22,35},{26,35},{26,60},{-60,60},{-60,38},{-44,38}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

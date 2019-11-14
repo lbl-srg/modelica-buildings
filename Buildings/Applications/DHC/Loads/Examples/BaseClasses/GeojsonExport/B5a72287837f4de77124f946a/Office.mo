@@ -1,4 +1,4 @@
-within geojson_1.Loads.B5a72287837f4de77124f946a;
+within Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a72287837f4de77124f946a;
 model Office
   "This is the simulation model of Office within building B5a72287837f4de77124f946a with traceable ID None"
 

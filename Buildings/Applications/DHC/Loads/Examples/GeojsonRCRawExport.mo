@@ -27,9 +27,9 @@ equation
     annotation (Line(points={{2,-40},{20,-40},{20,-37},{40,-37}}, color={191,0,0}));
   connect(heaFloHea.port, bui.heaPorHea)
     annotation (Line(points={{2,-20},{20,-20},{20,-23},{40,-23}}, color={191,0,0}));
-  connect(bui.Q_flowHeaReq, heaFloHea.Q_flow)
+  connect(bui.yHea, heaFloHea.Q_flow)
     annotation (Line(points={{61,-24},{80,-24},{80,0},{-40,0},{-40,-20},{-18,-20}}, color={0,0,127}));
-  connect(bui.Q_flowCooReq, heaFloCoo.Q_flow)
+  connect(bui.yCoo, heaFloCoo.Q_flow)
     annotation (Line(points={{61,-36},{80,-36},{80,-60},{-40,-60},{-40,-40},{-18,-40}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
