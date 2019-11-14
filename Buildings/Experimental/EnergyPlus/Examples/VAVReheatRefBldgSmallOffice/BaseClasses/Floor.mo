@@ -34,8 +34,8 @@ model Floor "Model of a floor of the building"
 //     annotation (Placement(transformation(extent={{380,150},{400,170}}),
 //         iconTransformation(extent={{380,150},{400,170}})));
 
-  parameter Boolean use_windPressure=true
-    "Set to true to enable wind pressure";
+//  parameter Boolean use_windPressure=true
+//    "Set to true to enable wind pressure";
 
  parameter Real kIntNor(min=0, max=1) = 1
     "Gain factor to scale internal heat gain in north zone";
@@ -624,6 +624,10 @@ revisions="<html>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+<li>
+November 14, 2019, by Milica Grahovac:<br/>
+Inherits interfaces and common parameters from a base class.
 </li>
 </ul>
 </html>"));

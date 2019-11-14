@@ -4,6 +4,9 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
 
+  parameter Boolean use_windPressure=true
+    "Set to true to enable wind pressure";
+
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,-44},{110,-28}}),
@@ -49,15 +52,16 @@ partial model PartialFloor "Interface for a model of a floor of a building"
             {400,500}}, initialScale=0.1)),
     Documentation(info="<html>
 <p>
-fixme
+This is a partial floor model used to constrain the replaceable thermal zone classes and
+ensure those are plug compatible.
+fixme: this model should live somewhere else as the ThermalZone.Floor also extends it
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br/>
-Declared the parameter record to be a parameter, as declaring its elements
-to be parameters does not imply that the whole record has the variability of a parameter.
+November 14, 2019, by Milica Grahovac:<br/>
+Extracted interfaces and common parameters found in thermal zone models.
 </li>
 </ul>
 </html>"),

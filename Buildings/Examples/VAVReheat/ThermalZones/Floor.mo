@@ -34,8 +34,8 @@ model Floor "Model of a floor of the building"
 //     annotation (Placement(transformation(extent={{380,150},{400,170}}),
 //         iconTransformation(extent={{380,150},{400,170}})));
 
-  parameter Boolean use_windPressure=true
-    "Set to true to enable wind pressure";
+//  parameter Boolean use_windPressure=true
+//    "Set to true to enable wind pressure";
 
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
