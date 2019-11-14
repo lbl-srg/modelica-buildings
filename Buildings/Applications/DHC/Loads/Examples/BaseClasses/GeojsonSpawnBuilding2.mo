@@ -9,12 +9,12 @@ model GeojsonSpawnBuilding2 "Spawn building model based on Urbanopt GeoJSON expo
     Q_flowCoo_nominal={30000,5000,5000,5000,5000,20000},
     Q_flowHea_nominal={15000,10000,5000,8000,5000,1000});
   package Medium = Buildings.Media.Air "Medium model";
-  parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExport/Resources/Data/B5a6b99ec37f4de7f94021950/RefBldgSmallOfficeNew2004_Chicago2.idf")
-    "Name of the IDF file";
-  parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExport/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
-    "Name of the weather file";
+  parameter String idfPath=
+    "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExport/Resources/Data/B5a6b99ec37f4de7f94021950/RefBldgSmallOfficeNew2004_Chicago2.idf"
+    "Path of the IDF file";
+  parameter String weaPath=
+      "modelica://Buildings/Applications/DHC/Loads/Examples/BaseClasses/GeojsonExport/Resources/Data/B5a6b99ec37f4de7f94020090/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+    "Path of the weather file";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nHeaLoa](k=fill(20, nHeaLoa))
     "Minimum temperature setpoint" annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1[nHeaLoa]
@@ -47,66 +47,63 @@ model GeojsonSpawnBuilding2 "Spawn building model based on Urbanopt GeoJSON expo
     annotation (Placement(transformation(extent={{-74,-50},{-54,-30}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znAttic(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Attic") "Thermal zone"
      annotation (Placement(transformation(extent={{24,80},{64,120}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znCore_ZN(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Core_ZN") "Thermal zone"
      annotation (Placement(transformation(extent={{24,40},{64,80}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_1(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Perimeter_ZN_1") "Thermal zone"
      annotation (Placement(transformation(extent={{24,0},{64,40}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_2(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Perimeter_ZN_2") "Thermal zone"
      annotation (Placement(transformation(extent={{24,-40},{64,0}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_3(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Perimeter_ZN_3") "Thermal zone"
      annotation (Placement(transformation(extent={{24,-80},{64,-40}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_4(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Perimeter_ZN_4") "Thermal zone"
      annotation (Placement(transformation(extent={{24,-120},{64,-80}})));
-  inner Buildings.Experimental.EnergyPlus.Building building(idfName=idfName, weaName=weaName)
+  inner Buildings.Experimental.EnergyPlus.Building building(
+    idfName=Modelica.Utilities.Files.loadResource(idfPath),
+    weaName=Modelica.Utilities.Files.loadResource(weaPath),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-10,232},{10,252}})));
 equation
-  connect(from_degC1.y,conPIDMinT. u_s) annotation (Line(points={{-78,130},{-62,130}}, color={0,0,127}));
-  connect(from_degC2.y,conPIDMax. u_s) annotation (Line(points={{-78,-130},{-62,-130}}, color={0,0,127}));
-  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
+  connect(from_degC1.y,conPIDMinT.u_s) annotation (Line(points={{-78,130},{-62,130}}, color={0,0,127}));
+  connect(from_degC2.y,conPIDMax.u_s) annotation (Line(points={{-78,-130},{-62,-130}}, color={0,0,127}));
+  connect(maxTSet.y,from_degC2.u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
   connect(minTSet.y, from_degC1.u)
     annotation (Line(points={{-118,130},{-110,130},{-110,130},{-102,130}}, color={0,0,127}));
-  connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
+  connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
       points={{-53,40},{-40,40},{-40,7},{-30,7}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(qConGai_flow.y,multiplex3_1. u2[1]) annotation (Line(
+  connect(qConGai_flow.y,multiplex3_1.u2[1]) annotation (Line(
       points={{-53,0},{-30,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(multiplex3_1.u3[1],qLatGai_flow. y)
+  connect(multiplex3_1.u3[1],qLatGai_flow.y)
     annotation (Line(points={{-30,-7},{-40,-7},{-40,-40},{-53,-40}},color={0,0,127}));
-  connect(multiplex3_1.y,znAttic. qGai_flow)
+  connect(multiplex3_1.y,znAttic.qGai_flow)
       annotation (Line(points={{-7,0},{20,0},{20,110},{22,110}},
                                                                color={0,0,127}));
-  connect(multiplex3_1.y,znCore_ZN. qGai_flow)
+  connect(multiplex3_1.y,znCore_ZN.qGai_flow)
       annotation (Line(points={{-7,0},{20,0},{20,70},{22,70}}, color={0,0,127}));
-  connect(multiplex3_1.y,znPerimeter_ZN_1. qGai_flow)
+  connect(multiplex3_1.y,znPerimeter_ZN_1.qGai_flow)
       annotation (Line(points={{-7,0},{20,0},{20,30},{22,30}}, color={0,0,127}));
-  connect(multiplex3_1.y,znPerimeter_ZN_2. qGai_flow)
+  connect(multiplex3_1.y,znPerimeter_ZN_2.qGai_flow)
       annotation (Line(points={{-7,0},{20,0},{20,-10},{22,-10}},
                                                                color={0,0,127}));
-  connect(multiplex3_1.y,znPerimeter_ZN_3. qGai_flow)
+  connect(multiplex3_1.y,znPerimeter_ZN_3.qGai_flow)
       annotation (Line(points={{-7,0},{20,0},{20,-50},{22,-50}},
                                                                color={0,0,127}));
-  connect(multiplex3_1.y,znPerimeter_ZN_4. qGai_flow)
+  connect(multiplex3_1.y,znPerimeter_ZN_4.qGai_flow)
       annotation (Line(points={{-7,0},{20,0},{20,-90},{22,-90}},
                                                                color={0,0,127}));
   connect(znAttic.TAir, conPIDMinT[1].u_m)
@@ -133,33 +130,33 @@ equation
     annotation (Line(points={{65,-46.2},{8.5,-46.2},{8.5,-142},{-50,-142}}, color={0,0,127}));
   connect(znPerimeter_ZN_4.TAir, conPIDMax[6].u_m)
     annotation (Line(points={{65,-86.2},{8.5,-86.2},{8.5,-142},{-50,-142}}, color={0,0,127}));
-  connect(heaPorHea[1], znAttic.heaPorAir)
-    annotation (Line(points={{-300,91.6667},{-128,91.6667},{-128,100},{44,100}}, color={191,0,0}));
-  connect(heaPorHea[2], znCore_ZN.heaPorAir)
-    annotation (Line(points={{-300,95},{-128,95},{-128,60},{44,60}}, color={191,0,0}));
-  connect(heaPorHea[3], znPerimeter_ZN_1.heaPorAir)
-    annotation (Line(points={{-300,98.3333},{-128,98.3333},{-128,20},{44,20}}, color={191,0,0}));
-  connect(heaPorHea[4], znPerimeter_ZN_2.heaPorAir)
-    annotation (Line(points={{-300,101.667},{-128,101.667},{-128,-20},{44,-20}}, color={191,0,0}));
-  connect(heaPorHea[5], znPerimeter_ZN_3.heaPorAir)
-    annotation (Line(points={{-300,105},{-134,105},{-134,-58},{38,-58},{38,-60},{44,-60}}, color={191,0,0}));
-  connect(heaPorHea[6], znPerimeter_ZN_4.heaPorAir)
-    annotation (Line(points={{-300,108.333},{-128,108.333},{-128,-100},{44,-100}}, color={191,0,0}));
-  connect(heaPorCoo[1], znAttic.heaPorAir)
-    annotation (Line(points={{-300,-108.333},{-128,-108.333},{-128,100},{44,100}}, color={191,0,0}));
-  connect(heaPorCoo[2], znCore_ZN.heaPorAir)
-    annotation (Line(points={{-300,-105},{-128,-105},{-128,60},{44,60}}, color={191,0,0}));
-  connect(heaPorCoo[3], znPerimeter_ZN_1.heaPorAir)
-    annotation (Line(points={{-300,-101.667},{-128,-101.667},{-128,20},{44,20}}, color={191,0,0}));
-  connect(heaPorCoo[4], znPerimeter_ZN_2.heaPorAir)
-    annotation (Line(points={{-300,-98.3333},{-128,-98.3333},{-128,-20},{44,-20}}, color={191,0,0}));
-  connect(heaPorCoo[5], znPerimeter_ZN_3.heaPorAir)
-    annotation (Line(points={{-300,-95},{-128,-95},{-128,-60},{44,-60}}, color={191,0,0}));
-  connect(heaPorCoo[6], znPerimeter_ZN_4.heaPorAir)
-    annotation (Line(points={{-300,-91.6667},{-128,-91.6667},{-128,-100},{44,-100}}, color={191,0,0}));
   connect(conPIDMax.y, yCoo)
     annotation (Line(points={{-38,-130},{134,-130},{134,-192},{310,-192}}, color={0,0,127}));
   connect(conPIDMinT.y, yHea) annotation (Line(points={{-38,130},{134,130},{134,200},{310,200}}, color={0,0,127}));
+  connect(heaFloHeaLoaH[1].port_b, znAttic.heaPorAir)
+    annotation (Line(points={{-260,150},{-108,150},{-108,100},{44,100}}, color={191,0,0}));
+  connect(heaFloHeaLoaH[2].port_b, znCore_ZN.heaPorAir)
+    annotation (Line(points={{-260,150},{-108,150},{-108,60},{44,60}}, color={191,0,0}));
+  connect(heaFloHeaLoaH[3].port_b, znPerimeter_ZN_1.heaPorAir)
+    annotation (Line(points={{-260,150},{-108,150},{-108,20},{44,20}}, color={191,0,0}));
+  connect(heaFloHeaLoaH[4].port_b, znPerimeter_ZN_2.heaPorAir)
+    annotation (Line(points={{-260,150},{-108,150},{-108,-20},{44,-20}}, color={191,0,0}));
+  connect(heaFloHeaLoaH[5].port_b, znPerimeter_ZN_3.heaPorAir)
+    annotation (Line(points={{-260,150},{-108,150},{-108,-60},{44,-60}}, color={191,0,0}));
+  connect(heaFloHeaLoaH[6].port_b, znPerimeter_ZN_4.heaPorAir)
+    annotation (Line(points={{-260,150},{-110,150},{-110,-100},{44,-100}}, color={191,0,0}));
+  connect(heaFloCooLoaH[1].port_b, znAttic.heaPorAir)
+    annotation (Line(points={{-260,-150},{-108,-150},{-108,100},{44,100}}, color={191,0,0}));
+  connect(heaFloCooLoaH[2].port_b, znCore_ZN.heaPorAir)
+    annotation (Line(points={{-260,-150},{-108,-150},{-108,60},{44,60}}, color={191,0,0}));
+  connect(heaFloCooLoaH[3].port_b, znPerimeter_ZN_1.heaPorAir)
+    annotation (Line(points={{-260,-150},{-108,-150},{-108,20},{44,20}}, color={191,0,0}));
+  connect(heaFloCooLoaH[4].port_b, znPerimeter_ZN_2.heaPorAir)
+    annotation (Line(points={{-260,-150},{-108,-150},{-108,-20},{44,-20}}, color={191,0,0}));
+  connect(heaFloCooLoaH[5].port_b, znPerimeter_ZN_3.heaPorAir)
+    annotation (Line(points={{-260,-150},{-108,-150},{-108,-60},{44,-60}}, color={191,0,0}));
+  connect(heaFloCooLoaH[6].port_b, znPerimeter_ZN_4.heaPorAir)
+    annotation (Line(points={{-260,-150},{-108,-150},{-108,-100},{44,-100}}, color={191,0,0}));
   annotation (
   Documentation(info="
   <html>

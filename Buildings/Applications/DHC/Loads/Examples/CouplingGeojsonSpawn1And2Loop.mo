@@ -216,10 +216,10 @@ equation
     annotation (Line(points={{-59,-44},{-30,-44},{-30,-58}},           color={0,0,127}));
   connect(bui.yHea, couHea.yHeaCoo)
     annotation (Line(points={{61,-24},{80,-24},{80,0},{-10,0},{-10,22},{-2,22}}, color={0,0,127}));
-  connect(bui.heaPorHea, couHea.heaPorLoa) annotation (Line(points={{40,-23},{10,-23},{10,20}}, color={191,0,0}));
+  connect(bui.heaPorHea, couHea.heaPorLoa) annotation (Line(points={{40,-23},{20,-23},{20,25}}, color={191,0,0}));
   connect(bui.yCoo, couCoo.yHeaCoo)
     annotation (Line(points={{61,-36},{80,-36},{80,-40},{-10,-40},{-10,-62},{-2,-62}}, color={0,0,127}));
-  connect(bui.heaPorCoo, couCoo.heaPorLoa) annotation (Line(points={{40,-37},{10,-37},{10,-60}}, color={191,0,0}));
+  connect(bui.heaPorCoo, couCoo.heaPorLoa) annotation (Line(points={{40,-37},{20,-37},{20,-65}}, color={191,0,0}));
   connect(bui.m_flowHeaLoa, couHea.m_flow2)
     annotation (Line(points={{61,-27},{82,-27},{82,52},{-10,52},{-10,38},{-2,38}}, color={0,0,127}));
   connect(bui.m_flowCooLoa, couCoo.m_flow2)
@@ -233,11 +233,11 @@ equation
   connect(bui1.yHea, couHea1.yHeaCoo)
     annotation (Line(points={{61,-224},{80,-224},{80,-200},{-10,-200},{-10,-178},{-2,-178}},
                                                                                           color={0,0,127}));
-  connect(bui1.heaPorHea, couHea1.heaPorLoa) annotation (Line(points={{40,-223},{10,-223},{10,-180}}, color={191,0,0}));
+  connect(bui1.heaPorHea, couHea1.heaPorLoa) annotation (Line(points={{40,-223},{20,-223},{20,-175}}, color={191,0,0}));
   connect(bui1.yCoo, couCoo1.yHeaCoo)
     annotation (Line(points={{61,-236},{80,-236},{80,-260},{-10,-260},{-10,-282},{-2,-282}},
                                                                                           color={0,0,127}));
-  connect(bui1.heaPorCoo, couCoo1.heaPorLoa) annotation (Line(points={{40,-237},{10,-237},{10,-280}}, color={191,0,0}));
+  connect(bui1.heaPorCoo, couCoo1.heaPorLoa) annotation (Line(points={{40,-237},{20,-237},{20,-285}}, color={191,0,0}));
   connect(bui1.m_flowHeaLoa, couHea1.m_flow2)
     annotation (Line(points={{61,-227},{82,-227},{82,-148},{-10,-148},{-10,-162},{-2,-162}},
                                                                                           color={0,0,127}));
@@ -316,11 +316,14 @@ equation
   </p>
   </html>"),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-320,-360},{140,100}}), graphics={Text(
-          extent={{-496,-106},{-436,-146}},
+        coordinateSystem(preserveAspectRatio=false, extent={{-320,-360},{140,100}}), graphics={
+                                                                                              Text(
+          extent={{-320,120},{-260,80}},
           lineColor={28,108,200},
           fontSize=18,
-          textString="Model with multiple EnergyPlus thermal zones:
-can only be simulated with Dymola 2020x or JModelica.")}),
+          textString="Model with multiple EnergyPlus thermal zones can only be simulated with:
+- Dymola 2020x (with Advanced.CompileWith64 = 2 and Hidden.AvoidDoubleComputation=true) or
+- JModelica.",
+          horizontalAlignment=TextAlignment.Left)}),
     __Dymola_Commands);
 end CouplingGeojsonSpawn1And2Loop;
