@@ -7487,7 +7487,11 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
+<li>Hagar Elarga, Lawrence Berkeley National Laboratory, USA
+</li>
 <li>Yangyang Fu, University of Colorado at Boulder, Colorado, USA
+</li>
+<li>Antoine Gautier, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
 </li>
@@ -7536,6 +7540,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Rebecca Zarin Pass, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Kun Zhang, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Wangda Zuo, University of Colorado at Boulder, Colorado, USA
 </li>
