@@ -1,11 +1,14 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
 model CoolingIndirect
   "Indirect cooling energy transfer station for district energy systems"
-  extends Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.PartialCooling;
-  extends Buildings.Applications.DHC.EnergyTransferStations.BaseClasses.PartialControl;
+  extends Buildings.Fluid.Interfaces.PartialFourPort(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium);
 
- parameter Modelica.SIunits.SpecificHeatCapacity cp=
-   Medium.specificHeatCapacityCp(
+  package Medium = Buildings.Media.Water;
+
+  parameter Modelica.SIunits.SpecificHeatCapacity cp=
+    Medium.specificHeatCapacityCp(
       Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
     "Default specific heat capacity of medium";
 
@@ -46,7 +49,7 @@ model CoolingIndirect
   parameter Modelica.SIunits.PressureDifference dp_nominal(min=0)
     "Secondary pump: Nominal pressure raise, used for default pressure curve if not specified in record per";
 
-  // Controller
+  // Controller parameters
   parameter Modelica.Blocks.Types.SimpleController controllerType=
     Modelica.Blocks.Types.SimpleController.PID
     "Type of controller"
@@ -112,8 +115,86 @@ model CoolingIndirect
         rotation=180,
         origin={30,0})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(redeclare package Medium =
-        Medium, m_flow_nominal=m2_flow_nominal)
+  Modelica.Blocks.Interfaces.RealInput TSet "Setpoint temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+  Buildings.Controls.Continuous.LimPID con(
+    controllerType=Modelica.Blocks.Types.SimpleController.PID,
+    final k=k,
+    Td=Td,
+    final yMax=yMax,
+    final yMin=yMin,
+    final Ti=Ti,
+    wp=wp,
+    wd=wd,
+    Ni=Ni,
+    Nd=Nd,
+    final initType=Modelica.Blocks.Types.InitPID.InitialOutput,
+    xi_start=xi_start,
+    xd_start=xd_start,
+    final y_start=0,
+    final reverseAction=reverseAction) "Controller"
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m1_flow_nominal)
+    "District-side (primary) supply temperature sensor"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-80,60})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m1_flow_nominal)
+    "District-side (primary) return temperature sensor"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={80,60})));
+
+  Modelica.Blocks.Sources.RealExpression powCal(
+    y=senMasFlo.m_flow*cp*(senTDisRet.T - senTDisSup.T))
+    "Calculated power demand"
+    annotation (Placement(transformation(extent={{-100,-100},{-20,-80}})));
+
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    quantity="Power",
+    unit="W",
+    displayUnit="kW")
+    "Measured power demand at the ETS"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={90,-130}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        origin={70,-110},
+        rotation=-90)));
+
+  Modelica.Blocks.Interfaces.RealOutput Q(
+    quantity="Energy",
+    unit="J",
+    displayUnit="kWh")
+    "Measured energy consumption at the ETS"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={50,-130}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        origin={30,-110},
+        rotation=-90)));
+
+  Modelica.Blocks.Continuous.Integrator int(k=1) "Integration"
+    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
+
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m2_flow_nominal)
     "Building-side (secondary) return temperature"
     annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
   Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening val(
@@ -126,13 +207,6 @@ model CoolingIndirect
 
 equation
 
-  connect(port_b2, TBuiRet.port_b)
-    annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
-  connect(TBuiRet.T, con.u_m)
-    annotation (Line(points={{-80,-49},{-80,-12}}, color={0,0,127}));
-  connect(TBuiRet.port_a, hex.port_b2) annotation (Line(points={{-70,-60},{0,
-          -60},{0,-6},{20,-6}},
-                              color={0,127,255}));
   connect(hex.port_a2, port_a2) annotation (Line(points={{40,-6},{60,-6},{60,
           -60},{100,-60}},
                       color={0,127,255}));
@@ -140,10 +214,30 @@ equation
           {60,60},{70,60}}, color={0,127,255}));
   connect(val.port_b, hex.port_a1) annotation (Line(points={{-10,60},{0,60},{0,
           6},{20,6}},  color={0,127,255}));
-  connect(con.y, val.y)
-    annotation (Line(points={{-69,0},{-20,0},{-20,48}}, color={0,0,127}));
   connect(senMasFlo.port_b, val.port_a)
     annotation (Line(points={{-40,60},{-30,60}}, color={0,127,255}));
+  connect(port_a1, senTDisSup.port_a)
+    annotation (Line(points={{-100,60},{-90,60}}, color={0,127,255}));
+  connect(senTDisSup.port_b, senMasFlo.port_a)
+    annotation (Line(points={{-70,60},{-60,60}}, color={0,127,255}));
+  connect(port_b2, TBuiRet.port_b)
+    annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
+  connect(senTDisRet.port_b, port_b1)
+    annotation (Line(points={{90,60},{100,60}}, color={0,127,255}));
+  connect(powCal.y, Q_flow)
+    annotation (Line(points={{-16,-90},{90,-90},{90,-130}}, color={0,0,127}));
+  connect(powCal.y, int.u) annotation (Line(points={{-16,-90},{-10,-90},{-10,-110},
+          {-2,-110}}, color={0,0,127}));
+  connect(int.y, Q)
+    annotation (Line(points={{21,-110},{50,-110},{50,-130}}, color={0,0,127}));
+  connect(TSet, con.u_s)
+    annotation (Line(points={{-120,0},{-92,0}}, color={0,0,127}));
+  connect(con.u_m, TBuiRet.T)
+    annotation (Line(points={{-80,-12},{-80,-49}}, color={0,0,127}));
+  connect(con.y, val.y)
+    annotation (Line(points={{-69,0},{-20,0},{-20,48}}, color={0,0,127}));
+  connect(TBuiRet.port_a, hex.port_b2) annotation (Line(points={{-70,-60},{0,-60},
+          {0,-6},{20,-6}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-56},{100,-64}},
@@ -167,7 +261,7 @@ equation
           fillPattern=FillPattern.Solid,
           textStyle={TextStyle.Bold},
           textString="ETS")}),                                   Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,100}})),
     Documentation(info="<html>
 <p>
 Indirect cooling energy transfer station (ETS) model that controls the building chilled water supply temperature 

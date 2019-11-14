@@ -51,17 +51,16 @@ model CoolingIndirectClosedBuildingLoop
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Cooling demand"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-public
   Buildings.Fluid.HeatExchangers.HeaterCooler_u loa(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=false,
-    final m_flow_nominal=mBui_flow_nominal,
-    final from_dp=false,
-    final linearizeFlowResistance=true,
-    final show_T=true,
+    redeclare package Medium = Medium,
+    allowFlowReversal=false,
+    m_flow_nominal=mBui_flow_nominal,
+    from_dp=false,
+    linearizeFlowResistance=true,
+    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    final Q_flow_nominal=-1,
-    final dp_nominal=100) "Aggregate building cooling load"
+    Q_flow_nominal=-1,
+    dp_nominal=100) "Aggregate building cooling load"
     annotation (Placement(transformation(extent={{40,-86},{60,-66}})));
   Modelica.Blocks.Math.Gain gai(k=-1/(cp*(16 - 7)))
     "Multiplier gain for calculating m_flow"
@@ -86,8 +85,9 @@ public
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,80})));
-  Buildings.Fluid.Storage.ExpansionVessel exp(redeclare package Medium = Medium,
-      V_start=1000) "Expansion tank"
+  Buildings.Fluid.Storage.ExpansionVessel exp(
+    redeclare package Medium = Medium,
+    V_start=1000) "Expansion tank"
     annotation (Placement(transformation(extent={{20,0},{40,-20}})));
   Modelica.Blocks.Sources.Ramp ram(
     height=1,
