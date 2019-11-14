@@ -32,7 +32,7 @@ class FMUWriterClass
     external "C" adapter = WriterAllocate(
       objectType,
       modelicaNameBuilding,
-      modelicaNameSchedule,
+      modelicaNameWriter,
       idfName,
       weaName,
       iddName,
