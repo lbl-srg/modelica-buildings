@@ -58,7 +58,23 @@ The coupling time step is determined by EnergyPlus based on the zone time step,
 as declared in the idf file.
 </li>
 </ul>
-<h4>Note for Dymola</h4>
+<h4>Notes for Dymola</h4>
+<h5>64 bit configuration</h5>
+<p>
+Make sure Dymola compiles in 64 bit, which can be done by setting the flag
+</p>
+<pre>
+Advanced.CompileWith64 = 2
+</pre>
+<p>
+Otherwise, you may get an error such as
+</p>
+<pre>
+/usr/bin/ld: cannot find -lfmilib_shared
+/usr/bin/ld: cannot find -lfmilib_shared
+collect2: error: ld returned 1 exit status
+</pre>
+<h5>Models with multiple thermal zones</h5>
 <p>
 For Dymola 2019FD01 and Dymola 2020, only one thermal zone can be in EnergyPlus.
 For Dymola 2020x, this limitation will be corrected if the flag
