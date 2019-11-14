@@ -15,6 +15,6 @@ compareVars :=
     "dTDis.y",
     "dTBui.y",
     "TApp.y",
-    "coo.hex.Q1_flow",
-    "coo.hex.Q2_flow"
+    "coo.Q_flow",
+    "coo.Q"
   };
