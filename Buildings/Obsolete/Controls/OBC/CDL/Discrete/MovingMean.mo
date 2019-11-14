@@ -1,6 +1,6 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Discrete;
 block MovingMean "Discrete moving mean of a sampled input signal"
-  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
+  extends Modelica.Icons.ObsoleteModel;
 
   parameter Integer n(min=2)
     "Number of samples over which the input is averaged";
