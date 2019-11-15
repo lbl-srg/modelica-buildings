@@ -28,37 +28,30 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
-equation
-  assert(phi > -0.2, "Valve control signal needs to be bigger than zero, received phi = " + String(phi));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}),       graphics={
-        Polygon(
-          points={{2,-2},{-76,60},{-76,-60},{2,-2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-50,40},{0,-2},{54,40},{54,40},{-50,40}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-52,-42},{0,-4},{60,40},{60,-42},{-52,-42}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{0,-2},{82,60},{82,-60},{0,-2}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{0,40},{0,-4}}),
-        Line(
-          visible=not use_inputFilter,
-          points={{0,100},{0,40}})}),
+            {100,100}}),       graphics={Rectangle(
+      extent={{-60,40},{60,-40}},
+      fillColor={255,255,255},
+      fillPattern=FillPattern.Solid,
+      pattern=LinePattern.None),
+    Polygon(
+      points={{0,0},{-76,60},{-76,-60},{0,0}},
+      lineColor={0,0,0},
+      fillColor={0,0,0},
+      fillPattern=FillPattern.Solid),
+    Polygon(
+      points={{0,-0},{76,60},{76,-60},{0,0}},
+      lineColor={0,0,0},
+      fillColor={255,255,255},
+      fillPattern=FillPattern.Solid),
+    Line(
+      visible=use_inputFilter,
+      points={{-30,40},{30,40}}),
+    Line(
+      points={{0,40},{0,0}}),
+    Line(
+      visible=not use_inputFilter,
+      points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>
 Partial model for a two way valve. This is the base model for valves
@@ -101,6 +94,19 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 9, 2019, by Filip Jorissen:<br/>
+Removed assert for <code>phi>-0.2</code>
+since the valve control input is now lower limited
+to zero.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
+issue 1223</a>.
+</li>
+<li>
+October 25, 2019, by Jianjun Hu:<br/>
+Improved icon graphics annotation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
