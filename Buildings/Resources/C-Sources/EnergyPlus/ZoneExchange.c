@@ -25,6 +25,33 @@ void setVariables(FMUBuilding* bui, const char* modelicaNameThermalZone, fmi2Val
     }
   }
 
+void stopIfResultsAreNaN(
+  FMUBuilding* bui,
+  const char* modelicaNameThermalZone, fmi2ValueReference vr[], fmi2Real values[], size_t n){
+    size_t i;
+    fmi2_import_variable_t* fmiVar;
+    char* varNam;
+    size_t i_nan = -1;
+    for(i=0; i < n; i++){
+      if (isnan(values[i])){
+        i_nan = i;
+        break;
+      }
+    }
+    if (i_nan != -1){
+      for(i=0; i < n; i++){
+        fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i]);
+        varNam = fmi2_import_get_variable_name(fmiVar);
+        if (isnan(values[i])){
+          ModelicaFormatMessage("Received nan from EnergyPlus at time = %.2f:\n", bui->time);
+        }
+        ModelicaFormatMessage("  %s = %.2f\n", varNam, values[i]);
+      }
+      ModelicaFormatError("Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
+        fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i_nan])));
+    }
+}
+
 void getVariables(FMUBuilding* bui, const char* modelicaNameThermalZone, fmi2ValueReference vr[], fmi2Real values[], size_t n){
     fmi2_status_t status;
     if (FMU_EP_VERBOSITY >= MEDIUM)
@@ -36,6 +63,7 @@ void getVariables(FMUBuilding* bui, const char* modelicaNameThermalZone, fmi2Val
       bui->modelicaNameBuilding,
       modelicaNameThermalZone);
     }
+    stopIfResultsAreNaN(bui, modelicaNameThermalZone, vr, values, n);
   }
 
 bool allZonesAreInitialized(FMUBuilding* bui){
