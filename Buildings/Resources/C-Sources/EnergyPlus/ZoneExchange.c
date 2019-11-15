@@ -43,9 +43,9 @@ void stopIfResultsAreNaN(
         fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i]);
         varNam = fmi2_import_get_variable_name(fmiVar);
         if (isnan(values[i])){
-          ModelicaFormatMessage("***** Received nan from EnergyPlus at time = %.2f:\n", bui->time);
+          ModelicaFormatMessage("Received nan from EnergyPlus at time = %.2f:\n", bui->time);
         }
-        ModelicaFormatMessage("   %s = %.2f\n", varNam, values[i]);
+        ModelicaFormatMessage("  %s = %.2f\n", varNam, values[i]);
       }
       ModelicaFormatError("Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
         fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i_nan])));
