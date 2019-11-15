@@ -3,7 +3,12 @@ model Floor "Model of a floor of the building"
 //   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
 //     "Medium model for air" annotation (choicesAllMatching=true);
 
-  extends Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor;
+  extends Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
+    final VRooCor=cor.AFlo * hRoo,
+    final VRooSou=sou.AFlo * hRoo,
+    final VRooNor=nor.AFlo * hRoo,
+    final VRooEas=eas.AFlo * hRoo,
+    final VRooWes=wes.AFlo * hRoo);
 
 //   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
 //       redeclare package Medium = Medium) "Fluid inlets and outlets"
@@ -36,6 +41,17 @@ model Floor "Model of a floor of the building"
 
 //  parameter Boolean use_windPressure=true
 //    "Set to true to enable wind pressure";
+
+//   parameter Modelica.SIunits.Volume VRooCor=cor.AFlo * hRoo
+//     "Room volume corridor";
+//   parameter Modelica.SIunits.Volume VRooSou=sou.AFlo * hRoo
+//     "Room volume south";
+//   parameter Modelica.SIunits.Volume VRooNor=nor.AFlo * hRoo
+//     "Room volume north";
+//   parameter Modelica.SIunits.Volume VRooEas=eas.AFlo * hRoo
+//     "Room volume east";
+//   parameter Modelica.SIunits.Volume VRooWes=wes.AFlo * hRoo
+//     "Room volume west";
 
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";

@@ -7,6 +7,12 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   parameter Boolean use_windPressure=true
     "Set to true to enable wind pressure";
 
+  parameter Modelica.SIunits.Volume VRooCor "Room volume corridor";
+  parameter Modelica.SIunits.Volume VRooSou "Room volume south";
+  parameter Modelica.SIunits.Volume VRooNor "Room volume north";
+  parameter Modelica.SIunits.Volume VRooEas "Room volume east";
+  parameter Modelica.SIunits.Volume VRooWes "Room volume west";
+
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,-44},{110,-28}}),

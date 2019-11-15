@@ -3,7 +3,12 @@ model Floor "Model of a floor of the building"
 //   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
 //     "Medium model for air" annotation (choicesAllMatching=true);
 
-  extends Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor;
+  extends Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor(
+    final VRooCor=cor.V,
+    final VRooSou=sou.V,
+    final VRooNor=nor.V,
+    final VRooEas=eas.V,
+    final VRooWes=wes.V);
 
 //   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
 //       redeclare package Medium = Medium) "Fluid inlets and outlets"
@@ -37,9 +42,9 @@ model Floor "Model of a floor of the building"
 //  parameter Boolean use_windPressure=true
 //    "Set to true to enable wind pressure";
 
- parameter Real kIntNor(min=0, max=1) = 1
+  parameter Real kIntNor(min=0, max=1) = 1
     "Gain factor to scale internal heat gain in north zone";
- parameter String idfName=Modelica.Utilities.Files.loadResource(
+  parameter String idfName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
