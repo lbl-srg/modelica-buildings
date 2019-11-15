@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.CDL.Utilities;
+within Buildings.Controls.OBC.Utilities;
 block OptimalStart
-    "Block that outputs the optimal start time for an HVAC system"
+  "Block that outputs the optimal start time for an HVAC system"
   extends Modelica.Blocks.Icons.Block;
   parameter Real occupancy[:] = 3600*{8, 18}
     "Occupancy table, each entry switching occupancy on or off";
@@ -19,131 +19,129 @@ block OptimalStart
     "Temperature change hysteresis low parameter, should be a non-negative number";
   parameter Modelica.SIunits.TemperatureDifference uHigh = 1
     "Temperature change hysteresis high parameter, should be greater than uLow";
-  Interfaces.RealInput TSetZonHea(
+  CDL.Interfaces.RealInput TSetZonHea(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
     min=200) if not cooling_only
-    "Zone heating setpoint temperature during occupancy"
-    annotation (
-      Placement(transformation(extent={{-360,60},{-320,100}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
-  Interfaces.RealInput TZon(
+    "Zone heating setpoint temperature during occupancy" annotation (Placement(
+        transformation(extent={{-360,60},{-320,100}}), iconTransformation(
+          extent={{-140,60},{-100,100}})));
+  CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
     min=200) "Zone temperature" annotation (Placement(transformation(extent={{-360,
-            -20},{-320,20}}),      iconTransformation(extent={{-140,-20},{-100,
-            20}})));
-  Interfaces.RealInput TSetZonCoo(
+            -20},{-320,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
+  CDL.Interfaces.RealInput TSetZonCoo(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
     min=200) if not heating_only
-    "Zone cooling setpoint temperature during occupancy" annotation (
-      Placement(transformation(extent={{-360,-100},{-320,-60}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Continuous.Add dTHea(k1=+1, k2=-1) if
-                                      not cooling_only
+    "Zone cooling setpoint temperature during occupancy" annotation (Placement(
+        transformation(extent={{-360,-100},{-320,-60}}), iconTransformation(
+          extent={{-140,-100},{-100,-60}})));
+  CDL.Continuous.Add dTHea(k1=+1, k2=-1) if not cooling_only
     "Temperature difference between heating setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-300,60},{-280,80}})));
-  Continuous.Add dTCoo(k1=+1, k2=-1) if
-                                       not heating_only
+  CDL.Continuous.Add dTCoo(k1=+1, k2=-1) if not heating_only
     "Temperature difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-300,20},{-280,40}})));
-  Continuous.Sources.ModelTime modTim
+  CDL.Continuous.Sources.ModelTime modTim
     annotation (Placement(transformation(extent={{-300,-70},{-280,-50}})));
-  Continuous.Modulo mod
+  CDL.Continuous.Modulo mod
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
-  Continuous.Sources.Constant period(k=86400)
+  CDL.Continuous.Sources.Constant period(k=86400)
     "Period of optimal start calculation algorithm"
     annotation (Placement(transformation(extent={{-300,-110},{-280,-90}})));
-  Continuous.Sources.Constant staCal(k=occupancy[1] - tOptMax)
+  CDL.Continuous.Sources.Constant staCal(k=occupancy[1] - tOptMax)
     "Start calculation"
     annotation (Placement(transformation(extent={{-260,-130},{-240,-110}})));
-  Continuous.GreaterEqual greEqu
+  CDL.Continuous.GreaterEqual greEqu
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  Continuous.Hysteresis hys(uLow=uLow, uHigh=uHigh)
+  CDL.Continuous.Hysteresis hys(uLow=uLow, uHigh=uHigh)
     "Comparing zone temperature with zone setpoint"
     annotation (Placement(transformation(extent={{-220,50},{-200,70}})));
-  Logical.Latch lat
+  CDL.Logical.Latch lat
     "Stop calculation when the zone temperature reaches setpoint"
     annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
-  Logical.Timer tim(reset=true)
+  CDL.Logical.Timer tim(reset=true)
     "Record how much time the zone temperature reaches the setpoint"
     annotation (Placement(transformation(extent={{-32,80},{-12,100}})));
 
-  Discrete.TriggeredSampler triSam(y_start=tOptIni)
+  CDL.Discrete.TriggeredSampler triSam(y_start=tOptIni)
     "Record how much time it takes to reach the setpoint with the maximum time cutoff"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Logical.FallingEdge falEdg
+  CDL.Logical.FallingEdge falEdg
     "Get the timing when the zone temperature reaches setpoint"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Logical.TrueHoldWithReset truHol(duration(displayUnit="h") = occupancy[2] -
-      occupancy[1])
+  CDL.Logical.TrueHoldWithReset truHol(duration(displayUnit="h") = occupancy[2]
+       - occupancy[1])
     annotation (Placement(transformation(extent={{-66,80},{-46,100}})));
-  Continuous.LessEqual lesEqu
+  CDL.Continuous.LessEqual lesEqu
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  Continuous.Sources.Constant stoCal(k=occupancy[1]) "Stop calculation"
+  CDL.Continuous.Sources.Constant stoCal(k=occupancy[1]) "Stop calculation"
     annotation (Placement(transformation(extent={{-260,0},{-240,20}})));
-  Logical.Latch latMax "Stop calculation when it reaches the max start time"
+  CDL.Logical.Latch latMax
+    "Stop calculation when it reaches the max start time"
     annotation (Placement(transformation(extent={{-106,80},{-86,100}})));
-  Discrete.TriggeredSampler triSam1
+  CDL.Discrete.TriggeredSampler triSam1
     annotation (Placement(transformation(extent={{240,-40},{260,-20}})));
-  Continuous.Sources.Constant maxStaTim(k=tOptMax)
+  CDL.Continuous.Sources.Constant maxStaTim(k=tOptMax)
     annotation (Placement(transformation(extent={{240,0},{260,20}})));
-  Continuous.Min min
+  CDL.Continuous.Min min
     annotation (Placement(transformation(extent={{280,-10},{300,10}})));
-  Logical.Not not1 "Becomes true when the setpoint is reached"
+  CDL.Logical.Not not1 "Becomes true when the setpoint is reached"
     annotation (Placement(transformation(extent={{-186,70},{-166,90}})));
-  Continuous.Division temSlo "Calculate temperature slope "
+  CDL.Continuous.Division temSlo "Calculate temperature slope "
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
-  Continuous.Division tOptCal
+  CDL.Continuous.Division tOptCal
     "Calculate optimal start time based on the averaged previous temperature slope"
     annotation (Placement(transformation(extent={{280,80},{300,100}})));
-  Continuous.Sources.Constant dT(k=-0.1) if
-                                         cooling_only
+  CDL.Continuous.Sources.Constant dT(k=-0.1) if cooling_only
     "Reset negative temperature difference to -0.1"
     annotation (Placement(transformation(extent={{-300,100},{-280,120}})));
-  Continuous.Max max "Get the effective temperature difference"
+  CDL.Continuous.Max max "Get the effective temperature difference"
     annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
-  Continuous.Sources.Constant dT1(k=-0.1) if
-                                          heating_only
+  CDL.Continuous.Sources.Constant dT1(k=-0.1) if heating_only
     "Reset negative temperature difference to -0.1"
     annotation (Placement(transformation(extent={{-300,-20},{-280,0}})));
-  Continuous.Sources.Constant dT2(k=0)
+  CDL.Continuous.Sources.Constant dT2(k=0)
     "Reset negative temperature difference to zero"
     annotation (Placement(transformation(extent={{-260,110},{-240,130}})));
-  Continuous.Max max1
+  CDL.Continuous.Max max1
     annotation (Placement(transformation(extent={{-218,110},{-198,130}})));
-  Continuous.Sources.Constant zeroOpt(k=0)
+  CDL.Continuous.Sources.Constant zeroOpt(k=0)
     "Avoid zero division cases when the optimal start time is 0"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Logical.Switch swi
+  CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Continuous.Sources.Constant defOptTim(k=tOptIni)
+  CDL.Continuous.Sources.Constant defOptTim(k=tOptIni)
     "Default optimal start time in case of zero division"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Continuous.Sources.Constant zeroTemSlo(k=0)
+  CDL.Continuous.Sources.Constant zeroTemSlo(k=0)
     "Avoid zero divison when the temperature slope is 0"
     annotation (Placement(transformation(extent={{152,30},{172,50}})));
-  Logical.Switch swi1
+  CDL.Logical.Switch swi1
     annotation (Placement(transformation(extent={{240,80},{260,100}})));
-  Continuous.Sources.Constant defTemSlo(k=temSloDef)
+  CDL.Continuous.Sources.Constant defTemSlo(k=temSloDef)
     "Default temperature slope in case of zero division"
     annotation (Placement(transformation(extent={{192,30},{212,50}})));
-  Logical.And and2 "Duration that it takes to reach the setpoint"
+  CDL.Logical.And and2 "Duration that it takes to reach the setpoint"
     annotation (Placement(transformation(extent={{-76,50},{-56,70}})));
-  Interfaces.BooleanOutput yStart "Boolean signal of optimal start duration"
-    annotation (Placement(transformation(extent={{320,-80},{360,-40}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
-  Interfaces.RealOutput tOpt "Optimal start time of HVAC system" annotation (
-      Placement(transformation(extent={{320,40},{360,80}}), iconTransformation(
-          extent={{100,20},{140,60}})));
-  Continuous.Greater gre
+  CDL.Interfaces.BooleanOutput yStart
+    "Boolean signal of optimal start duration" annotation (Placement(
+        transformation(extent={{320,-80},{360,-40}}), iconTransformation(extent
+          ={{100,-80},{140,-40}})));
+  CDL.Interfaces.RealOutput tOpt "Optimal start time of HVAC system"
+    annotation (Placement(transformation(extent={{320,40},{360,80}}),
+        iconTransformation(extent={{100,20},{140,60}})));
+  CDL.Continuous.Greater gre
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Continuous.Greater gre1
+  CDL.Continuous.Greater gre1
     annotation (Placement(transformation(extent={{200,80},{220,100}})));
+  CDL.Discrete.TriggeredMovingMean triMovMea(n=5)
+    annotation (Placement(transformation(extent={{160,80},{180,100}})));
 protected
     parameter Modelica.SIunits.TemperatureSlope temSloDef = 1/3600
     "Default temperature slope in case of zero division";
@@ -253,12 +251,12 @@ equation
           110},{230,110},{230,98},{238,98}}, color={0,0,127}));
   connect(defTemSlo.y, swi1.u3) annotation (Line(points={{214,40},{230,40},{230,
           82},{238,82}}, color={0,0,127}));
-  connect(hys.y, triMovMea.trigger) annotation (Line(points={{-198,60},{-194,60},
-          {-194,20},{140,20},{140,68},{170,68},{170,78.2}}, color={255,0,255}));
   connect(max.y, max1.u2) annotation (Line(points={{-238,50},{-230,50},{-230,
           114},{-220,114}}, color={0,0,127}));
   connect(greEqu.y, triSam1.trigger) annotation (Line(points={{-178,-90},{250,
           -90},{250,-41.8}}, color={255,0,255}));
+  connect(hys.y, triMovMea.trigger) annotation (Line(points={{-198,60},{-194,60},
+          {-194,20},{140,20},{140,66},{170,66},{170,78}}, color={255,0,255}));
   annotation (
 defaultComponentName="optSta",
   Documentation(info="<html>
