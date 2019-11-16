@@ -7,17 +7,6 @@ partial model PartialOpenLoop
 
   constant Integer numZon=5 "Total number of served VAV boxes";
 
-//   parameter Modelica.SIunits.Volume VRooCor=AFloCor*flo.hRoo
-//     "Room volume corridor";
-//   parameter Modelica.SIunits.Volume VRooSou=AFloSou*flo.hRoo
-//     "Room volume south";
-//   parameter Modelica.SIunits.Volume VRooNor=AFloNor*flo.hRoo
-//     "Room volume north";
-//   parameter Modelica.SIunits.Volume VRooEas=AFloEas*flo.hRoo
-//     "Room volume east";
-//   parameter Modelica.SIunits.Volume VRooWes=AFloWes*flo.hRoo
-//     "Room volume west";
-
   parameter Modelica.SIunits.Volume VRooCor=flo.VRooCor
     "Room volume corridor";
   parameter Modelica.SIunits.Volume VRooSou=flo.VRooSou
@@ -67,9 +56,6 @@ partial model PartialOpenLoop
     "Building static pressure";
   parameter Real yFanMin = 0.1 "Minimum fan speed";
 
-//  parameter Modelica.SIunits.HeatFlowRate QHeaCoi_nominal= 2.5*yFanMin*m_flow_nominal*1000*(20 - 4)
-//    "Nominal capacity of heating coil";
-
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Evaluate=true);
@@ -79,7 +65,7 @@ partial model PartialOpenLoop
   parameter Boolean sampleModel=true
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
     annotation (Evaluate=true, Dialog(tab=
-          "Experimental (may be changed in future releases)"));
+    "Experimental (may be changed in future releases)"));
 
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
       nPorts=3) "Ambient conditions"

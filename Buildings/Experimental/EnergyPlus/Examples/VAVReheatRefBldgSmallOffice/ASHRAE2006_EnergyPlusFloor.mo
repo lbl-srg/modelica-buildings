@@ -1,4 +1,4 @@
-within Buildings.Examples.VAVReheat;
+within Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice;
 model ASHRAE2006_EnergyPlusFloor
   "Variable air volume flow system with terminal reheat and five thermal zones using the EnergyPlus floor model"
   extends Modelica.Icons.Example;
@@ -15,43 +15,48 @@ model ASHRAE2006_EnergyPlusFloor
     displayUnit="degC",
     min=0), k=273.15 + 10) "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-180,-172},{-160,-152}})));
-  Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
-        yFanMin)
-    "Controller for fan"
+  Buildings.Examples.VAVReheat.Controls.FanVFD conFanSup(xSet_nominal(
+        displayUnit="Pa") = 410, r_N_min=yFanMin) "Controller for fan"
     annotation (Placement(transformation(extent={{240,-10},{260,10}})));
-  Controls.ModeSelector modeSelector
+  Buildings.Examples.VAVReheat.Controls.ModeSelector modeSelector
     annotation (Placement(transformation(extent={{-200,-320},{-180,-300}})));
-  Controls.ControlBus controlBus
+  Buildings.Examples.VAVReheat.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-250,-352},{-230,-332}})));
 
-  Controls.Economizer conEco(
+  Buildings.Examples.VAVReheat.Controls.Economizer conEco(
     dT=1,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
     Ti=600,
     k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
-  Controls.RoomTemperatureSetpoint TSetRoo(
+  Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint TSetRoo(
     final THeaOn=THeaOn,
     final THeaOff=THeaOff,
     final TCooOn=TCooOn,
     final TCooOff=TCooOff)
     annotation (Placement(transformation(extent={{-300,-358},{-280,-338}})));
-  Controls.DuctStaticPressureSetpoint pSetDuc(
+  Buildings.Examples.VAVReheat.Controls.DuctStaticPressureSetpoint pSetDuc(
     nin=5,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
-  Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
+  Buildings.Examples.VAVReheat.Controls.CoolingCoilTemperatureSetpoint TSetCoo
+    "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-130,-212},{-110,-192}})));
-  Controls.RoomVAV conVAVCor "Controller for terminal unit corridor"
+  Buildings.Examples.VAVReheat.Controls.RoomVAV conVAVCor
+    "Controller for terminal unit corridor"
     annotation (Placement(transformation(extent={{530,32},{550,52}})));
-  Controls.RoomVAV conVAVSou "Controller for terminal unit south"
+  Buildings.Examples.VAVReheat.Controls.RoomVAV conVAVSou
+    "Controller for terminal unit south"
     annotation (Placement(transformation(extent={{700,30},{720,50}})));
-  Controls.RoomVAV conVAVEas "Controller for terminal unit east"
+  Buildings.Examples.VAVReheat.Controls.RoomVAV conVAVEas
+    "Controller for terminal unit east"
     annotation (Placement(transformation(extent={{880,30},{900,50}})));
-  Controls.RoomVAV conVAVNor "Controller for terminal unit north"
+  Buildings.Examples.VAVReheat.Controls.RoomVAV conVAVNor
+    "Controller for terminal unit north"
     annotation (Placement(transformation(extent={{1040,30},{1060,50}})));
-  Controls.RoomVAV conVAVWes "Controller for terminal unit west"
+  Buildings.Examples.VAVReheat.Controls.RoomVAV conVAVWes
+    "Controller for terminal unit west"
     annotation (Placement(transformation(extent={{1240,28},{1260,48}})));
   Buildings.Controls.Continuous.LimPID heaCoiCon(
     yMax=1,

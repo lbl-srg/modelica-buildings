@@ -121,26 +121,25 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   Modelica.Blocks.Routing.Multiplex5 multiplex5_1
     annotation (Placement(transformation(extent={{340,280},{360,300}})));
 
-
   Airflow.Multizone.DoorDiscretizedOpen opeSouCor(redeclare package Medium =
         Medium, wOpe=10,
     forceErrorControlOnFlow=false)
-                         "Opening between perimeter1 and core"
+    "Opening between perimeter1 and core"
     annotation (Placement(transformation(extent={{84,0},{104,20}})));
   Airflow.Multizone.DoorDiscretizedOpen opeEasCor(redeclare package Medium =
         Medium, wOpe=10,
     forceErrorControlOnFlow=false)
-                         "Opening between perimeter2 and core"
+    "Opening between perimeter2 and core"
     annotation (Placement(transformation(extent={{250,38},{270,58}})));
   Airflow.Multizone.DoorDiscretizedOpen opeNorCor(redeclare package Medium =
         Medium, wOpe=10,
     forceErrorControlOnFlow=false)
-                         "Opening between perimeter3 and core"
+    "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{80,74},{100,94}})));
   Airflow.Multizone.DoorDiscretizedOpen opeWesCor(redeclare package Medium =
         Medium, wOpe=10,
     forceErrorControlOnFlow=false)
-                         "Opening between perimeter3 and core"
+    "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
     table=[0,0.05;
@@ -170,8 +169,6 @@ partial model PartialFloor "Interface for a model of a floor of a building"
     "Gain to change the internal heat gain for south"
     annotation (Placement(transformation(extent={{-60,-38},{-40,-18}})));
 
-//equations
-
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},
             {400,500}}, initialScale=0.1)),
     Documentation(info="<html>
@@ -184,8 +181,9 @@ fixme: this model should live somewhere else as the ThermalZone.Floor also exten
 revisions="<html>
 <ul>
 <li>
-November 14, 2019, by Milica Grahovac:<br/>
-Extracted interfaces and common parameters found in thermal zone models.
+November 15, 2019, by Milica Grahovac:<br/>
+First implementation of the partial floor model based on
+common floor model elements.
 </li>
 </ul>
 </html>"),
