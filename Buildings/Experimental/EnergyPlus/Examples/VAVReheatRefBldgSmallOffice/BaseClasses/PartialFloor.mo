@@ -169,6 +169,93 @@ partial model PartialFloor "Interface for a model of a floor of a building"
     "Gain to change the internal heat gain for south"
     annotation (Placement(transformation(extent={{-60,-38},{-40,-18}})));
 
+equation
+  connect(weaBus, leaSou.weaBus) annotation (Line(
+      points={{210,200},{-80,200},{-80,400},{-58,400}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaBus, leaEas.weaBus) annotation (Line(
+      points={{210,200},{-80,200},{-80,360},{-58,360}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaBus, leaNor.weaBus) annotation (Line(
+      points={{210,200},{-80,200},{-80,320},{-56,320}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaBus, leaWes.weaBus) annotation (Line(
+      points={{210,200},{-80,200},{-80,280},{-56,280}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(out.weaBus, weaBus) annotation (Line(
+      points={{-58,250.2},{-70,250.2},{-70,250},{-80,250},{-80,200},{210,200}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(gai.y, gaiIntSou.u) annotation (Line(
+      points={{-79,110},{-68,110},{-68,-28},{-62,-28}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(gai.y, gaiIntNor.u) annotation (Line(
+      points={{-79,110},{-68,110},{-68,144},{-62,144}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(intGaiFra.y, gai.u) annotation (Line(
+      points={{-119,110},{-102,110}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(multiplex5_1.y, TRooAir) annotation (Line(
+      points={{361,290},{372,290},{372,160},{390,160}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(temAirSou.T, multiplex5_1.u1[1]) annotation (Line(
+      points={{310,350},{328,350},{328,300},{338,300}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(temAirEas.T, multiplex5_1.u2[1]) annotation (Line(
+      points={{312,320},{324,320},{324,295},{338,295}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(temAirNor.T, multiplex5_1.u3[1]) annotation (Line(
+      points={{312,290},{338,290}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(temAirWes.T, multiplex5_1.u4[1]) annotation (Line(
+      points={{312,258},{324,258},{324,285},{338,285}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(temAirPer5.T, multiplex5_1.u5[1]) annotation (Line(
+      points={{314,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(uSha.y, replicator.u) annotation (Line(
+      points={{-59,180},{-42,180}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(senRelPre.p_rel, p_rel) annotation (Line(
+      points={{50,241},{50,220},{-170,220}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(out.ports[1], senRelPre.port_b) annotation (Line(
+      points={{-38,250},{40,250}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},
             {400,500}}, initialScale=0.1)),
     Documentation(info="<html>
