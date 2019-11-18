@@ -1,0 +1,31 @@
+﻿// Simulate
+simulateModel("Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus", stopTime=172800, method="dassl", resultFile="MerkelEnergyPlus");
+// Plot commands
+removePlots(true);
+createPlot(id=1, position={36, 11, 592, 558}, 
+  y={"tow.Q_flow", "Q_flow_EP.y"}, 
+  range={0.0, 180000.0, -30000.0, 5000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={36, 11, 592, 277}, 
+  y={"tow.TLvg", "TLvg_EP.y"}, 
+  range={0.0, 180000.0, 24.0, 40.0}, 
+  autoscale=false, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"degC", ""});
+  createPlot(id=2, position={636, 11, 592, 557}, 
+  y={"tow.PFan", "pFan_EP.y", "tow.y"}, 
+  range={0.0, 2.0, -20.0, 100.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Dash}, 
+  range2={-0.1, 0.5}, 
+  axes={1, 1, 2});
+  createPlot(id=2, position={636, 11, 592, 276}, 
+  y={"tow.m2_flow", "mWat_flow_EP.y"}, 
+  range={0.0, 2.0, -0.2, 1.2}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}});
