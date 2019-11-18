@@ -155,6 +155,17 @@ its class name ends with the string <code>Beta</code>.
     to <b style=\"color:blue\">existing</b> libraries:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean
+        </td>
+        <td valign=\"top\">Block that outputs the triggered discrete moving mean of an input signal.
+                           This replaces <code>Buildings.Controls.OBC.CDL.Discrete.MovingMean</code>, which
+                           has been moved to <code>Buildings.Obsolete</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue #1588</a>.
+        </td>
+        </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
@@ -188,7 +199,7 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Revised implementation such that the meaning of <code>time</code> is better explained
                            and unix time stamps are correctly defined with respect to GMT.
                            Added option unix time stamp GMT.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">IBPSA, #1192</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1232\">IBPSA, #1232</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Timer
@@ -200,10 +211,32 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">
+                           Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayLinear<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayPolynomial<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening<br/>
+                           Buildings.Fluid.Actuators.Valves.TwoWayTable
+        </td>
+        <td valign=\"top\">Improved implementation to guard against control input that is negative.
+                           The new implementation constrains the input to be bigger than <i>0</i>.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1233\">IBPSA, #1233</a>.
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.shaGFunction
         </td>
         <td valign=\"top\">Declared string as a constant due to JModelica's tigther type checking.<br/>
-                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1230\">IBPSA, #1230</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1230\">IBPSA, #1230</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
+                           Buildings.Fluid.Storage.StratifiedEnhanced<br/>
+                           Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+        </td>
+        <td valign=\"top\">Provided option to initialize the tank temperature at different values across the height of the tank.<br/>
+        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1246\">IBPSA, #1246</a>.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector
@@ -287,7 +320,14 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState
         </td>
         <td valign=\"top\">Improved the implementation to avoid issues when heating and cooling controls occur at the same time.
-     <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.MovingMean
+        </td>
+        <td valign=\"top\">This block became obsolete, use <code>Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</code> instead.<br/>
+                           For Dymola, a conversion script makes this change.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
         </td>
     </tr>
     <tr><td valign=\"top\">
@@ -373,6 +413,23 @@ its class name ends with the string <code>Beta</code>.
                            Prior to this change, use of these media led to a translation error.<br/>
                            This is for
                            <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
+        </td>
+    </tr>
+    </table>
+    <!-- Obsolete components -->
+    <p>
+    The following components have become <b style=\"color:blue\">obsolete</b>:
+    </p>
+    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Obsolete.Controls.OBC.CDL.Discrete.MovingMean
+        </td>
+        <td valign=\"top\">The block <code>Buildings.Controls.OBC.CDL.Discrete.TriggeredMovingMean</code>
+                           replaced the original <code>MovingMean</code> block.<br/>
+                           For Dymola, a conversion script makes this change.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-buildings/issues/1588\">issue #1588</a>.
         </td>
     </tr>
     </table>
@@ -7525,7 +7582,11 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
+<li>Hagar Elarga, Lawrence Berkeley National Laboratory, USA
+</li>
 <li>Yangyang Fu, University of Colorado at Boulder, Colorado, USA
+</li>
+<li>Antoine Gautier, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
 </li>
@@ -7574,6 +7635,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Rebecca Zarin Pass, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Kun Zhang, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Wangda Zuo, University of Colorado at Boulder, Colorado, USA
 </li>
