@@ -28,12 +28,16 @@ model TraceSubstancesFlowSource
     annotation (Placement(transformation(extent={{90,40},{110,-40}})));
 
 protected
+  parameter Medium.ExtraProperty C_in_internal[Medium.nC](
+    final quantity=Medium.extraPropertiesNames)=
+     {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
+                                             string2=substanceName,
+                                             caseSensitive=false)) then 1 else 0
+                                             for i in 1:Medium.nC}
+     "Boundary trace substances"
+     annotation(Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(final unit="kg/s")
     "Needed to connect to conditional connector";
-  parameter Medium.ExtraProperty C_in_internal[Medium.nC](
-    each fixed=false,
-    final quantity=Medium.extraPropertiesNames) "Boundary trace substances"
-    annotation (Dialog(enable = Medium.nC > 0));
 
   Modelica.SIunits.SpecificEnthalpy h_default=
     Medium.specificEnthalpy(Medium.setState_pTX(
@@ -42,20 +46,11 @@ protected
       Medium.X_default))
       "Enthalpy of outstreaming medium";
 
-initial algorithm
-  for i in 1:Medium.nC loop
-    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
-                                            string2=substanceName,
-                                            caseSensitive=false)) then
-      C_in_internal[i] := 1;
-    else
-      C_in_internal[i] := 0;
-    end if;
-  end for;
+initial equation
   assert(sum(C_in_internal) > 1E-4, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check source parameter and medium model.");
-initial equation
+
   // Only one connection allowed to a port to avoid unwanted ideal mixing
   for i in 1:nPorts loop
     assert(cardinality(ports[i]) <= 1,"
@@ -110,6 +105,11 @@ which is more efficient than using this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 14, 2019, by Michael Wetter:<br/>
+Rewrote assignment of <code>C_in_internal</code> to avoid an initial algorithm section.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1250\">#1250</a>.
+</li>
 <li>
 January 23, 2019, by Michael Wetter:<br/>
 Refactored implementation to provide default medium choice.
