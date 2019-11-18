@@ -1,7 +1,8 @@
 within Buildings.Fluid.Geothermal.Borefields;
-model OneUTubeDemo
-  "Borefield model containing single U-tube boreholes"
-  extends Buildings.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefieldDemo(
+model OneUTubeWithTough
+  "Borefield model containing single U-tube boreholes, with ground response calcuted by TOUGH"
+  extends
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefieldWithTough(
     redeclare Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube borHol);
 
   annotation (
@@ -32,4 +33,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OneUTubeDemo;
+end OneUTubeWithTough;

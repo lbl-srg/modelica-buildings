@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses;
-partial model PartialBorefieldDemo
+partial model PartialBorefieldWithTough
   "Borefield model using single U-tube borehole heat exchanger configuration.Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
 
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
@@ -98,7 +98,8 @@ partial model PartialBorefieldDemo
     final TGro_start=TGro_start) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
-  GroundResponse.Response response(nSeg=nSeg)
+  GroundResponse.ResponsePython
+                          toughRes(nSeg=nSeg)
     annotation (Placement(transformation(extent={{8,40},{28,60}})));
 protected
   parameter Modelica.SIunits.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
@@ -118,11 +119,9 @@ protected
     "Average temperature of all the borehole segments"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
-  Modelica.Blocks.Sources.Constant TSoiUnd[nSeg](
-    k = TExt_start,
-    y(each unit="K",
-      each displayUnit="degC"))
-    "Undisturbed soil temperature"
+  Modelica.Blocks.Sources.Constant TBorHol_start[nSeg](k=TExt_start, y(each
+        unit="K", each displayUnit="degC"))
+    "Borehole outer wall start temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor QBorHol[nSeg]
@@ -153,14 +152,14 @@ equation
           0},{0,0},{0,4},{90,4},{90,20},{80,20}},   color={191,0,0}));
   connect(AveTBor.y, TBorAve)
     annotation (Line(points={{81,50},{110,50}}, color={0,0,127}));
-  connect(TSoiUnd.y, response.TExt_start)
-    annotation (Line(points={{-19,20},{0,20},{0,44},{7,44}}, color={0,0,127}));
-  connect(QBorHol.Q_flow, response.QBor_flow) annotation (Line(points={{-10,-10},
-          {-60,-10},{-60,56},{7,56}}, color={0,0,127}));
-  connect(response.TBorWal, AveTBor.u)
+  connect(toughRes.TBorWal, AveTBor.u)
     annotation (Line(points={{29,50},{58,50}}, color={0,0,127}));
-  connect(response.TBorWal, TemBorWal.T) annotation (Line(points={{29,50},{40,50},
+  connect(toughRes.TBorWal, TemBorWal.T) annotation (Line(points={{29,50},{40,50},
           {40,20},{58,20}}, color={0,0,127}));
+  connect(TBorHol_start.y, toughRes.TBorWal_start)
+    annotation (Line(points={{-19,20},{0,20},{0,44},{7,44}}, color={0,0,127}));
+  connect(QBorHol.Q_flow, toughRes.QBor_flow) annotation (Line(points={{-10,-10},
+          {-60,-10},{-60,56},{7,56}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -285,4 +284,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PartialBorefieldDemo;
+end PartialBorefieldWithTough;

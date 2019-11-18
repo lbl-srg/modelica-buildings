@@ -1,0 +1,34 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.Examples.BorefieldsWithTough", startTime=0, method="Cvode", tolerance=1e-6, stopTime=36000, resultFile="BorefieldsWithTough");
+createPlot(
+  id=1,
+  position={0, 0, 1268, 900},
+  y={"TUTubIn.T", "TUTubOut.T", "TUTubIn1.T", "TUTubOut1.T"},
+  range={0.0, 36000.0, 5.0, 35.0},
+  grid=true,
+  subPlot=1,
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}},
+  filename = "BorefieldsWithTough.mat");
+
+createPlot(
+  id=1,
+  position={0, 0, 1268, 900},
+  y={"borFieUTub.borHol.intHex[10].vol1.heatPort.T", "borFieUTubWitTou.borHol.intHex[10].vol1.heatPort.T"},
+  range={0.0, 36000.0, 5.0, 30.0},
+  grid=true,
+  subPlot=2,
+  colors={{28,108,200}, {238,46,47}},
+  filename = "BorefieldsWithTough.mat");
+
+createPlot(
+  id=1,
+  position={0, 0, 1268, 900},
+  y={"borFieUTub.borHol.intHex[10].vol2.heatPort.T", "borFieUTubWitTou.borHol.intHex[10].vol2.heatPort.T"},
+  range={0.0, 36000.0, 5.0, 30.0},
+  grid=true,
+  subPlot=3,
+  colors={{28,108,200}, {238,46,47}},
+  filename = "BorefieldsWithTough.mat");
+
+
+
+

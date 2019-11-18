@@ -1,6 +1,6 @@
 within Buildings.Fluid.Geothermal.Borefields.Examples;
-model BorefieldsDemo
-  "Example model with several borefield configurations operating simultaneously"
+model BorefieldsWithTough
+  "Example model of single u-tube borefield with ground responses calculated by g-function and TOUGH simulation"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water;
@@ -52,17 +52,16 @@ model BorefieldsDemo
     "Inlet temperature of the borefield with UTube configuration"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
-  Data.Borefield.Example                                       borFieUTubDat1(conDat=
+  Data.Borefield.Example borFieUTubDat1(conDat=
         Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(borCon=
         Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube))
     annotation (Placement(transformation(extent={{70,-78},{90,-58}})));
-  OneUTubeDemo                                   borFieUTub1(
+  Buildings.Fluid.Geothermal.Borefields.OneUTubeWithTough borFieUTubWitTou(
     redeclare package Medium = Medium,
     borFieDat=borFieUTubDat1,
     dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    TExt0_start=TGro)
-    "Borefield with a U-tube borehole configuration"
+    TExt0_start=TGro) "Borefield with a U-tube borehole configuration"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Sources.MassFlowSource_T                 sou1(
     redeclare package Medium = Medium,
@@ -102,13 +101,13 @@ equation
     annotation (Line(points={{60,60},{70,60}},            color={0,127,255}));
   connect(sou1.ports[1], TUTubIn1.port_a)
     annotation (Line(points={{-72,-40},{-60,-40}}, color={0,127,255}));
-  connect(TUTubIn1.port_b, borFieUTub1.port_a)
+  connect(TUTubIn1.port_b, borFieUTubWitTou.port_a)
     annotation (Line(points={{-40,-40},{-10,-40}}, color={0,127,255}));
-  connect(borFieUTub1.port_b, TUTubOut1.port_a)
+  connect(borFieUTubWitTou.port_b, TUTubOut1.port_a)
     annotation (Line(points={{10,-40},{40,-40}}, color={0,127,255}));
   connect(TUTubOut1.port_b, sin1.ports[1])
     annotation (Line(points={{60,-40},{70,-40}}, color={0,127,255}));
-  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/Borefields.mos"
+  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/BorefieldsWithTough.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -127,4 +126,4 @@ First implementation.
 </html>"),
     experiment(
       StopTime=36000,Tolerance=1e-6));
-end BorefieldsDemo;
+end BorefieldsWithTough;
