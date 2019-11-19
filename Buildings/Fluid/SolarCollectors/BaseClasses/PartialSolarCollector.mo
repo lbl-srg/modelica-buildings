@@ -98,7 +98,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final C_nominal=C_nominal,
     each final mSenFac=mSenFac,
     each final allowFlowReversal=allowFlowReversal,
-    each final prescribedHeatFlowRate=true)
+    each final prescribedHeatFlowRate=false)
     "Volume of fluid in one segment of the solar collector"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -236,6 +236,13 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 12, 2019, by Filip Jorissen:<br/>
+Set <code>prescribedHeatFlowRate=false</code>
+to avoid a division by zero at zero flow when using SteadyState dynamics.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1636\">Buildings, issue 1636</a>.
+</li>
 <li>
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>
