@@ -1,6 +1,7 @@
 HeatingOrCooling
+HeatingOrCoolingWetCoil
 HeatFlowEffectiveness
-HeatFlowControl
+HeatFlowWetCoil
 FirstOrderODE
-PartialBuilding
 Test
+PartialBuilding
