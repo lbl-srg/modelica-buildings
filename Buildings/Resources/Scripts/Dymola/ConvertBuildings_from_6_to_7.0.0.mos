@@ -5,6 +5,9 @@ clear
 
 convertClear();
 
+convertClass("Buildings.Controls.OBC.CDL.Discrete.MovingMean",
+             "Buildings.Obsolete.Controls.OBC.CDL.Discrete.MovingMean");
+
 //refactoring of alpha to hCon or hRad
 convertElement(
     "IBPSA.ThermalZones.ReducedOrder.RC.OneElement",

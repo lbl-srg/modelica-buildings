@@ -1,15 +1,18 @@
 within Buildings.Fluid.Actuators.Valves;
 model TwoWayQuickOpening
   "Two way valve with quick opening flow characteristics"
-  extends BaseClasses.PartialTwoWayValveKv(phi=if homotopyInitialization then
-        homotopy(actual=l + Modelica.Fluid.Utilities.regPow(
-        y_actual,
-        alpInv,
-        delta0)*(1 - l), simplified=l + y_actual*(1 - l)) else l +
-        Modelica.Fluid.Utilities.regPow(
-        y_actual,
-        alpInv,
-        delta0)*(1 - l));
+  extends BaseClasses.PartialTwoWayValveKv(
+    phi=max(0,
+         if homotopyInitialization then
+           homotopy(
+             actual=l + Modelica.Fluid.Utilities.regPow(
+               y_actual,
+               alpInv,
+               delta0)*(1 - l),
+             simplified=l + y_actual*(1 - l))
+          else
+            l + Modelica.Fluid.Utilities.regPow(y_actual, alpInv, delta0)*(1 - l)));
+
   parameter Real alp = 2 "Parameter for valve characteristics, alp>0";
   parameter Real delta0 = 0.01 "Range of significant deviation from power law";
 protected
@@ -35,6 +38,14 @@ as the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 9, 2019, by Filip Jorissen:<br/>
+Guarded the computation of <code>phi</code> using
+<code>max(0, . )</code> to avoid
+negative phi.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
+issue 1223</a>.
+</li>
 <li>
 April 4, 2014, by Michael Wetter:<br/>
 Moved the assignment of the flow function <code>phi</code>
