@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.Utilities;
 package Validation
+  extends Modelica.Icons.ExamplesPackage;
   model OptimalStart
     extends Modelica.Icons.Example;
     CDL.Continuous.Sources.Constant TSetHea(k=21 + 273.15)
