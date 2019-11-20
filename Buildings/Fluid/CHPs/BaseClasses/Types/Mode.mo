@@ -6,7 +6,7 @@ type Mode = enumeration(
     WarmUp "Warm-up mode",
     Normal "Normal operating mode",
     CoolDown "Cool down before going to stand-by or off mode")
-  "Enumeration for mode types"
+  "Enumeration for operation mode types"
 annotation (
   Documentation(info="<html>
 <p>

@@ -5,7 +5,8 @@ model WaterInternalControl "Validate model WaterInternalControl"
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Buildings.Fluid.CHPs.BaseClasses.WaterInternalControl conWat(final per=per)
+  Buildings.Fluid.CHPs.BaseClasses.WaterInternalControl conWat(
+    final per=per)
     "Internal controller for water flow rate"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
@@ -18,6 +19,7 @@ protected
     "Water flow rate"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Fluid.CHPs.BaseClasses.Controller con(final per=per)
+    "Operation mode controller"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Modelica.Blocks.Sources.BooleanTable runSig(
     final startValue=false,
@@ -51,8 +53,7 @@ equation
   connect(runSig.y, con.runSig) annotation (Line(points={{-59,30},{-42,30},{-42,
           78},{-2,78}}, color={255,0,255}));
   connect(TEng.y, con.TEng) annotation (Line(points={{-58,-50},{-30,-50},{-30,
-          68},{-2,68}},
-                    color={0,0,127}));
+          68},{-2,68}}, color={0,0,127}));
   connect(con.opeMod, conWat.opeMod) annotation (Line(points={{21,70},{40,70},{40,
           7},{59,7}}, color={0,127,0}));
   connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{2,-30},{20,-30},
@@ -75,6 +76,10 @@ for calculating the optimum cooling water flow rate based on internal contol.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2019, by Jianjun Hu:<br/>
+Refactored implementation.
+</li>
 <li>
 July 01 2019, by Tea Zakula:<br/>
 First implementation.

@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.BaseClasses.Functions;
 function polynomialtrivariate
+  "Polynominal function used for coefficient calculation"
  extends Modelica.Icons.Function;
  input Real x1 "Independent variable";
  input Real x2 "Independent variable";

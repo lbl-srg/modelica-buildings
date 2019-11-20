@@ -26,30 +26,30 @@ model EngineConVol "Validate model EngineConVol"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
 protected
-  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
+  Buildings.HeatTransfer.Sources.PrescribedTemperature rooTem
     "Room temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem1
-    "Room temperature"
+  Buildings.HeatTransfer.Sources.PrescribedTemperature cooWatTem
+    "Entering cooling water temperature"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation
   connect(QGen.y, eng.QGen) annotation (Line(points={{-38,10},{38,10}},
           color={0,0,127}));
-  connect(preTem.port, eng.TRoo) annotation (Line(points={{0,50},{20,50},{20,
+  connect(rooTem.port, eng.TRoo) annotation (Line(points={{0,50},{20,50},{20,
           15.8},{40,15.8}}, color={191,0,0}));
-  connect(preTem.T, TRoo.y) annotation (Line(points={{-22,50},{-38,50}},
+  connect(rooTem.T, TRoo.y) annotation (Line(points={{-22,50},{-38,50}},
           color={0,0,127}));
-  connect(preTem1.T, TWat.y) annotation (Line(points={{-22,-30},{-38,-30}},
+  connect(cooWatTem.T, TWat.y) annotation (Line(points={{-22,-30},{-38,-30}},
           color={0,0,127}));
-  connect(preTem1.port,eng.TWat) annotation (Line(points={{0,-30},{20,-30},{20,
+  connect(cooWatTem.port, eng.TWat) annotation (Line(points={{0,-30},{20,-30},{20,
           4},{40,4}}, color={191,0,0}));
 
 annotation (
-    experiment(StopTime=1500, Tolerance=1e-6),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/EngineConVol.mos"
+  experiment(StopTime=1500, Tolerance=1e-6),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/EngineConVol.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.EngineConVol\">
@@ -58,6 +58,10 @@ for defining the heat exchange within the engine control volume.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2019, by Jianjun Hu:<br/>
+Refactored implementation.
+</li>
 <li>
 July 01 2019, by Tea Zakula:<br/>
 First implementation.

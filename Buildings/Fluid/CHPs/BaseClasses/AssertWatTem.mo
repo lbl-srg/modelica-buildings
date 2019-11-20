@@ -19,7 +19,7 @@ model AssertWatTem
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="Water temperature is higher than the maximum!")
     "Assert function for checking water temperature"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
@@ -37,7 +37,7 @@ equation
   connect(hys.y, not1.u)
     annotation (Line(points={{-18,0},{18,0}}, color={255,0,255}));
   connect(not1.y, assMes.u)
-    annotation (Line(points={{42,0},{78,0}}, color={255,0,255}));
+    annotation (Line(points={{42,0},{58,0}}, color={255,0,255}));
 
 annotation (
   defaultComponentName="assWatTem",

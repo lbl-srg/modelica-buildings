@@ -46,18 +46,23 @@ equation
           color={0,0,127}));
 
 annotation (
-    experiment(StopTime=3000, Tolerance=1e-6),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/PowerConsumption.mos"
+  experiment(StopTime=3000, Tolerance=1e-6),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/PowerConsumption.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.PowerConsumption\">
 Buildings.Fluid.CHPs.BaseClasses.PowerConsumption</a>
-for calculating the power consumption during the stand-by and cool-down modes of operation.
+for calculating the power consumption during the stand-by and cool-down modes of 
+operation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2019, by Jianjun Hu:<br/>
+Refactored implementation.
+</li>
 <li>
 July 01 2019, by Tea Zakula:<br/>
 First implementation.

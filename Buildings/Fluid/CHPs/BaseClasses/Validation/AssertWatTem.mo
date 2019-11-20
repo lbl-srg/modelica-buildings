@@ -3,7 +3,7 @@ model AssertWatTem "Validate model AssertWatTem"
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
-    annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Fluid.CHPs.BaseClasses.AssertWatTem assWatTem(
     final per=per)

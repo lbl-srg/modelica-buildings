@@ -47,11 +47,11 @@ protected
 
 equation
   if norm.active then
-    actMod = CHPs.BaseClasses.Types.Mode.Normal;
+    actMod = Buildings.Fluid.CHPs.BaseClasses.Types.Mode.Normal;
   elseif cooDow.active then
-    actMod = CHPs.BaseClasses.Types.Mode.CoolDown;
+    actMod = Buildings.Fluid.CHPs.BaseClasses.Types.Mode.CoolDown;
   else
-    actMod = CHPs.BaseClasses.Types.Mode.Off;
+    actMod = Buildings.Fluid.CHPs.BaseClasses.Types.Mode.Off;
   end if;
   connect(transition4.outPort, norm.inPort[1]) annotation (Line(points={{-41.5,0},
           {-90,0},{-90,50.5},{-81,50.5}}, color={0,0,0}));
@@ -92,10 +92,10 @@ equation
                                                  color={255,0,255}));
 
 annotation (
-    experiment(StopTime=900, Tolerance=1e-6),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/CoolDown.mos"
+  experiment(StopTime=900, Tolerance=1e-6),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/CoolDown.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.CoolDown\">
@@ -104,6 +104,10 @@ for defining the cool-down operating mode.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2019, by Jianjun Hu:<br/>
+Refactored implementation.
+</li>
 <li>
 July 01 2019, by Tea Zakula:<br/>
 First implementation.

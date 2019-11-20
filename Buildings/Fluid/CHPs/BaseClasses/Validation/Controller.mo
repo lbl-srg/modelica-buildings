@@ -10,7 +10,8 @@ model Controller "Validate model Controller"
     table={900,960,1200,2200})
     "Plant run signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Fluid.CHPs.BaseClasses.Controller con(final per=per) "Main controller"
+  Buildings.Fluid.CHPs.BaseClasses.Controller con(final per=per)
+    "Operation mode controller"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.BooleanTable avaSig(
     final startValue=false,
@@ -41,10 +42,10 @@ equation
           -10,-30},{-10,12},{18,12}}, color={0,0,127}));
 
 annotation (
-    experiment(StopTime=3000, Tolerance=1e-6),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/Controller.mos"
+  experiment(StopTime=3000, Tolerance=1e-6),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/Controller.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.Controller\">
@@ -53,6 +54,10 @@ for switching between six operating modes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2019, by Jianjun Hu:<br/>
+Refactored implementation.
+</li>
 <li>
 July 01 2019, by Tea Zakula:<br/>
 First implementation.

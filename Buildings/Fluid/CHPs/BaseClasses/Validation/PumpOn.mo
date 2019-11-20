@@ -72,10 +72,10 @@ equation
     annotation (Line(points={{2,-30},{20,-30},{20,18}}, color={255,0,255}));
 
 annotation (
-    experiment(StopTime=600, Tolerance=1e-6),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/PumpOn.mos"
+  experiment(StopTime=600, Tolerance=1e-6),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/PumpOn.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.PumpOn\">
@@ -84,6 +84,10 @@ for defining the operating mode in which the water pump starts to run.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2019, by Jianjun Hu:<br/>
+Refactored implementation.
+</li>
 <li>
 July 01 2019, by Tea Zakula:<br/>
 First implementation.

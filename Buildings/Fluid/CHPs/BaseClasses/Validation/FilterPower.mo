@@ -3,7 +3,7 @@ model FilterPower "Validate model FilterPower"
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData1 per
     "CHP performance data"
-    annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable PEleDem(
     table=[0,0; 300,500; 600,2000; 900,3000;
@@ -28,10 +28,16 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClasses.FilterPower\">
 Buildings.Fluid.CHPs.BaseClasses.FilerPower</a>
-for applying constraints and sending a warning message if the electric power is outside boundaries.
+for applying constraints and sending a warning message if the electric power 
+is outside boundaries. The constraints include minimum and maximum electric power and 
+the maximal power rate of change.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2019, by Jianjun Hu:<br/>
+Refactored implementation.
+</li>
 <li>
 July 01 2019, by Tea Zakula:<br/>
 First implementation.

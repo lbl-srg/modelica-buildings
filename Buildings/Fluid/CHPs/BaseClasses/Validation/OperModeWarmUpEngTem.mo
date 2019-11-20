@@ -3,7 +3,7 @@ model OperModeWarmUpEngTem "Validate model OperModeWarmUpEngTem"
 
   parameter Buildings.Fluid.CHPs.Data.ValidationData2 per
     "CHP performance data"
-    annotation (Placement(transformation(extent={{-98,-98},{-78,-78}})));
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Buildings.Fluid.CHPs.BaseClasses.OperModeWarmUpEngTem opeModWarUpEngTem(
     final per=per)
@@ -15,7 +15,8 @@ model OperModeWarmUpEngTem "Validate model OperModeWarmUpEngTem"
     final offset=273.15 + 15,
     final startTime=600) "Engine temperature"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow(final k=0.05)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow(
+    final k=0.05)
     "Water flow rate"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWatIn(
@@ -35,14 +36,13 @@ equation
   connect(TRoo.y, opeModWarUpEngTem.TRoo) annotation (Line(points={{-38,-30},{0,
           -30},{0,7},{38,7}},   color={0,0,127}));
   connect(TEng.y, opeModWarUpEngTem.TEng) annotation (Line(points={{-38,-70},{
-          20,-70},{20,2},{38,2}},
-                                color={0,0,127}));
+          20,-70},{20,2},{38,2}}, color={0,0,127}));
 
 annotation (
-    experiment(StopTime=1500, Tolerance=1e-6),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/OperModeWarmUpEngTem.mos"
+  experiment(StopTime=1500, Tolerance=1e-6),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/BaseClasses/Validation/OperModeWarmUpEngTem.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.BaseClassesOperModeWarmUpEngTem\">
@@ -51,6 +51,10 @@ for defining energy conversion during the warm-up mode dependent on the engine t
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2019, by Jianjun Hu:<br/>
+Refactored implementation.
+</li>
 <li>
 July 01 2019, by Tea Zakula:<br/>
 First implementation.

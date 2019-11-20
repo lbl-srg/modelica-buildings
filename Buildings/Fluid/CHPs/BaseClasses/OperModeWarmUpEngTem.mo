@@ -1,6 +1,7 @@
 within Buildings.Fluid.CHPs.BaseClasses;
 model OperModeWarmUpEngTem "Energy conversion during warm-up by engine temperature"
   extends Modelica.Blocks.Icons.Block;
+
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{-80,340},{-60,360}})));

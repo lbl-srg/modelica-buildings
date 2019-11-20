@@ -61,7 +61,7 @@ model ElectricalFollowing
   Buildings.Fluid.CHPs.BaseClasses.WaterInternalControl conWat(
     final per=per) if per.coolingWaterControl
     "Internal controller for water flow rate"
-    annotation (Placement(transformation(extent={{74,170},{94,190}})));
+    annotation (Placement(transformation(extent={{70,170},{90,190}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(
     final y=port_a.m_flow) "Water flow rate"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
@@ -91,7 +91,7 @@ model ElectricalFollowing
       rotation=-90,origin={-20,20})));
   Buildings.Fluid.CHPs.BaseClasses.PowerConsumption powCon(
     final per=per) "Power consumption during stand-by and cool-down modes"
-    annotation (Placement(transformation(extent={{72,130},{92,150}})));
+    annotation (Placement(transformation(extent={{70,130},{90,150}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor QLos
     "Heat transfer to the surrounding"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
@@ -113,7 +113,7 @@ equation
   connect(eneCon.QGen, eng.QGen) annotation (Line(points={{-28,82},{-20,82},{
           -20,50},{-2,50}},
                         color={0,0,127}));
-  connect(conWat.PEle, fil.PEle) annotation (Line(points={{72,180},{60,180},{60,
+  connect(conWat.PEle, fil.PEle) annotation (Line(points={{68,180},{60,180},{60,
           150},{-68,150}}, color={0,0,127}));
   connect(mWat_flow.y, eneCon.mWat_flow) annotation (Line(points={{-79,100},{
           -74,100},{-74,85},{-52,85}},
@@ -128,10 +128,10 @@ equation
           -74,100},{-74,134},{20,134},{20,182},{28,182}},
                                                       color={0,0,127}));
   connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{-79,120},{64,120},
-          {64,173},{72,173}}, color={0,0,127}));
+          {64,173},{68,173}}, color={0,0,127}));
   connect(eneCon.TWatIn, TWatIn.y) annotation (Line(points={{-52,90},{-66,90},{-66,
           120},{-79,120}}, color={0,0,127}));
-  connect(conWat.mWatSet, mWatSet) annotation (Line(points={{96,180},{120,180}},
+  connect(conWat.mWatSet, mWatSet) annotation (Line(points={{92,180},{120,180}},
           color={0,0,127}));
   connect(hys.y, runSig.u2) annotation (Line(points={{-29,162},{-12,162}},
           color={255,0,255}));
@@ -145,7 +145,7 @@ equation
                             color={255,0,255}));
   connect(runSig.u1, avaSig) annotation (Line(points={{-12,170},{-20,170},{-20,180},
           {-120,180}}, color={255,0,255}));
-  connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{73,187},{56,
+  connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{69,187},{56,
           187},{56,180},{51,180}},
                               color={0,127,0}));
   connect(TWatOut.T, assWatTem.TWat) annotation (Line(points={{30,-50},{38,-50}},
@@ -160,10 +160,10 @@ equation
           {-20,-10},{-9,-10}},color={191,0,0}));
   connect(QWat1.Q_flow, QWat) annotation (Line(points={{-10,20},{120,20}},
           color={0,0,127}));
-  connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{71,140},{56,
+  connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{69,140},{56,
           140},{56,180},{51,180}},
                               color={0,127,0}));
-  connect(powCon.PCon, PCon) annotation (Line(points={{94,140},{100,140},{100,
+  connect(powCon.PCon, PCon) annotation (Line(points={{92,140},{100,140},{100,
           138},{106,138},{106,140},{120,140}}, color={0,0,127}));
   connect(TRoo, QLos.port_b) annotation (Line(points={{-100,-40},{-90,-40}},
           color={191,0,0}));
