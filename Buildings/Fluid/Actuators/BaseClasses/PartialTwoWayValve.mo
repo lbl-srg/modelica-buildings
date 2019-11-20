@@ -28,8 +28,6 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
-equation
-  assert(phi > -0.2, "Valve control signal needs to be bigger than zero, received phi = " + String(phi));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={Rectangle(
       extent={{-60,40},{60,-40}},
@@ -96,6 +94,14 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 9, 2019, by Filip Jorissen:<br/>
+Removed assert for <code>phi>-0.2</code>
+since the valve control input is now lower limited
+to zero.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
+issue 1223</a>.
+</li>
 <li>
 October 25, 2019, by Jianjun Hu:<br/>
 Improved icon graphics annotation. This is for

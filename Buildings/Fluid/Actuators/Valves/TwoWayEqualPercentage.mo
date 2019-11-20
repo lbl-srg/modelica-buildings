@@ -1,7 +1,8 @@
 within Buildings.Fluid.Actuators.Valves;
 model TwoWayEqualPercentage
   "Two way valve with equal percentage flow characteristics"
-  extends BaseClasses.PartialTwoWayValveKv(phi=if homotopyInitialization then
+  extends BaseClasses.PartialTwoWayValveKv(
+    phi=max(0, if homotopyInitialization then
         homotopy(actual=Buildings.Fluid.Actuators.BaseClasses.equalPercentage(
         y_actual,
         R,
@@ -11,7 +12,7 @@ model TwoWayEqualPercentage
         y_actual,
         R,
         l,
-        delta0));
+        delta0)));
   parameter Real R=50 "Rangeability, R=50...100 typically";
   parameter Real delta0=0.01
     "Range of significant deviation from equal percentage law";
@@ -38,6 +39,14 @@ as the regularization near the origin.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 9, 2019, by Filip Jorissen:<br/>
+Guarded the computation of <code>phi</code> using
+<code>max(0, . )</code> to avoid
+negative phi.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\">
+issue 1223</a>.
+</li>
 <li>
 April 4, 2014, by Michael Wetter:<br/>
 Moved the assignment of the flow function <code>phi</code>

@@ -12,6 +12,60 @@
 #include <math.h>
 #include <string.h>
 
+void setVariables(FMUBuilding* bui, const char* modelicaNameThermalZone, fmi2ValueReference vr[],  fmi2Real values[], size_t n){
+    fmi2_status_t status;
+    if (FMU_EP_VERBOSITY >= MEDIUM)
+      ModelicaFormatMessage("fmi2_import_set_real: Setting real variables in EnergyPlus for zone %s, mode = %s.\n",
+        modelicaNameThermalZone, fmuModeToString(bui->mode));
+    status = fmi2_import_set_real(bui->fmu, vr, n, values);
+    if (status != fmi2OK) {
+      ModelicaFormatError("Failed to set variables for building in FMU for %s, zone %s\n",
+      bui->modelicaNameBuilding,
+      modelicaNameThermalZone);
+    }
+  }
+
+void stopIfResultsAreNaN(
+  FMUBuilding* bui,
+  const char* modelicaNameThermalZone, fmi2ValueReference vr[], fmi2Real values[], size_t n){
+    size_t i;
+    fmi2_import_variable_t* fmiVar;
+    char* varNam;
+    size_t i_nan = -1;
+    for(i=0; i < n; i++){
+      if (isnan(values[i])){
+        i_nan = i;
+        break;
+      }
+    }
+    if (i_nan != -1){
+      for(i=0; i < n; i++){
+        fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i]);
+        varNam = fmi2_import_get_variable_name(fmiVar);
+        if (isnan(values[i])){
+          ModelicaFormatMessage("Received nan from EnergyPlus at time = %.2f:\n", bui->time);
+        }
+        ModelicaFormatMessage("  %s = %.2f\n", varNam, values[i]);
+      }
+      ModelicaFormatError("Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
+        fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i_nan])));
+    }
+}
+
+void getVariables(FMUBuilding* bui, const char* modelicaNameThermalZone, fmi2ValueReference vr[], fmi2Real values[], size_t n){
+    fmi2_status_t status;
+    if (FMU_EP_VERBOSITY >= MEDIUM)
+      ModelicaFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for zone %s, mode = %s.\n",
+        modelicaNameThermalZone, fmuModeToString(bui->mode));
+    status = fmi2_import_get_real(bui->fmu, vr, n, values);
+    if (status != fmi2OK) {
+      ModelicaFormatError("Failed to get variables for building in FMU for %s, zone %s\n",
+      bui->modelicaNameBuilding,
+      modelicaNameThermalZone);
+    }
+    stopIfResultsAreNaN(bui, modelicaNameThermalZone, vr, values, n);
+  }
+
 bool allZonesAreInitialized(FMUBuilding* bui){
   void** zones = bui->zones;
   size_t i;
