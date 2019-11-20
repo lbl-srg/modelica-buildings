@@ -122,16 +122,49 @@ void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueR
     }
   }
 
-void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueReference vr[], fmi2Real values[], size_t n){
-    fmi2_status_t status;
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for modelicaInstance %s, mode = %s.\n",
-        modelicaInstanceName, fmuModeToString(bui->mode));
-    status = fmi2_import_get_real(bui->fmu, vr, n, values);
-    if (status != fmi2OK) {
-      ModelicaFormatError("Failed to get variables for %s in FMU.\n", modelicaInstanceName);
+void stopIfResultsAreNaN(
+  FMUBuilding* bui,
+  const char* modelicaObjectName, fmi2ValueReference vr[], fmi2Real values[], size_t n){
+    size_t i;
+    fmi2_import_variable_t* fmiVar;
+    char* varNam;
+    size_t i_nan = -1;
+    for(i=0; i < n; i++)
+{
+    if (isnan(values[i])){
+      i_nan = i;
+      break;
     }
   }
+  if (i_nan != -1){
+    for(i=0; i < n; i++){
+      fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i]);
+      varNam = fmi2_import_get_variable_name(fmiVar);
+      if (isnan(values[i])){
+        ModelicaFormatMessage("Received nan from EnergyPlus for %s at time = %.2f:\n", modelicaObjectName, bui->time);
+      }
+      ModelicaFormatMessage("  %s = %.2f\n", varNam, values[i]);
+    }
+    ModelicaFormatError("Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
+      fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i_nan])));
+  }
+}
+
+void getVariables(FMUBuilding* bui, const char* modelicaObjectName, fmi2ValueReference vr[], fmi2Real values[], size_t n)
+{
+  fmi2_status_t status;
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for object %s, mode = %s.\n",
+      modelicaObjectName, fmuModeToString(bui->mode));
+  status = fmi2_import_get_real(bui->fmu, vr, n, values);
+  if (status != fmi2OK) {
+    ModelicaFormatError("Failed to get variables for building in FMU for %s, object %s\n",
+    bui->modelicaNameBuilding,
+    modelicaObjectName);
+  }
+  stopIfResultsAreNaN(bui, modelicaObjectName, vr, values, n);
+}
+
 
 /* Do the event iteration
    */
