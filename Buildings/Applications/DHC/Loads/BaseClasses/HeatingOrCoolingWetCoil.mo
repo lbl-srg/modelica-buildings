@@ -69,21 +69,6 @@ model HeatingOrCoolingWetCoil
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-  // Initialization
-  parameter Medium.AbsolutePressure p_start = Medium1.p_default
-    "Start value of pressure"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Medium.Temperature T_start = Medium1.T_default
-    "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Medium.MassFraction X_start[Medium1.nX](
-    final quantity=Medium1.substanceNames) = Medium1.X_default
-    "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=Medium1.nXi > 0));
-  parameter Medium.ExtraProperty C_start[Medium1.nC](
-    final quantity=Medium1.extraPropertiesNames)=fill(0, Medium1.nC)
-    "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   // Advanced
   parameter Boolean homotopyInitialization = true
     "If true, use homotopy method"
@@ -206,8 +191,8 @@ protected
     "Maximum capacity flow rate at nominal conditions";
   parameter Real Z[nLoa](each fixed=false, each min=0, each max=1)
     "Ratio of capacity flow rates (CMin/CMax) at nominal conditions";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal = Medium.specificHeatCapacityCp(
-    Medium.setState_pTX(Medium1.p_default, T1_a_nominal))
+  parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal = Medium1.specificHeatCapacityCp(
+    Medium1.setState_pTX(Medium1.p_default, T1_a_nominal))
     "Source side specific heat capacity at nominal conditions";
   parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal[nLoa] = Medium2.specificHeatCapacityCp(
     Medium2.setState_pTX(Medium2.p_default, T2_nominal))

@@ -1,0 +1,54 @@
+Advanced.StoreProtectedVariables = true;
+simulateModel(
+    "Buildings.Applications.DHC.Loads.Validation.UnitTestWetCoilCooling",
+    method="cvode", tolerance=1e-6, numberOfIntervals=500,
+    stopTime=2000.0,
+    resultFile="UnitTestWetCoilCooling");
+createPlot(
+    id=1,
+    position={10, 20, 670, 900},
+    y={"hexWetNtu.m1_flow_nominal", "hexWetNtu.m1_flow"},
+    autoscale=true,
+    // autoerase=true,
+    // autoreplot=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    y={"hexWetNtu.m2_flow_nominal", "hexWetNtu.m2_flow"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=1,
+    y={"Q_flow2_nominal", "hexWetNtu.Q2_flow"},
+    grid=true,
+    subPlot=3
+);
+createPlot(
+    id=2,
+    position={700, 20, 670, 900},
+    y={"hexWetNtu.dryWetCalcs.dry.Q_flow"},
+    autoscale=true,
+    // autoerase=true,
+    // autoreplot=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    y={"hexWetNtu.dryWetCalcs.wet.QTot_flow"},
+    grid=true,
+    subPlot=2
+);
+createPlot(
+    id=2,
+    y={"hexWetNtu.dryWetCalcs.parDry.Q_flow"},
+    grid=true,
+    subPlot=3
+);
+createPlot(
+    id=2,
+    y={"hexWetNtu.dryWetCalcs.parWet.QTot_flow"},
+    grid=true,
+    subPlot=4
+);
