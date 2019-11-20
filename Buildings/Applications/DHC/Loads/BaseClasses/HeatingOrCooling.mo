@@ -3,9 +3,7 @@ model HeatingOrCooling "Model for steady-state, sensible heat transfer between a
   // Suffix _i is to distinguish vector variable from (total) scalar variable on the source side (1) only.
   // Each variable related to load side (2) quantities is a vector by default.
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal=m_flow1_nominal,
-    port_a(h_outflow(start=h_outflow_start)),
-    port_b(h_outflow(start=h_outflow_start)));
+    final m_flow_nominal=m_flow1_nominal);
   replaceable package Medium2 =
     Buildings.Media.Air
     "Load side medium"
@@ -17,7 +15,6 @@ model HeatingOrCooling "Model for steady-state, sensible heat transfer between a
           "Propylene glycol water, 40% mass fraction")));
   parameter Integer nLoa = 1
     "Number of connected loads";
-
   parameter Modelica.SIunits.PressureDifference dp_nominal(
     min=0, displayUnit="Pa") = 0
     "Pressure drop at nominal conditions"
@@ -146,8 +143,7 @@ model HeatingOrCooling "Model for steady-state, sensible heat transfer between a
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={110,50})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFloSenToLoa[nLoa]
-    "Sensible heat flow rate from source to load"
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFloSenToLoa[nLoa] "Sensible heat flow rate from source to load"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -222,14 +218,6 @@ protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal[nLoa] = Medium2.specificHeatCapacityCp(
     Medium2.setState_pTX(Medium2.p_default, T2_nominal))
     "Load side specific heat capacity at nominal conditions";
-  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
-      T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_default = Medium.density(sta_default)
-    "Density, used to compute fluid volume";
-  parameter Medium.ThermodynamicState sta_start = Medium.setState_pTX(
-      T=T_start, p=p_start, X=X_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
-    "Start value for outflowing enthalpy";
 initial equation
   for i in 1:nLoa loop
     CMin_nominal[i] = if abs(m_flow2_nominal[i]) < Modelica.Constants.eps then

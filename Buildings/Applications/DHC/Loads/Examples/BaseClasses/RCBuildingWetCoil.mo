@@ -1,15 +1,14 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model RCBuildingWetCoil "Building model of type RC one element"
-  import Buildings;
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    final nCooLoa=1,
-    final cooLoaTyp={Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort},
-    Q_flowHea_nominal={500,1000},
-    Q_flowCoo_nominal={2000},
-    final nHeaLoa=2,
-    final heaLoaTyp={Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort,Buildings.Applications.DHC.Loads.Types.ModelType.ODE});
-  Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez
-                                                   HDifTil[2](
+  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuildingRefactor(
+    THeaLoa_nominal={293.15},
+    m_flowHeaLoa_nominal={1},
+    final nLoa=1,
+    Q_flowHea_nominal={1000},
+    Q_flowCoo_nominal={2000});
+  package Medium2 = Buildings.Media.Air
+    "Load side medium";
+  Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](
     each outSkyCon=true,
     each outGroCon=true,
     each til=1.5707963267949,
@@ -17,19 +16,16 @@ model RCBuildingWetCoil "Building model of type RC one element"
     azi={3.1415926535898,4.7123889803847})
     "Calculates diffuse solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface
-                                                          HDirTil[2](
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[2](
     each til=1.5707963267949,
     each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
     "Calculates direct solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
-  Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane
-                                  corGDouPan(n=2, UWin=2.1)
+  Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane corGDouPan(n=2, UWin=2.1)
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
-  Buildings.ThermalZones.ReducedOrder.RC.OneElement
-                thermalZoneOneElement(
+  Buildings.ThermalZones.ReducedOrder.RC.OneElement thermalZoneOneElement(
     VAir=52.5,
     hRad=4.999999999999999,
     hConWin=2.7000000000000006,
@@ -45,10 +41,11 @@ model RCBuildingWetCoil "Building model of type RC one element"
     AWin={7,7},
     ATransparent={7,7},
     AExt={3.5,8},
-    redeclare package Medium = Modelica.Media.Air.SimpleAir,
+    redeclare package Medium = Medium2,
     extWallRC(thermCapExt(each der_T(fixed=true))),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=295.15) "Thermal zone"
+    T_start=295.15,
+    nPorts=2)       "Thermal zone"
     annotation (Placement(transformation(extent={{44,-10},{92,26}})));
   Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow
                                              eqAirTemp(
@@ -139,10 +136,32 @@ model RCBuildingWetCoil "Building model of type RC one element"
     yMin=0,
     Ti=120)             "PID controller for maximum temperature"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
-    amplitude=500,
-    freqHz=1/86400,
-    offset=500) annotation (Placement(transformation(extent={{-10,170},{10,190}})));
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan[nLoa](
+    redeclare each final package Medium = Medium2,
+    m_flow_nominal=couHea.m_flow2_nominal,
+    redeclare Fluid.Movers.Data.Generic per,
+    nominalValuesDefineDefaultPressureCurve=true,
+    dp_nominal=couHea.dp2_nominal)
+    annotation (Placement(transformation(extent={{-22,-80},{-42,-60}})));
+  Modelica.Blocks.Sources.RealExpression m_flow2[nLoa](y=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-62,-50})));
+  Buildings.Applications.DHC.Loads.BaseClasses.HeatingOrCoolingWetCoil couHea(
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
+    dp2_nominal={100},
+    T1_a_nominal=318.15,
+    T1_b_nominal=313.15,
+    Q_flow_nominal=Q_flowHea_nominal,
+    T2_nominal=THeaLoa_nominal,
+    m_flow2_nominal=m_flowHeaLoa_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nLoa=1)           annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
+  Modelica.Blocks.Sources.RealExpression Q_flowCooAct_i[nLoa](y=0) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={214,-292})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
     annotation (Line(
@@ -266,19 +285,26 @@ equation
   connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
   connect(minTSet.y, from_degC1.u) annotation (Line(points={{-118,130},{-102,130}}, color={0,0,127}));
   connect(from_degC1.y, conPIDMinT.u_s) annotation (Line(points={{-78,130},{-62,130}}, color={0,0,127}));
-  connect(from_degC1.y, heaLoaO[1].TSet)
-    annotation (Line(points={{-78,130},{-70,130},{-70,108},{-178,108}},     color={0,0,127}));
-  connect(sin.y, heaLoaO[1].Q_flowReq)
-    annotation (Line(points={{12,180},{39.5,180},{39.5,100},{-178,100}},
-                                                                       color={0,0,127}));
-  connect(thermalZoneOneElement.intGainsConv, heaFloCooLoaH[1].port_b)
-    annotation (Line(points={{92,12},{98,12},{98,-150},{-260,-150}}, color={191,0,0}));
-  connect(thermalZoneOneElement.intGainsConv, heaFloHeaLoaH[1].port_b)
-    annotation (Line(points={{92,12},{98,12},{98,150},{-260,150}}, color={191,0,0}));
   connect(conPIDMax.y, yCoo[1])
     annotation (Line(points={{-38,-130},{134,-130},{134,-192},{310,-192}}, color={0,0,127}));
-  connect(conPIDMinT.y, yHea[1]) annotation (Line(points={{-38,130},{132,130},{132,195},{310,195}}, color={0,0,127}));
-  connect(sin.y, yHea[2]) annotation (Line(points={{12,180},{158,180},{158,205},{310,205}}, color={0,0,127}));
+  connect(conPIDMinT.y, yHea[1]) annotation (Line(points={{-38,130},{132,130},{132,200},{310,200}}, color={0,0,127}));
+  connect(m_flow2.y, fan.m_flow_in) annotation (Line(points={{-51,-50},{-32,-50},{-32,-58}},    color={0,0,127}));
+  connect(port_a2, couHea.port_a)
+    annotation (Line(points={{-300,0},{-242,0},{-242,-100},{-200,-100}}, color={0,127,255}));
+  connect(couHea.port_b, port_b2)
+    annotation (Line(points={{-180,-100},{280,-100},{280,0},{300,0}}, color={0,127,255}));
+  connect(conPIDMinT.y, couHea.yHeaCoo[1])
+    annotation (Line(points={{-38,130},{-38,100},{-220,100},{-220,-92},{-202,-92}}, color={0,0,127}));
+  connect(couHea.Q_flowTot, Q_flowHeaAct)
+    annotation (Line(points={{-178,-108},{240,-108},{240,294},{310,294}}, color={0,0,127}));
+  connect(Q_flowCooAct_i.y, Q_flowCooAct)
+    annotation (Line(points={{225,-292},{266.5,-292},{266.5,-294},{310,-294}}, color={0,0,127}));
+  connect(thermalZoneOneElement.ports[1], fan[1].port_a)
+    annotation (Line(points={{81.475,-9.95},{92.5,-9.95},{92.5,-70},{-22,-70}}, color={0,127,255}));
+  connect(fan.port_b, couHea.port_a2)
+    annotation (Line(points={{-42,-70},{-112,-70},{-112,-96},{-180,-96}}, color={0,127,255}));
+  connect(couHea.port_b2[1], thermalZoneOneElement.ports[2])
+    annotation (Line(points={{-200,-96},{-210,-96},{-210,-9.95},{84.525,-9.95}}, color={0,127,255}));
   annotation (
   Documentation(info="<html>
   <p>

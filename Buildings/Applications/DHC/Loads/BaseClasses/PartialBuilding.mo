@@ -36,7 +36,7 @@ partial model PartialBuilding "Partial class for building model"
     annotation(Evaluate=true);
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime floRegHeaLoa[nHeaLoa]=
     fill(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange, nHeaLoa)
-    "Heat exchanger flow configuration"
+    "Heat exchanger flow regime"
     annotation(Evaluate=true);
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime floRegCooLoa[nCooLoa]=
     fill(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange, nCooLoa)

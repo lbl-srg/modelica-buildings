@@ -6,9 +6,7 @@ model HeatingOrCoolingWetCoil
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=Medium1,
     final m_flow_nominal=m_flow1_nominal,
-    final  allowFlowReversal=false,
-    port_a(h_outflow(start=h_outflow_start)),
-    port_b(h_outflow(start=h_outflow_start)));
+    final  allowFlowReversal=false);
   replaceable package Medium1 =
     Buildings.Media.Water
     "Source side medium"
@@ -30,7 +28,6 @@ model HeatingOrCoolingWetCoil
           "Propylene glycol water, 40% mass fraction")));
   parameter Integer nLoa = 1
     "Number of connected loads";
-
   parameter Modelica.SIunits.PressureDifference dp1_nominal(
     min=0, displayUnit="Pa") = 0
     "Source side total pressure drop at nominal conditions"
@@ -61,13 +58,12 @@ model HeatingOrCoolingWetCoil
   parameter Modelica.SIunits.MassFlowRate m_flow2_nominal[nLoa] = fill(0, nLoa)
     "Load side mass flow rate at nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Boolean reverseAction = false
-    "Set to true for tracking a cooling heat flow rate";
   // Dynamics
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+  parameter Modelica.Fluid.Types.Dynamics massDynamics = energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.SIunits.Time tau = 30
@@ -104,18 +100,8 @@ model HeatingOrCoolingWetCoil
   final parameter Modelica.SIunits.MassFlowRate m_flow1_i_nominal[nLoa] = abs(
     Q_flow_nominal / cp1_nominal / (T1_a_nominal - T1_b_nominal))
     "Source side mass flow rate at nominal conditions, as distributed to each load i";
-  final parameter Modelica.SIunits.ThermalConductance UA_nominal[nLoa]=
-    Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
-      eps=Q_flow_nominal ./ abs(CMin_nominal .* (T1_a_nominal .- T2_nominal)),
-      Z=0,
-      flowRegime=Integer(hexWetNtu.flowRegime_nominal))
+  final parameter Modelica.SIunits.ThermalConductance UA_nominal[nLoa](each fixed=false)
     "Thermal conductance at nominal conditions";
-  final parameter Modelica.SIunits.ThermalConductance UAExt_nominal[nLoa]=
-    (1 .+ ratUAIntToUAExt) ./ ratUAIntToUAExt .* UA_nominal
-    "External thermal conductance at nominal conditions";
-  final parameter Modelica.SIunits.ThermalConductance UAInt_nominal[nLoa]=
-    ratUAIntToUAExt .* UAExt_nominal
-    "Internal thermal conductance at nominal conditions";
   // IO connectors
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yHeaCoo[nLoa](each final unit="1")
     "Heating or cooling control loop output"
@@ -126,7 +112,8 @@ model HeatingOrCoolingWetCoil
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,80})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput m_flow1Req(quantity="MassFlowRate")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput m_flow1Req(
+    quantity="MassFlowRate", unit="kg/s")
     "Total mass flow rate to provide the required heat flow rates" annotation (Placement(transformation(extent={{100,200},
             {140,240}}),iconTransformation(extent={{100,60},{140,100}})));
   // Building blocks
@@ -141,60 +128,60 @@ model HeatingOrCoolingWetCoil
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,30})));
-
-  // FOR DEVELOPMENT ONLY
-  Real frac_Q_flow "Positive fractional heat flow rate";
-  // FOR DEVELOPMENT ONLY
-
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare final package Medium=Medium1,
     final dp_nominal=dp1_nominal,
     final m_flow_nominal=m_flow1_nominal,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    final Q_flow_nominal=1)
+    final tau=tau,
+    T_start=T1_a_nominal,
+    final Q_flow_nominal=1,
+    final allowFlowReversal=allowFlowReversal)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(k=fill(1, nLoa), nin=nLoa)
     "Total required water mass flow rate" annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain m_flow1Req_i[nLoa](k=m_flow1_i_nominal)
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
-  Modelica.Blocks.Sources.RealExpression m_flow1Act[nLoa](y=m_flow1Req_i.y*m_flow1Mes.m_flow/
-        Buildings.Utilities.Math.Functions.smoothMax(
-        m_flow1Req,
-        m_flow_small,
-        m_flow_small)) annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
+  Modelica.Blocks.Sources.RealExpression m_flow1Act_i[nLoa](y=m_flow1Req_i.y .*
+    Buildings.Utilities.Math.Functions.smoothMin(1, m_flow1Mes.m_flow /
+      Buildings.Utilities.Math.Functions.smoothMax(m_flow1Req, m_flow_small, m_flow_small),
+      1E-2))
+    "Actual mass flow rate (constrained by sum(m_flow1Act_i)=m_flow1Mes)"
+    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
   Buildings.Fluid.HeatExchangers.WetEffectivenessNTU_Fuzzy hexWetNtu[nLoa](
     redeclare each final package Medium1=Medium1,
     redeclare each final package Medium2=Medium2,
     final configuration=hexCon,
     final m1_flow_nominal=m_flow1_i_nominal,
     final m2_flow_nominal=m_flow2_nominal,
-    final dp1_nominal=0,
+    each final dp1_nominal=0,
     final dp2_nominal=dp2_nominal,
     final UA_nominal=UA_nominal,
     each final allowFlowReversal1=allowFlowReversal,
     each final allowFlowReversal2=allowFlowReversal)
-    annotation (Placement(transformation(extent={{22,176},{42,156}})));
-  Buildings.Fluid.Sources.MassFlowSource_T m_flow1Sou[nLoa](
-    redeclare each final package Medium=Medium,
-    each use_m_flow_in=true, each use_T_in=true,
-    nPorts=1)
-    annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2[nLoa](
-    redeclare each final package Medium=Medium2,
-    h_outflow(start=h_outflow_start, nominal=Medium.h_default),
-    p(start=Medium.p_default),
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0))
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,170},{90,190}}), iconTransformation(extent={{110,30},{90,50}})));
+    annotation (Placement(transformation(extent={{20,184},{40,164}})));
+  Buildings.Fluid.Sources.MassFlowSource_T m_flow1Sou_i[nLoa](
+    redeclare each final package Medium = Medium,
+    each use_m_flow_in=true,
+    each use_T_in=true,
+    nPorts=1) annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2[nLoa](
     redeclare each final package Medium=Medium2,
-    h_outflow(start=h_outflow_start, nominal=Medium.h_default),
-    p(start=Medium.p_default),
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0))
+    p(each start=Medium2.p_default),
+    m_flow(each min=0),
+    h_outflow(each start=Medium2.h_default, each nominal=Medium2.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)" annotation (Placement(transformation(
-          extent={{-110,170},{-90,190}}), iconTransformation(extent={{-110,30},{-90,50}})));
+          extent={{90,170},{110,190}}),   iconTransformation(extent={{90,30},{110,50}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b2[nLoa](
+    redeclare each final package Medium=Medium2,
+    p(each start=Medium2.p_default),
+    m_flow(each max=0),
+    h_outflow(each start=Medium2.h_default, each nominal=Medium2.h_default))
+    "Fluid connector b (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-90,170},{-110,190}}),
+    iconTransformation(extent={{-90,30},{-110,50}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium=Medium1,
     nPorts=nLoa) annotation (Placement(transformation(extent={{100,130},{80,150}})));
@@ -203,38 +190,44 @@ model HeatingOrCoolingWetCoil
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,110})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flowTot(nin=nLoa)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flowTotSum(nin=nLoa)
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flowTot[nLoa](
+    each quantity="HeatFlowRate", each unit="W")
+    "Total heat flow rate transferred to the loads" annotation (Placement(transformation(extent={{100,70},{140,110}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 protected
   parameter Boolean cooMod = (T1_b_nominal > T1_a_nominal)
     "Cooling mode flag"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.ThermalConductance CMin_nominal[nLoa](each fixed=false)
+  parameter Modelica.SIunits.ThermalConductance CMin_nominal[nLoa](each fixed=false, each min=0)
     "Minimum capacity flow rate at nominal conditions";
+  parameter Modelica.SIunits.ThermalConductance CMax_nominal[nLoa](each fixed=false, each min=0)
+    "Maximum capacity flow rate at nominal conditions";
+  parameter Real Z[nLoa](each fixed=false, each min=0, each max=1)
+    "Ratio of capacity flow rates (CMin/CMax) at nominal conditions";
   parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal = Medium.specificHeatCapacityCp(
     Medium.setState_pTX(Medium1.p_default, T1_a_nominal))
     "Source side specific heat capacity at nominal conditions";
   parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal[nLoa] = Medium2.specificHeatCapacityCp(
     Medium2.setState_pTX(Medium2.p_default, T2_nominal))
     "Load side specific heat capacity at nominal conditions";
-  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
-      T=Medium1.T_default, p=Medium1.p_default, X=Medium1.X_default);
-  parameter Modelica.SIunits.Density rho_default = Medium.density(sta_default)
-    "Density, used to compute fluid volume";
-  parameter Medium.ThermodynamicState sta_start = Medium.setState_pTX(
-      T=T_start, p=p_start, X=X_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
-    "Start value for outflowing enthalpy";
 initial equation
   for i in 1:nLoa loop
     CMin_nominal[i] = if abs(m_flow2_nominal[i]) < Modelica.Constants.eps then
       m_flow1_i_nominal[i] * cp1_nominal else
       min(m_flow1_i_nominal[i] * cp1_nominal, m_flow2_nominal[i] * cp2_nominal[i]);
+    CMax_nominal[i] = if abs(m_flow2_nominal[i]) < Modelica.Constants.eps then
+      Modelica.Constants.inf else
+      max(m_flow1_i_nominal[i] * cp1_nominal, m_flow2_nominal[i] * cp2_nominal[i]);
+    Z[i] = if abs(m_flow2_nominal[i]) < Modelica.Constants.eps then 0 else
+      CMin_nominal[i] / CMax_nominal[i];
   end for;
+  UA_nominal = Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
+    eps=Q_flow_nominal ./ abs(CMin_nominal .* (T1_a_nominal .- T2_nominal)),
+    Z=Z,
+    flowRegime=Integer(hexWetNtu.flowRegime_nominal)) .* CMin_nominal;
 equation
-  // FOR DEVELOPMENT ONLY
-  frac_Q_flow = abs(heaCoo.Q_flow / sum(Q_flow_nominal));
-  // FOR DEVELOPMENT ONLY
   connect(port_a,T1InlMes. port_a) annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(T1InlMes.port_b, m_flow1Mes.port_a) annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
   connect(T1InlMes.T, T1InlVec.u) annotation (Line(points={{-70,11},{-70,18}}, color={0,0,127}));
@@ -246,19 +239,20 @@ equation
   connect(m_flow1Req_i.y, mulSum.u) annotation (Line(points={{-58,220},{-42,220}}, color={0,0,127}));
   connect(yHeaCoo, m_flow1Req_i.u) annotation (Line(points={{-120,220},{-82,220}}, color={0,0,127}));
   connect(mulSum.y, m_flow1Req) annotation (Line(points={{-18,220},{120,220}},               color={0,0,127}));
-  connect(m_flow1Act.y, m_flow1Sou.m_flow_in)
+  connect(m_flow1Act_i.y, m_flow1Sou_i.m_flow_in)
     annotation (Line(points={{-59,160},{-48,160},{-48,148},{-42,148}}, color={0,0,127}));
-  connect(m_flow1Sou.ports[1], hexWetNtu.port_a1)
-    annotation (Line(points={{-20,140},{0,140},{0,160},{22,160}}, color={0,127,255}));
-  connect(T1InlVec.y, m_flow1Sou.T_in) annotation (Line(points={{-70,42},{-70,144},{-42,144}}, color={0,0,127}));
-  connect(port_a2, hexWetNtu.port_b2)
-    annotation (Line(points={{-100,180},{-38,180},{-38,172},{22,172}}, color={0,127,255}));
-  connect(hexWetNtu.port_a2, port_b2)
-    annotation (Line(points={{42,172},{72,172},{72,180},{100,180}}, color={0,127,255}));
+  connect(m_flow1Sou_i.ports[1], hexWetNtu.port_a1)
+    annotation (Line(points={{-20,140},{0,140},{0,168},{20,168}}, color={0,127,255}));
+  connect(T1InlVec.y, m_flow1Sou_i.T_in) annotation (Line(points={{-70,42},{-70,144},{-42,144}}, color={0,0,127}));
   connect(hexWetNtu.port_b1, sin.ports)
-    annotation (Line(points={{42,160},{60,160},{60,140},{80,140}}, color={0,127,255}));
-  connect(Q_flowTot_i.y, Q_flowTot.u[1:1]) annotation (Line(points={{-19,110},{-2,110}}, color={0,0,127}));
-  connect(Q_flowTot.y, heaCoo.u) annotation (Line(points={{22,110},{40,110},{40,6},{58,6}}, color={0,0,127}));
+    annotation (Line(points={{40,168},{60,168},{60,140},{80,140}}, color={0,127,255}));
+  connect(Q_flowTot_i.y, Q_flowTotSum.u[1:1]) annotation (Line(points={{-19,110},{-2,110}}, color={0,0,127}));
+  connect(Q_flowTotSum.y, heaCoo.u) annotation (Line(points={{22,110},{40,110},{40,6},{58,6}}, color={0,0,127}));
+  connect(port_a2, hexWetNtu.port_a2)
+    annotation (Line(points={{100,180},{40,180}},                   color={0,127,255}));
+  connect(hexWetNtu.port_b2, port_b2)
+    annotation (Line(points={{20,180},{-100,180}},                     color={0,127,255}));
+  connect(Q_flowTot_i.y, Q_flowTot) annotation (Line(points={{-19,110},{-10,110},{-10,90},{120,90}}, color={0,0,127}));
 annotation (
    Documentation(
 info="<html>
