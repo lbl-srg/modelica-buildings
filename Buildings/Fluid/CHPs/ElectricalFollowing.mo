@@ -15,7 +15,7 @@ model ElectricalFollowing
 
   Modelica.Blocks.Interfaces.BooleanInput avaSig
     "True when the plant is available"
-    annotation (Placement(transformation(extent={{-140,160},{-100,200}}),
+    annotation (Placement(transformation(extent={{-140,180},{-100,220}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput PEleDem(final unit="W")
     "Electric power demand"
@@ -24,10 +24,10 @@ model ElectricalFollowing
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TRoo
     "Heat port for room temperature"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
-      iconTransformation(extent={{-120,-40},{-100,-20}})));
+      iconTransformation(extent={{-110,-60},{-90,-40}})));
   Modelica.Blocks.Interfaces.RealOutput mWatSet(final unit="kg/s") if per.coolingWaterControl
     "Water flow rate set point based on internal control"
-    annotation (Placement(transformation(extent={{100,160},{140,200}}),
+    annotation (Placement(transformation(extent={{100,180},{140,220}}),
       iconTransformation(extent={{100,80},{120,100}})));
   Modelica.Blocks.Interfaces.RealOutput PCon(final unit="W")
     "Power consumption during stand-by and cool-down modes"
@@ -48,20 +48,20 @@ model ElectricalFollowing
   Buildings.Fluid.CHPs.BaseClasses.Controller opeMod(
     final per=per,
     final waitTime=waitTime) "Current operation mode"
-    annotation (Placement(transformation(extent={{30,170},{50,190}})));
+    annotation (Placement(transformation(extent={{30,190},{50,210}})));
   Modelica.Blocks.Logical.And runSig "Run if avaFlag and PEleDem non zero"
-    annotation (Placement(transformation(extent={{-10,160},{10,180}})));
+    annotation (Placement(transformation(extent={{-10,170},{10,190}})));
   Modelica.Blocks.Logical.Hysteresis hys(
     uLow=per.PEleMax/2*10^(-3),
     uHigh=per.PEleMax*10^(-3)) "Determine if demand larger than zero"
-    annotation (Placement(transformation(extent={{-50,152},{-30,172}})));
+    annotation (Placement(transformation(extent={{-50,160},{-30,180}})));
   Buildings.Fluid.CHPs.BaseClasses.FilterPower fil(
     final per=per) "Power after applied constrains"
     annotation (Placement(transformation(extent={{-90,140},{-70,160}})));
   Buildings.Fluid.CHPs.BaseClasses.WaterInternalControl conWat(
     final per=per) if per.coolingWaterControl
     "Internal controller for water flow rate"
-    annotation (Placement(transformation(extent={{70,170},{90,190}})));
+    annotation (Placement(transformation(extent={{70,190},{90,210}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(
     final y=port_a.m_flow) "Water flow rate"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
@@ -104,50 +104,40 @@ protected
   constant Modelica.SIunits.SpecificHeatCapacity cWat=4180 "Water specific heat";
 
 equation
-  connect(fil.PEle, hys.u) annotation (Line(points={{-68,150},{-60,150},{-60,
-          162},{-52,162}},
-                        color={0,0,127}));
-  connect(runSig.y, opeMod.runSig) annotation (Line(points={{11,170},{16,170},{
-          16,188},{28,188}},
-                          color={255,0,255}));
+  connect(fil.PEle, hys.u) annotation (Line(points={{-68,150},{-60,150},{-60,170},
+          {-52,170}},   color={0,0,127}));
+  connect(runSig.y, opeMod.runSig) annotation (Line(points={{11,180},{16,180},{16,
+          208},{28,208}}, color={255,0,255}));
   connect(eneCon.QGen, eng.QGen) annotation (Line(points={{-28,82},{-20,82},{
-          -20,50},{-2,50}},
-                        color={0,0,127}));
-  connect(conWat.PEle, fil.PEle) annotation (Line(points={{68,180},{60,180},{60,
+          -20,50},{-2,50}}, color={0,0,127}));
+  connect(conWat.PEle, fil.PEle) annotation (Line(points={{68,200},{60,200},{60,
           150},{-68,150}}, color={0,0,127}));
   connect(mWat_flow.y, eneCon.mWat_flow) annotation (Line(points={{-79,100},{
-          -74,100},{-74,85},{-52,85}},
-                                   color={0,0,127}));
+          -74,100},{-74,85},{-52,85}}, color={0,0,127}));
   connect(eng.TEng, eneCon.TEng) annotation (Line(points={{22,50},{24,50},{24,
-          70},{-70,70},{-70,81},{-52,81}},
-                                       color={0,0,127}));
-  connect(eng.TEng, opeMod.TEng) annotation (Line(points={{22,50},{24,50},{24,
-          178},{28,178}},
-                     color={0,0,127}));
-  connect(mWat_flow.y, opeMod.mWat_flow) annotation (Line(points={{-79,100},{
-          -74,100},{-74,134},{20,134},{20,182},{28,182}},
-                                                      color={0,0,127}));
-  connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{-79,120},{64,120},
-          {64,173},{68,173}}, color={0,0,127}));
+          70},{-70,70},{-70,81},{-52,81}}, color={0,0,127}));
+  connect(eng.TEng, opeMod.TEng) annotation (Line(points={{22,50},{24,50},{24,198},
+          {28,198}}, color={0,0,127}));
+  connect(mWat_flow.y, opeMod.mWat_flow) annotation (Line(points={{-79,100},{-74,
+          100},{-74,134},{20,134},{20,202},{28,202}}, color={0,0,127}));
+  connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{-79,120},{64,120},{
+          64,193},{68,193}},  color={0,0,127}));
   connect(eneCon.TWatIn, TWatIn.y) annotation (Line(points={{-52,90},{-66,90},{-66,
           120},{-79,120}}, color={0,0,127}));
-  connect(conWat.mWatSet, mWatSet) annotation (Line(points={{92,180},{120,180}},
+  connect(conWat.mWatSet, mWatSet) annotation (Line(points={{92,200},{120,200}},
           color={0,0,127}));
-  connect(hys.y, runSig.u2) annotation (Line(points={{-29,162},{-12,162}},
-          color={255,0,255}));
-  connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{51,180},{56,
-          180},{56,126},{-60,126},{-60,99},{-51,99}},
-                                                 color={0,127,0}));
+  connect(hys.y, runSig.u2) annotation (Line(points={{-29,170},{-20,170},{-20,172},
+          {-12,172}}, color={255,0,255}));
+  connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{51,200},{56,200},
+          {56,126},{-60,126},{-60,99},{-51,99}}, color={0,127,0}));
   connect(fil.PEleDem, PEleDem) annotation (Line(points={{-92,150},{-120,150}},
           color={0,0,127}));
-  connect(opeMod.avaSig, avaSig) annotation (Line(points={{28,172},{-20,172},{
-          -20,180},{-120,180}},
-                            color={255,0,255}));
-  connect(runSig.u1, avaSig) annotation (Line(points={{-12,170},{-20,170},{-20,180},
-          {-120,180}}, color={255,0,255}));
-  connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{69,187},{56,
-          187},{56,180},{51,180}},
-                              color={0,127,0}));
+  connect(opeMod.avaSig, avaSig) annotation (Line(points={{28,192},{12,192},{12,
+          200},{-120,200}}, color={255,0,255}));
+  connect(runSig.u1, avaSig) annotation (Line(points={{-12,180},{-20,180},{-20,200},
+          {-120,200}}, color={255,0,255}));
+  connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{69,207},{56,207},
+          {56,200},{51,200}}, color={0,127,0}));
   connect(TWatOut.T, assWatTem.TWat) annotation (Line(points={{30,-50},{38,-50}},
           color={0,0,127}));
   connect(eneCon.mFue_flow, mFue_flow) annotation (Line(points={{-28,93},{40,93},
@@ -160,9 +150,8 @@ equation
           {-20,-10},{-9,-10}},color={191,0,0}));
   connect(QWat1.Q_flow, QWat) annotation (Line(points={{-10,20},{120,20}},
           color={0,0,127}));
-  connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{69,140},{56,
-          140},{56,180},{51,180}},
-                              color={0,127,0}));
+  connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{69,140},{56,140},
+          {56,200},{51,200}}, color={0,127,0}));
   connect(powCon.PCon, PCon) annotation (Line(points={{92,140},{100,140},{100,
           138},{106,138},{106,140},{120,140}}, color={0,0,127}));
   connect(TRoo, QLos.port_b) annotation (Line(points={{-100,-40},{-90,-40}},
@@ -174,12 +163,11 @@ equation
   connect(QWat1.port_a,eng.TWat) annotation (Line(points={{-20,30},{-20,44},
           {0,44}}, color={191,0,0}));
   connect(fil.PEle, eneCon.PEle) annotation (Line(points={{-68,150},{-60,150},{
-          -60,130},{-70,130},{-70,95},{-52,95}},
-                                             color={0,0,127}));
+          -60,130},{-70,130},{-70,95},{-52,95}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="eleFol",
-  Diagram(coordinateSystem(extent={{-100,-100},{100,200}})),
+  Diagram(coordinateSystem(extent={{-100,-100},{100,220}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127})}),

@@ -7044,7 +7044,7 @@ equation
   connect(mWat_flow.y[1], cooWat.m_flow_in)
     annotation (Line(points={{-58,0},{-22,0}}, color={0,0,127}));
   connect(prescribedTemperature.port, eleFol.TRoo) annotation (Line(points={{-20,-80},
-          {12,-80},{12,7},{17,7}},          color={191,0,0}));
+          {12,-80},{12,5},{18,5}},          color={191,0,0}));
   connect(TRoo.y[1], prescribedTemperature.T)
     annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
   annotation (

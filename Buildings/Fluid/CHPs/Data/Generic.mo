@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.Data;
-record Generic "Generic data"
+record Generic "Generic data for CHP models"
   extends Modelica.Icons.Record;
   parameter Real[27] coeEtaQ=fill(0,27)
     "Vector of coefficients used to calculate thermal efficiency of the engine. The independent variables are x1=PNetSs, x2=mWat, x3=TWat.
@@ -72,10 +72,17 @@ record Generic "Generic data"
   "Warm up power coefficient";
   parameter Real rFue(final unit="1") = 10
   "Warm up maximum fuel flow ratio";
-  annotation (
+
+annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",
-  Documentation(revisions="<html>
+  Documentation(preferredView="info",
+  info="<html>
+<p>
+This is the base record for CHP models.
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
 March 08, 2019 by Tea Zakula:<br/>

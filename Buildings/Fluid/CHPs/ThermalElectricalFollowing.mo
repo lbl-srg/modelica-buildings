@@ -77,8 +77,9 @@ model ThermalElectricalFollowing
 equation
   connect(mFue_flow, mFue_flow)
     annotation (Line(points={{110,64},{110,64}}, color={0,0,127}));
-  connect(TRoo, eleFol.TRoo) annotation (Line(points={{-106,-40},{30,-40},{30,85},
-          {39,85}}, color={191,0,0}));
+  connect(TRoo, eleFol.TRoo) annotation (Line(points={{-106,-40},{30,-40},{30,
+          83},{40,83}},
+                    color={191,0,0}));
   connect(TWatOut.y, PID.u_m)
     annotation (Line(points={{-65,26},{-62,26},{-62,36}}, color={0,0,127}));
   connect(PID.y, PEleDemTheFol.u)

@@ -151,10 +151,12 @@ equation
   opeMod = actMod;
   connect(normal.outPort[1], transition8.inPort) annotation (Line(points={{180.5,
           0},{196,0}}, color={0,0,0}));
-  connect(standBy.outPort, transition2.inPort) annotation (Line(points={{-39.6667,
-          0},{-24,0}}, color={0,0,0}));
-  connect(TEng,warmUp.TEng) annotation (Line(points={{-280,20},{50,20},{50,6.66667},
-          {58.6667,6.66667}}, color={0,0,127}));
+  connect(standBy.outPort, transition2.inPort) annotation (Line(points={{
+          -39.6667,0},{-24,0}},
+                       color={0,0,0}));
+  connect(TEng,warmUp.TEng) annotation (Line(points={{-280,20},{50,20},{50,
+          6.66667},{58.6667,6.66667}},
+                              color={0,0,127}));
   connect(transition1.outPort, standBy.inPort) annotation (Line(points={{-78.5,0},
           {-60.6667,0}}, color={0,0,0}));
   connect(warmUp.outPort, transition6.inPort) annotation (Line(points={{80.3333,
@@ -231,8 +233,9 @@ equation
           -100},{-20,-92}}, color={255,0,255}));
   connect(standBy.suspend[1], transition3.inPort) annotation (Line(points={{-55,
           -10.3333},{-55,-80},{-24,-80}}, color={0,0,0}));
-  connect(pumpOn.suspend[1], transition5.inPort) annotation (Line(points={{5,-10.3333},
-          {5,-100},{16,-100}}, color={0,0,0}));
+  connect(pumpOn.suspend[1], transition5.inPort) annotation (Line(points={{5,
+          -10.3333},{5,-100},{16,-100}},
+                               color={0,0,0}));
   connect(warmUp.suspend[1], transition9.inPort) annotation (Line(points={{65,
           -10.3333},{65,-110},{76,-110}},
                                 color={0,0,0}));
