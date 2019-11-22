@@ -63,6 +63,12 @@ void* OutputVariableAllocate(
   const size_t nFMU = getBuildings_nFMU();
   /* Name used to check for duplicate output variable entry in the same building */
   FMUOutputVariable* doubleOutVarSpec = NULL;
+  /* EnergyPlus cannot return Zone Mean Air Temperature as this is computed in Modelica.
+     See email Kyle Benne, 11/22/19  */
+  if (strcasecmp(outputName, "Zone Mean Air Temperature") == 0){
+    ModelicaFormatError("'%s' requested output '%s' but EnergyPlus cannot return this type of output. Use instead the Modelica zone air temperature.",
+    modelicaNameOutputVariable, outputName);
+  }
 
   checkAndSetVerbosity(verbosity);
 
