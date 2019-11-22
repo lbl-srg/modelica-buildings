@@ -52,7 +52,7 @@ model Building
           startIndex=weaStrLen-4,
           replaceAll=false,
           caseSensitive=true)
-      "EnergyPlus weather data file name"
+      "EnergyPlus weather data file name (with epw extension)"
       annotation(Evaluate=true);
 
 protected

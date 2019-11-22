@@ -17,7 +17,7 @@ protected
       modelicaNameBuilding=modelicaNameBuilding,
       modelicaNameOutputVariable=modelicaNameOutputVariable,
       idfName=idfName,
-      weaName=weaName,
+      weaName=epWeaName,
       iddName=Buildings.Experimental.EnergyPlus.BaseClasses.iddName,
       outputKey=key,
       outputName=name,

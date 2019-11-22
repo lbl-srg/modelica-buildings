@@ -100,7 +100,7 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaNameThermalZone=modelicaNameThermalZone,
     final idfName=idfName,
-    final weaName=weaName,
+    final weaName=epWeaName,
     final zoneName=zoneName,
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
