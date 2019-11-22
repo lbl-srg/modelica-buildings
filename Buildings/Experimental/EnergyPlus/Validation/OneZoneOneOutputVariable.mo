@@ -4,7 +4,7 @@ model OneZoneOneOutputVariable
   extends Buildings.Experimental.EnergyPlus.Validation.OneZone;
   OutputVariable out(
     key="Core_ZN",
-    name="Zone Mean Air Temperature")
+    name="Zone Electric Equipment Electric Power")
     "Block that reads output from EnergyPlus"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   annotation (Documentation(info="<html>
