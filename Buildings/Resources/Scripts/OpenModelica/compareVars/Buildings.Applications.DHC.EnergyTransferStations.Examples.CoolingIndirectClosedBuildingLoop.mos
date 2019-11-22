@@ -12,9 +12,9 @@ compareVars :=
     "coo.hex.port_b1.p",
     "coo.hex.port_a2.p",
     "coo.hex.port_b2.p",
-    "dTDis.y",
-    "dTBui.y",
-    "TApp.y",
+    "dTDis",
+    "dTBui",
+    "TApp",
     "coo.Q_flow",
     "coo.Q"
   };
