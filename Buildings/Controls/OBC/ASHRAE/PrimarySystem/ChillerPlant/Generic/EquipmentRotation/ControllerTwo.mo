@@ -66,12 +66,12 @@ block ControllerTwo
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevStaSet[nDev]
     "Device status setpoint, where each index represents a physical device" annotation (
       Placement(transformation(extent={{160,10},{180,30}}), iconTransformation(
-          extent={{100,50},{120,70}})));
+          extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
     "Device role: true = lead, false = lag or standby" annotation (Placement(
-        transformation(extent={{160,-30},{180,-10}}), iconTransformation(extent=
-           {{100,-70},{120,-50}})));
+        transformation(extent={{160,-30},{180,-10}}), iconTransformation(extent={{100,-80},
+            {140,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Scheduler
     rotSch(
@@ -247,7 +247,7 @@ not operate continuously, the controller uses
 the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.RuntimeCounter</a> subsequence.
 In this subsequence the rotation signal is generated based on the staging runtime,
-defined as the time each the devices has spent in its current role. The implementation is based on section 
+defined as the time each of the devices has spent in its current role. The implementation is based on section 
 5.1.2.3. and 5.1.2.4.1. of RP1711 July draft.
 </li>
 <li>

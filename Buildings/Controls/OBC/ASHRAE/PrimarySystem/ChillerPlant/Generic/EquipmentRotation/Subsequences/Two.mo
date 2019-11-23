@@ -10,13 +10,13 @@ block Two
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDevRol[nDev]
     "Device role: true = lead, false = lag or standby"
     annotation (Placement(
-        transformation(extent={{100,10},{120,30}}), iconTransformation(extent={
-            {100,-10},{120,10}})));
+        transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{100,-20},
+            {140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPreDevRolSig[nDev]
     "Device roles in the previous time instance: true = lead; false = lag or standby"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
-        iconTransformation(extent={{100,-70},{120,-50}})));
+        iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
   final parameter Integer nDev = 2
