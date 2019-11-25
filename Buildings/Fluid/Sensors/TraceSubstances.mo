@@ -15,7 +15,8 @@ protected
                                             string2=substanceName,
                                             caseSensitive=false))
     then 1 else 0 for i in 1:Medium.nC}
-    "Vector with zero everywhere except where species is";
+    "Vector with zero everywhere except where species is"
+    annotation(Evaluate=true);
 initial equation
   assert(max(s) > 0.9, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"

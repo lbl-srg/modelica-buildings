@@ -1124,6 +1124,16 @@ Buildings/Fluid/Sources/Outside_CpLowRise.mo
 Buildings/Fluid/Sources/PropertySource_T.mo
 Buildings/Fluid/Sources/PropertySource_h.mo
 Buildings/Fluid/Sources/TraceSubstancesFlowSource.mo
+Buildings/Fluid/Sources/Validation/BaseClasses/BoundarySystem.mo
+Buildings/Fluid/Sources/Validation/BaseClasses/BoundarySystemWithX_in.mo
+Buildings/Fluid/Sources/Validation/BaseClasses/BoundarySystemWithXi_in.mo
+Buildings/Fluid/Sources/Validation/BaseClasses/package.mo
+Buildings/Fluid/Sources/Validation/BaseClasses/package.order
+Buildings/Fluid/Sources/Validation/Boundary.mo
+Buildings/Fluid/Sources/Validation/BoundaryWithX_in.mo
+Buildings/Fluid/Sources/Validation/BoundaryWithXi_in.mo
+Buildings/Fluid/Sources/Validation/package.mo
+Buildings/Fluid/Sources/Validation/package.order
 Buildings/Fluid/Sources/package.mo
 Buildings/Fluid/Sources/package.order
 Buildings/Fluid/Storage/BaseClasses/Buoyancy.mo
@@ -1149,6 +1159,7 @@ Buildings/Fluid/Storage/UsersGuide.mo
 Buildings/Fluid/Storage/Validation/HeatExchangerDynamics.mo
 Buildings/Fluid/Storage/Validation/HeatExchangerLocation.mo
 Buildings/Fluid/Storage/Validation/StratifiedLoadingUnloading.mo
+Buildings/Fluid/Storage/Validation/StratifiedNonUniformInitial.mo
 Buildings/Fluid/Storage/Validation/package.mo
 Buildings/Fluid/Storage/Validation/package.order
 Buildings/Fluid/Storage/package.mo
@@ -1759,6 +1770,9 @@ Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_CpLowRise.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/PropertySource_T.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/PropertySource_h.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowSource.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sources/Validation/Boundary.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sources/Validation/BoundaryWithX_in.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sources/Validation/BoundaryWithXi_in.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/ExpansionVessel.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/Stratified.mos
@@ -1767,6 +1781,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedUnloadAtMini
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerDynamics.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerLocation.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedLoadingUnloading.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedNonUniformInitial.mos
 Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Validation/PropyleneGlycolWater.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/AirDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/AirProperties.mos
@@ -1788,6 +1803,8 @@ Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoom
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElement.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomTwoElements.mos
+Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/RoomWithLatentGain.mos
+Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/RoomWithoutLatentGain.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase1.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase10.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase11.mos
@@ -1853,6 +1870,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroP
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegStep.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mos
+Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothHeavisideDerivatives.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunction.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/TrapezoidalIntegration.mos
@@ -1944,6 +1962,8 @@ Buildings/ThermalZones/ReducedOrder/SolarGain/BaseClasses/package.order
 Buildings/ThermalZones/ReducedOrder/SolarGain/CorrectionGDoublePane.mo
 Buildings/ThermalZones/ReducedOrder/SolarGain/package.mo
 Buildings/ThermalZones/ReducedOrder/SolarGain/package.order
+Buildings/ThermalZones/ReducedOrder/Validation/RoomWithLatentGain.mo
+Buildings/ThermalZones/ReducedOrder/Validation/RoomWithoutLatentGain.mo
 Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/VerifyDifferenceThreePeriods.mo
 Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/package.mo
 Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/package.order
@@ -2097,6 +2117,7 @@ Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mo
 Buildings/Utilities/Math/Functions/Examples/RegStep.mo
 Buildings/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mo
+Buildings/Utilities/Math/Functions/Examples/SmoothHeavisideDerivatives.mo
 Buildings/Utilities/Math/Functions/Examples/SpliceFunction.mo
 Buildings/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/TrapezoidalIntegration.mo

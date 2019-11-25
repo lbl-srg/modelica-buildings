@@ -5,8 +5,8 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   "WSE minimum on or off time"
   annotation(Dialog(group="Enable parameters"));
 
-  parameter Modelica.SIunits.Time dTperiod=120
-  "Postpone disable time period"
+  parameter Modelica.SIunits.Time delDis=120
+  "Delay disable time period"
   annotation(Dialog(group="Enable parameters"));
 
   parameter Modelica.SIunits.TemperatureDifference TOffsetEna=2
@@ -91,11 +91,11 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTunPar
     "Tuning parameter"
-    annotation (Placement(transformation(extent={{180,
-            -100},{200,-80}}), iconTransformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{180,-100},{200,-80}}),
+      iconTransformation(extent={{100,-60},{120,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold enaTChiWatRet(
-    final threshold=dTperiod)
+    final threshold=delDis)
     "Enable condition based on chilled water return temperature upstream and downstream WSE"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
@@ -157,7 +157,7 @@ protected
 
 equation
   connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,-100},
-          {-150,-100},{-150,-95},{-142,-95}},   color={0,0,127}));
+          {-150,-100},{-150,-95},{-142,-95}}, color={0,0,127}));
   connect(TOutWet, wseTOut.TOutWet)
     annotation (Line(points={{-200,100},{-120,100},{-120,58},{-102,58}},
     color={0,0,127}));
@@ -165,32 +165,33 @@ equation
     annotation (Line(points={{-200,-40},{-120,-40},{-120,50},{-102,50}},
     color={0,0,127}));
   connect(pre.y,wseTun.uWseSta)
-    annotation (Line(points={{161,-50},{170,-50},{170,-70},{-150,-70},{-150,-85},
+    annotation (Line(points={{162,-50},{170,-50},{170,-70},{-150,-70},{-150,-85},
           {-142,-85}},color={255,0,255}));
   connect(TChiWatRet, add1.u1)
     annotation (Line(points={{-200,60},{-140,60},{-140,-4},{-102,-4}},
           color={0,0,127}));
   connect(truFalHol.y, pre.u)
-    annotation (Line(points={{161,30},{170,30},{170,-30},{130,-30},{130,-50},{138,
-          -50}},color={255,0,255}));
-  connect(truFalHol.y, y) annotation (Line(points={{161,30},{170,30},{170,0},{
-          190,0}}, color={255,0,255}));
+    annotation (Line(points={{162,30},{170,30},{170,-30},{130,-30},{130,-50},{138,-50}},
+          color={255,0,255}));
+  connect(truFalHol.y, y) annotation (
+    Line(points={{162,30},{170,30},{170,0},{190,0}}, color={255,0,255}));
   connect(enaTWet.y, and2.u1)
-    annotation (Line(points={{41,50},{98,50}}, color={255,0,255}));
+    annotation (Line(points={{42,50},{98,50}}, color={255,0,255}));
   connect(truFalHol.u, and2.y)
-    annotation (Line(points={{139,30},{130,30},{130,50},{121,50}},
+    annotation (Line(points={{138,30},{130,30},{130,50},{122,50}},
     color={255,0,255}));
   connect(timer.y, enaTChiWatRet.u)
-    annotation (Line(points={{41,-10},{58,-10}}, color={0,0,127}));
-  connect(TChiWatRetDow, add1.u2) annotation (Line(points={{-200,20},{-160,20},{
-          -160,-16},{-102,-16}},color={0,0,127}));
+    annotation (Line(points={{42,-10},{58,-10}}, color={0,0,127}));
+  connect(TChiWatRetDow, add1.u2)
+    annotation (Line(points={{-200,20},{-160,20},{-160,-16},{-102,-16}},
+    color={0,0,127}));
   connect(add1.y, hys.u)
-    annotation (Line(points={{-79,-10},{-62,-10}},color={0,0,127}));
+    annotation (Line(points={{-78,-10},{-62,-10}},color={0,0,127}));
   connect(hys.y, not1.u)
-    annotation (Line(points={{-39,-10},{-22,-10}}, color={255,0,255}));
+    annotation (Line(points={{-38,-10},{-22,-10}}, color={255,0,255}));
   connect(not1.y, timer.u)
-    annotation (Line(points={{1,-10},{18,-10}},    color={255,0,255}));
-  connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{81,-10},{90,-10},{
+    annotation (Line(points={{2,-10},{18,-10}}, color={255,0,255}));
+  connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{82,-10},{90,-10},{
           90,42},{98,42}}, color={255,0,255}));
   connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,-90},{-110,-90},
           {-110,42},{-102,42}},color={0,0,127}));
@@ -199,7 +200,7 @@ equation
   connect(TChiWatRet, add2.u1) annotation (Line(points={{-200,60},{-140,60},{-140,
           70},{-50,70},{-50,56},{-22,56}}, color={0,0,127}));
   connect(add2.y, enaTWet.u)
-    annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
+    annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
     annotation (Line(points={{-119,-90},{190,-90}}, color={0,0,127}));
   annotation (defaultComponentName = "wseSta",
@@ -217,33 +218,37 @@ equation
           extent={{-180,-120},{180,120}})),
 Documentation(info="<html>
 <p>
-Waterside economizer (WSE) sequence per ASHRAE RP-1711, Draft 4, section 5.2.3. It consists of enable/disable conditions as provided in sections 5.2.3.1. and 5.2.3.2. and:
+Waterside economizer (WSE) control sequence per ASHRAE RP-1711, July Draft, section 5.2.3.
+It implements the enable/disable conditions as provided in sections 5.2.3.1. and 5.2.3.2.
 </p>
-<ul>
-<li>
-A subsequence to predict the WSE outlet temperature at given conditions:
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature</a>
-</li>
-<li>
-A subsequence to define the temperature prediction
-tuning parameter:
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning</a>
-</li>
-</ul>
 <p>
 The sequence controls the WSE status as follows:
 </p>
 <ul>
 <li>
-Enable if WSE has been disabled for at least <code>holdPeriod</code> of time and chilled water return
-temperature (CHWRT) upstream of WSE is greater than the predicted heat
-exchanger leaving water temperature (PHXLWT) plus <code>TOffsetEna</code>
+Enable WSE if it has been disabled for at least <code>holdPeriod</code> of time and the chilled water return
+temperature (CHWRT) upstream of WSE, <code>TChiWatRet</code>, is greater than the WSE predicted heat
+exchanger leaving water temperature (PHXLWT) increased in <code>TOffsetEna</code>.
 </li>
 <li>
-Disable if WSE has been enabled for at least <code>holdPeriod</code> of time and CHWRT downstream of
-WSE is greater than CHWRT upstream of WSE less <code>TOffsetDis</code> for <code>dTperiod</code>.
+Disable WSE if it has been enabled for at least <code>holdPeriod</code> of time and CHWRT downstream of
+WSE, <code>TChiWatRetDow</code>, is greater than <code>TChiWatRet</code> decreased in <code>TOffsetDis</code> 
+for <code>delDis</code> time period.
+</li>
+</ul>
+<p>
+The WSE control sequence uses the following subsequences:
+</p>
+<ul>
+<li>
+Calculation of the PHXLWT at given conditions:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.PredictedOutletTemperature</a>.
+</li>
+<li>
+Calculation of the tuning parameter used as an input to PHXLWT calculation:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizer.Subsequences.Tuning</a>.
 </li>
 </ul>
 </html>",

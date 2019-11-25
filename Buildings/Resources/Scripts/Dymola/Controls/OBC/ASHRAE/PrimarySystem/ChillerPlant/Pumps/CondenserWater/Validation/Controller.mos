@@ -1,0 +1,21 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Validation.Controller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="conPumCon");
+
+createPlot(id=1, position={20, 10, 700, 1100}, subPlot=1, y={"chiSta.y", "wseSta.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 1100}, subPlot=2, y={"chiOn.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 1100}, subPlot=3, y={"meaPumSpe.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 1100}, subPlot=4, y={"pumSpeSet.y"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+
+createPlot(id=2, position={730, 10, 700, 1100}, subPlot=1, y={"heaHavWse.yLeaPum"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={730, 10, 700, 1100}, subPlot=2, y={"heaHavWse.yDesConWatPumSpe"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={730, 10, 700, 1100}, subPlot=3, y={"heaHavWse.yConWatPumNum"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={730, 10, 700, 1100}, subPlot=4, y={"heaHavWse.yPumSpeChe"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+
+createPlot(id=3, position={1440, 10, 700, 1100}, subPlot=1, y={"dedHavWse.yLeaPum"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={1440, 10, 700, 1100}, subPlot=2, y={"dedHavWse.yDesConWatPumSpe"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={1440, 10, 700, 1100}, subPlot=3, y={"dedHavWse.yConWatPumNum"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={1440, 10, 700, 1100}, subPlot=4, y={"dedHavWse.yPumSpeChe"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+
+createPlot(id=4, position={2150, 10, 700, 1100}, subPlot=1, y={"heaNoWse.yLeaPum"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={2150, 10, 700, 1100}, subPlot=2, y={"heaNoWse.yDesConWatPumSpe"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={2150, 10, 700, 1100}, subPlot=3, y={"heaNoWse.yConWatPumNum"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={2150, 10, 700, 1100}, subPlot=4, y={"heaNoWse.yPumSpeChe"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});

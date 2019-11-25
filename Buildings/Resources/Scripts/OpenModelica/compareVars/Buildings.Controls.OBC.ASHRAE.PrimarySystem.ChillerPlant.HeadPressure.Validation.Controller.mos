@@ -8,12 +8,12 @@ compareVars :=
     "enaWSE.uHeaPreEna",
     "enaWSE.yMaxTowSpeSet",
     "enaWSE.yHeaPreConVal",
-    "enaWSE.yConWatPumSpe",
+    "enaWSE.yConWatPumSpeSet",
     "disWSE.yMaxTowSpeSet",
     "disWSE.yHeaPreConVal",
-    "disWSE.yConWatPumSpe",
+    "disWSE.yConWatPumSpeSet",
     "conSpePum.yMaxTowSpeSet",
     "conSpePum.yHeaPreConVal",
     "varSpePum.yMaxTowSpeSet",
-    "varSpePum.yConWatPumSpe"
+    "varSpePum.yConWatPumSpeSet"
   };
