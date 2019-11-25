@@ -70,6 +70,16 @@ partial model PartialOpenLoop
   Buildings.Fluid.Sources.Outside amb(redeclare package Medium = MediumA,
       nPorts=3) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
+
+  replaceable ThermalZones.Floor flo(
+    redeclare final package Medium = MediumA,
+    final lat=lat,
+    final use_windPressure=use_windPressure,
+    final sampleModel=sampleModel) constrainedby
+    Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
+    "Model of a floor of the building that is served by this VAV system"
+    annotation (Placement(transformation(extent={{772,396},{1100,616}})));
+
 //  Buildings.Fluid.HeatExchangers.DryCoilCounterFlow heaCoi(
 //    redeclare package Medium1 = MediumW,
 //    redeclare package Medium2 = MediumA,
@@ -388,14 +398,7 @@ partial model PartialOpenLoop
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-330,170},{-310,190}}),
         iconTransformation(extent={{-360,170},{-340,190}})));
-  replaceable ThermalZones.Floor flo(
-    redeclare final package Medium = MediumA,
-    final lat=lat,
-    final use_windPressure=use_windPressure,
-    final sampleModel=sampleModel) constrainedby
-    Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
-    "Model of a floor of the building that is served by this VAV system"
-    annotation (Placement(transformation(extent={{772,396},{1100,616}})));
+
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir(u(each unit="K", each
         displayUnit="degC")) "Demultiplex for room air temperature"
     annotation (Placement(transformation(extent={{490,160},{510,180}})));
