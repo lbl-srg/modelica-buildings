@@ -1,9 +1,12 @@
 TimeSeriesBuilding
 RCBuilding
 RCBuildingWetCoil
+RCBuildingSecondaryFlow
 SpawnBuilding1Zone
 GeojsonBuilding
 GeojsonBuildingAirFlow
 GeojsonSpawnBuilding1
 GeojsonSpawnBuilding2
+GeojsonSpawnSecondaryFlow
+SensibleTerminalUnit
 GeojsonExport

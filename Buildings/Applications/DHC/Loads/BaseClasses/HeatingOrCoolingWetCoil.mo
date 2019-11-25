@@ -73,12 +73,6 @@ model HeatingOrCoolingWetCoil
   parameter Boolean homotopyInitialization = true
     "If true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-  parameter Real ratUAIntToUAExt[nLoa](each min=1) = fill(2, nLoa)
-    "Ratio of UA internal to UA external values at nominal conditions"
-    annotation(Dialog(tab="Advanced", group="Nominal condition"));
-  parameter Real expUA[nLoa] = fill(4/5, nLoa)
-    "Exponent of Reynolds number in the flow correlation used for computing UA internal value"
-    annotation(Dialog(tab="Advanced"));
   // Computed parameters
   final parameter Modelica.SIunits.MassFlowRate m_flow1_nominal = sum(m_flow1_i_nominal)
     "Source side total mass flow rate at nominal conditions";
@@ -178,8 +172,8 @@ model HeatingOrCoolingWetCoil
   Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flowTotSum(nin=nLoa)
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flowTot[nLoa](
-    each quantity="HeatFlowRate", each unit="W")
-    "Total heat flow rate transferred to the loads" annotation (Placement(transformation(extent={{100,70},{140,110}}),
+    each quantity="HeatFlowRate", each unit="W") "Total heat flow rate transferred to the loads"
+                                                    annotation (Placement(transformation(extent={{100,70},{140,110}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 protected
   parameter Boolean cooMod = (T1_b_nominal > T1_a_nominal)
