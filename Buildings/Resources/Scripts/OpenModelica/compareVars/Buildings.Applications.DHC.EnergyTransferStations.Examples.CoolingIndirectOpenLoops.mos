@@ -7,9 +7,9 @@ compareVars :=
     "coo.hex.m1_flow",
     "coo.hex.m2_flow",
     "coo.val.y",
-    "dTDis",
-    "dTBui",
-    "TApp",
+    "dTDis.y",
+    "dTBui.y",
+    "TApp.y",
     "coo.Q_flow",
     "coo.Q"
   };
