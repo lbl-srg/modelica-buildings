@@ -114,14 +114,14 @@ protected
   Buildings.Fluid.Interfaces.ConservationEquation vol(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
+    final massDynamics=energyDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
     final mSenFac=mSenFac,
-    final use_mWat_flow=true,
+    final use_mWat_flow=Medium.nXi > 0,
     final use_C_flow=use_C_flow,
     final fluidVolume=V,
     final nPorts=nPorts) "Air volume of the thermal zone"
@@ -206,7 +206,7 @@ protected
     "Port temperature"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Sources.RealExpression TFlu(y=Medium.temperature_phX(
-        p=p,
+        p=vol.medium.p,
         h=vol.hOut,
         X=cat(
           1,

@@ -6,8 +6,7 @@ model TwoIdenticalZones "Validation model with two identical zones"
     idfName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/TwoIdenticalZones.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-  energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Building level declarations"
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
 
@@ -56,7 +55,6 @@ model TwoIdenticalZones "Validation model with two identical zones"
       annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
     ThermalZone zon(
       redeclare package Medium = Medium,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       zoneName=zoneName,
       nPorts=3) "Thermal zone (core zone of the office building with 5 zones)"
       annotation (Placement(transformation(extent={{-18,6},{22,46}})));
