@@ -9,7 +9,6 @@ partial model PartialThreeWayValve "Partial three way valve"
           deltaM=deltaM,
           dp(start=dpValve_nominal/2),
           from_dp=from_dp,
-          final l=l[1],
           final linearized=linearized[1],
           final homotopyInitialization=homotopyInitialization,
           final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -25,7 +24,6 @@ partial model PartialThreeWayValve "Partial three way valve"
           deltaM=deltaM,
           dp(start=dpValve_nominal/2),
           from_dp=from_dp,
-          final l=l[2],
           final linearized=linearized[2],
           final homotopyInitialization=homotopyInitialization,
           final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -146,6 +144,14 @@ for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 5, 2019, by Michael Wetter:<br/>
+Moved assignment of leakage from <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
+Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>
+to the parent classes.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1227\">#1227</a>.
+</li>
 <li>
 October 25, 2019, by Jianjun Hu:<br/>
 Improved icon graphics annotation. This is for

@@ -2,8 +2,12 @@ within Buildings.Fluid.Actuators.Valves;
 model ThreeWayEqualPercentageLinear
   "Three way valve with equal percentage and linear characteristics"
     extends BaseClasses.PartialThreeWayValve(
-      redeclare TwoWayEqualPercentage res1(R=R, delta0=delta0),
-      redeclare TwoWayLinear res3);
+      redeclare TwoWayEqualPercentage res1(
+        R=R,
+        delta0=delta0,
+        final l=l[1]),
+      redeclare TwoWayLinear res3(
+        final l=l[2]));
   parameter Real R = 50 "Rangeability, R=50...100 typically";
   parameter Real delta0 = 0.01
     "Range of significant deviation from equal percentage law";
@@ -51,6 +55,14 @@ for the implementation of the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 5, 2019, by Michael Wetter:<br/>
+Moved assignment of leakage from <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
+Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>
+to the parent classes.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1227\">#1227</a>.
+</li>
 <li>
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,

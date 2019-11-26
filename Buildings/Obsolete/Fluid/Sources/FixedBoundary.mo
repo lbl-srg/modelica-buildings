@@ -1,6 +1,6 @@
 within Buildings.Obsolete.Fluid.Sources;
 model FixedBoundary "Boundary source component"
-  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
+  extends Modelica.Icons.ObsoleteModel;
   extends Buildings.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
   parameter Boolean use_p=true "select p or d"
     annotation (Evaluate = true,
