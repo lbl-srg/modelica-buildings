@@ -9,127 +9,144 @@ model CoolingIndirect
     Modelica.Media.Interfaces.PartialMedium "Medium in the component";
 
   // mass flow rates
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0,start=0.5)
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(
+    final min=0,
+    start=0.5)
     "Nominal mass flow rate of primary (district) district cooling side";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0,start=0.5)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(
+    final min=0,
+    start=0.5)
     "Nominal mass flow rate of secondary (building) district cooling side";
 
+  // Primary supply control valve
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+    final min=0,
+    final displayUnit="Pa")=6000
+    "Nominal pressure drop of fully open control valve";
+
   // Heat exchanger
-  parameter Modelica.SIunits.PressureDifference dp1_nominal(min=0,start=500)
+  parameter Modelica.SIunits.PressureDifference dp1_nominal(
+    final min=0,
+    start=500,
+    final displayUnit="Pa")
     "Nominal pressure difference on primary side"
-    annotation(Dialog(enable=true,
-      tab="Heat exchanger"));
-  parameter Modelica.SIunits.PressureDifference dp2_nominal(min=0,start=500)
+    annotation(Dialog(group="Heat exchanger"));
+  parameter Modelica.SIunits.PressureDifference dp2_nominal(
+    final min=0,
+    start=500,
+    final displayUnit="Pa")
     "Nominal pressure difference on secondary side"
-    annotation(Dialog(enable=true,
-      tab="Heat exchanger"));
+    annotation(Dialog(group="Heat exchanger"));
   parameter Boolean use_Q_flow_nominal=true
     "Set to true to specify Q_flow_nominal and temperatures, or to false to specify effectiveness"
-    annotation(Dialog(enable=true,
-      tab="Heat exchanger"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0,start=10000)
+    annotation(Dialog(group="Heat exchanger"));
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(
+    final min=0,
+    start=10000)
     "Nominal heat transfer"
-    annotation(enable=true,
-      Dialog(tab="Heat exchanger"));
-  parameter Modelica.SIunits.Temperature T_a1_nominal(min=0+273,max=100+273.15,start=5+273.15)
+    annotation(Dialog(group="Heat exchanger"));
+  parameter Modelica.SIunits.Temperature T_a1_nominal(
+    min=0+273,
+    max=100+273.15,
+    start=5+273.15,
+    final displayUnit="K")
     "Nominal temperature at port a1"
-    annotation(Dialog(enable=true,
-      tab="Heat exchanger"));
-  parameter Modelica.SIunits.Temperature T_a2_nominal(min=0+273,max=100+273.15,start=7+273.15)
+    annotation(Dialog(group="Heat exchanger"));
+  parameter Modelica.SIunits.Temperature T_a2_nominal(
+    min=0+273,
+    max=100+273.15,
+    start=7+273.15,
+    final displayUnit="K")
     "Nominal temperature at port a2"
-    annotation(Dialog(enable=true,
-      tab="Heat exchanger"));
-  parameter Modelica.SIunits.Efficiency eta(min=0,max=1)=0.8
+    annotation(Dialog(group="Heat exchanger"));
+  parameter Modelica.SIunits.Efficiency eta(
+    final min=0,
+    final max=1)=0.8
     "Constant effectiveness"
-    annotation(Dialog(enable=true,
-      tab="Heat exchanger"));
-
-  // Primary supply control valve
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal(min=0)=50
-    "Control valve: Nominal pressure drop of fully open valve";
+    annotation(Dialog(group="Heat exchanger"));
 
   // Controller parameters
   parameter Modelica.Blocks.Types.SimpleController controllerType=
     Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(enable=true,
-      tab="Controller"));
-  parameter Real k(min=0, unit="1") = 1
+    annotation(Dialog(tab="Controller"));
+  parameter Real k(final min=0, final unit="1") = 1
     "Gain of controller"
-    annotation(Dialog(enable=true,
-      tab="Controller"));
-  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
+    annotation(Dialog(tab="Controller"));
+  parameter Modelica.SIunits.Time Ti(
+    min=Modelica.Constants.small)=120
     "Time constant of integrator block"
-     annotation (Dialog(enable=true,
-       tab="Controller"));
-  parameter Modelica.SIunits.Time Td(min=0)=0.1
+     annotation (Dialog(tab="Controller", enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PI or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+  parameter Modelica.SIunits.Time Td(final min=0)=0.1
     "Time constant of derivative block"
-     annotation (Dialog(enable=true,
-       tab="Controller"));
+     annotation (Dialog(tab="Controller", enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real yMax(start=1)=1
    "Upper limit of output"
-    annotation(Dialog(enable=true,
-      tab="Controller"));
+    annotation(Dialog(tab="Controller"));
   parameter Real yMin=0
    "Lower limit of output"
-    annotation(Dialog(enable=true,
-      tab="Controller"));
-  parameter Real wp(min=0) = 1
+    annotation(Dialog(tab="Controller"));
+  parameter Real wp(final min=0) = 1
    "Set-point weight for Proportional block (0..1)"
-    annotation(Dialog(enable=true,
-      tab="Controller"));
-  parameter Real wd(min=0) = 0
+    annotation(Dialog(tab="Controller"));
+  parameter Real wd(final min=0) = 0
    "Set-point weight for Derivative block (0..1)"
-    annotation(Dialog(enable=true,
-      tab="Controller"));
+    annotation(Dialog(tab="Controller", enable=
+          controllerType==Modelica.Blocks.Types.SimpleController.PD or
+          controllerType==Modelica.Blocks.Types.SimpleController.PID));
   parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
-    annotation(Dialog(enable=true,
-      tab="Controller"));
+    annotation(Dialog(tab="Controller", enable=
+          controllerType==Modelica.Blocks.Types.SimpleController.PI or
+          controllerType==Modelica.Blocks.Types.SimpleController.PID));
   parameter Real Nd(min=100*Modelica.Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
-    annotation(Dialog(enable=true,
-      tab="Controller"));
+    annotation(Dialog(tab="Controller", enable=
+          controllerType==Modelica.Blocks.Types.SimpleController.PD or
+          controllerType==Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Blocks.Types.InitPID initType=
     Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-    annotation(Dialog(enable=true,
-      group="Initialization",
-      tab="Controller"));
+    annotation(Evaluate=true, Dialog(group="Initialization", tab="Controller"));
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
-    annotation (Dialog(enable=true,
-      group="Initialization",
-      tab="Controller"));
+    annotation (Dialog(group="Initialization", tab="Controller",
+                       enable=controllerType==Modelica.Blocks.Types.SimpleController.PI or
+                              controllerType==Modelica.Blocks.Types.SimpleController.PID));
   parameter Real xd_start=0
     "Initial or guess value for state of derivative block"
-    annotation (Dialog(enable=true,
-      group="Initialization",
-      tab="Controller"));
+    annotation (Dialog(group="Initialization", tab="Controller",
+                       enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
+                              controllerType==Modelica.Blocks.Types.SimpleController.PID));
   parameter Real yCon_start=0
     "Initial value of output from the controller"
-    annotation(Dialog(enable=true,
-      group="Initialization",
-      tab="Controller"));
+    annotation(Dialog(group="Initialization", tab="Controller",
+                      enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput));
   parameter Boolean reverseAction = true
     "Set to true for throttling the water flow rate through a cooling coil controller"
-    annotation(Dialog(enable=true,
-      tab="Controller"));
+    annotation(Dialog(tab="Controller"));
 
-  Modelica.Blocks.Interfaces.RealInput TSet "Setpoint temperature"
+  Modelica.Blocks.Interfaces.RealInput TSet(
+    final quantity="ThermodynamicTemperature",
+    final unit="K")
+    "Setpoint temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    quantity="Power",
-    unit="W",
-    displayUnit="kW")
+    final quantity="Power",
+    final unit="W",
+    final displayUnit="kW")
     "Measured power demand at the ETS"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
 
   Modelica.Blocks.Interfaces.RealOutput Q(
-    quantity="Energy",
-    unit="J",
-    displayUnit="kWh")
+    final quantity="Energy",
+    final unit="J",
+    final displayUnit="kWh")
     "Measured energy consumption at the ETS"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
@@ -180,7 +197,8 @@ model CoolingIndirect
   Modelica.Blocks.Continuous.Integrator int(k=1) "Integration"
     annotation (Placement(transformation(extent={{60,120},{80,100}})));
 
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(
@@ -260,7 +278,8 @@ equation
     annotation (Line(points={{81,110},{110,110}}, color={0,0,127}));
   connect(Q_flow, cp.y) annotation (Line(points={{110,150},{50,150},{50,110},{41,
           110}}, color={0,0,127}));
-  annotation (defaultComponentName="coo",
+
+annotation (defaultComponentName="coo",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-56},{100,-64}},

@@ -13,7 +13,7 @@ model CoolingIndirectClosedBuildingLoop
   parameter Modelica.SIunits.SpecificHeatCapacity cp=
     Medium.specificHeatCapacityCp(
     Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
-    "Specific heat capacity of medium 1";
+    "Specific heat capacity of medium";
 
   Modelica.Blocks.Sources.Constant TSetCHWS(k=273.15 + 7)
     "Setpoint temperature for building chilled water supply"
@@ -36,11 +36,11 @@ model CoolingIndirectClosedBuildingLoop
     redeclare package Medium = Medium,
     m1_flow_nominal=mDis_flow_nominal,
     m2_flow_nominal=mBui_flow_nominal,
-    dp1_nominal(displayUnit="Pa") = 500,
-    dp2_nominal(displayUnit="Pa") = 500,
+    dp1_nominal = 500,
+    dp2_nominal = 500,
     Q_flow_nominal=18514,
-    T_a1_nominal(displayUnit="K") = 278.15,
-    T_a2_nominal(displayUnit="K") = 289.15,
+    T_a1_nominal = 278.15,
+    T_a2_nominal = 289.15,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=40,

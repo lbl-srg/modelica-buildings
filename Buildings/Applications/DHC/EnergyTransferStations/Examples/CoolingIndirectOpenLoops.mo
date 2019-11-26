@@ -70,11 +70,11 @@ model CoolingIndirectOpenLoops
     redeclare package Medium = Medium,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
-    dp1_nominal(displayUnit="Pa") = 500,
-    dp2_nominal(displayUnit="Pa") = 500,
+    dp1_nominal = 500,
+    dp2_nominal = 500,
     Q_flow_nominal=18514,
-    T_a1_nominal(displayUnit="K") = 278.15,
-    T_a2_nominal(displayUnit="K") = 289.15,
+    T_a1_nominal = 278.15,
+    T_a2_nominal = 289.15,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=40,
@@ -102,8 +102,8 @@ model CoolingIndirectOpenLoops
     offset=273 + 3.5)
     "District supply temperature trapezoid signal"
     annotation (Placement(transformation(extent={{-120,44},{-100,64}})));
-  Modelica.Blocks.Sources.RealExpression TBuiRetSig(y=(273.15 + 16) + 2*sin(
-        time*2*3.14/86400))
+  Modelica.Blocks.Sources.RealExpression TBuiRetSig(
+    y=(273.15 + 16) + 2*sin(time*2*3.14/86400))
     "Sinusoidal signal for return temperature on building (secondary) side"
     annotation (Placement(transformation(extent={{120,-96},{100,-76}})));
   Modelica.Blocks.Math.Add TApp(k2=-1) "Calculate approach temperature"
