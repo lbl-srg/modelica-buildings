@@ -76,7 +76,7 @@ equation
                                                                 color={0,127,255}));
   annotation (
   experiment(
-      StopTime=86400,
+      StopTime=800000,
       Tolerance=1e-06),
   Documentation(info="<html>
   <p>
@@ -94,9 +94,9 @@ equation
           extent={{-98,90},{-38,50}},
           lineColor={28,108,200},
           fontSize=18,
+          horizontalAlignment=TextAlignment.Left,
           textString="Model with one EnergyPlus thermal zone can only be simulated with:
-- Dymola 2020x (with Advanced.CompileWith64 = 2) or
-- JModelica.",
-          horizontalAlignment=TextAlignment.Left)}),
+- dymola-2020-x86_64 (with Advanced.CompileWith64 = 2) or
+- JModelica.")}),
     __Dymola_Commands);
 end CouplingSpawn1ZoneRefactor;

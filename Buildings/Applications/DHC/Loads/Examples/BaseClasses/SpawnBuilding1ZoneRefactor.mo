@@ -52,11 +52,11 @@ model SpawnBuilding1ZoneRefactor
     nLoa=1)
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.SensibleTerminalUnit terUni(
-    Q_flow_nominal={500,2000},
+    Q_flow_nominal={10000,10000},
     T_a2_nominal={293.15,297.15},
-    T_b1_nominal={308.15,295.15},
-    T_a1_nominal={313.15,290.15},
-    m_flow2_nominal={1,1},
+    T_b1_nominal={308.15,294.15},
+    T_a1_nominal={313.15,289.15},
+    m_flow2_nominal={5,5},
     dp2_nominal={100,100})
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution couCoo(
