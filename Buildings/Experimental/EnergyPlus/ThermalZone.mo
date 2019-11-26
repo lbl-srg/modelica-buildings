@@ -23,11 +23,6 @@ model ThermalZone "Model to connect to an EnergyPlus thermal zone"
     "Set to true to enable input connector for trace substance that is connected to room air"
     annotation (Dialog(group="Ports"));
 
-  // Assumptions
-  final parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Type of energy balance for zone air: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of zone air pressure"
@@ -113,8 +108,8 @@ protected
 
   Buildings.Fluid.Interfaces.ConservationEquation vol(
     redeclare final package Medium = Medium,
-    final energyDynamics=energyDynamics,
-    final massDynamics=energyDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
