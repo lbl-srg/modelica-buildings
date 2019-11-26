@@ -162,7 +162,7 @@ equation
   experiment(
     StartTime=0,
     StopTime=86400,
-    Tolerance=1e-04),
+    Tolerance=1e-06),
   Documentation(info="<html>
 <p>This model provides an example for the indirect cooling energy transfer station model.
 Both the district and building chilled water loops are open. The district supply temperature

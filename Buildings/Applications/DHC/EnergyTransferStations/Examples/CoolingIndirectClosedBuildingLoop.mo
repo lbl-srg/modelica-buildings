@@ -191,7 +191,7 @@ equation
   experiment(
     StartTime=0,
     StopTime=86400,
-    Tolerance=1e-03),
+    Tolerance=1e-06),
   Documentation(info="<html>
 <p>This model provides an example for the indirect cooling energy transfer station model. 
 The cooling load ramps up from zero and is modulated according to the QCoo table specification. 
