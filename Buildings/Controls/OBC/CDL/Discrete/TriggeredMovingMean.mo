@@ -1,46 +1,48 @@
 within Buildings.Controls.OBC.CDL.Discrete;
-block MovingMean "Discrete moving mean of a sampled input signal"
+block TriggeredMovingMean
+  "Triggered discrete moving mean of an input signal"
 
-  parameter Integer n(min=2)
+  parameter Integer n(min=1)
     "Number of samples over which the input is averaged";
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
-    "Sampling period of component";
 
   Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.BooleanInput trigger "Boolean signal that triggers the block"
+    annotation (Placement(
+        transformation(
+        origin={0,-120},
+        extent={{-20,-20},{20,20}},
+        rotation=90), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120})));
   Interfaces.RealOutput y "Discrete averaged signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   parameter Modelica.SIunits.Time t0(fixed=false) "First sample time instant";
-  Boolean sampleTrigger "Trigger samples at each sampling instant";
-  Integer iSample(start=0, fixed=true) "Sample numbering in the simulation";
+  Integer iSample(start=0, fixed=true) "Sample numbering in the calculation";
   Integer counter(start=0, fixed=true)
       "Number of samples used for averaging calculation";
   Integer index(start=0, fixed=true) "Index of the vector ySample";
-  discrete Real ySample[n](
+  Real ySample[n](
     start=vector(zeros(n,1)),
-    each fixed=true)
-      "Vector of samples to be averaged";
+    each fixed=true) "Vector of samples to be averaged";
 
 initial equation
   t0 = time;
-  y = u;
 
 equation
-  sampleTrigger =  sample(t0, samplePeriod);
-
-algorithm
-  when sampleTrigger then
-    index := mod(iSample, n) + 1;
-    ySample[index] := u;
-    counter := if counter == n then n else counter + 1;
-    y := sum(ySample)/counter;
-    iSample := iSample + 1;
+  when {initial(), trigger} then
+    index = mod(pre(iSample), n) + 1;
+    ySample = {if (i == index) then u else pre(ySample[i]) for i in 1:n};
+    counter = if pre(counter) == n then n else pre(counter) + 1;
+    y = sum(ySample)/counter;
+    iSample = pre(iSample) + 1;
   end when;
 
   annotation (
-  defaultComponentName="movMea",
+  defaultComponentName="triMovMea",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
        graphics={
        Rectangle(
@@ -84,25 +86,46 @@ algorithm
        Line(points={{32,-32},{60,-32}}, color={217,67,180}),
        Line(points={{32,4},{32,-32}}, color={217,67,180}, smooth=Smooth.Bezier),
        Line(points={{60,-58},{82,-58}}, color={217,67,180}),
-       Line(points={{60,-32},{60,-58}}, color={217,67,180},smooth=Smooth.Bezier)}),
+       Line(points={{60,-32},{60,-58}}, color={217,67,180},smooth=Smooth.Bezier),
+        Ellipse(
+          extent={{-25,-10},{-45,10}},
+          lineColor={176,181,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{45,-10},{25,10}},
+          lineColor={176,181,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-100,0},{-45,0}}, color={176,181,255}),
+        Line(points={{45,0},{100,0}}, color={176,181,255}),
+        Line(points={{-35,0},{28,-48}}, color={176,181,255}),
+        Line(points={{0,-100},{0,-26}}, color={255,0,255}),
+        Text(
+          extent={{56,92},{92,60}},
+          lineColor={28,108,200},
+          textString="%n")}),
 Documentation(info="<html>
 <p>
-Block that outputs the sampled moving mean value of an input signal.
-At each sampling instant, the block outputs the average value of the past <i>n</i>
-samples including the current sample.
+Block that outputs the triggered moving mean value of an input signal.
 </p>
 <p>
-At the first sample, the block outputs the first sampled input. At the next
-sample, it outputs the average of the past two samples, then the past three
-samples and so on up to <i>n</i> samples.
+At the start of the simulation, and whenever the trigger signal is rising
+(i.e., the trigger changes to <code>true</code>), the block samples
+the input, computes the moving mean value over the past <code>n</code> samples,
+and produces this value at its output <code>y</code>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-June 17, 2019, by Kun Zhang:<br/>
-First implementation.
+November 7, 2019, by Michael Wetter:<br/>
+Reformulated model to use an <code>equation</code> rather than an <code>algorithm</code> section.
+</li>
+<li>
+October 16, 2019, by Kun Zhang:<br/>
+First implementation. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue 1588</a>.
 </li>
 </ul>
 </html>"));
-end MovingMean;
+end TriggeredMovingMean;
