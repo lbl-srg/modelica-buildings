@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
-partial model PartialBuildingRefactor "Partial class for building model"
+partial model PartialBuildingRefactor
+  "Partial class for building model"
   // Find a way to specify medium for each connected load.
   replaceable package Medium1 =
     Buildings.Media.Water
@@ -9,134 +10,54 @@ partial model PartialBuildingRefactor "Partial class for building model"
       choice(redeclare package Medium1 =
         Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
-  parameter Modelica.SIunits.HeatFlowRate Q_flowHea_nominal[nLoa]
-    "Heating power at nominal conditions (always positive)"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flowCoo_nominal[nLoa]
-    "Cooling power at nominal conditions (always positive)"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.ThermodynamicTemperature THeaLoa_nominal[nLoa](
-    each displayUnit="degC") = fill(Modelica.SIunits.Conversions.from_degC(20), nLoa)
-    "Temperature of heating load at nominal conditions"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.ThermodynamicTemperature TCooLoa_nominal[nLoa](
-    each displayUnit="degC") = fill(Modelica.SIunits.Conversions.from_degC(24), nLoa)
-    "Temperature of cooling load at nominal conditions"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flowHeaLoa_nominal[nLoa] = fill(0, nLoa)
-    "Mass flow rate on heating load side at nominal conditions"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flowCooLoa_nominal[nLoa] = fill(0, nLoa)
-    "Mass flow rate on cooling load side at nominal conditions"
-    annotation(Dialog(group = "Nominal condition"));
   parameter Integer nLoa = 1
     "Number of loads"
+     annotation(Evaluate=true, Dialog(tab="General"));
+  parameter Integer nPorts1 = 0
+    "Number of source fluid streams"
+     annotation(Evaluate=true, Dialog(connectorSizing=true));
+  parameter Boolean haveFanPum
+    "Set to true if fans and pumps drawn power is computed"
     annotation(Evaluate=true);
-  parameter Buildings.Applications.DHC.Loads.Types.ModelType heaLoaTyp[nLoa]=
-    fill(Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort, nLoa)
-    "Type of heating load model"
+  parameter Boolean haveEleHeaCoo
+    "Set to true if the building has electric heating or cooling"
     annotation(Evaluate=true);
-  parameter Buildings.Applications.DHC.Loads.Types.ModelType cooLoaTyp[nLoa]=
-    fill(Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort, nLoa)
-    "Type of cooling load model"
-    annotation(Evaluate=true);
-  parameter Buildings.Fluid.Types.HeatExchangerFlowRegime floRegHeaLoa[nLoa]=
-    fill(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange, nLoa)
-    "Heat exchanger flow regime"
-    annotation(Evaluate=true);
-  parameter Buildings.Fluid.Types.HeatExchangerFlowRegime floRegCooLoa[nLoa]=
-    fill(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange, nLoa)
-    "Heat exchanger flow regime"
+  final parameter Boolean allowFlowReversal=false
+    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Evaluate=true);
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(
     transformation(extent={{-16,284},{18,316}}),
     iconTransformation(extent={{-16,84},{18,116}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo[nLoa](each final unit="1")
-    "Cooling control loop output"
-    annotation (
-      Placement(transformation(extent={{300,-202},{320,-182}}),
-        iconTransformation(extent={{100,-70},{120,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea[nLoa](each final unit="1")
-    "Heating control loop output"
-    annotation (
-      Placement(transformation(extent={{300,190},{320,210}}),iconTransformation(
-          extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flowHeaAct[nLoa](
-    each quantity="HeatFlowRate", each unit="W")
-    "Actual heating heat flow rate"
-    annotation (Placement(
-    transformation(extent={{300,284},{320,304}}), iconTransformation(extent={{100,80},{120,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flowCooAct[nLoa](
-    each quantity="HeatFlowRate", each unit="W")
-    "Actual cooling heat flow rate"
-    annotation (Placement(
-    transformation(extent={{300,-304},{320,-284}}), iconTransformation(extent={{100,-100},{120,-80}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a2(
-    redeclare final package Medium = Medium1,
-    p(start=Medium1.p_default),
-    m_flow(min=0))
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(
-    extent={{-310,-10},{-290,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2(
-    redeclare final package Medium = Medium1,
-    p(start=Medium1.p_default),
-    m_flow(max=0))
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{310,-10},{290,10}}),
-    iconTransformation(extent={{110,-10},{90,10}})));
-protected
-  parameter Integer nHeaLoaH = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort for el in heaLoaTyp})
-    "Number of heating loads represented by a thermal model with heat port"
-    annotation(Evaluate=true);
-  parameter Integer heaLoaH_idx[nHeaLoaH] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort     for el in heaLoaTyp})
-    "Indices of the input heat ports to be connected with models with heat port"
-    annotation(Evaluate=true);
-  parameter Integer nHeaLoaT = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT     for el in heaLoaTyp})
-    "Number of heating loads represented by a prescribed temperature"
-    annotation(Evaluate=true);
-  parameter Integer heaLoaT_idx[nHeaLoaT] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT     for el in heaLoaTyp})
-    "Indices of the input heat ports to be connected with models with prescribed temperature"
-    annotation(Evaluate=true);
-  parameter Integer nHeaLoaO = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.ODE     for el in heaLoaTyp})
-    "Number of heating loads represented by an ODE model"
-    annotation(Evaluate=true);
-  parameter Integer heaLoaO_idx[nHeaLoaO] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.ODE     for el in heaLoaTyp})
-    "Indices of the input heat ports to be connected with models with ODE"
-    annotation(Evaluate=true);
-  parameter Integer nCooLoaH = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort     for el in cooLoaTyp})
-    "Number of cooling loads represented by a thermal model with heat port"
-    annotation(Evaluate=true);
-  parameter Integer cooLoaH_idx[nCooLoaH] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort     for el in cooLoaTyp})
-    "Indices of the input heat ports to be connected with thermal models with heat port"
-    annotation(Evaluate=true);
-  parameter Integer nCooLoaT = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT     for el in cooLoaTyp})
-    "Number of cooling loads represented by a prescribed temperature"
-    annotation(Evaluate=true);
-  parameter Integer cooLoaT_idx[nCooLoaT] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.PrescribedT     for el in cooLoaTyp})
-    "Indices of the input heat ports to be connected with models with prescribed temperature"
-    annotation(Evaluate=true);
-  parameter Integer nCooLoaO = Modelica.Math.BooleanVectors.countTrue(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.ODE
-     for el in cooLoaTyp})
-    "Number of cooling loads represented by an ODE model"
-    annotation(Evaluate=true);
-  parameter Integer cooLoaO_idx[nCooLoaO] = Modelica.Math.BooleanVectors.index(
-    {el==Buildings.Applications.DHC.Loads.Types.ModelType.ODE
-     for el in cooLoaTyp})
-    "Indices of the input heat ports to be connected with models with ODE"
-    annotation(Evaluate=true);
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nPorts1](
+    redeclare each package Medium = Medium1,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
+    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
+    annotation (Placement(transformation(extent={{-310,-40},{-290,40}}),
+      iconTransformation(extent={{-110,-40},{-90,40}})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nPorts1](
+    redeclare each package Medium = Medium1,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
+    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
+    annotation (Placement(transformation(extent={{290,-40},{310,40}}),
+      iconTransformation(extent={{90,-40},{110,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow1Act[nPorts1, nLoa](
+    each quantity="HeatFlowRate", final unit="W")
+    "Heat flow rate transferred to the source (<0 for heating)"
+    annotation (Placement(transformation(extent={{300,250},{340,290}}),
+      iconTransformation(extent={{100,70},{140,110}})));
+  Modelica.Blocks.Interfaces.RealOutput PHeaCoo(
+    quantity="Power", final unit="W") if haveEleHeaCoo
+    "Power drawn by heating and cooling equipment"
+    annotation (Placement(transformation(extent={{300,170},{340,210}}),
+      iconTransformation(extent={{100, -100},{120,-80}})));
+  Modelica.Blocks.Interfaces.RealOutput PFanPum(
+    quantity="Power", final unit="W") if haveFanPum
+    "Power drawn by fans and pumps"
+    annotation (Placement(transformation(extent={{300,210},{340,250}}),
+      iconTransformation(extent={{100,-80}, {120,-60}})));
   annotation (
   defaultComponentName="heaFloEps",
   Documentation(info="<html>

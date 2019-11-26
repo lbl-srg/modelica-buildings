@@ -1,7 +1,7 @@
 CouplingTimeSeries
 CouplingRC
 GeojsonRCRawExport
-CouplingRCSecondaryFlow
+CouplingRCRefactor
 CouplingSpawn1Zone
 CouplingGeojsonRC
 CouplingGeojsonRCAirFlow
@@ -9,4 +9,5 @@ CouplingGeojsonSpawn1
 CouplingGeojsonSpawn2
 CouplingGeojsonSpawn1And2
 CouplingGeojsonSpawn1And2Loop
+CouplingSpawn1ZoneRefactor
 BaseClasses

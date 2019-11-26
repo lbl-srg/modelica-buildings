@@ -21,10 +21,11 @@ model UnitTestSecondaryFlow
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,-40})));
-  BaseClasses.SecondaryFlow           heaCoo(
+  BaseClasses.FlowDistribution heaCoo(
     m_flow1_nominal=0.1,
     T1_a_nominal=313.15,
-    T1_b_nominal=308.15) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    T1_b_nominal=308.15)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine ySou(
     amplitude=0.5,
     freqHz=0.001,

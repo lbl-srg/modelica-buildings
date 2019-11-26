@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model RCBuildingSecondaryFlow "Building model of type RC one element"
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuildingSecondaryFlow(
+model RCBuildingRefactor "Building model of type RC one element"
+  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuildingRefactor(
     haveFanPum=true,
     haveEleHeaCoo=false,
     nLoa=1);
@@ -111,27 +111,28 @@ model RCBuildingSecondaryFlow "Building model of type RC one element"
     rotation=90,
     origin={32,38})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20) "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,80},{-280,100}})));
+    annotation (Placement(transformation(extent={{-300,260},{-280,280}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SecondaryFlow couHea(
+    annotation (Placement(transformation(extent={{-260,260},{-240,280}})));
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution couHea(
     m_flow1_nominal=terUni.m_flow1_nominal[1],
     T_a1_nominal=terUni.T_a1_nominal[1],
     T_b1_nominal=terUni.T_b1_nominal[1],
-    nLoa=1)           annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+    nLoa=1)
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.SensibleTerminalUnit terUni(
     Q_flow_nominal={500,2000},
     T_a2_nominal={293.15,297.15},
     T_b1_nominal={308.15,295.15},
     T_a1_nominal={313.15,290.15},
     m_flow2_nominal={1,1},
-    dp2_nominal=fill(100, nPorts1))
+    dp2_nominal={100,100})
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24) "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,40},{-280,60}})));
+    annotation (Placement(transformation(extent={{-300,220},{-280,240}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
-    annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.SecondaryFlow couCoo(
+    annotation (Placement(transformation(extent={{-260,220},{-240,240}})));
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution couCoo(
     m_flow1_nominal=terUni.m_flow1_nominal[2],
     T_a1_nominal=terUni.T_a1_nominal[2],
     T_b1_nominal=terUni.T_b1_nominal[2],
@@ -252,22 +253,26 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(minTSet.y, from_degC1.u) annotation (Line(points={{-278,90},{-262,90}}, color={0,0,127}));
+  connect(minTSet.y, from_degC1.u) annotation (Line(points={{-278,270},{-262,
+          270}},                                                                  color={0,0,127}));
   connect(thermalZoneOneElement.ports[1], terUni.port_a2)
     annotation (Line(points={{81.475,-9.95},{86.5,-9.95},{86.5,-42},{-140,-42}}, color={0,127,255}));
   connect(terUni.port_b2, thermalZoneOneElement.ports[2])
     annotation (Line(points={{-160,-42},{-180,-42},{-180,-22},{84.525,-22},{84.525,-9.95}}, color={0,127,255}));
   connect(from_degC1.y, terUni.uSet[1])
-    annotation (Line(points={{-238,90},{-200,90},{-200,-47},{-161,-47}}, color={0,0,127}));
+    annotation (Line(points={{-238,270},{-200,270},{-200,-47},{-161,-47}},
+                                                                         color={0,0,127}));
   connect(couHea.Q_flow1Act, Q_flow1Act[1, 1])
     annotation (Line(points={{-99,-119},{220,-119},{220,270},{320,270}}, color={0,0,127}));
   connect(ports_a1[1], couHea.port_a)
     annotation (Line(points={{-300,0},{-280,0},{-280,-110},{-120,-110}},     color={0,127,255}));
   connect(couHea.port_b, ports_b1[1])
     annotation (Line(points={{-100,-110},{280,-110},{280,0},{300,0}},     color={0,127,255}));
-  connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,50},{-262,50}}, color={0,0,127}));
+  connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,230},{-262,
+          230}},                                                                  color={0,0,127}));
   connect(from_degC2.y, terUni.uSet[2])
-    annotation (Line(points={{-238,50},{-200,50},{-200,-47},{-161,-47}}, color={0,0,127}));
+    annotation (Line(points={{-238,230},{-200,230},{-200,-47},{-161,-47}},
+                                                                         color={0,0,127}));
   connect(ports_a1[2], couCoo.port_a)
     annotation (Line(points={{-300,0},{-280,0},{-280,-150},{-120,-150}},   color={0,127,255}));
   connect(couCoo.port_b, ports_b1[2])
@@ -312,4 +317,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end RCBuildingSecondaryFlow;
+end RCBuildingRefactor;

@@ -109,7 +109,7 @@ partial model PartialTerminalUnit "Prtial model for HVAC terminal unit"
       iconTransformation(extent={{-90,70},{-110,90}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow1Act[nPorts1](
     each quantity="HeatFlowRate") if nPorts1>0
-    "Heat flow rate transferred to the source"
+    "Heat flow rate transferred to the source (<0 for heating)"
     annotation (Placement(transformation(extent={{200,150},{240,190}}),
       iconTransformation(extent={{100,20},{120,40}})));
   Modelica.Blocks.Interfaces.RealOutput PFanPum(quantity="Power", final unit="W") if haveFanPum

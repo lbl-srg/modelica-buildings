@@ -1,10 +1,9 @@
 HeatFlowEffectiveness
 HeatingOrCooling
 HeatingOrCoolingWetCoil
-SecondaryFlow
+FlowDistribution
 HeatFlowWetCoil
 FirstOrderODE
 PartialBuilding
 PartialBuildingRefactor
-PartialBuildingSecondaryFlow
 PartialTerminalUnit

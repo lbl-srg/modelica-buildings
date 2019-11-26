@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingRCSecondaryFlow "Example illustrating the coupling of a RC building model to a fluid loop"
+model CouplingRCRefactor
+  "Example illustrating the coupling of a RC building model to a fluid loop"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
@@ -10,7 +11,7 @@ model CouplingRCSecondaryFlow "Example illustrating the coupling of a RC buildin
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.RCBuildingSecondaryFlow bui(nPorts1=2)
+  BaseClasses.RCBuildingRefactor bui(nPorts1=2)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
@@ -93,4 +94,4 @@ equation
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{140,120}})),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRC.mos"
         "Simulate and plot"));
-end CouplingRCSecondaryFlow;
+end CouplingRCRefactor;
