@@ -1,12 +1,13 @@
 TimeSeriesBuilding
 RCBuilding
 RCBuildingRefactor
-SpawnBuilding1Zone
+Spawn1Zone
+Spawn1ZoneRefactor
 GeojsonBuilding
 GeojsonBuildingAirFlow
 GeojsonSpawnBuilding1
+GeojsonSpawnBuilding1Refactor
 GeojsonSpawnBuilding2
 GeojsonSpawnSecondaryFlow
 SensibleTerminalUnit
 GeojsonExport
-SpawnBuilding1ZoneRefactor

@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model SpawnBuilding1Zone "Spawn building model based on Urbanopt GeoJSON export"
+model Spawn1Zone "Spawn building model based on Urbanopt GeoJSON export"
   import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     final heaLoaTyp=fill(Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort, nHeaLoa),
@@ -97,4 +97,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end SpawnBuilding1Zone;
+end Spawn1Zone;

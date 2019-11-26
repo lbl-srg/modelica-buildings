@@ -1,11 +1,29 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingSpawn1ZoneRefactor
+model CouplingGeojsonSpawn1Refactor
   "Example illustrating the coupling of a multizone RC model to a fluid loop"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Spawn1ZoneRefactor bui
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawnBuilding1Refactor bui
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+  Buildings.Fluid.Sources.Boundary_pT sinHea(
+    redeclare package Medium = Medium1,
+    p=300000,
+    nPorts=1)
+    "Sink for heating water"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={100,30})));
+  Buildings.Fluid.Sources.Boundary_pT sinCoo(
+    redeclare package Medium = Medium1,
+    p=300000,
+    nPorts=1)
+    "Sink for chilled water"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={100,-90})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
@@ -16,9 +34,9 @@ model CouplingSpawn1ZoneRefactor
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,10})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.couHea.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.disFloHea.T_a1_nominal)
     annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
-  Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.couHea.m_flow1Req)
+  Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.disFloHea.m_flow1Req)
     annotation (Placement(transformation(extent={{-80,14},{-60,34}})));
   Buildings.Fluid.Sources.MassFlowSource_T supCoo(
     use_m_flow_in=true,
@@ -30,27 +48,10 @@ model CouplingSpawn1ZoneRefactor
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,-70})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal1(y=bui.couCoo.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaInlVal1(y=bui.disFloCoo.T_a1_nominal)
     annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
-  Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.couCoo.m_flow1Req)
+  Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.disFloCoo.m_flow1Req)
     annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
-  Buildings.Fluid.Sources.Boundary_pT sinHea(
-    redeclare package Medium = Medium1,
-    p=300000,
-    nPorts=1) "Sink for heating water"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={130,10})));
-  Buildings.Fluid.Sources.Boundary_pT sinCoo(
-    redeclare package Medium = Medium1,
-    p=300000,
-    nPorts=1)
-    "Sink for chilled water"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={130,-70})));
 equation
   connect(THeaInlVal.y,supHea. T_in) annotation (Line(points={{-59,4},{-40,4},{-40,
           14},{-22,14}},                                                                            color={0,0,127}));
@@ -67,15 +68,13 @@ equation
   connect(supCoo.ports[1], bui.ports_a1[2])
     annotation (Line(points={{0,-70},{24,-70},{24,-30},{40,-30}},
                                                               color={0,127,255}));
-  connect(bui.ports_b1[1],sinHea. ports[1])
-    annotation (Line(points={{60,-30},{94,-30},{94,10},{120,10}},
-                                                                color={0,127,255}));
-  connect(bui.ports_b1[2],sinCoo. ports[1])
-    annotation (Line(points={{60,-30},{94,-30},{94,-70},{120,-70}},
-                                                                color={0,127,255}));
+  connect(bui.ports_b1[1], sinHea.ports[1]) annotation (Line(points={{60,-30},{76,
+          -30},{76,30},{90,30}}, color={0,127,255}));
+  connect(bui.ports_b1[2], sinCoo.ports[1]) annotation (Line(points={{60,-30},{76,
+          -30},{76,-90},{90,-90}}, color={0,127,255}));
   annotation (
   experiment(
-      StopTime=800000,
+      StopTime=86400,
       Tolerance=1e-06),
   Documentation(info="<html>
   <p>
@@ -90,14 +89,14 @@ equation
   </html>"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}}), graphics={Text(
-          extent={{-98,90},{-38,50}},
+          extent={{-100,90},{140,58}},
           lineColor={28,108,200},
           fontSize=18,
           horizontalAlignment=TextAlignment.Left,
-          textString="Model with one EnergyPlus thermal zone can only be simulated with:
-- dymola-2020-x86_64 with
-Advanced.CompileWith64 = 2;
+          textString="Model with multiple EnergyPlus thermal zones can only be simulated with:
+- Dymola 2020x with:
+Advanced.CompileWith64 = 2; Hidden.AvoidDoubleComputation=true
 or
 - JModelica.")}),
     __Dymola_Commands);
-end CouplingSpawn1ZoneRefactor;
+end CouplingGeojsonSpawn1Refactor;

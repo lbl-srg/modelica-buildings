@@ -5,8 +5,7 @@ model CouplingGeojsonSpawn1And2 "Example illustrating the coupling of a multizon
   package Medium = Buildings.Media.Water "Fluid in the pipes";
 
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawnBuilding1
-                                                                        bui
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    bui annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
     redeclare package Medium = Medium,

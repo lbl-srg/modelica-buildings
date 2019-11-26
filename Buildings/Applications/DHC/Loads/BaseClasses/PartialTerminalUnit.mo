@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
-partial model PartialTerminalUnit "Prtial model for HVAC terminal unit"
+partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   replaceable package Medium1 =
     Buildings.Media.Water
     "Source side medium"
@@ -19,7 +19,7 @@ partial model PartialTerminalUnit "Prtial model for HVAC terminal unit"
       choice(redeclare package Medium2 =
         Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
-  parameter Integer nPorts1=1
+  parameter Integer nPorts1
     "Number of inlet fluid ports on the source side"
     annotation(Evaluate=true);
   parameter Boolean haveFanPum
@@ -98,7 +98,7 @@ partial model PartialTerminalUnit "Prtial model for HVAC terminal unit"
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(
       extent={{190,-10},{210,10}}),
-                                  iconTransformation(extent={{90,70},{110,90}})));
+      iconTransformation(extent={{90,70},{110,90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium=Medium2,
     p(start=Medium2.p_default),
@@ -112,21 +112,26 @@ partial model PartialTerminalUnit "Prtial model for HVAC terminal unit"
     "Heat flow rate transferred to the source (<0 for heating)"
     annotation (Placement(transformation(extent={{200,150},{240,190}}),
       iconTransformation(extent={{100,20},{120,40}})));
-  Modelica.Blocks.Interfaces.RealOutput PFanPum(quantity="Power", final unit="W") if haveFanPum
-    "Power drawn by fans and pumps"
-    annotation (Placement(transformation(extent={{200,110},{240,150}}), iconTransformation(extent={{100,0},{120,20}})));
-  Modelica.Blocks.Interfaces.RealOutput PHeaCoo(quantity="Power", final unit="W") if haveEleHeaCoo
+  Modelica.Blocks.Interfaces.RealOutput PFanPum(
+    quantity="Power", final unit="W") if haveFanPum
+    "Power drawn by fan and pump motors"
+    annotation (Placement(transformation(extent={{200,110},{240,150}}),
+      iconTransformation(extent={{100,0},{120,20}})));
+  Modelica.Blocks.Interfaces.RealOutput PHeaCoo(
+    quantity="Power", final unit="W") if haveEleHeaCoo
     "Power drawn by heating and cooling equipment"
-    annotation (Placement(transformation(extent={{200,70},{240,110}}), iconTransformation(extent={{100,0},{120,20}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-100,-100},{100,100}}),graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95}),
-                              Rectangle(
-          extent={{-70,80},{70,-80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid)}),
-          Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-200,-240},{200,240}})));
+    annotation (Placement(transformation(extent={{200,70},{240,110}}),
+      iconTransformation(extent={{100,0},{120,20}})));
+annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+  extent={{-100,-100},{100,100}}),
+    graphics={
+    Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95}),
+    Rectangle(
+    extent={{-70,80},{70,-80}},
+    lineColor={0,0,255},
+    pattern=LinePattern.None,
+    fillColor={95,95,95},
+    fillPattern=FillPattern.Solid)}),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+    extent={{-200,-240},{200,240}})));
 end PartialTerminalUnit;

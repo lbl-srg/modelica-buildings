@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model GeojsonSpawnBuilding1 "Spawn building model based on Urbanopt GeoJSON export"
+model GeojsonSpawnBuilding1
+  "Spawn building model based on Urbanopt GeoJSON export"
   import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     final heaLoaTyp=fill(Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort, nHeaLoa),

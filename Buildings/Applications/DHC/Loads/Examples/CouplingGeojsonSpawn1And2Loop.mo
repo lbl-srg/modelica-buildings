@@ -16,8 +16,7 @@ model CouplingGeojsonSpawn1And2Loop
   parameter Modelica.SIunits.HeatFlowRate Q_flowCooTot_nominal = loaFac * 140000 * 2;
 
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawnBuilding1
-                                                                        bui(Q_flowCoo_nominal={30000,5000,5000,5000,5000,
-        20000})
+    bui(Q_flowCoo_nominal={30000,5000,5000,5000,5000,20000})
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow

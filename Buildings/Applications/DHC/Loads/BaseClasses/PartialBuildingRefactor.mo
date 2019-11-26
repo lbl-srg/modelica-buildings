@@ -12,8 +12,8 @@ partial model PartialBuildingRefactor
           "Propylene glycol water, 40% mass fraction")));
   parameter Integer nLoa = 1
     "Number of loads"
-     annotation(Evaluate=true, Dialog(tab="General"));
-  parameter Integer nPorts1 = 0
+     annotation(Evaluate=true);
+  parameter Integer nPorts1 = 1
     "Number of source fluid streams"
      annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter Boolean haveFanPum
@@ -55,7 +55,7 @@ partial model PartialBuildingRefactor
       iconTransformation(extent={{100, -100},{120,-80}})));
   Modelica.Blocks.Interfaces.RealOutput PFanPum(
     quantity="Power", final unit="W") if haveFanPum
-    "Power drawn by fans and pumps"
+    "Power drawn by fan and pump motors"
     annotation (Placement(transformation(extent={{300,210},{340,250}}),
       iconTransformation(extent={{100,-80}, {120,-60}})));
   annotation (

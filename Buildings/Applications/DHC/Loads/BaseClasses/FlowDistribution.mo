@@ -89,9 +89,10 @@ model FlowDistribution
     final allowFlowReversal=allowFlowReversal)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{68,-10},{88,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(k=fill(1, nLoa), nin=1)
-    "Total required water mass flow rate" annotation (Placement(transformation(extent={{-10,210},
-            {10,230}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+    k=fill(1, nLoa), nin=nLoa)
+    "Total required water mass flow rate"
+    annotation (Placement(transformation(extent={{-10,210}, {10,230}})));
   Buildings.Fluid.Sources.MassFlowSource_T m_flow1Sou_i[nLoa](
     redeclare each final package Medium = Medium1,
     each final use_m_flow_in=true,
@@ -113,23 +114,25 @@ model FlowDistribution
     annotation (Placement(transformation(extent={{90,120},{110,200}}),
       iconTransformation(extent={{-110,20},{-90,100}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare final package Medium=Medium1,
-    nPorts=1)
+    redeclare final package Medium=Medium1, final nPorts=nLoa)
     annotation (Placement(transformation(extent={{-40,150},{-60,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flow1Sum(nin=1)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flow1Sum(
+    final nin=nLoa)
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow1Act(each quantity="HeatFlowRate")
+  Modelica.Blocks.Interfaces.RealOutput Q_flow1Act(
+    each quantity="HeatFlowRate")
     "Heat flow rate transferred to the source (<0 for heating)"
-                                               annotation (Placement(transformation(extent={{100,80},{140,120}}),
-        iconTransformation(extent={{100,-100},{120,-80}})));
-  Modelica.Blocks.Sources.RealExpression m_flow1Act_i[nLoa](y=m_flow1Req_i .*
+    annotation (Placement(transformation(extent={{100,80},{140,120}}),
+      iconTransformation(extent={{100,-100},{120,-80}})));
+  Modelica.Blocks.Sources.RealExpression m_flow1Act_i[nLoa](
+    y=m_flow1Req_i .*
         Buildings.Utilities.Math.Functions.smoothMin(
-        1,
-        m_flow1Mes.m_flow/Buildings.Utilities.Math.Functions.smoothMax(
-          m_flow1Req,
-          m_flow_small,
-          m_flow_small),
-        1E-2))
+          1,
+          m_flow1Mes.m_flow / Buildings.Utilities.Math.Functions.smoothMax(
+            m_flow1Req,
+            m_flow_small,
+            m_flow_small),
+          1E-2))
     "Actual mass flow rate (constrained by sum(m_flow1Act_i)=m_flow1Mes)"
     annotation (Placement(transformation(extent={{-10,158},{10,178}})));
   Fluid.Sensors.SpecificEnthalpyTwoPort hSupMes_i[nLoa](
@@ -150,33 +153,43 @@ model FlowDistribution
 equation
   connect(port_a, T_aMes.port_a) annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(T_aMes.port_b, m_flow1Mes.port_a) annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
-  connect(T_aMes.T, T_aMesVec.u) annotation (Line(points={{-70,11},{-70,18}}, color={0,0,127}));
-  connect(m_flow1Mes.port_b, heaCoo.port_a) annotation (Line(points={{-20,0},{
-          68,0}},                                                                     color={0,127,255}));
-  connect(heaCoo.port_b, port_b) annotation (Line(points={{88,0},{100,0}}, color={0,127,255}));
-  connect(mulSum.y, m_flow1Req) annotation (Line(points={{12,220},{120,220}},                color={0,0,127}));
-  connect(Q_flow1Sum.y, heaCoo.u) annotation (Line(points={{52,80},{60,80},{60,
-          6},{66,6}},                                                                        color={0,0,127}));
+  connect(T_aMes.T, T_aMesVec.u)
+    annotation (Line(points={{-70,11},{-70,18}}, color={0,0,127}));
+  connect(m_flow1Mes.port_b, heaCoo.port_a)
+    annotation (Line(points={{-20,0},{
+          68,0}}, color={0,127,255}));
+  connect(heaCoo.port_b, port_b)
+    annotation (Line(points={{88,0},{100,0}}, color={0,127,255}));
+  connect(mulSum.y, m_flow1Req)
+    annotation (Line(points={{12,220},{120,220}},                color={0,0,127}));
+  connect(Q_flow1Sum.y, heaCoo.u)
+    annotation (Line(points={{52,80},{60,80},{60,
+          6},{66,6}}, color={0,0,127}));
   connect(T_aMesVec.y, m_flow1Sou_i.T_in)
     annotation (Line(points={{-70,42},{-70,120},{20,120},{20,164},{30,164}}, color={0,0,127}));
-  connect(m_flow1Req_i, mulSum.u[1:1]) annotation (Line(points={{-120,220},{-12,
-          220}},                                                                       color={0,0,127}));
+  connect(m_flow1Req_i, mulSum.u)
+    annotation (Line(points={{-120,220},{-12,
+          220}}, color={0,0,127}));
   connect(m_flow1Act_i.y, m_flow1Sou_i.m_flow_in)
-    annotation (Line(points={{11,168},{30,168}},                   color={0,0,127}));
-  connect(Q_flow1Sum.y, Q_flow1Act) annotation (Line(points={{52,80},{80,80},{
+    annotation (Line(points={{11,168},{30,168}}, color={0,0,127}));
+  connect(Q_flow1Sum.y, Q_flow1Act)
+    annotation (Line(points={{52,80},{80,80},{
           80,100},{120,100}},                                                     color={0,0,127}));
-  connect(ports_a1, hRetMes_i.port_a) annotation (Line(points={{-100,160},{-90,
-          160}},                                                                      color={0,127,255}));
-  connect(hRetMes_i.port_b, sin.ports[1:1]) annotation (Line(points={{-70,160},
+  connect(ports_a1, hRetMes_i.port_a)
+    annotation (Line(points={{-100,160},{-90, 160}}, color={0,127,255}));
+  connect(hRetMes_i.port_b, sin.ports)
+    annotation (Line(points={{-70,160},
           {-60,160}},                                                                      color={0,127,255}));
-  connect(Q_flow1Act_i.y, Q_flow1Sum.u[1:1]) annotation (Line(points={{11,80},{
-          28,80}},                                                                         color={0,0,127}));
-  connect(m_flow1Sou_i.ports[1], hSupMes_i.port_a) annotation (Line(points={{52,160},
+  connect(Q_flow1Act_i.y, Q_flow1Sum.u)
+    annotation (Line(points={{11,80},{28,80}},                                                                         color={0,0,127}));
+  connect(m_flow1Sou_i.ports[1], hSupMes_i.port_a)
+    annotation (Line(points={{52,160},
           {70,160}},                                                                            color={0,127,255}));
-  connect(hSupMes_i.port_b, ports_b1) annotation (Line(points={{90,160},{100,
+  connect(hSupMes_i.port_b, ports_b1)
+    annotation (Line(points={{90,160},{100,
           160}},                                                                    color={0,127,255}));
 annotation (
-defaultComponentName="secFlo",
+defaultComponentName="disFlo",
 Documentation(
 info="<html>
 <p>
@@ -229,28 +242,20 @@ Engineering Publication 13.443.
     extent={{-100,-100},{100,100}}),
     graphics={
         Rectangle(
-          extent={{-70,70},{70,-70}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
           extent={{-101,5},{100,-4}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95}),
-        Rectangle(
-          extent={{0,-4},{100,5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid)}),
+          Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95})}),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-40},{100,240}}), graphics={Text(
           extent={{-124,276},{104,252}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
-          textString="Need to devise how different
-distribution temperatures are handled e.g. use return temperature to compute the flow demand from terminal at source temperature.")}));
+          textString="Implement different
+distribution temperatures are handled e.g. use return temperature to compute the flow demand from terminal at source temperature.
+
+Implement optional main distribution pump.
+
+Implement piping heat loss.")}));
 end FlowDistribution;

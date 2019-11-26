@@ -5,8 +5,7 @@ model CouplingGeojsonSpawn1 "Example illustrating the coupling of a multizone RC
   package Medium = Buildings.Media.Water "Fluid in the pipes";
 
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawnBuilding1
-                                                                        bui
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    bui annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
     redeclare package Medium = Medium,
@@ -117,12 +116,14 @@ equation
   </html>"),
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}}), graphics={Text(
-          extent={{-100,90},{-40,50}},
+          extent={{-100,90},{140,58}},
           lineColor={28,108,200},
           fontSize=18,
+          horizontalAlignment=TextAlignment.Left,
           textString="Model with multiple EnergyPlus thermal zones can only be simulated with:
-- Dymola 2020x (with Advanced.CompileWith64 = 2 and Hidden.AvoidDoubleComputation=true) or
-- JModelica.",
-          horizontalAlignment=TextAlignment.Left)}),
+- Dymola 2020x with:
+Advanced.CompileWith64 = 2; Hidden.AvoidDoubleComputation=true
+or
+- JModelica.")}),
     __Dymola_Commands);
 end CouplingGeojsonSpawn1;

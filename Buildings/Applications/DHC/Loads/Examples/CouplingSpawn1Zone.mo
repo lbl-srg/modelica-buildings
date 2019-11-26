@@ -4,7 +4,7 @@ model CouplingSpawn1Zone "Example illustrating the coupling of a multizone RC mo
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Fluid in the pipes";
 
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.SpawnBuilding1Zone bui
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Spawn1Zone bui
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
