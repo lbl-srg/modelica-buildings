@@ -10,21 +10,6 @@ model CoolingIndirectOpenLoops
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 0.5
     "Nominal mass flow rate of secondary (building) district cooling side";
 
-  Modelica.Blocks.Interfaces.RealOutput TApp(
-    quantity="TemperatureDifference",
-    unit="degC")
-    "Approach temperature of heat exchanger"
-    annotation (Placement(transformation(extent={{140,90},{160,110}})));
-  Modelica.Blocks.Interfaces.RealOutput dTBui(
-    quantity="TemperatureDifference",
-    unit="degC")
-    "Building-side (secondary) temperature change"
-    annotation (Placement(transformation(extent={{140,50},{160,70}})));
-  Modelica.Blocks.Interfaces.RealOutput dTDis(
-    quantity="TemperatureDifference",
-    unit="degC")
-    "District-side (primary) temperature change"
-    annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Modelica.Blocks.Sources.Constant TSetCHWS(k=273.15 + 7)
     "Setpoint temperature for building chilled water supply"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
@@ -90,7 +75,6 @@ model CoolingIndirectOpenLoops
     Q_flow_nominal=18514,
     T_a1_nominal(displayUnit="K") = 278.15,
     T_a2_nominal(displayUnit="K") = 289.15,
-    dp_nominal(displayUnit="Pa") = 5000,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=40,
@@ -106,7 +90,7 @@ model CoolingIndirectOpenLoops
     m_flow_nominal=m2_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     nominalValuesDefineDefaultPressureCurve=true,
-    dp_nominal=0)
+    dp_nominal=6000)
     "Building-side (secondary) pump"
     annotation (Placement(transformation(extent={{-20,-100},{-40,-80}})));
   Modelica.Blocks.Sources.Trapezoid tra(
@@ -122,12 +106,12 @@ model CoolingIndirectOpenLoops
         time*2*3.14/86400))
     "Sinusoidal signal for return temperature on building (secondary) side"
     annotation (Placement(transformation(extent={{120,-96},{100,-76}})));
-  Modelica.Blocks.Math.Add TAppCal1(k2=-1) "Calculate approach temperature"
+  Modelica.Blocks.Math.Add TApp(k2=-1) "Calculate approach temperature"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Modelica.Blocks.Math.Add TDisCal(k1=-1)
+  Modelica.Blocks.Math.Add dTDis(k1=-1)
     "Calculate change in district temperature"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Modelica.Blocks.Math.Add TBuiCal(k1=-1)
+  Modelica.Blocks.Math.Add dTBui(k1=-1)
     "Calculate change in building temperature"
     annotation (Placement(transformation(extent={{88,-50},{108,-30}})));
 equation
@@ -148,24 +132,18 @@ equation
           {16,50},{20,50}}, color={0,127,255}));
   connect(TDisRet.port_b, sinDis.ports[1])
     annotation (Line(points={{40,50},{60,50}},  color={0,127,255}));
-  connect(TBuiSup.T, TAppCal1.u1)
+  connect(TBuiSup.T, TApp.u1)
     annotation (Line(points={{-60,-79},{-60,106},{-2,106}}, color={0,0,127}));
-  connect(TDisSup.T, TAppCal1.u2)
+  connect(TDisSup.T, TApp.u2)
     annotation (Line(points={{-30,61},{-30,94},{-2,94}}, color={0,0,127}));
-  connect(TDisRet.T, TDisCal.u2)
+  connect(TDisRet.T, dTDis.u2)
     annotation (Line(points={{30,61},{30,74},{58,74}}, color={0,0,127}));
-  connect(TDisCal.u1, TDisSup.T)
+  connect(dTDis.u1, TDisSup.T)
     annotation (Line(points={{58,86},{-30,86},{-30,61}}, color={0,0,127}));
-  connect(TBuiRet.T, TBuiCal.u2)
+  connect(TBuiRet.T, dTBui.u2)
     annotation (Line(points={{30,-79},{30,-46},{86,-46}}, color={0,0,127}));
-  connect(TBuiSup.T, TBuiCal.u1)
+  connect(TBuiSup.T, dTBui.u1)
     annotation (Line(points={{-60,-79},{-60,-34},{86,-34}}, color={0,0,127}));
-  connect(TAppCal1.y, TApp)
-    annotation (Line(points={{21,100},{150,100}}, color={0,0,127}));
-  connect(TDisCal.y, dTDis)
-    annotation (Line(points={{81,80},{150,80}}, color={0,0,127}));
-  connect(TBuiCal.y, dTBui) annotation (Line(points={{109,-40},{130,-40},{130,60},
-          {150,60}}, color={0,0,127}));
   connect(pumBui.port_b, TBuiSup.port_a)
     annotation (Line(points={{-40,-90},{-50,-90}}, color={0,127,255}));
   connect(TBuiSup.port_b, sinBui.ports[1])

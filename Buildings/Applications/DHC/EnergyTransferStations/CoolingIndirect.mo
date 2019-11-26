@@ -48,10 +48,6 @@ model CoolingIndirect
   parameter Modelica.SIunits.PressureDifference dpValve_nominal(min=0)=50
     "Control valve: Nominal pressure drop of fully open valve";
 
-  // Secondary supply pump
-  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0)
-    "Secondary pump: Nominal pressure raise, used for default pressure curve if not specified in record per";
-
   // Controller parameters
   parameter Modelica.Blocks.Types.SimpleController controllerType=
     Modelica.Blocks.Types.SimpleController.PI
@@ -120,6 +116,9 @@ model CoolingIndirect
     annotation(Dialog(enable=true,
       tab="Controller"));
 
+  Modelica.Blocks.Interfaces.RealInput TSet "Setpoint temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     quantity="Power",
     unit="W",
@@ -133,9 +132,6 @@ model CoolingIndirect
     displayUnit="kWh")
     "Measured energy consumption at the ETS"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
-
-  Modelica.Blocks.Interfaces.RealInput TSet "Setpoint temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare final package Medium1 = Medium,
@@ -201,7 +197,7 @@ model CoolingIndirect
     y_start=0) "District-side (primary) control valve"
     annotation (Placement(transformation(extent={{-30,70},{-10,50}})));
 
-  Modelica.Blocks.Math.Gain cp(k=cp_default)
+  Modelica.Blocks.Math.Gain cp(final k=cp_default)
     "Specifc heat multiplier to calculate heat flow rate"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
@@ -291,20 +287,23 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,160}})),
     Documentation(info="<html>
 <p>
-Indirect cooling energy transfer station (ETS) model that controls the building chilled water supply temperature 
-by modulating a primary control valve on the district supply side. The design is based on a typical district 
-cooling ETS described in ASHRAE's 
+Indirect cooling energy transfer station (ETS) model that controls 
+the building chilled water supply temperature by modulating a 
+primary control valve on the district supply side. The design is 
+based on a typical district cooling ETS described in ASHRAE's 
 <a href=\"https://www.ashrae.org/technical-resources/bookstore/district-heating-and-cooling-guides\">
 District Cooling Guide</a>.  
-As shown in the figure below, the building pumping design (constant, variable) is specified on the building
-side, not within the ETS. 
+As shown in the figure below, the building pumping design (constant, 
+variable) is specified on the building side, not within the ETS. 
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/CoolingIndirect.png\" alt=\"DHC.ETS.CoolingIndirect\"/>
 </p>
 <h4>Reference</h4>
 <p>
-American Society of Heating, Refrigeration and Air-Conditioning Engineers. (2013). Chapter 5: End User Interface. In <i>District Cooling Guide</i>. 1st Edition. 
+American Society of Heating, Refrigeration and Air-Conditioning 
+Engineers. (2013). Chapter 5: End User Interface. In 
+<i>District Cooling Guide</i>. 1st Edition. 
 </p>
 </html>", revisions="<html>
 <ul>

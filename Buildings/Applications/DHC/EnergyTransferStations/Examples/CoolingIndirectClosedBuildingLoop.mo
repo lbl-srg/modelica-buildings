@@ -15,21 +15,6 @@ model CoolingIndirectClosedBuildingLoop
     Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
     "Specific heat capacity of medium 1";
 
-  Modelica.Blocks.Interfaces.RealOutput TApp(
-    quantity="TemperatureDifference",
-    unit="degC")
-    "Approach temperature of heat exchanger"
-    annotation (Placement(transformation(extent={{140,110},{160,130}})));
-  Modelica.Blocks.Interfaces.RealOutput dTBui(
-    quantity="TemperatureDifference",
-    unit="degC")
-    "Building-side (secondary) temperature change"
-    annotation (Placement(transformation(extent={{140,70},{160,90}})));
-  Modelica.Blocks.Interfaces.RealOutput dTDis(
-    quantity="TemperatureDifference",
-    unit="degC")
-    "District-side (primary) temperature change"
-    annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Modelica.Blocks.Sources.Constant TSetCHWS(k=273.15 + 7)
     "Setpoint temperature for building chilled water supply"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -56,7 +41,6 @@ model CoolingIndirectClosedBuildingLoop
     Q_flow_nominal=18514,
     T_a1_nominal(displayUnit="K") = 278.15,
     T_a2_nominal(displayUnit="K") = 289.15,
-    dp_nominal(displayUnit="Pa") = 5000,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
     Ti=40,
@@ -94,7 +78,7 @@ model CoolingIndirectClosedBuildingLoop
     allowFlowReversal=false,
     m_flow_nominal=mBui_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
-    dp_nominal=0)
+    dp_nominal=6000)
     "Building-side (secondary) pump"
     annotation (Placement(
         transformation(
@@ -139,13 +123,13 @@ model CoolingIndirectClosedBuildingLoop
     T_start=280.15)
     "Building-side (secondary) supply temperature sensor"
     annotation (Placement(transformation(extent={{-10,-86},{10,-66}})));
-  Modelica.Blocks.Math.Add TBuiCal(k1=-1)
+  Modelica.Blocks.Math.Add dTBui(k1=-1)
     "Calculate change in building temperature"
     annotation (Placement(transformation(extent={{110,-40},{130,-20}})));
-  Modelica.Blocks.Math.Add TDisCal(k1=-1)
+  Modelica.Blocks.Math.Add dTDis(k1=-1)
     "Calculate change in district temperature"
     annotation (Placement(transformation(extent={{90,90},{110,110}})));
-  Modelica.Blocks.Math.Add TAppCal(k2=-1) "Calculate approach temperature"
+  Modelica.Blocks.Math.Add TApp(k2=-1) "Calculate approach temperature"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
 equation
   connect(coo.port_b2, pumBui.port_a)
@@ -185,24 +169,18 @@ equation
     annotation (Line(points={{-10,70},{10,70}}, color={0,127,255}));
   connect(TDisSup.port_b, coo.port_a1) annotation (Line(points={{30,70},{34,70},
           {34,26},{40,26}}, color={0,127,255}));
-  connect(TBuiSup.T, TAppCal.u1)
+  connect(TBuiSup.T, TApp.u1)
     annotation (Line(points={{0,-65},{0,126},{38,126}}, color={0,0,127}));
-  connect(TDisSup.T, TAppCal.u2)
+  connect(TDisSup.T, TApp.u2)
     annotation (Line(points={{20,81},{20,114},{38,114}}, color={0,0,127}));
-  connect(TDisRet.T, TDisCal.u2)
+  connect(TDisRet.T, dTDis.u2)
     annotation (Line(points={{80,81},{80,94},{88,94}}, color={0,0,127}));
-  connect(TDisCal.u1, TDisSup.T)
+  connect(dTDis.u1, TDisSup.T)
     annotation (Line(points={{88,106},{20,106},{20,81}}, color={0,0,127}));
-  connect(TBuiRet.T, TBuiCal.u2)
+  connect(TBuiRet.T, dTBui.u2)
     annotation (Line(points={{80,-65},{80,-36},{108,-36}}, color={0,0,127}));
-  connect(TBuiCal.u1, TBuiSup.T)
+  connect(dTBui.u1, TBuiSup.T)
     annotation (Line(points={{108,-24},{0,-24},{0,-65}}, color={0,0,127}));
-  connect(TBuiCal.y, dTBui) annotation (Line(points={{131,-30},{136,-30},{136,80},
-          {150,80}}, color={0,0,127}));
-  connect(TDisCal.y, dTDis)
-    annotation (Line(points={{111,100},{150,100}}, color={0,0,127}));
-  connect(TAppCal.y, TApp)
-    annotation (Line(points={{61,120},{150,120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,
