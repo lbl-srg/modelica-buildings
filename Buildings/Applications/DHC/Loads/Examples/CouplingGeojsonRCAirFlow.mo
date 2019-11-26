@@ -103,12 +103,12 @@ equation
   connect(couHea.port_b, sinHea.ports[1]) annotation (Line(points={{20,30},{90,30}}, color={0,127,255}));
   connect(bui.yHea, couHea.yHeaCoo)
     annotation (Line(points={{61,-24},{80,-24},{80,0},{-10,0},{-10,22},{-2,22}}, color={0,0,127}));
-  connect(bui.heaPorHea, couHea.heaPorLoa) annotation (Line(points={{40,-23},{10,-23},{10,20}}, color={191,0,0}));
+  connect(bui.heaPorHea, couHea.heaPorLoa) annotation (Line(points={{40,-23},{20,-23},{20,25}}, color={191,0,0}));
   connect(supCoo.ports[1], couCoo.port_a) annotation (Line(points={{-20,-90},{0,-90}}, color={0,127,255}));
   connect(couCoo.port_b, sinCoo.ports[1]) annotation (Line(points={{20,-90},{90,-90}}, color={0,127,255}));
   connect(bui.yCoo, couCoo.yHeaCoo)
     annotation (Line(points={{61,-36},{80,-36},{80,-60},{-10,-60},{-10,-82},{-2,-82}}, color={0,0,127}));
-  connect(bui.heaPorCoo, couCoo.heaPorLoa) annotation (Line(points={{40,-37},{10,-37},{10,-80}}, color={191,0,0}));
+  connect(bui.heaPorCoo, couCoo.heaPorLoa) annotation (Line(points={{40,-37},{20,-37},{20,-85}}, color={191,0,0}));
   connect(bui.m_flowHeaLoa, couHea.m_flow2)
     annotation (Line(points={{61,-27},{82,-27},{82,52},{-10,52},{-10,38},{-2,38}}, color={0,0,127}));
   connect(bui.m_flowCooLoa, couCoo.m_flow2)
