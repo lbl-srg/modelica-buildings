@@ -305,21 +305,16 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Utilities.Assert cheStaTyp(
     final message="Unlisted chiller type got selected")
     "Unlisted chiller type got selected"
-    annotation (Placement(transformation(extent={{300,360},{320,380}})));
+    annotation (Placement(transformation(extent={{300,340},{320,360}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final threshold=-0.5)
     "Less than threshold"
-    annotation (Placement(transformation(extent={{260,360},{280,380}})));
-
-  Buildings.Controls.OBC.CDL.Utilities.Assert staExc1(
-    final message="Unlisted chiller type got selected")
-    "Unlisted chiller type got selected"
-    annotation (Placement(transformation(extent={{300,310},{320,330}})));
+    annotation (Placement(transformation(extent={{222,360},{242,380}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
     final threshold=-0.5) "Less than threshold"
-    annotation (Placement(transformation(extent={{260,310},{280,330}})));
+    annotation (Placement(transformation(extent={{222,310},{242,330}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrDow
     "Calculates operating part load ratio of the next stage down"
@@ -375,6 +370,8 @@ block PartLoadRatios
     final k=varSpeStaMin) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{120,-420},{140,-400}})));
 
+  CDL.Logical.Or or2
+    annotation (Placement(transformation(extent={{260,340},{280,360}})));
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-360,0},{-260,0},{-260,
           -44},{-242,-44}}, color={0,0,127}));
@@ -451,12 +448,11 @@ equation
           {118,-478}}, color={0,0,127}));
   connect(mult2.y, add3.u1) annotation (Line(points={{22,-430},{100,-430},{100,-466},
           {118,-466}}, color={0,0,127}));
-  connect(cheStaTyp.u,greThr. y)
-    annotation (Line(points={{298,370},{282,370}}, color={255,0,255}));
-  connect(swi.y,greThr. u) annotation (Line(points={{182,150},{190,150},{190,370},
-          {258,370}}, color={0,0,127}));
+  connect(swi.y,greThr. u) annotation (Line(points={{182,150},{190,150},{190,
+          370},{220,370}},
+                      color={0,0,127}));
   connect(swi3.y,greThr1. u) annotation (Line(points={{42,-230},{200,-230},{200,
-          320},{258,320}}, color={0,0,127}));
+          320},{220,320}}, color={0,0,127}));
   connect(uLifMax, add2.u1) annotation (Line(points={{-360,-360},{-260,-360},{-260,
           -388},{-140,-388},{-140,-404},{-122,-404}}, color={0,0,127}));
   connect(uCapReq, opePlrDow.u1) annotation (Line(points={{-360,0},{-280,0},{-280,
@@ -489,8 +485,6 @@ equation
           -280},{-300,-184},{-242,-184}}, color={0,0,127}));
   connect(uUpCapDes, minOpePlrUp.u2) annotation (Line(points={{-360,-160},{-280,
           -160},{-280,-196},{-242,-196}}, color={0,0,127}));
-  connect(greThr1.y, staExc1.u)
-    annotation (Line(points={{282,320},{298,320}}, color={255,0,255}));
   connect(intEqu.y, swi.u2) annotation (Line(points={{42,170},{120,170},{120,150},
           {158,150}}, color={255,0,255}));
   connect(intToRea.y,extCurTyp. u)
@@ -547,6 +541,12 @@ equation
           {10,-300},{10,-238},{18,-238}}, color={0,0,127}));
   connect(min.y, swi1.u3) annotation (Line(points={{242,-370},{260,-370},{260,-60},
           {110,-60},{110,62},{118,62}}, color={0,0,127}));
+  connect(greThr.y, or2.u1) annotation (Line(points={{244,370},{250,370},{250,
+          350},{258,350}}, color={255,0,255}));
+  connect(greThr1.y, or2.u2) annotation (Line(points={{244,320},{250,320},{250,
+          342},{258,342}}, color={255,0,255}));
+  connect(or2.y, cheStaTyp.u)
+    annotation (Line(points={{282,350},{298,350}}, color={255,0,255}));
   annotation (defaultComponentName = "PLRs",
         Icon(graphics={
         Rectangle(
