@@ -42,7 +42,8 @@ protected
      final y_start=y_start,
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass,
-     x(each stateSelect=StateSelect.always)) if
+     x(each stateSelect=StateSelect.always,
+       each start=0)) if
         use_inputFilter
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{6,81},{20,95}})));
@@ -110,6 +111,12 @@ for a description of the filter.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 14, 2019, by Michael Wetter:<br/>
+Set <code>start</code> attribute for <code>filter.x</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1252\">#1252</a>.
+</li>
 <li>
 October 25, 2019, by Jianjun Hu:<br/>
 Improved icon graphics annotation. This is for
