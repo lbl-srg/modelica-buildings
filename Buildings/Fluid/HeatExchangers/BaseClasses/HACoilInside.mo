@@ -94,7 +94,7 @@ First implementation.
         Line(points={{-52,-40},{56,-40},{44,-32}}, color={175,175,175}),
         Line(points={{56,-40},{44,-48}}, color={175,175,175})}),
               Icon(
-      Rectangle(extent=[-36,-36; -24,-72],   style(
+      Rectangle(extent={{-36,-36},{-24,-72}},   style(
           color=0,
           fillColor=8,
           fillPattern=8)),
@@ -107,7 +107,7 @@ First implementation.
       Line(points=[16,-40; 16,-68],    style(color=69, fillColor=47)),
       Line(points=[16,-68; 10,-58],     style(color=69, fillColor=47)),
       Line(points=[16,-68; 22,-58],     style(color=69, fillColor=47)),
-      Rectangle(extent=[-36,66; -24,30],     style(
+      Rectangle(extent={{-36,66},{-24,30}},     style(
           color=0,
           fillColor=8,
           fillPattern=8)),

@@ -32,7 +32,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus,HDirTil. weaBus) annotation (Line(
@@ -40,7 +40,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDifTil.H, G.u2) annotation (Line(
@@ -59,6 +59,12 @@ equation
   defaultComponentName="pv",
     Documentation(revisions="<html>
 <ul>
+<li>
+October 7, 2019, by Michael Wetter:<br/>
+Corrected model to include DC/AC conversion in output <code>P</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
+</li>
 <li>
 August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.

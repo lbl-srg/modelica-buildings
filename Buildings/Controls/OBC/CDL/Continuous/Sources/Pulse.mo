@@ -12,9 +12,8 @@ block Pulse "Generate pulse signal of type Real"
   parameter Real offset=0 "Offset of output signals";
   parameter Modelica.SIunits.Time startTime=0
     "Output = offset for time < startTime";
-  Interfaces.RealOutput y
-    "Connector of Pulse output signal" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}})));
+  Interfaces.RealOutput y "Connector of Pulse output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   Modelica.SIunits.Time T_width=period*width "Pulse duration time";

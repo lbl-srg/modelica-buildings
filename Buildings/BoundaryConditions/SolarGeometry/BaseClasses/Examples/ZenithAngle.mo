@@ -28,21 +28,21 @@ equation
           1.13798e-15},{-47,5.55112e-16},{-34,5.55112e-16}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%second",
+      textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.cloTim, decAng.nDay) annotation (Line(
       points={{-34,5.55112e-16},{-18,5.55112e-16},{-18,30},{18,30}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
       points={{-34,5.55112e-16},{-18,5.55112e-16},{-18,-30},{18,-30}},
       color={255,204,51},
       thickness=0.5), Text(
-      string="%first",
+      textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (

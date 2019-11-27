@@ -28,27 +28,26 @@ block ExhaustDamper
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSupFan "Supply fan status"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPos(
     min=0,
     max=1,
     final unit="1")
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-120,50},{-100,70}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yExhDamPos(
     min=0,
     max=1,
     final unit="1") "Exhaust damper position"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line exhDamPos
     "Linearly map exhaust damper position to the outdoor air damper position"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "Check if exhaust damper should be open"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis greThr(
     final uLow=0.02,
     final uHigh=0.05)
@@ -82,25 +81,25 @@ protected
 
 equation
   connect(outDamPhyPosMaxSig.y, exhDamPos.x2)
-    annotation (Line(points={{-19,40},{-4,40},{-4,-4},{18,-4}},
+    annotation (Line(points={{-18,40},{-4,40},{-4,-4},{18,-4}},
       color={0,0,127}));
   connect(maxExhDam.y, exhDamPos.f2)
-    annotation (Line(points={{-59,20},{-12,20},{-12,-8},{18,-8}},
+    annotation (Line(points={{-58,20},{-12,20},{-12,-8},{18,-8}},
       color={0,0,127}));
   connect(uOutDamPos, exhDamPos.u)
     annotation (Line(points={{-120,0},{18,0}},
       color={0,0,127}));
   connect(zerDam.y, swi1.u3)
-    annotation (Line(points={{41,-80},{60,-80},{60,-58},{78,-58}},
+    annotation (Line(points={{42,-80},{50,-80},{50,-58},{58,-58}},
       color={0,0,127}));
   connect(and2.y, swi1.u2)
-    annotation (Line(points={{1,-50},{78,-50}},
+    annotation (Line(points={{2,-50},{58,-50}},
       color={255,0,255}));
   connect(minPosAtMinSpd.y, exhDamPos.x1)
-    annotation (Line(points={{-19,80},{12,80},{12,8},{18,8}},
+    annotation (Line(points={{-18,80},{12,80},{12,8},{18,8}},
       color={0,0,127}));
   connect(minExhDam.y, exhDamPos.f1)
-    annotation (Line(points={{-59,60},{4,60},{4,4},{18,4}},
+    annotation (Line(points={{-58,60},{4,60},{4,4},{18,4}},
       color={0,0,127}));
   connect(uOutDamPos, greThr.u)
     annotation (Line(points={{-120,0},{-80,0},{-80,-30},{-62,-30}},
@@ -109,13 +108,13 @@ equation
     annotation (Line(points={{-120,-50},{-60,-50},{-60,-58},{-22,-58}},
       color={255,0,255}));
   connect(greThr.y, and2.u1)
-    annotation (Line(points={{-39,-30},{-32,-30},{-32,-50},{-22,-50}},
+    annotation (Line(points={{-38,-30},{-32,-30},{-32,-50},{-22,-50}},
       color={255,0,255}));
   connect(exhDamPos.y, swi1.u1)
-    annotation (Line(points={{41,0},{60,0},{60,-42},{78,-42}},
+    annotation (Line(points={{42,0},{50,0},{50,-42},{58,-42}},
       color={0,0,127}));
   connect(swi1.y, yExhDamPos)
-    annotation (Line(points={{101,-50},{110,-50},{110,0},{130,0}}, color={0,0,127}));
+    annotation (Line(points={{82,-50},{90,-50},{90,0},{120,0}},    color={0,0,127}));
 
 annotation (
   defaultComponentName = "exhDam",
@@ -159,16 +158,16 @@ annotation (
           extent={{-100,140},{100,100}},
           lineColor={0,0,255},
           textString="%name")}),
-   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{120,
+   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
  Documentation(info="<html>
 <p>
 Control sequence for exhaust dampers without fans. It is implemented according
-to ASHRAE Guidline 35 (G36), PART5.N.8.(for multi zone VAV AHU), PART5.P.6
+to ASHRAE Guidline 35 (G36), PART 5.N.8.(for multi zone VAV AHU), PART 5.P.6
 and PART3.2B.3 (for single zone VAV AHU).
 </p>
 
-<h4>Single zone VAV AHU: Control of actuated exhaust dampers without fans (PART5.P.6)</h4>
+<h4>Single zone VAV AHU: Control of actuated exhaust dampers without fans (PART 5.P.6)</h4>
 <ol>
 <li>Exhaust damper position setpoints (PART3.2B.3)
 <ul>
@@ -200,7 +199,7 @@ The control sequence is as follows:
 </p>
 <p align=\"center\">
 <img alt=\"Image of the exhaust damper control chart for single zone AHU\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/ExhaustDamperControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/ExhaustDamper.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
