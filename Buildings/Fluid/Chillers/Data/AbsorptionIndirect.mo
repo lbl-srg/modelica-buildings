@@ -48,8 +48,8 @@ package AbsorptionIndirect
                    "<html>
 This record is used as a template for performance data
 for the absorption chiller model
-<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectChiller\">
-Buildings.Fluid.Chillers.AbsorptionIndirectChiller</a>.
+<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirect\">
+Buildings.Fluid.Chillers.AbsorptionIndirect</a>.
 </html>",
   revisions="<html>
 <ul>

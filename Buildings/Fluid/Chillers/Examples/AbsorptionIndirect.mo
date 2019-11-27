@@ -1,5 +1,5 @@
 within Buildings.Fluid.Chillers.Examples;
-model AbsorptionIndirectChiller
+model AbsorptionIndirect
   "Test model for absorption indirect steam chiller"
   extends Modelica.Icons.Example;
 
@@ -13,7 +13,7 @@ model AbsorptionIndirectChiller
     "Evaporator nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=perEP.mCon_flow_nominal
     "Condenser nominal mass flow rate";
-  Buildings.Fluid.Chillers.AbsorptionIndirectChiller absIndSte(
+  Buildings.Fluid.Chillers.AbsorptionIndirect absIndSte(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     per=perEP,
@@ -125,7 +125,7 @@ equation
                                 color={255,0,255}));
   annotation (
 experiment(Tolerance=1e-6, StopTime=14400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/AbsorptionIndirectChiller.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/AbsorptionIndirect.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -141,4 +141,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AbsorptionIndirectChiller;
+end AbsorptionIndirect;

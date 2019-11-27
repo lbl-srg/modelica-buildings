@@ -164,8 +164,8 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
   defaultComponentName="absInd",
 Documentation(info="<html>
 <p>
-The Block includes the description of the performance curves method dedicated for<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectChiller\">
-Buildings.Fluid.Chillers.AbsorptionIndirectChiller</a>.
+The Block includes the description of the performance curves method dedicated for<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirect\">
+Buildings.Fluid.Chillers.AbsorptionIndirect</a>.
 </p>
 <p>
 The block uses six functions to predict the chiller cooling capacity, power consumption for
