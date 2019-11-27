@@ -340,6 +340,5 @@ July 3, 2019, by Hagar Elarga:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(extent={{-140,-100},{140,100}})));
+</html>"));
 end AbsorptionIndirect;
