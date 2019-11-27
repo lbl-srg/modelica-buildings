@@ -5,29 +5,37 @@ model AbsorptionIndirectSteam
 
   package Medium = Buildings.Media.Water
    "Medium model";
-  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.EnergyPlusValidation perEP
-    "Performance data implemented at EnergyPlus example"
-    annotation (Placement(transformation(extent={{60,74},{80,94}})));
 
-  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=perEP.mEva_flow_nominal
-    "Evaporator nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=perEP.mCon_flow_nominal
-    "Condenser nominal mass flow rate";
+  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.Generic per(
+   QEva_flow_nominal=-10000,
+   P_nominal=150,
+   PLRMax=1,
+   PLRMin=0.15,
+   mEva_flow_nominal=0.247,
+   mCon_flow_nominal=1.1,
+   dpEva_nominal=0,
+   dpCon_nominal=0,
+   capFunEva={0.690571,0.065571,-0.00289,0},
+   capFunCon={0.245507,0.023614,0.0000278,0.000013},
+   genHIR={0.18892,0.968044,1.119202,-0.5034},
+   EIRP={1,0,0},
+   genConT={0.712019,-0.00478,0.000864,-0.000013},
+   genEvaT={0.995571,0.046821,-0.01099,0.000608})
+    "Chiller performance data"
+    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
   Buildings.Fluid.Chillers.AbsorptionIndirectSteam absIndSte(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     show_T=true,
-    dp1_nominal=0,
-    dp2_nominal=0,
-    per=perEP,
+    per=per,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
   "Absorption Indirect Chiller model"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Sources.MassFlowSource_T conPum(
+  Buildings.Fluid.Sources.MassFlowSource_T conPum(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
-    m_flow=mCon_flow_nominal,
+    m_flow=per.mCon_flow_nominal,
     use_T_in=true,
     nPorts=1)
    "Condenser water pump"
@@ -35,9 +43,9 @@ model AbsorptionIndirectSteam
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-50,70})));
-  Sources.MassFlowSource_T evaPum(
+  Buildings.Fluid.Sources.MassFlowSource_T evaPum(
     redeclare package Medium = Medium,
-    m_flow=mEva_flow_nominal,
+    m_flow=per.mEva_flow_nominal,
     use_T_in=true,
     nPorts=1)
    "Evaporator water pump"
@@ -45,31 +53,31 @@ model AbsorptionIndirectSteam
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,-30})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TConEnt(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TConEnt(
     height=5,
     duration(displayUnit="h") = 14400,
     offset=20 + 273.15,
     startTime=0)
    "Condesner entering water temperature"
      annotation (Placement(transformation(extent={{-96,56},{-76,76}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TEvaEnt(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEvaEnt(
     height=4,
     duration(displayUnit="h") = 14400,
     offset=12 + 273.15,
     startTime=0)
     "Evaporator entering water temperature"
      annotation (Placement(transformation(extent={{92,-44},{72,-24}})));
-  Modelica.Fluid.Sources.FixedBoundary heaVol(
+  Buildings.Fluid.Sources.Boundary_pT heaVol(
     redeclare package Medium = Medium,
     nPorts=1)
    "Volume for heating load"
      annotation (Placement(transformation(extent={{60,6},{40,26}})));
-  Modelica.Fluid.Sources.FixedBoundary cooVol(
+  Buildings.Fluid.Sources.Boundary_pT cooVol(
     redeclare package Medium = Medium,
     nPorts=1)
    "Volume for cooling load"
      annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TEvaSet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEvaSet(
     height=4,
     duration(displayUnit="h") = 14400,
     offset=6 + 273.15,

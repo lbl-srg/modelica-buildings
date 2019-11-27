@@ -72,47 +72,6 @@ First implementation.
 </html>"));
   end Generic;
 
-  record EnergyPlusValidation =
-    Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.Generic (
-     QEva_flow_nominal=-10000,
-     P_nominal=150,
-     PLRMax=1,
-     PLRMin=0.15,
-     mEva_flow_nominal=0.247,
-     mCon_flow_nominal=1.1,
-     capFunEva={0.690571,0.065571,-0.00289,0},
-     capFunCon={0.245507,0.023614,0.0000278,0.000013},
-     genHIR={0.18892,0.968044,1.119202,-0.5034},
-     EIRP={1,0,0},
-     genConT={0.712019,-0.00478,0.000864,-0.000013},
-     genEvaT={0.995571,0.046821,-0.01099,0.000608})
-    "EnergyPlus absorption chiller performance data"
-  annotation (
-    defaultComponentName="datChi",
-    defaultComponentPrefixes="parameter",
-    Documentation(info="<html>
-<p>
-Performance data for chiller model.
-This data corresponds to the following EnergyPlus model:
-</p>
-<pre>
-Chiller:absorption indirect,
-   10000,                    !- Reference Cooling Capacity {W}
-    150,                     !- Reference Power {W}
-    0.247,                   !- Reference Chilled Water Flow Rate {m3/s}
-    1.1,                     !- Reference Condenser Water Flow Rate {m3/s}
-    0.15,                    !- Minimum Part Load Ratio
-    1.0,                     !- Maximum Part Load Ratio
-    0.10,                    !- Minimum Unloading Ratio
-</pre>
-</html>", revisions="<html>
-<ul>
-<li>
-July 3, 2019 by Hagar Elarga:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
  annotation(preferredView="info",
  Documentation(info="<html>
 <p>

@@ -3,35 +3,45 @@ model AbsorptionIndirectSteam_EnergyPlus
   "Validation with EnergyPlus model"
  package Medium = Buildings.Media.Water "Medium model";
 
-  Buildings.Fluid.Chillers.AbsorptionIndirectSteam absChi(
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium,
-    per=per,
-    allowFlowReversal1=true,
-    allowFlowReversal2=true,
-    m1_flow_nominal=mCon_flow_nominal,
-    m2_flow_nominal=mEva_flow_nominal,
-    show_T=true,
-    dp1_nominal=0,
-    dp2_nominal=0,
-    tau1=30,
-    tau2=30,
-    homotopyInitialization=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    T1_start=25 + 273.15,
-    T2_start=10 + 273.15) "Absorption indirect chiller"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.Generic per(
+   QEva_flow_nominal=-10000,
+   P_nominal=150,
+   PLRMax=1,
+   PLRMin=0.15,
+   mEva_flow_nominal=0.247,
+   mCon_flow_nominal=1.1,
+   dpEva_nominal=0,
+   dpCon_nominal=0,
+   capFunEva={0.690571,0.065571,-0.00289,0},
+   capFunCon={0.245507,0.023614,0.0000278,0.000013},
+   genHIR={0.18892,0.968044,1.119202,-0.5034},
+   EIRP={1,0,0},
+   genConT={0.712019,-0.00478,0.000864,-0.000013},
+   genEvaT={0.995571,0.046821,-0.01099,0.000608})
+    "Chiller performance data"
+    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=per.mEva_flow_nominal
     "Evaporator nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=per.mCon_flow_nominal
     "Condenser nominal mass flow rate";
 
-  Sources.MassFlowSource_T conPum(
+  Buildings.Fluid.Chillers.AbsorptionIndirectSteam absChi(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
+    per=per,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    T1_start=25 + 273.15,
+    T2_start=10 + 273.15) "Absorption indirect chiller"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+
+  Buildings.Fluid.Sources.MassFlowSource_T conPum(
+    redeclare package Medium = Medium,
     use_m_flow_in=false,
-      m_flow=mCon_flow_nominal,
-      use_T_in=true,
-      redeclare package Medium = Medium,
+    m_flow=per.mCon_flow_nominal,
+    use_T_in=true,
     nPorts=1)
     "Condenser water pump"
       annotation (
@@ -39,23 +49,23 @@ model AbsorptionIndirectSteam_EnergyPlus
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-50,50})));
-  Sources.MassFlowSource_T evaPum(
+  Buildings.Fluid.Sources.MassFlowSource_T evaPum(
+    redeclare package Medium = Medium,
     use_m_flow_in=true,
-      m_flow=mEva_flow_nominal,
-      nPorts=1,
-      use_T_in=true,
-      redeclare package Medium = Medium)
+    m_flow=per.mEva_flow_nominal,
+    nPorts=1,
+    use_T_in=true)
     "Evaporator water pump"
       annotation (
       Placement(transformation(
         extent={{-12,-12},{12,12}},
         rotation=180,
         origin={40,-6})));
-  Modelica.Fluid.Sources.FixedBoundary cooVol(
+  Buildings.Fluid.Sources.Boundary_pT cooVol(
     redeclare package Medium = Medium, nPorts=1)
       "Volume for cooling load"
        annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Modelica.Fluid.Sources.FixedBoundary heaVol(
+  Buildings.Fluid.Sources.Boundary_pT heaVol(
     redeclare package Medium = Medium, nPorts=1)
       "Volume for heating load"
        annotation (Placement(transformation(extent={{60,20},{40,40}})));
@@ -189,9 +199,7 @@ model AbsorptionIndirectSteam_EnergyPlus
         69600,0; 70200,0])
     "EnergyPlus heat flow at the generator "
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
-    Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=1)
-    "Real to boolean conversion for control input"
-         annotation (Placement(transformation(extent={{-60,12},{-40,-8}})));
+
     Modelica.Blocks.Sources.TimeTable TConEnt(table=[0,297.93; 600,297.93; 1200,
         297.93; 1800,297.93; 2400,297.93; 3000,297.93; 3600,297.93; 4200,297.93;
         4800,297.93; 5400,297.93; 6000,297.71; 6600,296.29; 7200,295.44; 7800,
@@ -240,9 +248,11 @@ model AbsorptionIndirectSteam_EnergyPlus
         offset=0)
     "EnergyPlus entering water flow rate at the evaporator"
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
-  parameter Data.AbsorptionIndirectSteam.EnergyPlusValidation per
-    "Chiller performance data"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+
+    Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=1)
+    "Real to boolean conversion for control input"
+         annotation (Placement(transformation(extent={{-60,12},{-40,-8}})));
+
 equation
   connect(evaPum.ports[1], absChi.port_a2) annotation (Line(points={{28,-6},{10,
           -6}},                  color={0,127,255}));
