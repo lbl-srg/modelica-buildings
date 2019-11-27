@@ -210,7 +210,7 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-defaultComponentName="absChi",
+defaultComponentName="chi",
 Documentation(info="<html>
 <p>
 Model for an absorption indirect absorption chiller that is heated using steam or hot water.
