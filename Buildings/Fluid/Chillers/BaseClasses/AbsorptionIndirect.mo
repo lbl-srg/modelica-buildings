@@ -3,7 +3,7 @@ block AbsorptionIndirect
   "Absorption indirect chiller performance curve method"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter  Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.Generic per
+  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.Generic per
     "Performance data"
      annotation (choicesAllMatching = true,Placement(transformation(extent={{60,72},
             {80,92}})));
@@ -58,7 +58,7 @@ block AbsorptionIndirect
                               iconTransformation(extent={{100,-30},{120,-10}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
-    "Chiller pumping power"
+    "Pump power"
      annotation (Placement(transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{100,28},
             {120,48}})));
 
@@ -75,13 +75,13 @@ block AbsorptionIndirect
     "Evaporator capacity factor function of temperature curve";
   Real capFunCon(min=0)
    "Condenser capacity factor function of temperature curve";
-  Real genConT( min=0)
+  Real genConT(min=0)
    "Heat input modifier based on the generator input temperature";
   Real genEvaT(min=0)
    "Heat input modifier based on the evaporator outlet temperature";
 
   Modelica.SIunits.HeatFlowRate QEva_flow_ava
-   "Cooling capacity available at the Evaporator";
+   "Cooling capacity available at the evaporator";
 protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConEnt_degC
    "Condenser entering water temperature in degC";
@@ -90,7 +90,7 @@ protected
 
 initial equation
   assert(per.QEva_flow_nominal < 0,
-  "In " + getInstanceName() + ": Parameter QEva_flow_nominal must be lesser than zero.");
+  "In " + getInstanceName() + ": Parameter QEva_flow_nominal must be smaller than zero.");
   assert(Q_flow_small > 0,
   "In " + getInstanceName() + ": Parameter Q_flow_small must be larger than zero.");
 
@@ -135,23 +135,23 @@ equation
 
     QGen_flow = -QEva_flow_ava * genHIR * genConT * genEvaT;
 
-    P =  EIRP * per.P_nominal * CR;
+    P = EIRP * per.P_nominal * CR;
 
     QCon_flow = -QEva_flow + QGen_flow + P;
   else
-   capFunEva =0;
-   capFunCon =0;
-   QEva_flow_ava=0;
-   QEva_flow = 0;
-   PLR =0;
-   genHIR =per.genHIR[1];
-   genConT =1;
-   genEvaT =1;
-   EIRP=0;
-   CR =0;
-   QGen_flow = 0;
-   P=0;
-   QCon_flow = 0;
+    capFunEva = 0;
+    capFunCon = 0;
+    QEva_flow_ava = 0;
+    QEva_flow = 0;
+    PLR = 0;
+    genHIR = per.genHIR[1];
+    genConT = 1;
+    genEvaT = 1;
+    EIRP = 0;
+    CR = 0;
+    QGen_flow = 0;
+    P = 0;
+    QCon_flow = 0;
   end if;
 
 annotation (
