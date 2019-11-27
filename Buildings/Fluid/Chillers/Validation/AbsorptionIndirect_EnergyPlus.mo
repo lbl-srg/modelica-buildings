@@ -3,7 +3,7 @@ model AbsorptionIndirect_EnergyPlus
   "Validation with EnergyPlus model"
  package Medium = Buildings.Media.Water "Medium model";
 
-  AbsorptionIndirectChiller absChi(
+  Buildings.Fluid.Chillers.AbsorptionIndirect absChi(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     per=Data.AbsorptionIndirect.AbsorptionIndirectChiller_EnergyPlus(),
