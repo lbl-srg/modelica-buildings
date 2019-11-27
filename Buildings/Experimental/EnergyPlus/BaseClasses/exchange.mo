@@ -1,5 +1,7 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses;
 function exchange "Exchange the values for the thermal zone"
+  extends Modelica.Icons.Function;
+
   input Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass
     adapter "External object";
   input Boolean initialCall "Set to true if initial() is true, false otherwise";

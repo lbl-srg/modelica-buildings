@@ -15,20 +15,22 @@ model OneZoneWithControl "Validation model for one zone"
     "Nominal mass flow rate";
 
   ThermalZone zon(
+    redeclare package Medium = Medium,
     idfName=idfName,
     weaName=weaName,
-    redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Perimeter_ZN_1",
+    usePrecompiledFMU=true,
+    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
+    zoneName="Core_ZN",
     nPorts = 2) "South zone"
     annotation (Placement(transformation(extent={{20,20},{60,60}})));
   Fluid.FixedResistances.PressureDrop duc(
+    redeclare package Medium = Medium,
     allowFlowReversal=false,
     linearized=true,
     from_dp=true,
     dp_nominal=100,
-    m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium)
+    m_flow_nominal=m_flow_nominal)
     "Duct resistance (to decouple room and outside pressure)"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
   Fluid.Sources.MassFlowSource_T bou(
@@ -102,7 +104,11 @@ equation
           -92},{-90,-92},{-90,-36},{-62,-36}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-Simple test case for one buildings with one thermal zone.
+Simple test case for one building with one thermal zone
+in which the room air temperature is controlled with a PI controller.
+The control output is used to compute the set point for the supply air
+temperature, which is met by the heating coil.
+The setpoint for the room air temperature changes between day and night.
 </p>
 </html>", revisions="<html>
 <ul><li>

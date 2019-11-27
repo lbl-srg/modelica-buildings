@@ -17,7 +17,9 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
-  parameter Integer verbosity(min=0, max=2) = 2 "Verbosity (0: no output to console, 2: all output)"
+  parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=
+    Buildings.Experimental.EnergyPlus.Types.Verbosity.TimeStep
+    "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 
   parameter Integer nFluPor
@@ -60,7 +62,6 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     "Radiative temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
         iconTransformation(extent={{100,50},{120,70}})));
-  Real TRad_degC(final unit="degC") = TRad-273.15 "Radiative temperature in degC";
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W")
     "Convective sensible heat to be added to zone air" annotation (Placement(
         transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{
@@ -75,23 +76,15 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
 
-  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
-  //Modelica.SIunits.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
- // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
-//  Modelica.SIunits.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
-
-  discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
-    fixed=false,
-    start=0)
-    "Convective sensible heat to be added to zone air if T = TRooLast";
-
-protected
   constant String modelicaInstanceName = getInstanceName()
-    "Name of this instance";
+    "Name of this instance"
+    annotation(HideResult=true);
+protected
   constant String buildingsLibraryRoot = Modelica.Utilities.Strings.replace(
-    string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("file://Buildings/package.mo")),
-    searchString="/package.mo",
-    replaceString="") "Root directory of the Buildings library (used to find the spawn executable";
+    string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html")),
+    searchString="Buildings/legal.html",
+    replaceString="Buildings") "Root directory of the Buildings library (used to find the spawn executable";
+
 
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass adapter=
     Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass(
@@ -108,6 +101,11 @@ protected
 
   parameter Modelica.SIunits.Time startTime(fixed=false) "Simulation start time";
 
+  Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
+  //Modelica.SIunits.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
+ // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
+ //  Modelica.SIunits.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
+
   discrete Modelica.SIunits.Time tLast(fixed=true, start=startTime) "Last time of data exchange";
   discrete Modelica.SIunits.Time dtLast "Time step since the last synchronization";
 
@@ -122,6 +120,12 @@ protected
     final unit="W/K")
     "Derivative dQCon_flow / dT";
 
+  discrete Modelica.SIunits.HeatFlowRate QConLast_flow(
+    fixed=false,
+    start=0)
+    "Convective sensible heat to be added to zone air if T = TRooLast";
+  Integer counter "Counter, used to force one more execution right after the initialization";
+
   function round
     input Real u;
     input Real accuracy;
@@ -132,11 +136,11 @@ protected
   end round;
 
 initial equation
-  assert(0 <= verbosity and verbosity < 3, "Invalid value for parameter 'verbosity' in '" + getInstanceName() + "'.");
   if usePrecompiledFMU then
     assert(Modelica.Utilities.Strings.length(fmuName) > 1, "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
   startTime =  time;
+  counter = 0;
   (AFlo, V, mSenFac) =  Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
     adapter = adapter,
     startTime = time);
@@ -150,7 +154,8 @@ equation
   end if;
   // The 'not initial()' triggers one sample when the continuous time simulation starts.
   // This is required for the correct event handling. Otherwise the regression tests will fail.
-  when {initial(), not initial(), time >= pre(tNext)} then
+ // when {initial(), not initial(), time >= pre(tNext)} then
+  when {initial(), pre(counter) == 1, time >= pre(tNext)} then
   // Initialization of output variables.
     TRooLast = T;
     dtLast = time-pre(tLast);
@@ -169,6 +174,7 @@ equation
       AFlo,
       round(time, 1E-3));
     tLast = time;
+    counter = pre(counter) + 1;
   end when;
   QCon_flow = QConLast_flow + (T-TRooLast) * dQCon_flow;
   annotation (

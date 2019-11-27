@@ -11,32 +11,38 @@ model ThreeZonesTwoBuildings
   // fixme: Change RefBldgSmallOfficeNew2004_Chicago.idf to RefBldgSmallOfficeNew2004_Chicago2.idf to enable two buildings.
   // See
   parameter String idfName2=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago2.idf")
     "Name of the IDF file";
   parameter String weaName = Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
     "Name of the weather file";
 
   ThermalZone zon1(
+    redeclare package Medium = Medium,
     idfName=idfName1,
     weaName=weaName,
-    redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Perimeter_ZN_1") "Thermal zone"
+    usePrecompiledFMU=false,
+    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
+    zoneName="Core_ZN") "Thermal zone"
     annotation (Placement(transformation(extent={{20,40},{60,80}})));
   ThermalZone zon2(
+    redeclare package Medium = Medium,
     idfName=idfName2,
     weaName=weaName,
-    redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Perimeter_ZN_2") "Thermal zone"
+    usePrecompiledFMU=false,
+    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
+    zoneName="Core_ZN") "Thermal zone"
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
   ThermalZone zon3(
+    redeclare package Medium = Medium,
     idfName=idfName2,
     weaName=weaName,
-    redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    zoneName="Perimeter_ZN_3") "Thermal zone"
+    usePrecompiledFMU=false,
+    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones3.fmu"),
+    zoneName="Perimeter_ZN_1") "Thermal zone"
     annotation (Placement(transformation(extent={{20,-84},{60,-44}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -66,6 +72,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 Simple test case for two buildings with three thermal zones.
+All thermal zones are free floating.
 </p>
 </html>", revisions="<html>
 <ul><li>

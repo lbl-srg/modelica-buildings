@@ -47,7 +47,8 @@ static char* SEPARATOR = "/";
 
 typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
 
-static int FMU_EP_VERBOSITY = 1; /* Verbosity flag, 0: quiet, 2: all output */
+static int FMU_EP_VERBOSITY = 1; /* Verbosity */
+enum verbosity {QUIET = 1, MEDIUM = 2, TIMESTEP = 3};
 
 void writeFormatLog(unsigned int level, const char *fmt, ...);
 
@@ -69,7 +70,7 @@ typedef struct FMUBuilding
   fmi_import_context_t* context;
   const char* GUID;
   char* buildingsLibraryRoot; /* Root directory of Buildings library */
-  fmi2Byte* name;
+  fmi2Byte* name; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
   fmi2Byte* idd;
   fmi2Integer nZon; /* Number of zones that use this FMU */
@@ -124,11 +125,11 @@ void saveAppendJSONElements(char* *buffer, const char* values[], size_t n, size_
 
 void setFMUMode(FMUBuilding* bui, FMUMode mode);
 
-void getEnergyPlusFMUName(const char* idfName, const char* tmpDir, char** fmuAbsPat);
+void getSimulationFMUName(const char* idfName, const char* tmpDir, char** fmuAbsPat);
 
-char* getIDFNameWithoutExtension(const char* idfName);
+char* getFileNameWithoutExtension(const char* idfName);
 
-void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam);
+void getSimulationTemporaryDirectory(const char* idfName, char** dirNam);
 
 void incrementBuildings_nFMU();
 void decrementBuildings_nFMU();
@@ -141,7 +142,7 @@ void buildVariableNames(
   char** *ptrVarNames,
   char** *ptrFullNames);
 
-FMUBuilding* ZoneAllocateBuildingDataStructure(
+size_t ZoneAllocateBuildingDataStructure(
   const char* idfName, const char* weaName,
   const char* iddName,
   const char* zoneName, FMUZone* zone,
@@ -150,6 +151,6 @@ FMUBuilding* ZoneAllocateBuildingDataStructure(
   const char* buildingsLibraryRoot);
 
 FMUBuilding* getBuildingsFMU(size_t iFMU);
-void getEnergyPlusTemporaryDirectory(const char* idfName, char** dirNam);
+void getSimulationTemporaryDirectory(const char* idfName, char** dirNam);
 
 #endif

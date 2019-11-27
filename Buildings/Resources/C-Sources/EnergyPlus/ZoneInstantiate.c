@@ -39,7 +39,8 @@ void getValueReferences(
 void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
   fmi2Status status;
 
-  writeFormatLog(2, "fmi2_import_set_real: Setting parameters in EnergyPlus zone %s.", zone->name);
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_set_real: Setting parameters in EnergyPlus zone %s.\n", zone->name);
   status = fmi2_import_set_real(
     zone->ptrBui->fmu,
     zone->parInpValReferences,
@@ -55,7 +56,8 @@ void setParametersInEnergyPlus(FMUZone* zone, double* parValues){
 void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
   fmi2Status status;
 
-  writeFormatLog(2, "fmi2_import_get_real: Getting parameters from EnergyPlus zone %s.", zone->name);
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_get_real: Getting parameters from EnergyPlus zone %s.\n", zone->name);
   status = fmi2_import_get_real(
     zone->ptrBui->fmu,
     zone->parOutValReferences,
@@ -75,7 +77,8 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUZone* zone, double start
   /* Instantiate the FMU for this building */
   generateAndInstantiateBuilding(zone->ptrBui);
 
-  writeFormatLog(2, "fmi2_import_setup_experiment: Setting up experiment.");
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_setup_experiment: Setting up experiment.\n");
   zone->ptrBui->time = startTime;
   setFMUMode(zone->ptrBui, instantiationMode);
 
@@ -93,8 +96,9 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUZone* zone, double start
 
   /* Enter initialization mode, because getting parameters is only
      allowed in the initialization mode, see FMU state diagram in standard */
-  writeFormatLog(2, "fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.",
-    zone->ptrBui->fmuAbsPat);
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_enter_initialization_mode: Enter initialization mode of FMU with name %s.\n",
+      zone->ptrBui->fmuAbsPat);
   status = fmi2_import_enter_initialization_mode(zone->ptrBui->fmu);
   if( status != fmi2_status_ok ){
     ModelicaFormatError("Failed to enter initialization mode for FMU with name %s for zone %s.",
@@ -118,8 +122,16 @@ void ZoneInstantiate(
   /*double parValToSet[ZONE_N_PAR_INP];*/
   double outputValues[ZONE_N_PAR_OUT];
 
-  writeFormatLog(2, "Entered ZoneInstantiate for zone %s.", zone->name);
-
+  if (FMU_EP_VERBOSITY >= MEDIUM){
+    ModelicaFormatMessage("Entered ZoneInstantiate for zone %s.\n", zone->modelicaInstanceName);
+  }
+  /* Fixme: Here, in Dymola, zone->ptrBui is NULL for FMUZoneAdapterZones2, but it was not NULL
+     when leaving ZoneAllocate */
+  /* if (zone->ptrBui->nZon == 1)
+    ModelicaFormatError("*** Entering loadFMU_setupExperiment_enterInitializationMode, ptrBui=%p", zone->ptrBui);// with nZon=%d", zone->ptrBui->nZon); */
+  if (zone->ptrBui == NULL){
+    ModelicaFormatError("Pointer zone->ptrBui is NULL in ZoneInstantiate for zone %s.", zone->modelicaInstanceName);
+  }
   if (zone->ptrBui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
        This section is only executed once if the 'initial equation' section is called multiple times.
@@ -129,6 +141,9 @@ void ZoneInstantiate(
        is the last constructor to be called.
     */
     loadFMU_setupExperiment_enterInitializationMode(zone, startTime);
+    if (FMU_EP_VERBOSITY >= MEDIUM)
+      ModelicaFormatMessage("FMU for zone %s is now allocated at %p.\n", zone->modelicaInstanceName, zone->ptrBui->fmu);
+
   }
 
   getParametersFromEnergyPlus(zone, outputValues);

@@ -1,6 +1,6 @@
 within Buildings.Experimental;
 package EnergyPlus "Package with models to connect to the EnergyPlus SOEP thermal zone model"
-  extends Modelica.Icons.Library;
+  extends Modelica.Icons.Package;
 
   annotation (Icon(graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://Buildings/Resources/Images/Experimental/EnergyPlus/EnergyPlusLogo.png")}),
