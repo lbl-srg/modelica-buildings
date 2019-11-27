@@ -110,9 +110,8 @@ equation
   connect(res2.port_b, absIndSte.port_b2)
     annotation (Line(points={{-18,-62},{12,-62},{12,4}},
                               color={0,127,255}));
-  connect(absIndSte.TEvaSet, TEvaSet.y)
-    annotation (Line(points={{11,8},{-6,8},{-6,-30},{-38,-30}},
-                                     color={0,0,127}));
+  connect(absIndSte.TSet, TEvaSet.y) annotation (Line(points={{11,8},{-6,8},{-6,
+          -30},{-38,-30}}, color={0,0,127}));
   connect(conPum.ports[1], absIndSte.port_a1)
     annotation (Line(points={{-38,70},{-20,70},{-20,16},{12,16}},
                                      color={0,127,255}));

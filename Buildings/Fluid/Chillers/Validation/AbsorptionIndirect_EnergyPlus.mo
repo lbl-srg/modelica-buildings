@@ -262,15 +262,15 @@ equation
   connect(res2.port_b, absChi.port_b2) annotation (Line(points={{-40,-50},{-28,
           -50},{-28,-6},{26,-6}},
                             color={0,127,255}));
-  connect(TEvaSet.y, absChi.TEvaSet) annotation (Line(points={{1,-30},{20,-30},
-          {20,-9},{25,-9}},      color={0,0,127}));
+  connect(TEvaSet.y, absChi.TSet) annotation (Line(points={{1,-30},{20,-30},{20,
+          -2},{25,-2}}, color={0,0,127}));
   connect(res2.port_a, cooVol.ports[1])
    annotation (Line(points={{-60,-50},{-80,-50}}, color={0,127,255}));
   connect(res1.port_b, heaVol.ports[1])
    annotation (Line(points={{80,30},{92,30}}, color={0,127,255}));
   connect(absChiMod.y, realToBoolean.u)
     annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
-  connect(absChi.on, realToBoolean.y) annotation (Line(points={{25,0},{0,0},{0,
+  connect(absChi.on, realToBoolean.y) annotation (Line(points={{25,2},{0,2},{0,
           0},{-39,0}},         color={255,0,255}));
   connect(conPum.T_in, TConEnt.y) annotation (Line(points={{-42,46},{-59,46}},
                               color={0,0,127}));

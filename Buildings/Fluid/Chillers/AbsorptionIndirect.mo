@@ -26,11 +26,8 @@ model AbsorptionIndirect
     "Set to true to enable the absorption chiller"
      annotation (Placement(transformation(extent={{-128,2},{-100,30}}),
                                     iconTransformation(extent={{-120,10},{-100,30}})));
-  Modelica.Blocks.Interfaces.RealInput TEvaSet(
-    final unit="K",
-    displayUnit="degC")
-   "Evaporator setpoint leaving water temperature"
-     annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput TSet(final unit="K", displayUnit="degC")
+    "Evaporator setpoint leaving water temperature" annotation (Placement(
         transformation(extent={{-126,-36},{-100,-10}}), iconTransformation(
           extent={{-120,-30},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
@@ -61,12 +58,13 @@ protected
         deltaX=Q_flow_small/10)) "Setpoint heat flow rate of the evaporator"
     annotation (Placement(transformation(extent={{-100,-16},{-80,4}})));
 
-  Modelica.SIunits.SpecificEnthalpy hEvaSet=
-      Medium2.specificEnthalpy_pTX(
-       p=port_b2.p,
-       T=TEvaSet,
-       X=cat( 1, port_b2.Xi_outflow, {1 - sum(port_b2.Xi_outflow)}))
-   "Chilled water setpoint enthalpy";
+  Modelica.SIunits.SpecificEnthalpy hEvaSet=Medium2.specificEnthalpy_pTX(
+      p=port_b2.p,
+      T=TSet,
+      X=cat(
+        1,
+        port_b2.Xi_outflow,
+        {1 - sum(port_b2.Xi_outflow)})) "Chilled water setpoint enthalpy";
 
   Modelica.Blocks.Sources.RealExpression TConEnt(
         y=Medium1.temperature(
