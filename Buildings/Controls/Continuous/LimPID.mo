@@ -178,10 +178,11 @@ protected
     annotation (
       Placement(transformation(extent={{60,-80},{40,-60}})));
 
-  Modelica.Blocks.Nonlinear.Limiter limiter(
+  Limiter limiter(
     final uMax=yMax,
     final uMin=yMin,
-    final strict=strict) "Output limiter"
+    final strict=strict)
+    "Output limiter"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 
@@ -190,6 +191,91 @@ protected
        reset <> Buildings.Types.Reset.Disabled
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
+  // The block Limiter below has been implemented as it is introduced in MSL 3.2.3, but
+  // not all tools include MSL 3.2.3.
+  // See https://github.com/ibpsa/modelica-ibpsa/pull/1222#issuecomment-554114617
+block Limiter "Limit the range of a signal"
+  parameter Real uMax(start=1) "Upper limits of input signals";
+  parameter Real uMin= -uMax "Lower limits of input signals";
+  parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
+    annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
+  parameter Boolean limitsAtInit=true
+    "Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
+    annotation (Dialog(tab="Dummy"),Evaluate=true, choices(checkBox=true));
+  extends Modelica.Blocks.Interfaces.SISO;
+
+equation
+  assert(uMax >= uMin, "Limiter: Limits must be consistent. However, uMax (=" + String(uMax) +
+                       ") < uMin (=" + String(uMin) + ")");
+
+  if strict then
+    y = smooth(0, noEvent(if u > uMax then uMax else if u < uMin then uMin else u));
+  else
+    y = smooth(0,if u > uMax then uMax else if u < uMin then uMin else u);
+  end if;
+  annotation (
+     Icon(coordinateSystem(
+    preserveAspectRatio=true,
+    extent={{-100,-100},{100,100}}), graphics={
+    Line(points={{0,-90},{0,68}}, color={192,192,192}),
+    Polygon(
+      points={{0,90},{-8,68},{8,68},{0,90}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-90,0},{68,0}}, color={192,192,192}),
+    Polygon(
+      points={{90,0},{68,-8},{68,8},{90,0}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-80,-70},{-50,-70},{50,70},{80,70}}),
+    Text(
+      extent={{-150,-150},{150,-110}},
+      textString="uMax=%uMax"),
+    Line(
+      visible=strict,
+      points={{50,70},{80,70}},
+      color={255,0,0}),
+    Line(
+      visible=strict,
+      points={{-80,-70},{-50,-70}},
+      color={255,0,0})}),
+    Diagram(coordinateSystem(
+    preserveAspectRatio=true,
+    extent={{-100,-100},{100,100}}), graphics={
+    Line(points={{0,-60},{0,50}}, color={192,192,192}),
+    Polygon(
+      points={{0,60},{-5,50},{5,50},{0,60}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-60,0},{50,0}}, color={192,192,192}),
+    Polygon(
+      points={{60,0},{50,-5},{50,5},{60,0}},
+      lineColor={192,192,192},
+      fillColor={192,192,192},
+      fillPattern=FillPattern.Solid),
+    Line(points={{-50,-40},{-30,-40},{30,40},{50,40}}),
+    Text(
+      extent={{46,-6},{68,-18}},
+      lineColor={128,128,128},
+      textString="u"),
+    Text(
+      extent={{-30,70},{-5,50}},
+      lineColor={128,128,128},
+      textString="y"),
+    Text(
+      extent={{-58,-54},{-28,-42}},
+      lineColor={128,128,128},
+      textString="uMin"),
+    Text(
+      extent={{26,40},{66,56}},
+      lineColor={128,128,128},
+      textString="uMax")}));
+end Limiter;
+
 
 initial equation
   if initType==Modelica.Blocks.Types.InitPID.InitialOutput then
@@ -335,6 +421,13 @@ Some parameters assignments in the instances have been made final.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 19, 2019, by Filip Jorissen:<br/>
+Disabled homotopy to ensure bounded outputs
+by copying the implementation from MSL 3.2.3 and by
+hardcoding the implementation for <code>homotopyType=NoHomotopy</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">issue 1221</a>.
+</li>
 <li>
 September 29, 2016, by Michael Wetter:<br/>
 Refactored model.
