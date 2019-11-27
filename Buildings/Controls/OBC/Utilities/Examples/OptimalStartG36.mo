@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.Utilities.Examples;
-model OptimalStartVAV
+model OptimalStartG36
   extends Modelica.Icons.Example;
-  extends Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop(weaDat(filNam=
+  extends
+    Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop(      weaDat(filNam=
           ModelicaServices.ExternalReferences.loadResource(
           "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")));
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
@@ -71,8 +72,8 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(zon.TRooAir, controller.TZon) annotation (Line(points={{81,0},{110,
-          0},{110,-152},{-134,-152},{-134,10.7692},{-122,10.7692}},
+  connect(zon.TRooAir, controller.TZon) annotation (Line(points={{81,0},{110,0},
+          {110,-152},{-134,-152},{-134,10.7692},{-122,10.7692}},
                                                        color={0,0,127}));
   connect(hvac.TSup, controller.TSup) annotation (Line(points={{1,-8},{10,-8},{
           10,-50},{-130,-50},{-130,-0.307692},{-122,-0.307692}},
@@ -98,8 +99,8 @@ equation
   connect(controller.TZonCooSet, errTRooCoo.u2) annotation (Line(points={{-79,-4},
           {-76,-4},{-76,-132},{-100,-132},{-100,-118}},
         color={0,0,127}));
-  connect(hvac.uCooVal, controller.yCooCoi) annotation (Line(points={{-42,5},
-          {-48,5},{-48,4},{-58,4},{-58,-15.0769},{-79,-15.0769}},
+  connect(hvac.uCooVal, controller.yCooCoi) annotation (Line(points={{-42,5},{
+          -48,5},{-48,4},{-58,4},{-58,-15.0769},{-79,-15.0769}},
                                                        color={0,0,127}));
   connect(hvac.TRet, controller.TCut) annotation (Line(points={{1,-6},{12,-6},{
           12,-48},{-132,-48},{-132,3.38462},{-122,3.38462}},
@@ -127,4 +128,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OptimalStartVAV;
+end OptimalStartG36;
