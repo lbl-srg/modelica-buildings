@@ -7,7 +7,7 @@ model AbsorptionIndirect
    "Medium model";
   parameter Data.AbsorptionIndirect.AbsorptionIndirectChiller_EnergyPlus perEP
     "Performance data implemented at EnergyPlus example"
-    annotation (Placement(transformation(extent={{58,72},{78,92}})));
+    annotation (Placement(transformation(extent={{60,74},{80,94}})));
 
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=perEP.mEva_flow_nominal
     "Evaporator nominal mass flow rate";
@@ -16,6 +16,7 @@ model AbsorptionIndirect
   Buildings.Fluid.Chillers.AbsorptionIndirect absIndSte(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
+    show_T=true,
     per=perEP,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -95,9 +96,9 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TConEnt.y,conPum. T_in)
-    annotation (Line(points={{-75,66},{-60,66}}, color={0,0,127}));
+    annotation (Line(points={{-74,66},{-60,66}}, color={0,0,127}));
   connect(TEvaEnt.y,evaPum. T_in)
-    annotation (Line(points={{81,-80},{98,-80},{98,-41.4},{76.2,-41.4}},
+    annotation (Line(points={{82,-80},{98,-80},{98,-41.4},{76.2,-41.4}},
                                 color={0,0,127}));
   connect(cooVol.ports[1],res2. port_a)
     annotation (Line(points={{-74,-62},{-38,-62}}, color={0,127,255}));
@@ -107,13 +108,13 @@ equation
     annotation (Line(points={{32,4},{40,4},{40,-37},{52,-37}},
                                  color={0,127,255}));
   connect(res2.port_b, absIndSte.port_b2)
-    annotation (Line(points={{-18,-62},{13.8182,-62},{13.8182,4}},
+    annotation (Line(points={{-18,-62},{12,-62},{12,4}},
                               color={0,127,255}));
   connect(absIndSte.TEvaSet, TEvaSet.y)
-    annotation (Line(points={{12.8182,1.1},{-6,1.1},{-6,-30},{-39,-30}},
+    annotation (Line(points={{11,8},{-6,8},{-6,-30},{-38,-30}},
                                      color={0,0,127}));
   connect(conPum.ports[1], absIndSte.port_a1)
-    annotation (Line(points={{-38,70},{-20,70},{-20,16},{13.8182,16}},
+    annotation (Line(points={{-38,70},{-20,70},{-20,16},{12,16}},
                                      color={0,127,255}));
   connect(greaterThreshold.u,pulse. y)
     annotation (Line(
@@ -121,7 +122,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(absIndSte.on, greaterThreshold.y)
-    annotation (Line(points={{12.8182,10.1},{-33,10.1},{-33,10}},
+    annotation (Line(points={{11,12},{-33,12},{-33,10}},
                                 color={255,0,255}));
   annotation (
 experiment(Tolerance=1e-6, StopTime=14400),

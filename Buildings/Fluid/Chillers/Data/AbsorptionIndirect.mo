@@ -5,8 +5,8 @@ package AbsorptionIndirect
   record Generic "Generic data record for absorption indirect chiller"
     extends Modelica.Icons.Record;
 
-    parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
-     "Nominal evaporator cooling capacity_negative number"
+    parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(final max=0)
+     "Nominal evaporator cooling capacity (negative number)"
       annotation (Dialog(group="Nominal condition"));
     parameter Modelica.SIunits.Power P_nominal "Nominal absorber pump power"
       annotation (Dialog(group="Nominal condition"));
@@ -38,7 +38,7 @@ package AbsorptionIndirect
     "Cubic coefficients for heat input modifier based on the evaporator input temperature"
       annotation (Dialog(group="Performance curves"));
     parameter Real EIRP[3]
-    "Quadratic coefficients for the actual absorber pumping power to the nominal pumping power."
+    "Quadratic coefficients for the actual absorber pumping power to the nominal pumping power"
       annotation (Dialog(group="Performance curves"));
 
     annotation (
@@ -46,10 +46,12 @@ package AbsorptionIndirect
       defaultComponentPrefixes="parameter",
       Documentation(info=
                    "<html>
+<p>
 This record is used as a template for performance data
 for the absorption chiller model
 <a href=\"Buildings.Fluid.Chillers.AbsorptionIndirect\">
 Buildings.Fluid.Chillers.AbsorptionIndirect</a>.
+</p>
 </html>",
   revisions="<html>
 <ul>
@@ -79,9 +81,11 @@ First implementation.
   annotation (
     defaultComponentName="datChi",
     defaultComponentPrefixes="parameter",
-    Documentation(info= "<html>
+    Documentation(info="<html>
+<p>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
+</p>
 <pre>
 Chiller:absorption indirect,
    10000,                    !- Reference Cooling Capacity {W}
@@ -92,6 +96,13 @@ Chiller:absorption indirect,
     1.0,                     !- Maximum Part Load Ratio
     0.10,                    !- Minimum Unloading Ratio
 </pre>
+</html>", revisions="<html>
+<ul>
+<li>
+July 3, 2019 by Hagar Elarga:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
  annotation(preferredView="info",
  Documentation(info="<html>
@@ -102,7 +113,7 @@ Package with performance data for absorption indirect chiller.
 revisions="<html>
 <ul>
 <li>
-July 3, 2019, by Hagar Elarga <br/>
+July 3, 2019, by Hagar Elarga:<br/>
 First implementation.
 </li>
 </ul>
