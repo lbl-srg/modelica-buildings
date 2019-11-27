@@ -100,15 +100,13 @@ equation
 
   if on then
     capFunEva = Buildings.Utilities.Math.Functions.smoothMax(
-           x1 =  1E-6,
-           x2 =  per.capFunEva[1] + per.capFunEva[2]* TEvaLvg_degC+
-                 per.capFunEva[3] * (TEvaLvg_degC)^2 + per.capFunEva[4] * (TEvaLvg_degC)^3,
-       deltaX =  Q_flow_small);
+           x1 = 1E-6,
+           x2 = Buildings.Utilities.Math.Functions.polynomial(x=TEvaLvg_degC, a=per.capFunEva),
+       deltaX = Q_flow_small);
 
     capFunCon = Buildings.Utilities.Math.Functions.smoothMax(
-           x1 =  1E-6,
-           x2 =  per.capFunCon[1] + per.capFunCon[2]* TConEnt_degC +
-                 per.capFunCon[3]*TConEnt_degC^2 + per.capFunCon[4]*(TConEnt_degC)^3,
+           x1 = 1E-6,
+           x2 = Buildings.Utilities.Math.Functions.polynomial(x=TConEnt_degC, a=per.capFunCon),
        deltaX = Q_flow_small);
 
     QEva_flow_ava = per.QEva_flow_nominal*capFunEva*capFunCon;
@@ -124,15 +122,13 @@ equation
 
     genHIR = per.genHIR[1]+ per.genHIR[2]*PLR+per.genHIR[3]*PLR^2+per.genHIR[4]*PLR^3;
 
-    genConT= per.genConT[1]+ per.genConT[2]*TConEnt_degC+
-             per.genConT[3]*TConEnt_degC^2+ per.genConT[4]*TConEnt_degC^3;
+    genConT = Buildings.Utilities.Math.Functions.polynomial(x=TConEnt_degC, a=per.genConT);
 
-    genEvaT= per.genEvaT[1]+ per.genEvaT[2]*TEvaLvg_degC+
-             per.genEvaT[3]*TEvaLvg_degC^2+ per.genEvaT[4]*TEvaLvg_degC^3;
+    genEvaT = Buildings.Utilities.Math.Functions.polynomial(x=TEvaLvg_degC, a=per.genEvaT);
 
-    EIRP = per.EIRP[1]+ per.EIRP[2]*PLR+per.EIRP[3]*PLR^2;
+    EIRP = Buildings.Utilities.Math.Functions.polynomial(x=PLR, a=per.EIRP);
 
-    CR =  Buildings.Utilities.Math.Functions.smoothMin(
+    CR = Buildings.Utilities.Math.Functions.smoothMin(
       x1 = PLR/per.PLRMin,
       x2 = 1,
       deltaX = 0.001);
