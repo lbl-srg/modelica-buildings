@@ -18,13 +18,12 @@ model AbsorptionIndirect_EnergyPlus
     tau2=30,
     homotopyInitialization=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T1_start=25 + 273.15,
     T2_start=10 + 273.15) "Absorption indirect chiller"
-    annotation (Placement(transformation(extent={{26,-10},{46,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   parameter Data.AbsorptionIndirect.AbsorptionIndirectChiller_EnergyPlus per
     "EnergyPlus chiller performance"
-    annotation (Placement(transformation(extent={{-120,62},{-100,82}})));
+    annotation (Placement(transformation(extent={{-140,62},{-120,82}})));
 
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=per.mEva_flow_nominal
     "Evaporator nominal mass flow rate";
@@ -42,7 +41,7 @@ model AbsorptionIndirect_EnergyPlus
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-30,50})));
+        origin={-50,50})));
   Sources.MassFlowSource_T evaPum(
     use_m_flow_in=true,
       m_flow=mEva_flow_nominal,
@@ -54,7 +53,7 @@ model AbsorptionIndirect_EnergyPlus
       Placement(transformation(
         extent={{-12,-12},{12,12}},
         rotation=180,
-        origin={82,-8})));
+        origin={40,-6})));
   Modelica.Fluid.Sources.FixedBoundary cooVol(
     redeclare package Medium = Medium, nPorts=1)
       "Volume for cooling load"
@@ -62,19 +61,7 @@ model AbsorptionIndirect_EnergyPlus
   Modelica.Fluid.Sources.FixedBoundary heaVol(
     redeclare package Medium = Medium, nPorts=1)
       "Volume for heating load"
-       annotation (Placement(transformation(extent={{112,20},{92,40}})));
-  FixedResistances.PressureDrop res1(
-      redeclare package Medium = Medium,
-      m_flow_nominal=mCon_flow_nominal,
-      dp_nominal=6000)
-      "Flow resistance"
-       annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  FixedResistances.PressureDrop res2(
-      redeclare package Medium = Medium,
-       m_flow_nominal=mEva_flow_nominal,
-       dp_nominal=6000)
-      "Flow resistance"
-       annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+       annotation (Placement(transformation(extent={{60,20},{40,40}})));
   Modelica.Blocks.Sources.TimeTable TEvaEnt(
     table=[0,284; 600,284; 1200,284; 1800,284; 2400,284; 3000,284; 3600,284;
         4200,284; 4800,284; 5400,284; 6000,285; 6600,285; 7200,285; 7800,285;
@@ -95,8 +82,8 @@ model AbsorptionIndirect_EnergyPlus
         63000,284; 63600,284; 64200,284; 64800,284; 65400,284; 66000,284; 66600,
         284; 67200,284; 67800,284; 68400,284; 69000,284; 69600,284; 70200,284],
         offset=0,startTime=0)
-        "EnergyPlus: entering water temperature at the evaporator"
-         annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+        "EnergyPlus entering water temperature at the evaporator"
+         annotation (Placement(transformation(extent={{100,0},{80,20}})));
     Modelica.Blocks.Sources.TimeTable absChiMod(table=[0,0; 600,0; 1200,0; 1800,
         0; 2400,0; 3000,0; 3600,0; 4200,0; 4800,0; 5400,1; 6000,1; 6600,1; 7200,
         1; 7800,1; 8400,1; 9000,1; 9600,1; 10200,1; 10800,1; 11400,1; 12000,1;
@@ -114,7 +101,7 @@ model AbsorptionIndirect_EnergyPlus
         65400,0; 66000,0; 66600,0; 67200,0; 67800,0; 68400,0; 69000,0; 69600,0;
         70200,0])
         "EnergyPlus absorption chiller mode control signal"
-        annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+        annotation (Placement(transformation(extent={{-100,-8},{-80,12}})));
     Modelica.Blocks.Sources.TimeTable TEvaSet(
     table=[0,284; 600,284; 1200,284; 1800,284; 2400,284; 3000,284; 3600,284;
         4200,284; 4800,284; 5400,284; 6000,282.1; 6600,282.1; 7200,283; 7800,
@@ -138,8 +125,8 @@ model AbsorptionIndirect_EnergyPlus
         284; 68400,284; 69000,284; 69600,284; 70200,284],
         offset=0,
         startTime=0)
-        "EnergyPlus: leaving water temperature at the evaporator"
-         annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+        "EnergyPlus leaving water temperature at the evaporator"
+         annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
     Modelica.Blocks.Sources.TimeTable QEvaEP(table=[0,0; 600,0; 1200,0; 1800,0;
         2400,0; 3000,0; 3600,0; 4200,0; 4800,0; 5400,0; 6000,-4098; 6600,-3982;
         7200,-1839; 7800,-3101; 8400,-4971; 9000,-3517; 9600,-3260; 10200,-3432;
@@ -159,8 +146,8 @@ model AbsorptionIndirect_EnergyPlus
         58800,0; 59400,0; 60000,0; 60600,0; 61200,0; 61800,0; 62400,0; 63000,0;
         63600,0; 64200,0; 64800,0; 65400,0; 66000,0; 66600,0; 67200,0; 67800,0;
         68400,0; 69000,0; 69600,0; 70200,0])
-    "EnergyPlus results: heat flow at the evaporator"
-         annotation (Placement(transformation(extent={{-138,-90},{-118,-70}})));
+    "EnergyPlus heat flow at the evaporator"
+         annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
     Modelica.Blocks.Sources.TimeTable QConEP(table=[0,0; 600,0; 1200,0; 1800,0;
         2400,0; 3000,0; 3600,0; 4200,0; 4800,0; 5400,0; 6000,11417.2; 6600,
         11098.5; 7200,5227; 7800,8646; 8400,13907; 9000,10053.5; 9600,9091.3;
@@ -182,8 +169,8 @@ model AbsorptionIndirect_EnergyPlus
         60000,0; 60600,0; 61200,0; 61800,0; 62400,0; 63000,0; 63600,0; 64200,0;
         64800,0; 65400,0; 66000,0; 66600,0; 67200,0; 67800,0; 68400,0; 69000,0;
         69600,0; 70200,0])
-        "EnergyPlus results: heat flow at the condenser  "
-        annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+        "EnergyPlus heat flow at the condenser  "
+        annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
     Modelica.Blocks.Sources.TimeTable QGenEP(table=[0,0; 600,0; 1200,0; 1800,0;
         2400,0; 3000,0; 3600,0; 4200,0; 4800,0; 5400,0; 6000,7229; 6600,7031;
         7200,3313; 7800,5470; 8400,8786; 9000,6387; 9600,5756; 10200,6069;
@@ -203,10 +190,11 @@ model AbsorptionIndirect_EnergyPlus
         60000,0; 60600,0; 61200,0; 61800,0; 62400,0; 63000,0; 63600,0; 64200,0;
         64800,0; 65400,0; 66000,0; 66600,0; 67200,0; 67800,0; 68400,0; 69000,0;
         69600,0; 70200,0])
-    "EnergyPlus results: heat flow at the generator "
-    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
+    "EnergyPlus heat flow at the generator "
+    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
     Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=1)
-         annotation (Placement(transformation(extent={{-60,10},{-40,-10}})));
+    "Real to boolean conversion for control input"
+         annotation (Placement(transformation(extent={{-60,12},{-40,-8}})));
     Modelica.Blocks.Sources.TimeTable TConEnt(table=[0,297.93; 600,297.93; 1200,
         297.93; 1800,297.93; 2400,297.93; 3000,297.93; 3600,297.93; 4200,297.93;
         4800,297.93; 5400,297.93; 6000,297.71; 6600,296.29; 7200,295.44; 7800,
@@ -231,9 +219,9 @@ model AbsorptionIndirect_EnergyPlus
         297.93; 62400,297.93; 63000,297.93; 63600,297.93; 64200,297.93; 64800,
         297.93; 65400,297.93; 66000,297.93; 66600,297.93; 67200,297.93; 67800,
         297.93; 68400,297.93; 69000,297.93; 69600,297.93; 70200,297.93],
-                                                         offset=0)
-    "EnergyPlus: entering  water temperature at the condenser"
-          annotation (Placement(transformation(extent={{-80,36},{-60,56}})));
+        offset=0)
+    "EnergyPlus entering water temperature at the condenser"
+          annotation (Placement(transformation(extent={{-100,36},{-80,56}})));
     Modelica.Blocks.Sources.TimeTable mEva_flow(table=[0,0; 600,0; 1200,0; 1800,
         0; 2400,0; 3000,0; 3600,0; 4200,0; 4800,0; 5400,0; 6000,0.21; 6600,0.19;
         7200,0.14; 7800,0.18; 8400,0.37; 9000,0.33; 9600,0.17; 10200,0.24;
@@ -251,39 +239,35 @@ model AbsorptionIndirect_EnergyPlus
         0; 53400,0; 54000,0; 54600,0; 55200,0; 55800,0; 56400,0; 57000,0; 57600,
         0; 58200,0; 58800,0; 59400,0; 60000,0; 60600,0; 61200,0; 61800,0; 62400,
         0; 63000,0; 63600,0; 64200,0; 64800,0; 65400,0; 66000,0; 66600,0; 67200,
-        0; 67800,0; 68400,0; 69000,0; 69600,0; 70200,0],         offset=0)
-    "EnergyPlus: entering  water flow rate at the evaporator"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+        0; 67800,0; 68400,0; 69000,0; 69600,0; 70200,0],
+        offset=0)
+    "EnergyPlus entering water flow rate at the evaporator"
+    annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
 equation
-  connect(evaPum.ports[1], absChi.port_a2) annotation (Line(points={{70,-8},{70,
-          -6},{46,-6}},          color={0,127,255}));
-  connect(res1.port_a, absChi.port_b1) annotation (Line(points={{60,30},{58,30},
-          {58,6},{46,6}}, color={0,127,255}));
-  connect(res2.port_b, absChi.port_b2) annotation (Line(points={{-40,-50},{-28,
-          -50},{-28,-6},{26,-6}},
-                            color={0,127,255}));
-  connect(TEvaSet.y, absChi.TSet) annotation (Line(points={{1,-30},{20,-30},{20,
-          -2},{25,-2}}, color={0,0,127}));
-  connect(res2.port_a, cooVol.ports[1])
-   annotation (Line(points={{-60,-50},{-80,-50}}, color={0,127,255}));
-  connect(res1.port_b, heaVol.ports[1])
-   annotation (Line(points={{80,30},{92,30}}, color={0,127,255}));
+  connect(evaPum.ports[1], absChi.port_a2) annotation (Line(points={{28,-6},{10,
+          -6}},                  color={0,127,255}));
+  connect(TEvaSet.y, absChi.TSet) annotation (Line(points={{-79,-80},{-16,-80},{
+          -16,-2},{-11,-2}},
+                        color={0,0,127}));
   connect(absChiMod.y, realToBoolean.u)
-    annotation (Line(points={{-79,0},{-62,0}}, color={0,0,127}));
-  connect(absChi.on, realToBoolean.y) annotation (Line(points={{25,2},{0,2},{0,
-          0},{-39,0}},         color={255,0,255}));
-  connect(conPum.T_in, TConEnt.y) annotation (Line(points={{-42,46},{-59,46}},
+    annotation (Line(points={{-79,2},{-62,2}}, color={0,0,127}));
+  connect(absChi.on, realToBoolean.y) annotation (Line(points={{-11,2},{-39,2}},
+                               color={255,0,255}));
+  connect(conPum.T_in, TConEnt.y) annotation (Line(points={{-62,46},{-79,46}},
                               color={0,0,127}));
-  connect(evaPum.T_in, TEvaEnt.y) annotation (Line(points={{96.4,-12.8},{108,
-          -12.8},{108,-80},{81,-80}},
+  connect(evaPum.T_in, TEvaEnt.y) annotation (Line(points={{54.4,-10.8},{68,
+          -10.8},{68,10},{79,10}},
                                color={0,0,127}));
-  connect(evaPum.m_flow_in, mEva_flow.y) annotation (Line(points={{96.4,-17.6},
-          {104,-17.6},{104,-50},{81,-50}},color={0,0,127}));
-  connect(conPum.ports[1], absChi.port_a1) annotation (Line(points={{-20,50},{
-          20,50},{20,6},{26,6}},
-                              color={0,127,255}));
-   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
+  connect(evaPum.m_flow_in, mEva_flow.y) annotation (Line(points={{54.4,-15.6},
+          {68,-15.6},{68,-30},{79,-30}},  color={0,0,127}));
+  connect(cooVol.ports[1], absChi.port_b2) annotation (Line(points={{-80,-50},{-20,
+          -50},{-20,-6},{-10,-6}}, color={0,127,255}));
+  connect(absChi.port_b1, heaVol.ports[1]) annotation (Line(points={{10,6},{20,
+          6},{20,30},{40,30}},
+                            color={0,127,255}));
+  connect(conPum.ports[1], absChi.port_a1) annotation (Line(points={{-40,50},{-20,
+          50},{-20,6},{-10,6}}, color={0,127,255}));
+   annotation (Icon(coordinateSystem(preserveAspectRatio=false),       graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -293,12 +277,16 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
-                           Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{120,100}})),
-                 __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/AbsorptionIndirect_EnergyPlus.mos"
+                           Diagram(coordinateSystem(extent={{-160,-100},{120,100}}),
+  oordinateSystem(preserveAspectRatio=false,
+  extent={{-140,-100},{120,100}})),
+  __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/AbsorptionIndirect_EnergyPlus.mos"
         "Simulate and plot"),
     experiment(
-      Tolerance=1e-6, StopTime=151200),
+      StopTime=70200,
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
 <p>
 This model validates the model

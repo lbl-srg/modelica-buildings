@@ -8,7 +8,8 @@ block AbsorptionIndirect
      annotation (choicesAllMatching = true,Placement(transformation(extent={{60,72},
             {80,92}})));
   parameter Modelica.SIunits.HeatFlowRate Q_flow_small
-    "Small value for heat flow rate or power, used to avoid division by zero";
+    "Small value for heat flow rate or power, used to avoid division by zero"
+    annotation(HideResult=true);
 
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable the absorption chiller"
@@ -61,6 +62,11 @@ block AbsorptionIndirect
      annotation (Placement(transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{100,28},
             {120,48}})));
 
+  Real PLR(min=0, final unit="1")
+   "Part load ratio";
+  Real CR(min=0, final unit="1")
+   "Cycling ratio";
+
   Modelica.SIunits.Efficiency genHIR
    "Ratio of the generator heat input to chiller operating capacity";
   Modelica.SIunits.Efficiency EIRP(min=0)
@@ -73,12 +79,10 @@ block AbsorptionIndirect
    "Heat input modifier based on the generator input temperature";
   Real genEvaT(min=0)
    "Heat input modifier based on the evaporator outlet temperature";
-  Real PLR(min=0, final unit="1")
-   "Part load ratio";
-  Real CR(min=0, final unit="1")
-   "Cycling ratio";
+
   Modelica.SIunits.HeatFlowRate QEva_flow_ava
    "Cooling capacity available at the Evaporator";
+protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConEnt_degC
    "Condenser entering water temperature in degC";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TEvaLvg_degC
@@ -96,13 +100,13 @@ equation
 
   if on then
     capFunEva = Buildings.Utilities.Math.Functions.smoothMax(
-           x1 =  1E-7,
+           x1 =  1E-6,
            x2 =  per.capFunEva[1]+ per.capFunEva[2]* TEvaLvg_degC+
                  per.capFunEva[3]*(TEvaLvg_degC)^2+ per.capFunEva[4]*(TEvaLvg_degC)^3,
        deltaX =  Q_flow_small);
 
     capFunCon = Buildings.Utilities.Math.Functions.smoothMax(
-           x1 =  1E-7,
+           x1 =  1E-6,
            x2 =  per.capFunCon[1]+ per.capFunCon[2]* TConEnt_degC +
                  per.capFunCon[3]*TConEnt_degC^2 + per.capFunCon[4]*(TConEnt_degC)^3,
        deltaX = Q_flow_small);
@@ -144,9 +148,9 @@ equation
    QEva_flow_ava=0;
    QEva_flow = 0;
    PLR =0;
-   genHIR =0;
-   genConT =0;
-   genEvaT =0;
+   genHIR =per.genHIR[1];
+   genConT =1;
+   genEvaT =1;
    EIRP=0;
    CR =0;
    QGen_flow = 0;
