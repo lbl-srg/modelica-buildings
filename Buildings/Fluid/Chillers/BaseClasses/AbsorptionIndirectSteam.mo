@@ -1,5 +1,5 @@
 within Buildings.Fluid.Chillers.BaseClasses;
-block AbsorptionIndirect
+block AbsorptionIndirectSteam
   "Absorption indirect chiller performance curve method"
   extends Modelica.Blocks.Icons.Block;
 
@@ -178,4 +178,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AbsorptionIndirect;
+end AbsorptionIndirectSteam;
