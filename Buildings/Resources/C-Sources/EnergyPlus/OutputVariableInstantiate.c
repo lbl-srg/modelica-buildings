@@ -23,7 +23,7 @@ void OutputVariableInstantiate(
   const char* modelicaName = outVar->modelicaNameOutputVariable;
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    ModelicaFormatMessage("Entered OutputVariableInstantiate for %s.\n", modelicaName);
+    ModelicaFormatMessage("Entered OutputVariableInstantiate for %s at %p.\n", modelicaName, outVar);
   }
   if (bui == NULL){
     ModelicaFormatError("Pointer outVar->ptrBui is NULL in OutputVariableInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.Experimental.EnergyPlus.UsersGuide.", outVar->modelicaNameOutputVariable);

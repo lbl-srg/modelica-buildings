@@ -45,17 +45,18 @@ void OutputVariableExchange(
       time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable);
 
   if (! outVar->isInstantiated){
-    /* This zone has not been initialized because the simulator removed the call to initialize().
+    /* In the first call, the output variable is not yet initialized.
+       The call below will initialize it.
+       Note that if such a call were to be done only from the 'initial equation' section,
+       then OpenModelica would not call it.
     */
-    ModelicaFormatError(
-      "Error, output variable %s should have been initialized. Contact support.",
-      outVar->modelicaNameOutputVariable);
+    OutputVariableInstantiate(object, time);
   }
 
   if (initialCall){
     outVar->isInitialized = true; /* Set to true as it will be initialized right below */
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("Initial call for output variable %s with time = %.f\n", outVar->modelicaNameOutputVariable, time);
+      ModelicaFormatMessage("Initial call for output variable %s at %p with time = %.f\n", outVar->modelicaNameOutputVariable, outVar, time);
   }
   else
   {
