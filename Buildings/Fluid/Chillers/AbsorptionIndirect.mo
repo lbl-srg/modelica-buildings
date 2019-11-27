@@ -47,8 +47,9 @@ model AbsorptionIndirect
      annotation (Placement(transformation(extent={{100,30},{120,50}}),
         iconTransformation(extent={{100,74},{120,94}})));
 protected
-  BaseClasses.AbsorptionIndirect perMod(final per=per, final Q_flow_small=
-        Q_flow_small) "Block that computes the performance"
+  BaseClasses.AbsorptionIndirect perMod(
+    final per=per,
+    final Q_flow_small=Q_flow_small) "Block that computes the performance"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Modelica.Blocks.Sources.RealExpression QEva_flow_set(
