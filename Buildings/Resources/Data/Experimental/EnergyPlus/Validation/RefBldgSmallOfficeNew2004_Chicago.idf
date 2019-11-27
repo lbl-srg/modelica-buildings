@@ -2027,7 +2027,7 @@
 
   Output:Meter,InteriorEquipment:Electricity,HOURLY;
 
-  Output:Meter,InteriorEquipment:Gas,HOURLY;
+!  Output:Meter,InteriorEquipment:Gas,HOURLY;
 
   Output:Variable,*,Site Outdoor Air Drybulb Temperature,HOURLY;
 
@@ -2036,6 +2036,8 @@
   Output:Variable,*,Site Outdoor Air Relative Humidity,HOURLY;
 
   Output:Variable,*,Zone Mean Air Temperature,hourly;
+
+  Output:Variable,*,Zone Electric Equipment Electric Power,timestep;
 
 ! ***REPORT TABLES***
 
