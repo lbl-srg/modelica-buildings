@@ -10,7 +10,10 @@ model PressureDrop
                   Dialog(group = "Transition to laminar",
                          enable = not linearized));
 
-  final parameter Real k = if computeFlowResistance then
+  // Below is a temporary fix for Dymola 2020x beta2. For release, replace
+  // if (dp_nominal_pos > Modelica.Constants.eps) then with
+  // if computeFlowResistance then
+  final parameter Real k = if (dp_nominal_pos > Modelica.Constants.eps) then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected

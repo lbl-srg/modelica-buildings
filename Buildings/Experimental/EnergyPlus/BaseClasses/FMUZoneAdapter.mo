@@ -2,6 +2,13 @@ within Buildings.Experimental.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
 
+  constant String modelicaNameBuilding
+    "Name of the building to which this thermal zone belongs to"
+    annotation(HideResult=true);
+  constant String modelicaNameThermalZone = getInstanceName()
+    "Name of this instance"
+    annotation(HideResult=true);
+
   parameter String idfName "Name of the IDF file that contains this zone";
   parameter String weaName "Name of the Energyplus weather file";
   final parameter String iddName=Modelica.Utilities.Files.loadResource(
@@ -18,7 +25,7 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
   parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=
-    Buildings.Experimental.EnergyPlus.Types.Verbosity.TimeStep
+    Buildings.Experimental.EnergyPlus.Types.Verbosity.Warning
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 
@@ -76,9 +83,6 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
 
-  constant String modelicaInstanceName = getInstanceName()
-    "Name of this instance"
-    annotation(HideResult=true);
 protected
   constant String buildingsLibraryRoot = Modelica.Utilities.Strings.replace(
     string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html")),
@@ -88,11 +92,12 @@ protected
 
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass adapter=
     Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass(
+      modelicaNameBuilding=modelicaNameBuilding,
+      modelicaNameThermalZone=modelicaNameThermalZone,
       idfName=idfName,
       weaName=weaName,
       iddName=iddName,
       zoneName=zoneName,
-      modelicaInstanceName=modelicaInstanceName,
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
       buildingsLibraryRoot=buildingsLibraryRoot,
@@ -124,7 +129,7 @@ protected
     fixed=false,
     start=0)
     "Convective sensible heat to be added to zone air if T = TRooLast";
-  Integer counter "Counter, used to force one more execution right after the initialization";
+  Integer counter "Counter for number of calls to EnergyPlus during time steps";
 
   function round
     input Real u;
@@ -155,7 +160,7 @@ equation
   // The 'not initial()' triggers one sample when the continuous time simulation starts.
   // This is required for the correct event handling. Otherwise the regression tests will fail.
  // when {initial(), not initial(), time >= pre(tNext)} then
-  when {initial(), pre(counter) == 1, time >= pre(tNext)} then
+  when {initial(), time >= pre(tNext), not initial()} then
   // Initialization of output variables.
     TRooLast = T;
     dtLast = time-pre(tLast);

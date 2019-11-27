@@ -3,12 +3,16 @@ model OneZoneWithControl "Validation model for one zone"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
-    "Name of the IDF file";
-  parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
-    "Name of the weather file";
+  inner Building building(
+    idfName = Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
+    weaName = Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
+    showWeatherData=false)
+    "Building model"
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
   parameter Modelica.SIunits.Volume AFlo = 149.657+2*(113.45+67.3) "Floor area of the whole floor of the building";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = AFlo*2.7*3*1.2/3600
@@ -16,11 +20,6 @@ model OneZoneWithControl "Validation model for one zone"
 
   ThermalZone zon(
     redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    usePrecompiledFMU=true,
-    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     zoneName="Core_ZN",
     nPorts = 2) "South zone"
     annotation (Placement(transformation(extent={{20,20},{60,60}})));
@@ -46,7 +45,7 @@ model OneZoneWithControl "Validation model for one zone"
     "Boundary condition"
     annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TSet(
-    amplitude=4,
+    amplitude=6,
     period=86400,
     offset=273.15 + 16,
     startTime=6*3600,
@@ -79,9 +78,10 @@ model OneZoneWithControl "Validation model for one zone"
     startTime(displayUnit="h") = 25200,
     amplitude=2) "Number of persons"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+
 equation
   connect(TSet.y, conPID.u_s)
-    annotation (Line(points={{-59,-70},{-52,-70}},color={0,0,127}));
+    annotation (Line(points={{-58,-70},{-52,-70}},color={0,0,127}));
   connect(conPID.u_m, zon.TAir) annotation (Line(points={{-40,-82},{-40,-92},{90,
           -92},{90,53.8},{61,53.8}}, color={0,0,127}));
   connect(bou.ports[1],hea. port_a)
@@ -93,8 +93,8 @@ equation
   connect(hea.port_b, zon.ports[2])
     annotation (Line(points={{38,-40},{42,-40},{42,20.8}}, color={0,127,255}));
   connect(conPID.y, addPar.u)
-    annotation (Line(points={{-29,-70},{-22,-70}}, color={0,0,127}));
-  connect(addPar.y,hea. TSet) annotation (Line(points={{1,-70},{10,-70},{10,-32},
+    annotation (Line(points={{-28,-70},{-22,-70}}, color={0,0,127}));
+  connect(addPar.y,hea. TSet) annotation (Line(points={{2,-70},{10,-70},{10,-32},
           {16,-32}}, color={0,0,127}));
   connect(gai.u[1],nPer. y)
     annotation (Line(points={{-42,50},{-59,50}},         color={0,0,127}));

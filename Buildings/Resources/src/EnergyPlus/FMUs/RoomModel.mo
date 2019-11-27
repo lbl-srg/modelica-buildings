@@ -32,7 +32,7 @@ protected
   parameter Modelica.SIunits.Time startTime(fixed=false) "First sample time instant";
   parameter Modelica.SIunits.Length h = V/AFlo "Room height";
   parameter Modelica.SIunits.Area ACon = 2*AFlo + sqrt(AFlo)*h*4 "Surface area of constructions";
-  parameter Modelica.SIunits.Conductance Ah = ACon * 8 "Conductance A*h for all surfaces";
+  parameter Modelica.SIunits.ThermalConductance Ah = ACon * 8 "Conductance A*h for all surfaces";
   parameter Modelica.SIunits.HeatCapacity CCon = ACon*0.2*800*2000 "Heat capacity of constructions";
 
   output Boolean sampleTrigger "True, if sample time instant";

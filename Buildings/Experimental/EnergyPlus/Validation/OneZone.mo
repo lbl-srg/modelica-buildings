@@ -3,28 +3,28 @@ model OneZone "Validation model for one zone"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
-  parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf")
-    "Name of the IDF file";
-  parameter String weaName = Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
-    "Name of the weather file";
-
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+
+  inner Building building(
+    idfName = Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
+    weaName = Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
+    showWeatherData=false)
+    "Building model"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     "Multiplex to combine signals into a vector"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   ThermalZone zon(
     redeclare package Medium = Medium,
-    idfName=idfName,
-    weaName=weaName,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Core_ZN",
-    usePrecompiledFMU=true,
-    fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     nPorts = 2) "Thermal zone (core zone of the office building with 5 zones)"
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
   Fluid.FixedResistances.PressureDrop duc(
@@ -83,6 +83,7 @@ First implementation.
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/Validation/OneZone.mos"
         "Simulate and plot"),
 experiment(
-      StopTime=86400,
-      Tolerance=1e-06));
+      StopTime=432000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end OneZone;

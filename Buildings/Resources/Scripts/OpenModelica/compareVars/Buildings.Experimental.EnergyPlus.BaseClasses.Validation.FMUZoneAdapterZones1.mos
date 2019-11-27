@@ -1,6 +1,5 @@
 compareVars :=
   {
     "fmuZonCor.T",
-    "fmuZonCor.QCon_flow",
-    "fmuZonCor.QConLast_flow"
+    "fmuZonCor.QCon_flow"
   };

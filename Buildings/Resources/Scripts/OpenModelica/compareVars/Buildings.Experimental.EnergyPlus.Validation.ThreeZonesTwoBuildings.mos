@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "zon1.TAir",
-    "zon2.TAir",
-    "zon3.TAir"
+    "zon1.zon.TAir",
+    "zon2.zon1.TAir",
+    "zon2.zon2.TAir"
   };
