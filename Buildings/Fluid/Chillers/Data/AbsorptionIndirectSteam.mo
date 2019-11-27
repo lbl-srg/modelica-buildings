@@ -1,5 +1,5 @@
 within Buildings.Fluid.Chillers.Data;
-package AbsorptionIndirect
+package AbsorptionIndirectSteam
   extends Modelica.Icons.MaterialPropertiesPackage;
 
   record Generic "Generic data record for absorption indirect chiller"
@@ -72,8 +72,8 @@ First implementation.
 </html>"));
   end Generic;
 
-  record AbsorptionIndirectChiller_EnergyPlus =
-    Buildings.Fluid.Chillers.Data.AbsorptionIndirect.Generic (
+  record EnergyPlusValidation =
+    Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.Generic (
      QEva_flow_nominal=-10000,
      P_nominal=150,
      PLRMax=1,
@@ -127,4 +127,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AbsorptionIndirect;
+end AbsorptionIndirectSteam;

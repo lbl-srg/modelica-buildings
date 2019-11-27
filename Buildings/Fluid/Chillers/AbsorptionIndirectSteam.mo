@@ -16,7 +16,7 @@ model AbsorptionIndirectSteam
            nPorts=2,
            final prescribedHeatFlowRate=true));
 
-  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirect.Generic per
+  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.Generic per
    "Performance data"
     annotation (choicesAllMatching= true,
        Placement(transformation(extent={{60,72},{80,92}})));
@@ -315,8 +315,8 @@ The heat balance of the chiller is
 <p>
 The equipment performance data is obtained from the record <code>per</code>,
 which is an instance of
-<a href=\"Buildings.Fluid.Chillers.Data.AbsorptionIndirect\">
-Buildings.Fluid.Chillers.Data.AbsorptionIndirect</a>.
+<a href=\"Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam\">
+Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam</a>.
 Additional performance curves can be developed using
 two available techniques (Hydeman and Gillespie, 2002). The first technique is called the
 Least-squares Linear Regression method and is used when sufficient performance data exist

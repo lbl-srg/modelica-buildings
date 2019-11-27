@@ -6,7 +6,7 @@ model AbsorptionIndirectSteam_EnergyPlus
   Buildings.Fluid.Chillers.AbsorptionIndirectSteam absChi(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    per=Buildings.Fluid.Chillers.Data.AbsorptionIndirect.AbsorptionIndirectChiller_EnergyPlus(),
+    per=per,
     allowFlowReversal1=true,
     allowFlowReversal2=true,
     m1_flow_nominal=mCon_flow_nominal,
@@ -21,9 +21,6 @@ model AbsorptionIndirectSteam_EnergyPlus
     T1_start=25 + 273.15,
     T2_start=10 + 273.15) "Absorption indirect chiller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  parameter Data.AbsorptionIndirect.AbsorptionIndirectChiller_EnergyPlus per
-    "EnergyPlus chiller performance"
-    annotation (Placement(transformation(extent={{-140,62},{-120,82}})));
 
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=per.mEva_flow_nominal
     "Evaporator nominal mass flow rate";
@@ -243,6 +240,9 @@ model AbsorptionIndirectSteam_EnergyPlus
         offset=0)
     "EnergyPlus entering water flow rate at the evaporator"
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
+  parameter Data.AbsorptionIndirectSteam.EnergyPlusValidation per
+    "Chiller performance data"
+    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 equation
   connect(evaPum.ports[1], absChi.port_a2) annotation (Line(points={{28,-6},{10,
           -6}},                  color={0,127,255}));

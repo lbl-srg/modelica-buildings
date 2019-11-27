@@ -3,7 +3,7 @@ block AbsorptionIndirect
   "Absorption indirect chiller performance curve method"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter  Buildings.Fluid.Chillers.Data.AbsorptionIndirect.Generic per
+  parameter  Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.Generic per
     "Performance data"
      annotation (choicesAllMatching = true,Placement(transformation(extent={{60,72},
             {80,92}})));

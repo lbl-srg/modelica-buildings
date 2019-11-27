@@ -5,7 +5,7 @@ model AbsorptionIndirectSteam
 
   package Medium = Buildings.Media.Water
    "Medium model";
-  parameter Data.AbsorptionIndirect.AbsorptionIndirectChiller_EnergyPlus perEP
+  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.EnergyPlusValidation perEP
     "Performance data implemented at EnergyPlus example"
     annotation (Placement(transformation(extent={{60,74},{80,94}})));
 
