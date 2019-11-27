@@ -6,6 +6,8 @@ model AbsorptionIndirect
      T2_start = 273.15+5,
      m1_flow_nominal= per.mCon_flow_nominal,
      m2_flow_nominal= per.mEva_flow_nominal,
+     dp1_nominal = per.dpCon_nominal,
+     dp2_nominal = per.dpEva_nominal,
    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume
       vol1(final V=m1_flow_nominal*tau1/rho1_nominal,
            nPorts=2,
@@ -101,15 +103,14 @@ equation
           -53,10}},
                 color={255,0,255}));
   connect(perMod.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{-31,18},
-          {-28,18},{-28,28},{-52,28},{-52,40},{-47,40}}, color={0,0,127}));
+          {-26,18},{-26,28},{-52,28},{-52,40},{-47,40}}, color={0,0,127}));
   connect(perMod.QEva_flow, preHeaFloEva.Q_flow) annotation (Line(points={{-31,2.6},
           {-26,2.6},{-26,-30},{-1,-30}}, color={0,0,127}));
   connect(preHeaFloEva.port, vol2.heatPort)
     annotation (Line(points={{19,-30},{28,-30},{28,-60},{12,-60}},
                                   color={191,0,0}));
-  connect(perMod.QEva_flow, QEva_flow) annotation (Line(points={{-31,2.6},{-26,
-          2.6},{-26,-12},{88,-12},{88,-40},{110,-40}},
-                                                  color={0,0,127}));
+  connect(perMod.QEva_flow, QEva_flow) annotation (Line(points={{-31,2.6},{88,
+          2.6},{88,-40},{110,-40}},               color={0,0,127}));
   connect(TConEnt.y, perMod.TConEnt) annotation (Line(points={{-69,21},{-64,21},
           {-64,13.4},{-53,13.4}}, color={0,0,127}));
   connect(QEva_flow_set.y, perMod.QEva_flow_set) annotation (Line(points={{-69,0},
@@ -293,8 +294,8 @@ F<sub>3</sub> T<sup>2</sup><sub>eva,lvg</sub> + F<sub>4</sub> T<sup>3</sup><sub>
 The main outputs of the model that are to be used in energy analysis
 are the required generator heat <code>QGen_flow</code> and
 the electric power consumption of the chiller pump <code>P</code>.
-For example, if the chiller were to be regenerated with steam (or hot water), then
-<code>QGen_flow</code> is the heat that must be provided by a steam (or hot water) loop.
+For example, if the chiller were to be regenerated with steam, then
+<code>QGen_flow</code> is the heat that must be provided by a steam loop.
 This model computes the required generator heat as
 <p align=\"center\" style=\"font-style:italic;\">
 Q&#775;<sub>gen</sub> = -Q&#775;<sub>eva,ava</sub> genHIR genT<sub>con</sub> genT<sub>eva</sub>.

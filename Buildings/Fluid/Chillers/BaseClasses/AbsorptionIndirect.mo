@@ -101,13 +101,13 @@ equation
   if on then
     capFunEva = Buildings.Utilities.Math.Functions.smoothMax(
            x1 =  1E-6,
-           x2 =  per.capFunEva[1]+ per.capFunEva[2]* TEvaLvg_degC+
-                 per.capFunEva[3]*(TEvaLvg_degC)^2+ per.capFunEva[4]*(TEvaLvg_degC)^3,
+           x2 =  per.capFunEva[1] + per.capFunEva[2]* TEvaLvg_degC+
+                 per.capFunEva[3] * (TEvaLvg_degC)^2 + per.capFunEva[4] * (TEvaLvg_degC)^3,
        deltaX =  Q_flow_small);
 
     capFunCon = Buildings.Utilities.Math.Functions.smoothMax(
            x1 =  1E-6,
-           x2 =  per.capFunCon[1]+ per.capFunCon[2]* TConEnt_degC +
+           x2 =  per.capFunCon[1] + per.capFunCon[2]* TConEnt_degC +
                  per.capFunCon[3]*TConEnt_degC^2 + per.capFunCon[4]*(TConEnt_degC)^3,
        deltaX = Q_flow_small);
 

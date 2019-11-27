@@ -13,6 +13,7 @@ model AbsorptionIndirect
     "Evaporator nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=perEP.mCon_flow_nominal
     "Condenser nominal mass flow rate";
+
   Buildings.Fluid.Chillers.AbsorptionIndirect absIndSte(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
@@ -21,59 +22,61 @@ model AbsorptionIndirect
     dp2_nominal=0,
     per=perEP,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                     "Absorption Indirect Chiller model"
+  "Absorption Indirect Chiller model"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-    Sources.MassFlowSource_T conPum(
-      use_m_flow_in=false,
-      m_flow=mCon_flow_nominal,
-      use_T_in=true,
-      redeclare package Medium = Medium,
-      nPorts=1)
-     "Condenser water pump"
+  Sources.MassFlowSource_T conPum(
+    redeclare package Medium = Medium,
+    use_m_flow_in=false,
+    m_flow=mCon_flow_nominal,
+    use_T_in=true,
+    nPorts=1)
+   "Condenser water pump"
      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-50,70})));
-    Sources.MassFlowSource_T evaPum(
-      m_flow=mEva_flow_nominal,
-      use_T_in=true,
-      redeclare package Medium = Medium,
-      nPorts=1)
-     "Evaporator water pump"
+  Sources.MassFlowSource_T evaPum(
+    redeclare package Medium = Medium,
+    m_flow=mEva_flow_nominal,
+    use_T_in=true,
+    nPorts=1)
+   "Evaporator water pump"
      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,-30})));
-    Controls.OBC.CDL.Continuous.Sources.Ramp TConEnt(
-      height=5,
-      duration(displayUnit="h") = 14400,
-      offset=20 + 273.15,
-      startTime=0)
-     "Condesner entering water temperature"
+  Controls.OBC.CDL.Continuous.Sources.Ramp TConEnt(
+    height=5,
+    duration(displayUnit="h") = 14400,
+    offset=20 + 273.15,
+    startTime=0)
+   "Condesner entering water temperature"
      annotation (Placement(transformation(extent={{-96,56},{-76,76}})));
-    Controls.OBC.CDL.Continuous.Sources.Ramp TEvaEnt(
-      height=4,
-      duration(displayUnit="h") = 14400,
-      offset=12 + 273.15,
-      startTime=0)
-     "Evaporator entering water temperature"
+  Controls.OBC.CDL.Continuous.Sources.Ramp TEvaEnt(
+    height=4,
+    duration(displayUnit="h") = 14400,
+    offset=12 + 273.15,
+    startTime=0)
+    "Evaporator entering water temperature"
      annotation (Placement(transformation(extent={{92,-44},{72,-24}})));
-    Modelica.Fluid.Sources.FixedBoundary heaVol(          redeclare package
-      Medium = Medium, nPorts=1)
-    "Volume for heating load"
+  Modelica.Fluid.Sources.FixedBoundary heaVol(
+    redeclare package Medium = Medium,
+    nPorts=1)
+   "Volume for heating load"
      annotation (Placement(transformation(extent={{60,6},{40,26}})));
-    Modelica.Fluid.Sources.FixedBoundary cooVol(          redeclare package
-      Medium = Medium, nPorts=1)
-    "Volume for cooling load"
+  Modelica.Fluid.Sources.FixedBoundary cooVol(
+    redeclare package Medium = Medium,
+    nPorts=1)
+   "Volume for cooling load"
      annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-    Controls.OBC.CDL.Continuous.Sources.Ramp TEvaSet(
+  Controls.OBC.CDL.Continuous.Sources.Ramp TEvaSet(
     height=4,
     duration(displayUnit="h") = 14400,
     offset=6 + 273.15,
     startTime=0)
     "Evaporator setpoint water temperature"
      annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-    Modelica.Blocks.Sources.BooleanPulse onOff(period=3600/2) "Control input"
+  Modelica.Blocks.Sources.BooleanPulse onOff(period=3600/2) "Control input"
     annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
 equation
   connect(TConEnt.y,conPum. T_in)

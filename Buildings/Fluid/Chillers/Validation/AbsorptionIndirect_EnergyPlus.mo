@@ -277,9 +277,7 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
-                           Diagram(coordinateSystem(extent={{-160,-100},{120,100}}),
-  oordinateSystem(preserveAspectRatio=false,
-  extent={{-140,-100},{120,100}})),
+   Diagram(coordinateSystem(extent={{-160,-100},{120,100}})),
   __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/AbsorptionIndirect_EnergyPlus.mos"
         "Simulate and plot"),
     experiment(
