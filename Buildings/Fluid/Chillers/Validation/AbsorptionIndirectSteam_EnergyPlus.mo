@@ -1,9 +1,9 @@
 within Buildings.Fluid.Chillers.Validation;
-model AbsorptionIndirect_EnergyPlus
+model AbsorptionIndirectSteam_EnergyPlus
   "Validation with EnergyPlus model"
  package Medium = Buildings.Media.Water "Medium model";
 
-  Buildings.Fluid.Chillers.AbsorptionIndirect absChi(
+  Buildings.Fluid.Chillers.AbsorptionIndirectSteam absChi(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     per=Buildings.Fluid.Chillers.Data.AbsorptionIndirect.AbsorptionIndirectChiller_EnergyPlus(),
@@ -278,7 +278,7 @@ equation
                 fillPattern = FillPattern.Solid,
                 points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
    Diagram(coordinateSystem(extent={{-160,-100},{120,100}})),
-  __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/AbsorptionIndirect_EnergyPlus.mos"
+  __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/AbsorptionIndirectSteam_EnergyPlus.mos"
         "Simulate and plot"),
     experiment(
       StopTime=70200,
@@ -288,8 +288,8 @@ equation
   Documentation(info="<html>
 <p>
 This model validates the model
-<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirect\">
-Buildings.Fluid.Chillers.AbsorptionIndirect</a>.
+<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
+Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>.
 <p>
 The EnergyPlus results were generated using the example file <code>IndirectAbsorptionChiller.idf</code>
 from EnergyPlus 9.1, with a nominal cooling capacity of <i>10000</i> Watts.
@@ -302,4 +302,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AbsorptionIndirect_EnergyPlus;
+end AbsorptionIndirectSteam_EnergyPlus;

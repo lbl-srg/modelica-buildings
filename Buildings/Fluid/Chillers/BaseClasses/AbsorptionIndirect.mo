@@ -163,10 +163,10 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that computes the performance for the model
-<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirect\">
-Buildings.Fluid.Chillers.AbsorptionIndirect</a>.
-See <a href=\"Buildings.Fluid.Chillers.AbsorptionIndirect\">
-Buildings.Fluid.Chillers.AbsorptionIndirect</a>
+<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
+Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>.
+See <a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
+Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>
 for a description of this model.
 </p>
 </html>",

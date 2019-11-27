@@ -1,5 +1,5 @@
 within Buildings.Fluid.Chillers;
-model AbsorptionIndirect
+model AbsorptionIndirectSteam
   "Absorption indirect chiller with performance curves model."
     extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
      T1_start = 273.15+25,
@@ -345,4 +345,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AbsorptionIndirect;
+end AbsorptionIndirectSteam;

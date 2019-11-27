@@ -169,7 +169,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Fluid.Chillers.AbsorptionIndirect
+    <tr><td valign=\"top\">Buildings.Fluid.Chillers.AbsorptionIndirectSteam
         </td>
         <td valign=\"top\">Indirect heated absorption chiller based on performance curves.
         </td>
