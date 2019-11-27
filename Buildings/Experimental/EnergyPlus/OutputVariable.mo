@@ -42,7 +42,7 @@ equation
   // This is required for the correct event handling. Otherwise the regression tests will fail.
  // when {initial(), not initial(), time >= pre(tNext)} then
   when {initial(), time >= pre(tNext), not initial()} then
-    (y, tNext)  =Buildings.Experimental.EnergyPlus.BaseClasses.outputVariableExchange(
+    (y, tNext) = Buildings.Experimental.EnergyPlus.BaseClasses.outputVariableExchange(
       adapter,
       initial(),
       round(time, 1E-3));
