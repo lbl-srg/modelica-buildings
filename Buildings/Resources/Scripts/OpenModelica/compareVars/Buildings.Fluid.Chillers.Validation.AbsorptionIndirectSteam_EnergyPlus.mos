@@ -1,9 +1,9 @@
 compareVars :=
   {
     "absChi.QCon_flow",
-    "QConEP.y",
+    "QCon_EP.y",
     "absChi.QEva_flow",
-    "QEvaEP.y",
+    "QEva_EP.y",
     "absChi.QGen_flow",
-    "QGenEP.y"
+    "QGen_EP.y"
   };

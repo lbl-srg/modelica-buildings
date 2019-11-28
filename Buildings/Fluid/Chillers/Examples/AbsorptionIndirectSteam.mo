@@ -22,7 +22,7 @@ model AbsorptionIndirectSteam
    genConT={0.712019,-0.00478,0.000864,-0.000013},
    genEvaT={0.995571,0.046821,-0.01099,0.000608})
     "Chiller performance data"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Fluid.Chillers.AbsorptionIndirectSteam absIndSte(
     redeclare package Medium1 = Medium,
