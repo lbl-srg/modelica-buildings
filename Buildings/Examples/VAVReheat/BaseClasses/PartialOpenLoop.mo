@@ -78,7 +78,7 @@ partial model PartialOpenLoop
     final sampleModel=sampleModel) constrainedby
     Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.PartialFloor
     "Model of a floor of the building that is served by this VAV system"
-    annotation (Placement(transformation(extent={{772,396},{1100,616}})));
+    annotation (Placement(transformation(extent={{772,396},{1100,616}})), choicesAllMatching=true);
 
 //  Buildings.Fluid.HeatExchangers.DryCoilCounterFlow heaCoi(
 //    redeclare package Medium1 = MediumW,
@@ -922,6 +922,10 @@ start values for alias variables of the temperature
 of the building and the ambient air.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
+<li>
+November 25, 2019, by Milica Grahovac:<br/>
+Declared the thermal zone model as replaceable.
 </li>
 </ul>
 </html>"));

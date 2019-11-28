@@ -260,9 +260,7 @@ equation
             {400,500}}, initialScale=0.1)),
     Documentation(info="<html>
 <p>
-This is a partial floor model used to constrain the replaceable thermal zone classes and
-ensure those are plug compatible.
-fixme: this model should live somewhere else as the ThermalZone.Floor also extends it
+This is a partial model of one floor of the DOE reference office building.
 </p>
 </html>",
 revisions="<html>
@@ -270,7 +268,7 @@ revisions="<html>
 <li>
 November 15, 2019, by Milica Grahovac:<br/>
 First implementation of the partial floor model based on
-common floor model elements.
+elements that are in common for all floor models.
 </li>
 </ul>
 </html>"),
