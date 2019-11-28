@@ -5,7 +5,7 @@ block OnCounter "Increment the output if the input switches to true"
     "Initial and reset value of y if input reset switches to true";
 
   Interfaces.BooleanInput trigger "Boolean input signal"
-    annotation (Placement(transformation(extent={{-180,-40},{-100,40}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.BooleanInput reset "Reset the counter" annotation (Placement(
         transformation(

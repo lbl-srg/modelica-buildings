@@ -4,7 +4,7 @@ block Constant "Output constant signal of type Real"
 
   Interfaces.RealOutput y
     "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = k;

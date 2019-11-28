@@ -7,7 +7,7 @@ block Pre
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
   pre(u) = pre_u_start;
@@ -26,6 +26,10 @@ equation
           extent={{-90,40},{90,-40}},
           lineColor={0,0,0},
           textString="pre"),
+        Text(
+          extent={{-150,150},{150,110}},
+          lineColor={0,0,255},
+          textString="%name"),
         Ellipse(
           extent={{71,7},{85,-7}},
           lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}

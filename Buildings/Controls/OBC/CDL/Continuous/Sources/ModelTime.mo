@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.CDL.Continuous.Sources;
 block ModelTime "Standard time"
 
   Interfaces.RealOutput y(final unit="s")
-    "Connector of Real output signal" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}})));
+    "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = time;

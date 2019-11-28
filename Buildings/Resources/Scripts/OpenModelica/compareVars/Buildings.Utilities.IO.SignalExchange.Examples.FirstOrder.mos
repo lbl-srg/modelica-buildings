@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "expMod.oveWriSet_u",
+    "expMod.oveWriAct_u",
+    "expMod.rea",
+    "expMod.oveWriSet_activate",
+    "expMod.oveWriAct_activate"
+  };

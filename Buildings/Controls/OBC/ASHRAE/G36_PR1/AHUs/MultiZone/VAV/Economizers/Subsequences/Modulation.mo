@@ -30,47 +30,47 @@ block Modulation
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-      iconTransformation(extent={{-120,-10},{-100,10}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum economizer damper position limit as returned by the damper position limits  sequence"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
-      iconTransformation(extent={{-120,-90},{-100,-70}})));
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMax(
     final min=0,
     final max=1,
     final unit="1") "Maximum economizer damper position limit as returned by the economizer enable-disable sequence.
     If the economizer is disabled, this value equals uOutDamPosMin"
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
-      iconTransformation(extent={{-120,-50},{-100,-30}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMin(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,30},{-120,70}}),
-      iconTransformation(extent={{-120,30},{-100,50}})));
+        iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetDamPosMax(
     final min=0,
     final max=1,
     final unit="1")
     "Maximum return air damper position limit as returned by the economizer enable-disable sequence"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
-      iconTransformation(extent={{-120,70},{-100,90}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
     final min=0,
     final max=1,
     final unit="1") "Economizer damper position"
-    annotation (Placement(transformation(extent={{120,-70},{140,-50}}),
-      iconTransformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
     final min=0,
     final max=1,
     final unit="1") "Return air damper position"
-    annotation (Placement(transformation(extent={{120,50},{140,70}}),
-      iconTransformation(extent={{100,10},{120,30}})));
+    annotation (Placement(transformation(extent={{120,40},{160,80}}),
+        iconTransformation(extent={{100,40},{140,80}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
@@ -111,18 +111,18 @@ protected
 
 equation
   connect(outDamPos.x2, outDamMaxLimSig.y)
-    annotation (Line(points={{-2,-34},{-30,-34},{-30,-50},{-79,-50}},color={0,0,127}));
+    annotation (Line(points={{-2,-34},{-30,-34},{-30,-50},{-78,-50}},color={0,0,127}));
   connect(outDamPos.x1, outDamMinLimSig.y)
-    annotation (Line(points={{-2,-22},{-39,-22}}, color={0,0,127}));
+    annotation (Line(points={{-2,-22},{-38,-22}}, color={0,0,127}));
   connect(outDamPos.f1, uOutDamPosMin)
     annotation (Line(points={{-2,-26},{-24,-26},{-24,-100},{-140,-100}},color={0,0,127}));
   connect(outDamPos.f2, uOutDamPosMax)
     annotation (Line(points={{-2,-38},{-20,-38},{-20,-66},{-108,-66},{-108,-50},{-140,-50}},
     color={0,0,127}));
   connect(retDamPos.x2, retDamMaxLimSig.y)
-    annotation (Line(points={{-2,66},{-28,66},{-28,20},{-39,20}},color={0,0,127}));
+    annotation (Line(points={{-2,66},{-28,66},{-28,20},{-38,20}},color={0,0,127}));
   connect(retDamPos.x1, retDamConMinLimSig.y)
-    annotation (Line(points={{-2,78},{-59,78}},color={0,0,127}));
+    annotation (Line(points={{-2,78},{-58,78}},color={0,0,127}));
   connect(retDamPos.f1, uRetDamPosMax)
     annotation (Line(points={{-2,74},{-48,74},{-48,100},{-140,100}},color={0,0,127}));
   connect(retDamPos.f2, uRetDamPosMin)
@@ -130,23 +130,23 @@ equation
   connect(min.u2, uOutDamPosMax)
     annotation (Line(points={{58,-66},{-108,-66},{-108,-50},{-140,-50}},color={0,0,127}));
   connect(min.u1, outDamPos.y)
-    annotation (Line(points={{58,-54},{28,-54},{28,-30},{21,-30}}, color={0,0,127}));
+    annotation (Line(points={{58,-54},{28,-54},{28,-30},{22,-30}}, color={0,0,127}));
   connect(max.u1, retDamPos.y)
-    annotation (Line(points={{58,66},{30,66},{30,70},{21,70}}, color={0,0,127}));
+    annotation (Line(points={{58,66},{30,66},{30,70},{22,70}}, color={0,0,127}));
   connect(uRetDamPosMin, max.u2)
     annotation (Line(points={{-140,50},{-12,50},{-12,54},{58,54}}, color={0,0,127}));
   connect(min.y, firOrdHolOutDam.u)
-    annotation (Line(points={{81,-60},{90,-60}}, color={0,0,127}));
+    annotation (Line(points={{82,-60},{90,-60}}, color={0,0,127}));
   connect(firOrdHolOutDam.y, yOutDamPos)
-    annotation (Line(points={{113,-60},{130,-60}}, color={0,0,127}));
+    annotation (Line(points={{114,-60},{140,-60}}, color={0,0,127}));
   connect(uTSup, retDamPos.u)
     annotation (Line(points={{-140,0},{-22,0},{-22,70},{-2,70}}, color={0,0,127}));
   connect(uTSup, outDamPos.u)
     annotation (Line(points={{-140,0},{-22,0},{-22,-30},{-2,-30}}, color={0,0,127}));
   connect(max.y, firOrdHolRetDam.u)
-    annotation (Line(points={{81,60},{88,60}}, color={0,0,127}));
+    annotation (Line(points={{82,60},{88,60}}, color={0,0,127}));
   connect(firOrdHolRetDam.y, yRetDamPos)
-    annotation (Line(points={{111,60},{130,60}}, color={0,0,127}));
+    annotation (Line(points={{112,60},{140,60}}, color={0,0,127}));
 
 annotation (
     defaultComponentName="mod",
@@ -212,7 +212,7 @@ damper position")}),
 This is a multi zone VAV AHU economizer modulation block. It calculates
 the outdoor and return air damper positions based on the supply air temperature
 control loop signal. The implementation is in line with ASHRAE
-Guidline 36 (G36), PART5.N.2.c. Damper positions are linearly mapped to
+Guidline 36 (G36), PART 5.N.2.c. Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
 composite multi zone VAV AHU economizer control sequence. Damper position
 limits, which are the inputs to the sequence, are the outputs of

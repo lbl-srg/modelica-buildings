@@ -5,7 +5,7 @@ block IsWorkingDay
   Interfaces.DayTypeInput u "Connector of DayType input signal"
     annotation ( Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanOutput y "Connector of Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = u == Buildings.Controls.OBC.CDL.Types.Day.WorkingDay;

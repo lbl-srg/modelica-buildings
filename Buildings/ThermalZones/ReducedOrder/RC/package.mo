@@ -1,6 +1,5 @@
 within Buildings.ThermalZones.ReducedOrder;
-package RC
-  "Package with reduced order thermal zones based on VDI 6007 Part 1"
+package RC "Package with reduced order thermal zones based on VDI 6007 Part 1"
   extends Modelica.Icons.VariantsPackage;
 
   package UsersGuide "User's Guide"
@@ -105,21 +104,21 @@ package RC
   Instead of using Stefan&apos;s Law for radiation exchange
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
-  Q = &epsilon; &sigma; (T<sub>1<sup>4</sup></sub> - T<sub>2<sup>4</sup></sub>)
+  Q = &epsilon; &sigma; (T<sub>1<sup>4</sup></sub> - T<sub>2<sup>4</sup></sub>),
   </p>
-  <p>,
+  <p>
   the models use a linearized approach
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
-  Q = &alpha; <sub>rad</sub> (T<sub>1</sub> - T<sub>2</sub>),
+  Q = h <sub>rad</sub> (T<sub>1</sub> - T<sub>2</sub>),
   </p>
   <p>
   where
   the radiative heat transfer coefficient
-  <i>&alpha;<sub>rad</sub></i> is often set to
+  <i>h<sub>rad</sub></i> is often set to
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
-  &alpha;<sub>rad</sub> = 4 &epsilon; &sigma; T<sub>m<sup>3</sup></sub>
+  h<sub>rad</sub> = 4 &epsilon; &sigma; T<sub>m<sup>3</sup></sub>
   </p>
   <p>
   where <i>T<sub>m</sub></i>
@@ -170,6 +169,17 @@ package RC
   </p>
   </li>
   </ul>
+  <h4>Modeling of latent heat gains</h4>
+  <p>
+  All zone models in <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC\">
+  Buildings.ThermalZones.ReducedOrder.RC</a> have a parameter <code>use_moisture_balance</code>.
+  If set to <code>true</code>, the input connector <code>QLat_flow</code> is enabled.
+  This input connector can be used to set the latent heat gain of the zone. The model assumes this
+  latent heat gain to be at <i>37</i>&circ;C, e.g., near the skin temperature.
+  For other latent sources that are near <i>20</i>&circ;C, this assumption of the temperature
+  leads to an error of around <i>2</i>%, which in most cases is considerably smaller than
+  the uncertainty of <code>QLat_flow</code>.
+  </p>
   <h4>Typical use and important parameter</h4>
   <p>
   The models in this package are typically used in combination with models from

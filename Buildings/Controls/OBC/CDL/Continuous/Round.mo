@@ -8,7 +8,7 @@ block Round "Round real number to given digits"
 
   Interfaces.RealOutput y
     "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
   parameter Real fac = 10^n "Factor used for rounding";
 

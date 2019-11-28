@@ -1,30 +1,35 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Switch "Switch between two Real signals"
 
-  Interfaces.RealInput u1 "Connector of first Real input signal"
+  Interfaces.RealInput u1
+    "Real input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Interfaces.BooleanInput u2 "Connector of Boolean input signal"
+  Interfaces.BooleanInput u2
+    "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.RealInput u3 "Connector of second Real input signal"
+  Interfaces.RealInput u3
+    "Real input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Interfaces.RealOutput y
+  "Real output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = if u2 then u1 else u3;
+
   annotation (
     defaultComponentName="swi",
     Documentation(info="<html>
 <p>
-Block that represents a logical switch.
+Block that outputs one of two real input signals based on a boolean input signal.
 </p>
 <p>
-If the input <code>u2</code> is <code>true</code>,
-the block outputs the input <code>u1</code>.
-Otherwise it outputs the input <code>u3</code>.
+If the input signal <code>u2</code> is <code>true</code>,
+the block outputs <code>y = u1</code>.
+Otherwise, it outputs <code>y = u3</code>.
 </p>
 </html>", revisions="<html>
 <ul>

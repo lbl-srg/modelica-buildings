@@ -3,10 +3,10 @@ model Suite "Model of a suite consisting of five rooms of the MIT system model"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component";
   Modelica.Blocks.Interfaces.RealInput p "Pressure"
-    annotation (Placement(transformation(extent=[-138,160; -98,200])));
+    annotation (Placement(transformation(extent={{-138,160},{-98,200}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_aSup(
     redeclare package Medium = Medium)
-  annotation (Placement(transformation(extent=[-110,110; -90,130])));
+  annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
   parameter Real scaM_flow "Scaling factor for mass flow rate";
   parameter Modelica.SIunits.MassFlowRate m0Tot_flow=
@@ -16,15 +16,15 @@ model Suite "Model of a suite consisting of five rooms of the MIT system model"
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
     dp_nominal={0.176,-0.844,-0.0662},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (
     Placement(transformation(extent={{-30,110},{-10,130}})));
   Buildings.Fluid.FixedResistances.Junction mix55(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{-1,1,1},
     dp_nominal=1E3*{-0.263200E-02,0.999990E-03,0.649000E-03},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
-      Placement(transformation(extent={{-30,-30},{-10, -50}})));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)  annotation (
+      Placement(transformation(extent={{-30,-30},{-10,-50}})));
   Buildings.Fluid.FixedResistances.PressureDrop res13(
     m_flow_nominal=scaM_flow*1,
     dp_nominal=0.1E3,
@@ -34,12 +34,12 @@ model Suite "Model of a suite consisting of five rooms of the MIT system model"
     m_flow_nominal=scaM_flow*1,
     dp_nominal=0.1E3,
     redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent=[60,10; 80,30])));
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res15(
     m_flow_nominal=scaM_flow*1,
     dp_nominal=0.1E3,
     redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent=[120,10; 140,30])));
+    annotation (Placement(transformation(extent={{120,10},{140,30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res16(
     m_flow_nominal=scaM_flow*1,
     dp_nominal=0.1E3,
@@ -54,58 +54,58 @@ model Suite "Model of a suite consisting of five rooms of the MIT system model"
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
     dp_nominal=1E3*{0.371000E-04,-0.259000E-02,-0.131000E-02},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent=[30,110; 50,130])));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{30,110},{50,130}})));
   Buildings.Fluid.FixedResistances.Junction spl36(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
     dp_nominal=1E3*{0.211000E-03,-0.128000E-01,-0.223000E-02},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent=[90,110; 110,130])));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{90,110},{110,130}})));
   Buildings.Fluid.FixedResistances.Junction spl37(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
     dp_nominal=1E3*{0.730000E-03,-0.128000E-01,-0.938000E-02},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent=[150,110; 170,130])));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{150,110},{170,130}})));
   Buildings.Fluid.FixedResistances.Junction spl38(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
     dp_nominal=1E3*{0.731000E-02,-0.895000E-01,-0.942000E-01},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent=[210,110; 230,130])));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{210,110},{230,130}})));
   Buildings.Fluid.FixedResistances.Junction mix54(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{-1,1,1},
     dp_nominal=1E3*{-0.653000E-02,0.271000E-03,0.402000E-04},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent=[30,-30; 50,-50])));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{30,-30},{50,-50}})));
   Buildings.Fluid.FixedResistances.Junction mix53(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{-1,1,1},
     dp_nominal=1E3*{-0.566000E-01,0.541000E-02,0.749000E-04},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent=[90,-30; 110,-50])));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{90,-30},{110,-50}})));
   Buildings.Fluid.FixedResistances.Junction mix52(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{-1,1,1},
     dp_nominal=1E3*{-0.353960,0.494000E-03,0.922000E-03},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)  annotation (
       Placement(transformation(extent={{150,-30},{170,-50}})));
   Buildings.Fluid.FixedResistances.Junction mix51(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{-1,1,1},
     dp_nominal=1E3*{-0.847600E-01,1.89750,0.150000E-02},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent=[210,-30; 230,-50])));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{210,-30},{230,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bExh(
     redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent=[-110,-50; -90,-30])));
+    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res1(
     m_flow_nominal=scaM_flow*1,
     dp_nominal=0.1E3,
     redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent=[-60,10; -40,30])));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   RoomVAV roo45(
     redeclare package Medium = Medium,
     ADam=scaM_flow*0.49,
@@ -119,35 +119,35 @@ model Suite "Model of a suite consisting of five rooms of the MIT system model"
     m_flow_nominal=scaM_flow*2.8428,
     VRoo=1210,
     VPle=330) "Room model"
-    annotation (Placement(transformation(extent=[30,10; 50,30])));
+    annotation (Placement(transformation(extent={{30,10},{50,30}})));
   RoomVAV roo47(
     redeclare package Medium = Medium,
     ADam=scaM_flow*0.128,
     m_flow_nominal=scaM_flow*1.0044,
     VRoo=647,
     VPle=125) "Room model"
-    annotation (Placement(transformation(extent=[90,10; 110,30])));
+    annotation (Placement(transformation(extent={{90,10},{110,30}})));
   RoomVAV roo48(
     redeclare package Medium = Medium,
     ADam=scaM_flow*0.128,
     m_flow_nominal=scaM_flow*0.9612,
     VRoo=385,
     VPle=107) "Room model"
-    annotation (Placement(transformation(extent=[150,10; 170,30])));
+    annotation (Placement(transformation(extent={{150,10},{170,30}})));
   RoomVAV roo49(
     redeclare package Medium = Medium,
     ADam=scaM_flow*0.0494,
     m_flow_nominal=scaM_flow*0.3624,
     VRoo=48,
     VPle=13) "Room model"
-    annotation (Placement(transformation(extent=[210,10; 230,30])));
+    annotation (Placement(transformation(extent={{210,10},{230,30}})));
   RoomVAV roo50(
     redeclare package Medium = Medium,
     ADam=scaM_flow*0.024,
     m_flow_nominal=scaM_flow*0.1584,
     VRoo=155,
     VPle=43) "Room model"
-    annotation (Placement(transformation(extent=[270,10; 290,30])));
+    annotation (Placement(transformation(extent={{270,10},{290,30}})));
   Occupancy occ "Occupancy"
   annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Fluid.Sensors.RelativePressure dpMea(
@@ -156,16 +156,16 @@ model Suite "Model of a suite consisting of five rooms of the MIT system model"
                                                                    rotation=90,
         origin={108,302})));
   Modelica.Blocks.Interfaces.RealOutput p_rel "Relative pressure signal"
-    annotation (Placement(transformation(extent=[300,110;320,90])));
+    annotation (Placement(transformation(extent={{300,110},{320,90}})));
   Modelica.Blocks.Interfaces.RealOutput yDam[6] "VAV damper positions"
-    annotation (Placement(transformation(extent=[300,70; 320,50])));
+    annotation (Placement(transformation(extent={{300,70},{320,50}})));
   Buildings.Fluid.Sensors.Pressure pRoo(redeclare package Medium = Medium)
     "Room pressure"
     annotation (Placement(transformation(extent={{234,140},{254,160}})));
   Modelica.Blocks.Math.Feedback feeBac
     annotation (Placement(transformation(extent={{262,160},{282,180}})));
   Modelica.Blocks.Interfaces.RealOutput dPRoo "Room pressurization"
-    annotation (Placement(transformation(extent=[300,180;320,160])));
+    annotation (Placement(transformation(extent={{300,180},{320,160}})));
 equation
   connect(spl38.port_2, roo50.portSup) annotation (
     Line(
@@ -383,73 +383,73 @@ equation
                        Icon(
       coordinateSystem(extent={{-100,-60},{300,200}}),
       graphics={
-      Rectangle(extent=[-98,-38; 284,-42],
+      Rectangle(extent={{-98,-38},{284,-42}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[-102,122; 284,118],
+      Rectangle(extent={{-102,122},{284,118}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[-18,22; 284,18],
+      Rectangle(extent={{-18,22},{284,18}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[-20,118; -16,-38],
+      Rectangle(extent={{-20,118},{-16,-38}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[40,118; 44,-38],
+      Rectangle(extent={{40,118},{44,-38}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[102,118; 106,-38],
+      Rectangle(extent={{102,118},{106,-38}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[160,118; 164,20],
+      Rectangle(extent={{160,118},{164,20}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[220,120; 224,22],
+      Rectangle(extent={{220,120},{224,22}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[220,-20; 224,-38],
+      Rectangle(extent={{220,-20},{224,-38}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[160,-8; 164,-38],
+      Rectangle(extent={{160,-8},{ 164,-38}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[220,18; 224,-10],
+      Rectangle(extent={{220,18},{224,-10}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[160,20; 164,0],
+      Rectangle(extent={{160,20},{ 164,0}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[162,4; 194,0],
+      Rectangle(extent={{162,4},{ 194,0}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[190,-18; 224,-22],
+      Rectangle(extent={{190,-18},{224,-22}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[160,-8; 224,-12],
+      Rectangle(extent={{160,-8},{ 224,-12}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Rectangle(extent=[190,2; 194,-20],
+      Rectangle(extent={{190,2},{ 194,-20}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
       Text(
-        extent=[-140,234; -96,192],
-        string="PAtm"),
+        extent={{-140,234},{-96,192}},
+        textString="PAtm"),
       Line(points=[-136,180; 190,180; 252,180]),
       Line(points=[192,180; 192,40; 222,20]),
       Rectangle(extent={{-26,80},{-10,60}},
@@ -460,23 +460,23 @@ equation
       Line(points=[72,180; 72,40; 102,20]),
       Line(points=[12,180; 12,40; 42,20]),
       Line(points=[-48,180; -48,40; -18,20]),
-      Rectangle(extent=[280,120; 284,-40],
+      Rectangle(extent={{280,120},{284,-40}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
       Line(points=[252,180; 252,40; 282,20]),
       Text(
-        extent=[296,158; 340,84],
-        string="dPSup"),
+        extent={{296,158},{340,84}},
+        textString="dPSup"),
       Text(
-        extent=[38,222; 166,190],
-        string="%name"),
+        extent={{38,222},{166,190}},
+        textString="%name"),
       Text(
-        extent=[298,66; 342,-8],
-        string="yDam"),
+        extent={{298,66},{ 342,-8}},
+        textString="yDam"),
       Text(
-        extent=[296,230; 340,156],
-        string="dPRoo"),
+        extent={{296,230},{340,156}},
+        textString="dPRoo"),
       Rectangle(extent={{34,80},{50,60}},
           lineColor={0,0,0},
           fillColor={0,0,0},
@@ -550,6 +550,11 @@ equation
 Model of a suite consisting of five rooms for the MIT system model.
 </p></html>", revisions="<html>
 <ul>
+<li>
+June 12, 2019, by Michael Wetter:<br/>
+Removed control volume in all junctions, as this leads to much faster simulation
+in JModelica.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

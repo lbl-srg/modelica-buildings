@@ -4,7 +4,7 @@ block BooleanReplicator "Boolean signal replicator"
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanOutput y[nout] "Connector of Boolean output signals"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y = fill(u, nout);
