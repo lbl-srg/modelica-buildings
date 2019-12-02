@@ -46,17 +46,17 @@ partial model PartialBuildingRefactor
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow1Act[nPorts1, nLoa](
     each quantity="HeatFlowRate", final unit="W")
     "Heat flow rate transferred to the source (<0 for heating)"
-    annotation (Placement(transformation(extent={{300,250},{340,290}}),
+    annotation (Placement(transformation(extent={{300,260},{340,300}}),
       iconTransformation(extent={{100,70},{140,110}})));
   Modelica.Blocks.Interfaces.RealOutput PHeaCoo(
     quantity="Power", final unit="W") if haveEleHeaCoo
     "Power drawn by heating and cooling equipment"
-    annotation (Placement(transformation(extent={{300,170},{340,210}}),
+    annotation (Placement(transformation(extent={{300,180},{340,220}}),
       iconTransformation(extent={{100, -100},{120,-80}})));
   Modelica.Blocks.Interfaces.RealOutput PFanPum(
     quantity="Power", final unit="W") if haveFanPum
-    "Power drawn by fan and pump motors"
-    annotation (Placement(transformation(extent={{300,210},{340,250}}),
+    "Power drawn by fans and pumps motors"
+    annotation (Placement(transformation(extent={{300,220},{340,260}}),
       iconTransformation(extent={{100,-80}, {120,-60}})));
   annotation (
   defaultComponentName="heaFloEps",

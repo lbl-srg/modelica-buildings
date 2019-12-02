@@ -81,14 +81,14 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-220,210}),iconTransformation(
+        origin={-220,220}),iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,30})));
   Modelica.Blocks.Interfaces.RealOutput m_flow1Req[nPorts1](
     each quantity="MassFlowRate") if nPorts1>0
     "Heating or chilled water flow required to meet the load"
-    annotation (Placement(transformation(extent={{200,190},{240,230}}),
+    annotation (Placement(transformation(extent={{200,200},{240,240}}),
       iconTransformation(extent={{100,40},{120,60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium=Medium2,
@@ -110,17 +110,17 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Modelica.Blocks.Interfaces.RealOutput Q_flow1Act[nPorts1](
     each quantity="HeatFlowRate") if nPorts1>0
     "Heat flow rate transferred to the source (<0 for heating)"
-    annotation (Placement(transformation(extent={{200,150},{240,190}}),
+    annotation (Placement(transformation(extent={{200,160},{240,200}}),
       iconTransformation(extent={{100,20},{120,40}})));
   Modelica.Blocks.Interfaces.RealOutput PFanPum(
     quantity="Power", final unit="W") if haveFanPum
-    "Power drawn by fan and pump motors"
-    annotation (Placement(transformation(extent={{200,110},{240,150}}),
+    "Power drawn by fans and pumps motors"
+    annotation (Placement(transformation(extent={{200,120},{240,160}}),
       iconTransformation(extent={{100,0},{120,20}})));
   Modelica.Blocks.Interfaces.RealOutput PHeaCoo(
     quantity="Power", final unit="W") if haveEleHeaCoo
     "Power drawn by heating and cooling equipment"
-    annotation (Placement(transformation(extent={{200,70},{240,110}}),
+    annotation (Placement(transformation(extent={{200,80},{240,120}}),
       iconTransformation(extent={{100,0},{120,20}})));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}}),
