@@ -10,18 +10,20 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
     redeclare package Medium = Medium,
     p(displayUnit="Pa"),
     nPorts=1) "Sink"
-    annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
+    annotation (Placement(transformation(extent={{40,-30},{20,-10}})));
   Buildings.Fluid.CHPs.ElectricalFollowing eleFol(
+    redeclare package Medium = Medium,
     m_flow_nominal=0.4,
     redeclare Data.ValidationData3 per,
     TEngIni=273.15 + 69.55,
     waitTime=0)
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Fluid.Sources.MassFlowSource_T cooWat(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     use_T_in=true,
-    nPorts=1) annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    nPorts=1)
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Math.Add dPEleNet(k2=-1)
     "Absolute error for electric power generaton"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
@@ -57,7 +59,7 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
     "Engine temperature"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Modelica.Blocks.Sources.CombiTimeTable valDat(
     tableOnFile=true,
     tableName="tab1",
@@ -69,13 +71,13 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
     fileName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/Data/Fluid/CHPs/Validation/MicroCogeneration.mos"))
     "Validation data from EnergyPlus simulation"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
   Controls.OBC.UnitConversions.From_degC TWatIn
     "Convert cooling water inlet temperature from degC to kelvin"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Controls.OBC.UnitConversions.From_degC TRoo
     "Convert zone temperature from degC to kelvin"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Controls.OBC.UnitConversions.From_degC TWatOutVal
     "Convert cooling water outplet temperature from degC to kelvin"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
@@ -83,13 +85,13 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
     "Convert engine temperature from degC to kelvin"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
-  connect(eleFol.port_b, sin.ports[1]) annotation (Line(points={{0,-40},{20,-40}},
+  connect(eleFol.port_b, sin.ports[1]) annotation (Line(points={{0,-20},{20,-20}},
                             color={0,127,255}));
-  connect(avaSig.y, eleFol.avaSig) annotation (Line(points={{-139,80},{-30,80},{
-          -30,-32},{-22,-32}},
+  connect(avaSig.y, eleFol.avaSig) annotation (Line(points={{-139,80},{-30,80},
+          {-30,-12},{-22,-12}},
                         color={255,0,255}));
-  connect(cooWat.ports[1], eleFol.port_a) annotation (Line(points={{-40,-40},{-20,
-          -40}},           color={0,127,255}));
+  connect(cooWat.ports[1], eleFol.port_a) annotation (Line(points={{-40,-20},{
+          -20,-20}},       color={0,127,255}));
   connect(PEleNet.y, dPEleNet.u1) annotation (Line(points={{121,10},{130,10},{130,
           16},{138,16}},            color={0,0,127}));
   connect(QGen.y, dQGen.u1) annotation (Line(points={{121,-20},{130,-20},{130,-14},
@@ -102,36 +104,46 @@ equation
           {130.55,76},{138,76}},              color={0,0,127}));
   connect(dTEng.u1, TEng.y) annotation (Line(points={{138,46},{130,46},{130,40},
           {121,40}},              color={0,0,127}));
-  connect(prescribedTemperature.port, eleFol.TRoo) annotation (Line(points={{-40,-80},
-          {-30,-80},{-30,-45},{-20,-45}},   color={191,0,0}));
-  connect(valDat.y[1], eleFol.PEleDem) annotation (Line(points={{-139,0},{-34,0},
-          {-34,-36},{-22,-36}}, color={0,0,127}));
-  connect(valDat.y[2], cooWat.m_flow_in) annotation (Line(points={{-139,0},{-70,
-          0},{-70,-32},{-62,-32}}, color={0,0,127}));
-  connect(valDat.y[3], TWatIn.u) annotation (Line(points={{-139,0},{-120,0},{-120,
-          -40},{-102,-40}}, color={0,0,127}));
-  connect(TWatIn.y, cooWat.T_in) annotation (Line(points={{-78,-40},{-70,-40},{-70,
-          -36},{-62,-36}}, color={0,0,127}));
-  connect(valDat.y[4], TRoo.u) annotation (Line(points={{-139,0},{-120,0},{-120,
-          -80},{-102,-80}}, color={0,0,127}));
+  connect(prescribedTemperature.port, eleFol.TRoo) annotation (Line(points={{-40,-60},
+          {-30,-60},{-30,-25},{-20,-25}},   color={191,0,0}));
+  connect(valDat.y[1], eleFol.PEleDem) annotation (Line(points={{-139,40},{-34,
+          40},{-34,-16},{-22,-16}},
+                                color={0,0,127}));
+  connect(valDat.y[2], cooWat.m_flow_in) annotation (Line(points={{-139,40},{
+          -70,40},{-70,-12},{-62,-12}},
+                                   color={0,0,127}));
+  connect(valDat.y[3], TWatIn.u) annotation (Line(points={{-139,40},{-120,40},{
+          -120,-20},{-102,-20}},
+                            color={0,0,127}));
+  connect(TWatIn.y, cooWat.T_in) annotation (Line(points={{-78,-20},{-70,-20},{
+          -70,-16},{-62,-16}},
+                           color={0,0,127}));
+  connect(valDat.y[4], TRoo.u) annotation (Line(points={{-139,40},{-120,40},{
+          -120,-60},{-102,-60}},
+                            color={0,0,127}));
   connect(TRoo.y, prescribedTemperature.T)
-    annotation (Line(points={{-78,-80},{-62,-80}}, color={0,0,127}));
-  connect(valDat.y[10], TWatOutVal.u) annotation (Line(points={{-139,0},{50,0},{
-          50,60},{58,60}}, color={0,0,127}));
-  connect(valDat.y[11], TEngVal.u) annotation (Line(points={{-139,0},{50,0},{50,
-          30},{58,30}}, color={0,0,127}));
+    annotation (Line(points={{-78,-60},{-62,-60}}, color={0,0,127}));
+  connect(valDat.y[10], TWatOutVal.u) annotation (Line(points={{-139,40},{50,40},
+          {50,60},{58,60}},color={0,0,127}));
+  connect(valDat.y[11], TEngVal.u) annotation (Line(points={{-139,40},{-20,40},
+          {-20,30},{58,30}},
+                        color={0,0,127}));
   connect(TWatOutVal.y, dTWatOut.u2) annotation (Line(points={{82,60},{130,60},{
           130,64},{138,64}}, color={0,0,127}));
   connect(TEngVal.y, dTEng.u2) annotation (Line(points={{82,30},{130,30},{130,34},
           {138,34}}, color={0,0,127}));
-  connect(valDat.y[5], dPEleNet.u2) annotation (Line(points={{-139,0},{50,0},{50,
-          4},{138,4}}, color={0,0,127}));
-  connect(valDat.y[7], dQGen.u2) annotation (Line(points={{-139,0},{50,0},{50,-26},
-          {138,-26}}, color={0,0,127}));
-  connect(valDat.y[8], dQWat.u2) annotation (Line(points={{-139,0},{50,0},{50,-56},
-          {138,-56}}, color={0,0,127}));
-  connect(valDat.y[9], dQLos.u2) annotation (Line(points={{-139,0},{50,0},{50,-86},
-          {138,-86}}, color={0,0,127}));
+  connect(valDat.y[5], dPEleNet.u2) annotation (Line(points={{-139,40},{0,40},{
+          0,4},{138,4}},
+                       color={0,0,127}));
+  connect(valDat.y[7], dQGen.u2) annotation (Line(points={{-139,40},{50,40},{50,
+          -26},{138,-26}},
+                      color={0,0,127}));
+  connect(valDat.y[8], dQWat.u2) annotation (Line(points={{-139,40},{50,40},{50,
+          -56},{138,-56}},
+                      color={0,0,127}));
+  connect(valDat.y[9], dQLos.u2) annotation (Line(points={{-139,40},{50,40},{50,
+          -86},{138,-86}},
+                      color={0,0,127}));
   annotation (
     experiment(StopTime=10000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Validation/ElectricalFollowing.mos"

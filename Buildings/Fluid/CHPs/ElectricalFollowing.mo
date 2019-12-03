@@ -4,7 +4,7 @@ model ElectricalFollowing
     final vol(V=per.MCcw/rhoWat/cWat),
     final dp_nominal=3458*m_flow_nominal + 5282);
 
-  redeclare package Medium = Buildings.Media.Water;
+//   redeclare package Medium = Buildings.Media.Water;
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     annotation (choicesAllMatching=true, Placement(transformation(
       extent={{-80,-80},{-60,-60}})));
