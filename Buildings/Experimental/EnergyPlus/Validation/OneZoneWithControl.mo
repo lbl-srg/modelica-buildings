@@ -21,29 +21,15 @@ model OneZoneWithControl "Validation model for one zone"
   ThermalZone zon(
     redeclare package Medium = Medium,
     zoneName="Core_ZN",
-    nPorts = 2) "South zone"
+    nPorts=2) "South zone"
     annotation (Placement(transformation(extent={{20,20},{60,60}})));
-  Fluid.FixedResistances.PressureDrop duc(
+  Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = Medium,
-    allowFlowReversal=false,
-    linearized=true,
-    from_dp=true,
-    dp_nominal=100,
-    m_flow_nominal=m_flow_nominal)
-    "Duct resistance (to decouple room and outside pressure)"
-    annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
-  Fluid.Sources.MassFlowSource_T bou(
-    redeclare package Medium = Medium,
-    nPorts=1,
-    m_flow=m_flow_nominal,
-    use_T_in=true)
-              "Boundary condition"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Fluid.Sources.Boundary_pT freshAir(
-    redeclare package Medium = Medium,
-    nPorts=1)
-    "Boundary condition"
-    annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal=m_flow_nominal,
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    nominalValuesDefineDefaultPressureCurve=true) "Fan"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Controls.OBC.CDL.Continuous.Sources.Pulse TSet(
     amplitude=6,
     period=86400,
@@ -59,11 +45,12 @@ model OneZoneWithControl "Validation model for one zone"
     yMin=0,
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC"))
+    "Controller for heater"
             annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
   Fluid.HeatExchangers.Heater_T hea(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0,
+    dp_nominal=200,
     tau=0,
     show_T=true) "Ideal heater"
     annotation (Placement(transformation(extent={{18,-50},{38,-30}})));
@@ -84,14 +71,6 @@ equation
     annotation (Line(points={{-58,-70},{-52,-70}},color={0,0,127}));
   connect(conPID.u_m, zon.TAir) annotation (Line(points={{-40,-82},{-40,-92},{90,
           -92},{90,53.8},{61,53.8}}, color={0,0,127}));
-  connect(bou.ports[1],hea. port_a)
-    annotation (Line(points={{-40,-40},{18,-40}}, color={0,127,255}));
-  connect(freshAir.ports[1], duc.port_b)
-    annotation (Line(points={{-50,-10},{-40,-10}}, color={0,127,255}));
-  connect(duc.port_a, zon.ports[1]) annotation (Line(points={{-20,-10},{38,-10},
-          {38,20.8}}, color={0,127,255}));
-  connect(hea.port_b, zon.ports[2])
-    annotation (Line(points={{38,-40},{42,-40},{42,20.8}}, color={0,127,255}));
   connect(conPID.y, addPar.u)
     annotation (Line(points={{-28,-70},{-22,-70}}, color={0,0,127}));
   connect(addPar.y,hea. TSet) annotation (Line(points={{2,-70},{10,-70},{10,-32},
@@ -100,8 +79,12 @@ equation
     annotation (Line(points={{-42,50},{-59,50}},         color={0,0,127}));
   connect(zon.qGai_flow, gai.y)
     annotation (Line(points={{18,50},{-19,50}}, color={0,0,127}));
-  connect(zon.TAir, bou.T_in) annotation (Line(points={{61,53.8},{90,53.8},{90,
-          -92},{-90,-92},{-90,-36},{-62,-36}}, color={0,0,127}));
+  connect(fan.port_b, hea.port_a)
+    annotation (Line(points={{-20,-40},{18,-40}}, color={0,127,255}));
+  connect(fan.port_a, zon.ports[1]) annotation (Line(points={{-40,-40},{-50,-40},
+          {-50,0},{38,0},{38,20.8}}, color={0,127,255}));
+  connect(hea.port_b, zon.ports[2])
+    annotation (Line(points={{38,-40},{42,-40},{42,20.8}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one building with one thermal zone
@@ -109,6 +92,7 @@ in which the room air temperature is controlled with a PI controller.
 The control output is used to compute the set point for the supply air
 temperature, which is met by the heating coil.
 The setpoint for the room air temperature changes between day and night.
+The fan operates continuously at constant speed.
 </p>
 </html>", revisions="<html>
 <ul><li>
