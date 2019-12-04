@@ -108,6 +108,10 @@ equation
   connect(couHea.m_flow1Req, supHea.m_flow_in)
     annotation (Line(points={{22,35},{26,35},{26,60},{-60,60},{-60,38},{-44,38}}, color={0,0,127}));
   annotation (
+  experiment(
+      StopTime=604800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
   <p>
   This example illustrates the use of
