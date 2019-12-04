@@ -133,6 +133,9 @@ protected
     final k=per.coolDownOptional)
     "Check if cool down mode is optional"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    "Ensure no-go signal being false when go signal is true"
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
 equation
   if plantOff.active then
@@ -177,7 +180,7 @@ equation
           186},{-142,186}}, color={0,0,127}));
   connect(con.y, max.u2) annotation (Line(points={{-158,160},{-150,160},{-150,174},
           {-142,174}}, color={0,0,127}));
-  connect(max.y, add2.u1) annotation (Line(points={{-118,180},{-106,180},{-106,186},
+  connect(max.y, add2.u1) annotation (Line(points={{-118,180},{-110,180},{-110,186},
           {-102,186}},  color={0,0,127}));
   connect(add2.y, hys.u) annotation (Line(points={{-78,180},{-62,180}},
           color={0,0,127}));
@@ -223,8 +226,6 @@ equation
           60},{-140,-28},{98,-28}}, color={255,0,255}));
   connect(and1.y, transition6.condition) annotation (Line(points={{122,-20},{140,
           -20},{140,-12}}, color={255,0,255}));
-  connect(noGoSig.y, transition8.condition) annotation (Line(points={{2,90},{16,
-          90},{16,64},{-144,64},{-144,-32},{200,-32},{200,-12}}, color={255,0,255}));
   connect(transition8.outPort, cooDow.inPort) annotation (Line(points={{201.5,0},
           {220,0},{220,-80},{100,-80},{100,-114},{119.333,-114}},   color={0,0,0}));
   connect(or1.y, transition5.condition) annotation (Line(points={{-158,-120},{20,
@@ -239,8 +240,6 @@ equation
   connect(warmUp.suspend[1], transition9.inPort) annotation (Line(points={{65,
           -10.3333},{65,-110},{76,-110}},
                                 color={0,0,0}));
-  connect(noGoSig.y, transition9.condition) annotation (Line(points={{2,90},{16,
-          90},{16,64},{-144,64},{-144,-130},{80,-130},{80,-122}}, color={255,0,255}));
   connect(transition9.outPort, cooDow.inPort1) annotation (Line(points={{81.5,
           -110},{119.333,-110}},
                            color={0,0,0}));
@@ -255,8 +254,6 @@ equation
   connect(cooDow.y, and4.u1) annotation (Line(points={{140.667,-117.333},{170,
           -117.333},{170,-190},{178,-190}},
                                   color={255,0,255}));
-  connect(noGoSig.y, and4.u2) annotation (Line(points={{2,90},{16,90},{16,64},{-144,
-          64},{-144,-198},{178,-198}}, color={255,0,255}));
   connect(cooDow.outPort, transition10.inPort) annotation (Line(points={{140.333,
           -114},{180,-114},{180,-120},{216,-120}}, color={0,0,0}));
   connect(and4.y, transition10.condition) annotation (Line(points={{202,-190},{220,
@@ -273,6 +270,16 @@ equation
           60},{-140,-188},{78,-188}}, color={255,0,255}));
   connect(optCooDow.y, and3.u1) annotation (Line(points={{62,-160},{70,-160},{70,
           -180},{78,-180}}, color={255,0,255}));
+  connect(goSig.y, lat.clr) annotation (Line(points={{2,180},{20,180},{20,84},{38,
+          84}}, color={255,0,255}));
+  connect(noGoSig.y, lat.u) annotation (Line(points={{2,90},{38,90}},
+          color={255,0,255}));
+  connect(lat.y, and4.u2) annotation (Line(points={{62,90},{80,90},{80,64},{-144,
+          64},{-144,-198},{178,-198}}, color={255,0,255}));
+  connect(lat.y, transition9.condition) annotation (Line(points={{62,90},{80,90},
+          {80,64},{-144,64},{-144,-130},{80,-130},{80,-122}}, color={255,0,255}));
+  connect(lat.y, transition8.condition) annotation (Line(points={{62,90},{80,90},
+          {80,64},{-144,64},{-144,-32},{200,-32},{200,-12}}, color={255,0,255}));
 
 annotation (
     defaultComponentName="conMai",
