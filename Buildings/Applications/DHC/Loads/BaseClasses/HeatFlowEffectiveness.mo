@@ -71,7 +71,7 @@ model HeatFlowEffectiveness "Model computing the heat flow rate based on the eff
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(
     quantity="HeatFlowRate")
     "Heat flow rate transferred to the load"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Modelica.SIunits.Efficiency eps
     "Heat exchanger effectiveness";
 protected
