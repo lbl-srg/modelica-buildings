@@ -74,8 +74,9 @@ equation
           -30},{76,-90},{90,-90}}, color={0,127,255}));
   annotation (
   experiment(
-      StopTime=86400,
-      Tolerance=1e-06),
+      StopTime=604800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
   <p>
   This example illustrates the use of

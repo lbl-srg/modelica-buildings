@@ -101,7 +101,7 @@ equation
     annotation (Line(points={{22,35},{26,35},{26,60},{-60,60},{-60,38},{-44,38}}, color={0,0,127}));
   annotation (
   experiment(
-      StopTime=86400,
+      StopTime=604800,
       Tolerance=1e-06),
   Documentation(info="<html>
   <p>

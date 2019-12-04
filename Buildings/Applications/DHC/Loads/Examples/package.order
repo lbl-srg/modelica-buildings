@@ -1,6 +1,7 @@
 CouplingTimeSeries
 CouplingRC
 CouplingRCRefactor
+CouplingRCRefactorHeatPort
 GeojsonRCRawExport
 CouplingSpawn1Zone
 CouplingSpawn1ZoneRefactor

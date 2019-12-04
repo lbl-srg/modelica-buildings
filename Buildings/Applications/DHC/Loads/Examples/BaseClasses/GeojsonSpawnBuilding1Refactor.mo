@@ -68,22 +68,24 @@ model GeojsonSpawnBuilding1Refactor
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Building outer component"
     annotation (Placement(transformation(extent={{30,198},{52,218}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.SensibleTerminalUnit terUni[nLoa](
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
+    terUni[nLoa](
     each final nPorts1=2,
     each haveFanPum=true,
-    each Q_flow_nominal={10000,10000},
+    Q_flow_nominal={{50000,10000},{10000,10000},{10000,10000},{10000,10000},{
+        10000,10000},{10000,10000}},
     each T_a2_nominal={293.15,297.15},
-    each T_b1_nominal={308.15,294.15},
-    each T_a1_nominal={313.15,289.15},
+    each T_b1_nominal={disFloHea.T_b1_nominal,disFloCoo.T_b1_nominal},
+    each T_a1_nominal={disFloHea.T_a1_nominal,disFloCoo.T_a1_nominal},
     each m_flow2_nominal={5,5},
     each dp2_nominal={100,100})
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     m_flow1_nominal=sum(terUni.m_flow1_nominal[1]),
-    T_a1_nominal=318.15,
-    T_b1_nominal=313.15,
+    T_a1_nominal=313.15,
+    T_b1_nominal=308.15,
     nLoa=nLoa)
-    annotation (Placement(transformation(extent={{-240,-190},{-220,-170}})));
+    annotation (Placement(transformation(extent={{-238,-190},{-218,-170}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow1_nominal=sum(terUni.m_flow1_nominal[2]),
     T_a1_nominal=280.15,
@@ -121,17 +123,17 @@ equation
   connect(multiplex3_1.y,znPerimeter_ZN_4.qGai_flow)
     annotation (Line(points={{7,190},{20,190},{20,-90},{22,-90}}, color={0,0,127}));
   connect(ports_a1[1], disFloHea.port_a)
-    annotation (Line(points={{-300,-20},{-280,
-          -20},{-280,-180},{-240,-180}}, color={0,127,255}));
+    annotation (Line(points={{-300,-20},{-280,-20},{-280,-180},{-238,-180}},
+                                         color={0,127,255}));
   connect(disFloHea.port_b, ports_b1[1])
-    annotation (Line(points={{-220,-180},{260,
-          -180},{260,-20},{300,-20}}, color={0,127,255}));
+    annotation (Line(points={{-218,-180},{260,-180},{260,-20},{300,-20}},
+                                      color={0,127,255}));
   connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,20},{-280,
           20},{-280,-220},{-180,-220}}, color={0,127,255}));
-  connect(disFloHea.ports_b1, terUni.ports_a1[1]) annotation (Line(points={{-240,
+  connect(disFloHea.ports_b1, terUni.ports_a1[1]) annotation (Line(points={{-238,
           -174},{-260,-174},{-260,-7.4},{-80,-7.4}}, color={0,127,255}));
   connect(terUni.ports_b1[1], disFloHea.ports_a1) annotation (Line(points={{-60,
-          -7.4},{-40,-7.4},{-40,-174},{-220,-174}}, color={0,127,255}));
+          -7.4},{-40,-7.4},{-40,-174},{-218,-174}}, color={0,127,255}));
   connect(disFloCoo.ports_b1, terUni.ports_a1[2]) annotation (Line(points={{-180,
           -214},{-200,-214},{-200,-3.4},{-80,-3.4}}, color={0,127,255}));
   connect(terUni.ports_b1[2], disFloCoo.ports_a1) annotation (Line(points={{-60,
@@ -148,9 +150,9 @@ equation
           {-100,8},{-100,84.8},{46,84.8}},      color={0,127,255}));
   connect(znCore_ZN.ports[1], terUni[2].port_a2) annotation (Line(points={{42,40.8},
           {-8,40.8},{-8,8},{-60,8}},       color={0,127,255}));
-  connect(terUni[2].port_b2, znCore_ZN.ports[1]) annotation (Line(points={{-80,8},
-          {-16,8},{-16,40.8},{42,40.8}},      color={0,127,255}));
-  connect(znPerimeter_ZN_1.ports[2], terUni[3].port_a2) annotation (Line(points={{46,0.8},
+  connect(terUni[2].port_b2, znCore_ZN.ports[2]) annotation (Line(points={{-80,8},
+          {-16,8},{-16,40.8},{46,40.8}},      color={0,127,255}));
+  connect(znPerimeter_ZN_1.ports[1], terUni[3].port_a2) annotation (Line(points={{42,0.8},
           {-8,0.8},{-8,8},{-60,8}}, color={0,127,255}));
   connect(terUni[3].port_b2, znPerimeter_ZN_1.ports[2]) annotation (Line(points={{-80,8},
           {-16,8},{-16,0.8},{46,0.8}},color={0,127,255}));
@@ -167,11 +169,16 @@ equation
   connect(terUni[6].port_b2, znPerimeter_ZN_4.ports[2]) annotation (Line(points={{-80,8},
           {-20,8},{-20,-119.2},{46,-119.2}},color={0,127,255}));
   connect(PFanPum, mulSum.y)
-    annotation (Line(points={{320,230},{242,230}}, color={0,0,127}));
-  connect(terUni.Q_flow1Act[1], Q_flow1Act[1, :]) annotation (Line(points={{-59,
-          2.5},{160.5,2.5},{160.5,270},{320,270}}, color={0,0,127}));
+    annotation (Line(points={{320,240},{282,240},{282,230},{242,230}},
+                                                   color={0,0,127}));
+  connect(terUni.Q_flow1Act[1], Q_flow1Act[1, :]) annotation (Line(points={{-59,2.5},
+          {160.5,2.5},{160.5,280},{320,280}},      color={0,0,127}));
   connect(terUni.PFanPum, mulSum.u) annotation (Line(points={{-59,1},{200,1},{200,
           230},{218,230}}, color={0,0,127}));
+  connect(terUni.m_flow1Req[1], disFloHea.m_flow1Req_i) annotation (Line(points={{-59,4.5},
+          {-59,-90.5},{-239,-90.5},{-239,-185}},           color={0,0,127}));
+  connect(terUni.m_flow1Req[2], disFloCoo.m_flow1Req_i) annotation (Line(points=
+         {{-59,5.5},{-59,-109.5},{-181,-109.5},{-181,-225}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>

@@ -1,7 +1,8 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model RCBuildingRefactor "Building model of type RC one element"
+model RCBuildingRefactorHeatPort
+  "Building model of type RC one element"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuildingRefactor(
-    haveFanPum=true,
+    haveFanPum=false,
     haveEleHeaCoo=false,
     nLoa=1);
   package Medium2 = Buildings.Media.Air
@@ -42,8 +43,7 @@ model RCBuildingRefactor "Building model of type RC one element"
     redeclare package Medium = Medium2,
     extWallRC(thermCapExt(each der_T(fixed=true))),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=295.15,
-    nPorts=2)       "Thermal zone"
+    T_start=295.15)       "Thermal zone"
     annotation (Placement(transformation(extent={{44,-10},{92,26}})));
   Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow
                                              eqAirTemp(
@@ -120,8 +120,7 @@ model RCBuildingRefactor "Building model of type RC one element"
     T_b1_nominal=308.15,
     nLoa=1)
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
-    terUni(
+  Terminal4PipesHeatPorts terUni(
     Q_flow_nominal={500,2000},
     T_a2_nominal={293.15,297.15},
     T_b1_nominal={disFloHea.T_b1_nominal,disFloCoo.T_b1_nominal},
@@ -257,9 +256,10 @@ equation
   connect(minTSet.y, from_degC1.u) annotation (Line(points={{-278,270},{-262,
           270}},                                                                  color={0,0,127}));
   connect(thermalZoneOneElement.ports[1], terUni.port_a2)
-    annotation (Line(points={{81.475,-9.95},{86.5,-9.95},{86.5,-42},{-140,-42}}, color={0,127,255}));
+    annotation (Line(points={{83,-9.95},{86.5,-9.95},{86.5,-42},{-140,-42}},     color={0,127,255}));
   connect(terUni.port_b2, thermalZoneOneElement.ports[2])
-    annotation (Line(points={{-160,-42},{-180,-42},{-180,-22},{84.525,-22},{84.525,-9.95}}, color={0,127,255}));
+    annotation (Line(points={{-160,-42},{-180,-42},{-180,-22},{83,-22},{83,
+          -9.95}},                                                                          color={0,127,255}));
   connect(from_degC1.y, terUni.uSet[1])
     annotation (Line(points={{-238,270},{-200,270},{-200,-46},{-161,-46}},
                                                                          color={0,0,127}));
@@ -293,8 +293,10 @@ equation
   connect(terUni.ports_b1[2], disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
           -56},{-100,-56},{-100,-56},{-60,-56},{-60,-144},{-100,-144}},
         color={0,127,255}));
-  connect(terUni.PFanPum, PFanPum)
-    annotation (Line(points={{-139,-48},{260.5,-48},{260.5,240},{320,240}}, color={0,0,127}));
+  connect(terUni.heaPorRad, thermalZoneOneElement.intGainsRad) annotation (Line(
+        points={{-145.8,-50},{-26,-50},{-26,16},{92,16}}, color={191,0,0}));
+  connect(terUni.heaPorCon, thermalZoneOneElement.intGainsConv) annotation (
+      Line(points={{-153.8,-50},{-30,-50},{-30,12},{92,12}}, color={191,0,0}));
   annotation (
   Documentation(info="<html>
   <p>
@@ -319,4 +321,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end RCBuildingRefactor;
+end RCBuildingRefactorHeatPort;

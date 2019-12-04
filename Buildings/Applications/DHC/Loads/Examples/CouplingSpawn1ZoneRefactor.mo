@@ -16,9 +16,9 @@ model CouplingSpawn1ZoneRefactor
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,10})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.couHea.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.disFloHea.T_a1_nominal)
     annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
-  Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.couHea.m_flow1Req)
+  Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.disFloHea.m_flow1Req)
     annotation (Placement(transformation(extent={{-80,14},{-60,34}})));
   Buildings.Fluid.Sources.MassFlowSource_T supCoo(
     use_m_flow_in=true,
@@ -30,9 +30,9 @@ model CouplingSpawn1ZoneRefactor
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,-70})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal1(y=bui.couCoo.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaInlVal1(y=bui.disFloCoo.T_a1_nominal)
     annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
-  Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.couCoo.m_flow1Req)
+  Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.disFloCoo.m_flow1Req)
     annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = Medium1,
@@ -75,8 +75,9 @@ equation
                                                                 color={0,127,255}));
   annotation (
   experiment(
-      StopTime=800000,
-      Tolerance=1e-06),
+      StopTime=604800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
   <p>
   This example illustrates the use of
