@@ -1,8 +1,8 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
 model CoolingDirectControlledReturn
   "Direct cooling ETS model for district energy systems with in-building pumping and controlled district return temperature"
-  extends Buildings.Fluid.Interfaces.PartialFourPort(redeclare package Medium2 =
-        Medium, redeclare package Medium1 = Medium);
+  extends Buildings.Fluid.Interfaces.PartialFourPort(redeclare package Medium2
+      = Medium, redeclare package Medium1 = Medium);
 
  final package Medium = Buildings.Media.Water;
 
@@ -166,7 +166,8 @@ model CoolingDirectControlledReturn
     "District supply temperature sensor"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(redeclare package Medium =
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(redeclare package
+      Medium =
         Medium, m_flow_nominal=m1_flow_nominal)
     "District return temperature sensor"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
@@ -230,13 +231,36 @@ equation
           lineColor={175,175,175},
           fillColor={35,138,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-52,40},{54,-40}},
+        Rectangle(
+          extent={{-80,68},{80,52}},
           lineColor={0,0,0},
-          fillColor={35,138,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-80,-52},{80,-68}},
+          lineColor={0,0,0},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-8,52},{8,18}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          textStyle={TextStyle.Bold},
-          textString="ETS")}), Diagram(coordinateSystem(preserveAspectRatio=
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-8,-18},{8,-52}},
+          lineColor={0,0,0},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-8,18},{8,-18}},
+          lineColor={0,0,0},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(extent={{-8,52},{8,-52}}, lineColor={0,0,0})}),
+                               Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-100,-100},{100,140}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
