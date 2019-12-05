@@ -1,0 +1,40 @@
+﻿// Simulate
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingDirectUncontrolled", tolerance=0.001, stopTime=86400, numberOfIntervals=500, resultFile="CoolingDirectUncontrolled");
+// Plot commands
+removePlots(true);
+createPlot(id=1, 
+  position={11, 19, 713, 564}, 
+  y={"TDisSup.T", "TDisRet.T", "TBuiSup.T", "TBuiRet.T", "dT.y"}, 
+  range={0.0, 24.0, 6.0, 20.0}, 
+  grid=true, 
+  filename="CoolingDirectUncontrolled.mat",
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {244,125,35}}, 
+  patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Dash},
+  timeUnit="h", 
+  displayUnits={"degC", "degC", "degC", "degC", ""}); 
+createPlot(id=1, 
+  position={11, 19, 713, 280}, 
+  y={"coo.senMasFlo.m_flow", "loa.m_flow"}, 
+  range={0.0, 24.0, -0.02, 0.12}, 
+  grid=true, 
+  subPlot=2,  
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="h");
+createPlot(id=2, 
+  position={734, 19, 720, 561}, 
+  y={"val.y"}, 
+  range={0.0, 24.0, -2.0, 14.0}, 
+  grid=true,  
+  colors={{28,108,200}}, 
+  timeUnit="h");
+createPlot(id=2, 
+  position={734, 19, 720, 278}, 
+  y={"coo.Q_flow", "loa.Q_flow", "coo.Q"}, 
+  range={0.0, 24.0, -1.0, 6.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  range2={-20.0, 80.0}, 
+  axes={1, 1, 2}, 
+  timeUnit="h", 
+  displayUnits={"kW", "kW", "kWh"});
