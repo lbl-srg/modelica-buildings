@@ -18,8 +18,10 @@ record Senertech5_5kW "SENERTECH5_5kW"
     PEleMin=0,
     mWatMin=0,
     TWatMax=(273.15 + 80),
-    dPEleLim=false,
-    dmFueLim=false,
+    dPEleLim=true,
+    dmFueLim=true,
+    dPEleMax=1000000000,
+    dmFueMax=1000000000,
     PStaBy=0,
     PCooDow=0,
     LHVFue=47.614e6);

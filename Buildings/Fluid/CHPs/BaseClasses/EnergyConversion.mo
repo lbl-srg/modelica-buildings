@@ -2,7 +2,6 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model EnergyConversion "Energy conversion control volume"
   extends Modelica.Blocks.Icons.Block;
 
-  replaceable package Medium = Buildings.Media.Water "Medium model";
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
@@ -104,8 +103,7 @@ protected
 
 equation
   connect(opeModBas.mWat_flow, mWat_flow) annotation (Line(points={{-22,-10},{
-          -80,-10},{-80,-60},{-160,-60}},
-                                     color={0,0,127}));
+          -80,-10},{-80,-60},{-160,-60}}, color={0,0,127}));
   connect(opeModBas.TWatIn, TWatIn) annotation (Line(points={{-22,-16},{-60,-16},
           {-60,-20},{-160,-20}}, color={0,0,127}));
   connect(opeModWarUpEngTem.TEng, TEng) annotation (Line(points={{-22,-58},{-30,
@@ -147,8 +145,7 @@ equation
   connect(switch5.y, QGen) annotation (Line(points={{102,-100},{160,-100}},
           color={0,0,127}));
   connect(opeModBas.mFue_flow, switch3.u3) annotation (Line(points={{2,-4},{20,
-          -4},{20,12},{78,12}},
-                            color={0,0,127}));
+          -4},{20,12},{78,12}}, color={0,0,127}));
   connect(opeModWarUpEngTem.mFue_flow, switch3.u1) annotation (Line(points={{2,-47},
           {40,-47},{40,28},{78,28}}, color={0,0,127}));
   connect(opeModBas.mAir_flow, switch4.u3) annotation (Line(points={{2,-10},{60,

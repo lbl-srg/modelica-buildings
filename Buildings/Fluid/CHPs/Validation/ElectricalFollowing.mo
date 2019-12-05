@@ -11,7 +11,7 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     optionalFollowing=false,
     TEngIni=273.15 + 69.55,
-    waitTime=0)
+    waitTime=0) "CHP unit with the electricity demand priority"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
   Modelica.Blocks.Sources.BooleanTable avaSig(
@@ -22,13 +22,13 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     p(displayUnit="Pa"),
-    nPorts=1) "Sink"
+    nPorts=1) "Cooling water sink"
     annotation (Placement(transformation(extent={{40,-30},{20,-10}})));
   Buildings.Fluid.Sources.MassFlowSource_T cooWat(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     use_T_in=true,
-    nPorts=1)
+    nPorts=1) "Cooling water source"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dPEleNet(
     final k2=-1)
@@ -77,7 +77,8 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
     final y=eleFol.eng.TEng)
     "Engine temperature"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
+    "Variable temperature boundary condition in Kelvin"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Modelica.Blocks.Sources.CombiTimeTable valDat(
     tableOnFile=true,
@@ -123,8 +124,8 @@ equation
           {130.55,76},{138,76}}, color={0,0,127}));
   connect(dTEng.u1, TEng.y) annotation (Line(points={{138,46},{130,46},{130,40},
           {121,40}}, color={0,0,127}));
-  connect(prescribedTemperature.port, eleFol.TRoo) annotation (Line(points={{-40,-60},
-          {-30,-60},{-30,-27},{-20,-27}}, color={191,0,0}));
+  connect(preTem.port, eleFol.TRoo) annotation (Line(points={{-40,-60},{-30,-60},
+          {-30,-27},{-20,-27}}, color={191,0,0}));
   connect(valDat.y[2], cooWat.m_flow_in) annotation (Line(points={{-139,30},{-70,
           30},{-70,-12},{-62,-12}},color={0,0,127}));
   connect(valDat.y[3], TWatIn.u) annotation (Line(points={{-139,30},{-120,30},{-120,
@@ -133,8 +134,8 @@ equation
           -70,-16},{-62,-16}}, color={0,0,127}));
   connect(valDat.y[4], TRoo.u) annotation (Line(points={{-139,30},{-120,30},{-120,
           -60},{-102,-60}}, color={0,0,127}));
-  connect(TRoo.y, prescribedTemperature.T) annotation (Line(points={{-78,-60},
-          {-62,-60}}, color={0,0,127}));
+  connect(TRoo.y, preTem.T)
+    annotation (Line(points={{-78,-60},{-62,-60}}, color={0,0,127}));
   connect(valDat.y[10], TWatOutVal.u) annotation (Line(points={{-139,30},{50,30},
           {50,60},{58,60}},color={0,0,127}));
   connect(valDat.y[11], TEngVal.u) annotation (Line(points={{-139,30},{58,30}},

@@ -28,7 +28,13 @@ record ValidationData1 "Validation data set 1"
   annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",
-  Documentation(revisions="<html>
+  Documentation(preferredView="info",
+  info="<html>
+<p>
+This is the record of parameters for CHP models from EnergyPlus example
+<code>MicroCogeneration</code>.
+</p>
+</html>",revisions="<html>
 <ul>
 <li>
 March 08, 2019 by Tea Zakula:<br/>

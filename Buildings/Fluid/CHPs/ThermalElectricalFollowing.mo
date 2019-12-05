@@ -5,17 +5,18 @@ model ThermalElectricalFollowing
     final dp_nominal=3458*m_flow_nominal + 5282);
 
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
+    "CHP unit performance data"
     annotation (choicesAllMatching=true, Placement(transformation(
       extent={{140,340},{160,360}})));
 
   parameter Boolean optionalFollowing = true
-    "Set to true when needs the options of thermal or electrical following, to false when only electrical following";
+    "Set to true when needs the options of thermal or electrical following, to false when needs only electrical following";
   parameter Modelica.SIunits.Temperature TEngIni = Medium.T_default
     "Initial engine temperature";
   parameter Modelica.SIunits.Time waitTime=60
     "Wait time before transition from pump-on mode fires"
     annotation (Dialog(tab="Dynamics"));
-  parameter Controls.OBC.CDL.Types.SimpleController watOutCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+  parameter Controls.OBC.CDL.Types.SimpleController watOutCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Cooling water outlet temperature controller",
                        enable=optionalFollowing));
@@ -25,13 +26,13 @@ model ThermalElectricalFollowing
   parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Cooling water outlet temperature controller",
                        enable=optionalFollowing and
-                              watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                              watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+                              (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                               watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
     annotation (Dialog(group="Cooling water outlet temperature controller",
                        enable=optionalFollowing and
-                              watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                              watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+                              (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                               watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMax=1 "Upper limit of output"
     annotation (Dialog(group="Cooling water outlet temperature controller",
                        enable=optionalFollowing));
@@ -93,6 +94,13 @@ model ThermalElectricalFollowing
     annotation (Placement(transformation(extent={{180,-120},{220,-80}}),
       iconTransformation(extent={{100,-110},{140,-70}})));
 
+  Buildings.Fluid.CHPs.BaseClasses.EnergyConversion eneCon(
+    final per = per) "Energy conversion"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Buildings.Fluid.CHPs.BaseClasses.EngineConVol eng(
+    final per=per,
+    final TEngIni=TEngIni) "Engine control volume"
+    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Buildings.Fluid.CHPs.BaseClasses.Controller opeMod(
     final per=per,
     final waitTime=waitTime) "Current operation mode"
@@ -113,15 +121,6 @@ model ThermalElectricalFollowing
   Modelica.Blocks.Sources.RealExpression mWat_flow(
     final y=port_a.m_flow) "Water flow rate"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
-  Buildings.Fluid.CHPs.BaseClasses.EnergyConversion eneCon(
-    redeclare package Medium = Medium,
-    final per = per) "Energy conversion"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Fluid.CHPs.BaseClasses.EngineConVol eng(
-    final per=per,
-    redeclare package Medium = Medium,
-    final TEngIni=TEngIni) "Engine control volume"
-    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Modelica.Blocks.Sources.RealExpression TWatIn(
     final y=Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow))))
     "Water inlet temperature"
@@ -134,7 +133,7 @@ model ThermalElectricalFollowing
     "Water outlet temperature"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor watHea
-    "Heat transfer to the water control volume"
+    "Heat transfer from the water control volume"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=-90, origin={-20,-100})));
   Buildings.Fluid.CHPs.BaseClasses.PowerConsumption powCon(
@@ -180,6 +179,9 @@ model ThermalElectricalFollowing
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
     final k=0) if not optionalFollowing "Constant zero"
     annotation (Placement(transformation(extent={{-120,230},{-100,250}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=-1)
+    "Heat transfer to the water control volume"
+    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{140,300},{160,320}})));
 
@@ -226,8 +228,6 @@ equation
           color={0,0,127}));
   connect(TWatOut.port, vol.heatPort) annotation (Line(points={{60,-60},{-20,
           -60},{-20,-10},{-9,-10}}, color={191,0,0}));
-  connect(watHea.Q_flow, QWat) annotation (Line(points={{-10,-100},{200,-100}},
-          color={0,0,127}));
   connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{119,100},{80,100},
           {80,160},{61,160}}, color={0,127,0}));
   connect(powCon.PCon, PCon) annotation (Line(points={{142,100},{200,100}},
@@ -247,7 +247,7 @@ equation
   connect(eng.TEng, opeMod.TEng) annotation (Line(points={{22,-130},{30,-130},{30,
           158},{38,158}}, color={0,0,127}));
   connect(TWatOutSet, cooWatCon.u_s) annotation (Line(points={{-200,350},{-82,350}},
-                      color={0,0,127}));
+          color={0,0,127}));
   connect(cooWatCon.y, elePowDem.u) annotation (Line(points={{-58,350},{-42,350}},
           color={0,0,127}));
   connect(TWatOutSet, neeFolThe.u) annotation (Line(points={{-200,350},{-160,350},
@@ -276,6 +276,10 @@ equation
           {-160,180},{-160,90},{-142,90}}, color={0,0,127}));
   connect(zer1.y, swi2.u1) annotation (Line(points={{-98,240},{-40,240},{-40,228},
           {-22,228}}, color={0,0,127}));
+  connect(watHea.Q_flow, gai.u) annotation (Line(points={{-10,-100},{118,-100}},
+          color={0,0,127}));
+  connect(gai.y, QWat) annotation (Line(points={{142,-100},{200,-100}},
+          color={0,0,127}));
 
 annotation (
   defaultComponentName="eleFol",

@@ -6,10 +6,11 @@ model ThermalFollowing "Validate model ThermalElectricalFollowing"
   Buildings.Fluid.CHPs.ThermalElectricalFollowing theFol(
     redeclare package Medium = Medium,
     m_flow_nominal=0.4,
-    redeclare Data.ValidationData3 per,
+    redeclare Data.Senertech5_5kW per,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     TEngIni=273.15 + 69.55,
     waitTime=0)
+    "CHP unit with the thermal demand priority"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
   Modelica.Blocks.Sources.BooleanTable avaSig(
@@ -20,13 +21,15 @@ model ThermalFollowing "Validate model ThermalElectricalFollowing"
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     p(displayUnit="Pa"),
-    nPorts=1) "Sink"
+    nPorts=1)
+    "Cooling water sink"
     annotation (Placement(transformation(extent={{40,0},{20,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T cooWat(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1)
+    "Cooling water source"
     annotation (Placement(transformation(extent={{-62,0},{-42,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dPEleNet(
     final k2=-1)
@@ -52,7 +55,8 @@ model ThermalFollowing "Validate model ThermalElectricalFollowing"
     final y=theFol.vol.T)
     "Water outlet temperature"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
+  HeatTransfer.Sources.PrescribedTemperature preTem
+    "Variable temperature boundary condition in Kelvin"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dTEng(
     final k2=-1) "Absolute error for engine temperature"
@@ -122,8 +126,8 @@ equation
           {138,-44}}, color={0,0,127}));
   connect(theFolSig.y,theFol. theFol) annotation (Line(points={{-39,40},{-34,40},
           {-34,17},{-22,17}}, color={255,0,255}));
-  connect(prescribedTemperature.port,theFol. TRoo) annotation (Line(points={{-40,
-          -70},{-30,-70},{-30,3},{-20,3}}, color={191,0,0}));
+  connect(preTem.port, theFol.TRoo) annotation (Line(points={{-40,-70},{-30,-70},
+          {-30,3},{-20,3}}, color={191,0,0}));
   connect(QLos.y,dQLos. u1) annotation (Line(points={{121,-80},{128,-80},{128,-74},
           {138,-74}}, color={0,0,127}));
   connect(QGen.y,dQGen. u1) annotation (Line(points={{121,-20},{128,-20},{128,-14},
@@ -136,8 +140,8 @@ equation
           14},{-64,14}}, color={0,0,127}));
   connect(valDat.y[4], TRoo.u) annotation (Line(points={{-139,80},{-120,80},{-120,
           -70},{-102,-70}}, color={0,0,127}));
-  connect(TRoo.y, prescribedTemperature.T) annotation (Line(points={{-78,-70},
-          {-62,-70}}, color={0,0,127}));
+  connect(TRoo.y, preTem.T)
+    annotation (Line(points={{-78,-70},{-62,-70}}, color={0,0,127}));
   connect(valDat.y[12], TWatOutSet.u) annotation (Line(points={{-139,80},{-120,80},
           {-120,50},{-102,50}}, color={0,0,127}));
   connect(TWatOutSet.y,theFol. TWatOutSet) annotation (Line(points={{-78,50},{-30,
@@ -174,12 +178,12 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Fluid.CHPs.ThermalElectricalFollowing\">
 Buildings.Fluid.CHPs.ThermalElectricalFollowing</a>
-for the CHP unit simulation with the thermal or electricity demand priority. 
+for the CHP unit simulation with the thermal demand priority. 
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-October 31, 2019, by Jianjun Hu:<br/>
+December 04, 2019, by Jianjun Hu:<br/>
 Refactored implementation. 
 </li>
 <li>

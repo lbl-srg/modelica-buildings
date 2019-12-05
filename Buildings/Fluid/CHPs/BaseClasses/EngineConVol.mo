@@ -2,7 +2,6 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model EngineConVol "Heat exchange within the engine control volume"
   extends Modelica.Blocks.Icons.Block;
 
-  replaceable package Medium = Buildings.Media.Water "Medium model";
   replaceable parameter Buildings.Fluid.CHPs.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));

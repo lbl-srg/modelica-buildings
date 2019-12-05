@@ -427,7 +427,7 @@ is true), the plant may imediatelly change to the warm-up mode if it gets reacti
 </html>", revisions="<html>
 <ul>
 <li>
-October 31, 2019, by Jianjun Hu:<br/>
+December 03, 2019, by Jianjun Hu:<br/>
 Refactored implementation.
 </li>
 <li>
