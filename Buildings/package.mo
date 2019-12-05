@@ -184,6 +184,33 @@ its class name ends with the string <code>Beta</code>.
     <b style=\"color:blue\">backward compatible</b> way:
     </p>
     <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID
+        </td>
+        <td valign=\"top\">Removed homotopy that may be used during initialization to ensure that outputs are bounded.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.LimPID
+        </td>
+        <td valign=\"top\">Removed homotopy that may be used during initialization to ensure that outputs are bounded.<br/>
+                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime<br/>
+                           Buildings.Controls.OBC.CDL.Types.ZeroTime
+        </td>
+        <td valign=\"top\">Revised implementation such that the meaning of <code>time</code> is better explained
+                           and unix time stamps are correctly defined with respect to GMT.
+                           Added option unix time stamp GMT.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1232\">IBPSA, #1232</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1 </b>
         </td>
     </tr>
