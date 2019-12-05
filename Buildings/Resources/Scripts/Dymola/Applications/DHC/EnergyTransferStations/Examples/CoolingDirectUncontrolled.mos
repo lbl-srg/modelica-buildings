@@ -1,5 +1,5 @@
 ﻿// Simulate
-simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingDirectUncontrolled", tolerance=0.001, stopTime=86400, numberOfIntervals=500, resultFile="CoolingDirectUncontrolled");
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingDirectUncontrolled", tolerance=1e-6, stopTime=86400, numberOfIntervals=500, resultFile="CoolingDirectUncontrolled");
 // Plot commands
 removePlots(true);
 createPlot(id=1, 
