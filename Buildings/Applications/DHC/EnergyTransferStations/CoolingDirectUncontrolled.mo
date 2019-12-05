@@ -140,13 +140,17 @@ equation
           lineColor={175,175,175},
           fillColor={35,138,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-52,40},{54,-40}},
+        Rectangle(
+          extent={{-80,68},{80,52}},
           lineColor={0,0,0},
-          fillColor={35,138,255},
-          fillPattern=FillPattern.Solid,
-          textStyle={TextStyle.Bold},
-          textString="ETS")}), Diagram(coordinateSystem(preserveAspectRatio=
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-80,-52},{80,-68}},
+          lineColor={0,0,0},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid)}),
+                               Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-100,-100},{100,160}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
