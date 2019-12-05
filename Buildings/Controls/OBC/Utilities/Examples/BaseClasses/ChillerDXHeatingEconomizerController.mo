@@ -108,7 +108,7 @@ model ChillerDXHeatingEconomizerController
        kEco) "Economizer control"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
-  Controls.OBC.CDL.Continuous.Hysteresis                   hysChiPla(
+  Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
     uLow=-1,
     uHigh=0)
     "Hysteresis with delay to switch on cooling"
@@ -127,14 +127,14 @@ model ChillerDXHeatingEconomizerController
     "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
-  CDL.Interfaces.BooleanInput u2 annotation (Placement(transformation(
+  Controls.OBC.CDL.Interfaces.BooleanInput u2 annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
-  CDL.Interfaces.BooleanInput u3 annotation (Placement(transformation(
+  Controls.OBC.CDL.Interfaces.BooleanInput u3 annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-40,-120}), iconTransformation(
@@ -203,9 +203,9 @@ equation
     annotation (Line(points={{10,-32},{10,-90},{-120,-90}}, color={0,0,127}));
   connect(hysChiPla.y, chiOn) annotation (Line(points={{62,-40},{62,-40},{110,
           -40}},           color={255,0,255}));
-  connect(u, conSup.u) annotation (Line(points={{-80,-120},{-80,-86},{-66,-86},
+  connect(u2, conSup.u) annotation (Line(points={{-80,-120},{-80,-86},{-66,-86},
           {-66,0},{-46,0},{-46,71},{-42,71}}, color={255,0,255}));
-  connect(u1, conCooVal.trigger) annotation (Line(points={{-40,-120},{-40,-86},
+  connect(u3, conCooVal.trigger) annotation (Line(points={{-40,-120},{-40,-86},
           {2,-86},{2,-32}}, color={255,0,255}));
   annotation (Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
               {0,0,0})}), Documentation(info="<html>

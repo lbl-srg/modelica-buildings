@@ -6,6 +6,7 @@ model OptimalStartSZ
 
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
+  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180;
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
@@ -46,12 +47,12 @@ model OptimalStartSZ
     TSetSupAir=286.15) "Controller"
     annotation (Placement(transformation(extent={{-56,30},{-36,50}})));
   Buildings.Controls.OBC.Utilities.Examples.BaseClasses.SingleZoneFloor
-    singleZoneFloor
+    singleZoneFloor(redeclare package Medium = MediumA, lat=lat)
     annotation (Placement(transformation(extent={{56,24},{96,64}})));
   Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(heating_only=true,
       cooling_only=false) "Heating only case"
     annotation (Placement(transformation(extent={{-148,-50},{-128,-30}})));
-  CDL.Continuous.Add                        add1(final k1=+1, final k2=-1)
+  CDL.Continuous.Add add1(final k1=+1, final k2=-1)
     "Calculate differential between time-to-next-occupancy and the cool-down time"
     annotation (Placement(transformation(extent={{-114,-70},{-94,-50}})));
   CDL.Continuous.Hysteresis hysHea(
@@ -64,7 +65,7 @@ model OptimalStartSZ
     annotation (Placement(transformation(extent={{-148,-80},{-128,-60}})));
   Buildings.Controls.OBC.Utilities.OptimalStart optStaCoo(cooling_only=true)
     annotation (Placement(transformation(extent={{-148,-10},{-128,10}})));
-  CDL.Continuous.Add                        add2(final k1=+1, final k2=-1)
+  CDL.Continuous.Add add2(final k1=+1, final k2=-1)
     "Calculate differential between time-to-next-occupancy and the cool-down time"
     annotation (Placement(transformation(extent={{-114,-30},{-94,-10}})));
   CDL.Continuous.Hysteresis hysCoo(
