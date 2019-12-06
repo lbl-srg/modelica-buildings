@@ -33,7 +33,7 @@ model AbsorptionIndirectSteam_EnergyPlus
     annotation (Placement(transformation(extent={{22,-12},{42,8}})));
   Buildings.Fluid.Sources.MassFlowSource_T conPum(
     redeclare package Medium = Medium,
-    use_m_flow_in=false,
+    use_m_flow_in=true,
     m_flow=per.mCon_flow_nominal,
     use_T_in=true,
     nPorts=1)
@@ -69,7 +69,7 @@ model AbsorptionIndirectSteam_EnergyPlus
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/Data/Fluid/Chillers/IndirectAbsorptionChiller/modelica.csv"),
-    columns=2:70,
+    columns=2:11,
     tableName="modelica",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"IndirectAbsorptionChiller.IDF\" energy plus example results"
@@ -78,7 +78,7 @@ model AbsorptionIndirectSteam_EnergyPlus
   Controls.OBC.UnitConversions.From_degC TConEnt
     "Block that converts entering water temperature of the condenser"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Modelica.Blocks.Sources.RealExpression QGen_EP(y=datRea.y[40])
+  Modelica.Blocks.Sources.RealExpression QGen_EP(y=datRea.y[10])
     "EnergyPlus results: generator heat flow rate"
     annotation (Placement(transformation(extent={{-136,-58},{-116,-38}})));
   Controls.OBC.UnitConversions.From_degC TEvaSet
@@ -87,10 +87,10 @@ model AbsorptionIndirectSteam_EnergyPlus
   Controls.OBC.UnitConversions.From_degC TEvaEnt
     "Block that converts entering water temperature to the evaporator"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Modelica.Blocks.Sources.RealExpression QCon_EP(y=datRea.y[36])
+  Modelica.Blocks.Sources.RealExpression QCon_EP(y=datRea.y[6])
     "EnergyPlus results: condenser heat flow rate"
     annotation (Placement(transformation(extent={{-136,-40},{-116,-20}})));
-  Modelica.Blocks.Sources.RealExpression QEva_EP(y=-1*datRea.y[32])
+  Modelica.Blocks.Sources.RealExpression QEva_EP(y=-1*datRea.y[2])
     "EnergyPlus results: evaporator heat flow rate"
     annotation (Placement(transformation(extent={{-136,-24},{-116,-4}})));
 
@@ -99,25 +99,12 @@ equation
           -8}},                  color={0,127,255}));
   connect(absChi.on, realToBoolean.y) annotation (Line(points={{21,0},{-39,0}},
                                color={255,0,255}));
-  connect(conPum.ports[1], absChi.port_a1) annotation (Line(points={{-40,50},{
-          20,50},{20,4},{22,4}},
-                              color={0,127,255}));
-  connect(datRea.y[37], TConEnt.u)
-    annotation (Line(points={{-119,70},{-102,70}}, color={0,0,127}));
-  connect(TConEnt.y, conPum.T_in) annotation (Line(points={{-78,70},{-60,70},{
-          -60,46},{-62,46}},
-                         color={0,0,127}));
-  connect(datRea.y[34], TEvaSet.u) annotation (Line(points={{-119,70},{-110,70},
-          {-110,-30},{-22,-30}}, color={0,0,127}));
-  connect(datRea.y[33], TEvaEnt.u) annotation (Line(points={{-119,70},{-110,70},
-          {-110,-80},{-22,-80}}, color={0,0,127}));
+  connect(conPum.ports[1], absChi.port_a1) annotation (Line(points={{-20,50},{20,
+          50},{20,4},{22,4}}, color={0,127,255}));
+  connect(TConEnt.y, conPum.T_in) annotation (Line(points={{-78,70},{-60,70},{-60,
+          46},{-42,46}}, color={0,0,127}));
   connect(TEvaEnt.y, evaPum.T_in) annotation (Line(points={{2,-80},{112,-80},{112,
           -12.8},{96.4,-12.8}},     color={0,0,127}));
-  connect(datRea.y[31], realToBoolean.u) annotation (Line(points={{-119,70},{-110,
-          70},{-110,0},{-62,0}}, color={0,0,127}));
-  connect(datRea.y[35], evaPum.m_flow_in) annotation (Line(points={{-119,70},{-110,
-          70},{-110,-44},{106,-44},{106,-17.6},{96.4,-17.6}},      color={0,0,
-          127}));
   connect(TEvaSet.y, absChi.TSet) annotation (Line(points={{2,-30},{10,-30},{10,
           -4},{21,-4}}, color={0,0,127}));
   connect(absChi.port_b1, heaVol.ports[1]) annotation (Line(points={{42,4},{74,
@@ -125,6 +112,19 @@ equation
                              color={0,127,255}));
   connect(absChi.port_b2, cooVol.ports[1]) annotation (Line(points={{22,-8},{20,
           -8},{20,-60},{-80,-60}}, color={0,127,255}));
+  connect(datRea.y[7], TConEnt.u)
+    annotation (Line(points={{-119,70},{-102,70}}, color={0,0,127}));
+  connect(datRea.y[1], realToBoolean.u) annotation (Line(points={{-119,70},{
+          -110,70},{-110,0},{-62,0}}, color={0,0,127}));
+  connect(datRea.y[4], TEvaSet.u) annotation (Line(points={{-119,70},{-110,70},
+          {-110,-30},{-22,-30}}, color={0,0,127}));
+  connect(datRea.y[3], TEvaEnt.u) annotation (Line(points={{-119,70},{-110,70},
+          {-110,-80},{-22,-80}}, color={0,0,127}));
+  connect(datRea.y[5], evaPum.m_flow_in) annotation (Line(points={{-119,70},{
+          -110,70},{-110,-96},{108,-96},{108,-17.6},{96.4,-17.6}}, color={0,0,
+          127}));
+  connect(datRea.y[9], conPum.m_flow_in) annotation (Line(points={{-119,70},{
+          -110,70},{-110,42},{-42,42}}, color={0,0,127}));
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Ellipse(lineColor = {75,138,73},
@@ -141,9 +141,8 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=86400,
-      __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
-     __Dymola_Algorithm="Cvode"),
+      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
 <p>
 This model validates the model

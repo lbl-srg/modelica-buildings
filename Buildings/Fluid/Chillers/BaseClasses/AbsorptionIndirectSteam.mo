@@ -133,7 +133,7 @@ equation
       x2 = 1,
       deltaX = 0.001);
 
-    QGen_flow = -QEva_flow_ava * genHIR * genConT * genEvaT;
+    QGen_flow = -QEva_flow_ava * genHIR * genConT * genEvaT * CR;
 
     P = EIRP * per.P_nominal * CR;
 
