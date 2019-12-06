@@ -73,6 +73,12 @@ model OptimalStartSZ
     uHigh=0,
     uLow=-60) "Hysteresis to activate the cool-down mode"
     annotation (Placement(transformation(extent={{-84,-30},{-64,-10}})));
+  Modelica.Blocks.Sources.Constant TSetHeaOn(k=20 + 273.15)
+    "Zone heating setpoint during occupied period"
+    annotation (Placement(transformation(extent={{-196,-60},{-176,-40}})));
+  Modelica.Blocks.Sources.Constant TSetCooOn(k=24 + 273.15)
+    "Zone cooling setpoint during occupied time"
+    annotation (Placement(transformation(extent={{-196,-20},{-176,0}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-40,84},{28,84},{28,70}},
@@ -120,14 +126,12 @@ equation
       points={{-40,84},{4,84},{4,57.8}},
       color={255,204,51},
       thickness=0.5));
-  connect(singleZoneFloor.TRooAir, con.TRoo) annotation (Line(points={{97,44},{
-          110,44},{110,12},{-80,12},{-80,34},{-58,34}}, color={0,0,127}));
-  connect(hvac.supplyAir, singleZoneFloor.supplyAir)
-    annotation (Line(points={{40,48},{40,46},{56,46}}, color={0,127,255}));
-  connect(hvac.returnAir, singleZoneFloor.returnAir) annotation (Line(points={{
-          40,40},{48,40},{48,42},{56,42}}, color={0,127,255}));
+  connect(singleZoneFloor.TRooAir, con.TRoo) annotation (Line(points={{93,54},{
+          110,54},{110,12},{-80,12},{-80,34},{-58,34}}, color={0,0,127}));
+  connect(hvac.returnAir, singleZoneFloor.returnAir) annotation (Line(points={{40,40},
+          {52,40},{52,31},{63.2,31}},      color={0,127,255}));
   connect(weaBus, singleZoneFloor.weaBus) annotation (Line(
-      points={{28,70},{62,70},{62,62}},
+      points={{28,70},{63,70},{63,60.8}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -140,15 +144,11 @@ equation
           -40},{-118,-54},{-116,-54}}, color={0,0,127}));
   connect(occSch.tNexOcc, add1.u2) annotation (Line(points={{-127,-64},{-120,
           -64},{-120,-66},{-116,-66}}, color={0,0,127}));
-  connect(TSetRooHea.y[1], optStaHea.TSetZonHea) annotation (Line(points={{-167,70},
-          {-156,70},{-156,-32},{-150,-32}},     color={0,0,127}));
-  connect(singleZoneFloor.TRooAir, optStaHea.TZon) annotation (Line(points={{97,44},
-          {110,44},{110,-88},{-160,-88},{-160,-40},{-150,-40}},     color={0,0,
+  connect(singleZoneFloor.TRooAir, optStaHea.TZon) annotation (Line(points={{93,54},
+          {110,54},{110,-88},{-160,-88},{-160,-40},{-150,-40}},     color={0,0,
           127}));
   connect(optStaCoo.TZon, optStaHea.TZon) annotation (Line(points={{-150,0},{
           -160,0},{-160,-40},{-150,-40}}, color={0,0,127}));
-  connect(TSetRooCoo.y[1], optStaCoo.TSetZonCoo) annotation (Line(points={{-167,30},
-          {-152,30},{-152,-8},{-150,-8}},     color={0,0,127}));
   connect(occSch.tNexOcc, add2.u2) annotation (Line(points={{-127,-64},{-120,
           -64},{-120,-26},{-116,-26}}, color={0,0,127}));
   connect(optStaCoo.tOpt, add2.u1) annotation (Line(points={{-126,0},{-120,0},{
@@ -159,6 +159,12 @@ equation
           28}}, color={255,0,255}));
   connect(hysHea.y, con.u2) annotation (Line(points={{-62,-60},{-54,-60},{-54,
           28}}, color={255,0,255}));
+  connect(hvac.supplyAir, singleZoneFloor.supplyAir) annotation (Line(points={{
+          40,48},{56,48},{56,34},{63.2,34}}, color={0,127,255}));
+  connect(TSetHeaOn.y, optStaHea.TSetZonHea) annotation (Line(points={{-175,-50},
+          {-168,-50},{-168,-32},{-150,-32}}, color={0,0,127}));
+  connect(TSetCooOn.y, optStaCoo.TSetZonCoo) annotation (Line(points={{-175,-10},
+          {-156,-10},{-156,-8},{-150,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{120,100}})),

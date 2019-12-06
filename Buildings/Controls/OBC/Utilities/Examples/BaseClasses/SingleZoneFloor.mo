@@ -101,22 +101,23 @@ model SingleZoneFloor "Model of a building floor as a single zone"
       fFra={0.1,0.1,0.1,0.1},
       til={Z_,Z_,Z_,Z_},
       azi={N_,S_,W_,E_}),
-    nConPar=2,
+    nConPar=3,
     datConPar(
-      layers={conFlo,conFur},
-      A={AFlo,AFlo*0.729},
-      til={F_,Z_}),
+      layers={conFlo,conFur,conIntWal},
+      A={AFlo,AFlo*0.729,(6.47*2 + 40.76 + 24.13)*2*hRoo},
+      til={F_,Z_,Z_}),
     nConBou=0,
     nSurBou=0,
     nPorts=7,
     intConMod=intConMod,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final sampleModel=sampleModel) "Floor"
-    annotation (Placement(transformation(extent={{-16,-36},{24,4}})));
+    annotation (Placement(transformation(extent={{-16,-56},{24,-16}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAir
     "Air temperature sensor"
     annotation (Placement(transformation(extent={{82,30},{102,50}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium
+      =                                                                         Medium)
     "Building pressure measurement"
     annotation (Placement(transformation(extent={{-60,-16},{-80,4}})));
   Buildings.Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
@@ -198,12 +199,12 @@ protected
 
 equation
   connect(flo.weaBus, weaBus) annotation (Line(
-      points={{21.9,1.9},{21.9,184},{-166,184},{-166,86}},
+      points={{21.9,-18.1},{21.9,184},{-166,184},{-166,86}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(flo.heaPorAir, temAir.port) annotation (Line(
-      points={{3,-16},{40,-16},{40,40},{82,40}},
+      points={{3,-36},{40,-36},{40,40},{82,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(out.weaBus, weaBus) annotation (Line(
@@ -222,10 +223,10 @@ equation
   connect(temAir.T, TRooAir) annotation (Line(points={{102,40},{160,40},{160,60},
           {210,60}},color={0,0,127}));
   connect(supplyAir, flo.ports[1]) annotation (Line(points={{-200,20},{-176,20},
-          {-176,-22},{-52,-22},{-52,-29.4286},{-11,-29.4286}},
+          {-176,-44},{-44,-44},{-44,-49.4286},{-11,-49.4286}},
                                color={0,127,255}));
   connect(returnAir, flo.ports[2]) annotation (Line(points={{-200,-20},{-180,
-          -20},{-180,-28.2857},{-11,-28.2857}},
+          -20},{-180,-48.2857},{-11,-48.2857}},
                                          color={0,127,255}));
   connect(weaBus, leaSou.weaBus) annotation (Line(
       points={{-166,86},{-166,152},{-122,152}},
@@ -252,19 +253,19 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(leaSou.port_b, flo.ports[3]) annotation (Line(points={{-86,152},{-44,
-          152},{-44,-27.1429},{-11,-27.1429}},
+          152},{-44,-47.1429},{-11,-47.1429}},
                                           color={0,127,255}));
-  connect(leaEas.port_b, flo.ports[4]) annotation (Line(points={{-86,112},{-44,112},
-          {-44,-23.3333},{-11,-23.3333},{-11,-26}}, color={0,127,255}));
+  connect(leaEas.port_b, flo.ports[4]) annotation (Line(points={{-86,112},{-44,
+          112},{-44,-37.3333},{-11,-37.3333},{-11,-46}},
+                                                    color={0,127,255}));
   connect(leaNor.port_b, flo.ports[5]) annotation (Line(points={{-86,70},{-44,
-          70},{-44,-25},{-11,-25},{-11,-24.8571}},
+          70},{-44,-40},{-11,-40},{-11,-44.8571}},
                                                color={0,127,255}));
   connect(leaWes.port_b, flo.ports[6]) annotation (Line(points={{-86,30},{-44,
-          30},{-44,-23.7143},{-11,-23.7143}},
+          30},{-44,-43.7143},{-11,-43.7143}},
                                           color={0,127,255}));
   connect(senRelPre.port_a, flo.ports[7]) annotation (Line(points={{-60,-6},{
-          -34,-6},{-34,-26.6667},{-11,-26.6667},{-11,-22.5714}},
-                                                             color={0,127,255}));
+          -44,-6},{-44,-44},{-11,-44},{-11,-42.5714}},       color={0,127,255}));
   connect(weaBus, leaWes.weaBus) annotation (Line(
       points={{-166,86},{-166,30},{-122,30}},
       color={255,204,51},
@@ -278,11 +279,13 @@ equation
   connect(intGaiFra.y, gai.u)
     annotation (Line(points={{-139,-140},{-122,-140}}, color={0,0,127}));
   connect(gai.y, flo.qGai_flow) annotation (Line(points={{-99,-140},{-26,-140},
-          {-26,-8},{-17.6,-8}}, color={0,0,127}));
+          {-26,-28},{-17.6,-28}},
+                                color={0,0,127}));
   connect(uSha.y, replicator.u)
     annotation (Line(points={{-139,-90},{-122,-90}}, color={0,0,127}));
   connect(replicator.y, flo.uSha) annotation (Line(points={{-99,-90},{-30,-90},
-          {-30,2},{-17.6,2}}, color={0,0,127}));
+          {-30,-18},{-17.6,-18}},
+                              color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
             {200,200}})),       Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-200,-200},{200,200}}), graphics={
