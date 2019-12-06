@@ -1,33 +1,49 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
 model CoolingDirectControlledReturn
   "Direct cooling ETS model for district energy systems with in-building pumping and controlled district return temperature"
-  extends Buildings.Fluid.Interfaces.PartialFourPort(redeclare package Medium2
-      = Medium, redeclare package Medium1 = Medium);
+  extends Buildings.Fluid.Interfaces.PartialFourPort(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium);
 
- final package Medium = Buildings.Media.Water;
+ replaceable package Medium =
+   Modelica.Media.Interfaces.PartialMedium "Medium in the component";
 
- parameter Modelica.SIunits.SpecificHeatCapacity cp=
-   Medium.specificHeatCapacityCp(
-      Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
-    "Default specific heat capacity of medium";
+  // mass flow rates
+  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal(
+    final min=0,
+    start=0.5)
+    "Nominal mass flow rate of district cooling side";
 
-  // mass flow rate
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0,start=0.5)
-    "Nominal mass flow rate of primary (district) district cooling side";
+  parameter Modelica.SIunits.MassFlowRate mBui_flow_nominal(
+    final min=0,
+    start=0.5)
+    "Nominal mass flow rate of building cooling side";
+
+  parameter Modelica.SIunits.MassFlowRate mByp_flow_nominal(
+    final min=0,
+    start=0.5)
+    "Nominal mass flow rate through the bypass segment";
 
   // pressure drops
-  parameter Modelica.SIunits.PressureDifference dpSup(displayUnit="Pa")=50
-  "Pressure drop in the ETS supply side (piping, valves, etc.)";
+  parameter Modelica.SIunits.PressureDifference dpSup_nominal(
+    displayUnit="Pa")=500
+  "Nominal pressure drop in the ETS supply side (piping, valves, etc.)";
 
-  parameter Modelica.SIunits.PressureDifference dpRet(displayUnit="Pa")=50
-  "Pressure drop in the ETS return side (piping, valves, etc.)";
+  parameter Modelica.SIunits.PressureDifference dpRet_nominal(
+    displayUnit="Pa")=500
+  "Nominal pressure drop in the ETS return side (piping, valves, etc.)";
 
-  parameter Modelica.SIunits.PressureDifference dpByp(displayUnit="Pa")=10
-  "Pressure drop in the bypass line (piping, valves, etc.)";
+  parameter Modelica.SIunits.PressureDifference dpByp_nominal(
+    displayUnit="Pa")=100
+  "Nominal pressure drop in the bypass line (piping, valves, etc.)";
+
+  parameter Modelica.SIunits.PressureDifference dpVal_nominal(
+    displayUnit="Pa")=6000
+  "Nominal pressure drop in the control valve";
 
   // Controller parameters
   parameter Modelica.Blocks.Types.SimpleController controllerType=
-    Modelica.Blocks.Types.SimpleController.PID
+    Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(tab="Controller"));
   parameter Real k(min=0, unit="1") = 1
@@ -74,117 +90,128 @@ model CoolingDirectControlledReturn
     "Set to true for throttling the water flow rate through a cooling coil controller"
     annotation(Dialog(tab="Controller"));
 
-
-  Modelica.Blocks.Interfaces.RealInput TSet "Setpoint temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    quantity="Power",
-    unit="W",
-    displayUnit="kW")
-    "Measured power demand at the ETS"
-    annotation (Placement(transformation(extent={{100,110},{120,130}})));
-
-  Modelica.Blocks.Interfaces.RealOutput Q(
-    quantity="Energy",
-    unit="J",
-    displayUnit="kWh")
-    "Measured energy consumption at the ETS"
-    annotation (Placement(transformation(extent={{100,90},{120,110}})));
+  Modelica.Blocks.Interfaces.RealInput TSet
+    "Setpoint temperature"
+    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.Continuous.LimPID con(
-    controllerType=Modelica.Blocks.Types.SimpleController.PID,
+    final controllerType=controllerType,
     final k=k,
-    Td=Td,
+    final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
     final Ti=Ti,
-    wp=wp,
-    wd=wd,
-    Ni=Ni,
-    Nd=Nd,
-    final initType=Modelica.Blocks.Types.InitPID.InitialOutput,
-    xi_start=xi_start,
-    xd_start=xd_start,
+    final wp=wp,
+    final wd=wd,
+    final Ni=Ni,
+    final Nd=Nd,
+    final initType=initType,
+    final xi_start=xi_start,
+    final xd_start=xd_start,
     final y_start=0,
     final reverseAction=reverseAction)
     "Controller"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-
-  Modelica.Blocks.Sources.RealExpression powCal(
-    y=senMasFlo.m_flow*cp*(senTDisRet.T - senTDisSup.T))
-    "Calculated power demand"
-    annotation (Placement(transformation(extent={{-40,110},{40,130}})));
-
-  Modelica.Blocks.Continuous.Integrator int(k=1)
-  "Integration"
-    annotation (Placement(transformation(extent={{60,90},{80,110}})));
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop pipSup(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m1_flow_nominal,
-    dp_nominal=dpSup)
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mDis_flow_nominal,
+    final dp_nominal=dpSup_nominal)
     "Supply pipe"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop pipRet(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m1_flow_nominal,
-    dp_nominal=dpRet)
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mDis_flow_nominal,
+    final dp_nominal=dpRet_nominal)
     "Return pipe"
     annotation (Placement(transformation(extent={{0,-50},{-20,-70}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop pipByp(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m1_flow_nominal,
-    dp_nominal=dpSup)
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mByp_flow_nominal,
+    final dp_nominal=dpByp_nominal)
     "Bypass pipe"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={30,0})));
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
-    m_flow_nominal=m1_flow_nominal,
-    dpValve_nominal=50)
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mBui_flow_nominal,
+    final dpValve_nominal=dpVal_nominal)
     "Control valve"
     annotation (Placement(transformation(extent={{40,-50},{20,-70}})));
 
   Buildings.Fluid.FixedResistances.Junction jun(
-    redeclare package Medium = Medium,
-    m_flow_nominal={m1_flow_nominal,-m1_flow_nominal,0},
-    dp_nominal=50*{1,-1,1})
+    redeclare final package Medium = Medium,
+    m_flow_nominal={mDis_flow_nominal,-mBui_flow_nominal,mByp_flow_nominal},
+    dp_nominal=500*{1,-1,1})
     "Bypass junction"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare final package Medium = Medium)
     "District supply mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m1_flow_nominal)
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mDis_flow_nominal)
     "District supply temperature sensor"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(redeclare package
-      Medium =
-        Medium, m_flow_nominal=m1_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mDis_flow_nominal)
     "District return temperature sensor"
-    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiRet(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m1_flow_nominal)
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mBui_flow_nominal)
     "Building return temperature sensor"
     annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
+
+  Modelica.Blocks.Continuous.Integrator int(k=1) "Integration"
+    annotation (Placement(transformation(extent={{70,100},{90,120}})));
+  Modelica.Blocks.Math.Add dTDis(k1=-1, k2=+1)
+    "Temperature difference on the district side"
+    annotation (Placement(transformation(extent={{-48,106},{-28,126}})));
+  Modelica.Blocks.Math.Product pro "Product"
+    annotation (Placement(transformation(extent={{-10,100},{10,120}})));
+  Modelica.Blocks.Math.Gain cp(k=cp_default)
+    "Specific heat multiplier to calculate heat flow rate"
+    annotation (Placement(transformation(extent={{30,100},{50,120}})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    final quantity="Power",
+    final unit="W",
+    displayUnit="kW")
+    "Measured power demand at the ETS"
+    annotation (Placement(transformation(extent={{100,140},{120,160}})));
+  Modelica.Blocks.Interfaces.RealOutput Q(
+    final quantity="Energy",
+    final unit="J",
+    displayUnit="kWh")
+    "Measured energy consumption at the ETS"
+    annotation (Placement(transformation(extent={{100,100},{120,120}})));
+
+protected
+  final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default) "Medium state at default properties";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(sta_default)
+    "Specific heat capacity of the fluid";
 
 equation
   connect(port_a1, senTDisSup.port_a)
     annotation (Line(points={{-100,60},{-90,60}}, color={0,127,255}));
   connect(senTDisSup.port_b, senMasFlo.port_a)
-    annotation (Line(points={{-70,60},{-60,60}}, color={0,127,255}));
+    annotation (Line(points={{-70,60},{-50,60}}, color={0,127,255}));
   connect(senMasFlo.port_b, pipSup.port_a)
-    annotation (Line(points={{-40,60},{-20,60}}, color={0,127,255}));
+    annotation (Line(points={{-30,60},{-20,60}}, color={0,127,255}));
   connect(pipSup.port_b, jun.port_1)
     annotation (Line(points={{0,60},{20,60}}, color={0,127,255}));
   connect(jun.port_2, port_b1)
@@ -192,30 +219,43 @@ equation
   connect(val.port_2, pipRet.port_a)
     annotation (Line(points={{20,-60},{0,-60}}, color={0,127,255}));
   connect(pipRet.port_b, senTDisRet.port_b)
-    annotation (Line(points={{-20,-60},{-70,-60}}, color={0,127,255}));
+    annotation (Line(points={{-20,-60},{-50,-60}}, color={0,127,255}));
   connect(senTDisRet.port_a, port_b2)
-    annotation (Line(points={{-90,-60},{-100,-60}}, color={0,127,255}));
+    annotation (Line(points={{-70,-60},{-100,-60}}, color={0,127,255}));
   connect(jun.port_3, pipByp.port_b)
     annotation (Line(points={{30,50},{30,10},{30,10}}, color={0,127,255}));
   connect(pipByp.port_a, val.port_3)
     annotation (Line(points={{30,-10},{30,-50}}, color={0,127,255}));
-  connect(powCal.y, Q_flow)
-    annotation (Line(points={{44,120},{110,120}}, color={0,0,127}));
-  connect(powCal.y, int.u) annotation (Line(points={{44,120},{52,120},{52,100},{
-          58,100}}, color={0,0,127}));
-  connect(int.y, Q) annotation (Line(points={{81,100},{92,100},{92,100},{110,100}},
-        color={0,0,127}));
   connect(TSet, con.u_s)
-    annotation (Line(points={{-120,0},{-92,0}}, color={0,0,127}));
-  connect(senTDisRet.T, con.u_m)
-    annotation (Line(points={{-80,-49},{-80,-12}}, color={0,0,127}));
-  connect(con.y, val.y) annotation (Line(points={{-69,0},{-40,0},{-40,-80},{30,-80},
-          {30,-72}}, color={0,0,127}));
+    annotation (Line(points={{-120,-100},{-22,-100}},
+                                                color={0,0,127}));
+  connect(con.y, val.y)
+     annotation (Line(points={{1,-100},{30,-100},{30,-72}},color={0,0,127}));
   connect(val.port_1, senTBuiRet.port_b)
     annotation (Line(points={{40,-60},{60,-60}}, color={0,127,255}));
   connect(senTBuiRet.port_a, port_a2)
     annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  connect(int.y,Q)
+    annotation (Line(points={{91,110},{110,110}}, color={0,0,127}));
+  connect(dTDis.y,pro. u1)
+    annotation (Line(points={{-27,116},{-12,116}}, color={0,0,127}));
+  connect(pro.y,cp. u)
+    annotation (Line(points={{11,110},{28,110}}, color={0,0,127}));
+  connect(cp.y,int. u)
+    annotation (Line(points={{51,110},{68,110}}, color={0,0,127}));
+  connect(cp.y,Q_flow)
+    annotation (Line(points={{51,110},{60,110},{60,150},{110,150}}, color={0,0,127}));
+  connect(senMasFlo.m_flow, pro.u2)
+    annotation (Line(points={{-40,71},{-40,104},{-12,104}}, color={0,0,127}));
+  connect(senTDisSup.T, dTDis.u1)
+    annotation (Line(points={{-80,71},{-80,122},{-50,122}}, color={0,0,127}));
+  connect(senTDisRet.T, dTDis.u2)
+    annotation (Line(points={{-60,-49},{-60,110},{-50,110}}, color={0,0,127}));
+  connect(senTBuiRet.T, con.u_m)
+     annotation (Line(points={{70,-49},{70,-40},{50,-40},{50,-120},{-10,-120},{-10,-112}}, color={0,0,127}));
+
+  annotation (defaultComponentName="coo",
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-56},{100,-64}},
           fillColor={0,0,0},
@@ -261,7 +301,7 @@ equation
           pattern=LinePattern.None),
         Rectangle(extent={{-8,52},{8,-52}}, lineColor={0,0,0})}),
                                Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-100},{100,140}})),
+            false, extent={{-100,-140},{100,160}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
