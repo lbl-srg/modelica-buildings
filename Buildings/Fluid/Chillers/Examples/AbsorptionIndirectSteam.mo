@@ -30,7 +30,7 @@ model AbsorptionIndirectSteam
     show_T=true,
     per=per,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-  "Absorption Indirect Chiller model"
+  "Absorption chiller"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T conPum(
     redeclare package Medium = Medium,
@@ -58,7 +58,7 @@ model AbsorptionIndirectSteam
     duration(displayUnit="h") = 14400,
     offset=20 + 273.15,
     startTime=0)
-   "Condesner entering water temperature"
+   "Condenser entering water temperature"
      annotation (Placement(transformation(extent={{-96,56},{-76,76}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEvaEnt(
     height=4,
