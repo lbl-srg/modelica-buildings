@@ -434,18 +434,18 @@ equation
   connect(sou.ports[1], portsSou[1]) annotation (Line(
       points={{149,-37.2},{114,-37.2},{114,-36},{80,-36}},
       color={0,127,255},
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(sou.ports[2], portsSou[2]) annotation (Line(
       points={{149,-35.6},{124,-35.6},{124,-36},{100,-36}},
       color={0,127,255},
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(eas.ports[1], portsEas[1]) annotation (Line(
       points={{309,62.8},{300,62.8},{300,36},{320,36}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(eas.ports[2], portsEas[2]) annotation (Line(
-      points={{309,64.4},{300,64.4},{300,36},{340,36}},
+      points={{309,64.4},{298,64.4},{298,34},{320,34},{320,36},{340,36}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -489,7 +489,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(leaWes.port_b, wes.ports[3]) annotation (Line(
-      points={{-20,280},{2,280},{2,46},{17,46}},
+      points={{-20,280},{4,280},{4,46},{17,46}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -499,7 +499,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(opeSouCor.port_a2, cor.ports[4]) annotation (Line(
-      points={{104,4},{116,4},{116,44.5455},{149,44.5455}},
+      points={{104,4},{118,4},{118,44.5455},{149,44.5455}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -509,7 +509,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(opeSouCor.port_b2, sou.ports[5]) annotation (Line(
-      points={{84,4},{74,4},{74,-20},{134,-20},{134,-30.8},{149,-30.8}},
+      points={{84,4},{72,4},{72,-22},{132,-22},{132,-30.8},{149,-30.8}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -519,7 +519,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(opeEasCor.port_a2, eas.ports[5]) annotation (Line(
-      points={{270,42},{290,42},{290,69.2},{309,69.2}},
+      points={{270,42},{292,42},{292,69.2},{309,69.2}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -539,7 +539,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(opeNorCor.port_a2, nor.ports[5]) annotation (Line(
-      points={{100,78},{124,78},{124,129.2},{149,129.2}},
+      points={{100,78},{126,78},{126,129.2},{149,129.2}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -553,17 +553,17 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(opeWesCor.port_b1, cor.ports[9]) annotation (Line(
-      points={{40,-4},{56,-4},{56,34},{116,34},{116,48.1818},{149,48.1818}},
+      points={{40,-4},{54,-4},{54,36},{112,36},{112,48.1818},{149,48.1818}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(opeWesCor.port_a2, cor.ports[10]) annotation (Line(
-      points={{40,-16},{56,-16},{56,34},{116,34},{116,48.9091},{149,48.9091}},
+      points={{40,-16},{56,-16},{56,34},{114,34},{114,48.9091},{149,48.9091}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(opeWesCor.port_a1, wes.ports[4]) annotation (Line(
-      points={{20,-4},{2,-4},{2,47.6},{17,47.6}},
+      points={{20,-4},{6,-4},{6,47.6},{17,47.6}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -590,11 +590,6 @@ equation
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(out.ports[1], senRelPre.port_b) annotation (Line(
-      points={{-38,250},{40,250}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(senRelPre.p_rel, p_rel) annotation (Line(
       points={{50,241},{50,220},{-170,220}},
       color={0,0,127},
