@@ -94,8 +94,13 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.SIunits.Mass m(
     start=fluidVolume*rho_start,
     stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
-    then StateSelect.default else StateSelect.prefer)
+    then StateSelect.default else StateSelect.default)
     "Mass of fluid";
+
+  Modelica.SIunits.PressureDifference dpRel(
+    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+    then StateSelect.default else StateSelect.prefer) = medium.p-p_start
+    "Relative pressure compared to p_start";
 
   Modelica.SIunits.Mass[Medium.nXi] mXi(
     start=fluidVolume*rho_start*X_start[1:Medium.nXi])
@@ -422,6 +427,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 6, 2019, by Michael Wetter:<br/>
+Introduced <code>dpRel</code> as preferred state variable.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1671\">Buildings, issue 1671</a>.
+</li>
 <li>
 April 26, 2019, by Filip Jorissen:<br/>
 Returning <code>getInstanceName()</code> in asserts.
