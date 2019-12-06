@@ -1,8 +1,7 @@
 within Buildings.Fluid.Chillers.Validation;
 model AbsorptionIndirectSteam_EnergyPlus
   "Validation with EnergyPlus model"
- package Medium = Buildings.Media.Water "Medium model";
-
+  package Medium = Buildings.Media.Water "Medium model";
 
   parameter Data.AbsorptionIndirectSteam.Generic per(
     QEva_flow_nominal=-10000,
@@ -31,6 +30,7 @@ model AbsorptionIndirectSteam_EnergyPlus
     T1_start=25 + 273.15,
     T2_start=10 + 273.15) "Absorption indirect chiller"
     annotation (Placement(transformation(extent={{22,-12},{42,8}})));
+
   Buildings.Fluid.Sources.MassFlowSource_T conPum(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -43,6 +43,7 @@ model AbsorptionIndirectSteam_EnergyPlus
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-30,50})));
+
   Buildings.Fluid.Sources.MassFlowSource_T evaPum(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
@@ -55,16 +56,22 @@ model AbsorptionIndirectSteam_EnergyPlus
         extent={{-12,-12},{12,12}},
         rotation=180,
         origin={82,-8})));
+
   Buildings.Fluid.Sources.Boundary_pT cooVol(
-    redeclare package Medium = Medium, nPorts=1)
+    redeclare package Medium = Medium,
+    nPorts=1)
      "Volume for cooling load"
        annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+
   Buildings.Fluid.Sources.Boundary_pT heaVol(
-    redeclare package Medium = Medium, nPorts=1)
+    redeclare package Medium = Medium,
+    nPorts=1)
      "Volume for heating load"
        annotation (Placement(transformation(extent={{120,40},{100,60}})));
+
   Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=1)
        annotation (Placement(transformation(extent={{-60,10},{-40,-10}})));
+
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
@@ -99,14 +106,12 @@ equation
           -8}},                  color={0,127,255}));
   connect(absChi.on, realToBoolean.y) annotation (Line(points={{21,0},{-39,0}},
                                color={255,0,255}));
-  connect(conPum.ports[1], absChi.port_a1) annotation (Line(points={{-40,50},{
-          20,50},{20,4},{22,4}},
-                              color={0,127,255}));
+  connect(conPum.ports[1], absChi.port_a1) annotation (Line(points={{-20,50},{20,
+          50},{20,4},{22,4}}, color={0,127,255}));
   connect(datRea.y[37], TConEnt.u)
     annotation (Line(points={{-119,70},{-102,70}}, color={0,0,127}));
-  connect(TConEnt.y, conPum.T_in) annotation (Line(points={{-78,70},{-60,70},{
-          -60,46},{-62,46}},
-                         color={0,0,127}));
+  connect(TConEnt.y, conPum.T_in) annotation (Line(points={{-78,70},{-60,70},{-60,
+          46},{-42,46}}, color={0,0,127}));
   connect(datRea.y[34], TEvaSet.u) annotation (Line(points={{-119,70},{-110,70},
           {-110,-30},{-22,-30}}, color={0,0,127}));
   connect(datRea.y[33], TEvaEnt.u) annotation (Line(points={{-119,70},{-110,70},
@@ -125,6 +130,7 @@ equation
                              color={0,127,255}));
   connect(absChi.port_b2, cooVol.ports[1]) annotation (Line(points={{22,-8},{20,
           -8},{20,-60},{-80,-60}}, color={0,127,255}));
+
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Ellipse(lineColor = {75,138,73},
@@ -146,7 +152,7 @@ equation
      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
 <p>
-This model validates the model
+This model validates
 <a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>.
 <p>
