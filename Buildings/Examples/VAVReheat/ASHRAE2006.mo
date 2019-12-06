@@ -6,11 +6,12 @@ model ASHRAE2006
     heaCoi(show_T=true),
     cooCoi(show_T=true));
 
-  Modelica.Blocks.Sources.Constant TSupSetHea(y(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC",
-    min=0), k=273.15 + 10) "Supply air temperature setpoint for heating"
+  Modelica.Blocks.Sources.Constant TSupSetHea(
+    y(final quantity="ThermodynamicTemperature",
+      final unit="K",
+      displayUnit="degC",
+      min=0),
+      k=273.15 + 10) "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-180,-172},{-160,-152}})));
   Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=
         yFanMin)
