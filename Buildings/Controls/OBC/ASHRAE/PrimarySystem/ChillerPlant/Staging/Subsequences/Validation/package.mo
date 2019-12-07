@@ -30,19 +30,23 @@ package Validation "Collection of validation models"
       "Indicates whether the current is the lowest available stage"
       annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
 
-    CDL.Continuous.Max max
+    Buildings.Controls.OBC.CDL.Continuous.Max max
       annotation (Placement(transformation(extent={{-242,270},{-220,290}})));
 
-    PartLoadRatios                                                                               PLRs1(final
-      anyVsdCen=false, final nSta=2)
-                      "Stage and operative part load ratios"
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios PLRs1(
+      final anyVsdCen=false,
+      final nSta=2)
+      "Stage and operative part load ratios"
       annotation (Placement(transformation(extent={{20,140},{40,160}})));
-    CDL.Logical.Sources.Constant                        higSta1(final k=false)
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant higSta1(final k=false)
       "Indicates whether the current is the highest available stage"
       annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-    CDL.Logical.Sources.Constant                        lowSta1(final k=true)
+
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant lowSta1(final k=true)
       "Indicates whether the current is the lowest available stage"
       annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+
 protected
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities staCap3(
       final nSta=2)
@@ -84,35 +88,39 @@ protected
       annotation (Placement(transformation(extent={{-320,-62},{-300,-42}})));
 
     Buildings.Controls.OBC.CDL.Integers.Sources.Constant chiTyp[2](final k={
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
+      Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+      Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
       "Stage types"
       annotation (Placement(transformation(extent={{-300,220},{-280,240}})));
 
 protected
-    Capacities                                                                               staCap1(final
-      nSta=2)
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities staCap1(
+      final nSta=2)
       "Returns design and minimal stage capacities required for calculating operating and stage part load ratios"
       annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-    CDL.Integers.Sources.Constant                        curSta1(final k=0)
+
+    Buildings.Controls.OBC.CDL.Integers.Sources.Constant curSta1(final k=0)
       "Current chiller stage"
       annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-    CDL.Integers.Sources.Constant                        staUp1(final k=1)
+
+    Buildings.Controls.OBC.CDL.Integers.Sources.Constant staUp1(final k=1)
       "Next available chiller stage up"
       annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
-    CDL.Integers.Sources.Constant                        staDown1(final k=0)
+
+    Buildings.Controls.OBC.CDL.Integers.Sources.Constant staDown1(final k=0)
       "Next available chiller stage down"
       annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-    CDL.Continuous.Sources.Constant                        desCap1
-                                                                 [2](final k={
-        8e5,2e6})
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desCap1[2](
+      final k={8e5,2e6})
       "Chiller design capacities"
       annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-    CDL.Continuous.Sources.Constant                        minCap1
-                                                                 [2](final k={
-        1.6e4,4e5})
+
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minCap1[2](
+      final k={1.6e4,4e5})
       "Stage unload capacities"
       annotation (Placement(transformation(extent={{-120,-62},{-100,-42}})));
+
   equation
 
     connect(curSta.y, PLRs0.u) annotation (Line(points={{-298,200},{-240,200},{

@@ -11,31 +11,35 @@ block Down "Stage down conditions"
     "Hysteresis deadband for temperature";
 
   parameter Modelica.SIunits.PressureDifference dpDif = 2 * 6895
-    "Offset between the chilled water pump Diferential static pressure and its setpoint";
+    "Offset between the chilled water pump differential static pressure and its setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta
-    "Waterside economizer status" annotation (
-     Placement(transformation(extent={{-180,-170},{-140,-130}}),
+    "Waterside economizer status"
+    annotation (Placement(transformation(extent={{-180,-170},{-140,-130}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u "Chiller stage"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
+    "Chiller stage"
     annotation (Placement(transformation(extent={{-180,-200},{-140,-160}}),
         iconTransformation(extent={{-120,-110},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplr(final unit="1")
-    "Operating part load ratio of the current stage" annotation (Placement(
+    "Operating part load ratio of the current stage"
+    annotation (Placement(
         transformation(extent={{-180,90},{-140,130}}), iconTransformation(
           extent={{-120,70},{-100,90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrMin(final unit="1")
-    "Minimum operating part load ratio at the current stage" annotation (
+    "Minimum operating part load ratio at the current stage"
+    annotation (
       Placement(transformation(extent={{-180,60},{-140,100}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrDow(final unit="1")
-    "Operating part load ratio of the next stage down" annotation (Placement(
-        transformation(extent={{-180,170},{-140,210}}),iconTransformation(extent={{-120,
-            110},{-100,130}})));
+    "Operating part load ratio of the next stage down"
+    annotation (Placement(
+        transformation(extent={{-180,170},{-140,210}}),
+        iconTransformation(extent={{-120,110},{-100,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSplrDow(final unit="1")
     "Staging part load ratio of the next stage down"
@@ -59,29 +63,30 @@ block Down "Stage down conditions"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Chilled water pump Diferential static pressure setpoint"
+    "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,10},{-140,50}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
     final quantity="PressureDifference")
-    "Chilled water pump Diferential static pressure"
+    "Chilled water pump differential static pressure"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
     iconTransformation(extent={{-120,10},{-100,30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
     final unit="1")
-    "Predicted waterside economizer outlet temperature" annotation (Placement(
-        transformation(extent={{-180,-80},{-140,-40}}), iconTransformation(
-          extent={{-120,-50},{-100,-30}})));
+    "Predicted waterside economizer outlet temperature"
+    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
+       iconTransformation(extent={{-120,-50},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax
     "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y "Efficiency condition for chiller staging"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Stage down signal"
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -121,8 +126,7 @@ block Down "Stage down conditions"
 
   Buildings.Controls.OBC.CDL.Continuous.Add add0(
     final k1=-1,
-    final k2=1)
-    "Adder for temperatures"
+    final k2=1) "Adder for temperatures"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
@@ -131,7 +135,8 @@ block Down "Stage down conditions"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=delayStaCha, delayOnInit=true)
+    final delayTime=delayStaCha,
+    delayOnInit=true)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
