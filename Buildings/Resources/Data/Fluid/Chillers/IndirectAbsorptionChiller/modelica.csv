@@ -1,7 +1,7 @@
 #1
 float modelica(2881,12)
 # time,BIG CHILLER:Chiller Electric Power [W](TimeStep),BIG CHILLER:Chiller Evaporator Cooling Rate [W](TimeStep),BIG CHILLER:Chiller Evaporator Inlet Temperature [C](TimeStep),BIG CHILLER:Chiller Evaporator Outlet Temperature [C](TimeStep),BIG CHILLER:Chiller Evaporator Mass Flow Rate [kg/s](TimeStep),BIG CHILLER:Chiller Condenser Heat Transfer Rate [W](TimeStep),BIG CHILLER:Chiller Condenser Inlet Temperature [C](TimeStep),BIG CHILLER:Chiller Condenser Outlet Temperature [C](TimeStep),BIG CHILLER:Chiller Condenser Mass Flow Rate [kg/s](TimeStep),BIG CHILLER:Chiller Source Steam Rate [W](TimeStep),BIG CHILLER:Chiller Steam Heat Loss Rate [W](TimeStep) 
-60,0.0,0.0,14.306521,14.306521,0.0,0.0,29.916373,29.916373,0.0,0.0,0.0
+0,0.0,0.0,14.306521,14.306521,0.0,0.0,29.916373,29.916373,0.0,0.0,0.0
 60,0.0,0.0,14.306521,14.306521,0.0,0.0,29.916373,29.916373,0.0,0.0,0.0
 120,0.0,0.0,14.306521,14.306521,0.0,0.0,29.916373,29.916373,0.0,0.0,0.0
 180,0.0,0.0,14.306521,14.306521,0.0,0.0,29.916373,29.916373,0.0,0.0,0.0
