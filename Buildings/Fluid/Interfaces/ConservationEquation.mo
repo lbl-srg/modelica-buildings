@@ -98,7 +98,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "Mass of fluid";
 
   Modelica.SIunits.PressureDifference dpRel(
-    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+    stateSelect=if (Medium.singleState or massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     then StateSelect.default else StateSelect.prefer) = medium.p-p_start
     "Relative pressure compared to p_start";
 
