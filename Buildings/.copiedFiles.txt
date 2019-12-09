@@ -469,6 +469,8 @@ Buildings/Fluid/FixedResistances/BaseClasses/Validation/package.mo
 Buildings/Fluid/FixedResistances/BaseClasses/Validation/package.order
 Buildings/Fluid/FixedResistances/BaseClasses/package.mo
 Buildings/Fluid/FixedResistances/BaseClasses/package.order
+Buildings/Fluid/FixedResistances/CheckValve.mo
+Buildings/Fluid/FixedResistances/Examples/CheckValve.mo
 Buildings/Fluid/FixedResistances/Examples/FlowJunction.mo
 Buildings/Fluid/FixedResistances/Examples/HydraulicDiameter.mo
 Buildings/Fluid/FixedResistances/Examples/PlugFlowPipe.mo
@@ -1569,6 +1571,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFan.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFanPressureDriven.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFan_noReverseFlow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/BaseClasses/Validation/PlugFlowCore.mos
+Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/CheckValve.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FlowJunction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/HydraulicDiameter.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/PlugFlowPipe.mos
