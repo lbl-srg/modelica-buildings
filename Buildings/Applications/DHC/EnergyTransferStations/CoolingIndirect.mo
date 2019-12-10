@@ -356,6 +356,11 @@ Engineers. (2013). Chapter 5: End User Interface. In
 </html>", revisions="<html>
 <ul>
 <li>
+December 10, 2019 by Kathryn Hinkelman:<br/>
+Updated model to use control valve <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage\">
+TwoWayEqualPercentage</a>.
+</li>
+<li>
 November 1, 2019, by Kathryn Hinkelman:<br/>
 First implementation. </li>
 </ul>

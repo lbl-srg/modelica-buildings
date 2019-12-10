@@ -201,6 +201,10 @@ depending on the total building load.</p>
 </html>", revisions="<html>
 <ul>
 <li>
+December 10, 2019 by Kathryn Hinkelman:<br/>
+Corrected pressure drops.
+</li>
+<li>
 November 1, 2019, by Kathryn Hinkelman:<br/>
 First implementation. 
 </li>
