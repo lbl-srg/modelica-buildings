@@ -122,12 +122,10 @@ void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueR
     }
   }
 
-void stopIfResultsAreNaN(
-  FMUBuilding* bui,
-  const char* modelicaInstanceName, const fmi2ValueReference vr[], const fmi2Real values[], size_t n){
+void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, const fmi2ValueReference vr[], const fmi2Real values[], size_t n){
     size_t i;
     fmi2_import_variable_t* fmiVar;
-    char* varNam;
+    const char* varNam;
     size_t i_nan = -1;
     for(i=0; i < n; i++)
 {
