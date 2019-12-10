@@ -106,7 +106,7 @@ typedef struct FMUOutputVariable
   char* name;      /* Name of this output variable in the idf file */
   char* key;       /* Key of this output variable in the idf file */
 
-  fmi2ValueReference* outValReferences; /* Value references of output variables*/
+  fmi2ValueReference valReference; /* Value references for output variable */
 
   fmi2Byte* outVarName; /* Full name of output variable (used to get value reference). */
 

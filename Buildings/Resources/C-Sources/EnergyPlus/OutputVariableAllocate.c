@@ -113,6 +113,8 @@ void* OutputVariableAllocate(
     (const char*)(outVar->name),
     &(outVar->outVarName));
 
+  outVar->valReference = 0; /* Initialize to zero */
+
   /* *************************************************************************** */
   /* Initialize the pointer for the FMU to which this output variable belongs to */
 

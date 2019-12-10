@@ -88,7 +88,7 @@ void OutputVariableExchange(
   }
 
   /* Get output */
-  getVariables(bui, outVar->modelicaNameOutputVariable, outVar->outValReferences, outputValues, 1);
+  getVariables(bui, outVar->modelicaNameOutputVariable, &(outVar->valReference), outputValues, 1);
 
   /* Get next event time */
   *tNext = bui->time; /* Return start time for next event time */

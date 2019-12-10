@@ -144,75 +144,72 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   fclose(fp);
 }
 
-void setValueReference(
+fmi2ValueReference getValueReference(
   const char* fmuNam,
   const char* inpSrcNam,
   fmi2_import_variable_list_t* varLis,
   const fmi2_value_reference_t varValRef[],
   size_t nVar,
-  fmi2Byte** modNames,
-  const size_t nNam,
-  fmi2ValueReference** modValRef){
+  const fmi2Byte* modName){
 
-  size_t iMod;
   size_t iFMI;
   fmi2_import_variable_t* fmiVar;
   fmi2_value_reference_t vr;
   fmi2_import_variable_t* var;
 
-  for (iMod = 0; iMod < nNam; iMod++){
-    for (iFMI = 0; iFMI < nVar; iFMI++){
-      var = fmi2_import_get_variable(varLis, iFMI);
-      if (strcmp(modNames[iMod], fmi2_import_get_variable_name(var)) == 0){
-        /* Found the variable */
-        (*modValRef)[iMod] = varValRef[iFMI];
-        break;
-      }
+  if (FMU_EP_VERBOSITY >= TIMESTEP)
+      ModelicaFormatMessage("Setting variable reference for %s.", modName);
+
+  for (iFMI = 0; iFMI < nVar; iFMI++){
+    var = fmi2_import_get_variable(varLis, iFMI);
+    if (strcmp(modName, fmi2_import_get_variable_name(var)) == 0){
+      /* Found the variable */
+      if (FMU_EP_VERBOSITY >= TIMESTEP)
+        ModelicaFormatMessage("Setting variable reference for %s to %d.", modName, varValRef[iFMI]);
+      return varValRef[iFMI];
     }
-    if (iFMI == nVar){
-      ModelicaFormatError("Failed to find variable %s in %s. Make sure it exists in %s.", modNames[iMod], fmuNam, inpSrcNam);
-      }
-    }
- }
+  }
+  ModelicaFormatError("Failed to find variable %s in %s. Make sure it exists in %s.", modName, fmuNam, inpSrcNam);
+  return 0; /* We never get here */
+}
 
 void setValueReferences(FMUBuilding* fmuBui){
   size_t i;
-  size_t iZon;
+  size_t iVar;
   size_t vr;
   FMUZone* zone;
+  FMUOutputVariable* outVar;
 
   fmi2_import_variable_list_t* vl = fmi2_import_get_variable_list(fmuBui->fmu, 0);
   const fmi2_value_reference_t* vrl = fmi2_import_get_value_referece_list(vl);
   size_t nv = fmi2_import_get_variable_list_size(vl);
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Setting variable references.");
-  /* Set value references for the parameters by assigning the values obtained from the FMU */
-  for(iZon = 0; iZon < fmuBui->nZon; iZon++){
-    zone = (FMUZone*) fmuBui->zones[iZon];
-    setValueReference(
-      fmuBui->fmuAbsPat,
-      fmuBui->idfName,
-      vl, vrl, nv,
-      zone->parOutVarNames,
-      ZONE_N_PAR_OUT,
-      &(zone->parOutValReferences));
-   setValueReference(
-      fmuBui->fmuAbsPat,
-      fmuBui->idfName,
-      vl, vrl, nv,
-      zone->inpVarNames,
-      ZONE_N_INP,
-      &(zone->inpValReferences));
-   setValueReference(
-     fmuBui->fmuAbsPat,
-     fmuBui->idfName,
-     vl, vrl, nv,
-     zone->outVarNames,
-     ZONE_N_OUT,
-     &(zone->outValReferences));
+    ModelicaFormatMessage("Setting variable references for zones.");
+
+  /* Set value references for the zones by assigning the values obtained from the FMU */
+  for(i = 0; i < fmuBui->nZon; i++){
+    zone = (FMUZone*) fmuBui->zones[i];
+    for(iVar = 0; iVar < ZONE_N_PAR_OUT; iVar++){
+      zone->parOutValReferences[iVar] = getValueReference(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->parOutVarNames[iVar]);
+    }
+    for(iVar = 0; iVar < ZONE_N_INP; iVar++){
+      zone->inpValReferences[iVar] = getValueReference(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->inpVarNames[iVar]);
+    }
+    for(iVar = 0; iVar < ZONE_N_OUT; iVar++){
+      zone->outValReferences[iVar] = getValueReference(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->outVarNames[iVar]);
+    }
   }
+
+  /* Set value references for the output variables by assigning the values obtained from the FMU */
+  for(i = 0; i < fmuBui->nOutputVariables; i++){
+    outVar = (FMUOutputVariable*) fmuBui->outputVariables[i];
+    outVar->valReference = getValueReference(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, outVar->outVarName);
+  }
+
+  /* Free the variable list */
   fmi2_import_free_variable_list(vl);
+
   return;
 }
 
@@ -497,6 +494,9 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
 
   /* Set the value references for all parameters, inputs and outputs */
   setValueReferences(bui);
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("FMU for building %s returns from generateAndInstantiateBuilding.\n", bui->modelicaNameBuilding);
 
   return;
 }

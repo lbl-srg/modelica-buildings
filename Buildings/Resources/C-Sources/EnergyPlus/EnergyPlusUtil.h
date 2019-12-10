@@ -38,7 +38,7 @@ void mallocString(size_t nChar, const char *error_message, char** str);
 
 void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueReference vr[],  fmi2Real values[], size_t n);
 
-void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueReference vr[], fmi2Real values[], size_t n);
+void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, const fmi2ValueReference *vr, fmi2Real *values, size_t n);
 
 double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName);
 

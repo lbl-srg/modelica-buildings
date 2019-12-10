@@ -124,7 +124,7 @@ void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueR
 
 void stopIfResultsAreNaN(
   FMUBuilding* bui,
-  const char* modelicaObjectName, fmi2ValueReference vr[], fmi2Real values[], size_t n){
+  const char* modelicaInstanceName, const fmi2ValueReference vr[], const fmi2Real values[], size_t n){
     size_t i;
     fmi2_import_variable_t* fmiVar;
     char* varNam;
@@ -141,7 +141,7 @@ void stopIfResultsAreNaN(
       fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i]);
       varNam = fmi2_import_get_variable_name(fmiVar);
       if (isnan(values[i])){
-        ModelicaFormatMessage("Received nan from EnergyPlus for %s at time = %.2f:\n", modelicaObjectName, bui->time);
+        ModelicaFormatMessage("Received nan from EnergyPlus for %s at time = %.2f:\n", modelicaInstanceName, bui->time);
       }
       ModelicaFormatMessage("  %s = %.2f\n", varNam, values[i]);
     }
@@ -150,19 +150,19 @@ void stopIfResultsAreNaN(
   }
 }
 
-void getVariables(FMUBuilding* bui, const char* modelicaObjectName, fmi2ValueReference vr[], fmi2Real values[], size_t n)
+void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, const fmi2ValueReference *vr, fmi2Real *values, size_t n)
 {
   fmi2_status_t status;
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for object %s, mode = %s.\n",
-      modelicaObjectName, fmuModeToString(bui->mode));
+      modelicaInstanceName, fmuModeToString(bui->mode));
   status = fmi2_import_get_real(bui->fmu, vr, n, values);
   if (status != fmi2OK) {
     ModelicaFormatError("Failed to get variables for building in FMU for %s, object %s\n",
     bui->modelicaNameBuilding,
-    modelicaObjectName);
+    modelicaInstanceName);
   }
-  stopIfResultsAreNaN(bui, modelicaObjectName, vr, values, n);
+  stopIfResultsAreNaN(bui, modelicaInstanceName, vr, values, n);
 }
 
 
