@@ -23,16 +23,14 @@ block FailsafeCondition
   parameter Modelica.SIunits.PressureDifference dpDifHys = 0.5 * 6895
     "Pressure difference hysteresis deadband";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrUp(
-    final unit="1")
-    "Operating part load ratio of the next higher stage"
-    annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeUp(final unit="1")
+    "Operating part load ratio of the next higher stage" annotation (Placement(
+        transformation(extent={{-180,80},{-140,120}}), iconTransformation(
+          extent={{-140,60},{-100,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrUpMin(
-    final unit="1")
-    "Minimum operating part load ratio at the next stage up"
-    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeUpMin(final unit="1")
+    "Minimum operating part load ratio at the next stage up" annotation (
+      Placement(transformation(extent={{-180,40},{-140,80}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
@@ -68,9 +66,8 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
-    final uLow=0,
-    final uHigh=hysSig)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpe(final uLow=0, final
+      uHigh=hysSig)
     "Checks if the operating part load ratio of the next stage up exceeds the required minimum"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
@@ -120,8 +117,8 @@ protected
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 equation
-  connect(hysOplr.y, and2.u1) annotation (Line(points={{-38,90},{0,90},{0,20},{50,
-          20},{50,0},{58,0}},     color={255,0,255}));
+  connect(hysOpe.y, and2.u1) annotation (Line(points={{-38,90},{0,90},{0,20},{
+          50,20},{50,0},{58,0}}, color={255,0,255}));
   connect(add1.y, hysdpSup.u)
     annotation (Line(points={{-78,-90},{-62,-90}}, color={0,0,127}));
   connect(dpChiWatPumSet, add1.u1) annotation (Line(points={{-160,-80},{-120,-80},
@@ -136,11 +133,11 @@ equation
           -4},{-102,-4}}, color={0,0,127}));
   connect(TChiWatSup, add0.u2) annotation (Line(points={{-160,-40},{-120,-40},{-120,
           -16},{-102,-16}}, color={0,0,127}));
-  connect(add2.y, hysOplr.u)
+  connect(add2.y, hysOpe.u)
     annotation (Line(points={{-78,90},{-62,90}}, color={0,0,127}));
-  connect(uOplrUp, add2.u1) annotation (Line(points={{-160,100},{-120,100},{-120,
+  connect(uOpeUp, add2.u1) annotation (Line(points={{-160,100},{-120,100},{-120,
           96},{-102,96}}, color={0,0,127}));
-  connect(uOplrUpMin, add2.u2) annotation (Line(points={{-160,60},{-120,60},{-120,
+  connect(uOpeUpMin, add2.u2) annotation (Line(points={{-160,60},{-120,60},{-120,
           84},{-102,84}}, color={0,0,127}));
   connect(hysdpSup.y, or1.u2) annotation (Line(points={{-38,-90},{0,-90},{0,-18},
           {18,-18}}, color={255,0,255}));

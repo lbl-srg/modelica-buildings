@@ -23,28 +23,24 @@ block Down "Stage down conditions"
     annotation (Placement(transformation(extent={{-180,-200},{-140,-160}}),
         iconTransformation(extent={{-120,-110},{-100,-90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplr(final unit="1")
-    "Operating part load ratio of the current stage"
-    annotation (Placement(
-        transformation(extent={{-180,90},{-140,130}}), iconTransformation(
-          extent={{-120,70},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(final unit="1")
+    "Operating PLR of the current stage" annotation (Placement(transformation(
+          extent={{-180,90},{-140,130}}), iconTransformation(extent={{-120,70},
+            {-100,90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrMin(final unit="1")
-    "Minimum operating part load ratio at the current stage"
-    annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeMin(final unit="1")
+    "Minimum operating part load ratio at the current stage" annotation (
       Placement(transformation(extent={{-180,60},{-140,100}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplrDow(final unit="1")
-    "Operating part load ratio of the next stage down"
-    annotation (Placement(
-        transformation(extent={{-180,170},{-140,210}}),
-        iconTransformation(extent={{-120,110},{-100,130}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeDow(final unit="1")
+    "Operating PLR of the next available stage down" annotation (Placement(
+        transformation(extent={{-180,170},{-140,210}}), iconTransformation(
+          extent={{-120,110},{-100,130}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSplrDow(final unit="1")
-    "Staging part load ratio of the next stage down"
-    annotation (Placement(transformation(extent={{-180,130},{-140,170}}),
-      iconTransformation(extent={{-120,90},{-100,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaDow(final unit="1")
+    "Staging down PLR" annotation (Placement(transformation(extent={{-180,130},
+            {-140,170}}), iconTransformation(extent={{-120,90},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
@@ -146,10 +142,9 @@ block Down "Stage down conditions"
     "Delays a true signal"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
-    final uLow=-0.05,
-    final uHigh=0)
-    "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysDow(final uLow=-0.05,
+      final uHigh=0)
+    "Checks if the operating PLR of the next available stage down exceeds the staging down PLR for that stage"
     annotation (Placement(transformation(extent={{-40,160},{-20,180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add(
@@ -171,12 +166,10 @@ equation
     annotation (Line(points={{150,0},{122,0}},color={255,0,255}));
   connect(add0.y,hysTSup. u)
     annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
-  connect(uOplr, faiSafCon.uOplrUp) annotation (Line(points={{-160,110},{-100,
-          110},{-100,38},{-82,38}},
-                               color={0,0,127}));
-  connect(uOplrMin, faiSafCon.uOplrUpMin) annotation (Line(points={{-160,80},{
-          -110,80},{-110,35},{-82,35}},
-                                   color={0,0,127}));
+  connect(uOpe, faiSafCon.uOpeUp) annotation (Line(points={{-160,110},{-100,110},
+          {-100,38},{-82,38}}, color={0,0,127}));
+  connect(uOpeMin, faiSafCon.uOpeUpMin) annotation (Line(points={{-160,80},{-110,
+          80},{-110,35},{-82,35}}, color={0,0,127}));
   connect(TChiWatSup, faiSafCon.TChiWatSup) annotation (Line(points={{-160,-30},
           {-110,-30},{-110,28},{-82,28}},  color={0,0,127}));
   connect(TChiWatSupSet, add0.u2) annotation (Line(points={{-160,-90},{-110,-90},
@@ -192,10 +185,10 @@ equation
           {18,-88}}, color={255,0,255}));
   connect(hysTSup.y, and1.u1) annotation (Line(points={{-18,-80},{-10,-80},{-10,
           -72},{18,-72}}, color={255,0,255}));
-  connect(uSplrDow, add.u2) annotation (Line(points={{-160,150},{-132,150},{-132,
-          164},{-82,164}},       color={0,0,127}));
-  connect(uOplrDow, add.u1) annotation (Line(points={{-160,190},{-132,190},{-132,
-          176},{-82,176}},       color={0,0,127}));
+  connect(uStaDow, add.u2) annotation (Line(points={{-160,150},{-132,150},{-132,
+          164},{-82,164}}, color={0,0,127}));
+  connect(uOpeDow, add.u1) annotation (Line(points={{-160,190},{-132,190},{-132,
+          176},{-82,176}}, color={0,0,127}));
   connect(faiSafCon.y, not1.u)
     annotation (Line(points={{-58,30},{-42,30}}, color={255,0,255}));
   connect(not1.y, and0.u2) annotation (Line(points={{-18,30},{0,30},{0,62},{18,
@@ -210,13 +203,13 @@ equation
   connect(truDel.y, logSwi.u3) annotation (Line(points={{72,-80},{90,-80},{90,
           -8},{98,-8}},
                     color={255,0,255}));
-  connect(add.y, hysOplr.u)
+  connect(add.y, hysDow.u)
     annotation (Line(points={{-58,170},{-42,170}}, color={0,0,127}));
   connect(and0.y, truDel1.u) annotation (Line(points={{42,70},{50,70},{50,30},{
           58,30}}, color={255,0,255}));
   connect(truDel1.y, logSwi.u1) annotation (Line(points={{82,30},{90,30},{90,8},
           {98,8}}, color={255,0,255}));
-  connect(hysOplr.y, and0.u1) annotation (Line(points={{-18,170},{0,170},{0,70},
+  connect(hysDow.y, and0.u1) annotation (Line(points={{-18,170},{0,170},{0,70},
           {18,70}}, color={255,0,255}));
   annotation (defaultComponentName = "staDow",
         Icon(graphics={

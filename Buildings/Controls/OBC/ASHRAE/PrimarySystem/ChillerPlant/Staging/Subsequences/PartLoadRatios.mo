@@ -55,7 +55,7 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapDes(
     final unit="W",
     final quantity="Power")
-    "Design capacity of the next higher stage"
+    "Design capacity of the next available stage up"
     annotation (Placement(transformation(extent={{-380,-180},{-340,-140}}),
         iconTransformation(extent={{-120,80},{-100,100}})));
 
@@ -76,14 +76,14 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uUpCapMin(
     final unit="W",
     final quantity="Power")
-    "Minimal capacity of the next higher stage"
+    "Minimal capacity of the next available stage up"
     annotation (Placement(transformation(extent={{-380,-300},{-340,-260}}),
         iconTransformation(extent={{-120,20},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDowCapDes(
     final unit="W",
     final quantity="Power")
-    "Design capacity of the next lower stage"
+    "Design capacity of next available stage down"
     annotation (Placement(transformation(extent={{-380,-120},{-340,-80}}),
         iconTransformation(extent={{-120,60},{-100,80}})));
 
@@ -162,14 +162,13 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(
     final unit="1",
     final min=0)
-    "Minimum operating part load ratio at the next stage up"
+    "Minimum operating part load ratio of the next available stage up"
     annotation (Placement(transformation(extent={{340,-250},{360,-230}}),
     iconTransformation(extent={{100,-80},{120,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
     "Calculates operating part load ratio at the current stage"
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
-
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extCurTyp(
     final nin=nSta,
@@ -324,18 +323,19 @@ block PartLoadRatios
     "Calculates minimum OPLR of the current stage"
     annotation (Placement(transformation(extent={{-240,-240},{-220,-220}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3 "Integer equal"
     annotation (Placement(transformation(extent={{20,240},{40,260}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nSta]
+    "Type conversion"
     annotation (Placement(transformation(extent={{-300,290},{-280,310}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4
+  Buildings.Controls.OBC.CDL.Logical.Switch swi4 "Switch"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const5(
     final k=1)
-    "If staging from 1 to 0 staging down part load ratio is 1"
+    "If staging down to stage 0 set staging down part load to 1"
     annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
@@ -370,8 +370,9 @@ block PartLoadRatios
     final k=varSpeStaMin) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{120,-420},{140,-400}})));
 
-  CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{260,260},{280,280}})));
+
 equation
   connect(uCapReq, opePlrSta.u1) annotation (Line(points={{-360,0},{-260,0},{-260,
           -44},{-242,-44}}, color={0,0,127}));
