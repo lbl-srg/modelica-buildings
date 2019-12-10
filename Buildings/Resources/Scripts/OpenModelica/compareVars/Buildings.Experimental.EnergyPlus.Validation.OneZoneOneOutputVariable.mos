@@ -1,6 +1,5 @@
 compareVars :=
   {
     "zon.TAir",
-    "zon.V",
-    "zon.AFlo"
+    "equEle.y"
   };
