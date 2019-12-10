@@ -126,25 +126,6 @@ model CoolingDirectControlledReturn
     "Setpoint temperature for district return"
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}})));
 
-  Buildings.Controls.Continuous.LimPID con(
-    final controllerType=controllerType,
-    final k=k,
-    final Td=Td,
-    final yMax=yMax,
-    final yMin=yMin,
-    final Ti=Ti,
-    final wp=wp,
-    final wd=wd,
-    final Ni=Ni,
-    final Nd=Nd,
-    final initType=initType,
-    final xi_start=xi_start,
-    final xd_start=xd_start,
-    final y_start=0,
-    final reverseAction=reverseAction)
-    "Controller"
-    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
-
   Buildings.Fluid.FixedResistances.PressureDrop pipSup(
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
@@ -163,7 +144,6 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.PressureDrop pipByp(
     redeclare final package Medium = Medium,
-    allowFlowReversal=false,
     final m_flow_nominal=mByp_flow_nominal,
     final dp_nominal=dpByp_nominal)
     "Bypass pipe"
@@ -231,6 +211,15 @@ model CoolingDirectControlledReturn
     "Measured energy consumption at the ETS"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
+  Modelica.Blocks.Logical.LessThreshold TDisRet_min(threshold=273.15 + 16)
+    "Minimum district return temperature"
+    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
+  Modelica.Blocks.Logical.Switch swi "Control valve switch"
+    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
+  Modelica.Blocks.Sources.Constant clo(k=0) "Closed valve"
+    annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
+  Modelica.Blocks.Sources.Constant ope(k=1) "Open valve"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 protected
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -261,10 +250,6 @@ equation
     annotation (Line(points={{30,50},{30,10},{30,10}}, color={0,127,255}));
   connect(pipByp.port_a, val.port_3)
     annotation (Line(points={{30,-10},{30,-50}}, color={0,127,255}));
-  connect(TSetDisRet, con.u_s)
-    annotation (Line(points={{-120,-100},{-22,-100}}, color={0,0,127}));
-  connect(con.y, val.y)
-     annotation (Line(points={{1,-100},{30,-100},{30,-72}},color={0,0,127}));
   connect(val.port_1, senTBuiRet.port_b)
     annotation (Line(points={{40,-60},{60,-60}}, color={0,127,255}));
   connect(senTBuiRet.port_a, port_a2)
@@ -285,9 +270,17 @@ equation
     annotation (Line(points={{-80,71},{-80,122},{-50,122}}, color={0,0,127}));
   connect(senTDisRet.T, dTDis.u2)
     annotation (Line(points={{-60,-49},{-60,110},{-50,110}}, color={0,0,127}));
-  connect(senTBuiRet.T, con.u_m)
-     annotation (Line(points={{70,-49},{70,-40},{50,-40},{50,-120},{-10,-120},{-10,-112}}, color={0,0,127}));
 
+  connect(senTDisRet.T, TDisRet_min.u) annotation (Line(points={{-60,-49},{-60,
+          -40},{-80,-40},{-80,-130},{-62,-130}}, color={0,0,127}));
+  connect(swi.y, val.y)
+    annotation (Line(points={{21,-130},{30,-130},{30,-72}}, color={0,0,127}));
+  connect(ope.y, swi.u1) annotation (Line(points={{-39,-100},{-20,-100},{-20,
+          -122},{-2,-122}}, color={0,0,127}));
+  connect(clo.y, swi.u3) annotation (Line(points={{-39,-170},{-20,-170},{-20,
+          -138},{-2,-138}}, color={0,0,127}));
+  connect(TDisRet_min.y, swi.u2)
+    annotation (Line(points={{-39,-130},{-2,-130}}, color={255,0,255}));
   annotation (defaultComponentName="coo",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -335,7 +328,7 @@ equation
           pattern=LinePattern.None),
         Rectangle(extent={{-8,52},{8,-52}}, lineColor={0,0,0})}),
                                Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-140},{100,160}})),
+            false, extent={{-100,-200},{100,160}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
