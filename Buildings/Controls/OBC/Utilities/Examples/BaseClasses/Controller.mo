@@ -252,18 +252,18 @@ block Controller
     annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc
     "Time to next occupied period"
-    annotation (Placement(transformation(extent={{-240,180},{-200,220}}),
-        iconTransformation(extent={{-240,180},{-200,220}})));
+    annotation (Placement(transformation(extent={{-240,210},{-200,250}}),
+        iconTransformation(extent={{-240,200},{-200,240}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured zone temperatures"
-    annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
-        iconTransformation(extent={{-240,140},{-200,180}})));
+    annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
+        iconTransformation(extent={{-240,110},{-200,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Current occupancy period, true if it is in occupant period"
-    annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
-        iconTransformation(extent={{-240,100},{-200,140}})));
+    annotation (Placement(transformation(extent={{-240,90},{-200,130}}),
+        iconTransformation(extent={{-240,80},{-200,120}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply
     setPoiVAV(
     final TSupSetMax=TSupSetMax,
@@ -331,27 +331,27 @@ block Controller
       quantity="ThermodynamicTemperature")
     "Economizer high limit cutoff. Fixed dry bulb or differential dry bulb temeprature"
     annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
-        iconTransformation(extent={{-240,60},{-200,100}})));
+        iconTransformation(extent={{-240,50},{-200,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
-        iconTransformation(extent={{-240,20},{-200,60}})));
+        iconTransformation(extent={{-240,10},{-200,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
     final unit="K",
     final quantity = "ThermodynamicTemperature") if use_TMix
     "Measured mixed air temperature, used for freeze protection if use_TMix is true"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
-        iconTransformation(extent={{-240,-20},{-200,20}})));
+        iconTransformation(extent={{-240,-30},{-200,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
        have_occSen "Number of occupants"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
-        iconTransformation(extent={{-240,-60},{-200,-20}})));
+        iconTransformation(extent={{-240,-70},{-200,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-        iconTransformation(extent={{-240,-100},{-200,-60}})));
+        iconTransformation(extent={{-240,-110},{-200,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(
     final unit="K",
     final quantity = "ThermodynamicTemperature")
@@ -399,8 +399,8 @@ block Controller
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Outside air temperature"
-    annotation (Placement(transformation(extent={{-240,220},{-200,260}}),
-        iconTransformation(extent={{-240,220},{-200,260}})));
+    annotation (Placement(transformation(extent={{-240,240},{-200,280}}),
+        iconTransformation(extent={{-240,230},{-200,270}})));
   ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState zonSta "Zone state"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
   CDL.Integers.Sources.Constant conInt(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
@@ -414,17 +414,17 @@ block Controller
   CDL.Interfaces.IntegerInput uFreProSta if use_G36FrePro
    "Freeze protection status, used if use_G36FrePro=true" annotation (
      Placement(transformation(extent={{-240,-260},{-200,-220}}),
-        iconTransformation(extent={{-240,-260},{-200,-220}})));
+        iconTransformation(extent={{-240,-270},{-200,-230}})));
   CDL.Interfaces.RealInput hOut(
     final unit="J/kg",
     final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-        iconTransformation(extent={{-240,-140},{-200,-100}})));
+        iconTransformation(extent={{-240,-150},{-200,-110}})));
   CDL.Interfaces.RealInput hCut(final unit="J/kg", final quantity="SpecificEnergy") if
        use_enthalpy
     "Economizer enthalpy high limit cutoff. Fixed enthalpy or differential enthalpy"
     annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
-        iconTransformation(extent={{-240,-180},{-200,-140}})));
+        iconTransformation(extent={{-240,-190},{-200,-150}})));
   CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
@@ -453,17 +453,22 @@ block Controller
        use_fixed_plus_differential_drybulb
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
-        iconTransformation(extent={{-240,-220},{-200,-180}})));
+        iconTransformation(extent={{-240,-230},{-200,-190}})));
   ASHRAE.G36_PR1.AHUs.SingleZone.VAV.CoolingCoil cooCoi(controllerTypeCooCoi=
         controllerTypeCooCoi, kCooCoi=kCooCoi)
     "Controller for cooling coil valve"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
+  CDL.Interfaces.RealInput tWarUp "Warm up time" annotation (Placement(
+        transformation(extent={{-240,180},{-200,220}}), iconTransformation(
+          extent={{-240,170},{-200,210}})));
+  CDL.Interfaces.RealInput tCooDow "Cool down time" annotation (Placement(
+        transformation(extent={{-240,150},{-200,190}}), iconTransformation(
+          extent={{-240,140},{-200,180}})));
 equation
-  connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-181,198},{-200,
-          198},{-200,200},{-220,200}},      color={0,0,127}));
-  connect(ave.y, setPoiVAV.TZonSet) annotation (Line(points={{-78,190},{-14,
-          190},{-14,191.667},{38,191.667}},
-                                       color={0,0,127}));
+  connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-181,198},{-188,
+          198},{-188,230},{-220,230}},      color={0,0,127}));
+  connect(ave.y, setPoiVAV.TZonSet) annotation (Line(points={{-78,190},{-14,190},
+          {-14,191.667},{38,191.667}}, color={0,0,127}));
   connect(TCut, conEco.TCut) annotation (Line(points={{-220,80},{-90,80},{-90,
           -30.2},{117,-30.2}},
                       color={0,0,127}));
@@ -492,7 +497,7 @@ equation
   connect(conEco.VOutMinSet_flow, outAirSetPoi.VOutMinSet_flow) annotation (
       Line(points={{117,-39.6},{108,-39.6},{108,50},{62,50}},
                                                        color={0,0,127}));
-  connect(TOut, setPoiVAV.TOut) annotation (Line(points={{-220,240},{10,240},{
+  connect(TOut, setPoiVAV.TOut) annotation (Line(points={{-220,260},{10,260},{
           10,185},{38,185}}, color={0,0,127}));
   connect(conEco.TOut, setPoiVAV.TOut) annotation (Line(points={{117,-28.6},{10,
           -28.6},{10,185},{38,185}},
@@ -515,13 +520,13 @@ equation
   connect(outAirSetPoi.uWin, uWin) annotation (Line(points={{38,54},{8,54},{8,-80},
           {-220,-80}},      color={255,0,255}));
   connect(modSetPoi.uOcc, uOcc) annotation (Line(points={{-181,186.025},{-184,
-          186.025},{-184,120},{-220,120}}, color={255,0,255}));
-  connect(TZon, modSetPoi.TZon) annotation (Line(points={{-220,160},{-198,160},
-          {-198,195},{-181,195}}, color={0,0,127}));
-  connect(TZon, cooPI.u_m) annotation (Line(points={{-220,160},{-180,160},{-180,
+          186.025},{-184,110},{-220,110}}, color={255,0,255}));
+  connect(TZon, modSetPoi.TZon) annotation (Line(points={{-220,140},{-188,140},
+          {-188,196},{-181,196}}, color={0,0,127}));
+  connect(TZon, cooPI.u_m) annotation (Line(points={{-220,140},{-180,140},{-180,
           132},{-38,132},{-38,148}}, color={0,0,127}));
-  connect(setPoiVAV.TZon, cooPI.u_m) annotation (Line(points={{38,188.333},
-          {4,188.333},{4,132},{-38,132},{-38,148}},
+  connect(setPoiVAV.TZon, cooPI.u_m) annotation (Line(points={{38,188.333},{4,
+          188.333},{4,132},{-38,132},{-38,148}},
                                         color={0,0,127}));
   connect(outAirSetPoi.TZon, cooPI.u_m)   annotation (Line(points={{38,50},{-38,
           50},{-38,148}},                                                                       color={0,0,127}));
@@ -564,8 +569,8 @@ equation
   connect(switch.y, setPoiVAV.uFan) annotation (Line(points={{-58,-230},{28,
           -230},{28,181.667},{38,181.667}},
                               color={255,0,255}));
-  connect(heaPI.y, setPoiVAV.uHea) annotation (Line(points={{-26,210},{-12,
-          210},{-12,198.333},{38,198.333}},
+  connect(heaPI.y, setPoiVAV.uHea) annotation (Line(points={{-26,210},{-12,210},
+          {-12,198.333},{38,198.333}},
                                color={0,0,127}));
   connect(heaPI.y, zonSta.uHea) annotation (Line(points={{-26,210},{-12,210},{
           -12,144},{38,144}},
@@ -581,7 +586,7 @@ equation
           {-46,148}}, color={255,0,255}));
   connect(modSetPoi.TZonCooSet, TZonCooSet) annotation (Line(points={{-159,197},
           {-114,197},{-114,108},{120,108},{120,0},{210,0}}, color={0,0,127}));
-  connect(TZon, heaPI.u_m) annotation (Line(points={{-220,160},{-126,160},{-126,
+  connect(TZon, heaPI.u_m) annotation (Line(points={{-220,140},{-126,140},{-126,
           178},{-38,178},{-38,198}}, color={0,0,127}));
   connect(intEqu.u1, modSetPoi.yOpeMod) annotation (Line(points={{-112,-230},{
           -120,-230},{-120,-60},{-152,-60},{-152,187},{-159,187}}, color={255,
@@ -589,6 +594,10 @@ equation
   connect(outAirSetPoi.uOpeMod, modSetPoi.yOpeMod) annotation (Line(points={{38,
           41},{34,41},{34,30},{-152,30},{-152,187},{-159,187}}, color={255,127,
           0}));
+  connect(tWarUp, modSetPoi.tWarUp) annotation (Line(points={{-220,200},{-194,
+          200},{-194,190},{-181,190}}, color={0,0,127}));
+  connect(tCooDow, modSetPoi.tCooDow) annotation (Line(points={{-220,170},{-194,
+          170},{-194,188},{-181,188}}, color={0,0,127}));
   annotation (defaultComponentName="conVAV",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,
             260}}),
@@ -602,79 +611,79 @@ equation
           textString="%name",
           lineColor={0,0,255}),
         Text(
-          extent={{-192,262},{-138,224}},
+          extent={{-192,268},{-138,230}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TOut"),
         Text(
-          extent={{-194,218},{-140,180}},
+          extent={{-194,240},{-140,202}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="tNexOcc"),
         Text(
-          extent={{-192,180},{-138,142}},
+          extent={{-192,154},{-138,116}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
-          extent={{-192,140},{-138,102}},
+          extent={{-192,126},{-138,88}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uOcc"),
         Text(
-          extent={{-192,102},{-138,64}},
+          extent={{-194,90},{-140,52}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TCut"),
         Text(
-          extent={{-192,62},{-138,24}},
+          extent={{-192,48},{-138,10}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSup"),
         Text(
-          extent={{-192,20},{-138,-18}},
+          extent={{-192,10},{-138,-28}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TMix"),
         Text(
-          extent={{-192,-56},{-138,-18}},
+          extent={{-192,-66},{-138,-28}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="nOcc"),
         Text(
-          extent={{-192,-58},{-138,-96}},
+          extent={{-192,-70},{-138,-108}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uWin"),
         Text(
-          extent={{-192,-136},{-138,-174}},
+          extent={{-192,-150},{-138,-188}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="hCut"),
         Text(
-          extent={{-192,-98},{-138,-136}},
+          extent={{-192,-110},{-138,-148}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="hOut"),
         Text(
-          extent={{-192,-180},{-138,-218}},
+          extent={{-192,-192},{-138,-230}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TRet"),
         Text(
-          extent={{-192,-218},{-138,-256}},
+          extent={{-192,-228},{-138,-266}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -732,7 +741,19 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yRetDamPos")}),
+          textString="yRetDamPos"),
+        Text(
+          extent={{-194,212},{-140,174}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="tWarUp"),
+        Text(
+          extent={{-192,182},{-138,144}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="tCooDow")}),
           Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-200,-260},{200,260}})),
 Documentation(info="<html>

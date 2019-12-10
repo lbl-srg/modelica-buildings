@@ -15,7 +15,7 @@ model SingleZoneFloor
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(weaDat.weaBus, singleZoneFloor.weaBus) annotation (Line(
-      points={{-60,10},{-40,10},{-40,48.4},{-15.8,48.4}},
+      points={{-60,10},{-40,10},{-40,52.6},{-13,52.6}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, floor.weaBus) annotation (Line(

@@ -54,8 +54,8 @@ equation
   connect(occSch.tNexOcc, add1.u1) annotation (Line(points={{-79,76},{-66,76},
           {-66,56},{-62,56}},
                          color={0,0,127}));
-  connect(optStaHea.tOpt, add1.u2) annotation (Line(points={{-78,34},{-66,34},
-          {-66,44},{-62,44}},
+  connect(optStaHea.tOpt, add1.u2) annotation (Line(points={{-78,30},{-66,30},{
+          -66,44},{-62,44}},
                          color={0,0,127}));
   connect(add1.y, hys1.u) annotation (Line(points={{-38,50},{-32,50}}, color={0,0,127}));
   connect(hys1.y, booToRea.u)  annotation (Line(points={{-8,50},{-2,50}}, color={255,0,255}));

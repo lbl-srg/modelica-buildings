@@ -7,7 +7,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
   parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Volume VRoo = 568.77*2 + 360.0785*2 + 2698 "Room volum";
+  parameter Modelica.SIunits.Volume VRoo = 4555.7  "Room volum";
   parameter Modelica.SIunits.Height hRoo = 2.74 "Room height";
   parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
   parameter Real winWalRat(min=0.01,max=0.99) = 0.33 "Window to wall ratio for exterior walls";
@@ -115,9 +115,8 @@ model SingleZoneFloor "Model of a building floor as a single zone"
     annotation (Placement(transformation(extent={{-16,-56},{24,-16}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAir
     "Air temperature sensor"
-    annotation (Placement(transformation(extent={{82,30},{102,50}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium
-      =                                                                         Medium)
+    annotation (Placement(transformation(extent={{82,50},{102,70}})));
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     "Building pressure measurement"
     annotation (Placement(transformation(extent={{-60,-16},{-80,4}})));
   Buildings.Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
@@ -125,18 +124,18 @@ model SingleZoneFloor "Model of a building floor as a single zone"
   Modelica.Fluid.Interfaces.FluidPort_a supplyAir(redeclare final package
       Medium = Medium) "Supply air"
     annotation (Placement(transformation(extent={{-210,10},{-190,30}}),
-        iconTransformation(extent={{-210,10},{-190,30}})));
+        iconTransformation(extent={{-134,-96},{-114,-76}})));
   Modelica.Fluid.Interfaces.FluidPort_b returnAir(redeclare final package
       Medium = Medium) "Return air"
     annotation (Placement(transformation(extent={{-210,-30},{-190,-10}}),
-        iconTransformation(extent={{-210,-30},{-190,-10}})));
+        iconTransformation(extent={{-134,-136},{-114,-116}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-174,78},{-158,94}}),
-        iconTransformation(extent={{-148,172},{-132,188}})));
+        iconTransformation(extent={{-98,162},{-82,178}})));
   Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperature"
     annotation (Placement(transformation(extent={{200,50},{220,70}}),
-        iconTransformation(extent={{200,50},{220,70}})));
+        iconTransformation(extent={{160,92},{180,112}})));
   Buildings.Examples.VAVReheat.ThermalZones.RoomLeakage leaSou(
     redeclare package Medium = Medium,
     VRoo=568.77,
@@ -172,7 +171,7 @@ model SingleZoneFloor "Model of a building floor as a single zone"
   Modelica.Blocks.Interfaces.RealOutput p_rel
     "Relative pressure signal of building static pressure" annotation (
       Placement(transformation(extent={{200,-70},{220,-50}}),
-        iconTransformation(extent={{200,-50},{220,-30}})));
+        iconTransformation(extent={{160,-110},{180,-90}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
     table=[0,0.05; 8,0.05; 9,0.9; 12,0.9; 12,0.8; 13,0.8; 13,1; 17,1; 19,0.1;
         24,0.05],
@@ -204,7 +203,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(flo.heaPorAir, temAir.port) annotation (Line(
-      points={{3,-36},{40,-36},{40,40},{82,40}},
+      points={{3,-36},{40,-36},{40,60},{82,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(out.weaBus, weaBus) annotation (Line(
@@ -220,8 +219,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(temAir.T, TRooAir) annotation (Line(points={{102,40},{160,40},{160,60},
-          {210,60}},color={0,0,127}));
+  connect(temAir.T, TRooAir) annotation (Line(points={{102,60},{210,60}},
+                    color={0,0,127}));
   connect(supplyAir, flo.ports[1]) annotation (Line(points={{-200,20},{-176,20},
           {-176,-44},{-44,-44},{-44,-49.4286},{-11,-49.4286}},
                                color={0,127,255}));

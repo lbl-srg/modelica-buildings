@@ -1,12 +1,18 @@
 within Buildings.Controls.OBC.Utilities.Examples;
 model OptimalStartG36
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop(      weaDat(filNam=
-          ModelicaServices.ExternalReferences.loadResource(
-          "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")));
+  package MediumA = Buildings.Media.Air "Buildings library air media package";
+  package MediumW = Buildings.Media.Water "Buildings library air media package";
   parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
+  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude of the site location";
+  parameter Modelica.SIunits.Volume VRoo = 4555.7 "Space volume of the floor";
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = VRoo*4.2*1.2/3600
+    "Design air flow rate";
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal = mAir_flow_nominal*1006*(16.7 - 8.5)
+    "Design heating flow rate";
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal = -QHea_flow_nominal
+    "Design cooling flow rate";
   Buildings.Controls.OBC.Utilities.Examples.BaseClasses.Controller controller(
     controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     kCoo=1,
@@ -23,91 +29,156 @@ model OptimalStartG36
     TSupSetMax=323.15,
     TSupSetMin=285.15)
     "VAV controller"
-    annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
+    annotation (Placement(transformation(extent={{-60,-8},{-20,40}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
     uLow=-1,
     uHigh=0)
     "Hysteresis with delay to switch on cooling"
-    annotation (Placement(transformation(extent={{-72,-120},{-52,-100}})));
+    annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
   Modelica.Blocks.Math.Feedback errTRooCoo
     "Control error on room temperature for cooling"
-    annotation (Placement(transformation(extent={{-110,-120},{-90,-100}})));
+    annotation (Placement(transformation(extent={{-78,-90},{-58,-70}})));
   Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
-    annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
+    annotation (Placement(transformation(extent={{-132,60},{-112,80}})));
   Modelica.Blocks.Sources.BooleanConstant uWin(k=false) "Window opening signal"
-    annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
-  Modelica.Blocks.Math.BooleanToReal occPer "Conversion to number of occupants"
-    annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
-  Modelica.Blocks.Math.Gain ppl(k=2) "Gain for number of occupants"
-    annotation (Placement(transformation(extent={{-154,-86},{-142,-74}})));
+    annotation (Placement(transformation(extent={{-132,-60},{-112,-40}})));
+  BaseClasses.SingleZoneFloor singleZoneFloor(
+    redeclare package Medium = MediumA, lat=lat)
+    annotation (Placement(transformation(extent={{104,4},{144,44}})));
+  Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
+    redeclare package MediumA = MediumA,
+    redeclare package MediumW = MediumW,
+    mAir_flow_nominal=mAir_flow_nominal,
+    etaHea_nominal=0.99,
+    QHea_flow_nominal=QHea_flow_nominal,
+    QCoo_flow_nominal=QCoo_flow_nominal,
+    TSupChi_nominal=TSupChi_nominal)
+    annotation (Placement(transformation(extent={{20,0},{60,40}})));
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    "Weather data"
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{-10,48},{30,88}}),   iconTransformation(extent=
+            {{-250,-2},{-230,18}})));
+  Buildings.Controls.OBC.Utilities.OptimalStart optStaCoo(cooling_only=true)
+    annotation (Placement(transformation(extent={{-132,-20},{-112,0}})));
+  Buildings.Controls.OBC.Utilities.OptimalStart optStaHea(heating_only=true)
+    annotation (Placement(transformation(extent={{-132,20},{-112,40}})));
+  Modelica.Blocks.Sources.Constant TSetHeaOn(k=20 + 273.15)
+    "Zone heating setpoint during occupied period"
+    annotation (Placement(transformation(extent={{-192,30},{-172,50}})));
+  Modelica.Blocks.Sources.Constant TSetCooOn(k=24 + 273.15)
+    "Zone cooling setpoint during occupied time"
+    annotation (Placement(transformation(extent={{-192,-30},{-172,-10}})));
 protected
   Modelica.Blocks.Sources.Constant TSetSupChiConst(final k=TSupChi_nominal)
     "Set point for chiller temperature"
-    annotation (Placement(transformation(extent={{-72,-80},{-52,-60}})));
+    annotation (Placement(transformation(extent={{-52,-50},{-32,-30}})));
 equation
-  connect(controller.yFan, hvac.uFan) annotation (Line(points={{-79,7.07692},{
-          -62,7.07692},{-62,18},{-42,18}},
+  connect(controller.yFan, hvac.uFan) annotation (Line(points={{-19,27.0769},{
+          -4,27.0769},{-4,38},{18,38}},
                               color={0,0,127}));
-  connect(controller.yHeaCoi, hvac.uHea) annotation (Line(points={{-79,-9.35385},
-          {-60,-9.35385},{-60,12},{-42,12}},
+  connect(controller.yHeaCoi, hvac.uHea) annotation (Line(points={{-19,10.6462},
+          {0,10.6462},{0,32},{18,32}},
                               color={0,0,127}));
-  connect(controller.yOutDamPos, hvac.uEco) annotation (Line(points={{-79,
-          -19.6923},{-56,-19.6923},{-56,-2},{-42,-2}},
+  connect(controller.yOutDamPos, hvac.uEco) annotation (Line(points={{-19,0.3077},
+          {4,0.3077},{4,18},{18,18}},
                                  color={0,0,127}));
-  connect(TSetSupChiConst.y, hvac.TSetChi) annotation (Line(points={{-51,-70},{
-          -46,-70},{-46,-16},{-42,-16},{-42,-15}},
-                                     color={0,0,127}));
+  connect(TSetSupChiConst.y, hvac.TSetChi) annotation (Line(points={{-31,-40},{14,
+          -40},{14,4},{18,4},{18,5}},color={0,0,127}));
   connect(errTRooCoo.y, hysChiPla.u)
-    annotation (Line(points={{-91,-110},{-74,-110}}, color={0,0,127}));
-  connect(zon.TRooAir, errTRooCoo.u1) annotation (Line(points={{81,0},{110,0},{
-          110,-152},{-134,-152},{-134,-110},{-108,-110}}, color={0,0,127}));
-  connect(hysChiPla.y, hvac.chiOn) annotation (Line(points={{-50,-110},{-48,-110},
-          {-48,-10},{-42,-10}},       color={255,0,255}));
+    annotation (Line(points={{-59,-80},{-54,-80}},   color={0,0,127}));
+  connect(hysChiPla.y, hvac.chiOn) annotation (Line(points={{-30,-80},{8,-80},{8,
+          10},{18,10}},               color={255,0,255}));
   connect(weaBus.TDryBul, controller.TOut) annotation (Line(
-      points={{-30,80},{-30,60},{-140,60},{-140,18.1538},{-122,18.1538}},
+      points={{10,68},{10,52},{-82,52},{-82,39.0769},{-62,39.0769}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(zon.TRooAir, controller.TZon) annotation (Line(points={{81,0},{110,0},
-          {110,-152},{-134,-152},{-134,10.7692},{-122,10.7692}},
-                                                       color={0,0,127}));
-  connect(hvac.TSup, controller.TSup) annotation (Line(points={{1,-8},{10,-8},{
-          10,-50},{-130,-50},{-130,-0.307692},{-122,-0.307692}},
+  connect(hvac.TSup, controller.TSup) annotation (Line(points={{61,12},{70,12},
+          {70,-20},{-70,-20},{-70,18.7692},{-62,18.7692}},
                                                  color={0,0,127}));
-  connect(hvac.TMix, controller.TMix) annotation (Line(points={{1,-4},{14,-4},{
-          14,-46},{-128,-46},{-128,-4},{-122,-4}}, color={0,0,127}));
-  connect(occSch.tNexOcc, controller.tNexOcc) annotation (Line(points={{-159,56},
-          {-150,56},{-150,14.4615},{-122,14.4615}},
+  connect(hvac.TMix, controller.TMix) annotation (Line(points={{61,16},{74,16},
+          {74,-16},{-68,-16},{-68,15.0769},{-62,15.0769}},
+                                                   color={0,0,127}));
+  connect(occSch.tNexOcc, controller.tNexOcc) annotation (Line(points={{-111,76},
+          {-90,76},{-90,36.3077},{-62,36.3077}},
                                           color={0,0,127}));
-  connect(controller.uOcc, occSch.occupied) annotation (Line(points={{-122,
-          7.07692},{-152,7.07692},{-152,44},{-159,44}},
+  connect(controller.uOcc, occSch.occupied) annotation (Line(points={{-62,
+          25.2308},{-98,25.2308},{-98,64},{-111,64}},
                                         color={255,0,255}));
-  connect(uWin.y, controller.uWin) annotation (Line(points={{-159,-50},{-148,
-          -50},{-148,-11.3846},{-122,-11.3846}},
-                                       color={255,0,255}));
-  connect(occSch.occupied, occPer.u) annotation (Line(points={{-159,44},{-152,
-          44},{-152,0},{-190,0},{-190,-80},{-182,-80}},   color={255,0,255}));
-  connect(occPer.y, ppl.u)
-    annotation (Line(points={{-159,-80},{-155.2,-80}}, color={0,0,127}));
-  connect(ppl.y, controller.nOcc) annotation (Line(points={{-141.4,-80},{-138,
-          -80},{-138,-7.69231},{-122,-7.69231}},
-                                     color={0,0,127}));
-  connect(controller.TZonCooSet, errTRooCoo.u2) annotation (Line(points={{-79,-4},
-          {-76,-4},{-76,-132},{-100,-132},{-100,-118}},
+  connect(uWin.y, controller.uWin) annotation (Line(points={{-111,-50},{-98,-50},
+          {-98,7.6923},{-62,7.6923}},  color={255,0,255}));
+  connect(controller.TZonCooSet, errTRooCoo.u2) annotation (Line(points={{-19,16},
+          {-12,16},{-12,-100},{-68,-100},{-68,-88}},
         color={0,0,127}));
-  connect(hvac.uCooVal, controller.yCooCoi) annotation (Line(points={{-42,5},{
-          -48,5},{-48,4},{-58,4},{-58,-15.0769},{-79,-15.0769}},
-                                                       color={0,0,127}));
-  connect(hvac.TRet, controller.TCut) annotation (Line(points={{1,-6},{12,-6},{
-          12,-48},{-132,-48},{-132,3.38462},{-122,3.38462}},
+  connect(hvac.TRet, controller.TCut) annotation (Line(points={{61,14},{72,14},
+          {72,-18},{-72,-18},{-72,22.4615},{-62,22.4615}},
                                                  color={0,0,127}));
 
+  connect(hvac.supplyAir, singleZoneFloor.supplyAir)
+    annotation (Line(points={{60,28},{90,28},{90,15.4},{111.6,15.4}},
+                                                                   color={0,127,
+          255}));
+  connect(hvac.returnAir, singleZoneFloor.returnAir)
+    annotation (Line(points={{60,20},{80,20},{80,11.4},{111.6,11.4}},
+                                                                   color={0,127,
+          255}));
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{-40,80},{-18,80},{-18,68},{10,68}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(weaBus, singleZoneFloor.weaBus) annotation (Line(
+      points={{10,68},{115,68},{115,41}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(controller.yCooCoi, hvac.uCooVal) annotation (Line(points={{-19,4.92308},
+          {-8,4.92308},{-8,25},{18,25}}, color={0,0,127}));
+  connect(singleZoneFloor.TRooAir, errTRooCoo.u1) annotation (Line(points={{141,
+          34.2},{148,34.2},{148,-110},{-86,-110},{-86,-80},{-76,-80}}, color={0,
+          0,127}));
+  connect(singleZoneFloor.TRooAir, optStaHea.TZon) annotation (Line(points={{141,
+          34.2},{148,34.2},{148,-110},{-152,-110},{-152,30},{-134,30}}, color={0,
+          0,127}));
+  connect(singleZoneFloor.TRooAir, optStaCoo.TZon) annotation (Line(points={{141,
+          34.2},{148,34.2},{148,-110},{-152,-110},{-152,-10},{-134,-10}}, color=
+         {0,0,127}));
+  connect(optStaHea.tOpt, controller.tWarUp) annotation (Line(points={{-110,30},
+          {-80,30},{-80,33.5385},{-62,33.5385}}, color={0,0,127}));
+  connect(optStaCoo.tOpt, controller.tCooDow) annotation (Line(points={{-110,
+          -10},{-102,-10},{-102,20},{-76,20},{-76,30.7692},{-62,30.7692}},
+                                                                      color={0,0,
+          127}));
+  connect(TSetHeaOn.y, optStaHea.TSetZonHea) annotation (Line(points={{-171,40},
+          {-158,40},{-158,38},{-134,38}}, color={0,0,127}));
+  connect(TSetCooOn.y, optStaCoo.TSetZonCoo) annotation (Line(points={{-171,-20},
+          {-142,-20},{-142,-18},{-134,-18}}, color={0,0,127}));
+  connect(weaBus, hvac.weaBus) annotation (Line(
+      points={{10,68},{10,52},{24,52},{24,37.8}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(singleZoneFloor.TRooAir, controller.TZon) annotation (Line(points={{141,
+          34.2},{148,34.2},{148,-110},{-86,-110},{-86,28},{-62,28}}, color={0,0,
+          127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-200,-160},{120,140}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-220,-120},{180,100}})),
     experiment(
       StopTime=31536000,
       Interval=3600.00288,
