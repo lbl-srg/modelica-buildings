@@ -21,7 +21,7 @@ model Building
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
   parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=
-    Buildings.Experimental.EnergyPlus.Types.Verbosity.Debug
+    Buildings.Experimental.EnergyPlus.Types.Verbosity.Warning
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 
