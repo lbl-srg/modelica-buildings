@@ -207,7 +207,7 @@ model CoolingIndirect
     "Building-side (secondary) return temperature"
     annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening val(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m1_flow_nominal,
     final dpValve_nominal=dpValve_nominal,

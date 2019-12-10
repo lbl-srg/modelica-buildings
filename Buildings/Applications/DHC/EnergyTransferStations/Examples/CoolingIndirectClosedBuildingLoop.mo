@@ -20,7 +20,7 @@ model CoolingIndirectClosedBuildingLoop
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 300000 + 800,
+    p(displayUnit="Pa") = 300000 + 10000,
     use_T_in=false,
     T=278.15,
     nPorts=1)
@@ -36,6 +36,7 @@ model CoolingIndirectClosedBuildingLoop
     redeclare package Medium = Medium,
     m1_flow_nominal=mDis_flow_nominal,
     m2_flow_nominal=mBui_flow_nominal,
+    dpValve_nominal=9000,
     dp1_nominal = 500,
     dp2_nominal = 500,
     Q_flow_nominal=18514,

@@ -70,6 +70,7 @@ model CoolingIndirectOpenLoops
     redeclare package Medium = Medium,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
+    dpValve_nominal=60,
     dp1_nominal = 500,
     dp2_nominal = 500,
     Q_flow_nominal=18514,
