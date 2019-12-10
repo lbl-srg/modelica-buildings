@@ -46,52 +46,84 @@ model CoolingDirectControlledReturn
     Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(tab="Controller"));
+
   parameter Real k(min=0, unit="1") = 1
     "Gain of controller"
     annotation(Dialog(tab="Controller"));
-  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
+
+  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=120
     "Time constant of integrator block"
-     annotation (Dialog(tab="Controller"));
+     annotation (Dialog(tab="Controller", enable=
+       controllerType == Modelica.Blocks.Types.SimpleController.PI or
+       controllerType == Modelica.Blocks.Types.SimpleController.PID));
+
   parameter Modelica.SIunits.Time Td(min=0)=0.1
     "Time constant of derivative block"
-     annotation (Dialog(tab="Controller"));
+     annotation (Dialog(tab="Controller", enable=
+       controllerType == Modelica.Blocks.Types.SimpleController.PD or
+       controllerType == Modelica.Blocks.Types.SimpleController.PID));
+
   parameter Real yMax(start=1)=1
    "Upper limit of output"
     annotation(Dialog(tab="Controller"));
+
   parameter Real yMin=0
    "Lower limit of output"
     annotation(Dialog(tab="Controller"));
+
   parameter Real wp(min=0) = 1
    "Set-point weight for Proportional block (0..1)"
     annotation(Dialog(tab="Controller"));
+
   parameter Real wd(min=0) = 0
    "Set-point weight for Derivative block (0..1)"
-    annotation(Dialog(tab="Controller"));
+    annotation(Dialog(tab="Controller", enable=
+       controllerType == Modelica.Blocks.Types.SimpleController.PD or
+       controllerType == Modelica.Blocks.Types.SimpleController.PID));
+
   parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
-    annotation(Dialog(tab="Controller"));
+    annotation(Dialog(tab="Controller", enable=
+       controllerType == Modelica.Blocks.Types.SimpleController.PI or
+       controllerType == Modelica.Blocks.Types.SimpleController.PID));
+
   parameter Real Nd(min=100*Modelica.Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
-    annotation(Dialog(tab="Controller"));
+    annotation(Dialog(tab="Controller", enable=
+       controllerType == Modelica.Blocks.Types.SimpleController.PD or
+       controllerType == Modelica.Blocks.Types.SimpleController.PID));
+
   parameter Modelica.Blocks.Types.InitPID initType=
     Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation(Dialog(group="Initialization",tab="Controller"));
+
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
-    annotation (Dialog(group="Initialization",tab="Controller"));
+    annotation (Dialog(group="Initialization",
+      tab="Controller", enable=
+        controllerType == Modelica.Blocks.Types.SimpleController.PI or
+        controllerType == Modelica.Blocks.Types.SimpleController.PID));
+
   parameter Real xd_start=0
     "Initial or guess value for state of derivative block"
-    annotation (Dialog(group="Initialization",tab="Controller"));
+    annotation (Dialog(group="Initialization",
+      tab="Controller", enable=
+        controllerType == Modelica.Blocks.Types.SimpleController.PD or
+        controllerType == Modelica.Blocks.Types.SimpleController.PID));
+
   parameter Real yCon_start=0
     "Initial value of output from the controller"
-    annotation(Dialog(group="Initialization",tab="Controller"));
+    annotation(Dialog(group="Initialization",
+      tab="Controller",
+      enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput));
+
   parameter Boolean reverseAction = true
     "Set to true for throttling the water flow rate through a cooling coil controller"
     annotation(Dialog(tab="Controller"));
 
-  Modelica.Blocks.Interfaces.RealInput TSet
-    "Setpoint temperature"
+  Modelica.Blocks.Interfaces.RealInput TSetDisRet
+    "Setpoint temperature for district return"
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.Continuous.LimPID con(
@@ -115,6 +147,7 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.PressureDrop pipSup(
     redeclare final package Medium = Medium,
+    allowFlowReversal=false,
     final m_flow_nominal=mDis_flow_nominal,
     final dp_nominal=dpSup_nominal)
     "Supply pipe"
@@ -122,6 +155,7 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.PressureDrop pipRet(
     redeclare final package Medium = Medium,
+    allowFlowReversal=false,
     final m_flow_nominal=mDis_flow_nominal,
     final dp_nominal=dpRet_nominal)
     "Return pipe"
@@ -129,6 +163,7 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.PressureDrop pipByp(
     redeclare final package Medium = Medium,
+    allowFlowReversal=false,
     final m_flow_nominal=mByp_flow_nominal,
     final dp_nominal=dpByp_nominal)
     "Bypass pipe"
@@ -226,9 +261,8 @@ equation
     annotation (Line(points={{30,50},{30,10},{30,10}}, color={0,127,255}));
   connect(pipByp.port_a, val.port_3)
     annotation (Line(points={{30,-10},{30,-50}}, color={0,127,255}));
-  connect(TSet, con.u_s)
-    annotation (Line(points={{-120,-100},{-22,-100}},
-                                                color={0,0,127}));
+  connect(TSetDisRet, con.u_s)
+    annotation (Line(points={{-120,-100},{-22,-100}}, color={0,0,127}));
   connect(con.y, val.y)
      annotation (Line(points={{1,-100},{30,-100},{30,-72}},color={0,0,127}));
   connect(val.port_1, senTBuiRet.port_b)
