@@ -296,13 +296,42 @@ annotation (defaultComponentName="coo",
           lineColor={175,175,175},
           fillColor={35,138,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-52,40},{54,-40}},
-          lineColor={0,0,0},
-          fillColor={35,138,255},
-          fillPattern=FillPattern.Solid,
-          textStyle={TextStyle.Bold},
-          textString="ETS")}),                                   Diagram(
+        Rectangle(
+          extent={{-62,80},{-58,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-22,80},{-18,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{18,80},{22,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{58,80},{62,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-80,65},{80,54}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-80,-55},{80,-66}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,160}})),
     Documentation(info="<html>
 <p>
