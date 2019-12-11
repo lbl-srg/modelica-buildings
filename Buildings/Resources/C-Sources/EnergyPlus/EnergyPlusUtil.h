@@ -34,11 +34,13 @@ void logValueReferenceArray(unsigned int level,
                             const fmi2ValueReference* array,
                             size_t n);
 
+void mallocSpawnReals(const size_t n, spawnReals** r);
+
 void mallocString(size_t nChar, const char *error_message, char** str);
 
-void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueReference vr[],  fmi2Real values[], size_t n);
+void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spawnReals* ptrReals);
 
-void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, const fmi2ValueReference *vr, fmi2Real *values, size_t n);
+void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals* ptrReals);
 
 double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName);
 

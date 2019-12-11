@@ -20,13 +20,12 @@ void OutputVariableInstantiate(
   fmi2_status_t status;
   FMUOutputVariable* outVar = (FMUOutputVariable*) object;
   FMUBuilding* bui = outVar->ptrBui;
-  const char* modelicaName = outVar->modelicaNameOutputVariable;
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
-    ModelicaFormatMessage("Entered OutputVariableInstantiate for %s at %p.\n", modelicaName, outVar);
+    ModelicaFormatMessage("Entered OutputVariableInstantiate for %s at %p with value reference %lu.\n", outVar->modelicaNameOutputVariable, outVar, outVar->outputs->valRefs[0]);
   }
-  if (bui == NULL){
-    ModelicaFormatError("Pointer outVar->ptrBui is NULL in OutputVariableInstantiate for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.Experimental.EnergyPlus.UsersGuide.", outVar->modelicaNameOutputVariable);
+  if (! outVar->valueReferenceIsSet){
+    ModelicaFormatError("Value reference is not set for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.Experimental.EnergyPlus.UsersGuide.", outVar->modelicaNameOutputVariable);
   }
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
@@ -38,7 +37,7 @@ void OutputVariableInstantiate(
     */
     loadFMU_setupExperiment_enterInitializationMode(bui, startTime);
     if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("FMU for %s is now allocated at %p.\n", modelicaName, bui->fmu);
+      ModelicaFormatMessage("FMU for %s is now allocated at %p.\n", outVar->modelicaNameOutputVariable, bui->fmu);
   }
 
   /* Set flag to indicate that this output variable has been properly initialized */

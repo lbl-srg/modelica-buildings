@@ -98,6 +98,31 @@ void mallocString(const size_t nChar, const char *error_message, char** str){
     ModelicaError(error_message);
 }
 
+void mallocSpawnReals(const size_t n, spawnReals** r){
+  size_t i;
+  *r = (spawnReals*)malloc(n * sizeof(spawnReals));
+  if ( *r == NULL)
+    ModelicaFormatError("Failed to allocate memory for spawnReals in EnergyPlusUtil.c.");
+
+  (*r)->vals = NULL;
+  (*r)->valRefs = NULL;
+  (*r)->fmiNames = NULL;
+  for(i = 0; i < n; i++){
+    (*r)->vals = (fmi2Real*)malloc(n * sizeof(fmi2Real));
+    if ((*r)->vals == NULL)
+      ModelicaFormatError("Failed to allocate memory for (*r)->vals in EnergyPlus.c");
+
+    (*r)->valRefs = (fmi2ValueReference*)malloc(n * sizeof(fmi2ValueReference));
+    if ((*r)->valRefs == NULL)
+      ModelicaFormatError("Failed to allocate memory for (*r)->valRefs in EnergyPlus.c");
+
+    (*r)->fmiNames = (fmi2Byte**)malloc(n * sizeof(fmi2Byte*));
+    if ((*r)->fmiNames == NULL)
+      ModelicaFormatError("Failed to allocate memory for (*r)->fmiNames in EnergyPlus.c");
+  }
+  (*r)->n = n;
+}
+
 char* fmuModeToString(FMUMode mode){
   if (mode == instantiationMode)
     return "instantiation";
@@ -111,56 +136,54 @@ char* fmuModeToString(FMUMode mode){
   return "unknown error";
 }
 
-void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, fmi2ValueReference vr[],  fmi2Real values[], size_t n){
-    fmi2_status_t status;
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("fmi2_import_set_real: Setting real variables in EnergyPlus for modelicaInstance %s, mode = %s.\n",
-        modelicaInstanceName, fmuModeToString(bui->mode));
-    status = fmi2_import_set_real(bui->fmu, vr, n, values);
-    if (status != fmi2OK) {
-      ModelicaFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
-    }
+void setVariables(FMUBuilding* bui, const char* modelicaInstanceName, const spawnReals* ptrReals){
+  fmi2_status_t status;
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("fmi2_import_set_real: Setting real variables in EnergyPlus for modelicaInstance %s, mode = %s.\n",
+      modelicaInstanceName, fmuModeToString(bui->mode));
+  status = fmi2_import_set_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->vals);
+  if (status != fmi2OK) {
+    ModelicaFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
   }
+}
 
-void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, const fmi2ValueReference vr[], const fmi2Real values[], size_t n){
-    size_t i;
-    fmi2_import_variable_t* fmiVar;
-    const char* varNam;
-    size_t i_nan = -1;
-    for(i=0; i < n; i++)
-{
-    if (isnan(values[i])){
+void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals* ptrReals){
+  size_t i;
+  fmi2_import_variable_t* fmiVar;
+  const char* varNam;
+  size_t i_nan = -1;
+  for(i=0; i < ptrReals->n; i++){
+    if (isnan(ptrReals->vals[i])){
       i_nan = i;
       break;
     }
   }
   if (i_nan != -1){
-    for(i=0; i < n; i++){
-      fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i]);
+    for(i=0; i < ptrReals->n; i++){
+      fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i]);
       varNam = fmi2_import_get_variable_name(fmiVar);
-      if (isnan(values[i])){
+      if (isnan(ptrReals->vals[i])){
         ModelicaFormatMessage("Received nan from EnergyPlus for %s at time = %.2f:\n", modelicaInstanceName, bui->time);
       }
-      ModelicaFormatMessage("  %s = %.2f\n", varNam, values[i]);
+      ModelicaFormatMessage("  %s = %.2f\n", varNam, ptrReals->vals[i]);
     }
     ModelicaFormatError("Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
-      fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i_nan])));
+      fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, ptrReals->valRefs[i_nan])));
   }
 }
 
-void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, const fmi2ValueReference *vr, fmi2Real *values, size_t n)
+void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals* ptrReals)
 {
   fmi2_status_t status;
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for object %s, mode = %s.\n",
       modelicaInstanceName, fmuModeToString(bui->mode));
-  status = fmi2_import_get_real(bui->fmu, vr, n, values);
+  status = fmi2_import_get_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->vals);
   if (status != fmi2OK) {
-    ModelicaFormatError("Failed to get variables for building in FMU for %s, object %s\n",
-    bui->modelicaNameBuilding,
+    ModelicaFormatError("Failed to get variables for %s\n",
     modelicaInstanceName);
   }
-  stopIfResultsAreNaN(bui, modelicaInstanceName, vr, values, n);
+  stopIfResultsAreNaN(bui, modelicaInstanceName, ptrReals);
 }
 
 
@@ -179,7 +202,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
   /* Enter event mode if the FMU is in Continuous time mode
      because fmi2NewDiscreteStates can only be called in event mode */
   if (bui->mode == continuousTimeMode){
-    ModelicaFormatError("********* FMU is in unexpected mode in do_event_iteration at t=%.2f, modelicaInstance = %s, mode = %s. Contact support.",
+    ModelicaFormatError("FMU is in unexpected mode in do_event_iteration at t=%.2f, modelicaInstance = %s, mode = %s. Contact support.",
       bui->time, modelicaInstanceName, fmuModeToString(bui->mode));
     /*
       if (FMU_EP_VERBOSITY >= TIMESTEP)
@@ -569,13 +592,14 @@ void buildVariableNames(
     for (i=0; i<nVar; i++)
       len = max(len, strlen(variableNames[i]));
 
-    *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
+      *ptrVarNames = (char**)malloc(nVar * sizeof(char*));
       if (*ptrVarNames == NULL)
         ModelicaError("Failed to allocate memory for ptrVarNames in ZoneInstantiate.c.");
 
     for (i=0; i<nVar; i++){
       mallocString(len+1, "Failed to allocate memory for ptrVarNames[i] in ZoneInstantiate.c.", &((*ptrVarNames)[i]));
     }
+
     /* Copy the string */
     for (i=0; i<nVar; i++){
       memset((*ptrVarNames)[i], '\0', len+1);
@@ -603,6 +627,7 @@ void buildVariableNames(
       strcat((*ptrFullNames)[i], "_");
       strcat((*ptrFullNames)[i], variableNames[i]);
     }
+
   return;
 }
 

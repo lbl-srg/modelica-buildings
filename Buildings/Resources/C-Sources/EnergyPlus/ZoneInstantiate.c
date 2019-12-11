@@ -13,7 +13,7 @@
 #include <string.h>
 #include <stdio.h>
 
-void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
+void setParametersFromEnergyPlus(FMUZone* zone){
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
@@ -23,9 +23,9 @@ void getParametersFromEnergyPlus(FMUZone* zone, double* parValues){
 
   status = fmi2_import_get_real(
     zone->ptrBui->fmu,
-    zone->parOutValReferences,
-    ZONE_N_PAR_OUT,
-    parValues);
+    zone->parameters->valRefs,
+    zone->parameters->n,
+    zone->parameters->vals);
   if (status != fmi2OK ){
     ModelicaFormatError("Failed to get parameters for zone %s.", zone->modelicaNameThermalZone);
   }
@@ -63,8 +63,6 @@ void ZoneInstantiate(
   FMUZone* zone = (FMUZone*) object;
   FMUBuilding* bui = zone->ptrBui;
   const char* modelicaName = zone->modelicaNameThermalZone;
-  /*double parValToSet[ZONE_N_PAR_INP];*/
-  double outputValues[ZONE_N_PAR_OUT];
 
   if (FMU_EP_VERBOSITY >= MEDIUM){
     ModelicaFormatMessage("Entered ZoneInstantiate for %s.\n", modelicaName);
@@ -89,12 +87,12 @@ void ZoneInstantiate(
       ModelicaFormatMessage("FMU for %s is now allocated at %p.\n", modelicaName, bui->fmu);
   }
 
-  getParametersFromEnergyPlus(zone, outputValues);
+  setParametersFromEnergyPlus(zone);
 
   /* Assign the floor area and the volume of the zone */
-  *V = outputValues[0];
-  *AFlo = outputValues[1];
-  *mSenFac = outputValues[2];
+  *V = zone->parameters->vals[0];
+  *AFlo = zone->parameters->vals[1];
+  *mSenFac = zone->parameters->vals[2];
 
   /* Set flag to indicate that this zone has been properly initialized */
   zone->isInstantiated = fmi2True;

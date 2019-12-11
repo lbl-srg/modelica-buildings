@@ -66,53 +66,49 @@ typedef struct FMUBuilding
   size_t iFMU; /* Number of this FMU */
 } FMUBuilding;
 
-/*#define ZONE_N_PAR_INP 1 Number of parameter value references to be set in EnergyPlus per zone*/
-#define ZONE_N_PAR_OUT 3 /* Number of parameter value references to be read from EnergyPlus per zone*/
-#define ZONE_N_INP 5 /* Number of input value references per zone*/
-#define ZONE_N_OUT 4 /* Number of output value references per zone*/
+
+typedef struct spawnReals{
+  size_t n; /* Number of values */
+  fmi2Real* vals; /* Values */
+  fmi2ValueReference* valRefs; /* Value references */
+  fmi2Byte** fmiNames; /* Full names, as listed in modelDescripton.xml file */
+} spawnReals;
+
 
 typedef struct FMUZone
 {
-  /*int index;*/
   FMUBuilding* ptrBui; /* Pointer to building with this zone */
   char* modelicaNameThermalZone; /* Name of the Modelica instance of this zone */
   char* name;      /* Name of this zone in the idf file */
 
-/* char** parInpNames; */
   char** parOutNames;
   char** inpNames;
   char** outNames;
 
-  fmi2ValueReference* parOutValReferences; /* Value reference of parameter variables*/
-  fmi2ValueReference* inpValReferences; /* Value reference of input variables*/
-  fmi2ValueReference* outValReferences; /* Value references of output variables*/
-
-  fmi2Byte** parInpVarNames; /* Full names of parameter variables (used to get value reference) */
-  fmi2Byte** parOutVarNames; /* Full names of parameter variables (used to get value reference) */
-  fmi2Byte** inpVarNames; /* Full names of input variables (used to get value reference)*/
-  fmi2Byte** outVarNames; /* Full names of output variables (used to get value reference)*/
+  spawnReals* parameters; /* Parameters */
+  spawnReals* inputs;     /* Inputs */
+  spawnReals* outputs;    /* Outputs */
 
   fmi2Boolean isInstantiated; /* Flag set to true when the zone has been completely instantiated */
-  fmi2Boolean isInitialized; /* Flag set to true after the zone has executed all get/set calls in the initializion mode
+  fmi2Boolean isInitialized;  /* Flag set to true after the zone has executed all get/set calls in the initializion mode
                                 of the FMU */
 } FMUZone;
 
 
 typedef struct FMUOutputVariable
 {
-  /*int index;*/
-  FMUBuilding* ptrBui; /* Pointer to building with this output variable */
+  FMUBuilding* ptrBui;              /* Pointer to building with this output variable */
   char* modelicaNameOutputVariable; /* Name of the Modelica instance of this zone */
-  char* name;      /* Name of this output variable in the idf file */
-  char* key;       /* Key of this output variable in the idf file */
+  char* name;                       /* Name of this output variable in the idf file */
+  char* key;                        /* Key of this output variable in the idf file */
 
-  fmi2ValueReference valReference; /* Value references for output variable */
-
-  fmi2Byte* outVarName; /* Full name of output variable (used to get value reference). */
+  bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
+                                       and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
+  spawnReals* outputs;              /* Outputs (vector with 1 element) */
 
   fmi2Boolean isInstantiated; /* Flag set to true when the output variable has been completely instantiated */
-  fmi2Boolean isInitialized; /* Flag set to true after the output variable has executed a get call in the initializion mode
-                                of the FMU */
+  fmi2Boolean isInitialized;  /* Flag set to true after the output variable has executed a get call in the initializion mode
+                                 of the FMU */
 } FMUOutputVariable;
 
 #endif

@@ -11,7 +11,7 @@
 
 void OutputVariableFree(void* object){
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Entered OutputVariableFree.");
+    ModelicaMessage("Entered OutputVariableFree.\n");
   if ( object != NULL ){
     FMUOutputVariable* outVar = (FMUOutputVariable*) object;
 
@@ -23,5 +23,5 @@ void OutputVariableFree(void* object){
     free(outVar);
   }
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaMessage("Leaving OutputVariableFree.c.");
+    ModelicaMessage("Leaving OutputVariableFree.c.\n");
 }

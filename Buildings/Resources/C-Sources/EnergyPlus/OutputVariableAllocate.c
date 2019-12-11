@@ -13,13 +13,20 @@
 
 FMUOutputVariable* checkForDoubleOutputVariableDeclaration(
   const struct FMUBuilding* fmuBld,
-  const char* outVarName){
+  const char* fmiName){
   int iOutVar;
+
   for(iOutVar = 0; iOutVar < fmuBld->nOutputVariables; iOutVar++){
     FMUOutputVariable* ptrOutVar = (FMUOutputVariable*)(fmuBld->outputVariables[iOutVar]);
-    if (!strcmp(outVarName, ptrOutVar->outVarName)){
+    if (!strcmp(fmiName, ptrOutVar->outputs->fmiNames[0])){
+      if (FMU_EP_VERBOSITY >= MEDIUM){
+        ModelicaFormatMessage("*** Searched for output variable %s in building and found it.\n", fmiName);
+      }
       return ptrOutVar;
     }
+  }
+  if (FMU_EP_VERBOSITY >= MEDIUM){
+     ModelicaFormatMessage("*** Searched for output variable %s in building but did not find it.\n", fmiName);
   }
   return NULL;
 }
@@ -63,6 +70,10 @@ void* OutputVariableAllocate(
   const size_t nFMU = getBuildings_nFMU();
   /* Name used to check for duplicate output variable entry in the same building */
   FMUOutputVariable* doubleOutVarSpec = NULL;
+
+  if (FMU_EP_VERBOSITY >= MEDIUM)
+    ModelicaFormatMessage("Entered OutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
+
   /* EnergyPlus cannot return Zone Mean Air Temperature as this is computed in Modelica.
      See email Kyle Benne, 11/22/19  */
   if (strcasecmp(outputName, "Zone Mean Air Temperature") == 0){
@@ -71,9 +82,6 @@ void* OutputVariableAllocate(
   }
 
   checkAndSetVerbosity(verbosity);
-
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("Entered OutputVariableAllocate for zone %s.\n", modelicaNameOutputVariable);
 
   /* Dymola 2019FD01 calls in some cases the allocator twice. In this case, simply return the previously instanciated zone pointer */
   setOutputVariablePointerIfAlreadyInstanciated(modelicaNameOutputVariable, &outVar);
@@ -107,13 +115,14 @@ void* OutputVariableAllocate(
   mallocString(strlen(outputName)+1, "Not enough memory in OutputVariableAllocate.c. to allocate output name.", &(outVar->name));
   strcpy(outVar->name, outputName);
 
+  outVar->valueReferenceIsSet = false;
+
+  mallocSpawnReals(1, &(outVar->outputs));
   /* Assign structural data */
   buildVariableName(
     (const char*)(outVar->key),
     (const char*)(outVar->name),
-    &(outVar->outVarName));
-
-  outVar->valReference = 0; /* Initialize to zero */
+    &(outVar->outputs->fmiNames[0]));
 
   /* *************************************************************************** */
   /* Initialize the pointer for the FMU to which this output variable belongs to */
@@ -123,7 +132,7 @@ void* OutputVariableAllocate(
   for(i = 0; i < nFMU; i++){
     FMUBuilding* fmu = getBuildingsFMU(i);
     if (FMU_EP_VERBOSITY >= MEDIUM){
-      ModelicaFormatMessage("*** Testing building %s in FMU %s.\n", modelicaNameBuilding, fmu->fmuAbsPat);
+      ModelicaFormatMessage("*** Testing building %s in FMU %s for %s.\n", modelicaNameBuilding, fmu->fmuAbsPat, modelicaNameOutputVariable);
     }
 
     if (strcmp(modelicaNameBuilding, fmu->modelicaNameBuilding) == 0){
@@ -131,14 +140,14 @@ void* OutputVariableAllocate(
         ModelicaMessage("*** Found a match.\n");
       }
       /* This is the same FMU as before. */
-      doubleOutVarSpec = checkForDoubleOutputVariableDeclaration(fmu, outVar->outVarName);
+      doubleOutVarSpec = checkForDoubleOutputVariableDeclaration(fmu, outVar->outputs->fmiNames[0]);
 
       if (doubleOutVarSpec != NULL){
         /* This output variable has already been specified. We can just point to the same
            data structure */
         if (FMU_EP_VERBOSITY >= MEDIUM){
           ModelicaFormatMessage("Assigning outVar '%s' to previously used outvar at %p",
-          outVar->outVarName,
+          outVar->outputs->fmiNames[0],
           outVar);
         }
         /* Assign by reference */

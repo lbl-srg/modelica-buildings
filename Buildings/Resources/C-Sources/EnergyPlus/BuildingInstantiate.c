@@ -80,7 +80,7 @@ void buildJSONModelStructureForEnergyPlus(
     saveAppend(buffer, "\",\n", size);
     /* fmiName */
     saveAppend(buffer, "          \"fmiName\": \"", size);
-    saveAppend(buffer, outVars[i]->outVarName, size);
+    saveAppend(buffer, outVars[i]->outputs->fmiNames[0], size);
     saveAppend(buffer, "\"\n", size);
     /* closing the outputVariables item */
     saveAppend(buffer, "        }", size);
@@ -144,33 +144,41 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   fclose(fp);
 }
 
-fmi2ValueReference getValueReference(
+void setValueReferenceReal(
   const char* fmuNam,
   const char* inpSrcNam,
   fmi2_import_variable_list_t* varLis,
   const fmi2_value_reference_t varValRef[],
-  size_t nVar,
-  const fmi2Byte* modName){
+  const size_t nVar,
+  const spawnReals* ptrSpawnReals){
 
   size_t iFMI;
   fmi2_import_variable_t* fmiVar;
   fmi2_value_reference_t vr;
   fmi2_import_variable_t* var;
+  bool found;
+  size_t i;
 
-  if (FMU_EP_VERBOSITY >= TIMESTEP)
-      ModelicaFormatMessage("Setting variable reference for %s.", modName);
+  for(i = 0; i < ptrSpawnReals->n; i++){
+    found = false;
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
+        ModelicaFormatMessage("Setting variable reference for %s.", ptrSpawnReals->fmiNames[i]);
 
-  for (iFMI = 0; iFMI < nVar; iFMI++){
-    var = fmi2_import_get_variable(varLis, iFMI);
-    if (strcmp(modName, fmi2_import_get_variable_name(var)) == 0){
-      /* Found the variable */
-      if (FMU_EP_VERBOSITY >= TIMESTEP)
-        ModelicaFormatMessage("Setting variable reference for %s to %d.", modName, varValRef[iFMI]);
-      return varValRef[iFMI];
+    for (iFMI = 0; iFMI < nVar; iFMI++){
+      var = fmi2_import_get_variable(varLis, iFMI);
+      if (strcmp(ptrSpawnReals->fmiNames[i], fmi2_import_get_variable_name(var)) == 0){
+        /* Found the variable */
+        if (FMU_EP_VERBOSITY >= TIMESTEP)
+          ModelicaFormatMessage("Setting variable reference for %s to %d.", ptrSpawnReals->fmiNames[i], varValRef[iFMI]);
+        ptrSpawnReals->valRefs[i] = varValRef[iFMI];
+        found = true;
+        break;
+      }
     }
+    if (!found)
+      ModelicaFormatError("Failed to find variable %s in %s. Make sure it exists in %s.",
+        ptrSpawnReals->fmiNames[i], fmuNam, inpSrcNam);
   }
-  ModelicaFormatError("Failed to find variable %s in %s. Make sure it exists in %s.", modName, fmuNam, inpSrcNam);
-  return 0; /* We never get here */
 }
 
 void setValueReferences(FMUBuilding* fmuBui){
@@ -190,21 +198,16 @@ void setValueReferences(FMUBuilding* fmuBui){
   /* Set value references for the zones by assigning the values obtained from the FMU */
   for(i = 0; i < fmuBui->nZon; i++){
     zone = (FMUZone*) fmuBui->zones[i];
-    for(iVar = 0; iVar < ZONE_N_PAR_OUT; iVar++){
-      zone->parOutValReferences[iVar] = getValueReference(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->parOutVarNames[iVar]);
-    }
-    for(iVar = 0; iVar < ZONE_N_INP; iVar++){
-      zone->inpValReferences[iVar] = getValueReference(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->inpVarNames[iVar]);
-    }
-    for(iVar = 0; iVar < ZONE_N_OUT; iVar++){
-      zone->outValReferences[iVar] = getValueReference(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->outVarNames[iVar]);
-    }
+    setValueReferenceReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->parameters);
+    setValueReferenceReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->inputs);
+    setValueReferenceReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->outputs);
   }
 
   /* Set value references for the output variables by assigning the values obtained from the FMU */
   for(i = 0; i < fmuBui->nOutputVariables; i++){
     outVar = (FMUOutputVariable*) fmuBui->outputVariables[i];
-    outVar->valReference = getValueReference(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, outVar->outVarName);
+    setValueReferenceReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, outVar->outputs);
+    outVar->valueReferenceIsSet = true;
   }
 
   /* Free the variable list */
@@ -399,7 +402,7 @@ void importEnergyPlusFMU(FMUBuilding* bui){
 
   /* Get model statistics
   fmi2_import_collect_model_counts(bui->fmu, &mc);
-  printf("*** Number of discrete variables %u.\n", mc.num_discrete);
+  printf("*** Number of discrete variables %lu.\n", mc.num_discrete);
  */
   callBackFunctions.logger = fmi2_log_forwarding; /* fmilogger; */
   callBackFunctions.allocateMemory = calloc;

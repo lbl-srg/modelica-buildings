@@ -36,13 +36,12 @@ void OutputVariableExchange(
 
   FMUOutputVariable* outVar = (FMUOutputVariable*) object;
   FMUBuilding* bui = outVar->ptrBui;
-  fmi2Real outputValues[1];
 
   fmi2Status status;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s.\n",
-      time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable);
+    ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, output variable = %s, valueReference = %lu.\n",
+      time, initialCall, fmuModeToString(bui->mode), outVar->modelicaNameOutputVariable, outVar->outputs->valRefs[0]);
 
   if (! outVar->isInstantiated){
     /* In the first call, the output variable is not yet initialized.
@@ -87,13 +86,24 @@ void OutputVariableExchange(
     advanceTime_completeIntegratorStep_enterEventMode(bui, outVar->modelicaNameOutputVariable, time);
   }
 
+  /* Get next event time, unless FMU is in initialization mode */
+  if (bui->mode == initializationMode){
+    if (FMU_EP_VERBOSITY >= MEDIUM)
+      ModelicaFormatMessage(
+        "Returning current time %.0f as tNext due to initializationMode for zone = %s\n",
+        bui->time,
+        outVar->modelicaNameOutputVariable);
+    *tNext = bui->time; /* Return start time for next event time */
+  }
+  else{
+    if (FMU_EP_VERBOSITY >= TIMESTEP)
+      ModelicaFormatMessage("Calling do_event_iteration for output = %s\n", outVar->modelicaNameOutputVariable);
+    *tNext = do_event_iteration(bui, outVar->modelicaNameOutputVariable);
+  }
   /* Get output */
-  getVariables(bui, outVar->modelicaNameOutputVariable, &(outVar->valReference), outputValues, 1);
+  getVariables(bui, outVar->modelicaNameOutputVariable, outVar->outputs);
 
-  /* Get next event time */
-  *tNext = bui->time; /* Return start time for next event time */
-
-  *y = outputValues[0];
+  *y = outVar->outputs->vals[0];
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Returning from OutputVariablesExchange with nextEventTime = %.2f, y = %.2f, output variable = %s, mode = %s\n",

@@ -149,7 +149,7 @@ void AddOutputVariableToBuilding(FMUOutputVariable* ptrOutVar){
   const size_t nOutputVariables = fmu->nOutputVariables;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("EnergyPlusFMU.c: Adding output variable %d with name %s", nOutputVariables+1, ptrOutVar->modelicaNameOutputVariable);
+    ModelicaFormatMessage("EnergyPlusFMU.c: Adding output variable %lu with name %s", nOutputVariables+1, ptrOutVar->modelicaNameOutputVariable);
 
   if (nOutputVariables == 0){
     fmu->outputVariables=malloc(sizeof(FMUOutputVariable *));
