@@ -144,12 +144,13 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.PressureDrop pipByp(
     redeclare final package Medium = Medium,
+    allowFlowReversal=false,
     final m_flow_nominal=mByp_flow_nominal,
     final dp_nominal=dpByp_nominal)
     "Bypass pipe"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={40,0})));
+        origin={40,-20})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium = Medium,
@@ -225,6 +226,21 @@ model CoolingDirectControlledReturn
     m_flow_nominal={mBui_flow_nominal,-mDis_flow_nominal,-mByp_flow_nominal},
     dp_nominal=500*{1,-1,1}) "Bypass junction, splitter"
     annotation (Placement(transformation(extent={{50,-50},{30,-70}})));
+  Modelica.Fluid.Valves.ValveIncompressible cheVal(
+    redeclare package Medium = Medium,
+    allowFlowReversal=false,
+    dp_nominal(displayUnit="Pa") = 6000,
+    m_flow_nominal=mByp_flow_nominal,
+    filteredOpening=true,
+    riseTime=30,
+    checkValve=true) "Check valve (backflow preventer)" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={40,20})));
+  Modelica.Blocks.Sources.Constant ope1(k=1)
+                                            "Open valve"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
 protected
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -249,8 +265,6 @@ equation
     annotation (Line(points={{-40,-60},{-50,-60}}, color={0,127,255}));
   connect(senTDisRet.port_a, port_b2)
     annotation (Line(points={{-70,-60},{-100,-60}}, color={0,127,255}));
-  connect(jun.port_3, pipByp.port_b)
-    annotation (Line(points={{40,50},{40,10}},         color={0,127,255}));
   connect(senTBuiRet.port_a, port_a2)
     annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
   connect(int.y,Q)
@@ -283,11 +297,17 @@ equation
   connect(val.port_b, pipRet.port_a)
     annotation (Line(points={{0,-60},{-20,-60}}, color={0,127,255}));
   connect(spl.port_3, pipByp.port_a)
-    annotation (Line(points={{40,-50},{40,-10}}, color={0,127,255}));
+    annotation (Line(points={{40,-50},{40,-30}}, color={0,127,255}));
   connect(ope.y, swi.u3) annotation (Line(points={{-39,-160},{-30,-160},{-30,
           -138},{-22,-138}}, color={0,0,127}));
   connect(clo.y, swi.u1) annotation (Line(points={{-39,-100},{-30,-100},{-30,
           -122},{-22,-122}}, color={0,0,127}));
+  connect(pipByp.port_b, cheVal.port_a)
+    annotation (Line(points={{40,-10},{40,10}}, color={0,127,255}));
+  connect(cheVal.port_b, jun.port_3)
+    annotation (Line(points={{40,30},{40,50}}, color={0,127,255}));
+  connect(ope1.y, cheVal.opening)
+    annotation (Line(points={{21,20},{32,20}}, color={0,0,127}));
   annotation (defaultComponentName="coo",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
