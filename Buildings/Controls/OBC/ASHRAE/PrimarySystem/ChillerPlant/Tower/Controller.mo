@@ -12,13 +12,13 @@ block Controller "Cooling tower controller"
     "Flag to indicate if the plant has waterside economizer";
   parameter Modelica.SIunits.HeatFlowRate desCap=1e6 "Plant design capacity"
     annotation (Dialog(group="Nominal"));
-  parameter Real minSpe=0.1 "Minimum tower fan speed"
+  parameter Real fanSpeMin=0.1 "Minimum tower fan speed"
     annotation (Dialog(group="Nominal"));
-  parameter Real maxSpe=1 "Maximum tower fan speed"
+  parameter Real fanSpeMax=1 "Maximum tower fan speed"
     annotation (Dialog(group="Nominal"));
 
   // Fan speed control: when WSE is enabled
-  parameter Modelica.SIunits.HeatFlowRate minUnLTon[nChi]={1e4,1e4}
+  parameter Modelica.SIunits.HeatFlowRate chiMinCap[nChi]={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
                        enable=hasWSE));
@@ -61,7 +61,7 @@ block Controller "Cooling tower controller"
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Modelica.SIunits.Time iniPlaTim=600
-    "Time to hold return temperature to initial setpoint after plant being enabled"
+    "Time to hold return temperature at initial setpoint after plant being enabled"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Modelica.SIunits.Time ramTim=180
     "Time to ramp return water temperature from initial value to setpoint"
@@ -287,7 +287,7 @@ block Controller "Cooling tower controller"
     "Cooling tower cell enabling status"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,80},{140,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowSpe[nTowCel](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
     final unit=fill("1", nTowCel)) "Fan speed of each cooling tower cell"
@@ -324,9 +324,9 @@ protected
     final closeCoupledPlant=closeCoupledPlant,
     final hasWSE=hasWSE,
     final desCap=desCap,
-    final minSpe=minSpe,
-    final maxSpe=maxSpe,
-    final minUnLTon=minUnLTon,
+    final fanSpeMin=fanSpeMin,
+    final fanSpeMax=fanSpeMax,
+    final chiMinCap=chiMinCap,
     final intOpeCon=intOpeCon,
     final kIntOpe=kIntOpe,
     final TiIntOpe=TiIntOpe,
@@ -382,13 +382,13 @@ equation
     annotation (Line(points={{2,-49},{40,-49},{40,-80},{120,-80}}, color={0,0,127}));
   connect(towSta.yTowSta, swi.u2)
     annotation (Line(points={{2,-40},{58,-40}}, color={255,0,255}));
-  connect(towFanSpe.yTowSpe, reaRep.u)
+  connect(towFanSpe.yFanSpe, reaRep.u)
     annotation (Line(points={{2,20},{18,20}}, color={0,0,127}));
   connect(reaRep.y, swi.u1)
     annotation (Line(points={{42,20},{50,20},{50,-32},{58,-32}}, color={0,0,127}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{2,-100},{50,-100},{50,-48},{58,-48}}, color={0,0,127}));
-  connect(swi.y, yTowSpe)
+  connect(swi.y, yFanSpe)
     annotation (Line(points={{82,-40},{120,-40}}, color={0,0,127}));
   connect(towFanSpe.chiLoa, chiLoa)
     annotation (Line(points={{-22,39},{-40,39},{-40,220},{-120,220}}, color={0,0,127}));
@@ -396,7 +396,7 @@ equation
     annotation (Line(points={{-22,36},{-44,36},{-44,200},{-120,200}}, color={255,0,255}));
   connect(towFanSpe.uWSE, uWSE)
     annotation (Line(points={{-22,33},{-48,33},{-48,180},{-120,180}}, color={255,0,255}));
-  connect(towFanSpe.uTowSpe, uTowSpe)
+  connect(towFanSpe.uFanSpe, uTowSpe)
     annotation (Line(points={{-22,30},{-52,30},{-52,160},{-120,160}}, color={0,0,127}));
   connect(towFanSpe.TChiWatSup, TChiWatSup)
     annotation (Line(points={{-22,27},{-56,27},{-56,140},{-120,140}}, color={0,0,127}));
@@ -456,7 +456,7 @@ Documentation(info="<html>
 <p>
 Block that controls cooling tower cells enabling status <code>yTowSta</code>, 
 the supply isolation valve positions <code>yIsoVal</code> of each cell and the 
-cell fan operating speed <code>yTowSpe</code>.
+cell fan operating speed <code>yFanSpe</code>.
 This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for 
 HVAC Systems Phase II – 
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.

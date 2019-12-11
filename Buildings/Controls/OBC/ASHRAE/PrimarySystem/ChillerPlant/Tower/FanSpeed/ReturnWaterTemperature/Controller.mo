@@ -8,7 +8,7 @@ block Controller
   parameter Boolean hasWSE=true "Flag to indicate if the plant has waterside economizer";
   parameter Boolean closeCoupledPlant=true "Flag to indicate if the plant is close coupled";
   parameter Modelica.SIunits.HeatFlowRate desCap = 1e6 "Plant design capacity";
-  parameter Real minSpe=0.1 "Minimum tower fan speed";
+  parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi]={303.15, 303.15}
@@ -135,7 +135,7 @@ block Controller
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
       iconTransformation(extent={{-240,40},{-200,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
     final min=0,
     final max=1,
     final unit="1") "Measured speed of current enabled tower fans"
@@ -171,7 +171,7 @@ block Controller
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-200,-300},{-160,-260}}),
       iconTransformation(extent={{-240,-200},{-200,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     final min=0,
     final max=1,
     final unit="1") "Cooling tower fan speed"
@@ -190,13 +190,13 @@ block Controller
     final nChi=nChi,
     final nTowCel=nTowCel,
     final fanSpeChe=speChe,
-    final minSpe=minSpe) "Enable and disable cooling tower fans"
+    final fanSpeMin=fanSpeMin) "Enable and disable cooling tower fans"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences.Coupled
     couTowSpe(
     final nChi=nChi,
     final nConWatPum=nConWatPum,
-    final minSpe=minSpe,
+    final fanSpeMin=fanSpeMin,
     final pumSpeChe=speChe,
     final controllerType=couPlaCon,
     final k=kCouPla,
@@ -212,7 +212,7 @@ block Controller
     final nConWatPum=nConWatPum,
     final desTemDif=desTemDif,
     final pumSpeChe=speChe,
-    final minSpe=minSpe,
+    final fanSpeMin=fanSpeMin,
     final retWatCon=retWatCon,
     final kRetCon=kRetCon,
     final TiRetCon=TiRetCon,
@@ -321,7 +321,7 @@ equation
   connect(enaTow.uMaxTowSpeSet, uMaxTowSpeSet)
     annotation (Line(points={{38,30},{-120,30},{-120,40},{-180,40}},
       color={0,0,127}));
-  connect(enaTow.uTowSpe, uTowSpe)
+  connect(enaTow.uFanSpe,uFanSpe)
     annotation (Line(points={{38,26},{-130,26},{-130,10},{-180,10}},
       color={0,0,127}));
   connect(enaTow.uTowSta, uTowSta)
@@ -362,10 +362,10 @@ equation
       color={0,0,127}));
   connect(enaTow.yTow, swi.u2)
     annotation (Line(points={{62,20},{80,20},{80,0},{118,0}}, color={255,0,255}));
-  connect(couTowSpe.yTowSpe, swi.u1)
+  connect(couTowSpe.yFanSpe, swi.u1)
     annotation (Line(points={{62,-130},{100,-130},{100,8},{118,8}},
       color={0,0,127}));
-  connect(lesCouTowSpe.yTowSpe, swi.u1)
+  connect(lesCouTowSpe.yFanSpe, swi.u1)
     annotation (Line(points={{62,-210},{100,-210},{100,8},{118,8}},
       color={0,0,127}));
   connect(zer1.y, swi.u3)
@@ -385,7 +385,7 @@ equation
   connect(zer2.y, swi1.u3)
     annotation (Line(points={{62,170},{80,170},{80,202},{98,202}},
       color={0,0,127}));
-  connect(swi1.y, yTowSpe)
+  connect(swi1.y,yFanSpe)
     annotation (Line(points={{122,210},{180,210}}, color={0,0,127}));
   connect(uChi, mulOr.u)
     annotation (Line(points={{-180,210},{-122,210}}, color={255,0,255}));

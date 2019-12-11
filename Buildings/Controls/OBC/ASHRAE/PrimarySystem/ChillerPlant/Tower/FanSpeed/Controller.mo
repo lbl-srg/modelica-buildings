@@ -9,10 +9,10 @@ block Controller "Tower fan speed control"
   parameter Boolean hasWSE=true
     "Flag to indicate if the plant has waterside economizer";
   parameter Modelica.SIunits.HeatFlowRate desCap=1e6 "Plant design capacity";
-  parameter Real minSpe=0.1 "Minimum tower fan speed";
-  parameter Real maxSpe=1 "Maximum tower fan speed"
+  parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
+  parameter Real fanSpeMax=1 "Maximum tower fan speed"
     annotation (Dialog(enable=hasWSE));
-  parameter Modelica.SIunits.HeatFlowRate minUnLTon[nChi]={1e4,1e4}
+  parameter Modelica.SIunits.HeatFlowRate chiMinCap[nChi]={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="WSE Enabled", group="Integrated", enable=hasWSE));
 
@@ -60,7 +60,7 @@ block Controller "Tower fan speed control"
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
   parameter Modelica.SIunits.Temperature TChiWatSupMin[nChi]={278.15,278.15}
-    "Lowest chilled water supply temperature oc each chiller"
+    "Lowest chilled water supply temperature of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
@@ -135,7 +135,7 @@ block Controller "Tower fan speed control"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
     final unit=fill("W", nChi),
-    final quantity=fill("Power", nChi)) if hasWSE "Current load of each chiller"
+    final quantity=fill("HeatFlowRate", nChi)) if hasWSE "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -146,7 +146,7 @@ block Controller "Tower fan speed control"
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
       iconTransformation(extent={{-140,110},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
      final min=0,
      final max=1,
      final unit="1") "Tower fan speed"
@@ -201,7 +201,7 @@ block Controller "Tower fan speed control"
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-140,-180},{-100,-140}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     final min=0,
     final max=1,
     final unit="1") "Cooling tower fan speed"
@@ -216,7 +216,7 @@ block Controller "Tower fan speed control"
     final hasWSE=hasWSE,
     final closeCoupledPlant=closeCoupledPlant,
     final desCap=desCap,
-    final minSpe=minSpe,
+    final fanSpeMin=fanSpeMin,
     final LIFT_min=LIFT_min,
     final TConWatRet_nominal=TConWatRet_nominal,
     final TChiWatSupMin=TChiWatSupMin,
@@ -247,13 +247,13 @@ block Controller "Tower fan speed control"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Controller
     fanSpeWse(
     final nChi=nChi,
-    final minUnLTon=minUnLTon,
-    final minSpe=minSpe,
+    final chiMinCap=chiMinCap,
+    final fanSpeMin=fanSpeMin,
     final intOpeCon=intOpeCon,
     final kIntOpe=kIntOpe,
     final TiIntOpe=TiIntOpe,
     final TdIntOpe=TdIntOpe,
-    final maxSpe=maxSpe,
+    final fanSpeMax=fanSpeMax,
     final fanSpeChe=speChe,
     final chiWatCon=chiWatCon,
     final kWSE=kWSE,
@@ -263,7 +263,7 @@ block Controller "Tower fan speed control"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 equation
-  connect(fanSpeWse.yTowSpe, fanSpeRetTem.uTowSpeWSE)
+  connect(fanSpeWse.yFanSpe, fanSpeRetTem.uTowSpeWSE)
     annotation (Line(points={{-18,50},{0,50},{0,-22},{18,-22}},  color={0,0,127}));
   connect(fanSpeWse.chiLoa, chiLoa)
     annotation (Line(points={{-42,60},{-60,60},{-60,140},{-120,140}},
@@ -271,10 +271,9 @@ equation
   connect(fanSpeWse.uChi, uChi)
     annotation (Line(points={{-42,56},{-64,56},{-64,120},{-120,120}},
       color={255,0,255}));
-  connect(fanSpeWse.uWSE, uWSE)
-    annotation (Line(points={{-42,52},{-68,52},{-68,100},{-120,100}},
-      color={255,0,255}));
-  connect(fanSpeWse.uTowSpe, uTowSpe)
+  connect(fanSpeWse.uWseSta, uWSE) annotation (Line(points={{-42,52},{-68,52},{-68,
+          100},{-120,100}}, color={255,0,255}));
+  connect(fanSpeWse.uFanSpe,uFanSpe)
     annotation (Line(points={{-42,48},{-72,48},{-72,80},{-120,80}},
       color={0,0,127}));
   connect(fanSpeWse.TChiWatSup, TChiWatSup)
@@ -294,7 +293,7 @@ equation
   connect(fanSpeRetTem.uMaxTowSpeSet, uMaxTowSpeSet)
     annotation (Line(points={{18,-34},{-80,-34},{-80,-20},{-120,-20}},
       color={0,0,127}));
-  connect(uTowSpe, fanSpeRetTem.uTowSpe)
+  connect(uFanSpe,fanSpeRetTem.uFanSpe)
     annotation (Line(points={{-120,80},{-72,80},{-72,-37},{18,-37}},
       color={0,0,127}));
   connect(fanSpeRetTem.uTowSta, uTowSta)
@@ -315,7 +314,7 @@ equation
   connect(fanSpeRetTem.TConWatSup, TConWatSup)
     annotation (Line(points={{18,-58},{-48,-58},{-48,-160},{-120,-160}},
       color={0,0,127}));
-  connect(fanSpeRetTem.yTowSpe, yTowSpe)
+  connect(fanSpeRetTem.yFanSpe, yFanSpe)
     annotation (Line(points={{62,-40},{80,-40},{80,0},{120,0}},
       color={0,0,127}));
 
@@ -335,7 +334,7 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,160}})),
 Documentation(info="<html>
 <p>
-Block that outputs cooling tower fan speed <code>yTowSpe</code>. This is implemented 
+Block that outputs cooling tower fan speed <code>yFanSpe</code>. This is implemented 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, item
 1, 2, and 4. 

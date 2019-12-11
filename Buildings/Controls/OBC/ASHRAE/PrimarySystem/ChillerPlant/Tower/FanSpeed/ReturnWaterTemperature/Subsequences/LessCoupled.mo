@@ -8,7 +8,7 @@ block LessCoupled
     "Design condenser water temperature difference";
   parameter Real pumSpeChe = 0.005
     "Lower threshold value to check if condenser water pump is proven on";
-  parameter Real minSpe = 0.1
+  parameter Real fanSpeMin = 0.1
     "Minimum cooling tower fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController retWatCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
@@ -89,7 +89,7 @@ block LessCoupled
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{100,130},{140,170}}),
       iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     final min=0,
     final max=1,
     final unit="1")
@@ -143,7 +143,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant  minTowSpe(
-    final k=minSpe) "Minimum tower speed"
+    final k=fanSpeMin) "Minimum tower speed"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(final k=0)
     "Zero constant"
@@ -252,7 +252,7 @@ equation
   connect(one2.y, swi1.u3)
     annotation (Line(points={{-78,-150},{-70,-150},{-70,-118},{-62,-118}},
       color={0,0,127}));
-  connect(swi.y, yTowSpe)
+  connect(swi.y,yFanSpe)
     annotation (Line(points={{82,-130},{120,-130}}, color={0,0,127}));
 
 annotation (
@@ -306,7 +306,7 @@ minus design condenser water temperature difference <code>desTemDif</code> at
 When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0),
 condenser water supply temperature <code>TConWatSup</code> shall be maintained at
 setpoint by a direct acting PID loop. The loop output shall be mapped to the 
-variable tower speed. Reset the tower speed from minimum tower speed <code>minSpe</code>
+variable tower speed. Reset the tower speed from minimum tower speed <code>fanSpeMin</code>
 at 0% loop output to 100% speed at 100% loop output.
 </li>
 <li>

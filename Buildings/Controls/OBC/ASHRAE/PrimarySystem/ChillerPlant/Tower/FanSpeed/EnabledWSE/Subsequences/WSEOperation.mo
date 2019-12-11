@@ -2,9 +2,9 @@
 block WSEOperation
   "Tower fan speed control when the waterside economizer is running alone"
 
-  parameter Real minSpe=0.1 "Minimum tower fan speed";
-  parameter Real maxSpe=1 "Maximum tower fan speed";
-  parameter Real fanSpeChe = 0.005 "Lower threshold value to check fan speed";
+  parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
+  parameter Real fanSpeMax=1 "Maximum tower fan speed";
+  parameter Real fanSpeChe = 0.05 "Lower threshold value to check fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Chilled water controller"));
@@ -18,8 +18,20 @@ block WSEOperation
     annotation (Dialog(group="Chilled water controller",
                        enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real yMax=1
+    "Upper limit of chilled water controller output"
+    annotation (Dialog(group="Chilled water controller"));
+  parameter Real yMin=0
+    "Lower limit of chilled water controller output"
+    annotation (Dialog(group="Chilled water controller"));
+  parameter Real cheCycOffTim=300
+    "Threshold time for checking if fan should cycle off"
+    annotation (Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Time minCycOffTim=180
+    "Minimum time of fan cycling off"
+    annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
     final min=0,
     final max=1,
     final unit="1") "Tower fan speed"
@@ -37,7 +49,7 @@ block WSEOperation
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     final min=0,
     final max=1,
     final unit="1")
@@ -52,13 +64,13 @@ protected
     "Count the time when fan is at minimum speed and the chilled water supply temperature drops below setpoint"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
-    final threshold=300)
-    "Check if fan is at minimum speed and the chilled water supply temperature drops below setpoint for 5 minutes"
+    final threshold=cheCycOffTim) "Check if fan should cycle off"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe(
-    final k=minSpe) "Minimum tower speed"
+    final k=fanSpeMin) "Minimum tower speed"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback1 "Input difference"
+  Buildings.Controls.OBC.CDL.Continuous.Feedback dFanSpe
+    "Different between measured fan speed and the minimum fan speed"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
     final uLow=fanSpeChe,
@@ -67,7 +79,8 @@ protected
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback2 "Input difference"
+  Buildings.Controls.OBC.CDL.Continuous.Feedback dTChiSup
+    "Difference between chilled water supply temperature and its setpoint"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
     final uLow=-0.1, final uHigh=0.1)
@@ -83,8 +96,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
-    final uLow=1*5/9,
-    final uHigh=1.1*5/9)
+    final uLow=0.5*5/9,
+    final uHigh=1.5*5/9)
     "Check if chilled water supply temperature is greater than setpoint by 1 degF"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID chiWatTemCon(
@@ -92,18 +105,22 @@ protected
     final k=k,
     final Ti=Ti,
     final Td=Td,
-    final yMax=1,
-    final yMin=0,
+    final yMax=yMax,
+    final yMin=yMin,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
     final y_reset=0)
     "Controller to maintain chilled water supply temperature at setpoint"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
-    "Zero constant"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+    final k=yMin)
+    "Minimum output from chilled water supply temperature control loop"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "One constant"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+    final k=yMax)
+    "Maximum output from chilled water supply temperature control loop"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTowSpe(final k=maxSpe)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTowSpe(
+    final k=fanSpeMax)
     "Maximum tower fan speed"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Line lin
@@ -112,8 +129,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Output true at the moment when input becomes true"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(delayTime=180)
-    "Cycle off fan for at lease 3 minutes"
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=minCycOffTim)
+    "Minimum time of fan cycling off"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
@@ -125,19 +143,20 @@ protected
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
 equation
-  connect(uTowSpe, feedback1.u1)
+  connect(uFanSpe, dFanSpe.u1)
     annotation (Line(points={{-160,100},{-92,100}}, color={0,0,127}));
-  connect(feedback1.y, hys2.u)
+  connect(dFanSpe.y, hys2.u)
     annotation (Line(points={{-68,100},{-42,100}}, color={0,0,127}));
   connect(hys2.y, not2.u)
     annotation (Line(points={{-18,100},{-2,100}}, color={255,0,255}));
-  connect(TChiWatSup, feedback2.u1)
+  connect(TChiWatSup, dTChiSup.u1)
     annotation (Line(points={{-160,-40},{-112,-40}}, color={0,0,127}));
-  connect(TChiWatSupSet, feedback2.u2)
-    annotation (Line(points={{-160,-120},{-100,-120},{-100,-52}}, color={0,0,127}));
+  connect(TChiWatSupSet, dTChiSup.u2)
+    annotation (Line(points={{-160,-120},{-100,-120},{-100,-52}},
+      color={0,0,127}));
   connect(hys1.y, not1.u)
     annotation (Line(points={{-18,140},{-2,140}}, color={255,0,255}));
-  connect(feedback2.y, hys1.u)
+  connect(dTChiSup.y, hys1.u)
     annotation (Line(points={{-88,-40},{-60,-40},{-60,140},{-42,140}},
       color={0,0,127}));
   connect(not1.y, and2.u1)
@@ -156,7 +175,7 @@ equation
     annotation (Line(points={{-18,60},{38,60}}, color={255,0,255}));
   connect(lat.y, swi.u2)
     annotation (Line(points={{62,60},{98,60}}, color={255,0,255}));
-  connect(feedback2.y, hys3.u)
+  connect(dTChiSup.y, hys3.u)
     annotation (Line(points={{-88,-40},{-42,-40}}, color={0,0,127}));
   connect(TChiWatSupSet, chiWatTemCon.u_s)
     annotation (Line(points={{-160,-120},{-62,-120}}, color={0,0,127}));
@@ -164,9 +183,8 @@ equation
     annotation (Line(points={{-160,-40},{-120,-40},{-120,-150},{-50,-150},{-50,-132}},
       color={0,0,127}));
   connect(lat.y, chiWatTemCon.trigger)
-    annotation (Line(points={{62,60},{74,60},{74,-80},{-70,-80},{-70,-140},{-58,
-          -140},{-58,-132}},
-                   color={255,0,255}));
+    annotation (Line(points={{62,60},{74,60},{74,-80},{-70,-80},{-70,-140},
+      {-58,-140},{-58,-132}}, color={255,0,255}));
   connect(zer.y, lin.x1)
     annotation (Line(points={{62,-100},{80,-100},{80,-112},{98,-112}}, color={0,0,127}));
   connect(chiWatTemCon.y, lin.u)
@@ -178,9 +196,9 @@ equation
   connect(lin.y, swi.u3)
     annotation (Line(points={{122,-120},{130,-120},{130,-60},{86,-60},{86,52},
       {98,52}}, color={0,0,127}));
-  connect(swi.y, yTowSpe)
+  connect(swi.y,yFanSpe)
     annotation (Line(points={{122,60},{160,60}}, color={0,0,127}));
-  connect(minTowSpe.y, feedback1.u2)
+  connect(minTowSpe.y, dFanSpe.u2)
     annotation (Line(points={{-98,20},{-80,20},{-80,88}}, color={0,0,127}));
   connect(minTowSpe.y, lin.f1)
     annotation (Line(points={{-98,20},{-80,20},{-80,-100},{20,-100},{20,-116},
@@ -266,14 +284,14 @@ item 4.b.
 <li>
 Fan speed shall be modulated to maintain chilled water supply temperature 
 <code>TChiWatSup</code> at setpoint <code>TChiWatSupSet</code> by a direct acting 
-PID loop that resets fan speed from minimum <code>minSpe</code> at 0% loop output to
-maximum <code>maxSpe</code> at 100% loop output.
+PID loop that resets fan speed from minimum <code>fanSpeMin</code> at 0% loop output to
+maximum <code>fanSpeMax</code> at 100% loop output.
 </li>
 <li>
 If chilled water supply temperature <code>TChiWatSup</code> drops below setpoint
-and fans have been at minimum speed <code>minSpe</code> for 5 minutes, fans
-shall cycle off for at lease 3 minutes and until <code>TChiWatSup</code> rises
-above setpoint by 1 &deg;F.
+and fans have been at minimum speed <code>fanSpeMin</code> for 5 minutes (<code>cheCycOffTim</code>), 
+fans shall cycle off for at lease 3 minutes (<code>minCycOffTim</code>) and until 
+<code>TChiWatSup</code> rises above setpoint by 1 &deg;F.
 </li>
 </ol>
 </html>", revisions="<html>

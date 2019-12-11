@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences.Validation;
 model WSEOperation
-  "Validation sequence of controlling tower fan speed when waterside economizer is running alone"
+  "Validates cooling tower fan speed control sequence for WSE running only"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences.WSEOperation
     wseOpe(
-    final minSpe=0.1,
-    final maxSpe=1,
+    final fanSpeMin=0.1,
+    final fanSpeMax=1,
     final chiWatCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
     "Tower fan speed control when there is only waterside economizer is running"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -48,9 +48,9 @@ equation
     annotation (Line(points={{-58,80},{-42,80}}, color={255,0,255}));
   connect(con.y, swi.u3)
     annotation (Line(points={{-58,0},{-20,0},{-20,12},{18,12}}, color={0,0,127}));
-  connect(fanSpeSwi.y, swi.u2) annotation (Line(points={{-18,80},{0,80},{0,20},
-          {18,20}}, color={255,0,255}));
-  connect(swi.y, wseOpe.uTowSpe)
+  connect(fanSpeSwi.y, swi.u2)
+    annotation (Line(points={{-18,80},{0,80},{0,20},{18,20}}, color={255,0,255}));
+  connect(swi.y,wseOpe.uFanSpe)
     annotation (Line(points={{42,20},{50,20},{50,8},{58,8}}, color={0,0,127}));
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
     annotation (Line(points={{42,-80},{50,-80},{50,-8},{58,-8}},  color={0,0,127}));

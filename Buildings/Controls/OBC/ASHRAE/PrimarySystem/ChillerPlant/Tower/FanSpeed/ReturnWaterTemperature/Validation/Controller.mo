@@ -106,7 +106,7 @@ equation
   connect(plaCap.y, towFanSpe.reqPlaCap)
     annotation (Line(points={{-338,30},{-182,30},{-182,209},{-122,209}},
       color={0,0,127}));
-  connect(towFanSpe3.y, towFanSpe.uTowSpe)
+  connect(towFanSpe3.y,towFanSpe.uFanSpe)
     annotation (Line(points={{-298,-50},{-170,-50},{-170,203},{-122,203}},
       color={0,0,127}));
   connect(chiWatSupSet.y, towFanSpe.TChiWatSupSet)
@@ -128,7 +128,7 @@ equation
     annotation (Line(points={{-338,60},{32,60},{32,212},{98,212}}, color={255,0,255}));
   connect(plaCap.y, towFanSpe1.reqPlaCap)
     annotation (Line(points={{-338,30},{38,30},{38,209},{98,209}}, color={0,0,127}));
-  connect(towFanSpe3.y, towFanSpe1.uTowSpe)
+  connect(towFanSpe3.y,towFanSpe1.uFanSpe)
     annotation (Line(points={{-298,-50},{50,-50},{50,203},{98,203}}, color={0,0,127}));
   connect(chiWatSupSet.y, towFanSpe1.TChiWatSupSet)
     annotation (Line(points={{-338,-110},{62,-110},{62,194},{98,194}}, color={0,0,127}));
@@ -140,7 +140,7 @@ equation
     annotation (Line(points={{-278,-260},{86,-260},{86,182},{98,182}}, color={0,0,127}));
   connect(plaCap.y, towFanSpe2.reqPlaCap)
     annotation (Line(points={{-338,30},{246,30},{246,209},{318,209}}, color={0,0,127}));
-  connect(towFanSpe3.y, towFanSpe2.uTowSpe)
+  connect(towFanSpe3.y,towFanSpe2.uFanSpe)
     annotation (Line(points={{-298,-50},{258,-50},{258,203},{318,203}}, color={0,0,127}));
   connect(chiWatSupSet.y, towFanSpe2.TChiWatSupSet)
     annotation (Line(points={{-338,-110},{270,-110},{270,194},{318,194}}, color={0,0,127}));

@@ -4,7 +4,7 @@ block Coupled
 
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
-  parameter Real minSpe = 0.1 "Minimum cooling tower fan speed";
+  parameter Real fanSpeMin = 0.1 "Minimum cooling tower fan speed";
   parameter Real pumSpeChe = 0.005
     "Lower threshold value to check if condenser water pump is proven on";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
@@ -59,7 +59,7 @@ block Coupled
     "Tower maximum speed that reset based on plant partial load ratio"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     final min=0,
     final max=1,
     final unit="1") "Cooling tower fan speed"
@@ -79,22 +79,24 @@ block Coupled
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe(
-    final k=minSpe) "Minimum tower speed"
+    final k=fanSpeMin) "Minimum tower speed"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Line CWRTSpd
     "Fan speed calculated based on return water temperature control loop"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    final k=0) "Zero constant"
+    final k=yMin) "Zero constant"
     annotation (Placement(transformation(extent={{20,110},{40,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "Constant one"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+    final k=yMax) "Constant one"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis proOn[nConWatPum](
     final uLow=fill(pumSpeChe, nConWatPum),
     final uHigh=fill(pumSpeChe + 0.005, nConWatPum))
     "Check if the condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(final nu=nConWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(
+    final nu=nConWatPum)
     "Check if there is any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin fanSpe(nin=3)
@@ -161,7 +163,7 @@ equation
       color={0,0,127}));
   connect(fanSpe.y, swi.u1)
     annotation (Line(points={{42,-60},{50,-60},{50,-32},{78,-32}}, color={0,0,127}));
-  connect(swi.y, yTowSpe)
+  connect(swi.y,yFanSpe)
     annotation (Line(points={{102,-40},{140,-40}}, color={0,0,127}));
 
 annotation (
@@ -207,7 +209,7 @@ When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0),
 condenser water return temperature <code>TConWatRet</code> shall be maintained at 
 setpoint <code>TConWatRetSet</code> by a direct acting PID loop. The loop output 
 shall be mapped to the variable tower speed. Map the tower speed from minimum tower
-speed <code>minSpe</code> at 0% loop output to 100% speed at 100% loop output.
+speed <code>fanSpeMin</code> at 0% loop output to 100% speed at 100% loop output.
 </li>
 <li>
 The output tower speed <code>yTowSpe</code> shall be the lowest value of tower speed

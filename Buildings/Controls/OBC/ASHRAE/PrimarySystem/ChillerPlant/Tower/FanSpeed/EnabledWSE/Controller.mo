@@ -2,9 +2,9 @@
 block Controller "Tower fan speed control when waterside economizer is enabled"
 
   parameter Integer nChi=2 "Total number of chillers";
-  parameter Real minSpe=0.1 "Minimum tower fan speed";
-  parameter Real maxSpe=1 "Maximum tower fan speed";
-  parameter Modelica.SIunits.HeatFlowRate minUnLTon[nChi]={1e4,1e4}
+  parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
+  parameter Real fanSpeMax=1 "Maximum tower fan speed";
+  parameter Modelica.SIunits.HeatFlowRate chiMinCap[nChi]={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="Integrated operation"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -40,18 +40,18 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
     final unit=fill("W",nChi),
-    final quantity=fill("Power",nChi)) "Current load of each chiller"
+    final quantity=fill("HeatFlowRate",nChi)) "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
      final min=0,
      final max=1,
      final unit="1") "Tower fan speed"
@@ -69,7 +69,7 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
     final min=0,
     final max=1,
     final unit="1")
@@ -81,8 +81,9 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences.IntegratedOperation
     intOpe(
     final nChi=nChi,
-    final minUnLTon=minUnLTon,
-    final minSpe=minSpe,
+    final chiMinCap=chiMinCap,
+    final fanSpeMin=fanSpeMin,
+    final fanSpeMax=fanSpeMax,
     final conTyp=intOpeCon,
     final k=kIntOpe,
     final Ti=TiIntOpe,
@@ -91,8 +92,8 @@ protected
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.EnabledWSE.Subsequences.WSEOperation
     wseOpe(
-    final minSpe=minSpe,
-    final maxSpe=maxSpe,
+    final fanSpeMin=fanSpeMin,
+    final fanSpeMax=fanSpeMax,
     final fanSpeChe=fanSpeChe,
     final chiWatCon=chiWatCon,
     final k=kWSE,
@@ -114,9 +115,7 @@ equation
     annotation (Line(points={{-42,88},{-80,88},{-80,40},{-120,40}}, color={255,0,255}));
   connect(intOpe.chiLoa, chiLoa)
     annotation (Line(points={{-42,80},{-120,80}}, color={0,0,127}));
-  connect(intOpe.uWSE, uWSE)
-    annotation (Line(points={{-42,72},{-60,72},{-60,0},{-120,0}}, color={255,0,255}));
-  connect(wseOpe.uTowSpe, uTowSpe)
+  connect(wseOpe.uFanSpe,uFanSpe)
     annotation (Line(points={{-42,-52},{-60,-52},{-60,-30},{-120,-30}}, color={0,0,127}));
   connect(wseOpe.TChiWatSup, TChiWatSup)
     annotation (Line(points={{-42,-60},{-120,-60}}, color={0,0,127}));
@@ -124,20 +123,23 @@ equation
     annotation (Line(points={{-42,-68},{-60,-68},{-60,-90},{-120,-90}}, color={0,0,127}));
   connect(mulOr.y, swi.u2)
     annotation (Line(points={{-18,40},{-2,40}}, color={255,0,255}));
-  connect(intOpe.yTowSpe, swi.u1)
+  connect(intOpe.yFanSpe, swi.u1)
     annotation (Line(points={{-18,80},{-10,80},{-10,48},{-2,48}}, color={0,0,127}));
-  connect(wseOpe.yTowSpe, swi.u3)
+  connect(wseOpe.yFanSpe, swi.u3)
     annotation (Line(points={{-18,-60},{-10,-60},{-10,32},{-2,32}}, color={0,0,127}));
-  connect(uWSE, swi1.u2)
+  connect(uWseSta, swi1.u2)
     annotation (Line(points={{-120,0},{58,0}}, color={255,0,255}));
   connect(swi.y, swi1.u1)
     annotation (Line(points={{22,40},{40,40},{40,8},{58,8}}, color={0,0,127}));
   connect(zer.y, swi1.u3)
     annotation (Line(points={{22,-30},{40,-30},{40,-8},{58,-8}}, color={0,0,127}));
-  connect(swi1.y, yTowSpe)
+  connect(swi1.y, yFanSpe)
     annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(uChi, mulOr.u)
     annotation (Line(points={{-120,40},{-42,40}}, color={255,0,255}));
+  connect(uWseSta, intOpe.uWseSta)
+    annotation (Line(points={{-120,0},{-60,0},{-60,72},{-42,72}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName="towFanSpeWse",
@@ -184,7 +186,7 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
-Block that outputs cooling tower fan speed <code>yTowSpe</code> when waterside 
+Block that outputs cooling tower fan speed <code>yFanSpe</code> when waterside 
 economizer is enabled. This is implemented 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, 
