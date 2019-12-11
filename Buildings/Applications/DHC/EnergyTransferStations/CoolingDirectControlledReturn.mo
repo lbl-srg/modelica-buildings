@@ -124,7 +124,7 @@ model CoolingDirectControlledReturn
 
   Modelica.Blocks.Interfaces.RealInput TSetDisRet
     "Setpoint temperature for district return"
-    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop pipSup(
     redeclare final package Medium = Medium,
@@ -212,15 +212,6 @@ model CoolingDirectControlledReturn
     "Measured energy consumption at the ETS"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
-  Modelica.Blocks.Logical.LessThreshold TDisRet_min(threshold=273.15 + 16)
-    "Minimum district return temperature"
-    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Modelica.Blocks.Logical.Switch swi "Control valve switch"
-    annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  Modelica.Blocks.Sources.Constant clo(k=0) "Closed valve"
-    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Modelica.Blocks.Sources.Constant ope(k=1) "Open valve"
-    annotation (Placement(transformation(extent={{-60,-170},{-40,-150}})));
   Fluid.FixedResistances.Junction spl(
     redeclare final package Medium = Medium,
     m_flow_nominal={mBui_flow_nominal,-mDis_flow_nominal,-mByp_flow_nominal},
@@ -238,9 +229,32 @@ model CoolingDirectControlledReturn
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,20})));
-  Modelica.Blocks.Sources.Constant ope1(k=1)
-                                            "Open valve"
+  Modelica.Blocks.Sources.Constant ope(k=1) "Open valve"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
+  Buildings.Controls.Continuous.PIDHysteresis con(
+    eOn=1,
+    eOff=-1,
+    controllerType=controllerType,
+    k=k,
+    Ti=Ti,
+    Td=Td,
+    yMax=0,
+    yMin=-1,
+    wp=wp,
+    wd=wd,
+    Ni=Ni,
+    Nd=Nd,
+    reverseAction=reverseAction,
+    initType=initType,
+    xi_start=xi_start,
+    xd_start=xd_start,
+    y_start=yCon_start) "Controller"
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+  Modelica.Blocks.Math.Add add
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
+  Modelica.Blocks.Sources.Constant one(k=1)
+    "Adding 1 to controller output s.t. y(off) = 1 [valve open]"
+    annotation (Placement(transformation(extent={{-80,-104},{-60,-84}})));
 protected
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -284,12 +298,6 @@ equation
   connect(senTDisRet.T, dTDis.u2)
     annotation (Line(points={{-60,-49},{-60,110},{-50,110}}, color={0,0,127}));
 
-  connect(senTDisRet.T, TDisRet_min.u) annotation (Line(points={{-60,-49},{-60,
-          -40},{-80,-40},{-80,-130},{-62,-130}}, color={0,0,127}));
-  connect(swi.y, val.y)
-    annotation (Line(points={{1,-130},{10,-130},{10,-72}},  color={0,0,127}));
-  connect(TDisRet_min.y, swi.u2)
-    annotation (Line(points={{-39,-130},{-22,-130}},color={255,0,255}));
   connect(senTBuiRet.port_b, spl.port_1)
     annotation (Line(points={{60,-60},{50,-60}}, color={0,127,255}));
   connect(spl.port_2, val.port_a)
@@ -298,16 +306,22 @@ equation
     annotation (Line(points={{0,-60},{-20,-60}}, color={0,127,255}));
   connect(spl.port_3, pipByp.port_a)
     annotation (Line(points={{40,-50},{40,-30}}, color={0,127,255}));
-  connect(ope.y, swi.u3) annotation (Line(points={{-39,-160},{-30,-160},{-30,
-          -138},{-22,-138}}, color={0,0,127}));
-  connect(clo.y, swi.u1) annotation (Line(points={{-39,-100},{-30,-100},{-30,
-          -122},{-22,-122}}, color={0,0,127}));
   connect(pipByp.port_b, cheVal.port_a)
     annotation (Line(points={{40,-10},{40,10}}, color={0,127,255}));
   connect(cheVal.port_b, jun.port_3)
     annotation (Line(points={{40,30},{40,50}}, color={0,127,255}));
-  connect(ope1.y, cheVal.opening)
+  connect(ope.y, cheVal.opening)
     annotation (Line(points={{21,20},{32,20}}, color={0,0,127}));
+  connect(TSetDisRet, con.u_s)
+    annotation (Line(points={{-120,-120},{-62,-120}}, color={0,0,127}));
+  connect(senTBuiRet.T, con.u_m) annotation (Line(points={{70,-49},{70,-40},{54,
+          -40},{54,-140},{-50,-140},{-50,-132}}, color={0,0,127}));
+  connect(one.y, add.u1)
+    annotation (Line(points={{-59,-94},{-22,-94}}, color={0,0,127}));
+  connect(con.y, add.u2) annotation (Line(points={{-39,-120},{-30,-120},{-30,
+          -106},{-22,-106}}, color={0,0,127}));
+  connect(add.y, val.y)
+    annotation (Line(points={{1,-100},{10,-100},{10,-72}}, color={0,0,127}));
   annotation (defaultComponentName="coo",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -355,7 +369,7 @@ equation
           pattern=LinePattern.None),
         Rectangle(extent={{-8,52},{8,-52}}, lineColor={0,0,0})}),
                                Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-200},{100,160}})),
+            false, extent={{-100,-160},{100,160}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

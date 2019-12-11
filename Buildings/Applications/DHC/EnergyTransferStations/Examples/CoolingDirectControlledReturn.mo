@@ -29,6 +29,10 @@ model CoolingDirectControlledReturn
     mBui_flow_nominal=mBui_flow_nominal,
     mByp_flow_nominal=0.01,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1,
+    Ti=40,
+    yMax=0,
+    yMin=-1,
     initType=Modelica.Blocks.Types.InitPID.InitialOutput,
     yCon_start=0)
         annotation (Placement(transformation(extent={{-12,-12},{8,8}})));
@@ -57,7 +61,7 @@ model CoolingDirectControlledReturn
     annotation (Placement(transformation(extent={{-30,-60},{-50,-40}})));
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 16)
     "Setpoint temperature for district return"
-    annotation (Placement(transformation(extent={{-80,-22},{-60,-2}})));
+    annotation (Placement(transformation(extent={{-80,-24},{-60,-4}})));
   Fluid.Sources.Boundary_pT sinDis(redeclare package Medium = Medium,
     p=300000,
     nPorts=1) "District sink"
@@ -84,8 +88,8 @@ model CoolingDirectControlledReturn
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Modelica.Blocks.Sources.Ramp QCoo(
     height=-Q_flow_nominal,
-    duration(displayUnit="h") = 10800,
-    startTime(displayUnit="h") = 10800) "Cooling load"
+    duration(displayUnit="h") = 21600,
+    startTime(displayUnit="h") = 3600)  "Cooling load"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   inner Modelica.Fluid.System sys "System properties and default values"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
@@ -97,14 +101,15 @@ model CoolingDirectControlledReturn
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 equation
   connect(TSet.y, coo.TSetDisRet)
-    annotation (Line(points={{-59,-12},{-36,-12},{-36,-12},{-14,-12}},
+    annotation (Line(points={{-59,-14},{-36,-14},{-36,-14},{-14,-14}},
                                                    color={0,0,127}));
-  connect(TDisSup.port_b, coo.port_a1) annotation (Line(points={{-30,50},{-22,50},
-          {-22,4},{-12,4}}, color={0,127,255}));
-  connect(coo.port_b1, TBuiSup.port_a) annotation (Line(points={{8,4},{20,4},{20,
-          50},{30,50}},    color={0,127,255}));
-  connect(TBuiRet.port_b, coo.port_a2) annotation (Line(points={{30,-50},{20,-50},
-          {20,-8},{8,-8}},      color={0,127,255}));
+  connect(TDisSup.port_b, coo.port_a1) annotation (Line(points={{-30,50},{-22,
+          50},{-22,4},{-12,4}},
+                            color={0,127,255}));
+  connect(coo.port_b1, TBuiSup.port_a) annotation (Line(points={{8,4},{20,4},{
+          20,50},{30,50}}, color={0,127,255}));
+  connect(TBuiRet.port_b, coo.port_a2) annotation (Line(points={{30,-50},{20,
+          -50},{20,-8},{8,-8}}, color={0,127,255}));
   connect(TBuiSup.port_b, pum.port_a)
     annotation (Line(points={{50,50},{60,50}}, color={0,127,255}));
   connect(pum.port_b, loa.port_a)
