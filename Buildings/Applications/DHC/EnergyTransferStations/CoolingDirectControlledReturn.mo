@@ -156,7 +156,7 @@ model CoolingDirectControlledReturn
     redeclare final package Medium = Medium,
     final m_flow_nominal=mDis_flow_nominal,
     final dpValve_nominal=dpVal_nominal,
-    riseTime=60)
+    riseTime(displayUnit="min") = 120)
     "Control valve"
     annotation (Placement(transformation(extent={{20,-50},{0,-70}})));
 
@@ -212,49 +212,60 @@ model CoolingDirectControlledReturn
     "Measured energy consumption at the ETS"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
-  Fluid.FixedResistances.Junction spl(
+  Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium = Medium,
     m_flow_nominal={mBui_flow_nominal,-mDis_flow_nominal,-mByp_flow_nominal},
     dp_nominal=500*{1,-1,1}) "Bypass junction, splitter"
     annotation (Placement(transformation(extent={{50,-50},{30,-70}})));
+
   Modelica.Fluid.Valves.ValveIncompressible cheVal(
-    redeclare package Medium = Medium,
-    allowFlowReversal=false,
-    dp_nominal(displayUnit="Pa") = 6000,
-    m_flow_nominal=mByp_flow_nominal,
-    filteredOpening=true,
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=false,
+    final dp_nominal = dpVal_nominal,
+    final m_flow_nominal=mByp_flow_nominal,
+    final filteredOpening=true,
     riseTime=30,
-    checkValve=true) "Check valve (backflow preventer)" annotation (Placement(
+    final checkValve=true)
+    "Check valve (backflow preventer)"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,20})));
-  Modelica.Blocks.Sources.Constant ope(k=1) "Open valve"
+
+  Modelica.Blocks.Sources.Constant ope(k=1)
+    "check valve always open in positive flow direction"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
+
   Buildings.Controls.Continuous.PIDHysteresis con(
-    eOn=1,
-    eOff=-1,
-    controllerType=controllerType,
-    k=k,
-    Ti=Ti,
-    Td=Td,
-    yMax=0,
-    yMin=-1,
-    wp=wp,
-    wd=wd,
-    Ni=Ni,
-    Nd=Nd,
-    reverseAction=reverseAction,
-    initType=initType,
-    xi_start=xi_start,
-    xd_start=xd_start,
-    y_start=yCon_start) "Controller"
+    eOn=0,
+    eOff=-0.1,
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
+    final yMax=0,
+    final yMin=-1,
+    final wp=wp,
+    final wd=wd,
+    final Ni=Ni,
+    final Nd=Nd,
+    final reverseAction=reverseAction,
+    final initType=initType,
+    final xi_start=xi_start,
+    final xd_start=xd_start,
+    final y_start=yCon_start)
+    "District return temperature controller"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
+
   Modelica.Blocks.Math.Add add
+    "Addition block for controller 'off' state adjustment"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
+
   Modelica.Blocks.Sources.Constant one(k=1)
-    "Adding 1 to controller output s.t. y(off) = 1 [valve open]"
+    "Adding 1 to controller output s.t. controller output y(off) = 1 [valve open]"
     annotation (Placement(transformation(extent={{-80,-104},{-60,-84}})));
+
 protected
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
