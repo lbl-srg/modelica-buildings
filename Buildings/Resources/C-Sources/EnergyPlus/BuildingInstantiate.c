@@ -144,7 +144,7 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
   fclose(fp);
 }
 
-void setValueReferenceReal(
+void setAttributesReal(
   const char* fmuNam,
   const char* inpSrcNam,
   fmi2_import_variable_list_t* varLis,
@@ -168,8 +168,27 @@ void setValueReferenceReal(
       var = fmi2_import_get_variable(varLis, iFMI);
       if (strcmp(ptrSpawnReals->fmiNames[i], fmi2_import_get_variable_name(var)) == 0){
         /* Found the variable */
-        if (FMU_EP_VERBOSITY >= TIMESTEP)
-          ModelicaFormatMessage("Setting variable reference for %s to %d.", ptrSpawnReals->fmiNames[i], varValRef[iFMI]);
+        const fmi2_import_real_variable_t* varRea = fmi2_import_get_variable_as_real(var);
+        ptrSpawnReals->units[i] = fmi2_import_get_real_variable_unit(varRea);
+        /* If a unit is not specified in modelDescription.xml, then unit is NULL */
+
+        if (ptrSpawnReals->units[i] == NULL){
+          ModelicaFormatMessage("Warning: Variable %s does not specify units in %s. It will not be converted to SI units.",
+            ptrSpawnReals->fmiNames[i], fmuNam);
+        }
+        else{
+
+          /* Todo: Set up conversion for units, see email to Kyle on 12/12/19 for what path to go */
+        }
+
+        if (FMU_EP_VERBOSITY >= MEDIUM){
+          if (ptrSpawnReals->units[i] == NULL)
+            ModelicaFormatMessage("Variable with name %s has no units and valRef= %d.", ptrSpawnReals->fmiNames[i], varValRef[iFMI]);
+          else{
+            const char* unitName = fmi2_import_get_unit_name(ptrSpawnReals->units[i]); /* This is 'W', 'm2', etc. */
+            ModelicaFormatMessage("Variable with name %s has unit = %s and valRef= %d.", ptrSpawnReals->fmiNames[i], unitName, varValRef[iFMI]);
+          }
+        }
         ptrSpawnReals->valRefs[i] = varValRef[iFMI];
         found = true;
         break;
@@ -192,21 +211,22 @@ void setValueReferences(FMUBuilding* fmuBui){
   const fmi2_value_reference_t* vrl = fmi2_import_get_value_referece_list(vl);
   size_t nv = fmi2_import_get_variable_list_size(vl);
 
+
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Setting variable references for zones.");
 
   /* Set value references for the zones by assigning the values obtained from the FMU */
   for(i = 0; i < fmuBui->nZon; i++){
     zone = (FMUZone*) fmuBui->zones[i];
-    setValueReferenceReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->parameters);
-    setValueReferenceReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->inputs);
-    setValueReferenceReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->outputs);
+    setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->parameters);
+    setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->inputs);
+    setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, zone->outputs);
   }
 
   /* Set value references for the output variables by assigning the values obtained from the FMU */
   for(i = 0; i < fmuBui->nOutputVariables; i++){
     outVar = (FMUOutputVariable*) fmuBui->outputVariables[i];
-    setValueReferenceReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, outVar->outputs);
+    setAttributesReal(fmuBui->fmuAbsPat, fmuBui->idfName, vl, vrl, nv, outVar->outputs);
     outVar->valueReferenceIsSet = true;
   }
 

@@ -103,7 +103,7 @@ void OutputVariableExchange(
   /* Get output */
   getVariables(bui, outVar->modelicaNameOutputVariable, outVar->outputs);
 
-  *y = outVar->outputs->vals[0];
+  *y = outVar->outputs->valsEP[0];
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Returning from OutputVariablesExchange with nextEventTime = %.2f, y = %.2f, output variable = %s, mode = %s\n",
