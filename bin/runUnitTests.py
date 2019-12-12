@@ -76,7 +76,7 @@ def _setEnvironmentVariables(var, value):
 def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification):
     import buildingspy.development.regressiontest as u
 
-    ut = u.Tester(tool=tool)# skip_verification=skip_verification)
+    ut = u.Tester(tool=tool, skip_verification=skip_verification)
     ut.batchMode(batch)
     ut.setLibraryRoot(path)
     if package is not None:
