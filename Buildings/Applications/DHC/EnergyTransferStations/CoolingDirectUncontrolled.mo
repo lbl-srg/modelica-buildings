@@ -172,7 +172,7 @@ ETS connections relies on individual thermostatic control valves at each individ
 terminal unit for control. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/CoolingDirectUncontrolled.PNG\"/>
+<img src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/CoolingDirectUncontrolled.PNG\" alt=\"DHC.ETS.CoolingDirectUncontrolled\"/>
 </p>
 <h4>Reference</h4>
 <p>

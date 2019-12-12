@@ -92,6 +92,7 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare replaceable package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mBui_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,

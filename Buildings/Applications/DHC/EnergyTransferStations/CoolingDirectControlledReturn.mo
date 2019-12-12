@@ -193,6 +193,7 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.Junction jun(
     redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final m_flow_nominal={mDis_flow_nominal,-mBui_flow_nominal,mByp_flow_nominal},
     dp_nominal=500*{1,-1,1})
     "Bypass junction"
@@ -225,9 +226,7 @@ model CoolingDirectControlledReturn
     "Integration"
     annotation (Placement(transformation(extent={{70,100},{90,120}})));
 
-  Modelica.Blocks.Math.Add dTDis(
-    final k1=-1,
-    final k2=+1)
+  Modelica.Blocks.Math.Add dTDis(final k1=-1,final k2=+1)
     "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{-48,106},{-28,126}})));
 
@@ -241,7 +240,8 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium = Medium,
-    m_flow_nominal={mBui_flow_nominal,-mDis_flow_nominal,-mByp_flow_nominal},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final m_flow_nominal={mBui_flow_nominal,-mDis_flow_nominal,-mByp_flow_nominal},
     dp_nominal=500*{1,-1,1}) "Bypass junction, splitter"
     annotation (Placement(transformation(extent={{50,-50},{30,-70}})));
 
@@ -409,7 +409,7 @@ valve ensures that the return temperature to the district cooling network is at 
 specified value. This configuration naturally results in a fluctuating building supply temperature.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/CoolingDirectControlledReturn.PNG\"/>
+<img src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/CoolingDirectControlledReturn.PNG\" alt=\"DHC.ETS.CoolingDirectControlledReturn\"/>
 </p>
 <h4>Reference</h4>
 <p>
