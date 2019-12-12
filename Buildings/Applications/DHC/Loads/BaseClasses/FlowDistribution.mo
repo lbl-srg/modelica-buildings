@@ -59,11 +59,11 @@ model FlowDistribution
         origin={-120,220}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-50})));
+        origin={-110,-80})));
   Modelica.Blocks.Interfaces.RealOutput m_flow1Req(
     quantity="MassFlowRate") "Heating or chilled water flow required to meet the load"
     annotation (Placement(transformation(extent={{100,200},
-            {140,240}}),iconTransformation(extent={{100,-60},{120,-40}})));
+            {140,240}}),iconTransformation(extent={{100,-70},{120,-50}})));
   // Building blocks
   Buildings.Fluid.Sensors.TemperatureTwoPort T_aMes(
     redeclare final package Medium = Medium1,
@@ -76,7 +76,7 @@ model FlowDistribution
   Buildings.Controls.OBC.CDL.Routing.RealReplicator T_aMesVec(nout=nLoa) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-70,30})));
+        origin={-70,50})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare final package Medium=Medium1,
     final dp_nominal=dp1_nominal,
@@ -122,8 +122,8 @@ model FlowDistribution
   Modelica.Blocks.Interfaces.RealOutput Q_flow1Act(
     each quantity="HeatFlowRate")
     "Heat flow rate transferred to the source (<0 for heating)"
-    annotation (Placement(transformation(extent={{100,80},{140,120}}),
-      iconTransformation(extent={{100,-100},{120,-80}})));
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+      iconTransformation(extent={{100,-90},{120,-70}})));
   Modelica.Blocks.Sources.RealExpression m_flow1Act_i[nLoa](
     y=m_flow1Req_i .*
         Buildings.Utilities.Math.Functions.smoothMin(
@@ -154,7 +154,7 @@ equation
   connect(port_a, T_aMes.port_a) annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(T_aMes.port_b, m_flow1Mes.port_a) annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
   connect(T_aMes.T, T_aMesVec.u)
-    annotation (Line(points={{-70,11},{-70,18}}, color={0,0,127}));
+    annotation (Line(points={{-70,11},{-70,38}}, color={0,0,127}));
   connect(m_flow1Mes.port_b, heaCoo.port_a)
     annotation (Line(points={{-20,0},{
           68,0}}, color={0,127,255}));
@@ -166,15 +166,14 @@ equation
     annotation (Line(points={{52,80},{60,80},{60,
           6},{66,6}}, color={0,0,127}));
   connect(T_aMesVec.y, m_flow1Sou_i.T_in)
-    annotation (Line(points={{-70,42},{-70,120},{20,120},{20,164},{30,164}}, color={0,0,127}));
+    annotation (Line(points={{-70,62},{-70,120},{20,120},{20,164},{30,164}}, color={0,0,127}));
   connect(m_flow1Req_i, mulSum.u)
     annotation (Line(points={{-120,220},{-12,
           220}}, color={0,0,127}));
   connect(m_flow1Act_i.y, m_flow1Sou_i.m_flow_in)
     annotation (Line(points={{11,168},{30,168}}, color={0,0,127}));
   connect(Q_flow1Sum.y, Q_flow1Act)
-    annotation (Line(points={{52,80},{80,80},{
-          80,100},{120,100}},                                                     color={0,0,127}));
+    annotation (Line(points={{52,80},{120,80}},                                   color={0,0,127}));
   connect(ports_a1, hRetMes_i.port_a)
     annotation (Line(points={{-100,160},{-90, 160}}, color={0,127,255}));
   connect(hRetMes_i.port_b, sin.ports)
@@ -253,7 +252,7 @@ Engineering Publication 13.443.
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="Implement different
-distribution temperatures are handled e.g. use return temperature to compute the flow demand from terminal at source temperature.
+distribution temperatures e.g. use return temperature to compute the flow demand from terminal at source temperature.
 
 Implement optional main distribution pump.
 

@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingRCRefactor
-  "Example illustrating the coupling of a RC building model to a fluid loop"
+model CouplingTimeSeriesRefactor
+  "Example illustrating the coupling of a time series building model to a fluid loop"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
@@ -11,7 +11,8 @@ model CouplingRCRefactor
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.RCBuildingRefactor bui(nPorts1=2)
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.TimeSeriesBuildingRefactor bui(
+    nPorts1=2)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
@@ -30,9 +31,9 @@ model CouplingRCRefactor
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,90})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.disFloHea.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.terUni.T_a1_nominal[1])
     annotation (Placement(transformation(extent={{-100,74},{-80,94}})));
-  Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.disFloHea.m_flow1Req)
+  Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.terUni.m_flow1Req[1])
     annotation (Placement(transformation(extent={{-100,94},{-80,114}})));
   Buildings.Fluid.Sources.MassFlowSource_T supCoo(
     use_m_flow_in=true,
@@ -43,9 +44,9 @@ model CouplingRCRefactor
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,10})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal1(y=bui.disFloCoo.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaInlVal1(y=bui.terUni.T_a1_nominal[2])
     annotation (Placement(transformation(extent={{-100,-6},{-80,14}})));
-  Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.disFloCoo.m_flow1Req)
+  Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.terUni.m_flow1Req[2])
     annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = Medium1,
@@ -96,4 +97,4 @@ equation
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{140,120}})),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRC.mos"
         "Simulate and plot"));
-end CouplingRCRefactor;
+end CouplingTimeSeriesRefactor;

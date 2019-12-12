@@ -1,4 +1,5 @@
 TimeSeriesBuilding
+TimeSeriesBuildingRefactor
 RCBuilding
 RCBuildingRefactor
 RCBuildingRefactorHeatPort
@@ -12,4 +13,5 @@ GeojsonSpawnBuilding2
 GeojsonSpawnSecondaryFlow
 Terminal4PipesFluidPorts
 Terminal4PipesHeatPorts
+Terminal4PipesHeatReq
 GeojsonExport

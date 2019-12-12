@@ -45,7 +45,7 @@ model Terminal4PipesFluidPorts
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom1[nPorts1](
     k=m_flow1_nominal)
     annotation (Placement(transformation(extent={{162,210},{182,230}})));
-  Modelica.Blocks.Sources.RealExpression Q_flowHea(y=hexHea.Q1_flow)
+  Modelica.Blocks.Sources.RealExpression Q_flowHea(y=hexHea.Q2_flow)
     annotation (Placement(transformation(extent={{160,170},{180,190}})));
   Fluid.HeatExchangers.DryCoilEffectivenessNTU hexCoo(
     redeclare final package Medium1 = Medium1,
@@ -61,7 +61,7 @@ model Terminal4PipesFluidPorts
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal) annotation (Placement(transformation(extent={{0,4},{
             20,-16}})));
-  Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexCoo.Q1_flow)
+  Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexCoo.Q2_flow)
     annotation (Placement(transformation(extent={{160,150},{180,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(k=max(m_flow2_nominal))
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
@@ -94,10 +94,6 @@ equation
   connect(fan.port_a, THexInlMes.port_b) annotation (Line(points={{90,0},{110,0}},   color={0,127,255}));
   connect(port_a2, THexInlMes.port_a) annotation (Line(points={{200,0},{130,0}},                   color={0,127,255}));
   connect(fan.port_b, hexCoo.port_a2) annotation (Line(points={{70,0},{20,0}},                  color={0,127,255}));
-  connect(Q_flowHea.y, Q_flow1Act[1])
-    annotation (Line(points={{181,180},{192,180},{192,170},{220,170}}, color={0,0,127}));
-  connect(Q_flowCoo.y, Q_flow1Act[2])
-    annotation (Line(points={{181,160},{192,160},{192,190},{220,190}}, color={0,0,127}));
   connect(gaiFloNom2.u, sigFlo2.y)
     annotation (Line(points={{18,70},{-18,70}}, color={0,0,127}));
   connect(gaiFloNom2.y, fan.m_flow_in)
@@ -110,4 +106,8 @@ equation
     annotation (Line(points={{-220,220},{-12,220}}, color={0,0,127}));
   connect(conTInd.y, gaiFloNom1.u)
     annotation (Line(points={{12,220},{160,220}}, color={0,0,127}));
+  connect(Q_flowHea.y, Q_flow2Act[1]) annotation (Line(points={{181,180},{200,
+          180},{200,170},{220,170}}, color={0,0,127}));
+  connect(Q_flowCoo.y, Q_flow2Act[2]) annotation (Line(points={{181,160},{192,
+          160},{192,190},{220,190}}, color={0,0,127}));
 end Terminal4PipesFluidPorts;

@@ -62,28 +62,28 @@ model TimeSeriesBuilding
                                                 [nHeaLoa](k=(1) ./ Q_flowHea_nominal)
     annotation (Placement(transformation(extent={{80,220},{100,240}})));
 equation
-  connect(TCooLoaO.T, cooLoaO.TInd) annotation (Line(points={{-218,-100},{-201,-100}}, color={0,0,127}));
+  connect(TCooLoaO.T, cooLoaO.TInd) annotation (Line(points={{-218,-100},{-202,-100}}, color={0,0,127}));
   connect(minTSet.y, from_degC1.u) annotation (Line(points={{-118,130},{-102,130}}, color={0,0,127}));
   connect(from_degC1.y, heaLoaO[1].TSet)
     annotation (Line(points={{-78,130},{-60,130},{-60,108},{-178,108}},     color={0,0,127}));
   connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
   connect(from_degC2.y, cooLoaO[1].TSet)
     annotation (Line(points={{-78,-130},{-60,-130},{-60,-92},{-178,-92}},     color={0,0,127}));
-  connect(loa.y[2], heaLoaO[1].Q_flowReq) annotation (Line(points={{21,0},{80,0},{80,100},{-178,100}}, color={0,0,127}));
+  connect(loa.y[1], heaLoaO[1].Q_flowReq) annotation (Line(points={{21,0},{80,0},{80,100},{-178,100}}, color={0,0,127}));
   connect(sin1.y, from_degC4.u) annotation (Line(points={{-142,50},{-178,50}}, color={0,0,127}));
   connect(from_degC4.y, THeaLoaT[1].T) annotation (Line(points={{-202,50},{-218,50}}, color={0,0,127}));
   connect(sin.y, gai[2].u) annotation (Line(points={{22,40},{50,40},{50,200},{80,200}}, color={0,0,127}));
   connect(conPIDMaxT.y, yCoo) annotation (Line(points={{142,-192},{310,-192}}, color={0,0,127}));
   connect(conPIDMinT.y, yHea) annotation (Line(points={{142,200},{310,200}}, color={0,0,127}));
-  connect(loa.y[1], gai1[1].u) annotation (Line(points={{21,0},{50,0},{50,-192},{78,-192}}, color={0,0,127}));
+  connect(loa.y[2], gai1[1].u) annotation (Line(points={{21,0},{50,0},{50,-192},{78,-192}}, color={0,0,127}));
   connect(Q_flowHeaAct, gai3.u) annotation (Line(points={{310,294},{34,294},{34,230},{78,230}}, color={0,0,127}));
   connect(Q_flowCooAct, gai2.u) annotation (Line(points={{310,-294},{32,-294},{32,-220},{78,-220}}, color={0,0,127}));
-  connect(loa.y[2], gai[1].u) annotation (Line(points={{21,0},{50,0},{50,200},{80,200}}, color={0,0,127}));
+  connect(loa.y[1], gai[1].u) annotation (Line(points={{21,0},{50,0},{50,200},{80,200}}, color={0,0,127}));
   connect(gai2.y, conPIDMaxT.u_m) annotation (Line(points={{102,-220},{130,-220},{130,-204}}, color={0,0,127}));
   connect(conPIDMaxT.u_s, gai1.y) annotation (Line(points={{118,-192},{102,-192}}, color={0,0,127}));
   connect(gai3.y, conPIDMinT.u_m) annotation (Line(points={{102,230},{130,230},{130,212}}, color={0,0,127}));
   connect(conPIDMinT.u_s, gai.y) annotation (Line(points={{118,200},{104,200}}, color={0,0,127}));
-  connect(loa.y[1], cooLoaO[1].Q_flowReq)
+  connect(loa.y[2], cooLoaO[1].Q_flowReq)
     annotation (Line(points={{21,0},{80,0},{80,-100},{-178,-100}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>

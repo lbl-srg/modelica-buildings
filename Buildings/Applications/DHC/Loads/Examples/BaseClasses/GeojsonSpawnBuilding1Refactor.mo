@@ -15,14 +15,14 @@ model GeojsonSpawnBuilding1Refactor
     "Path of the weather file";
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nLoa](
     k=fill(20, nLoa)) "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,258},{-280,278}})));
+    annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1[nLoa]
-    annotation (Placement(transformation(extent={{-260,258},{-240,278}})));
+    annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nLoa](
     k=fill(24, nLoa)) "Maximum temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,222},{-280,242}})));
+    annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nLoa]
-    annotation (Placement(transformation(extent={{-260,222},{-240,242}})));
+    annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-60,180},{-40,200}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
@@ -96,9 +96,9 @@ model GeojsonSpawnBuilding1Refactor
     annotation (Placement(transformation(extent={{220,220},{240,240}})));
 equation
   connect(maxTSet.y,from_degC2.u)
-    annotation (Line(points={{-278,232},{-262,232}}, color={0,0,127}));
+    annotation (Line(points={{-278,220},{-262,220}}, color={0,0,127}));
   connect(minTSet.y, from_degC1.u)
-    annotation (Line(points={{-278,268},{-262,268}}, color={0,0,127}));
+    annotation (Line(points={{-278,260},{-262,260}}, color={0,0,127}));
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
       points={{-39,230},{-20,230},{-20,197},{-16,197}},
       color={0,0,127},
@@ -131,17 +131,19 @@ equation
   connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,20},{-280,
           20},{-280,-220},{-180,-220}}, color={0,127,255}));
   connect(disFloHea.ports_b1, terUni.ports_a1[1]) annotation (Line(points={{-238,
-          -174},{-260,-174},{-260,-7.4},{-80,-7.4}}, color={0,127,255}));
-  connect(terUni.ports_b1[1], disFloHea.ports_a1) annotation (Line(points={{-60,
-          -7.4},{-40,-7.4},{-40,-174},{-218,-174}}, color={0,127,255}));
+          -174},{-260,-174},{-260,-8},{-80,-8}},     color={0,127,255}));
+  connect(terUni.ports_b1[1], disFloHea.ports_a1) annotation (Line(points={{-60,-8},
+          {-40,-8},{-40,-174},{-218,-174}},         color={0,127,255}));
   connect(disFloCoo.ports_b1, terUni.ports_a1[2]) annotation (Line(points={{-180,
-          -214},{-200,-214},{-200,-3.4},{-80,-3.4}}, color={0,127,255}));
-  connect(terUni.ports_b1[2], disFloCoo.ports_a1) annotation (Line(points={{-60,
-          -3.4},{-20,-3.4},{-20,-214},{-160,-214}}, color={0,127,255}));
-  connect(from_degC1.y, terUni.uSet[1]) annotation (Line(points={{-238,268},{-160,
-          268},{-160,2.5},{-81,2.5}}, color={0,0,127}));
-  connect(from_degC2.y, terUni.uSet[2]) annotation (Line(points={{-238,232},{-160,
-          232},{-160,3.5},{-81,3.5}}, color={0,0,127}));
+          -214},{-200,-214},{-200,-4},{-80,-4}},     color={0,127,255}));
+  connect(terUni.ports_b1[2], disFloCoo.ports_a1) annotation (Line(points={{-60,-4},
+          {-20,-4},{-20,-214},{-160,-214}},         color={0,127,255}));
+  connect(from_degC1.y, terUni.uSet[1]) annotation (Line(points={{-238,260},{
+          -160,260},{-160,3.5},{-81,3.5}},
+                                      color={0,0,127}));
+  connect(from_degC2.y, terUni.uSet[2]) annotation (Line(points={{-238,220},{
+          -160,220},{-160,4.5},{-81,4.5}},
+                                      color={0,0,127}));
   connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-160,-220},{280,
           -220},{280,20},{300,20}}, color={0,127,255}));
   connect(znAttic.ports[1], terUni[1].port_a2) annotation (Line(points={{42,84.8},
@@ -171,14 +173,15 @@ equation
   connect(PFanPum, mulSum.y)
     annotation (Line(points={{320,240},{282,240},{282,230},{242,230}},
                                                    color={0,0,127}));
-  connect(terUni.Q_flow1Act[1], Q_flow1Act[1, :]) annotation (Line(points={{-59,2.5},
-          {160.5,2.5},{160.5,280},{320,280}},      color={0,0,127}));
-  connect(terUni.PFanPum, mulSum.u) annotation (Line(points={{-59,1},{200,1},{200,
-          230},{218,230}}, color={0,0,127}));
-  connect(terUni.m_flow1Req[1], disFloHea.m_flow1Req_i) annotation (Line(points={{-59,4.5},
-          {-59,-90.5},{-239,-90.5},{-239,-185}},           color={0,0,127}));
-  connect(terUni.m_flow1Req[2], disFloCoo.m_flow1Req_i) annotation (Line(points=
-         {{-59,5.5},{-59,-109.5},{-181,-109.5},{-181,-225}}, color={0,0,127}));
+  connect(terUni.Q_flow2Act[1], Q_flow1Act[1, :]) annotation (Line(points={{-59,
+          3.5},{160.5,3.5},{160.5,280},{320,280}}, color={0,0,127}));
+  connect(terUni.PFanPum, mulSum.u) annotation (Line(points={{-59,2},{200,2},{
+          200,230},{218,230}},
+                           color={0,0,127}));
+  connect(terUni.m_flow1Req[1], disFloHea.m_flow1Req_i) annotation (Line(points={{-59,5.5},
+          {-59,-90.5},{-239,-90.5},{-239,-188}},           color={0,0,127}));
+  connect(terUni.m_flow1Req[2], disFloCoo.m_flow1Req_i) annotation (Line(points={{-59,6.5},
+          {-59,-109.5},{-181,-109.5},{-181,-228}},           color={0,0,127}));
   annotation (
   Documentation(info="
   <html>

@@ -28,6 +28,9 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   parameter Boolean haveFluPor = true
     "Set to true for fluid ports on the load side"
     annotation(Evaluate=true);
+  parameter Boolean haveQ_flowReq = false
+    "Set to true for required heat flow rate input"
+    annotation(Evaluate=true);
   parameter Boolean haveFanPum
     "Set to true if the system has a fan or a pump"
     annotation(Evaluate=true);
@@ -88,8 +91,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       Placement(transformation(extent={{190,-240},{210,-160}}),
       iconTransformation(extent={{90,-100},{110,-20}})));
   // TODO: update for electric terminal (heater or DX) => nPorts1=0 but uSet required.
-  Modelica.Blocks.Interfaces.RealInput uSet[nPorts1]
-    "Setpoint"
+  Modelica.Blocks.Interfaces.RealInput uSet[nPorts1] "Set point"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -97,9 +99,19 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,40})));
+  Modelica.Blocks.Interfaces.RealInput Q_flow2Req[nPorts1](
+   each quantity="HeatFlowRate") if haveQ_flowReq
+    "Required heat flow rate to meet set point (>0 for heating)"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-220,180}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,20})));
   Modelica.Blocks.Interfaces.RealOutput m_flow1Req[nPorts1](
     each quantity="MassFlowRate") if nPorts1>0
-    "Heating or chilled water flow required to meet the load"
+    "Required heating or chilled water flow to meet set point"
     annotation (
       Placement(transformation(extent={{200,200},{240,240}}),
       iconTransformation(extent={{100,50},{120,70}})));
@@ -132,9 +144,9 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation (visible=DynamicSelect(true, haveHeaPor),
       Placement(transformation(extent={{190,-50},{210,-30}}),
       iconTransformation(extent={{32,-10},{52,10}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow1Act[nPorts1](
+  Modelica.Blocks.Interfaces.RealOutput Q_flow2Act[nPorts1](
     each quantity="HeatFlowRate") if nPorts1>0
-    "Heat flow rate transferred to the source (<0 for heating)"
+    "Heat flow rate transferred to the load (>0 for heating)"
     annotation (Placement(transformation(extent={{200,160},{240,200}}),
       iconTransformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput PFanPum(
@@ -158,9 +170,6 @@ protected
     Medium2.specificHeatCapacityCp(
       Medium2.setState_pTX(Medium2.p_default, T_a2_nominal))
     "Load side specific heat capacity at nominal conditions";
-initial equation
-  assert(haveHeaPor or haveFluPor,
-    "At least one of the parameters haveHeaPor and haveFluPor must be true.")
 annotation (Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}}),
     graphics={

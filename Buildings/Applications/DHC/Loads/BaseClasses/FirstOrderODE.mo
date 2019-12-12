@@ -21,22 +21,22 @@ model FirstOrderODE
     "Time constant of the indoor temperature";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     quantity="ThermodynamicTemperature", unit="K", displayUnit="degC")
-    "Setpoint temperature for heating or cooling"
-    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
+    "Temperature set point for heating or cooling"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
                      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput Q_flowReq(
     quantity="HeatFlowRate", unit="W")
-    "Required heat flow rate to meet setpoint temperature"
+    "Required heat flow rate to meet temperature set point"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
                        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput Q_flowAct(
     quantity="HeatFlowRate", unit="W")
     "Actual heating or cooling heat flow rate"
-    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
             iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TInd(
     quantity="ThermodynamicTemperature", unit="K", displayUnit="degC") "Indoor temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
   parameter Modelica.SIunits.ThermalConductance G = -Q_flowHea_nominal / (TOutHea_nominal - TIndHea_nominal)
   "Lumped thermal conductance representing all deltaT dependent heat transfer mechanisms";
@@ -49,7 +49,7 @@ initial equation
 equation
   der(TInd) * tau = (Q_flowAct - Q_flowReq) / G + TSet - TInd;
   annotation (
-  defaultComponentName="heaFloEps",
+  defaultComponentName="TLoaODE",
   Documentation(info="<html>
   <p>
   This is a first order ODE model for computing the indoor temperature based on a minimum set of parameters
