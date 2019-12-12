@@ -173,12 +173,8 @@ void setAttributesReal(
         /* If a unit is not specified in modelDescription.xml, then unit is NULL */
 
         if (ptrSpawnReals->units[i] == NULL){
-          ModelicaFormatMessage("Warning: Variable %s does not specify units in %s. It will not be converted to SI units.",
+          ModelicaFormatMessage("Warning: Variable %s does not specify units in %s. It will not be converted to SI units.\n",
             ptrSpawnReals->fmiNames[i], fmuNam);
-        }
-        else{
-
-          /* Todo: Set up conversion for units, see email to Kyle on 12/12/19 for what path to go */
         }
 
         if (FMU_EP_VERBOSITY >= MEDIUM){

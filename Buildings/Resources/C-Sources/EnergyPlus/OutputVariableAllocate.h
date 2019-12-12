@@ -21,6 +21,7 @@ void* OutputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const int verbosity);
+  const int verbosity,
+  int printUnit);
 
 #endif

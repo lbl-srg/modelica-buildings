@@ -12,6 +12,10 @@ model OutputVariable
         transformation(extent={{100,-10},{120,10}})));
 
 protected
+  final parameter Boolean printUnit = building.printUnits
+    "Set to true to print unit of OutputVariable objects to log file"
+      annotation(Dialog(group="Diagnostics"));
+
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUOutputVariableClass adapter=
       Buildings.Experimental.EnergyPlus.BaseClasses.FMUOutputVariableClass(
       modelicaNameBuilding=modelicaNameBuilding,
@@ -24,7 +28,8 @@ protected
       usePrecompiledFMU=usePrecompiledFMU,
       fmuName=fmuName,
       buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
-      verbosity=verbosity) "Class to communicate with EnergyPlus";
+      verbosity=verbosity,
+      printUnit=printUnit) "Class to communicate with EnergyPlus";
 
   Modelica.SIunits.Time tNext(start=startTime, fixed=true) "Next sampling time";
 

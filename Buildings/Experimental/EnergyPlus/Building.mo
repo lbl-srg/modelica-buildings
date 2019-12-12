@@ -32,6 +32,9 @@ model Building
     "If true, then this model computes the wet bulb temperature"
     annotation(Dialog(tab="Advanced", enable=showWeatherData));
 
+  parameter Boolean printUnits = true "Set to true to print units of OutputVariable instances to log file"
+    annotation(Dialog(group="Diagnostics"));
+
   BoundaryConditions.WeatherData.Bus weaBus if
         showWeatherData "Weather data bus"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));

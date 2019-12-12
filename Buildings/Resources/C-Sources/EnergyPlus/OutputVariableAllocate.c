@@ -62,7 +62,8 @@ void* OutputVariableAllocate(
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const int verbosity){
+  const int verbosity,
+  int printUnit){
   /* Note: The idfName is needed to unpack the fmu so that the valueReference can be obtained */
   unsigned int i;
   FMUOutputVariable* outVar = NULL;
@@ -115,7 +116,7 @@ void* OutputVariableAllocate(
   mallocString(strlen(outputName)+1, "Not enough memory in OutputVariableAllocate.c. to allocate output name.", &(outVar->name));
   strcpy(outVar->name, outputName);
 
-  outVar->valueReferenceIsSet = false;
+  outVar->printUnit = printUnit;
 
   mallocSpawnReals(1, &(outVar->outputs));
   /* Assign structural data */

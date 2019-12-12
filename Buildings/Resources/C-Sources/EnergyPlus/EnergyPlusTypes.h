@@ -108,6 +108,8 @@ typedef struct FMUOutputVariable
                                        and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
   spawnReals* outputs;              /* Outputs (vector with 1 element) */
 
+  bool printUnit;                   /* Flag whether unit diagnostics should be printed */
+
   fmi2Boolean isInstantiated; /* Flag set to true when the output variable has been completely instantiated */
   fmi2Boolean isInitialized;  /* Flag set to true after the output variable has executed a get call in the initializion mode
                                  of the FMU */
