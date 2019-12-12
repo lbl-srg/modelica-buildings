@@ -4,13 +4,14 @@ simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.Coolin
 removePlots(true);
 createPlot(id=1, 
   position={11, 19, 713, 564}, 
-  y={"TDisSup.T", "TDisRet.T", "TBuiSup.T", "TBuiRet.T"}, 
+  y={"TDisSup.T", "TDisRet.T", "TBuiSup.T", "TBuiRet.T", "dTDis.y", "dTBui.y"}, 
   range={0.0, 24.0, 6.0, 18.0}, 
   grid=true, 
   filename="CoolingDirectControlledReturn.mat",
-  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {244,125,35}, {162,29,33}}, 
+  patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Dash, LinePattern.Dash},
   timeUnit="h", 
-  displayUnits={"degC", "degC", "degC", "degC"}); 
+  displayUnits={"degC", "degC", "degC", "degC", "", ""}); 
 createPlot(id=1, 
   position={11, 19, 713, 280}, 
   y={"TDisSup.port_a.m_flow", "TBuiSup.port_a.m_flow", "TBuiRet.port_a.m_flow", "TDisRet.port_a.m_flow", "coo.pipByp.m_flow"}, 

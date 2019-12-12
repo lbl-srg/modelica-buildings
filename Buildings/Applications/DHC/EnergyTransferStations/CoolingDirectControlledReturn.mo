@@ -1,9 +1,10 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
 model CoolingDirectControlledReturn
-  "Direct cooling ETS model for district energy systems with in-building pumping and controlled district return temperature"
+  "Direct cooling ETS model for district energy systems with in-building 
+    pumping and controlled district return temperature"
   extends Buildings.Fluid.Interfaces.PartialFourPort(
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium);
+    redeclare final package Medium1 = Medium,
+    redeclare final package Medium2 = Medium);
 
  replaceable package Medium =
    Modelica.Media.Interfaces.PartialMedium "Medium in the component";
@@ -26,20 +27,24 @@ model CoolingDirectControlledReturn
 
   // pressure drops
   parameter Modelica.SIunits.PressureDifference dpSup_nominal(
+    final min=0,
     displayUnit="Pa")=500
-  "Nominal pressure drop in the ETS supply side (piping, valves, etc.)";
+    "Nominal pressure drop in the ETS supply side (piping, valves, etc.)";
 
   parameter Modelica.SIunits.PressureDifference dpRet_nominal(
+    final min=0,
     displayUnit="Pa")=500
-  "Nominal pressure drop in the ETS return side (piping, valves, etc.)";
+    "Nominal pressure drop in the ETS return side (piping, valves, etc.)";
 
   parameter Modelica.SIunits.PressureDifference dpByp_nominal(
+    final min=0,
     displayUnit="Pa")=100
-  "Nominal pressure drop in the bypass line (piping, valves, etc.)";
+    "Nominal pressure drop in the bypass line (piping, valves, etc.)";
 
   parameter Modelica.SIunits.PressureDifference dpVal_nominal(
+    final min=0,
     displayUnit="Pa")=6000
-  "Nominal pressure drop in the control valve";
+    "Nominal pressure drop in the control valve";
 
   // Controller parameters
   parameter Modelica.Blocks.Types.SimpleController controllerType=
@@ -47,47 +52,56 @@ model CoolingDirectControlledReturn
     "Type of controller"
     annotation(Dialog(tab="Controller"));
 
-  parameter Real k(min=0, unit="1") = 1
+  parameter Real k(
+    final min=0,
+    final unit="1") = 1
     "Gain of controller"
     annotation(Dialog(tab="Controller"));
 
-  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=120
+  parameter Modelica.SIunits.Time Ti(
+    min=Modelica.Constants.small)=120
     "Time constant of integrator block"
      annotation (Dialog(tab="Controller", enable=
        controllerType == Modelica.Blocks.Types.SimpleController.PI or
        controllerType == Modelica.Blocks.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time Td(min=0)=0.1
+  parameter Modelica.SIunits.Time Td(
+    final min=0)=0.1
     "Time constant of derivative block"
      annotation (Dialog(tab="Controller", enable=
        controllerType == Modelica.Blocks.Types.SimpleController.PD or
        controllerType == Modelica.Blocks.Types.SimpleController.PID));
 
-  parameter Real yMax(start=1)=1
-   "Upper limit of output"
+  parameter Real yMax(
+    start=1)=1
+    "Upper limit of output"
     annotation(Dialog(tab="Controller"));
 
   parameter Real yMin=0
-   "Lower limit of output"
+    "Lower limit of output"
     annotation(Dialog(tab="Controller"));
 
-  parameter Real wp(min=0) = 1
-   "Set-point weight for Proportional block (0..1)"
+  parameter Real wp(
+    final min=0)=1
+    "Set-point weight for Proportional block (0..1)"
     annotation(Dialog(tab="Controller"));
 
-  parameter Real wd(min=0) = 0
-   "Set-point weight for Derivative block (0..1)"
+  parameter Real wd(
+    final min=0) = 0
+    "Set-point weight for Derivative block (0..1)"
     annotation(Dialog(tab="Controller", enable=
        controllerType == Modelica.Blocks.Types.SimpleController.PD or
        controllerType == Modelica.Blocks.Types.SimpleController.PID));
 
-  parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
+  parameter Real Ni(
+    min=100*Modelica.Constants.eps)=0.9
     "Ni*Ti is time constant of anti-windup compensation"
     annotation(Dialog(tab="Controller", enable=
        controllerType == Modelica.Blocks.Types.SimpleController.PI or
        controllerType == Modelica.Blocks.Types.SimpleController.PID));
 
-  parameter Real Nd(min=100*Modelica.Constants.eps) = 10
+  parameter Real Nd(
+    min=100*Modelica.Constants.eps)=10
     "The higher Nd, the more ideal the derivative block"
     annotation(Dialog(tab="Controller", enable=
        controllerType == Modelica.Blocks.Types.SimpleController.PD or
@@ -95,7 +109,8 @@ model CoolingDirectControlledReturn
 
   parameter Modelica.Blocks.Types.InitPID initType=
     Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
+    "Type of initialization (1: no init, 2: steady state, 3: initial state, 
+      4: initial output)"
     annotation(Dialog(group="Initialization",tab="Controller"));
 
   parameter Real xi_start=0
@@ -119,16 +134,31 @@ model CoolingDirectControlledReturn
       enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput));
 
   parameter Boolean reverseAction = true
-    "Set to true for throttling the water flow rate through a cooling coil controller"
+    "Set to true for throttling the water flow rate through a cooling 
+      coil controller"
     annotation(Dialog(tab="Controller"));
 
   Modelica.Blocks.Interfaces.RealInput TSetDisRet
-    "Setpoint temperature for district return"
+    "Setpoint for the minimum district return temperature"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}})));
+
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    final quantity="Power",
+    final unit="W",
+    displayUnit="kW")
+    "Measured power demand at the ETS"
+    annotation (Placement(transformation(extent={{100,140},{120,160}})));
+
+  Modelica.Blocks.Interfaces.RealOutput Q(
+    final quantity="Energy",
+    final unit="J",
+    displayUnit="kWh")
+    "Measured energy consumption at the ETS"
+    annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop pipSup(
     redeclare final package Medium = Medium,
-    allowFlowReversal=false,
+    final allowFlowReversal=false,
     final m_flow_nominal=mDis_flow_nominal,
     final dp_nominal=dpSup_nominal)
     "Supply pipe"
@@ -136,7 +166,7 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.PressureDrop pipRet(
     redeclare final package Medium = Medium,
-    allowFlowReversal=false,
+    final allowFlowReversal=false,
     final m_flow_nominal=mDis_flow_nominal,
     final dp_nominal=dpRet_nominal)
     "Return pipe"
@@ -144,9 +174,9 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.PressureDrop pipByp(
     redeclare final package Medium = Medium,
-    allowFlowReversal=false,
+    final allowFlowReversal=false,
     final m_flow_nominal=mByp_flow_nominal,
-    show_T=true,
+    final show_T=true,
     final dp_nominal=dpByp_nominal)
     "Bypass pipe"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -163,8 +193,9 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.Junction jun(
     redeclare final package Medium = Medium,
-    m_flow_nominal={mDis_flow_nominal,-mBui_flow_nominal,mByp_flow_nominal},
-    dp_nominal=500*{1,-1,1}) "Bypass junction"
+    final m_flow_nominal={mDis_flow_nominal,-mBui_flow_nominal,mByp_flow_nominal},
+    dp_nominal=500*{1,-1,1})
+    "Bypass junction"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
 
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
@@ -190,28 +221,23 @@ model CoolingDirectControlledReturn
     "Building return temperature sensor"
     annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
 
-  Modelica.Blocks.Continuous.Integrator int(k=1) "Integration"
+  Modelica.Blocks.Continuous.Integrator int(final k=1)
+    "Integration"
     annotation (Placement(transformation(extent={{70,100},{90,120}})));
-  Modelica.Blocks.Math.Add dTDis(k1=-1, k2=+1)
+
+  Modelica.Blocks.Math.Add dTDis(
+    final k1=-1,
+    final k2=+1)
     "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{-48,106},{-28,126}})));
-  Modelica.Blocks.Math.Product pro "Product"
+
+  Modelica.Blocks.Math.Product pro
+    "Product"
     annotation (Placement(transformation(extent={{-10,100},{10,120}})));
-  Modelica.Blocks.Math.Gain cp(k=cp_default)
+
+  Modelica.Blocks.Math.Gain cp(final k=cp_default)
     "Specific heat multiplier to calculate heat flow rate"
     annotation (Placement(transformation(extent={{30,100},{50,120}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    final quantity="Power",
-    final unit="W",
-    displayUnit="kW")
-    "Measured power demand at the ETS"
-    annotation (Placement(transformation(extent={{100,140},{120,160}})));
-  Modelica.Blocks.Interfaces.RealOutput Q(
-    final quantity="Energy",
-    final unit="J",
-    displayUnit="kWh")
-    "Measured energy consumption at the ETS"
-    annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium = Medium,
@@ -225,17 +251,15 @@ model CoolingDirectControlledReturn
     final dp_nominal = dpVal_nominal,
     final m_flow_nominal=mByp_flow_nominal,
     final filteredOpening=true,
-    riseTime=30,
+    riseTime=60,
     final checkValve=true)
     "Check valve (backflow preventer)"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,20})));
 
-  Modelica.Blocks.Sources.Constant ope(k=1)
-    "check valve always open in positive flow direction"
+  Modelica.Blocks.Sources.Constant ope(final k=1)
+    "Check valve is always open in the positive flow direction"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Controls.Continuous.PIDHysteresis con(
@@ -263,8 +287,8 @@ model CoolingDirectControlledReturn
     "Addition block for controller 'off' state adjustment"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 
-  Modelica.Blocks.Sources.Constant one(k=1)
-    "Adding 1 to controller output s.t. controller output y(off) = 1 [valve open]"
+  Modelica.Blocks.Sources.Constant one(final k=1)
+    "Shift controller output by one s.t. controller output y(off) = 1 [full open]"
     annotation (Placement(transformation(extent={{-80,-104},{-60,-84}})));
 
 protected
@@ -309,7 +333,6 @@ equation
     annotation (Line(points={{-80,71},{-80,122},{-50,122}}, color={0,0,127}));
   connect(senTDisRet.T, dTDis.u2)
     annotation (Line(points={{-60,-49},{-60,110},{-50,110}}, color={0,0,127}));
-
   connect(senTBuiRet.port_b, spl.port_1)
     annotation (Line(points={{60,-60},{50,-60}}, color={0,127,255}));
   connect(spl.port_2, val.port_a)
@@ -326,14 +349,17 @@ equation
     annotation (Line(points={{21,20},{32,20}}, color={0,0,127}));
   connect(TSetDisRet, con.u_s)
     annotation (Line(points={{-120,-120},{-62,-120}}, color={0,0,127}));
-  connect(senTBuiRet.T, con.u_m) annotation (Line(points={{70,-49},{70,-40},{54,
-          -40},{54,-140},{-50,-140},{-50,-132}}, color={0,0,127}));
+  connect(senTBuiRet.T, con.u_m)
+    annotation (Line(points={{70,-49},{70,-40},{54,-40},{54,-140},{-50,-140},{-50,-132}},
+      color={0,0,127}));
   connect(one.y, add.u1)
     annotation (Line(points={{-59,-94},{-22,-94}}, color={0,0,127}));
-  connect(con.y, add.u2) annotation (Line(points={{-39,-120},{-30,-120},{-30,
-          -106},{-22,-106}}, color={0,0,127}));
+  connect(con.y, add.u2)
+    annotation (Line(points={{-39,-120},{-30,-120},{-30,-106},{-22,-106}},
+      color={0,0,127}));
   connect(add.y, val.y)
     annotation (Line(points={{1,-100},{10,-100},{10,-72}}, color={0,0,127}));
+
   annotation (defaultComponentName="coo",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -368,18 +394,19 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(extent={{-8,52},{8,-52}}, lineColor={0,0,0})}),
-                               Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-160},{100,160}})),
-              Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+        extent={{-100,-160},{100,160}})),
+        Icon(coordinateSystem(preserveAspectRatio=false)),
+        Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 Direct cooling energy transfer station (ETS) model with in-building pumping and deltaT control.
 The design is based on a typical district cooling ETS described in ASHRAE's 
 <a href=\"https://www.ashrae.org/technical-resources/bookstore/district-heating-and-cooling-guides\">
 District Cooling Guide</a>.  
-As shown in the figure below, the district and building piping are hydronically coupled. The valve
-on the district return controls the return temperature to the district cooling network.
+As shown in the figure below, the district and building piping are hydronically coupled. The control
+valve ensures that the return temperature to the district cooling network is at or above the minimum
+specified value. This configuration naturally results in a fluctuating building supply temperature.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/CoolingDirectControlledReturn.PNG\"/>
@@ -390,7 +417,7 @@ American Society of Heating, Refrigeration and Air-Conditioning Engineers. (2013
 </p>
 </html>", revisions="<html>
 <ul>
-<li>November 13, 2019, by Kathryn Hinkelman:<br>First implementation. </li>
+<li>December 12, 2019, by Kathryn Hinkelman:<br>First implementation. </li>
 </ul>
 </html>"));
 end CoolingDirectControlledReturn;

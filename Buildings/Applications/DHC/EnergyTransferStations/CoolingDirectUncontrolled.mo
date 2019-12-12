@@ -3,7 +3,7 @@ model CoolingDirectUncontrolled
   "Direct cooling ETS model for district energy systems without in-building pumping or deltaT control"
   extends Buildings.Fluid.Interfaces.PartialFourPort(
     redeclare final package Medium1 = Medium,
-    redeclare package Medium2 = Medium);
+    redeclare final package Medium2 = Medium);
 
  replaceable package Medium =
    Modelica.Media.Interfaces.PartialMedium "Medium in the component";
@@ -15,11 +15,13 @@ model CoolingDirectUncontrolled
 
   // pressure drops
   parameter Modelica.SIunits.PressureDifference dpSup(
-    final min=0)=50
+    final min=0,
+    displayUnit="Pa")=50
   "Pressure drop in the ETS supply side";
 
   parameter Modelica.SIunits.PressureDifference dpRet(
-    final min=0)=50
+    final min=0,
+    displayUnit="Pa")=50
   "Pressure drop in the ETS return side";
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
@@ -38,6 +40,7 @@ model CoolingDirectUncontrolled
 
   Buildings.Fluid.FixedResistances.PressureDrop pipSup(
     redeclare final package Medium = Medium,
+    final allowFlowReversal=false,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dpSup)
     "Supply pipe"
@@ -45,6 +48,7 @@ model CoolingDirectUncontrolled
 
   Buildings.Fluid.FixedResistances.PressureDrop pipRet(
     redeclare final package Medium = Medium,
+    final allowFlowReversal=false,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dpRet)
     "Return pipe"
@@ -67,17 +71,21 @@ model CoolingDirectUncontrolled
     "District return temperature sensor"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
 
-  Modelica.Blocks.Continuous.Integrator int(k=1) "Integration"
+  Modelica.Blocks.Continuous.Integrator int(final k=1)
+    "Integration"
     annotation (Placement(transformation(extent={{70,100},{90,120}})));
 
-  Modelica.Blocks.Math.Add dTDis(k1=-1, k2=+1)
+  Modelica.Blocks.Math.Add dTDis(
+    final k1=-1,
+    final k2=+1)
     "Temperature difference on the district side"
     annotation (Placement(transformation(extent={{-48,106},{-28,126}})));
 
-  Modelica.Blocks.Math.Product pro "Product"
+  Modelica.Blocks.Math.Product pro
+    "Product"
     annotation (Placement(transformation(extent={{-10,100},{10,120}})));
 
-  Modelica.Blocks.Math.Gain cp(k=cp_default)
+  Modelica.Blocks.Math.Gain cp(final k=cp_default)
     "Specific heat multiplier to calculate heat flow rate"
     annotation (Placement(transformation(extent={{30,100},{50,120}})));
 
@@ -91,7 +99,6 @@ protected
     "Specific heat capacity of the fluid";
 
 equation
-
   connect(port_a1, senTDisSup.port_a)
     annotation (Line(points={{-100,60},{-90,60}}, color={0,127,255}));
   connect(senTDisSup.port_b, senMasFlo.port_a)
@@ -150,10 +157,10 @@ equation
           lineColor={0,0,0},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),
-                               Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-100},{100,160}})),
-              Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+        extent={{-100,-100},{100,160}})),
+        Icon(coordinateSystem(preserveAspectRatio=false)),
+        Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 Direct cooling energy transfer station (ETS) model without in-building pumping or deltaT control.
