@@ -27,9 +27,9 @@ model CoolingDirectControlledReturn
     mDis_flow_nominal=mDis_flow_nominal,
     mBui_flow_nominal=mBui_flow_nominal,
     mByp_flow_nominal=0.01,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=0.12,
-    Ti=40,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.5,
+    Ti=200,
     yMax=0,
     yMin=-1,
     yCon_start=0)
@@ -105,14 +105,14 @@ model CoolingDirectControlledReturn
     duration(displayUnit="h") = 3600,
     startTime(displayUnit="h") = 0)
     "Ramp load from zero"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
 
   Modelica.Blocks.Math.Product pro
   "Multiplyer to ramp load from zero"
-    annotation (Placement(transformation(extent={{60,84},{80,104}})));
+    annotation (Placement(transformation(extent={{20,74},{40,94}})));
 
   inner Modelica.Fluid.System system "System properties and default values"
-    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium = Medium,
@@ -128,7 +128,7 @@ model CoolingDirectControlledReturn
     timeScale=3600,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Cooling demand"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
   connect(TSet.y, coo.TSetDisRet)
     annotation (Line(points={{-39,-54},{8,-54}},   color={0,0,127}));
@@ -154,13 +154,14 @@ equation
   connect(gai.y, pum.m_flow_in)
     annotation (Line(points={{81,50},{90,50},{90,22}}, color={0,0,127}));
   connect(ram.y, pro.u1)
-    annotation (Line(points={{41,100},{58,100}}, color={0,0,127}));
-  connect(pro.y, loa.u) annotation (Line(points={{81,94},{110,94},{110,16},{118,
+    annotation (Line(points={{1,90},{18,90}},    color={0,0,127}));
+  connect(pro.y, loa.u) annotation (Line(points={{41,84},{110,84},{110,16},{118,
           16}}, color={0,0,127}));
-  connect(QCoo.y[1], pro.u2) annotation (Line(points={{1,70},{50,70},{50,88},{58,
-          88}}, color={0,0,127}));
-  connect(pro.y, gai.u) annotation (Line(points={{81,94},{90,94},{90,66},{52,66},
-          {52,50},{58,50}}, color={0,0,127}));
+  connect(QCoo.y[1], pro.u2) annotation (Line(points={{1,50},{10,50},{10,78},{
+          18,78}},
+                color={0,0,127}));
+  connect(pro.y, gai.u) annotation (Line(points={{41,84},{50,84},{50,50},{58,50}},
+                            color={0,0,127}));
   connect(TDisSupNoi.y, souDis.T_in)
     annotation (Line(points={{-79,14},{-62,14}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
