@@ -33,45 +33,47 @@ model CoolingDirectControlledReturn
     yMax=0,
     yMin=-1,
     yCon_start=0)
-    annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
+    annotation (Placement(transformation(extent={{10,-52},{30,-32}})));
 
   Fluid.Sensors.TemperatureTwoPort TDisSup(
     redeclare package Medium = Medium,
-    m_flow_nominal=mDis_flow_nominal,
-    T_start=280.15)
+    m_flow_nominal=mDis_flow_nominal)
     "District-side (primary) supply temperature sensor"
-    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
+    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
 
   Fluid.Sensors.TemperatureTwoPort TBuiSup(
     redeclare package Medium = Medium,
-    m_flow_nominal=mBui_flow_nominal,
-    T_start=280.15)
+    m_flow_nominal=mBui_flow_nominal)
     "Building-side (secondary) supply temperature sensor"
-    annotation (Placement(transformation(extent={{30,40},{50,60}})));
+    annotation (Placement(transformation(extent={{50,0},{70,20}})));
 
   Fluid.Sensors.TemperatureTwoPort TBuiRet(
     redeclare package Medium = Medium,
-    m_flow_nominal=mBui_flow_nominal,
-    T_start=287.15)
+    m_flow_nominal=mBui_flow_nominal)
     "Building-side (secondary) return temperature sensor"
-    annotation (Placement(transformation(extent={{50,-60},{30,-40}})));
+    annotation (Placement(transformation(extent={{70,-100},{50,-80}})));
 
   Fluid.Sensors.TemperatureTwoPort TDisRet(
     redeclare package Medium = Medium,
     m_flow_nominal=mDis_flow_nominal)
     "District-side (primary) return temperature sensor"
-    annotation (Placement(transformation(extent={{-30,-60},{-50,-40}})));
+    annotation (Placement(transformation(extent={{-10,-100},{-30,-80}})));
 
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 16)
     "Setpoint temperature for district return"
-    annotation (Placement(transformation(extent={{-80,-24},{-60,-4}})));
+    annotation (Placement(transformation(extent={{-60,-64},{-40,-44}})));
 
   Fluid.Sources.Boundary_pT sinDis(
     redeclare package Medium = Medium,
     p=300000,
     nPorts=1)
     "District sink"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+
+  Modelica.Blocks.Sources.RealExpression TDisSupNoi(y=(273.15 + 7) + 2*sin(time
+        *4*3.14/86400))
+    "Sinusoidal noise signal for district supply temperature"
+    annotation (Placement(transformation(extent={{-100,4},{-80,24}})));
 
   Fluid.HeatExchangers.HeaterCooler_u loa(
     redeclare package Medium = Medium,
@@ -84,62 +86,87 @@ model CoolingDirectControlledReturn
     Q_flow_nominal=-1,
     dp_nominal=100)
     "Aggregate building cooling load"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{120,0},{140,20}})));
 
   Fluid.Movers.FlowControlled_m_flow pum(
     redeclare replaceable package Medium = Medium,
     m_flow_nominal=mBui_flow_nominal,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     constantMassFlowRate=mBui_flow_nominal)       "Building primary pump"
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
+
+  Modelica.Blocks.Math.Gain gai(k=-1/(cp*(16 - 7)))
+    "Multiplier gain for calculating m_flow"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
-  Modelica.Blocks.Sources.Ramp QCoo(
-    height=-Q_flow_nominal,
-    duration(displayUnit="h") = 21600,
-    startTime(displayUnit="h") = 3600)  "Cooling load"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+  Modelica.Blocks.Sources.Ramp ram(
+    height=1,
+    duration(displayUnit="h") = 3600,
+    startTime(displayUnit="h") = 0)
+    "Ramp load from zero"
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+
+  Modelica.Blocks.Math.Product pro
+  "Multiplyer to ramp load from zero"
+    annotation (Placement(transformation(extent={{60,84},{80,104}})));
 
   inner Modelica.Fluid.System system "System properties and default values"
-    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
   Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium = Medium,
     p=350000,
+    use_T_in=true,
     T=280.15,
     nPorts=1)
     "District source"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
+  Modelica.Blocks.Sources.CombiTimeTable QCoo(
+    table=[0,-100E3; 6,-80E3; 6,-50E3; 12,-20E3; 18,-150E3; 24,-100E3],
+    timeScale=3600,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    "Cooling demand"
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 equation
   connect(TSet.y, coo.TSetDisRet)
-    annotation (Line(points={{-59,-14},{-12,-14}}, color={0,0,127}));
-  connect(TDisSup.port_b, coo.port_a1) annotation (Line(points={{-30,50},{-20,
-          50},{-20,4},{-10,4}},
-                            color={0,127,255}));
-  connect(coo.port_b1, TBuiSup.port_a) annotation (Line(points={{10,4},{20,4},{
-          20,50},{30,50}}, color={0,127,255}));
-  connect(TBuiRet.port_b, coo.port_a2) annotation (Line(points={{30,-50},{20,
-          -50},{20,-8},{10,-8}},color={0,127,255}));
+    annotation (Line(points={{-39,-54},{8,-54}},   color={0,0,127}));
+  connect(TDisSup.port_b, coo.port_a1) annotation (Line(points={{-10,10},{0,10},
+          {0,-36},{10,-36}},color={0,127,255}));
+  connect(coo.port_b1, TBuiSup.port_a) annotation (Line(points={{30,-36},{40,-36},
+          {40,10},{50,10}},color={0,127,255}));
+  connect(TBuiRet.port_b, coo.port_a2) annotation (Line(points={{50,-90},{40,-90},
+          {40,-48},{30,-48}},   color={0,127,255}));
   connect(TBuiSup.port_b, pum.port_a)
-    annotation (Line(points={{50,50},{60,50}}, color={0,127,255}));
+    annotation (Line(points={{70,10},{80,10}}, color={0,127,255}));
   connect(pum.port_b, loa.port_a)
-    annotation (Line(points={{80,50},{100,50}}, color={0,127,255}));
-  connect(QCoo.y, loa.u) annotation (Line(points={{41,80},{90,80},{90,56},{98,56}},
-        color={0,0,127}));
+    annotation (Line(points={{100,10},{120,10}},color={0,127,255}));
   connect(souDis.ports[1], TDisSup.port_a)
-    annotation (Line(points={{-60,50},{-50,50}}, color={0,127,255}));
-  connect(coo.port_b2, TDisRet.port_a) annotation (Line(points={{-10,-8},{-20,
-          -8},{-20,-50},{-30,-50}}, color={0,127,255}));
+    annotation (Line(points={{-40,10},{-30,10}}, color={0,127,255}));
+  connect(coo.port_b2, TDisRet.port_a) annotation (Line(points={{10,-48},{0,-48},
+          {0,-90},{-10,-90}},       color={0,127,255}));
   connect(TDisRet.port_b, sinDis.ports[1])
-    annotation (Line(points={{-50,-50},{-60,-50}}, color={0,127,255}));
+    annotation (Line(points={{-30,-90},{-40,-90}}, color={0,127,255}));
 
-  connect(TBuiRet.port_a, loa.port_b) annotation (Line(points={{50,-50},{130,
-          -50},{130,50},{120,50}}, color={0,127,255}));
+  connect(TBuiRet.port_a, loa.port_b) annotation (Line(points={{70,-90},{150,-90},
+          {150,10},{140,10}},      color={0,127,255}));
+  connect(gai.y, pum.m_flow_in)
+    annotation (Line(points={{81,50},{90,50},{90,22}}, color={0,0,127}));
+  connect(ram.y, pro.u1)
+    annotation (Line(points={{41,100},{58,100}}, color={0,0,127}));
+  connect(pro.y, loa.u) annotation (Line(points={{81,94},{110,94},{110,16},{118,
+          16}}, color={0,0,127}));
+  connect(QCoo.y[1], pro.u2) annotation (Line(points={{1,70},{50,70},{50,88},{58,
+          88}}, color={0,0,127}));
+  connect(pro.y, gai.u) annotation (Line(points={{81,94},{90,94},{90,66},{52,66},
+          {52,50},{58,50}}, color={0,0,127}));
+  connect(TDisSupNoi.y, souDis.T_in)
+    annotation (Line(points={{-79,14},{-62,14}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,100}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{160,
+            120}})),
     __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Applications/DHC/EnergyTransferStations/Examples/CoolingDirectControlledReturn.mos"
     "Simulate and plot"),

@@ -146,6 +146,7 @@ model CoolingDirectControlledReturn
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
     final m_flow_nominal=mByp_flow_nominal,
+    show_T=true,
     final dp_nominal=dpByp_nominal)
     "Bypass pipe"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -156,7 +157,7 @@ model CoolingDirectControlledReturn
     redeclare final package Medium = Medium,
     final m_flow_nominal=mDis_flow_nominal,
     final dpValve_nominal=dpVal_nominal,
-    riseTime(displayUnit="min") = 120)
+    riseTime(displayUnit="s") = 60)
     "Control valve"
     annotation (Placement(transformation(extent={{20,-50},{0,-70}})));
 
@@ -239,7 +240,7 @@ model CoolingDirectControlledReturn
 
   Buildings.Controls.Continuous.PIDHysteresis con(
     eOn=0,
-    eOff=-0.1,
+    eOff=-0.5,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -361,21 +362,9 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-8,52},{8,18}},
-          lineColor={0,0,0},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Rectangle(
-          extent={{-8,-18},{8,-52}},
+          extent={{-8,52},{8,-52}},
           lineColor={0,0,0},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Rectangle(
-          extent={{-8,18},{8,-18}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(extent={{-8,52},{8,-52}}, lineColor={0,0,0})}),
