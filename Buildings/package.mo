@@ -183,8 +183,8 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.EquationFitReversible
         </td>
         <td valign=\"top\">Heat pump model that can be reversed between heating and cooling mode,
-                         that takes as a set point the leaving fluid temperature, and that computes
-                         its performance based on an equation fit.
+                           that takes as a set point the leaving fluid temperature, and that computes
+                           its performance based on an equation fit.
         </td>
     </tr>
     </table>
