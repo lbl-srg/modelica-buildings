@@ -174,6 +174,12 @@ its class name ends with the string <code>Beta</code>.
         <td valign=\"top\">Indirect heated absorption chiller based on performance curves.
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.CheckValve
+        </td>
+        <td valign=\"top\">Check valve that prevents backflow, except for a small leakage flow rate.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1198\">IBPSA, #1198</a>
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.EquationFitReversible
         </td>
         <td valign=\"top\">Heat pump model that can be reversed between heating and cooling mode,
@@ -195,7 +201,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID
         </td>
         <td valign=\"top\">Removed homotopy that may be used during initialization to ensure that outputs are bounded.<br/>
-                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
