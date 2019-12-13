@@ -148,7 +148,7 @@ for the case with varying cooling load.
 <p>
 The model is constructed in such a way that the temperatures that determine the performance of
 the absorption chiller are kept constant to see the effect of the part load behavior
-on the ratio of cooling provided over steam required.
+on the ratio of provided cooling over required steam.
 </p>
 </html>", revisions="<html>
 <ul>
