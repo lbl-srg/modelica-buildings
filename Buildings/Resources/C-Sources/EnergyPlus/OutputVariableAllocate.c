@@ -117,6 +117,7 @@ void* OutputVariableAllocate(
   strcpy(outVar->name, outputName);
 
   outVar->printUnit = printUnit;
+  outVar->count = 1;
 
   mallocSpawnReals(1, &(outVar->outputs));
   /* Assign structural data */
@@ -153,6 +154,8 @@ void* OutputVariableAllocate(
         }
         /* Assign by reference */
         outVar = doubleOutVarSpec;
+        /* Increase counter for how many Modelica instances use this output variable */
+        outVar->count = outVar->count + 1;
       }
       else{
         /* This output variable has not yet been added to this building */
@@ -160,6 +163,15 @@ void* OutputVariableAllocate(
           ModelicaFormatMessage("Assigning outVar->ptrBui = fmu with fmu at %p", fmu);
         }
         outVar->ptrBui = fmu;
+
+        /* Some tools such as OpenModelica may optimize the code resulting in initialize()
+           not being called. Hence, we set a flag so we can force it to be called in exchange()
+          in case it is not called in initialize().
+          This behavior was observed when simulating Buildings.Experimental.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
+        */
+        outVar->isInstantiated = fmi2False;
+        outVar->isInitialized = fmi2False;
+
         AddOutputVariableToBuilding(outVar);
       }
       break;
@@ -189,14 +201,6 @@ void* OutputVariableAllocate(
       ModelicaFormatMessage("Output variable ptr is at %p\n", outVar);
     }
   }
-
-  /* Some tools such as OpenModelica may optimize the code resulting in initialize()
-     not being called. Hence, we set a flag so we can force it to be called in exchange()
-     in case it is not called in initialize().
-     This behavior was observed when simulating Buildings.Experimental.EnergyPlus.BaseClasses.Validation.FMUZoneAdapter
-  */
-  outVar->isInstantiated = fmi2False;
-  outVar->isInitialized = fmi2False;
 
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaFormatMessage("Exiting allocation for %s with output variable ptr at %p", modelicaNameOutputVariable, outVar);

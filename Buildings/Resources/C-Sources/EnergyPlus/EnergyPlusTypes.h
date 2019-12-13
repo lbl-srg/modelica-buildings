@@ -113,6 +113,7 @@ typedef struct FMUOutputVariable
   fmi2Boolean isInstantiated; /* Flag set to true when the output variable has been completely instantiated */
   fmi2Boolean isInitialized;  /* Flag set to true after the output variable has executed a get call in the initializion mode
                                  of the FMU */
+  size_t count;                     /* Counter for how many Modelica instances uses this output variable */
 } FMUOutputVariable;
 
 #endif

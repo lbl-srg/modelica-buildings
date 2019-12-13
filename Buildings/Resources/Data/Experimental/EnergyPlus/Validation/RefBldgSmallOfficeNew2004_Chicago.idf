@@ -2039,6 +2039,8 @@
 
   Output:Variable,*,Zone Electric Equipment Electric Power,timestep;
 
+  Output:Variable,*,Surface Outside Face Incident Beam Solar Radiation Rate per Area,timestep;
+
 ! ***REPORT TABLES***
 
   OutputControl:Table:Style,

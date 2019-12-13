@@ -6,7 +6,7 @@ model OneZoneOneOutputVariable
     key="Core_ZN", name="Zone Electric Equipment Electric Power",
     y(final unit="W"))
     "Block that reads output from EnergyPlus"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
   annotation (Documentation(info="<html>
 <p>
 Simple test case for one building with one thermal zone and one output variable.

@@ -195,11 +195,13 @@ unsigned int getBuildings_nFMU(){
 
 void FMUBuildingFree(FMUBuilding* ptrBui){
   fmi2Status status;
-  const char * log = NULL;
   if (FMU_EP_VERBOSITY >= MEDIUM)
     ModelicaMessage("Entered FMUBuildingFree.");
 
   if ( ptrBui != NULL ){
+    if (FMU_EP_VERBOSITY >= MEDIUM)
+      ModelicaFormatMessage("In FMUBuildingFree, %p, nZon = %d, nOutVar = %d", ptrBui, ptrBui->nZon, ptrBui->nOutputVariables);
+
     /* Make sure no thermal zone or output variable uses this building */
     if (ptrBui->nZon > 0 || ptrBui->nOutputVariables > 0){
       if (FMU_EP_VERBOSITY >= MEDIUM)
