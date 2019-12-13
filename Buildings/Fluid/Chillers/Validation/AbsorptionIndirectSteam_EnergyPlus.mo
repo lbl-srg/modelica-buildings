@@ -132,7 +132,8 @@ equation
   __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/AbsorptionIndirectSteam_EnergyPlus.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=86400,
+      StartTime=23500,
+      StopTime=32400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
