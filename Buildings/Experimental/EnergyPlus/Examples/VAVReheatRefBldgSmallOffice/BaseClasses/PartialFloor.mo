@@ -19,33 +19,33 @@ partial model PartialFloor "Interface for a model of a floor of a building"
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,-44},{110,-28}}),
-        iconTransformation(extent={{-20,-80},{20,-64}})));
+        iconTransformation(extent={{78,-32},{118,-16}})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsEas[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{310,28},{350,44}}),
-        iconTransformation(extent={{50,-8},{90,8}})));
+        iconTransformation(extent={{306,40},{346,56}})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsNor[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,116},{110,132}}),
-        iconTransformation(extent={{-20,60},{20,76}})));
+        iconTransformation(extent={{78,108},{118,124}})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsWes[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-50,36},{-10,52}}),
-        iconTransformation(extent={{-88,-8},{-48,8}})));
+        iconTransformation(extent={{-46,40},{-6,56}})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsCor[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,38},{110,54}}),
-        iconTransformation(extent={{-20,-8},{20,8}})));
+        iconTransformation(extent={{78,40},{118,56}})));
 
   Modelica.Blocks.Interfaces.RealOutput TRooAir[5](
     each unit="K",
     each displayUnit="degC") "Room air temperatures"
     annotation (Placement(transformation(extent={{380,150},{400,170}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{380,40},{400,60}})));
 
   Modelica.Blocks.Interfaces.RealOutput p_rel
     "Relative pressure signal of building static pressure" annotation (
@@ -55,7 +55,7 @@ partial model PartialFloor "Interface for a model of a floor of a building"
         origin={-170,220}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-110,0})));
+        origin={-90,50})));
 
   Modelica.Blocks.Math.MatrixGain gai(K=20*[0.4; 0.4; 0.2])
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
@@ -256,8 +256,18 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},
-            {400,500}}, initialScale=0.1)),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
+        extent={{-160,-100},{380,500}},
+        initialScale=0.1)),   Icon(coordinateSystem(extent={{-80,-80},{380,160}}),
+         graphics={Rectangle(
+          extent={{-80,160},{380,-80}},
+          lineColor={95,95,95},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-118,94},{-96,60}},
+          lineColor={0,0,255},
+          textString="dP")}),
     Documentation(info="<html>
 <p>
 This is a partial model of one floor of the DOE reference office building.
@@ -271,10 +281,5 @@ First implementation of the partial floor model based on
 elements that are in common for all floor models.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={95,95,95},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid)}));
+</html>"));
 end PartialFloor;

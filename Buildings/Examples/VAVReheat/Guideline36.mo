@@ -159,7 +159,7 @@ equation
   connect(occSch.tNexOcc, TZonSet.tNexOcc) annotation (Line(points={{-297,-204},
           {-254,-204},{-254,318},{58,318}}, color={0,0,127}));
   connect(TZonSet.TZon, flo.TRooAir) annotation (Line(points={{58,316.025},{46,
-          316.025},{46,628},{1164,628},{1164,432.667},{930.143,432.667}}, color=
+          316.025},{46,628},{1164,628},{1164,506},{1107.13,506}},         color=
          {0,0,127}));
   connect(conAHU.TZonHeaSet, TZonSet.TZonHeaSet[1]) annotation (Line(points={{382,
           468.071},{110,468.071},{110,310},{82,310}},
@@ -168,7 +168,7 @@ equation
           462.286},{120,462.286},{120,314},{82,314}},
                                                   color={0,0,127}));
   connect(conAHU.TZon, flo.TRooAir) annotation (Line(points={{382,429.5},{280,
-          429.5},{280,622},{1164,622},{1164,432.667},{930.143,432.667}},
+          429.5},{280,622},{1164,622},{1164,506},{1107.13,506}},
         color={0,0,127}));
   connect(conAHU.TOut, TOut.y) annotation (Line(points={{382,450.714},{-266,
           450.714},{-266,180},{-279,180}}, color={0,0,127}));
@@ -306,8 +306,6 @@ equation
   connect(yFreHeaCoi.y, swiFreSta.u1) annotation (Line(points={{22,-182},{40,-182},
           {40,-184},{58,-184}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1400,
-            640}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
@@ -381,5 +379,6 @@ This is for
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06));
+    experiment(StopTime=172800, Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-380,-320},{1400,660}})));
 end Guideline36;

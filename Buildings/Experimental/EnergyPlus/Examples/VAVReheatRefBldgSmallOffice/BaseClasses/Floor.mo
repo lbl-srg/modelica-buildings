@@ -294,10 +294,10 @@ equation
           {258,422},{248,422},{248,390},{235,390}}, color={0,0,127}));
   connect(multiplex3_1.y, att.qGai_flow)
     annotation (Line(points={{281,430},{308,430}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},
-            {400,500}},
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
+        extent={{-160,-100},{380,500}},
         initialScale=0.1)),     Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-160,-100},{400,500}}), graphics={
+          preserveAspectRatio=true, extent={{-80,-80},{380,180}}),   graphics={
         Rectangle(
           extent={{-80,-80},{380,180}},
           lineColor={95,95,95},
@@ -388,11 +388,7 @@ equation
           extent={{2,166},{296,174}},
           lineColor={95,95,95},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-84,234},{-62,200}},
-          lineColor={0,0,255},
-          textString="dP")}),
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
 Model of one floor of the DOE reference office building.

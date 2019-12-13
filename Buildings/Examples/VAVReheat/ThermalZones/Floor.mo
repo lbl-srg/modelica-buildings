@@ -611,10 +611,10 @@ equation
       points={{-39,-28},{68,-28},{68,-16},{142.4,-16}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},
-            {400,500}},
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
+        extent={{-160,-100},{380,500}},
         initialScale=0.1)),     Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-160,-100},{400,500}}), graphics={
+          preserveAspectRatio=true, extent={{-80,-80},{380,180}}), graphics={
         Rectangle(
           extent={{-80,-80},{380,180}},
           lineColor={95,95,95},
@@ -705,11 +705,7 @@ equation
           extent={{2,166},{296,174}},
           lineColor={95,95,95},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-84,234},{-62,200}},
-          lineColor={0,0,255},
-          textString="dP")}),
+          fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
 <li>
