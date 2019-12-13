@@ -1,6 +1,6 @@
 #1
 float modelica(2881,12)
-# time,Pump[W],QEva_flow[W],TEvaEnt[K],TEvaLvg[K],mEva_flow[kg/s],QCon_flow[W],TConEnt[K],TConLvg[K],mEva_flow[kg/s],QGen_flow[W],QSteLoss[W]
+# time,Pump [W],QEva_flow [W],TEvaEnt [K],TEvaLvg [K],mEva_flow [kg/s],QCon_flow [W],TConEnt [K],TConLvg [K],mEva_flow [kg/s],QGen_flow [W],QSteLoss [W]
 0,0.0,0.0,287.4565,287.4565,0.0,0.0,303.0664,303.0664,0.0,0.0,0.0
 60,0.0,0.0,287.4565,287.4565,0.0,0.0,303.0664,303.0664,0.0,0.0,0.0
 120,0.0,0.0,287.4565,287.4565,0.0,0.0,303.0664,303.0664,0.0,0.0,0.0
