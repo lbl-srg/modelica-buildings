@@ -171,7 +171,7 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.Chillers.AbsorptionIndirectSteam
         </td>
-        <td valign=\"top\">Indirect heated absorption chiller based on performance curves.
+        <td valign=\"top\">Indirect steam heated absorption chiller based on performance curves.
         </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.CheckValve
