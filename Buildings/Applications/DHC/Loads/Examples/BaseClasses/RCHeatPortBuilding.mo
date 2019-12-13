@@ -262,8 +262,6 @@ equation
   connect(from_degC1.y, terUni.uSet[1])
     annotation (Line(points={{-238,260},{-200,260},{-200,-46},{-161,-46}},
                                                                          color={0,0,127}));
-  connect(disFloHea.Q_flow1Act,Q_flow2Act [1, 1]) annotation (Line(points={{-99,
-          -118},{220,-118},{220,280},{320,280}}, color={0,0,127}));
   connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
           0},{-280,-110},{-120,-110}}, color={0,127,255}));
   connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-100,-110},{280,
@@ -287,8 +285,6 @@ equation
           -104},{-180,-104},{-180,-56},{-160,-56}},     color={0,127,255}));
   connect(disFloCoo.ports_b1[1], terUni.ports_a1[2]) annotation (Line(points={{-120,
           -144},{-200,-144},{-200,-56},{-160,-56}},     color={0,127,255}));
-  connect(disFloCoo.Q_flow1Act,Q_flow2Act [2, 1]) annotation (Line(points={{-99,
-          -158},{240,-158},{240,280},{320,280}}, color={0,0,127}));
   connect(terUni.ports_b1[2], disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
           -56},{-100,-56},{-100,-56},{-60,-56},{-60,-144},{-100,-144}},
         color={0,127,255}));
@@ -296,6 +292,8 @@ equation
         points={{-145.8,-50},{-26,-50},{-26,16},{92,16}}, color={191,0,0}));
   connect(terUni.heaPorCon, thermalZoneOneElement.intGainsConv) annotation (
       Line(points={{-153.8,-50},{-30,-50},{-30,12},{92,12}}, color={191,0,0}));
+  connect(terUni.Q_flow2Act, Q_flow2Act[1, :]) annotation (Line(points={{-139,
+          -46},{-120,-46},{-120,280},{320,280}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

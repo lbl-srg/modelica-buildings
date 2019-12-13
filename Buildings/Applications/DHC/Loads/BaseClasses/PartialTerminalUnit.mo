@@ -29,7 +29,10 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Set to true for fluid ports on the load side"
     annotation(Evaluate=true);
   parameter Boolean haveQ_flowReq = false
-    "Set to true for required heat flow rate input"
+    "Set to true for required heat flow rate as an input"
+    annotation(Evaluate=true);
+  parameter Boolean haveWeaBus = false
+    "Set to true for weather bus"
     annotation(Evaluate=true);
   parameter Boolean haveFanPum
     "Set to true if the system has a fan or a pump"
@@ -144,6 +147,11 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation (visible=DynamicSelect(true, haveHeaPor),
       Placement(transformation(extent={{190,-50},{210,-30}}),
       iconTransformation(extent={{32,-10},{52,10}})));
+  BoundaryConditions.WeatherData.Bus weaBus if haveWeaBus
+    "Weather data bus"
+    annotation (Placement(
+      transformation(extent={{-216,64},{-182,96}}),
+      iconTransformation(extent={{-16,84},{18,116}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow2Act[nPorts1](
     each quantity="HeatFlowRate") if nPorts1>0
     "Heat flow rate transferred to the load (>0 for heating)"

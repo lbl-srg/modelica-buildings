@@ -171,8 +171,8 @@ equation
   connect(PFanPum, mulSum.y)
     annotation (Line(points={{320,240},{282,240},{282,230},{242,230}},
                                                    color={0,0,127}));
-  connect(terUni.Q_flow2Act[1],Q_flow2Act [1, :]) annotation (Line(points={{-59,
-          3.5},{160.5,3.5},{160.5,280},{320,280}}, color={0,0,127}));
+  connect(terUni.Q_flow2Act,Q_flow2Act) annotation (Line(points={{-59,4},{160.5,
+          4},{160.5,280},{320,280}},               color={0,0,127}));
   connect(terUni.PFanPum, mulSum.u) annotation (Line(points={{-59,2},{200,2},{
           200,230},{218,230}},
                            color={0,0,127}));

@@ -5,6 +5,7 @@ model Terminal4PipesHeatReq
     final haveQ_flowReq=true,
     final haveHeaPor=false,
     final haveFluPor=false,
+    final haveWeaBus=false,
     final haveFanPum=false,
     final haveEleHeaCoo=false,
     final hexCon=fill(

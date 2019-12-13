@@ -42,7 +42,7 @@ partial model PartialBuilding "Partial class for building model"
     "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{290,-40},{310,40}}),
       iconTransformation(extent={{90,-40},{110,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow2Act[nPorts1, nLoa](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow2Act[nLoa, nPorts1](
     each quantity="HeatFlowRate", final unit="W")
     "Heat flow rate transferred to the loads (>0 for heating)"
     annotation (Placement(transformation(extent={{300,260},{340,300}}),

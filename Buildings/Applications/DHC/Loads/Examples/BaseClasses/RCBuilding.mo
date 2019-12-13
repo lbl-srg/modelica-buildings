@@ -263,23 +263,19 @@ equation
   connect(from_degC1.y, terUni.uSet[1])
     annotation (Line(points={{-238,260},{-200,260},{-200,-46},{-161,-46}},
                                                                          color={0,0,127}));
-  connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{
-          -280,0},{-280,-110},{-100,-110}},
-                                       color={0,127,255}));
-  connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-80,-110},{
-          280,-110},{280,0},{300,0}},
-                                  color={0,127,255}));
+  connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
+          0},{-280,-110},{-100,-110}}, color={0,127,255}));
+  connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-80,-110},{280,
+          -110},{280,0},{300,0}}, color={0,127,255}));
   connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,220},{-262,
           220}},                                                                  color={0,0,127}));
   connect(from_degC2.y, terUni.uSet[2])
     annotation (Line(points={{-238,220},{-200,220},{-200,-46},{-161,-46}},
                                                                          color={0,0,127}));
-  connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{
-          -280,0},{-280,-150},{-100,-150}},
-                                       color={0,127,255}));
-  connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-80,-150},{
-          280,-150},{280,0},{300,0}},
-                                  color={0,127,255}));
+  connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
+          0},{-280,-150},{-100,-150}}, color={0,127,255}));
+  connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-80,-150},{280,
+          -150},{280,0},{300,0}}, color={0,127,255}));
   connect(terUni.m_flow1Req[1], disFloHea.m_flow1Req_i[1]) annotation (Line(
         points={{-139,-44},{-120,-44},{-120,-118},{-101,-118}}, color={0,0,127}));
   connect(terUni.m_flow1Req[2], disFloCoo.m_flow1Req_i[1]) annotation (Line(
@@ -295,8 +291,8 @@ equation
         color={0,127,255}));
   connect(terUni.PFanPum, PFanPum)
     annotation (Line(points={{-139,-48},{260.5,-48},{260.5,240},{320,240}}, color={0,0,127}));
-  connect(terUni.Q_flow2Act, Q_flow2Act[:, 1]) annotation (Line(points={{-139,
-          -46},{-100,-46},{-100,280},{320,280}}, color={0,0,127}));
+  connect(terUni.Q_flow2Act, Q_flow2Act[1, :]) annotation (Line(points={{-139,-46},
+          {-100,-46},{-100,280},{320,280}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

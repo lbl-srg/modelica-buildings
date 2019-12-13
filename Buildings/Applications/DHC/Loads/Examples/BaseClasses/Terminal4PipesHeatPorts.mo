@@ -4,6 +4,7 @@ model Terminal4PipesHeatPorts
     final nPorts1=2,
     final haveHeaPor=true,
     final haveFluPor=false,
+    final haveWeaBus=false,
     final haveFanPum=false,
     final haveEleHeaCoo=false,
     final hexCon=fill(
@@ -156,12 +157,12 @@ equation
           -40}},                     color={191,0,0}));
   connect(heaFloCooRad.port, heaPorRad) annotation (Line(points={{162,-60},{180,
           -60},{180,-40},{200,-40}}, color={191,0,0}));
-  connect(heaFloHeaCon.port, heaPorCon) annotation (Line(points={{162,60},{180,
-          60},{180,40},{200,40}}, color={191,0,0}));
-  connect(heaFloCooCon.port, heaPorCon) annotation (Line(points={{162,40},{200,
-          40}},                   color={191,0,0}));
-  connect(heaPorCon, T2Mes.port) annotation (Line(points={{200,40},{180,40},{
-          180,0},{160,0}}, color={191,0,0}));
+  connect(heaFloHeaCon.port, heaPorCon) annotation (Line(points={{162,60},{180,60},
+          {180,40},{200,40}},     color={191,0,0}));
+  connect(heaFloCooCon.port, heaPorCon) annotation (Line(points={{162,40},{200,40}},
+                                  color={191,0,0}));
+  connect(heaPorCon, T2Mes.port) annotation (Line(points={{200,40},{180,40},{180,
+          0},{160,0}},     color={191,0,0}));
   connect(hexHeaCoo.Q_flow, gaiConHea.u)
     annotation (Line(points={{12,0},{40,0},{40,40},{58,40}}, color={0,0,127}));
   connect(gaiConHea[1].y, heaFloHeaCon.Q_flow) annotation (Line(points={{82,40},
@@ -174,8 +175,8 @@ equation
           {120,-40},{120,-60},{142,-60}}, color={0,0,127}));
   connect(hexHeaCoo.Q_flow, gaiRadHea.u) annotation (Line(points={{12,0},{40,0},
           {40,-40},{58,-40}}, color={0,0,127}));
-  connect(T2InlVec.y, conTInd.u_m) annotation (Line(points={{108,1.33227e-15},{
-          100,1.33227e-15},{100,160},{0,160},{0,208}},
+  connect(T2InlVec.y, conTInd.u_m) annotation (Line(points={{108,1.55431e-15},{
+          100,1.55431e-15},{100,200},{0,200},{0,208}},
                                      color={0,0,127}));
   connect(uSet, conTInd.u_s)
     annotation (Line(points={{-220,220},{-12,220}}, color={0,0,127}));

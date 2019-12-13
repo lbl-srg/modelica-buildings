@@ -118,11 +118,11 @@ model FlowDistribution
     annotation (Placement(transformation(extent={{-40,150},{-60,170}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flow1Sum(
     final nin=nLoa)
-    annotation (Placement(transformation(extent={{30,70},{50,90}})));
+    annotation (Placement(transformation(extent={{28,90},{48,110}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow1Act(
     each quantity="HeatFlowRate")
     "Heat flow rate transferred to the source (<0 for heating)"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+    annotation (Placement(transformation(extent={{100,80},{140,120}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
   Modelica.Blocks.Sources.RealExpression m_flow1Act_i[nLoa](
     y=m_flow1Req_i .*
@@ -134,7 +134,7 @@ model FlowDistribution
             m_flow_small),
           1E-2))
     "Actual mass flow rate (constrained by sum(m_flow1Act_i)=m_flow1Mes)"
-    annotation (Placement(transformation(extent={{-10,158},{10,178}})));
+    annotation (Placement(transformation(extent={{-20,158},{0,178}})));
   Fluid.Sensors.SpecificEnthalpyTwoPort hSupMes_i[nLoa](
     redeclare each final package Medium = Medium1,
     each final m_flow_nominal=m_flow1_nominal,
@@ -149,7 +149,7 @@ model FlowDistribution
             {-70,170}})));
   Modelica.Blocks.Sources.RealExpression Q_flow1Act_i[nLoa](y=m_flow1Act_i.y .* (hRetMes_i.h_out - hSupMes_i.h_out))
     "Actual heat flow rate transferred to the source"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
 equation
   connect(port_a, T_aMes.port_a) annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(T_aMes.port_b, m_flow1Mes.port_a) annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
@@ -163,24 +163,24 @@ equation
   connect(mulSum.y, m_flow1Req)
     annotation (Line(points={{12,220},{120,220}},                color={0,0,127}));
   connect(Q_flow1Sum.y, heaCoo.u)
-    annotation (Line(points={{52,80},{60,80},{60,
-          6},{66,6}}, color={0,0,127}));
+    annotation (Line(points={{50,100},{60,100},{60,6},{66,6}},
+                      color={0,0,127}));
   connect(T_aMesVec.y, m_flow1Sou_i.T_in)
     annotation (Line(points={{-70,62},{-70,120},{20,120},{20,164},{30,164}}, color={0,0,127}));
   connect(m_flow1Req_i, mulSum.u)
     annotation (Line(points={{-120,220},{-12,
           220}}, color={0,0,127}));
   connect(m_flow1Act_i.y, m_flow1Sou_i.m_flow_in)
-    annotation (Line(points={{11,168},{30,168}}, color={0,0,127}));
+    annotation (Line(points={{1,168},{30,168}},  color={0,0,127}));
   connect(Q_flow1Sum.y, Q_flow1Act)
-    annotation (Line(points={{52,80},{120,80}},                                   color={0,0,127}));
+    annotation (Line(points={{50,100},{120,100}},                                 color={0,0,127}));
   connect(ports_a1, hRetMes_i.port_a)
     annotation (Line(points={{-100,160},{-90, 160}}, color={0,127,255}));
   connect(hRetMes_i.port_b, sin.ports)
     annotation (Line(points={{-70,160},
           {-60,160}},                                                                      color={0,127,255}));
   connect(Q_flow1Act_i.y, Q_flow1Sum.u)
-    annotation (Line(points={{11,80},{28,80}},                                                                         color={0,0,127}));
+    annotation (Line(points={{1,100},{26,100}},                                                                        color={0,0,127}));
   connect(m_flow1Sou_i.ports[1], hSupMes_i.port_a)
     annotation (Line(points={{52,160},
           {70,160}},                                                                            color={0,127,255}));
@@ -247,14 +247,10 @@ Engineering Publication 13.443.
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95})}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-40},{100,240}}), graphics={Text(
-          extent={{-124,276},{104,252}},
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},
+            {100,240}}),                                                                    graphics={Text(
+          extent={{-100,268},{100,240}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
-          textString="Implement different
-distribution temperatures e.g. use return temperature to compute the flow demand from terminal at source temperature.
-
-Implement optional main distribution pump.
-
-Implement piping heat loss.")}));
+          textString="Implement piping heat loss.")}));
 end FlowDistribution;
