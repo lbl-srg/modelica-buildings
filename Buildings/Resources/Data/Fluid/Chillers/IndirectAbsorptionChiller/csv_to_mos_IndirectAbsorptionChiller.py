@@ -5,7 +5,7 @@ import pandas as pd
 # read the whole data set
 energyplus_output = pd.read_csv('IndirectAbsorptionChiller.csv')
 #round the data command
-energyplus_output= energyplus_output.round(6)
+energyplus_output= energyplus_output.round(4)
 # copy the first line
 energyplus_1min= energyplus_output.loc[[0],:]
 energyplus_output = pd.concat([energyplus_output,energyplus_1min]).sort_index()
