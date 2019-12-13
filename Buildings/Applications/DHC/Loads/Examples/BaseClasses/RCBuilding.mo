@@ -1,15 +1,12 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model RCBuilding "Building model of type RC one element"
-  import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    final nCooLoa=1,
-    final cooLoaTyp={Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort},
-    Q_flowHea_nominal={500},
-    Q_flowCoo_nominal={2000},
-    final nHeaLoa=1,
-    final heaLoaTyp={Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort});
-  Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez
-                                                   HDifTil[2](
+    haveFanPum=true,
+    haveEleHeaCoo=false,
+    nLoa=1);
+  package Medium2 = Buildings.Media.Air
+    "Load side medium";
+  Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](
     each outSkyCon=true,
     each outGroCon=true,
     each til=1.5707963267949,
@@ -17,19 +14,16 @@ model RCBuilding "Building model of type RC one element"
     azi={3.1415926535898,4.7123889803847})
     "Calculates diffuse solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface
-                                                          HDirTil[2](
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[2](
     each til=1.5707963267949,
     each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
     "Calculates direct solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
-  Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane
-                                  corGDouPan(n=2, UWin=2.1)
+  Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane corGDouPan(n=2, UWin=2.1)
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
-  Buildings.ThermalZones.ReducedOrder.RC.OneElement
-                thermalZoneOneElement(
+  Buildings.ThermalZones.ReducedOrder.RC.OneElement thermalZoneOneElement(
     VAir=52.5,
     hRad=4.999999999999999,
     hConWin=2.7000000000000006,
@@ -45,10 +39,11 @@ model RCBuilding "Building model of type RC one element"
     AWin={7,7},
     ATransparent={7,7},
     AExt={3.5,8},
-    redeclare package Medium = Modelica.Media.Air.SimpleAir,
+    redeclare package Medium = Medium2,
     extWallRC(thermCapExt(each der_T(fixed=true))),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=295.15) "Thermal zone"
+    T_start=295.15,
+    nPorts=2)       "Thermal zone"
     annotation (Placement(transformation(extent={{44,-10},{92,26}})));
   Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow
                                              eqAirTemp(
@@ -115,30 +110,35 @@ model RCBuilding "Building model of type RC one element"
     extent={{4,-4},{-4,4}},
     rotation=90,
     origin={32,38})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20)
-    "Minimum temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(k=20) "Minimum temperature setpoint"
+    annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
-    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24)
-    "Maximum temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
+    annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
+    m_flow1_nominal=terUni.m_flow1_nominal[1],
+    T_a1_nominal=313.15,
+    T_b1_nominal=308.15,
+    nLoa=1)
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
+    terUni(
+    Q_flow_nominal={500,2000},
+    T_a2_nominal={293.15,297.15},
+    T_b1_nominal={disFloHea.T_b1_nominal,disFloCoo.T_b1_nominal},
+    T_a1_nominal={disFloHea.T_a1_nominal,disFloCoo.T_a1_nominal},
+    m_flow2_nominal={1,1},
+    dp2_nominal={100,100})
+    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24) "Minimum temperature setpoint"
+    annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
-    annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDMinT(
-    yMax=1,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    reverseAction=false,
-    yMin=0,
-    Ti=120) "PID controller for minimum temperature"
-    annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDMax(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    reverseAction=true,
-    yMax=1,
-    yMin=0,
-    Ti=120)             "PID controller for maximum temperature"
-    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
+    annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
+    m_flow1_nominal=terUni.m_flow1_nominal[2],
+    T_a1_nominal=280.15,
+    T_b1_nominal=285.15,
+    nLoa=1)
+    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
     annotation (Line(
@@ -254,21 +254,47 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(thermalZoneOneElement.TAir, conPIDMinT.u_m) annotation (Line(points={{93,24},
-          {120,24},{120,108},{-50,108},{-50,118}},        color={0,0,127}));
-  connect(thermalZoneOneElement.TAir, conPIDMax.u_m) annotation (Line(points={{93,
-          24},{120,24},{120,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
-  connect(from_degC2.y, conPIDMax.u_s) annotation (Line(points={{-78,-130},{-62,-130}}, color={0,0,127}));
-  connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
-  connect(minTSet.y, from_degC1.u) annotation (Line(points={{-118,130},{-102,130}}, color={0,0,127}));
-  connect(from_degC1.y, conPIDMinT.u_s) annotation (Line(points={{-78,130},{-62,130}}, color={0,0,127}));
-  connect(thermalZoneOneElement.intGainsConv, heaFloCooLoaH[1].port_b)
-    annotation (Line(points={{92,12},{98,12},{98,-150},{-260,-150}}, color={191,0,0}));
-  connect(thermalZoneOneElement.intGainsConv, heaFloHeaLoaH[1].port_b)
-    annotation (Line(points={{92,12},{98,12},{98,150},{-260,150}}, color={191,0,0}));
-  connect(conPIDMax.y, yCoo[1])
-    annotation (Line(points={{-38,-130},{134,-130},{134,-192},{310,-192}}, color={0,0,127}));
-  connect(conPIDMinT.y, yHea[1]) annotation (Line(points={{-38,130},{132,130},{132,200},{310,200}}, color={0,0,127}));
+  connect(minTSet.y, from_degC1.u) annotation (Line(points={{-278,260},{-262,
+          260}},                                                                  color={0,0,127}));
+  connect(thermalZoneOneElement.ports[1], terUni.port_a2)
+    annotation (Line(points={{81.475,-9.95},{86.5,-9.95},{86.5,-42},{-140,-42}}, color={0,127,255}));
+  connect(terUni.port_b2, thermalZoneOneElement.ports[2])
+    annotation (Line(points={{-160,-42},{-180,-42},{-180,-22},{84.525,-22},{84.525,-9.95}}, color={0,127,255}));
+  connect(from_degC1.y, terUni.uSet[1])
+    annotation (Line(points={{-238,260},{-200,260},{-200,-46},{-161,-46}},
+                                                                         color={0,0,127}));
+  connect(disFloHea.Q_flow1Act, Q_flow1Act[1, 1]) annotation (Line(points={{-99,
+          -118},{220,-118},{220,280},{320,280}}, color={0,0,127}));
+  connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
+          0},{-280,-110},{-120,-110}}, color={0,127,255}));
+  connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-100,-110},{280,
+          -110},{280,0},{300,0}}, color={0,127,255}));
+  connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,220},{-262,
+          220}},                                                                  color={0,0,127}));
+  connect(from_degC2.y, terUni.uSet[2])
+    annotation (Line(points={{-238,220},{-200,220},{-200,-46},{-161,-46}},
+                                                                         color={0,0,127}));
+  connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
+          0},{-280,-150},{-120,-150}}, color={0,127,255}));
+  connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-100,-150},{280,
+          -150},{280,0},{300,0}}, color={0,127,255}));
+  connect(terUni.m_flow1Req[1], disFloHea.m_flow1Req_i[1]) annotation (Line(
+        points={{-139,-44},{-130,-44},{-130,-118},{-121,-118}}, color={0,0,127}));
+  connect(terUni.m_flow1Req[2], disFloCoo.m_flow1Req_i[1]) annotation (Line(
+        points={{-139,-44},{-130,-44},{-130,-158},{-121,-158}}, color={0,0,127}));
+  connect(terUni.ports_b1[1], disFloHea.ports_a1[1]) annotation (Line(points={{-140,
+          -56},{-80,-56},{-80,-104},{-100,-104}},     color={0,127,255}));
+  connect(disFloHea.ports_b1[1], terUni.ports_a1[1]) annotation (Line(points={{-120,
+          -104},{-180,-104},{-180,-56},{-160,-56}},     color={0,127,255}));
+  connect(disFloCoo.ports_b1[1], terUni.ports_a1[2]) annotation (Line(points={{-120,
+          -144},{-200,-144},{-200,-56},{-160,-56}},     color={0,127,255}));
+  connect(disFloCoo.Q_flow1Act, Q_flow1Act[2, 1]) annotation (Line(points={{-99,
+          -158},{240,-158},{240,280},{320,280}}, color={0,0,127}));
+  connect(terUni.ports_b1[2], disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
+          -56},{-100,-56},{-100,-56},{-60,-56},{-60,-144},{-100,-144}},
+        color={0,127,255}));
+  connect(terUni.PFanPum, PFanPum)
+    annotation (Line(points={{-139,-48},{260.5,-48},{260.5,240},{320,240}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

@@ -1,26 +1,14 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingGeojsonSpawn1 "Example illustrating the coupling of a multizone RC model to a fluid loop"
-  import Buildings;
+model CouplingGeojsonSpawn1
+  "Example illustrating the coupling of a multizone RC model to a fluid loop"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Water "Fluid in the pipes";
-
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawnBuilding1
-    bui annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Fluid.Sources.MassFlowSource_T supHea(
-    use_m_flow_in=true,
-    redeclare package Medium = Medium,
-    use_T_in=true,
-    nPorts=1)
-    "Supply for heating water"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-32,30})));
-  Buildings.Fluid.Sources.Boundary_pT   sinHea(
-    redeclare package Medium = Medium,
+  package Medium1 = Buildings.Media.Water
+    "Source side medium";
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawn1Z6 bui
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+  Buildings.Fluid.Sources.Boundary_pT sinHea(
+    redeclare package Medium = Medium1,
     p=300000,
-    T=couHea.T1_b_nominal,
     nPorts=1)
     "Sink for heating water"
     annotation (Placement(transformation(
@@ -28,81 +16,67 @@ model CouplingGeojsonSpawn1 "Example illustrating the coupling of a multizone RC
         rotation=0,
         origin={100,30})));
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
-    redeclare package Medium = Medium,
+    redeclare package Medium = Medium1,
     p=300000,
-    T=couCoo.T1_b_nominal,
     nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={100,-90})));
-  Buildings.Fluid.Sources.MassFlowSource_T supCoo(
+  Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
-    redeclare package Medium = Medium,
+    redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1)
-   "Supply for chilled water"
-   annotation (Placement(
+    nPorts=1) "Supply for heating water"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-30,-90})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=couHea.T1_a_nominal)
-    annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
-  Modelica.Blocks.Sources.RealExpression TCooInlVal(y=couCoo.T1_a_nominal)
-    annotation (Placement(transformation(extent={{-100,-106},{-80,-86}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.HeatingOrCooling couHea(
-    redeclare package Medium = Medium,
-    nLoa=bui.nHeaLoa,
-    flowRegime=bui.floRegHeaLoa,
-    T1_a_nominal=318.15,
-    T1_b_nominal=313.15,
-    Q_flow_nominal=bui.Q_flowHea_nominal,
-    T2_nominal=bui.THeaLoa_nominal,
-    m_flow2_nominal=bui.m_flowHeaLoa_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{0,40},{20,20}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.HeatingOrCooling couCoo(
-    redeclare package Medium = Medium,
-    nLoa=bui.nCooLoa,
-    flowRegime=bui.floRegCooLoa,
-    T1_a_nominal=280.15,
-    T1_b_nominal=285.15,
-    Q_flow_nominal=bui.Q_flowCoo_nominal,
-    T2_nominal=bui.TCooLoa_nominal,
-    m_flow2_nominal=bui.m_flowCooLoa_nominal,
-    reverseAction=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
+        origin={-10,10})));
+  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.disFloHea.T_a1_nominal)
+    annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
+  Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.disFloHea.m_flow1Req)
+    annotation (Placement(transformation(extent={{-80,14},{-60,34}})));
+  Buildings.Fluid.Sources.MassFlowSource_T supCoo(
+    use_m_flow_in=true,
+    redeclare package Medium = Medium1,
+    use_T_in=true,
+    nPorts=1)
+    "Supply for chilled water"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-10,-70})));
+  Modelica.Blocks.Sources.RealExpression THeaInlVal1(y=bui.disFloCoo.T_a1_nominal)
+    annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
+  Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.disFloCoo.m_flow1Req)
+    annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
 equation
-  connect(THeaInlVal.y, supHea.T_in) annotation (Line(points={{-79,24},{-66,24},{-66,34},{-44,34}}, color={0,0,127}));
-  connect(TCooInlVal.y, supCoo.T_in)
-    annotation (Line(points={{-79,-96},{-68,-96},{-68,-86},{-42,-86}}, color={0,0,127}));
-  connect(supHea.ports[1], couHea.port_a) annotation (Line(points={{-22,30},{0,30}}, color={0,127,255}));
-  connect(couHea.port_b, sinHea.ports[1]) annotation (Line(points={{20,30},{90,30}}, color={0,127,255}));
-  connect(bui.yHea, couHea.yHeaCoo)
-    annotation (Line(points={{61,-24},{80,-24},{80,0},{-10,0},{-10,22},{-2,22}}, color={0,0,127}));
-  connect(bui.heaPorHea, couHea.heaPorLoa) annotation (Line(points={{40,-23},{20,-23},{20,25}}, color={191,0,0}));
-  connect(supCoo.ports[1], couCoo.port_a) annotation (Line(points={{-20,-90},{0,-90}}, color={0,127,255}));
-  connect(couCoo.port_b, sinCoo.ports[1]) annotation (Line(points={{20,-90},{90,-90}}, color={0,127,255}));
-  connect(bui.yCoo, couCoo.yHeaCoo)
-    annotation (Line(points={{61,-36},{80,-36},{80,-60},{-10,-60},{-10,-82},{-2,-82}}, color={0,0,127}));
-  connect(bui.heaPorCoo, couCoo.heaPorLoa) annotation (Line(points={{40,-37},{20,-37},{20,-85}}, color={191,0,0}));
-  connect(bui.m_flowHeaLoa, couHea.m_flow2)
-    annotation (Line(points={{61,-27},{82,-27},{82,52},{-10,52},{-10,38},{-2,38}}, color={0,0,127}));
-  connect(bui.m_flowCooLoa, couCoo.m_flow2)
-    annotation (Line(points={{61,-33},{82,-33},{82,-114},{-10,-114},{-10,-98},{-2,-98}}, color={0,0,127}));
-  connect(bui.fraLatCooReq, couCoo.fraLat)
-    annotation (Line(points={{61,-31},{84,-31},{84,-118},{-12,-118},{-12,-94},{-2,-94}}, color={0,0,127}));
-  connect(couCoo.m_flow1Req, supCoo.m_flow_in)
-    annotation (Line(points={{22,-95},{28,-95},{28,-64},{-60,-64},{-60,-82},{-42,-82}}, color={0,0,127}));
-  connect(couHea.m_flow1Req, supHea.m_flow_in)
-    annotation (Line(points={{22,35},{26,35},{26,60},{-60,60},{-60,38},{-44,38}}, color={0,0,127}));
+  connect(THeaInlVal.y,supHea. T_in) annotation (Line(points={{-59,4},{-40,4},{-40,
+          14},{-22,14}},                                                                            color={0,0,127}));
+  connect(m_flow1Req.y,supHea. m_flow_in)
+    annotation (Line(points={{-59,24},{-40,24},{-40,18},{-22,18}}, color={0,0,127}));
+  connect(THeaInlVal1.y,supCoo. T_in) annotation (Line(points={{-59,-76},{-40,-76},
+          {-40,-66},{-22,-66}},                                                                    color={0,0,127}));
+  connect(m_flow1Req1.y,supCoo. m_flow_in)
+    annotation (Line(points={{-59,-56},{-40,-56},{-40,-62},{-22,-62}},
+                                                                   color={0,0,127}));
+  connect(supHea.ports[1], bui.ports_a1[1])
+    annotation (Line(points={{0,10},{24,10},{24,-30},{40,-30}},
+                                                              color={0,127,255}));
+  connect(supCoo.ports[1], bui.ports_a1[2])
+    annotation (Line(points={{0,-70},{24,-70},{24,-30},{40,-30}},
+                                                              color={0,127,255}));
+  connect(bui.ports_b1[1], sinHea.ports[1]) annotation (Line(points={{60,-30},{76,
+          -30},{76,30},{90,30}}, color={0,127,255}));
+  connect(bui.ports_b1[2], sinCoo.ports[1]) annotation (Line(points={{60,-30},{76,
+          -30},{76,-90},{90,-90}}, color={0,127,255}));
   annotation (
   experiment(
       StopTime=604800,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
   <p>
   This example illustrates the use of

@@ -1,13 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model GeojsonBuilding "Building model of type RC based on Urbanopt GeoJSON export"
   import Buildings;
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    final heaLoaTyp=fill(Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort, nHeaLoa),
-    final cooLoaTyp=fill(Buildings.Applications.DHC.Loads.Types.ModelType.HeatPort, nCooLoa),
-    final nHeaLoa=6,
-    final nCooLoa=6,
-    Q_flowCoo_nominal={30000,5000,5000,5000,5000,20000},
-    Q_flowHea_nominal={15000,10000,5000,8000,5000,1000});
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nHeaLoa](k=fill(20, nHeaLoa))
     "Minimum temperature setpoint" annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1[nHeaLoa]

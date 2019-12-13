@@ -1,8 +1,7 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model Spawn1ZoneRefactor
-  "Spawn building model based on Urbanopt GeoJSON export"
+model Spawn1Z "Spawn building model based on Urbanopt GeoJSON export"
   import Buildings;
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuildingRefactor(
+  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     haveFanPum=true,
     haveEleHeaCoo=false,
     final nLoa=1,
@@ -131,4 +130,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end Spawn1ZoneRefactor;
+end Spawn1Z;

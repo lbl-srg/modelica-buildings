@@ -10,16 +10,13 @@ model Terminal4PipesHeatPorts
       Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
       2),
     final m_flow1_nominal=abs(Q_flow_nominal ./ cp1_nominal ./ (T_a1_nominal - T_b1_nominal)));
-
   // TODO: assign HX flow regime based on HX configuration.
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime hexReg[nPorts1]=
     fill(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange,
       nPorts1);
-
   parameter Real fraCon[nPorts1] = fill(0., nPorts1)
     "Convective fraction of heat transfer (constant)"
     annotation(Dialog(tab="Advanced"));
-
   parameter Real ratUAIntToUAExt[nPorts1](each min=1) = fill(2, nPorts1)
     "Ratio of UA internal to UA external values at nominal conditions"
     annotation(Dialog(tab="Advanced", group="Nominal condition"));
@@ -49,7 +46,6 @@ model Terminal4PipesHeatPorts
   final parameter Modelica.SIunits.ThermalConductance UAInt_nominal[nPorts1]=
     ratUAIntToUAExt .* UAExt_nominal
     "Internal thermal conductance at nominal conditions";
-
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTInd[nPorts1](
     each Ti=120,
     each yMax=1,
@@ -57,8 +53,8 @@ model Terminal4PipesHeatPorts
     reverseAction={false,true},
     each yMin=0) "PI controller for indoor temperature"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom1[nPorts1](k=
-        m_flow1_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom1[nPorts1](
+    k=m_flow1_nominal)
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Applications.DHC.Loads.BaseClasses.HeatFlowEffectiveness hexHeaCoo[nPorts1](
     final flowRegime=hexReg,
@@ -109,6 +105,7 @@ model Terminal4PipesHeatPorts
     redeclare each final package Medium = Medium1,
     final dp_nominal=dp1_nominal,
     final m_flow_nominal=m_flow1_nominal,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     each final Q_flow_nominal=-1) "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,-210},{80,-190}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFloCooRad
@@ -128,10 +125,10 @@ model Terminal4PipesHeatPorts
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiRadHea[nPorts1](k=1 .- fraCon)
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 equation
-  connect(gaiFloNom1.y, m_flow1Req) annotation (Line(points={{182,220},{220,220}},
-                                color={0,0,127}));
-  connect(hexHeaCoo.UA, UAAct.y) annotation (Line(points={{-12,8},{-20,8},{-20,20},
-          {-39,20}}, color={0,0,127}));
+  connect(gaiFloNom1.y, m_flow1Req)
+    annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
+  connect(hexHeaCoo.UA, UAAct.y)
+    annotation (Line(points={{-12,8},{-20,8},{-20,20}, {-39,20}}, color={0,0,127}));
   connect(ports_a1, senMasFlo.port_a)
     annotation (Line(points={{-200,-200},{-150,-200}}, color={0,127,255}));
   connect(senMasFlo.m_flow, hexHeaCoo.m_flow1)
@@ -143,8 +140,8 @@ equation
   connect(T2Mes.T, T2InlVec.u)
     annotation (Line(points={{140,0},{92,0},{92,-1.55431e-15},{132,-1.55431e-15}},
                                                   color={0,0,127}));
-  connect(T2InlVec.y, hexHeaCoo.T2Inl) annotation (Line(points={{108,
-          1.33227e-15},{60,1.33227e-15},{60,-20},{-20,-20},{-20,-8},{-12,-8}},
+  connect(T2InlVec.y, hexHeaCoo.T2Inl)
+    annotation (Line(points={{108, 1.33227e-15},{60,1.33227e-15},{60,-20},{-20,-20},{-20,-8},{-12,-8}},
                               color={0,0,127}));
   connect(m_flow2Act.y, hexHeaCoo.m_flow2) annotation (Line(points={{-39,-20},{-26,
           -20},{-26,-4},{-12,-4}}, color={0,0,127}));

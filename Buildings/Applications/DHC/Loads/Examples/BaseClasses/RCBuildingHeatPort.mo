@@ -1,7 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model RCBuildingRefactorHeatPort
-  "Building model of type RC one element"
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuildingRefactor(
+model RCBuildingHeatPort "Building model of type RC one element"
+  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     haveFanPum=false,
     haveEleHeaCoo=false,
     nLoa=1);
@@ -321,4 +320,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end RCBuildingRefactorHeatPort;
+end RCBuildingHeatPort;

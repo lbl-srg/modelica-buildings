@@ -1,10 +1,10 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingSpawn1ZoneRefactor
+model CouplingSpawn1Z
   "Example illustrating the coupling of a multizone RC model to a fluid loop"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Spawn1ZoneRefactor bui
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Spawn1Z bui
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
@@ -101,4 +101,4 @@ Advanced.CompileWith64 = 2;
 or
 - JModelica.")}),
     __Dymola_Commands);
-end CouplingSpawn1ZoneRefactor;
+end CouplingSpawn1Z;

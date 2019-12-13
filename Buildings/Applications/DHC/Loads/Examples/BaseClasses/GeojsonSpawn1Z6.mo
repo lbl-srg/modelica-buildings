@@ -1,8 +1,7 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model GeojsonSpawnBuilding1Refactor
-  "Spawn building model based on Urbanopt GeoJSON export"
+model GeojsonSpawn1Z6 "Spawn building model based on Urbanopt GeoJSON export"
   import Buildings;
-  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuildingRefactor(
+  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     final haveEleHeaCoo=false,
     final haveFanPum=true,
     final nLoa=6, final nPorts1=2);
@@ -192,4 +191,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end GeojsonSpawnBuilding1Refactor;
+end GeojsonSpawn1Z6;
