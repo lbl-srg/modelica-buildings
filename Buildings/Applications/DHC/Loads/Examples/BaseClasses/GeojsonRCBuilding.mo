@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model GeojsonBuilding "Building model of type RC based on Urbanopt GeoJSON export"
+model GeojsonRCBuilding
+  "Building model of type RC based on Urbanopt GeoJSON export"
   import Buildings;
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nHeaLoa](k=fill(20, nHeaLoa))
     "Minimum temperature setpoint" annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
@@ -149,4 +150,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end GeojsonBuilding;
+end GeojsonRCBuilding;

@@ -1,11 +1,11 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingGeojsonSpawn1
+model CouplingGeojsonSpawn1Z6
   "Example illustrating the coupling of a multizone RC model to a fluid loop"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawn1Z6 bui
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawn1Z6Building
+    bui annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = Medium1,
     p=300000,
@@ -89,15 +89,7 @@ equation
   </p>
   </html>"),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}}), graphics={Text(
-          extent={{-100,90},{140,58}},
-          lineColor={28,108,200},
-          fontSize=18,
-          horizontalAlignment=TextAlignment.Left,
-          textString="Model with multiple EnergyPlus thermal zones can only be simulated with:
-- Dymola 2020x with:
-Advanced.CompileWith64 = 2; Hidden.AvoidDoubleComputation=true
-or
-- JModelica.")}),
-    __Dymola_Commands);
-end CouplingGeojsonSpawn1;
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}})),
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingGeojsonSpawn1Z6.mos"
+        "Simulate and plot"));
+end CouplingGeojsonSpawn1Z6;

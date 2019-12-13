@@ -1,7 +1,7 @@
 CouplingTimeSeries
 CouplingRC
 CouplingRCHeatPort
-CouplingSpawn1Z
+CouplingSpawnZ1
 CouplingGeojsonRC_toUpdate
-CouplingGeojsonSpawn1
+CouplingGeojsonSpawn1Z6
 BaseClasses

@@ -1,12 +1,12 @@
 removePlots(true);
-simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingTimeSeries",
+simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingSpawnZ1",
     method="cvode", tolerance=1e-6, numberOfIntervals=500,
     stopTime=800000.0,
-    resultFile="CouplingTimeSeries");
+    resultFile="CouplingSpawnZ1");
 createPlot(
     id=1,
     position={10, 20, 670, 900},
-    y={"bui.maxTSet.y", "bui.minTSet.y", "bui.terUni.TLoaODE[1].TInd", "bui.terUni.TLoaODE[2].TInd"},
+    y={"bui.maxTSet.y", "bui.minTSet.y",  "bui.zon.TAir"},
     autoscale=true,
     // autoerase=true,
     // autoreplot=true,
@@ -27,7 +27,7 @@ createPlot(
 createPlot(
     id=2,
     position={700, 20, 670, 900},
-    y={"supHea.T", "couHea.vol.T", "bui.minTSet.y"},
+    y={"supHea.T", "couHea.vol.T", "bui.thermalZoneOneElement.TAir"},
     autoscale=true,
     // autoerase=true,
     // autoreplot=true,
@@ -48,7 +48,7 @@ createPlot(
 createPlot(
     id=3,
     position={1300, 20, 670, 900},
-    y={"supCoo.T", "couCoo.vol.T", "bui.maxTSet.y"},
+    y={"supCoo.T", "couCoo.vol.T", "bui.thermalZoneOneElement.TAir"},
     autoscale=true,
     // autoerase=true,
     // autoreplot=true,
@@ -66,12 +66,12 @@ createPlot(
     grid=true,
     subPlot=3
 );
-plotExpression(apply(-1*CouplingTimeSeries[end].bui.terUni.Q_flow_nominal[2]), false, "-1*bui.terUni.Q_flow_nominal[2]", 3);
+plotExpression(apply(-1*CouplingSpawnZ1[end].bui.terUni.Q_flow_nominal[2]), false, "-1*bui.terUni.Q_flow_nominal[2]", 3);
 // createPlot(
 //     id=4,
 //     position={650, 260, 650, 400},
 //     x="couHea.frac_Q_flow",
-//     y={"couHea.vol.T", "couHea.T_b_nominal", "couHea.vol.ports[1].m_flow", "couHea.vol.m_flow_nominal"},
+//     y={"couHea.vol.T", "couHea.T_b_nominal", "couHea.m_flow", "couHea.m_flow_nominal"},
 //     autoscale=true,
 //     // autoerase=true,
 //     // autoreplot=true,
@@ -85,7 +85,7 @@ plotExpression(apply(-1*CouplingTimeSeries[end].bui.terUni.Q_flow_nominal[2]), f
 //     id=5,
 //     position={1300, 260, 650, 400},
 //     x="couCoo.frac_Q_flow",
-//     y={"couCoo.vol.T", "couCoo.T_b_nominal", "couCoo.vol.ports[1].m_flow", "couCoo.vol.m_flow_nominal"},
+//     y={"couCoo.vol.T", "couCoo.T_b_nominal", "couCoo.m_flow", "couCoo.m_flow_nominal"},
 //     autoscale=true,
 //     // autoerase=true,
 //     // autoreplot=true,

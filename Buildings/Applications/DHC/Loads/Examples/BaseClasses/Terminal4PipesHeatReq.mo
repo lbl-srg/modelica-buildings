@@ -45,7 +45,6 @@ model Terminal4PipesHeatReq
     ratUAIntToUAExt .* UAExt_nominal
     "Internal thermal conductance at nominal conditions";
   Buildings.Controls.OBC.CDL.Continuous.LimPID conQ_flowReq[nPorts1](
-    each Ti=120,
     each yMax=1,
     each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseAction={false,true},
@@ -66,11 +65,11 @@ model Terminal4PipesHeatReq
         senMasFlo.m_flow ./ m_flow1_nominal, expUA)) .+ 1 ./ UAExt_nominal))
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo[nPorts1](
-    redeclare package Medium=Medium1)
+    redeclare each final package Medium=Medium1)
     annotation (Placement(transformation(extent={{-150,-210},{-130,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort T1InlMes[nPorts1](redeclare final
-      package Medium =
-               Medium1, final m_flow_nominal=m_flow1_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort T1InlMes[nPorts1](
+    redeclare each final package Medium = Medium1,
+    final m_flow_nominal=m_flow1_nominal)
     annotation (Placement(transformation(extent={{-110,-210},{-90,-190}})));
   Modelica.Blocks.Sources.RealExpression m_flow2Act[nPorts1](y=fill(0, nPorts1))
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
@@ -78,7 +77,7 @@ model Terminal4PipesHeatReq
     redeclare each final package Medium = Medium1,
     final dp_nominal=dp1_nominal,
     final m_flow_nominal=m_flow1_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    each final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     each final Q_flow_nominal=-1) "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,-210},{80,-190}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FirstOrderODE TLoaODE[nPorts1](

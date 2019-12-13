@@ -75,24 +75,24 @@ model Terminal4PipesHeatPorts
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={152,80})));
+        origin={152,60})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFloCooCon
     "Convective heat flow rate to load"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={152,60})));
+        origin={152,40})));
   Modelica.Blocks.Sources.RealExpression UAAct[nPorts1](y=1 ./ (1 ./ (
         UAInt_nominal .* Buildings.Utilities.Math.Functions.regNonZeroPower(
         senMasFlo.m_flow ./ m_flow1_nominal, expUA)) .+ 1 ./ UAExt_nominal))
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo[nPorts1](
-    redeclare package Medium=Medium1)
+    redeclare each final package Medium=Medium1)
     annotation (Placement(transformation(extent={{-150,-210},{-130,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort T1InlMes[nPorts1](redeclare final
-      package
-      Medium = Medium1, final m_flow_nominal=m_flow1_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort T1InlMes[nPorts1](
+    redeclare each final package Medium = Medium1,
+    final m_flow_nominal=m_flow1_nominal)
     annotation (Placement(transformation(extent={{-110,-210},{-90,-190}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator T2InlVec(nout=nPorts1)
     annotation (Placement(transformation(
@@ -113,17 +113,17 @@ model Terminal4PipesHeatPorts
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={152,-80})));
+        origin={152,-60})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFloHeaRad
     "Radiative heat flow rate to load"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={152,-60})));
+        origin={152,-40})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiConHea[nPorts1](k=fraCon)
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiRadHea[nPorts1](k=1 .- fraCon)
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 equation
   connect(gaiFloNom1.y, m_flow1Req)
     annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
@@ -152,30 +152,31 @@ equation
   connect(hexHeaCoo.Q_flow, heaCoo.u) annotation (Line(points={{12,0},{20,0},{
           20,-194},{58,-194}},
                             color={0,0,127}));
-  connect(heaFloHeaRad.port, heaPorRad) annotation (Line(points={{162,-60},{180,
+  connect(heaFloHeaRad.port, heaPorRad) annotation (Line(points={{162,-40},{200,
+          -40}},                     color={191,0,0}));
+  connect(heaFloCooRad.port, heaPorRad) annotation (Line(points={{162,-60},{180,
           -60},{180,-40},{200,-40}}, color={191,0,0}));
-  connect(heaFloCooRad.port, heaPorRad) annotation (Line(points={{162,-80},{180,
-          -80},{180,-40},{200,-40}}, color={191,0,0}));
-  connect(heaFloHeaCon.port, heaPorCon) annotation (Line(points={{162,80},{180,
-          80},{180,40},{200,40}}, color={191,0,0}));
-  connect(heaFloCooCon.port, heaPorCon) annotation (Line(points={{162,60},{180,
+  connect(heaFloHeaCon.port, heaPorCon) annotation (Line(points={{162,60},{180,
           60},{180,40},{200,40}}, color={191,0,0}));
+  connect(heaFloCooCon.port, heaPorCon) annotation (Line(points={{162,40},{200,
+          40}},                   color={191,0,0}));
   connect(heaPorCon, T2Mes.port) annotation (Line(points={{200,40},{180,40},{
           180,0},{160,0}}, color={191,0,0}));
   connect(hexHeaCoo.Q_flow, gaiConHea.u)
-    annotation (Line(points={{12,0},{40,0},{40,60},{58,60}}, color={0,0,127}));
-  connect(gaiConHea[1].y, heaFloHeaCon.Q_flow) annotation (Line(points={{82,60},
-          {120,60},{120,80},{142,80}}, color={0,0,127}));
+    annotation (Line(points={{12,0},{40,0},{40,40},{58,40}}, color={0,0,127}));
+  connect(gaiConHea[1].y, heaFloHeaCon.Q_flow) annotation (Line(points={{82,40},
+          {120,40},{120,60},{142,60}}, color={0,0,127}));
   connect(gaiConHea[2].y, heaFloCooCon.Q_flow)
-    annotation (Line(points={{82,60},{142,60}}, color={0,0,127}));
+    annotation (Line(points={{82,40},{142,40}}, color={0,0,127}));
   connect(gaiRadHea[1].y, heaFloHeaRad.Q_flow)
-    annotation (Line(points={{82,-60},{142,-60}}, color={0,0,127}));
-  connect(gaiRadHea[2].y, heaFloCooRad.Q_flow) annotation (Line(points={{82,-60},
-          {120,-60},{120,-80},{142,-80}}, color={0,0,127}));
+    annotation (Line(points={{82,-40},{142,-40}}, color={0,0,127}));
+  connect(gaiRadHea[2].y, heaFloCooRad.Q_flow) annotation (Line(points={{82,-40},
+          {120,-40},{120,-60},{142,-60}}, color={0,0,127}));
   connect(hexHeaCoo.Q_flow, gaiRadHea.u) annotation (Line(points={{12,0},{40,0},
-          {40,-60},{58,-60}}, color={0,0,127}));
-  connect(T2InlVec.y, conTInd.u_m) annotation (Line(points={{108,0},{100,0},{
-          100,140},{0,140},{0,208}}, color={0,0,127}));
+          {40,-40},{58,-40}}, color={0,0,127}));
+  connect(T2InlVec.y, conTInd.u_m) annotation (Line(points={{108,1.33227e-15},{
+          100,1.33227e-15},{100,160},{0,160},{0,208}},
+                                     color={0,0,127}));
   connect(uSet, conTInd.u_s)
     annotation (Line(points={{-220,220},{-12,220}}, color={0,0,127}));
   connect(conTInd.y, gaiFloNom1.u)

@@ -19,7 +19,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       choice(redeclare package Medium2 =
         Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.40)
         "Propylene glycol water, 40% mass fraction")));
-  parameter Integer nPorts1
+  parameter Integer nPorts1 = 0
     "Number of inlet fluid ports on the source side"
     annotation(Evaluate=true);
   parameter Boolean haveHeaPor = false

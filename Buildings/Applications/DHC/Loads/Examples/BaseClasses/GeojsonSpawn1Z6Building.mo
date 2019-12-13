@@ -1,5 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model GeojsonSpawn1Z6 "Spawn building model based on Urbanopt GeoJSON export"
+model GeojsonSpawn1Z6Building
+  "Spawn building model based on Urbanopt GeoJSON export"
   import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     final haveEleHeaCoo=false,
@@ -69,8 +70,6 @@ model GeojsonSpawn1Z6 "Spawn building model based on Urbanopt GeoJSON export"
     annotation (Placement(transformation(extent={{30,198},{52,218}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
     terUni[nLoa](
-    each final nPorts1=2,
-    each haveFanPum=true,
     Q_flow_nominal={{50000,10000},{10000,10000},{10000,10000},{10000,10000},{
         10000,10000},{10000,10000}},
     each T_a2_nominal={293.15,297.15},
@@ -172,7 +171,7 @@ equation
   connect(PFanPum, mulSum.y)
     annotation (Line(points={{320,240},{282,240},{282,230},{242,230}},
                                                    color={0,0,127}));
-  connect(terUni.Q_flow2Act[1], Q_flow1Act[1, :]) annotation (Line(points={{-59,
+  connect(terUni.Q_flow2Act[1],Q_flow2Act [1, :]) annotation (Line(points={{-59,
           3.5},{160.5,3.5},{160.5,280},{320,280}}, color={0,0,127}));
   connect(terUni.PFanPum, mulSum.u) annotation (Line(points={{-59,2},{200,2},{
           200,230},{218,230}},
@@ -191,4 +190,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end GeojsonSpawn1Z6;
+end GeojsonSpawn1Z6Building;

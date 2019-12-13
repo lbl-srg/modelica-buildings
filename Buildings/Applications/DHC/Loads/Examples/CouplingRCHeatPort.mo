@@ -11,7 +11,7 @@ model CouplingRCHeatPort
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.RCBuildingHeatPort bui(nPorts1=2)
+  BaseClasses.RCHeatPortBuilding bui(nPorts1=2)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
@@ -34,7 +34,7 @@ model CouplingRCHeatPort
     annotation (Placement(transformation(extent={{-100,74},{-80,94}})));
   Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.disFloHea.m_flow1Req)
     annotation (Placement(transformation(extent={{-100,94},{-80,114}})));
-  Fluid.Sources.MassFlowSource_T supCoo(
+  Buildings.Fluid.Sources.MassFlowSource_T supCoo(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
     use_T_in=true,
@@ -47,7 +47,7 @@ model CouplingRCHeatPort
     annotation (Placement(transformation(extent={{-100,-6},{-80,14}})));
   Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.disFloCoo.m_flow1Req)
     annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
-  Fluid.Sources.Boundary_pT sinCoo(
+  Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = Medium1,
     p=300000,
     nPorts=1) "Sink for chilled water"
@@ -94,6 +94,6 @@ equation
   </html>"),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{140,120}})),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRC.mos"
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCHeatPort.mos"
         "Simulate and plot"));
 end CouplingRCHeatPort;

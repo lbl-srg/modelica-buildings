@@ -1,10 +1,10 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingSpawn1Z
+model CouplingSpawnZ1
   "Example illustrating the coupling of a multizone RC model to a fluid loop"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Spawn1Z bui
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.SpawnZ1Building bui
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
@@ -90,15 +90,7 @@ equation
   </p>
   </html>"),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}}), graphics={Text(
-          extent={{-98,90},{-38,50}},
-          lineColor={28,108,200},
-          fontSize=18,
-          horizontalAlignment=TextAlignment.Left,
-          textString="Model with one EnergyPlus thermal zone can only be simulated with:
-- dymola-2020-x86_64 with
-Advanced.CompileWith64 = 2;
-or
-- JModelica.")}),
-    __Dymola_Commands);
-end CouplingSpawn1Z;
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}})),
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingSpawnZ1.mos"
+        "Simulate and plot"));
+end CouplingSpawnZ1;

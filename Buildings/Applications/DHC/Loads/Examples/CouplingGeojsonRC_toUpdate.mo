@@ -12,7 +12,7 @@ model CouplingGeojsonRC_toUpdate
     "Weather data reader"
     annotation (Placement(transformation(extent={{110,-30},{90,-10}})));
 
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonBuilding bui
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonRCBuilding bui
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,

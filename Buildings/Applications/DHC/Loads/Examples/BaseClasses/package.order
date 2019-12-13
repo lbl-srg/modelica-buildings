@@ -1,9 +1,9 @@
 TimeSeriesBuilding
 RCBuilding
-RCBuildingHeatPort
-Spawn1Z
-GeojsonBuilding
-GeojsonSpawn1Z6
+RCHeatPortBuilding
+SpawnZ1Building
+GeojsonRCBuilding
+GeojsonSpawn1Z6Building
 Terminal4PipesFluidPorts
 Terminal4PipesHeatPorts
 Terminal4PipesHeatReq
