@@ -1,6 +1,6 @@
 within Buildings.Fluid.Chillers;
 model AbsorptionIndirectSteam
-  "Absorption indirect chiller with performance curves model."
+  "Indirect steam heated absorption chiller based on performance curves"
     extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
      T1_start = 273.15+25,
      T2_start = 273.15+5,
@@ -27,17 +27,18 @@ model AbsorptionIndirectSteam
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable the absorption chiller"
      annotation (Placement(transformation(extent={{-128,2},{-100,30}}),
-                                    iconTransformation(extent={{-120,10},{-100,30}})));
+                                    iconTransformation(extent={{-120,10},{-100,
+            30}})));
   Modelica.Blocks.Interfaces.RealInput TSet(final unit="K", displayUnit="degC")
     "Evaporator setpoint leaving water temperature" annotation (Placement(
-        transformation(extent={{-126,-36},{-100,-10}}), iconTransformation(
+        transformation(extent={{-128,-38},{-100,-10}}), iconTransformation(
           extent={{-120,-30},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
    "Chiller pump power"
      annotation (Placement(transformation(extent={{100,10},{120,30}}),
                             iconTransformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Interfaces.RealOutput QGen_flow(final unit="W")
-  "Required generator heat flow rate"
+  "Required generator heat flow rate in the form of steam"
      annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
         iconTransformation(extent={{100,10},{120,30}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(final unit="W")
@@ -99,7 +100,7 @@ protected
      annotation (Placement(transformation(extent={{-1,-40},{19,-20}})));
 
 equation
-  connect(on, perMod.on) annotation (Line(points={{-114,16},{-72,16},{-72,10},{
+  connect(on, perMod.on) annotation (Line(points={{-114,16},{-94,16},{-94,10},{
           -51,10}},
                 color={255,0,255}));
   connect(perMod.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{-29,18},
@@ -213,8 +214,8 @@ equation
 defaultComponentName="chi",
 Documentation(info="<html>
 <p>
-Model for an absorption indirect absorption chiller that is heated using steam or hot water.
-The model uses performance curves method similar to the EnergyPlus model <code>Chiller:Absorption:Indirect</code>.
+Model for an indirect steam heated absorption chiller based on performance curves.
+The model uses performance curves similar to the EnergyPlus model <code>Chiller:Absorption:Indirect</code>.
 </p>
 <p>
 The model uses six functions to predict the chiller cooling capacity, power consumption for
