@@ -35,7 +35,7 @@ model CoolingDirectUncontrolled
 
   Buildings.Fluid.Sources.Boundary_pT sinDis(
     redeclare package Medium = Medium,
-    p=300000,
+    p(displayUnit="Pa") = 300000,
     T=289.15,
     nPorts=1)
     "District-side (primary) sink"
@@ -53,14 +53,14 @@ model CoolingDirectUncontrolled
     m_flow_nominal=m_flow_nominal,
     T_start=289.15)
     "District-side (primary) return temperature sensor"
-    annotation (Placement(transformation(extent={{-50,-100},{-70,-80}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-60,-80}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     T_start=289.15)
     "Building-side (secondary) return temperature sensor"
-    annotation (Placement(transformation(extent={{50,-100},{30,-80}})));
+    annotation (Placement(transformation(extent={{60,-100},{40,-80}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TBuiSup(
     redeclare package Medium = Medium,
@@ -128,10 +128,6 @@ model CoolingDirectUncontrolled
     "District supply temperature trapezoid signal"
     annotation (Placement(transformation(extent={{-140,-16},{-120,4}})));
 
-  Modelica.Blocks.Math.Add dT(k1=+1, k2=-1)
-    "Change in temperature at ETS, measured on district side"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-
 equation
   connect(tra.y, souDis.T_in)
     annotation (Line(points={{-119,-6},{-102,-6}}, color={0,0,127}));
@@ -158,17 +154,13 @@ equation
   connect(loa.port_b, val.port_a)
     annotation (Line(points={{100,-10},{120,-10}}, color={0,127,255}));
   connect(val.port_b, TBuiRet.port_a)
-    annotation (Line(points={{140,-10},{150,-10},{150,-90},{50,-90}}, color={0,127,255}));
+    annotation (Line(points={{140,-10},{150,-10},{150,-90},{60,-90}}, color={0,127,255}));
   connect(TBuiRet.port_b, coo.port_a2)
-    annotation (Line(points={{30,-90},{20,-90},{20,-56},{10,-56}}, color={0,127,255}));
+    annotation (Line(points={{40,-90},{20,-90},{20,-56},{10,-56}}, color={0,127,255}));
   connect(coo.port_b2, TDisRet.port_a)
-    annotation (Line(points={{-10,-56},{-20,-56},{-20,-90},{-50,-90}}, color={0,127,255}));
+    annotation (Line(points={{-10,-56},{-20,-56},{-20,-90},{-40,-90}}, color={0,127,255}));
   connect(TDisRet.port_b, sinDis.ports[1])
-    annotation (Line(points={{-70,-90},{-80,-90}}, color={0,127,255}));
-  connect(TDisRet.T, dT.u1)
-    annotation (Line(points={{-60,-79},{-60,26},{-22,26}}, color={0,0,127}));
-  connect(TDisSup.T, dT.u2)
-    annotation (Line(points={{-50,1},{-50,14},{-22,14}}, color={0,0,127}));
+    annotation (Line(points={{-60,-90},{-80,-90}}, color={0,127,255}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false,
