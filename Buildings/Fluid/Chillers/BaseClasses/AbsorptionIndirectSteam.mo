@@ -13,59 +13,56 @@ block AbsorptionIndirectSteam
 
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable the absorption chiller"
-    annotation (Placement(transformation(extent={{-124,-12},{-100,12}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-124,48},{-100,72}}),
+        iconTransformation(extent={{-120,60},{-100,80}})));
 
   Modelica.Blocks.Interfaces.RealInput TConEnt(
     final unit="K",
     displayUnit="degC")
     "Condenser entering water temperature"
-     annotation (Placement(transformation(extent={{-124,28},{-100,52}}),iconTransformation(extent={{-120,24},
-            {-100,44}})));
+     annotation (Placement(transformation(extent={{-124,16},{-100,40}}),iconTransformation(extent={{-120,20},
+            {-100,40}})));
   Modelica.Blocks.Interfaces.RealInput TEvaLvg(
     final unit="K",
     displayUnit="degC")
     "Evaporator leaving water temperature"
-     annotation (Placement(transformation(extent={{-124,
-            -92},{-100,-68}}),      iconTransformation(extent={{-120,-84},{-100,
-            -64}})));
-  Modelica.Blocks.Interfaces.RealInput TConLvg(
-    final unit="K",
-    displayUnit="degC")
-    "Condenser leaving water temperature"
-     annotation (Placement(transformation(
-          extent={{-124,68},{-100,92}}), iconTransformation(extent={{-120,62},{
-            -100,82}})));
+     annotation (Placement(transformation(extent={{-124,-84},{-100,-60}}),
+                                    iconTransformation(extent={{-120,-80},{-100,
+            -60}})));
 
   Modelica.Blocks.Interfaces.RealInput QEva_flow_set(final unit="W")
     "Evaporator setpoint heat flow rate" annotation (Placement(transformation(
-          extent={{-124,-52},{-100,-28}}), iconTransformation(extent={{-120,-44},
-            {-100,-24}})));
+          extent={{-124,-44},{-100,-20}}), iconTransformation(extent={{-120,-40},
+            {-100,-20}})));
 
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W")
     "Condenser heat flow rate "
-     annotation (Placement(transformation(extent={{100,
-            50},{120,70}}), iconTransformation(extent={{100,70},{120,90}})));
+     annotation (Placement(transformation(extent={{100,70},{120,90}}),
+                            iconTransformation(extent={{100,70},{120,90}})));
 
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(final unit="W")
     "Evaporator heat flow rate"
-     annotation (Placement(transformation(extent={{100,
-            -70},{120,-50}}), iconTransformation(extent={{100,-84},{120,-64}})));
-
-  Modelica.Blocks.Interfaces.RealOutput QGen_flow(final unit="W")
-    "Required generator heat flow rate"
      annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
                               iconTransformation(extent={{100,-30},{120,-10}})));
 
+  Modelica.Blocks.Interfaces.RealOutput QGen_flow(final unit="W")
+    "Required generator heat flow rate"
+     annotation (Placement(transformation(extent={{100,10},{120,30}}),
+                              iconTransformation(extent={{100,10},{120,30}})));
+
   Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
     "Pump power"
-     annotation (Placement(transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{100,28},
-            {120,48}})));
+     annotation (Placement(transformation(extent={{100,40},{120,60}}), iconTransformation(extent={{100,40},
+            {120,60}})));
 
-  Real PLR(min=0, final unit="1")
-   "Part load ratio";
-  Real CR(min=0, final unit="1")
-   "Cycling ratio";
+  Modelica.Blocks.Interfaces.RealOutput PLR(min=0, final unit="1")
+   "Part load ratio"
+   annotation (Placement(transformation(extent={{100,-60},{120,-40}}),iconTransformation(extent={{100,-60},
+            {120,-40}})));
+  Modelica.Blocks.Interfaces.RealOutput CR(min=0, final unit="1")
+   "Cycling ratio"
+   annotation (Placement(transformation(extent={{100,-90},{120,-70}}), iconTransformation(extent={{100,-90},
+            {120,-70}})));
 
   Modelica.SIunits.Efficiency genHIR
    "Ratio of the generator heat input to chiller operating capacity";
@@ -168,6 +165,10 @@ for a description of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 13, 2019, by Michael Wetter:<br/>
+Removed <code>TConLvg</code> which is not used by this model.
+</li>
 <li>
 November 26, 2019, by Michael Wetter:<br/>
 Revised implementation and documentation.

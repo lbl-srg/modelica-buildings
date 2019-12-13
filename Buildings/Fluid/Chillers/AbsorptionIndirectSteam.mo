@@ -49,18 +49,24 @@ model AbsorptionIndirectSteam
   "Condenser heat flow rate"
      annotation (Placement(transformation(extent={{100,30},{120,50}}),
         iconTransformation(extent={{100,74},{120,94}})));
+
+  Real PLR(min=0, final unit="1") = perMod.PLR
+   "Part load ratio";
+  Real CR(min=0, final unit="1") = perMod.CR
+   "Cycling ratio";
+
+protected
   BaseClasses.AbsorptionIndirectSteam perMod(
     final per=per,
     final Q_flow_small=Q_flow_small) "Block that computes the performance"
-    annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
+    annotation (Placement(transformation(extent={{-52,0},{-32,20}})));
 
-protected
   Modelica.Blocks.Sources.RealExpression QEva_flow_set(
     final y=Buildings.Utilities.Math.Functions.smoothMin(
         x1=m2_flow*(hEvaSet - inStream(port_a2.h_outflow)),
         x2=-Q_flow_small,
         deltaX=Q_flow_small/10)) "Setpoint heat flow rate of the evaporator"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-92,-28},{-72,-8}})));
 
   Modelica.SIunits.SpecificEnthalpy hEvaSet=Medium2.specificEnthalpy_pTX(
       p=port_b2.p,
@@ -76,13 +82,7 @@ protected
           p = port_a1.p,
           h = inStream(port_a1.h_outflow))))
    "Condenser entering water temperature"
-     annotation (Placement(transformation(extent={{-90,12},{-70,30}})));
-
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TConLvg
-    "Leaving condenser temperature" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-70,50})));
+     annotation (Placement(transformation(extent={{-92,-8},{-72,10}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TEvaLvg
     "Leaving evaporator temperature" annotation (Placement(transformation(
@@ -100,40 +100,36 @@ protected
      annotation (Placement(transformation(extent={{-1,-40},{19,-20}})));
 
 equation
-  connect(on, perMod.on) annotation (Line(points={{-114,16},{-94,16},{-94,10},{
-          -51,10}},
+  connect(on, perMod.on) annotation (Line(points={{-114,16},{-94,16},{-94,17},{
+          -53,17}},
                 color={255,0,255}));
-  connect(perMod.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{-29,18},
+  connect(perMod.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{-31,18},
           {-20,18},{-20,28},{-52,28},{-52,40},{-47,40}}, color={0,0,127}));
-  connect(perMod.QEva_flow, preHeaFloEva.Q_flow) annotation (Line(points={{-29,2.6},
-          {-20,2.6},{-20,-30},{-1,-30}}, color={0,0,127}));
+  connect(perMod.QEva_flow, preHeaFloEva.Q_flow) annotation (Line(points={{-31,8},
+          {-20,8},{-20,-30},{-1,-30}},   color={0,0,127}));
   connect(preHeaFloEva.port, vol2.heatPort)
     annotation (Line(points={{19,-30},{28,-30},{28,-60},{12,-60}},
                                   color={191,0,0}));
-  connect(perMod.QEva_flow, QEva_flow) annotation (Line(points={{-29,2.6},{88,
-          2.6},{88,-40},{110,-40}},               color={0,0,127}));
-  connect(TConEnt.y, perMod.TConEnt) annotation (Line(points={{-69,21},{-64,21},
-          {-64,13.4},{-51,13.4}}, color={0,0,127}));
-  connect(QEva_flow_set.y, perMod.QEva_flow_set) annotation (Line(points={{-69,0},
-          {-64,0},{-64,6.6},{-51,6.6}},  color={0,0,127}));
-  connect(perMod.P, P) annotation (Line(points={{-29,13.8},{-29,14},{90,14},{90,
-          20},{110,20}}, color={0,0,127}));
+  connect(perMod.QEva_flow, QEva_flow) annotation (Line(points={{-31,8},{88,8},
+          {88,-40},{110,-40}},                    color={0,0,127}));
+  connect(TConEnt.y, perMod.TConEnt) annotation (Line(points={{-71,1},{-66,1},{
+          -66,13},{-53,13}},      color={0,0,127}));
+  connect(QEva_flow_set.y, perMod.QEva_flow_set) annotation (Line(points={{-71,-18},
+          {-64,-18},{-64,7},{-53,7}},    color={0,0,127}));
   connect(preHeaFloCon.port, vol1.heatPort) annotation (Line(points={{-27,40},{-20,
           40},{-20,60},{-10,60}},                                     color={
           191,0,0}));
-  connect(perMod.QCon_flow, QCon_flow) annotation (Line(points={{-29,18},{86,18},
+  connect(perMod.QCon_flow, QCon_flow) annotation (Line(points={{-31,18},{86,18},
           {86,40},{110,40}}, color={0,0,127}));
-  connect(perMod.QGen_flow, QGen_flow) annotation (Line(points={{-29,8},{92,8},
+  connect(perMod.QGen_flow, QGen_flow) annotation (Line(points={{-31,12},{92,12},
           {92,-20},{110,-20}},color={0,0,127}));
-  connect(TConLvg.port, vol1.heatPort) annotation (Line(points={{-60,50},{-20,50},
-          {-20,60},{-10,60}}, color={191,0,0}));
-  connect(TConLvg.T, perMod.TConLvg) annotation (Line(points={{-80,50},{-92,50},
-          {-92,32},{-60,32},{-60,17.2},{-51,17.2}}, color={0,0,127}));
   connect(TEvaLvg.port, vol2.heatPort) annotation (Line(points={{-32,-40},{28,
           -40},{28,-60},{12,-60}},
                               color={191,0,0}));
   connect(TEvaLvg.T, perMod.TEvaLvg) annotation (Line(points={{-52,-40},{-60,
-          -40},{-60,2.6},{-51,2.6}}, color={0,0,127}));
+          -40},{-60,3},{-53,3}},     color={0,0,127}));
+  connect(perMod.P, P) annotation (Line(points={{-31,15},{94,15},{94,20},{110,
+          20}}, color={0,0,127}));
   annotation (Icon(graphics={
         Line(points={{-40,76}}, color={238,46,47}),
         Line(
