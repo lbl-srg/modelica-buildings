@@ -7,9 +7,13 @@ model ASHRAE2006_EnergyPlusFloor
     use_windPressure=false),
     heaCoi(show_T=true),
     cooCoi(show_T=true));
-
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1420,
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
+        "Simulate and plot"),
+    experiment(StopTime=172800, Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=true)),
+    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-380,-400},{1420,
             660}})),
     Documentation(info="<html>
 <p>
@@ -74,9 +78,5 @@ Impementation of <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
 Buildings.Examples.VAVReheat.ASHRAE2006</a> model with an EnergyPlus thermal zone instance.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
-        "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06));
+</html>"));
 end ASHRAE2006_EnergyPlusFloor;

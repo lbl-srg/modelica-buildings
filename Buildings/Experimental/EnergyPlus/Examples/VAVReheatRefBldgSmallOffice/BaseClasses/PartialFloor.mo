@@ -258,7 +258,8 @@ equation
       thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
         extent={{-160,-100},{380,500}},
-        initialScale=0.1)),   Icon(coordinateSystem(extent={{-80,-80},{380,160}}),
+        initialScale=0.1)),   Icon(coordinateSystem(extent={{-80,-80},{380,160}},
+        preserveAspectRatio=true),
          graphics={Rectangle(
           extent={{-80,160},{380,-80}},
           lineColor={95,95,95},

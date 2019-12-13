@@ -75,7 +75,7 @@ model Guideline36
     annotation (Placement(transformation(extent={{-40,-96},{-20,-76}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
     "Flow rate signal for heating coil when freeze stat is on"
-    annotation (Placement(transformation(extent={{0,-192},{20,-172}})));
+    annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
       points={{320,-40},{320,0},{320,-10},{320,-10}},
@@ -303,9 +303,16 @@ equation
           {88,-210},{98,-210}}, color={0,0,127}));
   connect(freSta.y, swiFreSta.u2) annotation (Line(points={{22,-92},{40,-92},{40,
           -192},{58,-192}},    color={255,0,255}));
-  connect(yFreHeaCoi.y, swiFreSta.u1) annotation (Line(points={{22,-182},{40,-182},
+  connect(yFreHeaCoi.y, swiFreSta.u1) annotation (Line(points={{22,-180},{40,-180},
           {40,-184},{58,-184}}, color={0,0,127}));
   annotation (
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36.mos"
+        "Simulate and plot"),
+    experiment(StopTime=172800, Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=true)),
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,extent={{-400,-320},{1380,680}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
@@ -375,10 +382,5 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36.mos"
-        "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06),
-    Icon(coordinateSystem(extent={{-380,-320},{1400,660}})));
+</html>"));
 end Guideline36;

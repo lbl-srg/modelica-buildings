@@ -330,8 +330,13 @@ equation
   connect(or2.y, swiHeaCoi.u2) annotation (Line(points={{22,-170},{40,-170},{40,
           -190},{40,-190},{40,-210},{58,-210}}, color={255,0,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1540,
-            700}})),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
+        "Simulate and plot"),
+    experiment(StopTime=172800, Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=true)),
+    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-380,-400},{1420,
+            660}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
@@ -417,9 +422,5 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
-        "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06));
+</html>"));
 end ASHRAE2006;

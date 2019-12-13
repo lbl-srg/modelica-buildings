@@ -10,8 +10,13 @@ model Guideline36_EnergyPlusZone
   cooCoi(show_T=true));
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-320},{1380,
-            680}})),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36.mos"
+        "Simulate and plot"),
+    experiment(StopTime=172800, Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=true)),
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,extent={{-400,-320},{1380,680}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
@@ -59,10 +64,6 @@ Impementation of <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\"
 Buildings.Examples.VAVReheat.Guideline36</a> model with an EnergyPlus thermal zone instance.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36.mos"
-        "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06),
-Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+</html>"));
+
 end Guideline36_EnergyPlusZone;
