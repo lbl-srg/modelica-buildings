@@ -60,7 +60,7 @@ model AbsorptionIndirectSteamVaryingLoad
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=per.mEva_flow_nominal,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
+    inputType=Buildings.Fluid.Types.InputType.Continuous,
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false)                      "Chilled water pump"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
@@ -70,11 +70,11 @@ model AbsorptionIndirectSteamVaryingLoad
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSet(k=273.15 + 10) "Set point"
     annotation (Placement(transformation(extent={{-130,-12},{-110,8}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TEnt(
-    height=10,
+  Controls.OBC.CDL.Continuous.Sources.Ramp mPum_flow(
+    height=per.mEva_flow_nominal,
     duration=86400,
-    offset=273.15 + 10) "Entering water temperature into chiller"
-    annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
+    offset=0) "Pump flow rate"
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Controls.OBC.CDL.Continuous.Division QEva_QGen
     "Ratio of cooling provided over required steam"
     annotation (Placement(transformation(extent={{90,0},{110,20}})));
@@ -83,13 +83,15 @@ model AbsorptionIndirectSteamVaryingLoad
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
   Controls.OBC.CDL.Continuous.Gain gai(k=-1) "Gain to switch sign"
     annotation (Placement(transformation(extent={{52,-50},{72,-30}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant TEnt(k=273.15 + 15)
+    "Entering evaporator temperature"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
-  connect(chi.on, on.y) annotation (Line(points={{-41,2},{-100,2},{-100,30},{
-          -108,30}},
+  connect(chi.on, on.y) annotation (Line(points={{-41,2},{-100,2},{-100,30},{-108,
+          30}},
         color={255,0,255}));
-  connect(conPum.ports[1], chi.port_a1) annotation (Line(points={{-50,42},{-42,
-          42},{-42,6},{-40,6}},
-                            color={0,127,255}));
+  connect(conPum.ports[1], chi.port_a1) annotation (Line(points={{-50,42},{-42,42},
+          {-42,6},{-40,6}}, color={0,127,255}));
   connect(chi.port_b1, heaBou.ports[1])
     annotation (Line(points={{-20,6},{-10,6},{-10,40},{0,40}},
                                              color={0,127,255}));
@@ -103,19 +105,20 @@ equation
           {-70,-6},{-40,-6}}, color={0,127,255}));
   connect(TSet.y, chi.TSet)
     annotation (Line(points={{-108,-2},{-41,-2}},color={0,0,127}));
-  connect(TEnt.y, proSou.T_in)
-    annotation (Line(points={{-28,-30},{-14,-30},{-14,-48}},
-                                                         color={0,0,127}));
-  connect(chi.QEva_flow, gai.u) annotation (Line(points={{-19,-8.6},{34,-8.6},{
-          34,-40},{50,-40}}, color={0,0,127}));
-  connect(QEva_P.u2, chi.P) annotation (Line(points={{88,-26},{74,-26},{74,-2},
-          {-19,-2}}, color={0,0,127}));
+  connect(chi.QEva_flow, gai.u) annotation (Line(points={{-19,-8.6},{34,-8.6},{34,
+          -40},{50,-40}},    color={0,0,127}));
+  connect(QEva_P.u2, chi.P) annotation (Line(points={{88,-26},{74,-26},{74,-2},{
+          -19,-2}}, color={0,0,127}));
   connect(QEva_QGen.u2, chi.QGen_flow)
     annotation (Line(points={{88,4},{34,4},{34,2},{-19,2}}, color={0,0,127}));
   connect(gai.y, QEva_P.u1) annotation (Line(points={{74,-40},{80,-40},{80,-14},
           {88,-14}}, color={0,0,127}));
-  connect(gai.y, QEva_QGen.u1) annotation (Line(points={{74,-40},{80,-40},{80,
-          16},{88,16}}, color={0,0,127}));
+  connect(gai.y, QEva_QGen.u1) annotation (Line(points={{74,-40},{80,-40},{80,16},
+          {88,16}}, color={0,0,127}));
+  connect(mPum_flow.y, pum.m_flow_in)
+    annotation (Line(points={{-78,-30},{-50,-30},{-50,-48}}, color={0,0,127}));
+  connect(TEnt.y, proSou.T_in)
+    annotation (Line(points={{-18,-30},{-14,-30},{-14,-48}}, color={0,0,127}));
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Ellipse(lineColor = {75,138,73},
@@ -141,6 +144,11 @@ This model validates
 <a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>.
 for the case with varying cooling load.
+</p>
+<p>
+The model is constructed in such a way that the temperatures that determine the performance of
+the absorption chiller are kept constant to see the effect of the part load behavior
+on the ratio of cooling provided over steam required.
 </p>
 </html>", revisions="<html>
 <ul>
