@@ -47,7 +47,8 @@ model MerkelEnergyPlus
     TWatIn_nominal=TWatIn_nominal,
     Q_flow_nominal=Q_flow_nominal,
     PFan_nominal=PFan_nominal,
-    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow)
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+    yMin=0.01)
              "Merkel-theory based cooling tower"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Sources.MassFlowSource_T souWat(
