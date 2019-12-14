@@ -119,18 +119,10 @@ model SingleZoneFloor "Model of a building floor as a single zone"
   Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     "Building pressure measurement"
     annotation (Placement(transformation(extent={{-60,-16},{-80,4}})));
-  Buildings.Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
+  Buildings.Fluid.Sources.Outside out(
+    nPorts=1, redeclare package Medium = Medium) "Outdoor air"
     annotation (Placement(transformation(extent={{-120,-16},{-100,4}})));
-  Modelica.Fluid.Interfaces.FluidPort_a supplyAir(redeclare final package
-      Medium = Medium) "Supply air"
-    annotation (Placement(transformation(extent={{-210,10},{-190,30}}),
-        iconTransformation(extent={{-134,-96},{-114,-76}})));
-  Modelica.Fluid.Interfaces.FluidPort_b returnAir(redeclare final package
-      Medium = Medium) "Return air"
-    annotation (Placement(transformation(extent={{-210,-30},{-190,-10}}),
-        iconTransformation(extent={{-134,-136},{-114,-116}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
-    "Weather data bus"
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-174,78},{-158,94}}),
         iconTransformation(extent={{-98,162},{-82,178}})));
   Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperature"
@@ -185,8 +177,12 @@ model SingleZoneFloor "Model of a building floor as a single zone"
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
-  Modelica.Blocks.Routing.Replicator replicator(nout=1)
+  Modelica.Blocks.Routing.Replicator replicator(nout=1) "Shading signals for all windows"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[2](
+    redeclare package Medium = Medium) "Fluid inlets and outlets" annotation (Placement(
+        transformation(extent={{-210,-8},{-170,8}}), iconTransformation(extent={
+            {-132,-128},{-92,-112}})));
 protected
   parameter Modelica.SIunits.Angle S_= Buildings.Types.Azimuth.S "Azimuth for south walls";
   parameter Modelica.SIunits.Angle E_= Buildings.Types.Azimuth.E "Azimuth for east walls";
@@ -221,12 +217,6 @@ equation
       thickness=0.5));
   connect(temAir.T, TRooAir) annotation (Line(points={{102,60},{210,60}},
                     color={0,0,127}));
-  connect(supplyAir, flo.ports[1]) annotation (Line(points={{-200,20},{-176,20},
-          {-176,-44},{-44,-44},{-44,-49.4286},{-11,-49.4286}},
-                               color={0,127,255}));
-  connect(returnAir, flo.ports[2]) annotation (Line(points={{-200,-20},{-180,
-          -20},{-180,-48.2857},{-11,-48.2857}},
-                                         color={0,127,255}));
   connect(weaBus, leaSou.weaBus) annotation (Line(
       points={{-166,86},{-166,152},{-122,152}},
       color={255,204,51},
@@ -251,20 +241,19 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(leaSou.port_b, flo.ports[3]) annotation (Line(points={{-86,152},{-44,
-          152},{-44,-47.1429},{-11,-47.1429}},
+  connect(leaSou.port_b, flo.ports[1]) annotation (Line(points={{-86,152},{-44,
+          152},{-44,-49.4286},{-11,-49.4286}},
                                           color={0,127,255}));
-  connect(leaEas.port_b, flo.ports[4]) annotation (Line(points={{-86,112},{-44,
-          112},{-44,-37.3333},{-11,-37.3333},{-11,-46}},
+  connect(leaEas.port_b, flo.ports[2]) annotation (Line(points={{-86,112},{-44,
+          112},{-44,-37.3333},{-11,-37.3333},{-11,-48.2857}},
                                                     color={0,127,255}));
-  connect(leaNor.port_b, flo.ports[5]) annotation (Line(points={{-86,70},{-44,
-          70},{-44,-40},{-11,-40},{-11,-44.8571}},
+  connect(leaNor.port_b, flo.ports[3]) annotation (Line(points={{-86,70},{-44,
+          70},{-44,-40},{-11,-40},{-11,-47.1429}},
                                                color={0,127,255}));
-  connect(leaWes.port_b, flo.ports[6]) annotation (Line(points={{-86,30},{-44,
-          30},{-44,-43.7143},{-11,-43.7143}},
-                                          color={0,127,255}));
-  connect(senRelPre.port_a, flo.ports[7]) annotation (Line(points={{-60,-6},{
-          -44,-6},{-44,-44},{-11,-44},{-11,-42.5714}},       color={0,127,255}));
+  connect(leaWes.port_b, flo.ports[4]) annotation (Line(points={{-86,30},{-44,
+          30},{-44,-46},{-11,-46}},       color={0,127,255}));
+  connect(senRelPre.port_a, flo.ports[5]) annotation (Line(points={{-60,-6},{
+          -44,-6},{-44,-44},{-11,-44},{-11,-44.8571}},       color={0,127,255}));
   connect(weaBus, leaWes.weaBus) annotation (Line(
       points={{-166,86},{-166,30},{-122,30}},
       color={255,204,51},
@@ -273,21 +262,45 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(senRelPre.p_rel, p_rel)
-    annotation (Line(points={{-70,-15},{-70,-60},{210,-60}}, color={0,0,127}));
-  connect(intGaiFra.y, gai.u)
-    annotation (Line(points={{-139,-140},{-122,-140}}, color={0,0,127}));
+  connect(senRelPre.p_rel, p_rel) annotation (Line(points={{-70,-15},{-70,-60},{210,-60}}, color={0,0,127}));
+  connect(intGaiFra.y, gai.u)  annotation (Line(points={{-139,-140},{-122,-140}}, color={0,0,127}));
   connect(gai.y, flo.qGai_flow) annotation (Line(points={{-99,-140},{-26,-140},
           {-26,-28},{-17.6,-28}},
                                 color={0,0,127}));
-  connect(uSha.y, replicator.u)
-    annotation (Line(points={{-139,-90},{-122,-90}}, color={0,0,127}));
+  connect(uSha.y, replicator.u)  annotation (Line(points={{-139,-90},{-122,-90}}, color={0,0,127}));
   connect(replicator.y, flo.uSha) annotation (Line(points={{-99,-90},{-30,-90},
           {-30,-18},{-17.6,-18}},
                               color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
-            {200,200}})),       Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-200,-200},{200,200}}), graphics={
+  connect(ports[1], flo.ports[6]) annotation (Line(points={{-200,0},{-188,0},{
+          -188,-50},{-11,-50},{-11,-43.7143}},
+                                       color={0,127,255}));
+  connect(ports[2], flo.ports[7]) annotation (Line(points={{-180,0},{-192,0},{
+          -192,-42.5714},{-11,-42.5714}},
+                               color={0,127,255}));
+  annotation (
+  Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,200}})),
+  defaultComponentName="sinZonFlo",
+  Documentation(info = "<html>
+  <p>
+  This model assumes the whole floor as a single zone with a homogeneous temperature, 
+  meaning that the air in the whole floor is assumed to be fully mixed.
+  </p>
+  <p>
+  The geometry, materials and constructions of the model are consistent with 
+  <a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">Buildings.Examples.VAVReheat.ThermalZones.Floor</a>.
+  The latter model differs from this model in that it models the floor 
+  as five zones, i.e., four perimeter zones with a core zone.
+  </p>
+  </html>",
+  revisions="<html>
+  <ul>
+  <li>December 3, 2019, by Kun Zhang:<br>
+  First implementation.
+  </li>
+  </ul>
+  </html>"),
+  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,200}}),
+        graphics={
         Rectangle(
           extent={{-160,-160},{160,160}},
           lineColor={95,95,95},
@@ -346,10 +359,5 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid,
           origin={2,150},
-          rotation=90)}),
-    Documentation(revisions="<html>
-<ul>
-<li>December 3, 2019, by Kun Zhang:<br>The geometry, materials and constructions are consistent with . </li>
-</ul>
-</html>"));
+          rotation=90)}));
 end SingleZoneFloor;
