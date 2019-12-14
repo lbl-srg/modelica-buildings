@@ -18,8 +18,7 @@ model FloorOpenLoop "Open loop model of one floor"
 
   inner Buildings.Experimental.EnergyPlus.Building building(
     idfName=idfName,
-    weaName=weaName,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    weaName=weaName)
     "Building-level declarations"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
@@ -63,6 +62,7 @@ model FloorOpenLoop "Open loop model of one floor"
     each dp_nominal=10,
     each linearized=true) "Small flow resistance for inlet"
     annotation (Placement(transformation(extent={{4,-30},{24,-10}})));
+
 equation
   connect(weaBus, flo.weaBus) annotation (Line(
       points={{-40,50},{66,50},{66,22},{65,22}},

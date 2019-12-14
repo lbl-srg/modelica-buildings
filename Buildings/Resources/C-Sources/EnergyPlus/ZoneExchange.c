@@ -6,65 +6,11 @@
  */
 
 #include "ZoneExchange.h"
-#include "EnergyPlusStructure.h"
+#include "EnergyPlusFMU.h"
 
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-
-void setVariables(FMUBuilding* bui, const char* modelicaNameThermalZone, fmi2ValueReference vr[],  fmi2Real values[], size_t n){
-    fmi2_status_t status;
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("fmi2_import_set_real: Setting real variables in EnergyPlus for zone %s, mode = %s.\n",
-        modelicaNameThermalZone, fmuModeToString(bui->mode));
-    status = fmi2_import_set_real(bui->fmu, vr, n, values);
-    if (status != fmi2OK) {
-      ModelicaFormatError("Failed to set variables for building in FMU for %s, zone %s\n",
-      bui->modelicaNameBuilding,
-      modelicaNameThermalZone);
-    }
-  }
-
-void stopIfResultsAreNaN(
-  FMUBuilding* bui,
-  const char* modelicaNameThermalZone, fmi2ValueReference vr[], fmi2Real values[], size_t n){
-    size_t i;
-    fmi2_import_variable_t* fmiVar;
-    char* varNam;
-    size_t i_nan = -1;
-    for(i=0; i < n; i++){
-      if (isnan(values[i])){
-        i_nan = i;
-        break;
-      }
-    }
-    if (i_nan != -1){
-      for(i=0; i < n; i++){
-        fmiVar = fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i]);
-        varNam = fmi2_import_get_variable_name(fmiVar);
-        if (isnan(values[i])){
-          ModelicaFormatMessage("Received nan from EnergyPlus at time = %.2f:\n", bui->time);
-        }
-        ModelicaFormatMessage("  %s = %.2f\n", varNam, values[i]);
-      }
-      ModelicaFormatError("Terminating simulation because EnergyPlus returned nan for %s. See Modelica log file for details.",
-        fmi2_import_get_variable_name(fmi2_import_get_variable_by_vr(bui->fmu, fmi2_base_type_real, vr[i_nan])));
-    }
-}
-
-void getVariables(FMUBuilding* bui, const char* modelicaNameThermalZone, fmi2ValueReference vr[], fmi2Real values[], size_t n){
-    fmi2_status_t status;
-    if (FMU_EP_VERBOSITY >= MEDIUM)
-      ModelicaFormatMessage("fmi2_import_get_real: Getting real variables from EnergyPlus for zone %s, mode = %s.\n",
-        modelicaNameThermalZone, fmuModeToString(bui->mode));
-    status = fmi2_import_get_real(bui->fmu, vr, n, values);
-    if (status != fmi2OK) {
-      ModelicaFormatError("Failed to get variables for building in FMU for %s, zone %s\n",
-      bui->modelicaNameBuilding,
-      modelicaNameThermalZone);
-    }
-    stopIfResultsAreNaN(bui, modelicaNameThermalZone, vr, values, n);
-  }
 
 bool allZonesAreInitialized(FMUBuilding* bui){
   void** zones = bui->zones;
@@ -78,66 +24,6 @@ bool allZonesAreInitialized(FMUBuilding* bui){
   return true;
 }
 
-
-/* Set the new time in the FMU, complete the integrator step and set the FMU into event mode.
-*/
-void advanceTime_completeIntegratorStep_enterEventMode(FMUZone* zone, double time){
-  fmi2Status status;
-  fmi2Boolean enterEventMode;
-  fmi2Boolean terminateSimulation;
-
-  if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("fmi2_import_enter_continuous_time_mode: ************ Setting EnergyPlus to continuous time mode at t = %.2f\n", time);
-  status = fmi2_import_enter_continuous_time_mode(zone->ptrBui->fmu);
-  if ( status != fmi2OK ) {
-    ModelicaFormatError("Failed to set time in building FMU for %s, returned status is %s.",
-      zone->ptrBui->modelicaNameBuilding, fmi2_status_to_string(status));
-  }
-  setFMUMode(zone->ptrBui, continuousTimeMode);
-
-  if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("fmi2_import_set_time: Setting time in EnergyPlus to %.2f for %s.\n",
-    time,
-    zone->ptrBui->modelicaNameBuilding);
-
-  zone->ptrBui->time = time;
-  status = fmi2_import_set_time(zone->ptrBui->fmu, time);
-  if ( status != fmi2OK ) {
-    ModelicaFormatError("Failed to set time in building FMU for %s, returned status is %s.",
-      zone->ptrBui->modelicaNameBuilding, fmi2_status_to_string(status));
-  }
-
-  if (FMU_EP_VERBOSITY >= MEDIUM)
-    ModelicaFormatMessage("fmi2_import_completed_integrator_step: Calling completed integrator step at t = %.2f\n", time);
-  status = fmi2_import_completed_integrator_step(zone->ptrBui->fmu, fmi2_true, &enterEventMode, &terminateSimulation);
-  if ( status != fmi2OK ) {
-    ModelicaFormatError("Failed to complete integrator step in building FMU for %s, returned status is %s.",
-    zone->ptrBui->modelicaNameBuilding, fmi2_status_to_string(status));
-  }
-  if (enterEventMode){
-    ModelicaFormatError(
-      "Unexpected value for enterEventMode in ZoneExchange at t = %.2f for FMU for zone %s",
-      time, zone->modelicaNameThermalZone);
-  }
-  if (terminateSimulation){
-    ModelicaFormatError(
-      "FMU requested to terminate simulation at t = %.2f for FMU for building %s and zone %s",
-      time, zone->ptrBui->modelicaNameBuilding, zone->modelicaNameThermalZone);
-  }
-  /* Enter the FMU into event mode */
-  if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage(
-      "fmi2_import_enter_event_mode: Enter event mode in ZoneExchange for FMU %s\n",
-      zone->ptrBui->modelicaNameBuilding);
-  status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
-  if (status != fmi2_status_ok){
-    ModelicaFormatError("Failed to enter event mode in ZoneExchange for FMU %s and zone %s, returned status is %s.",
-    zone->ptrBui->modelicaNameBuilding, zone->modelicaNameThermalZone, fmi2_status_to_string(status));
-  }
-  setFMUMode(zone->ptrBui, eventMode);
-
-  return;
-}
 
 /* Exchange data between Modelica zone and EnergyPlus zone
 */
@@ -159,8 +45,7 @@ void ZoneExchange(
   double* tNext){
 
   FMUZone* zone = (FMUZone*) object;
-  fmi2Real inputValues[ZONE_N_INP];
-  fmi2Real outputValues[ZONE_N_OUT];
+  FMUBuilding* bui = zone->ptrBui;
 
   fmi2Status status;
 
@@ -172,7 +57,7 @@ void ZoneExchange(
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Exchanging data with EnergyPlus: t = %.2f, initialCall = %d, mode = %s, zone = %s.\n",
-      time, initialCall, fmuModeToString(zone->ptrBui->mode), zone->modelicaNameThermalZone);
+      time, initialCall, fmuModeToString(bui->mode), zone->modelicaNameThermalZone);
 
   if (! zone->isInstantiated){
     /* This zone has not been initialized because the simulator removed the call to initialize().
@@ -196,211 +81,92 @@ void ZoneExchange(
 
   /* Get out of the initialization mode if this zone is no longer in the initial call
      but the FMU is still in initializationMode */
-  if ((!initialCall) && zone->ptrBui->mode == initializationMode){
+  if ((!initialCall) && bui->mode == initializationMode){
     if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaFormatMessage(
         "fmi2_import_exit_initialization_mode: Enter exit initialization mode of FMU in exchange() for zone = %s.\n",
         zone->modelicaNameThermalZone);
-    status = fmi2_import_exit_initialization_mode(zone->ptrBui->fmu);
+    status = fmi2_import_exit_initialization_mode(bui->fmu);
     if( status != fmi2_status_ok ){
-      ModelicaFormatError("Failed to exit initialization mode for FMU for building %s in zone %s",
-        zone->ptrBui->modelicaNameBuilding, zone->modelicaNameThermalZone);
+      ModelicaFormatError("Failed to exit initialization mode for FMU for building %s and zone %s",
+        bui->modelicaNameBuilding, zone->modelicaNameThermalZone);
     }
     /* After exit_initialization_mode, the FMU is implicitly in event mode per the FMI standard */
-    setFMUMode(zone->ptrBui, eventMode);
+    setFMUMode(bui, eventMode);
   }
 
 
-  if ( (time - zone->ptrBui->time) > 0.001 ) {
+  if ( (time - bui->time) > 0.001 ) {
     /* Real time advanced */
-    advanceTime_completeIntegratorStep_enterEventMode(zone, time);
+    advanceTime_completeIntegratorStep_enterEventMode(bui, zone->modelicaNameThermalZone, time);
   }
 
   /* Set input values, which are of the order below
      const char* inpNames[] = {"T", "X", "mInlets_flow", "TAveInlet", "QGaiRad_flow"};
   */
-  inputValues[1] = X/(1.-X); /* Conversion from kg/kg_total_air to kg/kg_dry_air */
-  inputValues[2] = mInlets_flow;
-  inputValues[3] = TAveInlet;
-  inputValues[4] = QGaiRad_flow;
+  zone->inputs->valsSI[1] = X/(1.-X); /* Conversion from kg/kg_total_air to kg/kg_dry_air */
+  zone->inputs->valsSI[2] = mInlets_flow;
+  zone->inputs->valsSI[3] = TAveInlet;
+  zone->inputs->valsSI[4] = QGaiRad_flow;
 
 
   /* Forward difference for QConSen_flow */
-  inputValues[0] = T - 273.15 + dT;
+  zone->inputs->valsSI[0] = T + dT;
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage(
       "Input to fmu for zone %s: TAir = %.2f; \t QGaiRad_flow = %.2f\n",
       zone->modelicaNameThermalZone,
-      inputValues[0],
-      inputValues[4]);
-/*
-  if (zone->ptrBui->mode == eventMode){
-  status = fmi2_import_enter_continuous_time_mode(zone->ptrBui->fmu);
-  if ( status != fmi2OK ) {
-    ModelicaFormatError("Failed to set continuous time mode in building FMU with name %s, returned status is %s.",
-      zone->ptrBui->modelicaNameBuilding, fmi2_status_to_string(status));
-  }
-  setFMUMode(zone->ptrBui, continuousTimeMode);
-  }
-*/
-  setVariables(zone->ptrBui, zone->modelicaNameThermalZone, zone->inpValReferences, inputValues, ZONE_N_INP);
-  getVariables(zone->ptrBui, zone->modelicaNameThermalZone, zone->outValReferences, outputValues, ZONE_N_OUT);
-  QConSenPer_flow=outputValues[1];
-  inputValues[0] = T - 273.15;
-  setVariables(zone->ptrBui, zone->modelicaNameThermalZone, zone->inpValReferences, inputValues, ZONE_N_INP);
-  getVariables(zone->ptrBui, zone->modelicaNameThermalZone, zone->outValReferences, outputValues, ZONE_N_OUT);
-/*
-  if (zone->ptrBui->mode == continuousTimeMode){
-  status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
-  if ( status != fmi2OK ) {
-    ModelicaFormatError("Failed to set event mode in building FMU with name %s, returned status is %s.",
-      zone->ptrBui->modelicaNameBuilding, fmi2_status_to_string(status));
-  }
-  setFMUMode(zone->ptrBui, eventMode);
-  }
-*/
-  *dQConSen_flow = (QConSenPer_flow-outputValues[1])/dT;
+      zone->inputs->valsSI[0],
+      zone->inputs->valsSI[4]);
 
-    /*
-  if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("After time step: TRad = %.2f; \t QCon = %.2f;\t QLat = %.2f\n", *TRad, *QConSen_flow,
-    *QLat_flow);
-*/
+  setVariables(bui, zone->modelicaNameThermalZone, zone->inputs);
+  getVariables(bui, zone->modelicaNameThermalZone, zone->outputs);
+  QConSenPer_flow = zone->outputs->valsSI[1];
+  zone->inputs->valsSI[0] = T;
+  setVariables(bui, zone->modelicaNameThermalZone, zone->inputs);
+  getVariables(bui, zone->modelicaNameThermalZone, zone->outputs);
+
+  *dQConSen_flow = (QConSenPer_flow-zone->outputs->valsSI[1])/dT;
+
   /* Get next event time, unless FMU is in initialization mode */
-  if (zone->ptrBui->mode == initializationMode){
+  if (bui->mode == initializationMode){
     if (FMU_EP_VERBOSITY >= MEDIUM)
       ModelicaFormatMessage(
         "Returning current time %.0f as tNext due to initializationMode for zone = %s\n",
-        zone->ptrBui->time,
+        bui->time,
         zone->modelicaNameThermalZone);
-    *tNext = zone->ptrBui->time; /* Return start time for next event time */
+    *tNext = bui->time; /* Return start time for next event time */
   }
   else{
     if (FMU_EP_VERBOSITY >= TIMESTEP)
       ModelicaFormatMessage("Calling do_event_iteration after setting inputs for zone = %s\n", zone->modelicaNameThermalZone);
-    *tNext = do_event_iteration(zone);
+    *tNext = do_event_iteration(bui, zone->modelicaNameThermalZone);
     /* After the event iteration, we must get the output. Otherwise, we get the
        discrete output before the time event, and not after.
        To test, run SingleZone.mo in EnergyPlus/src
     */
-    getVariables(zone->ptrBui, zone->modelicaNameThermalZone, zone->outValReferences, outputValues, ZONE_N_OUT);
+    getVariables(bui, zone->modelicaNameThermalZone, zone->outputs);
   }
 
   /* Assign output values, which are of the order below
      const char* outNames[] = {"TRad", "QConSen_flow", "QLat_flow", "QPeo_flow"};
   */
   /* Check for what seems to be an error, possibly due to unstable simulation */
-  if (outputValues[0] > 100. || outputValues[0] < -50.)
+  if (zone->outputs->valsEP[0] > 100. || zone->outputs->valsEP[0] < -50.)
     ModelicaFormatError(
       "Radiative temperature is %.2f degC in zone %s",
-      outputValues[0],
+      zone->outputs->valsEP[0],
       zone->modelicaNameThermalZone);
 
-  *TRad = outputValues[0] + 273.15;
-  *QConSen_flow = outputValues[1];
-  *QLat_flow = outputValues[2];
-  *QPeo_flow = outputValues[3];
+  *TRad         = zone->outputs->valsSI[0];
+  *QConSen_flow = zone->outputs->valsSI[1];
+  *QLat_flow    = zone->outputs->valsSI[2];
+  *QPeo_flow    = zone->outputs->valsSI[3];
 
   if (FMU_EP_VERBOSITY >= TIMESTEP)
     ModelicaFormatMessage("Returning from ZoneExchange with nextEventTime = %.2f, TRad_degC = %.2f, zone = %s, mode = %s, ptr=%p, nZon=%d \n",
-    *tNext, outputValues[0], zone->modelicaNameThermalZone, fmuModeToString(zone->ptrBui->mode), zone, zone->ptrBui->nZon);
+    *tNext, zone->outputs->valsEP[0], zone->modelicaNameThermalZone, fmuModeToString(bui->mode), zone, bui->nZon);
 
   return;
-}
-
-/* Do the event iteration
-   */
-double do_event_iteration(FMUZone* zone){
-  fmi2_event_info_t eventInfo;
-  size_t i = 0;
-  const size_t nMax = 50;
-  fmi2Status status;
-  double tNext;
-
-  if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Entered do_event_iteration for zone %s, mode = %s\n",
-      zone->modelicaNameThermalZone, fmuModeToString(zone->ptrBui->mode));
-  /* Enter event mode if the FMU is in Continuous time mode
-     because fmi2NewDiscreteStates can only be called in event mode */
-  if (zone->ptrBui->mode == continuousTimeMode){
-    ModelicaFormatError("********* FMU is in unexpected mode in do_event_iteration at t=%.2f, zone = %s, mode = %s. Contact support.",
-      zone->ptrBui->time, zone->modelicaNameThermalZone, fmuModeToString(zone->ptrBui->mode));
-    /*
-      if (FMU_EP_VERBOSITY >= TIMESTEP)
-      ModelicaFormatMessage("fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s\n", zone->ptrBui->modelicaNameBuilding);
-    status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
-    if (status != fmi2_status_ok){
-      ModelicaFormatError("Failed to enter event mode in do_event_iteration for FMU %s and zone %s, returned status is %s.",
-      zone->ptrBui->modelicaNameBuilding, zone->modelicaNameThermalZone, fmi2_status_to_string(status));
-    }
-    setFMUMode(zone->ptrBui, eventMode);
-    */
-  }
-/* *****************************************************************************
-  if (zone->ptrBui->mode != initializationMode){
-    if (FMU_EP_VERBOSITY >= TIMESTEP)
-      ModelicaFormatMessage("fmi2_import_enter_event_mode: Enter event mode in do_event_iteration for FMU %s\n", zone->ptrBui->modelicaNameBuilding);
-    status = fmi2_import_enter_event_mode(zone->ptrBui->fmu);
-    if (status != fmi2_status_ok){
-      ModelicaFormatError("Failed to enter event mode in do_event_iteration for FMU %s and zone %s, returned status is %s.",
-      zone->ptrBui->modelicaNameBuilding, zone->modelicaNameThermalZone, fmi2_status_to_string(status));
-    }
-    setFMUMode(zone->ptrBui, eventMode);
-  }
-  ***************************************************************************** */
-
-
-  /* Make sure we are in event mode (this is for debugging) */
-  if (zone->ptrBui->mode != eventMode){
-    ModelicaFormatError("Expected to be in event mode, but was in %s, for FMU %s and zone %s.",
-      fmuModeToString(zone->ptrBui->mode), zone->ptrBui->modelicaNameBuilding, zone->modelicaNameThermalZone);
-  }
-  eventInfo.newDiscreteStatesNeeded = fmi2_true;
-  eventInfo.terminateSimulation     = fmi2_false;
-  while (eventInfo.newDiscreteStatesNeeded && !eventInfo.terminateSimulation && i < nMax) {
-    i++;
-    if (FMU_EP_VERBOSITY >= TIMESTEP)
-      ModelicaFormatMessage(
-        "fmi2_import_new_discrete_states: Doing event iteration with i = %lu, zone = %s\n",
-        i,
-        zone->modelicaNameThermalZone);
-    status = fmi2_import_new_discrete_states(zone->ptrBui->fmu, &eventInfo);
-  }
-  if (eventInfo.terminateSimulation){
-    ModelicaFormatError("FMU requested to terminate the simulation.");
-  }
-  if (i == nMax){
-    ModelicaFormatError("Did not converge during event iteration.");
-  }
-
-  if (status != fmi2OK) {
-    ModelicaFormatError("Failed during call to fmi2NewDiscreteStates for building %s with status %s.",
-    zone->ptrBui->modelicaNameBuilding, fmi2_status_to_string(status));
-  }
-  if(eventInfo.terminateSimulation == fmi2True){
-    ModelicaFormatError("EnergyPlus requested to terminate the simulation for building = %s, zone = %s, time = %f.",
-    zone->ptrBui->modelicaNameBuilding, zone->name, zone->ptrBui->time);
-  }
-  if(eventInfo.nextEventTimeDefined == fmi2False){
-    ModelicaFormatError("Expected EnergyPlus to set nextEventTimeDefined = true for building = %s, zone = %s, time = %f.",
-    zone->ptrBui->modelicaNameBuilding, zone->name, zone->ptrBui->time);
-  }
-  else{
-    tNext = eventInfo.nextEventTime;
-    if (FMU_EP_VERBOSITY >= TIMESTEP)
-      ModelicaFormatMessage("Requested next event time at %.2f: %.2f;\t zone = %s\n",
-        zone->ptrBui->time, tNext, zone->modelicaNameThermalZone);
-    if (tNext <= zone->ptrBui->time + 1E-6){
-      ModelicaFormatError("EnergyPlus requested at time = %f a next event time of %f for zone = %s. Zero time steps are not supported. Check with support.",
-      zone->ptrBui->time, tNext, zone->modelicaNameThermalZone);
-    }
-  }
-
-  /* THIS WAS WRONG: if newDiscreteStatesNeeded is false, the FMU is in continuous time mode
-  setFMUMode(zone->ptrBui, continuousTimeMode); */
-  if (FMU_EP_VERBOSITY >= TIMESTEP)
-    ModelicaFormatMessage("Exiting do_event_iteration for zone %s, mode = %s with tNext = %.2f\n",
-      zone->modelicaNameThermalZone, fmuModeToString(zone->ptrBui->mode), tNext);
-  return tNext;
 }

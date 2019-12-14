@@ -1,25 +1,27 @@
 /*
  * Modelica external function to communicate with EnergyPlus.
  *
- * Michael Wetter, LBNL                  2/9/2019
+ * Michael Wetter, LBNL                  10/7/19
  */
-#ifndef Buildings_ZoneAllocate_h
-#define Buildings_ZoneAllocate_h
+#ifndef Buildings_OutputVariableAllocate_h
+#define Buildings_OutputVariableAllocate_h
 
 #include "EnergyPlusFMU.h"
 #include "EnergyPlusUtil.h"
 
 /* Create the structure and return a pointer to its address. */
-void* ZoneAllocate(
+void* OutputVariableAllocate(
   const char* modelicaNameBuilding,
-  const char* modelicaNameThermalZone,
+  const char* modelicaNameOutputVariable,
   const char* idfName,
   const char* weaName,
   const char* iddName,
-  const char* zoneName,
+  const char* outputKey,
+  const char* outputName,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsLibraryRoot,
-  const int verbosity);
+  const int verbosity,
+  int printUnit);
 
 #endif

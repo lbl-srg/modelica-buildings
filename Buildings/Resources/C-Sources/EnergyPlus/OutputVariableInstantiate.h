@@ -1,10 +1,10 @@
 /*
  * Modelica external function to communicate with EnergyPlus.
  *
- * Michael Wetter, LBNL                  2/9/2019
+ * Michael Wetter, LBNL                  10/9/19
  */
-#ifndef Buildings_ZoneInstantiate_h
-#define Buildings_ZoneInstantiate_h
+#ifndef Buildings_OutputVariableInstantiate_h
+#define Buildings_OutputVariableInstantiate_h
 
 #include "EnergyPlusFMU.h"
 #include "BuildingInstantiate.h"
@@ -15,6 +15,6 @@
 #include "fmilib.h"
 #include "JM/jm_portability.h"
 
-void ZoneInstantiate(void* object, double t0, double* AFlo, double* V, double* mSenFac);
+void OutputVariableInstantiate(void* object, double t0);
 
 #endif

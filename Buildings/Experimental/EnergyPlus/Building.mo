@@ -12,14 +12,6 @@ model Building
   parameter String weaName "Name of the EnergyPlus weather file (mos file)"
     annotation(Evaluate=true);
 
-  // Assumptions
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Type of energy balance for zone air: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance for zone air: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-
   parameter Boolean usePrecompiledFMU = false
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation(Dialog(tab="Debug"));
@@ -29,7 +21,7 @@ model Building
     annotation(Dialog(tab="Debug", enable=usePrecompiledFMU));
 
   parameter Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity=
-    Buildings.Experimental.EnergyPlus.Types.Verbosity.Fatal
+    Buildings.Experimental.EnergyPlus.Types.Verbosity.Warning
     "Verbosity of EnergyPlus output"
     annotation(Dialog(tab="Debug"));
 
@@ -39,6 +31,9 @@ model Building
   parameter Boolean computeWetBulbTemperature=true
     "If true, then this model computes the wet bulb temperature"
     annotation(Dialog(tab="Advanced", enable=showWeatherData));
+
+  parameter Boolean printUnits = true "Set to true to print units of OutputVariable instances to log file"
+    annotation(Dialog(group="Diagnostics"));
 
   BoundaryConditions.WeatherData.Bus weaBus if
         showWeatherData "Weather data bus"
@@ -52,7 +47,7 @@ model Building
           startIndex=weaStrLen-4,
           replaceAll=false,
           caseSensitive=true)
-      "EnergyPlus weather data file name"
+      "EnergyPlus weather data file name (with epw extension)"
       annotation(Evaluate=true);
 
 protected

@@ -8,12 +8,11 @@ model OneZone "Validation model for one zone"
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  inner Building building(
+  inner Buildings.Experimental.EnergyPlus.Building building(
     idfName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
     weaName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"),
     showWeatherData=false)
     "Building model"
