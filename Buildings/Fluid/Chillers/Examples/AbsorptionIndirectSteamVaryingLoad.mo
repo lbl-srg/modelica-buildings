@@ -146,9 +146,9 @@ Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>.
 for the case with varying cooling load.
 </p>
 <p>
-The model is constructed in such a way that the temperatures that determine the performance of
-the absorption chiller are kept constant to see the effect of the part load behavior
-on the ratio of provided cooling over required steam.
+The model is constructed in a way that the temperatures which determine the performance of
+the absorption chiller are kept constant in order to monitor the effects of the part load 
+behavior on the ratio of the provided cooling to the required steam.
 </p>
 </html>", revisions="<html>
 <ul>
