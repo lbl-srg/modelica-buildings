@@ -18,10 +18,10 @@ model MerkelEnergyPlus
   // Cooling tower parameters
   parameter Modelica.SIunits.PressureDifference dp_nominal = 6000
     "Nominal pressure difference of cooling tower";
-  parameter Modelica.SIunits.VolumeFlowRate vAir_flow_nominal = 0.56054
-    "Nominal volumetric flow rate of air (medium 1)";
-  parameter Modelica.SIunits.VolumeFlowRate vWat_flow_nominal = 0.00109181
-    "Nominal volumetric flow rate of water (medium 2)";
+  parameter Modelica.SIunits.VolumeFlowRate vAir_flow_nominal = 5.382E-8
+    "Nominal volumetric flow rate of air (medium 1)";  // 0.56054, from E+ output files; 5.382E-8, from E+ .idf
+  parameter Modelica.SIunits.VolumeFlowRate vWat_flow_nominal = 2.76316E-5
+    "Nominal volumetric flow rate of water (medium 2)";  // 0.00109181, from E+ output files; 2.76316E-5, from E+ .idf
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = vAir_flow_nominal * denAir
     "Nominal mass flow rate of air (medium 1)";
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = vWat_flow_nominal * denWat
@@ -32,6 +32,8 @@ model MerkelEnergyPlus
     "Nominal water inlet temperature";
   parameter Modelica.SIunits.Temperature TWatOut_initial = 33.019+273.15
     "Nominal water inlet temperature";
+  parameter Modelica.SIunits.TemperatureDifference TApp_design = 8.9
+    "Design approach temperature, from E+ .idf";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20286.37455
     "Nominal heat transfer, positive";                              //20286.37455    25360.6
   parameter Modelica.SIunits.Power PFan_nominal = 213.00693
@@ -49,7 +51,9 @@ model MerkelEnergyPlus
     Q_flow_nominal=Q_flow_nominal,
     PFan_nominal=PFan_nominal,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    yMin=0.01)
+    yMin=0.01,
+    fraFreCon=0.1,
+    UACor(FRAirMin=0.2))
     "Merkel-theory based cooling tower"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
@@ -136,8 +140,7 @@ equation
     annotation (Line(points={{-79,70},{-70,70},{-70,0},{-30,0},{-30,-22},{-22,-22}},
       color={0,0,127}));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-        extent={{-120,-120},{120,120}})),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false,
         extent={{-120,-120},{120,120}})),
     __Dymola_Commands(file=
