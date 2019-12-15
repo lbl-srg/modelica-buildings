@@ -18,9 +18,9 @@ model MerkelEnergyPlus
   // Cooling tower parameters
   parameter Modelica.SIunits.PressureDifference dp_nominal = 6000
     "Nominal pressure difference of cooling tower";
-  parameter Modelica.SIunits.VolumeFlowRate vAir_flow_nominal = 5.382E-8
+  parameter Modelica.SIunits.VolumeFlowRate vAir_flow_nominal = 0.56054
     "Nominal volumetric flow rate of air (medium 1)";  // 0.56054, from E+ output files; 5.382E-8, from E+ .idf
-  parameter Modelica.SIunits.VolumeFlowRate vWat_flow_nominal = 2.76316E-5
+  parameter Modelica.SIunits.VolumeFlowRate vWat_flow_nominal = 0.00109181
     "Nominal volumetric flow rate of water (medium 2)";  // 0.00109181, from E+ output files; 2.76316E-5, from E+ .idf
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = vAir_flow_nominal * denAir
     "Nominal mass flow rate of air (medium 1)";
@@ -32,8 +32,6 @@ model MerkelEnergyPlus
     "Nominal water inlet temperature";
   parameter Modelica.SIunits.Temperature TWatOut_initial = 33.019+273.15
     "Nominal water inlet temperature";
-  parameter Modelica.SIunits.TemperatureDifference TApp_design = 8.9
-    "Design approach temperature, from E+ .idf";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20286.37455
     "Nominal heat transfer, positive";                              //20286.37455    25360.6
   parameter Modelica.SIunits.Power PFan_nominal = 213.00693
@@ -74,7 +72,7 @@ model MerkelEnergyPlus
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
       "modelica://Buildings//Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelEnergyPlus/modelica.csv"),
-    columns=2:12,
+    columns=2:16,
     tableName="modelica",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"CoolingTower_VariableSpeed_Merkel.idf\" energy plus example results"
@@ -96,21 +94,17 @@ model MerkelEnergyPlus
     "Nominal fan power"
     annotation (Placement(transformation(extent={{-60,48},{-40,68}})));
 
-  Modelica.Blocks.Sources.RealExpression TLvg_EP(y=datRea.y[6])
+  Modelica.Blocks.Sources.RealExpression TLvg_EP(y=datRea.y[4])
     "EnergyPlus results: cooling tower leaving water temperature"
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
-
-  Modelica.Blocks.Sources.RealExpression Q_flow_EP(y=-1*datRea.y[8])
-    "EnergyPlus results: cooling tower heat flow rate"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
 
-  Modelica.Blocks.Sources.RealExpression PFan_EP(y=datRea.y[9])
-    "EnergyPlus results: fan power consumption"
+  Modelica.Blocks.Sources.RealExpression Q_flow_EP(y=-1*datRea.y[6])
+    "EnergyPlus results: cooling tower heat flow rate"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
-  Modelica.Blocks.Sources.RealExpression TOutAirDB(y=datRea.y[1])
-    "Outdoor air drybulb temp"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+  Modelica.Blocks.Sources.RealExpression PFan_EP(y=datRea.y[7])
+    "EnergyPlus results: fan power consumption"
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
 equation
   connect(tow.TAir, TAirWB.y)
@@ -128,21 +122,20 @@ equation
   connect(conFan.y, tow.y)
     annotation (Line(points={{1,64},{30,64},{30,-22},{38,-22}},
       color={0,0,127}));
-  connect(datRea.y[9], conFan.u1)
-    annotation (Line(points={{-79,70},{-22,70}}, color={0,0,127}));
   connect(datRea.y[2], TAirWB.u)
     annotation (Line(points={{-79,70},{-70,70},{-70,30},{-62,30}},
       color={0,0,127}));
-  connect(datRea.y[5], TEntWat.u)
-    annotation (Line(points={{-79,70},{-70,70},{-70,-34},{-62,-34}},
-      color={0,0,127}));
-  connect(datRea.y[7], souWat.m_flow_in)
-    annotation (Line(points={{-79,70},{-70,70},{-70,0},{-30,0},{-30,-22},{-22,-22}},
-      color={0,0,127}));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
+  connect(TEntWat.u, datRea.y[3]) annotation (Line(points={{-62,-34},{-70,-34},
+          {-70,70},{-79,70}}, color={0,0,127}));
+  connect(souWat.m_flow_in, datRea.y[5]) annotation (Line(points={{-22,-22},{
+          -30,-22},{-30,-10},{-70,-10},{-70,70},{-79,70}}, color={0,0,127}));
+  connect(conFan.u1, datRea.y[7])
+    annotation (Line(points={{-22,70},{-79,70}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+            -100},{120,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-        extent={{-120,-120},{120,120}})),
+        extent={{-120,-100},{120,100}})),
     __Dymola_Commands(file=
         "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelEnergyPlus.mos"
         "Simulate and plot"),

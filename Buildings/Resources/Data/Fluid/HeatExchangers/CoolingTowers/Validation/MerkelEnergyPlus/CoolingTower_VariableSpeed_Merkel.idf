@@ -3632,21 +3632,6 @@
     ,                        !- Cell Minimum  Water Flow Rate Fraction
     ,                        !- Cell Maximum Water Flow Rate Fraction
     0.5;                     !- Sizing Factor
-!    8.9,                    !- Design Approach Temperature {deltaC}
-!    2.6,                    !- Design Range Temperature {deltaC}
-!    autosize,               !- Design Water Flow Rate {m3/s}
-!    autosize,               !- Design Air Flow Rate {m3/s}
-!   autosize,                !- Design Fan Power {W}
-!    CoolingTowerFanRatioCurve, !- Fan Power Ratio Function of Air Flow Rate Ratio Curve Name
-!    0.125,                  !- Fraction of Tower Capacity in Free Convection Regime
-!    450.0,                  !- Basin Heater Capacity {W/K}
-!    4.5,                    !- Basin Heater Setpoint Temperature {C}
-!    ,                       !- Basin Heater Operating Schedule Name
-!    SaturatedExit,          !- Evaporation Loss Mode
-!    ,                       !- Evaporation Loss Factor {percent/K}
-!    0.05,                   !- Drift Loss Percent {percent}
-!    ConcentrationRatio,     !- Blowdown Calculation Mode
-!    4.0;                    !- Blowdown Concentration Ratio
 
   CoolingTower:VariableSpeed:Merkel,
     Central Tower 2,         !- Name
@@ -3693,21 +3678,6 @@
     ,                        !- Cell Minimum  Water Flow Rate Fraction
     ,                        !- Cell Maximum Water Flow Rate Fraction
     0.5;                     !- Sizing Factor
-!    8.9,                    !- Design Approach Temperature {deltaC}
-!    2.6,                    !- Design Range Temperature {deltaC}
-!    autosize,               !- Design Water Flow Rate {m3/s}
-!    autosize,               !- Design Air Flow Rate {m3/s}
-!   autosize,                !- Design Fan Power {W}
-!    CoolingTowerFanRatioCurve, !- Fan Power Ratio Function of Air Flow Rate Ratio Curve Name
-!    0.125,                  !- Fraction of Tower Capacity in Free Convection Regime
-!    450.0,                  !- Basin Heater Capacity {W/K}
-!    4.5,                    !- Basin Heater Setpoint Temperature {C}
-!    ,                       !- Basin Heater Operating Schedule Name
-!    SaturatedExit,          !- Evaporation Loss Mode
-!    ,                       !- Evaporation Loss Factor {percent/K}
-!    0.05,                   !- Drift Loss Percent {percent}
-!    ConcentrationRatio,     !- Blowdown Calculation Mode
-!    4.0;                    !- Blowdown Concentration Ratio
 
 ! Fan power ratio varies nearly as the cube of air flow ratio
 
@@ -3738,39 +3708,15 @@
     CoolingPumpAvailSched;   !- Pump Flow Rate Schedule Name
 
   Output:Variable,*,Site Outdoor Air Drybulb Temperature,Timestep;
-
   Output:Variable,*,Site Outdoor Air Wetbulb Temperature,Timestep;
-
-  Output:Variable,*,Cooling Coil Total Cooling Rate,Timestep;
-
-  Output:Variable,*,Cooling Coil Sensible Cooling Rate,Timestep;
-
-  Output:Variable,Main Cooling Coil 1 Outlet Node,System Node Temperature,Timestep;
-
-  Output:Variable,Main Cooling Coil 1 Water Inlet Node,System Node Temperature,Timestep;
-
-  Output:Variable,Main Heating Coil 1 Outlet Node,System Node Temperature,Timestep;
-
   Output:Variable,*,Cooling Tower Inlet Temperature,Timestep;
-
   Output:Variable,*,Cooling Tower Outlet Temperature,Timestep;
-
   Output:Variable,*,Cooling Tower Mass Flow Rate,Timestep;
-
   Output:Variable,*,Cooling Tower Heat Transfer Rate,Timestep;
-
   Output:Variable,*,Cooling Tower Fan Electric Power,Timestep;
-
   Output:Variable,*,Cooling Tower Fan Electric Energy,Timestep;
-
   Output:Variable,*,Cooling Tower Air Flow Rate Ratio,Timestep;
-
   Output:Variable,*,Cooling Tower Fan Part Load Ratio,Timestep;
-
-  Output:Variable,*,Cooling Tower Basin Heater Electric Power,Timestep;
-
-  Output:Variable,*,Cooling Tower Basin Heater Electric Energy,Timestep;
-
   Output:Variable,*,Cooling Tower Make Up Water Volume,Timestep;
 
   OutputControl:Table:Style,
