@@ -180,6 +180,7 @@ protected
     final p_start=p_start,
     final prescribedHeatFlowRate=true,
     final allowFlowReversal=allowFlowReversal,
+    dpRel_nominal=max(per.pressure.dp[:]),
     nPorts=2) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-70,0},{-90,20}})));
 

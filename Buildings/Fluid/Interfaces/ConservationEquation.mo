@@ -8,6 +8,10 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "= true to set up initial equations for pressure"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
+  parameter Modelica.SIunits.PressureDifference dpRel_nominal = if Medium.singleState then 10000 else 1000
+    "Typical pressure variation during simulation, used to scale pressure state variable to numerically robust value"
+    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
+
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1";
 
@@ -97,10 +101,16 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     then StateSelect.default else StateSelect.default)
     "Mass of fluid";
 
-  Modelica.SIunits.PressureDifference dpRel(
+  /* Pressure relative to start pressure p_start.
+  Since p_start is often set to the value at zero flow rate (or at maximum flow rate),
+  we add 0.5 so that the pressure state is not near 0 if there is zero flow. Otherwise, small fluctuations
+  in the pressure state can induce large flow rates (while maintaining the error balance
+  on the pressure state).
+  */
+  Real dpNor(
     stateSelect=if (Medium.singleState or massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    then StateSelect.default else StateSelect.prefer) = medium.p-p_start
-    "Relative pressure compared to p_start";
+    then StateSelect.default else StateSelect.prefer) = (medium.p-p_start)/dpRel_nominal+0.5
+    "Normalized pressure";
 
   Modelica.SIunits.Mass[Medium.nXi] mXi(
     start=fluidVolume*rho_start*X_start[1:Medium.nXi])
