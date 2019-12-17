@@ -33,8 +33,8 @@ model CouplingTimeSeries
         origin={110,90})));
   Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.terUni.T_a1_nominal[1])
     annotation (Placement(transformation(extent={{-100,74},{-80,94}})));
-  Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.terUni.m_flow1Req[1])
-    annotation (Placement(transformation(extent={{-100,94},{-80,114}})));
+  Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.terUni.m1ReqCoo_flow[
+        1]) annotation (Placement(transformation(extent={{-100,94},{-80,114}})));
   Buildings.Fluid.Sources.MassFlowSource_T supCoo(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
@@ -46,8 +46,8 @@ model CouplingTimeSeries
         origin={-30,10})));
   Modelica.Blocks.Sources.RealExpression THeaInlVal1(y=bui.terUni.T_a1_nominal[2])
     annotation (Placement(transformation(extent={{-100,-6},{-80,14}})));
-  Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.terUni.m_flow1Req[2])
-    annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
+  Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.terUni.m1ReqCoo_flow[
+        2]) annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = Medium1,
     p=300000,

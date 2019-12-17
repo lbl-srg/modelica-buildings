@@ -1,12 +1,14 @@
 within Buildings.Applications.DHC.Loads.Types;
-type ModelType = enumeration(
-    HeatPort
-      "Thermal model with heat port",
-    ODE
-      "Temperature based on first order ODE",
-    PrescribedT
-      "Prescribed temperature")
-  "Enumeration defining the type of load model"
+type TerminalFunctionSpec = enumeration(
+    None
+      "No heating or cooling function",
+    Water
+      "Water based",
+    ChangeOver
+      "Water based with change-over",
+    Electric
+      "Electric")
+  "Enumeration specifying the heating and cooling function of a terminal unit"
 annotation(Documentation(info="<html>
     <p>
     Enumeration to define the type of load model.

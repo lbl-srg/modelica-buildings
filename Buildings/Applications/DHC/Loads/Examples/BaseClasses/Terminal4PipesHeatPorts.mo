@@ -1,12 +1,13 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model Terminal4PipesHeatPorts
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit(
-    final nPorts1=2,
+    final heaFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
+    final cooFunSpe=Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec.Water,
     final haveHeaPor=true,
     final haveFluPor=false,
     final haveWeaBus=false,
-    final haveFanPum=false,
-    final haveEleHeaCoo=false,
+    final haveFan=false,
+    final havePum=false,
     final hexCon=fill(
       Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
       2),
@@ -15,7 +16,7 @@ model Terminal4PipesHeatPorts
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime hexReg[nPorts1]=
     fill(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange,
       nPorts1);
-  parameter Real fraCon[nPorts1] = fill(0., nPorts1)
+  parameter Real fraCon[nPorts1] = fill(1., nPorts1)
     "Convective fraction of heat transfer (constant)"
     annotation(Dialog(tab="Advanced"));
   parameter Real ratUAIntToUAExt[nPorts1](each min=1) = fill(2, nPorts1)
@@ -126,8 +127,8 @@ model Terminal4PipesHeatPorts
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiRadHea[nPorts1](k=1 .- fraCon)
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 equation
-  connect(gaiFloNom1.y, m_flow1Req)
-    annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
+  connect(gaiFloNom1.y, m1ReqCoo_flow) annotation (Line(points={{182,220},{180,220},
+          {180,220},{220,220}}, color={0,0,127}));
   connect(hexHeaCoo.UA, UAAct.y)
     annotation (Line(points={{-12,8},{-20,8},{-20,20}, {-39,20}}, color={0,0,127}));
   connect(ports_a1, senMasFlo.port_a)
@@ -178,10 +179,10 @@ equation
   connect(T2InlVec.y, conTInd.u_m) annotation (Line(points={{108,1.55431e-15},{
           100,1.55431e-15},{100,200},{0,200},{0,208}},
                                      color={0,0,127}));
-  connect(uSet, conTInd.u_s)
-    annotation (Line(points={{-220,220},{-12,220}}, color={0,0,127}));
+  connect(TSetHea, conTInd.u_s) annotation (Line(points={{-220,220},{-66,220},{-66,
+          220},{-12,220}}, color={0,0,127}));
   connect(conTInd.y, gaiFloNom1.u)
     annotation (Line(points={{12,220},{158,220}}, color={0,0,127}));
-  connect(hexHeaCoo.Q_flow, Q_flow2Act) annotation (Line(points={{12,0},{20,0},
+  connect(hexHeaCoo.Q_flow, QActHea_flow) annotation (Line(points={{12,0},{20,0},
           {20,180},{220,180}}, color={0,0,127}));
 end Terminal4PipesHeatPorts;

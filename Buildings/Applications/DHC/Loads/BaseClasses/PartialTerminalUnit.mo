@@ -1,5 +1,7 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
 partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
+  import funSpe = Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec
+    "Specification of heating or cooling function";
   replaceable package Medium1 =
     Buildings.Media.Water
     "Source side medium"
@@ -19,105 +21,178 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       choice(redeclare package Medium2 =
         Buildings.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.40)
         "Propylene glycol water, 40% mass fraction")));
-  parameter Integer nPorts1 = 0
-    "Number of inlet fluid ports on the source side"
-    annotation(Evaluate=true);
+  parameter funSpe heaFunSpe = funSpe.Water
+    "Specification of the heating function";
+  parameter funSpe cooFunSpe = funSpe.Water
+    "Specification of the cooling function";
   parameter Boolean haveHeaPor = false
     "Set to true for heat ports on the load side"
     annotation(Evaluate=true);
-  parameter Boolean haveFluPor = true
+  parameter Boolean haveFluPor = false
     "Set to true for fluid ports on the load side"
     annotation(Evaluate=true);
-  parameter Boolean haveQ_flowReq = false
+  parameter Boolean haveQReq_flow = false
     "Set to true for required heat flow rate as an input"
     annotation(Evaluate=true);
   parameter Boolean haveWeaBus = false
     "Set to true for weather bus"
     annotation(Evaluate=true);
-  parameter Boolean haveFanPum
-    "Set to true if the system has a fan or a pump"
+  parameter Boolean haveFan = false
+    "Set to true if the system has a fan"
     annotation(Evaluate=true);
-  parameter Boolean haveEleHeaCoo
-    "Set to true if the system has electric heating or cooling"
+  parameter Boolean havePum = false
+    "Set to true if the system has a pump"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal[nPorts1](min=0)
-    "Sensible thermal power at nominal conditions (always positive)"
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=0) if
+    heaFunSpe <> funSpe.None
+    "Heating thermal power at nominal conditions (always positive)"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow1_nominal[nPorts1](
-    each min=0) = fill(0, nPorts1)
-    "Source side mass flow rate at nominal conditions"
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(min=0) if
+    cooFunSpe <> funSpe.None
+    "Cooling thermal power at nominal conditions (always positive)"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow2_nominal[nPorts1](
-    each min=0) = fill(0, nPorts1)
-    "Load side mass flow rate at nominal conditions"
+  parameter Modelica.SIunits.MassFlowRate m1Hea_flow_nominal(min=0) if
+    heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
+    "Heating water mass flow rate at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp1_nominal[nPorts1](
-    each min=0, each displayUnit="Pa") = fill(0, nPorts1)
-    "Source side pressure drop at nominal conditions"
+  parameter Modelica.SIunits.MassFlowRate m1Coo_flow_nominal(min=0) if
+    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    "Chilled water mass flow rate at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dp2_nominal[nPorts1](
-    each min=0, each displayUnit="Pa") = fill(0, nPorts1)
-    "Load side pressure drop at nominal conditions"
+  parameter Modelica.SIunits.MassFlowRate m2Hea_flow_nominal(min=0) = 0 if
+    heaFunSpe <> funSpe.None
+    "Load side mass flow rate at nominal conditions in heating mode"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a1_nominal[nPorts1](
-    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
-    "Source side supply temperature at nominal conditions"
+  parameter Modelica.SIunits.MassFlowRate m2Coo_flow_nominal(min=0) = 0 if
+    cooFunSpe <> funSpe.None
+    "Load side mass flow rate at nominal conditions in cooling mode"
     annotation(Dialog(group="Nominal condition"));
-   parameter Modelica.SIunits.Temperature T_b1_nominal[nPorts1](
-     min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
-     "Source side return temperature at nominal conditions"
-     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a2_nominal[nPorts1](
-    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC")
-    "Load side inlet temperature at nominal conditions"
+  parameter Modelica.SIunits.Temperature T_a1Hea_nominal(
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
+    heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
+    "Heating water inlet temperature at nominal conditions "
     annotation(Dialog(group="Nominal condition"));
-  parameter Buildings.Fluid.Types.HeatExchangerConfiguration hexCon[nPorts1]=
-    fill(Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow, nPorts1)
-    "Heat exchanger configuration";
+  parameter Modelica.SIunits.Temperature T_a1Coo_nominal(
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
+    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    "Chilled water inlet temperature at nominal conditions "
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_b1Hea_nominal(
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
+    heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
+    "Heating water outlet temperature at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_b1Coo_nominal(
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
+    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    "Chilled water outlet temperature at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_a2Hea_nominal(
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
+    heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
+    "Load side inlet temperature at nominal conditions in heating mode"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_a2Coo_nominal(
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
+    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    "Load side inlet temperature at nominal conditions in cooling mode"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Buildings.Fluid.Types.HeatExchangerConfiguration hexConHea=
+    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow if
+    heaFunSpe == funSpe.Water
+    "Heating heat exchanger configuration";
+  parameter Buildings.Fluid.Types.HeatExchangerConfiguration hexConCoo=
+    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow if
+    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    "Cooling heat exchanger configuration";
   final parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Evaluate=true);
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_a1[nPorts1](
-    redeclare each package Medium = Medium1,
-    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if nPorts1>0
-    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
-    annotation (visible=DynamicSelect(true, nPorts1>0),
-      Placement(transformation(extent={{-210,-240},{-190,-160}}),
-      iconTransformation(extent={{-110,-100},{-90,-20}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_b1[nPorts1](
-    redeclare each package Medium = Medium1,
-    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if nPorts1>0
-    "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
-    annotation (visible=DynamicSelect(true, nPorts1>0),
-      Placement(transformation(extent={{190,-240},{210,-160}}),
-      iconTransformation(extent={{90,-100},{110,-20}})));
-  // TODO: update for electric terminal (heater or DX) => nPorts1=0 but uSet required.
-  Modelica.Blocks.Interfaces.RealInput uSet[nPorts1] "Set point"
+  Modelica.Blocks.Interfaces.RealInput TSetHea if heaFunSpe <> funSpe.None
+    "Heating set point"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-220,220}),iconTransformation(
+        origin={-220,220}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,40})));
-  Modelica.Blocks.Interfaces.RealInput Q_flow2Req[nPorts1](
-   each quantity="HeatFlowRate") if haveQ_flowReq
-    "Required heat flow rate to meet set point (>0 for heating)"
+        origin={-130,80})));
+  Modelica.Blocks.Interfaces.RealInput TSetCoo if cooFunSpe <> funSpe.None
+    "Cooling set point"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-220,180}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,20})));
-  Modelica.Blocks.Interfaces.RealOutput m_flow1Req[nPorts1](
-    each quantity="MassFlowRate") if nPorts1>0
-    "Required heating or chilled water flow to meet set point"
+        origin={-130,40})));
+  Modelica.Blocks.Interfaces.RealInput QReqHea_flow(
+    quantity="HeatFlowRate") if haveQReq_flow and heaFunSpe <> funSpe.None
+    "Required heat flow rate to meet heating set point (>=0)"
     annotation (
-      Placement(transformation(extent={{200,200},{240,240}}),
-      iconTransformation(extent={{100,50},{120,70}})));
+      Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-220,140}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-130,0})));
+  Modelica.Blocks.Interfaces.RealInput QReqCoo_flow(
+    quantity="HeatFlowRate") if haveQReq_flow and cooFunSpe <> funSpe.None
+    "Required heat flow rate to meet cooling set point (<=0)"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-220,100}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-130,-40})));
+  Modelica.Blocks.Interfaces.RealOutput m1ReqHea_flow(
+    quantity="MassFlowRate") if
+    heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
+    "Required heating water flow to meet heating set point" annotation (
+      Placement(transformation(extent={{200,80},{240,120}}),
+        iconTransformation(extent={{120,-40},{140,-20}})));
+  Modelica.Blocks.Interfaces.RealOutput m1ReqCoo_flow(
+    quantity="MassFlowRate") if
+    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    "Required chilled water flow to meet cooling set point"
+    annotation (Placement(transformation(extent={{200,60},{240,100}}),
+      iconTransformation(extent={{120,-60},{140,-40}})));
+  Modelica.Blocks.Interfaces.RealOutput QActHea_flow(
+    quantity="HeatFlowRate") if heaFunSpe <> funSpe.None
+    "Heat flow rate transferred to the load for heating (>0)"
+    annotation (Placement(transformation(extent={{200,200},{240,240}}),
+        iconTransformation(extent={{120,80},{140,100}})));
+  Modelica.Blocks.Interfaces.RealOutput QActCoo_flow(
+    quantity="HeatFlowRate") if cooFunSpe <> funSpe.None
+    "Heat flow rate transferred to the load for cooling (<=0)" annotation (
+      Placement(transformation(extent={{200,180},{240,220}}),
+        iconTransformation(extent={{120,60},{140,80}})));
+  Modelica.Blocks.Interfaces.RealOutput PFan(
+    quantity="Power", final unit="W") if haveFan
+    "Power drawn by fans motors"
+    annotation (visible=DynamicSelect(true,
+        haveFanPum), Placement(transformation(extent={{200,120},{240,160}}),
+        iconTransformation(extent={{120,0},{140,20}})));
+  Modelica.Blocks.Interfaces.RealOutput PPum(
+    quantity="Power", final unit="W") if havePum
+    "Power drawn by pumps motors"
+    annotation (visible=DynamicSelect(true,
+        haveFanPum), Placement(transformation(extent={{200,100},{240,140}}),
+        iconTransformation(extent={{120,-20},{140,0}})));
+  Modelica.Blocks.Interfaces.RealOutput PHea(
+    quantity="Power", final unit="W") if heaFunSpe == funSpe.Electric
+    "Power drawn by heating equipment"
+    annotation (visible=DynamicSelect(true,
+        haveEleHeaCoo), Placement(transformation(extent={{200,160},{240,200}}),
+        iconTransformation(extent={{120,40},{140,60}})));
+  Modelica.Blocks.Interfaces.RealOutput PCoo(
+    quantity="Power", final unit="W") if cooFunSpe == funSpe.Electric
+    "Power drawn by cooling equipment"
+    annotation (visible=DynamicSelect(true,
+        haveEleHeaCoo), Placement(transformation(extent={{200,140},{240,180}}),
+        iconTransformation(extent={{120,20},{140,40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium=Medium2,
     p(start=Medium2.p_default),
@@ -127,7 +202,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     annotation (visible=DynamicSelect(true, haveFluPor),
       Placement(transformation(
       extent={{190,-10},{210,10}}),
-      iconTransformation(extent={{90,70},{110,90}})));
+      iconTransformation(extent={{110,100},{130,120}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium=Medium2,
     p(start=Medium2.p_default),
@@ -136,54 +211,81 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (visible=DynamicSelect(true, haveFluPor),
       Placement(transformation(extent={{-190,-10},{-210,10}}),
-      iconTransformation(extent={{-90,70},{-110,90}})));
+      iconTransformation(extent={{-110,100},{-130,120}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorCon if haveHeaPor
     "Heat port transfering convective heat to the load"
     annotation (visible=DynamicSelect(true, haveHeaPor),
       Placement(transformation(extent={{190,30},{210,50}}),
-      iconTransformation(extent={{-48,-10},{-28,10}})));
+      iconTransformation(extent={{-50,-10},{-30,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorRad if haveHeaPor
     "Heat port transfering radiative heat to the load"
     annotation (visible=DynamicSelect(true, haveHeaPor),
       Placement(transformation(extent={{190,-50},{210,-30}}),
-      iconTransformation(extent={{32,-10},{52,10}})));
+      iconTransformation(extent={{30,-10},{50,10}})));
   BoundaryConditions.WeatherData.Bus weaBus if haveWeaBus
     "Weather data bus"
     annotation (Placement(
-      transformation(extent={{-216,64},{-182,96}}),
-      iconTransformation(extent={{-16,84},{18,116}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow2Act[nPorts1](
-    each quantity="HeatFlowRate") if nPorts1>0
-    "Heat flow rate transferred to the load (>0 for heating)"
-    annotation (Placement(transformation(extent={{200,160},{240,200}}),
-      iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput PFanPum(
-    quantity="Power", final unit="W") if haveFanPum
-    "Power drawn by fans and pumps motors"
-    annotation (visible=DynamicSelect(true, haveFanPum),
-      Placement(transformation(extent={{200,120},{240,160}}),
-      iconTransformation(extent={{100,10},{120,30}})));
-  Modelica.Blocks.Interfaces.RealOutput PHeaCoo(
-    quantity="Power", final unit="W") if haveEleHeaCoo
-    "Power drawn by heating and cooling equipment"
-    annotation (visible=DynamicSelect(true, haveEleHeaCoo),
-      Placement(transformation(extent={{200,80},{240,120}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+      transformation(extent={{-216,44},{-182,76}}),
+      iconTransformation(extent={{-18,104},{16,136}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1Hea(
+    p(start=Medium1.p_default),
+    redeclare final package Medium = Medium1,
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
+    heaFunSpe == funSpe.Water
+    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-210,-230},{-190,-210}}),
+        iconTransformation(extent={{-210,-230},{-190,-210}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1Coo(
+    p(start=Medium1.p_default),
+    redeclare final package Medium = Medium1,
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
+    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-212,-192},{-192,-172}}),
+        iconTransformation(extent={{-212,-192},{-192,-172}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1Hea(
+    p(start=Medium1.p_default),
+    redeclare final package Medium = Medium1,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
+    heaFunSpe == funSpe.Water
+    "Fluid connector b (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{210,-230},{190,-210}}),
+        iconTransformation(extent={{210,-230},{190,-210}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1Coo(
+    p(start=Medium1.p_default),
+    redeclare final package Medium = Medium1,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
+    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    "Fluid connector b (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{132,-92},{112,-72}}),
+        iconTransformation(extent={{132,-92},{112,-72}})));
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal[nPorts1]=
+  parameter Modelica.SIunits.SpecificHeatCapacity cp1Hea_nominal=
     Medium1.specificHeatCapacityCp(
-      Medium1.setState_pTX(Medium1.p_default, T_a1_nominal))
-    "Source side specific heat capacity at nominal conditions";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal[nPorts1]=
+      Medium1.setState_pTX(Medium1.p_default, T_a1Hea_nominal))
+    "Source side specific heat capacity at nominal conditions in heating mode";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp1Coo_nominal=
+    Medium1.specificHeatCapacityCp(
+      Medium1.setState_pTX(Medium1.p_default, T_a1Coo_nominal))
+    "Source side specific heat capacity at nominal conditions in cooling mode";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp2Hea_nominal=
     Medium2.specificHeatCapacityCp(
-      Medium2.setState_pTX(Medium2.p_default, T_a2_nominal))
-    "Load side specific heat capacity at nominal conditions";
+      Medium2.setState_pTX(Medium2.p_default, T_a2Hea_nominal))
+    "Load side specific heat capacity at nominal conditions in heating mode";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp2Coo_nominal=
+    Medium2.specificHeatCapacityCp(
+      Medium2.setState_pTX(Medium2.p_default, T_a2Coo_nominal))
+    "Load side specific heat capacity at nominal conditions in cooling mode";
 annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-  extent={{-100,-100},{100,100}}),
+  extent={{-200,-240},{200,240}}),
     graphics={
-    Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95}),
+    Rectangle(extent={{-120,120},{120,-120}}, lineColor={95,95,95}),
     Rectangle(
-    extent={{-70,80},{70,-80}},
+    extent={{-80,80},{80,-80}},
     lineColor={0,0,255},
     pattern=LinePattern.None,
     fillColor={95,95,95},

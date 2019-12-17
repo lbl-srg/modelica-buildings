@@ -91,10 +91,12 @@ equation
           20},{-280,-150},{-120,-150}}, color={0,127,255}));
   connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-100,-150},{280,
           -150},{280,20},{300,20}}, color={0,127,255}));
-  connect(terUni.m_flow1Req[1], disFloHea.m_flow1Req_i[1]) annotation (Line(
-        points={{-139,-44.5},{-130,-44.5},{-130,-118},{-121,-118}}, color={0,0,127}));
-  connect(terUni.m_flow1Req[2], disFloCoo.m_flow1Req_i[1]) annotation (Line(
-        points={{-139,-43.5},{-130,-43.5},{-130,-158},{-121,-158}}, color={0,0,127}));
+  connect(terUni.m1ReqCoo_flow[1], disFloHea.m_flow1Req_i[1]) annotation (Line(
+        points={{-139,-44.5},{-130,-44.5},{-130,-118},{-121,-118}}, color={0,0,
+          127}));
+  connect(terUni.m1ReqCoo_flow[2], disFloCoo.m_flow1Req_i[1]) annotation (Line(
+        points={{-139,-43.5},{-130,-43.5},{-130,-158},{-121,-158}}, color={0,0,
+          127}));
   connect(terUni.ports_b1[1], disFloHea.ports_a1[1]) annotation (Line(points={{-140,
           -58},{-80,-58},{-80,-104},{-100,-104}},     color={0,127,255}));
   connect(disFloHea.ports_b1[1], terUni.ports_a1[1]) annotation (Line(points={{-120,
@@ -108,15 +110,13 @@ equation
           -19.2},{62,-42},{-140,-42}}, color={0,127,255}));
   connect(terUni.port_b2, zon.ports[2]) annotation (Line(points={{-160,-42},{-180,
           -42},{-180,-24},{62,-24},{62,-19.2}}, color={0,127,255}));
-  connect(from_degC1.y, terUni.uSet[1]) annotation (Line(points={{-238,260},{
-          -200,260},{-200,-46.5},{-161,-46.5}},
-                                       color={0,0,127}));
-  connect(from_degC2.y, terUni.uSet[2]) annotation (Line(points={{-238,220},{
-          -200,220},{-200,-45.5},{-161,-45.5}},
-                                       color={0,0,127}));
-  connect(terUni.PFanPum, PFanPum) annotation (Line(points={{-139,-48},{320,-48},
-          {320,240}}, color={0,0,127}));
-  connect(terUni.Q_flow2Act, Q_flow2Act[1, :]) annotation (Line(points={{-139,
+  connect(from_degC1.y, terUni.TSetHea[1]) annotation (Line(points={{-238,260},
+          {-200,260},{-200,-46.5},{-161,-46.5}}, color={0,0,127}));
+  connect(from_degC2.y, terUni.TSetHea[2]) annotation (Line(points={{-238,220},
+          {-200,220},{-200,-45.5},{-161,-45.5}}, color={0,0,127}));
+  connect(terUni.PFan, PFan) annotation (Line(points={{-139,-48},{320,-48},{320,
+          240}}, color={0,0,127}));
+  connect(terUni.QActHea_flow, QHea_flow[1, :]) annotation (Line(points={{-139,
           -46},{-120,-46},{-120,280},{320,280}}, color={0,0,127}));
   annotation (
   Documentation(info="

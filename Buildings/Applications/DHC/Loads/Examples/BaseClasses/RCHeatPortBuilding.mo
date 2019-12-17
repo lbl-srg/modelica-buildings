@@ -255,29 +255,28 @@ equation
   connect(minTSet.y, from_degC1.u) annotation (Line(points={{-278,260},{-262,
           260}},                                                                  color={0,0,127}));
   connect(thermalZoneOneElement.ports[1], terUni.port_a2)
-    annotation (Line(points={{83,-9.95},{86.5,-9.95},{86.5,-42},{-140,-42}},     color={0,127,255}));
+    annotation (Line(points={{83,-9.95},{86.5,-9.95},{86.5,-40.8333},{-140,
+          -40.8333}},                                                            color={0,127,255}));
   connect(terUni.port_b2, thermalZoneOneElement.ports[2])
-    annotation (Line(points={{-160,-42},{-180,-42},{-180,-22},{83,-22},{83,
-          -9.95}},                                                                          color={0,127,255}));
-  connect(from_degC1.y, terUni.uSet[1])
-    annotation (Line(points={{-238,260},{-200,260},{-200,-46},{-161,-46}},
-                                                                         color={0,0,127}));
+    annotation (Line(points={{-160,-40.8333},{-180,-40.8333},{-180,-22},{83,-22},
+          {83,-9.95}},                                                                      color={0,127,255}));
+  connect(from_degC1.y, terUni.TSetHea[1]) annotation (Line(points={{-238,260},
+          {-200,260},{-200,-43.3333},{-160.833,-43.3333}}, color={0,0,127}));
   connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
           0},{-280,-110},{-120,-110}}, color={0,127,255}));
   connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-100,-110},{280,
           -110},{280,0},{300,0}}, color={0,127,255}));
   connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,220},{-262,
           220}},                                                                  color={0,0,127}));
-  connect(from_degC2.y, terUni.uSet[2])
-    annotation (Line(points={{-238,220},{-200,220},{-200,-46},{-161,-46}},
-                                                                         color={0,0,127}));
+  connect(from_degC2.y, terUni.TSetHea[2]) annotation (Line(points={{-238,220},
+          {-200,220},{-200,-43.3333},{-160.833,-43.3333}}, color={0,0,127}));
   connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
           0},{-280,-150},{-120,-150}}, color={0,127,255}));
   connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-100,-150},{280,
           -150},{280,0},{300,0}}, color={0,127,255}));
-  connect(terUni.m_flow1Req[1], disFloHea.m_flow1Req_i[1]) annotation (Line(
+  connect(terUni.m1ReqCoo_flow[1], disFloHea.m_flow1Req_i[1]) annotation (Line(
         points={{-139,-44},{-130,-44},{-130,-118},{-121,-118}}, color={0,0,127}));
-  connect(terUni.m_flow1Req[2], disFloCoo.m_flow1Req_i[1]) annotation (Line(
+  connect(terUni.m1ReqCoo_flow[2], disFloCoo.m_flow1Req_i[1]) annotation (Line(
         points={{-139,-44},{-130,-44},{-130,-158},{-121,-158}}, color={0,0,127}));
   connect(terUni.ports_b1[1], disFloHea.ports_a1[1]) annotation (Line(points={{-140,
           -56},{-80,-56},{-80,-104},{-100,-104}},     color={0,127,255}));
@@ -289,11 +288,13 @@ equation
           -56},{-100,-56},{-100,-56},{-60,-56},{-60,-144},{-100,-144}},
         color={0,127,255}));
   connect(terUni.heaPorRad, thermalZoneOneElement.intGainsRad) annotation (Line(
-        points={{-145.8,-50},{-26,-50},{-26,16},{92,16}}, color={191,0,0}));
+        points={{-146.667,-50},{-26,-50},{-26,16},{92,16}},
+                                                          color={191,0,0}));
   connect(terUni.heaPorCon, thermalZoneOneElement.intGainsConv) annotation (
-      Line(points={{-153.8,-50},{-30,-50},{-30,12},{92,12}}, color={191,0,0}));
-  connect(terUni.Q_flow2Act, Q_flow2Act[1, :]) annotation (Line(points={{-139,
-          -46},{-120,-46},{-120,280},{320,280}}, color={0,0,127}));
+      Line(points={{-153.333,-50},{-30,-50},{-30,12},{92,12}},
+                                                             color={191,0,0}));
+  connect(terUni.QActHea_flow, QHea_flow[1, :]) annotation (Line(points={{
+          -139.167,-42.5},{-120,-42.5},{-120,280},{320,280}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

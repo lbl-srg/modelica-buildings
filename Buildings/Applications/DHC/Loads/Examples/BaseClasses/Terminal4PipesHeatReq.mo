@@ -109,19 +109,19 @@ equation
                             color={0,0,127}));
   connect(conQ_flowReq.y, gaiFloNom1.u)
     annotation (Line(points={{12,220},{158,220}}, color={0,0,127}));
-  connect(uSet, TLoaODE.TSet) annotation (Line(points={{-220,220},{-100,220},{-100,
-          188},{-62,188}}, color={0,0,127}));
-  connect(Q_flow2Req, TLoaODE.Q_flowReq)
+  connect(TSetHea, TLoaODE.TSet) annotation (Line(points={{-220,220},{-100,220},
+          {-100,188},{-62,188}}, color={0,0,127}));
+  connect(QReqHea_flow, TLoaODE.Q_flowReq)
     annotation (Line(points={{-220,180},{-62,180}}, color={0,0,127}));
   connect(TLoaODE.TInd, hexHeaCoo.T2Inl) annotation (Line(points={{-38,180},{-20,
           180},{-20,-8},{-12,-8}}, color={0,0,127}));
-  connect(Q_flow2Req, conQ_flowReq.u_s) annotation (Line(points={{-220,180},{-80,
-          180},{-80,220},{-12,220}}, color={0,0,127}));
-  connect(hexHeaCoo.Q_flow, Q_flow2Act) annotation (Line(points={{12,0},{20,0},
+  connect(QReqHea_flow, conQ_flowReq.u_s) annotation (Line(points={{-220,180},{
+          -80,180},{-80,220},{-12,220}}, color={0,0,127}));
+  connect(hexHeaCoo.Q_flow, QActHea_flow) annotation (Line(points={{12,0},{20,0},
           {20,180},{220,180}}, color={0,0,127}));
   connect(hexHeaCoo.Q_flow, TLoaODE.Q_flowAct) annotation (Line(points={{12,0},
           {20,0},{20,160},{-80,160},{-80,172},{-62,172}}, color={0,0,127}));
-  connect(gaiFloNom1.y, m_flow1Req)
+  connect(gaiFloNom1.y, m1ReqCoo_flow)
     annotation (Line(points={{182,220},{220,220}}, color={0,0,127}));
   connect(hexHeaCoo.Q_flow, conQ_flowReq.u_m) annotation (Line(points={{12,0},{
           20,0},{20,180},{0,180},{0,208}}, color={0,0,127}));

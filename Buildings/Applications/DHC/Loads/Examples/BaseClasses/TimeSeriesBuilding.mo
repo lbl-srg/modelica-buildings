@@ -46,13 +46,13 @@ equation
     annotation (Line(points={{-276,260},{-260,260}}, color={0,0,127}));
   connect(maxTSet.y,from_degC2. u)
     annotation (Line(points={{-276,220},{-260,220}}, color={0,0,127}));
-  connect(from_degC1.y, terUni.uSet[1]) annotation (Line(points={{-236,260},{60,
-          260},{60,-10.5},{79,-10.5}},   color={0,0,127}));
-  connect(from_degC2.y, terUni.uSet[2]) annotation (Line(points={{-236,220},{60,
-          220},{60,-9.5},{79,-9.5}},     color={0,0,127}));
-  connect(loa.y, terUni.Q_flow2Req) annotation (Line(points={{21,0},{50,0},{50,
-          -12},{79,-12}}, color={0,0,127}));
-  connect(terUni.Q_flow2Act, Q_flow2Act[1, :]) annotation (Line(points={{101,-10},
+  connect(from_degC1.y, terUni.TSetHea[1]) annotation (Line(points={{-236,260},
+          {60,260},{60,-10.5},{79,-10.5}}, color={0,0,127}));
+  connect(from_degC2.y, terUni.TSetHea[2]) annotation (Line(points={{-236,220},
+          {60,220},{60,-9.5},{79,-9.5}}, color={0,0,127}));
+  connect(loa.y, terUni.QReqHea_flow) annotation (Line(points={{21,0},{50,0},{
+          50,-12},{79,-12}}, color={0,0,127}));
+  connect(terUni.QActHea_flow, QHea_flow[1, :]) annotation (Line(points={{101,-10},
           {240,-10},{240,280},{320,280}}, color={0,0,127}));
   connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,-20},{-280,
           -20},{-280,-70},{120,-70}}, color={0,127,255}));
@@ -70,9 +70,9 @@ equation
           -18},{180,-18},{180,-104},{140,-104}}, color={0,127,255}));
   connect(disFloCoo.ports_b1[1], terUni.ports_a1[2]) annotation (Line(points={{120,
           -104},{40,-104},{40,-18},{80,-18}}, color={0,127,255}));
-  connect(terUni.m_flow1Req[1], disFloHea.m_flow1Req_i[1]) annotation (Line(
+  connect(terUni.m1ReqCoo_flow[1], disFloHea.m_flow1Req_i[1]) annotation (Line(
         points={{101,-8.5},{108,-8.5},{108,-78},{119,-78}}, color={0,0,127}));
-  connect(terUni.m_flow1Req[2], disFloCoo.m_flow1Req_i[1]) annotation (Line(
+  connect(terUni.m1ReqCoo_flow[2], disFloCoo.m_flow1Req_i[1]) annotation (Line(
         points={{101,-7.5},{108,-7.5},{108,-118},{119,-118}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>

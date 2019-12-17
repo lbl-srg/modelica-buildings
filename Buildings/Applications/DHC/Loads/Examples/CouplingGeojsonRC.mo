@@ -1,11 +1,17 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingGeojsonSpawn1Z6
+model CouplingGeojsonRC
   "Example illustrating the coupling of a multizone RC model to a fluid loop"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Water
-    "Source side medium";
-  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawn1Z6Building
-    bui annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+  package Medium1 = Buildings.Media.Water "Fluid in the pipes";
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
+    computeWetBulbTemperature=false,
+    filNam=Modelica.Utilities.Files.loadResource(
+    "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+    "Weather data reader"
+    annotation (Placement(transformation(extent={{110,-30},{90,-10}})));
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonRCBuilding bui(nPorts1=2)
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = Medium1,
     p=300000,
@@ -28,55 +34,54 @@ model CouplingGeojsonSpawn1Z6
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Supply for heating water"
-    annotation (Placement(
+    nPorts=1) "Supply for heating water"          annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-10,10})));
+        origin={-14,20})));
   Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.disFloHea.T_a1_nominal)
-    annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
+    annotation (Placement(transformation(extent={{-84,4},{-64,24}})));
   Modelica.Blocks.Sources.RealExpression m_flow1Req(y=bui.disFloHea.m_flow1Req)
-    annotation (Placement(transformation(extent={{-80,14},{-60,34}})));
+    annotation (Placement(transformation(extent={{-84,24},{-64,44}})));
   Buildings.Fluid.Sources.MassFlowSource_T supCoo(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1)
-    "Supply for chilled water"
+    nPorts=1) "Supply for chilled water"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-10,-70})));
+        origin={-14,-60})));
   Modelica.Blocks.Sources.RealExpression THeaInlVal1(y=bui.disFloCoo.T_a1_nominal)
-    annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
+    annotation (Placement(transformation(extent={{-84,-76},{-64,-56}})));
   Modelica.Blocks.Sources.RealExpression m_flow1Req1(y=bui.disFloCoo.m_flow1Req)
-    annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
+    annotation (Placement(transformation(extent={{-84,-56},{-64,-36}})));
 equation
-  connect(THeaInlVal.y,supHea. T_in) annotation (Line(points={{-59,4},{-40,4},{-40,
-          14},{-22,14}},                                                                            color={0,0,127}));
+  connect(weaDat.weaBus, bui.weaBus)
+  annotation (Line(
+      points={{90,-20},{50.1,-20}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(THeaInlVal.y,supHea. T_in) annotation (Line(points={{-63,14},{-44,14},
+          {-44,24},{-26,24}},                                                                       color={0,0,127}));
   connect(m_flow1Req.y,supHea. m_flow_in)
-    annotation (Line(points={{-59,24},{-40,24},{-40,18},{-22,18}}, color={0,0,127}));
-  connect(THeaInlVal1.y,supCoo. T_in) annotation (Line(points={{-59,-76},{-40,-76},
-          {-40,-66},{-22,-66}},                                                                    color={0,0,127}));
+    annotation (Line(points={{-63,34},{-44,34},{-44,28},{-26,28}}, color={0,0,127}));
+  connect(THeaInlVal1.y,supCoo. T_in) annotation (Line(points={{-63,-66},{-44,-66},
+          {-44,-56},{-26,-56}},                                                                    color={0,0,127}));
   connect(m_flow1Req1.y,supCoo. m_flow_in)
-    annotation (Line(points={{-59,-56},{-40,-56},{-40,-62},{-22,-62}},
+    annotation (Line(points={{-63,-46},{-44,-46},{-44,-52},{-26,-52}},
                                                                    color={0,0,127}));
   connect(supHea.ports[1], bui.ports_a1[1])
-    annotation (Line(points={{0,10},{24,10},{24,-30},{40,-30}},
+    annotation (Line(points={{-4,20},{20,20},{20,-32},{40,-32}},
                                                               color={0,127,255}));
   connect(supCoo.ports[1], bui.ports_a1[2])
-    annotation (Line(points={{0,-70},{24,-70},{24,-30},{40,-30}},
+    annotation (Line(points={{-4,-60},{20,-60},{20,-28},{40,-28}},
                                                               color={0,127,255}));
-  connect(bui.ports_b1[1], sinHea.ports[1]) annotation (Line(points={{60,-30},{76,
-          -30},{76,30},{90,30}}, color={0,127,255}));
-  connect(bui.ports_b1[2], sinCoo.ports[1]) annotation (Line(points={{60,-30},{76,
-          -30},{76,-90},{90,-90}}, color={0,127,255}));
+  connect(bui.ports_b1[1], sinHea.ports[1]) annotation (Line(points={{60,-32},{74,
+          -32},{74,30},{90,30}}, color={0,127,255}));
+  connect(bui.ports_b1[2], sinCoo.ports[1]) annotation (Line(points={{60,-28},{74,
+          -28},{74,-90},{90,-90}}, color={0,127,255}));
   annotation (
-  experiment(
-      StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
   <p>
   This example illustrates the use of
@@ -89,12 +94,7 @@ equation
   </p>
   </html>"),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}}),
-        graphics={Text(
-          extent={{-86,78},{46,52}},
-          lineColor={28,108,200},
-          textString="Need for
-Hidden.AvoidDoubleComputation=true")}),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingGeojsonSpawn1Z6.mos"
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{140,60}})),
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingGeojsonRC.mos"
         "Simulate and plot"));
-end CouplingGeojsonSpawn1Z6;
+end CouplingGeojsonRC;

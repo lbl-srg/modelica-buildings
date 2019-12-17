@@ -1,29 +1,20 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model GeojsonRCBuilding
   "Building model of type RC based on Urbanopt GeoJSON export"
-  import Buildings;
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nHeaLoa](k=fill(20, nHeaLoa))
-    "Minimum temperature setpoint" annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1[nHeaLoa]
-    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDMinT[nHeaLoa](
-    each yMax=1,
-    each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    each reverseAction=false,
-    each yMin=0,
-    each Ti=120) "PID controller for minimum temperature"
-    annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nCooLoa](k=fill(24, nCooLoa))
-    "Maximum temperature setpoint" annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nCooLoa]
-    annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimPID conPIDMax[nCooLoa](
-    each controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    each reverseAction=true,
-    each yMax=1,
-    each yMin=0,
-    each Ti=120) "PID controller for maximum temperature"
-    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
+  extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
+    final haveEleHeaCoo=false,
+    final haveFanPum=true,
+    final nLoa=6, nPorts1=2);
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nLoa](k=fill(20, nLoa))
+    "Minimum temperature setpoint" annotation (Placement(transformation(extent={{-300,
+            240},{-280,260}})));
+  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1[nLoa]
+    annotation (Placement(transformation(extent={{-260,240},{-240,260}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nLoa](k=fill(24, nLoa))
+    "Maximum temperature setpoint" annotation (Placement(transformation(extent={{-300,
+            200},{-280,220}})));
+  Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nLoa]
+    annotation (Placement(transformation(extent={{-260,200},{-240,220}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Office
     b5a6b99ec37f4de7f94020090_Office annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.Floor
@@ -36,32 +27,32 @@ model GeojsonRCBuilding
     b5a6b99ec37f4de7f94020090_Restroom annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonExport.B5a6b99ec37f4de7f94020090.ICT
     b5a6b99ec37f4de7f94020090_ICT annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
+    m_flow1_nominal=sum(terUni.m_flow1_nominal[1]),
+    T_a1_nominal=313.15,
+    T_b1_nominal=308.15,
+    nLoa=nLoa)
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
+  Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesHeatPorts terUni[nLoa](
+    Q_flow_nominal={{50000,10000},{10000,10000},{10000,10000},{10000,10000},{
+        10000,10000},{10000,10000}},
+    each T_a2_nominal={293.15,297.15},
+    each T_b1_nominal={disFloHea.T_b1_nominal,disFloCoo.T_b1_nominal},
+    each T_a1_nominal={disFloHea.T_a1_nominal,disFloCoo.T_a1_nominal},
+    each m_flow2_nominal={1,1},
+    each dp2_nominal={100,100},
+    each fraCon={1,1})
+    annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
+    m_flow1_nominal=sum(terUni.m_flow1_nominal[2]),
+    T_a1_nominal=280.15,
+    T_b1_nominal=285.15,
+    nLoa=nLoa)
+    annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 equation
-  connect(from_degC1.y,conPIDMinT. u_s) annotation (Line(points={{-78,130},{-62,130}}, color={0,0,127}));
-  connect(from_degC2.y,conPIDMax. u_s) annotation (Line(points={{-78,-130},{-62,-130}}, color={0,0,127}));
-  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
+  connect(maxTSet.y,from_degC2. u) annotation (Line(points={{-278,210},{-262,210}},   color={0,0,127}));
   connect(minTSet.y, from_degC1.u)
-    annotation (Line(points={{-118,130},{-110,130},{-110,130},{-102,130}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_Floor.TAir, conPIDMinT[2].u_m)
-    annotation (Line(points={{-39,-10},{-30,-10},{-30,100},{-50,100},{-50,118}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_Meeting.TAir, conPIDMinT[4].u_m)
-    annotation (Line(points={{41,-10},{50,-10},{50,100},{-50,100},{-50,118}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_Restroom.TAir, conPIDMinT[5].u_m)
-    annotation (Line(points={{81,-10},{90,-10},{90,100},{-50,100},{-50,118}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_Floor.TAir, conPIDMax[2].u_m)
-    annotation (Line(points={{-39,-10},{-30,-10},{-30,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_Storage.TAir, conPIDMax[3].u_m)
-    annotation (Line(points={{1,-10},{10,-10},{10,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_Meeting.TAir, conPIDMax[4].u_m)
-    annotation (Line(points={{41,-10},{50,-10},{50,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_Office.TAir, conPIDMinT[1].u_m)
-    annotation (Line(points={{-79,-10},{-70,-10},{-70,100},{-50,100},{-50,118}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_Office.TAir, conPIDMax[1].u_m)
-    annotation (Line(points={{-79,-10},{-70,-10},{-70,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_Restroom.TAir, conPIDMax[5].u_m)
-    annotation (Line(points={{81,-10},{90,-10},{90,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_Storage.TAir, conPIDMinT[3].u_m)
-    annotation (Line(points={{1,-10},{10,-10},{10,100},{-50,100},{-50,118}}, color={0,0,127}));
+    annotation (Line(points={{-278,250},{-262,250}},                       color={0,0,127}));
   connect(weaBus, b5a6b99ec37f4de7f94020090_Office.weaBus) annotation (Line(
       points={{1,300},{9,300},{9,20.3398},{-96,20.3398},{-96,-10.2}},
       color={255,204,51},
@@ -102,34 +93,6 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(b5a6b99ec37f4de7f94020090_Office.port_a, heaFloHeaLoaH[1].port_b)
-    annotation (Line(points={{-90,0},{-160,0},{-160,150},{-260,150}}, color={191,0,0}));
-  connect(b5a6b99ec37f4de7f94020090_Floor.port_a, heaFloHeaLoaH[2].port_b)
-    annotation (Line(points={{-50,0},{-160,0},{-160,150},{-260,150}}, color={191,0,0}));
-  connect(b5a6b99ec37f4de7f94020090_Storage.port_a, heaFloHeaLoaH[3].port_b)
-    annotation (Line(points={{-10,0},{-160,0},{-160,150},{-260,150}}, color={191,0,0}));
-  connect(b5a6b99ec37f4de7f94020090_Meeting.port_a, heaFloHeaLoaH[4].port_b)
-    annotation (Line(points={{30,0},{-160,0},{-160,150},{-260,150}}, color={191,0,0}));
-  connect(b5a6b99ec37f4de7f94020090_Restroom.port_a, heaFloHeaLoaH[5].port_b)
-    annotation (Line(points={{70,0},{-160,0},{-160,150},{-260,150}}, color={191,0,0}));
-  connect(b5a6b99ec37f4de7f94020090_Office.port_a, heaFloCooLoaH[1].port_b)
-    annotation (Line(points={{-90,0},{-160,0},{-160,-150},{-260,-150}}, color={191,0,0}));
-  connect(b5a6b99ec37f4de7f94020090_Floor.port_a, heaFloCooLoaH[2].port_b)
-    annotation (Line(points={{-50,0},{-160,0},{-160,-150},{-260,-150}}, color={191,0,0}));
-  connect(b5a6b99ec37f4de7f94020090_Storage.port_a, heaFloCooLoaH[3].port_b)
-    annotation (Line(points={{-10,0},{-160,0},{-160,-150},{-260,-150}}, color={191,0,0}));
-  connect(b5a6b99ec37f4de7f94020090_Meeting.port_a, heaFloCooLoaH[4].port_b)
-    annotation (Line(points={{30,0},{-160,0},{-160,-150},{-260,-150}}, color={191,0,0}));
-  connect(b5a6b99ec37f4de7f94020090_Restroom.port_a, heaFloCooLoaH[5].port_b)
-    annotation (Line(points={{70,0},{-160,0},{-160,-150},{-260,-150}}, color={191,0,0}));
-  connect(heaFloHeaLoaH[6].port_b, b5a6b99ec37f4de7f94020090_ICT.port_a)
-    annotation (Line(points={{-260,150},{-160,150},{-160,0},{110,0}}, color={191,0,0}));
-  connect(b5a6b99ec37f4de7f94020090_ICT.TAir, conPIDMinT[6].u_m)
-    annotation (Line(points={{121,-10},{140,-10},{140,100},{-50,100},{-50,118}}, color={0,0,127}));
-  connect(conPIDMinT.y, yHea) annotation (Line(points={{-38,130},{134,130},{134,200},{310,200}}, color={0,0,127}));
-  connect(conPIDMax.y, yCoo) annotation (Line(points={{-38,-130},{134,-130},{134,-192},{310,-192}}, color={0,0,127}));
-  connect(b5a6b99ec37f4de7f94020090_ICT.TAir, conPIDMax[6].u_m)
-    annotation (Line(points={{121,-10},{140,-10},{140,-160},{-50,-160},{-50,-142}}, color={0,0,127}));
   connect(weaBus, b5a6b99ec37f4de7f94020090_ICT.weaBus) annotation (Line(
       points={{1,300},{10,300},{10,19.8},{104,19.8},{104,-10.2}},
       color={255,204,51},
@@ -138,8 +101,54 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(heaFloCooLoaH[6].port_b, b5a6b99ec37f4de7f94020090_ICT.port_a)
-    annotation (Line(points={{-260,-150},{-160,-150},{-160,0},{110,0}}, color={191,0,0}));
+  connect(from_degC1.y, terUni.TSetHea[1]) annotation (Line(points={{-238,250},
+          {-220,250},{-220,-46.5},{-201,-46.5}}, color={0,0,127}));
+  connect(ports_a1[1],disFloHea. port_a) annotation (Line(points={{-300,-20},{-252,
+          -20},{-252,-90},{-140,-90}}, color={0,127,255}));
+  connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-120,-90},{308,
+          -90},{308,-20},{300,-20}},
+                                  color={0,127,255}));
+  connect(from_degC2.y, terUni.TSetHea[2]) annotation (Line(points={{-238,210},
+          {-220,210},{-220,-45.5},{-201,-45.5}}, color={0,0,127}));
+  connect(ports_a1[2],disFloCoo. port_a) annotation (Line(points={{-300,20},{-252,
+          20},{-252,-150},{-140,-150}},color={0,127,255}));
+  connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-120,-150},{308,
+          -150},{308,20},{300,20}},
+                                  color={0,127,255}));
+  connect(terUni.m1ReqCoo_flow[1], disFloHea.m_flow1Req_i[1]) annotation (Line(
+        points={{-179,-44.5},{-160,-44.5},{-160,-98},{-141,-98}}, color={0,0,
+          127}));
+  connect(terUni.m1ReqCoo_flow[2], disFloCoo.m_flow1Req_i[1]) annotation (Line(
+        points={{-179,-43.5},{-160,-43.5},{-160,-158},{-141,-158}}, color={0,0,
+          127}));
+  connect(terUni.QActHea_flow, QHea_flow[1, :]) annotation (Line(points={{-179,
+          -46},{-92,-46},{-92,280},{320,280}}, color={0,0,127}));
+  connect(terUni[1].heaPorCon, b5a6b99ec37f4de7f94020090_Office.port_a)
+    annotation (Line(points={{-193.8,-50},{-194,-50},{-194,0},{-90,0}}, color={191,
+          0,0}));
+  connect(terUni[2].heaPorCon, b5a6b99ec37f4de7f94020090_Floor.port_a)
+    annotation (Line(points={{-193.8,-50},{-194,-50},{-194,0},{-50,0}}, color={191,
+          0,0}));
+  connect(terUni[3].heaPorCon, b5a6b99ec37f4de7f94020090_Storage.port_a)
+    annotation (Line(points={{-193.8,-50},{-194,-50},{-194,0},{-10,0}}, color={191,
+          0,0}));
+  connect(terUni[4].heaPorCon, b5a6b99ec37f4de7f94020090_Meeting.port_a)
+    annotation (Line(points={{-193.8,-50},{-194,-50},{-194,0},{30,0}}, color={191,
+          0,0}));
+  connect(terUni[5].heaPorCon, b5a6b99ec37f4de7f94020090_Restroom.port_a)
+    annotation (Line(points={{-193.8,-50},{-194,-50},{-194,0},{70,0}}, color={191,
+          0,0}));
+  connect(terUni[6].heaPorCon, b5a6b99ec37f4de7f94020090_ICT.port_a)
+    annotation (Line(points={{-193.8,-50},{-194,-50},{-194,0},{110,0}}, color={191,
+          0,0}));
+  connect(terUni.ports_b1[1], disFloHea.ports_a1) annotation (Line(points={{
+          -180,-58},{-100,-58},{-100,-84},{-120,-84}}, color={0,127,255}));
+  connect(terUni.ports_b1[2], disFloCoo.ports_a1) annotation (Line(points={{
+          -180,-54},{-80,-54},{-80,-144},{-120,-144}}, color={0,127,255}));
+  connect(disFloHea.ports_b1, terUni.ports_a1[1]) annotation (Line(points={{
+          -140,-84},{-220,-84},{-220,-58},{-200,-58}}, color={0,127,255}));
+  connect(disFloCoo.ports_b1, terUni.ports_a1[2]) annotation (Line(points={{
+          -140,-144},{-240,-144},{-240,-54},{-200,-54}}, color={0,127,255}));
   annotation (
   Documentation(info="
   <html>
