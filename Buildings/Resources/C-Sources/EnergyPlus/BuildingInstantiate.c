@@ -168,7 +168,7 @@ void setAttributesReal(
       var = fmi2_import_get_variable(varLis, iFMI);
       if (strcmp(ptrSpawnReals->fmiNames[i], fmi2_import_get_variable_name(var)) == 0){
         /* Found the variable */
-        const fmi2_import_real_variable_t* varRea = fmi2_import_get_variable_as_real(var);
+        fmi2_import_real_variable_t* varRea = fmi2_import_get_variable_as_real(var);
         ptrSpawnReals->units[i] = fmi2_import_get_real_variable_unit(varRea);
         /* If a unit is not specified in modelDescription.xml, then unit is NULL */
 
