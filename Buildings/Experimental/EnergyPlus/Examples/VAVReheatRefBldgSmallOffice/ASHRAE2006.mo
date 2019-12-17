@@ -1,5 +1,5 @@
 within Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice;
-model ASHRAE2006_EnergyPlusFloor
+model ASHRAE2006
   "Variable air volume flow system with terminal reheat and five thermal zones using the EnergyPlus floor model"
   extends Buildings.Examples.VAVReheat.ASHRAE2006(
     redeclare replaceable Buildings.Experimental.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.BaseClasses.Floor flo(
@@ -9,7 +9,7 @@ model ASHRAE2006_EnergyPlusFloor
     cooCoi(show_T=true));
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Experimental/EnergyPlus/Examples/VAVReheatRefBldgSmallOffice/ASHRAE2006.mos"
         "Simulate and plot"),
     experiment(StopTime=172800, Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=true)),
@@ -79,4 +79,4 @@ Buildings.Examples.VAVReheat.ASHRAE2006</a> model with an EnergyPlus thermal zon
 </li>
 </ul>
 </html>"));
-end ASHRAE2006_EnergyPlusFloor;
+end ASHRAE2006;
