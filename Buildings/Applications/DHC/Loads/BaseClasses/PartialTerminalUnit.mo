@@ -235,7 +235,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     heaFunSpe == funSpe.Water
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-210,-230},{-190,-210}}),
-        iconTransformation(extent={{-210,-230},{-190,-210}})));
+        iconTransformation(extent={{-130,-120},{-110,-100}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1Coo(
     p(start=Medium1.p_default),
     redeclare final package Medium = Medium1,
@@ -243,8 +243,8 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
     cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-212,-192},{-192,-172}}),
-        iconTransformation(extent={{-212,-192},{-192,-172}})));
+    annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),
+        iconTransformation(extent={{-130,-90},{-110,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1Hea(
     p(start=Medium1.p_default),
     redeclare final package Medium = Medium1,
@@ -253,7 +253,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     heaFunSpe == funSpe.Water
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{210,-230},{190,-210}}),
-        iconTransformation(extent={{210,-230},{190,-210}})));
+        iconTransformation(extent={{130,-120},{110,-100}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1Coo(
     p(start=Medium1.p_default),
     redeclare final package Medium = Medium1,
@@ -261,8 +261,8 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default)) if
     cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{132,-92},{112,-72}}),
-        iconTransformation(extent={{132,-92},{112,-72}})));
+    annotation (Placement(transformation(extent={{210,-190},{190,-170}}),
+        iconTransformation(extent={{130,-90},{110,-70}})));
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp1Hea_nominal=
     Medium1.specificHeatCapacityCp(
@@ -281,7 +281,7 @@ protected
       Medium2.setState_pTX(Medium2.p_default, T_a2Coo_nominal))
     "Load side specific heat capacity at nominal conditions in cooling mode";
 annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-  extent={{-200,-240},{200,240}}),
+  extent={{-120,-120},{120,120}}),
     graphics={
     Rectangle(extent={{-120,120},{120,-120}}, lineColor={95,95,95}),
     Rectangle(
@@ -290,6 +290,6 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     pattern=LinePattern.None,
     fillColor={95,95,95},
     fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,
+    Diagram(coordinateSystem(
     extent={{-200,-240},{200,240}})));
 end PartialTerminalUnit;
