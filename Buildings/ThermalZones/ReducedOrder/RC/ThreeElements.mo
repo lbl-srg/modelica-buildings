@@ -10,7 +10,7 @@ model ThreeElements "Thermal Zone with three elements for exterior walls,
     annotation(Dialog(group="Floor plate"));
   parameter Integer nFloor(min = 1) "Number of RC-elements of floor plate"
     annotation(Dialog(group="Floor plate"));
-  parameter Modelica.SIunits.ThermalResistance RFloor[nExt](
+  parameter Modelica.SIunits.ThermalResistance RFloor[nFloor](
     each min=Modelica.Constants.small)
     "Vector of resistances of floor plate, from inside to outside"
     annotation(Dialog(group="Floor plate"));
@@ -18,7 +18,7 @@ model ThreeElements "Thermal Zone with three elements for exterior walls,
     min=Modelica.Constants.small)
     "Resistance of remaining resistor RFloorRem between capacity n and outside"
     annotation(Dialog(group="Floor plate"));
-  parameter Modelica.SIunits.HeatCapacity CFloor[nExt](
+  parameter Modelica.SIunits.HeatCapacity CFloor[nFloor](
     each min=Modelica.Constants.small)
     "Vector of heat capacities of floor plate, from inside to outside"
     annotation(Dialog(group="Floor plate"));
@@ -182,8 +182,13 @@ equation
     Documentation(revisions="<html>
   <ul>
   <li>
+  December 9, 2019, by Moritz Lauster:<br/>
+  Changes <code>nExt</code> to <code>nFloor</code> for
+  <code>RFloor</code> and <code>CFloor</code>
+  </li>
+  <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
-  Renamed <code>alphaFloor</code> to <code>hConFloor</code>, 
+  Renamed <code>alphaFloor</code> to <code>hConFloor</code>,
   <code>alphaFloorConst</code> to <code>hConFloor_const</code>
   </li>
   <li>
