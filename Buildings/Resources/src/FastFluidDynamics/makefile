@@ -3,7 +3,7 @@
 #######################################################
 SHELL = /bin/sh
 ARCH = $(shell getconf LONG_BIT)
-# Makefile to compile Python interface
+# Makefile to compile FFD code
 # Michael Wetter (MWetter@lbl.gov) October 24, 2012
 
 
