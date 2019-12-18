@@ -255,12 +255,12 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
       Placement(transformation(extent={{-190,-10},{-210,10}}),
       iconTransformation(extent={{-110,100},{-130,120}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorCon if haveHeaPor
-    "Heat port transfering convective heat to the load"
+    "Heat port transferring convective heat to the load"
     annotation (visible=DynamicSelect(true, haveHeaPor),
       Placement(transformation(extent={{190,30},{210,50}}),
       iconTransformation(extent={{-50,-10},{-30,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorRad if haveHeaPor
-    "Heat port transfering radiative heat to the load"
+    "Heat port transferring radiative heat to the load"
     annotation (visible=DynamicSelect(true, haveHeaPor),
       Placement(transformation(extent={{190,-50},{210,-30}}),
       iconTransformation(extent={{30,-10},{50,10}})));

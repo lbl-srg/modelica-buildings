@@ -88,7 +88,8 @@ model Terminal4PipesHeatReq
     each QHea_flow_nominal=500,
     Q_flow_nominal={500,-2000})
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
-  Modelica.Blocks.Sources.RealExpression T_a1[nPorts1](y={sta_a1Hea.T,sta_a1Coo.T})
+  Modelica.Blocks.Sources.RealExpression T_a1Val[nPorts1](y={sta_a1Hea.T,
+        sta_a1Coo.T})
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(hexHeaCoo.UA, UAAct.y) annotation (Line(points={{-12,8},{-26,8},{-26,20},
@@ -118,7 +119,7 @@ equation
           -200},{140,-180},{200,-180}}, color={0,127,255}));
   connect(senMasFlo.port_b, heaCoo.port_a)
     annotation (Line(points={{-130,-200},{60,-200}}, color={0,127,255}));
-  connect(T_a1.y, hexHeaCoo.T1Inl)
+  connect(T_a1Val.y, hexHeaCoo.T1Inl)
     annotation (Line(points={{-39,0},{-12,0}}, color={0,0,127}));
   connect(TSetHea, TLoaODE[1].TSet) annotation (Line(points={{-220,220},{-140,220},
           {-140,188},{-62,188}}, color={0,0,127}));

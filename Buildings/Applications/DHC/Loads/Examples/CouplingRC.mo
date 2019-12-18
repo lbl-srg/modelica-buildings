@@ -11,13 +11,15 @@ model CouplingRC
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.RCBuilding bui(nPorts1=2)
+  BaseClasses.RCBuilding bui
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T supHea(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Supply for heating water"          annotation (Placement(
+    nPorts=1)
+    "Supply for heating water"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -69,13 +71,13 @@ equation
   connect(m1ReqCoo_flow.y, supCoo.m_flow_in) annotation (Line(points={{-79,24},
           {-60,24},{-60,18},{-42,18}}, color={0,0,127}));
   connect(supHea.ports[1], bui.ports_a1[1])
-    annotation (Line(points={{-20,90},{4,90},{4,42},{20,42}}, color={0,127,255}));
+    annotation (Line(points={{-20,90},{4,90},{4,44},{20,44}}, color={0,127,255}));
   connect(supCoo.ports[1], bui.ports_a1[2])
-    annotation (Line(points={{-20,10},{4,10},{4,46},{20,46}}, color={0,127,255}));
+    annotation (Line(points={{-20,10},{4,10},{4,44},{20,44}}, color={0,127,255}));
   connect(bui.ports_b1[1], sinHea.ports[1])
-    annotation (Line(points={{40,42},{74,42},{74,90},{100,90}}, color={0,127,255}));
+    annotation (Line(points={{40,44},{74,44},{74,90},{100,90}}, color={0,127,255}));
   connect(bui.ports_b1[2], sinCoo.ports[1])
-    annotation (Line(points={{40,46},{74,46},{74,10},{100,10}}, color={0,127,255}));
+    annotation (Line(points={{40,44},{74,44},{74,10},{100,10}}, color={0,127,255}));
   annotation (
   experiment(
       StopTime=604800,

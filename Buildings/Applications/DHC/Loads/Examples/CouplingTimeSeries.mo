@@ -17,7 +17,8 @@ model CouplingTimeSeries
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Supply for heating water"          annotation (Placement(
+    nPorts=1) "Supply for heating water"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

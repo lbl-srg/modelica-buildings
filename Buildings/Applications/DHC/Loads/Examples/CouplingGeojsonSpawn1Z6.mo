@@ -5,7 +5,8 @@ model CouplingGeojsonSpawn1Z6
   package Medium1 = Buildings.Media.Water
     "Source side medium";
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.GeojsonSpawn1Z6Building
-    bui annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    bui
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = Medium1,
     p=300000,

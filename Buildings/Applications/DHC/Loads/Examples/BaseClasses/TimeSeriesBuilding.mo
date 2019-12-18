@@ -73,8 +73,8 @@ equation
   connect(disFloHea.ports_b1[1], terUni.port_a1Hea) annotation (Line(points={{
           120,-64},{60,-64},{60,-23.1667},{80,-23.1667}}, color={0,127,255}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow_i[1]) annotation (Line(
-        points={{100.833,-16.5},{100.833,-77.25},{119,-77.25},{119,-78}}, color
-        ={0,0,127}));
+        points={{100.833,-16.5},{100.833,-77.25},{119,-77.25},{119,-78}}, color=
+         {0,0,127}));
   connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow_i[1]) annotation (Line(
         points={{100.833,-18.1667},{100.833,-118},{119,-118}}, color={0,0,127}));
   connect(terUni.QActHea_flow, QHea_flow) annotation (Line(points={{100.833,
