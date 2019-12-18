@@ -7,4 +7,5 @@ GeojsonSpawn1Z6Building
 Terminal4PipesFluidPorts
 Terminal4PipesHeatPorts
 Terminal4PipesHeatReq
-GeojsonExport
+GeojsonExportSpawn
+GeojsonExportRC
