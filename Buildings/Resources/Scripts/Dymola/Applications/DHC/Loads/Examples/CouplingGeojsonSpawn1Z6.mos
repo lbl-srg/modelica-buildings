@@ -16,15 +16,15 @@ createPlot(
 );
 createPlot(
     id=1,
-    y={"bui.terUni[1].Q_flow2Act[1]", "bui.terUni[2].Q_flow2Act[1]", "bui.terUni[3].Q_flow2Act[1]",
-       "bui.terUni[4].Q_flow2Act[1]", "bui.terUni[5].Q_flow2Act[1]", "bui.terUni[6].Q_flow2Act[1]"},
+    y={"bui.terUni[1].QActHea_flow", "bui.terUni[2].QActHea_flow", "bui.terUni[3].QActHea_flow",
+       "bui.terUni[4].QActHea_flow", "bui.terUni[5].QActHea_flow", "bui.terUni[6].QActHea_flow"},
     grid=true,
     subPlot=2
 );
 createPlot(
     id=1,
-    y={"bui.terUni[1].Q_flow2Act[2]", "bui.terUni[2].Q_flow2Act[2]", "bui.terUni[3].Q_flow2Act[2]",
-       "bui.terUni[4].Q_flow2Act[2]", "bui.terUni[5].Q_flow2Act[2]", "bui.terUni[6].Q_flow2Act[2]"},
+    y={"bui.terUni[1].QActCoo_flow", "bui.terUni[2].QActCoo_flow", "bui.terUni[3].QActCoo_flow",
+       "bui.terUni[4].QActCoo_flow", "bui.terUni[5].QActCoo_flow", "bui.terUni[6].QActCoo_flow"},
     grid=true,
     subPlot=3
 );
@@ -39,19 +39,19 @@ createPlot(
 );
 createPlot(
     id=2,
-    y={"bui.disFloHea.m_flow1Act_i[1].y", "bui.disFloHea.m_flow1Act_i[2].y", "bui.disFloHea.m_flow1Act_i[3].y",
-       "bui.disFloHea.m_flow1Act_i[4].y", "bui.disFloHea.m_flow1Act_i[5].y", "bui.disFloHea.m_flow1Act_i[6].y"},
+    y={"bui.disFloHea.m1Act_flow_i[1].y", "bui.disFloHea.m1Act_flow_i[2].y", "bui.disFloHea.m1Act_flow_i[3].y",
+       "bui.disFloHea.m1Act_flow_i[4].y", "bui.disFloHea.m1Act_flow_i[5].y", "bui.disFloHea.m1Act_flow_i[6].y"},
     grid=true,
     subPlot=2
 );
 createPlot(
     id=2,
-    y={"bui.terUni[1].Q_flow2Act[1]",
-    "bui.terUni[2].Q_flow2Act[1]",
-    "bui.terUni[3].Q_flow2Act[1]",
-    "bui.terUni[4].Q_flow2Act[1]",
-    "bui.terUni[5].Q_flow2Act[1]",
-    "bui.terUni[6].Q_flow2Act[1]"},
+    y={"bui.terUni[1].QActHea_flow",
+    "bui.terUni[2].QActHea_flow",
+    "bui.terUni[3].QActHea_flow",
+    "bui.terUni[4].QActHea_flow",
+    "bui.terUni[5].QActHea_flow",
+    "bui.terUni[6].QActHea_flow"},
     grid=true,
     subPlot=3
 );
@@ -66,19 +66,19 @@ createPlot(
 );
 createPlot(
     id=3,
-    y={"bui.disFloCoo.m_flow1Act_i[1].y", "bui.disFloCoo.m_flow1Act_i[2].y", "bui.disFloCoo.m_flow1Act_i[3].y",
-       "bui.disFloCoo.m_flow1Act_i[4].y", "bui.disFloCoo.m_flow1Act_i[5].y", "bui.disFloCoo.m_flow1Act_i[6].y"},
+    y={"bui.disFloCoo.m1Act_flow_i[1].y", "bui.disFloCoo.m1Act_flow_i[2].y", "bui.disFloCoo.m1Act_flow_i[3].y",
+       "bui.disFloCoo.m1Act_flow_i[4].y", "bui.disFloCoo.m1Act_flow_i[5].y", "bui.disFloCoo.m1Act_flow_i[6].y"},
     grid=true,
     subPlot=2
 );
 createPlot(
     id=3,
-    y={"bui.terUni[1].Q_flow2Act[2]",
-    "bui.terUni[2].Q_flow2Act[2]",
-    "bui.terUni[3].Q_flow2Act[2]",
-    "bui.terUni[4].Q_flow2Act[2]",
-    "bui.terUni[5].Q_flow2Act[2]",
-    "bui.terUni[6].Q_flow2Act[2]"},
+    y={"bui.terUni[1].QActCoo_flow",
+    "bui.terUni[2].QActCoo_flow",
+    "bui.terUni[3].QActCoo_flow",
+    "bui.terUni[4].QActCoo_flow",
+    "bui.terUni[5].QActCoo_flow",
+    "bui.terUni[6].QActCoo_flow"},
     grid=true,
     subPlot=3
 );
