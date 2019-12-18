@@ -1,5 +1,11 @@
+FMUOutputVariableClass
 FMUZoneAdapter
 FMUZoneClass
-exchange
-initialize
+PartialEnergyPlusObject
+outputVariableExchange
+outputVariableInitialize
+zoneExchange
+zoneInitialize
+buildingsLibraryRoot
+iddName
 Validation

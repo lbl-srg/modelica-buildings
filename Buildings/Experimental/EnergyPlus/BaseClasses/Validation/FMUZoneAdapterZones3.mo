@@ -14,6 +14,7 @@ model FMUZoneAdapterZones3
   parameter Modelica.SIunits.HeatCapacity CZon = 6*6*2.7*1.2*1006 "Heat capacity of zone air";
 
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonCor(
+    buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,
@@ -41,6 +42,7 @@ model FMUZoneAdapterZones3
     y(final unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonSou(
+    buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,
@@ -56,6 +58,7 @@ model FMUZoneAdapterZones3
     y(final unit="K", displayUnit="degC")) "Zone air temperature"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneAdapter fmuZonNor(
+    buildingsLibraryRoot=Buildings.Experimental.EnergyPlus.BaseClasses.buildingsLibraryRoot,
     modelicaNameBuilding=modelicaNameBuilding,
     final idfName=idfName,
     final weaName=weaName,

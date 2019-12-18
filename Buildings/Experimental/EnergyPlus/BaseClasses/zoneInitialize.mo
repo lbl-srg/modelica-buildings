@@ -1,5 +1,5 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses;
-function initialize "Initialization"
+function zoneInitialize "Initialization for an EnergyPlus thermal zone"
   extends Modelica.Icons.Function;
 
   input Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass
@@ -26,4 +26,4 @@ First implementation.
 </ul>
 </html>"));
 
-end initialize;
+end zoneInitialize;

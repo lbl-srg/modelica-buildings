@@ -50,6 +50,8 @@ env:
   - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.{Obsolete,Occupants,Media}\""
   - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Utilities\""
   - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Utilities\""
+  - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Experimental.EnergyPlus\""
+  - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Experimental.EnergyPlus\""
 
 before_install:
   - if [[ "$TEST_ARG" == *test-dymola* ]]; then

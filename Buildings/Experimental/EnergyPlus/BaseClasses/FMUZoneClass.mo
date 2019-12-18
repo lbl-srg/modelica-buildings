@@ -1,14 +1,14 @@
 within Buildings.Experimental.EnergyPlus.BaseClasses;
-class FMUZoneClass "Class used to couple the FMU"
+class FMUZoneClass "Class used to couple the FMU to interact with a thermal zone"
 extends ExternalObject;
   function constructor
     "Construct to connect to a thermal zone in EnergyPlus"
     extends Modelica.Icons.Function;
 
     input String modelicaNameBuilding
-      "Name of this building";
+      "Name of this Modelica building instance that connects to this thermal zone";
     input String modelicaNameThermalZone
-      "Name of this thermal zone";
+      "Name of the Modelica instance of this thermal zone";
     input String idfName "Name of the IDF";
     input String weaName "Name of the weather file";
     input String iddName "Name of the IDD file";
@@ -18,10 +18,10 @@ extends ExternalObject;
     input String fmuName
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
     input String buildingsLibraryRoot "Root directory of the Buildings library (used to find the spawn executable)";
-    input Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity
-    "Verbosity of EnergyPlus output"
-    annotation(Dialog(tab="Debug"));
+    input Buildings.Experimental.EnergyPlus.Types.Verbosity verbosity "Verbosity of EnergyPlus output";
+
     output FMUZoneClass adapter;
+
     external "C" adapter = ZoneAllocate(
       modelicaNameBuilding,
       modelicaNameThermalZone,
@@ -67,8 +67,7 @@ First implementation.
 
   annotation(Documentation(info="<html>
 <p>
-Destructor that frees the memory of the object
-<code>ExtendableArray</code>.
+Destructor that frees the memory of the object.
 </p>
 </html>", revisions="<html>
 <ul>

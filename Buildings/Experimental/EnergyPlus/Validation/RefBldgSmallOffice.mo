@@ -8,7 +8,6 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
       "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
     weaName = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     fmuName = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/src/EnergyPlus/FMUs/Zones1.fmu"))
     "Building model"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
@@ -17,7 +16,7 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
     annotation (Placement(transformation(extent={{-74,-10},{-54,10}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-74,30},{-54,50}})));
-  Modelica.Blocks.Routing.Multiplex3 multiplex3_1
+  Modelica.Blocks.Routing.Multiplex3 mul "Multiplex for gains"
     annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-74,-50},{-54,-30}})));
@@ -57,31 +56,35 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
 
 equation
-  connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
+  connect(qRadGai_flow.y, mul.u1[1]) annotation (Line(
       points={{-53,40},{-40,40},{-40,7},{-30,7}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(qConGai_flow.y,multiplex3_1. u2[1]) annotation (Line(
+  connect(qConGai_flow.y, mul.u2[1]) annotation (Line(
       points={{-53,0},{-30,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(multiplex3_1.u3[1],qLatGai_flow. y) annotation (Line(points={{-30,-7},
-          {-40,-7},{-40,-40},{-53,-40}},color={0,0,127}));
-  connect(att.qGai_flow, multiplex3_1.y)
+  connect(mul.u3[1], qLatGai_flow.y) annotation (Line(points={{-30,-7},{-40,-7},
+          {-40,-40},{-53,-40}}, color={0,0,127}));
+  connect(att.qGai_flow, mul.y)
     annotation (Line(points={{38,104},{0,104},{0,0},{-7,0}}, color={0,0,127}));
-  connect(cor.qGai_flow, multiplex3_1.y)
+  connect(cor.qGai_flow, mul.y)
     annotation (Line(points={{38,58},{0,58},{0,0},{-7,0}}, color={0,0,127}));
-  connect(multiplex3_1.y, sou.qGai_flow)
+  connect(mul.y, sou.qGai_flow)
     annotation (Line(points={{-7,0},{20,0},{20,12},{38,12}}, color={0,0,127}));
-  connect(eas.qGai_flow, multiplex3_1.y) annotation (Line(points={{38,-34},{20,-34},
-          {20,0},{-7,0}}, color={0,0,127}));
-  connect(nor.qGai_flow, multiplex3_1.y)
+  connect(eas.qGai_flow, mul.y) annotation (Line(points={{38,-34},{20,-34},{20,0},
+          {-7,0}}, color={0,0,127}));
+  connect(nor.qGai_flow, mul.y)
     annotation (Line(points={{38,-82},{0,-82},{0,0},{-7,0}}, color={0,0,127}));
-  connect(multiplex3_1.y, wes.qGai_flow) annotation (Line(points={{-7,0},{0,0},{
-          0,-126},{38,-126}}, color={0,0,127}));
+  connect(mul.y, wes.qGai_flow) annotation (Line(points={{-7,0},{0,0},{0,-126},{
+          38,-126}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-Simple test case for one buildings with two thermal zones.
+Validation of free floating temperatures.
+The model uses the small office building of the DOE Reference Buildings.
+The Modelica model is in free floating mode, and the data reader <code>datRea</code>
+outputs, for comparison, the free floating room temperatures that were
+obtained from an EnergyPlus simulation.
 </p>
 </html>", revisions="<html>
 <ul><li>

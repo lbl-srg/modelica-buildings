@@ -90,8 +90,8 @@
     1,                       !- Begin Month
     1,                       !- Begin Day of Month
     ,                        !- Begin Year
-    12,                      !- End Month
-    31,                      !- End Day of Month
+    1,                       !- End Month
+    7,                       !- End Day of Month
     ,                        !- End Year
     Sunday,                  !- Day of Week for Start Day
     No,                      !- Use Weather File Holidays and Special Days
@@ -2023,19 +2023,23 @@
   Output:Constructions,Constructions;
 
 ! ***REPORT METERS/VARIABLES***
-  Output:Meter,InteriorLights:Electricity,HOURLY;
+  Output:Meter,InteriorLights:Electricity,timestep;
 
-  Output:Meter,InteriorEquipment:Electricity,HOURLY;
+  Output:Meter,InteriorEquipment:Electricity,timestep;
 
-  Output:Meter,InteriorEquipment:Gas,HOURLY;
+  Output:Meter,InteriorEquipment:Gas,timestep;
 
-  Output:Variable,*,Site Outdoor Air Drybulb Temperature,HOURLY;
+  Output:Variable,*,Site Outdoor Air Drybulb Temperature,timestep;
 
-  Output:Variable,*,Site Outdoor Air Humidity Ratio,HOURLY;
+  Output:Variable,*,Site Outdoor Air Humidity Ratio,timestep;
 
-  Output:Variable,*,Site Outdoor Air Relative Humidity,HOURLY;
+  Output:Variable,*,Site Outdoor Air Relative Humidity,timestep;
 
-  Output:Variable,*,Zone Mean Air Temperature,hourly;
+  Output:Variable,*,Zone Mean Air Temperature,timestep;
+
+  Output:Variable,*,Zone Electric Equipment Electric Power,timestep;
+
+  Output:Variable,*,Surface Outside Face Incident Beam Solar Radiation Rate per Area,timestep;
 
 ! ***REPORT TABLES***
 

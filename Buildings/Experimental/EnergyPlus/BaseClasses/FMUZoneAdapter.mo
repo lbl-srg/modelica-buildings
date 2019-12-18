@@ -2,6 +2,10 @@ within Buildings.Experimental.EnergyPlus.BaseClasses;
 block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
 
+  constant String buildingsLibraryRoot
+    "Root directory of the Buildings library (used to find the spawn executable"
+    annotation(HideResult=true);
+
   constant String modelicaNameBuilding
     "Name of the building to which this thermal zone belongs to"
     annotation(HideResult=true);
@@ -11,9 +15,7 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
 
   parameter String idfName "Name of the IDF file that contains this zone";
   parameter String weaName "Name of the Energyplus weather file";
-  final parameter String iddName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/Experimental/EnergyPlus/EnergyPlus-9-0-1/Energy+.idd")
-    "Name of the Energyplus IDD file";
+
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Boolean usePrecompiledFMU = false
@@ -31,9 +33,6 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
 
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
-
- // parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps, start=0.1)
- //   "Sample period of component";
 
   final parameter Modelica.SIunits.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.SIunits.Volume V(fixed=false) "Zone volume";
@@ -84,12 +83,6 @@ block FMUZoneAdapter "Block that interacts with this EnergyPlus zone"
         iconTransformation(extent={{100,-70},{120,-50}})));
 
 protected
-  constant String buildingsLibraryRoot = Modelica.Utilities.Strings.replace(
-    string=Modelica.Utilities.Files.fullPathName(Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html")),
-    searchString="Buildings/legal.html",
-    replaceString="Buildings") "Root directory of the Buildings library (used to find the spawn executable";
-
-
   Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass adapter=
     Buildings.Experimental.EnergyPlus.BaseClasses.FMUZoneClass(
       modelicaNameBuilding=modelicaNameBuilding,
@@ -146,9 +139,9 @@ initial equation
   end if;
   startTime =  time;
   counter = 0;
-  (AFlo, V, mSenFac) =  Buildings.Experimental.EnergyPlus.BaseClasses.initialize(
-    adapter = adapter,
-    startTime = time);
+  (AFlo, V, mSenFac) =
+    Buildings.Experimental.EnergyPlus.BaseClasses.zoneInitialize(adapter=
+    adapter, startTime=time);
   assert(AFlo > 0, "Floor area must not be zero.");
   assert(V > 0, "Volume must not be zero.");
   assert(mSenFac > 0.9999, "mSenFac must be bigger or equal than one.");
@@ -168,7 +161,7 @@ equation
     mInlet_flow =  0;//sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
     TAveInlet = 293.15;//sum(if m_flow[i] > 0 then TInlet[i] * m_flow[i] else 0 for i in 1:nFluPor)/max(1E-10, mInlet_flow);
     (TRad, QConLast_flow, dQCon_flow, QLat_flow, QPeo_flow, tNext)  =
-      Buildings.Experimental.EnergyPlus.BaseClasses.exchange(
+      Buildings.Experimental.EnergyPlus.BaseClasses.zoneExchange(
       adapter,
       initial(),
       T,
