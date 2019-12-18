@@ -4,7 +4,8 @@ model RCBuilding "Building model of type RC one element"
     haveFan=true,
     havePum=false,
     haveEleHea=false,
-    haveEleCoo=false);
+    haveEleCoo=false,
+    nPorts1=2);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](
@@ -267,16 +268,20 @@ equation
   connect(terUni.port_b2, thermalZoneOneElement.ports[2])
     annotation (Line(points={{-160,-40.8333},{-180,-40.8333},{-180,-22},{84.525,
           -22},{84.525,-9.95}},                                                             color={0,127,255}));
-  connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,0},{-280,
-          0},{-280,-110},{-100,-110}}, color={0,127,255}));
-  connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-80,-110},{280,
-          -110},{280,0},{300,0}}, color={0,127,255}));
+  connect(ports_a1[1], disFloHea.port_a) annotation (Line(points={{-300,-20},{
+          -280,-20},{-280,-110},{-100,-110}},
+                                       color={0,127,255}));
+  connect(disFloHea.port_b, ports_b1[1]) annotation (Line(points={{-80,-110},{
+          280,-110},{280,-20},{300,-20}},
+                                  color={0,127,255}));
   connect(maxTSet.y, from_degC2.u) annotation (Line(points={{-278,220},{-262,
           220}},                                                                  color={0,0,127}));
-  connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,0},{-280,
-          0},{-280,-150},{-100,-150}}, color={0,127,255}));
-  connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-80,-150},{280,
-          -150},{280,0},{300,0}}, color={0,127,255}));
+  connect(ports_a1[2], disFloCoo.port_a) annotation (Line(points={{-300,20},{
+          -280,20},{-280,-150},{-100,-150}},
+                                       color={0,127,255}));
+  connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-80,-150},{
+          280,-150},{280,20},{300,20}},
+                                  color={0,127,255}));
   connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{
           -200,260},{-200,-43.3333},{-160.833,-43.3333}},
                                                      color={0,0,127}));
@@ -284,7 +289,7 @@ equation
           -200,220},{-200,-46},{-160.833,-46},{-160.833,-46.6667}},
                                                                color={0,0,127}));
   connect(terUni.port_b1Coo, disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
-          -56.8333},{-90,-56.8333},{-90,-56},{-40,-56},{-40,-144},{-80,-144}},
+          -56.6667},{-90,-56.6667},{-90,-56},{-40,-56},{-40,-144},{-80,-144}},
         color={0,127,255}));
   connect(terUni.port_b1Hea, disFloHea.ports_a1[1]) annotation (Line(points={{-140,
           -59.1667},{-100,-59.1667},{-100,-60},{-60,-60},{-60,-104},{-80,-104}},
@@ -292,7 +297,8 @@ equation
   connect(disFloHea.ports_b1[1], terUni.port_a1Hea) annotation (Line(points={{-100,
           -104},{-180,-104},{-180,-59.1667},{-160,-59.1667}}, color={0,127,255}));
   connect(disFloCoo.ports_b1[1], terUni.port_a1Coo) annotation (Line(points={{-100,
-          -144},{-200,-144},{-200,-56.5},{-160,-56.5}}, color={0,127,255}));
+          -144},{-200,-144},{-200,-56.6667},{-160,-56.6667}},
+                                                        color={0,127,255}));
   connect(terUni.QActHea_flow, QHea_flow) annotation (Line(points={{-139.167,
           -42.5},{82,-42.5},{82,280},{320,280}},
                                           color={0,127,255}));
