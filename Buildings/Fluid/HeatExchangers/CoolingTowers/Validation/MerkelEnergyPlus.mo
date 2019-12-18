@@ -19,9 +19,9 @@ model MerkelEnergyPlus
   parameter Modelica.SIunits.PressureDifference dp_nominal = 6000
     "Nominal pressure difference of cooling tower";
   parameter Modelica.SIunits.VolumeFlowRate vAir_flow_nominal = 0.56054
-    "Nominal volumetric flow rate of air (medium 1)";  // 0.56054, from E+ output files; 5.382E-8, from E+ .idf
+    "Nominal volumetric flow rate of air (medium 1)";
   parameter Modelica.SIunits.VolumeFlowRate vWat_flow_nominal = 0.00109181
-    "Nominal volumetric flow rate of water (medium 2)";  // 0.00109181, from E+ output files; 2.76316E-5, from E+ .idf
+    "Nominal volumetric flow rate of water (medium 2)";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = vAir_flow_nominal * denAir
     "Nominal mass flow rate of air (medium 1)";
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = vWat_flow_nominal * denWat
@@ -30,10 +30,16 @@ model MerkelEnergyPlus
     "Nominal outdoor wetbulb temperature";
   parameter Modelica.SIunits.Temperature TWatIn_nominal = 34.16+273.15
     "Nominal water inlet temperature";
+  parameter Modelica.SIunits.Temperature TAirOutWB_nominal = 26+273.15
+    "Nominal air outlet wetbulb temperature";
+  parameter Modelica.SIunits.Temperature TWatOut_nominal = 21+273.15
+    "Nominal water outlet temperature";
   parameter Modelica.SIunits.Temperature TWatOut_initial = 33.019+273.15
     "Nominal water inlet temperature";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20286.37455
-    "Nominal heat transfer, positive";                              //20286.37455    25360.6
+    "Nominal heat transfer, positive";
+  parameter Modelica.SIunits.ThermalConductance UA_nominal = 2011.28668
+    "Nominal heat transfer, positive";
   parameter Modelica.SIunits.Power PFan_nominal = 213.00693
     "Nominal fan power";
 
@@ -46,14 +52,17 @@ model MerkelEnergyPlus
     m2_flow_nominal=mWat_flow_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
+    TAirOutWB_nominal=TAirOutWB_nominal,
+    TWatOut_nominal=TWatOut_nominal,
     Q_flow_nominal=Q_flow_nominal,
     PFan_nominal=PFan_nominal,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     yMin=0.01,
     fraFreCon=0.1,
-    UACor(FRAirMin=0.2))
+    UACor(FRAirMin=0.2),
+    UA_nominal=UA_nominal)
     "Merkel-theory based cooling tower"
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Sources.MassFlowSource_T souWat(
     redeclare package Medium = MediumWat,
@@ -62,11 +71,11 @@ model MerkelEnergyPlus
     nPorts=1,
     use_T_in=true)
     "Water source to the cooling tower"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
   Sources.Boundary_pT sinWat(redeclare package Medium = MediumWat,nPorts=1)
     "Water sink from the cooling tower"
-    annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
+    annotation (Placement(transformation(extent={{100,-60},{80,-40}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
@@ -76,64 +85,50 @@ model MerkelEnergyPlus
     tableName="modelica",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"CoolingTower_VariableSpeed_Merkel.idf\" energy plus example results"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Controls.OBC.UnitConversions.From_degC TEntWat
     "Block that converts entering water temperature"
-    annotation (Placement(transformation(extent={{-60,-44},{-40,-24}})));
+    annotation (Placement(transformation(extent={{-60,-56},{-40,-36}})));
 
   Controls.OBC.UnitConversions.From_degC TAirWB
     "Block that converts entering air wetbulb temperature"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-
-  Modelica.Blocks.Math.Division conFan
-    "Block to convert fan power reading to fan control signal y"
-    annotation (Placement(transformation(extent={{-20,54},{0,74}})));
-
-  Modelica.Blocks.Sources.RealExpression PFan_nom(y=PFan_nominal)
-    "Nominal fan power"
-    annotation (Placement(transformation(extent={{-60,48},{-40,68}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Modelica.Blocks.Sources.RealExpression TLvg_EP(y=datRea.y[4])
     "EnergyPlus results: cooling tower leaving water temperature"
-    annotation (Placement(transformation(extent={{80,60},{100,80}})));
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
   Modelica.Blocks.Sources.RealExpression Q_flow_EP(y=-1*datRea.y[6])
     "EnergyPlus results: cooling tower heat flow rate"
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
   Modelica.Blocks.Sources.RealExpression PFan_EP(y=datRea.y[7])
     "EnergyPlus results: fan power consumption"
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
 
 equation
   connect(tow.TAir, TAirWB.y)
-    annotation (Line(points={{38,-26},{20,-26},{20,30},{-38,30}},
+    annotation (Line(points={{38,-46},{20,-46},{20,10},{-38,10}},
       color={0,0,127}));
   connect(souWat.ports[1], tow.port_a)
-    annotation (Line(points={{0,-30},{40,-30}}, color={0,127,255}));
+    annotation (Line(points={{0,-50},{40,-50}}, color={0,127,255}));
   connect(tow.port_b, sinWat.ports[1])
-    annotation (Line(points={{60,-30},{80,-30}}, color={0,127,255}));
+    annotation (Line(points={{60,-50},{80,-50}}, color={0,127,255}));
   connect(TEntWat.y, souWat.T_in)
-    annotation (Line(points={{-38,-34},{-24,-34},{-24,-26},{-22,-26}},
-      color={0,0,127}));
-  connect(PFan_nom.y, conFan.u2)
-    annotation (Line(points={{-39,58},{-22,58}}, color={0,0,127}));
-  connect(conFan.y, tow.y)
-    annotation (Line(points={{1,64},{30,64},{30,-22},{38,-22}},
+    annotation (Line(points={{-38,-46},{-22,-46}},
       color={0,0,127}));
   connect(datRea.y[2], TAirWB.u)
-    annotation (Line(points={{-79,70},{-70,70},{-70,30},{-62,30}},
+    annotation (Line(points={{-79,50},{-70,50},{-70,10},{-62,10}},
       color={0,0,127}));
 
-  connect(TEntWat.u, datRea.y[3]) annotation (Line(points={{-62,-34},{-70,-34},
-          {-70,70},{-79,70}}, color={0,0,127}));
-  connect(souWat.m_flow_in, datRea.y[5]) annotation (Line(points={{-22,-22},{
-          -30,-22},{-30,-10},{-70,-10},{-70,70},{-79,70}}, color={0,0,127}));
-  connect(conFan.u1, datRea.y[7])
-    annotation (Line(points={{-22,70},{-79,70}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -100},{120,100}})),
+  connect(TEntWat.u, datRea.y[3]) annotation (Line(points={{-62,-46},{-70,-46},
+          {-70,50},{-79,50}}, color={0,0,127}));
+  connect(souWat.m_flow_in, datRea.y[5]) annotation (Line(points={{-22,-42},{
+          -30,-42},{-30,-20},{-70,-20},{-70,50},{-79,50}}, color={0,0,127}));
+  connect(tow.y, datRea.y[9]) annotation (Line(points={{38,-42},{30,-42},{30,50},
+          {-79,50}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false,
         extent={{-120,-100},{120,100}})),
     __Dymola_Commands(file=
