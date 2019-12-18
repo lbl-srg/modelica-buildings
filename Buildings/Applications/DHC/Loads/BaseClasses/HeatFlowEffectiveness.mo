@@ -3,10 +3,10 @@ model HeatFlowEffectiveness "Model computing the heat flow rate based on the eff
   extends Modelica.Blocks.Icons.Block;
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime
     "Heat exchanger flow regime, see  Buildings.Fluid.Types.HeatExchangerFlowRegime";
-  parameter Modelica.SIunits.MassFlowRate m_flow1_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
     "Source side mass flow rate at nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow2_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
     "Load side mass flow rate at nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal
@@ -35,7 +35,7 @@ model HeatFlowEffectiveness "Model computing the heat flow rate based on the eff
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,0})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow1(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput m1_flow(
     quantity="MassFlowRate")
     "Source side mass flow rate"
     annotation (
@@ -57,7 +57,7 @@ model HeatFlowEffectiveness "Model computing the heat flow rate based on the eff
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-80})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow2(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput m2_flow(
     quantity="MassFlowRate")
     "Load side mass flow rate"
     annotation (Placement(
@@ -78,10 +78,10 @@ protected
   parameter Real deltaCMin = 1E-4 * CMin_flow_nominal
     "Regularization term for smoothing CMin_flow";
   parameter Modelica.SIunits.ThermalConductance CMin_flow_nominal = min(
-    m_flow1_nominal * cp1_nominal, m_flow2_nominal * cp2_nominal);
+    m1_flow_nominal * cp1_nominal, m2_flow_nominal * cp2_nominal);
   parameter Modelica.SIunits.ThermalConductance CMax_flow_nominal = max(
-    m_flow1_nominal * cp1_nominal, m_flow2_nominal * cp2_nominal);
-  final parameter Real deltaReg = m_flow1_nominal * 1E-7
+    m1_flow_nominal * cp1_nominal, m2_flow_nominal * cp2_nominal);
+  final parameter Real deltaReg = m1_flow_nominal * 1E-7
     "Smoothing region for inverseXRegularized";
   final parameter Real deltaInvReg = 1/deltaReg
     "Inverse value of delta for inverseXRegularized";
@@ -97,31 +97,31 @@ protected
     "Polynomial coefficient for inverseXRegularized";
   final parameter Real fReg = 104*deltaInvReg^6
     "Polynomial coefficient for inverseXRegularized";
-  Real m_flow1_inv(unit="s/kg") "Regularization of 1/m_flow";
+  Real m1_flow_inv(unit="s/kg") "Regularization of 1/m_flow";
 equation
   if flowRegime == Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange then
-    // By convention, a zero value for m_flow2 is associated with that flow regime which requires
+    // By convention, a zero value for m2_flow is associated with that flow regime which requires
     // specific equations.
     eps = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
-      NTU=UA / cp1_nominal * m_flow1_inv,
+      NTU=UA / cp1_nominal * m1_flow_inv,
       Z=0,
       flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange));
-    m_flow1_inv = Buildings.Utilities.Math.Functions.inverseXRegularized(
-      x=m_flow1, delta=deltaReg, deltaInv=deltaInvReg, a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg);
+    m1_flow_inv = Buildings.Utilities.Math.Functions.inverseXRegularized(
+      x=m1_flow, delta=deltaReg, deltaInv=deltaInvReg, a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg);
   else
     eps = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
       UA=UA,
-      C1_flow=m_flow1 * cp1_nominal,
-      C2_flow=m_flow2 * cp2_nominal,
+      C1_flow=m1_flow * cp1_nominal,
+      C2_flow=m2_flow * cp2_nominal,
       flowRegime=Integer(flowRegime),
       CMin_flow_nominal=CMin_flow_nominal,
       CMax_flow_nominal=CMax_flow_nominal);
-    m_flow1_inv = 0;
+    m1_flow_inv = 0;
   end if;
   // Equation for CMin_flow is inlined to optimize scaling and improve convergence of Newton solver.
   Q_flow = (if flowRegime == Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange then
-      m_flow1 * cp1_nominal else Buildings.Utilities.Math.Functions.smoothMin(
-        m_flow1 * cp1_nominal, m_flow2 * cp2_nominal, deltaCMin)) *
+      m1_flow * cp1_nominal else Buildings.Utilities.Math.Functions.smoothMin(
+        m1_flow * cp1_nominal, m2_flow * cp2_nominal, deltaCMin)) *
     eps * (T1Inl - T2Inl);
 annotation (
   defaultComponentName="heaFloEff",

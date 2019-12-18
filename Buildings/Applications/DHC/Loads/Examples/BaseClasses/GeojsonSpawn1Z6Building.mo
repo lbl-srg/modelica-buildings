@@ -36,7 +36,6 @@ model GeojsonSpawn1Z6Building
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znAttic(
     redeclare package Medium = Medium2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     zoneName="Attic",
     nPorts=2)        "Thermal zone"
     annotation (Placement(transformation(extent={{24,84},{64,124}})));
@@ -44,7 +43,7 @@ model GeojsonSpawn1Z6Building
     redeclare package Medium = Medium2,
     zoneName="Core_ZN",
     nPorts=2)          "Thermal zone"
-    annotation (Placement(transformation(extent={{24,40},{64,80}})));
+    annotation (Placement(transformation(extent={{24,42},{64,82}})));
   Buildings.Experimental.EnergyPlus.ThermalZone znPerimeter_ZN_1(
     redeclare package Medium = Medium2,
     zoneName="Perimeter_ZN_1",
@@ -67,8 +66,7 @@ model GeojsonSpawn1Z6Building
     annotation (Placement(transformation(extent={{24,-120},{64,-80}})));
   inner Buildings.Experimental.EnergyPlus.Building building(
     idfName=Modelica.Utilities.Files.loadResource(idfPath),
-    weaName=Modelica.Utilities.Files.loadResource(weaPath),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    weaName=Modelica.Utilities.Files.loadResource(weaPath))
     "Building outer component"
     annotation (Placement(transformation(extent={{30,198},{52,218}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
@@ -121,7 +119,7 @@ equation
   connect(multiplex3_1.y,znAttic.qGai_flow)
     annotation (Line(points={{7,190},{20,190},{20,114},{22,114}}, color={0,0,127}));
   connect(multiplex3_1.y,znCore_ZN.qGai_flow)
-    annotation (Line(points={{7,190},{20,190},{20,70},{22,70}}, color={0,0,127}));
+    annotation (Line(points={{7,190},{20,190},{20,72},{22,72}}, color={0,0,127}));
   connect(multiplex3_1.y,znPerimeter_ZN_1.qGai_flow)
     annotation (Line(points={{7,190},{20,190},{20,30},{22,30}}, color={0,0,127}));
   connect(multiplex3_1.y,znPerimeter_ZN_2.qGai_flow)
@@ -150,10 +148,10 @@ equation
           {-8,84.8},{-8,21},{-62,21}},       color={0,127,255}));
   connect(terUni[1].port_b2, znAttic.ports[2]) annotation (Line(points={{-86,21},
           {-20,21},{-20,84.8},{46,84.8}},      color={0,127,255}));
-  connect(znCore_ZN.ports[1], terUni[2].port_a2) annotation (Line(points={{42,40.8},
-          {-8,40.8},{-8,21},{-62,21}},       color={0,127,255}));
+  connect(znCore_ZN.ports[1], terUni[2].port_a2) annotation (Line(points={{42,42.8},
+          {-8,42.8},{-8,21},{-62,21}},       color={0,127,255}));
   connect(terUni[2].port_b2, znCore_ZN.ports[2]) annotation (Line(points={{-86,21},
-          {-20,21},{-20,40.8},{46,40.8}},      color={0,127,255}));
+          {-20,21},{-20,42.8},{46,42.8}},      color={0,127,255}));
   connect(znPerimeter_ZN_1.ports[1], terUni[3].port_a2) annotation (Line(points={{42,0.8},
           {-8,0.8},{-8,21},{-62,21}},               color={0,127,255}));
   connect(terUni[3].port_b2, znPerimeter_ZN_1.ports[2]) annotation (Line(points={{-86,21},

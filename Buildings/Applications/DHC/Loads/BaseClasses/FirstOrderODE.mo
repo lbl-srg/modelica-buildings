@@ -8,10 +8,10 @@ model FirstOrderODE
   parameter Modelica.SIunits.Temperature TIndHea_nominal(displayUnit="degC")
     "Indoor temperature at heating nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flowHea_nominal
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal
     "Heating (>0) heat flow rate at nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = Q_flowHea_nominal
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = QHea_flow_nominal
     "Heating (>0) or cooling (<0) heat flow rate at nominal conditions"
     annotation(Dialog(group = "Nominal condition"));
   parameter Boolean steadyStateInitial = false
@@ -24,12 +24,12 @@ model FirstOrderODE
     "Temperature set point for heating or cooling"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
                      iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput Q_flowReq(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QReq_flow(
     quantity="HeatFlowRate", unit="W")
     "Required heat flow rate to meet temperature set point"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
                        iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput Q_flowAct(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QAct_flow(
     quantity="HeatFlowRate", unit="W")
     "Actual heating or cooling heat flow rate"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
@@ -38,8 +38,9 @@ model FirstOrderODE
     quantity="ThermodynamicTemperature", unit="K", displayUnit="degC") "Indoor temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
-  parameter Modelica.SIunits.ThermalConductance G = -Q_flowHea_nominal / (TOutHea_nominal - TIndHea_nominal)
-  "Lumped thermal conductance representing all deltaT dependent heat transfer mechanisms";
+  parameter Modelica.SIunits.ThermalConductance G=
+    -QHea_flow_nominal / (TOutHea_nominal - TIndHea_nominal)
+    "Lumped thermal conductance representing all deltaT dependent heat transfer mechanisms";
 initial equation
   if steadyStateInitial then
     der(TInd) = 0;
@@ -47,7 +48,7 @@ initial equation
     TInd = TIndHea_nominal;
   end if;
 equation
-  der(TInd) * tau = (Q_flowAct - Q_flowReq) / G + TSet - TInd;
+  der(TInd) * tau = (QAct_flow - QReq_flow) / G + TSet - TInd;
   annotation (
   defaultComponentName="TLoaODE",
   Documentation(info="<html>
