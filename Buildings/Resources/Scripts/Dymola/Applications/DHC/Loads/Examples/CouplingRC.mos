@@ -27,7 +27,7 @@ createPlot(
 createPlot(
     id=2,
     position={700, 20, 670, 900},
-    y={"supHea.T", "couHea.vol.T", "bui.thermalZoneOneElement.TAir"},
+    y={"supHea.T_in", "bui.terUni.T_a1Hea_nominal"},
     autoscale=true,
     // autoerase=true,
     // autoreplot=true,
@@ -48,7 +48,7 @@ createPlot(
 createPlot(
     id=3,
     position={1300, 20, 670, 900},
-    y={"supCoo.T", "couCoo.vol.T", "bui.thermalZoneOneElement.TAir"},
+    y={"supCoo.T_in", "bui.terUni.T_a1Coo_nominal"},
     autoscale=true,
     // autoerase=true,
     // autoreplot=true,

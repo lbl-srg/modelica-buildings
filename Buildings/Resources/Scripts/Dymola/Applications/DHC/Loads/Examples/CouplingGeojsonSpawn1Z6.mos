@@ -31,7 +31,9 @@ createPlot(
 createPlot(
     id=2,
     position={700, 20, 670, 900},
-    y={"supHea.T", "couHea.vol.T", "bui.thermalZoneOneElement.TAir"},
+    y={"supHea.T_in", "bui.terUni[1].T_a1Hea_nominal", "bui.terUni[2].T_a1Hea_nominal",
+    "bui.terUni[3].T_a1Hea_nominal", "bui.terUni[4].T_a1Hea_nominal",
+    "bui.terUni[5].T_a1Hea_nominal","bui.terUni[6].T_a1Hea_nominal"},
     autoscale=true,
     // autoerase=true,
     // autoreplot=true,
@@ -58,7 +60,9 @@ createPlot(
 createPlot(
     id=3,
     position={1300, 20, 670, 900},
-    y={"supCoo.T", "couCoo.vol.T", "bui.thermalZoneOneElement.TAir"},
+    y={"supCoo.T_in", "bui.terUni[1].T_a1Coo_nominal", "bui.terUni[2].T_a1Coo_nominal",
+    "bui.terUni[3].T_a1Coo_nominal", "bui.terUni[4].T_a1Coo_nominal",
+    "bui.terUni[5].T_a1Coo_nominal","bui.terUni[6].T_a1Coo_nominal"},
     autoscale=true,
     // autoerase=true,
     // autoreplot=true,
@@ -82,31 +86,4 @@ createPlot(
     grid=true,
     subPlot=3
 );
-// createPlot(
-//     id=4,
-//     position={650, 260, 650, 400},
-//     x="couHea.frac_Q_flow",
-//     y={"couHea.vol.T", "couHea.T_b_nominal", "couHea.m_flow", "couHea.m_flow_nominal"},
-//     autoscale=true,
-//     // autoerase=true,
-//     // autoreplot=true,
-//     grid=true,
-//     colors={{238,46,47}, {238,46,47}, {0,140,72}, {0,140,72}},
-//     patterns={LinePattern.None, LinePattern.Solid, LinePattern.None, LinePattern.Solid},
-//     markers={MarkerStyle.Dot, MarkerStyle.None, MarkerStyle.Dot, MarkerStyle.None},
-//     axes={1, 1, 2, 2}
-// );
-// createPlot(
-//     id=5,
-//     position={1300, 260, 650, 400},
-//     x="couCoo.frac_Q_flow",
-//     y={"couCoo.vol.T", "couCoo.T_b_nominal", "couCoo.m_flow", "couCoo.m_flow_nominal"},
-//     autoscale=true,
-//     // autoerase=true,
-//     // autoreplot=true,
-//     grid=true,
-//     colors={{28,108,200}, {28,108,200}, {0,140,72}, {0,140,72}},
-//     patterns={LinePattern.None, LinePattern.Solid, LinePattern.None, LinePattern.Solid},
-//     markers={MarkerStyle.Dot, MarkerStyle.None, MarkerStyle.Dot, MarkerStyle.None},
-//     axes={1, 1, 2, 2}
-// );
+
