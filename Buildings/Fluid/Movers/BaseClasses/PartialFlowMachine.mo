@@ -146,6 +146,11 @@ protected
   final parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
 
+  parameter Modelica.SIunits.PressureDifference dpMax(displayUnit="Pa")
+    "Maximum head of performance curves";
+  parameter Modelica.SIunits.PressureDifference dpRel_nominal(displayUnit="Pa")
+    "Relative pressure difference used to scale the state variable of the pressure";
+
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
     final k=stageInputs) if
       inputType == Buildings.Fluid.Types.InputType.Stages "Stage input values"
@@ -180,7 +185,7 @@ protected
     final p_start=p_start,
     final prescribedHeatFlowRate=true,
     final allowFlowReversal=allowFlowReversal,
-    dpRel_nominal=max(per.pressure.dp[:]),
+    dpRel_nominal=dpRel_nominal,
     nPorts=2) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-70,0},{-90,20}})));
 
@@ -526,6 +531,13 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 17, 2019, by Michael Wetter:<br/>
+Set scaling of relative pressure state based on fan head.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1671\">
+issue 1671</a>.
+</li>
 <li>
 October 25, 2019, by Jianjun Hu:<br/>
 Improved icon graphics annotation. This is for
