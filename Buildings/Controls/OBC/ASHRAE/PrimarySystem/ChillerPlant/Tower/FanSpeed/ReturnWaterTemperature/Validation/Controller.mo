@@ -100,7 +100,7 @@ equation
   connect(conSup.y,add1. u1)
     annotation (Line(points={{-338,-240},{-320,-240},{-320,-254},{-302,-254}},
       color={0,0,127}));
-  connect(wseSta.y, towFanSpe.uWSE)
+  connect(wseSta.y, towFanSpe.uWseSta)
     annotation (Line(points={{-338,60},{-188,60},{-188,212},{-122,212}},
       color={255,0,255}));
   connect(plaCap.y, towFanSpe.reqPlaCap)
@@ -124,7 +124,7 @@ equation
   connect(conWatPumSpe1.y, towFanSpe.uConWatPumSpe)
     annotation (Line(points={{-278,-220},{-140,-220},{-140,185},{-122,185}},
       color={0,0,127}));
-  connect(wseSta.y, towFanSpe1.uWSE)
+  connect(wseSta.y, towFanSpe1.uWseSta)
     annotation (Line(points={{-338,60},{32,60},{32,212},{98,212}}, color={255,0,255}));
   connect(plaCap.y, towFanSpe1.reqPlaCap)
     annotation (Line(points={{-338,30},{38,30},{38,209},{98,209}}, color={0,0,127}));

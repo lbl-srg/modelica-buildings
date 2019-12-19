@@ -96,8 +96,8 @@ equation
     annotation (Line(points={{22,110},{60,110},{60,10},{98,10}}, color={0,0,127}));
   connect(con1.y, wseOpe.chiLoa[2])
     annotation (Line(points={{-78,90},{60,90},{60,10},{98,10}}, color={0,0,127}));
-  connect(wseSta.y, wseOpe.uWseSta) annotation (Line(points={{22,10},{40,10},{
-          40,2},{98,2}}, color={255,0,255}));
+  connect(wseSta.y, wseOpe.uWseSta)
+    annotation (Line(points={{22,10},{40,10},{40,2},{98,2}}, color={255,0,255}));
   connect(swi.y,wseOpe.uFanSpe)
     annotation (Line(points={{22,-50},{60,-50},{60,-2},{98,-2}}, color={0,0,127}));
   connect(add2.y, wseOpe.TChiWatSup)

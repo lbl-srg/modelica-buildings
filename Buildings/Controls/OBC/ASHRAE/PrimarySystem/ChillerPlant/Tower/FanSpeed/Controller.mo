@@ -284,9 +284,8 @@ equation
   connect(uChi, fanSpeRetTem.uChi)
     annotation (Line(points={{-120,120},{-64,120},{-64,-25},{18,-25}},
       color={255,0,255}));
-  connect(uWSE, fanSpeRetTem.uWSE)
-    annotation (Line(points={{-120,100},{-68,100},{-68,-28},{18,-28}},
-      color={255,0,255}));
+  connect(uWSE, fanSpeRetTem.uWseSta) annotation (Line(points={{-120,100},{-68,
+          100},{-68,-28},{18,-28}}, color={255,0,255}));
   connect(fanSpeRetTem.reqPlaCap, reqPlaCap)
     annotation (Line(points={{18,-31},{-76,-31},{-76,0},{-120,0}},
       color={0,0,127}));

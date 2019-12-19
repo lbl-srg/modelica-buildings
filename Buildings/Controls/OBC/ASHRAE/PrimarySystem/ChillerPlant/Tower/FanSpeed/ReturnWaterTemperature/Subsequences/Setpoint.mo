@@ -10,10 +10,10 @@ block Setpoint "Calculate condener return water temperature setpoint"
     "Minimum chilled water supply temperature of each chiller";
   parameter Modelica.SIunits.Time iniPlaTim = 600
     "Time to hold return temperature to initial setpoint after plant being enabled"
-    annotation (Dialog(group="Plant startup"));
+    annotation (Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Time ramTim = 600
     "Time to ramp return water temperature setpoint from initial value to calculated one"
-    annotation (Dialog(group="Plant startup"));
+    annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller status"
@@ -60,10 +60,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax lifMin(
-    final nin=nChi) "Minimum chiller LIFT"
+    final nin=nChi) "Minimum enabled chiller LIFT"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add coeA(
-    final k1=1.1, final k2=-1.1) "Coefficien A"
+    final k1=1.1, final k2=-1.1) "Coefficient A"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Feedback coeB "Coefficient B"
     annotation (Placement(transformation(extent={{50,130},{70,150}})));
@@ -107,7 +107,8 @@ protected
     final p=-10*5/9, final k=1)
     "Output sum of input and a parameter"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin lowDesConWatRet(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin lowDesConWatRet(
+    final nin=nChi)
     "Lowest design condenser water return temperature"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 

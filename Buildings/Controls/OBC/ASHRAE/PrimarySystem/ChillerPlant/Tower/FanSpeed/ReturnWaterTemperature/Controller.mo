@@ -9,6 +9,15 @@ block Controller
   parameter Boolean closeCoupledPlant=true "Flag to indicate if the plant is close coupled";
   parameter Modelica.SIunits.HeatFlowRate desCap = 1e6 "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
+  parameter Real cheMinFanSpe=300
+    "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
+    annotation (Dialog(tab="Enable tower"));
+  parameter Real cheMaxTowSpe=300
+    "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
+    annotation (Dialog(tab="Enable tower"));
+  parameter Real cheTowOff=60
+    "Threshold time for checking duration when there is no enabled tower fan"
+    annotation (Dialog(tab="Enable tower"));
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi]={303.15, 303.15}
@@ -105,7 +114,7 @@ block Controller
     annotation (Dialog(tab="Less coupled plant",
                        group="Supply water temperature controller",
                        enable=not closeCoupledPlant));
-  parameter Real speChe=0.005 "Lower threshold value to check fan or pump speed"
+  parameter Real speChe=0.01 "Lower threshold value to check fan or pump speed"
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowSpeWSE(
@@ -119,7 +128,7 @@ block Controller
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-200,190},{-160,230}}),
       iconTransformation(extent={{-240,130},{-200,170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
     "Waterside economizer status: true=ON"
     annotation (Placement(transformation(extent={{-200,150},{-160,190}}),
       iconTransformation(extent={{-240,100},{-200,140}})));
@@ -147,6 +156,7 @@ block Controller
       iconTransformation(extent={{-240,-20},{-200,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final quantity="ThermodynamicTemperature",
+    final displayUnit="degC",
     final unit="K") "Chilled water supply setpoint temperature"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-240,-80},{-200,-40}})));
@@ -156,6 +166,7 @@ block Controller
       iconTransformation(extent={{-240,-110},{-200,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final quantity="ThermodynamicTemperature",
+    final displayUnit="degC",
     final unit="K") "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
       iconTransformation(extent={{-240,-140},{-200,-100}})));
@@ -167,6 +178,7 @@ block Controller
       iconTransformation(extent={{-240,-170},{-200,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final quantity="ThermodynamicTemperature",
+    final displayUnit="degC",
     final unit="K") if not closeCoupledPlant
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-200,-300},{-160,-260}}),
@@ -184,13 +196,16 @@ block Controller
     final iniPlaTim=iniPlaTim,
     final ramTim=ramTim,
     final TConWatRet_nominal=TConWatRet_nominal,
-    final TChiWatSupMin=TChiWatSupMin)    "Return temperature setpoint"
+    final TChiWatSupMin=TChiWatSupMin) "Return temperature setpoint"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences.Enable enaTow(
     final nChi=nChi,
     final nTowCel=nTowCel,
     final fanSpeChe=speChe,
-    final fanSpeMin=fanSpeMin) "Enable and disable cooling tower fans"
+    final fanSpeMin=fanSpeMin,
+    final cheMinFanSpe=cheMinFanSpe,
+    final cheMaxTowSpe=cheMaxTowSpe,
+    final cheTowOff=cheTowOff) "Enable and disable cooling tower fans"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.FanSpeed.ReturnWaterTemperature.Subsequences.Coupled
     couTowSpe(
@@ -230,11 +245,13 @@ block Controller
 
 protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nu=nChi) "Multiple logical or"
+    final nu=nChi) "Check if any chiller is enabled"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 if hasWSE "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 if hasWSE
+    "Waterside economizer is not enabled"
     annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Any chiller is enabled and waterside economizer is not enabled"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain parLoaRat(
     final k=1/desCap) "Plant partial load ratio"
@@ -245,6 +262,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
+    "Switch between when waterside economizer is enabled and disabled"
     annotation (Placement(transformation(extent={{100,200},{120,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowPlrTowMaxSpe(
     final k=0.7)
@@ -272,7 +290,7 @@ protected
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis proOn[nConWatPum](
     final uLow=fill(speChe, nConWatPum),
-    final uHigh=fill(speChe + 0.005, nConWatPum))
+    final uHigh=fill(2*speChe, nConWatPum))
     "Check if the condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nConWatPum]
@@ -283,7 +301,7 @@ protected
     annotation (Placement(transformation(extent={{-20,-250},{0,-230}})));
 
 equation
-  connect(uWSE, not1.u)
+  connect(uWseSta, not1.u)
     annotation (Line(points={{-180,170},{-122,170}}, color={255,0,255}));
   connect(mulOr.y, and2.u1)
     annotation (Line(points={{-98,210},{-22,210}}, color={255,0,255}));
@@ -360,7 +378,7 @@ equation
   connect(plrTowMaxSpe.y, lesCouTowSpe.plrTowMaxSpe)
     annotation (Line(points={{2,110},{20,110},{20,-220},{38,-220}},
       color={0,0,127}));
-  connect(enaTow.yTow, swi.u2)
+  connect(enaTow.yTowSta, swi.u2)
     annotation (Line(points={{62,20},{80,20},{80,0},{118,0}}, color={255,0,255}));
   connect(couTowSpe.yFanSpe, swi.u1)
     annotation (Line(points={{62,-130},{100,-130},{100,8},{118,8}},
@@ -480,7 +498,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="- if no chiller enabled, then tower fan speed should be zero;"),
+          textString="- if no chiller is enabled, then tower fan speed should be zero;"),
           Text(
           extent={{-148,258},{-14,248}},
           pattern=LinePattern.None,
@@ -488,7 +506,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="- if any chiller enabled, then control fan speed with sequence here;"),
+          textString="- if any chiller is enabled, then control fan speed with sequence here;"),
           Text(
           extent={{6,278},{70,266}},
           pattern=LinePattern.None,
@@ -515,7 +533,7 @@ annotation (
           textString="- if WSE is enabled, then fan speed will be controlled by uTowSpeWSE;")}),
 Documentation(info="<html>
 <p>
-Block that outputs cooling tower fan speed <code>yTowSpe</code> for maintaining
+Block that outputs cooling tower fan speed <code>yFanSpe</code> for maintaining
 condenser water return temperature at setpoint. This is implemented 
 according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), section 5.2.12.2, 

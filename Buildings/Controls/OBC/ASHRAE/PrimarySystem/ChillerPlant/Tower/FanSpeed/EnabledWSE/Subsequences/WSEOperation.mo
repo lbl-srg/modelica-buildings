@@ -5,7 +5,8 @@ block WSEOperation
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Real fanSpeMax=1 "Maximum tower fan speed";
   parameter Real fanSpeChe = 0.05 "Lower threshold value to check fan speed";
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Chilled water controller"));
   parameter Real k=1 "Gain of controller"
@@ -88,7 +89,8 @@ protected
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg "Output true at the moment when input becomes true"
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Output true at the moment when input becomes true"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
@@ -98,7 +100,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     final uLow=0.5*5/9,
     final uHigh=1.5*5/9)
-    "Check if chilled water supply temperature is greater than setpoint by 1 degF"
+    "Check if chilled water supply temperature is greater than setpoint by a threshold delta"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID chiWatTemCon(
     final controllerType=chiWatCon,
