@@ -4,11 +4,11 @@ block EnableProcesses "Sequence for process of enabling cells"
   parameter Integer nTowCel = 4
     "Total number of cooling tower cells";
   parameter Modelica.SIunits.Time chaTowCelIsoTim = 90
-    "Time to slowly change isolation valve";
+    "Nominal time needed for open isolation valve";
   parameter Real iniValPos = 0
-    "Initial valve position, if it needs to turn on tower cell, the value should be 0";
+    "Initial valve position, 0 if the corresponded cell is originally disabled, 1 otherwise";
   parameter Real endValPos = 1
-    "Ending valve position, if it needs to turn on tower cell, the value should be 1";
+    "Ending valve position, 1 if the corresponded cell is originally disabled, 0 otherwise";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCelInd[nTowCel]
     "Array of cells to be enabled or disabled"
@@ -95,7 +95,7 @@ protected
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Logical.And and3[nTowCel] "Logical and"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2[nTowCel] "Logicla or"
+  Buildings.Controls.OBC.CDL.Logical.Or or2[nTowCel] "Logical or"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(final nu=nTowCel)
     "Logical and"

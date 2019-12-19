@@ -21,7 +21,7 @@ block Controller "Sequence of staging cooling tower cells"
     "Ending valve position, if it needs to turn on tower cell, the value should be 1"
     annotation (Dialog(group="Enable cell isolation valve"));
   parameter Modelica.SIunits.Time fallDelay = 1
-    "Fan cells stage off delay time, so it can trige the cell disable output"
+    "Fan cells stage off delay time, so it can trigger the cell disable output"
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
@@ -76,8 +76,7 @@ block Controller "Sequence of staging cooling tower cells"
 protected
   final parameter Integer towCelInd[nTowCel]={i for i in 1:nTowCel}
     "Tower cell index, {1,2,...,n}";
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences.EnableCells
-    enaTowCel(
+  Subsequences.EnableCells enaTowCel(
     final hasWSE=hasWSE,
     final nTowCel=nTowCel,
     final totChiSta=totChiSta,
@@ -129,7 +128,7 @@ equation
   connect(enaTowCel.yEnaCel, towCelStaPro.uEnaCel)
     annotation (Line(points={{-38,115}, {-14,115},{-14,-24},{-2,-24}},
       color={255,0,255}));
-  connect(enaTowCel.uWSE, uWSE)
+  connect(enaTowCel.uWseSta, uWSE)
     annotation (Line(points={{-62,117},{-92.5,117},{-92.5,100},{-120,100}},
       color={255,0,255}));
   connect(enaTowCel.uChiSta, uChiSta)

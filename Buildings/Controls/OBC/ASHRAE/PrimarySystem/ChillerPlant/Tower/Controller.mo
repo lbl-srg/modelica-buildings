@@ -60,12 +60,6 @@ block Controller "Cooling tower controller"
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
-  parameter Modelica.SIunits.Time iniPlaTim=600
-    "Time to hold return temperature at initial setpoint after plant being enabled"
-    annotation (Dialog(tab="Fan speed", group="Return temperature control"));
-  parameter Modelica.SIunits.Time ramTim=180
-    "Time to ramp return water temperature from initial value to setpoint"
-    annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi]={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
@@ -151,6 +145,21 @@ block Controller "Cooling tower controller"
   parameter Real speChe=0.005
     "Lower threshold value to check fan or pump speed"
     annotation (Dialog(tab="Fan speed", group="Advanced"));
+  parameter Modelica.SIunits.Time iniPlaTim=600
+    "Time to hold return temperature at initial setpoint after plant being enabled"
+    annotation (Dialog(tab="Fan speed", group="Advanced"));
+  parameter Modelica.SIunits.Time ramTim=180
+    "Time to ramp return water temperature from initial value to setpoint"
+    annotation (Dialog(tab="Fan speed", group="Advanced"));
+  parameter Real cheMinFanSpe=300
+    "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
+    annotation (Dialog(tab="Fan speed", group="Advanced"));
+  parameter Real cheMaxTowSpe=300
+    "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
+    annotation (Dialog(tab="Fan speed", group="Advanced"));
+  parameter Real cheTowOff=60
+    "Threshold time for checking duration when there is no enabled tower fan"
+    annotation (Dialog(tab="Fan speed", group="Advanced"));
 
   // Tower staging
   parameter Real staVec[totChiSta]={0,0.5,1,1.5,2,2.5}
@@ -173,27 +182,27 @@ block Controller "Cooling tower controller"
     annotation (Dialog(tab="Tower staging", group="Advanced"));
 
   // Water level control
-  parameter Modelica.SIunits.Length watLevMin(final min=0)=0.7
+  parameter Real watLevMin(final min=0)=0.7
     "Minimum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
-  parameter Modelica.SIunits.Length watLevMax(final min=watLevMin)=1
-    "maximum cooling tower water level recommended by manufacturer"
+  parameter Real watLevMax(final min=watLevMin)=1
+    "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
     final unit=fill("W", nChi),
-    final quantity=fill("Power", nChi)) if hasWSE "Current load of each chillerCurrent load of each chiller"
+    final quantity=fill("HeatFlowRate", nChi)) if hasWSE "Current load of each chillerCurrent load of each chiller"
     annotation (Placement(transformation(extent={{-140,200},{-100,240}}),
       iconTransformation(extent={{-140,180},{-100,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,180},{-100,220}}),
       iconTransformation(extent={{-140,160},{-100,200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,160},{-100,200}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
      final min=0,
      final max=1,
      final unit="1") "Tower fan speed"
@@ -201,19 +210,21 @@ block Controller "Cooling tower controller"
       iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature") if hasWSE
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput reqPlaCap(
     final unit="W",
-    final quantity="Power") "Current required plant capacity"
+    final quantity="HeatFlowRate") "Current required plant capacity"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
@@ -233,6 +244,7 @@ block Controller "Cooling tower controller"
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -244,6 +256,7 @@ block Controller "Cooling tower controller"
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not closeCoupledPlant
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
@@ -279,8 +292,8 @@ block Controller "Cooling tower controller"
     "Cooling tower cells isolation valve position"
     annotation (Placement(transformation(extent={{-140,-240},{-100,-200}}),
       iconTransformation(extent={{-140,-200},{-100,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev(
-    final quantity="Length") "Measured water level"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev
+    "Measured water level"
     annotation (Placement(transformation(extent={{-140,-260},{-100,-220}}),
       iconTransformation(extent={{-140,-220},{-100,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowSta[nTowCel]
@@ -336,6 +349,9 @@ protected
     final TiWSE=TiWSE,
     final TdWSE=TdWSE,
     final LIFT_min=LIFT_min,
+    cheMinFanSpe=cheMinFanSpe,
+    cheMaxTowSpe=cheMaxTowSpe,
+    cheTowOff=cheTowOff,
     final iniPlaTim=iniPlaTim,
     final ramTim=ramTim,
     final TConWatRet_nominal=TConWatRet_nominal,
@@ -394,9 +410,9 @@ equation
     annotation (Line(points={{-22,39},{-40,39},{-40,220},{-120,220}}, color={0,0,127}));
   connect(towFanSpe.uChi, uChi)
     annotation (Line(points={{-22,36},{-44,36},{-44,200},{-120,200}}, color={255,0,255}));
-  connect(towFanSpe.uWseSta, uWSE) annotation (Line(points={{-22,33},{-48,33},{
-          -48,180},{-120,180}}, color={255,0,255}));
-  connect(towFanSpe.uFanSpe, uTowSpe)
+  connect(towFanSpe.uWseSta, uWseSta) annotation (Line(points={{-22,33},{-48,33},
+          {-48,180},{-120,180}}, color={255,0,255}));
+  connect(towFanSpe.uFanSpe,uFanSpe)
     annotation (Line(points={{-22,30},{-52,30},{-52,160},{-120,160}}, color={0,0,127}));
   connect(towFanSpe.TChiWatSup, TChiWatSup)
     annotation (Line(points={{-22,27},{-56,27},{-56,140},{-120,140}}, color={0,0,127}));
@@ -418,8 +434,8 @@ equation
     annotation (Line(points={{-22,1},{-68,1},{-68,-60},{-120,-60}}, color={0,0,127}));
   connect(towSta.uChiSta, uChiSta)
     annotation (Line(points={{-22,-31},{-64,-31},{-64,-100},{-120,-100}}, color={255,127,0}));
-  connect(uWSE, towSta.uWSE)
-    annotation (Line(points={{-120,180},{-48,180},{-48,-33},{-22,-33}}, color={255,0,255}));
+  connect(uWseSta, towSta.uWSE) annotation (Line(points={{-120,180},{-48,180},{-48,
+          -33},{-22,-33}}, color={255,0,255}));
   connect(towSta.uTowCelPri, uTowCelPri)
     annotation (Line(points={{-22,-37},{-60,-37},{-60,-120},{-120,-120}}, color={255,127,0}));
   connect(towSta.uStaUp, uStaUp)

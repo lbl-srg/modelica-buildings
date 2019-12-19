@@ -172,9 +172,9 @@ equation
           {-30,338},{198,338}}, color={255,0,255}));
   connect(chiSta2.y, towCon.uChi[2]) annotation (Line(points={{-338,200},{-30,200},
           {-30,338},{198,338}}, color={255,0,255}));
-  connect(wseSta.y, towCon.uWSE) annotation (Line(points={{-338,170},{-20,170},{
-          -20,336},{198,336}}, color={255,0,255}));
-  connect(towFanSpe3.y, towCon.uTowSpe) annotation (Line(points={{-298,140},{-10,
+  connect(wseSta.y, towCon.uWseSta) annotation (Line(points={{-338,170},{-20,
+          170},{-20,336},{198,336}}, color={255,0,255}));
+  connect(towFanSpe3.y,towCon.uFanSpe)  annotation (Line(points={{-298,140},{-10,
           140},{-10,334},{198,334}}, color={0,0,127}));
   connect(add2.y, towCon.TChiWatSup) annotation (Line(points={{-238,90},{0,90},{
           0,332},{198,332}}, color={0,0,127}));

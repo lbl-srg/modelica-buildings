@@ -1,16 +1,17 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower;
 block WaterLevel
   "Sequences to control water level in cooling tower"
-  parameter Modelica.SIunits.Length watLevMin(
+
+  parameter Real watLevMin(
     final min=0,
     final max=watLevMax)
     "Minimum cooling tower water level recommended by manufacturer";
-  parameter Modelica.SIunits.Length watLevMax(
+  parameter Real watLevMax(
     final min=watLevMin)
-    "maximum cooling tower water level recommended by manufacturer";
+    "Maximum cooling tower water level recommended by manufacturer";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev(
-    final quantity="Length") "Measured water level"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev
+    "Measured water level"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMakUp
@@ -19,24 +20,21 @@ block WaterLevel
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=watLevMin,
-    final k=-1)
-    "Minimum level minus current level"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=watLevMin - watLevMax,
-    final uHigh=0)
+    final uLow=watLevMin,
+    final uHigh=watLevMax)
     "Check if water level is lower than minimum level"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
-  connect(watLev, addPar.u)
-    annotation (Line(points={{-120,0},{-62,0}}, color={0,0,127}));
-  connect(addPar.y, hys.u)
-    annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
-  connect(hys.y, yMakUp)
-    annotation (Line(points={{12,0},{120,0}}, color={255,0,255}));
+  connect(watLev, hys.u)
+    annotation (Line(points={{-120,0},{-12,0}}, color={0,0,127}));
+  connect(hys.y, not1.u)
+    annotation (Line(points={{12,0},{38,0}}, color={255,0,255}));
+  connect(not1.y, yMakUp)
+    annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
 
 annotation (
   defaultComponentName = "makUpWat",
@@ -63,8 +61,11 @@ annotation (
           textString="%name")}),
 Documentation(info="<html>
 <p>
-Block that output <code>yMakUp</code> to control cooling tower make-up water
-valve.
+Block that outputs <code>yMakUp</code> to control cooling tower make-up water
+valve. It is implemented according to 
+ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
+Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
+section 5.2.13, tower make-up water.
 </p>
 <p>
 Make-up water valve shall cycle based on tower water fill level sensor. The

@@ -27,6 +27,7 @@ block Setpoint "Calculate condener return water temperature setpoint"
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply setpoint temperature"
     annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}),
@@ -37,6 +38,7 @@ block Setpoint "Calculate condener return water temperature setpoint"
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatRetSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{180,-130},{220,-90}}),

@@ -20,7 +20,7 @@ model Controller "Validation sequence of tower cell controller"
     final period=3600,
     final startTime=300) "Boolean pulse"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger chiSta "Chiller stage "
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger chiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaPri[4](
     final k={4,1,2,3})

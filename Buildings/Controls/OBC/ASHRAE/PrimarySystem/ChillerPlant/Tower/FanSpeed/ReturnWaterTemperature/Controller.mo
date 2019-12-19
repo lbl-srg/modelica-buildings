@@ -9,9 +9,6 @@ block Controller
   parameter Boolean closeCoupledPlant=true "Flag to indicate if the plant is close coupled";
   parameter Modelica.SIunits.HeatFlowRate desCap = 1e6 "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
-
-
-
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi]={303.15, 303.15}
@@ -137,7 +134,7 @@ block Controller
       iconTransformation(extent={{-240,100},{-200,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput reqPlaCap(
     final unit="W",
-    final quantity="Power") "Current required plant capacity"
+    final quantity="HeatFlowRate") "Current required plant capacity"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
       iconTransformation(extent={{-240,70},{-200,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](

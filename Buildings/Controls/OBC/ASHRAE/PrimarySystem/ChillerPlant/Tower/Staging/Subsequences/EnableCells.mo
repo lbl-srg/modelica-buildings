@@ -1,5 +1,6 @@
 ﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Tower.Staging.Subsequences;
-block EnableCells "Sequence for identifying enabing and disabling cells"
+block EnableCells
+  "Sequence for identifying enabing and disabling cells"
 
   parameter Boolean hasWSE = true
     "Flag to indicate if the plant has waterside economizer";
@@ -17,10 +18,11 @@ block EnableCells "Sequence for identifying enabing and disabling cells"
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-520,460},{-480,500}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
-    "Water side economizer status: true = ON, false = OFF"
-    annotation (Placement(transformation(extent={{-520,320},{-480,360}}),
-      iconTransformation(extent={{-140,50},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if
+                                                             hasWSE
+    "Water side economizer status: true = ON, false = OFF" annotation (
+      Placement(transformation(extent={{-520,320},{-480,360}}),
+        iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
     "Current cooling tower operating status: true=running tower cell"
     annotation (Placement(transformation(extent={{-520,140},{-480,180}}),
@@ -50,11 +52,11 @@ block EnableCells "Sequence for identifying enabing and disabling cells"
     annotation (Placement(transformation(extent={{480,410},{520,450}}),
       iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaCel
-    "If ture, indicate that it should start enabling new cells"
+    "If true, indicate that it should start enabling new cells"
     annotation (Placement(transformation(extent={{480,360},{522,402}}),
       iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDisCel
-    "If ture, indicate that it should start disabling existing cells"
+    "If true, indicate that it should start disabling existing cells"
     annotation (Placement(transformation(extent={{480,130},{520,170}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yEnaCelInd[nTowCel]
@@ -126,11 +128,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nTowCel](
     final k=fill(false, nTowCel)) "Logical false"
     annotation (Placement(transformation(extent={{-80,-340},{-60,-320}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3[nTowCel] "Logical or"
+  Buildings.Controls.OBC.CDL.Logical.Or3 enaTwo[nTowCel]
+    "Enable two more cells"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and7[nTowCel] "Logical and"
     annotation (Placement(transformation(extent={{80,-320},{100,-300}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2[nTowCel] "Logical or"
+  Buildings.Controls.OBC.CDL.Logical.Or enaOne[nTowCel] "Enable one more cell"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And and8[nTowCel] "Logical and"
     annotation (Placement(transformation(extent={{80,-270},{100,-250}})));
@@ -342,7 +345,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi6[nTowCel]
     "Check next enabling cell"
     annotation (Placement(transformation(extent={{280,390},{300,410}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi7[nTowCel]
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch oneMor[nTowCel]
     "Check next enabling cell"
     annotation (Placement(transformation(extent={{400,420},{420,440}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi8[nTowCel]
@@ -354,7 +357,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi10[nTowCel]
     "Check next enabling cell"
     annotation (Placement(transformation(extent={{340,300},{360,320}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi11[nTowCel]
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch twoMor[nTowCel]
     "Check next enabling cell"
     annotation (Placement(transformation(extent={{400,320},{420,340}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi12[nTowCel]
@@ -366,7 +369,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi14[nTowCel]
     "Check next disabling cell"
     annotation (Placement(transformation(extent={{340,190},{360,210}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi15[nTowCel]
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch oneLes[nTowCel]
     "Check next disabling cell"
     annotation (Placement(transformation(extent={{400,210},{420,230}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi16[nTowCel]
@@ -378,7 +381,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi18[nTowCel]
     "Check next disabling cell"
     annotation (Placement(transformation(extent={{340,80},{360,100}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi19[nTowCel]
+  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch twoLes[nTowCel]
     "Check next disabling cell"
     annotation (Placement(transformation(extent={{400,80},{420,100}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi20
@@ -564,15 +567,15 @@ equation
           -20,-232},{-2,-232}}, color={255,0,255}));
   connect(con1.y, logSwi2.u1) annotation (Line(points={{-58,-330},{-20,-330},{
           -20,-282},{-2,-282}}, color={255,0,255}));
-  connect(uTowSta, or3.u1) annotation (Line(points={{-500,160},{-440,160},{-440,
+  connect(uTowSta, enaTwo.u1) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-112},{78,-112}}, color={255,0,255}));
-  connect(logSwi.y, or3.u2) annotation (Line(points={{22,-140},{40,-140},{40,
+  connect(logSwi.y, enaTwo.u2) annotation (Line(points={{22,-140},{40,-140},{40,
           -120},{78,-120}}, color={255,0,255}));
-  connect(logSwi1.y, or3.u3) annotation (Line(points={{22,-190},{60,-190},{60,
+  connect(logSwi1.y, enaTwo.u3) annotation (Line(points={{22,-190},{60,-190},{60,
           -128},{78,-128}}, color={255,0,255}));
-  connect(uTowSta, or2.u1) annotation (Line(points={{-500,160},{-440,160},{-440,
+  connect(uTowSta, enaOne.u1) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{78,-80}}, color={255,0,255}));
-  connect(logSwi.y, or2.u2) annotation (Line(points={{22,-140},{40,-140},{40,
+  connect(logSwi.y, enaOne.u2) annotation (Line(points={{22,-140},{40,-140},{40,
           -88},{78,-88}}, color={255,0,255}));
   connect(uTowSta, and7.u2) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-310},{78,-310}}, color={255,0,255}));
@@ -596,9 +599,9 @@ equation
           {-180,30},{-142,30}},color={255,127,0}));
   connect(conInt4.y, intEqu7.u2) annotation (Line(points={{-198,10},{-160,10},{
           -160,22},{-142,22}}, color={255,127,0}));
-  connect(uWSE, edg.u) annotation (Line(points={{-500,340},{-260,340},{-260,400},
+  connect(uWseSta, edg.u) annotation (Line(points={{-500,340},{-260,340},{-260,400},
           {-222,400}}, color={255,0,255}));
-  connect(uWSE, falEdg2.u) annotation (Line(points={{-500,340},{-260,340},{-260,
+  connect(uWseSta, falEdg2.u) annotation (Line(points={{-500,340},{-260,340},{-260,
           180},{-222,180}}, color={255,0,255}));
   connect(uChiSta, cha1.u) annotation (Line(points={{-500,480},{-222,480}},
           color={255,127,0}));
@@ -676,7 +679,7 @@ equation
     annotation (Line(points={{-418,-360},{-342,-360}}, color={255,0,255}));
   connect(booRep1.y, logSwi4.u2) annotation (Line(points={{-318,-360},{240,-360},
           {240,450},{278,450}}, color={255,0,255}));
-  connect(or2.y, logSwi4.u1) annotation (Line(points={{102,-80},{200,-80},{200,
+  connect(enaOne.y, logSwi4.u1) annotation (Line(points={{102,-80},{200,-80},{200,
           458},{278,458}}, color={255,0,255}));
   connect(uTowSta, logSwi4.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,442},{278,442}}, color={255,0,
@@ -691,19 +694,19 @@ equation
     annotation (Line(points={{62,400},{138,400}}, color={255,0,255}));
   connect(booRep4.y, logSwi6.u2)
     annotation (Line(points={{162,400},{278,400}}, color={255,0,255}));
-  connect(or2.y, logSwi6.u1) annotation (Line(points={{102,-80},{200,-80},{200,
+  connect(enaOne.y, logSwi6.u1) annotation (Line(points={{102,-80},{200,-80},{200,
           408},{278,408}}, color={255,0,255}));
   connect(uTowSta, logSwi6.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,392},{278,392}}, color={255,0,
           255}));
   connect(logSwi6.y, logSwi5.u3) annotation (Line(points={{302,400},{320,400},{
           320,422},{338,422}}, color={255,0,255}));
-  connect(logSwi5.y, logSwi7.u1) annotation (Line(points={{362,430},{370,430},{
-          370,438},{398,438}}, color={255,0,255}));
+  connect(logSwi5.y, oneMor.u1) annotation (Line(points={{362,430},{370,430},{370,
+          438},{398,438}}, color={255,0,255}));
   connect(intEqu.y, booRep5.u)
     annotation (Line(points={{-118,360},{-42,360}},color={255,0,255}));
-  connect(booRep5.y, logSwi7.u2) annotation (Line(points={{-18,360},{380,360},{
-          380,430},{398,430}}, color={255,0,255}));
+  connect(booRep5.y, oneMor.u2) annotation (Line(points={{-18,360},{380,360},{380,
+          430},{398,430}}, color={255,0,255}));
   connect(lat7.y, booRep6.u)
     annotation (Line(points={{122,310},{138,310}}, color={255,0,255}));
   connect(lat3.y, booRep7.u)
@@ -712,12 +715,12 @@ equation
     annotation (Line(points={{162,310},{338,310}}, color={255,0,255}));
   connect(booRep1.y, logSwi9.u2) annotation (Line(points={{-318,-360},{240,-360},
           {240,330},{278,330}}, color={255,0,255}));
-  connect(or3.y, logSwi9.u1) annotation (Line(points={{102,-120},{206,-120},{
+  connect(enaTwo.y, logSwi9.u1) annotation (Line(points={{102,-120},{206,-120},{
           206,338},{278,338}}, color={255,0,255}));
   connect(uTowSta, logSwi9.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,322},{278,322}}, color={255,0,
           255}));
-  connect(or3.y, logSwi8.u1) annotation (Line(points={{102,-120},{206,-120},{
+  connect(enaTwo.y, logSwi8.u1) annotation (Line(points={{102,-120},{206,-120},{
           206,288},{278,288}}, color={255,0,255}));
   connect(uTowSta, logSwi8.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
           -80},{-40,-80},{-40,-60},{180,-60},{180,272},{278,272}}, color={255,0,
@@ -734,12 +737,12 @@ equation
     annotation (Line(points={{-118,140},{-42,140}},color={255,0,255}));
   connect(intEqu5.y, booRep2.u)
     annotation (Line(points={{-118,250},{-42,250}},color={255,0,255}));
-  connect(logSwi10.y, logSwi11.u1) annotation (Line(points={{362,310},{370,310},
-          {370,338},{398,338}}, color={255,0,255}));
-  connect(booRep2.y, logSwi11.u2) annotation (Line(points={{-18,250},{380,250},
-          {380,330},{398,330}},color={255,0,255}));
-  connect(logSwi11.y, logSwi7.u3) annotation (Line(points={{422,330},{440,330},
-          {440,400},{388,400},{388,422},{398,422}},color={255,0,255}));
+  connect(logSwi10.y, twoMor.u1) annotation (Line(points={{362,310},{370,310},{370,
+          338},{398,338}}, color={255,0,255}));
+  connect(booRep2.y, twoMor.u2) annotation (Line(points={{-18,250},{380,250},{380,
+          330},{398,330}}, color={255,0,255}));
+  connect(twoMor.y, oneMor.u3) annotation (Line(points={{422,330},{440,330},{440,
+          400},{388,400},{388,422},{398,422}}, color={255,0,255}));
   connect(lat8.y, booRep10.u)
     annotation (Line(points={{122,200},{138,200}}, color={255,0,255}));
   connect(lat4.y, booRep11.u)
@@ -750,12 +753,12 @@ equation
           {320,208},{338,208}}, color={255,0,255}));
   connect(logSwi12.y, logSwi14.u3) annotation (Line(points={{302,170},{320,170},
           {320,192},{338,192}}, color={255,0,255}));
-  connect(logSwi14.y, logSwi15.u1) annotation (Line(points={{362,200},{370,200},
-          {370,228},{398,228}}, color={255,0,255}));
-  connect(logSwi15.y, logSwi11.u3) annotation (Line(points={{422,220},{440,220},
-          {440,300},{390,300},{390,322},{398,322}}, color={255,0,255}));
-  connect(booRep8.y, logSwi15.u2) annotation (Line(points={{-18,140},{380,140},
-          {380,220},{398,220}},color={255,0,255}));
+  connect(logSwi14.y, oneLes.u1) annotation (Line(points={{362,200},{370,200},{370,
+          228},{398,228}}, color={255,0,255}));
+  connect(oneLes.y, twoMor.u3) annotation (Line(points={{422,220},{440,220},{440,
+          300},{390,300},{390,322},{398,322}}, color={255,0,255}));
+  connect(booRep8.y, oneLes.u2) annotation (Line(points={{-18,140},{380,140},{380,
+          220},{398,220}}, color={255,0,255}));
   connect(and1.y, booRep12.u)
     annotation (Line(points={{-418,-440},{-342,-440}}, color={255,0,255}));
   connect(booRep12.y, logSwi13.u2) annotation (Line(points={{-318,-440},{260,
@@ -784,10 +787,10 @@ equation
           320,82},{338,82}}, color={255,0,255}));
   connect(logSwi17.y, logSwi18.u1) annotation (Line(points={{302,110},{320,110},
           {320,98},{338,98}}, color={255,0,255}));
-  connect(logSwi18.y, logSwi19.u1) annotation (Line(points={{362,90},{370,90},{
-          370,98},{398,98}}, color={255,0,255}));
-  connect(logSwi19.y, logSwi15.u3) annotation (Line(points={{422,90},{440,90},{
-          440,200},{390,200},{390,212},{398,212}}, color={255,0,255}));
+  connect(logSwi18.y, twoLes.u1) annotation (Line(points={{362,90},{370,90},{370,
+          98},{398,98}}, color={255,0,255}));
+  connect(twoLes.y, oneLes.u3) annotation (Line(points={{422,90},{440,90},{440,200},
+          {390,200},{390,212},{398,212}}, color={255,0,255}));
   connect(booRep12.y, logSwi17.u2) annotation (Line(points={{-318,-440},{260,
           -440},{260,110},{278,110}}, color={255,0,255}));
   connect(and7.y, logSwi17.u1) annotation (Line(points={{102,-310},{220,-310},{
@@ -800,12 +803,11 @@ equation
   connect(uTowSta, logSwi16.u3) annotation (Line(points={{-500,160},{-440,160},{
           -440,-80},{-40,-80},{-40,-60},{180,-60},{180,52},{278,52}}, color={255,
           0,255}));
-  connect(booRep9.y, logSwi19.u2) annotation (Line(points={{-18,30},{380,30},{
-          380,90},{398,90}}, color={255,0,255}));
-  connect(uTowSta, logSwi19.u3) annotation (Line(points={{-500,160},{-440,160},{
-          -440,-80},{-40,-80},{-40,-60},{390,-60},{390,82},{398,82}}, color={255,
-          0,255}));
-  connect(logSwi7.y, yTarTowSta)
+  connect(booRep9.y, twoLes.u2) annotation (Line(points={{-18,30},{380,30},{380,
+          90},{398,90}}, color={255,0,255}));
+  connect(uTowSta, twoLes.u3) annotation (Line(points={{-500,160},{-440,160},{-440,
+          -80},{-40,-80},{-40,-60},{390,-60},{390,82},{398,82}}, color={255,0,255}));
+  connect(oneMor.y, yTarTowSta)
     annotation (Line(points={{422,430},{500,430}}, color={255,0,255}));
   connect(booToRea.y, mulSum.u)
     annotation (Line(points={{-398,160},{-382,160}}, color={0,0,127}));
@@ -944,9 +946,8 @@ equation
   connect(uChiSta, intToRea.u)
     annotation (Line(points={{-500,480},{-460,480},{-460,460},{-442,460}},
       color={255,127,0}));
-  connect(uWSE, booToRea1.u)
-    annotation (Line(points={{-500,340},{-460,340},{-460,360},{-442,360}},
-      color={255,0,255}));
+  connect(uWseSta, booToRea1.u) annotation (Line(points={{-500,340},{-460,340},{
+          -460,360},{-442,360}}, color={255,0,255}));
   connect(con2.y, booToRea1.u)
     annotation (Line(points={{-438,300},{-420,300},{-420,328},{-460,328},
       {-460,360},{-442,360}}, color={255,0,255}));
@@ -1043,79 +1044,63 @@ to tower cell operation priority list"),
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{54,464},{176,444}},
+          extent={{120,464},{176,444}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Enable next one cell due to plant stage-up"),
+          textString="due to plant stage-up"),
           Text(
-          extent={{64,396},{176,378}},
+          extent={{124,392},{176,380}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Enable next one cell due to enable WSE"),
+          textString="due to enable WSE"),
           Text(
-          extent={{60,276},{172,258}},
+          extent={{126,274},{178,260}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Enable next two cells due to enable WSE"),
+          textString="due to enable WSE"),
           Rectangle(
           extent={{-58,228},{178,152}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{64,166},{176,148}},
+          extent={{122,166},{178,148}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Disable current cell due to disable WSE"),
+          textString="due to disable WSE"),
           Text(
-          extent={{66,232},{176,216}},
+          extent={{126,230},{176,218}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Disable current cell due to stage-down"),
+          textString="due to stage-down"),
           Text(
-          extent={{52,344},{174,324}},
+          extent={{122,340},{178,326}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Enable next two cells due to plant stage-up"),
+          textString="due to plant stage-up"),
           Rectangle(
           extent={{-58,118},{178,42}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-          Text(
-          extent={{66,122},{176,106}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
-          horizontalAlignment=TextAlignment.Right,
-          textString="Disable two cells due to stage-down"),
-          Text(
-          extent={{64,56},{176,38}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
-          horizontalAlignment=TextAlignment.Right,
-          textString="Disable two cells due to disable WSE"),
           Text(
           extent={{130,498},{370,462}},
           pattern=LinePattern.None,
@@ -1176,7 +1161,55 @@ means cell 2 and 3 will be enabled."),
           fillPattern=FillPattern.Solid,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
-          textString="Identify total number of operation cells")}),
+          textString="Identify total number of operation cells"),
+          Text(
+          extent={{-56,458},{-10,446}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Enable one cell"),
+          Text(
+          extent={{-56,338},{-10,328}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Enable two cells"),
+          Text(
+          extent={{-56,228},{-10,216}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Disable one cell"),
+          Text(
+          extent={{-56,118},{-10,106}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="Disable two cells"),
+          Text(
+          extent={{126,120},{176,108}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="due to stage-down"),
+          Text(
+          extent={{122,56},{178,38}},
+          pattern=LinePattern.None,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="due to disable WSE")}),
   Documentation(info="<html>
 <p>
 This block outputs vector of enabling tower cells according to current plant stage 
@@ -1184,10 +1217,16 @@ and generates boolean output to indicate if new cells should be enabled or exist
 operating cells should be disabled. It is implemented according to 
 ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
 Central Plants and Hydronic Systems (Draft 6 on July 25, 2019), 
-section 5.2.12.1, item 2 which specifies number of enabled cooling tower cells according to
-plant stage.
+section 5.2.12.1,
 </p>
-
+<ul>
+<li>item 2 which specifies number of enabled cooling tower cells according to
+plant stage.
+</li>
+<li>item 3 and 4, which specifies when the cooling tower cells should be enabled 
+disabled.
+</li>
+</ul>
 <p>
 The number of enabled tower cells shall be set by chiller stage per the table below.
 Note that the table would need to be edited by the system design team for each plant 
@@ -1226,6 +1265,26 @@ tower minimum flow requirements.
 </tr>
 </table>
 <br/>
+
+<p>
+If there is change of plant stage <code>uChiSta</code> or waterside economizer 
+status <code>uWseSta</code>, the cells should be enabled or disabled as below:
+</p>
+<ul>
+<li>
+Lead cell(s) shall be enabled when the lead condenser water pump is enabled. Lead
+cell(s) shall be disabled when all condenser water pumps are proven off.
+</li>
+<li>
+Tower stage changes shall be initiated concurrently with condenser water pump stage
+and/or condenser water pump speed changes. 
+</li>
+</ul>
+<p>
+The inputs <code>uTowStaUp</code> and <code>uTowStaDow</code> are outputs from 
+the staging process. They indicate in the planting stagin process when to change 
+the condenser water pump status so also change the tower status.
+</p>
 
 </html>", revisions="<html>
 <ul>

@@ -163,19 +163,21 @@ block Controller "Tower fan speed control"
        iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature") if hasWSE
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput reqPlaCap(
     final unit="W",
-    final quantity="Power") "Current required plant capacity"
+    final quantity="HeatFlowRate") "Current required plant capacity"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
@@ -195,6 +197,7 @@ block Controller "Tower fan speed control"
       iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -206,6 +209,7 @@ block Controller "Tower fan speed control"
       iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
+    final displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not closeCoupledPlant
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-140,-180},{-100,-140}}),

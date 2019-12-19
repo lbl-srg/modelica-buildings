@@ -24,7 +24,7 @@ model EnableCells
     final period=3600,
     final startTime=300) "Boolean pulse"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger chiSta "Chiller stage "
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger chiSta "Chiller stage"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaPri[4](
     final k={4,1,2,3})
@@ -86,9 +86,8 @@ equation
   connect(chiSta.y, enaTowCel.uChiSta)
     annotation (Line(points={{-18,180},{0,180},{0,159},{18,159}},
       color={255,127,0}));
-  connect(wseSta.y, enaTowCel.uWSE)
-    annotation (Line(points={{-78,160},{-4,160},{-4,157},{18,157}},
-      color={255,0,255}));
+  connect(wseSta.y, enaTowCel.uWseSta)
+    annotation (Line(points={{-78,160},{-4,160},{-4,157},{18,157}}, color={255,0,255}));
   connect(enaPri.y, enaTowCel.uTowCelPri)
     annotation (Line(points={{-78,130},{0,130},{0,153},{18,153}},
       color={255,127,0}));
@@ -109,7 +108,7 @@ equation
     annotation (Line(points={{-118,-190},{-102,-190}}, color={255,0,255}));
   connect(chiSta1.y, disTowCel.uChiSta)
     annotation (Line(points={{-18,-20},{4,-20},{4,-41},{18,-41}}, color={255,127,0}));
-  connect(wseSta1.y, disTowCel.uWSE)
+  connect(wseSta1.y, disTowCel.uWseSta)
     annotation (Line(points={{-78,-40},{0,-40},{0,-43},{18,-43}}, color={255,0,255}));
   connect(enaPri1.y, disTowCel.uTowCelPri)
     annotation (Line(points={{-78,-70},{0,-70},{0,-47},{18,-47}}, color={255,127,0}));
