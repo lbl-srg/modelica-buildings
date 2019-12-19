@@ -93,7 +93,7 @@ equation
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{140,80}}),
         graphics={Text(
-          extent={{-86,78},{46,52}},
+          extent={{-98,78},{34,52}},
           lineColor={28,108,200},
           textString="Need for
 Hidden.AvoidDoubleComputation=true")}),
