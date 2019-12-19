@@ -7,7 +7,7 @@ model PartialMixingVolume
     "= true to set up initial equations for pressure"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.PressureDifference dpRel_nominal = if Medium.singleState then 10000 else 1000
+  parameter Modelica.SIunits.PressureDifference dpRel_nominal = if Medium.singleState then 10000 else 100
     "Typical pressure variation during simulation, used to scale pressure state variable to numerically robust value"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
