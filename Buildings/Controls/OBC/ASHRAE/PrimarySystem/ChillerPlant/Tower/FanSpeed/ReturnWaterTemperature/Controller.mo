@@ -9,15 +9,9 @@ block Controller
   parameter Boolean closeCoupledPlant=true "Flag to indicate if the plant is close coupled";
   parameter Modelica.SIunits.HeatFlowRate desCap = 1e6 "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
-  parameter Real cheMinFanSpe=300
-    "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
-    annotation (Dialog(tab="Enable tower"));
-  parameter Real cheMaxTowSpe=300
-    "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
-    annotation (Dialog(tab="Enable tower"));
-  parameter Real cheTowOff=60
-    "Threshold time for checking duration when there is no enabled tower fan"
-    annotation (Dialog(tab="Enable tower"));
+
+
+
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Setpoint"));
   parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi]={303.15, 303.15}
@@ -26,14 +20,6 @@ block Controller
   parameter Modelica.SIunits.Temperature TChiWatSupMin[nChi] = {278.15, 278.15}
     "Lowest chilled water supply temperature of each chiller"
     annotation (Dialog(tab="Setpoint"));
-  parameter Modelica.SIunits.Time iniPlaTim=600
-    "Time to hold return temperature to initial setpoint after plant being enabled"
-    annotation (Dialog(tab="Setpoint",
-                       group="Plant startup"));
-  parameter Modelica.SIunits.Time ramTim=180
-    "Time to ramp return water temperature from initial value to setpoint"
-    annotation (Dialog(tab="Setpoint",
-                       group="Plant startup"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -116,6 +102,23 @@ block Controller
                        enable=not closeCoupledPlant));
   parameter Real speChe=0.01 "Lower threshold value to check fan or pump speed"
     annotation (Dialog(tab="Advanced"));
+  parameter Real cheMinFanSpe=300
+    "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
+    annotation (Dialog(tab="Advanced", group="Enable tower"));
+  parameter Real cheMaxTowSpe=300
+    "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
+    annotation (Dialog(tab="Advanced", group="Enable tower"));
+  parameter Real cheTowOff=60
+    "Threshold time for checking duration when there is no enabled tower fan"
+    annotation (Dialog(tab="Advanced", group="Enable tower"));
+  parameter Modelica.SIunits.Time iniPlaTim=600
+    "Time to hold return temperature to initial setpoint after plant being enabled"
+    annotation (Dialog(tab="Advanced",
+                       group="Setpoint: Plant startup"));
+  parameter Modelica.SIunits.Time ramTim=180
+    "Time to ramp return water temperature from initial value to setpoint"
+    annotation (Dialog(tab="Advanced",
+                       group="Setpoint: Plant startup"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowSpeWSE(
      final min=0,

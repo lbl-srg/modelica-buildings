@@ -50,12 +50,6 @@ block Controller "Tower fan speed control"
 
   parameter Modelica.SIunits.TemperatureDifference LIFT_min[nChi]={12,12} "Minimum LIFT of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
-  parameter Modelica.SIunits.Time iniPlaTim=600
-    "Time to hold return temperature to initial setpoint after plant being enabled"
-    annotation (Dialog(tab="Return temperature control", group="Setpoint"));
-  parameter Modelica.SIunits.Time ramTim=180
-    "Time to ramp return water temperature from initial value to setpoint"
-    annotation (Dialog(tab="Return temperature control", group="Setpoint"));
   parameter Modelica.SIunits.Temperature TConWatRet_nominal[nChi]={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Return temperature control", group="Setpoint"));
@@ -132,6 +126,21 @@ block Controller "Tower fan speed control"
                        group="Less coupled plant", enable=not closeCoupledPlant));
   parameter Real speChe=0.005 "Lower threshold value to check fan or pump speed"
     annotation (Dialog(tab="Advanced"));
+  parameter Real cheMinFanSpe=300
+    "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
+    annotation (Dialog(tab="Advanced", group="Return temperature control: Enable tower"));
+  parameter Real cheMaxTowSpe=300
+    "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
+    annotation (Dialog(tab="Advanced", group="Return temperature control: Enable tower"));
+  parameter Real cheTowOff=60
+    "Threshold time for checking duration when there is no enabled tower fan"
+    annotation (Dialog(tab="Advanced", group="Return temperature control: Enable tower"));
+  parameter Modelica.SIunits.Time iniPlaTim=600
+    "Time to hold return temperature to initial setpoint after plant being enabled"
+    annotation (Dialog(tab="Advanced", group="Return temperature control: Setpoint"));
+  parameter Modelica.SIunits.Time ramTim=180
+    "Time to ramp return water temperature from initial value to setpoint"
+    annotation (Dialog(tab="Advanced", group="Return temperature control: Setpoint"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
     final unit=fill("W", nChi),
@@ -142,7 +151,7 @@ block Controller "Tower fan speed control"
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if hasWSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
       iconTransformation(extent={{-140,110},{-100,150}})));
@@ -220,6 +229,9 @@ block Controller "Tower fan speed control"
     final LIFT_min=LIFT_min,
     final TConWatRet_nominal=TConWatRet_nominal,
     final TChiWatSupMin=TChiWatSupMin,
+    final cheMinFanSpe=cheMinFanSpe,
+    final cheMaxTowSpe=cheMaxTowSpe,
+    final cheTowOff=cheTowOff,
     final iniPlaTim=iniPlaTim,
     final ramTim=ramTim,
     final couPlaCon=couPlaCon,
@@ -271,8 +283,9 @@ equation
   connect(fanSpeWse.uChi, uChi)
     annotation (Line(points={{-42,56},{-64,56},{-64,120},{-120,120}},
       color={255,0,255}));
-  connect(fanSpeWse.uWseSta, uWSE) annotation (Line(points={{-42,52},{-68,52},{-68,
-          100},{-120,100}}, color={255,0,255}));
+  connect(fanSpeWse.uWseSta, uWseSta)
+    annotation (Line(points={{-42,52},{-68,52}, {-68,100},{-120,100}},
+      color={255,0,255}));
   connect(fanSpeWse.uFanSpe,uFanSpe)
     annotation (Line(points={{-42,48},{-72,48},{-72,80},{-120,80}},
       color={0,0,127}));
@@ -284,8 +297,9 @@ equation
   connect(uChi, fanSpeRetTem.uChi)
     annotation (Line(points={{-120,120},{-64,120},{-64,-25},{18,-25}},
       color={255,0,255}));
-  connect(uWSE, fanSpeRetTem.uWseSta) annotation (Line(points={{-120,100},{-68,
-          100},{-68,-28},{18,-28}}, color={255,0,255}));
+  connect(uWseSta, fanSpeRetTem.uWseSta)
+    annotation (Line(points={{-120,100},{-68,100},{-68,-28},{18,-28}},
+      color={255,0,255}));
   connect(fanSpeRetTem.reqPlaCap, reqPlaCap)
     annotation (Line(points={{18,-31},{-76,-31},{-76,0},{-120,0}},
       color={0,0,127}));

@@ -394,8 +394,8 @@ equation
     annotation (Line(points={{-22,39},{-40,39},{-40,220},{-120,220}}, color={0,0,127}));
   connect(towFanSpe.uChi, uChi)
     annotation (Line(points={{-22,36},{-44,36},{-44,200},{-120,200}}, color={255,0,255}));
-  connect(towFanSpe.uWSE, uWSE)
-    annotation (Line(points={{-22,33},{-48,33},{-48,180},{-120,180}}, color={255,0,255}));
+  connect(towFanSpe.uWseSta, uWSE) annotation (Line(points={{-22,33},{-48,33},{
+          -48,180},{-120,180}}, color={255,0,255}));
   connect(towFanSpe.uFanSpe, uTowSpe)
     annotation (Line(points={{-22,30},{-52,30},{-52,160},{-120,160}}, color={0,0,127}));
   connect(towFanSpe.TChiWatSup, TChiWatSup)
