@@ -8,8 +8,6 @@ model SpeedControlled_y
     final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed,
-    final dpMax = max(per.pressure.dp[:]),
-    dpRel_nominal = dpMax,
     filter(
       final y_start=y_start,
       u_nominal=1,
@@ -111,13 +109,6 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
-<li>
-December 17, 2019, by Michael Wetter:<br/>
-Set scaling of relative pressure state based on fan head.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1671\">
-issue 1671</a>.
-</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>

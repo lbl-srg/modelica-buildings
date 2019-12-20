@@ -7,8 +7,6 @@ model FlowControlled_dp
     preSou(dp_start=dp_start, control_dp= not prescribeSystemPressure),
     final stageInputs(each final unit="Pa") = heads,
     final constInput(final unit="Pa") = constantHead,
-    final dpMax = max(per.pressure.dp[:]),
-    dpRel_nominal=if dpMax > 1 then dpMax else dp_nominal,
     filter(
       final y_start=dp_start,
       u_nominal=abs(dp_nominal),
@@ -29,7 +27,7 @@ model FlowControlled_dp
     displayUnit="Pa")=0 "Initial value of pressure raise"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
 
-  // For air, we set dp_nominal = 500 as default, for water we set 10000
+  // For air, we set dp_nominal = 600 as default, for water we set 10000
   parameter Modelica.SIunits.PressureDifference dp_nominal(
     min=0,
     displayUnit="Pa")=
@@ -158,13 +156,6 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </html>",
       revisions="<html>
 <ul>
-<li>
-December 17, 2019, by Michael Wetter:<br/>
-Set scaling of relative pressure state based on fan head.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1671\">
-issue 1671</a>.
-</li>
 <li>
 May 5, 2017, by Filip Jorissen:<br/>
 Added parameters, documentation and functionality for

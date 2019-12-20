@@ -6,8 +6,6 @@ model FlowControlled_m_flow
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
     final stageInputs(each final unit="kg/s")=massFlowRates,
     final constInput(final unit="kg/s")=constantMassFlowRate,
-    final dpMax = max(per.pressure.dp[:]),
-    dpRel_nominal=if dpMax > 1 then dpMax else dp_nominal,
     filter(
       final y_start=m_flow_start,
       u_nominal=m_flow_nominal,
@@ -102,13 +100,6 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
-<li>
-December 17, 2019, by Michael Wetter:<br/>
-Set scaling of relative pressure state based on fan head.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1671\">
-issue 1671</a>.
-</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
