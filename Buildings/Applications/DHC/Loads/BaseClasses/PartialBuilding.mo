@@ -47,12 +47,12 @@ partial model PartialBuilding "Partial class for building model"
       iconTransformation(extent={{90,-100},{110,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHea_flow(
     final quantity="HeatFlowRate", final unit="W")
-    "Heating heat flow rate transferred to the loads (>=0)"
+    "Total heating heat flow rate transferred to the loads (>=0)"
     annotation (Placement(transformation(extent={{300,260},{340,300}}),
         iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCoo_flow(
     final quantity="HeatFlowRate", final unit="W")
-    "Cooling heat flow rate transferred to the loads (<=0)"
+    "Total cooling heat flow rate transferred to the loads (<=0)"
     annotation (Placement(transformation(extent={{300,220},{340,260}}),
         iconTransformation(extent={{100,50},{140,90}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
@@ -78,58 +78,15 @@ partial model PartialBuilding "Partial class for building model"
   annotation (
   defaultComponentName="heaFloEps",
   Documentation(info="<html>
-  <p>
-  Partial model for connecting loads at uniform temperature with a hot water and a chilled water loop
-  by means of two arrays of heat ports: one for heating, the other for cooling.
-  It is typically used in conjunction with
-  <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.HeatingOrCooling\">
-  Buildings.DistrictEnergySystem.Loads.BaseClasses.HeatingOrCooling</a>.
-  </p>
-  <p>
-  Models that extend from this model must:
-  </p>
-  <ul>
-  <li>
-  specify a method to compute the temperature of the load. The following predefined types are implemented:
-    <ul>
-    <li>
-    Thermal model with heat port: the derived model provides the system of equations to compute the load
-    temperature which is exposed through a heat port. This heat port must be connected to the heat ports of the
-    partial model in order to transfer the sensible heat flow rate from the water loop to the load.
-    See <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.Examples.CouplingRC\">
-    Buildings.DistrictEnergySystem.Loads.Examples.CouplingRC</a> for a typical example.
-    </li>
-    <li>
-    Temperature based on first order ODE: this method is implemented in
-    <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.FirstOrderODE\">
-    Buildings.DistrictEnergySystem.Loads.BaseClasses.FirstOrderODE</a>
-    which gets conditionally instantiated and connected as many times as this predefined type is selected.
-    See <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.Examples.CouplingTimeSeries\">
-    Buildings.DistrictEnergySystem.Loads.Examples.CouplingTimeSeries</a> for a typical example.
-    </li>
-    <li>
-    Prescribed temperature: this method uses
-    <a href=\"modelica://Buildings.HeatTransfer.Sources.PrescribedTemperature\">
-    Buildings.HeatTransfer.Sources.PrescribedTemperature</a>
-    which gets conditionally instantiated and connected as many times as this predefined type is selected.
-    See <a href=\"modelica://Buildings.DistrictEnergySystem.Loads.Examples.CouplingTimeSeries\">
-    Buildings.DistrictEnergySystem.Loads.Examples.CouplingTimeSeries</a> for a typical example.
-    </li>
-    </ul>
-  </li>
-  <li>
-  provide the heating and cooling heat flow rate required to maintain the load temperature setpoint. The
-  corresponding variables must be connected to the output connectors <code>Q_flowHeaReq</code> and
-  <code>Q_flowCooReq</code>.
-  </li>
-  </ul>
-  <p>
-  The other output connectors <code>Q_flowHeaAct</code> and <code>Q_flowCooAct</code> correspond to the actual
-  heat flow rates exchanged with the water loops.
-  They are provided as a simple means of accessing the heat flow rate of each heat port from a higher level of
-  composition.
-  </p>
-  </html>"),
+<p>
+Partial model to be used for modeling the building loads to be served by an energy
+transfer station and/or a dedicated plant.
+The fluid ports represent the connection between the production system and
+the distribution system.
+Every mechanical system downstream that connection should be modeled within a
+component derived from that partial model.
+</p>
+</html>"),
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100}, {100,100}})),
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},{300,300}})));
 end PartialBuilding;

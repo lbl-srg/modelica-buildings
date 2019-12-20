@@ -161,50 +161,45 @@ defaultComponentName="disFlo",
 Documentation(
 info="<html>
 <p>
-This model computes the steady-state, sensible heat transfer between a circulating liquid and idealized
-thermal loads at uniform temperature.
+This model represents a hydraulic distribution system serving multiple terminal units.
+It is primarily intended to be used in conjunction with models that derive from
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit\">
+Buildings.Applications.DHC.Loads.BaseClasses.PartialTerminalUnit</a>.
 </p>
 <p>
-The heat flow rate transferred to each load is computed using the effectiveness method, see
-<a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.EffectivenessDirect\">
-Buildings.DistrictEnergySystem.Loads.BaseClasses.EffectivenessDirect</a>.
-As the effectiveness depends on the mass flow rate, this requires to assess a representative distribution of
-the main liquid stream between the connected loads.
-This is achieved by:
+The fluid flow modeling is decoupled between a main distribution loop and several terminal
+branch circuits:
 <ul>
-<li> computing the mass flow rate needed to transfer the required heat flow rate to each load,
-see
-<a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.EffectivenessControl\">
-Buildings.DistrictEnergySystem.Loads.BaseClasses.EffectivenessControl</a>,
+<li>
+The flow rate in each branch circuit is equal to the flow rate demand yielded by the terminal
+unit model, constrained by the condition that the sum of all demands is lower or equal to
+the flow rate in the main loop.
 </li>
-<li> normalizing this mass flow rate to the actual flow rate of the main liquid stream.</li>
+<li>
+The inlet temperature in each branch circuit is equal to the inlet temperature in the main loop.
+The outlet temperature in the main loop results from transferring the enthalpy flow rate of each
+individual fluid stream to the main fluid stream.
+</li>
+<li>
+The pressure drop in the main distribution loop corresponds to the pressure drop 
+over the whole distribution system (the pump head): it is governed by an equation representing 
+the control logic of the main distribution pump. The pressure drop in each branch circuit is
+irrelevant: <code>dp_nominal</code> must be set to zero for each terminal unit component.
+</li>
 </ul>
+<p>
+This modeling approach aims to minimize the number of algebraic equations by avoiding an explicit
+modeling of the terminal actuators and the whole flow network.
 </p>
 <p>
-The nominal UA-value (W/K) is calculated for each load <i>i</i> from the cooling or
-heating power and the temperature difference between the liquid and the load, see
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ\">
-Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ</a>.
-It is split between an internal (liquid side) and an external (load side) UA-value based on the ratio
-<i>UA<sub>int, nom, i</sub> / UA<sub>ext, nom, i</sub> </i> provided as a parameter. The influence of
-the liquid flow rate on the internal UA-value is derived from a forced convection
-correlation, expressing the Nusselt number as a power of the Reynolds number, under the assumption that the
-physical characteristics of the liquid do not vary significantly from their value at nominal conditions.
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-UA<sub>int, i</sub> = UA<sub>int, nom, i</sub> * (m&#775;<sub>i</sub> /
-m&#775;<sub>nom, i</sub>)<sup>expUAi</sup>
-</p>
-<p>
-where thedefault value of <i>expUA<sub>i</sub></i> stems from the Dittus and Boelter correlation for turbulent
-flow.
-</p>
-
-<h4>References</h4>
-<p>
-Dittus and Boelter. 1930. Heat transfer in automobile radiators of the tubular type. University of California
-Engineering Publication 13.443.
-</p>
+In addition the assumption <code>allowFlowReversal = false</code> is used systematically
+together with boundary conditions which actually ensure that no reverse flow conditions are
+encountered in simulation. This allows directly accessing the inlet temperature value of a
+component from the fluid port <code>port_a</code> with option <code>show_T = true</code>,
+or the inlet enthalpy with the built-in function <code>inStream</code>.
+This approach is preferred to the use of temperature or enthalpy two-port sensors which
+introduce a state to ensure a smooth transition at flow reversal. All connected components
+must meet the same requirements.
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),

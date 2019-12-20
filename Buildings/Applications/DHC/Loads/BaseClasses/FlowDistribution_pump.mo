@@ -212,49 +212,7 @@ defaultComponentName="disFlo",
 Documentation(
 info="<html>
 <p>
-This model computes the steady-state, sensible heat transfer between a circulating liquid and idealized
-thermal loads at uniform temperature.
-</p>
-<p>
-The heat flow rate transferred to each load is computed using the effectiveness method, see
-<a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.EffectivenessDirect\">
-Buildings.DistrictEnergySystem.Loads.BaseClasses.EffectivenessDirect</a>.
-As the effectiveness depends on the mass flow rate, this requires to assess a representative distribution of
-the main liquid stream between the connected loads.
-This is achieved by:
-<ul>
-<li> computing the mass flow rate needed to transfer the required heat flow rate to each load,
-see
-<a href=\"modelica://Buildings.DistrictEnergySystem.Loads.BaseClasses.EffectivenessControl\">
-Buildings.DistrictEnergySystem.Loads.BaseClasses.EffectivenessControl</a>,
-</li>
-<li> normalizing this mass flow rate to the actual flow rate of the main liquid stream.</li>
-</ul>
-</p>
-<p>
-The nominal UA-value (W/K) is calculated for each load <i>i</i> from the cooling or
-heating power and the temperature difference between the liquid and the load, see
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ\">
-Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ</a>.
-It is split between an internal (liquid side) and an external (load side) UA-value based on the ratio
-<i>UA<sub>int, nom, i</sub> / UA<sub>ext, nom, i</sub> </i> provided as a parameter. The influence of
-the liquid flow rate on the internal UA-value is derived from a forced convection
-correlation, expressing the Nusselt number as a power of the Reynolds number, under the assumption that the
-physical characteristics of the liquid do not vary significantly from their value at nominal conditions.
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-UA<sub>int, i</sub> = UA<sub>int, nom, i</sub> * (m&#775;<sub>i</sub> /
-m&#775;<sub>nom, i</sub>)<sup>expUAi</sup>
-</p>
-<p>
-where thedefault value of <i>expUA<sub>i</sub></i> stems from the Dittus and Boelter correlation for turbulent
-flow.
-</p>
-
-<h4>References</h4>
-<p>
-Dittus and Boelter. 1930. Heat transfer in automobile radiators of the tubular type. University of California
-Engineering Publication 13.443.
+Under development.
 </p>
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false,
