@@ -21,6 +21,8 @@ model FlowDistribution_pump
   parameter Integer nLoa = 1
     "Number of connected loads"
     annotation(Evaluate=true);
+  parameter Integer mode = 1
+    "Heating (1) or cooling (-1) mode [TODO: convert into input connector]";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
     "Total mass flow rate at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
@@ -44,7 +46,7 @@ model FlowDistribution_pump
   parameter Modelica.Fluid.Types.Dynamics massDynamics = energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.SIunits.Time tau = 30
+  parameter Modelica.SIunits.Time tau = 120
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
   // Advanced
@@ -77,7 +79,7 @@ model FlowDistribution_pump
     final Q_flow_nominal=1,
     final allowFlowReversal=allowFlowReversal)
     "Heat exchange with water stream"
-    annotation (Placement(transformation(extent={{26,-10},{46,10}})));
+    annotation (Placement(transformation(extent={{44,-10},{64,10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
     k=fill(1, nLoa), nin=nLoa)
     "Total required water mass flow rate"
@@ -133,24 +135,27 @@ model FlowDistribution_pump
     annotation (Placement(transformation(extent={{-20,134},{0,154}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare final package Medium = Medium1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=m1_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true,
     final dp_nominal=dp1_nominal,
     final show_T=true)
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare final package Medium = Medium1,
+    use_inputFilter=false,
     l={0.01, 0.01},
     final m_flow_nominal=m1_flow_nominal,
     final dpValve_nominal=0.1*dp1_nominal)
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-80,0})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-60,0})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource idealSource(
     redeclare final package Medium = Medium1,
     final control_m_flow=false,
     final control_dp=true,
     final m_flow_small=m_flow_small)
-    annotation (Placement(transformation(extent={{-16,10},{4,-10}})));
+    annotation (Placement(transformation(extent={{0,10},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0.9*dp1_nominal)
-    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
+    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Modelica.Blocks.Interfaces.RealInput m_flowPum(
     final quantity="MassFlowRate")
     "Prescribed flow rate of the pump"
@@ -168,12 +173,15 @@ model FlowDistribution_pump
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Splitter/mixer"
     annotation (Placement(transformation(
-      extent={{-10,10},{10,-10}}, origin={70,0})));
+      extent={{-10,10},{10,-10}}, origin={80,0})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID conTSup(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    Ti=120,
-    yMax=1,
-    yMin=0) "PI controller tracking supply temperature"
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    k=0.1,
+    final Ti=120,
+    final yMax=1,
+    final yMin=0,
+    final reverseAction=(mode==-1))
+    "PI controller tracking supply temperature"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Modelica.Blocks.Interfaces.RealInput TSupSet(
     final quantity="ThermodynamicTemperature",
@@ -189,11 +197,18 @@ model FlowDistribution_pump
   Modelica.Blocks.Sources.RealExpression TPumOutVal(y=pum.sta_b.T)
     "Pump outlet temperature"
     annotation (Placement(transformation(extent={{-20,-130},{-40,-110}})));
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=m1Req_flow <=
+        m1_flow_nominal*1E-2)
+    annotation (Placement(transformation(extent={{-100,-66},{-80,-46}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=1)
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch swi
+    annotation (Placement(transformation(extent={{-48,-66},{-28,-46}})));
 equation
   connect(mulSum.y, m1Req_flow)
     annotation (Line(points={{12,220},{120,220}},                color={0,0,127}));
   connect(Q_flow1Sum.y, heaCoo.u)
-    annotation (Line(points={{-30,100},{20,100},{20,6},{24,6}},
+    annotation (Line(points={{-30,100},{30,100},{30,6},{42,6}},
                       color={0,0,127}));
   connect(m1Req_flow_i, mulSum.u)
     annotation (Line(points={{-120,220},{-12,
@@ -209,31 +224,37 @@ equation
   connect(T_port_a.y, sou_m1_flow_i.T_in) annotation (Line(points={{1,144},{20,144},
           {20,164},{30,164}}, color={0,0,127}));
   connect(port_a, val.port_1)
-    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-70,0}}, color={0,127,255}));
   connect(val.port_2, pum.port_a)
-    annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
+    annotation (Line(points={{-50,0},{-30,0}}, color={0,127,255}));
   connect(pum.port_b, idealSource.port_a)
-    annotation (Line(points={{-30,0},{-16,0}}, color={0,127,255}));
+    annotation (Line(points={{-10,0},{0,0}},   color={0,127,255}));
   connect(Q_flow1Act_i.y, Q_flow1Sum.u[1:1])
     annotation (Line(points={{-79,100},{-54,100}}, color={0,0,127}));
   connect(idealSource.port_b, heaCoo.port_a)
-    annotation (Line(points={{4,0},{26,0}}, color={0,127,255}));
+    annotation (Line(points={{20,0},{44,0}},color={0,127,255}));
   connect(con.y, idealSource.dp_in)
-    annotation (Line(points={{-8,-50},{0,-50},{0,-8}},  color={0,0,127}));
+    annotation (Line(points={{12,-50},{16,-50},{16,-8}},color={0,0,127}));
   connect(m_flowPum, pum.m_flow_in)
-    annotation (Line(points={{-120,60},{-40,60},{-40,12}}, color={0,0,127}));
+    annotation (Line(points={{-120,60},{-20,60},{-20,12}}, color={0,0,127}));
   connect(heaCoo.port_b, spl.port_1)
-    annotation (Line(points={{46,0},{60,0}}, color={0,127,255}));
+    annotation (Line(points={{64,0},{70,0}}, color={0,127,255}));
   connect(spl.port_2, port_b)
-    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  connect(spl.port_3, val.port_3) annotation (Line(points={{70,10},{70,40},{-80,
-          40},{-80,10}}, color={0,127,255}));
+    annotation (Line(points={{90,0},{100,0}}, color={0,127,255}));
+  connect(spl.port_3, val.port_3) annotation (Line(points={{80,10},{80,40},{-60,
+          40},{-60,10}}, color={0,127,255}));
   connect(TSupSet, conTSup.u_s)
     annotation (Line(points={{-120,-100},{-82,-100}}, color={0,0,127}));
   connect(TPumOutVal.y, conTSup.u_m) annotation (Line(points={{-41,-120},{-70,-120},
           {-70,-112}}, color={0,0,127}));
-  connect(conTSup.y, val.y) annotation (Line(points={{-58,-100},{-40,-100},{-40,
-          -20},{-80,-20},{-80,-12}}, color={0,0,127}));
+  connect(booleanExpression.y, swi.u2)
+    annotation (Line(points={{-79,-56},{-50,-56}}, color={255,0,255}));
+  connect(con1.y, swi.u1) annotation (Line(points={{-78,-30},{-70,-30},{-70,-48},
+          {-50,-48}}, color={0,0,127}));
+  connect(conTSup.y, swi.u3) annotation (Line(points={{-58,-100},{-54,-100},{
+          -54,-64},{-50,-64}}, color={0,0,127}));
+  connect(swi.y, val.y) annotation (Line(points={{-26,-56},{-20,-56},{-20,-20},
+          {-60,-20},{-60,-12}}, color={0,0,127}));
 annotation (
 defaultComponentName="disFlo",
 Documentation(

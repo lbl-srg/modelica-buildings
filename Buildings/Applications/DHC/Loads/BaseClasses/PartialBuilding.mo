@@ -79,7 +79,7 @@ partial model PartialBuilding "Partial class for building model"
   defaultComponentName="heaFloEps",
   Documentation(info="<html>
 <p>
-Partial model to be used for modeling the building loads to be served by an energy
+Partial model to be used for modeling the building loads served by an energy
 transfer station and/or a dedicated plant.
 The fluid ports represent the connection between the production system and
 the distribution system.
