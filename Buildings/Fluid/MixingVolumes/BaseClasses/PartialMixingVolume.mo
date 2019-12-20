@@ -7,10 +7,6 @@ model PartialMixingVolume
     "= true to set up initial equations for pressure"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.PressureDifference dpRel_nominal = if Medium.singleState then 10000 else 100
-    "Typical pressure variation during simulation, used to scale pressure state variable to numerically robust value"
-    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
-
   // We set prescribedHeatFlowRate=false so that the
   // volume works without the user having to set this advanced parameter,
   // but to get high robustness, a user can set it to the appropriate value
@@ -79,7 +75,6 @@ protected
     final initialize_p = initialize_p,
     m(start=V*rho_start),
     nPorts=nPorts,
-    final dpRel_nominal=dpRel_nominal,
     final mSenFac=mSenFac) if
          not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
