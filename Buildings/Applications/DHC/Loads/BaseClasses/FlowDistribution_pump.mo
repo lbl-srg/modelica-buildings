@@ -6,7 +6,6 @@ model FlowDistribution_pump
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=Medium1,
     final m_flow_nominal=m1_flow_nominal,
-    final show_T=true,
     final allowFlowReversal=false);
   replaceable package Medium1 =
     Buildings.Media.Water
@@ -119,7 +118,7 @@ model FlowDistribution_pump
   Modelica.Blocks.Sources.RealExpression m1Act_flow_i[nLoa](y=m1Req_flow_i .*
         Buildings.Utilities.Math.Functions.smoothMin(
         1,
-        port_a.m_flow/Buildings.Utilities.Math.Functions.smoothMax(
+        mSup_flow/Buildings.Utilities.Math.Functions.smoothMax(
           m1Req_flow,
           m_flow_small,
           m_flow_small),
@@ -130,33 +129,34 @@ model FlowDistribution_pump
         (inStream(ports_a1.h_outflow) - ports_b1.h_outflow))
     "Actual heat flow rate transferred to the source"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Modelica.Blocks.Sources.RealExpression T_port_a[nLoa](y=fill(sta_a.T, nLoa))
+  Modelica.Blocks.Sources.RealExpression T_port_a[nLoa](y=fill(TSup, nLoa))
     "Inlet temperature"
     annotation (Placement(transformation(extent={{-20,134},{0,154}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare final package Medium = Medium1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=m1_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
     final dp_nominal=dp1_nominal,
-    final show_T=true)
+    final allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare final package Medium = Medium1,
-    use_inputFilter=false,
-    l={0.01, 0.01},
+    final portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final use_inputFilter=false,
     final m_flow_nominal=m1_flow_nominal,
-    final dpValve_nominal=0.1*dp1_nominal)
+    final dpValve_nominal=0.1*dp1_nominal,
+    final linearized={true,true})
     annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-60,0})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource idealSource(
     redeclare final package Medium = Medium1,
     final control_m_flow=false,
     final control_dp=true,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small)
     annotation (Placement(transformation(extent={{0,10},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0.9*dp1_nominal)
-    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  Modelica.Blocks.Interfaces.RealInput m_flowPum(
+  Modelica.Blocks.Interfaces.RealInput mPum_flow(
     final quantity="MassFlowRate")
     "Prescribed flow rate of the pump"
     annotation (Placement(transformation(
@@ -168,9 +168,11 @@ model FlowDistribution_pump
         origin={-110,-60})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium = Medium1,
+    final portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final m_flow_nominal=m1_flow_nominal*{1,1,1},
-    final dp_nominal=0*{1,1,1},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    final dp_nominal=0*{1,1,1})
     "Splitter/mixer"
     annotation (Placement(transformation(
       extent={{-10,10},{10,-10}}, origin={80,0})));
@@ -182,7 +184,7 @@ model FlowDistribution_pump
     final yMin=0,
     final reverseAction=(mode==-1))
     "PI controller tracking supply temperature"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Modelica.Blocks.Interfaces.RealInput TSupSet(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC")
@@ -190,20 +192,27 @@ model FlowDistribution_pump
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-100}), iconTransformation(
+        origin={-120,-40}),  iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-80})));
-  Modelica.Blocks.Sources.RealExpression TPumOutVal(y=pum.sta_b.T)
-    "Pump outlet temperature"
-    annotation (Placement(transformation(extent={{-20,-130},{-40,-110}})));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=m1Req_flow <=
-        m1_flow_nominal*1E-2)
-    annotation (Placement(transformation(extent={{-100,-66},{-80,-46}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=1)
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
-    annotation (Placement(transformation(extent={{-48,-66},{-28,-46}})));
+        origin={-110,-30})));
+  Modelica.Blocks.Sources.RealExpression TSupVal(y=TSup) "Supply temperature"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={-20,-150})));
+  Modelica.SIunits.Temperature TSup = Medium1.temperature(
+    state=Medium1.setState_phX(
+      p=pum.port_b.p, h=pum.port_b.h_outflow, X=pum.port_b.Xi_outflow))
+    "Supply temperature";
+  Modelica.SIunits.MassFlowRate mSup_flow = pum.m_flow
+    "Supply mass flow rate";
+  Utilities.Math.Polynominal polynominal(a={0.9*dp1_nominal})
+    annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
+  Modelica.Blocks.Sources.RealExpression mSup_flowVal(y=mSup_flow)
+    "Supply mass flow rate"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={20,-150})));
 equation
   connect(mulSum.y, m1Req_flow)
     annotation (Line(points={{12,220},{120,220}},                color={0,0,127}));
@@ -233,9 +242,7 @@ equation
     annotation (Line(points={{-79,100},{-54,100}}, color={0,0,127}));
   connect(idealSource.port_b, heaCoo.port_a)
     annotation (Line(points={{20,0},{44,0}},color={0,127,255}));
-  connect(con.y, idealSource.dp_in)
-    annotation (Line(points={{12,-50},{16,-50},{16,-8}},color={0,0,127}));
-  connect(m_flowPum, pum.m_flow_in)
+  connect(mPum_flow, pum.m_flow_in)
     annotation (Line(points={{-120,60},{-20,60},{-20,12}}, color={0,0,127}));
   connect(heaCoo.port_b, spl.port_1)
     annotation (Line(points={{64,0},{70,0}}, color={0,127,255}));
@@ -244,17 +251,17 @@ equation
   connect(spl.port_3, val.port_3) annotation (Line(points={{80,10},{80,40},{-60,
           40},{-60,10}}, color={0,127,255}));
   connect(TSupSet, conTSup.u_s)
-    annotation (Line(points={{-120,-100},{-82,-100}}, color={0,0,127}));
-  connect(TPumOutVal.y, conTSup.u_m) annotation (Line(points={{-41,-120},{-70,-120},
-          {-70,-112}}, color={0,0,127}));
-  connect(booleanExpression.y, swi.u2)
-    annotation (Line(points={{-79,-56},{-50,-56}}, color={255,0,255}));
-  connect(con1.y, swi.u1) annotation (Line(points={{-78,-30},{-70,-30},{-70,-48},
-          {-50,-48}}, color={0,0,127}));
-  connect(conTSup.y, swi.u3) annotation (Line(points={{-58,-100},{-54,-100},{
-          -54,-64},{-50,-64}}, color={0,0,127}));
-  connect(swi.y, val.y) annotation (Line(points={{-26,-56},{-20,-56},{-20,-20},
-          {-60,-20},{-60,-12}}, color={0,0,127}));
+    annotation (Line(points={{-120,-40},{-92,-40}},   color={0,0,127}));
+  connect(TSupVal.y, conTSup.u_m) annotation (Line(points={{-20,-139},{-20,-60},
+          {-80,-60},{-80,-52}},
+                       color={0,0,127}));
+  connect(mSup_flowVal.y, polynominal.u)
+    annotation (Line(points={{20,-139},{20,-120},{60,-120},{60,-40},{42,-40}},
+                                                 color={0,0,127}));
+  connect(polynominal.y, idealSource.dp_in)
+    annotation (Line(points={{19,-40},{16,-40},{16,-8}}, color={0,0,127}));
+  connect(conTSup.y, val.y) annotation (Line(points={{-68,-40},{-60,-40},{-60,
+          -12}}, color={0,0,127}));
 annotation (
 defaultComponentName="disFlo",
 Documentation(
@@ -315,5 +322,15 @@ must meet the same requirements.
           extent={{-100,270},{100,242}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
-          textString="Implement piping heat loss using eps-ntu model with nominal dT")}));
+          textString="Implement piping heat loss using eps-ntu model with nominal dT"),               Text(
+          extent={{-96,-64},{104,-92}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Left,
+          textString=
+              "CPU time for integration is twice lower when Dynamics of valve, pump and splitter are NOT steady state!?"),
+                                                                                                      Text(
+          extent={{-100,-88},{100,-116}},
+          lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Left,
+          textString="TODO: generalize FixedInitial")}));
 end FlowDistribution_pump;
