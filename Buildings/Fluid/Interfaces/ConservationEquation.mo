@@ -8,10 +8,6 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "= true to set up initial equations for pressure"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
 
-  constant Modelica.SIunits.PressureDifference dpRel_nominal = if Medium.singleState then 10000 else 100
-    "Typical pressure variation during simulation, used to scale pressure state variable to numerically robust value"
-    annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
-
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1";
 
@@ -96,21 +92,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     nominal = 1E5) "Internal energy of fluid";
 
   Modelica.SIunits.Mass m(
-    start=fluidVolume*rho_start,
-    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
-    then StateSelect.default else StateSelect.default)
+    start=fluidVolume*rho_start)
     "Mass of fluid";
-
-  /* Pressure relative to start pressure p_start.
-  Since p_start is often set to the value at zero flow rate (or at maximum flow rate),
-  we add 0.5 so that the pressure state is not near 0 if there is zero flow. Otherwise, small fluctuations
-  in the pressure state can induce large flow rates (while maintaining the error balance
-  on the pressure state).
-  */
-  Real dpNor(
-    stateSelect=if (Medium.singleState or massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    then StateSelect.default else StateSelect.prefer) = (medium.p-p_start)/dpRel_nominal+0.5
-    "Normalized pressure";
 
   Modelica.SIunits.Mass[Medium.nXi] mXi(
     start=fluidVolume*rho_start*X_start[1:Medium.nXi])
@@ -438,8 +421,8 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-December 6, 2019, by Michael Wetter:<br/>
-Introduced <code>dpRel</code> as preferred state variable.<br/>
+December 20, 2019, by Michael Wetter:<br/>
+Removed <code>stateSelect</code> as this is now done in the medium.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1671\">Buildings, issue 1671</a>.
 </li>
 <li>

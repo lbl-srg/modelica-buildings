@@ -13,8 +13,7 @@ package Water "Package with model for liquid water with constant density"
   extends Modelica.Icons.Package;
 
   redeclare model BaseProperties "Base properties"
-    Temperature T(stateSelect=
-      if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+    Temperature T
       "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
@@ -31,12 +30,14 @@ package Water "Package with model for liquid water with constant density"
       "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "Thermodynamic state record for optional functions";
-    parameter Boolean preferredMediumStates=false
+    parameter Boolean preferredMediumStates=true
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       annotation(Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
-    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
+    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC(
+      nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)=
         Modelica.SIunits.Conversions.to_degC(T)
       "Temperature of medium in [degC]";
     Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=

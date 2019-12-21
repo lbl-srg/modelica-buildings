@@ -46,9 +46,22 @@ package Air
   //   p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
   // has been removed.
   redeclare replaceable model extends BaseProperties(
-    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    preferredMediumStates=true,
+    Xi(each nominal=0.1,
+      each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    T_degC(nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
+
+    /* Pressure relative to start pressure p_start.
+    Since p_start is often set to the value at zero flow rate (or at maximum flow rate),
+    we add 0.5 so that the pressure state is not near 0 if there is zero flow. Otherwise, small fluctuations
+    in the pressure state can induce large flow rates (while maintaining the error balance
+    on the pressure state).
+    */
+    Real dpNor(
+      stateSelect=StateSelect.prefer) = (p-reference_p)/100+0.5
+      "Normalized pressure";
 
   protected
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
