@@ -10,16 +10,16 @@ type TerminalFunctionSpec = enumeration(
       "Electric")
   "Enumeration specifying the heating and cooling function of a terminal unit"
 annotation(Documentation(info="<html>
-    <p>
-    Enumeration to define the type of load model.
-    </p>
-    </html>",
-            revisions=
-  "<html>
-    <ul>
-    <li>
-    June 25, 2019, by Antoine Gautier:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+<p>
+Enumeration to specify the heating and cooling function of a terminal unit.
+</p>
+</html>",
+revisions=
+"<html>
+<ul>
+<li>
+June 25, 2019, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

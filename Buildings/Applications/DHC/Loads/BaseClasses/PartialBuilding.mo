@@ -1,6 +1,5 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
 partial model PartialBuilding "Partial class for building model"
-  // Find a way to specify medium for each connected load.
   replaceable package Medium1 =
     Buildings.Media.Water
     "Source side medium"

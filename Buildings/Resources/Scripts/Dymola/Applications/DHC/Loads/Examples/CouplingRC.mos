@@ -27,7 +27,7 @@ createPlot(
 createPlot(
     id=2,
     position={700, 20, 670, 900},
-    y={"supHea.T_in", "bui.terUni.T_a1Hea_nominal"},
+    y={"souHea.T_in", "bui.disFloHea.TSup", "bui.terUni.T_a1Hea_nominal"},
     autoscale=true,
     // autoerase=true,
     // autoreplot=true,
@@ -35,7 +35,7 @@ createPlot(
 );
 createPlot(
     id=2,
-    y={"bui.disFloHea.m1Req_flow_i[1]", "bui.disFloHea.m1Act_flow_i[1].y", "bui.terUni.m1Hea_flow_nominal"},
+    y={"bui.disFloHea.m1Req_flow[1]", "bui.disFloHea.m1Act_flow[1].y", "bui.terUni.m1Hea_flow_nominal"},
     grid=true,
     subPlot=2
 );
@@ -48,7 +48,7 @@ createPlot(
 createPlot(
     id=3,
     position={1300, 20, 670, 900},
-    y={"supCoo.T_in", "bui.terUni.T_a1Coo_nominal"},
+    y={"souCoo.T_in",  "bui.disFloCoo.TSup", "bui.terUni.T_a1Coo_nominal"},
     autoscale=true,
     // autoerase=true,
     // autoreplot=true,
@@ -56,7 +56,7 @@ createPlot(
 );
 createPlot(
     id=3,
-    y={"bui.disFloCoo.m1Req_flow_i[1]", "bui.disFloCoo.m1Act_flow_i[1].y", "bui.terUni.m1Coo_flow_nominal"},
+    y={"bui.disFloCoo.m1Req_flow[1]", "bui.disFloCoo.m1Act_flow[1].y", "bui.terUni.m1Coo_flow_nominal"},
     grid=true,
     subPlot=2
 );

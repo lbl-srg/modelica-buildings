@@ -1,7 +1,7 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
 partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   import funSpe = Buildings.Applications.DHC.Loads.Types.TerminalFunctionSpec
-    "Specification of heating or cooling function";
+    "Specifications of heating or cooling function";
   replaceable package Medium1 =
     Buildings.Media.Water
     "Source side medium"
