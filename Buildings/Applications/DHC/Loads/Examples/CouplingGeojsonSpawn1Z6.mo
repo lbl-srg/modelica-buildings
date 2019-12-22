@@ -95,7 +95,7 @@ equation
         graphics={Text(
           extent={{-98,78},{34,52}},
           lineColor={28,108,200},
-          textString="Need for
+          textString="Simulation requires
 Hidden.AvoidDoubleComputation=true")}),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingGeojsonSpawn1Z6.mos"
         "Simulate and plot"));
