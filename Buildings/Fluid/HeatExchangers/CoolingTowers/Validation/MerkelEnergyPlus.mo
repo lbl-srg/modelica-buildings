@@ -22,9 +22,11 @@ model MerkelEnergyPlus
     "Nominal volumetric flow rate of air (medium 1)";
   parameter Modelica.SIunits.VolumeFlowRate vWat_flow_nominal = 0.00109181
     "Nominal volumetric flow rate of water (medium 2)";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = vAir_flow_nominal * denAir
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=
+    vAir_flow_nominal * denAir
     "Nominal mass flow rate of air (medium 1)";
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = vWat_flow_nominal * denWat
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=
+    vWat_flow_nominal * denWat
     "Nominal mass flow rate of water (medium 2)";
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 20.59+273.15
     "Nominal outdoor wetbulb temperature";
@@ -41,13 +43,17 @@ model MerkelEnergyPlus
   parameter Modelica.SIunits.ThermalConductance UA_nominal = 2011.28668
     "Nominal heat transfer, positive";
   parameter Modelica.SIunits.Power PFan_nominal = 213.00693
-    "Nominal fan power";   // 213.00693
+    "Nominal fan power";
 
-  parameter Real r_VEnePlu[:] = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
-    "Fan control signal"; // {0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1}
-  parameter Real r_PEnePlu[:] = {0,0.020982275,0.027843038,0.046465108,0.082729139,0.142515786,0.231705701,0.356179538,0.521817952,0.734501596,1}
+  parameter Real r_VEnePlu[:] = {0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,
+    0.65,0.7,0.75,0.8,0.85,0.9,0.95,1}
+    "Fan control signal";
+  parameter Real r_PEnePlu[:] = {0,0.005913403484561,0.014533379334138,
+    0.026641366223909,0.043018802829049,0.064447127824737,0.091707779886148,
+    0.125582197688459,0.166851819906848,0.21629808521649,0.274702432292564,
+    0.342846299810245,0.421511126444711,0.511478350871139,0.613529411764704,
+    0.728445747800585,0.857008797653957,1}
     "Fan power output as a function of the signal";
-//  {0,0.005913403484561,0.014533379334138,0.026641366223909,0.043018802829049,0.064447127824737,0.091707779886148,0.125582197688459,0.166851819906848,0.21629808521649,0.274702432292564,0.342846299810245,0.421511126444711,0.511478350871139,0.613529411764704,0.728445747800585,0.857008797653957,1}
 
   Merkel tow(
     redeclare package Medium = MediumWat,
@@ -123,18 +129,20 @@ equation
   connect(tow.port_b, sinWat.ports[1])
     annotation (Line(points={{60,-50},{80,-50}}, color={0,127,255}));
   connect(TEntWat.y, souWat.T_in)
-    annotation (Line(points={{-38,-46},{-22,-46}},
-      color={0,0,127}));
+    annotation (Line(points={{-38,-46},{-22,-46}},color={0,0,127}));
   connect(datRea.y[2], TAirWB.u)
     annotation (Line(points={{-79,50},{-70,50},{-70,10},{-62,10}},
       color={0,0,127}));
-
-  connect(TEntWat.u, datRea.y[3]) annotation (Line(points={{-62,-46},{-70,-46},
-          {-70,50},{-79,50}}, color={0,0,127}));
-  connect(souWat.m_flow_in, datRea.y[5]) annotation (Line(points={{-22,-42},{
-          -30,-42},{-30,-20},{-70,-20},{-70,50},{-79,50}}, color={0,0,127}));
-  connect(tow.y, datRea.y[9]) annotation (Line(points={{38,-42},{30,-42},{30,50},
+  connect(TEntWat.u, datRea.y[3])
+    annotation (Line(points={{-62,-46},{-70,-46},{-70,50},{-79,50}},
+       color={0,0,127}));
+  connect(souWat.m_flow_in, datRea.y[5])
+    annotation (Line(points={{-22,-42},{-30,-42},{-30,-20},{-70,-20},
+      {-70,50},{-79,50}}, color={0,0,127}));
+  connect(tow.y, datRea.y[9])
+    annotation (Line(points={{38,-42},{30,-42},{30,50},
           {-79,50}}, color={0,0,127}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false,
         extent={{-120,-100},{120,100}})),
@@ -149,18 +157,26 @@ equation
 <p>
 This model validates the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> by comparing against results 
-obtained from EnergyPlus 9.2.
+Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> by comparing against 
+results obtained from EnergyPlus 9.2.
 </p>
 <p>
-The EnergyPlus results were obtained using the example file <code>CoolingTower:VariableSpeed</code>, 
-with the cooling tower evaluated as the <code>CoolingTower:VariableSpeed:Merkel</code> model from 
-EnergyPlus 9.2. 
+The EnergyPlus results were obtained using the example file 
+<code>CoolingTower:VariableSpeed</code>, with the cooling tower evaluated as 
+the <code>CoolingTower:VariableSpeed:Merkel</code> model from EnergyPlus 9.2. 
+</p>
+<p>
+The difference in results of the cooling tower's leaving water temperature
+(<code>tow.TLvg</code> and <code>TLvg.EP</code>)
+during the middle and end of the simulation is because the mass flow rate is 
+zero. For zero mass flow rate, EnergyPlus assumes a steady state condition,
+whereas the Modelica model is a dynamic model and hence the properties at the 
+outlet are equal to the state variables of the model.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-October 23, 2019 by Kathryn Hinkelman:<br/>
+December 23, 2019 by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
