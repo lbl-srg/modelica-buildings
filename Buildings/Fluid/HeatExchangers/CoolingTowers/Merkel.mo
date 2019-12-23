@@ -75,7 +75,8 @@ model Merkel "Cooling tower model based on Merkel's theory"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal
-    "Thermal conductance at nominal flow, used to compute heat capacity";
+    "Thermal conductance at nominal flow, used to compute heat capacity"
+    annotation (Dialog(group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.RealInput TAir(
     final min=0,
