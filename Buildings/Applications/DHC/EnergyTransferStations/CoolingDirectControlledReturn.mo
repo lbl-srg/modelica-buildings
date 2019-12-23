@@ -12,17 +12,17 @@ model CoolingDirectControlledReturn
   // mass flow rates
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal(
     final min=0,
-    start=0.5)
+    final start=0.5)
     "Nominal mass flow rate of district cooling side";
 
   parameter Modelica.SIunits.MassFlowRate mBui_flow_nominal(
     final min=0,
-    start=0.5)
+    final start=0.5)
     "Nominal mass flow rate of building cooling side";
 
   parameter Modelica.SIunits.MassFlowRate mByp_flow_nominal(
     final min=0,
-    start=0.5)
+    final start=0.5)
     "Nominal mass flow rate through the bypass segment";
 
   // pressure drops
@@ -42,28 +42,24 @@ model CoolingDirectControlledReturn
     "Type of controller"
     annotation(Dialog(tab="Controller"));
 
-  parameter Real k(
-    final min=0,
-    final unit="1") = 1
+  parameter Real k(final min=0,final unit="1") = 1
     "Gain of controller"
     annotation(Dialog(tab="Controller"));
 
   parameter Modelica.SIunits.Time Ti(
-    min=Modelica.Constants.small)=120
+    final min=Modelica.Constants.small)=120
     "Time constant of integrator block"
      annotation (Dialog(tab="Controller", enable=
        controllerType == Modelica.Blocks.Types.SimpleController.PI or
        controllerType == Modelica.Blocks.Types.SimpleController.PID));
 
-  parameter Modelica.SIunits.Time Td(
-    final min=0)=0.1
+  parameter Modelica.SIunits.Time Td(final min=0)=0.1
     "Time constant of derivative block"
      annotation (Dialog(tab="Controller", enable=
        controllerType == Modelica.Blocks.Types.SimpleController.PD or
        controllerType == Modelica.Blocks.Types.SimpleController.PID));
 
-  parameter Real yMax(
-    start=1)=1
+  parameter Real yMax(final start=1)=1
     "Upper limit of output"
     annotation(Dialog(tab="Controller"));
 
@@ -71,27 +67,25 @@ model CoolingDirectControlledReturn
     "Lower limit of output"
     annotation(Dialog(tab="Controller"));
 
-  parameter Real wp(
-    final min=0)=1
+  parameter Real wp(final min=0)=1
     "Set-point weight for Proportional block (0..1)"
     annotation(Dialog(tab="Controller"));
 
-  parameter Real wd(
-    final min=0) = 0
+  parameter Real wd(final min=0) = 0
     "Set-point weight for Derivative block (0..1)"
     annotation(Dialog(tab="Controller", enable=
        controllerType == Modelica.Blocks.Types.SimpleController.PD or
        controllerType == Modelica.Blocks.Types.SimpleController.PID));
 
   parameter Real Ni(
-    min=100*Modelica.Constants.eps)=0.9
+    final min=100*Modelica.Constants.eps)=0.9
     "Ni*Ti is time constant of anti-windup compensation"
     annotation(Dialog(tab="Controller", enable=
        controllerType == Modelica.Blocks.Types.SimpleController.PI or
        controllerType == Modelica.Blocks.Types.SimpleController.PID));
 
   parameter Real Nd(
-    min=100*Modelica.Constants.eps)=10
+    final min=100*Modelica.Constants.eps)=10
     "The higher Nd, the more ideal the derivative block"
     annotation(Dialog(tab="Controller", enable=
        controllerType == Modelica.Blocks.Types.SimpleController.PD or
@@ -356,20 +350,23 @@ equation
         Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Direct cooling energy transfer station (ETS) model with in-building pumping and deltaT control.
-The design is based on a typical district cooling ETS described in ASHRAE's 
+Direct cooling energy transfer station (ETS) model with in-building pumping 
+and deltaT control. The design is based on a typical district cooling ETS 
+described in ASHRAE's 
 <a href=\"https://www.ashrae.org/technical-resources/bookstore/district-heating-and-cooling-guides\">
 District Cooling Guide</a>.  
-As shown in the figure below, the district and building piping are hydronically coupled. The control
-valve ensures that the return temperature to the district cooling network is at or above the minimum
-specified value. This configuration naturally results in a fluctuating building supply temperature.
+As shown in the figure below, the district and building piping are hydronically 
+coupled. The control valve ensures that the return temperature to the district 
+cooling network is at or above the minimum specified value. This configuration 
+naturally results in a fluctuating building supply temperature.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/CoolingDirectControlledReturn.PNG\" alt=\"DHC.ETS.CoolingDirectControlledReturn\"/>
 </p>
 <h4>Reference</h4>
 <p>
-American Society of Heating, Refrigeration and Air-Conditioning Engineers. (2013). Chapter 5: End User Interface. In <i>District Cooling Guide</i>. 1st Edition. 
+American Society of Heating, Refrigeration and Air-Conditioning Engineers. 
+(2013). Chapter 5: End User Interface. In <i>District Cooling Guide</i>. 1st Edition. 
 </p>
 </html>", revisions="<html>
 <ul>

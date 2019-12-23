@@ -1,6 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Examples;
 model CoolingDirectControlledReturn
-  "Example model for direct cooling energy transfer station with in-building pump and controlled district return temperature"
+  "Example model for direct cooling energy transfer station with in-building 
+  pumping and controlled district return temperature"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water;
@@ -186,11 +187,12 @@ equation
         StopTime=86400,
         Tolerance=1e-06),
     Documentation(info="<html>
-<p>This model provides an example for the direct cooling energy transfer station model, which
-contains in-building pumping and controls the district return temperature. The building's
-primary variable speed pump is modulated depending on the total cooling load and prescribed
-deltaT. Variation in the district supply temperature is modeled as sinusoidal to test the 
-system's response. 
+<p>
+This model provides an example for the direct cooling energy transfer station 
+model, which contains in-building pumping and controls the district return 
+temperature. The building's primary variable speed pump is modulated depending 
+on the total cooling load and prescribed deltaT. Variation in the district 
+supply temperature is modeled as sinusoidal to test the system's response. 
 </p>
 </html>", revisions="<html>
 <ul>

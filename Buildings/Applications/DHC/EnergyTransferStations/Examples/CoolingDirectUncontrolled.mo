@@ -1,6 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations.Examples;
 model CoolingDirectUncontrolled
-  "Example model for the direct cooling energy transfer station with uncontrolled district-building fluid transfer within the ETS"
+  "Example model for the direct cooling energy transfer station with 
+  uncontrolled district-building fluid transfer within the ETS"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water;
@@ -8,7 +9,7 @@ model CoolingDirectUncontrolled
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 18000
     "Nominal cooling load";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/(cp*(16 - 7))
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/(cp*(16-7))
     "Nominal mass flow rate";
 
  parameter Modelica.SIunits.SpecificHeatCapacity cp=
@@ -124,7 +125,7 @@ model CoolingDirectUncontrolled
     width(displayUnit="h") = 10800,
     falling(displayUnit="h") = 10800,
     period(displayUnit="h") = 43200,
-    offset=273 + 6)
+    offset=273.15 + 6)
     "District supply temperature trapezoid signal"
     annotation (Placement(transformation(extent={{-140,-16},{-120,4}})));
 
@@ -173,10 +174,12 @@ equation
     StopTime=86400,
     Tolerance=1e-06),
     Documentation(info="<html>
-<p>This model provides an example for the direct cooling energy transfer station model, which
-does not contain in-building pumping or deltaT control. The ultimate control lies with 
-the thermostatic control valve at the lumped, terminal building load. The control valve is 
-modulated proportionally to the instantaneous cooling load with respect to the maxiumum load.
+<p>
+This model provides an example for the direct cooling energy transfer station 
+model, which does not contain in-building pumping or deltaT control. The 
+ultimate control lies with the thermostatic control valve at the lumped, 
+terminal building load. The control valve is modulated proportionally to the 
+instantaneous cooling load with respect to the maxiumum load.
 </p>
 </html>", revisions="<html>
 <ul>

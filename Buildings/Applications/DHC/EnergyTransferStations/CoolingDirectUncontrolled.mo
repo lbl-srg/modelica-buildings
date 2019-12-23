@@ -1,6 +1,7 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
 model CoolingDirectUncontrolled
-  "Direct cooling ETS model for district energy systems without in-building pumping or deltaT control"
+  "Direct cooling ETS model for district energy systems without in-building 
+  pumping or deltaT control"
   extends Buildings.Fluid.Interfaces.PartialFourPort(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium);
@@ -10,7 +11,7 @@ model CoolingDirectUncontrolled
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(
     final min=0,
-    start=0.5)
+    final start=0.5)
     "Nominal mass flow rate";
 
   // pressure drops
@@ -163,20 +164,22 @@ equation
         Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Direct cooling energy transfer station (ETS) model without in-building pumping or deltaT control.
-The design is based on a typical district cooling ETS described in ASHRAE's 
+Direct cooling energy transfer station (ETS) model without in-building pumping 
+or deltaT control. The design is based on a typical district cooling ETS 
+described in ASHRAE's 
 <a href=\"https://www.ashrae.org/technical-resources/bookstore/district-heating-and-cooling-guides\">
 District Cooling Guide</a>.  
-As shown in the figure below, the district and building piping are hydronically coupled. This direct 
-ETS connections relies on individual thermostatic control valves at each individual in-building 
-terminal unit for control. 
+As shown in the figure below, the district and building piping are hydronically 
+coupled. This direct ETS connection relies on individual thermostatic control 
+valves at each individual in-building terminal unit for control. 
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Applications/DHC/EnergyTransferStations/CoolingDirectUncontrolled.PNG\" alt=\"DHC.ETS.CoolingDirectUncontrolled\"/>
 </p>
 <h4>Reference</h4>
 <p>
-American Society of Heating, Refrigeration and Air-Conditioning Engineers. (2013). Chapter 5: End User Interface. In <i>District Cooling Guide</i>. 1st Edition. 
+American Society of Heating, Refrigeration and Air-Conditioning Engineers. 
+(2013). Chapter 5: End User Interface. In <i>District Cooling Guide</i>. 1st Edition. 
 </p>
 </html>", revisions="<html>
 <ul>
