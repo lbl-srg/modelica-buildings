@@ -45,14 +45,10 @@ model MerkelEnergyPlus
   parameter Modelica.SIunits.Power PFan_nominal = 213.00693
     "Nominal fan power";
 
-  parameter Real r_VEnePlu[:] = {0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,
-    0.65,0.7,0.75,0.8,0.85,0.9,0.95,1}
+  parameter Real r_VEnePlu[:] = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
     "Fan control signal";
-  parameter Real r_PEnePlu[:] = {0,0.005913403484561,0.014533379334138,
-    0.026641366223909,0.043018802829049,0.064447127824737,0.091707779886148,
-    0.125582197688459,0.166851819906848,0.21629808521649,0.274702432292564,
-    0.342846299810245,0.421511126444711,0.511478350871139,0.613529411764704,
-    0.728445747800585,0.857008797653957,1}
+  parameter Real r_PEnePlu[:] = {0,0.020982275,0.027843038,0.046465108,
+    0.082729139,0.142515786,0.231705701,0.356179538,0.521817952,0.734501596,1}
     "Fan power output as a function of the signal";
 
   Merkel tow(
@@ -69,7 +65,7 @@ model MerkelEnergyPlus
     Q_flow_nominal=Q_flow_nominal,
     PFan_nominal=PFan_nominal,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    yMin=0.01,
+    yMin=0.1,
     fraFreCon=0.1,
     fanRelPow(r_V=r_VEnePlu, r_P=r_PEnePlu),
     UACor(FRAirMin=0.2),
