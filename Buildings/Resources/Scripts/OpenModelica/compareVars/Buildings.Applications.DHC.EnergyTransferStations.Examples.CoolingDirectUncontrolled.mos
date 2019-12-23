@@ -4,11 +4,8 @@ compareVars :=
     "TDisRet.T",
     "TBuiSup.T",
     "TBuiRet.T",
-    "dT.y",
     "coo.senMasFlo.m_flow",
-    "loa.m_flow",
     "val.y",
     "coo.Q_flow",
-    "loa.Q_flow",
     "coo.Q"
   };
