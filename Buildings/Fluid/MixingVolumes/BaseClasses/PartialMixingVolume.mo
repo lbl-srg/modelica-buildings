@@ -75,7 +75,8 @@ protected
     final initialize_p = initialize_p,
     m(start=V*rho_start),
     nPorts=nPorts,
-    final mSenFac=mSenFac) if
+    final mSenFac=mSenFac,
+    medium(preferredMediumStates=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)) if
          not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
