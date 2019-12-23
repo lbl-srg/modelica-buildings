@@ -299,6 +299,13 @@ instead of
 </html>", revisions="<html>
 <ul>
 <li>
+December, 22, 2019, by Kathryn Hinkelman:<br/>
+Corrected fan power consumption.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1691\">
+issue 1691</a>.
+</li>
+<li>
 November 3, 2016, by Michael Wetter:<br/>
 Corrected wrong type for <code>FRWat0</code>, as this variable
 can take on values that are bigger than <i>1</i>.<br/>

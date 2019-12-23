@@ -39,7 +39,7 @@ equation
                       graphics),
 experiment(StartTime=15552000, Tolerance=1e-06, StopTime=15724800),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/YorkCalc.mos"
-        "Simulate and plot"),
+        "Simulate and plot", file="plot.mos" "plot.mos"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-180},{100,
             100}})),
     Documentation(info="<html>
