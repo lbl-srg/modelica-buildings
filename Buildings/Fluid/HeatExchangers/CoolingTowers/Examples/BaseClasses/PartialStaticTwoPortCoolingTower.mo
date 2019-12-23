@@ -4,7 +4,7 @@ partial model PartialStaticTwoPortCoolingTower
 
   package Medium_W = Buildings.Media.Water "Medium model for water";
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(start=0.5)
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.5
     "Design water flow rate"
       annotation (Dialog(group="Nominal condition"));
 

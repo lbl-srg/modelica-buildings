@@ -16,12 +16,15 @@ model Merkel "Cooling tower model based on Merkel's theory"
     "Nominal mass flow rate of medium 2"
     annotation (Dialog(group="Nominal condition"));
 
+  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(displayUnit="K") = 3.89
+    "Design approach temperature"
+    annotation (Dialog(group="Nominal condition"));
   parameter  Modelica.SIunits.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter  Modelica.SIunits.Temperature TWatIn_nominal
-     "Nominal water inlet temperature"
-     annotation (Dialog(group="Nominal condition"));
+    "Nominal water inlet temperature"
+    annotation (Dialog(group="Nominal condition"));
   parameter  Modelica.SIunits.Temperature TAirOutWB_nominal
     "Nominal leaving air wetbulb temperature"
     annotation (Dialog(group="Nominal condition"));
@@ -84,6 +87,10 @@ model Merkel "Cooling tower model based on Merkel's theory"
   Modelica.Blocks.Interfaces.RealInput y(unit="1") "Fan control signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
+  Modelica.SIunits.MassFraction FRWatAct
+    "Ratio actual over design water mass flow ratio";
+  Modelica.SIunits.MassFraction FRAirAct
+    "Ratio actual over design air mass flow ratio";
   Modelica.SIunits.Power PFan "Fan power";
 
   Modelica.SIunits.SpecificHeatCapacity cpw
@@ -151,9 +158,11 @@ protected
   parameter Modelica.SIunits.ThermalConductance CMax_flow_nominal(fixed=false)
     "Maximum capacity flow rate at nominal condition";
 
-  flo flowRegime "Heat exchanger flow regime";
-  Real FRAirAct "Actual air flow ratio";
-  Real FRWatAct "Actual water flow ratio";
+  flo flowRegime(
+    start=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow)
+    "Heat exchanger flow regime";
+//  Real FRAirAct "Actual air flow ratio";
+//  Real FRWatAct "Actual water flow ratio";
   Real UA_FAir "UA correction factor as function of air flow ratio";
   Real UA_FWat "UA correction factor as function of water flow ratio";
   Real UA_DifWB
