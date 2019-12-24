@@ -10,7 +10,7 @@ block ResistanceVolume
   parameter Modelica.SIunits.PressureDifference dp_nominal=100
     "Nominal pressure drop";
 
-  Modelica.Blocks.Sources.RealExpression dpCom(y=res.port_a.p - res.port_b.p) if
+  Modelica.Blocks.Sources.RealExpression dpCom(y=res1.port_a.p - res1.port_b.p) if
        use_p_in "Pressure drop of the component"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
@@ -24,15 +24,15 @@ protected
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Boundary component for outlet"
-    annotation (Placement(transformation(extent={{68,-10},{88,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Modelica.Blocks.Math.Feedback pOut if use_p_in "Pressure at component outlet"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
 
-  FixedResistances.PressureDrop res(
+  FixedResistances.PressureDrop res1(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=if use_p_in then dp_nominal else 0,
+    final dp_nominal=if use_p_in then dp_nominal/2 else 0,
     final allowFlowReversal=allowFlowReversal) "Flow resistance"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
@@ -41,17 +41,22 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final V=V,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Control volume"
-    annotation (Placement(transformation(extent={{10,0},{30,20}})));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Control volume"
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
+  FixedResistances.PressureDrop res2(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=if use_p_in then dp_nominal/2 else 0,
+    final allowFlowReversal=allowFlowReversal) "Flow resistance"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(inlet, bouIn.inlet) annotation (Line(
       points={{-110,0},{-81,0}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(bouOut.outlet, outlet) annotation (Line(
-      points={{89,0},{110,0}},
+      points={{81,0},{110,0}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(pOut.u1, bouIn.p) annotation (Line(
@@ -59,14 +64,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pOut.y, bouOut.p) annotation (Line(
-      points={{29,-60},{78,-60},{78,-12}},
+      points={{29,-60},{70,-60},{70,-12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(res.port_b, vol.ports[1]) annotation (Line(
-      points={{-20,0},{18,0}},
+  connect(res1.port_b, vol.ports[1]) annotation (Line(
+      points={{-20,0},{-2,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(bouIn.port_b, res.port_a) annotation (Line(
+  connect(bouIn.port_b, res1.port_a) annotation (Line(
       points={{-60,0},{-40,0}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -74,10 +79,10 @@ equation
       points={{-19,-80},{20,-80},{20,-68}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(vol.ports[2], bouOut.port_a) annotation (Line(
-      points={{22,0},{68,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  connect(vol.ports[2], res2.port_a)
+    annotation (Line(points={{2,0},{20,0}}, color={0,127,255}));
+  connect(res2.port_b, bouOut.port_a)
+    annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This example demonstrates how to export an FMU with a
@@ -97,6 +102,12 @@ for the rationale.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 23, 2019, by Michael Wetter:<br/>
+Added a flow resistance after the volume because if the pressure is a state, then
+the derivative of the input pressure would need to be known as well.
+This is the case for Dymola 2020x.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
