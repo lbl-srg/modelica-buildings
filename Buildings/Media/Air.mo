@@ -60,7 +60,7 @@ package Air
     on the pressure state).
     */
     Real dpNor(
-      stateSelect=StateSelect.prefer) = (p-reference_p)/100+0.5
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = (p-reference_p)/100+0.5
       "Normalized pressure";
 
   protected
