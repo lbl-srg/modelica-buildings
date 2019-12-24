@@ -19,7 +19,9 @@ package Water "Package with model for liquid water with constant density"
     InputMassFraction[nXi] Xi=fill(0, 0)
       "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
-    Modelica.SIunits.SpecificInternalEnergy u
+    Modelica.SIunits.SpecificInternalEnergy u(
+      nominal=cp_const,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Specific internal energy of medium";
     Modelica.SIunits.Density d=d_const "Density of medium";
     Modelica.SIunits.MassFraction[nX] X={1}
@@ -35,9 +37,7 @@ package Water "Package with model for liquid water with constant density"
       annotation(Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
-    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC(
-      nominal=10,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)=
+    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
         Modelica.SIunits.Conversions.to_degC(T)
       "Temperature of medium in [degC]";
     Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
