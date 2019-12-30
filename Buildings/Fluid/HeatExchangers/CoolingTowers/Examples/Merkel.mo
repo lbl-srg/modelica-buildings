@@ -19,11 +19,12 @@ model Merkel "Test model for cooling tower using the Merkel theory"
 
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 0.8
     "Design air flow rate"
-      annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"
-                 annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+
   Controls.Continuous.LimPID conFan(
     k=1,
     Ti=60,
@@ -32,30 +33,33 @@ model Merkel "Test model for cooling tower using the Merkel theory"
     initType=Modelica.Blocks.Types.InitPID.InitialState)
     "Controller for tower fan"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+
 equation
-  connect(wetBulTem.TWetBul, tow.TAir) annotation (Line(
+  connect(wetBulTem.TWetBul, tow.TAir)
+    annotation (Line(
       points={{1,50},{12,50},{12,-46},{20,-46}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TSetLea.y, conFan.u_s) annotation (Line(
+  connect(TSetLea.y, conFan.u_s)
+    annotation (Line(
       points={{-39,-10},{-22,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conFan.y, tow.y) annotation (Line(
+      color={0,0,127}));
+  connect(conFan.y, tow.y)
+    annotation (Line(
       points={{1,-10},{6,-10},{6,-42},{20,-42}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(tow.TLvg, conFan.u_m) annotation (Line(
+      color={0,0,127}));
+  connect(tow.TLvg, conFan.u_m)
+    annotation (Line(
       points={{43,-56},{54,-56},{54,-32},{-10,-32},{-10,-22}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-260},
-            {140,100}})),
+      color={0,0,127}));
+
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=true,
+      extent={{-140,-260},{140,100}})),
 experiment(StartTime=15552000, Tolerance=1e-06, StopTime=15724800),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/Merkel.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-180},{100,
-            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=true,
+        extent={{-100,-180},{100,100}})),
     Documentation(info="<html>
 This example illustrates the use of the cooling tower model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">

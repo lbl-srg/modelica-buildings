@@ -162,8 +162,6 @@ protected
   flo flowRegime(
     start=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow)
     "Heat exchanger flow regime";
-//  Real FRAirAct "Actual air flow ratio";
-//  Real FRWatAct "Actual water flow ratio";
   Real UA_FAir "UA correction factor as function of air flow ratio";
   Real UA_FWat "UA correction factor as function of water flow ratio";
   Real UA_DifWB

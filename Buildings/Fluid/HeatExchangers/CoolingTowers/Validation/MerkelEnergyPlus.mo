@@ -51,6 +51,16 @@ model MerkelEnergyPlus
     0.082729139,0.142515786,0.231705701,0.356179538,0.521817952,0.734501596,1}
     "Fan power output as a function of the signal";
 
+  Modelica.Blocks.Sources.CombiTimeTable datRea(
+    tableOnFile=true,
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+      "modelica://Buildings//Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelEnergyPlus/modelica.csv"),
+    columns=2:16,
+    tableName="modelica",
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
+    "Reader for \"CoolingTower_VariableSpeed_Merkel.idf\" energy plus example results"
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+
   Merkel tow(
     redeclare package Medium = MediumWat,
     dp_nominal=dp_nominal,
@@ -85,16 +95,6 @@ model MerkelEnergyPlus
   Sources.Boundary_pT sinWat(redeclare package Medium = MediumWat,nPorts=1)
     "Water sink from the cooling tower"
     annotation (Placement(transformation(extent={{100,-60},{80,-40}})));
-
-  Modelica.Blocks.Sources.CombiTimeTable datRea(
-    tableOnFile=true,
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings//Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelEnergyPlus/modelica.csv"),
-    columns=2:16,
-    tableName="modelica",
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
-    "Reader for \"CoolingTower_VariableSpeed_Merkel.idf\" energy plus example results"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Controls.OBC.UnitConversions.From_degC TEntWat
     "Block that converts entering water temperature"
