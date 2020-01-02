@@ -10,6 +10,6 @@ compareVars :=
     "tow.TRan",
     "conFan.u_s",
     "conFan.u_m",
-    "onOffController.u",
-    "onOffController.reference"
+    "onOffCon.u",
+    "onOffCon.reference"
   };
