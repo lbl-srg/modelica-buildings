@@ -572,7 +572,7 @@ Calculates operative part load ratios (OPLR) per sections 5.2.4.5., 9., 10. and
 stage part load ratios (SPLR, up or down) per section 5.2.4.5.13 (July Draft).
 </p>
 <p>
-Operative part load ratio (OPLR) is a ratio of the current capacity requirement
+OPLR is a ratio of the current capacity requirement
 to a given design or minimal stage capacity, such as:
 </p>
 <ul>
@@ -583,10 +583,10 @@ Current stage design OPLR (<code>y</code>).
 Current stage minimal OPLR (<code>yMin</code>).
 </li>
 <li>
-First higher available stage nominal OPLR (<code>yUp</code>).
+Next available higher stage nominal OPLR (<code>yUp</code>).
 </li>
 <li>
-First higher available stage minimal OPLR (<code>yUpMin</code>).
+Next available higher stage minimal OPLR (<code>yUpMin</code>).
 </li>
 </ul>
 <p>
@@ -596,13 +596,13 @@ type of chillers staged in either the current, next available stage up or down: 
 
 <table summary=\"summary\" border=\"1\">
 <tr>
-<th> Row: Stage/<br/>Column: Stage Type</th>
+<th> Row: Stage<br/>Column: Stage Type</th>
 <th> Any Constant Speed Centrifugal</th>
 <th> All Positive Displacement</th>
 <th> Any Variable Speed and no Constant Speed Centrifugal </th>
 </tr>
 <tr>
-<td align=\"center\">Up</td>
+<td align=\"center\">Next Available Up</td>
 <td align=\"center\"><code><code>yStaUp=conSpeCenMult</code></td>
 <td align=\"center\"><code><code> N/A </code></td>
 <td align=\"center\"><code><code> N/A </code></td>
@@ -614,7 +614,7 @@ type of chillers staged in either the current, next available stage up or down: 
 <td align=\"center\"><code><code>yStaUp=f(uLif, uLifMin, uLifMax)</code></td>
 </tr>
 <tr>
-<td align=\"center\">Down</td>
+<td align=\"center\">Next Available Down</td>
 <td align=\"center\"><code><code> N/A </code></td>
 <td align=\"center\"><code><code>yStaDown=posDisMult</code></td>
 <td align=\"center\"><code><code>yStaDown=f(uLif, uLifMin, uLifMax)</code></td>

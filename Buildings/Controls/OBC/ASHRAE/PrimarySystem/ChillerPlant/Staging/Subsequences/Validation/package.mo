@@ -20,199 +20,84 @@ package Validation "Collection of validation models"
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios PLRs0(
       final anyVsdCen=false,
       final nSta = 2) "Stage and operative part load ratios"
-      annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
-
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant higSta(final k=false)
-      "Indicates whether the current is the highest available stage"
-      annotation (Placement(transformation(extent={{-280,40},{-260,60}})));
-
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant lowSta(final k=true)
-      "Indicates whether the current is the lowest available stage"
-      annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
+      annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
 
     Buildings.Controls.OBC.CDL.Continuous.Max max
-      annotation (Placement(transformation(extent={{-242,270},{-220,290}})));
-
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.PartLoadRatios PLRs1(
-      final anyVsdCen=false,
-      final nSta=2)
-      "Stage and operative part load ratios"
-      annotation (Placement(transformation(extent={{20,140},{40,160}})));
-
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant higSta1(final k=false)
-      "Indicates whether the current is the highest available stage"
-      annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant lowSta1(final k=true)
-      "Indicates whether the current is the lowest available stage"
-      annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+      annotation (Placement(transformation(extent={{-262,280},{-240,300}})));
 
 protected
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities staCap3(
-      final nSta=2)
-      "Returns design and minimal stage capacities required for calculating operating and stage part load ratios"
-      annotation (Placement(transformation(extent={{-240,70},{-220,90}})));
-
     Buildings.Controls.OBC.CDL.Integers.Sources.Constant curSta(final k=1)
       "Current chiller stage"
-      annotation (Placement(transformation(extent={{-320,190},{-300,210}})));
+      annotation (Placement(transformation(extent={{-340,120},{-320,140}})));
 
     Buildings.Controls.OBC.CDL.Continuous.Sources.Sine capReq3(
-      amplitude=18e5,
+    amplitude=6e5,
       freqHz=1/1800,
-      offset=200000,
-      startTime=200)
+    offset=1400000,
+    startTime=0)
       "Capacity requirement"
-      annotation (Placement(transformation(extent={{-300,300},{-280,320}})));
+      annotation (Placement(transformation(extent={{-340,310},{-320,330}})));
 
     Buildings.Controls.OBC.CDL.Integers.Sources.Constant staUp(final k=2)
       "Next available chiller stage up"
-      annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
+      annotation (Placement(transformation(extent={{-340,80},{-320,100}})));
 
     Buildings.Controls.OBC.CDL.Integers.Sources.Constant staDown(final k=0)
       "Next available chiller stage down"
-      annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
+      annotation (Placement(transformation(extent={{-340,40},{-320,60}})));
 
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowLim(final k=0)
       "Capacity requirement"
-      annotation (Placement(transformation(extent={{-300,260},{-280,280}})));
+      annotation (Placement(transformation(extent={{-340,270},{-320,290}})));
 
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desCap[2](
-      final k={8e5,2e6})
-      "Chiller design capacities"
-      annotation (Placement(transformation(extent={{-320,-20},{-300,0}})));
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant capDes[2](final k={
+        10e5,15e5,25e5}) "Stage design capacities"
+      annotation (Placement(transformation(extent={{-300,240},{-280,260}})));
 
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minCap[2](
-      final k={1.6e4,4e5})
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant capMin[2](final k={
+        2e5,3e5,5e5})
       "Stage unload capacities"
-      annotation (Placement(transformation(extent={{-320,-62},{-300,-42}})));
+      annotation (Placement(transformation(extent={{-300,200},{-280,220}})));
 
-    Buildings.Controls.OBC.CDL.Integers.Sources.Constant chiTyp[2](final k={
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
+    Buildings.Controls.OBC.CDL.Integers.Sources.Constant staTyp[3](final k={
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal,
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
       "Stage types"
-      annotation (Placement(transformation(extent={{-300,220},{-280,240}})));
-
-protected
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Capacities staCap1(
-      final nSta=2)
-      "Returns design and minimal stage capacities required for calculating operating and stage part load ratios"
-      annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-
-    Buildings.Controls.OBC.CDL.Integers.Sources.Constant curSta1(final k=0)
-      "Current chiller stage"
-      annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-
-    Buildings.Controls.OBC.CDL.Integers.Sources.Constant staUp1(final k=1)
-      "Next available chiller stage up"
-      annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
-
-    Buildings.Controls.OBC.CDL.Integers.Sources.Constant staDown1(final k=0)
-      "Next available chiller stage down"
-      annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desCap1[2](
-      final k={8e5,2e6})
-      "Chiller design capacities"
-      annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-
-    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minCap1[2](
-      final k={1.6e4,4e5})
-      "Stage unload capacities"
-      annotation (Placement(transformation(extent={{-120,-62},{-100,-42}})));
+      annotation (Placement(transformation(extent={{-340,160},{-320,180}})));
 
   equation
 
-    connect(curSta.y, PLRs0.u) annotation (Line(points={{-298,200},{-240,200},{
-          -240,140},{-181,140}},
+    connect(curSta.y, PLRs0.u) annotation (Line(points={{-318,130},{-240,130},{
+          -240,120},{-181,120}},
                              color={255,127,0}));
-    connect(curSta.y, staCap3.u) annotation (Line(points={{-298,200},{-250,200},
-          {-250,86},{-242,86}},
-                            color={255,127,0}));
-    connect(staUp.y, PLRs0.uUp) annotation (Line(points={{-258,180},{-200,180},
-          {-200,138},{-181,138}},
+    connect(staUp.y, PLRs0.uUp) annotation (Line(points={{-318,90},{-240,90},{
+          -240,118},{-181,118}},
                              color={255,127,0}));
-    connect(staDown.y, PLRs0.uDown) annotation (Line(points={{-298,160},{-252,
-          160},{-252,128},{-198,128},{-198,136},{-181,136}},
-                                                      color={255,127,0}));
-    connect(staUp.y, staCap3.uUp) annotation (Line(points={{-258,180},{-254,180},
-          {-254,83},{-242,83}},  color={255,127,0}));
-    connect(staDown.y, staCap3.uDown) annotation (Line(points={{-298,160},{-258,
-          160},{-258,80},{-242,80}},
-                                  color={255,127,0}));
-    connect(higSta.y, staCap3.uHig) annotation (Line(points={{-258,50},{-252,50},
-          {-252,77},{-242,77}},  color={255,0,255}));
-    connect(lowSta.y, staCap3.uLow) annotation (Line(points={{-258,20},{-250,20},
-          {-250,74},{-242,74}},
-                            color={255,0,255}));
-    connect(desCap.y, staCap3.uDesCap) annotation (Line(points={{-298,-10},{
-          -290,-10},{-290,89},{-242,89}},
-                                  color={0,0,127}));
-    connect(staCap3.uMinCap, minCap.y) annotation (Line(points={{-242,71},{-290,
-          71},{-290,-52},{-298,-52}},
-                                  color={0,0,127}));
-    connect(PLRs0.uTyp,chiTyp. y) annotation (Line(points={{-181,143},{-236,143},
-          {-236,230},{-278,230}},
+    connect(staDown.y, PLRs0.uDown) annotation (Line(points={{-318,50},{-230,50},
+          {-230,116},{-181,116}},                     color={255,127,0}));
+    connect(PLRs0.uTyp,staTyp. y) annotation (Line(points={{-181,123},{-230,123},
+          {-230,170},{-318,170}},
                               color={255,127,0}));
-    connect(staCap3.yDes, PLRs0.uCapDes) annotation (Line(points={{-218,88},{
-          -210,88},{-210,161},{-181,161}},
-                                  color={0,0,127}));
-    connect(staCap3.yUpDes, PLRs0.uUpCapDes) annotation (Line(points={{-218,84},
-          {-208,84},{-208,159},{-181,159}},
-                                      color={0,0,127}));
-    connect(staCap3.yDowDes, PLRs0.uDowCapDes) annotation (Line(points={{-218,80},
-          {-206,80},{-206,157},{-181,157}},
-                                          color={0,0,127}));
-    connect(staCap3.yUpMin, PLRs0.uUpCapMin) annotation (Line(points={{-218,72},
-          {-204,72},{-204,153},{-181,153}},
-                                      color={0,0,127}));
-    connect(PLRs0.uCapMin, staCap3.yMin) annotation (Line(points={{-181,155},{
-          -202,155},{-202,76},{-218,76}},
-                                color={0,0,127}));
-    connect(max.y, PLRs0.uCapReq) annotation (Line(points={{-217.8,280},{-210,
-          280},{-210,163},{-181,163}},
+    connect(max.y, PLRs0.uCapReq) annotation (Line(points={{-237.8,290},{-210,
+          290},{-210,143},{-181,143}},
                                  color={0,0,127}));
-    connect(capReq3.y, max.u1) annotation (Line(points={{-278,310},{-260,310},{
-          -260,286},{-244.2,286}},
+    connect(capReq3.y, max.u1) annotation (Line(points={{-318,320},{-280,320},{
+          -280,296},{-264.2,296}},
                                 color={0,0,127}));
-    connect(lowLim.y, max.u2) annotation (Line(points={{-278,270},{-260,270},{
-          -260,274},{-244.2,274}},
+    connect(lowLim.y, max.u2) annotation (Line(points={{-318,280},{-280,280},{
+          -280,284},{-264.2,284}},
                                 color={0,0,127}));
-  connect(curSta1.y, PLRs1.u) annotation (Line(points={{-98,200},{-40,200},{-40,
-          140},{19,140}}, color={255,127,0}));
-  connect(curSta1.y, staCap1.u) annotation (Line(points={{-98,200},{-50,200},{
-          -50,86},{-42,86}}, color={255,127,0}));
-  connect(staUp1.y, PLRs1.uUp) annotation (Line(points={{-58,180},{-54,180},{
-          -54,138},{19,138}}, color={255,127,0}));
-  connect(staDown1.y, PLRs1.uDown) annotation (Line(points={{-98,160},{-52,160},
-          {-52,128},{2,128},{2,136},{19,136}}, color={255,127,0}));
-  connect(staUp1.y, staCap1.uUp) annotation (Line(points={{-58,180},{-54,180},{
-          -54,83},{-42,83}}, color={255,127,0}));
-  connect(staDown1.y, staCap1.uDown) annotation (Line(points={{-98,160},{-58,
-          160},{-58,80},{-42,80}}, color={255,127,0}));
-  connect(higSta1.y, staCap1.uHig) annotation (Line(points={{-58,50},{-52,50},{
-          -52,77},{-42,77}}, color={255,0,255}));
-  connect(lowSta1.y, staCap1.uLow) annotation (Line(points={{-58,20},{-50,20},{
-          -50,74},{-42,74}}, color={255,0,255}));
-  connect(desCap1.y, staCap1.uDesCap) annotation (Line(points={{-98,-10},{-90,
-          -10},{-90,89},{-42,89}}, color={0,0,127}));
-  connect(staCap1.uMinCap, minCap1.y) annotation (Line(points={{-42,71},{-90,71},
-          {-90,-52},{-98,-52}}, color={0,0,127}));
-    connect(staCap1.yDes,PLRs1. uCapDes) annotation (Line(points={{-18,88},{-10,
-          88},{-10,161},{19,161}},color={0,0,127}));
-    connect(staCap1.yUpDes,PLRs1. uUpCapDes) annotation (Line(points={{-18,84},
-          {-8,84},{-8,159},{19,159}}, color={0,0,127}));
-    connect(staCap1.yDowDes,PLRs1. uDowCapDes) annotation (Line(points={{-18,80},
-          {-6,80},{-6,157},{19,157}},     color={0,0,127}));
-    connect(staCap1.yUpMin,PLRs1. uUpCapMin) annotation (Line(points={{-18,72},
-          {-4,72},{-4,153},{19,153}}, color={0,0,127}));
-    connect(PLRs1.uCapMin,staCap1. yMin) annotation (Line(points={{19,155},{-2,
-          155},{-2,76},{-18,76}},
-                                color={0,0,127}));
-  connect(max.y, PLRs1.uCapReq) annotation (Line(points={{-217.8,280},{10,280},
-          {10,163},{19,163}}, color={0,0,127}));
-  connect(PLRs1.uTyp, chiTyp.y) annotation (Line(points={{19,143},{-30,143},{
-          -30,230},{-278,230}}, color={255,127,0}));
+  connect(capDes[1].y, PLRs0.uCapDes) annotation (Line(points={{-278,250},{-212,
+          250},{-212,141},{-181,141}}, color={0,0,127}));
+  connect(capDes[2].y, PLRs0.uUpCapDes) annotation (Line(points={{-278,250},{
+          -212,250},{-212,139},{-181,139}}, color={0,0,127}));
+  connect(capMin[1].y, PLRs0.uDowCapDes) annotation (Line(points={{-278,210},{
+          -214,210},{-214,137},{-181,137}}, color={0,0,127}));
+  connect(capMin[1].y, PLRs0.uCapMin) annotation (Line(points={{-278,210},{-214,
+          210},{-214,135},{-181,135}}, color={0,0,127}));
+  connect(capMin[2].y, PLRs0.uUpCapMin) annotation (Line(points={{-278,210},{
+          -216,210},{-216,133},{-181,133}}, color={0,0,127}));
   annotation (
    experiment(StopTime=1200.0, Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/PartLoadRatios_u_uTyp.mos"
