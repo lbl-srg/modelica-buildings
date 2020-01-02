@@ -24,13 +24,15 @@ block PartLoadRatios
     final unit = "1",
     final min = 0.1,
     final max = 1)=0.45
-    "Minimum stage up or down part load ratio for variable speed centrifugal stage types";
+    "Minimum stage up or down part load ratio for variable speed centrifugal stage types"
+    annotation(Evaluate=true, Dialog(enable=anyVsdCen));
 
   parameter Real varSpeStaMax(
     final unit = "1",
     final min = varSpeStaMin,
     final max = 1)=0.9
-    "Maximum stage up or down part load ratio for variable speed centrifugal stage types";
+    "Maximum stage up or down part load ratio for variable speed centrifugal stage types"
+    annotation(Evaluate=true, Dialog(enable=anyVsdCen));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
@@ -590,8 +592,12 @@ Next available higher stage minimal OPLR (<code>yUpMin</code>).
 </li>
 </ul>
 <p>
-SPLRup (<code>yStaUp</code>) or SPLRdown (<code>yStaDown</code>) value depends on the stage type (<code>staTyp</code>), which is based on the 
-type of chillers staged in either the current, next available stage up or down: <br/>
+SPLRup (<code>yStaUp</code>) or SPLRdown (<code>yStaDown</code>) value depends on the stage type (<code>staTyp</code>). 
+The stage type is determined 
+by the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator</a>
+subsequence based on the type of chillers staged. <br/>
+Note that the rules are prioritized by stage type column, from left to right.
 </p>
 
 <table summary=\"summary\" border=\"1\">
