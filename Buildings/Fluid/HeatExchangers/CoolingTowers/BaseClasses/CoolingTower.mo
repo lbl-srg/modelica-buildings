@@ -4,7 +4,6 @@ partial model CoolingTower "Base class for cooling towers"
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
 
   Modelica.Blocks.Interfaces.RealOutput TLvg(
-    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
