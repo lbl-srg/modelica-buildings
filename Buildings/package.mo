@@ -416,6 +416,16 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc<br/>
+                           Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower
+        </td>
+        <td valign=\"top\">Corrected error in computing the cooling tower fan power consumption.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1691\">1691</a>.
+        </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
         </td>
     </tr>
