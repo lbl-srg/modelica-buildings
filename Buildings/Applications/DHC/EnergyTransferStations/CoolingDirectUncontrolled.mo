@@ -2,9 +2,12 @@ within Buildings.Applications.DHC.EnergyTransferStations;
 model CoolingDirectUncontrolled
   "Direct cooling ETS model for district energy systems without in-building 
   pumping or deltaT control"
-  extends Buildings.Fluid.Interfaces.PartialFourPort(
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
-    redeclare final package Medium2 = Medium);
+    redeclare final package Medium2 = Medium,
+    final m1_flow_nominal = m_flow_nominal,
+    final m2_flow_nominal = m_flow_nominal,
+    show_T = true);
 
  replaceable package Medium =
    Modelica.Media.Interfaces.PartialMedium "Medium in the component";

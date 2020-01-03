@@ -2,9 +2,12 @@ within Buildings.Applications.DHC.EnergyTransferStations;
 model CoolingDirectControlledReturn
   "Direct cooling ETS model for district energy systems with in-building 
     pumping and controlled district return temperature"
-  extends Buildings.Fluid.Interfaces.PartialFourPort(
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
-    redeclare final package Medium2 = Medium);
+    redeclare final package Medium2 = Medium,
+    final m1_flow_nominal = mDis_flow_nominal,
+    final m2_flow_nominal = mBui_flow_nominal,
+    show_T = true);
 
  replaceable package Medium =
    Modelica.Media.Interfaces.PartialMedium "Medium in the component";
