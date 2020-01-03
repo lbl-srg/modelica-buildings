@@ -1,9 +1,10 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
 model CoolingIndirect
   "Indirect cooling energy transfer station for district energy systems"
-  extends Buildings.Fluid.Interfaces.PartialFourPort(
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
-    redeclare final package Medium2 = Medium);
+    redeclare final package Medium2 = Medium,
+    show_T = true);
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component";
