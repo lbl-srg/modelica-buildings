@@ -2,30 +2,33 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions;
 function cpe
   "Computes equivalent specific heat of moist air"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature Tin;
-  input Modelica.SIunits.Temperature Tout;
+  input Modelica.SIunits.Temperature TIn "Inlet temperature";
+  input Modelica.SIunits.Temperature TOut "Outlet temperature";
 
-  output Modelica.SIunits.SpecificHeatCapacity cpe;
+  output Modelica.SIunits.SpecificHeatCapacity cpe "Equivalent specific heat capacity";
 
 protected
-  Modelica.SIunits.SpecificEnthalpy hin "Specific enthalpy";
-  Modelica.SIunits.SpecificEnthalpy hout "Specific enthalpy";
+  Modelica.SIunits.SpecificEnthalpy hIn "Specific enthalpy";
+  Modelica.SIunits.SpecificEnthalpy hOut "Specific enthalpy";
   Modelica.SIunits.TemperatureDifference deltaT=1e-6;
 
 algorithm
 
-  hin :=
+  hIn :=
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.h_TDryBulPhi(
-    Tin,
+    TIn,
     1,
     101325);
-  hout :=
+  hOut :=
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.h_TDryBulPhi(
-    Tout,
+    TOut,
     1,
     101325);
 
-  cpe := Buildings.Utilities.Math.Functions.smoothMax(if noEvent(abs(Tin-Tout)>deltaT) then (hin-hout)/(Tin-Tout) else 1008,0,deltaT);
+  cpe := Buildings.Utilities.Math.Functions.smoothMax(
+    x1 = if noEvent(abs(TIn-TOut) > deltaT) then (hIn-hOut)/(TIn-TOut) else 1008,
+    x2 = 0,
+    deltaX = deltaT);
 
   annotation (Documentation(info="<html>
 <p>
