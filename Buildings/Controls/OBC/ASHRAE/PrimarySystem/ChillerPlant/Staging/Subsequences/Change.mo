@@ -269,7 +269,7 @@ equation
           {-86,-75},{-86,-5},{-81,-5}}, color={0,0,127}));
   connect(cap.yStaMin, PLRs.uStaCapMin) annotation (Line(points={{-119,-77},{-84,
           -77},{-84,-7},{-81,-7}}, color={0,0,127}));
-  connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-119,-10},{-116,-10},
+  connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-118,-10},{-116,-10},
           {-116,3},{-81,3}},   color={0,0,127}));
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-220,90},
           {-160,90},{-160,-7},{-142,-7}},  color={0,0,127}));
@@ -295,29 +295,27 @@ equation
   connect(PLRs.yMin, staDow.uOplrMin) annotation (Line(points={{-59,-19},{-40,-19},
           {-40,-104},{19,-104}}, color={0,0,127}));
   connect(dpChiWatPumSet, staDow.dpChiWatPumSet) annotation (Line(points={{-220,
-          -120},{-20,-120},{-20,-114},{19,-114}}, color={0,0,127}));
+          -120},{-20,-120},{-20,-106},{19,-106}}, color={0,0,127}));
   connect(dpChiWatPum, staDow.dpChiWatPum) annotation (Line(points={{-220,-150},
-          {-18,-150},{-18,-116},{19,-116}}, color={0,0,127}));
+          {-18,-150},{-18,-108},{19,-108}}, color={0,0,127}));
   connect(TChiWatSupSet, staUp.TChiWatSupSet) annotation (Line(points={{-220,90},
           {-14,90},{-14,10},{19,10}}, color={0,0,127}));
   connect(TChiWatSupSet, staDow.TChiWatSupSet) annotation (Line(points={{-220,90},
-          {-14,90},{-14,-105},{19,-105}}, color={0,0,127}));
+          {-14,90},{-14,-110},{19,-110}}, color={0,0,127}));
   connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-220,-190},{-14,
           -190},{-14,-112},{19,-112}}, color={0,0,127}));
   connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-220,-190},{-12,
           -190},{-12,8},{19,8}}, color={0,0,127}));
-  connect(TWsePre, staDow.TWsePre) annotation (Line(points={{-220,-220},{-10,
-          -220},{-10,-118},{19,-118}},
-                                 color={0,0,127}));
+  connect(TWsePre, staDow.TWsePre) annotation (Line(points={{-220,-220},{-10,-220},
+          {-10,-114},{19,-114}}, color={0,0,127}));
   connect(dpChiWatPumSet, staUp.dpChiWatPumSet) annotation (Line(points={{-220,-120},
           {-8,-120},{-8,5},{19,5}}, color={0,0,127}));
   connect(dpChiWatPum, staUp.dpChiWatPum) annotation (Line(points={{-220,-150},{
           -6,-150},{-6,3},{19,3}}, color={0,0,127}));
-  connect(uTowFanSpeMax, staDow.uTowFanSpeMax) annotation (Line(points={{-220,
-          -260},{-4,-260},{-4,-120},{19,-120}},
-                                          color={0,0,127}));
-  connect(uWseSta, staDow.uWseSta) annotation (Line(points={{-220,130},{0,130},
-          {0,-102},{19,-102}}, color={255,0,255}));
+  connect(uTowFanSpeMax, staDow.uTowFanSpeMax) annotation (Line(points={{-220,-260},
+          {-4,-260},{-4,-116},{19,-116}}, color={0,0,127}));
+  connect(uWseSta, staDow.uWseSta) annotation (Line(points={{-220,130},{0,130},{
+          0,-118},{19,-118}},  color={255,0,255}));
   connect(uLifMax, PLRs.uLifMax) annotation (Line(points={{-220,-10},{-190,-10},
           {-190,-24},{-110,-24},{-110,-12},{-81,-12}}, color={0,0,127}));
   connect(uLifMin, PLRs.uLifMin) annotation (Line(points={{-220,-40},{-190,-40},
@@ -336,15 +334,15 @@ equation
           {160,-76},{178,-76}},color={255,127,0}));
   connect(reaToInt.y, addInt1.u1) annotation (Line(points={{362,130},{368,130},
           {368,150},{160,150},{160,-64},{178,-64}}, color={255,127,0}));
-  connect(reaToInt.y, staUp.uChiSta) annotation (Line(points={{361,130},{372,130},
+  connect(reaToInt.y, staUp.uChiSta) annotation (Line(points={{362,130},{372,130},
           {372,152},{10,152},{10,0},{19,0}},      color={255,127,0}));
-  connect(reaToInt.y, PLRs.u) annotation (Line(points={{361,130},{378,130},{378,
+  connect(reaToInt.y, PLRs.u) annotation (Line(points={{362,130},{378,130},{378,
           154},{-88,154},{-88,-20},{-81,-20}},
                                              color={255,127,0}));
   connect(reaToInt.y, cap.u) annotation (Line(points={{362,130},{382,130},{382,
           156},{-150,156},{-150,-64},{-142,-64}},
                                              color={255,127,0}));
-  connect(reaToInt.y, staDow.u) annotation (Line(points={{361,130},{386,130},{386,
+  connect(reaToInt.y, staDow.u) annotation (Line(points={{362,130},{386,130},{386,
           160},{8,160},{8,-120},{19,-120}}, color={255,127,0}));
   connect(addInt.y, y) annotation (Line(points={{152,-110},{400,-110},{400,-40},
           {430,-40}},color={255,127,0}));
@@ -372,9 +370,8 @@ equation
   connect(conf.yAva, sta.uAva) annotation (Line(points={{-168,106},{-164,106},{
           -164,44},{-142,44}},
                           color={255,0,255}));
-  connect(conf.yTyp, PLRs.uTyp) annotation (Line(points={{-169,110},{-90,110},{
-          -90,-17},{-81,-17}},
-                           color={255,127,0}));
+  connect(conf.yTyp, PLRs.uTyp) annotation (Line(points={{-168,102},{-90,102},{-90,
+          -17},{-81,-17}}, color={255,127,0}));
   connect(PLRs.uUp, sta.uUp) annotation (Line(points={{-81,-22},{-94,-22},{-94,
           55},{-119,55}},
                      color={255,127,0}));
@@ -394,8 +391,8 @@ equation
                                                 color={255,0,255}));
   connect(sta.yLow, cap.uLow) annotation (Line(points={{-118,44},{-116,44},{
           -116,12},{-158,12},{-158,-76},{-142,-76}}, color={255,0,255}));
-  connect(sta.yHig, staUp.uHigSta) annotation (Line(points={{-119,47},{12,47},{
-          12,-2},{19,-2}}, color={255,0,255}));
+  connect(sta.yHig, staUp.uHigSta) annotation (Line(points={{-118,53},{12,53},{12,
+          -2},{19,-2}},    color={255,0,255}));
   annotation (defaultComponentName = "staCha",
         Icon(graphics={
         Rectangle(
@@ -423,7 +420,7 @@ WSE enable at plant enable part - in plant enable subsequence
 revisions="<html>
 <ul>
 <li>
-January xx, 2019, by Milica Grahovac:<br/>
+January xx, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

@@ -592,12 +592,12 @@ Next available higher stage minimal OPLR (<code>yUpMin</code>).
 </li>
 </ul>
 <p>
-SPLRup (<code>yStaUp</code>) or SPLRdown (<code>yStaDown</code>) value depends on the stage type (<code>staTyp</code>). 
+SPLRup (<code>yStaUp</code>) or SPLRdown (<code>yStaDown</code>) value depends on the stage type (<code>staTyp</code>)
+as indicated in the table below. Note that the rules are prioritized by stage type column, from left to right. <br/>
 The stage type is determined 
 by the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Configurator</a>
 subsequence based on the type of chillers staged. <br/>
-Note that the rules are prioritized by stage type column, from left to right.
 </p>
 
 <table summary=\"summary\" border=\"1\">
@@ -631,7 +631,7 @@ Note that the rules are prioritized by stage type column, from left to right.
 revisions="<html>
 <ul>
 <li>
-October 13, 2018, by Milica Grahovac:<br/>
+January 03, 2020, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>
