@@ -2,11 +2,10 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model YorkCalc
   "Test model for cooling tower using the York performance correlation"
   extends Modelica.Icons.Example;
-  extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-    redeclare CoolingTowers.YorkCalc tow(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      m_flow_nominal=mWat_flow_nominal),
-    onOffController(bandwidth=2));
+  extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(onOffCon(
+        bandwidth=2), redeclare CoolingTowers.YorkCalc tow(energyDynamics=
+          Modelica.Fluid.Types.Dynamics.FixedInitial, m_flow_nominal=
+          mWat_flow_nominal));
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"
@@ -21,7 +20,7 @@ model YorkCalc
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 equation
   connect(wetBulTem.TWetBul, tow.TAir) annotation (Line(
-      points={{1,50},{12,50},{12,-46},{22,-46}},
+      points={{1,50},{12,50},{12,-46},{20,-46}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetLea.y, conFan.u_s) annotation (Line(
@@ -29,11 +28,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFan.y, tow.y) annotation (Line(
-      points={{1,-10},{6,-10},{6,-42},{22,-42}},
+      points={{1,-10},{6,-10},{6,-42},{20,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tow.TLvg, conFan.u_m) annotation (Line(
-      points={{45,-56},{54,-56},{54,-32},{-10,-32},{-10,-22}},
+      points={{43,-56},{54,-56},{54,-32},{-10,-32},{-10,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-260},
