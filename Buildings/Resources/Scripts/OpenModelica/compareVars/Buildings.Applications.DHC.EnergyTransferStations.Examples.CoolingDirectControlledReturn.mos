@@ -1,11 +1,11 @@
 compareVars :=
   {
-    "TDisSup.T",
-    "TDisRet.T",
-    "TBuiSup.T",
-    "TBuiRet.T",
-    "TDisSup.port_a.m_flow",
-    "TBuiSup.port_a.m_flow",
+    "coo.sta_a1.T",
+    "coo.sta_b1.T",
+    "coo.sta_a2.T",
+    "coo.sta_b2.T",
+    "coo.port_a1.m_flow",
+    "coo.port_a2.m_flow",
     "coo.cheVal.m_flow",
     "coo.conVal.y",
     "coo.con.hys.y",
