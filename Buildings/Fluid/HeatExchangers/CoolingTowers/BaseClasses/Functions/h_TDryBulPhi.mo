@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions;
 function h_TDryBulPhi
-  "Calcluate saturated enthalpy based on drybulb temperature and phi"
+  "Computes saturated enthalpy based on drybulb temperature and relative humidity"
   extends Modelica.Icons.Function;
 
   // coefficients
@@ -27,4 +27,16 @@ algorithm
   XiDryBul := 0.6219647130774989*p_w/(p-p_w);
   h := 1006*TDryBul_degC + XiDryBul*(2501014.5+1860*TDryBul_degC);
 
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+October 22, 2019, by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This function computes enthalpy from the dry bulb temperature and relative humidity. 
+</p>
+</html>"));
 end h_TDryBulPhi;
