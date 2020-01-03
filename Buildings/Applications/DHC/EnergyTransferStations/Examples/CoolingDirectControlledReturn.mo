@@ -38,30 +38,6 @@ model CoolingDirectControlledReturn
     yCon_start=0)
     annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort TDisSup(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mDis_flow_nominal)
-    "District-side (primary) supply temperature sensor"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-
-  Buildings.Fluid.Sensors.TemperatureTwoPort TBuiSup(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mBui_flow_nominal)
-    "Building-side (secondary) supply temperature sensor"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
-
-  Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mBui_flow_nominal)
-    "Building-side (secondary) return temperature sensor"
-    annotation (Placement(transformation(extent={{60,-100},{40,-80}})));
-
-  Buildings.Fluid.Sensors.TemperatureTwoPort TDisRet(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mDis_flow_nominal)
-    "District-side (primary) return temperature sensor"
-    annotation (Placement(transformation(extent={{-40,-100},{-60,-80}})));
-
   Modelica.Blocks.Sources.Constant TSetDisRet_min(k=273.15 + 16)
     "Minimum setpoint temperature for district return"
     annotation (Placement(transformation(extent={{-100,-64},{-80,-44}})));
@@ -135,34 +111,12 @@ model CoolingDirectControlledReturn
 equation
   connect(TSetDisRet_min.y, coo.TSetDisRet)
     annotation (Line(points={{-79,-54},{-12,-54}}, color={0,0,127}));
-  connect(TDisSup.port_b, coo.port_a1)
-    annotation (Line(points={{-40,10},{-20,10},{-20,-36},{-10,-36}},
-      color={0,127,255}));
-  connect(coo.port_b1, TBuiSup.port_a)
-    annotation (Line(points={{10,-36},{20,-36},{20,10},{40,10}},
-      color={0,127,255}));
-  connect(TBuiRet.port_b, coo.port_a2)
-    annotation (Line(points={{40,-90},{20,-90},{20,-48},{10,-48}},
-      color={0,127,255}));
-  connect(TBuiSup.port_b, pum.port_a)
-    annotation (Line(points={{60,10},{80,10}}, color={0,127,255}));
   connect(pum.port_b, loa.port_a)
-    annotation (Line(points={{100,10},{120,10}},color={0,127,255}));
-  connect(souDis.ports[1], TDisSup.port_a)
-    annotation (Line(points={{-80,10},{-60,10}}, color={0,127,255}));
-  connect(coo.port_b2, TDisRet.port_a)
-    annotation (Line(points={{-10,-48},{-20,-48},{-20,-90},{-40,-90}},
-      color={0,127,255}));
-  connect(TDisRet.port_b, sinDis.ports[1])
-    annotation (Line(points={{-60,-90},{-80,-90}}, color={0,127,255}));
-  connect(TBuiRet.port_a, loa.port_b)
-    annotation (Line(points={{60,-90},{150,-90},{150,10},{140,10}},
-      color={0,127,255}));
+    annotation (Line(points={{100,10},{120,10}}, color={0,127,255}));
   connect(gai.y, pum.m_flow_in)
     annotation (Line(points={{61,50},{90,50},{90,22}}, color={0,0,127}));
   connect(ram.y, pro.u1)
-    annotation (Line(points={{-19,90},{-2,90}},
-                                             color={0,0,127}));
+    annotation (Line(points={{-19,90},{-2,90}}, color={0,0,127}));
   connect(pro.y, loa.u)
     annotation (Line(points={{21,84},{110,84},{110,16},{118,16}},
       color={0,0,127}));
@@ -173,8 +127,19 @@ equation
     annotation (Line(points={{21,84},{30,84},{30,50},{38,50}},
       color={0,0,127}));
   connect(TDisSupNoi.y, souDis.T_in)
-    annotation (Line(points={{-119,14},{-102,14}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-119,14},{-102,14}}, color={0,0,127}));
+  connect(coo.port_a1, souDis.ports[1])
+    annotation (Line(points={{-10,-36},{-20,-36},{-20,10},{-80,10}},
+      color={0,127,255}));
+  connect(coo.port_b1, pum.port_a)
+    annotation (Line(points={{10,-36},{20,-36},{20,10},{80,10}},
+      color={0,127,255}));
+  connect(sinDis.ports[1], coo.port_b2)
+    annotation (Line(points={{-80,-90},{-20,-90},{-20,-48},{-10,-48}},
+      color={0,127,255}));
+  connect(coo.port_a2, loa.port_b)
+    annotation (Line(points={{10,-48},{20,-48},{20,-90},{150,-90},{150,10},
+      {140,10}}, color={0,127,255}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false,

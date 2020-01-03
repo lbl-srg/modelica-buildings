@@ -4,7 +4,7 @@ simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.Coolin
 removePlots(true);
 createPlot(id=1, 
   position={11, 19, 713, 564}, 
-  y={"TDisSup.T", "TDisRet.T", "TBuiSup.T", "TBuiRet.T"}, 
+  y={"coo.sta_a1.T", "coo.sta_b1.T", "coo.sta_a2.T", "coo.sta_b2.T"}, 
   range={0.0, 24.0, 6.0, 18.0}, 
   grid=true, 
   filename="CoolingDirectControlledReturn.mat",
