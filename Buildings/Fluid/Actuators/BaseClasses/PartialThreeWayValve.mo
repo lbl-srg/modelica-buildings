@@ -9,7 +9,6 @@ partial model PartialThreeWayValve "Partial three way valve"
           deltaM=deltaM,
           dp(start=dpValve_nominal/2),
           from_dp=from_dp,
-          final l=l[1],
           final linearized=linearized[1],
           final homotopyInitialization=homotopyInitialization,
           final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -25,7 +24,6 @@ partial model PartialThreeWayValve "Partial three way valve"
           deltaM=deltaM,
           dp(start=dpValve_nominal/2),
           from_dp=from_dp,
-          final l=l[2],
           final linearized=linearized[2],
           final homotopyInitialization=homotopyInitialization,
           final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -69,79 +67,54 @@ equation
                      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
-        Line(
-          points={{0,70},{40,70}}),
-        Rectangle(
-          extent={{-100,44},{100,-36}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={192,192,192}),
-        Rectangle(
-          extent={{-100,26},{100,-20}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
-        Polygon(
-          points={{0,2},{-78,64},{-78,-56},{0,2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-68,56},{0,2},{56,44},{76,60},{-68,56}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-56,-40},{0,2},{56,44},{60,-40},{-56,-40}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{0,2},{82,64},{82,-54},{0,2}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-24,-56},{24,-100}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.VerticalCylinder,
-          fillColor={192,192,192}),
-        Rectangle(
-          extent={{-14,-56},{14,-100}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.VerticalCylinder,
-          fillColor={0,127,255}),
-        Polygon(
-          points={{0,2},{62,-80},{-58,-80},{0,2}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-30,46},{30,46}}),
-        Line(
-          points={{0,100},{0,-2}}),
-        Rectangle(
-          visible=use_inputFilter,
-          extent={{-36,36},{36,100}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          visible=use_inputFilter,
-          extent={{-36,100},{36,36}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Text(
-          visible=use_inputFilter,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold})}),
+    Rectangle(
+      extent={{-100,40},{100,-40}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.HorizontalCylinder,
+      fillColor={192,192,192}),
+    Rectangle(
+      extent={{-100,22},{100,-22}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.HorizontalCylinder,
+      fillColor={0,127,255}),
+    Rectangle(
+      extent={{-60,40},{60,-40}},
+      fillColor={255,255,255},
+      fillPattern=FillPattern.Solid,
+      pattern=LinePattern.None),
+    Polygon(
+      points={{0,0},{-76,60},{-76,-60},{0,0}},
+      lineColor={0,0,0},
+      fillColor={0,0,0},
+      fillPattern=FillPattern.Solid),
+    Polygon(
+      points={{0,0},{76,60},{76,-60},{0,0}},
+      lineColor={0,0,0},
+      fillColor={255,255,255},
+      fillPattern=FillPattern.Solid),
+    Rectangle(
+      extent={{-40,-56},{40,-100}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.VerticalCylinder,
+      fillColor={192,192,192}),
+    Rectangle(
+      extent={{-22,-56},{22,-100}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.VerticalCylinder,
+      fillColor={0,127,255}),
+    Polygon(
+      points={{0,0},{60,-76},{-60,-76},{0,0}},
+      lineColor={0,0,0},
+      fillColor={0,0,0},
+      fillPattern=FillPattern.Solid),
+    Line(
+      visible=use_inputFilter,
+      points={{-30,40},{30,40}}),
+            Line(
+      points={{0,40},{0,0}}),
+    Line(
+      visible=not use_inputFilter,
+      points={{0,100},{0,40}})}),
     Documentation(info="<html>
 <p>
 Partial model of a three way valve. This is the base model for valves
@@ -171,6 +144,19 @@ for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 5, 2019, by Michael Wetter:<br/>
+Moved assignment of leakage from <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
+Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>
+to the parent classes.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1227\">#1227</a>.
+</li>
+<li>
+October 25, 2019, by Jianjun Hu:<br/>
+Improved icon graphics annotation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
+</li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
 Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>

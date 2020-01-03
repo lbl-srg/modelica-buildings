@@ -46,14 +46,14 @@ env:
   - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.{Airflow,BoundaryConditions,Controls}\""
   - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.HeatTransfer\""
   - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.HeatTransfer\""
-  - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Occupants,Media}\""
-  - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.{Occupants,Media}\""
+  - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Obsolete,Occupants,Media}\""
+  - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.{Obsolete,Occupants,Media}\""
   - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Utilities\""
   - TEST_ARG="make test-jmodelica PACKAGE=\"Buildings.Utilities\""
 
 before_install:
   - if [[ "$TEST_ARG" == *test-dymola* ]]; then
-       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola-2020-x86_64;
+       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker pull "$DOCKER_USERNAME"/travis_ubuntu-1804_dymola-2020x-x86_64;
        chmod +x Buildings/Resources/Scripts/travis/bin/dymola;
        cp Buildings/Resources/Scripts/travis/bin/dymola $HOME/bin/;
     fi;
