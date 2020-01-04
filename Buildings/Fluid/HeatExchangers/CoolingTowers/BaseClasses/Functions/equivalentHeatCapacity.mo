@@ -57,6 +57,12 @@ temperature of the air entering and leaving the tower.
 </html>", revisions="<html>
 <ul>
 <li>
+January 3, 2020, by Michael Wetter:<br/>
+Revised implementation to make it once continuously differentiable, which avoids a numerical Jacobian
+in <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus</a>.
+</li>
+<li>
 October 22, 2019, by Yangyang Fu:<br/>
 First implementation.
 </li>
