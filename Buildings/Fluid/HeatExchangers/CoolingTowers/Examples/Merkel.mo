@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model Merkel "Test model for cooling tower using the Merkel theory"
   extends Modelica.Icons.Example;
-  extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
+  extends BaseClasses.PartialStaticTwoPortCoolingTower(
     redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
       m2_flow_nominal=mWat_flow_nominal,
       TAirInWB_nominal=273.15 + 25.55,
@@ -13,7 +13,9 @@ model Merkel "Test model for cooling tower using the Merkel theory"
       UA_nominal=2350,
       Q_flow_nominal=mWat_flow_nominal*4180*5.56,
       m1_flow_nominal=mAir_flow_nominal,
-      show_T=true));
+      show_T=true),
+    weaDat(
+      final computeWetBulbTemperature=true));
 
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 0.8
     "Design air flow rate"
@@ -33,11 +35,6 @@ model Merkel "Test model for cooling tower using the Merkel theory"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
 equation
-  connect(wetBulTem.TWetBul, tow.TAir)
-    annotation (Line(
-      points={{1,50},{12,50},{12,-46},{20,-46}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TSetLea.y, conFan.u_s)
     annotation (Line(
       points={{-39,-10},{-22,-10}},
@@ -50,7 +47,14 @@ equation
     annotation (Line(
       points={{43,-56},{54,-56},{54,-32},{-10,-32},{-10,-22}},
       color={0,0,127}));
-
+  connect(weaBus.TWetBul, tow.TAir) annotation (Line(
+      points={{-60,50},{0,50},{0,-46},{20,-46}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,
       extent={{-140,-260},{140,100}})),
 experiment(StartTime=15552000, Tolerance=1e-06, StopTime=15724800),

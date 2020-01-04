@@ -32,10 +32,10 @@ partial model PartialStaticTwoPortCoolingTower
       "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
 
-  Modelica.Blocks.Logical.OnOffController onOffCon(bandwidth=4)
+  Modelica.Blocks.Logical.OnOffController onOffCon(bandwidth=2)
     "On/off controller"
     annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
 
@@ -65,8 +65,8 @@ partial model PartialStaticTwoPortCoolingTower
     nPorts=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{100,-130},{80,-110}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(Q_flow=0.5*
-    mWat_flow_nominal*4200*5) "Fixed heat flow rate"
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(
+    Q_flow=0.5*mWat_flow_nominal*4200*5) "Fixed heat flow rate"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
@@ -111,5 +111,20 @@ equation
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
             -260},{140,100}}),
-                      graphics));
+                      graphics), Documentation(info="<html>
+<p>
+Partial model to test cooling tower models that are connected to a weather data reader
+and a simple fluid loop to which a constant amount of heat is added.
+The pump in the cooling tower loop is switched on and off depending
+on the temperature of the control volume to which the heat is added.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 12, 2011, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialStaticTwoPortCoolingTower;

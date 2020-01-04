@@ -2,17 +2,22 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model FixedApproachWetBulb
   "Test model for cooling tower with fixed approach temperature using the wet-bulb temperature"
   extends Modelica.Icons.Example;
-  extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
+  extends BaseClasses.PartialStaticTwoPortCoolingTower(
     redeclare CoolingTowers.FixedApproach tow(
-        m_flow_nominal=mWat_flow_nominal));
+      m_flow_nominal=mWat_flow_nominal),
+    weaDat(
+      final computeWetBulbTemperature=true));
 equation
-  connect(wetBulTem.TWetBul, tow.TAir) annotation (Line(
-      points={{1,50},{10,50},{10,-46},{22,-46}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(weaBus.TWetBul, tow.TAir) annotation (Line(
+      points={{-60,50},{0,50},{0,-46},{20,-46}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-260},
-            {140,100}}),
-                      graphics),
+            {140,100}})),
 experiment(StartTime=15552000, Tolerance=1e-06, StopTime=15984000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/FixedApproachWetBulb.mos"
         "Simulate and plot"),

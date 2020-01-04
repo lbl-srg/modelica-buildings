@@ -7,7 +7,7 @@ statistics-initialization=
 statistics-simulation=
 {
   "linear": " ",
-  "nonlinear": "1, 1, 2",
+  "nonlinear": "1, 2",
   "number of continuous time states": "3",
   "numerical Jacobians": "0"
 }
