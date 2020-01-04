@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.SetPoints.Validation;
-model HotWaterTemperatureReset "Test model for the heating curve"
-  Buildings.Controls.OBC.CDL.SetPoints.HotWaterTemperatureReset heaCur(
+model SupplyReturnTemperatureReset "Test model for the heating curve"
+  Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset heaCur(
     m=1,
     TSup_nominal=333.15,
     TRet_nominal=313.15,
@@ -13,7 +13,7 @@ model HotWaterTemperatureReset "Test model for the heating curve"
     offset=263.15,
     y(unit="K")) "Outdoor temperature varying from -10 degC to 30 degC"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.SetPoints.HotWaterTemperatureReset
+  Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset
   heaCur1(
     m=1,
     dTOutHeaBal=15,
@@ -42,20 +42,20 @@ model HotWaterTemperatureReset "Test model for the heating curve"
 
 equation
   connect(TOut1.y, heaCur1.TOut)
-    annotation (Line(points={{-39,-20},{-20,-20},{0,-20},{0,-34},{18,-34}},
+    annotation (Line(points={{-38,-20},{-38,-20},{0,-20},{0,-34},{18,-34}},
       color={0,0,127}));
   connect(TOut.y, heaCur.TOut)
-    annotation (Line(points={{-39,60},{-20,60},{0,60},{0,46},{18,46}},
+    annotation (Line(points={{-38,60},{-38,60},{0,60},{0,46},{18,46}},
       color={0,0,127}));
   connect(TRoo.y, heaCur.TSetZon)
-    annotation (Line(points={{-39,20},{0,20},{0,34},{18.1,34}},
+    annotation (Line(points={{-38,20},{0,20},{0,34},{18,34}},
       color={0,0,127}));
   connect(TRoo1.y, heaCur1.TSetZon)
-    annotation (Line(points={{-39,-60},{0,-60},{0,-46},{18.1,-46}},
+    annotation (Line(points={{-38,-60},{0,-60},{0,-46},{18,-46}},
       color={0,0,127}));
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/SetPoints/Validation/HotWaterTemperatureReset.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/SetPoints/Validation/SupplyReturnTemperatureReset.mos"
       "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -73,7 +73,7 @@ an outside temperature of
 The figure below shows the computed supply and return water temperatures.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/SetPoints/HotWaterTemperatureReset.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/SetPoints/SupplyReturnTemperatureReset.png\"
 border=\"1\"
 alt=\"Supply and return water temperatures.\"/>
 </p>
@@ -95,4 +95,4 @@ First implementation in CDL.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end HotWaterTemperatureReset;
+end SupplyReturnTemperatureReset;

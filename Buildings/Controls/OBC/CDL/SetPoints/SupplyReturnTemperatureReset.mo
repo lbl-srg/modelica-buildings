@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.SetPoints;
-block HotWaterTemperatureReset
-  "Block to compute the supply and return set point of heating systems"
+block SupplyReturnTemperatureReset
+  "Block to compute the supply and return set point"
 
   parameter Real m = 1.3 "Exponent for heat transfer";
   parameter Modelica.SIunits.Temperature TSup_nominal "Supply temperature"
@@ -55,11 +55,11 @@ equation
   TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
 
 annotation (
-  defaultComponentName="hotWatRes",
+  defaultComponentName="watRes",
   Documentation(info="<html>
 <p>
 This block computes the set point temperatures for the
-supply and return temperature of a heating system.
+supply and return temperature.
 The set point for the zone air temperature can be an input to the model.
 It allows to use this model with systems that have night set back.
 </p>
@@ -76,7 +76,13 @@ shift the heating curve.
 </html>", revisions="<html>
 <ul>
 <li>
-January 10, 2016, by Milica Grahovac:<br/>
+January 3, 2020, by Jianjun Hu:<br/>
+Changed name from HotWaterTemperatureReset to SupplyReturnTemperatureReset.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.
+</li>
+<li>
+January 10, 2017, by Milica Grahovac:<br/>
 First CDL implementation.
 </li>
 <li>
@@ -144,4 +150,4 @@ First implementation.
           extent={{-150,150},{150,110}},
           textString="%name",
           lineColor={0,0,255})}));
-end HotWaterTemperatureReset;
+end SupplyReturnTemperatureReset;
