@@ -1,11 +1,11 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions;
-function cpe
+function equivalentHeatCapacity
   "Computes equivalent specific heat of moist air"
   extends Modelica.Icons.Function;
   input Modelica.SIunits.Temperature TIn "Inlet temperature";
   input Modelica.SIunits.Temperature TOut "Outlet temperature";
 
-  output Modelica.SIunits.SpecificHeatCapacity cpe "Equivalent specific heat capacity";
+  output Modelica.SIunits.SpecificHeatCapacity equivalentHeatCapacity "Equivalent specific heat capacity";
 
 protected
   constant Modelica.SIunits.TemperatureDifference deltaT=0.01 "Small temperature difference, used for regularization";
@@ -44,7 +44,7 @@ algorithm
     T=TOutEps,
     X={XOut_w, 1-XOut_w});
 
-  cpe := (hIn-hOut)/(TIn-TOutEps);
+  equivalentHeatCapacity := (hIn-hOut)/(TIn-TOutEps);
 
   annotation (
   smoothOrder=1,
@@ -62,4 +62,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end cpe;
+end equivalentHeatCapacity;

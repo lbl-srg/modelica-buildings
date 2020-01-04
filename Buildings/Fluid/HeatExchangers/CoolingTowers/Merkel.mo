@@ -174,7 +174,7 @@ protected
 initial equation
   cp1_nominal = Air.specificHeatCapacityCp(sta1_default);
   cp2_nominal = Medium.specificHeatCapacityCp(sta2_default);
-  cpe_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.cpe(
+  cpe_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
     T_a1_nominal,T_b1_nominal);
 
   C1_flow_nominal = m1_flow_nominal*cpe_nominal;
@@ -329,7 +329,7 @@ equation
         x=y-yMin+yMin/20,
         deltax=yMin/20);
 
-  cpe = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.cpe(
+  cpe = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
     TIn = Ta1,
     TOut = Tb1);
 
