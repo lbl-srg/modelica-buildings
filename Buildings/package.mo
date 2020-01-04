@@ -7644,6 +7644,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
 </li>
+<li>Katy Hinkelman, University of Colorado at Boulder, Colorado, USA
+</li>
 <li>Jianjun Hu, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
