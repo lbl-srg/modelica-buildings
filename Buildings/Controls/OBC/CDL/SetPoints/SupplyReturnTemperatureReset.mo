@@ -78,7 +78,8 @@ shift the heating curve.
 <ul>
 <li>
 January 3, 2020, by Jianjun Hu:<br/>
-Changed name from HotWaterTemperatureReset to SupplyReturnTemperatureReset.
+Changed name from <code>HotWaterTemperatureReset</code> to 
+<code>SupplyReturnTemperatureReset</code>.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.
 </li>

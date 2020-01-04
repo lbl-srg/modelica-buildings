@@ -336,8 +336,8 @@ its class name ends with the string <code>Beta</code>.
     </tr>
     <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.SetPoints.SupplyReturnTemperatureReset
         </td>
-        <td valign=\"top\">Changed name from HotWaterTemperatureReset to SupplyReturnTemperatureReset.<br/>
-                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">issue #860</a>
+        <td valign=\"top\">Changed name from <code>HotWaterTemperatureReset</code> to <code>SupplyReturnTemperatureReset</code>.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
