@@ -147,26 +147,26 @@ equation
         "Simulate and plot"),
     experiment(
       StartTime=0,
-      StopTime=86400,
+      StopTime=172800,
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model validates the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> by comparing against 
+Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> by comparing against
 results obtained from EnergyPlus 9.2.
 </p>
 <p>
-The EnergyPlus results were obtained using the example file 
-<code>CoolingTower:VariableSpeed</code>, with the cooling tower evaluated as 
-the <code>CoolingTower:VariableSpeed:Merkel</code> model from EnergyPlus 9.2. 
+The EnergyPlus results were obtained using the example file
+<code>CoolingTower:VariableSpeed</code>, with the cooling tower evaluated as
+the <code>CoolingTower:VariableSpeed:Merkel</code> model from EnergyPlus 9.2.
 </p>
 <p>
 The difference in results of the cooling tower's leaving water temperature
 (<code>tow.TLvg</code> and <code>TLvg.EP</code>)
-during the middle and end of the simulation is because the mass flow rate is 
+during the middle and end of the simulation is because the mass flow rate is
 zero. For zero mass flow rate, EnergyPlus assumes a steady state condition,
-whereas the Modelica model is a dynamic model and hence the properties at the 
+whereas the Modelica model is a dynamic model and hence the properties at the
 outlet are equal to the state variables of the model.
 </p>
 </html>", revisions="<html>
