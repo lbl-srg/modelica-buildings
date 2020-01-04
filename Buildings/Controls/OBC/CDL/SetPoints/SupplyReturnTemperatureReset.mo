@@ -64,7 +64,8 @@ The set point for the zone air temperature can be an input to the model.
 It allows to use this model with systems that have night set back.
 </p>
 <p>
-The parameter <code>dTOutHeaBal</code> can be used to shift the heating curve
+If use to reset the temperature in a heating system,
+the parameter <code>dTOutHeaBal</code> can be used to shift the heating curve
 to take into account that heat gains from solar, equipment and people
 make up for some of the transmission losses.
 For example, in energy efficient houses, the heating may not be switched on if
