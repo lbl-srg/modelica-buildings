@@ -70,7 +70,7 @@ model Merkel "Cooling tower model based on Merkel's theory"
     fanRelPow=P(y)/P(y=1)"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  parameter Correlations.CorUAMerkel UACor
+  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel UACor
     "UA correction curves"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
