@@ -8,29 +8,47 @@ function cpe
   output Modelica.SIunits.SpecificHeatCapacity cpe "Equivalent specific heat capacity";
 
 protected
+  constant Modelica.SIunits.TemperatureDifference deltaT=0.01 "Small temperature difference, used for regularization";
+
+  Modelica.SIunits.Temperature TOutEps "Outlet temperature, bounded away from TIn";
+
+  Modelica.SIunits.MassFraction XIn_w
+    "Water vapor mass fraction per unit mass total air";
+  Modelica.SIunits.MassFraction XOut_w
+    "Water vapor mass fraction per unit mass total air";
+
   Modelica.SIunits.SpecificEnthalpy hIn "Specific enthalpy";
   Modelica.SIunits.SpecificEnthalpy hOut "Specific enthalpy";
-  Modelica.SIunits.TemperatureDifference deltaT=1e-6;
 
 algorithm
+  TOutEps :=Buildings.Utilities.Math.Functions.smoothMax(
+    x1=TOut,
+    x2=TIn + deltaT,
+    deltaX=deltaT/2);
+  XIn_w := Buildings.Utilities.Psychrometrics.Functions.X_pTphi(
+      p = 101325,
+      T = TIn,
+      phi=1);
+  XOut_w := Buildings.Utilities.Psychrometrics.Functions.X_pTphi(
+      p = 101325,
+      T = TOutEps,
+      phi=1);
 
-  hIn :=
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.h_TDryBulPhi(
-    TIn,
-    1,
-    101325);
-  hOut :=
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.h_TDryBulPhi(
-    TOut,
-    1,
-    101325);
+  hIn := Buildings.Media.Air.specificEnthalpy_pTX(
+    p=101325,
+    T=TIn,
+    X={XIn_w, 1-XIn_w});
 
-  cpe := Buildings.Utilities.Math.Functions.smoothMax(
-    x1 = if noEvent(abs(TIn-TOut) > deltaT) then (hIn-hOut)/(TIn-TOut) else 1008,
-    x2 = 0,
-    deltaX = deltaT);
+  hOut := Buildings.Media.Air.specificEnthalpy_pTX(
+    p=101325,
+    T=TOutEps,
+    X={XOut_w, 1-XOut_w});
 
-  annotation (Documentation(info="<html>
+  cpe := (hIn-hOut)/(TIn-TOutEps);
+
+  annotation (
+  smoothOrder=1,
+Documentation(info="<html>
 <p>
 This function computes the equivalent specific heat of moist air 
 as the ratio of change in enthalpy relative to the change in 

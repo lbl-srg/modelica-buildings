@@ -329,7 +329,9 @@ equation
         x=y-yMin+yMin/20,
         deltax=yMin/20);
 
-  cpe = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.cpe(Ta1,Tb1);
+  cpe = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.cpe(
+    TIn = Ta1,
+    TOut = Tb1);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
