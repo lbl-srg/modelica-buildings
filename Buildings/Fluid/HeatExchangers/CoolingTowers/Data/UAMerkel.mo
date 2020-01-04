@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations;
-record CorUAMerkel "UA correction factors for Merkel cooling towers"
+record UAMerkel "UA correction factors for Merkel cooling towers"
   extends Modelica.Icons.Record;
 
  constant Integer nUAFunDifWB=3 "Number of coefficients for UAFunDifWB"
@@ -49,4 +49,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CorUAMerkel;
+end UAMerkel;
