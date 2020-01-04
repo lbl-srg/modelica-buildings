@@ -21,6 +21,7 @@ partial model PartialStaticTwoPortCoolingTower
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for chilled water loop"

@@ -2,7 +2,6 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model Merkel "Test model for cooling tower using the Merkel theory"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-    onOffCon(bandwidth=2),
     redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
       m2_flow_nominal=mWat_flow_nominal,
       TAirInWB_nominal=273.15 + 25.55,
@@ -14,8 +13,7 @@ model Merkel "Test model for cooling tower using the Merkel theory"
       UA_nominal=2350,
       Q_flow_nominal=mWat_flow_nominal*4180*5.56,
       m1_flow_nominal=mAir_flow_nominal,
-      show_T=true),
-    pum(nominalValuesDefineDefaultPressureCurve=true));
+      show_T=true));
 
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 0.8
     "Design air flow rate"

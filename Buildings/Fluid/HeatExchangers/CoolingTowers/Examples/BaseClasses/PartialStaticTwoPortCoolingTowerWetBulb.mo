@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses;
 model PartialStaticTwoPortCoolingTowerWetBulb
   "Partial test model for cooling tower with wet bulb temperature as potential 
   for heat transfer"
-  extends PartialStaticTwoPortCoolingTower;
+  extends PartialStaticTwoPortCoolingTower(onOffCon(bandwidth=2));
 
   package Medium_A = Buildings.Media.Air "Medium model for air";
 
