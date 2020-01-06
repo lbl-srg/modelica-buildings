@@ -61,7 +61,7 @@ experiment(StartTime=15552000, Tolerance=1e-06, StopTime=15724800),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/Merkel.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=true,
-        extent={{-100,-180},{100,100}})),
+        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 This example illustrates the use of the cooling tower model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
