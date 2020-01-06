@@ -18,9 +18,9 @@ protected
   Real dpNormSq=dpNorm^2
     "Square of normalised pressure difference";
 algorithm
-   m_flow :=  if noEvent(abs(dp)>dp_turbulent)
-              then sign(dp)*k*sqrt(abs(dp))
-              else (1.40625  + (0.15625*dpNormSq - 0.5625)*dpNormSq)*m_flow_turbulent*dpNorm;
+   m_flow := smooth(2, if noEvent(abs(dp)>dp_turbulent)
+               then sign(dp)*k*sqrt(abs(dp))
+               else (1.40625  + (0.15625*dpNormSq - 0.5625)*dpNormSq)*m_flow_turbulent*dpNorm);
   annotation(Inline=false,
            smoothOrder=2,
            derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
@@ -56,6 +56,12 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 9, 2019, by Filip Jorissen:<br/>
+Added <code>smooth(2, . )</code> for avoiding
+a warning in the check valve model.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1240\">#1240</a>.
+</li>
 <li>
 January 4, 2019, by Michael Wetter:<br/>
 Set `Inline=false`.<br/>

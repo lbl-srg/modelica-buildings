@@ -169,13 +169,24 @@ its class name ends with the string <code>Beta</code>.
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
         </td>
     </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Chillers.AbsorptionIndirectSteam
+        </td>
+        <td valign=\"top\">Indirect steam heated absorption chiller based on performance curves.
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.CheckValve
+        </td>
+        <td valign=\"top\">Check valve that prevents backflow, except for a small leakage flow rate.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1198\">IBPSA, #1198</a>
+        </td>
+    </tr>
     <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.EquationFitReversible
         </td>
         <td valign=\"top\">Heat pump model that can be reversed between heating and cooling mode,
                            that takes as a set point the leaving fluid temperature, and that computes
                            its performance based on an equation fit.
         </td>
-        </tr>
+    </tr>
     </table>
     <!-- Backward compatible changes -->
     <p>
@@ -190,7 +201,7 @@ its class name ends with the string <code>Beta</code>.
     <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID
         </td>
         <td valign=\"top\">Removed homotopy that may be used during initialization to ensure that outputs are bounded.<br/>
-                         This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">IBPSA, #1221</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
@@ -403,6 +414,16 @@ its class name ends with the string <code>Beta</code>.
                            Note that the power added to the elecrical system was correct, but the power reported in
                            the output connector <code>P</code> did not include this conversion factor.<br/>
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1577\">1577</a>.
+        </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc<br/>
+                           Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower
+        </td>
+        <td valign=\"top\">Corrected error in computing the cooling tower fan power consumption.<br/>
+                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1691\">1691</a>.
         </td>
     </tr>
     <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
