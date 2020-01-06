@@ -7,15 +7,15 @@ block EfficiencyCondition
   parameter Real hysSig = 0.05
     "Signal hysteresis deadband";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOplr(final unit="1")
-    "Operating part load ratio of the current stage"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(final unit="1")
+    "Operative part load ratio of the current stage" annotation (Placement(
+        transformation(extent={{-140,0},{-100,40}}), iconTransformation(extent=
+            {{-140,30},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSplrUp(final unit="1")
-    "Staging part load ratio of the next stage up"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-        iconTransformation(extent={{-140,-70},{-100,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUp(final unit="1")
+    "Staging part load ratio of the next stage up" annotation (Placement(
+        transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent
+          ={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Efficiency condition for chiller staging"
@@ -29,9 +29,8 @@ protected
     "Delays a true signal"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOplr(
-    final uLow=0,
-    final uHigh=hysSig)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpe(final uLow=0, final
+      uHigh=hysSig)
     "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
@@ -42,15 +41,14 @@ protected
 equation
   connect(truDel.y, y)
     annotation (Line(points={{42,0},{100,0}},color={255,0,255}));
-  connect(hysOplr.y, truDel.u)
+  connect(hysOpe.y, truDel.u)
     annotation (Line(points={{2,0},{18,0}}, color={255,0,255}));
-  connect(add.y, hysOplr.u)
+  connect(add.y, hysOpe.u)
     annotation (Line(points={{-38,0},{-22,0}}, color={0,0,127}));
-  connect(uOplr, add.u1)
-    annotation (Line(points={{-120,20},{-80,20},{-80,6},{-62,6}}, color={0,0,127}));
-  connect(uSplrUp, add.u2)
-    annotation (Line(points={{-120,-20},{-80,-20},{-80,-6},{-62,-6}},
-      color={0,0,127}));
+  connect(uOpe, add.u1) annotation (Line(points={{-120,20},{-80,20},{-80,6},{-62,
+          6}}, color={0,0,127}));
+  connect(uStaUp, add.u2) annotation (Line(points={{-120,-20},{-80,-20},{-80,-6},
+          {-62,-6}}, color={0,0,127}));
 
 annotation (defaultComponentName = "effCon",
         Icon(graphics={

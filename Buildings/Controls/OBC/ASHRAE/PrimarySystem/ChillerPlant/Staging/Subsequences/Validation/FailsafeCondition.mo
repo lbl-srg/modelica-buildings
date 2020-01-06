@@ -17,14 +17,14 @@ model FailsafeCondition "Validate failsafe condition sequence"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine oplrUp(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine OpeUp(
     final amplitude=0.1,
     final freqHz=1/2100,
     final offset=0.45)
     "Operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUpMin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant OpeUpMin(
     final k=0.4) "Minimum operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
@@ -48,7 +48,7 @@ protected
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUpMin1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant OpeUpMin1(
     final k=0.4)
     "Minimum operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
@@ -63,7 +63,7 @@ protected
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUp1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant OpeUp1(
     final k=0.5)
     "Operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
@@ -83,7 +83,7 @@ protected
     "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUpMin2(final k=0.4)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant OpeUpMin2(final k=0.4)
     "Minimum operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 
@@ -92,7 +92,7 @@ protected
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrUp2(final k=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant OpeUp2(final k=0.5)
     "Operating part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
@@ -104,9 +104,9 @@ protected
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 
 equation
-  connect(oplrUpMin.y, faiSafCon0.uOplrUpMin) annotation (Line(points={{-118,110},
+  connect(OpeUpMin.y, faiSafCon0.uOpeUpMin) annotation (Line(points={{-118,110},
           {-80,110},{-80,135},{-42,135}},color={0,0,127}));
-  connect(oplrUp.y, faiSafCon0.uOplrUp) annotation (Line(points={{-118,150},{-80,
+  connect(OpeUp.y, faiSafCon0.uOpeUp) annotation (Line(points={{-118,150},{-80,
           150},{-80,138},{-42,138}}, color={0,0,127}));
   connect(TCWSup.y, faiSafCon0.TChiWatSup) annotation (Line(points={{-118,30},{-100,
           30},{-100,100},{-60,100},{-60,128},{-42,128}},   color={0,0,127}));
@@ -116,23 +116,23 @@ equation
           {-50,70},{-50,125},{-42,125}},     color={0,0,127}));
   connect(dpChiWat.y, faiSafCon0.dpChiWatPum) annotation (Line(points={{-58,30},
           {-48,30},{-48,122},{-42,122}},color={0,0,127}));
-  connect(oplrUpMin1.y, faiSafCon1.uOplrUpMin) annotation (Line(points={{42,110},
+  connect(OpeUpMin1.y, faiSafCon1.uOpeUpMin) annotation (Line(points={{42,110},
           {80,110},{80,135},{118,135}},color={0,0,127}));
   connect(TCWSupSet1.y, faiSafCon1.TChiWatSupSet) annotation (Line(points={{42,70},
           {58,70},{58,102},{98,102},{98,132},{118,132}},color={0,0,127}));
   connect(dpChiWatSet1.y, faiSafCon1.dpChiWatPumSet) annotation (Line(points={{102,70},
           {110,70},{110,125},{118,125}},color={0,0,127}));
-  connect(oplrUp1.y, faiSafCon1.uOplrUp) annotation (Line(points={{42,150},{80,150},
+  connect(OpeUp1.y, faiSafCon1.uOpeUp) annotation (Line(points={{42,150},{80,150},
           {80,138},{118,138}},color={0,0,127}));
   connect(TCWSup1.y, faiSafCon1.TChiWatSup) annotation (Line(points={{42,30},{60,
           30},{60,100},{100,100},{100,128},{118,128}}, color={0,0,127}));
   connect(dpChiWat2.y, faiSafCon1.dpChiWatPum) annotation (Line(points={{102,30},
           {112,30},{112,122},{118,122}},color={0,0,127}));
-  connect(oplrUpMin2.y,faiSafCon2. uOplrUpMin) annotation (Line(points={{-118,-70},
+  connect(OpeUpMin2.y,faiSafCon2. uOpeUpMin) annotation (Line(points={{-118,-70},
           {-80,-70},{-80,-45},{-42,-45}}, color={0,0,127}));
   connect(TCWSupSet2.y,faiSafCon2. TChiWatSupSet) annotation (Line(points={{-118,
           -110},{-102,-110},{-102,-78},{-62,-78},{-62,-48},{-42,-48}}, color={0,0,127}));
-  connect(oplrUp2.y,faiSafCon2. uOplrUp) annotation (Line(points={{-118,-30},{-80,
+  connect(OpeUp2.y,faiSafCon2. uOpeUp) annotation (Line(points={{-118,-30},{-80,
           -30},{-80,-42},{-42,-42}}, color={0,0,127}));
   connect(TCWSup2.y,faiSafCon2. TChiWatSup) annotation (Line(points={{-118,-150},
           {-100,-150},{-100,-80},{-60,-80},{-60,-52},{-42,-52}}, color={0,0,127}));
