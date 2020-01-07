@@ -117,35 +117,25 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{-380,-240},{-340,-200}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUp(
-    final unit="1",
-    final min=0)
-    "Operating part load ratio of the next higher stage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeUp(final unit="1",
+      final min=0) "Operating part load ratio of the next higher stage"
     annotation (Placement(transformation(extent={{340,-130},{360,-110}}),
-    iconTransformation(extent={{100,40},{120,60}})));
+        iconTransformation(extent={{100,40},{120,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDow(
-    final unit="1",
-    final min=0)
-    "Operating part load ratio of the next stage down"
-    annotation (Placement(
-        transformation(extent={{340,-90},{360,-70}}), iconTransformation(extent={{100,20},
-            {120,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeDow(final unit="1",
+      final min=0) "Operating part load ratio of the next stage down"
+    annotation (Placement(transformation(extent={{340,-90},{360,-70}}),
+        iconTransformation(extent={{100,20},{120,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMin(
-    final unit="1",
-    final min=0)
-    "Minimum operating part load ratio at current stage"
-    annotation (Placement(
-        transformation(extent={{340,-210},{360,-190}}), iconTransformation(extent={
-            {100,-100},{120,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeMin(final unit="1",
+      final min=0) "Minimum operating part load ratio at current stage"
+    annotation (Placement(transformation(extent={{340,-210},{360,-190}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final unit="1",
-    final min = 0)
-    "Operating part load ratio of the current stage"
-    annotation (Placement(transformation(extent={{340,-50},{360,-30}}),
-                            iconTransformation(extent={{100,60},{120,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpe(final unit="1", final
+      min=0) "Operating part load ratio of the current stage" annotation (
+      Placement(transformation(extent={{340,-50},{360,-30}}),
+        iconTransformation(extent={{100,60},{120,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaDow(
     final unit="1",
@@ -161,12 +151,11 @@ block PartLoadRatios
     annotation (Placement(transformation(extent={{340,-10},{360,10}}),
                     iconTransformation(extent={{100,-20},{120,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(
-    final unit="1",
-    final min=0)
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeUpMin(final unit="1",
+      final min=0)
     "Minimum operating part load ratio of the next available stage up"
     annotation (Placement(transformation(extent={{340,-250},{360,-230}}),
-    iconTransformation(extent={{100,-80},{120,-60}})));
+        iconTransformation(extent={{100,-80},{120,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
     "Calculates operating part load ratio at the current stage"
@@ -390,8 +379,8 @@ equation
           170},{18,170}},  color={255,127,0}));
   connect(intEqu.u2, conSpeCenTyp.y) annotation (Line(points={{18,162},{-30,162},
           {-30,140},{-38,140}}, color={255,127,0}));
-  connect(opePlrSta.y, y) annotation (Line(points={{-218,-50},{-40,-50},{-40,-40},
-          {350,-40}}, color={0,0,127}));
+  connect(opePlrSta.y, yOpe) annotation (Line(points={{-218,-50},{-40,-50},{-40,
+          -40},{350,-40}}, color={0,0,127}));
   connect(curStaTyp.y, intEqu1.u1) annotation (Line(points={{-98,300},{-80,300},
           {-80,110},{18,110}},  color={255,127,0}));
   connect(posDisTyp.y, intEqu1.u2) annotation (Line(points={{-38,80},{-30,80},{-30,
@@ -414,10 +403,10 @@ equation
           -134},{-242,-134}}, color={0,0,127}));
   connect(uUpCapDes, opePlrUp.u2) annotation (Line(points={{-360,-160},{-280,-160},
           {-280,-146},{-242,-146}}, color={0,0,127}));
-  connect(opePlrUp.y, yUp) annotation (Line(points={{-218,-140},{-40,-140},{-40,
-          -120},{350,-120}}, color={0,0,127}));
-  connect(minOpePlrUp.y, yUpMin) annotation (Line(points={{-218,-190},{-100,-190},
-          {-100,-280},{200,-280},{200,-240},{350,-240}},color={0,0,127}));
+  connect(opePlrUp.y, yOpeUp) annotation (Line(points={{-218,-140},{-40,-140},{
+          -40,-120},{350,-120}}, color={0,0,127}));
+  connect(minOpePlrUp.y, yOpeUpMin) annotation (Line(points={{-218,-190},{-100,
+          -190},{-100,-280},{200,-280},{200,-240},{350,-240}}, color={0,0,127}));
   connect(uLifMin, add2.u2) annotation (Line(points={{-360,-420},{-240,-420},{-240,
           -416},{-122,-416}}, color={0,0,127}));
   connect(const.y, div.u1) annotation (Line(points={{-218,-350},{-80,-350},{-80,
@@ -461,10 +450,10 @@ equation
           -74},{-242,-74}}, color={0,0,127}));
   connect(uDowCapDes, opePlrDow.u2) annotation (Line(points={{-360,-100},{-280,
           -100},{-280,-86},{-242,-86}}, color={0,0,127}));
-  connect(opePlrDow.y, yDow) annotation (Line(points={{-218,-80},{350,-80}},
-           color={0,0,127}));
-  connect(minOpePlr.y, yMin) annotation (Line(points={{-218,-230},{-80,-230},{-80,
-          -200},{350,-200}}, color={0,0,127}));
+  connect(opePlrDow.y, yOpeDow)
+    annotation (Line(points={{-218,-80},{350,-80}}, color={0,0,127}));
+  connect(minOpePlr.y, yOpeMin) annotation (Line(points={{-218,-230},{-80,-230},
+          {-80,-200},{350,-200}}, color={0,0,127}));
   connect(conSpeCenTypMult.y, swi.u1) annotation (Line(points={{-158,-30},{60,-30},
           {60,158},{158,158}}, color={0,0,127}));
   connect(posDisTypMult.y, swi1.u1) annotation (Line(points={{-158,-110},{-60,
