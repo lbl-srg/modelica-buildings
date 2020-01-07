@@ -172,7 +172,7 @@ outlet are equal to the state variables of the model.
 </html>", revisions="<html>
 <ul>
 <li>
-December 23, 2019 by Kathryn Hinkelman:<br/>
+December 23, 2019, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
