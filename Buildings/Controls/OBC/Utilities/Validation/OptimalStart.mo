@@ -1,9 +1,11 @@
 within Buildings.Controls.OBC.Utilities.Validation;
 model OptimalStart
   extends Modelica.Icons.Example;
-  CDL.Continuous.Sources.Constant TSetHea(k=21 + 273.15)
+  CDL.Continuous.Sources.Constant TSetHeaOcc(k=21 + 273.15)
+    "Zone heating setpoint during occupancy"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   CDL.Continuous.Sources.Constant TSetCoo(k=24 + 273.15)
+    "Zone cooling setpoint during occupancy"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   CDL.Continuous.Sources.Sine TZon(
     amplitude=-1.3,
@@ -42,12 +44,12 @@ equation
                                                 color={0,0,127}));
   connect(optStaCoo.TSetZonCoo, TSetCoo.y) annotation (Line(points={{38,-7},{6,
           -7},{6,-80},{-58,-80}},  color={0,0,127}));
-  connect(TSetHea.y, optSta.TSetZonHea) annotation (Line(points={{-58,-40},{16,
-          -40},{16,-42},{38,-42}}, color={0,0,127}));
+  connect(TSetHeaOcc.y, optSta.TSetZonHea) annotation (Line(points={{-58,-40},{
+          16,-40},{16,-42},{38,-42}}, color={0,0,127}));
   connect(TSetCoo.y, optSta.TSetZonCoo) annotation (Line(points={{-58,-80},{6,
           -80},{6,-47},{38,-47}}, color={0,0,127}));
-  connect(TSetHea.y, optStaHea.TSetZonHea) annotation (Line(points={{-58,-40},{
-          16,-40},{16,38},{38,38}}, color={0,0,127}));
+  connect(TSetHeaOcc.y, optStaHea.TSetZonHea) annotation (Line(points={{-58,-40},
+          {16,-40},{16,38},{38,38}}, color={0,0,127}));
   connect(TZon1.y, optStaCoo.TZon) annotation (Line(points={{-58,40},{10,40},{
           10,-13},{38,-13}}, color={0,0,127}));
   connect(TZon2.y, optSta.TZon) annotation (Line(points={{-58,0},{-40,0},{-40,
@@ -62,6 +64,21 @@ equation
   experiment(StopTime=604800, Tolerance=1e-06),__Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStart.mos"
   "Simulate and plot"),
+  Documentation(info="<html>
+<p>
+Validation model for the block
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
+Buildings.Controls.OBC.Utilities.OptimalStart</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 15, 2019, by Kun Zhang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{80,100}})));
 end OptimalStart;
