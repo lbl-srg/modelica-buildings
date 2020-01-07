@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
-block Down "Stage down conditions"
+block Down "Generates a stage down signal"
   parameter Modelica.SIunits.Time delayStaCha = 15*60
     "True delay period";
 

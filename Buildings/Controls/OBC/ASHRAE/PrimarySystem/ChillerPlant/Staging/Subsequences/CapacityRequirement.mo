@@ -118,7 +118,7 @@ equation
           0}},  color={0,0,127}));
   connect(movMea.y, max.u2) annotation (Line(points={{82,-50},{90,-50},{90,-56},
           {98,-56}}, color={0,0,127}));
-  connect(max.y, triSam.u) annotation (Line(points={{122,-50},{128,-50},{128,30},
+  connect(max.y, triSam.u) annotation (Line(points={{122,-50},{130,-50},{130,30},
           {-60,30},{-60,110},{-42,110}}, color={0,0,127}));
   connect(chaPro, edg.u)
     annotation (Line(points={{-160,90},{-122,90}}, color={255,0,255}));
@@ -126,8 +126,8 @@ equation
           98.2}}, color={255,0,255}));
   connect(triSam.y, swi.u1) annotation (Line(points={{-18,110},{10,110},{10,118},
           {38,118}}, color={0,0,127}));
-  connect(max.y, swi.u3) annotation (Line(points={{122,-50},{128,-50},{128,80},{
-          28,80},{28,102},{38,102}}, color={0,0,127}));
+  connect(max.y, swi.u3) annotation (Line(points={{122,-50},{130,-50},{130,80},
+          {28,80},{28,102},{38,102}},color={0,0,127}));
   connect(swi.y, y)
     annotation (Line(points={{62,110},{160,110}}, color={0,0,127}));
   connect(truFalHol.y, swi.u2) annotation (Line(points={{-18,60},{20,60},{20,110},

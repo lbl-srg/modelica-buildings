@@ -87,7 +87,7 @@ block Up "Generates a stage up signal"
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-//protected
+protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
     final delayStaCha = delayStaCha,
     final TDif = TDif,
@@ -245,15 +245,15 @@ equation
         Rectangle(extent={{20,12},{80,0}}, lineColor={0,0,127}),
         Rectangle(extent={{24,18},{28,12}}, lineColor={0,0,127}),
         Rectangle(extent={{72,18},{76,12}}, lineColor={0,0,127}),
-        Line(points={{130,-48}}, color={0,0,127})}),
-                                          Diagram(
+        Line(points={{130,-48}}, color={0,0,127})}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
 <p>
 Outputs a boolean stage up signal <code>y<\code> based on the various plant operation 
 conditions that get provided as input signals. The implementation is according to 
-ASHRAE RP1711 section 5.2.4.13.
+ASHRAE RP1711 section 5.2.4.13 
+July Draft.
 </p>
 </html>",
 revisions="<html>

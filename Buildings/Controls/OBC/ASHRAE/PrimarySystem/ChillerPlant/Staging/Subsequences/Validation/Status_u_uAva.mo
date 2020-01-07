@@ -48,7 +48,7 @@ model Status_u_uAva "Validates chiller stage status subsequence"
     final nChi=3,
     final staMat={{1,0,0},{1,1,0},{0,1,1},{1,1,1}})
     "Tests for unavailable current stage input, with no higher stages available"
-    annotation (Placement(transformation(extent={{120,-140},{140,-120}})));
+    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Status sta5(
     final nSta=4,
@@ -118,46 +118,57 @@ protected
     annotation (Placement(transformation(extent={{50,-160},{70,-140}})));
 
 equation
-  connect(ava.y, sta.uAva) annotation (Line(points={{-119,150},{-80,150},{-80,136},
-          {-42,136}},color={255,0,255}));
-  connect(u.y, sta.u) annotation (Line(points={{-119,110},{-80,110},{-80,124},{-42,
-          124}},color={255,127,0}));
-  connect(ava1.y, sta1.uAva) annotation (Line(points={{-119,70},{-80,70},{-80,56},
-          {-42,56}}, color={255,0,255}));
-  connect(u1.y, sta1.u) annotation (Line(points={{-119,30},{-80,30},{-80,44},{-42,
-          44}}, color={255,127,0}));
-  connect(ava2.y, sta2.uAva) annotation (Line(points={{41,150},{80,150},{80,136},
-          {118,136}}, color={255,0,255}));
-  connect(u2.y, sta2.u) annotation (Line(points={{41,110},{80,110},{80,124},{118,
-          124}}, color={255,127,0}));
-  connect(ava3.y, sta3.uAva) annotation (Line(points={{41,70},{80,70},{80,56},{118,
-          56}}, color={255,0,255}));
-  connect(u3.y, sta3.u) annotation (Line(points={{41,30},{80,30},{80,44},{118,44}},
+  connect(ava.y, sta.uAva) annotation (Line(points={{-118,150},{-80,150},{-80,
+          124},{-42,124}},
+                     color={255,0,255}));
+  connect(u.y, sta.u) annotation (Line(points={{-118,110},{-60,110},{-60,136},{
+          -42,136}},
                 color={255,127,0}));
-  connect(u4.y, sta4.u) annotation (Line(points={{-119,-70},{-80,-70},{-80,-56},
-          {-42,-56}}, color={255,127,0}));
-  connect(u5.y, sta6.u) annotation (Line(points={{41,-70},{80,-70},{80,-56},{118,
-          -56}}, color={255,127,0}));
-  connect(ava6.y, sta7.uAva) annotation (Line(points={{41,-110},{80,-110},{80,-124},
-          {118,-124}}, color={255,0,255}));
-  connect(u7.y, sta5.u) annotation (Line(points={{-119,-150},{-80,-150},{-80,
-          -136},{-42,-136}},
+  connect(ava1.y, sta1.uAva) annotation (Line(points={{-118,70},{-80,70},{-80,
+          44},{-42,44}},
+                     color={255,0,255}));
+  connect(u1.y, sta1.u) annotation (Line(points={{-118,30},{-60,30},{-60,56},{
+          -42,56}},
+                color={255,127,0}));
+  connect(ava2.y, sta2.uAva) annotation (Line(points={{42,150},{80,150},{80,124},
+          {118,124}}, color={255,0,255}));
+  connect(u2.y, sta2.u) annotation (Line(points={{42,110},{100,110},{100,136},{
+          118,136}},
+                 color={255,127,0}));
+  connect(ava3.y, sta3.uAva) annotation (Line(points={{42,70},{80,70},{80,44},{
+          118,44}},
+                color={255,0,255}));
+  connect(u3.y, sta3.u) annotation (Line(points={{42,30},{100,30},{100,56},{118,
+          56}}, color={255,127,0}));
+  connect(u4.y, sta4.u) annotation (Line(points={{-118,-70},{-80,-70},{-80,-44},
+          {-42,-44}}, color={255,127,0}));
+  connect(u5.y, sta6.u) annotation (Line(points={{42,-70},{100,-70},{100,-44},{
+          118,-44}},
+                 color={255,127,0}));
+  connect(ava6.y, sta7.uAva) annotation (Line(points={{42,-110},{80,-110},{80,
+          -126},{118,-126}},
+                       color={255,0,255}));
+  connect(u7.y, sta5.u) annotation (Line(points={{-118,-150},{-80,-150},{-80,
+          -124},{-42,-124}},
                        color={255,127,0}));
-  connect(ava.y, sta4.uAva) annotation (Line(points={{-119,150},{-100,150},{-100,
-          -44},{-42,-44}}, color={255,0,255}));
-  connect(ava.y, sta5.uAva) annotation (Line(points={{-119,150},{-100,150},{
-          -100,-124},{-42,-124}},
+  connect(ava.y, sta4.uAva) annotation (Line(points={{-118,150},{-100,150},{
+          -100,-56},{-42,-56}},
+                           color={255,0,255}));
+  connect(ava.y, sta5.uAva) annotation (Line(points={{-118,150},{-100,150},{
+          -100,-136},{-42,-136}},
                              color={255,0,255}));
-  connect(ava3.y, sta6.uAva) annotation (Line(points={{41,70},{60,70},{60,-44},{
-          118,-44}}, color={255,0,255}));
-  connect(sta7.y, intToRea.u) annotation (Line(points={{141,-121},{148,-121},{148,
-          -170},{10,-170},{10,-150},{18,-150}}, color={255,127,0}));
+  connect(ava3.y, sta6.uAva) annotation (Line(points={{42,70},{60,70},{60,-56},
+          {118,-56}},color={255,0,255}));
+  connect(sta7.y, intToRea.u) annotation (Line(points={{142,-129},{148,-129},{
+          148,-170},{10,-170},{10,-150},{18,-150}},
+                                                color={255,127,0}));
   connect(intToRea.y, uniDel.u)
-    annotation (Line(points={{41,-150},{48,-150}}, color={0,0,127}));
+    annotation (Line(points={{42,-150},{48,-150}}, color={0,0,127}));
   connect(uniDel.y, reaToInt.u)
-    annotation (Line(points={{71,-150},{78,-150}}, color={0,0,127}));
-  connect(reaToInt.y, sta7.u) annotation (Line(points={{101,-150},{110,-150},{110,
-          -136},{118,-136}}, color={255,127,0}));
+    annotation (Line(points={{72,-150},{78,-150}}, color={0,0,127}));
+  connect(reaToInt.y, sta7.u) annotation (Line(points={{102,-150},{110,-150},{
+          110,-114},{118,-114}},
+                             color={255,127,0}));
 annotation (
  experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Status_u_uAva.mos"
