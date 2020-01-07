@@ -1,37 +1,37 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences;
 block Capacities
-  "Returns design and minimal stage capacities required for calculating operating and stage part load ratios"
+  "Returns design and minimal stage capacities for current and next available higher and lower stage"
 
   parameter Integer nSta = 3
     "Total number of stages";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLow
-    "Current stage is the lowest stage"
+    "Current stage is the lowest available stage"
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHig
-    "Current stage is the highest stage"
+    "Current stage is the highest available stage"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
     final max=nSta) "Chiller stage"
     annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp(
     final min=0,
-    final max=nSta) "Next higher available stage"
+    final max=nSta) "Next available higher stage"
     annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDown(
     final min=0,
-    final max=nSta) "Next lower available stage"
+    final max=nSta) "Next available lower stage"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDesCap[nSta](
     final quantity=fill("Power", nSta),
@@ -43,7 +43,7 @@ block Capacities
     final quantity=fill("Power", nSta),
     final unit=fill("W", nSta)) "Unload stage capacities"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDes(
     final unit="W",
@@ -53,13 +53,13 @@ block Capacities
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowDes(
     final unit="W",
-    final quantity="Power") "Design capacity of the first stage down"
+    final quantity="Power") "Design capacity of the next available lower stage"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpDes(
     final unit="W",
-    final quantity="Power") "Design capacity of the next higher stage"
+    final quantity="Power") "Design capacity of the next available higher stage"
     annotation (Placement(transformation(extent={{200,40},{240,80}}),
         iconTransformation(extent={{100,20},{140,60}})));
 
@@ -71,7 +71,7 @@ block Capacities
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yUpMin(
     final unit="W",
-    final quantity="Power") "Minimum capacity of the next higher stage"
+    final quantity="Power") "Minimum capacity of the next available higher stage"
     annotation (Placement(transformation(extent={{200,-110},{240,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
