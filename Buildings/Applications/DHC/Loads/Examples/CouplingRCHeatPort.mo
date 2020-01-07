@@ -30,9 +30,9 @@ model CouplingRCHeatPort
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,90})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.disFloHea.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.terUni.T_a1Hea_nominal)
     annotation (Placement(transformation(extent={{-100,74},{-80,94}})));
-  Modelica.Blocks.Sources.RealExpression m1ReqHea_flow(y=bui.disFloHea.m1Req_flow)
+  Modelica.Blocks.Sources.RealExpression mHea_flow(y=bui.disFloHea.mReq_flow)
     annotation (Placement(transformation(extent={{-100,94},{-80,114}})));
   Buildings.Fluid.Sources.MassFlowSource_T supCoo(
     use_m_flow_in=true,
@@ -43,9 +43,9 @@ model CouplingRCHeatPort
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,10})));
-  Modelica.Blocks.Sources.RealExpression TCooInlVal(y=bui.disFloCoo.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression TCooInlVal(y=bui.terUni.T_a1Coo_nominal)
     annotation (Placement(transformation(extent={{-100,-6},{-80,14}})));
-  Modelica.Blocks.Sources.RealExpression m1ReqCoo_flow(y=bui.disFloCoo.m1Req_flow)
+  Modelica.Blocks.Sources.RealExpression mCoo_flow(y=bui.disFloCoo.mReq_flow)
     annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = Medium1,
@@ -62,12 +62,12 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(THeaInlVal.y, supHea.T_in) annotation (Line(points={{-79,84},{-60,84},{-60,94},{-42,94}}, color={0,0,127}));
-  connect(m1ReqHea_flow.y, supHea.m_flow_in) annotation (Line(points={{-79,104},
-          {-60,104},{-60,98},{-42,98}}, color={0,0,127}));
+  connect(mHea_flow.y, supHea.m_flow_in) annotation (Line(points={{-79,104},{-60,
+          104},{-60,98},{-42,98}}, color={0,0,127}));
   connect(TCooInlVal.y, supCoo.T_in) annotation (Line(points={{-79,4},{-60,4},{
           -60,14},{-42,14}}, color={0,0,127}));
-  connect(m1ReqCoo_flow.y, supCoo.m_flow_in) annotation (Line(points={{-79,24},
-          {-60,24},{-60,18},{-42,18}}, color={0,0,127}));
+  connect(mCoo_flow.y, supCoo.m_flow_in) annotation (Line(points={{-79,24},{-60,
+          24},{-60,18},{-42,18}}, color={0,0,127}));
   connect(supHea.ports[1], bui.ports_a1[1])
     annotation (Line(points={{-20,90},{4,90},{4,42},{20,42}}, color={0,127,255}));
   connect(supCoo.ports[1], bui.ports_a1[2])

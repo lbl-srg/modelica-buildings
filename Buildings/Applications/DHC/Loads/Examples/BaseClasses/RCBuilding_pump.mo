@@ -120,6 +120,8 @@ model RCBuilding_pump "Building model of type RC one element"
                                                                 disFloHea(
     redeclare package Medium = Medium1,
       m_flow_nominal=terUni.m1Hea_flow_nominal,
+    havePum=true,
+    haveVal=true,
       dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
@@ -143,6 +145,7 @@ model RCBuilding_pump "Building model of type RC one element"
     redeclare package Medium = Medium1,
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
     havePum=true,
     haveVal=true,
     dp_nominal=100000)
@@ -150,7 +153,7 @@ model RCBuilding_pump "Building model of type RC one element"
   Modelica.Blocks.Sources.RealExpression realExpression(y=273 + 35)
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=273 + 12)
-    annotation (Placement(transformation(extent={{-180,-174},{-160,-154}})));
+    annotation (Placement(transformation(extent={{-178,-170},{-158,-150}})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
     annotation (Line(
@@ -314,21 +317,15 @@ equation
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{262,
           -49.1667},{262,120},{320,120}},
                                 color={0,0,127}));
-  connect(realExpression.y, disFloHea.TSupSet) annotation (Line(points={{-159,-120},
-          {-130,-120},{-130,-113},{-101,-113}},       color={0,0,127}));
-  connect(realExpression1.y, disFloCoo.TSupSet) annotation (Line(points={{-159,-164},
-          {-140,-164},{-140,-153},{-101,-153}},       color={0,0,127}));
-  connect(disFloCoo.mReq_flow, disFloCoo.mPum_flow) annotation (Line(points={{-79,
-          -156},{-60,-156},{-60,-180},{-120,-180},{-120,-156},{-101,-156}},
-        color={0,0,127}));
-  connect(disFloHea.mReq_flow, disFloHea.mPum_flow) annotation (Line(points={{-79,
-          -116},{-60,-116},{-60,-128},{-120,-128},{-120,-116},{-101,-116}},
-        color={0,0,127}));
+  connect(realExpression.y, disFloHea.TSupSet) annotation (Line(points={{-159,
+          -120},{-130,-120},{-130,-121},{-101,-121}}, color={0,0,127}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
-        points={{-139.167,-52.5},{-139.167,-115.25},{-101,-115.25},{-101,-114}},
+        points={{-139.167,-52.5},{-139.167,-115.25},{-101,-115.25},{-101,-115}},
         color={0,0,127}));
   connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
-        points={{-139.167,-54.1667},{-139.167,-154},{-101,-154}}, color={0,0,127}));
+        points={{-139.167,-54.1667},{-139.167,-155},{-101,-155}}, color={0,0,127}));
+  connect(realExpression1.y, disFloCoo.TSupSet) annotation (Line(points={{-157,
+          -160},{-130,-160},{-130,-161},{-101,-161}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

@@ -69,17 +69,18 @@ model GeojsonSpawn1Z6Building
     weaName=Modelica.Utilities.Files.loadResource(weaPath))
     "Building outer component"
     annotation (Placement(transformation(extent={{30,198},{52,218}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-    m1_flow_nominal=sum(terUni.m1Hea_flow_nominal),
-    T_a1_nominal=313.15,
-    T_b1_nominal=308.15,
-    nLoa=nZon)
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
+                                                                disFloHea(
+      m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
+      dp_nominal=100000,
+      nUni=nZon)
     annotation (Placement(transformation(extent={{-238,-190},{-218,-170}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
-    m1_flow_nominal=sum(terUni.m1Coo_flow_nominal),
-    T_a1_nominal=280.15,
-    T_b1_nominal=285.15,
-    nLoa=nZon)
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
+                                                                disFloCoo(
+    m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
+    disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+    nUni=nZon,
+    dp_nominal=100000)
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=nZon)
     annotation (Placement(transformation(extent={{220,110},{240,130}})));
@@ -89,10 +90,10 @@ model GeojsonSpawn1Z6Building
     QCoo_flow_nominal={10000,10000,10000,10000,10000,10000},
     each T_a2Hea_nominal=293.15,
     each T_a2Coo_nominal=297.15,
-    each T_b1Hea_nominal=disFloHea.T_b1_nominal,
-    each T_b1Coo_nominal=disFloCoo.T_b1_nominal,
-    each T_a1Hea_nominal=disFloHea.T_a1_nominal,
-    each T_a1Coo_nominal=disFloCoo.T_a1_nominal,
+    each T_b1Hea_nominal=308.15,
+    each T_b1Coo_nominal=285.15,
+    each T_a1Hea_nominal=313.15,
+    each T_a1Coo_nominal=280.15,
     each m2Hea_flow_nominal=5,
     each m2Coo_flow_nominal=5)
     annotation (Placement(transformation(extent={{-86,-2},{-62,22}})));
@@ -176,10 +177,6 @@ equation
           -214},{-260,-214},{-260,2},{-86,2}}, color={0,127,255}));
   connect(terUni.port_b1Coo, disFloCoo.ports_a1) annotation (Line(points={{-62,2},
           {-38,2},{-38,-214},{-160,-214}}, color={0,127,255}));
-  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow_i) annotation (Line(points=
-         {{-61,5},{-61,-111.5},{-181,-111.5},{-181,-228}}, color={0,0,127}));
-  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow_i) annotation (Line(points=
-         {{-61,7},{-61,-91.5},{-239,-91.5},{-239,-188}}, color={0,0,127}));
   connect(mulSum1.y, QHea_flow)
     annotation (Line(points={{242,280},{320,280}}, color={0,0,127}));
   connect(mulSum2.y, QCoo_flow)
@@ -190,6 +187,10 @@ equation
           17},{78.5,240},{218,240}}, color={0,0,127}));
   connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-61,11},{218,11},
           {218,120}},     color={0,0,127}));
+  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow) annotation (Line(points={{
+          -61,5},{-61,-110.5},{-181,-110.5},{-181,-225}}, color={0,0,127}));
+  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow) annotation (Line(points={{
+          -61,7},{-61,-88.5},{-239,-88.5},{-239,-185}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>

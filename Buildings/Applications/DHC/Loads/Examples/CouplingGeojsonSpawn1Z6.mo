@@ -35,9 +35,9 @@ model CouplingGeojsonSpawn1Z6
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,10})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.disFloHea.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=max(bui.terUni.T_a1Hea_nominal))
     annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
-  Modelica.Blocks.Sources.RealExpression m1ReqHea_flow(y=bui.disFloHea.m1Req_flow)
+  Modelica.Blocks.Sources.RealExpression m1ReqHea_flow(y=bui.disFloHea.mReq_flow)
     annotation (Placement(transformation(extent={{-80,14},{-60,34}})));
   Buildings.Fluid.Sources.MassFlowSource_T supCoo(
     use_m_flow_in=true,
@@ -49,9 +49,9 @@ model CouplingGeojsonSpawn1Z6
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,-70})));
-  Modelica.Blocks.Sources.RealExpression TCooInlVal(y=bui.disFloCoo.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression TCooInlVal(y=min(bui.terUni.T_a1Coo_nominal))
     annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
-  Modelica.Blocks.Sources.RealExpression m1ReqCoo_flow(y=bui.disFloCoo.m1Req_flow)
+  Modelica.Blocks.Sources.RealExpression m1ReqCoo_flow(y=bui.disFloCoo.mReq_flow)
     annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
 equation
   connect(THeaInlVal.y,supHea. T_in) annotation (Line(points={{-59,4},{-40,4},{-40,

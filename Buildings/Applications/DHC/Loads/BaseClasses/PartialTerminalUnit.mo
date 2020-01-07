@@ -72,15 +72,15 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
     "Heating water inlet temperature at nominal conditions "
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a1Coo_nominal(
-    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
-    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
-    "Chilled water inlet temperature at nominal conditions "
-    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_b1Hea_nominal(
     min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
     heaFunSpe == funSpe.Water or heaFunSpe == funSpe.ChangeOver
     "Heating water outlet temperature at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_a1Coo_nominal(
+    min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if
+    cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver
+    "Chilled water inlet temperature at nominal conditions "
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_b1Coo_nominal(
     min=Modelica.SIunits.Conversions.from_degC(0), displayUnit="degC") if

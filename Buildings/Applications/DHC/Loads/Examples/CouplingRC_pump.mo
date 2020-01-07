@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingRC
+model CouplingRC_pump
   "Example illustrating the coupling of a RC building model to a fluid loop"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -11,7 +11,8 @@ model CouplingRC
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.RCBuilding bui
+  BaseClasses.RCBuilding_pump
+                         bui(nPorts1=2)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = Medium1,
@@ -20,6 +21,10 @@ model CouplingRC
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,90})));
+  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.terUni.T_a1Hea_nominal)
+    annotation (Placement(transformation(extent={{-100,84},{-80,104}})));
+  Modelica.Blocks.Sources.RealExpression TCooInlVal(y=bui.terUni.T_a1Coo_nominal)
+    annotation (Placement(transformation(extent={{-100,4},{-80,24}})));
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = Medium1,
     nPorts=1) "Sink for chilled water"
@@ -27,32 +32,20 @@ model CouplingRC
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,10})));
-  Fluid.Sources.MassFlowSource_T           supHea(
-    use_m_flow_in=true,
+  Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Supply for heating water"          annotation (Placement(
-        transformation(
+    nPorts=1) "Source for heating water" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-34,80})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.terUni.T_a1Hea_nominal)
-    annotation (Placement(transformation(extent={{-104,64},{-84,84}})));
-  Modelica.Blocks.Sources.RealExpression mHea_flow(y=bui.disFloHea.mReq_flow)
-    annotation (Placement(transformation(extent={{-104,84},{-84,104}})));
-  Fluid.Sources.MassFlowSource_T           supCoo(
-    use_m_flow_in=true,
+        origin={-30,90})));
+  Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = Medium1,
     use_T_in=true,
-    nPorts=1) "Supply for chilled water"
-    annotation (Placement(transformation(
+    nPorts=1) "Source for chilled water" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-34,0})));
-  Modelica.Blocks.Sources.RealExpression TCooInlVal(y=bui.terUni.T_a1Coo_nominal)
-    annotation (Placement(transformation(extent={{-104,-16},{-84,4}})));
-  Modelica.Blocks.Sources.RealExpression mCoo_flow(y=bui.disFloCoo.mReq_flow)
-    annotation (Placement(transformation(extent={{-104,4},{-84,24}})));
+        origin={-30,10})));
 equation
   connect(weaDat.weaBus, bui.weaBus)
   annotation (Line(
@@ -60,21 +53,18 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(bui.ports_b1[1], sinHea.ports[1])
-    annotation (Line(points={{40,44},{74,44},{74,90},{100,90}}, color={0,127,255}));
+    annotation (Line(points={{40,42},{74,42},{74,90},{100,90}}, color={0,127,255}));
   connect(bui.ports_b1[2], sinCoo.ports[1])
-    annotation (Line(points={{40,44},{74,44},{74,10},{100,10}}, color={0,127,255}));
-  connect(THeaInlVal.y,supHea. T_in) annotation (Line(points={{-83,74},{-64,74},
-          {-64,84},{-46,84}},                                                                       color={0,0,127}));
-  connect(mHea_flow.y, supHea.m_flow_in) annotation (Line(points={{-83,94},{-64,
-          94},{-64,88},{-46,88}}, color={0,0,127}));
-  connect(TCooInlVal.y,supCoo. T_in) annotation (Line(points={{-83,-6},{-64,-6},
-          {-64,4},{-46,4}},  color={0,0,127}));
-  connect(mCoo_flow.y, supCoo.m_flow_in) annotation (Line(points={{-83,14},{-64,
-          14},{-64,8},{-46,8}}, color={0,0,127}));
-  connect(supHea.ports[1], bui.ports_a1[1])
-    annotation (Line(points={{-24,80},{0,80},{0,44},{20,44}}, color={0,127,255}));
-  connect(supCoo.ports[1], bui.ports_a1[2])
-    annotation (Line(points={{-24,0},{0,0},{0,44},{20,44}},   color={0,127,255}));
+    annotation (Line(points={{40,46},{74,46},{74,10},{100,10}}, color={0,127,255}));
+  connect(souHea.T_in, THeaInlVal.y)
+    annotation (Line(points={{-42,94},{-79,94}}, color={0,0,127}));
+  connect(souHea.ports[1], bui.ports_a1[1]) annotation (Line(points={{-20,90},{
+          0,90},{0,42},{20,42}},
+                               color={0,127,255}));
+  connect(TCooInlVal.y, souCoo.T_in)
+    annotation (Line(points={{-79,14},{-42,14}}, color={0,0,127}));
+  connect(souCoo.ports[1], bui.ports_a1[2]) annotation (Line(points={{-20,10},{
+          0,10},{0,46},{20,46}}, color={0,127,255}));
   annotation (
   experiment(
       StopTime=604800,
@@ -95,4 +85,4 @@ equation
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{140,120}})),
   __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRC.mos"
         "Simulate and plot"));
-end CouplingRC;
+end CouplingRC_pump;

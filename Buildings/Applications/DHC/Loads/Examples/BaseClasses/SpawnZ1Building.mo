@@ -21,10 +21,10 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
     QCoo_flow_nominal=10000,
     T_a2Hea_nominal=293.15,
     T_a2Coo_nominal=297.15,
-    T_b1Hea_nominal=disFloHea.T_b1_nominal,
-    T_b1Coo_nominal=disFloCoo.T_b1_nominal,
-    T_a1Hea_nominal=disFloHea.T_a1_nominal,
-    T_a1Coo_nominal=disFloCoo.T_a1_nominal,
+    T_b1Hea_nominal=308.15,
+    T_b1Coo_nominal=285.15,
+    T_a1Hea_nominal=313.15,
+    T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=5,
     m2Coo_flow_nominal=5)
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
@@ -56,17 +56,16 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-    m1_flow_nominal=terUni.m1Hea_flow_nominal,
-    T_a1_nominal=313.15,
-    T_b1_nominal=308.15,
-    nLoa=1)
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
+                                                                disFloHea(
+      m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
-    m1_flow_nominal=terUni.m1Hea_flow_nominal,
-    T_a1_nominal=280.15,
-    T_b1_nominal=285.15,
-    nLoa=1)
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
+                                                                disFloCoo(
+    m_flow_nominal=terUni.m1Coo_flow_nominal,
+    disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
+    dp_nominal=100000)
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
@@ -107,13 +106,6 @@ equation
           -104},{-180,-104},{-180,-59.1667},{-160,-59.1667}}, color={0,127,255}));
   connect(disFloCoo.ports_b1[1], terUni.port_a1Coo) annotation (Line(points={{-120,
           -144},{-200,-144},{-200,-56.6667},{-160,-56.6667}}, color={0,127,255}));
-  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow_i[1]) annotation (Line(
-        points={{-139.167,-52.5},{-139.167,-118.083},{-121,-118.083},{-121,-118}},
-        color={0,0,127}));
-  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow_i[1]) annotation (Line(
-        points={{-139.167,-54.1667},{-139.167,-158.083},{-121,-158.083},{-121,
-          -158}},
-        color={0,0,127}));
   connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,220},{
           -200,220},{-200,-46.6667},{-160.833,-46.6667}},
                                                      color={0,0,127}));
@@ -129,6 +121,12 @@ equation
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{260,
           -49.1667},{260,120},{320,120}},
                                 color={0,0,127}));
+  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
+        points={{-139.167,-52.5},{-139.167,-115.083},{-121,-115.083},{-121,-115}},
+        color={0,0,127}));
+  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
+        points={{-139.167,-54.1667},{-139.167,-104},{-140,-104},{-140,-154},{
+          -121,-154},{-121,-155}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>

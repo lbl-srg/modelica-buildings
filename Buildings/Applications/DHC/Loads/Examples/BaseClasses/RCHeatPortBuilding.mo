@@ -115,21 +115,19 @@ model RCHeatPortBuilding "Building model of type RC one element"
     annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-    m1_flow_nominal=terUni.m1Hea_flow_nominal,
-    T_a1_nominal=313.15,
-    T_b1_nominal=308.15,
-    nLoa=1)
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
+                                                                disFloHea(
+      m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Terminal4PipesHeatPorts terUni(
     QHea_flow_nominal=500,
     QCoo_flow_nominal=2000,
     T_a2Hea_nominal=293.15,
     T_a2Coo_nominal=297.15,
-    T_b1Hea_nominal=disFloHea.T_b1_nominal,
-    T_b1Coo_nominal=disFloCoo.T_b1_nominal,
-    T_a1Hea_nominal=disFloHea.T_a1_nominal,
-    T_a1Coo_nominal=disFloCoo.T_a1_nominal,
+    T_b1Hea_nominal=308.15,
+    T_b1Coo_nominal=285.15,
+    T_a1Hea_nominal=313.15,
+    T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=1,
     m2Coo_flow_nominal=1)
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
@@ -137,11 +135,12 @@ model RCHeatPortBuilding "Building model of type RC one element"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
-    m1_flow_nominal=terUni.m1Coo_flow_nominal,
-    T_a1_nominal=280.15,
-    T_b1_nominal=285.15,
-    nLoa=1)
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
+                                                                disFloCoo(
+    m_flow_nominal=terUni.m1Coo_flow_nominal,
+    disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
+    dp_nominal=100000)
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
@@ -280,13 +279,6 @@ equation
   connect(terUni.heaPorCon, thermalZoneOneElement.intGainsConv) annotation (
       Line(points={{-153.333,-50},{-30,-50},{-30,12},{92,12}},
                                                              color={191,0,0}));
-  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow_i[1]) annotation (Line(
-        points={{-139.167,-52.5},{-139.167,-117.25},{-121,-117.25},{-121,-118}},
-        color={0,0,127}));
-  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow_i[1]) annotation (Line(
-        points={{-139.167,-54.1667},{-139.167,-158.083},{-121,-158.083},{-121,
-          -158}},
-        color={0,0,127}));
   connect(terUni.port_b1Hea, disFloHea.ports_a1[1]) annotation (Line(points={{-140,
           -59.1667},{-80,-59.1667},{-80,-104},{-100,-104}}, color={0,127,255}));
   connect(terUni.port_b1Coo, disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
@@ -307,6 +299,12 @@ equation
   connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
           -44.1667},{81.4165,-44.1667},{81.4165,240},{320,240}},
                                                        color={0,0,127}));
+  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
+        points={{-139.167,-52.5},{-139.167,-84},{-140,-84},{-140,-114},{-121,
+          -114},{-121,-115}}, color={0,0,127}));
+  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
+        points={{-139.167,-54.1667},{-139.167,-106},{-140,-106},{-140,-156},{
+          -121,-156},{-121,-155}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

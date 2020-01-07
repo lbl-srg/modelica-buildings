@@ -116,11 +116,9 @@ model RCBuilding "Building model of type RC one element"
     annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-    m1_flow_nominal=terUni.m1Hea_flow_nominal,
-    T_a1_nominal=313.15,
-    T_b1_nominal=308.15,
-    nLoa=1)
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
+                                                                disFloHea(
+      m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
     terUni(
@@ -128,10 +126,10 @@ model RCBuilding "Building model of type RC one element"
     QCoo_flow_nominal=2000,
     T_a2Hea_nominal=293.15,
     T_a2Coo_nominal=297.15,
-    T_b1Hea_nominal=disFloHea.T_b1_nominal,
-    T_b1Coo_nominal=disFloCoo.T_b1_nominal,
-    T_a1Hea_nominal=disFloHea.T_a1_nominal,
-    T_a1Coo_nominal=disFloCoo.T_a1_nominal,
+    T_b1Hea_nominal=308.15,
+    T_b1Coo_nominal=285.15,
+    T_a1Hea_nominal=313.15,
+    T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=1,
     m2Coo_flow_nominal=1)
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
@@ -139,11 +137,12 @@ model RCBuilding "Building model of type RC one element"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
-    m1_flow_nominal=terUni.m1Coo_flow_nominal,
-    T_a1_nominal=280.15,
-    T_b1_nominal=285.15,
-    nLoa=1)
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
+                                                                disFloCoo(
+    m_flow_nominal=terUni.m1Coo_flow_nominal,
+    disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
+    dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
@@ -308,12 +307,12 @@ equation
   connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{262,
           -49.1667},{262,120},{320,120}},
                                 color={0,0,127}));
-  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow_i[1]) annotation (Line(
-        points={{-139.167,-54.1667},{-139.167,-158.083},{-101,-158.083},{-101,
-          -158}}, color={0,0,127}));
-  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow_i[1]) annotation (Line(
-        points={{-139.167,-52.5},{-139.167,-118.083},{-101,-118.083},{-101,-118}},
-        color={0,0,127}));
+  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
+        points={{-139.167,-52.5},{-139.167,-84},{-140,-84},{-140,-116},{-101,
+          -116},{-101,-115}}, color={0,0,127}));
+  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
+        points={{-139.167,-54.1667},{-139.167,-104},{-140,-104},{-140,-154},{
+          -101,-154},{-101,-155}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

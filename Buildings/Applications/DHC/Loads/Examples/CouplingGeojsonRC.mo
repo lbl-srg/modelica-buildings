@@ -39,9 +39,9 @@ model CouplingGeojsonRC
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-14,20})));
-  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.disFloHea.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression THeaInlVal(y=max(bui.terUni.T_a1Hea_nominal))
     annotation (Placement(transformation(extent={{-84,4},{-64,24}})));
-  Modelica.Blocks.Sources.RealExpression m1ReqHea_flow(y=bui.disFloHea.m1Req_flow)
+  Modelica.Blocks.Sources.RealExpression mHea_flow(y=bui.disFloHea.mReq_flow)
     annotation (Placement(transformation(extent={{-84,24},{-64,44}})));
   Buildings.Fluid.Sources.MassFlowSource_T supCoo(
     use_m_flow_in=true,
@@ -52,9 +52,9 @@ model CouplingGeojsonRC
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-14,-60})));
-  Modelica.Blocks.Sources.RealExpression TCooInlVal(y=bui.disFloCoo.T_a1_nominal)
+  Modelica.Blocks.Sources.RealExpression TCooInlVal(y=min(bui.terUni.T_a1Coo_nominal))
     annotation (Placement(transformation(extent={{-84,-76},{-64,-56}})));
-  Modelica.Blocks.Sources.RealExpression m1ReqCoo_flow(y=bui.disFloCoo.m1Req_flow)
+  Modelica.Blocks.Sources.RealExpression mCoo_flow(y=bui.disFloCoo.mReq_flow)
     annotation (Placement(transformation(extent={{-84,-56},{-64,-36}})));
 equation
   connect(weaDat.weaBus, bui.weaBus)
@@ -64,12 +64,12 @@ equation
       thickness=0.5));
   connect(THeaInlVal.y,supHea. T_in) annotation (Line(points={{-63,14},{-44,14},
           {-44,24},{-26,24}},                                                                       color={0,0,127}));
-  connect(m1ReqHea_flow.y, supHea.m_flow_in) annotation (Line(points={{-63,34},
-          {-44,34},{-44,28},{-26,28}}, color={0,0,127}));
+  connect(mHea_flow.y, supHea.m_flow_in) annotation (Line(points={{-63,34},{-44,
+          34},{-44,28},{-26,28}}, color={0,0,127}));
   connect(TCooInlVal.y, supCoo.T_in) annotation (Line(points={{-63,-66},{-44,-66},
           {-44,-56},{-26,-56}}, color={0,0,127}));
-  connect(m1ReqCoo_flow.y, supCoo.m_flow_in) annotation (Line(points={{-63,-46},
-          {-44,-46},{-44,-52},{-26,-52}}, color={0,0,127}));
+  connect(mCoo_flow.y, supCoo.m_flow_in) annotation (Line(points={{-63,-46},{-44,
+          -46},{-44,-52},{-26,-52}}, color={0,0,127}));
   connect(supHea.ports[1], bui.ports_a1[1])
     annotation (Line(points={{-4,20},{20,20},{20,-36},{40,-36}},
                                                               color={0,127,255}));
