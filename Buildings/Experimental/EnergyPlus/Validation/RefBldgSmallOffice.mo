@@ -13,13 +13,13 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
-    annotation (Placement(transformation(extent={{-74,-10},{-54,10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-74,30},{-54,50}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Routing.Multiplex3 mul "Multiplex for gains"
     annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
-    annotation (Placement(transformation(extent={{-74,-50},{-54,-30}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   ThermalZone att(
     redeclare package Medium = Medium,
     zoneName="Attic") "Thermal zone"
@@ -57,15 +57,15 @@ model RefBldgSmallOffice "Validation model for six zones small office building"
 
 equation
   connect(qRadGai_flow.y, mul.u1[1]) annotation (Line(
-      points={{-53,40},{-40,40},{-40,7},{-30,7}},
+      points={{-59,40},{-40,40},{-40,7},{-30,7}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(qConGai_flow.y, mul.u2[1]) annotation (Line(
-      points={{-53,0},{-30,0}},
+      points={{-59,0},{-30,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mul.u3[1], qLatGai_flow.y) annotation (Line(points={{-30,-7},{-40,-7},
-          {-40,-40},{-53,-40}}, color={0,0,127}));
+          {-40,-40},{-59,-40}}, color={0,0,127}));
   connect(att.qGai_flow, mul.y)
     annotation (Line(points={{38,104},{0,104},{0,0},{-7,0}}, color={0,0,127}));
   connect(cor.qGai_flow, mul.y)
