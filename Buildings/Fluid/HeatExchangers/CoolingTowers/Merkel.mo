@@ -16,21 +16,11 @@ model Merkel "Cooling tower model based on Merkel's theory"
     "Nominal mass flow rate of medium 2 (water)"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(
-    displayUnit="K") = 3.89
-    "Design approach temperature"
-    annotation (Dialog(group="Nominal condition"));
   parameter  Modelica.SIunits.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter  Modelica.SIunits.Temperature TWatIn_nominal
     "Nominal water inlet temperature"
-    annotation (Dialog(group="Nominal condition"));
-  parameter  Modelica.SIunits.Temperature TAirOutWB_nominal
-    "Nominal leaving air wetbulb temperature"
-    annotation (Dialog(group="Nominal condition"));
-  parameter  Modelica.SIunits.Temperature TWatOut_nominal
-    "Nominal water outlet temperature"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)
@@ -40,19 +30,6 @@ model Merkel "Cooling tower model based on Merkel's theory"
   parameter Modelica.SIunits.Power PFan_nominal(min=0)
     "Fan power"
     annotation (Dialog(group="Nominal condition"));
-
-//  final parameter  Modelica.SIunits.Temperature T_a1_nominal = TAirInWB_nominal
-//    "Nominal temperature at port a1"
-//    annotation (Dialog(group="Nominal condition"));
-//  final parameter Modelica.SIunits.Temperature T_a2_nominal = TWatIn_nominal
-//    "Nominal temperature at port a2"
-//    annotation (Dialog(group="Nominal condition"));
-//  final parameter Modelica.SIunits.Temperature T_b1_nominal = TAirOutWB_nominal
-//    "Nominal temperature at port b1"
-//    annotation (Dialog(group="Nominal condition"));
-//  final parameter Modelica.SIunits.Temperature T_b2_nominal = TWatOut_nominal
-//    "Nominal temperature at port b2"
-//    annotation (Dialog(group="Nominal condition"));
 
   parameter con configuration "Heat exchanger configuration"
     annotation (Evaluate=true,Dialog(group="Nominal condition"));
@@ -75,9 +52,10 @@ model Merkel "Cooling tower model based on Merkel's theory"
     "UA correction curves"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal
-    "Thermal conductance at nominal flow, used to compute heat capacity"
-    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.SIunits.ThermalConductance UA_nominal(fixed=false)
+    "Thermal conductance at nominal flow, used to compute heat capacity";
+  final parameter Real eps_nominal(fixed=false)
+    "Nominal heat transfer effectiveness";
 
   Modelica.Blocks.Interfaces.RealInput TAir(
     final min=0,
@@ -129,6 +107,9 @@ model Merkel "Cooling tower model based on Merkel's theory"
 protected
   final package Air = Buildings.Media.Air "Package of medium air";
 
+  final parameter Real NTU_nominal(min=0, fixed=false)
+    "Nominal number of transfer units";
+
   final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)](each fixed=false)
     "Coefficients for fan relative power consumption as a function 
     of control signal";
@@ -159,6 +140,19 @@ protected
     "Minimal capacity flow rate at nominal condition";
   parameter Modelica.SIunits.ThermalConductance CMax_flow_nominal(fixed=false)
     "Maximum capacity flow rate at nominal condition";
+  parameter Real Z_nominal(
+    min=0,
+    max=1,
+    fixed=false) "Ratio of capacity flow rate at nominal condition";
+
+  parameter  Modelica.SIunits.Temperature TAirOutWB_nominal(fixed=false)
+    "Nominal leaving air wetbulb temperature";
+  parameter  Modelica.SIunits.Temperature TWatOut_nominal(fixed=false)
+    "Nominal water outlet temperature";
+
+  parameter flo flowRegime_nominal(fixed=false)
+    "Heat exchanger flow regime at nominal flow rates";
+
 
   flo flowRegime(
     start=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow)
@@ -178,10 +172,49 @@ initial equation
   cpe_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
     TAirInWB_nominal,TAirOutWB_nominal);
 
+  // Heat transferred from fluid 1 to 2 at nominal condition
+  Q_flow_nominal = -m1_flow_nominal*cpe_nominal*(TAirInWB_nominal - TAirOutWB_nominal);
+  Q_flow_nominal =  m2_flow_nominal*cp2_nominal*(TWatIn_nominal - TWatOut_nominal);
   C1_flow_nominal = m1_flow_nominal*cpe_nominal;
   C2_flow_nominal = m2_flow_nominal*cp2_nominal;
   CMin_flow_nominal = min(C1_flow_nominal, C2_flow_nominal);
   CMax_flow_nominal = max(C1_flow_nominal, C2_flow_nominal);
+  Z_nominal = CMin_flow_nominal/CMax_flow_nominal;
+  eps_nominal = abs(Q_flow_nominal/((TAirInWB_nominal - TWatIn_nominal)*
+    CMin_flow_nominal));
+  assert(eps_nominal > 0 and eps_nominal < 1,
+    "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
+    "\n  To achieve the required heat transfer rate at epsilon=0.8, set |TAirInWB_nominal-TWatIn_nominal| = "
+     + String(abs(Q_flow_nominal/0.8*CMin_flow_nominal)) +
+    "\n  or increase flow rates. The current parameters result in " +
+    "\n  CMin_flow_nominal = " + String(CMin_flow_nominal) +
+    "\n  CMax_flow_nominal = " + String(CMax_flow_nominal));
+  // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
+  if (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+    flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal) then flo.CrossFlowCMinMixedCMaxUnmixed
+       else flo.CrossFlowCMinUnmixedCMaxMixed;
+  elseif (configuration == con.CrossFlowStream1UnmixedStream2Mixed) then
+    flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal) then flo.CrossFlowCMinUnmixedCMaxMixed
+       else flo.CrossFlowCMinMixedCMaxUnmixed;
+  elseif (configuration == con.ParallelFlow) then
+    flowRegime_nominal = flo.ParallelFlow;
+  elseif (configuration == con.CounterFlow) then
+    flowRegime_nominal = flo.CounterFlow;
+  elseif (configuration == con.CrossFlowUnmixed) then
+    flowRegime_nominal = flo.CrossFlowUnmixed;
+  else
+  //   Invalid flow regime. Assign a value to flowRegime_nominal, and stop with an assert
+    flowRegime_nominal = flo.CrossFlowUnmixed;
+    assert(configuration >= con.ParallelFlow and configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
+      "Invalid heat exchanger configuration.");
+  end if;
+
+  NTU_nominal = if (eps_nominal > 0 and eps_nominal < 1) then
+    Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
+    eps=eps_nominal,
+    Z=Z_nominal,
+    flowRegime=Integer(flowRegime_nominal)) else 0;
+  UA_nominal = NTU_nominal*CMin_flow_nominal;
 
   // Initialize fan power
   // Derivatives for spline that interpolates the fan relative power

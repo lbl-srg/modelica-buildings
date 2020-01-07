@@ -70,16 +70,13 @@ model MerkelEnergyPlus
     m2_flow_nominal=mWat_flow_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
-    TAirOutWB_nominal=TAirOutWB_nominal,
-    TWatOut_nominal=TWatOut_nominal,
     Q_flow_nominal=Q_flow_nominal,
     PFan_nominal=PFan_nominal,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     yMin=0.1,
     fraFreCon=0.1,
     fanRelPow(r_V=r_VEnePlu, r_P=r_PEnePlu),
-    UACor(FRAirMin=0.2),
-    UA_nominal=UA_nominal)
+    UACor(FRAirMin=0.2))
     "Merkel-theory based cooling tower"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
