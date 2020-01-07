@@ -363,30 +363,84 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>Model for a steady-state or dynamic cooling tower with a variable speed fan
-using Merkel's calculation method. Cooling tower performance is modeled using 
-the heat exchanger effectiveness and user-specified nominal thermal conductance 
+<p>Model for a steady-state or dynamic cooling tower with a variable speed fan 
+using Merkel's calculation method. 
+</p>
+<h4>Thermal performance</h4>
+<p>
+To compute the thermal performance, this model takes as parameters...
+</p>
+<p>
+Cooling tower performance is modeled 
+using the heat exchanger effectiveness and user-specified nominal thermal conductance
 (<code>UA_nominal</code>) for various heat exchanger flow regimes. 
 </p>
-<h4>Comparison with the cooling tower model of EnergyPlus</h4>
-<p>This model is similar to the model CoolingTower:VariableSpeed:Merkel that is 
-implemented in the EnergyPlus building energy simulation program version 8.9.0. 
-The main differences are: 
+<p>
+The total heat transfer between the air and water entering the tower is 
+defined based on Merkel's theory as:
+<p align=\"center\" style=\"font-style:italic;\">
+ dQ&#775;<sub>total</sub> = UdA/c<sub>p</sub> (h<sub>s</sub> - h<sub>a</sub>)
 </p>
+<p>
+where
+<i>h<sub>s</sub></i> is the enthalpy of saturated air at the wetted-surface temperature,
+<i>h<sub>a</sub></i> is the enthalpy of air in the free stream,
+<i>c<sub>p</sub></i> is the specific heat of moist air,
+<i>U</i> is the cooling tower overall heat transfer coefficient, and
+<i>A</i> is the heat transfer surface area.
+</p>
+<p>
+For off-design conditions, Merkel's theory is modified to include Sheier's 
+adjustment factors that change the current UA value. The three adjustment factors, based 
+on the current wetbulb, air flow rates, and water flow rates, are used to calculate the 
+UA value at any given time using: 
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+UA<sub>e</sub> = UA<sub>design</sub> &#183; f<sub>UA,wetbulb</sub> &#183; f<sub>UA,airflow</sub> &#183; f<sub>UA,waterflow</sub>
+</p>
+<p>
+where
+<i>UA<sub>e</sub></i> and <i>UA<sub>design</sub></i> are the equivalent and design 
+overall heat transfer coefficent-area products, respectively.
+The factors <i>f<sub>UA,wetbulb</sub></i>, <i>f<sub>UA,airflow</sub></i>, and <i>f<sub>UA,waterflow</sub></i>
+adjust the current UA valuve for the current wetbulb temperature, air flow rate, and water 
+flow rate, respectively. 
+See <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
+</p>
+<h4>Comparison with the cooling tower model of EnergyPlus</h4>
+<p>
+This model is similar to the model <code>CoolingTower:VariableSpeed:Merkel</code> 
+that is implemented in the EnergyPlus building energy simulation program version 8.9.0. 
+The main differences are: </p>
 <ol>
 <li>
 Not implemented are the basin heater power consumption and the make-up water usage. 
 </li>
 <li>
-The model has no built-in control to switch individual cells of the tower on or 
-off. To switch cells on or off, use multiple instances of this model, and use 
-your own control law to compute the input signal y. 
+The model has no built-in control to switch individual cells of the tower on or off. 
+To switch cells on or off, use multiple instances of this model, and use your own control 
+law to compute the input signal y. 
 </li>
 </ol>
-<h4>References</h4>
+<h4>Assumptions</h4>
 <p>
-<a href=\"https://energyplus.net/sites/all/modules/custom/nrel_custom/pdfs/pdfs_v8.9.0/EngineeringReference.pdf\">
-EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. 
+The following assumptions are made with this implementation of Merkel's theory:
+<ol>
+<li>
+The moist air enthalpy is a function of wetbulb temperature only.
+</li>
+<li>
+The wetted surface temperature is equal to the water temperature.
+</li>
+<li>
+Part-load operation is represented by a simple linear interpolation between two 
+steady-state regimes (fan off for entire simulation and fan on for entire simulation).
+Cycle losses are not taken into account.
+</li>
+</ol>
 </p>
+<h4>References</h4>
+<p><a href=\"https://energyplus.net/sites/all/modules/custom/nrel_custom/pdfs/pdfs_v8.9.0/EngineeringReference.pdf\">EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. </p>
 </html>"));
 end Merkel;
