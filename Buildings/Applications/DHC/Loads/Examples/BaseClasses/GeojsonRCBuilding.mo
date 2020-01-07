@@ -19,8 +19,7 @@ model GeojsonRCBuilding
             200},{-280,220}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2[nZon]
     annotation (Placement(transformation(extent={{-260,200},{-240,220}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
-                                                                disFloHea(
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
     nUni=nZon,
     dp_nominal=100000)
@@ -38,11 +37,11 @@ model GeojsonRCBuilding
     each m2Coo_flow_nominal=1,
     each final fraCon={1,1})
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
-                                                                disFloCoo(
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
     nUni=nZon,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 

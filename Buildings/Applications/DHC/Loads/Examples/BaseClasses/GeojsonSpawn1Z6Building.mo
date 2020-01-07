@@ -69,16 +69,15 @@ model GeojsonSpawn1Z6Building
     weaName=Modelica.Utilities.Files.loadResource(weaPath))
     "Building outer component"
     annotation (Placement(transformation(extent={{30,198},{52,218}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
-                                                                disFloHea(
-      m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
-      dp_nominal=100000,
-      nUni=nZon)
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
+    m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
+    dp_nominal=100000,
+    nUni=nZon)
     annotation (Placement(transformation(extent={{-238,-190},{-218,-170}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
-                                                                disFloCoo(
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+
     nUni=nZon,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));

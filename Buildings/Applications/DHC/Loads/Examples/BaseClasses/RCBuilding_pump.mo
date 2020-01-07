@@ -116,13 +116,12 @@ model RCBuilding_pump "Building model of type RC one element"
     annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
-                                                                disFloHea(
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     redeclare package Medium = Medium1,
-      m_flow_nominal=terUni.m1Hea_flow_nominal,
+    m_flow_nominal=terUni.m1Hea_flow_nominal,
     havePum=true,
     haveVal=true,
-      dp_nominal=100000)
+    dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
     terUni(
@@ -141,7 +140,7 @@ model RCBuilding_pump "Building model of type RC one element"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump disFloCoo(
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     redeclare package Medium = Medium1,
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
@@ -150,6 +149,7 @@ model RCBuilding_pump "Building model of type RC one element"
     haveVal=true,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+
   Modelica.Blocks.Sources.RealExpression realExpression(y=273 + 35)
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=273 + 12)

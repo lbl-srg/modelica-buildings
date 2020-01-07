@@ -34,17 +34,16 @@ model TimeSeriesBuilding
     T_a2Hea_nominal=293.15,
     T_a2Coo_nominal=297.15)
     annotation (Placement(transformation(extent={{80,-24},{100,-4}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
-                                                                disFloHea(
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
       m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
-                                                                disFloCoo(
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
 
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
+
 equation
   connect(minTSet.y,from_degC1. u)
     annotation (Line(points={{-276,260},{-260,260}}, color={0,0,127}));

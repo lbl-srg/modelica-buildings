@@ -56,17 +56,16 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
-                                                                disFloHea(
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
       m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution_pump
-                                                                disFloCoo(
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
 
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
+
 equation
   connect(qRadGai_flow.y,multiplex3_1.u1[1])  annotation (Line(
       points={{-59,110},{-40,110},{-40,77},{-36,77}},
