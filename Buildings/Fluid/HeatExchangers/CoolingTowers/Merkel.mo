@@ -10,13 +10,14 @@ model Merkel "Cooling tower model based on Merkel's theory"
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
-    "Nominal mass flow rate of medium 1"
+    "Nominal mass flow rate of medium 1 (air)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
-    "Nominal mass flow rate of medium 2"
+    "Nominal mass flow rate of medium 2 (water)"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(displayUnit="K") = 3.89
+  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(
+    displayUnit="K") = 3.89
     "Design approach temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter  Modelica.SIunits.Temperature TAirInWB_nominal
@@ -40,18 +41,18 @@ model Merkel "Cooling tower model based on Merkel's theory"
     "Fan power"
     annotation (Dialog(group="Nominal condition"));
 
-  final parameter  Modelica.SIunits.Temperature T_a1_nominal = TAirInWB_nominal
-    "Nominal temperature at port a1"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.Temperature T_a2_nominal = TWatIn_nominal
-    "Nominal temperature at port a2"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.Temperature T_b1_nominal = TAirOutWB_nominal
-    "Nominal temperature at port b1"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.Temperature T_b2_nominal = TWatOut_nominal
-    "Nominal temperature at port b2"
-    annotation (Dialog(group="Nominal condition"));
+//  final parameter  Modelica.SIunits.Temperature T_a1_nominal = TAirInWB_nominal
+//    "Nominal temperature at port a1"
+//    annotation (Dialog(group="Nominal condition"));
+//  final parameter Modelica.SIunits.Temperature T_a2_nominal = TWatIn_nominal
+//    "Nominal temperature at port a2"
+//    annotation (Dialog(group="Nominal condition"));
+//  final parameter Modelica.SIunits.Temperature T_b1_nominal = TAirOutWB_nominal
+//    "Nominal temperature at port b1"
+//    annotation (Dialog(group="Nominal condition"));
+//  final parameter Modelica.SIunits.Temperature T_b2_nominal = TWatOut_nominal
+//    "Nominal temperature at port b2"
+//    annotation (Dialog(group="Nominal condition"));
 
   parameter con configuration "Heat exchanger configuration"
     annotation (Evaluate=true,Dialog(group="Nominal condition"));
@@ -175,7 +176,7 @@ initial equation
   cp1_nominal = Air.specificHeatCapacityCp(sta1_default);
   cp2_nominal = Medium.specificHeatCapacityCp(sta2_default);
   cpe_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
-    T_a1_nominal,T_b1_nominal);
+    TAirInWB_nominal,TAirOutWB_nominal);
 
   C1_flow_nominal = m1_flow_nominal*cpe_nominal;
   C2_flow_nominal = m2_flow_nominal*cp2_nominal;
@@ -406,7 +407,8 @@ The factors <i>f<sub>UA,wetbulb</sub></i>, <i>f<sub>UA,airflow</sub></i>, and <i
 adjust the current UA valuve for the current wetbulb temperature, air flow rate, and water 
 flow rate, respectively. 
 See <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>. The user can update 
+the values in this record based on the performance characteristics of their cooling tower. 
 </p>
 <h4>Comparison with the cooling tower model of EnergyPlus</h4>
 <p>

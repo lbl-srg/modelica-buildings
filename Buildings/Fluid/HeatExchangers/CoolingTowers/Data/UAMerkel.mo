@@ -47,8 +47,7 @@ record UAMerkel "UA correction factors for Merkel cooling towers"
 Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>. 
 Similar to the EnergyPlus <code>CoolingTower:VariableSpeed:Merkel</code> model, 
 Merkel's theory is modified to include Scheier's modifications that 
-adjust UA values at off-design conditions. The user enters performance curves 
-or lookup tables to desribe each of the following adjustment factors:</p>
+adjust UA values at off-design conditions. The three adjustment factors are:</p>
 <ul>
 <li>
 <code>UAFunDifWB </code>- Corrected UA based on the difference between the 
@@ -63,6 +62,10 @@ flow rate and the design air flow rate.
 flow rate and the design water flow rate. 
 </li>
 </ul>
+<p>
+The user can update the values in this record based on the performance
+characteristics of their cooling tower. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
