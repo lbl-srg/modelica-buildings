@@ -12,7 +12,8 @@ model ResponsePython
     final unit=fill("K", nSeg),
     displayUnit=fill("degC", nSeg),
     quantity=fill("ThermodynamicTemperature", nSeg))
-    "Start borehole outer wall temperature" annotation (Placement(
+    "Initial borehole outer wall temperature at the begining of the simulation"
+                                            annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
           extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput TBorWal[nSeg](
