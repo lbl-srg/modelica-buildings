@@ -20,8 +20,7 @@ package Water "Package with model for liquid water with constant density"
       "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
     Modelica.SIunits.SpecificInternalEnergy u(
-      nominal=cp_const,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+      nominal=cp_const)
       "Specific internal energy of medium";
     Modelica.SIunits.Density d=d_const "Density of medium";
     Modelica.SIunits.MassFraction[nX] X={1}
@@ -37,8 +36,9 @@ package Water "Package with model for liquid water with constant density"
       annotation(Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
-    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
-        Modelica.SIunits.Conversions.to_degC(T)
+    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC(
+      nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Temperature of medium in [degC]";
     Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
         Modelica.SIunits.Conversions.to_bar(p)
@@ -62,8 +62,10 @@ In "   + getInstanceName() + ": Temperature T exceeded its maximum allowed value
     + " degC (" + String(T_max) + " Kelvin)
 as required from medium model \"" + mediumName + "\".");
 
-    h = cp_const*(T-reference_T);
-    u = h;
+    T_degC = (T-reference_T);
+    T_degC = u/cp_const;
+    // The equation below gives in Dymola 2020x smaller system of nonlinear equations for Simplified1 than using u=h
+    T_degC = h/cp_const;
     state.T = T;
     state.p = p;
     annotation(Documentation(info="<html>
