@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.BaseClasses;
 block OptimalStartCalculation
-  "Block that outputs the optimal start time for an HVAC system"
+  "Base class for the block OptimalStart"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time tOptMax "Maximum optimal start time";
   parameter Modelica.SIunits.Time tOptIni
@@ -43,7 +43,9 @@ block OptimalStartCalculation
       Placement(transformation(extent={{400,-80},{440,-40}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=uLow, uHigh=uHigh)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=uLow,
+    final uHigh=uHigh)
     "Comparing zone temperature with zone setpoint"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
@@ -73,13 +75,15 @@ block OptimalStartCalculation
   Buildings.Controls.OBC.CDL.Logical.Switch swi
     "Switch to default optimal start time when time duration is 0"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defOptTim(k=tOptIni)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defOptTim(
+    final k=tOptIni)
     "Default optimal start time in case of zero division"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi1
     "Switch to default value value when the calculated temperature slope is 0"
     annotation (Placement(transformation(extent={{220,-10},{240,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defTemSlo(k=temSloDef)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defTemSlo(
+    final k=temSloDef)
     "Default temperature slope in case of zero division"
     annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
@@ -106,20 +110,21 @@ block OptimalStartCalculation
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
     "Record the start time when the HVAC system is turned on"
     annotation (Placement(transformation(extent={{-60,-54},{-40,-34}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1)
     "Calculate the time duration to reach the setpoint"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg "HVAC start time"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpt(
     pre_y_start=false,
-    uHigh=0,
-    uLow=-60) "Hysteresis to activate the optimal start"
+    final uHigh=0,
+    final uLow=-60) "Hysteresis to activate the optimal start"
     annotation (Placement(transformation(extent={{328,80},{348,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2(final k1=+1, final k2=-1)
     "Calculate differential between time-to-next-occupancy and the cool-down time"
     annotation (Placement(transformation(extent={{300,-90},{320,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxStaTim(k=tOptMax-60)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxStaTim(
+    final k=tOptMax-60)
     "Maximum optimal start time"
     annotation (Placement(transformation(extent={{240,-60},{260,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Min min
@@ -131,7 +136,8 @@ block OptimalStartCalculation
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Consider the deadband case"
     annotation (Placement(transformation(extent={{200,104},{220,124}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=tOptMax+2*3600)
+  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+    final duration=tOptMax+2*3600)
     "Hold the start time for timer"
     annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
 protected
@@ -229,8 +235,8 @@ equation
 defaultComponentName="optStaCal",
   Documentation(info="<html>
 <p>
-Base class for optimal start calculation. For the description of algorithm, please
-refer to the documentation for the block
+This base class contains the algorithm of optimal start calculation. For the
+description of algorithm, please refer to the documentation for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
 Buildings.Controls.OBC.Utilities.OptimalStart</a>.
 </p>

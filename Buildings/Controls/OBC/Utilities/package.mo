@@ -1,7 +1,13 @@
 within Buildings.Controls.OBC;
-package Utilities
+package Utilities "Package with utility functions"
 
-annotation (Icon(graphics={
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This package contains utility blocks, base classes and validation models for
+the OpenBuildingControl (OBC) library.
+</p>
+</html>"),
+Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

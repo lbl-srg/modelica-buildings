@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.Validation;
-model OptimalStart
+model OptimalStart "Validation model for the block OptimalStart"
   extends Modelica.Icons.Example;
   CDL.Continuous.Sources.Constant TSetHeaOcc(k=21 + 273.15)
     "Zone heating setpoint during occupancy"

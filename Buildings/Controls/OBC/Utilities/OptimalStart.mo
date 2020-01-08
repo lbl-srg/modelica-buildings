@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities;
 block OptimalStart
-  "Block that outputs the optimal start time for an HVAC system"
+  "Block that outputs optimal start time for an HVAC system before occupancy"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time tOptMax=10800
     "Maximum optimal start time";
@@ -11,7 +11,7 @@ block OptimalStart
     "Set to true if the HVAC system is cooling only"  annotation(Dialog(enable=not heating_only));
   parameter Modelica.SIunits.TemperatureDifference uLow = 0
     "Temperature change hysteresis low parameter, should be a non-negative number";
-  parameter Modelica.SIunits.TemperatureDifference uHigh=0.5
+  parameter Modelica.SIunits.TemperatureDifference uHigh = 0.5
     "Temperature change hysteresis high parameter, should be greater than uLow";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetZonHea(
@@ -228,7 +228,9 @@ The block includes two hysteresis parameters <code>uLow</code> and <code>uHigh</
 <code>uLow</code> is used by the algorithm to determine if the zone temperature reaches
 the setpoint. The algorithm sees the zone temperature has reached the setpoint if
 <code>TSetZonHea-TZon &le; uLow</code> for heating system;
-<code>TZon-TSetZonCoo &le; uLow</code> for cooling system.
+<code>TZon-TSetZonCoo &le; uLow</code> for cooling system. <code>TSetZonHea</code>
+denotes the zone heating setpoint during occupancy and <code>TSetZonCoo</code>
+denotes the zone cooling setpoint during occupancy.
 </p>
 <p>
 <code>uHigh</code> is used by the algorithm to determine if there is a need to
@@ -272,6 +274,7 @@ revisions="<html>
 <li>
 December 15, 2019, by Kun Zhang:<br/>
 First implementation.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1589\">issue #1589</a>.
 </li>
 </ul>
 </html>"),
