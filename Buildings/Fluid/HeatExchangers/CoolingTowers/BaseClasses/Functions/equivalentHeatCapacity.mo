@@ -5,20 +5,23 @@ function equivalentHeatCapacity
   input Modelica.SIunits.Temperature TIn "Inlet temperature";
   input Modelica.SIunits.Temperature TOut "Outlet temperature";
 
-  output Modelica.SIunits.SpecificHeatCapacity equivalentHeatCapacity "Equivalent specific heat capacity";
+  output Modelica.SIunits.SpecificHeatCapacity equivalentHeatCapacity
+    "Equivalent specific heat capacity";
 
 protected
-  constant Modelica.SIunits.TemperatureDifference deltaT=0.01 "Small temperature difference, used for regularization";
+  constant Modelica.SIunits.TemperatureDifference deltaT=0.01
+    "Small temperature difference, used for regularization";
 
-  Modelica.SIunits.Temperature TOutEps "Outlet temperature, bounded away from TIn";
+  Modelica.SIunits.Temperature TOutEps
+    "Outlet temperature, bounded away from TIn";
 
   Modelica.SIunits.MassFraction XIn_w
     "Water vapor mass fraction per unit mass total air";
   Modelica.SIunits.MassFraction XOut_w
     "Water vapor mass fraction per unit mass total air";
 
-  Modelica.SIunits.SpecificEnthalpy hIn "Specific enthalpy";
-  Modelica.SIunits.SpecificEnthalpy hOut "Specific enthalpy";
+  Modelica.SIunits.SpecificEnthalpy hIn "Inlet specific enthalpy";
+  Modelica.SIunits.SpecificEnthalpy hOut "Outlet specific enthalpy";
 
 algorithm
   TOutEps :=Buildings.Utilities.Math.Functions.smoothMax(

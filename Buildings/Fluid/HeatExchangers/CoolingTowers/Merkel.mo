@@ -153,7 +153,6 @@ protected
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
 
-
   flo flowRegime(
     start=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow)
     "Heat exchanger flow regime";
