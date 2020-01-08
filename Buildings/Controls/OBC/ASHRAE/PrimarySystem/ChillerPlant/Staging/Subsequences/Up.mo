@@ -27,65 +27,65 @@ block Up "Generates a stage up signal"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigSta
     "Operating at the highest available stage"
     annotation (Placement(transformation(extent={{-180,-190},{-140,-150}}),
-    iconTransformation(extent={{-120,-130},{-100,-110}})));
+    iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta if hasWSE
     "Chiller stage"
     annotation (Placement(transformation(extent={{-180,-160},{-140,-120}}),
-        iconTransformation(extent={{-120,-110},{-100,-90}})));
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(final unit="1")
     "Operating part load ratio of the current stage" annotation (Placement(
         transformation(extent={{-180,150},{-140,190}}), iconTransformation(
-          extent={{-120,90},{-100,110}})));
+          extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaUp(final unit="1")
     "Staging part load ratio of the next stage up" annotation (Placement(
         transformation(extent={{-180,120},{-140,160}}), iconTransformation(
-          extent={{-120,70},{-100,90}})));
+          extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeUp(final unit="1")
     "Operating part load ratio of the next higher stage" annotation (Placement(
         transformation(extent={{-180,80},{-140,120}}), iconTransformation(
-          extent={{-120,40},{-100,60}})));
+          extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeUpMin(final unit="1")
     "Minimum operating part load ratio at the next stage up" annotation (
       Placement(transformation(extent={{-180,50},{-140,90}}),
-        iconTransformation(extent={{-120,20},{-100,40}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water pump Diferential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
-      iconTransformation(extent={{-120,-60},{-100,-40}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water pump Diferential static pressure"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-    iconTransformation(extent={{-120,-80},{-100,-60}})));
+    iconTransformation(extent={{-140,-90},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
-    iconTransformation(extent={{-120,-10},{-100,10}})));
+    iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
-    iconTransformation(extent={{-120,-30},{-100,-10}})));
+    iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Stage up signal"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
-      iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(
@@ -217,7 +217,7 @@ equation
   connect(uHigSta, not1.u)
     annotation (Line(points={{-160,-170},{-82,-170}}, color={255,0,255}));
   connect(and2.y, y)
-    annotation (Line(points={{122,0},{150,0}}, color={255,0,255}));
+    annotation (Line(points={{122,0},{160,0}}, color={255,0,255}));
   connect(logSwi.y, and2.u1) annotation (Line(points={{82,30},{90,30},{90,0},{
           98,0}}, color={255,0,255}));
   connect(not1.y, and2.u2) annotation (Line(points={{-58,-170},{90,-170},{90,-8},

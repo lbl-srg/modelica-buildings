@@ -34,35 +34,35 @@ block Status
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHig
     "If true current stage is the highest available stage"
     annotation (Placement(transformation(extent={{440,20},{480,60}}),
-        iconTransformation(extent={{100,40},{140,80}})));
+        iconTransformation(extent={{100,-50},{140,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLow
     "If true current stage is the lowest available stage"
     annotation (Placement(transformation(extent={{440,-100},{480,-60}}),
-        iconTransformation(extent={{100,10},{140,50}})));
+        iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller status setpoint vector for the current stage"
     annotation (Placement(transformation(extent={{440,140},{480,180}}),
-        iconTransformation(extent={{100,70},{140,110}})));
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(
     final min=0,
     final max=nSta) "Current stage index"
     annotation (Placement(transformation(extent={{440,-180},{480,-140}}),
-        iconTransformation(extent={{100,-50},{140,-10}})));
+        iconTransformation(extent={{100,70},{140,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yUp(
     final min=0,
     final max=nSta) "Next available higher stage"
     annotation (Placement(transformation(extent={{440,60},{480,100}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+        iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yDown(
     final min=0,
     final max=nSta) "Next available lower stage"
     annotation (Placement(transformation(extent={{440,-60},{480,-20}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+        iconTransformation(extent={{100,10},{140,50}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2 "Switch"

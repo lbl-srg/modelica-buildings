@@ -29,12 +29,12 @@ block Configurator "Configures chiller staging"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAva[nSta]
     "Stage availability status vector"
     annotation (Placement(transformation(extent={{220,-100},{260,-60}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yTyp[nSta](
     final max=fill(nSta, nSta)) "Chiller stage types vector"
     annotation (Placement(transformation(extent={{220,-140},{260,-100}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+        iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDesCap[nSta](
     final unit=fill("W", nSta),
