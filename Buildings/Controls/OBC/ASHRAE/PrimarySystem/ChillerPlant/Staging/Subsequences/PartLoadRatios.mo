@@ -131,7 +131,7 @@ block PartLoadRatios
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeMin(final unit="1",
       final min=0) "Minimum operating part load ratio at current stage"
     annotation (Placement(transformation(extent={{340,-220},{380,-180}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+        iconTransformation(extent={{100,-90},{140,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpe(final unit="1", final
       min=0) "Operating part load ratio of the current stage" annotation (
@@ -156,7 +156,7 @@ block PartLoadRatios
       final min=0)
     "Minimum operating part load ratio of the next available stage up"
     annotation (Placement(transformation(extent={{340,-260},{380,-220}}),
-        iconTransformation(extent={{100,-90},{140,-50}})));
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Division opePlrSta
     "Calculates operating part load ratio at the current stage"

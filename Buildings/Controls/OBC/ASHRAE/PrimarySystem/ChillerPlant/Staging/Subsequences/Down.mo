@@ -18,80 +18,80 @@ block Down "Generates a stage down signal"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if hasWSE
     "WSE status"
     annotation (Placement(transformation(extent={{-180,-170},{-140,-130}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+        iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u if hasWSE
     "Chiller stage"
     annotation (Placement(transformation(extent={{-180,-200},{-140,-160}}),
-        iconTransformation(extent={{-120,-110},{-100,-90}})));
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(final unit="1")
     "OPLR of the current stage"
     annotation (Placement(transformation(
-          extent={{-180,90},{-140,130}}), iconTransformation(extent={{-120,70},
-            {-100,90}})));
+          extent={{-180,90},{-140,130}}), iconTransformation(extent={{-140,110},
+            {-100,150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeMin(final unit="1")
     "Minimum OPLR at the current stage"
     annotation (
       Placement(transformation(extent={{-180,60},{-140,100}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
+        iconTransformation(extent={{-140,90},{-100,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeDow(final unit="1")
     "Next available stage down operating part load ratio (OPLR)"
      annotation (Placement(
         transformation(extent={{-180,170},{-140,210}}), iconTransformation(
-          extent={{-120,110},{-100,130}})));
+          extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uStaDow(final unit="1")
     "Next available stage down staging part load ratio (SPLR)"
     annotation (
       Placement(transformation(extent={{-180,130},{-140,170}}),
-        iconTransformation(extent={{-120,90},{-100,110}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
-    iconTransformation(extent={{-120,-10},{-100,10}})));
+    iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-180,-50},{-140,-10}}),
-    iconTransformation(extent={{-120,-30},{-100,-10}})));
+    iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet(
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water pump differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,10},{-140,50}}),
-      iconTransformation(extent={{-120,30},{-100,50}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum(
     final unit="Pa",
     final quantity="PressureDifference")
     "Chilled water pump differential static pressure"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
-    iconTransformation(extent={{-120,10},{-100,30}})));
+    iconTransformation(extent={{-140,-10},{-100,30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
     final unit="1") if hasWSE
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
-       iconTransformation(extent={{-120,-50},{-100,-30}})));
+       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if hasWSE
     "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Stage down signal"
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.FailsafeCondition faiSafCon(

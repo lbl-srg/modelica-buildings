@@ -29,10 +29,9 @@ block Up "Generates a stage up signal"
     annotation (Placement(transformation(extent={{-180,-190},{-140,-150}}),
     iconTransformation(extent={{-140,-140},{-100,-100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta if hasWSE
-    "Chiller stage"
-    annotation (Placement(transformation(extent={{-180,-160},{-140,-120}}),
-        iconTransformation(extent={{-140,-120},{-100,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta if    hasWSE
+    "Chiller stage" annotation (Placement(transformation(extent={{-180,-160},{-140,
+            -120}}), iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpe(final unit="1")
     "Operating part load ratio of the current stage" annotation (Placement(
@@ -182,7 +181,7 @@ equation
           -20,60},{-2,60}},color={255,0,255}));
   connect(faiSafCon.y, orStaUp.u2) annotation (Line(points={{-58,50},{-30,50},{
           -30,52},{-2,52}},color={255,0,255}));
-  connect(uChiSta, intGreThr.u)
+  connect(uSta, intGreThr.u)
     annotation (Line(points={{-160,-140},{-82,-140}}, color={255,127,0}));
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-58,-140},{40,-140},
           {40,30},{58,30}}, color={255,0,255}));
