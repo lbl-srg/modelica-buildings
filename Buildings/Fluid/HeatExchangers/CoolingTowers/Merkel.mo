@@ -16,6 +16,10 @@ model Merkel "Cooling tower model based on Merkel's theory"
     "Nominal mass flow rate of medium 2 (water)"
     annotation (Dialog(group="Nominal condition"));
 
+  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(
+    displayUnit="K") = 3.89
+    "Design approach temperature"
+    annotation (Dialog(group="Nominal condition"));
   parameter  Modelica.SIunits.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Nominal condition"));

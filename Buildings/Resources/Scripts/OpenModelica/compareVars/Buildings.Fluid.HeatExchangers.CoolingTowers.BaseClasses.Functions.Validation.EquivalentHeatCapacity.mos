@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "cpe5",
+    "cpe10",
+    "cpe15",
+    "cpe20",
+    "cpe25"
+  };
