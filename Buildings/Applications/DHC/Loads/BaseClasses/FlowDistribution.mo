@@ -142,12 +142,16 @@ model FlowDistribution "Model of distribution system"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-80,0})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
     redeclare final package Medium = Medium,
+    dp_start=dp_nominal,
+    m_flow_start=m_flow_nominal,
+    show_T=false,
+    show_V_flow=false,
     final control_m_flow=false,
     final control_dp=true,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small)
     "Fictitious pipe used to prescribe the total pressure drop"
-    annotation (Placement(transformation(extent={{-22,10},{-2,-10}})));
+    annotation (Placement(transformation(extent={{-20,10},{0,-10}})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium=Medium,
     final portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -182,7 +186,7 @@ model FlowDistribution "Model of distribution system"
   Modelica.Blocks.Sources.RealExpression TSupVal(y=TSup)
     "Supply temperature value"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
-        rotation=180, origin={-90,80})));
+        rotation=180, origin={-90,70})));
   Buildings.Utilities.Math.Polynominal pol(a={dp_nominal})
     "Polynomial expression defining pressure drop variation with flow rate"
     annotation (Placement(transformation(extent={{20,-50},{0,-30}})));
@@ -190,9 +194,9 @@ model FlowDistribution "Model of distribution system"
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
     "Supply mass flow rate sensor"
-    annotation (Placement(transformation(extent={{16,10},{36,-10}})));
+    annotation (Placement(transformation(extent={{18,10},{38,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nUni)
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Max posPar if haveVal
     "Positive part of control signal"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -237,11 +241,11 @@ equation
   connect(val.port_2, pum.port_a)
     annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
   connect(pum.port_b, ideSou.port_a)
-    annotation (Line(points={{-30,0},{-22,0}}, color={0,127,255}));
+    annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
   connect(ideSou.port_b, senMasFlo.port_a)
-    annotation (Line(points={{-2,0},{16,0}},color={0,127,255}));
+    annotation (Line(points={{0,0},{18,0}}, color={0,127,255}));
   connect(senMasFlo.port_b, heaCoo.port_a)
-    annotation (Line(points={{36,0},{46,0}}, color={0,127,255}));
+    annotation (Line(points={{38,0},{46,0}}, color={0,127,255}));
   connect(Q_flowSum.y, QAct_flow)
     annotation (Line(points={{-48,100},{120,100}}, color={0,0,127}));
   connect(Q1Act_flow.y, Q_flowSum.u)
@@ -249,13 +253,15 @@ equation
   connect(Q_flowSum.y, heaCoo.u) annotation (Line(points={{-48,100},{40,100},{40,
           6},{44,6}}, color={0,0,127}));
   connect(pol.y, ideSou.dp_in)
-    annotation (Line(points={{-1,-40},{-6,-40},{-6,-8}},   color={0,0,127}));
-  connect(senMasFlo.m_flow, pol.u) annotation (Line(points={{26,-11},{26,-40},{22,
+    annotation (Line(points={{-1,-40},{-4,-40},{-4,-8}},   color={0,0,127}));
+  connect(senMasFlo.m_flow, pol.u) annotation (Line(points={{28,-11},{28,-40},{22,
           -40}},                  color={0,0,127}));
   connect(TSupVal.y, reaRep.u)
-    annotation (Line(points={{-79,80},{-22,80}}, color={0,0,127}));
-  connect(reaRep.y, sou_m1_flow.T_in) annotation (Line(points={{2,80},{20,80},{20,
-          164},{38,164}}, color={0,0,127}));
+    annotation (Line(points={{-79,70},{-64,70},{-50,70},{-22,70}},
+                                                 color={0,0,127}));
+  connect(reaRep.y, sou_m1_flow.T_in) annotation (Line(points={{2,70},{20,70},{
+          20,164},{38,164}},
+                          color={0,0,127}));
   if haveVal then
     connect(port_a, val.port_1)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
@@ -269,7 +275,7 @@ equation
       annotation (Line(points={{-120,-120},{-92,-120}}, color={0,0,127}));
     connect(TSupVal.y, conTSup.u_m)
       annotation (
-      Line(points={{-79,80},{-60,80},{-60,-140},{-80,-140},{-80,-132}}, color={0,0,127}));
+      Line(points={{-79,70},{-60,70},{-60,-140},{-80,-140},{-80,-132}}, color={0,0,127}));
     connect(zer.y,negPar. u1) annotation (Line(points={{-69,-100},{-54,-100},{-54,
             -124},{-42,-124}}, color={0,0,127}));
     connect(zer.y, posPar.u1) annotation (Line(points={{-69,-100},{-54,-100},{-54,
@@ -306,7 +312,7 @@ equation
       annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
     else
       connect(port_a, ideSou.port_a)
-        annotation (Line(points={{-100,0},{-22,0}}, color={0,127,255}));
+        annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
     end if;
   end if;
   if havePum then

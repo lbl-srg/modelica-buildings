@@ -39,7 +39,7 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
   Buildings.Experimental.EnergyPlus.ThermalZone zon(
     redeclare package Medium = Medium2,
     zoneName="Core_ZN",
-    nPorts=2)             "Thermal zone (core zone of the office building with 5 zones)"
+    nPorts=2) "Thermal zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
   inner Buildings.Experimental.EnergyPlus.Building building(
     idfName=Modelica.Utilities.Files.loadResource(idfPath),
@@ -62,7 +62,6 @@ model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
@@ -94,9 +93,6 @@ equation
   connect(zon.ports[1], terUni.port_a2) annotation (Line(points={{58,-19.2},{62,
           -19.2},{62,-40.8333},{-140,-40.8333}},
                                        color={0,127,255}));
-  connect(terUni.port_b2, zon.ports[2]) annotation (Line(points={{-160,-40.8333},
-          {-180,-40.8333},{-180,-24},{62,-24},{62,-19.2}},
-                                                color={0,127,255}));
   connect(terUni.port_b1Hea, disFloHea.ports_a1[1]) annotation (Line(points={{-140,
           -59.1667},{-140,-59.5833},{-100,-59.5833},{-100,-104}}, color={0,127,255}));
   connect(terUni.port_b1Coo, disFloCoo.ports_a1[1]) annotation (Line(points={{-140,
@@ -126,6 +122,9 @@ equation
   connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
         points={{-139.167,-54.1667},{-139.167,-104},{-140,-104},{-140,-154},{
           -121,-154},{-121,-155}}, color={0,0,127}));
+  connect(terUni.port_b2, zon.ports[2]) annotation (Line(points={{-160,-40.8333},
+          {-172,-40.8333},{-172,-40},{-180,-40},{-180,-19.2},{62,-19.2}}, color
+        ={0,127,255}));
   annotation (
   Documentation(info="
   <html>
