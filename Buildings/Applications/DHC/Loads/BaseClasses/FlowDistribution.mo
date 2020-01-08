@@ -312,7 +312,8 @@ equation
       annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
     else
       connect(port_a, ideSou.port_a)
-        annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
+        annotation (Line(points={{-100,0},{-80,0},{-80,2},{-60,2},{-60,0},{-20,
+              0}},                                  color={0,127,255}));
     end if;
   end if;
   if havePum then
