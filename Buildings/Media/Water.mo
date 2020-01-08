@@ -53,6 +53,7 @@ package Water "Package with model for liquid water with constant density"
       "Mass fraction as input signal connector";
 
   equation
+  assert(abs(reference_T-273.15) < 0.0001, "reference_T must be 273.15 for model to be valid");
   assert(T >= T_min, "
 In "   + getInstanceName() + ": Temperature T exceeded its minimum allowed value of " + String(T_min-273.15)
     + " degC (" + String(T_min) + " Kelvin)
