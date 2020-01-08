@@ -28,19 +28,15 @@ model MerkelEnergyPlus
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=
     vWat_flow_nominal * denWat
     "Nominal mass flow rate of water (medium 2)";
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal = 20.59+273.15
+  parameter Modelica.SIunits.Temperature TAirInWB_nominal = 18.85+273.15
     "Nominal outdoor wetbulb temperature";
   parameter Modelica.SIunits.Temperature TWatIn_nominal = 34.16+273.15
     "Nominal water inlet temperature";
-  parameter Modelica.SIunits.Temperature TAirOutWB_nominal = 26+273.15
-    "Nominal air outlet wetbulb temperature";
-  parameter Modelica.SIunits.Temperature TWatOut_nominal = 21+273.15
-    "Nominal water outlet temperature";
   parameter Modelica.SIunits.Temperature TWatOut_initial = 33.019+273.15
     "Nominal water inlet temperature";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20286.37455
     "Nominal heat transfer, positive";
-  parameter Modelica.SIunits.ThermalConductance UA_nominal = 2011.28668
+  parameter Modelica.SIunits.ThermalConductance UA_nominal_EP = 2011.28668
     "Nominal heat transfer, positive";
   parameter Modelica.SIunits.Power PFan_nominal = 213.00693
     "Nominal fan power";
