@@ -39,7 +39,7 @@ equation
     TIn = TIn[1,5], TOut = TOut[1,5]);
 
   annotation (
-    experiment(StartTime=0, Tolerance=1e-06, StopTime=50),
+    experiment(StartTime=10, Tolerance=1e-06, StopTime=20),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/BaseClasses/Functions/Validation/EquivalentHeatCapacity.mos"
         "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
