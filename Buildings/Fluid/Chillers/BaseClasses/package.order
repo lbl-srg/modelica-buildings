@@ -1,4 +1,6 @@
 AbsorptionIndirectSteam
+AbsorptionIndirectRemovableRecords
+SixPortHeatMassExchanger
 Carnot
 PartialCarnot_T
 PartialCarnot_y

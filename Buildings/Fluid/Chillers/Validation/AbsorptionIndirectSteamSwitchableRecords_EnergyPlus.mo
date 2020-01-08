@@ -1,29 +1,28 @@
 within Buildings.Fluid.Chillers.Validation;
-model AbsorptionIndirectSteam_EnergyPlus
+model AbsorptionIndirectSteamSwitchableRecords_EnergyPlus
   "Validation with EnergyPlus model"
+  extends Modelica.Icons.Example;
+
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Data.AbsorptionIndirect.Generic per(
-    QEva_flow_nominal=-10000,
-    P_nominal=150,
-    PLRMax=1,
-    PLRMin=0.15,
-    mEva_flow_nominal=0.247,
-    mCon_flow_nominal=1.1,
-    dpEva_nominal=0,
-    dpCon_nominal=0,
-    capFunEva={0.690571,0.065571,-0.00289,0},
-    capFunCon={0.245507,0.023614,0.0000278,0.000013},
-    genHIR={0.18892,0.968044,1.119202,-0.5034},
-    EIRP={1,0,0},
-    genConT={0.712019,-0.00478,0.000864,-0.000013},
-    genEvaT={0.995571,0.046821,-0.01099,0.000608}) "Chiller performance data"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-
-  Buildings.Fluid.Chillers.AbsorptionIndirectSteam absChi(
+  AbsorptionIndirectSteamSwitchableRecords absChi(
+    per(
+      QEva_flow_nominal=-10000,
+      P_nominal=150,
+      PLRMax=1,
+      PLRMin=0.15,
+      mEva_flow_nominal=0.247,
+      mCon_flow_nominal=1.1,
+      dpEva_nominal=0,
+      dpCon_nominal=0,
+      capFunEva={0.690571,0.065571,-0.00289,0},
+      capFunCon={0.245507,0.023614,0.0000278,0.000013},
+      genHIR={0.18892,0.968044,1.119202,-0.5034},
+      EIRP={1,0,0},
+      genConT={0.712019,-0.00478,0.000864,-0.000013},
+      genEvaT={0.995571,0.046821,-0.01099,0.000608}),
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    per=per,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T1_start=25 + 273.15,
@@ -33,7 +32,7 @@ model AbsorptionIndirectSteam_EnergyPlus
   Buildings.Fluid.Sources.MassFlowSource_T conPum(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    m_flow=per.mCon_flow_nominal,
+    m_flow=absChi.per.mCon_flow_nominal,
     use_T_in=true,
     nPorts=1)
     "Condenser water pump"
@@ -46,7 +45,7 @@ model AbsorptionIndirectSteam_EnergyPlus
   Buildings.Fluid.Sources.MassFlowSource_T evaPum(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    m_flow=per.mEva_flow_nominal,
+    m_flow=absChi.per.mEva_flow_nominal,
     nPorts=1,
     use_T_in=true)
     "Evaporator water pump"
@@ -117,18 +116,9 @@ equation
   connect(datRea.y[3], evaPum.T_in) annotation (Line(points={{-109,70},{-100,70},
           {-100,-82},{100,-82},{100,-34},{82,-34}}, color={0,0,127}));
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent={{-100,-102},{100,98}}),
-        Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
-                pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points={{-30,64},{70,4},{-30,-56},{-30,64}})}),
+            -100},{100,100}})),
    Diagram(coordinateSystem(extent={{-140,-100},{120,100}})),
-  __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/AbsorptionIndirectSteam_EnergyPlus.mos"
+  __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/AbsorptionIndirectSteamSwitchableRecords_EnergyPlus.mos"
         "Simulate and plot"),
     experiment(
       StartTime=23500,
@@ -152,4 +142,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AbsorptionIndirectSteam_EnergyPlus;
+end AbsorptionIndirectSteamSwitchableRecords_EnergyPlus;

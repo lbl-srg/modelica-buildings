@@ -1,0 +1,21 @@
+simulateModel("Buildings.Fluid.Chillers.Examples.AbsorptionIndirectHotWaterSwitchableRecords", tolerance=1e-6, stopTime=14000, method="CVode", resultFile="AbsorptionIndirectHotWaterSwitchableRecords");
+createPlot(id = 1,
+ position = {60, 10, 640, 480},
+ y = {"absIndHotWat.QEva_flow", "absIndHotWat.QGen_flow", "absIndHotWat.QCon_flow"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 2,
+ position = {60, 10, 640, 480},
+ y = {"absIndHotWat.sta_a1.T", "absIndHotWat.sta_b1.T", "absIndHotWat.sta_a2.T", "absIndHotWat.sta_b2.T","absIndHotWat.TSet"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
