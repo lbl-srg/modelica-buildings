@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "absIndHotWat.QEva_flow",
+    "absIndHotWat.QGen_flow",
+    "absIndHotWat.QCon_flow",
+    "absIndHotWat.sta_a1.T",
+    "absIndHotWat.sta_b1.T",
+    "absIndHotWat.sta_a2.T",
+    "absIndHotWat.sta_b2.T",
+    "absIndHotWat.TSet"
+  };

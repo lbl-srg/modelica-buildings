@@ -3,7 +3,7 @@ model AbsorptionIndirectSteamVaryingLoad
   "Absorption chiller with varying cooling load"
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Data.AbsorptionIndirectSteam.Generic per(
+  parameter Data.AbsorptionIndirect.Generic per(
     QEva_flow_nominal=-10000,
     P_nominal=150,
     PLRMax=1,

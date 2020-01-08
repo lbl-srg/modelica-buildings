@@ -16,7 +16,7 @@ model AbsorptionIndirectSteam
            nPorts=2,
            final prescribedHeatFlowRate=true));
 
-  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.Generic per
+  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirect.Generic per
    "Performance data"
     annotation (choicesAllMatching= true,
        Placement(transformation(extent={{60,72},{80,92}})));

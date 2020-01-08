@@ -6,7 +6,7 @@ model AbsorptionIndirectSteam
   package Medium = Buildings.Media.Water
    "Medium model";
 
-  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam.Generic per(
+  parameter Buildings.Fluid.Chillers.Data.AbsorptionIndirect.Generic per(
    QEva_flow_nominal=-10000,
    P_nominal=150,
    PLRMax=1,
