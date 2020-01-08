@@ -1,4 +1,4 @@
-﻿within Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses;
+﻿within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Examples.BaseClasses;
 partial model RN_BaseModel
   package MediumWater = Buildings.Media.Water "Medium model";
 

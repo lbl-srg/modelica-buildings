@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Agents.Controls;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents.Controls;
 block HeatingCurve "Reset of heating supply and return set point temperatures"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Temperature THeaSup_nominal

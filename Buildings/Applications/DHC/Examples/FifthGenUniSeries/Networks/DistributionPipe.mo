@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Networks;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Networks;
 model DistributionPipe "DHC distribution pipe"
   extends Buildings.Fluid.FixedResistances.PressureDrop(
     final dp_nominal=R*length);

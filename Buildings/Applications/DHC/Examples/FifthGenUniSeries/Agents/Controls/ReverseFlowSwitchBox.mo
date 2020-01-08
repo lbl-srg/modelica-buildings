@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Agents.Controls;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents.Controls;
 model ReverseFlowSwitchBox
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput massFlowHPDHW "in kg/s"

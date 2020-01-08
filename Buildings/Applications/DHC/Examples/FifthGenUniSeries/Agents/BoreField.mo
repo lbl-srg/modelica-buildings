@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Agents;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents;
 model BoreField "Borefield model"
   extends Buildings.Fluid.Geothermal.Borefields.TwoUTubes(
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Examples;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Examples;
 model Reservoir1Constant
   "Reservoir network with simple control and 0.08m pipe diameter"
   extends Modelica.Icons.Example;

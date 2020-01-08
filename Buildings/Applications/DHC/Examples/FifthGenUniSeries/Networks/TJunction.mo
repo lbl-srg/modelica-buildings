@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Networks;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Networks;
 model TJunction
   extends Buildings.Fluid.FixedResistances.Junction(
   final dp_nominal={0,0,0},

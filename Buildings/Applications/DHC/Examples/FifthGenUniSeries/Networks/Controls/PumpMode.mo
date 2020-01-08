@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Networks.Controls;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Networks.Controls;
 model PumpMode
   "Defines m flow of pums. 0 - \"winter mode\", abs (m_flow_BN) - \"summer mode\""
   extends Modelica.Blocks.Icons.Block;

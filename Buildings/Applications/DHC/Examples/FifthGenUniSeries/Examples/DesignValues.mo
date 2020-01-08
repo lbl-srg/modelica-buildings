@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Examples;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Examples;
 record DesignValues "Record with design values"
   extends Modelica.Icons.Record;
 

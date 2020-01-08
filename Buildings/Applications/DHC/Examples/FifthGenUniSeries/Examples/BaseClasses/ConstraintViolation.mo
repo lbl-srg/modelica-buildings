@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Examples.BaseClasses;
 block ConstraintViolation
   "Block that outputs the fraction of time when a constraint is violated"
   extends Modelica.Blocks.Interfaces.PartialRealMISO(

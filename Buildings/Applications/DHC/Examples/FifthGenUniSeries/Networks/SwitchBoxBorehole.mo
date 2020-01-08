@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Networks;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Networks;
 model SwitchBoxBorehole
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal

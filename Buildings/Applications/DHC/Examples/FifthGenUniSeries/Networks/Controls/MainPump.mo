@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Networks.Controls;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Networks.Controls;
 block MainPump "Controller for main pump"
   extends Modelica.Blocks.Icons.Block;
   parameter Integer nMix(min=1) "Number of mixing points after the substations";

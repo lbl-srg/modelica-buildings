@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Examples.BaseClasses;
 block PowerMeter
   "Block that sums input and integrates it from power to energy"
   extends Modelica.Blocks.Interfaces.PartialRealMISO(

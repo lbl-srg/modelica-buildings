@@ -1,4 +1,4 @@
-within Buildings.Examples.DistrictReservoirNetworks.Agents;
+within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents;
 model EnergyTransferStation
   "Substation for heating, free cooling and domestic hot water with load as a time series. Instead of a chiller FC HEX is implemented. A new simple FC HEX used. With new contolling strategz"
   replaceable package Medium =
