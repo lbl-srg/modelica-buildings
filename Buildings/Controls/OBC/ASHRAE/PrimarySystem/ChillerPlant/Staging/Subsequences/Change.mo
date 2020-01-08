@@ -229,6 +229,8 @@ block Change "Calculates the chiller stage signal"
     "Chiller status setpoint vector for the current chiller stage setpoint"
     annotation (Placement(transformation(extent={{300,-330},{340,-290}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
+  CDL.Logical.Pre pre
+    annotation (Placement(transformation(extent={{250,-120},{270,-100}})));
 equation
   connect(uChiAva, conf.uChiAva)
     annotation (Line(points={{-220,-240},{-192,-240},{-192,-230},{-162,-230}},
@@ -347,23 +349,25 @@ equation
           -104},{178,-104}}, color={255,127,0}));
   connect(addInt.y, intLesEquThr.u)
     annotation (Line(points={{202,-110},{218,-110}}, color={255,127,0}));
-  connect(intLesEquThr.y, onCouUp.reset) annotation (Line(points={{242,-110},{250,
-          -110},{250,-70},{166,-70},{166,-110},{150,-110},{150,-102}}, color={255,
-          0,255}));
-  connect(intLesEquThr.y, onCouDown.reset) annotation (Line(points={{242,-110},{
-          250,-110},{250,-70},{168,-70},{168,-152},{150,-152},{150,-142}},
-        color={255,0,255}));
   connect(u, sta.u) annotation (Line(points={{-220,-120},{-126,-120},{-126,-264},
           {-122,-264}}, color={255,127,0}));
   connect(addInt.y, y) annotation (Line(points={{202,-110},{210,-110},{210,-130},
           {320,-130}}, color={255,127,0}));
   connect(sta.yChi, yChi) annotation (Line(points={{-98,-279},{-60,-279},{-60,-310},
           {320,-310}}, color={255,0,255}));
-  connect(sta.y, staDow.u) annotation (Line(points={{-98,-261},{-68,-261},{-68,
-          -300},{98,-300}}, color={255,127,0}));
-  connect(sta.y, staUp.uSta) annotation (Line(points={{-98,-261},{-92,-261},{
-          -92,-210},{30,-210},{30,-220},{98,-220}}, color={255,127,0}));
-  annotation (defaultComponentName = "staCha",
+  connect(sta.y, staDow.u) annotation (Line(points={{-98,-261},{-68,-261},{-68,-300},
+          {98,-300}}, color={255,127,0}));
+  connect(sta.y, staUp.uSta) annotation (Line(points={{-98,-261},{-92,-261},{-92,
+          -210},{30,-210},{30,-220},{98,-220}}, color={255,127,0}));
+  connect(intLesEquThr.y, pre.u)
+    annotation (Line(points={{242,-110},{248,-110}}, color={255,0,255}));
+  connect(pre.y, onCouUp.reset) annotation (Line(points={{272,-110},{280,-110},
+          {280,-52},{110,-52},{110,-108},{150,-108},{150,-102}}, color={255,0,
+          255}));
+  connect(pre.y, onCouDown.reset) annotation (Line(points={{272,-110},{276,-110},
+          {276,-34},{100,-34},{100,-150},{150,-150},{150,-142}}, color={255,0,
+          255}));
+  annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

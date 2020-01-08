@@ -14,13 +14,12 @@ model Change "Validates chiller stage signal"
     "Average measured chilled water flow rate";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Subsequences.Change
-    staCha(
-    hasWSE=false,
-    nVsdCen=0,
-    nConCen=1,
-    nPosDis=2,
-    staNomCap={3e5,6e5,1e5}) "Stage change"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+    cha(
+    chiDesCap={500000,1000000},
+    chiMinCap={100000,200000},
+    anyVsdCen=false,
+    hasWSE=false) "Stage change"
+    annotation (Placement(transformation(extent={{120,0},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
     final amplitude=7,
@@ -36,18 +35,23 @@ model Change "Validates chiller stage signal"
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staAva[3](final k={true,
-        false,false})
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[2](final k={true,
+        true}) "Chiller availability vector"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant WSESta(
-    final k=true)
-    "Waterside economizer status"
+    final k=true) "Waterside economizer status"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
+  CDL.Logical.Sources.Constant higSta(final k=false)
+    "Operating at a highes available stage"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+  CDL.Logical.Sources.Constant chaPro(final k=false)
+    "Stage change is in process "
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
     final k=65*6895)
@@ -84,32 +88,36 @@ protected
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 
 equation
-  connect(dpChiWatSet.y, staCha.dpChiWatPumSet) annotation (Line(points={{-38,-70},
-          {-32,-70},{-32,-14},{39,-14}},  color={0,0,127}));
-  connect(dpChiWat.y, staCha.dpChiWatPum) annotation (Line(points={{-38,-120},{
-          -30,-120},{-30,-16},{39,-16}},
-                                     color={0,0,127}));
-  connect(TowFanSpeMax.y, staCha.uTowFanSpeMax) annotation (Line(points={{2,-120},
-          {10,-120},{10,-20},{39,-20}},     color={0,0,127}));
-  connect(TWsePre.y, staCha.TWsePre) annotation (Line(points={{2,-70},{8,-70},{
-          8,-18},{39,-18}},     color={0,0,127}));
-  connect(TCWSupSet.y, staCha.TChiWatSupSet) annotation (Line(points={{-38,30},
-          {28,30},{28,-5},{39,-5}},   color={0,0,127}));
-  connect(staAva.y, staCha.uChiAva) annotation (Line(points={{-38,70},{32,70},{
-          32,0},{39,0}}, color={255,0,255}));
-  connect(staCha.uWseSta, WSESta.y) annotation (Line(points={{39,-2},{30,-2},{
-          30,50},{-78,50}},   color={255,0,255}));
-  connect(TCWSup.y, staCha.TChiWatSup) annotation (Line(points={{-38,-30},{-34,
-          -30},{-34,-12},{39,-12}},
-                                color={0,0,127}));
+  connect(dpChiWatSet.y, cha.dpChiWatPumSet) annotation (Line(points={{-38,-70},
+          {-32,-70},{-32,11},{118,11}}, color={0,0,127}));
+  connect(dpChiWat.y, cha.dpChiWatPum) annotation (Line(points={{-38,-120},{-30,
+          -120},{-30,13},{118,13}}, color={0,0,127}));
+  connect(TowFanSpeMax.y, cha.uTowFanSpeMax) annotation (Line(points={{2,-120},
+          {10,-120},{10,8},{118,8}}, color={0,0,127}));
+  connect(TWsePre.y, cha.TWsePre)
+    annotation (Line(points={{2,-70},{8,-70},{8,3},{118,3}}, color={0,0,127}));
+  connect(TCWSupSet.y, cha.TChiWatSupSet) annotation (Line(points={{-38,30},{28,
+          30},{28,25},{118,25}}, color={0,0,127}));
+  connect(chiAva.y, cha.uChiAva) annotation (Line(points={{-38,70},{32,70},{32,
+          -9},{118,-9}}, color={255,0,255}));
+  connect(cha.uWseSta, WSESta.y) annotation (Line(points={{118,-3},{30,-3},{30,
+          50},{-78,50}}, color={255,0,255}));
+  connect(TCWSup.y, cha.TChiWatSup) annotation (Line(points={{-38,-30},{-34,-30},
+          {-34,23},{118,23}}, color={0,0,127}));
   connect(zero.y, max.u2) annotation (Line(points={{-118,-70},{-110,-70},{-110,
           -56},{-102,-56}}, color={0,0,127}));
   connect(chiWatFlow.y, max.u1) annotation (Line(points={{-118,-30},{-110,-30},
           {-110,-44},{-102,-44}}, color={0,0,127}));
-  connect(staCha.VChiWat_flow, max.y) annotation (Line(points={{39,-9},{-70,-9},
-          {-70,-50},{-78,-50}}, color={0,0,127}));
-  connect(TChiWatRet.y, staCha.TChiWatRet) annotation (Line(points={{-118,10},{
-          -70,10},{-70,-7},{39,-7}}, color={0,0,127}));
+  connect(cha.VChiWat_flow, max.y) annotation (Line(points={{118,1},{-70,1},{-70,
+          -50},{-78,-50}}, color={0,0,127}));
+  connect(TChiWatRet.y, cha.TChiWatRet) annotation (Line(points={{-118,10},{-70,
+          10},{-70,5},{118,5}}, color={0,0,127}));
+  connect(cha.y, cha.u) annotation (Line(points={{142,10},{160,10},{160,-20},{
+          110,-20},{110,-1},{118,-1}}, color={255,127,0}));
+  connect(higSta.y, cha.uHigSta) annotation (Line(points={{62,-30},{80,-30},{80,
+          -5},{118,-5}}, color={255,0,255}));
+  connect(chaPro.y, cha.chaPro) annotation (Line(points={{62,-70},{100,-70},{
+          100,-7},{118,-7}}, color={255,0,255}));
 annotation (
  experiment(StopTime=20000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Subsequences/Validation/Change.mos"
