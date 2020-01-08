@@ -9,9 +9,10 @@ model Terminal4PipesHeatPorts
     final haveWeaBus=false,
     final haveFan=false,
     final havePum=false,
-    final show_TSou=true,
     final hexConHea=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
     final hexConCoo=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
+    final show_TSou=true,
+    final show_TLoa=true,
     final m1Hea_flow_nominal=abs(QHea_flow_nominal / cp1Hea_nominal / (T_a1Hea_nominal - T_b1Hea_nominal)),
     final m1Coo_flow_nominal=abs(QCoo_flow_nominal / cp1Coo_nominal / (T_a1Coo_nominal - T_b1Coo_nominal)));
   parameter Integer nPorts1 = 2
@@ -42,8 +43,8 @@ model Terminal4PipesHeatPorts
     // CMin_nominal / CMax_nominal
   final parameter Modelica.SIunits.ThermalConductance UA_nominal[nPorts1]=
     Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
-      eps={QHea_flow_nominal,QCoo_flow_nominal} ./ abs(CMin_nominal .*
-        ({T_a1Hea_nominal,T_a1Coo_nominal} .- {T_a2Hea_nominal,T_a2Coo_nominal})),
+      eps={QHea_flow_nominal, QCoo_flow_nominal} ./ abs(CMin_nominal .*
+        ({T_a1Hea_nominal, T_a1Coo_nominal} .- {T_a2Hea_nominal, T_a2Coo_nominal})),
       Z=0,
       flowRegime=Integer(hexReg)) .* CMin_nominal
     "Thermal conductance at nominal conditions";
@@ -128,7 +129,7 @@ model Terminal4PipesHeatPorts
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiRadHea[nPorts1](k=1 .- fraCon)
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Modelica.Blocks.Sources.RealExpression T_a1Val[nPorts1](y={sta_a1Hea.T,
-        sta_a1Coo.T})
+        sta_a1Coo.T}) "Temperature value at port_a1"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(hexHeaCoo.UA, UAAct.y)

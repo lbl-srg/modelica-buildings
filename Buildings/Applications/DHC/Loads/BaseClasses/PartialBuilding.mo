@@ -11,16 +11,22 @@ partial model PartialBuilding "Partial class for building model"
   parameter Integer nPorts1 = 0
     "Number of source fluid streams"
      annotation(Evaluate=true, Dialog(connectorSizing=true));
-  parameter Boolean haveFan
+  parameter Boolean haveHeaLoa = true
+    "Set to true if the building has heating loads"
+    annotation(Evaluate=true);
+  parameter Boolean haveCooLoa = true
+    "Set to true if the building has cooling loads"
+    annotation(Evaluate=true);
+  parameter Boolean haveFan = true
     "Set to true if fans drawn power is computed"
     annotation(Evaluate=true);
-  parameter Boolean havePum
+  parameter Boolean havePum = true
     "Set to true if pumps drawn power is computed"
     annotation(Evaluate=true);
-  parameter Boolean haveEleHea
+  parameter Boolean haveEleHea = true
     "Set to true if the building has electric heating"
     annotation(Evaluate=true);
-  parameter Boolean haveEleCoo
+  parameter Boolean haveEleCoo = true
     "Set to true if the building has electric cooling"
     annotation(Evaluate=true);
   final parameter Boolean allowFlowReversal=false
@@ -45,12 +51,12 @@ partial model PartialBuilding "Partial class for building model"
     annotation (Placement(transformation(extent={{290,-40},{310,40}}),
       iconTransformation(extent={{90,-100},{110,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHea_flow(
-    final quantity="HeatFlowRate", final unit="W")
+    final quantity="HeatFlowRate", final unit="W") if haveHeaLoa
     "Total heating heat flow rate transferred to the loads (>=0)"
     annotation (Placement(transformation(extent={{300,260},{340,300}}),
         iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCoo_flow(
-    final quantity="HeatFlowRate", final unit="W")
+    final quantity="HeatFlowRate", final unit="W") if haveCooLoa
     "Total cooling heat flow rate transferred to the loads (<=0)"
     annotation (Placement(transformation(extent={{300,220},{340,260}}),
         iconTransformation(extent={{100,50},{140,90}})));

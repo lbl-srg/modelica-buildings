@@ -97,5 +97,9 @@ equation
   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{140,60}})),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingGeojsonRC.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    experiment(
+      StopTime=15000000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end CouplingGeojsonRC;

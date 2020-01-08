@@ -2,7 +2,6 @@ within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model SpawnZ1Building "Spawn building model based on Urbanopt GeoJSON export"
   import Buildings;
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    haveFan=true,
     havePum=false,
     haveEleHea=false,
     haveEleCoo=false,
@@ -117,14 +116,14 @@ equation
           -49.1667},{260,120},{320,120}},
                                 color={0,0,127}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
-        points={{-139.167,-52.5},{-139.167,-115.083},{-121,-115.083},{-121,-115}},
+        points={{-139.167,-52.5},{-139.167,-115.083},{-121,-115.083},{-121,-114}},
         color={0,0,127}));
   connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
         points={{-139.167,-54.1667},{-139.167,-104},{-140,-104},{-140,-154},{
-          -121,-154},{-121,-155}}, color={0,0,127}));
+          -121,-154},{-121,-154}}, color={0,0,127}));
   connect(terUni.port_b2, zon.ports[2]) annotation (Line(points={{-160,-40.8333},
-          {-172,-40.8333},{-172,-40},{-180,-40},{-180,-19.2},{62,-19.2}}, color
-        ={0,127,255}));
+          {-172,-40.8333},{-172,-40},{-180,-40},{-180,-19.2},{62,-19.2}}, color=
+         {0,127,255}));
   annotation (
   Documentation(info="
   <html>

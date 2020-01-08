@@ -1,8 +1,8 @@
 removePlots(true);
-simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingRC",
+simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingRCPum",
     method="cvode", tolerance=1e-6, numberOfIntervals=500,
     stopTime=800000.0,
-    resultFile="CouplingRC");
+    resultFile="CouplingRCPum");
 createPlot(
     id=1,
     position={10, 20, 670, 900},
@@ -66,32 +66,5 @@ createPlot(
     grid=true,
     subPlot=3
 );
-plotExpression(apply(-1*CouplingRC[end].bui.terUni.QCoo_flow_nominal), false, "-1*bui.terUni.QCoo_flow_nominal", 3);
-// createPlot(
-//     id=4,
-//     position={650, 260, 650, 400},
-//     x="couHea.frac_Q_flow",
-//     y={"couHea.vol.T", "couHea.T_b_nominal", "couHea.m_flow", "couHea.m_flow_nominal"},
-//     autoscale=true,
-//     // autoerase=true,
-//     // autoreplot=true,
-//     grid=true,
-//     colors={{238,46,47}, {238,46,47}, {0,140,72}, {0,140,72}},
-//     patterns={LinePattern.None, LinePattern.Solid, LinePattern.None, LinePattern.Solid},
-//     markers={MarkerStyle.Dot, MarkerStyle.None, MarkerStyle.Dot, MarkerStyle.None},
-//     axes={1, 1, 2, 2}
-// );
-// createPlot(
-//     id=5,
-//     position={1300, 260, 650, 400},
-//     x="couCoo.frac_Q_flow",
-//     y={"couCoo.vol.T", "couCoo.T_b_nominal", "couCoo.m_flow", "couCoo.m_flow_nominal"},
-//     autoscale=true,
-//     // autoerase=true,
-//     // autoreplot=true,
-//     grid=true,
-//     colors={{28,108,200}, {28,108,200}, {0,140,72}, {0,140,72}},
-//     patterns={LinePattern.None, LinePattern.Solid, LinePattern.None, LinePattern.Solid},
-//     markers={MarkerStyle.Dot, MarkerStyle.None, MarkerStyle.Dot, MarkerStyle.None},
-//     axes={1, 1, 2, 2}
-// );
+plotExpression(apply(-1*CouplingRCPum[end].bui.terUni.QCoo_flow_nominal), false, "-1*bui.terUni.QCoo_flow_nominal", 3);
+

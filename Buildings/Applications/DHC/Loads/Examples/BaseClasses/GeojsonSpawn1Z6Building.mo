@@ -4,7 +4,6 @@ model GeojsonSpawn1Z6Building
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     final haveEleHea=false,
     final haveEleCoo=false,
-    final haveFan=true,
     final havePum=false,
     nPorts1=2);
   package Medium2 = Buildings.Media.Air "Medium model";
@@ -77,10 +76,10 @@ model GeojsonSpawn1Z6Building
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-
     nUni=nZon,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
+
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=nZon)
     annotation (Placement(transformation(extent={{220,110},{240,130}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
@@ -138,8 +137,8 @@ equation
           20},{-280,-220},{-180,-220}}, color={0,127,255}));
   connect(disFloCoo.port_b, ports_b1[2]) annotation (Line(points={{-160,-220},{280,
           -220},{280,20},{300,20}}, color={0,127,255}));
-  connect(PFan, mulSum.y) annotation (Line(points={{320,120},{242,120}},
-                      color={0,0,127}));
+  connect(PFan, sumQHea.y)
+    annotation (Line(points={{320,120},{242,120}}, color={0,0,127}));
   connect(from_degC1.y, terUni.TSetHea) annotation (Line(points={{-238,260},{-162,
           260},{-162,18},{-87,18}}, color={0,0,127}));
   connect(from_degC2.y, terUni.TSetCoo) annotation (Line(points={{-238,220},{-162,
@@ -184,12 +183,12 @@ equation
           {79.5,19},{79.5,280},{218,280}},         color={0,0,127}));
   connect(terUni.QActCoo_flow, mulSum2.u) annotation (Line(points={{-61,17},{78.5,
           17},{78.5,240},{218,240}}, color={0,0,127}));
-  connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-61,11},{218,11},
-          {218,120}},     color={0,0,127}));
-  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow) annotation (Line(points={{
-          -61,5},{-61,-110.5},{-181,-110.5},{-181,-225}}, color={0,0,127}));
-  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow) annotation (Line(points={{
-          -61,7},{-61,-88.5},{-239,-88.5},{-239,-185}}, color={0,0,127}));
+  connect(terUni.PFan, sumQHea.u[1:6])
+    annotation (Line(points={{-61,11},{218,11},{218,120}}, color={0,0,127}));
+  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow) annotation (Line(points={{-61,5},
+          {-61,-110.5},{-181,-110.5},{-181,-224}},        color={0,0,127}));
+  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow) annotation (Line(points={{-61,7},
+          {-61,-88.5},{-239,-88.5},{-239,-184}},        color={0,0,127}));
   annotation (
   Documentation(info="
   <html>

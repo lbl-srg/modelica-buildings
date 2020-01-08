@@ -2,6 +2,8 @@ within Buildings.Applications.DHC.Loads.BaseClasses;
 model FlowDistribution "Model of distribution system"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium=Buildings.Media.Water,
+    final m_flow_small=1E-4*m_flow_nominal,
+    final show_T=false,
     final allowFlowReversal=false);
   import typ = Buildings.Applications.DHC.Loads.Types.DistributionType
     "Types of distribution system";
@@ -30,7 +32,7 @@ model FlowDistribution "Model of distribution system"
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
   parameter Modelica.SIunits.Time tau = 120
-    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
+    "Time constant of primary fluid temperature variation at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
   // IO connectors
   Modelica.Blocks.Interfaces.RealInput m1Req_flow[nUni](
@@ -38,9 +40,9 @@ model FlowDistribution "Model of distribution system"
     "Heating or chilled water flow required to meet the load"
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}}, rotation=0, origin={-120,220}),
-      iconTransformation(extent={{-10,-10},{10,10}}, rotation=0, origin={-110,-50})));
+      iconTransformation(extent={{-10,-10},{10,10}}, rotation=0, origin={-110,-40})));
   Modelica.Blocks.Interfaces.IntegerInput modChaOve if haveVal and disTyp == typ.ChangeOver
-    "Change over mode (1 for heating, -1 for cooling)"
+    "Operating mode in change-over (1 for heating, -1 for cooling)"
     annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -48,16 +50,21 @@ model FlowDistribution "Model of distribution system"
         origin={-120,-80}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-90})));
+        origin={-110,-70})));
   Modelica.Blocks.Interfaces.RealOutput mReq_flow(
     quantity="MassFlowRate")
     "Heating or chilled water flow required to meet the load"
     annotation (Placement(transformation(extent={{100,200},
-      {140,240}}),iconTransformation(extent={{100,-70},{120,-50}})));
+      {140,240}}),iconTransformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput QAct_flow(
     each quantity="HeatFlowRate")
     "Heat flow rate transferred to the source (<0 for heating)"
     annotation (Placement(transformation(extent={{100,80},{140,120}}),
+      iconTransformation(extent={{100,-70},{120,-50}})));
+  Modelica.Blocks.Interfaces.RealOutput PPum(
+    quantity="Power", final unit="W") if havePum
+    "Power drawn by pump motor"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
   // Building blocks
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
@@ -170,7 +177,7 @@ model FlowDistribution "Model of distribution system"
     Ti=120,
     yMax=1,
     yMin=-1,
-    final reverseAction=false) if                      haveVal
+    final reverseAction=false) if haveVal
     "PI controller tracking supply temperature"
     annotation (Placement(transformation(extent={{-90,-130},{-70,-110}})));
   Modelica.Blocks.Interfaces.RealInput TSupSet(
@@ -186,17 +193,17 @@ model FlowDistribution "Model of distribution system"
   Modelica.Blocks.Sources.RealExpression TSupVal(y=TSup)
     "Supply temperature value"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
-        rotation=180, origin={-90,70})));
+        rotation=180, origin={-90,80})));
   Buildings.Utilities.Math.Polynominal pol(a={dp_nominal})
     "Polynomial expression defining pressure drop variation with flow rate"
-    annotation (Placement(transformation(extent={{20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{20,-30},{0,-10}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
     "Supply mass flow rate sensor"
     annotation (Placement(transformation(extent={{18,10},{38,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealReplicator reaRep(nout=nUni)
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Max posPar if haveVal
     "Positive part of control signal"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -253,15 +260,13 @@ equation
   connect(Q_flowSum.y, heaCoo.u) annotation (Line(points={{-48,100},{40,100},{40,
           6},{44,6}}, color={0,0,127}));
   connect(pol.y, ideSou.dp_in)
-    annotation (Line(points={{-1,-40},{-4,-40},{-4,-8}},   color={0,0,127}));
-  connect(senMasFlo.m_flow, pol.u) annotation (Line(points={{28,-11},{28,-40},{22,
-          -40}},                  color={0,0,127}));
+    annotation (Line(points={{-1,-20},{-4,-20},{-4,-8}},   color={0,0,127}));
+  connect(senMasFlo.m_flow, pol.u) annotation (Line(points={{28,-11},{28,-20},{22,
+          -20}},                  color={0,0,127}));
   connect(TSupVal.y, reaRep.u)
-    annotation (Line(points={{-79,70},{-64,70},{-50,70},{-22,70}},
-                                                 color={0,0,127}));
-  connect(reaRep.y, sou_m1_flow.T_in) annotation (Line(points={{2,70},{20,70},{
-          20,164},{38,164}},
-                          color={0,0,127}));
+    annotation (Line(points={{-79,80},{-22,80}}, color={0,0,127}));
+  connect(reaRep.y, sou_m1_flow.T_in) annotation (Line(points={{2,80},{20,80},{20,
+          164},{38,164}}, color={0,0,127}));
   if haveVal then
     connect(port_a, val.port_1)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
@@ -275,7 +280,7 @@ equation
       annotation (Line(points={{-120,-120},{-92,-120}}, color={0,0,127}));
     connect(TSupVal.y, conTSup.u_m)
       annotation (
-      Line(points={{-79,70},{-60,70},{-60,-140},{-80,-140},{-80,-132}}, color={0,0,127}));
+      Line(points={{-79,80},{-60,80},{-60,-140},{-80,-140},{-80,-132}}, color={0,0,127}));
     connect(zer.y,negPar. u1) annotation (Line(points={{-69,-100},{-54,-100},{-54,
             -124},{-42,-124}}, color={0,0,127}));
     connect(zer.y, posPar.u1) annotation (Line(points={{-69,-100},{-54,-100},{-54,
@@ -286,23 +291,24 @@ equation
             {-48,-96},{-42,-96}}, color={0,0,127}));
     connect(mulSum1.y, swi.u3) annotation (Line(points={{22,-130},{32,-130},{32,
             -118},{38,-118}}, color={0,0,127}));
-    connect(swi.y, val.y) annotation (Line(points={{62,-110},{86,-110},{86,-60},{-80,
-            -60},{-80,-12}}, color={0,0,127}));
+    connect(swi.y, val.y) annotation (Line(points={{62,-110},{80,-110},{80,-60},
+            {-80,-60},{-80,-12}},
+                             color={0,0,127}));
     connect(negPar.y, mulSum1.u[1])
       annotation (Line(points={{-18,-130},{-2,-130}}, color={0,0,127}));
     connect(posPar.y, swi.u1)
-      annotation (Line(points={{-18,-90},{32,-90},{32,-102},
-          {38,-102}}, color={0,0,127}));
+      annotation (Line(points={{-18,-90},{32,-90},{32,-102},{38,-102}},
+                      color={0,0,127}));
     if disTyp == typ.ChangeOver then
       connect(modChaOve, toBoo.u)
         annotation (Line(points={{-120,-80},{-92,-80}}, color={255,127,0}));
       connect(toBoo.y, swi.u2)
-        annotation (Line(points={{-69,-80},{-64,-80},{-64,
-        -110},{38,-110}}, color={255,0,255}));
+        annotation (Line(points={{-69,-80},{-64,-80},{-64,-110},{38,-110}},
+                          color={255,0,255}));
     else
       connect(fixMod.y, swi.u2)
-        annotation (Line(points={{21,-100},{26,-100},{26,-110},
-            {38,-110}}, color={255,0,255}));
+        annotation (Line(points={{21,-100},{26,-100},{26,-110},{38,-110}},
+                        color={255,0,255}));
     end if;
   else
     connect(heaCoo.port_b, port_b)
@@ -312,8 +318,7 @@ equation
       annotation (Line(points={{-100,0},{-50,0}}, color={0,127,255}));
     else
       connect(port_a, ideSou.port_a)
-        annotation (Line(points={{-100,0},{-80,0},{-80,2},{-60,2},{-60,0},{-20,
-              0}},                                  color={0,127,255}));
+        annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
     end if;
   end if;
   if havePum then
@@ -321,6 +326,8 @@ equation
       annotation (Line(points={{-58,220},{-40,220},{-40,12}},
                                     color={0,0,127}));
   end if;
+  connect(pum.P, PPum) annotation (Line(points={{-29,9},{-20,9},{-20,60},{120,60}},
+        color={0,0,127}));
 annotation (
 defaultComponentName="disFlo",
 Documentation(
@@ -392,7 +399,7 @@ tracking the supply temperature.
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95})}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,
             240}}),                                                                       graphics={Text(
-        extent={{-98,-142},{120,-170}},
+        extent={{-106,-142},{112,-170}},
         lineColor={28,108,200},
         horizontalAlignment=TextAlignment.Left,
         textString=

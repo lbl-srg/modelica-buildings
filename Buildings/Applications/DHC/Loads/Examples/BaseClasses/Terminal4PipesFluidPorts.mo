@@ -20,8 +20,8 @@ model Terminal4PipesFluidPorts
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare each final package Medium = Medium2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=max({m2Hea_flow_nominal,m2Coo_flow_nominal}),
+    energyDynamics=energyDynamics,
+    m_flow_nominal=max({m2Hea_flow_nominal, m2Coo_flow_nominal}),
     redeclare Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=200,
@@ -34,7 +34,7 @@ model Terminal4PipesFluidPorts
     final m1_flow_nominal=m1Hea_flow_nominal,
     final m2_flow_nominal=m2Hea_flow_nominal,
     final dp1_nominal=0,
-    final dp2_nominal=100,
+    dp2_nominal=100,
     final Q_flow_nominal=QHea_flow_nominal,
     final T_a1_nominal=T_a1Hea_nominal,
     final T_a2_nominal=T_a2Hea_nominal,
@@ -52,7 +52,7 @@ model Terminal4PipesFluidPorts
     final m1_flow_nominal=m1Coo_flow_nominal,
     final m2_flow_nominal=m2Coo_flow_nominal,
     final dp1_nominal=0,
-    final dp2_nominal=100,
+    dp2_nominal=100,
     final Q_flow_nominal=QCoo_flow_nominal,
     final T_a1_nominal=T_a1Coo_nominal,
     final T_a2_nominal=T_a2Coo_nominal,
@@ -62,7 +62,7 @@ model Terminal4PipesFluidPorts
   Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexCoo.Q2_flow)
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(k=max({
-        m2Hea_flow_nominal,m2Coo_flow_nominal}))
+    m2Hea_flow_nominal,m2Coo_flow_nominal}))
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigFlo2(k=1)
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
@@ -76,6 +76,7 @@ model Terminal4PipesFluidPorts
   Buildings.Controls.OBC.CDL.Continuous.Gain gaiCooFloNom(k=m1Coo_flow_nominal)
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
   Modelica.Blocks.Sources.RealExpression T_a2Val(y=sta_a2.T)
+    "Temperature value at port_a2"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 equation
   connect(hexCoo.port_b2, hexHea.port_a2)

@@ -137,7 +137,6 @@ model RCHeatPortBuilding "Building model of type RC one element"
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
@@ -300,10 +299,10 @@ equation
                                                        color={0,0,127}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
         points={{-139.167,-52.5},{-139.167,-84},{-140,-84},{-140,-114},{-121,
-          -114},{-121,-115}}, color={0,0,127}));
+          -114},{-121,-114}}, color={0,0,127}));
   connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
         points={{-139.167,-54.1667},{-139.167,-106},{-140,-106},{-140,-156},{
-          -121,-156},{-121,-155}}, color={0,0,127}));
+          -121,-156},{-121,-154}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

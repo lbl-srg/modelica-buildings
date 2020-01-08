@@ -114,42 +114,18 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   final parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Evaluate=true);
-  Medium1.ThermodynamicState sta_a1Hea=
-    Medium1.setState_phX(port_a1Hea.p,
-      noEvent(actualStream(port_a1Hea.h_outflow)),
-        noEvent(actualStream(port_a1Hea.Xi_outflow))) if
-      show_TSou and heaFunSpe == funSpe.Water
-    "Medium properties in port_a1Hea";
-  Medium1.ThermodynamicState sta_b1Hea=
-    Medium1.setState_phX(port_b1Hea.p,
-      noEvent(actualStream(port_b1Hea.h_outflow)),
-        noEvent(actualStream(port_b1Hea.Xi_outflow))) if
-      show_TSou and heaFunSpe == funSpe.Water
-    "Medium properties in port_b1Hea";
-  Medium1.ThermodynamicState sta_a1Coo=
-    Medium1.setState_phX(port_a1Coo.p,
-      noEvent(actualStream(port_a1Coo.h_outflow)),
-        noEvent(actualStream(port_a1Coo.Xi_outflow))) if
-      show_TSou and (cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver)
-    "Medium properties in port_a1Coo";
-  Medium1.ThermodynamicState sta_b1Coo=
-    Medium1.setState_phX(port_b1Coo.p,
-      noEvent(actualStream(port_b1Coo.h_outflow)),
-        noEvent(actualStream(port_b1Coo.Xi_outflow))) if
-      show_TSou and (cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver)
-    "Medium properties in port_b1Coo";
-  Medium2.ThermodynamicState sta_a2=
-    Medium2.setState_phX(port_a2.p,
-      noEvent(actualStream(port_a2.h_outflow)),
-        noEvent(actualStream(port_a2.Xi_outflow))) if
-      show_TLoa and haveFluPor
-    "Medium properties in port_a2";
-  Medium2.ThermodynamicState sta_b2=
-    Medium2.setState_phX(port_b2.p,
-      noEvent(actualStream(port_b2.h_outflow)),
-        noEvent(actualStream(port_b2.Xi_outflow))) if
-      show_TLoa and haveFluPor
-    "Medium properties in port_b2";
+  // Dynamics
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics = energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
+  parameter Modelica.SIunits.Time tau = 1
+    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+  // IO connectors
   Modelica.Blocks.Interfaces.RealInput TSetHea if heaFunSpe <> funSpe.None
     "Heating set point"
     annotation (Placement(transformation(
@@ -214,26 +190,22 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
   Modelica.Blocks.Interfaces.RealOutput PFan(
     quantity="Power", final unit="W") if haveFan
     "Power drawn by fans motors"
-    annotation (visible=DynamicSelect(true,
-        haveFanPum), Placement(transformation(extent={{200,120},{240,160}}),
+    annotation (Placement(transformation(extent={{200,120},{240,160}}),
         iconTransformation(extent={{120,0},{140,20}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
     quantity="Power", final unit="W") if havePum
     "Power drawn by pumps motors"
-    annotation (visible=DynamicSelect(true,
-        haveFanPum), Placement(transformation(extent={{200,100},{240,140}}),
+    annotation (Placement(transformation(extent={{200,100},{240,140}}),
         iconTransformation(extent={{120,-20},{140,0}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
     quantity="Power", final unit="W") if heaFunSpe == funSpe.Electric
     "Power drawn by heating equipment"
-    annotation (visible=DynamicSelect(true,
-        haveEleHeaCoo), Placement(transformation(extent={{200,160},{240,200}}),
+    annotation (Placement(transformation(extent={{200,160},{240,200}}),
         iconTransformation(extent={{120,40},{140,60}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
     quantity="Power", final unit="W") if cooFunSpe == funSpe.Electric
     "Power drawn by cooling equipment"
-    annotation (visible=DynamicSelect(true,
-        haveEleHeaCoo), Placement(transformation(extent={{200,140},{240,180}}),
+    annotation (Placement(transformation(extent={{200,140},{240,180}}),
         iconTransformation(extent={{120,20},{140,40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium=Medium2,
@@ -241,7 +213,7 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium2.h_default, nominal=Medium2.h_default)) if haveFluPor
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (visible=DynamicSelect(true, haveFluPor),
+    annotation (
       Placement(transformation(
       extent={{190,-10},{210,10}}),
       iconTransformation(extent={{110,100},{130,120}})));
@@ -251,17 +223,17 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium2.h_default, nominal=Medium2.h_default)) if haveFluPor
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (visible=DynamicSelect(true, haveFluPor),
+    annotation (
       Placement(transformation(extent={{-190,-10},{-210,10}}),
       iconTransformation(extent={{-110,100},{-130,120}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorCon if haveHeaPor
     "Heat port transferring convective heat to the load"
-    annotation (visible=DynamicSelect(true, haveHeaPor),
+    annotation (
       Placement(transformation(extent={{190,30},{210,50}}),
       iconTransformation(extent={{-50,-10},{-30,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorRad if haveHeaPor
     "Heat port transferring radiative heat to the load"
-    annotation (visible=DynamicSelect(true, haveHeaPor),
+    annotation (
       Placement(transformation(extent={{190,-50},{210,-30}}),
       iconTransformation(extent={{30,-10},{50,10}})));
   BoundaryConditions.WeatherData.Bus weaBus if haveWeaBus
@@ -305,6 +277,49 @@ partial model PartialTerminalUnit "Partial model for HVAC terminal unit"
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{210,-190},{190,-170}}),
         iconTransformation(extent={{130,-90},{110,-70}})));
+  // Variables
+  Medium1.ThermodynamicState sta_a1Hea=
+    Medium1.setState_phX(
+      port_a1Hea.p,
+      inStream(port_a1Hea.h_outflow),
+      inStream(port_a1Hea.Xi_outflow)) if
+      show_TSou and heaFunSpe == funSpe.Water
+    "Medium properties in port_a1Hea";
+  Medium1.ThermodynamicState sta_b1Hea=
+    Medium1.setState_phX(
+      port_b1Hea.p,
+      port_b1Hea.h_outflow,
+      port_b1Hea.Xi_outflow) if
+      show_TSou and heaFunSpe == funSpe.Water
+    "Medium properties in port_b1Hea";
+  Medium1.ThermodynamicState sta_a1Coo=
+    Medium1.setState_phX(
+      port_a1Coo.p,
+      inStream(port_a1Coo.h_outflow),
+      inStream(port_a1Coo.Xi_outflow)) if
+      show_TSou and (cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver)
+    "Medium properties in port_a1Coo";
+  Medium1.ThermodynamicState sta_b1Coo=
+    Medium1.setState_phX(
+      port_b1Coo.p,
+      port_b1Coo.h_outflow,
+      port_b1Coo.Xi_outflow) if
+      show_TSou and (cooFunSpe == funSpe.Water or cooFunSpe == funSpe.ChangeOver)
+    "Medium properties in port_b1Coo";
+  Medium2.ThermodynamicState sta_a2=
+    Medium2.setState_phX(
+      port_a2.p,
+      inStream(port_a2.h_outflow),
+      inStream(port_a2.Xi_outflow)) if
+      show_TLoa and haveFluPor
+    "Medium properties in port_a2";
+  Medium2.ThermodynamicState sta_b2=
+    Medium2.setState_phX(
+      port_b2.p,
+      port_b2.h_outflow,
+      port_b2.Xi_outflow) if
+      show_TLoa and haveFluPor
+    "Medium properties in port_b2";
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp1Hea_nominal=
     Medium1.specificHeatCapacityCp(

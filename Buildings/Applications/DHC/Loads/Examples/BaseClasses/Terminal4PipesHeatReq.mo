@@ -9,9 +9,9 @@ model Terminal4PipesHeatReq
     final haveWeaBus=false,
     final haveFan=false,
     final havePum=false,
-    final show_TSou=true,
     final hexConHea=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
     final hexConCoo=Buildings.Fluid.Types.HeatExchangerConfiguration.ConstantTemperaturePhaseChange,
+    final show_TLoa=true,
     final m1Hea_flow_nominal=abs(QHea_flow_nominal / cp1Hea_nominal / (T_a1Hea_nominal - T_b1Hea_nominal)),
     final m1Coo_flow_nominal=abs(QCoo_flow_nominal / cp1Coo_nominal / (T_a1Coo_nominal - T_b1Coo_nominal)));
   parameter Integer nPorts1 = 2

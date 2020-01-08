@@ -1,7 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
 model RCBuilding "Building model of type RC one element"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    haveFan=true,
     havePum=false,
     haveEleHea=false,
     haveEleCoo=false,
@@ -130,7 +129,8 @@ model RCBuilding "Building model of type RC one element"
     T_a1Hea_nominal=313.15,
     T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=1,
-    m2Coo_flow_nominal=1)
+    m2Coo_flow_nominal=1,
+    show_TSou=true)
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24) "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
@@ -139,7 +139,6 @@ model RCBuilding "Building model of type RC one element"
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 
@@ -297,21 +296,21 @@ equation
   connect(disFloCoo.ports_b1[1], terUni.port_a1Coo) annotation (Line(points={{-100,
           -144},{-200,-144},{-200,-56.6667},{-160,-56.6667}},
                                                         color={0,127,255}));
-  connect(terUni.QActHea_flow, QHea_flow) annotation (Line(points={{-139.167,
-          -42.5},{82,-42.5},{82,280},{320,280}},
-                                          color={0,127,255}));
   connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
-          -44.1667},{83.4165,-44.1667},{83.4165,240},{320,240}},
+          -44.1667},{50,-44.1667},{50,-44},{240,-44},{240,240},{320,240}},
                                                        color={0,0,127}));
-  connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{262,
-          -49.1667},{262,120},{320,120}},
+  connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{60,
+          -49.1667},{60,-50},{260,-50},{260,120},{320,120}},
                                 color={0,0,127}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
         points={{-139.167,-52.5},{-139.167,-84},{-140,-84},{-140,-116},{-101,
-          -116},{-101,-115}}, color={0,0,127}));
+          -116},{-101,-114}}, color={0,0,127}));
   connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
         points={{-139.167,-54.1667},{-139.167,-104},{-140,-104},{-140,-154},{
-          -101,-154},{-101,-155}}, color={0,0,127}));
+          -101,-154},{-101,-154}}, color={0,0,127}));
+  connect(terUni.QActHea_flow, QHea_flow) annotation (Line(points={{-139.167,
+          -42.5},{40,-42.5},{40,-42},{220,-42},{220,280},{320,280}},
+                                                              color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>

@@ -1,0 +1,199 @@
+within Buildings.Applications.DHC.Loads.Validation;
+model FlowDistributionCO
+  "Validation of FlowDistribution in change-over mode"
+  extends Modelica.Icons.Example;
+  package Medium1 = Buildings.Media.Water
+    "Source side medium";
+  package Medium2 = Buildings.Media.Air
+    "Load side medium";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
+    "Mass flow rate at nominal conditions";
+  Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFlo(
+    redeclare package Medium = Medium1,
+    m_flow_nominal=m_flow_nominal,
+    disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChangeOver,
+    havePum=true,
+    haveVal=true,
+    dp_nominal=100000)
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+  Buildings.Fluid.Sources.Boundary_pT souPri(
+    redeclare package Medium = Medium1,
+    use_T_in=true,
+    nPorts=1) "Primary supply stream"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-10,20})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriHea(k=40)
+    "Heating water primary supply temperature"
+    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
+  Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriChi(k=7)
+    "Chilled water primary supply temperature"
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
+  Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch TPriK
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse mod(
+    amplitude=2,
+    period=1000,
+    offset=-1) "Operating mode (1 for heating, -1 for cooling)"
+    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqual greEqu
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+  Modelica.Blocks.Sources.Constant zero(k=0)
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(k=30)
+    "Heating water secondary supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+  Buildings.Controls.OBC.UnitConversions.From_degC from_degC3
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(k=18)
+    "Chilled water secondary supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+  Buildings.Controls.OBC.UnitConversions.From_degC from_degC4
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch TSetSecK
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger modInt(integerFalse=-1)
+    "Operating mode in integer format "
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  Buildings.Fluid.Sources.MassFlowSource_T souSec(
+    use_m_flow_in=true,
+    redeclare package Medium = Medium1,
+    use_T_in=true,
+    nPorts=1)
+    "Secondary return stream"
+    annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={110,60})));
+  Buildings.Fluid.Sources.Boundary_pT sinSec(
+    redeclare package Medium = Medium1, nPorts=1) "Sink for secondary stream"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={110,100})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSec(k=-5)
+    "Secondary dT"
+    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product pro
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTSecSup(
+    redeclare package Medium = Medium1,
+    m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{70,90},{90,110}})));
+  Modelica.Thermal.HeatTransfer.Celsius.FromKelvin TSetSec
+    annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
+  Fluid.Sensors.TemperatureTwoPort senTSecRet(redeclare package Medium =
+        Medium1, m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{90,50},{70,70}})));
+  Fluid.Sources.Boundary_pT sinPri(redeclare package Medium = Medium1, nPorts=1)
+    "Sink for primary stream" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={90,20})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse mSec_flow(
+    amplitude=m_flow_nominal,
+    period=200,
+    offset=0) "Secondary mass flow rate"
+    annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+  Fluid.Sensors.TemperatureTwoPort senTPriSup(redeclare package Medium =
+        Medium1, m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{8,10},{28,30}})));
+equation
+  connect(TPriHea.y,from_degC1. u) annotation (Line(points={{-118,120},{-102,
+          120}},                                                                  color={0,0,127}));
+  connect(TPriChi.y,from_degC2. u) annotation (Line(points={{-118,80},{-102,80}}, color={0,0,127}));
+  connect(from_degC1.y, TPriK.u1) annotation (Line(points={{-78,120},{-70,120},
+          {-70,98},{-62,98}},color={0,0,127}));
+  connect(from_degC2.y, TPriK.u3) annotation (Line(points={{-78,80},{-70,80},{
+          -70,82},{-62,82}},
+                         color={0,0,127}));
+  connect(mod.y, greEqu.u1)
+    annotation (Line(points={{-118,40},{-102,40}}, color={0,0,127}));
+  connect(greEqu.y, TPriK.u2) annotation (Line(points={{-78,40},{-74,40},{-74,
+          90},{-62,90}},
+                     color={255,0,255}));
+  connect(zero.y, greEqu.u2) annotation (Line(points={{-119,0},{-110,0},{-110,
+          32},{-102,32}},
+                        color={0,0,127}));
+  connect(TPriK.y, souPri.T_in) annotation (Line(points={{-38,90},{-32,90},{-32,
+          24},{-22,24}}, color={0,0,127}));
+  connect(TSetSecHea.y, from_degC3.u)
+    annotation (Line(points={{-118,-60},{-102,-60}}, color={0,0,127}));
+  connect(TSetSecChi.y, from_degC4.u)
+    annotation (Line(points={{-118,-100},{-102,-100}},
+                                                     color={0,0,127}));
+  connect(from_degC3.y, TSetSecK.u1) annotation (Line(points={{-78,-60},{-70,
+          -60},{-70,-72},{-62,-72}},
+                                color={0,0,127}));
+  connect(from_degC4.y, TSetSecK.u3) annotation (Line(points={{-78,-100},{-70,
+          -100},{-70,-88},{-62,-88}},
+                                color={0,0,127}));
+  connect(TSetSecK.y, disFlo.TSupSet) annotation (Line(points={{-38,-80},{32,
+          -80},{32,14},{39,14}},
+                            color={0,0,127}));
+  connect(greEqu.y, modInt.u) annotation (Line(points={{-78,40},{-74,40},{-74,
+          -20},{-62,-20}}, color={255,0,255}));
+  connect(modInt.y, disFlo.modChaOve) annotation (Line(points={{-38,-20},{36,
+          -20},{36,12},{39,12}}, color={255,127,0}));
+  connect(greEqu.y, TSetSecK.u2) annotation (Line(points={{-78,40},{-74,40},{
+          -74,-80},{-62,-80}},
+                           color={255,0,255}));
+  connect(dTSec.y, pro.u2) annotation (Line(points={{42,-100},{56,-100},{56,-66},
+          {58,-66}}, color={0,0,127}));
+  connect(disFlo.ports_b1[1], senTSecSup.port_a)
+    annotation (Line(points={{40,26},{36,26},{36,100},{70,100}}, color={0,127,255}));
+  connect(TSetSecK.y, TSetSec.Kelvin) annotation (Line(points={{-38,-80},{-34,-80},
+          {-34,-140},{-22,-140}}, color={0,0,127}));
+  connect(souSec.ports[1], senTSecRet.port_a)
+    annotation (Line(points={{100,60},{90,60}}, color={0,127,255}));
+  connect(senTSecRet.port_b, disFlo.ports_a1[1]) annotation (Line(points={{70,60},
+          {64,60},{64,26},{60,26}}, color={0,127,255}));
+  connect(disFlo.port_b, sinPri.ports[1])
+    annotation (Line(points={{60,20},{80,20}},  color={0,127,255}));
+  connect(senTSecSup.port_b, sinSec.ports[1])
+    annotation (Line(points={{90,100},{100,100}}, color={0,127,255}));
+  connect(mSec_flow.y, disFlo.m1Req_flow[1]) annotation (Line(points={{-118,160},
+          {32,160},{32,16},{39,16}},
+                                color={0,0,127}));
+  connect(mSec_flow.y, souSec.m_flow_in) annotation (Line(points={{-118,160},{
+          140,160},{140,68},{122,68}},
+                              color={0,0,127}));
+  connect(TSetSecK.y, add.u2) annotation (Line(points={{-38,-80},{52,-80},{52,
+          -86},{98,-86}}, color={0,0,127}));
+  connect(pro.y, add.u1) annotation (Line(points={{82,-60},{94,-60},{94,-74},{
+          98,-74}}, color={0,0,127}));
+  connect(add.y, souSec.T_in) annotation (Line(points={{122,-80},{132,-80},{132,
+          -82},{140,-82},{140,64},{122,64}}, color={0,0,127}));
+  connect(souPri.ports[1], senTPriSup.port_a)
+    annotation (Line(points={{0,20},{8,20}}, color={0,127,255}));
+  connect(senTPriSup.port_b, disFlo.port_a)
+    annotation (Line(points={{28,20},{40,20}}, color={0,127,255}));
+  connect(mod.y, pro.u1) annotation (Line(points={{-118,40},{-114,40},{-114,-40},
+          {40,-40},{40,-54},{58,-54}}, color={0,0,127}));
+  annotation (
+Documentation(
+info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution\">
+Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution</a>
+in change-over mode.
+</p>
+</html>"),
+  Diagram(
+    coordinateSystem(preserveAspectRatio=false, extent={{-160,-180},{160,180}})),
+  experiment(
+      StopTime=604800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
+  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Validation/FlowDistributionCO.mos"
+    "Simulate and plot"));
+end FlowDistributionCO;

@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.Examples;
-model CouplingRC_pump
+model CouplingRCPum
   "Example illustrating the coupling of a RC building model to a fluid loop"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -11,8 +11,7 @@ model CouplingRC_pump
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
-  BaseClasses.RCBuilding_pump
-                         bui(nPorts1=2)
+  BaseClasses.RCBuildingPum bui(nPorts1=2)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = Medium1,
@@ -32,14 +31,14 @@ model CouplingRC_pump
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,10})));
-  Fluid.Sources.Boundary_pT souHea(
+  Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = Medium1,
     use_T_in=true,
     nPorts=1) "Source for heating water" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,90})));
-  Fluid.Sources.Boundary_pT souCoo(
+  Buildings.Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = Medium1,
     use_T_in=true,
     nPorts=1) "Source for chilled water" annotation (Placement(transformation(
@@ -67,7 +66,7 @@ equation
           0,10},{0,46},{20,46}}, color={0,127,255}));
   annotation (
   experiment(
-      StopTime=604800,
+      StopTime=15000000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
   Documentation(info="<html>
@@ -83,6 +82,7 @@ equation
   </html>"),
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-120,-20},{140,120}})),
-  __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRC.mos"
+  __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Applications/DHC/Loads/Examples/CouplingRCPum.mos"
         "Simulate and plot"));
-end CouplingRC_pump;
+end CouplingRCPum;

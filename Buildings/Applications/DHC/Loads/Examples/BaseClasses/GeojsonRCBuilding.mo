@@ -41,7 +41,6 @@ model GeojsonRCBuilding
     m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
     nUni=nZon,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 
@@ -173,9 +172,9 @@ equation
           -50},{110,-50},{110,0}}, color={191,0,0}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow) annotation (Line(points={{
           -179.167,-52.5},{-179.167,-74},{-180,-74},{-180,-94},{-141,-94},{-141,
-          -95}}, color={0,0,127}));
+          -94}}, color={0,0,127}));
   connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow) annotation (Line(points={{
-          -179.167,-54.1667},{-179.167,-155.083},{-141,-155.083},{-141,-155}},
+          -179.167,-54.1667},{-179.167,-155.083},{-141,-155.083},{-141,-154}},
         color={0,0,127}));
   annotation (
   Documentation(info="

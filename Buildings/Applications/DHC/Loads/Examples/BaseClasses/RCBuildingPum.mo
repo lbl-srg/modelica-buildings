@@ -1,8 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model RCBuilding_pump "Building model of type RC one element"
+model RCBuildingPum "Building model of type RC one element"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    haveFan=true,
-    havePum=false,
     haveEleHea=false,
     haveEleCoo=false,
     nPorts1=2);
@@ -144,7 +142,6 @@ model RCBuilding_pump "Building model of type RC one element"
     redeclare package Medium = Medium1,
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
-
     havePum=true,
     haveVal=true,
     dp_nominal=100000)
@@ -154,6 +151,8 @@ model RCBuilding_pump "Building model of type RC one element"
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=273 + 12)
     annotation (Placement(transformation(extent={{-178,-170},{-158,-150}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
+    annotation (Placement(transformation(extent={{260,70},{280,90}})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
     annotation (Line(
@@ -314,18 +313,24 @@ equation
   connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
           -44.1667},{83.4165,-44.1667},{83.4165,240},{320,240}},
                                                        color={0,0,127}));
-  connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{262,
-          -49.1667},{262,120},{320,120}},
+  connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{40,
+          -49.1667},{40,-50},{220,-50},{220,120},{320,120}},
                                 color={0,0,127}));
   connect(realExpression.y, disFloHea.TSupSet) annotation (Line(points={{-159,
           -120},{-130,-120},{-130,-121},{-101,-121}}, color={0,0,127}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
-        points={{-139.167,-52.5},{-139.167,-115.25},{-101,-115.25},{-101,-115}},
+        points={{-139.167,-52.5},{-139.167,-115.25},{-101,-115.25},{-101,-114}},
         color={0,0,127}));
   connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
-        points={{-139.167,-54.1667},{-139.167,-155},{-101,-155}}, color={0,0,127}));
+        points={{-139.167,-54.1667},{-139.167,-154},{-101,-154}}, color={0,0,127}));
   connect(realExpression1.y, disFloCoo.TSupSet) annotation (Line(points={{-157,
           -160},{-130,-160},{-130,-161},{-101,-161}}, color={0,0,127}));
+  connect(disFloHea.PPum, mulSum.u[1]) annotation (Line(points={{-79,-118},{240,
+          -118},{240,81},{258,81}}, color={0,0,127}));
+  connect(disFloCoo.PPum, mulSum.u[2]) annotation (Line(points={{-79,-158},{244,
+          -158},{244,80},{258,80},{258,79}}, color={0,0,127}));
+  connect(mulSum.y, PPum) annotation (Line(points={{282,80},{298,80},{298,80},{
+          320,80}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>
@@ -350,4 +355,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end RCBuilding_pump;
+end RCBuildingPum;
