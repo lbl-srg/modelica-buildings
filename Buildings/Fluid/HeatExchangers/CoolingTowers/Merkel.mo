@@ -396,21 +396,25 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>Model for a steady-state or dynamic cooling tower with a variable speed fan 
+<p>
+Model for a steady-state or dynamic cooling tower with a variable speed fan 
 using Merkel's calculation method. 
 </p>
 <h4>Thermal performance</h4>
 <p>
-To compute the thermal performance, this model takes as parameters...
+To compute the thermal performance, this model takes as parameters the nominal mass
+flow rates for both fluids (air and water), the nominal heat transfer rate, the nominal
+inlet air wetbulb temperature, and the nominal water inlet temperature. Cooling tower 
+performance is modeled using the effectiveness-NTU relationships for various heat 
+exchanger flow regimes. 
 </p>
 <p>
-Cooling tower performance is modeled 
-using the heat exchanger effectiveness and user-specified nominal thermal conductance
-(<code>UA_nominal</code>) for various heat exchanger flow regimes. 
+The total heat transfer between the air and water entering the tower is defined based 
+on Merkel's theory. The fundamental basis for Merkel's theory is that the steady-state 
+total heat transfer is proportional to the difference between the enthalpy of air and 
+the enthalpy of air saturated at the wetted-surface temperature. This is represented 
+in the following equation:
 </p>
-<p>
-The total heat transfer between the air and water entering the tower is 
-defined based on Merkel's theory as:
 <p align=\"center\" style=\"font-style:italic;\">
  dQ&#775;<sub>total</sub> = UdA/c<sub>p</sub> (h<sub>s</sub> - h<sub>a</sub>)
 </p>
@@ -421,6 +425,18 @@ where
 <i>c<sub>p</sub></i> is the specific heat of moist air,
 <i>U</i> is the cooling tower overall heat transfer coefficient, and
 <i>A</i> is the heat transfer surface area.
+</p>
+<p>
+The model also treats the moist air as an equivalent gas with a mean specific heat 
+(<i>c<sub>pe</sub></i>) defined as: 
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+ c<sub>pe</sub> = &Delta;h / &Delta;T<sub>wb</sub>
+</p>
+<p>
+where
+<i>&Delta;h</i> and <i>&Delta;T<sub>wb</sub></i> are the enthalpy difference and 
+wetbulb temperature difference, respectively, between the entering and leaving air.
 </p>
 <p>
 For off-design conditions, Merkel's theory is modified to include Sheier's 
@@ -439,8 +455,9 @@ The factors <i>f<sub>UA,wetbulb</sub></i>, <i>f<sub>UA,airflow</sub></i>, and <i
 adjust the current UA valuve for the current wetbulb temperature, air flow rate, and water 
 flow rate, respectively. 
 See <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>. The user can update 
-the values in this record based on the performance characteristics of their cooling tower. 
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a> for more details. The 
+user can update the values in this record based on the performance characteristics of 
+their cooling tower. 
 </p>
 <h4>Comparison with the cooling tower model of EnergyPlus</h4>
 <p>
@@ -459,7 +476,7 @@ law to compute the input signal y.
 </ol>
 <h4>Assumptions</h4>
 <p>
-The following assumptions are made with this implementation of Merkel's theory:
+The following assumptions are made with Merkel's theory and this implementation:
 <ol>
 <li>
 The moist air enthalpy is a function of wetbulb temperature only.
@@ -468,8 +485,6 @@ The moist air enthalpy is a function of wetbulb temperature only.
 The wetted surface temperature is equal to the water temperature.
 </li>
 <li>
-Part-load operation is represented by a simple linear interpolation between two 
-steady-state regimes (fan off for entire simulation and fan on for entire simulation).
 Cycle losses are not taken into account.
 </li>
 </ol>

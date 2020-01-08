@@ -45,9 +45,9 @@ record UAMerkel "UA correction factors for Merkel cooling towers"
 <p>This data record contains the cooling tower performance data for 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>. 
-Similar to the EnergyPlus <code>CoolingTower:VariableSpeed:Merkel</code> model, 
-Merkel's theory is modified to include Scheier's modifications that 
-adjust UA values at off-design conditions. The three adjustment factors are:</p>
+Similar to the <code>CoolingTower:VariableSpeed:Merkel</code> model in EnergyPlus, 
+Merkel's theory is modified to include Scheier's adjustment factors that 
+adjust UA values at off-design conditions. The three factors are:</p>
 <ul>
 <li>
 <code>UAFunDifWB </code>- Corrected UA based on the difference between the 
