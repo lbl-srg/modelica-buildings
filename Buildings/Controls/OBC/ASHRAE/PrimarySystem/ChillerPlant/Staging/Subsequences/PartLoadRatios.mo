@@ -549,17 +549,17 @@ equation
     annotation (Line(points={{282,270},{298,270}}, color={255,0,255}));
   annotation (defaultComponentName = "PLRs",
         Icon(graphics={
-        Rectangle(
-        extent={{-100,-160},{100,140}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
         Text(
           extent={{-118,204},{102,166}},
           lineColor={0,0,255},
           textString="%name"),
+        Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Text(
-          extent={{-62,-76},{62,-154}},
+          extent={{-60,36},{64,-42}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
