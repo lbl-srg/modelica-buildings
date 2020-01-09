@@ -12,11 +12,11 @@ model CoolingIndirect
   // mass flow rates
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(
     final min=0,
-    start=0.5)
+    final start=0.5)
     "Nominal mass flow rate of primary (district) district cooling side";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(
     final min=0,
-    start=0.5)
+    final start=0.5)
     "Nominal mass flow rate of secondary (building) district cooling side";
 
   // Primary supply control valve
@@ -196,7 +196,7 @@ model CoolingIndirect
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
 
   Modelica.Blocks.Continuous.Integrator int(k=1) "Integration"
-    annotation (Placement(transformation(extent={{60,120},{80,100}})));
+    annotation (Placement(transformation(extent={{60,100},{80,120}})));
 
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium = Medium)
