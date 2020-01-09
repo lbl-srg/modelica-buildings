@@ -3,7 +3,7 @@ model CoolingIndirectOpenLoops
   "Example model for indirect cooling energy transfer station with open loops on the building and district sides"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Water;
+  package Medium = Buildings.Media.Water "Water medium";
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 0.5
     "Nominal mass flow rate of primary (district) district cooling side";
