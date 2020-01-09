@@ -1,24 +1,27 @@
 within Buildings.Controls.SetPoints.Examples;
-model HotWaterTemperatureReset "Test model for the heating curve"
+model SupplyReturnTemperatureReset "Test model for the heating curve"
   extends Modelica.Icons.Example;
-  Buildings.Controls.SetPoints.HotWaterTemperatureReset heaCur(
+  Buildings.Controls.SetPoints.SupplyReturnTemperatureReset heaCur(
     m=1,
     TSup_nominal=333.15,
     TRet_nominal=313.15,
     TOut_nominal=263.15)
+    "Temperature reset"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp TOut(
     height=40,
     duration=1,
     offset=263.15)
+    "Signal for outside air temperature"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.SetPoints.HotWaterTemperatureReset heaCur1(
+  Buildings.Controls.SetPoints.SupplyReturnTemperatureReset heaCur1(
     m=1,
     use_TRoo_in=true,
     TSup_nominal=333.15,
     TRet_nominal=313.15,
     TOut_nominal=263.15,
     dTOutHeaBal=15)
+    "Temperature reset that uses room temperature as input"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Modelica.Blocks.Sources.Step TRoo(
     offset=273.15 + 20,
@@ -26,6 +29,7 @@ model HotWaterTemperatureReset "Test model for the heating curve"
     height=-5) "Night set back from 20 to 15 deg C"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Sources.Constant TOut2(k=273.15 - 10)
+   "Constant signal for outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(TOut.y, heaCur.TOut) annotation (Line(
@@ -38,7 +42,7 @@ equation
       points={{-59,-30},{-50,-30},{-50,4},{-41.9,4}},
       color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/HotWaterTemperatureReset.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/SupplyReturnTemperatureReset.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -56,7 +60,7 @@ an outside temperature of
 The figure below shows the computed supply and return water temperatures.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Examples/HotWaterTemperatureReset.png\" border=\"1\" alt=\"Supply and return water temperatures.\"/>
+<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Examples/SupplyReturnTemperatureReset.png\" border=\"1\" alt=\"Supply and return water temperatures.\"/>
 </p>
 </html>", revisions="<html>
 <ul>
@@ -66,4 +70,4 @@ Added documentation.
 </li>
 </ul>
 </html>"));
-end HotWaterTemperatureReset;
+end SupplyReturnTemperatureReset;
