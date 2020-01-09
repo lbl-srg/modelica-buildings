@@ -3,14 +3,15 @@ model MixingVolumeHeatPortWater
   "Validation model for setting the initialization of the pressure for water"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Buildings.Media.Water constrainedby Modelica.Media.Interfaces.PartialMedium
-                                            "Medium model";
+  replaceable package Medium = Buildings.Media.Water constrainedby
+    Modelica.Media.Interfaces.PartialMedium "Medium model";
 
   parameter Integer nEle(min=2)= 3 "Number of volumes"
     annotation(Evaluate=true);
 
   replaceable Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol[nEle]
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
     redeclare each package Medium = Medium,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final initialize_p={(i == 1 and not Medium.singleState) for i in 1:nEle},

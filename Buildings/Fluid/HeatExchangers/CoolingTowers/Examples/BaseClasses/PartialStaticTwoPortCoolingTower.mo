@@ -10,7 +10,8 @@ partial model PartialStaticTwoPortCoolingTower
 
   replaceable
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower tow
-     constrainedby Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
+     constrainedby
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
     redeclare final package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
     dp_nominal=6000,

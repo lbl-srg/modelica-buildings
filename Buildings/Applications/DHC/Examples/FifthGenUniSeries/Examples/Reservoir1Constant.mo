@@ -3,7 +3,7 @@ model Reservoir1Constant
   "Reservoir network with simple control and 0.08m pipe diameter"
   extends Modelica.Icons.Example;
   extends
-    Buildings.Examples.DistrictReservoirNetworks.Examples.BaseClasses.RN_BaseModel(
+    Buildings.Applications.DHC.Examples.FifthGenUniSeries.Examples.BaseClasses.RN_BaseModel(
     datDes(
       mDisPip_flow_nominal=95,
       RDisPip=250,

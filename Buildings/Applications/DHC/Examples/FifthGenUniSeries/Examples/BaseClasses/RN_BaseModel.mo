@@ -5,7 +5,7 @@ partial model RN_BaseModel
   parameter DesignValues datDes "Design values"
     annotation (Placement(transformation(extent={{-240,222},{-220,242}})));
 
-  Buildings.Examples.DistrictReservoirNetworks.Agents.EnergyTransferStation proHos(redeclare
+  Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents.EnergyTransferStation proHos(redeclare
       package Medium =
                MediumWater, filNam=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissHospital_20190916.mos"))
@@ -77,7 +77,7 @@ partial model RN_BaseModel
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={40,238})));
-  Buildings.Examples.DistrictReservoirNetworks.Agents.EnergyTransferStation proApa(redeclare
+  Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents.EnergyTransferStation proApa(redeclare
       package Medium =
                MediumWater, filNam=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissResidential_20190916.mos"))
@@ -131,7 +131,7 @@ partial model RN_BaseModel
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={80,-32})));
-  Buildings.Examples.DistrictReservoirNetworks.Agents.EnergyTransferStation proOff(redeclare
+  Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents.EnergyTransferStation proOff(redeclare
       package Medium =
                MediumWater, filNam=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissOffice_20190916.mos"))

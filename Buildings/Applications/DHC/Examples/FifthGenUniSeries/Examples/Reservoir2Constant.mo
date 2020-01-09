@@ -2,7 +2,7 @@ within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Examples;
 model Reservoir2Constant "Reservoir network with simple control and dp=125 Pa/m"
   extends Modelica.Icons.Example;
   extends
-    Buildings.Examples.DistrictReservoirNetworks.Examples.Reservoir1Constant(
+    Buildings.Applications.DHC.Examples.FifthGenUniSeries.Examples.Reservoir1Constant(
     datDes(
       RDisPip=125));
 

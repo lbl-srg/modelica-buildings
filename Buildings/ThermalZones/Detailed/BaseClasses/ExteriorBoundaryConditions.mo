@@ -8,8 +8,8 @@ model ExteriorBoundaryConditions
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
 
-  replaceable parameter ParameterConstruction conPar[nCon] constrainedby ParameterConstruction
-                          "Records for construction"
+  replaceable parameter ParameterConstruction conPar[nCon] constrainedby
+    ParameterConstruction "Records for construction"
     annotation (Placement(transformation(extent={{174,-214},{194,-194}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a opa_a[nCon]

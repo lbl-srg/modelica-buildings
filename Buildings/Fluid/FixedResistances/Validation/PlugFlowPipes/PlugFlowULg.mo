@@ -70,7 +70,8 @@ model PlugFlowULg "Validation against data from Université de Liège"
     "Input temperature into pipe"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
-  replaceable Data.PipeDataULg151202 pipeDataULg constrainedby Data.BaseClasses.PipeDataULg
+  replaceable Data.PipeDataULg151202 pipeDataULg constrainedby
+    Data.BaseClasses.PipeDataULg
     "Measurement dataset from ULg (use Change Class... to choose from different experiments)"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Modelica.Blocks.Math.Gain gain(k=1)

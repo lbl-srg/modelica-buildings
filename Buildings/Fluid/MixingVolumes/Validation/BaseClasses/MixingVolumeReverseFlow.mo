@@ -27,7 +27,8 @@ partial model MixingVolumeReverseFlow
         rotation=180,
         origin={70,-20})));
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume volDyn
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
         redeclare package Medium = Medium,
         V=1,
         nPorts=2,
@@ -37,7 +38,8 @@ partial model MixingVolumeReverseFlow
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume volSte
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
+    constrainedby
+    Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort(
         redeclare package Medium = Medium,
         final prescribedHeatFlowRate = prescribedHeatFlowRate,
         V=1,
