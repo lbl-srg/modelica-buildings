@@ -161,7 +161,7 @@ supply temperature is modeled as sinusoidal to test the system's response.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>December 12, 2019, by Kathryn Hinkelman:<br>First implementation. </li>
+<li>December 12, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
 </html>"));
 end CoolingDirectControlledReturn;

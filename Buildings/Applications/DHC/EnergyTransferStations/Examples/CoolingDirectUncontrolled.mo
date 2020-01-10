@@ -151,7 +151,7 @@ instantaneous cooling load with respect to the maxiumum load.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>December 5, 2019, by Kathryn Hinkelman:<br>First implementation. </li>
+<li>December 5, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
 </html>"));
 end CoolingDirectUncontrolled;

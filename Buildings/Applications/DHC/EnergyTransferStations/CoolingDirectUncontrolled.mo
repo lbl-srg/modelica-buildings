@@ -186,7 +186,7 @@ American Society of Heating, Refrigeration and Air-Conditioning Engineers.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>November 13, 2019, by Kathryn Hinkelman:<br>First implementation. </li>
+<li>November 13, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
 </html>"));
 end CoolingDirectUncontrolled;

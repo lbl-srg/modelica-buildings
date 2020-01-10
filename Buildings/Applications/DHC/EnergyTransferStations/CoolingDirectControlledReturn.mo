@@ -373,7 +373,7 @@ American Society of Heating, Refrigeration and Air-Conditioning Engineers.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>December 12, 2019, by Kathryn Hinkelman:<br>First implementation. </li>
+<li>December 12, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
 </html>"));
 end CoolingDirectControlledReturn;
