@@ -1,10 +1,10 @@
 within Buildings.Applications.DHC.Loads.Types;
 type DistributionType = enumeration(
-  HeatingWater
+    HeatingWater
     "Heating water distribution system",
-  ChilledWater
+    ChilledWater
     "Chilled water distribution system",
-  ChangeOver
+    ChangeOver
     "Change-over distribution system")
   "Enumeration for the type of distribution system"
 annotation(Documentation(info="<html>

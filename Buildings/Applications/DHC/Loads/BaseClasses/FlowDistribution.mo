@@ -129,6 +129,7 @@ model FlowDistribution "Model of distribution system"
     final allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
+    use_inputFilter=false,
     dp_nominal=dp_nominal,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics) if havePum

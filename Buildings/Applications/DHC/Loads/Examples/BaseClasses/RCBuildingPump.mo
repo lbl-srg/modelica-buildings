@@ -1,7 +1,6 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model RCBuilding "Building model of type RC one element"
+model RCBuildingPump "Building model of type RC one element"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
-    havePum=false,
     haveEleHea=false,
     haveEleCoo=false,
     haveWeaBus=true,
@@ -48,7 +47,7 @@ model RCBuilding "Building model of type RC one element"
     nPorts=2)       "Thermal zone"
     annotation (Placement(transformation(extent={{44,-10},{92,26}})));
   Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow
-                                             eqAirTemp(
+    eqAirTemp(
     n=2,
     wfGro=0,
     wfWall={0.3043478260869566,0.6956521739130435},
@@ -117,7 +116,11 @@ model RCBuilding "Building model of type RC one element"
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC1
     annotation (Placement(transformation(extent={{-260,250},{-240,270}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
-      m_flow_nominal=terUni.m1Hea_flow_nominal, dp_nominal=100000)
+    redeclare package Medium = Medium1,
+    m_flow_nominal=terUni.m1Hea_flow_nominal,
+    havePum=true,
+    haveVal=true,
+    dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
     terUni(
@@ -130,19 +133,27 @@ model RCBuilding "Building model of type RC one element"
     T_a1Hea_nominal=313.15,
     T_a1Coo_nominal=280.15,
     m2Hea_flow_nominal=1,
-    m2Coo_flow_nominal=1,
-    show_TSou=true)
+    m2Coo_flow_nominal=1)
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(k=24) "Minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-300,210},{-280,230}})));
   Buildings.Controls.OBC.UnitConversions.From_degC from_degC2
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloCoo(
+    redeclare package Medium = Medium1,
     m_flow_nominal=terUni.m1Coo_flow_nominal,
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
+    havePum=true,
+    haveVal=true,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 
+  Modelica.Blocks.Sources.RealExpression realExpression(y=273 + 35)
+    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=273 + 12)
+    annotation (Placement(transformation(extent={{-178,-170},{-158,-150}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=2)
+    annotation (Placement(transformation(extent={{260,70},{280,90}})));
 equation
   connect(eqAirTemp.TEqAirWin,preTem1. T)
     annotation (Line(
@@ -297,21 +308,30 @@ equation
   connect(disFloCoo.ports_b1[1], terUni.port_a1Coo) annotation (Line(points={{-100,
           -144},{-200,-144},{-200,-56.6667},{-160,-56.6667}},
                                                         color={0,127,255}));
-  connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
-          -44.1667},{50,-44.1667},{50,-44},{240,-44},{240,240},{320,240}},
-                                                       color={0,0,127}));
-  connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{60,
-          -49.1667},{60,-50},{260,-50},{260,120},{320,120}},
-                                color={0,0,127}));
-  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
-        points={{-139.167,-52.5},{-139.167,-84},{-140,-84},{-140,-116},{-101,
-          -116},{-101,-114}}, color={0,0,127}));
-  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
-        points={{-139.167,-54.1667},{-139.167,-104},{-140,-104},{-140,-154},{
-          -101,-154},{-101,-154}}, color={0,0,127}));
   connect(terUni.QActHea_flow, QHea_flow) annotation (Line(points={{-139.167,
-          -42.5},{40,-42.5},{40,-42},{220,-42},{220,280},{320,280}},
-                                                              color={0,0,127}));
+          -42.5},{82,-42.5},{82,280},{320,280}},
+                                          color={0,127,255}));
+  connect(terUni.QActCoo_flow, QCoo_flow) annotation (Line(points={{-139.167,
+          -44.1667},{83.4165,-44.1667},{83.4165,240},{320,240}},
+                                                       color={0,0,127}));
+  connect(terUni.PFan, PFan) annotation (Line(points={{-139.167,-49.1667},{40,
+          -49.1667},{40,-50},{220,-50},{220,120},{320,120}},
+                                color={0,0,127}));
+  connect(realExpression.y, disFloHea.TSupSet) annotation (Line(points={{-159,
+          -120},{-130,-120},{-130,-121},{-101,-121}}, color={0,0,127}));
+  connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow[1]) annotation (Line(
+        points={{-139.167,-52.5},{-139.167,-115.25},{-101,-115.25},{-101,-114}},
+        color={0,0,127}));
+  connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow[1]) annotation (Line(
+        points={{-139.167,-54.1667},{-139.167,-154},{-101,-154}}, color={0,0,127}));
+  connect(realExpression1.y, disFloCoo.TSupSet) annotation (Line(points={{-157,
+          -160},{-130,-160},{-130,-161},{-101,-161}}, color={0,0,127}));
+  connect(disFloHea.PPum, mulSum.u[1]) annotation (Line(points={{-79,-118},{240,
+          -118},{240,81},{258,81}}, color={0,0,127}));
+  connect(disFloCoo.PPum, mulSum.u[2]) annotation (Line(points={{-79,-158},{244,
+          -158},{244,80},{258,80},{258,79}}, color={0,0,127}));
+  connect(mulSum.y, PPum) annotation (Line(points={{282,80},{298,80},{298,80},{
+          320,80}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
   <p>
@@ -336,4 +356,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end RCBuilding;
+end RCBuildingPump;
