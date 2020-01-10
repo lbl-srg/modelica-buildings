@@ -3,7 +3,7 @@ model EquivalentHeatCapacity
   "Validation model for the equivalent heat capacity calculation"
   extends Modelica.Icons.Example;
 
-  Real deltaT
+  Modelica.SIunits.TemperatureDifference deltaT
     "Change in temperature of the air entering and leaving the cooling tower";
 
   Modelica.SIunits.Temperature TIn[1,5]=
@@ -15,18 +15,20 @@ model EquivalentHeatCapacity
      "Outlet temperatures";
 
   Modelica.SIunits.SpecificHeatCapacity cpe10
-    "Equivalent specific heat capacity with 10degC inlet temperature";
+    "Equivalent specific heat capacity with 10 degC inlet temperature";
   Modelica.SIunits.SpecificHeatCapacity cpe15
-    "Equivalent specific heat capacity with 15degC inlet temperature";
+    "Equivalent specific heat capacity with 15 degC inlet temperature";
   Modelica.SIunits.SpecificHeatCapacity cpe20
-    "Equivalent specific heat capacity with 20degC inlet temperature";
+    "Equivalent specific heat capacity with 20 degC inlet temperature";
   Modelica.SIunits.SpecificHeatCapacity cpe25
-    "Equivalent specific heat capacity with 25degC inlet temperature";
+    "Equivalent specific heat capacity with 25 degC inlet temperature";
   Modelica.SIunits.SpecificHeatCapacity cpe30
-    "Equivalent specific heat capacity with 30degC inlet temperature";
+    "Equivalent specific heat capacity with 30 degC inlet temperature";
 
+protected
+  constant Real con = 1 "Conversion factor to avoid warning because of unit missmatch";
 equation
-  deltaT = time;
+  deltaT = con*time;
   cpe10 = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
     TIn = TIn[1,1], TOut = TOut[1,1]);
   cpe15 = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
@@ -42,10 +44,11 @@ equation
     experiment(StartTime=10, Tolerance=1e-06, StopTime=20),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/BaseClasses/Functions/Validation/EquivalentHeatCapacity.mos"
         "Simulate and plot"),
-  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This model validates the computation of the equivalent heat capacity for five inlet temperature conditions and variable changes in temperature between inlet and outlet airflows. </p>
+<p>
+This model validates the computation of the equivalent heat capacity for five inlet temperature conditions and
+variable changes in temperature between inlet and outlet airflows.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
