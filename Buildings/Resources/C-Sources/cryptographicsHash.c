@@ -14,6 +14,7 @@ A million repetitions of "a"
 /* #define LITTLE_ENDIAN * This should be #define'd already, if true. */
 /* #define SHA1HANDSOFF * Copies data before messing with it. */
 
+#ifndef SHA1HANDSOFF
 #define SHA1HANDSOFF
 
 #include <stdio.h>
@@ -312,3 +313,5 @@ const char* cryptographicsHash(const char* str)
 
   return hexresult;
 }
+
+#endif
