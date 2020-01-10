@@ -34,8 +34,8 @@ model CoolingIndirectClosedBuildingLoop
     annotation (Placement(transformation(extent={{128,60},{108,80}})));
   Buildings.Applications.DHC.EnergyTransferStations.CoolingIndirect coo(
     redeclare package Medium = Medium,
-    m1_flow_nominal=mDis_flow_nominal,
-    m2_flow_nominal=mBui_flow_nominal,
+    mDis_flow_nominal=mDis_flow_nominal,
+    mBui_flow_nominal=mBui_flow_nominal,
     dpValve_nominal=9000,
     dp1_nominal = 500,
     dp2_nominal = 500,

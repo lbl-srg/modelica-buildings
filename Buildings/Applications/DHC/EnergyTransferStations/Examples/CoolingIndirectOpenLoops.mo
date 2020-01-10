@@ -5,9 +5,9 @@ model CoolingIndirectOpenLoops
 
   package Medium = Buildings.Media.Water "Water medium";
 
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 0.5
+  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal = 0.5
     "Nominal mass flow rate of primary (district) district cooling side";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 0.5
+  parameter Modelica.SIunits.MassFlowRate mBui_flow_nominal = 0.5
     "Nominal mass flow rate of secondary (building) district cooling side";
 
   Modelica.Blocks.Sources.Constant TSetCHWS(k=273.15 + 7)
@@ -44,32 +44,32 @@ model CoolingIndirectOpenLoops
     annotation (Placement(transformation(extent={{80,-100},{60,-80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TDisSup(
     redeclare package Medium = Medium,
-    m_flow_nominal=m1_flow_nominal,
+    m_flow_nominal=mDis_flow_nominal,
     T_start=278.15)
     "District-side (primary) supply temperature sensor"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TDisRet(
     redeclare package Medium = Medium,
-    m_flow_nominal=m1_flow_nominal,
+    m_flow_nominal=mDis_flow_nominal,
     T_start=287.15)
     "District-side (primary) return temperature sensor"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(
     redeclare package Medium = Medium,
-    m_flow_nominal=m2_flow_nominal,
+    m_flow_nominal=mBui_flow_nominal,
     T_start=289.15)
     "Building-side (secondary) return temperature sensor"
     annotation (Placement(transformation(extent={{40,-100},{20,-80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TBuiSup(
     redeclare package Medium = Medium,
-    m_flow_nominal=m2_flow_nominal,
+    m_flow_nominal=mBui_flow_nominal,
     T_start=280.15)
     "Building-side (secondary) supply temperature sensor"
     annotation (Placement(transformation(extent={{-50,-100},{-70,-80}})));
   Buildings.Applications.DHC.EnergyTransferStations.CoolingIndirect coo(
     redeclare package Medium = Medium,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
+    mDis_flow_nominal=mDis_flow_nominal,
+    mBui_flow_nominal=mBui_flow_nominal,
     dpValve_nominal=60,
     dp1_nominal = 500,
     dp2_nominal = 500,
@@ -88,7 +88,7 @@ model CoolingIndirectOpenLoops
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumBui(
     redeclare package Medium = Medium,
-    m_flow_nominal=m2_flow_nominal,
+    m_flow_nominal=mBui_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=6000)
