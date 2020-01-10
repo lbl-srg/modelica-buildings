@@ -2,19 +2,13 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Data;
 record UAMerkel "UA correction factors for Merkel cooling towers"
   extends Modelica.Icons.Record;
 
-  constant Integer nUAFunDifWB=3 "Number of coefficients for UAFunDifWB"
-    annotation (Dialog(group="Performance curves"));
-  constant Integer nUAFunAirFra=3 "Number of coefficients for UAFunAirFra"
-    annotation (Dialog(group="Performance curves"));
-  constant Integer nUAFunWatFra=3 "Number of coefficients for UAFunWatFra"
-    annotation (Dialog(group="Performance curves"));
-  parameter Real UAFunDifWB[nUAFunDifWB]={1,0.0081,0}
+  parameter Real UAFunDifWB[3]={1, 0.0081, 0}
     "Polynomial coefficients for UAFunDifWB"
     annotation (Dialog(group="Performance curves"));
-  parameter Real UAFunAirFra[nUAFunAirFra]={0,1.3,-0.3}
+  parameter Real UAFunAirFra[3]={0, 1.3, -0.3}
     "Polynomial coefficients for UAFunAirFra"
     annotation (Dialog(group="Performance curves"));
-  parameter Real UAFunWatFra[nUAFunWatFra]={0.1082,1.667,-0.7713}
+  parameter Real UAFunWatFra[3]={0.1082, 1.667, -0.7713}
     "Polynomial coefficients for UAFunWatFra"
     annotation (Dialog(group="Performance curves"));
 
