@@ -457,6 +457,15 @@ its class name ends with the string <code>Beta</code>.
                            This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1587\">Buildings, #1587</a>.
         </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings/Resources</b>
+        </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings/Resources/C-Sources/cryptographicsHash.c
+        </td>
+        <td valign=\"top\">Add a <code>#ifndef</code> clause.<br/>
+                           This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1278\">IBPSA, #1278</a>.
+        </td>
+    </tr>
     </table>
     <!-- Uncritical errors -->
     <p>
