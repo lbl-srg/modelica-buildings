@@ -54,36 +54,38 @@ partial model PartialBuilding "Partial class for building model"
     "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
     annotation (Placement(transformation(extent={{290,-40},{310,40}}),
       iconTransformation(extent={{290,-220},{310,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHea_flow(
-    final quantity="HeatFlowRate", final unit="W") if haveHeaLoa
-    "Total heating heat flow rate transferred to the loads (>=0)"
-    annotation (Placement(transformation(extent={{300,260},{340,300}}),
-        iconTransformation(extent={{300,260},{340,300}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCoo_flow(
+  Modelica.Blocks.Interfaces.RealOutput QCoo_flow(
     final quantity="HeatFlowRate", final unit="W") if haveCooLoa
     "Total cooling heat flow rate transferred to the loads (<=0)"
-    annotation (Placement(transformation(extent={{300,220},{340,260}}),
-        iconTransformation(extent={{300,220},{340,260}})));
+    annotation (Placement(transformation(
+      extent={{300,200},{340,240}}), iconTransformation(extent={{300,200},{340,
+            240}})));
+  Modelica.Blocks.Interfaces.RealOutput QHea_flow(
+    final quantity="HeatFlowRate", final unit="W") if haveHeaLoa
+    "Total heating heat flow rate transferred to the loads (>=0)"
+    annotation (Placement(transformation(
+      extent={{300,260},{340,300}}), iconTransformation(extent={{300,240},{340,280}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(
     final quantity="Power", final unit="W") if haveEleHea
     "Power drawn by heating equipment"
     annotation (Placement(transformation(
-      extent={{300,180},{340,220}}), iconTransformation(extent={{300,190},{320,210}})));
+      extent={{300,160},{340,200}}), iconTransformation(extent={{300,160},{340,
+            200}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(
     quantity="Power", final unit="W") if haveEleCoo
     "Power drawn by cooling equipment"
-    annotation (Placement(transformation(extent={{300,140},{340,180}}),
-      iconTransformation(extent={{300,150},{320,170}})));
+    annotation (Placement(transformation(extent={{300,120},{340,160}}),
+      iconTransformation(extent={{300,120},{340,160}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(
     final quantity="Power", final unit="W") if haveFan
     "Power drawn by fans motors"
-    annotation (Placement(transformation(extent={{300,100},{340,140}}),
-      iconTransformation(extent={{300,110},{320,130}})));
+    annotation (Placement(transformation(extent={{300,80},{340,120}}),
+      iconTransformation(extent={{300,80},{340,120}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
     final quantity="Power", final unit="W") if havePum
     "Power drawn by pumps motors"
     annotation (Placement(transformation(extent={{300,60},{340,100}}),
-      iconTransformation(extent={{300,70},{320,90}})));
+      iconTransformation(extent={{300,40},{340,80}})));
   annotation (
   defaultComponentName="heaFloEps",
   Documentation(info="<html>

@@ -18,17 +18,21 @@ equation
   connect(pumpBHS.m_flow_in, massFlowMainPump.y)
     annotation (Line(points={{50,-428},{50,-370},{1,-370}}, color={0,0,127}));
   annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-480,-480},{420,360}}),
-                    graphics={
-                  Text(
-          extent={{-452,252},{-320,226}},
+  Diagram(
+  coordinateSystem(preserveAspectRatio=false, extent={{-480,-480},{420,360}}),
+  graphics={Text(
+          extent={{-438,-406},{-306,-432}},
           lineColor={28,108,200},
+          horizontalAlignment=TextAlignment.Left,
           textString="Simulation requires
-Hidden.AvoidDoubleComputation=true")}),
-        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir1Constant.mos"
-        "Simulate and plot"),
-    experiment(
-    StopTime=31536000,
+Hidden.AvoidDoubleComputation=true
+
+And is faster with
+Advanced.SparseActivate=true")}),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir1Constant.mos"
+  "Simulate and plot"),
+  experiment(
+    StopTime=172800,
     Tolerance=1e-06,
-    __Dymola_NumberOfIntervals=8760));
+    __Dymola_Algorithm="Cvode"));
 end Reservoir1Constant;

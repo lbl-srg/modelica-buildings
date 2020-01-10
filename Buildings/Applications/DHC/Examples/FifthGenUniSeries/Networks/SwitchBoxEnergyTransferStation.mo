@@ -37,8 +37,8 @@ model SwitchBoxEnergyTransferStation
         iconTransformation(extent={{-70,-110},{-50,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium =
         MediumInSwitch)
-    annotation (Placement(transformation(extent={{70,90},{90,110}}),
-        iconTransformation(extent={{70,90},{90,110}})));
+    annotation (Placement(transformation(extent={{50,90},{70,110}}),
+        iconTransformation(extent={{50,90},{70,110}})));
   replaceable package MediumInSwitch =
       Modelica.Media.Interfaces.PartialMedium annotation (
       __Dymola_choicesAllMatching=true);
@@ -108,7 +108,7 @@ equation
   connect(splSup4.port_2, splSup2.port_1)
     annotation (Line(points={{60,-10},{60,-50}}, color={0,127,255}));
   connect(splSup4.port_1, port_a2)
-    annotation (Line(points={{60,10},{60,100},{80,100}}, color={0,127,255}));
+    annotation (Line(points={{60,10},{60,100}},          color={0,127,255}));
   connect(splSup3.port_3, pum1.port_a)
     annotation (Line(points={{-50,0},{-10,0}}, color={0,127,255}));
   connect(pum1.port_b, splSup4.port_3)

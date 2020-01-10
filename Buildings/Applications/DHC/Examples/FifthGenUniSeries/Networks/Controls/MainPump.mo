@@ -221,7 +221,7 @@ First implementation.
 Controller for the main circulation pump.
 </p>
 <p>
-This controller adjust the pump speed in order to reduce the speed, unless
+This controller adjusts the pump speed in order to reduce the speed, unless
 the water temperature at the mixing points after the agents in the district is too high
 or too low, as measured by the difference to <code>TMin</code> and <code>TMax</code>,
 in which case the pump speed is increased to avoid that the loop gets too cold or too warm.
