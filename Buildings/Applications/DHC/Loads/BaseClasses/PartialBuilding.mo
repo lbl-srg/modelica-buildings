@@ -96,9 +96,9 @@ Every mechanical system downstream that connection should be modeled within a
 component derived from that partial model.
 </p>
 </html>"),
-    Icon(coordinateSystem(extent={{-280,-280},{280,280}}, preserveAspectRatio=false),
-                                                           graphics={
-                                Rectangle(
+  Icon(
+  coordinateSystem(extent={{-300,-300},{300,300}}, preserveAspectRatio=false),
+  graphics={Rectangle(
         extent={{-300,-300},{300,300}},
         lineColor={0,0,127},
         fillColor={255,255,255},
@@ -179,5 +179,5 @@ component derived from that partial model.
         smooth=Smooth.None,
         fillPattern=FillPattern.Solid,
         fillColor={95,95,95})}),
-  Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},{300,300}})));
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,-300},{300,300}})));
 end PartialBuilding;
