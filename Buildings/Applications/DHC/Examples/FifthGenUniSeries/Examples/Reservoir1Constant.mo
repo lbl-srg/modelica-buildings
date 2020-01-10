@@ -18,8 +18,8 @@ equation
   connect(pumpBHS.m_flow_in, massFlowMainPump.y)
     annotation (Line(points={{50,-428},{50,-370},{1,-370}}, color={0,0,127}));
   annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-480,-480},{380,
-            360}}), graphics={
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-480,-480},{420,360}}),
+                    graphics={
                   Text(
           extent={{-452,252},{-320,226}},
           lineColor={28,108,200},
