@@ -16,17 +16,14 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
      Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Cooling loop signal"));
-
   parameter Real kCoo(final unit="1/K") = 0.1
     "Gain for cooling control loop signal"
     annotation(Dialog(group="Cooling loop signal"));
-
   parameter Modelica.SIunits.Time TiCoo=900
     "Time constant of integrator block for cooling control loop signal"
     annotation(Dialog(group="Cooling loop signal",
       enable=controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Modelica.SIunits.Time TdCoo=0.1
     "Time constant of derivative block for cooling control loop signal"
     annotation (Dialog(group="Cooling loop signal",
@@ -40,18 +37,17 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real kHea(final unit="1/K")=0.1
     "Gain for heating control loop signal"
     annotation(Dialog(group="Heating loop signal"));
-
   parameter Modelica.SIunits.Time TiHea=900
     "Time constant of integrator block for heating control loop signal"
     annotation(Dialog(group="Heating loop signal",
     enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Modelica.SIunits.Time TdHea=0.1
     "Time constant of derivative block for heating control loop signal"
     annotation (Dialog(group="Heating loop signal",
       enable=controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
     Buildings.Controls.OBC.CDL.Types.SimpleController.P
     "Type of controller"
@@ -59,18 +55,17 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
   parameter Real kCooCoi(final unit="1/K")=1.0
     "Gain for cooling coil control loop signal"
     annotation(Dialog(group="Cooling coil loop signal"));
-
   parameter Modelica.SIunits.Time TiCooCoil=900
     "Time constant of integrator block for cooling coil control loop signal"
     annotation(Dialog(group="Cooling coil loop signal",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Modelica.SIunits.Time TdCooCoil=0.1
     "Time constant of derivative block for cooling coil control loop signal"
     annotation (Dialog(group="Cooling coil loop signal",
       enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
   parameter Modelica.SIunits.Temperature TSupSetMax
     "Maximum supply air temperature for heating"
     annotation (Evaluate=true,
@@ -151,7 +146,6 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     final unit="1") = 0.1
     "Lower limit of controller output uTSup at which the dampers are at their limits"
     annotation(Dialog(tab="Economizer", group="General"));
-
   parameter Real uMax(
     final min=0,
     final max=1,
@@ -163,25 +157,21 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
-
   parameter Real kFre(final unit="1/K") = 0.1
     "Gain for mixed air temperature tracking for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
-
   parameter Modelica.SIunits.Time TiFre=120
     "Time constant of controller for mixed air temperature tracking for freeze protection. Require TiFre < TiMinOut"
      annotation(Dialog(tab="Economizer", group="Freeze protection",
        enable=use_TMix
          and (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-
    parameter Modelica.SIunits.Time TdFre=0.1
      "Time constant of derivative block for freeze protection"
      annotation (Dialog(tab="Economizer", group="Freeze protection",
        enable=use_TMix and
            (controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeFre == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-
   parameter Modelica.SIunits.Temperature TFreSet=277.15
     "Lower limit for mixed air temperature for freeze protection, used if use_TMix=true"
      annotation(Dialog(tab="Economizer", group="Freeze protection", enable=use_TMix));
@@ -241,13 +231,12 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     "Physically fixed minimum position of the return air damper"
     annotation(Evaluate=true, Dialog(tab="Economizer", group="Commissioning"));
 
-  ModeAndSetPoints modSetPoi(
-    TZonHeaOn=TZonHeaOn,
-    TZonHeaOff=TZonHeaOff,
-    TZonCooOn=TZonCooOn,
-    TZonCooOff=TZonCooOff)
-    "Output zone setpoint with operation mode selection"
-    annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Outside air temperature"
+    annotation (Placement(transformation(extent={{-240,220},{-200,260}}),
+        iconTransformation(extent={{-240,220},{-200,260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc
     "Time to next occupied period"
     annotation (Placement(transformation(extent={{-240,180},{-200,220}}),
@@ -262,6 +251,111 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     "Current occupancy period, true if it is in occupant period"
     annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
         iconTransformation(extent={{-240,100},{-200,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
+    "Economizer high limit cutoff. Fixed dry bulb or differential dry bulb temeprature"
+    annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
+        iconTransformation(extent={{-240,60},{-200,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Measured supply air temperature"
+    annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
+        iconTransformation(extent={{-240,20},{-200,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature") if use_TMix
+    "Measured mixed air temperature, used for freeze protection if use_TMix is true"
+    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
+        iconTransformation(extent={{-240,-20},{-200,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
+       have_occSen "Number of occupants"
+    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
+        iconTransformation(extent={{-240,-60},{-200,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin
+    "Window status, true if open, false if closed"
+    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
+        iconTransformation(extent={{-240,-100},{-200,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hOut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
+    annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
+        iconTransformation(extent={{-240,-140},{-200,-100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hCut(
+    final unit="J/kg",
+    final quantity="SpecificEnergy") if use_enthalpy
+    "Economizer enthalpy high limit cutoff. Fixed enthalpy or differential enthalpy"
+    annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
+        iconTransformation(extent={{-240,-180},{-200,-140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature") if
+       use_fixed_plus_differential_drybulb
+    "Used only for fixed plus differential dry bulb temperature high limit cutoff"
+    annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
+        iconTransformation(extent={{-240,-220},{-200,-180}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uFreProSta if
+       use_G36FrePro
+    "Freeze protection status, used if use_G36FrePro=true"
+    annotation (Placement(transformation(extent={{-240,-260},{-200,-220}}),
+        iconTransformation(extent={{-240,-260},{-200,-220}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Temperature setpoint for heating coil and for economizer"
+    annotation (Placement(transformation(extent={{200,230},{220,250}}),
+        iconTransformation(extent={{200,200},{240,240}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupCoo(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Cooling supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{200,170},{220,190}}),
+        iconTransformation(extent={{200,150},{240,190}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFan(
+    final min=0,
+    final max=1,
+    final unit="1") "Fan speed"
+    annotation (Placement(transformation(extent={{200,110},{220,130}}),
+        iconTransformation(extent={{200,100},{240,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonHeaSet(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Zone heating setpoint temperature"
+    annotation (Placement(transformation(extent={{200,50},{220,70}}),
+        iconTransformation(extent={{200,40},{240,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSet(
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")  "Zone cooling setpoint temperature"
+    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
+        iconTransformation(extent={{200,-20},{240,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
+    final min=0,
+    final max=1,
+    final unit="1") "Heating coil control signal"
+    annotation (Placement(transformation(extent={{200,-70},{220,-50}}),
+        iconTransformation(extent={{200,-80},{240,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
+    final min=0,
+    final max=1,
+    final unit="1") "Cooling coil control signal"
+    annotation (Placement(transformation(extent={{200,-130},{220,-110}}),
+        iconTransformation(extent={{200,-140},{240,-100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
+    final min=0,
+    final max=1,
+    final unit="1")
+    "Outdoor air damper position"
+    annotation (Placement(transformation(extent={{200,-190},{220,-170}}),
+        iconTransformation(extent={{200,-190},{240,-150}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
+    final min=0,
+    final max=1,
+    final unit="1")
+    "Return air damper position"
+    annotation (Placement(transformation(extent={{200,-250},{220,-230}}),
+        iconTransformation(extent={{200,-240},{240,-200}})));
+
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply
     setPoiVAV(
     final TSupSetMax=TSupSetMax,
@@ -279,8 +373,8 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     final Td=TdCoo,
     final yMax=1,
     final yMin=0,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
-                  "Zone cooling control signal"
+    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-48,150},{-28,170}})));
   Buildings.Controls.OBC.CDL.Continuous.LimPID heaPI(
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
@@ -324,64 +418,7 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     final use_fixed_plus_differential_drybulb=use_fixed_plus_differential_drybulb,
     final yFanMin=0,
     final yFanMax=1) "Economizer control sequence"
-           annotation (Placement(transformation(extent={{118,-48},{138,-28}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCut(final unit="K", final
-      quantity="ThermodynamicTemperature")
-    "Economizer high limit cutoff. Fixed dry bulb or differential dry bulb temeprature"
-    annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
-        iconTransformation(extent={{-240,60},{-200,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature")
-    "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
-        iconTransformation(extent={{-240,20},{-200,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature") if use_TMix
-    "Measured mixed air temperature, used for freeze protection if use_TMix is true"
-    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
-        iconTransformation(extent={{-240,-20},{-200,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput nOcc(final unit="1") if
-       have_occSen "Number of occupants"
-    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
-        iconTransformation(extent={{-240,-60},{-200,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin
-    "Window status, true if open, false if closed"
-    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-        iconTransformation(extent={{-240,-100},{-200,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEco(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature")
-    "Temperature setpoint for heating coil and for economizer"
-    annotation (Placement(transformation(extent={{200,230},{220,250}}),
-        iconTransformation(extent={{200,210},{220,230}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupCoo(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature")
-    "Cooling supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{200,170},{220,190}}),
-        iconTransformation(extent={{200,160},{220,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFan(
-    final min=0,
-    final max=1,
-    final unit="1") "Fan speed"
-    annotation (Placement(transformation(extent={{200,110},{220,130}}),
-        iconTransformation(extent={{200,110},{220,130}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPos(
-    final min=0,
-    final max=1,
-    final unit="1")
-    "Return air damper position"
-    annotation (Placement(transformation(extent={{200,-250},{220,-230}}),
-        iconTransformation(extent={{200,-230},{220,-210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDamPos(
-    final min=0,
-    final max=1,
-    final unit="1")
-    "Outdoor air damper position"
-    annotation (Placement(transformation(extent={{200,-190},{220,-170}}),
-        iconTransformation(extent={{200,-180},{220,-160}})));
+    annotation (Placement(transformation(extent={{118,-48},{138,-28}})));
   Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.OutsideAirFlow
     outAirSetPoi(
     final AFlo=AFlo,
@@ -393,68 +430,29 @@ block Controller "Single Zone AHU controller that composes subsequences for cont
     final zonDisEffCoo=zonDisEffCoo)
     "Output the minimum outdoor airflow rate setpoint "
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature")
-    "Outside air temperature"
-    annotation (Placement(transformation(extent={{-240,220},{-200,260}}),
-        iconTransformation(extent={{-240,220},{-200,260}})));
-  ZoneState zonSta "Zone state"
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState zonSta "Zone state"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  CDL.Integers.Sources.Constant conInt(k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
     "Unoccupied mode"
     annotation (Placement(transformation(extent={{-160,-240},{-140,-220}})));
-  CDL.Integers.Equal intEqu
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if current operation mode is unoccupied mode"
     annotation (Placement(transformation(extent={{-110,-240},{-90,-220}})));
-  CDL.Logical.Not switch "If in unoccupied mode, switch off"
+  Buildings.Controls.OBC.CDL.Logical.Not switch "If in unoccupied mode, switch off"
     annotation (Placement(transformation(extent={{-80,-240},{-60,-220}})));
-  CDL.Interfaces.IntegerInput uFreProSta if use_G36FrePro
-   "Freeze protection status, used if use_G36FrePro=true" annotation (
-     Placement(transformation(extent={{-240,-260},{-200,-220}}),
-        iconTransformation(extent={{-240,-260},{-200,-220}})));
-  CDL.Interfaces.RealInput hOut(
-    final unit="J/kg",
-    final quantity="SpecificEnergy") if use_enthalpy "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-        iconTransformation(extent={{-240,-140},{-200,-100}})));
-  CDL.Interfaces.RealInput hCut(final unit="J/kg", final quantity="SpecificEnergy") if
-       use_enthalpy
-    "Economizer enthalpy high limit cutoff. Fixed enthalpy or differential enthalpy"
-    annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
-        iconTransformation(extent={{-240,-180},{-200,-140}})));
-  CDL.Interfaces.RealOutput yHeaCoi(
-    final min=0,
-    final max=1,
-    final unit="1") "Heating coil control signal"
-    annotation (Placement(transformation(extent={{200,-70},{220,-50}}),
-        iconTransformation(extent={{200,-68},{220,-48}})));
-  CDL.Interfaces.RealOutput yCooCoi(
-    final min=0,
-    final max=1,
-    final unit="1") "Cooling coil control signal" annotation (
-      Placement(transformation(extent={{200,-130},{220,-110}}),
-        iconTransformation(extent={{200,-130},{220,-110}})));
-  CDL.Interfaces.RealOutput TZonHeaSet(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature")  "Zone heating setpoint temperature"
-    annotation (Placement(transformation(extent={{200,50},{220,70}}),
-        iconTransformation(extent={{200,50},{220,70}})));
-  CDL.Interfaces.RealOutput TZonCooSet(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature")  "Zone cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{200,-10},{220,10}}),
-        iconTransformation(extent={{200,-10},{220,10}})));
-  CDL.Interfaces.RealInput TRet(
-    final unit="K",
-    final quantity="ThermodynamicTemperature") if
-       use_fixed_plus_differential_drybulb
-    "Used only for fixed plus differential dry bulb temperature high limit cutoff"
-    annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
-        iconTransformation(extent={{-240,-220},{-200,-180}})));
-  CoolingCoil cooCoi(controllerTypeCooCoi=controllerTypeCooCoi, kCooCoi=kCooCoi)
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ModeAndSetPoints modSetPoi(
+    final TZonHeaOn=TZonHeaOn,
+    final TZonHeaOff=TZonHeaOff,
+    final TZonCooOn=TZonCooOn,
+    final TZonCooOff=TZonCooOff)
+    "Output zone setpoint with operation mode selection"
+    annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.CoolingCoil cooCoi(
+    final controllerTypeCooCoi=controllerTypeCooCoi, kCooCoi=kCooCoi)
     "Controller for cooling coil valve"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
+
 equation
   connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-181,198},{-200,
           198},{-200,200},{-220,200}},      color={0,0,127}));
@@ -520,7 +518,7 @@ equation
           188.333},{4,132},{-38,132},{-38,148}},
                                         color={0,0,127}));
   connect(outAirSetPoi.TZon, cooPI.u_m)   annotation (Line(points={{38,50},{-38,
-          50},{-38,148}},                                                                       color={0,0,127}));
+          50},{-38,148}},  color={0,0,127}));
   connect(nOcc, outAirSetPoi.nOcc) annotation (Line(points={{-220,-40},{4,-40},{
           4,58},{38,58}},  color={0,0,127}));
   connect(uFreProSta, conEco.uFreProSta) annotation (Line(points={{-220,-240},{
@@ -585,7 +583,8 @@ equation
   connect(outAirSetPoi.uOpeMod, modSetPoi.yOpeMod) annotation (Line(points={{38,
           41},{34,41},{34,30},{-152,30},{-152,187},{-159,187}}, color={255,127,
           0}));
-  annotation (defaultComponentName="conVAV",
+
+annotation (defaultComponentName="conVAV",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,
             260}}),
         graphics={Rectangle(
@@ -706,13 +705,13 @@ equation
           fillPattern=FillPattern.Solid,
           textString="TZonCooSet"),
         Text(
-          extent={{140,-34},{194,-72}},
+          extent={{140,-40},{194,-78}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHeaCoi"),
         Text(
-          extent={{140,-98},{194,-136}},
+          extent={{140,-100},{194,-138}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
