@@ -40,6 +40,14 @@ model CoolingDirectControlledReturn
     "Nominal pressure drop in the check valve";
 
   // Controller parameters
+  parameter Real eOn=0
+    "If off and control error > eOn, switch to set point tracking"
+    annotation(Dialog(tab="Controller"));
+
+  parameter Real eOff=-0.5
+    "If on and control error < eOff, set y=0"
+    annotation(Dialog(tab="Controller"));
+
   parameter Modelica.Blocks.Types.SimpleController controllerType=
     Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
@@ -125,6 +133,16 @@ model CoolingDirectControlledReturn
       coil controller"
     annotation(Dialog(tab="Controller"));
 
+  // Advanced parameters
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Dialog(tab="Advanced"));
+
+  parameter Modelica.SIunits.PressureDifference[3] dp_nominal=500*{1,-1,1}
+    "Nominal pressure drop in pipe junctions"
+    annotation(Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput TSetDisRet
     "Setpoint for the minimum district return temperature"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}})));
@@ -152,9 +170,9 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.Junction jun(
     redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final energyDynamics=energyDynamics,
     final m_flow_nominal={mDis_flow_nominal,-mBui_flow_nominal,mByp_flow_nominal},
-    dp_nominal=500*{1,-1,1})
+    final dp_nominal=dp_nominal)
     "Bypass junction"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
 
@@ -199,9 +217,9 @@ model CoolingDirectControlledReturn
 
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final energyDynamics=energyDynamics,
     final m_flow_nominal={mBui_flow_nominal,-mDis_flow_nominal,-mByp_flow_nominal},
-    dp_nominal=500*{1,-1,1}) "Bypass junction, splitter"
+    final dp_nominal=dp_nominal) "Bypass junction, splitter"
     annotation (Placement(transformation(extent={{50,-50},{30,-70}})));
 
   Modelica.Fluid.Valves.ValveIncompressible cheVal(
@@ -222,8 +240,8 @@ model CoolingDirectControlledReturn
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.Continuous.PIDHysteresis con(
-    eOn=0,
-    eOff=-0.5,
+    final eOn=eOn,
+    final eOff=eOff,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
