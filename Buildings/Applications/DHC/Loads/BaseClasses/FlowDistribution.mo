@@ -128,11 +128,12 @@ model FlowDistribution "Model of distribution system"
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     m_flow_nominal=m_flow_nominal,
+    per(motorCooledByFluid=false),
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     dp_nominal=dp_nominal,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics) if havePum
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if havePum
     "Distribution pump"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(

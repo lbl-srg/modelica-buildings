@@ -19,7 +19,12 @@ equation
     annotation (Line(points={{50,-428},{50,-370},{1,-370}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-480,-480},{380,
-            360}})),
+            360}}), graphics={
+                  Text(
+          extent={{-452,252},{-320,226}},
+          lineColor={28,108,200},
+          textString="Simulation requires
+Hidden.AvoidDoubleComputation=true")}),
         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir1Constant.mos"
         "Simulate and plot"),
     experiment(StopTime=31536000,
