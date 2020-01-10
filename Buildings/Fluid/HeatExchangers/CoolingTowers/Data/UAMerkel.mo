@@ -33,26 +33,28 @@ record UAMerkel "UA correction factors for Merkel cooling towers"
     "Maximum value for leaving evaporator temperature difference"
     annotation (Dialog(group="Performance curves"));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  annotation (
+defaultComponentName="UACor",
     Documentation(info="<html>
-<p>This data record contains the cooling tower performance data for 
+<p>
+This data record contains the cooling tower performance data for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>. 
 Similar to the <code>CoolingTower:VariableSpeed:Merkel</code> model in EnergyPlus, 
 Merkel's theory is modified to include Scheier's adjustment factors that 
-adjust UA values at off-design conditions. The three factors are:</p>
+adjust UA values at off-design conditions. The three factors are:
+</p>
 <ul>
 <li>
-<code>UAFunDifWB </code>- Corrected UA based on the difference between the 
+<code>UAFunDifWB</code>- Corrected UA based on the difference between the
 current wetbulb temperature and the design wetbulb temperature. 
 </li>
 <li>
-<code>UAFunAirFra </code>- Corrected UA based on the ratio of the current air 
+<code>UAFunAirFra</code>- Corrected UA based on the ratio of the current air
 flow rate and the design air flow rate. 
 </li>
 <li>
-<code>UAFunWatFra </code>- Corrected UA based on the ratio of the current water 
+<code>UAFunWatFra</code>- Corrected UA based on the ratio of the current water
 flow rate and the design water flow rate. 
 </li>
 </ul>
