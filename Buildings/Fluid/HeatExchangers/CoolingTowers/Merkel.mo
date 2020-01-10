@@ -10,13 +10,14 @@ model Merkel "Cooling tower model based on Merkel's theory"
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
-    "Nominal mass flow rate of medium 1"
+    "Nominal mass flow rate of medium 1 (air)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
-    "Nominal mass flow rate of medium 2"
+    "Nominal mass flow rate of medium 2 (water)"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(displayUnit="K") = 3.89
+  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(
+    displayUnit="K") = 3.89
     "Design approach temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter  Modelica.SIunits.Temperature TAirInWB_nominal
@@ -25,12 +26,6 @@ model Merkel "Cooling tower model based on Merkel's theory"
   parameter  Modelica.SIunits.Temperature TWatIn_nominal
     "Nominal water inlet temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter  Modelica.SIunits.Temperature TAirOutWB_nominal
-    "Nominal leaving air wetbulb temperature"
-    annotation (Dialog(group="Nominal condition"));
-  parameter  Modelica.SIunits.Temperature TWatOut_nominal
-    "Nominal water outlet temperature"
-    annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)
     "Nominal heat transfer,positive"
@@ -38,19 +33,6 @@ model Merkel "Cooling tower model based on Merkel's theory"
 
   parameter Modelica.SIunits.Power PFan_nominal(min=0)
     "Fan power"
-    annotation (Dialog(group="Nominal condition"));
-
-  final parameter  Modelica.SIunits.Temperature T_a1_nominal = TAirInWB_nominal
-    "Nominal temperature at port a1"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.Temperature T_a2_nominal = TWatIn_nominal
-    "Nominal temperature at port a2"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.Temperature T_b1_nominal = TAirOutWB_nominal
-    "Nominal temperature at port b1"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.Temperature T_b2_nominal = TWatOut_nominal
-    "Nominal temperature at port b2"
     annotation (Dialog(group="Nominal condition"));
 
   parameter con configuration "Heat exchanger configuration"
@@ -74,9 +56,10 @@ model Merkel "Cooling tower model based on Merkel's theory"
     "UA correction curves"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal
-    "Thermal conductance at nominal flow, used to compute heat capacity"
-    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.SIunits.ThermalConductance UA_nominal(fixed=false)
+    "Thermal conductance at nominal flow, used to compute heat capacity";
+  final parameter Real eps_nominal(fixed=false)
+    "Nominal heat transfer effectiveness";
 
   Modelica.Blocks.Interfaces.RealInput TAir(
     final min=0,
@@ -128,6 +111,9 @@ model Merkel "Cooling tower model based on Merkel's theory"
 protected
   final package Air = Buildings.Media.Air "Package of medium air";
 
+  final parameter Real NTU_nominal(min=0, fixed=false)
+    "Nominal number of transfer units";
+
   final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)](each fixed=false)
     "Coefficients for fan relative power consumption as a function 
     of control signal";
@@ -158,6 +144,18 @@ protected
     "Minimal capacity flow rate at nominal condition";
   parameter Modelica.SIunits.ThermalConductance CMax_flow_nominal(fixed=false)
     "Maximum capacity flow rate at nominal condition";
+  parameter Real Z_nominal(
+    min=0,
+    max=1,
+    fixed=false) "Ratio of capacity flow rate at nominal condition";
+
+  parameter  Modelica.SIunits.Temperature TAirOutWB_nominal(fixed=false)
+    "Nominal leaving air wetbulb temperature";
+  parameter  Modelica.SIunits.Temperature TWatOut_nominal(fixed=false)
+    "Nominal water outlet temperature";
+
+  parameter flo flowRegime_nominal(fixed=false)
+    "Heat exchanger flow regime at nominal flow rates";
 
   flo flowRegime(
     start=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow)
@@ -175,12 +173,51 @@ initial equation
   cp1_nominal = Air.specificHeatCapacityCp(sta1_default);
   cp2_nominal = Medium.specificHeatCapacityCp(sta2_default);
   cpe_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
-    T_a1_nominal,T_b1_nominal);
+    TAirInWB_nominal,TAirOutWB_nominal);
 
+  // Heat transferred from fluid 1 to 2 at nominal condition
+  Q_flow_nominal = -m1_flow_nominal*cpe_nominal*(TAirInWB_nominal - TAirOutWB_nominal);
+  Q_flow_nominal =  m2_flow_nominal*cp2_nominal*(TWatIn_nominal - TWatOut_nominal);
   C1_flow_nominal = m1_flow_nominal*cpe_nominal;
   C2_flow_nominal = m2_flow_nominal*cp2_nominal;
   CMin_flow_nominal = min(C1_flow_nominal, C2_flow_nominal);
   CMax_flow_nominal = max(C1_flow_nominal, C2_flow_nominal);
+  Z_nominal = CMin_flow_nominal/CMax_flow_nominal;
+  eps_nominal = abs(Q_flow_nominal/((TAirInWB_nominal - TWatIn_nominal)*
+    CMin_flow_nominal));
+  assert(eps_nominal > 0 and eps_nominal < 1,
+    "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
+    "\n  To achieve the required heat transfer rate at epsilon=0.8, set |TAirInWB_nominal-TWatIn_nominal| = "
+     + String(abs(Q_flow_nominal/0.8*CMin_flow_nominal)) +
+    "\n  or increase flow rates. The current parameters result in " +
+    "\n  CMin_flow_nominal = " + String(CMin_flow_nominal) +
+    "\n  CMax_flow_nominal = " + String(CMax_flow_nominal));
+  // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
+  if (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+    flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal) then flo.CrossFlowCMinMixedCMaxUnmixed
+       else flo.CrossFlowCMinUnmixedCMaxMixed;
+  elseif (configuration == con.CrossFlowStream1UnmixedStream2Mixed) then
+    flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal) then flo.CrossFlowCMinUnmixedCMaxMixed
+       else flo.CrossFlowCMinMixedCMaxUnmixed;
+  elseif (configuration == con.ParallelFlow) then
+    flowRegime_nominal = flo.ParallelFlow;
+  elseif (configuration == con.CounterFlow) then
+    flowRegime_nominal = flo.CounterFlow;
+  elseif (configuration == con.CrossFlowUnmixed) then
+    flowRegime_nominal = flo.CrossFlowUnmixed;
+  else
+  //   Invalid flow regime. Assign a value to flowRegime_nominal, and stop with an assert
+    flowRegime_nominal = flo.CrossFlowUnmixed;
+    assert(configuration >= con.ParallelFlow and configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
+      "Invalid heat exchanger configuration.");
+  end if;
+
+  NTU_nominal = if (eps_nominal > 0 and eps_nominal < 1) then
+    Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
+    eps=eps_nominal,
+    Z=Z_nominal,
+    flowRegime=Integer(flowRegime_nominal)) else 0;
+  UA_nominal = NTU_nominal*CMin_flow_nominal;
 
   // Initialize fan power
   // Derivatives for spline that interpolates the fan relative power
@@ -363,30 +400,100 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>Model for a steady-state or dynamic cooling tower with a variable speed fan
-using Merkel's calculation method. Cooling tower performance is modeled using 
-the heat exchanger effectiveness and user-specified nominal thermal conductance 
-(<code>UA_nominal</code>) for various heat exchanger flow regimes. 
+<p>
+Model for a steady-state or dynamic cooling tower with a variable speed fan 
+using Merkel's calculation method. 
+</p>
+<h4>Thermal performance</h4>
+<p>
+To compute the thermal performance, this model takes as parameters the nominal mass
+flow rates for both fluids (air and water), the nominal heat transfer rate, the nominal
+inlet air wetbulb temperature, and the nominal water inlet temperature. Cooling tower 
+performance is modeled using the effectiveness-NTU relationships for various heat 
+exchanger flow regimes. 
+</p>
+<p>
+The total heat transfer between the air and water entering the tower is defined based 
+on Merkel's theory. The fundamental basis for Merkel's theory is that the steady-state 
+total heat transfer is proportional to the difference between the enthalpy of air and 
+the enthalpy of air saturated at the wetted-surface temperature. This is represented 
+in the following equation:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+ dQ&#775;<sub>total</sub> = UdA/c<sub>p</sub> (h<sub>s</sub> - h<sub>a</sub>)
+</p>
+<p>
+where
+<i>h<sub>s</sub></i> is the enthalpy of saturated air at the wetted-surface temperature,
+<i>h<sub>a</sub></i> is the enthalpy of air in the free stream,
+<i>c<sub>p</sub></i> is the specific heat of moist air,
+<i>U</i> is the cooling tower overall heat transfer coefficient, and
+<i>A</i> is the heat transfer surface area.
+</p>
+<p>
+The model also treats the moist air as an equivalent gas with a mean specific heat 
+(<i>c<sub>pe</sub></i>) defined as: 
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+ c<sub>pe</sub> = &Delta;h / &Delta;T<sub>wb</sub>
+</p>
+<p>
+where
+<i>&Delta;h</i> and <i>&Delta;T<sub>wb</sub></i> are the enthalpy difference and 
+wetbulb temperature difference, respectively, between the entering and leaving air.
+</p>
+<p>
+For off-design conditions, Merkel's theory is modified to include Sheier's 
+adjustment factors that change the current UA value. The three adjustment factors, based 
+on the current wetbulb, air flow rates, and water flow rates, are used to calculate the 
+UA value at any given time using: 
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+UA<sub>e</sub> = UA<sub>design</sub> &#183; f<sub>UA,wetbulb</sub> &#183; f<sub>UA,airflow</sub> &#183; f<sub>UA,waterflow</sub>
+</p>
+<p>
+where
+<i>UA<sub>e</sub></i> and <i>UA<sub>design</sub></i> are the equivalent and design 
+overall heat transfer coefficent-area products, respectively.
+The factors <i>f<sub>UA,wetbulb</sub></i>, <i>f<sub>UA,airflow</sub></i>, and <i>f<sub>UA,waterflow</sub></i>
+adjust the current UA valuve for the current wetbulb temperature, air flow rate, and water 
+flow rate, respectively. 
+See <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a> for more details. The 
+user can update the values in this record based on the performance characteristics of 
+their cooling tower. 
 </p>
 <h4>Comparison with the cooling tower model of EnergyPlus</h4>
-<p>This model is similar to the model CoolingTower:VariableSpeed:Merkel that is 
-implemented in the EnergyPlus building energy simulation program version 8.9.0. 
-The main differences are: 
-</p>
+<p>
+This model is similar to the model <code>CoolingTower:VariableSpeed:Merkel</code> 
+that is implemented in the EnergyPlus building energy simulation program version 8.9.0. 
+The main differences are: </p>
 <ol>
 <li>
 Not implemented are the basin heater power consumption and the make-up water usage. 
 </li>
 <li>
-The model has no built-in control to switch individual cells of the tower on or 
-off. To switch cells on or off, use multiple instances of this model, and use 
-your own control law to compute the input signal y. 
+The model has no built-in control to switch individual cells of the tower on or off. 
+To switch cells on or off, use multiple instances of this model, and use your own control 
+law to compute the input signal y. 
 </li>
 </ol>
-<h4>References</h4>
+<h4>Assumptions</h4>
 <p>
-<a href=\"https://energyplus.net/sites/all/modules/custom/nrel_custom/pdfs/pdfs_v8.9.0/EngineeringReference.pdf\">
-EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. 
+The following assumptions are made with Merkel's theory and this implementation:
+<ol>
+<li>
+The moist air enthalpy is a function of wetbulb temperature only.
+</li>
+<li>
+The wetted surface temperature is equal to the water temperature.
+</li>
+<li>
+Cycle losses are not taken into account.
+</li>
+</ol>
 </p>
+<h4>References</h4>
+<p><a href=\"https://energyplus.net/sites/all/modules/custom/nrel_custom/pdfs/pdfs_v8.9.0/EngineeringReference.pdf\">EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. </p>
 </html>"));
 end Merkel;

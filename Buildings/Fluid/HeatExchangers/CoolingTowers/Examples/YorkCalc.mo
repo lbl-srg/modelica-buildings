@@ -47,7 +47,7 @@ annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-260
 experiment(StartTime=15552000, Tolerance=1e-06, StopTime=15724800),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/YorkCalc.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-180},{100,
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
 This example illustrates the use of the cooling tower model

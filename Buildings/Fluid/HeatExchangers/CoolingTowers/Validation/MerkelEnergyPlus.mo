@@ -28,19 +28,15 @@ model MerkelEnergyPlus
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=
     vWat_flow_nominal * denWat
     "Nominal mass flow rate of water (medium 2)";
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal = 20.59+273.15
+  parameter Modelica.SIunits.Temperature TAirInWB_nominal = 18.85+273.15
     "Nominal outdoor wetbulb temperature";
   parameter Modelica.SIunits.Temperature TWatIn_nominal = 34.16+273.15
     "Nominal water inlet temperature";
-  parameter Modelica.SIunits.Temperature TAirOutWB_nominal = 26+273.15
-    "Nominal air outlet wetbulb temperature";
-  parameter Modelica.SIunits.Temperature TWatOut_nominal = 21+273.15
-    "Nominal water outlet temperature";
   parameter Modelica.SIunits.Temperature TWatOut_initial = 33.019+273.15
     "Nominal water inlet temperature";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20286.37455
     "Nominal heat transfer, positive";
-  parameter Modelica.SIunits.ThermalConductance UA_nominal = 2011.28668
+  parameter Modelica.SIunits.ThermalConductance UA_nominal_EP = 2011.28668
     "Nominal heat transfer, positive";
   parameter Modelica.SIunits.Power PFan_nominal = 213.00693
     "Nominal fan power";
@@ -70,16 +66,13 @@ model MerkelEnergyPlus
     m2_flow_nominal=mWat_flow_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
-    TAirOutWB_nominal=TAirOutWB_nominal,
-    TWatOut_nominal=TWatOut_nominal,
     Q_flow_nominal=Q_flow_nominal,
     PFan_nominal=PFan_nominal,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     yMin=0.1,
     fraFreCon=0.1,
     fanRelPow(r_V=r_VEnePlu, r_P=r_PEnePlu),
-    UACor(FRAirMin=0.2),
-    UA_nominal=UA_nominal)
+    UACor(FRAirMin=0.2))
     "Merkel-theory based cooling tower"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
@@ -172,7 +165,7 @@ outlet are equal to the state variables of the model.
 </html>", revisions="<html>
 <ul>
 <li>
-December 23, 2019 by Kathryn Hinkelman:<br/>
+December 23, 2019, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>

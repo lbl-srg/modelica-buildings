@@ -6,16 +6,12 @@ model Merkel "Test model for cooling tower using the Merkel theory"
       m2_flow_nominal=mWat_flow_nominal,
       TAirInWB_nominal=273.15 + 25.55,
       TWatIn_nominal=273.15 + 35,
-      TAirOutWB_nominal=273.15 + 30,
-      TWatOut_nominal=273.15 + 18,
       configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
       PFan_nominal=4800,
-      UA_nominal=2350,
       Q_flow_nominal=mWat_flow_nominal*4180*5.56,
       m1_flow_nominal=mAir_flow_nominal,
       show_T=true),
-    weaDat(
-      final computeWetBulbTemperature=true));
+    weaDat(final computeWetBulbTemperature=true));
 
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 0.8
     "Design air flow rate"
@@ -61,7 +57,7 @@ experiment(StartTime=15552000, Tolerance=1e-06, StopTime=15724800),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/Merkel.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=true,
-        extent={{-100,-180},{100,100}})),
+        extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 This example illustrates the use of the cooling tower model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">

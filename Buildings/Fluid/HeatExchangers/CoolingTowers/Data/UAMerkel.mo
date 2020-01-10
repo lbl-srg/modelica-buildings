@@ -8,11 +8,14 @@ record UAMerkel "UA correction factors for Merkel cooling towers"
     annotation (Dialog(group="Performance curves"));
   constant Integer nUAFunWatFra=3 "Number of coefficients for UAFunWatFra"
     annotation (Dialog(group="Performance curves"));
-  parameter Real UAFunDifWB[nUAFunDifWB]={1,0.0081,0} "Polynomial coefficients for UAFunDifWB"
+  parameter Real UAFunDifWB[nUAFunDifWB]={1,0.0081,0}
+    "Polynomial coefficients for UAFunDifWB"
     annotation (Dialog(group="Performance curves"));
-  parameter Real UAFunAirFra[nUAFunAirFra]={0,1.3,-0.3} "Polynomial coefficients for UAFunAirFra"
+  parameter Real UAFunAirFra[nUAFunAirFra]={0,1.3,-0.3}
+    "Polynomial coefficients for UAFunAirFra"
     annotation (Dialog(group="Performance curves"));
-  parameter Real UAFunWatFra[nUAFunWatFra]={0.1082,1.667,-0.7713} "Polynomial coefficients for UAFunWatFra"
+  parameter Real UAFunWatFra[nUAFunWatFra]={0.1082,1.667,-0.7713}
+    "Polynomial coefficients for UAFunWatFra"
     annotation (Dialog(group="Performance curves"));
 
   parameter Real FRAirMin(min=0) = 0.2 "Minimum value for air flow fraction"
@@ -39,12 +42,30 @@ record UAMerkel "UA correction factors for Merkel cooling towers"
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>The performance data for Merkel cooling tower. The purpose is to calculate UA values at off-design conditions. It contains three curves:</p>
+<p>This data record contains the cooling tower performance data for 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>. 
+Similar to the <code>CoolingTower:VariableSpeed:Merkel</code> model in EnergyPlus, 
+Merkel's theory is modified to include Scheier's adjustment factors that 
+adjust UA values at off-design conditions. The three factors are:</p>
 <ul>
-<li><span style=\"font-family: monospace;\">UAFunDifWB </span>- Corrected UA based on the difference between the actual wetbulb temperature and the design wetbulb temperature. </li>
-<li><span style=\"font-family: monospace;\">UAFunAirFra </span>- Corrected UA based on the ratio of the actual air flow and the design air flow. </li>
-<li><span style=\"font-family: monospace;\">UAFunWatFra </span>- Corrected UA based on the ratio of the actual water fraction and the design water fraction. </li>
+<li>
+<code>UAFunDifWB </code>- Corrected UA based on the difference between the 
+current wetbulb temperature and the design wetbulb temperature. 
+</li>
+<li>
+<code>UAFunAirFra </code>- Corrected UA based on the ratio of the current air 
+flow rate and the design air flow rate. 
+</li>
+<li>
+<code>UAFunWatFra </code>- Corrected UA based on the ratio of the current water 
+flow rate and the design water flow rate. 
+</li>
 </ul>
+<p>
+The user can update the values in this record based on the performance
+characteristics of their cooling tower. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
