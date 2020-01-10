@@ -4,7 +4,7 @@ model CoolingDirectUncontrolled
   uncontrolled district-building fluid transfer within the ETS"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Water;
+  package Medium = Buildings.Media.Water "Water medium";
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 18000
     "Nominal cooling load";

@@ -20,12 +20,12 @@ model CoolingDirectUncontrolled
   // pressure drops
   parameter Modelica.SIunits.PressureDifference dpSup(
     final min=0,
-    displayUnit="Pa")=50
+    displayUnit="Pa")=5000
   "Pressure drop in the ETS supply side";
 
   parameter Modelica.SIunits.PressureDifference dpRet(
     final min=0,
-    displayUnit="Pa")=50
+    displayUnit="Pa")=5000
   "Pressure drop in the ETS return side";
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(

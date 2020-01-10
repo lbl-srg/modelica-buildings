@@ -4,7 +4,7 @@ model CoolingDirectControlledReturn
   pumping and controlled district return temperature"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Water;
+  package Medium = Buildings.Media.Water "Water medium";
 
   parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal=0.5
     "Nominal mass flow rate of district cooling supply";

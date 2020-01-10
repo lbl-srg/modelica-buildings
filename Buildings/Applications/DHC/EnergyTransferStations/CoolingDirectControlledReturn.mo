@@ -324,7 +324,6 @@ equation
       color={0,0,127}));
   connect(add.y, conVal.y)
     annotation (Line(points={{1,-100},{10,-100},{10,-72}}, color={0,0,127}));
-
   connect(senMasFlo.port_b, jun.port_1)
     annotation (Line(points={{-30,60},{30,60}}, color={0,127,255}));
   connect(spl.port_3, cheVal.port_a)
