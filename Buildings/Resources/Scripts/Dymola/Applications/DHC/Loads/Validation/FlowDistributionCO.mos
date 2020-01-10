@@ -1,7 +1,9 @@
 Advanced.StoreProtectedVariables = true;
 simulateModel(
     "Buildings.Applications.DHC.Loads.Validation.FlowDistributionCO",
-    method="cvode", tolerance=1e-6, numberOfIntervals=500,
+    method="cvode",
+    tolerance=1e-6,
+    numberOfIntervals=500,
     stopTime=1000.0,
     resultFile="FlowDistributionCO");
 removePlots(false);

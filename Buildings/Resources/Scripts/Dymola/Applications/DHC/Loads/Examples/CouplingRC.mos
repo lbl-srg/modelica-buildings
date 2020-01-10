@@ -1,7 +1,9 @@
 removePlots(true);
 simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingRC",
-    method="cvode", tolerance=1e-6, numberOfIntervals=500,
-    stopTime=800000.0,
+    method="cvode",
+    tolerance=1e-6,
+    numberOfIntervals=500,
+    stopTime=604800.0,
     resultFile="CouplingRC");
 createPlot(
     id=1,

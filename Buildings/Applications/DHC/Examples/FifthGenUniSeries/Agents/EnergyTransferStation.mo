@@ -104,11 +104,11 @@ model EnergyTransferStation
     annotation (Placement(transformation(extent={{280,320},{320,360}}),
         iconTransformation(extent={{280,230},{300,250}})));
   Modelica.Blocks.Interfaces.RealOutput PHea(unit="W")
-    "Electrical power consumed for space heating"
+    "Total power consumed for space heating"
     annotation (Placement(transformation(extent={{280,280},{320,320}}),
         iconTransformation(extent={{280,210},{300,230}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(unit="W")
-    "Electrical power consumed for space cooling"
+    "Total power consumed for space cooling"
     annotation (Placement(transformation(extent={{280,240},{320,280}}),
         iconTransformation(extent={{280,190},{300,210}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
@@ -220,6 +220,7 @@ model EnergyTransferStation
     final m2_flow_nominal=m2HexChi_flow_nominal,
     final dp1_nominal=dp_nominal/2,
     final dp2_nominal=dp_nominal/2,
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final Q_flow_nominal=QCoo_flow_nominal,
     final T_a1_nominal=T1HexChiEnt_nominal,
     final T_a2_nominal=T2HexChiEnt_nominal,
@@ -335,12 +336,13 @@ model EnergyTransferStation
     annotation (Placement(transformation(extent={{-88,-250},{-68,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai4(k=1.1)
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum
-    annotation (Placement(transformation(extent={{220,250},{240,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1
-    annotation (Placement(transformation(extent={{220,290},{240,310}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=1)
+    annotation (Placement(transformation(extent={{230,250},{250,270}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=2)
+    annotation (Placement(transformation(extent={{230,290},{250,310}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumHea(nin=2)
-    annotation (Placement(transformation(extent={{220,330},{240,350}})));
+    "Total power drawn by pumps motors for space heating (ETS included, building excluded)"
+    annotation (Placement(transformation(extent={{190,350},{210,370}})));
   Buildings.Fluid.Sources.Boundary_pT bouHea(
     redeclare final package Medium = Medium,
     nPorts=1)
@@ -351,6 +353,11 @@ model EnergyTransferStation
     nPorts=1)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{-40,-390},{-20,-370}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCoo(nin=2)
+    "Total power drawn by pumps motors for space cooling (ETS included, building excluded)"
+    annotation (Placement(transformation(extent={{190,310},{210,330}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(nin=2)
+    annotation (Placement(transformation(extent={{230,330},{250,350}})));
 protected
   constant Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -363,18 +370,18 @@ protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp_default_check=
     Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
-protected
-  constant Real scaFacLoa = 10 "Scaling factor for load profiles";
-
 initial equation
   assert(abs((cp_default - cp_default_check) / cp_default) < 0.1,
-    "Wrong cp_default value. Check cp_default constant.");
+    "In " + getInstanceName() +
+    ": Wrong cp_default value. Check cp_default constant.");
   assert(QCoo_flow_nominal > 0,
-    "Nominal cooling rate must be strictly positive. Obtained QCoo_flow_nominal = "
-    + String(QCoo_flow_nominal));
+    "In " + getInstanceName() +
+    "Nominal cooling rate must be strictly positive. Obtained QCoo_flow_nominal = " +
+    String(QCoo_flow_nominal));
   assert(QHea_flow_nominal > 0,
-    "Nominal heating rate must be strictly positive. Obtained QHea_flow_nominal = "
-    + String(QHea_flow_nominal));
+    "In " + getInstanceName() +
+    "Nominal heating rate must be strictly positive. Obtained QHea_flow_nominal = " +
+    String(QHea_flow_nominal));
 equation
   connect(pumEva.port_b, heaPum.port_a2) annotation (Line(points={{-90,0},{40,0},
           {40,60},{0,60}}, color={0,127,255}));
@@ -474,19 +481,34 @@ equation
   connect(gai4.y, mCoo_flow) annotation (Line(points={{-118,-280},{220,-280},{220,
           180},{300,180}}, color={0,0,127}));
   connect(mulSum.y, PCoo)
-    annotation (Line(points={{242,260},{300,260}}, color={0,0,127}));
+    annotation (Line(points={{252,260},{300,260}}, color={0,0,127}));
   connect(mulSum1.y, PHea)
-    annotation (Line(points={{242,300},{300,300}}, color={0,0,127}));
-  connect(PPumHea.y, PPum)
-    annotation (Line(points={{242,340},{300,340}}, color={0,0,127}));
-  connect(pumCon.P, PPumHea.u[1]) annotation (Line(points={{-89,129},{180.5,129},
-          {180.5,341},{218,341}}, color={0,0,127}));
-  connect(pumEva.P, PPumHea.u[2]) annotation (Line(points={{-89,9},{-89,10},{180,
-          10},{180,340},{218,340},{218,339}}, color={0,0,127}));
+    annotation (Line(points={{252,300},{300,300}}, color={0,0,127}));
+  connect(pumCon.P, PPumHea.u[1]) annotation (Line(points={{-89,129},{160,129},{
+          160,360},{188,360},{188,361}},
+                                  color={0,0,127}));
+  connect(pumEva.P, PPumHea.u[2]) annotation (Line(points={{-89,9},{-89,20},{160,
+          20},{160,360},{188,360},{188,359}}, color={0,0,127}));
   connect(bouHea.ports[1], volHeaWat.ports[5]) annotation (Line(points={{-20,380},
           {3.2,380},{3.2,420}}, color={0,127,255}));
   connect(bouChi.ports[1], volChiWat.ports[5]) annotation (Line(points={{-20,-380},
           {0,-380},{0,-420},{3.2,-420}}, color={0,127,255}));
+  connect(pum1HexChi.P, PPumCoo.u[1]) annotation (Line(points={{-11,-291},{180,-291},
+          {180,320},{188,320},{188,321}}, color={0,0,127}));
+  connect(pum2CooHex.P, PPumCoo.u[2]) annotation (Line(points={{-89,-331},{-86,-331},
+          {-86,-228},{180,-228},{180,320},{188,320},{188,319}}, color={0,0,127}));
+  connect(PPumHea.y, mulSum1.u[1]) annotation (Line(points={{212,360},{224,360},
+          {224,301},{228,301}}, color={0,0,127}));
+  connect(gai1.y, mulSum1.u[2]) annotation (Line(points={{-118,80},{-100,80},{-100,
+          100},{200,100},{200,300},{228,300},{228,299}}, color={0,0,127}));
+  connect(PPumCoo.y, mulSum.u[1]) annotation (Line(points={{212,320},{218,320},{
+          218,260},{228,260}}, color={0,0,127}));
+  connect(PPumHea.y, mulSum2.u[1]) annotation (Line(points={{212,360},{218,360},
+          {218,341},{228,341}}, color={0,0,127}));
+  connect(PPumCoo.y, mulSum2.u[2]) annotation (Line(points={{212,320},{218,320},
+          {218,339},{228,339}}, color={0,0,127}));
+  connect(mulSum2.y, PPum)
+    annotation (Line(points={{252,340},{300,340}}, color={0,0,127}));
   annotation (
   defaultComponentName="bui",
   Documentation(info="<html>

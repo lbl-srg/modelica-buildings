@@ -35,7 +35,7 @@ model SwitchBoxEnergyTransferStation_bck
       Modelica.Media.Interfaces.PartialMedium annotation (
       __Dymola_choicesAllMatching=true);
   Agents.Controls.ReverseFlowSwitchBox con "Controller for pumps"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Modelica.Blocks.Interfaces.RealInput mFHPDHW "in kg/s"
     annotation (Placement(transformation(extent={{-144,48},{-120,72}}),
         iconTransformation(extent={{-144,48},{-120,72}})));
@@ -83,11 +83,11 @@ equation
   connect(port_b1, splSup1.port_2)
     annotation (Line(points={{-60,100},{-60,70}}, color={0,127,255}));
   connect(mFFC, con.massFlowFC) annotation (Line(points={{-132,40},{-110,40},{
-          -110,-48},{-102,-48}}, color={0,0,127}));
+          -110,-48},{-92,-48}},  color={0,0,127}));
   connect(mFHPDHW, con.massFlowHPDHW) annotation (Line(points={{-132,60},{-108,
-          60},{-108,-40},{-102,-40}}, color={0,0,127}));
+          60},{-108,-40},{-92,-40}},  color={0,0,127}));
   connect(mFHPSH, con.massFlowHPSH) annotation (Line(points={{-132,80},{-106,80},
-          {-106,-32},{-102,-32}}, color={0,0,127}));
+          {-106,-32},{-92,-32}},  color={0,0,127}));
   connect(splSup1.port_1, splSup3.port_2)
     annotation (Line(points={{-60,50},{-60,10}}, color={0,127,255}));
   connect(splSup2.port_2, port_b2)
@@ -107,9 +107,9 @@ equation
   connect(pum2.port_b, splSup2.port_3)
     annotation (Line(points={{20,-50},{20,-60},{50,-60}}, color={0,127,255}));
   connect(con.massFlow, pum1.m_flow_in)
-    annotation (Line(points={{-79,-40},{0,-40},{0,-12}}, color={0,0,127}));
+    annotation (Line(points={{-69,-40},{0,-40},{0,-12}}, color={0,0,127}));
   connect(con.massFlow, pum2.m_flow_in)
-    annotation (Line(points={{-79,-40},{8,-40}}, color={0,0,127}));
+    annotation (Line(points={{-69,-40},{8,-40}}, color={0,0,127}));
   connect(add.y, PPum)
     annotation (Line(points={{109,0},{130,0}}, color={0,0,127}));
   connect(pum1.P, add.u1) annotation (Line(points={{11,-9},{40,-9},{40,20},{80,

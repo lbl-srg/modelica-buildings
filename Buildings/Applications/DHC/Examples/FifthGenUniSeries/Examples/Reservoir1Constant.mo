@@ -27,6 +27,8 @@ equation
 Hidden.AvoidDoubleComputation=true")}),
         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir1Constant.mos"
         "Simulate and plot"),
-    experiment(StopTime=31536000,
-    Tolerance=1e-06, __Dymola_NumberOfIntervals=8760));
+    experiment(
+    StopTime=31536000,
+    Tolerance=1e-06,
+    __Dymola_NumberOfIntervals=8760));
 end Reservoir1Constant;

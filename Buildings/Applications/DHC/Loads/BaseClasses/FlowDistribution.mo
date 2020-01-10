@@ -44,13 +44,14 @@ model FlowDistribution "Model of distribution system"
   Modelica.Blocks.Interfaces.IntegerInput modChaOve if haveVal and disTyp == typ.ChangeOver
     "Operating mode in change-over (1 for heating, -1 for cooling)"
     annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,-80}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,-70})));
+      transformation(
+      extent={{-20,-20},{20,20}},
+      rotation=0,
+      origin={-120,-80}),
+      iconTransformation(
+      extent={{-10,-10},{10,10}},
+      rotation=0,
+      origin={-110,-60})));
   Modelica.Blocks.Interfaces.RealOutput mReq_flow(
     quantity="MassFlowRate")
     "Heating or chilled water flow required to meet the load"
@@ -186,12 +187,13 @@ model FlowDistribution "Model of distribution system"
     quantity="ThermodynamicTemperature",
     displayUnit="degC") if haveVal "Supply temperature set point"
     annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,-120}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,-110})));
+      extent={{-20,-20},{20,20}},
+      rotation=0,
+      origin={-120,-120}),
+      iconTransformation(
+      extent={{-10,-10},{10,10}},
+      rotation=0,
+      origin={-110,-80})));
   Modelica.Blocks.Sources.RealExpression TSupVal(y=TSup)
     "Supply temperature value"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
@@ -235,7 +237,8 @@ model FlowDistribution "Model of distribution system"
     "Supply temperature";
 initial equation
   assert(if haveVal then havePum else true,
-    "The configuration where haveVal is true and havePum is false is not allowed.");
+    "In " + getInstanceName() +
+    ": The configuration where haveVal is true and havePum is false is not allowed.");
 equation
   connect(mulSum.y, mReq_flow)
     annotation (Line(points={{-58,220},{120,220}},color={0,0,127}));
