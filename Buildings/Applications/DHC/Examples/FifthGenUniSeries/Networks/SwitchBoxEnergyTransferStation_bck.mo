@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Networks;
-model SwitchBoxEnergyTransferStation
+model SwitchBoxEnergyTransferStation_bck
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
@@ -35,7 +35,10 @@ model SwitchBoxEnergyTransferStation
       Modelica.Media.Interfaces.PartialMedium annotation (
       __Dymola_choicesAllMatching=true);
   Agents.Controls.ReverseFlowSwitchBox con "Controller for pumps"
-    annotation (Placement(transformation(extent={{-86,-50},{-66,-30}})));
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+  Modelica.Blocks.Interfaces.RealInput mFHPDHW "in kg/s"
+    annotation (Placement(transformation(extent={{-144,48},{-120,72}}),
+        iconTransformation(extent={{-144,48},{-120,72}})));
   Modelica.Blocks.Interfaces.RealInput mFFC "in kg/s"
     annotation (Placement(transformation(extent={{-144,28},{-120,52}}),
         iconTransformation(extent={{-144,28},{-120,52}})));
@@ -76,15 +79,15 @@ model SwitchBoxEnergyTransferStation
     annotation (Placement(transformation(extent={{88,-10},{108,10}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(final unit="W") "Pump electricity consumption"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(k=0)
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 equation
   connect(port_b1, splSup1.port_2)
     annotation (Line(points={{-60,100},{-60,70}}, color={0,127,255}));
   connect(mFFC, con.massFlowFC) annotation (Line(points={{-132,40},{-110,40},{
-          -110,-48},{-88,-48}},  color={0,0,127}));
+          -110,-48},{-102,-48}}, color={0,0,127}));
+  connect(mFHPDHW, con.massFlowHPDHW) annotation (Line(points={{-132,60},{-108,
+          60},{-108,-40},{-102,-40}}, color={0,0,127}));
   connect(mFHPSH, con.massFlowHPSH) annotation (Line(points={{-132,80},{-106,80},
-          {-106,-32},{-88,-32}},  color={0,0,127}));
+          {-106,-32},{-102,-32}}, color={0,0,127}));
   connect(splSup1.port_1, splSup3.port_2)
     annotation (Line(points={{-60,50},{-60,10}}, color={0,127,255}));
   connect(splSup2.port_2, port_b2)
@@ -104,19 +107,17 @@ equation
   connect(pum2.port_b, splSup2.port_3)
     annotation (Line(points={{20,-50},{20,-60},{50,-60}}, color={0,127,255}));
   connect(con.massFlow, pum1.m_flow_in)
-    annotation (Line(points={{-65,-40},{0,-40},{0,-12}}, color={0,0,127}));
+    annotation (Line(points={{-79,-40},{0,-40},{0,-12}}, color={0,0,127}));
   connect(con.massFlow, pum2.m_flow_in)
-    annotation (Line(points={{-65,-40},{8,-40}}, color={0,0,127}));
+    annotation (Line(points={{-79,-40},{8,-40}}, color={0,0,127}));
   connect(add.y, PPum)
     annotation (Line(points={{109,0},{130,0}}, color={0,0,127}));
   connect(pum1.P, add.u1) annotation (Line(points={{11,-9},{40,-9},{40,20},{80,
           20},{80,6},{86,6}}, color={0,0,127}));
   connect(pum2.P, add.u2) annotation (Line(points={{11,-51},{10,-51},{10,-54},{
           40,-54},{40,-20},{80,-20},{80,-6},{86,-6}}, color={0,0,127}));
-  connect(zero.y, con.massFlowHPDHW) annotation (Line(points={{-98,-80},{-94,
-          -80},{-94,-40},{-88,-40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{
             -120,-100},{120,100}})),                             Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{
             120,100}})));
-end SwitchBoxEnergyTransferStation;
+end SwitchBoxEnergyTransferStation_bck;

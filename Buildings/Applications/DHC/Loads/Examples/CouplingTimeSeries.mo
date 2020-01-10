@@ -2,13 +2,6 @@ within Buildings.Applications.DHC.Loads.Examples;
 model CouplingTimeSeries
   "Example illustrating the coupling of a time series building model to a fluid loop"
   extends Modelica.Icons.Example;
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
-    computeWetBulbTemperature=false,
-    filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
-    "Weather data reader"
-    annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1 = Buildings.Media.Water
     "Source side medium";
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.TimeSeriesBuilding bui
@@ -22,7 +15,7 @@ model CouplingTimeSeries
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-30,90})));
+        origin={-50,80})));
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = Medium1,
     p=300000,
@@ -30,11 +23,11 @@ model CouplingTimeSeries
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={110,90})));
+        origin={130,80})));
   Modelica.Blocks.Sources.RealExpression THeaInlVal(y=bui.terUni.T_a1Hea_nominal)
-    annotation (Placement(transformation(extent={{-100,74},{-80,94}})));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Sources.RealExpression mHea_flow(y=bui.disFloHea.mReq_flow)
-    annotation (Placement(transformation(extent={{-100,94},{-80,114}})));
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Fluid.Sources.MassFlowSource_T supCoo(
     use_m_flow_in=true,
     redeclare package Medium = Medium1,
@@ -43,11 +36,11 @@ model CouplingTimeSeries
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-30,10})));
+        origin={-50,20})));
   Modelica.Blocks.Sources.RealExpression TCooInlVal(y=bui.terUni.T_a1Coo_nominal)
-    annotation (Placement(transformation(extent={{-100,-6},{-80,14}})));
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Modelica.Blocks.Sources.RealExpression mCoo_flow(y=bui.disFloCoo.mReq_flow)
-    annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = Medium1,
     p=300000,
@@ -55,28 +48,28 @@ model CouplingTimeSeries
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={110,10})));
+        origin={130,20})));
 equation
-  connect(weaDat.weaBus, bui.weaBus)
-  annotation (Line(
-      points={{40,110},{30,110},{30,60},{30.1,60}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(THeaInlVal.y, supHea.T_in) annotation (Line(points={{-79,84},{-60,84},{-60,94},{-42,94}}, color={0,0,127}));
-  connect(mHea_flow.y, supHea.m_flow_in) annotation (Line(points={{-79,104},{-60,
-          104},{-60,98},{-42,98}}, color={0,0,127}));
-  connect(TCooInlVal.y, supCoo.T_in) annotation (Line(points={{-79,4},{-60,4},{-60,
-          14},{-42,14}}, color={0,0,127}));
-  connect(mCoo_flow.y, supCoo.m_flow_in) annotation (Line(points={{-79,24},{-60,
-          24},{-60,18},{-42,18}}, color={0,0,127}));
+  connect(THeaInlVal.y, supHea.T_in) annotation (Line(points={{-99,80},{-80,80},
+          {-80,84},{-62,84}},                                                                       color={0,0,127}));
+  connect(mHea_flow.y, supHea.m_flow_in) annotation (Line(points={{-99,100},{
+          -80,100},{-80,88},{-62,88}},
+                                   color={0,0,127}));
+  connect(TCooInlVal.y, supCoo.T_in) annotation (Line(points={{-99,20},{-80,20},
+          {-80,24},{-62,24}},
+                         color={0,0,127}));
+  connect(mCoo_flow.y, supCoo.m_flow_in) annotation (Line(points={{-99,40},{-80,
+          40},{-80,28},{-62,28}}, color={0,0,127}));
   connect(supHea.ports[1], bui.ports_a1[1])
-    annotation (Line(points={{-20,90},{4,90},{4,44},{20,44}}, color={0,127,255}));
+    annotation (Line(points={{-40,80},{-20,80},{-20,32},{0,32}},
+                                                              color={0,127,255}));
   connect(supCoo.ports[1], bui.ports_a1[2])
-    annotation (Line(points={{-20,10},{4,10},{4,44},{20,44}}, color={0,127,255}));
+    annotation (Line(points={{-40,20},{-20,20},{-20,32},{0,32}},
+                                                              color={0,127,255}));
   connect(bui.ports_b1[1], sinHea.ports[1])
-    annotation (Line(points={{40,44},{74,44},{74,90},{100,90}}, color={0,127,255}));
+    annotation (Line(points={{60,32},{80,32},{80,80},{120,80}}, color={0,127,255}));
   connect(bui.ports_b1[2], sinCoo.ports[1])
-    annotation (Line(points={{40,44},{74,44},{74,10},{100,10}}, color={0,127,255}));
+    annotation (Line(points={{60,32},{80,32},{80,20},{120,20}}, color={0,127,255}));
   annotation (
   experiment(
       StopTime=604800,

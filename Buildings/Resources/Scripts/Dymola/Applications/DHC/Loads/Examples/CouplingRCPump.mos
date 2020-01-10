@@ -1,8 +1,8 @@
 removePlots(true);
-simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingRCPum",
+simulateModel("Buildings.Applications.DHC.Loads.Examples.CouplingRCPump",
     method="cvode", tolerance=1e-6, numberOfIntervals=500,
     stopTime=800000.0,
-    resultFile="CouplingRCPum");
+    resultFile="CouplingRCPump");
 createPlot(
     id=1,
     position={10, 20, 670, 900},
@@ -66,5 +66,5 @@ createPlot(
     grid=true,
     subPlot=3
 );
-plotExpression(apply(-1*CouplingRCPum[end].bui.terUni.QCoo_flow_nominal), false, "-1*bui.terUni.QCoo_flow_nominal", 3);
+plotExpression(apply(-1*CouplingRCPump[end].bui.terUni.QCoo_flow_nominal), false, "-1*bui.terUni.QCoo_flow_nominal", 3);
 

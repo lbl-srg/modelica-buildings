@@ -1,10 +1,10 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model GeojsonSpawn1Z6Building
+model GeojsonSpawn1Z6BuildingPump
   "Spawn building model based on Urbanopt GeoJSON export"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     final haveEleHea=false,
     final haveEleCoo=false,
-    final havePum=false,
+    final havePum=true,
     final haveWeaBus=false,
     nPorts1=2);
   package Medium2 = Buildings.Media.Air "Medium model";
@@ -71,6 +71,7 @@ model GeojsonSpawn1Z6Building
     annotation (Placement(transformation(extent={{30,198},{52,218}})));
   Buildings.Applications.DHC.Loads.BaseClasses.FlowDistribution disFloHea(
     m_flow_nominal=sum(terUni.m1Hea_flow_nominal),
+    havePum=true,
     dp_nominal=100000,
     nUni=nZon)
     annotation (Placement(transformation(extent={{-238,-190},{-218,-170}})));
@@ -78,11 +79,12 @@ model GeojsonSpawn1Z6Building
     m_flow_nominal=sum(terUni.m1Coo_flow_nominal),
     disTyp=Buildings.Applications.DHC.Loads.Types.DistributionType.ChilledWater,
     nUni=nZon,
+    havePum=true,
     dp_nominal=100000)
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=6)
-    annotation (Placement(transformation(extent={{220,110},{240,130}})));
+    annotation (Placement(transformation(extent={{260,110},{280,130}})));
   Buildings.Applications.DHC.Loads.Examples.BaseClasses.Terminal4PipesFluidPorts
     terUni[nZon](
     QHea_flow_nominal={50000,10000,10000,10000,10000,10000},
@@ -97,9 +99,11 @@ model GeojsonSpawn1Z6Building
     each m2Coo_flow_nominal=5)
     annotation (Placement(transformation(extent={{-86,-2},{-62,22}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=nZon)
-    annotation (Placement(transformation(extent={{220,270},{240,290}})));
+    annotation (Placement(transformation(extent={{260,270},{280,290}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(nin=nZon)
-    annotation (Placement(transformation(extent={{220,230},{240,250}})));
+    annotation (Placement(transformation(extent={{260,230},{280,250}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(nin=2)
+    annotation (Placement(transformation(extent={{260,70},{280,90}})));
 equation
   connect(maxTSet.y,from_degC2.u)
     annotation (Line(points={{-278,220},{-262,220}}, color={0,0,127}));
@@ -175,21 +179,28 @@ equation
   connect(terUni.port_b1Coo, disFloCoo.ports_a1) annotation (Line(points={{-62,2},
           {-38,2},{-38,-214},{-160,-214}}, color={0,127,255}));
   connect(mulSum1.y, QHea_flow)
-    annotation (Line(points={{242,280},{320,280}}, color={0,0,127}));
+    annotation (Line(points={{282,280},{320,280}}, color={0,0,127}));
   connect(mulSum2.y, QCoo_flow)
-    annotation (Line(points={{242,240},{320,240}}, color={0,0,127}));
+    annotation (Line(points={{282,240},{320,240}}, color={0,0,127}));
   connect(terUni.QActHea_flow, mulSum1.u[1:6]) annotation (Line(points={{-61,19},
-          {79.5,19},{79.5,280},{218,280}},         color={0,0,127}));
-  connect(terUni.QActCoo_flow, mulSum2.u) annotation (Line(points={{-61,17},{78.5,
-          17},{78.5,240},{218,240}}, color={0,0,127}));
+          {79.5,19},{79.5,280},{258,280}},         color={0,0,127}));
+  connect(terUni.QActCoo_flow, mulSum2.u) annotation (Line(points={{-61,17},{
+          78.5,17},{78.5,240},{258,240}},
+                                     color={0,0,127}));
   connect(terUni.m1ReqCoo_flow, disFloCoo.m1Req_flow) annotation (Line(points={{-61,5},
           {-61,-110.5},{-181,-110.5},{-181,-224}},        color={0,0,127}));
   connect(terUni.m1ReqHea_flow, disFloHea.m1Req_flow) annotation (Line(points={{-61,7},
           {-61,-88.5},{-239,-88.5},{-239,-184}},        color={0,0,127}));
   connect(terUni.PFan, mulSum.u[1:6]) annotation (Line(points={{-61,11},{200.5,
-          11},{200.5,118.333},{218,118.333}}, color={0,0,127}));
-  connect(mulSum.y, PFan) annotation (Line(points={{242,120},{278,120},{278,120},
-          {320,120}}, color={0,0,127}));
+          11},{200.5,118.333},{258,118.333}}, color={0,0,127}));
+  connect(mulSum.y, PFan) annotation (Line(points={{282,120},{320,120}},
+                      color={0,0,127}));
+  connect(PPum, mulSum3.y)
+    annotation (Line(points={{320,80},{282,80}}, color={0,0,127}));
+  connect(disFloHea.PPum, mulSum3.u[1]) annotation (Line(points={{-217,-188},{
+          220.5,-188},{220.5,81},{258,81}}, color={0,0,127}));
+  connect(disFloCoo.PPum, mulSum3.u[2]) annotation (Line(points={{-159,-228},{
+          224,-228},{224,79},{258,79}}, color={0,0,127}));
   annotation (
   Documentation(info="
   <html>
@@ -200,4 +211,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end GeojsonSpawn1Z6Building;
+end GeojsonSpawn1Z6BuildingPump;

@@ -7,6 +7,7 @@ model TimeSeriesBuilding
     havePum=false,
     haveEleHea=false,
     haveEleCoo=false,
+    haveWeaBus=false,
     nPorts1=2);
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,

@@ -4,12 +4,13 @@ model Reservoir1Constant
   extends Modelica.Icons.Example;
   extends
     Buildings.Applications.DHC.Examples.FifthGenUniSeries.Examples.BaseClasses.RN_BaseModel(
-    datDes(
-      mDisPip_flow_nominal=95,
-      RDisPip=250,
-      epsPla=0.935));
+      datDes(
+        mDisPip_flow_nominal=95,
+        RDisPip=250,
+        epsPla=0.935));
   Modelica.Blocks.Sources.Constant massFlowMainPump(
-    k(final unit="kg/s")=datDes.mDisPip_flow_nominal) "Pump mass flow rate"
+    k(final unit="kg/s")=datDes.mDisPip_flow_nominal)
+    "Pump mass flow rate"
     annotation (Placement(transformation(extent={{-20,-380},{0,-360}})));
 equation
   connect(massFlowMainPump.y, pumpMainRLTN.m_flow_in) annotation (Line(points={{1,-370},
@@ -17,7 +18,8 @@ equation
   connect(pumpBHS.m_flow_in, massFlowMainPump.y)
     annotation (Line(points={{50,-428},{50,-370},{1,-370}}, color={0,0,127}));
   annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-480,-480},{380,
+            360}})),
         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir1Constant.mos"
         "Simulate and plot"),
     experiment(StopTime=31536000,

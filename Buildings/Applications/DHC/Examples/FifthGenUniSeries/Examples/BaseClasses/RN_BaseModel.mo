@@ -1,37 +1,37 @@
 ﻿within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Examples.BaseClasses;
 partial model RN_BaseModel
   package MediumWater = Buildings.Media.Water "Medium model";
-
-  parameter DesignValues datDes "Design values"
+  inner parameter DesignDataDHC datDes "Design values"
     annotation (Placement(transformation(extent={{-240,222},{-220,242}})));
-
-  Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents.EnergyTransferStation proHos(redeclare
-      package Medium =
-               MediumWater, filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissHospital_20190916.mos"))
+  Agents.EnergyTransferStation_bck proHos(
+    redeclare package Medium = MediumWater,
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissHospital_20190916.mos"))
     "Prosumer hospital"
     annotation (Placement(transformation(extent={{180,-54},{220,-14}})));
-  Agents.BoreField borFie(redeclare package Medium = MediumWater) annotation (
+  Agents.BoreField borFie(redeclare package Medium = MediumWater)
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-2,-440})));
-  Fluid.Sensors.TemperatureTwoPort          Tml1(redeclare package Medium =
-        MediumWater,
+  Buildings.Fluid.Sensors.TemperatureTwoPort Tml1(
+    redeclare package Medium = MediumWater,
     allowFlowReversal=false,
-                     m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0)           annotation (Placement(transformation(
+    m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)
+    annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-80,-300})));
-  Modelica.Blocks.Sources.RealExpression heatFromToBHF(y=4184*(Tml1.T - Tml5.T)
-        *massFlowRateInRLTN.m_flow)
-                                   "in W"
+  Modelica.Blocks.Sources.RealExpression heatFromToBHF(
+    y=4184*(Tml1.T - Tml5.T) *massFlowRateInRLTN.m_flow)
+    "in W"
     annotation (Placement(transformation(extent={{-60,-320},{-40,-300}})));
-  Pump_m_flow                                  pumpMainRLTN(
+  Pump_m_flow pumpMainRLTN(
     redeclare package Medium = MediumWater,
     m_flow_nominal=datDes.mDisPip_flow_nominal)
-                            "Pump"
+    "Pump"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-370})));
@@ -39,7 +39,9 @@ partial model RN_BaseModel
     redeclare package Medium = MediumWater,
     m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    from_dp=false)
+    "Flow splitter"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,8})));
@@ -47,40 +49,49 @@ partial model RN_BaseModel
     redeclare package Medium = MediumWater,
     m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    from_dp=false) "Flow splitter" annotation (Placement(transformation(
+    from_dp=false)
+    "Flow splitter"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-72})));
-  Fluid.Sensors.TemperatureTwoPort          tempBeforeProsumer3(redeclare
-      package Medium = MediumWater,
-    allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0)                          annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort tempBeforeProsumer3(
+    redeclare package Medium = MediumWater,
+    allowFlowReversal=false,
+    m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)
+    annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={120,-32})));
-  Fluid.Sensors.TemperatureTwoPort          tempAfterProsumer3(redeclare
-      package Medium = MediumWater,
-    allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0)                          annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort tempAfterProsumer3(redeclare package
+            Medium = MediumWater,
+    allowFlowReversal=false,
+    m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)
+    annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=180,
         origin={120,-72})));
   Buildings.Fluid.Sensors.MassFlowRate massFlowRateThroughProsumer3(
-      redeclare package Medium = MediumWater, allowFlowReversal=true)
+    redeclare package Medium = MediumWater,
+    allowFlowReversal=true)
     annotation (Placement(transformation(
         extent={{6,-6},{-6,6}},
         rotation=0,
         origin={100,-72})));
-  Buildings.Fluid.Sensors.MassFlowRate massFlowRateInRLTN(redeclare package
-      Medium = MediumWater, allowFlowReversal=true) annotation (Placement(
+  Buildings.Fluid.Sensors.MassFlowRate massFlowRateInRLTN(
+    redeclare package Medium = MediumWater,
+    allowFlowReversal=true)
+    annotation (Placement(
         transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={40,238})));
-  Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents.EnergyTransferStation proApa(redeclare
-      package Medium =
-               MediumWater, filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissResidential_20190916.mos"))
+  Agents.EnergyTransferStation_bck proApa(
+    redeclare package Medium = MediumWater,
+    filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissResidential_20190916.mos"))
     "Prosumer apartment"
     annotation (Placement(transformation(extent={{180,158},{220,198}})));
   Networks.TJunction splSup5(
@@ -99,44 +110,52 @@ partial model RN_BaseModel
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,138})));
-  Fluid.Sensors.TemperatureTwoPort          tempBeforeProsumer2(redeclare
-      package Medium = MediumWater,
-    allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0)                          annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort tempBeforeProsumer2(
+    redeclare package Medium = MediumWater,
+    allowFlowReversal=false,
+    m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)
+    annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=180,
         origin={120,178})));
-  Fluid.Sensors.TemperatureTwoPort          tempAfterProsumer2(redeclare
-      package Medium = MediumWater,
-    allowFlowReversal=false,        m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0)                          annotation (Placement(transformation(
+  Fluid.Sensors.TemperatureTwoPort tempAfterProsumer2(
+    redeclare package Medium = MediumWater,
+    allowFlowReversal=false,
+    m_flow_nominal=datDes.mDisPip_flow_nominal,
+    tau=0)
+    annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=180,
         origin={120,138})));
   Buildings.Fluid.Sensors.MassFlowRate massFlowRateThroughProsumer2(
-      redeclare package Medium = MediumWater, allowFlowReversal=true)
+    redeclare package Medium = MediumWater,
+    allowFlowReversal=true)
     annotation (Placement(transformation(
         extent={{6,6},{-6,-6}},
         rotation=0,
         origin={100,138})));
   Buildings.Fluid.Sensors.MassFlowRate massFlowRateBypassSFApartment(
-      redeclare package Medium = MediumWater, allowFlowReversal=true)
+    redeclare package Medium = MediumWater,
+    allowFlowReversal=true)
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={80,178})));
-  Buildings.Fluid.Sensors.MassFlowRate massFlowRateBypassSFRetail(redeclare
-      package Medium = MediumWater, allowFlowReversal=true) annotation (
+  Buildings.Fluid.Sensors.MassFlowRate massFlowRateBypassSFRetail(
+    redeclare package Medium = MediumWater,
+    allowFlowReversal=true)
+    annotation (
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={80,-32})));
-  Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents.EnergyTransferStation proOff(redeclare
-      package Medium =
-               MediumWater, filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Examples/DistrictReservoirNetworks/Examples/SwissOffice_20190916.mos"))
+  Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents.EnergyTransferStation proOff(
+    redeclare package Medium = MediumWater,
+    QCoo_flow_nominal=sum(spaBui1.terUni.QCoo_flow_nominal),
+    QHea_flow_nominal=sum(spaBui1.terUni.QHea_flow_nominal))
     "Prosumer office"
-    annotation (Placement(transformation(extent={{-180,-40},{-220,0}})));
+    annotation (Placement(transformation(extent={{-360,-40},{-320,0}})));
   Networks.TJunction splSup7(
     redeclare package Medium = MediumWater,
     m_flow_nominal = datDes.mDisPip_flow_nominal*{1,1,1},
@@ -340,14 +359,16 @@ partial model RN_BaseModel
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-150,0})));
-  Networks.SwitchBoxEnergyTransferStation switchBoxProsumerWithPumps1(final
+  Networks.SwitchBoxEnergyTransferStation_bck
+                                          switchBoxProsumerWithPumps1(final
       m_flow_nominal=datDes.mDisPip_flow_nominal,
       redeclare package MediumInSwitch = MediumWater) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={150,158})));
-  Networks.SwitchBoxEnergyTransferStation switchBoxProsumerWithPumps2(final
+  Networks.SwitchBoxEnergyTransferStation_bck
+                                          switchBoxProsumerWithPumps2(final
       m_flow_nominal=datDes.mDisPip_flow_nominal,
       redeclare package MediumInSwitch = MediumWater) annotation (Placement(
         transformation(
@@ -359,7 +380,7 @@ partial model RN_BaseModel
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=0,
-        origin={-200,32})));
+        origin={-184,4})));
   Buildings.Fluid.Sensors.MassFlowRate massFlowRateThroughProsumer2AfterSB(
       redeclare package Medium = MediumWater, allowFlowReversal=true)
     annotation (Placement(transformation(
@@ -495,6 +516,13 @@ partial model RN_BaseModel
   Modelica.Blocks.Math.MultiSum EPumTot(nu=3, y(unit="J", displayUnit="kWh"))
     "Total electrical energy for pumps"
     annotation (Placement(transformation(extent={{284,302},{296,314}})));
+  Loads.Examples.BaseClasses.GeojsonSpawn1Z6BuildingPump spaBui1(redeclare
+      package Medium1 = MediumWater, nPorts1=2)
+    annotation (Placement(transformation(extent={{-360,60},{-340,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=proOff.THeaWatSup_nominal)
+    annotation (Placement(transformation(extent={{-440,-10},{-420,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=proOff.TChiWatSup_nominal)
+    annotation (Placement(transformation(extent={{-440,-50},{-420,-30}})));
 protected
   constant Real scaFacLoa = 10 "Scaling factor for load profiles that are read by the model";
 equation
@@ -643,21 +671,19 @@ equation
     annotation (Line(points={{-126,20},{-134,20},{-134,5},{-140,5}},
         color={0,127,255}));
   connect(proOff.port_a, switchBoxProsumerWithPumps.port_b1) annotation (Line(
-        points={{-180,-20},{-170,-20},{-170,-5},{-160,-5}}, color={0,127,255}));
-  connect(proOff.m_flow_HPSH, switchBoxProsumerWithPumps.mFHPSH) annotation (
-      Line(points={{-220.286,-30},{-224,-30},{-224,-50},{-158,-50},{-158,-11}},
+        points={{-360,-20},{-366,-20},{-366,-48},{-170,-48},{-170,-5},{-160,-5}},
+                                                            color={0,127,255}));
+  connect(proOff.mHea_flow, switchBoxProsumerWithPumps.mFHPSH) annotation (Line(
+        points={{-319.286,-10},{-224,-10},{-224,-50},{-158,-50},{-158,-11}},
         color={0,0,127}));
-  connect(proOff.m_flow_HPDHW, switchBoxProsumerWithPumps.mFHPDHW) annotation (
-      Line(points={{-220.286,-34.2857},{-226,-34.2857},{-226,-52},{-156,-52},{
-          -156,-11}}, color={0,0,127}));
-  connect(proOff.m_flow_FC, switchBoxProsumerWithPumps.mFFC) annotation (Line(
-        points={{-220.286,-38.5714},{-228,-38.5714},{-228,-54},{-154,-54},{-154,
+  connect(proOff.mCoo_flow, switchBoxProsumerWithPumps.mFFC) annotation (Line(
+        points={{-319.286,-11.4286},{-228,-11.4286},{-228,-54},{-154,-54},{-154,
           -11}}, color={0,0,127}));
   connect(massFlowRateThroughProsumer1AfterSB.port_b,
-    switchBoxProsumerWithPumps.port_a2) annotation (Line(points={{-194,32},{-170,
-          32},{-170,5},{-159.9,5}},            color={0,127,255}));
+    switchBoxProsumerWithPumps.port_a2) annotation (Line(points={{-178,4},{-170,
+          4},{-170,5},{-159.9,5}},             color={0,127,255}));
   connect(massFlowRateThroughProsumer1AfterSB.port_a, proOff.port_b)
-    annotation (Line(points={{-206,32},{-240,32},{-240,-20},{-219.857,-20}},
+    annotation (Line(points={{-190,4},{-240,4},{-240,-20},{-320.143,-20}},
         color={0,127,255}));
   connect(massFlowRateThroughProsumer2AfterSB.port_a, proApa.port_b)
     annotation (Line(points={{206,138},{240,138},{240,178},{219.857,178}},
@@ -693,14 +719,16 @@ equation
   connect(pumpPrimarySidePlant.P, EPumPla.u[2]) annotation (Line(points={{-131,-199},
           {-131,-174},{-164,-174},{-164,-154.1},{-154,-154.1}},
                                                          color={0,0,127}));
-  connect(proOff.PPum, EPumPro.u[1]) annotation (Line(points={{-220.714,8.57143},
-          {-264,8.57143},{-264,291.5},{246,291.5}}, color={0,0,127}));
+  connect(proOff.PPum, EPumPro.u[1]) annotation (Line(points={{-319.286,
+          -2.85714},{-264,-2.85714},{-264,291.5},{246,291.5}},
+                                                    color={0,0,127}));
   connect(proApa.PPum, EPumPro.u[2]) annotation (Line(points={{220.714,206.571},
           {234,206.571},{234,290.1},{246,290.1}}, color={0,0,127}));
   connect(proHos.PPum, EPumPro.u[3]) annotation (Line(points={{220.714,-5.42857},
           {236,-5.42857},{236,288.7},{246,288.7}}, color={0,0,127}));
-  connect(proOff.PCom, EHeaPum.u[1]) annotation (Line(points={{-220.714,11.4286},
-          {-260,11.4286},{-260,270.8},{246,270.8}}, color={0,0,127}));
+  connect(proOff.PCom, EHeaPum.u[1]) annotation (Line(points={{-319.286,
+          -1.42857},{-260,-1.42857},{-260,270.8},{246,270.8}},
+                                                    color={0,0,127}));
   connect(proApa.PCom, EHeaPum.u[2]) annotation (Line(points={{220.714,209.429},
           {230,209.429},{230,210},{238,210},{238,268},{246,268}}, color={0,0,
           127}));
@@ -781,8 +809,27 @@ equation
           284,305.2}}, color={0,0,127}));
   connect(EPumTot.y, EEleTot.u[2]) annotation (Line(points={{297.02,308},{300,
           308},{300,294},{276,294},{276,277.9},{284,277.9}}, color={0,0,127}));
+  connect(proOff.port_bHeaWat, spaBui1.ports_a1[1]) annotation (Line(points={{-320,
+          -28.5714},{-306,-28.5714},{-306,-54},{-394,-54},{-394,50},{-380,50}},
+                                                            color={0,127,255}));
+  connect(spaBui1.ports_b1[1], proOff.port_aHeaWat) annotation (Line(points={{-320,50},
+          {-300,50},{-300,28},{-376,28},{-376,-28},{-368,-28},{-368,-28.5714},{
+          -360,-28.5714}},
+        color={0,127,255}));
+  connect(proOff.port_bChi, spaBui1.ports_a1[2]) annotation (Line(points={{-320,
+          -37.2857},{-318,-37.2857},{-318,-38},{-300,-38},{-300,-60},{-400,-60},
+          {-400,54},{-380,54}},                             color={0,127,255}));
+  connect(spaBui1.ports_b1[2], proOff.port_aChi) annotation (Line(points={{-320,54},
+          {-296,54},{-296,20},{-380,20},{-380,-38},{-370,-38},{-370,-37.1429},{
+          -360,-37.1429}},
+        color={0,127,255}));
+  connect(con.y, proOff.TSetHeaWat) annotation (Line(points={{-418,0},{-408,0},
+          {-408,-1.28571},{-360.714,-1.28571}}, color={0,0,127}));
+  connect(con1.y, proOff.TSetChiWat) annotation (Line(points={{-418,-40},{-408,
+          -40},{-408,-7.28571},{-360.714,-7.28571}}, color={0,0,127}));
   annotation (Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-320,-480},{380,360}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-460,-520},{380,
+            360}})),
     experiment(StopTime=31536000, __Dymola_NumberOfIntervals=8760),
     Icon(coordinateSystem(extent={{-320,-480},{380,360}})));
 end RN_BaseModel;

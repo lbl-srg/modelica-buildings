@@ -1,8 +1,9 @@
 within Buildings.Applications.DHC.Loads.Examples.BaseClasses;
-model RCBuildingPum "Building model of type RC one element"
+model RCBuildingPump "Building model of type RC one element"
   extends Buildings.Applications.DHC.Loads.BaseClasses.PartialBuilding(
     haveEleHea=false,
     haveEleCoo=false,
+    haveWeaBus=true,
     nPorts1=2);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
@@ -355,4 +356,4 @@ equation
   </html>"),
   Diagram(coordinateSystem(extent={{-300,-300},{300,300}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
-end RCBuildingPum;
+end RCBuildingPump;

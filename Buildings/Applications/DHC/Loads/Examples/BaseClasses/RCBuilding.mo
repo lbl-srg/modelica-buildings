@@ -4,6 +4,7 @@ model RCBuilding "Building model of type RC one element"
     havePum=false,
     haveEleHea=false,
     haveEleCoo=false,
+    haveWeaBus=true,
     nPorts1=2);
   package Medium2 = Buildings.Media.Air
     "Load side medium";
