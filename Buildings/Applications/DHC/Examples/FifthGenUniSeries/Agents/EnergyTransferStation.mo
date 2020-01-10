@@ -1,6 +1,6 @@
 within Buildings.Applications.DHC.Examples.FifthGenUniSeries.Agents;
 model EnergyTransferStation
-  "Substation for heating, free cooling and domestic hot water with load as a time series. Instead of a chiller FC HEX is implemented. A new simple FC HEX used. With new contolling strategz"
+  "Model of a substation for heating hot water and chilled water production"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium
     "Medium model for water"
@@ -513,7 +513,7 @@ equation
   defaultComponentName="bui",
   Documentation(info="<html>
 <p>
-Model for a substation with space heating, space cooling and domestic hot water.
+Model for a substation with space heating and space cooling.
 </p>
 <p>
 The model takes as parameters

@@ -1,5 +1,5 @@
 within Buildings.Applications.DHC.Loads.BaseClasses;
-model FlowDistribution "Model of distribution system"
+model FlowDistribution "Model of hydraulic distribution system"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium=Buildings.Media.Water,
     final m_flow_small=1E-4*m_flow_nominal,
