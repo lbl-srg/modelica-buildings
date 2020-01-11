@@ -18,15 +18,15 @@ model MerkelEnergyPlus
   // Cooling tower parameters
   parameter Modelica.SIunits.PressureDifference dp_nominal = 6000
     "Nominal pressure difference of cooling tower";
-  parameter Modelica.SIunits.VolumeFlowRate vAir_flow_nominal = 0.56054
+  parameter Modelica.SIunits.VolumeFlowRate VAir_flow_nominal = 0.56054
     "Nominal volumetric flow rate of air (medium 1)";
-  parameter Modelica.SIunits.VolumeFlowRate vWat_flow_nominal = 0.00109181
+  parameter Modelica.SIunits.VolumeFlowRate VWat_flow_nominal = 0.00109181
     "Nominal volumetric flow rate of water (medium 2)";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=
-    vAir_flow_nominal * denAir
+    VAir_flow_nominal * denAir
     "Nominal mass flow rate of air (medium 1)";
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=
-    vWat_flow_nominal * denWat
+    VWat_flow_nominal * denWat
     "Nominal mass flow rate of water (medium 2)";
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 18.85+273.15
     "Nominal outdoor wetbulb temperature";
@@ -34,7 +34,7 @@ model MerkelEnergyPlus
     "Nominal water inlet temperature";
   parameter Modelica.SIunits.Temperature TWatOut_initial = 33.019+273.15
     "Nominal water inlet temperature";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20286.37455
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = -20286.37455
     "Nominal heat transfer, positive";
   parameter Modelica.SIunits.ThermalConductance UA_nominal_EP = 2011.28668
     "Nominal heat transfer, positive";
@@ -57,23 +57,21 @@ model MerkelEnergyPlus
     "Reader for \"CoolingTower_VariableSpeed_Merkel.idf\" energy plus example results"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
-  Merkel tow(
+  Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
     redeclare package Medium = MediumWat,
     dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=TWatOut_initial,
-    m1_flow_nominal=mAir_flow_nominal,
-    m2_flow_nominal=mWat_flow_nominal,
+    mAir_flow_nominal=mAir_flow_nominal,
+    mWat_flow_nominal=mWat_flow_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
     Q_flow_nominal=Q_flow_nominal,
     PFan_nominal=PFan_nominal,
-    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     yMin=0.1,
     fraFreCon=0.1,
     fanRelPow(r_V=r_VEnePlu, r_P=r_PEnePlu),
-    UACor(FRAirMin=0.2))
-    "Merkel-theory based cooling tower"
+    UACor(FRAirMin=0.2)) "Merkel-theory based cooling tower"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Sources.MassFlowSource_T souWat(

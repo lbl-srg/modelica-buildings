@@ -3,14 +3,13 @@ model Merkel "Test model for cooling tower using the Merkel theory"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTower(
     redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
-      m2_flow_nominal=mWat_flow_nominal,
       TAirInWB_nominal=273.15 + 25.55,
       TWatIn_nominal=273.15 + 35,
-      configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
       PFan_nominal=4800,
-      Q_flow_nominal=mWat_flow_nominal*4180*5.56,
-      m1_flow_nominal=mAir_flow_nominal,
-      show_T=true),
+      Q_flow_nominal=mWat_flow_nominal*4180*(-5.56),
+      show_T=true,
+      mAir_flow_nominal=mAir_flow_nominal,
+      mWat_flow_nominal=mWat_flow_nominal),
     weaDat(final computeWetBulbTemperature=true));
 
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 0.8
