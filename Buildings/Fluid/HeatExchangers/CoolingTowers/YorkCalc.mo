@@ -15,20 +15,34 @@ model YorkCalc
     "Design range temperature (water in - water out)"
       annotation (Dialog(group="Nominal condition"));
   parameter Real fraPFan_nominal(unit="W/(kg/s)") = 275/0.15
-    "Fan power divided by water mass flow rate at design condition";
+    "Fan power divided by water mass flow rate at design condition"
+    annotation(Dialog(group="Fan"));
   parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
-    "Fan power";
+    "Fan power"
+    annotation(Dialog(group="Fan"));
 
-  parameter cha.fan fanRelPow(
+  replaceable parameter cha.fan fanRelPow(
        r_V = {0, 0.1,   0.3,   0.6,   1},
        r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
+    constrainedby cha.fan
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{60,60},{80,80}})),
+    Dialog(group="Fan"));
 
   parameter Real yMin(min=0.01, max=1) = 0.3
-    "Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)";
+    "Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)"
+    annotation(Dialog(group="Fan"));
+
   parameter Real fraFreCon(min=0, max=1) = 0.125
     "Fraction of tower capacity in free convection regime";
+
+  Modelica.Blocks.Interfaces.RealOutput PFan(
+    final quantity="Power", final unit="W")
+    "Electric power consumed by fan"
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),
+        iconTransformation(extent={{100,70},{120,90}})));
 
   Modelica.Blocks.Interfaces.RealInput TAir(
     min=0,
@@ -50,7 +64,6 @@ model YorkCalc
     "Ratio actual over design water mass flow ratio";
   Modelica.SIunits.MassFraction FRAir
     "Ratio actual over design air mass flow ratio";
-  Modelica.SIunits.Power PFan "Fan power";
 
 protected
   package Water =  Buildings.Media.Water "Medium package for water";
@@ -190,13 +203,61 @@ equation
           lineColor={0,0,127},
           textString="TWB"),
         Text(
-          extent={{-44,6},{68,-114}},
+          extent={{-50,4},{42,-110}},
           lineColor={255,255,255},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="York"),
         Rectangle(
           extent={{-100,81},{-70,78}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,-58},{102,-62}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,-60},{82,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{70,-58},{104,-96}},
+          lineColor={0,0,127},
+          textString="TLvg"),
+        Rectangle(
+          extent={{70,56},{82,52}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,54},{82,80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{64,114},{98,76}},
+          lineColor={0,0,127},
+          textString="PFan"),
+        Ellipse(
+          extent={{0,62},{54,50}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-54,62},{0,50}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,82},{100,78}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
