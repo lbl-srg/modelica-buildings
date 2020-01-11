@@ -15,18 +15,18 @@ model Merkel "Cooling tower model based on Merkel's theory"
     "Nominal mass flow rate of water"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.TemperatureDifference TApp_nominal(
-    displayUnit="K") = 3.89
-    "Design approach temperature"
-    annotation (Dialog(group="Nominal condition"));
   parameter  Modelica.SIunits.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter  Modelica.SIunits.Temperature TWatIn_nominal
     "Nominal water inlet temperature"
     annotation (Dialog(group="Nominal condition"));
+  parameter  Modelica.SIunits.Temperature TWatOut_nominal
+    "Nominal water outlet temperature"
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)
+  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=
+    -mWat_flow_nominal*cpWat_nominal*(TWatIn_nominal -  TWatOut_nominal)
     "Nominal heat transfer, (negative)"
     annotation (Dialog(group="Nominal condition"));
 
@@ -162,8 +162,6 @@ protected
 
   parameter  Modelica.SIunits.Temperature TAirOutWB_nominal(fixed=false)
     "Nominal leaving air wetbulb temperature";
-  parameter  Modelica.SIunits.Temperature TWatOut_nominal(fixed=false)
-    "Nominal water outlet temperature";
 
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
@@ -188,7 +186,7 @@ initial equation
 
   // Heat transferred from air to water at nominal condition
   Q_flow_nominal =mAir_flow_nominal*cpe_nominal*(TAirInWB_nominal - TAirOutWB_nominal);
-  Q_flow_nominal =-mWat_flow_nominal*cpWat_nominal*(TWatIn_nominal -  TWatOut_nominal);
+  //Q_flow_nominal =-mWat_flow_nominal*cpWat_nominal*(TWatIn_nominal -  TWatOut_nominal);
 
   CAir_flow_nominal = mAir_flow_nominal*cpe_nominal;
   CWat_flow_nominal = mWat_flow_nominal*cpWat_nominal;
@@ -454,6 +452,10 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 10, 2020, by Michael Wetter:<br/>
+Revised model, changed parameters to make model easier to ue with design data.
+</li>
 <li>
 October 22, 2019, by Yangyang Fu:<br/>
 First implementation.

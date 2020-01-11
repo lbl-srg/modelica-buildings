@@ -5,8 +5,8 @@ model Merkel "Test model for cooling tower using the Merkel theory"
     redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
       TAirInWB_nominal=273.15 + 25.55,
       TWatIn_nominal=273.15 + 35,
+      TWatOut_nominal=273.15 + 35 - 5.56,
       PFan_nominal=4800,
-      Q_flow_nominal=mWat_flow_nominal*4180*(-5.56),
       show_T=true,
       mAir_flow_nominal=mAir_flow_nominal,
       mWat_flow_nominal=mWat_flow_nominal),

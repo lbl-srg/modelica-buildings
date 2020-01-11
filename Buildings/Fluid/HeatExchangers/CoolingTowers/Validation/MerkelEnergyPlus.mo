@@ -66,7 +66,7 @@ model MerkelEnergyPlus
     mWat_flow_nominal=mWat_flow_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
-    Q_flow_nominal=Q_flow_nominal,
+    TWatOut_nominal=TWatIn_nominal+Q_flow_nominal/(mWat_flow_nominal*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq),
     PFan_nominal=PFan_nominal,
     yMin=0.1,
     fraFreCon=0.1,
