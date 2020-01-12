@@ -8,11 +8,15 @@ model Merkel "Cooling tower model based on Merkel's theory"
   import cha =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
+  final parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=
+    mWat_flow_nominal/ratWatAir_nominal
     "Nominal mass flow rate of air"
     annotation (Dialog(group="Fan"));
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
     "Nominal mass flow rate of water"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Real ratWatAir_nominal(min=0, unit="1") = 1.2
+    "Water-to-air mass flow rate ratio at design condition"
     annotation (Dialog(group="Nominal condition"));
 
   parameter  Modelica.SIunits.Temperature TAirInWB_nominal

@@ -28,6 +28,8 @@ model MerkelEnergyPlus
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=
     VWat_flow_nominal * denWat
     "Nominal mass flow rate of water (medium 2)";
+  parameter Real ratWatAir_nominal = mWat_flow_nominal/mAir_flow_nominal
+    "Nominal water-to-air ratio";
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 18.85+273.15
     "Nominal outdoor wetbulb temperature";
   parameter Modelica.SIunits.Temperature TWatIn_nominal = 34.16+273.15
@@ -64,6 +66,7 @@ model MerkelEnergyPlus
     T_start=TWatOut_initial,
     mAir_flow_nominal=mAir_flow_nominal,
     mWat_flow_nominal=mWat_flow_nominal,
+    ratWatAir_nominal=ratWatAir_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
     TWatOut_nominal=TWatIn_nominal+Q_flow_nominal/(mWat_flow_nominal*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq),
