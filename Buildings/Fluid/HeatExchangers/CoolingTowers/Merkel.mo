@@ -518,12 +518,24 @@ where
 <i>UA<sub>e</sub></i> and <i>UA<sub>design</sub></i> are the equivalent and design 
 overall heat transfer coefficent-area products, respectively.
 The factors <i>f<sub>UA,wetbulb</sub></i>, <i>f<sub>UA,airflow</sub></i>, and <i>f<sub>UA,waterflow</sub></i>
-adjust the current UA valuve for the current wetbulb temperature, air flow rate, and water 
-flow rate, respectively. 
-See <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a> for more details. The 
+adjust the current UA value for the current wetbulb temperature, air flow rate, and water 
+flow rate, respectively. The third-order polynomial functions for each adjustment factor
+can be represented as:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+f<sub>UA,x</sub> = c<sub>x,3</sub> x<sup>3</sup> + c<sub>x,2</sub> x<sup>2</sup> + c<sub>x,1</sub> x + c<sub>x,0</sub>&nbsp;, &nbsp;&nbsp;&nbsp;&nbsp;
+where x = {(T<sub>design,wetbulb</sub> - T<sub>current,wetbulb</sub>), AirFlowRatio, WaterFlowRatio}
+</p>
+<p>
+for the respective adjustment factor, and 
+coefficients  <i>c<sub>x,0</sub></i>, <i>c<sub>x,1</sub></i>, <i>c<sub>x,2</sub></i>, and <i>c<sub>x,3</sub></i>
+are formulated herein by applying the <a href=\"Buildings.Fluid.Utilities.extendedPolynomial\">
+Buildings.Fluid.Utilities.extendedPolynomial</a> function using the user-defined 
+look-up values for the respective adjustment factor functions, which are included in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>. The 
 user can update the values in this record based on the performance characteristics of 
-their cooling tower. 
+their specific cooling tower. 
 </p>
 <h4>Comparison with the cooling tower model of EnergyPlus</h4>
 <p>
