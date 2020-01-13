@@ -3,7 +3,7 @@ model Bidirectional "Bidirectional network"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter DesignValues datDes(
+  parameter Buildings.Examples.DistrictReservoirNetworks.Examples.DesignValues datDes(
     mDisPip_flow_nominal = 50,
     RDisPip=250,
     epsPla = 0.7)
