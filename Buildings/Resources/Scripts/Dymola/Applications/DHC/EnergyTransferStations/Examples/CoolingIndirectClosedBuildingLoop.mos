@@ -1,6 +1,7 @@
 ﻿// Simulate
 simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingIndirectClosedBuildingLoop", tolerance=1e-6, stopTime=86400, numberOfIntervals=2000, resultFile="CoolingIndirectClosedBuildingLoop");
 // Plot commands
+removePlots(false);
 createPlot(id=1, 
 	position={11, 19, 713, 564},	
 	y={"TDisSup.T", "TDisRet.T", "TBuiSup.T", "TBuiRet.T"}, 

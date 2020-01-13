@@ -1,21 +1,24 @@
 within Buildings.Applications.DHC.EnergyTransferStations;
 model CoolingIndirect
   "Indirect cooling energy transfer station for district energy systems"
-  extends Buildings.Fluid.Interfaces.PartialFourPort(
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
-    redeclare final package Medium2 = Medium);
+    redeclare final package Medium2 = Medium,
+    final m1_flow_nominal = mDis_flow_nominal,
+    final m2_flow_nominal = mBui_flow_nominal,
+    show_T = true);
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component";
 
   // mass flow rates
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(
+  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal(
     final min=0,
-    start=0.5)
+    final start=0.5)
     "Nominal mass flow rate of primary (district) district cooling side";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(
+  parameter Modelica.SIunits.MassFlowRate mBui_flow_nominal(
     final min=0,
-    start=0.5)
+    final start=0.5)
     "Nominal mass flow rate of secondary (building) district cooling side";
 
   // Primary supply control valve
@@ -153,8 +156,8 @@ model CoolingIndirect
   Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
-    final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal,
+    final m1_flow_nominal=mDis_flow_nominal,
+    final m2_flow_nominal=mBui_flow_nominal,
     final dp1_nominal=dp1_nominal,
     final dp2_nominal=dp2_nominal,
     final configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
@@ -184,18 +187,18 @@ model CoolingIndirect
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m1_flow_nominal)
+    final m_flow_nominal=mDis_flow_nominal)
     "District-side (primary) supply temperature sensor"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m1_flow_nominal)
+    final m_flow_nominal=mDis_flow_nominal)
     "District-side (primary) return temperature sensor"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
 
   Modelica.Blocks.Continuous.Integrator int(k=1) "Integration"
-    annotation (Placement(transformation(extent={{60,120},{80,100}})));
+    annotation (Placement(transformation(extent={{60,100},{80,120}})));
 
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium = Medium)
@@ -203,13 +206,13 @@ model CoolingIndirect
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TBuiRet(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m2_flow_nominal)
+    final m_flow_nominal=mBui_flow_nominal)
     "Building-side (secondary) return temperature"
     annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening val(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m1_flow_nominal,
+    final m_flow_nominal=mDis_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     riseTime(displayUnit="s") = 60,
     y_start=0) "District-side (primary) control valve"
@@ -296,13 +299,42 @@ annotation (defaultComponentName="coo",
           lineColor={175,175,175},
           fillColor={35,138,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-52,40},{54,-40}},
-          lineColor={0,0,0},
-          fillColor={35,138,255},
-          fillPattern=FillPattern.Solid,
-          textStyle={TextStyle.Bold},
-          textString="ETS")}),                                   Diagram(
+        Rectangle(
+          extent={{-62,80},{-58,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-22,80},{-18,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{18,80},{22,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{58,80},{62,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-80,65},{80,54}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-80,-55},{80,-66}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,160}})),
     Documentation(info="<html>
 <p>
@@ -326,6 +358,11 @@ Engineers. (2013). Chapter 5: End User Interface. In
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 10, 2019 by Kathryn Hinkelman:<br/>
+Updated model to use control valve <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage\">
+TwoWayEqualPercentage</a>.
+</li>
 <li>
 November 1, 2019, by Kathryn Hinkelman:<br/>
 First implementation. </li>
