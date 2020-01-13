@@ -24,10 +24,8 @@ equation
           extent={{-438,-406},{-306,-432}},
           lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
-          textString="Simulation requires
-Hidden.AvoidDoubleComputation=true
-
-And is faster with
+          textString="Simulation requires (and is faster with)
+Hidden.AvoidDoubleComputation=true;
 Advanced.SparseActivate=true")}),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Reservoir1Constant.mos"
   "Simulate and plot"),
