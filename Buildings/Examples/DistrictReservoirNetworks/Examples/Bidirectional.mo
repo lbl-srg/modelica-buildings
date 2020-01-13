@@ -120,12 +120,6 @@ model Bidirectional "Bidirectional network"
         extent={{-6,6},{6,-6}},
         rotation=180,
         origin={-120,-80})));
-  Buildings.Fluid.Sensors.MassFlowRate massFlowRateThroughPrimSidePlant(
-      redeclare package Medium = Medium, allowFlowReversal=true)
-    annotation (Placement(transformation(
-        extent={{6,-6},{-6,6}},
-        rotation=0,
-        origin={102,-80})));
   BaseClasses.Pump_m_flow pumPlaPri(
     redeclare package Medium = Medium,
     final m_flow_nominal=datDes.mPla_flow_nominal,
@@ -134,8 +128,8 @@ model Bidirectional "Bidirectional network"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-80,-80})));
-  Modelica.Blocks.Sources.Constant mFlowInputPlant(final k=datDes.mPla_flow_nominal)
-                                                            "kg/s"
+  Modelica.Blocks.Sources.Constant mSetPla_flow(final k=datDes.mPla_flow_nominal)
+    "Set point for mass flow rate of plant"
     annotation (Placement(transformation(extent={{-32,-74},{-48,-58}})));
   Buildings.Fluid.Sources.Boundary_pT sewBouCon(
     redeclare package Medium = Medium,
@@ -153,15 +147,6 @@ model Bidirectional "Bidirectional network"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,-120})));
-  Fluid.Sensors.TemperatureTwoPort tempAfterPlantSecondSide(
-    redeclare package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=datDes.mDisPip_flow_nominal,
-    tau=0)                                    annotation (Placement(
-        transformation(
-        extent={{-6,6},{6,-6}},
-        rotation=180,
-        origin={60,-140})));
   Fluid.Sensors.TemperatureTwoPort Tcp2(redeclare package Medium =
         Medium, m_flow_nominal=datDes.mDisPip_flow_nominal)
     "Temperature sensor in distribution pipe"
@@ -197,9 +182,10 @@ model Bidirectional "Bidirectional network"
         extent={{-6,6},{6,-6}},
         rotation=90,
         origin={-160,110})));
-  Buildings.Fluid.Sensors.MassFlowRate massFlowRateInBHBeforeBHF(redeclare
-      package Medium = Medium, allowFlowReversal=true) annotation (
-      Placement(transformation(
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloPriBor(redeclare package Medium
+      = Medium, allowFlowReversal=true)
+    "Mass flow rate sensor upstream of borefield" annotation (Placement(
+        transformation(
         extent={{6,6},{-6,-6}},
         rotation=0,
         origin={120,-200})));
@@ -401,25 +387,17 @@ protected
 equation
   connect(pumPlaPri.port_a, plant.port_b1)
     annotation (Line(points={{-70,-80},{-10,-80}}, color={0,127,255}));
-  connect(mFlowInputPlant.y, pumPlaPri.m_flow_in) annotation (Line(points={{-48.8,
+  connect(mSetPla_flow.y, pumPlaPri.m_flow_in) annotation (Line(points={{-48.8,
           -66},{-80,-66},{-80,-68}}, color={0,0,127}));
-  connect(pumPlaSec.port_a, sewBouCon.ports[1]) annotation (Line(points={{-90,-120},
-          {-100,-120},{-100,-140},{-2,-140}}, color={0,127,255}));
-  connect(tempAfterPlantSecondSide.port_b, sewBouCon.ports[2])
-    annotation (Line(points={{54,-140},{2,-140}}, color={0,127,255}));
-  connect(senEntFloPlaIn.port_a, massFlowRateThroughPrimSidePlant.port_b)
-    annotation (Line(points={{46,-80},{96,-80}}, color={0,127,255}));
-  connect(splSup2.port_3, massFlowRateThroughPrimSidePlant.port_a)
-    annotation (Line(points={{150,-80},{108,-80}}, color={0,127,255}));
+  connect(pumPlaSec.port_a, sewBouCon.ports[1]) annotation (Line(points={{-90,
+          -120},{-100,-120},{-100,-140},{-2,-140}},
+                                              color={0,127,255}));
   connect(pumPlaPri.port_b, senEntPlaOut.port_a)
     annotation (Line(points={{-90,-80},{-114,-80}}, color={0,127,255}));
   connect(pumPlaSec.port_b, plant.port_a2) annotation (Line(points={{-70,-120},
           {-40,-120},{-40,-92},{-10,-92}}, color={0,127,255}));
-  connect(mFlowInputPlant.y, pumPlaSec.m_flow_in) annotation (Line(points={{-48.8,
+  connect(mSetPla_flow.y, pumPlaSec.m_flow_in) annotation (Line(points={{-48.8,
           -66},{-60,-66},{-60,-100},{-80,-100},{-80,-108}}, color={0,0,127}));
-  connect(tempAfterPlantSecondSide.port_a, plant.port_b2) annotation (Line(
-        points={{66,-140},{100,-140},{100,-120},{40,-120},{40,-92},{10,-92}},
-        color={0,127,255}));
   connect(Twp1.port_b, splSup1.port_1)
     annotation (Line(points={{-160,-134},{-160,-90}}, color={0,127,255}));
   connect(splSup1.port_3, senEntPlaOut.port_b)
@@ -432,8 +410,8 @@ equation
     annotation (Line(points={{160,104},{160,90}}, color={0,127,255}));
   connect(disPip8.port_a, Tcp1.port_b)
     annotation (Line(points={{160,-160},{160,-146}}, color={0,127,255}));
-  connect(disPip8.port_b, massFlowRateInBHBeforeBHF.port_a) annotation (Line(
-        points={{160,-180},{160,-200},{126,-200}}, color={0,127,255}));
+  connect(disPip8.port_b, senMasFloPriBor.port_a) annotation (Line(points={{160,
+          -180},{160,-200},{126,-200}}, color={0,127,255}));
   connect(disPip7.port_b, Twp1.port_a)
     annotation (Line(points={{-160,-160},{-160,-146}}, color={0,127,255}));
   connect(splSup8.port_1, disPip5.port_b)
@@ -470,12 +448,12 @@ equation
     annotation (Line(points={{-6,-220},{-50,-220}}, color={0,127,255}));
   connect(borFie.port_a, pumpBHS.port_b)
     annotation (Line(points={{10,-320},{30,-320}}, color={0,127,255}));
-  connect(massFlowRateInBHBeforeBHF.m_flow, conBorFiePum.u) annotation (Line(
-        points={{120,-206.6},{120,-300},{112,-300}}, color={0,0,127}));
+  connect(senMasFloPriBor.m_flow, conBorFiePum.u) annotation (Line(points={{120,
+          -206.6},{120,-300},{112,-300}}, color={0,0,127}));
   connect(conBorFiePum.y, pumpBHS.m_flow_in)
     annotation (Line(points={{89,-300},{40,-300},{40,-308}}, color={0,0,127}));
-  connect(massFlowRateInBHBeforeBHF.m_flow,conPumMod.mBorFie_flow)  annotation (
-     Line(points={{120,-206.6},{120,-260},{92,-260}}, color={0,0,127}));
+  connect(senMasFloPriBor.m_flow, conPumMod.mBorFie_flow) annotation (Line(
+        points={{120,-206.6},{120,-260},{92,-260}}, color={0,0,127}));
   connect(pumpBHS.port_a, swiBoxBorFie.port_b2) annotation (Line(points={{50,
           -320},{60,-320},{60,-292},{6,-292},{6,-270}}, color={0,127,255}));
   connect(swiBoxBorFie.port_a2, splSup4.port_2) annotation (Line(points={{6,-250.1},
@@ -572,7 +550,7 @@ equation
           -180},{-160,-200},{-126,-200}}, color={0,127,255}));
   connect(senEntBorOut.port_a, splSup3.port_2) annotation (Line(points={{-114,
           -200},{-60,-200},{-60,-210}}, color={0,127,255}));
-  connect(massFlowRateInBHBeforeBHF.port_b, senEntBorIn.port_b)
+  connect(senMasFloPriBor.port_b, senEntBorIn.port_b)
     annotation (Line(points={{114,-200},{86,-200}}, color={0,127,255}));
   connect(senEntBorIn.port_a, splSup4.port_1) annotation (Line(points={{74,-200},
           {60,-200},{60,-210}}, color={0,127,255}));
@@ -592,6 +570,10 @@ equation
           -73.4},{-120,-46.55},{102,-46.55}}, color={0,0,127}));
   connect(gaiEntFlo.y, EPlant.u[2]) annotation (Line(points={{89,-62},{96,-62},
           {96,-51.45},{102,-51.45}}, color={0,0,127}));
+  connect(senEntFloPlaIn.port_a, splSup2.port_3)
+    annotation (Line(points={{46,-80},{150,-80}}, color={0,127,255}));
+  connect(plant.port_b2, sewBouCon.ports[2]) annotation (Line(points={{10,-92},
+          {20,-92},{20,-140},{2,-140}}, color={0,127,255}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-380},{320,320}})),
         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DistrictReservoirNetworks/Examples/Bidirectional.mos"

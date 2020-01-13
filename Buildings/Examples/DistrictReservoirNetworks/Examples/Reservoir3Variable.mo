@@ -21,18 +21,18 @@ model Reservoir3Variable
     "Gain for mass flow rate"
     annotation (Placement(transformation(extent={{20,-300},{40,-280}})));
 equation
-  connect(Tml5.T, conMaiPum.TMix[1]) annotation (Line(points={{86.6,-100},{100,
-          -100},{100,-114},{28,-114},{28,-270},{-36,-270},{-36,-285.333},{-20,
+  connect(Tml5.T, conMaiPum.TMix[1]) annotation (Line(points={{86.6,-92},{100,
+          -92},{100,-114},{28,-114},{28,-270},{-36,-270},{-36,-285.333},{-20,
           -285.333}},                                                color={0,0,
           127}));
   connect(Tml4.T, conMaiPum.TMix[2]) annotation (Line(points={{86.6,118},{26,
           118},{26,-268},{-30,-268},{-30,-284},{-20,-284}}, color={0,0,127}));
   connect(Tml3.T, conMaiPum.TMix[3]) annotation (Line(points={{-4.44089e-16,
-          244.6},{-4.44089e-16,-38},{-32,-38},{-32,-282.667},{-20,-282.667}},
+          246.6},{-4.44089e-16,258},{-32,258},{-32,-282.667},{-20,-282.667}},
                                      color={0,0,127}));
-  connect(Tml5.T, conMaiPum.TSouIn[1]) annotation (Line(points={{86.6,-100},{
-          100,-100},{100,-114},{28,-114},{28,-270},{-36,-270},{-36,-291},{-20,
-          -291}},                                            color={0,0,127}));
+  connect(Tml5.T, conMaiPum.TSouIn[1]) annotation (Line(points={{86.6,-92},{100,
+          -92},{100,-114},{28,-114},{28,-270},{-36,-270},{-36,-291},{-20,-291}},
+                                                             color={0,0,127}));
   connect(Tml1.T, conMaiPum.TSouOut[1]) annotation (Line(points={{-86.6,-300},{
           -98,-300},{-98,-290},{-38,-290},{-38,-297},{-20,-297}},
                                             color={0,0,127}));
@@ -44,8 +44,8 @@ equation
                                             color={0,0,127}));
   connect(conMaiPum.y, gaiConMaiPum.u)
     annotation (Line(points={{4,-290},{18,-290}}, color={0,0,127}));
-  connect(pumpMainRLTN.m_flow_in, gaiConMaiPum.y) annotation (Line(points={{68,-290},
-          {41,-290}},                           color={0,0,127}));
+  connect(pumDisLop.m_flow_in, gaiConMaiPum.y)
+    annotation (Line(points={{68,-290},{41,-290}}, color={0,0,127}));
   connect(pumpBHS.m_flow_in, gaiConMaiPum.y)
     annotation (Line(points={{50,-428},{50,-290},{41,-290}}, color={0,0,127}));
   annotation (

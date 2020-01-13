@@ -12,8 +12,8 @@ model Reservoir1Constant
     k(final unit="kg/s")=datDes.mDisPip_flow_nominal) "Pump mass flow rate"
     annotation (Placement(transformation(extent={{0,-300},{20,-280}})));
 equation
-  connect(massFlowMainPump.y, pumpMainRLTN.m_flow_in) annotation (Line(points={{21,-290},
-          {68,-290}},                              color={0,0,127}));
+  connect(massFlowMainPump.y, pumDisLop.m_flow_in)
+    annotation (Line(points={{21,-290},{68,-290}}, color={0,0,127}));
   connect(pumpBHS.m_flow_in, massFlowMainPump.y)
     annotation (Line(points={{50,-428},{50,-290},{21,-290}},color={0,0,127}));
   annotation (
