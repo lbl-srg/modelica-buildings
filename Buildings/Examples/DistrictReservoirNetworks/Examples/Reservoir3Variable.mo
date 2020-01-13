@@ -55,7 +55,7 @@ equation
     experiment(
       StopTime=31536000,
       __Dymola_NumberOfIntervals=8760,
-      Tolerance=1e-05),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Model of reservoir network,
