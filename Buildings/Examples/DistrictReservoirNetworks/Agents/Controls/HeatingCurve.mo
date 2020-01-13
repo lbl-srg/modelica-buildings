@@ -11,7 +11,7 @@ block HeatingCurve "Reset of heating supply and return set point temperatures"
     "Minimum supply and return water temperature at zero load"
     annotation (Dialog(group="Nominal conditions"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(min=0, unit="1")
-    "Heating load, normalized with peak load"
+    "Heating load, normalized by peak load"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaSup
   "Set point temperature for heating supply"
@@ -24,4 +24,19 @@ initial equation
 equation
   THeaSup = THeaSupZer + u * (THeaSup_nominal - THeaSupZer);
   THeaRet = THeaSupZer + u * (THeaRet_nominal - THeaSupZer);
+annotation (
+defaultComponentName="heaCur",
+Documentation(info="<html>
+<p>
+Block that outputs the set point temperatures for the heating supply and return.
+The temperatures are reset proportionally to the control input <code>u</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 12, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end HeatingCurve;

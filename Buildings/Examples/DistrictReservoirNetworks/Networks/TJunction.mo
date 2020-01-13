@@ -7,5 +7,20 @@ model TJunction
           extent={{-38,36},{40,-40}},
           lineColor={28,108,200},
           fillColor={0,127,0},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+              Documentation(info="<html>
+<p>
+Model that sets parameters for the T-junctions that are used in all
+the examples in
+<a href=\"Buildings.Examples.DistrictReservoirNetworks.Examples\">
+Buildings.Examples.DistrictReservoirNetworks.Examples</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 12, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end TJunction;

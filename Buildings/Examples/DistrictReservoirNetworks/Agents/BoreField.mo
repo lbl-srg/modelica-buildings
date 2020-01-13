@@ -37,4 +37,19 @@ model BoreField "Borefield model"
 equation
   connect(gaiQ_flow.y, Q_flow) annotation (Line(points={{1,80},{14,80},{14,54},{
           96,54},{96,80},{110,80}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+Model that sets parameters for the borefield that is used in all
+the examples in
+<a href=\"Buildings.Examples.DistrictReservoirNetworks.Examples\">
+Buildings.Examples.DistrictReservoirNetworks.Examples</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 12, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end BoreField;

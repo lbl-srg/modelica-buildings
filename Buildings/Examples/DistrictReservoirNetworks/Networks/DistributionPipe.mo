@@ -19,7 +19,10 @@ model DistributionPipe "DHC distribution pipe"
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  final parameter Modelica.SIunits.Length diameter(fixed=false, start=0.2, min=0.01) "Pipe diameter";
+  final parameter Modelica.SIunits.Length diameter(
+    fixed=false,
+    start=0.2,
+    min=0.01) "Pipe diameter";
   final parameter Modelica.SIunits.Velocity v_nominal = m_flow_nominal/(rho_default*ARound)
     "Flow velocity (assuming a round cross section area)";
 protected
@@ -51,5 +54,20 @@ equation
           extent={{-100,22},{100,-24}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,140,72})}));
+          fillColor={0,140,72})}),
+Documentation(info="<html>
+<p>
+Model that sets parameters for the distribution pipes that are used in all
+the examples in
+<a href=\"Buildings.Examples.DistrictReservoirNetworks.Examples\">
+Buildings.Examples.DistrictReservoirNetworks.Examples</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 12, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end DistributionPipe;

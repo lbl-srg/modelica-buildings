@@ -120,60 +120,68 @@ equation
   connect(dTSou.u2, TSouOut) annotation (Line(points={{-72,-138},{-94,-138},{-94,
           -60},{-120,-60}}, color={0,0,127}));
   connect(mulSum.u, dTSou.y)
-    annotation (Line(points={{-42,-132},{-48,-132}}, color={0,0,127}));
+    annotation (Line(points={{-42,-132},{-49,-132}}, color={0,0,127}));
   connect(mulSum.y, dTSou_nor.u)
-    annotation (Line(points={{-18,-132},{-12,-132}}, color={0,0,127}));
+    annotation (Line(points={{-19,-132},{-12,-132}}, color={0,0,127}));
   connect(dTSou_nor.y, conShi.u_m)
-    annotation (Line(points={{12,-132},{30,-132},{30,-114}}, color={0,0,127}));
-  connect(conShi.u_s, zer.y) annotation (Line(points={{18,-102},{16,-102},{16,-82},
-          {12,-82}},
+    annotation (Line(points={{11,-132},{30,-132},{30,-114}}, color={0,0,127}));
+  connect(conShi.u_s, zer.y) annotation (Line(points={{18,-102},{16,-102},{16,
+          -82},{11,-82}},
                  color={0,0,127}));
   connect(uppCur.u, TMixMax.y)
-    annotation (Line(points={{28,18},{-48,18}}, color={0,0,127}));
+    annotation (Line(points={{28,18},{-49,18}}, color={0,0,127}));
   connect(uppCur.f1, yMin.y) annotation (Line(points={{28,22},{-30,22},{-30,48},
-          {-48,48}}, color={0,0,127}));
-  connect(uppCur.f2, one.y) annotation (Line(points={{28,10},{-26,10},{-26,78},{
-          -48,78}}, color={0,0,127}));
+          {-49,48}}, color={0,0,127}));
+  connect(uppCur.f2, one.y) annotation (Line(points={{28,10},{-26,10},{-26,78},
+          {-49,78}},color={0,0,127}));
   connect(TMax_nominal.y, TMax_upper.u1)
-    annotation (Line(points={{-48,154},{-32,154}}, color={0,0,127}));
-  connect(zer.y, sPos.u1) annotation (Line(points={{12,-82},{46,-82},{46,-78},{58,
-          -78}}, color={0,0,127}));
-  connect(zer.y, sNeg.u1) annotation (Line(points={{12,-82},{46,-82},{46,-116},{
-          58,-116}},
+    annotation (Line(points={{-49,154},{-32,154}}, color={0,0,127}));
+  connect(zer.y, sPos.u1) annotation (Line(points={{11,-82},{46,-82},{46,-78},{
+          58,-78}},
                  color={0,0,127}));
-  connect(conShi.y, sPos.u2) annotation (Line(points={{42,-102},{50,-102},{50,-90},
-          {58,-90}}, color={0,0,127}));
-  connect(conShi.y, sNeg.u2) annotation (Line(points={{42,-102},{50,-102},{50,-128},
-          {58,-128}},color={0,0,127}));
+  connect(zer.y, sNeg.u1) annotation (Line(points={{11,-82},{46,-82},{46,-116},
+          {58,-116}},
+                 color={0,0,127}));
+  connect(conShi.y, sPos.u2) annotation (Line(points={{41,-102},{50,-102},{50,
+          -90},{58,-90}},
+                     color={0,0,127}));
+  connect(conShi.y, sNeg.u2) annotation (Line(points={{41,-102},{50,-102},{50,
+          -128},{58,-128}},
+                     color={0,0,127}));
   connect(TMax_lower.u, TMax_upper.y)
-    annotation (Line(points={{8,148},{-8,148}},   color={0,0,127}));
+    annotation (Line(points={{8,148},{-9,148}},   color={0,0,127}));
   connect(uppCur.x1, TMax_lower.y) annotation (Line(points={{28,26},{20,26},{20,
-          82},{42,82},{42,148},{32,148}}, color={0,0,127}));
-  connect(TMax_upper.y, uppCur.x2) annotation (Line(points={{-8,148},{0,148},{0,
+          82},{42,82},{42,148},{31,148}}, color={0,0,127}));
+  connect(TMax_upper.y, uppCur.x2) annotation (Line(points={{-9,148},{0,148},{0,
           14},{28,14}}, color={0,0,127}));
   connect(TMixMin.y, lowCur.u)
-    annotation (Line(points={{-48,-12},{28,-12}}, color={0,0,127}));
-  connect(TMin_nominal.y, TMin_lower.u1) annotation (Line(points={{-48,108},{-40,
-          108},{-40,114},{-32,114}}, color={0,0,127}));
+    annotation (Line(points={{-49,-12},{28,-12}}, color={0,0,127}));
+  connect(TMin_nominal.y, TMin_lower.u1) annotation (Line(points={{-49,108},{
+          -40,108},{-40,114},{-32,114}},
+                                     color={0,0,127}));
   connect(TMin_lower.y, TMin_upper.u)
-    annotation (Line(points={{-8,108},{8,108}}, color={0,0,127}));
-  connect(TMin_upper.y, lowCur.x2) annotation (Line(points={{32,108},{36,108},{36,
-          86},{16,86},{16,-16},{28,-16}}, color={0,0,127}));
-  connect(TMin_lower.y, lowCur.x1) annotation (Line(points={{-8,108},{-4,108},{-4,
-          -4},{28,-4}}, color={0,0,127}));
-  connect(lowCur.f1, one.y) annotation (Line(points={{28,-8},{-26,-8},{-26,78},{
-          -48,78}}, color={0,0,127}));
-  connect(lowCur.f2, yMin.y) annotation (Line(points={{28,-20},{-30,-20},{-30,48},
-          {-48,48}}, color={0,0,127}));
+    annotation (Line(points={{-9,108},{8,108}}, color={0,0,127}));
+  connect(TMin_upper.y, lowCur.x2) annotation (Line(points={{31,108},{36,108},{
+          36,86},{16,86},{16,-16},{28,-16}},
+                                          color={0,0,127}));
+  connect(TMin_lower.y, lowCur.x1) annotation (Line(points={{-9,108},{-4,108},{
+          -4,-4},{28,-4}},
+                        color={0,0,127}));
+  connect(lowCur.f1, one.y) annotation (Line(points={{28,-8},{-26,-8},{-26,78},
+          {-49,78}},color={0,0,127}));
+  connect(lowCur.f2, yMin.y) annotation (Line(points={{28,-20},{-30,-20},{-30,
+          48},{-49,48}},
+                     color={0,0,127}));
   connect(uppCur.y, ySetPum.u1)
-    annotation (Line(points={{52,18},{56,18},{56,6},{58,6}}, color={0,0,127}));
-  connect(lowCur.y, ySetPum.u2) annotation (Line(points={{52,-12},{56,-12},{56,-6},
-          {58,-6}}, color={0,0,127}));
+    annotation (Line(points={{51,18},{56,18},{56,6},{58,6}}, color={0,0,127}));
+  connect(lowCur.y, ySetPum.u2) annotation (Line(points={{51,-12},{56,-12},{56,
+          -6},{58,-6}},
+                    color={0,0,127}));
   connect(ySetPum.y, y)
-    annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
-  connect(sPos.y, TMax_upper.u2) annotation (Line(points={{82,-84},{88,-84},{88,
+    annotation (Line(points={{81,0},{120,0}}, color={0,0,127}));
+  connect(sPos.y, TMax_upper.u2) annotation (Line(points={{81,-84},{88,-84},{88,
           134},{-40,134},{-40,142},{-32,142}}, color={0,0,127}));
-  connect(sNeg.y, TMin_lower.u2) annotation (Line(points={{82,-122},{94,-122},{
+  connect(sNeg.y, TMin_lower.u2) annotation (Line(points={{81,-122},{94,-122},{
           94,94},{-40,94},{-40,102},{-32,102}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-180},{100,180}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
@@ -241,11 +249,12 @@ Therefore, the pump speeds are calculated as shown in the figure below.
 src=\"modelica://DHCNetworks/Resources/Images/Controls/MainPump.png\"/>
 </p>
 <p>
-Moreover, the district loop temperature is adjusted by changing the mass
+Moreover, if the parameter <code>use_temperatureShift</code> is set to <code>true</code>,
+then the district loop temperature is adjusted by changing the mass
 flow rate of the pump to increase the overall efficiency if there is net
 cooling or net heating on the loop. Specifically,
 if the district heating or cooling loop is in net heating (cooling) mode,
-it is favorable to increase (decrease) the loop temperature, which can
+it may be favorable to increase (decrease) the loop temperature, which can
 be done by increasing the pump speed. Whether the loop
 is in heating or cooling mode is determined based on the temperature differences
 across the loop sources, which are the inputs <code>TSouIn</code> and <code>TSouOut</code>.

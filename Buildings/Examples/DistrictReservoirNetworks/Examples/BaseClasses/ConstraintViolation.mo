@@ -35,5 +35,18 @@ equation
           extent={{-8,-48},{16,-74}},
           lineColor={238,46,47},
           fillColor={238,46,47},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+Documentation(info="<html>
+<p>
+Block that outputs the running fractional time during which any element <i>u<sub>i</sub></i> of the input signal
+is not within <i>u<sub>min</sub> &le; u<sub>i</sub> &le; u<sub>max</sub></i>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 12, 2020, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end ConstraintViolation;

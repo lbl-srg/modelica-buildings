@@ -1,6 +1,6 @@
 within Buildings.Examples.DistrictReservoirNetworks.Agents;
 model EnergyTransferStation
-  "Substation for heating, free cooling and domestic hot water with load as a time series. Instead of a chiller FC HEX is implemented. A new simple FC HEX used. With new contolling strategz"
+  "Substation for heating, free cooling and domestic hot water with load as a time series"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model for water"
       annotation (choicesAllMatching = true);
@@ -8,10 +8,7 @@ model EnergyTransferStation
   parameter Real gaiCoo(min=0) = 1 "Gain to scale cooling load";
   parameter Real gaiHea(min=0) = gaiCoo "Gain to scale heating load";
   parameter Real gaiHotWat(min=0) = gaiHea "Gain to scale hot water load";
-//  parameter Modelica.SIunits.Temperature TColMin = 273.15+8
-//    "Minimum temperature of district cold water supply";
-//  parameter Modelica.SIunits.Temperature THotMax = 273.15+18
-//    "Maximum temperature of district hot water supply";
+
   final parameter Modelica.SIunits.TemperatureDifference dTCooCon_nominal(
     min=0.5,
     displayUnit="K") = 4
@@ -54,9 +51,6 @@ model EnergyTransferStation
   final parameter Modelica.SIunits.Temperature THeaRet_nominal = 273.15+34
     "Return temperature space heating system at TOut_nominal"
     annotation (Dialog(group="Nominal conditions"));
-//  parameter Modelica.SIunits.Temperature TOut_nominal
-//    "Outside design temperature for heating"
-//    annotation (Dialog(group="Nominal conditions"));
   final parameter Modelica.SIunits.TemperatureDifference dTHotWatCon_nominal(min=0)=63-15
     "Temperature difference condenser of hot water heat pump";
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=50000
@@ -115,12 +109,6 @@ model EnergyTransferStation
     h_outflow(start=Medium.h_default)) "Fluid connector b"
     annotation (Placement(transformation(extent={{290,-10},{270,10}}),
         iconTransformation(extent={{298,-20},{258,20}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort_a
-    "Heat port for sensible heat input into volume a"
-    annotation (Placement(transformation(extent={{-290,-100},{-270,-80}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort_b
-    "Heat port for sensible heat input into volume b"
-    annotation (Placement(transformation(extent={{270,-100},{290,-80}})));
   Medium.ThermodynamicState sta_a=
       Medium.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
@@ -162,7 +150,7 @@ model EnergyTransferStation
     tau=600,
     final energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
-    annotation (Placement(transformation(extent={{-270,10},{-250,30}})));
+    annotation (Placement(transformation(extent={{-212,10},{-192,30}})));
   Buildings.Fluid.Delays.DelayFirstOrder volMix_b(
     redeclare final package Medium = Medium,
     nPorts=4,
@@ -172,7 +160,7 @@ model EnergyTransferStation
     tau=600,
     final energyDynamics=mixingVolumeEnergyDynamics)
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
-    annotation (Placement(transformation(extent={{250,10},{270,30}})));
+    annotation (Placement(transformation(extent={{208,10},{228,30}})));
 
   final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
     Medium.specificHeatCapacityCp(Medium.setState_pTX(
@@ -225,18 +213,18 @@ model EnergyTransferStation
     "Pump"
     annotation (Placement(transformation(extent={{-130,-350},{-110,-330}})));
   Fluid.Sensors.TemperatureTwoPort
-    senTem1(                         redeclare package Medium = Medium,
-      allowFlowReversal=true,
+    senTem1(redeclare package Medium = Medium,
+    allowFlowReversal=true,
     m_flow_nominal=gaiMFlow*mCooCon_flow_nominal)
-                               annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,-340})));
   Fluid.Sensors.TemperatureTwoPort
-    senTem(                       redeclare package Medium = Medium,
-      allowFlowReversal=true,
+    senTem(redeclare package Medium = Medium,
+    allowFlowReversal=true,
     m_flow_nominal=gaiMFlow*mCooCon_flow_nominal)
-                               annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-172,-340})));
@@ -262,11 +250,13 @@ model EnergyTransferStation
   Modelica.Blocks.Math.Add3 sumPPum "Sum for pump power"
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu1(threShold=0.001*
-        QHea_flow_nominal,                                             message="Heat pump for hot water does not meet load")
+        QHea_flow_nominal,
+        message="Heat pump for hot water does not meet load")
     "Tests whether load is met"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu2(threShold=0.001*
-        QHotWat_flow_nominal,                                          message="Heat pump for space heating does not meet load")
+        QHotWat_flow_nominal,
+        message="Heat pump for space heating does not meet load")
     "Tests whether load is met"
     annotation (Placement(transformation(extent={{60,250},{80,270}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
@@ -282,7 +272,27 @@ model EnergyTransferStation
     final THeaRet_nominal=THeaRet_nominal,
     final THeaSupZer=273.15 + 28) "Reset of heating temperatures"
     annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
+  Fluid.Sensors.EnthalpyFlowRate senEntFloWar(
+    redeclare package Medium = Medium,
+    m_flow_nominal=(mHeaEva_flow_nominal + mCooCon_flow_nominal + mHotWatEva_flow_nominal)/2)
+    "Enthalph flow rate sensor on warm side of prosumer" annotation (Placement(
+        transformation(
+        extent={{6,6},{-6,-6}},
+        rotation=180,
+        origin={-260,0})));
+  Fluid.Sensors.EnthalpyFlowRate senEntFloCol(
+    redeclare package Medium = Medium,
+    m_flow_nominal=(mHeaEva_flow_nominal + mCooCon_flow_nominal + mHotWatEva_flow_nominal)/2)
+    "Enthalph flow rate sensor on cold side of prosumer" annotation (Placement(
+        transformation(
+        extent={{6,6},{-6,-6}},
+        rotation=180,
+        origin={246,0})));
+  Modelica.Blocks.Interfaces.RealOutput QPro(final unit="W")
+    "Heat input from the district into the prosumer"
+    annotation (Placement(transformation(extent={{280,350},{300,370}})));
 protected
+  constant Real scaFacLoa = 10 "Scaling factor for load profiles";
   constant Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -365,9 +375,9 @@ protected
   Modelica.Blocks.Math.Gain mHea_flow1(k=1/cp_default/4)
     "Water flow rate for space heating circuit, constant flow rate, variable dT"
     annotation (Placement(transformation(extent={{-122,-404},{-102,-384}})));
-protected
-  constant Real scaFacLoa = 10 "Scaling factor for load profiles";
 
+  Modelica.Blocks.Math.Add sumQCon(k2=-1) "Heat consumption by prosumer"
+    annotation (Placement(transformation(extent={{252,350},{272,370}})));
 initial equation
   assert(abs((cp_default-cp_default_check)/cp_default) < 0.1, "Wrong cp_default value. Check cp_default constant.");
   assert(QCoo_flow_nominal < 0,
@@ -431,26 +441,22 @@ equation
           -62},{-92,403},{-157,403}},  color={0,0,127}));
   connect(TSetHotWat.y, heaPumHotWat.TSet) annotation (Line(points={{-119,-30},{
           8,-30},{8,-73},{18,-73}},   color={0,0,127}));
-  connect(volMix_a.ports[1], port_a) annotation (Line(points={{-263,10},{
-          -263,0},{-280,0}}, color={0,127,255}));
-  connect(pumHea.port_a, volMix_a.ports[2]) annotation (Line(points={{30,
-          300},{30,300},{-242,300},{-242,2},{-262,2},{-262,0},{-262,6},{-261,
-          6},{-261,10}}, color={0,127,255}));
-  connect(pumHotWat.port_a, volMix_a.ports[3]) annotation (Line(
-      points={{30,0},{-94,0},{-258,0},{-259,0},{-259,10}},
+  connect(pumHea.port_a, volMix_a.ports[1]) annotation (Line(points={{30,300},{-186,
+          300},{-186,4},{-206,4},{-206,8},{-205,8},{-205,10}},
+                         color={0,127,255}));
+  connect(pumHotWat.port_a, volMix_a.ports[2]) annotation (Line(
+      points={{30,0},{-203,0},{-203,10}},
       color={0,127,255},
       thickness=0.5));
-  connect(heaPum.port_b2, volMix_b.ports[1]) annotation (Line(points={{22,
-          216},{18,216},{18,180},{200,180},{200,6},{257,6},{257,10},{257,
-          10}}, color={0,127,255}));
+  connect(heaPum.port_b2, volMix_b.ports[1]) annotation (Line(points={{22,216},{
+          18,216},{18,180},{200,180},{200,10},{215,10}},
+                color={0,127,255}));
   connect(heaPumHotWat.port_b2, volMix_b.ports[2]) annotation (Line(
-      points={{20,-88},{10,-88},{10,-120},{259,-120},{259,10}},
+      points={{20,-88},{10,-88},{10,-120},{217,-120},{217,10}},
       color={0,127,255},
       thickness=0.5));
-  connect(port_b, volMix_b.ports[3]) annotation (Line(points={{280,0},{
-          261,0},{261,10}}, color={0,127,255}));
-  connect(deMul.y2[1], QHea_flow) annotation (Line(points={{-157,410},{
-          242,410},{242,140},{290,140}},  color={0,0,127}));
+  connect(deMul.y2[1], QHea_flow) annotation (Line(points={{-157,410},{226,410},
+          {226,140},{290,140}},           color={0,0,127}));
   connect(deMul.y3[1], QHotWat_flow) annotation (Line(points={{-157,403},{-157,404},
           {236,404},{236,100},{290,100}},      color={0,0,127}));
   connect(deMul.y1[1], QCoo_flow) annotation (Line(points={{-157,417},{232,417},
@@ -459,10 +465,6 @@ equation
     annotation (Line(points={{-249,410},{-222,410}}, color={0,0,127}));
   connect(gaiLoa.y, deMul.u)
     annotation (Line(points={{-199,410},{-180,410}}, color={0,0,127}));
-  connect(volMix_a.heatPort, heatPort_a) annotation (Line(points={{-270,
-          20},{-276,20},{-276,-90},{-280,-90}}, color={191,0,0}));
-  connect(volMix_b.heatPort, heatPort_b) annotation (Line(points={{250,20},
-          {244,20},{244,-90},{254,-90},{280,-90}}, color={191,0,0}));
   connect(QEvaHotWat_flow.y, mPumHotWat_flow.u)
     annotation (Line(points={{-19,40},{-2,40}}, color={0,0,127}));
   connect(mPumHotWat_flow.y, pumHotWat.m_flow_in)
@@ -471,18 +473,18 @@ equation
     annotation (Line(points={{-19,330},{-2,330},{-2,330}}, color={0,0,127}));
   connect(mPumHea_flow.y, pumHea.m_flow_in) annotation (Line(points={{21,330},{40,
           330},{40,312}},   color={0,0,127}));
-  connect(pumChi.P, PCoo) annotation (Line(points={{-109,-331},{-80,-331},
-          {-80,-224},{220,-224},{220,200},{290,200}},
+  connect(pumChi.P, PCoo) annotation (Line(points={{-109,-331},{-80,-331},{-80,-232},
+          {186,-232},{186,200},{290,200}},
                       color={0,0,127}));
-  connect(senTem1.port_b, volMix_a.ports[4]) annotation (Line(
-      points={{0,-340},{0,-200},{-228,-200},{-228,10},{-257,10}},
+  connect(senTem1.port_b, volMix_a.ports[3]) annotation (Line(
+      points={{0,-340},{0,-198},{-204,-198},{-204,10},{-201,10}},
       color={0,127,255},
       thickness=0.5));
   connect(deMul.y1[1], coolingLoadInPositive.u) annotation (Line(points={{-157,
           417},{-140,417},{-140,440},{-240,440},{-240,-394},{-182,-394}},
                   color={0,0,127}));
-  connect(senTem.port_a, volMix_b.ports[4]) annotation (Line(points={{-182,-340},
-          {-200,-340},{-200,-240},{260,-240},{260,-146},{263,-146},{263,10}},
+  connect(senTem.port_a, volMix_b.ports[3]) annotation (Line(points={{-182,-340},
+          {-200,-340},{-200,-240},{260,-240},{260,-146},{219,-146},{219,10}},
         color={0,127,255}));
   connect(senTem.port_b, pumChi.port_a)
     annotation (Line(points={{-162,-340},{-130,-340}}, color={0,127,255}));
@@ -505,7 +507,7 @@ equation
   connect(pumChi.P, sumPPum.u3) annotation (Line(points={{-109,-331},{-80,
           -331},{-80,-160},{88,-160},{88,122},{118,122}},
                                                     color={0,0,127}));
-  connect(PPum, sumPPum.y) annotation (Line(points={{290,400},{260,400},{260,130},
+  connect(PPum, sumPPum.y) annotation (Line(points={{290,400},{206,400},{206,130},
           {141,130}}, color={0,0,127}));
   connect(deMul.y3[1], assEqu1.u1) annotation (Line(points={{-157,403},{-92,403},
           {-92,-44},{98,-44}}, color={0,0,127}));
@@ -540,11 +542,25 @@ equation
           {-90,-394},{-90,-320},{-120,-320},{-120,-328}}, color={0,0,127}));
   connect(mHea_flow1.y, m_flow_FC) annotation (Line(points={{-101,-394},{258,
           -394},{258,-260},{284,-260}}, color={0,0,127}));
+  connect(volMix_a.ports[4], senEntFloWar.port_b) annotation (Line(points={{-199,
+          10},{-199,-6.10623e-16},{-254,-6.10623e-16}}, color={0,127,255}));
+  connect(senEntFloWar.port_a, port_a) annotation (Line(points={{-266,8.32667e-16},
+          {-272,8.32667e-16},{-272,0},{-280,0}}, color={0,127,255}));
+  connect(port_b, senEntFloCol.port_b) annotation (Line(points={{280,0},{266,0},
+          {266,-6.10623e-16},{252,-6.10623e-16}}, color={0,127,255}));
+  connect(senEntFloCol.port_a, volMix_b.ports[4]) annotation (Line(points={{240,
+          8.32667e-16},{221,8.32667e-16},{221,10}}, color={0,127,255}));
+  connect(sumQCon.y, QPro)
+    annotation (Line(points={{273,360},{290,360}}, color={0,0,127}));
+  connect(sumQCon.u1, senEntFloWar.H_flow) annotation (Line(points={{250,366},{-260,
+          366},{-260,6.6}}, color={0,0,127}));
+  connect(sumQCon.u2, senEntFloCol.H_flow)
+    annotation (Line(points={{250,354},{246,354},{246,6.6}}, color={0,0,127}));
   annotation (
   defaultComponentName="bui",
   Documentation(info="<html>
 <p>
-Model for a substation with space heating, space cooling and domestic hot water.
+Model for a substation with space heating, space cooling by means of free cooling and domestic hot water.
 </p>
 <p>
 The model takes as parameters
@@ -589,6 +605,10 @@ of equations if multiple substations are connected to each other.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2020, by Michael Wetter:<br/>
+Updated documentation, added enthalpy flow rate sensors and removed heat ports.
+</li>
 <li>
 December 12, 2017, by Michael Wetter:<br/>
 Removed call to <code>Modelica.Utilities.Files.loadResource</code>.<br/>
