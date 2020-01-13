@@ -1,0 +1,40 @@
+﻿// Simulate
+simulateModel("Buildings.Applications.DHC.EnergyTransferStations.Examples.CoolingDirectControlledReturn", tolerance=1e-6, stopTime=86400, numberOfIntervals=500, resultFile="CoolingDirectControlledReturn");
+// Plot commands
+removePlots(true);
+createPlot(id=1, 
+  position={11, 19, 713, 564}, 
+  y={"coo.sta_a1.T", "coo.sta_b1.T", "coo.sta_a2.T", "coo.sta_b2.T"}, 
+  range={0.0, 24.0, 6.0, 18.0}, 
+  grid=true, 
+  filename="CoolingDirectControlledReturn.mat",
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, 
+  timeUnit="h", 
+  displayUnits={"degC", "degC", "degC", "degC"}); 
+createPlot(id=1, 
+  position={11, 19, 713, 280}, 
+  y={"coo.port_a1.m_flow", "coo.port_a2.m_flow", "coo.cheVal.m_flow"}, 
+  range={0.0, 24.0, -0.1, 0.6}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  timeUnit="h");
+createPlot(id=2, 
+  position={734, 19, 720, 561}, 
+  y={"coo.conVal.y", "coo.con.hys.y"}, 
+  range={0.0, 24.0, -0.2, 1.2}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="h");
+createPlot(id=2, 
+  position={734, 19, 720, 278}, 
+  y={"coo.Q_flow", "coo.Q"}, 
+  range={0.0, 24.0, -5.0, 30.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {0,140,72}}, 
+  range2={-100.0, 700.0}, 
+  axes={1, 2}, 
+  timeUnit="h", 
+  displayUnits={"kW", "kWh"});
+  
