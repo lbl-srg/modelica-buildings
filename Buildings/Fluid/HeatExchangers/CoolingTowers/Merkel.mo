@@ -458,7 +458,7 @@ equation
 <ul>
 <li>
 January 10, 2020, by Michael Wetter:<br/>
-Revised model, changed parameters to make model easier to ue with design data.
+Revised model, changed parameters to make model easier to use with design data.
 </li>
 <li>
 October 22, 2019, by Yangyang Fu:<br/>
@@ -472,11 +472,10 @@ using Merkel's calculation method.
 </p>
 <h4>Thermal performance</h4>
 <p>
-To compute the thermal performance, this model takes as parameters the nominal mass
-flow rates for both fluids (air and water), the nominal heat transfer rate, the nominal
-inlet air wetbulb temperature, and the nominal water inlet temperature. Cooling tower 
-performance is modeled using the effectiveness-NTU relationships for various heat 
-exchanger flow regimes. 
+To compute the thermal performance, this model takes as parameters the nominal water 
+mass flow rate, the water-to-air ratio, the nominal inlet air wetbulb temperature, 
+and the nominal water inlet and outlet temperatures. Cooling tower performance is 
+modeled using the effectiveness-NTU relationships for various heat exchanger flow regimes. 
 </p>
 <p>
 The total heat transfer between the air and water entering the tower is defined based 
