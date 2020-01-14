@@ -6,10 +6,6 @@ model MerkelEnergyPlus
   package MediumAir = Buildings.Media.Air "Air medium model";
   package MediumWat = Buildings.Media.Water "Water medium model";
 
-  parameter Modelica.SIunits.Density denAir=
-    MediumAir.density(
-      MediumAir.setState_pTX(MediumAir.p_default, MediumAir.T_default, MediumAir.X_default))
-      "Default density of air";
   parameter Modelica.SIunits.Density denWat=
     MediumWat.density(
       MediumWat.setState_pTX(MediumWat.p_default, MediumWat.T_default, MediumWat.X_default))
@@ -18,16 +14,13 @@ model MerkelEnergyPlus
   // Cooling tower parameters
   parameter Modelica.SIunits.PressureDifference dp_nominal = 6000
     "Nominal pressure difference of cooling tower";
-  parameter Modelica.SIunits.VolumeFlowRate VAir_flow_nominal = 0.56054
-    "Nominal volumetric flow rate of air (medium 1)";
   parameter Modelica.SIunits.VolumeFlowRate VWat_flow_nominal = 0.00109181
     "Nominal volumetric flow rate of water (medium 2)";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=
-    VAir_flow_nominal * denAir
-    "Nominal mass flow rate of air (medium 1)";
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=
     VWat_flow_nominal * denWat
     "Nominal mass flow rate of water (medium 2)";
+  parameter Real ratWatAir_nominal = 1.61599
+    "Nominal water-to-air ratio";
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 18.85+273.15
     "Nominal outdoor wetbulb temperature";
   parameter Modelica.SIunits.Temperature TWatIn_nominal = 34.16+273.15
@@ -62,8 +55,8 @@ model MerkelEnergyPlus
     dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=TWatOut_initial,
-    mAir_flow_nominal=mAir_flow_nominal,
     mWat_flow_nominal=mWat_flow_nominal,
+    ratWatAir_nominal=ratWatAir_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
     TWatOut_nominal=TWatIn_nominal+Q_flow_nominal/(mWat_flow_nominal*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq),
